@@ -1,0 +1,51 @@
+// Grid Calculator
+
+	// functions
+
+	  @function emify($target, $context: $font_size) {
+	     @if $target == 0 { @return 0 }
+	     @return $target / $context + 0em;
+	  }
+
+	// set grid rhythm
+
+	  $grid: 38px; // set to your desired line-height and base grid unit
+	  
+	  $font_size: $grid / 1.6 ; // set the number to your desired line-height ratio
+
+	  // automagics
+
+	    $line_height: emify($grid);
+	    $of-default-font-size: percentage($font_size / 16px);
+
+	    body {
+	      font-size: $of-default-font-size;
+	      line-height: $line_height !important;
+	    }
+
+// Responsive presets
+
+	$desktop: $grid * 32;
+	$tablet: $grid * 18;
+
+
+// Colors
+
+	$text: #444;
+	$red: #f46b41;
+
+// Header Calculations
+
+  $h1_ratio: 3; // enter your title ratio here
+  $h1_size: emify($font_size * $h1_ratio);
+
+  $h_ratio: 2; // enter your title ratio here
+  $h_size: emify($font_size * $h_ratio);
+
+
+// Base Styles
+
+  body {
+  	text-align: center;
+  	font-family: sans-serif;
+  }

@@ -2,8 +2,7 @@ Mysolar::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  root 'index#index'
+  # You can have the root of your site routed with "root"  
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -53,4 +52,14 @@ Mysolar::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  get 'landing' => 'landing#index'
+
+  get 'user' => 'user#index'
+
+  get 'dashboard' => 'dashboard#index'
+
+  get 'settings' => 'settings#index'
+
+  root 'index#index'
 end

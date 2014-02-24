@@ -1,0 +1,57 @@
+#dev-nav {
+	// Mixins
+
+	// Box properties
+	position: fixed;
+	bottom: 0;
+
+	// Background & colors
+	border: 1px solid #ccc;
+	border-bottom: none;
+	border-left: none;
+
+	// Typography
+
+	// Other
+
+	ul {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & colors
+	
+		// Typography
+	
+		// Other
+		
+		li {
+			// Mixins
+		
+			// Box properties
+			display: inline-block;
+
+			// Background & colors
+		
+			// Typography
+		
+			// Other
+			
+			a {
+				// Mixins
+			
+				// Box properties
+				display: block;
+				padding: $grid / 2;
+				
+				// Background & colors
+			
+				// Typography
+				text-decoration: none;
+
+				// Other
+			
+			}
+		}
+	}
+}
