@@ -38,6 +38,11 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# For heroku's asset pipeline
+group :production do
+  gem 'rails_12factor'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
