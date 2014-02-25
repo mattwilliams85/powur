@@ -5,11 +5,12 @@
 	position: fixed;
 	bottom: 0;
 
-	// Background & colors
+	// Background & borders
 	border: 1px solid #ccc;
 	border-bottom: none;
 	border-left: none;
-
+	background: #eee;
+	width: 100%;
 	// Typography
 
 	// Other
@@ -18,8 +19,8 @@
 		// Mixins
 	
 		// Box properties
-	
-		// Background & colors
+		padding-left: $grid / 2;
+		// Background & borders
 	
 		// Typography
 	
@@ -31,7 +32,7 @@
 			// Box properties
 			display: inline-block;
 
-			// Background & colors
+			// Background & borders
 		
 			// Typography
 		
@@ -44,7 +45,7 @@
 				display: block;
 				padding: $grid / 2;
 				
-				// Background & colors
+				// Background & borders
 			
 				// Typography
 				text-decoration: none;
