@@ -33,6 +33,7 @@
 
 	$text: #444;
 	$red: #f46b41;
+	$dev_gray: #eee;
 
 // Header Calculations
 
@@ -42,26 +43,6 @@
   $h_ratio: 2; // enter your title ratio here
   $h_size: emify($font_size * $h_ratio);
 
+// Borders
 
-// Base Styles
-
-body {
-	// Mixins
-
-	// Box properties
-	padding-top: $grid * 6;
-
-	// Background & borders
-
-	// Typography
-	color: #999;
-  	text-align: center;
-  	font-family:"Architects Daughter", sans-serif;
-
-	// Other
-
-}
-
-a {
-	color: red;
-}
+  $border: 1px solid #ccc;	

@@ -1,18 +1,34 @@
-#dev-nav {
+.in_dev {
 	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+	color: #999;
+  	font-family:"Architects Daughter", sans-serif;
+
+	// Other
+
+}
+
+#dev_nav {
+	// Mixins
+	@extend .in_dev;
 
 	// Box properties
 	position: fixed;
 	bottom: 0;
 
 	// Background & borders
-	border: 1px solid #ccc;
-	border-bottom: none;
-	border-left: none;
-	background: #eee;
+	border-top: $border;
+	background: $dev_gray;
 	width: 100%;
-	// Typography
 
+	// Typography
+	text-align: center;
+	
 	// Other
 
 	ul {

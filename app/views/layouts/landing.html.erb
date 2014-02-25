@@ -11,19 +11,23 @@
 </head>
 <body>
 	<header>
-		Dashboard/application header goes here.
+		Index/landing header goes here.
 
 		<nav>
 			<ul id="user_nav">
 				<li>
-					<a href="/user">Sign out</a>
+					<a href="/user">Sign up/in</a>
 				</li>
 			</ul>
 		</nav>
 
 	</header>
 
-	<%= yield %>
+	<section>
+		<%= yield %>
+	</section>
+
+	<footer>A big fat footer with a bunch of links.</footer>
 
 	<%= render :partial => "shared/dev_nav" %>
 

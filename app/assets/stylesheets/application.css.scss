@@ -11,14 +11,27 @@
  *= require_self
  */
 
-@import "reset";
+// Reset the field
+	@import "reset";
 
-@import "screen";
+// Make mixins and variables available
 
-@import "index";
-@import "landing";
-@import "user";
-@import "dashboard";
-@import "settings";
+	@import "_mixins";
 
-@import "development";
+// Set base styles (element tags only)
+
+	@import "_base";
+
+// Define our RWD layouts
+
+	@import "_layouts";
+
+// Contextual exceptions to above styles
+	@import "index";
+	@import "landing";
+	@import "user";
+	@import "dashboard";
+	@import "settings";
+
+// Development & temporary styles
+	@import "development";

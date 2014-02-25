@@ -1,0 +1,123 @@
+// Base Styles
+
+body {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+
+	// Other
+
+}
+
+a {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+	color: red;
+
+	// Other
+
+}
+
+header {
+	// Mixins
+	@extend .in_dev;
+
+	// Box properties
+	padding: $grid;
+
+	// Background & borders
+	border-bottom: $border;
+
+	// Typography
+	text-align: left;
+
+	// Other
+
+	nav {
+		// Mixins
+		@extend .in_dev;
+
+		// Box properties
+		float: right;
+
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+}
+
+section {
+	// Mixins
+	@extend .in_dev;
+
+	// Box properties
+	padding: $grid;
+
+	// Background & borders
+
+	// Typography
+	text-align: center;
+
+	// Other
+
+}
+
+article {
+	// Mixins
+	@extend .in_dev;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+aside {
+	// Mixins
+	@extend .in_dev;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+footer {
+	// Mixins
+	@extend .in_dev;
+
+	// Box properties
+	padding: $grid;
+
+	// Background & borders
+	border-top: $border;
+	background: $dev_gray;
+
+	// Typography
+	text-align: center;
+
+	// Other
+
+}
