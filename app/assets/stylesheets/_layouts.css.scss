@@ -1,7 +1,42 @@
 #user_nav {
+	// Mixins
+
+	// Box properties
 	float: right;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
 }
 
 .button {
+	// Mixins
 	@include button;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+#system_feedback {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	background-color: $red;
+
+	// Typography
+	color: white;
+
+	// Other
+
 }

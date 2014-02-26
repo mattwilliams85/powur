@@ -53,6 +53,11 @@ Mysolar::Application.routes.draw do
   #     resources :products
   #   end
 
+
+  get 'customer' => 'customer#index'
+
+  get 'thanks' => 'customer#thanks'
+
   get 'landing' => 'landing#index'
 
   get 'user' => 'user#index'
