@@ -54,13 +54,16 @@ Mysolar::Application.routes.draw do
   #   end
 
 
-  get 'customer' => 'customer#index'
+  get 'customer' => 'index#customer'
+  get 'customer/signup' => 'customer#index'
+
+  get 'promoter' => 'index#promoter'
+  get 'promoter/signup' => 'promoter#index'
 
   get 'thanks' => 'customer#thanks'
 
-  get 'landing' => 'landing#index'
-
   get 'user' => 'user#index'
+  get 'user/reset_password' => 'user#reset_password'
 
   get 'dashboard' => 'dashboard#index'
 
