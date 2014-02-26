@@ -11,9 +11,17 @@
 </head>
 <body>
 	<header>
-		Dashboard/application header goes here.
-
+		
 		<nav>
+			<ul>
+				<li>
+					<%= link_to_unless_current 'Dashboard', "/dashboard" %>
+				</li>
+				<li>
+					<%= link_to_unless_current 'Settings', "/settings" %>
+				</li>
+			</ul>
+	
 			<ul id="user_nav">
 				<li>
 					<a href="/user">Sign out</a>

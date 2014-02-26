@@ -23,6 +23,21 @@ a {
 
 	// Typography
 	color: red;
+	text-decoration: none;
+	
+	// Other
+
+}
+
+p {
+	// Mixins
+
+	// Box properties
+	margin-bottom: $grid;
+
+	// Background & borders
+
+	// Typography
 
 	// Other
 
@@ -48,16 +63,42 @@ header {
 		@extend .in_dev;
 
 		// Box properties
-		float: right;
+		overflow: auto;
 
 		// Background & borders
-	
+
 		// Typography
 	
 		// Other
 	
-	}
+		ul {
+			// Mixins
+		
+			// Box properties
+			float: left;
 
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+			
+			li {
+				// Mixins
+			
+				// Box properties
+				display: inline-block;
+				margin-left: $grid;
+
+				// Background & borders
+			
+				// Typography
+			
+				// Other
+			
+			}
+		}
+	}
 }
 
 section {
@@ -121,3 +162,84 @@ footer {
 	// Other
 
 }
+
+// Forms
+
+	form {
+		// Mixins
+
+		// Box properties
+		width: $grid * 12;
+		margin: 0 auto;
+		padding: $grid;
+
+		// Background & borders
+
+		// Typography
+		text-align: left;
+
+		// Other
+
+	}
+
+	label {
+		// Mixins
+	
+		// Box properties
+		display: none;
+		width: 100%;
+
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	input + label {
+		margin-top: $grid;
+	}
+
+	input[type=text],
+	input[type=password],
+	input[type=email] {
+		// Mixins
+		@include box-sizing;
+		@include corners;
+
+		// Box properties
+		clear: both;
+		display: block;
+		width: 100%;
+		padding: $grid / 2;
+
+		// Background & borders
+		border: $border;
+
+		// Typography
+		font-size: $font_size;
+		font-family: $dev_font;
+	
+		// Other
+	
+	}
+
+
+	 //  
+  // @include field-shadow;
+
+  // width: 100%;
+  // margin: 0;
+  // padding:  $grid / 2;
+
+  // border: none;
+  // border-bottom: 1px solid rgba(255, 255, 255, .13);
+  // background: $base;
+  // color: white;
+  // font-size: $font_size;
+
+  // &:focus {
+  //   outline: none;
+  //   color: white;
+  // }

@@ -33,16 +33,65 @@
 
 	$text: #444;
 	$red: #f46b41;
+	$brand: $red;
 	$dev_gray: #eee;
+
+// Typography
+
+	$dev_font: "Architects Daughter", sans-serif;
 
 // Header Calculations
 
-  $h1_ratio: 3; // enter your title ratio here
-  $h1_size: emify($font_size * $h1_ratio);
+	$h1_ratio: 3; // enter your title ratio here
+	$h1_size: emify($font_size * $h1_ratio);
 
-  $h_ratio: 2; // enter your title ratio here
-  $h_size: emify($font_size * $h_ratio);
+	$h_ratio: 2; // enter your title ratio here
+	$h_size: emify($font_size * $h_ratio);
 
 // Borders
 
-  $border: 1px solid #ccc;	
+	$border: 1px solid #ccc;
+
+// Mixins
+
+	@mixin box_sizing($box_sizing_value: border-box) {
+	  -moz-box-sizing: $box_sizing_value;
+	  -webkit-box-sizing: $box_sizing_value;
+	  box-sizing: $box_sizing_value;
+	}
+
+	@mixin corners($tr: 2px, $tl: 2px, $bl: 2px, $br: 2px) { /* this could probably be less verbose at some point */
+	    -webkit-border-top-left-radius: $tr;
+	    -moz-border-radius-topleft: $tr;
+	    border-top-left-radius: $tr;
+	    -webkit-border-top-right-radius: $tl;
+	    -moz-border-radius-topright: $tl;
+	    border-top-right-radius: $tl;
+	    -webkit-border-bottom-left-radius: $bl;
+	    -moz-border-radius-bottomleft: $bl;
+	    border-bottom-left-radius: $bl;
+	    -webkit-border-bottom-right-radius: $br;
+	    -moz-border-radius-bottomright: $br;
+	    border-bottom-right-radius: $br;
+	}
+
+	@mixin button {
+		// Mixins
+	    @include corners;
+
+		// Box properties
+		padding: $grid / 2;
+		clear: both;
+		display: block;
+
+		// Background & borders
+		background: $brand;
+		border: none;
+
+		// Typography
+		color: white;
+	    font-size: $font_size;
+
+		// Other
+	    cursor: pointer;
+  }

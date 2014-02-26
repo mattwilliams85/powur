@@ -1,0 +1,7 @@
+#user_nav {
+	float: right;
+}
+
+.button {
+	@include button;
+}

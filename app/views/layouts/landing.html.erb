@@ -11,12 +11,17 @@
 </head>
 <body>
 	<header>
-		Index/landing header goes here.
 
 		<nav>
+			<ul>
+				<li>
+					<%= link_to_unless_current 'Home', "/" %>
+				</li>
+			</ul>
+
 			<ul id="user_nav">
 				<li>
-					<a href="/user">Sign up/in</a>
+					<%= link_to_unless_current 'Sign in', "/user" %>
 				</li>
 			</ul>
 		</nav>

@@ -1,5 +1,15 @@
 <section>
-	<p>Sign up/in form goes here</p>
 
-	<a href="/dashboard">Log in</a>
+	<form>
+		<label for="login_email">Email Address</label>
+		<input id="login_email" name="login_email" type="email" placeholder="Email address" required autofocus/>
+	
+		<label for="login_password">Password</label>
+		<input id="login_password" name="login_password" type="password" placeholder="Password" required/>
+
+		<a href="/dashboard" class="button">Log in</a>
+	</form>
+
+	<p> <%= link_to "Need to reset your password?", "url" %> </p>
+	
 </section>
