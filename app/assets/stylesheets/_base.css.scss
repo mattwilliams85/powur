@@ -19,7 +19,7 @@ h1 {
 
 	// Box properties
 	margin-bottom: $grid;
-	
+
 	// Background & borders
 
 	// Typography
@@ -36,7 +36,7 @@ a {
 	// Background & borders
 
 	// Typography
-	color: red;
+	color: $brand;
 	text-decoration: none;
 
 	// Other
@@ -47,7 +47,20 @@ p {
 	// Mixins
 
 	// Box properties
-	margin-bottom: $grid;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+p + p {
+	// Mixins
+
+	// Box properties
+	margin-top: $grid;
 
 	// Background & borders
 

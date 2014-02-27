@@ -32,10 +32,52 @@
 	// Box properties
 
 	// Background & borders
-	background-color: $red;
+	background-color: $brand;
 
 	// Typography
 	color: white;
+
+	// Other
+
+}
+
+#dashboard_kpis {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-top: $border;
+	
+	// Typography
+
+	// Other
+
+}
+
+#dashboard_leads {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-top: $border;
+
+	// Typography
+
+	// Other
+
+}
+
+#dashboard_team {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-top: $border;
+
+	// Typography
 
 	// Other
 
