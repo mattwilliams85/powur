@@ -10,6 +10,7 @@ body {
 	background: $neutral;
 
 	// Typography
+	color: $text;
 
 	// Other
 
@@ -54,7 +55,6 @@ a {
 		// Other
 	
 	}
-
 }
 
 p {
@@ -195,10 +195,11 @@ footer {
 
 	// Background & borders
 	border-top: $border;
-	background: $dev_gray;
+	background: $brand;
 
 	// Typography
 	text-align: center;
+	color: white;
 
 	// Other
 
