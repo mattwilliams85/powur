@@ -42,6 +42,22 @@
 
 }
 
+#sonny {
+	// Mixins
+
+	// Box properties
+	width: $grid * 2;
+	height: $grid * 2;
+	float: left;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 .generic_section {
 	// Mixins
 
@@ -62,7 +78,6 @@
 	// Box properties
 
 	// Background & borders
-	border-top: $border;
 
 	// Typography
 
@@ -79,8 +94,6 @@
 	width: $grid * 5;
 
 	// Background & borders
-	border: $border;
-	border-style: dashed;	
 
 	// Typography
 

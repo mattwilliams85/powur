@@ -35,6 +35,7 @@
 	$red: #f46b41;
 	$supergreen: #22a500;
 	$sunnyside: #ffc200;
+	$neutral: #ffecae;
 	$brand: $supergreen;
 	$dev_gray: #eee;
 
@@ -52,7 +53,7 @@
 
 // Borders
 
-	$border: 1px solid #ccc;
+	$border: 1px solid $brand;
 
 // Mixins
 
@@ -111,6 +112,7 @@
 	padding: $grid / 2;
 
 	// Background & borders
+	background: lighten($neutral, 12%);
 	border: $border;
 	border-style: dashed;
 
