@@ -30,12 +30,27 @@
 	// Mixins
 
 	// Box properties
-
+	padding: $grid;
+	
 	// Background & borders
 	background-color: $brand;
 
 	// Typography
 	color: white;
+
+	// Other
+
+}
+
+.generic_section {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-top: $border;
+
+	// Typography
 
 	// Other
 
@@ -48,7 +63,7 @@
 
 	// Background & borders
 	border-top: $border;
-	
+
 	// Typography
 
 	// Other
@@ -59,6 +74,7 @@
 	// Mixins
 
 	// Box properties
+	padding-bottom: 0;
 
 	// Background & borders
 	border-top: $border;
@@ -73,9 +89,92 @@
 	// Mixins
 
 	// Box properties
+	padding-bottom: 0;
 
 	// Background & borders
 	border-top: $border;
+
+	// Typography
+
+	// Other
+
+}
+
+.section_header {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	h1 {
+		// Mixins
+	
+		// Box properties
+		float: left;
+		margin-bottom: $grid / 2;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	a {
+		// Mixins
+	
+		// Box properties
+		float: right;
+		// Background & borders
+		
+		// Typography
+	
+		// Other
+	
+	}
+}
+
+.section_content {
+	// Mixins
+
+	// Box properties
+	overflow: auto;
+	clear: both;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.lead_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.team_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
 
 	// Typography
 

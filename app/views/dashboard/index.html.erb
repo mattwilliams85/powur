@@ -4,6 +4,46 @@
 
 <section>
 	<h1>Welcome to your superfly dashboard!</h1>
+</section>
+
+<section id="dashboard_kpis">
+	<div class="section_header">
+		<h1>Your KPI's</h1>
+	</div>
+	<div class="section_content">
+		<p>A B C D</p>
+	</div>
+</section>
+
+<section id="dashboard_leads">
+	<div class="section_header">
+		<h1>Your Leads</h1>
+		<a href="#">Add a new lead!</a>
+	</div>
+	<div class="section_content">
+		<% (7).times do |i| %>
+		  <div class="lead_thumbnail">
+		  	This is a lead...
+		  </div>
+		<% end %>
+	</div>
+</section>
+
+<section id="dashboard_team">
+	<div class="section_header">
+		<h1>Your Team</h1>
+		<a href="#">Add a new team member!</a>
+	</div>
+	<div class="section_content">
+		<% (3).times do |i| %>
+		  <div class="team_thumbnail">
+		  	This is a team member...
+		  </div>
+		<% end %>
+	</div>
+</section>
+
+<section class="generic_section">
 
 	<p>
 		Your permanent customer referral page is <a href="/customer/signup/#1234">http://www.mysolar.com/1234</a>.
@@ -17,21 +57,4 @@
 		<a href="#">Invite a new promoter!</a>
 	</p>
 
-</section>
-
-<section id="dashboard_kpis">
-	<h1>Your KPI's</h1>
-	<p> A B C D</p>
-</section>
-
-<section id="dashboard_leads">
-	<h1>Your Leads</h1>
-	<p> A B C D</p>
-	<p><a href="#">Add a new lead!</a></p>
-</section>
-
-<section id="dashboard_team">
-	<h1>Your Team</h1>
-	<p> A B C D</p>
-	<p><a href="#">Add a new team member!</a></p>
 </section>

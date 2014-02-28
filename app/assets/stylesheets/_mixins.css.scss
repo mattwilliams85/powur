@@ -95,3 +95,25 @@
 		// Other
 	    cursor: pointer;
   }
+
+  @mixin object_thumbnail {
+	// Mixins
+	@include box_sizing;
+
+	// Box properties
+	float: left;
+	width: $grid * 5;
+	height: $grid * 5;
+	margin-right: $grid;
+	margin-bottom: $grid;
+	padding: $grid / 2;
+
+	// Background & borders
+	border: $border;
+	border-style: dashed;
+
+	// Typography
+
+	// Other
+
+}

@@ -4,11 +4,11 @@ body {
 	// Mixins
 
 	// Box properties
+	padding-bottom: $grid * 2;
 
 	// Background & borders
 
 	// Typography
-
 
 	// Other
 
@@ -133,7 +133,7 @@ section {
 	@extend .in_dev;
 
 	// Box properties
-	padding: $grid;
+	padding: $grid / 2 $grid $grid;
 
 	// Background & borders
 
