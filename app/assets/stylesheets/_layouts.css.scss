@@ -31,7 +31,7 @@
 
 	// Box properties
 	padding: $grid;
-	
+
 	// Background & borders
 	background-color: $brand;
 
@@ -70,6 +70,24 @@
 
 }
 
+.kpi {
+	// Mixins
+
+	// Box properties
+	float: left;
+	margin-right: $grid;
+	width: $grid * 5;
+
+	// Background & borders
+	border: $border;
+	border-style: dashed;	
+
+	// Typography
+
+	// Other
+
+}
+
 #dashboard_leads {
 	// Mixins
 
@@ -100,6 +118,21 @@
 
 }
 
+#dashboard_customers {
+	// Mixins
+
+	// Box properties
+	padding-bottom: 0;
+
+	// Background & borders
+	border-top: $border;
+
+	// Typography
+
+	// Other
+
+}
+
 .section_header {
 	// Mixins
 
@@ -111,12 +144,13 @@
 
 	// Other
 
-	h1 {
+	h2 {
 		// Mixins
 	
 		// Box properties
 		float: left;
 		margin-bottom: $grid / 2;
+	
 		// Background & borders
 	
 		// Typography
@@ -169,6 +203,20 @@
 }
 
 .team_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.customer_thumbnail {
 	// Mixins
 	@include object_thumbnail;
 
