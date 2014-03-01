@@ -11,6 +11,7 @@ body {
 
 	// Typography
 	color: $text;
+	font-family: $body_font;
 
 	// Other
 
@@ -25,6 +26,23 @@ h1 {
 	// Background & borders
 
 	// Typography
+	font-family: $title_font;
+	font-weight: normal;
+
+	// Other
+
+}
+
+h2, h3, h4, h5, h6 {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+	font-family: $title_font;
+	font-weight: normal;
 
 	// Other
 
@@ -86,10 +104,9 @@ p + p {
 
 header {
 	// Mixins
-	@extend .in_dev;
 
 	// Box properties
-	padding: $grid;
+	padding: $grid / 2;
 
 	// Background & borders
 	border-bottom: $border;
@@ -101,7 +118,6 @@ header {
 
 	nav {
 		// Mixins
-		@extend .in_dev;
 
 		// Box properties
 		overflow: auto;
@@ -144,10 +160,8 @@ header {
 
 section {
 	// Mixins
-	@extend .in_dev;
 
 	// Box properties
-	padding: $grid / 2 $grid $grid;
 
 	// Background & borders
 
@@ -160,7 +174,6 @@ section {
 
 article {
 	// Mixins
-	@extend .in_dev;
 
 	// Box properties
 
@@ -174,7 +187,6 @@ article {
 
 aside {
 	// Mixins
-	@extend .in_dev;
 
 	// Box properties
 
@@ -188,7 +200,6 @@ aside {
 
 footer {
 	// Mixins
-	@extend .in_dev;
 
 	// Box properties
 	padding: $grid;

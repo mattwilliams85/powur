@@ -1,4 +1,4 @@
-#user_nav {
+	#user_nav {
 	// Mixins
 
 	// Box properties
@@ -90,7 +90,7 @@
 
 	// Box properties
 	float: left;
-	margin-right: $grid;
+	margin:0 $grid $grid / 2 0;
 	width: $grid * 5;
 
 	// Background & borders
@@ -146,10 +146,26 @@
 
 }
 
+#dashboard_payments {
+	// Mixins
+
+	// Box properties
+	padding-bottom: 0;
+
+	// Background & borders
+	border-top: $border;
+
+	// Typography
+
+	// Other
+
+}
+
 .section_header {
 	// Mixins
 
 	// Box properties
+	padding: $grid / 2 $grid;
 
 	// Background & borders
 
@@ -176,13 +192,43 @@
 		// Mixins
 	
 		// Box properties
-		float: right;
+
 		// Background & borders
 		
 		// Typography
 	
 		// Other
 	
+	}
+
+	ul {
+		// Mixins
+	
+		// Box properties
+		float: left;
+		margin: 0 0 0 $grid * 2;
+		padding: 0;
+
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		li {
+			// Mixins
+		
+			// Box properties
+			display: inline-block;
+			margin: 0 $grid 0 0;
+			padding: 0;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+			list-style: none;
+		}
 	}
 }
 
@@ -192,6 +238,7 @@
 	// Box properties
 	overflow: auto;
 	clear: both;
+	padding: $grid / 2 $grid 0;
 
 	// Background & borders
 
@@ -200,6 +247,45 @@
 	// Other
 
 }
+
+.section_notification {
+	// Mixins
+
+	// Box properties
+	position: relative;
+	// Background & borders
+	background: red;
+
+	// Typography
+	color: white;
+	// Other
+
+}
+
+.section_notification:after {
+	// Mixins
+
+	// Box properties
+	bottom: 100%;
+	left: $grid * 9.5;
+	height: 0;
+	width: 0;
+	position: absolute;
+	margin-left: -30px;
+
+	// Background & borders
+	border: solid transparent;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: red;
+	border-width: 30px;
+	// Typography
+
+	// Other
+	pointer-events: none;
+	content: " ";
+
+}
+
 
 .lead_thumbnail {
 	// Mixins
@@ -240,5 +326,47 @@
 	// Typography
 
 	// Other
+
+}
+
+.object_detail {
+	// Mixins
+
+	// Box properties
+	position: relative;
+	padding: $grid;
+
+	// Background & borders
+	background: $brand;
+
+	// Typography
+	text-align: left;
+	color: white;
+
+	// Other
+
+}
+
+.object_detail:after {
+	// Mixins
+
+	// Box properties
+	bottom: 100%;
+	left: $grid * 9.5;
+	height: 0;
+	width: 0;
+	position: absolute;
+	margin-left: -30px;
+
+	// Background & borders
+	border: solid transparent;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: $brand;
+	border-width: 30px;
+	// Typography
+
+	// Other
+	pointer-events: none;
+	content: " ";
 
 }

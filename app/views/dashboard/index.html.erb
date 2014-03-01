@@ -26,7 +26,12 @@
 <section id="dashboard_team">
 	<div class="section_header">
 		<h2>Your Branches</h2>
-		<a href="#">Add a new branch!</a>
+		<ul>
+			<li>Search</li>
+			<li>Sort</li>
+			<li>Email All</li>
+			<li><a href="#">Add a new branch!</a></li>
+		</ul>
 	</div>
 	<div class="section_content">
 		<% (3).times do |i| %>
@@ -35,6 +40,9 @@
 		  	<a href="#">Gene it!</a>
 		  </div>
 		<% end %>
+	</div>
+	<div class="section_notification">
+		This is a notification about something regarding this team member - click to find out more...
 	</div>
 </section>
 
@@ -51,6 +59,12 @@
 		  </div>
 		<% end %>
 	</div>
+	<div class="object_detail">
+		<p>This is expanded in-depth information about this lead</p>
+		<p>Here are some possible actions to take</p>
+		<p>Here is more info, or something else perhaps...</p>
+		<p>Here is a way to close this...</p>
+	</div>
 </section>
 
 <section id="dashboard_customers">
@@ -60,6 +74,19 @@
 	</div>
 	<div class="section_content">
 		<% (13).times do |i| %>
+		  <div class="customer_thumbnail">
+		  	<p>This is a customer...</p>
+		  </div>
+		<% end %>
+	</div>
+</section>
+
+<section id="dashboard_payments">
+	<div class="section_header">
+		<h2>Your Fruit</h2>
+	</div>
+	<div class="section_content">
+		<% (4).times do |i| %>
 		  <div class="customer_thumbnail">
 		  	<p>This is a customer...</p>
 		  </div>

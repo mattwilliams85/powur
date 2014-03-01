@@ -35,13 +35,17 @@
 	$red: #f46b41;
 	$supergreen: #22a500;
 	$sunnyside: #ffc200;
-	$neutral: #ffecae;
+	$neutral: #f7f7f9;
 	$brand: $supergreen;
 	$dev_gray: #eee;
 
 // Typography
 
 	$dev_font: "Architects Daughter", sans-serif;
+
+	$body_font: 'Muli', sans-serif;
+	$title_font: 'Muli', sans-serif;
+
 
 // Header Calculations
 
@@ -53,7 +57,7 @@
 
 // Borders
 
-	$border: 1px solid $brand;
+	$border: 1px solid #ddd;
 
 // Mixins
 
@@ -113,8 +117,7 @@
 
 	// Background & borders
 	background: lighten($neutral, 12%);
-	border: $border;
-	border-style: dashed;
+	border: 1px solid #ddd;
 
 	// Typography
 
