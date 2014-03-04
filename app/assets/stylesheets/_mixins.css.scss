@@ -68,6 +68,12 @@
 	  box-sizing: $box_sizing_value;
 	}
 
+	@mixin box_shadow_inset($h1: 0, $v1: -5px, $blur1: 5px, $color1: rgba(0,0,0,.05), $h2: 0, $v2: -5px, $blur2: 12px, $color2: rgba(0,0,0,0)) {
+		-webkit-box-shadow: inset $h1 $v1 $blur1 $color1, inset $h2 $v2 $blur2 $color2;
+		-moz-box-shadow: inset $h1 $v1 $blur1 $color1, inset $h2 $v2 $blur2 $color2;
+		box-shadow: inset $h1 $v1 $blur1 $color1, inset $h2 $v2 $blur2 $color2;
+	}
+
 	@mixin corners($tr: 2px, $tl: 2px, $bl: 2px, $br: 2px) { /* this could probably be less verbose at some point */
 	    -webkit-border-top-left-radius: $tr;
 	    -moz-border-radius-topleft: $tr;

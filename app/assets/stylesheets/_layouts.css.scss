@@ -263,10 +263,10 @@
 	// Box properties
 	position: relative;
 	// Background & borders
-	background: red;
+	background: #ddd;
+	border-bottom: $border;
 
 	// Typography
-	color: white;
 	// Other
 
 }
@@ -285,7 +285,7 @@
 	// Background & borders
 	border: solid transparent;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: red;
+	border-bottom-color: #ddd;
 	border-width: 30px;
 	// Typography
 
@@ -306,7 +306,7 @@
 
 	// Typography
 	text-align: left;
-	
+
 	// Other
 
 }
@@ -347,11 +347,11 @@
 	padding: $grid;
 
 	// Background & borders
-	background: $brand;
+	background: #ddd;
+	border-bottom: $border;
 
 	// Typography
 	text-align: left;
-	color: white;
 
 	// Other
 
@@ -371,7 +371,7 @@
 	// Background & borders
 	border: solid transparent;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: $brand;
+	border-bottom-color: #ddd;
 	border-width: 30px;
 	// Typography
 
