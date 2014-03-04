@@ -229,14 +229,29 @@
 		
 			// Box properties
 			display: inline-block;
-			margin: 0 $grid 0 0;
+			margin: 0 0 0 0;
 			padding: 0;
 			// Background & borders
 		
 			// Typography
-		
+			font-size: $grid / 2;
+
 			// Other
 			list-style: none;
+
+			&.search {
+				// Mixins
+			
+				// Box properties
+				margin-right: $grid;
+				
+				// Background & borders
+			
+				// Typography
+			
+				// Other
+			
+			}
 		}
 	}
 }
@@ -263,7 +278,7 @@
 	// Box properties
 	position: relative;
 	// Background & borders
-	background: #ddd;
+	background: $dev_gray;
 	border-bottom: $border;
 
 	// Typography
@@ -285,7 +300,7 @@
 	// Background & borders
 	border: solid transparent;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #ddd;
+	border-bottom-color: $dev_gray;
 	border-width: 30px;
 	// Typography
 
@@ -339,6 +354,20 @@
 
 }
 
+.payment_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 .object_detail {
 	// Mixins
 
@@ -347,7 +376,7 @@
 	padding: $grid;
 
 	// Background & borders
-	background: #ddd;
+	background: $dev_gray;
 	border-bottom: $border;
 
 	// Typography
@@ -371,7 +400,7 @@
 	// Background & borders
 	border: solid transparent;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #ddd;
+	border-bottom-color: $dev_gray;
 	border-width: 30px;
 	// Typography
 

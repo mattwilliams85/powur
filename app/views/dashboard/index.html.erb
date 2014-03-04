@@ -6,6 +6,17 @@
 <section id="dashboard_kpis">
 	<div class="section_header">
 		<h2>Your Tree</h2>
+		<ul>
+			<li> 
+				<%= select_tag "Show", options_for_select(
+					[
+						"1st forks", 
+					    "2nd forks", 
+					    "3rd forks"
+					], ["1st fork"]) 
+				%>
+			</li>
+		</ul>
 	</div>
 	<div class="section_content">
 		<div class="kpi">
@@ -21,7 +32,7 @@
 			<i class="fa fa-angle-down"></i>
 		</div>
 		<div class="kpi">
-			<h3>$3,531 to date</h3>
+			<h3>$3,531 in fruit</h3>
 			<i class="fa fa-angle-down"></i>
 		</div>
 		<div class="kpi">
@@ -31,25 +42,62 @@
 	</div>
 </section>
 
-<section id="dashboard_team">
+<section id="dashboard_payments">
 	<div class="section_header">
-		<h2>Your Branches</h2>
-		<a href="#" class="button">New <i class="fa fa-pagelines"></i></a>
+		<h2>Your Fruit</h2>
 		<ul>
-			<li><i class="fa fa-search"></i></li>
-			<li>Sort</li>
-			<li>Show</li>
-			<li>Send</li>
+			<li class="search"><i class="fa fa-search"></i></li>
+			<li> 
+				<%= select_tag "Show", options_for_select(
+					[
+						"Past 3 months", 
+					    "Past 6 months", 
+					    "Past year", 
+					    "All time"
+					], ["Past 3 months"]) 
+				%>
+			</li>
+			<li>
+				<%= select_tag "Sort", options_for_select(
+					[
+						"By latest", 
+					    "By earliest", 
+					    "By highest", 
+					    "By lowest"
+					], ["By latest"]) 
+				%>
+			</li>
 		</ul>
 	</div>
 	<div class="section_content">
-		<%= render partial: "team_thumbnail", :locals => {:first_name => "Bob", :last_name => "Smith", :leaves => "37", :buds => "3"}%>
-		<%= render partial: "team_thumbnail", :locals => {:first_name => "Sherry", :last_name => "Bailey", :leaves => "42", :buds => "0"}%>
-		<%= render partial: "team_thumbnail", :locals => {:first_name => "Uncle", :last_name => "Fester", :leaves => "2", :buds => "13"}%>
+		<%= render partial: "payment_thumbnail", :locals => {:amount => "$2,345", :mail_date => "4/1/14", :has_mailed => false}%>
+		<%= render partial: "payment_thumbnail", :locals => {:amount => "$1,234", :mail_date => "3/1/14", :has_mailed => true}%>
+		<%= render partial: "payment_thumbnail", :locals => {:amount => "$789", :mail_date => "2/1/14", :has_mailed => true}%>
 
 	</div>
-	<div class="section_notification">
-		This is a notification about this person or their team - click to find out more...
+</section>
+
+<section id="dashboard_customers">
+	<div class="section_header">
+		<h2>Your leaves</h2>
+		<ul>
+			<li class="search"><i class="fa fa-search"></i></li>
+			<li>
+				<%= select_tag "Sort", options_for_select(
+					[
+						"By top earnings", 
+					    "By lowest earnings", 
+					    "By energy saved", 
+					    "By newest"
+					], ["By top earnings"]) 
+				%>
+			</li>
+		</ul>
+	</div>
+	<div class="section_content">
+		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Ross Betsy", :kWh => "4,458", :total_fruit => "$4,587"}%>
+		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Jack Andrew", :kWh => "134", :total_fruit => "$147"}%>
+		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Frank Benjamin", :kWh => "487", :total_fruit => "$23"}%>
 	</div>
 </section>
 
@@ -58,9 +106,17 @@
 		<h2>Your Buds</h2>
 		<a href="#" class="button">New <i class="fa fa-tint"></i></a>
 		<ul>
-			<li><i class="fa fa-search"></i></li>
-			<li>Sort</li>
-			<li>Show</li>
+			<li class="search"><i class="fa fa-search"></i></li>
+			<li>
+				<%= select_tag "Sort", options_for_select(
+					[
+						"By newest", 
+					    "By oldest", 
+					    "By most complete", 
+					    "By least complete"
+					], ["By newest"]) 
+				%>
+			</li>
 		</ul>
 	</div>
 	<div class="section_content">
@@ -76,43 +132,58 @@
 	</div>
 </section>
 
+<section id="dashboard_team">
+	<div class="section_header">
+		<h2>Your Branches</h2>
+		<a href="#" class="button">New <i class="fa fa-pagelines"></i></a>
+		<ul>
+			<li class="search"><i class="fa fa-search"></i></li>
+			<li>
+				<%= select_tag "Sort", options_for_select(
+					[
+						"By latest", 
+					    "By earliest", 
+					    "By highest", 
+					    "By lowest"
+					], ["By latest"]) 
+				%>
+			</li>
+		</ul>
+	</div>
+	<div class="section_content">
+		<%= render partial: "team_thumbnail", :locals => {:first_name => "Bob", :last_name => "Smith", :leaves => "37", :buds => "3"}%>
+		<%= render partial: "team_thumbnail", :locals => {:first_name => "Sherry", :last_name => "Bailey", :leaves => "42", :buds => "0"}%>
+		<%= render partial: "team_thumbnail", :locals => {:first_name => "Uncle", :last_name => "Fester", :leaves => "2", :buds => "13"}%>
+
+	</div>
+	<div class="section_notification">
+		This is a notification about this person or their team - click to find out more...
+	</div>
+</section>
+
 <section id="dashboard_customers">
 	<div class="section_header">
-		<h2>Your leaves</h2>
+		<h2>Your garden</h2>
 		<ul>
-			<li><i class="fa fa-search"></i></li>
-			<li>Sort</li>
-			<li>Show</li>
+			<li> 
+				<%= select_tag "Show", options_for_select(
+					[
+						"Past 3 months", 
+					    "Past 6 months", 
+					    "Past year", 
+					    "All time"
+					], ["Past 3 months"]) 
+				%>
+			</li>
 		</ul>
 	</div>
 	<div class="section_content">
-		<% (13).times do |i| %>
+		<% (2).times do |i| %>
 		  <div class="customer_thumbnail">
-		  	<p>This is a customer...</p>
+		  	<p>Landing page info</p>
 		  </div>
 		<% end %>
 	</div>
-</section>
-
-<section id="dashboard_payments">
-	<div class="section_header">
-		<h2>Your Fruit</h2>
-		<ul>
-			<li><i class="fa fa-search"></i></li>
-			<li>Sort</li>
-			<li>Show</li>
-		</ul>
-	</div>
-	<div class="section_content">
-		<% (4).times do |i| %>
-		  <div class="customer_thumbnail">
-		  	<p>This is a customer...</p>
-		  </div>
-		<% end %>
-	</div>
-</section>
-
-<section class="generic_section">
 
 	<p>
 		Your permanent customer referral page is <a href="/customer/signup/#1234">http://www.mysolar.com/1234</a>.
@@ -125,5 +196,4 @@
 		<br/>
 		<a href="#">Invite a new promoter!</a>
 	</p>
-
 </section>

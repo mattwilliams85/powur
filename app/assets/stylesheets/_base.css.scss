@@ -278,21 +278,27 @@ footer {
 	
 	}
 
+	select {
+		// Mixins
 
-	 //  
-  // @include field-shadow;
+		// Box properties
+		padding: $grid / 4 $grid * 1.5 $grid / 4 $grid / 2;
+		margin: 0;
 
-  // width: 100%;
-  // margin: 0;
-  // padding:  $grid / 2;
+		// Background & borders
+		background-image: url(select_arrow.svg) ;
+		background-position: 92% center;
+		background-repeat: no-repeat;
+		background-color: rgba(0,0,0,0);
+		border: $border;
 
-  // border: none;
-  // border-bottom: 1px solid rgba(255, 255, 255, .13);
-  // background: $base;
-  // color: white;
-  // font-size: $font_size;
+		// Typography
+		color: $quiet;
+		font-size: $grid / 2;
+		text-indent: 0.01px;
+		text-overflow: "";
 
-  // &:focus {
-  //   outline: none;
-  //   color: white;
-  // }
+		// Other
+		-moz-appearance: none;
+		-webkit-appearance: none;
+	}

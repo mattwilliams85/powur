@@ -1,0 +1,20 @@
+  <div class="payment_thumbnail">
+  	<p>
+    
+    <% if has_mailed == true %>
+  
+        <%= amount %>
+        <br/>Mailed on <%= mail_date %>
+  
+      <% else %>
+  
+        <%= amount %> so far
+        <br/>Mailing on <%= mail_date %>
+  
+    <% end %>
+    
+  	<span class="expand">
+  		<i class="fa fa-angle-down"></i>
+  	</span>
+
+  </div>
