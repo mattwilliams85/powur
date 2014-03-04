@@ -58,7 +58,7 @@
 
 }
 
-.generic_section {
+.dashboard_section {
 	// Mixins
 
 	// Box properties
@@ -70,7 +70,22 @@
 
 	// Other
 
+	&:nth-child(even) {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: white;
+		// Typography
+	
+		// Other
+	
+	}
+
 }
+
+
 
 #dashboard_kpis {
 	// Mixins
@@ -83,22 +98,21 @@
 
 	// Other
 
-}
+	.kpi {
+		// Mixins
 
-.kpi {
-	// Mixins
+		// Box properties
+		float: left;
+		margin:0 $grid $grid / 2 0;
+		width: $grid * 5;
 
-	// Box properties
-	float: left;
-	margin:0 $grid $grid / 2 0;
-	width: $grid * 5;
+		// Background & borders
 
-	// Background & borders
+		// Typography
 
-	// Typography
+		// Other
 
-	// Other
-
+	}
 }
 
 #dashboard_leads {
@@ -108,7 +122,6 @@
 	padding-bottom: 0;
 
 	// Background & borders
-	border-top: $border;
 
 	// Typography
 
@@ -123,7 +136,6 @@
 	padding-bottom: 0;
 
 	// Background & borders
-	border-top: $border;
 
 	// Typography
 
@@ -138,7 +150,6 @@
 	padding-bottom: 0;
 
 	// Background & borders
-	border-top: $border;
 
 	// Typography
 
@@ -153,7 +164,6 @@
 	padding-bottom: 0;
 
 	// Background & borders
-	border-top: $border;
 
 	// Typography
 
@@ -243,8 +253,8 @@
 				// Mixins
 			
 				// Box properties
-				margin-right: $grid;
-				
+				margin-right: $grid / 2;
+
 				// Background & borders
 			
 				// Typography
@@ -271,45 +281,6 @@
 	// Other
 
 }
-
-.section_notification {
-	// Mixins
-
-	// Box properties
-	position: relative;
-	// Background & borders
-	background: $dev_gray;
-	border-bottom: $border;
-
-	// Typography
-	// Other
-
-}
-
-.section_notification:after {
-	// Mixins
-
-	// Box properties
-	bottom: 100%;
-	left: $grid * 12.5;
-	height: 0;
-	width: 0;
-	position: absolute;
-	margin-left: -30px;
-
-	// Background & borders
-	border: solid transparent;
-	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: $dev_gray;
-	border-width: 30px;
-	// Typography
-
-	// Other
-	pointer-events: none;
-	content: " ";
-
-}
-
 
 .lead_thumbnail {
 	// Mixins
@@ -368,25 +339,45 @@
 
 }
 
-.object_detail {
+.section_notification {
 	// Mixins
 
 	// Box properties
 	position: relative;
-	padding: $grid;
-
 	// Background & borders
-	background: $dev_gray;
-	border-bottom: $border;
+	@include gradient(darken($dev_gray, 1%), $dev_gray, darken($dev_gray, 1%));
+	border-top: $border;
 
 	// Typography
-	text-align: left;
+	font-size: $grid / 2;
 
 	// Other
 
 }
 
-.object_detail:after {
+.section_notification:before {
+	// Mixins
+	// Box properties
+	top: -61px;
+	left: $grid * 12.5;
+	height: 0;
+	width: 0;
+	position: absolute;
+	margin-left: -30px;
+
+	// Background & borders
+	border: solid transparent;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #ddd;
+	border-width: 30px;
+	// Typography
+
+	// Other
+	pointer-events: none;
+	content: " ";
+}
+
+.section_notification:after {
 	// Mixins
 
 	// Box properties
@@ -400,7 +391,70 @@
 	// Background & borders
 	border: solid transparent;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: $dev_gray;
+	border-bottom-color: darken($dev_gray, 1%);
+	border-width: 30px;
+	// Typography
+
+	// Other
+	pointer-events: none;
+	content: " ";
+
+}
+
+.object_detail {
+	// Mixins
+	@include gradient(darken($dev_gray, 1%), $dev_gray, darken($dev_gray, 1%));
+	// Box properties
+	position: relative;
+	padding: $grid;
+
+	// Background & borders
+	border-top: $border;
+
+	// Typography
+	text-align: left;
+
+	// Other
+
+}
+
+.object_detail:before {
+	// Mixins
+	// Box properties
+	top: -61px;
+	left: $grid * 12.5;
+	height: 0;
+	width: 0;
+	position: absolute;
+	margin-left: -30px;
+
+	// Background & borders
+	border: solid transparent;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #ddd;
+	border-width: 30px;
+	// Typography
+
+	// Other
+	pointer-events: none;
+	content: " ";
+
+}
+
+.object_detail:after {
+	// Mixins
+	// Box properties
+	bottom: 100%;
+	left: $grid * 12.5;
+	height: 0;
+	width: 0;
+	position: absolute;
+	margin-left: -30px;
+
+	// Background & borders
+	border: solid transparent;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: darken($dev_gray, 1%);
 	border-width: 30px;
 	// Typography
 
