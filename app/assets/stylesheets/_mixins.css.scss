@@ -38,6 +38,7 @@
 	$neutral: #f7f7f9;
 	$brand: $supergreen;
 	$dev_gray: #eee;
+	$quiet: #ccc;
 
 // Typography
 
@@ -87,7 +88,7 @@
 	    @include corners;
 
 		// Box properties
-		padding: $grid / 2;
+		padding: $grid / 8 $grid / 2;
 		clear: both;
 		display: block;
 
@@ -97,30 +98,53 @@
 
 		// Typography
 		color: white;
-	    font-size: $font_size;
+		font-size: $grid / 2;
+	    text-transform: uppercase;
 
 		// Other
 	    cursor: pointer;
+
+	    &:hover {
+	    	background: $brand;
+	    	color: white;
+	    }
   }
 
   @mixin object_thumbnail {
 	// Mixins
 	@include box_sizing;
+	@include corners;
 
 	// Box properties
 	float: left;
-	width: $grid * 5;
-	height: $grid * 5;
+	width: $grid * 7;
 	margin-right: $grid;
 	margin-bottom: $grid;
 	padding: $grid / 2;
 
 	// Background & borders
-	background: lighten($neutral, 12%);
-	border: 1px solid #ddd;
-
+	border: 1px solid rgba(0,0,0,0);
 	// Typography
+	text-align: center;
 
 	// Other
 
+	&:hover {
+		color: $brand;
+	}
+
+	.expand {
+		// Mixins
+	
+		// Box properties
+		clear: both;
+		display: block;
+
+		// Background & borders
+	
+		// Typography
+		text-align: center;
+		// Other
+	
+	}
 }

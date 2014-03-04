@@ -9,16 +9,24 @@
 	</div>
 	<div class="section_content">
 		<div class="kpi">
-			<h3>3 branches</h3>
-			<a href="#">Increase it!</a>
+			<h3>3 branches <i class="fa fa-pagelines"></i></h3>
+			<i class="fa fa-angle-down"></i>
 		</div>
 		<div class="kpi">
-			<h3>7 Buds</h3>
-			<a href="#">Increase it!</a>
+			<h3>7 Buds <i class="fa fa-tint"></i></h3>
+			<i class="fa fa-angle-down"></i>
 		</div>
 		<div class="kpi">
-			<h3>13 leaves</h3>
-			<a href="#">Increase it!</a>
+			<h3>13 leaves <i class="fa fa-leaf"></i></h3>
+			<i class="fa fa-angle-down"></i>
+		</div>
+		<div class="kpi">
+			<h3>$3,531 to date</h3>
+			<i class="fa fa-angle-down"></i>
+		</div>
+		<div class="kpi">
+			<h3>14,258 kWh</h3>
+			<i class="fa fa-angle-down"></i>
 		</div>
 	</div>
 </section>
@@ -26,38 +34,39 @@
 <section id="dashboard_team">
 	<div class="section_header">
 		<h2>Your Branches</h2>
+		<a href="#" class="button">New <i class="fa fa-pagelines"></i></a>
 		<ul>
-			<li>Search</li>
+			<li><i class="fa fa-search"></i></li>
 			<li>Sort</li>
-			<li>Email All</li>
-			<li><a href="#">Add a new branch!</a></li>
+			<li>Show</li>
+			<li>Send</li>
 		</ul>
 	</div>
 	<div class="section_content">
-		<% (3).times do |i| %>
-		  <div class="team_thumbnail">
-		  	<p>This is a team member...</p>
-		  	<a href="#">Gene it!</a>
-		  </div>
-		<% end %>
+		<%= render partial: "team_thumbnail", :locals => {:first_name => "Bob", :last_name => "Smith", :leaves => "37", :buds => "3"}%>
+		<%= render partial: "team_thumbnail", :locals => {:first_name => "Sherry", :last_name => "Bailey", :leaves => "42", :buds => "0"}%>
+		<%= render partial: "team_thumbnail", :locals => {:first_name => "Uncle", :last_name => "Fester", :leaves => "2", :buds => "13"}%>
+
 	</div>
 	<div class="section_notification">
-		This is a notification about something regarding this team member - click to find out more...
+		This is a notification about this person or their team - click to find out more...
 	</div>
 </section>
 
 <section id="dashboard_leads">
 	<div class="section_header">
 		<h2>Your Buds</h2>
-		<a href="#">Add a new bud!</a>
+		<a href="#" class="button">New <i class="fa fa-tint"></i></a>
+		<ul>
+			<li><i class="fa fa-search"></i></li>
+			<li>Sort</li>
+			<li>Show</li>
+		</ul>
 	</div>
 	<div class="section_content">
-		<% (7).times do |i| %>
-		  <div class="lead_thumbnail">
-		  	<p>This is a lead...</p>
-		  	<a href="#">Add to it!</a>
-		  </div>
-		<% end %>
+		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Marky", :last_name => "Mark", :has_address => true, :has_rooftop => false, :has_utility => true}%>
+		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Bonilla", :has_address => false, :has_rooftop => false, :has_utility => false}%>
+		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "The Rat", :has_address => true, :has_rooftop => true, :has_utility => false}%>
 	</div>
 	<div class="object_detail">
 		<p>This is expanded in-depth information about this lead</p>
@@ -70,7 +79,11 @@
 <section id="dashboard_customers">
 	<div class="section_header">
 		<h2>Your leaves</h2>
-		<a href="#">Add a new leaf!</a>
+		<ul>
+			<li><i class="fa fa-search"></i></li>
+			<li>Sort</li>
+			<li>Show</li>
+		</ul>
 	</div>
 	<div class="section_content">
 		<% (13).times do |i| %>
@@ -84,6 +97,11 @@
 <section id="dashboard_payments">
 	<div class="section_header">
 		<h2>Your Fruit</h2>
+		<ul>
+			<li><i class="fa fa-search"></i></li>
+			<li>Sort</li>
+			<li>Show</li>
+		</ul>
 	</div>
 	<div class="section_content">
 		<% (4).times do |i| %>

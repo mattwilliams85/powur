@@ -188,31 +188,40 @@
 	
 	}
 
-	a {
+	a.button {
 		// Mixins
 	
 		// Box properties
+		float: left;
+		clear: none;
+		margin:-$grid / 8 0 0 $grid;
 
 		// Background & borders
-		
+		background: none;
+
 		// Typography
-	
+		color: $brand;
+
 		// Other
-	
+		
+		&:hover {
+			background: $brand;
+			color: white;
+		}
 	}
 
 	ul {
 		// Mixins
 	
 		// Box properties
-		float: left;
-		margin: 0 0 0 $grid * 2;
+		float: right;
+		margin: 0 0 0 $grid;
 		padding: 0;
 
 		// Background & borders
 	
 		// Typography
-	
+		color: $quiet;
 		// Other
 	
 		li {
@@ -267,7 +276,7 @@
 
 	// Box properties
 	bottom: 100%;
-	left: $grid * 9.5;
+	left: $grid * 12.5;
 	height: 0;
 	width: 0;
 	position: absolute;
@@ -296,7 +305,8 @@
 	// Background & borders
 
 	// Typography
-
+	text-align: left;
+	
 	// Other
 
 }
@@ -352,7 +362,7 @@
 
 	// Box properties
 	bottom: 100%;
-	left: $grid * 9.5;
+	left: $grid * 12.5;
 	height: 0;
 	width: 0;
 	position: absolute;
