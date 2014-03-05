@@ -9,7 +9,7 @@
 
 	// set grid rhythm
 
-	  $grid: 38px; // set to your desired line-height and base grid unit
+	  $grid: 32px; // set to your desired line-height and base grid unit
 	  
 	  $font_size: $grid / 1.6 ; // set the number to your desired line-height ratio
 
@@ -112,7 +112,7 @@
 
 		// Background & borders
 		background: $brand;
-		border: none;
+		border: 1px solid darken($brand, 35%);
 
 		// Typography
 		color: white;
@@ -124,6 +124,8 @@
 	    &:hover {
 	    	background: $brand;
 	    	color: white;
+			border: 1px solid darken($brand, 2%);
+
 	    }
   }
 

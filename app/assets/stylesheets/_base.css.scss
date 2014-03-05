@@ -280,7 +280,6 @@ footer {
 
 	select {
 		// Mixins
-		@include corners;
 
 		// Box properties
 		padding: $grid / 4 $grid * 1.5 $grid / 4 $grid / 2;
@@ -302,4 +301,10 @@ footer {
 		// Other
 		-moz-appearance: none;
 		-webkit-appearance: none;
+
+		&:hover {
+			background: $brand;
+			color: white;
+			border: 1px solid darken($brand, 2%);
+		}
 	}
