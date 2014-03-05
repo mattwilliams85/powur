@@ -7,7 +7,7 @@ body {
 	padding-bottom: $grid * 2;
 
 	// Background & borders
-	background: $neutral;
+	background: $white;
 
 	// Typography
 	color: $text;
@@ -37,7 +37,7 @@ h2, h3, h4, h5, h6 {
 	// Mixins
 
 	// Box properties
-
+	margin-bottom: $grid / 2;
 	// Background & borders
 
 	// Typography
@@ -280,6 +280,7 @@ footer {
 
 	select {
 		// Mixins
+		@include corners;
 
 		// Box properties
 		padding: $grid / 4 $grid * 1.5 $grid / 4 $grid / 2;

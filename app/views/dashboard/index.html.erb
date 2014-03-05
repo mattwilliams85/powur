@@ -40,6 +40,10 @@
 			<i class="fa fa-angle-down"></i>
 		</div>
 	</div>
+	<div class="section_notification neutral dev_arrow_position_for_tree">
+		<a href="#">This is a neutral notification about your buds - click to find out more...</a>
+		<span class="dismiss"><i class="fa fa-times"></i></span>
+	</div>
 </section>
 
 <section id="dashboard_payments" class="dashboard_section">
@@ -73,7 +77,6 @@
 		<%= render partial: "payment_thumbnail", :locals => {:amount => "$2,345", :mail_date => "4/1/14", :has_mailed => false}%>
 		<%= render partial: "payment_thumbnail", :locals => {:amount => "$1,234", :mail_date => "3/1/14", :has_mailed => true}%>
 		<%= render partial: "payment_thumbnail", :locals => {:amount => "$789", :mail_date => "2/1/14", :has_mailed => true}%>
-
 	</div>
 </section>
 
@@ -99,6 +102,14 @@
 		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Jack Andrew", :kWh => "134", :total_fruit => "$147"}%>
 		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Frank Benjamin", :kWh => "487", :total_fruit => "$23"}%>
 	</div>
+		<div class="section_notification negative">
+		<a href="#">This is a negative notification about Jack Andrew - click to find out more...</a>
+		<span class="dismiss"><i class="fa fa-times"></i></span>
+	</div>
+	<div class="fluid-wrapper">
+		<iframe src="https://mapsengine.google.com/map/u/0/embed?mid=zkJJ8DsdQ4Zg.kDpcIzes3Bb0" width="640" height="480" scrolling="no" id="customer_map"></iframe>
+	</div>
+
 </section>
 
 <section id="dashboard_leads" class="dashboard_section">
@@ -156,44 +167,49 @@
 		<%= render partial: "team_thumbnail", :locals => {:first_name => "Uncle", :last_name => "Fester", :leaves => "2", :buds => "13"}%>
 
 	</div>
-	<div class="section_notification">
-		This is a notification about this person or their team - click to find out more...
+	<div class="section_notification positive">
+		<a href="#">This is a positive notification about Sherry or her team - click to find out more...</a>
+		<span class="dismiss"><i class="fa fa-times"></i></span>
 	</div>
 </section>
 
-<section id="dashboard_customers" class="dashboard_section">
+<section id="dashboard_pages" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your garden</h2>
+		<h2>Your Garden</h2>
+		<a href="#" class="button">Invite Customer</a>
+		<a href="#" class="button">Invite Promoter</a>
 		<ul>
 			<li> 
 				<%= select_tag "Show", options_for_select(
 					[
-						"Past 3 months", 
-					    "Past 6 months", 
-					    "Past year", 
+						"Past 24 hours", 
+					    "Past week", 
+					    "Past month", 
 					    "All time"
-					], ["Past 3 months"]) 
+					], ["Past 24 hours"]) 
 				%>
 			</li>
 		</ul>
 	</div>
 	<div class="section_content">
-		<% (2).times do |i| %>
-		  <div class="customer_thumbnail">
-		  	<p>Landing page info</p>
-		  </div>
-		<% end %>
+
+		<div class="customer_page_kpis">
+			<h3><a href="/customer/signup/#1234">Customer Referral Page</a></h3>
+
+			<p>Unique visitors
+				<br/>Visitors > leads
+				<br/>Leads > Customers
+				<br/>Top 3 referrers
+			</p>
+			
+		</div>
+		<div class="promoter_page_kpis">
+			<h3><a href="/customer/signup/#4321">Promoter Referral Page</a></h3>
+
+			<p>Unique visitors
+				<br/>Visitors > promoters
+				<br/>Top 3 referrers
+			</p>
+		</div>
 	</div>
-
-	<p>
-		Your permanent customer referral page is <a href="/customer/signup/#1234">http://www.mysolar.com/1234</a>.
-		<br/>
-		<a href="#">Invite a new customer!</a>
-	</p>
-
-	<p>
-		Your permanent promoter referral page is <a href="/promoter/signup/#4321">http://www.mysolar.com/4321</a>.
-		<br/>
-		<a href="#">Invite a new promoter!</a>
-	</p>
 </section>

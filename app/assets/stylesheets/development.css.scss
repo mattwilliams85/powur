@@ -12,7 +12,7 @@
 
 }
 
-#warp_nav {
+#dev_warp_nav {
 	// Mixins
 	@extend .in_dev;
 
@@ -68,4 +68,23 @@
 			}
 		}
 	}
+}
+
+
+.section_notification.dev_arrow_position_for_tree:before {
+	// Mixins
+	// Box properties
+	left: $grid * 9.5;
+	// Background & borders
+	// Typography
+	// Other
+}
+
+.section_notification.dev_arrow_position_for_tree:after {
+	// Mixins
+	// Box properties
+	left: $grid * 9.5;
+	// Background & borders
+	// Typography
+	// Other
 }

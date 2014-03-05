@@ -26,6 +26,21 @@
 
 }
 
+.dismiss {
+	// Mixins
+
+	// Box properties
+	display: inline-block;
+	float: right;
+	margin-right: $grid / 2;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 #system_feedback {
 	// Mixins
 
@@ -103,7 +118,7 @@
 
 		// Box properties
 		float: left;
-		margin:0 $grid $grid / 2 0;
+		margin:0 $grid $grid 0;
 		width: $grid * 5;
 
 		// Background & borders
@@ -171,6 +186,49 @@
 
 }
 
+#dashboard_pages {
+	// Mixins
+
+	// Box properties
+	padding-bottom: $grid * 3;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+	.customer_page_kpis {
+		// Mixins
+	
+		// Box properties
+		width: 50%;
+		float: left;
+		// Background & borders
+	
+		// Typography
+		text-align: left;
+		// Other
+	
+	}
+
+	.promoter_page_kpis {
+		// Mixins
+	
+		// Box properties
+		width: 50%;
+		float: left;
+
+		// Background & borders
+	
+		// Typography
+		text-align: left;
+		// Other
+	
+	}
+
 .section_header {
 	// Mixins
 
@@ -208,9 +266,10 @@
 
 		// Background & borders
 		background: none;
+		border: $border;
 
 		// Typography
-		color: $brand;
+		color: $quiet;
 
 		// Other
 		
@@ -345,13 +404,77 @@
 	// Box properties
 	position: relative;
 	// Background & borders
-	@include gradient(darken($dev_gray, 1%), $dev_gray, darken($dev_gray, 1%));
+	background: $dev_gray;
 	border-top: $border;
 
 	// Typography
 	font-size: $grid / 2;
 
 	// Other
+
+	&.neutral {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: $neutral;
+		// Typography
+	
+		// Other
+	}
+
+	&.positive {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: $positive;
+		// Typography
+	
+		// Other
+	
+	}
+
+	&.negative {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: $negative;
+		// Typography
+	
+		// Other
+	
+	}
+
+	a {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+		color: $text;	
+		// Other
+	
+
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+			color: $brand;
+			// Other
+		
+		}
+	}
 
 }
 
@@ -391,7 +514,7 @@
 	// Background & borders
 	border: solid transparent;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: darken($dev_gray, 1%);
+	border-bottom-color: $dev_gray;
 	border-width: 30px;
 	// Typography
 
@@ -401,16 +524,55 @@
 
 }
 
+.section_notification.neutral:after {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: $neutral;
+	// Typography
+
+	// Other
+
+}
+
+.section_notification.positive:after {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: $positive;
+	// Typography
+
+	// Other
+
+}
+
+.section_notification.negative:after {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: $negative;
+	// Typography
+
+	// Other
+
+}
+
 .object_detail {
 	// Mixins
-	@include gradient(darken($dev_gray, 1%), $dev_gray, darken($dev_gray, 1%));
+
 	// Box properties
 	position: relative;
 	padding: $grid;
 
 	// Background & borders
 	border-top: $border;
-
+	background: $neutral;
 	// Typography
 	text-align: left;
 
@@ -454,7 +616,7 @@
 	// Background & borders
 	border: solid transparent;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: darken($dev_gray, 1%);
+	border-bottom-color: $neutral;
 	border-width: 30px;
 	// Typography
 
@@ -462,4 +624,21 @@
 	pointer-events: none;
 	content: " ";
 
+}
+
+// Hacky Google maps stuff
+
+.fluid-wrapper {
+    position: relative;
+    padding-bottom: $grid * 10; /* 16:9 */
+    height: 0;
+}
+
+.fluid-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
 }

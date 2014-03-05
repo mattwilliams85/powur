@@ -35,10 +35,13 @@
 	$red: #f46b41;
 	$supergreen: #22a500;
 	$sunnyside: #ffc200;
-	$neutral: #f7f7f9;
+	$white: #f7f7f9;
 	$brand: $supergreen;
-	$dev_gray: darken($neutral, 5%);
+	$dev_gray: darken($white, 5%);
 	$quiet: #ccc;
+	$neutral: #DAEDF6;
+	$positive: #DFF0D9;
+	$negative: #f2d5d9;
 
 // Typography
 
@@ -83,7 +86,7 @@
 		box-shadow:  $h1 $v1 $blur1 $color1,  $h2 $v2 $blur2 $color2;
 	}
 
-	@mixin corners($tr: 2px, $tl: 2px, $bl: 2px, $br: 2px) { /* this could probably be less verbose at some point */
+	@mixin corners($tr: 4px, $tl: 4px, $bl: 4px, $br: 4px) { /* this could probably be less verbose at some point */
 	    -webkit-border-top-left-radius: $tr;
 	    -moz-border-radius-topleft: $tr;
 	    border-top-left-radius: $tr;
@@ -114,7 +117,6 @@
 		// Typography
 		color: white;
 		font-size: $grid / 2;
-	    text-transform: uppercase;
 
 		// Other
 	    cursor: pointer;
@@ -134,7 +136,7 @@
 	float: left;
 	width: $grid * 7;
 	margin-right: $grid;
-	margin-bottom: $grid;
+	margin-bottom: $grid / 2;
 	padding: $grid / 2;
 
 	// Background & borders
