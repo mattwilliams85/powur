@@ -569,7 +569,6 @@
 
 	// Box properties
 	position: relative;
-	padding: $grid;
 
 	// Background & borders
 	border-top: $border;
@@ -627,6 +626,88 @@
 
 }
 
+.object_detail_content {
+	// Mixins
+
+	// Box properties
+	padding: $grid;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.object_detail.collapsed {
+	// Mixins
+
+	// Box properties
+	position: relative;
+	padding: 0;
+
+	// Background & borders
+
+	// Typography
+	font-size: $grid / 2;
+	text-align: left;
+
+	// Other
+
+	h3 {
+		// Mixins
+	
+		// Box properties
+		margin: 0 $grid;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+}
+
+.object_detail.second {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	background: darken($neutral, 5%);
+	border-top-color: #ccc;
+
+	// Typography
+	font-size: $font_size;
+	// Other
+
+}
+
+.object_detail.second:before {
+	// Mixins
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: #ccc;
+	// Typography
+
+	// Other
+
+}
+
+.object_detail.second:after {
+	// Mixins
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: darken($neutral, 5%);
+
+	// Typography
+
+	// Other
+
+}
 // Hacky Google maps stuff
 
 .fluid-wrapper {

@@ -106,7 +106,7 @@
 	    @include corners;
 
 		// Box properties
-		padding: $grid / 8 $grid / 2;
+		padding: $grid / 4 $grid / 2;
 		clear: both;
 		display: block;
 
@@ -117,6 +117,7 @@
 		// Typography
 		color: white;
 		font-size: $grid / 2;
+		line-height: $line_height;
 
 		// Other
 	    cursor: pointer;

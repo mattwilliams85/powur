@@ -78,6 +78,14 @@
 		<%= render partial: "payment_thumbnail", :locals => {:amount => "$1,234", :mail_date => "3/1/14", :has_mailed => true}%>
 		<%= render partial: "payment_thumbnail", :locals => {:amount => "$789", :mail_date => "2/1/14", :has_mailed => true}%>
 	</div>
+	<div class="object_detail">
+		<span class="dismiss"><i class="fa fa-times"></i></span>
+		<div class="object_detail_content">
+			<p>This is expanded in-depth information about this check</p>
+			<p>Here are some possible actions to take</p>
+			<p>Here is more info, or something else perhaps...</p>
+		</div>
+	</div>
 </section>
 
 <section id="dashboard_customers" class="dashboard_section">
@@ -135,12 +143,11 @@
 		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Bonilla", :has_address => false, :has_rooftop => false, :has_utility => false}%>
 		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "The Rat", :has_address => true, :has_rooftop => true, :has_utility => false}%>
 	</div>
-	<div class="object_detail">
-		<p>This is expanded in-depth information about this lead</p>
-		<p>Here are some possible actions to take</p>
-		<p>Here is more info, or something else perhaps...</p>
-		<p>Here is a way to close this...</p>
+	<div class="section_notification positive">
+		<a href="#">This is a positive notification about Barry - click to go to a new page...</a>
+		<span class="dismiss"><i class="fa fa-times"></i></span>
 	</div>
+
 </section>
 
 <section id="dashboard_team" class="dashboard_section">
@@ -167,9 +174,17 @@
 		<%= render partial: "team_thumbnail", :locals => {:first_name => "Uncle", :last_name => "Fester", :leaves => "2", :buds => "13"}%>
 
 	</div>
-	<div class="section_notification positive">
-		<a href="#">This is a positive notification about Sherry or her team - click to go to a new page...</a>
+	<div class="object_detail collapsed">
 		<span class="dismiss"><i class="fa fa-times"></i></span>
+		<h3>This is the title for the first level...</h3>
+		<div class="object_detail second">
+			<span class="dismiss"><i class="fa fa-times"></i></span>
+			<div class="object_detail_content">
+				<p>This is second-level information about Sherry's team</p>
+				<p>Here are some possible actions to take</p>
+				<p>Here is more info, or something else perhaps...</p>
+			</div>
+		</div>
 	</div>
 </section>
 
