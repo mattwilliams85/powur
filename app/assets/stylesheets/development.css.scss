@@ -71,20 +71,92 @@
 }
 
 
-.section_notification.dev_arrow_position_for_tree:before {
+.dev-hack_for_arrow_placement_tree_team:before {
 	// Mixins
 	// Box properties
-	left: $grid * 9.5;
 	// Background & borders
+	left: $grid * 3.5;
 	// Typography
 	// Other
 }
 
-.section_notification.dev_arrow_position_for_tree:after {
+.dev-hack_for_arrow_placement_tree_team:after {
 	// Mixins
 	// Box properties
-	left: $grid * 9.5;
 	// Background & borders
+	left: $grid * 3.5;
+	// Typography
+	// Other
+}
+
+.dev-hack_for_arrow_placement_tree_leads:before {
+	// Mixins
+	// Box properties
+	// Background & borders
+	left: $grid * 9.5;
+	// Typography
+	// Other
+}
+
+.dev-hack_for_arrow_placement_tree_leads:after {
+	// Mixins
+	// Box properties
+	// Background & borders
+	left: $grid * 9.5;
+	// Typography
+	// Other
+}
+
+.dev-hack_for_arrow_placement_tree_customers:before {
+	// Mixins
+	// Box properties
+	// Background & borders
+	left: $grid * 15.5;
+	// Typography
+	// Other
+}
+
+.dev-hack_for_arrow_placement_tree_customers:after {
+	// Mixins
+	// Box properties
+	// Background & borders
+	left: $grid * 15.5;
+	// Typography
+	// Other
+}
+
+.dev-hack_for_arrow_placement_tree_payout:before {
+	// Mixins
+	// Box properties
+	// Background & borders
+	left: $grid * 21.5;
+	// Typography
+	// Other
+}
+
+.dev-hack_for_arrow_placement_tree_payout:after {
+	// Mixins
+	// Box properties
+	// Background & borders
+	left: $grid * 21.5;
+	// Typography
+	// Other
+}
+
+.dev-hack_for_arrow_placement_tree_volume:before {
+	// Mixins
+	// Box properties
+	// Background & borders
+	left: $grid * 27.5;
+	// Typography
+	// Other
+}
+
+.dev-hack_for_arrow_placement_tree_volume:after {
+	// Mixins
+	// Box properties
+	// Background & borders
+	left: $grid * 27.5;
 	// Typography
 	// Other
 }

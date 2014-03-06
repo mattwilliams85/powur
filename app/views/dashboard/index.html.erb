@@ -19,36 +19,44 @@
 		</ul>
 	</div>
 	<div class="section_content">
-		<div class="kpi">
+		<div class="kpi" onclick="detailExpander('tree_team_detail');">
 			<h3>3 branches <i class="fa fa-pagelines"></i></h3>
 			<span class="subtext">X amount of foo</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
-		<div class="kpi">
+		<div class="kpi" onclick="detailExpander('tree_leads_detail');">
 			<h3>7 Buds <i class="fa fa-tint"></i></h3>
 			<span class="subtext">2 new this week</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
-		<div class="kpi">
+		<div class="kpi" onclick="detailExpander('tree_customer_detail');">
 			<h3>13 leaves <i class="fa fa-leaf"></i></h3>
 			<span class="subtext">14,258 kWh saved</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
-		<div class="kpi">
+		<div class="kpi" onclick="detailExpander('tree_payout_detail');">
 			<h3>$3,531 payout</h3>
 			<span class="subtext">Up 13% this week</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
-		<div class="kpi">
+
+		<div class="kpi" onclick="detailExpander('tree_volume_detail');">
 			<h3>$32,450 Volume</h3>
 			<span class="subtext">Down 5% this week</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
 	</div>
-	<div class="section_notification neutral js_expand_notification dev_arrow_position_for_tree">
-		This is a neutral notification about your buds - click to expand and see more...
-		<span class="dismiss"><i class="fa fa-times"></i></span>
-	</div>
+
+	<%= render partial: "tree_team_detail"%>
+
+	<%= render partial: "tree_leads_detail"%>
+
+	<%= render partial: "tree_customer_detail"%>
+
+	<%= render partial: "tree_payout_detail"%>
+
+	<%= render partial: "tree_volume_detail"%>
+
 </section>
 
 <section id="dashboard_payments" class="dashboard_section">
@@ -143,8 +151,8 @@
 		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Jack Andrew", :kWh => "134", :total_fruit => "$147"}%>
 		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Frank Benjamin", :kWh => "487", :total_fruit => "$23"}%>
 	</div>
-		<div class="section_notification negative">
-		This is a negative notification about Jack Andrew - it has no action.
+	<div class="section_notification neutral js-expand_notification">
+		This is a neutral notification about Jack - click to expand and see more...
 		<span class="dismiss"><i class="fa fa-times"></i></span>
 	</div>
 	<div class="fluid-wrapper">

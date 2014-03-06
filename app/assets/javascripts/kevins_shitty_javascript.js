@@ -1,3 +1,12 @@
+// Show expanded details for dashboard objects
+
+
+	function detailExpander(showID){
+		$(".object_detail").hide();
+		$("#" + showID).show();
+	}
+
+
 $(document).ready(function() { // bind to document.ready instead of window.load because of Turbolinks
 
 
@@ -16,8 +25,8 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
 	// Notification expand demo for dashboard
 
-		$(".js_expand_notification").click(function() {
-			$(".js_expand_notification").animate({
+		$(".js-expand_notification").click(function() {
+			$(".js-expand_notification").animate({
 				height: "200px"
 			}, 250, function() {
 			    // Animation complete.
