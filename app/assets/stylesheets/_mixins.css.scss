@@ -31,14 +31,14 @@
 
 // Colors
 
-	$text: #666;
+	$text: #555;
 	$red: #f46b41;
 	$supergreen: #22a500;
 	$sunnyside: #ffc200;
 	$white: #f7f7f9;
 	$brand: $supergreen;
 	$dev_gray: darken($white, 5%);
-	$quiet: #ccc;
+	$quiet: lighten($text, 25%);
 	$neutral: #DAEDF6;
 	$positive: #DFF0D9;
 	$negative: #f2d5d9;

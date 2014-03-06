@@ -1,4 +1,4 @@
-	#user_nav {
+#user_nav {
 	// Mixins
 
 	// Box properties
@@ -37,6 +37,22 @@
 
 	// Typography
 	font-size: $grid / 2;
+	// Other
+
+}
+
+.subtext {
+	// Mixins
+
+	// Box properties
+	display: block;
+	margin-bottom: $grid / 4;
+	// Background & borders
+
+	// Typography
+	font-size: $grid / 2;
+	line-height: $grid / 2;
+	color: $quiet;
 	// Other
 
 }
@@ -631,6 +647,22 @@
 
 	// Box properties
 	padding: $grid;
+	overflow: auto;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.object_detail_content_section {
+	// Mixins
+
+	// Box properties
+	float: left;
+	overflow: auto;
+	width: $grid * 9;
 
 	// Background & borders
 
@@ -639,6 +671,7 @@
 	// Other
 
 }
+
 
 .object_detail.collapsed {
 	// Mixins

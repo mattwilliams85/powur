@@ -4,12 +4,12 @@
     <% if has_mailed == true %>
   
         <%= amount %>
-        <br/>Mailed on <%= mail_date %>
+        <span class="subtext">Mailed on <%= mail_date %></span>
   
       <% else %>
   
-        <%= amount %> so far
-        <br/>Mailing on <%= mail_date %>
+        <%= amount %> this week
+        <span class="subtext">Mailing on <%= mail_date %></span>
   
     <% end %>
     
