@@ -1,30 +1,33 @@
   <div class="lead_thumbnail">
-  	<p><%= first_name %> <%= last_name %>
+  	<%= first_name %> <%= last_name %>
 
-  	<br/>
-  	<% if has_address == true %>
-  		<i class="fa fa-check"></i>
-	  	<% else %>
-	  	<i class="fa fa-times"></i>
-  	<% end %>
-  	Address
+    <span class="subtext">
+    	<% if has_address == true %>
+    		<i class="fa fa-check"></i>
+  	  	<% else %>
+  	  	<i class="fa fa-times"></i>
+    	<% end %>
+    	Address
+    </span>
 
-  	<br/>
-  	<% if has_rooftop == true %>
-  		<i class="fa fa-check"></i>
-	  	<% else %>
-	  	<i class="fa fa-times"></i>
-  	<% end %>
-  	Roof info
+    <span class="subtext">
+    	<% if has_rooftop == true %>
+    		<i class="fa fa-check"></i>
+  	  	<% else %>
+  	  	<i class="fa fa-times"></i>
+    	<% end %>
+    	Roof info
+    </span>
 
-  	<br/>
-  	<% if has_utility == true %>
-  		<i class="fa fa-check"></i>
-	  	<% else %>
-	  	<i class="fa fa-times"></i>
-  	<% end %>
-  	Utility Bill
-
+    <span class="subtext">
+    	<% if has_utility == true %>
+    		<i class="fa fa-check"></i>
+  	  	<% else %>
+  	  	<i class="fa fa-times"></i>
+    	<% end %>
+    	Utility Bill
+    </span>
+    
   	<span class="expand">
   		<i class="fa fa-angle-down"></i>
   	</span>

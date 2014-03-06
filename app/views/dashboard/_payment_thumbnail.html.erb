@@ -1,15 +1,14 @@
   <div class="payment_thumbnail">
-  	<p>
     
     <% if has_mailed == true %>
   
         <%= amount %>
-        <span class="subtext">Mailed on <%= mail_date %></span>
+        <span class="subtext">Deposited on <%= mail_date %></span>
   
       <% else %>
   
-        <%= amount %> this week
-        <span class="subtext">Mailing on <%= mail_date %></span>
+        <%= amount %> and climbing!
+        <span class="subtext">Scheduled for <%= mail_date %></span>
   
     <% end %>
     

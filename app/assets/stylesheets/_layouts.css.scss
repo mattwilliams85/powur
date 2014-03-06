@@ -1,3 +1,22 @@
+#sunstand_logo {
+	// Mixins
+
+	// Box properties
+	display: block;
+	height: $grid;
+	width: $grid * 3;
+	overflow: hidden;
+	// Background & borders
+	background-image: url(sunstand_logo.svg);
+	background-repeat: no-repeat;
+	background-position: center center;
+
+	// Typography
+	text-indent: 9999em;
+	// Other
+
+}
+
 #user_nav {
 	// Mixins
 
@@ -144,8 +163,9 @@
 
 	.kpi {
 		// Mixins
-
+		@include object_thumbnail;
 		// Box properties
+		padding: 0;
 		float: left;
 		margin:0 $grid $grid 0;
 		width: $grid * 5;
@@ -263,7 +283,7 @@
 
 	// Box properties
 	padding: $grid / 2 $grid;
-
+	overflow: auto;
 	// Background & borders
 
 	// Typography
@@ -361,7 +381,7 @@
 	// Box properties
 	overflow: auto;
 	clear: both;
-	padding: $grid / 2 $grid 0;
+	padding: 0 $grid;
 
 	// Background & borders
 

@@ -141,7 +141,7 @@
 		width: $grid * 7;
 		margin-right: $grid;
 		margin-bottom: $grid / 2;
-		padding: $grid / 2;
+		padding: 0 0 $grid / 2;
 
 		// Background & borders
 		border: 1px solid rgba(0,0,0,0);
@@ -149,6 +149,7 @@
 		text-align: center;
 
 		// Other
+		cursor: pointer;
 
 		&:hover {
 			color: $brand;
