@@ -39,6 +39,7 @@
 	$brand: $supergreen;
 	$dev_gray: darken($white, 5%);
 	$quiet: lighten($text, 25%);
+	$whisper: lighten($text, 45%);
 	$neutral: #DAEDF6;
 	$positive: #DFF0D9;
 	$negative: #f2d5d9;
@@ -61,7 +62,7 @@
 
 // Borders
 
-	$border: 1px solid #ddd;
+	$border: 1px solid $whisper;
 
 // Mixins
 

@@ -508,7 +508,7 @@
 	// Background & borders
 	border: solid transparent;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #ddd;
+	border-bottom-color: $whisper;
 	border-width: 30px;
 	// Typography
 
@@ -609,7 +609,7 @@
 	// Background & borders
 	border: solid transparent;
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #ddd;
+	border-bottom-color: $whisper;
 	border-width: 30px;
 	// Typography
 
@@ -648,6 +648,7 @@
 	// Box properties
 	padding: $grid;
 	overflow: auto;
+	position: relative;
 	// Background & borders
 
 	// Typography
@@ -662,14 +663,26 @@
 	// Box properties
 	float: left;
 	overflow: auto;
-	width: $grid * 9;
-
+	width: $grid * 7;
+	padding: 0 $grid;
 	// Background & borders
 
 	// Typography
 
 	// Other
 
+	&.summary {
+		// Mixins
+	
+		// Box properties
+
+		// Background & borders
+		border-right: $border;
+		// Typography
+	
+		// Other
+	
+	}
 }
 
 
