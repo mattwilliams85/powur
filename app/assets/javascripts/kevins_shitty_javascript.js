@@ -2,8 +2,12 @@
 
 
 	function detailExpander(showID){
-		$(".object_detail").hide();
-		$("#" + showID).show();
+		if($("#" + showID).is(":visible")) {
+			$("#" + showID).hide();	
+		} else {
+			$(".object_detail").hide();
+			$("#" + showID).show();
+		}
 	}
 
 
