@@ -2,3 +2,98 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#index_banner {
+	// Mixins
+
+	// Box properties
+	padding: $grid * 2;
+	overflow: auto;
+	// Background & borders
+	background-color: #5685B7;
+	background-image: url(banner_bg1.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	// Typography
+	color: white;
+	// Other
+
+	h1 {
+		// Mixins
+		@include text_shadow;
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+		font-size: $font_size * 5;
+		line-height: $grid * 2;
+		text-align: left;
+		// Other
+	
+	}
+
+	a.button {
+		margin-top: $grid;
+		float: left;
+		font-size: $grid;
+		border-color: darken($brand, 10%);
+	}
+
+}
+
+.landing {
+	// Mixins
+
+	// Box properties
+	padding: $grid * 2;
+	overflow: auto;
+	// Background & borders
+
+	// Typography
+	text-align: left;
+	// Other
+
+	img {float: right;}
+
+	p {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 16;
+		float: left;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	}
+
+	&.right {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+
+		img {float: left;}
+
+		p {
+			// Mixins
+		
+			// Box properties
+			float: right;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	
+	}
+}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SunStand</title>
+	<title>Welcome to SunStand</title>
 	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	<%= csrf_meta_tags %>
@@ -25,6 +25,9 @@
 			</ul>
 
 			<ul id="user_nav">
+				<li>
+					<%= link_to_unless_current 'Create an Account', "/customer/signup" %>
+				</li>
 				<li>
 					<%= link_to_unless_current 'Sign in', "/user" %>
 				</li>
