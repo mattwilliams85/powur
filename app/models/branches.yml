@@ -5,15 +5,24 @@
   leaves: 14
   branches: 4
   volume: $1,234
+  rank: Sprout
+  phone: 805-123-4567
+  email: bob@smith.com
 - id: 2
   name: Sherry Bailey
   buds: 10
   leaves: 1
   branches: 42
   volume: $34,234
+  rank: Sapling
+  phone: 415-456-7890
+  email: sherry.bailey.123456@gmail.com
 - id: 3
   name: Uncle Fester
   buds: 7
   leaves: 19
   branches: 10
   volume: $7,004
+  rank: Mighty Oak
+  phone: 512-987-6541
+  email: unclefester@aadamsfamily.biz

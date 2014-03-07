@@ -66,12 +66,11 @@
 
 	// Box properties
 	display: block;
-	margin-bottom: $grid / 4;
 	// Background & borders
 
 	// Typography
 	font-size: $grid / 2;
-	line-height: $grid / 2;
+	line-height: $line_height;
 	color: $quiet;
 	// Other
 
@@ -283,7 +282,7 @@
 	// Mixins
 
 	// Box properties
-	padding: $grid / 2 $grid;
+	padding: $grid / 2 $grid 0;
 	overflow: auto;
 	// Background & borders
 
@@ -712,6 +711,19 @@
 
 		// Background & borders
 		border-right: $border;
+		// Typography
+	
+		// Other
+	
+	}
+
+	&.double {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 16;
+		// Background & borders
+	
 		// Typography
 	
 		// Other
