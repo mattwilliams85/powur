@@ -1,12 +1,16 @@
+<% Branch.all.each do |b| %>
+
   <div class="team_thumbnail">
-  	<%= first_name %> <%= last_name %>
-  	<span class="subtext">
-  		<%= buds %> <i class="fa fa-tint"></i>
-	  	&nbsp; <%= leaves %> <i class="fa fa-leaf"></i>
-	  	&nbsp; <%= buds %> <i class="fa fa-pagelines"></i>
-	</span>
-  	<span class="expand">
-  		<i class="fa fa-angle-down"></i>
-  	</span>
+    <%= b.name %>
+    <span class="subtext">
+      <%= b.buds %> <i class="fa fa-tint"></i>
+      &nbsp; <%= b.leaves %> <i class="fa fa-leaf"></i>
+      &nbsp; <%= b.branches %> <i class="fa fa-pagelines"></i>
+  </span>
+    <span class="expand">
+      <i class="fa fa-angle-down"></i>
+    </span>
 
   </div>
+
+<% end %>
