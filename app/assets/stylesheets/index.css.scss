@@ -9,35 +9,38 @@
 	padding: $grid * 2;
 	overflow: auto;
 	// Background & borders
-	background-color: #5685B7;
-	background-image: url(banner_bg1.jpg);
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-size: cover;
+	background-color: $dev_gray;
+	border-bottom: $border;
 	// Typography
-	color: white;
+
 	// Other
 
 	h1 {
 		// Mixins
-		@include text_shadow;
 		// Box properties
 	
 		// Background & borders
 	
 		// Typography
-		font-size: $font_size * 5;
-		line-height: $grid * 2;
+
+		font-size: $font_size * 2;
+		line-height: $grid;
 		text-align: left;
 		// Other
 	
 	}
 
 	a.button {
-		margin-top: $grid;
+		// Mixins
+	
+		// Box properties
 		float: left;
-		font-size: $grid;
-		border-color: darken($brand, 10%);
+		// Background & borders
+
+		// Typography
+
+		// Other
+	
 	}
 
 }
@@ -54,20 +57,21 @@
 	text-align: left;
 	// Other
 
-	img {float: right;}
-
-	p {
+	h2 {
 		// Mixins
 	
 		// Box properties
-		width: $grid * 16;
-		float: left;
+		margin-bottom: $grid;
 		// Background & borders
 	
 		// Typography
-	
+		font-size: $font_size * 1.5;
 		// Other
+	
 	}
+
+	img {float: right;}
+
 
 	&.right {
 		// Mixins

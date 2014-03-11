@@ -36,7 +36,7 @@
 	$supergreen: #22a500;
 	$sunnyside: #ffc200;
 	$white: #f7f7f9;
-	$brand: $supergreen;
+	$brand: #1DAEE4;
 	$dev_gray: darken($white, 5%);
 	$quiet: lighten($text, 25%);
 	$whisper: lighten($text, 45%);
@@ -116,7 +116,7 @@
 
 		// Background & borders
 		background: $brand;
-		border: 1px solid darken($brand, 35%);
+		border: 1px solid darken($brand, 15%);
 
 		// Typography
 		color: white;

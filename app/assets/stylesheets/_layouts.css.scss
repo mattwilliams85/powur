@@ -1,16 +1,27 @@
+.main_logo {
+	// Mixins
+
+	// Box properties
+	padding: 0;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 #sunstand_logo {
 	// Mixins
 
 	// Box properties
 	display: block;
-	height: $grid;
-	width: 120.7px;
+	height: $grid * 2;
+	width: $grid * 5;
 	overflow: hidden;
 	float: left;
 	// Background & borders
-	background-image: url(sunstand_logo.svg);
-	background-repeat: no-repeat;
-	background-position: center center;
 
 	// Typography
 	text-indent: 9999em;

@@ -127,11 +127,24 @@ p + p {
 
 }
 
+p + h2 {
+	// Mixins
+
+	// Box properties
+	margin-top: $grid;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 header {
 	// Mixins
 
 	// Box properties
-	padding: $grid / 2;
+	padding: $grid / 2 $grid;
 
 	// Background & borders
 	border-bottom: $border;
@@ -171,7 +184,7 @@ header {
 				// Box properties
 				float: left;
 				margin-left: $grid;
-
+				padding: $grid / 2;
 				// Background & borders
 			
 				// Typography
@@ -269,11 +282,10 @@ footer {
 
 	// Background & borders
 	border-top: $border;
-	background: $brand;
+	background: $dev_gray;
 
 	// Typography
 	text-align: center;
-	color: white;
 
 	// Other
 
