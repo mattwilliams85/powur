@@ -6,7 +6,7 @@
 	// Mixins
 
 	// Box properties
-	padding: $grid * 2;
+	padding: $grid * 3 $grid * 2;
 	overflow: auto;
 	// Background & borders
 	background-color: $dev_gray;
@@ -46,6 +46,57 @@
 
 }
 
+#sub_banner {
+	// Mixins
+
+	// Box properties
+	padding: $grid / 2;
+	// Background & borders
+	background: $brand;
+	// Typography
+	color: white;
+	// Other
+
+	h2 {
+		// Mixins
+	
+		// Box properties
+		display: inline-block;
+		margin: 0;	
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	.button {
+		// Mixins
+	
+		// Box properties
+		display: inline-block;
+		margin-left: $grid / 2;
+		// Background & borders
+		border-color: white;
+		// Typography
+		color: white;
+		// Other
+		
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background-color: white;
+			// Typography
+			color: $brand;
+			// Other
+		
+		}
+	}
+}
 
 .landing {
 	// Mixins
