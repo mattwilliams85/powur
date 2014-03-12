@@ -220,15 +220,28 @@ header {
 			
 				a {
 					// Mixins
-				
+					@include button;
 					// Box properties
 				
 					// Background & borders
-				
+					background: none;
 					// Typography
-					color: $brand;
+
 					// Other
 				
+					&:hover {
+						// Mixins
+					
+						// Box properties
+					
+						// Background & borders
+
+						// Typography
+
+						// Other
+					
+					}
+
 				}
 			}
 		}
@@ -361,8 +374,7 @@ footer {
 
 		// Typography
 		font-size: $font_size;
-		font-family: $dev_font;
-	
+		line-height: $line_height;
 		// Other
 	
 	}

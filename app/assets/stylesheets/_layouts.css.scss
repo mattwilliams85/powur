@@ -10,6 +10,32 @@
 
 	// Other
 
+	a {
+		// Mixins
+	
+		// Box properties
+		padding: 0;
+		margin: 0;
+		// Background & borders
+		border: none;
+		// Typography
+	
+		// Other
+	
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background: none;
+			border: none;
+			// Typography
+		
+			// Other
+		
+		}
+	}
 }
 
 #sunstand_logo {

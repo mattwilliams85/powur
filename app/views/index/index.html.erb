@@ -12,8 +12,10 @@
 </section>
 
 <section id="sub_banner">
-	<h2>Looking go solar for your home?</h2> 
-	<%= link_to "Find an advocate near you", "#", :class => "button" %>
+	<h2>Looking go solar for your home?</h2>
+	<label for="cust_zip">Zip Code</label>
+	<input id="cust_zip" name="cust_zip" type="text" placeholder="Your Zip Code" required/> 
+	<%= link_to "Find an advocate near you", "/customer/signup", :class => "button" %>
 </section>
 
 <section class="landing left">

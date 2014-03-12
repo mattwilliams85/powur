@@ -100,28 +100,46 @@
 
 	.button {
 		// Mixins
-	
+		@include corners(0, 4px, 0, 4px);
 		// Box properties
 		display: inline-block;
-		margin-left: $grid / 2;
+		margin-left: 0;
 		// Background & borders
 		border-color: white;
+		background: none;
 		// Typography
 		color: white;
 		// Other
 		
 		&:hover {
 			// Mixins
-		
 			// Box properties
 		
 			// Background & borders
-			background-color: white;
+			background-color: $brand_shadow;
 			// Typography
-			color: $brand;
+			color: white;
 			// Other
 		
 		}
+	}
+
+	input[type=text] {
+		// Mixins
+		@include corners(4px, 0, 4px, 0);
+		// Box properties
+		display: inline-block;
+		width: $grid * 5;
+		padding: $grid / 8 $grid / 4;
+		margin: -1px -7px 0 $grid / 4;
+		// Background & borders
+		border-color: white;
+		// Typography
+		color: $brand;
+		font-size: $grid / 2;
+		line-height: $line_height;
+		text-align: center;
+	
 	}
 }
 

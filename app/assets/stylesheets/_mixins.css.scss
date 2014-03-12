@@ -39,7 +39,8 @@
 	
 	$brand: #1DAEE4;
 	$brand_shadow: #26245F;
-	$brand_trans: rgba($brand, .1);
+	$brand_trans: #D5E2ED;
+
 
 	$dev_gray: darken($white, 5%);
 	$quiet: lighten($text, 25%);
@@ -136,6 +137,19 @@
 	    	color: white;
 			border: 1px solid darken($brand, 2%);
 
+	    }
+
+	    &.submit {
+	    	// Mixins
+	    
+	    	// Box properties
+    		padding: $grid / 2;
+	    	// Background & borders
+	    
+	    	// Typography
+	    	font-size: $font_size;
+	    	// Other
+	    
 	    }
   	}
 
