@@ -24,8 +24,36 @@
 		// Typography
 
 		font-size: $font_size * 2;
-		line-height: $grid;
+		line-height: $font_size;
 		text-align: left;
+		// Other
+	
+	}
+
+	p {
+		// Mixins
+	
+		// Box properties
+		margin: 0;
+		padding: 0;
+		// Background & borders
+	
+		// Typography
+		text-align: left;
+		color: $quiet;
+		// Other
+	
+	}
+
+	.get_started {
+		// Mixins
+	
+		// Box properties
+		margin-top: $grid * 1.5;
+		// Background & borders
+	
+		// Typography
+	
 		// Other
 	
 	}
@@ -37,7 +65,6 @@
 
 	// Box properties
 	float: left;
-	margin-top: $grid;
 	// Background & borders
 
 	// Typography
@@ -204,5 +231,18 @@
 		
 		}
 
+	}
+
+	.get_started {
+		// Mixins
+	
+		// Box properties
+		margin-top: $grid;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
 	}
 }
