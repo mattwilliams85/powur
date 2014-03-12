@@ -77,11 +77,11 @@ a {
 	// Mixins
 
 	// Box properties
-
+	padding: 0 4px;
 	// Background & borders
-
+	background-color: rgba($brand, .1);
 	// Typography
-	color: #222;
+	color: $brand;
 	text-decoration: none;
 
 	// Other
@@ -92,9 +92,10 @@ a {
 		// Box properties
 	
 		// Background & borders
-	
+		background-color: rgba($brand, 1);
+
 		// Typography
-		color: $brand;
+		color: white;
 		// Other
 	
 	}

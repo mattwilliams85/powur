@@ -37,6 +37,7 @@
 	$sunnyside: #ffc200;
 	$white: #f7f7f9;
 	$brand: #1DAEE4;
+	$brand_shadow: #26245F;
 	$dev_gray: darken($white, 5%);
 	$quiet: lighten($text, 25%);
 	$whisper: lighten($text, 45%);
@@ -115,11 +116,11 @@
 		display: block;
 
 		// Background & borders
-		background: $brand;
-		border: 1px solid darken($brand, 15%);
+		background: none;
+		border: 1px solid $brand;
 
 		// Typography
-		color: white;
+		color: $brand;
 		font-size: $grid / 2;
 		line-height: $line_height;
 

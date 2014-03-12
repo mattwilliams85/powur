@@ -30,20 +30,22 @@
 	
 	}
 
-	a.button {
-		// Mixins
-	
-		// Box properties
-		float: left;
-		// Background & borders
+}
 
-		// Typography
+.get_started {
+	// Mixins
 
-		// Other
+	// Box properties
+	float: left;
+	margin-top: $grid;
+	// Background & borders
 	
-	}
+	// Typography
+	font-size: $font_size * 1;
+	// Other
 
 }
+
 
 .landing {
 	// Mixins
@@ -52,7 +54,7 @@
 	padding: $grid * 2;
 	overflow: auto;
 	// Background & borders
-
+	border-bottom: $border;
 	// Typography
 	text-align: left;
 	// Other
