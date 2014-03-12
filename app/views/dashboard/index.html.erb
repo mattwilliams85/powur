@@ -1,11 +1,10 @@
 <section id="system_feedback">
-	<%= render :partial => "shared/sonny_svg" %>
-	<p>"You just started, so you're a sprout [classes: sprout, sapling, mighty oak, etc]. Add team members (branches) and leads (buds) to grow your customers (leaves)"</p>
+	<p>Here's a place for some system feedback...</p>
 </section>
 
 <section id="dashboard_kpis" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your Tree</h2>
+		<h2>Your Organization</h2>
 		<ul>
 			<li> 
 				<%= select_tag "Show", options_for_select(
@@ -20,17 +19,17 @@
 	</div>
 	<div class="section_content">
 		<div class="kpi" onclick="detailExpander('tree_team_detail');">
-			<h3>3 branches <i class="fa fa-pagelines"></i></h3>
+			<h3>3 branches</h3>
 			<span class="subtext">X amount of foo</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
 		<div class="kpi" onclick="detailExpander('tree_leads_detail');">
-			<h3>7 Buds <i class="fa fa-tint"></i></h3>
+			<h3>7 Leads</h3>
 			<span class="subtext">2 new this week</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
 		<div class="kpi" onclick="detailExpander('tree_customer_detail');">
-			<h3>13 leaves <i class="fa fa-leaf"></i></h3>
+			<h3>13 Rooftops</h3>
 			<span class="subtext">14,258 kWh saved</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
@@ -61,7 +60,7 @@
 
 <section id="dashboard_payments" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your Fruit</h2>
+		<h2>Your Earnings</h2>
 		<ul>
 			<li class="search"><i class="fa fa-search"></i></li>
 			<li> 
@@ -131,7 +130,7 @@
 
 <section id="dashboard_customers" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your leaves</h2>
+		<h2>Your Impact</h2>
 		<ul>
 			<li class="search"><i class="fa fa-search"></i></li>
 			<li>
@@ -163,7 +162,7 @@
 
 <section id="dashboard_leads" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your Buds</h2>
+		<h2>Your Leads</h2>
 		<a href="#" class="button">New <i class="fa fa-tint"></i></a>
 		<ul>
 			<li class="search"><i class="fa fa-search"></i></li>
@@ -229,7 +228,7 @@
 
 <section id="dashboard_pages" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your Garden</h2>
+		<h2>Your Pages</h2>
 		<a href="#" class="button">Invite Customer</a>
 		<a href="#" class="button">Invite Promoter</a>
 		<ul>
