@@ -39,7 +39,7 @@
 	float: left;
 	margin-top: $grid;
 	// Background & borders
-	
+
 	// Typography
 	font-size: $font_size * 1;
 	// Other
@@ -75,20 +75,32 @@
 	img {float: right;}
 
 
-	&.right {
+	&.left {
 		// Mixins
 	
 		// Box properties
-	
+
 		// Background & borders
-	
+		
 		// Typography
 	
 		// Other
 
-		img {float: left;}
-
 		p {
+			// Mixins
+		
+			// Box properties
+			float: left;
+			width: 50%;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+
+		.dev_img_placeholder {
 			// Mixins
 		
 			// Box properties
@@ -100,6 +112,46 @@
 			// Other
 		
 		}
+	}
+
+	&.right {
+		// Mixins
 	
+		// Box properties
+		// Background & borders
+		background-color: $dev_gray;
+		// Typography
+	
+		// Other
+
+		p, h2 {
+			// Mixins
+		
+			// Box properties
+			float: right;
+			clear: both;
+			width: 50%;
+
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+
+		.dev_img_placeholder {
+			// Mixins
+		
+			// Box properties
+			float: left;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+
 	}
 }

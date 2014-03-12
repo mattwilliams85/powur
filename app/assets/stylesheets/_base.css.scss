@@ -75,11 +75,11 @@ h4 {
 }
 a {
 	// Mixins
-
+	@include corners(3px, 3px, 3px, 3px);
 	// Box properties
 	padding: 0 4px;
 	// Background & borders
-	background-color: rgba($brand, .1);
+	background-color: $brand_trans;
 	// Typography
 	color: $brand;
 	text-decoration: none;

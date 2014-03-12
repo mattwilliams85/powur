@@ -36,11 +36,15 @@
 	$supergreen: #22a500;
 	$sunnyside: #ffc200;
 	$white: #f7f7f9;
+	
 	$brand: #1DAEE4;
 	$brand_shadow: #26245F;
+	$brand_trans: rgba($brand, .1);
+
 	$dev_gray: darken($white, 5%);
 	$quiet: lighten($text, 25%);
 	$whisper: lighten($text, 45%);
+	
 	$neutral: #DAEDF6;
 	$positive: #DFF0D9;
 	$negative: #f2d5d9;
@@ -116,7 +120,7 @@
 		display: block;
 
 		// Background & borders
-		background: none;
+		background: $brand_trans;
 		border: 1px solid $brand;
 
 		// Typography

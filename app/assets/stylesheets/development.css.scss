@@ -160,3 +160,20 @@
 	// Typography
 	// Other
 }
+
+.dev_img_placeholder {
+	// Mixins
+	@include corners;
+	// Box properties
+	width: 30%;
+	padding: $grid;
+	margin-top: $grid * 2;
+	// Background & borders
+	border: $border;
+	background: $brand_trans;
+	// Typography
+	text-align: center;
+	color: $quiet;
+	// Other
+
+}
