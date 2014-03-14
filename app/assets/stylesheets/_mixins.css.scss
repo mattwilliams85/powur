@@ -129,6 +129,7 @@
 		color: $brand;
 		font-size: $grid / 2;
 		line-height: $line_height;
+		text-align: center;
 
 		// Other
 	    cursor: pointer;
@@ -152,6 +153,30 @@
 	    	// Other
 	    
 	    }
+  	}
+
+  	@mixin quiet_button {
+		// Mixins
+	
+		// Box properties
+		float: left;
+		clear: none;
+		margin:0;
+
+		// Background & borders
+		background: none;
+		border: $border;
+
+		// Typography
+		color: $quiet;
+
+		// Other
+		
+		&:hover {
+			background: $brand;
+			color: white;
+			border: 1px solid darken($brand, 2%);
+		}
   	}
 
 	@mixin object_thumbnail {
@@ -189,6 +214,23 @@
 		
 			// Typography
 			text-align: center;
+			// Other
+		
+		}
+
+		.button {
+			// Mixins
+			@include quiet_button;
+			@include box_sizing;
+			// Box properties
+			float: none;
+			display: block;
+			width: 80%;
+			margin: $grid auto $grid / 2;
+			// Background & borders
+		
+			// Typography
+			
 			// Other
 		
 		}

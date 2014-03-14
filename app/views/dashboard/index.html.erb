@@ -1,40 +1,33 @@
-<section id="system_feedback">
-	<h3>Our Global Goal:</h3>
-	<div id="global_progress_bar">
-		<span class="global_progress_bar_text">19,452 homes</span>
-	</div>
-	<span class="global_goal">2,000,000 by 2025</span>
-</section>
-
 <section id="dashboard_kpis" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your Organization</h2>
+		<h2>Your Impact</h2>
 		<ul>
 			<li> 
 				<%= select_tag "Show", options_for_select(
 					[
 						"1st forks", 
 					    "2nd forks", 
-					    "3rd forks"
+					    "3rd forks",
+					    "All forks"
 					], ["1st fork"]) 
 				%>
 			</li>
 		</ul>
 	</div>
 	<div class="section_content">
-		<div class="kpi" onclick="detailExpander('tree_team_detail');">
-			<h3>3 branches</h3>
-			<span class="subtext">X amount of foo</span>
+		<div class="kpi" onclick="detailExpander('tree_co2_detail');">
+			<h3>32 metric tons</h3>
+			<span class="subtext">CO2 Saved</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
-		<div class="kpi" onclick="detailExpander('tree_leads_detail');">
-			<h3>7 Leads</h3>
-			<span class="subtext">2 new this week</span>
+		<div class="kpi" onclick="detailExpander('tree_equivalents_detail');">
+			<h3>1 small forrest</h3>
+			<span class="subtext">Impact Equivalent</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
 		<div class="kpi" onclick="detailExpander('tree_customer_detail');">
-			<h3>13 Rooftops</h3>
-			<span class="subtext">14,258 kWh saved</span>
+			<h3>14,258 kWh</h3>
+			<span class="subtext">Generated Energy</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
 		<div class="kpi" onclick="detailExpander('tree_payout_detail');">
@@ -50,15 +43,46 @@
 		</div>
 	</div>
 
-	<%= render partial: "tree_team_detail"%>
+	<%= render partial: "tree_co2_detail"%>
 
-	<%= render partial: "tree_leads_detail"%>
+	<%= render partial: "tree_equivalents_detail"%>
 
 	<%= render partial: "tree_customer_detail"%>
 
 	<%= render partial: "tree_payout_detail"%>
 
 	<%= render partial: "tree_volume_detail"%>
+
+</section>
+
+<section id="dashboard_leads" class="dashboard_section">
+	<div class="section_header">
+		<h2>Your Leads</h2>
+		<a href="#" class="button">Show tips</a>
+		<ul>
+			<li class="search"><i class="fa fa-search"></i></li>
+			<li>
+				<%= select_tag "Sort", options_for_select(
+					[
+						"By newest", 
+					    "By oldest", 
+					    "By most complete", 
+					    "By least complete"
+					], ["By newest"]) 
+				%>
+			</li>
+		</ul>
+	</div>
+	<div class="section_content">
+		<%= render partial: "new_lead_thumbnail" %>
+		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Marky", :last_name => "Mark", :has_address => true, :has_rooftop => false, :has_utility => true}%>
+		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Bonilla", :has_address => false, :has_rooftop => false, :has_utility => false}%>
+		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "The Rat", :has_address => true, :has_rooftop => true, :has_utility => false}%>
+	</div>
+	<div class="section_notification positive">
+		<a href="#">This is a positive notification about Mr. Mark - click to go to a new page...</a>
+		<span class="dismiss"><i class="fa fa-times"></i></span>
+	</div>
 
 </section>
 
@@ -134,7 +158,7 @@
 
 <section id="dashboard_customers" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your Impact</h2>
+		<h2>Your Customers</h2>
 		<ul>
 			<li class="search"><i class="fa fa-search"></i></li>
 			<li>
@@ -161,36 +185,6 @@
 <!-- 	<div class="fluid-wrapper">
 		<iframe src="https://mapsengine.google.com/map/u/0/embed?mid=zkJJ8DsdQ4Zg.kDpcIzes3Bb0" width="640" height="480" scrolling="no" id="customer_map"></iframe>
 	</div> -->
-
-</section>
-
-<section id="dashboard_leads" class="dashboard_section">
-	<div class="section_header">
-		<h2>Your Leads</h2>
-		<a href="#" class="button">New <i class="fa fa-tint"></i></a>
-		<ul>
-			<li class="search"><i class="fa fa-search"></i></li>
-			<li>
-				<%= select_tag "Sort", options_for_select(
-					[
-						"By newest", 
-					    "By oldest", 
-					    "By most complete", 
-					    "By least complete"
-					], ["By newest"]) 
-				%>
-			</li>
-		</ul>
-	</div>
-	<div class="section_content">
-		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Marky", :last_name => "Mark", :has_address => true, :has_rooftop => false, :has_utility => true}%>
-		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Bonilla", :has_address => false, :has_rooftop => false, :has_utility => false}%>
-		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "The Rat", :has_address => true, :has_rooftop => true, :has_utility => false}%>
-	</div>
-	<div class="section_notification positive">
-		<a href="#">This is a positive notification about Barry - click to go to a new page...</a>
-		<span class="dismiss"><i class="fa fa-times"></i></span>
-	</div>
 
 </section>
 

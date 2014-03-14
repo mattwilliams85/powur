@@ -134,7 +134,9 @@
 	overflow: auto;
 	// Background & borders
 	background-color: $dev_gray;
-
+	background-image: url(image-path('bg_tic.svg'));
+	background-repeat: repeat-x;
+	background-size: contain;
 	// Typography
 
 	// Other
@@ -182,6 +184,36 @@
 			// Other
 		
 		}
+	
+	}
+
+	#global_progress_your_contribution {
+		// Mixins
+	
+		// Box properties
+		width: $grid * .5;
+		height: $grid * 1.5;
+		float: left;
+		// Background & borders
+		background-color: darken($supergreen, 4%);
+		border-left: $border;	
+		// Typography
+	
+		// Other
+	
+	}
+
+	.global_progress_your_contribution_text {
+		// Mixins
+	
+		// Box properties
+		float: left;
+		padding: $grid / 4 $grid / 4;
+		// Background & borders
+	
+		// Typography
+		color: $whisper;
+		// Other
 	
 	}
 
@@ -234,7 +266,7 @@
 		// Box properties
 	
 		// Background & borders
-		background: white;
+		background: $dev_gray;
 		// Typography
 	
 		// Other
@@ -400,28 +432,17 @@
 	
 	}
 
-	a.button {
+	.button {
 		// Mixins
-	
+		@include quiet_button;
 		// Box properties
-		float: left;
-		clear: none;
-		margin:0 0 0 $grid;
-
+		margin-left: $grid;
 		// Background & borders
-		background: none;
-		border: $border;
-
+		border: none;
 		// Typography
-		color: $quiet;
 
 		// Other
-		
-		&:hover {
-			background: $brand;
-			color: white;
-			border: 1px solid darken($brand, 2%);
-		}
+
 	}
 
 	ul {
