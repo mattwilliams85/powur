@@ -7,7 +7,7 @@ body {
 	padding-bottom: $grid * 2;
 
 	// Background & borders
-	background: $white;
+	background: white;
 
 	// Typography
 	color: $text;
@@ -309,10 +309,11 @@ footer {
 
 	// Background & borders
 	border-top: $border;
-	background: $dev_gray;
+	background: $sunnyside;
 
 	// Typography
 	text-align: center;
+	color: white;
 
 	// Other
 

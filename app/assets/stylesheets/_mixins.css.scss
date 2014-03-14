@@ -35,14 +35,15 @@
 	$red: #f46b41;
 	$supergreen: #22a500;
 	$sunnyside: #ff9e15;
-	$white: #f7f7f9;
+	$white: lighten($sunnyside, 45%); //was #f7f7f9
 	
-	$brand: #1DAEE4;
+	$brand: #1da0e4;
 	$brand_shadow: #26245F;
 	$brand_trans: #D5E2ED;
+	$brand_white: lighten($brand, 45%);
 
 
-	$dev_gray: darken($white, 5%);
+	$dev_gray: darken($white, 3%);
 	$quiet: lighten($text, 25%);
 	$whisper: lighten($text, 45%);
 	

@@ -230,7 +230,7 @@
 	
 		// Box properties
 		// Background & borders
-		background-color: $dev_gray;
+		background-color: $brand_white;
 		// Typography
 	
 		// Other
@@ -278,4 +278,36 @@
 		// Other
 	
 	}
+
+	&#tools {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background-image: url(image-path('dashboard_hero.png'));
+		background-repeat: no-repeat;
+		background-position: -30px center;
+		background-size: contain;
+		// Typography
+	
+		// Other
+	
+	}
+
+	&#requirements {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	background-image: url(image-path('paperwork_hero.png'));
+	background-repeat: no-repeat;
+	background-position: 50px center;
+	background-size: contain;
+	// Typography
+
+	// Other
+
+}
 }
