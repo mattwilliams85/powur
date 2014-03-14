@@ -130,16 +130,74 @@
 	// Mixins
 
 	// Box properties
-	padding: $grid;
-
+	padding: 0;
+	overflow: auto;
 	// Background & borders
-	background-color: $brand;
+	background-color: $dev_gray;
 
 	// Typography
-	color: white;
 
 	// Other
 
+	h3 {
+		// Mixins
+	
+		// Box properties
+		padding: $grid / 4 $grid / 2;
+		float: left;
+		// Background & borders
+		background: $brand;
+		border-right: $border;
+		// Typography
+		color: white;
+		// Other
+	
+	}
+
+	#global_progress_bar {
+		// Mixins
+		// Box properties
+		width: $grid * 6;
+		height: $grid * 1.5;
+		float: left;
+		// Background & borders
+		background-color: $supergreen;
+		background-image: url(image-path('bg_clapper.svg'));
+		background-repeat: repeat-x;
+		background-size: contain;
+		// Typography
+	
+		// Other
+
+		.global_progress_bar_text {
+			// Mixins
+		
+			// Box properties
+			display: block;
+			padding: $grid / 4 $grid / 2;
+			// Background & borders
+		
+			// Typography
+			color: rgba(white, .5);
+			// Other
+		
+		}
+	
+	}
+
+	.global_goal {
+		// Mixins
+	
+		// Box properties
+		float: right;
+		padding: $grid / 4 $grid / 2;
+		// Background & borders
+	
+		// Typography
+		color: $whisper;
+		// Other
+	
+	}
 }
 
 #sonny {
