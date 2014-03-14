@@ -9,7 +9,10 @@
 	padding: $grid * 3 $grid * 2;
 	overflow: auto;
 	// Background & borders
-	background-color: $dev_gray;
+	background-color: #F2E491;
+	background-image: url(banner_bg1.jpg);
+	background-repeat: no-repeat;
+	background-position: right -220px;
 	border-bottom: $border;
 	// Typography
 
@@ -18,13 +21,12 @@
 	h1 {
 		// Mixins
 		// Box properties
-	
+		margin: 0;
 		// Background & borders
 	
 		// Typography
-
 		font-size: $font_size * 2;
-		line-height: $font_size;
+		line-height: $font_size * 2.5;
 		text-align: left;
 		// Other
 	
@@ -34,13 +36,13 @@
 		// Mixins
 	
 		// Box properties
-		margin: 0;
+		margin: $grid 0 0 0;
 		padding: 0;
 		// Background & borders
 	
 		// Typography
 		text-align: left;
-		color: $quiet;
+		color: $text;
 		// Other
 	
 	}
@@ -51,11 +53,24 @@
 		// Box properties
 		margin-top: $grid * 1.5;
 		// Background & borders
-	
+		background: $brand;
 		// Typography
-	
+		color: white;
 		// Other
-	
+		
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background-color: $sunnyside;
+			border-color: darken($sunnyside, 10%);
+			// Typography
+		
+			// Other
+		
+		}
 	}
 
 }
@@ -116,7 +131,7 @@
 			// Box properties
 		
 			// Background & borders
-			background-color: $brand_shadow;
+			background-color: $sunnyside;
 			// Typography
 			color: white;
 			// Other

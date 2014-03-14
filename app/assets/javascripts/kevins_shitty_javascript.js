@@ -40,4 +40,16 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 		$(".dismiss").click(function(){
 			$(this).parent().hide();
 		});
+
+	// Parallax scrollingish?
+
+    window.onscroll = function() {
+    	var banner = document.getElementById("index_banner");
+	    var speed = 1.8;
+	    var yOffset = window.pageYOffset;
+		banner.style.backgroundPosition = "right "+ (-220 + (-yOffset / speed)) + "px";
+    };
+
+    // Just to make sure my syntax is still valid - that's how good I am at this...
+	// alert( "welcome" );
 });
