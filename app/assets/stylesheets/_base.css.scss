@@ -197,7 +197,7 @@ header {
 			
 				// Box properties
 				float: left;
-				margin-left: $grid;
+				margin-left: 0;
 				padding: $grid / 2;
 				// Background & borders
 			
@@ -222,7 +222,7 @@ header {
 					// Mixins
 					@include button;
 					// Box properties
-				
+					margin: 0;
 					// Background & borders
 					background: none;
 					// Typography

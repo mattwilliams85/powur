@@ -43,15 +43,15 @@
 		</div>
 	</div>
 
-	<%= render partial: "tree_co2_detail"%>
+	<%= render partial: "shared/tree_co2_detail"%>
 
-	<%= render partial: "tree_equivalents_detail"%>
+	<%= render partial: "shared/tree_equivalents_detail"%>
 
-	<%= render partial: "tree_customer_detail"%>
+	<%= render partial: "shared/tree_customer_detail"%>
 
-	<%= render partial: "tree_payout_detail"%>
+	<%= render partial: "shared/tree_payout_detail"%>
 
-	<%= render partial: "tree_volume_detail"%>
+	<%= render partial: "shared/tree_volume_detail"%>
 
 </section>
 
@@ -74,10 +74,10 @@
 		</ul>
 	</div>
 	<div class="section_content">
-		<%= render partial: "new_lead_thumbnail" %>
-		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Marky", :last_name => "Mark", :has_address => true, :has_rooftop => false, :has_utility => true}%>
-		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Bonilla", :has_address => false, :has_rooftop => false, :has_utility => false}%>
-		<%= render partial: "lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "The Rat", :has_address => true, :has_rooftop => true, :has_utility => false}%>
+		<%= render partial: "shared/new_lead_thumbnail" %>
+		<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Marky", :last_name => "Mark", :has_address => true, :has_rooftop => false, :has_utility => true}%>
+		<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Bonilla", :has_address => false, :has_rooftop => false, :has_utility => false}%>
+		<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "The Rat", :has_address => true, :has_rooftop => true, :has_utility => false}%>
 	</div>
 	<div class="section_notification positive">
 		<a href="#">This is a positive notification about Mr. Mark - click to go to a new page...</a>
@@ -86,143 +86,6 @@
 
 </section>
 
-<section id="dashboard_payments" class="dashboard_section">
-	<div class="section_header">
-		<h2>Your Earnings</h2>
-		<ul>
-			<li class="search"><i class="fa fa-search"></i></li>
-			<li> 
-				<%= select_tag "Show", options_for_select(
-					[
-						"Past 3 months", 
-					    "Past 6 months", 
-					    "Past year", 
-					    "All time"
-					], ["Past 3 months"]) 
-				%>
-			</li>
-			<li>
-				<%= select_tag "Sort", options_for_select(
-					[
-						"By latest", 
-					    "By earliest", 
-					    "By highest", 
-					    "By lowest"
-					], ["By latest"]) 
-				%>
-			</li>
-		</ul>
-	</div>
-	<div class="section_content">
-		<%= render partial: "payment_thumbnail", :locals => {:amount => "$2,345", :mail_date => "4/1/14", :has_mailed => false}%>
-		<%= render partial: "payment_thumbnail", :locals => {:amount => "$1,234", :mail_date => "3/23/14", :has_mailed => true}%>
-		<%= render partial: "payment_thumbnail", :locals => {:amount => "$789", :mail_date => "3/16/14", :has_mailed => true}%>
-	</div>
-	<div class="object_detail">
-		<span class="dismiss"><i class="fa fa-times"></i></span>
-		<div class="object_detail_content">
-			<div class="object_detail_content_section summary">
-				<h4>$1,234 total payment</h4>
-				<span class="subtext">$12,345 total volume</span>
-				<span class="subtext">Up 156% from previous</span>
-			</div>
-			<div class="object_detail_content_section">
-				<h4>One-time: $456</h4>
-				<span class="subtext">Johnson : 2/14/14 : $123</span>
-				<span class="subtext">Pyle : 2/16/14 : $123</span>
-				<span class="subtext">Gomez : 2/14/14 : $123</span>
-				<span class="expand">
-			  		<i class="fa fa-angle-down"></i>
-			  	</span>
-			</div>
-			<div class="object_detail_content_section">
-				<h4>Recurring: $678</h4>
-				<span class="subtext">Johnson : 2/14/14 : $123</span>
-				<span class="subtext">Pyle : 2/16/14 : $123</span>
-				<span class="subtext">Gomez : 2/14/14 : $123</span>
-				<span class="expand">
-			  		<i class="fa fa-angle-down"></i>
-			  	</span>
-			</div>
-			<div class="object_detail_content_section">
-				<h4>Bonuses: $100</h4>
-				<span class="subtext">kWh Savers Bonus: $100</span>
-				<span class="expand">
-			  		<i class="fa fa-angle-down"></i>
-			  	</span>
-
-			</div>
-		</div>
-	</div>
-</section>
-
-<section id="dashboard_customers" class="dashboard_section">
-	<div class="section_header">
-		<h2>Your Customers</h2>
-		<ul>
-			<li class="search"><i class="fa fa-search"></i></li>
-			<li>
-				<%= select_tag "Sort", options_for_select(
-					[
-						"By top earnings", 
-					    "By lowest earnings", 
-					    "By energy saved", 
-					    "By newest"
-					], ["By top earnings"]) 
-				%>
-			</li>
-		</ul>
-	</div>
-	<div class="section_content">
-		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Ross Betsy", :kWh => "4,458", :total_fruit => "$4,587"}%>
-		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Jack Andrew", :kWh => "134", :total_fruit => "$147"}%>
-		<%= render partial: "customer_thumbnail", :locals => {:customer_name => "Frank Benjamin", :kWh => "487", :total_fruit => "$23"}%>
-	</div>
-	<div class="section_notification neutral js-expand_notification">
-		This is a neutral notification about Jack - click to expand and see more...
-		<span class="dismiss"><i class="fa fa-times"></i></span>
-	</div>
-<!-- 	<div class="fluid-wrapper">
-		<iframe src="https://mapsengine.google.com/map/u/0/embed?mid=zkJJ8DsdQ4Zg.kDpcIzes3Bb0" width="640" height="480" scrolling="no" id="customer_map"></iframe>
-	</div> -->
-
-</section>
-
-<section id="dashboard_team" class="dashboard_section">
-	<div class="section_header">
-		<h2>Your Branches</h2>
-		<a href="#" class="button">New <i class="fa fa-pagelines"></i></a>
-		<ul>
-			<li class="search"><i class="fa fa-search"></i></li>
-			<li>
-				<%= select_tag "Sort", options_for_select(
-					[
-						"By latest", 
-					    "By earliest", 
-					    "By highest", 
-					    "By lowest"
-					], ["By latest"]) 
-				%>
-			</li>
-		</ul>
-	</div>
-	<div class="section_content">
-
-		<%= render partial: "team_thumbnail"%>
-
-	</div>
-	<div class="object_detail collapsed">
-		<span class="dismiss"><i class="fa fa-times"></i></span>
-		<h3>Thatch R. Margaret: Sapling</h3>
-		<div class="object_detail second">
-			<span class="dismiss"><i class="fa fa-times"></i></span>
-			<div class="object_detail_content">
-				<p>This is some in-depth information on Thatch R. Margaret, a member of Sherry Bailey's team. This is an example of drilling down through levels of information using vertical breadcrumbs.</p>
-				<p>If we close this, the we go back up to some in-depth information about Sherry, perhaps. Or, if we want to drill down further, we can simple repeat this pattern as deep as we like - the user can always find there way back up through the levels, or close the whole thing without difficulty.</p>
-			</div>
-		</div>
-	</div>
-</section>
 
 <section id="dashboard_pages" class="dashboard_section">
 	<div class="section_header">

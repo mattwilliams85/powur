@@ -65,6 +65,8 @@ Mysolar::Application.routes.draw do
   get 'user' => 'user#index'
   get 'user/reset_password' => 'user#reset_password'
 
+  get 'organization' => 'organization#index'
+
   get 'dashboard' => 'dashboard#index'
 
   get 'training' => 'training#index'
