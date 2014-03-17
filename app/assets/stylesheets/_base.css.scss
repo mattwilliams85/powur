@@ -158,7 +158,7 @@ header {
 	// Mixins
 
 	// Box properties
-	padding: $grid / 2 $grid;
+	padding: $grid / 4 $grid;
 
 	// Background & borders
 	border-bottom: $border;
@@ -202,7 +202,8 @@ header {
 				// Background & borders
 			
 				// Typography
-			
+				font-size: $grid / 2;
+				text-align: center;	
 				// Other
 			
 				&:first-child {
@@ -220,13 +221,13 @@ header {
 			
 				a {
 					// Mixins
-					@include button;
 					// Box properties
 					margin: 0;
+					padding: 0;
 					// Background & borders
 					background: none;
 					// Typography
-
+					color: $brand;
 					// Other
 				
 					&:hover {
@@ -235,9 +236,9 @@ header {
 						// Box properties
 					
 						// Background & borders
-
+						background: $brand_white;
 						// Typography
-
+						color: $brand;
 						// Other
 					
 					}

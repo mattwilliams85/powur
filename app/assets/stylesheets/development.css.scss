@@ -71,7 +71,7 @@
 }
 
 
-.dev-hack_for_arrow_placement_tree_team:before {
+.dev-hack_for_arrow_placement_tree_co2:before {
 	// Mixins
 	// Box properties
 	// Background & borders
@@ -80,7 +80,7 @@
 	// Other
 }
 
-.dev-hack_for_arrow_placement_tree_team:after {
+.dev-hack_for_arrow_placement_tree_co2:after {
 	// Mixins
 	// Box properties
 	// Background & borders
@@ -89,7 +89,7 @@
 	// Other
 }
 
-.dev-hack_for_arrow_placement_tree_leads:before {
+.dev-hack_for_arrow_placement_tree_equivalents:before {
 	// Mixins
 	// Box properties
 	// Background & borders
@@ -98,7 +98,7 @@
 	// Other
 }
 
-.dev-hack_for_arrow_placement_tree_leads:after {
+.dev-hack_for_arrow_placement_tree_equivalents:after {
 	// Mixins
 	// Box properties
 	// Background & borders
@@ -125,7 +125,7 @@
 	// Other
 }
 
-.dev-hack_for_arrow_placement_tree_payout:before {
+.dev-hack_for_arrow_placement_tree_team:before {
 	// Mixins
 	// Box properties
 	// Background & borders
@@ -134,7 +134,7 @@
 	// Other
 }
 
-.dev-hack_for_arrow_placement_tree_payout:after {
+.dev-hack_for_arrow_placement_tree_team:after {
 	// Mixins
 	// Box properties
 	// Background & borders
@@ -165,15 +165,13 @@
 	// Mixins
 	@include corners;
 	// Box properties
-	width: 30%;
-	padding: $grid;
-	margin-top: $grid * 2;
+	padding: $grid / 2;
 	// Background & borders
 	border: $border;
-	background: $brand_trans;
+	border-style: dashed;
 	// Typography
 	text-align: center;
-	color: $quiet;
+	color: $whisper;
 	// Other
 
 }

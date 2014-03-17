@@ -203,21 +203,19 @@
 			color: $brand;
 		}
 
-		.expand {
+		.thumbnail_graphic {
 			// Mixins
 		
 			// Box properties
-			clear: both;
-			display: block;
-
+			margin-bottom: $grid / 2;
+			height: $grid * 2;
 			// Background & borders
 		
 			// Typography
-			text-align: center;
+		
 			// Other
 		
 		}
-
 		.button {
 			// Mixins
 			@include quiet_button;
@@ -231,6 +229,21 @@
 		
 			// Typography
 			
+			// Other
+		
+		}
+
+		.expand {
+			// Mixins
+		
+			// Box properties
+			clear: both;
+			display: block;
+
+			// Background & borders
+		
+			// Typography
+			text-align: center;
 			// Other
 		
 		}

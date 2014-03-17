@@ -1,6 +1,6 @@
 <section id="dashboard_kpis" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your Impact</h2>
+		<h2>Overview</h2>
 		<ul>
 			<li> 
 				<%= select_tag "Show", options_for_select(
@@ -16,27 +16,35 @@
 	</div>
 	<div class="section_content">
 		<div class="kpi" onclick="detailExpander('tree_co2_detail');">
+			<div class="thumbnail_graphic dev_img_placeholder">[smokestack graphic]</div>
 			<h3>32 metric tons</h3>
 			<span class="subtext">CO2 Saved</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
+
 		<div class="kpi" onclick="detailExpander('tree_equivalents_detail');">
+			<div class="thumbnail_graphic dev_img_placeholder">[forrest graphic]</div>
 			<h3>1 small forrest</h3>
 			<span class="subtext">Impact Equivalent</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
+
 		<div class="kpi" onclick="detailExpander('tree_customer_detail');">
-			<h3>14,258 kWh</h3>
-			<span class="subtext">Generated Energy</span>
+			<div class="thumbnail_graphic dev_img_placeholder">[house graphic]</div>
+			<h3>421 Homes</h3>
+			<span class="subtext">14,258 kWh</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
-		<div class="kpi" onclick="detailExpander('tree_payout_detail');">
-			<h3>$3,531 payout</h3>
-			<span class="subtext">Up 13% this week</span>
+
+		<div class="kpi" onclick="detailExpander('tree_team_detail');">
+			<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
+			<h3>31 Advocates</h3>
+			<span class="subtext">foo</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
 
 		<div class="kpi" onclick="detailExpander('tree_volume_detail');">
+			<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
 			<h3>$32,450 Volume</h3>
 			<span class="subtext">Down 5% this week</span>
 			<i class="fa fa-angle-down"></i>
@@ -49,7 +57,7 @@
 
 	<%= render partial: "shared/tree_customer_detail"%>
 
-	<%= render partial: "shared/tree_payout_detail"%>
+	<%= render partial: "shared/tree_team_detail"%>
 
 	<%= render partial: "shared/tree_volume_detail"%>
 
