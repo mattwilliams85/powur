@@ -153,6 +153,31 @@
 	    	// Other
 	    
 	    }
+
+	    &.primary {
+	    	// Mixins
+	    
+	    	// Box properties
+	    
+	    	// Background & borders
+	    	background: $brand;
+	    	// Typography
+	    	color: white;
+	    	// Other
+	    
+	    	&:hover {
+	    		// Mixins
+	    	
+	    		// Box properties
+	    	
+	    		// Background & borders
+	    		background: $brand_shadow;
+	    		// Typography
+	    	
+	    		// Other
+	    	
+	    	}
+	    }
   	}
 
   	@mixin quiet_button {

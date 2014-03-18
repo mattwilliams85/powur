@@ -38,8 +38,8 @@
 
 		<div class="kpi" onclick="detailExpander('tree_team_detail');">
 			<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
-			<h3>31 Advocates</h3>
-			<span class="subtext">foo</span>
+			<h3>32 Team Members</h3>
+			<span class="subtext">93 in my organization</span>
 			<i class="fa fa-angle-down"></i>
 		</div>
 
@@ -100,20 +100,9 @@
 		<h2>Your Pages</h2>
 		<a href="#" class="button">Invite Customer</a>
 		<a href="#" class="button">Invite Promoter</a>
-		<ul>
-			<li> 
-				<%= select_tag "Show", options_for_select(
-					[
-						"Past 24 hours", 
-					    "Past week", 
-					    "Past month", 
-					    "All time"
-					], ["Past 24 hours"]) 
-				%>
-			</li>
-		</ul>
 	</div>
 	<div class="section_content">
+		<%= render partial: "shared/new_link_thumbnail" %>
 
 		<div class="customer_page_kpis">
 			<h3><a href="/customer/signup/#1234">Customer Referral Page</a></h3>
@@ -134,4 +123,7 @@
 			</p>
 		</div>
 	</div>
+
+	<%= render partial: "shared/new_link_detail"%>
+
 </section>
