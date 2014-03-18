@@ -112,9 +112,29 @@
 	    border-bottom-right-radius: $br;
 	}
 
+	@mixin form_box {
+		// Mixins
+		@include corners;
+		@include box-sizing;
+		// Box properties
+		display: block;
+		width: 100%;
+		padding: $grid / 8 $grid / 2;
+		margin-bottom: $grid / 2;
+		// Background & borders
+	
+		// Typography
+		font-size: $grid / 2;
+		line-height: $line_height;
+		font-family: $body_font;
+
+		// Other
+	
+	}
+
 	@mixin button {
 		// Mixins
-	    @include corners;
+	    @include form_box;
 
 		// Box properties
 		padding: $grid / 8 $grid / 2;

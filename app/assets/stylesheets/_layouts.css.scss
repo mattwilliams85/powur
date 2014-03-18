@@ -438,6 +438,9 @@
 		@include quiet_button;
 		// Box properties
 		margin-left: $grid;
+		float: left;
+		clear: none;
+		width: auto;
 		// Background & borders
 		border: none;
 		// Typography
