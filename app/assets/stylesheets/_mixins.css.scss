@@ -57,7 +57,7 @@
 
 	$body_font: 'Muli', sans-serif;
 	$title_font: 'Muli', sans-serif;
-
+	$form_font: 'Open Sans', sans-serif;
 
 // Header Calculations
 
@@ -119,14 +119,14 @@
 		// Box properties
 		display: block;
 		width: 100%;
-		padding: $grid / 8 $grid / 2;
+		padding: $grid / 4 $grid / 2;
 		margin-bottom: $grid / 2;
 		// Background & borders
 	
 		// Typography
 		font-size: $grid / 2;
 		line-height: $line_height;
-		font-family: $body_font;
+		font-family: $form_font;
 
 		// Other
 	
@@ -137,9 +137,8 @@
 	    @include form_box;
 
 		// Box properties
-		padding: $grid / 8 $grid / 2;
 		clear: both;
-		display: block;
+
 
 		// Background & borders
 		background: $brand_trans;
@@ -147,8 +146,6 @@
 
 		// Typography
 		color: $brand;
-		font-size: $grid / 2;
-		line-height: $line_height;
 		text-align: center;
 
 		// Other

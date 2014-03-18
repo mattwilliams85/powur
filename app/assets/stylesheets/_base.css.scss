@@ -414,7 +414,7 @@ footer {
 		-webkit-appearance: none;
 
 		&:hover {
-			background: $brand;
+			background-color: $brand;
 			color: white;
 			border: 1px solid darken($brand, 2%);
 		}
