@@ -100,10 +100,12 @@
 		<h2>Your Pages</h2>
 	</div>
 	<div class="section_content">
-		<%= render partial: "shared/new_link_thumbnail" %>
 		<%= render partial: "shared/invite_thumbnail" %>
-	</div>
+		<%= render partial: "shared/new_link_thumbnail" %>
+		<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
+		<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
 
-	<%= render partial: "shared/new_link_detail"%>
+	</div>
 	<%= render partial: "shared/invite_detail"%>
+	<%= render partial: "shared/new_link_detail"%>
 </section>
