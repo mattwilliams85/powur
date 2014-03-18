@@ -328,7 +328,7 @@ footer {
 		// Box properties
 		width: 100%;
 		margin: 0 auto;
-
+		position: relative;
 		// Background & borders
 
 		// Typography
@@ -342,13 +342,16 @@ footer {
 		// Mixins
 	
 		// Box properties
-		display: none;
-		width: 100%;
+		position: absolute;
+		top: $grid / 4;
+		text-align: right;
 
 		// Background & borders
 	
 		// Typography
-	
+		color: $quiet;
+		font-size: $grid / 2;
+		line-height: $line_height;
 		// Other
 	
 	}
@@ -385,9 +388,13 @@ footer {
 			color: $text;
 			font-style: normal;
 			// Other
-		
+
 		}
 	}
+
+	input:focus::-webkit-input-placeholder { color:transparent; }
+	input:focus:-moz-placeholder { color:transparent; }
+
 
 	select {
 		// Mixins

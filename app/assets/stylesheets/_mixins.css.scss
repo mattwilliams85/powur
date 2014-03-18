@@ -38,7 +38,7 @@
 	$white: lighten($sunnyside, 45%); //was #f7f7f9
 	
 	$brand: #1da0e4;
-	$brand_shadow: #26245F;
+	$brand_shadow: darken($brand, 10%);
 	$brand_trans: #D5E2ED;
 	$brand_white: lighten($brand, 45%);
 
@@ -141,20 +141,20 @@
 
 
 		// Background & borders
-		background: $brand_trans;
-		border: 1px solid $brand;
+		background: $brand;
+		border: 1px solid darken($brand, 2%);
 
 		// Typography
-		color: $brand;
+		color: $white;
 		text-align: center;
 
 		// Other
 	    cursor: pointer;
 
 	    &:hover {
-	    	background: $brand;
+	    	background: $brand_shadow;
 	    	color: white;
-			border: 1px solid darken($brand, 2%);
+			border: 1px solid darken($brand_shadow, 2%);
 
 	    }
 

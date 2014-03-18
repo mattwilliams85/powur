@@ -1,3 +1,41 @@
 // Place all the styles related to the promoter controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.signup {
+	// Mixins
+
+	// Box properties
+	padding: $grid * 2;
+	overflow: auto;
+	// Background & borders
+	// Typography
+	// Other
+
+	h2 {
+		// Mixins
+	
+		// Box properties
+		margin-bottom: $grid;
+		// Background & borders
+	
+		// Typography
+		font-size: $font_size * 1.5;
+		// Other
+	
+	}
+}
+
+#promoter_signup {
+	// Mixins
+
+	// Box properties
+	width: $grid * 12;
+	margin: 0 auto;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}

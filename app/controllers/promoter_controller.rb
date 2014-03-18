@@ -1,5 +1,5 @@
 class PromoterController < ApplicationController
 
-	layout "landing"
+	layout "signup"
 
 end
