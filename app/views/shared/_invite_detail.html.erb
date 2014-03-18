@@ -1,0 +1,26 @@
+<div id="invite_detail" class="object_detail dev-hack_for_arrow_placement_invite">
+	<span class="dismiss"><i class="fa fa-times"></i></span>
+	<div class="object_detail_content">
+		<div class="object_detail_content_section summary">
+			<h4>Invite</h4>
+			<span class="subtext">Invite a single person. [or not... consider folding this into the New Lead functionality]</span>
+		</div>
+		<div class="object_detail_content_section double">
+			<form>
+				<%= select_tag "Sort", options_for_select(
+					[
+						"As a solar customer", 
+					    "As a solar advocate"
+					]) 
+				%>
+				<label for="customer_name">Customer name</label>
+				<input id="customer_name" name="customer_name" type="text" placeholder="Customer Name"/>
+				<label for="customer_email">Customer email</label>
+				<input id="customer_email" name="customer_email" type="text" placeholder="Customer Email or Phone Number"/>
+
+				<a href="#" class="button primary">Send</a>
+			</form>
+		</div>
+	</div>
+</div>
+

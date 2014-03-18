@@ -578,6 +578,20 @@
 
 }
 
+.invite_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+	width: $grid * 8;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 .section_notification {
 	// Mixins
 

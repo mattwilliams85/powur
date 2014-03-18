@@ -98,32 +98,12 @@
 <section id="dashboard_pages" class="dashboard_section">
 	<div class="section_header">
 		<h2>Your Pages</h2>
-		<a href="#" class="button">Invite Customer</a>
-		<a href="#" class="button">Invite Promoter</a>
 	</div>
 	<div class="section_content">
 		<%= render partial: "shared/new_link_thumbnail" %>
-
-		<div class="customer_page_kpis">
-			<h3><a href="/customer/signup/#1234">Customer Referral Page</a></h3>
-
-			<p>Unique visitors
-				<br/>Visitors > leads
-				<br/>Leads > Customers
-				<br/>Top 3 referrers
-			</p>
-			
-		</div>
-		<div class="promoter_page_kpis">
-			<h3><a href="/customer/signup/#4321">Promoter Referral Page</a></h3>
-
-			<p>Unique visitors
-				<br/>Visitors > promoters
-				<br/>Top 3 referrers
-			</p>
-		</div>
+		<%= render partial: "shared/invite_thumbnail" %>
 	</div>
 
 	<%= render partial: "shared/new_link_detail"%>
-
+	<%= render partial: "shared/invite_detail"%>
 </section>
