@@ -52,6 +52,8 @@
 	
 		// Box properties
 		margin-top: $grid * 1.5;
+		float: left;
+		width: auto;
 		// Background & borders
 		background: $brand;
 		// Typography
@@ -118,7 +120,8 @@
 		@include corners(0, 4px, 0, 4px);
 		// Box properties
 		display: inline-block;
-		margin-left: 0;
+		width: auto;
+		margin: 0;
 		// Background & borders
 		border-color: white;
 		background: none;
@@ -145,7 +148,6 @@
 		// Box properties
 		display: inline-block;
 		width: $grid * 5;
-		padding: $grid / 8 $grid / 4;
 		margin: -1px -7px 0 $grid / 4;
 		// Background & borders
 		border-color: white;
