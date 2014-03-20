@@ -132,6 +132,8 @@
 	// Box properties
 	padding: 0;
 	overflow: auto;
+	position: relative;
+	height: $grid * 1.5;
 	// Background & borders
 	background-color: $dev_gray;
 	background-image: url(image-path('bg_tic.svg'));
@@ -142,27 +144,33 @@
 
 	// Other
 
-	h3 {
+	#global_title {
 		// Mixins
 	
 		// Box properties
 		padding: $grid / 4 $grid / 2;
-		float: left;
+		position: absolute;
+		left: 50%;
+		width: $grid * 6;
+		margin-left: -$grid * 3;
 		// Background & borders
 		background: $brand;
 		border-right: $border;
+		border-left: $border;
 		// Typography
 		color: white;
 		// Other
-	
+		z-index: 100;
 	}
 
-	#global_progress_bar {
+	#carbon_progress_bar {
 		// Mixins
 		// Box properties
-		width: $grid * 6;
+		width: $grid * 8;
 		height: $grid * 1.5;
-		float: left;
+		position: absolute;
+		right: 50%;
+		margin-right: $grid * 3;
 		// Background & borders
 		background-color: $supergreen;
 		background-image: url(image-path('bg_clapper.svg'));
@@ -172,7 +180,40 @@
 	
 		// Other
 
-		.global_progress_bar_text {
+		.carbon_progress_bar_text {
+			// Mixins
+		
+			// Box properties
+			display: block;
+			padding: $grid / 4 $grid / 2;
+			// Background & borders
+		
+			// Typography
+			color: rgba(white, .5);
+			// Other
+		
+		}
+	
+	}
+
+	#solar_progress_bar {
+		// Mixins
+		// Box properties
+		width: $grid * 6;
+		height: $grid * 1.5;
+		position: absolute;
+		left: 50%;
+		margin-left: $grid * 4;
+		// Background & borders
+		background-color: $brand_shadow;
+		background-image: url(image-path('bg_clapper.svg'));
+		background-repeat: repeat-x;
+		background-size: contain;
+		// Typography
+	
+		// Other
+
+		.solar_progress_bar_text {
 			// Mixins
 		
 			// Box properties
@@ -195,13 +236,14 @@
 		width: $grid * .5;
 		height: $grid * 1.5;
 		float: left;
+
 		// Background & borders
 		background-color: darken($supergreen, 4%);
 		border-left: $border;	
 		// Typography
 	
 		// Other
-	
+		display: none;
 	}
 
 	.global_progress_your_contribution_text {
@@ -215,7 +257,7 @@
 		// Typography
 		color: $whisper;
 		// Other
-	
+		display: none;
 	}
 
 	.global_goal {

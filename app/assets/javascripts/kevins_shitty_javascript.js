@@ -28,7 +28,8 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 	        		};
         		});
 			});
-			$("input").blur(function() {
+
+			$("input.validate").blur(function() {
 	      		$(this).prev("label").fadeOut("fast");
 
 	      		// this is just to fake validation

@@ -1,63 +1,29 @@
 <section id="index_banner">
 
-	<h1>A cleaner, brighter world isn't just possible...</h1>
-	<h1>It's actually happening.</h1>
-	<p>Start your own business as an advocate of home solar power,
-		<br/>
-		and see the power you have over the future.
-	</p>
+	<h1>We want to put solar panels on 2 million homes by 2025.</h1>
+	<h2>And we'll pay you a billion dollars to help us do it.</h2>
+	<p>(yep, a billion... with a "b")</p>
 
-	<%= link_to "Become a Solar Advocate", "/promoter/signup", :class => "button get_started" %>
+	<form id="primary_cta">
+		<input id="email" name="cust_zip" type="text" placeholder="Your Email Address" required/> 
+		<%= link_to "Get started", "/customer/signup", :class => "button" %>
+	</form>
+		
+</section>
+
+<%= render :partial => "shared/our_goal" %>
+
+<section class="landing">
+
+	<h2>Maybe here's some copy...</h2>
+
+	<p>When you sign up your friends, you'll get a cut of their solar sales as well.</p>
 
 </section>
 
 <section id="sub_banner">
-	<h2>Looking go solar for your home?</h2>
+	<h2>Want to go solar for your home?</h2>
 	<label for="cust_zip">Zip Code</label>
 	<input id="cust_zip" name="cust_zip" type="text" placeholder="Your Zip Code" required/> 
-	<%= link_to "Find an advocate near you", "/customer/signup", :class => "button" %>
-</section>
-
-<section class="landing left">
-
-	<div class="dev_img_placeholder">
-		[sun/network/node type graphic here]
-	</div>
-
-	<h2>Solar Power is Going Viral</h2>
-	
-	<p>Home solar power in America is exploding, and for good reason; it's a clean, efficient and now incredibly cheap alternative to coal and nuclear. We've partnered with <a href="http://www.sunrun.com">Sunrun</a> - the nation's #1 home solar installation company - to help them use the incredible power of direct selling and third-party financing to bring solar power into as many homes and communities as we can.</p>
-
-</section>
-
-<section id="requirements" class="landing right">
-
-	<h2>Start the Business of Doing Good</h2>
-
-	<p>Home-owners qualify for solar installation by meeting three criteria: 1) owning property that can accomidate solar panels, 2) having a credit score over 650 and 3) providing a copy of their latest electric bill so we can determine if they would benefit from solar power. Screening customers isn't a difficult task, but it's one that's tricky to scale nation-wide. This makes it the perfect job for the person-to-person touch of direct selling.</p>
-
-
-</section>
-
-<section class="landing left">
-
-	<h2>Nothing Down, with Plenty of Up</h2>
-
-	<p>Once it's determined that a customer is a good fit, we finance everything so that the customer gets their panels installed with no money down, no installation and no maintenance fees. Instead of paying the utility company every month, the customer makes payments towards their solar panels, saving between 10-30% each month while doing so.</p>
-
-	<div class="dev_img_placeholder">
-		[undetermined graphic here]
-	</div>
-
-</section>
-
-<section id="tools" class="landing right">
-
-	<h2>Simple is Good, and Good is Simple</h2>
-
-	<p>Sunstand is direct selling at it's purest. Sign up to be a solar advocate, use our powerful tools to find qualifying customers, and recruit people to your team to do the same. You'll get a commission for each installation of solar panels that you or your team brings in and a residual income from the energy savings of those panels. No gimmicks, no sign-up costs, no flim flam. The more you sell, the more you earn, and the more you make the world a better, brighter place.
-	<br/>
-	<%= link_to "Become a Solar Advocate", "/promoter/signup", :class => "button get_started" %>
-	</p>
-
+	<%= link_to "Find out more", "/customer/signup", :class => "button" %>
 </section>
