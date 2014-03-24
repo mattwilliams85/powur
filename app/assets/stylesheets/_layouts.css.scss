@@ -126,7 +126,64 @@
 
 }
 
+.blank_state {
+	// Mixins
+	@extend .subtext;
+	@include object_thumbnail;
+	// Box properties
+	padding: $grid 0;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 #system_feedback {
+	// Mixins
+
+	// Box properties
+	background-color: $neutral;
+	padding: $grid / 2 $grid;
+	// Background & borders
+	border-bottom: $border;
+	// Typography
+	text-align: center;
+	// Other
+
+	h1 {
+		// Mixins
+	
+		// Box properties
+		margin: 0;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	p {
+		// Mixins
+	
+		// Box properties
+		margin: 0;
+		// Background & borders
+	
+		// Typography
+		font-size: $grid / 2;
+		line-height: $line_height;
+		color: $quiet;
+		// Other
+	
+	}
+
+}
+
+#global_progress {
 	// Mixins
 
 	// Box properties
@@ -172,7 +229,7 @@
 		right: 50%;
 		margin-right: $grid * 3;
 		// Background & borders
-		background-color: $supergreen;
+		background-color: $brand_shadow;
 		background-image: url(image-path('bg_clapper.svg'));
 		background-repeat: repeat-x;
 		background-size: contain;
@@ -275,21 +332,23 @@
 	}
 }
 
-#sonny {
-	// Mixins
+// Flagged for removal
 
-	// Box properties
-	width: $grid * 2;
-	height: $grid * 2;
-	float: left;
+	#sonny {
+		// Mixins
 
-	// Background & borders
+		// Box properties
+		width: $grid * 2;
+		height: $grid * 2;
+		float: left;
 
-	// Typography
+		// Background & borders
 
-	// Other
+		// Typography
 
-}
+		// Other
+
+	}
 
 .dashboard_section {
 	// Mixins
@@ -347,6 +406,20 @@
 		// Other
 
 	}
+
+	.blank_state {
+		// Mixins
+	
+		// Box properties
+		width: auto;
+		float: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
 }
 
 #dashboard_leads {
@@ -361,6 +434,20 @@
 
 	// Other
 
+	.blank_state {
+		// Mixins
+	
+		// Box properties
+		width: auto;
+		float: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
 }
 
 #dashboard_team {
@@ -374,6 +461,20 @@
 	// Typography
 
 	// Other
+
+	.blank_state {
+		// Mixins
+	
+		// Box properties
+		width: auto;
+		float: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
 
 }
 
@@ -543,7 +644,7 @@
 	// Box properties
 	overflow: auto;
 	clear: both;
-	padding: 0 $grid;
+	padding: 0 $grid $grid;
 
 	// Background & borders
 
