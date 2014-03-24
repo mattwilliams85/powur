@@ -126,21 +126,6 @@
 
 }
 
-.blank_state {
-	// Mixins
-	@extend .subtext;
-	@include object_thumbnail;
-	// Box properties
-	padding: $grid 0;
-
-	// Background & borders
-
-	// Typography
-
-	// Other
-
-}
-
 #system_feedback {
 	// Mixins
 
@@ -375,6 +360,21 @@
 	
 	}
 
+	.blank_state {
+		// Mixins
+		@extend .subtext;
+		@include object_thumbnail;
+		// Box properties
+		padding: 0;
+
+		// Background & borders
+
+		// Typography
+
+		// Other
+
+	}
+
 }
 
 
@@ -413,6 +413,7 @@
 		// Box properties
 		width: auto;
 		float: none;
+		padding: $grid 0;
 		// Background & borders
 	
 		// Typography
@@ -440,6 +441,7 @@
 		// Box properties
 		width: auto;
 		float: none;
+		padding: $grid 0;
 		// Background & borders
 	
 		// Typography
@@ -468,6 +470,7 @@
 		// Box properties
 		width: auto;
 		float: none;
+		padding: $grid 0;
 		// Background & borders
 	
 		// Typography
@@ -518,6 +521,34 @@
 	// Typography
 
 	// Other
+
+	.blank_state {
+		// Mixins
+	
+		// Box properties
+		width: auto;
+		float: none;
+		padding: $grid / 2 0;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		p {
+			// Mixins
+		
+			// Box properties
+			margin-top: 0;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+
+	}
 
 }
 
