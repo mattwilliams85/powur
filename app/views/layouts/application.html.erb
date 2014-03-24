@@ -22,9 +22,18 @@
 				<li>
 					<%= link_to_unless_current 'Dashboard', "/dashboard" %>
 				</li>
-				<li>
-					<%= link_to_unless_current 'Organization', "/organization" %>
-				</li>
+				
+				<% if params[:pro] == "true" %>
+					<li>
+						<%= link_to_unless_current 'Organization', "/organization" %>
+					</li>
+				<% else %>
+					<li>
+						<%= link_to_unless_current 'Upgrade', "/upgrade" %>
+					</li>
+				<% end %>
+
+				
 				<li>
 					<%= link_to_unless_current 'Training', "/training" %>
 				</li>
