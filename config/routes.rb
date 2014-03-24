@@ -59,6 +59,10 @@ Mysolar::Application.routes.draw do
 
   get 'promoter' => 'index#promoter'
   get 'promoter/signup' => 'promoter#index'
+  
+  # These are just to fake the referral pages so the link doesn't break - safe to remove when the feature is implemented
+  get '/1234' => 'customer#index'
+  get '/4321' => 'promoter#index'
 
   get 'thanks' => 'customer#thanks'
 

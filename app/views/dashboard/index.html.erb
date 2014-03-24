@@ -1,10 +1,11 @@
 <% if params[:first_run] == "true" %>
 	<div id="system_feedback">
 		<h1>Way to go! You're now a Sunstand promoter!</h1>
-		<p>Help us reach our global goals. Here's how it works...</p>
-		<div class="system_feedback_graphic dev_img_placeholder">[step one graphic]</div>
-		<div class="system_feedback_graphic dev_img_placeholder">[step two graphic]</div>
-		<div class="system_feedback_graphic dev_img_placeholder">[step three graphic]</div>
+		<p>Help us reach our global goals of neutralizing the carbon footprint of 4 million people and getting solar into 2 million homes by 2025.</p> 
+		<p>Here's how it works...</p>
+		<div class="system_feedback_graphic dev_img_placeholder">[find customers graphic]</div>
+		<div class="system_feedback_graphic dev_img_placeholder">[recruit promoters graphic]</div>
+		<div class="system_feedback_graphic dev_img_placeholder">[change the world graphic]</div>
 
 	</div>
 <% else %>
@@ -211,9 +212,9 @@
 
 		<% else %>
 
-			<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Customers", :url => "sunstand.com/1234"}%>
+			<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Customers", :url => "/1234"}%>
 
-			<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Promoters", :url => "sunstand.com/4321"}%>
+			<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Promoters", :url => "/4321"}%>
 
 			<div class="blank_state">
 				<p>These are static pages that you can share with others.</p>
