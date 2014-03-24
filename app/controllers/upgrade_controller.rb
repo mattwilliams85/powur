@@ -1,0 +1,2 @@
+class UpgradeController < ApplicationController
+end

@@ -2,7 +2,10 @@
 	<div id="system_feedback">
 		<h1>Way to go! You're now a Sunstand promoter!</h1>
 		<p>Help us reach our global goals. Here's how it works...</p>
-		<p>1)... 2)... 3)...</p>
+		<div class="system_feedback_graphic dev_img_placeholder">[step one graphic]</div>
+		<div class="system_feedback_graphic dev_img_placeholder">[step two graphic]</div>
+		<div class="system_feedback_graphic dev_img_placeholder">[step three graphic]</div>
+
 	</div>
 <% else %>
 
@@ -200,7 +203,13 @@
 	</div>
 	<div class="section_content">
 
-		<% if params[:first_run] == "true" %>
+		<% if params[:pro] == "true" %>
+
+			<%= render partial: "shared/new_link_thumbnail" %>
+			<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
+			<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
+
+		<% else %>
 
 			<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Customers", :url => "sunstand.com/1234"}%>
 
@@ -211,16 +220,8 @@
 				<p>To generate custom url's for tracking campaigns, <a href="#">upgrade to Pro</a>.</p>
 			</div>
 
-		<% else %>
-
-			<%= render partial: "shared/invite_thumbnail" %>
-			<%= render partial: "shared/new_link_thumbnail" %>
-			<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
-			<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
-
 		<% end %>
 
 	</div>
-	<%= render partial: "shared/invite_detail"%>
 	<%= render partial: "shared/new_link_detail"%>
 </section>

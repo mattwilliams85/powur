@@ -67,6 +67,8 @@ Mysolar::Application.routes.draw do
 
   get 'organization' => 'organization#index'
 
+  get 'upgrade' => 'upgrade#index'
+
   get 'dashboard' => 'dashboard#index'
 
   get 'training' => 'training#index'

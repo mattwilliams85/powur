@@ -27,16 +27,16 @@
 					<li>
 						<%= link_to_unless_current 'Organization', "/organization" %>
 					</li>
+
+					<li>
+						<%= link_to_unless_current 'Training', "/training" %>
+					</li>
 				<% else %>
 					<li>
-						<%= link_to_unless_current 'Upgrade', "/upgrade" %>
+						<%= link_to_unless_current 'Upgrade to Pro', "/upgrade" %>
 					</li>
 				<% end %>
 
-				
-				<li>
-					<%= link_to_unless_current 'Training', "/training" %>
-				</li>
 				<li>
 					<%= link_to_unless_current 'Settings', "/settings" %>
 				</li>
