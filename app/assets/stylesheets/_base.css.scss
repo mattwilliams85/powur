@@ -353,6 +353,20 @@ footer {
 		font-size: $grid / 2;
 		line-height: $line_height;
 		// Other
+
+		&.checkbox {
+			// Mixins
+		
+			// Box properties
+		    display: block;
+		    padding-left: $grid;
+		    top: auto;
+			// Background & borders
+		
+			// Typography
+			// Other
+		
+		}
 	
 	}
 
@@ -395,6 +409,29 @@ footer {
 	input:focus::-webkit-input-placeholder { color:transparent; }
 	input:focus:-moz-placeholder { color:transparent; }
 
+
+	input[type=checkbox] {
+
+	}
+
+	input[type=checkbox] {
+		// Mixins
+	
+		// Box properties
+	    width: $grid;
+	    height: $grid;
+	    padding: 0;
+	    margin:0;
+	    position: relative;
+	    top: -5px;
+	    *overflow: hidden;
+	
+		// Background & borders
+	
+		// Typography
+		vertical-align: middle;
+		// Other
+	}
 
 	select {
 		// Mixins

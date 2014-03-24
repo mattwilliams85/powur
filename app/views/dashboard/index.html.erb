@@ -1,54 +1,81 @@
 <section id="dashboard_kpis" class="dashboard_section">
+
+	<% if params[:first_run] == "true" %>
+
+		<% else %>
+
+	<% end %> 
+
 	<div class="section_header">
 		<h2>Overview</h2>
-		<ul>
-			<li> 
-				<%= select_tag "Show", options_for_select(
-					[
-						"1st forks", 
-					    "2nd forks", 
-					    "3rd forks",
-					    "All forks"
-					], ["1st fork"]) 
-				%>
-			</li>
-		</ul>
+		
+		<% if params[:first_run] == "true" %>
+
+		<% else %>
+
+			<ul>
+				<li> 
+					<%= select_tag "Show", options_for_select(
+						[
+							"1st forks", 
+						    "2nd forks", 
+						    "3rd forks",
+						    "All forks"
+						], ["1st fork"]) 
+					%>
+				</li>
+			</ul>
+
+		<% end %> 
+
 	</div>
 	<div class="section_content">
-		<div class="kpi" onclick="detailExpander('tree_co2_detail');">
-			<div class="thumbnail_graphic dev_img_placeholder">[smokestack graphic]</div>
-			<h3>32 metric tons</h3>
-			<span class="subtext">CO2 Saved</span>
-			<i class="fa fa-angle-down"></i>
-		</div>
 
-		<div class="kpi" onclick="detailExpander('tree_equivalents_detail');">
-			<div class="thumbnail_graphic dev_img_placeholder">[forrest graphic]</div>
-			<h3>1 small forrest</h3>
-			<span class="subtext">Impact Equivalent</span>
-			<i class="fa fa-angle-down"></i>
-		</div>
+		<% if params[:first_run] == "true" %>
 
-		<div class="kpi" onclick="detailExpander('tree_customer_detail');">
-			<div class="thumbnail_graphic dev_img_placeholder">[house graphic]</div>
-			<h3>421 Homes</h3>
-			<span class="subtext">14,258 kWh</span>
-			<i class="fa fa-angle-down"></i>
-		</div>
+			<div class="blank_thumbnail">
+				This is your first run expereince...
+			</div>
 
-		<div class="kpi" onclick="detailExpander('tree_team_detail');">
-			<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
-			<h3>32 Team Members</h3>
-			<span class="subtext">93 in my organization</span>
-			<i class="fa fa-angle-down"></i>
-		</div>
+		<% else %>
 
-		<div class="kpi" onclick="detailExpander('tree_volume_detail');">
-			<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
-			<h3>$32,450 Volume</h3>
-			<span class="subtext">Down 5% this week</span>
-			<i class="fa fa-angle-down"></i>
-		</div>
+			<div class="kpi" onclick="detailExpander('tree_co2_detail');">
+				<div class="thumbnail_graphic dev_img_placeholder">[smokestack graphic]</div>
+				<h3>32 metric tons</h3>
+				<span class="subtext">CO2 Saved</span>
+				<i class="fa fa-angle-down"></i>
+			</div>
+
+			<div class="kpi" onclick="detailExpander('tree_equivalents_detail');">
+				<div class="thumbnail_graphic dev_img_placeholder">[forrest graphic]</div>
+				<h3>1 small forrest</h3>
+				<span class="subtext">Impact Equivalent</span>
+				<i class="fa fa-angle-down"></i>
+			</div>
+
+			<div class="kpi" onclick="detailExpander('tree_customer_detail');">
+				<div class="thumbnail_graphic dev_img_placeholder">[house graphic]</div>
+				<h3>421 Homes</h3>
+				<span class="subtext">14,258 kWh</span>
+				<i class="fa fa-angle-down"></i>
+			</div>
+
+			<div class="kpi" onclick="detailExpander('tree_team_detail');">
+				<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
+				<h3>32 Team Members</h3>
+				<span class="subtext">93 in my organization</span>
+				<i class="fa fa-angle-down"></i>
+			</div>
+
+			<div class="kpi" onclick="detailExpander('tree_volume_detail');">
+				<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
+				<h3>$32,450 Volume</h3>
+				<span class="subtext">Down 5% this week</span>
+				<i class="fa fa-angle-down"></i>
+			</div>
+
+		<% end %>
+
 	</div>
 
 	<%= render partial: "shared/tree_co2_detail"%>
@@ -67,30 +94,58 @@
 	<div class="section_header">
 		<h2>Your Leads</h2>
 		<a href="#" class="button">Show tips</a>
-		<ul>
-			<li class="search"><i class="fa fa-search"></i></li>
-			<li>
-				<%= select_tag "Sort", options_for_select(
-					[
-						"By newest", 
-					    "By oldest", 
-					    "By most complete", 
-					    "By least complete"
-					], ["By newest"]) 
-				%>
-			</li>
-		</ul>
+
+		<% if params[:first_run] == "true" %>
+
+		<% else %>
+
+			<ul>
+				<li class="search"><i class="fa fa-search"></i></li>
+				<li>
+					<%= select_tag "Sort", options_for_select(
+						[
+							"By newest", 
+						    "By oldest", 
+						    "By most complete", 
+						    "By least complete"
+						], ["By newest"]) 
+					%>
+				</li>
+			</ul>
+
+		<% end %>
 	</div>
 	<div class="section_content">
-		<%= render partial: "shared/new_lead_thumbnail" %>
-		<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Marky", :last_name => "Mark", :has_address => true, :has_rooftop => false, :has_utility => true}%>
-		<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Bonilla", :has_address => false, :has_rooftop => false, :has_utility => false}%>
-		<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "The Rat", :has_address => true, :has_rooftop => true, :has_utility => false}%>
+
+		<% if params[:first_run] == "true" %>
+
+			<%= render partial: "shared/invite_thumbnail" %>
+
+			<div class="blank_thumbnail">
+				This is your first run expereince...
+			</div>
+
+		<% else %>
+
+			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Marky", :last_name => "Mark", :has_address => true, :has_rooftop => false, :has_utility => true}%>
+			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Bonilla", :has_address => false, :has_rooftop => false, :has_utility => false}%>
+			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "The Rat", :has_address => true, :has_rooftop => true, :has_utility => false}%>
+		
+		<% end %>
+
 	</div>
-	<div class="section_notification positive">
-		<a href="#">This is a positive notification about Mr. Mark - click to go to a new page...</a>
-		<span class="dismiss"><i class="fa fa-times"></i></span>
-	</div>
+
+		<% if params[:first_run] == "true" %>
+
+		<% else %>
+
+			<div class="section_notification positive">
+				<a href="#">This is a positive notification about Mr. Mark - click to go to a new page...</a>
+				<span class="dismiss"><i class="fa fa-times"></i></span>
+			</div>
+
+		<% end %>
+	<%= render partial: "shared/invite_detail"%>
 
 </section>
 
@@ -100,10 +155,25 @@
 		<h2>Your Pages</h2>
 	</div>
 	<div class="section_content">
-		<%= render partial: "shared/invite_thumbnail" %>
-		<%= render partial: "shared/new_link_thumbnail" %>
-		<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
-		<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
+
+		<% if params[:first_run] == "true" %>
+
+			<div class="blank_thumbnail">
+				Share these links to recruit people...
+			</div>
+
+			<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Customers", :url => "sunstand.com/1234"}%>
+
+			<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Promoters", :url => "sunstand.com/4321"}%>
+
+		<% else %>
+
+			<%= render partial: "shared/invite_thumbnail" %>
+			<%= render partial: "shared/new_link_thumbnail" %>
+			<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
+			<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
+
+		<% end %>
 
 	</div>
 	<%= render partial: "shared/invite_detail"%>

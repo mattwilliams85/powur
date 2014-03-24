@@ -3,6 +3,12 @@
 	<h2>Become a Solar Advocate</h2>
 
 	<form>
+
+		<span class="form_row">
+			<label for="first_name">Email</label>
+			<input id="email" name="email" type="email" value="useremail@fromindex.com" placeholder="Email" class="read_only" disabled/>
+		</span>
+
 		<span class="form_row">
 			<label for="first_name">First Name</label>
 			<input id="first_name" name="first_name" type="text" placeholder="First Name" class="validate" required/>
@@ -14,15 +20,16 @@
 		</span>
 
 		<span class="form_row">
-			<label for="first_name">Email</label>
-			<input id="email" name="email" type="email" placeholder="Email" class="validate" required/>
-		</span>
-
-		<span class="form_row">
 			<label for="first_name">Zip Code</label>
 			<input id="zip" name="zip" type="text" placeholder="Zip Code" class="validate"  required/>
 		</span>
+
+		<span class="form_row checkbox">
+			<label for="tos" class="checkbox">I agree to the <a href="#">Terms of Service</a></label>
+			<input id="tos" name="tos" type="checkbox" required/>
+		</span>
 		
+
 		<a href="/dashboard" class="button">Sign up!</a>
 
 	</form>

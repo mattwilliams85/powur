@@ -18,7 +18,7 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 	    	$("label").not(".checkbox label").hide().css("right", "-100px");
 	    	$("input").bind('click focus touch oninput', function() {
 	    		$(this).removeClass("is_valid is_not_valid");
-	      		$(this).prev("label").fadeIn("fast").css("right", "16px");
+	      		$(this).prev("label").not(".checkbox").fadeIn("fast").css("right", "16px");
 
 				$(this).keyup(function() {
 					if ($(this).val().length > 10) {
@@ -30,7 +30,7 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 			});
 
 			$("input.validate").blur(function() {
-	      		$(this).prev("label").fadeOut("fast");
+	      		$(this).prev("label").not(".checkbox").fadeOut("fast");
 
 	      		// this is just to fake validation
 				if ($(this).val().length > 2) {

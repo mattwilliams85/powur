@@ -553,6 +553,34 @@
 
 }
 
+.blank_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.page_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+	
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 .lead_thumbnail {
 	// Mixins
 	@include object_thumbnail;
@@ -1042,6 +1070,8 @@
 
 }
 
+// Forms
+
 .form_row {
 	// Mixins
 
@@ -1053,4 +1083,32 @@
 
 	// Other
 
+	&.checkbox {
+		// Mixins
+	
+		// Box properties
+		display: block;
+		width: 100%;
+		padding-bottom: $grid / 4;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
 }
+
+input.read_only {
+	// Mixins
+
+	// Box properties
+	border-color: transparent;
+	// Background & borders
+
+	// Typography
+	color: $text;
+	// Other
+
+}
+
