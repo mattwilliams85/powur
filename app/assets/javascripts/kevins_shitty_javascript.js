@@ -3,12 +3,12 @@
 
 	function detailExpander(showID, btn_text){
 		if($("#" + showID).is(":visible")) {
-			$("#" + showID).hide();	
+			$("#" + showID).fadeOut("fast");	
 			$(".js-" + showID).removeClass("active").html(btn_text);
 		} else {
 			$("#" + showID).find("form").show();
 			$("#" + showID).find(".success").hide();
-			$(".object_detail").hide();
+			$(".object_detail").fadeOut("fast");
 			$("#" + showID).show();
 			$(".js-" + showID).addClass("active").html("Close");
 		}
@@ -19,6 +19,17 @@
 	function detailConfirm(e) {
 		$(e).parent("form").hide();
 		$(e).parent("form").siblings(".success").show();
+	}
+
+	// Fake post invite advocate to show pending team object
+
+	function postInvite() {
+		var advocate_name = document.getElementById('advocate_name').value;
+
+		$("#dashboard_team").find(".blank_state").hide();
+		$("#dashboard_team").find(".invitee_name").html(advocate_name);
+		$("#dashboard_team").find(".pending").fadeIn('fast');
+
 	}
 
 $(document).ready(function() { // bind to document.ready instead of window.load because of Turbolinks

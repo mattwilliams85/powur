@@ -754,6 +754,33 @@
 
 	// Other
 
+	&.pending {
+		// Mixins
+	
+		// Box properties
+		padding: $grid;
+		display: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		&.subtext {
+			// Mixins
+		
+			// Box properties
+			display: block;
+			margin-bottom: $grid;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+
 }
 
 .customer_thumbnail {
@@ -1074,6 +1101,8 @@
 	float: left;
 	overflow: auto;
 	padding: 0 $grid;
+	position: relative;
+	width: 50%;
 	// Background & borders
 
 	// Typography
@@ -1084,8 +1113,7 @@
 		// Mixins
 	
 		// Box properties
-		width: $grid * 7;
-
+		width: $grid * 8;
 		// Background & borders
 		border-right: $border;
 		// Typography
@@ -1098,7 +1126,7 @@
 		// Mixins
 	
 		// Box properties
-		width: auto;
+
 		// Background & borders
 	
 		// Typography
@@ -1111,7 +1139,7 @@
 		// Mixins
 	
 		// Box properties
-		width: 100%;
+
 		// Background & borders
 	
 		// Typography
@@ -1135,7 +1163,7 @@
 			// Mixins
 		
 			// Box properties
-			float: left;
+
 			// Background & borders
 		
 			// Typography
@@ -1148,7 +1176,6 @@
 			// Mixins
 		
 			// Box properties
-			float: left;
 			// Background & borders
 		
 			// Typography
@@ -1161,7 +1188,7 @@
 			// Mixins
 		
 			// Box properties
-			float: left;
+
 			// Background & borders
 		
 			// Typography
@@ -1249,7 +1276,9 @@
 	// Mixins
 
 	// Box properties
+	display: block;
 	position: relative;
+	overflow: auto;
 	// Background & borders
 
 	// Typography
