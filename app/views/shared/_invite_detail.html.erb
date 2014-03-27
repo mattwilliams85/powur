@@ -2,24 +2,23 @@
 	<span class="dismiss"><i class="fa fa-times"></i></span>
 	<div class="object_detail_content">
 		<div class="object_detail_content_section summary">
-			<h4>Invite</h4>
-			<span class="subtext">Invite a single person.</span>
+			<h4>Invite an advocate</h4>
+			<span class="subtext">We'll send them a link and an invite code to join your team.</span>
 		</div>
-		<div class="object_detail_content_section double">
+		<div class="object_detail_content_section">
 			<form>
-				<%= select_tag "Sort", options_for_select(
-					[
-						"As a solar customer", 
-					    "As a solar advocate"
-					]) 
-				%>
-				<label for="customer_name">Customer name</label>
-				<input id="customer_name" name="customer_name" type="text" placeholder="Customer Name"/>
-				<label for="customer_email">Customer email</label>
-				<input id="customer_email" name="customer_email" type="text" placeholder="Customer Email or Phone Number"/>
+				<label for="advocate_name">Advocate name</label>
+				<input id="advocate_name" name="advocate_name" type="text" placeholder="Advocate Name"/>
+				<label for="advocate_email">Advocate email</label>
+				<input id="advocate_email" name="advocate_email" type="text" placeholder="Advocate Email or Phone Number"/>
 
-				<a href="#" class="button primary">Send</a>
+				<a onclick="detailConfirm(this);" class="button primary">Send invite code</a>
 			</form>
+
+			<div class="success">
+				<h3>Great! We sent them an invite.</h3>
+				<span class="subtext">They'll show up in Your Team when they accept.</span>
+			</div>
 		</div>
 	</div>
 </div>

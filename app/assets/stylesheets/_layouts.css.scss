@@ -991,6 +991,19 @@
 
 	// Other
 
+	.success {
+		// Mixins
+	
+		// Box properties
+		display: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
 }
 
 .object_detail:before {
@@ -1060,7 +1073,6 @@
 	// Box properties
 	float: left;
 	overflow: auto;
-	width: $grid * 7;
 	padding: 0 $grid;
 	// Background & borders
 
@@ -1072,6 +1084,7 @@
 		// Mixins
 	
 		// Box properties
+		width: $grid * 7;
 
 		// Background & borders
 		border-right: $border;
@@ -1085,7 +1098,20 @@
 		// Mixins
 	
 		// Box properties
-		width: $grid * 16;
+		width: auto;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	&.full {
+		// Mixins
+	
+		// Box properties
+		width: 100%;
 		// Background & borders
 	
 		// Typography

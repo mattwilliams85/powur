@@ -158,6 +158,8 @@
 
 	    }
 
+
+
 	    &.submit {
 	    	// Mixins
 	    
@@ -213,12 +215,32 @@
 		color: $quiet;
 
 		// Other
-		
+
 		&:hover {
-			background: $brand;
-			color: white;
-			border: 1px solid darken($brand, 2%);
+	    	// Mixins
+	    
+	    	// Box properties
+	    
+	    	// Background & borders
+	    	background: $brand;
+	    	border-color: darken($brand, 2%);
+	    	// Typography
+	    	color: white;
+	    	// Other
 		}
+
+	    &.active {
+	    	// Mixins
+	    
+	    	// Box properties
+	    
+	    	// Background & borders
+	    	background: $sunnyside;
+	    	border-color: darken($sunnyside, 2%);
+	    	// Typography
+	    	color: white;
+	    	// Other
+	    }
   	}
 
 	@mixin object_thumbnail {
@@ -257,6 +279,7 @@
 			// Other
 		
 		}
+
 		.button {
 			// Mixins
 			@include quiet_button;
