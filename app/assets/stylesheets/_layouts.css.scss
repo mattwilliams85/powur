@@ -1,3 +1,29 @@
+body.application {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	header {
+		// Mixins
+	
+		// Box properties
+		position: relative;
+		// Background & borders
+		background-color: $sunnyside;
+		// Typography
+	
+		// Other
+	
+	}
+
+}
+
 .main_logo {
 	// Mixins
 
@@ -43,8 +69,8 @@
 
 	// Box properties
 	display: block;
-	height: $grid * 2;
-	width: $grid * 5;
+	height: $grid * 3;
+	width: $grid * 4;
 	overflow: hidden;
 	float: left;
 	// Background & borders

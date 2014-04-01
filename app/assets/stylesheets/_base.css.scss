@@ -159,15 +159,16 @@ header {
 
 	// Box properties
 	padding: $grid / 4 $grid;
-
+	position: fixed;
+	top: 0;
 	// Background & borders
-	border-bottom: $border;
+	background-color: none;
 
 	// Typography
 	text-align: left;
 
 	// Other
-
+	z-index: 1000;
 	nav {
 		// Mixins
 
@@ -227,7 +228,7 @@ header {
 					// Background & borders
 					background: none;
 					// Typography
-					color: $brand;
+					color: white;
 					// Other
 				
 					&:hover {
@@ -236,9 +237,8 @@ header {
 						// Box properties
 					
 						// Background & borders
-						background: $brand_white;
+						background: $text;
 						// Typography
-						color: $brand;
 						// Other
 					
 					}

@@ -34,10 +34,16 @@
 	$text: #555;
 	$red: #f46b41;
 	$supergreen: #22a500;
-	$sunnyside: #ff9e15;
+	$sunnyside: #f4ba39;
 	$white: lighten($sunnyside, 45%); //was #f7f7f9
 	
-	$brand: #1da0e4;
+	$sunny0: darken($sunnyside, 10%);
+	$sunny1: darken($sunnyside, 5%);
+	$sunny2: $sunnyside;
+	$sunnya: lighten($sunnyside, 5%);
+	$sunnyb: lighten($sunnyside, 10%);
+
+	$brand: #00bbd6;
 	$brand_shadow: darken($brand, 10%);
 	$brand_trans: #D5E2ED;
 	$brand_white: lighten($brand, 45%);
@@ -73,7 +79,7 @@
 
 // Mixins
 	@mixin text_shadow {
-		text-shadow: 0 0px 25px rgba(0,0,0, .25), 0 0px 5px rgba(0,0,0, .75), 0 1px 10px rgba(0,0,0, .25);
+		text-shadow: 0 0px 5px rgba(255,255,255, .25), -1px 1px 2px rgba(0,0,0, .5);
 	}  
 
 	@mixin gradient($stop1, $stop2, $stop3) {
