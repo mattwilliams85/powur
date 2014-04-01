@@ -49,18 +49,31 @@
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		height: $grid * 15;
+		height: $grid * 25;
 		width: 100%;
 		// Background & borders
 		background-image: url(image-path('panel_test.png'));
 		background-repeat: no-repeat;
 		background-position: left bottom;
-		background-size: contain;
+		background-size: cover;
 
 		// Typography
 	
 		// Other
+		z-index: 100;
+	}
+
+	.banner_content {
+		// Mixins
 	
+		// Box properties
+		position: relative;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+		z-index: 900;
 	}
 
 	h1 {
