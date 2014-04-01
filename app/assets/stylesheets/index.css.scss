@@ -15,9 +15,9 @@ body#landing {
 
 	header {
 		// Mixins
-	
+		@include box_sizing;
 		// Box properties
-	
+		padding-right: $grid;
 		// Background & borders
 	
 		// Typography
@@ -28,7 +28,7 @@ body#landing {
 			// Mixins
 
 			// Box properties
-
+			float: right;
 			// Background & borders
 
 			// Typography
@@ -42,10 +42,9 @@ body#landing {
 				// Box properties
 				padding: $grid / 4 $grid / 2;
 				// Background & borders
-				border: 1px solid white;
-
+				border: 1px solid $brand;
 				// Typography
-			
+				color: $brand_shadow;
 				// Other
 				
 				&:hover {
@@ -56,7 +55,6 @@ body#landing {
 					// Background & borders
 					background-color: $white;
 					// Typography
-					color: $brand;
 					// Other
 				
 				}

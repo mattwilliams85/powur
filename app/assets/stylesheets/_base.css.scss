@@ -161,6 +161,7 @@ header {
 	padding: $grid / 4 $grid;
 	position: fixed;
 	top: 0;
+	width: 100%;
 	// Background & borders
 	background-color: none;
 
@@ -169,6 +170,7 @@ header {
 
 	// Other
 	z-index: 1000;
+
 	nav {
 		// Mixins
 
