@@ -186,7 +186,6 @@ header {
 		
 			// Box properties
 			float: left;
-
 			// Background & borders
 		
 			// Typography
@@ -199,6 +198,7 @@ header {
 				// Box properties
 				float: left;
 				margin-left: 0;
+				margin-top: $grid / 2;
 				padding: $grid / 2;
 				// Background & borders
 			

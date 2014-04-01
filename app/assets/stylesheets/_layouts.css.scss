@@ -1,4 +1,4 @@
-body.application {
+body#application {
 	// Mixins
 
 	// Box properties
@@ -15,7 +15,7 @@ body.application {
 		// Box properties
 		position: relative;
 		// Background & borders
-		background-color: $sunnyside;
+		background-color: $brand;
 		// Typography
 	
 		// Other
@@ -30,8 +30,9 @@ body.application {
 	// Box properties
 	padding: 0;
 	margin-right: $grid;
+	margin-top: 0;
 	// Background & borders
-
+	border: none;
 	// Typography
 
 	// Other
@@ -40,10 +41,12 @@ body.application {
 		// Mixins
 	
 		// Box properties
+		display: block;
 		padding: 0;
 		margin: 0;
+		overflow: auto;
 		// Background & borders
-		border: none;
+		border: none !important;
 		// Typography
 	
 		// Other
@@ -54,8 +57,8 @@ body.application {
 			// Box properties
 		
 			// Background & borders
-			background: none;
-			border: none;
+			background: none !important;
+			border: none !important;
 			// Typography
 		
 			// Other

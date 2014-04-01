@@ -2,12 +2,75 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body#landing {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	header {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		li {
+			// Mixins
+
+			// Box properties
+
+			// Background & borders
+
+			// Typography
+		
+			// Other
+		
+			a {
+				// Mixins
+				@include corners;
+
+				// Box properties
+				padding: $grid / 4 $grid / 2;
+				// Background & borders
+				border: 1px solid white;
+
+				// Typography
+			
+				// Other
+				
+				&:hover {
+					// Mixins
+				
+					// Box properties
+				
+					// Background & borders
+					background-color: $white;
+					// Typography
+					color: $brand;
+					// Other
+				
+				}
+				}		
+		}
+	}
+}
+
 #index_banner {
 	// Mixins
 	@include box_sizing;
 	@include text_shadow;
 	// Box properties
-	padding: $grid * 10 $grid * 2 0;
+	padding: $grid * 12 $grid * 2 0;
 	overflow: auto;
 	height: 100vh;
 	position: relative;
@@ -188,6 +251,25 @@
 			
 			}
 		}
+	}
+
+	.scroll_leader {
+		// Mixins
+		@include corners;
+		@include box_sizing;
+		// Box properties
+		position: absolute;
+		bottom: $grid * 2;
+		left: 50%;
+		margin-left: -$grid * 3;
+		padding: $grid;
+		width: $grid * 6;
+		// Background & borders
+
+		// Typography
+		text-align: center;
+		// Other
+	
 	}
 }
 
