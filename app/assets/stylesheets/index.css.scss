@@ -7,7 +7,7 @@
 	@include box_sizing;
 	@include text_shadow;
 	// Box properties
-	padding: $grid * 15 $grid * 2 0;
+	padding: $grid * 13 $grid * 2 0;
 	overflow: auto;
 	height: 100vh;
 	position: relative;
@@ -49,8 +49,8 @@
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		height: $grid * 35;
-		width: $grid * 35;
+		height: $grid * 25;
+		width: 100%;
 		// Background & borders
 		background-image: url(image-path('panel_test.png'));
 		background-repeat: no-repeat;
