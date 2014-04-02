@@ -462,35 +462,89 @@ body#landing {
 	
 	}
 
-	&#tools {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
-		background-image: url(image-path('dashboard_hero.png'));
-		background-repeat: no-repeat;
-		background-position: -30px center;
-		background-size: contain;
-		// Typography
-	
-		// Other
-	
-	}
+}
 
-	&#requirements {
+#our_mission {
 	// Mixins
 
 	// Box properties
 
 	// Background & borders
-	background-image: url(image-path('paperwork_hero.png'));
-	background-repeat: no-repeat;
-	background-position: 50px center;
-	background-size: contain;
+
 	// Typography
 
 	// Other
 
-}
+	#our_goals {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 24;
+		margin: 0 auto;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	h2 {
+		// Mixins
+	
+		// Box properties
+		margin-bottom: $grid * 2;
+		// Background & borders
+	
+		// Typography
+		text-align: center;
+		// Other
+	
+	}
+
+	p {
+		// Mixins
+		@include box_sizing;
+		@include corners;
+		// Box properties
+		overflow: auto;
+		padding: 0;
+		margin:0 0 $grid * 2 0;
+		// Background & borders
+		// Typography
+	
+		// Other
+	}
+	
+	.goal_left {
+		// Mixins
+		@include box_sizing;
+		// Box properties
+		display: block;
+		float: left;
+		width: $grid * 7;
+		padding: $grid 0;
+		// Background & borders
+		// Typography
+		text-align: center;
+		color: $quiet;
+		// Other
+	
+	}
+
+	.goal_right {
+		// Mixins
+		@include box_sizing;
+		// Box properties
+		display: block;
+		float: right;
+		width: $grid * 17;
+		padding: $grid / 2 $grid;
+		// Background & borders
+		background: $dev_gray;
+		// Typography
+		
+		// Other
+	
+		}
+
+	}
 }
