@@ -64,6 +64,7 @@
 	$body_font: 'Muli', sans-serif;
 	$title_font: 'Muli', sans-serif;
 	$form_font: 'Open Sans', sans-serif;
+	$serif_font: 'Sorts Mill Goudy', serif;
 
 // Header Calculations
 
@@ -317,4 +318,18 @@
 			// Other
 		
 		}
+	}
+
+	@mixin italic {
+		// Mixins
+		
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+		font-family: $serif_font;
+		font-style: italic;
+		// Other
+	
 	}
