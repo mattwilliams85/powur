@@ -493,7 +493,7 @@ body#landing {
 		// Mixins
 	
 		// Box properties
-		margin-bottom: $grid * 2;
+		margin-bottom: $grid / 2;
 		// Background & borders
 	
 		// Typography
@@ -502,6 +502,20 @@ body#landing {
 	
 	}
 	
+	p {
+		// Mixins
+		
+		// Box properties
+		margin:0 auto $grid * 1.5;
+		// Background & borders
+		width: 75%;
+		// Typography
+		text-align: center;
+		color: $quiet;
+		// Other
+	
+	}
+
 	.goal_joiner {
 		// Mixins
 		@include box_sizing;
@@ -537,7 +551,7 @@ body#landing {
 		float: left;
 		width: 25%;
 		height: $grid * 8;
-		padding: $grid $grid * 2;
+		padding: 0 $grid * 2;
 		// Background & borders
 		border-left: $border;
 		// Typography
@@ -546,6 +560,22 @@ body#landing {
 		color: $quiet;
 		// Other
 		
+		.goal_icon {
+			// Mixins
+		
+			// Box properties
+			display: block;
+			margin-bottom: $grid / 2;
+			// Background & borders
+		
+			// Typography
+			text-align: center;
+			font-size: $font_size * 3;
+			color: $whisper;
+			// Other
+		
+		}
+
 		&:first-of-type {
 			// Mixins
 		
