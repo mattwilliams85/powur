@@ -400,12 +400,13 @@ body#landing {
 	// Mixins
 
 	// Box properties
-	// padding-bottom: $grid * 10;
+	padding: $grid * 2 0 0 0;
 	// Background & borders
 	// background-image: url(image-path('stock-photo-14792340-sunrise-in-sea-of-clouds.jpg'));
 	// background-repeat: no-repeat;
 	// background-position: center $grid * 15;
 	// background-size: 100%;	
+	border-color: white;
 	// Typography
 
 	// Other
@@ -415,6 +416,8 @@ body#landing {
 	
 		// Box properties
 		margin: 0 auto;
+		padding: 0;
+		overflow: auto;
 		// Background & borders
 	
 		// Typography
@@ -425,9 +428,7 @@ body#landing {
 			// Mixins
 		
 			// Box properties
-			margin-top: 0;
-			margin-left: auto;
-			margin-right: auto;
+			margin: 0 auto $grid * 2;
 			// Background & borders
 			width: 75%;		
 			// Typography
@@ -441,6 +442,7 @@ body#landing {
 			@include box_sizing;
 			@include italic;
 			@include corners(500px, 500px, 500px, 500px);
+			@include text_shadow;
 			// Box properties
 			display: block;
 			position: relative;
@@ -448,16 +450,16 @@ body#landing {
 			width: $grid * 3;
 			height: $grid * 3;
 			padding: $grid * 1 0;
-			margin-top: $grid * 2;
+			margin-top: $grid * 3.5;
 			margin-left: -$grid * 1.5;
 			margin-right: -$grid * 1.5;
 			// Background & borders
-			background: white;
-			border: $border;
+			background: $sunnyside;
+			border: 1px solid white;
 			// Typography
 			font-size: $grid / 2;
 			text-align: center;
-			color: $quiet;
+			color: white;
 
 			// Other
 			z-index: 1000;
@@ -466,36 +468,21 @@ body#landing {
 		.goal_text {
 			// Mixins
 			@include box_sizing;
+			@include text_shadow;
 			// Box properties
 			display: block;
 			float: left;
 			width: 25%;
-			height: $grid * 8;
-			padding: 0 $grid * 2;
+			height: $grid * 10;
+			padding: $grid $grid * 2;
 			// Background & borders
-			border-left: $border;
+			border-left: 1px solid white;
 			// Typography
 			font-size: $grid / 2;
 			text-align: center;
-			color: $quiet;
+			color: white;
 			// Other
 			
-			.goal_icon {
-				// Mixins
-			
-				// Box properties
-				display: block;
-				margin-bottom: $grid / 2;
-				// Background & borders
-			
-				// Typography
-				text-align: center;
-				font-size: $font_size * 3;
-				color: $whisper;
-				// Other
-			
-			}
-
 			&:first-of-type {
 				// Mixins
 			
@@ -508,8 +495,119 @@ body#landing {
 				// Other
 			
 			}
+
+			&.first {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+				background-color: $sunnya;
+				// Typography
+			
+				// Other
+			
+			}
+
+			&.second {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+				background-color: $sunnyb;
+				// Typography
+			
+				// Other
+			
+			}
+
+			&.third {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+				background-color: $sunnyc;
+				// Typography
+			
+				// Other
+			
+			}
+
+			&.fourth {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+				background-color: $sunnyd;
+				// Typography
+			
+				// Other
+			
+			}
+
+			.goal_icon {
+				// Mixins
+			
+				// Box properties
+				display: block;
+				margin-bottom: $grid / 2;
+				// Background & borders
+			
+				// Typography
+				text-align: center;
+				font-size: $font_size * 3;
+				// Other
+			
+			}
+
 		}
 	}
+}
+
+#sales_process {
+	// Mixins
+
+	// Box properties
+	padding-bottom: $grid;
+	// Background & borders
+
+	// Typography
+	text-align: center;
+	// Other
+
+}
+
+#foo {
+	// Mixins
+	@include gradient_sunrise;
+	// Box properties
+	height: $grid * 10;
+	// Background & borders
+	border-color: white;
+	// Typography
+	text-align: center;
+	// Other
+
+}
+
+.image_section {
+	// Mixins
+
+	// Box properties
+	height: $grid * 10;
+	// Background & borders
+	background-image: url(image-path('IMG_1902.JPG'));
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-color: white;
+	// Typography
+
+	// Other
+
 }
 
 #solar_advocate {

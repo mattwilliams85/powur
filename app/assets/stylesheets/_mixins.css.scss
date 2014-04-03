@@ -34,7 +34,7 @@
 	$text: #444;
 	$red: #f46b41;
 	$supergreen: #22a500;
-	$sunnyside: #f4ba39;
+	$sunnyside: #ff8e00;
 	$white: lighten($sunnyside, 45%); //was #f7f7f9
 	$black: #222;
 	
@@ -44,6 +44,8 @@
 	$sunny2: $sunnyside;
 	$sunnya: lighten($sunnyside, 5%);
 	$sunnyb: lighten($sunnyside, 10%);
+	$sunnyc: lighten($sunnyside, 15%);
+	$sunnyd: lighten($sunnyside, 20%);
 
 	$brand: #00bbd6;
 	$brand_shadow: darken($brand, 10%);
@@ -82,7 +84,11 @@
 
 // Mixins
 	@mixin text_shadow {
-		text-shadow: 0 0px 5px rgba(255,255,255, .25), 0px 0px 8px rgba(0,0,0, .15);
+		text-shadow: 0 0px 5px rgba(255,255,255, .25), 0px 1px 3px rgba(0,0,0, .4);
+	}  
+
+	@mixin no_shadow {
+		text-shadow: 0 0px 0px rgba(255,255,255, 0);
 	}  
 
 	@mixin gradient($stop1, $stop2, $stop3) {
@@ -165,7 +171,7 @@
 	@mixin button {
 		// Mixins
 	    @include form_box;
-
+	    @include no_shadow;
 		// Box properties
 		clear: both;
 

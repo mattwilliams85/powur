@@ -306,13 +306,13 @@ ul {
 
 footer {
 	// Mixins
-
+	@include gradient_sunrise;
+	@include text_shadow;
 	// Box properties
-	padding: $grid;
+	padding: $grid $grid $grid * 5;
 
 	// Background & borders
 	border-top: $border;
-	background: $sunnyside;
 
 	// Typography
 	text-align: center;
