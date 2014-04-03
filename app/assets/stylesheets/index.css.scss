@@ -468,12 +468,12 @@ body#landing {
 	// Mixins
 
 	// Box properties
-	padding-bottom: $grid * 10;
+	// padding-bottom: $grid * 10;
 	// Background & borders
-	background-image: url(image-path('stock-photo-14792340-sunrise-in-sea-of-clouds.jpg'));
-	background-repeat: no-repeat;
-	background-position: center $grid * 15;
-	background-size: 100%;	
+	// background-image: url(image-path('stock-photo-14792340-sunrise-in-sea-of-clouds.jpg'));
+	// background-repeat: no-repeat;
+	// background-position: center $grid * 15;
+	// background-size: 100%;	
 	// Typography
 
 	// Other
@@ -482,7 +482,6 @@ body#landing {
 		// Mixins
 	
 		// Box properties
-		width: $grid * 24;
 		margin: 0 auto;
 		// Background & borders
 	
@@ -494,7 +493,7 @@ body#landing {
 		// Mixins
 	
 		// Box properties
-		margin-bottom: $grid;
+		margin-bottom: $grid * 2;
 		// Background & borders
 	
 		// Typography
@@ -502,53 +501,64 @@ body#landing {
 		// Other
 	
 	}
-
-	p {
-		// Mixins
-		@include box_sizing;
-		// Box properties
-		overflow: auto;
-		padding: 0;
-		margin:0 0 0 0;
-		// Background & borders
-		border-top: 1px solid $dev_gray;
-		// Typography
 	
-		// Other
-	}
-	
-	.goal_left {
+	.goal_joiner {
 		// Mixins
 		@include box_sizing;
 		@include italic;
+		@include corners(500px, 500px, 500px, 500px);
 		// Box properties
 		display: block;
+		position: relative;
 		float: left;
-		width: $grid * 7;
-		padding: $grid 0;
+		width: $grid * 3;
+		height: $grid * 3;
+		padding: $grid * 1 0;
+		margin-top: $grid * 2;
+		margin-left: -$grid * 1.5;
+		margin-right: -$grid * 1.5;
 		// Background & borders
+		background: white;
+		border: $border;
 		// Typography
+		font-size: $grid / 2;
 		text-align: center;
 		color: $quiet;
 
 		// Other
-	
+		z-index: 1000;
 	}
 
-	.goal_right {
+	.goal_text {
 		// Mixins
 		@include box_sizing;
 		// Box properties
 		display: block;
-		float: right;
-		width: $grid * 17;
-		padding: $grid / 2 $grid;
+		float: left;
+		width: 25%;
+		height: $grid * 8;
+		padding: $grid $grid * 2;
 		// Background & borders
-
+		border-left: $border;
 		// Typography
-		
+		font-size: $grid / 2;
+		text-align: center;
+		color: $quiet;
 		// Other
-	
+		
+		&:first-of-type {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			border: none;
+			// Typography
+		
+			// Other
+		
+		}
+
 		}
 
 	}
