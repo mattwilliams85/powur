@@ -343,12 +343,12 @@ body#landing {
 	// Mixins
 
 	// Box properties
-	padding: $grid * 2;
+	padding: $grid * 2 0 0 0;
 	overflow: auto;
 	// Background & borders
 	border-bottom: $border;
 	// Typography
-	text-align: left;
+	text-align: center;
 	// Other
 
 	h2 {
@@ -360,7 +360,6 @@ body#landing {
 	
 		// Typography
 		font-size: $font_size * 1.5;
-		text-align: center;
 		// Other
 	
 	}
@@ -370,7 +369,8 @@ body#landing {
 		
 		// Box properties
 		margin: 0 auto $grid;
-		width: 75%;	
+		width: 75%;
+		clear: both;
 		// Background & borders
 
 		// Typography
@@ -399,7 +399,6 @@ body#landing {
 	// Mixins
 
 	// Box properties
-	padding: $grid * 2 0 0 0;
 	// Background & borders
 	// background-image: url(image-path('stock-photo-14792340-sunrise-in-sea-of-clouds.jpg'));
 	// background-repeat: no-repeat;
@@ -559,13 +558,29 @@ body#landing {
 	}
 }
 
+.landing_bar {
+	// Mixins
+
+	// Box properties
+	overflow: auto;
+	// Background & borders
+	background: $dev_gray;
+	// Typography
+
+	// Other
+
+}
+
 .deal_points {
 	// Mixins
-	@include horizontal_list;
+	@include corners;
 	// Box properties
-	width: 33%;
+	margin: 0 $grid $grid;
+	padding: $grid;
+	display: inline-block;
+	width: $grid * 5;
 	// Background & borders
-
+	background: $dev_gray;
 	// Typography
 	font-size: $font_size * 1.25;
 	color: $whisper;
@@ -575,9 +590,11 @@ body#landing {
 
 .customer_points {
 	// Mixins
-	@include horizontal_list;
 	// Box properties
-	width: 33%;
+	margin: $grid;
+	padding: $grid;
+	display: inline-block;
+	width: $grid * 5;
 	// Background & borders
 
 	// Typography
@@ -601,15 +618,15 @@ body#landing {
 
 }
 
-#foo {
+#doing_good {
 	// Mixins
-	@include gradient_sunrise;
+
 	// Box properties
-	height: $grid * 10;
+
 	// Background & borders
-	border-color: white;
+
 	// Typography
-	text-align: center;
+
 	// Other
 
 }
