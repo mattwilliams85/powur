@@ -362,3 +362,20 @@
 		// Other
 	
 	}
+
+
+	@mixin horizontal_list {
+		// Mixins
+		@include box_sizing;
+		// Box properties
+		display: block;
+		float: left;
+		padding: $grid $grid * 2 $grid * 2;
+		// Background & borders
+
+		// Typography
+		font-size: $grid / 2;
+		text-align: center;
+		color: $quiet;
+		// Other
+	}

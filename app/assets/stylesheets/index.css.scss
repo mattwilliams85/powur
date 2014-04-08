@@ -461,18 +461,14 @@ body#landing {
 
 		.goal_text {
 			// Mixins
-			@include box_sizing;
+			@include horizontal_list;
 			// Box properties
-			display: block;
-			float: left;
 			width: 25%;
-			padding: $grid $grid * 2 $grid * 2;
+
 			// Background & borders
-			border-left: 1px solid white;
+
 			// Typography
-			font-size: $grid / 2;
-			text-align: center;
-			color: $quiet;
+
 			// Other
 			
 			&:first-of-type {
@@ -558,6 +554,34 @@ body#landing {
 
 		}
 	}
+}
+
+.deal_points {
+	// Mixins
+	@include horizontal_list;
+	// Box properties
+	width: 33%;
+	// Background & borders
+
+	// Typography
+	font-size: $font_size * 1.25;
+	// Other
+
+}
+
+.customer_points {
+	// Mixins
+	@include horizontal_list;
+	// Box properties
+	width: 33%;
+	// Background & borders
+
+	// Typography
+	text-align: center;
+	font-size: $font_size * 3;
+	color: $whisper;
+	// Other
+
 }
 
 #sales_process {
