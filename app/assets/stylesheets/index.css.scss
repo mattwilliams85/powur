@@ -369,7 +369,8 @@ body#landing {
 		// Mixins
 		
 		// Box properties
-		margin-bottom: $grid * 1.5;
+		margin: 0 auto $grid;
+		width: 75%;	
 		// Background & borders
 
 		// Typography
@@ -427,8 +428,10 @@ body#landing {
 		
 			// Box properties
 			margin: 0 auto $grid;
-			// Background & borders
 			width: 75%;		
+
+			// Background & borders
+
 			// Typography
 			text-align: center;
 			// Other
@@ -565,6 +568,7 @@ body#landing {
 
 	// Typography
 	font-size: $font_size * 1.25;
+	color: $whisper;
 	// Other
 
 }
