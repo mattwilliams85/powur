@@ -255,7 +255,7 @@ body#landing {
 		@include box_sizing;
 		// Box properties
 		position: absolute;
-		bottom: $grid * 2;
+		bottom: $grid;
 		padding: $grid;
 		left: 50%;
 		margin-left: -$grid * 6;
