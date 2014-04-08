@@ -68,7 +68,7 @@ body#landing {
 	@include box_sizing;
 	@include text_shadow;
 	// Box properties
-	padding: $grid * 12 $grid * 2 0;
+	padding: $grid $grid * 2 0;
 	overflow: auto;
 	height: 100vh;
 	position: relative;
@@ -98,7 +98,7 @@ body#landing {
 	// background-position: right -220px;
 
 	// Typography
-	text-align: right;
+	text-align: center;
 	color: white;
 	// Other
 
@@ -121,16 +121,15 @@ body#landing {
 		// Typography
 	
 		// Other
-		z-index: 100;
 	}
 
 	.banner_content {
 		// Mixins
 	
 		// Box properties
+		margin-top: 28vh;
 		position: relative;
 		// Background & borders
-	
 		// Typography
 	
 		// Other
@@ -187,7 +186,7 @@ body#landing {
 		// Background & borders
 	
 		// Typography
-		text-align: right;	
+		text-align: center;	
 		// Other
 	
 		input {
@@ -258,12 +257,11 @@ body#landing {
 		// Box properties
 		position: absolute;
 		bottom: $grid * 2;
-		left: 50%;
-		margin-left: -$grid * 3;
 		padding: $grid;
-		width: $grid * 6;
+		left: 50%;
+		margin-left: -$grid * 6;
+		width: $grid * 12;
 		// Background & borders
-
 		// Typography
 		text-align: center;
 		// Other
@@ -428,7 +426,7 @@ body#landing {
 			// Mixins
 		
 			// Box properties
-			margin: 0 auto $grid * 2;
+			margin: 0 auto $grid;
 			// Background & borders
 			width: 75%;		
 			// Typography
@@ -440,26 +438,22 @@ body#landing {
 		.goal_joiner {
 			// Mixins
 			@include box_sizing;
-			@include italic;
-			@include corners(500px, 500px, 500px, 500px);
-			@include text_shadow;
 			// Box properties
 			display: block;
 			position: relative;
 			float: left;
 			width: $grid * 3;
-			height: $grid * 3;
-			padding: $grid * 1 0;
-			margin-top: $grid * 3.5;
+			height: $grid * 3.5;
+			padding: 0;
+			margin-top: $grid * 4.5;
 			margin-left: -$grid * 1.5;
 			margin-right: -$grid * 1.5;
 			// Background & borders
-			background: $sunnyside;
-			border: 1px solid white;
+
 			// Typography
-			font-size: $grid / 2;
+			font-size: $font_size * 2;
 			text-align: center;
-			color: white;
+			color: $whisper;
 
 			// Other
 			z-index: 1000;
@@ -468,19 +462,17 @@ body#landing {
 		.goal_text {
 			// Mixins
 			@include box_sizing;
-			@include text_shadow;
 			// Box properties
 			display: block;
 			float: left;
 			width: 25%;
-			height: $grid * 10;
-			padding: $grid $grid * 2;
+			padding: $grid $grid * 2 $grid * 2;
 			// Background & borders
 			border-left: 1px solid white;
 			// Typography
 			font-size: $grid / 2;
 			text-align: center;
-			color: white;
+			color: $quiet;
 			// Other
 			
 			&:first-of-type {
@@ -496,57 +488,57 @@ body#landing {
 			
 			}
 
-			&.first {
-				// Mixins
+			// &.first {
+			// 	// Mixins
 			
-				// Box properties
+			// 	// Box properties
 			
-				// Background & borders
-				background-color: $sunnya;
-				// Typography
+			// 	// Background & borders
+			// 	background-color: $sunnya;
+			// 	// Typography
 			
-				// Other
+			// 	// Other
 			
-			}
+			// }
 
-			&.second {
-				// Mixins
+			// &.second {
+			// 	// Mixins
 			
-				// Box properties
+			// 	// Box properties
 			
-				// Background & borders
-				background-color: $sunnyb;
-				// Typography
+			// 	// Background & borders
+			// 	background-color: $sunnyb;
+			// 	// Typography
 			
-				// Other
+			// 	// Other
 			
-			}
+			// }
 
-			&.third {
-				// Mixins
+			// &.third {
+			// 	// Mixins
 			
-				// Box properties
+			// 	// Box properties
 			
-				// Background & borders
-				background-color: $sunnyc;
-				// Typography
+			// 	// Background & borders
+			// 	background-color: $sunnyc;
+			// 	// Typography
 			
-				// Other
+			// 	// Other
 			
-			}
+			// }
 
-			&.fourth {
-				// Mixins
+			// &.fourth {
+			// 	// Mixins
 			
-				// Box properties
+			// 	// Box properties
 			
-				// Background & borders
-				background-color: $sunnyd;
-				// Typography
+			// 	// Background & borders
+			// 	background-color: $sunnyd;
+			// 	// Typography
 			
-				// Other
+			// 	// Other
 			
-			}
+			// }
 
 			.goal_icon {
 				// Mixins
@@ -559,6 +551,7 @@ body#landing {
 				// Typography
 				text-align: center;
 				font-size: $font_size * 3;
+				color: $whisper;
 				// Other
 			
 			}
