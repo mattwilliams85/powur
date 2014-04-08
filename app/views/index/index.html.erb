@@ -81,9 +81,11 @@
 
 	<p>As a Sunstand Advocate, you'll 1) connect with homeowners, 2) do a quick screen to make sure they could benefit from solar, and 3) collect some information from their electric bill so Sunrun can get them a quote. When those quotes go to installation, you get a commission. It's an easy task, but one that's hard for a national company like Sunrun to scale using full-time employees. Couple this with the coming solar boom, and you've got an incredible opportunity for direct sales.</p>
 
-	<span class="customer_points"><i class="fa fa-home"></i><br/><i class="fa fa-check-square-o"></i></span>
-	<span class="customer_points"><i class="fa fa-list"></i><br/><i class="fa fa-check-square-o"></i></span>
-	<span class="customer_points"><i class="fa fa-bar-chart-o"></i><br/><i class="fa fa-check-square-o"></i></span>
+	<div class="landing_bar">
+		<span class="plain_icon"><i class="fa fa-home"></i><br/><i class="fa fa-check-square-o"></i></span>
+		<span class="plain_icon"><i class="fa fa-list"></i><br/><i class="fa fa-check-square-o"></i></span>
+		<span class="plain_icon"><i class="fa fa-bar-chart-o"></i><br/><i class="fa fa-check-square-o"></i></span>
+	</div>
 
 </section>
 
@@ -94,14 +96,13 @@
 	
 	<p>The real power of direct selling lies in the ability for advocates to recruit other advocates. The more people you recruit, the bigger your team and the greater your impact on our environment. And of course, as your team members, when they sell, you earn.</p>
 
-	<span class="customer_points"><i class="fa fa-sitemap"></i></span>
-
 	<p>Because we're passionate about changing the world, it will always be free to become a Sunstand Advocate. The more you grow your business, the more rewards and perks you'll see. When the time comes, upgrading to a Pro account gets you access to advanced tools, training and reporting so you can make an even bigger impact.</p>
 
-	<span class="customer_points"><i class="fa fa-tasks"></i></span>
-	<span class="customer_points"><i class="fa fa-dashboard"></i></span>
-	<span class="customer_points"><i class="fa fa-rocket"></i></span>
-
+	<div class="landing_bar">
+		<span class="plain_icon"><i class="fa fa-tasks"></i></span>
+		<span class="plain_icon"><i class="fa fa-dashboard"></i></span>
+		<span class="plain_icon"><i class="fa fa-rocket"></i></span>
+	</div>
 
 </section>
 
@@ -117,8 +118,10 @@
 
 	<p>This is giving power back to the people</p>
 
-	<%= link_to "Get started", "/promoter/signup", :class => "button" %>
-
+		<form id="primary_cta">
+			<input id="email" name="cust_zip" type="text" placeholder="Your Email Address" required/> 
+			<%= link_to "Get started", "/promoter/signup", :class => "button" %>
+		</form>
 </section>
 
 <!-- 

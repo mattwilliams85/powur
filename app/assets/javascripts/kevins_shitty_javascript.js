@@ -90,6 +90,13 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 			$(this).parent().hide();
 		});
 
+	// Opaque header on scroll
+
+    window.onscroll = function() {
+	    var yOffset = window.pageYOffset;
+		$("header").css("backgroundColor", "rgba(0,174,232," + (yOffset * .001) + ")");
+    };
+
 	// Parallax scrollingish?
 
   //   window.onscroll = function() {

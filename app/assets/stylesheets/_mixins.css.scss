@@ -359,6 +359,8 @@
 		// Typography
 		font-family: $serif_font;
 		font-style: italic;
+		font-size: $font_size;
+		line-height: $line_height;
 		// Other
 	
 	}
@@ -370,7 +372,7 @@
 		// Box properties
 		display: block;
 		float: left;
-		padding: $grid $grid * 1.5;
+		padding: 0 $grid * 1.5 0;
 		// Background & borders
 
 		// Typography

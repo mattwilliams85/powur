@@ -23,9 +23,6 @@
 
 			<ul id="user_nav">
 				<li>
-					<%= link_to_unless_current 'Create an Account', "/customer/signup" %>
-				</li>
-				<li>
 					<%= link_to_unless_current 'Sign in', "/user" %>
 				</li>
 			</ul>
@@ -35,8 +32,8 @@
 
 	<%= yield %>
 
-	<footer>A big fat footer with a bunch of links.</footer>
-
+<!-- 	<footer>A big fat footer with a bunch of links.</footer>
+ -->
 	<%= render :partial => "shared/warp_nav" %>
 
 </body>

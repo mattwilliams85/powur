@@ -19,7 +19,6 @@ body#landing {
 		// Box properties
 		padding-right: $grid;
 		// Background & borders
-	
 		// Typography
 	
 		// Other
@@ -42,9 +41,9 @@ body#landing {
 				// Box properties
 				padding: $grid / 4 $grid / 2;
 				// Background & borders
-				border: 1px solid $brand;
+				border: 1px solid $white;
 				// Typography
-				color: $brand_shadow;
+				color: white;
 				// Other
 				
 				&:hover {
@@ -53,12 +52,85 @@ body#landing {
 					// Box properties
 				
 					// Background & borders
-					background-color: $white;
+					background-color: $sunnyside;
 					// Typography
 					// Other
 				
 				}
-				}		
+			}		
+		}
+	}
+}
+
+#primary_cta {
+	// Mixins
+
+	// Box properties
+	margin: $grid * 2 auto 0;
+	overflow: auto;
+	// Background & borders
+
+	// Typography
+	text-align: center;	
+	// Other
+
+	input {
+		// Mixins
+		@include corners(4px, 0, 4px, 0);
+		// Box properties
+		display: inline-block;
+		width: auto;
+		margin: -1px -7px 0 0;
+		// Background & borders
+		background: none;
+		border-color: $quiet;
+		// Typography
+		color: $text;
+		// Other
+	
+	}
+
+	::-webkit-input-placeholder {
+	   color: $quiet;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: $quiet;  
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: $quiet;  
+	}
+
+	:-ms-input-placeholder {  
+	   color: $quiet;  
+	}
+
+	.button {
+		// Mixins
+		@include corners(0, 4px, 0, 4px);
+		// Box properties
+		display: inline-block;
+		width: auto;
+		clear: none;
+		// Background & borders
+		border-color: $quiet;
+		background: $sunnyside;
+		// Typography
+		color: white;
+		// Other
+	
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background: darken($sunnyside, 10%);
+			// Typography
+		
+			// Other
+		
 		}
 	}
 }
@@ -177,27 +249,38 @@ body#landing {
 	
 	}
 
-	#primary_cta {
+	.scroll_leader {
 		// Mixins
-	
+		@include corners;
+		@include box_sizing;
 		// Box properties
-		margin: $grid auto 0;
-		overflow: auto;
+		position: absolute;
+		bottom: $grid * 2;
+		padding: $grid;
+		left: 50%;
+		margin-left: -$grid * 6;
+		width: $grid * 12;
 		// Background & borders
-	
 		// Typography
-		text-align: center;	
+		text-align: center;
 		// Other
 	
+	}
+
+	#primary_cta {
+		// Mixins
+
+		// Box properties
+		// Background & borders
+
+		// Typography
+		// Other
+
 		input {
 			// Mixins
-			@include corners(4px, 0, 4px, 0);
 			// Box properties
-			display: inline-block;
-			width: auto;
-			margin: -1px -7px 0 0;
+
 			// Background & borders
-			background: none;
 			border-color: white;
 			// Typography
 			color: white;
@@ -223,14 +306,10 @@ body#landing {
 
 		.button {
 			// Mixins
-			@include corners(0, 4px, 0, 4px);
 			// Box properties
-			display: inline-block;
-			width: auto;
-			clear: none;
 			// Background & borders
 			border-color: white;
-			background: $sunnyside;
+
 			// Typography
 		
 			// Other
@@ -249,25 +328,9 @@ body#landing {
 			}
 		}
 	}
-
-	.scroll_leader {
-		// Mixins
-		@include corners;
-		@include box_sizing;
-		// Box properties
-		position: absolute;
-		bottom: $grid * 2;
-		padding: $grid;
-		left: 50%;
-		margin-left: -$grid * 6;
-		width: $grid * 12;
-		// Background & borders
-		// Typography
-		text-align: center;
-		// Other
-	
-	}
 }
+
+
 
 #sub_banner {
 	// Mixins
@@ -345,8 +408,8 @@ body#landing {
 	// Box properties
 	padding: $grid * 2 0 0 0;
 	overflow: auto;
+
 	// Background & borders
-	border-bottom: $border;
 	// Typography
 	text-align: center;
 	// Other
@@ -385,6 +448,8 @@ body#landing {
 	
 		// Box properties
 		margin-top: $grid;
+		display: inline-block;
+		width: auto;
 		// Background & borders
 	
 		// Typography
@@ -445,9 +510,9 @@ body#landing {
 			position: relative;
 			float: left;
 			width: $grid * 3;
-			height: $grid * 3.5;
+			height: $grid;
 			padding: 0;
-			margin-top: $grid * 4.5;
+			margin-top: $grid * 3.5;
 			margin-left: -$grid * 1.5;
 			margin-right: -$grid * 1.5;
 			// Background & borders
@@ -458,7 +523,7 @@ body#landing {
 			color: $whisper;
 
 			// Other
-			z-index: 1000;
+			z-index: 200;
 		}
 
 		.goal_text {
@@ -563,6 +628,7 @@ body#landing {
 
 	// Box properties
 	overflow: auto;
+	padding: $grid 0;
 	// Background & borders
 	background: $dev_gray;
 	// Typography
@@ -605,11 +671,27 @@ body#landing {
 
 }
 
+.plain_icon {
+	// Mixins
+	// Box properties
+	margin: 0 $grid;
+	padding: 0 $grid 0;
+	display: inline-block;
+	width: $grid * 5;
+	// Background & borders
+
+	// Typography
+	text-align: center;
+	font-size: $font_size * 3;
+	color: $whisper;
+	// Other
+
+}
+
 #sales_process {
 	// Mixins
 
 	// Box properties
-	padding-bottom: $grid;
 	// Background & borders
 
 	// Typography
@@ -622,7 +704,7 @@ body#landing {
 	// Mixins
 
 	// Box properties
-
+	padding-bottom: $grid * 2;
 	// Background & borders
 
 	// Typography
