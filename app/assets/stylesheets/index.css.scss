@@ -19,6 +19,7 @@ body#landing {
 		// Box properties
 		padding-right: $grid;
 		// Background & borders
+		border-bottom: 1px solid rgba(255, 255, 255, 0);
 		// Typography
 	
 		// Other
@@ -464,12 +465,11 @@ body#landing {
 	// Mixins
 
 	// Box properties
+
 	// Background & borders
-	// background-image: url(image-path('stock-photo-14792340-sunrise-in-sea-of-clouds.jpg'));
-	// background-repeat: no-repeat;
-	// background-position: center $grid * 15;
-	// background-size: 100%;	
-	border-color: white;
+	background: $white;
+	border-top: 1px solid white;
+	border-bottom: 1px solid darken($white, 20%);
 	// Typography
 
 	// Other
@@ -482,7 +482,7 @@ body#landing {
 		padding: 0;
 		overflow: auto;
 		// Background & borders
-	
+		border-bottom: 1px solid darken(#f3ecdb, 20%);
 		// Typography
 	
 		// Other
@@ -491,7 +491,7 @@ body#landing {
 			// Mixins
 		
 			// Box properties
-			margin: 0 auto $grid;
+			margin: 0 auto $grid * 2;
 			width: 75%;		
 
 			// Background & borders
@@ -501,124 +501,169 @@ body#landing {
 			// Other
 		
 		}
+	}
 
-		.goal_joiner {
+	.landing_bar {
+		// Mixins
+	
+		// Box properties
+		overflow: auto;
+		// Background & borders
+		background-color: $supergreenc;
+		border-top: $grid / 4 solid $solar;
+		border-bottom: $grid / 4 solid $solar;
+		// Typography
+	
+		// Other
+	
+	}
+
+	.goal_text {
+		// Mixins
+		@include horizontal_list;
+		@include text_shadow;
+		// Box properties
+		height: $grid * 5;
+		display: table;
+		position: relative;
+		padding: 0 0 0 $grid * 2.5;
+		// Background & borders
+
+		// Typography
+		line-height: $font_size;
+		color: $white;
+		// Other
+
+		&.first {
 			// Mixins
-			@include box_sizing;
+		
 			// Box properties
-			display: block;
-			position: relative;
-			float: left;
-			width: $grid * 3;
-			height: $grid;
-			padding: 0;
-			margin-top: $grid * 3.5;
-			margin-left: -$grid * 1.5;
-			margin-right: -$grid * 1.5;
+			width: 22%;
+			padding-left: $grid;
 			// Background & borders
-
+			background-color: $supergreen6;
 			// Typography
-			font-size: $font_size * 2;
-			text-align: center;
-			color: $whisper;
 
 			// Other
-			z-index: 200;
 		}
 
-		.goal_text {
+		&.first:after {
 			// Mixins
-			@include horizontal_list;
+		
+			// Box properties
+			position: absolute;
+			left: 100%;
+			top: 0;
+			width: 0;
+			height: 0;
+			
+			// Background & borders
+			border-top: $grid * 2.5 solid transparent;
+			border-left: $grid * 2 solid $supergreen6;
+			border-bottom: $grid * 2.5 solid transparent;
+		
+			// Typography
+		
+			// Other
+		   content:"";
+		   z-index: 200;
+
+		}
+
+		&.second {
+			// Mixins
+		
 			// Box properties
 			width: 25%;
 
 			// Background & borders
-
+			background-color: $supergreen9;
 			// Typography
 
 			// Other
-			
-			&:first-of-type {
-				// Mixins
-			
-				// Box properties
-			
-				// Background & borders
-				border: none;
-				// Typography
-			
-				// Other
-			
-			}
+		}
 
-			// &.first {
-			// 	// Mixins
+		&.second:after {
+			// Mixins
+		
+			// Box properties
+			position: absolute;
+			left: 100%;
+			top: 0;
+			width: 0;
+			height: 0;
 			
-			// 	// Box properties
-			
-			// 	// Background & borders
-			// 	background-color: $sunnya;
-			// 	// Typography
-			
-			// 	// Other
-			
-			// }
+			// Background & borders
+			border-top: $grid * 2.5 solid transparent;
+			border-left: $grid * 2 solid $supergreen9;
+			border-bottom: $grid * 2.5 solid transparent;
+		
+			// Typography
+		
+			// Other
+		   content:"";
+		   z-index: 190;
+		}
 
-			// &.second {
-			// 	// Mixins
-			
-			// 	// Box properties
-			
-			// 	// Background & borders
-			// 	background-color: $sunnyb;
-			// 	// Typography
-			
-			// 	// Other
-			
-			// }
+		&.third {
+			// Mixins
+		
+			// Box properties
+			width: 25%;
 
-			// &.third {
-			// 	// Mixins
-			
-			// 	// Box properties
-			
-			// 	// Background & borders
-			// 	background-color: $sunnyc;
-			// 	// Typography
-			
-			// 	// Other
-			
-			// }
+			// Background & borders
+			background-color: $supergreena;
+			// Typography
 
-			// &.fourth {
-			// 	// Mixins
-			
-			// 	// Box properties
-			
-			// 	// Background & borders
-			// 	background-color: $sunnyd;
-			// 	// Typography
-			
-			// 	// Other
-			
-			// }
+			// Other
+		}
 
-			.goal_icon {
-				// Mixins
+		&.third:after {
+			// Mixins
+		
+			// Box properties
+			position: absolute;
+			left: 100%;
+			top: 0;
+			width: 0;
+			height: 0;
 			
-				// Box properties
-				display: block;
-				margin-bottom: $grid / 2;
-				// Background & borders
-			
-				// Typography
-				text-align: center;
-				font-size: $font_size * 3;
-				color: $whisper;
-				// Other
-			
-			}
+			// Background & borders
+			border-top: $grid * 2.5 solid transparent;
+			border-left: $grid * 2 solid $supergreena;
+			border-bottom: $grid * 2.5 solid transparent;
+		
+			// Typography
+		
+			// Other
+		   content:"";
+		   z-index: 180;
+		}
 
+		&.fourth {
+			// Mixins
+		
+			// Box properties
+			width: 28%;
+			padding: 0 $grid 0 $grid * 2.5;
+			// Background & borders
+			background-color: $supergreenc;
+			// Typography
+
+			// Other
+		}
+
+		span {
+			// Mixins
+		
+			// Box properties
+			display: table-cell;
+			// Background & borders
+
+			// Typography
+			vertical-align: middle;
+			// Other
+		
 		}
 	}
 }
@@ -628,9 +673,8 @@ body#landing {
 
 	// Box properties
 	overflow: auto;
-	padding: $grid 0;
+
 	// Background & borders
-	background: $dev_gray;
 	// Typography
 
 	// Other

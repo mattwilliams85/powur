@@ -94,8 +94,18 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
     window.onscroll = function() {
 	    var yOffset = window.pageYOffset;
-		$("header").css("backgroundColor", "rgba(0,174,232," + (yOffset * .001) + ")");
+		$("header").css("backgroundColor", "rgba(87,157,190," + (yOffset * .001) + ")");
+		$("header").css("borderColor", "rgba(21, 130, 177," + (yOffset * .001) + ")");
+
     };
+
+	jQuery.easing.def = "easeInOutQuart";
+
+    // Fade in scroll leader
+
+    $('.scroll_leader').css('opacity', '0');
+    $('.scroll_leader').delay('500').animate({ opacity: 1, bottom: "45px" }, 'slow', 'swing');
+
 
 	// Parallax scrollingish?
 

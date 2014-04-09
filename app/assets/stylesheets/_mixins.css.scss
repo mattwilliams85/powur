@@ -33,21 +33,32 @@
 
 	$text: #444;
 	$red: #f46b41;
-	$supergreen: #22a500;
+	$supergreen: #90BC24;
 	$sunnyside: #ff8e00;
-	$white: lighten($sunnyside, 45%); //was #f7f7f9
-	$black: #222;
-	
-	$sunny_dark: darken($sunnyside, 35%);
-	$sunny0: darken($sunnyside, 10%);
-	$sunny1: darken($sunnyside, 5%);
-	$sunny2: $sunnyside;
-	$sunnya: lighten($sunnyside, 5%);
-	$sunnyb: lighten($sunnyside, 10%);
-	$sunnyc: lighten($sunnyside, 15%);
-	$sunnyd: lighten($sunnyside, 20%);
+	$solar: #ffd400;
+	$brand: #1BA8C4;
 
-	$brand: #00aee8;
+	$white: #F9F2E8;
+	$black: #222;
+
+	$supergreen0: darken($supergreen, 12%);
+	$supergreen3: darken($supergreen, 8%);
+	$supergreen6: darken($supergreen, 4%);
+	$supergreen9: $supergreen;
+	$supergreena: lighten($supergreen, 4%);
+	$supergreenc: lighten($supergreen, 8%);
+	$supergreenf: lighten($supergreen, 12%);
+
+	$sunny_dark: darken($sunnyside, 35%);
+	$sunny0: darken($sunnyside, 4%);
+	$sunny1: darken($sunnyside, 2%);
+	$sunny2: $sunnyside;
+	$sunnya: lighten($sunnyside, 2%);
+	$sunnyb: lighten($sunnyside, 4%);
+	$sunnyc: lighten($sunnyside, 6%);
+	$sunnyd: lighten($sunnyside, 8%);
+	$sunnye: lighten($sunnyside, 10%);
+
 	$brand_shadow: darken($brand, 10%);
 	$brand_trans: #D5E2ED;
 	$brand_white: lighten($brand, 45%);
