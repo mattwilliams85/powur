@@ -33,10 +33,10 @@
 
 	$text: #444;
 	$red: #f46b41;
-	$supergreen: #90BC24;
-	$sunnyside: #ff8e00;
-	$solar: #ffd400;
-	$brand: #1BA8C4;
+	$supergreen: #86BD55;
+	$sunnyside: #F9A600;
+	$solar: #FAEA6A;
+	$brand: #20C2F1;
 
 	$white: #F9F2E8;
 	$black: #222;
@@ -95,7 +95,7 @@
 
 // Mixins
 	@mixin text_shadow {
-		text-shadow: 0 0px 5px rgba(255,255,255, .25), 0px 1px 3px rgba(0,0,0, .4);
+		text-shadow: 0 0px 5px rgba(255,255,255, .25), 0px 1px 3px rgba(0,0,0, .6);
 	}  
 
 	@mixin no_shadow {

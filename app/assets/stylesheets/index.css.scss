@@ -469,7 +469,7 @@ body#landing {
 	// Background & borders
 	background: $white;
 	border-top: 1px solid white;
-	border-bottom: 1px solid darken($white, 20%);
+	border-bottom: 1px solid darken($white, 55%);
 	// Typography
 
 	// Other
@@ -482,7 +482,7 @@ body#landing {
 		padding: 0;
 		overflow: auto;
 		// Background & borders
-		border-bottom: 1px solid darken(#f3ecdb, 20%);
+		border-bottom: 1px solid darken(#f3ecdb, 55%);
 		// Typography
 	
 		// Other
@@ -507,11 +507,12 @@ body#landing {
 		// Mixins
 	
 		// Box properties
-		overflow: auto;
+		overflow: visible;
+		height: $grid * 6;
 		// Background & borders
 		background-color: $supergreenc;
-		border-top: $grid / 4 solid $solar;
-		border-bottom: $grid / 4 solid $solar;
+		border-top: $grid / 8 solid darken($supergreen, 20%);
+		border-bottom: $grid / 8 solid darken($supergreen, 20%);
 		// Typography
 	
 		// Other
@@ -523,16 +524,61 @@ body#landing {
 		@include horizontal_list;
 		@include text_shadow;
 		// Box properties
-		height: $grid * 5;
+		height: $grid * 6;
 		display: table;
 		position: relative;
 		padding: 0 0 0 $grid * 2.5;
+		overflow: visible;
 		// Background & borders
 
 		// Typography
 		line-height: $font_size;
 		color: $white;
 		// Other
+
+		span.text {
+			// Mixins
+		
+			// Box properties
+			display: table-cell;
+			// Background & borders
+
+			// Typography
+			vertical-align: middle;
+			// Other
+		}
+
+		.number {
+			// Mixins
+			@include corners(500px, 500px, 500px, 500px);
+			// Box properties
+			display: table;
+			position: absolute;
+			top: -$grid * 1.25;
+			left: 50%;
+			height: $grid * 2;
+			width: $grid * 2;
+			// Background & borders
+			border: $grid / 8 solid darken($supergreen, 20%);
+			background: $supergreen0;
+			// Typography
+			font-size: $grid;
+			// Other		
+			z-index: 400;
+
+			span {
+				// Mixins
+			
+				// Box properties
+				display: table-cell;
+				// Background & borders
+			
+				// Typography
+				vertical-align: middle;
+				// Other
+			
+			}
+		}
 
 		&.first {
 			// Mixins
@@ -541,15 +587,28 @@ body#landing {
 			width: 22%;
 			padding-left: $grid;
 			// Background & borders
-			background-color: $supergreen6;
+			background-color: $supergreen0;
 			// Typography
 
 			// Other
+
+			.number {
+				// Mixins
+			
+				// Box properties
+				left: 41%;
+				// Background & borders
+			
+				// Typography
+			
+				// Other
+			
+			}
 		}
 
 		&.first:after {
 			// Mixins
-		
+
 			// Box properties
 			position: absolute;
 			left: 100%;
@@ -558,9 +617,9 @@ body#landing {
 			height: 0;
 			
 			// Background & borders
-			border-top: $grid * 2.5 solid transparent;
-			border-left: $grid * 2 solid $supergreen6;
-			border-bottom: $grid * 2.5 solid transparent;
+			border-top: $grid * 3 solid transparent;
+			border-left: $grid * 2 solid $supergreen0;
+			border-bottom: $grid * 3 solid transparent;
 		
 			// Typography
 		
@@ -577,7 +636,7 @@ body#landing {
 			width: 25%;
 
 			// Background & borders
-			background-color: $supergreen9;
+			background-color: $supergreen3;
 			// Typography
 
 			// Other
@@ -594,9 +653,9 @@ body#landing {
 			height: 0;
 			
 			// Background & borders
-			border-top: $grid * 2.5 solid transparent;
-			border-left: $grid * 2 solid $supergreen9;
-			border-bottom: $grid * 2.5 solid transparent;
+			border-top: $grid * 3 solid transparent;
+			border-left: $grid * 2 solid $supergreen3;
+			border-bottom: $grid * 3 solid transparent;
 		
 			// Typography
 		
@@ -612,7 +671,7 @@ body#landing {
 			width: 25%;
 
 			// Background & borders
-			background-color: $supergreena;
+			background-color: $supergreen6;
 			// Typography
 
 			// Other
@@ -629,9 +688,9 @@ body#landing {
 			height: 0;
 			
 			// Background & borders
-			border-top: $grid * 2.5 solid transparent;
-			border-left: $grid * 2 solid $supergreena;
-			border-bottom: $grid * 2.5 solid transparent;
+			border-top: $grid * 3 solid transparent;
+			border-left: $grid * 2 solid $supergreen6;
+			border-bottom: $grid * 3 solid transparent;
 		
 			// Typography
 		
@@ -647,24 +706,26 @@ body#landing {
 			width: 28%;
 			padding: 0 $grid 0 $grid * 2.5;
 			// Background & borders
-			background-color: $supergreenc;
+			background-color: $supergreen9;
 			// Typography
 
 			// Other
+
+			.number {
+				// Mixins
+			
+				// Box properties
+				left: 43%;
+				// Background & borders
+			
+				// Typography
+			
+				// Other
+			
+			}
 		}
 
-		span {
-			// Mixins
-		
-			// Box properties
-			display: table-cell;
-			// Background & borders
 
-			// Typography
-			vertical-align: middle;
-			// Other
-		
-		}
 	}
 }
 
