@@ -182,12 +182,12 @@ body#landing {
 		position: absolute;
 		bottom: 0;
 		left: 0;
-		height: $grid * 25;
+		height: 60vh;
 		width: 100%;
 		// Background & borders
 		background-image: url(image-path('panel_test.png'));
 		background-repeat: no-repeat;
-		background-position: left bottom;
+		background-position: left top;
 		background-size: cover;
 
 		// Typography
