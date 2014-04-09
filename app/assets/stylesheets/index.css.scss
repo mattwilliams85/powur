@@ -411,6 +411,9 @@ body#landing {
 	overflow: auto;
 
 	// Background & borders
+	background-color: $white;
+	background-image: url(image-path('bg_sandnoise.jpg'));
+	background-repeat: repeat;
 	// Typography
 	text-align: center;
 	// Other
@@ -467,7 +470,7 @@ body#landing {
 	// Box properties
 
 	// Background & borders
-	background: $white;
+
 	border-top: 1px solid white;
 	border-bottom: 1px solid darken($white, 55%);
 	// Typography
@@ -551,6 +554,7 @@ body#landing {
 		.number {
 			// Mixins
 			@include corners(500px, 500px, 500px, 500px);
+
 			// Box properties
 			display: table;
 			position: absolute;
@@ -640,6 +644,7 @@ body#landing {
 			// Typography
 
 			// Other
+
 		}
 
 		&.second:after {
