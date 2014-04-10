@@ -514,8 +514,8 @@ body#landing {
 		height: $grid * 6;
 		// Background & borders
 		background-color: $supergreenc;
-		border-top: $grid / 8 solid darken($supergreen, 20%);
-		border-bottom: $grid / 8 solid darken($supergreen, 20%);
+		border-top: 3px solid darken($supergreen, 16%);
+		border-bottom: 3px solid darken($supergreen, 16%);
 		// Typography
 	
 		// Other
@@ -563,7 +563,7 @@ body#landing {
 			height: $grid * 2;
 			width: $grid * 2;
 			// Background & borders
-			border: $grid / 8 solid darken($supergreen, 20%);
+			border: 3px solid darken($supergreen, 16%);
 			background: $supergreen0;
 			// Typography
 			font-size: $grid;
@@ -823,14 +823,31 @@ body#landing {
 
 }
 
-.image_section {
+#first_image {
 	// Mixins
 
 	// Box properties
-	height: $grid * 10;
+	height: $grid * 19;
 	// Background & borders
-	background-image: url(image-path('IMG_1902.JPG'));
-	background-position: center top;
+	background-image: url(image-path('stock-photo-20504438-pedestrians-in-nyc.jpg'));
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-color: white;
+	// Typography
+
+	// Other
+
+}
+
+#second_image {
+	// Mixins
+
+	// Box properties
+	height: $grid * 14;
+	// Background & borders
+	background-image: url(image-path('stock-photo-21091238-be-super.jpg'));
+	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
 	border-color: white;

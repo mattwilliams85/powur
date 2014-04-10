@@ -94,8 +94,19 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
     window.onscroll = function() {
 	    var yOffset = window.pageYOffset;
+
 		$("header").css("backgroundColor", "rgba(32,194,241," + (yOffset * .001) + ")");
 		$("header").css("borderColor", "rgba(21, 130, 177," + (yOffset * .001) + ")");
+
+    	var banner1 = document.getElementById("first_image");
+    	var banner2 = document.getElementById("second_image");
+	    var speed = 10;
+
+		banner1.style.backgroundPosition = "center " + (-400 + (-yOffset / speed)) + "px";
+
+
+
+		banner2.style.backgroundPosition = "center " + (100 + (-yOffset / speed)) + "px";
 
     };
 
@@ -109,12 +120,6 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
 	// Parallax scrollingish?
 
-  //   window.onscroll = function() {
-  //   	var banner = document.getElementById("index_banner");
-	 //    var speed = 1.8;
-	 //    var yOffset = window.pageYOffset;
-		// banner.style.backgroundPosition = "right "+ (-220 + (-yOffset / speed)) + "px";
-  //   };
 
     // Just to make sure my syntax is still valid - that's how good I am at this...
 	// alert( "welcome" );
