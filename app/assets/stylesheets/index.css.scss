@@ -468,7 +468,7 @@ body#landing {
 	// Mixins
 
 	// Box properties
-
+	overflow: visible;
 	// Background & borders
 
 	border-top: 1px solid white;
@@ -483,7 +483,8 @@ body#landing {
 		// Box properties
 		margin: 0 auto;
 		padding: 0;
-		overflow: auto;
+		overflow: visible;
+		position: relative;
 		// Background & borders
 		border-bottom: 1px solid darken(#f3ecdb, 55%);
 		// Typography
@@ -512,14 +513,34 @@ body#landing {
 		// Box properties
 		overflow: visible;
 		height: $grid * 6;
+		position: relative;
 		// Background & borders
-		background-color: $supergreenc;
-		border-top: 3px solid darken($supergreen, 16%);
-		border-bottom: 3px solid darken($supergreen, 16%);
+		background-color: $brand;
+
 		// Typography
 	
 		// Other
 	
+	}
+
+	.goal_title {
+		// Mixins
+		@include corners(500px, 500px, 500px, 500px);
+		// Box properties
+		position: absolute;
+		width: $grid * 4;
+		left: 50%;
+		top: -$grid * 1;
+		margin-left: -$grid * 2;
+		padding: $grid / 2;
+		// Background & borders
+		background: $brand;
+		border: 1px solid darken($brand, 15%);
+		// Typography
+		text-align: center;
+		color: white;
+		// Other
+		z-index: 500;
 	}
 
 	.goal_text {
@@ -558,15 +579,15 @@ body#landing {
 			// Box properties
 			display: table;
 			position: absolute;
-			top: -$grid * 1.25;
+			bottom: -$grid * 1;
 			left: 50%;
 			height: $grid * 2;
 			width: $grid * 2;
 			// Background & borders
-			border: 3px solid darken($supergreen, 16%);
-			background: $supergreen0;
+			background: darken($brand, 6%);
+			border: 1px solid darken($brand, 15%);
 			// Typography
-			font-size: $grid;
+			font-size: $font_size;
 			// Other		
 			z-index: 400;
 
@@ -591,7 +612,7 @@ body#landing {
 			width: 22%;
 			padding-left: $grid;
 			// Background & borders
-			background-color: $supergreen0;
+			background-color: darken($brand, 12%);
 			// Typography
 
 			// Other
@@ -622,7 +643,7 @@ body#landing {
 			
 			// Background & borders
 			border-top: $grid * 3 solid transparent;
-			border-left: $grid * 2 solid $supergreen0;
+			border-left: $grid * 2 solid darken($brand, 12%);
 			border-bottom: $grid * 3 solid transparent;
 		
 			// Typography
@@ -640,7 +661,7 @@ body#landing {
 			width: 25%;
 
 			// Background & borders
-			background-color: $supergreen3;
+			background-color: darken($brand, 8%);
 			// Typography
 
 			// Other
@@ -659,7 +680,7 @@ body#landing {
 			
 			// Background & borders
 			border-top: $grid * 3 solid transparent;
-			border-left: $grid * 2 solid $supergreen3;
+			border-left: $grid * 2 solid darken($brand, 8%);
 			border-bottom: $grid * 3 solid transparent;
 		
 			// Typography
@@ -676,7 +697,7 @@ body#landing {
 			width: 25%;
 
 			// Background & borders
-			background-color: $supergreen6;
+			background-color: darken($brand, 4%);
 			// Typography
 
 			// Other
@@ -694,7 +715,7 @@ body#landing {
 			
 			// Background & borders
 			border-top: $grid * 3 solid transparent;
-			border-left: $grid * 2 solid $supergreen6;
+			border-left: $grid * 2 solid darken($brand, 4%);
 			border-bottom: $grid * 3 solid transparent;
 		
 			// Typography
@@ -711,7 +732,7 @@ body#landing {
 			width: 28%;
 			padding: 0 $grid 0 $grid * 2.5;
 			// Background & borders
-			background-color: $supergreen9;
+			background-color: $brand;
 			// Typography
 
 			// Other
@@ -827,7 +848,7 @@ body#landing {
 	// Mixins
 
 	// Box properties
-	height: $grid * 19;
+	height: $grid * 21;
 	// Background & borders
 	background-image: url(image-path('stock-photo-20504438-pedestrians-in-nyc.jpg'));
 	background-position: center center;
@@ -844,7 +865,7 @@ body#landing {
 	// Mixins
 
 	// Box properties
-	height: $grid * 14;
+	height: $grid * 16;
 	// Background & borders
 	background-image: url(image-path('stock-photo-21091238-be-super.jpg'));
 	background-position: center center;

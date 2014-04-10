@@ -100,13 +100,13 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
     	var banner1 = document.getElementById("first_image");
     	var banner2 = document.getElementById("second_image");
-	    var speed = 10;
+	    var speed = 9;
 
-		banner1.style.backgroundPosition = "center " + (-400 + (-yOffset / speed)) + "px";
+		banner1.style.backgroundPosition = "center " + (-700 + (yOffset / speed)) + "px";
 
 
 
-		banner2.style.backgroundPosition = "center " + (100 + (-yOffset / speed)) + "px";
+		banner2.style.backgroundPosition = "center " + (-500 + (yOffset / speed)) + "px";
 
     };
 
