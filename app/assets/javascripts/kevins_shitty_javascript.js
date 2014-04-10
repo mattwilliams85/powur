@@ -98,15 +98,16 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 		$("header").css("backgroundColor", "rgba(32,194,241," + (yOffset * .001) + ")");
 		$("header").css("borderColor", "rgba(21, 130, 177," + (yOffset * .001) + ")");
 
-    	var banner1 = document.getElementById("first_image");
-    	var banner2 = document.getElementById("second_image");
+		var banner1 = document.getElementById("banner_graphic_br");
+    	var banner2 = document.getElementById("first_image");
+    	var banner3 = document.getElementById("second_image");
 	    var speed = 9;
 
-		banner1.style.backgroundPosition = "center " + (-700 + (yOffset / speed)) + "px";
+		banner1.style.backgroundPosition = "left " + (0 + (yOffset / speed)) + "px";
 
+		banner2.style.backgroundPosition = "center " + (-700 + (yOffset / speed)) + "px";
 
-
-		banner2.style.backgroundPosition = "center " + (-500 + (yOffset / speed)) + "px";
+		banner3.style.backgroundPosition = "center " + (-500 + (yOffset / speed)) + "px";
 
     };
 

@@ -479,7 +479,7 @@ body#landing {
 
 	#our_goals {
 		// Mixins
-	
+		
 		// Box properties
 		margin: 0 auto;
 		padding: 0;
@@ -514,6 +514,7 @@ body#landing {
 		overflow: visible;
 		height: $grid * 6;
 		position: relative;
+		display: none;
 		// Background & borders
 		background-color: $brand;
 
@@ -531,7 +532,7 @@ body#landing {
 		width: $grid * 4;
 		left: 50%;
 		top: -$grid * 1;
-		margin-left: -$grid * 2;
+		margin-left: -$grid * 2.5;
 		padding: $grid / 2;
 		// Background & borders
 		background: $brand;
@@ -849,6 +850,9 @@ body#landing {
 
 	// Box properties
 	height: $grid * 21;
+	position: relative;
+	overflow: visible;
+	padding: $grid * 3 $grid * 2 0;
 	// Background & borders
 	background-image: url(image-path('stock-photo-20504438-pedestrians-in-nyc.jpg'));
 	background-position: center center;
@@ -859,6 +863,131 @@ body#landing {
 
 	// Other
 
+	.goal_title {
+		// Mixins
+		@include corners(500px, 500px, 500px, 500px);
+		// Box properties
+		position: absolute;
+		width: $grid * 4;
+		left: 50%;
+		top: -$grid * 1;
+		margin-left: -$grid * 2.5;
+		padding: $grid / 2;
+		// Background & borders
+		background: $brand;
+		border: 1px solid darken($brand, 15%);
+		// Typography
+		text-align: center;
+		color: white;
+		// Other
+		z-index: 500;
+	}
+
+
+	.goal_text {
+		// Mixins
+		@include corners;
+		@include text_shadow;
+		@include box_sizing;
+		// Box properties
+
+		display: table;
+		position: relative;
+		padding: $grid;
+		height: $grid * 6;
+		margin: 0 5% $grid * 3;
+		overflow: visible;
+		float: left;
+		width: 40%;
+		// Background & borders
+		background: rgba(0,0,0,.5);
+		// Typography
+		color: $white;
+		// Other
+
+		span.text {
+			// Mixins
+		
+			// Box properties
+			display: table-cell;
+			// Background & borders
+
+			// Typography
+			vertical-align: middle;
+			// Other
+		}
+
+		.number {
+			// Mixins
+			@include corners(500px, 500px, 500px, 500px);
+
+			// Box properties
+			display: table;
+			position: absolute;
+			top: -$grid * 1;
+			left: 50%;
+			margin-left: -$grid;
+			height: $grid * 2;
+			width: $grid * 2;
+
+			// Background & borders
+			background: rgba(0,0,0,1);
+
+			// Typography
+			font-size: $font_size;
+			// Other		
+			z-index: 400;
+
+			span {
+				// Mixins
+			
+				// Box properties
+				display: table-cell;
+				// Background & borders
+			
+				// Typography
+				vertical-align: middle;
+				// Other
+			
+			}
+		}
+
+		&.first {
+			// Mixins
+		
+			// Box properties
+
+			// Background & borders
+
+			// Typography
+
+			// Other
+		}
+
+		&.second {
+			// Mixins
+		
+			// Box properties
+			
+			// Background & borders
+
+			// Typography
+
+			// Other
+		}
+
+		&.third {
+			// Mixins
+		
+			// Box properties
+			clear: both;
+			// Background & borders
+
+			// Typography
+
+			// Other
+		}
+	}
 }
 
 #second_image {
