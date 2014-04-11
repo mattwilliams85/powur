@@ -469,7 +469,7 @@ body#landing {
 
 	// Box properties
 	overflow: auto;
-	padding: $grid * 2 0;
+	padding: $grid * 2 0 $grid;
 	// Background & borders
 
 	border-top: 1px solid white;
@@ -493,6 +493,22 @@ body#landing {
 	
 		
 	}
+}
+
+.round_icon {
+	// Mixins
+
+	// Box properties
+	width: $grid * 2;
+	height: $grid * 2;
+	margin: 0 auto $grid / 4;
+	// Background & borders
+
+	// Typography
+	font-size: $grid * 2;
+
+	// Other
+
 }
 
 .landing_bar {
@@ -592,7 +608,7 @@ body#landing {
 	position: relative;
 	overflow: visible;
 	// Background & borders
-	background-image: url(image-path('stock-photo-20504438-pedestrians-in-nyc.jpg'));
+	background-image: url(image-path('city.jpg'));
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -606,8 +622,8 @@ body#landing {
 	
 		// Box properties
 		width: $grid * 28;
-		overflow: auto;
-		margin: $grid * 3 auto 0;
+		overflow: visible;
+		margin: $grid auto 0;
 		// Background & borders
 
 		// Typography
@@ -623,11 +639,11 @@ body#landing {
 		position: absolute;
 		top: 0;
 		left: 50%;
-		width: $grid * 6;
-		margin-left: -$grid * 3;
-		padding: $grid / 2 0;
+		width: $grid * 4.5;
+		margin-left: -$grid * 2.25;
+		padding: 0;
 		// Background & borders
-		background-color: rgba(0,0,0,.3);
+		background-color: rgba(0,0,0,.4);
 		// Typography
 		font-size: $font_size;
 		text-align: center;
@@ -647,13 +663,13 @@ body#landing {
 		display: table;
 		position: relative;
 		padding: $grid;
-		height: $grid * 8;
+		height: $grid * 9;
 		margin: 0 0 $grid * 2 0;
 		overflow: visible;
 		float: left;
 		width: $grid * 13;
 		// Background & borders
-		background-color: rgba(0,0,0,.3);
+		background-color: rgba(0,0,0,.4);
 		// Typography
 		color: $white;
 		// Other
@@ -675,7 +691,7 @@ body#landing {
 			@include corners(500px, 500px, 500px, 500px);
 
 			// Box properties
-			display: none;
+			display: table;
 			position: absolute;
 			top: -$grid * 1;
 			left: 50%;
@@ -684,7 +700,7 @@ body#landing {
 			width: $grid * 2;
 
 			// Background & borders
-			background: $supergreen;
+			background: $text;
 
 			// Typography
 			font-size: $font_size;
@@ -707,7 +723,7 @@ body#landing {
 
 		&.first {
 			// Mixins
-		
+			@include corners(3px,0,3px,0);
 			// Box properties
 			margin-right: $grid * 2;
 			// Background & borders
@@ -717,9 +733,30 @@ body#landing {
 			// Other
 		}
 
+		// &.first:after {
+		// 	// Mixins
+		
+		// 	// Box properties
+		// 	position: absolute;
+		// 	left: 100%;
+		// 	top: 0;
+		// 	width: 0;
+		// 	height: 0;
+		// 	// Background & borders
+		// 	border-top: $grid * 4 solid transparent;
+		// 	border-left: $grid * 2 solid rgba(0,0,0,.4);
+		// 	border-bottom: $grid * 4 solid transparent;		
+		// 	// Typography
+		
+		// 	// Other
+		// 	content: "";
+		// 	z-index: 190;
+		// }
+
 		&.second {
 			// Mixins
-		
+			@include corners(3px,3px,0,0);
+
 			// Box properties
 			
 			// Background & borders
@@ -728,6 +765,27 @@ body#landing {
 
 			// Other
 		}
+
+		// &.second:after {
+		// 	// Mixins
+		
+		// 	// Box properties
+		// 	position: absolute;
+		// 	left: 0;
+		// 	bottom: -$grid * 2;
+		// 	width: 0;
+		// 	height: 0;
+		// 	// Background & borders
+		// 	border-right: $grid * 7 solid transparent;
+		// 	border-left: $grid * 7 solid transparent;		
+		// 	border-top: $grid * 2 solid rgba(0,0,0,.4);
+
+		// 	// Typography
+		
+		// 	// Other
+		// 	content: "";
+		// 	z-index: 190;
+		// }
 
 		&.third {
 			// Mixins
@@ -741,6 +799,40 @@ body#landing {
 
 			// Other
 		}
+
+		&.fourth {
+			// Mixins
+			@include corners(0,3px,0,3px);
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+
+		// &.fourth:after {
+		// 	// Mixins
+		
+		// 	// Box properties
+		// 	position: absolute;
+		// 	left:-$grid * 2;
+		// 	top: 0;
+		// 	width: 0;
+		// 	height: 0;
+		// 	// Background & borders
+		// 	border-top: $grid * 4 solid transparent;
+		// 	border-bottom: $grid * 4 solid transparent;		
+		// 	border-right: $grid * 2 solid rgba(0,0,0,.4);
+
+		// 	// Typography
+		
+		// 	// Other
+		// 	content: "";
+		// 	z-index: 190;
+		// }
 	}
 }
 
@@ -750,7 +842,7 @@ body#landing {
 	// Box properties
 	height: $grid * 16;
 	// Background & borders
-	background-image: url(image-path('stock-photo-21091238-be-super.jpg'));
+	background-image: url(image-path('kids.jpg'));
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
