@@ -468,7 +468,8 @@ body#landing {
 	// Mixins
 
 	// Box properties
-	overflow: visible;
+	overflow: auto;
+	padding: $grid * 2 0;
 	// Background & borders
 
 	border-top: 1px solid white;
@@ -477,282 +478,20 @@ body#landing {
 
 	// Other
 
-	#our_goals {
+	p {
 		// Mixins
-		
+	
 		// Box properties
 		margin: 0 auto;
-		padding: 0;
-		overflow: visible;
-		position: relative;
+		width: 75%;		
+
 		// Background & borders
-		border-bottom: 1px solid darken(#f3ecdb, 55%);
-		// Typography
-	
-		// Other
 
-		p {
-			// Mixins
-		
-			// Box properties
-			margin: 0 auto $grid * 2;
-			width: 75%;		
-
-			// Background & borders
-
-			// Typography
-			text-align: center;
-			// Other
-		
-		}
-	}
-
-	.landing_bar {
-		// Mixins
-	
-		// Box properties
-		overflow: visible;
-		height: $grid * 6;
-		position: relative;
-		display: none;
-		// Background & borders
-		background-color: $brand;
-
-		// Typography
-	
-		// Other
-	
-	}
-
-	.goal_title {
-		// Mixins
-		@include corners(500px, 500px, 500px, 500px);
-		// Box properties
-		position: absolute;
-		width: $grid * 4;
-		left: 50%;
-		top: -$grid * 1;
-		margin-left: -$grid * 2.5;
-		padding: $grid / 2;
-		// Background & borders
-		background: $brand;
-		border: 1px solid darken($brand, 15%);
 		// Typography
 		text-align: center;
-		color: white;
 		// Other
-		z-index: 500;
-	}
-
-	.goal_text {
-		// Mixins
-		@include horizontal_list;
-		@include text_shadow;
-		// Box properties
-		height: $grid * 6;
-		display: table;
-		position: relative;
-		padding: 0 0 0 $grid * 2.5;
-		overflow: visible;
-		// Background & borders
-
-		// Typography
-		line-height: $font_size;
-		color: $white;
-		// Other
-
-		span.text {
-			// Mixins
+	
 		
-			// Box properties
-			display: table-cell;
-			// Background & borders
-
-			// Typography
-			vertical-align: middle;
-			// Other
-		}
-
-		.number {
-			// Mixins
-			@include corners(500px, 500px, 500px, 500px);
-
-			// Box properties
-			display: table;
-			position: absolute;
-			bottom: -$grid * 1;
-			left: 50%;
-			height: $grid * 2;
-			width: $grid * 2;
-			// Background & borders
-			background: darken($brand, 6%);
-			border: 1px solid darken($brand, 15%);
-			// Typography
-			font-size: $font_size;
-			// Other		
-			z-index: 400;
-
-			span {
-				// Mixins
-			
-				// Box properties
-				display: table-cell;
-				// Background & borders
-			
-				// Typography
-				vertical-align: middle;
-				// Other
-			
-			}
-		}
-
-		&.first {
-			// Mixins
-		
-			// Box properties
-			width: 22%;
-			padding-left: $grid;
-			// Background & borders
-			background-color: darken($brand, 12%);
-			// Typography
-
-			// Other
-
-			.number {
-				// Mixins
-			
-				// Box properties
-				left: 41%;
-				// Background & borders
-			
-				// Typography
-			
-				// Other
-			
-			}
-		}
-
-		&.first:after {
-			// Mixins
-
-			// Box properties
-			position: absolute;
-			left: 100%;
-			top: 0;
-			width: 0;
-			height: 0;
-			
-			// Background & borders
-			border-top: $grid * 3 solid transparent;
-			border-left: $grid * 2 solid darken($brand, 12%);
-			border-bottom: $grid * 3 solid transparent;
-		
-			// Typography
-		
-			// Other
-		   content:"";
-		   z-index: 200;
-
-		}
-
-		&.second {
-			// Mixins
-		
-			// Box properties
-			width: 25%;
-
-			// Background & borders
-			background-color: darken($brand, 8%);
-			// Typography
-
-			// Other
-
-		}
-
-		&.second:after {
-			// Mixins
-		
-			// Box properties
-			position: absolute;
-			left: 100%;
-			top: 0;
-			width: 0;
-			height: 0;
-			
-			// Background & borders
-			border-top: $grid * 3 solid transparent;
-			border-left: $grid * 2 solid darken($brand, 8%);
-			border-bottom: $grid * 3 solid transparent;
-		
-			// Typography
-		
-			// Other
-		   content:"";
-		   z-index: 190;
-		}
-
-		&.third {
-			// Mixins
-		
-			// Box properties
-			width: 25%;
-
-			// Background & borders
-			background-color: darken($brand, 4%);
-			// Typography
-
-			// Other
-		}
-
-		&.third:after {
-			// Mixins
-		
-			// Box properties
-			position: absolute;
-			left: 100%;
-			top: 0;
-			width: 0;
-			height: 0;
-			
-			// Background & borders
-			border-top: $grid * 3 solid transparent;
-			border-left: $grid * 2 solid darken($brand, 4%);
-			border-bottom: $grid * 3 solid transparent;
-		
-			// Typography
-		
-			// Other
-		   content:"";
-		   z-index: 180;
-		}
-
-		&.fourth {
-			// Mixins
-		
-			// Box properties
-			width: 28%;
-			padding: 0 $grid 0 $grid * 2.5;
-			// Background & borders
-			background-color: $brand;
-			// Typography
-
-			// Other
-
-			.number {
-				// Mixins
-			
-				// Box properties
-				left: 43%;
-				// Background & borders
-			
-				// Typography
-			
-				// Other
-			
-			}
-		}
-
-
 	}
 }
 
@@ -849,10 +588,9 @@ body#landing {
 	// Mixins
 
 	// Box properties
-	height: $grid * 21;
+	height: $grid * 25;
 	position: relative;
 	overflow: visible;
-	padding: $grid * 3 $grid * 2 0;
 	// Background & borders
 	background-image: url(image-path('stock-photo-20504438-pedestrians-in-nyc.jpg'));
 	background-position: center center;
@@ -863,44 +601,59 @@ body#landing {
 
 	// Other
 
+	#goals {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 28;
+		overflow: auto;
+		margin: $grid * 3 auto 0;
+		// Background & borders
+
+		// Typography
+	
+		// Other
+	
+	}
+
 	.goal_title {
 		// Mixins
-		@include corners(500px, 500px, 500px, 500px);
+		@include corners(0,0,500px,500px);
 		// Box properties
 		position: absolute;
-		width: $grid * 4;
+		top: 0;
 		left: 50%;
-		top: -$grid * 1;
-		margin-left: -$grid * 2.5;
-		padding: $grid / 2;
+		width: $grid * 6;
+		margin-left: -$grid * 3;
+		padding: $grid / 2 0;
 		// Background & borders
-		background: $brand;
-		border: 1px solid darken($brand, 15%);
+		background-color: rgba(0,0,0,.3);
 		// Typography
+		font-size: $font_size;
 		text-align: center;
 		color: white;
 		// Other
-		z-index: 500;
+
 	}
 
 
 	.goal_text {
 		// Mixins
 		@include corners;
-		@include text_shadow;
 		@include box_sizing;
+
 		// Box properties
 
 		display: table;
 		position: relative;
 		padding: $grid;
-		height: $grid * 6;
-		margin: 0 5% $grid * 3;
+		height: $grid * 8;
+		margin: 0 0 $grid * 2 0;
 		overflow: visible;
 		float: left;
-		width: 40%;
+		width: $grid * 13;
 		// Background & borders
-		background: rgba(0,0,0,.5);
+		background-color: rgba(0,0,0,.3);
 		// Typography
 		color: $white;
 		// Other
@@ -922,7 +675,7 @@ body#landing {
 			@include corners(500px, 500px, 500px, 500px);
 
 			// Box properties
-			display: table;
+			display: none;
 			position: absolute;
 			top: -$grid * 1;
 			left: 50%;
@@ -931,7 +684,7 @@ body#landing {
 			width: $grid * 2;
 
 			// Background & borders
-			background: rgba(0,0,0,1);
+			background: $supergreen;
 
 			// Typography
 			font-size: $font_size;
@@ -956,7 +709,7 @@ body#landing {
 			// Mixins
 		
 			// Box properties
-
+			margin-right: $grid * 2;
 			// Background & borders
 
 			// Typography
@@ -981,6 +734,7 @@ body#landing {
 		
 			// Box properties
 			clear: both;
+			margin-right: $grid * 2;
 			// Background & borders
 
 			// Typography
