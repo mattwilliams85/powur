@@ -526,17 +526,19 @@ body#landing {
 
 .deal_points {
 	// Mixins
-	@include corners;
+	@include corners (50%,50%,50%,50%);
+	@include box_sizing;
 	// Box properties
 	margin: 0 $grid $grid;
-	padding: $grid;
+	padding: $grid * 1.35 0 $grid;
 	display: inline-block;
-	width: $grid * 5;
+	width: $grid * 4;
+	height: $grid * 4;
 	// Background & borders
-	background: $dev_gray;
+	background: $sunnyside;
 	// Typography
-	font-size: $font_size * 1.25;
-	color: $whisper;
+	line-height: $font_size;
+	color: white;
 	// Other
 
 }
@@ -569,8 +571,21 @@ body#landing {
 
 	// Typography
 	text-align: center;
-	font-size: $font_size * 3;
-	color: $whisper;
+
+	// Other
+
+}
+
+#customer_checklist {
+	// Mixins
+
+	// Box properties
+	padding: $grid /2;
+	// Background & borders
+	background: $brand;
+	// Typography
+	color: $white;
+
 	// Other
 
 }
