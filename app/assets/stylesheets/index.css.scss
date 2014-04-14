@@ -136,6 +136,79 @@ body#landing {
 	}
 }
 
+#secondary_cta {
+	// Mixins
+
+	// Box properties
+	margin: $grid * 2 auto 0;
+	overflow: auto;
+	// Background & borders
+
+	// Typography
+	text-align: center;	
+	// Other
+
+	input {
+		// Mixins
+		@include corners(4px, 0, 4px, 0);
+		// Box properties
+		display: inline-block;
+		width: auto;
+		margin: -1px -7px 0 0;
+		// Background & borders
+		background: white;
+		border-color: $quiet;
+		// Typography
+		color: $text;
+		// Other
+	
+	}
+
+	::-webkit-input-placeholder {
+	   color: $quiet;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: $quiet;  
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: $quiet;  
+	}
+
+	:-ms-input-placeholder {  
+	   color: $quiet;  
+	}
+
+	.button {
+		// Mixins
+		@include corners(0, 4px, 0, 4px);
+		// Box properties
+		display: inline-block;
+		width: auto;
+		clear: none;
+		// Background & borders
+		border-color: $quiet;
+		background: $sunnyside;
+		// Typography
+		color: white;
+		// Other
+	
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background: darken($sunnyside, 10%);
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}
+
 #index_banner {
 	// Mixins
 	@include box_sizing;
@@ -602,6 +675,23 @@ body#landing {
 
 }
 
+#growing_business {
+	// Mixins
+
+	// Box properties
+	padding-bottom: $grid * 18;
+	// Background & borders
+	background: 
+	url(image-path('dashboard_hero.png')) no-repeat center bottom,
+	url(image-path('bg_sandnoise.jpg')) repeat;
+	
+
+	// Typography
+
+	// Other
+
+}
+
 #doing_good {
 	// Mixins
 
@@ -612,7 +702,6 @@ body#landing {
 	// Typography
 
 	// Other
-
 }
 
 #first_image {
@@ -867,6 +956,24 @@ body#landing {
 	// Other
 
 }
+
+#third_image {
+	// Mixins
+
+	// Box properties
+	height: $grid * 20;
+	// Background & borders
+	background-image: url(image-path('stock-photo-16238490-sunset-and-grass.jpg'));
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border-color: white;
+	// Typography
+
+	// Other
+
+}
+
 
 #solar_advocate {
 	// Mixins

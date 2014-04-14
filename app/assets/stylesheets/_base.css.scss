@@ -4,7 +4,6 @@ body {
 	// Mixins
 
 	// Box properties
-	padding-bottom: $grid * 2;
 
 	// Background & borders
 	background: white;
@@ -321,19 +320,59 @@ ul {
 
 footer {
 	// Mixins
-	@include gradient_sunrise;
-	@include text_shadow;
-	// Box properties
-	padding: $grid $grid $grid * 5;
 
+	// Box properties
+	padding: $grid * 2 $grid * 3 $grid * 5;
+	overflow: auto;
 	// Background & borders
 	border-top: $border;
-
+	background: $sunnyside;
 	// Typography
 	text-align: center;
 	color: white;
-
+	text-align: left;
 	// Other
+
+	h3 {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		// Typography
+		text-transform: uppercase;
+		font-size: $grid / 2;
+		color: rgba(white, .6);
+		// Other
+	
+	}
+
+	ul {
+		// Mixins
+	
+		// Box properties
+		
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		li {
+			// Mixins
+		
+			// Box properties
+				
+			// Background & borders
+		
+			// Typography
+			list-style: none;
+			text-transform: uppercase;
+			font-size: $grid / 2;
+			// Other
+		
+		}
+	}
 
 }
 
