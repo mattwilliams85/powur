@@ -1,0 +1,78 @@
+<section id="index_banner">
+
+	<div class="banner_content signup">
+
+		<h1>Almost there&hellip;</h1>
+
+		<form id="customer_signup" class="two">
+
+			<span class="form_row">
+				<label for="street_1">Street Address</label>
+				<input id="street_1" name="street_1" type="text" placeholder="Street Address" />
+			</span>
+
+			<span class="form_row">
+				<label for="zip">Zip Code</label>
+				<input id="zip" name="zip" type="text" placeholder="Zip Code" />
+			</span>
+
+			<span class="form_row">
+				<input id="city" name="city" type="text" placeholder="Santa Barbara" />
+				<input id="state" name="state" type="text" placeholder="CA" />
+			</span>
+
+			<span class="form_row">
+					<%= select_tag "utility", options_for_select(
+						[
+							"Southern California Edison", 
+						    "PG&E",
+						    "Other"
+						], ["Southern California Edison"]) 
+					%>
+			</span>
+
+			<span class="form_row checkbox">
+				<label for="homeowner" class="checkbox">I own my home</label>
+				<input id="homeowner" name="homeowner" type="checkbox"/>
+			</span>
+
+			<span class="form_row">
+					<%= select_tag "roof_age", options_for_select(
+						[
+							"Roof Age", 
+							"Less than 5 years old", 
+						    "5 to 10 years old",
+						    "Over 10 years old"
+						], ["How old is your roof?"]) 
+					%>				
+					<%= select_tag "roof_material", options_for_select(
+						[
+							"Roof material", 
+							"Wood shingle", 
+						    "Asphalt shingle",
+						    "Rubber shingle",
+						    "Stond slab",
+						    "Ceramic tile",
+						    "Membrane",
+						    "I don't know"
+						], ["Roof material"]) 
+					%>
+			</span>
+
+			<span class="form_row checkbox">
+				<label for="credit" class="checkbox">I believe my credit score is above 700</label>
+				<input id="credit" name="credit" type="checkbox"/>
+			</span>
+
+			<span class="form_row actions">
+				<a href="/customer/details" class="button submit">Go</a>
+			</span>
+
+		</form>
+
+		<h3>This is all optional, just fill in what you can</h3>
+
+	</div>
+
+	<span id="banner_graphic_br"></span>
+</section>

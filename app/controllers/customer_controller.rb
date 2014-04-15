@@ -1,6 +1,6 @@
 class CustomerController < ApplicationController
 
-	layout "landing"
+	layout "signup"
 
 	def thanks
 	end
