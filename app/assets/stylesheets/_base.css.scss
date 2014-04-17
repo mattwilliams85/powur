@@ -240,7 +240,7 @@ header {
 
 					// Box properties
 					margin: 0;
-					padding: 0;
+					padding: $grid / 4 $grid / 2;
 					// Background & borders
 					background: rgba($brand, .7);
 					// Typography

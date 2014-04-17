@@ -95,8 +95,8 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
     window.onscroll = function() {
 	    var yOffset = window.pageYOffset;
 
-		$("header").css("backgroundColor", "rgba(32,194,241," + (yOffset * .001) + ")");
-		$("header").css("borderColor", "rgba(21, 130, 177," + (yOffset * .001) + ")");
+		$(".js_scrolling_header").css("backgroundColor", "rgba(32,194,241," + (yOffset * .001) + ")");
+		$(".js_scrolling_header").css("borderColor", "rgba(21, 130, 177," + (yOffset * .001) + ")");
 
 		var banner1 = document.getElementById("banner_graphic_br");
     	var banner2 = document.getElementById("first_image");
