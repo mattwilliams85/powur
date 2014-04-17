@@ -537,36 +537,6 @@ body#landing {
 
 }
 
-#our_mission {
-	// Mixins
-
-	// Box properties
-	overflow: auto;
-	padding: $grid * 2 0 $grid;
-	// Background & borders
-
-	border-top: 1px solid white;
-	border-bottom: 1px solid darken($white, 55%);
-	// Typography
-
-	// Other
-
-	p {
-		// Mixins
-	
-		// Box properties
-		margin: 0 auto $grid;
-		width: 75%;		
-
-		// Background & borders
-
-		// Typography
-		text-align: center;
-		// Other
-	
-		
-	}
-}
 
 .round_icon {
 	// Mixins
@@ -663,16 +633,34 @@ body#landing {
 
 }
 
-#sales_process {
+#our_mission {
 	// Mixins
 
 	// Box properties
+	overflow: auto;
+	padding: $grid * 2 0 $grid;
 	// Background & borders
 
+	border-top: 1px solid white;
+	border-bottom: 1px solid darken($white, 55%);
 	// Typography
-	text-align: center;
+
 	// Other
 
+	p {
+		// Mixins
+	
+		// Box properties
+		margin: 0 auto $grid;
+		width: 75%;		
+
+		// Background & borders
+
+		// Typography
+		text-align: center;
+		// Other
+	
+	}
 
 	.dev_img_placeholder {
 		// Mixins
@@ -688,6 +676,18 @@ body#landing {
 		// Other
 	
 	}
+}
+
+#sales_process {
+	// Mixins
+
+	// Box properties
+	// Background & borders
+
+	// Typography
+	text-align: center;
+	// Other
+
 }
 
 #growing_business {
