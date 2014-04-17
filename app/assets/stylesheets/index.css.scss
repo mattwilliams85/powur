@@ -15,9 +15,7 @@ body#landing {
 
 	header {
 		// Mixins
-		@include box_sizing;
 		// Box properties
-		padding-right: $grid;
 		// Background & borders
 		border-bottom: 1px solid rgba(255, 255, 255, 0);
 		// Typography
@@ -535,6 +533,21 @@ body#landing {
 	
 	}
 
+	.dev_img_placeholder {
+		// Mixins
+	
+		// Box properties
+		width: 75%;
+		height: $grid * 8;
+		margin:0 auto $grid;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
 }
 
 
@@ -658,21 +671,6 @@ body#landing {
 
 		// Typography
 		text-align: center;
-		// Other
-	
-	}
-
-	.dev_img_placeholder {
-		// Mixins
-	
-		// Box properties
-		width: 75%;
-		height: $grid * 8;
-		margin:0 auto $grid;
-		// Background & borders
-	
-		// Typography
-	
 		// Other
 	
 	}
