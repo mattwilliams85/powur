@@ -555,7 +555,7 @@ body#landing {
 		// Mixins
 	
 		// Box properties
-		margin: 0 auto;
+		margin: 0 auto $grid;
 		width: 75%;		
 
 		// Background & borders
@@ -673,6 +673,21 @@ body#landing {
 	text-align: center;
 	// Other
 
+
+	.dev_img_placeholder {
+		// Mixins
+	
+		// Box properties
+		width: 75%;
+		height: $grid * 8;
+		margin:0 auto $grid;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
 }
 
 #growing_business {
