@@ -78,7 +78,7 @@
 
 			<div class="kpi" onclick="detailExpander('tree_volume_detail');">
 				<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
-				<h3>$32,450 Volume</h3>
+				<h3>$32,450 Earnings</h3>
 				<span class="subtext">Down 5% this week</span>
 				<i class="fa fa-angle-down"></i>
 			</div>
@@ -133,9 +133,9 @@
 
 		<% else %>
 
-			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Marky", :last_name => "Mark", :has_address => true, :has_rooftop => false, :has_utility => true}%>
-			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Bonilla", :has_address => false, :has_rooftop => false, :has_utility => false}%>
-			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "The Rat", :has_address => true, :has_rooftop => true, :has_utility => false}%>
+			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Barbara", :last_name => "Jackson", :has_address => true, :has_rooftop => false, :has_utility => true}%>
+			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Sausalito", :has_address => false, :has_rooftop => false, :has_utility => false}%>
+			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "Jimenez", :has_address => true, :has_rooftop => true, :has_utility => false}%>
 		
 		<% end %>
 
