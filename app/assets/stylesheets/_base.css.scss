@@ -4,7 +4,7 @@ body {
 	// Mixins
 
 	// Box properties
-
+	padding: 0;
 	// Background & borders
 	background: white;
 
@@ -171,7 +171,7 @@ header {
 	@include box_sizing;
 
 	// Box properties
-	padding: $grid / 8 0;
+	padding: $grid / 4 0;
 	position: fixed;
 	top: 0;
 	width: 100%;
