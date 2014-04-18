@@ -3,13 +3,14 @@
 
 	function detailExpander(showID, btn_text){
 		if($("#" + showID).is(":visible")) {
-			$("#" + showID).fadeOut("fast");	
 			$(".js-" + showID).removeClass("active").html(btn_text);
+			$("#" + showID).stop().fadeTo('easing', 0).slideUp();	
 		} else {
 			$("#" + showID).find("form").show();
 			$("#" + showID).find(".success").hide();
-			$(".object_detail").fadeOut("fast");
-			$("#" + showID).show();
+			$(".object_detail").hide();
+
+			$("#" + showID).fadeTo('fast', 1).show();
 			$(".js-" + showID).addClass("active").html("Close");
 		}
 	}

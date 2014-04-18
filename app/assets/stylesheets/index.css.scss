@@ -975,11 +975,11 @@ body#landing {
 	// Box properties
 	height: $grid * 20;
 	// Background & borders
-	background-image: url(image-path('stock-photo-23936878-young-couple-and-a-dog.jpg'));
+	background-image: url(image-path('couple.jpg'));
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	border-color: white;
+	border-top: 1px solid $whisper;
 	// Typography
 
 	// Other
