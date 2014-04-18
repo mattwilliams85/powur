@@ -672,6 +672,24 @@ body#landing {
 
 }
 
+#solar_growth {
+	// Mixins
+
+	// Box properties
+	width: 75%;
+	height: $grid * 12;
+	margin: 0 auto $grid;
+	// Background & borders
+	background-image:url(image-path('solar_growth_graph.svg'));
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: contain;
+	// Typography
+
+	// Other
+
+}
+
 #our_mission {
 	// Mixins
 
