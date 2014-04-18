@@ -212,7 +212,7 @@ body#landing {
 	@include text_shadow;
 	// Box properties
 	padding: $grid $grid * 2 0;
-	overflow: auto;
+	overflow: hidden;
 	height: 100vh;
 	position: relative;
 	// Background & borders
@@ -260,7 +260,6 @@ body#landing {
 		background-repeat: no-repeat;
 		background-position: left top;
 		background-size: cover;
-
 		// Typography
 	
 		// Other
@@ -765,18 +764,34 @@ body#landing {
 	// Mixins
 
 	// Box properties
-	height: $grid * 25;
+	height: $grid * 27;
 	position: relative;
-	overflow: visible;
+	overflow: hidden;
 	// Background & borders
-	background-image: url(image-path('city.jpg'));
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
+
 	border-color: white;
 	// Typography
 
 	// Other
+
+	#first_image_br {
+		// Mixins
+	
+		// Box properties
+		height: 105%;
+		width: 105%;
+		position: absolute;
+		top: -185px;
+		// Background & borders
+		background-image: url(image-path('city.jpg'));
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;	
+		// Typography
+	
+		// Other
+		z-index: 0;
+	}
 
 	#goals {
 		// Mixins
@@ -784,7 +799,7 @@ body#landing {
 		// Box properties
 		width: $grid * 28;
 		overflow: visible;
-		margin: $grid auto 0;
+		margin: $grid * 3 auto 0;
 		// Background & borders
 
 		// Typography
@@ -997,21 +1012,40 @@ body#landing {
 	}
 }
 
+
 #second_image {
 	// Mixins
 
 	// Box properties
-	height: $grid * 16;
+	height: $grid * 18;
+	position: relative;
+	overflow: hidden;
 	// Background & borders
-	background-image: url(image-path('kids.jpg'));
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
+
 	border-color: white;
 	// Typography
 
 	// Other
 
+	#second_image_br {
+		// Mixins
+
+		// Box properties
+		height: 110%;
+		width: 110%;
+		position: absolute;
+		top: -445px;
+		// Background & borders
+		background-image: url(image-path('kids.jpg'));
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		border-color: white;
+		// Typography
+
+		// Other
+
+	}
 }
 
 #third_image {
@@ -1019,18 +1053,34 @@ body#landing {
 
 	// Box properties
 	height: $grid * 20;
+	position: relative;
+	overflow: hidden;
 	// Background & borders
-	background-image: url(image-path('couple.jpg'));
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: cover;
+
 	border-top: 1px solid $whisper;
 	// Typography
 
 	// Other
 
-}
+	#third_image_br {
+		// Mixins
 
+		// Box properties
+		height: 110%;
+		width: 110%;
+		position: absolute;
+		top: -645px;
+		// Background & borders
+		background-image: url(image-path('couple.jpg'));
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		// Typography
+
+		// Other
+
+	}
+}
 
 #solar_advocate {
 	// Mixins
