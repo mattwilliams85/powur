@@ -43,7 +43,7 @@
 		<% if params[:first_run] == "true" %>
 
 			<div class="blank_state">
-				You don't have any metrics yet. <a onclick="detailExpander('invite_detail', 'Invite an advocate');">Invite a fellow advocate</a> or <a href="#">add a customer lead</a> to watch your impact grow.
+				You don't have any metrics yet. <a onclick="detailExpander('invite_detail', 'Invite an advocate');">Invite a fellow advocate</a> or <a href="#">add a customer quote</a> to watch your impact grow.
 			</div>
 
 		<% else %>
@@ -99,9 +99,9 @@
 
 </section>
 
-<section id="dashboard_leads" class="dashboard_section">
+<section id="dashboard_quotes" class="dashboard_section">
 	<div class="section_header">
-		<h2>Your Leads</h2>
+		<h2>Your Quotes</h2>
 
 		<% if params[:first_run] == "true" %>
 
@@ -128,14 +128,14 @@
 		<% if params[:first_run] == "true" %>
 
 			<div class="blank_state">
-				You don't have any leads yet. <a href="#">Add a customer lead</a> to get started.
+				You don't have any quotes yet. <a href="#">Add a customer quote</a> to get started.
 			</div>
 
 		<% else %>
 
-			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Barbara", :last_name => "Jackson", :has_address => true, :has_rooftop => false, :has_utility => true}%>
-			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Barry", :last_name => "Sausalito", :has_address => false, :has_rooftop => false, :has_utility => false}%>
-			<%= render partial: "shared/lead_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "Jimenez", :has_address => true, :has_rooftop => true, :has_utility => false}%>
+			<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Barbara", :last_name => "Jackson", :has_address => true, :has_rooftop => false, :has_utility => true}%>
+			<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Barry", :last_name => "Sausalito", :has_address => false, :has_rooftop => false, :has_utility => false}%>
+			<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "Jimenez", :has_address => true, :has_rooftop => true, :has_utility => false}%>
 		
 		<% end %>
 

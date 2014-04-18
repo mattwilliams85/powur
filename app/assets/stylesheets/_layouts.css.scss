@@ -471,7 +471,7 @@ body#application {
 	}
 }
 
-#dashboard_leads {
+#dashboard_quotes {
 	// Mixins
 
 	// Box properties
@@ -761,7 +761,7 @@ body#application {
 
 }
 
-.lead_thumbnail {
+.quote_thumbnail {
 	// Mixins
 	@include object_thumbnail;
 
