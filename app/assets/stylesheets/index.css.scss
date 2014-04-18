@@ -579,14 +579,29 @@ body#landing {
 
 }
 
-.deal_points {
+#deal_points {
+	// Mixins
+
+	// Box properties
+	width: $grid * 18;
+	margin: 0 auto;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.deal_point {
 	// Mixins
 	@include corners (50%,50%,50%,50%);
 	@include box_sizing;
 	// Box properties
 	margin: 0 $grid $grid;
-	padding: $grid * 1.35 0 $grid;
-	display: inline-block;
+	padding: 0;
+	display: table;
+	float: left;
 	width: $grid * 4;
 	height: $grid * 4;
 	// Background & borders
@@ -596,6 +611,18 @@ body#landing {
 	color: white;
 	// Other
 
+	span {
+		// Mixins
+	
+		// Box properties
+		display: table-cell;
+		// Background & borders
+	
+		// Typography
+		vertical-align: middle;
+		// Other
+	
+	}
 }
 
 .customer_points {
