@@ -91,7 +91,7 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 			$(this).parent().hide();
 		});
 
-	// Opaque header on scroll
+	// Opaque header & parallax on scroll
 
     window.onscroll = function() {
 	    var yOffset = window.pageYOffset;
@@ -103,17 +103,16 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
     	var banner2 = document.getElementById("first_image_br");
     	var banner3 = document.getElementById("second_image_br");
     	var banner4 = document.getElementById("third_image_br");
-
 	    var speed = 9;
 
-		// banner1.style.backgroundPosition = "left " + (0 + (yOffset / speed)) + "px";
-		banner1.style.webkitTransform = 'translate3d(0px,' + (0 + Math.round(yOffset / speed)) + 'px, 0px)';
-		// banner2.style.backgroundPosition = "center " + (-700 + (yOffset / speed)) + "px";
-		banner2.style.webkitTransform = 'translate3d(0px,' + (0 + Math.round(yOffset / speed)) + 'px, 0px)';
-		// banner3.style.backgroundPosition = "center " + (-500 + (yOffset / speed)) + "px";
-		banner3.style.webkitTransform = 'translate3d(0px,' + (0 + Math.round(yOffset / speed)) + 'px, 0px)';
-		banner4.style.webkitTransform = 'translate3d(0px,' + (0 + Math.round(yOffset / speed)) + 'px, 0px)';
+	    var parallax = function(e) {
+			e.style.webkitTransform = 'translate3d(0px,' + Math.round(yOffset / speed) + 'px, 0px)';
+	    };
 
+	    parallax(banner1);
+		parallax(banner2);
+		parallax(banner3);
+		parallax(banner4);
     };
 
 	jQuery.easing.def = "easeInOutQuart";
