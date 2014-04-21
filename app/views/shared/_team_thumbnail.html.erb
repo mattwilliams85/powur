@@ -6,7 +6,9 @@
     <%= b.first_name %> <%= b.last_name %>
     <span class="subtext">
       <%= b.rank %>
-      <span class="badge"><%= b.quotes %></span>
+      <% if b.quotes != 0 %>
+        <span class="badge"><%= b.quotes %> New</span>
+      <% end %>
 <!--       <br/><%= b.quotes %> <i class="fa fa-file"></i>
       &nbsp; <%= b.sales %> <i class="fa fa-home"></i>
       &nbsp; <%= b.recruits %> <i class="fa fa-user"></i> -->

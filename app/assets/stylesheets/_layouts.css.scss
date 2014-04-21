@@ -505,7 +505,6 @@ body#application {
 
 	// Box properties
 	padding-bottom: 0;
-
 	// Background & borders
 
 	// Typography
@@ -795,7 +794,7 @@ body#application {
 		width: $grid * 2;
 		// Background & borders
 		background: $white;
-		background-size: contain;
+		background-size: cover;
 		border: $border;
 		// Typography
 	
@@ -897,6 +896,20 @@ body#application {
 
 	// Typography
 
+	// Other
+
+}
+
+.badge {
+	// Mixins
+	@include corners;
+	// Box properties
+	display: inline-block;
+	padding: 0 5px;
+	// Background & borders
+	background-color: $sunnyside;
+	// Typography
+	color: white;
 	// Other
 
 }
