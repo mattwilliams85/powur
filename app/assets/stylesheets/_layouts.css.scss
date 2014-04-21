@@ -787,6 +787,23 @@ body#application {
 
 	// Other
 
+	.advocate_avatar {
+		// Mixins
+		@include corners(50%, 50%, 50%, 50%);
+		// Box properties
+		display: inline-block;
+		height: $grid * 2;
+		width: $grid * 2;
+		// Background & borders
+		background: $white;
+		background-size: contain;
+		border: $border;
+		// Typography
+	
+		// Other
+	
+	}
+
 	&.pending {
 		// Mixins
 	
