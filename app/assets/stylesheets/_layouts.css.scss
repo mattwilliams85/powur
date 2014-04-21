@@ -550,7 +550,6 @@ body#application {
 	padding-bottom: 0;
 
 	// Background & borders
-	border-top: none;
 
 	// Typography
 
@@ -798,6 +797,19 @@ body#application {
 		background: $white;
 		background-size: contain;
 		border: $border;
+		// Typography
+	
+		// Other
+	
+	}
+
+	&:hover {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
 		// Typography
 	
 		// Other
