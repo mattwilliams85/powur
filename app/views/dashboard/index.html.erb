@@ -26,11 +26,12 @@
 				<li> 
 					<%= select_tag "Show", options_for_select(
 						[
-							"1st forks", 
-						    "2nd forks", 
-						    "3rd forks",
-						    "All forks"
-						], ["1st fork"]) 
+							"My Team", 
+						    "2nd Generation", 
+						    "3rd Generation",
+						    "My Entrie Organization",
+						    "All of Sunstand"
+						], ["My Team"]) 
 					%>
 				</li>
 			</ul>
@@ -157,6 +158,17 @@
 
 			<ul>
 				<li class="search"><i class="fa fa-search"></i></li>
+				<li> 
+					<%= select_tag "Show", options_for_select(
+						[
+							"My Team", 
+						    "2nd Generation", 
+						    "3rd Generation",
+						    "My Entrie Organization",
+						    "All of Sunstand"
+						], ["My Team"]) 
+					%>
+				</li>
 				<li>
 					<%= select_tag "Sort", options_for_select(
 						[

@@ -36,14 +36,12 @@
 						<%= link_to_unless_current 'Training', "/training" %>
 					</li>
 				<% end %>
-
-				<li>
-					<%= link_to_unless_current 'Settings', "/settings" %>
-				</li>
 			</ul>
 	
 			<ul id="user_nav">
-				<li>Jonathan: Champion</li>
+				<li>
+					<%= link_to_unless_current 'Jonathan: Champion', "/settings" %>
+				</li>
 				<li>
 					<a href="/user">Sign out</a>
 				</li>
