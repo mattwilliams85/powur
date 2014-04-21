@@ -773,6 +773,23 @@ body#application {
 
 }
 
+.advocate_avatar {
+	// Mixins
+	@include inner_shadow;
+	@include corners(50%, 50%, 50%, 50%);
+	// Box properties
+	display: inline-block;
+	height: $grid * 2;
+	width: $grid * 2;
+	// Background & borders
+	background: $white;
+	background-size: cover;
+	// Typography
+
+	// Other
+
+}
+
 .team_thumbnail {
 	// Mixins
 	@include object_thumbnail;
@@ -784,23 +801,6 @@ body#application {
 	// Typography
 
 	// Other
-
-	.advocate_avatar {
-		// Mixins
-		@include corners(50%, 50%, 50%, 50%);
-		// Box properties
-		display: inline-block;
-		height: $grid * 2;
-		width: $grid * 2;
-		// Background & borders
-		background: $white;
-		background-size: cover;
-		border: $border;
-		// Typography
-	
-		// Other
-	
-	}
 
 	&:hover {
 		// Mixins

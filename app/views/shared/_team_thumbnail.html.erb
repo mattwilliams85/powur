@@ -1,6 +1,6 @@
 <% Branch.all.each do |b| %>
 
-  <div class="team_thumbnail">
+  <div class="team_thumbnail" onclick="detailExpander('<%= b.first_name %>_detail');">
     <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
     <br/>
     <%= b.first_name %> <%= b.last_name %>
