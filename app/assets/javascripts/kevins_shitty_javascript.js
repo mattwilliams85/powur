@@ -1,17 +1,55 @@
+// Wrap thumbnail objects in a container per row
+	
+
+		function wrapThumbsInRows() {
+
+			var winWidth = $(window).width();
+
+			var thumb = $(".js-thumbnail");
+			var thumbWidth = 224;
+			var thumbsPerRow = Math.floor(winWidth / thumbWidth) - 1;
+
+  			if (thumb.parent().is(".thumb_row")) {
+			    thumb.unwrap();
+			}
+
+			for(var i = 0; i < thumb.length; i+=thumbsPerRow) {
+			  thumb.slice(i, i+thumbsPerRow).wrapAll("<div class='thumb_row row-" + Math.floor(i/thumbsPerRow + 1) + "'></div>");
+			}
+		}
+
+		 $(document).ready(wrapThumbsInRows);
+
+		 $(window).resize(wrapThumbsInRows);
+
+
+
+
 // Show expanded details for dashboard objects
 
 
 	function detailExpander(showID, btn_text){
-		if($("#" + showID).is(":visible")) {
-			$(".js-" + showID).removeClass("active").html(btn_text);
-			$("#" + showID).stop().fadeTo('easing', 0).slideUp();	
-		} else {
-			$("#" + showID).find("form").show();
-			$("#" + showID).find(".success").hide();
-			$(".object_detail").hide();
 
-			$("#" + showID).fadeTo('fast', 1).show();
-			$(".js-" + showID).addClass("active").html("Close");
+		var thumbnail = $("#" + showID + "_thumbnail");
+		var detail = $("#" + showID + "_detail");
+		var jsDetail = $(".js-" + showID + "_detail");
+
+		if($(detail).is(":visible")) {
+			$(jsDetail).removeClass("active").html(btn_text);
+			$(detail).hide();
+			$(detail).parent().css("marginBottom","0");
+		} else {
+			$(detail).find("form").show();
+			$(detail).find(".success").hide();
+			$(".object_detail").hide().parent().css("marginBottom","0");
+
+			$(detail).show();
+
+			var detailHeight = $(detail).height();
+
+			$(jsDetail).addClass("active").html("Close");
+			$(detail).parent().css("marginBottom",(detailHeight + 44) + "px");
+
 		}
 	}
 
@@ -123,9 +161,11 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
     $('.scroll_leader').delay('500').animate({ opacity: 1, bottom: "45px" }, 'slow', 'swing');
 
 
-	// Parallax scrollingish?
 
 
     // Just to make sure my syntax is still valid - that's how good I am at this...
 	// alert( "welcome" );
 });
+
+
+

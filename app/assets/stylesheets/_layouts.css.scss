@@ -442,10 +442,10 @@ body#application {
 		// Mixins
 		@include object_thumbnail;
 		// Box properties
-		padding: 0;
-		float: left;
-		margin:0 $grid 0 0;
-		width: $grid * 6;
+		// padding: 0;
+		// float: left;
+		// margin:0 $grid 0 0;
+		// width: $grid * 6;
 
 		// Background & borders
 
@@ -1079,12 +1079,30 @@ body#application {
 
 }
 
+.thumb_row {
+	// Mixins
+
+	// Box properties
+	clear: both;
+	overflow: auto;
+	margin: 0 auto;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 .object_detail {
 	// Mixins
 
 	// Box properties
-	position: relative;
+	position: absolute;
+	width: 100%;
 	display: none;
+	left: 0;
+	margin-top: $grid;
 	// Background & borders
 	border-top: $border;
 	background: $neutral;
