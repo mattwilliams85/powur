@@ -1,4 +1,5 @@
-  <div class="quote_thumbnail">
+<div id="<%= first_name %>_thumbnail" class="quote_thumbnail js-thumbnail" onclick="detailExpander('<%= first_name %>');">
+
   	<%= first_name %> <%= last_name %>
 
     <span class="subtext">
@@ -31,5 +32,19 @@
   	<span class="expand">
   		<i class="fa fa-angle-down"></i>
   	</span>
+
+    <div id="<%= first_name %>_detail" class="object_detail">
+      <div class="object_detail_content">
+        <div class="object_detail_content_section summary">
+          <h4><%= first_name %> <%= last_name %></h4>
+          <span class="subtext">foo</span>
+        </div>
+        <div class="object_detail_content_section">
+          A form for completing the quote goes here...
+        </div>
+      </div>
+    </div>
+
+
 
   </div>
