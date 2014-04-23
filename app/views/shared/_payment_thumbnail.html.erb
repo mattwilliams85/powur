@@ -1,4 +1,5 @@
-  <div class="payment_thumbnail">
+
+  <div id="<%= id %>_thumbnail" class="payment_thumbnail js-thumbnail" onclick="detailExpander('<%= id %>');">
     
     <% if has_mailed == true %>
   
@@ -15,5 +16,17 @@
   	<span class="expand">
   		<i class="fa fa-angle-down"></i>
   	</span>
+
+    <div id="<%= id %>_detail" class="object_detail">
+      <div class="object_detail_content">
+        <div class="object_detail_content_section summary">
+          <h4><%= amount %></h4>
+          <span class="subtext">foo</span>
+        </div>
+        <div class="object_detail_content_section">
+          A form for completing the quote goes here...
+        </div>
+      </div>
+    </div>
 
   </div>
