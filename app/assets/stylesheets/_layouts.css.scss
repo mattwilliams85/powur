@@ -721,7 +721,7 @@ body#application {
 	// Box properties
 	overflow: auto;
 	clear: both;
-	padding: 0 $grid $grid;
+	padding: 0 0 $grid;
 
 	// Background & borders
 
@@ -1081,7 +1081,7 @@ body#application {
 
 .thumb_row {
 	// Mixins
-
+	@include box_sizing;
 	// Box properties
 	clear: both;
 	overflow: auto;
