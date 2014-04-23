@@ -11,10 +11,11 @@
 
 			$(".section_content").each(function(){
 
+				console.log("hellow");
 
 				var foobar = $(this);
 
-				var thumb = $(foobar).children(".js-thumbnail");
+				var thumb = $(foobar).find(".js-thumbnail");
 
 	  			if (thumb.parent().is(".thumb_row")) {
 				    thumb.unwrap();
@@ -34,7 +35,7 @@
 
 		 // This doesn't work for some reason
 
-		 // $(window).resize(wrapThumbsInRows);
+		 $(window).resize(wrapThumbsInRows);
 
 
 
