@@ -11,11 +11,10 @@
 
 			$(".section_content").each(function(){
 
-				console.log("hellow");
-
 				var foobar = $(this);
 
 				var thumb = $(foobar).find(".js-thumbnail");
+				var thumbs = thumb.length;
 
 	  			if (thumb.parent().is(".thumb_row")) {
 				    thumb.unwrap();
@@ -62,7 +61,7 @@
 			var detailHeight = $(detail).height();
 
 			$(jsDetail).addClass("active").html("Close");
-			$(detail).parent().css("marginBottom",(detailHeight + 44) + "px");
+			$(detail).parent().css("marginBottom",(detailHeight + 16) + "px");
 
 		}
 	}
