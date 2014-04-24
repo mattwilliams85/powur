@@ -1,40 +1,42 @@
 <% Branch.all.each do |b| %>
 
-  <div id="<%= b.first_name %>_thumbnail" class="team_thumbnail js-thumbnail" onclick="detailExpander('<%= b.first_name %>');">
-    <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
-    <br/>
-    <%= b.first_name %> <%= b.last_name %>
-    <span class="subtext">
-      <%= b.rank %>
-      <% if b.quotes != 0 %>
-        <span class="badge"><%= b.quotes %> New</span>
-      <% end %>
-  </span>
-    <span class="expand">
-      <i class="fa fa-angle-down"></i>
-    </span>
+  <div id="<%= b.first_name %>_thumbnail" class="team_thumbnail js-thumbnail_parent">
+    <div class="js-thumbnail" onclick="detailExpander('<%= b.first_name %>');">
+
+        <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
+        <br/>
+        <%= b.first_name %> <%= b.last_name %>
+        <span class="subtext">
+          <%= b.rank %>
+          <% if b.quotes != 0 %>
+            <span class="badge"><%= b.quotes %> New</span>
+          <% end %>
+      </span>
+        <span class="expand">
+          <i class="fa fa-angle-down"></i>
+        </span>
 
 
-    <div id="<%= b.first_name %>_detail" class="object_detail dev-hack_for_arrow_placement_invite">
-      <div class="object_detail_content">
-        <div class="object_detail_content_section summary">
-          <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
-            <br/>
-          <h4><%= b.first_name %> <%= b.last_name %></h4>
-          <span class="subtext"><%= b.rank %></span>
-        </div>
-        <div class="object_detail_content_section">
-          <%= b.quotes %> <i class="fa fa-file"></i>
-          <br/>
-              <%= b.sales %> <i class="fa fa-home"></i>
+        <div id="<%= b.first_name %>_detail" class="object_detail dev-hack_for_arrow_placement_invite">
+          <div class="object_detail_content">
+            <div class="object_detail_content_section summary">
+              <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
+                <br/>
+              <h4><%= b.first_name %> <%= b.last_name %></h4>
+              <span class="subtext"><%= b.rank %></span>
+            </div>
+            <div class="object_detail_content_section">
+              <%= b.quotes %> <i class="fa fa-file"></i>
               <br/>
-              <%= b.recruits %> <i class="fa fa-user"></i>
+                  <%= b.sales %> <i class="fa fa-home"></i>
+                  <br/>
+                  <%= b.recruits %> <i class="fa fa-user"></i>
 
+            </div>
+          </div>
         </div>
+
+
       </div>
-    </div>
-
-
   </div>
-
 <% end %>

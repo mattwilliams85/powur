@@ -1096,7 +1096,7 @@ body#application {
 
 .object_detail {
 	// Mixins
-
+	@include gradient(darken($neutral, 0%), lighten($neutral, 2%), lighten($neutral, 4%));
 	// Box properties
 	position: absolute;
 	width: 100%;
@@ -1105,7 +1105,6 @@ body#application {
 	margin-top: $grid;
 	// Background & borders
 	border-top: $border;
-	background: $neutral;
 	// Typography
 	text-align: left;
 

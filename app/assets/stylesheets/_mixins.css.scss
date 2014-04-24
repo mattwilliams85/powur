@@ -291,7 +291,7 @@
 
 		// Box properties
 		float: left;
-		width: $grid * 8;
+		width: $grid * 8 ;
 		padding: $grid / 2;
 
 		// Background & borders
@@ -303,7 +303,7 @@
 		cursor: pointer;
 
 		&:hover {
-			color: $brand;
+			// color: $brand;
 		}
 
 		.thumbnail_graphic {

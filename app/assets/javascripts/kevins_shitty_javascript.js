@@ -13,7 +13,7 @@
 
 				var foobar = $(this);
 
-				var thumb = $(foobar).find(".js-thumbnail");
+				var thumb = $(foobar).find(".js-thumbnail_parent");
 				var thumbs = thumb.length;
 
 	  			if (thumb.parent().is(".thumb_row")) {

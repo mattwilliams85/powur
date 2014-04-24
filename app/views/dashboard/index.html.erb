@@ -49,41 +49,49 @@
 
 		<% else %>
 
-			<div class="kpi js-thumbnail" onclick="detailExpander('tree_co2');">
-				<div class="thumbnail_graphic dev_img_placeholder">[smokestack graphic]</div>
-				<h3>32 metric tons</h3>
-				<span class="subtext">CO2 Saved</span>
-				<i class="fa fa-angle-down"></i>
-		
+			<div class="kpi js-thumbnail_parent">
+				<div class="js-thumbnail" onclick="detailExpander('tree_co2');">
+					<div class="thumbnail_graphic dev_img_placeholder">[smokestack graphic]</div>
+					<h3>32 metric tons</h3>
+					<span class="subtext">CO2 Saved</span>
+					<i class="fa fa-angle-down"></i>
+				</div>
+
 				<%= render partial: "shared/tree_co2_detail"%>
 
 			</div>
 
-			<div class="kpi js-thumbnail" onclick="detailExpander('tree_customer');">
-				<div class="thumbnail_graphic dev_img_placeholder">[house graphic]</div>
-				<h3>421 Homes</h3>
-				<span class="subtext">14,258 kWh</span>
-				<i class="fa fa-angle-down"></i>
-			
+			<div class="kpi js-thumbnail_parent">
+				<div class="js-thumbnail" onclick="detailExpander('tree_customer');">
+					<div class="thumbnail_graphic dev_img_placeholder">[house graphic]</div>
+					<h3>421 Homes</h3>
+					<span class="subtext">14,258 kWh</span>
+					<i class="fa fa-angle-down"></i>
+				</div>
+
 				<%= render partial: "shared/tree_customer_detail"%>
 
 			</div>
 
-			<div class="kpi js-thumbnail" onclick="detailExpander('tree_team');">
-				<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
-				<h3>32 Team Members</h3>
-				<span class="subtext">93 in my organization</span>
-				<i class="fa fa-angle-down"></i>
+			<div class="kpi js-thumbnail_parent">
+				<div class="js-thumbnail" onclick="detailExpander('tree_team');">
+					<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
+					<h3>32 Team Members</h3>
+					<span class="subtext">93 in my organization</span>
+					<i class="fa fa-angle-down"></i>
+				</div>
 
 				<%= render partial: "shared/tree_team_detail"%>
 
 			</div>
 
-			<div class="kpi js-thumbnail" onclick="detailExpander('tree_volume');">
-				<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
-				<h3>$32,450 Earnings</h3>
-				<span class="subtext">Down 5% this week</span>
-				<i class="fa fa-angle-down"></i>
+			<div class="kpi js-thumbnail_parent">
+				<div class="js-thumbnail" onclick="detailExpander('tree_volume');">
+					<div class="thumbnail_graphic dev_img_placeholder">[data graphic]</div>
+					<h3>$32,450 Earnings</h3>
+					<span class="subtext">Down 5% this week</span>
+					<i class="fa fa-angle-down"></i>
+				</div>
 
 				<%= render partial: "shared/tree_volume_detail"%>
 
@@ -286,3 +294,4 @@
 	</div>
 	<%= render partial: "shared/new_link_detail"%>
 </section>
+	
