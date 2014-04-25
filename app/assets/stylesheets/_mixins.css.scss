@@ -33,7 +33,7 @@
 
 	$text: #444;
 	$red: #f46b41;
-	$supergreen: #93A340;
+	$supergreen: #95bf5c;
 	$sunnyside: #F9A600;
 	$solar: #FAEA6A;
 	$brand: #20C2F1;
@@ -60,13 +60,14 @@
 	$sunnye: lighten($sunnyside, 10%);
 
 	$brand_shadow: darken($brand, 10%);
+	$brand_dark: darken($brand, 20%);
 	$brand_trans: #D5E2ED;
 	$brand_white: lighten($brand, 45%);
 
 
 	$dev_gray: #f7f7f9;
 	$quiet: lighten($text, 25%);
-	$whisper: lighten($text, 55%);
+	$whisper: lighten($text, 42%);
 	
 	$neutral: #DAEDF6;
 	$positive: #DFF0D9;
@@ -78,8 +79,16 @@
 
 	$body_font: 'Muli', sans-serif;
 	$title_font: 'Muli', sans-serif;
+	$small_title_font: 'Montserrat', sans-serif;
 	$form_font: 'Open Sans', sans-serif;
 	$serif_font: 'Sorts Mill Goudy', serif;
+
+	@mixin small_title {
+		font-size: $font_size / 1.5;
+		text-transform: uppercase;
+		font-family: $small_title_font;
+		// -webkit-font-smoothing: subpixel-antialiased;
+	}
 
 // Header Calculations
 

@@ -78,7 +78,6 @@ a {
 	// Box properties
 	padding: 0 4px;
 	// Background & borders
-	background-color: $brand_trans;
 	// Typography
 	color: $brand;
 	text-decoration: none;
@@ -169,7 +168,7 @@ p + a {
 header {
 	// Mixins
 	@include box_sizing;
-
+	@include small_title;
 	// Box properties
 	position: fixed;
 	top: 0;
@@ -193,7 +192,6 @@ header {
 		// Background & borders
 
 		// Typography
-		
 		// Other
 	
 		ul {
@@ -219,7 +217,8 @@ header {
 			
 				// Typography
 				font-size: $grid / 2;
-				text-align: center;	
+				text-align: center;
+				color: white;
 				// Other
 			
 				&:first-child {
@@ -244,9 +243,8 @@ header {
 					// Background & borders
 					background: rgba($brand, .7);
 					// Typography
-					color: white;
+					color: $brand_dark;
 					// Other
-					-webkit-font-smoothing: subpixel-antialiased;
 
 					&:hover {
 						// Mixins
@@ -254,8 +252,9 @@ header {
 						// Box properties
 					
 						// Background & borders
-						background: $text;
+
 						// Typography
+						color: white;
 						// Other
 					
 					}
@@ -502,17 +501,19 @@ footer {
 		border: $border;
 
 		// Typography
-		color: $quiet;
+		color: $whisper;
 		text-indent: 0.01px;
 		text-overflow: "";
+		font-size: $font_size / 1.5;
+		text-transform: uppercase;
+		font-family: $small_title_font;
 
 		// Other
 		-moz-appearance: none;
 		-webkit-appearance: none;
 
 		&:hover {
-			background-color: $brand;
-			color: white;
-			border: 1px solid darken($brand, 2%);
+			background-color: $dev_gray;
+			color: $quiet;
 		}
 	}
