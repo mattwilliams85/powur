@@ -257,7 +257,7 @@ body#application {
 	}
 
 
-	#global_title {
+	#goal_select {
 		// Mixins
 		// @include circle_with_text;
 		@include gradient(darken($global_title_color, 8%), darken($global_title_color, 12%), darken($global_title_color, 14%));
@@ -265,7 +265,7 @@ body#application {
 		// Box properties
 
 		height: 100%;
-		width: $grid * 5;
+		width: $grid * 5.5;
 		margin: 0;
 		position: absolute;
 		left: 0;
@@ -279,44 +279,6 @@ body#application {
 		z-index: 500;
 	}
 
-
-	// #carbon_progress_bar {
-	// 	// Mixins
-	// 	@include corners($grid, 0, $grid, 0);
-	// 	@include gradient(lighten($supergreen, 2%), $supergreen, darken($supergreen, 2%));
-
-	// 	// Box properties
-	// 	width: 25%;
-	// 	height: 100%;
-	// 	position: absolute;
-	// 	right: 50%;
-	// 	margin-right: $grid;
-	// 	// Background & borders
-	// 	background-color: $supergreen;
-	// 	border-left: 1px solid #333;
-	// 	// background-image: url(image-path('bg_clapper.svg'));
-	// 	// background-repeat: repeat-x;
-	// 	// background-size: contain;
-	// 	// Typography
-	
-	// 	// Other
-
-	// 	.carbon_progress_bar_text {
-	// 		// Mixins
-	// 		// Box properties
-	// 		display: block;
-	// 		padding: 1px $grid / 2;
-	// 		// Background & borders
-		
-	// 		// Typography
-	// 		color: white;
-	// 		// Other
-		
-	// 	}
-	
-	// }
-
-
 	#solar_progress_bar {
 		// Mixins
 		@include corners(0, $grid, 0, $grid);
@@ -326,13 +288,11 @@ body#application {
 		width: 64%;
 		height: 100%;
 		float: left;
-		padding-left: $grid * 5;
+		padding-left: $grid * 5.5;
 		// Background & borders
 		background-color: $solar_progress_bar_color;
 		border-right: 1px solid #333;
-		// background-image: url(image-path('bg_clapper.svg'));
-		// background-repeat: repeat-x;
-		// background-size: contain;
+
 		// Typography
 	
 		// Other
@@ -369,69 +329,7 @@ body#application {
 		// Other
 	
 	}
-
-	// #global_progress_your_contribution {
-	// 	// Mixins
-	
-	// 	// Box properties
-	// 	width: $grid * .5;
-	// 	height: $grid * 1.5;
-	// 	float: left;
-
-	// 	// Background & borders
-	// 	background-color: darken($supergreen, 4%);
-	// 	border-left: $border;	
-	// 	// Typography
-	
-	// 	// Other
-	// 	display: none;
-	// }
-
-	// .global_progress_your_contribution_text {
-	// 	// Mixins
-	
-	// 	// Box properties
-	// 	float: left;
-	// 	padding: $grid / 4 $grid / 4;
-	// 	// Background & borders
-	
-	// 	// Typography
-	// 	color: $whisper;
-	// 	// Other
-	// 	display: none;
-	// }
-
-	// .global_goal {
-	// 	// Mixins
-	
-	// 	// Box properties
-	// 	float: right;
-	// 	padding: $grid / 4 $grid / 2;
-	// 	// Background & borders
-	
-	// 	// Typography
-	// 	color: $whisper;
-	// 	// Other
-	
-	// }
 }
-
-
-	// #sonny {
-	// 	// Mixins
-
-	// 	// Box properties
-	// 	width: $grid * 2;
-	// 	height: $grid * 2;
-	// 	float: left;
-
-	// 	// Background & borders
-
-	// 	// Typography
-
-	// 	// Other
-
-	// }
 
 .dashboard_section {
 	// Mixins
