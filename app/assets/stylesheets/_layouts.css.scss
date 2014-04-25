@@ -277,6 +277,20 @@ body#application {
 
 		// Other
 		z-index: 500;
+
+		&:hover {
+			// Mixins
+			@include gradient(darken($global_title_color, 12%), darken($global_title_color, 16%), darken($global_title_color, 20%));
+
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
 	}
 
 	#solar_progress_bar {
