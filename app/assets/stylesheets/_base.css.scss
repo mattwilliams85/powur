@@ -171,7 +171,6 @@ header {
 	@include box_sizing;
 
 	// Box properties
-	padding: $grid / 4 0;
 	position: fixed;
 	top: 0;
 	width: 100%;
@@ -189,6 +188,7 @@ header {
 
 		// Box properties
 		overflow: auto;
+		padding: $grid / 4 0;
 
 		// Background & borders
 

@@ -204,7 +204,7 @@
 				You don't have any team members yet. <a onclick="detailExpander('invite_detail', 'Invite an advocate');">Invite a fellow advocate</a> to grow your team.
 			</div>
 
-			<div class="team_thumbnail pending">
+			<div class="team_thumbnail pending js-thumbnail_parent">
 			    <span class="advocate_avatar"></span>
 			    <br/>
 				<span class="invitee_name"></span>
@@ -223,8 +223,6 @@
 		<% end %>
 
 	</div>
-
-	<%= render partial: "shared/invite_detail"%>
 
 </section>
 

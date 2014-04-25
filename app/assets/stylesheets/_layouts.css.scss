@@ -12,11 +12,10 @@ body#application {
 
 	header {
 		// Mixins
-	
+		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
 		// Box properties
 		height: $grid * 3;
 		// Background & borders
-		border-bottom: $border;
 		background-color: $brand;
 		// Typography
 	
@@ -218,68 +217,90 @@ body#application {
 
 #global_progress {
 	// Mixins
-
+	@include gradient(darken(#666, 14%), darken(#666, 10%), darken(#666, 6%));
 	// Box properties
 	padding: 0;
-	overflow: auto;
+	overflow: visible;
 	position: relative;
 	height: $grid * 1.5;
 	// Background & borders
-	background-color: $dev_gray;
-	background-image: url(image-path('bg_tic.svg'));
-	background-repeat: repeat-x;
-	background-size: contain;
-	border-bottom: $border;
+	border-bottom: 1px solid #333;
+	border-top: 1px solid #333;
 	// Typography
 
 	// Other
 
-	#global_title {
+	.tic {
 		// Mixins
 	
 		// Box properties
-		padding: $grid / 4 $grid / 2;
-		position: absolute;
-		left: 50%;
-		width: $grid * 6;
-		margin-left: -$grid * 3;
+		position: relative;
+		height: 100%;
+		width: 100%;
 		// Background & borders
-		background: $brand;
-		border-right: $border;
-		border-left: $border;
+		background-image: url(image-path('bg_tic.svg'));
+		background-repeat: repeat-x;
+		background-size: contain;
+
+		// Typography
+	
+		// Other
+	
+	}
+
+	#global_title {
+		// Mixins
+		@include circle_with_text;
+		@include gradient(darken(#666, 6%), darken(#666, 10%), darken(#666, 14%));
+
+		// Box properties
+		position: absolute;
+		height: $grid * 3.25;
+		width: $grid * 3.25;
+		left: 50%;
+		top: -$grid * 1;
+		margin: 0;
+		margin-left: -$grid * 1.625;
+		// Background & borders
+		background-color: #333;
+		border: 1px solid #333;
 		// Typography
 		color: white;
 		// Other
 		z-index: 100;
 	}
 
+
 	#carbon_progress_bar {
 		// Mixins
+		@include corners($grid, 0, $grid, 0);
+		@include gradient(lighten($supergreen, 2%), $supergreen, darken($supergreen, 2%));
+
 		// Box properties
 		width: $grid * 8;
 		height: $grid * 1.5;
 		position: absolute;
 		right: 50%;
-		margin-right: $grid * 3;
+		margin-right: $grid;
 		// Background & borders
-		background-color: $brand_shadow;
-		background-image: url(image-path('bg_clapper.svg'));
-		background-repeat: repeat-x;
-		background-size: contain;
+		background-color: $supergreen;
+		border-left: 1px solid #333;
+		// background-image: url(image-path('bg_clapper.svg'));
+		// background-repeat: repeat-x;
+		// background-size: contain;
 		// Typography
 	
 		// Other
 
 		.carbon_progress_bar_text {
 			// Mixins
-		
 			// Box properties
 			display: block;
 			padding: $grid / 4 $grid / 2;
 			// Background & borders
 		
 			// Typography
-			color: rgba(white, .5);
+			color: white;
 			// Other
 		
 		}
@@ -288,17 +309,21 @@ body#application {
 
 	#solar_progress_bar {
 		// Mixins
+		@include corners(0, $grid, 0, $grid);
+		@include gradient(lighten($supergreen, 2%), $supergreen, darken($supergreen, 2%));
+
 		// Box properties
 		width: $grid * 6;
 		height: $grid * 1.5;
 		position: absolute;
 		left: 50%;
-		margin-left: $grid * 4;
+		margin-left: $grid;
 		// Background & borders
-		background-color: $brand_shadow;
-		background-image: url(image-path('bg_clapper.svg'));
-		background-repeat: repeat-x;
-		background-size: contain;
+		background-color: $supergreen;
+		border-right: 1px solid #333;
+		// background-image: url(image-path('bg_clapper.svg'));
+		// background-repeat: repeat-x;
+		// background-size: contain;
 		// Typography
 	
 		// Other
@@ -312,7 +337,7 @@ body#application {
 			// Background & borders
 		
 			// Typography
-			color: rgba(white, .5);
+			color: white;
 			// Other
 		
 		}

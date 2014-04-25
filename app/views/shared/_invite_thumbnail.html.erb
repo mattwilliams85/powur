@@ -1,11 +1,15 @@
-  <div class="invite_thumbnail" onclick="detailExpander('invite_detail', 'Invite an advocate');">
-  	<a class="button js-invite_detail">Invite an advocate</a>
+<div class="invite_thumbnail js-thumbnail_parent">
 
-    <span class="subtext">
-    </span>
-    
-  	<span class="expand">
-  		<i class="fa fa-angle-down"></i>
-  	</span>
+	<div class="js-thumbnail" onclick="detailExpander('invite', 'Invite an advocate');">
+		<a class="button js-invite_detail">Invite an advocate</a>
 
-  </div>
+		<span class="subtext"></span>
+
+		<span class="expand">
+			<i class="fa fa-angle-down"></i>
+		</span>
+	</div>
+
+	<%= render partial: "shared/invite_detail"%>
+
+</div>

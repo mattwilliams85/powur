@@ -385,3 +385,34 @@
 		color: $quiet;
 		// Other
 	}
+
+	@mixin circle_with_text {
+		// Mixins
+		@include corners (50%,50%,50%,50%);
+		@include box_sizing;
+		// Box properties
+		margin: 0 $grid $grid;
+		padding: 0;
+		display: table;
+		float: left;
+		width: $grid * 4;
+		height: $grid * 4;
+		// Background & borders
+		// Typography
+		line-height: $font_size;
+		// Other
+
+		span {
+			// Mixins
+		
+			// Box properties
+			display: table-cell;
+			// Background & borders
+		
+			// Typography
+			vertical-align: middle;
+			// Other
+		
+		}		
+
+	}
