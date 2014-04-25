@@ -37,6 +37,13 @@
 		 $(window).resize(wrapThumbsInRows);
 
 
+// Fake CO2 counter
+	
+	$(document).ready(function(){
+		var numAnim = new countUp("countUp_test", 45978, 46123, 2, 1500);
+		numAnim.start();
+	});
+
 
 // Show expanded details for dashboard objects
 
