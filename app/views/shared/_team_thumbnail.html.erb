@@ -1,7 +1,7 @@
 <% Branch.all.each do |b| %>
 
   <div id="<%= b.first_name %>_thumbnail" class="team_thumbnail js-thumbnail_parent">
-    <div class="js-thumbnail" onclick="detailExpander('<%= b.first_name %>');">
+    <div class="js-thumbnail" onclick="return detailExpander('<%= b.first_name %>');">
 
         <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
         <br/>
@@ -20,18 +20,37 @@
 
       <div id="<%= b.first_name %>_detail" class="object_detail dev-hack_for_arrow_placement_invite">
         <div class="object_detail_content">
+          
           <div class="object_detail_content_section summary">
+
             <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
               <br/>
             <h4><%= b.first_name %> <%= b.last_name %></h4>
-            <span class="subtext"><%= b.rank %></span>
+            
+            <span class="subtext">
+              <%= b.rank %>
+            </span>
+            
+            <br/>
+
+            <span class="subtext">
+              <a href=""><%= b.phone %></a>
+            </span>
+            
+            <span class="subtext">
+              <a href="mailto:<%= b.email %>"><%= b.email %></a>
+            </span>
+          
           </div>
+
           <div class="object_detail_content_section">
-            <%= b.quotes %> <i class="fa fa-file"></i>
-            <br/>
-            <%= b.sales %> <i class="fa fa-home"></i>
-            <br/>
-            <%= b.recruits %> <i class="fa fa-user"></i>
+          
+            <ul class="tabs">
+              <li class="active"><a href="">Recent Activity</a></li>
+              <li><a href=""><%= b.first_name %>'s Team</a></li>
+              <li><a href="">Metrics</a></li>
+            </ul>
+
           </div>
         </div>
       </div>

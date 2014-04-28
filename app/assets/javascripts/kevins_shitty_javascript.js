@@ -37,6 +37,13 @@
 		 $(window).resize(wrapThumbsInRows);
 
 
+// Fake CO2 counter
+	
+	$(document).ready(function(){
+		var numAnim = new countUp("countUp_test", 45978, 46123, 2, 1500);
+		numAnim.start();
+	});
+
 
 // Show expanded details for dashboard objects
 
@@ -46,6 +53,7 @@
 		var thumbnail = $("#" + showID + "_thumbnail");
 		var detail = $("#" + showID + "_detail");
 		var jsDetail = $(".js-" + showID + "_detail");
+
 
 		if($(detail).is(":visible")) {
 			$(jsDetail).removeClass("active").html(btn_text);
@@ -64,6 +72,9 @@
 			$(detail).parent().css("marginBottom",(detailHeight + 16) + "px");
 
 		}
+		
+		detailExpander.stopPropagation();
+
 	}
 
 	// Form success for object detail view
