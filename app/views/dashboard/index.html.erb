@@ -155,7 +155,6 @@
 		<% if params[:first_run] == "true" %>
 
 		<% else %>
-
 <!-- 			<div class="section_notification positive">
 				<a href="#">This is a positive notification about Barry - click to go to a new page...</a>
 				<span class="dismiss"><i class="fa fa-times"></i></span>
@@ -164,7 +163,44 @@
 		<% end %>
 
 </section>
+<section id="test-section" class="dashboard_section">
+	<div class="section_header">
+		<h2>Your Team</h2>
+		<% if params[:first_run] == "true" %>
 
+		<% else %>
+
+			<ul>
+				<li class="search"><i class="fa fa-search"></i></li>
+				<li> 
+					<%= select_tag "Show", options_for_select(
+						[
+							"My Team", 
+						    "2nd Generation", 
+						    "3rd Generation",
+						    "My Entrie Organization",
+						    "All of Sunstand"
+						], ["My Team"]) 
+					%>
+				</li>
+				<li>
+					<%= select_tag "Sort", options_for_select(
+						[
+							"By latest", 
+						    "By earliest", 
+						    "By highest", 
+						    "By lowest"
+						], ["By latest"]) 
+					%>
+				</li>
+			</ul>
+		
+		<% end %>		
+	</div>
+	<div class="section_content">
+		
+	</div>
+</section>
 <section id="dashboard_team" class="dashboard_section">
 	<div class="section_header">
 		<h2>Your Team</h2>
