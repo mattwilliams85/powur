@@ -54,6 +54,7 @@
 		var detail = $("#" + showID + "_detail");
 		var jsDetail = $(".js-" + showID + "_detail");
 
+
 		if($(detail).is(":visible")) {
 			$(jsDetail).removeClass("active").html(btn_text);
 			$(detail).hide();
@@ -71,6 +72,9 @@
 			$(detail).parent().css("marginBottom",(detailHeight + 16) + "px");
 
 		}
+		
+		detailExpander.stopPropagation();
+
 	}
 
 	// Form success for object detail view

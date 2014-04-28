@@ -387,7 +387,140 @@ body#application {
 
 }
 
+.tabs {
+	// Mixins
 
+	// Box properties
+	float: left;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	li {
+		// Mixins
+		@include small_title;
+		// Box properties
+		margin: 0 $grid / 4;
+		float: left;
+		// Background & borders
+		// border: 1px solid white;
+		// border-left: none;
+		// Typography
+		list-style: none;
+		// Other
+		
+		a {
+			// Mixins
+			@include corners;
+			// Box properties
+			display: block;
+			padding: 0 $grid / 4;
+			// Background & borders
+		
+			// Typography
+			color: $whisper;
+			// Other
+
+			&:hover {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+			
+				// Typography
+				color: white;
+				// Other
+			
+			}
+		
+		}
+
+		&.active {
+			// Mixins
+			// Box properties
+			@include corners;
+		
+			// Background & borders
+			background-color: rgba(0,0,0,.07);
+			// Typography
+		
+			// Other
+			
+			a {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+			
+				// Typography
+				color: $whisper;
+				// Other
+			
+				&:hover {
+					// Mixins
+				
+					// Box properties
+					
+					// Background & borders
+					background: none;
+					// Typography
+					color: $whisper;
+					// Other
+				
+				}
+			}
+		}
+	}
+}
+
+.sort {
+	// Mixins
+
+	// Box properties
+	float: right;
+	margin: 0 0 0 $grid;
+	padding: 0;
+
+	// Background & borders
+
+	// Typography
+	color: $quiet;
+	// Other
+
+	li {
+		// Mixins
+	
+		// Box properties
+		display: inline-block;
+		margin: 0 0 0 0;
+		padding: 0;
+		// Background & borders
+	
+		// Typography
+		font-size: $grid / 2;
+
+		// Other
+		list-style: none;
+
+		&.search {
+			// Mixins
+		
+			// Box properties
+			margin-right: $grid / 2;
+
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}
 
 #dashboard_kpis {
 	// Mixins
@@ -605,7 +738,7 @@ body#application {
 		@include small_title;
 		// Box properties
 		float: left;
-		margin-bottom: $grid / 2;
+		margin: 0 $grid $grid / 2 0;
 	
 		// Background & borders
 	
@@ -629,51 +762,6 @@ body#application {
 
 		// Other
 
-	}
-
-	ul {
-		// Mixins
-	
-		// Box properties
-		float: right;
-		margin: 0 0 0 $grid;
-		padding: 0;
-
-		// Background & borders
-	
-		// Typography
-		color: $quiet;
-		// Other
-	
-		li {
-			// Mixins
-		
-			// Box properties
-			display: inline-block;
-			margin: 0 0 0 0;
-			padding: 0;
-			// Background & borders
-		
-			// Typography
-			font-size: $grid / 2;
-
-			// Other
-			list-style: none;
-
-			&.search {
-				// Mixins
-			
-				// Box properties
-				margin-right: $grid / 2;
-
-				// Background & borders
-			
-				// Typography
-			
-				// Other
-			
-			}
-		}
 	}
 }
 
