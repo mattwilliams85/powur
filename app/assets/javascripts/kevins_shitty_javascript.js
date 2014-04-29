@@ -73,7 +73,7 @@
 
 		}
 		
-		detailExpander.stopPropagation();
+		//detailExpander.stopPropagation();
 
 	}
 
@@ -168,7 +168,7 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 	    var speed = 9;
 
 	    var parallax = function(e) {
-			e.style.webkitTransform = 'translate3d(0px,' + Math.round(yOffset / speed) + 'px, 0px)';
+			//e.style.webkitTransform = 'translate3d(0px,' + Math.round(yOffset / speed) + 'px, 0px)';
 	    };
 
 	    parallax(banner1);

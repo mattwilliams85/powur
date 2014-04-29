@@ -166,11 +166,14 @@
 <section id="test-section" class="dashboard_section">
 	<div class="section_header">
 		<h2>Your Team</h2>
-		<% if params[:first_run] == "true" %>
 
-		<% else %>
+		  <ul class="tabs">
+              <li class="active"><a href="">Everybody</a></li>
+              <li><a href="">Lockers</a></li>
+              <li><a href="">Dinosaurs</a></li>
+            </ul>
 
-			<ul>
+			<ul class="sort">
 				<li class="search"><i class="fa fa-search"></i></li>
 				<li> 
 					<%= select_tag "Show", options_for_select(
@@ -194,11 +197,9 @@
 					%>
 				</li>
 			</ul>
-		
-		<% end %>		
 	</div>
 	<div class="section_content">
-		
+
 	</div>
 </section>
 <section id="dashboard_team" class="dashboard_section">

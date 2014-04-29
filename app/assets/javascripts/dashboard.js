@@ -3,24 +3,24 @@ var _rank={};
 var _data={}
 var animation_speed = 300;
 $(document).ready(function(){
-	var _thisTeam = {};
-	getTeamInfo(100, _thisTeam);
+	var _teamObj = {};
+	getTeamInfo(100, _teamObj, "#test-section");
 });
 
 
-function getTeamInfo(_user_id, _thisTeam){
+function getTeamInfo(_user_id, _teamObj, _bindingObj){
 	$.getJSON("/assets/jsons/users."+_user_id+".team.json", function(){
 		console.log("Loading loading self info");
 	})
 	.done(function(data){
-		_thisTeam = jQuery.extend(true, {}, data);
-		prepareTeamInfoTemplate(_thisTeam);
+		_teamObj = jQuery.extend(true, {}, data);
+		prepareTeamInfoTemplate(_teamObj, _bindingObj);
 	});
 }
 
-function prepareTeamInfoTemplate(_thisTeam){
+function prepareTeamInfoTemplate(_teamObj, _bindingObj){
 	var _team=[]
-	$.each(_thisTeam, function(counter, val){
+	$.each(_teamObj, function(counter, val){
 		console.log(counter);
 		_tempObj={};
 		_tempObj["id"]=val.info.id+"_thumbnail";
@@ -33,22 +33,22 @@ function prepareTeamInfoTemplate(_thisTeam){
 		_team.push(_tempObj);
 	});
 
-	$("#test-section .section_content").loadTemplate("/assets/templates/team_thumbnail.html", _team);
+	$(_bindingObj+ " .section_content").loadTemplate("/assets/templates/team_thumbnail.html", _team);
 
-	$(document).on("click",".team_thumbnail", function(e){
+	$(document).on("click",_bindingObj+" .team_thumbnail", function(e){
 		_target = $(e.target);
 		_drilldown=$(this).children(".object_detail");
 		if(_drilldown.hasClass("active")) 
 		{
 			_drilldown.removeClass("active");
 			_drilldown.fadeOut(animation_speed,"linear", function(){_drilldown.css("display","none");});
-			$("#test-section").animate({"padding-bottom":"-=200px"},animation_speed);
+			$(_bindingObj).animate({"padding-bottom":"-=200px"},animation_speed);
 
 		}else{
 			//close other window in the same level
 			_drilldown.addClass("active");
 			_drilldown.fadeIn();
-			$("#test-section").animate({"padding-bottom":"+=200px"},animation_speed);
+			$(_bindingObj).animate({"padding-bottom":"+=200px"},animation_speed);
 		}
 	});
 }
