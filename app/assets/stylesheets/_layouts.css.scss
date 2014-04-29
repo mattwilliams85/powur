@@ -1177,38 +1177,14 @@ body#application {
 
 }
 
-.object_detail:before {
-	// Mixins
-	// Box properties
-	top: -61px;
-	left: $grid * 12.5;
-	height: 0;
-	width: 0;
-	position: absolute;
-	margin-left: -30px;
-
-	// Background & borders
-	border: solid transparent;
-	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #444;
-	border-width: 30px;
-	// Typography
-
-	// Other
-	pointer-events: none;
-	content: " ";
-
-}
-
-.object_detail:after {
+.object_detail_arrow {
 	// Mixins
 	// Box properties
 	bottom: 100%;
-	left: $grid * 12.5;
+	left: 0;
 	height: 0;
 	width: 0;
 	position: absolute;
-	margin-left: -30px;
 
 	// Background & borders
 	border: solid transparent;
