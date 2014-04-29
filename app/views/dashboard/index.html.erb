@@ -163,6 +163,7 @@
 		<% end %>
 
 </section>
+
 <section id="test-section" class="dashboard_section">
 	<div class="section_header">
 		<h2>Your Team</h2>
@@ -170,7 +171,7 @@
 
 		<% else %>
 
-			<ul>
+			<ul class="sort">
 				<li class="search"><i class="fa fa-search"></i></li>
 				<li> 
 					<%= select_tag "Show", options_for_select(
