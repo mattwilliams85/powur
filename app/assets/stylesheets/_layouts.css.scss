@@ -1204,7 +1204,7 @@ body#application {
 
 	// Box properties
 	padding: $grid;
-	overflow: auto;
+	overflow: visible;
 	position: relative;
 	// Background & borders
 
@@ -1216,13 +1216,13 @@ body#application {
 
 .object_detail_content_section {
 	// Mixins
-
+	@include box_sizing;
 	// Box properties
 	float: left;
 	overflow: auto;
 	padding: 0 $grid;
-	position: relative;
-	width: 50%;
+	margin-bottom: $grid;
+	width: 75%;
 	// Background & borders
 
 	// Typography
@@ -1233,7 +1233,9 @@ body#application {
 		// Mixins
 	
 		// Box properties
-		width: $grid * 8;
+		width: 25%;
+		padding: 0 $grid;
+		margin-bottom: $grid;
 		// Background & borders
 		border-right: $border;
 		// Typography
@@ -1461,3 +1463,150 @@ input.read_only {
 
 }
 
+
+// Nested demo style
+
+#nested_demo {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	.thumb_row {
+		// Mixins
+	
+		// Box properties
+		margin-bottom: $grid * 17.6;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	#Bob_detail {
+		// Mixins
+	
+		// Box properties
+		display: block;
+		height: $grid * 16;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+
+		.object_detail_arrow {
+			// Mixins
+		
+			// Box properties
+			left: $grid * 3.1;
+			// Background & borders
+
+			// Typography
+		
+			// Other
+		
+		}
+	
+	}
+
+	.object_detail {
+		// Mixins
+	
+		// Box properties
+
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		.object_detail_content_section {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+			#Sherry_thumbnail {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+			
+				// Typography
+			
+				// Other
+			
+				#Sherry_detail {
+					// Mixins
+				
+					// Box properties
+					display: block;
+					// Background & borders
+					@include gradient(darken($global_progress_color, 18%), darken($global_progress_color, 14%), darken($global_progress_color, 10%));
+
+					// Typography
+				
+					// Other
+
+					.object_detail_arrow {
+						// Mixins
+					
+						// Box properties
+						left: $grid * 14.6;
+						// Background & borders
+						border-bottom-color: darken($global_progress_color, 18%);
+
+						// Typography
+					
+						// Other
+					
+					}
+				
+				}
+
+			}
+
+		}
+	}
+
+	.nested_thumbnail {
+		// Mixins
+
+		// Box properties
+
+		// Background & borders
+
+		// Typography
+
+		// Other
+
+		.object_detail {
+			// Mixins
+		
+			// Box properties
+
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+			z-index: 1000;
+		}
+
+	}
+
+}

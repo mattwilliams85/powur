@@ -1,7 +1,7 @@
 <% Branch.all.each do |b| %>
 
-  <div id="<%= b.first_name %>_thumbnail" class="team_thumbnail js-thumbnail_parent">
-    <div class="js-thumbnail" onclick="return detailExpander('<%= b.first_name %>');">
+  <div id="<%= b.first_name %>_thumbnail" class="team_thumbnail nested_demo js-thumbnail_parent">
+    <div class="js-thumbnail">
 
         <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
         <br/>
@@ -51,6 +51,73 @@
               <li><a href=""><%= b.first_name %>'s Team</a></li>
               <li><a href="">Metrics</a></li>
             </ul>
+
+
+
+            <!-- just to show nesting detail layout -->
+
+            <div class="thumb_row">
+
+              <div id="Sherry_thumbnail" class="team_thumbnail nested_thumbnail js-thumbnail_parent">
+                <div class="js-thumbnail">
+
+                    <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/Sherry.jpg') %>)"></span>
+                    <br/>
+                    Sherry Bailey
+                    <span class="subtext">
+                      Advocate
+                        <span class="badge">10 New</span>
+                    </span>
+                    <span class="expand">
+                      <i class="fa fa-angle-down"></i>
+                    </span>
+
+                  </div>
+
+                  <div id="Sherry_detail" class="object_detail">
+                    <div class="object_detail_arrow"></div>
+                    <div class="object_detail_content">
+                      
+                      <div class="object_detail_content_section summary">
+
+                        <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/Sherry.jpg') %>)"></span>
+                          <br/>
+                        <h4>Sherry Bailey</h4>
+                        
+                        <span class="subtext">
+                          Advocate
+                        </span>
+                        
+                        <br/>
+
+                        <span class="subtext">
+                          <a href="">805.123.4567</a>
+                        </span>
+                        
+                        <span class="subtext">
+                          <a href="mailto:sharry@foo.com">sherry@foo.com</a>
+                        </span>
+                      
+                      </div>
+
+                      <div class="object_detail_content_section">
+                      
+                        <ul class="tabs">
+                          <li class="active"><a href="">Recent Activity</a></li>
+                          <li><a href="">Sherry's Team</a></li>
+                          <li><a href="">Metrics</a></li>
+                        </ul>
+
+                      </div>
+                    </div>
+                  </div>
+
+              </div>
+
+            </div>
+
+              <!-- end -->
+
 
           </div>
         </div>
