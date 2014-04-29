@@ -9,7 +9,7 @@
 			var thumbWidth = 256;
 			var thumbsPerRow = Math.floor(winWidth / thumbWidth);
 
-			$(".section_content").each(function(){
+			$(".section_content").not(".blank").each(function(){
 
 				var foobar = $(this);
 

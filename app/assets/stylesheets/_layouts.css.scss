@@ -2,7 +2,7 @@ body#application {
 	// Mixins
 
 	// Box properties
-	padding: $grid * 3 0 0 0;
+	padding: $grid * 4 0 0 0;
 
 	// Background & borders
 
@@ -14,7 +14,7 @@ body#application {
 		// Mixins
 		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
 		// Box properties
-		height: $grid * 3;
+		height: $grid * 4;
 		// Background & borders
 		background-color: $brand;
 		// Typography
@@ -526,7 +526,6 @@ body#application {
 	// Mixins
 
 	// Box properties
-	margin-top: $grid;
 	// Background & borders
 	border-top: none;
 	// Typography
