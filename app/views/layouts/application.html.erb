@@ -4,6 +4,8 @@
 	<title>SunStand</title>
 	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag "Chart", "data-turbolinks-track" => true %>
+
 	<%= csrf_meta_tags %>
 	
 	<%= render :partial => "shared/head" %>
@@ -40,7 +42,7 @@
 	
 			<ul id="user_nav">
 				<li>
-					<%= link_to_unless_current 'Jonathan: Champion', "/settings" %>
+					<%= link_to_unless_current 'Jonathan: Level 6', "/settings" %>
 				</li>
 				<li>
 					<a href="/user">Sign out</a>

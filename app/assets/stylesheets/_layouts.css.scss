@@ -563,6 +563,21 @@ body#application {
 		// Other
 	
 	}
+
+	#c02_reduction {
+		// Mixins
+		@include box_sizing;
+		// Box properties
+		height: 134px;
+		padding-top: $grid * 1.5;
+		// Background & borders
+
+		// Typography
+		font-size: $grid * 1.5;
+		color: $supergreen;
+		// Other
+	
+	}
 }
 
 #dashboard_quotes {

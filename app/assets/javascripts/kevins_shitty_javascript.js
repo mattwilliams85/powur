@@ -88,8 +88,6 @@
 
 	}
 
-debugger
-
 $(document).ready(function() { // bind to document.ready instead of window.load because of Turbolinks
 
 	// KP's easier version of DRMagicLabelWizzler
@@ -183,6 +181,103 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
     // Just to make sure my syntax is still valid - that's how good I am at this...
 	// alert( "welcome" );
+
+
+	// Charts
+
+		// KPI Charts
+
+			// Sales Chart
+
+				var kpiChartSales = $("#kpi_chart_sales").get(0).getContext("2d");
+				var myNewChart = new Chart(kpiChartSales);
+
+				var kpiChartSalesData = [
+					{
+						value: 84,
+						color:"#859900"
+					},
+					{
+						value : 98,
+						color : "#E2EAE9"
+					}
+
+				]
+
+				new Chart(kpiChartSales).Pie(kpiChartSalesData);
+
+			// Team Chart
+
+				var kpiChartTeam = $("#kpi_chart_team").get(0).getContext("2d");
+				var myNewChart = new Chart(kpiChartTeam);
+
+				var kpiChartTeamData = {
+					labels : ["4/21", "4/28", "5/5", "5/12"],
+					datasets : [
+						{
+							fillColor : "rgba(42,161,152,.5)",
+							strokeColor : "rgba(42,161,152,1)",
+							pointColor : "rgba(42,161,152,1)",
+							pointStrokeColor : "#fff",
+							data : [5, 6, 8, 13, 0]
+						},
+
+						{
+							fillColor : "rgba(203,75,22,.5)",
+							strokeColor : "rgba(203,75,22,1)",
+							pointColor : "rgba(203,75,22,1)",
+							pointStrokeColor : "#fff",
+							data : [3, 8, 16, 22, 0]
+						}
+					]
+				}
+
+				new Chart(kpiChartTeam).Bar(kpiChartTeamData, {scaleShowLabels: false});
+
+
+			// Earnings Chart
+
+				var kpiChartEarnings = $("#kpi_chart_earnings").get(0).getContext("2d");
+				var myNewChart = new Chart(kpiChartEarnings);
+
+				var kpiChartEarningsData = {
+					labels : ["4/21", "4/28", "5/5", "5/12"],
+					datasets : [
+						{
+							fillColor : "rgba(38,139,210,.5)",
+							strokeColor : "rgba(38,139,210,1)",
+							pointColor : "rgba(38,139,210,1)",
+							pointStrokeColor : "#fff",
+							data : [26, 28, 37, 35, 0]
+						},
+					]
+				}
+
+				new Chart(kpiChartEarnings).Line(kpiChartEarningsData, {scaleShowLabels: false});
+
+
+			// Level Up Chart
+
+				var kpiChartLevelUp = $("#kpi_chart_level_up").get(0).getContext("2d");
+				var myNewChart = new Chart(kpiChartLevelUp);
+
+				var kpiChartLevelUpData = [
+					{
+						value: 90,
+						color:"#F38630"
+					},
+					{
+						value : 20,
+						color : "#E2EAE9"
+					}
+
+				]
+
+				new Chart(kpiChartLevelUp).Doughnut(kpiChartLevelUpData);
+
+
+
+
 });
 
 
