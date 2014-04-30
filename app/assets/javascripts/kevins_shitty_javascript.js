@@ -16,11 +16,11 @@
 			var thumbWidth = 256;
 			var thumbsPerRow = Math.floor(winWidth / thumbWidth);
 
-			$(".section_content").not("blank").each(function(){
+			$(".section_content").each(function(){
 
 				var foobar = $(this);
 
-				var thumb = $(foobar).find(".js-thumbnail_parent").not(".nested_thumbnail");
+				var thumb = $(foobar).find(".js-thumbnail_parent");
 				var thumbs = thumb.length;
 
 	  			if (thumb.parent().is(".thumb_row")) {
