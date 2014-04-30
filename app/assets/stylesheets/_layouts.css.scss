@@ -566,15 +566,43 @@ body#application {
 
 	#c02_reduction {
 		// Mixins
+		@include corners;
 		@include box_sizing;
 		// Box properties
-		height: 134px;
-		padding-top: $grid * 1.5;
+		display: table;
+		height: 47px;
+		margin: $grid / 1.1 auto;
+		padding: 0 $grid;
 		// Background & borders
-
+		background-color: $brand;
 		// Typography
-		font-size: $grid * 1.5;
-		color: $supergreen;
+		color: white;
+		// Other
+
+		span {
+			// Mixins
+		
+			// Box properties
+			display: table-cell;
+			// Background & borders
+		
+			// Typography
+			vertical-align: middle;
+			// Other
+		
+		}
+	
+	}
+
+	canvas {
+		// Mixins
+	
+		// Box properties
+
+		// Background & borders
+	
+		// Typography
+	
 		// Other
 	
 	}

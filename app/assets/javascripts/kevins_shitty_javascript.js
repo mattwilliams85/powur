@@ -1,3 +1,10 @@
+// Colors
+
+	var _brand = "32,194,241"
+	var _sunnyside = "249,166,0"
+	var _disabled = "226,234,233"
+
+
 // Wrap thumbnail objects in a container per row
 	
 
@@ -195,11 +202,11 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 				var kpiChartSalesData = [
 					{
 						value: 84,
-						color:"#859900"
+						color:"rgba(" + _brand + ", 1)"
 					},
 					{
 						value : 98,
-						color : "#E2EAE9"
+						color : "rgba(" + _disabled + ", 1)"
 					}
 
 				]
@@ -215,19 +222,19 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 					labels : ["4/21", "4/28", "5/5", "5/12"],
 					datasets : [
 						{
-							fillColor : "rgba(42,161,152,.5)",
-							strokeColor : "rgba(42,161,152,1)",
-							pointColor : "rgba(42,161,152,1)",
+							fillColor : "rgba(" + _brand + ", 1)",
+							strokeColor : "rgba(" + _brand + ", 1)",
+							pointColor : "rgba(" + _brand + ", 1)",
 							pointStrokeColor : "#fff",
-							data : [5, 6, 8, 13, 0]
+							data : [5, 6, 8, 13]
 						},
 
 						{
-							fillColor : "rgba(203,75,22,.5)",
-							strokeColor : "rgba(203,75,22,1)",
-							pointColor : "rgba(203,75,22,1)",
+							fillColor : "rgba(" + _sunnyside + ", 1)",
+							strokeColor : "rgba(" + _sunnyside + ", 1)",
+							pointColor : "rgba(" + _sunnyside + ", 1)",
 							pointStrokeColor : "#fff",
-							data : [3, 8, 16, 22, 0]
+							data : [3, 8, 16, 22]
 						}
 					]
 				}
@@ -244,11 +251,11 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 					labels : ["4/21", "4/28", "5/5", "5/12"],
 					datasets : [
 						{
-							fillColor : "rgba(38,139,210,.5)",
-							strokeColor : "rgba(38,139,210,1)",
-							pointColor : "rgba(38,139,210,1)",
+							fillColor : "rgba(" + _brand + ", 1)",
+							strokeColor : "rgba(" + _brand + ", 1)",
+							pointColor : "rgba(" + _brand + ", 1)",
 							pointStrokeColor : "#fff",
-							data : [26, 28, 37, 35, 0]
+							data : [26, 42, 37, 35, 0]
 						},
 					]
 				}
@@ -264,11 +271,11 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 				var kpiChartLevelUpData = [
 					{
 						value: 90,
-						color:"#F38630"
+						color:"rgba(" + _brand + ", 1)"
 					},
 					{
 						value : 20,
-						color : "#E2EAE9"
+						color : "rgba(" + _disabled + ", 1)"
 					}
 
 				]
