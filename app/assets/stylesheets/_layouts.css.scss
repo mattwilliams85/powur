@@ -375,7 +375,8 @@ body#application {
 		@extend .subtext;
 		@include object_thumbnail;
 		// Box properties
-		padding: 0;
+		padding: $grid 0 $grid * 2 0;
+		margin-bottom: 0;
 
 		// Background & borders
 
@@ -555,7 +556,6 @@ body#application {
 		// Box properties
 		width: auto;
 		float: none;
-		padding: $grid 0;
 		// Background & borders
 	
 		// Typography
@@ -583,7 +583,6 @@ body#application {
 		// Box properties
 		width: auto;
 		float: none;
-		padding: $grid 0;
 		// Background & borders
 	
 		// Typography
@@ -611,7 +610,6 @@ body#application {
 		// Box properties
 		width: auto;
 		float: none;
-		padding: $grid 0;
 		// Background & borders
 	
 		// Typography
@@ -668,7 +666,6 @@ body#application {
 		// Box properties
 		width: auto;
 		float: none;
-		padding: $grid / 2 0;
 		// Background & borders
 	
 		// Typography
@@ -799,7 +796,7 @@ body#application {
 	@include object_thumbnail;
 	
 	// Box properties
-
+	margin-bottom: $grid;
 	// Background & borders
 
 	// Typography
@@ -868,7 +865,6 @@ body#application {
 		// Mixins
 	
 		// Box properties
-		padding: $grid;
 		display: none;
 		// Background & borders
 	
@@ -940,6 +936,7 @@ body#application {
 	@include object_thumbnail;
 
 	// Box properties
+	padding-top: 0;
 	width: $grid * 8;
 	// Background & borders
 

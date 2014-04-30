@@ -9,7 +9,7 @@
 			var thumbWidth = 256;
 			var thumbsPerRow = Math.floor(winWidth / thumbWidth);
 
-			$(".section_content").not(".blank").each(function(){
+			$(".section_content").not("blank").each(function(){
 
 				var foobar = $(this);
 
@@ -36,13 +36,6 @@
 
 		 $(window).resize(wrapThumbsInRows);
 
-
-// Fake CO2 counter
-	
-	$(document).ready(function(){
-		var numAnim = new countUp("countUp_test", 45978, 46123, 2, 1500);
-		numAnim.start();
-	});
 
 
 // Show expanded details for dashboard objects
@@ -95,8 +88,9 @@
 
 	}
 
-$(document).ready(function() { // bind to document.ready instead of window.load because of Turbolinks
+debugger
 
+$(document).ready(function() { // bind to document.ready instead of window.load because of Turbolinks
 
 	// KP's easier version of DRMagicLabelWizzler
 	    	$("label").not(".checkbox label").hide().css("right", "-100px");
@@ -167,8 +161,8 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
     	var banner4 = document.getElementById("third_image_br");
 	    var speed = 9;
 
-	    var parallax = function(e) {
-			//e.style.webkitTransform = 'translate3d(0px,' + Math.round(yOffset / speed) + 'px, 0px)';
+	    var parallax = function(lax) {
+			lax.style.webkitTransform = 'translate3d(0px,' + Math.round(yOffset / speed) + 'px, 0px)';
 	    };
 
 	    parallax(banner1);
