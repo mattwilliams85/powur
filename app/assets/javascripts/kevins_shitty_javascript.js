@@ -8,40 +8,40 @@
 // Wrap thumbnail objects in a container per row
 	
 
-		function wrapThumbsInRows() {
+		// function wrapThumbsInRows() {
 
 
-			var winWidth = $(window).width();
+		// 	var winWidth = $(window).width();
 
-			var thumbWidth = 256;
-			var thumbsPerRow = Math.floor(winWidth / thumbWidth);
+		// 	var thumbWidth = 256;
+		// 	var thumbsPerRow = Math.floor(winWidth / thumbWidth);
 
-			$(".section_content").each(function(){
+		// 	$(".section_content").each(function(){
 
-				var foobar = $(this);
+		// 		var foobar = $(this);
 
-				var thumb = $(foobar).find(".js-thumbnail_parent");
-				var thumbs = thumb.length;
+		// 		var thumb = $(foobar).find(".js-thumbnail_parent");
+		// 		var thumbs = thumb.length;
 
-	  			if (thumb.parent().is(".thumb_row")) {
-				    thumb.unwrap();
-				}
+	 //  			if (thumb.parent().is(".thumb_row")) {
+		// 		    thumb.unwrap();
+		// 		}
 
-				for(var i = 0; i < thumb.length; i+=thumbsPerRow) {
-				  thumb.slice(i, i+thumbsPerRow).wrapAll("<div class='thumb_row row-" + Math.floor(i/thumbsPerRow + 1) + "' />");
-				}
+		// 		for(var i = 0; i < thumb.length; i+=thumbsPerRow) {
+		// 		  thumb.slice(i, i+thumbsPerRow).wrapAll("<div class='thumb_row row-" + Math.floor(i/thumbsPerRow + 1) + "' />");
+		// 		}
 
-				$(".thumb_row").css("width", (thumbWidth * thumbsPerRow) + "px");
+		// 		$(".thumb_row").css("width", (thumbWidth * thumbsPerRow) + "px");
 
-			});
+		// 	});
 
-		}
+		// }
 
-		 $(document).ready(wrapThumbsInRows);
+		//  $(document).ready(wrapThumbsInRows);
 
-		 // This doesn't work for some reason
+		//  // This doesn't work for some reason
 
-		 $(window).resize(wrapThumbsInRows);
+		//  $(window).resize(wrapThumbsInRows);
 
 
 
