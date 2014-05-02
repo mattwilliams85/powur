@@ -1173,13 +1173,53 @@ body#application {
 	@include object_thumbnail;
 
 	// Box properties
-	padding-top: 0;
 	width: $grid * 8;
 	// Background & borders
-
 	// Typography
 
 	// Other
+
+	.placeholder_avatar {
+		// Mixins
+
+		@include corners(50%, 50%, 50%, 50%);
+		// Box properties
+		display: inline-block;
+		height: $grid * 2;
+		width: $grid * 2;
+		// Background & borders
+		border: 1px $whisper dashed;
+
+		// Typography
+
+		// Other
+
+	}
+
+	.button {
+		// Mixins
+	
+		// Box properties
+		margin: $grid / 4 auto;
+		// Background & borders
+		border: none;
+		// Typography
+		color: $whisper;
+		// Other
+	
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background-color: rgba(0,0,0,.07);
+			// Typography
+			color: $whisper;
+			// Other
+		
+		}
+	}
 
 }
 

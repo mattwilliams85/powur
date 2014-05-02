@@ -1,4 +1,4 @@
-<% Branch.all.each do |b| %>
+<% Branch.find([1,2,3,4]).each do |b| %>
 
   <div id="<%= b.first_name %>_thumbnail" class="team_thumbnail js-thumbnail_parent">
     <div class="js-thumbnail" onclick="detailExpander('<%= b.first_name %>');">
