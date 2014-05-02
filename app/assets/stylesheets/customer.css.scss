@@ -75,22 +75,50 @@ body#signup {
 	
 	}
 
-	.banner_content {
-		// Mixins
-	
-		// Box properties
-		margin-top: 14vh;
 
-		// Background & borders
+}
+
+.banner_content {
+	// Mixins
+
+	// Box properties
+
+
+	// Background & borders
+	
+	// Typography
+
+	// Other
 		
+	a:not(.button) {
+		// Mixins
+		@include corners(3px, 3px, 3px, 3px);
+		// Box properties
+		padding: 0 4px;
+		// Background & borders
+		background-color: rgba($brand, 1);
 		// Typography
-	
+		color: white;
+		text-decoration: none;
+
 		// Other
-	
+
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background-color: rgba($brand_shadow, 1);
+
+			// Typography
+			// Other
+		
+		}
 	}
 }
 
-#customer_signup {
+.signup_form {
 	// Mixins
 
 	// Box properties
@@ -177,7 +205,7 @@ body#signup {
 		// Box properties
 		display: inline-block;
 		width: 100%;
-		margin: 0 0 0 0;
+		margin: -1px 0 0 0;
 		// Background & borders
 		background: none;
 		border-color: white;
@@ -268,7 +296,6 @@ body#signup {
 		display: inline-block;
 		width: 100%;
 		clear: none;
-		padding: $grid / 4;
 		// Background & borders
 		border-color: white;
 		background: $sunnyside;

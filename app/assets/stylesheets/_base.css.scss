@@ -427,11 +427,13 @@ footer {
 		
 			// Box properties
 		    display: block;
+		    left: 0;
 		    padding-left: $grid;
 		    top: auto;
 			// Background & borders
 		
 			// Typography
+			text-align: left;
 			// Other
 		
 		}

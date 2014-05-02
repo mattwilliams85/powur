@@ -1,6 +1,6 @@
 class UserController < ApplicationController
 
-	layout "landing"
+	layout "signup"
 
 	def reset_password
 	end
