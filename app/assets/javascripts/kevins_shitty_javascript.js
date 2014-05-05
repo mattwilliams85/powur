@@ -95,6 +95,18 @@
 
 	}
 
+
+    function showSignupForm() {
+    	go = event.target
+    	$(go).parents(".cta").animate({ opacity: 0, right: "500px" }, 'slow', 'swing');
+    	$(".js-signup_form").animate({ opacity: 1, bottom: "100px"}, 'slow', 'swing');
+
+    }
+
+
+
+    debugger
+
 $(document).ready(function() { // bind to document.ready instead of window.load because of Turbolinks
 
 	// KP's easier version of DRMagicLabelWizzler
@@ -182,6 +194,9 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
     $('.scroll_leader').css('opacity', '0');
     $('.scroll_leader').delay('500').animate({ opacity: 1, bottom: "45px" }, 'slow', 'swing');
+
+
+    // Signup form animations
 
 
 
