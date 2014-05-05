@@ -46,11 +46,15 @@
 
 		<h1>Enter your invite code</h1>
 
-		<form id="customer_signup" class="signup_form two">
+		<form class="cta">
 			<span class="form_row">
-				<label for="invite_code">Invite Code</label>
 				<input id="invite_code" name="invite_code" type="text" placeholder="Invite code" required/>
+				<a class="button js-show_signup_form" onclick="showSignupForm()">Go</a>
 			</span>
+		</form>
+
+		<form id="customer_signup" class="signup_form two js-signup_form">
+
 			<span class="form_row">
 				[inject user info here upon invite code entry]
 				<br/>
