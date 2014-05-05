@@ -4,9 +4,55 @@
 		<h1>We're putting solar panels on 2 million homes by 2025.</h1>
 		<h2>And we'll pay you $1,000,000,000 to help us do it.</h2>
 
-		<form id="primary_cta">
-			<%= link_to "Request an Invite", "/promoter/request", :class => "button" %>
+		<form class="cta">
+			<span class="form_row">
+				<input id="invite_code" name="invite_code" type="text" placeholder="Invite code" required/>
+				<a class="button" onclick="showSignupForm()">Go</a>
+			</span>
 		</form>
+
+
+		<form id="customer_signup" class="signup_form two hide">
+
+			<span class="form_row">
+				<label for="email">Email</label>
+				<input id="email" name="email" type="text" placeholder="Email" class="validate" required/>
+			</span>
+
+			<span class="form_row">
+				<label for="first_name">First Name</label>
+				<input id="first_name" name="first_name" type="text" placeholder="First Name" class="validate" required/>
+			</span>
+
+			<span class="form_row">
+				<label for="first_name">Last Name</label>
+				<input id="last_name" name="last_name" type="text" placeholder="Last Name" class="validate" required/>
+			</span>
+
+			<span class="form_row">
+				<label for="phone">Phone</label>
+				<input id="phone" name="phone" type="text" placeholder="Phone" class="validate" required/>
+			</span>
+
+			<span class="form_row">
+				<label for="zip_code">Zip Code</label>
+				<input id="zip_code" name="zip_code" type="text" placeholder="Zip Code" class="validate" required/>
+			</span>
+
+			<span class="form_row checkbox">
+				<label for="tos" class="checkbox">I agree to the <a href="#">Terms of Service</a></label>
+				<input id="tos" name="tos" type="checkbox" required/>
+			</span>
+			
+			<span class="form_row">
+				<label for="create_password">Password</label>
+				<input id="create_password" name="create_password" type="text" placeholder="Create password" required/>
+			</span>
+
+			<a href="/dashboard?first_run=true" class="button">Submit</a>
+
+		</form>
+
 	</div>
 	<div class="scroll_leader">There's a revolution coming.
 	  	<span class="expand">
@@ -155,8 +201,11 @@
 
 	<h2>This is giving power back to the people, literally</strong></h2>
 
-		<form id="secondary_cta">
-			<%= link_to "Request an Invite", "/promoter/signup", :class => "button" %>
+		<form class="cta secondary">
+			<span class="form_row">
+				<input id="invite_code" name="invite_code" type="text" placeholder="Invite code" required/>
+				<a href="#" class="button">Go</a>
+			</span>
 		</form>
 </section>
 

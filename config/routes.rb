@@ -58,7 +58,7 @@ Mysolar::Application.routes.draw do
   get 'customer/signup' => 'customer#index'
   get 'customer/details' => 'customer#details'
 
-  get 'promoter' => 'index#promoter'
+  get 'promoter' => 'promoter#request'
   get 'promoter/thanks' => 'promoter#thanks'
   get 'promoter/request' => 'promoter#request'
   get 'promoter/activate' => 'promoter#activate'
