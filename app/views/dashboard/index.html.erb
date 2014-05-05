@@ -15,264 +15,200 @@
 
 <section id="dashboard_kpis" class="dashboard_section">
 
-	<div class="section_header">
-		<h2>Impact Overview</h2>
-		
-		<% if params[:first_run] == "true" %>
+	<div class="section_body">
 
-		<% else %>
+		<div class="section_header">
+			<h2>Impact Overview</h2>
+			
+			<% if params[:first_run] == "true" %>
 
-			<ul class="sort">
-				<li> 
-					<%= select_tag "Show", options_for_select(
-						[
-							"My Team", 
-						    "2nd Generation", 
-						    "3rd Generation",
-						    "My Entrie Organization",
-						    "All of Sunstand"
-						], ["My Team"]) 
-					%>
-				</li>
-			</ul>
+			<% else %>
 
-		<% end %> 
+				<ul class="sort">
+					<li> 
+						<%= select_tag "Show", options_for_select(
+							[
+								"My Team", 
+							    "2nd Generation", 
+							    "3rd Generation",
+							    "My Entrie Organization",
+							    "All of Sunstand"
+							], ["My Team"]) 
+						%>
+					</li>
+				</ul>
 
-	</div>
-	<div class="section_content">
+			<% end %> 
 
-		<% if params[:first_run] == "true" %>
+		</div>
 
-			<div class="blank_state">
-				You don't have any metrics yet. <a onclick="detailExpander('invite_detail', 'Invite an advocate');">Invite a fellow advocate</a> or <a href="#">add a customer quote</a> to watch your impact grow.
-			</div>
+		<div class="section_content">
 
-		<% else %>
+			<% if params[:first_run] == "true" %>
 
-			<div class="kpi js-thumbnail_parent">
-				<div class="js-thumbnail" onclick="detailExpander('kpi_co2');">
-					<div id="c02_reduction">
-						<span>34,421 tons</span>
+				<div class="blank_state">
+					You don't have any metrics yet. <a onclick="detailExpander('invite_detail', 'Invite an advocate');">Invite a fellow advocate</a> or <a href="#">add a customer quote</a> to watch your impact grow.
+				</div>
+
+			<% else %>
+
+				<div class="kpi js-thumbnail_parent">
+					<div class="js-thumbnail" onclick="detailExpander('kpi_co2');">
+						<div id="c02_reduction">
+							<span>34,421 tons</span>
+						</div>
+						<h3>Your C02 Prevention</h3>
+						<span class="subtext">Across your entire team</span>
+						<i class="fa fa-angle-down"></i>
 					</div>
-					<h3>Your C02 Prevention</h3>
-					<span class="subtext">Across your entire team</span>
-					<i class="fa fa-angle-down"></i>
+
+					<%= render partial: "shared/kpi_co2_detail"%>
+
 				</div>
 
-				<%= render partial: "shared/kpi_co2_detail"%>
+				<div class="kpi js-thumbnail_parent">
+					<div class="js-thumbnail" onclick="detailExpander('kpi_customer');">
+						<canvas id="kpi_chart_sales" width="222" height="96"></canvas>
+						<h3>43 Sales</h3>
+						<span class="subtext">Out of 98 quotes</span>
+						<i class="fa fa-angle-down"></i>
+					</div>
 
-			</div>
+					<%= render partial: "shared/kpi_customer_detail"%>
 
-			<div class="kpi js-thumbnail_parent">
-				<div class="js-thumbnail" onclick="detailExpander('kpi_customer');">
-					<canvas id="kpi_chart_sales" width="222" height="96"></canvas>
-					<h3>43 Sales</h3>
-					<span class="subtext">Out of 98 quotes</span>
-					<i class="fa fa-angle-down"></i>
 				</div>
 
-				<%= render partial: "shared/kpi_customer_detail"%>
+				<div class="kpi js-thumbnail_parent">
+					<div class="js-thumbnail" onclick="detailExpander('kpi_team');">
+						<canvas id="kpi_chart_team" width="222" height="96"></canvas>
+						<h3>13 Team Members</h3>
+						<span class="subtext">23 in your oganization</span>
+						<i class="fa fa-angle-down"></i>
+					</div>
 
-			</div>
+					<%= render partial: "shared/kpi_team_detail"%>
 
-			<div class="kpi js-thumbnail_parent">
-				<div class="js-thumbnail" onclick="detailExpander('kpi_team');">
-					<canvas id="kpi_chart_team" width="222" height="96"></canvas>
-					<h3>13 Team Members</h3>
-					<span class="subtext">23 in your oganization</span>
-					<i class="fa fa-angle-down"></i>
 				</div>
 
-				<%= render partial: "shared/kpi_team_detail"%>
+				<div class="kpi js-thumbnail_parent">
+					<div class="js-thumbnail" onclick="detailExpander('kpi_volume');">
+						<canvas id="kpi_chart_earnings" width="222" height="96"></canvas>
+						<h3>$32,450 Earnings</h3>
+						<span class="subtext">Down 5% this week</span>
+						<i class="fa fa-angle-down"></i>
+					</div>
 
-			</div>
+					<%= render partial: "shared/kpi_volume_detail"%>
 
-			<div class="kpi js-thumbnail_parent">
-				<div class="js-thumbnail" onclick="detailExpander('kpi_volume');">
-					<canvas id="kpi_chart_earnings" width="222" height="96"></canvas>
-					<h3>$32,450 Earnings</h3>
-					<span class="subtext">Down 5% this week</span>
-					<i class="fa fa-angle-down"></i>
 				</div>
 
-				<%= render partial: "shared/kpi_volume_detail"%>
+				<div class="kpi js-thumbnail_parent">
+					<div class="js-thumbnail" onclick="detailExpander('kpi_rank');">
+						<canvas id="kpi_chart_level_up" width="222" height="96"></canvas>
+						<h3>Level 6</h3>
+						<span class="subtext">Get 2 sales to reach level 7</span>
+						<i class="fa fa-angle-down"></i>
+					</div>
 
-			</div>
+					<%= render partial: "shared/kpi_rank_detail"%>
 
-			<div class="kpi js-thumbnail_parent">
-				<div class="js-thumbnail" onclick="detailExpander('kpi_rank');">
-					<canvas id="kpi_chart_level_up" width="222" height="96"></canvas>
-					<h3>Level 6</h3>
-					<span class="subtext">Get 2 sales to reach level 7</span>
-					<i class="fa fa-angle-down"></i>
 				</div>
 
-				<%= render partial: "shared/kpi_rank_detail"%>
+			<% end %>
 
-			</div>
-
-		<% end %>
-
+		</div>
 	</div>
-
 </section>
 
 <section id="dashboard_quotes" class="dashboard_section">
-	<div class="section_header">
-		<h2>Your Quotes</h2>
+	<div class="section_body">
 
-		<% if params[:first_run] == "true" %>
+		<div class="section_header">
+			<h2>Your Quotes</h2>
 
-		<% else %>
+			<% if params[:first_run] == "true" %>
 
-            <ul class="tabs">
-              <li class="active"><a href="">Incomplete</a></li>
-              <li><a href="">Submitted</a></li>
-              <li><a href="">Approved</a></li>
-              <li><a href="">Installed</a></li>
-            </ul>
+			<% else %>
 
-			<ul class="sort">
-				<li class="search"><i class="fa fa-search"></i></li>
-				<li>
-					<%= select_tag "Sort", options_for_select(
-						[
-							"By newest", 
-						    "By oldest", 
-						    "By most complete", 
-						    "By least complete"
-						], ["By newest"]) 
-					%>
-				</li>
-			</ul>
+	            <ul class="tabs">
+	              <li class="active"><a href="">Incomplete</a></li>
+	              <li><a href="">Submitted</a></li>
+	              <li><a href="">Approved</a></li>
+	              <li><a href="">Installed</a></li>
+	            </ul>
 
-		<% end %>
+				<ul class="sort">
+					<li class="search"><i class="fa fa-search"></i></li>
+					<li>
+						<%= select_tag "Sort", options_for_select(
+							[
+								"By newest", 
+							    "By oldest", 
+							    "By most complete", 
+							    "By least complete"
+							], ["By newest"]) 
+						%>
+					</li>
+				</ul>
+
+			<% end %>
+		</div>
+		<div class="section_content">
+
+			<% if params[:first_run] == "true" %>
+
+				<div class="blank_state">
+					You don't have any quotes yet. <a href="#">Add a customer quote</a> to get started.
+				</div>
+
+			<% else %>
+
+				<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Barbara", :last_name => "Jackson", :has_address => true, :has_rooftop => false, :has_utility => true}%>
+				<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Barry", :last_name => "Sausalito", :has_address => false, :has_rooftop => false, :has_utility => false}%>
+				<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "Jimenez", :has_address => true, :has_rooftop => true, :has_utility => false}%>
+			
+			<% end %>
+
+		</div>
+
+			<% if params[:first_run] == "true" %>
+
+			<% else %>
+	<!-- 			<div class="section_notification positive">
+					<a href="#">This is a positive notification about Barry - click to go to a new page...</a>
+					<span class="dismiss"><i class="fa fa-times"></i></span>
+				</div> -->
+
+			<% end %>
 	</div>
-	<div class="section_content">
-
-		<% if params[:first_run] == "true" %>
-
-			<div class="blank_state">
-				You don't have any quotes yet. <a href="#">Add a customer quote</a> to get started.
-			</div>
-
-		<% else %>
-
-			<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Barbara", :last_name => "Jackson", :has_address => true, :has_rooftop => false, :has_utility => true}%>
-			<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Barry", :last_name => "Sausalito", :has_address => false, :has_rooftop => false, :has_utility => false}%>
-			<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Jimmy", :last_name => "Jimenez", :has_address => true, :has_rooftop => true, :has_utility => false}%>
-		
-		<% end %>
-
-	</div>
-
-		<% if params[:first_run] == "true" %>
-
-		<% else %>
-<!-- 			<div class="section_notification positive">
-				<a href="#">This is a positive notification about Barry - click to go to a new page...</a>
-				<span class="dismiss"><i class="fa fa-times"></i></span>
-			</div> -->
-
-		<% end %>
-
 </section>
 
 <section id="dashboard_team" class="dashboard_section">
-	<div class="section_header">
-		<h2>Your Team</h2>
+	<div class="section_body">
+		
+		<div class="section_header">
+			<h2>Your Team</h2>
 
-		<% if params[:first_run] == "true" %>
-		<% else %>
+			<% if params[:first_run] == "true" %>
+			<% else %>
 
-            <ul class="tabs">
-              <li class="active"><a href="">Everybody</a></li>
-              <li><a href="">Lockers</a></li>
-              <li><a href="">Dinosaurs</a></li>
-            </ul>
+	            <ul class="tabs">
+	              <li class="active"><a href="">Everybody</a></li>
+	              <li><a href="">Lockers</a></li>
+	              <li><a href="">Dinosaurs</a></li>
+	            </ul>
 
-			<ul class="sort">
-				<li class="search"><i class="fa fa-search"></i></li>
-				<li> 
-					<%= select_tag "Show", options_for_select(
-						[
-							"My Team", 
-						    "2nd Generation", 
-						    "3rd Generation",
-						    "My Entrie Organization",
-						    "All of Sunstand"
-						], ["My Team"]) 
-					%>
-				</li>
-				<li>
-					<%= select_tag "Sort", options_for_select(
-						[
-							"By latest", 
-						    "By earliest", 
-						    "By highest", 
-						    "By lowest"
-						], ["By latest"]) 
-					%>
-				</li>
-			</ul>
-
-		<% end %>
-
-	</div>
-
-	<% if params[:first_run] == "true" %>
-
-	<div class="section_content">
-
-			<%= render partial: "shared/invite_thumbnail"%>
-
-			<div class="blank_state">
-				You don't have any team members yet. <a onclick="detailExpander('invite_detail', 'Invite an advocate');">Invite a fellow advocate</a> to grow your team.
-			</div>
-
-			<div class="team_thumbnail pending js-thumbnail_parent">
-			    <span class="advocate_avatar"></span>
-			    <br/>
-				<span class="invitee_name"></span>
-				<span class="subtext">
-			  		Pending
-				</span>
-				<span class="expand">
-			 		<i class="fa fa-angle-down"></i>
-				</span>
-			</div>
-
-		<% else %>
-
-		<div class="section_content">
-			
-			<%= render partial: "shared/invite_thumbnail"%>
-
-			<%= render partial: "shared/team_thumbnail"%>
-
-		<% end %>
-
-	</div>
-
-</section>
-
-<% if params[:first_run] == "true" %>
-
-	<% else %>
-
-		<section id="dashboard_payments" class="dashboard_section">
-			<div class="section_header">
-				<h2>Your Earnings</h2>
 				<ul class="sort">
 					<li class="search"><i class="fa fa-search"></i></li>
 					<li> 
 						<%= select_tag "Show", options_for_select(
 							[
-								"Past 3 months", 
-							    "Past 6 months", 
-							    "Past year", 
-							    "All time"
-							], ["Past 3 months"]) 
+								"My Team", 
+							    "2nd Generation", 
+							    "3rd Generation",
+							    "My Entrie Organization",
+							    "All of Sunstand"
+							], ["My Team"]) 
 						%>
 					</li>
 					<li>
@@ -286,43 +222,117 @@
 						%>
 					</li>
 				</ul>
-			</div>
-			<div class="section_content">
-				<%= render partial: "shared/payment_thumbnail", :locals => {:id => "1", :amount => "$2,345", :mail_date => "4/1/14", :has_mailed => false}%>
-				<%= render partial: "shared/payment_thumbnail", :locals => {:id => "2", :amount => "$1,234", :mail_date => "3/23/14", :has_mailed => true}%>
-				<%= render partial: "shared/payment_thumbnail", :locals => {:id => "3", :amount => "$789", :mail_date => "3/16/14", :has_mailed => true}%>
-			</div>
 
+			<% end %>
+
+		</div>
+
+		<% if params[:first_run] == "true" %>
+
+		<div class="section_content">
+
+				<%= render partial: "shared/invite_thumbnail"%>
+
+				<div class="blank_state">
+					You don't have any team members yet. <a onclick="detailExpander('invite_detail', 'Invite an advocate');">Invite a fellow advocate</a> to grow your team.
+				</div>
+
+				<div class="team_thumbnail pending js-thumbnail_parent">
+				    <span class="advocate_avatar"></span>
+				    <br/>
+					<span class="invitee_name"></span>
+					<span class="subtext">
+				  		Pending
+					</span>
+					<span class="expand">
+				 		<i class="fa fa-angle-down"></i>
+					</span>
+				</div>
+
+			<% else %>
+
+			<div class="section_content">
+
+				<%= render partial: "shared/invite_thumbnail"%>
+
+				<%= render partial: "shared/team_thumbnail"%>
+
+			<% end %>
+
+		</div>
+	</div>
+</section>
+
+<% if params[:first_run] == "true" %>
+
+	<% else %>
+
+		<section id="dashboard_payments" class="dashboard_section">
+			<div class="section_body">
+				<div class="section_header">
+					<h2>Your Earnings</h2>
+					<ul class="sort">
+						<li class="search"><i class="fa fa-search"></i></li>
+						<li> 
+							<%= select_tag "Show", options_for_select(
+								[
+									"Past 3 months", 
+								    "Past 6 months", 
+								    "Past year", 
+								    "All time"
+								], ["Past 3 months"]) 
+							%>
+						</li>
+						<li>
+							<%= select_tag "Sort", options_for_select(
+								[
+									"By latest", 
+								    "By earliest", 
+								    "By highest", 
+								    "By lowest"
+								], ["By latest"]) 
+							%>
+						</li>
+					</ul>
+				</div>
+				<div class="section_content">
+					<%= render partial: "shared/payment_thumbnail", :locals => {:id => "1", :amount => "$2,345", :mail_date => "4/1/14", :has_mailed => false}%>
+					<%= render partial: "shared/payment_thumbnail", :locals => {:id => "2", :amount => "$1,234", :mail_date => "3/23/14", :has_mailed => true}%>
+					<%= render partial: "shared/payment_thumbnail", :locals => {:id => "3", :amount => "$789", :mail_date => "3/16/14", :has_mailed => true}%>
+				</div>
+			</div>
 		</section>
 <% end %>
 
 <section id="dashboard_pages" class="dashboard_section">
-	<div class="section_header">
-		<h2>Your Pages</h2>
+	<div class="section_body">
+		<div class="section_header">
+			<h2>Your Pages</h2>
+		</div>
+		<div class="section_content">
+
+			<% if params[:pro] == "true" %>
+
+				<%= render partial: "shared/new_link_thumbnail" %>
+				<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
+				<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
+
+			<% else %>
+
+				<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Customers", :url => "/1234"}%>
+
+				<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Promoters", :url => "/4321"}%>
+
+
+				<div class="blank_state hide">
+					<p>This is a static page that you can share with others.</p>
+					<p>To generate custom url's for tracking campaigns, <a href="/upgrade">upgrade to Pro</a>.</p>
+				</div>
+
+			<% end %>
+
+		</div>
+		<%= render partial: "shared/new_link_detail"%>
 	</div>
-	<div class="section_content">
-
-		<% if params[:pro] == "true" %>
-
-			<%= render partial: "shared/new_link_thumbnail" %>
-			<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
-			<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
-
-		<% else %>
-
-			<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Customers", :url => "/1234"}%>
-
-			<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Promoters", :url => "/4321"}%>
-
-
-			<div class="blank_state hide">
-				<p>This is a static page that you can share with others.</p>
-				<p>To generate custom url's for tracking campaigns, <a href="/upgrade">upgrade to Pro</a>.</p>
-			</div>
-
-		<% end %>
-
-	</div>
-	<%= render partial: "shared/new_link_detail"%>
 </section>
 	

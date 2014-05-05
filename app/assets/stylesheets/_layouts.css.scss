@@ -1,3 +1,5 @@
+
+
 #index_banner {
 	// Mixins
 	@include box_sizing;
@@ -147,6 +149,7 @@ body#application {
 		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
 		// Box properties
 		height: $grid * 4;
+		min-width: $desktop;
 		// Background & borders
 		background-color: $brand;
 		// Typography
@@ -517,6 +520,20 @@ body#application {
 		// Other
 
 	}
+
+}
+
+.section_body {
+	// Mixins
+
+	// Box properties
+	width: $desktop;
+	margin: 0 auto;
+	// Background & borders
+
+	// Typography
+
+	// Other
 
 }
 
