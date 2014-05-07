@@ -2,121 +2,121 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body#signup {
-	// Mixins
+// body#signup {
+// 	// Mixins
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	header {
-		// Mixins
-		@include box_sizing;
-		// Box properties
-		padding-right: $grid;
-		// Background & borders
-		border-bottom: 1px solid rgba(255, 255, 255, 0);
-		// Typography
+// 	header {
+// 		// Mixins
+// 		@include box_sizing;
+// 		// Box properties
+// 		padding-right: $grid;
+// 		// Background & borders
+// 		border-bottom: 1px solid rgba(255, 255, 255, 0);
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-		li {
-			// Mixins
+// 		li {
+// 			// Mixins
 
-			// Box properties
-			float: right;
-			// Background & borders
+// 			// Box properties
+// 			float: right;
+// 			// Background & borders
 
-			// Typography
+// 			// Typography
 		
-			// Other
+// 			// Other
 		
-			a {
-				// Mixins
-				@include corners;
+// 			a {
+// 				// Mixins
+// 				@include corners;
 
-				// Box properties
-				padding: $grid / 4 $grid / 2;
-				// Background & borders
-				border: 1px solid $white;
-				// Typography
-				color: white;
-				// Other
+// 				// Box properties
+// 				padding: $grid / 4 $grid / 2;
+// 				// Background & borders
+// 				border: 1px solid $white;
+// 				// Typography
+// 				color: white;
+// 				// Other
 				
-				&:hover {
-					// Mixins
+// 				&:hover {
+// 					// Mixins
 				
-					// Box properties
+// 					// Box properties
 				
-					// Background & borders
-					background-color: $sunnyside;
-					// Typography
-					// Other
+// 					// Background & borders
+// 					background-color: $sunnyside;
+// 					// Typography
+// 					// Other
 				
-				}
-			}		
-		}
-	}
+// 				}
+// 			}		
+// 		}
+// 	}
 
-	#index_banner {
-		// Mixins
+// 	#index_banner {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 		
-		// Background & borders
+// 		// Background & borders
 
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
 
-}
+// }
 
-.banner_content {
-	// Mixins
+// .banner_content {
+// 	// Mixins
 
-	// Box properties
+// 	// Box properties
 
 
-	// Background & borders
+// 	// Background & borders
 	
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 		
-	a:not(.button) {
-		// Mixins
-		@include corners(3px, 3px, 3px, 3px);
-		// Box properties
-		padding: 0 4px;
-		// Background & borders
-		background-color: rgba($brand, 1);
-		// Typography
-		color: white;
-		text-decoration: none;
+// 	a:not(.button) {
+// 		// Mixins
+// 		@include corners(3px, 3px, 3px, 3px);
+// 		// Box properties
+// 		padding: 0 4px;
+// 		// Background & borders
+// 		background-color: rgba($brand, 1);
+// 		// Typography
+// 		color: white;
+// 		text-decoration: none;
 
-		// Other
+// 		// Other
 
-		&:hover {
-			// Mixins
+// 		&:hover {
+// 			// Mixins
 		
-			// Box properties
+// 			// Box properties
 		
-			// Background & borders
-			background-color: rgba($brand_shadow, 1);
+// 			// Background & borders
+// 			background-color: rgba($brand_shadow, 1);
 
-			// Typography
-			// Other
+// 			// Typography
+// 			// Other
 		
-		}
-	}
-}
+// 		}
+// 	}
+// }
 
 // .signup_form {
 // 	// Mixins

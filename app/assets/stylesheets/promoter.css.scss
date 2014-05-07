@@ -2,67 +2,61 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+body#signup {
+	// Mixins
 
-// #promoter_banner_content {
-// 	// Mixins
+	// Box properties
 
-// 	// Box properties
-// 	margin-top: 15vh;
-// 	// Background & borders
+	// Background & borders
 
-// 	// Typography
+	// Typography
 
-// 	// Other
+	// Other
 
-// }
-
-// #thanks_banner_content {
-// 	// Mixins
-
-// 	// Box properties
-// 	margin-top: 24vh;
-// 	// Background & borders
-
-// 	// Typography
-
-// 	// Other
-
-// }
-
-// .signup {
-// 	// Mixins
-
-// 	// Box properties
-// 	padding: $grid * 2;
-// 	overflow: auto;
-// 	// Background & borders
-// 	// Typography
-// 	// Other
-
-// 	h2 {
-// 		// Mixins
+	header {
+		// Mixins
+		// Box properties
+		// Background & borders
+		border-bottom: 1px solid rgba(255, 255, 255, 0);
+		// Typography
 	
-// 		// Box properties
-// 		margin-bottom: $grid;
-// 		// Background & borders
+		// Other
 	
-// 		// Typography
-// 		font-size: $font_size * 1.5;
-// 		// Other
-	
-// 	}
-// }
+		li {
+			// Mixins
 
-// #promoter_signup {
-// 	// Mixins
+			// Box properties
+			float: right;
+			// Background & borders
 
-// 	// Box properties
-// 	width: $grid * 12;
-// 	margin: 0 auto;
-// 	// Background & borders
+			// Typography
+		
+			// Other
+		
+			a {
+				// Mixins
+				@include corners;
 
-// 	// Typography
-
-// 	// Other
-
-// }
+				// Box properties
+				// Background & borders
+				border: 1px solid $white;
+				background: $brand;
+				// Typography
+				color: white;
+				// Other
+				
+				&:hover {
+					// Mixins
+				
+					// Box properties
+				
+					// Background & borders
+					background-color: $sunnyside;
+					// Typography
+					// Other
+				
+				}
+			}		
+		}
+	}
+}

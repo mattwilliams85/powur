@@ -2,7 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body#landing {
+body#landing,
+body#signup {
 	// Mixins
 
 	// Box properties
@@ -61,7 +62,7 @@ body#landing {
 	}
 }
 
-#index_banner {
+.landing_banner {
 	// Mixins
 	@include box_sizing;
 
@@ -197,20 +198,35 @@ body#landing {
 	}
 }
 
-#index_banner_content {
+.button.request {
 	// Mixins
 
 	// Box properties
-	margin-top: 28vh;
-	position: relative;
+	display: inline-block;
+	width: auto;
+	padding: $grid / 4 $grid / 2;
 	// Background & borders
-
+	background: none;
+	border: 1px solid white;
 	// Typography
 
 	// Other
 
+	&:hover {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background-color: $brand;
+		// Typography
+	
+		// Other
+	
+	}
 
 }
+
 
 .cta {
 	// Mixins
@@ -374,6 +390,60 @@ body#landing {
 			
 			}
 		}	
+	}
+}
+
+#index_banner_content {
+	// Mixins
+
+	// Box properties
+	margin-top: 28vh;
+	position: relative;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+#promoter_banner_content {
+	// Mixins
+
+	// Box properties
+	margin-top: 28vh;
+	position: relative;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	h1 {
+		// Mixins
+	
+		// Box properties
+		margin-bottom: $grid / 2;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	.cta {
+		// Mixins
+		
+		// Box properties
+		margin-top: $grid;
+		margin-bottom: $grid * 6;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
 	}
 }
 
