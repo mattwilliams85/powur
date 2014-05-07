@@ -107,6 +107,7 @@
 		text-shadow: 0 0px 5px rgba(255,255,255, .25), 0px 1px 3px rgba(0,0,0, .6);
 	}  
 
+
 	@mixin no_shadow {
 		text-shadow: 0 0px 0px rgba(255,255,255, 0);
 	}
@@ -162,7 +163,7 @@
 		box-shadow:  $h1 $v1 $blur1 $color1,  $h2 $v2 $blur2 $color2;
 	}
 
-	@mixin corners($tr: 4px, $tl: 4px, $bl: 4px, $br: 4px) { /* this could probably be less verbose at some point */
+	@mixin corners($tr: 2px, $tl: 2px, $bl: 2px, $br: 2px) { /* this could probably be less verbose at some point */
 	    -webkit-border-top-left-radius: $tr;
 	    -moz-border-radius-topleft: $tr;
 	    border-top-left-radius: $tr;
@@ -191,7 +192,8 @@
 		// Typography
 		font-size: $grid / 2;
 		line-height: $line_height;
-		font-family: $form_font;
+		font-family: $small_title_font;
+		text-transform: uppercase;
 
 		// Other
 

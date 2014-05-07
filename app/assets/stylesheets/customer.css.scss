@@ -118,296 +118,296 @@ body#signup {
 	}
 }
 
-.signup_form {
-	// Mixins
+// .signup_form {
+// 	// Mixins
 
-	// Box properties
-	margin: $grid * 1.5 auto $grid;
-	width: $grid * 14;
-	// Background & borders
-	// Typography
+// 	// Box properties
+// 	margin: $grid * 1.5 auto $grid;
+// 	width: $grid * 14;
+// 	// Background & borders
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	.form_row {
-		// Mixins
+// 	.form_row {
+// 		// Mixins
 	
-		// Box properties
-		width: 70%;
-		float: left;
+// 		// Box properties
+// 		width: 70%;
+// 		float: left;
 	
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 
-		&.actions {
-				// Mixins
+// 		&.actions {
+// 				// Mixins
 			
-				// Box properties
-				width: 30%;
-				float: left;
-				// Background & borders
+// 				// Box properties
+// 				width: 30%;
+// 				float: left;
+// 				// Background & borders
 				
-				// Typography
+// 				// Typography
 			
-				// Other
+// 				// Other
 			
-			}	
-	}
+// 			}	
+// 	}
 
-	label {
-		// Mixins
-		@include no_shadow;
+// 	label {
+// 		// Mixins
+// 		@include no_shadow;
 
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
-		font-family: $form_font;
-		color: white;
-		// Other
+// 		// Typography
+// 		font-family: $form_font;
+// 		color: white;
+// 		// Other
 	
-	}
+// 	}
 
-	select {
-		// Mixins
+// 	select {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
-		background-color: $brand;
-		border-color: white;
-		// Typography
-		color: white;
-		// Other
-		outline: none;
+// 		// Background & borders
+// 		background-color: $brand;
+// 		border-color: white;
+// 		// Typography
+// 		color: white;
+// 		// Other
+// 		outline: none;
 
-		&:focus {
-			// Mixins
+// 		&:focus {
+// 			// Mixins
 		
-			// Box properties
+// 			// Box properties
 		
-			// Background & borders
+// 			// Background & borders
 		
-			// Typography
+// 			// Typography
 		
-			// Other
-			outline: none;
-		}
-	}
+// 			// Other
+// 			outline: none;
+// 		}
+// 	}
 
-	input[type=text] {
-		// Mixins
-		@include corners(4px, 0, 4px, 0);
-		// Box properties
-		display: inline-block;
-		width: 100%;
-		margin: -1px 0 0 0;
-		// Background & borders
-		background: none;
-		border-color: white;
-		// Typography
-		color: white;
-		// Other
+// 	input[type=text] {
+// 		// Mixins
+// 		@include corners(4px, 0, 4px, 0);
+// 		// Box properties
+// 		display: inline-block;
+// 		width: 100%;
+// 		margin: -1px 0 0 0;
+// 		// Background & borders
+// 		background: none;
+// 		border-color: white;
+// 		// Typography
+// 		color: white;
+// 		// Other
 	
-	}
+// 	}
 
-	#city {
-		// Mixins
+// 	#city {
+// 		// Mixins
 	
-		// Box properties
-		width: $grid * 11;
-		float: left;
-		margin-right: $grid;
-		// Background & borders
+// 		// Box properties
+// 		width: $grid * 11;
+// 		float: left;
+// 		margin-right: $grid;
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-	#state {
-		// Mixins
+// 	#state {
+// 		// Mixins
 	
-		// Box properties
-		width: $grid * 2;
-		float: left;
-		// Background & borders
+// 		// Box properties
+// 		width: $grid * 2;
+// 		float: left;
+// 		// Background & borders
 	
-		// Typography
-		text-align: center;
-		// Other
+// 		// Typography
+// 		text-align: center;
+// 		// Other
 	
-	}
+// 	}
 
-	#roof_age {
-		// Mixins
+// 	#roof_age {
+// 		// Mixins
 	
-		// Box properties
-		width: $grid * 6;
-		float: left;
-		margin-right: $grid;
-		// Background & borders
+// 		// Box properties
+// 		width: $grid * 6;
+// 		float: left;
+// 		margin-right: $grid;
+// 		// Background & borders
 	
-		// Typography
-		// Other
+// 		// Typography
+// 		// Other
 	
-	}
-
-
-	#roof_material {
-		// Mixins
-	
-		// Box properties
-		width: $grid * 7;
-		float: left;
-		// Background & borders
-	
-		// Typography
-		// Other
-	
-	}
+// 	}
 
 
-	::-webkit-input-placeholder {
-	   color: white;
-	}
-
-	:-moz-placeholder { /* Firefox 18- */
-	   color: white;
-	}
-
-	::-moz-placeholder {  /* Firefox 19+ */
-	   color: white;  
-	}
-
-	:-ms-input-placeholder {  
-	   color: white;
-	}
-
-	.button {
-		// Mixins
-		@include corners(0, 4px, 0, 4px);
-		// Box properties
-		display: inline-block;
-		width: 100%;
-		clear: none;
-		// Background & borders
-		border-color: white;
-		background: $sunnyside;
-		// Typography
-		color: white;
-		// Other
+// 	#roof_material {
+// 		// Mixins
 	
-		&:hover {
-			// Mixins
+// 		// Box properties
+// 		width: $grid * 7;
+// 		float: left;
+// 		// Background & borders
+	
+// 		// Typography
+// 		// Other
+	
+// 	}
+
+
+// 	::-webkit-input-placeholder {
+// 	   color: white;
+// 	}
+
+// 	:-moz-placeholder { /* Firefox 18- */
+// 	   color: white;
+// 	}
+
+// 	::-moz-placeholder {  /* Firefox 19+ */
+// 	   color: white;  
+// 	}
+
+// 	:-ms-input-placeholder {  
+// 	   color: white;
+// 	}
+
+// 	.button {
+// 		// Mixins
+// 		@include corners(0, 4px, 0, 4px);
+// 		// Box properties
+// 		display: inline-block;
+// 		width: 100%;
+// 		clear: none;
+// 		// Background & borders
+// 		border-color: white;
+// 		background: $sunnyside;
+// 		// Typography
+// 		color: white;
+// 		// Other
+	
+// 		&:hover {
+// 			// Mixins
 		
-			// Box properties
+// 			// Box properties
 		
-			// Background & borders
-			background: darken($sunnyside, 10%);
-			// Typography
+// 			// Background & borders
+// 			background: darken($sunnyside, 10%);
+// 			// Typography
 		
-			// Other
+// 			// Other
 		
-		}
-	}
+// 		}
+// 	}
 
-	&.one {
-		// Mixins
+// 	&.one {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 		
-		.button {
-			// Mixins
+// 		.button {
+// 			// Mixins
 
-			// Box properties
+// 			// Box properties
 
-			// Background & borders
-			border-left: none;
+// 			// Background & borders
+// 			border-left: none;
 
-			// Typography
+// 			// Typography
 
-			// Other
+// 			// Other
 		
-		}
-	}
+// 		}
+// 	}
 
-	&.two {
-		// Mixins
+// 	&.two {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-		.form_row {
-			// Mixins
+// 		.form_row {
+// 			// Mixins
 		
-			// Box properties
-			width: 100%;
+// 			// Box properties
+// 			width: 100%;
 		
-			// Background & borders
+// 			// Background & borders
 		
-			// Typography
+// 			// Typography
 		
-			// Other
+// 			// Other
 
-			&.actions {
-					// Mixins
+// 			&.actions {
+// 					// Mixins
 				
-					// Box properties
-					width: 100%;
+// 					// Box properties
+// 					width: 100%;
 
-					// Background & borders
+// 					// Background & borders
 					
-					// Typography
+// 					// Typography
 				
-					// Other
+// 					// Other
 				
-				}	
-		}
+// 				}	
+// 		}
 
-		input[type=text] {
-			// Mixins
-			@include corners;
-			// Box properties
+// 		input[type=text] {
+// 			// Mixins
+// 			@include corners;
+// 			// Box properties
 
-			margin: 0 0 $grid / 2 0;
-			// Background & borders
+// 			margin: 0 0 $grid / 2 0;
+// 			// Background & borders
 
-			// Typography
+// 			// Typography
 
-			// Other
+// 			// Other
 		
-		}
+// 		}
 
 
 
-		.button {
-			// Mixins
-			@include corners;
-			// Box properties
+// 		.button {
+// 			// Mixins
+// 			@include corners;
+// 			// Box properties
 
-			// Background & borders
+// 			// Background & borders
 
-			// Typography
+// 			// Typography
 
-			// Other
+// 			// Other
 		
-		}
-	}
-}
+// 		}
+// 	}
+// }

@@ -98,14 +98,12 @@
 
     function showSignupForm() {
     	go = event.target
-    	$(go).parents(".cta").animate({ opacity: 0, right: "500px" }, 'slow', 'swing');
-    	$(".js-signup_form").animate({ opacity: 1, bottom: "100px"}, 'slow', 'swing');
+    	$(go).parents("#index_banner_content").animate({ opacity: 0, right: "100%" }, 'slow', 'swing');
+    	$(".js-signup_form").animate({ opacity: 1, bottom: "25%"}, 'slow', 'swing');
 
     }
 
 
-
-    debugger
 
 $(document).ready(function() { // bind to document.ready instead of window.load because of Turbolinks
 
@@ -117,7 +115,7 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
 				$(this).keyup(function() {
 					if ($(this).val().length > 10) {
-		          		$(this).prev("label").fadeOut("fast");
+		          		$(this).prev("label:visible").fadeOut("fast");
 	        		} else {
 	          			$(this).prev("label").fadeIn("fast");
 	        		};

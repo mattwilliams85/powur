@@ -405,12 +405,12 @@ footer {
 
 	}
 
-	label {
+	label:not(.checkbox) {
 		// Mixins
 	
 		// Box properties
 		position: absolute;
-		top: $grid / 8;
+		top: $grid / 4;
 		right: $grid / 4;
 		text-align: right;
 
@@ -420,23 +420,25 @@ footer {
 		color: $quiet;
 		font-size: $grid / 2;
 		line-height: $line_height;
+		font-family: $small_title_font;
+		text-transform: uppercase;
 		// Other
+	
+	}
 
-		&.checkbox {
-			// Mixins
-		
-			// Box properties
-		    display: block;
-		    left: 0;
-		    padding-left: $grid;
-		    top: auto;
-			// Background & borders
-		
-			// Typography
-			text-align: left;
-			// Other
-		
-		}
+	label.checkbox {
+		// Mixins
+	
+		// Box properties
+		padding-left: $grid / 4;
+		// Background & borders
+	
+		// Typography
+		font-size: $grid / 2;
+		line-height: $line_height;
+		font-family: $small_title_font;
+		text-transform: uppercase;
+		// Other
 	
 	}
 
@@ -476,6 +478,11 @@ footer {
 		}
 	}
 
+	[placeholder]:focus::-webkit-input-placeholder {
+	  transition: opacity 0.5s 0 ease; 
+	  opacity: 0;
+	}
+
 	input:focus::-webkit-input-placeholder { color:transparent; }
 	input:focus:-moz-placeholder { color:transparent; }
 
@@ -483,18 +490,12 @@ footer {
 		// Mixins
 	
 		// Box properties
-	    width: $grid;
-	    height: $grid;
-	    padding: 0;
-	    margin:0;
-	    position: relative;
-	    top: -5px;
-	    *overflow: hidden;
+		display: inline-block;
 	
 		// Background & borders
 	
 		// Typography
-		vertical-align: middle;
+
 		// Other
 	}
 

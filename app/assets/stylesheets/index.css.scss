@@ -40,6 +40,7 @@ body#landing {
 				// Box properties
 				// Background & borders
 				border: 1px solid $white;
+				background: $brand;
 				// Typography
 				color: white;
 				// Other
@@ -60,16 +61,154 @@ body#landing {
 	}
 }
 
+#index_banner {
+	// Mixins
+	@include box_sizing;
+
+	// Box properties
+	padding: $grid $grid * 2 0;
+	overflow: hidden;
+	height: 100vh;
+	position: relative;
+	// Background & borders
+
+	/* IE10 Consumer Preview */ 
+	background-image: -ms-radial-gradient(right top, circle farthest-side, #FFFFFF 0%,  $brand 80%);
+
+	/* Mozilla Firefox */ 
+	background-image: -moz-radial-gradient(right top, circle farthest-side, #FFFFFF 0%, $brand 80%);
+
+	/* Opera */ 
+	background-image: -o-radial-gradient(right top, circle farthest-side, #FFFFFF 0%, $brand 80%);
+
+	/* Webkit (Safari/Chrome 10) */ 
+	background-image: -webkit-gradient(radial, right top, 0, right bottom, 956, color-stop(0, #FFFFFF), color-stop(1, $brand));
+
+	/* Webkit (Chrome 11+) */ 
+	background-image: -webkit-radial-gradient(right top, circle farthest-side, #FFFFFF 0%, $brand 80%);
+
+	/* W3C Markup, IE10 Release Preview */ 
+	background-image: radial-gradient(circle farthest-side at right top, #FFFFFF 0%, $brand 80%);
+
+	// Typography
+	text-align: center;
+	color: white;
+
+	// Other
+	
+	// This garbage is because Safari's text rendering sucks over animated elements
+	z-index: 1;
+	-webkit-font-smoothing: subpixel-antialiased;
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translate3d(0,0,0);
+	-moz-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+
+	#banner_graphic_br {
+		// Mixins
+	
+		// Box properties
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 60vh;
+		width: 100%;
+		// Background & borders
+		background-image: url(image-path('panel_test.png'));
+		background-repeat: no-repeat;
+		background-position: left top;
+		background-size: cover;
+		// Typography
+	
+		// Other
+		z-index: 0;
+	}
+
+	.banner_content {
+		// Mixins
+	
+		// Box properties
+		position: relative;
+		// Background & borders
+		// Typography
+	
+		// Other
+
+	}
+
+	h1 {
+		// Mixins
+		// Box properties
+		margin: 0 0 $grid / 2 0;
+		// Background & borders
+	
+		// Typography
+		font-size: $font_size * 2;
+		line-height: $font_size * 2.5;
+		// Other
+	
+	}
+
+	h2 {
+		// Mixins
+		@include italic;
+		// Box properties
+		margin: 0 0 $grid / 2 0;
+		// Background & borders
+	
+		// Typography
+		font-size: $font_size * 2;
+		line-height: $font_size * 2;
+
+		// Other
+	
+	}
+
+	p {
+		// Mixins
+	
+		// Box properties
+		margin: 0 0 0 0;
+		padding: 0;
+		// Background & borders
+	
+		// Typography
+		// Other
+	
+	}
+
+	.scroll_leader {
+		// Mixins
+		@include corners;
+		@include box_sizing;
+		// Box properties
+		position: absolute;
+		bottom: $grid;
+		padding: $grid;
+		left: 50%;
+		margin-left: -$grid * 6;
+		width: $grid * 12;
+		// Background & borders
+		// Typography
+		text-align: center;
+		// Other
+	
+	}
+}
+
 #index_banner_content {
 	// Mixins
 
 	// Box properties
 	margin-top: 28vh;
+	position: relative;
 	// Background & borders
 
 	// Typography
 
 	// Other
+
 
 }
 
@@ -87,14 +226,15 @@ body#landing {
 
 	input {
 		// Mixins
-		@include corners(4px, 0, 4px, 0);
+		@include corners(2px,0,2px,0);
 		// Box properties
 		display: inline-block;
 		width: auto;
 		margin: -1px -7px 0 0;
+		padding: $grid / 4 $grid / 2;
 		// Background & borders
 		background: none;
-		border-color: white;
+		border-color: rgba(white, 1);
 		// Typography
 		color: white;
 		// Other
@@ -131,16 +271,15 @@ body#landing {
 
 	.button {
 		// Mixins
-		@include corners(0, 4px, 0, 4px);
+		@include corners(0,2px,0,2px);
 		// Box properties
 		display: inline-block;
 		width: auto;
 		clear: none;
-		padding-left: $grid / 2;
-		padding-right: $grid / 2;
+		padding: $grid / 4 $grid / 2;
 		// Background & borders
-		border-color: white;
-		background: $sunnyside;
+		border-color: rgba(white, 1);
+		background: $brand;
 		// Typography
 		color: white;
 		// Other
@@ -151,7 +290,7 @@ body#landing {
 			// Box properties
 		
 			// Background & borders
-			background: darken($sunnyside, 10%);
+			background: $sunnyside;
 			// Typography
 		
 			// Other
@@ -176,7 +315,7 @@ body#landing {
 			// Box properties
 
 			// Background & borders
-			border-color: $quiet;
+			border-color: rgba($quiet, .5);
 			background: white;
 			// Typography
 			color: $quiet;
@@ -218,7 +357,7 @@ body#landing {
 			// Box properties
 
 			// Background & borders
-			border-color: $quiet;
+			border-color: rgba($quiet, .5);
 			// Typography
 
 			// Other
@@ -229,7 +368,6 @@ body#landing {
 				// Box properties
 			
 				// Background & borders
-				background: darken($sunnyside, 10%);
 				// Typography
 			
 				// Other
@@ -247,9 +385,161 @@ body#landing {
 	// Background & borders
 
 	// Typography
-
+	color: white;
 	// Other
 	opacity: 0;
+
+	h3 {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+		font-family: $small_title_font;
+		text-transform: uppercase;
+		margin-bottom: $grid / 4;
+		// Other
+	
+	}
+
+
+	label {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+		color: white;
+		// Other
+	
+	}
+
+	input[type=text],
+	input[type=email] {
+		// Mixins
+		@include corners(0px,0px,0px,0px);
+		// Box properties
+		margin: 0;
+		padding: $grid / 4 $grid / 2;
+		// Background & borders
+		border-color: rgba(white, .5);
+		border-bottom: none;
+		background-color: rgba($brand, .5);
+		// Typography
+		color: white;
+		// Other
+
+	}
+
+	::-webkit-input-placeholder {
+	   color: white;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: white;  
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: white;  
+	}
+
+	:-ms-input-placeholder {  
+	   color: white;  
+	}
+
+	a {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: $brand;
+		// Typography
+		color: white;
+		// Other
+		
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background: $brand_shadow;
+			// Typography
+		
+			// Other
+		
+		}
+	}
+
+	.form_row.last {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+		
+		input {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			border-bottom: 1px solid rgba(white, .5);
+			// Typography
+		
+			// Other
+		
+		}
+	}
+
+	.button {
+		// Mixins
+	
+		// Box properties
+			padding: $grid / 4 $grid / 2;
+
+		// Background & borders
+		background: $brand;
+		border: 1px solid rgba(white, .5);
+		// Typography
+	
+		// Other
+	
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background: $sunnyside;
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}
+
+.signup_form {
+	// Mixins
+
+	// Box properties
+	width: $grid * 12;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
 }
 
 #sub_banner {
