@@ -98,11 +98,18 @@
 
     function showSignupForm() {
     	go = event.target
-    	$(go).parents("#index_banner_content").animate({ opacity: 0, right: "100%" }, 'slow', 'swing');
+    	$(go).parents(".banner_content").animate({ opacity: 0, right: "100%" }, 'slow', 'swing');
     	$(".js-signup_form").animate({ opacity: 1, bottom: "25%"}, 'slow', 'swing');
 
     }
 
+
+    function showRequestForm() {
+    	go = event.target
+    	$(go).parents(".banner_content").animate({ opacity: 0, right: "100%" }, 'slow', 'swing');
+    	$(".js-request_form").animate({ opacity: 1, bottom: "45%"}, 'slow', 'swing');
+
+    }
 
 
 $(document).ready(function() { // bind to document.ready instead of window.load because of Turbolinks
