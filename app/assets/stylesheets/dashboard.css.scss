@@ -1,3 +1,1466 @@
 // Place all the styles related to the dashboard controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body#application {
+	// Mixins
+
+	// Box properties
+	padding: $grid * 4 0 0 0;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	header {
+		// Mixins
+		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
+		// Box properties
+		height: $grid * 4;
+		min-width: $desktop;
+		// Background & borders
+		background-color: $brand;
+		// Typography
+	
+		// Other
+	
+	}
+
+}
+
+.main_logo {
+	// Mixins
+
+	// Box properties
+	padding: 0;
+	margin-right: $grid;
+	margin-top: 0;
+	float: left;
+	// Background & borders
+	border: none;
+	background: none;
+	// Typography
+
+	// Other
+
+	a {
+		// Mixins
+	
+		// Box properties
+		display: block;
+
+		overflow: auto;
+		// Background & borders
+		background: none;
+		border: none !important;
+		// Typography
+	
+		// Other
+	
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background: none !important;
+			border: none !important;
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}
+
+#sunstand_logo {
+	// Mixins
+
+	// Box properties
+	display: block;
+	height: $grid * 2;
+	width: $grid * 5.42;
+	overflow: hidden;
+	float: left;
+	// Background & borders
+
+	// Typography
+	text-indent: 9999em;
+	// Other
+
+}
+
+#user_nav {
+	// Mixins
+
+	// Box properties
+	float: right;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.button {
+	// Mixins
+	@include button;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.dismiss {
+	// Mixins
+
+	// Box properties
+	display: inline-block;
+	float: right;
+	margin-right: $grid / 2;
+	// Background & borders
+
+	// Typography
+	font-size: $grid / 2;
+	// Other
+
+}
+
+.subtext {
+	// Mixins
+
+	// Box properties
+	display: block;
+	// Background & borders
+
+	// Typography
+	font-size: $grid / 2;
+	line-height: $line_height;
+	color: $whisper;
+	// Other
+
+}
+
+.expand {
+	// Mixins
+
+	// Box properties
+	display: block;
+	// Background & borders
+
+	// Typography
+	text-align: center;
+	// Other
+
+}
+
+
+
+// Background colors for pixelfucking the progress bar
+
+	$global_progress_color: #777;
+	$solar_progress_bar_color: $brand;
+	$global_title_color: $solar_progress_bar_color;
+	$global_border_color: darken($brand, 19%);
+
+#global_progress {
+	// Mixins
+	@include small_title;
+	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
+	// Box properties
+	padding: 0;
+	overflow: visible;
+	position: relative;
+	height: $grid;
+	// Background & borders
+	border-top: 1px solid $global_border_color;
+	border-bottom: 1px solid #555;
+	// Typography
+
+	// Other
+
+	.tic {
+		// Mixins
+	
+		// Box properties
+		position: relative;
+		height: 100%;
+		width: 100%;
+		// Background & borders
+		background-image: url(image-path('bg_tic.svg'));
+		background-repeat: repeat-x;
+		background-size: contain;
+
+		// Typography
+	
+		// Other
+	
+	}
+
+
+	#goal_select {
+		// Mixins
+		// @include circle_with_text;
+		@include gradient(darken($global_title_color, 8%), darken($global_title_color, 12%), darken($global_title_color, 14%));
+
+		// Box properties
+
+		height: 100%;
+		width: $grid * 5.5;
+		margin: 0;
+		position: absolute;
+		left: 0;
+		// Background & borders
+		background-color: $global_title_color;
+		border-right: 1px solid $global_border_color;
+		// Typography
+		color: $white;
+
+		// Other
+		z-index: 500;
+
+		&:hover {
+			// Mixins
+			@include gradient(darken($global_title_color, 12%), darken($global_title_color, 16%), darken($global_title_color, 20%));
+
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+
+	#solar_progress_bar {
+		// Mixins
+		@include corners(0, $grid, 0, $grid);
+		@include gradient(darken($solar_progress_bar_color, 8%), darken($solar_progress_bar_color, 12%), darken($solar_progress_bar_color, 14%));
+		@include box_sizing;
+		// Box properties
+		width: 64%;
+		height: 100%;
+		float: left;
+		padding-left: $grid * 5.5;
+		// Background & borders
+		background-color: $solar_progress_bar_color;
+		border-right: 1px solid #333;
+
+		// Typography
+	
+		// Other
+
+		.solar_progress_bar_text {
+			// Mixins
+		
+			// Box properties
+			display: block;
+			padding: 1px $grid / 2;
+			// Background & borders
+		
+			// Typography
+			color: $white;
+			// Other
+		
+		}
+	
+	}
+
+	#goal_text {
+		// Mixins
+	
+		// Box properties
+		float: right;
+		height: 100%;
+		width: $grid * 5;
+		padding-right: $grid / 4;
+		// Background & borders
+	
+		// Typography
+		color: $whisper;
+		text-align: right;
+		// Other
+	
+	}
+}
+
+.dashboard_section {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-top: $border;
+
+	// Typography
+
+	// Other
+
+	&:nth-child(even) {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: $dev_gray;
+		// Typography
+	
+		// Other
+	
+	}
+
+	.blank_state {
+		// Mixins
+		@extend .subtext;
+		@include object_thumbnail;
+		// Box properties
+		padding: $grid 0 $grid * 2 0;
+		margin-bottom: 0;
+
+		// Background & borders
+
+		// Typography
+
+		// Other
+
+	}
+
+}
+
+.section_body {
+	// Mixins
+
+	// Box properties
+	width: $desktop;
+	margin: 0 auto;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.tabs {
+	// Mixins
+
+	// Box properties
+	float: left;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	li {
+		// Mixins
+		@include small_title;
+		// Box properties
+		margin: 0 $grid / 4;
+		float: left;
+		// Background & borders
+		// border: 1px solid white;
+		// border-left: none;
+		// Typography
+		list-style: none;
+		// Other
+		
+		a {
+			// Mixins
+			@include corners;
+			// Box properties
+			display: block;
+			padding: 0 $grid / 4;
+			// Background & borders
+		
+			// Typography
+			color: $whisper;
+			// Other
+
+			&:hover {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+			
+				// Typography
+				color: white;
+				// Other
+			
+			}
+		
+		}
+
+		&.active {
+			// Mixins
+			// Box properties
+			@include corners;
+		
+			// Background & borders
+			background-color: rgba(0,0,0,.07);
+			// Typography
+		
+			// Other
+			
+			a {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+			
+				// Typography
+				color: $whisper;
+				// Other
+			
+				&:hover {
+					// Mixins
+				
+					// Box properties
+					
+					// Background & borders
+					background: none;
+					// Typography
+					color: $whisper;
+					// Other
+				
+				}
+			}
+		}
+	}
+}
+
+.sort {
+	// Mixins
+
+	// Box properties
+	float: right;
+	margin: 0 0 0 $grid;
+	padding: 0;
+
+	// Background & borders
+
+	// Typography
+	color: $quiet;
+	// Other
+
+	li {
+		// Mixins
+	
+		// Box properties
+		display: inline-block;
+		margin: 0 0 0 0;
+		padding: 0;
+		// Background & borders
+	
+		// Typography
+		font-size: $grid / 2;
+
+		// Other
+		list-style: none;
+
+		&.search {
+			// Mixins
+		
+			// Box properties
+			margin-right: $grid / 2;
+
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}
+
+#dashboard_kpis {
+	// Mixins
+
+	// Box properties
+	// Background & borders
+	border-top: none;
+	// Typography
+
+	// Other
+
+	.kpi {
+		// Mixins
+		@include object_thumbnail;
+		// Box properties
+		// padding: 0;
+		// float: left;
+		// margin:0 $grid 0 0;
+		// width: $grid * 6;
+
+		// Background & borders
+
+		// Typography
+
+		// Other
+
+	}
+
+	.blank_state {
+		// Mixins
+	
+		// Box properties
+		width: auto;
+		float: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	#c02_reduction {
+		// Mixins
+		@include corners;
+		@include box_sizing;
+		// Box properties
+		display: table;
+		height: 47px;
+		margin: $grid / 1.1 auto;
+		padding: 0 $grid;
+		// Background & borders
+		background-color: $brand;
+		// Typography
+		color: white;
+		// Other
+
+		span {
+			// Mixins
+		
+			// Box properties
+			display: table-cell;
+			// Background & borders
+		
+			// Typography
+			vertical-align: middle;
+			// Other
+		
+		}
+	
+	}
+
+	canvas {
+		// Mixins
+	
+		// Box properties
+
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+}
+
+#dashboard_quotes {
+	// Mixins
+
+	// Box properties
+	padding-bottom: 0;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	.blank_state {
+		// Mixins
+	
+		// Box properties
+		width: auto;
+		float: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+}
+
+#dashboard_team {
+	// Mixins
+
+	// Box properties
+	padding-bottom: 0;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	.blank_state {
+		// Mixins
+	
+		// Box properties
+		width: auto;
+		float: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+}
+
+#dashboard_customers {
+	// Mixins
+
+	// Box properties
+	padding-bottom: 0;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+#dashboard_payments {
+	// Mixins
+
+	// Box properties
+	padding-bottom: 0;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+#dashboard_pages {
+	// Mixins
+
+	// Box properties
+	padding-bottom: $grid * 3;
+
+	// Background & borders
+	border-bottom: $border;
+	// Typography
+
+	// Other
+
+	.blank_state {
+		// Mixins
+	
+		// Box properties
+		width: auto;
+		float: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		p {
+			// Mixins
+		
+			// Box properties
+			margin-top: 0;
+			// Background & borders
+		
+			// Typography
+
+			// Other
+		
+		}
+
+	}
+
+}
+
+	.customer_page_kpis {
+		// Mixins
+	
+		// Box properties
+		float: left;
+		margin-right: $grid;
+		// Background & borders
+	
+		// Typography
+		text-align: left;
+		// Other
+	
+	}
+
+	.promoter_page_kpis {
+		// Mixins
+	
+		// Box properties
+		float: left;
+
+		// Background & borders
+	
+		// Typography
+		text-align: left;
+		// Other
+	
+	}
+
+.section_header {
+	// Mixins
+
+	// Box properties
+	padding: $grid / 2 $grid / 2 0;
+	overflow: auto;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	h2 {
+		// Mixins
+		@include small_title;
+		// Box properties
+		float: left;
+		margin: 0 $grid $grid / 2 0;
+	
+		// Background & borders
+	
+		// Typography
+		color: $quiet;
+		// Other
+	
+	}
+
+	.button {
+		// Mixins
+		@include quiet_button;
+		// Box properties
+		margin-left: $grid;
+		float: left;
+		clear: none;
+		width: auto;
+		// Background & borders
+		border: none;
+		// Typography
+
+		// Other
+
+	}
+}
+
+.section_content {
+	// Mixins
+
+	// Box properties
+	overflow: auto;
+	clear: both;
+	padding: 0 0 0;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.blank_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.page_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+	
+	// Box properties
+	margin-bottom: $grid;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.quote_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.advocate_avatar {
+	// Mixins
+	@include inner_shadow;
+	@include corners(50%, 50%, 50%, 50%);
+	// Box properties
+	display: inline-block;
+	height: $grid * 2;
+	width: $grid * 2;
+	// Background & borders
+	background: $white;
+	background-size: cover;
+	// Typography
+
+	// Other
+
+}
+
+.team_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	&:hover {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	&.pending {
+		// Mixins
+	
+		// Box properties
+		display: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		&.subtext {
+			// Mixins
+		
+			// Box properties
+			display: block;
+			margin-bottom: $grid;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+
+}
+
+.customer_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.payment_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.link_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+	width: $grid * 8;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.button.new {
+	// Mixins
+	@include small_title;
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+
+
+.new_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+
+	// Box properties
+	width: $grid * 8;
+	// Background & borders
+	// Typography
+
+	// Other
+
+	.placeholder_avatar {
+		// Mixins
+
+		@include corners(50%, 50%, 50%, 50%);
+		// Box properties
+		display: table;
+		height: $grid * 2;
+		width: $grid * 2;
+		margin: 0 auto;
+		// Background & borders
+		border: 1px $whisper dashed;
+
+		// Typography
+
+		// Other
+
+		span {
+			// Mixins
+		
+			// Box properties
+			display: table-cell;
+			// Background & borders
+		
+			// Typography
+			vertical-align: middle;
+			color: $whisper;
+			// Other
+		
+		}
+	}
+
+	.button {
+		// Mixins
+	
+		// Box properties
+		margin: $grid / 2 auto;
+		// Background & borders
+		border: none;
+		// Typography
+		color: $whisper;
+		// Other
+	
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background-color: rgba(0,0,0,0);
+			// Typography
+			color: $whisper;
+			// Other
+		
+		}
+	}
+
+}
+
+.badge {
+	// Mixins
+	@include corners;
+	// Box properties
+	display: inline-block;
+	padding: 0 5px;
+	// Background & borders
+	background-color: $sunnyside;
+	// Typography
+	color: white;
+	// Other
+
+}
+
+.section_notification {
+	// Mixins
+
+	// Box properties
+	position: relative;
+	// Background & borders
+	background: $dev_gray;
+	border-top: $border;
+
+	// Typography
+	font-size: $grid / 2;
+
+	// Other
+
+	&.neutral {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: $neutral;
+		// Typography
+	
+		// Other
+	}
+
+	&.positive {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: $positive;
+		// Typography
+	
+		// Other
+	
+	}
+
+	&.negative {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: $negative;
+		// Typography
+	
+		// Other
+	
+	}
+
+	a {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background: none;
+		// Typography
+		color: $text;	
+		// Other
+	
+
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background: none;
+			// Typography
+			color: $brand;
+			// Other
+		
+		}
+	}
+
+}
+
+.section_notification:before {
+	// Mixins
+	// Box properties
+	top: -61px;
+	left: $grid * 12.5;
+	height: 0;
+	width: 0;
+	position: absolute;
+	margin-left: -30px;
+
+	// Background & borders
+	border: solid transparent;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: $whisper;
+	border-width: 30px;
+	// Typography
+
+	// Other
+	pointer-events: none;
+	content: " ";
+}
+
+.section_notification:after {
+	// Mixins
+
+	// Box properties
+	bottom: 100%;
+	left: $grid * 12.5;
+	height: 0;
+	width: 0;
+	position: absolute;
+	margin-left: -30px;
+
+	// Background & borders
+	border: solid transparent;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: $dev_gray;
+	border-width: 30px;
+	// Typography
+
+	// Other
+	pointer-events: none;
+	content: " ";
+
+}
+
+.section_notification.neutral:after {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: $neutral;
+	// Typography
+
+	// Other
+
+}
+
+.section_notification.positive:after {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: $positive;
+	// Typography
+
+	// Other
+
+}
+
+.section_notification.negative:after {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: $negative;
+	// Typography
+
+	// Other
+
+}
+
+.thumb_row {
+	// Mixins
+	@include box_sizing;
+	// Box properties
+	clear: both;
+	overflow: auto;
+	margin: 0 auto;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.object_detail {
+	// Mixins
+	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
+	// Box properties
+	position: absolute;
+	width: 100%;
+	display: none;
+	left: 0;
+	margin-top: $grid;
+	// Background & borders
+	border-top: 1px solid #444;
+	border-bottom: 1px solid #444;
+
+	// Typography
+	text-align: left;
+	color: $white;
+	// Other
+
+	.success {
+		// Mixins
+	
+		// Box properties
+		display: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+}
+
+.object_detail_arrow {
+	// Mixins
+	// Box properties
+	bottom: 100%;
+	left: 0;
+	height: 0;
+	width: 0;
+	position: absolute;
+
+	// Background & borders
+	border: solid transparent;
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: darken($global_progress_color, 14%);
+	border-width: 30px;
+	// Typography
+
+	// Other
+	pointer-events: none;
+	content: " ";
+
+}
+
+.object_detail_content {
+	// Mixins
+
+	// Box properties
+	padding: $grid;
+	overflow: visible;
+	position: relative;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+.object_detail_content_section {
+	// Mixins
+	@include box_sizing;
+	// Box properties
+	float: left;
+	overflow: auto;
+	padding: 0 $grid;
+	margin-bottom: $grid;
+	width: 75%;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	&.summary {
+		// Mixins
+	
+		// Box properties
+		width: 25%;
+		padding: 0 $grid;
+		margin-bottom: $grid;
+		// Background & borders
+		border-right: $border;
+		// Typography
+	
+		// Other
+	
+	}
+
+	&.double {
+		// Mixins
+	
+		// Box properties
+
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	&.full {
+		// Mixins
+	
+		// Box properties
+
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	form {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+		
+		select {
+			// Mixins
+		
+			// Box properties
+
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+
+		input {
+			// Mixins
+		
+			// Box properties
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+
+		.button {
+			// Mixins
+		
+			// Box properties
+
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+
+}
+
+
+.object_detail.collapsed {
+	// Mixins
+
+	// Box properties
+	position: relative;
+	padding: 0;
+
+	// Background & borders
+
+	// Typography
+	font-size: $grid / 2;
+	text-align: left;
+
+	// Other
+
+	h3 {
+		// Mixins
+	
+		// Box properties
+		margin: 0 $grid;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+}
+
+.object_detail.second {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	background: darken($neutral, 5%);
+	border-top-color: #ccc;
+
+	// Typography
+	font-size: $font_size;
+	// Other
+
+}
+
+.object_detail.second:before {
+	// Mixins
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: #ccc;
+	// Typography
+
+	// Other
+
+}
+
+.object_detail.second:after {
+	// Mixins
+	// Box properties
+
+	// Background & borders
+	border-bottom-color: darken($neutral, 5%);
+
+	// Typography
+
+	// Other
+
+}
+

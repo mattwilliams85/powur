@@ -47,7 +47,7 @@
 			<% if params[:first_run] == "true" %>
 
 				<div class="blank_state">
-					You don't have any metrics yet. <a onclick="detailExpander('invite_detail', 'Invite an advocate');">Invite a fellow advocate</a> or <a href="#">add a customer quote</a> to watch your impact grow.
+					You don't have any metrics yet. <a onclick="detailExpander('invite_detail', 'Invite');">Invite a fellow advocate</a> or <a href="#">add a customer quote</a> to watch your impact grow.
 				</div>
 
 			<% else %>
@@ -157,11 +157,15 @@
 
 			<% if params[:first_run] == "true" %>
 
+				<%= render partial: "shared/new_quote_thumbnail"%>
+
 				<div class="blank_state">
 					You don't have any quotes yet. <a href="#">Add a customer quote</a> to get started.
 				</div>
 
 			<% else %>
+			
+				<%= render partial: "shared/new_quote_thumbnail"%>
 
 				<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Barbara", :last_name => "Jackson", :has_address => true, :has_rooftop => false, :has_utility => true}%>
 				<%= render partial: "shared/quote_thumbnail", :locals => {:first_name => "Barry", :last_name => "Sausalito", :has_address => false, :has_rooftop => false, :has_utility => false}%>
@@ -234,7 +238,7 @@
 				<%= render partial: "shared/invite_thumbnail"%>
 
 				<div class="blank_state">
-					You don't have any team members yet. <a onclick="detailExpander('invite_detail', 'Invite an advocate');">Invite a fellow advocate</a> to grow your team.
+					You don't have any team members yet. <a onclick="detailExpander('invite_detail', 'Invite');">Invite a fellow advocate</a> to grow your team.
 				</div>
 
 				<div class="team_thumbnail pending js-thumbnail_parent">
