@@ -11,7 +11,63 @@
 <% else %>
 
 <% end %> 
+<style>
+	.drilldown{
+		height:0px;
+		background: -o-linear-gradient(top, #535353, #5e5e5e, #686868);
+		background: -ms-linear-gradient(top, #535353, #5e5e5e, #686868);
+		background: linear-gradient(to bottom, #535353, #5e5e5e, #686868);
+		position: relative;
+		width: 100%;
+		left: 0;
+		border-top: 1px solid #444;
+		border-bottom: 1px solid #444;
+		text-align: left;
+		color: #f9f2e8;
+	}
+	.arrow{
+		width: 0px;
+		height: 0px;
+		border-style: solid;
+		border-width: 0 15px 20px 15px;
+		border-color: transparent transparent #535353 transparent;
+		position:absolute;
+		top:0px;
+		left:0;
+	}
+	.team_info{
+		position:relative;
+		height:200px;
+		overflow:hidden;
+	}
+	.pagination_container{
+		height:250px;
+		width:1024px; /*contains 4 thumbs */
+		overflow:hidden;
+		position:relative;}
+		.pagination_container .nav{
+			z-index: 90;
+			padding:10px;
+			position:absolute;
+			top:50px;}
+		.pagination_container .nav.left{
+			left:10px;}
+		.pagination_container .nav.right{
+			right:10px;}
 
+	.pagination_content{
+		height:250px;
+		width:auto;
+		overflow:hidden;
+		position:absolute;
+		left:0;
+		top:0;
+	}
+	.team_thumbnail{
+		z-index:20;
+	}
+
+</style>
 
 <section id="dashboard_kpis" class="dashboard_section">
 
@@ -187,7 +243,7 @@
 	</div>
 </section>
 
-<section id="dashboard_team" class="dashboard_section">
+<section id="dashboard_team" class="dashboard_section" data-drilldown-level="0">
 	<div class="section_body">
 		
 		<div class="section_header">
@@ -254,12 +310,16 @@
 				</div>
 
 			<% else %>
-
-			<div class="section_content">
-
-				<%= render partial: "shared/invite_thumbnail"%>
-
-				<%= render partial: "shared/team_thumbnail"%>
+			<div class="section_content team_info">
+			<%= render partial: "shared/invite_thumbnail"%>
+				<div class="pagination_container" data-comment="required for pagination - do not remove">
+					<div class="nav left"><i class="fa fa-angle-left"></i></div>
+					<div class="pagination_content"></div>
+					<div class="nav right"><i class="fa fa-angle-right"></i></div>
+				</div>
+			</div>
+			<%#= render partial: "shared/invite_thumbnail"%>
+			<%#= render partial: "shared/team_thumbnail"%>
 
 			<% end %>
 
