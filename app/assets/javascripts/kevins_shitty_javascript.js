@@ -144,30 +144,30 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
 	// System feedback demo for settings page
 
-		$(".show_system_feedback").click(function() {
-			$("#system_feedback").removeClass("hide");
+		// $(".show_system_feedback").click(function() {
+		// 	$("#system_feedback").removeClass("hide");
 		
-			// Fadeout element after delay - ie, system feedback notice
-			$(".js-auto_fade_away").delay("2000").fadeTo("slow", 0.01, function(){ //fade
-			    $(this).slideUp("slow", function() { //slide up
-			    	$(this).remove(); //then remove from the DOM
-			    });
-			});
-		});
+		// 	// Fadeout element after delay - ie, system feedback notice
+		// 	$(".js-auto_fade_away").delay("2000").fadeTo("slow", 0.01, function(){ //fade
+		// 	    $(this).slideUp("slow", function() { //slide up
+		// 	    	$(this).remove(); //then remove from the DOM
+		// 	    });
+		// 	});
+		// });
 
 	// Notification expand demo for dashboard
 
-		$(".js-expand_notification").click(function() {
-			$(".js-expand_notification").animate({
-				height: "200px"
-			}, 250, function() {
-			    // Animation complete.
-			  });
-		});
+		// $(".js-expand_notification").click(function() {
+		// 	$(".js-expand_notification").animate({
+		// 		height: "200px"
+		// 	}, 250, function() {
+		// 	    // Animation complete.
+		// 	  });
+		// });
 
-		$(".dismiss").click(function(){
-			$(this).parent().hide();
-		});
+		// $(".dismiss").click(function(){
+		// 	$(this).parent().hide();
+		// });
 
 	// Opaque header & parallax on scroll
 
@@ -184,7 +184,7 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 	    var speed = 9;
 
 	    var parallax = function(lax) {
-			//lax.style.webkitTransform = 'translate3d(0px,' + Math.round(yOffset / speed) + 'px, 0px)';
+			lax.style.webkitTransform = 'translate3d(0px,' + Math.round(yOffset / speed) + 'px, 0px)';
 	    };
 
 	    parallax(banner1);

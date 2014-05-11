@@ -74,7 +74,7 @@
 	<div class="section_body">
 
 		<div class="section_header">
-			<h2>Impact Overview</h2>
+			<h2>KPI Overview</h2>
 			
 			<% if params[:first_run] == "true" %>
 
@@ -109,16 +109,16 @@
 			<% else %>
 
 				<div class="kpi js-thumbnail_parent">
-					<div class="js-thumbnail" onclick="detailExpander('kpi_co2');">
+					<div class="js-thumbnail" onclick="detailExpander('kpi_environment');">
 						<div id="c02_reduction">
-							<span>34,421 tons</span>
+							<span>4,031 tons</span>
 						</div>
-						<h3>Your C02 Prevention</h3>
+						<h3>Your C0<sub>2</sub> Prevention</h3>
 						<span class="subtext">Across your entire team</span>
 						<i class="fa fa-angle-down"></i>
 					</div>
 
-					<%= render partial: "shared/kpi_co2_detail"%>
+					<%= render partial: "shared/kpi_environment_detail"%>
 
 				</div>
 

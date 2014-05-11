@@ -572,6 +572,51 @@ body#application {
 	}
 }
 
+.circle_stat {
+	// Mixins
+	@include circle_with_text;
+	// Box properties
+	margin-top: $grid;
+	height: $grid * 4;
+	width: $grid * 4;
+	float: left;
+	// Background & borders
+	background-color: $brand;
+	// Typography
+	line-height: $font_size;
+	font-size: $grid / 2;
+	// Other
+
+	&.blank {
+		// Mixins
+	
+		// Box properties
+		width: $grid / 2;
+		margin: $grid 0 0;
+		// Background & borders
+		background: none;
+		// Typography
+	
+		// Other
+	
+	}
+
+	.icon {
+		// Mixins
+	
+		// Box properties
+		
+		// Background & borders
+	
+		// Typography
+		font-size: $grid;
+		line-height: $font_size;
+		// Other
+	
+	}
+
+}
+
 #dashboard_quotes {
 	// Mixins
 
@@ -1300,6 +1345,19 @@ body#application {
 	// Typography
 
 	// Other
+
+	h4 {
+		// Mixins
+	
+		// Box properties
+		clear: both;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
 
 	&.summary {
 		// Mixins

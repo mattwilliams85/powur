@@ -418,12 +418,9 @@
 		margin: 0 $grid $grid;
 		padding: 0;
 		display: table;
-		float: left;
-		width: $grid * 4;
-		height: $grid * 4;
 		// Background & borders
 		// Typography
-		line-height: $font_size;
+		text-align: center;
 		// Other
 
 		span {

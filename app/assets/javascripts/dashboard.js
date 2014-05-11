@@ -107,7 +107,8 @@ function _drillDown(_options){
 				//let's try handlebars!
 				_leaderContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 				_leaderContainerObj.css("opacity","0");
-				_leaderContainerObj.scrollView(180);
+				// Commenting out the scrollView to remove jank - let's make it a nice-to-have when we can optimize this animation
+				// _leaderContainerObj.scrollView(180);
 				_leaderContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
 				_getTemplate("/assets/templates/drilldowns/_team_details.handlebars.html", 
 							 _userDetail, 

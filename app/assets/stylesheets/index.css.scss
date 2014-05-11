@@ -823,10 +823,13 @@ body#signup {
 	// Mixins
 	@include circle_with_text;
 	// Box properties
-
+	float: left;
+	width: $grid * 4;
+	height: $grid * 4;
 	// Background & borders
 	background: $sunnyside;
 	// Typography
+	line-height: $font_size;
 	color: white;
 	// Other
 
