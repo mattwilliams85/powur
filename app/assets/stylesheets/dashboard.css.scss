@@ -124,15 +124,16 @@ body#application {
 	// Mixins
 
 	// Box properties
-	display: inline-block;
-	float: right;
-	margin-right: $grid / 2;
+	position: absolute;
+	top: $grid / 2;
+	right: $grid * .75;
+
 	// Background & borders
 
 	// Typography
 	font-size: $grid / 2;
 	// Other
-
+	z-index: 100;
 }
 
 .subtext {
@@ -534,7 +535,7 @@ body#application {
 		@include box_sizing;
 		// Box properties
 		display: table;
-		height: 47px;
+		height: 46px;
 		margin: $grid / 1.1 auto;
 		padding: 0 $grid;
 		// Background & borders
@@ -572,50 +573,6 @@ body#application {
 	}
 }
 
-.circle_stat {
-	// Mixins
-	@include circle_with_text;
-	// Box properties
-	margin-top: $grid;
-	height: $grid * 4;
-	width: $grid * 4;
-	float: left;
-	// Background & borders
-	background-color: $brand;
-	// Typography
-	line-height: $font_size;
-	font-size: $grid / 2;
-	// Other
-
-	&.blank {
-		// Mixins
-	
-		// Box properties
-		width: $grid;
-		margin: $grid 0 0;
-		// Background & borders
-		background: none;
-		// Typography
-	
-		// Other
-	
-	}
-
-	.icon {
-		// Mixins
-	
-		// Box properties
-		
-		// Background & borders
-	
-		// Typography
-		font-size: $grid;
-		line-height: $font_size;
-		// Other
-	
-	}
-
-}
 
 #dashboard_quotes {
 	// Mixins
@@ -1261,6 +1218,52 @@ body#application {
 
 }
 
+.circle_stat {
+	// Mixins
+	@include circle_with_text;
+	// Box properties
+	margin: $grid $grid / 2;
+	height: $grid * 5;
+	width: $grid * 5;
+	float: left;
+	// Background & borders
+	background-color: $brand;
+	// Typography
+	line-height: $font_size;
+	font-size: $grid / 2;
+	// Other
+
+	&.blank {
+		// Mixins
+	
+		// Box properties
+		width: $grid;
+		margin: $grid 0 0;
+		// Background & borders
+		background: none;
+		// Typography
+	
+		// Other
+	
+	}
+
+	.icon {
+		// Mixins
+	
+		// Box properties
+		
+		// Background & borders
+	
+		// Typography
+		font-size: $grid * 2;
+		line-height: $line_height / 2;
+		// Other
+	
+	}
+
+}
+
+
 .object_detail {
 	// Mixins
 	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
@@ -1320,7 +1323,7 @@ body#application {
 	// Mixins
 	@include box_sizing;
 	// Box properties
-	padding: $grid $grid / 2;
+	padding: 0;
 	overflow: auto;
 	position: relative;
 	width: $desktop;
@@ -1339,14 +1342,35 @@ body#application {
 	// Box properties
 	float: left;
 	overflow: auto;
-	padding: 0 $grid;
-	margin-bottom: $grid;
-	width: $grid * 32;
+	padding: $grid;
+	margin:0 0 $grid $grid * 10;
+	width: $grid * 30;
+	position: relative;
 	// Background & borders
-
 	// Typography
 
 	// Other
+
+	&.summary {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 10;
+		height: 100%;
+		min-height: 100%;
+		margin: 0;
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		overflow: auto;
+		// Background & borders
+		border-right: $border;
+		// Typography
+	
+		// Other
+	
+	}
 
 	h4 {
 		// Mixins
@@ -1361,46 +1385,18 @@ body#application {
 	
 	}
 
-	&.summary {
+	.chart {
 		// Mixins
 	
 		// Box properties
-		width: $grid * 7;
-		padding: 0 $grid / 2 $grid / 2;
-		margin-bottom: $grid;
-		overflow: auto;
-		// Background & borders
-		border-right: $border;
-		// Typography
-	
-		// Other
-	
-	}
-
-	&.double {
-		// Mixins
-	
-		// Box properties
-		width: $grid * 32;
+		margin: $grid / 2 0 $grid;
+		float: left;
 		// Background & borders
 	
 		// Typography
-	
+		text-align: center;
 		// Other
-	
-	}
-
-	&.full {
-		// Mixins
-	
-		// Box properties
-
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-	
+		
 	}
 
 	form {

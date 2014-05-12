@@ -304,6 +304,114 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 
 
 
+			// My Sales Detail Chart
+
+			var detailMySales = $("#detail_my_sales").get(0).getContext("2d");
+				var myNewChart = new Chart(detailMySales);
+
+				var detailMySalesData = {
+					labels : ["1/6", "1/13", "1/20", "1/27", "2/3", "2/10", "2/17", "2/24", "3/3", "3/10", "3/17", "3/24", "3/31", "3/7", "4/14", "4/21", "4/28", "5/5", "5/12"],
+
+					datasets : [
+						{
+							fillColor : "rgba(" + _brand + ", 1)",
+							strokeColor : "rgba(" + _brand + ", 1)",
+							pointColor : "rgba(" + _brand + ", 1)",
+							pointStrokeColor : "#fff",
+							data : [0,1,1,2,0,3,2,0,2,1,5,4,0,1,4,7,5,1,6]
+
+						},
+
+						{
+							fillColor : "rgba(" + _brand + ", .5)",
+							strokeColor : "rgba(" + _brand + ", .5)",
+							pointColor : "rgba(" + _brand + ", .5)",
+							pointStrokeColor : "#fff",
+							data : [0,0,0,0,2,3,4,8,7,1,2,0,3,2,1,5,1,0,2]
+						}
+					]
+				}
+
+				new Chart(detailMySales).Bar(detailMySalesData, {
+					scaleGridLineColor : "rgba(" + _disabled + ", 1)",
+					scaleLineColor : "rgba(" + _disabled + ", 1)",
+					scaleFontColor : "rgba(" + _disabled + ", 1)"
+				});
+
+
+			// Team Sales Detail Chart
+
+			var detailTeamSales = $("#detail_team_sales").get(0).getContext("2d");
+				var myNewChart = new Chart(detailTeamSales);
+
+				var detailTeamSalesData = {
+					labels : ["1/6", "1/13", "1/20", "1/27", "2/3", "2/10", "2/17", "2/24", "3/3", "3/10", "3/17", "3/24", "3/31", "3/7", "4/14", "4/21", "4/28", "5/5", "5/12"],
+
+					datasets : [
+						{
+							fillColor : "rgba(" + _sunnyside + ", 1)",
+							strokeColor : "rgba(" + _sunnyside + ", 1)",
+							pointColor : "rgba(" + _sunnyside + ", 1)",
+							pointStrokeColor : "#fff",
+							data : [0,0,0,2,0,3,2,1,5,1,0,2,0,2,3,4,8,7,1]
+						},
+
+						{
+							fillColor : "rgba(" + _sunnyside + ", .5)",
+							strokeColor : "rgba(" + _sunnyside + ", .5)",
+							pointColor : "rgba(" + _sunnyside + ", .5)",
+							pointStrokeColor : "#fff",
+							data : [0,1,1,5,4,0,1,4,7,5,1,6,2,0,3,2,0,2,1]
+
+						}
+					]
+				}
+
+				new Chart(detailTeamSales).Bar(detailTeamSalesData, {
+					scaleGridLineColor : "rgba(" + _disabled + ", 1)",
+					scaleLineColor : "rgba(" + _disabled + ", 1)",
+					scaleFontColor : "rgba(" + _disabled + ", 1)"
+				});
+
+
+			// My Conversion Chart
+
+				var detailMyConversions = $("#detail_my_conversions").get(0).getContext("2d");
+				var myNewChart = new Chart(detailMyConversions);
+
+				var detailMyConversionsData = [
+					{
+						value: 84,
+						color:"rgba(" + _brand + ", 1)"
+					},
+					{
+						value : 98,
+						color : "rgba(" + _disabled + ", 1)"
+					}
+
+				]
+
+				new Chart(detailMyConversions).Pie(detailMyConversionsData);
+
+
+			// Team Conversion Chart
+
+				var detailTeamConversions = $("#detail_team_conversions").get(0).getContext("2d");
+				var myNewChart = new Chart(detailTeamConversions);
+
+				var detailTeamConversionsData = [
+					{
+						value: 61,
+						color:"rgba(" + _sunnyside + ", 1)"
+					},
+					{
+						value : 98,
+						color : "rgba(" + _disabled + ", 1)"
+					}
+
+				]
+
+				new Chart(detailTeamConversions).Pie(detailTeamConversionsData);
 
 });
 
