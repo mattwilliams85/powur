@@ -1,1523 +1,1523 @@
-// Place all the styles related to the dashboard controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// // Place all the styles related to the dashboard controller here.
+// // They will automatically be included in application.css.
+// // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body#application {
-	// Mixins
+// body#application {
+// 	// Mixins
 
-	// Box properties
-	padding: $grid * 4 0 0 0;
+// 	// Box properties
+// 	padding: $grid * 4 0 0 0;
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	header {
-		// Mixins
-		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
-		// Box properties
-		height: $grid * 4;
-		min-width: $desktop;
-		// Background & borders
-		background-color: $brand;
-		// Typography
+// 	header {
+// 		// Mixins
+// 		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
+// 		// Box properties
+// 		height: $grid * 4;
+// 		min-width: $desktop;
+// 		// Background & borders
+// 		background-color: $brand;
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-}
+// }
 
-.main_logo {
-	// Mixins
+// .main_logo {
+// 	// Mixins
 
-	// Box properties
-	padding: 0;
-	margin-right: $grid;
-	margin-top: 0;
-	float: left;
-	// Background & borders
-	border: none;
-	background: none;
-	// Typography
+// 	// Box properties
+// 	padding: 0;
+// 	margin-right: $grid;
+// 	margin-top: 0;
+// 	float: left;
+// 	// Background & borders
+// 	border: none;
+// 	background: none;
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	a {
-		// Mixins
+// 	a {
+// 		// Mixins
 	
-		// Box properties
-		display: block;
+// 		// Box properties
+// 		display: block;
 
-		overflow: auto;
-		// Background & borders
-		background: none;
-		border: none !important;
-		// Typography
+// 		overflow: auto;
+// 		// Background & borders
+// 		background: none;
+// 		border: none !important;
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-		&:hover {
-			// Mixins
+// 		&:hover {
+// 			// Mixins
 		
-			// Box properties
+// 			// Box properties
 		
-			// Background & borders
-			background: none !important;
-			border: none !important;
-			// Typography
+// 			// Background & borders
+// 			background: none !important;
+// 			border: none !important;
+// 			// Typography
 		
-			// Other
+// 			// Other
 		
-		}
-	}
-}
+// 		}
+// 	}
+// }
 
-#sunstand_logo {
-	// Mixins
+// #sunstand_logo {
+// 	// Mixins
 
-	// Box properties
-	display: block;
-	height: $grid * 2;
-	width: $grid * 5.42;
-	overflow: hidden;
-	float: left;
-	// Background & borders
+// 	// Box properties
+// 	display: block;
+// 	height: $grid * 2;
+// 	width: $grid * 5.42;
+// 	overflow: hidden;
+// 	float: left;
+// 	// Background & borders
 
-	// Typography
-	text-indent: 9999em;
-	// Other
+// 	// Typography
+// 	text-indent: 9999em;
+// 	// Other
 
-}
+// }
 
-#user_nav {
-	// Mixins
+// #user_nav {
+// 	// Mixins
 
-	// Box properties
-	float: right;
+// 	// Box properties
+// 	float: right;
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.button {
-	// Mixins
-	@include button;
+// .button {
+// 	// Mixins
+// 	@include button;
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.dismiss {
-	// Mixins
+// .dismiss {
+// 	// Mixins
 
-	// Box properties
-	position: absolute;
-	top: $grid / 2;
-	right: $grid * .75;
+// 	// Box properties
+// 	position: absolute;
+// 	top: $grid / 2;
+// 	right: $grid * .75;
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
-	font-size: $grid / 2;
-	// Other
-	z-index: 100;
-}
+// 	// Typography
+// 	font-size: $grid / 2;
+// 	// Other
+// 	z-index: 100;
+// }
 
-.subtext {
-	// Mixins
+// .subtext {
+// 	// Mixins
 
-	// Box properties
-	display: block;
-	// Background & borders
+// 	// Box properties
+// 	display: block;
+// 	// Background & borders
 
-	// Typography
-	font-size: $grid / 2;
-	line-height: $line_height;
-	color: $whisper;
-	// Other
+// 	// Typography
+// 	font-size: $grid / 2;
+// 	line-height: $line_height;
+// 	color: $whisper;
+// 	// Other
 
-}
+// }
 
-.expand {
-	// Mixins
+// .expand {
+// 	// Mixins
 
-	// Box properties
-	display: block;
-	// Background & borders
+// 	// Box properties
+// 	display: block;
+// 	// Background & borders
 
-	// Typography
-	text-align: center;
-	// Other
+// 	// Typography
+// 	text-align: center;
+// 	// Other
 
-}
+// }
 
 
 
-// Background colors for pixelfucking the progress bar
+// // Background colors for pixelfucking the progress bar
 
-	$global_progress_color: #777;
-	$solar_progress_bar_color: $brand;
-	$global_title_color: $solar_progress_bar_color;
-	$global_border_color: darken($brand, 19%);
+// 	$global_progress_color: #777;
+// 	$solar_progress_bar_color: $brand;
+// 	$global_title_color: $solar_progress_bar_color;
+// 	$global_border_color: darken($brand, 19%);
 
-#global_progress {
-	// Mixins
-	@include small_title;
-	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
-	// Box properties
-	padding: 0;
-	overflow: visible;
-	position: relative;
-	height: $grid;
-	// Background & borders
-	border-top: 1px solid $global_border_color;
-	border-bottom: 1px solid #555;
-	// Typography
+// #global_progress {
+// 	// Mixins
+// 	@include small_title;
+// 	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
+// 	// Box properties
+// 	padding: 0;
+// 	overflow: visible;
+// 	position: relative;
+// 	height: $grid;
+// 	// Background & borders
+// 	border-top: 1px solid $global_border_color;
+// 	border-bottom: 1px solid #555;
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	.tic {
-		// Mixins
+// 	.tic {
+// 		// Mixins
 	
-		// Box properties
-		position: relative;
-		height: 100%;
-		width: 100%;
-		// Background & borders
-		background-image: url(image-path('bg_tic.svg'));
-		background-repeat: repeat-x;
-		background-size: contain;
+// 		// Box properties
+// 		position: relative;
+// 		height: 100%;
+// 		width: 100%;
+// 		// Background & borders
+// 		background-image: url(image-path('bg_tic.svg'));
+// 		background-repeat: repeat-x;
+// 		background-size: contain;
 
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
 
-	#goal_select {
-		// Mixins
-		// @include circle_with_text;
-		@include gradient(darken($global_title_color, 8%), darken($global_title_color, 12%), darken($global_title_color, 14%));
+// 	#goal_select {
+// 		// Mixins
+// 		// @include circle_with_text;
+// 		@include gradient(darken($global_title_color, 8%), darken($global_title_color, 12%), darken($global_title_color, 14%));
 
-		// Box properties
+// 		// Box properties
 
-		height: 100%;
-		width: $grid * 5.5;
-		margin: 0;
-		position: absolute;
-		left: 0;
-		// Background & borders
-		background-color: $global_title_color;
-		border-right: 1px solid $global_border_color;
-		// Typography
-		color: $white;
+// 		height: 100%;
+// 		width: $grid * 5.5;
+// 		margin: 0;
+// 		position: absolute;
+// 		left: 0;
+// 		// Background & borders
+// 		background-color: $global_title_color;
+// 		border-right: 1px solid $global_border_color;
+// 		// Typography
+// 		color: $white;
 
-		// Other
-		z-index: 500;
+// 		// Other
+// 		z-index: 500;
 
-		&:hover {
-			// Mixins
-			@include gradient(darken($global_title_color, 12%), darken($global_title_color, 16%), darken($global_title_color, 20%));
+// 		&:hover {
+// 			// Mixins
+// 			@include gradient(darken($global_title_color, 12%), darken($global_title_color, 16%), darken($global_title_color, 20%));
 
-			// Box properties
+// 			// Box properties
 		
-			// Background & borders
+// 			// Background & borders
 		
-			// Typography
+// 			// Typography
 		
-			// Other
+// 			// Other
 		
-		}
-	}
+// 		}
+// 	}
 
-	#solar_progress_bar {
-		// Mixins
-		@include corners(0, $grid, 0, $grid);
-		@include gradient(darken($solar_progress_bar_color, 8%), darken($solar_progress_bar_color, 12%), darken($solar_progress_bar_color, 14%));
-		@include box_sizing;
-		// Box properties
-		width: 64%;
-		height: 100%;
-		float: left;
-		padding-left: $grid * 5.5;
-		// Background & borders
-		background-color: $solar_progress_bar_color;
-		border-right: 1px solid #333;
+// 	#solar_progress_bar {
+// 		// Mixins
+// 		@include corners(0, $grid, 0, $grid);
+// 		@include gradient(darken($solar_progress_bar_color, 8%), darken($solar_progress_bar_color, 12%), darken($solar_progress_bar_color, 14%));
+// 		@include box_sizing;
+// 		// Box properties
+// 		width: 64%;
+// 		height: 100%;
+// 		float: left;
+// 		padding-left: $grid * 5.5;
+// 		// Background & borders
+// 		background-color: $solar_progress_bar_color;
+// 		border-right: 1px solid #333;
 
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 
-		.solar_progress_bar_text {
-			// Mixins
+// 		.solar_progress_bar_text {
+// 			// Mixins
 		
-			// Box properties
-			display: block;
-			padding: 1px $grid / 2;
-			// Background & borders
+// 			// Box properties
+// 			display: block;
+// 			padding: 1px $grid / 2;
+// 			// Background & borders
 		
-			// Typography
-			color: $white;
-			// Other
+// 			// Typography
+// 			color: $white;
+// 			// Other
 		
-		}
+// 		}
 	
-	}
+// 	}
 
-	#goal_text {
-		// Mixins
+// 	#goal_text {
+// 		// Mixins
 	
-		// Box properties
-		float: right;
-		height: 100%;
-		width: $grid * 5;
-		padding-right: $grid / 4;
-		// Background & borders
+// 		// Box properties
+// 		float: right;
+// 		height: 100%;
+// 		width: $grid * 5;
+// 		padding-right: $grid / 4;
+// 		// Background & borders
 	
-		// Typography
-		color: $whisper;
-		text-align: right;
-		// Other
+// 		// Typography
+// 		color: $whisper;
+// 		text-align: right;
+// 		// Other
 	
-	}
-}
+// 	}
+// }
 
-.dashboard_section {
-	// Mixins
+// .dashboard_section {
+// 	// Mixins
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
-	border-top: $border;
+// 	// Background & borders
+// 	border-top: $border;
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	&:nth-child(even) {
-		// Mixins
+// 	&:nth-child(even) {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
-		background: $dev_gray;
-		// Typography
+// 		// Background & borders
+// 		background: $dev_gray;
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-	.blank_state {
-		// Mixins
-		@extend .subtext;
-		@include object_thumbnail;
-		// Box properties
-		padding: $grid 0 $grid * 2 0;
-		margin-bottom: 0;
+// 	.blank_state {
+// 		// Mixins
+// 		@extend .subtext;
+// 		@include object_thumbnail;
+// 		// Box properties
+// 		padding: $grid 0 $grid * 2 0;
+// 		margin-bottom: 0;
 
-		// Background & borders
+// 		// Background & borders
 
-		// Typography
+// 		// Typography
 
-		// Other
+// 		// Other
 
-	}
+// 	}
 
-}
+// }
 
-.section_body {
-	// Mixins
+// .section_body {
+// 	// Mixins
 
-	// Box properties
-	width: $desktop;
-	margin: 0 auto;
-	// Background & borders
+// 	// Box properties
+// 	width: $desktop;
+// 	margin: 0 auto;
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.tabs {
-	// Mixins
+// .tabs {
+// 	// Mixins
 
-	// Box properties
-	float: left;
-	// Background & borders
+// 	// Box properties
+// 	float: left;
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	li {
-		// Mixins
-		@include small_title;
-		// Box properties
-		margin: 0 $grid / 4;
-		float: left;
-		// Background & borders
-		// border: 1px solid white;
-		// border-left: none;
-		// Typography
-		list-style: none;
-		// Other
+// 	li {
+// 		// Mixins
+// 		@include small_title;
+// 		// Box properties
+// 		margin: 0 $grid / 4;
+// 		float: left;
+// 		// Background & borders
+// 		// border: 1px solid white;
+// 		// border-left: none;
+// 		// Typography
+// 		list-style: none;
+// 		// Other
 		
-		a {
-			// Mixins
-			@include corners;
-			// Box properties
-			display: block;
-			padding: 0 $grid / 4;
-			// Background & borders
+// 		a {
+// 			// Mixins
+// 			@include corners;
+// 			// Box properties
+// 			display: block;
+// 			padding: 0 $grid / 4;
+// 			// Background & borders
 		
-			// Typography
-			color: $whisper;
-			// Other
+// 			// Typography
+// 			color: $whisper;
+// 			// Other
 
-			&:hover {
-				// Mixins
+// 			&:hover {
+// 				// Mixins
 			
-				// Box properties
+// 				// Box properties
 			
-				// Background & borders
+// 				// Background & borders
 			
-				// Typography
-				color: white;
-				// Other
+// 				// Typography
+// 				color: white;
+// 				// Other
 			
-			}
+// 			}
 		
-		}
+// 		}
 
-		&.active {
-			// Mixins
-			// Box properties
-			@include corners;
+// 		&.active {
+// 			// Mixins
+// 			// Box properties
+// 			@include corners;
 		
-			// Background & borders
-			background-color: rgba(0,0,0,.07);
-			// Typography
+// 			// Background & borders
+// 			background-color: rgba(0,0,0,.07);
+// 			// Typography
 		
-			// Other
+// 			// Other
 			
-			a {
-				// Mixins
+// 			a {
+// 				// Mixins
 			
-				// Box properties
+// 				// Box properties
 			
-				// Background & borders
+// 				// Background & borders
 			
-				// Typography
-				color: $whisper;
-				// Other
+// 				// Typography
+// 				color: $whisper;
+// 				// Other
 			
-				&:hover {
-					// Mixins
+// 				&:hover {
+// 					// Mixins
 				
-					// Box properties
+// 					// Box properties
 					
-					// Background & borders
-					background: none;
-					// Typography
-					color: $whisper;
-					// Other
+// 					// Background & borders
+// 					background: none;
+// 					// Typography
+// 					color: $whisper;
+// 					// Other
 				
-				}
-			}
-		}
-	}
-}
+// 				}
+// 			}
+// 		}
+// 	}
+// }
 
-.sort {
-	// Mixins
+// .sort {
+// 	// Mixins
 
-	// Box properties
-	float: right;
-	margin: 0 0 0 $grid;
-	padding: 0;
+// 	// Box properties
+// 	float: right;
+// 	margin: 0 0 0 $grid;
+// 	padding: 0;
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
-	color: $quiet;
-	// Other
+// 	// Typography
+// 	color: $quiet;
+// 	// Other
 
-	li {
-		// Mixins
+// 	li {
+// 		// Mixins
 	
-		// Box properties
-		display: inline-block;
-		margin: 0 0 0 0;
-		padding: 0;
-		// Background & borders
+// 		// Box properties
+// 		display: inline-block;
+// 		margin: 0 0 0 0;
+// 		padding: 0;
+// 		// Background & borders
 	
-		// Typography
-		font-size: $grid / 2;
+// 		// Typography
+// 		font-size: $grid / 2;
 
-		// Other
-		list-style: none;
+// 		// Other
+// 		list-style: none;
 
-		&.search {
-			// Mixins
+// 		&.search {
+// 			// Mixins
 		
-			// Box properties
-			margin-right: $grid / 2;
+// 			// Box properties
+// 			margin-right: $grid / 2;
 
-			// Background & borders
+// 			// Background & borders
 		
-			// Typography
+// 			// Typography
 		
-			// Other
+// 			// Other
 		
-		}
-	}
-}
+// 		}
+// 	}
+// }
 
-#dashboard_kpis {
-	// Mixins
+// #dashboard_kpis {
+// 	// Mixins
 
-	// Box properties
-	// Background & borders
-	border-top: none;
-	// Typography
+// 	// Box properties
+// 	// Background & borders
+// 	border-top: none;
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	.kpi {
-		// Mixins
-		@include object_thumbnail;
-		// Box properties
-		// padding: 0;
-		// float: left;
-		// margin:0 $grid 0 0;
-		// width: $grid * 6;
+// 	.kpi {
+// 		// Mixins
+// 		@include object_thumbnail;
+// 		// Box properties
+// 		// padding: 0;
+// 		// float: left;
+// 		// margin:0 $grid 0 0;
+// 		// width: $grid * 6;
 
-		// Background & borders
+// 		// Background & borders
 
-		// Typography
+// 		// Typography
 
-		// Other
+// 		// Other
 
-	}
+// 	}
 
-	.blank_state {
-		// Mixins
+// 	.blank_state {
+// 		// Mixins
 	
-		// Box properties
-		width: auto;
-		float: none;
-		// Background & borders
+// 		// Box properties
+// 		width: auto;
+// 		float: none;
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-	#c02_reduction {
-		// Mixins
-		@include corners;
-		@include box_sizing;
-		// Box properties
-		display: table;
-		height: 46px;
-		margin: $grid / 1.1 auto;
-		padding: 0 $grid;
-		// Background & borders
-		background-color: $brand;
-		// Typography
-		color: white;
-		// Other
+// 	#c02_reduction {
+// 		// Mixins
+// 		@include corners;
+// 		@include box_sizing;
+// 		// Box properties
+// 		display: table;
+// 		height: 46px;
+// 		margin: $grid / 1.1 auto;
+// 		padding: 0 $grid;
+// 		// Background & borders
+// 		background-color: $brand;
+// 		// Typography
+// 		color: white;
+// 		// Other
 
-		span {
-			// Mixins
+// 		span {
+// 			// Mixins
 		
-			// Box properties
-			display: table-cell;
-			// Background & borders
+// 			// Box properties
+// 			display: table-cell;
+// 			// Background & borders
 		
-			// Typography
-			vertical-align: middle;
-			// Other
+// 			// Typography
+// 			vertical-align: middle;
+// 			// Other
 		
-		}
+// 		}
 	
-	}
+// 	}
 
-	canvas {
-		// Mixins
+// 	canvas {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
-}
+// 	}
+// }
 
 
-#dashboard_quotes {
-	// Mixins
+// #dashboard_quotes {
+// 	// Mixins
 
-	// Box properties
-	padding-bottom: 0;
+// 	// Box properties
+// 	padding-bottom: 0;
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	.blank_state {
-		// Mixins
+// 	.blank_state {
+// 		// Mixins
 	
-		// Box properties
-		width: auto;
-		float: none;
-		// Background & borders
+// 		// Box properties
+// 		width: auto;
+// 		float: none;
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-}
+// }
 
-#dashboard_team {
-	// Mixins
+// #dashboard_team {
+// 	// Mixins
 
-	// Box properties
-	padding-bottom: 0;
-	// Background & borders
+// 	// Box properties
+// 	padding-bottom: 0;
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	.blank_state {
-		// Mixins
+// 	.blank_state {
+// 		// Mixins
 	
-		// Box properties
-		width: auto;
-		float: none;
-		// Background & borders
+// 		// Box properties
+// 		width: auto;
+// 		float: none;
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-}
+// }
 
-#dashboard_customers {
-	// Mixins
+// #dashboard_customers {
+// 	// Mixins
 
-	// Box properties
-	padding-bottom: 0;
+// 	// Box properties
+// 	padding-bottom: 0;
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-#dashboard_payments {
-	// Mixins
+// #dashboard_payments {
+// 	// Mixins
 
-	// Box properties
-	padding-bottom: 0;
+// 	// Box properties
+// 	padding-bottom: 0;
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-#dashboard_pages {
-	// Mixins
+// #dashboard_pages {
+// 	// Mixins
 
-	// Box properties
-	padding-bottom: $grid * 3;
+// 	// Box properties
+// 	padding-bottom: $grid * 3;
 
-	// Background & borders
-	border-bottom: $border;
-	// Typography
+// 	// Background & borders
+// 	border-bottom: $border;
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	.blank_state {
-		// Mixins
+// 	.blank_state {
+// 		// Mixins
 	
-		// Box properties
-		width: auto;
-		float: none;
-		// Background & borders
+// 		// Box properties
+// 		width: auto;
+// 		float: none;
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-		p {
-			// Mixins
+// 		p {
+// 			// Mixins
 		
-			// Box properties
-			margin-top: 0;
-			// Background & borders
+// 			// Box properties
+// 			margin-top: 0;
+// 			// Background & borders
 		
-			// Typography
+// 			// Typography
 
-			// Other
+// 			// Other
 		
-		}
+// 		}
 
-	}
+// 	}
 
-}
+// }
 
-	.customer_page_kpis {
-		// Mixins
+// 	.customer_page_kpis {
+// 		// Mixins
 	
-		// Box properties
-		float: left;
-		margin-right: $grid;
-		// Background & borders
+// 		// Box properties
+// 		float: left;
+// 		margin-right: $grid;
+// 		// Background & borders
 	
-		// Typography
-		text-align: left;
-		// Other
+// 		// Typography
+// 		text-align: left;
+// 		// Other
 	
-	}
+// 	}
 
-	.promoter_page_kpis {
-		// Mixins
+// 	.promoter_page_kpis {
+// 		// Mixins
 	
-		// Box properties
-		float: left;
+// 		// Box properties
+// 		float: left;
 
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
-		text-align: left;
-		// Other
+// 		// Typography
+// 		text-align: left;
+// 		// Other
 	
-	}
+// 	}
 
-.section_header {
-	// Mixins
+// .section_header {
+// 	// Mixins
 
-	// Box properties
-	padding: $grid / 2 $grid / 2 0;
-	overflow: auto;
-	// Background & borders
+// 	// Box properties
+// 	padding: $grid / 2 $grid / 2 0;
+// 	overflow: auto;
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	h2 {
-		// Mixins
-		@include small_title;
-		// Box properties
-		float: left;
-		margin: 0 $grid $grid / 2 0;
+// 	h2 {
+// 		// Mixins
+// 		@include small_title;
+// 		// Box properties
+// 		float: left;
+// 		margin: 0 $grid $grid / 2 0;
 	
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
-		color: $quiet;
-		// Other
+// 		// Typography
+// 		color: $quiet;
+// 		// Other
 	
-	}
+// 	}
 
-	.button {
-		// Mixins
-		@include quiet_button;
-		// Box properties
-		margin-left: $grid;
-		float: left;
-		clear: none;
-		width: auto;
-		// Background & borders
-		border: none;
-		// Typography
+// 	.button {
+// 		// Mixins
+// 		@include quiet_button;
+// 		// Box properties
+// 		margin-left: $grid;
+// 		float: left;
+// 		clear: none;
+// 		width: auto;
+// 		// Background & borders
+// 		border: none;
+// 		// Typography
 
-		// Other
+// 		// Other
 
-	}
-}
+// 	}
+// }
 
-.section_content {
-	// Mixins
+// .section_content {
+// 	// Mixins
 
-	// Box properties
-	overflow: auto;
-	clear: both;
-	padding: 0 0 0;
+// 	// Box properties
+// 	overflow: auto;
+// 	clear: both;
+// 	padding: 0 0 0;
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.blank_thumbnail {
-	// Mixins
-	@include object_thumbnail;
+// .blank_thumbnail {
+// 	// Mixins
+// 	@include object_thumbnail;
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.page_thumbnail {
-	// Mixins
-	@include object_thumbnail;
+// .page_thumbnail {
+// 	// Mixins
+// 	@include object_thumbnail;
 	
-	// Box properties
-	margin-bottom: $grid;
-	// Background & borders
+// 	// Box properties
+// 	margin-bottom: $grid;
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.quote_thumbnail {
-	// Mixins
-	@include object_thumbnail;
+// .quote_thumbnail {
+// 	// Mixins
+// 	@include object_thumbnail;
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.advocate_avatar {
-	// Mixins
-	@include inner_shadow;
-	@include corners(50%, 50%, 50%, 50%);
-	// Box properties
-	display: inline-block;
-	height: $grid * 2;
-	width: $grid * 2;
-	// Background & borders
-	background: $white;
-	background-size: cover;
-	// Typography
+// .advocate_avatar {
+// 	// Mixins
+// 	@include inner_shadow;
+// 	@include corners(50%, 50%, 50%, 50%);
+// 	// Box properties
+// 	display: inline-block;
+// 	height: $grid * 2;
+// 	width: $grid * 2;
+// 	// Background & borders
+// 	background: $white;
+// 	background-size: cover;
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.team_thumbnail {
-	// Mixins
-	@include object_thumbnail;
+// .team_thumbnail {
+// 	// Mixins
+// 	@include object_thumbnail;
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	&:hover {
-		// Mixins
+// 	&:hover {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-	&.pending {
-		// Mixins
+// 	&.pending {
+// 		// Mixins
 	
-		// Box properties
-		display: none;
-		// Background & borders
+// 		// Box properties
+// 		display: none;
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-		&.subtext {
-			// Mixins
+// 		&.subtext {
+// 			// Mixins
 		
-			// Box properties
-			display: block;
-			margin-bottom: $grid;
-			// Background & borders
+// 			// Box properties
+// 			display: block;
+// 			margin-bottom: $grid;
+// 			// Background & borders
 		
-			// Typography
+// 			// Typography
 		
-			// Other
+// 			// Other
 		
-		}
-	}
+// 		}
+// 	}
 
-}
+// }
 
-.customer_thumbnail {
-	// Mixins
-	@include object_thumbnail;
+// .customer_thumbnail {
+// 	// Mixins
+// 	@include object_thumbnail;
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.payment_thumbnail {
-	// Mixins
-	@include object_thumbnail;
+// .payment_thumbnail {
+// 	// Mixins
+// 	@include object_thumbnail;
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.link_thumbnail {
-	// Mixins
-	@include object_thumbnail;
+// .link_thumbnail {
+// 	// Mixins
+// 	@include object_thumbnail;
 
-	// Box properties
-	width: $grid * 8;
-	// Background & borders
+// 	// Box properties
+// 	width: $grid * 8;
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.button.new {
-	// Mixins
-	@include small_title;
-	// Box properties
+// .button.new {
+// 	// Mixins
+// 	@include small_title;
+// 	// Box properties
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
 
 
-.new_thumbnail {
-	// Mixins
-	@include object_thumbnail;
+// .new_thumbnail {
+// 	// Mixins
+// 	@include object_thumbnail;
 
-	// Box properties
-	width: $grid * 8;
-	// Background & borders
-	// Typography
+// 	// Box properties
+// 	width: $grid * 8;
+// 	// Background & borders
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	.placeholder_avatar {
-		// Mixins
+// 	.placeholder_avatar {
+// 		// Mixins
 
-		@include corners(50%, 50%, 50%, 50%);
-		// Box properties
-		display: table;
-		height: $grid * 2;
-		width: $grid * 2;
-		margin: 0 auto;
-		// Background & borders
-		border: 1px $whisper dashed;
+// 		@include corners(50%, 50%, 50%, 50%);
+// 		// Box properties
+// 		display: table;
+// 		height: $grid * 2;
+// 		width: $grid * 2;
+// 		margin: 0 auto;
+// 		// Background & borders
+// 		border: 1px $whisper dashed;
 
-		// Typography
+// 		// Typography
 
-		// Other
+// 		// Other
 
-		span {
-			// Mixins
+// 		span {
+// 			// Mixins
 		
-			// Box properties
-			display: table-cell;
-			// Background & borders
+// 			// Box properties
+// 			display: table-cell;
+// 			// Background & borders
 		
-			// Typography
-			vertical-align: middle;
-			color: $whisper;
-			// Other
+// 			// Typography
+// 			vertical-align: middle;
+// 			color: $whisper;
+// 			// Other
 		
-		}
-	}
+// 		}
+// 	}
 
-	.button {
-		// Mixins
+// 	.button {
+// 		// Mixins
 	
-		// Box properties
-		margin: $grid / 2 auto;
-		// Background & borders
-		border: none;
-		// Typography
-		color: $whisper;
-		// Other
+// 		// Box properties
+// 		margin: $grid / 2 auto;
+// 		// Background & borders
+// 		border: none;
+// 		// Typography
+// 		color: $whisper;
+// 		// Other
 	
-		&:hover {
-			// Mixins
+// 		&:hover {
+// 			// Mixins
 		
-			// Box properties
+// 			// Box properties
 		
-			// Background & borders
-			background-color: rgba(0,0,0,0);
-			// Typography
-			color: $whisper;
-			// Other
+// 			// Background & borders
+// 			background-color: rgba(0,0,0,0);
+// 			// Typography
+// 			color: $whisper;
+// 			// Other
 		
-		}
-	}
+// 		}
+// 	}
 
-}
+// }
 
-.badge {
-	// Mixins
-	@include corners;
-	// Box properties
-	display: inline-block;
-	padding: 0 5px;
-	// Background & borders
-	background-color: $sunnyside;
-	// Typography
-	color: white;
-	// Other
+// .badge {
+// 	// Mixins
+// 	@include corners;
+// 	// Box properties
+// 	display: inline-block;
+// 	padding: 0 5px;
+// 	// Background & borders
+// 	background-color: $sunnyside;
+// 	// Typography
+// 	color: white;
+// 	// Other
 
-}
+// }
 
-.section_notification {
-	// Mixins
+// .section_notification {
+// 	// Mixins
 
-	// Box properties
-	position: relative;
-	// Background & borders
-	background: $dev_gray;
-	border-top: $border;
+// 	// Box properties
+// 	position: relative;
+// 	// Background & borders
+// 	background: $dev_gray;
+// 	border-top: $border;
 
-	// Typography
-	font-size: $grid / 2;
+// 	// Typography
+// 	font-size: $grid / 2;
 
-	// Other
+// 	// Other
 
-	&.neutral {
-		// Mixins
+// 	&.neutral {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
-		background: $neutral;
-		// Typography
+// 		// Background & borders
+// 		background: $neutral;
+// 		// Typography
 	
-		// Other
-	}
+// 		// Other
+// 	}
 
-	&.positive {
-		// Mixins
+// 	&.positive {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
-		background: $positive;
-		// Typography
+// 		// Background & borders
+// 		background: $positive;
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-	&.negative {
-		// Mixins
+// 	&.negative {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
-		background: $negative;
-		// Typography
+// 		// Background & borders
+// 		background: $negative;
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-	a {
-		// Mixins
+// 	a {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
-		background: none;
-		// Typography
-		color: $text;	
-		// Other
+// 		// Background & borders
+// 		background: none;
+// 		// Typography
+// 		color: $text;	
+// 		// Other
 	
 
-		&:hover {
-			// Mixins
+// 		&:hover {
+// 			// Mixins
 		
-			// Box properties
+// 			// Box properties
 		
-			// Background & borders
-			background: none;
-			// Typography
-			color: $brand;
-			// Other
+// 			// Background & borders
+// 			background: none;
+// 			// Typography
+// 			color: $brand;
+// 			// Other
 		
-		}
-	}
+// 		}
+// 	}
 
-}
+// }
 
-.section_notification:before {
-	// Mixins
-	// Box properties
-	top: -61px;
-	left: $grid * 12.5;
-	height: 0;
-	width: 0;
-	position: absolute;
-	margin-left: -30px;
+// .section_notification:before {
+// 	// Mixins
+// 	// Box properties
+// 	top: -61px;
+// 	left: $grid * 12.5;
+// 	height: 0;
+// 	width: 0;
+// 	position: absolute;
+// 	margin-left: -30px;
 
-	// Background & borders
-	border: solid transparent;
-	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: $whisper;
-	border-width: 30px;
-	// Typography
+// 	// Background & borders
+// 	border: solid transparent;
+// 	border-color: rgba(136, 183, 213, 0);
+// 	border-bottom-color: $whisper;
+// 	border-width: 30px;
+// 	// Typography
 
-	// Other
-	pointer-events: none;
-	content: " ";
-}
+// 	// Other
+// 	pointer-events: none;
+// 	content: " ";
+// }
 
-.section_notification:after {
-	// Mixins
+// .section_notification:after {
+// 	// Mixins
 
-	// Box properties
-	bottom: 100%;
-	left: $grid * 12.5;
-	height: 0;
-	width: 0;
-	position: absolute;
-	margin-left: -30px;
+// 	// Box properties
+// 	bottom: 100%;
+// 	left: $grid * 12.5;
+// 	height: 0;
+// 	width: 0;
+// 	position: absolute;
+// 	margin-left: -30px;
 
-	// Background & borders
-	border: solid transparent;
-	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: $dev_gray;
-	border-width: 30px;
-	// Typography
+// 	// Background & borders
+// 	border: solid transparent;
+// 	border-color: rgba(136, 183, 213, 0);
+// 	border-bottom-color: $dev_gray;
+// 	border-width: 30px;
+// 	// Typography
 
-	// Other
-	pointer-events: none;
-	content: " ";
+// 	// Other
+// 	pointer-events: none;
+// 	content: " ";
 
-}
+// }
 
-.section_notification.neutral:after {
-	// Mixins
+// .section_notification.neutral:after {
+// 	// Mixins
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
-	border-bottom-color: $neutral;
-	// Typography
+// 	// Background & borders
+// 	border-bottom-color: $neutral;
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.section_notification.positive:after {
-	// Mixins
+// .section_notification.positive:after {
+// 	// Mixins
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
-	border-bottom-color: $positive;
-	// Typography
+// 	// Background & borders
+// 	border-bottom-color: $positive;
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.section_notification.negative:after {
-	// Mixins
+// .section_notification.negative:after {
+// 	// Mixins
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
-	border-bottom-color: $negative;
-	// Typography
+// 	// Background & borders
+// 	border-bottom-color: $negative;
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.thumb_row {
-	// Mixins
-	@include box_sizing;
-	// Box properties
-	clear: both;
-	overflow: auto;
-	margin: 0 auto;
-	// Background & borders
+// .thumb_row {
+// 	// Mixins
+// 	@include box_sizing;
+// 	// Box properties
+// 	clear: both;
+// 	overflow: auto;
+// 	margin: 0 auto;
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.circle_stat {
-	// Mixins
-	@include circle_with_text;
-	// Box properties
-	margin: $grid $grid / 2;
-	height: $grid * 5;
-	width: $grid * 5;
-	float: left;
-	// Background & borders
-	background-color: $brand;
-	// Typography
-	line-height: $font_size;
-	font-size: $grid / 2;
-	// Other
+// .circle_stat {
+// 	// Mixins
+// 	@include circle_with_text;
+// 	// Box properties
+// 	margin: $grid $grid / 2;
+// 	height: $grid * 5;
+// 	width: $grid * 5;
+// 	float: left;
+// 	// Background & borders
+// 	background-color: $brand;
+// 	// Typography
+// 	line-height: $font_size;
+// 	font-size: $grid / 2;
+// 	// Other
 
-	&.blank {
-		// Mixins
+// 	&.blank {
+// 		// Mixins
 	
-		// Box properties
-		width: $grid;
-		margin: $grid 0 0;
-		// Background & borders
-		background: none;
-		// Typography
+// 		// Box properties
+// 		width: $grid;
+// 		margin: $grid 0 0;
+// 		// Background & borders
+// 		background: none;
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-	.icon {
-		// Mixins
+// 	.icon {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 		
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
-		font-size: $grid * 2;
-		line-height: $line_height / 2;
-		// Other
+// 		// Typography
+// 		font-size: $grid * 2;
+// 		line-height: $line_height / 2;
+// 		// Other
 	
-	}
+// 	}
 
-}
+// }
 
 
-.object_detail {
-	// Mixins
-	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
-	// Box properties
-	position: absolute;
-	width: 100%;
-	display: none;
-	left: 0;
-	margin-top: $grid;
-	// Background & borders
-	border-top: 1px solid #444;
-	border-bottom: 1px solid #444;
+// .object_detail {
+// 	// Mixins
+// 	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
+// 	// Box properties
+// 	position: absolute;
+// 	width: 100%;
+// 	display: none;
+// 	left: 0;
+// 	margin-top: $grid;
+// 	// Background & borders
+// 	border-top: 1px solid #444;
+// 	border-bottom: 1px solid #444;
 
-	// Typography
-	text-align: left;
-	color: $white;
-	// Other
+// 	// Typography
+// 	text-align: left;
+// 	color: $white;
+// 	// Other
 
-	.success {
-		// Mixins
+// 	.success {
+// 		// Mixins
 	
-		// Box properties
-		display: none;
-		// Background & borders
+// 		// Box properties
+// 		display: none;
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-}
+// }
 
-.object_detail_arrow {
-	// Mixins
-	// Box properties
-	bottom: 100%;
-	left: 0;
-	height: 0;
-	width: 0;
-	position: absolute;
+// .object_detail_arrow {
+// 	// Mixins
+// 	// Box properties
+// 	bottom: 100%;
+// 	left: 0;
+// 	height: 0;
+// 	width: 0;
+// 	position: absolute;
 
-	// Background & borders
-	border: solid transparent;
-	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: darken($global_progress_color, 14%);
-	border-width: 30px;
-	// Typography
+// 	// Background & borders
+// 	border: solid transparent;
+// 	border-color: rgba(136, 183, 213, 0);
+// 	border-bottom-color: darken($global_progress_color, 14%);
+// 	border-width: 30px;
+// 	// Typography
 
-	// Other
-	pointer-events: none;
-	content: " ";
+// 	// Other
+// 	pointer-events: none;
+// 	content: " ";
 
-}
+// }
 
-.object_detail_content {
-	// Mixins
-	@include box_sizing;
-	// Box properties
-	padding: 0;
-	overflow: auto;
-	position: relative;
-	width: $desktop;
-	margin: 0 auto;
-	// Background & borders
+// .object_detail_content {
+// 	// Mixins
+// 	@include box_sizing;
+// 	// Box properties
+// 	padding: 0;
+// 	overflow: auto;
+// 	position: relative;
+// 	width: $desktop;
+// 	margin: 0 auto;
+// 	// Background & borders
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.object_detail_content_section {
-	// Mixins
-	@include box_sizing;
-	// Box properties
-	float: left;
-	overflow: auto;
-	padding: $grid;
-	margin:0 0 $grid $grid * 10;
-	width: $grid * 30;
-	position: relative;
-	// Background & borders
-	// Typography
+// .object_detail_content_section {
+// 	// Mixins
+// 	@include box_sizing;
+// 	// Box properties
+// 	float: left;
+// 	overflow: auto;
+// 	padding: $grid;
+// 	margin:0 0 $grid $grid * 10;
+// 	width: $grid * 30;
+// 	position: relative;
+// 	// Background & borders
+// 	// Typography
 
-	// Other
+// 	// Other
 
-	&.summary {
-		// Mixins
+// 	&.summary {
+// 		// Mixins
 	
-		// Box properties
-		width: $grid * 10;
-		height: 100%;
-		min-height: 100%;
-		margin: 0;
-		position: absolute;
-		left: 0;
-		top: 0;
-		bottom: 0;
-		overflow: auto;
-		// Background & borders
-		border-right: $border;
-		// Typography
+// 		// Box properties
+// 		width: $grid * 10;
+// 		height: 100%;
+// 		min-height: 100%;
+// 		margin: 0;
+// 		position: absolute;
+// 		left: 0;
+// 		top: 0;
+// 		bottom: 0;
+// 		overflow: auto;
+// 		// Background & borders
+// 		border-right: $border;
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-	h4 {
-		// Mixins
+// 	h4 {
+// 		// Mixins
 	
-		// Box properties
-		clear: both;
-		// Background & borders
+// 		// Box properties
+// 		clear: both;
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
+// 	}
 
-	.chart {
-		// Mixins
+// 	.chart {
+// 		// Mixins
 	
-		// Box properties
-		margin: $grid / 2 0 $grid;
-		float: left;
-		// Background & borders
+// 		// Box properties
+// 		margin: $grid / 2 0 $grid;
+// 		float: left;
+// 		// Background & borders
 	
-		// Typography
-		text-align: center;
-		// Other
+// 		// Typography
+// 		text-align: center;
+// 		// Other
 		
-	}
+// 	}
 
-	form {
-		// Mixins
+// 	form {
+// 		// Mixins
 	
-		// Box properties
+// 		// Box properties
 	
-		// Background & borders
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 		
-		select {
-			// Mixins
+// 		select {
+// 			// Mixins
 		
-			// Box properties
+// 			// Box properties
 
-			// Background & borders
+// 			// Background & borders
 		
-			// Typography
+// 			// Typography
 		
-			// Other
+// 			// Other
 		
-		}
+// 		}
 
-		input {
-			// Mixins
+// 		input {
+// 			// Mixins
 		
-			// Box properties
-			// Background & borders
+// 			// Box properties
+// 			// Background & borders
 		
-			// Typography
+// 			// Typography
 		
-			// Other
+// 			// Other
 		
-		}
+// 		}
 
-		.button {
-			// Mixins
+// 		.button {
+// 			// Mixins
 		
-			// Box properties
+// 			// Box properties
 
-			// Background & borders
+// 			// Background & borders
 		
-			// Typography
+// 			// Typography
 		
-			// Other
+// 			// Other
 		
-		}
-	}
+// 		}
+// 	}
 
-}
+// }
 
 
-.object_detail.collapsed {
-	// Mixins
+// .object_detail.collapsed {
+// 	// Mixins
 
-	// Box properties
-	position: relative;
-	padding: 0;
+// 	// Box properties
+// 	position: relative;
+// 	padding: 0;
 
-	// Background & borders
+// 	// Background & borders
 
-	// Typography
-	font-size: $grid / 2;
-	text-align: left;
+// 	// Typography
+// 	font-size: $grid / 2;
+// 	text-align: left;
 
-	// Other
+// 	// Other
 
-	h3 {
-		// Mixins
+// 	h3 {
+// 		// Mixins
 	
-		// Box properties
-		margin: 0 $grid;
-		// Background & borders
+// 		// Box properties
+// 		margin: 0 $grid;
+// 		// Background & borders
 	
-		// Typography
+// 		// Typography
 	
-		// Other
+// 		// Other
 	
-	}
-}
+// 	}
+// }
 
-.object_detail.second {
-	// Mixins
+// .object_detail.second {
+// 	// Mixins
 
-	// Box properties
+// 	// Box properties
 
-	// Background & borders
-	background: darken($neutral, 5%);
-	border-top-color: #ccc;
+// 	// Background & borders
+// 	background: darken($neutral, 5%);
+// 	border-top-color: #ccc;
 
-	// Typography
-	font-size: $font_size;
-	// Other
+// 	// Typography
+// 	font-size: $font_size;
+// 	// Other
 
-}
+// }
 
-.object_detail.second:before {
-	// Mixins
-	// Box properties
+// .object_detail.second:before {
+// 	// Mixins
+// 	// Box properties
 
-	// Background & borders
-	border-bottom-color: #ccc;
-	// Typography
+// 	// Background & borders
+// 	border-bottom-color: #ccc;
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
-.object_detail.second:after {
-	// Mixins
-	// Box properties
+// .object_detail.second:after {
+// 	// Mixins
+// 	// Box properties
 
-	// Background & borders
-	border-bottom-color: darken($neutral, 5%);
+// 	// Background & borders
+// 	border-bottom-color: darken($neutral, 5%);
 
-	// Typography
+// 	// Typography
 
-	// Other
+// 	// Other
 
-}
+// }
 
