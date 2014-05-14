@@ -66,9 +66,11 @@
 
 
 	$dev_gray: #f7f7f9;
-	$quiet: lighten($text, 25%);
-	$whisper: lighten($text, 42%);
-	
+	$quiet: lighten($text, 34%);
+	$whisper: lighten($text, 47%);
+	$ghost: rgba(0,0,0,.06);
+
+
 	$neutral: #DAEDF6;
 	$positive: #DFF0D9;
 	$negative: #f2d5d9;
@@ -79,12 +81,13 @@
 
 	$body_font: 'Muli', sans-serif;
 	$title_font: 'Muli', sans-serif;
-	$small_title_font: 'Montserrat', sans-serif;
+	$small_title_font: 'Varela Round', sans-serif;
 	$form_font: 'Open Sans', sans-serif;
 	$serif_font: 'Sorts Mill Goudy', serif;
 
 	@mixin small_title {
 		font-size: $font_size / 1.5;
+		line-height: $grid / 2;
 		text-transform: uppercase;
 		font-family: $small_title_font;
 		// -webkit-font-smoothing: subpixel-antialiased;
@@ -100,7 +103,7 @@
 
 // Borders
 
-	$border: 1px solid $whisper;
+	$border: 1px solid $ghost;
 
 // Mixins
 	@mixin text_shadow {
@@ -178,22 +181,23 @@
 	    border-bottom-right-radius: $br;
 	}
 
+	@mixin form_padding {
+		padding: $grid / 4 $grid / 2;
+	}
+
 	@mixin form_box {
 		// Mixins
 		@include corners;
-		@include box-sizing;
+		@include box_sizing;
+		@include form_padding;
+		@include small_title;
 		// Box properties
 		display: block;
 		width: 100%;
-		padding: $grid / 8 $grid / 4;
 		margin-bottom: $grid / 2;
 		// Background & borders
 	
 		// Typography
-		font-size: $grid / 2;
-		line-height: $line_height;
-		font-family: $small_title_font;
-		text-transform: uppercase;
 
 		// Other
 

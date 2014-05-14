@@ -11,93 +11,27 @@
 <% else %>
 
 <% end %> 
-<style>
-	.drilldown{
-		height:0px;
-		background: -o-linear-gradient(top, #535353, #5e5e5e, #686868);
-		background: -ms-linear-gradient(top, #535353, #5e5e5e, #686868);
-		background: linear-gradient(to bottom, #535353, #5e5e5e, #686868);
-		position: relative;
-		width: 100%;
-		left: 0;
-		border-top: 1px solid #444;
-		border-bottom: 1px solid #444;
-		text-align: left;
-		color: #f9f2e8;
-	}
-	.arrow{
-		width: 0px;
-		height: 0px;
-		border-style: solid;
-		border-width: 0 15px 20px 15px;
-		border-color: transparent transparent #535353 transparent;
-		position:absolute;
-		top:0px;
-		left:0;
-	}
-	.team_info{
-		position:relative;
-		height:200px;
-		overflow:hidden;
-	}
-	.pagination_container{
-		height:250px;
-		width:1024px; /*contains 4 thumbs */
-		overflow:hidden;
-		position:relative;}
-		.pagination_container .nav{
-			z-index: 90;
-			padding:10px;
-			position:absolute;
-			top:50px;}
-		.pagination_container .nav.left{
-			left:10px;}
-		.pagination_container .nav.right{
-			right:10px;}
-
-	.pagination_content{
-		height:250px;
-		width:auto;
-		overflow:hidden;
-		position:absolute;
-		left:0;
-		top:0;
-	}
-	.team_thumbnail{
-		z-index:20;
-	}
-
-</style>
 
 <section id="dashboard_kpis" class="dashboard_section">
 
-	<div class="section_body">
+	<div class="section_header">
+		<div class="section_header_content">
+			<h2>Overview</h2>
 
-		<div class="section_header">
-			<h2>KPI Overview</h2>
-			
 			<% if params[:first_run] == "true" %>
 
 			<% else %>
 
-				<ul class="sort">
-					<li> 
-						<%= select_tag "Show", options_for_select(
-							[
-								"My Team", 
-							    "2nd Generation", 
-							    "3rd Generation",
-							    "My Entrie Organization",
-							    "All of Sunstand"
-							], ["My Team"]) 
-						%>
-					</li>
-				</ul>
-
+			    <ul class="tabs">
+			      <li><a href="" class="active">My Team</a></li>
+			      <li><a href="">2nd Generation</a></li>
+			      <li><a href="">Everyone</a></li>
+			    </ul>
 			<% end %> 
-
 		</div>
+	</div>
 
+	<div class="section_body">
 		<div class="section_content">
 
 			<% if params[:first_run] == "true" %>
@@ -115,7 +49,9 @@
 						</div>
 						<h3>Your C0<sub>2</sub> Prevention</h3>
 						<span class="subtext">Across your entire team</span>
-						<i class="fa fa-angle-down"></i>
+						<span class="expand">
+							<i class="fa fa-angle-down"></i>
+						</span>
 					</div>
 
 					<%= render partial: "shared/kpi_environment_detail"%>
@@ -127,7 +63,9 @@
 						<canvas id="kpi_chart_sales" width="222" height="96"></canvas>
 						<h3>43 Sales</h3>
 						<span class="subtext">Out of 98 quotes</span>
-						<i class="fa fa-angle-down"></i>
+						<span class="expand">
+							<i class="fa fa-angle-down"></i>
+						</span>
 					</div>
 
 					<%= render partial: "shared/kpi_customer_detail"%>
@@ -139,7 +77,9 @@
 						<canvas id="kpi_chart_team" width="222" height="96"></canvas>
 						<h3>13 Team Members</h3>
 						<span class="subtext">23 in your oganization</span>
-						<i class="fa fa-angle-down"></i>
+						<span class="expand">
+							<i class="fa fa-angle-down"></i>
+						</span>
 					</div>
 
 					<%= render partial: "shared/kpi_team_detail"%>
@@ -151,7 +91,9 @@
 						<canvas id="kpi_chart_earnings" width="222" height="96"></canvas>
 						<h3>$32,450 Earnings</h3>
 						<span class="subtext">Down 5% this week</span>
-						<i class="fa fa-angle-down"></i>
+						<span class="expand">
+							<i class="fa fa-angle-down"></i>
+						</span>
 					</div>
 
 					<%= render partial: "shared/kpi_volume_detail"%>
@@ -163,7 +105,9 @@
 						<canvas id="kpi_chart_level_up" width="222" height="96"></canvas>
 						<h3>Level 6</h3>
 						<span class="subtext">Get 2 sales to reach level 7</span>
-						<i class="fa fa-angle-down"></i>
+						<span class="expand">
+							<i class="fa fa-angle-down"></i>
+						</span>
 					</div>
 
 					<%= render partial: "shared/kpi_rank_detail"%>
@@ -177,9 +121,10 @@
 </section>
 
 <section id="dashboard_quotes" class="dashboard_section">
-	<div class="section_body">
+	
+	<div class="section_header">
+		<div class="section_header_content">
 
-		<div class="section_header">
 			<h2>Your Quotes</h2>
 
 			<% if params[:first_run] == "true" %>
@@ -187,13 +132,13 @@
 			<% else %>
 
 	            <ul class="tabs">
-	              <li class="active"><a href="">Incomplete</a></li>
+	              <li><a href="" class="active">Incomplete</a></li>
 	              <li><a href="">Submitted</a></li>
 	              <li><a href="">Approved</a></li>
+	              <li><input type="search" placeholder="search quotes"/></li>
 	            </ul>
 
 				<ul class="sort">
-					<li class="search"><i class="fa fa-search"></i></li>
 					<li>
 						<%= select_tag "Sort", options_for_select(
 							[
@@ -208,6 +153,11 @@
 
 			<% end %>
 		</div>
+	</div>
+
+	<div class="section_body">
+
+		
 		<div class="section_content">
 
 			<% if params[:first_run] == "true" %>
@@ -243,22 +193,24 @@
 </section>
 
 <section id="dashboard_team" class="dashboard_section" data-drilldown-level="0">
-	<div class="section_body">
-		
-		<div class="section_header">
+	
+	<div class="section_header">
+		<div class="section_header_content">
+
 			<h2>Your Team</h2>
 
 			<% if params[:first_run] == "true" %>
 			<% else %>
 
 	            <ul class="tabs">
-	              <li class="active"><a href="">Everybody</a></li>
+	              <li><a href="" class="active">Everybody</a></li>
 	              <li><a href="">Top</a></li>
-	              <li><a href="">New</a></li>
+	              <li><a href="">New <span class="badge"><span>2</span></span></a></li>
+	              <li><a href="">Pending <span class="badge"><span>13</span></span></a></li>
+  	              <li><input type="search" placeholder="search team"/></li>
 	            </ul>
 
 				<ul class="sort">
-					<li class="search"><i class="fa fa-search"></i></li>
 					<li> 
 						<%= select_tag "Show", options_for_select(
 							[
@@ -285,6 +237,9 @@
 			<% end %>
 
 		</div>
+	</div>
+
+	<div class="section_body">
 
 		<% if params[:first_run] == "true" %>
 
@@ -331,12 +286,10 @@
 	<% else %>
 
 		<section id="dashboard_payments" class="dashboard_section">
-			<div class="section_body">
-				<div class="section_header">
+			<div class="section_header">
+				<div class="section_header_content">
 					<h2>Your Earnings</h2>
 					<ul class="sort">
-						<li class="search"><i class="fa fa-search"></i></li>
-						<li> 
 							<%= select_tag "Show", options_for_select(
 								[
 									"Past 3 months", 
@@ -358,6 +311,10 @@
 						</li>
 					</ul>
 				</div>
+			</div>
+
+			<div class="section_body">
+
 				<div class="section_content">
 					<%= render partial: "shared/payment_thumbnail", :locals => {:id => "1", :amount => "$2,345", :mail_date => "4/1/14", :has_mailed => false}%>
 					<%= render partial: "shared/payment_thumbnail", :locals => {:id => "2", :amount => "$1,234", :mail_date => "3/23/14", :has_mailed => true}%>
@@ -368,10 +325,14 @@
 <% end %>
 
 <section id="dashboard_pages" class="dashboard_section">
-	<div class="section_body">
-		<div class="section_header">
+	
+	<div class="section_header">
+		<div class="section_header_content">
 			<h2>Your Pages</h2>
 		</div>
+	</div>
+
+	<div class="section_body">
 		<div class="section_content">
 
 			<% if params[:pro] == "true" %>
