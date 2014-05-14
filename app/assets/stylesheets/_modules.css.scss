@@ -124,6 +124,7 @@
 		@include small_title;
 		// Box properties
 		float: left;
+		margin-right: $grid / 2;
 		// Background & borders
 
 		// Typography
@@ -230,7 +231,6 @@
 
 				&.active {
 					// Mixins
-				
 					// Box properties
 				
 					// Background & borders

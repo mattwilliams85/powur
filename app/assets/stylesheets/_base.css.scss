@@ -485,8 +485,10 @@ footer {
 		@include box_sizing;
 		@include corners(32px, 32px, 32px, 32px);
 		// Box properties
-		margin: 0 0 0 $grid / 2;
+		float: left;
+		margin: 0;
 		padding-left: $grid / 1.5;
+		width: auto;
 		// Background & borders
 		background-image: url(image-path('search.svg'));
 		background-position: left center;
