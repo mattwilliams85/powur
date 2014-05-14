@@ -1,0 +1,28 @@
+<div id="{{bindingObj}}" alt="{{id}}" class="quote_thumbnail js-thumbnail_parent">
+	<div class="js-thumbnail">
+		{{name}}
+
+    	<span class="subtext">
+      	{{#if address.street}}
+      		<i class="fa fa-check"></i>
+      	{{else}}
+    	  	<i class="fa fa-times"></i>
+    	{{/if}}
+      	Address
+      	</span>
+
+      	<span class="subtext">
+      	{{#if utility_info.document}}
+      		<i class="fa fa-check"></i>
+      	{{else}}
+    	  	<i class="fa fa-times"></i>
+    	{{/if}}
+      	Utility Bill
+      	</span>
+      
+    	<span class="expand">
+    		<i class="fa fa-angle-down"></i>
+    	</span>
+	</div>
+</div>
+
