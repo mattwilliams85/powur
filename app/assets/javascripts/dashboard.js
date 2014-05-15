@@ -67,12 +67,12 @@ function _dashboardInit(){
 	
 	//wire up invitation hooks
 	
-		$(document).on("click", ".invite_thumbnail", function(e){
-			_thisThumbnail = $(e.target).parents(".invite_thumbnail");
-			_thisAudience =  $(e.target).parents(".invite_thumbnail").attr("data-audience");
+		$(document).on("click", ".new_thumbnail", function(e){
+			_thisThumbnail = $(e.target).parents(".new_thumbnail");
+			_thisAudience =  $(e.target).parents(".new_thumbnail").attr("data-audience");
 			_drillDown({"_type":"invitations",
 						"_mainSectionID":$(e.target).parents("section").attr("id"), 
-						"_thumbnailIdentifier":".invite_thumbnail",
+						"_thumbnailIdentifier":".new_thumbnail",
 						"_target":$(e.target),
 						"_audience":_thisAudience, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
@@ -134,7 +134,7 @@ function _drillDown(_options){
 				
 				_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.scrollView(180);
+				// _drilldownContainerObj.scrollView(180);
 				_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
 
 				_getTemplate("/assets/templates/drilldowns/_team_details.handlebars.html", 

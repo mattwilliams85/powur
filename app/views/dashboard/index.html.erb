@@ -43,7 +43,7 @@
 			<% else %>
 
 				<div class="kpi js-thumbnail_parent">
-					<div class="js-thumbnail" onclick="detailExpander('kpi_environment');">
+					<div class="js-thumbnail">
 						<div id="c02_reduction">
 							<span>4,031 tons</span>
 						</div>
@@ -54,12 +54,14 @@
 						</span>
 					</div>
 
-					<%= render partial: "shared/kpi_environment_detail"%>
+					<% if false %>
+						<%= render partial: "shared/kpi_environment_detail"%>
+					<% end %>
 
 				</div>
 
 				<div class="kpi js-thumbnail_parent">
-					<div class="js-thumbnail" onclick="detailExpander('kpi_customer');">
+					<div class="js-thumbnail">
 						<canvas id="kpi_chart_sales" width="222" height="96"></canvas>
 						<h3>43 Sales</h3>
 						<span class="subtext">Out of 98 quotes</span>
@@ -68,12 +70,14 @@
 						</span>
 					</div>
 
-					<%= render partial: "shared/kpi_customer_detail"%>
+					<% if false %>
+						<%= render partial: "shared/kpi_customer_detail"%>
+					<% end %>
 
 				</div>
 
 				<div class="kpi js-thumbnail_parent">
-					<div class="js-thumbnail" onclick="detailExpander('kpi_team');">
+					<div class="js-thumbnail">
 						<canvas id="kpi_chart_team" width="222" height="96"></canvas>
 						<h3>13 Team Members</h3>
 						<span class="subtext">23 in your oganization</span>
@@ -82,12 +86,14 @@
 						</span>
 					</div>
 
-					<%= render partial: "shared/kpi_team_detail"%>
+					<% if false %>
+						<%= render partial: "shared/kpi_team_detail"%>
+					<% end %>
 
 				</div>
 
 				<div class="kpi js-thumbnail_parent">
-					<div class="js-thumbnail" onclick="detailExpander('kpi_volume');">
+					<div class="js-thumbnail">
 						<canvas id="kpi_chart_earnings" width="222" height="96"></canvas>
 						<h3>$32,450 Earnings</h3>
 						<span class="subtext">Down 5% this week</span>
@@ -96,12 +102,14 @@
 						</span>
 					</div>
 
-					<%= render partial: "shared/kpi_volume_detail"%>
+					<% if false %>
+						<%= render partial: "shared/kpi_volume_detail"%>
+					<% end %>
 
 				</div>
 
 				<div class="kpi js-thumbnail_parent">
-					<div class="js-thumbnail" onclick="detailExpander('kpi_rank');">
+					<div class="js-thumbnail">
 						<canvas id="kpi_chart_level_up" width="222" height="96"></canvas>
 						<h3>Level 6</h3>
 						<span class="subtext">Get 2 sales to reach level 7</span>
@@ -109,8 +117,10 @@
 							<i class="fa fa-angle-down"></i>
 						</span>
 					</div>
-
-					<%= render partial: "shared/kpi_rank_detail"%>
+					
+					<% if false %>
+						<%= render partial: "shared/kpi_rank_detail"%>
+					<% end %>
 
 				</div>
 
@@ -161,23 +171,24 @@
 
 			<% if params[:first_run] == "true" %>
 
-				<%= render partial: "shared/new_quote_thumbnail"%>
-
 				<div class="blank_state">
 					You don't have any quotes yet. <a href="#">Add a customer quote</a> to get started.
 				</div>
 
 			<% else %>
 			
-				<%#= render partial: "shared/new_quote_thumbnail"%>
 
-				<div class="invite_thumbnail js-thumbnail_parent" style="border:1px dashed #ccc;" data-audience="quote">
+				<div class="new_thumbnail js-thumbnail_parent" data-audience="quote">
 					<div class="js-thumbnail">
-						Enter A<br>New Quote
+						<span class="placeholder_avatar">
+							<span>
+								<i class="fa fa-plus"></i>
+							</span>
+						</span>
+						New Quote
 						<span class="expand">
 							<i class="fa fa-angle-down"></i>
 						</span>
-						<br>
 					</div>
 				</div>			
 
@@ -254,28 +265,31 @@
 
 		<div class="section_content">
 
-				<%= render partial: "shared/invite_thumbnail"%>
+			<div class="blank_state">
+				You don't have any team members yet. <a onclick="detailExpander('invite_detail', 'Invite');">Invite a fellow advocate</a> to grow your team.
+			</div>
 
-				<div class="blank_state">
-					You don't have any team members yet. <a onclick="detailExpander('invite_detail', 'Invite');">Invite a fellow advocate</a> to grow your team.
-				</div>
+			<div class="team_thumbnail pending js-thumbnail_parent">
+			    <span class="advocate_avatar"></span>
+			    <br/>
+				<span class="invitee_name"></span>
+				<span class="subtext">
+			  		Pending
+				</span>
+				<span class="expand">
+			 		<i class="fa fa-angle-down"></i>
+				</span>
+			</div>
 
-				<div class="team_thumbnail pending js-thumbnail_parent">
-				    <span class="advocate_avatar"></span>
-				    <br/>
-					<span class="invitee_name"></span>
-					<span class="subtext">
-				  		Pending
-					</span>
-					<span class="expand">
-				 		<i class="fa fa-angle-down"></i>
-					</span>
-				</div>
-
-			<% else %>
+		<% else %>
 			<div class="section_content team_info">
-				<div class="invite_thumbnail js-thumbnail_parent" style="border:1px dashed #ccc;" data-audience="advocate">
+				<div class="new_thumbnail js-thumbnail_parent" data-audience="advocate">
 					<div class="js-thumbnail">
+						<span class="placeholder_avatar">
+							<span>
+								<i class="fa fa-plus"></i>
+							</span>
+						</span>
 						Invite An<br>Advocate
 						<span class="expand">
 							<i class="fa fa-angle-down"></i>

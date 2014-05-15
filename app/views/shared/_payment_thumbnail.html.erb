@@ -1,6 +1,6 @@
 <div id="<%= id %>_thumbnail" class="payment_thumbnail js-thumbnail_parent">
 
-  <div class="js-thumbnail" onclick="detailExpander('<%= id %>');">
+  <div class="js-thumbnail">
     
     <% if has_mailed == true %>
   
@@ -20,6 +20,8 @@
 
   </div>
 
+<% if false %>
+
   <div id="<%= id %>_detail" class="object_detail">
     <div class="object_detail_arrow"></div>
     <div class="object_detail_content">
@@ -32,4 +34,7 @@
       </div>
     </div>
   </div>
+<% end %>
+
 </div>
+
