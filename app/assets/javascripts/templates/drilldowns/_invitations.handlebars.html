@@ -1,0 +1,77 @@
+<div class="object_detail" style='display:block;margin-top:0px;border:0;'>
+	<div class="arrow"></div>
+	<div class="object_detail_content" style="border:0px;">
+
+		<div class="object_detail_content_section summary">
+			<h4>Add an {{audience}}</h4>
+			<span class="subtext">{{instructions}}</span>
+
+		</div>
+
+
+		{{#compare audience "quote" operator="=="}}
+		<div class="object_detail_content_section">
+				<form id="new_lead_contact_form" class="lead_info contact">
+					<div class="contact_info">
+					<lable>Contact Info</lable><br>
+						<span class="subtext">Name</span>
+						<input type="text" name="first_name" placeholder="First Name">
+						<input type="text" name="last_name" placeholder="Last Name">
+						<span class="subtext">Email</span>
+						<input type="text" name="email" placeholder="Email Address">
+						<span class="subtext">Phone</span>
+						<input type="text" name="phone" placeholder="Phone Number">
+					</div>
+					<div class="address">
+						<br>
+						<span class="subtext">Street Address & Unit#</span>
+						<input type="text" name="address.street" placeholder="Street">
+						<input type="text" name="address.unit" placeholder="Unit #">
+						<span class="subtext">City</span>
+						<input type="text" name="address.city" placeholder="City">
+						<span class="subtext">State & Zip</span>
+						<input type="text" name="address.state" placeholder="State">
+						<input type="text" name="address.zip" placeholder="Zipcode">
+					</div>
+				</form>
+				<form id="{{this.info.id}}_lead_utility_form" class="lead_info utility">
+					<div class="utility">
+						<lable>Utility Info</lable><br>
+						<span class="subtext">Verified Kilowatt-Hour (kWh)</span>
+						<input type="text" name="utility.kwh" value="{{this.utility_info.kwh}}">
+						{{#if this.utility_info.document}}
+							<br><br>
+							<span class="subtext">Uploaded Utility Document</span>
+							<a href="">{{this.utility_info.document}}</a><br><br>
+						{{/if}}
+							<span class="button">Request Utility Verification</a>
+					</div>
+				</form>
+		</div>		
+
+		{{else}}
+		<div class="object_detail_content_section">
+			<form>
+				<span class="form_row">
+					<label for="advocate_name">Advocate name</label>
+					<input id="advocate_name" name="advocate_name" type="text" placeholder="Name"/>
+				</span>
+				<span class="form_row">
+					<label for="advocate_email">Advocate email</label>
+					<input id="advocate_email" name="advocate_email" type="text" placeholder="Email or Phone Number"/>
+				</span>
+			</form>
+
+			<div class="success">
+				<h3>Great! We sent them an invite.</h3>
+				<span class="subtext">Invite another?</span>
+			</div>
+		</div>
+
+		{{/compare}}
+
+	</div>
+</div>
+
+
+
