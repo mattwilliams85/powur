@@ -2,299 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-body#application {
-	// Mixins
 
-	// Box properties
-	padding: $grid * 4 0 0 0;
-
-	// Background & borders
-
-	// Typography
-
-	// Other
-
-	header {
-		// Mixins
-		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
-		// Box properties
-		height: $grid * 4;
-		min-width: $desktop;
-		// Background & borders
-		background-color: $brand;
-		// Typography
-	
-		// Other
-	
-	}
-
-}
-
-.main_logo {
-	// Mixins
-
-	// Box properties
-	padding: 0;
-	margin-right: $grid;
-	margin-top: 0;
-	float: left;
-	// Background & borders
-	border: none;
-	background: none;
-	// Typography
-
-	// Other
-
-	a {
-		// Mixins
-	
-		// Box properties
-		display: block;
-
-		overflow: auto;
-		// Background & borders
-		background: none;
-		border: none !important;
-		// Typography
-	
-		// Other
-	
-		&:hover {
-			// Mixins
-		
-			// Box properties
-		
-			// Background & borders
-			background: none !important;
-			border: none !important;
-			// Typography
-		
-			// Other
-		
-		}
-	}
-}
-
-#sunstand_logo {
-	// Mixins
-
-	// Box properties
-	display: block;
-	height: $grid * 2;
-	width: $grid * 5.42;
-	overflow: hidden;
-	float: left;
-	// Background & borders
-
-	// Typography
-	text-indent: 9999em;
-	// Other
-
-}
-
-#user_nav {
-	// Mixins
-
-	// Box properties
-	float: right;
-
-	// Background & borders
-
-	// Typography
-
-	// Other
-
-}
-
-.button {
-	// Mixins
-	@include button;
-
-	// Box properties
-
-	// Background & borders
-
-	// Typography
-
-	// Other
-
-}
-
-.dismiss {
-	// Mixins
-
-	// Box properties
-	position: absolute;
-	top: $grid / 2;
-	right: $grid * .75;
-
-	// Background & borders
-
-	// Typography
-	font-size: $grid / 2;
-	// Other
-	z-index: 100;
-}
-
-.subtext {
-	// Mixins
-
-	// Box properties
-	display: block;
-	// Background & borders
-
-	// Typography
-	font-size: $grid / 2;
-	line-height: $line_height;
-	color: $whisper;
-	// Other
-
-}
-
-.expand {
-	// Mixins
-
-	// Box properties
-	display: block;
-	// Background & borders
-
-	// Typography
-	text-align: center;
-	// Other
-
-}
-
-
-
-// Background colors for pixelfucking the progress bar
-
-	$global_progress_color: #777;
-	$solar_progress_bar_color: $brand;
-	$global_title_color: $solar_progress_bar_color;
-	$global_border_color: darken($brand, 19%);
-
-#global_progress {
-	// Mixins
-	@include small_title;
-	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
-	// Box properties
-	padding: 0;
-	overflow: visible;
-	position: relative;
-	height: $grid;
-	// Background & borders
-	border-top: 1px solid $global_border_color;
-	border-bottom: 1px solid #555;
-	// Typography
-
-	// Other
-
-	.tic {
-		// Mixins
-	
-		// Box properties
-		position: relative;
-		height: 100%;
-		width: 100%;
-		// Background & borders
-		background-image: url(image-path('bg_tic.svg'));
-		background-repeat: repeat-x;
-		background-size: contain;
-
-		// Typography
-	
-		// Other
-	
-	}
-
-
-	#goal_select {
-		// Mixins
-		// @include circle_with_text;
-		@include gradient(darken($global_title_color, 8%), darken($global_title_color, 12%), darken($global_title_color, 14%));
-
-		// Box properties
-
-		height: 100%;
-		width: $grid * 5.5;
-		margin: 0;
-		position: absolute;
-		left: 0;
-		// Background & borders
-		background-color: $global_title_color;
-		border-right: 1px solid $global_border_color;
-		// Typography
-		color: $white;
-
-		// Other
-		z-index: 500;
-
-		&:hover {
-			// Mixins
-			@include gradient(darken($global_title_color, 12%), darken($global_title_color, 16%), darken($global_title_color, 20%));
-
-			// Box properties
-		
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-		
-		}
-	}
-
-	#solar_progress_bar {
-		// Mixins
-		@include corners(0, $grid, 0, $grid);
-		@include gradient(darken($solar_progress_bar_color, 8%), darken($solar_progress_bar_color, 12%), darken($solar_progress_bar_color, 14%));
-		@include box_sizing;
-		// Box properties
-		width: 64%;
-		height: 100%;
-		float: left;
-		padding-left: $grid * 5.5;
-		// Background & borders
-		background-color: $solar_progress_bar_color;
-		border-right: 1px solid #333;
-
-		// Typography
-	
-		// Other
-
-		.solar_progress_bar_text {
-			// Mixins
-		
-			// Box properties
-			display: block;
-			padding: 1px $grid / 2;
-			// Background & borders
-		
-			// Typography
-			color: $white;
-			// Other
-		
-		}
-	
-	}
-
-	#goal_text {
-		// Mixins
-	
-		// Box properties
-		float: right;
-		height: 100%;
-		width: $grid * 5;
-		padding-right: $grid / 4;
-		// Background & borders
-	
-		// Typography
-		color: $whisper;
-		text-align: right;
-		// Other
-	
-	}
-}
 
 .dashboard_section {
 	// Mixins
@@ -303,6 +11,7 @@ body#application {
 
 	// Background & borders
 	border-top: $border;
+	background: $dev_gray;
 
 	// Typography
 
@@ -314,7 +23,7 @@ body#application {
 		// Box properties
 	
 		// Background & borders
-		background: $dev_gray;
+		background: white;
 		// Typography
 	
 		// Other
@@ -353,140 +62,8 @@ body#application {
 
 }
 
-.tabs {
-	// Mixins
 
-	// Box properties
-	float: left;
-	// Background & borders
 
-	// Typography
-
-	// Other
-
-	li {
-		// Mixins
-		@include small_title;
-		// Box properties
-		margin: 0 $grid / 4;
-		float: left;
-		// Background & borders
-		// border: 1px solid white;
-		// border-left: none;
-		// Typography
-		list-style: none;
-		// Other
-		
-		a {
-			// Mixins
-			@include corners;
-			// Box properties
-			display: block;
-			padding: 0 $grid / 4;
-			// Background & borders
-		
-			// Typography
-			color: $whisper;
-			// Other
-
-			&:hover {
-				// Mixins
-			
-				// Box properties
-			
-				// Background & borders
-			
-				// Typography
-				color: white;
-				// Other
-			
-			}
-		
-		}
-
-		&.active {
-			// Mixins
-			// Box properties
-			@include corners;
-		
-			// Background & borders
-			background-color: rgba(0,0,0,.07);
-			// Typography
-		
-			// Other
-			
-			a {
-				// Mixins
-			
-				// Box properties
-			
-				// Background & borders
-			
-				// Typography
-				color: $whisper;
-				// Other
-			
-				&:hover {
-					// Mixins
-				
-					// Box properties
-					
-					// Background & borders
-					background: none;
-					// Typography
-					color: $whisper;
-					// Other
-				
-				}
-			}
-		}
-	}
-}
-
-.sort {
-	// Mixins
-
-	// Box properties
-	float: right;
-	margin: 0 0 0 $grid;
-	padding: 0;
-
-	// Background & borders
-
-	// Typography
-	color: $quiet;
-	// Other
-
-	li {
-		// Mixins
-	
-		// Box properties
-		display: inline-block;
-		margin: 0 0 0 0;
-		padding: 0;
-		// Background & borders
-	
-		// Typography
-		font-size: $grid / 2;
-
-		// Other
-		list-style: none;
-
-		&.search {
-			// Mixins
-		
-			// Box properties
-			margin-right: $grid / 2;
-
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-		
-		}
-	}
-}
 
 #dashboard_kpis {
 	// Mixins
@@ -498,22 +75,7 @@ body#application {
 
 	// Other
 
-	.kpi {
-		// Mixins
-		@include object_thumbnail;
-		// Box properties
-		// padding: 0;
-		// float: left;
-		// margin:0 $grid 0 0;
-		// width: $grid * 6;
 
-		// Background & borders
-
-		// Typography
-
-		// Other
-
-	}
 
 	.blank_state {
 		// Mixins
@@ -726,49 +288,7 @@ body#application {
 	
 	}
 
-.section_header {
-	// Mixins
 
-	// Box properties
-	padding: $grid / 2 $grid / 2 0;
-	overflow: auto;
-	// Background & borders
-
-	// Typography
-
-	// Other
-
-	h2 {
-		// Mixins
-		@include small_title;
-		// Box properties
-		float: left;
-		margin: 0 $grid $grid / 2 0;
-	
-		// Background & borders
-	
-		// Typography
-		color: $quiet;
-		// Other
-	
-	}
-
-	.button {
-		// Mixins
-		@include quiet_button;
-		// Box properties
-		margin-left: $grid;
-		float: left;
-		clear: none;
-		width: auto;
-		// Background & borders
-		border: none;
-		// Typography
-
-		// Other
-
-	}
-}
 
 .section_content {
 	// Mixins
@@ -778,6 +298,21 @@ body#application {
 	clear: both;
 	padding: 0 0 0;
 
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+
+
+.kpi_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+	// Box properties
+	height: $grid * 7;
 	// Background & borders
 
 	// Typography
@@ -819,7 +354,6 @@ body#application {
 	@include object_thumbnail;
 
 	// Box properties
-
 	// Background & borders
 
 	// Typography
@@ -852,7 +386,6 @@ body#application {
 	// Box properties
 
 	// Background & borders
-
 	// Typography
 
 	// Other
@@ -905,7 +438,6 @@ body#application {
 	// Box properties
 
 	// Background & borders
-
 	// Typography
 
 	// Other
@@ -962,6 +494,7 @@ body#application {
 	// Box properties
 	width: $grid * 8;
 	// Background & borders
+
 	// Typography
 
 	// Other
@@ -1024,19 +557,32 @@ body#application {
 
 }
 
-.badge {
+#new_quote_thumbnail {
 	// Mixins
-	@include corners;
+
 	// Box properties
-	display: inline-block;
-	padding: 0 5px;
+
 	// Background & borders
-	background-color: $sunnyside;
+
 	// Typography
-	color: white;
+
 	// Other
 
 }
+
+#invite_advocate_thumbnail {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 
 .section_notification {
 	// Mixins
@@ -1270,9 +816,8 @@ body#application {
 	// Box properties
 	position: absolute;
 	width: 100%;
-	display: none;
 	left: 0;
-	margin-top: $grid;
+	margin-top:0;
 	// Background & borders
 	border-top: 1px solid #444;
 	border-bottom: 1px solid #444;
@@ -1520,4 +1065,106 @@ body#application {
 	// Other
 
 }
+
+// From Rick's internal styles - to be assimalated
+
+	.lead_info{
+		width:auto;
+		display:block;
+		margin-right:32px;
+		float:left;
+	}
+	.lead_info.contact{
+		border-right:1px dashed #ccc;
+		padding-right:32px;
+	}
+	.lead_info.utility{
+		width:auto;
+		overflow: hidden;
+	}
+	.lead_info div{
+		float:left;
+	}
+
+	.lead_info input[name~="first_name"],
+	.lead_info input[name~="last_name"]{
+		margin-right:10px;
+		width:150px;
+		float:left;
+		display:block;
+	}
+	.lead_info input[name~="email"],
+	.lead_info input[name~="phone"]{
+		width:310px;
+		display:block;
+		clear:both;}
+	.lead_info input[name~="address.street"],		
+	.lead_info input[name~="address.state"]{
+		width:200px;
+		margin-right:10px;
+		float:left;}
+	.lead_info input[name~="utility.kwh"],
+	.lead_info input[name~="address.unit"],
+	.lead_info input[name~="address.zip"]{
+		width:100px;
+		float:left;}
+
+
+	.drilldown{
+		height:0px;
+		background: -o-linear-gradient(top, #535353, #5e5e5e, #686868);
+		background: -ms-linear-gradient(top, #535353, #5e5e5e, #686868);
+		background: linear-gradient(to bottom, #535353, #5e5e5e, #686868);
+		position: relative;
+		width: 100%;
+		left: 0;
+		border-top: 1px solid #444;
+		border-bottom: 1px solid #444;
+		text-align: left;
+		color: #f9f2e8;
+	}
+	.arrow{
+		width: 0px;
+		height: 0px;
+		border-style: solid;
+		border-width: 0 20px 20px 20px;
+		border-color: transparent transparent #535353 transparent;
+		position:absolute;
+		top:0px;
+		left:0;
+	}
+	.team_info{
+		position:relative;
+		height:200px;
+		overflow:hidden;
+	}
+	.pagination_container{
+		height:200px;
+		width:1024px; /*contains 4 thumbs */
+		overflow:hidden;
+		position:relative;}
+		.pagination_container .nav{
+			z-index: 90;
+			padding:10px;
+			position:absolute;
+			top:50px;}
+		.pagination_container .nav.left{
+			left:10px;}
+		.pagination_container .nav.right{
+			right:10px;}
+
+	.pagination_content{
+		height:250px;
+		width:auto;
+		overflow:hidden;
+		position:absolute;
+		left:0;
+		top:0;
+	}
+	.team_thumbnail{
+		z-index:20;
+	}
+	.object_detail{
+		background: none;
+	}
 

@@ -2,6 +2,34 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// Reset the field
+	@import "reset";
+
+// Make mixins and variables available
+
+	@import "_mixins";
+	@import "iconsweet";
+
+// SMACCS CSS architecture (kinda)
+
+	// Set base styles (element tags only)
+
+		@import "_base";
+
+	// Define our layouts
+
+		@import "_layouts";
+
+	// Define our modules
+
+		@import "_modules";
+
+	// Define our states
+
+		@import "_state";
+
+// Layout specific styles
+
 body#landing,
 body#signup {
 	// Mixins
@@ -247,7 +275,7 @@ body#signup {
 		// Box properties
 		display: inline-block;
 		width: $grid * 8;
-		margin: -1px -7px 0 0;
+		margin: 0 -7px 0 0;
 		padding: $grid / 4 $grid / 2;
 		// Background & borders
 		background: none;
@@ -687,7 +715,7 @@ body#signup {
 		// Box properties
 		display: inline-block;
 		width: $grid * 5;
-		margin: -1px -7px 0 $grid / 4;
+		margin: 0px -7px 0 $grid / 4;
 		// Background & borders
 		border-color: white;
 		// Typography

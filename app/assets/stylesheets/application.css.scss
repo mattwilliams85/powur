@@ -19,17 +19,23 @@
 	@import "_mixins";
 	@import "iconsweet";
 
-// Set base styles (element tags only)
+// SMACCS CSS architecture (kinda)
 
-	@import "_base";
+	// Set base styles (element tags only)
 
-// Define our RWD layouts
+		@import "_base";
 
-	@import "_layouts";
+	// Define our layouts
 
-// Define our states
+		@import "_layouts";
 
-	@import "_state";
+	// Define our modules
+
+		@import "_modules";
+
+	// Define our states
+
+		@import "_state";
 
 // Contextual exceptions to above styles
 	@import "index";

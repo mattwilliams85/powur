@@ -33,12 +33,12 @@ function _dashboardInit(){
 		_getData(_myID, "team", _data.team, function(){_displayData("team", _data["team"],$("#dashboard_team .section_content.team_info .pagination_content"))});
 		
 		//put in hooks for team drllldown
-		$(document).on("click",".team_thumbnail", function(e){
-			_drillDownUserID=$(e.target).parents(".team_thumbnail").attr("alt");
-			_thisThumbnail = $(e.target).parents(".team_thumbnail");
+		$(document).on("click",".js-team_thumbnail", function(e){
+			_drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
+			_thisThumbnail = $(e.target).parents(".js-team_thumbnail");
 			_drillDown({"_type":"team",
 						"_mainSectionID":"dashboard_team", 
-						"_thumbnailIdentifier":".team_thumbnail",
+						"_thumbnailIdentifier":".js-team_thumbnail",
 						"_target":$(e.target),
 						"_userID":_drillDownUserID, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
@@ -52,12 +52,12 @@ function _dashboardInit(){
 		_getData(_myID, "quotes", _data.quotes, function(){_displayData("quotes", _data["quotes"],$("#dashboard_quotes .section_content.quotes_info .pagination_content"))});
 
 		//put in hooks for quotes thumbnail
-		$(document).on("click",".quote_thumbnail", function(e){
-			_drillDownUserID=$(e.target).parents(".quote_thumbnail").attr("alt");
-			_thisThumbnail = $(e.target).parents(".quote_thumbnail");
+		$(document).on("click",".js-quote_thumbnail", function(e){
+			_drillDownUserID=$(e.target).parents(".js-quote_thumbnail").attr("alt");
+			_thisThumbnail = $(e.target).parents(".js-quote_thumbnail");
 			_drillDown({"_type":"quotes",
 						"_mainSectionID":"dashboard_quotes", 
-						"_thumbnailIdentifier":".quote_thumbnail",
+						"_thumbnailIdentifier":".js-quote_thumbnail",
 						"_target":$(e.target),
 						"_userID":_drillDownUserID, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
@@ -66,12 +66,12 @@ function _dashboardInit(){
 
 	
 	//wire up invitation hooks
-		$(document).on("click", ".invite_thumbnail", function(e){
-			_thisThumbnail = $(e.target).parents(".invite_thumbnail");
-			_thisAudience =  $(e.target).parents(".invite_thumbnail").attr("data-audience");
+		$(document).on("click", ".new_thumbnail", function(e){
+			_thisThumbnail = $(e.target).parents(".new_thumbnail");
+			_thisAudience =  $(e.target).parents(".new_thumbnail").attr("data-audience");
 			_drillDown({"_type":"invitations",
 						"_mainSectionID":$(e.target).parents("section").attr("id"), 
-						"_thumbnailIdentifier":".invite_thumbnail",
+						"_thumbnailIdentifier":".new_thumbnail",
 						"_target":$(e.target),
 						"_audience":_thisAudience, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
@@ -133,7 +133,7 @@ function _drillDown(_options){
 				
 				_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.scrollView(180);
+				// _drilldownContainerObj.scrollView(180);
 				_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
 
 				_getTemplate("/assets/templates/drilldowns/_team_details.handlebars.html", 
@@ -143,7 +143,7 @@ function _drillDown(_options){
 							 	//once the basic template is set, now populate the downlink information
 							 	//had to do this ascall back due to the asynchronous nature of the calls
 							 	//animate up-arrow
-							 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-8));
+							 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 							 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 							 	//populate downlink thumbnails
 							 	_downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
@@ -171,7 +171,7 @@ function _drillDown(_options){
 			
 			//populate drilldown
 			_getTemplate("/assets/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
-			 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-8));
+			 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 			 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 			});
 
@@ -194,7 +194,7 @@ function _drillDown(_options){
 
 			//populate drilldown
 			_getTemplate("/assets/templates/drilldowns/_invitations.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
-			 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-8));
+			 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 			 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 			});
 

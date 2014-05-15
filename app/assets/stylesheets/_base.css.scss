@@ -448,7 +448,8 @@ footer {
 
 	input[type=text],
 	input[type=password],
-	input[type=email] {
+	input[type=email],
+	input[type=search] {
 		// Mixins
 		@include form_box;
 
@@ -478,6 +479,31 @@ footer {
 		}
 	}
 
+	input[type=search] {
+		// Mixins
+		@include no_shadow;
+		@include box_sizing;
+		@include corners(32px, 32px, 32px, 32px);
+		// Box properties
+		float: left;
+		margin: 0;
+		padding-left: $grid / 1.5;
+		width: auto;
+		// Background & borders
+		background-image: url(image-path('search.svg'));
+		background-position: left center;
+		background-repeat: no-repeat;
+		background-size: contain;
+
+		background-color: white;
+		border: $border;
+		// Typography
+		text-transform: none;
+		color: $whisper;
+		// Other
+		-webkit-appearance: none;
+	}
+
 	[placeholder]:focus::-webkit-input-placeholder {
 	  transition: opacity 0.5s 0 ease; 
 	  opacity: 0;
@@ -502,32 +528,33 @@ footer {
 	select {
 		// Mixins
 		@include form_box;
+		@include small_title;
+		@include box_sizing;
 		// Box properties
+
 		padding-right:$grid * 1.5;
-		padding-left: $grid / 2;
+		padding-left: $grid / 4;
 
 		// Background & borders
 		background-image: url(select_arrow.svg) ;
 		background-position: right center;
 		background-repeat: no-repeat;
 		background-size: contain;
-		background-color: rgba(255,255,255,1);
-		border: $border;
+		background-color: none;
+		border: 1px solid $ghost;
 
 		// Typography
 		color: $whisper;
 		text-indent: 0.01px;
 		text-overflow: "";
-		font-size: $font_size / 1.5;
-		text-transform: uppercase;
-		font-family: $small_title_font;
+
 
 		// Other
 		-moz-appearance: none;
 		-webkit-appearance: none;
 
 		&:hover {
-			background-color: $dev_gray;
 			color: $quiet;
+			border-color: $whisper;
 		}
 	}
