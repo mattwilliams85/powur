@@ -66,7 +66,6 @@ function _dashboardInit(){
 
 	
 	//wire up invitation hooks
-	
 		$(document).on("click", ".invite_thumbnail", function(e){
 			_thisThumbnail = $(e.target).parents(".invite_thumbnail");
 			_thisAudience =  $(e.target).parents(".invite_thumbnail").attr("data-audience");
