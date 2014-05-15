@@ -178,8 +178,6 @@
 			<% else %>
 			
 				<%= render partial: "shared/new_quote_thumbnail"%>
-
-
 				<div class="pagination_container" data-comment="required for pagination - do not remove">
 					<div class="nav left"><i class="fa fa-angle-left"></i></div>
 					<div class="pagination_content"></div>
@@ -269,7 +267,8 @@
 				</span>
 			</div>
 
-
+			<%else%> 
+			
 			<div class="section_content team_info">
 				<%= render partial: "shared/invite_thumbnail"%>
 

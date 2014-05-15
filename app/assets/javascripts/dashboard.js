@@ -311,6 +311,7 @@ function _displayData(_dataType, _dataObj, _containerObj){
 
 	switch(_dataType){
 		case "team":
+			console.log(_containerObj);
 			$.each(_dataObj, function(counter, val){
 				_tempObj={};
 				_tempObj["bindingObj"]=val.info.id+"_thumbnail";
