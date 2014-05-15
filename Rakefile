@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Mysolar::Application.load_tasks
+Sunstand::Application.load_tasks

@@ -1046,57 +1046,103 @@
 
 // From Rick's internal styles - to be assimalated
 
-.drilldown{
-	height:0px;
-	background: -o-linear-gradient(top, #535353, #5e5e5e, #686868);
-	background: -ms-linear-gradient(top, #535353, #5e5e5e, #686868);
-	background: linear-gradient(to bottom, #535353, #5e5e5e, #686868);
-	position: relative;
-	width: 100%;
-	left: 0;
-	border-top: 1px solid #444;
-	border-bottom: 1px solid #444;
-	text-align: left;
-	color: #f9f2e8;
-}
-.arrow{
-	width: 0px;
-	height: 0px;
-	border-style: solid;
-	border-width: 0 15px 20px 15px;
-	border-color: transparent transparent #535353 transparent;
-	position:absolute;
-	top:0px;
-	left:0;
-}
-.team_info{
-	position:relative;
-	height:200px;
-	overflow:hidden;
-}
-.pagination_container{
-	height:250px;
-	width:1024px; /*contains 4 thumbs */
-	overflow:hidden;
-	position:relative;}
-	.pagination_container .nav{
-		z-index: 90;
-		padding:10px;
-		position:absolute;
-		top:50px;}
-	.pagination_container .nav.left{
-		left:10px;}
-	.pagination_container .nav.right{
-		right:10px;}
+	.lead_info{
+		width:auto;
+		display:block;
+		margin-right:32px;
+		float:left;
+	}
+	.lead_info.contact{
+		border-right:1px dashed #ccc;
+		padding-right:32px;
+	}
+	.lead_info.utility{
+		width:auto;
+		overflow: hidden;
+	}
+	.lead_info div{
+		float:left;
+	}
 
-.pagination_content{
-	height:250px;
-	width:auto;
-	overflow:hidden;
-	position:absolute;
-	left:0;
-	top:0;
-}
-.team_thumbnail{
-	z-index:20;
-}
+	.lead_info input[name~="first_name"],
+	.lead_info input[name~="last_name"]{
+		margin-right:10px;
+		width:150px;
+		float:left;
+		display:block;
+	}
+	.lead_info input[name~="email"],
+	.lead_info input[name~="phone"]{
+		width:310px;
+		display:block;
+		clear:both;}
+	.lead_info input[name~="address.street"],		
+	.lead_info input[name~="address.state"]{
+		width:200px;
+		margin-right:10px;
+		float:left;}
+	.lead_info input[name~="utility.kwh"],
+	.lead_info input[name~="address.unit"],
+	.lead_info input[name~="address.zip"]{
+		width:100px;
+		float:left;}
+
+
+	.drilldown{
+		height:0px;
+		background: -o-linear-gradient(top, #535353, #5e5e5e, #686868);
+		background: -ms-linear-gradient(top, #535353, #5e5e5e, #686868);
+		background: linear-gradient(to bottom, #535353, #5e5e5e, #686868);
+		position: relative;
+		width: 100%;
+		left: 0;
+		border-top: 1px solid #444;
+		border-bottom: 1px solid #444;
+		text-align: left;
+		color: #f9f2e8;
+	}
+	.arrow{
+		width: 0px;
+		height: 0px;
+		border-style: solid;
+		border-width: 0 15px 20px 15px;
+		border-color: transparent transparent #535353 transparent;
+		position:absolute;
+		top:0px;
+		left:0;
+	}
+	.team_info{
+		position:relative;
+		height:200px;
+		overflow:hidden;
+	}
+	.pagination_container{
+		height:200px;
+		width:1024px; /*contains 4 thumbs */
+		overflow:hidden;
+		position:relative;}
+		.pagination_container .nav{
+			z-index: 90;
+			padding:10px;
+			position:absolute;
+			top:50px;}
+		.pagination_container .nav.left{
+			left:10px;}
+		.pagination_container .nav.right{
+			right:10px;}
+
+	.pagination_content{
+		height:250px;
+		width:auto;
+		overflow:hidden;
+		position:absolute;
+		left:0;
+		top:0;
+	}
+	.team_thumbnail{
+		z-index:20;
+	}
+	.object_detail{
+		background: none;
+	}
+
