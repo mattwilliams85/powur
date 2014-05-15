@@ -18,7 +18,7 @@ gem 'rails_12factor', group: :production
 
 gem 'spring', group: :development
 gem 'thin', group: :development
-
+gem 'unicorn'
 
 
 # Use ActiveModel has_secure_password
