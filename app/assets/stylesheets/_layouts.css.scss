@@ -1,3 +1,108 @@
+body#application {
+	// Mixins
+
+	// Box properties
+	padding: $grid * 4 0 0 0;
+	@include box_sizing;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	header {
+		// Mixins
+		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
+		@include box_sizing;
+		// Box properties
+		height: $grid * 4;
+		min-width: $desktop;
+		// Background & borders
+		background-color: $brand;
+		// Typography
+	
+		// Other
+	
+	}
+}
+
+.main_logo {
+	// Mixins
+
+	// Box properties
+	padding: 0;
+	margin-right: $grid;
+	margin-top: 0;
+	float: left;
+	// Background & borders
+	border: none;
+	background: none;
+	// Typography
+
+	// Other
+
+	a {
+		// Mixins
+	
+		// Box properties
+		display: block;
+
+		overflow: auto;
+		// Background & borders
+		background: none;
+		border: none !important;
+		// Typography
+	
+		// Other
+	
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background: none !important;
+			border: none !important;
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}
+
+#sunstand_logo {
+	// Mixins
+
+	// Box properties
+	display: block;
+	height: $grid * 2;
+	width: $grid * 5.42;
+	overflow: hidden;
+	float: left;
+	// Background & borders
+
+	// Typography
+	text-indent: 9999em;
+	// Other
+
+}
+
+#user_nav {
+	// Mixins
+
+	// Box properties
+	float: right;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+
 #system_feedback {
 	// Mixins
 
