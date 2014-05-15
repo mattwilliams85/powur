@@ -307,9 +307,10 @@
 
 		// Box properties
 		float: left;
-		width: $grid * 8 ;
+		width: $grid * 8;
+		height: $grid * 6;
 		padding: $grid / 2;
-
+		position: relative;
 		// Background & borders
 		border: 1px solid rgba(0,0,0,0);
 		// Typography
@@ -372,7 +373,9 @@
 			// Box properties
 			clear: both;
 			display: block;
-
+			position: absolute;
+			bottom: $grid / 4;
+			width: $grid * 7;
 			// Background & borders
 		
 			// Typography

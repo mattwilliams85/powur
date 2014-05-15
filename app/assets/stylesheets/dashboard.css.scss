@@ -75,22 +75,7 @@
 
 	// Other
 
-	.kpi {
-		// Mixins
-		@include object_thumbnail;
-		// Box properties
-		// padding: 0;
-		// float: left;
-		// margin:0 $grid 0 0;
-		// width: $grid * 6;
 
-		// Background & borders
-
-		// Typography
-
-		// Other
-
-	}
 
 	.blank_state {
 		// Mixins
@@ -321,6 +306,21 @@
 
 }
 
+
+
+.kpi_thumbnail {
+	// Mixins
+	@include object_thumbnail;
+	// Box properties
+	height: $grid * 7;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 .blank_thumbnail {
 	// Mixins
 	@include object_thumbnail;
@@ -354,7 +354,6 @@
 	@include object_thumbnail;
 
 	// Box properties
-
 	// Background & borders
 
 	// Typography
@@ -387,7 +386,6 @@
 	// Box properties
 
 	// Background & borders
-
 	// Typography
 
 	// Other
@@ -440,7 +438,6 @@
 	// Box properties
 
 	// Background & borders
-
 	// Typography
 
 	// Other
@@ -497,6 +494,7 @@
 	// Box properties
 	width: $grid * 8;
 	// Background & borders
+
 	// Typography
 
 	// Other
@@ -559,6 +557,31 @@
 
 }
 
+#new_quote_thumbnail {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
+#invite_advocate_thumbnail {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
 
 
 .section_notification {
@@ -1104,7 +1127,7 @@
 		width: 0px;
 		height: 0px;
 		border-style: solid;
-		border-width: 0 15px 20px 15px;
+		border-width: 0 20px 20px 20px;
 		border-color: transparent transparent #535353 transparent;
 		position:absolute;
 		top:0px;

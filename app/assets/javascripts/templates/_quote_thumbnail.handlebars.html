@@ -1,15 +1,13 @@
-<div id="{{bindingObj}}" alt="{{id}}" class="quote_thumbnail js-thumbnail_parent">
+<div id="{{bindingObj}}" alt="{{id}}" class="quote_thumbnail js-quote_thumbnail js-thumbnail_parent">
 	<div class="js-thumbnail">
-		{{name}}
-
     	<span class="subtext">
       	{{#if address.street}}
       		<i class="fa fa-check"></i>
       	{{else}}
     	  	<i class="fa fa-times"></i>
-    	{{/if}}
+    	 {{/if}}
       	Address
-      	</span>
+      </span>
 
       	<span class="subtext">
       	{{#if utility_info.document}}
@@ -19,7 +17,9 @@
     	{{/if}}
       	Utility Bill
       	</span>
-      
+
+    {{name}}
+
     	<span class="expand">
     		<i class="fa fa-angle-down"></i>
     	</span>
