@@ -809,39 +809,6 @@
 
 }
 
-
-.object_detail {
-	// Mixins
-	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
-	// Box properties
-	position: absolute;
-	width: 100%;
-	left: 0;
-	margin-top:0;
-	// Background & borders
-	border-top: 1px solid #444;
-	border-bottom: 1px solid #444;
-
-	// Typography
-	text-align: left;
-	color: $white;
-	// Other
-
-	.success {
-		// Mixins
-	
-		// Box properties
-		display: none;
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-	
-	}
-
-}
-
 .object_detail_arrow {
 	// Mixins
 	// Box properties
@@ -864,10 +831,11 @@
 
 }
 
-.object_detail_content {
+.drilldown_content {
 	// Mixins
 	@include box_sizing;
 	// Box properties
+	height: 100%;
 	padding: 0;
 	overflow: auto;
 	position: relative;
@@ -881,15 +849,16 @@
 
 }
 
-.object_detail_content_section {
+.drilldown_content_section {
 	// Mixins
 	@include box_sizing;
 	// Box properties
 	float: left;
 	overflow: auto;
-	padding: $grid;
-	margin:0 0 $grid $grid * 10;
+	padding: 0 0;
+	margin:0 0 0 $grid * 10;
 	width: $grid * 30;
+	height: 100%;
 	position: relative;
 	// Background & borders
 	// Typography
@@ -904,17 +873,30 @@
 		height: 100%;
 		min-height: 100%;
 		margin: 0;
+		padding: $grid;
 		position: absolute;
 		left: 0;
 		top: 0;
 		bottom: 0;
 		overflow: auto;
 		// Background & borders
-		border-right: $border;
+		border-right: $light_border;
 		// Typography
 	
 		// Other
 	
+		ul {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+			list-style: none;
+			// Other
+		
+		}
 	}
 
 	h4 {
@@ -922,6 +904,7 @@
 	
 		// Box properties
 		clear: both;
+		margin-bottom: $grid / 2;
 		// Background & borders
 	
 		// Typography
@@ -996,133 +979,111 @@
 
 }
 
-
-.object_detail.collapsed {
+.lead_info {
 	// Mixins
-
+	@include box_sizing;
 	// Box properties
-	position: relative;
-	padding: 0;
-
+	float: left;
+	padding: $grid;
 	// Background & borders
 
-	// Typography
-	font-size: $grid / 2;
-	text-align: left;
-
-	// Other
-
-	h3 {
-		// Mixins
-	
-		// Box properties
-		margin: 0 $grid;
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-	
-	}
-}
-
-.object_detail.second {
-	// Mixins
-
-	// Box properties
-
-	// Background & borders
-	background: darken($neutral, 5%);
-	border-top-color: #ccc;
-
-	// Typography
-	font-size: $font_size;
-	// Other
-
-}
-
-.object_detail.second:before {
-	// Mixins
-	// Box properties
-
-	// Background & borders
-	border-bottom-color: #ccc;
 	// Typography
 
 	// Other
 
 }
 
-.object_detail.second:after {
+.contact {
 	// Mixins
 	// Box properties
+	width: $grid * 20;
+	height: 100%;
+	// Background & borders
+	border-right: $light_border;
+	// Typography
+
+	// Other
+
+}
+
+.utility {
+	// Mixins
+	// Box properties
+	width: $grid * 10;
 
 	// Background & borders
-	border-bottom-color: darken($neutral, 5%);
 
 	// Typography
 
 	// Other
 
 }
+
 
 // From Rick's internal styles - to be assimalated
 
-	.lead_info{
-		width:auto;
-		display:block;
-		margin-right:32px;
-		float:left;
-	}
-	.lead_info.contact{
-		border-right:1px dashed #ccc;
-		padding-right:32px;
-	}
-	.lead_info.utility{
-		width:auto;
-		overflow: hidden;
-	}
-	.lead_info div{
-		float:left;
-	}
+	// .lead_info{
+	// 	width:auto;
+	// 	display:block;
+	// 	margin-right:32px;
+	// 	float:left;
+	// }
+	// .lead_info.contact{
+	// 	border-right:1px dashed #ccc;
+	// 	padding-right:32px;
+	// }
+	// .lead_info.utility{
+	// 	width:100px;
+	// 	overflow: hidden;
+	// }
+	// .lead_info div{
+	// 	float:left;
+	// }
 
-	.lead_info input[name~="first_name"],
-	.lead_info input[name~="last_name"]{
-		margin-right:10px;
-		width:150px;
-		float:left;
-		display:block;
-	}
-	.lead_info input[name~="email"],
-	.lead_info input[name~="phone"]{
-		width:310px;
-		display:block;
-		clear:both;}
-	.lead_info input[name~="address.street"],		
-	.lead_info input[name~="address.state"]{
-		width:200px;
-		margin-right:10px;
-		float:left;}
-	.lead_info input[name~="utility.kwh"],
-	.lead_info input[name~="address.unit"],
-	.lead_info input[name~="address.zip"]{
-		width:100px;
-		float:left;}
+	// .lead_info input[name~="first_name"],
+	// .lead_info input[name~="last_name"]{
+	// 	margin-right:10px;
+	// 	width:150px;
+	// 	float:left;
+	// 	display:block;
+	// }
+	// .lead_info input[name~="email"],
+	// .lead_info input[name~="phone"]{
+	// 	width:310px;
+	// 	display:block;
+	// 	clear:both;}
+	// .lead_info input[name~="address.street"],		
+	// .lead_info input[name~="address.state"]{
+	// 	width:200px;
+	// 	margin-right:10px;
+	// 	float:left;}
+	// .lead_info input[name~="utility.kwh"],
+	// .lead_info input[name~="address.unit"],
+	// .lead_info input[name~="address.zip"]{
+	// 	width:100px;
+	// 	float:left;}
 
 
-	.drilldown{
-		height:0px;
-		background: -o-linear-gradient(top, #535353, #5e5e5e, #686868);
-		background: -ms-linear-gradient(top, #535353, #5e5e5e, #686868);
-		background: linear-gradient(to bottom, #535353, #5e5e5e, #686868);
-		position: relative;
-		width: 100%;
-		left: 0;
-		border-top: 1px solid #444;
-		border-bottom: 1px solid #444;
-		text-align: left;
-		color: #f9f2e8;
-	}
+.drilldown {
+	// Mixins
+	@include box_sizing;
+	@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
+
+	// Box properties
+	height:0px;	
+	width: 100%;
+	left: 0;	
+	position: relative;
+	// Background & borders
+	border-top: 1px solid #444;
+	border-bottom: 1px solid #444;
+
+	// Typography
+	text-align: left;
+	color: #f9f2e8;
+	// Other
+
+}
 	.arrow{
 		width: 0px;
 		height: 0px;

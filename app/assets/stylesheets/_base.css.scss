@@ -407,7 +407,7 @@ footer {
 
 	label:not(.checkbox) {
 		// Mixins
-	
+		@include small_title;
 		// Box properties
 		position: absolute;
 		top: $grid / 4;
@@ -418,10 +418,6 @@ footer {
 	
 		// Typography
 		color: $quiet;
-		font-size: $grid / 2;
-		line-height: $line_height;
-		font-family: $small_title_font;
-		text-transform: uppercase;
 		// Other
 	
 	}
@@ -457,10 +453,9 @@ footer {
 
 		// Background & borders
 		border: $border;
-
+		background: $ghost;
 		// Typography
 		color: $quiet;
-		color: $whisper;
 
 		// Other
 		
@@ -472,7 +467,7 @@ footer {
 			// Background & borders
 			outline: none;
 			// Typography
-			color: $text;
+			color: white;
 			font-style: normal;
 			// Other
 

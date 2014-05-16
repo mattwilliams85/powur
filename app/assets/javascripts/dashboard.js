@@ -162,7 +162,7 @@ function _drillDown(_options){
 			$("#dashboard_quotes").append(_html);
 			_drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
 			_drilldownContainerObj.css("opacity","0");
-			_drilldownContainerObj.animate({height:"+=350px", opacity:1}, _animation_speed);	
+			_drilldownContainerObj.animate({height:"+=446px", opacity:1}, _animation_speed);	
 
 			//retrieve info from _data.quotes for the quote
 			_userDetail={};
@@ -185,7 +185,7 @@ function _drillDown(_options){
 			$("#"+_options._mainSectionID).append(_html);
 			_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 			_drilldownContainerObj.css("opacity","0");
-			_drilldownContainerObj.animate({height:"+=350px", opacity:1}, _animation_speed);	
+			_drilldownContainerObj.animate({height:"+=446px", opacity:1}, _animation_speed);	
 
 			//retrieve info from _data.quotes for the quote			
 			_invitationDetail={};

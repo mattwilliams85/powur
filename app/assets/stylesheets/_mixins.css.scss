@@ -69,7 +69,7 @@
 	$quiet: lighten($text, 34%);
 	$whisper: lighten($text, 47%);
 	$ghost: rgba(0,0,0,.06);
-
+	$light_ghost: rgba(255,255,255,.06);
 
 	$neutral: #DAEDF6;
 	$positive: #DFF0D9;
@@ -104,6 +104,7 @@
 // Borders
 
 	$border: 1px solid $ghost;
+	$light_border: 1px solid $light_ghost;
 
 // Mixins
 	@mixin text_shadow {
@@ -187,14 +188,12 @@
 
 	@mixin form_box {
 		// Mixins
-		@include corners;
 		@include box_sizing;
 		@include form_padding;
 		@include small_title;
 		// Box properties
 		display: block;
 		width: 100%;
-		margin-bottom: $grid / 2;
 		vertical-align: baseline;
 		// Background & borders
 	
