@@ -177,21 +177,7 @@
 
 			<% else %>
 			
-
-				<div class="quote_thumbnail new_thumbnail js-thumbnail_parent" data-audience="quote">
-					<div class="js-thumbnail">
-						<span class="placeholder_avatar">
-							<span>
-								<i class="fa fa-plus"></i>
-							</span>
-						</span>
-						New Quote
-						<span class="expand">
-							<i class="fa fa-angle-down"></i>
-						</span>
-					</div>
-				</div>			
-
+				<%= render partial: "shared/new_quote_thumbnail"%>
 				<div class="pagination_container" data-comment="required for pagination - do not remove">
 					<div class="nav left"><i class="fa fa-angle-left"></i></div>
 					<div class="pagination_content"></div>
@@ -281,22 +267,10 @@
 				</span>
 			</div>
 
-		<% else %>
+			<%else%> 
+			
 			<div class="section_content team_info">
-				<div class="team_thumbnail new_thumbnail js-thumbnail_parent" data-audience="advocate">
-					<div class="js-thumbnail">
-						<span class="placeholder_avatar">
-							<span>
-								<i class="fa fa-plus"></i>
-							</span>
-						</span>
-						Invite An<br>Advocate
-						<span class="expand">
-							<i class="fa fa-angle-down"></i>
-						</span>
-						<br>
-					</div>
-				</div>		
+				<%= render partial: "shared/invite_thumbnail"%>
 
 				<div class="pagination_container" data-comment="required for pagination - do not remove">
 					<div class="nav left"><i class="fa fa-angle-left"></i></div>

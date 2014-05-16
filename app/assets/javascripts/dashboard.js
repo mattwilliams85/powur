@@ -66,7 +66,6 @@ function _dashboardInit(){
 
 	
 	//wire up invitation hooks
-	
 		$(document).on("click", ".new_thumbnail", function(e){
 			_thisThumbnail = $(e.target).parents(".new_thumbnail");
 			_thisAudience =  $(e.target).parents(".new_thumbnail").attr("data-audience");
@@ -312,6 +311,7 @@ function _displayData(_dataType, _dataObj, _containerObj){
 
 	switch(_dataType){
 		case "team":
+			console.log(_containerObj);
 			$.each(_dataObj, function(counter, val){
 				_tempObj={};
 				_tempObj["bindingObj"]=val.info.id+"_thumbnail";
