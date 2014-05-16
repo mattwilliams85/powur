@@ -44,39 +44,7 @@
 		//  $(window).resize(wrapThumbsInRows);
 
 
-		function labelWhizzler() {
-
-		// KP's easier version of DRMagicLabelWizzler
-	    	$("label").not(".checkbox label").hide().css("right", "-100px");
-	    	$("input").bind('click focus touch oninput', function() {
-	    		$(this).removeClass("is_valid is_not_valid");
-	      		$(this).prev("label").not(".checkbox").fadeIn("fast").css("right", "16px");
-
-				$(this).keyup(function() {
-					if ($(this).val().length > 10) {
-		          		$(this).prev("label:visible").fadeOut("fast");
-	        		} else {
-	          			$(this).prev("label").fadeIn("fast");
-	        		};
-        		});
-			});
-
-			$("input.validate").blur(function() {
-	      		$(this).prev("label").not(".checkbox").fadeOut("fast");
-
-	      		// this is just to fake validation
-				if ($(this).val().length > 2) {
-		    		$(this).addClass("is_valid");
-		    	} else {
-		    		$(this).addClass("is_not_valid");		    		
-				};
-
-	    	});
-
-		}
-		
-		$(document).ready(labelWhizzler);
-
+	
 // Show expanded details for dashboard objects
 
 
@@ -174,6 +142,36 @@
 
 $(document).ready(function() { // bind to document.ready instead of window.load because of Turbolinks
 
+
+
+		// KP's easier version of DRMagicLabelWizzler
+	    	$("label").not(".checkbox label").hide().css("right", "-100px");
+	    	$("input").bind('click focus touch oninput', function() {
+	    		$(this).removeClass("is_valid is_not_valid");
+	      		$(this).prev("label").not(".checkbox").fadeIn("fast").css("right", "16px");
+
+				$(this).keyup(function() {
+					if ($(this).val().length > 10) {
+		          		$(this).prev("label:visible").fadeOut("fast");
+	        		} else {
+	          			$(this).prev("label").fadeIn("fast");
+	        		};
+        		});
+			});
+
+			$("input.validate").blur(function() {
+	      		$(this).prev("label").not(".checkbox").fadeOut("fast");
+
+	      		// this is just to fake validation
+				if ($(this).val().length > 2) {
+		    		$(this).addClass("is_valid");
+		    	} else {
+		    		$(this).addClass("is_not_valid");		    		
+				};
+
+	    	});
+
+		
 	// System feedback demo for settings page
 
 		// $(".show_system_feedback").click(function() {
