@@ -10,25 +10,30 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'active_hash'
+gem 'pry'
+gem 'same_time', github: 'paulwalker/same_time'
+gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
 
+group :development do
+  gem 'spring'
+  gem 'thin'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+end
+
+gem 'sdoc', '~> 0.4.0', group: :doc
+
+# hosting environment gems
 gem 'rails_12factor', group: :production
-
-gem 'spring', group: :development
-gem 'thin', group: :development
 gem 'unicorn'
 
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
