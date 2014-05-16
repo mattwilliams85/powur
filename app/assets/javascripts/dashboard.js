@@ -141,7 +141,7 @@ function _drillDown(_options){
 							 _drilldownContainerObj,
 							 function(){
 							 	//once the basic template is set, now populate the downlink information
-							 	//had to do this ascall back due to the asynchronous nature of the calls
+							 	//had to do this as callback due to the asynchronous nature of the calls
 							 	//animate up-arrow
 							 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 							 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
@@ -186,7 +186,6 @@ function _drillDown(_options){
 			_drilldownContainerObj.css("opacity","0");
 			_drilldownContainerObj.animate({height:"+=446px", opacity:1}, _animation_speed);	
 
-			//retrieve info from _data.quotes for the quote			
 			_invitationDetail={};
 			_invitationDetail["audience"]=_options._audience;
 			if(_options._audience=="quote") _invitationDetail["instructions"]="The new quote will be added to your list";
@@ -311,7 +310,6 @@ function _displayData(_dataType, _dataObj, _containerObj){
 
 	switch(_dataType){
 		case "team":
-			console.log(_containerObj);
 			$.each(_dataObj, function(counter, val){
 				_tempObj={};
 				_tempObj["bindingObj"]=val.info.id+"_thumbnail";
