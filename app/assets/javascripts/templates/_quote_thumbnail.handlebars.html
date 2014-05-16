@@ -1,24 +1,36 @@
 <div id="{{bindingObj}}" alt="{{id}}" class="quote_thumbnail js-quote_thumbnail js-thumbnail_parent">
 	<div class="js-thumbnail">
-    	<span class="subtext">
-      	{{#if address.street}}
-      		<i class="fa fa-check"></i>
-      	{{else}}
-    	  	<i class="fa fa-times"></i>
-    	 {{/if}}
-      	Address
-      </span>
+      <div class="quote_requirements">
 
-      	<span class="subtext">
-      	{{#if utility_info.document}}
-      		<i class="fa fa-check"></i>
-      	{{else}}
-    	  	<i class="fa fa-times"></i>
-    	{{/if}}
-      	Utility Bill
-      	</span>
+        {{#if phone}}
+          <span class="checked"><i class="fa fa-phone"></i></span>
+        {{else}}
+          <span><i class="fa fa-phone"></i></span>
+        {{/if}}
 
-    {{name}}
+        {{#if address.street}}
+          <span class="checked"><i class="fa fa-home"></i></span>
+        {{else}}
+          <span><i class="fa fa-home"></i></span>
+        {{/if}}
+
+        {{#if email}}
+          <span class="checked"><i class="fa fa-envelope"></i></span>
+        {{else}}
+          <span><i class="fa fa-envelope"></i></span>
+        {{/if}}
+
+        {{#if utility_info.document}}
+          <span class="checked"><i class="fa fa-bolt"></i></span>
+        {{else}}
+          <span><i class="fa fa-bolt"></i></span>
+        {{/if}}
+
+        
+      </div>
+
+      <span class="quote_name">{{name}}</span>
+      <span class="quote_status subtext">{current status}</span>
 
     	<span class="expand">
     		<i class="fa fa-angle-down"></i>

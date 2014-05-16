@@ -362,6 +362,233 @@
 
 }
 
+.quote_requirements {
+	// Mixins
+	@include corners(50%, 50%, 50%, 50%);
+	@include box_sizing;
+	// Box properties
+	display: inline-block;
+	height: $grid * 2;
+	width: $grid * 2;
+	position: relative;
+	padding: 0;
+	// Background & borders
+	background-color: $whisper;
+	// Typography
+	font-size: $font_size / 1.35;
+	// Other
+
+	span {
+		// Mixins
+		@include box_sizing;
+		// Box properties
+		width: 50%;
+		height: 50%;
+		display: block;
+		padding: 0;
+		margin: 0;
+		float: left;
+		position: relative;
+		// Background & borders
+		border: $border;
+		border-color: $dev_gray;
+		// Typography
+		text-align: center;
+		color: $white;
+		// Other
+	
+
+
+		&:nth-child(1) {
+			// Mixins
+
+			// Box properties
+			
+			// Background & borders
+			border-top: none;
+			border-left: none;
+			
+			// Typography
+		
+			// Other
+
+			&.checked {
+				// Mixins
+				@include corners(100px, 0,0,0);
+
+				// Box properties
+			
+				// Background & borders
+				background-color: $supergreen;
+				// Typography
+			
+				// Other
+			
+			}
+
+			i {
+				// Mixins
+			
+				// Box properties
+				display: block;
+				position: absolute;
+				right: 5px;
+				bottom: 5px;			
+				// Background & borders
+
+				// Typography
+			
+				// Other
+			
+			}
+		}
+
+		&:nth-child(2) {
+			// Mixins
+		
+			// Box properties
+			
+			// Background & borders
+			border-top: none;
+			border-right: none;
+			// Typography
+		
+			// Other
+
+			&.checked {
+				// Mixins
+				@include corners(0,100px,0,0);
+
+				// Box properties
+			
+				// Background & borders
+				background-color: $supergreen;
+				// Typography
+			
+				// Other
+			
+			}
+
+			i {
+				// Mixins
+			
+				// Box properties
+				display: block;
+				position: absolute;
+				left: 5px;
+				bottom: 5px;			
+				// Background & borders
+
+				// Typography
+			
+				// Other
+			
+			}
+
+		}
+
+		&:nth-child(3) {
+			// Mixins
+		
+			// Box properties
+			
+			// Background & borders
+			border-bottom: none;
+			border-left: none;
+			// Typography
+		
+			// Other
+
+			&.checked {
+				// Mixins
+				@include corners(0,0,100px,0);
+
+				// Box properties
+			
+				// Background & borders
+				background-color: $supergreen;
+				// Typography
+			
+				// Other
+			
+			}
+
+			i {
+				// Mixins
+			
+				// Box properties
+				display: block;
+				position: absolute;
+				right: 5px;
+				top: 5px;			
+				// Background & borders
+
+				// Typography
+			
+				// Other
+			
+			}
+
+		}
+
+		&:nth-child(4) {
+			// Mixins
+		
+			// Box properties
+			
+			// Background & borders
+			border-bottom: none;
+			border-right: none;
+			// Typography
+		
+			// Other
+
+			&.checked {
+				// Mixins
+				@include corners(0,0,0,100px);
+
+				// Box properties
+			
+				// Background & borders
+				background-color: $supergreen;
+				// Typography
+			
+				// Other
+			
+			}
+
+			i {
+				// Mixins
+			
+				// Box properties
+				display: block;
+				position: absolute;
+				left: 9px;
+				top: 5px;			
+				// Background & borders
+
+				// Typography
+			
+				// Other
+			
+			}
+		}
+	}
+}
+
+.quote_name {
+	// Mixins
+
+	// Box properties
+	display: block;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 .advocate_avatar {
 	// Mixins
 	@include inner_shadow;
