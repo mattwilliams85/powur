@@ -70,8 +70,18 @@ function _dashboardInit(){
 		_data.impact_metrics=[];
 		_getData(_myID, "impact_metrics", _data.impact_metrics);
 
+		//put in hooks for kpi thumbnails
+		$(document).on("click",".kpi_thumbnail", function(e){
+			_thisThumbnail = $(e.target).parents(".kpi_thumbnail");
+			_thisKpiType = $(e.target).parents(".kpi_thumbnail").attr("data-kpi-type");
 
-
+			_drillDown({"_type":"impact_metrics",
+						"_mainSectionID":"dashboard_kpis", 
+						"_thumbnailIdentifier":".kpi_thumbnail",
+						"_target":$(e.target),
+						"_kpiType":_thisKpiType, 
+						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+		});	
 	})();
 
 	//wire up invitation hooks
@@ -219,6 +229,40 @@ function _drillDown(_options){
 
 		break;
 
+
+		case "impact_metrics":
+			_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+			_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+			$("#"+_options._mainSectionID).append(_html);
+			_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+			_drilldownContainerObj.css("opacity","0");
+			_drilldownContainerObj.animate({height:"+=446px", opacity:1}, _animation_speed);	
+			var _templatePath;
+			switch(_options._kpiType){
+				case "type1":
+					_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+				break;
+				case "type2":
+					_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+				break;
+				case "type3":
+					_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+				break;
+				case "type4":
+					_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+				break;
+				case "type5":
+					_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+				break;
+			}
+
+			_getTemplate(_templatePath, {}, _drilldownContainerObj, function(){
+			 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
+			 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+			});
+
+		break;
+
 		default:
 			console.log("Drilldown type not found");
 		break;
@@ -299,6 +343,10 @@ function _getData(_userID, _dataType, _dataStore, _callback){
 		break;
 		
 		case "quotes":
+			_endPoint="/assets/jsons/users."+_userID+".quotes.json"
+		break;
+
+		case "impact_metrics":
 			_endPoint="/assets/jsons/users."+_userID+".quotes.json"
 		break;
 	}
