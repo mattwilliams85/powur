@@ -65,6 +65,15 @@ function _dashboardInit(){
 	})();//end quote dashboard info
 
 	
+	//start impact metrics dashboard info
+	(function(){
+		_data.impact_metrics=[];
+		_getData(_myID, "impact_metrics", _data.impact_metrics);
+
+
+
+	})();
+
 	//wire up invitation hooks
 		$(document).on("click", ".new_thumbnail", function(e){
 			_thisThumbnail = $(e.target).parents(".new_thumbnail");
@@ -150,6 +159,17 @@ function _drillDown(_options){
 								_tempUserTeam=[];
 								_getData(_options._userID, "team", _tempUserTeam, function(){_displayData("team", _tempUserTeam, _downlinkContainerObj)});
 							 });
+			})
+			.fail(function(data){
+				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				$("#dashboard_team").append(_html);
+				_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+				_drilldownContainerObj.css("opacity","0");
+				// _drilldownContainerObj.scrollView(180);
+				_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);	
+				_userDetail={};		
+				_getTemplate("/assets/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
+
 			});
 		break;
 		
