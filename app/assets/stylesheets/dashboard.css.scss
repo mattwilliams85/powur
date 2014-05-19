@@ -1225,6 +1225,7 @@
 	// Box properties
 	width: $grid * 20;
 	height: 100%;
+	overflow: hidden;
 	// Background & borders
 	border-right: $light_border;
 	// Typography
@@ -1236,6 +1237,7 @@
 .utility {
 	// Mixins
 	// Box properties
+	overflow: hidden;
 	width: $grid * 10;
 
 	// Background & borders
