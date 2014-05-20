@@ -183,11 +183,27 @@ body#application {
 	display: block;
 	position: relative;
 	overflow: auto;
+	clear: both;
 	// Background & borders
 
 	// Typography
 
 	// Other
+
+	&.half {
+		// Mixins
+	
+		// Box properties
+		width: 50%;
+		float: left;
+		clear: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+
+	}
 
 	&.checkbox {
 		// Mixins
