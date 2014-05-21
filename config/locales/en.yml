@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  email_subjects:
+    invite: Invitation to Join SunStand
+  errors:
+    required: "%{input} is required"
+    credentials: Invalid email or password

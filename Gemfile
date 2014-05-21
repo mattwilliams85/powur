@@ -15,6 +15,9 @@ gem 'active_hash'
 gem 'pry'
 gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
+gem 'rails-settings-cached'
+gem 'gibbon'
+gem 'valid_email', require: 'valid_email/email_validator'
 
 group :development do
   gem 'spring'
@@ -22,8 +25,12 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'rspec-rails', '= 3.0.0.beta2'
   gem 'factory_girl_rails'
+  gem 'awesome_print'
+end
+
+group :test do
   gem 'database_cleaner'
 end
 

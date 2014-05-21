@@ -18,10 +18,24 @@ ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.include SpecHelpers
 
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
 
+  config.before(:each) do
+    if defined?(request)
+      request.accept = 'application/json'
+      request.env['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
+    end
+    DatabaseCleaner.start
+  end
 
-
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
 
   # ## Mock Framework
   #
