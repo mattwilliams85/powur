@@ -247,7 +247,7 @@ function _drillDown(_options){
 			$("#"+_options._mainSectionID).append(_html);
 			_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 			_drilldownContainerObj.css("opacity","0");
-			_drilldownContainerObj.animate({height:"+=200px", opacity:1}, _animation_speed);	
+			_drilldownContainerObj.animate({height:"+=256px", opacity:1}, _animation_speed);	
 
 			_invitationDetail={};
 			_invitationDetail["audience"]=_options._audience;
