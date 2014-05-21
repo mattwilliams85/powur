@@ -23,7 +23,7 @@ describe SessionController do
   it 'authenticates the user' do
     post :create, email: @user.email, password: 'password'
 
-    binding.pry
+    expect(json_body.keys).to include('redirect')
   end
 
 end
