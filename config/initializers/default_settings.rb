@@ -1,0 +1,1 @@
+# PromoterConfig.max_invites = 5

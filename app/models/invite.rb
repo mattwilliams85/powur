@@ -9,4 +9,8 @@ class Invite < ActiveRecord::Base
     self.id = SecureRandom.hex(3).upcase unless self.persisted?
   end
 
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
+
 end
