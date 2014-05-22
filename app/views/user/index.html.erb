@@ -1,15 +1,15 @@
-<section class="js-sign_in">
+<% content_for :javascript_includes do %>
+	<%= javascript_include_tag "user.js" %>
+<% end %>
 
-	<form id="customer_signup" class="signup_form two">
-		<label for="login_email">Email Address</label>
-		<input id="login_email" name="login_email" type="email" placeholder="Email address" required autofocus/>
-	
-		<label for="login_password">Password</label>
-		<input id="login_password" name="login_password" type="password" placeholder="Password" required/>
+<section style="text-align:center; margin-top:200px;">
+<div style="width:500px; margin:auto;">
+<form id="user_login">
+	<label for="email">Email Address</label>
+	<input name="email" value="" type="text" placeholder="Email address"  required autofocus>
+	<input name="password" type="password"  placeholder="Password" required >
+</form>
+<p><a href="/user/reset_password">Need to reset your password?</a></p>
 
-		<a href="/dashboard" class="button">Log in</a>
-	</form>
-
-	<p><a href="/user/reset_password">Need to reset your password?</a></p>
-
+</div>
 </section>

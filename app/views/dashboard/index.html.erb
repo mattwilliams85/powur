@@ -1,3 +1,7 @@
+<% content_for :javascript_includes do %>
+	<%= javascript_include_tag "dashboard.js" %>
+<% end %>
+
 <% if params[:first_run] == "true" %>
 	<div id="system_feedback">
 		<h1>Way to go! You're now a Sunstand advocate!</h1>
@@ -210,10 +214,10 @@
 			<% else %>
 
 	            <ul class="tabs">
-	              <li><a href="" class="active">Everybody</a></li>
-	              <li><a href="">Top</a></li>
-	              <li><a href="">New <span class="badge"><span>2</span></span></a></li>
-	              <li><a href="">Pending <span class="badge"><span>13</span></span></a></li>
+	              <li><a href="#" class="active"	data-tab-type="team.everyone"	>Everybody</a></li>
+	              <li><a href="#"					data-tab-type="team.top"		>Top</a></li>
+	              <li><a href="#"					data-tab-type="team.new"		>New <span class="badge"><span>2</span></span></a></li>
+	              <li><a href="#"					data-tab-type="team.pending"	>Pending <span class="badge"><span>13</span></span></a></li>
 	            </ul>
 				<input type="search" placeholder="search team"/>
 				<ul class="sort">

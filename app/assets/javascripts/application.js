@@ -15,5 +15,4 @@
 //= require jquery_ujs
 //= require handlebars
 //= require utility
-//= require_tree .
 //= require turbolinks

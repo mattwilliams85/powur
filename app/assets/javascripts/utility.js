@@ -1,3 +1,11 @@
+//All jquery ajax requests must use CSRF token
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': $('meta[name="csrf-token"]').attr("content")
+  }
+});
+
+
 //Handlebar helper to allow comparisons
 Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
     if (arguments.length < 3)
@@ -57,6 +65,39 @@ $.fn.serializeObject = function()
 };
 
 
+//utility to allow ajax post information
+// _options._postObj is required for the data that is being posted
+// _options._url is required to specify the endpoint
+// _options._callback is optional to have a function that handles subsequent tasks after the post is done.
+function ajaxPost(_options){
+    var _postObj;
+    if(_options._formObj !== undefined) _postObj = _formObj.serializeObject();
+    if(_options._postObj !== undefined) _postObj = _options._postObj;
+    if(_postObj == ''){
+        console.log("Post data missing");
+        return false;
+    }
+    if(_options._url === undefined || _options._url === ""){
+        console.log("Endpoint missing");
+        return false;
+    }
+
+    $.ajax({
+        type:"POST",
+        data:_postObj,
+        url:_options._url,
+        dataType:"json",
+        success: function(data, text){
+            if(_options._callback !== undefined) _callback(data, text);
+            else console.log(data);
+        },
+        error: function(request, status, error){
+            console.log("Post error: "+request.responseText);
+        }
+    });
+}
+
+
 //Utlity to allow ajax upload
 //_formInputObj is the input in the form that is responsible for selecting files from desktop
 //_uploadEndpoint is the server-side endpoint that recieves the multipart upload
@@ -93,7 +134,12 @@ function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
 		}
 
 		//upload file
-		$.ajax({
+        var _options={};
+        _options._url = _uploadEndpoint;
+        _options._postObj = _formdata;
+        ajaxPost(_options);
+
+		/*$.ajax({
 			url: _uploadEndpoint,
 			type: "POST",
 			data: _formdata,
@@ -102,17 +148,10 @@ function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
 			success: function (r) {
 				if(_callback!==undefined) _callback();
 			}
-		});
+		});*/
 	});
 
 }
-
-
-
-
-
-
-
 
 
 

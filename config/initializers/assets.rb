@@ -1,3 +1,5 @@
 Rails.application.config.assets.precompile += %w( Chart.js )
-
 Rails.application.config.assets.precompile += %w( index.css )
+Rails.application.config.assets.precompile += %w( user.js )
+Rails.application.config.assets.precompile += %w( kevins_shitty_javascript.js )
+Rails.application.config.assets.precompile += %w( dashboard.js )
