@@ -5,7 +5,7 @@ class AuthController < ApplicationController
     unless current_user
       # TODO: implement redirect_to for GET requests
       respond_to do |format|
-        format.html { redirect_to login_url }
+        format.html { redirect_to root_url }
         format.json { render status: :forbidden, nothing: true }
       end
     end
