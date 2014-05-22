@@ -21,7 +21,7 @@
             "document": "pg&e_03012014-04012014.pdf"
         },
         "quote_status": {
-            "Initiated": "2014-04-22",
+            "Created": "2014-04-22",
             "Submitted": "2014-04-25",
             "Approved": "2014-04-27",
             "Scheduled": "2014-05-01"
@@ -51,7 +51,7 @@
             "document": "monthly_utility_04_01_2014.pdf"
         },
         "quote_status": {
-            "Initiated": "2014-04-22",
+            "Created": "2014-04-22",
             "Submitted": "2014-04-25",
             "Rejected": {
                 "date": "2014-04-27",
@@ -83,7 +83,7 @@
             "document": ""
         },
         "quote_status": {
-            "Initiated": "2014-04-22",
+            "Created": "2014-04-22",
             "Submitted": "2014-04-25"
         }
     },
@@ -109,7 +109,7 @@
             "document": "pg&e_03012014-04012014.pdf"
         },
         "quote_status": {
-            "Initiated": "2014-04-22",
+            "Created": "2014-04-22",
             "Submitted": "2014-04-25",
             "Approved": "2014-04-27",
             "Scheduled": "2014-05-01"
@@ -139,7 +139,7 @@
             "document": "monthly_utility_04_01_2014.pdf"
         },
         "quote_status": {
-            "Initiated": "2014-04-22",
+            "Created": "2014-04-22",
             "Submitted": "2014-04-25",
             "Rejected": {
                 "date": "2014-04-27",
@@ -171,7 +171,7 @@
             "document": ""
         },
         "quote_status": {
-            "Initiated": "2014-04-22",
+            "Created": "2014-04-22",
             "Submitted": "2014-04-25"
         }
     }    

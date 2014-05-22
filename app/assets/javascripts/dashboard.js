@@ -93,13 +93,25 @@ function Dashboard(){
 		});	
 	})();
 
+	//wire up new quote hooks
+		$(document).on("click", ".js-new_quote_thumbnail", function(e){
+			_thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
+			_thisAudience =  $(e.target).parents(".js-new_quote_thumbnail").attr("data-audience");
+			_drillDown({"_type":"new_quote",
+						"_mainSectionID":$(e.target).parents("section").attr("id"), 
+						"_thumbnailIdentifier":".js-new_quote_thumbnail",
+						"_target":$(e.target),
+						"_audience":_thisAudience, 
+						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+		});
+
 	//wire up invitation hooks
-		$(document).on("click", ".new_thumbnail", function(e){
-			_thisThumbnail = $(e.target).parents(".new_thumbnail");
-			_thisAudience =  $(e.target).parents(".new_thumbnail").attr("data-audience");
+		$(document).on("click", ".js-invite_thumbnail", function(e){
+			_thisThumbnail = $(e.target).parents(".js-invite_thumbnail");
+			_thisAudience =  $(e.target).parents(".js-invite_thumbnail").attr("data-audience");
 			_drillDown({"_type":"invitations",
 						"_mainSectionID":$(e.target).parents("section").attr("id"), 
-						"_thumbnailIdentifier":".new_thumbnail",
+						"_thumbnailIdentifier":".js-invite_thumbnail",
 						"_target":$(e.target),
 						"_audience":_thisAudience, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
@@ -205,6 +217,7 @@ function Dashboard(){
 				});
 			break;
 			
+		
 			case "quotes":
 				if(_data.quotes.length==0) return;
 
@@ -229,7 +242,8 @@ function Dashboard(){
 
 			break;
 
-			case "invitations":
+			case "new_quote":
+
 				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
 				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
@@ -237,10 +251,30 @@ function Dashboard(){
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=446px", opacity:1}, _animation_speed);	
 
+				_newQuoteDetail={};
+				_newQuoteDetail["audience"]=_options._audience;
+				_newQuoteDetail["instructions"]="The new quote will be added to your list";
+
+				//populate drilldown
+				_getTemplate("/assets/templates/drilldowns/_new_quote.handlebars.html", _newQuoteDetail, _drilldownContainerObj, function(){
+				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
+				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+				});
+
+			break;
+
+			case "invitations":
+
+				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				$("#"+_options._mainSectionID).append(_html);
+				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+				_drilldownContainerObj.css("opacity","0");
+				_drilldownContainerObj.animate({height:"+=256px", opacity:1}, _animation_speed);	
+
 				_invitationDetail={};
 				_invitationDetail["audience"]=_options._audience;
-				if(_options._audience=="quote") _invitationDetail["instructions"]="The new quote will be added to your list";
-				else _invitationDetail["instructions"]="We will be sending them an onboarding link on yoru behalf.  ";
+				_invitationDetail["instructions"]="We will be sending them an onboarding link on yoru behalf.";
 
 				//populate drilldown
 				_getTemplate("/assets/templates/drilldowns/_invitations.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){

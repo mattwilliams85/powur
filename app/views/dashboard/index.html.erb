@@ -26,11 +26,17 @@
 
 			<% else %>
 
-			    <ul class="tabs">
-			      <li><a href="" class="active">My Team</a></li>
-			      <li><a href="">2nd Generation</a></li>
-			      <li><a href="">Everyone</a></li>
-			    </ul>
+	           	<ul class="tabs">
+	              <li><a href="" class="active">All Levels</a></li>
+	              <li><a href="">1</a></li>
+  	              <li><a href="">2</a></li>
+  	              <li><a href="">3</a></li>
+  	              <li><a href="">4</a></li>
+  	              <li><a href="">5</a></li>
+  	              <li><a href="">6</a></li>
+  	              <li><a href="">7</a></li>
+  	              <li><a href="">8</a></li>
+	            </ul>
 			<% end %> 
 		</div>
 	</div>
@@ -67,7 +73,7 @@
 				<div class="kpi_thumbnail js-thumbnail_parent" data-kpi-type="type2">
 					<div class="js-thumbnail">
 						<canvas id="kpi_chart_sales" width="222" height="96"></canvas>
-						<h3>43 Sales</h3>
+						<h3>43 Rooftops</h3>
 						<span class="subtext">Out of 98 quotes</span>
 						<span class="expand">
 							<i class="fa fa-angle-down"></i>
@@ -151,18 +157,7 @@
 	              <li><a href="">Approved</a></li>
 	            </ul>
 				<input type="search" placeholder="search quotes"/>
-				<ul class="sort">
-					<li>
-						<%= select_tag "Sort", options_for_select(
-							[
-								"By newest", 
-							    "By oldest", 
-							    "By most complete", 
-							    "By least complete"
-							], ["By newest"]) 
-						%>
-					</li>
-				</ul>
+
 
 			<% end %>
 		</div>
@@ -213,33 +208,43 @@
 			<% if params[:first_run] == "true" %>
 			<% else %>
 
-	            <ul class="tabs">
-	              <li><a href="#" class="active"	data-tab-type="team.everyone"	>Everybody</a></li>
-	              <li><a href="#"					data-tab-type="team.top"		>Top</a></li>
-	              <li><a href="#"					data-tab-type="team.new"		>New <span class="badge"><span>2</span></span></a></li>
-	              <li><a href="#"					data-tab-type="team.pending"	>Pending <span class="badge"><span>13</span></span></a></li>
+<!-- 	            <ul class="tabs">
+	              <li><a href="" class="active">Everybody</a></li>
+	              <li><a href="">Top</a></li>
+	              <li><a href="">New <span class="badge"><span>2</span></span></a></li>
+	            </ul> -->
+	           	<ul class="tabs">
+	              <li><a href="" class="active">All Levels</a></li>
+	              <li><a href="">1 <span class="badge"><span>2</span></span></a></li>
+  	              <li><a href="">2</a></li>
+  	              <li><a href="">3</a></li>
+  	              <li><a href="">4</a></li>
+  	              <li><a href="">5</a></li>
+  	              <li><a href="">6</a></li>
+  	              <li><a href="">7</a></li>
+  	              <li><a href="">8</a></li>
 	            </ul>
 				<input type="search" placeholder="search team"/>
+
 				<ul class="sort">
 					<li> 
 						<%= select_tag "Show", options_for_select(
 							[
-								"My Team", 
-							    "2nd Generation", 
-							    "3rd Generation",
-							    "My Entrie Organization",
-							    "All of Sunstand"
-							], ["My Team"]) 
+								"Sort By C02", 
+							    "Sort By Earnings"
+							], ["Sort By C02"]) 
 						%>
 					</li>
-					<li>
-						<%= select_tag "Sort", options_for_select(
+				</ul>
+
+				<ul class="sort">
+					<li> 
+						<%= select_tag "Show", options_for_select(
 							[
-								"By latest", 
-							    "By earliest", 
-							    "By highest", 
-							    "By lowest"
-							], ["By latest"]) 
+								"1st Generation", 
+							    "2nd Generation", 
+							    "All Generations",
+							], ["1st Generation"]) 
 						%>
 					</li>
 				</ul>
@@ -299,25 +304,15 @@
 				<div class="section_header_content">
 					<h2>Your Earnings</h2>
 					<ul class="sort">
-							<%= select_tag "Show", options_for_select(
-								[
-									"Past 3 months", 
-								    "Past 6 months", 
-								    "Past year", 
-								    "All time"
-								], ["Past 3 months"]) 
-							%>
-						</li>
-						<li>
-							<%= select_tag "Sort", options_for_select(
-								[
-									"By latest", 
-								    "By earliest", 
-								    "By highest", 
-								    "By lowest"
-								], ["By latest"]) 
-							%>
-						</li>
+					<li> 
+						<%= select_tag "Show", options_for_select(
+							[
+								"My Team", 
+							    "2nd Generation", 
+							    "3rd Generation",
+							], ["My Team"]) 
+						%>
+					</li>
 					</ul>
 				</div>
 			</div>

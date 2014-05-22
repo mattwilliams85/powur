@@ -591,12 +591,12 @@
 
 .advocate_avatar {
 	// Mixins
-	@include inner_shadow;
 	@include corners(50%, 50%, 50%, 50%);
 	// Box properties
-	display: inline-block;
+	display: block;
 	height: $grid * 2;
 	width: $grid * 2;
+	margin: 0 auto $grid / 4;
 	// Background & borders
 	background: $white;
 	background-size: cover;
@@ -728,18 +728,19 @@
 
 	.placeholder_avatar {
 		// Mixins
-
+		@include box_sizing;
 		@include corners(50%, 50%, 50%, 50%);
 		// Box properties
 		display: table;
 		height: $grid * 2;
 		width: $grid * 2;
-		margin: 0 auto;
+		margin: 0 auto $grid / 4;
 		// Background & borders
-		border: 1px $whisper dashed;
 
+		border: 1px dashed $whisper;
 		// Typography
-
+		color: $whisper;
+		font-size: $font_size;
 		// Other
 
 		span {
@@ -751,36 +752,11 @@
 		
 			// Typography
 			vertical-align: middle;
-			color: $whisper;
 			// Other
 		
 		}
 	}
 
-	.button {
-		// Mixins
-	
-		// Box properties
-		margin: $grid / 2 auto;
-		// Background & borders
-		border: none;
-		// Typography
-		color: $whisper;
-		// Other
-	
-		&:hover {
-			// Mixins
-		
-			// Box properties
-		
-			// Background & borders
-			background-color: rgba(0,0,0,0);
-			// Typography
-			color: $whisper;
-			// Other
-		
-		}
-	}
 
 }
 
@@ -1126,6 +1102,21 @@
 		}
 	}
 
+	&.full {
+		// Mixins
+	
+		// Box properties
+		float: none;
+		margin: 0;
+		width: 100%;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
 	h4 {
 		// Mixins
 	
@@ -1325,11 +1316,11 @@
 	}
 	.team_info{
 		position:relative;
-		height:200px;
+		height:256px;
 		overflow:hidden;
 	}
 	.pagination_container{
-		height:200px;
+		height:256px;
 		width:1024px; /*contains 4 thumbs */
 		overflow:hidden;
 		position:relative;}
