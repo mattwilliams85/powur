@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resource :login, controller: :session, only: [ :create, :destroy ]
+  resources :invites, only: [ :index, :create ]
 
 
   get 'customer' => 'index#customer'
