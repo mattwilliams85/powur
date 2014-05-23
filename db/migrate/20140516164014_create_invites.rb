@@ -2,9 +2,10 @@ class CreateInvites < ActiveRecord::Migration
   def change
     create_table :invites, id: false do |t|
       t.string :id
-      t.string :email, null: false
+      t.string :email,      null: false
       t.string :first_name, null: false
-      t.string :last_name, null: false
+      t.string :last_name,  null: false
+      t.string :phone,      null: false
 
       t.belongs_to :invitor, class_name: 'User', null: false
       t.belongs_to :invitee, class_name: 'User'

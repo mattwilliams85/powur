@@ -62,13 +62,25 @@
 
 }
 
+.kpi_chart {
+	// Mixins
 
+	// Box properties
+	margin-top: -6px;
+	margin-bottom: -6px;
+	// Background & borders
 
+	// Typography
+
+	// Other
+
+}
 
 #dashboard_kpis {
 	// Mixins
 
 	// Box properties
+	margin-top: 2px;
 	// Background & borders
 	border-top: none;
 	// Typography
@@ -91,33 +103,20 @@
 	
 	}
 
-	#c02_reduction {
+	.kpi_circle {
 		// Mixins
-		@include corners;
-		@include box_sizing;
+		@include circle_with_text;
 		// Box properties
-		display: table;
-		height: 46px;
-		margin: $grid / 1.1 auto;
-		padding: 0 $grid;
+		height: $grid * 2;
+		width: $grid * 2;
+		margin: 0 auto $grid / 4;
 		// Background & borders
 		background-color: $brand;
 		// Typography
 		color: white;
+		line-height: $grid / 2;
+		font-size: $grid / 2;
 		// Other
-
-		span {
-			// Mixins
-		
-			// Box properties
-			display: table-cell;
-			// Background & borders
-		
-			// Typography
-			vertical-align: middle;
-			// Other
-		
-		}
 	
 	}
 
@@ -312,7 +311,6 @@
 	// Mixins
 	@include object_thumbnail;
 	// Box properties
-	height: $grid * 7;
 	// Background & borders
 
 	// Typography
@@ -373,8 +371,9 @@
 	position: relative;
 	padding: 0;
 	// Background & borders
-	background-color: $whisper;
+	background-color: $ghost;
 	// Typography
+	color: $whisper;
 	font-size: $font_size / 1.35;
 	// Other
 
@@ -394,7 +393,7 @@
 		border-color: $dev_gray;
 		// Typography
 		text-align: center;
-		color: $white;
+
 		// Other
 	
 
@@ -421,7 +420,7 @@
 				// Background & borders
 				background-color: $supergreen;
 				// Typography
-			
+				color: white;
 				// Other
 			
 			}
@@ -464,7 +463,7 @@
 				// Background & borders
 				background-color: $supergreen;
 				// Typography
-			
+				color: white;
 				// Other
 			
 			}
@@ -508,7 +507,7 @@
 				// Background & borders
 				background-color: $supergreen;
 				// Typography
-			
+				color: white;
 				// Other
 			
 			}
@@ -524,7 +523,7 @@
 				// Background & borders
 
 				// Typography
-			
+				font-size: $font_size / 1.4;
 				// Other
 			
 			}
@@ -552,7 +551,7 @@
 				// Background & borders
 				background-color: $supergreen;
 				// Typography
-			
+				color: white;
 				// Other
 			
 			}

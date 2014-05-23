@@ -526,21 +526,24 @@ footer {
 		@include form_box;
 		@include small_title;
 		@include box_sizing;
-		// Box properties
+		@include corners;
 
+		// Box properties
+		margin:0 $grid / 4 0 0;
 		padding-right:$grid * 1.5;
 		padding-left: $grid / 4;
-
+		width: auto;
+		float: left;
 		// Background & borders
 		background-image: url(select_arrow.svg) ;
 		background-position: right center;
 		background-repeat: no-repeat;
 		background-size: contain;
-		background-color: none;
+		background-color: $ghost;
 		border: 1px solid $ghost;
 
 		// Typography
-		color: $whisper;
+		color: $quiet;
 		text-indent: 0.01px;
 		text-overflow: "";
 
@@ -550,7 +553,11 @@ footer {
 		-webkit-appearance: none;
 
 		&:hover {
-			color: $quiet;
+			color: $text;
 			border-color: $whisper;
+		}
+
+		&:focus {
+			outline: none;
 		}
 	}

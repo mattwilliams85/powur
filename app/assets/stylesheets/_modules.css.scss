@@ -91,7 +91,7 @@
 			// Box properties
 			width: $desktop;
 			margin: 0 auto;
-			padding:$grid / 4 $grid / 2;
+			padding:$grid / 4;
 			overflow: auto;
 
 			// Background & borders
@@ -100,23 +100,71 @@
 		
 			// Other
 
-			h2 {
+			.section_title {
 				// Mixins
-				@include small_title;
-				@include form_padding;
+
+				@include form_box;
+				@include corners;
+
 				// Box properties
 				float: left;
-				margin:0;
-				padding-left: 0;
+				margin:0 $grid / 4 0 0;
+				width: auto;
 				// Background & borders
-			
+				background: $ghost;
+				border: 1px solid $ghost;
 				// Typography
 				color: $quiet;
 				// Other
-			
-			}
 
+				&:hover {
+					// Mixins
+				
+					// Box properties
+				
+					// Background & borders
+
+					// Typography
+
+					// Other
+				
+				}
+			}
 		}
+	}
+
+	.title_select {
+		// Mixins	
+
+	}
+
+	.section_search {
+		// Mixins
+	
+		// Box properties
+		float: right !important;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	.collection_total {
+		// Mixins
+		@include small_title;
+		@include form_padding;
+		// Box properties
+		display: block;
+		float: left;
+		// Background & borders
+		border: 1px solid transparent;
+		text-align: left;
+		// Typography
+		color: $whisper;
+		// Other
+	
 	}
 
 	.tabs {
@@ -124,7 +172,7 @@
 		@include small_title;
 		// Box properties
 		float: left;
-		margin-right: $grid / 2;
+		margin-right: $grid / 4;
 		// Background & borders
 
 		// Typography
@@ -242,20 +290,6 @@
 				}
 			}
 		}
-		
-		.search {
-			// Mixins
-		
-			// Box properties
-
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-		
-		}
-	
 
 		select {
 			// Mixins
@@ -341,18 +375,36 @@
 			line-height: $grid;
 			// Other
 
+			#global_progress_container {
+				// Mixins
+				@include box_sizing;
+				// Box properties
+				width: $desktop;
+				height: $grid;
+				margin: 0 auto;
+				overflow: auto;
+				position: relative;
+				// Background & borders
+
+				// Typography
+			
+				// Other
+			
+			}
+
 			.tic {
 				// Mixins
-			
+				@include box_sizing;
 				// Box properties
 				position: relative;
-				height: 100%;
-				width: 100%;
+				height: $grid;
+				width: $desktop;
 				// Background & borders
 				background-image: url(image-path('bg_tic.svg'));
+				background-color: $text;
 				background-repeat: repeat-x;
 				background-size: contain;
-
+				border-right: 1px solid #333;
 				// Typography
 			
 				// Other
@@ -362,18 +414,18 @@
 
 			#goal_select {
 				// Mixins
-				// @include circle_with_text;
-				@include gradient(darken($global_title_color, 8%), darken($global_title_color, 12%), darken($global_title_color, 14%));
+				@include box_sizing;
+				@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
 
 				// Box properties
 
-				height: 100%;
+				height: $grid;
 				width: $grid * 5.5;
 				margin: 0;
 				position: absolute;
 				left: 0;
 				// Background & borders
-				background-color: $global_title_color;
+
 				border-right: 1px solid $global_border_color;
 				// Typography
 				color: $white;
@@ -383,7 +435,6 @@
 
 				&:hover {
 					// Mixins
-					@include gradient(darken($global_title_color, 12%), darken($global_title_color, 16%), darken($global_title_color, 20%));
 
 					// Box properties
 				
@@ -403,15 +454,15 @@
 				@include box_sizing;
 				// Box properties
 				width: 64%;
-				height: 100%;
+				height: $grid;
 				float: left;
-				padding-left: $grid * 5.5;
 				// Background & borders
 				background-color: $solar_progress_bar_color;
 				border-right: 1px solid #333;
+				border-left: 1px solid #333;
 
 				// Typography
-			
+				text-align: center;
 				// Other
 
 				.solar_progress_bar_text {

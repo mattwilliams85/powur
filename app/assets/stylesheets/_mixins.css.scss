@@ -167,7 +167,7 @@
 		box-shadow:  $h1 $v1 $blur1 $color1,  $h2 $v2 $blur2 $color2;
 	}
 
-	@mixin corners($tr: 2px, $tl: 2px, $bl: 2px, $br: 2px) { /* this could probably be less verbose at some point */
+	@mixin corners($tr: 4px, $tl: 4px, $bl: 4px, $br: 4px) { /* this could probably be less verbose at some point */
 	    -webkit-border-top-left-radius: $tr;
 	    -moz-border-radius-topleft: $tr;
 	    border-top-left-radius: $tr;

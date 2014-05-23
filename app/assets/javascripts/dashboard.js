@@ -105,13 +105,13 @@ function Dashboard(){
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});
 
-	//wire up invitation hooks
-		$(document).on("click", ".js-invite_thumbnail", function(e){
-			_thisThumbnail = $(e.target).parents(".js-invite_thumbnail");
-			_thisAudience =  $(e.target).parents(".js-invite_thumbnail").attr("data-audience");
+	//wire up invitations overview hook
+		$(document).on("click", ".js-invites_thumbnail", function(e){
+			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
+			_thisAudience =  $(e.target).parents(".js-invites_thumbnail").attr("data-audience");
 			_drillDown({"_type":"invitations",
 						"_mainSectionID":$(e.target).parents("section").attr("id"), 
-						"_thumbnailIdentifier":".js-invite_thumbnail",
+						"_thumbnailIdentifier":".js-invites_thumbnail",
 						"_target":$(e.target),
 						"_audience":_thisAudience, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
@@ -272,12 +272,12 @@ function Dashboard(){
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=256px", opacity:1}, _animation_speed);	
 
-				_invitationDetail={};
-				_invitationDetail["audience"]=_options._audience;
-				_invitationDetail["instructions"]="We will be sending them an onboarding link on yoru behalf.";
+				_invitationsDetail={};
+				_invitationsDetail["audience"]=_options._audience;
+				_invitationsDetail["instructions"]="We will be sending them an onboarding link on yoru behalf.";
 
 				//populate drilldown
-				_getTemplate("/assets/templates/drilldowns/_invitations.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
+				_getTemplate("/assets/templates/drilldowns/_invitations.handlebars.html", _invitationsDetail, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
