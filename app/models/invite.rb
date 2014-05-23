@@ -15,7 +15,6 @@ class Invite < ActiveRecord::Base
     def generate_code
       SecureRandom.hex(3).upcase
     end
-
   end
 
 end
