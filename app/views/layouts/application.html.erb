@@ -13,41 +13,32 @@
 </head>
 <body id="application">
 	<header>
-		<nav>
-			<ul>
-				<li class="main_logo">	
-					<a href="/">
-						<%= render :partial => "shared/sunstand_logo_svg" %>
-					</a>
-				</li>
-				<li>
-					<%= link_to_unless_current 'Dashboard', "/dashboard" %>
-				</li>
-				
-				<% if params[:pro] == "true" %>
-					<li>
-						<%= link_to_unless_current 'Organization', "/organization" %>
+		<div id="header_container">
+			<nav>
+				<ul>
+					<li class="main_logo">	
+						<a href="/">
+							<%= render :partial => "shared/sunstand_logo_svg" %>
+						</a>
 					</li>
-
+					<li>
+						<%= link_to_unless_current 'Dashboard', "/dashboard" %>
+					</li>	
 					<li>
 						<%= link_to_unless_current 'Training', "/training" %>
 					</li>
-				<% else %>
+				</ul>
+		
+				<ul id="user_nav">
 					<li>
-						<%= link_to_unless_current 'Training', "/training" %>
+						<%= link_to_unless_current 'Jonathan: Level 6', "/settings" %>
 					</li>
-				<% end %>
-			</ul>
-	
-			<ul id="user_nav">
-				<li>
-					<%= link_to_unless_current 'Jonathan: Level 6', "/settings" %>
-				</li>
-				<li>
-					<a href="/user">Sign out</a>
-				</li>
-			</ul>
-		</nav>
+					<li>
+						<a href="/user">Sign out</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
 
 		<%= render :partial => "shared/our_goal" %>
 

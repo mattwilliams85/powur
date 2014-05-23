@@ -69,6 +69,7 @@
 	// Mixins
 
 	// Box properties
+	margin-top: 2px;
 	// Background & borders
 	border-top: none;
 	// Typography
@@ -373,8 +374,9 @@
 	position: relative;
 	padding: 0;
 	// Background & borders
-	background-color: $whisper;
+	background-color: $ghost;
 	// Typography
+	color: $whisper;
 	font-size: $font_size / 1.35;
 	// Other
 
@@ -394,7 +396,7 @@
 		border-color: $dev_gray;
 		// Typography
 		text-align: center;
-		color: $white;
+
 		// Other
 	
 
@@ -421,7 +423,7 @@
 				// Background & borders
 				background-color: $supergreen;
 				// Typography
-			
+				color: white;
 				// Other
 			
 			}
@@ -464,7 +466,7 @@
 				// Background & borders
 				background-color: $supergreen;
 				// Typography
-			
+				color: white;
 				// Other
 			
 			}
@@ -508,7 +510,7 @@
 				// Background & borders
 				background-color: $supergreen;
 				// Typography
-			
+				color: white;
 				// Other
 			
 			}
@@ -524,7 +526,7 @@
 				// Background & borders
 
 				// Typography
-			
+				font-size: $font_size / 1.4;
 				// Other
 			
 			}
@@ -552,7 +554,7 @@
 				// Background & borders
 				background-color: $supergreen;
 				// Typography
-			
+				color: white;
 				// Other
 			
 			}
