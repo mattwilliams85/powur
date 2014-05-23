@@ -71,7 +71,6 @@ $.fn.serializeObject = function()
 // _options._callback is optional to have a function that handles subsequent tasks after the post is done.
 function ajaxPost(_options){
     var _postObj;
-    if(_options._formObj !== undefined) _postObj = _formObj.serializeObject();
     if(_options._postObj !== undefined) _postObj = _options._postObj;
     if(_postObj == ''){
         console.log("Post data missing");
@@ -88,7 +87,7 @@ function ajaxPost(_options){
         url:_options._url,
         dataType:"json",
         success: function(data, text){
-            if(_options._callback !== undefined) _callback(data, text);
+            if(typeof _options._callback === "function") _options._callback(data, text);
             else console.log(data);
         },
         error: function(request, status, error){
