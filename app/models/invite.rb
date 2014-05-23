@@ -4,7 +4,7 @@ class Invite < ActiveRecord::Base
   belongs_to :invitee, class_name: 'User'
   
   after_initialize do
-    self.id = Inviet.generate_code
+    self.id = Invite.generate_code
   end
 
   def full_name
