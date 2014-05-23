@@ -556,4 +556,8 @@ footer {
 			color: $text;
 			border-color: $whisper;
 		}
+
+		&:focus {
+			outline: none;
+		}
 	}
