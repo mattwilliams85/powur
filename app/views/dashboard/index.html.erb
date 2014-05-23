@@ -33,7 +33,8 @@
 				    "Level 3 Impact",
 				    "Level 4 Impact",
 				    "Level 5 Impact",
-				    "Level 6 Impact"
+				    "Level 6 Impact",
+				    "Total Impact"
 				], ["My Impact"]),
 				{ :class => 'title_select' }
 			%>
@@ -149,7 +150,8 @@
 				    "Level 3 Quotes",
 				    "Level 4 Quotes",
 				    "Level 5 Quotes",
-				    "Level 6 Quotes"
+				    "Level 6 Quotes",
+				    "All Quotes"
 				], ["My Quotes"]),
 				{ :class => 'title_select' }
 			%>
@@ -218,7 +220,8 @@
 				    "Level 3 Team",
 				    "Level 4 Team",
 				    "Level 5 Team",
-				    "Level 6 Team"
+				    "Level 6 Team",
+				    "Everybody"
 				], ["My Team"]),
 				{ :class => 'title_select' }
 			%>
@@ -234,7 +237,7 @@
 				    "Rank 3",
 				    "Rank 4",
 				    "Rank 5"
-				], ["All Rank"]),
+				], ["All Ranks"]),
 				{ :class => 'title_select' }
 			%>
 
@@ -308,8 +311,20 @@
 					    "Level 3 Earnings",
 					    "Level 4 Earnings",
 					    "Level 5 Earnings",
-					    "Level 6 Earnings"
+					    "Level 6 Earnings",
+					    "Total Earnings"
 					], ["My Earnings"]),
+					{ :class => 'title_select' }
+				%>
+
+				<%= select_tag "Level", options_for_select(
+					[
+						"Past month", 
+					    "Past 3 months",
+					    "Past 6 months",
+					    "Past year",
+					    "All time"
+					], ["Past month"]),
 					{ :class => 'title_select' }
 				%>
 
@@ -356,7 +371,7 @@
 			<% end %>
 
 		</div>
-		<%= render partial: "shared/new_link_detail"%>
-	</div>
+<!-- 		<%= render partial: "shared/new_link_detail"%>
+ -->	</div>
 </section>
 	
