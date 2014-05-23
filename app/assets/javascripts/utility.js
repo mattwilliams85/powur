@@ -69,8 +69,11 @@ $.fn.serializeObject = function()
 // _options._postObj is required for the data that is being posted
 // _options._url is required to specify the endpoint
 // _options._callback is optional to have a function that handles subsequent tasks after the post is done.
-function ajaxPost(_options){
+function _ajax(_options){
     var _postObj;
+    var _ajaxType = "POST";
+
+    if(_options._ajaxType !== undefined) _ajaxType = _options._ajaxType;
     if(_options._postObj !== undefined) _postObj = _options._postObj;
     if(_postObj == ''){
         console.log("Post data missing");
@@ -82,7 +85,7 @@ function ajaxPost(_options){
     }
 
     $.ajax({
-        type:"POST",
+        type:_options._ajaxType,
         data:_postObj,
         url:_options._url,
         dataType:"json",
@@ -136,7 +139,7 @@ function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
         var _options={};
         _options._url = _uploadEndpoint;
         _options._postObj = _formdata;
-        ajaxPost(_options);
+        _ajax(_options);
 
 		/*$.ajax({
 			url: _uploadEndpoint,
@@ -155,6 +158,38 @@ function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
 
 
 
+// function that handles form submission
+function _formSubmit(_event, _formObj, _endPoint, _verb){
+    _event.preventDefault();
+    var _serializedData = _formObj;
+    if(typeof _verb == "undefined") _verb = "POST";
+    if(_formObj instanceof $) _serializedData = _formObj.serializeObject();
+
+    _ajax({
+        _ajaxType:_verb,  
+        _postObj:_serializedData,
+        _url:_endPoint,
+        _callback: function(data, text){
+            if(Object.keys(data)=="error") _formErrorHandling(_formObj, data.error);
+            else{
+                window.location.replace(data.redirect);
+            }
+        }
+    }); 
+}
+
+//function that handles error handling
+function _formErrorHandling(_formObj, _error){
+    switch (_error.type){
+        case "input":
+            _input= _formObj.find("input[name='"+_error.input+"']");
+            _formObj.find(".js-error").remove();
+            _html="<span class='js-error'>"+_error.message+"</span>";
+            _input.parents(".form_row").append(_html);
+        break;
+
+    }
+}
 
 
 

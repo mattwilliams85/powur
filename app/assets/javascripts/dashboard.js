@@ -16,7 +16,11 @@ $(document).ready(function(){
 		_dashboard = new Dashboard();
 		_dashboard.displayTeam();
 		_dashboard.displayQuote();
-	});		
+	});	
+
+	//wire up logout button
+	$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "DELETE");});
+
 });
 
 
