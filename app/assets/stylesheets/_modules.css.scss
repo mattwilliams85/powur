@@ -129,23 +129,42 @@
 					// Other
 				
 				}
-
-				i {
-					// Mixins
-				
-					// Box properties
-					padding: 0 0 0 $grid / 4;
-					// Background & borders
-				
-					// Typography
-					font-size: $font_size;
-					vertical-align: text-bottom;
-					line-height: $grid / 2;
-					// Other
-				
-				}
 			}
 		}
+	}
+
+	.title_select {
+		// Mixins	
+
+	}
+
+	.section_search {
+		// Mixins
+	
+		// Box properties
+		float: right !important;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	.collection_total {
+		// Mixins
+		@include small_title;
+		@include form_padding;
+		// Box properties
+		display: block;
+		float: left;
+		// Background & borders
+		border: 1px solid transparent;
+		text-align: left;
+		// Typography
+		color: $whisper;
+		// Other
+	
 	}
 
 	.tabs {
@@ -153,7 +172,7 @@
 		@include small_title;
 		// Box properties
 		float: left;
-		margin-right: $grid / 2;
+		margin-right: $grid / 4;
 		// Background & borders
 
 		// Typography
@@ -271,20 +290,6 @@
 				}
 			}
 		}
-		
-		.search {
-			// Mixins
-		
-			// Box properties
-
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-		
-		}
-	
 
 		select {
 			// Mixins

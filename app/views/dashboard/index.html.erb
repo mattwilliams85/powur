@@ -1,5 +1,7 @@
 <% content_for :javascript_includes do %>
 	<%= javascript_include_tag "dashboard.js" %>
+	<%= javascript_include_tag "kevins_shitty_javascript.js" %>
+
 <% end %>
 
 <% if params[:first_run] == "true" %>
@@ -20,21 +22,22 @@
 
 	<div class="section_header">
 		<div class="section_header_content">
-			<h2 class="section_title">Overview <i class="fa fa-angle-down"></i></h2>
 
 			<% if params[:first_run] == "true" %>
 			<% else %>
-	           	<ul class="tabs">
-	              <li><a href="" class="active">All Levels</a></li>
-	              <li><a href="">1</a></li>
-  	              <li><a href="">2</a></li>
-  	              <li><a href="">3</a></li>
-  	              <li><a href="">4</a></li>
-  	              <li><a href="">5</a></li>
-  	              <li><a href="">6</a></li>
-  	              <li><a href="">7</a></li>
-  	              <li><a href="">8</a></li>
-	            </ul>
+
+			<%= select_tag "Level", options_for_select(
+				[
+					"My Impact", 
+				    "Level 2 Impact",
+				    "Level 3 Impact",
+				    "Level 4 Impact",
+				    "Level 5 Impact",
+				    "Level 6 Impact"
+				], ["My Impact"]),
+				{ :class => 'title_select' }
+			%>
+
 			<% end %>
 
 		</div>
@@ -51,10 +54,10 @@
 
 				<div class="kpi_thumbnail js-thumbnail_parent" data-kpi-type="type1">
 					<div class="js-thumbnail">
-						<div id="c02_reduction">
-							<span>4,031 tons</span>
+						<div class="kpi_circle" id="c02_reduction">
+							<span>4,031</span>
 						</div>
-						<h3>Your C0<sub>2</sub> Prevention</h3>
+						<h3>Tons of C0<sub>2</sub> Saved</h3>
 						<span class="subtext">Across your entire team</span>
 						<span class="expand">
 							<i class="fa fa-angle-down"></i>
@@ -69,7 +72,7 @@
 
 				<div class="kpi_thumbnail js-thumbnail_parent" data-kpi-type="type2">
 					<div class="js-thumbnail">
-						<canvas id="kpi_chart_sales" width="222" height="96"></canvas>
+						<canvas id="kpi_chart_sales" class="kpi_chart" width="76" height="76"></canvas>
 						<h3>43 Rooftops</h3>
 						<span class="subtext">Out of 98 quotes</span>
 						<span class="expand">
@@ -83,7 +86,7 @@
 
 				<div class="kpi_thumbnail js-thumbnail_parent" data-kpi-type="type3">
 					<div class="js-thumbnail">
-						<canvas id="kpi_chart_team" width="222" height="96"></canvas>
+						<canvas id="kpi_chart_team" class="kpi_chart" width="222" height="76"></canvas>
 						<h3>13 Team Members</h3>
 						<span class="subtext">23 in your oganization</span>
 						<span class="expand">
@@ -99,7 +102,7 @@
 
 				<div class="kpi_thumbnail js-thumbnail_parent" data-kpi-type="type4">
 					<div class="js-thumbnail">
-						<canvas id="kpi_chart_earnings" width="222" height="96"></canvas>
+						<canvas id="kpi_chart_earnings" class="kpi_chart" width="222" height="76"></canvas>
 						<h3>$32,450 Earnings</h3>
 						<span class="subtext">Down 5% this week</span>
 						<span class="expand">
@@ -115,7 +118,7 @@
 
 				<div class="kpi_thumbnail js-thumbnail_parent" data-kpi-type="type5">
 					<div class="js-thumbnail">
-						<canvas id="kpi_chart_level_up" width="222" height="96"></canvas>
+						<canvas id="kpi_chart_level_up" class="kpi_chart" width="222" height="76"></canvas>
 						<h3>Level 6</h3>
 						<span class="subtext">Get 2 sales to reach level 7</span>
 						<span class="expand">
@@ -139,16 +142,31 @@
 	<div class="section_header">
 		<div class="section_header_content">
 
-			<h2 class="section_title">Your Quotes <i class="fa fa-angle-down"></i></h2>
+			<%= select_tag "Level", options_for_select(
+				[
+					"My Quotes", 
+				    "Level 2 Quotes",
+				    "Level 3 Quotes",
+				    "Level 4 Quotes",
+				    "Level 5 Quotes",
+				    "Level 6 Quotes"
+				], ["My Quotes"]),
+				{ :class => 'title_select' }
+			%>
 
 			<% if params[:first_run] == "true" %>
 			<% else %>
+
 	            <ul class="tabs">
 	              <li><a href="" class="active">Incomplete</a></li>
 	              <li><a href="">Submitted</a></li>
 	              <li><a href="">Approved</a></li>
 	            </ul>
-				<input type="search" placeholder="search quotes"/>
+
+				<span class="collection_total">47 total</span>
+
+				<input type="search" class="section_search" placeholder="search quotes"/>
+			
 			<% end %>
 
 		</div>
@@ -193,39 +211,43 @@
 	<div class="section_header">
 		<div class="section_header_content">
 
-			<span class="section_title">Your Team <i class="fa fa-angle-down"></i></span>
+			<%= select_tag "Level", options_for_select(
+				[
+					"My Team", 
+				    "Level 2 Team",
+				    "Level 3 Team",
+				    "Level 4 Team",
+				    "Level 5 Team",
+				    "Level 6 Team"
+				], ["My Team"]),
+				{ :class => 'title_select' }
+			%>
 
 			<% if params[:first_run] == "true" %>
 			<% else %>
 
-<!-- 	            <ul class="tabs">
-	              <li><a href="" class="active">Everybody</a></li>
-	              <li><a href="">Top</a></li>
-	              <li><a href="">New <span class="badge"><span>2</span></span></a></li>
-	            </ul> -->
-	           	<ul class="tabs">
-					<li><a href="" class="active">All Levels</a></li>
-					<li><a href="">1 <span class="badge"><span>2</span></span></a></li>
-					<li><a href="">2</a></li>
-					<li><a href="">3</a></li>
-					<li><a href="">4</a></li>
-					<li><a href="">5</a></li>
-					<li><a href="">6</a></li>
-					<li><a href="">7</a></li>
-					<li><a href="">8</a></li>
-	            </ul>
-				<input type="search" placeholder="search team"/>
+			<%= select_tag "Level", options_for_select(
+				[
+					"All Ranks", 
+				    "Rank 1",
+				    "Rank 2",
+				    "Rank 3",
+				    "Rank 4",
+				    "Rank 5"
+				], ["All Rank"]),
+				{ :class => 'title_select' }
+			%>
 
-				<ul class="sort">
-					<li> 
-						<%= select_tag "Show", options_for_select(
-							[
-								"Sort By C02", 
-							    "Sort By Earnings"
-							], ["Sort By C02"]) 
-						%>
-					</li>
-				</ul>
+				<%= select_tag "Show", options_for_select(
+					[
+						"Sorted By Impact", 
+					    "Sorted By Earnings"
+					], ["Sorted By Impact"]) 
+				%>
+
+				<input type="search" class="section_search" placeholder="search team"/>
+
+				<span class="collection_total">17 total</span>
 
 			<% end %>
 
@@ -278,18 +300,19 @@
 	<section id="dashboard_payments" class="dashboard_section">
 		<div class="section_header">
 			<div class="section_header_content">
-				<h2 class="section_title">Your Earnings <i class="fa fa-angle-down"></i></h2>
-				<ul class="sort">
-				<li> 
-					<%= select_tag "Show", options_for_select(
-						[
-							"My Team", 
-						    "2nd Generation", 
-						    "3rd Generation",
-						], ["My Team"]) 
-					%>
-				</li>
-				</ul>
+
+				<%= select_tag "Level", options_for_select(
+					[
+						"My Earnings", 
+					    "Level 2 Earnings",
+					    "Level 3 Earnings",
+					    "Level 4 Earnings",
+					    "Level 5 Earnings",
+					    "Level 6 Earnings"
+					], ["My Earnings"]),
+					{ :class => 'title_select' }
+				%>
+
 			</div>
 		</div>
 
@@ -307,7 +330,7 @@
 <section id="dashboard_pages" class="dashboard_section">
 	<div class="section_header">
 		<div class="section_header_content">
-			<h2 class="section_title">Your Pages <i class="fa fa-angle-down"></i></h2>
+			<h2 class="section_title">Your Pages</h2>
 		</div>
 	</div>
 
