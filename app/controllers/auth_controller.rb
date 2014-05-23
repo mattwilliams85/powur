@@ -6,7 +6,7 @@ class AuthController < ApplicationController
       # TODO: implement redirect_to for GET requests
       respond_to do |format|
         format.html { redirect_to root_url }
-        format.json { render status: :forbidden, nothing: true }
+        format.json { render status: :unauthorized, nothing: true }
       end
     end
   end
