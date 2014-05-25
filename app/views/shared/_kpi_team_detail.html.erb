@@ -18,7 +18,7 @@
 
 			<% Branch.find([1,2]).each do |b| %>
 			  <div class="team_thumbnail">
-			    <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
+			    <span class="advocate_avatar" style="background-image: url(<%= '/temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
 			    <br/>
 			    <%= b.first_name %> <%= b.last_name %>
 			    <span class="subtext">

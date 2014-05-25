@@ -400,7 +400,7 @@
 				height: $grid;
 				width: $desktop;
 				// Background & borders
-				background-image: url(image-path('bg_tic.svg'));
+				background-image: image-path('bg_tic.svg');
 				background-color: $text;
 				background-repeat: repeat-x;
 				background-size: contain;

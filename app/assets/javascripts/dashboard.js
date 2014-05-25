@@ -189,7 +189,7 @@ function Dashboard(){
 					// _drilldownContainerObj.scrollView(180);
 					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
 
-					_getTemplate("/assets/templates/drilldowns/_team_details.handlebars.html", 
+					_getTemplate("/templates/drilldowns/_team_details.handlebars.html", 
 								 _userDetail, 
 								 _drilldownContainerObj,
 								 function(){
@@ -212,7 +212,7 @@ function Dashboard(){
 					// _drilldownContainerObj.scrollView(180);
 					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);	
 					_userDetail={};		
-					_getTemplate("/assets/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
+					_getTemplate("/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
 
 				});
 			break;
@@ -235,7 +235,7 @@ function Dashboard(){
 						_userDetail=$.extend(true, {}, _data.quotes[i]);
 				
 				//populate drilldown
-				_getTemplate("/assets/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+				_getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
@@ -256,7 +256,7 @@ function Dashboard(){
 				_newQuoteDetail["instructions"]="The new quote will be added to your list";
 
 				//populate drilldown
-				_getTemplate("/assets/templates/drilldowns/_new_quote.handlebars.html", _newQuoteDetail, _drilldownContainerObj, function(){
+				_getTemplate("/templates/drilldowns/_new_quote.handlebars.html", _newQuoteDetail, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
@@ -277,7 +277,7 @@ function Dashboard(){
 				_invitationsDetail["instructions"]="We will be sending them an onboarding link on yoru behalf.";
 
 				//populate drilldown
-				_getTemplate("/assets/templates/drilldowns/_invitations.handlebars.html", _invitationsDetail, _drilldownContainerObj, function(){
+				_getTemplate("/templates/drilldowns/_invitations.handlebars.html", _invitationsDetail, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
@@ -298,19 +298,19 @@ function Dashboard(){
 				//todo: inject context/data under each template
 				switch(_options._kpiType){
 					case "type1":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 					case "type2":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_customer_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_customer_details.handlebars.html";
 					break;
 					case "type3":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 					case "type4":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 					case "type5":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 				}
 
@@ -444,7 +444,7 @@ function Dashboard(){
 					_tempObj["team_size"]= val.genealogy.downlinks.length;
 					_processedJSON.push(_tempObj);
 				});
-				_templatePath="/assets/templates/_team_thumbnail.handlebars.html";
+				_templatePath="/templates/_team_thumbnail.handlebars.html";
 			break;
 
 			case "quotes":
@@ -462,7 +462,7 @@ function Dashboard(){
 					_tempObj["quote_status"]=val.quote_status;
 					_processedJSON.push(_tempObj);
 				});
-				_templatePath="/assets/templates/_quote_thumbnail.handlebars.html";
+				_templatePath="/templates/_quote_thumbnail.handlebars.html";
 			break;
 
 		}
