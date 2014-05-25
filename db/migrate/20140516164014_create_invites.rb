@@ -21,7 +21,7 @@ end
 # rake db:structure:dump
 # config.active_record.schema_format :sql
 
-# rspec will use db:structure.load
+# rspec will use db:structure:load
 
 # :primary_key, :column, :xml, :tsvector, :int4range, :int8range, :tsrange, :tstzrange, :numrange, 
 # :daterange, :hstore, :ltree, :inet, :cidr, :macaddr, :uuid, :json, :indexes, :indexes=, :name, 
