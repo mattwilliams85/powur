@@ -78,11 +78,11 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
-  database: sunstand_production
-  username: sunstand
-  password: <%= ENV['SUNSTAND_DATABASE_PASSWORD'] %>
 # production:
 #   <<: *default
-#   database: sunstand_development
+#   database: sunstand_production
+#   username: sunstand
+#   password: <%= ENV['SUNSTAND_DATABASE_PASSWORD'] %>
+production:
+  <<: *default
+  database: sunstand_development

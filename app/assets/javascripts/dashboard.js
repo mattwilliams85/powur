@@ -8,7 +8,7 @@ var _dashboard;
 $(document).ready(function(){
 
 	//get current user profile and initiate dashboard data
-	$.getJSON("/assets/jsons/users."+_myID+".json", function(){
+	$.getJSON("/jsons/users."+_myID+".json", function(){
 		console.log("... loading user#"+_myID+" profile info");
 	})
 	.done(function(data){
@@ -167,7 +167,7 @@ function Dashboard(){
 				_drillDownLevel=$("#dashboard_team .drilldown").length+1;
 
 				//compile leader (hero) info
-				$.getJSON("/assets/jsons/users."+_options._userID+".json", function(){
+				$.getJSON("/jsons/users."+_options._userID+".json", function(){
 					console.log("... loading user#"+_options._userID+" profile info");
 				})
 				.done(function(data){
@@ -389,15 +389,15 @@ function Dashboard(){
 		switch(_dataType){
 			case "team.everyone":
 			case "team":
-				_endPoint="/assets/jsons/users."+_userID+".team.json"
+				_endPoint="/jsons/users."+_userID+".team.json"
 			break;
 			
 			case "quotes":
-				_endPoint="/assets/jsons/users."+_userID+".quotes.json"
+				_endPoint="/jsons/users."+_userID+".quotes.json"
 			break;
 
 			case "impact_metrics":
-				_endPoint="/assets/jsons/users."+_userID+".quotes.json"
+				_endPoint="/jsons/users."+_userID+".quotes.json"
 			break;
 		}
 
