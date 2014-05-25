@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :invites, foreign_key: 'invitor_id'
 
   validates :email, email: true, presence: true
+  validates_presence_of :first_name, :last_name, :encrypted_password
 
   def send_invite(params)
     invite = self.invites.create!(params)

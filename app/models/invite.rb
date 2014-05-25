@@ -2,9 +2,9 @@ class Invite < ActiveRecord::Base
 
   belongs_to :invitor, class_name: 'User'
   belongs_to :invitee, class_name: 'User'
-  
-  after_initialize do
-    self.id = Invite.generate_code
+
+  before_validation do
+    self.id ||= Invite.generate_code
   end
 
   def full_name
