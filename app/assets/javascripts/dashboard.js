@@ -80,7 +80,7 @@ function Dashboard(){
 	}//end quote dashboard info
 
 	
-	//start impact metrics dashboard info
+	//wire up impact metrics hooks
 	(function(){
 		_data.impact_metrics=[];
 		_getData(_myID, "impact_metrics", _data.impact_metrics);
@@ -111,17 +111,23 @@ function Dashboard(){
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});
 
-	//wire up invitations overview hook
+	//wire up invitations listing hook
 		$(document).on("click", ".js-invites_thumbnail", function(e){
 			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
-			_thisAudience =  $(e.target).parents(".js-invites_thumbnail").attr("data-audience");
 			_drillDown({"_type":"invitations",
 						"_mainSectionID":$(e.target).parents("section").attr("id"), 
 						"_thumbnailIdentifier":".js-invites_thumbnail",
 						"_target":$(e.target),
-						"_audience":_thisAudience, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});
+	//wire up invitation detail hooks
+		$(document).on("click", ".js-empty_seat", function(e){
+			_drillDown({"_type":"new_invitations",
+						"_mainSectionID":$(this).parents("section.dashboard_section").attr("id"), 
+						"_thumbnailIdentifier":".js-empty_seat",
+						"_target":$(e.target),
+						"_arrowPosition":$(this).find("span.expand i").offset().left});
+		});	
 
 
 	//wire up the pagination hooks
@@ -153,7 +159,6 @@ function Dashboard(){
 				"_mainSectionID":$(this).parents("section").attr("id"),
 				"_target":$(e.target),
 		});
-
 	});
 
 
@@ -249,7 +254,6 @@ function Dashboard(){
 			break;
 
 			case "new_quote":
-
 				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
 				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
@@ -279,7 +283,7 @@ function Dashboard(){
 
 				_invitationListing=[];
 				//get listing array from json
-				_getData(_myID, "new_invitations", _invitationListing, function(){
+				_getData(_myID, "invitations", _invitationListing, function(){
 
 					//pad the data object with blank invitations
 					for(i=_invitationListing.length; i<5; i++) _invitationListing.push({});
@@ -323,7 +327,21 @@ function Dashboard(){
 					});
 
 				});
+			break;
 
+			case "new_invitations":
+				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				$("#"+_options._mainSectionID).append(_html);
+
+				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+				_drilldownContainerObj.css("opacity","0");
+				_drilldownContainerObj.animate({height:"+=320px", opacity:1}, _animation_speed);	
+				_getTemplate("/assets/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", {}, _drilldownContainerObj, function(){
+					_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
+				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+
+				});
 
 			break;
 
@@ -380,7 +398,7 @@ function Dashboard(){
 
 			//fade all other "unfocused" thumbnail out
 			for(i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
-				if(i!=_thisThumbnail.index()){
+				if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
 					_neightborThmbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
 					_neightborThmbnail.animate({"opacity":".3"}, 1000);
 					_neightborThmbnail.find("span.expand i").removeClass("fa-angle-up");
@@ -439,7 +457,7 @@ function Dashboard(){
 				_endPoint="/assets/jsons/users."+_userID+".quotes.json";
 			break;
 
-			case "new_invitations":
+			case "invitations":
 				_endPoint="/assets/jsons/users."+_userID+".invitations.json";
 
 			break;
