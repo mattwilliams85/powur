@@ -4,6 +4,6 @@ describe 'login' do
 
   it 'describes the login input' do
     get '/login', format: :json
-    binding.pry
+    # binding.pry
   end
 end
