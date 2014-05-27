@@ -56,6 +56,23 @@ function Dashboard(){
 						"_userID":_drillDownUserID, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});
+		//wire up invitations listing hook
+		$(document).on("click", ".js-invites_thumbnail", function(e){
+			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
+			_drillDown({"_type":"invitations",
+						"_mainSectionID":$(e.target).parents("section").attr("id"), 
+						"_thumbnailIdentifier":".js-invites_thumbnail",
+						"_target":$(e.target),
+						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+		});
+		//wire up invitation detail hooks
+		$(document).on("click", ".js-empty_seat", function(e){
+			_drillDown({"_type":"new_invitations",
+						"_mainSectionID":$(this).parents("section.dashboard_section").attr("id"), 
+						"_thumbnailIdentifier":".js-empty_seat",
+						"_target":$(e.target),
+						"_arrowPosition":$(this).find("span.expand i").offset().left});
+		});			
 	}
 
 	//start quote dashboard info
@@ -111,23 +128,7 @@ function Dashboard(){
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});
 
-	//wire up invitations listing hook
-		$(document).on("click", ".js-invites_thumbnail", function(e){
-			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
-			_drillDown({"_type":"invitations",
-						"_mainSectionID":$(e.target).parents("section").attr("id"), 
-						"_thumbnailIdentifier":".js-invites_thumbnail",
-						"_target":$(e.target),
-						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
-		});
-	//wire up invitation detail hooks
-		$(document).on("click", ".js-empty_seat", function(e){
-			_drillDown({"_type":"new_invitations",
-						"_mainSectionID":$(this).parents("section.dashboard_section").attr("id"), 
-						"_thumbnailIdentifier":".js-empty_seat",
-						"_target":$(e.target),
-						"_arrowPosition":$(this).find("span.expand i").offset().left});
-		});	
+
 
 
 	//wire up the pagination hooks
@@ -289,12 +290,12 @@ function Dashboard(){
 					for(i=_invitationListing.length; i<5; i++) _invitationListing.push({});
 
 					//first place the listing template
-					_getTemplate("/assets/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
+					_getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
 						_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 		_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 
 				 		//display thumbnails
-				 		_getTemplate("/assets/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _invitationListing, _drilldownContainerObj.find(".drilldown_content_section"), function(){
+				 		_getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _invitationListing, _drilldownContainerObj.find(".drilldown_content_section"), function(){
 			 				
 			 				//wire up expiration timer
 			 				_now = new Date();
@@ -337,10 +338,9 @@ function Dashboard(){
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=320px", opacity:1}, _animation_speed);	
-				_getTemplate("/assets/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", {}, _drilldownContainerObj, function(){
+				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", {}, _drilldownContainerObj, function(){
 					_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
-
 				});
 
 			break;
@@ -450,15 +450,15 @@ function Dashboard(){
 		switch(_dataType){
 			case "team.everyone":
 			case "team":
-				_endPoint="/assets/jsons/users."+_userID+".team.json";
+				_endPoint="/jsons/users."+_userID+".team.json";
 			break;
 			
 			case "quotes":
-				_endPoint="/assets/jsons/users."+_userID+".quotes.json";
+				_endPoint="/jsons/users."+_userID+".quotes.json";
 			break;
 
 			case "invitations":
-				_endPoint="/assets/jsons/users."+_userID+".invitations.json";
+				_endPoint="/jsons/users."+_userID+".invitations.json";
 
 			break;
 
