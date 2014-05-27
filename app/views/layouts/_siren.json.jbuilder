@@ -1,5 +1,4 @@
-@class ||= @resource && @resource.class.name
-json.set! :class, @class
+json.set! :class, klass
 
 json.properties do
 end if @resource
