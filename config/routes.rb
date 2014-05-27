@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resource :login, controller: :session, only: [ :create, :destroy ]
+  resource :login, controller: :session, only: [ :create, :destroy ] do
+    get '' => 'session#index'
+  end
   resources :invites, only: [ :index, :create ]
 
 

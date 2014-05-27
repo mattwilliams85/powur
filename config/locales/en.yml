@@ -25,3 +25,5 @@ en:
   errors:
     required: "%{input} is required"
     credentials: Invalid email or password
+  actions:
+    session: "Login"
