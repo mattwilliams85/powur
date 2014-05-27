@@ -72,7 +72,8 @@ function Dashboard(){
 						"_thumbnailIdentifier":".js-empty_seat",
 						"_target":$(e.target),
 						"_arrowPosition":$(this).find("span.expand i").offset().left});
-		});			
+		});	
+		
 	}
 
 	//start quote dashboard info
@@ -94,6 +95,19 @@ function Dashboard(){
 						"_userID":_drillDownUserID, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});	
+
+		//wire up new quote hooks
+		$(document).on("click", ".js-new_quote_thumbnail", function(e){
+			_thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
+			_thisAudience =  $(e.target).parents(".js-new_quote_thumbnail").attr("data-audience");
+			_drillDown({"_type":"new_quote",
+						"_mainSectionID":$(e.target).parents("section").attr("id"), 
+						"_thumbnailIdentifier":".js-new_quote_thumbnail",
+						"_target":$(e.target),
+						"_audience":_thisAudience, 
+						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+		});
+
 	}//end quote dashboard info
 
 	
@@ -116,17 +130,6 @@ function Dashboard(){
 		});	
 	})();
 
-	//wire up new quote hooks
-		$(document).on("click", ".js-new_quote_thumbnail", function(e){
-			_thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
-			_thisAudience =  $(e.target).parents(".js-new_quote_thumbnail").attr("data-audience");
-			_drillDown({"_type":"new_quote",
-						"_mainSectionID":$(e.target).parents("section").attr("id"), 
-						"_thumbnailIdentifier":".js-new_quote_thumbnail",
-						"_target":$(e.target),
-						"_audience":_thisAudience, 
-						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
-		});
 
 
 
