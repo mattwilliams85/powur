@@ -8,7 +8,7 @@ var _dashboard;
 $(document).ready(function(){
 
 	//get current user profile and initiate dashboard data
-	$.getJSON("/assets/jsons/users."+_myID+".json", function(){
+	$.getJSON("/jsons/users."+_myID+".json", function(){
 		console.log("... loading user#"+_myID+" profile info");
 	})
 	.done(function(data){
@@ -173,7 +173,7 @@ function Dashboard(){
 				_drillDownLevel=$("#dashboard_team .drilldown").length+1;
 
 				//compile leader (hero) info
-				$.getJSON("/assets/jsons/users."+_options._userID+".json", function(){
+				$.getJSON("/jsons/users."+_options._userID+".json", function(){
 					console.log("... loading user#"+_options._userID+" profile info");
 				})
 				.done(function(data){
@@ -195,7 +195,7 @@ function Dashboard(){
 					// _drilldownContainerObj.scrollView(180);
 					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
 
-					_getTemplate("/assets/templates/drilldowns/_team_details.handlebars.html", 
+					_getTemplate("/templates/drilldowns/_team_details.handlebars.html", 
 								 _userDetail, 
 								 _drilldownContainerObj,
 								 function(){
@@ -218,7 +218,7 @@ function Dashboard(){
 					// _drilldownContainerObj.scrollView(180);
 					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);	
 					_userDetail={};		
-					_getTemplate("/assets/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
+					_getTemplate("/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
 
 				});
 			break;
@@ -241,7 +241,7 @@ function Dashboard(){
 						_userDetail=$.extend(true, {}, _data.quotes[i]);
 				
 				//populate drilldown
-				_getTemplate("/assets/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+				_getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
@@ -262,7 +262,7 @@ function Dashboard(){
 				_newQuoteDetail["instructions"]="The new quote will be added to your list";
 
 				//populate drilldown
-				_getTemplate("/assets/templates/drilldowns/_new_quote.handlebars.html", _newQuoteDetail, _drilldownContainerObj, function(){
+				_getTemplate("/templates/drilldowns/_new_quote.handlebars.html", _newQuoteDetail, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
@@ -321,6 +321,7 @@ function Dashboard(){
 			 				});
 				 		});
 					});
+
 				});
 
 
@@ -340,19 +341,19 @@ function Dashboard(){
 				//todo: inject context/data under each template
 				switch(_options._kpiType){
 					case "type1":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 					case "type2":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_customer_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_customer_details.handlebars.html";
 					break;
 					case "type3":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 					case "type4":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 					case "type5":
-						_templatePath="/assets/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 				}
 
@@ -431,6 +432,7 @@ function Dashboard(){
 		switch(_dataType){
 			case "team.everyone":
 			case "team":
+<<<<<<< HEAD
 				_endPoint="/assets/jsons/users."+_userID+".team.json";
 			break;
 			
@@ -440,6 +442,17 @@ function Dashboard(){
 
 			case "new_invitations":
 				_endPoint="/assets/jsons/users."+_userID+".invitations.json";
+=======
+				_endPoint="/jsons/users."+_userID+".team.json"
+			break;
+			
+			case "quotes":
+				_endPoint="/jsons/users."+_userID+".quotes.json"
+			break;
+
+			case "impact_metrics":
+				_endPoint="/jsons/users."+_userID+".quotes.json"
+>>>>>>> 255c60a232726e867858dfe20f10eab919839ff5
 			break;
 
 		}
@@ -487,7 +500,7 @@ function Dashboard(){
 					_tempObj["team_size"]= val.genealogy.downlinks.length;
 					_processedJSON.push(_tempObj);
 				});
-				_templatePath="/assets/templates/_team_thumbnail.handlebars.html";
+				_templatePath="/templates/_team_thumbnail.handlebars.html";
 			break;
 
 			case "quotes":
@@ -505,7 +518,7 @@ function Dashboard(){
 					_tempObj["quote_status"]=val.quote_status;
 					_processedJSON.push(_tempObj);
 				});
-				_templatePath="/assets/templates/_quote_thumbnail.handlebars.html";
+				_templatePath="/templates/_quote_thumbnail.handlebars.html";
 			break;
 
 		}

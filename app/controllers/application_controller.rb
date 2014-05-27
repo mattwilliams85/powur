@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include ParamValidation
+  include SirenDSL
   protect_from_forgery with: :exception
   helper_method :current_user
 

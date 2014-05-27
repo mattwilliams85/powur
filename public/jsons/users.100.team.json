@@ -8,7 +8,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Bob.jpg",
+			"profile_image":"/temp_dev_images/Bob.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -50,7 +50,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Sherry.jpg",
+			"profile_image":"/temp_dev_images/Sherry.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -92,7 +92,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Francis.jpg",
+			"profile_image":"/temp_dev_images/Francis.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -134,7 +134,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Tim.jpg",
+			"profile_image":"/temp_dev_images/Tim.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -176,7 +176,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Bob.jpg",
+			"profile_image":"/temp_dev_images/Bob.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -218,7 +218,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Sherry.jpg",
+			"profile_image":"/temp_dev_images/Sherry.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -260,7 +260,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Francis.jpg",
+			"profile_image":"/temp_dev_images/Francis.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -302,7 +302,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Tim.jpg",
+			"profile_image":"/temp_dev_images/Tim.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -344,7 +344,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Bob.jpg",
+			"profile_image":"/temp_dev_images/Bob.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -386,7 +386,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Sherry.jpg",
+			"profile_image":"/temp_dev_images/Sherry.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -428,7 +428,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Francis.jpg",
+			"profile_image":"/temp_dev_images/Francis.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -470,7 +470,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Tim.jpg",
+			"profile_image":"/temp_dev_images/Tim.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -512,7 +512,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Bob.jpg",
+			"profile_image":"/temp_dev_images/Bob.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -554,7 +554,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Sherry.jpg",
+			"profile_image":"/temp_dev_images/Sherry.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -596,7 +596,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Francis.jpg",
+			"profile_image":"/temp_dev_images/Francis.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -638,7 +638,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Tim.jpg",
+			"profile_image":"/temp_dev_images/Tim.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -680,7 +680,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Bob.jpg",
+			"profile_image":"/temp_dev_images/Bob.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -722,7 +722,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Sherry.jpg",
+			"profile_image":"/temp_dev_images/Sherry.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -764,7 +764,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Francis.jpg",
+			"profile_image":"/temp_dev_images/Francis.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -806,7 +806,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Tim.jpg",
+			"profile_image":"/temp_dev_images/Tim.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -848,7 +848,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Bob.jpg",
+			"profile_image":"/temp_dev_images/Bob.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -890,7 +890,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Sherry.jpg",
+			"profile_image":"/temp_dev_images/Sherry.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -932,7 +932,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Francis.jpg",
+			"profile_image":"/temp_dev_images/Francis.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -974,7 +974,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Tim.jpg",
+			"profile_image":"/temp_dev_images/Tim.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -1016,7 +1016,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Bob.jpg",
+			"profile_image":"/temp_dev_images/Bob.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -1058,7 +1058,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Sherry.jpg",
+			"profile_image":"/temp_dev_images/Sherry.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -1100,7 +1100,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Francis.jpg",
+			"profile_image":"/temp_dev_images/Francis.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",
@@ -1142,7 +1142,7 @@
 			"phone":"(123) 123-1234",
 			"facebook":"https://www.facebook.com/jonathan.budd",
 			"twitter":"https://twitter.com/jonahthanbudd",
-			"profile_image":"/assets/temp_dev_images/Tim.jpg",
+			"profile_image":"/temp_dev_images/Tim.jpg",
 			"address":{
 				"street":"123 Street",
 				"unit":"",

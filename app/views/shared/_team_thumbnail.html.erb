@@ -3,7 +3,7 @@
   <div id="<%= b.first_name %>_thumbnail" class="team_thumbnail js-thumbnail_parent">
     <div class="js-thumbnail" onclick="detailExpander('<%= b.first_name %>');">
 
-        <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
+        <span class="advocate_avatar" style="background-image: url(<%= '/temp_dev_images/' + b.first_name + '.jpg' %>)"></span>
         <br/>
         <%= b.first_name %> <%= b.last_name %>
         <span class="subtext">
@@ -24,7 +24,7 @@
           
           <div class="object_detail_content_section summary">
 
-            <span class="advocate_avatar" style="background-image: url(<%= image_path('temp_dev_images/' + b.first_name + '.jpg') %>)"></span>
+            <span class="advocate_avatar" style="background-image: url(<%= '/temp_dev_images/' + b.first_name + '.jpg' %>)"></span>
               <br/>
             <h4><%= b.first_name %> <%= b.last_name %></h4>
             
