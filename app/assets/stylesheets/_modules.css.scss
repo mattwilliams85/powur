@@ -348,6 +348,8 @@
 	
 	}
 
+
+
 // Unique elements (#IDs)
 
 	// Global progress bar
@@ -400,7 +402,7 @@
 				height: $grid;
 				width: $desktop;
 				// Background & borders
-				background-image: image-path('bg_tic.svg');
+				background-image: image-url('bg_tic.svg');
 				background-color: $text;
 				background-repeat: repeat-x;
 				background-size: contain;

@@ -486,7 +486,7 @@ footer {
 		padding-left: $grid / 1.5;
 		width: auto;
 		// Background & borders
-		background-image: image-path('search.svg');
+		background-image: image-url('search.svg');
 		background-position: left center;
 		background-repeat: no-repeat;
 		background-size: contain;
@@ -535,7 +535,7 @@ footer {
 		width: auto;
 		float: left;
 		// Background & borders
-		background-image: image-path('select_arrow.svg') ;
+		background-image: image-url('select_arrow.svg') ;
 		background-position: right center;
 		background-repeat: no-repeat;
 		background-size: contain;

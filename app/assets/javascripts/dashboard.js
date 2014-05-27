@@ -196,7 +196,7 @@ function Dashboard(){
 					for(key in data[0].rank[data[0].rank.length-1]) _userDetail["rank"] = key;
 
 					//add new team drilldown basic template layout with leader info
-					_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+					_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 					$("#dashboard_team").append(_html);
 					
 					_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
@@ -220,7 +220,7 @@ function Dashboard(){
 								 });
 				})
 				.fail(function(data){
-					_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+					_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 					$("#dashboard_team").append(_html);
 					_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 					_drilldownContainerObj.css("opacity","0");
@@ -237,7 +237,7 @@ function Dashboard(){
 				if(_data.quotes.length==0) return;
 
 				_drillDownLevel=$("#dashboard_quotes .drilldown").length+1;
-				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#dashboard_quotes").append(_html);
 				_drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
@@ -259,7 +259,7 @@ function Dashboard(){
 
 			case "new_quote":
 				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
@@ -278,7 +278,7 @@ function Dashboard(){
 
 			case "invitations":
 				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
@@ -335,7 +335,7 @@ function Dashboard(){
 
 			case "new_invitations":
 				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
@@ -351,7 +351,7 @@ function Dashboard(){
 
 			case "impact_metrics":
 				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");

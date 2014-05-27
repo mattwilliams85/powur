@@ -786,6 +786,59 @@
 }
 
 
+#invite_actions {
+	// Mixins
+	@include box_sizing;
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	.subtext {
+		// Mixins
+	
+		// Box properties
+		display: block;
+		padding: $grid / 4 0;
+		// Background & borders
+	
+		// Typography
+		text-align: center;
+		// Other
+	
+	}
+
+	.button {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 3.5;
+		float: left;
+		clear: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+
+		&+ .button {
+			// Mixins
+		
+			// Box properties
+			margin-left: $grid / 2;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}
+
 .section_notification {
 	// Mixins
 
@@ -1196,7 +1249,7 @@
 
 }
 
-.lead_info {
+.main, .sidebar {
 	// Mixins
 	@include box_sizing;
 	// Box properties
@@ -1210,7 +1263,7 @@
 
 }
 
-.contact {
+.main {
 	// Mixins
 	// Box properties
 	width: $grid * 20;
@@ -1224,7 +1277,7 @@
 
 }
 
-.utility {
+.sidebar {
 	// Mixins
 	// Box properties
 	overflow: hidden;
@@ -1238,6 +1291,76 @@
 
 }
 
+#invite_actions {
+	// Mixins
+	@include box_sizing;
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	.subtext {
+		// Mixins
+	
+		// Box properties
+		display: block;
+		padding: $grid / 4 0;
+		// Background & borders
+	
+		// Typography
+		text-align: center;
+		// Other
+	
+	}
+
+	.button {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 3.5;
+		float: left;
+		clear: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+
+		&+ .button {
+			// Mixins
+		
+			// Box properties
+			margin-left: $grid / 2;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}
+
+.invite_code {
+	// Mixins
+	@include corners;
+	@include box_sizing;
+	// Box properties
+	padding: $grid / 4 $grid / 2;
+	width: 100%;
+	display: block;
+	// Background & borders
+	background-color: $ghost;
+	border:1px solid $ghost;
+	// Typography
+	color: $whisper;
+	text-align: center;
+	// Other
+
+}
 
 // From Rick's internal styles - to be assimalated
 
@@ -1294,13 +1417,26 @@
 	left: 0;	
 	position: relative;
 	// Background & borders
-	border-top: 1px solid #444;
+	
 	border-bottom: 1px solid #444;
 
 	// Typography
 	text-align: left;
 	color: #f9f2e8;
 	// Other
+
+	&.level_1 {
+		// Mixins
+	
+		// Box properties
+		border-top: 1px solid #444;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
 
 }
 	.arrow{

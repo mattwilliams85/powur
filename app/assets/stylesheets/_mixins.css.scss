@@ -229,6 +229,20 @@
 
 	    }
 
+		&.disabled {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			background-color:$ghost;
+			border: $border;
+			// Typography
+			color: $quiet;
+			// Other
+		
+		}
+
 	    &.primary {
 	    	// Mixins
 	    
@@ -365,6 +379,8 @@
 			
 			// Other
 		
+
+
 		}
 
 		.expand {
