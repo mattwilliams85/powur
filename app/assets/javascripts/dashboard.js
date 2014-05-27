@@ -432,7 +432,6 @@ function Dashboard(){
 		switch(_dataType){
 			case "team.everyone":
 			case "team":
-<<<<<<< HEAD
 				_endPoint="/assets/jsons/users."+_userID+".team.json";
 			break;
 			
@@ -442,17 +441,7 @@ function Dashboard(){
 
 			case "new_invitations":
 				_endPoint="/assets/jsons/users."+_userID+".invitations.json";
-=======
-				_endPoint="/jsons/users."+_userID+".team.json"
-			break;
-			
-			case "quotes":
-				_endPoint="/jsons/users."+_userID+".quotes.json"
-			break;
 
-			case "impact_metrics":
-				_endPoint="/jsons/users."+_userID+".quotes.json"
->>>>>>> 255c60a232726e867858dfe20f10eab919839ff5
 			break;
 
 		}

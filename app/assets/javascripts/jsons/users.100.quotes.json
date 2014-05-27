@@ -1,0 +1,178 @@
+[
+    {
+        "info": {
+            "id": 1000,
+            "first_name": "Barbara",
+            "last_name": "Jackson",
+            "facebook": "",
+            "twitter": "",
+            "profile_image": "",
+            "sponsor": 100,
+            "address": {
+                "street": "123 Street",
+                "unit": "",
+                "city": "San Diego",
+                "state": "California",
+                "zip": "92127"
+            }
+        },
+        "utility_info": {
+            "kwh": "256",
+            "document": "pg&e_03012014-04012014.pdf"
+        },
+        "quote_status": {
+            "Created": "2014-04-22",
+            "Submitted": "2014-04-25",
+            "Approved": "2014-04-27",
+            "Scheduled": "2014-05-01"
+        }
+    },
+    {
+        "info": {
+            "id": 2000,
+            "first_name": "Jimmy",
+            "last_name": "Jimenez",
+            "email": "jimmy.jimenez@foo.com",
+            "phone": "(234) 234-2345",
+            "facebook": "",
+            "twitter": "",
+            "profile_image": "",
+            "sponsor": 100,
+            "address": {
+                "street": "123 Street",
+                "unit": "",
+                "city": "San Diego",
+                "state": "California",
+                "zip": "92127"
+            }
+        },
+        "utility_info": {
+            "kwh": "123",
+            "document": "monthly_utility_04_01_2014.pdf"
+        },
+        "quote_status": {
+            "Created": "2014-04-22",
+            "Submitted": "2014-04-25",
+            "Rejected": {
+                "date": "2014-04-27",
+                "reason": "Insufficient Credit Score"
+            }
+        }
+    },
+    {
+        "info": {
+            "id": 3000,
+            "first_name": "Barry",
+            "last_name": "Sausalito",
+            "email": "barry.sausalito@foo.com",
+            "phone": "(345) 345-3456",
+            "facebook": "",
+            "twitter": "",
+            "profile_image": "",
+            "sponsor": 100,
+            "address": {
+                "street": "123 Street",
+                "unit": "",
+                "city": "San Diego",
+                "state": "California",
+                "zip": "92127"
+            }
+        },
+        "utility_info": {
+            "kwh": "",
+            "document": ""
+        },
+        "quote_status": {
+            "Created": "2014-04-22",
+            "Submitted": "2014-04-25"
+        }
+    },
+    {
+        "info": {
+            "id": 1000,
+            "first_name": "Barbara",
+            "last_name": "Jackson",
+            "facebook": "",
+            "twitter": "",
+            "profile_image": "",
+            "sponsor": 100,
+            "address": {
+                "street": "123 Street",
+                "unit": "",
+                "city": "San Diego",
+                "state": "California",
+                "zip": "92127"
+            }
+        },
+        "utility_info": {
+            "kwh": "256",
+            "document": "pg&e_03012014-04012014.pdf"
+        },
+        "quote_status": {
+            "Created": "2014-04-22",
+            "Submitted": "2014-04-25",
+            "Approved": "2014-04-27",
+            "Scheduled": "2014-05-01"
+        }
+    },
+    {
+        "info": {
+            "id": 2000,
+            "first_name": "Jimmy",
+            "last_name": "Jimenez",
+            "email": "jimmy.jimenez@foo.com",
+            "phone": "(234) 234-2345",
+            "facebook": "",
+            "twitter": "",
+            "profile_image": "",
+            "sponsor": 100,
+            "address": {
+                "street": "123 Street",
+                "unit": "",
+                "city": "San Diego",
+                "state": "California",
+                "zip": "92127"
+            }
+        },
+        "utility_info": {
+            "kwh": "123",
+            "document": "monthly_utility_04_01_2014.pdf"
+        },
+        "quote_status": {
+            "Created": "2014-04-22",
+            "Submitted": "2014-04-25",
+            "Rejected": {
+                "date": "2014-04-27",
+                "reason": "Insufficient Credit Score"
+            }
+        }
+    },
+    {
+        "info": {
+            "id": 3000,
+            "first_name": "Barry",
+            "last_name": "Sausalito",
+            "email": "barry.sausalito@foo.com",
+            "phone": "(345) 345-3456",
+            "facebook": "",
+            "twitter": "",
+            "profile_image": "",
+            "sponsor": 100,
+            "address": {
+                "street": "123 Street",
+                "unit": "",
+                "city": "San Diego",
+                "state": "California",
+                "zip": "92127"
+            }
+        },
+        "utility_info": {
+            "kwh": "",
+            "document": ""
+        },
+        "quote_status": {
+            "Created": "2014-04-22",
+            "Submitted": "2014-04-25"
+        }
+    }    
+]

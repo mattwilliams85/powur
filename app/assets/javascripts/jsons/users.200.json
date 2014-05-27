@@ -1,0 +1,44 @@
+[
+	{
+		"info":{
+			"id":200,
+			"first_name":"Bob",
+			"last_name":"Smith",
+			"email":"bob.smith@foo.com",
+			"phone":"(111) 111-1111",
+			"facebook":"https://www.facebook.com/bob.smith",
+			"twitter":"https://twitter.com/bobsmith",
+			"profile_image":"/temp_dev_images/Bob.jpg",
+			"address":{
+				"street":"123 Street",
+				"unit":"",
+				"city":"San Diego",
+				"state":"California",
+				"zip":"92127"
+			}
+		},
+
+		"rank":[
+			{"Newbie":"2014-04-22"},
+			{"Rookie":"2014-04-25"},
+			{"Hero":"2014-04-27"}
+		],
+
+		"customers":{
+			"quotes_pending":[101,102],
+			"quotes_approved":[55,56,57],
+			"quotes_rejected":[34],
+			"panels_scheduled":[60, 61],
+			"panels_installed":[44],
+			"total_revenue":123.45
+		},
+
+		"genealogy":{
+			"uplink":0,
+			"incoming_requests":[433, 452],
+			"outgoing_requests":[317, 322, 335],
+			"new_downlinks":[215, 219, 299],
+			"downlinks":[200, 213, 215, 219, 299]
+		}
+	}
+]
