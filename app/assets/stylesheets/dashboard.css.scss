@@ -786,18 +786,57 @@
 }
 
 
-.invite_actions {
+#invite_actions {
 	// Mixins
-
+	@include box_sizing;
 	// Box properties
-	overflow: hidden;
-	width: $grid * 9.5;
+
 	// Background & borders
 
 	// Typography
 
 	// Other
 
+	.subtext {
+		// Mixins
+	
+		// Box properties
+		display: block;
+		padding: $grid / 4 0;
+		// Background & borders
+	
+		// Typography
+		text-align: center;
+		// Other
+	
+	}
+
+	.button {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 3.5;
+		float: left;
+		clear: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+
+		&+ .button {
+			// Mixins
+		
+			// Box properties
+			margin-left: $grid / 2;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
 }
 
 .section_notification {
@@ -1252,9 +1291,63 @@
 
 }
 
+#invite_actions {
+	// Mixins
+	@include box_sizing;
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	.subtext {
+		// Mixins
+	
+		// Box properties
+		display: block;
+		padding: $grid / 4 0;
+		// Background & borders
+	
+		// Typography
+		text-align: center;
+		// Other
+	
+	}
+
+	.button {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 3.5;
+		float: left;
+		clear: none;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+
+		&+ .button {
+			// Mixins
+		
+			// Box properties
+			margin-left: $grid / 2;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}
+
 .invite_code {
 	// Mixins
 	@include corners;
+	@include box_sizing;
 	// Box properties
 	padding: $grid / 4 $grid / 2;
 	width: 100%;
