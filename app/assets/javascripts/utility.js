@@ -172,7 +172,8 @@ function _formSubmit(_event, _formObj, _endPoint, _verb){
         _callback: function(data, text){
             if(Object.keys(data)=="error") _formErrorHandling(_formObj, data.error);
             else{
-                window.location.replace(data.redirect);
+                if(typeof data.redirect !== "undefined") window.location.replace(data.redirect);
+                console.log(text);
             }
         }
     }); 

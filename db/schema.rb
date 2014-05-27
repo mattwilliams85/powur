@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20140519201745) do
     t.string   "email",      null: false
     t.string   "first_name", null: false
     t.string   "last_name",  null: false
+    t.string   "phone",      null: false
     t.integer  "invitor_id", null: false
     t.integer  "invitee_id"
     t.datetime "created_at"
@@ -40,11 +41,13 @@ ActiveRecord::Schema.define(version: 20140519201745) do
 
   create_table "users", force: true do |t|
     t.string   "email",              null: false
-    t.string   "encrypted_password"
+    t.string   "encrypted_password", null: false
     t.string   "first_name",         null: false
     t.string   "last_name",          null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end

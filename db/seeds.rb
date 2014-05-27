@@ -11,3 +11,4 @@ User.create(
   password:     'solarpower', 
   first_name:   'Jonanthan', 
   last_name:     'Budd')
+

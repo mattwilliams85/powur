@@ -73,7 +73,11 @@ function Dashboard(){
 						"_target":$(e.target),
 						"_arrowPosition":$(this).find("span.expand i").offset().left});
 		});	
-		
+
+		//wire up new invitation submission hook
+		$(document).on("click", "form#new_promoter_invitation_form button", function(e){
+			_formSubmit(e, $("#new_promoter_invitation_form"), "/invites", "POST");
+		});
 	}
 
 	//start quote dashboard info
