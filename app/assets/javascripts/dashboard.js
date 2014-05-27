@@ -16,6 +16,7 @@ $(document).ready(function(){
 		_dashboard = new Dashboard();
 		_dashboard.displayTeam();
 		_dashboard.displayQuote();
+		setInterval(_dashboard._countdown, 1000);
 	});	
 
 	//wire up logout button
@@ -34,6 +35,7 @@ function Dashboard(){
 
 	this.displayTeam = displayTeam;
 	this.displayQuote = displayQuote;
+	this._countdown = _countdown;
 
 
 	function displayTeam(_tab){
@@ -264,27 +266,63 @@ function Dashboard(){
 				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
-
 			break;
 
 			case "invitations":
-
 				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
 				_html="<section class=\"drilldown\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
+
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=256px", opacity:1}, _animation_speed);	
 
-				_invitationsDetail={};
-				_invitationsDetail["audience"]=_options._audience;
-				_invitationsDetail["instructions"]="We will be sending them an onboarding link on yoru behalf.";
+				_invitationListing=[];
+				//get listing array from json
+				_getData(_myID, "new_invitations", _invitationListing, function(){
 
-				//populate drilldown
-				_getTemplate("/assets/templates/drilldowns/_invitations.handlebars.html", _invitationsDetail, _drilldownContainerObj, function(){
-				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+					//pad the data object with blank invitations
+					for(i=_invitationListing.length; i<5; i++) _invitationListing.push({});
+
+					//first place the listing template
+					_getTemplate("/assets/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
+						_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
+				 		_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+
+				 		//display thumbnails
+				 		_getTemplate("/assets/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _invitationListing, _drilldownContainerObj.find(".drilldown_content_section"), function(){
+			 				
+			 				//wire up expiration timer
+			 				_now = new Date();
+			 				$(".js-expiration").each(function(){
+			 					var _remainingSeconds, _remainingMinutes, _remainingHours;
+
+			 					_expiration = new Date(	$(this).attr("data-expiration-year"),
+			 											$(this).attr("data-expiration-month"),
+			 											$(this).attr("data-expiration-day"),
+			 											$(this).attr("data-expiration-hour"),
+														$(this).attr("data-expiration-minute"),
+			 											0);
+			 					_totalSeconds = Math.round((_expiration-_now)/1000);
+			 					if(_totalSeconds >0){
+				 					_remainingHours = Math.floor(_totalSeconds/(60*60));
+				 					_totalSeconds = _totalSeconds - _remainingHours*(3600);
+				 					_remainingMinutes =  Math.floor(_totalSeconds/(60));
+				 					_remainingSeconds = _totalSeconds - _remainingMinutes*(60);
+			 						if(_remainingSeconds<10) _remainingSeconds = "0"+_remainingSeconds;
+			 						if(_remainingMinutes<10) _remainingMinutes = "0"+_remainingMinutes;
+			 						if(_remainingHours<10) _remainingHours = "0"+_remainingHours;
+			 						$(this).find(".js-expiration-hours").text(_remainingHours);
+				 					$(this).find(".js-expiration-minutes").text(_remainingMinutes);
+				 					$(this).find(".js-expiration-seconds").text(_remainingSeconds);
+			 					}else{
+			 						$(this).html("Expired");
+			 					}
+			 				});
+				 		});
+					});
 				});
+
 
 			break;
 
@@ -361,7 +399,7 @@ function Dashboard(){
 				_abortDrillDown=true;
 
 				_currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
-
+				clearTimeout();
 				return;
 			}
 
@@ -393,16 +431,17 @@ function Dashboard(){
 		switch(_dataType){
 			case "team.everyone":
 			case "team":
-				_endPoint="/assets/jsons/users."+_userID+".team.json"
+				_endPoint="/assets/jsons/users."+_userID+".team.json";
 			break;
 			
 			case "quotes":
-				_endPoint="/assets/jsons/users."+_userID+".quotes.json"
+				_endPoint="/assets/jsons/users."+_userID+".quotes.json";
 			break;
 
-			case "impact_metrics":
-				_endPoint="/assets/jsons/users."+_userID+".quotes.json"
+			case "new_invitations":
+				_endPoint="/assets/jsons/users."+_userID+".invitations.json";
 			break;
+
 		}
 
 		$.getJSON(_endPoint, function(){
@@ -507,6 +546,35 @@ function Dashboard(){
 			}
 		});
 	}
+
+	//start timeout function
+	function _countdown(){
+		var _remainingSeconds, _remainingMinutes, _remainingHours;
+		$(".js-expiration-seconds").each(function(){
+			_remainingSeconds = $(this).text()*1-1;
+			if(_remainingSeconds<1){
+				_remainingMinutes=$(this).siblings(".js-expiration-minutes").text()-1;
+				if(_remainingMinutes<1){
+					_remainingHours = $(this).siblings(".js-expiration-hours").text()-1;
+					if(_remainingHours<1){
+						$(this).html("Expired");
+						return;
+					}
+					_remainingMinutes = 60;
+					_remainingSeconds =60;
+				}
+				_remainingSeconds=60;
+			}
+			if(_remainingSeconds<10) _remainingSeconds = "0"+_remainingSeconds;
+			if(_remainingMinutes<10) _remainingMinutes = "0"+_remainingMinutes;
+			if(_remainingHours<10) _remainingHours = "0"+_remainingHours;
+
+			$(".js-expiration-seconds").text(_remainingSeconds);
+			$(".js-expiration-minutes").text(_remainingMinutes);
+			$(".js-expiration-hours").text(_remainingHours);
+		});
+	}
+
 
 }// end Dashboard class
 
