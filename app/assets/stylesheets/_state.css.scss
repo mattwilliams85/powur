@@ -44,9 +44,9 @@
 
 	// Background & borders
 	background-image: url(image-path('bg_clapper.svg'));
-	background-position: right center;
+	background-position: right top;
 	background-repeat: repeat-x;
-	background-size: contain;
+	background-size: $grid / 2;
 	// Typography
 
 	// Other

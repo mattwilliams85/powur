@@ -365,7 +365,7 @@ function Dashboard(){
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=320px", opacity:1}, _animation_speed);
+				_drilldownContainerObj.animate({height:"+=384px", opacity:1}, _animation_speed);
 
 				_newInvitationDetail = {};
 				_newInvitationDetail.invitationType="Existing";
