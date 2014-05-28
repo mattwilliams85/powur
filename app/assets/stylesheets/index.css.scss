@@ -263,6 +263,7 @@ body#signup {
 	// Box properties
 	margin: $grid * 2 auto 0;
 	overflow: auto;
+	width: $grid * 10;
 	// Background & borders
 
 	// Typography
@@ -271,17 +272,21 @@ body#signup {
 
 	input {
 		// Mixins
+		@include box_sizing;
 		@include corners(2px,0,2px,0);
 		// Box properties
-		display: inline-block;
+		display: block;
+		float: left;
 		width: $grid * 8;
 		margin: 0 -7px 0 0;
 		padding: $grid / 4 $grid / 2;
 		// Background & borders
-		background: none;
+		background: $brand;
 		border-color: rgba(white, 1);
 		// Typography
 		color: white;
+	-webkit-font-smoothing: subpixel-antialiased;
+
 		// Other
 	
 		&:focus {
@@ -316,17 +321,25 @@ body#signup {
 
 	.button {
 		// Mixins
+		@include box_sizing;
 		@include corners(0,2px,0,2px);
 		// Box properties
-		display: inline-block;
-		width: auto;
+		display: block;
+		width: $grid * 2;
 		clear: none;
-		padding: $grid / 4 $grid / 2;
+		float: left;
+		padding: $grid / 3 $grid / 2;
+		margin-top: 0;
 		// Background & borders
 		border-color: rgba(white, 1);
 		background: $brand;
 		// Typography
 		color: white;
+		line-height: $line_height;
+		font-size: $font_size;
+		line-height: $font_size;
+		font-family: $body_font;
+		text-transform: none;
 		// Other
 	
 		&:hover {
