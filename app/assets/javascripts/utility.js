@@ -20,7 +20,6 @@ jQuery(function($){
     //Utility to allow JSON objects to be serialized from forms
     $.fn.serializeObject = function()
     {
-        console.log("start")
         var o = {};
         var a = this.serializeArray();
         $.each(a, function() {
@@ -167,7 +166,10 @@ function _formSubmit(_event, _formObj, _endPoint, _verb){
     _event.preventDefault();
     var _serializedData = _formObj;
     if(typeof _verb == "undefined") _verb = "POST";
-    if(_formObj instanceof $) _serializedData = _formObj.serializeObject();
+    if(_formObj instanceof $) {
+        _serializedData = _formObj.serializeObject();
+        _formObj.find(".form_row").removeClass("is_not_valid");
+    }
 
     _ajax({
         _ajaxType:_verb,  
@@ -188,9 +190,11 @@ function _formErrorHandling(_formObj, _error){
     switch (_error.type){
         case "input":
             _input= _formObj.find("input[name='"+_error.input+"']");
+             _formObj.find("input[name='"+_error.input+"']").parents(".form_row").addClass("is_not_valid");
             _formObj.find(".js-error").remove();
             _html="<span class='js-error'>"+_error.message+"</span>";
             _input.parents(".form_row").append(_html);
+
         break;
 
     }
