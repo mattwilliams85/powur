@@ -401,7 +401,6 @@ footer {
 
 		// Typography
 		text-align: left;
-
 		// Other
 
 	}
@@ -412,7 +411,7 @@ footer {
 		// Box properties
 		position: absolute;
 		top: $grid / 4;
-		right: $grid / 4;
+		left: $grid / 2;
 		text-align: right;
 
 		// Background & borders
@@ -445,18 +444,17 @@ footer {
 
 	input[type=text],
 	input[type=password],
-	input[type=email],
-	input[type=search] {
+	input[type=email] {
 		// Mixins
-		@include form_box;
+		@include field_box;
 
 		// Box properties
-
+		margin-bottom: $grid / 4;
 		// Background & borders
 		border: $border;
 		background-color: $ghost;
 		// Typography
-		color: $quiet;
+		color: white;
 
 		// Other
 		
@@ -477,6 +475,7 @@ footer {
 
 	input[type=search] {
 		// Mixins
+		@include form_box;
 		@include no_shadow;
 		@include box_sizing;
 		@include corners(32px, 32px, 32px, 32px);
@@ -500,8 +499,25 @@ footer {
 		-webkit-appearance: none;
 	}
 
+	::-webkit-input-placeholder {
+	   color: transparent;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+	   color: transparent;  
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+	   color: transparent;  
+	}
+
+	:-ms-input-placeholder {  
+	   color: transparent;  
+	}
+
+
 	[placeholder]:focus::-webkit-input-placeholder {
-	  transition: opacity 0.5s 0 ease; 
+	  // transition: opacity 0.5s 0 ease; 
 	  opacity: 0;
 	}
 
