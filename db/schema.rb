@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20140519201745) do
     t.string   "email",      null: false
     t.string   "first_name", null: false
     t.string   "last_name",  null: false
-    t.string   "phone",      null: false
+    t.string   "phone"
     t.integer  "invitor_id", null: false
     t.integer  "invitee_id"
     t.datetime "created_at"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140519201745) do
     t.string   "encrypted_password", null: false
     t.string   "first_name",         null: false
     t.string   "last_name",          null: false
+    t.string   "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
