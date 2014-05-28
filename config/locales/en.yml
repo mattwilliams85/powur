@@ -23,8 +23,24 @@ en:
   email_subjects:
     invite: Invitation to Join SunStand
   errors:
+    format: "%{message}"
     required: "%{input} is required"
     credentials: Invalid email or password
-    max_invites: You have reached the maximum number of allowable invites.
+    messages: 
+      exceeded_max_invites: You have exceeded the max number of invites allowed
+      blank: "%{attribute} is required"
+    attributes:
+      email:
+        blank: Please input an email address
   actions:
-    session: "Login"
+    session: Login
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "%{errors}"
+
+# activerecord.errors.models.user.attributes.name.blank
+# activerecord.errors.models.user.blank
+# activerecord.errors.messages.blank
+# errors.attributes.name.blank
+# errors.messages.blank

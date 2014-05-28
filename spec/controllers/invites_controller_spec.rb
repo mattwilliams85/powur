@@ -27,4 +27,12 @@ describe InvitesController do
     expect_alert_error
   end
 
+  it 'requires email, first_name, and last_name' do
+    [ :email, :first_name, :last_name ].each do |input|
+      post :create, invite_params.reject { |k,v| k == input }
+
+      expect_input_error(input)
+    end
+  end
+
 end

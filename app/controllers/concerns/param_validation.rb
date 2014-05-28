@@ -2,6 +2,7 @@ module ParamValidation
   extend ActiveSupport::Concern
 
   included do
+    rescue_from ActiveRecord::RecordInvalid, with: :active_record_error
     rescue_from ::Errors::InputError, ::Errors::AlertError, with: :render_json_error
   end
 
@@ -21,6 +22,12 @@ module ParamValidation
     else
       raise ::Errors::AlertError, msg
     end
+  end
+
+  def active_record_error(e)
+    raise ::Errors::InputError.new(e.record.errors.first.first), e.message
+  rescue ::Errors::InputError => e
+    render_json_error(e)
   end
 
   def render_json_error(e)
