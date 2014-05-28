@@ -530,6 +530,7 @@ function Dashboard(){
 					_tempObj["address"]= val.info.address;
 					_tempObj["utility_info"]=val.utility_info;
 					_tempObj["quote_status"]=val.quote_status;
+					_tempObj["current_status"]=Object.keys(val.quote_status)[Object.keys(val.quote_status).length-1];
 					_processedJSON.push(_tempObj);
 				});
 				_templatePath="/templates/_quote_thumbnail.handlebars.html";
