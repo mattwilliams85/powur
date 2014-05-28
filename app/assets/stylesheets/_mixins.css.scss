@@ -223,6 +223,8 @@
 		font-family: $body_font;
 		font-size: $font_size;
 		line-height: $font_size;
+		-webkit-font-smoothing: subpixel-antialiased;
+
 		// Other
 
 	}

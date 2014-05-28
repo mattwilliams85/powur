@@ -29,18 +29,12 @@
 
 		</form>
 
-		<div id="invite_actions" class="sidebar">
-			<h4>Invite Code</h4>
-			<span class="invite_code">C3P0</span>
-
-		</div>
-
 	</div>
 	{{else}}
 	<div class="drilldown_content_section summary">
 		<h4>Pending Invite</h4> 
-		<p class="subtext">Enter in a name and an email address or phone number to generate a new invite code.</p>
-		<p class="subtext">Invite codes expire after 48 hours. You can renew or release invite codes to either extend or cancel the invitation.</p>
+		<p class="subtext">Enter in a name and an email address sned out and invitation.</p>
+		<p class="subtext">Invite expire after 24 hours. You can renew or release invite codes to either extend or cancel the invitation.</p>
 	</div>
 
 	<div class="drilldown_content_section">
@@ -60,20 +54,14 @@
 					<label for="email">Email</label>
 					<input type="text" name="email" placeholder="Email Address" value="{{email}}">
 				</span>					
-				<span class="form_row">
-					<label for="phone">Phone</label>
-					<input type="text" name="phone" placeholder="Phone Number" value="{{phone}}">
-				</span>
-				<button type="button" class="button">Generate Invite Code</button>
+
+				<button type="button" class="button">Resend Invite</button>
 
 		</form>
 
 		<div id="invite_actions" class="sidebar">
 			<h4>Invite Code</h4>
 			<span class="invite_code">C3P0</span>
-			<span class="subtext">Copy and paste, or send invite:</span>
-			<span class="button disabled">By SMS</span>
-			<span class="button">By email</span>
 		</div>
 
 	</div>		
