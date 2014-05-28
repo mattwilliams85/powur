@@ -3,9 +3,9 @@ json.set! :class, siren.klasses
 json.properties do
   if siren.object_entity?
     if siren.list_entity?
-      json.items siren.entity, partial: siren.entity_partial, as: siren.klass.to_sym
+      json.items siren.entity, partial: siren.entity_partial, as: siren.klass
     else
-      json.partial! partial: siren.entity_partial
+      json.partial! partial: siren.entity_partial, locals: { siren.klass => siren.entity }
     end
   end
   

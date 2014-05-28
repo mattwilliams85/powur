@@ -6,6 +6,7 @@ class CreateInvites < ActiveRecord::Migration
       t.string :first_name, null: false
       t.string :last_name,  null: false
       t.string :phone
+      t.datetime :expires, null: false
 
       t.belongs_to :invitor, class_name: 'User', null: false
       t.belongs_to :invitee, class_name: 'User'

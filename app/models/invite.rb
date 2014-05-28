@@ -8,10 +8,16 @@ class Invite < ActiveRecord::Base
 
   before_validation do
     self.id ||= Invite.generate_code
+    self.expires ||= DateTime.current + PromoterConfig.invite_valid_days.days
   end
 
   def full_name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  def renew
+    new_expires = self.expires + PromoterConfig.invite_valid_days
+    
   end
 
   class << self

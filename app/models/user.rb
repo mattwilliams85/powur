@@ -6,11 +6,15 @@ class User < ActiveRecord::Base
   validates :email, email: true, presence: true
   validates_presence_of :first_name, :last_name, :encrypted_password
 
-  def send_invite(params)
+  def create_invite(params)
     invite = self.invites.create!(params)
-    PromoterMailer.invitation(invite)
+    send_invite(invite)
 
     invite
+  end
+
+  def send_invite(invite)
+    PromoterMailer.invitation(invite)
   end
 
 end

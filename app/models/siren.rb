@@ -6,7 +6,7 @@ class Siren
   def initialize(entity, properties = {})
     @entity, @properties = entity, properties
     @klass = properties.delete(:klass) || 
-      (object_entity? ? @entity.class.name.downcase : @entity)
+      (object_entity? ? @entity.class.name.downcase.to_sym : @entity)
 
     if list_entity?
       self.klasses += [ :list, "#{@klass}s" ]

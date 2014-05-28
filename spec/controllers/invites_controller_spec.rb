@@ -7,6 +7,18 @@ describe InvitesController do
     login_user
   end
 
+  describe '#index' do
+    it 'renders a list of invites' do
+      create_list(:invite, 3, invitor: @user)
+
+      get :index
+
+      expect_200
+      expect(json_body['class']).to include('invites', 'list')
+      expect(json_body['properties']['items']).to have(3).items
+    end
+  end
+
   describe '#create' do
     let(:invite_params) {{
          email:       'paul.walker+invite@eyecuelab.com',
@@ -18,6 +30,9 @@ describe InvitesController do
       post :create, invite_params
 
       expect_200
+
+      expect(json_body['class']).to include('invite')
+      expect(json_body['properties']['email']).to eq(invite_params[:email])
     end
 
     it 'does not allow the user to exceed the max # of invites' do
@@ -37,15 +52,25 @@ describe InvitesController do
     end
   end
 
-  describe '#index' do
-    it 'renders a list of invites' do
-      create_list(:invite, 3, invitor: @user)
+  describe '#renew' do
+    it 'renews the expiration date' do
+      invite = create(:invite, invitor: @user)
 
-      get :index
+      post :renew, id: invite.id
 
       expect_200
-      expect(json_body['class']).to include('invites', 'list')
-      expect(json_body['properties']['items']).to have(3).items
     end
   end
+
+  describe '#destroy' do
+    it 'deletes an invite' do
+      invite = create(:invite, invitor: @user)
+
+      delete :destroy, id: invite.id
+
+      expect_200
+      expect(Invite.find_by_id(invite.id)).to be_nil
+    end
+  end
+
 end

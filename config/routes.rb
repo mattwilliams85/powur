@@ -3,7 +3,13 @@ Rails.application.routes.draw do
   resource :login, controller: :session, only: [ :create, :destroy ] do
     get '' => 'session#index'
   end
-  resources :invites, only: [ :index, :create ]
+  resources :invites, only: [ :index, :create, :destroy ] do
+    member do
+      post :renew
+      post :resend
+    end
+    
+  end
 
 
   get 'customer' => 'index#customer'

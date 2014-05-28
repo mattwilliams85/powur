@@ -1,4 +1,3 @@
-
 siren = Siren.new(current_user.invites, klass: :invite)
 siren.action(:create, :post, invites_path).
   field(:email, :email).
