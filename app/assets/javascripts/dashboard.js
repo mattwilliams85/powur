@@ -4,26 +4,26 @@ var _animation_speed = 500;
 var _dashboard;
 
 
+jQuery(function($){
+	$(document).ready(function(){
 
-$(document).ready(function(){
+		//get current user profile and initiate dashboard data
+		$.getJSON("/jsons/users."+_myID+".json", function(){
+			console.log("... loading user#"+_myID+" profile info");
+		})
+		.done(function(data){
+			_data.profile=$.extend(true, {}, data[0]);
+			_dashboard = new Dashboard();
+			_dashboard.displayTeam();
+			_dashboard.displayQuote();
+			setInterval(_dashboard._countdown, 1000);
+		});	
 
-	//get current user profile and initiate dashboard data
-	$.getJSON("/jsons/users."+_myID+".json", function(){
-		console.log("... loading user#"+_myID+" profile info");
-	})
-	.done(function(data){
-		_data.profile=$.extend(true, {}, data[0]);
-		_dashboard = new Dashboard();
-		_dashboard.displayTeam();
-		_dashboard.displayQuote();
-		setInterval(_dashboard._countdown, 1000);
-	});	
+		//wire up logout button
+		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "DELETE");});
 
-	//wire up logout button
-	$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "DELETE");});
-
+	});
 });
-
 
 
 //populate initial data on dashboard screen

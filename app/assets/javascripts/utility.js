@@ -1,39 +1,42 @@
-//All jquery ajax requests must use CSRF token
-$.ajaxSetup({
-  headers: {
-    'X-CSRF-Token': $('meta[name="csrf-token"]').attr("content")
-  }
-});
-
-//Utility added to jQuery that allows drilldowns to scroll to view
-$.fn.scrollView = function (_offset) {
-    if(_offset = undefined) _offset=0;
-  return this.each(function (_offset) {
-    $('html, body').animate({
-      scrollTop: $(this).offset().top-_offset
-    }, _animation_speed);
-  });
-}
-
-
-//Utility to allow JSON objects to be serialized from forms
-$.fn.serializeObject = function()
-{
-    console.log("start")
-    var o = {};
-    var a = this.serializeArray();
-    $.each(a, function() {
-        if (o[this.name] !== undefined) {
-            if (!o[this.name].push) {
-                o[this.name] = [o[this.name]];
-            }
-            o[this.name].push(this.value || '');
-        } else {
-            o[this.name] = this.value || '';
-        }
+jQuery(function($){
+    //All jquery ajax requests must use CSRF token
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr("content")
+      }
     });
-    return o;
-};
+
+    //Utility added to jQuery that allows drilldowns to scroll to view
+    $.fn.scrollView = function (_offset) {
+        if(_offset = undefined) _offset=0;
+      return this.each(function (_offset) {
+        $('html, body').animate({
+          scrollTop: $(this).offset().top-_offset
+        }, _animation_speed);
+      });
+    }
+
+
+    //Utility to allow JSON objects to be serialized from forms
+    $.fn.serializeObject = function()
+    {
+        console.log("start")
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+});
 
 //Handlebar helper to allow comparisons
 Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
