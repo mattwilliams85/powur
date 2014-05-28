@@ -66,10 +66,10 @@ function Dashboard(){
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});
 		//wire up invitation detail hooks
-		$(document).on("click", ".js-empty_seat", function(e){
+		$(document).on("click", ".js-new_invite_thumbnail", function(e){
 			_drillDown({"_type":"new_invitations",
 						"_mainSectionID":$(this).parents("section.dashboard_section").attr("id"), 
-						"_thumbnailIdentifier":".js-empty_seat",
+						"_thumbnailIdentifier":".js-new_invite_thumbnail",
 						"_target":$(e.target),
 						"_arrowPosition":$(this).find("span.expand i").offset().left});
 		});	
@@ -530,6 +530,7 @@ function Dashboard(){
 					_tempObj["address"]= val.info.address;
 					_tempObj["utility_info"]=val.utility_info;
 					_tempObj["quote_status"]=val.quote_status;
+					_tempObj["current_status"]=Object.keys(val.quote_status)[Object.keys(val.quote_status).length-1];
 					_processedJSON.push(_tempObj);
 				});
 				_templatePath="/templates/_quote_thumbnail.handlebars.html";
