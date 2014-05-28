@@ -344,7 +344,7 @@ function Dashboard(){
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=320px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=384px", opacity:1}, _animation_speed);	
 				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", {}, _drilldownContainerObj, function(){
 					_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);

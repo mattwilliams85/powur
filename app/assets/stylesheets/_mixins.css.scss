@@ -230,11 +230,12 @@
 	@mixin button {
 		// Mixins
 	    @include form_box;
-	    @include no_shadow;
+	    @include corners;
 		// Box properties
 		clear: both;
-
-
+		margin-top: $grid / 4;
+		float: right;
+		width: auto;
 		// Background & borders
 		background: $brand;
 		border: 1px solid darken($brand, 2%);
