@@ -2,23 +2,26 @@
 	<%= javascript_include_tag "user.js" %>
 <% end %>
 
-<section style="text-align:center; margin-top:200px;">
-<div style="width:500px; margin:auto;">
-<form id="user_login" class=" js-login_form">
+<section id="promoter_banner" class="landing_banner">
+	<div id="banner_graphic_br"></div>
 
-		<h3>Promoter Login</h3>
+	<div id="promoter_banner_content" class="banner_content">
 
-		<span class="form_row">
-			<label for="email">Email</label>
-			<input name="email" type="text" placeholder="Email" class="validate" required/>
-		</span>
+	<form id="user_login" class=" js-login_form">
 
-		<span class="form_row">
-			<label for="password">Password</label>
-			<input name="password" type="password" placeholder="password" class="validate" required/>
-		</span>
-		<a href="#" class="button">Submit</a>
-	</form>
+			<h3>Promoter Login</h3>
 
-</div>
+			<span class="form_row">
+				<label for="email">Email</label>
+				<input name="email" type="text" placeholder="Email" class="validate" required/>
+			</span>
+
+			<span class="form_row">
+				<label for="password">Password</label>
+				<input name="password" type="password" placeholder="password" class="validate" required/>
+			</span>
+			<a href="#" class="button">Submit</a>
+		</form>
+
+	</div>
 </section>

@@ -8,15 +8,15 @@
 
 			<span>{{this.first_name}} {{this.last_name}}</span>
 			<span class="subtext">
-				<span class="badge">Renew</span>
-				<span class="badge">Release</span>
-			</span>
-			<span class="subtext js-expiration"	data-expiration-hour="{{this.expiration.hour}}" 
+				<span class="js-expiration"	data-expiration-hour="{{this.expiration.hour}}" 
 												data-expiration-minute="{{this.expiration.minute}}"
 												data-expiration-day="{{this.expiration.day}}"
 												data-expiration-month="{{this.expiration.month}}"
 												data-expiration-year="{{this.expiration.year}}">
 				Expires in <span class="js-expiration-hours"></span>:<span class="js-expiration-minutes"></span>:<span class="js-expiration-seconds"></span>
+			</span>
+				<span class="badge">Renew</span>
+				<span class="badge">Release</span>
 			</span>
 			<span class="expand">
 				<i class="fa fa-angle-down"></i>

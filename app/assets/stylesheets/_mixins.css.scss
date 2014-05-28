@@ -186,6 +186,10 @@
 		padding: $grid / 4 $grid / 2;
 	}
 
+	@mixin field_padding {
+		padding: $grid / 1.25 $grid / 2 $grid / 4;
+	}
+
 	@mixin form_box {
 		// Mixins
 		@include box_sizing;
@@ -203,14 +207,35 @@
 
 	}
 
+	@mixin field_box {
+		// Mixins
+		@include box_sizing;
+		@include field_padding;
+		@include corners;
+		// Box properties
+		display: block;
+		width: 100%;
+		vertical-align: baseline;
+		margin-bottom: $grid / 2;
+		// Background & borders
+	
+		// Typography
+		font-family: $body_font;
+		font-size: $font_size;
+		line-height: $font_size;
+		// Other
+
+	}
+
 	@mixin button {
 		// Mixins
 	    @include form_box;
-	    @include no_shadow;
+	    @include corners;
 		// Box properties
 		clear: both;
-
-
+		margin-top: $grid / 4;
+		float: right;
+		width: auto;
 		// Background & borders
 		background: $brand;
 		border: 1px solid darken($brand, 2%);

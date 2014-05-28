@@ -350,8 +350,6 @@ function Dashboard(){
 				_newInvitationDetail.invitationType="Existing";
 				if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _newInvitationDetail.invitationType="New";
 
-
-
 				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _newInvitationDetail, _drilldownContainerObj, function(){
 					_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
