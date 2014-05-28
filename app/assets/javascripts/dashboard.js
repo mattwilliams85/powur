@@ -32,6 +32,7 @@ function Dashboard(){
 	_data.global = {};
 	_data.global.thumbnail_size={"width":256,"height":197};
 	_data.global.grid_width=32;
+	_data.global.total_invitations=5;
 
 	this.displayTeam = displayTeam;
 	this.displayQuote = displayQuote;
@@ -73,6 +74,26 @@ function Dashboard(){
 						"_target":$(e.target),
 						"_arrowPosition":$(this).find("span.expand i").offset().left});
 		});	
+		//update invitation summary
+		_data["invitations"]=[];
+		_getData(_myID, "invitations", _data["invitations"], function(){
+			_availableInvitations = _data.global.total_invitations - _data.invitations.length;
+			$(".js-remaining_invitations").text(_availableInvitations);
+			_expiredInvitations=0;
+			for(i=0;i<_data.invitations.length;i++) {
+			 	_now = new Date();
+				_expiration = new Date(	_data.invitations[i].expiration.year,
+			 							_data.invitations[i].expiration.month,
+			 							_data.invitations[i].expiration.day,
+			 							_data.invitations[i].expiration.hour,
+										_data.invitations[i].expiration.min,
+			 							0);
+				_totalSeconds = Math.round((_expiration-_now)/1000);				
+				if(_totalSeconds <0) _expiredInvitations++;
+			}
+			$(".js-expired_invitations").text(_expiredInvitations+" Expired");
+		});
+
 
 		//wire up new invitation submission hook
 		$(document).on("click", "form#new_promoter_invitation_form button", function(e){
@@ -344,8 +365,13 @@ function Dashboard(){
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=384px", opacity:1}, _animation_speed);	
-				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", {}, _drilldownContainerObj, function(){
+				_drilldownContainerObj.animate({height:"+=320px", opacity:1}, _animation_speed);
+
+				_newInvitationDetail = {};
+				_newInvitationDetail.invitationType="Existing";
+				if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _newInvitationDetail.invitationType="New";
+
+				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _newInvitationDetail, _drilldownContainerObj, function(){
 					_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
@@ -475,7 +501,7 @@ function Dashboard(){
 			console.log("... loading user:"+_userID+" "+_dataType+" info");
 		})
 		.done(function(_d){
-			if(_dataStore != undefined)
+			if(typeof _dataStore !== "undefined")
 				$.each(_d, function(counter, val){ _dataStore.push(val);});
 			else
 				console.log(_d);
