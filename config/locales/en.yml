@@ -32,8 +32,11 @@ en:
     attributes:
       email:
         blank: Please input an email address
-  actions:
-    session: Login
+  entities:
+    invite:
+      create: Create Invite
+    session:
+      create: Login
   activerecord:
     errors:
       messages:

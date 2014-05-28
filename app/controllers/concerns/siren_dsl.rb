@@ -2,8 +2,10 @@ module SirenDSL
   extend ActiveSupport::Concern
 
   included do
-    helper_method :action, :actions, :klass
+    helper_method :klass, :action, :actions, :entity, :entities, :resource
   end
+
+  attr_reader :entity
 
   protected
 
@@ -17,5 +19,9 @@ module SirenDSL
 
   def actions
     @actions ||= []
+  end
+
+  def entities(value = nil)
+    @entities ||= value || []
   end
 end

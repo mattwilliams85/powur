@@ -4,7 +4,7 @@ class InvitesController < AuthController
   end
 
   def create
-    input = params.permit(*:email, :first_name, :last_name, :phone)
+    input = params.permit(:email, :first_name, :last_name, :phone)
 
     invite = current_user.send_invite(input)
 

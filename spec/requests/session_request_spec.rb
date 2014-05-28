@@ -4,6 +4,9 @@ describe 'login' do
 
   it 'describes the login input' do
     get '/login', format: :json
-    # binding.pry
+    
+    expect_200
+
+    expect(json_body['class']).to include('session')
   end
 end

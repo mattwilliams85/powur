@@ -9,6 +9,10 @@ module SpecHelpers
     response[:json_body] ||= MultiJson.load(response.body)
   end
 
+  def expect_200
+    expect(response.status).to eq(200)
+  end
+
   def expect_input_error(input)
     expect(json_body['error']['input']).to eq(input.to_s)
   end
