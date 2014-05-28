@@ -38,7 +38,8 @@ CREATE TABLE invites (
     email character varying(255) NOT NULL,
     first_name character varying(255) NOT NULL,
     last_name character varying(255) NOT NULL,
-    phone character varying(255) NOT NULL,
+    phone character varying(255),
+    expires timestamp without time zone NOT NULL,
     invitor_id integer NOT NULL,
     invitee_id integer,
     created_at timestamp without time zone,
@@ -99,6 +100,7 @@ CREATE TABLE users (
     encrypted_password character varying(255) NOT NULL,
     first_name character varying(255) NOT NULL,
     last_name character varying(255) NOT NULL,
+    phone character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
