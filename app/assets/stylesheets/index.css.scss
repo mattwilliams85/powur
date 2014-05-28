@@ -278,6 +278,7 @@ body#signup {
 		display: block;
 		float: left;
 		width: $grid * 8;
+		height: $grid * 1.4;
 		margin: 0 -7px 0 0;
 		padding: $grid / 4 $grid / 2;
 		// Background & borders
@@ -285,7 +286,7 @@ body#signup {
 		border-color: rgba(white, 1);
 		// Typography
 		color: white;
-	-webkit-font-smoothing: subpixel-antialiased;
+		-webkit-font-smoothing: subpixel-antialiased;
 
 		// Other
 	
@@ -326,6 +327,7 @@ body#signup {
 		// Box properties
 		display: block;
 		width: $grid * 2;
+		height: $grid * 1.4;
 		clear: none;
 		float: left;
 		padding: $grid / 3 $grid / 2;
@@ -547,13 +549,10 @@ body#signup {
 	input[type=text],
 	input[type=email] {
 		// Mixins
-		@include corners(0px,0px,0px,0px);
 		// Box properties
-		margin: 0;
-		padding: $grid / 4 $grid / 2;
 		// Background & borders
 		border-color: rgba(white, .5);
-		border-bottom: none;
+
 		background-color: rgba($brand, .5);
 		// Typography
 		color: white;
@@ -562,19 +561,19 @@ body#signup {
 	}
 
 	::-webkit-input-placeholder {
-	   color: white;
+	   color: transparent;
 	}
 
 	:-moz-placeholder { /* Firefox 18- */
-	   color: white;  
+	   color: transparent;  
 	}
 
 	::-moz-placeholder {  /* Firefox 19+ */
-	   color: white;  
+	   color: transparent;  
 	}
 
 	:-ms-input-placeholder {  
-	   color: white;  
+	   color: transparent;  
 	}
 
 	a {
