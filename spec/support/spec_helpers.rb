@@ -13,4 +13,8 @@ module SpecHelpers
     expect(json_body['error']['input']).to eq(input.to_s)
   end
 
+  def expect_alert_error
+    expect(json_body['error']['type']).to eq('alert')
+  end
+
 end

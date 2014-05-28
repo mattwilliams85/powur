@@ -4,11 +4,13 @@ class InvitesController < AuthController
   end
 
   def create
-    keys = [ :email, :first_name, :last_name, :phone ]
-    require_input *keys
+    input = params.permit(*:email, :first_name, :last_name, :phone)
 
-    invite = current_user.send_invite(params.permit(*keys))
+    invite = current_user.send_invite(input)
 
     render json: {}
+  rescue ActiveRecord::RecordInvalid => e
+    raise e unless e.record.errors.first.first == :invitor
+    error!(e.message)
   end
 end
