@@ -38,17 +38,35 @@
 }
 
 .is_not_valid {
-	// Mixins
 
-	// Box properties
+	label {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+		color: $sunnyside;
+		// Other
+	
+	}
 
-	// Background & borders
-	background-image: url(image-path('bg_clapper.svg'));
-	background-position: right top;
-	background-repeat: repeat-x;
-	background-size: $grid / 2;
-	// Typography
+	input {
+		// Mixins
 
-	// Other
+		// Box properties
+
+		// Background & borders
+		background-image: url(image-path('bg_clapper.svg'));
+		background-position: right top;
+		background-repeat: repeat-x;
+		background-size: $grid * 1.25;
+		// Typography
+
+		// Other
+	
+	}
+
 
 }
