@@ -47,7 +47,7 @@
 		// Background & borders
 	
 		// Typography
-		color: $sunnyside;
+		color: white;
 		// Other
 	
 	}
@@ -68,5 +68,35 @@
 	
 	}
 
+
+}
+
+.active_label {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+	color: white;
+	// Other
+
+}
+
+.js-error {
+		// Mixins
+		@include small_title;
+		// Box properties
+		position: absolute;
+		top: $grid / 4;
+		right: $grid / 2;
+		text-align: right;
+
+		// Background & borders
+	
+		// Typography
+		color: white;
+		// Other
 
 }

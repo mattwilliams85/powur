@@ -465,6 +465,8 @@ footer {
 		
 			// Background & borders
 			outline: none;
+			border-color: $ghost_dark;
+			background-color: $ghost_dark;
 			// Typography
 			color: white;
 			font-style: normal;
