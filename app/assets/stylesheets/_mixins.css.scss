@@ -240,6 +240,7 @@
 		margin-top: $grid / 4;
 		float: right;
 		width: auto;
+		clear: none;
 		// Background & borders
 		background: $brand;
 		border: 1px solid darken($brand, 2%);

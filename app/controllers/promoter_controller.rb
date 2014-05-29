@@ -1,9 +1,9 @@
 class PromoterController < ApplicationController
 
-	layout "signup"
+	layout "user"
 
 	def thanks
-		render layout: "signup"
+		render layout: "user"
 	end
 
 end

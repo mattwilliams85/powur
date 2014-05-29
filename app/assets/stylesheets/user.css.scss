@@ -2,11 +2,104 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#signup_banner_content {
+// Reset the field
+	@import "reset";
+
+// Make mixins and variables available
+
+	@import "_mixins";
+	@import "iconsweet";
+
+// SMACCS CSS architecture (kinda)
+
+	// Set base styles (element tags only)
+
+		@import "_base";
+
+	// Define our layouts
+
+		@import "_layouts";
+
+	// Define our modules
+
+		@import "_modules";
+
+	// Define our states
+
+		@import "_state";
+
+// And just for development
+
+	@import "development";
+
+// Layout specific styles
+
+body#user {
 	// Mixins
 
 	// Box properties
-	margin-top: 15vh;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	header {
+		// Mixins
+		// Box properties
+		// Background & borders
+		background-color: $brand;
+		border-bottom: 1px solid rgba(255, 255, 255, 0);
+		// Typography
+	
+		// Other
+	
+		li {
+			// Mixins
+
+			// Box properties
+			float: right;
+			// Background & borders
+
+			// Typography
+		
+			// Other
+		
+			a {
+				// Mixins
+				@include corners;
+
+				// Box properties
+				// Background & borders
+				border: 1px solid $white;
+				background: $brand;
+				// Typography
+				color: white;
+				// Other
+				
+				&:hover {
+					// Mixins
+				
+					// Box properties
+				
+					// Background & borders
+					background-color: $sunnyside;
+					// Typography
+					// Other
+				
+				}
+			}		
+		}
+	}
+}
+
+#user_content {
+	// Mixins
+
+	// Box properties
+	margin: $grid * 6 auto 0;
+	width: $tablet;
 	// Background & borders
 
 	// Typography
@@ -14,3 +107,159 @@
 	// Other
 
 }
+
+h3 {
+	// Mixins
+
+	// Box properties
+	margin-bottom: $grid / 4;
+	// Background & borders
+
+	// Typography
+	color: $quiet;
+	// Other
+
+}
+
+// Forms
+
+	form {
+		// Mixins
+
+		// Box properties
+
+		// Background & borders
+
+		// Typography
+
+		// Other
+
+	}
+
+	label:not(.checkbox) {
+		// Mixins
+
+		// Box properties
+
+		// Background & borders
+	
+		// Typography
+
+		// Other
+	
+	}
+
+	label.checkbox {
+		// Mixins
+	
+		// Box properties
+
+		// Background & borders
+	
+		// Typography
+
+		// Other
+	
+	}
+
+	input + label {
+
+	}
+
+	input[type=text],
+	input[type=password],
+	input[type=email] {
+		// Mixins
+
+		// Box properties
+
+		// Background & borders
+
+		// Typography
+
+		// Other
+		
+		&:focus {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+
+			// Typography
+
+			// Other
+
+		}
+	}
+
+	input[type=search] {
+		// Mixins
+
+		// Box properties
+
+		// Background & borders
+
+		// Typography
+
+		// Other
+
+	}
+
+	::-webkit-input-placeholder {
+
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+
+	}
+
+	:-ms-input-placeholder {  
+
+	}
+
+
+	[placeholder]:focus::-webkit-input-placeholder {
+
+	}
+
+	input:focus::-webkit-input-placeholder { color:transparent; }
+	input:focus:-moz-placeholder { }
+
+	input[type=checkbox] {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+
+		// Other
+	}
+
+	select {
+		// Mixins
+
+		// Box properties
+
+		// Background & borders
+
+		// Typography
+
+		// Other
+
+		&:hover {
+
+		}
+
+		&:focus {
+
+		}
+	}
+
+
