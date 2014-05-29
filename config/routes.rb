@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'customer/details' => 'customer#details'
 
   get 'promoter' => 'promoter#index'
+  get 'promoter/create' => 'promoter#create'
   get 'promoter/thanks' => 'promoter#thanks'
   get 'promoter/request' => 'promoter#request'
   

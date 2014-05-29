@@ -124,6 +124,21 @@ h3 {
 
 // Forms
 
+	.form_row.checkbox {
+		// Mixins
+	
+		// Box properties
+		width: 75%;
+		float: left;
+		padding: $grid / 4;
+		// Background & borders
+
+		// Typography
+	
+		// Other
+	
+	}
+
 	form {
 		// Mixins
 
@@ -158,7 +173,7 @@ h3 {
 		// Background & borders
 	
 		// Typography
-
+		color: $quiet;
 		// Other
 	
 	}
