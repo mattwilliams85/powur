@@ -117,6 +117,7 @@ h3 {
 
 	// Typography
 	color: $quiet;
+	text-align: left;
 	// Other
 
 }
@@ -176,7 +177,7 @@ h3 {
 		// Background & borders
 
 		// Typography
-
+		color: $text;
 		// Other
 		
 		&:focus {
@@ -187,7 +188,7 @@ h3 {
 			// Background & borders
 
 			// Typography
-
+			color: $text;
 			// Other
 
 		}
