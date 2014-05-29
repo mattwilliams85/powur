@@ -94,7 +94,7 @@ function _ajax(_options){
         dataType:"json",
         success: function(data, text){
             if(typeof _options._callback === "function") _options._callback(data, text);
-            else console.log(data);
+            else return data;
         },
         error: function(request, status, error){
             console.log("Post error: "+request.responseText);
@@ -162,7 +162,7 @@ function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
 
 
 // function that handles form submission
-function _formSubmit(_event, _formObj, _endPoint, _verb){
+function _formSubmit(_event, _formObj, _endPoint, _verb, _callback){
     _event.preventDefault();
     var _serializedData = _formObj;
     if(typeof _verb == "undefined") _verb = "POST";
@@ -179,7 +179,7 @@ function _formSubmit(_event, _formObj, _endPoint, _verb){
             if(Object.keys(data)=="error") _formErrorHandling(_formObj, data.error);
             else{
                 if(typeof data.redirect !== "undefined") window.location.replace(data.redirect);
-                console.log(text);
+                if(typeof _callback !== "undefined") _callback(data, text);
             }
         }
     }); 
@@ -199,6 +199,9 @@ function _formErrorHandling(_formObj, _error){
 
     }
 }
+
+
+//function that parses JSON objects from the backend
 
 
 

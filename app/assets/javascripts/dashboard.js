@@ -74,20 +74,17 @@ function Dashboard(){
 						"_target":$(e.target),
 						"_arrowPosition":$(this).find("span.expand i").offset().left});
 		});	
+
 		//update invitation summary
 		_data["invitations"]=[];
 		_getData(_myID, "invitations", _data["invitations"], function(){
-			_availableInvitations = _data.global.total_invitations - _data.invitations.length;
+			_availableInvitations = _data.global.total_invitations; 
+			for(i=0;i<_data.invitations.length;i++) if(typeof _data.invitations[i].id !== "undefined") _availableInvitations--;
 			$(".js-remaining_invitations").text(_availableInvitations);
 			_expiredInvitations=0;
 			for(i=0;i<_data.invitations.length;i++) {
 			 	_now = new Date();
-				_expiration = new Date(	_data.invitations[i].expiration.year,
-			 							_data.invitations[i].expiration.month,
-			 							_data.invitations[i].expiration.day,
-			 							_data.invitations[i].expiration.hour,
-										_data.invitations[i].expiration.min,
-			 							0);
+				_expiration = new Date(	_data.invitations[i].expires);
 				_totalSeconds = Math.round((_expiration-_now)/1000);				
 				if(_totalSeconds <0) _expiredInvitations++;
 			}
@@ -97,8 +94,10 @@ function Dashboard(){
 
 		//wire up new invitation submission hook
 		$(document).on("click", "#new_promoter_invitation_form .button", function(e){
-			console.log($("#new_promoter_invitation_form"))
-			_formSubmit(e, $("#new_promoter_invitation_form"), "/invites", "POST");
+			_formSubmit(e, $("#new_promoter_invitation_form"), "/invites", "POST", function(data, text){
+				console.log("invitaiton sent: "+text);
+
+			});
 		});
 	}
 
@@ -311,12 +310,12 @@ function Dashboard(){
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=256px", opacity:1}, _animation_speed);	
 
-				_invitationListing=[];
+				_data["invitations"]=[];
 				//get listing array from json
-				_getData(_myID, "invitations", _invitationListing, function(){
+				_getData(_myID, "invitations", _data["invitations"], function(){
 
 					//pad the data object with blank invitations
-					for(i=_invitationListing.length; i<5; i++) _invitationListing.push({});
+					for(i=_data["invitations"].length; i<5; i++) _data["invitations"].push({});
 
 					//first place the listing template
 					_getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
@@ -324,19 +323,14 @@ function Dashboard(){
 				 		_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 
 				 		//display thumbnails
-				 		_getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _invitationListing, _drilldownContainerObj.find(".drilldown_content_section"), function(){
+				 		_getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
 			 				
 			 				//wire up expiration timer
 			 				_now = new Date();
 			 				$(".js-expiration").each(function(){
 			 					var _remainingSeconds, _remainingMinutes, _remainingHours;
 
-			 					_expiration = new Date(	$(this).attr("data-expiration-year"),
-			 											$(this).attr("data-expiration-month"),
-			 											$(this).attr("data-expiration-day"),
-			 											$(this).attr("data-expiration-hour"),
-														$(this).attr("data-expiration-minute"),
-			 											0);
+			 					_expiration = new Date($(this).attr("data-expiration-timestamp"));
 			 					_totalSeconds = Math.round((_expiration-_now)/1000);
 			 					if(_totalSeconds >0){
 				 					_remainingHours = Math.floor(_totalSeconds/(60*60));
@@ -368,11 +362,13 @@ function Dashboard(){
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=384px", opacity:1}, _animation_speed);
 
-				_newInvitationDetail = {};
-				_newInvitationDetail.invitationType="Existing";
-				if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _newInvitationDetail.invitationType="New";
+				_invitationDetail = {};
+				_invitationDetail = _data["invitations"][_thisThumbnail.index()];
+				_invitationDetail.invitationType="Existing";
+				_thisThumbnail = $(_options._target).parents(_options._thumbnailIdentifier);
+				if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _invitationDetail.invitationType="New";
 
-				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _newInvitationDetail, _drilldownContainerObj, function(){
+				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
 					_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
@@ -492,7 +488,7 @@ function Dashboard(){
 			break;
 
 			case "invitations":
-				_endPoint="/jsons/users."+_userID+".invitations.json";
+				_endPoint="/invites";
 
 			break;
 
@@ -502,10 +498,17 @@ function Dashboard(){
 			console.log("... loading user:"+_userID+" "+_dataType+" info");
 		})
 		.done(function(_d){
-			if(typeof _dataStore !== "undefined")
-				$.each(_d, function(counter, val){ _dataStore.push(val);});
+			if(typeof _dataStore !== "undefined"){
+				if(Object.keys(_d).indexOf("properties")>=0){
+					$.each(_d.properties.items, function(counter, val){ _dataStore.push(val);});
+				}else{
+					//todo: fake data that needs to be replaced
+					$.each(_d, function(counter, val){ _dataStore.push(val);});
+				}
+			}
 			else
 				console.log(_d);
+
 			if(typeof _callback=="function") _callback();
 		})
 		.fail(function(){

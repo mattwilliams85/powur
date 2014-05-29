@@ -2,17 +2,13 @@
 
 {{#if this.id}}
 
-	<div class="new_thumbnail">
-		<div class="js-thumbnail js-new_invite_thumbnail" >
+	<div class="new_thumbnail js-new_invite_thumbnail">
+		<div class="js-thumbnail" >
 			<img class="advocate_avatar" src="/temp_dev_images/Tim.jpg"/>
 
 			<span>{{this.first_name}} {{this.last_name}}</span>
 			<span class="subtext">
-				<span class="js-expiration"	data-expiration-hour="{{this.expiration.hour}}" 
-												data-expiration-minute="{{this.expiration.minute}}"
-												data-expiration-day="{{this.expiration.day}}"
-												data-expiration-month="{{this.expiration.month}}"
-												data-expiration-year="{{this.expiration.year}}">
+				<span class="js-expiration"	data-expiration-timestamp="{{this.expires}}">
 				Expires in <span class="js-expiration-hours"></span>:<span class="js-expiration-minutes"></span>:<span class="js-expiration-seconds"></span>
 			</span>
 				<span class="badge">Renew</span>
