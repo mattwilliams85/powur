@@ -39,7 +39,7 @@
 
 	<div class="drilldown_content_section">
 
-		<form id="new_promoter_invitation_form" class="main">
+		<form id="existing_promoter_invitation_form" class="main">
 				<h4>Contact Info</h4>
 
 				<span class="form_row">
@@ -53,15 +53,14 @@
 				<span class="form_row">
 					<label for="email">Email</label>
 					<input type="text" name="email" placeholder="Email Address" value="{{email}}">
-				</span>					
-
-				<button type="button" class="button">Resend Invite</button>
-
+				</span>	
 		</form>
 
 		<div id="invite_actions" class="sidebar">
 			<h4>Invite Code</h4>
 			<span class="invite_code">{{id}}</span>
+			<span class="button js-renew_advocate">Renew</span>
+			<span class="button js-remove_advocate">Remove</span>
 		</div>
 
 	</div>		
