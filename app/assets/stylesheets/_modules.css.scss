@@ -14,6 +14,47 @@
 
 	}
 
+  	.quiet_button {
+		// Mixins
+		@include button;
+		// Box properties
+
+		// Background & borders
+		border: $border;
+		background-color: $ghost;
+
+		// Typography
+		color: white;
+
+		// Other
+
+		&:hover {
+	    	// Mixins
+	    
+	    	// Box properties
+	    
+	    	// Background & borders
+			border-color: $ghost_dark;
+			background-color: $ghost_dark;
+	    	// Typography
+	    	color: white;
+	    	// Other
+		}
+
+	    &.active {
+	    	// Mixins
+	    
+	    	// Box properties
+	    
+	    	// Background & borders
+	    	background: $sunnyside;
+	    	border-color: darken($sunnyside, 2%);
+	    	// Typography
+	    	color: white;
+	    	// Other
+	    }
+  	}
+
 	a.secondary_button {
 		// Mixins
 		@include small_title;

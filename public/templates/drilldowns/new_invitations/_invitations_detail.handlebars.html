@@ -8,24 +8,25 @@
 	</div>
 
 	<div class="drilldown_content_section">
-
+	
 		<form id="new_promoter_invitation_form" class="main">
-				<h4>Contact Info</h4>
+			
+			<h4>Contact Info</h4>
 
-				<span class="form_row">
-					<label for="first_name">First Name</label>
-					<input type="text" name="first_name" placeholder="First Name">
-				</span>
-				<span class="form_row">
-					<label for="last_name">Last Name</label>
-					<input type="text" name="last_name" placeholder="Last Name">
-				</span>
-				<span class="form_row">
-					<label for="email">Email</label>
-					<input type="text" name="email" placeholder="Email Address">
-				</span>					
+			<span class="form_row">
+				<label for="first_name">First Name</label>
+				<input type="text" name="first_name" placeholder="First Name">
+			</span>
+			<span class="form_row">
+				<label for="last_name">Last Name</label>
+				<input type="text" name="last_name" placeholder="Last Name">
+			</span>
+			<span class="form_row">
+				<label for="email">Email</label>
+				<input type="text" name="email" placeholder="Email Address">
+			</span>					
 
-				<button class="button">Send Invite</button>
+			<button class="button">Send Invite</button>
 
 		</form>
 
@@ -33,34 +34,43 @@
 	{{else}}
 	<div class="drilldown_content_section summary">
 		<h4>Pending Invite</h4> 
-		<p class="subtext">Enter in a name and an email address sned out and invitation.</p>
+		<p class="subtext">Enter in a name and an email address to send out and invitation.</p>
 		<p class="subtext">Invite expire after 24 hours. You can renew or release invite codes to either extend or cancel the invitation.</p>
 	</div>
 
 	<div class="drilldown_content_section">
 
 		<form id="existing_promoter_invitation_form" class="main">
-				<h4>Contact Info</h4>
 
-				<span class="form_row">
-					<label for="first_name">First Name</label>
-					<input type="text" name="first_name" placeholder="First Name" value="{{first_name}}" readonly>
-				</span>
-				<span class="form_row">
-					<label for="last_name">Last Name</label>
-					<input type="text" name="last_name" placeholder="Last Name" value="{{last_name}}" readonly>
-				</span>
-				<span class="form_row">
-					<label for="email">Email</label>
-					<input type="text" name="email" placeholder="Email Address" value="{{email}}" readonly>
-				</span>	
+			<h4>Contact Info</h4>
+
+			<div class="form_edit_actions">
+				<a class="button save_changes">Save changes</a>
+				<a class="secondary_button cancel_changes">Cancel</a>
+			</div>
+
+			<span class="form_row">
+				<label for="first_name">First Name</label>
+				<input type="text" name="first_name" placeholder="First Name" value="{{first_name}}">
+			</span>
+			<span class="form_row">
+				<label for="last_name">Last Name</label>
+				<input type="text" name="last_name" placeholder="Last Name" value="{{last_name}}">
+			</span>
+			<span class="form_row">
+				<label for="email">Email</label>
+				<input type="text" name="email" placeholder="Email Address" value="{{email}}">
+			</span>	
+			<button class="quiet_button">Resend Invite</button>
+
 		</form>
 
 		<div id="invite_actions" class="sidebar">
 			<h4>Invite Code</h4>
 			<span class="invite_code">{{id}}</span>
-			<span class="button js-renew_advocate">Renew</span>
-			<span class="button js-remove_advocate">Remove</span>
+			<span class="quiet_button js-renew_advocate">Renew</span>
+			<span class="quiet_button js-remove_advocate">Release</span>
+
 		</div>
 
 	</div>		

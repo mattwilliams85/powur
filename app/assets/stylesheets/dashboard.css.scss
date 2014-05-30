@@ -1275,6 +1275,19 @@
 
 	// Other
 
+	h4 {
+		// Mixins
+	
+		// Box properties
+		float: left;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
 }
 
 .sidebar {
@@ -1289,6 +1302,73 @@
 
 	// Other
 
+}
+
+.form_edit_actions {
+	// Mixins
+
+	// Box properties
+	display: none;
+	float: right;
+	margin-bottom: $grid / 4;
+	height: 0;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	a {
+		// Mixins
+	
+		// Box properties
+		margin-top: 0;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		&.save_changes {
+			// Mixins
+		
+			// Box properties
+			
+			// Background & borders
+			background-color: $supergreen;
+			border: 1px solid darken($supergreen, 2%);
+
+			// Typography
+		
+			// Other
+		
+			&:hover {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+				background-color: $supergreen_shadow;
+				// Typography
+				border: 1px solid darken($supergreen_shadow, 2%);			
+				// Other
+			
+			}
+		}
+
+		&.cancel_changes:hover {
+			// Mixins
+		
+			// Box properties
+
+			// Background & borders
+		
+			// Typography
+			color: $red;
+			// Other
+		
+		}
+	}
 }
 
 #invite_actions {
@@ -1316,7 +1396,7 @@
 	
 	}
 
-	.button {
+	.quiet_button {
 		// Mixins
 	
 		// Box properties
@@ -1329,7 +1409,7 @@
 	
 		// Other
 
-		&+ .button {
+		&+ .quiet_button {
 			// Mixins
 		
 			// Box properties
@@ -1350,6 +1430,7 @@
 	@include box_sizing;
 	// Box properties
 	padding: $grid / 4 $grid / 2;
+	margin-bottom: $grid;
 	width: 100%;
 	display: block;
 	// Background & borders

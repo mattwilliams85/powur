@@ -41,13 +41,7 @@
 	$white: #fff;
 	$black: #222;
 
-	$supergreen0: darken($supergreen, 12%);
-	$supergreen3: darken($supergreen, 8%);
-	$supergreen6: darken($supergreen, 4%);
-	$supergreen9: $supergreen;
-	$supergreena: lighten($supergreen, 4%);
-	$supergreenc: lighten($supergreen, 8%);
-	$supergreenf: lighten($supergreen, 12%);
+	$supergreen_shadow: darken($supergreen, 10%);
 
 	$sunny_dark: darken($sunnyside, 35%);
 	$sunny0: darken($sunnyside, 4%);
@@ -299,50 +293,6 @@
 	    }
   	}
 
-  	@mixin quiet_button {
-		// Mixins
-	
-		// Box properties
-		float: left;
-		clear: none;
-		margin:0;
-
-		// Background & borders
-		background: none;
-		border: $border;
-
-		// Typography
-		color: $quiet;
-
-		// Other
-
-		&:hover {
-	    	// Mixins
-	    
-	    	// Box properties
-	    
-	    	// Background & borders
-	    	background: $brand;
-	    	border-color: darken($brand, 2%);
-	    	// Typography
-	    	color: white;
-	    	// Other
-		}
-
-	    &.active {
-	    	// Mixins
-	    
-	    	// Box properties
-	    
-	    	// Background & borders
-	    	background: $sunnyside;
-	    	border-color: darken($sunnyside, 2%);
-	    	// Typography
-	    	color: white;
-	    	// Other
-	    }
-  	}
-
 	@mixin object_thumbnail {
 		// Mixins
 		@include box_sizing;
@@ -392,25 +342,6 @@
 		
 			// Other
 		
-		}
-
-		.button {
-			// Mixins
-			@include quiet_button;
-			@include box_sizing;
-			// Box properties
-			float: none;
-			display: block;
-			width: 80%;
-			margin: $grid auto $grid / 2;
-			// Background & borders
-		
-			// Typography
-			
-			// Other
-		
-
-
 		}
 
 		.expand {
