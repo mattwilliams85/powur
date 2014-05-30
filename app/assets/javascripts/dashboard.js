@@ -37,6 +37,7 @@ function Dashboard(){
 	this.displayTeam = displayTeam;
 	this.displayQuote = displayQuote;
 	this._countdown = _countdown;
+	this._updateInvitationSummary = _updateInvitationSummary;
 
 
 	function displayTeam(_tab){
@@ -75,30 +76,33 @@ function Dashboard(){
 						"_arrowPosition":$(this).find("span.expand i").offset().left});
 		});	
 
-		//update invitation summary
-		_data["invitations"]=[];
-		_getData(_myID, "invitations", _data["invitations"], function(){
-			_availableInvitations = _data.global.total_invitations; 
-			for(i=0;i<_data.invitations.length;i++) if(typeof _data.invitations[i].id !== "undefined") _availableInvitations--;
-			$(".js-remaining_invitations").text(_availableInvitations);
-			_expiredInvitations=0;
-			for(i=0;i<_data.invitations.length;i++) {
-			 	_now = new Date();
-				_expiration = new Date(	_data.invitations[i].expires);
-				_totalSeconds = Math.round((_expiration-_now)/1000);				
-				if(_totalSeconds <0) _expiredInvitations++;
-			}
-			$(".js-expired_invitations").text(_expiredInvitations+" Expired");
-		});
-
+		_updateInvitationSummary();
 
 		//wire up new invitation submission hook
 		$(document).on("click", "#new_promoter_invitation_form .button", function(e){
+			_thisForm = $(e.target).closest("#new_promoter_invitation_form");
 			_formSubmit(e, $("#new_promoter_invitation_form"), "/invites", "POST", function(data, text){
-				console.log("invitaiton sent: "+text);
-
+				$(".js-remaining_invitations").click();
+				_updateInvitationSummary(function(){
+					$(".js-remaining_invitations").click();
+				});
 			});
 		});
+
+		//wire up remove candidate capabilities
+		$(document).on("click", ".button.js-remove_advocate", function(e){
+			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+			_ajax({
+				_ajaxType:"DELETE",
+				_url:"/invites/"+_id,
+				_callback:function(data, text){
+					$(".js-remaining_invitations").click();
+					_updateInvitationSummary(function(){
+						$(".js-remaining_invitations").click();
+					});	
+				}
+			})
+		})
 	}
 
 	//start quote dashboard info
@@ -135,7 +139,6 @@ function Dashboard(){
 
 	}//end quote dashboard info
 
-	
 	//wire up impact metrics hooks
 	(function(){
 		_data.impact_metrics=[];
@@ -154,9 +157,6 @@ function Dashboard(){
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});	
 	})();
-
-
-
 
 
 	//wire up the pagination hooks
@@ -344,7 +344,8 @@ function Dashboard(){
 				 					$(this).find(".js-expiration-minutes").text(_remainingMinutes);
 				 					$(this).find(".js-expiration-seconds").text(_remainingSeconds);
 			 					}else{
-			 						$(this).html("Expired");
+			 						if($(this).closest(".js-new_invite_thumbnail").attr("class").indexOf("js-empty_seat")<0)
+			 							$(this).text("Expired");
 			 					}
 			 				});
 				 		});
@@ -633,9 +634,26 @@ function Dashboard(){
 		});
 	}
 
+	function _updateInvitationSummary(_callback){
+		//update invitation summary
+		_data["invitations"]=[];
+		_getData(_myID, "invitations", _data["invitations"], function(){
+			_availableInvitations = _data.global.total_invitations; 
+			for(i=0;i<_data.invitations.length;i++) if(typeof _data.invitations[i].id !== "undefined") _availableInvitations--;
+			$(".js-remaining_invitations").text(_availableInvitations);
+			_expiredInvitations=0;
+			for(i=0;i<_data.invitations.length;i++) {
+			 	_now = new Date();
+				_expiration = new Date(	_data.invitations[i].expires);
+				_totalSeconds = Math.round((_expiration-_now)/1000);				
+				if(_totalSeconds <0) _expiredInvitations++;
+			}
+			$(".js-expired_invitations").text(_expiredInvitations+" Expired");
+			if(typeof _callback === "function") _callback();
+		});
+	}
 
 }// end Dashboard class
-
 
 
 

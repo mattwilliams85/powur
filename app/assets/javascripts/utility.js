@@ -78,7 +78,7 @@ function _ajax(_options){
 
     if(_options._ajaxType !== undefined) _ajaxType = _options._ajaxType;
     if(_options._postObj !== undefined) _postObj = _options._postObj;
-    if(_postObj == ''){
+    if(_ajaxType == "POST" && (_postObj == '' || typeof _postObj == "undefined")){
         console.log("Post data missing");
         return false;
     }
@@ -88,16 +88,15 @@ function _ajax(_options){
     }
 
     $.ajax({
-        type:_options._ajaxType,
+        type:_ajaxType,
         data:_postObj,
         url:_options._url,
-        dataType:"json",
         success: function(data, text){
             if(typeof _options._callback === "function") _options._callback(data, text);
             else return data;
         },
         error: function(request, status, error){
-            console.log("Post error: "+request.responseText);
+            console.log("Post error: "+error.message);
         }
     });
 }

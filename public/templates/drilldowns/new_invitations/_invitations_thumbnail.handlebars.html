@@ -4,12 +4,12 @@
 
 	<div class="new_thumbnail js-new_invite_thumbnail">
 		<div class="js-thumbnail" >
-			<img class="advocate_avatar" src="/temp_dev_images/Tim.jpg"/>
-
-			<span>{{this.first_name}} {{this.last_name}}</span>
+			<span ><img class="advocate_avatar" src="/temp_dev_images/Tim.jpg"/></span>
+			<span class="js-advocate_name">{{this.first_name}} {{this.last_name}}</span>
 			<span class="subtext">
 				<span class="js-expiration"	data-expiration-timestamp="{{this.expires}}">
-				Expires in <span class="js-expiration-hours"></span>:<span class="js-expiration-minutes"></span>:<span class="js-expiration-seconds"></span>
+					Expires in <span class="js-expiration-hours"></span>:<span class="js-expiration-minutes"></span>:<span class="js-expiration-seconds">
+				</span>
 			</span>
 			<span class="expand">
 				<i class="fa fa-angle-down"></i>
@@ -21,10 +21,13 @@
 {{else}}
 	<div class="new_thumbnail js-new_invite_thumbnail js-empty_seat">
 		<div class="js-thumbnail" >
-			<span class="placeholder_avatar">
+			<span class="placeholder_avatar"></span>
+			<span class="js-advocate_name">Empty</span>
+			<span class="subtext">
+				<span class="js-expiration"	data-expiration-timestamp="null">
+					Invite someone
+				</span>
 			</span>
-			<span>Empty</span>
-			<span class="subtext">Invite someone</span>
 			<span class="expand">
 				<i class="fa fa-angle-down"></i>
 			</span>
