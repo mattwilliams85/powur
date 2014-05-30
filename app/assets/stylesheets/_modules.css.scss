@@ -18,7 +18,7 @@
 		// Mixins
 		@include button;
 		// Box properties
-
+		margin-right: $grid / 2;
 		// Background & borders
 		border: $border;
 		background-color: $ghost;

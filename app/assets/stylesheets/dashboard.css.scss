@@ -1395,33 +1395,6 @@
 		// Other
 	
 	}
-
-	.quiet_button {
-		// Mixins
-	
-		// Box properties
-		width: $grid * 3.5;
-		float: left;
-		clear: none;
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-
-		&+ .quiet_button {
-			// Mixins
-		
-			// Box properties
-			margin-left: $grid / 2;
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-		
-		}
-	}
 }
 
 .invite_code {
