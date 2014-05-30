@@ -135,7 +135,6 @@ function Dashboard(){
 
 	}//end quote dashboard info
 
-	
 	//wire up impact metrics hooks
 	(function(){
 		_data.impact_metrics=[];
@@ -154,9 +153,6 @@ function Dashboard(){
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});	
 	})();
-
-
-
 
 
 	//wire up the pagination hooks
