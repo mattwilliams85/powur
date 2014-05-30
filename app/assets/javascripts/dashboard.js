@@ -83,7 +83,7 @@ function Dashboard(){
 		});
 
 		//wire up remove candidate capabilities
-		$(document).on("click", ".button.js-remove_advocate", function(e){
+		$(document).on("click", ".js-remove_advocate", function(e){
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
 			_ajax({_ajaxType:"DELETE", _url:"/invites/"+_id, _callback:_displayUpdatedInvitation()});
 		})
