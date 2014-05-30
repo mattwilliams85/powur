@@ -73,8 +73,8 @@ Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
 // _options._url is required to specify the endpoint
 // _options._callback is optional to have a function that handles subsequent tasks after the post is done.
 function _ajax(_options){
-    var _postObj;
-    var _ajaxType = "POST";
+    var _postObj = {};
+    var _ajaxType = "post";
     var _dataType = "json";
     if(_options._ajaxType !== undefined) _ajaxType = _options._ajaxType;
     if(_options._postObj !== undefined) _postObj = _options._postObj;
