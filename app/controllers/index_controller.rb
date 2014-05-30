@@ -3,7 +3,7 @@ class IndexController < ApplicationController
 	layout "landing"
 
 	def promoter
-		render layout: "signup"
+		render layout: "user"
 	end
 
 	def customer

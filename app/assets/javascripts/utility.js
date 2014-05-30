@@ -193,7 +193,7 @@ function _formErrorHandling(_formObj, _error){
              _formObj.find("input[name='"+_error.input+"']").parents(".form_row").addClass("is_not_valid");
             _formObj.find(".js-error").remove();
             _html="<span class='js-error'>"+_error.message+"</span>";
-            _input.parents(".form_row").append(_html);
+            _input.parents(".form_row").prepend(_html);
 
         break;
 

@@ -91,10 +91,9 @@ a {
 		// Box properties
 	
 		// Background & borders
-		background-color: rgba($brand, 1);
 
 		// Typography
-		color: white;
+
 		// Other
 	
 	}
@@ -465,6 +464,8 @@ footer {
 		
 			// Background & borders
 			outline: none;
+			border-color: $ghost_dark;
+			background-color: $ghost_dark;
 			// Typography
 			color: white;
 			font-style: normal;

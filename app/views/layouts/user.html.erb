@@ -3,17 +3,15 @@
 <head>
 	<title>Welcome to SunStand</title>
 	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-	<%= stylesheet_link_tag  "index", media: "all", "data-turbolinks-track" => true %>
-	<%= javascript_include_tag "index", "data-turbolinks-track" => true %>
+	<%= stylesheet_link_tag  "user", media: "all", "data-turbolinks-track" => true %>
 	<%= yield :javascript_includes %>
 	<%= csrf_meta_tags %>
 
 	<%= render :partial => "shared/head" %>
 	
 </head>
-<body id="signup">
+<body id="user">
 	<header>
-
 		<nav>
 			<ul>
 				<li class="main_logo">	
@@ -22,14 +20,12 @@
 					</a>
 				</li>
 			</ul>
-
 			<ul id="user_nav">
 				<li>
-					<%= link_to_unless_current 'Sign in', "/user" %>
+					<%= link_to 'Sign in', "/user" %>
 				</li>
 			</ul>
 		</nav>
-
 	</header>
 
 	<%= yield %>

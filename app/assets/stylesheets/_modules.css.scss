@@ -14,6 +14,36 @@
 
 	}
 
+	a.secondary_button {
+		// Mixins
+		@include small_title;
+		@include form_padding;
+		// Box properties
+		margin-top: $grid / 4;
+		display: block;
+		float: left;
+	
+		// Background & borders
+		color: $whisper;
+		// Typography
+	
+		// Other
+
+		&:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+
+			// Typography
+			color: $brand;
+			// Other
+		
+		}
+	
+	}
+
 	.dismiss {
 		// Mixins
 
