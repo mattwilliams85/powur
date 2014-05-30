@@ -656,8 +656,23 @@ function Dashboard(){
 }// end Dashboard class
 
 
+// Faux form editing animations
 
+$(document).on("focus", "input", function(e){
+   var elem = $(this);
 
+   // Save current value of element
+   elem.data('oldVal', elem.val());
 
+   // Look for changes in the value
+   elem.bind("propertychange keyup input paste", function(event){
+      // If value has changed...
+      if (elem.data('oldVal') != elem.val()) {
+       // Updated stored value
+       elem.data('oldVal', elem.val());
 
+		$(this).parents(".form_row").siblings(".form_edit_actions").fadeIn(100);
 
+     }
+   });
+ });

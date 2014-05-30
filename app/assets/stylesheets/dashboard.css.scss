@@ -1308,8 +1308,10 @@
 	// Mixins
 
 	// Box properties
+	display: none;
 	float: right;
-	margin-bottom: $grid / 2;
+	margin-bottom: $grid / 4;
+	height: 0;
 	// Background & borders
 
 	// Typography
