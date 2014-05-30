@@ -37,8 +37,6 @@ function Dashboard(){
 	this.displayTeam = displayTeam;
 	this.displayQuote = displayQuote;
 	this._countdown = _countdown;
-	this._updateInvitationSummary = _updateInvitationSummary;
-
 
 	function displayTeam(_tab){
 		if(_tab === undefined ) _tab="team.everyone";
@@ -639,6 +637,7 @@ function Dashboard(){
 		});
 	}
 
+	//responsible to close the drilldowns and reset invitation listing
 	function _displayUpdatedInvitation(){
 		$(".js-remaining_invitations").click();
 		_updateInvitationSummary(function(){
