@@ -83,7 +83,7 @@ function Dashboard(){
 		});
 
 		//wire up remove candidate capabilities
-		$(document).on("click", ".button.js-remove_advocate", function(e){
+		$(document).on("click", ".js-remove_advocate", function(e){
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
 			_ajax({_ajaxType:"DELETE", _url:"/invites/"+_id, _callback:_displayUpdatedInvitation()});
 		})
@@ -414,10 +414,10 @@ function Dashboard(){
 			//fade all other "unfocused" thumbnail out
 			for(i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
 				if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
-					_neightborThmbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
-					_neightborThmbnail.animate({"opacity":".3"}, 1000);
-					_neightborThmbnail.find("span.expand i").removeClass("fa-angle-up");
-					_neightborThmbnail.find("span.expand i").addClass("fa-angle-down");
+					_neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
+					_neighborThumbnail.animate({"opacity":".3"}, 1000);
+					_neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
+					_neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
 				}
 			}
 
@@ -644,6 +644,7 @@ function Dashboard(){
 			$(".js-remaining_invitations").click();
 		});	
 	}
+
 
 }// end Dashboard class
 
