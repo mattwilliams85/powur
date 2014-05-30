@@ -37,8 +37,6 @@ function Dashboard(){
 	this.displayTeam = displayTeam;
 	this.displayQuote = displayQuote;
 	this._countdown = _countdown;
-	this._updateInvitationSummary = _updateInvitationSummary;
-
 
 	function displayTeam(_tab){
 		if(_tab === undefined ) _tab="team.everyone";
@@ -81,27 +79,13 @@ function Dashboard(){
 		//wire up new invitation submission hook
 		$(document).on("click", "#new_promoter_invitation_form .button", function(e){
 			_thisForm = $(e.target).closest("#new_promoter_invitation_form");
-			_formSubmit(e, $("#new_promoter_invitation_form"), "/invites", "POST", function(data, text){
-				$(".js-remaining_invitations").click();
-				_updateInvitationSummary(function(){
-					$(".js-remaining_invitations").click();
-				});
-			});
+			_formSubmit(e, $("#new_promoter_invitation_form"), "/invites", "POST", _displayUpdatedInvitation)
 		});
 
 		//wire up remove candidate capabilities
 		$(document).on("click", ".button.js-remove_advocate", function(e){
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-			_ajax({
-				_ajaxType:"DELETE",
-				_url:"/invites/"+_id,
-				_callback:function(data, text){
-					$(".js-remaining_invitations").click();
-					_updateInvitationSummary(function(){
-						$(".js-remaining_invitations").click();
-					});	
-				}
-			})
+			_ajax({_ajaxType:"DELETE", _url:"/invites/"+_id, _callback:_displayUpdatedInvitation()});
 		})
 	}
 
@@ -651,6 +635,14 @@ function Dashboard(){
 			$(".js-expired_invitations").text(_expiredInvitations+" Expired");
 			if(typeof _callback === "function") _callback();
 		});
+	}
+
+	//responsible to close the drilldowns and reset invitation listing
+	function _displayUpdatedInvitation(){
+		$(".js-remaining_invitations").click();
+		_updateInvitationSummary(function(){
+			$(".js-remaining_invitations").click();
+		});	
 	}
 
 }// end Dashboard class

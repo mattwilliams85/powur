@@ -75,10 +75,10 @@ Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
 function _ajax(_options){
     var _postObj;
     var _ajaxType = "POST";
-
+    var _dataType = "json";
     if(_options._ajaxType !== undefined) _ajaxType = _options._ajaxType;
     if(_options._postObj !== undefined) _postObj = _options._postObj;
-    if(_ajaxType == "POST" && (_postObj == '' || typeof _postObj == "undefined")){
+    if(_ajaxType.toLowerCase() == "post" && (_postObj == '' || typeof _postObj == "undefined")){
         console.log("Post data missing");
         return false;
     }
@@ -86,11 +86,13 @@ function _ajax(_options){
         console.log("Endpoint missing");
         return false;
     }
+    if (_ajaxType.toLowerCase() =="delete") _dataType="html";
 
     $.ajax({
         type:_ajaxType,
         data:_postObj,
         url:_options._url,
+        dataType:_dataType,
         success: function(data, text){
             if(typeof _options._callback === "function") _options._callback(data, text);
             else return data;
