@@ -34,7 +34,7 @@ class InvitesController < AuthController
   def destroy
     @invite.destroy!
 
-    head :ok
+    index
   end
 
   private
