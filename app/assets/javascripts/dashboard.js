@@ -20,7 +20,7 @@ jQuery(function($){
 		});	
 
 		//wire up logout button
-		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "DELETE");});
+		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete");});
 
 	});
 });
@@ -47,6 +47,7 @@ function Dashboard(){
 		
 		//put in hooks for team drllldown
 		$(document).on("click",".js-team_thumbnail", function(e){
+			e.preventDefault();
 			_drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
 			_thisThumbnail = $(e.target).parents(".js-team_thumbnail");
 			_drillDown({"_type":_tab,
@@ -58,6 +59,7 @@ function Dashboard(){
 		});
 		//wire up invitations listing hook
 		$(document).on("click", ".js-invites_thumbnail", function(e){
+			e.preventDefault();
 			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
 			_drillDown({"_type":"invitations",
 						"_mainSectionID":$(e.target).parents("section").attr("id"), 
@@ -67,6 +69,7 @@ function Dashboard(){
 		});
 		//wire up invitation detail hooks
 		$(document).on("click", ".js-new_invite_thumbnail", function(e){
+			e.preventDefault();
 			_drillDown({"_type":"new_invitations",
 						"_mainSectionID":$(this).parents("section.dashboard_section").attr("id"), 
 						"_thumbnailIdentifier":".js-new_invite_thumbnail",
@@ -78,15 +81,24 @@ function Dashboard(){
 
 		//wire up new invitation submission hook
 		$(document).on("click", "#new_promoter_invitation_form .button", function(e){
+			e.preventDefault();
 			_thisForm = $(e.target).closest("#new_promoter_invitation_form");
 			_formSubmit(e, $("#new_promoter_invitation_form"), "/invites", "POST", _displayUpdatedInvitation)
 		});
 
 		//wire up remove candidate capabilities
 		$(document).on("click", ".js-remove_advocate", function(e){
+			e.preventDefault();
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-			_ajax({_ajaxType:"DELETE", _url:"/invites/"+_id, _callback:_displayUpdatedInvitation()});
-		})
+			_ajax({_ajaxType:"delete", _url:"/invites/"+_id, _callback:_displayUpdatedInvitation()});
+		});
+
+		//wire up resend candidate capaibiltiies 
+		$(document).on("click", ".js-resend_invite_to_advocate", function(e){
+			e.preventDefault();
+			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+			_ajax({_ajaxType:"post", _url:"/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
+		});		
 	}
 
 	//start quote dashboard info
@@ -99,6 +111,7 @@ function Dashboard(){
 
 		//put in hooks for quotes thumbnail
 		$(document).on("click",".js-quote_thumbnail", function(e){
+			e.preventDefault();
 			_drillDownUserID=$(e.target).parents(".js-quote_thumbnail").attr("alt");
 			_thisThumbnail = $(e.target).parents(".js-quote_thumbnail");
 			_drillDown({"_type":_tab,
@@ -111,6 +124,7 @@ function Dashboard(){
 
 		//wire up new quote hooks
 		$(document).on("click", ".js-new_quote_thumbnail", function(e){
+			e.preventDefault();
 			_thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
 			_thisAudience =  $(e.target).parents(".js-new_quote_thumbnail").attr("data-audience");
 			_drillDown({"_type":"new_quote",
@@ -130,6 +144,7 @@ function Dashboard(){
 
 		//put in hooks for kpi thumbnails
 		$(document).on("click",".kpi_thumbnail", function(e){
+			e.preventDefault();
 			_thisThumbnail = $(e.target).parents(".kpi_thumbnail");
 			_thisKpiType = $(e.target).parents(".kpi_thumbnail").attr("data-kpi-type");
 
@@ -144,7 +159,8 @@ function Dashboard(){
 
 
 	//wire up the pagination hooks
-	$(document).on("click", ".pagination_container .nav", function(){
+	$(document).on("click", ".pagination_container .nav", function(e){
+		e.preventDefault();
 		_pagination_content= $(this).siblings(".pagination_content");
 
 		//animate the content
@@ -163,7 +179,6 @@ function Dashboard(){
 
 	//wire up the tab hooks
 	$(document).on("click", ".tabs li a", function(e){
-
 		e.preventDefault();
 		if($(this).attr("class")===undefined) $(this).attr("class", "");
 		if ($(this).attr("class").indexOf("active")>=0) return;
@@ -485,7 +500,7 @@ function Dashboard(){
 		.done(function(_d){
 			if(typeof _dataStore !== "undefined"){
 				if(Object.keys(_d).indexOf("properties")>=0){
-					$.each(_d.properties.items, function(counter, val){ _dataStore.push(val);});
+					$.each(_d.entities, function(counter, val){ _dataStore.push(val.properties);});
 				}else{
 					//todo: fake data that needs to be replaced
 					$.each(_d, function(counter, val){ _dataStore.push(val);});

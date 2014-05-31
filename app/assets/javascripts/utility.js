@@ -86,7 +86,7 @@ function _ajax(_options){
         console.log("Endpoint missing");
         return false;
     }
-    if (_ajaxType.toLowerCase() =="delete") _dataType="html";
+    //if (_ajaxType.toLowerCase() =="delete") _dataType="html";
 
     $.ajax({
         type:_ajaxType,
@@ -144,17 +144,6 @@ function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
         _options._url = _uploadEndpoint;
         _options._postObj = _formdata;
         _ajax(_options);
-
-		/*$.ajax({
-			url: _uploadEndpoint,
-			type: "POST",
-			data: _formdata,
-			processData: false,
-			contentType: false,
-			success: function (r) {
-				if(_callback!==undefined) _callback();
-			}
-		});*/
 	});
 
 }

@@ -44,3 +44,23 @@
       $(".js-request_form").animate({ opacity: 1, bottom: "45%"}, 'slow', 'swing');
 
     }
+
+
+jQuery(function($){
+  $(document).ready(function(){
+
+    //look at the url
+    var _code = window.location.search.substring(1).split("=")[0]==="code"? window.location.search.substring(1).split("=")[1]:"";
+    if(_code!=="") $(".js-code").val(_code);
+
+    //wire up go button
+    $(document).on("click", "form.js-cta_form button", function(e){
+        e.preventDefault();
+        console.log("clicked on "+$(this).parents("form").attr("class"));
+    });
+  });
+});
+
+
+
+
