@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
 
   def send_invite(invite)
-    PromoterMailer.invitation(invite)
+    PromoterMailer.invitation(invite).deliver
   end
 
 end

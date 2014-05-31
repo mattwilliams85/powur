@@ -10,5 +10,14 @@ User.create(
   email:        'jon@sunstand.com', 
   password:     'solarpower', 
   first_name:   'Jonanthan', 
-  last_name:     'Budd')
+  last_name:    'Budd',
+  phone:        '858.555.1212',
+  zip:          '92023' )
 
+User.create(
+  email:        'paul.walker@eyecuelab.com', 
+  password:     'solarpower', 
+  first_name:   'Paul', 
+  last_name:    'Walker',
+  phone:        '310.922.2629',
+  zip:          '92127' )
