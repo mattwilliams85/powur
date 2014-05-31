@@ -3,6 +3,8 @@ siren json
 klass :registration
 
 actions \
+  action(:accept_invite, :post, invite_accept_path).
+    field(:code, :text),
   action(:create, :post, users_path).
     field(:code, :hidden, value: @invite.id).
     field(:first_name, :text, value: @invite.first_name).

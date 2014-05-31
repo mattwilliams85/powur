@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   post '/invite/accept' => 'users#accept_invite'
 
-  resources :users, only: [ :create ]
+  resources :users, only: [ :create, :show ]
 
   resource :promoter, only: [ :new, :show ] do
     get :request

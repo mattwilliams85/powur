@@ -20,6 +20,14 @@ class UsersController < ApplicationController
     render 'show'
   end
 
+  def show
+    if logged_in?
+      render 'show'
+    else
+      render 'registration'
+    end
+  end
+
   private
 
   def invalid_code!
