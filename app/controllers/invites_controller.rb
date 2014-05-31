@@ -1,8 +1,16 @@
 class InvitesController < AuthController
 
   before_filter :fetch_invite, only: [ :renew, :resend, :destroy ]
+  skip_before_filter :authenticate!, only: [ :show ]
 
   def index
+    @invites = current_user.active_invites
+  end
+
+  def show
+    @invite = Invite.find(params[:id])
+
+    render 'show'
   end
 
   def create
@@ -10,22 +18,17 @@ class InvitesController < AuthController
 
     @invite = current_user.create_invite(input)
 
-    render 'invites/show'
+    render 'show'
   rescue ActiveRecord::RecordInvalid => e
     raise e unless e.record.errors.first.first == :invitor
     error!(e.message)
   end
 
-  def renew
-    @invite.renew
-
-    render 'invites/show'
-  end
-
   def resend
+    @invite.renew
     current_user.send_invite(@invite)
 
-    render 'invites/show'
+    render 'show'
   end
 
   def destroy
@@ -37,6 +40,6 @@ class InvitesController < AuthController
   private
 
   def fetch_invite
-    @invite = Invite.find(params[:id])
+    @invite = current_user.invites.find(params[:id])
   end
 end

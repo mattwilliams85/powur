@@ -12,4 +12,5 @@ describe Invite do
 
     expect(invite.expires).to be > (DateTime.current + 23.hours)
   end
+
 end

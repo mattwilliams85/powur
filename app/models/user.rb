@@ -6,6 +6,14 @@ class User < ActiveRecord::Base
   validates :email, email: true, presence: true
   validates_presence_of :first_name, :last_name, :encrypted_password
 
+  def remaining_invites
+    PromoterConfig.max_invites - active_invites.count
+  end
+
+  def active_invites
+    invites.where(invitee_id: nil)
+  end
+
   def create_invite(params)
     invite = self.invites.create!(params)
     send_invite(invite)

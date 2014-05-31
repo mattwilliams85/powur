@@ -1,5 +1,8 @@
 class SessionController < ApplicationController
+  layout 'user'
 
+  def index
+  end
 
   def create
     require_input :email, :password

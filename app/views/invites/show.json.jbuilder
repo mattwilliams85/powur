@@ -1,2 +1,3 @@
-siren = Siren.new(@invite)
-json.partial! 'layouts/siren', siren: siren
+siren json
+
+json.partial! 'item', invite: @invite, detail: true

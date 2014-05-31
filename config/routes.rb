@@ -1,34 +1,36 @@
 Rails.application.routes.draw do
 
-  resource :login, controller: :session, only: [ :create, :destroy ] do
-    get '' => 'session#index'
-  end
+  resource :login, controller: :session, only: [ :show, :create, :destroy ]
+
   resources :invites, only: [ :index, :create, :destroy ] do
     member do
-      post :renew
       post :resend
     end
-    
   end
+
+  post '/invite/accept' => 'users#accept_invite'
+
+  resources :users, only: [ :create ]
+
+  resource :promoter, only: [ :new, :show ] do
+    get :request
+    get :thanks
+  end
+
 
 
   get 'customer' => 'index#customer'
   get 'customer/signup' => 'customer#index'
   get 'customer/details' => 'customer#details'
 
-  get 'promoter' => 'promoter#index'
-  get 'promoter/create' => 'promoter#create'
-  get 'promoter/thanks' => 'promoter#thanks'
-  get 'promoter/request' => 'promoter#request'
-  
   # These are just to fake the referral pages so the link doesn't break - safe to remove when the feature is implemented
-  get '/1234' => 'customer#index'
-  get '/4321' => 'promoter#index'
+  # get '/1234' => 'customer#index'
+  # get '/4321' => 'promoter#index'
 
   get 'thanks' => 'customer#thanks'
 
   get 'user' => 'user#index'
-  get 'user/reset_password' => 'user#reset_password'
+  get 'users/reset_password' => 'user#reset_password'
 
   get 'organization' => 'organization#index'
 

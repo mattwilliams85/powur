@@ -8,7 +8,7 @@ class Invite < ActiveRecord::Base
 
   before_validation do
     self.id ||= Invite.generate_code
-    self.expires ||= DateTime.current + PromoterConfig.invite_valid_days.days
+    self.expires ||= expires_timespan
   end
 
   def full_name
@@ -16,8 +16,11 @@ class Invite < ActiveRecord::Base
   end
 
   def renew
-    new_expires = self.expires + PromoterConfig.invite_valid_days
-    
+    self.update_attributes(expires: expires_timespan)
+  end
+
+  def expires_timespan
+    PromoterConfig.invite_valid_days.days.from_now
   end
 
   class << self
@@ -27,7 +30,7 @@ class Invite < ActiveRecord::Base
   end
 
   def max_invites
-    if invitor.invites.count >= PromoterConfig.max_invites
+    if invitor.remaining_invites < 1
       errors.add(:invitor, :exceeded_max_invites)
     end
   end

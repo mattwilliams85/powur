@@ -14,8 +14,9 @@ describe InvitesController do
       get :index
 
       expect_200
+
       expect(json_body['class']).to include('invites', 'list')
-      expect(json_body['properties']['items']).to have(3).items
+      expect(json_body['entities']).to have(3).items
     end
   end
 
@@ -52,16 +53,6 @@ describe InvitesController do
     end
   end
 
-  describe '#renew' do
-    it 'renews the expiration date' do
-      invite = create(:invite, invitor: @user)
-
-      post :renew, id: invite.id
-
-      expect_200
-    end
-  end
-
   describe '#destroy' do
     it 'deletes an invite' do
       invite = create(:invite, invitor: @user)
@@ -70,6 +61,28 @@ describe InvitesController do
 
       expect_200
       expect(Invite.find_by_id(invite.id)).to be_nil
+    end
+  end
+
+  describe '#resend' do
+    it 'resends an invite and resets the expiration' do
+      invite = create(:invite, invitor: @user, expires: 1.day.ago)
+
+      post :resend, id: invite.id
+
+      expect_200
+      expires = DateTime.parse(json_body['properties']['expires'])
+      expect(expires).to be > 23.hours.from_now
+    end
+  end
+
+  describe '#accept' do
+    it 'accepts a valid code' do
+      pending
+      invite = create(:invite, invitor: @user)
+
+      post :accept, id: invite.id
+
     end
   end
 

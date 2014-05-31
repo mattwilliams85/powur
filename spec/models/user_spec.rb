@@ -24,6 +24,15 @@ describe User do
 
       expect(User.authenticate(@user.email, newpass)).to_not be_nil
     end
+  end
 
+  describe '#remaining_invites' do
+
+    it 'returns the correct number of remaining invites' do
+      user = create(:user)
+      create_list(:invite, 3, invitor: user)
+
+      expect(user.remaining_invites).to eq(2)
+    end
   end
 end

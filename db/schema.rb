@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20140519201745) do
     t.string   "first_name",         null: false
     t.string   "last_name",          null: false
     t.string   "phone"
+    t.string   "zip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

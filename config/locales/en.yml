@@ -26,6 +26,7 @@ en:
     format: "%{message}"
     required: "%{input} is required"
     credentials: Invalid email or password
+    invalid_code: Invalid invite code
     messages: 
       exceeded_max_invites: You have exceeded the max number of invites allowed
       blank: "%{attribute} is required"
