@@ -76,14 +76,4 @@ describe InvitesController do
     end
   end
 
-  describe '#accept' do
-    it 'accepts a valid code' do
-      pending
-      invite = create(:invite, invitor: @user)
-
-      post :accept, id: invite.id
-
-    end
-  end
-
 end

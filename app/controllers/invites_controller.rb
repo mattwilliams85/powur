@@ -5,6 +5,8 @@ class InvitesController < AuthController
 
   def index
     @invites = current_user.active_invites
+
+    render 'index'
   end
 
   def show
