@@ -10,8 +10,7 @@ class SessionController < ApplicationController
     user = User.authenticate(params[:email], params[:password])
     error!(t('errors.credentials'), :email) unless user
 
-    reset_session
-    session[:user_id] = user.id
+    login_user(user)
     redirect_to dashboard_url
   end
 

@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   has_many :invites, foreign_key: 'invitor_id'
 
   validates :email, email: true, presence: true
-  validates_presence_of :first_name, :last_name, :encrypted_password
+  validates_presence_of :encrypted_password, on: :create
+  validates_presence_of :first_name, :last_name, :phone, :zip
 
   def remaining_invites
     PromoterConfig.max_invites - active_invites.count

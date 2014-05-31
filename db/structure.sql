@@ -101,6 +101,7 @@ CREATE TABLE users (
     first_name character varying(255) NOT NULL,
     last_name character varying(255) NOT NULL,
     phone character varying(255),
+    zip character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
