@@ -4,6 +4,7 @@ class IndexController < ApplicationController
 
   def index
     respond_to do |format|
+      format.html
       format.json { render "session/#{root_template}" }
     end
   end
