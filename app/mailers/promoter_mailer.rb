@@ -10,4 +10,13 @@ class PromoterMailer < ActionMailer::Base
       subject: t('email_subjects.invite'),
       body: '')
   end
+
+  def reset_password(user)
+    headers['X-MC-Template'] = 'invite'
+
+    headers['X-MC-MergeVars'] = {
+      token:      invite.id,
+      invite_url: root_url(code: invite.id) }.to_json
+
+  end
 end

@@ -1,19 +1,18 @@
 siren json
 
-klass :registration
+klass :session, :registration
 
 actions \
-  action(:accept_invite, :post, invite_accept_path).
-    field(:code, :text),
-  action(:create, :post, users_path).
+  action(:create, :post, register_login_path).
     field(:code, :hidden, value: @invite.id).
     field(:first_name, :text, value: @invite.first_name).
     field(:last_name, :text, value: @invite.last_name).
     field(:email, :email, value: @invite.email).
     field(:phone, :text, value: @invite.phone).
     field(:zip, :text).
-    field(:password, :password)
+    field(:password, :password),
+  action(:reset, :delete, invite_login_path)
 
 links \
   link(:self, promoter_path(code: @invite.id)),
-  link(:edit, new_promoter_path(code: @invite.id))
+  link(:new, new_promoter_path(code: @invite.id))

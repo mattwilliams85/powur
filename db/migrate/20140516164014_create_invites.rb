@@ -14,6 +14,7 @@ class CreateInvites < ActiveRecord::Migration
       t.timestamps
     end
     execute 'alter table invites add primary key (id);'
+    add_index :invites, [ :invitor_id ]
   end
 end
 

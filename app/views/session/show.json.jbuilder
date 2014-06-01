@@ -1,12 +1,18 @@
-
 siren json
 
-klass :session
+klass :session, :user
+
+json.properties do
+  json.(current_user, :email, :first_name, :last_name)
+end
+
+json.entities do
+  json.partial! 'invites/entity'
+end
 
 actions \
-  action(:create, :post, login_path).
-    field(:email, :email).
-    field(:password, :password)
+  action(:logout, :delete, login_path)
 
 links \
-  link :self, login_path
+  link(:self, root_path),
+  link(:index, dashboard_path)

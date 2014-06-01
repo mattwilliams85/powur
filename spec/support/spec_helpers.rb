@@ -2,7 +2,11 @@ module SpecHelpers
 
   def login_user
     @user = create(:user)
-    session[:user_id] = @user.id
+    if defined?(session)
+      session[:user_id] = @user.id
+    else
+      post login_path, email: @user.email, password: 'password'
+    end
   end
 
   def json_body
@@ -19,6 +23,18 @@ module SpecHelpers
 
   def expect_alert_error
     expect(json_body['error']['type']).to eq('alert')
+  end
+
+  def expect_classes(*args)
+    expect(json_body['class']).to include(*args)
+  end
+
+  def expect_entities(*args)
+    expect(json_body['entities'].map { |a| a['class'] }).flatten.to include(*args)
+  end
+
+  def expect_actions(*args)
+    expect(json_body['actions'].map { |a| a['name'] }).to include(*args)
   end
 
 end

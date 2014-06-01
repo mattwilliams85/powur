@@ -3,13 +3,15 @@ class IndexController < ApplicationController
   layout 'landing'
 
   def index
+    respond_to do |format|
+      format.json { render "session/#{root_template}" }
+    end
   end
 
-  def promoter
-    render layout: 'user'
-  end
+  private
 
-  def customer
+  def root_template
+    logged_in? ? 'show' : (session[:code] ? 'registration' : 'anonymous')
   end
 
 end

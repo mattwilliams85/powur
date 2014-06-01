@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  resource :login, controller: :session, only: [ :show, :create, :destroy ]
+  resource :login, controller: :session, only: [ :show, :create, :destroy ] do
+    resource :password, only: [ :show, :create ]
+    post 'invite' => 'session#accept_invite'
+    delete 'invite' => 'session#clear_code'
+    post :register
+  end
 
   resources :invites, only: [ :index, :create, :destroy ] do
     member do
@@ -8,10 +13,7 @@ Rails.application.routes.draw do
     end
   end
 
-  post '/invite/accept' => 'users#accept_invite'
-
-  resources :users, only: [ :create ]
-  resource :user, only: [ :show ]
+  resources :users, only: [ :index ]
 
   resource :promoter, only: [ :new, :show ] do
     get :request
@@ -31,7 +33,6 @@ Rails.application.routes.draw do
   get 'thanks' => 'customer#thanks'
 
   get 'user' => 'user#index'
-  get 'users/reset_password' => 'user#reset_password'
 
   get 'organization' => 'organization#index'
 
