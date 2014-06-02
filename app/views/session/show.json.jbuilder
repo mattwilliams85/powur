@@ -3,7 +3,7 @@ siren json
 klass :session, :user
 
 json.properties do
-  json.(current_user, :email, :first_name, :last_name)
+  json.(current_user, :id, :first_name, :last_name)
 end
 
 json.entities do

@@ -1,4 +1,5 @@
 class PromotersController < ApplicationController
+  include Anonymous
 
   layout 'user'
 

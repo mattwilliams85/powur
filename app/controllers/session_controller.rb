@@ -29,7 +29,7 @@ class SessionController < ApplicationController
 
     user.send_reset_password
 
-    index
+    render json: {}
   end
 
   def accept_invite
@@ -39,20 +39,17 @@ class SessionController < ApplicationController
 
     # reset_session: TODO, reset_session without clearing CSRF
     session[:code] = @invite.id
+    session[:user_id] = nil
 
     render 'registration'
   end
 
   def register
     invite = Invite.find_by(id: params[:code]) or invalid_code!
-
     require_input :password
-
     input = params.permit(:first_name, :last_name, :email, :phone, :zip, :password)
 
-    user = invite.invitor.add_invited_user(input)
-
-    invite.update_attributes!(invitee_id: user.id)
+    user = invite.accept(input)
 
     login_user(user)
 

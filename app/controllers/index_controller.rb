@@ -1,4 +1,5 @@
 class IndexController < ApplicationController
+  include Anonymous
 
   layout 'landing'
 
@@ -11,10 +12,10 @@ class IndexController < ApplicationController
 
   private
 
-  def invite? # TODO: put this on anonymous controller
+  def invite?
     if session[:code]
       @invite = Invite.find_by(id: session[:code])
-      reset_session unless @invite
+      session[:code] = nil unless @invite
     end
     !!@invite
   end

@@ -94,10 +94,11 @@ describe '/login' do
 
       expect_classes('session', 'user')
 
-      expect(json_body['properties']['email']).to include(@user_params[:email])
+      expect(json_body['properties']['first_name']).to include(@user_params[:first_name])
 
       @invite.reload
       expect(@invite.invitee_id).to_not be_nil
+      expect(@invite.invitee_id).to eq(json_body['properties']['id'])
     end
   end
 

@@ -19,6 +19,14 @@ class Invite < ActiveRecord::Base
     self.update_attributes(expires: expires_timespan)
   end
 
+  def accept(params)
+    params[:invitor_id] = self.invitor_id
+
+    user = User.create!(params)
+    self.update_attribute(:invitee_id, user.id)
+    user
+  end
+
   def expires_timespan
     PromoterConfig.invite_valid_days.days.from_now
   end

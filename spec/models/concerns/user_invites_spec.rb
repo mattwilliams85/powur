@@ -12,5 +12,7 @@ describe UserInvites do
       phone:      invite.phone,
       password:   'password',
       zip:        '92127' }
+
+    # user = invite.invitor.add_invited_user(params)
   end
 end
