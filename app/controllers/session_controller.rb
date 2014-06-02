@@ -52,6 +52,8 @@ class SessionController < ApplicationController
 
     user = invite.invitor.add_invited_user(input)
 
+    invite.update_attributes!(invitee_id: user.id)
+
     login_user(user)
 
     render 'show'

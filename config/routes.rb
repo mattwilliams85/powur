@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get :thanks
   end
 
+  resources :customer, only: [ :index, :create, :destroy, :update ]
+
 
 
   get 'customer' => 'index#customer'

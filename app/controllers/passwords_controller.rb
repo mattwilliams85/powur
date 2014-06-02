@@ -19,6 +19,15 @@ class PasswordsController < ApplicationController
   def update
     require_input :password, :password_confirm, :token
 
+    user = User.find_by_reset_token(params[:token]) or
+      error!(t('errors.reset_token_invalid'))
 
+    error!(t('errors.reset_token_expired')) if user.reset_token_expired?
+
+    user.password = params[:password]
+    user.reset_token = nil
+    user.save!
+
+    render json: {}
   end
 end

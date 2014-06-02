@@ -1,23 +1,28 @@
 class PromoterMailer < ActionMailer::Base
   
   def invitation(invite)
-    headers['X-MC-Template'] = 'invite'
-    headers['X-MC-MergeVars'] = {
-      code:       invite.id,
-      invite_url: root_url(code: invite.id) }.to_json
+    to = "#{invite.full_name} <#{invite.email}>"
+    merge_vars = { code: invite.id, invite_url: root_url(code: invite.id) }
 
-    mail( to:       "#{invite.full_name} <#{invite.email}>", 
-          subject:  t('email_subjects.invite'),
-          body:     '')
+    mail_chimp to, :invite, merge_vars
   end
 
   def reset_password(user)
-    headers['X-MC-Template'] = 'reset_password'
-    headers['X-MC-MergeVars'] = {
-      url: new_login_password_path(token: user.reset_token) }.to_json
+    to = "#{user.full_name} <#{user.email}>"
+    merge_vars = { url: new_login_password_path(token: user.reset_token) } 
 
-    mail( to:       "#{invite.full_name} <#{invite.email}>",
-          subject:  t('email_subjects.reset_password'),
-          body:     '')
+    mail_chimp to, :reset_password, merge_vars
+  end
+
+  private
+
+  def mail_chimp(to, template, merge_vars = {})
+    headers['X-MC-Template'] = template
+    headers['X-MC-MergeVars'] = merge_vars.to_json
+
+    mail \
+      to:       to,
+      subject:  t("email_subjects.#{template}"),
+      body:     ''
   end
 end
