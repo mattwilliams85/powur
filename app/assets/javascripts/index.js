@@ -55,8 +55,14 @@ jQuery(function($){
 
     //wire up go button
     $(document).on("click", "form.js-cta_form button", function(e){
-        e.preventDefault();
-        console.log("clicked on "+$(this).parents("form").attr("class"));
+      e.preventDefault();
+      _code=$(e.target).closest(".js-cta_form").find(".js-code").val();
+      _formSubmit(e, $(e.target).closest(".js-cta_form"), "/login/invite", "post", function(data, text){
+        console.log(data);
+        if(Object.keys(data).indexOf("links")>=0)
+          for(i=0; i<data.links.length;i++)
+            if(data.links[i].rel === "new") window.location.replace(data.links[i].href);
+      });
     });
   });
 });

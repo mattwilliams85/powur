@@ -1,9 +1,10 @@
 jQuery(function($){
     //All jquery ajax requests must use CSRF token
     $.ajaxSetup({
-      headers: {
-        'X-CSRF-Token': $('meta[name="csrf-token"]').attr("content")
-      }
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr("content"),
+            Accept : 'application/json; charset=utf-8'
+        }
     });
 
     //Utility added to jQuery that allows drilldowns to scroll to view
@@ -159,6 +160,7 @@ function _formSubmit(_event, _formObj, _endPoint, _verb, _callback){
     if(_formObj instanceof $) {
         _serializedData = _formObj.serializeObject();
         _formObj.find(".form_row").removeClass("is_not_valid");
+        _formObj.find(".js-error").remove();
     }
 
     _ajax({

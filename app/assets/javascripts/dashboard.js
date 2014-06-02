@@ -20,7 +20,9 @@ jQuery(function($){
 		});	
 
 		//wire up logout button
-		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete");});
+		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete", function(data, text){
+			console.log(data)
+		});});
 
 	});
 });
