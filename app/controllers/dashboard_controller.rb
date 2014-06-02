@@ -1,2 +1,2 @@
-class DashboardController < ApplicationController
+class DashboardController < AuthController
 end

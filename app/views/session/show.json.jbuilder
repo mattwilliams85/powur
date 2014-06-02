@@ -8,6 +8,7 @@ end
 
 json.entities do
   json.partial! 'invites/entity'
+  json.partial! 'users/entity'
 end
 
 actions \

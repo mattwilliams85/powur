@@ -1,8 +1,11 @@
-module UserInvite
+module UserInvites
   extend ActiveSupport::Concern
 
   included do
     has_many :invites, foreign_key: 'invitor_id'
+
+    belongs_to :invitor, class_name: 'User'
+    has_many :invitees, class_name: 'User', foreign_key: 'invitor_id'
   end
 
   def remaining_invites
