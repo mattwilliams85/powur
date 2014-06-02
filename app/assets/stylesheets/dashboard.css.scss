@@ -34,9 +34,10 @@
 		// Mixins
 		@extend .subtext;
 		@include object_thumbnail;
+		float: none;
 		// Box properties
-		padding: $grid 0 $grid * 2 0;
-		margin-bottom: 0;
+		padding: $grid * 2 0 $grid * 2 0;
+		margin: 0 auto;
 
 		// Background & borders
 
@@ -1416,6 +1417,24 @@
 
 }
 
+.pagination_content {
+	// Mixins
+
+	// Box properties
+	height:250px;
+	width:1024px;
+	overflow:hidden;
+	position:absolute;
+	left:0;
+	top:0;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+}
+
 // From Rick's internal styles - to be assimalated
 
 	// .lead_info{
@@ -1517,20 +1536,14 @@
 			z-index: 90;
 			padding:10px;
 			position:absolute;
-			top:50px;}
+			top:50px;
+			display: none;}
 		.pagination_container .nav.left{
 			left:10px;}
 		.pagination_container .nav.right{
 			right:10px;}
 
-	.pagination_content{
-		height:250px;
-		width:auto;
-		overflow:hidden;
-		position:absolute;
-		left:0;
-		top:0;
-	}
+
 	.team_thumbnail{
 		z-index:20;
 	}

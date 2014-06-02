@@ -269,59 +269,32 @@
 	</div>
 
 	<div class="section_body">
-
-		<% if params[:first_run] == "true" %>
-
-		<div class="section_content">
-
-			<div class="blank_state">
-				You don't have any team members yet. <a onclick="detailExpander('invite_detail', 'Invite');">Invite a fellow advocate</a> to grow your team.
-			</div>
-
-			<div class="team_thumbnail pending js-thumbnail_parent">
-			    <span class="advocate_avatar"></span>
-			    <br/>
-				<span class="invitee_name"></span>
-				<span class="subtext">
-			  		Pending
-				</span>
-				<span class="expand">
-			 		<i class="fa fa-angle-down"></i>
-				</span>
-			</div>
-
-		<%else%> 
 			
-			<div class="section_content team_info">
-				<div class="new_thumbnail js-thumbnail_parent js-invites_thumbnail">
-					<div class="js-thumbnail" >
-						<span class="placeholder_avatar">
-							<span class="js-remaining_invitations">
-								
-							</span>
-						</span>
-						<span>Invites Available</span>
-						<span class="subtext js-expired_invitations"></span>
-
-						<span class="expand">
-							<i class="fa fa-angle-down"></i>
-						</span>
-					</div>
-				</div>
-
-				<div class="pagination_container" data-comment="required for pagination - do not remove">
-					<div class="nav left"><i class="fa fa-angle-left"></i></div>
-					<div class="pagination_content">
-						<p style="padding:32px; text-align:center; width:inherit; margin-left:80px; margin-top:28px;">
-						You don't have any team members yet. <a onclick="detailExpander('invite_detail', 'Invite');">Invite a fellow advocate</a> to grow your team.
-						</p>
-
-					</div>
-					<div class="nav right"><i class="fa fa-angle-right"></i></div>
+		<div class="section_content team_info">
+			<div class="new_thumbnail js-thumbnail_parent js-invites_thumbnail">
+				<div class="js-thumbnail" >
+					<span class="placeholder_avatar">
+						<span class="js-remaining_invitations"></span>
+					</span>
+					<span>Invites Available</span>
+					<span class="subtext js-expired_invitations"></span>
+					<span class="expand">
+						<i class="fa fa-angle-down"></i>
+					</span>
 				</div>
 			</div>
 
-		<% end %>
+			<div class="pagination_container" data-comment="required for pagination - do not remove">
+				<div class="nav left"><i class="fa fa-angle-left"></i></div>
+				<div class="pagination_content">
+					<p class="blank_state">
+					You don't have any team members yet.
+					<br/><i class="fa fa-arrow-left"></i>&nbsp; Invite a fellow advocate</a> to grow your team.
+					</p>
+
+				</div>
+				<div class="nav right"><i class="fa fa-angle-right"></i></div>
+			</div>
 
 		</div>
 	</div>

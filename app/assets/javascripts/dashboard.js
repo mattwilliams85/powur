@@ -593,8 +593,8 @@ function Dashboard(){
 		//naive determine pagination 
 		_containerObj.css("width", (_data.global.thumbnail_size.width*_processedJSON.length)+"px");
 
-		//remove pagination nav if thumbnail count is less than 5
-		if(_processedJSON.length<=5) _containerObj.siblings(".nav").fadeOut();
+		//show pagination nav if thumbnail count is more than 5
+		if(_processedJSON.length>=5) _containerObj.siblings(".nav").fadeIn();
 
 		//populate the team section with appropriate _templatePath, data, and container
 		_getTemplate(_templatePath, _processedJSON, _containerObj);

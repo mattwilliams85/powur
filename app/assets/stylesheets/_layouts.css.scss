@@ -114,6 +114,32 @@ body#application {
 	line-height: $grid;
 	// Other
 
+	li {
+		// Mixins
+	
+		// Box properties
+		float: left;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		a.username {
+			// Mixins
+		
+			// Box properties
+			width: $grid * 7;
+			display: block;
+			padding: 0;
+			// Background & borders
+
+			// Typography
+
+			// Other
+		
+		}
+	}
 }
 
 
