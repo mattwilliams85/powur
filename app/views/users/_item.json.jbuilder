@@ -6,7 +6,6 @@ json.properties do
   json.(user, :id, :first_name, :last_name)
 end
 
-
 links \
   link :self, user_path(user)
 

@@ -13,7 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [ :index ]
+  resources :users, only: [ :index, :show ] do
+  end
 
   resource :promoter, only: [ :new, :show ] do
     get :request
