@@ -9,8 +9,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :zip
       t.string    :reset_token
       t.datetime  :reset_sent_at
+      t.timestamps null: false
 
-      t.timestamps
+      t.belongs_to :invitor, index: true
+
+      t.foreign_key :users, column: :invitor_id, primary_key: :id
     end
 
     add_index :users, [ :email ], unique: true

@@ -1,5 +1,7 @@
 class PasswordsController < ApplicationController
 
+  layout 'user'
+
 
   def show
   end

@@ -7,14 +7,15 @@ class CreateInvites < ActiveRecord::Migration
       t.string :last_name,  null: false
       t.string :phone
       t.datetime :expires, null: false
+      t.timestamps null: false
 
-      t.belongs_to :invitor, class_name: 'User', null: false
-      t.belongs_to :invitee, class_name: 'User'
+      t.belongs_to :invitor, null: false
+      t.belongs_to :invitee
 
-      t.timestamps
+      t.foreign_key :users, column: :invitor_id, primary_key: :id
+      t.foreign_key :users, column: :invitee_id, primary_key: :id
     end
     execute 'alter table invites add primary key (id);'
-    add_index :invites, [ :invitor_id ]
   end
 end
 

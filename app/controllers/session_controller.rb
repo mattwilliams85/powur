@@ -37,7 +37,7 @@ class SessionController < ApplicationController
 
     @invite = Invite.find_by(id: params[:code]) or invalid_code!
 
-    reset_session
+    # reset_session: TODO, reset_session without clearing CSRF
     session[:code] = @invite.id
 
     render 'registration'
@@ -46,11 +46,9 @@ class SessionController < ApplicationController
   def register
     invite = Invite.find_by(id: params[:code]) or invalid_code!
 
-    input = params.permit(:first_name, :last_name, :email, :phone, :zip)
-    
-    user = User.new(input)
-    user.password = params[:password]
-    user.save!
+    input = params.permit(:first_name, :last_name, :email, :phone, :zip, :password)
+
+    user = invite.invitor.add_invited_user(input)
 
     login_user(user)
 

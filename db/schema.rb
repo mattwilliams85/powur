@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20140519201745) do
     t.string   "last_name",  null: false
     t.string   "phone"
     t.datetime "expires",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer  "invitor_id", null: false
     t.integer  "invitee_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "settings", force: true do |t|
@@ -47,10 +47,19 @@ ActiveRecord::Schema.define(version: 20140519201745) do
     t.string   "last_name",          null: false
     t.string   "phone"
     t.string   "zip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "reset_token"
+    t.datetime "reset_sent_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.integer  "invitor_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["invitor_id"], name: "index_users_on_invitor_id", using: :btree
+
+  add_foreign_key "invites", "users", name: "invites_invitee_id_fk", column: "invitee_id"
+  add_foreign_key "invites", "users", name: "invites_invitor_id_fk", column: "invitor_id"
+
+  add_foreign_key "users", "users", name: "users_invitor_id_fk", column: "invitor_id"
 
 end

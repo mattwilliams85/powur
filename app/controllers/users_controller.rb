@@ -1,3 +1,8 @@
-class UsersController < ApplicationController
+class UsersController < AuthController
+
+  def index
+
+    
+  end
 
 end

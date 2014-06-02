@@ -18,6 +18,7 @@ gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
 gem 'rails-settings-cached'
 gem 'gibbon'
 gem 'valid_email', require: 'valid_email/email_validator'
+gem 'foreigner', github: 'matthuhiggins/foreigner'
 
 group :development do
   gem 'spring'

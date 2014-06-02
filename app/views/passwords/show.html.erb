@@ -1,23 +1,15 @@
-<% content_for :javascript_includes do %>
-  <%= javascript_include_tag "user.js" %>
-<% end %>
+<section id="user_content" class="reset_password">
 
-<section id="user_content" class="user">
-  <h3>Promoter Login</h3>
-  
-  <form id="user_login" class="js-login_form">
+  <h3>Reset Password</h3>
 
-    <span class="form_row">
-      <label for="email">Email</label>
-      <input name="email" type="text" placeholder="Email" class="validate" required/>
-    </span>
+  <form>
+    <label for="login_email">Email Address</label>
+    <input id="login_email" name="login_email" type="email" placeholder="Email address" required/>
+    <a href="<%= login_path %>" class="secondary_button">Remembered it?</a>
+    <a href="<%= login_password_path %>" class="button">Reset password</a>
 
-    <span class="form_row">
-      <label for="password">Password</label>
-      <input name="password" type="password" placeholder="password" class="validate" required/>
-    </span>
-    <a href="/users/reset_password" class="secondary_button">Reset password</a>
-    <a href="#" class="button">Submit</a>
   </form>
+
+  
 
 </section>

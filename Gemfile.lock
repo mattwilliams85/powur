@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/matthuhiggins/foreigner.git
+  revision: a8f84a53e91e5b2651d0ad6e9334c357d9c9c2ec
+  specs:
+    foreigner (1.6.1)
+      activerecord (>= 3.0.0)
+
+GIT
   remote: git://github.com/paulwalker/same_time.git
   revision: 6ea4a4a2540ccd14fb8d972f2872ce3f20106acf
   specs:
@@ -179,14 +186,14 @@ GEM
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
     thor (0.19.1)
-    thread_safe (0.3.3)
+    thread_safe (0.3.4)
     tilt (1.4.1)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
     turbolinks (2.2.2)
       coffee-rails
-    tzinfo (1.1.0)
+    tzinfo (1.2.1)
       thread_safe (~> 0.1)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
@@ -213,6 +220,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_cleaner
   factory_girl_rails
+  foreigner!
   gibbon
   jbuilder (~> 2.0)!
   jquery-rails

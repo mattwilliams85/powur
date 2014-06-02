@@ -5,7 +5,7 @@
 <section id="user_content" class="user">
   <h3>Promoter Login</h3>
   
-  <form id="user_login" class=" js-login_form">
+  <form id="user_login" class="js-login_form">
 
     <span class="form_row">
       <label for="email">Email</label>
@@ -16,7 +16,7 @@
       <label for="password">Password</label>
       <input name="password" type="password" placeholder="password" class="validate" required/>
     </span>
-    <a href="/users/reset_password" class="secondary_button">Reset password</a>
+    <a href="<%= login_password_path %>" class="secondary_button">Reset password</a>
     <a href="#" class="button">Submit</a>
   </form>
 
