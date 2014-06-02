@@ -40,10 +40,10 @@ CREATE TABLE invites (
     last_name character varying(255) NOT NULL,
     phone character varying(255),
     expires timestamp without time zone NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     invitor_id integer NOT NULL,
-    invitee_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    invitee_id integer
 );
 
 
@@ -102,8 +102,11 @@ CREATE TABLE users (
     last_name character varying(255) NOT NULL,
     phone character varying(255),
     zip character varying(255),
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    reset_token character varying(255),
+    reset_sent_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    invitor_id integer
 );
 
 
@@ -179,10 +182,41 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
+-- Name: index_users_on_invitor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_invitor_id ON users USING btree (invitor_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: invites_invitee_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY invites
+    ADD CONSTRAINT invites_invitee_id_fk FOREIGN KEY (invitee_id) REFERENCES users(id);
+
+
+--
+-- Name: invites_invitor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY invites
+    ADD CONSTRAINT invites_invitor_id_fk FOREIGN KEY (invitor_id) REFERENCES users(id);
+
+
+--
+-- Name: users_invitor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_invitor_id_fk FOREIGN KEY (invitor_id) REFERENCES users(id);
 
 
 --

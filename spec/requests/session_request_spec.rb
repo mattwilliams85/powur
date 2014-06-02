@@ -41,6 +41,9 @@ describe '/login' do
       expect_200
       expect_classes('session', 'registration')
       expect_actions('create')
+
+      get root_url, format: :json
+      binding.pry
     end
 
     it 'clears a code from session' do
