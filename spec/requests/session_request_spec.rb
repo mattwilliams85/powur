@@ -43,7 +43,8 @@ describe '/login' do
       expect_actions('create')
 
       get root_url, format: :json
-      binding.pry
+
+      expect_classes('session', 'registration')
     end
 
     it 'clears a code from session' do
