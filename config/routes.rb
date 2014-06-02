@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
 
   resource :login, controller: :session, only: [ :show, :create, :destroy ] do
-    resource :password, only: [ :show, :create ]
+
+    resource :password, only: [ :show, :create, :new ] do
+      put :update, on: :member
+    end
+
     post 'invite' => 'session#accept_invite'
     delete 'invite' => 'session#clear_code'
+
     post :register
   end
 

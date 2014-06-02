@@ -28,16 +28,19 @@ module UserSecurity
     SameTime.equal?(self.encrypted_password, password)
   end
 
+  def reset_token_expires_at
+    self.reset_sent_at + RESET_TOKEN_VALID_FOR
+  end
+
   def reset_token_expired?
-    self.reset_sent_at.nil? || 
-      DateTime.current < (self.reset_sent_at + RESET_TOKEN_VALID_FOR)
+    self.reset_sent_at.nil? || DateTime.current > reset_token_expires_at
   end
 
   def ensure_reset_password_token
     if reset_token_expired?
       self.update_attributes!(
-        reset_token:  self.class.random_code,
-        reset_sent_at: DateTime.current)
+        reset_token:    self.class.random_code,
+        reset_sent_at:  DateTime.current)
     end
   end
 

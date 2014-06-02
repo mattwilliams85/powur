@@ -15,4 +15,10 @@ class PasswordsController < ApplicationController
 
     render json: {}
   end
+
+  def update
+    require_input :password, :password_confirm, :token
+
+
+  end
 end
