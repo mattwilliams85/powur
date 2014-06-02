@@ -46,6 +46,8 @@ class SessionController < ApplicationController
   def register
     invite = Invite.find_by(id: params[:code]) or invalid_code!
 
+    require_input :password
+
     input = params.permit(:first_name, :last_name, :email, :phone, :zip, :password)
 
     user = invite.invitor.add_invited_user(input)
