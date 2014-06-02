@@ -17,5 +17,15 @@ describe '/users' do
     expect(json_body['entities']).to have(8).items
   end
 
+  describe '/:id' do
+
+    it 'returns the user detail' do
+      get user_path(@user), format: :json
+
+      expect_200
+    end
+
+  end
+
 
 end

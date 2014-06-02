@@ -27,6 +27,7 @@ en:
     required: "%{input} is required"
     credentials: Invalid email or password
     invalid_code: Invalid invite code
+    email_not_found: This email was not found in our system
     messages: 
       exceeded_max_invites: You have exceeded the max number of invites allowed
       blank: "%{attribute} is required"
