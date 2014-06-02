@@ -6,9 +6,18 @@ var _dashboard;
 
 jQuery(function($){
 	$(document).ready(function(){
+		_data.root={};
 
 		//get current user profile and initiate dashboard data
-		$.getJSON("/jsons/users."+_myID+".json", function(){
+		_getRoot(function(){
+			$(".js-user_first_name").text(_data.root.properties.first_name + " : RANK 0");
+			_dashboard = new Dashboard();
+			_dashboard.displayTeam();
+			_dashboard.displayQuote();
+			setInterval(_dashboard._countdown, 1000);			
+		});
+
+		/*$.getJSON("/jsons/users."+_myID+".json", function(){
 			console.log("... loading user#"+_myID+" profile info");
 		})
 		.done(function(data){
@@ -17,7 +26,7 @@ jQuery(function($){
 			_dashboard.displayTeam();
 			_dashboard.displayQuote();
 			setInterval(_dashboard._countdown, 1000);
-		});	
+		});*/	
 
 		//wire up logout button
 		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete", function(data, text){
@@ -45,7 +54,10 @@ function Dashboard(){
 
 		_data.team=[]; // instantiate team/downlink genealogy object
 		_data.team_count_per_page=4; // determine how many thumbnails to show per pagination
-		_getData(_myID, "team", _data.team, function(){_displayData(_tab, _data["team"],$("#dashboard_team .section_content.team_info .pagination_content"))});
+		_data._team=[];
+		_getData(_myID, "team", _data.team, function(){
+				_displayData(_tab, _data["team"],$("#dashboard_team .section_content.team_info .pagination_content"))
+		});
 		
 		//put in hooks for team drllldown
 		$(document).on("click",".js-team_thumbnail", function(e){
@@ -482,8 +494,11 @@ function Dashboard(){
 		switch(_dataType){
 			case "team.everyone":
 			case "team":
-				_endPoint="/jsons/users."+_userID+".team.json";
+				_endPoint ="/users";
 			break;
+			/*case "team":
+				_endPoint="/jsons/users."+_userID+".team.json";
+			break;*/
 			
 			case "quotes":
 				_endPoint="/jsons/users."+_userID+".quotes.json";
@@ -491,8 +506,12 @@ function Dashboard(){
 
 			case "invitations":
 				_endPoint="/invites";
-
 			break;
+
+			case "team":
+				_endPoint ="/users";
+			break;
+
 
 		}
 
@@ -501,7 +520,7 @@ function Dashboard(){
 		})
 		.done(function(_d){
 			if(typeof _dataStore !== "undefined"){
-				if(Object.keys(_d).indexOf("properties")>=0){
+				if(Object.keys(_d).indexOf("entities")>=0){
 					$.each(_d.entities, function(counter, val){ _dataStore.push(val.properties);});
 				}else{
 					//todo: fake data that needs to be replaced
@@ -531,19 +550,21 @@ function Dashboard(){
 		switch(_dataType){
 			case "team.everyone":
 			case "team":
+				if (_dataObj.length==0) return;
 				$.each(_dataObj, function(counter, val){
 					_tempObj={};
-					_tempObj["bindingObj"]=val.info.id+"_thumbnail";
-					_tempObj["id"]=val.info.id;
-					_tempObj["profile_image"] = val.info.profile_image;
-					_tempObj["first_name"]= val.info.first_name;
-					_tempObj["name"]= val.info.first_name+" "+val.info.last_name;
-					_tempObj["phone"]= val.info.phone;
-					_tempObj["email"]= val.info.email;
-					for(key in val.rank[val.rank.length-1]) _tempObj["rank"] = key;
+					_tempObj["bindingObj"]=val.id+"_thumbnail";
+					_tempObj["id"]=val.id;
+					_tempObj["profile_image"]= (typeof val.profile_image === "undefined")? "/temp_dev_images/Tim.jpg" : val.profile_image;
+					_tempObj["first_name"]= val.first_name;
+					_tempObj["name"]= val.first_name+" "+val.last_name;
+					_tempObj["phone"]= val.phone;
+					_tempObj["email"]= val.email;
+					_tempObj["rank"]="{no rank data}";
+					/*for(key in val.rank[val.rank.length-1]) _tempObj["rank"] = key;
 					_tempObj["quotes_approved"]= val.customers.quotes_approved.length;
 					_tempObj["panels_installed"]= val.customers.panels_installed.length;
-					_tempObj["team_size"]= val.genealogy.downlinks.length;
+					_tempObj["team_size"]= val.genealogy.downlinks.length;*/
 					_processedJSON.push(_tempObj);
 				});
 				_templatePath="/templates/_team_thumbnail.handlebars.html";

@@ -4,7 +4,7 @@ jQuery(function($){
 
 		$("#user_login .button").on("click", function(e){_formSubmit(e, $("#user_login"), "/login", "post", function(data, text){
             for(i=0;i<=data.links.length;i++)
-                if(data.links[i].rel.indexOf("index")>=0) window.location.replace(data.links[i].href);
+                if(data.links[i].rel.indexOf("index")>=0) window.location=data.links[i].href;
             });
 	    });
     });

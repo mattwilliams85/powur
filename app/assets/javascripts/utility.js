@@ -193,8 +193,19 @@ function _formErrorHandling(_formObj, _error){
 }
 
 
-//function that parses JSON objects from the backend
-
+//get root object (user info, etc.)
+function _getRoot(_callback){
+    $.ajax({
+        type:"get",
+        url:"/",
+        data:{}
+    }).done(function(data, text){
+        if(typeof _data === "object" )_data.root = $.extend(true, {}, data);
+        else console.log(data);
+        
+        if(typeof _callback === "function") _callback();
+     });
+}    
 
 
 
