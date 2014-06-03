@@ -71,7 +71,7 @@ body#landing {
 
 				// Box properties
 				// Background & borders
-				border: 1px solid $white;
+				border: 1px solid $ghost;
 				background: $brand;
 				// Typography
 				color: white;
@@ -83,7 +83,8 @@ body#landing {
 					// Box properties
 				
 					// Background & borders
-					background-color: $sunnyside;
+					border-color: $ghost;
+					background-color: lighten($brand, 10%);
 					// Typography
 					// Other
 				
@@ -229,64 +230,56 @@ body#landing {
 	}
 }
 
-.button.request {
-	// Mixins
-
-	// Box properties
-	display: inline-block;
-	width: auto;
-	margin-top: $grid / 2;
-	padding: $grid / 4 $grid / 2;
-	// Background & borders
-	background: none;
-	border: 1px solid white;
-	// Typography
-
-	// Other
-
-	&:hover {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
-		background-color: $brand;
-		// Typography
-	
-		// Other
-	
-	}
-
-}
-
-
 .cta {
 	// Mixins
 
 	// Box properties
 	margin: $grid * 2 auto 0;
 	overflow: auto;
-	width: $grid * 10;
+	width: $grid * 16;
 	// Background & borders
-
 	// Typography
 	text-align: center;	
 	// Other
 
+	.form_row {
+		// Mixins
+	
+		// Box properties
+		width: $grid * 14;
+		float: left;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+
+	label {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+		color: white;
+		// Other
+	
+	}
+
 	input {
 		// Mixins
-		@include box_sizing;
+		@include field_box;
 		@include corners(2px,0,2px,0);
 		// Box properties
-		display: block;
-		float: left;
-		width: $grid * 8;
-		height: $grid * 1.4;
+		width: $grid * 14;
 		margin: 0 -7px 0 0;
-		padding: $grid / 4 $grid / 2;
+
 		// Background & borders
-		background: $brand;
-		border-color: rgba(white, 1);
+		border: $border;
+		background-color: $ghost;
 		// Typography
 		color: white;
 		-webkit-font-smoothing: subpixel-antialiased;
@@ -299,28 +292,13 @@ body#landing {
 			// Box properties
 		
 			// Background & borders
-		
+			border: 1px solid $ghost;
+
 			// Typography
 			color: white;
 			// Other
 		
 		}
-	}
-
-	::-webkit-input-placeholder {
-	   color: white;
-	}
-
-	:-moz-placeholder { /* Firefox 18- */
-	   color: white;  
-	}
-
-	::-moz-placeholder {  /* Firefox 19+ */
-	   color: white;  
-	}
-
-	:-ms-input-placeholder {  
-	   color: white;  
 	}
 
 	.button {
@@ -330,20 +308,20 @@ body#landing {
 		// Box properties
 		display: block;
 		width: $grid * 2;
-		height: $grid * 1.4;
+		height: 59px;
 		clear: none;
 		float: left;
 		padding: $grid / 3 $grid / 2;
 		margin-top: 0;
 		// Background & borders
-		border-color: rgba(white, 1);
-		background: $brand;
+		border-color: $ghost;
+		background-color: $brand;
 		// Typography
 		color: white;
-		line-height: $line_height;
+		line-height: $font_size;
 		font-size: $font_size;
 		line-height: $font_size;
-		font-family: $body_font;
+		font-family: $title_font;
 		text-transform: none;
 		// Other
 	
@@ -353,7 +331,8 @@ body#landing {
 			// Box properties
 		
 			// Background & borders
-			background: $sunnyside;
+			border-color: $ghost;
+			background-color: lighten($brand, 10%);
 			// Typography
 		
 			// Other
@@ -371,6 +350,32 @@ body#landing {
 		// Typography
 
 		// Other
+
+		.js-error {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+			
+			// Typography
+			color: $quiet;
+			// Other
+		
+		}
+
+		label {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+			color: $quiet;
+			// Other
+		
+		}
 
 		input {
 			// Mixins

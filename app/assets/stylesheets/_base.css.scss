@@ -488,6 +488,7 @@ footer {
 		padding-left: $grid / 1.5;
 		width: auto;
 		// Background & borders
+		outline: none;
 		background-image: image-url('search.svg');
 		background-position: left center;
 		background-repeat: no-repeat;
