@@ -6,19 +6,25 @@
 <section id="user_content" class="reset_password">
 
     <h3>Reset Password</h3>
+
+    <% if valid_token? %>
     <form id="user_password_update_form" class="js-password_update_form">
+        <input name="token" type="hidden" value="<%= params[:token] %>">
         <span class="form_row">
             <label for="password">New Password</label>
-            <input id="password" name="password" type="password" placeholder="New Password" required/>
+            <input id="password" name="password" type="password" placeholder="New Password" required>
         </span>
 
         <span class="form_row">
             <label for="password_confirm">Confirm Password</label>
-            <input id="password_confirm" name="password_confirm" type="password" placeholder="Confirm Password" required/>
+            <input id="password_confirm" name="password_confirm" type="password" placeholder="Confirm Password" required>
         </span>
 
-    <button class="button">Submit</button>
-  </form>
+        <button class="button">Submit</button>
+    </form>
+    <% else %>
+    <p><%= t('errors.reset_token') %></p>
+    <% end %>
 
   
 

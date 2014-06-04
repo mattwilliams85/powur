@@ -2,7 +2,13 @@ class PasswordsController < ApplicationController
 
   layout 'user'
 
+  before_filter :fetch_user_from_token, only: [ :new, :create ]
+  helper_method :valid_token?
+
   def show
+  end
+
+  def new
   end
 
   def create
@@ -17,7 +23,7 @@ class PasswordsController < ApplicationController
   end
 
   def update
-    require_input :password, :password_confirm, :token
+    require_input :password, :password_confirm
 
     user = User.find_by_reset_token(params[:token]) or
       error!(t('errors.reset_token_invalid'))
@@ -29,5 +35,22 @@ class PasswordsController < ApplicationController
     user.save!
 
     render json: {}
+  end
+
+  protected
+
+  def valid_token?
+    !@user.nil? && !@user.reset_token_expired?
+  end
+
+  private 
+
+  def fetch_user_from_token
+    require_input :token
+
+    @user = User.find_by_reset_token(params[:token])
+
+  rescue Errors::InputError
+    redirect_to root_url
   end
 end
