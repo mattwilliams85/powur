@@ -47,7 +47,7 @@ module UserSecurity
   def send_reset_password
     ensure_reset_password_token
 
-    # TODO, send email
+    PromoterMailer.reset_password(self).deliver
   end
 
 

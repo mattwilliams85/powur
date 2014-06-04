@@ -24,4 +24,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'sunstand.eyecuelab.com' }
   config.action_mailer.default_options = { 
     from: 'EyeCueLab Stage Mailer <no-reply+stage@eyecuelab.com>' }
+  config.action_controller.asset_host = "http://#{config.action_mailer.default_url_options[:host]}"
+
 end

@@ -20,4 +20,5 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.default_options = { 
     from: 'EyeCueLab Local Mailer <no-reply+local@eyecuelab.com>' }
+  config.action_controller.asset_host = "http://#{config.action_mailer.default_url_options[:host]}"
 end

@@ -37,7 +37,6 @@ class SessionController < ApplicationController
 
     @invite = Invite.find_by(id: params[:code]) or invalid_code!
 
-    # reset_session: TODO, reset_session without clearing CSRF
     session[:code] = @invite.id
     session[:user_id] = nil
 
