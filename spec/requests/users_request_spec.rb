@@ -14,7 +14,7 @@ describe '/users' do
     expect_200
 
     expect_classes('users', 'list')
-    expect(json_body['entities']).to have(8).items
+    expect(json_body['entities'].size).to eq(8)
   end
 
   describe '/:id' do

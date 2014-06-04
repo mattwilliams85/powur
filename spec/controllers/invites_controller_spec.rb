@@ -16,7 +16,7 @@ describe InvitesController do
       expect_200
 
       expect_classes('invites', 'list')
-      expect(json_body['entities']).to have(3).items
+      expect(json_body['entities'].size).to eq(3)
     end
   end
 
