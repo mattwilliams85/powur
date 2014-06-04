@@ -1,4 +1,4 @@
-klass :class, :user
+klass :user
 
 json.rel [ :item ] unless local_assigns[:detail]
 

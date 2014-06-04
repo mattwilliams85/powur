@@ -25,7 +25,7 @@ class CustomersController < AuthController
   private
 
   def input
-    params.permit(:email, :first_name, :last_name, :address, :phone, :kwh)
+    params.permit(:email, :first_name, :last_name, :address, :city, :state, :zip, :phone, :kwh)
   end
 
 end

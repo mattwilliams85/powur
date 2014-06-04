@@ -1,6 +1,6 @@
 siren json
 
-json.partial! 'item', user: @customer, detail: true
+json.partial! 'item', customer: @customer, detail: true
 
 json.properties do
   json.(@customer, :phone, :address, :city, :state, :zip, :kwh)
