@@ -4,7 +4,7 @@ class InvitesController < AuthController
   skip_before_filter :authenticate!, only: [ :show ]
 
   def index
-    @invites = current_user.active_invites
+    @invites = current_user.active_invites.order(created_at: :desc)
 
     render 'index'
   end

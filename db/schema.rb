@@ -11,10 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519201745) do
+ActiveRecord::Schema.define(version: 20140604062729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "customers", force: true do |t|
+    t.string   "url_slug",                  null: false
+    t.integer  "status",        default: 0
+    t.string   "email"
+    t.string   "first_name",                null: false
+    t.string   "last_name",                 null: false
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "phone"
+    t.string   "utility"
+    t.integer  "rate_schedule"
+    t.integer  "kwh"
+    t.string   "roof_material"
+    t.integer  "roof_age"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "promoter_id",               null: false
+  end
+
+  add_index "customers", ["promoter_id"], name: "index_customers_on_promoter_id", using: :btree
+  add_index "customers", ["url_slug"], name: "index_customers_on_url_slug", unique: true, using: :btree
 
   create_table "invites", id: false, force: true do |t|
     t.string   "id",         null: false
@@ -56,6 +80,8 @@ ActiveRecord::Schema.define(version: 20140519201745) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitor_id"], name: "index_users_on_invitor_id", using: :btree
+
+  add_foreign_key "customers", "users", name: "customers_promoter_id_fk", column: "promoter_id"
 
   add_foreign_key "invites", "users", name: "invites_invitee_id_fk", column: "invitee_id"
   add_foreign_key "invites", "users", name: "invites_invitor_id_fk", column: "invitor_id"

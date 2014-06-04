@@ -32,8 +32,8 @@ class Invite < ActiveRecord::Base
   end
 
   class << self
-    def generate_code
-      SecureRandom.hex(3).upcase
+    def generate_code(size = 3)
+      SecureRandom.hex(size).upcase
     end
   end
 

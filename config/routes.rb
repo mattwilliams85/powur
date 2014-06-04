@@ -26,13 +26,11 @@ Rails.application.routes.draw do
     get :thanks
   end
 
-  resources :customer, only: [ :index, :create, :destroy, :update ]
+  resources :customers, only: [ :index, :create, :destroy, :update, :show ]
 
-
-
-  get 'customer' => 'index#customer'
-  get 'customer/signup' => 'customer#index'
-  get 'customer/details' => 'customer#details'
+  resource :quote, only: [ :new, :show ] do
+    get 'details' => 'quotes#details'
+  end
 
   # These are just to fake the referral pages so the link doesn't break - safe to remove when the feature is implemented
   # get '/1234' => 'customer#index'

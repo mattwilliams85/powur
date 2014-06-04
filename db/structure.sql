@@ -30,6 +30,52 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE customers (
+    id integer NOT NULL,
+    url_slug character varying(255) NOT NULL,
+    status integer DEFAULT 0,
+    email character varying(255),
+    first_name character varying(255) NOT NULL,
+    last_name character varying(255) NOT NULL,
+    address character varying(255),
+    city character varying(255),
+    state character varying(255),
+    zip character varying(255),
+    phone character varying(255),
+    utility character varying(255),
+    rate_schedule integer,
+    kwh integer,
+    roof_material character varying(255),
+    roof_age integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    promoter_id integer NOT NULL
+);
+
+
+--
+-- Name: customers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE customers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: customers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE customers_id_seq OWNED BY customers.id;
+
+
+--
 -- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -133,6 +179,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq'::regclass);
 
 
@@ -141,6 +194,14 @@ ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq':
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY customers
+    ADD CONSTRAINT customers_pkey PRIMARY KEY (id);
 
 
 --
@@ -165,6 +226,20 @@ ALTER TABLE ONLY settings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_customers_on_promoter_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_customers_on_promoter_id ON customers USING btree (promoter_id);
+
+
+--
+-- Name: index_customers_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_customers_on_url_slug ON customers USING btree (url_slug);
 
 
 --
@@ -193,6 +268,14 @@ CREATE INDEX index_users_on_invitor_id ON users USING btree (invitor_id);
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: customers_promoter_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY customers
+    ADD CONSTRAINT customers_promoter_id_fk FOREIGN KEY (promoter_id) REFERENCES users(id);
 
 
 --
@@ -225,9 +308,11 @@ ALTER TABLE ONLY users
 
 SET search_path TO "$user",public;
 
+INSERT INTO schema_migrations (version) VALUES ('20140515201745');
+
 INSERT INTO schema_migrations (version) VALUES ('20140516075244');
 
 INSERT INTO schema_migrations (version) VALUES ('20140516164014');
 
-INSERT INTO schema_migrations (version) VALUES ('20140519201745');
+INSERT INTO schema_migrations (version) VALUES ('20140604062729');
 

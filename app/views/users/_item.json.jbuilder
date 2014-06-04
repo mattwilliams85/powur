@@ -8,5 +8,3 @@ end
 
 links \
   link :self, user_path(user)
-
-
