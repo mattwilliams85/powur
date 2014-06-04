@@ -34,7 +34,9 @@ class PasswordsController < ApplicationController
     user.reset_token = nil
     user.save!
 
-    render json: {}
+    confirm :reset_password
+
+    render 'session/anonymous'
   end
 
   protected

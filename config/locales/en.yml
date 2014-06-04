@@ -38,6 +38,8 @@ en:
     attributes:
       email:
         blank: Please input an email address
+  confirms:
+    reset_password: Password reset successfully
   entities:
     invite:
       create: Create Invite

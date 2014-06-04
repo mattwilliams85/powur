@@ -27,6 +27,17 @@ module SirenDSL
 
   def siren(json)
     @json = json
+    json.properties do
+      json._message @message if @message
+    end
+  end
+
+  def message(value)
+    @message = value
+  end
+
+  def confirm(value)
+    message confirm: value.is_a?(Symbol) ? t("confirms.#{value}") : value
   end
 
   def klass(*values)

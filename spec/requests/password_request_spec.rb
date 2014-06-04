@@ -29,6 +29,8 @@ describe '/password' do
         password: 'new_password', password_confirm: 'new_password', format: :json
 
       expect_200
+      expect_confirm
+
       user = User.authenticate(@user.email, 'new_password')
       expect(user).to_not be_nil
     end

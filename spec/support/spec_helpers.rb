@@ -37,4 +37,9 @@ module SpecHelpers
     expect(json_body['actions'].map { |a| a['name'] }).to include(*args)
   end
 
+  def expect_confirm
+    expect(json_body['properties']['_message']).to_not be_nil
+    expect(json_body['properties']['_message']['confirm']).to_not be_nil
+  end
+
 end
