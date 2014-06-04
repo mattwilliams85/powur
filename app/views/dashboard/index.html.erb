@@ -189,7 +189,7 @@
 			<% if params[:first_run] == "true" %>
 
 				<div class="blank_state">
-					You don't have any quotes yet. <a href="#">Add a customer quote</a> to get started.
+					You don't have any quotes yet. <a href="#">Add a customer lead</a> to get started.
 				</div>
 			
 			<% else %>
@@ -197,7 +197,13 @@
 				<%= render partial: "shared/new_quote_thumbnail"%>
 				<div class="pagination_container" data-comment="required for pagination - do not remove">
 					<div class="nav left"><i class="fa fa-angle-left"></i></div>
-					<div class="pagination_content"></div>
+					<div class="pagination_content">
+						<p class="blank_state">
+						You don't have any leads yet.
+						<br/><i class="fa fa-arrow-left"></i>&nbsp; Add a lead</a> to get started.
+						</p>
+
+					</div>
 					<div class="nav right"><i class="fa fa-angle-right"></i></div>
 				</div>
 

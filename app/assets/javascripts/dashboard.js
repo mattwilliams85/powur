@@ -17,17 +17,6 @@ jQuery(function($){
 			setInterval(_dashboard._countdown, 1000);			
 		});
 
-		/*$.getJSON("/jsons/users."+_myID+".json", function(){
-			console.log("... loading user#"+_myID+" profile info");
-		})
-		.done(function(data){
-			_data.profile=$.extend(true, {}, data[0]);
-			_dashboard = new Dashboard();
-			_dashboard.displayTeam();
-			_dashboard.displayQuote();
-			setInterval(_dashboard._countdown, 1000);
-		});*/	
-
 		//wire up logout button
 		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete", function(data, text){
 			console.log(data)
@@ -100,14 +89,14 @@ function Dashboard(){
 			_formSubmit(e, $("#new_promoter_invitation_form"), "/invites", "POST", _displayUpdatedInvitation)
 		});
 
-		//wire up remove candidate capabilities
+		//wire up remove pending advocate capabilities
 		$(document).on("click", ".js-remove_advocate", function(e){
 			e.preventDefault();
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
 			_ajax({_ajaxType:"delete", _url:"/invites/"+_id, _callback:_displayUpdatedInvitation()});
 		});
 
-		//wire up resend candidate capaibiltiies 
+		//wire up resend advocate invitation capaibiltiies 
 		$(document).on("click", ".js-resend_invite_to_advocate", function(e){
 			e.preventDefault();
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
@@ -136,7 +125,7 @@ function Dashboard(){
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});	
 
-		//wire up new quote hooks
+		//wire up new leads hooks
 		$(document).on("click", ".js-new_quote_thumbnail", function(e){
 			e.preventDefault();
 			_thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
@@ -147,6 +136,13 @@ function Dashboard(){
 						"_target":$(e.target),
 						"_audience":_thisAudience, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+		});
+
+		//wire up lead submission hook
+		$(document).on("click", "#new_lead_contact_form button", function(e){
+			_formSubmit(e, $("#new_lead_contact_form"), "/customers", "POST", function(data, text){
+				console.log(data);
+			})
 		});
 
 	}//end quote dashboard info
@@ -279,12 +275,12 @@ function Dashboard(){
 				$("#dashboard_quotes").append(_html);
 				_drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=446px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=800px", opacity:1}, _animation_speed);	
 
 				//retrieve info from _data.quotes for the quote
 				_userDetail={};
 				for(i=0;i<_data.quotes.length;i++)
-					if(_data.quotes[i].info.id==_options._userID)
+					if(_data.quotes[i].id==_options._userID)
 						_userDetail=$.extend(true, {}, _data.quotes[i]);
 				
 				//populate drilldown
@@ -301,14 +297,10 @@ function Dashboard(){
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=446px", opacity:1}, _animation_speed);	
-
-				_newQuoteDetail={};
-				_newQuoteDetail["audience"]=_options._audience;
-				_newQuoteDetail["instructions"]="The new quote will be added to your list";
+				_drilldownContainerObj.animate({height:"+=800px", opacity:1}, _animation_speed);	
 
 				//populate drilldown
-				_getTemplate("/templates/drilldowns/_new_quote.handlebars.html", _newQuoteDetail, _drilldownContainerObj, function(){
+				_getTemplate("/templates/drilldowns/_new_quote.handlebars.html", {}, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
 				});
@@ -374,7 +366,7 @@ function Dashboard(){
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=384px", opacity:1}, _animation_speed);
+				_drilldownContainerObj.animate({height:"+=400px", opacity:1}, _animation_speed);
 
 				_invitationDetail = {};
 				_invitationDetail = _data["invitations"][_thisThumbnail.index()];
@@ -496,12 +488,9 @@ function Dashboard(){
 			case "team":
 				_endPoint ="/users";
 			break;
-			/*case "team":
-				_endPoint="/jsons/users."+_userID+".team.json";
-			break;*/
 			
 			case "quotes":
-				_endPoint="/jsons/users."+_userID+".quotes.json";
+				_endPoint="/customers";
 			break;
 
 			case "invitations":
@@ -571,19 +560,20 @@ function Dashboard(){
 			break;
 
 			case "quotes":
+				if (_dataObj.length==0) return;
 				$.each(_dataObj, function(counter, val){
 					_tempObj={};
-					_tempObj["bindingObj"]=val.info.id+"_thumbnail";
-					_tempObj["id"]=val.info.id;
-					_tempObj["first_name"]= val.info.first_name;
-					_tempObj["last_name"]= val.info.last_name;
-					_tempObj["name"]= val.info.first_name+" "+val.info.last_name;
-					_tempObj["phone"]= val.info.phone;
-					_tempObj["email"]= val.info.email;
-					_tempObj["address"]= val.info.address;
+					_tempObj["bindingObj"]=val.id+"_thumbnail";
+					_tempObj["id"]=val.id;
+					_tempObj["first_name"]= val.first_name;
+					_tempObj["last_name"]= val.last_name;
+					_tempObj["name"]= val.full_name;
+					_tempObj["phone"]= val.phone;
+					_tempObj["email"]= val.email;
+					_tempObj["address"]= val.address;
 					_tempObj["utility_info"]=val.utility_info;
-					_tempObj["quote_status"]=val.quote_status;
-					_tempObj["current_status"]=Object.keys(val.quote_status)[Object.keys(val.quote_status).length-1];
+					_tempObj["status"]=val.status;
+					//_tempObj["current_status"]=Object.keys(val.quote_status)[Object.keys(val.quote_status).length-1];
 					_processedJSON.push(_tempObj);
 				});
 				_templatePath="/templates/_quote_thumbnail.handlebars.html";
@@ -681,6 +671,10 @@ function Dashboard(){
 		_updateInvitationSummary(function(){
 			$(".js-remaining_invitations").click();
 		});	
+	}
+
+	function _displayUpdatedLeads(){
+
 	}
 
 

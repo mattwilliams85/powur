@@ -2,8 +2,8 @@
 <div class="drilldown_content">
 
 	<div class="drilldown_content_section summary">
-		<h4>Add an {{audience}}</h4>
-		<span class="subtext">{{instructions}}foo</span>
+		<h4>Add a new Lead</h4>
+		<span class="subtext">CThe basic required information include their name and email address.<br><br>You may complete the rest of the information or edit them once the Quote is created.</span>
 	</div>
 
 	<div class="drilldown_content_section">
@@ -30,31 +30,30 @@
 			</div>
 			<div class="address">
 				<span class="form_row">
-					<label for="address.street">Street Address & Unit#</label>
-					<input type="text" name="address.street" placeholder="Street">
-				</span>
-				<span class="form_row">
-					<label for="address.unit">Unit number</label>
-					<input type="text" name="address.unit" placeholder="Unit #">
-				</span>
-				<span class="form_row">
-					<label for="address.city">City</label>
-					<input type="text" name="address.city" placeholder="City">
+					<label for="address">Street Address & Unit#</label>
+					<input type="text" name="address" placeholder="Street">
 				</span>
 
 				<span class="form_row">
-					<label for="address.state">State</label>
-					<input type="text" name="address.state" placeholder="State">
+					<label for="city">City</label>
+					<input type="text" name="city" placeholder="City">
+				</span>
+
+				<span class="form_row">
+					<label for="state">State</label>
+					<input type="text" name="state" placeholder="State">
 				</span>
 				<span class="form_row">
-					<label for="address.zip">Zip</label>
-					<input type="text" name="address.zip" placeholder="Zipcode">
+					<label for="zip">Zip</label>
+					<input type="text" name="zip" placeholder="Zipcode">
 				</span>
 			</div>
+			<button class="button">Create Lead</button>
 		</form>
 
+		<!--
 		<form id="{{this.info.id}}_lead_utility_form" class="sidebar utility">
-			<lable>Utility Info</lable><br>
+			<lable>Additional Info</lable><br>
 			<span class="subtext">Verified Kilowatt-Hour (kWh)</span>
 			<input type="text" name="utility.kwh" value="{{this.utility_info.kwh}}">
 			{{#if this.utility_info.document}}
@@ -62,8 +61,9 @@
 				<span class="subtext">Uploaded Utility Document</span>
 				<a href="">{{this.utility_info.document}}</a><br><br>
 			{{/if}}
-				<span class="button">Request Utility Verification</a>
+				<button class="button">Request Utility Verification</button>
 		</form>
+		-->
 	</div>		
 
 </div>

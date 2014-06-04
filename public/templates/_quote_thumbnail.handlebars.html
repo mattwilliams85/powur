@@ -8,7 +8,7 @@
           <span><i class="fa fa-phone"></i></span>
         {{/if}}
 
-        {{#if address.street}}
+        {{#if address}}
           <span class="checked"><i class="fa fa-home"></i></span>
         {{else}}
           <span><i class="fa fa-home"></i></span>
@@ -20,7 +20,7 @@
           <span><i class="fa fa-envelope"></i></span>
         {{/if}}
 
-        {{#if utility_info.document}}
+        {{#if document}}
           <span class="checked"><i class="fa fa-bolt"></i></span>
         {{else}}
           <span><i class="fa fa-bolt"></i></span>
@@ -30,7 +30,7 @@
       </div>
 
       <span class="quote_name">{{name}}</span>
-      <span class="quote_status subtext">{{current_status}}</span>
+      <span class="quote_status subtext" style="text-transform:capitalize;">{{status}}</span>
 
     	<span class="expand">
     		<i class="fa fa-angle-down"></i>

@@ -1,7 +1,7 @@
 <div class="arrow"></div>
 <div class="drilldown_content">
 	<div class="drilldown_content_section summary">
-		<h4>{{this.info.first_name}} {{this.info.last_name}}</h4>
+		<h4>{{this.first_name}} {{this.last_name}}</h4>
 		<ul>
 		{{#each this.quote_status}}
 			{{#if this.reason}}
@@ -19,53 +19,52 @@
 		<a href=""><i class="fa fa-times"></i> Remove Quote</a>
 	</div>
 	<div class="drilldown_content_section">
-		<form id="{{this.info.id}}_lead_contact_form" class="main contact">
+		<form id="{{this.id}}_customer_contact_form" class="main contact" data-customer-id="{{this.id}}">
 			<div class="contact_info">
 				<h4>Contact Info</h4>
 				<span class="form_row half">
 					<label for="first_name">First Name</label>
-					<input type="text" name="first_name" value="{{this.info.first_name}}">
+					<input type="text" name="first_name" value="{{this.first_name}}">
 				</span>
 				<span class="form_row half">
 					<label for="last_name">Last Name</label>
-					<input type="text" name="first_name" value="{{this.info.last_name}}">
+					<input type="text" name="first_name" value="{{this.last_name}}">
 				</span>
 				<span class="form_row">
 					<label for="email">Email</label>
-					<input type="text" name="email" value="{{this.info.email}}">
+					<input type="text" name="email" value="{{this.email}}">
 				</span>
 				<span class="form_row">
 					<label for="phone">Phone</label>
-					<input type="text" name="phone" value="{{this.info.phone}}">
+					<input type="text" name="phone" value="{{this.phone}}">
 				</span>
 			</div>
 			<div class="address">
 				<span class="form_row">
 					<label for="address.street">Street Address & Unit#</label>
-					<input type="text" name="address.street" value="{{this.info.address.street}}">
-				</span>
-				<span class="form_row">
-					<label for="address.unit">Unit number</label>
-					<input type="text" name="address.unit" value="{{this.info.address.unit}}">
+					<input type="text" name="address.street" value="{{this.address}}">
 				</span>
 				<span class="form_row">
 					<label for="address.city">City</label>
-					<input type="text" name="address.city" value="{{this.info.address.city}}">
+					<input type="text" name="address.city" value="{{this.city}}">
 				</span>
 				<span class="form_row half">
 					<label for="address.state">State</label>
-					<input type="text" name="address.state" value="{{this.info.address.state}}">
+					<input type="text" name="address.state" value="{{this.state}}">
 				</span>
 				<span class="form_row half">
 					<label for="address.zip">Zip</label>
-					<input type="text" name="address.zip" value="{{this.info.address.zip}}">
+					<input type="text" name="address.zip" value="{{this.zip}}">
 				</span>
 			</div>
+
+			<button class="button">Update Customer Info</button>
 		</form>
+		<!--
 		<form id="{{this.info.id}}_lead_utility_form" class="sidebar utility">
 			<lable>Utility Info</lable><br>
 			<span class="subtext">Verified Kilowatt-Hour (kWh)</span>
-			<input type="text" name="utility.kwh" value="{{this.utility_info.kwh}}">
+			<input type="text" name="kwh" value="{{this.kwh}}">
 			{{#if this.utility_info.document}}
 				<br><br>
 				<span class="subtext">Uploaded Utility Document</span>
@@ -73,6 +72,7 @@
 			{{/if}}
 				<span class="button">Request Utility Verification</a>
 		</form>
+	-->
 	</div>
 </div>
 
