@@ -28,7 +28,7 @@
 				</span>
 				<span class="form_row half">
 					<label for="last_name">Last Name</label>
-					<input type="text" name="first_name" value="{{this.last_name}}">
+					<input type="text" name="last_name" value="{{this.last_name}}">
 				</span>
 				<span class="form_row">
 					<label for="email">Email</label>
@@ -42,23 +42,23 @@
 			<div class="address">
 				<span class="form_row">
 					<label for="address.street">Street Address & Unit#</label>
-					<input type="text" name="address.street" value="{{this.address}}">
+					<input type="text" name="address" value="{{this.address}}">
 				</span>
 				<span class="form_row">
 					<label for="address.city">City</label>
-					<input type="text" name="address.city" value="{{this.city}}">
+					<input type="text" name="city" value="{{this.city}}">
 				</span>
 				<span class="form_row half">
 					<label for="address.state">State</label>
-					<input type="text" name="address.state" value="{{this.state}}">
+					<input type="text" name="state" value="{{this.state}}">
 				</span>
 				<span class="form_row half">
 					<label for="address.zip">Zip</label>
-					<input type="text" name="address.zip" value="{{this.zip}}">
+					<input type="text" name="zip" value="{{this.zip}}">
 				</span>
 			</div>
 
-			<button class="button">Update Customer Info</button>
+			<button class="button js-update_customer_info">Update Customer Info</button>
 		</form>
 		<!--
 		<form id="{{this.info.id}}_lead_utility_form" class="sidebar utility">

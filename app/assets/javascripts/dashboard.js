@@ -142,7 +142,7 @@ function Dashboard(){
 		$(document).on("click", "#new_lead_contact_form button", function(e){
 			e.preventDefault();
 			_formSubmit(e, $("#new_lead_contact_form"), "/customers", "POST", function(data, text){
-				$(".js-new_quote_thumbnail .expand").click();
+				//$(".js-new_quote_thumbnail .expand").click();
 				_displayUpdatedLeads();
 			});
 		});
@@ -153,6 +153,13 @@ function Dashboard(){
 			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
 			_ajax({_ajaxType:"delete", _url:"/customers/"+_quoteID, _callback:_displayUpdatedLeads()});
 		});
+
+		$(document).on("click", "#customer_contact_form .js-update_customer_info", function(e){
+			e.preventDefault();
+			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
+			_ajax({_ajaxType:"patch", _url:"/customers/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:_displayUpdatedLeads()});
+
+		})
 
 
 	}//end quote dashboard info
