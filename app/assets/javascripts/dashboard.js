@@ -140,10 +140,20 @@ function Dashboard(){
 
 		//wire up lead submission hook
 		$(document).on("click", "#new_lead_contact_form button", function(e){
+			e.preventDefault();
 			_formSubmit(e, $("#new_lead_contact_form"), "/customers", "POST", function(data, text){
-				console.log(data);
-			})
+				$(".js-new_quote_thumbnail .expand").click();
+				_displayUpdatedLeads();
+			});
 		});
+
+		$(document).on("click", ".js-remove_quote", function(e){
+			e.preventDefault();
+			_thisThumbnail.find(".expand").click();
+			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
+			_ajax({_ajaxType:"delete", _url:"/customers/"+_quoteID, _callback:_displayUpdatedLeads()});
+		});
+
 
 	}//end quote dashboard info
 
@@ -583,8 +593,8 @@ function Dashboard(){
 		//naive determine pagination 
 		_containerObj.css("width", (_data.global.thumbnail_size.width*_processedJSON.length)+"px");
 
-		//show pagination nav if thumbnail count is more than 5
-		if(_processedJSON.length>=5) _containerObj.siblings(".nav").fadeIn();
+		//show pagination nav if thumbnail count is more than 4
+		if(_processedJSON.length>=4) _containerObj.siblings(".nav").fadeIn();
 
 		//populate the team section with appropriate _templatePath, data, and container
 		_getTemplate(_templatePath, _processedJSON, _containerObj);
@@ -674,7 +684,17 @@ function Dashboard(){
 	}
 
 	function _displayUpdatedLeads(){
-
+		//refresh the entire section
+		_data.quotes=[];
+		$("#dashboard_quotes .section_content.quotes_info .pagination_content").fadeOut(300, function(){
+			$("#dashboard_quotes .section_content.quotes_info .pagination_content").html("");
+			_getData(_myID, "quotes", _data.quotes, function(){
+				_displayData("quotes", _data.quotes,$("#dashboard_quotes .section_content.quotes_info .pagination_content"));
+				if(_data.quotes.length==0)
+					$("#dashboard_quotes .section_content.quotes_info .pagination_content").innerhtml("<p class='blank_state'>You don't have any quotes yet.<br/><i class='fa fa-arrow-left'></i> Add a quotes</a> to get started.</p>");
+				$("#dashboard_quotes .section_content.quotes_info .pagination_content").fadeIn();
+			});
+		});
 	}
 
 
