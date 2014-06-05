@@ -19,14 +19,14 @@ ActiveRecord::Schema.define(version: 20140604062729) do
   create_table "customers", force: true do |t|
     t.string   "url_slug",                  null: false
     t.integer  "status",        default: 0
-    t.string   "email"
     t.string   "first_name",                null: false
     t.string   "last_name",                 null: false
+    t.string   "email"
+    t.string   "phone"
     t.string   "address"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.string   "phone"
     t.string   "utility"
     t.integer  "rate_schedule"
     t.integer  "kwh"

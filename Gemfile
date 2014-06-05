@@ -1,7 +1,7 @@
 ruby '2.1.1'
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.0'
+gem 'rails', '4.1.1'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -19,6 +19,7 @@ gem 'rails-settings-cached'
 gem 'gibbon'
 gem 'valid_email', require: 'valid_email/email_validator'
 gem 'foreigner', github: 'matthuhiggins/foreigner'
+# gem 'texticle', require: 'texticle/rails', github: 'texticle/texticle'
 
 group :development do
   gem 'spring'
