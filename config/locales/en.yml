@@ -42,6 +42,8 @@ en:
       email:
         blank: Please input an email address
   confirms:
+    delete: "%{entity} successfully deleted"
+    update: "%{entity} successfully updated"
     reset_password_request: "A Password Reset email has been sent to %{email}"
     reset_password: Password reset successfully
   entities:

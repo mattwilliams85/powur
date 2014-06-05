@@ -60,7 +60,23 @@ describe '/customers' do
   describe '#update' do
 
     it 'updates an existing customer' do
+      customer = create(:customer, promoter: @user)
 
+      patch customer_path(customer.id, first_name: 'Bob'), format: :json
+
+      expect_confirm
+      expect(json_body['properties']['first_name']).to eq('Bob')
+    end
+  end
+
+  describe '#destroy' do
+
+    it 'deletes a customer' do
+      customer = create(:customer, promoter: @user)
+
+      delete customer_path(customer.id), format: :json
+
+      expect_confirm
     end
   end
 

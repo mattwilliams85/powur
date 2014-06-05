@@ -16,7 +16,12 @@ actions \
     field(:city, :text, required: false, value: @customer.city).
     field(:state, :text, required: false, value: @customer.state).
     field(:zip, :text, required: false, value: @customer.zip).
-    field(:kwh, :number, required: false, value: @customer.kwh)
+    field(:utility, :text, required: false, value: @customer.utility).
+    field(:rate_schedule, :number, required: false, value: @customer.rate_schedule).
+    field(:kwh, :number, required: false, value: @customer.kwh).
+    field(:roof_material, :text, required: false, value: @customer.roof_material).
+    field(:roof_age, :number, required: false, value: @customer.roof_age)
+
 
 links \
   link(:self, customer_path(@customer))

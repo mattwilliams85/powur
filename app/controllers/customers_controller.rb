@@ -1,9 +1,11 @@
 class CustomersController < AuthController
 
-  before_filter :fetch_customer, only: [ :show, :update ]
+  before_filter :fetch_customer, only: [ :show, :update, :destroy ]
 
   def index
     @customers = current_user.customers.order(created_at: :desc)
+
+    render 'index'
   end
 
   def show
@@ -19,13 +21,24 @@ class CustomersController < AuthController
   def update
     @customer.update_attributes!(input)
 
+    confirm :update, entity: @customer.full_name
+
     show
+  end
+
+  def destroy
+    @customer.destroy
+
+    confirm :delete, entity: @customer.full_name
+
+    index
   end
 
   private
 
   def input
-    params.permit(:email, :first_name, :last_name, :address, :city, :state, :zip, :phone, :kwh)
+    params.permit(:first_name, :last_name, :email, :phone, :address, :city, 
+      :state, :zip, :utility, :rate_schedule, :kwh, :roof_material, :roof_age)
   end
 
   def fetch_customer

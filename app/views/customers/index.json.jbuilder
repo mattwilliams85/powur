@@ -14,7 +14,11 @@ actions \
     field(:city, :text, required: false).
     field(:state, :text, required: false).
     field(:zip, :text, required: false).
-    field(:kwh, :number, required: false)
+    field(:utility, :text, required: false).
+    field(:rate_schedule, :number, required: false).
+    field(:kwh, :number, required: false).
+    field(:roof_material, :text, required: false).
+    field(:roof_age, :number, required: false)
 
 links \
   link(:self, customers_path)
