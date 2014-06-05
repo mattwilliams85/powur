@@ -1,6 +1,8 @@
 class SessionController < ApplicationController
   layout 'user'
 
+  before_filter :fetch_invite, only: [ :accept_invite, :register ]
+
   def index
     render 'index'
   end
@@ -22,20 +24,9 @@ class SessionController < ApplicationController
     redirect_to root_url
   end
 
-  def reset_password
-    require_input :email
-
-    user = User.find_by_email(:email) or error!(t('errors.email_not_found'), :email)
-
-    user.send_reset_password
-
-    render json: {}
-  end
-
   def accept_invite
     require_input :code
 
-    @invite = Invite.find_by(id: params[:code]) or invalid_code!
 
     session[:code] = @invite.id
     session[:user_id] = nil
@@ -44,11 +35,10 @@ class SessionController < ApplicationController
   end
 
   def register
-    invite = Invite.find_by(id: params[:code]) or invalid_code!
     require_input :password
-    input = params.permit(:first_name, :last_name, :email, :phone, :zip, :password)
 
-    user = invite.accept(input)
+    input = params.permit(:first_name, :last_name, :email, :phone, :zip, :password)
+    user = @invite.accept(input)
 
     login_user(user)
 
@@ -65,6 +55,15 @@ class SessionController < ApplicationController
 
   def invalid_code!
     error!(t('errors.invalid_code'), :code)
+  end
+
+  def fetch_invite
+    @invite = Invite.find_by(id: params[:code], invitee_id: nil) or invalid_code!
+    user = User.find_by_email(@invite.email)
+    if user
+      @invite.update_attribute(:invitee_id, user.id)
+      invalid_code!
+    end
   end
 
 end

@@ -18,6 +18,8 @@ module SpecHelpers
   end
 
   def expect_input_error(input)
+    expect(json_body['error']).to_not be_nil, 
+      "expected error json, got json keys: [#{json_body.keys.join(',')}]"
     expect(json_body['error']['input']).to eq(input.to_s)
   end
 

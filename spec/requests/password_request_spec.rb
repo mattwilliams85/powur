@@ -23,7 +23,20 @@ describe '/password' do
 
   end
 
-  describe '/create' do
+  describe '#create' do
+
+    it 'accepts a request to reset the password and sends the email' do
+      user = create(:user)
+
+      post login_password_path, email: user.email, format: :json
+
+      expect_200
+      expect_confirm
+    end
+
+  end
+
+  describe '#update' do
     it 'accepts a request to change the password' do
       put login_password_path, token: @user.reset_token,
         password: 'new_password', password_confirm: 'new_password', format: :json

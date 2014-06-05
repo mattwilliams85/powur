@@ -5,10 +5,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def redirect_to(*args)
-    if request.xhr?
-      render json: { redirect: args.first }, status: :ok
-    else
-      super
+    respond_to do |format|
+      format.json do
+        render json: { redirect: args.first }, status: :ok
+      end
+      format.all { super }
     end
   end
 

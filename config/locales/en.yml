@@ -26,6 +26,9 @@ en:
   errors:
     format: "%{message}"
     required: "%{input} is required"
+    not_found: "%{entity} not found with id %{id}"
+    you_exist: "You don't need to invite yourself"
+    existing_promoter: "A promoter %{name} already exists in the system with the email address %{email}"
     credentials: Invalid email or password
     invalid_code: Invalid invite code
     email_not_found: This email was not found in our system
@@ -39,6 +42,7 @@ en:
       email:
         blank: Please input an email address
   confirms:
+    reset_password_request: "A Password Reset email has been sent to %{email}"
     reset_password: Password reset successfully
   entities:
     invite:

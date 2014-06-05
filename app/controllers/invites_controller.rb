@@ -18,6 +18,17 @@ class InvitesController < AuthController
   def create
     input = params.permit(:email, :first_name, :last_name, :phone)
 
+    if input[:email] == current_user.email
+      error!(t('errors.you_exist'), :email)
+    end
+
+    if (existing = User.find_by_email(input[:email]))
+      msg = t('errors.existing_promoter', 
+        name:   existing.full_name, 
+        email:  existing.email)
+      error!(msg, :email)
+    end
+
     @invite = current_user.create_invite(input)
 
     render 'show'

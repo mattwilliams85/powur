@@ -23,7 +23,7 @@ class Invite < ActiveRecord::Base
     params[:invitor_id] = self.invitor_id
 
     user = User.create!(params)
-    self.update_attribute(:invitee_id, user.id)
+    Invite.where(email: self.email).update_all(invitee_id: user.id)
     user
   end
 

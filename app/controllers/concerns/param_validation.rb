@@ -24,6 +24,10 @@ module ParamValidation
     end
   end
 
+  def not_found!(entity, id = params[:id])
+    error!(t('errors.not_found', entity: entity, id: id))
+  end
+
   def active_record_error(e)
     raise ::Errors::InputError.new(e.record.errors.first.first), e.message
   rescue ::Errors::InputError => e

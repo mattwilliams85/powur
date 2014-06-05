@@ -15,6 +15,7 @@ describe '/customers' do
       expect_classes('list', 'customers')
       expect_actions('create')
     end
+
   end
 
   describe '#create' do
@@ -33,6 +34,33 @@ describe '/customers' do
 
       expect_200
       expect_classes 'customer'
+    end
+
+  end
+
+  describe '#show' do
+
+    it 'returns not found with an invalid user id' do
+      get customer_path(42), format: :json
+
+      expect_alert_error
+    end
+
+    it 'returns a customer detail' do
+      customer = create(:customer, promoter: @user)
+
+      get customer_path(customer), format: :json
+
+      expect_200
+      expect_classes 'customer'
+    end
+
+  end
+
+  describe '#update' do
+
+    it 'updates an existing customer' do
+
     end
   end
 

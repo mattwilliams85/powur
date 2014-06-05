@@ -36,8 +36,8 @@ module SirenDSL
     @message = value
   end
 
-  def confirm(value)
-    message confirm: value.is_a?(Symbol) ? t("confirms.#{value}") : value
+  def confirm(value, args = {})
+    message confirm: value.is_a?(Symbol) ? t("confirms.#{value}", args) : value
   end
 
   def klass(*values)

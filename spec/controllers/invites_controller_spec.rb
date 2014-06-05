@@ -51,6 +51,19 @@ describe InvitesController do
         expect_input_error(input)
       end
     end
+
+    it 'does not allow you to invite yourself' do
+      post :create, invite_params.merge(email: @user.email)
+
+      expect_input_error(:email)
+    end
+
+    it 'does not allow creating an invite with an existing promoter email address' do
+      user = create(:user)
+      post :create, invite_params.merge(email: user.email)
+
+      expect_input_error(:email)
+    end
   end
 
   describe '#destroy' do

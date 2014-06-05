@@ -1,5 +1,7 @@
 class CustomersController < AuthController
 
+  before_filter :fetch_customer, only: [ :show, :update ]
+
   def index
     @customers = current_user.customers.order(created_at: :desc)
   end
@@ -15,8 +17,6 @@ class CustomersController < AuthController
   end
 
   def update
-    @customer = current_user.customers.find_by(id: params[:id])
-
     @customer.update_attributes!(input)
 
     show
@@ -26,6 +26,11 @@ class CustomersController < AuthController
 
   def input
     params.permit(:email, :first_name, :last_name, :address, :city, :state, :zip, :phone, :kwh)
+  end
+
+  def fetch_customer
+    @customer = current_user.customers.find_by(id: params[:id]) or 
+      not_found!(:customer)
   end
 
 end
