@@ -10,6 +10,10 @@ class Customer < ActiveRecord::Base
     self.url_slug ||= SecureRandom.hex(8)
   end
 
+  SEARCH_FIELDS = %w(first_name last_name email address city)
+  SEARCH = SEARCH_FIELDS.map { |f| "#{f} ilike :q" }.join(' ')
+  scope :search, ->(query){ where(SEARCH, q: "%#{query}%") }
+
   def full_name
     "#{self.first_name} #{self.last_name}"
   end

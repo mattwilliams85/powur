@@ -33,7 +33,8 @@ module UserSecurity
   end
 
   def reset_token_expired?
-    self.reset_sent_at.nil? || DateTime.current > reset_token_expires_at
+    self.reset_sent_at.nil? || self.reset_token.nil? \
+      || DateTime.current > reset_token_expires_at
   end
 
   def ensure_reset_password_token

@@ -35,6 +35,7 @@ en:
     reset_token_invalid: Invalid reset password token
     reset_token_expired: The reset password token was expired
     reset_token: Invalid or expired password reset token
+    password_confirm: The confirm password does not match
     messages: 
       exceeded_max_invites: You have exceeded the max number of invites allowed
       blank: "%{attribute} is required"

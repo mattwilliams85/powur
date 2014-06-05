@@ -27,6 +27,10 @@ class PasswordsController < ApplicationController
   def update
     require_input :password, :password_confirm
 
+    unless params[:password] == params[:password_confirm]
+      error!(t('errors.password_confirm'), :password_confirm)
+    end
+
     user = User.find_by_reset_token(params[:token]) or
       error!(t('errors.reset_token_invalid'))
 
