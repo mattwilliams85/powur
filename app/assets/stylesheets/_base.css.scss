@@ -581,3 +581,51 @@ footer {
 			outline: none;
 		}
 	}
+
+	form {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+
+		select {
+			// Mixins
+			@include field_box;
+
+			// Box properties
+			padding: $grid / 1.125 $grid / 2 $grid / 3.5;
+			// Background & borders
+			background-image: image-url('select_arrow.svg') ;
+			background-position: right bottom;
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-color: $ghost;
+			border: 1px solid $ghost;
+
+			// Typography
+			text-indent: 0.01px;
+			text-overflow: "";
+			text-transform: none;
+
+
+			// Other
+			-moz-appearance: none;
+			-webkit-appearance: none;
+
+		&:hover {
+			color: $text;
+			border-color: $whisper;
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
+
+	}
+

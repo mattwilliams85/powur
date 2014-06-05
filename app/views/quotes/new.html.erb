@@ -4,7 +4,7 @@
 
 
 	<form id="customer_signup" class="signup_form one">
-		<div class="contact_info">
+		<div class="form_section contact_info">
 			<h3>Contact Info</h3>
 			<span class="form_row half">
 				<label for="first_name">First Name</label>
@@ -23,7 +23,7 @@
 				<input type="text" name="phone" placeholder="Phone Number">
 			</span>
 		</div>
-		<div class="address">
+		<div class="form_section address">
 			<h3>House Info</h3>
 			<span class="form_row">
 				<label for="address">Street Address & Unit#</label>
@@ -35,7 +35,62 @@
 			</span>
 			<span class="form_row half">
 				<label for="state">State</label>
-				<input type="text" name="state" placeholder="State">
+				<%= select_tag "State", options_for_select(
+				[
+					"Alabama",
+					"Alaska",
+					"Arizona",
+					"Arkansas",
+					"California",
+					"Colorado",
+					"Connecticut",
+					"Delaware",
+					"District of Columbia",
+					"Florida",
+					"Georgia",
+					"Hawaii",
+					"Idaho",
+					"Illinois",
+					"Indiana",
+					"Iowa",
+					"Kansas",
+					"Kentucky",
+					"Louisiana",
+					"Maine",
+					"Maryland",
+					"Massachusetts",
+					"Michigan",
+					"Minnesota",
+					"Mississippi",
+					"Missouri",
+					"Montana",
+					"Nebraska",
+					"Nevada",
+					"New Hampshire",
+					"New Jersey",
+					"New Mexico",
+					"New York",
+					"North Carolina",
+					"North Dakota",
+					"Ohio",
+					"Oklahoma",
+					"Oregon",
+					"Pennsylvania",
+					"Puerto Rico",
+					"Rhode Island",
+					"South Carolina",
+					"South Dakota",
+					"Tennessee",
+					"Texas",
+					"Utah",
+					"Vermont",
+					"Virginia",
+					"Washington",
+					"West Virginia",
+					"Wisconsin",
+					"Wyoming"
+			], ["Alabama"])
+				%>
 			</span>
 			<span class="form_row half">
 				<label for="zip">Zip</label>
@@ -49,7 +104,7 @@
 				<input type="text" name="bill" placeholder="Estimated Monthly Bill">
 			</span>
 		</div>
-		<button class="button">Create Lead</button>
+		<button class="button">Submit</button>
 	</form>
 
 	<h3>$0 down and no installation fees</h3>
