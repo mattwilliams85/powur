@@ -9,6 +9,7 @@ class PasswordsController < ApplicationController
   end
 
   def new
+    reset_session if valid_token?
   end
 
   def create
