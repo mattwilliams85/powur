@@ -1,25 +1,58 @@
-<section id="index_banner">
+<section id="user_content">
 
-	<div class="banner_content signup">
+	<h1>Get started with solar and save!</h1>
 
-		<h1>Get started with solar and save!</h1>
+	<h3>Contact Info</h3>
 
-		<form id="customer_signup" class="signup_form one">
+	<form id="customer_signup" class="signup_form one">
+		<div class="contact_info">
 
 			<span class="form_row">
-				<input id="cust_name" name="cust_name" type="text" placeholder="First and Last Name" required/>
+				<label for="first_name">First Name</label>
+				<input type="text" name="first_name" placeholder="First Name">
+			</span>
+			<span class="form_row">
+				<label for="last_name">Last Name</label>
+				<input type="text" name="last_name" placeholder="Last Name">
+			</span>
+			<span class="form_row">
+				<label for="email">Email</label>
+				<input type="text" name="email" placeholder="Email Address">
+			</span>					
+			<span class="form_row">
+				<label for="phone">Phone</label>
+				<input type="text" name="phone" placeholder="Phone Number">
+			</span>
+		</div>
+		<div class="address">
+			<span class="form_row">
+				<label for="address">Street Address & Unit#</label>
+				<input type="text" name="address" placeholder="Street">
 			</span>
 
-			<span class="form_row actions">
-				<a href="/customer/details" class="button submit">Go</a>
+			<span class="form_row">
+				<label for="city">City</label>
+				<input type="text" name="city" placeholder="City">
 			</span>
 
-		</form>
-		<h3>$0 down and no installation fees</h3>
-		<h3>Save 10-30% on your monthly electric bill</h3>
-		<h3>Reduce your environmental impact</h3>
+			<span class="form_row">
+				<label for="state">State</label>
+				<input type="text" name="state" placeholder="State">
+			</span>
+			<span class="form_row">
+				<label for="zip">Zip</label>
+				<input type="text" name="zip" placeholder="Zipcode">
+			</span>
+			<span class="form_row">
+				<label for="zip">Estimated Monthly Bill</label>
+				<input type="text" name="bill" placeholder="Estimated Monthly Bill">
+			</span>
+		</div>
+		<button class="button">Create Lead</button>
+	</form>
 
-	</div>
+	<h3>$0 down and no installation fees</h3>
+	<h3>Save 10-30% on your monthly electric bill</h3>
+	<h3>Reduce your environmental impact</h3>
 
-	<span id="banner_graphic_br"></span>
 </section>
