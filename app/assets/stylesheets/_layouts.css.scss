@@ -232,17 +232,44 @@ body#application {
 
 	&.half {
 		// Mixins
-	
+		@include box_sizing;
 		// Box properties
 		width: 50%;
 		float: left;
 		clear: none;
+		padding: 0 $grid / 8 0 0;
 		// Background & borders
 	
 		// Typography
 	
 		// Other
 
+	}
+
+	&.half + .half {
+		// Mixins
+	
+		// Box properties
+		
+		padding: 0 0 0 $grid / 8;
+		// Background & borders
+		
+		// Typography
+	
+		// Other
+		
+		input {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+
+			// Typography
+		
+			// Other
+		
+		}
 	}
 
 	&.checkbox {
