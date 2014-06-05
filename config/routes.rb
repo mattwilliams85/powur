@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [ :index, :show ] do
+    collection do
+      get '' => 'users#search', constraints: ->(r){ !r.params[:q].blank? }
+    end
   end
 
   resource :promoter, only: [ :new, :show ] do

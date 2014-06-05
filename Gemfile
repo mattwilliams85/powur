@@ -12,14 +12,14 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0', github: 'rails/jbuilder', branch: 'additive_blocks'
 
 gem 'active_hash'
-gem 'pry'
 gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
 gem 'rails-settings-cached'
 gem 'gibbon'
 gem 'valid_email', require: 'valid_email/email_validator'
 gem 'foreigner', github: 'matthuhiggins/foreigner'
-# gem 'texticle', require: 'texticle/rails', github: 'texticle/texticle'
+
+gem 'pry-rails'
 
 group :development do
   gem 'spring'
@@ -30,7 +30,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'awesome_print'
-  gem 'pry-rails'
   # gem 'debugger'
 end
 

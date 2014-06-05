@@ -222,7 +222,6 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   pg
-  pry
   pry-rails
   rails (= 4.1.1)
   rails-settings-cached
