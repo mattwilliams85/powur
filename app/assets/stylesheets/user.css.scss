@@ -94,11 +94,42 @@ body#user {
 	}
 }
 
+.customer_banner {
+	// Mixins
+	@include box_sizing;
+	// Box properties
+	width: 100%;
+	background: $brand;
+	margin-top: $grid * 3;
+	padding: $grid;
+	// Background & borders
+
+	// Typography
+	color: white;
+	text-align: center;
+	// Other
+
+	h3 {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+		color: white;
+		text-align: center;
+		// Other
+	
+	}
+
+}
+
 #user_content {
 	// Mixins
 
 	// Box properties
-	margin: $grid * 6 auto 0;
+	margin: $grid auto 0;
 	width: $tablet;
 	// Background & borders
 

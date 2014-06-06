@@ -406,6 +406,44 @@ footer {
 
 	}
 
+	fieldset {
+		// Mixins
+	
+		// Box properties
+		overflow: auto;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		&:disabled {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+			
+			// Other
+			opacity:.25;
+		}
+	}
+
+	legend {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+	
+		// Typography
+		color: $quiet;
+		// Other
+	
+	}
+
 	label:not(.checkbox) {
 		// Mixins
 		@include small_title;

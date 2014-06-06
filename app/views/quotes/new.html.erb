@@ -1,11 +1,14 @@
+<div class="customer_banner">
+	<h3>$0 down and no installation fees</h3>
+	<h3>Save 10-30% on your monthly electric bill</h3>
+	<h3>Reduce your environmental impact</h3>
+</div>
+
 <section id="user_content">
 
-	<h1>Get started with solar and save!</h1>
-
-
 	<form id="customer_signup" class="signup_form one">
-		<div class="form_section contact_info">
-			<h3>Contact Info</h3>
+		<fieldset class="contact_info">
+			<legend>Contact Info</legend>
 			<span class="form_row half">
 				<label for="first_name">First Name</label>
 				<input type="text" name="first_name" placeholder="First Name">
@@ -22,9 +25,12 @@
 				<label for="phone">Phone</label>
 				<input type="text" name="phone" placeholder="Phone Number">
 			</span>
-		</div>
-		<div class="form_section address">
-			<h3>House Info</h3>
+		</fieldset>
+		<fieldset class="actions">
+			<button class="button">Save Contact Info</button>
+		</fieldset>
+		<fieldset class="form_section address" disabled>
+			<legend>Home Info</legend>
 			<span class="form_row">
 				<label for="address">Street Address & Unit#</label>
 				<input type="text" name="address" placeholder="Street">
@@ -96,19 +102,15 @@
 				<label for="zip">Zip</label>
 				<input type="text" name="zip" placeholder="Zipcode">
 			</span>
-		</div>
-		<div class="utility">
-			<h3>Utility Info</h3>
+		</fieldset>
+		<fieldset class="utility" disabled>
+			<legend>Utility Info</legend>
 			<span class="form_row">
 				<label for="zip">Estimated Monthly Bill</label>
 				<input type="text" name="bill" placeholder="Estimated Monthly Bill">
 			</span>
-		</div>
-		<button class="button">Submit</button>
-	</form>
+		</fieldset>
 
-	<h3>$0 down and no installation fees</h3>
-	<h3>Save 10-30% on your monthly electric bill</h3>
-	<h3>Reduce your environmental impact</h3>
+	</form>
 
 </section>
