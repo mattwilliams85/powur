@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   end
 
   resources :invites, only: [ :index, :create, :destroy ] do
+    collection do
+      get '' => 'invites#search', constraints: ->(r){ !r.params[:q].blank? }
+    end
     member do
       post :resend
     end

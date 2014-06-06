@@ -25,11 +25,11 @@ describe '/users' do
 
     it 'searches a list of users belong to the current user' do
       user1 = create(:user, invitor: @user, first_name: 'davey')
-      user2 = create(:user, invitor: @user, last_name: 'sedavos')
-      user3 = create(:user, invitor: @user, email: 'redavid@example.org')
+      user2 = create(:user, invitor: @user, last_name: 'david')
+      user3 = create(:user, invitor: @user, email: 'redave@example.org')
       create_list(:user, 2, invitor: @user)
 
-      get users_path, q: 'dav', format: :json
+      get users_path, q: 'dave', format: :json
 
       expect_200
       expect(json_body['entities'].size).to eq(3)

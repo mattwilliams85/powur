@@ -9,6 +9,8 @@ end
 json.entities @invites, partial: 'item', as: :invite
 
 actions \
+  action(:search, :get, invites_path).
+    field(:q, :text)
   action(:create, :post, invites_path).
     field(:email, :email).
     field(:first_name, :text).

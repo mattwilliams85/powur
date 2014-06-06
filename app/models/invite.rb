@@ -1,4 +1,5 @@
 class Invite < ActiveRecord::Base
+  include NameEmailSearch
 
   belongs_to :invitor, class_name: 'User'
   belongs_to :invitee, class_name: 'User'
@@ -10,9 +11,6 @@ class Invite < ActiveRecord::Base
     self.id ||= Invite.generate_code
     self.expires ||= expires_timespan
   end
-
-  SEARCH = 'first_name ilike :q or last_name ilike :q or email ilike :q'
-  scope :search, ->(query){ where(SEARCH, q: "%#{query}%") }
 
   def full_name
     "#{self.first_name} #{self.last_name}"

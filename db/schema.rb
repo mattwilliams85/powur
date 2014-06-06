@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20140604062729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "customers", force: true do |t|
     t.string   "url_slug",                  null: false
