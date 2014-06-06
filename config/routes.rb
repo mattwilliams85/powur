@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  def has_params(*args)
+    ->(r){ args.none? { |a| r.params[a].blank? } }
+  end
+
   resource :login, controller: :session, only: [ :show, :create, :destroy ] do
 
     resource :password, only: [ :show, :create, :new ] do
@@ -14,7 +18,7 @@ Rails.application.routes.draw do
 
   resources :invites, only: [ :index, :create, :destroy ] do
     collection do
-      get '' => 'invites#search', constraints: ->(r){ !r.params[:q].blank? }
+      get '' => 'invites#search', constraints: has_params(:q)
     end
     member do
       post :resend
@@ -23,7 +27,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [ :index, :show ] do
     collection do
-      get '' => 'users#search', constraints: ->(r){ !r.params[:q].blank? }
+      get '' => 'users#search', constraints: has_params(:q)
     end
   end
 

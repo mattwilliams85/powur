@@ -31,7 +31,6 @@ describe '/users' do
 
       get users_path, q: 'dave', format: :json
 
-      expect_200
       expect(json_body['entities'].size).to eq(3)
       result_ids = json_body['entities'].map { |u| u['properties']['id'] }
 

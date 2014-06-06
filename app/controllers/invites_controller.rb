@@ -10,7 +10,7 @@ class InvitesController < AuthController
   end
 
   def search
-    list_criteria.search(params[:q])
+    @invites = list_criteria.search(params[:q])
 
     render 'index'
   end
