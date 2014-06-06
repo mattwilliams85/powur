@@ -162,6 +162,93 @@ body#user {
 
 }
 
+#customer_signup {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	fieldset {
+
+		 	@media screen and (min-width: $tablet) {
+
+			// Mixins
+		
+			// Box properties
+			padding-left: $grid * 3;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
+}	
+
+.form_sidebar {
+
+	// Mixins
+
+	// Box properties
+	display: none;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+
+ 	@media screen and (min-width: $tablet) {
+
+		// Mixins
+		@include box_sizing;
+		// Box properties
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		width: $grid * 3;
+		overflow: auto;
+		height: 100%;
+		float: left;
+		padding: $grid $grid / 2;
+		// Background & borders
+
+		// Typography
+
+		// Other
+
+	}
+}
+
+.step_label {
+	// Mixins
+	@include circle_with_text;
+	@include small_title;
+	// Box properties
+	width: $grid * 2;
+	height: $grid * 2;
+	margin:  0 auto $grid / 2;
+	// Background & borders
+	background: $brand;
+
+	// Typography
+	color: white;
+	// Other
+
+ 	@media screen and (min-width: $desktop) {
+
+	}
+
+}
+
 h3 {
 	// Mixins
 

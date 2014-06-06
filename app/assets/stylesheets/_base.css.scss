@@ -410,9 +410,9 @@ footer {
 		// Mixins
 	
 		// Box properties
+		position: relative;;
 		overflow: auto;
-		margin-bottom: $grid;
-		padding: $grid;
+		padding: 0 $grid $grid;
 		// Background & borders
 	
 		// Typography
@@ -436,7 +436,6 @@ footer {
 			// Mixins
 		
 			// Box properties
-			margin-bottom: 0;
 			padding: 0;
 			// Background & borders
 		
