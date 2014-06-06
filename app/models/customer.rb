@@ -1,6 +1,6 @@
 class Customer < ActiveRecord::Base
 
-  enum status: [ :pending, :complete, :submitted, :scheduled, :completed, :rejected ]
+  enum status: [ :incomplete, :complete, :submitted, :accepted, :rejected, :installed ]
 
   belongs_to :promoter, class_name: 'User'
 
