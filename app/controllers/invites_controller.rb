@@ -5,6 +5,8 @@ class InvitesController < AuthController
 
   def index
     @invites = list_criteria
+
+    render 'index'
   end
 
   def search

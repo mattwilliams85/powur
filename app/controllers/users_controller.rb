@@ -1,7 +1,7 @@
 class UsersController < AuthController
 
   def index
-    @users = criteria
+    @users = list_criteria
   end
 
   def search
