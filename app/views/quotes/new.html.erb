@@ -12,6 +12,7 @@
 				<span class="step_label">
 					<span>Step<br/>One</span>
 				</span>
+				<p class="subtext">A call to adventure! (or just a humourous quote on courtship from a dead Irish writer.)</p>
 			</div>
 			<legend>Contact Info</legend>
 			<span class="form_row half is_not_valid">
@@ -40,6 +41,7 @@
 				<span class="step_label">
 					<span>Step<br/>Two</span>
 				</span>
+				<p class="subtext">Egads! This is where our hero is tested. Mind the abyss.</p>
 			</div>
 			<legend>Home Info</legend>
 			<span class="form_row">
@@ -122,14 +124,31 @@
 				<span class="step_label">
 					<span>Step<br/>Three</span>
 				</span>
+				<p class="subtext">Atonement?! Nay, the princess is in another castle!</p>
 			</div>
-			<legend>Utility Info</legend>
+			<legend>Other Info</legend>
 			<span class="form_row">
 				<label for="zip">Estimated Monthly Bill</label>
 				<input type="text" name="bill" placeholder="Estimated Monthly Bill">
 			</span>
+<span class="form_row half">
+				<label for="state">Roof Type</label>
+				<%= select_tag "State", options_for_select(
+				[
+					"Tar",
+					"Thatch",
+					"Hot Tin & Cats",
+					"Non city-mandated two-piece terra cotta 'Mission' style tile",
+					"City-mandated two-piece terra cotta 'Mission' style tile"
+			], ["Hot Tin & Cats"])
+				%>
+			</span>
+			<span class="form_row half">
+				<label for="zip">Roof Age</label>
+				<input type="text" name="zip" placeholder="Zipcode">
+			</span>
 			<fieldset class="actions">
-				<button class="button">Save Utility Info</button>
+				<button class="button">Save Other Info</button>
 			</fieldset>
 		</fieldset>
 

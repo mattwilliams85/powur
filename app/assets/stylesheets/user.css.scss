@@ -175,7 +175,7 @@ body#user {
 
 	fieldset {
 
-		 	@media screen and (min-width: $tablet) {
+	 	@media screen and (min-width: $tablet) {
 
 			// Mixins
 		
@@ -186,7 +186,21 @@ body#user {
 			// Typography
 		
 			// Other
+			
+		}
+
+	 	@media screen and (min-width: $desktop) {
+
+			// Mixins
 		
+			// Box properties
+			padding-left: $grid * 8;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+			
 		}
 	}
 }	
@@ -197,12 +211,27 @@ body#user {
 
 	// Box properties
 	display: none;
+	overflow: hidden;
 	// Background & borders
 
 	// Typography
 
 	// Other
 
+	p {
+		// Mixins
+	
+		// Box properties
+		display: none;
+		margin: 0;
+		padding: 0;
+		// Background & borders
+	
+		// Typography
+		text-align: center;
+		// Other
+	
+	}
 
  	@media screen and (min-width: $tablet) {
 
@@ -226,6 +255,34 @@ body#user {
 		// Other
 
 	}
+
+
+ 	@media screen and (min-width: $desktop) {
+
+		// Mixins
+		@include box_sizing;
+		// Box properties
+
+		width: $grid * 8;
+		// Background & borders
+
+		// Typography
+
+		// Other
+
+		p {
+			// Mixins
+		
+			// Box properties
+			display: block;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+	}
 }
 
 .step_label {
@@ -235,7 +292,7 @@ body#user {
 	// Box properties
 	width: $grid * 2;
 	height: $grid * 2;
-	margin:  0 auto $grid / 2;
+	margin:  0 auto;
 	// Background & borders
 	background: $brand;
 
@@ -244,7 +301,19 @@ body#user {
 	// Other
 
  	@media screen and (min-width: $desktop) {
+		// Mixins
+		@include circle_with_text;
+		@include small_title;
+		// Box properties
+		width: $grid * 2;
+		height: $grid * 2;
+		margin:  0 auto $grid / 2;
+		// Background & borders
+		background: $brand;
 
+		// Typography
+		color: white;
+		// Other
 	}
 
 }
