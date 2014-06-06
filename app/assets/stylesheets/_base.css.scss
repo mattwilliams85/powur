@@ -411,6 +411,8 @@ footer {
 	
 		// Box properties
 		overflow: auto;
+		margin-bottom: $grid;
+		padding: $grid;
 		// Background & borders
 	
 		// Typography
@@ -428,6 +430,20 @@ footer {
 			
 			// Other
 			opacity:.25;
+		}
+
+		fieldset {
+			// Mixins
+		
+			// Box properties
+			margin-bottom: 0;
+			padding: 0;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
 		}
 	}
 

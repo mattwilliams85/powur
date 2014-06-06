@@ -139,6 +139,29 @@ body#user {
 
 }
 
+.customer_content {
+	// Mixins
+
+	// Box properties
+	margin: $grid auto 0;
+	width: $phone;
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+ 	@media screen and (min-width: $tablet) {
+		width: $tablet;
+	}
+
+ 	@media screen and (min-width: $desktop) {
+		width: $desktop;
+	}
+
+}
+
 h3 {
 	// Mixins
 
