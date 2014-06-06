@@ -4,7 +4,11 @@ class InvitesController < AuthController
   skip_before_filter :authenticate!, only: [ :show ]
 
   def index
-    @invites = current_user.active_invites.order(created_at: :desc)
+    @invites = list_criteria
+  end
+
+  def search
+    list_criteria.search(params[:q])
 
     render 'index'
   end
@@ -51,6 +55,10 @@ class InvitesController < AuthController
   end
 
   private
+
+  def list_criteria
+    current_user.active_invites.order(created_at: :desc)
+  end
 
   def fetch_invite
     @invite = current_user.invites.find(params[:id])
