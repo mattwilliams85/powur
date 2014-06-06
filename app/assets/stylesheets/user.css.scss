@@ -129,7 +129,7 @@ body#user {
 	// Mixins
 
 	// Box properties
-	margin: $grid auto 0;
+	margin: $grid * 6 auto 0;
 	width: $tablet;
 	// Background & borders
 
@@ -400,7 +400,7 @@ h3 {
 		// Box properties
 
 		// Background & borders
-
+		background-color: white;
 		// Typography
 		color: $text;
 		// Other
@@ -411,7 +411,7 @@ h3 {
 			// Box properties
 		
 			// Background & borders
-
+			background-color: white;
 			// Typography
 			color: $text;
 			// Other
