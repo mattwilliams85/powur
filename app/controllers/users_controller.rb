@@ -1,11 +1,11 @@
 class UsersController < AuthController
 
   def index
-    @users = criteria
+    @users = list_criteria
   end
 
   def search
-    @users = criteria.search(params[:q])
+    @users = list_criteria.search(params[:q])
 
     render 'index'
   end
@@ -16,7 +16,7 @@ class UsersController < AuthController
 
   private
 
-  def criteria
+  def list_criteria
     User.where(invitor_id: current_user.id).order(created_at: :desc)
   end
 

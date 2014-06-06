@@ -23,6 +23,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -37,14 +51,14 @@ CREATE TABLE customers (
     id integer NOT NULL,
     url_slug character varying(255) NOT NULL,
     status integer DEFAULT 0,
-    email character varying(255),
     first_name character varying(255) NOT NULL,
     last_name character varying(255) NOT NULL,
+    email character varying(255),
+    phone character varying(255),
     address character varying(255),
     city character varying(255),
     state character varying(255),
     zip character varying(255),
-    phone character varying(255),
     utility character varying(255),
     rate_schedule integer,
     kwh integer,
@@ -307,6 +321,8 @@ ALTER TABLE ONLY users
 --
 
 SET search_path TO "$user",public;
+
+INSERT INTO schema_migrations (version) VALUES ('20140514044342');
 
 INSERT INTO schema_migrations (version) VALUES ('20140515201745');
 
