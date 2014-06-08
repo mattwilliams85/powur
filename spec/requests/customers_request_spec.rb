@@ -18,6 +18,19 @@ describe '/customers' do
 
   end
 
+  describe '#search' do
+
+    it 'returns a list of customers for a promoter matching a search term' do
+      create(:customer, promoter: @user, first_name: 'Garey')
+      create(:customer, promoter: @user, last_name: 'Gari')
+      create(:customer, promoter: @user, email: 'gary@example.org')
+      create_list(:customer, 2, promoter: @user)
+
+      get customers_path, q: 'Gary', format: :json
+      expect(json_body['entities'].size).to eq(3)
+    end
+  end
+
   describe '#create' do
 
     let(:customer_params) {{

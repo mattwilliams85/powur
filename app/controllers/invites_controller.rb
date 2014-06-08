@@ -9,12 +9,6 @@ class InvitesController < AuthController
     render 'index'
   end
 
-  def search
-    @invites = list_criteria.search(params[:q])
-
-    render 'index'
-  end
-
   def show
     @invite = Invite.find(params[:id])
 

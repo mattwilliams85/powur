@@ -17,9 +17,6 @@ Rails.application.routes.draw do
   end
 
   resources :invites, only: [ :index, :create, :destroy ] do
-    collection do
-      get '' => 'invites#search', constraints: has_params(:q)
-    end
     member do
       post :resend
     end
@@ -36,7 +33,11 @@ Rails.application.routes.draw do
     get :thanks
   end
 
-  resources :customers, only: [ :index, :create, :destroy, :update, :show ]
+  resources :customers, only: [ :index, :create, :destroy, :update, :show ] do
+    collection do
+      get '' => 'customers#search', constraints: has_params(:q)
+    end
+  end
 
   resource :quote, only: [ :new, :show ] do
     get 'details' => 'quotes#details'

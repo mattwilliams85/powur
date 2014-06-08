@@ -3,7 +3,13 @@ class CustomersController < AuthController
   before_filter :fetch_customer, only: [ :show, :update, :destroy ]
 
   def index
-    @customers = current_user.customers.order(created_at: :desc)
+    @customers = customer_list
+
+    render 'index'
+  end
+
+  def search
+    @customers = customer_list.search(params[:q])
 
     render 'index'
   end
@@ -44,6 +50,10 @@ class CustomersController < AuthController
   def fetch_customer
     @customer = current_user.customers.find_by(id: params[:id]) or 
       not_found!(:customer)
+  end
+
+  def customer_list
+    current_user.customers.order(created_at: :desc)
   end
 
 end

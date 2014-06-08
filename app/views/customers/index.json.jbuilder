@@ -5,6 +5,8 @@ klass :customers, :list
 json.entities @customers, partial: 'item', as: :customer
 
 actions \
+  action(:search, :get, customers_path).
+    field(:q, :text),
   action(:create, :post, customers_path).
     field(:first_name, :text).
     field(:last_name, :text).
@@ -19,6 +21,7 @@ actions \
     field(:kwh, :number, required: false).
     field(:roof_material, :text, required: false).
     field(:roof_age, :number, required: false)
+
 
 links \
   link(:self, customers_path)
