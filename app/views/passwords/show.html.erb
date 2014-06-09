@@ -9,10 +9,10 @@
   <form id="user_reset_password_form">
     <span class="form_row">
         <label for="email">Email Address</label>
-        <input id="email" name="email" type="email" placeholder="Email address" required/>
+        <input id="email" name="email" type="email" placeholder="Email address" required autofocus/>
     </span>
     <a href="<%= login_path %>" class="secondary_button">Remembered it?</a>
-    <button class="button">Reset password</button>
+    <input type="submit" class="button" value="Reset password" />
 
   </form>
 
