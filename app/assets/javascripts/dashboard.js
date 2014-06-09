@@ -317,16 +317,17 @@ function Dashboard(){
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=800px", opacity:1}, _animation_speed);	
 
-				//retrieve info from _data.quotes for the quote
+				//retrieve info from /customers/:id for the quote
 				_userDetail={};
-				for(i=0;i<_data.quotes.length;i++)
-					if(_data.quotes[i].id==_options._userID)
-						_userDetail=$.extend(true, {}, _data.quotes[i]);
-				
-				//populate drilldown
-				_getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
-				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+				_ajax({_ajaxType:"get", _url:"/customers/"+_options._userID, _callback:function(data, text){
+						console.log(data);
+						_userDetail = data.properties;
+						//populate drilldown
+						_getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+						 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
+						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+						});
+					}
 				});
 
 			break;
