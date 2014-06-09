@@ -102,26 +102,6 @@ function Dashboard(){
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
 			_ajax({_ajaxType:"post", _url:"/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
 		});	
-
-		//wire up search functionality in general
-		$(document).on("keyup", ".js-search_box", function(e){
-		    if(typeof _puaseDetection !=="undefined") window.clearTimeout(_puaseDetection);
-		    if($(e.target).val().length<3 && $(e.target).val().length>0) return;
-		    if($(e.target).val().length>=3 || $(e.target).val().length==0){
-		        _puaseDetection = window.setTimeout(function(){
-		           _queryServer({_event:e, _callback:function(data){
-		           		_data.team=[];
-		           		$.each(data.entities, function(key, val){
-		           			_data.team.push(val.properties);
-		           		});
-		           		$("#dashboard_team .fa-angle-up").click();
-		           		_displayUpdatedTeam();
-		           }});
-		        }, 500);
-		    }
-
-		});
-
 	}
 
 	//start quote dashboard info
@@ -142,7 +122,7 @@ function Dashboard(){
 						"_thumbnailIdentifier":".js-quote_thumbnail",
 						"_target":$(e.target),
 						"_userID":_drillDownUserID, 
-						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+						"_arrowPosition":_thisThumbnail.find(".expand .fa").offset().left});
 		});	
 
 		//wire up new leads hooks
@@ -225,6 +205,25 @@ function Dashboard(){
 			if((parseInt(_pagination_content.css("width"))+parseInt(_pagination_content.css("left"))-_pagination_width)<=0) return;
 			_pagination_content.animate({"left":"-="+_pagination_width+"px"});
 		}
+	});
+
+
+	//wire up search functionality in general
+	$(document).on("keyup", ".js-search_box", function(e){
+	    if(typeof _puaseDetection !=="undefined") window.clearTimeout(_puaseDetection);
+	    if($(e.target).val().length<3 && $(e.target).val().length>0) return;
+	    if($(e.target).val().length>=3 || $(e.target).val().length==0){
+	        _puaseDetection = window.setTimeout(function(){
+	           _queryServer({_event:e, _callback:function(data){
+	           		_data.searchResults=[];
+	           		$.each(data.entities, function(key, val){
+	           			_data.searchResults.push(val.properties);
+	           		});
+	           		$(this).parents("section").find(".fa-angle-up").click();
+	           		_displayUpdatedSearchResults({_event:e});
+	           }});
+	        }, 500);
+	    }
 	});
 
 	//wire up the tab hooks
@@ -320,7 +319,6 @@ function Dashboard(){
 				//retrieve info from /customers/:id for the quote
 				_userDetail={};
 				_ajax({_ajaxType:"get", _url:"/customers/"+_options._userID, _callback:function(data, text){
-						console.log(data);
 						_userDetail = data.properties;
 						//populate drilldown
 						_getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
@@ -728,11 +726,13 @@ function Dashboard(){
 		});
 	}
 
-	function _displayUpdatedTeam(){
-		$("#dashboard_team .section_content.team_info .pagination_content").fadeOut(300, function(){
-			$("#dashboard_team .section_content.team_info .pagination_content").html("");
-			_displayData("team", _data.team, $("#dashboard_team .section_content.team_info .pagination_content"));
-			$("#dashboard_team .section_content.team_info .pagination_content").fadeIn();
+	function _displayUpdatedSearchResults(_options){
+		_sectionID="#"+$(_options._event.target).parents("section").attr("id");
+		_displayType = _sectionID.indexOf("team")>=0? "team":"quotes"
+		$(_sectionID+" .section_content .pagination_content").fadeOut(300, function(){
+			$(_sectionID+" .section_content .pagination_content").html("");
+			_displayData(_displayType, _data.searchResults, $(_sectionID+" .section_content .pagination_content"));
+			$(_sectionID+" .section_content .pagination_content").fadeIn();
 		});
 	}
 
