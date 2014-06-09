@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20140604062729) do
     t.string   "last_name",          null: false
     t.string   "phone"
     t.string   "zip"
+    t.string   "url_slug"
     t.string   "reset_token"
     t.datetime "reset_sent_at"
     t.datetime "created_at",         null: false
@@ -81,6 +82,7 @@ ActiveRecord::Schema.define(version: 20140604062729) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["invitor_id"], name: "index_users_on_invitor_id", using: :btree
+  add_index "users", ["url_slug"], name: "index_users_on_url_slug", unique: true, using: :btree
 
   add_foreign_key "customers", "users", name: "customers_promoter_id_fk", column: "promoter_id"
 

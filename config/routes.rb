@@ -39,8 +39,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :quote, only: [ :new, :show ] do
-    get 'details' => 'quotes#details'
+  resource :quote, only: [ :new, :show, :create, :update ] do
+    get 'details'                     => 'quotes#details'
+    get ':promoter_slug'              => 'quotes#new'
+    get ':promoter_slug/:quote_slug'  => 'quotes#show'
   end
 
   # These are just to fake the referral pages so the link doesn't break - safe to remove when the feature is implemented

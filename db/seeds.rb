@@ -5,7 +5,8 @@ User.create(
   first_name:   'Jonanthan', 
   last_name:    'Budd',
   phone:        '858.555.1212',
-  zip:          '92023' )
+  zip:          '92023',
+  url_slug:     'jon' )
 
 User.create(
   email:        'paul.walker@eyecuelab.com', 
@@ -13,7 +14,8 @@ User.create(
   first_name:   'Paul', 
   last_name:    'Walker',
   phone:        '310.922.2629',
-  zip:          '92127' )
+  zip:          '92127',
+  url_slug:     'paul' )
 
 User.create(
   email:        'rick.hou@eyecuelab.com', 
@@ -21,7 +23,8 @@ User.create(
   first_name:   'Rick', 
   last_name:    'Hou',
   phone:        '720.555.1212',
-  zip:          '97212' )
+  zip:          '97212',
+  url_slug:     'rick' )
 
 User.create(
   email:        'kevin.ponto@eyecuelab.com', 
@@ -29,4 +32,5 @@ User.create(
   first_name:   'Kevin', 
   last_name:    'Ponto',
   phone:        '805.555.1212',
-  zip:          '93101' )
+  zip:          '93101',
+  url_slug:     'kevin' )

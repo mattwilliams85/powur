@@ -7,6 +7,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :last_name, null: false
       t.string    :phone
       t.string    :zip
+      t.string    :url_slug
       t.string    :reset_token
       t.datetime  :reset_sent_at
       t.timestamps null: false
@@ -17,5 +18,6 @@ class CreateUsers < ActiveRecord::Migration
     end
 
     add_index :users, [ :email ], unique: true
+    add_index :users, [ :url_slug ], unique: true
   end
 end
