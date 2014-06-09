@@ -162,6 +162,7 @@ CREATE TABLE users (
     last_name character varying(255) NOT NULL,
     phone character varying(255),
     zip character varying(255),
+    url_slug character varying(255),
     reset_token character varying(255),
     reset_sent_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
@@ -275,6 +276,13 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 --
 
 CREATE INDEX index_users_on_invitor_id ON users USING btree (invitor_id);
+
+
+--
+-- Name: index_users_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_url_slug ON users USING btree (url_slug);
 
 
 --
