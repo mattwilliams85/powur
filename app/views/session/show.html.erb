@@ -9,7 +9,7 @@
 
     <span class="form_row">
       <label for="email">Email</label>
-      <input name="email" type="text" placeholder="Email" class="validate" required/>
+      <input name="email" type="text" placeholder="Email" class="validate" required autofocus/>
     </span>
 
     <span class="form_row">
@@ -17,7 +17,7 @@
       <input name="password" type="password" placeholder="password" class="validate" required/>
     </span>
     <a href="<%= login_password_path %>" class="secondary_button">Reset password</a>
-    <a href="#" class="button">Submit</a>
+    <input type="submit" class="button" value="Log in"/>
   </form>
 
 </section>
