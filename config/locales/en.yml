@@ -23,6 +23,7 @@ en:
   email_subjects:
     invite: Invitation to Join SunStand
     reset-password: Password Reset Request
+    customer-onboard: Sunstand Quote Request
   errors:
     format: "%{message}"
     required: "%{input} is required"

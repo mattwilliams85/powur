@@ -6,5 +6,6 @@ FactoryGirl.define do
     phone       '858.555.1212'
     zip         '92127'
     password    'password'
+    sequence(:url_slug) { |n| "#{first_name.downcase}_#{n}" }
   end
 end

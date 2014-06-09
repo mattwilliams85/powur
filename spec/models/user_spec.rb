@@ -27,7 +27,6 @@ describe User do
   end
 
   describe '#remaining_invites' do
-
     it 'returns the correct number of remaining invites' do
       user = create(:user)
       create_list(:invite, 3, invitor: user)
@@ -35,4 +34,5 @@ describe User do
       expect(user.remaining_invites).to eq(2)
     end
   end
+
 end

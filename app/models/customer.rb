@@ -1,5 +1,6 @@
 class Customer < ActiveRecord::Base
   include NameEmailSearch
+  after_create :email_customer
 
   enum status: [ :incomplete, :complete, :submitted, :accepted, :rejected, :installed ]
 
@@ -22,6 +23,16 @@ class Customer < ActiveRecord::Base
     data << :address if self.address && self.city && self.state && self.zip
     data << :utility if self.kwh
     data
+  end
+
+  private
+
+  def can_email?
+    self.email && self.promoter_id && self.promoter.url_slug
+  end
+
+  def email_customer
+    PromoterMailer.customer_onboard(self).deliver if can_email?
   end
 
 end
