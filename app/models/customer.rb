@@ -7,6 +7,7 @@ class Customer < ActiveRecord::Base
   belongs_to :promoter, class_name: 'User'
 
   validates_presence_of :url_slug, :first_name, :last_name, :promoter_id
+  validates_presence_of :email, :phone, :address, :city, :state, :zip, allow_nil: true
 
   before_validation do
     self.url_slug ||= SecureRandom.hex(8)

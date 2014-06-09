@@ -3,7 +3,7 @@ siren json
 json.partial! 'item', customer: @customer, detail: true
 
 json.properties do
-  json.(@customer, :phone, :address, :city, :state, :zip, :kwh)
+  json.(@customer, :email, :phone, :address, :city, :state, :zip, :kwh)
 end
 
 actions \
