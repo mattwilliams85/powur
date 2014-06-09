@@ -10,7 +10,7 @@ class QuotesController < ApplicationController
   end
 
   def show
-    render customer? ? 'show' : 'new'
+    render self.customer? ? 'show' : 'new'
   end
 
   def create
@@ -24,7 +24,9 @@ class QuotesController < ApplicationController
   end
 
   def update
-    customer? ? render 'show'
+    customer
+
+    render 'show'
   end
 
   protected
