@@ -101,7 +101,27 @@ function Dashboard(){
 			e.preventDefault();
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
 			_ajax({_ajaxType:"post", _url:"/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
-		});		
+		});	
+
+		//wire up search functionality in general
+		$(document).on("keyup", ".js-search_box", function(e){
+		    if(typeof _puaseDetection !=="undefined") window.clearTimeout(_puaseDetection);
+		    if($(e.target).val().length<3 && $(e.target).val().length>0) return;
+		    if($(e.target).val().length>=3 || $(e.target).val().length==0){
+		        _puaseDetection = window.setTimeout(function(){
+		           _queryServer({_event:e, _callback:function(data){
+		           		_data.team=[];
+		           		$.each(data.entities, function(key, val){
+		           			_data.team.push(val.properties);
+		           		});
+		           		$("#dashboard_team .fa-angle-up").click();
+		           		_displayUpdatedTeam();
+		           }});
+		        }, 500);
+		    }
+
+		});
+
 	}
 
 	//start quote dashboard info
@@ -143,7 +163,11 @@ function Dashboard(){
 			e.preventDefault();
 			_formSubmit(e, $("#new_lead_contact_form"), "/customers", "POST", function(data, text){
 				//$(".js-new_quote_thumbnail .expand").click();
-				_displayUpdatedLeads();
+				$("#new_lead_contact_form").fadeOut(300, function(){
+					$("#new_lead_contact_form input").val("");
+					$("#new_lead_contact_form").fadeIn();
+					_displayUpdatedLeads();
+				});
 			});
 		});
 
@@ -158,7 +182,6 @@ function Dashboard(){
 			e.preventDefault();
 			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
 			_ajax({_ajaxType:"patch", _url:"/customers/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:_displayUpdatedLeads()});
-
 		})
 
 
@@ -701,6 +724,14 @@ function Dashboard(){
 					$("#dashboard_quotes .section_content.quotes_info .pagination_content").innerhtml("<p class='blank_state'>You don't have any quotes yet.<br/><i class='fa fa-arrow-left'></i> Add a quotes</a> to get started.</p>");
 				$("#dashboard_quotes .section_content.quotes_info .pagination_content").fadeIn();
 			});
+		});
+	}
+
+	function _displayUpdatedTeam(){
+		$("#dashboard_team .section_content.team_info .pagination_content").fadeOut(300, function(){
+			$("#dashboard_team .section_content.team_info .pagination_content").html("");
+			_displayData("team", _data.team, $("#dashboard_team .section_content.team_info .pagination_content"));
+			$("#dashboard_team .section_content.team_info .pagination_content").fadeIn();
 		});
 	}
 

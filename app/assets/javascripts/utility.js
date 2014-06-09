@@ -209,6 +209,23 @@ function _getRoot(_callback){
 
 
 
+//fire query after a bit of a wait
+//_options must contain a _callback function to allow search results to be passed back asynchronously
+function _queryServer(_options){
+    _searchSource=$(_options._event.target).attr("data-search-source");
+    _q=$(_options._event.target).val();
+    _target =$(_options._event.target);
+
+    _ajax({_ajaxType:"get", _url:"/"+_searchSource, _postObj:{q:_q}, _callback:function(data, text){
+        if(typeof _options._callback === "function") _options._callback(data);
+        else console.log(data);
+        }
+    });
+}
+
+
+
+
 
 
 
