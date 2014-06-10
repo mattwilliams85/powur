@@ -99,13 +99,13 @@ body#user {
 	@include box_sizing;
 	// Box properties
 	width: 100%;
-	background: $brand;
 	margin-top: $grid * 3;
 	padding: $grid;
 	// Background & borders
-
+	background: $ghost;
+	border-bottom: 1px solid $ghost;
 	// Typography
-	color: white;
+	color: $text;
 	text-align: center;
 	// Other
 
@@ -117,7 +117,6 @@ body#user {
 		// Background & borders
 	
 		// Typography
-		color: white;
 		text-align: center;
 		// Other
 	

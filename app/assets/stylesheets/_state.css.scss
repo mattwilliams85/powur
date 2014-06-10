@@ -82,6 +82,48 @@
 
 }
 
+.saved_fieldset {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+
+	// Typography
+
+	// Other
+	opacity: .25;
+}
+
+.saved_button {
+	// Mixins
+
+	// Box properties
+
+	// Background & borders
+	background-color: $supergreen;
+	border: 1px solid darken($supergreen, 2%);
+
+	// Typography
+
+	// Other
+
+	&:hover {
+		// Mixins
+	
+		// Box properties
+	
+		// Background & borders
+		background-color: $supergreen;
+		border: 1px solid darken($supergreen, 2%);
+		// Typography
+	
+		// Other
+	
+	}
+
+}
+
 .js-error {
 
 

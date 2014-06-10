@@ -243,9 +243,11 @@
 		// Typography
 		color: $white;
 		text-align: center;
+		white-space: nowrap;
 
 		// Other
 	    cursor: pointer;
+		transition: all .25s ease-in-out;
 
 	    &:hover {
 	    	background: $brand_shadow;

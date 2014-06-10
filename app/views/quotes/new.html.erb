@@ -11,7 +11,7 @@
 <section class="customer_content">
 
 	<form id="customer_signup" class="signup_form one">
-		<fieldset class="contact_info">
+		<fieldset class="contact_info js-multi_form_fieldset">
 			<div class="form_sidebar">
 				<span class="step_label">
 					<span>Step<br/>One</span>
@@ -37,10 +37,10 @@
 				<input type="text" name="phone" placeholder="Phone Number">
 			</span>
 			<fieldset class="actions">
-				<button class="button">Save Contact Info</button>
+				<button class="button js-multi_form_submit" id="step_one">Save Contact Info</button>
 			</fieldset>
 		</fieldset>
-		<fieldset class="form_section address" disabled>
+		<fieldset class="form_section address js-multi_form_fieldset" disabled>
 			<div class="form_sidebar">
 				<span class="step_label">
 					<span>Step<br/>Two</span>
@@ -120,10 +120,10 @@
 				<input type="text" name="zip" placeholder="Zipcode">
 			</span>
 			<fieldset class="actions">
-				<button class="button">Save Home Info</button>
+				<button class="button js-multi_form_submit" id="step_two">Save Home Info</button>
 			</fieldset>
 		</fieldset>
-		<fieldset class="utility" disabled>
+		<fieldset class="utility js-multi_form_fieldset" disabled>
 			<div class="form_sidebar">
 				<span class="step_label">
 					<span>Step<br/>Three</span>
@@ -153,7 +153,7 @@
 				<input type="text" name="zip" placeholder="Zipcode">
 			</span>
 			<fieldset class="actions">
-				<button class="button">Save Other Info</button>
+				<button class="button js-multi_form_submit" id="step_three">Save Other Info</button>
 			</fieldset>
 		</fieldset>
 
