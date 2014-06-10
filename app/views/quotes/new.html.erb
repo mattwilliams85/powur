@@ -1,3 +1,7 @@
+<% content_for :javascript_includes do %>
+	<%= javascript_include_tag "quote.js" %>
+<% end %>
+
 <div class="customer_banner">
 	<h3>$0 down and no installation fees</h3>
 	<h3>Save 10-30% on your monthly electric bill</h3>
@@ -15,8 +19,8 @@
 				<p class="subtext">A call to adventure! (or just a humourous quote on courtship from a dead Irish writer.)</p>
 			</div>
 			<legend>Contact Info</legend>
-			<span class="form_row half is_not_valid">
-				<span class="js-error">Required</span>
+			<span class="form_row half ">
+				<!--<span class="js-error">Required</span>-->
 				<label for="first_name">First Name</label>
 				<input type="text" name="first_name" placeholder="First Name">
 			</span>
@@ -135,12 +139,13 @@
 				<label for="state">Roof Type</label>
 				<%= select_tag "State", options_for_select(
 				[
-					"Tar",
 					"Thatch",
-					"Hot Tin & Cats",
-					"Non city-mandated two-piece terra cotta 'Mission' style tile",
-					"City-mandated two-piece terra cotta 'Mission' style tile"
-			], ["Hot Tin & Cats"])
+					"Shingle",
+					"Ceramic",
+					"Membrane Roofing",
+					"Metal",
+					"Concrete or Fiber Cement"
+			], ["Shingle"])
 				%>
 			</span>
 			<span class="form_row half">
