@@ -1,7 +1,7 @@
 class QuotesController < ApplicationController
   layout 'user'
 
-  helper_methods :promoter?, :promoter
+  helper_method :promoter?, :promoter
 
   def new
   end
