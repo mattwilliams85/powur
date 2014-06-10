@@ -44,8 +44,8 @@ describe InvitesController do
       expect_alert_error
     end
 
-    it 'requires email, first_name, and last_name' do
-      [ :email, :first_name, :last_name ].each do |input|
+    [ :email, :first_name, :last_name ].each do |input|
+      it "requires #{input}" do
         post :create, invite_params.reject { |k,v| k == input }
 
         expect_input_error(input)
@@ -54,7 +54,7 @@ describe InvitesController do
 
     it 'does not allow you to invite yourself' do
       post :create, invite_params.merge(email: @user.email)
-
+      
       expect_input_error(:email)
     end
 

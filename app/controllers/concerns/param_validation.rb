@@ -8,6 +8,10 @@ module ParamValidation
 
   protected
 
+  def allow_input(*keys)
+    Hash[params.permit(*keys).map { |k,v| [ k, v.presence ] }]
+  end
+
   def require_input(*args)
     args.each do |arg|
       if params[arg].blank?

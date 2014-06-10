@@ -1,9 +1,10 @@
 class QuotesController < ApplicationController
   layout 'user'
 
-  helper_methods :promoter?, :promoter
+  before_filter :fetch_promoter, only: [ :new, :show, :create, :update ]
 
   def new
+    promoter? or redirect_to root_url
   end
 
   def details
@@ -14,35 +15,49 @@ class QuotesController < ApplicationController
   end
 
   def create
-    require_input :first_name, :last_name, :email, :phone
+    require_input :first_name, :last_name, :email, :phone, :promoter
 
-    input = params.permit(:first_name, :last_name, :email, :phone, :promoter_id)
+    promoter? or not_found!(:promoter, params[:promoter])
 
-    @customer = Customer.create!(input)
+    @customer = @promoter.customers.create!(input)
 
     render 'show'
   end
 
   def update
-    customer? ? render 'show'
+    require_input :quote_slug
+
+    customer? or not_found!(:quote, params[:quote])
+
+    customer.update_attributes!(input)
+
+    render 'show'
   end
 
   protected
 
-  def promoter
-    @promoter ||= params[:promoter_slug] ? User.find_by_url_slug(params[:promoter_slug]) : nil
+  def fetch_promoter
+    @promoter = User.find_by_url_slug(params[:promoter])
   end
 
   def promoter?
-    !!promoter
+    !@promoter.nil?
   end
 
   def customer
-    @customer ||= params[:quote_slug] ? Customer.find_by_url_slug(params[:quote_slug]) : nil
+    @customer ||= params[:quote] ? Customer.find_by_url_slug(params[:quote]) : nil
   end
 
   def customer?
     !!customer
+  end
+
+  private
+
+  def input
+    allow_input(
+      :first_name, :last_name, :email, :phone, :address, 
+      :city, :state, :zip, :roof_material, :roof_age)
   end
   
 end

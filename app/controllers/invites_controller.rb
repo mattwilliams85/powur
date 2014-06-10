@@ -16,13 +16,13 @@ class InvitesController < AuthController
   end
 
   def create
-    input = params.permit(:email, :first_name, :last_name, :phone)
+    require_input :email
 
-    if input[:email] == current_user.email
+    if input['email'] == current_user.email
       error!(t('errors.you_exist'), :email)
     end
 
-    if (existing = User.find_by_email(input[:email]))
+    if (existing = User.find_by_email(input['email']))
       msg = t('errors.existing_promoter', 
         name:   existing.full_name, 
         email:  existing.email)
@@ -51,6 +51,10 @@ class InvitesController < AuthController
   end
 
   private
+
+  def input
+    allow_input(:email, :first_name, :last_name, :phone)
+  end
 
   def list_criteria
     current_user.active_invites.order(created_at: :desc)

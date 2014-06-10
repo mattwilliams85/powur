@@ -5,6 +5,7 @@ class Invite < ActiveRecord::Base
   belongs_to :invitee, class_name: 'User'
 
   validates :email, :first_name, :last_name, presence: true
+  validates :phone, presence: true, allow_nil: true
   validate :max_invites, on: :create
 
   before_validation do

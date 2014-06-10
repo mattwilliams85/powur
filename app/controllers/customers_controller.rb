@@ -43,8 +43,11 @@ class CustomersController < AuthController
   private
 
   def input
-    params.permit(:first_name, :last_name, :email, :phone, :address, :city, 
-      :state, :zip, :utility, :rate_schedule, :kwh, :roof_material, :roof_age)
+    allow_input(
+      :first_name, :last_name, :email, 
+      :phone, :address, :city, :state, 
+      :zip, :utility, :rate_schedule, 
+      :kwh, :roof_material, :roof_age)
   end
 
   def fetch_customer
