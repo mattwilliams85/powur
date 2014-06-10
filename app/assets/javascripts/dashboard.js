@@ -162,6 +162,8 @@ function Dashboard(){
 			e.preventDefault();
 			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
 			_ajax({_ajaxType:"patch", _url:"/customers/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:_displayUpdatedLeads()});
+			_thisThumbnail.find(".expand").click();
+
 		})
 
 
@@ -219,7 +221,7 @@ function Dashboard(){
 	           		$.each(data.entities, function(key, val){
 	           			_data.searchResults.push(val.properties);
 	           		});
-	           		$(this).parents("section").find(".fa-angle-up").click();
+	           		$(e.target).parents("section").find(".fa-angle-up").click();
 	           		_displayUpdatedSearchResults({_event:e});
 	           }});
 	        }, 500);
@@ -607,12 +609,11 @@ function Dashboard(){
 					_tempObj["first_name"]= val.first_name;
 					_tempObj["last_name"]= val.last_name;
 					_tempObj["name"]= val.full_name;
-					_tempObj["phone"]= val.phone;
-					_tempObj["email"]= val.email;
-					_tempObj["address"]= val.address;
-					_tempObj["utility_info"]=val.utility_info;
 					_tempObj["status"]=val.status;
-					//_tempObj["current_status"]=Object.keys(val.quote_status)[Object.keys(val.quote_status).length-1];
+
+					for(i=0;i<val.data_status.length;i++)
+						_tempObj[val.data_status[i]]="complete";
+
 					_processedJSON.push(_tempObj);
 				});
 				_templatePath="/templates/_quote_thumbnail.handlebars.html";
