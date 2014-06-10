@@ -24,6 +24,12 @@ describe '/quote' do
     expect_actions 'create'
   end
 
+  it 'redirects when a promoter does not exist' do
+    get promoter_quote_path('foo'), format: :json
+
+    expect(json_body.keys).to include('redirect')
+  end
+
   it 'creates a new promoter quote' do
     post quote_path, params
 

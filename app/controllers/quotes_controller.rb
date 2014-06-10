@@ -4,6 +4,7 @@ class QuotesController < ApplicationController
   before_filter :fetch_promoter, only: [ :new, :show, :create, :update ]
 
   def new
+    promoter? or redirect_to root_url
   end
 
   def details
