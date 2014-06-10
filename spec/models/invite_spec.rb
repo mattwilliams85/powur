@@ -23,4 +23,8 @@ describe Invite do
     expect(results.size).to eq(3)
   end
 
+  it 'does not allow an empty string on phone' do
+    expect { create(:invite, phone: '') }.to raise_error(ActiveRecord::RecordInvalid)
+  end
+
 end

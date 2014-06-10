@@ -40,10 +40,18 @@ describe '/customers' do
       city:       'SunnyVille',
       state:      'FL',
       zip:        '65999',
+      roof_age:   12,
       format:     :json }}
 
     it 'creates a new customer' do
       post customers_path, customer_params
+
+      expect_200
+      expect_classes 'customer'
+    end
+
+    it 'nils out parameters with zero length strings' do
+      post customers_path, customer_params.merge(city: '', roof_age: '')
 
       expect_200
       expect_classes 'customer'
