@@ -7,8 +7,6 @@ create_action = actions \
     field(:first_name, :text).
     field(:last_name, :text).
     field(:email, :email).
-    field(:phone, :text)
-if promoter?
-  create_action.field(:promoter_id, :number, value: promoter.id)
-end
+    field(:phone, :text).
+    field(:promoter, :hidden, value: @promoter.url_slug)
 
