@@ -193,7 +193,7 @@ body#user {
 			// Mixins
 		
 			// Box properties
-			padding-left: $grid * 8;
+			padding-left: $grid * 12;
 			// Background & borders
 		
 			// Typography
@@ -262,7 +262,7 @@ body#user {
 		@include box_sizing;
 		// Box properties
 
-		width: $grid * 8;
+		width: $grid * 12;
 		// Background & borders
 
 		// Typography
