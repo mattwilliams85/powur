@@ -31,7 +31,7 @@ jQuery(function($){
             //update or create new customers
             _verb= (_matchedQuote.length>0)? "patch":"post";
             _endPoint = (_matchedQuote.length>0)? "/customers":"/customers/"+_matchedQuote.id;
-            _ajax({_ajaxType:_verb, _url:_endPoint, _postObj:_formData, function(data, text){
+            _ajax({_ajaxType:_verb, _url:_endPoint, _postObj:_formData, _callback:function(data, text){
                 console.log("data input complete");
                 //check to see if we are ready to open up additional fieldsets 
 

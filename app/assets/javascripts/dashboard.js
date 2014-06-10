@@ -610,7 +610,7 @@ function Dashboard(){
 					_tempObj["last_name"]= val.last_name;
 					_tempObj["name"]= val.full_name;
 					_tempObj["status"]=val.status;
-					
+
 					for(i=0;i<val.data_status.length;i++)
 						_tempObj[val.data_status[i]]="complete";
 
