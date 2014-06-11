@@ -608,7 +608,7 @@ input[type="search"]::-webkit-search-cancel-button {
 		@include corners;
 
 		// Box properties
-		margin:0 $grid / 4 0 0;
+		margin:0 $grid / 8 0 0;
 		padding-right:$grid * 1.5;
 		padding-left: $grid / 4;
 		width: auto;
@@ -657,6 +657,7 @@ input[type="search"]::-webkit-search-cancel-button {
 			@include field_box;
 
 			// Box properties
+			margin:0 $grid / 8 0 0;
 			padding: $grid / 1.125 $grid / 2 $grid / 3.5;
 			// Background & borders
 			background-image: image-url('select_arrow.svg') ;

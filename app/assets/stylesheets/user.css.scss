@@ -179,7 +179,7 @@ body#user {
 			// Mixins
 		
 			// Box properties
-			padding-left: $grid * 3;
+			padding-left: $grid * 4;
 			// Background & borders
 		
 			// Typography
@@ -242,11 +242,11 @@ body#user {
 		top: 0;
 		left: 0;
 		bottom: 0;
-		width: $grid * 3;
+		width: $grid * 4;
 		overflow: auto;
 		height: 100%;
 		float: left;
-		padding: $grid $grid / 2;
+		padding: $grid $grid / 2 0;
 		// Background & borders
 
 		// Typography
@@ -289,8 +289,8 @@ body#user {
 	@include circle_with_text;
 	@include small_title;
 	// Box properties
-	width: $grid * 2;
-	height: $grid * 2;
+	width: $grid * 2.5;
+	height: $grid * 2.5;
 	margin:  0 auto;
 	// Background & borders
 	background: $brand;
@@ -299,13 +299,27 @@ body#user {
 	color: white;
 	// Other
 
+	 i {
+		// Mixins
+	
+		// Box properties
+		display: inline-block;
+		margin-bottom: $grid / 4;
+		// Background & borders
+	
+		// Typography
+		font-size: $grid / 1.5;
+		// Other
+	
+	}
+
  	@media screen and (min-width: $desktop) {
 		// Mixins
 		@include circle_with_text;
 		@include small_title;
 		// Box properties
-		width: $grid * 2;
-		height: $grid * 2;
+		width: $grid * 2.5;
+		height: $grid * 2.5;
 		margin:  0 auto $grid / 2;
 		// Background & borders
 		background: $brand;
