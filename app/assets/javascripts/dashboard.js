@@ -1,6 +1,6 @@
 var _myID=100; //current user id
 var _data={}; //main data object that contains user profile and genelogy info
-var _animation_speed = 500;
+var _animation_speed = 300;
 var _dashboard;
 
 
@@ -143,7 +143,7 @@ function Dashboard(){
 			e.preventDefault();
 			_formSubmit(e, $("#new_lead_contact_form"), "/customers", "POST", function(data, text){
 				//$(".js-new_quote_thumbnail .expand").click();
-				$("#new_lead_contact_form").fadeOut(300, function(){
+				$("#new_lead_contact_form").fadeOut(150, function(){
 					$("#new_lead_contact_form input").val("");
 					$("#new_lead_contact_form").fadeIn();
 					_displayUpdatedLeads();
@@ -224,7 +224,7 @@ function Dashboard(){
 	           		$(e.target).parents("section").find(".fa-angle-up").click();
 	           		_displayUpdatedSearchResults({_event:e});
 	           }});
-	        }, 500);
+	        }, 100);
 	    }
 	});
 
@@ -716,7 +716,7 @@ function Dashboard(){
 	function _displayUpdatedLeads(){
 		//refresh the entire section
 		_data.quotes=[];
-		$("#dashboard_quotes .section_content.quotes_info .pagination_content").fadeOut(300, function(){
+		$("#dashboard_quotes .section_content.quotes_info .pagination_content").fadeOut(150, function(){
 			$("#dashboard_quotes .section_content.quotes_info .pagination_content").html("");
 			_getData(_myID, "quotes", _data.quotes, function(){
 				_displayData("quotes", _data.quotes,$("#dashboard_quotes .section_content.quotes_info .pagination_content"));
@@ -730,7 +730,7 @@ function Dashboard(){
 	function _displayUpdatedSearchResults(_options){
 		_sectionID="#"+$(_options._event.target).parents("section").attr("id");
 		_displayType = _sectionID.indexOf("team")>=0? "team":"quotes"
-		$(_sectionID+" .section_content .pagination_content").fadeOut(300, function(){
+		$(_sectionID+" .section_content .pagination_content").fadeOut(150, function(){
 			$(_sectionID+" .section_content .pagination_content").html("");
 			_displayData(_displayType, _data.searchResults, $(_sectionID+" .section_content .pagination_content"));
 			$(_sectionID+" .section_content .pagination_content").fadeIn();
