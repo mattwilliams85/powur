@@ -2,6 +2,10 @@ siren json
 
 klass :quote
 
+json.properties do
+  json.(@customer, :email, :first_name, :last_name, :phone, :address, :city, :state, :zip, :roof_material, :roof_age)
+end
+
 actions \
   action(:update, :patch, quote_path).
     field(:quote, :hidden, value: @customer.url_slug).
