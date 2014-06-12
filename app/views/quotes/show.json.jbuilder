@@ -2,7 +2,7 @@ siren json
 
 klass :quote
 
-create_action = actions \
+actions \
   action(:update, :patch, quote_path).
     field(:quote, :hidden, value: @customer.url_slug).
     field(:email, :email, value: @customer.email).
@@ -15,3 +15,6 @@ create_action = actions \
     field(:zip, :text, value: @customer.zip).
     field(:roof_material, :text, value: @customer.roof_material).
     field(:roof_age, :number, value: @customer.roof_age)
+
+links \
+  link(:self, customer_quote_path(@promoter.url_slug, @customer.url_slug))

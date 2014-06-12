@@ -22,6 +22,5 @@ actions \
     field(:roof_material, :text, required: false).
     field(:roof_age, :number, required: false)
 
-
 links \
   link(:self, customers_path)

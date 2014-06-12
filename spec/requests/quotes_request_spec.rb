@@ -6,8 +6,6 @@ describe '/quote' do
     @promoter = create(:user, url_slug: 'dude')
   end
 
-  let(:slug) { 'dude' }
-
   let(:params) {{
     email:       'someone@somewhere.com',
     first_name:  'some',
@@ -36,6 +34,10 @@ describe '/quote' do
     expect_200
     expect_classes 'quote'
     expect_actions 'update'
+  end
+
+  it 'updates an existing quote' do
+    
   end
 
 end
