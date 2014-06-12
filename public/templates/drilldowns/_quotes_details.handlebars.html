@@ -20,8 +20,8 @@
 	</div>
 	<div class="drilldown_content_section">
 		<form id="customer_contact_form" class="main contact" data-customer-id="{{this.id}}">
-			<div class="contact_info">
-				<h4>Contact Info</h4>
+			<fieldset class="contact_info">
+				<legend><i class="fa fa-envelope"></i> Contact Info</legend>
 				<span class="form_row half">
 					<label for="first_name">First Name</label>
 					<input type="text" name="first_name" value="{{this.first_name}}">
@@ -34,12 +34,17 @@
 					<label for="email">Email</label>
 					<input type="text" name="email" value="{{this.email}}">
 				</span>
+			</fieldset>
+			<fieldset class="contact_info">
+				<legend><i class="fa fa-phone"></i> Phone Number</legend>
 				<span class="form_row">
 					<label for="phone">Phone</label>
 					<input type="text" name="phone" value="{{this.phone}}">
 				</span>
-			</div>
-			<div class="address">
+			</fieldset>
+			<fieldset class="address">
+				<legend><i class="fa fa-home"></i> Home Info</legend>
+
 				<span class="form_row">
 					<label for="address.street">Street Address & Unit#</label>
 					<input type="text" name="address" value="{{this.address}}">
@@ -56,8 +61,27 @@
 					<label for="address.zip">Zip</label>
 					<input type="text" name="zip" value="{{this.zip}}">
 				</span>
-			</div>
+				<span class="form_row half">
+					<label for="state">Roof Type</label>
+					<input type="text" name="roof" value="{{this.roof}}">
+				</span>
+				<span class="form_row half">
+					<label for="roofage">Roof Age</label>
+					<input type="text" name="roofage" placeholder="Roof Age">
+				</span>
+			</fieldset>
+			<fieldset class="utility">
+				<legend>Utility Info</legend>
+				<span class="form_row half">
+					<label for="provider">Utility Provider</label>
+					<input type="text" name="provider" value="{{this.provider}}">
 
+				</span>
+				<span class="form_row half">
+					<label for="zip">Estimated Monthly Bill</label>
+					<input type="text" name="bill" placeholder="Estimated Monthly Bill">
+				</span>
+			</fieldset>
 			<button class="button js-update_customer_info">Update Customer Info</button>
 		</form>
 		<!--

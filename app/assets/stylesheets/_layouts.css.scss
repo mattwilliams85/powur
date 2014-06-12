@@ -248,25 +248,39 @@ body#application {
 			padding: 0 $grid / 8 0 0;
 		}
 
-	}
-
-	&.half + .half {
-		// Mixins
-	
-		// Box properties
+		&:nth-child(even) {
+			// Mixins
 		
-		// Background & borders
+			// Box properties
+			
+			// Background & borders
+			
+			// Typography
 		
-		// Typography
-	
-		// Other
+			// Other
 
-		@media screen and (min-width: $tablet) {
-			width: 50%;
-			padding: 0 0 0 $grid / 8;
+			@media screen and (min-width: $tablet) {
+				width: 50%;
+				padding: 0 0 0 $grid / 8;
+			}
+			
 		}
+
+		&:nth-child(odd) {
+			// Mixins
 		
+			// Box properties
+			clear: both;
+			// Background & borders
+			
+			// Typography
+		
+			// Other
+			
+		}
+
 	}
+
 
 	&.checkbox {
 		// Mixins
