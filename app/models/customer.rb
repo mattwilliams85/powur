@@ -2,7 +2,7 @@ class Customer < ActiveRecord::Base
   include NameEmailSearch
   after_create :email_customer
 
-  enum status: [ :incomplete, :complete, :submitted, :accepted, :rejected, :installed ]
+  enum status: [ :incomplete, :complete, :submitted, :accepted, :voided, :installed ]
 
   belongs_to :promoter, class_name: 'User'
 
