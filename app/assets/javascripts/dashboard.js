@@ -316,7 +316,7 @@ function Dashboard(){
 				$("#dashboard_quotes").append(_html);
 				_drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=800px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=1200px", opacity:1}, _animation_speed);	
 
 				//retrieve info from /customers/:id for the quote
 				_userDetail={};
