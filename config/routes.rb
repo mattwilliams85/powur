@@ -40,7 +40,6 @@ Rails.application.routes.draw do
   end
 
   resource :quote, only: [ :show, :create, :update ] do
-    get 'details'           => 'quotes#details'
     get ':promoter'         => 'quotes#new', as: :promoter 
     get ':promoter/:quote'  => 'quotes#show', as: :customer
   end

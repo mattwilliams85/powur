@@ -11,7 +11,10 @@ class QuotesController < ApplicationController
   end
 
   def show
-    render customer? ? 'show' : 'new'
+    respond_to do |format|
+      format.html { render 'new' }
+      format.json { render customer? ? 'show' : 'new' }
+    end
   end
 
   def create
