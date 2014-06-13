@@ -11,7 +11,7 @@
 <section class="customer_content">
 
 	<form id="customer_signup" class="signup_form one">
-		<fieldset class="contact_info js-multi_form_fieldset">
+		<fieldset class="contact_info js-multi_form_fieldset js-contact" disabled>
 			<div class="form_sidebar">
 				<span class="step_label">
 					<span>
@@ -34,6 +34,10 @@
 			<span class="form_row">
 				<label for="email">Email</label>
 				<input type="text" name="email" placeholder="Email Address">
+			</span>
+			<span class="form_row ">
+				<label for="phone">Phone</label>
+				<input type="text" name="phone" placeholder="Phone Number">
 			</span>
 			<fieldset class="actions">
 				<button class="button js-multi_form_submit" id="step_one">Save Contact Info</button>
@@ -173,7 +177,11 @@
 			<fieldset class="actions">
 				<button class="button js-multi_form_submit" id="step_three">Save Other Info</button>
 			</fieldset>
+
+
 		</fieldset>
+
+		<!--
 		<fieldset class="phone_info js-multi_form_fieldset" disabled>
 			<div class="form_sidebar">
 				<span class="step_label">
@@ -203,6 +211,7 @@
 				<button class="button js-multi_form_submit" id="step_one">Finish</button>
 			</fieldset>
 		</fieldset>
+		-->
 
 	</form>
 

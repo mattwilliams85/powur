@@ -25,7 +25,6 @@ jQuery(function($){
 	});
 });
 
-
 //populate initial data on dashboard screen
 function Dashboard(){
 
@@ -45,7 +44,7 @@ function Dashboard(){
 		_data.team_count_per_page=4; // determine how many thumbnails to show per pagination
 		_data._team=[];
 		_getData(_myID, "team", _data.team, function(){
-				_displayData(_tab, _data["team"],$("#dashboard_team .section_content.team_info .pagination_content"))
+				_displayData(_tab, _data["team"],$("#dashboard_team .section_content.team_info .pagination_content"));
 		});
 		
 		//put in hooks for team drllldown
@@ -189,7 +188,6 @@ function Dashboard(){
 		});	
 	})();
 
-
 	//wire up the pagination hooks
 	$(document).on("click", ".pagination_container .nav", function(e){
 		e.preventDefault();
@@ -208,7 +206,6 @@ function Dashboard(){
 			_pagination_content.animate({"left":"-="+_pagination_width+"px"});
 		}
 	});
-
 
 	//wire up search functionality in general
 	$(document).on("keyup", ".js-search_box", function(e){
@@ -671,7 +668,7 @@ function Dashboard(){
 						$(this).html("Expired");
 						return;
 					}
-					_remainingMinutes = 60;
+					_remainingMinutes = 59;
 					_remainingSeconds =60;
 				}
 				_remainingSeconds=60;
