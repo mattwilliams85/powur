@@ -40,8 +40,9 @@ Rails.application.routes.draw do
   end
 
   resource :quote, only: [ :show, :create, :update ] do
-    get ':promoter'         => 'quotes#new', as: :promoter 
-    get ':promoter/:quote'  => 'quotes#show', as: :customer
+    post  :resend
+    get   ':promoter'         => 'quotes#new', as: :promoter 
+    get   ':promoter/:quote'  => 'quotes#show', as: :customer
   end
 
   # These are just to fake the referral pages so the link doesn't break - safe to remove when the feature is implemented

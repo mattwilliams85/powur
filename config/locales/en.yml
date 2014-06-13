@@ -33,6 +33,8 @@ en:
     credentials: Invalid email or password
     invalid_code: Invalid invite code
     email_not_found: This email was not found in our system
+    quote_not_found: "A quote was not found for the email %{email}"
+    quote_exists: "A quote already exists with the email %{email}"
     reset_token_invalid: Invalid reset password token
     reset_token_expired: The reset password token was expired
     reset_token: Invalid or expired password reset token
@@ -48,6 +50,7 @@ en:
     update: "%{entity} successfully updated"
     reset_password_request: "A Password Reset email has been sent to %{email}"
     reset_password: Password reset successfully
+    quote_resent: Your quote has been resent
   entities:
     invite:
       create: Create Invite

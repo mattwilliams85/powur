@@ -20,7 +20,11 @@ class QuotesController < ApplicationController
   def create
     require_input :first_name, :last_name, :email, :phone, :promoter
 
-    promoter? or not_found!(:promoter, params[:promoter])
+    not_found!(:promoter, params[:promoter]) unless promoter?
+
+    if quote_from_email?
+      error!(t('errors.quote_exists', email: params[:email]), :email)
+    end
 
     @customer = @promoter.customers.create!(input)
 
@@ -28,13 +32,24 @@ class QuotesController < ApplicationController
   end
 
   def update
-    require_input :quote_slug
+    require_input :quote
 
     customer? or not_found!(:quote, params[:quote])
 
     customer.update_attributes!(input)
 
     render 'show'
+  end
+
+  def resend
+    require_input :email
+
+    quote_from_email? or 
+      error!(t('errors.quote_not_found', email: params[:email]), :email)
+
+    confirm :quote_resent
+
+    render 'new'
   end
 
   protected
@@ -61,6 +76,14 @@ class QuotesController < ApplicationController
     allow_input(
       :first_name, :last_name, :email, :phone, :address, 
       :city, :state, :zip, :roof_material, :roof_age)
+  end
+
+  def quote_from_email
+    @quote ||= Customer.find_by_email(params[:email])
+  end
+
+  def quote_from_email?
+    !!quote_from_email
   end
   
 end
