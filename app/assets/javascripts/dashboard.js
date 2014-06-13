@@ -313,7 +313,7 @@ function Dashboard(){
 				$("#dashboard_quotes").append(_html);
 				_drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=600px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);	
 
 				//retrieve info from /customers/:id for the quote
 				_userDetail={};
@@ -335,7 +335,7 @@ function Dashboard(){
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=600px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);	
 
 				//populate drilldown
 				_getTemplate("/templates/drilldowns/_new_quote.handlebars.html", {}, _drilldownContainerObj, function(){

@@ -1104,7 +1104,7 @@
 	// Box properties
 	height: 100%;
 	padding: 0;
-	overflow: auto;
+	overflow: hidden;
 	position: relative;
 	width: $desktop;
 	margin: 0 auto;
@@ -1128,7 +1128,8 @@
 	width: 100%;
 	height: 100%;
 	display: table;
-		display: none;
+	display: none;
+	overflow: hidden;
 
 	// Background & borders
 	background: rgba(0,0,0,.75);
@@ -1207,7 +1208,7 @@
 	@include box_sizing;
 	// Box properties
 	float: left;
-	overflow: auto;
+	overflow: hidden;
 	padding: 0 0;
 	margin:0 0 0 $grid * 10;
 	width: $grid * 30;
@@ -1231,7 +1232,7 @@
 		left: 0;
 		top: 0;
 		bottom: 0;
-		overflow: auto;
+		overflow: hidden;
 		// Background & borders
 		border-right: $light_border;
 		// Typography
