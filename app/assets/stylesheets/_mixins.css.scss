@@ -256,7 +256,7 @@
 
 	    }
 
-		&.disabled {
+		&.disabled, &.quiet {
 			// Mixins
 		
 			// Box properties
@@ -266,6 +266,20 @@
 			border: $border;
 			// Typography
 			color: $quiet;
+			// Other
+		
+		}
+
+		&.quiet:hover {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+	    	background: $ghost_dark;	    
+			border: 1px solid darken($ghost_dark, 2%);
+			// Typography
+			color: white;
 			// Other
 		
 		}

@@ -4,51 +4,86 @@
 	<div class="drilldown_content_section summary">
 		<h4>Add a new Quote</h4>
 		<span class="subtext">The basic required information include their name and email address.<br><br>You may complete the rest of the information or edit them once the Quote is created.</span>
+
+		<div class="summary_actions">
+			<a href="#" class="button quiet"><i class="fa fa-times"></i> Cancel</a>
+		</div>
 	</div>
 
 	<div class="drilldown_content_section">
-		<form id="new_lead_contact_form" class="main contact">
-			<div class="contact_info">
-				<h4>Contact Info</h4>
 
-				<span class="form_row">
-					<label for="first_name">First Name</label>
-					<input type="text" name="first_name" placeholder="First Name">
-				</span>
-				<span class="form_row">
-					<label for="last_name">Last Name</label>
-					<input type="text" name="last_name" placeholder="Last Name">
-				</span>
-				<span class="form_row">
-					<label for="email">Email</label>
-					<input type="text" name="email" placeholder="Email Address">
-				</span>					
-				<span class="form_row">
-					<label for="phone">Phone</label>
-					<input type="text" name="phone" placeholder="Phone Number">
-				</span>
-			</div>
-			<div class="address">
-				<span class="form_row">
-					<label for="address">Street Address & Unit#</label>
-					<input type="text" name="address" placeholder="Street">
-				</span>
+		<form id="new_lead_contact_form" class="quote_form">
+			<fieldset class="one">
+				<fieldset class="contact_info">
+					<legend><i class="fa fa-envelope"></i> Contact Info</legend>
+					<span class="form_row half">
+						<label for="first_name">First Name</label>
+						<input type="text" name="first_name" placeholder="First Name">
+					</span>
+					<span class="form_row half">
+						<label for="last_name">Last Name</label>
+						<input type="text" name="last_name" placeholder="Last Name">
+					</span>
+					<span class="form_row">
+						<label for="email">Email</label>
+						<input type="text" name="email" placeholder="Email Address">
+					</span>					
+				</fieldset>
+				
+				<fieldset class="address">
+					<span class="form_row">
+						<label for="address">Street Address & Unit#</label>
+						<input type="text" name="address" placeholder="Street">
+					</span>
 
-				<span class="form_row">
-					<label for="city">City</label>
-					<input type="text" name="city" placeholder="City">
-				</span>
+					<span class="form_row">
+						<label for="city">City</label>
+						<input type="text" name="city" placeholder="City">
+					</span>
 
-				<span class="form_row">
-					<label for="state">State</label>
-					<input type="text" name="state" placeholder="State">
-				</span>
-				<span class="form_row">
-					<label for="zip">Zip</label>
-					<input type="text" name="zip" placeholder="Zipcode">
-				</span>
-			</div>
-			<button class="button">Create Lead</button>
+					<span class="form_row half">
+						<label for="state">State</label>
+						<input type="text" name="state" placeholder="State">
+					</span>
+					<span class="form_row half">
+						<label for="zip">Zip</label>
+						<input type="text" name="zip" placeholder="Zipcode">
+					</span>
+					<span class="form_row half">
+						<label for="state">Roof Type</label>
+						<input type="text" name="state" placeholder="Roof Type">
+					</span>
+					<span class="form_row half">
+						<label for="roofage">Roof Age</label>
+						<input type="text" name="roofage" placeholder="Roof Age">
+					</span>
+				</fieldset>
+			</fieldset>
+			<fieldset class="two">
+				<fieldset class="utility">
+					<legend><i class="fa fa-bolt"></i> Utility Info</legend>
+					<span class="form_row">
+						<label for="provider">Utility Provider</label>
+						<input type="text" name="provider" placeholder="Utility Info">
+					</span>
+					<span class="form_row">
+						<label for="bill">Estimated Monthly Bill</label>
+						<input type="text" name="bill" placeholder="Estimated Monthly Bill">
+					</span>
+				</fieldset>
+
+				<fieldset class="contact_info">
+					<legend><i class="fa fa-phone"></i> Phone Number</legend>
+					<span class="form_row">
+						<label for="phone">Phone</label>
+						<input type="text" name="phone" placeholder="Phone">
+					</span>
+				</fieldset>
+				<fieldset class="actions">
+					<button class="button">Create Quote</button>
+				</fieldset>
+			</fieldset>	
+			
 		</form>
 
 		<!--

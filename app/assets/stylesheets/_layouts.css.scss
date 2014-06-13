@@ -248,7 +248,7 @@ body#application {
 			padding: 0 $grid / 8 0 0;
 		}
 
-		&:nth-child(even) {
+		&:nth-of-type(even) {
 			// Mixins
 		
 			// Box properties
@@ -266,7 +266,7 @@ body#application {
 			
 		}
 
-		&:nth-child(odd) {
+		&:nth-of-type(odd) {
 			// Mixins
 		
 			// Box properties
