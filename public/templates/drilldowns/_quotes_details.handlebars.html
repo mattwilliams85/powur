@@ -19,70 +19,80 @@
 		<a href="#" class="js-remove_quote"><i class="fa fa-times"></i> Remove Quote</a>
 	</div>
 	<div class="drilldown_content_section">
-		<form id="customer_contact_form" class="main contact" data-customer-id="{{this.id}}">
-			<fieldset class="contact_info">
-				<legend><i class="fa fa-envelope"></i> Contact Info</legend>
-				<span class="form_row half">
-					<label for="first_name">First Name</label>
-					<input type="text" name="first_name" value="{{this.first_name}}">
-				</span>
-				<span class="form_row half">
-					<label for="last_name">Last Name</label>
-					<input type="text" name="last_name" value="{{this.last_name}}">
-				</span>
-				<span class="form_row">
-					<label for="email">Email</label>
-					<input type="text" name="email" value="{{this.email}}">
-				</span>
-			</fieldset>
-			<fieldset class="contact_info">
-				<legend><i class="fa fa-phone"></i> Phone Number</legend>
-				<span class="form_row">
-					<label for="phone">Phone</label>
-					<input type="text" name="phone" value="{{this.phone}}">
-				</span>
-			</fieldset>
-			<fieldset class="address">
-				<legend><i class="fa fa-home"></i> Home Info</legend>
+		<form id="customer_contact_form" class="quote_form" data-customer-id="{{this.id}}">
+			<fieldset class="one">
+				<fieldset class="contact_info">
+					<legend><i class="fa fa-envelope"></i> Contact Info</legend>
+					<span class="form_row half">
+						<label for="first_name">First Name</label>
+						<input type="text" name="first_name" value="{{this.first_name}}">
+					</span>
+					<span class="form_row half">
+						<label for="last_name">Last Name</label>
+						<input type="text" name="last_name" value="{{this.last_name}}">
+					</span>
+					<span class="form_row">
+						<label for="email">Email</label>
+						<input type="text" name="email" value="{{this.email}}">
+					</span>
+				</fieldset>
 
-				<span class="form_row">
-					<label for="address.street">Street Address & Unit#</label>
-					<input type="text" name="address" value="{{this.address}}">
-				</span>
-				<span class="form_row">
-					<label for="address.city">City</label>
-					<input type="text" name="city" value="{{this.city}}">
-				</span>
-				<span class="form_row half">
-					<label for="address.state">State</label>
-					<input type="text" name="state" value="{{this.state}}">
-				</span>
-				<span class="form_row half">
-					<label for="address.zip">Zip</label>
-					<input type="text" name="zip" value="{{this.zip}}">
-				</span>
-				<span class="form_row half">
-					<label for="state">Roof Type</label>
-					<input type="text" name="roof" value="{{this.roof}}">
-				</span>
-				<span class="form_row half">
-					<label for="roofage">Roof Age</label>
-					<input type="text" name="roofage" placeholder="Roof Age">
-				</span>
-			</fieldset>
-			<fieldset class="utility">
-				<legend>Utility Info</legend>
-				<span class="form_row half">
-					<label for="provider">Utility Provider</label>
-					<input type="text" name="provider" value="{{this.provider}}">
+				<fieldset class="address">
+					<legend><i class="fa fa-home"></i> Home Info</legend>
 
-				</span>
-				<span class="form_row half">
-					<label for="zip">Estimated Monthly Bill</label>
-					<input type="text" name="bill" placeholder="Estimated Monthly Bill">
-				</span>
+					<span class="form_row">
+						<label for="address.street">Street Address & Unit#</label>
+						<input type="text" name="address" value="{{this.address}}">
+					</span>
+					<span class="form_row">
+						<label for="address.city">City</label>
+						<input type="text" name="city" value="{{this.city}}">
+					</span>
+					<span class="form_row half">
+						<label for="address.state">State</label>
+						<input type="text" name="state" value="{{this.state}}">
+					</span>
+					<span class="form_row half">
+						<label for="address.zip">Zip</label>
+						<input type="text" name="zip" value="{{this.zip}}">
+					</span>
+					<span class="form_row half">
+						<label for="state">Roof Type</label>
+						<input type="text" name="roof" value="{{this.roof}}">
+					</span>
+					<span class="form_row half">
+						<label for="roofage">Roof Age</label>
+						<input type="text" name="roofage" placeholder="Roof Age">
+					</span>
+				</fieldset>
 			</fieldset>
-			<button class="button js-update_customer_info">Update Customer Info</button>
+
+			<fieldset class="two">
+				<fieldset class="utility">
+					<legend><i class="fa fa-bolt"></i> Utility Info</legend>
+					<span class="form_row">
+						<label for="provider">Utility Provider</label>
+						<input type="text" name="provider" value="{{this.provider}}">
+
+					</span>
+					<span class="form_row">
+						<label for="zip">Estimated Monthly Bill</label>
+						<input type="text" name="bill" placeholder="Estimated Monthly Bill">
+					</span>
+				</fieldset>
+
+				<fieldset class="contact_info">
+					<legend><i class="fa fa-phone"></i> Phone Number</legend>
+					<span class="form_row">
+						<label for="phone">Phone</label>
+						<input type="text" name="phone" value="{{this.phone}}">
+					</span>
+				</fieldset>
+				<fieldset class="actions">
+					<button class="button js-update_customer_info">Update Customer Info</button>
+				</fieldset>
+
+			</fieldset>
 		</form>
 		<!--
 		<form id="{{this.info.id}}_lead_utility_form" class="sidebar utility">

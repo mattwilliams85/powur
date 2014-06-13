@@ -397,7 +397,18 @@
 
 		// Other
 	
-
+		.fa-envelope {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+			font-size: $font_size / 1.5;
+			// Other
+		
+		}
 
 		&:nth-child(1) {
 			// Mixins
@@ -432,8 +443,8 @@
 				// Box properties
 				display: block;
 				position: absolute;
-				right: 5px;
-				bottom: 5px;			
+				right: 6px;
+				bottom: 6px;			
 				// Background & borders
 
 				// Typography
@@ -475,7 +486,7 @@
 				// Box properties
 				display: block;
 				position: absolute;
-				left: 5px;
+				left: 8px;
 				bottom: 5px;			
 				// Background & borders
 
@@ -563,7 +574,7 @@
 				// Box properties
 				display: block;
 				position: absolute;
-				left: 9px;
+				left: 7px;
 				top: 5px;			
 				// Background & borders
 
@@ -1287,6 +1298,49 @@
 	
 		// Other
 	
+	}
+
+}
+
+.quote_form {
+	// Mixins
+	@include box_sizing;
+
+	// Box properties
+	float: left;
+	padding-top: $grid;
+	// Background & borders
+	// Typography
+
+	// Other
+
+	fieldset {
+		// Mixins
+		@include box_sizing;
+		// Box properties
+		width: 100%;
+		padding-bottom: $grid;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+		&.one, &.two {
+			// Mixins
+		
+			// Box properties
+			width: 50%;
+			float: left;
+			padding-bottom: 0;
+			// Background & borders
+		
+			// Typography
+		
+			// Other
+		
+		}
+
 	}
 
 }
