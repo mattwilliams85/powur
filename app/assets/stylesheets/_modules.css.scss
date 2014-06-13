@@ -432,7 +432,7 @@
 			$global_title_color: $solar_progress_bar_color;
 			$global_border_color: darken($brand, 19%);
 
-		#global_progress {
+		#subheader_bar {
 			// Mixins
 			@include small_title;
 			@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
@@ -448,13 +448,28 @@
 			line-height: $grid;
 			// Other
 
-			#global_progress_container {
+			#subheader_bar_content {
+				// Mixins
+			
+				// Box properties
+				width: $desktop;
+				margin: 0 auto;			
+				// Background & borders
+			
+				// Typography
+			
+				// Other
+			
+			}
+
+			#global_progress_content {
 				// Mixins
 				@include box_sizing;
 				// Box properties
-				width: $desktop;
+				width: $desktop - $grid * 2;
 				height: $grid;
-				margin: 0 auto;
+				margin: 0;
+				float: left;
 				overflow: auto;
 				position: relative;
 				// Background & borders
@@ -471,7 +486,7 @@
 				// Box properties
 				position: relative;
 				height: $grid;
-				width: $desktop;
+				width: 100%;
 				// Background & borders
 				background-image: image-url('bg_tic.svg');
 				background-color: $text;
@@ -567,6 +582,31 @@
 				// Typography
 				color: $whisper;
 				text-align: right;
+				// Other
+			
+			}
+		}
+
+		#notification_center_toggle {
+			// Mixins
+		
+			// Box properties
+		
+			// Background & borders
+		
+			// Typography
+			color: $white;
+			// Other
+		
+			.badge {
+				// Mixins
+			
+				// Box properties
+			
+				// Background & borders
+				background: $sunnyside;
+				// Typography
+			
 				// Other
 			
 			}
