@@ -338,7 +338,7 @@ function Dashboard(){
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=800px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=600px", opacity:1}, _animation_speed);	
 
 				//populate drilldown
 				_getTemplate("/templates/drilldowns/_new_quote.handlebars.html", {}, _drilldownContainerObj, function(){
