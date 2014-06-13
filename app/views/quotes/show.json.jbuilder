@@ -21,4 +21,4 @@ actions \
     field(:roof_age, :number, value: @customer.roof_age)
 
 links \
-  link(:self, customer_quote_path(@promoter.url_slug, @customer.url_slug))
+  link(:self, customer_quote_path(@customer.promoter.url_slug, @customer.url_slug))
