@@ -1,5 +1,19 @@
 <div class="arrow"></div>
 <div class="drilldown_content">
+	<div class="modal_overlay">
+		<div class="modal_content">
+			<span>
+				Are you sure you would like to delete this quote?<br/>
+				This cannot be undone.
+			</span>
+			<div class="modal_actions">
+				<a href="#" class="button quiet"><i class="fa fa-times"></i> Cancel</a>
+
+				<a href="#" class="button warning"><i class="fa fa-trash-o"></i> Delete Quote</a>
+
+			</div>
+		</div>
+	</div>
 	<div class="drilldown_content_section summary">
 		<h4>Incomplete Quote</h4>
 		<p class="subtext">Add the missing information to complete the quote, or send the customer a link so they can complete it. Once a quote is complete, it can be sent to Sunrun for followup.</p>
@@ -17,7 +31,7 @@
 		{{/each}}
 		</ul>
 		<div class="summary_actions">
-			<a href="#" class="button quiet js-remove_quote"><i class="fa fa-times"></i> Remove Quote</a>
+			<a href="#" class="button quiet js-remove_quote"><i class="fa fa-trash-o"></i> Remove Quote</a>
 			<a href="#" class="button quiet js-remove_quote"><i class="fa fa-envelope"></i> Email link to customer</a>
 			<a href="#" class="button disabled js-remove_quote"><i class="fa fa-arrow-up"></i> Submit quote to Sunstand</a>
 		</div>

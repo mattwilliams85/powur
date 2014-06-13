@@ -308,6 +308,20 @@
 	    	
 	    	}
 	    }
+
+	    &.warning {
+	    	// Mixins
+	    
+	    	// Box properties
+	    
+	    	// Background & borders
+	    	background: $red;	    
+			border: 1px solid darken($red, 2%);
+	    	// Typography
+	    
+	    	// Other
+	    
+	    }
   	}
 
 	@mixin object_thumbnail {
