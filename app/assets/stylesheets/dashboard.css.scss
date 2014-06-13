@@ -1261,6 +1261,33 @@
 
 }
 
+.summary_actions {
+	// Mixins
+
+	// Box properties
+	margin-top: $grid;
+	// Background & borders
+
+	// Typography
+
+	// Other
+
+	.button {
+		// Mixins
+	
+		// Box properties
+		margin-bottom: $grid / 2;
+		float: none;
+		width: 100%;
+		// Background & borders
+	
+		// Typography
+	
+		// Other
+	
+	}
+}
+
 .main, .sidebar {
 	// Mixins
 	@include box_sizing;
@@ -1363,10 +1390,9 @@
 	// Mixins
 
 	// Box properties
-	display: none;
-	float: right;
-	margin-bottom: $grid / 4;
-	height: 0;
+	position: absolute;
+	top:0;
+	right: 0;
 	// Background & borders
 
 	// Typography
