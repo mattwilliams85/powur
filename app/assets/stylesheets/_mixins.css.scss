@@ -321,6 +321,20 @@
 	    
 	    	// Other
 	    
+	    	&:hover {
+	    		// Mixins
+	    	
+	    		// Box properties
+	    	
+	    		// Background & borders
+	    		background: darken($red, 10%);
+				border: 1px solid lighten($red, 2%);
+
+	    		// Typography
+	    	
+	    		// Other
+	    	
+	    	}
 	    }
   	}
 
