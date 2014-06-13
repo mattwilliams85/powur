@@ -450,7 +450,7 @@
 
 			#subheader_bar_content {
 				// Mixins
-			
+				@include box_sizing;
 				// Box properties
 				width: $desktop;
 				margin: 0 auto;			
@@ -557,8 +557,9 @@
 					// Mixins
 				
 					// Box properties
+					height: $grid;
 					display: block;
-					padding: 1px $grid / 2;
+					padding: 0 $grid / 2;
 					// Background & borders
 				
 					// Typography
@@ -571,7 +572,7 @@
 
 			#goal_text {
 				// Mixins
-			
+				@include box_sizing;
 				// Box properties
 				float: right;
 				height: 100%;
