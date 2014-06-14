@@ -323,6 +323,9 @@ function Dashboard(){
 						_getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
 						 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
 						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+						 	$("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
+						 	$("#customer_contact_form select[name='roof_material'] option").filter(function(){return $(this).text()==_userDetail.roof_material}).attr("selected", true);
+
 						});
 					}
 				});

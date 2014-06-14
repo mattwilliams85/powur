@@ -24,7 +24,6 @@ jQuery(function($){
             }else{
                 $("#customer_signup").find(".js-home_info, .js-util_info").attr("disabled", "disabled");
                 console.log("new user");
-
             }
         }});
     });
@@ -41,7 +40,7 @@ jQuery(function($){
 
         _ajax({_ajaxType:_verb, _url:"/quote", _postObj:_formData, _callback:function(data, text){
             console.log("data input complete");
-            //check to see if we are ready to open up additional fieldsets 
+            _data.customer = data;
         }});
     });
 });
