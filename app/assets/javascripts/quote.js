@@ -3,31 +3,28 @@ var _data = {};
 jQuery(function($){
     $(document).ready(function(){
         $("#user_nav").css("display","none");
-        _data.quotes=[];
         _data.customer={};
-
-        //receive existing details for current customers
-        _ajax({_ajaxType:"get", _url:"/customers", _callback:function(data, text){
-            //get latest quotes
-            $.each(data.entities, function(key, val){
-                //get detailed info for the customer
-                $.ajax({type:"get", url:"/customers/"+val.properties.id}).done(function(data,text){ _data.quotes.push(data.properties);});
-            });
-        }});
 
         //receive customer data from the uri
         _ajax({_ajaxType:"get", _url:window.location.pathname, _callback:function(data,text){
-            _data.customer = data.properties;
+            _data.customer = data;
             $("#customer_signup").find(".js-multi_form_fieldset").removeAttr("disabled");
 
-            if(typeof _data.customer.email !== "undefined"){
+            if(typeof _data.customer.properties.email !== "undefined"){
                 //prepopulate form field values
-                $.each(_data.customer, function(key, val){
-                    $("#customer_signup").find("input[name='"+key+"']").val(val);
-                });
-            }else{
+                $.each(_data.customer.properties, function(key, val){
+                    $("#customer_signup").find("input[name='"+key+"']").val(val);});
+                $("button#step_one").text("Update Contact info");
+                $("button#step_two").text("Update Home info");
+                $("button#step_three").text("Update Utility info");
+                $("#state option").filter(function(){return $(this).text()==_data.customer.properties.state}).attr("selected", true);
+                $("#roof_material option").filter(function(){return $(this).text()==_data.customer.properties.roof_material}).attr("selected", true);
+                $("#provider option").filter(function(){return $(this).text()==_data.customer.properties.provider}).attr("selected", true);
 
+            }else{
+                $("#customer_signup").find(".js-home_info, .js-util_info").attr("disabled", "disabled");
                 console.log("new user");
+
             }
         }});
     });
@@ -35,13 +32,14 @@ jQuery(function($){
     $(document).on("click", "#customer_signup button", function(e){
         //search to see if there is a matching email or phone 
         _formData = $("#customer_signup").serializeObject();
-        _matchedQuote = _data.quotes.filter(function(quote){return quote.email==_formData.email;});
-        if(_matchedQuote.length==0) _matchedQuote=_data.quotes.filter(function(quote){return quote.phone==_formData.phone;});
 
-        //update or create new customers
-        _verb= (_matchedQuote.length>0)? "patch":"post";
-        _endPoint = (_matchedQuote.length>0)? "/customers/"+_matchedQuote[0].id:"/customers";
-        _ajax({_ajaxType:_verb, _url:_endPoint, _postObj:_formData, _callback:function(data, text){
+        //decide if the quote is already in the system
+        if(_data.customer.actions.filter(function(action){return action.name=="update"}).length>0) _formData["quote"]=_data.customer.actions.filter(function(action){return action.name=="update"})[0].fields.filter(function(field){return field.name=="quote"})[0].value;
+        else _formData["promoter"] = _data.customer.actions.filter(function(action){return action.name=="create"})[0].fields.filter(function(field){return (field.name="promoter"&&field.type=="hidden")})[0].value
+
+        _verb= (typeof _formData.quote!== "undefined")? "patch":"post";
+
+        _ajax({_ajaxType:_verb, _url:"/quote", _postObj:_formData, _callback:function(data, text){
             console.log("data input complete");
             //check to see if we are ready to open up additional fieldsets 
         }});
