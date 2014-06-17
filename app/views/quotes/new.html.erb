@@ -140,8 +140,16 @@
 				%>
 			</span>
 			<span class="form_row half">
-				<label for="roof_age">Roof Age</label>
-				<input type="text" name="roof_age" placeholder="Roof Age">
+				<span class="form_row half">
+					<label for="roof_age">Roof Age</label>
+					<select id="roof_age" name="roof_age" placeholder="Roof Age" >
+						<option value="0~5">New</option>
+						<option value="5~10">5 to 10 Years</option>
+						<option value="10~20">10 to 20 Years</option>
+						<option value="20~30">20 to 30 Years</option>
+						<option value="30+">More than 30 Years</option>
+					</select>	
+				</span>
 			</span>
 			<fieldset class="actions">
 				<button class="button js-multi_form_submit" id="step_two">Save Home Info</button>
