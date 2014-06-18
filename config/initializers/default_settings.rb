@@ -1,7 +1,10 @@
 begin
   if ActiveRecord::Base.connection.tables.include?('settings')
-    PromoterConfig.max_invites = 5
-    PromoterConfig.invite_valid_days = 1
+
+    SystemSettings.save_default(:max_invites, 5)
+    SystemSettings.save_default(:invite_valid_days, 1)
+    SystemSettings.save_default(:default_product_id, 1)
+
   end
-rescue Exception# ActiveRecord::StatementInvalid, PG::UndefinableTable
+rescue Exception
 end

@@ -1,8 +1,8 @@
 class Invite < ActiveRecord::Base
   include NameEmailSearch
 
-  belongs_to :invitor, class_name: 'User'
-  belongs_to :invitee, class_name: 'User'
+  belongs_to :user, class_name: 'User'
+  belongs_to :sponsor, class_name: 'User'
 
   validates :email, :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
@@ -22,15 +22,15 @@ class Invite < ActiveRecord::Base
   end
 
   def accept(params)
-    params[:invitor_id] = self.invitor_id
+    params[:sponsor_id] = self.sponsor_id
 
     user = User.create!(params)
-    Invite.where(email: self.email).update_all(invitee_id: user.id)
+    Invite.where(email: self.email).update_all(user_id: user.id)
     user
   end
 
   def expires_timespan
-    PromoterConfig.invite_valid_days.days.from_now
+    SystemSettings.invite_valid_days.days.from_now
   end
 
   class << self
@@ -40,8 +40,8 @@ class Invite < ActiveRecord::Base
   end
 
   def max_invites
-    if invitor.remaining_invites < 1
-      errors.add(:invitor, :exceeded_max_invites)
+    if sponsor.remaining_invites < 1
+      errors.add(:sponsor, :exceeded_max_invites)
     end
   end
 

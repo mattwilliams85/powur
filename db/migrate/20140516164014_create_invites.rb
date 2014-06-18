@@ -9,11 +9,11 @@ class CreateInvites < ActiveRecord::Migration
       t.datetime :expires, null: false
       t.timestamps null: false
 
-      t.belongs_to :invitor, null: false
-      t.belongs_to :invitee
+      t.belongs_to :sponsor, null: false
+      t.belongs_to :user
 
-      t.foreign_key :users, column: :invitor_id, primary_key: :id
-      t.foreign_key :users, column: :invitee_id, primary_key: :id
+      t.foreign_key :users, column: :sponsor_id, primary_key: :id
+      t.foreign_key :users, column: :user_id, primary_key: :id
     end
     execute 'alter table invites add primary key (id);'
   end

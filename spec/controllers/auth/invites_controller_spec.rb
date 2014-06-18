@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe InvitesController do
+describe Auth::InvitesController do
   render_views
 
   before :each do
@@ -9,7 +9,7 @@ describe InvitesController do
 
   describe '#index' do
     it 'renders a list of invites' do
-      create_list(:invite, 3, invitor: @user)
+      create_list(:invite, 3, sponsor: @user)
 
       get :index
 
@@ -37,7 +37,7 @@ describe InvitesController do
     end
 
     it 'does not allow the user to exceed the max # of invites' do
-      create_list(:invite, PromoterConfig.max_invites, invitor: @user)
+      create_list(:invite, SystemSettings.max_invites, sponsor: @user)
 
       post :create, invite_params
 
@@ -68,7 +68,7 @@ describe InvitesController do
 
   describe '#destroy' do
     it 'deletes an invite' do
-      invite = create(:invite, invitor: @user)
+      invite = create(:invite, sponsor: @user)
 
       delete :destroy, id: invite.id
 
@@ -79,7 +79,7 @@ describe InvitesController do
 
   describe '#resend' do
     it 'resends an invite and resets the expiration' do
-      invite = create(:invite, invitor: @user, expires: 1.day.ago)
+      invite = create(:invite, sponsor: @user, expires: 1.day.ago)
 
       post :resend, id: invite.id
 

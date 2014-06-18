@@ -11,6 +11,7 @@ gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0', github: 'rails/jbuilder', branch: 'additive_blocks'
 
+gem 'postgres_ext', github: 'dockyard/postgres_ext', branch: 'rails4.1'
 gem 'active_hash'
 gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'

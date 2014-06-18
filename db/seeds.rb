@@ -34,3 +34,9 @@ User.create(
   phone:        '805.555.1212',
   zip:          '93101',
   url_slug:     'kevin' )
+
+Product.create(
+  name: 'SunRun Solar Item', 
+  business_volume: 400.00, 
+  quote_data: %w(utility rate_schedule roof_material roof_age kwh))
+

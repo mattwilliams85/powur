@@ -1,10 +1,10 @@
 class QuotesController < ApplicationController
   layout 'user'
 
-  before_filter :fetch_promoter, only: [ :new, :show, :create, :update ]
+  before_filter :fetch_sponsor, only: [ :new, :show, :create, :update ]
 
   def new
-    promoter? or redirect_to root_url
+    sponsor? or redirect_to root_url
   end
 
   def details
@@ -18,15 +18,17 @@ class QuotesController < ApplicationController
   end
 
   def create
-    require_input :first_name, :last_name, :email, :phone, :promoter
+    require_input :first_name, :last_name, :email, :phone, :sponsor
 
-    not_found!(:promoter, params[:promoter]) unless promoter?
+    not_found!(:sponsor, params[:sponsor]) unless sponsor?
 
     if quote_from_email?
       error!(t('errors.quote_exists', email: params[:email]), :email)
     end
 
-    @customer = @promoter.customers.create!(input)
+    customer = Customer.create!(customer_input)
+    @quote = @sponsor.quotes.create!(
+      quote_input.merge(customer: customer, product: Product.default))
 
     render 'show'
   end
@@ -42,7 +44,7 @@ class QuotesController < ApplicationController
   end
 
   def resend
-    require_input :email
+    require_input :email, :product_id
 
     quote_from_email? or 
       error!(t('errors.quote_not_found', email: params[:email]), :email)
@@ -54,12 +56,12 @@ class QuotesController < ApplicationController
 
   protected
 
-  def fetch_promoter
-    @promoter = User.find_by_url_slug(params[:promoter])
+  def fetch_sponsor
+    @sponsor = User.find_by_url_slug(params[:sponsor])
   end
 
-  def promoter?
-    !@promoter.nil?
+  def sponsor?
+    !@sponsor.nil?
   end
 
   def customer
@@ -72,14 +74,19 @@ class QuotesController < ApplicationController
 
   private
 
-  def input
+  def customer_input
     allow_input(
-      :first_name, :last_name, :email, :phone, :address, 
-      :city, :state, :zip, :roof_material, :roof_age)
+      :first_name, :last_name, :email, :phone, 
+      :address, :city, :state, :zip)
+  end
+
+  def quote_input
+    allow_input(Product.default.quote_data)
   end
 
   def quote_from_email
-    @quote ||= Customer.find_by_email(params[:email])
+    @quote ||= Quote.where(product_id: Product.default.id).
+      joins(:customer).where('customers.email' => params[:email]).first
   end
 
   def quote_from_email?

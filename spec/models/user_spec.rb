@@ -29,10 +29,50 @@ describe User do
   describe '#remaining_invites' do
     it 'returns the correct number of remaining invites' do
       user = create(:user)
-      create_list(:invite, 3, invitor: user)
+      create_list(:invite, 3, sponsor: user)
 
       expect(user.remaining_invites).to eq(2)
     end
+  end
+
+  describe '#upline' do
+
+    before :all do
+      @root = create(:user)
+      @parent = create(:user, sponsor: @root)
+      @child = create(:user, sponsor: @parent)
+    end
+
+    it 'sets the upline users after create' do
+      expect(@root.upline).to eq([@root.id])
+      expect(@parent.upline).to eq([@root.id, @parent.id])
+      expect(@child.upline).to eq([@root.id, @parent.id, @child.id])
+    end
+
+    it 'returns the upline users' do
+      users = @child.upline_users
+      expect(users.pluck(:id).sort).to eq([@root.id, @parent.id].sort)
+    end
+
+    it 'returns the downline users' do
+      users = @root.downline_users
+      expect(users.pluck(:id).sort).to eq([@parent.id, @child.id].sort)
+    end
+
+    it 'returns the downline users by level' do
+      root = create(:user)
+      parents = create_list(:user, 2, sponsor: root)
+      childs = parents.map do |parent|
+        create_list(:user, 2, sponsor: parent)
+      end.flatten
+
+      users = root.downline_users(1)
+      expect(users.pluck(:id).sort).to eq(parents.map(&:id).sort)
+
+      users = root.downline_users(2)
+      expect(users.pluck(:id).sort).to eq(childs.map(&:id).sort)
+    end
+
   end
 
 end

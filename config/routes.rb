@@ -16,15 +16,26 @@ Rails.application.routes.draw do
     post :register
   end
 
-  resources :invites, only: [ :index, :create, :destroy ] do
-    member do
-      post :resend
-    end
-  end
+  # logged in user routes
+  scope :u, module: :auth do
+    resource :dashboard, only: [ :index ]
 
-  resources :users, only: [ :index, :show ] do
-    collection do
-      get '' => 'users#search', constraints: has_params(:q)
+    resources :invites, only: [ :index, :create, :destroy ] do
+      member do
+        post :resend
+      end
+    end
+
+    resources :users, only: [ :index, :show ] do
+      collection do
+        get '' => 'users#search', constraints: has_params(:q)
+      end
+    end
+
+    resources :quotes, only: [ :index, :create, :destroy, :update, :show ], as: :user_quotes do
+      collection do
+        get '' => 'quotes#search', constraints: has_params(:q)
+      end
     end
   end
 
@@ -33,16 +44,10 @@ Rails.application.routes.draw do
     get :thanks
   end
 
-  resources :customers, only: [ :index, :create, :destroy, :update, :show ] do
-    collection do
-      get '' => 'customers#search', constraints: has_params(:q)
-    end
-  end
-
   resource :quote, only: [ :show, :create, :update ] do
     post  :resend
-    get   ':promoter'         => 'quotes#new', as: :promoter 
-    get   ':promoter/:quote'  => 'quotes#show', as: :customer
+    get   ':sponsor'         => 'quotes#new', as: :sponsor
+    get   ':sponsor/:quote'  => 'quotes#show', as: :customer
   end
 
   # These are just to fake the referral pages so the link doesn't break - safe to remove when the feature is implemented

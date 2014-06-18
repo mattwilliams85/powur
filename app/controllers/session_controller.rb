@@ -27,7 +27,6 @@ class SessionController < ApplicationController
   def accept_invite
     require_input :code
 
-
     session[:code] = @invite.id
     session[:user_id] = nil
 
@@ -58,10 +57,10 @@ class SessionController < ApplicationController
   end
 
   def fetch_invite
-    @invite = Invite.find_by(id: params[:code], invitee_id: nil) or invalid_code!
+    @invite = Invite.find_by(id: params[:code], user_id: nil) or invalid_code!
     user = User.find_by_email(@invite.email)
     if user
-      @invite.update_attribute(:invitee_id, user.id)
+      @invite.update_attribute(:user_id, user.id)
       invalid_code!
     end
   end

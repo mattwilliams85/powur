@@ -12,11 +12,13 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime  :reset_sent_at
       t.timestamps null: false
 
-      t.belongs_to :invitor, index: true
+      t.belongs_to :sponsor, index: true
+      t.integer :upline, array: true, default: []
 
-      t.foreign_key :users, column: :invitor_id, primary_key: :id
+      t.foreign_key :users, column: :sponsor_id, primary_key: :id
     end
 
+    add_index :users, :upline, using: 'gin'
     add_index :users, [ :email ], unique: true
     add_index :users, [ :url_slug ], unique: true
   end

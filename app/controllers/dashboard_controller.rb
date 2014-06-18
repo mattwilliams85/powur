@@ -1,2 +1,0 @@
-class DashboardController < AuthController
-end

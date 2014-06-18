@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/dockyard/postgres_ext.git
+  revision: 8fce7436710ca8d27183a4f1fd0ebd2827f6b245
+  branch: rails4.1
+  specs:
+    postgres_ext (2.2.0)
+      activerecord (~> 4.1.0)
+      arel (~> 5.0.0)
+      pg_array_parser (~> 0.0.9)
+
+GIT
   remote: git://github.com/matthuhiggins/foreigner.git
   revision: a8f84a53e91e5b2651d0ad6e9334c357d9c9c2ec
   specs:
@@ -104,6 +114,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     pg (0.17.1)
+    pg_array_parser (0.0.9)
     polyglot (0.3.5)
     pry (0.9.12.6)
       coderay (~> 1.0)
@@ -222,6 +233,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   pg
+  postgres_ext!
   pry-rails
   rails (= 4.1.1)
   rails-settings-cached

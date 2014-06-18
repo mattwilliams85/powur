@@ -4,6 +4,6 @@ FactoryGirl.define do
     first_name 'Abe'
     last_name 'Lincoln'
     phone '3105551212'
-    association :invitor, factory: :user
+    association :sponsor, factory: :user
   end
 end

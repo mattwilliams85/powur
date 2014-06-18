@@ -35,14 +35,14 @@ describe '/login' do
 
     it 'renders an error with an invite that already has already been accepted' do
       user = create(:user)
-      invite = create(:invite, invitee: user)
+      invite = create(:invite, user: user)
 
       post invite_login_path, code: invite.id, format: :json
 
       expect_input_error(:code)
     end
 
-    it 'marks an invite with an existing promoter with the same email address' do
+    it 'marks an invite with an existing user with the same email address' do
       invite = create(:invite)
       user = create(:user, email: invite.email)
 
@@ -50,7 +50,7 @@ describe '/login' do
 
       expect_input_error(:code)
       invite.reload
-      expect(invite.invitee_id).to eq(user.id)
+      expect(invite.user_id).to eq(user.id)
     end
 
     it 'returns registration when the user has inputted a code' do
@@ -116,8 +116,8 @@ describe '/login' do
       expect(json_body['properties']['first_name']).to include(@user_params[:first_name])
 
       @invite.reload
-      expect(@invite.invitee_id).to_not be_nil
-      expect(@invite.invitee_id).to eq(json_body['properties']['id'])
+      expect(@invite.user_id).to_not be_nil
+      expect(@invite.user_id).to eq(json_body['properties']['id'])
     end
 
     it 'associates any outstanding invites with the new promoter' do
@@ -128,7 +128,7 @@ describe '/login' do
       id = json_body['properties']['id']
       invites.each do |invite|
         invite.reload
-        expect(invite.invitee_id).to eq(id)
+        expect(invite.user_id).to eq(id)
       end
     end
   end

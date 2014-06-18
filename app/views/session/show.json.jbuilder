@@ -7,8 +7,8 @@ json.properties do
 end
 
 json.entities do
-  json.partial! 'invites/entity'
-  json.partial! 'users/entity'
+  json.partial! 'auth/invites/entity'
+  json.partial! 'auth/users/entity'
 end
 
 actions \

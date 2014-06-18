@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :customer do
-    sequence(:url_slug)   { |n| "url_slug_#{n}" }
     sequence(:email)      { |n| "customer.email_#{n}@example.org" }
     sequence(:first_name) { |n| "Abe_#{n}" }
     sequence(:last_name)  { |n| "Lincoln#{n}" }
