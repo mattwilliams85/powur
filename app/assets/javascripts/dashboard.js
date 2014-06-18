@@ -85,21 +85,21 @@ function Dashboard(){
 		$(document).on("click", "#new_promoter_invitation_form .button", function(e){
 			e.preventDefault();
 			_thisForm = $(e.target).closest("#new_promoter_invitation_form");
-			_formSubmit(e, $("#new_promoter_invitation_form"), "/invites", "POST", _displayUpdatedInvitation)
+			_formSubmit(e, $("#new_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
 		});
 
 		//wire up remove pending advocate capabilities
 		$(document).on("click", ".js-remove_advocate", function(e){
 			e.preventDefault();
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-			_ajax({_ajaxType:"delete", _url:"/invites/"+_id, _callback:_displayUpdatedInvitation()});
+			_ajax({_ajaxType:"delete", _url:"/u/invites/"+_id, _callback:_displayUpdatedInvitation()});
 		});
 
 		//wire up resend advocate invitation capaibiltiies 
 		$(document).on("click", ".js-resend_invite_to_advocate", function(e){
 			e.preventDefault();
 			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-			_ajax({_ajaxType:"post", _url:"/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
+			_ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
 		});	
 	}
 
@@ -532,7 +532,7 @@ function Dashboard(){
 		switch(_dataType){
 			case "team.everyone":
 			case "team":
-				_endPoint ="/users";
+				_endPoint ="/u/users";
 			break;
 			
 			case "quotes":
@@ -540,7 +540,7 @@ function Dashboard(){
 			break;
 
 			case "invitations":
-				_endPoint="/invites";
+				_endPoint="/u/invites";
 			break;
 
 			case "team":
