@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   # logged in user routes
   scope :u, module: :auth do
-    resource :dashboard, only: [ :index ]
+    resource :dashboard, only: [ :show ], controller: :dashboard
 
     resources :invites, only: [ :index, :create, :destroy ] do
       member do
@@ -61,8 +61,6 @@ Rails.application.routes.draw do
   get 'organization' => 'organization#index'
 
   get 'upgrade' => 'upgrade#index'
-
-  get 'dashboard' => 'dashboard#index'
 
   get 'training' => 'training#index'
 
