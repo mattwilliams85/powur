@@ -163,7 +163,12 @@ function Dashboard(){
 			_ajax({_ajaxType:"patch", _url:"/customers/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:_displayUpdatedLeads()});
 			_thisThumbnail.find(".expand").click();
 
-		})
+		});
+
+		$(document).on("click", ".js-close_drilldown", function(){
+			e.preventDefault();
+			$(".js-new_quote_thumbnail .expand").click();
+		});
 
 
 	}//end quote dashboard info
