@@ -24,6 +24,20 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 --
+-- Name: hstore; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -49,8 +63,6 @@ SET default_with_oids = false;
 
 CREATE TABLE customers (
     id integer NOT NULL,
-    url_slug character varying(255) NOT NULL,
-    status integer DEFAULT 0,
     first_name character varying(255) NOT NULL,
     last_name character varying(255) NOT NULL,
     email character varying(255),
@@ -59,14 +71,8 @@ CREATE TABLE customers (
     city character varying(255),
     state character varying(255),
     zip character varying(255),
-    utility character varying(255),
-    rate_schedule integer,
-    kwh integer,
-    roof_material character varying(255),
-    roof_age integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    promoter_id integer NOT NULL
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -102,9 +108,77 @@ CREATE TABLE invites (
     expires timestamp without time zone NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    invitor_id integer NOT NULL,
-    invitee_id integer
+    sponsor_id integer NOT NULL,
+    user_id integer
 );
+
+
+--
+-- Name: products; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE products (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    business_volume numeric(8,2),
+    quote_data character varying(255)[] DEFAULT '{}'::character varying[],
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE products_id_seq OWNED BY products.id;
+
+
+--
+-- Name: quotes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE quotes (
+    id integer NOT NULL,
+    url_slug character varying(255) NOT NULL,
+    data hstore DEFAULT ''::hstore NOT NULL,
+    customer_id integer NOT NULL,
+    product_id integer NOT NULL,
+    user_id integer NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: quotes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE quotes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: quotes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE quotes_id_seq OWNED BY quotes.id;
 
 
 --
@@ -167,7 +241,8 @@ CREATE TABLE users (
     reset_sent_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    invitor_id integer
+    sponsor_id integer,
+    upline integer[] DEFAULT '{}'::integer[]
 );
 
 
@@ -201,6 +276,20 @@ ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY quotes ALTER COLUMN id SET DEFAULT nextval('quotes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq'::regclass);
 
 
@@ -228,6 +317,22 @@ ALTER TABLE ONLY invites
 
 
 --
+-- Name: products_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: quotes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY quotes
+    ADD CONSTRAINT quotes_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -244,17 +349,31 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: index_customers_on_promoter_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_quotes_on_customer_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_customers_on_promoter_id ON customers USING btree (promoter_id);
+CREATE INDEX index_quotes_on_customer_id ON quotes USING btree (customer_id);
 
 
 --
--- Name: index_customers_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_quotes_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX index_customers_on_url_slug ON customers USING btree (url_slug);
+CREATE INDEX index_quotes_on_product_id ON quotes USING btree (product_id);
+
+
+--
+-- Name: index_quotes_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_quotes_on_url_slug ON quotes USING btree (url_slug);
+
+
+--
+-- Name: index_quotes_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_quotes_on_user_id ON quotes USING btree (user_id);
 
 
 --
@@ -272,10 +391,17 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_invitor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_sponsor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_users_on_invitor_id ON users USING btree (invitor_id);
+CREATE INDEX index_users_on_sponsor_id ON users USING btree (sponsor_id);
+
+
+--
+-- Name: index_users_on_upline; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_users_on_upline ON users USING gin (upline);
 
 
 --
@@ -293,35 +419,51 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: customers_promoter_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY customers
-    ADD CONSTRAINT customers_promoter_id_fk FOREIGN KEY (promoter_id) REFERENCES users(id);
-
-
---
--- Name: invites_invitee_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: invites_sponsor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY invites
-    ADD CONSTRAINT invites_invitee_id_fk FOREIGN KEY (invitee_id) REFERENCES users(id);
+    ADD CONSTRAINT invites_sponsor_id_fk FOREIGN KEY (sponsor_id) REFERENCES users(id);
 
 
 --
--- Name: invites_invitor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: invites_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY invites
-    ADD CONSTRAINT invites_invitor_id_fk FOREIGN KEY (invitor_id) REFERENCES users(id);
+    ADD CONSTRAINT invites_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
--- Name: users_invitor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: quotes_customer_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY quotes
+    ADD CONSTRAINT quotes_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customers(id);
+
+
+--
+-- Name: quotes_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY quotes
+    ADD CONSTRAINT quotes_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: quotes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY quotes
+    ADD CONSTRAINT quotes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: users_sponsor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
-    ADD CONSTRAINT users_invitor_id_fk FOREIGN KEY (invitor_id) REFERENCES users(id);
+    ADD CONSTRAINT users_sponsor_id_fk FOREIGN KEY (sponsor_id) REFERENCES users(id);
 
 
 --
@@ -339,4 +481,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140516075244');
 INSERT INTO schema_migrations (version) VALUES ('20140516164014');
 
 INSERT INTO schema_migrations (version) VALUES ('20140604062729');
+
+INSERT INTO schema_migrations (version) VALUES ('20140614053236');
+
+INSERT INTO schema_migrations (version) VALUES ('20140615034123');
 

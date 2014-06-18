@@ -3,7 +3,7 @@ require 'spec_helper'
 describe '/quote' do
 
   before :each do
-    @promoter = create(:user, url_slug: 'dude')
+    @user = create(:user, url_slug: 'dude')
   end
 
   let(:params) {{
@@ -11,11 +11,12 @@ describe '/quote' do
     first_name:  'some',
     last_name:   'dude',
     phone:       '8585551212',
-    promoter:    @promoter.url_slug, 
+    sponsor:      @user.url_slug,
+    product_id:   1,
     format:      :json }}
 
   it 'renders a new quote entity' do
-    get promoter_quote_path(@promoter.url_slug), format: :json
+    get sponsor_quote_path(@user.url_slug), format: :json
 
     expect_200
     expect_classes 'quote'
@@ -23,7 +24,7 @@ describe '/quote' do
   end
 
   it 'redirects when a promoter does not exist' do
-    get promoter_quote_path('foo'), format: :json
+    get sponsor_quote_path('foo'), format: :json
 
     expect(json_body.keys).to include('redirect')
   end

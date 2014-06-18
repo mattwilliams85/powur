@@ -1,17 +1,13 @@
 class Customer < ActiveRecord::Base
   include NameEmailSearch
-  after_create :email_customer
+  # after_create :email_customer
 
-  enum status: [ :incomplete, :complete, :submitted, :accepted, :voided, :installed ]
+  # enum status: [ :incomplete, :complete, :submitted, :accepted, :voided, :installed ]
 
-  belongs_to :promoter, class_name: 'User'
+  validates_presence_of :first_name, :last_name
+  validates_presence_of :email, :phone, :address, :city, :state, :zip, allow_nil: true
 
-  validates :url_slug, :first_name, :last_name, :promoter_id, :status, presence: true
-  validates :email, :phone, :address, :city, :state, :zip, presence: true, allow_nil: true
-
-  before_validation do
-    self.url_slug ||= SecureRandom.hex(8)
-  end
+  has_many :quotes
 
   def full_name
     "#{self.first_name} #{self.last_name}"
@@ -26,14 +22,5 @@ class Customer < ActiveRecord::Base
     data
   end
 
-  private
-
-  def can_email?
-    self.email && self.promoter_id && self.promoter.url_slug
-  end
-
-  def email_customer
-    PromoterMailer.customer_onboard(self).deliver if can_email?
-  end
 
 end

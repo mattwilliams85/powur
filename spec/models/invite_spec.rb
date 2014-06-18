@@ -15,9 +15,9 @@ describe Invite do
 
   it 'searches on invites' do
     user = create(:user)
-    create(:invite, invitor: user, first_name: 'Garry')
-    create(:invite, invitor: user, last_name: 'Gareys')
-    create(:invite, invitor: user, email: 'gary@example.org')
+    create(:invite, sponsor: user, first_name: 'Garry')
+    create(:invite, sponsor: user, last_name: 'Gareys')
+    create(:invite, sponsor: user, email: 'gary@example.org')
 
     results = Invite.search('gary')
     expect(results.size).to eq(3)

@@ -23,6 +23,10 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    Product.create!(
+      name:             'Solar Item', 
+      business_volume:  400.00,
+      quote_data:       %w(utility rate_schedule roof_material roof_age kwh))
   end
 
   config.before(:each) do
