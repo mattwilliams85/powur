@@ -140,7 +140,7 @@ function Dashboard(){
 		//wire up lead submission hook
 		$(document).on("click", "#new_lead_contact_form button", function(e){
 			e.preventDefault();
-			_formSubmit(e, $("#new_lead_contact_form"), "/customers", "POST", function(data, text){
+			_formSubmit(e, $("#new_lead_contact_form"), "/u/quotes", "POST", function(data, text){
 				//$(".js-new_quote_thumbnail .expand").click();
 				$("#new_lead_contact_form").fadeOut(150, function(){
 					$("#new_lead_contact_form input").val("");
@@ -154,13 +154,13 @@ function Dashboard(){
 			e.preventDefault();
 			_thisThumbnail.find(".expand").click();
 			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-			_ajax({_ajaxType:"delete", _url:"/customers/"+_quoteID, _callback:_displayUpdatedLeads()});
+			_ajax({_ajaxType:"delete", _url:"/u/quotes"+_quoteID, _callback:_displayUpdatedLeads()});
 		});
 
 		$(document).on("click", "#customer_contact_form .js-update_customer_info", function(e){
 			e.preventDefault();
 			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-			_ajax({_ajaxType:"patch", _url:"/customers/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:_displayUpdatedLeads()});
+			_ajax({_ajaxType:"patch", _url:"/u/quotes"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:_displayUpdatedLeads()});
 			_thisThumbnail.find(".expand").click();
 
 		});
@@ -322,7 +322,7 @@ function Dashboard(){
 
 				//retrieve info from /customers/:id for the quote
 				_userDetail={};
-				_ajax({_ajaxType:"get", _url:"/customers/"+_options._userID, _callback:function(data, text){
+				_ajax({_ajaxType:"get", _url:"/u/quotes/"+_options._userID, _callback:function(data, text){
 						_userDetail = data.properties;
 						//populate drilldown
 						_getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
@@ -536,7 +536,7 @@ function Dashboard(){
 			break;
 			
 			case "quotes":
-				_endPoint="/customers";
+				_endPoint="/u/quotes";
 			break;
 
 			case "invitations":

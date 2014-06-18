@@ -29,17 +29,16 @@ jQuery(function($){
     });
 
     $(document).on("click", "#customer_signup button", function(e){
-        //search to see if there is a matching email or phone 
         _formData = $("#customer_signup").serializeObject();
 
         //decide if the quote is already in the system
         if(_data.customer.actions.filter(function(action){return action.name=="update"}).length>0) _formData["quote"]=_data.customer.actions.filter(function(action){return action.name=="update"})[0].fields.filter(function(field){return field.name=="quote"})[0].value;
-        else _formData["promoter"] = _data.customer.actions.filter(function(action){return action.name=="create"})[0].fields.filter(function(field){return (field.name="promoter"&&field.type=="hidden")})[0].value
+        else _formData["sponsor"] = _data.customer.actions.filter(function(action){return action.name=="create"})[0].fields.filter(function(field){return (field.name="promoter"&&field.type=="hidden")})[0].value
 
         _verb= (typeof _formData.quote!== "undefined")? "patch":"post";
 
         _ajax({_ajaxType:_verb, _url:"/quote", _postObj:_formData, _callback:function(data, text){
-            console.log("data input complete");
+            //console.log("data input complete");
             _data.customer = data;
         }});
     });
