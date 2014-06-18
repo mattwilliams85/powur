@@ -13,14 +13,4 @@ class Customer < ActiveRecord::Base
     "#{self.first_name} #{self.last_name}"
   end
 
-  def data_status
-    data = []
-    data << :phone if self.phone
-    data << :email if self.email
-    data << :address if self.address && self.city && self.state && self.zip
-    data << :utility if self.kwh
-    data
-  end
-
-
 end

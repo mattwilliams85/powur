@@ -23,6 +23,15 @@ class Quote < ActiveRecord::Base
     PromoterMailer.customer_onboard(self).deliver if can_email?
   end
 
+  def data_status
+    data = []
+    data << :phone if self.customer.phone
+    data << :email if self.customer.email
+    data << :address if self.customer.address && self.customer.city && self.customer.state && self.customer.zip
+    data << :utility if self.data['kwh']
+    data
+  end
+
   private
 
   def product_data
