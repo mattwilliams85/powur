@@ -1,6 +1,4 @@
-class PromotersController < ApplicationController
-  include Anonymous
-
+class PromotersController < AnonController
   layout 'user'
 
   def thanks

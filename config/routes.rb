@@ -4,17 +4,26 @@ Rails.application.routes.draw do
     ->(r){ args.none? { |a| r.params[a].blank? } }
   end
 
-  resource :login, controller: :session, only: [ :show, :create, :destroy ] do
+  # anonymous routes
+  scope :a, module: :anon do
+
+    resource :login, controller: :session, only: [ :show, :create, :destroy ]
 
     resource :password, only: [ :show, :create, :new ] do
       put :update, on: :member
     end
 
-    post 'invite' => 'session#accept_invite'
-    delete 'invite' => 'session#clear_code'
+    resource :invite, only: [ :create, :update, :destroy ]
 
-    post :register
   end
+
+  # quote routes
+  resource :quote, only: [ :show, :create, :update ] do
+    post  :resend
+    get   ':sponsor'         => 'quotes#new', as: :sponsor
+    get   ':sponsor/:quote'  => 'quotes#show', as: :customer
+  end
+
 
   # logged in user routes
   scope :u, module: :auth do
@@ -42,12 +51,6 @@ Rails.application.routes.draw do
   resource :promoter, only: [ :new, :show ] do
     get :request
     get :thanks
-  end
-
-  resource :quote, only: [ :show, :create, :update ] do
-    post  :resend
-    get   ':sponsor'         => 'quotes#new', as: :sponsor
-    get   ':sponsor/:quote'  => 'quotes#show', as: :customer
   end
 
   # These are just to fake the referral pages so the link doesn't break - safe to remove when the feature is implemented

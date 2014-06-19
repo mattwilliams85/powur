@@ -21,11 +21,13 @@ describe 'index' do
 
   it 'returns registration when the user has inputted a code' do
     invite = create(:invite)
-    post invite_login_path, code: invite.id, format: :json
+    post invite_path, code: invite.id, format: :json
+
+    get root_path, format: :json
 
     expect_200
     expect_classes('session', 'registration')
-    expect_actions('create')
+    expect_actions('update')
   end
 
 end

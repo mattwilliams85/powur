@@ -1,12 +1,10 @@
-class IndexController < ApplicationController
-  include Anonymous
-
+class IndexController < AnonController
   layout 'landing'
 
   def index
     respond_to do |format|
       format.html
-      format.json { render "session/#{root_template}" }
+      format.json { render "anon/session/#{root_template}" }
     end
   end
 

@@ -15,7 +15,7 @@ describe '/password' do
   describe '/new' do
 
     it 'renders the password form with a valid reset token' do
-      get new_login_password_path, token: @user.reset_token
+      get new_password_path, token: @user.reset_token
 
       expect_200
       expect(response.body).to match(/Confirm Password/)
@@ -28,7 +28,7 @@ describe '/password' do
     it 'accepts a request to reset the password and sends the email' do
       user = create(:user)
 
-      post login_password_path, email: user.email, format: :json
+      post password_path, email: user.email, format: :json
 
       expect_200
       expect_confirm
@@ -38,7 +38,7 @@ describe '/password' do
 
   describe '#update' do
     it 'accepts a request to change the password' do
-      put login_password_path, token: @user.reset_token,
+      put password_path, token: @user.reset_token,
         password: 'new_password', password_confirm: 'new_password', format: :json
 
       expect_200

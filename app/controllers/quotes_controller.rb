@@ -1,4 +1,4 @@
-class QuotesController < ApplicationController
+class QuotesController < AnonController
   layout 'user'
 
   before_filter :fetch_sponsor, only: [ :new, :show, :create, :update ]
