@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
 
   # anonymous routes
-  scope :a, module: :anon do
+  scope module: :anon do
 
     resource :login, controller: :session, only: [ :show, :create, :destroy ]
 
