@@ -3,7 +3,7 @@ siren json
 klass :session, :registration
 
 actions \
-  action(:update, :patch, invite_path).
+  action(:create, :patch, invite_path).
     field(:code, :hidden, value: @invite.id).
     field(:first_name, :text, value: @invite.first_name).
     field(:last_name, :text, value: @invite.last_name).
