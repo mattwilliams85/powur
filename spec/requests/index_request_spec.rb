@@ -27,7 +27,7 @@ describe 'index' do
 
     expect_200
     expect_classes('session', 'registration')
-    expect_actions('update')
+    expect_actions('create')
   end
 
 end
