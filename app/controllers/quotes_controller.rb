@@ -13,7 +13,7 @@ class QuotesController < AnonController
   def show
     respond_to do |format|
       format.html { render 'new' }
-      format.json { render customer? ? 'show' : 'new' }
+      format.json { render quote? ? 'show' : 'new' }
     end
   end
 
@@ -36,7 +36,7 @@ class QuotesController < AnonController
   def update
     require_input :quote
 
-    customer? or not_found!(:quote, params[:quote])
+    quote? or not_found!(:quote, params[:quote])
 
     customer.update_attributes!(input)
 
@@ -64,12 +64,12 @@ class QuotesController < AnonController
     !@sponsor.nil?
   end
 
-  def customer
-    @customer ||= params[:quote] ? Customer.find_by_url_slug(params[:quote]) : nil
+  def quote
+    @quote ||= params[:quote] ? Quote.find_by_url_slug(params[:quote]) : nil
   end
 
-  def customer?
-    !!customer
+  def quote?
+    !!quote
   end
 
   private
