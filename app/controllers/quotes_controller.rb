@@ -82,7 +82,7 @@ class QuotesController < AnonController
   end
 
   def quote_input
-    allow_input(Product.default.quote_data.keys)
+    allow_input(Product.default.quote_data.map(&:to_sym))
   end
 
   def quote_from_email
