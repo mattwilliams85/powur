@@ -154,13 +154,13 @@ function Dashboard(){
 			e.preventDefault();
 			_thisThumbnail.find(".expand").click();
 			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-			_ajax({_ajaxType:"delete", _url:"/u/quotes"+_quoteID, _callback:_displayUpdatedLeads()});
+			_ajax({_ajaxType:"delete", _url:"/u/quotes/"+_quoteID, _callback:_displayUpdatedLeads()});
 		});
 
 		$(document).on("click", "#customer_contact_form .js-update_customer_info", function(e){
 			e.preventDefault();
 			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-			_ajax({_ajaxType:"patch", _url:"/u/quotes"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:_displayUpdatedLeads()});
+			_ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:_displayUpdatedLeads()});
 			_thisThumbnail.find(".expand").click();
 
 		});
