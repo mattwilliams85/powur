@@ -38,7 +38,8 @@ class QuotesController < AnonController
 
     quote? or not_found!(:quote, params[:quote])
 
-    customer.update_attributes!(input)
+    quote.customer.update_attributes!(customer_input)
+    quote.update_attributes!(quote_input)
 
     render 'show'
   end
