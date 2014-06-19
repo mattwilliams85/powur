@@ -20,7 +20,7 @@ class Quote < ActiveRecord::Base
   end
 
   def email_customer
-    PromoterMailer.customer_onboard(self).deliver if can_email?
+    PromoterMailer.new_quote(self).deliver if can_email?
   end
 
   def data_status

@@ -14,12 +14,12 @@ class PromoterMailer < ActionMailer::Base
     mail_chimp to, 'reset-password', merge_vars
   end
 
-  def customer_onboard(customer)
-    to = "#{customer.full_name} <#{customer.email}>"
+  def new_quote(quote)
+    to = "#{quote.customer.full_name} <#{quote.customer.email}>"
     merge_vars = { 
-      promoter_name:  customer.sponsor.full_name,
+      promoter_name:  quote.sponsor.full_name,
       quote_url:      customer_quote_url(
-                        customer.sponsor.url_slug, customer.url_slug) }
+                        quote.sponsor.url_slug, quote.customer.url_slug) }
 
     mail_chimp to, 'customer-onboard', merge_vars
   end
