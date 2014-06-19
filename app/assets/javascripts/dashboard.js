@@ -165,6 +165,14 @@ function Dashboard(){
 
 		});
 
+		$(document).on("click", ".js-resend_quote_email", function(e){
+			e.preventDefault();
+			_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
+			_ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:_displayUpdatedLeads()});
+			_thisThumbnail.find(".expand").click();
+
+		});		
+
 		$(document).on("click", ".js-close_drilldown", function(){
 			e.preventDefault();
 			$(".js-new_quote_thumbnail .expand").click();
