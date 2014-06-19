@@ -17,9 +17,9 @@ class PromoterMailer < ActionMailer::Base
   def new_quote(quote)
     to = "#{quote.customer.full_name} <#{quote.customer.email}>"
     merge_vars = { 
-      promoter_name:  quote.sponsor.full_name,
+      promoter_name:  quote.user.full_name,
       quote_url:      customer_quote_url(
-                        quote.sponsor.url_slug, quote.customer.url_slug) }
+                        quote.user.url_slug, quote.url_slug) }
 
     mail_chimp to, 'customer-onboard', merge_vars
   end

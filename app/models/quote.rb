@@ -16,7 +16,7 @@ class Quote < ActiveRecord::Base
   end
 
   def can_email?
-    self.customer.email && self.sponsor_id && self.sponsor.url_slug
+    self.customer.email && self.user_id && self.user.url_slug
   end
 
   def email_customer

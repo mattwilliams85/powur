@@ -25,4 +25,4 @@ end
 
 actions \
   update_action,
-  action(:resend, :post, resend_user_quote(@quote))
+  action(:resend, :post, resend_user_quote_path(@quote))
