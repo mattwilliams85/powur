@@ -43,7 +43,8 @@ module Auth
     end
 
     def resend
-      @quote.email_customer
+      # TODO: error msg on no email
+      @quote.email_customer if @quote.can_email?
 
       show
     end
