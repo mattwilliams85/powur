@@ -45,6 +45,9 @@ Rails.application.routes.draw do
       collection do
         get '' => 'quotes#search', constraints: has_params(:q)
       end
+      member do
+        post :resend
+      end
     end
   end
 

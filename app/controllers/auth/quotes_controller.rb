@@ -2,7 +2,7 @@ module Auth
 
   class QuotesController < AuthController
 
-    before_filter :fetch_quote, only: [ :show, :update, :destroy ]
+    before_filter :fetch_quote, only: [ :show, :update, :destroy, :resend ]
 
     def index
       @quotes = quote_list
@@ -29,6 +29,7 @@ module Auth
         user:       current_user,
         data:       quote_input)
 
+      @quote.email_customer if @quote.can_email?
       show
     end
 
@@ -37,6 +38,12 @@ module Auth
       @quote.update_attributes!(quote_input)
 
       confirm :update, entity: @quote.customer.full_name
+
+      show
+    end
+
+    def resend
+      @quote.email_customer
 
       show
     end

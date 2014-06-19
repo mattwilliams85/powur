@@ -23,4 +23,6 @@ update_action = action(:update, :patch, user_quote_path(@quote)).
   update_action.field(key, :text, required: false, value: value)
 end
 
-actions update_action
+actions \
+  update_action,
+  action(:resend, :post, resend_user_quote(@quote))
