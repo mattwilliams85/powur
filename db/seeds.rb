@@ -6,7 +6,8 @@ User.create(
   last_name:    'Budd',
   phone:        '858.555.1212',
   zip:          '92023',
-  url_slug:     'jon' )
+  url_slug:     'jon',
+  roles:        [ 'admin' ] )
 
 User.create(
   email:        'paul.walker@eyecuelab.com', 
@@ -15,7 +16,8 @@ User.create(
   last_name:    'Walker',
   phone:        '310.922.2629',
   zip:          '92127',
-  url_slug:     'paul' )
+  url_slug:     'paul',
+  roles:        [ 'admin' ] )
 
 User.create(
   email:        'rick.hou@eyecuelab.com', 
@@ -24,7 +26,8 @@ User.create(
   last_name:    'Hou',
   phone:        '720.555.1212',
   zip:          '97212',
-  url_slug:     'rick' )
+  url_slug:     'rick',
+  roles:        [ 'admin' ] )
 
 User.create(
   email:        'kevin.ponto@eyecuelab.com', 
@@ -33,7 +36,8 @@ User.create(
   last_name:    'Ponto',
   phone:        '805.555.1212',
   zip:          '93101',
-  url_slug:     'kevin' )
+  url_slug:     'kevin',
+  roles:        [ 'admin' ] )
 
 Product.create(
   name: 'SunRun Solar Item', 
