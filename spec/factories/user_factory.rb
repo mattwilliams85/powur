@@ -7,5 +7,6 @@ FactoryGirl.define do
     zip         '92127'
     password    'password'
     sequence(:url_slug) { |n| "#{first_name.downcase}_#{n}" }
+    roles       [ 'admin' ]
   end
 end

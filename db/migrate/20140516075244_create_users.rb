@@ -10,6 +10,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :url_slug
       t.string    :reset_token
       t.datetime  :reset_sent_at
+      t.string    :roles, array: true, default: []
       t.timestamps null: false
 
       t.belongs_to :sponsor, index: true

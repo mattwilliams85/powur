@@ -51,6 +51,20 @@ Rails.application.routes.draw do
     end
   end
 
+  scope :a, module: :admin do
+
+    resources :users, only: [ :index, :show, :update ], as: :admin_users do
+      collection do
+        get '' => 'users#search', constraints: has_params(:q)
+      end
+      member do
+        get :downline
+        get :upline
+      end
+    end
+
+  end
+
   resource :promoter, only: [ :new, :show ] do
     get :request
     get :thanks

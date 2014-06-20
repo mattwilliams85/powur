@@ -39,6 +39,10 @@ class User < ActiveRecord::Base
     query
   end
 
+  def has_role?(role)
+    self.roles.include?(role.to_s)
+  end
+
   private
 
   def set_upline

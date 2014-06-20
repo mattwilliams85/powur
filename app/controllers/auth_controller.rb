@@ -2,12 +2,7 @@ class AuthController < ApplicationController
   before_filter :authenticate!
 
   def authenticate!
-    unless current_user
-      # TODO: implement redirect_to for GET requests
-      respond_to do |format|
-        format.html { redirect_to root_url }
-        format.json { render status: :unauthorized, nothing: true }
-      end
-    end
+    redirect_to(root_url) unless logged_in?
   end
+
 end

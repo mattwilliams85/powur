@@ -239,6 +239,7 @@ CREATE TABLE users (
     url_slug character varying(255),
     reset_token character varying(255),
     reset_sent_at timestamp without time zone,
+    roles character varying(255)[] DEFAULT '{}'::character varying[],
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     sponsor_id integer,

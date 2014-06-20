@@ -1,4 +1,4 @@
 
-klass :customers, :list
-json.rel [ 'user-customers' ]
-json.href customers_path
+klass :quotes, :list
+json.rel [ 'user-quotes' ]
+json.href user_quotes_path
