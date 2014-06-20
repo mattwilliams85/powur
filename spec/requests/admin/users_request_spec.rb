@@ -16,7 +16,7 @@ describe '/a/users' do
       expect_200
 
       expect_classes('users', 'list')
-      expect(json_body['entities'].size).to eq(4)
+      expect(json_body['entities'].size).to eq(User.count)
     end
 
     it 'requires the user to be an admin' do

@@ -73,6 +73,10 @@ describe User do
       expect(users.pluck(:id).sort).to eq(childs.map(&:id).sort)
     end
 
+    after :all do
+      User.all.destroy
+    end
+
   end
 
 end
