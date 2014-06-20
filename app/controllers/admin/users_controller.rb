@@ -5,7 +5,12 @@ module Admin
     before_filter :fetch_user, only: [ :downline, :upline, :show, :update ]
 
     def index
-      @users = User.at_level(1).order(last_name: :desc, first_name: :desc)
+      respond_to do |format|
+        format.html
+        format.json do
+          @users = User.at_level(1).order(last_name: :desc, first_name: :desc)
+        end
+      end
 
       render 'index'
     end
@@ -23,6 +28,9 @@ module Admin
     end
 
     def search
+      @users = User.search(params[:q])
+
+      render 'index'
     end
 
     def show
