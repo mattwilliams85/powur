@@ -1,6 +1,8 @@
 class AdminController < AuthController
   before_filter :has_admin_role
 
+  layout 'admin'
+  
   private
 
   def has_admin_role

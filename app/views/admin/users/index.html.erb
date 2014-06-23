@@ -1,0 +1,76 @@
+<% content_for :javascript_includes do %>
+    <%= javascript_include_tag "dashboard.js" %>
+    <%= javascript_include_tag "kevins_shitty_javascript.js" %>
+<% end %>
+
+<style>
+    .full{
+        overflow: hidden;
+    }
+    .promoter_info.contact{
+        padding:32px 32px 0 0;
+        margin: 0 0 0 32px;
+    }
+
+    .summary{
+        width: 320px;
+        height: 100%;
+        min-height: 100%;
+        margin: 0;
+        padding: 32px;
+        position: relative;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+</style>
+
+
+<section id="subheader_bar">
+
+
+</section>
+
+<section id="admin" class="dashboard_section" data-drilldown-level="0">
+
+    <div class="section_header">
+        <div class="section_header_content">
+            <nav>
+                <ul>
+                    <li>Membership</li>
+                    <li>Sales</li>
+                    <li>Genealogy</li>
+                    <li>Activity</li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <div class="section_body">
+        <div class="section_content">
+            <div class="summary">
+                Left nav
+            </div>
+            
+            <div class="detail">
+                <div class="section_header_content">
+                    <nav>
+                        <ul>
+                            <li>Membership</li>
+                            <li>Sales</li>
+                            <li>Genealogy</li>
+                            <li>Activity</li>
+                        </ul>
+                    </nav>
+                </div>
+
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+    

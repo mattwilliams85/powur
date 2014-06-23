@@ -20,13 +20,17 @@
 						<a href="/">
 							<%= render :partial => "shared/sunstand_logo_svg" %>
 						</a>
-					</li>
+					</li>					
 					<li>
-						<%= link_to_unless_current 'Dashboard', "/dashboard" %>
+						<a href="">Users</a>
 					</li>	
 					<li>
-						<%= link_to_unless_current 'Training', "/training" %>
+						<a href="">Compensation Plans</a>
 					</li>
+					<li>
+						<a href="">Reports</a>
+					</li>
+
 				</ul>
 		
 				<ul id="user_nav">
@@ -40,13 +44,12 @@
 			</nav>
 		</div>
 
-		<%= render :partial => "shared/our_goal" %>
+		<%#= render :partial => "shared/our_goal" %>
 
 	</header>
 
 	<%= yield %>
 
-	<%#= render :partial => "shared/warp_nav" %>
 
 </body>
 </html>

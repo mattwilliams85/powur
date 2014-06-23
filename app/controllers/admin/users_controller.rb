@@ -12,7 +12,6 @@ module Admin
         end
       end
 
-      render 'index'
     end
 
     def downline
