@@ -12,10 +12,19 @@ module ParamValidation
     Hash[params.permit(*keys).map { |k,v| [ k, v.presence ] }]
   end
 
+  def try_input_error(value, arg_name)
+    if value.blank?
+      msg = t('errors.required', input: arg_name)
+      raise ::Errors::InputError.new(arg_name), msg
+    end
+  end
+
   def require_input(*args)
-    args.each do |arg|
-      if params[arg].blank?
-        raise ::Errors::InputError.new(arg), t('errors.required', input: arg)
+    embedded_args = args.last.kind_of?(Hash) ? args.pop : {}
+    args.each  { |arg| try_input_error(params[arg], arg) }
+    embedded_args.each do |key, args|
+      args.each do |arg|
+        try_input_error(params[key][arg], "#{key}[#{arg}]")
       end
     end
   end

@@ -182,6 +182,16 @@ ALTER SEQUENCE quotes_id_seq OWNED BY quotes.id;
 
 
 --
+-- Name: ranks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ranks (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -234,8 +244,7 @@ CREATE TABLE users (
     encrypted_password character varying(255) NOT NULL,
     first_name character varying(255) NOT NULL,
     last_name character varying(255) NOT NULL,
-    phone character varying(255),
-    zip character varying(255),
+    contact hstore DEFAULT ''::hstore,
     url_slug character varying(255),
     reset_token character varying(255),
     reset_sent_at timestamp without time zone,
@@ -331,6 +340,14 @@ ALTER TABLE ONLY products
 
 ALTER TABLE ONLY quotes
     ADD CONSTRAINT quotes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ranks
+    ADD CONSTRAINT ranks_pkey PRIMARY KEY (id);
 
 
 --
@@ -474,6 +491,8 @@ ALTER TABLE ONLY users
 SET search_path TO "$user",public;
 
 INSERT INTO schema_migrations (version) VALUES ('20140514044342');
+
+INSERT INTO schema_migrations (version) VALUES ('20140515033329');
 
 INSERT INTO schema_migrations (version) VALUES ('20140515201745');
 

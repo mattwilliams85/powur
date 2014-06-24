@@ -10,7 +10,7 @@ describe '/quote' do
     email:       'someone@somewhere.com',
     first_name:  'some',
     last_name:   'dude',
-    phone:       '8585551212',
+    'contact[phone]' => '8585551212',
     sponsor:      @user.url_slug,
     product_id:   1,
     format:      :json }}
@@ -33,6 +33,7 @@ describe '/quote' do
     post quote_path, params
 
     expect_200
+
     expect_classes 'quote'
     expect_actions 'update'
   end

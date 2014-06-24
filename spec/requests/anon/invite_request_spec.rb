@@ -64,8 +64,8 @@ describe '/a/invite' do
         email:      @invite.email,
         first_name: @invite.first_name,
         last_name:  @invite.last_name,
-        phone:      '8585551212',
-        zip:        '92127',
+        'contact[phone]'  => '8585551212',
+        'contact[zip]'    => '92127',
         password:   'password',
         format:     :json }
     end
@@ -77,7 +77,7 @@ describe '/a/invite' do
     end
 
     it 'requires certain fields' do
-      [:email, :first_name, :last_name, :phone, :zip].each do |field|
+      [:email, :first_name, :last_name].each do |field|
         patch invite_path, @user_params.reject { |k,v| k == field }
 
         expect_input_error(field)
@@ -88,7 +88,6 @@ describe '/a/invite' do
       patch invite_path, @user_params
 
       expect_200
-
       expect_classes('session', 'user')
 
       expect(json_body['properties']['first_name']).to include(@user_params[:first_name])
