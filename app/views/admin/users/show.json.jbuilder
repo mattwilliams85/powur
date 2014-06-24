@@ -3,7 +3,9 @@ siren json
 json.partial! 'item', user: @user, detail: true
 
 json.properties do
-  json.(@user, :phone, :zip)
+  @user.contact.each do |key, value|
+    json.set! key, value
+  end
 end
 
 actions \
