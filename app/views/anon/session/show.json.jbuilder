@@ -10,6 +10,7 @@ json.entities do
   json.partial! 'auth/invites/entity'
   json.partial! 'auth/users/entity'
   json.partial! 'auth/quotes/entity'
+  json.partial! 'admin/users/entity' if current_user.has_role?(:admin)
 end
 
 actions \
