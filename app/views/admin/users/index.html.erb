@@ -1,9 +1,16 @@
 <% content_for :javascript_includes do %>
     <%= javascript_include_tag "dashboard.js" %>
-    <%= javascript_include_tag "kevins_shitty_javascript.js" %>
 <% end %>
 
 <style>
+    body#application{
+        padding-top:108px;
+    }
+    body#application header{
+        height:108px;
+        z-index:20;
+    }
+
     .full{
         overflow: hidden;
     }
@@ -12,56 +19,76 @@
         margin: 0 0 0 32px;
     }
 
-    .summary{
-        width: 320px;
+    .dashboard_section_indicator{
+        position:absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 15px 30px 15px;
+        top:-15px;
+        left:600px;
+        z-index:50;
+        border-color: transparent transparent #f7f7f9 transparent;}
+
+
+    .js-admin_dashboard_column{
         height: 100%;
-        min-height: 100%;
+        min-height: 200px;
         margin: 0;
         padding: 32px;
         position: relative;
+        float:left;
         left: 0;
         top: 0;
         bottom: 0;
-        overflow: hidden;
+        overflow: hidden;}
+        .js-admin_dashboard_column.summary{
+            width: 160px;}
+        .js-admin_dashboard_column.detail{
+             width: 992px;}
+        .js-admin_dashboard_column.detail nav{
+            text-align: left;}
+
+    .js-admin_dashboard_detail_content{
+        background:#fff;
+        min-height: 300px;
+    }            
+
+    #subheader_bar{
+        height:10px;
+
+        position: relative;
+    }
+    .dashboard_section.admin{
+        background:#f7f7f9;
     }
 </style>
 
 
 <section id="subheader_bar">
-
-
+    <div class="dashboard_section_indicator"></div>
 </section>
 
-<section id="admin" class="dashboard_section" data-drilldown-level="0">
-
-    <div class="section_header">
-        <div class="section_header_content">
-            <nav>
-                <ul>
-                    <li>Membership</li>
-                    <li>Sales</li>
-                    <li>Genealogy</li>
-                    <li>Activity</li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+<section id="admin" class="dashboard_section admin">
 
     <div class="section_body">
         <div class="section_content">
-            <div class="summary">
+            <div class="js-admin_dashboard_column summary">
                 Left nav
             </div>
             
-            <div class="detail">
-                <div class="section_header_content">
+            <div class="js-admin_dashboard_column detail">
+                <nav c>
+                    <a href="">Membership</a>
+                    <a href="">Sales</a>
+                    <a href="">Genealogy</a>
+                    <a href="">Activity</a>
+                </nav>
+
+                <div class="js-admin_dashboard_detail_content">
                     <nav>
-                        <ul>
-                            <li>Membership</li>
-                            <li>Sales</li>
-                            <li>Genealogy</li>
-                            <li>Activity</li>
-                        </ul>
+                        <a href="">Basic Info</a>
+                        <a href="">Pay Out History</a>
                     </nav>
                 </div>
 
