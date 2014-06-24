@@ -29,6 +29,8 @@
         left:600px;
         z-index:50;
         border-color: transparent transparent #f7f7f9 transparent;}
+        .dashboard_section_indicator.sub{
+            border-color: transparent transparent #fff transparent;}
 
 
     .js-admin_dashboard_column{
@@ -36,6 +38,7 @@
         min-height: 200px;
         margin: 0;
         padding: 32px;
+        padding-top:48px;
         position: relative;
         float:left;
         left: 0;
@@ -47,12 +50,26 @@
         .js-admin_dashboard_column.detail{
              width: 992px;}
         .js-admin_dashboard_column.detail nav{
+            padding-left:16px;
             text-align: left;}
+        .js-admin_dashboard_column.detail nav a{
+            color:#cecece;
+            text-transform: uppercase;
+            font-family: "Varela";
+            font-weight: 100;
+            font-size:15px;
+            margin-right:40px;}
+        .js-admin_dashboard_column.detail nav a.active{
+            color:#20c2f1;}
+ 
 
     .js-admin_dashboard_detail_content{
+
+        position: relative;
         background:#fff;
         min-height: 300px;
-    }            
+        margin-top:16px;
+        padding:16px;}            
 
     #subheader_bar{
         height:10px;
@@ -86,6 +103,8 @@
                 </nav>
 
                 <div class="js-admin_dashboard_detail_content">
+                    <div class="dashboard_section_indicator sub"></div>
+
                     <nav>
                         <a href="">Basic Info</a>
                         <a href="">Pay Out History</a>
