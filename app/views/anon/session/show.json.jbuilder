@@ -6,11 +6,9 @@ json.properties do
   json.(current_user, :id, :first_name, :last_name)
 end
 
-json.entities do
-  json.partial! 'auth/invites/entity'
-  json.partial! 'auth/users/entity'
-  json.partial! 'auth/quotes/entity'
-end
+list = %w(auth/invites auth/users auth/quotes)
+list << 'admin/users' if current_user.has_role?(:admin)
+entities *list
 
 actions \
   action(:logout, :delete, login_path)

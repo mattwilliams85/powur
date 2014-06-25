@@ -10,6 +10,7 @@ describe '/a/users' do
 
     it 'returns level 1 users' do
       create_list(:user, 3)
+      create_list(:user, 2, sponsor: @user)
 
       get admin_users_path, format: :json
 
@@ -26,6 +27,23 @@ describe '/a/users' do
       get admin_users_path, format: :json
 
       expect(json_body.keys).to include('redirect')
+    end
+
+  end
+
+  describe '#update' do
+
+    let(:params) {{
+      address:  '42 Sunshine Way',
+      format:   :json }}
+
+    it 'updates a user' do
+      user = create(:user)
+
+      patch admin_user_path(user), params
+
+      expect_200
+      expect(json_body['properties']['address']).to eq(params[:address])
     end
 
   end

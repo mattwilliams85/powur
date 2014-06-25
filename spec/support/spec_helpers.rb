@@ -32,7 +32,8 @@ module SpecHelpers
   end
 
   def expect_entities(*args)
-    expect(json_body['entities'].map { |a| a['class'] }).flatten.to include(*args)
+    entities = json_body['entities'].map { |a| a['rel'] }.flatten
+    expect(entities).to include(*args)
   end
 
   def expect_actions(*args)

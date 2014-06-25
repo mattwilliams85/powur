@@ -10,7 +10,7 @@ describe '/quote' do
     email:       'someone@somewhere.com',
     first_name:  'some',
     last_name:   'dude',
-    'contact[phone]' => '8585551212',
+    phone:       '8585551212',
     sponsor:      @user.url_slug,
     product_id:   1,
     format:      :json }}
@@ -39,7 +39,6 @@ describe '/quote' do
   end
 
   it 'updates an existing quote' do
-    
   end
 
 end

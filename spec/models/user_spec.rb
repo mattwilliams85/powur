@@ -35,6 +35,13 @@ describe User do
     end
   end
 
+  describe 'contact field' do
+    it 'allows properties to be set directly on the model' do
+      user = create(:user, phone: '8585551212')
+
+    end
+  end
+
   describe '#upline' do
 
     before :all do

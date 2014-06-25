@@ -18,7 +18,7 @@ class QuotesController < AnonController
   end
 
   def create
-    require_input :first_name, :last_name, :email, :sponsor, contact: [ :phone ]
+    require_input :first_name, :last_name, :email, :sponsor, :phone
 
     not_found!(:sponsor, params[:sponsor]) unless sponsor?
 

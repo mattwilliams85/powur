@@ -6,6 +6,7 @@ describe 'index' do
     get root_path, format: :json
     
     expect_200
+
     expect_classes('session', 'anonymous')
     expect_actions('create', 'reset_password')
   end
@@ -16,6 +17,7 @@ describe 'index' do
 
     expect_200
     expect_classes('session', 'user')
+    expect_entities('user-invites', 'user-quotes', 'user-users')
     expect_actions('logout')
   end
 

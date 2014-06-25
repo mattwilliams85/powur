@@ -18,7 +18,7 @@ module SirenDSL
   Link = Struct.new(:rel, :href)
 
   included do
-    helper_method :siren, :klass, :action, :actions, :links, :link
+    helper_method :siren, :klass, :entities, :action, :actions, :links, :link
   end
 
   attr_reader :json
@@ -42,6 +42,14 @@ module SirenDSL
 
   def klass(*values)
     json.set! :class, values
+  end
+
+  def entities(*args)
+    # list = args.map { |entity| json.partial!("#{entity}/entity") }
+    json.entities args do |arg|
+      json.partial!("#{arg}/entity")
+    end
+    # json.entities list
   end
 
   def action(name, method, href)

@@ -13,7 +13,7 @@ actions \
     field(:email, :email).
     field(:first_name, :text).
     field(:last_name, :text).
-    field('contact[phone]', :text, required: false)
+    field(:phone, :text, required: false)
 
 links \
   link(:self, invites_path)
