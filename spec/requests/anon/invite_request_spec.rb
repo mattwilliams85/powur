@@ -64,8 +64,8 @@ describe '/a/invite' do
         email:      @invite.email,
         first_name: @invite.first_name,
         last_name:  @invite.last_name,
-        'contact[phone]'  => '8585551212',
-        'contact[zip]'    => '92127',
+        phone:      '8585551212',
+        zip:        '92127',
         password:   'password',
         format:     :json }
     end
