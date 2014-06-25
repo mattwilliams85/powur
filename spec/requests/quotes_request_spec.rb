@@ -39,7 +39,6 @@ describe '/quote' do
   end
 
   it 'updates an existing quote' do
-    
   end
 
 end
