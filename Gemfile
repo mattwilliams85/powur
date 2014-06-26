@@ -19,6 +19,7 @@ gem 'rails-settings-cached'
 gem 'gibbon'
 gem 'valid_email', require: 'valid_email/email_validator'
 gem 'foreigner', github: 'matthuhiggins/foreigner'
+gem 'faker'
 
 gem 'pry-rails'
 
@@ -31,6 +32,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'awesome_print'
+
   # gem 'debugger'
 end
 

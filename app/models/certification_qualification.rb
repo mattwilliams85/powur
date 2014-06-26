@@ -1,0 +1,3 @@
+class CertificationQualification < Qualification
+
+end

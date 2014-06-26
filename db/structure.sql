@@ -58,6 +58,35 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: certifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE certifications (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL
+);
+
+
+--
+-- Name: certifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE certifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: certifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE certifications_id_seq OWNED BY certifications.id;
+
+
+--
 -- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -120,7 +149,8 @@ CREATE TABLE invites (
 CREATE TABLE products (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    business_volume numeric(8,2),
+    commissionable_volume numeric(8,2) NOT NULL,
+    commission_percentage integer DEFAULT 100 NOT NULL,
     quote_data character varying(255)[] DEFAULT '{}'::character varying[],
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -144,6 +174,71 @@ CREATE SEQUENCE products_id_seq
 --
 
 ALTER SEQUENCE products_id_seq OWNED BY products.id;
+
+
+--
+-- Name: qualification_paths; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE qualification_paths (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL
+);
+
+
+--
+-- Name: qualification_paths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE qualification_paths_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: qualification_paths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE qualification_paths_id_seq OWNED BY qualification_paths.id;
+
+
+--
+-- Name: qualifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE qualifications (
+    id integer NOT NULL,
+    type character varying(255) NOT NULL,
+    period integer,
+    quantity integer,
+    max_leg_percent integer,
+    path_id integer NOT NULL,
+    rank_id integer NOT NULL,
+    certification_id integer,
+    product_id integer
+);
+
+
+--
+-- Name: qualifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE qualifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: qualifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE qualifications_id_seq OWNED BY qualifications.id;
 
 
 --
@@ -249,10 +344,10 @@ CREATE TABLE users (
     reset_token character varying(255),
     reset_sent_at timestamp without time zone,
     roles character varying(255)[] DEFAULT '{}'::character varying[],
+    upline integer[] DEFAULT '{}'::integer[],
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sponsor_id integer,
-    upline integer[] DEFAULT '{}'::integer[]
+    sponsor_id integer
 );
 
 
@@ -279,6 +374,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY certifications ALTER COLUMN id SET DEFAULT nextval('certifications_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
 
 
@@ -287,6 +389,20 @@ ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq
 --
 
 ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualification_paths ALTER COLUMN id SET DEFAULT nextval('qualification_paths_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications ALTER COLUMN id SET DEFAULT nextval('qualifications_id_seq'::regclass);
 
 
 --
@@ -311,6 +427,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
+-- Name: certifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY certifications
+    ADD CONSTRAINT certifications_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -332,6 +456,22 @@ ALTER TABLE ONLY invites
 
 ALTER TABLE ONLY products
     ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: qualification_paths_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY qualification_paths
+    ADD CONSTRAINT qualification_paths_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: qualifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT qualifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -364,6 +504,34 @@ ALTER TABLE ONLY settings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_qualifications_on_certification_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_qualifications_on_certification_id ON qualifications USING btree (certification_id);
+
+
+--
+-- Name: index_qualifications_on_path_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_qualifications_on_path_id ON qualifications USING btree (path_id);
+
+
+--
+-- Name: index_qualifications_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_qualifications_on_product_id ON qualifications USING btree (product_id);
+
+
+--
+-- Name: index_qualifications_on_rank_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_qualifications_on_rank_id ON qualifications USING btree (rank_id);
 
 
 --
@@ -453,6 +621,38 @@ ALTER TABLE ONLY invites
 
 
 --
+-- Name: qualifications_certification_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT qualifications_certification_id_fk FOREIGN KEY (certification_id) REFERENCES certifications(id);
+
+
+--
+-- Name: qualifications_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT qualifications_path_id_fk FOREIGN KEY (path_id) REFERENCES qualification_paths(id);
+
+
+--
+-- Name: qualifications_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT qualifications_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: qualifications_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT qualifications_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
 -- Name: quotes_customer_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -505,4 +705,10 @@ INSERT INTO schema_migrations (version) VALUES ('20140604062729');
 INSERT INTO schema_migrations (version) VALUES ('20140614053236');
 
 INSERT INTO schema_migrations (version) VALUES ('20140615034123');
+
+INSERT INTO schema_migrations (version) VALUES ('20140623080139');
+
+INSERT INTO schema_migrations (version) VALUES ('20140624072730');
+
+INSERT INTO schema_migrations (version) VALUES ('20140625072238');
 

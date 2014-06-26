@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     end
   end
 
+  # logged in admin routes
   scope :a, module: :admin do
 
     resources :users, only: [ :index, :show, :update ], as: :admin_users do
@@ -62,6 +63,8 @@ Rails.application.routes.draw do
         get :upline
       end
     end
+
+    resources :ranks, only: [ :index, :create, :update, :destroy ], defaults: { format: :json }
 
   end
 
