@@ -1,5 +1,5 @@
 <% content_for :javascript_includes do %>
-    <%= javascript_include_tag "dashboard.js" %>
+    <%= javascript_include_tag "admin.js" %>
 <% end %>
 
 <style>
@@ -46,9 +46,9 @@
         bottom: 0;
         overflow: hidden;}
         .js-admin_dashboard_column.summary{
-            width: 160px;}
+            width: 192px;}
         .js-admin_dashboard_column.detail{
-             width: 992px;}
+             width: 960px;}
         .js-admin_dashboard_column.detail nav{
             padding-left:16px;
             text-align: left;}
@@ -59,12 +59,11 @@
             font-weight: 100;
             font-size:15px;
             margin-right:40px;}
-        .js-admin_dashboard_column.detail nav a.active{
+        .js-admin_dashboard_column.detail nav a.js-active{
             color:#20c2f1;}
  
 
     .js-admin_dashboard_detail_content{
-
         position: relative;
         background:#fff;
         min-height: 300px;
@@ -73,12 +72,20 @@
 
     #subheader_bar{
         height:10px;
+        position: relative;}
 
-        position: relative;
-    }
     .dashboard_section.admin{
-        background:#f7f7f9;
-    }
+        background:#f7f7f9;}
+
+     .subtext.summary{
+        text-align: left;
+        padding-bottom:40px;
+        font-size: 14px;}
+        .subtext.summary ul{
+            list-style: none;
+            white-space:nowrap;
+        }
+
 </style>
 
 
@@ -91,12 +98,11 @@
     <div class="section_body">
         <div class="section_content">
             <div class="js-admin_dashboard_column summary">
-                Left nav
             </div>
             
             <div class="js-admin_dashboard_column detail">
-                <nav c>
-                    <a href="">Membership</a>
+                <nav>
+                    <a href="" class="js-active">Membership</a>
                     <a href="">Sales</a>
                     <a href="">Genealogy</a>
                     <a href="">Activity</a>
@@ -106,7 +112,7 @@
                     <div class="dashboard_section_indicator sub"></div>
 
                     <nav>
-                        <a href="">Basic Info</a>
+                        <a href="" class="js-active">Basic Info</a>
                         <a href="">Pay Out History</a>
                     </nav>
                 </div>

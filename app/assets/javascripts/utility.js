@@ -226,8 +226,43 @@ function _queryServer(_options){
 
 
 
-//****** admin utilities  *******//
+//****** json utilities  *******//
 
+
+//function that returns the sub objects within json that matches certain
+//_dataObj: required, the main JSON that you would like to to search from
+//_criteria: required, there are 3 ways to specify _criteria:
+//  "val=xxx" returns all objects that contain values that match xxx
+//  "key=xxx" returns all objects that contain keys that match xxx
+//  {xxx:"yyy"} returns all objects that contain keys that match xxx AND values that match "yyy" 
+//_results: optional, the object that stores the result
+//_path: internal, do not pass in _path information
+function _getObjectsByCriteria(_dataObj, _criteria, _results, _path){
+    if(typeof _path === "undefined") _path="";
+    if(typeof _results === "undefined") _results = [];
+    if(!_results instanceof Array) _results = [];
+
+    if(typeof _criteria === "undefined" ) return;
+    var _value, _key, _json;
+
+    if(typeof _criteria === "object" ) _json=_criteria;
+    if(typeof _criteria === "string" ) {
+        _value= _criteria.split("=")[0].toLowerCase()==="val"? _criteria.split("=")[1]:undefined;
+        _key= _criteria.split("=")[0].toLowerCase()==="key"? _criteria.split("=")[1]:undefined;
+    }
+    Object.keys(_dataObj).forEach(function(key){
+        if((typeof _value !== "undefined") && (typeof _dataObj[key]==="string") && (_dataObj[key].toLowerCase() ===_value.toLowerCase()) ) _results.push(_dataObj);
+        if((typeof _json !== "undefined") && (typeof _dataObj[key]==="string") && (key.toLowerCase() === Object.keys(_json)[0].toLowerCase()) && (_dataObj[key].toLowerCase() ===_json[Object.keys(_json)[0]].toLowerCase())) _results.push(_dataObj);
+        if((typeof _key !== "undefined") && (key.toLowerCase() ===_key.toLowerCase()) ) _results.push(_dataObj);
+
+        //recursively look through the rest of the JSON
+        if(!!_dataObj[key] && typeof _dataObj[key] === "object" && Object.keys(_dataObj[key]).length>0) {
+            _dataObj[key]["path"]=_path+"/"+key;
+            _getObjectsByCriteria(_dataObj[key], _criteria, _results, _dataObj[key]["path"]);
+        }
+    });
+    return _results;
+}
 
 
 
