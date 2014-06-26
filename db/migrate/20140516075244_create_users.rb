@@ -10,11 +10,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :reset_token
       t.datetime  :reset_sent_at
       t.string    :roles, array: true, default: []
+      t.integer   :upline, array: true, default: []
       t.timestamps null: false
 
       t.belongs_to :sponsor, index: true
-      t.integer :upline, array: true, default: []
-
       t.foreign_key :users, column: :sponsor_id, primary_key: :id
     end
 

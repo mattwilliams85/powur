@@ -37,6 +37,6 @@ User.create(
 
 Product.create(
   name: 'SunRun Solar Item', 
-  business_volume: 400.00, 
+  commissionable_volume: 400.00, 
   quote_data: %w(utility rate_schedule roof_material roof_age kwh))
 
