@@ -18,18 +18,20 @@ namespace :sunstand do
 
     def generate_downline(user, levels, per_user, max_users)
       return max_users if max_users.zero? || levels.zero?
+      per_user = max_users if max_users < per_user
 
-      1.upto(rand(0..per_user)) do |i|
-        child = generate_user(sponsor: user)
-        if max_users % 10 == 0
-          puts "\t#{max_users} users left to generate..."
-        end
+      children = 1.upto(rand(0..per_user)).map do |i|
+        generate_user(sponsor: user)
+      end
+      max_users -= children.count
+
+      puts "\tgenerated #{children.count} children: #{max_users} max left..."
+      children.each do |child|
         max_users = generate_downline(
           child, 
           levels - 1,
           per_user - (per_user / levels),
-          max_users - 1)
-
+          max_users)
         break if max_users.zero?
       end
 
@@ -37,7 +39,7 @@ namespace :sunstand do
     end
 
     task :users, [ :total, :per_user, :levels ] => :environment do |t, args|
-      args.with_defaults(total: 1000, per_user: 20, levels: 8 )
+      args.with_defaults(total: 1000, per_user: 20, levels: 3 )
 
       users = User.all.to_a
 
