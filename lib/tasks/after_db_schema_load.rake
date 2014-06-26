@@ -5,6 +5,10 @@ namespace :sunstand do
       puts 'Adding primary key for :invites'
       query = 'alter table invites add primary key (id);'
       ActiveRecord::Base.connection.execute(query)
+
+      puts 'Adding primary key for :ranks'
+      query = 'alter table ranks add primary key (id);'
+      ActiveRecord::Base.connection.execute(query)
     end
   end
 end

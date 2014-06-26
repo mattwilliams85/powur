@@ -4,7 +4,8 @@ User.create(
   password:     'solarpower', 
   first_name:   'Jonanthan', 
   last_name:    'Budd',
-  contact:      { 'phone' => '858.555.1212', 'zip' => '92023' },
+  phone:        '858.555.1212',
+  zip:          '92023',
   url_slug:     'jon',
   roles:        [ 'admin' ] )
 
@@ -13,7 +14,8 @@ User.create(
   password:     'solarpower', 
   first_name:   'Paul', 
   last_name:    'Walker',
-  contact:      { 'phone' => '858.555.1212', 'zip' => '92023' },
+  phone:        '858.555.1212',
+  zip:          '92023',
   url_slug:     'paul',
   roles:        [ 'admin' ] )
 
@@ -22,7 +24,8 @@ User.create(
   password:     'solarpower', 
   first_name:   'Rick', 
   last_name:    'Hou',
-  contact:      { 'phone' => '858.555.1212', 'zip' => '92023' },
+  phone:        '858.555.1212',
+  zip:          '92023',
   url_slug:     'rick',
   roles:        [ 'admin' ] )
 
@@ -31,7 +34,8 @@ User.create(
   password:     'solarpower', 
   first_name:   'Kevin', 
   last_name:    'Ponto',
-  contact:      { 'phone' => '858.555.1212', 'zip' => '92023' },
+  phone:        '858.555.1212',
+  zip:          '92023',
   url_slug:     'kevin',
   roles:        [ 'admin' ] )
 

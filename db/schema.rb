@@ -11,29 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140615034123) do
+ActiveRecord::Schema.define(version: 20140625072238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
   enable_extension "hstore"
 
+  create_table "certifications", force: true do |t|
+    t.string "title", null: false
+  end
+
   create_table "customers", force: true do |t|
-    t.string   "first_name",    null: false
-    t.string   "last_name",     null: false
+    t.string   "first_name", null: false
+    t.string   "last_name",  null: false
     t.string   "email"
     t.string   "phone"
     t.string   "address"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.string   "utility"
-    t.integer  "rate_schedule"
-    t.integer  "kwh"
-    t.string   "roof_material"
-    t.integer  "roof_age"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "invites", id: false, force: true do |t|
@@ -50,15 +49,37 @@ ActiveRecord::Schema.define(version: 20140615034123) do
   end
 
   create_table "products", force: true do |t|
-    t.string   "name",                                    null: false
-    t.decimal  "business_volume", precision: 8, scale: 2
+    t.string   "name",                                                        null: false
+    t.decimal  "commissionable_volume", precision: 8, scale: 2,               null: false
+    t.integer  "commission_percentage",                         default: 100, null: false
+    t.string   "quote_data",                                    default: [],               array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  create_table "qualification_paths", force: true do |t|
+    t.string "title", null: false
+  end
+
+  create_table "qualifications", force: true do |t|
+    t.string  "type",             null: false
+    t.integer "period"
+    t.integer "quantity"
+    t.integer "max_leg_percent"
+    t.integer "path_id",          null: false
+    t.integer "rank_id",          null: false
+    t.integer "certification_id"
+    t.integer "product_id"
+  end
+
+  add_index "qualifications", ["certification_id"], name: "index_qualifications_on_certification_id", using: :btree
+  add_index "qualifications", ["path_id"], name: "index_qualifications_on_path_id", using: :btree
+  add_index "qualifications", ["product_id"], name: "index_qualifications_on_product_id", using: :btree
+  add_index "qualifications", ["rank_id"], name: "index_qualifications_on_rank_id", using: :btree
+
   create_table "quotes", force: true do |t|
     t.string   "url_slug",                 null: false
-    t.hstore   "properties",  default: "", null: false
+    t.hstore   "data",        default: {}, null: false
     t.integer  "customer_id",              null: false
     t.integer  "product_id",               null: false
     t.integer  "user_id",                  null: false
@@ -70,6 +91,11 @@ ActiveRecord::Schema.define(version: 20140615034123) do
   add_index "quotes", ["product_id"], name: "index_quotes_on_product_id", using: :btree
   add_index "quotes", ["url_slug"], name: "index_quotes_on_url_slug", unique: true, using: :btree
   add_index "quotes", ["user_id"], name: "index_quotes_on_user_id", using: :btree
+
+  create_table "ranks", id: false, force: true do |t|
+    t.integer "id",    null: false
+    t.string  "title", null: false
+  end
 
   create_table "settings", force: true do |t|
     t.string   "var",                   null: false
@@ -87,15 +113,15 @@ ActiveRecord::Schema.define(version: 20140615034123) do
     t.string   "encrypted_password",              null: false
     t.string   "first_name",                      null: false
     t.string   "last_name",                       null: false
-    t.string   "phone"
-    t.string   "zip"
+    t.hstore   "contact",            default: {}
     t.string   "url_slug"
     t.string   "reset_token"
     t.datetime "reset_sent_at"
+    t.string   "roles",              default: [],              array: true
+    t.integer  "upline",             default: [],              array: true
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "sponsor_id"
-    t.integer  "upline",             default: [],              array: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -105,6 +131,11 @@ ActiveRecord::Schema.define(version: 20140615034123) do
 
   add_foreign_key "invites", "users", name: "invites_sponsor_id_fk", column: "sponsor_id"
   add_foreign_key "invites", "users", name: "invites_user_id_fk"
+
+  add_foreign_key "qualifications", "certifications", name: "qualifications_certification_id_fk"
+  add_foreign_key "qualifications", "products", name: "qualifications_product_id_fk"
+  add_foreign_key "qualifications", "qualification_paths", name: "qualifications_path_id_fk", column: "path_id"
+  add_foreign_key "qualifications", "ranks", name: "qualifications_rank_id_fk"
 
   add_foreign_key "quotes", "customers", name: "quotes_customer_id_fk"
   add_foreign_key "quotes", "products", name: "quotes_product_id_fk"
