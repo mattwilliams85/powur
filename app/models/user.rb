@@ -47,14 +47,9 @@ class User < ActiveRecord::Base
     self.upline.size
   end
 
-  def downline_users(down_level = 1)
+  def downline_users
     User.child_count_list(self)
   end
-  # def downline_users(down_level = nil)
-  #   query = User.with_upline_at(self.id, self.level)
-  #   query = query.at_level(self.level + down_level) if down_level
-  #   query
-  # end
 
   def has_role?(role)
     self.roles.include?(role.to_s)

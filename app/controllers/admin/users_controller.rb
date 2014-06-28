@@ -14,7 +14,7 @@ module Admin
     end
 
     def downline
-      @users = @user.downline_users(1)
+      @users = @user.downline_users
 
       render 'index'
     end

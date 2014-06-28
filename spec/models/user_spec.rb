@@ -47,37 +47,23 @@ describe User do
     before :all do
       @root = create(:user)
       @parent = create(:user, sponsor: @root)
-      @child = create(:user, sponsor: @parent)
+      @children = create_list(:user, 2, sponsor: @parent)
     end
 
     it 'sets the upline users after create' do
       expect(@root.upline).to eq([@root.id])
       expect(@parent.upline).to eq([@root.id, @parent.id])
-      expect(@child.upline).to eq([@root.id, @parent.id, @child.id])
+      expect(@children.first.upline).to eq([@root.id, @parent.id, @children.first.id])
     end
 
     it 'returns the upline users' do
-      users = @child.upline_users
+      users = @children.first.upline_users
       expect(users.pluck(:id).sort).to eq([@root.id, @parent.id].sort)
     end
 
     it 'returns the downline users' do
-      users = @root.downline_users
-      expect(users.map(&:id).sort).to eq([@parent.id, @child.id].sort)
-    end
-
-    it 'returns the downline users by level' do
-      root = create(:user)
-      parents = create_list(:user, 2, sponsor: root)
-      childs = parents.map do |parent|
-        create_list(:user, 2, sponsor: parent)
-      end.flatten
-
-      users = root.downline_users(1)
-      expect(users.map(&:id).sort).to eq(parents.map(&:id).sort)
-
-      users = root.downline_users(2)
-      expect(users.map(&:id).sort).to eq(childs.map(&:id).sort)
+      users = @parent.downline_users
+      expect(users.map(&:id).sort).to eq(@children.map(&:id).sort)
     end
 
     after :all do

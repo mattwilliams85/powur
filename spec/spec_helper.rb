@@ -21,6 +21,7 @@ RSpec.configure do |config|
   config.include SpecHelpers
 
   config.before(:suite) do
+    ActiveRecord::Migration.maintain_test_schema!
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
     Product.create!(
