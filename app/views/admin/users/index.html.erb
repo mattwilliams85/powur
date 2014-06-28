@@ -19,17 +19,18 @@
         margin: 0 0 0 32px;
     }
 
-    .dashboard_section_indicator{
+    .js-dashboard_section_indicator{
         position:absolute;
         width: 0;
         height: 0;
         border-style: solid;
         border-width: 0 15px 30px 15px;
-        top:-15px;
-        left:600px;
+        opacity: 0;
+        top:0px;
+        left:0px;
         z-index:50;
         border-color: transparent transparent #f7f7f9 transparent;}
-        .dashboard_section_indicator.sub{
+        .js-dashboard_section_indicator.second_level{
             border-color: transparent transparent #fff transparent;}
 
 
@@ -63,12 +64,24 @@
             color:#20c2f1;}
  
 
-    .js-admin_dashboard_detail_content{
+    .js-admin_dashboard_detail_container{
         position: relative;
         background:#fff;
         min-height: 300px;
         margin-top:16px;
-        padding:16px;}            
+        overflow: hidden;
+        padding:16px;}
+    .js-admin_dashboard_detail{
+        text-align: left;
+        width:inherit;
+        padding-top:16px;}
+        .js-admin_dashboard_detail legend{
+            font-size:16px;
+            text-transform: uppercase;
+            color:#555;
+            margin-bottom: 4px;}                
+        .js-admin_dashboard_detail form input{
+            color:rgb(155, 155, 155);}
 
     #subheader_bar{
         height:10px;
@@ -85,12 +98,41 @@
             list-style: none;
             white-space:nowrap;
         }
+    nav.section_subnav{
+        padding-bottom:8px;
+        margin-bottom:8px;
+        border-bottom:1px solid #ccc;
+    }
+    .admin_form{
+        padding-top:0px;}
+    .flex_row{
+        flex-flow: row wrap;
+       display: -webkit-flex;
+       display: flex;
+       -webkit-flex-direction: row;
+       flex-direction: row;
+        font-size:14px;
+        line-height: 28px;
+        padding: 0 16px;
+        color:rgb(155, 155, 155);}
+    .flex_row>div{
+        -webkit-flex: auto;
+        flex: auto;}
+    .flex_row>div:last-child{
+        margin-right:0;
+        text-align: right;}
+
+    .genealogy_downline_table{
+        text-align: left;
+        font-size: 14px;
+        width:100%;
+    }
 
 </style>
 
 
 <section id="subheader_bar">
-    <div class="dashboard_section_indicator"></div>
+    <div class="js-dashboard_section_indicator top_level"></div>
 </section>
 
 <section id="admin" class="dashboard_section admin">
@@ -101,20 +143,14 @@
             </div>
             
             <div class="js-admin_dashboard_column detail">
-                <nav>
-                    <a href="" class="js-active">Membership</a>
-                    <a href="">Sales</a>
-                    <a href="">Genealogy</a>
-                    <a href="">Activity</a>
+                <nav class="section_nav">
+                    <a href="#admin-users-membership" class="js-active">Membership</a>
+                    <a href="#admin-users-sales">Sales</a>
+                    <a href="#admin-users-genealogy">Genealogy</a>
+                    <a href="#admin-users-activity">Activity</a>
                 </nav>
-
-                <div class="js-admin_dashboard_detail_content">
-                    <div class="dashboard_section_indicator sub"></div>
-
-                    <nav>
-                        <a href="" class="js-active">Basic Info</a>
-                        <a href="">Pay Out History</a>
-                    </nav>
+                <div class="js-dashboard_section_indicator second_level"></div>
+                <div class="js-admin_dashboard_detail_container">
                 </div>
 
                 
