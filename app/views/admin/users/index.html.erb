@@ -122,11 +122,19 @@
         margin-right:0;
         text-align: right;}
 
-    .genealogy_downline_table{
+    .genealogy_table{
+        border-spacing: 12px;
+        border-collapse: separate;        
         text-align: left;
         font-size: 14px;
         width:100%;
-    }
+        table-layout: fixed;}
+        .genealogy_table th:nth-child(1){width:150px;}
+        .genealogy_table th:nth-child(2){width:80px;}
+        .genealogy_table th:nth-child(3){width:250px;}
+        .genealogy_table th:nth-child(4){width:150px;}
+        .genealogy_table td{overflow: hidden; line-height: 18px;}
+        .genealogy_table th{text-transform: uppercase; font-size: 12px;}
 
 </style>
 

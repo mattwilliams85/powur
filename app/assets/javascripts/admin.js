@@ -14,7 +14,7 @@ jQuery(function($){
             _data.rootUsers=[];
             _data.currentUser={};
             _dashboard = new AdminDashboard();
-            _dashboard.getUsers({_callback:function(){
+            _dashboard.getRootUsers({_callback:function(){
                 _data.currentUser=_data.rootUsers[0];
                 _dashboard.displayUsers("#admin-users-init");
                 //adjust dashboard pointer 
@@ -27,22 +27,8 @@ jQuery(function($){
                     _dashboard.displayUsers($(this).attr("href"));
                 });
 
-                //user link init (context switching)
-                $(document).on("click", ".js-user_link", function(e){
-                    e.preventDefault();
-                    var _userID;
-                    _userID=parseInt($(e.target).attr("href").replace("#",""));
-                    if(!!_userID){
-                        _ajax({
-                            _ajaxType:"get",
-                            _url:"/a/users/"+_userID,
-                            _callback:function(data, text){
-                                _data.currentUser= _getObjectsByCriteria(data, "key=address")[0];
-                                _dashboard.displayUsers("#admin-users-membership")
-                            }
-                        })
-                    }
-                })
+                $(document).on("click", ".js-user_link", function(e){_dashboard.switchCurrentUser(e)});
+                $(document).on("change", ".js-user_select", function(e){_dashboard.switchCurrentUser(e)});
 
             }});
         }
@@ -52,23 +38,43 @@ jQuery(function($){
 
 
     function AdminDashboard(){
-        this.getUsers = getUsers;
+        this.getRootUsers = getRootUsers;
+        this.getGenealogy = getGenealogy;
         this.displayUsers = displayUsers;
+        this.switchCurrentUser = switchCurrentUser;
 
         //function get root users if _id is undefined
         //otherwise get specific user info
-        function getUsers(_options){
+        function getRootUsers(_options){
             if (typeof _options._id === "undefined"){
                 _ajax({
                     _ajaxType:"get",
                     _url:"/a/users",
                     _callback:function(data, text){
-                        _getObjectsByCriteria(data, "key=first_name").forEach(function(user){_data.rootUsers.push(user);});
+                        data.entities.forEach(function(user, index){
+                            _data.rootUsers.push(user.properties);
+                            _data.rootUsers[index].actions = user.links;
+                        });
                         if(typeof _options._callback === "function") _options._callback();
                     }
                 });
-
                 return _data.rootUsers;
+            }
+        }
+
+        function switchCurrentUser(e){
+            e.preventDefault();
+            var _userID;
+            _userID= $(e.target)[0].tagName.toLowerCase()==="select"? parseInt($(e.target).val().replace("#","")) : parseInt($(e.target).attr("href").replace("#",""));
+            if(!!_userID){
+                _ajax({
+                    _ajaxType:"get",
+                    _url:"/a/users/"+_userID,
+                    _callback:function(data, text){
+                        _data.currentUser= _getObjectsByCriteria(data, "key=address")[0];
+                        _dashboard.displayUsers("#admin-users-membership");
+                    }
+                });
             }
         }
 
@@ -85,6 +91,7 @@ jQuery(function($){
                         _callback:function(data, text){
                             _data.currentUser= _getObjectsByCriteria(data, "key=address")[0];
                             _data.currentUser.actions = _getObjectsByCriteria(data, "key=rel");
+
                             if(_tab==="#admin-users-init"){    
                                 _data.currentUser["userDropDown"]=[];
                                 _data.rootUsers.forEach(function(rootUser){
@@ -98,75 +105,59 @@ jQuery(function($){
                                 });
                             }
 
-                            _getTemplate("/templates/admin/users/membership/_summary.handlebars.html", _data.currentUser, $(".js-admin_dashboard_column.summary"));
+                            //retrieve genealogy info
+                            getGenealogy({
+                                _callback:function(){
+                                    _data.currentUser.immediateUpline=_data.currentUser.upline[Object.keys(_data.currentUser.upline).length-1];
+                                    _getTemplate("/templates/admin/users/membership/_summary.handlebars.html", _data.currentUser, $(".js-admin_dashboard_column.summary"));
 
-                            //prepare for summary information
-                            _getTemplate("/templates/admin/users/membership/_detail_container.handlebars.html", _data.currentUser, $(".js-admin_dashboard_detail_container"), function(){
+                                    //prepare for summary information
+                                    _getTemplate("/templates/admin/users/membership/_detail_container.handlebars.html", _data.currentUser, $(".js-admin_dashboard_detail_container"), function(){
 
-                                _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-membership]"));
+                                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-membership]"));
 
-                                //load basic_info information 
-                                $(".js-admin_dashboard_detail").fadeOut(100, function(){
-                                    _getTemplate("/templates/admin/users/membership/_basic_info.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail"));
-                                    $(".js-admin_dashboard_detail").fadeIn(300);
-                                });
+                                        //load basic_info information 
+                                        $(".js-admin_dashboard_detail").fadeOut(100, function(){
+                                            _getTemplate("/templates/admin/users/membership/_basic_info.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail"));
+                                            $(".js-admin_dashboard_detail").fadeIn(300);
+                                        });
+                                    });
+                                }
                             });
-
                         }
                     });
                 break;
 
-                case "#admin-users-membership-pay_out_history":
-                    $(".js-admin_dashboard_detail_container").fadeOut(100, function(){
-                        _getTemplate("/templates/admin/users/membership/_pay_out_history.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail"), function(){
-                            $(".js-admin_dashboard_detail").fadeIn(300);
-                        });
-                    });
-                break;
 
                case "#admin-users-genealogy":
                         _getTemplate("/templates/admin/users/genealogy/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                             _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-genealogy]"));
                             
                             //load user genealogy info
-                            ["val=ancestors", "val=children"].forEach(function(_criteria){
-                                if(_getObjectsByCriteria(_data.currentUser, _criteria).length>0){
-                                    _ajax({
-                                        _ajaxType:"get",
-                                        _url:_getObjectsByCriteria(_data.currentUser, _criteria)[0].href,
-                                        _callback:function(data, text){
-                                            if(  _getObjectsByCriteria(data, "key=first_name").length==0) return;
-                                            _genealogyData = {};
-                                            _getObjectsByCriteria(data, "key=first_name").forEach(function(recruit, index){_genealogyData[index]=recruit;});
-                                            if(_criteria==="val=children")
-                                                _getTemplate("/templates/admin/users/genealogy/_downline.handlebars.html",_genealogyData, $(".js-genealogy-summary_downline"));
-                                            else
-                                                _getTemplate("/templates/admin/users/genealogy/_upline.handlebars.html",_genealogyData, $(".js-genealogy-summary_upline"));
-                                        }
-                                    });
-                                }                                
-                            })
-
-                            //load downline info
-                            /*
-                            if(_getObjectsByCriteria(_data.currentUser, "val=children").length>0){
-                                _ajax({
-                                    _ajaxType:"get",
-                                    _url:_getObjectsByCriteria(_data.currentUser, "rel=children")[0].href,
-                                    _callback:function(data, text){
-                                        _downlineData = {};
-                                        _getObjectsByCriteria(data, "key=first_name").forEach(function(recruit, index){_downlineData[index]=recruit;});
-                                        _getTemplate("/templates/admin/users/genealogy/_downline.handlebars.html",_downlineData, $(".js-genealogy-summary_downline"));
-
-                                    }
-                                });
-                            }*/
-
+                            _getTemplate("/templates/admin/users/genealogy/_downline.handlebars.html",_data.currentUser.downline, $(".js-genealogy-summary_downline"));
+                            _getTemplate("/templates/admin/users/genealogy/_upline.handlebars.html",_data.currentUser.upline, $(".js-genealogy-summary_upline"));
                         });
                 break;
 
             }
+        }
 
+        function getGenealogy(_options){
+            ["val=ancestors", "val=children"].forEach(function(_criteria){
+                if(_getObjectsByCriteria(_data.currentUser, _criteria).length>0){
+                    _ajax({
+                        _ajaxType:"get",
+                        _url:_getObjectsByCriteria(_data.currentUser, _criteria)[0].href,
+                        _callback:function(data, text){
+                            _genealogyData = {};
+                            _getObjectsByCriteria(data, "key=first_name").forEach(function(member, index){_genealogyData[index]=member;});
+                            if(_criteria==="val=children") _data.currentUser.downline=_genealogyData;
+                            else _data.currentUser.upline=_genealogyData;
+                            if(!!_options && typeof _options._callback === "function" && _criteria==="val=children") _options._callback();
+                        }
+                    });
+                }
+            })
         }
 
         function _positionIndicator(_indicatorObj, _highlightObj){
