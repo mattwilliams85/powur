@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :product do
-    name 'Solar Item'
-    commissionable_volume 500.00
+    name Faker::Commerce.product_name
+    commissionable_volume 500
     quote_data %w(utility rate_schedule roof_material roof_age kwh)
   end
 end

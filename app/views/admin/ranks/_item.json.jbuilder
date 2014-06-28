@@ -12,12 +12,5 @@ action_list << action(:delete, :delete, rank_path(rank)) if rank.last_rank?
 
 actions *action_list
 
-begin
-  
-rescue Exception => e
-  binding.pry
-  raise e  
-end
-
 links \
   link :self, rank_path(rank)
