@@ -63,7 +63,7 @@ describe User do
 
     it 'returns the downline users' do
       users = @root.downline_users
-      expect(users.pluck(:id).sort).to eq([@parent.id, @child.id].sort)
+      expect(users.map(&:id).sort).to eq([@parent.id, @child.id].sort)
     end
 
     it 'returns the downline users by level' do
@@ -74,10 +74,10 @@ describe User do
       end.flatten
 
       users = root.downline_users(1)
-      expect(users.pluck(:id).sort).to eq(parents.map(&:id).sort)
+      expect(users.map(&:id).sort).to eq(parents.map(&:id).sort)
 
       users = root.downline_users(2)
-      expect(users.pluck(:id).sort).to eq(childs.map(&:id).sort)
+      expect(users.map(&:id).sort).to eq(childs.map(&:id).sort)
     end
 
     after :all do
