@@ -40,6 +40,18 @@ describe '/a/ranks' do
 
   end
 
+  describe '#update' do
+
+    it 'updates a rank' do
+      rank = create(:rank)
+
+      patch rank_path(rank), title: 'Padwan'
+
+      expect(json_body['properties']['title']).to eq('Padwan')
+    end
+
+  end
+
   describe '#destroy' do
 
     it 'only allows the last rank to be deleted' do

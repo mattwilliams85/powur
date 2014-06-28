@@ -2,7 +2,7 @@ module Admin
 
   class RanksController < AdminController
 
-    before_filter :fetch_rank, only: [ :show, :destroy ]
+    before_filter :fetch_rank, only: [ :show, :destroy, :update ]
 
     def index
       @ranks = Rank.all.includes(:qualifications).order(:id)
@@ -16,12 +16,17 @@ module Admin
     def create
       require_input :title
 
-      @rank = Rank.create!(allow_input(:title))
+      @rank = Rank.create!(input)
       
       render 'show'
     end
 
     def update
+      require_input :title
+
+      @rank.update_attributes!(input)
+
+      render 'show'
     end
 
     def destroy
@@ -33,6 +38,10 @@ module Admin
     end
 
     private
+
+    def input
+      allow_input(:title)
+    end
 
     def fetch_rank
       @rank = Rank.find(params[:id].to_i)
