@@ -14,5 +14,9 @@ actions \
   action(:logout, :delete, login_path)
 
 link_list = [ link(:self, root_path), link(:index, dashboard_path) ]
-link_list << link(:users, admin_users_path) if current_user.has_role?(:admin)
+if current_user.has_role?(:admin)
+  link_list << link(:users, admin_users_path)
+  link_list << link(:ranks, ranks_path)
+end
+
 links *link_list
