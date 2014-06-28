@@ -39,6 +39,7 @@ en:
     reset_token_expired: The reset password token was expired
     reset_token: Invalid or expired password reset token
     password_confirm: The confirm password does not match
+    delete_rank: You can only delete the last rank
     messages: 
       exceeded_max_invites: You have exceeded the max number of invites allowed
       invalid_keys: "%{attribute} has invalid keys for the product"

@@ -36,6 +36,10 @@ module SpecHelpers
     expect(entities).to include(*args)
   end
 
+  def expect_entities_count(count)
+    expect(json_body['entities'].size).to eq(count)
+  end
+
   def expect_actions(*args)
     expect(json_body['actions'].map { |a| a['name'] }).to include(*args)
   end

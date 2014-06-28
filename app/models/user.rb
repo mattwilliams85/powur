@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
     ) c inner join users u on c.parent_id = u.id
     where u.upline[?] = ? and array_length(u.upline, 1) = ?
     order by u.last_name, u.first_name, u.id;"
-  scope :child_count_list, ->(user) {
+  scope :child_count_list, ->(user){
     find_by_sql([ CHILD_COUNT_LIST, user.level, user.id, user.level + 1 ]) }
 
   after_create :set_upline
