@@ -1,6 +1,6 @@
 module Admin
 
-  class QualificationsController < AdminController
+  class QualificationPathsController < AdminController
 
     def create
     end

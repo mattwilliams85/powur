@@ -15,7 +15,7 @@ describe '/a/ranks' do
 
     it 'returns the list of ranks' do
       create_list(:rank, 4)
-      get ranks_path
+      get ranks_path, format: :json
 
       expect_classes 'ranks'
       expect_entities_count(4)
@@ -32,7 +32,7 @@ describe '/a/ranks' do
   describe '#create' do
 
     it 'creates a new rank' do
-      post ranks_path, title: 'Jedi'
+      post ranks_path, title: 'Jedi', format: :json
 
       expect_classes 'rank'
       expect(json_body['properties']['title']).to eq('Jedi')
@@ -45,7 +45,7 @@ describe '/a/ranks' do
     it 'updates a rank' do
       rank = create(:rank)
 
-      patch rank_path(rank), title: 'Padwan'
+      patch rank_path(rank), title: 'Padwan', format: :json
 
       expect(json_body['properties']['title']).to eq('Padwan')
     end
@@ -57,7 +57,7 @@ describe '/a/ranks' do
     it 'only allows the last rank to be deleted' do
       ranks = create_list(:rank, 2)
 
-      delete rank_path(ranks.first)
+      delete rank_path(ranks.first), format: :json
 
       expect_alert_error
     end
@@ -65,7 +65,7 @@ describe '/a/ranks' do
     it 'deletes the last rank' do
       ranks = create_list(:rank, 2)
 
-      delete rank_path(2)
+      delete rank_path(2), format: :json
 
       expect_entities_count(1)
     end

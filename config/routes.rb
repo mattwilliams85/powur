@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   end
 
   # logged in admin routes
-  scope :a, module: :admin, defaults: { format: :json } do
+  scope :a, module: :admin do
 
     resources :users, only: [ :index, :show, :update ], as: :admin_users do
       collection do
@@ -64,9 +64,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :ranks, only: [ :index, :create, :update, :destroy, :show ]
+    resources :certifications, only: [ :index, :create, :update, :destroy ]
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
+
+    resources :ranks, only: [ :index, :create, :update, :destroy, :show ]
+
+    resources :qualifications, only: [ :create, :update, :delete ]
 
   end
 

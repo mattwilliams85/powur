@@ -211,11 +211,11 @@ ALTER SEQUENCE qualification_paths_id_seq OWNED BY qualification_paths.id;
 
 CREATE TABLE qualifications (
     id integer NOT NULL,
+    path character varying(255) NOT NULL,
     type character varying(255) NOT NULL,
     period integer,
     quantity integer,
     max_leg_percent integer,
-    path_id integer NOT NULL,
     rank_id integer NOT NULL,
     certification_id integer,
     product_id integer
@@ -514,13 +514,6 @@ CREATE INDEX index_qualifications_on_certification_id ON qualifications USING bt
 
 
 --
--- Name: index_qualifications_on_path_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_qualifications_on_path_id ON qualifications USING btree (path_id);
-
-
---
 -- Name: index_qualifications_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -626,14 +619,6 @@ ALTER TABLE ONLY invites
 
 ALTER TABLE ONLY qualifications
     ADD CONSTRAINT qualifications_certification_id_fk FOREIGN KEY (certification_id) REFERENCES certifications(id);
-
-
---
--- Name: qualifications_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY qualifications
-    ADD CONSTRAINT qualifications_path_id_fk FOREIGN KEY (path_id) REFERENCES qualification_paths(id);
 
 
 --

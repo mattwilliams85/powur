@@ -5,7 +5,12 @@ module Admin
     before_filter :fetch_product, only: [ :show, :destroy, :update ]
 
     def index
-      @products = Product.order(:name)
+      respond_to do |format|
+        format.html
+        format.json do
+          @products = Product.order(:name)
+        end
+      end
 
       render 'index'
     end
