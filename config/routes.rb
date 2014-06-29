@@ -64,13 +64,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :certifications, only: [ :index, :create, :update, :destroy ]
-
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
 
-    resources :ranks, only: [ :index, :create, :update, :destroy, :show ]
+    resources :ranks, only: [ :index, :create, :update, :destroy, :show ] do
+      resources :qualifications, only: [ :create, :update, :delete, :destroy ]
+    end
 
-    resources :qualifications, only: [ :create, :update, :delete ]
+    # resources :qualifications, only: [ :create, :update, :delete ]
 
   end
 

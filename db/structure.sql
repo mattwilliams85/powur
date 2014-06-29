@@ -58,35 +58,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: certifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE certifications (
-    id integer NOT NULL,
-    title character varying(255) NOT NULL
-);
-
-
---
--- Name: certifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE certifications_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: certifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE certifications_id_seq OWNED BY certifications.id;
-
-
---
 -- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -211,13 +182,13 @@ ALTER SEQUENCE qualification_paths_id_seq OWNED BY qualification_paths.id;
 
 CREATE TABLE qualifications (
     id integer NOT NULL,
-    path character varying(255) NOT NULL,
+    path character varying(255) DEFAULT 'default'::character varying NOT NULL,
     type character varying(255) NOT NULL,
+    name character varying(255),
     period integer,
     quantity integer,
     max_leg_percent integer,
     rank_id integer NOT NULL,
-    certification_id integer,
     product_id integer
 );
 
@@ -374,13 +345,6 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY certifications ALTER COLUMN id SET DEFAULT nextval('certifications_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
 
 
@@ -424,14 +388,6 @@ ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq':
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
-
-
---
--- Name: certifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY certifications
-    ADD CONSTRAINT certifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -504,13 +460,6 @@ ALTER TABLE ONLY settings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: index_qualifications_on_certification_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_qualifications_on_certification_id ON qualifications USING btree (certification_id);
 
 
 --
@@ -614,14 +563,6 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: qualifications_certification_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY qualifications
-    ADD CONSTRAINT qualifications_certification_id_fk FOREIGN KEY (certification_id) REFERENCES certifications(id);
-
-
---
 -- Name: qualifications_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -690,8 +631,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140604062729');
 INSERT INTO schema_migrations (version) VALUES ('20140614053236');
 
 INSERT INTO schema_migrations (version) VALUES ('20140615034123');
-
-INSERT INTO schema_migrations (version) VALUES ('20140623080139');
 
 INSERT INTO schema_migrations (version) VALUES ('20140624072730');
 
