@@ -86,13 +86,14 @@ jQuery(function($){
         }
 
         function searchUser(_queryString){
-            //if(typeof _queryString !=="string" || _queryString.length<=0 ) return;
-            console.log("search for "+_queryString);
             _ajax({
                 _ajaxType:"get",
                 _url:"/a/users",
                 _postObj:{q:_queryString},
                 _callback:function(data, text){
+                    data.queryString=_queryString;
+                    console.log("search for "+_queryString);
+                    data.queryString=_queryString;
                     _displaySearchResults(data);
                 }
             });
@@ -100,14 +101,18 @@ jQuery(function($){
 
         function _displaySearchResults(_dataObj){
             var _results = {};
+            var _displayData = {};
             _getObjectsByCriteria(_dataObj, "key=first_name").forEach(function(_result, _index){_results[_index]=_result});
-            console.log(_results);
+            _displayData.totalFound = _getObjectsByCriteria(_dataObj, "key=first_name").length;
+            _displayData.queryString = _dataObj.queryString;
+            _displayData.results = _results;
+
             $(".js-admin_dashboard_column.summary").animate({opacity:0});
              _getTemplate("/templates/admin/users/search/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
                 _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-search-results]"));
 
             }); 
-            _getTemplate("/templates/admin/users/search/_results.handlebars.html", _results, $(".js-admin_dashboard_detail_container"));
+            _getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"));
              $(".js-admin_dashboard_column.summary").css("display","none");
              $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
 
@@ -171,6 +176,21 @@ jQuery(function($){
                             });
                         }
                     });
+
+                    $(document).on("click", ".js-update_distributor_info", function(e){
+                        e.preventDefault();
+                        _ajax({
+                            _ajaxType:"patch",
+                            _url:"/a/users/"+_data.currentUser.id,
+                            _postObj:$("#admin-users-membership-basic_info-contact_form").serializeObject(),
+                            _callback:function(data, text){
+                                _dashboard.displayUsers("#admin-users-membership-basic_info");
+                            }
+
+                        })
+
+                    });
+
                     if(typeof _callback === "function") _callback();
                 break;
 
