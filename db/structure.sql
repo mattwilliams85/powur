@@ -149,7 +149,7 @@ CREATE TABLE invites (
 CREATE TABLE products (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    commissionable_volume numeric(8,2) NOT NULL,
+    commissionable_volume integer NOT NULL,
     commission_percentage integer DEFAULT 100 NOT NULL,
     quote_data character varying(255)[] DEFAULT '{}'::character varying[],
     created_at timestamp without time zone,

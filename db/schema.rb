@@ -49,10 +49,10 @@ ActiveRecord::Schema.define(version: 20140625072238) do
   end
 
   create_table "products", force: true do |t|
-    t.string   "name",                                                        null: false
-    t.decimal  "commissionable_volume", precision: 8, scale: 2,               null: false
-    t.integer  "commission_percentage",                         default: 100, null: false
-    t.string   "quote_data",                                    default: [],               array: true
+    t.string   "name",                                null: false
+    t.integer  "commissionable_volume",               null: false
+    t.integer  "commission_percentage", default: 100, null: false
+    t.string   "quote_data",            default: [],               array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
