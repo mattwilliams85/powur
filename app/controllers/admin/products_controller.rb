@@ -11,8 +11,6 @@ module Admin
           @products = Product.order(:name)
         end
       end
-
-      render 'index'
     end
 
     def create
@@ -35,7 +33,7 @@ module Admin
     def destroy
       @product.destroy
 
-      index
+      render 'index'
     rescue ActiveRecord::InvalidForeignKey
       error!(t('errors.delete_product'))
     end
