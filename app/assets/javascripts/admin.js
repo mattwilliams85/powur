@@ -26,9 +26,15 @@ jQuery(function($){
                     e.preventDefault();
                     _dashboard.displayUsers($(this).attr("href"));
                 });
-
+                //wire up the current user switch hook
                 $(document).on("click", ".js-user_link", function(e){_dashboard.switchCurrentUser(e)});
                 $(document).on("change", ".js-user_select", function(e){_dashboard.switchCurrentUser(e)});
+
+                $(document).on("keypress", ".js-search_box", function(e){
+                    if(e.keyCode == 13){
+                        _dashboard.searchUser($(e.target).val());
+                    }
+                });
 
             }});
         }
@@ -42,6 +48,7 @@ jQuery(function($){
         this.getGenealogy = getGenealogy;
         this.displayUsers = displayUsers;
         this.switchCurrentUser = switchCurrentUser;
+        this.searchUser = searchUser;
 
         //function get root users if _id is undefined
         //otherwise get specific user info
@@ -78,10 +85,48 @@ jQuery(function($){
             }
         }
 
-        function displayUsers(_tab){
-            console.log(_tab);
-            switch(_tab){
+        function searchUser(_queryString){
+            //if(typeof _queryString !=="string" || _queryString.length<=0 ) return;
+            console.log("search for "+_queryString);
+            _ajax({
+                _ajaxType:"get",
+                _url:"/a/users",
+                _postObj:{q:_queryString},
+                _callback:function(data, text){
+                    _displaySearchResults(data);
+                }
+            });
+        }
 
+        function _displaySearchResults(_dataObj){
+            var _results = {};
+            _getObjectsByCriteria(_dataObj, "key=first_name").forEach(function(_result, _index){_results[_index]=_result});
+            console.log(_results);
+            $(".js-admin_dashboard_column.summary").animate({opacity:0});
+             _getTemplate("/templates/admin/users/search/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+                _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-search-results]"));
+
+            }); 
+            _getTemplate("/templates/admin/users/search/_results.handlebars.html", _results, $(".js-admin_dashboard_detail_container"));
+             $(".js-admin_dashboard_column.summary").css("display","none");
+             $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
+
+            $(document).on("click", ".js-search_result", function(e){
+                e.preventDefault();
+                _getTemplate("/templates/admin/users/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"));
+                $(".js-admin_dashboard_column.summary").html("");
+                $(".js-admin_dashboard_column.detail").css({width:"960px", opacity:0});
+                 $(".js-admin_dashboard_column.summary").css("display","block");
+                switchCurrentUser(e);
+                $(".js-admin_dashboard_column.summary, .js-admin_dashboard_column.detail").animate({opacity:1});
+
+
+            });
+
+        }
+
+        function displayUsers(_tab, _callback){
+            switch(_tab){
                 case "#admin-users-init":
                 case "#admin-users-membership":
                 case "#admin-users-membership-basic_info":
@@ -126,6 +171,7 @@ jQuery(function($){
                             });
                         }
                     });
+                    if(typeof _callback === "function") _callback();
                 break;
 
 
