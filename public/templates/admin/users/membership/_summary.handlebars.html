@@ -1,7 +1,7 @@
 <div class="js-thumbnail" >
     <span ><img class="advocate_avatar" src="/temp_dev_images/Tim.jpg"/></span>
     {{#if this.userDropDown}}
-        <select class="js-user_select">
+        <select class="js-user_select" style="width:192px;">
             {{#each this.userDropDown}}
                 <option value="#{{this.id}}">{{this.first_name}} {{this.last_name}}</option>
             {{/each}}
@@ -18,7 +18,7 @@
             <li>Leg Size: {{this.downline_count}}</li> 
             </li>
             <li style="padding-bottom:40px;">
-                <select class="js-user_select">
+                <select class="js-user_select" style="width:192px;">
                     {{#if this.upline}}
                         <option value="">Upline</option>
                         {{#each this.upline}}
@@ -28,7 +28,7 @@
                 </select>
             </li>
             <li>
-                <select class="js-user_select">
+                <select class="js-user_select" style="width:192px;">
                     {{#if this.downline}}
                         <option value="">Recruits</option>
                         {{#each this.downline}}

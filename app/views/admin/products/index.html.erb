@@ -5,6 +5,13 @@
 <style>
     body#application{
         padding-top:108px;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;        
+
     }
     body#application header{
         height:108px;
@@ -122,7 +129,8 @@
         margin-right:0;
         text-align: right;}
 
-    .genealogy_table{
+    .genealogy_table,
+    ._table{
         border-spacing: 12px;
         border-collapse: separate;        
         text-align: left;
@@ -135,6 +143,24 @@
         .genealogy_table th:nth-child(4){width:150px;}
         .genealogy_table td{overflow: hidden; line-height: 18px;}
         .genealogy_table th{text-transform: uppercase; font-size: 12px;}
+    #js-screen_mask{
+        width:100%;
+        height: 100%;
+        position: fixed;
+        top:0;
+        left:0;
+        z-index: 90;
+        display:none;
+        background:rgba(0,0,0,.5);}
+    #js-popup{
+        z-index:95;
+        background:rgba(255,255,255,1);
+        position:fixed;
+        top:0;
+        left:0;
+        width:480px;
+        padding:32px;}
+    .button{ outline: none;}
 
 </style>
 
@@ -152,11 +178,7 @@
             
             <div class="js-admin_dashboard_column detail">
                 <nav class="section_nav">
-                    <a href="#admin-users-membership" class="js-active">Membership</a>
-                    <a href="#admin-users-sales">Sales</a>
-                    <a href="#admin-users-genealogy">Genealogy</a>
-                    <a href="#admin-users-activity">Activity</a>
-                    <a href=""><input type="search" class="section_search js-search_box" placeholder="search quotes" data-search-source="u/quotes"></a>
+
                 </nav>
 
                 <div class="js-dashboard_section_indicator second_level"></div>

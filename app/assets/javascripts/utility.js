@@ -280,6 +280,22 @@ function _getObjectsByCriteria(_dataObj, _criteria, _results, _path){
     return _results;
 }
 
+// returns the object by path.  
+// optional _parentLevel provides ability to traverse up the JSON tree: -1 returns parent, -2 returns two levels up, etc.
+function _getObjectsByPath(_dataObj, _path, _parentLevel){
+    if(typeof _parentLevel === "undefined") _parentLevel=0;
+    if(typeof _dataObj !== "object") return;
+    if(typeof _path !== "string") return;
+
+    _evalString="_dataObj";
+    _depth=_path.split("/");
+
+    if(_depth[0]==="") _depth.shift();
+    for (i=_parentLevel;i<0;i++) _depth.pop();
+
+    _depth.forEach(function(_d) {_evalString+="[\""+_d+"\"]"});
+    return eval(_evalString);;
+}
 
 
 
