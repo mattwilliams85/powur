@@ -3,7 +3,7 @@ siren json
 json.partial! 'item', product: @product, detail: true
 
 json.properties do
-  json.(@product, :commissionable_volume, :commission_percentage, :quote_data)
+  json.(@product, :quote_data)
 end
 
 actions \
