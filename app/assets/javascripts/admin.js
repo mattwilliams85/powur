@@ -93,7 +93,8 @@ jQuery(function($){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-product_select option[value="+_data.currentProduct.properties.id+"]").attr("selected", "selected");
                         //wire up edit product button
-                        $(document).on("click", ".js-edit_product", function(){
+                        $( ".js-edit_product").on("click", function(e){
+                            e.preventDefault();
                             var _popupData = [];
                             _ajax({
                                 _ajaxType:"get",
@@ -118,7 +119,8 @@ jQuery(function($){
                         });
 
                         //wire up new product button
-                        $(document).on("click", ".js-add_new_product", function(e){
+                        $(".js-add_new_product").on("click", function(e){
+                            e.preventDefault();
                             if(!_getObjectsByCriteria(_data.products, "val=create").length) return;
                             var _popupData = [];
                             _popupData = _getObjectsByCriteria(_data.products, "val=create")[0];
@@ -133,7 +135,7 @@ jQuery(function($){
                         });
 
                         //wire up product switching control
-                        $(document).on("change", ".js-product_select", function(e){
+                        $(".js-product_select").on("change", function(e){
                             switchCurrentProduct(e);
                         });
                     });
@@ -344,6 +346,7 @@ jQuery(function($){
         }
 
         function _displayPopup(_options){
+            console.log("show popup " + _options._popupData.href);
             $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"150px", opacity:0});
             $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
             $(".js-popup_form_button").on("click", function(e){
@@ -361,7 +364,7 @@ jQuery(function($){
             });
 
             if(_options._popupData.deleteOption){
-                $(document).on("click", ".js-delete.js-delete_product", function(){
+                $(".js-delete.js-delete_product").on("click", function(){
                     _ajax({
                         _ajaxType:"delete",
                         _url:"/a/products/"+_data.currentProduct.properties.id,
@@ -417,6 +420,7 @@ jQuery(function($){
                     $("#js-popup").remove();
                 });                
             });
+            return;
 
         });        
 
