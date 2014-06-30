@@ -2,15 +2,14 @@
 <span class="subtext summary">
     <ul>
         <li style="padding-bototm:40px;">
-            <select style="width:192px;" >
+            <select style="width:192px;" class="js-product_select" >
                 {{#each this.entities}}
                     <option value="{{this.properties.id}}">{{this.properties.name}}</option>
                 {{/each}}
-            </select>
+            </select><br><br>
         </li>
-        <li><br><br>
-            Descriptions
-        </li>
+        <li>Commissionable volume: ${{this.currentProduct.properties.commissionable_volume}}</li>
+        <li>Commissionable Percent: {{this.currentProduct.properties.commission_percentage}}%</li>
     </ul>
 </span>    
 <hr style="border-top: 1px dashed #aaa;">
