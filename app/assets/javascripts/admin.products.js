@@ -16,7 +16,7 @@ jQuery(function($){
             _dashboard = new AdminDashboard();
             _dashboard.getRootUsers({_callback:function(){
                 _data.currentUser=_data.rootUsers[0];
-                _dashboard.displayUsers("#admin-users-init");
+                _dashboard.displayPlans("#admin-plans-init");
             }});
         }
     });
@@ -24,7 +24,6 @@ jQuery(function($){
     $(document).on("click", ".admin_top_level_nav", function(e){
         window.location=($(e.target).attr("href").replace("#admin-","")=="plans")?"/a/products":"/a/users";
     });
-
 
 
     function AdminDashboard(){
