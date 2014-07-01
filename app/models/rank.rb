@@ -1,6 +1,6 @@
 class Rank < ActiveRecord::Base
 
-  has_many :qualifications
+  has_many :qualifications, dependent: :destroy
 
   validates_presence_of :title
 

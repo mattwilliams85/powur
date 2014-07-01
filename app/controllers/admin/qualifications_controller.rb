@@ -7,10 +7,12 @@ module Admin
     def create
       require_input :type
 
-      qualification_klass
+      rank.qualifcations.create(input)
+
+      render 'ranks/show'
     end
 
-    def udpate
+    def update
     end
 
     def delete
@@ -19,7 +21,8 @@ module Admin
     private
 
     def input
-
+      allow_input(:name, :period, :quantity, :max_leg_percent).
+        merge(type: qualification_klass.name)
     end
 
     def qualification_klass

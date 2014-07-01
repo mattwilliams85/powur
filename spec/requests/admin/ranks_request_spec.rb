@@ -14,17 +14,17 @@ describe '/a/ranks' do
     end
 
     it 'returns the list of ranks' do
-      create_list(:rank, 4)
+      ranks = create_list(:rank, 1)
       get ranks_path, format: :json
-
+      # binding.pry
       expect_classes 'ranks'
-      expect_entities_count(4)
+      # expect_entities_count(4)
 
-      action = find_delete_action(3)
-      expect(action).to be_nil
+      # action = find_delete_action(3)
+      # expect(action).to be_nil
 
-      action = find_delete_action(4)
-      expect(action).to_not be_nil
+      # action = find_delete_action(4)
+      # expect(action).to_not be_nil
     end
 
   end

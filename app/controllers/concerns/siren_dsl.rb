@@ -45,11 +45,9 @@ module SirenDSL
   end
 
   def entities(*args)
-    # list = args.map { |entity| json.partial!("#{entity}/entity") }
     json.entities args do |arg|
       json.partial!("#{arg}/entity")
     end
-    # json.entities list
   end
 
   def action(name, method, href)

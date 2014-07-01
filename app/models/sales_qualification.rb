@@ -1,5 +1,7 @@
 class SalesQualification < Qualification
 
-  enum period: [ :lifetime, :pay_period ]
+  enum period: { pay_period: 1, lifetime: 2 }
+
+  belongs_to :product
 
 end
