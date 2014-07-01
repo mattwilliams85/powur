@@ -22,6 +22,7 @@ jQuery(function($){
     });
 
     $(document).on("click", ".admin_top_level_nav", function(e){
+        $(".admin_top_level_nav").removeClass("active");
         window.location=($(e.target).attr("href").replace("#admin-","")=="plans")?"/a/products":"/a/users";
     });
 
@@ -62,7 +63,9 @@ jQuery(function($){
                 case "#admin-plans-init":
                     $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-plans]").position().left+28)+"px");
                     $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
+                    $(".admin_top_level_nav").removeClass("active");
                     displayPlans("#admin-plans-products-init");
+
 
                 break;
 

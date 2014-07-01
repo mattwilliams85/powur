@@ -3,17 +3,22 @@
         <th>User Rank</th>
         <th>Uni-Level</th>
         <th>Bonus Value</th>
+        <th>Comm. Vol.</th>
+        <th>Comm. %</th>
         <th>Action</th>
     </tr>
     <tr>
         <td></td>
         <td></td>
-        <td>{{this.properties.commission_percentage}}%</td>
+        <td></td>
         <td>${{this.properties.commissionable_volume}}</td>
+        <td>{{this.properties.commission_percentage}}%</td>
+        <td></td>
+
     </tr>
 
     <tr>
-        <td colspan="4" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">
+        <td colspan="6" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">
             <button class="button js-add_new_product" style="float:none; margin:auto;">Add a new Uni-level Bonus</button>
             <p style="line-height: 22px; color: #999; padding-top: 20px;">
                 Uni-level bonuses are mapped directly to ranks.  If you do not see Uni-Level options appear in the product creation popup, please specify ranks <a href="">here</a>.
