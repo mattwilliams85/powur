@@ -6,8 +6,8 @@ json.properties do
   json.(rank, :id, :title)
 end
 
-# json.entities [ { type: :qualifications, data: rank.qualifications } ], 
-#   partial: 'entities', as: :entity
+json.entities [ { rank: rank, data: rank.qualifications } ], 
+  partial: 'entities', as: :entity
 
 action_list = [ ]
 action_list << \
