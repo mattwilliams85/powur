@@ -14,17 +14,20 @@ describe '/a/ranks' do
     end
 
     it 'returns the list of ranks' do
+      rank = create(:qualified_rank)
       ranks = create_list(:rank, 2)
       get ranks_path, format: :json
 
       expect_classes 'ranks'
-      expect_entities_count(2)
-
-      action = find_delete_action(1)
-      expect(action).to be_nil
+      expect_entities_count(3)
 
       action = find_delete_action(2)
+      expect(action).to be_nil
+
+      action = find_delete_action(3)
       expect(action).to_not be_nil
+
+      first_rank = json_body['entities'].first
     end
 
   end
