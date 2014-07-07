@@ -3,19 +3,23 @@ module Admin
   class QualificationsController < AdminController
 
     before_filter :fetch_rank
+    before_filter :fetch_qualification, only: [ :update, :destroy ]
 
     def create
       require_input :type
 
-      rank.qualifcations.create(input)
+      @rank.qualifications.create!(input)
 
-      render 'ranks/show'
+      render 'admin/ranks/show'
     end
 
     def update
     end
 
-    def delete
+    def destroy
+      @rank.qualifications.delete(@qualification)
+
+      render 'admin/ranks/show'
     end
 
     private
@@ -30,7 +34,11 @@ module Admin
     end
 
     def fetch_rank
-      @rank = Product.find(params[:rank_id])
+      @rank = Rank.find(params[:rank_id].to_i)
+    end
+
+    def fetch_qualification
+      @qualification = @rank.qualifications.find(params[:id].to_i)
     end
 
   end

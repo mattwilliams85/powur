@@ -7,7 +7,7 @@ json.properties do
 end
 
 json.entities [ { rank: rank, data: rank.qualifications } ], 
-  partial: 'entities', as: :entity
+  partial: 'admin/ranks/entities', as: :entity
 
 action_list = [ ]
 action_list << \

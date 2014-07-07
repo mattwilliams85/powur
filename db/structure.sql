@@ -148,35 +148,6 @@ ALTER SEQUENCE products_id_seq OWNED BY products.id;
 
 
 --
--- Name: qualification_paths; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE qualification_paths (
-    id integer NOT NULL,
-    title character varying(255) NOT NULL
-);
-
-
---
--- Name: qualification_paths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE qualification_paths_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: qualification_paths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE qualification_paths_id_seq OWNED BY qualification_paths.id;
-
-
---
 -- Name: qualifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -359,13 +330,6 @@ ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY qualification_paths ALTER COLUMN id SET DEFAULT nextval('qualification_paths_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY qualifications ALTER COLUMN id SET DEFAULT nextval('qualifications_id_seq'::regclass);
 
 
@@ -412,14 +376,6 @@ ALTER TABLE ONLY invites
 
 ALTER TABLE ONLY products
     ADD CONSTRAINT products_pkey PRIMARY KEY (id);
-
-
---
--- Name: qualification_paths_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY qualification_paths
-    ADD CONSTRAINT qualification_paths_pkey PRIMARY KEY (id);
 
 
 --
@@ -631,8 +587,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140604062729');
 INSERT INTO schema_migrations (version) VALUES ('20140614053236');
 
 INSERT INTO schema_migrations (version) VALUES ('20140615034123');
-
-INSERT INTO schema_migrations (version) VALUES ('20140624072730');
 
 INSERT INTO schema_migrations (version) VALUES ('20140625072238');
 

@@ -1,3 +1,3 @@
 siren json
 
-json.partial! 'item', rank: @rank, detail: true
+json.partial! 'admin/ranks/item', rank: @rank, detail: true
