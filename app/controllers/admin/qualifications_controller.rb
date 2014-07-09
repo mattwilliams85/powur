@@ -8,12 +8,15 @@ module Admin
     def create
       require_input :type
 
-      @rank.qualifications.create!(input)
+      @rank.qualifications.create!(input.merge(type: qualification_klass.name))
 
       render 'admin/ranks/show'
     end
 
     def update
+      @qualification.update_attributes!(input)
+
+      render 'admin/ranks/show'
     end
 
     def destroy
@@ -25,8 +28,7 @@ module Admin
     private
 
     def input
-      allow_input(:name, :period, :quantity, :max_leg_percent).
-        merge(type: qualification_klass.name)
+      allow_input(:name, :period, :quantity, :max_leg_percent, :product_id)
     end
 
     def qualification_klass
