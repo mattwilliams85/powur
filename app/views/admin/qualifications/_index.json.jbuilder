@@ -6,10 +6,7 @@ json.entities qualifications, partial: 'admin/qualifications/item', as: :qualifi
 create_action = action(:create, :post, rank_qualifications_path(rank)).
   field(:path, :text, value: 'default').
   field(:type, :select,
-    options: { 
-      certification: 'Certification', 
-      sales:         'Personal Sales', 
-      group_sales:   'Group Sales' }, value: :sales).
+    options: Qualification::TYPES, value: :sales).
   field(:name, :text, 
     visibility: { control: :type, values: [ :certification ] }).
   field(:product_id, :select, 

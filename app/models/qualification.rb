@@ -3,8 +3,17 @@ class Qualification < ActiveRecord::Base
   belongs_to :rank
   belongs_to :product
 
+  TYPES =  { 
+    certification: 'Certification', 
+    sales:         'Personal Sales', 
+    group_sales:   'Group Sales' }
+
   def type_string
     self.class.name.underscore.gsub(/_qualification/, '')
+  end
+
+  def type_display
+    TYPES[type_string.to_sym]
   end
 
   class << self

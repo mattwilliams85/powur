@@ -3,7 +3,7 @@ klass :qualification
 
 json.properties do
   json.type qualification.type_string
-  json.path qualification.path
+  json.(qualification, :type_display, :path)
 end
 
 action_list = [

@@ -5,7 +5,7 @@ module Admin
     before_filter :fetch_rank, only: [ :show, :destroy, :update ]
 
     def index
-      @ranks = Rank.all.includes(:qualifications).order(:id)
+      @ranks = Rank.all.includes(qualifications: [ :product ]).order(:id)
 
       render 'index'
     end
