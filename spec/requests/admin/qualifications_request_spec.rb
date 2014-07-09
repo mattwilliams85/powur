@@ -19,6 +19,13 @@ describe '/a/products' do
       assert_qualification
     end
 
+    it 'requires a name' do
+      post rank_qualifications_path(@rank), 
+        type: :certification, format: :json
+
+      expect_input_error('name')
+    end
+
     it 'creates a sales qualification' do
       product = create(:product)
       post rank_qualifications_path(@rank),
@@ -39,6 +46,17 @@ describe '/a/products' do
   end
 
   describe '#update' do
+    it 'updates a group sales qualification' do
+      qualification = create(:group_sales_qualification, rank: @rank)
+
+      patch rank_qualification_path(@rank, qualification), 
+        max_leg_percent: 12, format: :json
+
+      max_leg_percent = json_body['entities'].
+        first['entities'].first['properties']['max_leg_percent']
+
+      expect(max_leg_percent).to eq(12)
+    end
   end
 
   describe '#delete' do

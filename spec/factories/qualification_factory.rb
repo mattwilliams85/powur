@@ -1,17 +1,18 @@
 FactoryGirl.define do
   factory :qualification do
 
-    factory :certification_qualification do
+    factory :certification_qualification, class: CertificationQualification do
       type 'CertificationQualification'
       name Faker::Commerce.product_name
     end
 
-    factory :sales_qualification do
+    factory :sales_qualification, class: SalesQualification do
       type      'SalesQualification'
-      period    Time.now.to_i % 2
+      period    Time.now.to_i % 2 + 1
       quantity  Faker::Number.number(3).to_i
+      product
   
-      factory :group_sales_qualification do
+      factory :group_sales_qualification, class: GroupSalesQualification do
         type            'GroupSalesQualification'
         max_leg_percent Faker::Number.number(2).to_i
       end

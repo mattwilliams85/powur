@@ -38,6 +38,7 @@ namespace :sunstand do
       max_users
     end
 
+    desc 'Simulate users'
     task :users, [ :total, :per_user, :levels ] => :environment do |t, args|
       args.with_defaults(total: 1000, per_user: 20, levels: 3 )
 
