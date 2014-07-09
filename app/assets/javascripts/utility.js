@@ -66,7 +66,19 @@ Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
     }
 });
 
-
+//Handlebar helper to allow mathematical calculations
+Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
+    lvalue = parseFloat(lvalue);
+    rvalue = parseFloat(rvalue);
+        
+    return {
+        "+": lvalue + rvalue,
+        "-": lvalue - rvalue,
+        "*": lvalue * rvalue,
+        "/": lvalue / rvalue,
+        "%": lvalue % rvalue
+    }[operator];
+});
 
 
 //utility to allow ajax post information
@@ -273,8 +285,8 @@ function _getObjectsByCriteria(_dataObj, _criteria, _results, _path){
 
         //recursively look through the rest of the JSON
         if(!!_dataObj[key] && typeof _dataObj[key] === "object" && Object.keys(_dataObj[key]).length>0) {
-            _dataObj[key]["path"]=_path+"/"+key;
-            _getObjectsByCriteria(_dataObj[key], _criteria, _results, _dataObj[key]["path"]);
+            _dataObj[key]["_path"]=_path+"/"+key;
+            _getObjectsByCriteria(_dataObj[key], _criteria, _results, _dataObj[key]["_path"]);
         }
     });
     return _results;
@@ -289,7 +301,6 @@ function _getObjectsByPath(_dataObj, _path, _parentLevel){
 
     _evalString="_dataObj";
     _depth=_path.split("/");
-
     if(_depth[0]==="") _depth.shift();
     for (i=_parentLevel;i<0;i++) _depth.pop();
 

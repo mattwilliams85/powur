@@ -143,6 +143,27 @@
         .genealogy_table th:nth-child(4){width:150px;}
         .genealogy_table td{overflow: hidden; line-height: 18px;}
         .genealogy_table th{text-transform: uppercase; font-size: 12px;}
+        ._spreadSheet{
+            border-collapse: collapse;}
+            ._spreadSheet tr{
+                border-bottom:1px dashed #ccc;}
+            ._spreadSheet tr:last-child{
+                border-bottom:none;}
+
+            ._spreadSheet tr>td{
+                padding:8px 0;}
+
+            ._spreadSheet tr:first-child{
+                border-bottom:none;}
+            ._spreadSheet tr:first-child >th{
+                padding-bottom:16px;}
+
+            ._spreadSheet .label{
+                color:#9b9b9b;
+                line-height:0px; margin-top:10px; font-size:10px; display:block;}
+            ._spreadSheet .innerCell{
+                color:#333;
+                display:block;height:50px; float:left;padding-right:20px;}
     #js-screen_mask{
         width:100%;
         height: 100%;
@@ -164,6 +185,7 @@
     header nav ul li a.active{
         color:#fff;
     }
+
 
 </style>
 

@@ -1,0 +1,27 @@
+<table class="_table _spreadSheet">
+    <tr>
+        <th width="15%">Rank/Name</th>
+        <th width="20%">Type</th>
+        <th>Conditions</th>
+        <th width="15%">Action</th>
+    </tr>
+    {{#each this.entities}}
+    <tr data-rank-id="{{this.properties.id}}" style="text-transform:capitalize; color:#9b9b9b; border:0;">
+        <td class="js-qualification_rank" style="vertical-align:top;">
+            <span class="js-qualification_path label"></span>
+            <a href="#{{this.properties.id}}" class="js-rank_link">{{math @index "+" "1"}}, {{this.properties.title}}</a>
+        </td>
+        <td class="js-qualification_type"></td>
+        <td class="js-qualification_conditions"></td>
+        <td class="js-qualification_actions"></td>
+    </tr>
+    <tr  data-rank-id="{{this.properties.id}}" >
+        <td colspan="3"></td>
+        <td>
+            <a href="#" class="js-add_qualification">+ Qualification</a>
+        </td>
+    <tr>
+    {{/each}}
+
+</table>
+

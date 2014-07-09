@@ -61,24 +61,178 @@ jQuery(function($){
                 case "#admin-plans-init":
                     $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-plans]").position().left+28)+"px");
                     $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
-                    displayPlans("#admin-plans-products-init");
+                    displayPlans("#admin-plans-ranks-init");
 
                 break;
 
-                case "#admin-plans-products-init":
+                case "#admin-plans-ranks-init":
+                    if(typeof _data.products === "undefined"){
+                        _ajax({
+                            _ajaxType:"get",
+                            _url:"/a/products",
+                            _callback:function(data, text){
+                                _data.products = data;
+                                _data.currentProduct=data.entities[0];
+                            }
+                        });
+                    }
                     _ajax({
                         _ajaxType:"get",
-                        _url:"/a/products",
+                        _url:"/a/ranks",
                         _callback:function(data, text){
-                            _data.products = data;
-                            _data.currentProduct=data.entities[0];
-                            displayPlans("#admin-plans-products");
+                            _data.ranks = data;
+                            _data.qualifications = {};
+
+                            _getObjectsByCriteria(_data.ranks, "val=rank").forEach(function(_r){
+                                _rank = _getObjectsByPath(_data.ranks, _r._path, -1);
+                                _data.qualifications[_rank.properties.id]={};
+
+                                _getObjectsByCriteria(_rank,  "val=qualification").forEach(function(_q){
+                                    //use path as a way to group qualifications
+                                    if(typeof _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path] === "undefined"){ 
+                                        _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path] =[];
+                                    }
+                                    _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path].push(_getObjectsByPath(_rank, _q._path, -1));
+                                    //_data.qualifications[_rank.properties.id].push(_getObjectsByPath(_rank, _q._path, -1));
+
+                                })
+
+                            });
+                            displayPlans("#admin-plans-ranks");
                         }
                     });
                 break;
 
+                case "#admin-plans-ranks":
+                    $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
+                    //position indicator
+                    _getTemplate("/templates/admin/plans/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-ranks]"));
+                    });
+
+                    _summaryData={};
+                    _getTemplate("/templates/admin/plans/ranks/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
+                        //wire up new rank functionality
+                        $(".js-add_new_rank").on("click", function(e){
+                            e.preventDefault();
+                            if(!_getObjectsByCriteria(_data.ranks.actions, "val=create").length) return;
+                            var _popupData = [];
+                            _popupData = _getObjectsByCriteria(_data.ranks.actions, "val=create")[0];
+                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
+                            _popupData.title="Add a new Rank";
+
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/products/popup/_new_rank.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
+                                });
+                            });
+                        });
+                    });
+
+                    _getTemplate("/templates/admin/plans/ranks/_ranks.handlebars.html", _data.ranks, $(".js-admin_dashboard_detail_container"), function(){
+                        $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
+                        //load qualifications
+                        for(var _rank in _data.qualifications){
+                            var _row =  $(".js-admin_dashboard_detail_container table tr[data-rank-id="+_rank+"]");
+
+                            for(_qualification_path in _data.qualifications[_rank]){
+                                _qualification_group=_data.qualifications[_rank][_qualification_path];
+                                _qualification_group.forEach(function(_qualification){
+                                    _row.find(".js-qualification_path").html("Path: "+_qualification_path);
+                                    _row.find(".js-qualification_type").append("<div class='innerCell'><span class='label'> Product:"+_qualification.properties.type.replace(/\_/g," ")+"</span>"+_qualification.properties.type.replace(/\_/g," ")+"</div><br style='clear:both;'>");
+                                    _conditions=[];
+                                    for(var _p in _qualification.properties){
+                                        switch (_p){
+                                            case "_path": case "path": case "type":
+                                            break;
+                                            default:
+                                                _conditions.push( "<div class='innerCell'>"+("<span class='label'>"+_p+"</span>"+_qualification.properties[_p]).replace(/\_/g," ")+"</div>");
+                                            break;
+                                        }
+                                    }
+                                    _conditions.sort();
+                                    _conditions.reverse();
+                                    _row.find(".js-qualification_conditions").append(_conditions.join("")+"<br style='clear:both;'>");
+                                    _row.find(".js-qualification_actions").append("<div class='innerCell' style='vertical-align:middle;'>Edit | Remove</div><br style='clear:both;'>");
+                                });
+                            };
+                        };
+                        //wire up rank edit
+                        $(".js-rank_link").on("click", function(e){
+                            e.preventDefault();
+                            _rankID = parseInt($(e.target).attr("href").replace("#",""));                 
+                            _ajax({
+                                _ajaxType:"get",
+                                _url:"/a/ranks/"+_rankID,
+                                _callback:function(data, text){
+                                    var _popupData = [];
+                                    _popupData = _getObjectsByCriteria(data, "val=update")[0];
+                                    _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
+                                    _popupData.title="Editing Rank "+data.properties.id+", "+data.properties.title;
+                                    _popupData.deleteOption={};
+                                    _popupData.id=_rankID;
+                                    _popupData.deleteOption.name="Remove "+data.properties.id+", "+data.properties.title;
+                                    
+                                    if(_data.ranks.entities.length == _rankID) _popupData.deleteOption.buttonName="js-delete_rank";
+                                    _popupData.deleteOption.description="Only the highest Rank can be removed at this time";
+
+                                    $("#js-screen_mask").fadeIn(100, function(){
+                                        _getTemplate("/templates/admin/plans/products/popup/_new_rank.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                            _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
+                                        });
+                                    });
+                                }
+                            });
+                        });
+
+                        //wire up ability to add qualifications
+                        $(".js-add_qualification").on("click", function(e){
+                            e.preventDefault();
+                            _rankID = parseInt($(e.target).parents("tr").attr("data-rank-id"));
+                            _ajax({
+                                _ajaxType:"get",
+                                _url:"/a/ranks/"+_rankID,
+                                _callback:function(data, text){
+                                    var _popupData = [];
+                                    _popupData =_getObjectsByCriteria(data, "val~qualification").filter(function(action){return action.name=="create"})[0];
+                                    _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
+                                    _popupData.id=_rankID;
+                                    _popupData.popupType = "hierarchical";
+                                    _popupData.rootOptions=[];
+                                    ["path", "type"].forEach(function(rootOption){
+                                         _popupData.rootOptions.push(_getObjectsByCriteria(_popupData.fields,{name:rootOption})[0]); 
+                                    });
+
+                                    _popupData.title="Add a New Qualification<br>for Rank "+data.properties.id+", "+data.properties.title;
+
+                                    $("#js-screen_mask").fadeIn(100, function(){
+                                        _getTemplate("/templates/admin/plans/products/popup/_new_qualification.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                            _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
+                                        });
+                                    });
+                                }
+                            });
+                        })
+
+                    });
+
+                break;
+
+                case "#admin-plans-products-init":
+                    if(typeof _data.products === "undefined"){
+                        _ajax({
+                            _ajaxType:"get",
+                            _url:"/a/products",
+                            _callback:function(data, text){
+                                _data.products = data;
+                                _data.currentProduct=data.entities[0];
+                                displayPlans("#admin-plans-products");
+                            }
+                        });
+                    }
+                break;
+
                 case "#admin-plans-products":
-                    //start of init logic
                     $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
 
                     //position indicator
@@ -95,6 +249,7 @@ jQuery(function($){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-product_select option[value="+_data.currentProduct.properties.id+"]").attr("selected", "selected");
                         //wire up edit product button
+                        //%TODO: move the summary function within the summary _getTemplate block instead of the products main pane block
                         $( ".js-edit_product").on("click", function(e){
                             e.preventDefault();
                             var _popupData = [];
@@ -103,7 +258,7 @@ jQuery(function($){
                                 _url:"/a/products/"+_data.currentProduct.properties.id,
                                 _callback:function(data, text){
                                     _popupData = _getObjectsByCriteria(data, "val=update")[0];
-                                    _popupData.fields.forEach(function(field){field.display_name=field.name.replace("_"," ");});
+                                    _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                                     _popupData.title="Editing "+data.properties.name;
                                     _popupData.deleteOption={};
                                     _popupData.id=_data.currentProduct.properties.id;
@@ -126,12 +281,12 @@ jQuery(function($){
                             if(!_getObjectsByCriteria(_data.products, "val=create").length) return;
                             var _popupData = [];
                             _popupData = _getObjectsByCriteria(_data.products, "val=create")[0];
-                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace("_"," ");});
+                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                             _popupData.title="Add a new product";
 
                             $("#js-screen_mask").fadeIn(100, function(){
                                 _getTemplate("/templates/admin/plans/products/popup/_new_product.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products")}});
                                 });
                             });
                         });
@@ -230,7 +385,7 @@ jQuery(function($){
                         })
                     });
 
-                    //TODO: wire up  force rank override button
+                    //%TODO: wire up  force rank override button
                     //
 
                 break;
@@ -270,9 +425,7 @@ jQuery(function($){
             })
         }
 
-
         //* start admin adshboard specific utility functions 
-
         function switchCurrentUser(e){
             e.preventDefault();
             var _userID;
@@ -365,8 +518,61 @@ jQuery(function($){
                 });
             });
 
+            //wire up dynamic interaction for the select/option
+            if(_options._popupData.popupType === "hierarchical"){
+                $("#js-popup_form .js-popup_form_button").css("display","none");
+                _options._popupData.rootOptions.forEach(function(_rootOption){
+                    if(_rootOption.type == "select"){
+                        $("#js-popup_form .rootOptions select[name="+_rootOption.name+"]").on("change", function(e){
+                            $("#js-popup_form .js-popup_form_button").css("display","none");
+                            $("#js-popup_form .secondaryOptions").html("");
+                            if($(e.target).val()==="none") return;
+                            _secondaryOptions=[];
+                            _options._popupData.fields.forEach(function(field){
+                                if(!!field.visibility && 
+                                    field.visibility.control==_rootOption.name && 
+                                    field.visibility.values.indexOf($(e.target).val())>=0){
+                                        //populate secondary selection options 
+                                        if(field.type === "select"){
+                                            field.displayOptions=[];
+                                            if(typeof field.reference !== "undefined"){
+                                                //query specific options
+                                                if(field.reference.rel === "products"){
+                                                    _data.products.entities.forEach(function(_product){
+                                                        field.displayOptions.push({name:_product.properties.name, value:_product.properties.id});
+                                                    });
+                                                }
+                                            }else{
+                                                //object specific options
+                                                delete field.options._path;
+                                                for(var key in field.options){
+                                                    field.displayOptions.push({name:field.options[key], value:key});
+                                                }
+                                            }
+                                        }
+                                        _secondaryOptions.push(field);
+
+                                }
+                            });
+                            _getTemplate("/templates/admin/plans/products/popup/_secondary_options.handlebars.html", _secondaryOptions, $("#js-popup_form .secondaryOptions"), function(){
+                                $("#js-popup_form .js-popup_form_button").fadeIn();
+
+                            });
+                        })
+                    }
+                });
+
+                //populate the initial input for the first select/option value
+                //_options._popupData
+                //$("#js-popup_form .secondaryOptions")
+            }
+
+
+            //%TODO: consolidate delete actions using _popupData.id so that all delete actions are unified
             if(_options._popupData.deleteOption){
-                $(".js-delete.js-delete_product").on("click", function(){
+                //delete product
+                $(".js-delete.js-delete_product").on("click", function(e){
+                    e.preventDefault();
                     _ajax({
                         _ajaxType:"delete",
                         _url:"/a/products/"+_data.currentProduct.properties.id,
@@ -376,6 +582,18 @@ jQuery(function($){
                         }
                     })
                 });
+                //delete ranks
+                $(".js-delete.js-delete_rank").on("click", function(e){
+                    e.preventDefault();
+                    _ajax({
+                        _ajaxType:"delete",
+                        _url:"/a/ranks/"+_options._popupData.id,
+                        _callback:function(data, text){
+                            $("#js-screen_mask").click();
+                            if(typeof _options._callback === "function") _options._callback();
+                        }
+                    })
+                });                
             }
         }
 
@@ -428,7 +646,7 @@ jQuery(function($){
 
         $(window).resize(function(){
             $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"200px"});
-            //todo: recalculate x position for the indicators
+            //%TODO: recalculate x position for the indicators
         })
 
         //* end admin adshboard specific utility functions
