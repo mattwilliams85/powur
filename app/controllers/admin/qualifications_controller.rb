@@ -28,7 +28,7 @@ module Admin
     private
 
     def input
-      allow_input(:name, :period, :quantity, :max_leg_percent, :product_id)
+      allow_input(:name, :path, :period, :quantity, :max_leg_percent, :product_id)
     end
 
     def qualification_klass
