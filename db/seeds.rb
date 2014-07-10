@@ -41,6 +41,6 @@ User.create(
 
 Product.create(
   name: 'SunRun Solar Item', 
-  commissionable_volume: 500,
+  bonus_volume: 500,
   quote_data: %w(utility rate_schedule roof_material roof_age kwh))
 

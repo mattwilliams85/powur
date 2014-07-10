@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20140625072238) do
 
   create_table "products", force: true do |t|
     t.string   "name",                                null: false
-    t.integer  "commissionable_volume",               null: false
+    t.integer  "bonus_volume",               null: false
     t.integer  "commission_percentage", default: 100, null: false
     t.string   "quote_data",            default: [],               array: true
     t.datetime "created_at"

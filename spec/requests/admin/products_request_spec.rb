@@ -36,7 +36,7 @@ describe '/a/products' do
   describe '#create' do
 
     it 'creates a new product' do
-      post products_path, name: 'xbox', commissionable_volume: 1000, format: :json
+      post products_path, name: 'xbox', bonus_volume: 1000, format: :json
 
       expect_classes 'product'
       expect(json_body['properties']['name']).to eq('xbox')
@@ -49,9 +49,9 @@ describe '/a/products' do
     it 'updates a product' do
       product = create(:product)
 
-      patch product_path(product), commissionable_volume: 400, quote_data: %w(foo bar), format: :json
+      patch product_path(product), bonus_volume: 400, quote_data: %w(foo bar), format: :json
 
-      expect(json_body['properties']['commissionable_volume']).to eq(400)
+      expect(json_body['properties']['bonus_volume']).to eq(400)
       expect(json_body['properties']['quote_data']).to eq(%w(foo bar))
     end
 

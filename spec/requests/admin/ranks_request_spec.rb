@@ -66,7 +66,7 @@ describe '/a/ranks' do
     end
 
     it 'deletes the last rank' do
-      ranks = create_list(:rank, 2)
+      create_list(:qualified_rank, 2)
 
       delete rank_path(2), format: :json
 

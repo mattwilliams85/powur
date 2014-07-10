@@ -9,6 +9,10 @@ namespace :sunstand do
       puts 'Adding primary key for :ranks'
       query = 'alter table ranks add primary key (id);'
       ActiveRecord::Base.connection.execute(query)
+
+      puts 'Adding primary key for :bonus_ranks'
+      query = 'alter table bonus_ranks add primary key (bonus_id, rank_id);'
+      ActiveRecord::Base.connection.execute(query)
     end
   end
 end
