@@ -112,7 +112,7 @@ jQuery(function($){
 
                     _summaryData={};
                     _getTemplate("/templates/admin/plans/ranks/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
-                        //wire up new rank functionality
+                        //wire up add rank functionality
                         $(".js-add_new_rank").on("click", function(e){
                             e.preventDefault();
                             if(!_getObjectsByCriteria(_data.ranks.actions, "val=create").length) return;
@@ -154,10 +154,34 @@ jQuery(function($){
                                     _conditions.reverse();
 
                                     _row.find(".js-qualification_conditions").append(_conditions.join("")+"<br style='clear:both;'>");
-                                    _row.find(".js-qualification_actions").append("<div class='innerCell' style='vertical-align:middle;'><a href='#"+_qualification.properties.id+"' class='js-qualification_link'>Edit</a> | Remove</div><br style='clear:both;'>");
+                                    _row.find(".js-qualification_actions").append("<div class='innerCell' style='vertical-align:middle;'><a href='#"+_qualification.properties.id+"' class='js-qualification_link' data-qualification-path='"+_qualification_path+"'>Edit Qualification</a></div><br style='clear:both;'>");
                                 });
                             };
                         };
+
+                        //wire up qualification edit
+                        $(".js-qualification_link").on("click", function(e){
+                            e.preventDefault();
+                            _rankID = $(e.target).parents("tr").attr("data-rank-id");
+                            _qualificationID = parseInt($(e.target).attr("href").replace("#","")); 
+                            _qualificationPath = $(e.target).attr("data-qualification-path");
+                            _qualification=_data.qualifications[_rankID][_qualificationPath].filter(function(_q){return _q.properties.id==_qualificationID})[0];
+                            var _popupData =[];
+                            _popupData = _qualification.actions.filter(function(action){return action.name==="update"})[0];
+                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
+                            _popupData.title="Editing Qaulification";
+                            _popupData.deleteOption={};
+                            _popupData.id=_qualificationID;
+                            _popupData.deleteOption.name="Remove this Qualification";
+                            _popupData.deleteOption.buttonName="js-delete_qualification";
+                            _popupData.deleteOption.description="";
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/products/popup/_new_rank.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
+                                });
+                            });
+                        });
+
                         //wire up rank edit
                         $(".js-rank_link").on("click", function(e){
                             e.preventDefault();
@@ -167,16 +191,15 @@ jQuery(function($){
                                 _url:"/a/ranks/"+_rankID,
                                 _callback:function(data, text){
                                     var _popupData = [];
-                                    _popupData = _getObjectsByCriteria(data, "val=update")[0];
+                                    _popupData = data.actions[0];
                                     _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                                     _popupData.title="Editing Rank "+data.properties.id+", "+data.properties.title;
                                     _popupData.deleteOption={};
                                     _popupData.id=_rankID;
                                     _popupData.deleteOption.name="Remove "+data.properties.id+", "+data.properties.title;
-                                    
+
                                     if(_data.ranks.entities.length == _rankID) _popupData.deleteOption.buttonName="js-delete_rank";
                                     _popupData.deleteOption.description="Only the highest Rank can be removed at this time";
-
                                     $("#js-screen_mask").fadeIn(100, function(){
                                         _getTemplate("/templates/admin/plans/products/popup/_new_rank.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                             _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
@@ -186,7 +209,7 @@ jQuery(function($){
                             });
                         });
 
-                        //wire up ability to add qualifications
+                        //wire up add qualifications
                         $(".js-add_qualification").on("click", function(e){
                             e.preventDefault();
                             _rankID = parseInt($(e.target).parents("tr").attr("data-rank-id"));
