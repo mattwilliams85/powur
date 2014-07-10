@@ -139,11 +139,11 @@ jQuery(function($){
                                 _qualification_group=_data.qualifications[_rank][_qualification_path];
                                 _qualification_group.forEach(function(_qualification){
                                     _row.find(".js-qualification_path").html("Path: "+_qualification_path);
-                                    _row.find(".js-qualification_type").append("<div class='innerCell'><span class='label'> Product:"+_qualification.properties.type.replace(/\_/g," ")+"</span>"+_qualification.properties.type.replace(/\_/g," ")+"</div><br style='clear:both;'>");
+                                    _row.find(".js-qualification_type").append("<div class='innerCell'><span class='label'>"+_qualification.properties.product+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                     _conditions=[];
                                     for(var _p in _qualification.properties){
                                         switch (_p){
-                                            case "_path": case "path": case "type":
+                                            case "_path": case "path": case "type": case "id": case "type_display": case "product":
                                             break;
                                             default:
                                                 _conditions.push( "<div class='innerCell'>"+("<span class='label'>"+_p+"</span>"+_qualification.properties[_p]).replace(/\_/g," ")+"</div>");
@@ -152,8 +152,9 @@ jQuery(function($){
                                     }
                                     _conditions.sort();
                                     _conditions.reverse();
+
                                     _row.find(".js-qualification_conditions").append(_conditions.join("")+"<br style='clear:both;'>");
-                                    _row.find(".js-qualification_actions").append("<div class='innerCell' style='vertical-align:middle;'>Edit | Remove</div><br style='clear:both;'>");
+                                    _row.find(".js-qualification_actions").append("<div class='innerCell' style='vertical-align:middle;'><a href='#"+_qualification.properties.id+"' class='js-qualification_link'>Edit</a> | Remove</div><br style='clear:both;'>");
                                 });
                             };
                         };
