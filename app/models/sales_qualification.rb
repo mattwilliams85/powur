@@ -4,4 +4,6 @@ class SalesQualification < Qualification
 
   belongs_to :product
 
+  validates_presence_of :product_id, :quantity, :period
+
 end

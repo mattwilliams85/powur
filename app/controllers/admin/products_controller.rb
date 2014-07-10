@@ -43,7 +43,7 @@ module Admin
     private
 
     def input
-      allow_input(:name, :commissionable_volume, :commission_percentage, quote_data: [])
+      allow_input(:name, :bonus_volume, :commission_percentage, quote_data: [])
     end
 
     def fetch_product

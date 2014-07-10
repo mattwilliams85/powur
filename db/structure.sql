@@ -58,6 +58,49 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: bonus_ranks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE bonus_ranks (
+    bonus_id integer NOT NULL,
+    rank_id integer NOT NULL,
+    amounts integer
+);
+
+
+--
+-- Name: bonuses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE bonuses (
+    id integer NOT NULL,
+    type integer NOT NULL,
+    amount integer[],
+    generational_amounts hstore DEFAULT ''::hstore,
+    product_id integer NOT NULL
+);
+
+
+--
+-- Name: bonuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bonuses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: bonuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bonuses_id_seq OWNED BY bonuses.id;
+
+
+--
 -- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -120,7 +163,7 @@ CREATE TABLE invites (
 CREATE TABLE products (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    commissionable_volume integer NOT NULL,
+    bonus_volume integer NOT NULL,
     commission_percentage integer DEFAULT 100 NOT NULL,
     quote_data character varying(255)[] DEFAULT '{}'::character varying[],
     created_at timestamp without time zone,
@@ -316,6 +359,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY bonuses ALTER COLUMN id SET DEFAULT nextval('bonuses_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
 
 
@@ -352,6 +402,22 @@ ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq':
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: bonus_ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY bonus_ranks
+    ADD CONSTRAINT bonus_ranks_pkey PRIMARY KEY (bonus_id, rank_id);
+
+
+--
+-- Name: bonuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT bonuses_pkey PRIMARY KEY (id);
 
 
 --
@@ -416,6 +482,13 @@ ALTER TABLE ONLY settings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_bonuses_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_bonuses_on_product_id ON bonuses USING btree (product_id);
 
 
 --
@@ -500,6 +573,30 @@ CREATE UNIQUE INDEX index_users_on_url_slug ON users USING btree (url_slug);
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: bonus_ranks_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_ranks
+    ADD CONSTRAINT bonus_ranks_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
+-- Name: bonus_ranks_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_ranks
+    ADD CONSTRAINT bonus_ranks_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: bonuses_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT bonuses_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
@@ -589,4 +686,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140614053236');
 INSERT INTO schema_migrations (version) VALUES ('20140615034123');
 
 INSERT INTO schema_migrations (version) VALUES ('20140625072238');
+
+INSERT INTO schema_migrations (version) VALUES ('20140709083435');
+
+INSERT INTO schema_migrations (version) VALUES ('20140709085040');
 
