@@ -3,7 +3,7 @@ siren json
 klass :ranks, :list
 
 json.properties do
-  json.paths = @ranks.map { |r| r.qualifications.map(&:path) }.flatten.uniq
+  json.paths @ranks.map { |r| r.qualifications.map(&:path) }.flatten.uniq
 end
 
 json.entities @ranks, partial: 'item', as: :rank
