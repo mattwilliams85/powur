@@ -132,14 +132,20 @@ jQuery(function($){
                     _getTemplate("/templates/admin/plans/ranks/_ranks.handlebars.html", _data.ranks, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         //load qualifications
-                        for(var _rank in _data.qualifications){
-                            var _row =  $(".js-admin_dashboard_detail_container table tr[data-rank-id="+_rank+"]");
+                        for(var _rankID in _data.qualifications){
+                            console.log($.isEmptyObject(_data.qualifications[_rankID]));
+                            if($.isEmptyObject(_data.qualifications[_rankID])) continue;
+                            var _row =  $(".js-admin_dashboard_detail_container table tr[data-rank-id="+_rankID+"]");
+                            var _rankObj = _data.ranks.entities.filter(function(rank){return rank.properties.id==_rankID})[0];
+                            _row.find(".js-qualification_rank").html("");
+                            for(_qualification_path in _data.qualifications[_rankID]){
+                                _qualification_group=_data.qualifications[_rankID][_qualification_path];
+                                _padding=50*_qualification_group.length;
+                                _row.find(".js-qualification_rank").append("<div class='innerCell' style='height:"+_padding+"px'><span class='js-qualification_path label'>Path: "+_qualification_path+"</span><a href='#"+_rankID+"' class='js-rank_link'>"+_rankObj.properties.id+", "+_rankObj.properties.title+"</a>");
 
-                            for(_qualification_path in _data.qualifications[_rank]){
-                                _qualification_group=_data.qualifications[_rank][_qualification_path];
                                 _qualification_group.forEach(function(_qualification){
-                                    _row.find(".js-qualification_path").html("Path: "+_qualification_path);
-                                    _row.find(".js-qualification_type").append("<div class='innerCell'><span class='label'>"+_qualification.properties.product+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
+                                    var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product : " ";
+                                    _row.find(".js-qualification_type").append("<div class='innerCell'><span class='label'>"+_prod+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                     _conditions=[];
                                     for(var _p in _qualification.properties){
                                         switch (_p){
@@ -219,12 +225,17 @@ jQuery(function($){
                                 _callback:function(data, text){
                                     var _popupData = [];
                                     _popupData =_getObjectsByCriteria(data, "val~qualification").filter(function(action){return action.name=="create"})[0];
-                                    _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                                     _popupData.id=_rankID;
                                     _popupData.popupType = "hierarchical";
                                     _popupData.rootOptions=[];
-                                    ["path", "type"].forEach(function(rootOption){
-                                         _popupData.rootOptions.push(_getObjectsByCriteria(_popupData.fields,{name:rootOption})[0]); 
+                                    
+                                    _popupData.fields.forEach(function(field){
+                                        field.display_name=field.name.replace(/\_/g," ");
+
+                                        if (typeof field.visibility === "undefined"){
+                                            //console.log(field.name);
+                                            _popupData.rootOptions.push(_getObjectsByCriteria(_popupData.fields,{name:field.name})[0]); 
+                                        }
                                     });
 
                                     _popupData.title="Add a New Qualification<br>for Rank "+data.properties.id+", "+data.properties.title;
@@ -525,7 +536,6 @@ jQuery(function($){
         }
 
         function _displayPopup(_options){
-            console.log("show popup " + _options._popupData.href);
             $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"150px", opacity:0});
             $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
             $(".js-popup_form_button").on("click", function(e){
@@ -535,55 +545,61 @@ jQuery(function($){
                     _url:_options._popupData.href,
                     _postObj: $("#js-popup_form").serializeObject(),
                     _callback:function(data, text){
-                        console.log(_options._callback);
                         $("#js-screen_mask").click();
                         if(typeof _options._callback === "function") _options._callback();
                     }
                 });
             });
 
+            //locate any "select"'s and determine the dropdown display options needed for them
+            _options._popupData.fields.forEach(function(field){
+                //populate secondary selection options 
+                if(field.type === "select"){
+                    field.displayOptions=[];
+                    if(field.name=="type") field.displayOptions.push({name:"Select a Qualification Type", value:"none"});
+                    if(typeof field.reference !== "undefined"){
+                        //query specific options
+                        if(field.reference.rel === "products"){
+                            _data.products.entities.forEach(function(_product){
+                                field.displayOptions.push({name:_product.properties.name, value:_product.properties.id});
+                            });
+                        }
+                    }else{
+                        //object specific options
+                        delete field.options._path;
+                        for(var key in field.options){
+                            field.displayOptions.push({name:field.options[key], value:key});
+                        }
+                    }
+                }
+            });
+
             //wire up dynamic interaction for the select/option
             if(_options._popupData.popupType === "hierarchical"){
                 $("#js-popup_form .js-popup_form_button").css("display","none");
-                _options._popupData.rootOptions.forEach(function(_rootOption){
-                    if(_rootOption.type == "select"){
-                        $("#js-popup_form .rootOptions select[name="+_rootOption.name+"]").on("change", function(e){
+                _getTemplate("/templates/admin/plans/products/popup/_secondary_options.handlebars.html", _options._popupData.rootOptions, $("#js-popup_form .primaryOptions"), function(){
+
+                    $("#js-popup_form .primaryOptions select[name=type]").on("change", function(e){
+                        $("#js-popup_form .js-popup_form_button").css("display","block");
+                        $("#js-popup_form .secondaryOptions").html("");
+                        if($(e.target).val()==="none") {
                             $("#js-popup_form .js-popup_form_button").css("display","none");
-                            $("#js-popup_form .secondaryOptions").html("");
-                            if($(e.target).val()==="none") return;
-                            _secondaryOptions=[];
-                            _options._popupData.fields.forEach(function(field){
-                                if(!!field.visibility && 
-                                    field.visibility.control==_rootOption.name && 
-                                    field.visibility.values.indexOf($(e.target).val())>=0){
-                                        //populate secondary selection options 
-                                        if(field.type === "select"){
-                                            field.displayOptions=[];
-                                            if(typeof field.reference !== "undefined"){
-                                                //query specific options
-                                                if(field.reference.rel === "products"){
-                                                    _data.products.entities.forEach(function(_product){
-                                                        field.displayOptions.push({name:_product.properties.name, value:_product.properties.id});
-                                                    });
-                                                }
-                                            }else{
-                                                //object specific options
-                                                delete field.options._path;
-                                                for(var key in field.options){
-                                                    field.displayOptions.push({name:field.options[key], value:key});
-                                                }
-                                            }
-                                        }
-                                        _secondaryOptions.push(field);
+                            return;
+                        }
+                        _secondaryOptions=[];
+                        _options._popupData.fields.forEach(function(field){
+                            if(!!field.visibility && 
+                                field.visibility.control=="type" && 
+                                field.visibility.values.indexOf($(e.target).val())>=0){
 
-                                }
-                            });
-                            _getTemplate("/templates/admin/plans/products/popup/_secondary_options.handlebars.html", _secondaryOptions, $("#js-popup_form .secondaryOptions"), function(){
-                                $("#js-popup_form .js-popup_form_button").fadeIn();
+                                    _secondaryOptions.push(field);
+                            }
+                        });
+                        _getTemplate("/templates/admin/plans/products/popup/_secondary_options.handlebars.html", _secondaryOptions, $("#js-popup_form .secondaryOptions"), function(){
+                            $("#js-popup_form .js-popup_form_button").fadeIn();
 
-                            });
-                        })
-                    }
+                        });
+                    });
                 });
 
                 //populate the initial input for the first select/option value

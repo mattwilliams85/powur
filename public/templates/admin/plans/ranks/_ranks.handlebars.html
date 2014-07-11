@@ -7,10 +7,7 @@
     </tr>
     {{#each this.entities}}
     <tr data-rank-id="{{this.properties.id}}" style="text-transform:capitalize; color:#9b9b9b; border:0;">
-        <td class="js-qualification_rank" style="vertical-align:top;">
-            <span class="js-qualification_path label"></span>
-            <a href="#{{this.properties.id}}" class="js-rank_link">{{math @index "+" "1"}}, {{this.properties.title}}</a>
-        </td>
+        <td class="js-qualification_rank" style="vertical-align:top;"><a href="#{{this.properties.id}}" class="js-rank_link">{{this.properties.id}}, {{this.properties.title}}</a></td>
         <td class="js-qualification_type"></td>
         <td class="js-qualification_conditions"></td>
         <td class="js-qualification_actions"></td>

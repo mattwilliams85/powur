@@ -2,11 +2,11 @@
     <label for="{{this.name}}">{{this.display_name}}</label>
 
 {{#compare this.type "number" operator="=="}}
-    <input name="{{this.name}}" type="text" value="{{this.value}}">
+    <input name="{{this.name}}" type="text" value="{{this.value}}" style="margin-bottom:0;">
 {{/compare}}
 
 {{#compare this.type "text" operator="=="}}
-    <input name="{{this.name}}" type="text" value="{{this.value}}">
+    <input name="{{this.name}}" type="text" value="{{this.value}}" style="margin-bottom:0;">
 {{/compare}}
 
 {{#compare this.type "select" operator="=="}}
