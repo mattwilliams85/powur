@@ -67,10 +67,10 @@ Rails.application.routes.draw do
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
 
     resources :ranks, only: [ :index, :create, :update, :destroy, :show ] do
-      resources :qualifications, only: [ :create, :update, :delete, :destroy ]
+      resources :qualifications, only: [ :create, :update, :destroy ]
     end
 
-    # resources :qualifications, only: [ :create, :update, :delete ]
+    resources :bonuses, only: [ :index, :create, :destroy, :update ]
 
   end
 

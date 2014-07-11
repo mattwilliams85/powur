@@ -1,7 +1,6 @@
 
 json.properties do
   json.(qualification, :period, :quantity, :max_leg_percent)
-  json.product qualification.product.name
 end
 
 action_list << action(:update, :patch, 
@@ -10,6 +9,7 @@ action_list << action(:update, :patch,
     field(:period, :select, 
       options: { pay_period: 'Pay Period', lifetime: 'Lifetime' }, 
       value: qualification.period).
-    field(:quantity, :number, value: qualification.quantity)
+    field(:quantity, :number, value: qualification.quantity).
+    field(:max_leg_percent, :number, value: qualification.max_leg_percent)
 
 actions *action_list

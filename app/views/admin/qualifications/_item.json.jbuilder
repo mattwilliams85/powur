@@ -4,6 +4,7 @@ klass :qualification
 json.properties do
   json.type qualification.type_string
   json.(qualification, :id, :type_display, :path)
+  json.product qualification.product.name
 end
 
 action_list = [

@@ -12,20 +12,6 @@ describe '/a/products' do
       expect(json_body['entities'].first['entities'].first['class']).to include('qualification')
     end
 
-    it 'creates a certification qualification' do
-      post rank_qualifications_path(@rank), 
-        type: :certification, name: 'Jedi Training', format: :json
-
-      assert_qualification
-    end
-
-    it 'requires a name' do
-      post rank_qualifications_path(@rank), 
-        type: :certification, format: :json
-
-      expect_input_error('name')
-    end
-
     it 'creates a sales qualification' do
       product = create(:product)
       post rank_qualifications_path(@rank),
@@ -61,7 +47,7 @@ describe '/a/products' do
 
   describe '#delete' do
     it 'deletes a qualification from a rank' do
-      qualification = create(:certification_qualification, rank: @rank)
+      qualification = create(:sales_qualification, rank: @rank)
       delete rank_qualification_path(@rank, qualification), format: :json
 
       expect(json_body['entities'].first['entities'].size).to eq(0)

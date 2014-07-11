@@ -74,10 +74,11 @@ CREATE TABLE bonus_ranks (
 
 CREATE TABLE bonuses (
     id integer NOT NULL,
-    type integer NOT NULL,
-    amount integer[],
-    generational_amounts hstore DEFAULT ''::hstore,
-    product_id integer NOT NULL
+    type character varying(255) NOT NULL,
+    schedule integer NOT NULL,
+    rank_amounts integer[],
+    data hstore,
+    product_id integer
 );
 
 
@@ -198,12 +199,11 @@ CREATE TABLE qualifications (
     id integer NOT NULL,
     path character varying(255) DEFAULT 'default'::character varying NOT NULL,
     type character varying(255) NOT NULL,
-    name character varying(255),
     period integer,
     quantity integer,
     max_leg_percent integer,
     rank_id integer NOT NULL,
-    product_id integer
+    product_id integer NOT NULL
 );
 
 

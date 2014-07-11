@@ -4,7 +4,6 @@ class Qualification < ActiveRecord::Base
   belongs_to :product
 
   TYPES =  { 
-    certification: 'Certification', 
     sales:         'Personal Sales', 
     group_sales:   'Group Sales' }
 

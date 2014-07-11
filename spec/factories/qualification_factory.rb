@@ -1,11 +1,6 @@
 FactoryGirl.define do
   factory :qualification do
 
-    factory :certification_qualification, class: CertificationQualification do
-      type 'CertificationQualification'
-      name Faker::Commerce.product_name
-    end
-
     factory :sales_qualification, class: SalesQualification do
       type      'SalesQualification'
       period    Time.now.to_i % 2 + 1

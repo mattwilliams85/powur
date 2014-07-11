@@ -1,7 +1,6 @@
 
 json.properties do
   json.(qualification, :period, :quantity)
-  json.product qualification.product.name
 end
 
 action_list << action(:update, :patch, 

@@ -59,6 +59,17 @@ en:
       create: Create Invite
     session:
       create: Login
+  bonuses:
+    direct_sale: Direct Sale
+    enrollment: Enrollment
+    promote_out: Promote-Out
+    generational: Generational
+  schedule:
+    weekly: Weekly
+    monthly: Monthly
+  qualification_periods:
+    pay_period: Pay Period
+    lifetime: Lifetime
   activerecord:
     errors:
       messages:

@@ -1,10 +1,11 @@
 class CreateBonuses < ActiveRecord::Migration
   def change
     create_table :bonuses do |t|
-      t.integer :type, null: false
-      t.integer :amount, array: true
-      t.hstore  :generational_amounts, default: ''
-      t.belongs_to :product, index: true, null: false
+      t.string      :type, null: false
+      t.integer     :schedule, null: false
+      t.integer     :rank_amounts, array: true
+      t.hstore      :data
+      t.belongs_to  :product, index: true
 
       t.foreign_key :products, column: :product_id, primary_key: :id
     end
