@@ -8,10 +8,11 @@ json.properties do
 end
 
 action_list = [
-  action(:delete, :delete, qualification_path(qualification)) ]
+  action(:delete, :delete, rank_qualification_path(qualification.rank, qualification)) ]
 
 action_list << action(:update, :patch, 
-  qualification_path(qualification)).
+  rank_qualification_path(qualification.rank, qualification)).
+    field(:path, :text, value: qualification.path).
     field(:period, :select, 
       options: { pay_period: 'Pay Period', lifetime: 'Lifetime' }, 
       value: qualification.period).
@@ -24,4 +25,4 @@ end
 actions *action_list
 
 links \
-  link :self, qualification_path(qualification)
+  link :self, rank_qualification_path(qualification.rank, qualification)

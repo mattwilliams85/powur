@@ -1,7 +1,7 @@
 
 klass :qualifications, :list
 
-json.entities qualifications, partial: 'admin/qualifications/item', as: :qualification
+json.entities qualifications, partial: 'admin/qualifications/rank_item', as: :qualification
 
 create_action = action(:create, :post, rank_qualifications_path(rank)).
   field(:path, :text, value: 'default').

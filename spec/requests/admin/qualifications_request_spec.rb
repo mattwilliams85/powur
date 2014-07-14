@@ -1,56 +1,62 @@
 require 'spec_helper'
 
-describe '/a/products' do
+describe '/a/ranks/:id/qualifications' do
 
   before :each do
     login_user
-    @rank = create(:rank)
+  end
+
+  describe '#index' do
+
+    it 'renders the list of active qualifications' do
+      create(:sales_qualification)
+      create(:group_sales_qualification)
+      create(:sales_qualification, rank: create(:rank))
+
+      get qualifications_path, format: :json
+
+      expect_classes 'qualifications', 'list'
+      expect_entities_count(2)
+    end
+
   end
 
   describe '#create' do
-    def assert_qualification
-      expect(json_body['entities'].first['entities'].first['class']).to include('qualification')
-    end
 
-    it 'creates a sales qualification' do
+    it 'creates an active qualification' do
       product = create(:product)
-      post rank_qualifications_path(@rank),
+      post qualifications_path,
         type: :sales, product_id: product.id, period: :pay_period, quantity: 5, format: :json
 
-      assert_qualification
+      expect_classes 'qualification'
     end
 
-    it 'creates a group sales qualification' do
-      product = create(:product)
-
-      post rank_qualifications_path(@rank),
-        type: :group_sales, product_id: product.id, period: :lifetime, 
-        quantity: 5, max_leg_percent: 55, format: :json
-
-      assert_qualification
-    end
   end
 
   describe '#update' do
-    it 'updates a group sales qualification' do
-      qualification = create(:group_sales_qualification, rank: @rank)
 
-      patch rank_qualification_path(@rank, qualification), 
+    it 'updates a qualification' do
+      qualification = create(:group_sales_qualification)
+
+      patch qualification_path(qualification), 
         max_leg_percent: 12, format: :json
 
-      max_leg_percent = json_body['entities'].
-        first['entities'].first['properties']['max_leg_percent']
+      max_leg_percent = json_body['properties']['max_leg_percent']
 
       expect(max_leg_percent).to eq(12)
     end
+
   end
 
-  describe '#delete' do
-    it 'deletes a qualification from a rank' do
-      qualification = create(:sales_qualification, rank: @rank)
-      delete rank_qualification_path(@rank, qualification), format: :json
+  describe '#destroy' do
 
-      expect(json_body['entities'].first['entities'].size).to eq(0)
+    it 'deletes a qualification' do
+      qualification = create(:sales_qualification)
+
+      delete qualification_path(qualification), format: :json
+
+      expect_classes 'qualifications', 'list'
+      expect_entities_count(0)
     end
   end
 

@@ -197,12 +197,12 @@ ALTER SEQUENCE products_id_seq OWNED BY products.id;
 
 CREATE TABLE qualifications (
     id integer NOT NULL,
-    path character varying(255) DEFAULT 'default'::character varying NOT NULL,
     type character varying(255) NOT NULL,
+    path character varying(255) DEFAULT 'default'::character varying NOT NULL,
     period integer,
     quantity integer,
     max_leg_percent integer,
-    rank_id integer NOT NULL,
+    rank_id integer,
     product_id integer NOT NULL
 );
 
