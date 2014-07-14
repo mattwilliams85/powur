@@ -267,18 +267,18 @@ function Dashboard(){
 				_drillDownLevel=$("#dashboard_team .drilldown").length+1;
 
 				//compile leader (hero) info
-				$.getJSON("/jsons/users."+_options._userID+".json", function(){
+				$.getJSON("/u/users/"+_options._userID, function(){
 					console.log("... loading user#"+_options._userID+" profile info");
 				})
 				.done(function(data){
 					//prepare leader info
 					_userDetail={};
-					_userDetail["name"] = data[0].info.first_name+" "+data[0].info.last_name;
-					_userDetail["profile_image"] = data[0].info.profile_image;
-					_userDetail["email"] = data[0].info.email;
-					_userDetail["phone"] = data[0].info.phone;
+					_userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
+					_userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
+					_userDetail["email"] = data.properties.email;
+					_userDetail["phone"] = data.properties.phone;
 					_userDetail["generation"] = _drillDownLevel;
-					for(key in data[0].rank[data[0].rank.length-1]) _userDetail["rank"] = key;
+					//for(key in data[0].rank[data[0].rank.length-1]) _userDetail["rank"] = key;
 
 					//add new team drilldown basic template layout with leader info
 					_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";

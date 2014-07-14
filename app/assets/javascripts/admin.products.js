@@ -13,6 +13,26 @@ jQuery(function($){
         _dashboard.displayPlans($(e.target).attr("href"));
     });
 
+    _data.loadTimer="";
+    _data.load = function(){
+        var _loading=false;
+        for(i=0; i<_data.loadCategories.length;i++){
+            if(typeof _data[_data.loadCategories[i]] === "undefined"){
+                _loading=true;
+                break;
+            }
+        }
+        if(_loading) _data.loadTimer = setTimeout(_data.load, 10);
+        else{
+            clearTimeout(_data.loadTimer);
+            for(i=0; i<_data.loadCategories.length;i++){
+                console.log("complete: _data."+_data.loadCategories[i]);
+            }
+            _dashboard.displayPlans("#admin-plans-init");
+        }
+    }
+    _data.load();
+
     _data.root={};
     _ajax({
         _ajaxType:"get",
@@ -51,36 +71,14 @@ jQuery(function($){
                                 _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path] =[];
                             }
                             _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path].push(_getObjectsByPath(_rank, _q._path, -1));
-                            //_data.qualifications[_rank.properties.id].push(_getObjectsByPath(_rank, _q._path, -1));
-
                         })
-
                     });
-                    //displayPlans("#admin-plans-ranks");
                 }
             });
         }
     });
     
-    _data.loadTimer="";
-    _data.load = function(){
-        var _loading=false;
-        for(i=0; i<_data.loadCategories.length;i++){
-            if(typeof _data[_data.loadCategories[i]] === "undefined"){
-                _loading=true;
-                break;
-            }
-        }
-        if(_loading) _data.loadTimer = setTimeout(_data.load, 10);
-        else{
-            clearTimeout(_data.loadTimer);
-            for(i=0; i<_data.loadCategories.length;i++){
-                console.log("complete: _data."+_data.loadCategories[i]);
-            }
-            _dashboard.displayPlans("#admin-plans-init");
-        }
-    }
-    _data.load();
+
 
 
     function AdminDashboard(){
@@ -647,9 +645,6 @@ jQuery(function($){
                     });
                 });
 
-                //populate the initial input for the first select/option value
-                //_options._popupData
-                //$("#js-popup_form .secondaryOptions")
             }
 
 
