@@ -1,13 +1,13 @@
 class CreateQualifications < ActiveRecord::Migration
   def change
     create_table :qualifications do |t|
-      t.string  :path, null: false, default: 'default'
       t.string  :type, null: false
+      t.string  :path, null: false, default: 'default'
       t.integer :period
       t.integer :quantity
       t.integer :max_leg_percent
 
-      t.belongs_to :rank, index: true, null: false
+      t.belongs_to :rank, index: true
       t.belongs_to :product, index: true, null: false
 
       t.foreign_key :ranks, column: :rank_id, primary_key: :id

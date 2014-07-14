@@ -13,4 +13,5 @@ actions \
     field(:title, :text)
 
 links \
-  link(:self, ranks_path)
+  link(:self, ranks_path),
+  link(:active_qualifications, qualifications_path)
