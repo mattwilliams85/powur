@@ -10,6 +10,7 @@ describe '/a/bonuses' do
   describe '#index' do
 
     it 'returns a list of bonuses' do
+      get bonuses_path, format: :json
     end
 
 
