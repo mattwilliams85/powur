@@ -1,24 +1,15 @@
 class Bonus < ActiveRecord::Base
 
-  enum schedule: { weekly: 1, pay_period: 2 }
-  validates_presence_of :type, :schedule
+  SCHEDULES = { weekly: 'Weekly', pay_period: 'Pay Period' }
+  PAYS      = { distributor: 'Distributor', upline: 'Upline' }
 
-  def type_string
-    self.class.name.underscore.gsub(/_bonus/, '')
-  end
+  enum schedule:  { weekly: 1, pay_period: 2 }
+  enum pays:      { distributor: 1, upline: 2 }
 
-  def type_display
-    I18n.t("bonuses.#{type_string}")
-  end
+  belongs_to :product
+  belongs_to :min_distributor_rank, foreign_key: :min_distributor_rank, class_name: 'Rank'
+  belongs_to :max_upline_rank, foreign_key: :max_upline_rank, class_name: 'Rank'
 
-  def schedule_display
-    I18n.t("schedule.#{self.schedule}")
-  end
-
-  class << self
-    def symbol_to_type(type_symbol)
-      "#{type_symbol.to_s.split('_').map(&:capitalize).join}#{self.name}".constantize
-    end
-  end
+  validates_presence_of :schedule, :pays, :product_id
 
 end
