@@ -27,7 +27,7 @@ actions \
     field(:amount, :number, array: true, size: Rank.count, 
       visibility: { control: :levels, values: [ false ] }).
     field(:amounts, :number, grid: true, x_size: Rank.count,
-      visibility: { control: :levels, values: [ true ] }).
+      visibility: { control: :levels, values: [ true ] })
 
 links \
   link(:self, bonuses_path),

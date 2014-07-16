@@ -9,7 +9,10 @@ actions action(:create, :post, qualifications_path).
     options: Qualification::TYPES, value: :sales).
   field(:product_id, :select, 
     reference:  { type: :link, rel: :products, value: :id, name: :name }).
-  field(:quantity, :number)
+  field(:quantity, :number).
+  field(:max_leg_percent, :number, 
+    visibility: { control: :type, values: [ :group_sales ] })
+
 
 links \
   link(:self, qualifications_path),
