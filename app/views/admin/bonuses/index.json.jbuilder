@@ -24,7 +24,10 @@ actions \
       visibility: { control: :schedule, values: [ :upline ] }).
     field(:levels, :checkbox, value: false,
       visibility: { control: :schedule, values: [ :upline ] }).
-    field(:amount, :number, array: true, size: Rank.count, visibility: { control: :levels, values: [ false ] })
+    field(:amount, :number, array: true, size: Rank.count, 
+      visibility: { control: :levels, values: [ false ] }).
+    field(:amounts, :number, grid: true, x_size: Rank.count,
+      visibility: { control: :levels, values: [ true ] }).
 
 links \
   link(:self, bonuses_path),
