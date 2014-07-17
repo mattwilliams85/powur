@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140709085040) do
+ActiveRecord::Schema.define(version: 20140709083435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,26 +19,28 @@ ActiveRecord::Schema.define(version: 20140709085040) do
   enable_extension "hstore"
 
   create_table "bonus_rank_amounts", id: false, force: true do |t|
-    t.integer "bonus_id", null: false
-    t.integer "rank_id",  null: false
-    t.integer "amounts",               array: true
+    t.integer "bonus_id",                                     null: false
+    t.integer "level",                            default: 0, null: false
+    t.decimal "amounts",  precision: 5, scale: 5,             null: false, array: true
   end
 
-  create_table "bonus_sales_requirements", force: true do |t|
-    t.integer "bonus_id",                null: false
-    t.integer "quantity", default: 1,    null: false
-    t.boolean "source",   default: true, null: false
+  create_table "bonus_sales_requirements", id: false, force: true do |t|
+    t.integer "bonus_id",                  null: false
+    t.integer "product_id",                null: false
+    t.integer "quantity",   default: 1,    null: false
+    t.boolean "source",     default: true, null: false
   end
 
   create_table "bonuses", force: true do |t|
     t.string  "name",                               null: false
+    t.integer "achieved_rank_id"
     t.integer "schedule",           default: 2,     null: false
     t.integer "pays",               default: 1,     null: false
-    t.boolean "compress",           default: false, null: false
-    t.boolean "levels",             default: false, null: false
-    t.integer "amount",                                          array: true
     t.integer "max_user_rank_id"
     t.integer "min_upline_rank_id"
+    t.boolean "compress",           default: false, null: false
+    t.boolean "levels",             default: false, null: false
+    t.integer "flat_amount"
   end
 
   create_table "customers", force: true do |t|
@@ -142,10 +144,11 @@ ActiveRecord::Schema.define(version: 20140709085040) do
   add_index "users", ["url_slug"], name: "index_users_on_url_slug", unique: true, using: :btree
 
   add_foreign_key "bonus_rank_amounts", "bonuses", name: "bonus_rank_amounts_bonus_id_fk"
-  add_foreign_key "bonus_rank_amounts", "ranks", name: "bonus_rank_amounts_rank_id_fk"
 
   add_foreign_key "bonus_sales_requirements", "bonuses", name: "bonus_sales_requirements_bonus_id_fk"
+  add_foreign_key "bonus_sales_requirements", "products", name: "bonus_sales_requirements_product_id_fk"
 
+  add_foreign_key "bonuses", "ranks", name: "bonuses_achieved_rank_id_fk", column: "achieved_rank_id"
   add_foreign_key "bonuses", "ranks", name: "bonuses_max_user_rank_id_fk", column: "max_user_rank_id"
   add_foreign_key "bonuses", "ranks", name: "bonuses_min_upline_rank_id_fk", column: "min_upline_rank_id"
 

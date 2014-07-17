@@ -63,8 +63,8 @@ SET default_with_oids = false;
 
 CREATE TABLE bonus_rank_amounts (
     bonus_id integer NOT NULL,
-    rank_id integer NOT NULL,
-    amounts integer[]
+    level integer DEFAULT 0 NOT NULL,
+    amounts numeric(5,5)[] NOT NULL
 );
 
 
@@ -73,30 +73,11 @@ CREATE TABLE bonus_rank_amounts (
 --
 
 CREATE TABLE bonus_sales_requirements (
-    id integer NOT NULL,
     bonus_id integer NOT NULL,
+    product_id integer NOT NULL,
     quantity integer DEFAULT 1 NOT NULL,
     source boolean DEFAULT true NOT NULL
 );
-
-
---
--- Name: bonus_sales_requirements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE bonus_sales_requirements_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: bonus_sales_requirements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE bonus_sales_requirements_id_seq OWNED BY bonus_sales_requirements.id;
 
 
 --
@@ -106,13 +87,16 @@ ALTER SEQUENCE bonus_sales_requirements_id_seq OWNED BY bonus_sales_requirements
 CREATE TABLE bonuses (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
+    achieved_rank_id integer,
     schedule integer DEFAULT 2 NOT NULL,
     pays integer DEFAULT 1 NOT NULL,
+    max_user_rank_id integer,
+    min_upline_rank_id integer,
     compress boolean DEFAULT false NOT NULL,
     levels boolean DEFAULT false NOT NULL,
-    amount integer[],
-    max_user_rank_id integer,
-    min_upline_rank_id integer
+    flat_amount integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -393,13 +377,6 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bonus_sales_requirements ALTER COLUMN id SET DEFAULT nextval('bonus_sales_requirements_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY bonuses ALTER COLUMN id SET DEFAULT nextval('bonuses_id_seq'::regclass);
 
 
@@ -450,7 +427,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 --
 
 ALTER TABLE ONLY bonus_rank_amounts
-    ADD CONSTRAINT bonus_rank_amounts_pkey PRIMARY KEY (bonus_id, rank_id);
+    ADD CONSTRAINT bonus_rank_amounts_pkey PRIMARY KEY (bonus_id, level);
 
 
 --
@@ -458,7 +435,7 @@ ALTER TABLE ONLY bonus_rank_amounts
 --
 
 ALTER TABLE ONLY bonus_sales_requirements
-    ADD CONSTRAINT bonus_sales_requirements_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT bonus_sales_requirements_pkey PRIMARY KEY (bonus_id, product_id);
 
 
 --
@@ -626,19 +603,27 @@ ALTER TABLE ONLY bonus_rank_amounts
 
 
 --
--- Name: bonus_rank_amounts_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_rank_amounts
-    ADD CONSTRAINT bonus_rank_amounts_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
-
-
---
 -- Name: bonus_sales_requirements_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bonus_sales_requirements
     ADD CONSTRAINT bonus_sales_requirements_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
+-- Name: bonus_sales_requirements_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_sales_requirements
+    ADD CONSTRAINT bonus_sales_requirements_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: bonuses_achieved_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT bonuses_achieved_rank_id_fk FOREIGN KEY (achieved_rank_id) REFERENCES ranks(id);
 
 
 --
@@ -746,6 +731,4 @@ INSERT INTO schema_migrations (version) VALUES ('20140615034123');
 INSERT INTO schema_migrations (version) VALUES ('20140625072238');
 
 INSERT INTO schema_migrations (version) VALUES ('20140709083435');
-
-INSERT INTO schema_migrations (version) VALUES ('20140709085040');
 
