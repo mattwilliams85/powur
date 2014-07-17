@@ -265,8 +265,8 @@ function _getObjectsByCriteria(_dataObj, _criteria, _results, _path){
         if(!_operator)_operator = _criteria.indexOf("~")>=0? "~":undefined;
 
         if(typeof _operator === "undefined") return;
-        _value=  ["val", "value"].indexOf(_criteria.split(_operator)[0].toLowerCase() >=0)? _criteria.split(_operator)[1]:undefined;
-        _key= ["key"].indexOf(_criteria.split(_operator)[0].toLowerCase() >=0)?  _criteria.split(_operator)[1]:undefined;
+        var _value= (["val", "value"].indexOf(_criteria.split(_operator)[0].toLowerCase())>=0)? _criteria.split(_operator)[1]:undefined;
+        var _key=   (["key"].indexOf(_criteria.split(_operator)[0].toLowerCase())>=0)?  _criteria.split(_operator)[1]:undefined;
     }
 
     Object.keys(_dataObj).forEach(function(key){

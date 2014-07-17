@@ -2,7 +2,7 @@
 
 var _data={};
 var _dashboard;
-_data.loadCategories=["currentUser", "products", "currentProduct", "ranks", "qualifications"];
+_data.loadCategories=["currentUser", "products", "currentProduct", "ranks", "qualifications", "active_qualifications", "active_qualification_paths"];
 
 jQuery(function($){
 
@@ -75,10 +75,26 @@ jQuery(function($){
                     });
                 }
             });
+            
+            _ajax({
+                _ajaxType:"get",
+                _url:"/a/qualifications",
+                _callback:function(data, text){
+                    _data.active_qualifications = data;
+                    _data.active_qualification_paths ={};
+                    _getObjectsByCriteria(_data.active_qualifications, "key=path").forEach(function(_p){
+                        if(typeof _data.active_qualification_paths[_p.path] === "undefined") _data.active_qualification_paths[_p.path]=[];
+                        _active_qualification = _getObjectsByPath(_data.active_qualifications, _p._path, -1);
+                        _data.active_qualification_paths[_p.path].push(_active_qualification);
+
+                    });
+                }
+            });
         }
     });
     
 
+    
 
 
     function AdminDashboard(){
@@ -108,8 +124,6 @@ jQuery(function($){
             }
         }
 
-
-
         function displayPlans(_tab, _callback){
             switch(_tab){
 
@@ -121,6 +135,7 @@ jQuery(function($){
                 break;
 
                 case "#admin-plans-ranks-init":
+                    //refresh rank qualifications
                     _ajax({
                         _ajaxType:"get",
                         _url:"/a/ranks",
@@ -139,11 +154,25 @@ jQuery(function($){
                                     }
                                     _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path].push(_getObjectsByPath(_rank, _q._path, -1));
                                     //_data.qualifications[_rank.properties.id].push(_getObjectsByPath(_rank, _q._path, -1));
-
-                                })
+                                });
 
                             });
-                            displayPlans("#admin-plans-ranks");
+                            //refresh active qualifications
+                            _ajax({
+                                _ajaxType:"get",
+                                _url:"/a/qualifications",
+                                _callback:function(data, text){
+                                    _data.active_qualifications = data;
+                                    _data.active_qualification_paths ={};
+                                    _getObjectsByCriteria(_data.active_qualifications, "key=path").forEach(function(_p){
+                                        if(typeof _data.active_qualification_paths[_p.path] === "undefined") _data.active_qualification_paths[_p.path]=[];
+                                        _active_qualification = _getObjectsByPath(_data.active_qualifications, _p._path, -1);
+                                        _data.active_qualification_paths[_p.path].push(_active_qualification);
+
+                                    });
+                                    displayPlans("#admin-plans-ranks");
+                                }
+                            });
                         }
                     });
                 break;
@@ -176,7 +205,61 @@ jQuery(function($){
 
                     _getTemplate("/templates/admin/plans/ranks/_ranks.handlebars.html", _data.ranks, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
-                        //load qualifications
+                        
+                        //load active qualifications
+                        var _row =$("#js-active_qualification_row");
+                        _row.find(".js-active_path").html("");
+                        for(_active_qualification_path in _data.active_qualification_paths){
+                            _qualification_group=_data.active_qualification_paths[_active_qualification_path];
+                            _padding=50*_qualification_group.length;
+                            _row.find(".js-active_path").append("<div class='innerCell' style='height:"+_padding+"px'><span class='js-qualification_path label'>Path: "+_active_qualification_path+"</span>"+"<span style='line-height:20px;display:block; padding:5px 4px;'>Active Req.</span>");
+
+                            _qualification_group.forEach(function(_qualification){
+                                var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product : " ";
+                                _row.find(".js-active_type").append("<div class='innerCell'><span class='label'>"+_prod+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
+                                _conditions=[];
+                                for(var _p in _qualification.properties){
+                                    switch (_p){
+                                        case "_path": case "path": case "type": case "id": case "type_display": case "product":
+                                            //do not display these values
+                                        break;
+                                        default:
+                                            _conditions.push( "<div class='innerCell'>"+("<span class='label'>"+_p+"</span>"+_qualification.properties[_p]).replace(/\_/g," ")+"</div>");
+                                        break;
+                                    }
+                                }
+                                _conditions.sort();
+                                _conditions.reverse();
+
+                                _row.find(".js-active_conditions").append(_conditions.join("")+"<br style='clear:both;'>");
+                                _row.find(".js-active_actions").append("<div class='innerCell' style='vertical-align:middle;'><a href='#"+_qualification.properties.id+"' class='js-active_qualification_link' data-qualification-path='"+_active_qualification_path+"'>Edit Qualification</a></div><br style='clear:both;'>");
+                            });
+                        }
+                        //wire up active qualification edit
+                        $(".js-active_qualification_link").on("click", function(e){
+                            e.preventDefault();
+                            _qualificationID = parseInt($(e.target).attr("href").replace("#","")); 
+                            _qualificationPath = $(e.target).attr("data-qualification-path");
+                            _qualification=_data.active_qualification_paths[_qualificationPath].filter(function(_q){return _q.properties.id==_qualificationID})[0];
+                            
+                            var _popupData =[];
+                            
+                            _popupData = _qualification.actions.filter(function(action){return action.name==="update"})[0];
+                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
+                            _popupData.title="Editing Qaulification";
+                            _popupData.deleteOption={};
+                            _popupData.id=_qualificationID;
+                            _popupData.deleteOption.name="Remove this Qualification";
+                            _popupData.deleteOption.buttonName="js-delete_qualification";
+                            _popupData.deleteOption.description="";
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
+                                });
+                            });
+                        });
+
+                        //load rank qualifications
                         for(var _rankID in _data.qualifications){
                             if($.isEmptyObject(_data.qualifications[_rankID])) continue;
 
@@ -261,7 +344,7 @@ jQuery(function($){
                             });
                         });
 
-                        //wire up add qualifications
+                        //wire up add rank qualifications
                         $(".js-add_qualification").on("click", function(e){
                             e.preventDefault();
                             _rankID = parseInt($(e.target).parents("tr").attr("data-rank-id"));
@@ -291,7 +374,32 @@ jQuery(function($){
                                     });
                                 }
                             });
-                        })
+                        });
+
+                        //wire up add active qualifications
+                        $(".js-add_active_qualification").on("click", function(e){
+                            e.preventDefault();
+                            var _popupData=[];
+                            _popupData =_getObjectsByCriteria(_data.active_qualifications, "val~qualification").filter(function(action){return action.name=="create"})[0];
+                            _popupData.popupType = "hierarchical";
+                            _popupData.primaryOptions=[];
+
+                            _popupData.fields.forEach(function(field){
+                                field.display_name=field.name.replace(/\_/g," ");
+                                if (typeof field.visibility === "undefined"){
+                                    _popupData.primaryOptions.push(_getObjectsByCriteria(_popupData.fields,{name:field.name})[0]); 
+                                }
+                            });
+
+                            _popupData.title="Add a New Qualification<br>for an Active User";
+
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/products/popup/_hierarchical_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
+                                });
+                            });
+
+                        });
 
                     });
 
@@ -673,7 +781,19 @@ jQuery(function($){
                             if(typeof _options._callback === "function") _options._callback();
                         }
                     })
-                });                
+                });
+                //delete qualifications
+                $(".js-delete.js-delete_qualification").on("click", function(e){
+                    e.preventDefault();
+                    _ajax({
+                        _ajaxType:"delete",
+                        _url:_options._popupData.href,
+                        _callback:function(data, text){
+                            $("#js-screen_mask").click();
+                            if(typeof _options._callback === "function") _options._callback();
+                        }
+                    });
+                });
             }
         }
 

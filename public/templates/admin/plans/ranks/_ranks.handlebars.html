@@ -1,3 +1,4 @@
+
 <table class="_table _spreadSheet">
     <tr>
         <th width="15%">Rank/Name</th>
@@ -5,6 +6,21 @@
         <th>Conditions</th>
         <th width="15%">Action</th>
     </tr>
+    <tr id="js-active_qualification_row" style="text-transform:capitalize; border:0;">
+        <td class="js-active_path">Active User Qualifications</td>
+        <td class="js-active_type"></td>
+        <td class="js-active_conditions"></td>
+        <td class="js-active_actions"></td>
+    </tr>
+    <tr style="border:0;">
+        <td colspan="4">
+            <a href="#" class="js-add_active_qualification button">+ Qualification</a>
+        </td>
+    <tr>
+    <tr style="border-bottom:3px double #ccc;">
+        <td colspan="4"></td>
+    </tr>
+
     {{#each this.entities}}
     <tr data-rank-id="{{this.properties.id}}" style="text-transform:capitalize; color:#9b9b9b; border:0;">
         <td class="js-qualification_rank" style="vertical-align:top;"><a href="#{{this.properties.id}}" class="js-rank_link">{{this.properties.id}}, {{this.properties.title}}</a></td>
