@@ -2,6 +2,7 @@
 namespace :sunstand do
   namespace :db do
     task :after_schema_load => :environment do
+
       puts 'Adding primary key for :invites'
       query = 'alter table invites add primary key (id);'
       ActiveRecord::Base.connection.execute(query)
@@ -11,8 +12,9 @@ namespace :sunstand do
       ActiveRecord::Base.connection.execute(query)
 
       puts 'Adding primary key for :bonus_ranks'
-      query = 'alter table bonus_ranks add primary key (bonus_id, rank_id);'
-      ActiveRecord::Base.connection.execute(query)
+      query = 'alter table bonus_rank_amounts add primary key (bonus_id, rank_id);'
+      # ActiveRecord::Base.connection.execute(query)
+
     end
   end
 end

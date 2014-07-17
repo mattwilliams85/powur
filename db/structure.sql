@@ -58,14 +58,45 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: bonus_ranks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_rank_amounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE bonus_ranks (
+CREATE TABLE bonus_rank_amounts (
     bonus_id integer NOT NULL,
     rank_id integer NOT NULL,
-    amounts integer
+    amounts integer[]
 );
+
+
+--
+-- Name: bonus_sales_requirements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE bonus_sales_requirements (
+    id integer NOT NULL,
+    bonus_id integer NOT NULL,
+    quantity integer DEFAULT 1 NOT NULL,
+    source boolean DEFAULT true NOT NULL
+);
+
+
+--
+-- Name: bonus_sales_requirements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bonus_sales_requirements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: bonus_sales_requirements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bonus_sales_requirements_id_seq OWNED BY bonus_sales_requirements.id;
 
 
 --
@@ -74,11 +105,14 @@ CREATE TABLE bonus_ranks (
 
 CREATE TABLE bonuses (
     id integer NOT NULL,
-    type character varying(255) NOT NULL,
-    schedule integer NOT NULL,
-    rank_amounts integer[],
-    data hstore,
-    product_id integer
+    name character varying(255) NOT NULL,
+    schedule integer DEFAULT 2 NOT NULL,
+    pays integer DEFAULT 1 NOT NULL,
+    compress boolean DEFAULT false NOT NULL,
+    levels boolean DEFAULT false NOT NULL,
+    amount integer[],
+    max_user_rank_id integer,
+    min_upline_rank_id integer
 );
 
 
@@ -359,6 +393,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY bonus_sales_requirements ALTER COLUMN id SET DEFAULT nextval('bonus_sales_requirements_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY bonuses ALTER COLUMN id SET DEFAULT nextval('bonuses_id_seq'::regclass);
 
 
@@ -405,11 +446,19 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Name: bonus_ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_rank_amounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY bonus_ranks
-    ADD CONSTRAINT bonus_ranks_pkey PRIMARY KEY (bonus_id, rank_id);
+ALTER TABLE ONLY bonus_rank_amounts
+    ADD CONSTRAINT bonus_rank_amounts_pkey PRIMARY KEY (bonus_id, rank_id);
+
+
+--
+-- Name: bonus_sales_requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY bonus_sales_requirements
+    ADD CONSTRAINT bonus_sales_requirements_pkey PRIMARY KEY (id);
 
 
 --
@@ -482,13 +531,6 @@ ALTER TABLE ONLY settings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: index_bonuses_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_bonuses_on_product_id ON bonuses USING btree (product_id);
 
 
 --
@@ -576,27 +618,43 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: bonus_ranks_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: bonus_rank_amounts_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bonus_ranks
-    ADD CONSTRAINT bonus_ranks_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
-
-
---
--- Name: bonus_ranks_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_ranks
-    ADD CONSTRAINT bonus_ranks_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
+ALTER TABLE ONLY bonus_rank_amounts
+    ADD CONSTRAINT bonus_rank_amounts_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
 
 
 --
--- Name: bonuses_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: bonus_rank_amounts_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_rank_amounts
+    ADD CONSTRAINT bonus_rank_amounts_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: bonus_sales_requirements_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_sales_requirements
+    ADD CONSTRAINT bonus_sales_requirements_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
+-- Name: bonuses_max_user_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bonuses
-    ADD CONSTRAINT bonuses_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+    ADD CONSTRAINT bonuses_max_user_rank_id_fk FOREIGN KEY (max_user_rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: bonuses_min_upline_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT bonuses_min_upline_rank_id_fk FOREIGN KEY (min_upline_rank_id) REFERENCES ranks(id);
 
 
 --
