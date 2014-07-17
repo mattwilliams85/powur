@@ -72,7 +72,9 @@ Rails.application.routes.draw do
 
     resources :qualifications, only: [ :index, :create, :update, :destroy ]
 
-    resources :bonuses, only: [ :index, :create, :destroy, :update ]
+    resources :bonuses, only: [ :index, :create, :destroy, :update, :show ] do
+      resources :requirements, only: [ :create, :update, :destroy ]
+    end
 
   end
 

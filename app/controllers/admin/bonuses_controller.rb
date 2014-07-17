@@ -2,10 +2,18 @@ module Admin
 
   class BonusesController < AdminController
 
-    def create
-      require_input :type
+    before_filter :fetch_bonus, only: [ :show, :update, :destroy ]
 
-      @bonus = Bonus.create!(input.merge(type: bonus_klass.name))
+    def index
+      @bonuses = Bonus.all.order(:created_at)
+
+      render 'index'
+    end
+
+    def create
+      require_input :name
+
+      @bonus = Bonus.create!(input)
 
       render 'show'
     end
@@ -13,14 +21,20 @@ module Admin
     def show
     end
 
+    def update
+
+      render 'show'
+    end
+
     private
 
     def input
-      allow_input(:period, :product_id, amounts: [])
+      allow_input(:name, :achieved_rank, :schedule, :pays, 
+        :compress, :max_user_rank, :min_upline_rank, :compress, :levels, :flat_amount)
     end
 
-    def bonus_klass
-      Bonus.symbol_to_type(params[:type])
+    def fetch_bonus
+      @bonus = Bonus.find(params[:id].to_i)
     end
 
   end
