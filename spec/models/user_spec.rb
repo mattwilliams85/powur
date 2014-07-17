@@ -43,7 +43,7 @@ describe User do
 
   describe '#upline' do
 
-    before :all do
+    before :each do
       @root = create(:user)
       @parent = create(:user, sponsor: @root)
       @children = create_list(:user, 2, sponsor: @parent)
@@ -63,10 +63,6 @@ describe User do
     it 'returns the downline users' do
       users = @parent.downline_users
       expect(users.map(&:id).sort).to eq(@children.map(&:id).sort)
-    end
-
-    after :all do
-      User.all.destroy
     end
 
   end
