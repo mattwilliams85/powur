@@ -4,8 +4,11 @@ class Qualification < ActiveRecord::Base
   belongs_to :product
 
   TYPES =  { 
-    sales:         'Personal Sales', 
-    group_sales:   'Group Sales' }
+    sales:       'Personal Sales', 
+    group_sales: 'Group Sales' }
+  PERIODS = { 
+    pay_period: 'Pay Period', 
+    lifetime:   'Lifetime' }
 
   def type_string
     self.class.name.underscore.gsub(/_qualification/, '')
