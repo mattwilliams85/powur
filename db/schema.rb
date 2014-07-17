@@ -11,15 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140625072238) do
+ActiveRecord::Schema.define(version: 20140709085040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
   enable_extension "hstore"
 
-  create_table "certifications", force: true do |t|
-    t.string "title", null: false
+  create_table "bonus_rank_amounts", id: false, force: true do |t|
+    t.integer "bonus_id", null: false
+    t.integer "rank_id",  null: false
+    t.integer "amounts",               array: true
+  end
+
+  create_table "bonus_sales_requirements", force: true do |t|
+    t.integer "bonus_id",                null: false
+    t.integer "quantity", default: 1,    null: false
+    t.boolean "source",   default: true, null: false
+  end
+
+  create_table "bonuses", force: true do |t|
+    t.string  "name",                               null: false
+    t.integer "schedule",           default: 2,     null: false
+    t.integer "pays",               default: 1,     null: false
+    t.boolean "compress",           default: false, null: false
+    t.boolean "levels",             default: false, null: false
+    t.integer "amount",                                          array: true
+    t.integer "max_user_rank_id"
+    t.integer "min_upline_rank_id"
   end
 
   create_table "customers", force: true do |t|
@@ -50,30 +69,23 @@ ActiveRecord::Schema.define(version: 20140625072238) do
 
   create_table "products", force: true do |t|
     t.string   "name",                                null: false
-    t.integer  "bonus_volume",               null: false
+    t.integer  "bonus_volume",                        null: false
     t.integer  "commission_percentage", default: 100, null: false
     t.string   "quote_data",            default: [],               array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "qualification_paths", force: true do |t|
-    t.string "title", null: false
-  end
-
   create_table "qualifications", force: true do |t|
-    t.string  "type",             null: false
+    t.string  "type",                                null: false
+    t.string  "path",            default: "default", null: false
     t.integer "period"
     t.integer "quantity"
     t.integer "max_leg_percent"
-    t.integer "path_id",          null: false
-    t.integer "rank_id",          null: false
-    t.integer "certification_id"
-    t.integer "product_id"
+    t.integer "rank_id"
+    t.integer "product_id",                          null: false
   end
 
-  add_index "qualifications", ["certification_id"], name: "index_qualifications_on_certification_id", using: :btree
-  add_index "qualifications", ["path_id"], name: "index_qualifications_on_path_id", using: :btree
   add_index "qualifications", ["product_id"], name: "index_qualifications_on_product_id", using: :btree
   add_index "qualifications", ["rank_id"], name: "index_qualifications_on_rank_id", using: :btree
 
@@ -129,12 +141,18 @@ ActiveRecord::Schema.define(version: 20140625072238) do
   add_index "users", ["upline"], name: "index_users_on_upline", using: :gin
   add_index "users", ["url_slug"], name: "index_users_on_url_slug", unique: true, using: :btree
 
+  add_foreign_key "bonus_rank_amounts", "bonuses", name: "bonus_rank_amounts_bonus_id_fk"
+  add_foreign_key "bonus_rank_amounts", "ranks", name: "bonus_rank_amounts_rank_id_fk"
+
+  add_foreign_key "bonus_sales_requirements", "bonuses", name: "bonus_sales_requirements_bonus_id_fk"
+
+  add_foreign_key "bonuses", "ranks", name: "bonuses_max_user_rank_id_fk", column: "max_user_rank_id"
+  add_foreign_key "bonuses", "ranks", name: "bonuses_min_upline_rank_id_fk", column: "min_upline_rank_id"
+
   add_foreign_key "invites", "users", name: "invites_sponsor_id_fk", column: "sponsor_id"
   add_foreign_key "invites", "users", name: "invites_user_id_fk"
 
-  add_foreign_key "qualifications", "certifications", name: "qualifications_certification_id_fk"
   add_foreign_key "qualifications", "products", name: "qualifications_product_id_fk"
-  add_foreign_key "qualifications", "qualification_paths", name: "qualifications_path_id_fk", column: "path_id"
   add_foreign_key "qualifications", "ranks", name: "qualifications_rank_id_fk"
 
   add_foreign_key "quotes", "customers", name: "quotes_customer_id_fk"
