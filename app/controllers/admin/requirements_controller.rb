@@ -8,19 +8,19 @@ module Admin
     def create
       @bonus.requirements.create!(input)
 
-      render 'admin/bonuses/show'
+      render 'show'
     end
 
     def update
       @requirement.update_attributes!(input)
 
-      render 'admin/bonuses/show'
+      render 'show'
     end
 
     def destroy
       @requirement.destroy
 
-      render 'admin/bonuses/show'
+      render 'show'
     end
 
     private
@@ -35,6 +35,10 @@ module Admin
 
     def fetch_requirement
       @requirement = @bonus.requirements.find(params[:id].to_i)
+    end
+
+    def controller_path
+      'admin/bonuses'
     end
 
   end
