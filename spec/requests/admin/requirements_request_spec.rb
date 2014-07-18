@@ -19,4 +19,20 @@ describe '/a/bonuses/:id/requirements' do
 
   end
 
+  describe '#destroy' do
+
+    it 'deletes a requirement' do
+      requirement = create(:bonus_requirement, bonus: @bonus)
+
+      delete bonus_requirement_path(@bonus, requirement), format: :json
+
+      expect_classes 'bonus'
+      list = json_body['entities'].find { |e| e['class'].include?('requirements') }
+      expect(list['entities'].size).to eq(0)
+    end
+
+
+
+  end
+
 end

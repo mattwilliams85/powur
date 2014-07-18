@@ -18,7 +18,7 @@ module Admin
     end
 
     def destroy
-      @requirement.destroy
+      @bonus.requirements.delete(@requirement)
 
       render 'show'
     end
