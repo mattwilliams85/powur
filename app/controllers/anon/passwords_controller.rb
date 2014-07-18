@@ -4,7 +4,7 @@ module Anon
 
     layout 'user'
 
-    before_filter :fetch_user_from_token, only: [ :new ]
+    before_action :fetch_user_from_token, only: [ :new ]
     helper_method :valid_token?
 
     def show

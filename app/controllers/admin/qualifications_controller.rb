@@ -2,7 +2,7 @@ module Admin
 
   class QualificationsController < AdminController
 
-    before_filter :fetch_qualification, only: [ :update, :destroy ]
+    before_action :fetch_qualification, only: [ :update, :destroy ]
 
     def index
       @qualifications = Qualification.where('rank_id is null').order(:id)

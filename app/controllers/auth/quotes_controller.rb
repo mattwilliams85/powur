@@ -2,7 +2,7 @@ module Auth
 
   class QuotesController < AuthController
 
-    before_filter :fetch_quote, only: [ :show, :update, :destroy, :resend ]
+    before_action :fetch_quote, only: [ :show, :update, :destroy, :resend ]
 
     def index
       @quotes = quote_list

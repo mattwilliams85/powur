@@ -2,7 +2,7 @@ module Admin
 
   class UsersController < AdminController
 
-    before_filter :fetch_user, only: [ :downline, :upline, :show, :update ]
+    before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
 
     def index
       respond_to do |format|

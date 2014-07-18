@@ -2,7 +2,7 @@ module Admin
 
   class RankQualificationsController < QualificationsController
 
-    before_filter :fetch_rank
+    before_action :fetch_rank
 
     def create
       require_input :type

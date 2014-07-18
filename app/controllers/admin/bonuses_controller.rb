@@ -2,7 +2,7 @@ module Admin
 
   class BonusesController < AdminController
 
-    before_filter :fetch_bonus, only: [ :show, :update, :destroy ]
+    before_action :fetch_bonus, only: [ :show, :update, :destroy ]
 
     def index
       @bonuses = Bonus.all.order(:created_at)

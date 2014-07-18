@@ -19,6 +19,21 @@ describe '/a/bonuses/:id/requirements' do
 
   end
 
+  describe '#update' do
+
+    it 'updates a requirement' do
+      requirement = create(:bonus_requirement, bonus: @bonus)
+
+      patch bonus_requirement_path(@bonus, requirement), quantity: 22, format: :json
+
+      req_list = json_body['entities'].find { |e| e['class'].include?('requirements') }
+      result = req_list['entities'].first['properties']['quantity']
+
+      expect(result).to eq(22)
+    end
+
+  end
+
   describe '#destroy' do
 
     it 'deletes a requirement' do

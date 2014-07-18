@@ -1,5 +1,5 @@
 class AuthController < ApplicationController
-  before_filter :authenticate!
+  before_action :authenticate!
 
   def authenticate!
     redirect_to(root_url) unless logged_in?

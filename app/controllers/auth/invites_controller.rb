@@ -1,8 +1,8 @@
 module Auth
   class InvitesController < AuthController
 
-    before_filter :fetch_invite, only: [ :renew, :resend, :destroy ]
-    skip_before_filter :authenticate!, only: [ :show ]
+    before_action :fetch_invite, only: [ :renew, :resend, :destroy ]
+    skip_before_action :authenticate!, only: [ :show ]
 
     def index
       @invites = list_criteria

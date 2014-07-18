@@ -2,8 +2,8 @@ module Admin
 
   class BonusLevelsController < AdminController
 
-    before_filter :fetch_bonus
-    before_filter :fetch_bonus_level, except: [ :create ]
+    before_action :fetch_bonus
+    before_action :fetch_bonus_level, except: [ :create ]
 
     def create
 
@@ -12,12 +12,12 @@ module Admin
 
     def update
 
-      render 'admin/bonuses/show'
+      render 'show'
     end
 
     def destroy
 
-      render 'admin/bonuses/show'
+      render 'show'
     end
 
     private

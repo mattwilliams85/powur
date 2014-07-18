@@ -2,7 +2,7 @@ module Anon
 
   class InvitesController < AnonController
 
-    before_filter :fetch_invite, only: [ :create, :update ]
+    before_action :fetch_invite, only: [ :create, :update ]
 
     def create
       require_input :code

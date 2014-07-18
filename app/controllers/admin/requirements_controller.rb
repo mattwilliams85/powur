@@ -2,8 +2,8 @@ module Admin
 
   class RequirementsController < AdminController
 
-    before_filter :fetch_bonus
-    before_filter :fetch_requirement, except: [ :create ]
+    before_action :fetch_bonus
+    before_action :fetch_requirement, except: [ :create ]
 
     def create
       @bonus.requirements.create!(input)
@@ -13,6 +13,7 @@ module Admin
 
     def update
       @requirement.update_attributes!(input)
+      @bonus.requirements.reload
 
       render 'show'
     end

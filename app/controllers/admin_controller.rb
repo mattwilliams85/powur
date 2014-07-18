@@ -1,5 +1,5 @@
 class AdminController < AuthController
-  before_filter :has_admin_role
+  before_action :has_admin_role
 
   layout 'admin'
   

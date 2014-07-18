@@ -2,7 +2,7 @@ module Admin
 
   class ProductsController < AdminController
 
-    before_filter :fetch_product, only: [ :show, :destroy, :update ]
+    before_action :fetch_product, only: [ :show, :destroy, :update ]
 
     def index
       respond_to do |format|
