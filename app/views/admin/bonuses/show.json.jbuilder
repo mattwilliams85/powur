@@ -29,7 +29,8 @@ actions \
     field(:compress, :checkbox, value: @bonus.compress,
       visibility: { control: :pays, value: :upline }).
     field(:levels, :checkbox, value: @bonus.levels,
-      visibility: { control: :pays, value: :upline })
+      visibility: { control: :pays, value: :upline }),
+  action(:delete, :delete, bonus_path(@bonus))
 
 links \
   link(:self, bonus_path(@bonus)),

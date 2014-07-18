@@ -43,6 +43,20 @@ describe '/a/bonuses' do
 
   end
 
+  describe '#destroy' do
+
+    it 'destroys a bonus' do
+      bonus = create(:bonus_requirement).bonus
+
+      create_list(:bonus, 2)
+      delete bonus_path(bonus), format: :json
+
+      expect_classes 'bonuses', 'list'
+      expect_entities_count(2)
+    end
+
+  end
+
   describe '#update' do
 
     it 'updates bonus details' do

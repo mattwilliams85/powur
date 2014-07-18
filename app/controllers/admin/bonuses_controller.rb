@@ -26,6 +26,12 @@ module Admin
       render 'show'
     end
 
+    def destroy
+      @bonus.destroy
+
+      index
+    end
+
     private
 
     def input

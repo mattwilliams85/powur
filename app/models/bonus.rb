@@ -14,8 +14,8 @@ class Bonus < ActiveRecord::Base
   belongs_to :min_user_rank, class_name: 'Rank'
   belongs_to :max_upline_rank, class_name: 'Rank'
 
-  has_many :requirements, class_name: 'BonusSalesRequirement'
-  has_many :bonus_levels
+  has_many :requirements, class_name: 'BonusSalesRequirement', dependent: :destroy
+  has_many :bonus_levels, dependent: :destroy
 
   validates_presence_of :name
 
