@@ -58,10 +58,10 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: bonus_rank_amounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_levels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE bonus_rank_amounts (
+CREATE TABLE bonus_levels (
     bonus_id integer NOT NULL,
     level integer DEFAULT 0 NOT NULL,
     amounts numeric(5,5)[] NOT NULL
@@ -423,11 +423,11 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Name: bonus_rank_amounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY bonus_rank_amounts
-    ADD CONSTRAINT bonus_rank_amounts_pkey PRIMARY KEY (bonus_id, level);
+ALTER TABLE ONLY bonus_levels
+    ADD CONSTRAINT bonus_levels_pkey PRIMARY KEY (bonus_id, level);
 
 
 --
@@ -595,11 +595,11 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: bonus_rank_amounts_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: bonus_levels_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bonus_rank_amounts
-    ADD CONSTRAINT bonus_rank_amounts_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+ALTER TABLE ONLY bonus_levels
+    ADD CONSTRAINT bonus_levels_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
 
 
 --

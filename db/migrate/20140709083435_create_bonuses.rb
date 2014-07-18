@@ -29,14 +29,14 @@ class CreateBonuses < ActiveRecord::Migration
     end
     execute 'alter table bonus_sales_requirements add primary key (bonus_id, product_id);'
 
-    create_table :bonus_rank_amounts, id: false do |t|
+    create_table :bonus_levels, id: false do |t|
       t.references :bonus, null: false
       t.integer :level, null: false, default: 0
       t.decimal :amounts, null: false, array: true, precision: 5, scale: 5
 
       t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
     end
-    execute 'alter table bonus_rank_amounts add primary key (bonus_id, level);'
+    execute 'alter table bonus_levels add primary key (bonus_id, level);'
 
   end
 

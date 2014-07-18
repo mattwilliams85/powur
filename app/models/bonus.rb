@@ -15,6 +15,7 @@ class Bonus < ActiveRecord::Base
   belongs_to :max_upline_rank, class_name: 'Rank'
 
   has_many :requirements, class_name: 'BonusSalesRequirement'
+  has_many :bonus_levels
 
   validates_presence_of :name
 

@@ -12,8 +12,7 @@ action_list = [
 
 action_list << action(:update, :patch, 
   qualification_path(qualification)).
-    field(:period, :select, 
-      options: { pay_period: 'Pay Period', lifetime: 'Lifetime' }, 
+    field(:period, :select, options: Qualification::PERIODS, 
       value: qualification.period).
     field(:quantity, :number, value: qualification.quantity)
 

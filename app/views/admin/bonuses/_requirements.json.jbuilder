@@ -1,4 +1,3 @@
-
 klass :requirements, :list
 
 json.entities requirements, partial: 'requirement', as: :requirement

@@ -3,7 +3,7 @@ klass :requirement
 json.rel [ :item ]
 
 json.properties do
-  json.(requirement, :id, :quantity, :source)
+  json.(requirement, :quantity, :source)
   json.product requirement.product.name
 end
 
