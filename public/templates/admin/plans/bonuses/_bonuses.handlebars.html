@@ -1,0 +1,22 @@
+<table class="_table _spreadSheet">
+    <tr>
+        <th width="15%">Name</th>
+        <th width="70%">Details</th>
+        <th width="15%">Action</th>
+    </tr>
+
+    {{#each this.entities}}
+    <tr data-bonus-id="{{this.properties.id}}" style="text-transform:capitalize; color:#9b9b9b; border:0;">
+        <td class="js-bonus_name" style="vertical-align:top;"><a href="#{{this.properties.id}}" class="js-bonus_link">{{this.properties.name}}</a></td>
+        <td class="js-bonus_details" colspan="2"></td>
+    </tr>
+    <tr  data-bonus-id="{{this.properties.id}}" style="border:0;">
+        <td colspan="3">
+            <a href="#" class="js-add_qualification button" >+ Rewards</a><a href="#" class="js-add_qualification button" style="margin-right:10px;">+ Requirements</a>
+        </td>
+    <tr>
+    <tr style="border:0px;"><td colspan="3" style="height:20px;"></td></tr>
+    {{/each}}
+
+</table>
+

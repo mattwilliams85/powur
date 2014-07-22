@@ -2,7 +2,7 @@
 
 var _data={};
 var _dashboard;
-_data.loadCategories=["currentUser", "products", "currentProduct", "ranks", "qualifications", "active_qualifications", "active_qualification_paths"];
+_data.loadCategories=["currentUser", "products", "currentProduct", "ranks", "qualifications", "active_qualifications", "active_qualification_paths", "bonuses"];
 
 jQuery(function($){
 
@@ -87,6 +87,26 @@ jQuery(function($){
                         _active_qualification = _getObjectsByPath(_data.active_qualifications, _p._path, -1);
                         _data.active_qualification_paths[_p.path].push(_active_qualification);
 
+                    });
+                }
+            });
+
+
+            _ajax({
+                _ajaxType:"get",
+                _url:"/a/bonuses",
+                _callback:function(data, text){
+                    _data.bonuses = data;
+                    _data.bonuses.entities.forEach(function(_bonus){
+                        //load bonus requirements
+                        _ajax({
+                            _ajaxType:"get",
+                            _url:"/a/bonuses/"+_bonus.properties.id,
+                            _callback:function(data, text){
+                                _bonus.bonus_levels = _getObjectsByPath(data, _getObjectsByCriteria(data, {0:"bonus_levels"})[0]._path, -1);
+                                _bonus.requirements = _getObjectsByPath(data, _getObjectsByCriteria(data, {0:"requirements"})[0]._path, -1);
+                            }
+                        });
                     });
                 }
             });
@@ -207,11 +227,13 @@ jQuery(function($){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         
                         //load active qualifications
-                        var _row =$("#js-active_qualification_row");
-                        _row.find(".js-active_path").html("");
                         for(_active_qualification_path in _data.active_qualification_paths){
                             _qualification_group=_data.active_qualification_paths[_active_qualification_path];
+                            if(_qualification_group.length==0) return;
+                            var _row =$("#js-active_qualification_row");
+                            _row.find(".js-active_path").html("");
                             _padding=50*_qualification_group.length;
+
                             _row.find(".js-active_path").append("<div class='innerCell' style='height:"+_padding+"px'><span class='js-qualification_path label'>Path: "+_active_qualification_path+"</span>"+"<span style='line-height:20px;display:block; padding:5px 4px;'>Active Req.</span>");
 
                             _qualification_group.forEach(function(_qualification){
@@ -484,6 +506,100 @@ jQuery(function($){
                     });
 
                 break;
+
+
+
+                case "#admin-plans-bonuses-init":
+                    _ajax({
+                        _ajaxType:"get",
+                        _url:"/a/bonuses",
+                        _callback:function(data, text){
+                            _data.bonuses = data;
+                            _data.bonuses.entities.forEach(function(_bonus){
+                                //load bonus requirements
+                                _ajax({
+                                    _ajaxType:"get",
+                                    _url:"/a/bonuses/"+_bonus.properties.id,
+                                    _callback:function(data, text){
+                                        _bonus.bonus_levels = _getObjectsByPath(data, _getObjectsByCriteria(data, {0:"bonus_levels"})[0]._path, -1);
+                                        _bonus.requirements = _getObjectsByPath(data, _getObjectsByCriteria(data, {0:"requirements"})[0]._path, -1);
+                                        displayPlans("#admin-plans-bonuses");
+                                    }
+                                });
+                            });
+                        }
+                    });
+                break;
+
+                case "#admin-plans-bonuses":
+                    $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
+                    //position indicator
+                    _getTemplate("/templates/admin/plans/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-bonuses]"));
+                    });
+
+                    _summaryData={};
+                    _summaryData.entities=_data.bonuses.entities;
+                    _getTemplate("/templates/admin/plans/bonuses/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
+                        //wire up the ability to add a new bonus
+                        $(".js-add_new_bonus").on("click", function(e){
+                            e.preventDefault();
+                            var _popupData = [];
+                            _popupData = _getObjectsByCriteria(_data.bonuses.actions, {name:"create"})[0];
+                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
+                            _popupData.title="Create a new Bonus";
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                });
+                            }); 
+                        });
+                    });
+
+                    _getTemplate("/templates/admin/plans/bonuses/_bonuses.handlebars.html", _data.bonuses , $(".js-admin_dashboard_detail_container"), function(){
+                        $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
+                        _data.bonuses.entities.forEach(function(_bonus){
+                            var _bonusID = _bonus.properties.id;
+                            var _row =  $(".js-admin_dashboard_detail_container table tr[data-bonus-id="+_bonusID+"]");
+                            var _descriptions =JSON.stringify(_data.bonuses.entities[0].properties).replace(/\_/g, " ").replace(/["{}]/g, "").split(",");
+                            var _display="";
+                            //show bonus details
+                            _row.find(".js-bonus_details").html("");
+                            _display="<h4 style='text-transform:uppercase; color:#ccc; font-size:11px; line-height:18px; margin-bottom:8px; border-bottom:1px dotted #ccc;'>// Summary</h4>";
+                            for(i=0; i<_descriptions.length; i++){
+                                var _skip=false;
+                                ["id", "name"].forEach(function(_property){ if(_descriptions[i].indexOf(_property)>=0) _skip=true;; });
+                                if(_skip) continue;
+                                _display+="<div class='innerCell'><span class='label'>"+_descriptions[i].split(":")[0]+"</span><span style='line-height:20px;display:block; padding:5px 0px;'>"+_descriptions[i].split(":")[1]+"</span></div>";
+                            };
+                            _row.find(".js-bonus_details").append(_display);
+                            _row.find(".js-bonus_details").append("<br style='clear:both;'>");
+                            
+                            //show requirements
+                            _display="<h4 style='text-transform:uppercase; color:#ccc; font-size:11px; line-height:18px; margin-bottom:8px; border-bottom:1px dotted #ccc; padding-top:20px;'>// Requirements</h4>";
+                            _bonus.requirements.entities.forEach(function(_requirement){
+                                delete _requirement.properties._path;
+                                JSON.stringify(_requirement.properties).replace(/\_/g, " ").replace(/["{}]/g, "").split(",").forEach(function(_property){
+                                    _display+="<div class='innerCell'><span class='label'>"+_property.split(":")[0]+"</span><span style='line-height:20px;display:block; padding:5px 0px;'>"+_property.split(":")[1]+"</span></div>";
+                                });
+                                _display +="<div class='innerCell' style='display:block; float:right;'><a >Edit Requirement</a><br style='clear:both;'></div>";
+
+                            });
+                            _row.find(".js-bonus_details").append(_display);
+
+
+
+
+                        });
+
+                        console.log("hi there, this is bonus main pane");
+
+                    });
+
+
+                break;
+
+
 
             }
         }
