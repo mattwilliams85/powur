@@ -1,0 +1,4 @@
+class DifferentialBonus < Bonus
+
+
+end

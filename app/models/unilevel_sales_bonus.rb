@@ -1,0 +1,4 @@
+class UnilevelSalesBonus < Bonus
+
+
+end

@@ -1,0 +1,4 @@
+class DirectSalesBonus < Bonus
+
+
+end

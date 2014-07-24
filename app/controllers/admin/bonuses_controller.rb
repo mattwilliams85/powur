@@ -11,9 +11,9 @@ module Admin
     end
 
     def create
-      require_input :name
+      require_input :type, :name
 
-      @bonus = Bonus.create!(input)
+      @bonus = bonus_klass.create!(input)
 
       render 'show'
     end
@@ -35,8 +35,13 @@ module Admin
     private
 
     def input
-      allow_input(:name, :achieved_rank, :schedule, :pays, 
-        :compress, :max_user_rank, :min_upline_rank, :compress, :levels, :flat_amount)
+      allow_input(
+        :name, :achieved_rank, :schedule, :max_user_rank,
+        :min_upline_rank, :compress, :flat_amount)
+    end
+
+    def bonus_klass
+      Bonus.symbol_to_type(params[:type])
     end
 
     def fetch_bonus

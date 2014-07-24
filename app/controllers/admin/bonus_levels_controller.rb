@@ -7,7 +7,7 @@ module Admin
 
     def create
 
-      render 'admin/bonuses/show'
+      render 'show'
     end
 
     def update
@@ -22,6 +22,10 @@ module Admin
 
     private
 
+    def input
+      allow_input(amounts: [])
+    end
+
     def fetch_bonus
       @bonus = Bonus.includes(:requirements, :bonus_levels).find(params[:bonus_id].to_i)
     end
@@ -29,6 +33,11 @@ module Admin
     def fetch_bonus_level
       @bonus_level = @bonus.levels.find(params[:id].to_i)
     end
+
+    def controller_path
+      'admin/bonuses'
+    end
+
   end
 
 end

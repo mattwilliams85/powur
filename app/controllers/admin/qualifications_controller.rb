@@ -13,7 +13,7 @@ module Admin
     def create
       require_input :type
 
-      @qualification = Qualification.create!(input.merge(type: qualification_klass.name))
+      @qualification = qualification_klass.create!(input)
 
       render 'show'
     end

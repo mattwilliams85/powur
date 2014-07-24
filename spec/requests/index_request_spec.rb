@@ -4,7 +4,7 @@ describe 'index' do
 
   it 'renders an anonymous session when the user is not logged in' do
     get root_path, format: :json
-    
+
     expect_200
 
     expect_classes('session', 'anonymous')
@@ -31,5 +31,4 @@ describe 'index' do
     expect_classes('session', 'registration')
     expect_actions('create')
   end
-
 end

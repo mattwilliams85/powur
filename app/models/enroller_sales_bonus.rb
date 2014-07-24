@@ -1,0 +1,4 @@
+class EnrollerSalesBonus < Bonus
+
+
+end

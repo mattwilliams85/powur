@@ -75,8 +75,7 @@ CREATE TABLE bonus_levels (
 CREATE TABLE bonus_sales_requirements (
     bonus_id integer NOT NULL,
     product_id integer NOT NULL,
-    quantity integer DEFAULT 1 NOT NULL,
-    source boolean DEFAULT true NOT NULL
+    quantity integer DEFAULT 1 NOT NULL
 );
 
 
@@ -86,14 +85,13 @@ CREATE TABLE bonus_sales_requirements (
 
 CREATE TABLE bonuses (
     id integer NOT NULL,
+    type character varying(255) NOT NULL,
     name character varying(255) NOT NULL,
     achieved_rank_id integer,
     schedule integer DEFAULT 2 NOT NULL,
-    pays integer DEFAULT 1 NOT NULL,
     max_user_rank_id integer,
     min_upline_rank_id integer,
     compress boolean DEFAULT false NOT NULL,
-    levels boolean DEFAULT false NOT NULL,
     flat_amount integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

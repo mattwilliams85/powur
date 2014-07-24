@@ -13,7 +13,7 @@ describe '/quote' do
     phone:       '8585551212',
     sponsor:      @user.url_slug,
     product_id:   1,
-    format:      :json }}
+    format:       :json }}
 
   it 'renders a new quote entity' do
     get sponsor_quote_path(@user.url_slug), format: :json
@@ -40,5 +40,4 @@ describe '/quote' do
 
   it 'updates an existing quote' do
   end
-
 end

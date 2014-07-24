@@ -9,7 +9,7 @@ describe '/a/bonuses' do
   describe '#index' do
 
     it 'returns a list of bonuses' do
-      create_list(:bonus, 3)
+      create_list(:direct_sales_bonus, 3)
 
       get bonuses_path, format: :json
 
@@ -36,7 +36,7 @@ describe '/a/bonuses' do
   describe '#create' do
 
     it 'creates a direct sales bonus' do
-      post bonuses_path, name: 'Enroller Bonus', format: :json
+      post bonuses_path, type: 'direct_sales', name: 'foo', format: :json
 
       expect_classes 'bonus'
     end
@@ -48,7 +48,7 @@ describe '/a/bonuses' do
     it 'destroys a bonus' do
       bonus = create(:bonus_requirement).bonus
 
-      create_list(:bonus, 2)
+      create_list(:direct_sales_bonus, 2)
       delete bonus_path(bonus), format: :json
 
       expect_classes 'bonuses', 'list'

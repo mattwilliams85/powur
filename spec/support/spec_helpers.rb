@@ -1,5 +1,5 @@
+# helper methods for spec tests
 module SpecHelpers
-
   def login_user
     @user = create(:user)
     if defined?(session)
@@ -18,8 +18,10 @@ module SpecHelpers
   end
 
   def expect_input_error(input)
-    expect(json_body['error']).to_not be_nil, 
-      "expected error json, got json keys: [#{json_body.keys.join(',')}]"
+    expect(json_body['error']).to_not(
+      be_nil,
+      "expected error json, got json keys: [#{json_body.keys.join(',')}]")
+
     expect(json_body['error']['input']).to eq(input.to_s)
   end
 
@@ -48,5 +50,4 @@ module SpecHelpers
     expect(json_body['properties']['_message']).to_not be_nil
     expect(json_body['properties']['_message']['confirm']).to_not be_nil
   end
-
 end

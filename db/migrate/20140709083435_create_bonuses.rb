@@ -2,14 +2,14 @@ class CreateBonuses < ActiveRecord::Migration
 
   def change
     create_table :bonuses do |t|
-      t.string      :name,      null: false
+      t.string      :type, null: false
+      t.string      :name, null: false
+
       t.references  :achieved_rank
       t.integer     :schedule,  null: false, default: 2  # [ :weekly, :pay_period ]
-      t.integer     :pays,      null: false, default: 1  # [ :distributor, :upline ]
       t.references  :max_user_rank
       t.references  :min_upline_rank
       t.boolean     :compress,  null: false, default: false
-      t.boolean     :levels,    null: false, default: false
       t.integer     :flat_amount
       t.timestamps  null: false
 
@@ -22,7 +22,6 @@ class CreateBonuses < ActiveRecord::Migration
       t.references  :bonus,     null: false
       t.references  :product,   null: false
       t.integer     :quantity,  null: false, default: 1
-      t.boolean     :source,    null: false, default: true
 
       t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
       t.foreign_key :products, column: :product_id, primary_key: :id

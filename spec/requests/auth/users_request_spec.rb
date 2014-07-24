@@ -49,6 +49,4 @@ describe '/u/users' do
     end
 
   end
-
-
 end

@@ -74,7 +74,10 @@ describe '/u/quotes' do
     end
 
     it 'returns a quote detail' do
-      quote = create(:quote, user: @user, data: { 'roof_age' => '12', 'kwh' => '1300' })
+      quote = create(
+        :quote,
+        user: @user,
+        data: { 'roof_age' => '12', 'kwh' => '1300' })
 
       get user_quote_path(quote), format: :json
 
@@ -108,5 +111,4 @@ describe '/u/quotes' do
       expect_confirm
     end
   end
-
 end

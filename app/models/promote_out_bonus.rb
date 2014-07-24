@@ -1,0 +1,4 @@
+class PromoteOutBonus < Bonus
+
+
+end

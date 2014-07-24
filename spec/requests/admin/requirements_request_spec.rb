@@ -4,7 +4,7 @@ describe '/a/bonuses/:id/requirements' do
 
   before :each do
     login_user
-    @bonus = create(:bonus)
+    @bonus = create(:direct_sales_bonus)
     @product = create(:product)
   end
 
@@ -12,7 +12,7 @@ describe '/a/bonuses/:id/requirements' do
 
     it 'adds a requirement' do
       post bonus_requirements_path(@bonus), product_id: @product.id, 
-        quantity: 2, source: false, format: :json
+        quantity: 2, format: :json
 
       expect_classes 'bonus'
     end
@@ -45,8 +45,6 @@ describe '/a/bonuses/:id/requirements' do
       list = json_body['entities'].find { |e| e['class'].include?('requirements') }
       expect(list['entities'].size).to eq(0)
     end
-
-
 
   end
 
