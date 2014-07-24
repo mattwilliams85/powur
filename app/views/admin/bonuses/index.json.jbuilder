@@ -9,7 +9,8 @@ json.entities @bonuses, partial: 'item', as: :bonus
 
 actions \
   action(:create, :post, bonuses_path).
-    field(:type, :select, values: Bonus::TYPES)
+    field(:type, :select, values: Bonus::TYPES).
+    field(:name, :string)
 
 links \
   link(:self, bonuses_path)
