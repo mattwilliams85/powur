@@ -21,4 +21,3 @@ actions \
       value: bonus.min_upline_rank_id).
     field(:compress, :checkbox, value: bonus.compress),
   action(:delete, :delete, bonus_path(bonus))
-

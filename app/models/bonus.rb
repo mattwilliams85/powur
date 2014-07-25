@@ -13,8 +13,6 @@ class Bonus < ActiveRecord::Base
   enum schedule:  { weekly: 1, monthly: 2 }
 
   belongs_to :achieved_rank, class_name: 'Rank'
-  belongs_to :min_user_rank, class_name: 'Rank'
-  belongs_to :max_upline_rank, class_name: 'Rank'
 
   has_many :requirements, class_name: 'BonusSalesRequirement', dependent: :destroy
   has_many :bonus_levels, dependent: :destroy

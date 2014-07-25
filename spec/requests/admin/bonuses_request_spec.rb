@@ -31,6 +31,33 @@ describe '/a/bonuses' do
       expect(json_body['entities'].first['entities'].size).to eq(1)
     end
 
+    it 'returns an enroller sales bonus' do
+      bonus = create(:enroller_sales_bonus)
+
+      get bonus_path(bonus), format: :json
+      expect_classes 'bonus'
+    end
+
+    it 'returns an unilevel sales bonus' do
+      bonus = create(:unilevel_sales_bonus)
+
+      get bonus_path(bonus), format: :json
+      expect_classes 'bonus'
+    end
+
+    it 'returns a promote out bonus' do
+      bonus = create(:promote_out_bonus)
+
+      get bonus_path(bonus), format: :json
+      expect_classes 'bonus'
+    end
+
+    it 'returns a differential bonus' do
+      bonus = create(:differential_bonus)
+
+      get bonus_path(bonus), format: :json
+      expect_classes 'bonus'
+    end
   end
 
   describe '#create' do

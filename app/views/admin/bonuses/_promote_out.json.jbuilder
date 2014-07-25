@@ -1,5 +1,6 @@
 
 json.properties do
+  json.min_upline_rank bonus.min_upline_rank && bonus.min_upline_rank.title
   json.achieved_rank bonus.achieved_rank && bonus.achieved_rank.title
   json.(bonus, :compress, :flat_amount)
 end
