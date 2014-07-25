@@ -3,9 +3,9 @@ klass :bonus
 json.rel [ :item ] unless local_assigns[:detail]
 
 json.properties do
-  json.(bonus, :id, :compress)
+  json.(bonus, :id, :name)
   json.schedule bonus.schedule.titleize
-  json.achieved_rank bonus.achieved_rank && bonus.achieved_rank.title
+  # json.achieved_rank bonus.achieved_rank && bonus.achieved_rank.title
 end
 
 links \

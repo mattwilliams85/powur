@@ -5,7 +5,7 @@ json.entities \
   partial: 'entities', as: :entity
 
 actions \
-  update_action = action(:update, :patch, bonus_path(bonus)).
+  action(:update, :patch, bonus_path(bonus)).
     field(:schedule, :select, options: Bonus::SCHEDULES, value: bonus.schedule),
   action(:delete, :delete, bonus_path(bonus))
 

@@ -1,8 +1,13 @@
 
+json.properties do
+  json.achieved_rank bonus.achieved_rank && bonus.achieved_rank.title
+  json.(bonus, :compress, :flat_amount)
+end
+
 json.entities [], partial: 'entities', as: :entity
 
 actions \
-  update_action = action(:update, :patch, bonus_path(bonus)).
+  action(:update, :patch, bonus_path(bonus)).
     field(:schedule, :select, options: Bonus::SCHEDULES, value: bonus.schedule).
     field(:achieved_rank_id, :select,
       reference:  { type: :link, rel: :ranks, value: :id, name: :title }).
