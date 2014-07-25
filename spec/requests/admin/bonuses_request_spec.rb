@@ -23,11 +23,11 @@ describe '/a/bonuses' do
 
     it 'returns the bonus detail including requirements' do
       bonus = create(:bonus_requirement).bonus
-
+      rank = create_list(:rank, 3)
       get bonus_path(bonus), format: :json
 
       expect_classes 'bonus'
-      expect_entities_count(2)
+      expect_entities_count(1)
       expect(json_body['entities'].first['entities'].size).to eq(1)
     end
 

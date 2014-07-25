@@ -6,9 +6,10 @@ json.properties do
 end
 
 json.entities \
-  [ { bonus: bonus, data: bonus.requirements, partial: 'requirements' },
-    { bonus: bonus, data: bonus.bonus_levels, partial: 'bonus_levels' } ], 
+  [ { bonus: bonus, data: bonus.requirements, partial: 'requirements' } ], 
   partial: 'entities', as: :entity
+
+rank_range = Rank.rank_range
 
 actions \
   action(:update, :patch, bonus_path(bonus)).
@@ -19,5 +20,8 @@ actions \
     field(:min_upline_rank_id, :select,
       reference:  { type: :link, rel: :ranks, value: :id, name: :title },
       value: bonus.min_upline_rank_id).
-    field(:compress, :checkbox, value: bonus.compress),
+    field(:compress, :checkbox, value: bonus.compress).
+    field(:amounts, :number, array: true, 
+      first: rank_range ? rank_range.first : 0, 
+      last: rank_range ? rank_range.last : 0),
   action(:delete, :delete, bonus_path(bonus))

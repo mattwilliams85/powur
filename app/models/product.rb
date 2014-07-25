@@ -4,6 +4,9 @@ class Product < ActiveRecord::Base
 
   validates_presence_of :name, :bonus_volume, :commission_percentage
 
+  def available_bonus
+  end
+
   class << self
     def default
       Product.find(SystemSettings.default_product_id)

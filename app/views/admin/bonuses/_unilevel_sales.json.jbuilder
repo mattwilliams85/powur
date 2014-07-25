@@ -5,7 +5,7 @@ end
 
 json.entities \
   [ { bonus: bonus, data: bonus.requirements, partial: 'requirements' },
-    { bonus: bonus, data: bonus.bonus_levels, partial: 'bonus_levels' } ], 
+    { bonus: bonus, data: bonus.bonus_levels, partial: 'bonus_levels' } ],
   partial: 'entities', as: :entity
 
 actions \
