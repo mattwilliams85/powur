@@ -3,7 +3,7 @@ FactoryGirl.define do
     name Faker::Commerce.product_name
 
     factory :direct_sales_bonus, class: DirectSalesBonus do
-      schedule :monthly
+      schedule :weekly
     end
 
     factory :enroller_sales_bonus, class: EnrollerSalesBonus do
@@ -27,6 +27,9 @@ FactoryGirl.define do
 
     factory :differential_bonus, class: DifferentialBonus do
       schedule :monthly
+
+      association :max_user_rank, factory: :rank
+      association :min_upline_rank, factory: :rank
     end
   end
 

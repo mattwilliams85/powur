@@ -86,14 +86,48 @@ describe '/a/bonuses' do
 
   describe '#update' do
 
-    it 'updates bonus details' do
-      # bonus = create(:bonus)
-            #   type:       :direct_sales, 
-      #   amounts:    [150, 200, 200],
-      #   product_id: @product.id,
-      #   period:     :weekly,
-      #   format:     :json
+    it 'updates the bonus name' do
+      bonus = create(:direct_sales_bonus)
 
+      patch bonus_path(bonus), name: 'foo', format: :json
+
+      expect(json_body['properties']['name']).to eq('foo')
     end
+
+    it 'updates the max user rank' do
+      bonus = create(:enroller_sales_bonus)
+      rank = create(:rank)
+
+      patch bonus_path(bonus), max_user_rank_id: rank.id, format: :json
+
+      expect(json_body['properties']['max_user_rank']).to eq(rank.title)
+    end
+
+    it 'updates the min upline rank' do
+      bonus = create(:differential_bonus)
+      rank = create(:rank)
+
+      patch bonus_path(bonus), min_upline_rank_id: rank.id, format: :json
+
+      expect(json_body['properties']['min_upline_rank']).to eq(rank.title)
+    end
+
+    it 'updates the flat amount' do
+      bonus = create(:promote_out_bonus)
+
+      patch bonus_path(bonus), flat_amount: 42, format: :json
+
+      expect(json_body['properties']['flat_amount']).to eq(42)
+    end
+
+    it 'updates the compress flag' do
+      bonus = create(:unilevel_sales_bonus)
+
+      compress = bonus.compress
+      patch bonus_path(bonus), compress: !compress, format: :json
+
+      expect(json_body['properties']['compress']).to eq(!compress)
+    end
+
   end
 end

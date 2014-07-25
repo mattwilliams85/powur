@@ -22,6 +22,7 @@ module Admin
     end
 
     def update
+      @bonus.update_attributes!(input)
 
       render 'show'
     end
@@ -36,8 +37,8 @@ module Admin
 
     def input
       allow_input(
-        :name, :achieved_rank, :schedule, :max_user_rank,
-        :min_upline_rank, :compress, :flat_amount)
+        :name, :schedule, :achieved_rank_id, :max_user_rank_id,
+        :min_upline_rank_id, :compress, :flat_amount)
     end
 
     def bonus_klass
