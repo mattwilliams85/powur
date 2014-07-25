@@ -10,5 +10,5 @@ actions \
       reference:  { type: :link, rel: :ranks, value: :id, name: :title },
       value: bonus.min_upline_rank_id).
     field(:compress, :checkbox, value: bonus.compress).
-    field(:flat_amount, :integer, value: bonus.flat_amount),
+    field(:flat_amount, :number, value: bonus.flat_amount),
   action(:delete, :delete, bonus_path(bonus))
