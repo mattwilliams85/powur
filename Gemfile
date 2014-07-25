@@ -9,9 +9,10 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'turbolinks'
-gem 'jbuilder', '~> 2.0', github: 'rails/jbuilder', branch: 'additive_blocks'
+gem 'jbuilder'#, '~> 2.0', github: 'rails/jbuilder', branch: 'additive_blocks'
 
 gem 'postgres_ext', github: 'dockyard/postgres_ext', branch: 'rails4.1'
+gem 'composite_primary_keys'
 gem 'active_hash'
 gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
@@ -20,6 +21,7 @@ gem 'gibbon'
 gem 'valid_email', require: 'valid_email/email_validator'
 gem 'foreigner', github: 'matthuhiggins/foreigner'
 gem 'faker'
+
 
 gem 'pry-rails'
 

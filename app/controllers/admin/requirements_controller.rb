@@ -19,7 +19,8 @@ module Admin
     end
 
     def destroy
-      @bonus.requirements.delete(@requirement)
+      @requirement.destroy
+      @bonus.requirements.reload
 
       render 'show'
     end
@@ -35,7 +36,7 @@ module Admin
     end
 
     def fetch_requirement
-      @requirement = @bonus.requirements.find(params[:id].to_i)
+      @requirement = @bonus.requirements.find([ @bonus.id, params[:id].to_i ])
     end
 
     def controller_path

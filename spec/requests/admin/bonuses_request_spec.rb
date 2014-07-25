@@ -21,7 +21,7 @@ describe '/a/bonuses' do
 
   describe '#show' do
 
-    it 'returns the bonus detail' do
+    it 'returns the bonus detail including requirements' do
       bonus = create(:bonus_requirement).bonus
 
       get bonus_path(bonus), format: :json
