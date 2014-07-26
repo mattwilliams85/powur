@@ -607,7 +607,9 @@ jQuery(function($){
                             var _popupData = [];
                             var _bonusID= $(e.target)[0].tagName.toLowerCase()==="select"? parseInt($(e.target).val().replace("#","")) : parseInt($(e.target).attr("href").replace("#",""));
                             _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
-                            _popupData = _getObjectsByCriteria(_bonus, "val=update")[0];
+                            console.log(_bonus);
+                            _popupData = _getObjectsByCriteria(_bonus.actions, "val=update")[0];
+                            console.log(_popupData);
                             _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                             _popupData.title="Editing "+_bonus.properties.name;
                             _popupData.deleteOption={};
@@ -626,7 +628,7 @@ jQuery(function($){
                         });
 
                         //wire up add bonus requirement link
-                        $(".js-add_bonus_requirements").on("click", function(e){
+                        $(".js-add_bonus_requirement").on("click", function(e){
                             e.preventDefault();
                             var _popupData=[];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
