@@ -273,15 +273,15 @@ function _getObjectsByCriteria(_dataObj, _criteria, _results, _path){
         if(_dataObj[key] === null) _dataObj[key]="";
 
         if(_operator==="="){
-            if((typeof _value !== "undefined") && (typeof _dataObj[key]==="string") && (_dataObj[key].toLowerCase() ===_value.toLowerCase()) ) _results.push(_dataObj);
+            if((typeof _value !== "undefined") && (_dataObj[key] ===_value) ) _results.push(_dataObj);
             if((typeof _key !== "undefined") && (key.toLowerCase() ===_key.toLowerCase()) ) _results.push(_dataObj);
         }
         if(_operator==="~"){
-            if((typeof _value !== "undefined") && (typeof _dataObj[key]==="string") && (_dataObj[key].toLowerCase().indexOf(_value.toLowerCase())>=0) ) _results.push(_dataObj);
+            if((typeof _value !== "undefined") && (typeof _dataObj[key] === "string") && (_dataObj[key].indexOf(_value)>=0) ) _results.push(_dataObj);
             if((typeof _key !== "undefined") && (key.toLowerCase().indexOf(_key.toLowerCase())>=0) ) _results.push(_dataObj);
 
         }
-        if((typeof _json !== "undefined") && (typeof _dataObj[key]==="string") && (key.toLowerCase() === Object.keys(_json)[0].toLowerCase()) && (_dataObj[key].toLowerCase() ===_json[Object.keys(_json)[0]].toLowerCase())) _results.push(_dataObj);
+        if((typeof _json !== "undefined") && (key.toLowerCase() === Object.keys(_json)[0].toLowerCase()) && (_dataObj[key] ==_json[Object.keys(_json)[0]])) _results.push(_dataObj);
 
         //recursively look through the rest of the JSON
         if(!!_dataObj[key] && typeof _dataObj[key] === "object" && Object.keys(_dataObj[key]).length>0) {
