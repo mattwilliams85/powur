@@ -605,7 +605,7 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData = [];
                             var _bonusID= $(e.target)[0].tagName.toLowerCase()==="select"? parseInt($(e.target).val().replace("#","")) : parseInt($(e.target).attr("href").replace("#",""));
-                            _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1)
+                            _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
                             _popupData = _getObjectsByCriteria(_bonus, "val=update")[0];
                             _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                             _popupData.title="Editing "+_bonus.properties.name;
@@ -622,6 +622,29 @@ jQuery(function($){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
                             });
+                        });
+
+                        //wire up add requirement link
+                        $(".js-add_bonus_requirements").on("click", function(e){
+                            e.preventDefault();
+                            var _popupData=[];
+                            var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
+                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
+                            
+                            _popupData = _getObjectsByCriteria(_bonus.requirements, {name:"create"})[0];
+                            _popupData.fields.forEach(function(field){
+                                field.display_name=field.name.replace(/\_/g," ");
+                                if(typeof field.options !=="undefined") delete field.options["_path"];
+                            });
+                            _popupData.title="Create a new Bonus";
+                            _populateReferencialSelect({_popupData:_popupData});
+
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                });
+                            }); 
+                            console.log(_bonus);
                         });
 
                         console.log("hi there, this is bonus main pane");

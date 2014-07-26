@@ -22,6 +22,9 @@
                     </select>
                 {{/compare}}
 
+                {{#compare this.type "checkbox" operator="=="}}
+                    <input name="{{this.name}}" type="checkbox" value="{{this.value}}">
+                {{/compare}}
                 </span>     
             {{/each}}
 
