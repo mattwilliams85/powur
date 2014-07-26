@@ -14,8 +14,8 @@ class Bonus < ActiveRecord::Base
 
   belongs_to :achieved_rank, class_name: 'Rank'
 
-  has_many :requirements, class_name: 'BonusSalesRequirement', dependent: :destroy
-  has_many :bonus_levels, dependent: :destroy
+  has_many :requirements, class_name: 'BonusSalesRequirement', dependent: :destroy, foreign_key: :bonus_id
+  has_many :bonus_levels, dependent: :destroy, class_name: 'BonusLevel'
 
   validates_presence_of :type, :name
 
@@ -25,6 +25,10 @@ class Bonus < ActiveRecord::Base
 
   def type_display
     TYPES[type_string.to_sym]
+  end
+
+  def default_bonus_level
+    self.bonus_levels.where(level: 0).first
   end
 
   def multiple_product_types?
@@ -43,6 +47,30 @@ class Bonus < ActiveRecord::Base
         []
       end
     end
+  end
+
+  def max_bonus_amount
+    bonus_amounts ? bonus_amounts.max : 0.0
+  end
+
+  def source_requirement
+    @source_requirement ||= self.requirements.find_by_source(true)
+  end
+
+  def source_requirement?
+    !!source_requirement
+  end
+
+  def source_product
+    source_requirement.product
+  end
+
+  def available_bonus_amount
+    source_product.bonus_volume
+  end
+
+  def available_bonus_percentage
+    source_product.total_bonus_allocation(self.id)
   end
 
   class << self

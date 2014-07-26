@@ -27,7 +27,7 @@ module Admin
       if params[:amounts]
         amounts = params[:amounts].map(&:to_f)
 
-        bonus_level = @bonus.bonus_levels.where(level: 0).first
+        bonus_level = @bonus.default_bonus_level
         if bonus_level
           bonus_level.update_attributes(amounts: amounts)
         else
