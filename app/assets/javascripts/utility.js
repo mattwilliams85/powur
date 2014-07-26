@@ -30,7 +30,8 @@ jQuery(function($){
                 }
                 o[this.name].push(this.value || '');
             } else {
-                o[this.name] = this.value || '';
+                if(this.name==="source") o[this.name]=true;
+                else o[this.name] = this.value || '';
             }
         });
         return o;
