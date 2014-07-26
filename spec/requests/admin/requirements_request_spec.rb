@@ -17,6 +17,16 @@ describe '/a/bonuses/:id/requirements' do
       expect_classes 'bonus'
     end
 
+    it 'removes another product type as source' do
+      req = create(:bonus_requirement, bonus: @bonus)
+      post bonus_requirements_path(@bonus), product_id: @product.id,
+        source: true, format: :json
+
+      requirements = json_body['entities'].find { |e| e['class'].include?('requirements') }
+      existing = requirements['entities'].find { |e| e['properties']['product_id'] == req.product_id }
+      expect(existing['properties']['source']).to eq(false)
+    end
+
   end
 
   describe '#update' do

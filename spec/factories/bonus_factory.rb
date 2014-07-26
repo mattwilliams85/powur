@@ -36,5 +36,6 @@ FactoryGirl.define do
   factory :bonus_requirement, class: BonusSalesRequirement do
     association :bonus, factory: :direct_sales_bonus
     product
+    source true
   end
 end

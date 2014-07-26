@@ -6,12 +6,14 @@ module Admin
     before_action :fetch_requirement, except: [ :create ]
 
     def create
+      deselect_requirement_as_source
       @bonus.requirements.create!(input)
 
       render 'show'
     end
 
     def update
+      deselect_requirement_as_source
       @requirement.update_attributes!(input)
       @bonus.requirements.reload
 
@@ -26,6 +28,14 @@ module Admin
     end
 
     private
+
+    def deselect_requirement_as_source
+      existing = @bonus.requirements.find_by_source(true)
+      if existing
+        existing.update_attributes!(source: false)
+        @bonus.requirements.reload
+      end
+    end
 
     def input
       allow_input(:product_id, :quantity, :source)
