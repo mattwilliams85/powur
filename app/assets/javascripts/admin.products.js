@@ -655,11 +655,11 @@ jQuery(function($){
                             var _requirementHref = $(e.target).attr("href").replace("#","");
                             var _popupData = _getObjectsByCriteria(_data.bonuses, "val="+_requirementHref).filter(function(_action){return _action.name=="update"})[0];
                             var _bonus = _getObjectsByPath(_data.bonuses, _popupData._path ,-5);
-                            console.log(_bonus);
+
                             _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                             _popupData.title="Editing Bonus Requirement<br> For Bonus: "+_bonus.properties.name;
                             _popupData.deleteOption={};
-                            _popupData.requirementHref=_requirementHref;
+                            _popupData.href=_requirementHref;
                             //_popupData.id=_bonusID;
                             _popupData.deleteOption.name="Remove this Requirement";
                             _popupData.deleteOption.buttonName="js-delete_bonus_requirement";
@@ -1009,7 +1009,7 @@ jQuery(function($){
                     e.preventDefault();
                     _ajax({
                         _ajaxType:"delete",
-                        _url:_options._popupData.requirementHref,
+                        _url:_options._popupData.href,
                         _callback:function(data, text){
                             $("#js-screen_mask").click();
                             if(typeof _options._callback === "function") _options._callback();
