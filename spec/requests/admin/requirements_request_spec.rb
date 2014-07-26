@@ -12,7 +12,7 @@ describe '/a/bonuses/:id/requirements' do
 
     it 'adds a requirement' do
       post bonus_requirements_path(@bonus), product_id: @product.id, 
-        quantity: 2, format: :json
+        quantity: 2, source: true, format: :json
 
       expect_classes 'bonus'
     end
@@ -24,7 +24,8 @@ describe '/a/bonuses/:id/requirements' do
     it 'updates a requirement' do
       requirement = create(:bonus_requirement, bonus: @bonus)
 
-      patch bonus_requirement_path(@bonus, requirement.product_id), quantity: 22, format: :json
+      patch bonus_requirement_path(@bonus, requirement.product_id), 
+        quantity: 22, source: true, format: :json
 
       req_list = json_body['entities'].find { |e| e['class'].include?('requirements') }
       result = req_list['entities'].first['properties']['quantity']

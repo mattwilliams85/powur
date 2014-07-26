@@ -22,6 +22,7 @@ class CreateBonuses < ActiveRecord::Migration
       t.references  :bonus,     null: false
       t.references  :product,   null: false
       t.integer     :quantity,  null: false, default: 1
+      t.boolean     :source,   null: false, default: false
 
       t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
       t.foreign_key :products, column: :product_id, primary_key: :id

@@ -75,7 +75,8 @@ CREATE TABLE bonus_levels (
 CREATE TABLE bonus_sales_requirements (
     bonus_id integer NOT NULL,
     product_id integer NOT NULL,
-    quantity integer DEFAULT 1 NOT NULL
+    quantity integer DEFAULT 1 NOT NULL,
+    source boolean DEFAULT false NOT NULL
 );
 
 
