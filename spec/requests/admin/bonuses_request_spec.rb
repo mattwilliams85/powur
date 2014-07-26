@@ -58,6 +58,33 @@ describe '/a/bonuses' do
       get bonus_path(bonus), format: :json
       expect_classes 'bonus'
     end
+
+    describe 'update action' do
+      before :each do
+        @bonus = create(:direct_sales_bonus)
+      end
+
+      it 'includes the update action when there are ranks' do
+        ranks = create_list(:rank, 3)
+        get bonus_path(@bonus), format: :json
+
+        update_action = json_body['actions'].find { |a| a['name'] == 'update' }
+        expect(update_action).to be
+
+        amounts = update_action['fields'].find { |f| f['name'] == 'amounts' }
+        expect(amounts).to be
+      end
+
+      it 'does not include amounts when ranks are not defined' do
+        get bonus_path(@bonus), format: :json
+
+        update_action = json_body['actions'].find { |a| a['name'] == 'update' }
+        expect(update_action).to be
+
+        amounts = update_action['fields'].find { |f| f['name'] == 'amounts' }
+        expect(amounts).to_not be
+      end
+    end
   end
 
   describe '#create' do
@@ -127,6 +154,19 @@ describe '/a/bonuses' do
       patch bonus_path(bonus), compress: !compress, format: :json
 
       expect(json_body['properties']['compress']).to eq(!compress)
+    end
+
+    it 'updates the bonus amounts for a bonus that does not have them defined yet' do
+      bonus = create(:direct_sales_bonus)
+      create_list(:rank, 5)
+      amounts = [ 0.055, 0.102, 0.15, 0.205, 0.40 ]
+
+      patch bonus_path(bonus), amounts: amounts, format: :json
+
+      result = json_body['properties']['amounts']
+      amounts.each_with_index do |amount, i|
+        expect(amount).to eq(result[i])
+      end
     end
 
   end

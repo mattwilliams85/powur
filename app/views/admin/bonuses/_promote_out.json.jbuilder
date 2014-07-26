@@ -3,12 +3,14 @@ json.properties do
   json.min_upline_rank bonus.min_upline_rank && bonus.min_upline_rank.title
   json.achieved_rank bonus.achieved_rank && bonus.achieved_rank.title
   json.(bonus, :compress, :flat_amount)
+  json.amounts bonus.bonus_amounts
 end
 
 json.entities [], partial: 'entities', as: :entity
 
 actions \
   action(:update, :patch, bonus_path(bonus)).
+    field(:name, :text, value: bonus.name).
     field(:schedule, :select, options: Bonus::SCHEDULES, value: bonus.schedule).
     field(:achieved_rank_id, :select,
       reference:  { type: :link, rel: :ranks, value: :id, name: :title }).

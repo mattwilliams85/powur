@@ -27,6 +27,24 @@ class Bonus < ActiveRecord::Base
     TYPES[type_string.to_sym]
   end
 
+  def multiple_product_types?
+    self.requirements.map(&:product_id).uniq.size > 1
+  end
+
+  def bonus_amounts
+    @bonus_amounts ||= begin
+      rank_range = Rank.rank_range
+      if rank_range
+        bonus_level = self.bonus_levels.find_by_level(0)
+        amounts = bonus_level ? bonus_level.amounts.map(&:to_f) : []
+        amounts.fill(0.0, amounts.size...rank_range.last)
+        amounts
+      else
+        []
+      end
+    end
+  end
+
   class << self
     def symbol_to_type(type_symbol)
       "#{type_symbol.to_s.split('_').map(&:capitalize).join}#{self.name}".constantize

@@ -10,6 +10,7 @@ json.entities \
 
 actions \
   action(:update, :patch, bonus_path(bonus)).
+    field(:name, :text, value: bonus.name).
     field(:schedule, :select, options: Bonus::SCHEDULES, value: bonus.schedule).
     field(:compress, :checkbox, value: bonus.compress),
   action(:delete, :delete, bonus_path(bonus))
