@@ -497,9 +497,8 @@ jQuery(function($){
                         $(".js-product_select").on("change", function(e){
                             switchCurrentProduct(e);
                         });
-
-
                     });
+
                     _getTemplate("/templates/admin/plans/products/_products.handlebars.html", _data.currentProduct, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-product_select option[value="+_data.currentProduct.properties.id+"]").attr("selected", "selected");
@@ -589,11 +588,13 @@ jQuery(function($){
                             if(typeof _bonus.requirements !== "undefined" && _bonus.requirements.entities.length>0){
                                 _display="<h4 class='subRow'>// Requirements</h4>";
                                 _bonus.requirements.entities.forEach(function(_requirement){
-                                    delete _requirement.properties._path;
-                                    JSON.stringify(_requirement.properties).replace(/\_/g, " ").replace(/["{}]/g, "").split(",").forEach(function(_property){
+                                    var _properties=_requirement.properties;
+                                    delete _properties._path;
+                                    delete _properties.product_id;
+                                    JSON.stringify(_properties).replace(/\_/g, " ").replace(/["{}]/g, "").split(",").forEach(function(_property){
                                         _display+="<div class='innerCell'><span class='label'>"+_property.split(":")[0]+"</span><span class='content'>"+_property.split(":")[1]+"</span></div>";
                                     });
-                                    _display +="<div class='innerCell' style='display:block; float:right;'><a >Edit Requirement</a><br style='clear:both;'></div>";
+                                    _display +="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_requirement' href='#"+_getObjectsByCriteria(_requirement, {name: "update"})[0].href+"'>Edit Requirement</a></div><br style='clear:both;'>";
                                 });
                                 _row.find(".js-bonus_details").append(_display);
                             }
@@ -624,7 +625,7 @@ jQuery(function($){
                             });
                         });
 
-                        //wire up add requirement link
+                        //wire up add bonus requirement link
                         $(".js-add_bonus_requirements").on("click", function(e){
                             e.preventDefault();
                             var _popupData=[];
@@ -637,6 +638,7 @@ jQuery(function($){
                                 if(typeof field.options !=="undefined") delete field.options["_path"];
                             });
                             _popupData.title="Create a new Bonus";
+
                             _populateReferencialSelect({_popupData:_popupData});
 
                             $("#js-screen_mask").fadeIn(100, function(){
@@ -644,7 +646,32 @@ jQuery(function($){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
                             }); 
+                        });
+
+                        //wire up edit bonus requirement link
+                        $(".js-edit_bonus_requirement").on("click", function(e){
+                            e.preventDefault();
+                            var _popupData=[];
+                            var _requirementHref = $(e.target).attr("href").replace("#","");
+                            var _popupData = _getObjectsByCriteria(_data.bonuses, "val="+_requirementHref).filter(function(_action){return _action.name=="update"})[0];
+                            var _bonus = _getObjectsByPath(_data.bonuses, _popupData._path ,-5);
                             console.log(_bonus);
+                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
+                            _popupData.title="Editing Bonus Requirement<br> For Bonus: "+_bonus.properties.name;
+                            _popupData.deleteOption={};
+                            _popupData.requirementHref=_requirementHref;
+                            //_popupData.id=_bonusID;
+                            _popupData.deleteOption.name="Remove this Requirement";
+                            _popupData.deleteOption.buttonName="js-delete_bonus_requirement";
+                            _popupData.deleteOption.description="When you remove a bonus requirement, all compensation calculation will be changed immediately.  Please exercise with caution."
+
+                            _populateReferencialSelect({_popupData:_popupData});
+
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                });
+                            });
                         });
 
                         console.log("hi there, this is bonus main pane");
@@ -970,6 +997,19 @@ jQuery(function($){
                     _ajax({
                         _ajaxType:"delete",
                         _url:_options._popupData.href,
+                        _callback:function(data, text){
+                            $("#js-screen_mask").click();
+                            if(typeof _options._callback === "function") _options._callback();
+                        }
+                    });
+                });
+
+                //delete bonus requirements
+                $(".js-delete.js-delete_bonus_requirement").on("click", function(e){
+                    e.preventDefault();
+                    _ajax({
+                        _ajaxType:"delete",
+                        _url:_options._popupData.requirementHref,
                         _callback:function(data, text){
                             $("#js-screen_mask").click();
                             if(typeof _options._callback === "function") _options._callback();
