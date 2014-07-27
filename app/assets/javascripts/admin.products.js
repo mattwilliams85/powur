@@ -577,7 +577,7 @@ jQuery(function($){
                             Object.keys(_bonus.properties).forEach(function(_key){
                                 var _skip=false;
                                 if((!_bonus.properties[_key]) && (_bonus.properties[_key].toString().length==0))_bonus.properties[_key]="<span class='js-no_data'>No Data</span>";
-                                ["id", "name", "amounts", "available_bonus", "available_bonus_percentage"].forEach(function(_skipKey){if (_key===_skipKey) _skip=true;});
+                                ["id", "name", "amounts"].forEach(function(_skipKey){if (_key===_skipKey) _skip=true;});
                                 if(!_skip) _display+="<div class='innerCell'><span class='label'>"+_key.replace(/\_/g," ").replace(/percentage/i, "%")+"</span><span class='content'>"+_bonus.properties[_key]+"</span></div>";
                             });
                             _row.find(".js-bonus_details").append(_display);
@@ -604,6 +604,7 @@ jQuery(function($){
                             if(typeof _bonus.properties.amounts !== "undefined" && _bonus.properties.amounts.length>0 && typeof _amountDetail !=="undefined"){
                                 _display="<h4 class='subRow'>// Bonus Payments</h4>";
                                 delete _bonus.properties.amounts._path;
+                                _display+="<div class='rotate' style='font-size:10px; float:left; height:10px; text-align:center;margin-top: 20px; margin-left: -40px;margin-right:5px;'>Level 1</div><div style='border-top:1px solid #ddd; border-left:1px solid #ddd; height:50px; width:5px;float:left; margin-right:10px;'></div>";
 
                                 _bonus.properties.amounts.forEach(function(_amount, _index){
                                     var _rankID = _amountDetail.first+_index;
