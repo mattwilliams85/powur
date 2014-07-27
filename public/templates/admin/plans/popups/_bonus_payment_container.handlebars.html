@@ -2,6 +2,10 @@
     <legend style="color:#333; text-transform:uppercase; font-size:18px;">{{{this.title}}}</legend>
     <span class="subtext summary js-popup_content_container">
         <form id="js-popup_form">
+            <span class="form_row" style="padding-bottom:8px; padding-top:0px; border-bottom:1px dashed #ccc; margin-bottom:16px; font-size:12px; text-transform:uppercase;">
+                {{#if this.amountDetail.total}}<span style="padding-right:20px;">Bonus Total: ${{this.amountDetail.total}}</span>{{/if}}
+                {{#if this.amountDetail.maxPercentage}}<span>Max Percentage: {{this.amountDetail.maxPercentage}}%</span>{{/if}}
+            </span>
             {{#each this.properties.amounts}}
                 <span class="form_row" style="padding-bottom:8px; padding-top:0px;" data-amount-array-index="{{@index}}">
                     <div class="js-percentage_container" data-amount-array-index="{{@index}}" data-amount-percentage="{{this}}">
