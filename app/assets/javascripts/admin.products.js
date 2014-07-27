@@ -627,8 +627,11 @@ jQuery(function($){
                                             });
                                             _display+="</div>";
                                             _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_requirement' href='#'>Adjust Payments</a></div>";
-
                                             _display+="<br style='clear:both;'>"
+                                            _row.find(".js-bonus_details").append(_display);
+                                            _display="";
+                                            _row.find(".js-bonus_level_bracket:eq("+_index+")").css("height",  (_row.find(".js-bonus_level_amount_container:eq("+_index+")").height()-5)+"px");
+
                                         });
 
                                     }else{
@@ -639,9 +642,10 @@ jQuery(function($){
                                             var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
                                             _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='content'>"+(_amount*100).toFixed(0)+"% <span style='font-size:11px; color:#9b9b9b;'>$"+(_amount*_amountDetail.total)+"</span></span></div>";
                                         });
+                                        _row.find(".js-bonus_details").append(_display);
+
                                     }
                                 }
-                                _row.find(".js-bonus_details").append(_display);
                             }
 
                         });
