@@ -259,6 +259,7 @@ function _getObjectsByCriteria(_dataObj, _criteria, _results, _path){
     if(!_results instanceof Array) _results = [];
 
     if(typeof _criteria === "undefined" ) return;
+    if(typeof _dataObj === "undefined") return;
     var _value, _key, _json, _operator;
 
     if(typeof _criteria === "object" ) _json=_criteria;

@@ -215,7 +215,7 @@ jQuery(function($){
                             _popupData.title="Add a new Rank";
 
                             $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                                 });
                             });
@@ -274,7 +274,7 @@ jQuery(function($){
                             _popupData.deleteOption.buttonName="js-delete_qualification";
                             _popupData.deleteOption.description="";
                             $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                                 });
                             });
@@ -332,7 +332,7 @@ jQuery(function($){
                             _popupData.deleteOption.buttonName="js-delete_qualification";
                             _popupData.deleteOption.description="";
                             $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                                 });
                             });
@@ -357,7 +357,7 @@ jQuery(function($){
                                     if(_data.ranks.entities.length == _rankID) _popupData.deleteOption.buttonName="js-delete_rank";
                                     _popupData.deleteOption.description="Only the highest Rank can be removed at this time";
                                     $("#js-screen_mask").fadeIn(100, function(){
-                                        _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                        _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                             _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                                         });
                                     });
@@ -390,7 +390,7 @@ jQuery(function($){
                                     _populateReferencialSelect({_popupData:_popupData});
 
                                     $("#js-screen_mask").fadeIn(100, function(){
-                                        _getTemplate("/templates/admin/plans/products/popup/_hierarchical_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                        _getTemplate("/templates/admin/plans/popups/_hierarchical_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                             _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                                         });
                                     });
@@ -417,7 +417,7 @@ jQuery(function($){
                             _populateReferencialSelect({_popupData:_popupData});
 
                             $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_hierarchical_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _getTemplate("/templates/admin/plans/popups/_hierarchical_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                                 });
                             });
@@ -469,7 +469,7 @@ jQuery(function($){
                                     _popupData.deleteOption.description="When you remove a product, all compensation calculation will be removed immediately.  Please exercise with caution."
 
                                     $("#js-screen_mask").fadeIn(100, function(){
-                                        _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                        _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                             _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
                                         });
                                     });
@@ -487,7 +487,7 @@ jQuery(function($){
                             _popupData.title="Add a new product";
 
                             $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
                                 });
                             });
@@ -553,7 +553,7 @@ jQuery(function($){
                             _populateReferencialSelect({_popupData:_popupData});
 
                             $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
                             }); 
@@ -562,8 +562,8 @@ jQuery(function($){
 
                     _getTemplate("/templates/admin/plans/bonuses/_bonuses.handlebars.html", _data.bonuses , $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
+                        
                         _data.bonuses.entities.forEach(function(_bonus){
-
                             delete _bonus.properties["_path"];
                             var _bonusID = _bonus.properties.id;
                             var _row =  $(".js-admin_dashboard_detail_container table tr[data-bonus-id="+_bonusID+"]");
@@ -610,7 +610,7 @@ jQuery(function($){
                             _popupData = _getObjectsByCriteria(_bonus.actions, "val=update")[0];
 
                             //hide the amounts form the update
-                            eval("delete _popupData"+(_getObjectsByCriteria(_popupData, {name:"amounts"})[0]._path.replace(/\//g,"\"][\"")+"\"]").substring(2));
+                            //eval("delete _popupData"+(_getObjectsByCriteria(_popupData, {name:"amounts"})[0]._path.replace(/\//g,"\"][\"")+"\"]").substring(2));
 
                             _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                             _popupData.title="Editing "+_bonus.properties.name;
@@ -623,7 +623,7 @@ jQuery(function($){
                             _populateReferencialSelect({_popupData:_popupData});
 
                             $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
                             });
@@ -646,7 +646,7 @@ jQuery(function($){
                             _populateReferencialSelect({_popupData:_popupData});
 
                             $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
                             }); 
@@ -672,10 +672,33 @@ jQuery(function($){
                             _populateReferencialSelect({_popupData:_popupData});
 
                             $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
                             });
+                        });
+
+                        //wire up edit bonus payment link
+                        $(".js-edit_bonus_payment").on("click", function(e){
+                            e.preventDefault();
+                            var _popupData=[];
+                            var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
+                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
+
+                            _popupData = _getObjectsByCriteria(_bonus.actions, {name: "update"})[0];
+                            _popupData.popupType = "bonus_payment";                            
+                            _popupData._bonusID = _bonusID;
+                            _popupData["properties"] = {};
+                            $.extend(true, _popupData.properties, _bonus.properties);
+                            _popupData.title="Editing Payments<br> For Bonus: "+_bonus.properties.name;
+                            //_populateReferencialSelect({_popupData:_popupData});
+
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                });
+                            });
+
                         });
 
                         console.log("hi there, this is bonus main pane");
@@ -942,7 +965,7 @@ jQuery(function($){
             //wire up dynamic interaction for the select/option
             if(_options._popupData.popupType === "hierarchical"){
                 $("#js-popup_form .js-popup_form_button").css("display","none");
-                _getTemplate("/templates/admin/plans/products/popup/_options.handlebars.html", _options._popupData.primaryOptions, $("#js-popup_form .primaryOptions"), function(){
+                _getTemplate("/templates/admin/plans/popups/_options.handlebars.html", _options._popupData.primaryOptions, $("#js-popup_form .primaryOptions"), function(){
 
                     $("#js-popup_form .primaryOptions select[name=type]").on("change", function(e){
                         $("#js-popup_form .js-popup_form_button").css("display","block");
@@ -959,14 +982,76 @@ jQuery(function($){
                                     _secondaryOptions.push(field);
                             }
                         });
-                        _getTemplate("/templates/admin/plans/products/popup/_options.handlebars.html", _secondaryOptions, $("#js-popup_form .secondaryOptions"), function(){
+                        _getTemplate("/templates/admin/plans/popups/_options.handlebars.html", _secondaryOptions, $("#js-popup_form .secondaryOptions"), function(){
                             $("#js-popup_form .js-popup_form_button").fadeIn();
 
                         });
                     });
                 });
+            }
+
+            //wire up dynamic bonus amount assignment
+            if(_options._popupData.popupType === "bonus_payment"){
+                var _amountDetail = _getObjectsByCriteria(_options._popupData.fields, {name:"amounts"})[0];
+                $(".js-percentage_container").each(function(){
+                    var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
+                    var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                    var _barWidth = $(this).width();
+                    $(this).find(".js-percentage_label").text(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(0)+"%");
+                    $(this).find(".js-percentage_bar").animate({"width":(_barWidth*$(this).attr("data-amount-percentage")).toFixed(0)+"px"},300);
+
+                });
+
+                $(".js-percentage_container").on("mousemove", function(e){
+                    e.preventDefault();
+                    var _barWidth = $(this).width();
+                    var _position = {x: e.pageX - $(this).offset().left, y: e.pageY - $(this).offset().top}
+                    var _percentage = (_position.x/_barWidth).toFixed(2);
+                    var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
+                    var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                    $(this).find(".js-percentage_label").text(_rankID+", "+_rankTitle+": "+(_percentage*100).toFixed(0)+"%");
+                    $(this).find(".js-percentage_label").css("color","#ddd");
+                     
+                });
+
+                $(".js-percentage_container").on("mouseout", function(e){
+                    e.preventDefault();
+                    var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
+                    var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                    $(this).find(".js-percentage_label").text(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(0)+"%");
+                    $(this).find(".js-percentage_label").css("color","#fff");
+                });
+                
+                $(".js-percentage_container").on("click", function(e){
+                    e.preventDefault();
+                    var _barWidth = $(this).width();
+                    var _position = {x: e.pageX - $(this).offset().left, y: e.pageY - $(this).offset().top}
+                    var _percentage = (_position.x/_barWidth).toFixed(2);
+                    $(this).find(".js-percentage_bar").animate({"width":(_barWidth*_percentage).toFixed(0)+"px"},300);
+                    $(this).attr("data-amount-percentage",_percentage);
+                });
+
+
+                $(".js-update_bonus_payment").on("click", function(e){
+                    e.preventDefault();
+                    var _amounts=[];
+                     $(".js-percentage_container").each(function(){
+                        _amounts.push(parseFloat($(this).attr("data-amount-percentage")));
+                     });
+
+                    _ajax({
+                        _ajaxType:_options._popupData.method,
+                        _url:_options._popupData.href,
+                        _postObj: {amounts:_amounts},
+                        _callback:function(data, text){
+                            $("#js-screen_mask").click();
+                            if(typeof _options._callback === "function") _options._callback();
+                        }
+                    });
+                });
 
             }
+
 
             if(_options._popupData.deleteOption){
                 //delete entities
