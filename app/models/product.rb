@@ -9,7 +9,7 @@ class Product < ActiveRecord::Base
       where(bonus_sales_requirements: { product_id: self.id, source: true })
     query = query.where.not(id: exception_bonus_id) if exception_bonus_id
     bonuses = query.entries
-    bonuses.empty? ? 1.0 : bonuses.map(&:max_amount).inject(:+)
+    bonuses.empty? ? 0.0 : bonuses.map(&:max_amount).inject(:+)
   end
 
   class << self

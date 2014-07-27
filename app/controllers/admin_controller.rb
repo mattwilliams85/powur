@@ -1,7 +1,8 @@
 class AdminController < AuthController
-  before_action :has_admin_role
 
+  include BonusJSON
   layout 'admin'
+  before_action :has_admin_role
   
   private
 

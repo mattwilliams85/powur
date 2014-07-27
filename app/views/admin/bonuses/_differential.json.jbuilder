@@ -23,7 +23,7 @@ update = action(:update, :patch, bonus_path(bonus)).
 if bonus.can_add_amounts?
   update.field(:amounts, :dollar_percentage, array: true,
     first: bonus.rank_range.first, last: bonus.rank_range.last,
-    total: bonus.available_bonus_amount, max: bonus.available_bonus_percentage)
+    total: bonus.available_amount, max: bonus.remaining_percentage)
 end
 
 actions update, action(:delete, :delete, bonus_path(bonus))

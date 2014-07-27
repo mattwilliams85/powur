@@ -79,31 +79,37 @@ describe '/a/bonuses' do
         update_action['fields'].find { |f| f['name'] == 'amounts' }
       end
 
-      it 'includes the update action when there are ranks and a source' do
-        create_list(:rank, 3)
-        create(:bonus_requirement, bonus: @bonus)
-        get bonus_path(@bonus), format: :json
+      describe 'when ranks and a source' do
+        it 'includes the amounts field in the update action' do
+          create_list(:rank, 3)
+          create(:bonus_requirement, bonus: @bonus)
+          get bonus_path(@bonus), format: :json
 
-        expect(update_action).to be
-        expect(amounts).to be
+          expect(update_action).to be
+          expect(amounts).to be
+        end
+
       end
 
-      it 'does not include amounts when ranks are not defined' do
-        create(:bonus_requirement, bonus: @bonus)
-        get bonus_path(@bonus), format: :json
+      describe 'source, no ranks' do
+        it 'does not inlude the amounts field in the update action' do
+          create(:bonus_requirement, bonus: @bonus)
+          get bonus_path(@bonus), format: :json
 
-        expect(update_action).to be
-        expect(amounts).to_not be
+          expect(update_action).to be
+          expect(amounts).to_not be
+        end
       end
 
-      it 'does not include amounts when the bonus does not have a source' do
-        create_list(:rank, 3)
-        get bonus_path(@bonus), format: :json
+      describe 'ranks, no source' do
+        it 'does not inlude the amounts field in the update action' do
+          create_list(:rank, 3)
+          get bonus_path(@bonus), format: :json
 
-        expect(update_action).to be
-        expect(amounts).to_not be
+          expect(update_action).to be
+          expect(amounts).to_not be
+        end
       end
-
     end
   end
 
