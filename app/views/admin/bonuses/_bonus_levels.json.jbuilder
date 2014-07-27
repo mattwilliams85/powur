@@ -8,5 +8,3 @@ if bonus.can_add_amounts?
       first: bonus.rank_range.first, last: bonus.rank_range.last,
       total: bonus.available_bonus_amount, max: bonus.available_bonus_percentage)
 end
-
-
