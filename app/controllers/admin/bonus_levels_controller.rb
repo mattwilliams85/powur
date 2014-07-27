@@ -6,16 +6,20 @@ module Admin
     before_action :fetch_bonus_level, except: [ :create ]
 
     def create
+      @bonus.bonus_levels.create!(
+        input.merge(level: @bonus.next_bonus_level))
 
       render 'show'
     end
 
     def update
+      @bonus_level.update_attributes!(input)
 
       render 'show'
     end
 
     def destroy
+
 
       render 'show'
     end

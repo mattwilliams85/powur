@@ -35,27 +35,34 @@ describe '/a/bonuses' do
       bonus = create(:enroller_sales_bonus)
 
       get bonus_path(bonus), format: :json
+
       expect_classes 'bonus'
     end
 
     it 'returns an unilevel sales bonus' do
+      create_list(:rank, 3)
       bonus = create(:unilevel_sales_bonus)
-
+      create(:bonus_requirement, bonus: bonus)
       get bonus_path(bonus), format: :json
+
       expect_classes 'bonus'
+      bonus_levels = json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
+      expect(bonus_levels).to be
+      create = bonus_levels['actions'].find { |a| a['name'] == 'create' }
+      expect(create).to be
     end
 
     it 'returns a promote out bonus' do
       bonus = create(:promote_out_bonus)
-
       get bonus_path(bonus), format: :json
+
       expect_classes 'bonus'
     end
 
     it 'returns a differential bonus' do
       bonus = create(:differential_bonus)
-
       get bonus_path(bonus), format: :json
+
       expect_classes 'bonus'
     end
 
@@ -64,26 +71,39 @@ describe '/a/bonuses' do
         @bonus = create(:direct_sales_bonus)
       end
 
-      it 'includes the update action when there are ranks' do
-        ranks = create_list(:rank, 3)
+      def update_action
+        json_body['actions'].find { |a| a['name'] == 'update' }
+      end
+
+      def amounts
+        update_action['fields'].find { |f| f['name'] == 'amounts' }
+      end
+
+      it 'includes the update action when there are ranks and a source' do
+        create_list(:rank, 3)
+        create(:bonus_requirement, bonus: @bonus)
         get bonus_path(@bonus), format: :json
 
-        update_action = json_body['actions'].find { |a| a['name'] == 'update' }
         expect(update_action).to be
-
-        amounts = update_action['fields'].find { |f| f['name'] == 'amounts' }
         expect(amounts).to be
       end
 
       it 'does not include amounts when ranks are not defined' do
+        create(:bonus_requirement, bonus: @bonus)
         get bonus_path(@bonus), format: :json
 
-        update_action = json_body['actions'].find { |a| a['name'] == 'update' }
         expect(update_action).to be
-
-        amounts = update_action['fields'].find { |f| f['name'] == 'amounts' }
         expect(amounts).to_not be
       end
+
+      it 'does not include amounts when the bonus does not have a source' do
+        create_list(:rank, 3)
+        get bonus_path(@bonus), format: :json
+
+        expect(update_action).to be
+        expect(amounts).to_not be
+      end
+
     end
   end
 

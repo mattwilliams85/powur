@@ -2,8 +2,7 @@
 json.properties do
   json.max_user_rank bonus.max_user_rank && bonus.max_user_rank.title
   json.min_upline_rank bonus.min_upline_rank && bonus.min_upline_rank.title
-  json.compress bonus.compress
-  json.amounts bonus.bonus_amounts
+  json.(bonus, :compress, :amounts)
 end
 
 json.entities \
@@ -20,9 +19,10 @@ update = action(:update, :patch, bonus_path(bonus)).
     value: bonus.min_upline_rank_id).
   field(:compress, :checkbox, value: bonus.compress)
 
-if (rank_range = Rank.rank_range)
-  update.field(:amounts, :number, array: true,
-    first: rank_range.first, last: rank_range.last)
+if bonus.can_add_amounts?
+  update.field(:amounts, :dollar_percentage, array: true,
+    first: bonus.rank_range.first, last: bonus.rank_range.last,
+    total: bonus.available_bonus_amount, max: bonus.available_bonus_percentage)
 end
 
 actions update, action(:delete, :delete, bonus_path(bonus))

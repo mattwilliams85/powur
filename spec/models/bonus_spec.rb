@@ -29,7 +29,7 @@ describe Bonus, type: :model do
 
       bonus2 = create(:bonus_requirement, product: product).bonus
 
-      expect(1.0 - bonus1.max_bonus_amount).
+      expect(1.0 - bonus1.max_amount).
         to eq(bonus2.available_bonus_percentage)
     end
   end

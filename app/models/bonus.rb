@@ -35,9 +35,12 @@ class Bonus < ActiveRecord::Base
     self.requirements.map(&:product_id).uniq.size > 1
   end
 
-  def bonus_amounts
-    @bonus_amounts ||= begin
-      rank_range = Rank.rank_range
+  def rank_range
+    @rank_range ||= Rank.rank_range
+  end
+
+  def amounts
+    @amounts ||= begin
       if rank_range
         bonus_level = self.bonus_levels.find_by_level(0)
         amounts = bonus_level ? bonus_level.amounts.map(&:to_f) : []
@@ -49,16 +52,20 @@ class Bonus < ActiveRecord::Base
     end
   end
 
-  def max_bonus_amount
-    bonus_amounts ? bonus_amounts.max : 0.0
+  def max_amount
+    amounts.empty? ? 0.0 : amounts.max
   end
 
   def source_requirement
     @source_requirement ||= self.requirements.find_by_source(true)
   end
 
-  def source_requirement?
+  def has_source?
     !!source_requirement
+  end
+
+  def can_add_amounts?
+    rank_range && has_source?
   end
 
   def source_product
