@@ -599,6 +599,21 @@ jQuery(function($){
                                 _row.find(".js-bonus_details").append(_display);
                             }
 
+                            //show payments
+                            var _amountDetail = _getObjectsByCriteria(_bonus.actions, {name: "amounts"})[0];
+                            if(typeof _bonus.properties.amounts !== "undefined" && _bonus.properties.amounts.length>0 && typeof _amountDetail !=="undefined"){
+                                _display="<h4 class='subRow'>// Bonus Payments</h4>";
+                                delete _bonus.properties.amounts._path;
+
+                                _bonus.properties.amounts.forEach(function(_amount, _index){
+                                    var _rankID = _amountDetail.first+_index;
+                                    var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                                    _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='content'>"+(_amount*100)+"%</span></div>";
+                                });
+                        
+                                _row.find(".js-bonus_details").append(_display);
+                            }
+
                         });
                         
                         //wire up the edit bonus link
@@ -707,8 +722,6 @@ jQuery(function($){
 
 
                 break;
-
-
 
             }
         }
