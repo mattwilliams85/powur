@@ -104,8 +104,11 @@ jQuery(function($){
                             _url:"/a/bonuses/"+_bonus.properties.id,
                             _callback:function(data, text){
                                 //_bonus.bonus_levels = _getObjectsByPath(data, _getObjectsByCriteria(data, {0:"bonus_levels"})[0]._path, -1);
-                                if(_getObjectsByCriteria(data, "val=requirements").length>=1)
-                                    _bonus.requirements = _getObjectsByPath(data, _getObjectsByCriteria(data, "val=requirements")[0]._path, -1);
+                                if(_getObjectsByCriteria(data.entities, "val=requirements").length>=1)
+                                    _bonus.requirements = _getObjectsByPath(data.entities, _getObjectsByCriteria(data.entities, "val=requirements")[0]._path, -1);
+                                if(_getObjectsByCriteria(data.entities, "val=bonus_levels").length>=1)
+                                    _bonus.bonus_levels = _getObjectsByPath(data.entities, _getObjectsByCriteria(data.entities, "val=bonus_levels")[0]._path, -1);
+
                                 _bonus.properties = data.properties;
                                 _bonus.actions = data.actions;
                             }
@@ -518,16 +521,22 @@ jQuery(function($){
                                     _ajaxType:"get",
                                     _url:"/a/bonuses/"+_bonus.properties.id,
                                     _callback:function(data, text){
-                                        if(_getObjectsByCriteria(data, "val=requirements").length>=1)
-                                            _bonus.requirements = _getObjectsByPath(data, _getObjectsByCriteria(data, "val=requirements")[0]._path, -1);
+                                        //_bonus.bonus_levels = _getObjectsByPath(data, _getObjectsByCriteria(data, {0:"bonus_levels"})[0]._path, -1);
+                                        if(_getObjectsByCriteria(data.entities, "val=requirements").length>=1)
+                                            _bonus.requirements = _getObjectsByPath(data.entities, _getObjectsByCriteria(data.entities, "val=requirements")[0]._path, -1);
+                                        if(_getObjectsByCriteria(data.entities, "val=bonus_levels").length>=1)
+                                            _bonus.bonus_levels = _getObjectsByPath(data.entities, _getObjectsByCriteria(data.entities, "val=bonus_levels")[0]._path, -1);
+
                                         _bonus.properties = data.properties;
                                         _bonus.actions = data.actions;
                                         displayPlans("#admin-plans-bonuses");
+
                                     }
                                 });
                             });
                         }
                     });
+
                 break;
 
                 case "#admin-plans-bonuses":
@@ -599,20 +608,38 @@ jQuery(function($){
                                 _row.find(".js-bonus_details").append(_display);
                             }
 
-                            //show payments
+                            //show bonus payments
                             var _amountDetail = _getObjectsByCriteria(_bonus.actions, {name: "amounts"})[0];
-                            if(typeof _bonus.properties.amounts !== "undefined" && _bonus.properties.amounts.length>0 ){
+                            if((typeof _bonus.properties.amounts !== "undefined" && _bonus.properties.amounts.length>0 ) || (typeof _bonus.bonus_levels !== "undefined")){
                                 _display="<h4 class='subRow'>// Bonus Payments</h4>";
-                                if(typeof _amountDetail === "undefined") _display+="Please select a product source";
+                                if((typeof _amountDetail === "undefined") && (typeof _bonus.bonus_levels === "undefined")) _display+="Please select a product source";
                                 else{
-                                    delete _bonus.properties.amounts._path;
-                                    //_display+="<div class='rotate js-bonus_level_label'>Level 1</div><div class='js-bonus_level_bracket'></div>";
+                                    if(typeof _bonus.bonus_levels !=="undefined"){
+                                        //show uni-level payment structure
+                                        if(_bonus.bonus_levels.entities.length==0) _display+="Please add a bonus level";
+                                        _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
+                                            var _amountDetail = _getObjectsByCriteria(_bonus_level, "key=total")[0];
+                                            var _amount = _bonus_level.properties.amounts;
+                                            _display+="<div class='rotate js-bonus_level_label'>Level "+(_index+1)+"</div><div class='js-bonus_level_bracket'></div>";
+                                            _display+="<div class='js-bonus_level_amount_container'>";
+                                            _data.ranks.entities.forEach(function(_rank, _index){
+                                                _display+="<div class='innerCell'><span class='label'>"+_rank.properties.id+", "+_rank.properties.title+"</span><span class='content'>"+(_amount[_index]*100).toFixed(0)+"% <span style='font-size:11px; color:#9b9b9b;'>$"+(_amount[_index]*_amountDetail.total)+"</span></span></div>";
+                                            });
+                                            _display+="</div>";
+                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_requirement' href='#'>Adjust Payments</a></div>";
 
-                                    _bonus.properties.amounts.forEach(function(_amount, _index){
-                                        var _rankID = _amountDetail.first+_index;
-                                        var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
-                                        _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='content'>"+(_amount*100).toFixed(0)+"% <span style='font-size:11px; color:#9b9b9b;'>$"+(_amount*_amountDetail.total)+"</span></span></div>";
-                                    });
+                                            _display+="<br style='clear:both;'>"
+                                        });
+
+                                    }else{
+                                        //show all other payment structure
+                                        delete _bonus.properties.amounts._path;
+                                        _bonus.properties.amounts.forEach(function(_amount, _index){
+                                            var _rankID = _amountDetail.first+_index;
+                                            var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                                            _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='content'>"+(_amount*100).toFixed(0)+"% <span style='font-size:11px; color:#9b9b9b;'>$"+(_amount*_amountDetail.total)+"</span></span></div>";
+                                        });
+                                    }
                                 }
                                 _row.find(".js-bonus_details").append(_display);
                             }
@@ -709,7 +736,7 @@ jQuery(function($){
                             _popupData["properties"] = {};
                             $.extend(true, _popupData.properties, _bonus.properties);
                             _popupData.amountDetail = _getObjectsByCriteria(_popupData, {name:"amounts"})[0];
-                            _popupData.amountDetail.maxPercentage = _popupData.amountDetail.max*100.00;
+                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(0);
                             _popupData.title="Editing Payments<br> For Bonus: "+_bonus.properties.name;
                             //_populateReferencialSelect({_popupData:_popupData});
 
@@ -718,8 +745,40 @@ jQuery(function($){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
                             });
-
                         });
+
+                        //wire up add new bonus level
+                        $(".js-add_bonus_level").on("click", function(e){
+                            e.preventDefault();
+                            var _popupData=[];
+                            var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
+                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
+                            
+                            _popupData = _getObjectsByCriteria(_bonus.bonus_levels.actions, {name: "create"})[0];
+                            _popupData.popupType = "bonus_payment";                            
+                            _popupData._bonusID = _bonusID;
+                            _popupData["properties"] = {};
+                            $.extend(true, _popupData.properties, _bonus.properties);
+                            //prep artificial amounts
+                            _popupData.properties["amounts"]=[];
+                            for(i=0;i<_data.ranks.entities.length;i++) _popupData.properties["amounts"].push(0.00);
+                            _popupData.amountDetail = {};
+                            $.extend(true, _popupData.amountDetail, _getObjectsByCriteria(_popupData, {name: "amounts"})[0]);
+                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(0);
+
+                            _popupData.title="Add a new Bonus Level <br> For Bonus: "+_bonus.properties.name;
+
+                            console.log(_popupData);
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                });
+                            });
+
+
+
+                        })
+
 
                         console.log("hi there, this is bonus main pane");
 

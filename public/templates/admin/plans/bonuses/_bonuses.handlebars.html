@@ -12,10 +12,15 @@
     </tr>
     <tr  data-bonus-id="{{this.properties.id}}" style="border:0;">
         <td colspan="3">
+            {{#if this.requirements}}            
             <a href="#" class="js-add_bonus_requirement button" >+ Requirement</a>
+            {{/if}}
             {{#if this.properties.amounts}}
             <a href="#" class="js-edit_bonus_payment button quiet" style="margin-right:10px;" >Adjust Payments</a>
-            {{/if}}            
+            {{/if}}     
+            {{#if this.bonus_levels}}
+            <a href="#" class="js-add_bonus_level button quiet" style="margin-right:10px;" >+ Bonus Level</a>
+            {{/if}}                           
         </td>
     <tr>
     <tr style="border:0px;"><td colspan="3" style="height:20px;"></td></tr>
