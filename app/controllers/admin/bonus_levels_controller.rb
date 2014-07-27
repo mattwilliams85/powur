@@ -19,7 +19,8 @@ module Admin
     end
 
     def destroy
-
+      @bonus_level.destroy
+      @bonus.bonus_levels.reload
 
       render 'show'
     end

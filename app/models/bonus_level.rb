@@ -14,4 +14,8 @@ class BonusLevel < ActiveRecord::Base
     @rank_range ||= self.bonus.rank_range ||
       ((self.amounts.empty? ? 0 : 1)..self.amounts.size)
   end
+
+  def is_last?
+    self.level == self.bonus.last_bonus_level
+  end
 end

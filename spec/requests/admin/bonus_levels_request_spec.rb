@@ -14,11 +14,9 @@ describe '/a/bonuses/:id/bonus_levels' do
 
   describe '#update' do
 
-
   end
 
   describe '#destroy' do
-
 
   end
 
