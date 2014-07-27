@@ -577,8 +577,8 @@ jQuery(function($){
                             Object.keys(_bonus.properties).forEach(function(_key){
                                 var _skip=false;
                                 if((!_bonus.properties[_key]) && (_bonus.properties[_key].toString().length==0))_bonus.properties[_key]="<span class='js-no_data'>No Data</span>";
-                                ["id", "name", "amounts"].forEach(function(_skipKey){if (_key===_skipKey) _skip=true;});
-                                if(!_skip) _display+="<div class='innerCell'><span class='label'>"+_key.replace(/\_/g," ")+"</span><span class='content'>"+_bonus.properties[_key]+"</span></div>";
+                                ["id", "name", "amounts", "available_bonus", "available_bonus_percentage"].forEach(function(_skipKey){if (_key===_skipKey) _skip=true;});
+                                if(!_skip) _display+="<div class='innerCell'><span class='label'>"+_key.replace(/\_/g," ").replace(/percentage/i, "%")+"</span><span class='content'>"+_bonus.properties[_key]+"</span></div>";
                             });
                             _row.find(".js-bonus_details").append(_display);
                             _row.find(".js-bonus_details").append("<br style='clear:both;'>");
@@ -607,9 +607,11 @@ jQuery(function($){
                             var _popupData = [];
                             var _bonusID= $(e.target)[0].tagName.toLowerCase()==="select"? parseInt($(e.target).val().replace("#","")) : parseInt($(e.target).attr("href").replace("#",""));
                             _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
-                            console.log(_bonus);
                             _popupData = _getObjectsByCriteria(_bonus.actions, "val=update")[0];
-                            console.log(_popupData);
+
+                            //hide the amounts form the update
+                            eval("delete _popupData"+(_getObjectsByCriteria(_popupData, {name:"amounts"})[0]._path.replace(/\//g,"\"][\"")+"\"]").substring(2));
+
                             _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                             _popupData.title="Editing "+_bonus.properties.name;
                             _popupData.deleteOption={};
@@ -906,7 +908,7 @@ jQuery(function($){
                         if(field.reference.rel === "ranks"){
                             _data.ranks.entities.forEach(function(_rank){
                                 field.displayOptions.push({name:_rank.properties.id+", "+_rank.properties.title, value:_rank.properties.id});
-                                console.log(_rank.properties.title);
+                                //console.log(_rank.properties.title);
                             });
                         }
 
@@ -966,49 +968,11 @@ jQuery(function($){
 
             }
 
-
-            //%TODO: consolidate delete actions using _popupData.id so that all delete actions are unified
             if(_options._popupData.deleteOption){
-                //delete product
-                $(".js-delete.js-delete_product").on("click", function(e){
+                //delete entities
+                $(".js-delete").on("click", function(e){
                     e.preventDefault();
-                    _ajax({
-                        _ajaxType:"delete",
-                        _url:"/a/products/"+_data.currentProduct.properties.id,
-                        _callback:function(data, text){
-                            $("#js-screen_mask").click();
-                            if(typeof _options._callback === "function") _options._callback();
-                        }
-                    })
-                });
-                //delete ranks
-                $(".js-delete.js-delete_rank").on("click", function(e){
-                    e.preventDefault();
-                    _ajax({
-                        _ajaxType:"delete",
-                        _url:"/a/ranks/"+_options._popupData.id,
-                        _callback:function(data, text){
-                            $("#js-screen_mask").click();
-                            if(typeof _options._callback === "function") _options._callback();
-                        }
-                    })
-                });
-                //delete qualifications
-                $(".js-delete.js-delete_qualification").on("click", function(e){
-                    e.preventDefault();
-                    _ajax({
-                        _ajaxType:"delete",
-                        _url:_options._popupData.href,
-                        _callback:function(data, text){
-                            $("#js-screen_mask").click();
-                            if(typeof _options._callback === "function") _options._callback();
-                        }
-                    });
-                });
-
-                //delete bonus requirements
-                $(".js-delete.js-delete_bonus_requirement").on("click", function(e){
-                    e.preventDefault();
+                    console.log(_options._popupData.href);
                     _ajax({
                         _ajaxType:"delete",
                         _url:_options._popupData.href,

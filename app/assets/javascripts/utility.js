@@ -31,6 +31,7 @@ jQuery(function($){
                 o[this.name].push(this.value || '');
             } else {
                 if(this.name==="source") o[this.name]=true;
+                else if(this.name==="compress") o[this.name]=true;
                 else o[this.name] = this.value || '';
             }
         });
