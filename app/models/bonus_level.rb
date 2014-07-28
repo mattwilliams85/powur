@@ -18,4 +18,16 @@ class BonusLevel < ActiveRecord::Base
   def is_last?
     self.level == self.bonus.last_bonus_level
   end
+
+  def available_amount
+    bonus.available_amount
+  end
+
+  def remaining_percentage
+    bonus.remaining_percentage
+  end
+
+  def remaining_amount
+    bonus.remaining_amount
+  end
 end

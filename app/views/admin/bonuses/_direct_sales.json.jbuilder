@@ -11,11 +11,6 @@ update = action(:update, :patch, bonus_path(bonus)).
   field(:name, :text, value: bonus.name).
   field(:schedule, :select, options: Bonus::SCHEDULES, value: bonus.schedule)
 
-if bonus.can_add_amounts?
-  update.field(:amounts, :dollar_percentage, array: true,
-    first: bonus.rank_range.first, last: bonus.rank_range.last,
-    total: bonus.available_amount, remaining: bonus.remaining_amount,
-    max: bonus.remaining_percentage)
-end
+update.amount_field(bonus) if bonus.can_add_amounts?
 
 actions update, action(:delete, :delete, bonus_path(bonus))
