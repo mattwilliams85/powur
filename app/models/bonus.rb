@@ -72,16 +72,16 @@ class Bonus < ActiveRecord::Base
     source_requirement.product
   end
 
-  def available_amount
-    source_product.bonus_volume
-  end
-
   def percentage_used
     @percentage_used ||= source_product.total_bonus_allocation(self.id)
   end
 
   def remaining_percentage
     1.0 - percentage_used
+  end
+
+  def available_amount
+    source_product.bonus_volume
   end
 
   def remaining_amount
