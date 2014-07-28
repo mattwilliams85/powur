@@ -36,7 +36,7 @@ module Admin
     end
 
     def fetch_bonus_level
-      @bonus_level = @bonus.levels.find(params[:id].to_i)
+      @bonus_level = @bonus.bonus_levels.where(level: params[:id].to_i).first
     end
 
     def controller_path
