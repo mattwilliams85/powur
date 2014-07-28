@@ -11,7 +11,7 @@ describe BonusLevel, type: :model do
     describe 'with multiple bonus levels' do
       it 'returns the correct value' do
         bonus = create(:bonus_requirement, product: @product).bonus
-        create(:bonus_level, bonus: bonus, amounts: [ 0.1, 0.2, 0.4 ])
+        create(:bonus_level, bonus: bonus, amounts: [ 0.1, 0.2, 0.4 ], level: 0)
 
         unilevel = create(:unilevel_sales_bonus)
         create(:bonus_requirement, bonus: unilevel, product: @product)
