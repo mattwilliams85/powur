@@ -32,7 +32,7 @@ describe '/a/bonuses/:id/bonus_levels' do
     end
 
     it 'removes the last bonus_level' do
-      delete bonus_level_path(bonus, @levels.last.level), format: :json
+      delete bonus_level_path(@bonus, @levels.last.level), format: :json
 
       bonus_levels = json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
       expect(bonus_levels['entities'].size).to eq(2)

@@ -6,7 +6,7 @@ module Admin
     before_action :fetch_bonus_level, except: [ :create ]
 
     def create
-      @bonus.bonus_levels.create!(
+      @bonus_level = @bonus.bonus_levels.create!(
         input.merge(level: @bonus.next_bonus_level))
 
       render 'show'

@@ -6,6 +6,10 @@ class BonusLevel < ActiveRecord::Base
 
   validates_presence_of :bonus_id, :level, :amounts
 
+  def amounts=(value)
+    write_attribute(:amounts, value.map(&:to_f))
+  end
+
   def max
     self.amounts.max
   end
@@ -24,7 +28,7 @@ class BonusLevel < ActiveRecord::Base
   end
 
   def remaining_percentage
-    bonus.remaining_percentage
+    bonus.remaining_percentage - bonus.percentage_used_by_levels(self.level)
   end
 
   def remaining_amount
