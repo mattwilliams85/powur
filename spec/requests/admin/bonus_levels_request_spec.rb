@@ -18,6 +18,7 @@ describe '/a/bonuses/:id/bonus_levels' do
       bonus_levels = json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
       expect(bonus_levels['entities'].size).to eq(1)
     end
+
   end
 
   describe '#update' do
@@ -25,6 +26,18 @@ describe '/a/bonuses/:id/bonus_levels' do
   end
 
   describe '#destroy' do
+
+    it 'removes the last bonus_level' do
+
+      bonus = create(:unilevel_sales_bonus)
+
+      levels = create_list(:bonus_level, 3, bonus: bonus)
+
+      delete bonus_level_path(bonus, levels.last.level), format: :json
+
+      bonus_levels = json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
+      expect(bonus_levels['entities'].size).to eq(2)
+    end
 
   end
 
