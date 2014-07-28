@@ -32,10 +32,17 @@ class BonusLevel < ActiveRecord::Base
   end
 
   def remaining_percentage
-    bonus.remaining_percentage - bonus.percentage_used_by_levels(self.level)
+    bonus.remaining_percentage - percentage_used_by_other_levels
   end
 
   def remaining_amount
-    bonus.remaining_amount
+    available_amount * remaining_percentage
   end
+
+  private
+
+  def percentage_used_by_other_levels
+    @percentage_used_by_other_levels ||= bonus.percentage_used_by_levels(self.level)
+  end
+
 end
