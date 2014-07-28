@@ -64,7 +64,7 @@ SET default_with_oids = false;
 CREATE TABLE bonus_levels (
     bonus_id integer NOT NULL,
     level integer DEFAULT 0 NOT NULL,
-    amounts numeric(5,5)[] NOT NULL
+    amounts numeric(5,5)[] DEFAULT '{}'::numeric[] NOT NULL
 );
 
 

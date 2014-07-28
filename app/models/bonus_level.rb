@@ -10,6 +10,10 @@ class BonusLevel < ActiveRecord::Base
     write_attribute(:amounts, value.map(&:to_f))
   end
 
+  def normalized_amounts
+    amounts.map(&:to_f).fill(0.0, (amounts.size...rank_range.last))
+  end
+
   def max
     self.amounts.max
   end

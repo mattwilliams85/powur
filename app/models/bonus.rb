@@ -39,17 +39,12 @@ class Bonus < ActiveRecord::Base
     @rank_range ||= Rank.rank_range
   end
 
+  def default_level
+    @default_level ||= self.bonus_levels.find_by_level(0) || BonusLevel.new(level: 0, bonus: self)
+  end
+
   def amounts
-    @amounts ||= begin
-      if rank_range
-        bonus_level = self.bonus_levels.find_by_level(0)
-        amounts = bonus_level ? bonus_level.amounts.map(&:to_f) : []
-        amounts.fill(0.0, amounts.size...rank_range.last)
-        amounts
-      else
-        []
-      end
-    end
+    default_level.normalized_amounts
   end
 
   def max_amount

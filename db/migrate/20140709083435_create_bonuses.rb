@@ -32,7 +32,7 @@ class CreateBonuses < ActiveRecord::Migration
     create_table :bonus_levels, id: false do |t|
       t.references :bonus, null: false
       t.integer :level, null: false, default: 0
-      t.decimal :amounts, null: false, array: true, precision: 5, scale: 5
+      t.decimal :amounts, null: false, array: true, precision: 5, scale: 5, default: []
 
       t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
     end
