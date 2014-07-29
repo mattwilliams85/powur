@@ -1,6 +1,12 @@
 class Rank < ActiveRecord::Base
 
   has_many :qualifications, dependent: :destroy
+  has_many :achieved_rank_bonuses, class_name: 'Bonus',
+    foreign_key: :achieved_rank_id, dependent: :nullify
+  has_many :max_user_rank_bonuses, class_name: 'Bonus',
+    foreign_key: :max_user_rank_id, dependent: :nullify
+  has_many :min_upline_rank_bonuses, class_name: 'Bonus',
+    foreign_key: :min_upline_rank_id, dependent: :nullify
 
   validates_presence_of :title
 

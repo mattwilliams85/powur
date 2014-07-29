@@ -26,10 +26,6 @@ describe '/a/bonuses/:id/bonus_levels' do
   describe '#update' do
 
     it 'updates a bonus level' do
-      # create(:bonus_level, @bonus, level: 1)
-
-      
-
     end
 
   end
