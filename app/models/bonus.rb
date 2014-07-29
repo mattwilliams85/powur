@@ -55,8 +55,12 @@ class Bonus < ActiveRecord::Base
     @source_requirement ||= self.requirements.find_by_source(true)
   end
 
+  def has_breakage_amount?
+    self.flat_amount && self.flat_amount > 0
+  end
+
   def has_source?
-    !!source_requirement
+    source_requirement || has_breakage_amount?
   end
 
   def can_add_amounts?

@@ -17,7 +17,7 @@ describe '/a/bonuses/:id/bonus_levels' do
       expect_classes 'bonus'
       bonus_levels = json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
       expect(bonus_levels['entities'].size).to eq(1)
-      padded_value = bonus_levels['entities'].first['properties']['amount'].last
+      padded_value = bonus_levels['entities'].first['properties']['amounts'].last
       expect(padded_value).to eq(0.0)
     end
 

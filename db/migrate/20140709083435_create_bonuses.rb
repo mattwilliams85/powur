@@ -10,7 +10,7 @@ class CreateBonuses < ActiveRecord::Migration
       t.references  :max_user_rank
       t.references  :min_upline_rank
       t.boolean     :compress,  null: false, default: false
-      t.integer     :flat_amount
+      t.integer     :flat_amount, null: false, default: 0
       t.timestamps  null: false
 
       t.foreign_key :ranks, column: :achieved_rank_id, primary_key: :id
