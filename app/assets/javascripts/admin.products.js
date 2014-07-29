@@ -620,7 +620,7 @@ jQuery(function($){
                                         _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
                                             var _amountDetail = _getObjectsByCriteria(_bonus_level, "key=total")[0];
                                             var _amount = _bonus_level.properties.amounts;
-                                            console.log(_bonus_level);
+
                                             _display+="<div class='rotate js-bonus_level_label'>Level "+(_index+1)+"</div><div class='js-bonus_level_bracket'></div>";
                                             _display+="<div class='js-bonus_level_amount_container'>";
                                             _data.ranks.entities.forEach(function(_rank, _index){
@@ -639,8 +639,10 @@ jQuery(function($){
                                         delete _bonus.properties.amounts._path;
                                         _bonus.properties.amounts.forEach(function(_amount, _index){
                                             var _rankID = _amountDetail.first+_index;
-                                            var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
-                                            _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(0)+"% <span class='sub'>$"+(_amount*_amountDetail.total).toFixed(0)+"</span></span></div>";
+                                            if (_rankID <= _amountDetail.last){
+                                                var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                                                _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(0)+"% <span class='sub'>$"+(_amount*_amountDetail.total).toFixed(0)+"</span></span></div>";
+                                            }
                                         });
                                         _row.find(".js-bonus_details").append(_display);
 
@@ -787,8 +789,10 @@ jQuery(function($){
                             var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
                             var _bonuseLevelPaymentHref = $(e.target).attr("href").replace("#","");
                             var _bonus_levels=_getObjectsByPath(_data.bonuses, _bonus._path).bonus_levels;
+                            var _last_bonus_level =false;
 
                             _popupData=_getObjectsByCriteria(_data.bonuses, {href:_bonuseLevelPaymentHref}).filter(function(_action){return _action.name=="update"})[0];
+                            if(_getObjectsByCriteria(_data.bonuses, {href:_bonuseLevelPaymentHref}).filter(function(_action){return _action.name=="delete"}).length>0) _last_bonus_level= true;
                             _popupData.popupType = "bonus_payment";                            
                             _popupData._bonusID = _bonusID;
                             
@@ -804,15 +808,24 @@ jQuery(function($){
                             _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(0);
 
                             _popupData.title="Edit a Bonus Level <br> For Bonus: "+_bonus.properties.name;
+                            
+                            if(_last_bonus_level){
+                                _popupData.deleteOption={};
+                                _popupData.href=_bonuseLevelPaymentHref;
+                                _popupData.deleteOption.name="Remove this Bonus Level";
+                                _popupData.deleteOption.buttonName="js-delete_bonus_level";
+                                _popupData.deleteOption.description="When you remove a bonus level, all compensation calculation will be changed immediately.  Please exercise with caution."
+                            }
+                            
                             $("#js-screen_mask").fadeIn(100, function(){
                                 _getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
                             });
+
                             //console.log(_popupData)
                         });
 
-                        console.log("hi there, this is bonus main pane");
                     });
                 break;
             }
