@@ -14,8 +14,10 @@ class Bonus < ActiveRecord::Base
 
   belongs_to :achieved_rank, class_name: 'Rank'
 
-  has_many :requirements, class_name: 'BonusSalesRequirement', dependent: :destroy, foreign_key: :bonus_id
-  has_many :bonus_levels, dependent: :destroy, class_name: 'BonusLevel'
+  has_many :requirements, class_name: 'BonusSalesRequirement', 
+    foreign_key: :bonus_id, dependent: :destroy
+  has_many :bonus_levels, class_name: 'BonusLevel', 
+    foreign_key: :bonus_id, dependent: :destroy
 
   validates_presence_of :type, :name
 
