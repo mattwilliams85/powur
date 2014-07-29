@@ -4,7 +4,7 @@ describe '/a/bonuses/:id/bonus_levels' do
 
   before :each do
     login_user
-    create_list(:rank, 3)
+    create_list(:rank, 4)
     @bonus = create(:unilevel_sales_bonus)
     create(:bonus_requirement, bonus: @bonus)
   end
@@ -17,6 +17,8 @@ describe '/a/bonuses/:id/bonus_levels' do
       expect_classes 'bonus'
       bonus_levels = json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
       expect(bonus_levels['entities'].size).to eq(1)
+      padded_value = bonus_levels['entities'].first['properties']['amount'].last
+      expect(padded_value).to eq(0.0)
     end
 
   end

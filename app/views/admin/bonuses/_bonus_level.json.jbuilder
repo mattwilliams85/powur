@@ -3,7 +3,8 @@ klass :bonus_level
 json.rel [ :item ]
 
 json.properties do
-  json.(bonus_level, :level, :amounts)
+  json.(bonus_level, :level)
+  json.amount bonus_level.normalized_amounts
 end
 
 action_list = []

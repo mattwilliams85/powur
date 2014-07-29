@@ -24,5 +24,6 @@ describe BonusLevel, type: :model do
         expect(bonus_level.remaining_amount).to eq(remaining_amount)
       end
     end
+
   end
 end

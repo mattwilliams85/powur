@@ -2,7 +2,8 @@
 json.properties do
   json.max_user_rank bonus.max_user_rank && bonus.max_user_rank.title
   json.min_upline_rank bonus.min_upline_rank && bonus.min_upline_rank.title
-  json.(bonus, :compress, :amounts)
+  json.(bonus, :compress)
+  json.amounts bonus.normalized_amounts
 end
 
 json.entities \

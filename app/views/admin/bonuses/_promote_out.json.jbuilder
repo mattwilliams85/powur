@@ -2,7 +2,8 @@
 json.properties do
   json.min_upline_rank bonus.min_upline_rank && bonus.min_upline_rank.title
   json.achieved_rank bonus.achieved_rank && bonus.achieved_rank.title
-  json.(bonus, :compress, :flat_amount, :amounts)
+  json.(bonus, :compress, :flat_amount)
+  json.amounts bonus.normalized_amounts
 end
 
 json.entities [], partial: 'entities', as: :entity

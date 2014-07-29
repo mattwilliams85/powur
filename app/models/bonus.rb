@@ -43,12 +43,12 @@ class Bonus < ActiveRecord::Base
     @default_level ||= self.bonus_levels.find_by_level(0) || BonusLevel.new(level: 0, bonus: self)
   end
 
-  def amounts
+  def normalized_amounts
     default_level.normalized_amounts
   end
 
   def max_amount
-    amounts.empty? ? 0.0 : amounts.max
+    default_level.max
   end
 
   def source_requirement
