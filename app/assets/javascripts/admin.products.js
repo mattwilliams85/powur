@@ -585,7 +585,7 @@ jQuery(function($){
 
                             Object.keys(_bonus.properties).forEach(function(_key){
                                 var _skip=false;
-                                if((!_bonus.properties[_key]) && (_bonus.properties[_key].toString().length==0))_bonus.properties[_key]="<span class='js-no_data'>No Data</span>";
+                                if((!_bonus.properties[_key]) || (_bonus.properties[_key].toString().length==0))_bonus.properties[_key]="<span class='js-no_data'>No Data</span>";
                                 ["id", "name", "amounts"].forEach(function(_skipKey){if (_key===_skipKey) _skip=true;});
                                 if(!_skip) _display+="<div class='innerCell'><span class='label'>"+_key.replace(/\_/g," ").replace(/percentage/i, "%")+"</span><span class='content'>"+_bonus.properties[_key]+"</span></div>";
                             });
@@ -620,18 +620,18 @@ jQuery(function($){
                                         _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
                                             var _amountDetail = _getObjectsByCriteria(_bonus_level, "key=total")[0];
                                             var _amount = _bonus_level.properties.amounts;
+                                            console.log(_bonus_level);
                                             _display+="<div class='rotate js-bonus_level_label'>Level "+(_index+1)+"</div><div class='js-bonus_level_bracket'></div>";
                                             _display+="<div class='js-bonus_level_amount_container'>";
                                             _data.ranks.entities.forEach(function(_rank, _index){
-                                                _display+="<div class='innerCell'><span class='label'>"+_rank.properties.id+", "+_rank.properties.title+"</span><span class='content'>"+(_amount[_index]*100).toFixed(0)+"% <span style='font-size:11px; color:#9b9b9b;'>$"+(_amount[_index]*_amountDetail.total)+"</span></span></div>";
+                                                _display+="<div class='innerCell'><span class='label'>"+_rank.properties.id+", "+_rank.properties.title+"</span><span class='content'>"+(_amount[_index]*100).toFixed(0)+"% <span style='font-size:11px; color:#9b9b9b;'>$"+(_amount[_index]*_amountDetail.total).toFixed(0)+"</span></span></div>";
                                             });
                                             _display+="</div>";
-                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_requirement' href='#'>Adjust Payments</a></div>";
+                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_level_payment' href='#"+_getObjectsByCriteria(_bonus_level.actions, {name: "update"})[0].href+"'>Adjust Payments</a></div>";
                                             _display+="<br style='clear:both;'>"
                                             _row.find(".js-bonus_details").append(_display);
                                             _display="";
                                             _row.find(".js-bonus_level_bracket:eq("+_index+")").css("height",  (_row.find(".js-bonus_level_amount_container:eq("+_index+")").height()-5)+"px");
-
                                         });
 
                                     }else{
@@ -640,7 +640,7 @@ jQuery(function($){
                                         _bonus.properties.amounts.forEach(function(_amount, _index){
                                             var _rankID = _amountDetail.first+_index;
                                             var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
-                                            _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='content'>"+(_amount*100).toFixed(0)+"% <span style='font-size:11px; color:#9b9b9b;'>$"+(_amount*_amountDetail.total)+"</span></span></div>";
+                                            _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(0)+"% <span class='sub'>$"+(_amount*_amountDetail.total).toFixed(0)+"</span></span></div>";
                                         });
                                         _row.find(".js-bonus_details").append(_display);
 
@@ -772,25 +772,49 @@ jQuery(function($){
 
                             _popupData.title="Add a new Bonus Level <br> For Bonus: "+_bonus.properties.name;
 
-                            console.log(_popupData);
                             $("#js-screen_mask").fadeIn(100, function(){
                                 _getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
                             });
+                        });
+                        
+                        //wire up edit bonus level payments
+                        $(".js-edit_bonus_level_payment").on("click", function(e){
+                            e.preventDefault();
+                            var _popupData=[];
+                            var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
+                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
+                            var _bonuseLevelPaymentHref = $(e.target).attr("href").replace("#","");
+                            var _bonus_levels=_getObjectsByPath(_data.bonuses, _bonus._path).bonus_levels;
 
+                            _popupData=_getObjectsByCriteria(_data.bonuses, {href:_bonuseLevelPaymentHref}).filter(function(_action){return _action.name=="update"})[0];
+                            _popupData.popupType = "bonus_payment";                            
+                            _popupData._bonusID = _bonusID;
+                            
+                            _popupData["properties"] = {};
+                            $.extend(true, _popupData.properties, _bonus.properties);
+                            
+                            _popupData.properties["amounts"]=[];
+                            delete _getObjectsByPath(_bonus_levels, _getObjectsByCriteria(_bonus_levels, {href:_bonuseLevelPaymentHref})[0]._path, -2).properties.amounts._path;
+                            $.extend(true, _popupData.properties.amounts, _popupData.properties.amounts=_getObjectsByPath(_bonus_levels, _getObjectsByCriteria(_bonus_levels, {href:_bonuseLevelPaymentHref})[0]._path, -2).properties.amounts);
+                            
+                            _popupData.amountDetail = {};
+                            $.extend(true, _popupData.amountDetail, _getObjectsByCriteria(_popupData, {name: "amounts"})[0]);
+                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(0);
 
-
-                        })
-
+                            _popupData.title="Edit a Bonus Level <br> For Bonus: "+_bonus.properties.name;
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                });
+                            });
+                            //console.log(_popupData)
+                        });
 
                         console.log("hi there, this is bonus main pane");
-
                     });
-
-
                 break;
-
             }
         }
 
@@ -1078,9 +1102,8 @@ jQuery(function($){
                     var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
                     var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
                     var _barWidth = $(this).width();
-                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(0)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total)+"</span>");
+                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(0)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(0)+"</span>");
                     $(this).find(".js-percentage_bar").animate({"width":(_barWidth*$(this).attr("data-amount-percentage")).toFixed(0)+"px"},300);
-
                 });
 
                 $(".js-percentage_container").on("mousemove", function(e){
@@ -1091,16 +1114,15 @@ jQuery(function($){
                     var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
                     var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
                     if(_percentage>=_amountDetail.max) _percentage=_amountDetail.max;
-                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100).toFixed(0)+"%] [$"+(_percentage*_amountDetail.total)+"]");
+                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100).toFixed(0)+"%] [$"+(_percentage*_amountDetail.total).toFixed(0)+"]");
                     $(this).find(".js-percentage_label").css("color","#ddd");
-                     
                 });
 
                 $(".js-percentage_container").on("mouseout", function(e){
                     e.preventDefault();
                     var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
                     var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
-                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(0)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total)+"</span>");
+                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(0)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(0)+"</span>");
                     $(this).find(".js-percentage_label").css("color","#fff");
                 });
                 
@@ -1121,7 +1143,6 @@ jQuery(function($){
                      $(".js-percentage_container").each(function(){
                         _amounts.push(parseFloat($(this).attr("data-amount-percentage")));
                      });
-
                     _ajax({
                         _ajaxType:_options._popupData.method,
                         _url:_options._popupData.href,
@@ -1153,7 +1174,6 @@ jQuery(function($){
             }
         }
 
-
         function _positionIndicator(_indicatorObj, _highlightObj){
             if( _indicatorObj.position().left== (_highlightObj.position().left+(_highlightObj.width()/2)-10)) return;
 
@@ -1163,7 +1183,6 @@ jQuery(function($){
             _indicatorObj.css("top", (_highlightObj.position().top+(_highlightObj.height() + 20 ))+"px");
             _indicatorObj.animate({"top":"-=15", "opacity":1}, 300);
         }
-
 
         //retrieves Handlebar templates from the _path
         //the _dataObj is provides the context/data
