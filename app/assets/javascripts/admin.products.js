@@ -44,7 +44,6 @@ jQuery(function($){
             _dashboard = new AdminDashboard();
             _dashboard.getRootUsers({_callback:function(){
                 _data.currentUser=_data.rootUsers[0];
-                //_dashboard.displayPlans("#admin-plans-init");
             }});
             _ajax({
                 _ajaxType:"get",
@@ -642,14 +641,14 @@ jQuery(function($){
                                             if (_rankID <= _amountDetail.last){
                                                 var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
                                                 _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(0)+"% <span class='sub'>$"+(_amount*_amountDetail.total).toFixed(0)+"</span></span></div>";
+
                                             }
                                         });
+                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
                                         _row.find(".js-bonus_details").append(_display);
-
                                     }
                                 }
                             }
-
                         });
                         
                         //wire up the edit bonus link
