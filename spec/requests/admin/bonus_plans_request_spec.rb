@@ -30,7 +30,7 @@ describe '/a/bonus_plans' do
       get bonus_plan_path(bonus_plan), format: :json
 
       expect_classes 'bonus_plan'
-      expect_actions 'update', 'delete'
+      expect_actions 'update'
       expect_entities 'bonus-plan-bonuses'
       expect_props active: true
     end
