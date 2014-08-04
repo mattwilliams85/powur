@@ -37,6 +37,16 @@ describe '/a/bonus_plans' do
 
   end
 
+  describe 'POST /' do
+
+    it 'creates a bonus plan' do
+      post bonus_plans_path, name: 'foo', format: :json
+
+      expect_classes 'bonus_plan'
+    end
+
+  end
+
   describe 'PATCH /:id' do
 
     it 'updates an individual bonus plan' do
@@ -47,6 +57,16 @@ describe '/a/bonus_plans' do
 
       expect_classes 'bonus_plan'
       expect_props start_year: @start_year, start_month: @start_month
+    end
+
+    it 'does not allow two plans with the same start time' do
+      create(:bonus_plan, start_year: @start_year, start_month: @start_month)
+      bonus_plan = create(:bonus_plan)
+
+      patch bonus_plan_path(bonus_plan), format: :json,
+        start_year: @start_year, start_month: @start_month
+
+      expect_alert_error
     end
 
   end
