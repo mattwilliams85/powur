@@ -74,7 +74,11 @@ Rails.application.routes.draw do
 
     resources :qualifications, only: [ :index, :create, :update, :destroy ]
 
-    resources :bonuses, only: [ :index, :create, :destroy, :update, :show ] do
+    resources :bonus_plans, only: [ :index, :create, :destroy, :update, :show ] do
+      resources :bonuses, only: [ :index, :create ], as: :bonuses
+    end
+
+    resources :bonuses, only: [ :destroy, :update, :show ] do
 
       resources :requirements, only: [ :create, :update, :destroy ]
       resources :bonus_levels, only: [ :create, :update, :destroy], as: :levels

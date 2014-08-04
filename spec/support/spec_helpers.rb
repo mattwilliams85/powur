@@ -33,6 +33,12 @@ module SpecHelpers
     expect(json_body['class']).to include(*args)
   end
 
+  def expect_props(args = {})
+    args.each do |key, value|
+      expect(json_body['properties'][key.to_s]).to eq(value)
+    end
+  end
+
   def expect_entities(*args)
     entities = json_body['entities'].map { |a| a['rel'] }.flatten
     expect(entities).to include(*args)

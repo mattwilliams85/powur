@@ -9,9 +9,10 @@ describe '/a/bonuses' do
   describe '#index' do
 
     it 'returns a list of bonuses' do
-      create_list(:direct_sales_bonus, 3)
+      bonus_plan = create(:bonus_plan)
+      create_list(:direct_sales_bonus, 3, bonus_plan: bonus_plan)
 
-      get bonuses_path, format: :json
+      get bonus_plan_bonuses_path(bonus_plan), format: :json
 
       expect_classes 'bonuses', 'list'
       expect_entities_count(3)
@@ -116,7 +117,9 @@ describe '/a/bonuses' do
   describe '#create' do
 
     it 'creates a direct sales bonus' do
-      post bonuses_path, type: 'direct_sales', name: 'foo', format: :json
+      bonus_plan = create(:bonus_plan)
+      post bonus_plan_bonuses_path(bonus_plan), 
+        type: 'direct_sales', name: 'foo', format: :json
 
       expect_classes 'bonus'
     end
@@ -126,9 +129,11 @@ describe '/a/bonuses' do
   describe '#destroy' do
 
     it 'destroys a bonus' do
-      bonus = create(:bonus_requirement).bonus
+      bonus_plan = create(:bonus_plan)
+      bonus = create(:direct_sales_bonus, bonus_plan: bonus_plan)
+      create(:bonus_requirement, bonus: bonus)
 
-      create_list(:direct_sales_bonus, 2)
+      create_list(:direct_sales_bonus, 2, bonus_plan: bonus_plan)
       delete bonus_path(bonus), format: :json
 
       expect_classes 'bonuses', 'list'

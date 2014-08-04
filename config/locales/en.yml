@@ -41,6 +41,7 @@ en:
     password_confirm: The confirm password does not match
     delete_rank: You can only delete the last rank
     delete_product: You cannot delete a product with existing quotes/orders
+    duplicate_bonus_plan_start: "The bonus plan %{plan} already has this start date"
     messages: 
       exceeded_max_invites: You have exceeded the max number of invites allowed
       invalid_keys: "%{attribute} has invalid keys for the product"

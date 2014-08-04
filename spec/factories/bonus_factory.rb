@@ -1,5 +1,11 @@
 FactoryGirl.define do
+
+  factory :bonus_plan do
+    name Faker::Commerce.product_name
+  end
+
   factory :bonus do
+    bonus_plan
     name Faker::Commerce.product_name
 
     factory :direct_sales_bonus, class: DirectSalesBonus do

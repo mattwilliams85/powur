@@ -12,6 +12,7 @@ class Bonus < ActiveRecord::Base
 
   enum schedule:  { weekly: 1, monthly: 2 }
 
+  belongs_to :bonus_plan
   belongs_to :achieved_rank, class_name: 'Rank'
 
   has_many :requirements, class_name: 'BonusSalesRequirement', 
