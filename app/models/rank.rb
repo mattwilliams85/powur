@@ -19,7 +19,6 @@ class Rank < ActiveRecord::Base
   end
 
   class << self
-
     def rank_range
       return nil unless Rank.count > 0 
       (Rank.order(:id).first.id..Rank.order(:id).last.id)

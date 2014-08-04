@@ -1,7 +1,15 @@
 class CreateBonuses < ActiveRecord::Migration
 
   def change
+    create_table :bonus_plans do |t|
+      t.string    :name, null: false
+      t.integer   :start_year
+      t.integer   :start_month
+    end
+    add_index :bonus_plans, [ :start_year, :start_month ], unique: true
+
     create_table :bonuses do |t|
+      t.references  :bonus_plan, null: false
       t.string      :type, null: false
       t.string      :name, null: false
 
@@ -13,6 +21,7 @@ class CreateBonuses < ActiveRecord::Migration
       t.integer     :flat_amount, null: false, default: 0
       t.timestamps  null: false
 
+      t.foreign_key :bonus_plans
       t.foreign_key :ranks, column: :achieved_rank_id, primary_key: :id
       t.foreign_key :ranks, column: :max_user_rank_id, primary_key: :id
       t.foreign_key :ranks, column: :min_upline_rank_id, primary_key: :id

@@ -69,6 +69,37 @@ CREATE TABLE bonus_levels (
 
 
 --
+-- Name: bonus_plans; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE bonus_plans (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    start_year integer,
+    start_month integer
+);
+
+
+--
+-- Name: bonus_plans_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bonus_plans_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: bonus_plans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bonus_plans_id_seq OWNED BY bonus_plans.id;
+
+
+--
 -- Name: bonus_sales_requirements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -86,6 +117,7 @@ CREATE TABLE bonus_sales_requirements (
 
 CREATE TABLE bonuses (
     id integer NOT NULL,
+    bonus_plan_id integer NOT NULL,
     type character varying(255) NOT NULL,
     name character varying(255) NOT NULL,
     achieved_rank_id integer,
@@ -93,7 +125,7 @@ CREATE TABLE bonuses (
     max_user_rank_id integer,
     min_upline_rank_id integer,
     compress boolean DEFAULT false NOT NULL,
-    flat_amount integer,
+    flat_amount integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -376,6 +408,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY bonus_plans ALTER COLUMN id SET DEFAULT nextval('bonus_plans_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY bonuses ALTER COLUMN id SET DEFAULT nextval('bonuses_id_seq'::regclass);
 
 
@@ -427,6 +466,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY bonus_levels
     ADD CONSTRAINT bonus_levels_pkey PRIMARY KEY (bonus_id, level);
+
+
+--
+-- Name: bonus_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY bonus_plans
+    ADD CONSTRAINT bonus_plans_pkey PRIMARY KEY (id);
 
 
 --
@@ -507,6 +554,13 @@ ALTER TABLE ONLY settings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_bonus_plans_on_start_year_and_start_month; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_plans USING btree (start_year, start_month);
 
 
 --
@@ -623,6 +677,14 @@ ALTER TABLE ONLY bonus_sales_requirements
 
 ALTER TABLE ONLY bonuses
     ADD CONSTRAINT bonuses_achieved_rank_id_fk FOREIGN KEY (achieved_rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: bonuses_bonus_plan_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT bonuses_bonus_plan_id_fk FOREIGN KEY (bonus_plan_id) REFERENCES bonus_plans(id);
 
 
 --
