@@ -2,13 +2,27 @@ module Admin
 
   class QuotesController < AdminController
 
-    def index
-      @quotes = Quote.order(:created_at).limit(limit).offset(offset)
+    def index(query = Quote)
+      @quotes = query.
+        includes(:user, :product, :customer).
+        order(order).limit(limit).offset(offset)
 
       render 'index'
     end
 
+    def search
+
+    end
+
     private
+
+    ORDERS = { 
+      created_at: { created_at: :desc },
+      customer:   'customers.last_name asc',
+      user:       'users.last_name asc' }
+    def order
+      @order ||= params[:sort] ? ORDERS[params[:sort].to_sym] : ORDERS[:created_at]
+    end
 
     def limit
       @limit ||= params[:limit] ? params[:limit].to_i : 20

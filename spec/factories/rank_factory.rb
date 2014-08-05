@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :rank do
-    title Faker::Name.title
+    title { Faker::Name.title }
 
     factory :qualified_rank  do
       after(:create) do |rank, evaluator|

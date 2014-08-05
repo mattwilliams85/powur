@@ -3,7 +3,7 @@ klass :quote
 json.rel [ :item ] unless local_assigns[:detail]
 
 json.properties do
-  json.(quote, :data_status)
+  json.(quote, :id, :data_status)
   json.user quote.user.full_name
   json.customer quote.customer.full_name
   json.product quote.product.name
