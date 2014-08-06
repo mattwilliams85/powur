@@ -311,5 +311,28 @@ function _getObjectsByPath(_dataObj, _path, _parentLevel){
     return eval(_evalString);;
 }
 
+//create admin popups
+function _formatPopupData(e, _options){
+    e.preventDefault();
+    if(! _options._dataObj) return;
+    var _popupData=[];
+    _popupData = _options._dataObj;
+    _popupData.fields.forEach(function(field){
+        field.display_name=field.name.replace(/\_/g," ");
+        if(typeof field.options !=="undefined") delete field.options["_path"];
+    });
+
+    if(!!_options._title) _popupData.title = _options._title;
+    if(!!_options._href) _popupData.href = _options._href;
+    if(!!_options._deleteOption){
+        _popupData.deleteOption = {};
+        $.extend(true, _popupData.deleteOption, _options._deleteOption);
+    }
+ 
+    return _popupData;
+}
+
+
+
 
 
