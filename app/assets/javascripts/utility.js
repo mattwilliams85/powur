@@ -311,6 +311,15 @@ function _getObjectsByPath(_dataObj, _path, _parentLevel){
     return eval(_evalString);;
 }
 
+
+
+//example _hasClass:["ranks", "list"],
+//        _containsProperties:[{id:1}],
+//        _containsActions:[{method:"update"}]
+//        _returnScope:"actions"
+
+
+
 //create admin popups
 function _formatPopupData(e, _options){
     e.preventDefault();

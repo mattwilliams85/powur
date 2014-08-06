@@ -11,6 +11,8 @@ jQuery(function($){
         var _loading=false;
         for(i=0; i<_data.loadCategories.length;i++){
             if(typeof _data[_data.loadCategories[i]] === "undefined"){
+                console.log("loading: global data... "+_data.loadCategories[i]);
+
                 _loading=true;
                 break;
             }
@@ -1154,47 +1156,69 @@ jQuery(function($){
 
                                         //load all bonus details for each plan
                                         var _bonus_detail_loaded=0;
-                                        _bonus_plan.bonuses.entities.forEach(function(_bonus){
-                                            //load bonus requirements
-                                            _ajax({
-                                                _ajaxType:"get",
-                                                _url:"/a/bonuses/"+_bonus.properties.id,
-                                                _callback:function(data, text){
-                                                    //_bonus.bonus_levels = _getObjectsByPath(data, _getObjectsByCriteria(data, {0:"bonus_levels"})[0]._path, -1);
-                                                    if(_getObjectsByCriteria(data.entities, "val=requirements").length>=1)
-                                                        _bonus.requirements = _getObjectsByPath(data.entities, _getObjectsByCriteria(data.entities, "val=requirements")[0]._path, -1);
-                                                    if(_getObjectsByCriteria(data.entities, "val=bonus_levels").length>=1)
-                                                        _bonus.bonus_levels = _getObjectsByPath(data.entities, _getObjectsByCriteria(data.entities, "val=bonus_levels")[0]._path, -1);
+                                        if(_bonus_plan.bonuses.entities.length>0){
+                                            //if there are bonuses
+                                            _bonus_plan.bonuses.entities.forEach(function(_bonus){
+                                                //load bonus requirements
+                                                _ajax({
+                                                    _ajaxType:"get",
+                                                    _url:"/a/bonuses/"+_bonus.properties.id,
+                                                    _callback:function(data, text){
+                                                        //_bonus.bonus_levels = _getObjectsByPath(data, _getObjectsByCriteria(data, {0:"bonus_levels"})[0]._path, -1);
+                                                        if(_getObjectsByCriteria(data.entities, "val=requirements").length>=1)
+                                                            _bonus.requirements = _getObjectsByPath(data.entities, _getObjectsByCriteria(data.entities, "val=requirements")[0]._path, -1);
+                                                        if(_getObjectsByCriteria(data.entities, "val=bonus_levels").length>=1)
+                                                            _bonus.bonus_levels = _getObjectsByPath(data.entities, _getObjectsByCriteria(data.entities, "val=bonus_levels")[0]._path, -1);
 
-                                                    _bonus.properties = data.properties;
-                                                    _bonus.actions = data.actions;
-                                                    _bonus_detail_loaded +=1;
+                                                        _bonus.properties = data.properties;
+                                                        _bonus.actions = data.actions;
+                                                        _bonus_detail_loaded +=1;
 
-                                                    console.log("loading: bonus detail... \""+ _bonus_plan.properties.name+ "\" > \""+_bonus.properties.name+"\" ("+_bonus_detail_loaded+" of "+_bonus_plan.bonuses.entities.length+")");
-                                                    
-                                                    //check if last of the plan and the last of the bonus in the plan are both loaded
-                                                    if((_bonus_detail_loaded == _bonus_plan.bonuses.entities.length) && (_bonus_plans_loaded ==  _data.bonus_plans.entities.length)){
-                                                        console.log("complete: bonus plans... \""+ _bonus_plan.properties.name+ "\"");
-                                                        _data.bonus_plans_loaded=true;
+                                                        console.log("loading: bonus detail... \""+ _bonus_plan.properties.name+ "\" > \""+_bonus.properties.name+"\" ("+_bonus_detail_loaded+" of "+_bonus_plan.bonuses.entities.length+")");
+                                                        
+                                                        //check if last of the plan and the last of the bonus in the plan are both loaded
+                                                        if((_bonus_detail_loaded == _bonus_plan.bonuses.entities.length) && (_bonus_plans_loaded ==  _data.bonus_plans.entities.length)){
+                                                            console.log("complete: bonus plans... \""+ _bonus_plan.properties.name+ "\"");
+                                                            _data.bonus_plans_loaded=true;
 
-                                                        // first time loading will default the selected plan to the currently active one
-                                                        if(_bonus_plan.properties.active==true && !_data.currentBonusPlan) {
-                                                            _data.currentBonusPlan= _bonus_plan;
-                                                            _data.bonuses= _bonus_plan.bonuses;
+                                                            // first time loading will default the selected plan to the currently active one
+                                                            if(_bonus_plan.properties.active==true && !_data.currentBonusPlan) {
+                                                                _data.currentBonusPlan= _bonus_plan;
+                                                                _data.bonuses= _bonus_plan.bonuses;
+                                                            }
+                                                            else if((!!_data.currentBonusPlan)&& (_data.currentBonusPlan.links[0].href== _bonus_plan.links[0].href)){
+                                                                _data.bonuses={};
+                                                                _data.currentBonusPlan={};
+                                                                $.extend(true, _data.currentBonusPlan, _bonus_plan);
+                                                                $.extend(true, _data.bonuses, _bonus_plan.bonuses);
+                                                            }
+                                                            if(typeof _callback === "function") _callback();
                                                         }
-                                                        else if((!!_data.currentBonusPlan)&& (_data.currentBonusPlan.links[0].href== _bonus_plan.links[0].href)){
-                                                            _data.bonuses={};
-                                                            _data.currentBonusPlan={};
-                                                            $.extend(true, _data.currentBonusPlan, _bonus_plan);
-                                                            $.extend(true, _data.bonuses, _bonus_plan.bonuses);
-                                                        }
-
-
-                                                        if(typeof _callback === "function") _callback();
                                                     }
-                                                }
-                                            });
-                                        });//end bonus requirements
+                                                });
+                                            });//end bonus requirements
+                                        }
+                                        else if((_bonus_plans_loaded == _data.bonus_plans.entities.length)){
+                                            //check if last of the plan and the last of the bonus in the plan are both loaded
+                                            console.log("loading: bonus detail... \""+ _bonus_plan.properties.name+ "\" > None ("+_bonus_detail_loaded+" of "+_bonus_plan.bonuses.entities.length+")");
+
+                                            console.log("complete: bonus plans... \""+ _bonus_plan.properties.name+ "\"");
+                                            _data.bonus_plans_loaded=true;
+
+                                            // first time loading will default the selected plan to the currently active one
+                                            if(_bonus_plan.properties.active==true && !_data.currentBonusPlan) {
+                                                _data.currentBonusPlan= _bonus_plan;
+                                                _data.bonuses= _bonus_plan.bonuses;
+                                            }
+                                            else if((!!_data.currentBonusPlan)&& (_data.currentBonusPlan.links[0].href== _bonus_plan.links[0].href)){
+                                                _data.bonuses={};
+                                                _data.currentBonusPlan={};
+                                                $.extend(true, _data.currentBonusPlan, _bonus_plan);
+                                                $.extend(true, _data.bonuses, _bonus_plan.bonuses);
+                                            }
+
+                                            if(typeof _callback === "function") _callback();
+                                        }
                                     }
                                 });//end bonuses details within a bonus_plan
                             }
