@@ -12,7 +12,9 @@ module Auth
 
     def search
       @quotes = Quote.where(user_id: current_user.id).
-        joins(:customer).customer_search(params[:q])
+        includes(:customer, :user, :product).
+        references(:customer, :user, :product).
+        customer_search(params[:q])
 
       render 'index'
     end

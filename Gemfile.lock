@@ -6,6 +6,13 @@ GIT
       activerecord (>= 3.0.0)
 
 GIT
+  remote: git://github.com/oelmekki/activerecord_any_of.git
+  revision: f4df4ea1bfccee95f6df57d473d92fb9b3bdec0f
+  specs:
+    activerecord_any_of (1.2)
+      activerecord (>= 3.2.13, < 5)
+
+GIT
   remote: git://github.com/paulwalker/same_time.git
   revision: 6ea4a4a2540ccd14fb8d972f2872ce3f20106acf
   specs:
@@ -214,6 +221,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_hash
+  activerecord_any_of!
   awesome_print
   bcrypt-ruby (~> 3.1.2)
   coffee-rails (~> 4.0.0)

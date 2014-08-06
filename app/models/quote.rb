@@ -4,9 +4,14 @@ class Quote < ActiveRecord::Base
   belongs_to :customer
   belongs_to :user
 
-  SEARCH = ':q % customers.first_name or :q % customers.last_name or customers.email ilike :like'
+  SEARCH = ':q %% %{table}.first_name or :q %% %{table}.last_name or %{table}.email ilike :like'
 
-  scope :customer_search, ->(query){ where(SEARCH, q: "#{query}", like: "%#{query}%") }
+  scope :search, ->(query, table) {
+    where(SEARCH % { table: table }, q: "#{query}", like: "%#{query}%") }
+  scope :user_search,     ->(query){ search(query, 'users') }
+  scope :customer_search, ->(query){ search(query, 'customers') }
+  scope :user_customer_search, ->(query){
+    where.any_of(user_search(query), customer_search(query)) }
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
   validate :product_data
