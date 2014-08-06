@@ -19,7 +19,7 @@ jQuery(function($){
         else{
             clearTimeout(_data.loadTimer);
             for(i=0; i<_data.loadCategories.length;i++){
-                console.log("complete: _data."+_data.loadCategories[i]);
+                console.log("complete: global data... "+_data.loadCategories[i]);
             }
             _dashboard.displayPlans("#admin-plans-init");
         }
@@ -416,7 +416,7 @@ jQuery(function($){
                     _summaryData.currentBonusPlan={};
                     $.extend(true, _summaryData.currentBonusPlan, _data.currentBonusPlan);
                     _getTemplate("/templates/admin/plans/bonuses/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
-                        //wire up the ability to add a new bonus
+                        //add a new bonus to a plan
                         $(".js-add_new_bonus").on("click", function(e){
                             var _popupData = _formatPopupData(e, {
                                 _dataObj: _getObjectsByCriteria(_data.bonuses.actions, {name:"create"})[0],
@@ -431,8 +431,8 @@ jQuery(function($){
                             }); 
                         });
 
+                        //add a new bonus plan
                         $(".js-add_new_bonus_plan").on("click", function(e){
-                            e.preventDefault();
                             var _popupData = _formatPopupData(e, {
                                 _dataObj: _getObjectsByCriteria(_data.bonus_plans.actions, {name:"create"})[0],
                                 _title: "Create a new Bonus Plan"
@@ -444,7 +444,28 @@ jQuery(function($){
                             }); 
                         });
 
+                        //edit an existing bonus plan
+                        $(".js-edit_bonus_plan").on("click", function(e){
+                            var _popupData = _formatPopupData(e, {
+                                _dataObj: _getObjectsByCriteria(_data.currentBonusPlan, {href:$(".js-bonus_plan_select").val()}).filter(function(_obj){return _obj.name=="update"})[0],
+                                _title: "Edit "+_data.currentBonusPlan.properties.name,
+                                _deleteOption: {
+                                    name: "Remove "+_data.currentBonusPlan.properties.name,
+                                    buttonName: "js-delete_bonus_plan",
+                                    description: "WARNING: Removing an existing bonus plan is highly discouraged.  Please exercise this option with extreme caution."
+                                }
+
+
+                            });
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                });
+                            }); 
+                        });
+                        //switch current bonus plan
                         $(".js-bonus_plan_select").on("change", function(e){
+                            e.preventDefault();
                             _data.currentBonusPlan ={};
                             _data.bonuses={};
                             $.extend(true, _data.currentBonusPlan, _getObjectsByPath(_data.bonus_plans, _getObjectsByCriteria(_data.bonus_plans, {href:$(e.target).val()})[0]._path, -2));
@@ -1149,12 +1170,14 @@ jQuery(function($){
                                                     _bonus.actions = data.actions;
                                                     _bonus_detail_loaded +=1;
 
-
-                                                    console.log("loading: bonus plans "+ _bonus_plan.properties.name+ "with bonuses "+_bonus_detail_loaded+"/"+_bonus_plan.bonuses.entities.length+" done.");
+                                                    console.log("loading: bonus detail... \""+ _bonus_plan.properties.name+ "\" > \""+_bonus.properties.name+"\" ("+_bonus_detail_loaded+" of "+_bonus_plan.bonuses.entities.length+")");
                                                     
+                                                    //check if last of the plan and the last of the bonus in the plan are both loaded
                                                     if((_bonus_detail_loaded == _bonus_plan.bonuses.entities.length) && (_bonus_plans_loaded ==  _data.bonus_plans.entities.length)){
+                                                        console.log("complete: bonus plans... \""+ _bonus_plan.properties.name+ "\"");
                                                         _data.bonus_plans_loaded=true;
 
+                                                        // first time loading will default the selected plan to the currently active one
                                                         if(_bonus_plan.properties.active==true && !_data.currentBonusPlan) {
                                                             _data.currentBonusPlan= _bonus_plan;
                                                             _data.bonuses= _bonus_plan.bonuses;
@@ -1172,8 +1195,6 @@ jQuery(function($){
                                                 }
                                             });
                                         });//end bonus requirements
-                                        //}
-
                                     }
                                 });//end bonuses details within a bonus_plan
                             }
