@@ -2,6 +2,8 @@ module Admin
 
   class QuotesController < AdminController
 
+    helper_method :total_pages
+
     def index(query = Quote)
       @quotes = query.
         includes(:user, :product, :customer).
@@ -41,9 +43,12 @@ module Admin
       @page ||= params[:page] ? params[:page].to_i : 1
     end
 
-    # def total_pages
-    #   @total_pages
-    # end
+    def total_pages
+      @total_pages ||= begin
+        total_count = @quotes.except(:offset, :limit, :order).count
+        total_count / limit + (total_count % limit > 0 ? 1 : 0)
+      end
+    end
 
     def offset
       limit * (page - 1)
