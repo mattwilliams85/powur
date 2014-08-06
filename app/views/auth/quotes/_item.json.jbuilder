@@ -9,5 +9,3 @@ end
 
 links \
   link :self, user_quote_path(quote)
-
-

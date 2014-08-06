@@ -4,12 +4,12 @@ FactoryGirl.define do
     factory :sales_qualification, class: SalesQualification do
       type      'SalesQualification'
       period    Time.now.to_i % 2 + 1
-      quantity  Faker::Number.number(3).to_i
+      quantity  { Faker::Number.number(3).to_i }
       product
   
       factory :group_sales_qualification, class: GroupSalesQualification do
         type            'GroupSalesQualification'
-        max_leg_percent Faker::Number.number(2).to_i
+        max_leg_percent { Faker::Number.number(2).to_i }
       end
     end
 

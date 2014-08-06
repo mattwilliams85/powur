@@ -207,6 +207,43 @@ CREATE TABLE invites (
 
 
 --
+-- Name: orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE orders (
+    id integer NOT NULL,
+    bonus_plan_id integer NOT NULL,
+    product_id integer NOT NULL,
+    user_id integer NOT NULL,
+    quantity integer DEFAULT 1,
+    quote_id integer,
+    order_date timestamp without time zone NOT NULL,
+    status integer DEFAULT 1 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -429,6 +466,13 @@ ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
 
 
@@ -506,6 +550,14 @@ ALTER TABLE ONLY customers
 
 ALTER TABLE ONLY invites
     ADD CONSTRAINT invites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
 
 
 --
@@ -720,6 +772,38 @@ ALTER TABLE ONLY invites
 
 
 --
+-- Name: orders_bonus_plan_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT orders_bonus_plan_id_fk FOREIGN KEY (bonus_plan_id) REFERENCES bonus_plans(id);
+
+
+--
+-- Name: orders_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT orders_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: orders_quote_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT orders_quote_id_fk FOREIGN KEY (quote_id) REFERENCES quotes(id);
+
+
+--
+-- Name: orders_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT orders_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: qualifications_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -792,4 +876,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140615034123');
 INSERT INTO schema_migrations (version) VALUES ('20140625072238');
 
 INSERT INTO schema_migrations (version) VALUES ('20140709083435');
+
+INSERT INTO schema_migrations (version) VALUES ('20140804061544');
 
