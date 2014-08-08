@@ -311,15 +311,6 @@ function _getObjectsByPath(_dataObj, _path, _parentLevel){
     return eval(_evalString);;
 }
 
-
-
-//example _hasClass:["ranks", "list"],
-//        _containsProperties:[{id:1}],
-//        _containsActions:[{method:"update"}]
-//        _returnScope:"actions"
-
-
-
 //create admin popups
 function _formatPopupData(e, _options){
     e.preventDefault();
@@ -344,4 +335,86 @@ function _formatPopupData(e, _options){
 
 
 
+
+//Usage:
+//  EyeCueLab.JSON.getObjectsByPattern( data, 
+//                                      {"containsIn(class)":["bonuses", "list"], 
+//                                       "containsIn(links)":[{rel: "self"}]}
+//  )
+
+(function(EyeCueLab, $, undefined){
+    EyeCueLab.JSON = {}; //namespace
+    EyeCueLab.JSON.getObjectsByPattern = function(_dataObj, _pattern, _results, _searchCriteria){
+        if(!_searchCriteria) {
+            _searchCriteria = {};
+            Object.keys(_pattern).forEach(function(_key){
+                if(_key.indexOf("containsIn") >=0) _searchCriteria[(_key.replace(/(containsIn)*(\(|\))*/g,""))]=_pattern[_key]; 
+            });
+        }
+        if(!_results) _results=[];
+        
+        Object.keys(_dataObj).forEach(function(_dataKey){
+            var breakException = {};
+            try{
+                Object.keys(_searchCriteria).forEach(function(_searchKey){
+                    //check for key match
+                    if(!_dataObj[_searchKey]) throw breakException;
+
+                    //check for value match
+                    var _matchFound=0;
+                    for(i=0; i<_searchCriteria[_searchKey].length;i++){
+                        _searchCriterion={
+                            term:_searchCriteria[_searchKey][i],
+                            type:Object.prototype.toString.call(_searchCriteria[_searchKey][i]).replace(/(\[object\s|\])/g,"" )
+                        };
+
+                        switch(_searchCriterion.type){
+                            case "Object":
+                                _sk = Object.keys(_searchCriterion.term)[0];
+
+                                //loop through the data object if the type is array (e.g. actions)
+                                if(Object.prototype.toString.call(_dataObj[_searchKey]).replace(/(\[object\s|\])/g,"" )=="Array"){
+                                    for(i=0;i<_dataObj[_searchKey].length;i++){
+                                        Object.keys(_dataObj[_searchKey][i]).forEach(function(_dk){
+                                            if((_sk==_dk) && (_searchCriterion.term[_sk]==_dataObj[_searchKey][i][_dk])) _matchFound+=1;
+                                        });
+                                    }
+                                }
+                                // try to match directly if the data object is JSON (e.g. properties)
+                                if(Object.prototype.toString.call(_dataObj[_searchKey]).replace(/(\[object\s|\])/g,"" )=="Object"){
+                                    Object.keys(_dataObj[_searchKey]).forEach(function(_dk){
+                                        if((_sk==_dk) && (_searchCriterion.term[_sk]==_dataObj[_searchKey][_dk])) _matchFound+=1;
+                                    });
+                                }
+                            break;
+
+                            case "String":
+                                //string, search through the immediate containing values (e.g. class, properties)
+                                Object.keys(_dataObj[_searchKey]).forEach(function(_k){
+                                    if(_dataObj[_searchKey][_k] === _searchCriterion.term) _matchFound+=1; 
+                                });
+                            break;
+                        }
+                    }
+                    //break when not all conditions within a searchKey are met
+                    if(_matchFound<_searchCriteria[_searchKey].length) throw breakException;
+
+                });
+
+                //use _path to check redundancy
+                _results.forEach(function(_result){if(_result === _dataObj) throw breakException;});
+                _results.push(_dataObj);
+
+            }catch(e){ 
+                if(e !==breakException) throw e;
+            }
+
+            if(!!_dataObj[_dataKey] && typeof _dataObj[_dataKey] === "object" && Object.keys(_dataObj[_dataKey]).length>0) {
+                EyeCueLab.JSON.getObjectsByPattern(_dataObj[_dataKey], _pattern, _results, _searchCriteria);
+            }
+        });
+        return _results;
+    }
+
+}(window.EyeCueLab = window.EyeCueLab || {}, jQuery));
 

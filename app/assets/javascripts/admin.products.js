@@ -51,9 +51,6 @@ jQuery(function($){
     $(document).on("click", ".section_nav a", function(e){_dashboard.displayPlans($(e.target).attr("href"));});
 
 
-
-
-
     function AdminDashboard(){
         this.getRootUsers = getRootUsers;
         this.getGenealogy = getGenealogy;
@@ -348,12 +345,37 @@ jQuery(function($){
                     _summaryData.currentProduct=_data.currentProduct;
                     
                     _getTemplate("/templates/admin/plans/products/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
-                        //wire up edit product button
+                        //wire up new product button
+                        $(".js-add_new_product").on("click", function(e){
+                            if(!_getObjectsByCriteria(_data.products, "val=create").length) return;
+                            var _popupData = _formatPopupData(e, {
+                                _dataObj: _getObjectsByCriteria(_data.products, "val=create")[0],
+                                _title: "Create a new Product"
+                            });                            
+
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
+                                });
+                            });
+                        });
+                    });
+
+                    _getTemplate("/templates/admin/plans/products/_products.handlebars.html", _data.products, $(".js-admin_dashboard_detail_container"), function(){
+                        $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
+                        $(".js-product_select option[value="+_data.currentProduct.properties.id+"]").attr("selected", "selected");
+                        
+                        //edit product
                         $( ".js-edit_product").on("click", function(e){
                             e.preventDefault();
+                            var _actionObj=EyeCueLab.JSON.getObjectsByPattern(_data.products, {
+                                "containsIn(properties)":[{id:$(e.target).parents("tr").attr("data-product-id")}],
+                                "containsIn(class)"     :["product"]
+                            })[0];
+
                             _ajax({
                                 _ajaxType:"get",
-                                _url:"/a/products/"+_data.currentProduct.properties.id,
+                                _url:_actionObj.links.filter(function(_link){return _link.rel=="self"})[0].href,
                                 _callback:function(data, text){
                                     var _popupData = _formatPopupData(e, {
                                         _dataObj: _getObjectsByCriteria(data, "val=update")[0],
@@ -372,33 +394,8 @@ jQuery(function($){
                                     });
                                 }
                             });
+
                         });
-
-                        //wire up new product button
-                        $(".js-add_new_product").on("click", function(e){
-                            if(!_getObjectsByCriteria(_data.products, "val=create").length) return;
-                            var _popupData = _formatPopupData(e, {
-                                _dataObj: _getObjectsByCriteria(_data.products, "val=create")[0],
-                                _title: "Create a new Product"
-                            });                            
-
-                            $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
-                                });
-                            });
-                        });
-
-                        //wire up product switching control
-                        $(".js-product_select").on("change", function(e){
-                            switchCurrentProduct(e);
-                        });
-                    });
-
-                    _getTemplate("/templates/admin/plans/products/_products.handlebars.html", _data.currentProduct, $(".js-admin_dashboard_detail_container"), function(){
-                        $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
-                        $(".js-product_select option[value="+_data.currentProduct.properties.id+"]").attr("selected", "selected");
-                        
                     });
                 break;
 

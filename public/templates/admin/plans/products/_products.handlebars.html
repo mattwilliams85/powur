@@ -1,22 +1,19 @@
 <table class="_table">
     <tr>
-        <th>User Rank</th>
-        <th>Uni-Level</th>
-        <th>Bonus Value</th>
-        <th>Bonus Vol.</th>
-        <th>Comm. %</th>
+        <th>Name</th>
+        <th>Bonus Volume</th>
+        <th>Commission Percentage</th>
         <th>Action</th>
     </tr>
-    <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+    {{#each this.entities}}
+    <tr data-product-id="{{this.properties.id}}">
+        <td>{{this.properties.name}}</td>
         <td>${{this.properties.bonus_volume}}</td>
         <td>{{this.properties.commission_percentage}}%</td>
-        <td></td>
-
+        <td><a href="#" class="js-edit_product">Edit Product</a></td>
     </tr>
-
+    {{/each}}
+    <!--
     <tr>
         <td colspan="6" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">
             <button class="button js-add_new_product" style="float:none; margin:auto;">Add a new Uni-level Bonus</button>
@@ -25,5 +22,6 @@
             </p>
         </td>
     </tr>
+    -->
 </table>
 
