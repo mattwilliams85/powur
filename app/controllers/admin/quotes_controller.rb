@@ -1,14 +1,22 @@
 module Admin
 
   class QuotesController < AdminController
+    # include SortAndPage
 
     helper_method :total_pages
 
+    # sort_and_page a: 1
+
     def index(query = Quote)
-      @quotes = query.
-        includes(:user, :product, :customer).
-        references(:user, :product, :customer).
-        order(order).limit(limit).offset(offset)
+      respond_to do |format|
+        format.html
+        format.json do
+          @quotes = query.
+            includes(:user, :product, :customer).
+            references(:user, :product, :customer).
+            order(order).limit(limit).offset(offset)
+        end
+      end
 
       render 'index'
     end
