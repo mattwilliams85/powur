@@ -3,6 +3,7 @@ class Quote < ActiveRecord::Base
   belongs_to :product
   belongs_to :customer
   belongs_to :user
+  has_one    :order
 
   SEARCH = ':q %% %{table}.first_name or :q %% %{table}.last_name or %{table}.email ilike :like'
 
@@ -35,6 +36,10 @@ class Quote < ActiveRecord::Base
     data << :address if self.customer.address && self.customer.city && self.customer.state && self.customer.zip
     data << :utility if self.data['kwh']
     data
+  end
+
+  def order?
+    !!self.order
   end
 
   private

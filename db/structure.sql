@@ -212,11 +212,11 @@ CREATE TABLE invites (
 
 CREATE TABLE orders (
     id integer NOT NULL,
-    bonus_plan_id integer NOT NULL,
     product_id integer NOT NULL,
     user_id integer NOT NULL,
-    quantity integer DEFAULT 1,
+    customer_id integer NOT NULL,
     quote_id integer,
+    quantity integer DEFAULT 1,
     order_date timestamp without time zone NOT NULL,
     status integer DEFAULT 1 NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -616,6 +616,13 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 
 
 --
+-- Name: index_orders_on_quote_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
+
+
+--
 -- Name: index_qualifications_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -772,11 +779,11 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: orders_bonus_plan_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: orders_customer_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_bonus_plan_id_fk FOREIGN KEY (bonus_plan_id) REFERENCES bonus_plans(id);
+    ADD CONSTRAINT orders_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customers(id);
 
 
 --

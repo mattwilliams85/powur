@@ -9,6 +9,17 @@ json.properties do
   json.product quote.product.name
 end
 
-actions \
-  action(:create_order, :post, orders_path).
-    field(:quote_id, :number, value: quote.id)
+if quote.order?
+  json.entities do
+    json.array! [ quote.order ] do |order|
+      json.partial! 'admin/orders/item', order: order
+    end
+  end
+else
+  actions \
+    action(:create_order, :post, orders_path).
+      field(:quote_id, :number, value: quote.id).
+      field(:order_date, :datetime, value: DateTime.current, required: false)
+end
+
+
