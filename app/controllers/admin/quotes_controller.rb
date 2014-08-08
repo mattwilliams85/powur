@@ -9,16 +9,17 @@ module Admin
 
     def index(query = Quote)
       respond_to do |format|
-        format.html
+        format.html { render 'index' }
         format.json do
           @quotes = query.
             includes(:user, :product, :customer).
             references(:user, :product, :customer).
             order(order).limit(limit).offset(offset)
+
+          render 'index'
         end
       end
 
-      render 'index'
     end
 
     def search
