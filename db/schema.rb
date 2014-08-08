@@ -11,36 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140709083435) do
+ActiveRecord::Schema.define(version: 20140804061544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
   enable_extension "hstore"
 
-  create_table "bonus_rank_amounts", id: false, force: true do |t|
-    t.integer "bonus_id",                                     null: false
-    t.integer "level",                            default: 0, null: false
-    t.decimal "amounts",  precision: 5, scale: 5,             null: false, array: true
+  create_table "bonus_levels", id: false, force: true do |t|
+    t.integer "bonus_id",                                      null: false
+    t.integer "level",                            default: 0,  null: false
+    t.decimal "amounts",  precision: 5, scale: 5, default: [], null: false, array: true
   end
 
+  create_table "bonus_plans", force: true do |t|
+    t.string  "name",        null: false
+    t.integer "start_year"
+    t.integer "start_month"
+  end
+
+  add_index "bonus_plans", ["start_year", "start_month"], name: "index_bonus_plans_on_start_year_and_start_month", unique: true, using: :btree
+
   create_table "bonus_sales_requirements", id: false, force: true do |t|
-    t.integer "bonus_id",                  null: false
-    t.integer "product_id",                null: false
-    t.integer "quantity",   default: 1,    null: false
-    t.boolean "source",     default: true, null: false
+    t.integer "bonus_id",                   null: false
+    t.integer "product_id",                 null: false
+    t.integer "quantity",   default: 1,     null: false
+    t.boolean "source",     default: false, null: false
   end
 
   create_table "bonuses", force: true do |t|
-    t.string  "name",                               null: false
-    t.integer "achieved_rank_id"
-    t.integer "schedule",           default: 2,     null: false
-    t.integer "pays",               default: 1,     null: false
-    t.integer "max_user_rank_id"
-    t.integer "min_upline_rank_id"
-    t.boolean "compress",           default: false, null: false
-    t.boolean "levels",             default: false, null: false
-    t.integer "flat_amount"
+    t.integer  "bonus_plan_id",                      null: false
+    t.string   "type",                               null: false
+    t.string   "name",                               null: false
+    t.integer  "achieved_rank_id"
+    t.integer  "schedule",           default: 2,     null: false
+    t.integer  "max_user_rank_id"
+    t.integer  "min_upline_rank_id"
+    t.boolean  "compress",           default: false, null: false
+    t.integer  "flat_amount",        default: 0,     null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "customers", force: true do |t|
@@ -68,6 +78,20 @@ ActiveRecord::Schema.define(version: 20140709083435) do
     t.integer  "sponsor_id", null: false
     t.integer  "user_id"
   end
+
+  create_table "orders", force: true do |t|
+    t.integer  "product_id",              null: false
+    t.integer  "user_id",                 null: false
+    t.integer  "customer_id",             null: false
+    t.integer  "quote_id"
+    t.integer  "quantity",    default: 1
+    t.datetime "order_date",              null: false
+    t.integer  "status",      default: 1, null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "orders", ["quote_id"], name: "index_orders_on_quote_id", unique: true, using: :btree
 
   create_table "products", force: true do |t|
     t.string   "name",                                null: false
@@ -143,17 +167,23 @@ ActiveRecord::Schema.define(version: 20140709083435) do
   add_index "users", ["upline"], name: "index_users_on_upline", using: :gin
   add_index "users", ["url_slug"], name: "index_users_on_url_slug", unique: true, using: :btree
 
-  add_foreign_key "bonus_rank_amounts", "bonuses", name: "bonus_rank_amounts_bonus_id_fk"
+  add_foreign_key "bonus_levels", "bonuses", name: "bonus_levels_bonus_id_fk"
 
   add_foreign_key "bonus_sales_requirements", "bonuses", name: "bonus_sales_requirements_bonus_id_fk"
   add_foreign_key "bonus_sales_requirements", "products", name: "bonus_sales_requirements_product_id_fk"
 
+  add_foreign_key "bonuses", "bonus_plans", name: "bonuses_bonus_plan_id_fk"
   add_foreign_key "bonuses", "ranks", name: "bonuses_achieved_rank_id_fk", column: "achieved_rank_id"
   add_foreign_key "bonuses", "ranks", name: "bonuses_max_user_rank_id_fk", column: "max_user_rank_id"
   add_foreign_key "bonuses", "ranks", name: "bonuses_min_upline_rank_id_fk", column: "min_upline_rank_id"
 
   add_foreign_key "invites", "users", name: "invites_sponsor_id_fk", column: "sponsor_id"
   add_foreign_key "invites", "users", name: "invites_user_id_fk"
+
+  add_foreign_key "orders", "customers", name: "orders_customer_id_fk"
+  add_foreign_key "orders", "products", name: "orders_product_id_fk"
+  add_foreign_key "orders", "quotes", name: "orders_quote_id_fk"
+  add_foreign_key "orders", "users", name: "orders_user_id_fk"
 
   add_foreign_key "qualifications", "products", name: "qualifications_product_id_fk"
   add_foreign_key "qualifications", "ranks", name: "qualifications_rank_id_fk"

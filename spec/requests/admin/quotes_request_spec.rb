@@ -26,6 +26,28 @@ describe '/a/quotes' do
       expect_actions 'search'
     end
 
+    it 'includes the create_order action when no order exists' do
+      quote = create(:quote)
+
+      get admin_quotes_path, format: :json
+
+      quote = json_body['entities'].first
+      action = quote['actions'].find { |a| a['name'] == 'create_order'}
+      expect(action).to_not be_nil
+    end
+
+    it 'includes the related order when an order exists' do
+      quote = create(:quote)
+      order = create(:order, quote: quote)
+
+      get admin_quotes_path, format: :json
+
+      quote = json_body['entities'].first
+      expect(quote['actions']).to be_nil
+      order = quote['entities'].first
+      expect(order['class']).to include('order')
+    end
+
     it 'fuzzy searches by user name and customer name' do
       user = create(:user, last_name: 'Gari')
       customer = create(:customer, last_name: 'Garey')
