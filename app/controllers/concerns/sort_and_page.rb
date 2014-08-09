@@ -2,48 +2,68 @@ module SortAndPage
   extend ActiveSupport::Concern
 
   included do
-
   end
 
   module ClassMethods
-    attr_reader :sort_options
+    attr_reader :sort_and_page_options
     def sort_and_page(opts = {})
-      @sort_options = opts
+      @sort_and_page_options = opts
       self.include InstanceMethods
+
+      self.instance_eval do
+        helper_method :total_pages, :available_sorts
+      end
     end
   end
 
   module InstanceMethods
-    def foo
-      binding.pry
-      raise 'foo'
+    def _sp_opts
+      self.class.sort_and_page_options
     end
-    # def sort_order
-    #   @sort_order ||= begin
-    #     key = params[:sort] && available_sorts.keys.include?(params[:sort].to_sym) ?
-    #       params[:sort].to_sym : available_sorts.keys.first
-    #     available_sorts[key]
-    #   end
-    # end
+    
+    def available_sorts
+      sort_and_page_options[:available_sorts]
+    end
 
-    # def limit
-    #   @limit ||= params[:limit] ? params[:limit].to_i : 20
-    # end
+    def sort_order
+      @sort_order ||= begin
+        key = params[:sort] && params[:sort].to_sym
+        if key.nil? || !available_sorts.keys.include?(key)
+          key = available_sorts.keys.first
+        end
+        available_sorts[key]
+      end
+    end
 
-    # def page
-    #   @page ||= params[:page] ? params[:page].to_i : 1
-    # end
+    def limit
+      @limit ||= begin
+        limit = params[:limit] ? params[:limit].to_i : 
+          (_sp_opts[:max_limit] || 50)
+      end
+    end
 
-    # def total_pages
-    #   @total_pages ||= begin
-    #     total_count = @quotes.except(:offset, :limit, :order).count
-    #     total_count / limit + (total_count % limit > 0 ? 1 : 0)
-    #   end
-    # end
+    def sort_and_page(query)
+      @items = query.order(sort_order).limit(limit).offset(offset)
+    end
 
-    # def offset
-    #   limit * (page - 1)
-    # end
+    def item_count
+      @item_count ||= @items.except(:offset, :limit, :order).count
+    end
+
+    def page
+      @page ||= params[:page] ? params[:page].to_i : 1
+    end
+
+    def total_pages
+      @total_pages ||= begin
+        value = item_count / limit + (item_count % limit > 0 ? 1 : 0)
+        value.zero? ? 1 : value
+      end
+    end
+
+    def offset
+      limit * (page - 1)
+    end
   end
 
 

@@ -6,6 +6,21 @@ describe '/a/orders' do
     login_user
   end
 
+  describe 'GET /' do
+
+    it 'pages orders' do
+      create_list(:order, 5)
+      get orders_path, format: :json, limit: 3
+
+      expect_entities_count(3)
+
+      get orders_path, format: :json, limit: 3, page: 2
+
+      expect_entities_count(2)
+    end
+
+  end
+
   describe 'POST /' do
 
     it 'creates an order from a quote' do

@@ -19,7 +19,6 @@ module Admin
           render 'index'
         end
       end
-
     end
 
     def search
