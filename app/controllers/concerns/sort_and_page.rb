@@ -22,7 +22,7 @@ module SortAndPage
     end
     
     def available_sorts
-      sort_and_page_options[:available_sorts]
+      _sp_opts[:available_sorts]
     end
 
     def sort_order

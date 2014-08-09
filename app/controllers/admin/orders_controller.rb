@@ -10,10 +10,6 @@ module Admin
 
     sort_and_page available_sorts: SORTS
 
-    def available_sorts
-      SORTS
-    end
-
     def index(query = Order)
       respond_to do |format|
         format.html { render 'index' }
@@ -56,10 +52,6 @@ module Admin
     def input
       allow_input(:order_date)
     end
-
-    # def available_sorts
-    #   SORTS
-    # end
 
   end
 
