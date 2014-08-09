@@ -15,9 +15,17 @@ module Admin
     end
 
     def index(query = Order)
-      @orders = sort_and_page(query)
+      respond_to do |format|
+        format.html { render 'index' }
+        format.json do
+          query = query.
+            includes(:user, :product, :customer).
+            references(:user, :product, :customer)
+          @orders = sort_and_page(query)
 
-      render 'index'
+          render 'index'
+        end
+      end
     end
 
     def search
