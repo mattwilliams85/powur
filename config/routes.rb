@@ -87,7 +87,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :orders, only: [ :index, :create, :show ]
+    resources :orders, only: [ :index, :create, :show ] do
+      collection do
+        get '' => 'orders#search', constraints: has_params(:search)
+      end
+    end
 
   end
 
