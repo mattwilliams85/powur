@@ -1,11 +1,7 @@
 module Admin
 
   class QuotesController < AdminController
-    # include SortAndPage
-
     helper_method :total_pages
-
-    # sort_and_page a: 1
 
     def index(query = Quote)
       respond_to do |format|

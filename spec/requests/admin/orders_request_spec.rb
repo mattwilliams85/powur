@@ -19,6 +19,19 @@ describe '/a/orders' do
       expect_entities_count(2)
     end
 
+    it 'fuzzy searches by user name and customer name' do
+      user = create(:user, last_name: 'Gari')
+      customer = create(:customer, last_name: 'Garey')
+
+      create(:order, user: user)
+      create(:order, customer: customer)
+      create_list(:order, 3)
+
+      get orders_path, format: :json, search: 'gary'
+
+      expect_entities_count(2)
+    end
+
   end
 
   describe 'POST /' do

@@ -5,14 +5,7 @@ class Quote < ActiveRecord::Base
   belongs_to :user
   has_one    :order
 
-  SEARCH = ':q %% %{table}.first_name or :q %% %{table}.last_name or %{table}.email ilike :like'
-
-  scope :search, ->(query, table) {
-    where(SEARCH % { table: table }, q: "#{query}", like: "%#{query}%") }
-  scope :user_search,     ->(query){ search(query, 'users') }
-  scope :customer_search, ->(query){ search(query, 'customers') }
-  scope :user_customer_search, ->(query){
-    where.any_of(user_search(query), customer_search(query)) }
+  add_search :user, :customer, [ :user, :customer ]
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
   validate :product_data

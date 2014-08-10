@@ -1,0 +1,2 @@
+
+ActiveRecord::Base.include(AddSearch)
