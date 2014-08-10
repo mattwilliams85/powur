@@ -55,9 +55,7 @@ jQuery(function($){
 
 
     function AdminDashboard(){
-        this.displayPlans = displayPlans;
         this.displayQuotes = displayQuotes;
-
         this._loadQuotesInfo = _loadQuotesInfo;
 
 
