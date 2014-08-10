@@ -23,7 +23,7 @@ jQuery(function($){
             for(i=0; i<_data.loadCategories.length;i++){
                 console.log("complete: global data... "+_data.loadCategories[i]);
             }
-            _dashboard.displayPlans("#admin-plans-init");
+            _dashboard.displayQuotes("#admin-quotes-init");
         }
     }
     _data.load();
@@ -50,8 +50,8 @@ jQuery(function($){
                 window.location="/a/users";
             break;
 
-            case "quotes":
-                window.location="/a/quotes";
+            case "plans":
+                window.location="/a/products";
             break;
         }
     });
@@ -60,6 +60,7 @@ jQuery(function($){
 
     function AdminDashboard(){
         this.displayPlans = displayPlans;
+        this.displayQuotes = displayQuotes;
 
         this._loadBonusPlansInfo = _loadBonusPlansInfo;
         this._loadProductsInfo = _loadProductsInfo;
@@ -67,11 +68,98 @@ jQuery(function($){
         this._loadQuotesInfo = _loadQuotesInfo;
 
 
+        function displayQuotes(_tab, _callback){
+            switch(_tab){
+                case "#admin-quotes-init":
+                    $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-quotes]").position().left+28)+"px");
+                    $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
+                    displayQuotes("#admin-quotes-quotes");
+
+                break;
+
+                case "#admin-quotes-quotes-init":
+                    _loadQuotesInfo(function(){displayQuotes("#admin-quotes-quotes");});
+                break;
+
+                case "#admin-quotes-quotes":
+                    $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
+                    //position indicator
+                    _getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-quotes-quotes]"));
+
+                        if((!!_data.quotes.search) && (!!_data.quotes.search.results)) $(".js-search_box").val(_data.quotes.search.term);
+                    });
+
+                    if(!_data.quotes.search){
+                        _data.quotes.search={};
+                        _data.quotes.search.term="";
+                        _data.quotes.search.results={};
+                        _data.quotes.search.results.entities=[];
+                    }
+                    
+                    _getTemplate("/templates/admin/quotes/quotes/_summary.handlebars.html", {}, $(".js-admin_dashboard_column.summary"), function(){
+                        if(!_data.quotes.sortBy) _data.quotes.sortBy = "created";
+                        else{
+                             $(".js-quotes_sort_type option").each(function(){
+                                if(this.value === _data.quotes.sortBy) $(".js-quotes_sort_type").val(this.value);
+                             })
+                        }
+                        $(".js-quotes_sort_type").on("change", function(e){
+                            _data.quotes.sortBy=$(e.target).val();
+                            _searchQuotes(e, function(){displayQuotes("#admin-quotes-quotes")});
+                        });
+                    });
+
+                    _data.quotes.entities.forEach(function(_quote){
+                        _quote.properties._dataStatusDisplay = _quote.properties.data_status.toString();
+                    });
+                    _data.quotes.search.results.entities.forEach(function(_quote){
+                        _quote.properties._dataStatusDisplay = _quote.properties.data_status.toString();
+                    });
+
+                    _displayData=(_data.quotes.search.results.entities.length>0)? _data.quotes.search.results : _data.quotes;
+
+                    _getTemplate("/templates/admin/quotes/quotes/_quotes.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
+                        $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
+
+                        $(".js-search_box").on("click", function(e){e.preventDefault();});
+                        $(".js-search_box").on("keypress", function(e){
+                            if(e.keyCode == 13){
+                                if(($(e.target).val().trim().length>0) && ($(e.target).val().trim().length<3)) return;
+                                _data.quotes.search={};
+                                _data.quotes.search.term=$(e.target).val().trim();
+                                _searchQuotes(e, function(){displayQuotes("#admin-quotes-quotes")});
+                            }
+                        });
+                    });
+                 break;
+
+                case "#admin-quotes-sales":
+                break;
+            }
+        }
+        function _searchQuotes(e, _callback){
+            _ajax({
+                _ajaxType:"get",
+                _url:"/a/quotes",
+                _postObj:{
+                    search:$(e.target).val().trim(),
+                    sort:_data.quotes.sortBy,
+                },
+                _callback:function(data, text){
+                    _data.quotes.search.results=data;
+                    if(typeof _callback == "function") _callback();
+                    else return data;
+                }
+            });
+        }
+
+
         function displayPlans(_tab, _callback){
             switch(_tab){
 
                 case "#admin-plans-init":
-                    $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-plans]").position().left+28)+"px");
+                    $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-quotes]").position().left+28)+"px");
                     $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
                     displayPlans("#admin-plans-ranks");
 

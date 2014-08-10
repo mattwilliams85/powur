@@ -34,7 +34,6 @@ jQuery(function($){
         this.displayUsers = displayUsers;
         this.switchCurrentUser = switchCurrentUser;
         this.searchUser = searchUser;
-        this.displayPlans = displayPlans;
 
         //function get root users if _id is undefined
         //otherwise get specific user info
@@ -54,103 +53,6 @@ jQuery(function($){
                 return _data.rootUsers;
             }
         }
-
-
-
-        function displayPlans(_tab, _callback){
-            switch(_tab){
-
-                case "#admin-plans-init":
-                    $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-plans]").position().left+28)+"px");
-                    $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
-                    $(".admin_top_level_nav").removeClass("active");
-                    displayPlans("#admin-plans-products-init");
-
-
-                break;
-
-                case "#admin-plans-products-init":
-                    _ajax({
-                        _ajaxType:"get",
-                        _url:"/a/products",
-                        _callback:function(data, text){
-                            _data.products = data;
-                            _data.currentProduct=data.entities[0];
-                            displayPlans("#admin-plans-products");
-                        }
-                    });
-                break;
-
-                case "#admin-plans-products":
-                    //start of init logic
-                    $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
-
-                    //position indicator
-                    _getTemplate("/templates/admin/plans/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
-                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-products]"));
-                    });
-
-
-                    _summaryData={};
-                    _summaryData.entities=_data.products.entities;
-                    _summaryData.currentProduct=_data.currentProduct;
-                    _getTemplate("/templates/admin/plans/products/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"));
-                    _getTemplate("/templates/admin/plans/products/_products.handlebars.html", _data.currentProduct, $(".js-admin_dashboard_detail_container"), function(){
-                        $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
-                        $(".js-product_select option[value="+_data.currentProduct.properties.id+"]").attr("selected", "selected");
-                        //wire up edit product button
-                        $( ".js-edit_product").on("click", function(e){
-                            e.preventDefault();
-                            var _popupData = [];
-                            _ajax({
-                                _ajaxType:"get",
-                                _url:"/a/products/"+_data.currentProduct.properties.id,
-                                _callback:function(data, text){
-                                    _popupData = _getObjectsByCriteria(data, "val=update")[0];
-                                    _popupData.fields.forEach(function(field){field.display_name=field.name.replace("_"," ");});
-                                    _popupData.title="Editing "+data.properties.name;
-                                    _popupData.deleteOption={};
-                                    _popupData.id=_data.currentProduct.properties.id;
-                                    _popupData.deleteOption.name="Remove "+data.properties.name;
-                                    _popupData.deleteOption.buttonName="js-delete_product";
-                                    _popupData.deleteOption.description="When you remove a product, all compensation calculation will be removed immediately.  Please exercise with caution."
-
-                                    $("#js-screen_mask").fadeIn(100, function(){
-                                        _getTemplate("/templates/admin/plans/products/popup/_new_product.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                            _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
-                                        });
-                                    });
-                                }
-                            });
-                        });
-
-                        //wire up new product button
-                        $(".js-add_new_product").on("click", function(e){
-                            e.preventDefault();
-                            if(!_getObjectsByCriteria(_data.products, "val=create").length) return;
-                            var _popupData = [];
-                            _popupData = _getObjectsByCriteria(_data.products, "val=create")[0];
-                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace("_"," ");});
-                            _popupData.title="Add a new product";
-
-                            $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/plans/products/popup/_new_product.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                    _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
-                                });
-                            });
-                        });
-
-                        //wire up product switching control
-                        $(".js-product_select").on("change", function(e){
-                            switchCurrentProduct(e);
-                        });
-                    });
-
-                break;
-
-            }
-        }
-
 
         function displayUsers(_tab, _callback){
 

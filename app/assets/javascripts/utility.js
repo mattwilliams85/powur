@@ -333,9 +333,6 @@ function _formatPopupData(e, _options){
 }
 
 
-
-
-
 //Usage:
 //  EyeCueLab.JSON.getObjectsByPattern( data, 
 //                                      {"containsIn(class)":["bonuses", "list"], 
