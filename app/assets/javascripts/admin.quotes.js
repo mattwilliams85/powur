@@ -105,7 +105,6 @@ jQuery(function($){
 
                     _getTemplate("/templates/admin/quotes/quotes/_quotes.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
-                        $(".js-search_box").fadeIn();
 
                         //wire up search quotes 
                         $(".js-search_box").on("click", function(e){e.preventDefault();});
@@ -141,13 +140,17 @@ jQuery(function($){
                         })
                     });
                  break;
+                
 
+                case "#admin-quotes-orders-init":
+                    _loadOrdersInfo(function(){displayQuotes("#admin-quotes-orders");});
+                break;
 
                 case "#admin-quotes-orders":
                     $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
                     //position indicator
                     _getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
-                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-quotes-orders]"));
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-quotes-orders-init]"));
                         if((!!_data.orders.search) && (!!_data.orders.search.results)) $(".js-search_box").val(_data.orders.search.term);
                     });
 
@@ -174,7 +177,15 @@ jQuery(function($){
                     _displayData=(_data.orders.search.results.entities.length>0)? _data.orders.search.results : _data.orders;
                     _getTemplate("/templates/admin/quotes/orders/_orders.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
-                        $(".js-search_box").fadeOut(100);
+                        $(".js-search_box").on("click", function(e){e.preventDefault();});
+                        $(".js-search_box").on("keypress", function(e){
+                            if(e.keyCode == 13){
+                                if(($(e.target).val().trim().length>0) && ($(e.target).val().trim().length<3)) return;
+                                _data.orders.search={};
+                                _data.orders.search.term=$(e.target).val().trim();
+                                _searchOrders(e, function(){displayQuotes("#admin-quotes-orders")});
+                            }
+                        });
 
                     });
 
