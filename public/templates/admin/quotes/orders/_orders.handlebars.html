@@ -1,24 +1,19 @@
 <table class="_table">
     <tr>
-        <th>Timestamp</th>
+        <th>Order Date</th>
         <th>Distributor</th>
         <th>Customer</th>
         <th>Product</th>
-        <th>Info Captured</th>
-        <th>Action</th>
+        <th>Status</th>
     </tr>
     {{#each this.entities}}
     <tr data-quote-id="{{this.properties.id}}">
         <td>{{this.properties.localDateString}}</td>
-        <td>{{this.properties.user}}</td>
+        <td>{{this.properties.distributor}}</td>
         <td>{{this.properties.customer}}</td>
         <td>{{this.properties.product}}</td>
-        <td style="text-transform:capitalize;">{{this.properties._dataStatusDisplay}}</td>
-        {{#if this.actions}}
-        <td><a href="#" class="js-convert_quote_to_order">Convert to Order</a></td>
-        {{else}}
-            <td><i style="color:#ccc;">Converted to Order</i></td>
-        {{/if}}
+        <td>{{this.properties.status}}</td>
+
     </tr>
     {{/each}}
     <!--
