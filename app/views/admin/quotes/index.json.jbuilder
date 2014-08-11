@@ -9,7 +9,7 @@ actions \
     field(:search, :search, required: false).
     field(:page, :number, value: @page, min: 1, max: total_pages, required: false).
     field(:sort, :select,
-      options: Admin::QuotesController::ORDERS.keys,
+      options: available_sorts.keys,
       value: @sort, required: false)
 
 links link(:self, admin_quotes_path)
