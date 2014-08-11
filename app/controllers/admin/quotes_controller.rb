@@ -1,12 +1,11 @@
 module Admin
 
   class QuotesController < AdminController
-    include SortAndPage
 
     SORTS = { 
       created:  { created_at: :desc },
       customer: 'customers.last_name asc',
-        user:     'users.last_name asc' }
+      user:     'users.last_name asc' }
 
     sort_and_page available_sorts: SORTS
 
