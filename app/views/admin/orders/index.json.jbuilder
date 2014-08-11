@@ -5,7 +5,7 @@ klass :orders, :list
 json.entities @orders, partial: 'item', as: :order
 
 actions \
-  action(:search, :get, admin_quotes_path).
+  action(:search, :get, orders_path).
     field(:search, :search, required: false).
     field(:page, :number, value: @page, min: 1, max: total_pages, required: false).
     field(:sort, :select,

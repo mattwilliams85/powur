@@ -46,8 +46,10 @@ module SirenDSL
 
   def entities(*args)
     opts = args.last.is_a?(Hash) ? args.pop : {}
+    partial = opts.delete(:partial) || :entity
+
     json.entities args do |arg|
-      json.partial!("#{arg}/entity", opts)
+      json.partial!("#{arg}/#{partial}", opts)
     end
   end
 
