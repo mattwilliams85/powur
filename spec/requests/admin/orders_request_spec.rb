@@ -51,5 +51,22 @@ describe '/a/orders' do
 
       expect_alert_error
     end
+
   end
+
+  describe '/:id' do
+
+    it 'includes the related entities' do
+      order = create(:order)
+
+      get order_path(order), format: :json
+
+      %w(product user customer).each do |klass|
+        result = json_body['entities'].find { |e| e['class'].include?(klass) }
+        expect(result).to be
+      end
+    end
+
+  end
+
 end

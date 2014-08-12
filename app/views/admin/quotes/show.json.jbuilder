@@ -2,6 +2,10 @@ siren json
 
 json.partial! 'item', quote: @quote, detail: true
 
+json.properties do
+  
+end
+
 entity_list = { 
   partial: :item,
   'admin/products'  => { product: @quote.product, rel: 'quote-product' },

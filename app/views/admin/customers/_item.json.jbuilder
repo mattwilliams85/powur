@@ -6,4 +6,3 @@ json.properties do
   json.(customer, :id, :first_name, :last_name, :email, :phone)
 end
 
-links

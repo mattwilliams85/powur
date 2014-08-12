@@ -82,6 +82,7 @@ describe '/a/quotes' do
       result = json_body['entities'].find { |e| e['class'].include?('order') }
       expect(result).to_not be_nil
     end
+
   end
 
 end

@@ -2,6 +2,8 @@ module Admin
 
   class OrdersController < AdminController
 
+    before_filter :fetch_order, only: [ :show ]
+
     SORTS = { 
       order_date: { order_date: :desc },
       customer:   'customers.last_name asc',
@@ -45,11 +47,18 @@ module Admin
       error! t('errors.duplicate_order')
     end
 
+    def show
+    end
+
 
     private
 
     def input
       allow_input(:order_date)
+    end
+
+    def fetch_order
+      @order = Order.find(params[:id].to_i)
     end
 
   end
