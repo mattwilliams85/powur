@@ -18,7 +18,7 @@ module SirenDSL
   Link = Struct.new(:rel, :href)
 
   included do
-    helper_method :siren, :klass, :entities, :action, :actions, :links, :link
+    helper_method :siren, :klass, :entities, :action, :actions, :links, :link, :entity_rel
   end
 
   attr_reader :json
@@ -44,12 +44,23 @@ module SirenDSL
     json.set! :class, values
   end
 
+  def entity_rel(relationship)
+    json.rel [ relationship ]
+  end
+
   def entities(*args)
     opts = args.last.is_a?(Hash) ? args.pop : {}
     partial = opts.delete(:partial) || :entity
 
-    json.entities args do |arg|
-      json.partial!("#{arg}/#{partial}", opts)
+    args = opts if args.empty?
+    if args.is_a?(Array)
+      json.entities args do |arg|
+        json.partial!("#{arg}/#{partial}", opts)
+      end
+    else
+      json.entities opts do |key, value|
+        json.partial!("#{key}/#{value.delete(:partial) || partial}", value)
+      end
     end
   end
 

@@ -2,6 +2,8 @@ module Admin
 
   class QuotesController < AdminController
 
+    before_action :fetch_quote, only: [ :show ]
+
     SORTS = { 
       created:  { created_at: :desc },
       customer: 'customers.last_name asc',
@@ -23,10 +25,19 @@ module Admin
       end
     end
 
+    def show
+    end
+
     def search
       query = Quote.user_customer_search(params[:search])
 
       index(query)
+    end
+
+    private
+
+    def fetch_quote
+      @quote = Quote.find(params[:id].to_i)
     end
 
   end

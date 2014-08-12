@@ -26,28 +26,6 @@ describe '/a/quotes' do
       expect_actions 'search'
     end
 
-    it 'includes the create_order action when no order exists' do
-      quote = create(:quote)
-
-      get admin_quotes_path, format: :json
-
-      quote = json_body['entities'].first
-      action = quote['actions'].find { |a| a['name'] == 'create_order'}
-      expect(action).to_not be_nil
-    end
-
-    it 'includes the related order when an order exists' do
-      quote = create(:quote)
-      order = create(:order, quote: quote)
-
-      get admin_quotes_path, format: :json
-
-      quote = json_body['entities'].first
-      expect(quote['actions']).to be_nil
-      order = quote['entities'].first
-      expect(order['class']).to include('order')
-    end
-
     it 'fuzzy searches by user name and customer name' do
       user = create(:user, last_name: 'Gari')
       customer = create(:customer, last_name: 'Garey')
@@ -71,6 +49,39 @@ describe '/a/quotes' do
       expect(result).to eq(sorted_ids)
     end
 
+  end
+
+  describe '/:id' do
+
+    it 'includes the related entities' do
+      quote = create(:quote)
+
+      get admin_quote_path(quote), format: :json
+
+      %w(product user customer).each do |klass|
+        result = json_body['entities'].find { |e| e['class'].include?(klass) }
+        expect(result).to be
+      end
+    end
+
+    it 'includes the create_order action when no order exists' do
+      quote = create(:quote)
+
+      get admin_quote_path(quote), format: :json
+
+      action = json_body['actions'].find { |a| a['name'] == 'create_order'}
+      expect(action).to_not be_nil
+    end
+
+    it 'includes the related order' do
+      quote = create(:quote)
+      order = create(:order, quote: quote)
+
+      get admin_quote_path(quote), format: :json
+
+      result = json_body['entities'].find { |e| e['class'].include?('order') }
+      expect(result).to_not be_nil
+    end
   end
 
 end

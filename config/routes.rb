@@ -81,7 +81,7 @@ Rails.application.routes.draw do
       resources :bonus_levels, only: [ :create, :update, :destroy], as: :levels
     end
 
-    resources :quotes, only: [ :index ], as: :admin_quotes do
+    resources :quotes, only: [ :index, :show ], as: :admin_quotes do
       collection do
         get '' => 'quotes#search', constraints: has_params(:search)
       end
