@@ -123,20 +123,51 @@ jQuery(function($){
                             _quote = EyeCueLab.JSON.getObjectsByPattern(
                                 _data.quotes, {
                                 "containsIn(properties)":[{id:$(e.target).parents("tr").attr("data-quote-id")}], 
-                                "containsIn(actions)":[{name:"create_order"}]
+                                "containsIn(links)":[{rel:"self"}]
                             })[0];
-                            var _popupData = _formatPopupData(e, {
-                                _dataObj: _getObjectsByCriteria(_quote, {name: "create_order"})[0],
-                                _title: "Convert Quotes To Orders"
-                            });
-                            _popupData.properties = _quote.properties;
 
-                            $("#js-screen_mask").fadeIn(100, function(){
-                                _getTemplate("/templates/admin/quotes/popups/_quote_to_order_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                    _displayPopup({_popupData:_popupData, _callback:function(){displayQuotes("#admin-quotes-quotes-init")}});
-                                });
-                            });
+                            //fetch detail
+                            _ajax({
+                                _ajaxType:"get",
+                                _url:_getObjectsByCriteria(_quote, {rel: "self"})[0].href,
+                                _callback:function(data, text){
+                                    var _dataObj = (typeof _getObjectsByCriteria(data, {name: "create_order"})[0] === "object")? _getObjectsByCriteria(data, {name: "create_order"})[0]:{};
+                                    var _popupData = _formatPopupData(e, {
+                                        _dataObj: _dataObj,
+                                        _title: "Quote Details"
+                                    });
+                                    _popupData.properties = data.properties;
+                                    _popupData.distributorInfo =  EyeCueLab.JSON.getObjectsByPattern(
+                                        data, {
+                                        "containsIn(class)":["user"], 
+                                        "containsIn(rel)":["quote-user"]
+                                    })[0];
 
+                                    _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(
+                                        data, {
+                                        "containsIn(class)":["customer"], 
+                                        "containsIn(rel)":["quote-customer"]
+                                    })[0];
+
+                                    _popupData.productInfo =  EyeCueLab.JSON.getObjectsByPattern(
+                                        data, {
+                                        "containsIn(class)":["product"], 
+                                        "containsIn(rel)":["quote-product"]
+                                    })[0];
+
+                                    ["_path","id"].forEach(function(_hideKey){
+                                        delete _popupData.distributorInfo.properties[_hideKey];
+                                        delete _popupData.customerInfo.properties[_hideKey];
+                                        delete _popupData.productInfo.properties[_hideKey];
+                                    });
+
+                                    $("#js-screen_mask").fadeIn(100, function(){
+                                        _getTemplate("/templates/admin/quotes/popups/_quote_to_order_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                            _displayPopup({_popupData:_popupData, _callback:function(){displayQuotes("#admin-quotes-quotes-init")}});
+                                        });
+                                    });
+                                }
+                            });
                         })
                     });
                  break;

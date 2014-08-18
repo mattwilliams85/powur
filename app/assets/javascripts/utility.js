@@ -40,6 +40,14 @@ jQuery(function($){
 
 });
 
+
+Handlebars.registerHelper('sanitize', function(_value){
+    _value = _value.replace("_", " ");
+    _value = _value.replace(/percentage/gi, "\%");
+    if(_value.length==0) _value="<span class='js-no_data'>No Data</span>";
+    return _value.replace("_", " ");
+})
+
 //Handlebar helper to allow comparisons
 Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
     if (arguments.length < 3)
@@ -317,10 +325,11 @@ function _formatPopupData(e, _options){
     if(! _options._dataObj) return;
     var _popupData=[];
     _popupData = _options._dataObj;
-    _popupData.fields.forEach(function(field){
-        field.display_name=field.name.replace(/\_/g," ");
-        if(typeof field.options !=="undefined") delete field.options["_path"];
-    });
+    if(!!_popupData.fields)
+        _popupData.fields.forEach(function(field){
+            field.display_name=field.name.replace(/\_/g," ");
+            if(typeof field.options !=="undefined") delete field.options["_path"];
+        });
 
     if(!!_options._title) _popupData.title = _options._title;
     if(!!_options._href) _popupData.href = _options._href;

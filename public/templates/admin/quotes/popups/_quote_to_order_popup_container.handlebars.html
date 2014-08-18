@@ -5,12 +5,47 @@
             You are about to manually convert a quote into an order.  Please make sure the following information is correct:
         </p>
         <hr style="border:0; border-bottom:1px dashed #ccc;">
-        <table class="_table">
+        <table class="_table _spreadSheet">
+            <tr>
+                <td>
+                    <h2 style="margin-bottom:0;">DISTRIBUTOR INFO</h2>
+                    {{#each this.distributorInfo.properties}}
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">{{sanitize @key}}</span>
+                            {{{this}}}
+                        </div>
+                    {{/each}}
+                </td>
+                <td>
+                    <h2 style="margin-bottom:0;">CUSTOMER INFO</h2>
+                    {{#each this.customerInfo.properties}}
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">{{sanitize @key}}</span>
+                            {{{this}}}
+                        </div>
+                    {{/each}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <hr style="border:0; border-bottom:1px dashed #ccc;">
+                    <h2 style="margin-bottom:0;">PRODUCT INFO</h2>
+                    {{#each this.productInfo.properties}}
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">{{sanitize @key}}</span>
+                            {{{this}}}
+                        </div>
+                    {{/each}}
+                </td>
+            </tr>
+
+            <!--
             <tr><td>Quote Created:</td><td> {{this.properties.localDateString}}</td></tr>
             <tr><td>Distributor:</td><td> {{this.properties.user}}</td></tr>
             <tr><td>Customer:</td><td> {{this.properties.customer}}</td></tr>
             <tr><td>Product:</td><td> {{this.properties.product}}</td></tr>
             <tr><td>Info Completed: </td><td style="text-transform:Capitalize;">{{this.properties._dataStatusDisplay}}</td></tr>
+            -->
         </table>
 
         <hr style="border:0; border-bottom:1px dashed #ccc;">
