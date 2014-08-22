@@ -244,6 +244,19 @@ ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
 
 
 --
+-- Name: pay_periods; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE pay_periods (
+    id character varying(255) NOT NULL,
+    type character varying(255) NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    calculated_at timestamp without time zone
+);
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -345,6 +358,37 @@ CREATE SEQUENCE quotes_id_seq
 --
 
 ALTER SEQUENCE quotes_id_seq OWNED BY quotes.id;
+
+
+--
+-- Name: rank_achievements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE rank_achievements (
+    id integer NOT NULL,
+    pay_period_id character varying(255) NOT NULL,
+    user_id integer NOT NULL,
+    rank_id integer NOT NULL
+);
+
+
+--
+-- Name: rank_achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE rank_achievements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rank_achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE rank_achievements_id_seq OWNED BY rank_achievements.id;
 
 
 --
@@ -494,6 +538,13 @@ ALTER TABLE ONLY quotes ALTER COLUMN id SET DEFAULT nextval('quotes_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY rank_achievements ALTER COLUMN id SET DEFAULT nextval('rank_achievements_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq'::regclass);
 
 
@@ -561,6 +612,14 @@ ALTER TABLE ONLY orders
 
 
 --
+-- Name: pay_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY pay_periods
+    ADD CONSTRAINT pay_periods_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: products_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -585,6 +644,14 @@ ALTER TABLE ONLY quotes
 
 
 --
+-- Name: rank_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT rank_achievements_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -606,6 +673,13 @@ ALTER TABLE ONLY settings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_pay_period_user_rank; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX idx_pay_period_user_rank ON rank_achievements USING btree (pay_period_id, user_id, rank_id);
 
 
 --
@@ -851,6 +925,30 @@ ALTER TABLE ONLY quotes
 
 
 --
+-- Name: rank_achievements_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT rank_achievements_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: rank_achievements_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT rank_achievements_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: rank_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT rank_achievements_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: users_sponsor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -885,4 +983,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140625072238');
 INSERT INTO schema_migrations (version) VALUES ('20140709083435');
 
 INSERT INTO schema_migrations (version) VALUES ('20140804061544');
+
+INSERT INTO schema_migrations (version) VALUES ('20140820042927');
 

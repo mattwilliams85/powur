@@ -93,6 +93,12 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :pay_periods, only: [ :index, :show ] do
+      member do
+        post :calculate
+      end
+    end
+
   end
 
   resource :promoter, only: [ :new, :show ] do

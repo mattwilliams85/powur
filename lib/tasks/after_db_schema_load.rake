@@ -19,6 +19,9 @@ namespace :sunstand do
       query = 'alter table bonus_levels add primary key (bonus_id, level);'
       ActiveRecord::Base.connection.execute(query)
 
+      puts 'Adding primary key for :pay_periods'
+      query = 'alter table pay_periods add primary key (id);'
+      ActiveRecord::Base.connection.execute(query)
     end
   end
 end

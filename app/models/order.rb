@@ -9,5 +9,9 @@ class Order < ActiveRecord::Base
   belongs_to :quote
 
   add_search :user, :customer, [ :user, :customer ]
-  
+
+  class << self
+    
+  end
+
 end

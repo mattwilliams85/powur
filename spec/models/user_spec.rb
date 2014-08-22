@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe User do
+describe User, type: :model do
 
   describe '@authenticate' do
     let(:password) { 'password123' }
