@@ -8,6 +8,10 @@ class Rank < ActiveRecord::Base
   has_many :min_upline_rank_bonuses, class_name: 'Bonus',
     foreign_key: :min_upline_rank_id, dependent: :nullify
 
+  default_scope ->(){ order(:id) }
+  scope :with_qualifications, ->(){
+    includes(:qualifications).references(:qualifications) }
+
   validates_presence_of :title
 
   before_create do
@@ -16,6 +20,14 @@ class Rank < ActiveRecord::Base
 
   def last_rank?
     @last_rank ||= Rank.count == self.id
+  end
+
+  def one_time_qualifiations?
+    self.qualifications.all? { |q| q.lifetime? }
+  end
+
+  def qualifications_met?(user, product_orders)
+    
   end
 
   class << self

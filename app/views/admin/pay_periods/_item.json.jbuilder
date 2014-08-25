@@ -10,7 +10,7 @@ end
 
 action_list = [ ]
 
-unless pay_period.calculated?
+if !pay_period.calculated? && pay_period.calculable?
   action_list << \
     action(:calculate, :post, calculate_pay_period_path(pay_period))
 end

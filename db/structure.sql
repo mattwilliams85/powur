@@ -207,6 +207,39 @@ CREATE TABLE invites (
 
 
 --
+-- Name: order_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE order_totals (
+    id integer NOT NULL,
+    pay_period_id character varying(255) NOT NULL,
+    user_id integer NOT NULL,
+    product_id integer NOT NULL,
+    personal_total integer DEFAULT 0 NOT NULL,
+    group_total integer NOT NULL
+);
+
+
+--
+-- Name: order_totals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE order_totals_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: order_totals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE order_totals_id_seq OWNED BY order_totals.id;
+
+
+--
 -- Name: orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -298,8 +331,8 @@ CREATE TABLE qualifications (
     id integer NOT NULL,
     type character varying(255) NOT NULL,
     path character varying(255) DEFAULT 'default'::character varying NOT NULL,
-    period integer,
-    quantity integer,
+    period integer NOT NULL,
+    quantity integer DEFAULT 1 NOT NULL,
     max_leg_percent integer,
     rank_id integer,
     product_id integer NOT NULL
@@ -368,7 +401,8 @@ CREATE TABLE rank_achievements (
     id integer NOT NULL,
     pay_period_id character varying(255) NOT NULL,
     user_id integer NOT NULL,
-    rank_id integer NOT NULL
+    rank_id integer NOT NULL,
+    path character varying(255) NOT NULL
 );
 
 
@@ -510,6 +544,13 @@ ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY order_totals ALTER COLUMN id SET DEFAULT nextval('order_totals_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::regclass);
 
 
@@ -604,6 +645,14 @@ ALTER TABLE ONLY invites
 
 
 --
+-- Name: order_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT order_totals_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -676,10 +725,17 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: idx_pay_period_user_rank; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: idx_order_totals_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX idx_pay_period_user_rank ON rank_achievements USING btree (pay_period_id, user_id, rank_id);
+CREATE UNIQUE INDEX idx_order_totals_composite_key ON order_totals USING btree (pay_period_id, user_id, product_id);
+
+
+--
+-- Name: idx_rank_achievements_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX idx_rank_achievements_composite_key ON rank_achievements USING btree (pay_period_id, user_id, rank_id, path);
 
 
 --
@@ -850,6 +906,30 @@ ALTER TABLE ONLY invites
 
 ALTER TABLE ONLY invites
     ADD CONSTRAINT invites_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: order_totals_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT order_totals_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: order_totals_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT order_totals_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: order_totals_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT order_totals_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --

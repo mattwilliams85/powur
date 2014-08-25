@@ -15,20 +15,14 @@ module Admin
       respond_to do |format|
         format.html { render 'index' }
         format.json do
-          query = query.
-            includes(:user, :product, :customer).
-            references(:user, :product, :customer)
+          unless params[:search].blank?
+            query = query.user_customer_search(params[:search])
+          end
           @orders = sort_and_page(query)
 
           render 'index'
         end
       end
-    end
-
-    def search
-      query = Order.user_customer_search(params[:search])
-
-      index(query)
     end
 
     def create
@@ -49,7 +43,6 @@ module Admin
 
     def show
     end
-
 
     private
 

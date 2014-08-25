@@ -45,6 +45,15 @@ describe '/a/users' do
 
   end
 
+  describe '/:id' do
+
+    it 'returns the user detail' do
+      get admin_user_path(@user), format: :json
+
+      expect_entities 'user-orders', 'user-order_totals'
+    end
+  end
+
   describe '#update' do
 
     let(:params) {{

@@ -69,4 +69,17 @@ describe '/a/orders' do
 
   end
 
+  describe 'GET /users/:id/orders' do
+
+    it 'renders orders for a user' do
+      create(:order, user: @user)
+      user = create(:user)
+      create_list(:order, 3, user: user)
+
+      get admin_user_orders_path(user), format: :json
+
+      expect_entities_count(3)
+    end
+  end
+
 end

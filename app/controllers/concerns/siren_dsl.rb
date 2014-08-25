@@ -1,6 +1,8 @@
 module SirenDSL
   extend ActiveSupport::Concern
 
+  Entity = Struct.new(:klass, :rel, :href)
+
   Action = Struct.new(:name, :method, :href) do
 
     Field = Struct.new(:name, :type, :attributes)
@@ -18,7 +20,7 @@ module SirenDSL
   Link = Struct.new(:rel, :href)
 
   included do
-    helper_method :siren, :klass, :entities, :action, :actions, :links, :link, :entity_rel
+    helper_method :siren, :klass, :entities, :action, :actions, :links, :link, :entity_rel, :ents, :ent
   end
 
   attr_reader :json
@@ -62,6 +64,18 @@ module SirenDSL
         json.partial!("#{key}/#{value.delete(:partial) || partial}", value)
       end
     end
+  end
+
+  def ents(*args)
+    json.entities args do |arg|
+      json.set! :class, arg.klass
+      json.rel  [ arg.rel ]
+      json.href arg.href
+    end
+  end
+
+  def ent(klass, rel, href)
+    Entity.new(klass, rel, href)
   end
 
   def action(name, method, href)

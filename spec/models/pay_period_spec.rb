@@ -20,4 +20,15 @@ describe PayPeriod, type: :model do
     end
 
   end
+
+  describe '#calculate' do
+
+    before :each do
+      create_list(:rank, 3)
+      @user = create(:user)
+    end
+
+    it '' do
+    end
+  end
 end

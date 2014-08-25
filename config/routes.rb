@@ -62,6 +62,8 @@ Rails.application.routes.draw do
         get :downline
         get :upline
       end
+      resources :orders, only: [ :index ], controller: :user_orders
+      resources :order_totals, only: [ :index ], controller: :user_order_totals
     end
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
@@ -78,7 +80,7 @@ Rails.application.routes.draw do
 
     resources :bonuses, only: [ :destroy, :update, :show ] do
       resources :requirements, only: [ :create, :update, :destroy ]
-      resources :bonus_levels, only: [ :create, :update, :destroy], as: :levels
+      resources :bonus_levels, only: [ :create, :update, :destroy ], as: :levels
     end
 
     resources :quotes, only: [ :index, :show ], as: :admin_quotes do
@@ -87,16 +89,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :orders, only: [ :index, :create, :show ] do
-      collection do
-        get '' => 'orders#search', constraints: has_params(:search)
-      end
-    end
+    resources :orders, only: [ :index, :create, :show ]
 
     resources :pay_periods, only: [ :index, :show ] do
       member do
         post :calculate
       end
+      resources :order_totals, only: [ :index ], controller: :pay_period_order_totals
     end
 
   end

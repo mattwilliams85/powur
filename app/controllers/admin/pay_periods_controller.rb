@@ -2,7 +2,7 @@ module Admin
 
   class PayPeriodsController < AdminController
 
-    before_filter :fetch_pay_period, only: [ :calculate ]
+    before_filter :fetch_pay_period, only: [ :calculate, :show ]
 
     def index
       respond_to do |format|

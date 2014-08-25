@@ -6,4 +6,8 @@ class SalesQualification < Qualification
 
   validates_presence_of :product_id, :quantity, :period
 
+  def met?(product_orders)
+    product_orders.quantity >= quantity
+  end
+
 end

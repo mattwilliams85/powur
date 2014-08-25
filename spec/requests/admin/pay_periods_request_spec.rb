@@ -4,7 +4,6 @@ describe '/a/pay_periods' do
 
   before :each do
     login_user
-
   end
 
   describe 'GET /' do
@@ -17,6 +16,17 @@ describe '/a/pay_periods' do
       expect_entities_count(5)
     end
 
+  end
+
+  describe 'GET /:id' do
+
+    it 'returns the details of the pay period' do
+      order = create(:order, order_date: Date.current - 1.month)
+
+      get pay_period_path(order.monthly_pay_period.id), format: :json
+
+      expect_entities 'pay_period-order_totals'
+    end
   end
 
   describe 'POST /:id/calculate' do

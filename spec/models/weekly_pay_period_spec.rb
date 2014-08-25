@@ -24,16 +24,23 @@ describe WeeklyPayPeriod, type: :model do
 
   end
 
-  describe '::create_from_id' do
+  describe '::find_or_create_by_id' do
 
     it 'creates a new pay period from an id value' do
       id = '2014W34'
-      pay_period = WeeklyPayPeriod.create_from_id(id)
+      pay_period = WeeklyPayPeriod.find_or_create_by_id(id)
 
       expected = Date.parse(id)
       expect(pay_period.start_date).to eq(expected)
       expect(pay_period.end_date).to eq(expected.end_of_week)
       expect(pay_period.calculated?).to_not be
+    end
+
+    it 'returns an existing pay period' do
+      id = '2014W34'
+      WeeklyPayPeriod.find_or_create_by_id(id)
+      result = WeeklyPayPeriod.find_or_create_by_id(id)
+      expect(result.id).to eq(id)
     end
 
   end

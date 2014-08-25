@@ -15,13 +15,13 @@ class WeeklyPayPeriod < PayPeriod
       (0...diff).map { |i| id_from(date + i.weeks) }
     end
 
-    def create_from_id(id)
-      start_date = Date.parse(id)
-
-      attrs = { id:         id,
-                start_date: start_date,
-                end_date:   start_date.end_of_week }
-      create!(attrs)
+    def find_or_create_by_id(id)
+      find_or_create_by(id: id) do |period|
+        period.start_date = Date.parse(id)
+        period.end_date = period.start_date.end_of_week
+      end
+    rescue ActiveRecord::RecordNotUnique
+      retry
     end
   end
 

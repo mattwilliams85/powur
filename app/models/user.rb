@@ -13,21 +13,25 @@ class User < ActiveRecord::Base
 
   has_many :quotes
   has_many :customers, through: :quotes
+  has_many :orders
+  has_many :order_totals
 
   scope :with_upline_at, ->(id, level){ 
     where('upline[?] = ?', level, id).where('id != ?', id) }
   scope :at_level, ->(rank){ where('array_length(upline, 1) = ?', rank) }
   CHILD_COUNT_LIST = "
-    select u.*, child_count - 1 downline_count
-      from (
-      select unnest(upline) parent_id, count(id) child_count
-      from users
-      group by parent_id
-    ) c inner join users u on c.parent_id = u.id
-    where u.upline[?] = ? and array_length(u.upline, 1) = ?
-    order by u.last_name, u.first_name, u.id;"
+    SELECT u.*, child_count - 1 downline_count
+    FROM (
+      SELECT unnest(upline) parent_id, count(id) child_count
+      FROM users
+      GROUP BY parent_id) c INNER JOIN users u ON c.parent_id = u.id
+    WHERE u.upline[?] = ? AND array_length(u.upline, 1) = ?
+    ORDER BY u.last_name, u.first_name, u.id;"
   scope :child_count_list, ->(user){
     find_by_sql([ CHILD_COUNT_LIST, user.level, user.id, user.level + 1 ]) }
+  scope :direct_downline, ->(*user_ids){
+    where('upline[array_length(upline, 1) - 1] IN (?)', user_ids.flatten) }
+
 
   after_create :set_upline
 

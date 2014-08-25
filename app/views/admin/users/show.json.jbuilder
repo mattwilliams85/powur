@@ -7,6 +7,10 @@ json.properties do
     :phone, :address, :city, :state, :zip)
 end
 
+ents \
+  ent(%w(list orders), 'user-orders', admin_user_orders_path(@user)),
+  ent(%w(list order_totals), 'user-order_totals', admin_user_order_totals_path(@user))
+
 actions \
   action(:update, :patch, admin_user_path(@user)).
     field(:first_name, :text, value: @user.first_name).
