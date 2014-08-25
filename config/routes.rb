@@ -94,6 +94,7 @@ Rails.application.routes.draw do
     resources :pay_periods, only: [ :index, :show ] do
       member do
         post :calculate
+        post :recalculate
       end
       resources :order_totals, only: [ :index ], controller: :pay_period_order_totals
     end

@@ -23,6 +23,7 @@ describe '/a/pay_periods' do
     it 'returns the details of the pay period' do
       order = create(:order, order_date: Date.current - 1.month)
 
+      order.monthly_pay_period.touch :calculated_at
       get pay_period_path(order.monthly_pay_period.id), format: :json
 
       expect_entities 'pay_period-order_totals'
@@ -46,4 +47,16 @@ describe '/a/pay_periods' do
     end
 
   end
+
+  describe 'POST /:id/recalculate' do
+
+    it 'recalcs a pay period' do
+      order = create(:order, order_date: Date.current - 1.month)
+      pay_period = order.weekly_pay_period
+      pay_period.calculate!
+
+      post recalculate_pay_period_path(pay_period.id), format: :json
+    end
+  end
+
 end

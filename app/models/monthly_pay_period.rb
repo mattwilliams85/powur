@@ -7,7 +7,6 @@ class MonthlyPayPeriod < PayPeriod
   end
 
   def calculate!
-    OrderTotal.generate_for_pay_period!(self)
     super
   end
 

@@ -1,6 +1,6 @@
 class PayPeriod < ActiveRecord::Base
 
-  has_many :order_totals
+  has_many :order_totals, dependent: :destroy
 
   before_create do
     self.id ||= self.class.id_from_date(self.start_date)
@@ -15,6 +15,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def calculate!
+    OrderTotal.generate_for_pay_period!(self)
     self.touch :calculated_at
   end
 
@@ -47,6 +48,11 @@ class PayPeriod < ActiveRecord::Base
           ids.each { |id| period_klass.find_or_create_by_id(id) }
         end
       end
+    end
+
+    def find_or_create_by_id(id)
+      klass = id.include?('W') ? WeeklyPayPeriod : MonthlyPayPeriod
+      klass.find_or_create_by_id(id)
     end
   end
 

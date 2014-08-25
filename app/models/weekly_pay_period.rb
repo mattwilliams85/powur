@@ -4,6 +4,10 @@ class WeeklyPayPeriod < PayPeriod
     'Weekly'
   end
 
+  def calculate!
+    super
+  end
+
   class << self
     def id_from(date)
       date.strftime('%GW%V')
