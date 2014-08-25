@@ -10,28 +10,39 @@ class MonthlyPayPeriod < PayPeriod
     super
   end
 
-  def generate_rank_achievements!
-    user_id = user_product_orders.first.user_id
-    for i in 0..user_product_orders.size
-      product_orders = [ ]
-      while user_product_orders[i].user_id == user_id
-        product_orders << user_product_orders[i]
-        i += 1
-      end
-      ranks.each do |rank|
+  # def generate_rank_achievements!
+  #   user_product_totals = self.order_totals.entries
 
-      end
-    end
-  end
+  #   users_ids = self.order_totals.map(&:user_id)
+  #   user_ids.each do |user_id|
 
-  def lifetime_user_product_orders
-    @lifetime_user_product_orders ||= begin
-      user_ids = user_product_orders.map(&:user_id).uniq
-      user_product_grouped.where(user_id: user_ids).before(self.end_date)
-    end
-  end
+  #   end
+
+  #   user_id = user_product_orders.first.user_id
+  #   for i in 0..user_product_orders.size
+  #     product_orders = [ ]
+  #     while user_product_orders[i].user_id == user_id
+  #       product_orders << user_product_orders[i]
+  #       i += 1
+  #     end
+  #     ranks.each do |rank|
+
+  #     end
+  #   end
+  # end
 
   private
+
+  def _order_totals_for_user(user_id)
+    self.order_totals.find { |t| t.user_id == user_id }
+  end
+
+  # def _gen_rank_achievements_for_user(user_id)
+  #   product_totals = _order_totals_for_user(user_id)
+  #   ranks.each do |rank|
+  #     if rank.qualifications.all? { |q| q.met?(user) }
+  #   end
+  # end
 
   class << self
     def id_from(date)

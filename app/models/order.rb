@@ -38,6 +38,9 @@ class Order < ActiveRecord::Base
   end
 
   class << self
+    def all_time_first
+      Order.order(order_date: :asc).first
+    end
   end
 
 end

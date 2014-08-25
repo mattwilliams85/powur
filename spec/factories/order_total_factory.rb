@@ -3,7 +3,9 @@ FactoryGirl.define do
     pay_period { MonthlyPayPeriod.find_or_create_by_date(DateTime.current) }
     user
     product
-    personal_total { Random.rand(100) }
-    group_total { personal_total + Random.rand(100) }
+    personal { Random.rand(100) }
+    group { personal + Random.rand(100) }
+    personal_lifetime { personal + Random.rand(100) }
+    group_lifetime { personal_lifetime + Random.rand(100) }
   end
 end

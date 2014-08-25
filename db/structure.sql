@@ -215,8 +215,10 @@ CREATE TABLE order_totals (
     pay_period_id character varying(255) NOT NULL,
     user_id integer NOT NULL,
     product_id integer NOT NULL,
-    personal_total integer DEFAULT 0 NOT NULL,
-    group_total integer NOT NULL
+    personal integer DEFAULT 0 NOT NULL,
+    "group" integer NOT NULL,
+    personal_lifetime integer DEFAULT 0 NOT NULL,
+    group_lifetime integer NOT NULL
 );
 
 

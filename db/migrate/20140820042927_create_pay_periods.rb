@@ -13,8 +13,10 @@ class CreatePayPeriods < ActiveRecord::Migration
       t.string :pay_period_id, null: false
       t.references :user, null: false
       t.references :product, null: false
-      t.integer :personal_total, null: false, default: 0
-      t.integer :group_total, null: false
+      t.integer :personal, null: false, default: 0
+      t.integer :group, null: false
+      t.integer :personal_lifetime, null: false, default: 0
+      t.integer :group_lifetime, null: false
 
       t.foreign_key :pay_periods
       t.foreign_key :users

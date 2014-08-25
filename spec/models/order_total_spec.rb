@@ -21,8 +21,8 @@ describe OrderTotal, type: :model do
       expected.each do |user, totals|
         order_total = order_totals.find { |ot| ot.user_id == user.id && ot.product_id == product_id }
         expect(order_total).to_not be_nil
-        expect(order_total.personal_total).to eq(totals.first)
-        expect(order_total.group_total).to eq(totals.last)
+        expect(order_total.personal).to eq(totals.first)
+        expect(order_total.group).to eq(totals.last)
       end
     end
 

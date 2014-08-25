@@ -23,12 +23,12 @@ class PayPeriod < ActiveRecord::Base
     @ranks ||= Rank.with_qualifications.entries
   end
 
-  def orders
-    Order.by_pay_period(self)
+  def group_order_totals
+    Order.group_totals(self.start_date, self.end_date)
   end
 
-  def user_product_orders
-    @user_product_orders ||= orders.user_product_grouped.entries
+  def personal_order_totals
+    Order.personal_totals(self.start_date, self.end_date).entries
   end
 
   class << self
@@ -37,7 +37,7 @@ class PayPeriod < ActiveRecord::Base
     end
 
     def generate_missing
-      first_order = Order.order(order_date: :asc).first
+      first_order = Order.all_time_first
       return unless first_order
 
       [ MonthlyPayPeriod, WeeklyPayPeriod ].each do |period_klass|
