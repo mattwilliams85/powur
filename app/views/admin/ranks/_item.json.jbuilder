@@ -6,8 +6,10 @@ json.properties do
   json.(rank, :id, :title)
 end
 
-json.entities [ { rank: rank, data: rank.qualifications } ], 
-  partial: 'admin/ranks/entities', as: :entity
+unless rank.id == 1
+  json.entities [ { rank: rank, data: rank.qualifications } ], 
+    partial: 'admin/ranks/entities', as: :entity
+end
 
 action_list = [ ]
 action_list << \

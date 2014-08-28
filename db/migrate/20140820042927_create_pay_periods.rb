@@ -38,5 +38,8 @@ class CreatePayPeriods < ActiveRecord::Migration
     add_index :rank_achievements, [ :pay_period_id, :user_id, :rank_id, :path ], unique: true,
       name: 'idx_rank_achievements_composite_key'
 
+    create_table :bonus_payment do |t|
+      
+    end
   end
 end

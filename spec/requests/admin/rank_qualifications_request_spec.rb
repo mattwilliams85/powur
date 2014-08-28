@@ -4,7 +4,7 @@ describe '/a/ranks/:id/qualifications' do
 
   before :each do
     login_user
-    @rank = create(:rank)
+    @rank = create_list(:rank, 2).last
   end
 
   describe '#create' do
