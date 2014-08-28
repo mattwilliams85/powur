@@ -28,6 +28,7 @@ describe '/a/orders' do
 
       3.times.each do |i|
         user = create(:user, first_name: 'Alice', last_name: 'Smith', email: "foo#{i}@bar.com")
+        create(:order, user: user)
       end
 
       get orders_path, format: :json, search: 'gary'

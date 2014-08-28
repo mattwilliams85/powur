@@ -64,6 +64,7 @@ Rails.application.routes.draw do
       end
       resources :orders, only: [ :index ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
+      resources :rank_achievements, only: [ :index ], controller: :user_rank_achievements
     end
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
@@ -97,6 +98,7 @@ Rails.application.routes.draw do
         post :recalculate
       end
       resources :order_totals, only: [ :index ], controller: :pay_period_order_totals
+      resources :rank_achievements, only: [ :index ], controller: :pay_period_rank_achievements
     end
 
   end

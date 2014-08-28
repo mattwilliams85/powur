@@ -3,13 +3,16 @@ siren json
 json.partial! 'item', user: @user, detail: true
 
 json.properties do
-  json.(@user, :first_name, :last_name, :email, 
+  json.(@user, :first_name, :last_name, :email,
     :phone, :address, :city, :state, :zip)
+  json.lifetime_rank @user.lifetime_rank || 1
+  json
 end
 
 ents \
   ent(%w(list orders), 'user-orders', admin_user_orders_path(@user)),
-  ent(%w(list order_totals), 'user-order_totals', admin_user_order_totals_path(@user))
+  ent(%w(list order_totals), 'user-order_totals', admin_user_order_totals_path(@user)),
+  ent(%w(list rank_achievements), 'user-rank_achievements', admin_user_rank_achievements_path(@user))
 
 actions \
   action(:update, :patch, admin_user_path(@user)).

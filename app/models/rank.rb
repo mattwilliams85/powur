@@ -34,6 +34,10 @@ class Rank < ActiveRecord::Base
     grouped_qualifications.keys
   end
 
+  def display
+    "#{self.title} (#{self.id})"
+  end
+
   class << self
     def rank_range
       return nil unless Rank.count > 0 

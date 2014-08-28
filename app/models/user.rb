@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :customers, through: :quotes
   has_many :orders
   has_many :order_totals
+  has_many :rank_achievements
 
   scope :with_upline_at, ->(id, level){ 
     where('upline[?] = ?', level, id).where('id != ?', id) }
