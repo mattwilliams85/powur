@@ -26,8 +26,12 @@ class Rank < ActiveRecord::Base
     self.qualifications.all? { |q| q.lifetime? }
   end
 
-  def qualifications_met?(user, product_orders)
-    
+  def grouped_qualifications
+    @grouped_qualifications ||= self.qualifications.group_by(&:path)
+  end
+
+  def qualification_paths
+    grouped_qualifications.keys
   end
 
   class << self

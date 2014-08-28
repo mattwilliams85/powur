@@ -42,6 +42,9 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  config.after(:all) do
+    DatabaseCleaner.clean
+  end
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:

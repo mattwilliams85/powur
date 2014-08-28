@@ -29,9 +29,8 @@ class User < ActiveRecord::Base
     ORDER BY u.last_name, u.first_name, u.id;"
   scope :child_count_list, ->(user){
     find_by_sql([ CHILD_COUNT_LIST, user.level, user.id, user.level + 1 ]) }
-  scope :direct_downline, ->(*user_ids){
+  scope :with_parent, ->(*user_ids){
     where('upline[array_length(upline, 1) - 1] IN (?)', user_ids.flatten) }
-
 
   after_create :set_upline
 
@@ -59,12 +58,34 @@ class User < ActiveRecord::Base
     self.roles.include?(role.to_s)
   end
 
+  def parent_id
+    self.upline[-2]
+  end
+
   private
 
   def set_upline
     if self.upline.nil? || self.upline.empty?
       self.upline = self.sponsor ? self.sponsor.upline + [self.id] : [self.id]
       User.where(id: self.id).update_all(upline: self.upline)
+    end
+  end
+
+  class << self
+    UPDATE_LIFETIME_RANKS = "
+      UPDATE users
+      SET lifetime_rank = ra.rank_id
+      FROM (
+        SELECT user_id, max(rank_id) rank_id
+        FROM rank_achievements
+        WHERE pay_period_id = ?
+        GROUP BY user_id) ra
+      WHERE users.id = ra.user_id AND 
+        (ra.rank_id > users.lifetime_rank OR users.lifetime_rank IS NULL)"
+
+    def update_lifetime_ranks(pay_period_id)
+      sql = sanitize_sql([ UPDATE_LIFETIME_RANKS, pay_period_id ])
+      connection.execute(sql)
     end
   end
 

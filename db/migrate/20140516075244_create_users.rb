@@ -11,9 +11,11 @@ class CreateUsers < ActiveRecord::Migration
       t.datetime  :reset_sent_at
       t.string    :roles, array: true, default: []
       t.integer   :upline, array: true, default: []
+      t.integer   :lifetime_rank
       t.timestamps null: false
 
       t.belongs_to :sponsor, index: true
+      t.foreign_key :ranks, column: :lifetime_rank, primary_key: :id
       t.foreign_key :users, column: :sponsor_id, primary_key: :id
     end
 

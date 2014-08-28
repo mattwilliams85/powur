@@ -19,7 +19,7 @@ class Order < ActiveRecord::Base
   scope :personal_totals, ->(start_date, end_date){
     after(start_date).before(end_date).user_product_grouped }
   GROUP_TOTALS_SQL = "
-    SELECT o.parent_id user_id, o.product_id, o.quantity
+    SELECT u.id user_id, o.product_id, o.quantity
     FROM (
       SELECT unnest(u.upline) parent_id, product_id, sum(o.quantity) quantity
       FROM orders o

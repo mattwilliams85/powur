@@ -4,6 +4,9 @@ class OrderTotal < ActiveRecord::Base
   belongs_to :user
   belongs_to :product
 
+  def user_order_totals
+  end
+
   class << self
     def generate_for_pay_period!(pay_period)
       first_order = Order.all_time_first or raise "No generation without first order"
@@ -36,6 +39,26 @@ class OrderTotal < ActiveRecord::Base
           attrs[key] = total.quantity if total
         end
 
+        attrs
+      end
+
+      group_sales_not_in_pay_period = group_lifetime_totals.select do |total|
+        !records.any? { |record| record[:user_id] == total.user_id }
+      end
+
+      records += group_sales_not_in_pay_period.map do |group_total|
+        attrs = {
+          pay_period_id:  pay_period.id,
+          user_id:        group_total.user_id,
+          product_id:     group_total.product_id,
+          personal:       0,
+          group:          0,
+          group_lifetime: group_total.quantity }
+        total = personal_lifetime_totals.find do |t|
+          t.user_id == group_total.user_id &&
+            t.product_id && group_total.product_id
+        end
+        attrs[:personal_lifetime] = total.quantity if total
         attrs
       end
 

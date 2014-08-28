@@ -3,6 +3,8 @@ class Qualification < ActiveRecord::Base
   belongs_to :rank
   belongs_to :product
 
+  validates_presence_of :product_id, :quantity, :period
+
   TYPES =  { 
     sales:       'Personal Sales', 
     group_sales: 'Group Sales' }

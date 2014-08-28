@@ -496,6 +496,7 @@ CREATE TABLE users (
     reset_sent_at timestamp without time zone,
     roles character varying(255)[] DEFAULT '{}'::character varying[],
     upline integer[] DEFAULT '{}'::integer[],
+    lifetime_rank integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     sponsor_id integer
@@ -1028,6 +1029,14 @@ ALTER TABLE ONLY rank_achievements
 
 ALTER TABLE ONLY rank_achievements
     ADD CONSTRAINT rank_achievements_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: users_lifetime_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_lifetime_rank_fk FOREIGN KEY (lifetime_rank) REFERENCES ranks(id);
 
 
 --

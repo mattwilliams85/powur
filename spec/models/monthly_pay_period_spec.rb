@@ -41,45 +41,47 @@ describe MonthlyPayPeriod, type: :model do
   describe '#calculate' do
 
     before :each do
-      create_list(:rank, 3)
+      create_list(:rank, 5)
       @user = create(:user)
       @children = create_list(:user, 2, sponsor: @user)
+      @product = create(:product)
+      @order_date = DateTime.current - 1.month
     end
 
-    it 'generates rank achievements' do
-      product = create(:product)
-      qualification = create(:sales_qualification, 
-        product:  product,
-        quantity: 3,
-        rank_id:  1,
-        period:   :pay_period)
-      order_date = DateTime.current - 1.month
-      create(:order,
-        product:    product,
-        user:       @user,
-        order_date: order_date)
+    def create_order(user, quantity = 1)
       order = create(:order,
-        product:    product,
-        user:       @user,
-        order_date: order_date,
-        quantity:   2)
-      order = create(:order,
-        product:    product,
-        user:       @children.first,
-        order_date: order_date,
-        quantity:   1)
-      order = create(:order,
-        product:    product,
-        user:       @children.last,
-        order_date: order_date,
-        quantity:   1)
+        product:    @product,
+        user:       user,
+        order_date: @order_date,
+        quantity:   quantity)
+    end
 
-      # orders = Order.group_sales(@user.id)
-      # period = order.monthly_pay_period
-      # expect(period.user_product_orders.size).to eq(1)
-      # aggregate_order = period.user_product_orders.first
-      # expect(aggregate_order.quantity).to eq(3)
-      # expect(aggregate_order.product_id).to eq(product.id)
+
+    it 'generates rank achievements' do
+      create(:sales_qualification,
+        product: @product, quantity: 3, rank_id: 2, period: :pay_period)
+      create(:group_sales_qualification,
+        product: @product, quantity: 6, rank_id: 3, period: :pay_period, max_leg_percent: 70)
+      create(:sales_qualification,
+        product: @product, quantity: 5, rank_id: 4, period: :lifetime)
+      create(:group_sales_qualification,
+        product: @product, quantity: 10, rank_id: 4, period: :pay_period, max_leg_percent: 70)
+      order_date = DateTime.current - 1.month
+      order = create_order(@user)
+      create_order(@user, 5)
+      create_order(@children.first, 7)
+      create_order(@children.last, 3)
+
+      period = order.monthly_pay_period
+      period.calculate!
+
+      expect(period.rank_achievements.count).to eq(5)
+      user_ranks = period.rank_achievements.where(user_id: @user.id)
+      expect(user_ranks.count).to eq(3)
+
+      expect(User.find(@user.id).lifetime_rank).to eq(4)
+      expect(User.find(@children.first.id).lifetime_rank).to eq(2)
+      expect(User.find(@children.last.id).lifetime_rank).to eq(2)
     end
   end
 

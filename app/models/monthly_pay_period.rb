@@ -1,6 +1,6 @@
 class MonthlyPayPeriod < PayPeriod
 
-  has_many :rank_achievements
+  has_many :rank_achievements, foreign_key: :pay_period_id
 
   def type_display
     'Monthly'
@@ -8,41 +8,57 @@ class MonthlyPayPeriod < PayPeriod
 
   def calculate!
     super
+    create_rank_achievements!
   end
 
-  # def generate_rank_achievements!
-  #   user_product_totals = self.order_totals.entries
+  def create_rank_achievements!
+    records = []
 
-  #   users_ids = self.order_totals.map(&:user_id)
-  #   user_ids.each do |user_id|
+    records = user_ids.inject([]) do |memo, id|
+      memo + rank_achievements_for_user(id)
+    end
 
-  #   end
+    RankAchievement.create!(records)
+    User.update_lifetime_ranks(self)
+  end
 
-  #   user_id = user_product_orders.first.user_id
-  #   for i in 0..user_product_orders.size
-  #     product_orders = [ ]
-  #     while user_product_orders[i].user_id == user_id
-  #       product_orders << user_product_orders[i]
-  #       i += 1
-  #     end
-  #     ranks.each do |rank|
+  def ranks
+    @ranks ||= Rank.with_qualifications.entries
+  end
 
-  #     end
-  #   end
-  # end
+  def qualification_paths
+    @qualification_paths ||= ranks.second.qualification_paths
+  end
+
+  def user_ids
+    @user_ids ||= order_totals.map(&:user_id)
+  end
+
+  def genealogy
+    @genealogy ||= User.select(:id, :upline, :lifetime_rank).with_parent(*user_ids).entries
+  end
+
+  def rank_achievements_for_user(user_id)
+    attrs = []
+
+    qualification_paths.each do |path|
+      ranks[1..-1].each do |rank|
+        qualifications = rank.grouped_qualifications[path]
+        break if qualifications.nil? ||
+          qualifications.any? { |q| !q.met?(user_id, self) }
+
+        attrs << {
+          pay_period_id:  self.id,
+          user_id:        user_id,
+          rank_id:        rank.id,
+          path:           path }
+      end
+    end
+
+    attrs
+  end
 
   private
-
-  def _order_totals_for_user(user_id)
-    self.order_totals.find { |t| t.user_id == user_id }
-  end
-
-  # def _gen_rank_achievements_for_user(user_id)
-  #   product_totals = _order_totals_for_user(user_id)
-  #   ranks.each do |rank|
-  #     if rank.qualifications.all? { |q| q.met?(user) }
-  #   end
-  # end
 
   class << self
     def id_from(date)
