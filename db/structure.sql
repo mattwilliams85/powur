@@ -69,6 +69,34 @@ CREATE TABLE bonus_levels (
 
 
 --
+-- Name: bonus_payment; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE bonus_payment (
+    id integer NOT NULL
+);
+
+
+--
+-- Name: bonus_payment_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bonus_payment_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: bonus_payment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bonus_payment_id_seq OWNED BY bonus_payment.id;
+
+
+--
 -- Name: bonus_plans; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -300,9 +328,10 @@ CREATE TABLE products (
     name character varying(255) NOT NULL,
     bonus_volume integer NOT NULL,
     commission_percentage integer DEFAULT 100 NOT NULL,
+    distributor boolean DEFAULT false NOT NULL,
     quote_data character varying(255)[] DEFAULT '{}'::character varying[],
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -526,6 +555,13 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY bonus_payment ALTER COLUMN id SET DEFAULT nextval('bonus_payment_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY bonus_plans ALTER COLUMN id SET DEFAULT nextval('bonus_plans_id_seq'::regclass);
 
 
@@ -605,6 +641,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 ALTER TABLE ONLY bonus_levels
     ADD CONSTRAINT bonus_levels_pkey PRIMARY KEY (bonus_id, level);
+
+
+--
+-- Name: bonus_payment_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY bonus_payment
+    ADD CONSTRAINT bonus_payment_pkey PRIMARY KEY (id);
 
 
 --
