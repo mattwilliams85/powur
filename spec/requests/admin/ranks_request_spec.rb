@@ -19,12 +19,12 @@ describe '/a/ranks' do
       get ranks_path, format: :json
 
       expect_classes 'ranks'
-      expect_entities_count(3)
-
-      action = find_delete_action(2)
-      expect(action).to be_nil
+      expect_entities_count(4)
 
       action = find_delete_action(3)
+      expect(action).to be_nil
+
+      action = find_delete_action(4)
       expect(action).to_not be_nil
 
       first_rank = json_body['entities'].first
@@ -68,9 +68,9 @@ describe '/a/ranks' do
     it 'deletes the last rank' do
       create_list(:qualified_rank, 2)
 
-      delete rank_path(2), format: :json
-
-      expect_entities_count(1)
+      count = Rank.last.id
+      delete rank_path(count), format: :json
+      expect_entities_count(count - 1)
     end
 
   end

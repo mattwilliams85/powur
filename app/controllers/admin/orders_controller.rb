@@ -32,7 +32,7 @@ module Admin
         product:  quote.product,
         user:     quote.user,
         customer: quote.customer)
-      attrs[:order_date] ||= DateTime.current
+      attrs['order_date'] ||= DateTime.current
 
       @order = quote.create_order!(attrs)
 

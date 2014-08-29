@@ -92,16 +92,6 @@ describe '/a/bonuses' do
 
       end
 
-      describe 'source, no ranks' do
-        it 'does not inlude the amounts field in the update action' do
-          create(:bonus_requirement, bonus: @bonus)
-          get bonus_path(@bonus), format: :json
-
-          expect(update_action).to be
-          expect(amounts).to_not be
-        end
-      end
-
       describe 'ranks, no source' do
         it 'does not inlude the amounts field in the update action' do
           create_list(:rank, 3)

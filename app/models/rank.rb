@@ -43,5 +43,14 @@ class Rank < ActiveRecord::Base
       return nil unless Rank.count > 0 
       (Rank.order(:id).first.id..Rank.order(:id).last.id)
     end
+
+    def find_or_create_by_id(id)
+      find_or_create_by(id: id) do |rank|
+        rank.title = "Rank #{id}"
+      end
+    rescue ActiveRecord::RecordNotUnique
+      retry
+    end
   end
+
 end

@@ -43,7 +43,7 @@ describe '/a/orders' do
     it 'creates an order from a quote' do
       quote = create(:quote)
 
-      post orders_path, quote_id: quote.id, format: :json
+      post orders_path, quote_id: quote.id, order_date: '2014-07-27T22:11:14.599Z', format: :json
 
       expect_classes 'order'
     end
