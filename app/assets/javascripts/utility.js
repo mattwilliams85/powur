@@ -341,6 +341,40 @@ function _formatPopupData(e, _options){
     return _popupData;
 }
 
+function _paginateData(_dataObj, _options){
+    if(!_options.actionableCount || _options.actionableCount <5) _options.actionableCount=5;
+    if(!_options.useControls) _options.useControls=true;
+    if(!_options.prefix) _options.prefix="js-page";
+
+    var _currentPage = _dataObj.value;
+    var _startPage = ((_currentPage - Math.ceil(_options.actionableCount/2))>=1)? (_currentPage - Math.ceil(_options.actionableCount/2)):1;
+    var _endPage = ((_currentPage + Math.ceil(_options.actionableCount/2))<_dataObj.max)? (_currentPage + Math.ceil(_options.actionableCount/2)):_dataObj.max;
+    var _pages = [];
+    if(_startPage>2) {
+        _pages.push({display:1, link:_options.prefix+" 1"});
+        _pages.push({display:"...", link:""});
+    }
+    if(_startPage==2) _pages.push({display:1, link:_options.prefix+" 1"});
+
+    for(i=_startPage; i<=_endPage; i++){
+        if(i==_currentPage) _pages.push({display:i, link:""});
+        else _pages.push({display:i, link:_options.prefix+" "+i});
+    }
+
+    if(_endPage<_dataObj.max-1){
+        _pages.push({display:"...", link:""});
+        _pages.push({display:_dataObj.max, link:_options.prefix+" "+_dataObj.max});
+    }
+    if(_endPage == _dataObj.max-1) _pages.push({display:_dataObj.max, link:_options.prefix+" "+_dataObj.max});
+
+    var returnObj={};
+    returnObj.currentPage = _currentPage;
+    returnObj.startPage = _startPage;
+    returnObj.endPage = _endPage;
+    returnObj.display = _pages;
+    return returnObj;
+}
+
 
 //Usage:
 //  EyeCueLab.JSON.getObjectsByPattern( data, 

@@ -16,6 +16,24 @@
 
     </tr>
     {{/each}}
+
+    {{#if this.paginationInfo}}
+    <tr>
+        <td colspan="5" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">
+            {{#each this.paginationInfo.display}}
+            <div class="js-pagination">
+                {{#if this.link}}
+                    <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
+                {{else}}
+                    {{this.display}}
+
+                {{/if}}
+            </div>
+            {{/each}}
+
+        </td>
+    </tr>
+    {{/if}}
     <!--
     <tr>
         <td colspan="6" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">

@@ -6,6 +6,17 @@
 </span>    
 
 <span class="subtext summary">
+    Select a Pay Period:
+    <select name="sort" class="js-pay_period_select">
+        {{#each this.pay_periods}}
+        <option value="created">Creation Date</option>
+        {{/each}}
+    </select>
+</span>
+
+<hr style="border-top: 1px dashed #aaa;">
+
+<span class="subtext summary">
     Sort Data By:
     <select name="sort" class="js-quotes_sort_type">
         <option value="created">Creation Date</option>

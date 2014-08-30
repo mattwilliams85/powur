@@ -206,6 +206,9 @@ jQuery(function($){
                     });                
 
                     _displayData=(_data.orders.search.results.entities.length>0)? _data.orders.search.results : _data.orders;
+                    _displayData.paginationInfo= _paginateData(_getObjectsByCriteria(_data.orders, {name:"page"})[0], {prefix:"js-orders", actionableCount:10});
+
+
                     _getTemplate("/templates/admin/quotes/orders/_orders.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-search_box").on("click", function(e){e.preventDefault();});
@@ -217,12 +220,17 @@ jQuery(function($){
                                 _searchOrders(e, function(){displayQuotes("#admin-quotes-orders")});
                             }
                         });
-
+                        //pagination
+                        $(".js-pagination a").on("click", function(e){
+                            e.preventDefault();
+                            _loadOrdersInfo(function(){displayQuotes("#admin-quotes-orders");}, {_postObj:{page:$(this).attr("data-page-number").split(" ")[1]}});
+                        });
                     });
 
                 break;
             }
         }
+
 
         function _searchQuotes(e, _callback){
             _ajax({
@@ -410,10 +418,12 @@ jQuery(function($){
             });
         }
 
-        function _loadOrdersInfo(_callback){
+        function _loadOrdersInfo(_callback, _options){
+            var _postObj=(_options && _options._postObj)?_options._postObj:{};
             _ajax({
                 _ajaxType:"get",
                 _url:"/a/orders",
+                _postObj:_postObj,
                 _callback:function(data, text){
                     _data.orders = data;
                     _data.orders.entities.forEach(function(_quote){
