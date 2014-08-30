@@ -4,7 +4,7 @@ module Admin
 
     before_filter :fetch_order, only: [ :show ]
 
-    SORTS = { 
+    SORTS = {
       order_date: { order_date: :desc },
       customer:   'customers.last_name asc',
       user:       'users.last_name asc' }
@@ -15,6 +15,9 @@ module Admin
       respond_to do |format|
         format.html { render 'index' }
         format.json do
+          query = query.
+            includes(:user, :customer, :product).
+            references(:user, :customer, :product)
           unless params[:search].blank?
             query = query.user_customer_search(params[:search])
           end

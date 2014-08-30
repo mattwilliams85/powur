@@ -36,6 +36,21 @@ describe '/a/orders' do
       expect_entities_count(2)
     end
 
+    it 'sorts and pages orders' do
+      users = [ 'aaa', 'ddd', 'bbb', 'ggg', 'ccc' ].map do |last_name|
+        user = create(:user, last_name: last_name)
+        create(:order, user: user)
+        user
+      end
+
+      get orders_path, format: :json, sort: 'user', limit: 3, page: 2
+
+      result = json_body['entities'].map { |e| e['properties']['distributor'] }
+      expected = [ 'ddd', 'ggg' ].map { |name| users.find { |u| u.last_name == name }.full_name }
+      
+      expect(result).to eq(expected)
+    end
+
   end
 
   describe 'POST /' do

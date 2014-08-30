@@ -2,6 +2,11 @@ siren json
 
 klass :orders, :list
 
+# json.properties do
+#   json.paging do
+#   end
+# end
+
 json.entities @orders, partial: 'item', as: :order
 
 actions \
