@@ -36,6 +36,20 @@ describe 'order totals', type: :request do
       expect_entities_count(2)
     end
 
+    it 'uses a secondary sort on id' do
+      users = create_list(:user, 5, last_name: 'aaaa')
+      totals = users.map do |u|
+        create(:order_total, id: rand(1000...100_000), pay_period: @pay_period, user: u)
+      end
+
+      get pay_period_order_totals_path(@pay_period), format: :json
+
+      result = json_body['entities'].map { |e| e['properties']['id'] }
+      expected = totals.sort { |a,b| a.id <=> b.id }.map(&:id)
+
+      expect(result).to eq(expected)
+    end
+
   end
 
   describe '/a/users/:id/order_totals' do

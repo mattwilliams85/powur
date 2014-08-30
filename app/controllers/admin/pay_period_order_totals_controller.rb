@@ -15,8 +15,7 @@ module Admin
     def fetch_pay_period
       pay_period = PayPeriod.find(params[:pay_period_id])
 
-      @order_totals = pay_period.order_totals.includes(:user).
-        references(:user).order(:user_id)
+      @order_totals = pay_period.order_totals
       @orders_totals_path = pay_period_order_totals_path(pay_period)
     end
 

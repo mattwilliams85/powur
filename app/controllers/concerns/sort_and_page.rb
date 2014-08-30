@@ -8,7 +8,8 @@ module SortAndPage
     attr_reader :sort_and_page_options
 
     def sort_and_page(opts = {})
-      @sort_and_page_options = opts
+      @sort_and_page_options = opts.reverse_merge(
+        max_limit: 50, secondary: { id: :asc })
       self.include InstanceMethods
 
       self.instance_eval do
@@ -37,11 +38,13 @@ module SortAndPage
     end
 
     def limit
-      @limit ||= params[:limit] ? params[:limit].to_i : (_sp_opts[:max_limit] || 50)
+      @limit ||= params[:limit] ? 
+        [ params[:limit].to_i, _sp_opts[:max_limit] ].min : _sp_opts[:max_limit]
     end
 
     def sort_and_page(query)
-      @items = query.order(sort_order).limit(limit).offset(offset)
+      @items = query.order(sort_order).order(_sp_opts[:secondary]).
+        limit(limit).offset(offset)
     end
 
     def item_count
@@ -50,6 +53,10 @@ module SortAndPage
 
     def page
       @page ||= params[:page] ? params[:page].to_i : 1
+    end
+
+    def paged?
+
     end
 
     def total_pages
