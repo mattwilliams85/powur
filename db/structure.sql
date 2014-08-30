@@ -135,7 +135,7 @@ CREATE TABLE bonus_sales_requirements (
     bonus_id integer NOT NULL,
     product_id integer NOT NULL,
     quantity integer DEFAULT 1 NOT NULL,
-    source boolean DEFAULT false NOT NULL
+    source boolean DEFAULT true NOT NULL
 );
 
 
@@ -328,8 +328,8 @@ CREATE TABLE products (
     name character varying(255) NOT NULL,
     bonus_volume integer NOT NULL,
     commission_percentage integer DEFAULT 100 NOT NULL,
-    distributor boolean DEFAULT false NOT NULL,
     quote_data character varying(255)[] DEFAULT '{}'::character varying[],
+    distributor_only boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

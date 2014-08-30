@@ -1,6 +1,6 @@
 class BonusPlan < ActiveRecord::Base
 
-  has_many :bonuses
+  has_many :bonuses, dependent: :destroy
 
   ACTIVE_AT_SQL = '(start_year < :start_year) OR (start_year = :start_year AND start_month <= :start_month)'
   scope :active_before, ->(year, month){ 

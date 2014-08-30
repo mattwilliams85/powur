@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
 
-  has_many :qualifications
+  has_many :qualifications, dependent: :destroy
+  has_many :bonus_sales_requirements, dependent: :destroy
 
   validates_presence_of :name, :bonus_volume, :commission_percentage
 
