@@ -67,4 +67,14 @@ describe User, type: :model do
 
   end
 
+  describe '#make_customer!' do
+    it 'creates a customer record from a user' do
+      user = create(:user)
+      user.make_customer!
+
+      customer = Customer.where(first_name: user.first_name, last_name: user.last_name).first
+      expect(customer).to_not be_nil
+    end
+  end
+
 end

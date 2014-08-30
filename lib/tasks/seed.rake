@@ -21,9 +21,10 @@ namespace :sunstand do
         commission_percentage:  80,
         quote_data:             %w(utility rate_schedule roof_material roof_age kwh))
       Product.create!(
-        id:           CERT_ITEM_ID,
-        name:         'SunStand Consultant Certification', 
-        bonus_volume: 300)
+        id:               CERT_ITEM_ID,
+        name:             'SunStand Consultant Certification', 
+        bonus_volume:     300,
+        distributor_only: true)
       puts "Created Products for solar item and consultant certification"
     end
 

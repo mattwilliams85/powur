@@ -33,6 +33,10 @@ class User < ActiveRecord::Base
   scope :with_parent, ->(*user_ids){
     where('upline[array_length(upline, 1) - 1] IN (?)', user_ids.flatten) }
 
+  before_validation do
+    self.lifetime_rank ||= Rank.find_or_create_by_id(1)
+  end
+
   after_create :set_upline
 
   def full_name
@@ -61,6 +65,10 @@ class User < ActiveRecord::Base
 
   def parent_id
     self.upline[-2]
+  end
+
+  def make_customer!
+    Customer.create!(first_name: first_name, last_name: last_name, email: email)
   end
 
   private

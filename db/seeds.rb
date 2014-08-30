@@ -38,10 +38,3 @@ User.create(
   zip:          '92023',
   url_slug:     'kevin',
   roles:        [ 'admin' ] )
-
-Product.create(
-  name: 'SunRun Solar Item', 
-  bonus_volume: 500,
-  quote_data: %w(utility rate_schedule roof_material roof_age kwh))
-
-Rank.create(id: 1, title: 'Advocate')

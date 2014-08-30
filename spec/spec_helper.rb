@@ -28,7 +28,7 @@ RSpec.configure do |config|
       name:          'Solar Item',
       bonus_volume:  500,
       quote_data:    %w(utility rate_schedule roof_material roof_age kwh))
-    # Rank.create(id: 1, title: 'Advocate')
+    Rank.create(id: 1, title: 'Advocate')
   end
 
   config.before(:each) do

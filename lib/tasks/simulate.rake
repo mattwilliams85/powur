@@ -11,7 +11,8 @@ namespace :sunstand do
         zip:        Faker::Address.zip,
         address:    Faker::Address.street_address,
         city:       Faker::Address.city,
-        state:      Faker::Address.state_abbr }.merge(attrs)
+        state:      Faker::Address.state_abbr,
+        lifetime_rank: 1 }.merge(attrs)
 
       User.create!(attrs)
     end
@@ -44,6 +45,8 @@ namespace :sunstand do
 
       users = User.all.to_a
 
+      Rank.find_or_create_by_id(1)
+
       if users.empty?
         puts "no users found generating 5 root admin users"
         users = 1.upto(5).map { |i| generate_user(roles: %w(admin)) }
@@ -66,6 +69,51 @@ namespace :sunstand do
       total = args[:total] - remainders.inject(:+)
 
       puts "created #{total} users"
+    end
+
+    def get_random_percentage_of_users(percentage)
+      User.all.select { rand(1...100) <= percentage }.entries
+    end
+
+    def random_order_date(start_date, days)
+      days_from_start = rand(0...days)
+      start_date + days_from_start.days
+    end
+
+    task :orders, [ :per_user, :months_back ] => :environment do |t, args|
+      Order.destroy_all
+      Quote.destroy_all
+      Customer.destroy_all
+
+      user_count = User.count
+      args.with_defaults(per_user: 20, months_back: 4)
+
+      start_date = (DateTime.current - args[:months_back].months).beginning_of_month
+      end_date = DateTime.current
+      days_from_start = end_date.mjd - start_date.mjd
+
+      users = get_random_percentage_of_users(75)
+      puts "Creating #{users.size} purchaes of the Cert Product out of #{user_count} users"
+
+      users.each do |user|
+        order_date =  random_order_date(start_date, days_from_start)
+        Order.create!(user: user,
+          product_id: CERT_ITEM_ID, order_date: order_date, customer: user.make_customer!)
+      end
+
+      puts "Creating an average of #{args[:per_user]} orders per user between dates #{start_date} and #{end_date}"
+      users = get_random_percentage_of_users(85)
+
+      users.each do |user|
+        order_amount = rand(0...args[:per_user]*2)
+        puts "Creating #{order_amount} Solar Item order(s) for user #{user.full_name}"
+        0.upto(order_amount) do |i|
+          order_date =  random_order_date(start_date, days_from_start)
+          Order.create!(user: user,
+            product_id: SOLAR_ITEM_ID, order_date: order_date, customer: user.make_customer!)
+        end
+      end
+
     end
   end
 end
