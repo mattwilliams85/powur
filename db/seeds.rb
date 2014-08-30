@@ -1,8 +1,9 @@
 
+puts 'Seeding Adming users'
 User.create(
-  email:        'jon@sunstand.com', 
-  password:     'solarpower', 
-  first_name:   'Jonanthan', 
+  email:        'jon@sunstand.com',
+  password:     'solarpower',
+  first_name:   'Jonanthan',
   last_name:    'Budd',
   phone:        '858.555.1212',
   zip:          '92023',
@@ -10,9 +11,9 @@ User.create(
   roles:        [ 'admin' ] )
 
 User.create(
-  email:        'paul.walker@eyecuelab.com', 
-  password:     'solarpower', 
-  first_name:   'Paul', 
+  email:        'paul.walker@eyecuelab.com',
+  password:     'solarpower',
+  first_name:   'Paul',
   last_name:    'Walker',
   phone:        '858.555.1212',
   zip:          '92023',
@@ -20,7 +21,7 @@ User.create(
   roles:        [ 'admin' ] )
 
 User.create(
-  email:        'rick.hou@eyecuelab.com', 
+  email:        'rick.hou@eyecuelab.com',
   password:     'solarpower', 
   first_name:   'Rick', 
   last_name:    'Hou',
@@ -30,9 +31,9 @@ User.create(
   roles:        [ 'admin' ] )
 
 User.create(
-  email:        'kevin.ponto@eyecuelab.com', 
-  password:     'solarpower', 
-  first_name:   'Kevin', 
+  email:        'kevin.ponto@eyecuelab.com',
+  password:     'solarpower',
+  first_name:   'Kevin',
   last_name:    'Ponto',
   phone:        '858.555.1212',
   zip:          '92023',
