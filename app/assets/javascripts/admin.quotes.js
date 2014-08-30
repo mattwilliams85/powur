@@ -206,7 +206,7 @@ jQuery(function($){
                     });                
 
                     _displayData=(_data.orders.search.results.entities.length>0)? _data.orders.search.results : _data.orders;
-                    _displayData.paginationInfo= _paginateData(_getObjectsByCriteria(_data.orders, {name:"page"})[0], {prefix:"js-orders", actionableCount:10});
+                    _displayData.paginationInfo= _paginateData(_getObjectsByCriteria(_displayData, {name:"page"})[0], {prefix:"js-orders", actionableCount:10});
 
 
                     _getTemplate("/templates/admin/quotes/orders/_orders.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
@@ -223,7 +223,8 @@ jQuery(function($){
                         //pagination
                         $(".js-pagination a").on("click", function(e){
                             e.preventDefault();
-                            _loadOrdersInfo(function(){displayQuotes("#admin-quotes-orders");}, {_postObj:{page:$(this).attr("data-page-number").split(" ")[1]}});
+                            _searchOrders(e, function(){displayQuotes("#admin-quotes-orders")});
+                            //_loadOrdersInfo(function(){displayQuotes("#admin-quotes-orders");}, {_postObj:{page:$(this).attr("data-page-number").split(" ")[1]}});
                         });
                     });
 
@@ -254,12 +255,14 @@ jQuery(function($){
         }
 
        function _searchOrders(e, _callback){
+            _data.orders.search.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
             _ajax({
                 _ajaxType:"get",
                 _url:"/a/orders",
                 _postObj:{
                     search:_data.orders.search.term,
                     sort:_data.orders.sortBy,
+                    page:_data.orders.search.page,
                 },
                 _callback:function(data, text){
                     _data.orders.search.results=data;
