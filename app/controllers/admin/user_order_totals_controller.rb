@@ -4,6 +4,12 @@ module Admin
 
     before_action :fetch_user
 
+    SORTS = {
+      pay_period: { pay_period_id: :desc },
+      personal:   { personal: :desc } }
+
+    sort_and_page available_sorts: SORTS
+
     private
 
     def fetch_user

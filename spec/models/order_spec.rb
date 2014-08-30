@@ -2,12 +2,16 @@ require 'spec_helper'
 
 describe Order, type: :model do
 
+  def create_search_miss(i, model = :user)
+    create(model, first_name: 'Alice', last_name: 'Smith', email: "foo#{i}@bar.com")
+  end
+
   it 'searches by user' do
     user = create(:user, first_name: 'Garey')
     create(:order, user: user)
     user = create(:user, first_name: 'Garry')
     create(:order, user: user)
-    create_list(:order, 3)
+    3.times.each { |i| create(:order, user: create_search_miss(i)) }
 
     results = Order.user_search('gary').entries
     expect(results.size).to eq(2)
@@ -18,7 +22,7 @@ describe Order, type: :model do
     create(:order, customer: customer)
     customer = create(:customer, first_name: 'Garry')
     create(:order, customer: customer)
-    create_list(:order, 3)
+    3.times.each { |i| create(:order, customer: create_search_miss(i, :customer)) }
 
     results = Order.customer_search('gary').entries
     expect(results.size).to eq(2)
@@ -30,10 +34,7 @@ describe Order, type: :model do
     customer = create(:customer, last_name: 'Garry')
     create(:order, customer: customer)
 
-    3.times.each do |i|
-      user = create(:user, first_name: 'Alice', last_name: 'Smith', email: "foo#{i}@bar.com")
-      create(:order, user: user)
-    end
+    3.times.each { |i| create(:order, user: create_search_miss(i)) }
 
     results = Order.user_customer_search('gary').entries
     expect(results.size).to eq(2)

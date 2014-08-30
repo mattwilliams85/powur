@@ -12,31 +12,55 @@ describe 'order totals', type: :request do
 
   describe '/a/pay_periods/:id/order_totals' do
 
+    before :each do
+      @pay_period = create_pay_period(DateTime.current - 1.month)
+    end
+
     it 'returns a list of order totals for the pay period' do
-      pay_period = create_pay_period(DateTime.current - 1.month)
+      create_list(:order_total, 3, pay_period: @pay_period)
+      different_pay_period = create_pay_period(DateTime.current - 2.months)
+      create(:order_total, pay_period: different_pay_period)
 
-      create_list(:order_total, 3, pay_period: pay_period)
-      create(:order_total, 
-        pay_period: create_pay_period(DateTime.current - 2.months))
-
-      get pay_period_order_totals_path(pay_period), format: :json
+      get pay_period_order_totals_path(@pay_period), format: :json
 
       expect_entities_count(3)
+    end
+
+    it 'pages order totals' do
+      create_list(:order_total, 5, pay_period: @pay_period)
+
+      get pay_period_order_totals_path(@pay_period), format: :json, limit: 3
+      expect_entities_count(3)
+
+      get pay_period_order_totals_path(@pay_period), format: :json, limit: 3, page: 2
+      expect_entities_count(2)
     end
 
   end
 
   describe '/a/users/:id/order_totals' do
 
-    it 'returns a list of order totals for the user' do
-      user = create(:user)
+    before :each do
+      @user = create(:user)
+    end
 
-      create_list(:order_total, 3, user: user)
+    it 'returns a list of order totals for the user' do
+      create_list(:order_total, 3, user: @user)
       create(:order_total)
 
-      get admin_user_order_totals_path(user), format: :json
+      get admin_user_order_totals_path(@user), format: :json
 
       expect_entities_count(3)
+    end
+
+    it 'sorts order totals' do
+      [ 3, 8, 5 ].each { |i| create(:order_total, user: @user, personal: i) }
+
+      get admin_user_order_totals_path(@user), format: :json, sort: :personal
+
+      result = json_body['entities'].map { |e| e['properties']['personal'] }
+
+      expect(result).to eq([ 8, 5, 3 ])
     end
   end
 end

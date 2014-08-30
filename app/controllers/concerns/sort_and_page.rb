@@ -6,6 +6,7 @@ module SortAndPage
 
   module ClassMethods
     attr_reader :sort_and_page_options
+
     def sort_and_page(opts = {})
       @sort_and_page_options = opts
       self.include InstanceMethods
@@ -36,10 +37,7 @@ module SortAndPage
     end
 
     def limit
-      @limit ||= begin
-        limit = params[:limit] ? params[:limit].to_i : 
-          (_sp_opts[:max_limit] || 50)
-      end
+      @limit ||= params[:limit] ? params[:limit].to_i : (_sp_opts[:max_limit] || 50)
     end
 
     def sort_and_page(query)
