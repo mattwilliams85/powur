@@ -18,7 +18,7 @@ module Admin
           query = query.
             includes(:user, :product, :customer).
             references(:user, :product, :customer)
-          @quotes = sort_and_page(query)
+          @quotes = page!(query)
 
           render 'index'
         end

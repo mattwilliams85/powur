@@ -44,6 +44,11 @@ module SirenDSL
 
   def klass(*values)
     json.set! :class, values
+    if values.include?(:list) && paging?
+      json.properties do
+        json.paging paging.meta
+      end
+    end
   end
 
   def entity_rel(relationship)

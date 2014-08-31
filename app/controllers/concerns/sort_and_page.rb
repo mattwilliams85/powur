@@ -2,74 +2,101 @@ module SortAndPage
   extend ActiveSupport::Concern
 
   included do
+    helper_method :paging, :paging?, :page!
+    include InstanceMethods
   end
 
   module ClassMethods
-    attr_reader :sort_and_page_options
+    attr_reader :paging_options
 
-    def sort_and_page(opts = {})
-      @sort_and_page_options = opts.reverse_merge(
-        max_limit: 50, secondary: { id: :asc })
-      self.include InstanceMethods
-
-      self.instance_eval do
-        helper_method :total_pages, :available_sorts
-      end
+    def sort_and_page(opts)
+      @paging_options = opts
     end
   end
 
   module InstanceMethods
-    def _sp_opts
-      self.class.sort_and_page_options
-    end
-    
-    def available_sorts
-      _sp_opts[:available_sorts]
+    def paging
+      @paging ||= Paging.new(params, self.class.paging_options)
     end
 
-    def sort_order
-      @sort_order ||= begin
-        key = params[:sort] && params[:sort].to_sym
-        if key.nil? || !available_sorts.keys.include?(key)
-          key = available_sorts.keys.first
+    def paging?
+      @paging && @paging.used?
+    end
+
+    def page!(query)
+      paging.sort_and_page(query)
+    end
+
+    class Paging
+      attr_reader :params, :opts
+
+      def initialize(params, opts)
+        @params = params
+        @opts = opts.reverse_merge(max_limit: 50, secondary: { id: :asc })
+      end
+
+      def sort_key
+        @sort_key ||= begin
+          key = params[:sort] && params[:sort].to_sym
+          key.nil? || !opts[:available_sorts].keys.include?(key) ?
+            key = opts[:available_sorts].keys.first :
+            key
         end
-        available_sorts[key]
+      end
+
+      def sort_order
+        opts[:available_sorts][sort_key]
+      end
+
+      def limit
+        @limit ||= params[:limit] ? 
+          [ params[:limit].to_i, opts[:max_limit] ].min : opts[:max_limit]
+      end
+
+      def page
+        @page ||= params[:page] ? params[:page].to_i : 1
+      end
+
+      def offset
+        limit * (page - 1)
+      end
+
+      def used?
+        @used ||= false
+      end
+
+      def sort_and_page(query)
+        @used = true
+        @items = query.order(sort_order).order(opts[:secondary]).
+          limit(limit).offset(offset)
+      end
+  
+      def item_count
+        @item_count ||= @items.except(:offset, :limit, :order).count
+      end
+  
+      def page_count
+        @page_count ||= begin
+          value = item_count / limit + (item_count % limit > 0 ? 1 : 0)
+          value.zero? ? 1 : value
+        end
+      end
+
+      def meta
+        @meta ||= {
+          page_count:   page_count,
+          item_count:   item_count,
+          current_page: page,
+          page_size:    limit,
+          sorts:        opts[:available_sorts].keys,
+          current_sort: sort_key }
+      end
+
+      def [](key)
+        meta[key]
       end
     end
 
-    def limit
-      @limit ||= params[:limit] ? 
-        [ params[:limit].to_i, _sp_opts[:max_limit] ].min : _sp_opts[:max_limit]
-    end
-
-    def sort_and_page(query)
-      @items = query.order(sort_order).order(_sp_opts[:secondary]).
-        limit(limit).offset(offset)
-    end
-
-    def item_count
-      @item_count ||= @items.except(:offset, :limit, :order).count
-    end
-
-    def page
-      @page ||= params[:page] ? params[:page].to_i : 1
-    end
-
-    def paged?
-
-    end
-
-    def total_pages
-      @total_pages ||= begin
-        value = item_count / limit + (item_count % limit > 0 ? 1 : 0)
-        value.zero? ? 1 : value
-      end
-    end
-
-    def offset
-      limit * (page - 1)
-    end
   end
-
 
 end

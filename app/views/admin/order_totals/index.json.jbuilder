@@ -4,9 +4,11 @@ klass :order_totals, :list
 
 json.entities @order_totals, partial: 'item', as: :order_total
 
-actions \
-  action(:list, :get, @orders_totals_path).
-    field(:page, :number, value: @page, min: 1, max: total_pages, required: false).
-    field(:sort, :select, options: available_sorts.keys, value: @sort, required: false)
+if paging?
+  actions \
+    action(:list, :get, @orders_totals_path).
+      field(:page, :number, value: paging[:current_page], min: 1, max: paging[:page_count], required: false).
+      field(:sort, :select, options: paging[:sorts], value: paging[:current_sort], required: false)
+end
 
 links link(:self, @orders_totals_path)

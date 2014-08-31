@@ -2,19 +2,15 @@ siren json
 
 klass :orders, :list
 
-# json.properties do
-#   json.paging do
-#   end
-# end
-
 json.entities @orders, partial: 'item', as: :order
 
 actions \
   action(:search, :get, @orders_path || orders_path).
     field(:search, :search, required: false).
-    field(:page, :number, value: @page, min: 1, max: total_pages, required: false).
+    field(:page, :number, value: paging[:current_page],
+      min: 1, max: paging[:page_count], required: false).
     field(:sort, :select,
-      options: available_sorts.keys,
-      value: @sort, required: false)
+      options: paging[:sorts],
+      value: paging[:current_sort], required: false)
 
 links link(:self, @orders_path || orders_path)

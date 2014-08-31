@@ -21,7 +21,7 @@ module Admin
           unless params[:search].blank?
             query = query.user_customer_search(params[:search])
           end
-          @orders = sort_and_page(query)
+          @orders = page!(query)
 
           render 'index'
         end
