@@ -2,7 +2,7 @@
 
 var _data={};
 var _dashboard;
-_data.loadCategories=["quotes", "orders"];
+_data.loadCategories=["quotes", "orders", "pay_periods"];
 
 jQuery(function($){
 
@@ -37,6 +37,7 @@ jQuery(function($){
             _dashboard = new AdminDashboard();
             _dashboard._loadQuotesInfo();
             _dashboard._loadOrdersInfo();
+            _dashboard._loadPayPeriodsInfo();
 
         }
     });
@@ -58,6 +59,7 @@ jQuery(function($){
         this.displayQuotes = displayQuotes;
         this._loadQuotesInfo = _loadQuotesInfo;
         this._loadOrdersInfo = _loadOrdersInfo;
+        this._loadPayPeriodsInfo = _loadPayPeriodsInfo;
 
 
         function displayQuotes(_tab, _callback){
@@ -224,12 +226,62 @@ jQuery(function($){
                         $(".js-pagination a").on("click", function(e){
                             e.preventDefault();
                             _searchOrders(e, function(){displayQuotes("#admin-quotes-orders")});
-                            //_loadOrdersInfo(function(){displayQuotes("#admin-quotes-orders");}, {_postObj:{page:$(this).attr("data-page-number").split(" ")[1]}});
                         });
                     });
 
                 break;
+
+                case "#admin-quotes-pay-periods-init":
+                    _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});
+                break;
+
+                case "#admin-quotes-pay-periods":
+                    $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
+                    //position indicator
+                    _getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-quotes-pay-periods-init]"));
+                    });
+                    
+                    _getTemplate("/templates/admin/quotes/pay_periods/_summary.handlebars.html", {}, $(".js-admin_dashboard_column.summary"), function(){
+                    });
+                    _displayData={};
+                    $.extend(true, _displayData , _data.pay_periods);
+                    _displayData.entities.forEach(function(entity){
+                        var t = entity.properties.start_date;
+                        entity.properties.startDisplayDate=new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
+                        t = entity.properties.end_date;
+                        entity.properties.endDisplayDate = new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
+                    });
+                    _getTemplate("/templates/admin/quotes/pay_periods/_pay_periods.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
+                        $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
+                        $(".js-calculate_pay_period").on("click", function(e){
+                            e.preventDefault();
+                            var _pay_period_id= $(e.target).parents("tr").attr("data-pay-period-id");
+                            _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_pay_period_id]})[0], function(){displayQuotes("#admin-quotes-pay-periods-init")});
+                        })
+                    });
+
+                break;
+
             }
+        }
+
+        function _calculatePayPeriod(_pay_period, _callback){
+            var _action=_getObjectsByCriteria(_pay_period, "val~calculate")[0];
+            $("#js-screen_mask").fadeIn(100, function(){
+                _getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"The calculation may take a few moments to complete. Thakn you!"}, $("#js-screen_mask"), function(){
+                    _displayPopup({_popupData:{}});
+                    _ajax({
+                        _ajaxType:_action.method,
+                        _url:_action.href,
+                        _callback:function(data, text){
+                            $("#js-screen_mask").fadeOut(100);
+                            if(typeof _callback == "function") _callback();
+                            else return data;
+                        }
+                    });
+                });
+            });
         }
 
 
@@ -399,8 +451,8 @@ jQuery(function($){
                         }
                         _targetObj.html(_html);
                     }
-                    if(_callback !== undefined)
-                        _callback();
+                    if(_callback !== undefined) _callback();
+                    return;
                 }
             });
         }
@@ -437,6 +489,26 @@ jQuery(function($){
                 }
             });
         }
+
+        function _loadPayPeriodsInfo(_callback, _options){
+            var _postObj=(_options && _options._postObj)?_options._postObj:{};
+
+            _ajax({
+                _ajaxType:"get",
+                _url:"/a/pay_periods",
+                _postObj:_postObj,
+                _callback:function(data, text){
+                    _data.pay_periods = data;
+                    /*_data.orders.entities.forEach(function(_quote){
+                        _d = new Date(_quote.properties.order_date);
+                        _quote.properties.localDateString = _d.toLocaleDateString();
+                    });*/
+
+                    if(typeof _callback === "function") _callback();
+                }                
+            });
+        }
+
 
 
         $(document).on("click", "#js-screen_mask", function(e){
