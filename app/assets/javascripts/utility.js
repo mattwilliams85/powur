@@ -456,5 +456,20 @@ function _paginateData(_dataObj, _options){
         return _results;
     }
 
+    EyeCueLab.JSON.asynchronousLoader = function(_endPoints, _callback){
+        var _returnJSONs=[];
+        var _loadingComplete=0;
+        for(i=0;i<_endPoints.length;i++){
+            $.ajax({
+                type:"get",
+                url:_endPoints[i],
+            }).done(function(data, text){
+                _returnJSONs.push(data);
+                _loadingComplete = _loadingComplete+1;
+                if(_loadingComplete==_endPoints.length) _callback(_returnJSONs);
+            })
+        }
+    }
+
 }(window.EyeCueLab = window.EyeCueLab || {}, jQuery));
 

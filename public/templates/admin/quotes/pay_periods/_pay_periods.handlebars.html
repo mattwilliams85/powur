@@ -8,7 +8,11 @@
     </tr>
     {{#each this.entities}}
     <tr data-pay-period-id="{{this.properties.id}}">
+            {{#compare this.properties.calculated false operator="=="}}
+        <td style="vertical-align:middle;">{{this.properties.id}}</a></td>
+            {{else}}
         <td style="vertical-align:middle;"><a href="#" class="js-pay_period_link">{{this.properties.id}}</a></td>
+        {{/compare}}
         <td style="vertical-align:middle;">{{this.properties.type}}</td>
         <td style="vertical-align:middle;">{{this.properties.startDisplayDate}} 
         <td style="vertical-align:middle;">{{this.properties.endDisplayDate}}</td>

@@ -254,11 +254,52 @@ jQuery(function($){
                     });
                     _getTemplate("/templates/admin/quotes/pay_periods/_pay_periods.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
+                       
+                        //wiire up calculationg/recalculation button
                         $(".js-calculate_pay_period").on("click", function(e){
                             e.preventDefault();
                             var _pay_period_id= $(e.target).parents("tr").attr("data-pay-period-id");
                             _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_pay_period_id]})[0], function(){displayQuotes("#admin-quotes-pay-periods-init")});
-                        })
+                        });
+
+                        //pay period details
+                        $(".js-pay_period_link").on("click", function(e){
+                            e.preventDefault();
+                            var _pay_period_id = $(e.target).parents("tr").attr("data-pay-period-id");
+                            var _pay_period_obj = EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_pay_period_id]})[0];
+                            //gather info for the pay period
+                            _ajax({
+                                _ajaxType:"get",
+                                _url:_getObjectsByCriteria(_pay_period_obj, {rel:"self"})[0].href,
+                                _callback:function(data, text){
+                                    var _order_total_url = EyeCueLab.JSON.getObjectsByPattern(data.entities, {"containsIn(class)":["list", "order_totals"]})[0].href
+                                    EyeCueLab.JSON.asynchronousLoader([_order_total_url], function(_returnJSONs){
+                                        var _order_total_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0];
+                                        var _popupData= _order_total_obj;
+                                        var t = _pay_period_obj.properties.start_date;
+
+                                        _pay_period_obj.properties.startDisplayDate=new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
+                                        t = _pay_period_obj.properties.end_date;
+                                        _pay_period_obj.properties.endDisplayDate = new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
+                                        _popupData.pay_period = _pay_period_obj.properties;
+                                        _popupData.title="Pay Period Detail";
+                                        _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(_order_total_obj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
+                                        _popupData.paginationInfo.templateName="/templates/admin/quotes/popups/_order_total_listing.handlebars.html",
+                                        _popupData.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
+
+                                        $("#js-screen_mask").fadeIn(100, function(){
+                                            _getTemplate("/templates/admin/quotes/popups/_pay_periods_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                                $("#js-popup").css("opacity","0");
+                                                _getTemplate("/templates/admin/quotes/popups/_order_total_listing.handlebars.html",_popupData, $("#js-popup .js-popup_content_container"), function(){
+                                                    _displayPopup({_popupData:_popupData, _css:{width:1000} });
+
+                                                });
+                                            });
+                                        });
+                                    });
+                                }
+                            }); //end of pay period detail
+                        });
                     });
 
                 break;
@@ -362,7 +403,14 @@ jQuery(function($){
         }
 
         function _displayPopup(_options){
-            $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"150px", opacity:0});
+            if(!_options._css) _options._css={};
+            if(!_options._css.width) _options._css.width=480;
+            if(!_options._css.maxHeight) _options._css.maxHeight = $(window).height()-400;
+
+
+            $("#js-popup").css({"left":(($(window).width()/2)-(_options._css.width/2))+"px","top":"150px", opacity:0});
+            $("#js-popup").css("width", _options._css.width+"px");
+            $("#js-popup").css("max-height", _options._css.maxHeight);
             $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
             $(".js-popup_form_button").on("click", function(e){
                 e.preventDefault();
@@ -376,7 +424,30 @@ jQuery(function($){
                     }
                 });
             });
-            //_populateReferencialSelect(_options);
+
+
+            //wire up pagination if it exists 
+            $(".js-pagination a").on("click", function(e){
+                e.preventDefault();
+                var _action = _getObjectsByCriteria(_options._popupData.actions, {name:"list"})[0];
+                _ajax({
+                    _ajaxType:_action.method,
+                    _url:_action.href,
+                    _postObj:{page:$(e.target).attr("data-page-number").split(" ")[1]},
+                    _callback:function(data, text){
+                        console.log(data);
+                        $("#js-popup .js-popup_content_container").html("");
+                        _popupData=data;
+                        _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(data, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
+                        _popupData.paginationInfo.templateName = _options._popupData.paginationInfo.templateName;
+                        _popupData.paginationInfo.templateContainer=_options._popupData.paginationInfo.templateContainer;
+                        _getTemplate(_popupData.paginationInfo.templateName,_popupData, $(_popupData.paginationInfo.templateContainer), function(){
+                            _displayPopup({_popupData:_popupData, _css:{width:_options._css.width} });
+                        });
+                    }
+                });
+            });
+
 
             //wire up dynamic interaction for the select/option
             if(_options._popupData.popupType === "hierarchical"){
@@ -523,7 +594,7 @@ jQuery(function($){
         });        
 
         $(window).resize(function(){
-            $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"200px"});
+            $("#js-popup").css({"left":(($(window).width()/2)-($("#js-popup").width()/2))+"px","top":"200px"});
             //%TODO: recalculate x position for the indicators
         })
 
