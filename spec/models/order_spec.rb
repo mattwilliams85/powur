@@ -47,7 +47,7 @@ describe Order, type: :model do
       expect(order.monthly_pay_period).to_not be_nil
       expect(order.monthly_pay_period).to be_kind_of(MonthlyPayPeriod)
       expect(order.monthly_pay_period.start_date).to be <= order.order_date
-      expect(order.monthly_pay_period.end_date).to be >= order.order_date
+      expect(order.monthly_pay_period.end_date + 1.day).to be >= order.order_date
     end
   end
 
