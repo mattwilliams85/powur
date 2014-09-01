@@ -772,8 +772,17 @@ jQuery(function($){
         }
 
         function _displayPopup(_options){
-            $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"150px", opacity:0});
-            $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
+            if(!_options._css) _options._css={};
+            if(!_options._css.width) _options._css.width=480;
+            if(!_options._css.maxHeight) _options._css.maxHeight = $(window).height()-400;
+            if(!_options._css.opacity) _options._css.opacity=0;
+            if(!_options._css.top) _options._css.top=150;
+            $("body").css("overflow", "hidden");
+
+            $("#js-popup").css({"left":(($(window).width()/2)-(_options._css.width/2))+"px","top":_options._css.top+"px", opacity:_options._css.opacity});
+            $("#js-popup").css("width", _options._css.width+"px");
+            $("#js-popup").css("max-height", _options._css.maxHeight);
+            if($("#js-popup").css("opacity")==0) $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
             $(".js-popup_form_button").on("click", function(e){
                 e.preventDefault();
                 _ajax({
@@ -786,6 +795,33 @@ jQuery(function($){
                     }
                 });
             });
+
+
+            //wire up pagination if it exists 
+            $(".js-pagination a").on("click", function(e){
+                e.preventDefault();
+                var _action = _getObjectsByCriteria(_options._popupData.actions, {name:"list"})[0];
+                _ajax({
+                    _ajaxType:_action.method,
+                    _url:_action.href,
+                    _postObj:{page:$(e.target).attr("data-page-number").split(" ")[1]},
+                    _callback:function(data, text){
+                        _popupData=data;
+                        _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(data, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
+                        _popupData.paginationInfo.templateName = _options._popupData.paginationInfo.templateName;
+                        _popupData.paginationInfo.templateContainer=_options._popupData.paginationInfo.templateContainer;
+                        $(_popupData.paginationInfo.templateContainer).animate({"left":"-=1500", "opacity":0}, 200, function(){
+                            _getTemplate(_popupData.paginationInfo.templateName,_popupData, $(_popupData.paginationInfo.templateContainer), function(){
+                                $(_popupData.paginationInfo.templateContainer).css("left","1500px");
+                                $(_popupData.paginationInfo.templateContainer).animate({"left":"-=1500", "opacity":1},200);
+                                $("#js-popup").css("opacity",1);
+                                _displayPopup({_popupData:_popupData, _css:{width:_options._css.width, opacity:1, top:180} });
+                            });
+                        });
+                    }
+                });
+            });
+
             //_populateReferencialSelect(_options);
 
             //wire up dynamic interaction for the select/option
@@ -1099,11 +1135,12 @@ jQuery(function($){
             $("#js-popup").animate({opacity:0, top:"-=50"},200, function(){
                 $("#js-screen_mask").fadeOut(100, function(){
                     $("#js-popup").remove();
+                    $("body").css("overflow","auto");
                 });                
             });
             return;
 
-        });        
+        });       
 
         $(window).resize(function(){
             $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"200px"});

@@ -317,6 +317,7 @@ jQuery(function($){
                         _url:_action.href,
                         _callback:function(data, text){
                             $("#js-screen_mask").fadeOut(100);
+                            $("body").css("overflow", "auto");
                             if(typeof _callback == "function") _callback();
                             else return data;
                         }
@@ -408,7 +409,7 @@ jQuery(function($){
             if(!_options._css.maxHeight) _options._css.maxHeight = $(window).height()-400;
             if(!_options._css.opacity) _options._css.opacity=0;
             if(!_options._css.top) _options._css.top=150;
-
+            $("body").css("overflow", "hidden");
 
             $("#js-popup").css({"left":(($(window).width()/2)-(_options._css.width/2))+"px","top":_options._css.top+"px", opacity:_options._css.opacity});
             $("#js-popup").css("width", _options._css.width+"px");
@@ -592,6 +593,7 @@ jQuery(function($){
             $("#js-popup").animate({opacity:0, top:"-=50"},200, function(){
                 $("#js-screen_mask").fadeOut(100, function(){
                     $("#js-popup").remove();
+                    $("body").css("overflow","auto");
                 });                
             });
             return;
