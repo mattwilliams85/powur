@@ -1,4 +1,5 @@
 class UnilevelSalesBonus < Bonus
+  include BonusEnums
 
   def last_bonus_level
     self.bonus_levels.count
@@ -13,5 +14,4 @@ class UnilevelSalesBonus < Bonus
     levels.reject! { |l| l.level == excluded_level } if excluded_level
     levels.map(&:max).inject(:+) || 0.0
   end
-
 end

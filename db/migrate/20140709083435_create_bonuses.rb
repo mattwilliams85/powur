@@ -12,8 +12,9 @@ class CreateBonuses < ActiveRecord::Migration
       t.references  :bonus_plan, null: false
       t.string      :type, null: false
       t.string      :name, null: false
+      t.integer     :schedule, null: false, default: 2      # [ :weekly, :monthly ]
+      t.integer     :use_rank_at, null: false, default: 2   # [ :sale, :pay_period_end ]
       t.references  :achieved_rank
-      t.integer     :schedule,  null: false, default: 2  # [ :weekly, :pay_period ]
       t.references  :max_user_rank
       t.references  :min_upline_rank
       t.boolean     :compress,  null: false, default: false

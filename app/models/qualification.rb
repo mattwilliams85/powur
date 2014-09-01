@@ -9,8 +9,9 @@ class Qualification < ActiveRecord::Base
     sales:       'Personal Sales', 
     group_sales: 'Group Sales' }
   PERIODS = { 
-    pay_period: 'Pay Period', 
-    lifetime:   'Lifetime' }
+    lifetime: 'Lifetime',
+    monthly:  'Monthly', 
+    weekly:   'Weekly' }
 
   def type_string
     self.class.name.underscore.gsub(/_qualification/, '')
@@ -18,6 +19,10 @@ class Qualification < ActiveRecord::Base
 
   def type_display
     TYPES[type_string.to_sym]
+  end
+
+  def pay_period?
+    self.monthly? || self.weekly?
   end
 
   class << self

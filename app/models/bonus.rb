@@ -10,7 +10,8 @@ class Bonus < ActiveRecord::Base
     weekly:   'Weekly',
     monthly:  'Monthly' }
 
-  enum schedule:  { weekly: 1, monthly: 2 }
+  enum schedule:     { weekly: 1, monthly: 2 }
+  enum use_rank_at:  { sale: 1, pay_period_end: 2 }
 
   belongs_to :bonus_plan
   belongs_to :achieved_rank, class_name: 'Rank'
@@ -19,6 +20,9 @@ class Bonus < ActiveRecord::Base
     foreign_key: :bonus_id, dependent: :destroy
   has_many :bonus_levels, class_name: 'BonusLevel', 
     foreign_key: :bonus_id, dependent: :destroy
+
+  scope :weekly, ->(){ where(schedule: :weekly) }
+  scope :monthly, ->(){ where(schedule: :monthly) }
 
   validates_presence_of :type, :name
 

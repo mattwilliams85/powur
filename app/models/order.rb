@@ -29,12 +29,24 @@ class Order < ActiveRecord::Base
   scope :group_totals, ->(start_date, end_date){
     find_by_sql([ GROUP_TOTALS_SQL, { start_date: start_date.to_date, end_date: end_date.to_date + 1.day } ]) }
     
+  def monthly_pay_period_id
+    MonthlyPayPeriod.id_from(order_date)
+  end
+
   def monthly_pay_period
-    @monthly_pay_period ||= MonthlyPayPeriod.find_or_create_by_date(order_date)
+    @monthly_pay_period ||= MonthlyPayPeriod.find_or_create_by_id(monthly_pay_period_id)
+  end
+
+  def weekly_pay_period_id
+    WeeklyPayPeriod.id_from(order_date)
   end
 
   def weekly_pay_period
-    @weekly_pay_period ||= WeeklyPayPeriod.find_or_create_by_date(order_date)
+    @weekly_pay_period ||= WeeklyPayPeriod.find_or_create_by_id(weekly_pay_period_id)
+  end
+
+  def increment_order_totals!
+    
   end
 
   class << self

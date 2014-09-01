@@ -48,6 +48,7 @@ class MonthlyPayPeriod < PayPeriod
           qualifications.any? { |q| !q.met?(user_id, self) }
 
         attrs << {
+          achieved_at:    DateTime.current,
           pay_period_id:  self.id,
           user_id:        user_id,
           rank_id:        rank.id,

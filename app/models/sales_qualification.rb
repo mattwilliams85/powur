@@ -1,6 +1,6 @@
 class SalesQualification < Qualification
 
-  enum period: { pay_period: 1, lifetime: 2 }
+  enum period: { lifetime: 1, monthly: 2, weekly: 3 }
 
   validates_presence_of :product_id, :quantity, :period
 

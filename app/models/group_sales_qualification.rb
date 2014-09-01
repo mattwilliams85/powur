@@ -1,6 +1,6 @@
 class GroupSalesQualification < Qualification
 
-  enum period: { pay_period: 1, lifetime: 2 }
+  enum period: { lifetime: 1, monthly: 2, weekly: 3 }
 
   def percent_needed_for_smaller_legs
     (100.0 - self.max_leg_percent) * 0.01
