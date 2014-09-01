@@ -33,7 +33,7 @@ namespace :sunstand do
       SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID)
       puts 'Created Active Qualifications...'
       # Rank 2
-      SalesQualification.create!(tiem_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 2, quantity: 3)
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 2, quantity: 3)
       SalesQualification.create!(time_period: :lifetime, product_id: CERT_ITEM_ID, rank_id: 2)
       # Rank 3
       SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 3, quantity: 7)
@@ -62,7 +62,7 @@ namespace :sunstand do
 
       # Direct Sales Bonus
       bonus = DirectSalesBonus.create!(bonus_plan_id: 1, name: 'Direct Sales',
-        schedule: :weekly, compress: false)
+        schedule: :weekly, compress: false, use_rank_at: :sale)
       BonusSalesRequirement.create!(bonus: bonus, product_id: SOLAR_ITEM_ID)
       BonusLevel.create!(bonus: bonus, amounts: [ 0.375, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50 ])
 
