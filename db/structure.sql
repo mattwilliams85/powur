@@ -69,19 +69,35 @@ CREATE TABLE bonus_levels (
 
 
 --
--- Name: bonus_payment; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_payment_orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE bonus_payment (
-    id integer NOT NULL
+CREATE TABLE bonus_payment_orders (
+    bonus_payment_id integer NOT NULL,
+    order_id integer NOT NULL
 );
 
 
 --
--- Name: bonus_payment_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: bonus_payments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE SEQUENCE bonus_payment_id_seq
+CREATE TABLE bonus_payments (
+    id integer NOT NULL,
+    pay_period_id character varying(255) NOT NULL,
+    bonus_id integer NOT NULL,
+    user_id integer NOT NULL,
+    amount numeric(10,2) NOT NULL,
+    status integer DEFAULT 1 NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: bonus_payments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bonus_payments_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -90,10 +106,10 @@ CREATE SEQUENCE bonus_payment_id_seq
 
 
 --
--- Name: bonus_payment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: bonus_payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE bonus_payment_id_seq OWNED BY bonus_payment.id;
+ALTER SEQUENCE bonus_payments_id_seq OWNED BY bonus_payments.id;
 
 
 --
@@ -148,8 +164,9 @@ CREATE TABLE bonuses (
     bonus_plan_id integer NOT NULL,
     type character varying(255) NOT NULL,
     name character varying(255) NOT NULL,
-    achieved_rank_id integer,
     schedule integer DEFAULT 2 NOT NULL,
+    use_rank_at integer DEFAULT 2 NOT NULL,
+    achieved_rank_id integer,
     max_user_rank_id integer,
     min_upline_rank_id integer,
     compress boolean DEFAULT false NOT NULL,
@@ -232,6 +249,38 @@ CREATE TABLE invites (
     sponsor_id integer NOT NULL,
     user_id integer
 );
+
+
+--
+-- Name: onetime_rank_achievements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE onetime_rank_achievements (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    rank_id integer NOT NULL,
+    path character varying(255) NOT NULL,
+    achieved_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: onetime_rank_achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE onetime_rank_achievements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: onetime_rank_achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE onetime_rank_achievements_id_seq OWNED BY onetime_rank_achievements.id;
 
 
 --
@@ -362,7 +411,7 @@ CREATE TABLE qualifications (
     id integer NOT NULL,
     type character varying(255) NOT NULL,
     path character varying(255) DEFAULT 'default'::character varying NOT NULL,
-    period integer NOT NULL,
+    time_period integer NOT NULL,
     quantity integer DEFAULT 1 NOT NULL,
     max_leg_percent integer,
     rank_id integer,
@@ -433,7 +482,8 @@ CREATE TABLE rank_achievements (
     pay_period_id character varying(255) NOT NULL,
     user_id integer NOT NULL,
     rank_id integer NOT NULL,
-    path character varying(255) NOT NULL
+    path character varying(255) NOT NULL,
+    achieved_at timestamp without time zone NOT NULL
 );
 
 
@@ -555,7 +605,7 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bonus_payment ALTER COLUMN id SET DEFAULT nextval('bonus_payment_id_seq'::regclass);
+ALTER TABLE ONLY bonus_payments ALTER COLUMN id SET DEFAULT nextval('bonus_payments_id_seq'::regclass);
 
 
 --
@@ -577,6 +627,13 @@ ALTER TABLE ONLY bonuses ALTER COLUMN id SET DEFAULT nextval('bonuses_id_seq'::r
 --
 
 ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY onetime_rank_achievements ALTER COLUMN id SET DEFAULT nextval('onetime_rank_achievements_id_seq'::regclass);
 
 
 --
@@ -644,11 +701,19 @@ ALTER TABLE ONLY bonus_levels
 
 
 --
--- Name: bonus_payment_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_payment_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY bonus_payment
-    ADD CONSTRAINT bonus_payment_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY bonus_payment_orders
+    ADD CONSTRAINT bonus_payment_orders_pkey PRIMARY KEY (bonus_payment_id, order_id);
+
+
+--
+-- Name: bonus_payments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT bonus_payments_pkey PRIMARY KEY (id);
 
 
 --
@@ -689,6 +754,14 @@ ALTER TABLE ONLY customers
 
 ALTER TABLE ONLY invites
     ADD CONSTRAINT invites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: onetime_rank_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY onetime_rank_achievements
+    ADD CONSTRAINT onetime_rank_achievements_pkey PRIMARY KEY (id);
 
 
 --
@@ -769,6 +842,13 @@ ALTER TABLE ONLY settings
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_onetime_rank_achievements_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX idx_onetime_rank_achievements_composite_key ON onetime_rank_achievements USING btree (user_id, rank_id, path);
 
 
 --
@@ -892,6 +972,46 @@ ALTER TABLE ONLY bonus_levels
 
 
 --
+-- Name: bonus_payment_orders_bonus_payment_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payment_orders
+    ADD CONSTRAINT bonus_payment_orders_bonus_payment_id_fk FOREIGN KEY (bonus_payment_id) REFERENCES bonus_payments(id);
+
+
+--
+-- Name: bonus_payment_orders_order_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payment_orders
+    ADD CONSTRAINT bonus_payment_orders_order_id_fk FOREIGN KEY (order_id) REFERENCES orders(id);
+
+
+--
+-- Name: bonus_payments_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT bonus_payments_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
+-- Name: bonus_payments_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT bonus_payments_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: bonus_payments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT bonus_payments_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: bonus_sales_requirements_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -953,6 +1073,22 @@ ALTER TABLE ONLY invites
 
 ALTER TABLE ONLY invites
     ADD CONSTRAINT invites_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: onetime_rank_achievements_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY onetime_rank_achievements
+    ADD CONSTRAINT onetime_rank_achievements_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: onetime_rank_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY onetime_rank_achievements
+    ADD CONSTRAINT onetime_rank_achievements_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
