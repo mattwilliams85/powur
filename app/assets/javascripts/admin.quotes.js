@@ -406,12 +406,14 @@ jQuery(function($){
             if(!_options._css) _options._css={};
             if(!_options._css.width) _options._css.width=480;
             if(!_options._css.maxHeight) _options._css.maxHeight = $(window).height()-400;
+            if(!_options._css.opacity) _options._css.opacity=0;
+            if(!_options._css.top) _options._css.top=150;
 
 
-            $("#js-popup").css({"left":(($(window).width()/2)-(_options._css.width/2))+"px","top":"150px", opacity:0});
+            $("#js-popup").css({"left":(($(window).width()/2)-(_options._css.width/2))+"px","top":_options._css.top+"px", opacity:_options._css.opacity});
             $("#js-popup").css("width", _options._css.width+"px");
             $("#js-popup").css("max-height", _options._css.maxHeight);
-            $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
+            if($("#js-popup").css("opacity")==0) $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
             $(".js-popup_form_button").on("click", function(e){
                 e.preventDefault();
                 _ajax({
@@ -435,14 +437,17 @@ jQuery(function($){
                     _url:_action.href,
                     _postObj:{page:$(e.target).attr("data-page-number").split(" ")[1]},
                     _callback:function(data, text){
-                        console.log(data);
-                        $("#js-popup .js-popup_content_container").html("");
                         _popupData=data;
                         _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(data, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
                         _popupData.paginationInfo.templateName = _options._popupData.paginationInfo.templateName;
                         _popupData.paginationInfo.templateContainer=_options._popupData.paginationInfo.templateContainer;
-                        _getTemplate(_popupData.paginationInfo.templateName,_popupData, $(_popupData.paginationInfo.templateContainer), function(){
-                            _displayPopup({_popupData:_popupData, _css:{width:_options._css.width} });
+                        $(_popupData.paginationInfo.templateContainer).animate({"left":"-=1500", "opacity":0}, 200, function(){
+                            _getTemplate(_popupData.paginationInfo.templateName,_popupData, $(_popupData.paginationInfo.templateContainer), function(){
+                                $(_popupData.paginationInfo.templateContainer).css("left","1500px");
+                                $(_popupData.paginationInfo.templateContainer).animate({"left":"-=1500", "opacity":1},200);
+                                $("#js-popup").css("opacity",1);
+                                _displayPopup({_popupData:_popupData, _css:{width:_options._css.width, opacity:1, top:180} });
+                            });
                         });
                     }
                 });

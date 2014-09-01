@@ -1,6 +1,23 @@
 
-<hr style="border:0; border-bottom:1px dashed #ccc;">
+<br><Br><br>
 <table class="_table _spreadSheet">
+    {{#if this.paginationInfo}}
+    <tr>
+        <td colspan="5" style="text-align:center; padding-bottom:32px;">
+            {{#each this.paginationInfo.display}}
+            <div class="js-pagination">
+                {{#if this.link}}
+                    <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
+                {{else}}
+                    {{this.display}}
+
+                {{/if}}
+            </div>
+            {{/each}}
+
+        </td>
+    </tr>
+    {{/if}}    
     <tr>
         <td style="width:20%;">Distributor Info</td>
         <td style="width:30%;">Product</td>
@@ -53,7 +70,7 @@
 
     {{#if this.paginationInfo}}
     <tr>
-        <td colspan="5" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">
+        <td colspan="5" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
             {{#each this.paginationInfo.display}}
             <div class="js-pagination">
                 {{#if this.link}}
