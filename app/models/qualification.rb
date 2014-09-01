@@ -3,15 +3,13 @@ class Qualification < ActiveRecord::Base
   belongs_to :rank
   belongs_to :product
 
-  validates_presence_of :product_id, :quantity, :period
+  enum time_period: { lifetime: 1, monthly: 2, weekly: 3 }
+
+  validates_presence_of :product_id, :quantity, :time_period
 
   TYPES =  { 
     sales:       'Personal Sales', 
     group_sales: 'Group Sales' }
-  PERIODS = { 
-    lifetime: 'Lifetime',
-    monthly:  'Monthly', 
-    weekly:   'Weekly' }
 
   def type_string
     self.class.name.underscore.gsub(/_qualification/, '')

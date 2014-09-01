@@ -15,7 +15,7 @@ describe '/a/ranks/:id/qualifications' do
     it 'creates a sales qualification' do
       product = create(:product)
       post rank_qualifications_path(@rank),
-        type: :sales, product_id: product.id, period: :monthly, quantity: 5, format: :json
+        type: :sales, product_id: product.id, time_period: :monthly, quantity: 5, format: :json
 
       assert_qualification
     end
@@ -24,7 +24,7 @@ describe '/a/ranks/:id/qualifications' do
       product = create(:product)
 
       post rank_qualifications_path(@rank),
-        type: :group_sales, product_id: product.id, period: :lifetime, 
+        type: :group_sales, product_id: product.id, time_period: :lifetime, 
         quantity: 5, max_leg_percent: 55, format: :json
 
       assert_qualification

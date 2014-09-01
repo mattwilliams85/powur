@@ -8,7 +8,7 @@ create_action = action(:create, :post, rank_qualifications_path(rank)).
   field(:type, :select, options: Qualification::TYPES, value: :sales).
   field(:product_id, :select, 
     reference:  { type: :link, rel: :products, value: :id, name: :name }).
-  field(:period, :select, options: Qualification::PERIODS, value: :pay_period).
+  field(:period, :select, options: Qualification::enum_options(:time_periods), value: :monthly).
   field(:quantity, :number).
   field(:max_leg_percent, :number, 
     visibility: { control: :type, values: [ :group_sales ] })

@@ -33,7 +33,7 @@ module Admin
     protected
 
     def input
-      allow_input(:path, :period, :quantity, :max_leg_percent, :product_id)
+      allow_input(:path, :time_period, :quantity, :max_leg_percent, :product_id)
     end
 
     def qualification_klass

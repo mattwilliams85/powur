@@ -411,7 +411,7 @@ CREATE TABLE qualifications (
     id integer NOT NULL,
     type character varying(255) NOT NULL,
     path character varying(255) DEFAULT 'default'::character varying NOT NULL,
-    period integer NOT NULL,
+    time_period integer NOT NULL,
     quantity integer DEFAULT 1 NOT NULL,
     max_leg_percent integer,
     rank_id integer,

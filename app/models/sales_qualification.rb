@@ -1,8 +1,6 @@
 class SalesQualification < Qualification
 
-  enum period: { lifetime: 1, monthly: 2, weekly: 3 }
-
-  validates_presence_of :product_id, :quantity, :period
+  validates_presence_of :product_id, :quantity, :time_period
 
   def met?(user_id, pay_period)
     totals = pay_period.order_totals.find do |t|

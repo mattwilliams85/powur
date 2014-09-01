@@ -18,12 +18,12 @@ describe Qualification, type: :model do
       before :each do
         @product = create(:product)
         @period_qual = create(:sales_qualification,
-          product:  @product,
-          period:   :monthly,
-          quantity: 3)
+          product:      @product,
+          time_period:  :monthly,
+          quantity:     3)
         @life_qual = create(:sales_qualification,
           product:  @product,
-          period:   :lifetime,
+          time_period:   :lifetime,
           quantity: 3)
       end
 
@@ -53,9 +53,9 @@ describe Qualification, type: :model do
     describe GroupSalesQualification do
       before :each do
         @product = create(:product)
-        @period_qual = create(:group_sales_qualification, product: @product, period: :monthly, quantity: 3, max_leg_percent: nil)
-        @life_qual = create(:group_sales_qualification, product: @product, period: :lifetime, quantity: 3, max_leg_percent: nil)
-        @max_leg_period_qual = create(:group_sales_qualification, product: @product, period: :monthly, quantity: 3, max_leg_percent: 60)
+        @period_qual = create(:group_sales_qualification, product: @product, time_period: :monthly, quantity: 3, max_leg_percent: nil)
+        @life_qual = create(:group_sales_qualification, product: @product, time_period: :lifetime, quantity: 3, max_leg_percent: nil)
+        @max_leg_period_qual = create(:group_sales_qualification, product: @product, time_period: :monthly, quantity: 3, max_leg_percent: 60)
       end
 
       it 'returns false when the user has no downline sales' do

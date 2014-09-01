@@ -59,13 +59,13 @@ describe MonthlyPayPeriod, type: :model do
 
     it 'generates rank achievements' do
       create(:sales_qualification,
-        product: @product, quantity: 3, rank_id: 2, period: :monthly)
+        product: @product, quantity: 3, rank_id: 2, time_period: :monthly)
       create(:group_sales_qualification,
-        product: @product, quantity: 6, rank_id: 3, period: :monthly, max_leg_percent: 70)
+        product: @product, quantity: 6, rank_id: 3, time_period: :monthly, max_leg_percent: 70)
       create(:sales_qualification,
-        product: @product, quantity: 5, rank_id: 4, period: :lifetime)
+        product: @product, quantity: 5, rank_id: 4, time_period: :lifetime)
       create(:group_sales_qualification,
-        product: @product, quantity: 10, rank_id: 4, period: :monthly, max_leg_percent: 70)
+        product: @product, quantity: 10, rank_id: 4, time_period: :monthly, max_leg_percent: 70)
       order_date = DateTime.current - 1.month
       order = create_order(@user)
       create_order(@user, 5)
