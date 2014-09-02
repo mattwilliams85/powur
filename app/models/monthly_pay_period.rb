@@ -8,6 +8,7 @@ class MonthlyPayPeriod < PayPeriod
 
   def calculate!
     super
+    self.rank_achievements.destroy_all
     create_rank_achievements!
   end
 
