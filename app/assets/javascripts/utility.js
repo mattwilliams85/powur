@@ -376,6 +376,30 @@ function _paginateData(_dataObj, _options){
 }
 
 
+//retrieves Handlebar templates from the _path
+//the _dataObj is provides the context/data
+//once the template is complied with context, it will assign to the target specified
+function _getTemplate(_path, _dataObj, _targetObj, _callback){
+    $.ajax({
+        url:_path,
+        success: function(_source){
+            var _template = Handlebars.compile(_source);
+            var _html="";
+            if(_dataObj != undefined){
+                if(_dataObj.constructor==Array){
+                    for(i=0;i<_dataObj.length;i++)
+                        _html+=_template(_dataObj[i]);
+                }else{
+                    _html=_template(_dataObj);
+                }
+                _targetObj.html(_html);
+            }
+            if(_callback !== undefined)
+                _callback();
+        }
+    });
+}
+
 //Usage:
 //  EyeCueLab.JSON.getObjectsByPattern( data, 
 //                                      {"containsIn(class)":["bonuses", "list"], 

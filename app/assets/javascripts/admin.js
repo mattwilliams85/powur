@@ -72,17 +72,8 @@ jQuery(function($){
                                 $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-users]").position().left+28)+"px");
                                 $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
 
-                                //wire up navigation 
-                                $(document).on("click", "nav.section_nav a, nav.section_subnav a", function(e){
-                                    e.preventDefault();
-                                    _dashboard.displayUsers($(this).attr("href"));
-                                });
-                                //wire up additional logic to allow switching of current user (that you are looking at)
-                                $(document).on("click", ".js-user_link", function(e){_dashboard.switchCurrentUser(e)});
-                                $(document).on("change", ".js-user_select", function(e){_dashboard.switchCurrentUser(e)});
-
                                 //wire up search
-                                $(document).on("keypress", ".js-search_box", function(e){
+                                $(".js-search_box").on("keypress", function(e){
                                     if(e.keyCode == 13){
                                         _dashboard.searchUser($(e.target).val());
                                     }
@@ -124,7 +115,7 @@ jQuery(function($){
                     });
 
                     //wire up the udpate button for the current user
-                    $(document).on("click", ".js-update_distributor_info", function(e){
+                    $(".js-update_distributor_info").on("click" , function(e){
                         e.preventDefault();
                         _ajax({
                             _ajaxType:"patch",
@@ -142,14 +133,68 @@ jQuery(function($){
                 break;
 
 
-               case "#admin-users-genealogy":
-                        _getTemplate("/templates/admin/users/genealogy/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
-                            _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-genealogy]"));
-                            
-                            //load user genealogy info
-                            _getTemplate("/templates/admin/users/genealogy/_downline.handlebars.html",_data.currentUser.downline, $(".js-genealogy-summary_downline"));
-                            _getTemplate("/templates/admin/users/genealogy/_upline.handlebars.html",_data.currentUser.upline, $(".js-genealogy-summary_upline"));
+
+                case "#admin-users-sales":
+                case "#admin-users-sales-orders":
+                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                        var _endPoints =[];
+                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href);
+                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href);
+                        EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+                            var _displayData={};
+                            $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "orders"]})[0]);
+                            _displayData.entities.forEach(function(_entity){
+                                _d = new Date(_entity.properties.order_date);
+                                _entity.properties.localDateString = _d.toLocaleDateString();
+                            });
+                            _getTemplate("/templates/admin/users/sales/_orders.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            });      
                         });
+                    });
+
+                break;
+
+                case "#admin-users-sales-order_totals":
+                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                        $(".section_subnav a").removeClass("js-active");                        
+                        $(".section_subnav a:eq(1)").addClass("js-active");
+                        var _endPoints =[];
+                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href);
+                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href);
+                        EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+                            var _displayData={};
+                            $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0]);
+                            _getTemplate("/templates/admin/users/sales/_order_totals.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
+                            });      
+                        });
+                    });
+
+                break;
+
+                case "#admin-users-genealogy":
+                    _getTemplate("/templates/admin/users/genealogy/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-genealogy]"));
+                        
+                        //load user genealogy info
+                        //upline links
+                        _getTemplate("/templates/admin/users/genealogy/_downline.handlebars.html",_data.currentUser.downline, $(".js-genealogy-summary_downline"), function(){
+                            $(".js-user_link").on("click", function(e){
+                                e.preventDefault();
+                                _dashboard.switchCurrentUser(e);
+                            });
+                        });
+
+                        //downline links
+                        _getTemplate("/templates/admin/users/genealogy/_upline.handlebars.html",_data.currentUser.upline, $(".js-genealogy-summary_upline"), function(){
+                            $(".js-user_link").on("click", function(e){
+                                e.preventDefault();
+                                _dashboard.switchCurrentUser(e);
+                            });                                
+                        });
+                    });
                 break;
 
             }
@@ -297,29 +342,7 @@ jQuery(function($){
         }
 
 
-        //retrieves Handlebar templates from the _path
-        //the _dataObj is provides the context/data
-        //once the template is complied with context, it will assign to the target specified
-        function _getTemplate(_path, _dataObj, _targetObj, _callback){
-            $.ajax({
-                url:_path,
-                success: function(_source){
-                    var _template = Handlebars.compile(_source);
-                    var _html="";
-                    if(_dataObj != undefined){
-                        if(_dataObj.constructor==Array){
-                            for(i=0;i<_dataObj.length;i++)
-                                _html+=_template(_dataObj[i]);
-                        }else{
-                            _html=_template(_dataObj);
-                        }
-                        _targetObj.html(_html);
-                    }
-                    if(_callback !== undefined)
-                        _callback();
-                }
-            });
-        }
+
 
         $(document).on("click", "#js-screen_mask", function(e){
             if(!$(e.target).attr("id") || $(e.target).attr("id")!=="js-screen_mask") return;
@@ -330,6 +353,23 @@ jQuery(function($){
             });
             return;
 
+        });        
+
+        //wire up navigation 
+        $(document).on("click", "nav.section_nav a, nav.section_subnav a", function(e){
+            e.preventDefault();
+            _dashboard.displayUsers($(this).attr("href"));
+        });
+
+        //wire up additional logic to allow switching of current user (that you are looking at)
+        $(document).on("click", ".js-user_link", function(e){
+            e.preventDefault();
+            _dashboard.switchCurrentUser(e);
+        });
+
+        $(document).on("change", ".js-user_select", function(e){
+            e.preventDefault();
+            _dashboard.switchCurrentUser(e);
         });        
 
         $(window).resize(function(){

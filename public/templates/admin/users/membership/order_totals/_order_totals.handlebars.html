@@ -1,0 +1,33 @@
+
+<table class="_table" >
+    <tr>
+        <th style="width:10%;">ID</th>
+        <th style="width:10%;">Type</th>
+        <th style="width:18%;">Start Date</th>
+        <th style="width:18%;">End Date</th>
+        <th style="width:auto;"></th>
+    </tr>
+    {{#each this.entities}}
+    <tr data-pay-period-id="{{this.properties.id}}">
+            {{#compare this.properties.calculated false operator="=="}}
+        <td style="vertical-align:middle;">{{this.properties.id}}</a></td>
+            {{else}}
+        <td style="vertical-align:middle;"><a href="#" class="js-pay_period_link">{{this.properties.id}}</a></td>
+        {{/compare}}
+        <td style="vertical-align:middle;">{{this.properties.type}}</td>
+        <td style="vertical-align:middle;">{{this.properties.startDisplayDate}} 
+        <td style="vertical-align:middle;">{{this.properties.endDisplayDate}}</td>
+        <td style="vertical-align:middle;">
+            {{#compare this.properties.calculated false operator="=="}}
+                <a href="#" class="js-calculate_pay_period button">Calculate</a>
+            {{else}}
+                <a href="#" class="js-calculate_pay_period button quiet" style="color:#cecece;">Recalculate</a>
+            {{/compare}}
+        </td>
+
+    </tr>
+    {{/each}}
+
+
+</table>
+
