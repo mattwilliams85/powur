@@ -4,11 +4,6 @@ describe MonthlyPayPeriod, type: :model do
 
   describe '::ids_from' do
 
-    it 'returns one item if the date is within the current month' do
-      ids = MonthlyPayPeriod.ids_from(Date.current - 1.minute)
-      expect(ids.size).to eq(1)
-    end
-
     it 'returns last months id if first order is a month ago' do
       from = Date.current - 1.month
       ids = MonthlyPayPeriod.ids_from(from)
