@@ -22,8 +22,16 @@ class Rank < ActiveRecord::Base
     @last_rank ||= Rank.count == self.id
   end
 
-  def one_time_qualifiations?
-    self.qualifications.all? { |q| q.lifetime? }
+  def lifetime_path?(path)
+    !!((list = grouped_qualifications[path]) && list.all?(&:lifetime?))
+  end
+
+  def monthly_path?(path)
+    !!((list = grouped_qualifications[path]) && list.any?(&:monthly?))
+  end
+
+  def weekly_path?(path)
+    !!((list = grouped_qualifications[path]) && list.any?(&:weekly?))
   end
 
   def grouped_qualifications
@@ -36,6 +44,12 @@ class Rank < ActiveRecord::Base
 
   def display
     "#{self.title} (#{self.id})"
+  end
+
+  private
+
+  def _time_period_path?(period, path)
+    !!((list = grouped_qualifications[path]) && list.all?(&period))
   end
 
   class << self

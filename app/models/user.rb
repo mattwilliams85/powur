@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :order_totals
   has_many :rank_achievements
-  has_many :onetime_rank_achievements
 
   scope :with_upline_at, ->(id, level){ 
     where('upline[?] = ?', level, id).where('id != ?', id) }
@@ -34,8 +33,11 @@ class User < ActiveRecord::Base
   scope :with_parent, ->(*user_ids){
     where('upline[array_length(upline, 1) - 1] IN (?)', user_ids.flatten) }
 
+  attr_accessor :child_order_totals
+
   before_validation do
-    self.lifetime_rank ||= Rank.find_or_create_by_id(1)
+    self.lifetime_rank ||= Rank.find_or_create_by_id(1).id
+    self.organic_rank ||= 1
   end
 
   after_create :set_upline
@@ -66,6 +68,15 @@ class User < ActiveRecord::Base
 
   def parent_id
     self.upline[-2]
+  end
+
+  def parent_ids
+    self.upline[0..-2]
+  end
+
+  def lifetime_achievements
+    @lifetime_achievements ||= rank_achievements.
+      where('pay_period_id is not null').order(rank_id: :desc, path: :asc).entries
   end
 
   def make_customer!

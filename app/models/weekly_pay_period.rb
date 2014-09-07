@@ -4,8 +4,8 @@ class WeeklyPayPeriod < PayPeriod
     'Weekly'
   end
 
-  def calculate!
-    super
+  def rank_has_path?(rank, path)
+    rank.weekly_path?(path)
   end
 
   class << self

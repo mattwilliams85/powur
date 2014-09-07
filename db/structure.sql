@@ -252,38 +252,6 @@ CREATE TABLE invites (
 
 
 --
--- Name: onetime_rank_achievements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE onetime_rank_achievements (
-    id integer NOT NULL,
-    user_id integer NOT NULL,
-    rank_id integer NOT NULL,
-    path character varying(255) NOT NULL,
-    achieved_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: onetime_rank_achievements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE onetime_rank_achievements_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: onetime_rank_achievements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE onetime_rank_achievements_id_seq OWNED BY onetime_rank_achievements.id;
-
-
---
 -- Name: order_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -479,7 +447,7 @@ ALTER SEQUENCE quotes_id_seq OWNED BY quotes.id;
 
 CREATE TABLE rank_achievements (
     id integer NOT NULL,
-    pay_period_id character varying(255) NOT NULL,
+    pay_period_id character varying(255),
     user_id integer NOT NULL,
     rank_id integer NOT NULL,
     path character varying(255) NOT NULL,
@@ -576,6 +544,8 @@ CREATE TABLE users (
     roles character varying(255)[] DEFAULT '{}'::character varying[],
     upline integer[] DEFAULT '{}'::integer[],
     lifetime_rank integer,
+    organic_rank integer,
+    rank_path character varying(255),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     sponsor_id integer
@@ -627,13 +597,6 @@ ALTER TABLE ONLY bonuses ALTER COLUMN id SET DEFAULT nextval('bonuses_id_seq'::r
 --
 
 ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY onetime_rank_achievements ALTER COLUMN id SET DEFAULT nextval('onetime_rank_achievements_id_seq'::regclass);
 
 
 --
@@ -757,14 +720,6 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: onetime_rank_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY onetime_rank_achievements
-    ADD CONSTRAINT onetime_rank_achievements_pkey PRIMARY KEY (id);
-
-
---
 -- Name: order_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -845,24 +800,10 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: idx_onetime_rank_achievements_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX idx_onetime_rank_achievements_composite_key ON onetime_rank_achievements USING btree (user_id, rank_id, path);
-
-
---
 -- Name: idx_order_totals_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX idx_order_totals_composite_key ON order_totals USING btree (pay_period_id, user_id, product_id);
-
-
---
--- Name: idx_rank_achievements_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX idx_rank_achievements_composite_key ON rank_achievements USING btree (pay_period_id, user_id, rank_id, path);
 
 
 --
@@ -954,6 +895,20 @@ CREATE INDEX index_users_on_upline ON users USING gin (upline);
 --
 
 CREATE UNIQUE INDEX index_users_on_url_slug ON users USING btree (url_slug);
+
+
+--
+-- Name: rank_achievements_comp_key_with_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX rank_achievements_comp_key_with_pp ON rank_achievements USING btree (pay_period_id, user_id, rank_id, path) WHERE (pay_period_id IS NOT NULL);
+
+
+--
+-- Name: rank_achievements_comp_key_without_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX rank_achievements_comp_key_without_pp ON rank_achievements USING btree (user_id DESC, rank_id, path) WHERE (pay_period_id IS NULL);
 
 
 --
@@ -1073,22 +1028,6 @@ ALTER TABLE ONLY invites
 
 ALTER TABLE ONLY invites
     ADD CONSTRAINT invites_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: onetime_rank_achievements_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY onetime_rank_achievements
-    ADD CONSTRAINT onetime_rank_achievements_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
-
-
---
--- Name: onetime_rank_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY onetime_rank_achievements
-    ADD CONSTRAINT onetime_rank_achievements_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -1217,6 +1156,14 @@ ALTER TABLE ONLY rank_achievements
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_lifetime_rank_fk FOREIGN KEY (lifetime_rank) REFERENCES ranks(id);
+
+
+--
+-- Name: users_organic_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_organic_rank_fk FOREIGN KEY (organic_rank) REFERENCES ranks(id);
 
 
 --

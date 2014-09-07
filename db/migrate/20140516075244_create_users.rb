@@ -12,10 +12,13 @@ class CreateUsers < ActiveRecord::Migration
       t.string    :roles, array: true, default: []
       t.integer   :upline, array: true, default: []
       t.integer   :lifetime_rank
+      t.integer   :organic_rank
+      t.string    :rank_path
       t.timestamps null: false
 
       t.belongs_to :sponsor, index: true
       t.foreign_key :ranks, column: :lifetime_rank, primary_key: :id
+      t.foreign_key :ranks, column: :organic_rank, primary_key: :id
       t.foreign_key :users, column: :sponsor_id, primary_key: :id
     end
 

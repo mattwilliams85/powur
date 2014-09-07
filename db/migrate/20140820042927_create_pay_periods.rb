@@ -26,7 +26,7 @@ class CreatePayPeriods < ActiveRecord::Migration
       name: 'idx_order_totals_composite_key'
 
     create_table :rank_achievements do |t|
-      t.string :pay_period_id, null: false
+      t.string :pay_period_id
       t.references  :user, null: false
       t.references  :rank, null: false
       t.string :path, null: false
@@ -36,20 +36,12 @@ class CreatePayPeriods < ActiveRecord::Migration
       t.foreign_key :users
       t.foreign_key :ranks
     end
-    add_index :rank_achievements, [ :pay_period_id, :user_id, :rank_id, :path ], unique: true,
-      name: 'idx_rank_achievements_composite_key'
-
-    create_table :onetime_rank_achievements do |t|
-      t.references  :user, null: false
-      t.references  :rank, null: false
-      t.string :path, null: false
-      t.datetime :achieved_at, null: false
-
-      t.foreign_key :users
-      t.foreign_key :ranks
-    end
-    add_index :onetime_rank_achievements, [ :user_id, :rank_id, :path ], unique: true,
-      name: 'idx_onetime_rank_achievements_composite_key'
+    add_index :rank_achievements, [ :pay_period_id, :user_id, :rank_id, :path ], 
+      unique: true, name: 'rank_achievements_comp_key_with_pp',
+      where: 'pay_period_id is not null'
+    add_index :rank_achievements, [ :user_id, :rank_id, :path ],
+      unique: true, name: 'rank_achievements_comp_key_without_pp',
+      order: { user_id: :desc, rank_id: :asc }, where: 'pay_period_id is null'
 
     create_table :bonus_payments do |t|
       t.string :pay_period_id, null: false

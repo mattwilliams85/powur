@@ -86,7 +86,7 @@ namespace :sunstand do
       Customer.destroy_all
 
       user_count = User.count
-      args.with_defaults(per_user: 20, months_back: 4)
+      args.with_defaults(per_user: 20, months_back: 6)
 
       start_date = (DateTime.current - args[:months_back].months).beginning_of_month
       end_date = DateTime.current
@@ -108,12 +108,20 @@ namespace :sunstand do
         order_amount = rand(0...args[:per_user]*2)
         puts "Creating #{order_amount} Solar Item order(s) for user #{user.full_name}"
         0.upto(order_amount) do |i|
+          customer = Customer.create!(
+            email:      Faker::Internet.email,
+            first_name: Faker::Name.first_name,
+            last_name:  Faker::Name.last_name,
+            phone:      Faker::PhoneNumber.phone_number,
+            address:    Faker::Address.street_address,
+            zip:        Faker::Address.zip)
+          quote = Quote.create!(product_id: SOLAR_ITEM_ID, user: user, customer: customer)
           order_date =  random_order_date(start_date, days_from_start)
-          Order.create!(user: user,
-            product_id: SOLAR_ITEM_ID, order_date: order_date, customer: user.make_customer!)
+          Order.create!(user: user, product_id: SOLAR_ITEM_ID, order_date: order_date, customer: customer, quote: quote)
         end
       end
 
+      PayPeriod.generate_missing
     end
   end
 end

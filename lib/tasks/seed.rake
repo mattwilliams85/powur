@@ -68,7 +68,7 @@ namespace :sunstand do
 
       # Enroller Bonus
       bonus = EnrollerSalesBonus.create!(bonus_plan_id: 1, name: 'Enroller',
-        schedule: :weekly, max_user_rank_id: 1, min_upline_rank_id: 2)
+        schedule: :monthly, max_user_rank_id: 1, min_upline_rank_id: 2)
       BonusSalesRequirement.create!(bonus: bonus, product_id: SOLAR_ITEM_ID)
       BonusLevel.create!(bonus: bonus, amounts: [ 0.0, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125 ])
 
