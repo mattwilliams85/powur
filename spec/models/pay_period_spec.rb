@@ -27,17 +27,39 @@ describe PayPeriod, type: :model do
       create_list(:rank, 3)
     end
 
-    it 'creates lifetime achievements' do
-      qual = create(:sales_qualification, rank_id: 2, time_period: :lifetime)
-      order = create(:order, product: qual.product, quantity: qual.quantity)
-      totals = create(:order_total, product: qual.product, personal_lifetime: order.quantity)
+    describe 'lifetime' do
 
-      order.weekly_pay_period.process_rank_achievements!(order, totals)
+      before :each do
+        @user = create(:user)
+        @qual1 = create(:sales_qualification, rank_id: 2, time_period: :lifetime, quantity: 3)
+        @qual2 = create(:sales_qualification, rank_id: 2, time_period: :lifetime, quantity: 1)
+      end
 
-      achievement = order.user.rank_achievements.first
-      expect(achievement).to_not be_nil
-      expect(achievement.lifetime?).to be
+      it 'does not create a lifetime achievement with only one qualification met' do
+        order = create(:order, product: @qual1.product, quantity: @qual1.quantity, user: @user)
+        pay_period = order.weekly_pay_period
+        
+        pay_period.process_orders!
+
+        achievement = @user.rank_achievements.first
+        expect(achievement).to be_nil
+      end
+
+      it 'creates a lifetime achievement when all qualifications are met' do
+        order1 = create(:order, product: @qual1.product, user: @user,
+          quantity: @qual1.quantity)
+        order2 = create(:order, product: @qual2.product, user: @user,
+          quantity: @qual2.quantity, order_date: order1.order_date + 1.minute)
+        pay_period = order1.monthly_pay_period
+
+        pay_period.process_orders!
+
+        achievement = @user.rank_achievements.first
+        expect(achievement).to_not be_nil
+        expect(achievement.lifetime?).to be
+      end
     end
+
 
     it 'creates pay period achievements' do
       qual = create(:sales_qualification, rank_id: 2, time_period: :weekly)

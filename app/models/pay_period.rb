@@ -2,10 +2,10 @@ class PayPeriod < ActiveRecord::Base
 
   has_many :order_totals, dependent: :destroy
   has_many :rank_achievements, dependent: :destroy
+  has_many :bonus_payments, dependent: :destroy
 
   scope :next_to_calculate, ->(){
-    order(id: :asc).where('calculated_at is null').first
-  }
+    order(id: :asc).where('calculated_at is null').first }
 
   before_create do
     self.id ||= self.class.id_from_date(self.start_date)
@@ -37,11 +37,12 @@ class PayPeriod < ActiveRecord::Base
   def reset_orders!
     self.order_totals.destroy_all
     self.rank_achievements.destroy_all
+    self.bonus_payments.destroy_all
   end
 
   def process_order!(order)
     totals = process_order_totals!(order)
-    # process_sale_rank_bonuses!(order)
+    # process_sale_rank_bonuses!(order, totals)
     process_rank_achievements!(order, totals)
   end
 
@@ -83,7 +84,7 @@ class PayPeriod < ActiveRecord::Base
     end
   end
 
-  def process_sale_rank_bonuses!(order)
+  def process_sale_rank_bonuses!(order, totals)
     bonuses = order.product.sale_bonuses
     bonuses.each do |bonus|
       bonus.pay!(order)
@@ -102,6 +103,10 @@ class PayPeriod < ActiveRecord::Base
     child_totals += missing.map do |id|
       create_order_total(id, product_id)
     end
+  end
+
+  def find_or_create_order_total(user_id, product_id)
+    find_order_total(user_id, product_id) || create_order_total(user_id, product_id)
   end
 
   private
@@ -151,11 +156,8 @@ class PayPeriod < ActiveRecord::Base
       start = achievement ? achievement.rank_id : 1
 
       ranks[start..-1].each do |rank|
-        break unless rank.lifetime_path?(path)
-
-        quals = rank.grouped_qualifications[path]
-        # test qualifications
-        break unless quals.all? { |q| q.met?(totals) }
+        break unless rank.lifetime_path?(path) &&
+          rank.qualified_path?(path, totals)
 
         attrs = {
           achieved_at:    order.order_date,
@@ -165,9 +167,6 @@ class PayPeriod < ActiveRecord::Base
         lifetime_rank_achievements << RankAchievement.create!(attrs)
       end
     end
-  rescue => e
-    binding.pry
-    raise e
   end
 
   def process_pay_period_rank_achievements(order, totals, user = nil)
@@ -179,9 +178,8 @@ class PayPeriod < ActiveRecord::Base
       start = achievement ? achievement.rank_id : 1
 
       ranks[start..-1].each do |rank|
-        break unless rank_has_path?(rank, path)
-        quals = rank.grouped_qualifications[path]
-        break unless quals.all? { |q| q.met?(totals) }
+        break unless rank_has_path?(rank, path) &&
+          rank.qualified_path?(path, totals)
 
         attrs = {
           achieved_at:    order.order_date,

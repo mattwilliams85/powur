@@ -42,6 +42,18 @@ class Rank < ActiveRecord::Base
     grouped_qualifications.keys
   end
 
+  def qualified_path?(path, order_totals)
+    grouped_qualifications[path].all? do |qualification|
+      if order_totals.product_id == qualification.product_id
+        totals = order_totals
+      else
+        totals = order_totals.pay_period.
+          find_or_create_order_total(order_totals.user_id, qualification.product_id)
+      end
+      qualification.met?(totals)
+    end
+  end
+
   def display
     "#{self.title} (#{self.id})"
   end
