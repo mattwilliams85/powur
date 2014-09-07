@@ -3,6 +3,10 @@ class PayPeriod < ActiveRecord::Base
   has_many :order_totals, dependent: :destroy
   has_many :rank_achievements, dependent: :destroy
 
+  scope :next_to_calculate, ->(){
+    order(id: :asc).where('calculated_at is null').first
+  }
+
   before_create do
     self.id ||= self.class.id_from_date(self.start_date)
   end
@@ -27,7 +31,7 @@ class PayPeriod < ActiveRecord::Base
 
   def orders
     @orders ||= Order.by_pay_period(self).
-      includes(:user).references(:user).order(order_date: :asc).entries
+      includes(:user, :product).references(:user, :product).order(order_date: :asc).entries
   end
 
   def reset_orders!
@@ -36,6 +40,19 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def process_order!(order)
+    totals = process_order_totals!(order)
+    # process_sale_rank_bonuses!(order)
+    process_rank_achievements!(order, totals)
+  end
+
+  def process_orders!
+    orders.each do |order|
+      process_order!(order)
+      yield(order) if block_given?
+    end
+  end
+
+  def process_order_totals!(order)
     totals =  find_order_total(order.user_id, order.product_id)
     if totals
       totals.update_columns(
@@ -48,14 +65,7 @@ class PayPeriod < ActiveRecord::Base
     end
 
     increment_upline_totals(order)
-    process_rank_achievements!(order, totals)
-  end
-
-  def process_orders!
-    orders.each do |order|
-      process_order!(order)
-      yield(order) if block_given?
-    end
+    totals
   end
 
   def process_rank_achievements!(order, totals = nil)
@@ -70,6 +80,13 @@ class PayPeriod < ActiveRecord::Base
 
       process_lifetime_rank_achievements(order, parent_totals, parent)
       process_pay_period_rank_achievements(order, parent_totals, parent)
+    end
+  end
+
+  def process_sale_rank_bonuses!(order)
+    bonuses = order.product.sale_bonuses
+    bonuses.each do |bonus|
+      bonus.pay!(order)
     end
   end
 
@@ -153,9 +170,12 @@ class PayPeriod < ActiveRecord::Base
           user_id:        user.id,
           rank_id:        rank.id,
           path:           path }
-        RankAchievement.create!(attrs)
+        lifetime_rank_achievements << RankAchievement.create!(attrs)
       end
     end
+  rescue => e
+    binding.pry
+    raise e
   end
 
   def process_pay_period_rank_achievements(order, totals, user = nil)

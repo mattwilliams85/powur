@@ -2,6 +2,7 @@ class Product < ActiveRecord::Base
 
   has_many :qualifications, dependent: :destroy
   has_many :bonus_sales_requirements, dependent: :destroy
+  has_many :bonuses, through: :bonus_sales_requirements
 
   validates_presence_of :name, :bonus_volume, :commission_percentage
 
@@ -11,6 +12,14 @@ class Product < ActiveRecord::Base
     query = query.where.not(id: exception_bonus_id) if exception_bonus_id
     bonuses = query.entries
     bonuses.empty? ? 0.0 : bonuses.map(&:max_amount).inject(:+)
+  end
+
+  def sale_bonuses
+    @sale_bonuses ||= bonuses.select(&:sale?)
+  end
+
+  def has_sales_bonuses?
+    !sales_bonuses.empty?
   end
 
   class << self

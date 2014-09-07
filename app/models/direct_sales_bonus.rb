@@ -5,4 +5,8 @@ class DirectSalesBonus < Bonus
     default_level.amounts
   end
 
+  def to_payment!(order)
+    
+  end
+
 end
