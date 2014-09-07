@@ -8,7 +8,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def calculable?
-    Date.current > self.end_date
+    Date.current > self.start_date
   end
 
   def calculated?

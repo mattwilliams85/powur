@@ -37,13 +37,14 @@ describe '/a/pay_periods' do
       PayPeriod.generate_missing
 
       get pay_periods_path, format: :json
-      pay_period = json_body['entities'].first
+      pay_period = json_body['entities'].last
       id = pay_period['properties']['id']
 
       post calculate_pay_period_path(id), format: :json
 
-      expect_classes('pay_period')
-      expect_props(calculated: true)
+      expect_classes('pay_periods')
+      pay_period = json_body['entities'].last
+      expect(pay_period['properties']['calculated']).to be
     end
 
   end
