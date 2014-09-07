@@ -136,14 +136,12 @@ class PayPeriod < ActiveRecord::Base
 
   def lifetime_rank_achievements_for(user_id)
     lifetime_rank_achievements.
-      select { |a| a.user_id == user_id }.
-      sort { |a,b| b.rank_id <=> a.rank_id }
+      select { |a| a.user_id == user_id }.sort_by(&:rank_id)
   end
 
   def rank_achievements_for(user_id)
     rank_achievements.
-      select { |a| a.user_id == user_id }.
-      sort { |a,b| b.rank_id <=> a.rank_id }
+      select { |a| a.user_id == user_id }.sort_by(&:rank_id)
   end
 
   def qualification_paths

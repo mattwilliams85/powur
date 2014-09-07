@@ -43,7 +43,7 @@ describe '/a/quotes' do
       quotes = create_list(:quote, 3)
       get admin_quotes_path, format: :json, sort: :customer
 
-      sorted_ids = quotes.sort { |a,b| a.customer.last_name <=> b.customer.last_name }.map { |q| q.id }
+      sorted_ids = quotes.sort_by { |q| q.customer.last_name }.map { |q| q.id }
       result = json_body['entities'].map { |e| e['properties']['id'] }
 
       expect(result).to eq(sorted_ids)

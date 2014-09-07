@@ -45,7 +45,7 @@ describe 'order totals', type: :request do
       get pay_period_order_totals_path(@pay_period), format: :json
 
       result = json_body['entities'].map { |e| e['properties']['id'] }
-      expected = totals.sort { |a,b| a.id <=> b.id }.map(&:id)
+      expected = totals.sort_by(&:id).map(&:id)
 
       expect(result).to eq(expected)
     end
