@@ -19,11 +19,11 @@ describe '/a/quotes' do
       expect_entities_count(2)
     end
 
-    it 'includes the search action' do
+    it 'includes the index action' do
       create_list(:quote, 5)
       get admin_quotes_path, format: :json
 
-      expect_actions 'search'
+      expect_actions 'index'
     end
 
     it 'fuzzy searches by user name and customer name' do
@@ -43,7 +43,7 @@ describe '/a/quotes' do
       quotes = create_list(:quote, 3)
       get admin_quotes_path, format: :json, sort: :customer
 
-      sorted_ids = quotes.sort { |a,b| a.customer.last_name <=> b.customer.last_name }.map { |q| q.id }
+      sorted_ids = quotes.sort_by { |q| q.customer.last_name }.map { |q| q.id }
       result = json_body['entities'].map { |e| e['properties']['id'] }
 
       expect(result).to eq(sorted_ids)

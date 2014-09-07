@@ -27,9 +27,9 @@ describe '/u/users' do
       user1 = create(:user, sponsor: @user, first_name: 'davey')
       user2 = create(:user, sponsor: @user, last_name: 'david')
       user3 = create(:user, sponsor: @user, email: 'redave@example.org')
-      create_list(:user, 2, sponsor: @user)
+      create_list(:user, 2, sponsor: @user, first_name: 'Mary', last_name: 'Jones')
 
-      get users_path, q: 'dave', format: :json
+      get users_path, search: 'dave', format: :json
 
       expect(json_body['entities'].size).to eq(3)
       result_ids = json_body['entities'].map { |u| u['properties']['id'] }

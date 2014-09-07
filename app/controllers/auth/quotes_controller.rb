@@ -14,7 +14,7 @@ module Auth
       @quotes = Quote.where(user_id: current_user.id).
         includes(:customer, :user, :product).
         references(:customer, :user, :product).
-        customer_search(params[:q])
+        customer_search(params[:search])
 
       render 'index'
     end

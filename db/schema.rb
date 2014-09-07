@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804061544) do
+ActiveRecord::Schema.define(version: 20140820042927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,20 @@ ActiveRecord::Schema.define(version: 20140804061544) do
     t.decimal "amounts",  precision: 5, scale: 5, default: [], null: false, array: true
   end
 
+  create_table "bonus_payment_orders", id: false, force: true do |t|
+    t.integer "bonus_payment_id", null: false
+    t.integer "order_id",         null: false
+  end
+
+  create_table "bonus_payments", force: true do |t|
+    t.string   "pay_period_id",                                      null: false
+    t.integer  "bonus_id",                                           null: false
+    t.integer  "user_id",                                            null: false
+    t.decimal  "amount",        precision: 10, scale: 2,             null: false
+    t.integer  "status",                                 default: 1, null: false
+    t.datetime "created_at",                                         null: false
+  end
+
   create_table "bonus_plans", force: true do |t|
     t.string  "name",        null: false
     t.integer "start_year"
@@ -33,18 +47,19 @@ ActiveRecord::Schema.define(version: 20140804061544) do
   add_index "bonus_plans", ["start_year", "start_month"], name: "index_bonus_plans_on_start_year_and_start_month", unique: true, using: :btree
 
   create_table "bonus_sales_requirements", id: false, force: true do |t|
-    t.integer "bonus_id",                   null: false
-    t.integer "product_id",                 null: false
-    t.integer "quantity",   default: 1,     null: false
-    t.boolean "source",     default: false, null: false
+    t.integer "bonus_id",                  null: false
+    t.integer "product_id",                null: false
+    t.integer "quantity",   default: 1,    null: false
+    t.boolean "source",     default: true, null: false
   end
 
   create_table "bonuses", force: true do |t|
     t.integer  "bonus_plan_id",                      null: false
     t.string   "type",                               null: false
     t.string   "name",                               null: false
-    t.integer  "achieved_rank_id"
     t.integer  "schedule",           default: 2,     null: false
+    t.integer  "use_rank_at",        default: 2,     null: false
+    t.integer  "achieved_rank_id"
     t.integer  "max_user_rank_id"
     t.integer  "min_upline_rank_id"
     t.boolean  "compress",           default: false, null: false
@@ -79,6 +94,18 @@ ActiveRecord::Schema.define(version: 20140804061544) do
     t.integer  "user_id"
   end
 
+  create_table "order_totals", force: true do |t|
+    t.string  "pay_period_id",                 null: false
+    t.integer "user_id",                       null: false
+    t.integer "product_id",                    null: false
+    t.integer "personal",          default: 0, null: false
+    t.integer "group",                         null: false
+    t.integer "personal_lifetime", default: 0, null: false
+    t.integer "group_lifetime",                null: false
+  end
+
+  add_index "order_totals", ["pay_period_id", "user_id", "product_id"], name: "idx_order_totals_composite_key", unique: true, using: :btree
+
   create_table "orders", force: true do |t|
     t.integer  "product_id",              null: false
     t.integer  "user_id",                 null: false
@@ -93,20 +120,29 @@ ActiveRecord::Schema.define(version: 20140804061544) do
 
   add_index "orders", ["quote_id"], name: "index_orders_on_quote_id", unique: true, using: :btree
 
+  create_table "pay_periods", id: false, force: true do |t|
+    t.string   "id",            null: false
+    t.string   "type",          null: false
+    t.date     "start_date",    null: false
+    t.date     "end_date",      null: false
+    t.datetime "calculated_at"
+  end
+
   create_table "products", force: true do |t|
-    t.string   "name",                                null: false
-    t.integer  "bonus_volume",                        null: false
-    t.integer  "commission_percentage", default: 100, null: false
-    t.string   "quote_data",            default: [],               array: true
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string   "name",                                  null: false
+    t.integer  "bonus_volume",                          null: false
+    t.integer  "commission_percentage", default: 100,   null: false
+    t.string   "quote_data",            default: [],                 array: true
+    t.boolean  "distributor_only",      default: false, null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "qualifications", force: true do |t|
     t.string  "type",                                null: false
     t.string  "path",            default: "default", null: false
-    t.integer "period"
-    t.integer "quantity"
+    t.integer "time_period",                         null: false
+    t.integer "quantity",        default: 1,         null: false
     t.integer "max_leg_percent"
     t.integer "rank_id"
     t.integer "product_id",                          null: false
@@ -129,6 +165,17 @@ ActiveRecord::Schema.define(version: 20140804061544) do
   add_index "quotes", ["product_id"], name: "index_quotes_on_product_id", using: :btree
   add_index "quotes", ["url_slug"], name: "index_quotes_on_url_slug", unique: true, using: :btree
   add_index "quotes", ["user_id"], name: "index_quotes_on_user_id", using: :btree
+
+  create_table "rank_achievements", force: true do |t|
+    t.string   "pay_period_id"
+    t.integer  "user_id",       null: false
+    t.integer  "rank_id",       null: false
+    t.string   "path",          null: false
+    t.datetime "achieved_at",   null: false
+  end
+
+  add_index "rank_achievements", ["pay_period_id", "user_id", "rank_id", "path"], name: "rank_achievements_comp_key_with_pp", unique: true, where: "(pay_period_id IS NOT NULL)", using: :btree
+  add_index "rank_achievements", ["user_id", "rank_id", "path"], name: "rank_achievements_comp_key_without_pp", unique: true, where: "(pay_period_id IS NULL)", using: :btree
 
   create_table "ranks", id: false, force: true do |t|
     t.integer "id",    null: false
@@ -157,6 +204,9 @@ ActiveRecord::Schema.define(version: 20140804061544) do
     t.datetime "reset_sent_at"
     t.string   "roles",              default: [],              array: true
     t.integer  "upline",             default: [],              array: true
+    t.integer  "lifetime_rank"
+    t.integer  "organic_rank"
+    t.string   "rank_path"
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.integer  "sponsor_id"
@@ -169,6 +219,13 @@ ActiveRecord::Schema.define(version: 20140804061544) do
 
   add_foreign_key "bonus_levels", "bonuses", name: "bonus_levels_bonus_id_fk"
 
+  add_foreign_key "bonus_payment_orders", "bonus_payments", name: "bonus_payment_orders_bonus_payment_id_fk"
+  add_foreign_key "bonus_payment_orders", "orders", name: "bonus_payment_orders_order_id_fk"
+
+  add_foreign_key "bonus_payments", "bonuses", name: "bonus_payments_bonus_id_fk"
+  add_foreign_key "bonus_payments", "pay_periods", name: "bonus_payments_pay_period_id_fk"
+  add_foreign_key "bonus_payments", "users", name: "bonus_payments_user_id_fk"
+
   add_foreign_key "bonus_sales_requirements", "bonuses", name: "bonus_sales_requirements_bonus_id_fk"
   add_foreign_key "bonus_sales_requirements", "products", name: "bonus_sales_requirements_product_id_fk"
 
@@ -179,6 +236,10 @@ ActiveRecord::Schema.define(version: 20140804061544) do
 
   add_foreign_key "invites", "users", name: "invites_sponsor_id_fk", column: "sponsor_id"
   add_foreign_key "invites", "users", name: "invites_user_id_fk"
+
+  add_foreign_key "order_totals", "pay_periods", name: "order_totals_pay_period_id_fk"
+  add_foreign_key "order_totals", "products", name: "order_totals_product_id_fk"
+  add_foreign_key "order_totals", "users", name: "order_totals_user_id_fk"
 
   add_foreign_key "orders", "customers", name: "orders_customer_id_fk"
   add_foreign_key "orders", "products", name: "orders_product_id_fk"
@@ -192,6 +253,12 @@ ActiveRecord::Schema.define(version: 20140804061544) do
   add_foreign_key "quotes", "products", name: "quotes_product_id_fk"
   add_foreign_key "quotes", "users", name: "quotes_user_id_fk"
 
+  add_foreign_key "rank_achievements", "pay_periods", name: "rank_achievements_pay_period_id_fk"
+  add_foreign_key "rank_achievements", "ranks", name: "rank_achievements_rank_id_fk"
+  add_foreign_key "rank_achievements", "users", name: "rank_achievements_user_id_fk"
+
+  add_foreign_key "users", "ranks", name: "users_lifetime_rank_fk", column: "lifetime_rank"
+  add_foreign_key "users", "ranks", name: "users_organic_rank_fk", column: "organic_rank"
   add_foreign_key "users", "users", name: "users_sponsor_id_fk", column: "sponsor_id"
 
 end

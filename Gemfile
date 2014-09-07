@@ -42,6 +42,7 @@ group :test do
   gem 'database_cleaner'
   gem 'webmock', require: 'webmock/rspec'
   gem 'vcr'
+  gem 'db-query-matchers'
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc

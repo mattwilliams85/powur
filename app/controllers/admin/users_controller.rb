@@ -26,7 +26,7 @@ module Admin
     end
 
     def search
-      @users = User.search(params[:q])
+      @users = User.search(params[:search])
 
       render 'index'
     end

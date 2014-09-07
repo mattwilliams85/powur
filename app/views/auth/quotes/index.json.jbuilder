@@ -19,8 +19,8 @@ Product.default.quote_data.each do |key|
 end
 
 actions \
-  action(:search, :get, user_quotes_path).
-    field(:q, :text),
+  action(:index, :get, user_quotes_path).
+    field(:search, :search, required: false),
   create_action
 
 links \

@@ -66,20 +66,20 @@ describe Order, type: :model do
       create_list(:order, 2, user: children.first, product: product1, order_date: order_date1)
       create_list(:order, 3, user: children.last, product: product1, order_date: order_date1)
 
-      order_date2 = DateTime.current - 1.month
-      create_list(:order, 2, user: parent, product: product1, order_date: order_date2)
-      create_list(:order, 4, user: children.first, product: product1, order_date: order_date2)
-      create_list(:order, 6, user: children.last, product: product1, order_date: order_date2)
-
-      totals = Order.group_totals(order_date1 - 1.month, order_date2 + 1.month)
-      { root => 18, parent => 18, children.first => 6, children.last => 9 }.each do |user, total|
+      totals = Order.group_totals(order_date1 + 1.month)
+      { root => 6, parent => 6, children.first => 2, children.last => 3 }.each do |user, total|
         order_total = totals.find { |o| o.user_id == user.id }
         expect(order_total).to_not be_nil
         expect(order_total.quantity).to eq(total)
       end
 
-      totals = Order.group_totals(order_date1 - 1.month, order_date2 - 1.month)
-      { root => 6, parent => 6, children.first => 2, children.last => 3 }.each do |user, total|
+      order_date2 = DateTime.current - 1.month
+      create_list(:order, 2, user: parent, product: product1, order_date: order_date2)
+      create_list(:order, 4, user: children.first, product: product1, order_date: order_date2)
+      create_list(:order, 6, user: children.last, product: product1, order_date: order_date2)
+
+      totals = Order.group_totals(order_date2 + 1.month)
+      { root => 18, parent => 18, children.first => 6, children.last => 9 }.each do |user, total|
         order_total = totals.find { |o| o.user_id == user.id }
         expect(order_total).to_not be_nil
         expect(order_total.quantity).to eq(total)
