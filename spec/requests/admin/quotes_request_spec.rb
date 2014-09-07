@@ -19,11 +19,11 @@ describe '/a/quotes' do
       expect_entities_count(2)
     end
 
-    it 'includes the search action' do
+    it 'includes the index action' do
       create_list(:quote, 5)
       get admin_quotes_path, format: :json
 
-      expect_actions 'search'
+      expect_actions 'index'
     end
 
     it 'fuzzy searches by user name and customer name' do

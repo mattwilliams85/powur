@@ -134,14 +134,8 @@ class PayPeriod < ActiveRecord::Base
     @lifetime_rank_achievements ||= RankAchievement.lifetime.where(user_id: all_user_ids).entries
   end
 
-  def lifetime_rank_achievements_for(user_id)
-    lifetime_rank_achievements.
-      select { |a| a.user_id == user_id }.sort_by(&:rank_id)
-  end
-
-  def rank_achievements_for(user_id)
-    rank_achievements.
-      select { |a| a.user_id == user_id }.sort_by(&:rank_id)
+  def achievements_for(user_id, list = rank_achievements)
+    list.select { |a| a.user_id == user_id }.sort_by(&:rank_id)
   end
 
   def qualification_paths
@@ -150,7 +144,7 @@ class PayPeriod < ActiveRecord::Base
 
   def process_lifetime_rank_achievements(order, totals, user = nil)
     user ||= order.user
-    achievements = lifetime_rank_achievements_for(user.id)
+    achievements = achievements_for(user.id, lifetime_rank_achievements)
 
     qualification_paths.each do |path|
       achievement = achievements.first { |a| a.path == path }
@@ -178,7 +172,7 @@ class PayPeriod < ActiveRecord::Base
 
   def process_pay_period_rank_achievements(order, totals, user = nil)
     user ||= order.user
-    achievements = rank_achievements_for(user.id)
+    achievements = achievements_for(user.id)
 
     qualification_paths.each do |path|
       achievement = achievements.first { |a| a.path == path }

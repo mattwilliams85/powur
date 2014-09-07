@@ -30,7 +30,7 @@ describe '/u/quotes' do
       create(:quote, user: @user, customer: create(:customer, email: 'gary@example.org'))
       create_list(:quote, 2, user: @user)
 
-      get user_quotes_path, q: 'Gary', format: :json
+      get user_quotes_path, search: 'Gary', format: :json
       expect(json_body['entities'].size).to eq(3)
     end
 

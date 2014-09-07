@@ -38,6 +38,4 @@ describe '/quote' do
     expect_actions 'update'
   end
 
-  it 'updates an existing quote' do
-  end
 end

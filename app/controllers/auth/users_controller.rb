@@ -7,7 +7,7 @@ module Auth
     end
 
     def search
-      @users = list_criteria.search(params[:q])
+      @users = list_criteria.search(params[:search])
 
       render 'index'
     end

@@ -37,13 +37,13 @@ Rails.application.routes.draw do
 
     resources :users, only: [ :index, :show ] do
       collection do
-        get '' => 'users#search', constraints: has_params(:q)
+        get '' => 'users#search', constraints: has_params(:search)
       end
     end
 
     resources :quotes, only: [ :index, :create, :destroy, :update, :show ], as: :user_quotes do
       collection do
-        get '' => 'quotes#search', constraints: has_params(:q)
+        get '' => 'quotes#search', constraints: has_params(:search)
       end
       member do
         post :resend
@@ -56,7 +56,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [ :index, :show, :update ], as: :admin_users do
       collection do
-        get '' => 'users#search', constraints: has_params(:q)
+        get '' => 'users#search', constraints: has_params(:search)
       end
       member do
         get :downline

@@ -6,7 +6,7 @@ module Admin
 
     SORTS = {
       achieved_at:  :achieved_at,
-      user:         'users.last_name asc' }
+      user:         'users.last_name asc, users.first_name asc' }
 
     sort_and_page available_sorts: SORTS
 

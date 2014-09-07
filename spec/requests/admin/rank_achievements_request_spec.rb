@@ -36,8 +36,9 @@ describe 'order totals', type: :request do
 
       expected = list.sort_by { |a| [ a.user.last_name, a.user.first_name ] }.
         map { |a| a.user.full_name }
-      # binding.pry
+      result = json_body['entities'].map { |a| a['properties']['user'] }
 
+      expect(result).to eq(expected)
     end
 
   end
