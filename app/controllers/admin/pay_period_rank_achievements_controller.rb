@@ -13,7 +13,7 @@ module Admin
     private
 
     def fetch_pay_period
-      pay_period = MonthlyPayPeriod.find(params[:pay_period_id])
+      pay_period = PayPeriod.find(params[:pay_period_id])
 
       @rank_achievements = pay_period.rank_achievements
       @rank_achievements_path = pay_period_rank_achievements_path(pay_period)

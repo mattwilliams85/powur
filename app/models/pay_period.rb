@@ -87,7 +87,7 @@ class PayPeriod < ActiveRecord::Base
   def process_sale_rank_bonuses!(order, totals)
     bonuses = order.product.sale_bonuses
     bonuses.each do |bonus|
-      bonus.pay!(order)
+      # bonus.pay!(order)
     end
   end
 
@@ -105,7 +105,13 @@ class PayPeriod < ActiveRecord::Base
     end
   end
 
-  def find_or_create_order_total(user_id, product_id)
+  def find_order_total(user_id, product_id)
+    order_totals.find do |ot|
+      ot.user_id == user_id && ot.product_id == product_id
+    end
+  end
+
+  def find_order_total!(user_id, product_id)
     find_order_total(user_id, product_id) || create_order_total(user_id, product_id)
   end
 
@@ -164,7 +170,11 @@ class PayPeriod < ActiveRecord::Base
           user_id:        user.id,
           rank_id:        rank.id,
           path:           path }
-        lifetime_rank_achievements << RankAchievement.create!(attrs)
+        achievement = RankAchievement.create!(attrs)
+        lifetime_rank_achievements << achievement
+        if user.lifetime_rank < achievement.rank_id
+          user.update_column(:lifetime_rank, achievement.rank_id)
+        end
       end
     end
   end
@@ -197,12 +207,6 @@ class PayPeriod < ActiveRecord::Base
 
   def lifetime_group_totals
     @lifetime_group_totals ||= Order.group_totals(self.start_date).entries
-  end
-
-  def find_order_total(user_id, product_id)
-    self.order_totals.find do |ot|
-      ot.user_id == user_id && ot.product_id == product_id
-    end
   end
 
   def find_personal_lifetime(user_id, product_id)

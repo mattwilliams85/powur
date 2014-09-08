@@ -57,6 +57,8 @@ describe PayPeriod, type: :model do
         achievement = @user.rank_achievements.first
         expect(achievement).to_not be_nil
         expect(achievement.lifetime?).to be
+        @user.reload
+        expect(@user.lifetime_rank).to eq(2)
       end
     end
 

@@ -5,8 +5,8 @@ namespace :sunstand do
     CERT_ITEM_ID  = 2
 
     task ranks: :environment do
-      Rank.destroy_all
-      Rank.create!(id: 1, title: 'Advocate')
+      Rank.where.not(id: 1).destroy_all
+      Rank.create(id: 1, title: 'Advocate') rescue nil
       Rank.create!(id: 2, title: 'Consultant')
       3.upto(8).each { |i| Rank.create(id: i, title: "Rank #{i}") }
       puts "Created Ranks 1 through 8..."
