@@ -145,8 +145,11 @@ class PayPeriod < ActiveRecord::Base
     @lifetime_rank_achievements ||= RankAchievement.lifetime.where(user_id: all_user_ids).entries
   end
 
-  def achievements_for(user_id, list = rank_achievements)
-    list.select { |a| a.user_id == user_id }.sort_by(&:rank_id)
+  def highest_rank(user_id, path, *lists)
+    lists.inject([ 1 ]) do |ranks, list|
+      ranks << list.select { |a| a.user_id == user_id && a.path == path }.
+        map(&:rank_id).max
+    end.compact.max
   end
 
   def qualification_paths
@@ -155,11 +158,9 @@ class PayPeriod < ActiveRecord::Base
 
   def process_lifetime_rank_achievements(order, totals, user = nil)
     user ||= order.user
-    achievements = achievements_for(user.id, lifetime_rank_achievements)
 
     qualification_paths.each do |path|
-      achievement = achievements.first { |a| a.path == path }
-      start = achievement ? achievement.rank_id : 1
+      start = highest_rank(user.id, path, lifetime_rank_achievements)
 
       ranks[start..-1].each do |rank|
         break unless rank.lifetime_path?(path) &&
@@ -181,11 +182,10 @@ class PayPeriod < ActiveRecord::Base
 
   def process_pay_period_rank_achievements(order, totals, user = nil)
     user ||= order.user
-    achievements = achievements_for(user.id)
 
     qualification_paths.each do |path|
-      achievement = achievements.first { |a| a.path == path }
-      start = achievement ? achievement.rank_id : 1
+      start = highest_rank(user.id, path,
+        lifetime_rank_achievements, rank_achievements)
 
       ranks[start..-1].each do |rank|
         break unless rank_has_path?(rank, path) &&
