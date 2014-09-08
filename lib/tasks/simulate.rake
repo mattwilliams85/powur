@@ -92,7 +92,7 @@ namespace :sunstand do
       end_date = DateTime.current
       days_from_start = end_date.mjd - start_date.mjd
 
-      users = get_random_percentage_of_users(75)
+      users = get_random_percentage_of_users(90)
       puts "Creating #{users.size} purchases of the Cert Product out of #{user_count} users"
 
       users.each do |user|
@@ -102,9 +102,8 @@ namespace :sunstand do
       end
 
       puts "Creating an average of #{args[:per_user]} orders per user between dates #{start_date} and #{end_date}"
-      users = get_random_percentage_of_users(85)
 
-      users.each do |user|
+      User.all.each do |user|
         order_amount = rand(0...args[:per_user]*2)
         puts "Creating #{order_amount} Solar Item order(s) for user #{user.full_name}"
         0.upto(order_amount) do |i|
