@@ -93,10 +93,10 @@ namespace :sunstand do
       days_from_start = end_date.mjd - start_date.mjd
 
       users = get_random_percentage_of_users(75)
-      puts "Creating #{users.size} purchaes of the Cert Product out of #{user_count} users"
+      puts "Creating #{users.size} purchases of the Cert Product out of #{user_count} users"
 
       users.each do |user|
-        order_date =  random_order_date(start_date, days_from_start)
+        order_date =  random_order_date(start_date, 30)
         Order.create!(user: user,
           product_id: CERT_ITEM_ID, order_date: order_date, customer: user.make_customer!)
       end

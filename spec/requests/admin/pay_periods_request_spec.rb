@@ -26,8 +26,10 @@ describe '/a/pay_periods' do
       order.monthly_pay_period.touch :calculated_at
       get pay_period_path(order.monthly_pay_period.id), format: :json
 
-      expect_entities 'pay_period-order_totals'
+      expect_entities 'pay_period-order_totals', 'pay_period-rank_achievements'
+
     end
+
   end
 
   describe 'POST /:id/calculate' do

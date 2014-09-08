@@ -10,18 +10,20 @@ describe 'order totals', type: :request do
   describe '/a/pay_periods/:id/rank_achievements' do
 
     it 'pages a list for the pay period' do
-      achievement = create(:rank_achievement, rank_id: 2)
-      create_list(:rank_achievement, 3, rank_id: 2, pay_period: achievement.pay_period)
+      pay_period = WeeklyPayPeriod.
+        find_or_create_by_date(DateTime.current - 1.month)
+      achievement = create(:rank_achievement, rank_id: 2, pay_period: pay_period)
+      create_list(:rank_achievement, 3, rank_id: 2, pay_period: pay_period)
       create(:rank_achievement, 
         rank_id:    3, 
         user:       achievement.user, 
-        pay_period: achievement.pay_period)
+        pay_period: pay_period)
 
-      get pay_period_rank_achievements_path(achievement.pay_period), 
+      get pay_period_rank_achievements_path(pay_period), 
         format: :json, limit: 3
       expect_entities_count(3)
 
-      get pay_period_rank_achievements_path(achievement.pay_period), 
+      get pay_period_rank_achievements_path(pay_period), 
         format: :json, limit: 2, page: 2
       expect_entities_count(2)
     end
