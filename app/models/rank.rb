@@ -54,10 +54,6 @@ class Rank < ActiveRecord::Base
     end
   end
 
-  def display
-    "#{self.title} (#{self.id})"
-  end
-
   private
 
   def _time_period_path?(period, path)
