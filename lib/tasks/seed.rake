@@ -30,7 +30,9 @@ namespace :sunstand do
 
     task qualifications: [ :ranks, :products ] do
       Qualification.destroy_all
-      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID)
+
+      # default path
+      SalesQualification.create!(time_period: :lifetime, product_id: CERT_ITEM_ID)
       puts 'Created Active Qualifications...'
       # Rank 2
       SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 2, quantity: 3)
@@ -42,16 +44,42 @@ namespace :sunstand do
       SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 10)
       GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 25, max_leg_percent: 70)
       # Rank 5
-      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 15)
-      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 50, max_leg_percent: 65)
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 5, quantity: 15)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 5, quantity: 50, max_leg_percent: 65)
       # Rank 6
-      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 20)
-      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 100, max_leg_percent: 60)
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 6, quantity: 20)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 6, quantity: 100, max_leg_percent: 60)
       # Rank 7
-      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 25)
-      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 200, max_leg_percent: 55)
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 7, quantity: 25)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 7, quantity: 200, max_leg_percent: 55)
       # Rank 8
-      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 500, max_leg_percent: 50)
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 8, quantity: 30)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 8, quantity: 500, max_leg_percent: 50)
+
+      # non-subscriber path
+      path = 'non-subscriber'
+      SalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, path: path)
+      # Rank 2
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 2, quantity: 20, path: path)
+      # Rank 3
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 3, quantity: 25, path: path)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 3, quantity: 15, max_leg_percent: 75, path: path)
+      # Rank 4
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 30, path: path)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 4, quantity: 35, max_leg_percent: 70, path: path)
+      # Rank 5
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 5, quantity: 35, path: path)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 5, quantity: 65, max_leg_percent: 65, path: path)
+      # Rank 6
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 6, quantity: 40, path: path)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 6, quantity: 125, max_leg_percent: 60, path: path)
+      # Rank 7
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 7, quantity: 45, path: path)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 7, quantity: 250, max_leg_percent: 55, path: path)
+      # Rank 8
+      SalesQualification.create!(time_period: :lifetime, product_id: SOLAR_ITEM_ID, rank_id: 8, quantity: 50, path: path)
+      GroupSalesQualification.create!(time_period: :monthly, product_id: SOLAR_ITEM_ID, rank_id: 8, quantity: 600, max_leg_percent: 50, path: path)
+
       puts 'Created Rank Qualifications...'
     end
 

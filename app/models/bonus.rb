@@ -97,6 +97,14 @@ class Bonus < ActiveRecord::Base
     available_amount * remaining_percentage
   end
 
+  def solo_requirement?
+    true
+  end
+
+  def can_add_requirement?
+    !solo_requirement? || requirements.empty?
+  end
+
   class << self
     def symbol_to_type(type_symbol)
       "#{type_symbol.to_s.split('_').map(&:capitalize).join}#{self.name}".constantize

@@ -20,4 +20,8 @@ class PromoteOutBonus < Bonus
     1.0 - percentage_used
   end
 
+  def solo_requirement?
+    false
+  end
+
 end
