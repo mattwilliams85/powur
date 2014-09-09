@@ -5,7 +5,7 @@ module Admin
     before_action :fetch_user
 
     SORTS = {
-      pay_period_id:  'pay_period.id desc, bonus.created_at' }
+      pay_period_id:  'pay_period_id desc, bonus_payments.created_at asc' }
 
     sort_and_page available_sorts: SORTS
 

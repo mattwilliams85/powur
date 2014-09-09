@@ -15,8 +15,32 @@ describe 'order totals', type: :request do
 
       get pay_period_bonus_payments_path(pay_period),
         format: :json, limit: 3
+      expect_entities_count(3)
 
+      get pay_period_bonus_payments_path(pay_period),
+        format: :json, limit: 3, page: 2
+      expect_entities_count(2)
+    end
 
+  end
+
+  describe '/a/users/:id/bonus_payments' do
+
+    it 'orders bonus payments by pay period' do
+      user = create(:user)
+
+      pay_periods = [ 2, 3, 1 ].map do |i|
+        pay_period = WeeklyPayPeriod.
+          find_or_create_by_date(DateTime.current - i.weeks)
+        create(:bonus_payment, pay_period: pay_period, user: user)
+        pay_period
+      end
+
+      get admin_user_bonus_payments_path(user), format: :json
+
+      result = json_body['entities'].map { |bp| bp['properties']['pay_period_id'] }
+      expect(result).to eq(pay_periods.map(&:id).sort.reverse)
+      binding.pry
     end
 
   end
