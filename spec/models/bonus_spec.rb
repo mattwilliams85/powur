@@ -39,4 +39,5 @@ describe Bonus, type: :model do
       expect(result).to eq(1.0)
     end
   end
+
 end

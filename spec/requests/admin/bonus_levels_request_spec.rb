@@ -33,7 +33,9 @@ describe '/a/bonuses/:id/bonus_levels' do
   describe '#destroy' do
 
     before :each do
-      @levels = create_list(:bonus_level, 3, bonus: @bonus)
+      @levels = 1.upto(3).map do |i|
+        create(:bonus_level, level: i, bonus: @bonus)
+      end
     end
 
     it 'removes the last bonus_level' do

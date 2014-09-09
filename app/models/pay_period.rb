@@ -42,7 +42,7 @@ class PayPeriod < ActiveRecord::Base
 
   def process_order!(order)
     totals = process_order_totals!(order)
-    # process_sale_rank_bonuses!(order, totals)
+    process_at_sale_rank_bonuses!(order)
     process_rank_achievements!(order, totals)
   end
 
@@ -84,10 +84,11 @@ class PayPeriod < ActiveRecord::Base
     end
   end
 
-  def process_sale_rank_bonuses!(order, totals)
-    bonuses = order.product.sale_bonuses
+  def process_at_sale_rank_bonuses!(order)
+    product = products.find { |p| p.id == order.product_id }
+    bonuses = product.sale_bonuses
     bonuses.each do |bonus|
-      # bonus.pay!(order)
+      bonus.create_payments!(order, self)
     end
   end
 
@@ -113,6 +114,11 @@ class PayPeriod < ActiveRecord::Base
 
   def find_order_total!(user_id, product_id)
     find_order_total(user_id, product_id) || create_order_total(user_id, product_id)
+  end
+
+  def find_pay_as_rank(user)
+    rank_achievements.select { |a| a.user_id == user.id }.
+      map(&:rank_id).max || user.organic_rank
   end
 
   private
@@ -167,12 +173,15 @@ class PayPeriod < ActiveRecord::Base
           rank.qualified_path?(path, totals)
 
         attrs = {
-          achieved_at:    order.order_date,
-          user_id:        user.id,
-          rank_id:        rank.id,
-          path:           path }
+          achieved_at: order.order_date,
+          user_id:     user.id,
+          rank_id:     rank.id,
+          path:        path }
         achievement = RankAchievement.create!(attrs)
         lifetime_rank_achievements << achievement
+        if user.organic_rank < achievement.rank_id
+          user.update_column(:organic_rank, achievement.rank_id)
+        end
         if user.lifetime_rank < achievement.rank_id
           user.update_column(:lifetime_rank, achievement.rank_id)
         end
@@ -192,11 +201,14 @@ class PayPeriod < ActiveRecord::Base
           rank.qualified_path?(path, totals)
 
         attrs = {
-          achieved_at:    order.order_date,
-          user_id:        user.id,
-          rank_id:        rank.id,
-          path:           path }
-        self.rank_achievements.create!(attrs)
+          achieved_at: order.order_date,
+          user_id:     user.id,
+          rank_id:     rank.id,
+          path:        path }
+        achievement = self.rank_achievements.create!(attrs)
+        if user.lifetime_rank < achievement.rank_id
+          user.update_column(:lifetime_rank, achievement.rank_id)
+        end
       end
     end
   end
@@ -263,6 +275,10 @@ class PayPeriod < ActiveRecord::Base
         personal_lifetime:  pl ? pl.quantity : 0,
         group_lifetime:     gl ? gl.quantity + order.quantity : order.quantity)
     end
+  end
+
+  def products
+    @products ||= Product.all.entries
   end
 
   class << self

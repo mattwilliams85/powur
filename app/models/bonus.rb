@@ -16,9 +16,9 @@ class Bonus < ActiveRecord::Base
   belongs_to :bonus_plan
   belongs_to :achieved_rank, class_name: 'Rank'
 
-  has_many :requirements, class_name: 'BonusSalesRequirement', 
+  has_many :requirements, class_name: 'BonusSalesRequirement',
     foreign_key: :bonus_id, dependent: :destroy
-  has_many :bonus_levels, class_name: 'BonusLevel', 
+  has_many :bonus_levels, class_name: 'BonusLevel',
     foreign_key: :bonus_id, dependent: :destroy
 
   scope :weekly, ->(){ where(schedule: :weekly) }
@@ -47,10 +47,7 @@ class Bonus < ActiveRecord::Base
   end
 
   def default_level
-    @default_level ||= begin
-      self.bonus_levels.entries.find { |level| level.level == 0 } ||
-      BonusLevel.new(level: 0, bonus: self)
-    end
+    default_bonus_level || BonusLevel.new(level: 0, bonus: self)
   end
 
   def normalized_amounts
@@ -103,6 +100,10 @@ class Bonus < ActiveRecord::Base
 
   def can_add_requirement?
     !solo_requirement? || requirements.empty?
+  end
+
+  def enabled?
+    !bonus_levels.empty?
   end
 
   class << self

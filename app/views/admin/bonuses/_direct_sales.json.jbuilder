@@ -1,6 +1,6 @@
 
 json.properties do
-  json.amounts bonus.normalized_amounts
+  json.amounts bonus.normalized_amounts.map(&:to_f)
 end
 
 json.entities \
