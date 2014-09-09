@@ -76,6 +76,8 @@ jQuery(function($){
                 break;
 
                 case "#admin-quotes-quotes":
+                    $(".js-search_box").fadeIn();
+
                     $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
                     //position indicator
                     _getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
@@ -104,6 +106,9 @@ jQuery(function($){
                     });
 
                     _displayData=(_data.quotes.search.results.entities.length>0)? _data.quotes.search.results : _data.quotes;
+                    _displayData.paginationInfo= _paginateData(_getObjectsByCriteria(_displayData, {name:"page"})[0], {prefix:"js-quotes", actionableCount:10});
+
+
 
                     _getTemplate("/templates/admin/quotes/quotes/_quotes.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
@@ -118,6 +123,13 @@ jQuery(function($){
                                 _searchQuotes(e, function(){displayQuotes("#admin-quotes-quotes")});
                             }
                         });
+
+
+                        $(".js-pagination a").on("click", function(e){
+                            e.preventDefault();
+                            _searchQuotes(e, function(){displayQuotes("#admin-quotes-quotes")});
+                        });
+
 
                         //wire up convert quotes to order
                         $(".js-convert_quote_to_order").on("click", function(e){
@@ -180,6 +192,7 @@ jQuery(function($){
                 break;
 
                 case "#admin-quotes-orders":
+                    $(".js-search_box").fadeIn();
                     $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
                     //position indicator
                     _getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
@@ -233,9 +246,11 @@ jQuery(function($){
 
                 case "#admin-quotes-pay-periods-init":
                     _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});
+
                 break;
 
                 case "#admin-quotes-pay-periods":
+
                     $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
                     //position indicator
                     _getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
@@ -254,7 +269,7 @@ jQuery(function($){
                     });
                     _getTemplate("/templates/admin/quotes/pay_periods/_pay_periods.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
-                       
+                        $(".js-search_box").fadeOut(200);
                         //wiire up calculationg/recalculation button
                         $(".js-calculate_pay_period").on("click", function(e){
                             e.preventDefault();
@@ -328,12 +343,14 @@ jQuery(function($){
 
 
         function _searchQuotes(e, _callback){
+            _data.quotes.search.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
             _ajax({
                 _ajaxType:"get",
                 _url:"/a/quotes",
                 _postObj:{
                     search:_data.quotes.search.term,
                     sort:_data.quotes.sortBy,
+                    page:_data.quotes.search.page
                 },
                 _callback:function(data, text){
                     _data.quotes.search.results=data;
@@ -356,7 +373,7 @@ jQuery(function($){
                 _postObj:{
                     search:_data.orders.search.term,
                     sort:_data.orders.sortBy,
-                    page:_data.orders.search.page,
+                    page:_data.orders.search.page
                 },
                 _callback:function(data, text){
                     _data.orders.search.results=data;
@@ -432,7 +449,7 @@ jQuery(function($){
             //wire up pagination if it exists 
             $(".js-pagination a").on("click", function(e){
                 e.preventDefault();
-                var _action = _getObjectsByCriteria(_options._popupData.actions, {name:"list"})[0];
+                var _action = _getObjectsByCriteria(_options._popupData.actions, {name:"index"})[0];
                 _ajax({
                     _ajaxType:_action.method,
                     _url:_action.href,

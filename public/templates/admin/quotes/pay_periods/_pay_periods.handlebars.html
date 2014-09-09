@@ -17,11 +17,16 @@
         <td style="vertical-align:middle;">{{this.properties.startDisplayDate}} 
         <td style="vertical-align:middle;">{{this.properties.endDisplayDate}}</td>
         <td style="vertical-align:middle;">
+            {{#if this.actions}}
             {{#compare this.properties.calculated false operator="=="}}
                 <a href="#" class="js-calculate_pay_period button">Calculate</a>
             {{else}}
                 <a href="#" class="js-calculate_pay_period button quiet" style="color:#cecece;">Recalculate</a>
             {{/compare}}
+            {{else}}
+                <span style="display:block; float:right; color:#ccc;">Pending Process</span> 
+            {{/if}}
+
         </td>
 
     </tr>

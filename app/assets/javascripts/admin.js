@@ -159,7 +159,7 @@ jQuery(function($){
                     _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         $(".section_subnav a").removeClass("js-active");                        
-                        $(".section_subnav a:eq(1)").addClass("js-active");
+                        $(".section_subnav a:eq(2)").addClass("js-active");
                         var _endPoints =[];
                         _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href);
                         _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href);
@@ -260,7 +260,7 @@ jQuery(function($){
             _ajax({
                 _ajaxType:"get",
                 _url:"/a/users",
-                _postObj:{q:_queryString},
+                _postObj:{search:_queryString},
                 _callback:function(data, text){
                     data.queryString=_queryString;
                     console.log("search for "+_queryString);
@@ -281,8 +281,8 @@ jQuery(function($){
             $(".js-admin_dashboard_column.summary").animate({opacity:0});
              _getTemplate("/templates/admin/users/search/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
                 _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-search-results]"));
-
             }); 
+
             _getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"));
              $(".js-admin_dashboard_column.summary").css("display","none");
              $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
