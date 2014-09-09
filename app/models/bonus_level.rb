@@ -11,7 +11,7 @@ class BonusLevel < ActiveRecord::Base
   end
 
   def normalized_amounts
-    self.amounts.fill(0.0, (self.amounts.size...rank_range.last)).map(&:to_f)
+    self.amounts.map.to_a.fill(BigDecimal('0'), (self.amounts.size...rank_range.last))
   end
 
   def max

@@ -21,6 +21,22 @@ describe PayPeriod, type: :model do
 
   end
 
+  describe '#process_at_sale_rank_bonuses!' do
+
+    it 'processes a direct sales bonus' do
+      bonus = create(:bonus_requirement).bonus
+      order = create(:order, product: bonus.source_product)
+      create(:bonus_level, bonus: bonus)
+
+      pay_period = order.weekly_pay_period
+      pay_period.process_at_sale_rank_bonuses!(order)
+
+      payment = BonusPayment.first
+      expect(payment).to_not be_nil
+      expect(payment.user_id).to eq(order.user_id)
+    end
+  end
+
   describe '#process_rank_achievements!' do
 
     before :each do

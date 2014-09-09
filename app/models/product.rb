@@ -15,11 +15,15 @@ class Product < ActiveRecord::Base
   end
 
   def sale_bonuses
-    @sale_bonuses ||= bonuses.select(&:sale?)
+    @sale_bonuses ||= bonuses.select { |b| b.sale? && b.enabled? }
   end
 
   def has_sales_bonuses?
     !sales_bonuses.empty?
+  end
+
+  def commission_amount
+    bonus_volume * (0.01 * commission_percentage)
   end
 
   class << self

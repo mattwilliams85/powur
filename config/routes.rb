@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       resources :orders, only: [ :index ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
       resources :rank_achievements, only: [ :index ], controller: :user_rank_achievements
+      resources :bonus_payments, only: [ :index ], controller: :user_bonus_payments_controller
     end
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
@@ -99,6 +100,7 @@ Rails.application.routes.draw do
       end
       resources :order_totals, only: [ :index ], controller: :pay_period_order_totals
       resources :rank_achievements, only: [ :index ], controller: :pay_period_rank_achievements
+      resources :bonus_payments, only: [ :index ], controller: :pay_period_bonus_payments_controller
     end
 
   end

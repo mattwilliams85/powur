@@ -4,7 +4,7 @@ json.rel [ :item ]
 
 json.properties do
   json.(bonus_level, :level)
-  json.amounts bonus_level.normalized_amounts
+  json.amounts bonus_level.normalized_amounts.map(&:to_f)
 end
 
 action_list = []

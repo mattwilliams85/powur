@@ -5,5 +5,8 @@ class BonusPayment < ActiveRecord::Base
   belongs_to :pay_period
   belongs_to :bonus
   belongs_to :user
+
+  has_many :bonus_payment_orders, dependent: :destroy
   has_many :orders, through: :bonus_payment_orders
+
 end

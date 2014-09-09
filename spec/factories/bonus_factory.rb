@@ -11,7 +11,7 @@ FactoryGirl.define do
 
     factory :direct_sales_bonus, class: DirectSalesBonus do
       schedule :weekly
-      # use_rank_at :sale
+      use_rank_at :sale
     end
 
     factory :enroller_sales_bonus, class: EnrollerSalesBonus do
