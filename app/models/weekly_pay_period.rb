@@ -8,6 +8,10 @@ class WeeklyPayPeriod < PayPeriod
     rank.weekly_path?(path)
   end
 
+  def bonus_available?(bonus)
+    bonus.weekly?
+  end
+
   class << self
     def id_from(date)
       date.strftime('%GW%V')
