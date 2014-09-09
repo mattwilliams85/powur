@@ -107,6 +107,8 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     minitest (5.4.1)
+    money (6.2.1)
+      i18n (>= 0.6.4, <= 0.7.0.dev)
     multi_json (1.10.1)
     multi_xml (0.5.5)
     pg (0.17.1)
@@ -236,6 +238,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery-turbolinks
+  money
   pg
   postgres_ext
   pry-rails

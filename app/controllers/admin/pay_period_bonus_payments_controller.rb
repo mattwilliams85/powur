@@ -16,7 +16,7 @@ module Admin
       pay_period = PayPeriod.find(params[:pay_period_id])
 
       @bonus_payments = pay_period.bonus_payments
-      @bonus_payments = pay_period_bonus_payments_path(pay_period)
+      @bonus_payments_path = pay_period_bonus_payments_path(pay_period)
     end
 
   end
