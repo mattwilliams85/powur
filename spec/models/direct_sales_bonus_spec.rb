@@ -3,7 +3,6 @@ require 'spec_helper'
 describe DirectSalesBonus, type: :model do
 
   before :each do
-    # Rank.destroy_all
     create_list(:rank, 3)
   end
 

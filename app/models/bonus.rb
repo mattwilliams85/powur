@@ -47,7 +47,7 @@ class Bonus < ActiveRecord::Base
   end
 
   def default_level
-    @default_level ||= default_bonus_level || BonusLevel.new(level: 0, bonus: self)
+    default_bonus_level || BonusLevel.new(level: 0, bonus: self)
   end
 
   def normalized_amounts
