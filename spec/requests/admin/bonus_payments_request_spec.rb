@@ -40,7 +40,6 @@ describe 'order totals', type: :request do
 
       result = json_body['entities'].map { |bp| bp['properties']['pay_period_id'] }
       expect(result).to eq(pay_periods.map(&:id).sort.reverse)
-      binding.pry
     end
 
   end
