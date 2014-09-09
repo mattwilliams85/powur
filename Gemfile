@@ -22,6 +22,7 @@ gem 'valid_email', require: 'valid_email/email_validator'
 gem 'foreigner', github: 'matthuhiggins/foreigner'
 gem 'faker'
 gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of'
+gem 'money'
 
 gem 'pry-rails'
 
