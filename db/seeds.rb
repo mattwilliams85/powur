@@ -31,11 +31,11 @@ User.create(
   roles:        [ 'admin' ] )
 
 User.create(
-  email:        'kevin.ponto@eyecuelab.com',
+  email:        'daniel.mcalerney@eyecuelab.com',
   password:     'solarpower',
-  first_name:   'Kevin',
-  last_name:    'Ponto',
+  first_name:   'Daniel',
+  last_name:    'Mcalerney',
   phone:        '858.555.1212',
   zip:          '92023',
-  url_slug:     'kevin',
+  url_slug:     'daniel',
   roles:        [ 'admin' ] )

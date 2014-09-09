@@ -12,7 +12,8 @@ end
 ents \
   ent(%w(list orders), 'user-orders', admin_user_orders_path(@user)),
   ent(%w(list order_totals), 'user-order_totals', admin_user_order_totals_path(@user)),
-  ent(%w(list rank_achievements), 'user-rank_achievements', admin_user_rank_achievements_path(@user))
+  ent(%w(list rank_achievements), 'user-rank_achievements', admin_user_rank_achievements_path(@user)),
+  ent(%w(list bonus_payments), 'user-bonus_payments', admin_user_rank_achievements_path(@user))
 
 actions \
   action(:update, :patch, admin_user_path(@user)).
