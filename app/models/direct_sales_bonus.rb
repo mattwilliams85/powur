@@ -1,10 +1,6 @@
 class DirectSalesBonus < Bonus
   include BonusEnums
 
-  def percentages_used
-    default_level.amounts
-  end
-
   def payment_amount(rank_id)
     source_product.commission_amount * normalized_amounts[rank_id - 1]
   end

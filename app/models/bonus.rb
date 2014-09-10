@@ -87,7 +87,7 @@ class Bonus < ActiveRecord::Base
   end
 
   def available_amount
-    source_product.bonus_volume
+    source_product.commission_amount
   end
 
   def remaining_amount
