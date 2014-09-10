@@ -277,6 +277,39 @@ jQuery(function($){
                             _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_pay_period_id]})[0], function(){displayQuotes("#admin-quotes-pay-periods-init")});
                         });
 
+                        //bonus_payments details
+                        $(".js-bonus_payments_link").on("click", function(e){
+                            e.preventDefault();
+                            var _pay_period_id = $(e.target).parents("tr").attr("data-pay-period-id");
+                            var _pay_period_obj = EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_pay_period_id]})[0];
+                            _ajax({
+                                _ajaxType:"get",
+                                _url:_getObjectsByCriteria(_pay_period_obj, {rel:"self"})[0].href,
+                                _callback:function(data, text){
+                                    var _bonus_payments_url = EyeCueLab.JSON.getObjectsByPattern(data.entities, {"containsIn(class)":["list", "bonus_payments"]})[0].href;
+                                    EyeCueLab.JSON.asynchronousLoader([_bonus_payments_url], function(_returnJSONs){
+                                        var _bonus_payments_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0];
+                                        var _popupData= _bonus_payments_obj;
+
+                                        _popupData.pay_period = _pay_period_obj.properties;
+                                        _popupData.title="Bonus Payments Detail";
+                                        _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(_bonus_payments_obj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
+                                        _popupData.paginationInfo.templateName="/templates/admin/quotes/popups/_bonus_payments_listing.handlebars.html",
+                                        _popupData.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
+                                        $("#js-screen_mask").fadeIn(100, function(){
+                                            _getTemplate("/templates/admin/quotes/popups/_pay_periods_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                                $("#js-popup").css("opacity","0");
+                                                _getTemplate("/templates/admin/quotes/popups/_bonus_payments_listing.handlebars.html",_popupData, $("#js-popup .js-popup_content_container"), function(){
+                                                    _displayPopup({_popupData:_popupData, _css:{width:1000} });
+                                                    console.log(_popupData);
+                                                });
+                                            });
+                                        });
+                                    });
+                                }
+                            });
+                        });
+
                         //rank achievement details
                         $(".js-rank_achievements_link").on("click", function(e){
                             e.preventDefault();
@@ -286,20 +319,13 @@ jQuery(function($){
                                 _ajaxType:"get",
                                 _url:_getObjectsByCriteria(_pay_period_obj, {rel:"self"})[0].href,
                                 _callback:function(data, text){
-                                    var _rank_achievements_url = EyeCueLab.JSON.getObjectsByPattern(data.entities, {"containsIn(class)":["list", "rank_achievements"]})[0].href
+                                    var _rank_achievements_url = EyeCueLab.JSON.getObjectsByPattern(data.entities, {"containsIn(class)":["list", "rank_achievements"]})[0].href;
                                     EyeCueLab.JSON.asynchronousLoader([_rank_achievements_url], function(_returnJSONs){
-                                        var _rank_achievement_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0];
-                                        var _popupData= _rank_achievement_obj;
-                                        var t = _pay_period_obj.properties.start_date;
-
-                                        _pay_period_obj.properties.startDisplayDate=new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
-                                        t = _pay_period_obj.properties.end_date;
-                                        _pay_period_obj.properties.endDisplayDate = new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
-
+                                        var _rank_achievements_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0];
+                                        var _popupData= _rank_achievements_obj;
                                         _popupData.pay_period = _pay_period_obj.properties;
                                         _popupData.title="Rank Achievements Detail";
-                                        
-                                        _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(_rank_achievement_obj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
+                                        _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(_rank_achievements_obj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
                                         _popupData.paginationInfo.templateName="/templates/admin/quotes/popups/_rank_achievements_listing.handlebars.html",
                                         _popupData.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
 
@@ -308,17 +334,12 @@ jQuery(function($){
                                                 $("#js-popup").css("opacity","0");
                                                 _getTemplate("/templates/admin/quotes/popups/_rank_achievements_listing.handlebars.html",_popupData, $("#js-popup .js-popup_content_container"), function(){
                                                     _displayPopup({_popupData:_popupData, _css:{width:1000} });
-                                                    console.log(_popupData);
                                                 });
                                             });
                                         });
-
-
                                     })
                                 }
                             });
-
-
                         });
 
                         //calculated pay period, order totals detail
@@ -335,11 +356,6 @@ jQuery(function($){
                                     EyeCueLab.JSON.asynchronousLoader([_order_total_url], function(_returnJSONs){
                                         var _order_total_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0];
                                         var _popupData= _order_total_obj;
-                                        var t = _pay_period_obj.properties.start_date;
-
-                                        _pay_period_obj.properties.startDisplayDate=new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
-                                        t = _pay_period_obj.properties.end_date;
-                                        _pay_period_obj.properties.endDisplayDate = new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
                                         _popupData.pay_period = _pay_period_obj.properties;
                                         _popupData.title="Order Totals Detail";
                                         _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(_order_total_obj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});

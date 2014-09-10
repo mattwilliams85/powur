@@ -299,6 +299,7 @@ jQuery(function($){
             _getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                 $(".js-admin_dashboard_column.summary").css("display","none");
                 $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
+                $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
             });
 
             $(document).on("click", ".js-search_result", function(e){

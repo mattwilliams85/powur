@@ -1,28 +1,70 @@
-<table class="_table" >
+<table class="_table _spreadSheet" >
     <tr>
-        <th style="width:10%;">ID</th>
-        <th style="width:10%;">Type</th>
-        <th style="width:18%;">Start Date</th>
-        <th style="width:18%;">End Date</th>
-        <th style="width:auto; float:right;">Actions</th>
+        <th colspan="4" style="width:40%;">Pay Period Info</th>
+        <th style="width:40%;">Details</th>
+        <th style="width:auto;">Actions</th>
     </tr>
     {{#each this.entities}}
     <tr data-pay-period-id="{{this.properties.id}}">
-        <td style="vertical-align:middle;">{{this.properties.id}}</a></td>
-        <td style="vertical-align:middle;">{{this.properties.type}}</td>
-        <td style="vertical-align:middle;">{{this.properties.startDisplayDate}} 
-        <td style="vertical-align:middle;">{{this.properties.endDisplayDate}}</td>
-        <td style="vertical-align:middle; float:right;">
+        <td style="vertical-align:middle;">
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">ID</span>
+                {{this.properties.id}}
+            </div>
+
+        </td>
+        <td style="vertical-align:middle;">
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Type</span>
+                {{this.properties.type}}
+            </div>
+        </td>
+        <td style="vertical-align:middle;">
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Start Date</span>
+                {{localtime this.properties.start_date}} 
+            </div>
+        </td>
+        <td style="vertical-align:middle;">
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">End Date</span>
+                {{localtime this.properties.end_date}} 
+            </div>
+        </td>
+        
+        <td style="vertical-align:middle;">
+            {{#if this.actions}}
+            {{#compare this.properties.calculated false operator="=="}}
+                <span style="display:block; color:#ccc;">---</span> 
+
+            {{else}}
+                <div class="innerCell">
+                    <span class="label" style="text-transform:capitalize;">Reports</span>
+
+                    <a href="#" class="js-order_totals_link" style="vertical-align:middle; padding-left:0; padding-right:0;">Order Totals</a>
+                    {{#compare this.properties.type "Monthly" operator="=="}}
+                    <span style="color:#cecece;">|</span>
+                    <a href="#" class="js-rank_achievements_link"  style="vertical-align:middle; padding-left:0;">Rank Achievements</a><span style="color:#cecece;">|</span> 
+                    <a href="#" class="js-bonus_payments_link"  style="vertical-align:middle; padding-left:0;">Bonus Payments</a>
+                    {{/compare}}
+                </div>
+            {{/compare}}
+            {{else}}
+               <span style="display:block; color:#ccc;">---</span> 
+
+            {{/if}}
+
+        </td>
+
+        <td style="vertical-align:middle; text-align:right;">
             {{#if this.actions}}
             {{#compare this.properties.calculated false operator="=="}}
                 <a href="#" class="js-calculate_pay_period button">Calculate</a>
             {{else}}
-                <a href="#" class="js-order_totals_link" style="vertical-align:middle;">Order Totals <span style="color:#cecece;">|</span>
-                <a href="#" class="js-rank_achievements_link"  style="vertical-align:middle;">Rank Achievements</a> <span style="color:#cecece;">|</span> 
-                <a href="#" class="js-calculate_pay_period" style="color:#cecece;">Recalculate</a>
+                <a href="#" class="js-calculate_pay_period button quiet" style="color:#cecece;">Recalculate</a>
             {{/compare}}
             {{else}}
-                <span style="display:block; float:right; color:#ccc;">&#133;&#133;</span> 
+                <span style="display:block; color:#ccc;">---</span> 
             {{/if}}
 
         </td>
