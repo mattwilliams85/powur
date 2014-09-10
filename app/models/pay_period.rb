@@ -98,7 +98,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def process_at_pay_period_end_rank_bonuses!
-    orders.each { |order| process_bonuses(order, :pay_period_end) }
+    orders.each { |order| process_order_bonuses(order, :pay_period_end) }
   end
 
   def child_totals_for(user_id, product_id)
