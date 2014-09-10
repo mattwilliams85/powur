@@ -12,7 +12,7 @@ req_path = bonus_requirement_path(requirement.bonus, requirement.product_id)
 
 update_action = action(:update, :patch, req_path).
     field(:quantity, :number, value: requirement.quantity)
-if requirement.bonus.allows_many_requirements? && requirement.source
+if requirement.source_modifiable?
   update_action.field(:source, :checkbox, value: requirement.source)
 end
 

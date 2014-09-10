@@ -46,7 +46,12 @@ Handlebars.registerHelper('sanitize', function(_value){
     _value = _value.replace(/percentage/gi, "\%");
     if(_value.length==0) _value="<span class='js-no_data'>No Data</span>";
     return _value.replace("_", " ");
-})
+});
+
+Handlebars.registerHelper('localtime', function(_value){
+    var _t = new Date(_value);
+    return _t.toLocaleDateString();
+});
 
 //Handlebar helper to allow comparisons
 Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {

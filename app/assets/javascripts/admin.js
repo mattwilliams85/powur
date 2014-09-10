@@ -74,12 +74,6 @@ jQuery(function($){
                                 $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-users]").position().left+28)+"px");
                                 $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
 
-                                //wire up search
-                                $(".js-search_box").on("keypress", function(e){
-                                    if(e.keyCode == 13){
-                                        _dashboard.searchUser($(e.target).val());
-                                    }
-                                });
 
                                 //prepare the drop down for the root user on the left nav
                                 _data.currentUser["userDropDown"]=[];
@@ -157,32 +151,12 @@ jQuery(function($){
 
                 break;
 
-                case "#admin-users-sales-rank_achievements":
-                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
-                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
-                        $(".section_subnav a").removeClass("js-active");                        
-                        $(".section_subnav a:eq(1)").addClass("js-active");
-                        var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href);
-                        EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
-                            var _displayData={};
-                            $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
-                            _displayData.entities.forEach(function(_entity){
-                                _d = new Date(_entity.properties.achieved_at);
-                                _entity.properties.achieved_at = _d.toLocaleDateString();
-                            });
-                            _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
-                                console.log(_displayData);
-                            });      
-                        });
-                    });
-                break;
 
                 case "#admin-users-sales-order_totals":
                     _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         $(".section_subnav a").removeClass("js-active");                        
-                        $(".section_subnav a:eq(2)").addClass("js-active");
+                        $(".section_subnav a:eq(1)").addClass("js-active");
                         var _endPoints =[];
                         _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href);
                         _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href);
@@ -190,12 +164,45 @@ jQuery(function($){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0]);
                             _getTemplate("/templates/admin/users/sales/_order_totals.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
-                                console.log(_displayData);
                             });      
                         });
                     });
 
                 break;
+
+                case "#admin-users-sales-rank_achievements":
+                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                        $(".section_subnav a").removeClass("js-active");                        
+                        $(".section_subnav a:eq(2)").addClass("js-active");
+                        var _endPoints =[];
+                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href);
+                        EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+                            var _displayData={};
+                            $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
+                            _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            });      
+                        });
+                    });
+                break;
+
+                case "#admin-users-sales-bonus_payments":
+                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                        $(".section_subnav a").removeClass("js-active");                        
+                        $(".section_subnav a:eq(3)").addClass("js-active");
+                        var _endPoints =[];
+                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "bonus_payments"]})[0].href);
+                        EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+                            var _displayData={};
+                            $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0]);
+                            _getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
+                            });      
+                        });
+                    });
+                break;
+
 
                 case "#admin-users-genealogy":
                     _getTemplate("/templates/admin/users/genealogy/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
@@ -307,17 +314,9 @@ jQuery(function($){
             }); 
 
             _getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
-                //wire up search
-             $(".js-admin_dashboard_column.summary").css("display","none");
-             $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
-
-                $(".js-search_box").on("keypress", function(e){
-                    if(e.keyCode == 13){
-                        console.log($(e.target).val())
-                        _dashboard.searchUser($(e.target).val());
-                    }
-                });
-
+                $(".js-admin_dashboard_column.summary").css("display","none");
+                $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
+                $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
             });
 
             $(document).on("click", ".js-search_result", function(e){
@@ -406,6 +405,14 @@ jQuery(function($){
             e.preventDefault();
             _dashboard.switchCurrentUser(e);
         });        
+
+        $(document).on("keypress", ".js-search_box" , function(e){
+            if(e.keyCode == 13){
+                console.log($(e.target).val())
+                _dashboard.searchUser($(e.target).val());
+            }
+        });
+
 
         $(window).resize(function(){
             $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"200px"});

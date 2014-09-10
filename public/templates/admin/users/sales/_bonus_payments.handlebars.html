@@ -1,5 +1,3 @@
-
-<br><Br><br>
 <table class="_table _spreadSheet">
     {{#if this.paginationInfo}}
     <tr>
@@ -19,50 +17,36 @@
     </tr>
     {{/if}}    
     <tr>
-        <td style="width:20%;">Distributor Info</td>
-        <td style="width:30%;">Product</td>
-        <td style="width:15%">Personal Sales</td>
-        <td style="width:15%">Group Sales</td>
-        <td style="width:20%">Order Total</td>
-    <tr>
-
+        <th colspan="2" style="width:20%">Dates</th>
+        <th colspan="2" style="width:30%">Bonus Info</th>
+    </tr>
     {{#each this.entities}}
     <tr>
         <td>
             <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{{localtime this.properties.created_at}}}
+            </div>
+        </td>        
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Pay Period</span>
+                {{{this.properties.pay_period_id}}}
+            </div>
+        </td>
+
+        <td>
+            <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Name</span>
-                {{{this.properties.distributor}}}
+                {{{this.properties.name}}}
             </div>
         </td>
         <td>
             <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Product</span>
-                {{{this.properties.product}}}
-            </div>
-        </td>
-        <td>
-            <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Pay Period</span>
-                {{{this.properties.personal}}}
-            </div>
-            <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Lifetime </span>
-                {{{this.properties.personal_lifetime}}}
+                <span class="label" style="text-transform:capitalize;">Amount</span>
+                {{{this.properties.amount}}}
             </div>
 
-        </td>
-        <td>
-            <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Pay Period</span>
-                {{{this.properties.group}}}
-            </div>
-            <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Lifetime </span>
-                {{{this.properties.group_lifetime}}}
-            </div>
-
-        </td>
-        <td>
         </td>
 
     </tr>

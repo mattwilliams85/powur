@@ -1,8 +1,9 @@
 
+<br><Br><br>
 <table class="_table _spreadSheet">
     {{#if this.paginationInfo}}
     <tr>
-        <td colspan="4" style="text-align:center; padding-bottom:32px;">
+        <td colspan="5" style="text-align:center; padding-bottom:32px;">
             {{#each this.paginationInfo.display}}
             <div class="js-pagination">
                 {{#if this.link}}
@@ -18,45 +19,40 @@
     </tr>
     {{/if}}    
     <tr>
-        <td style="width:20%;">Pay Period Info</td>
-        <td style="width:30%;">Product</td>
-        <td style="width:15%">Personal Sales</td>
-        <td style="width:15%">Group Sales</td>
-    <tr>
-
+        <th colspan="2" style="width:20%">Dates</th>
+        <th colspan="3" style="width:30%">Bonus Info</th>
+    </tr>
     {{#each this.entities}}
     <tr>
         <td>
             <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">ID</span>
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{{localtime this.properties.created_at}}}
+            </div>
+        </td>        
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Pay Period</span>
                 {{{this.properties.pay_period_id}}}
             </div>
         </td>
-        <td>
-            <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Product</span>
-                {{{this.properties.product}}}
-            </div>
-        </td>
-        <td>
-            <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Pay Period</span>
-                {{{this.properties.personal}}}
-            </div>
-            <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Lifetime </span>
-                {{{this.properties.personal_lifetime}}}
-            </div>
 
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Name</span>
+                {{{this.properties.name}}}
+            </div>
         </td>
         <td>
             <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Pay Period</span>
-                {{{this.properties.group}}}
+                <span class="label" style="text-transform:capitalize;">Distributor</span>
+                {{{this.properties.user}}}
             </div>
+        </td>
+        <td>
             <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Lifetime </span>
-                {{{this.properties.group_lifetime}}}
+                <span class="label" style="text-transform:capitalize;">Amount</span>
+                {{{this.properties.amount}}}
             </div>
 
         </td>
@@ -66,7 +62,7 @@
 
     {{#if this.paginationInfo}}
     <tr>
-        <td colspan="4" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
+        <td colspan="5" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
             {{#each this.paginationInfo.display}}
             <div class="js-pagination">
                 {{#if this.link}}
