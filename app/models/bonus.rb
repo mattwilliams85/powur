@@ -110,7 +110,7 @@ class Bonus < ActiveRecord::Base
     source_product.commission_amount * normalized_amounts[rank_id - 1]
   end
 
-  def create_payments!
+  def create_payments!(order, pay_period)
   end
 
   class << self
