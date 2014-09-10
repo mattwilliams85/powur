@@ -94,12 +94,12 @@ class Bonus < ActiveRecord::Base
     available_amount * remaining_percentage
   end
 
-  def solo_requirement?
-    true
+  def allows_many_requirements?
+    false
   end
 
   def can_add_requirement?
-    !solo_requirement? || requirements.empty?
+    allows_many_requirements? || requirements.empty?
   end
 
   def enabled?
