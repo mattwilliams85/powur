@@ -8,6 +8,10 @@ class MonthlyPayPeriod < PayPeriod
     rank.monthly_path?(path)
   end
 
+  def bonus_available?(bonus)
+    bonus.monthly?
+  end
+
   private
 
   class << self

@@ -18,6 +18,10 @@ class Product < ActiveRecord::Base
     @sale_bonuses ||= bonuses.select { |b| b.sale? && b.enabled? }
   end
 
+  def pay_period_end_bonuses
+    @pay_period_end ||= bonuses.select { |b| b.pay_period_end? && b.enabled? }
+  end
+
   def has_sales_bonuses?
     !sales_bonuses.empty?
   end

@@ -31,7 +31,8 @@ class PayPeriod < ActiveRecord::Base
 
   def orders
     @orders ||= Order.by_pay_period(self).
-      includes(:user, :product).references(:user, :product).order(order_date: :asc).entries
+      includes(:user, :product).references(:user, :product).
+      order(order_date: :asc).entries
   end
 
   def reset_orders!
@@ -51,6 +52,7 @@ class PayPeriod < ActiveRecord::Base
       process_order!(order)
       yield(order) if block_given?
     end
+    # process_at_pay_period_end_rank_bonuses!
   end
 
   def process_order_totals!(order)
@@ -84,12 +86,19 @@ class PayPeriod < ActiveRecord::Base
     end
   end
 
-  def process_at_sale_rank_bonuses!(order)
-    product = products.find { |p| p.id == order.product_id }
-    bonuses = product.sale_bonuses
+  def process_order_bonuses(order, use_rank_at)
+    bonuses = bonuses_for(order.product_id, use_rank_at)
     bonuses.each do |bonus|
       bonus.create_payments!(order, self)
     end
+  end
+
+  def process_at_sale_rank_bonuses!(order)
+    process_order_bonuses(order, :sale)
+  end
+
+  def process_at_pay_period_end_rank_bonuses!
+    orders.each { |order| process_bonuses(order, :pay_period_end) }
   end
 
   def child_totals_for(user_id, product_id)
@@ -279,6 +288,13 @@ class PayPeriod < ActiveRecord::Base
 
   def products
     @products ||= Product.all.entries
+  end
+
+  def bonuses_for(product_id, use_rank_at)
+    product = products.find { |p| p.id == product_id }
+    product.bonuses.select do |b|
+      b.enabled? && b.use_rank_at == use_rank_at.to_s && bonus_available?(b)
+    end
   end
 
   class << self
