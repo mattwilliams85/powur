@@ -11,7 +11,7 @@ describe 'order totals', type: :request do
     it 'pages a list for the pay period' do
       pay_period = MonthlyPayPeriod.
         find_or_create_by_date(DateTime.current - 1.month)
-      create_list(:bonus_payment, 5, pay_period: pay_period)
+      create_list(:bonus_payment, 5, pay_period: pay_period, amount: 50.00)
 
       get pay_period_bonus_payments_path(pay_period),
         format: :json, limit: 3
@@ -20,6 +20,9 @@ describe 'order totals', type: :request do
       get pay_period_bonus_payments_path(pay_period),
         format: :json, limit: 3, page: 2
       expect_entities_count(2)
+
+      payment = json_body['entities'].first
+      expect(payment['properties']['amount']).to eq('$50.00')
     end
 
   end
