@@ -106,6 +106,10 @@ class Bonus < ActiveRecord::Base
     !bonus_levels.empty?
   end
 
+  def rank_amount(rank_id)
+    source_product.commission_amount * normalized_amounts[rank_id - 1]
+  end
+
   class << self
     def symbol_to_type(type_symbol)
       "#{type_symbol.to_s.split('_').map(&:capitalize).join}#{self.name}".constantize
