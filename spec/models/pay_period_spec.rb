@@ -35,6 +35,15 @@ describe PayPeriod, type: :model do
       expect(payment).to_not be_nil
       expect(payment.user_id).to eq(order.user_id)
     end
+
+    it 'processes an enroller bonus' do
+      bonus = create(:enroller_sales_bonus)
+      create(:bonus_requirement, bonus: bonus)
+      create(:bonus_level, amounts: [ 0.0, 0.1 ])
+
+      order = create(:order, product: bonus.source_product)
+    end
+
   end
 
   describe '#process_rank_achievements!' do

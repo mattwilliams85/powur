@@ -15,7 +15,7 @@ FactoryGirl.define do
     end
 
     factory :enroller_sales_bonus, class: EnrollerSalesBonus do
-      schedule :weekly
+      schedule :monthly
       association :max_user_rank, factory: :rank
       association :min_upline_rank, factory: :rank
       compress true
