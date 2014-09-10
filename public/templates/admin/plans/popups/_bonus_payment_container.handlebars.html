@@ -11,7 +11,7 @@
             <div>
                 <div id="bonus_payment_mode_percentage" class="active">
                 {{#each this.properties.amounts}}
-                    <span class="form_row" style="padding-bottom:8px; padding-top:0px;" data-amount-array-index="{{@index}}">
+                    <span class="form_row" style="padding-bottom:8px; padding-top:0px; " data-amount-array-index="{{@index}}">
                         <div class="js-percentage_container" data-amount-array-index="{{@index}}" data-amount-percentage="{{this}}">
                             <div class="js-percentage_bar"></div>
                             <div class="js-percentage_label">Rank {{math @index "+" 1}}</div>

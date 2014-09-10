@@ -152,7 +152,16 @@ jQuery(function($){
                             var _popupData =[];
                             
                             _popupData = _qualification.actions.filter(function(action){return action.name==="update"})[0];
-                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
+                            _popupData.fields.forEach(function(field){
+                                field.display_name=field.name.replace(/\_/g," ");
+                                if(typeof field.options !=="undefined") {
+                                    delete field.options._path;
+                                    field.displayOptions=[];
+                                    Object.keys(field.options).forEach(function(_key){
+                                        field.displayOptions.push({name:_key, value:field.options[_key]});
+                                    });
+                                }
+                            });
                             _popupData.title="Editing Qaulification";
                             _popupData.deleteOption={};
                             _popupData.id=_qualificationID;
@@ -210,7 +219,16 @@ jQuery(function($){
                             _qualification=_data.qualifications[_rankID][_qualificationPath].filter(function(_q){return _q.properties.id==_qualificationID})[0];
                             var _popupData =[];
                             _popupData = _qualification.actions.filter(function(action){return action.name==="update"})[0];
-                            _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
+                            _popupData.fields.forEach(function(field){
+                                field.display_name=field.name.replace(/\_/g," ");
+                                if(typeof field.options !=="undefined") {
+                                    delete field.options._path;
+                                    field.displayOptions=[];
+                                    Object.keys(field.options).forEach(function(_key){
+                                        field.displayOptions.push({name:_key, value:field.options[_key]});
+                                    });
+                                }
+                            });
                             _popupData.title="Editing Qaulification";
                             _popupData.deleteOption={};
                             _popupData.id=_qualificationID;
@@ -632,7 +650,7 @@ jQuery(function($){
                             _popupData["properties"] = {};
                             $.extend(true, _popupData.properties, _bonus.properties);
                             _popupData.amountDetail = _getObjectsByCriteria(_popupData, {name:"amounts"})[0];
-                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(0);
+                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(1);
                             _popupData.title="Editing Payments<br> For Bonus: "+_bonus.properties.name;
                             //_populateReferencialSelect({_popupData:_popupData});
 
@@ -660,7 +678,7 @@ jQuery(function($){
                             for(i=0;i<_data.ranks.entities.length;i++) _popupData.properties["amounts"].push(0.00);
                             _popupData.amountDetail = {};
                             $.extend(true, _popupData.amountDetail, _getObjectsByCriteria(_popupData, {name: "amounts"})[0]);
-                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(0);
+                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(1);
 
                             _popupData.title="Add a new Bonus Level <br> For Bonus: "+_bonus.properties.name;
 
@@ -695,7 +713,7 @@ jQuery(function($){
                             
                             _popupData.amountDetail = {};
                             $.extend(true, _popupData.amountDetail, _getObjectsByCriteria(_popupData, {name: "amounts"})[0]);
-                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(0);
+                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(1);
 
                             _popupData.title="Edit a Bonus Level <br> For Bonus: "+_bonus.properties.name;
                             
@@ -859,7 +877,7 @@ jQuery(function($){
                     var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
                     var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
                     var _barWidth = $(this).width();
-                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(0)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(0)+"</span>");
+                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(1)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(2)+"</span>");
                     $(this).find(".js-percentage_bar").animate({"width":(_barWidth*$(this).attr("data-amount-percentage")).toFixed(0)+"px"},300);
                 });
 
@@ -867,11 +885,12 @@ jQuery(function($){
                     e.preventDefault();
                     var _barWidth = $(this).width();
                     var _position = {x: e.pageX - $(this).offset().left, y: e.pageY - $(this).offset().top}
-                    var _percentage = (_position.x/_barWidth).toFixed(2);
+                    var _percentage = (_position.x/_barWidth).toFixed(3);
+                    //_percentage=(Math.round(_percentage)<Math.ceil(_percentage))? Math.floor(_percentage):Math.floor(_percentage)+0.5;
                     var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
                     var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
                     if(_percentage>=_amountDetail.max) _percentage=_amountDetail.max;
-                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100).toFixed(0)+"%] [$"+(_percentage*_amountDetail.total).toFixed(0)+"]");
+                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100.00).toFixed(1)+"%] [$"+(_percentage*_amountDetail.total).toFixed(2)+"]");
                     $(this).find(".js-percentage_label").css("color","#ddd");
                 });
 
@@ -879,7 +898,7 @@ jQuery(function($){
                     e.preventDefault();
                     var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
                     var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
-                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(0)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(0)+"</span>");
+                    $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(1)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(2)+"</span>");
                     $(this).find(".js-percentage_label").css("color","#fff");
                 });
                 
