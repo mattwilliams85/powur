@@ -39,3 +39,5 @@ User.create(
   zip:          '92023',
   url_slug:     'daniel',
   roles:        [ 'admin' ] )
+
+BonusPlan.create(id: 1, name: 'SunStand Compensation Plan', start_year: 2014, start_month: 5)
