@@ -532,7 +532,7 @@ jQuery(function($){
                                             var _rankID = _amountDetail.first+_index;
                                             if (_rankID <= _amountDetail.last){
                                                 var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
-                                                _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(0)+"% <span class='sub'>$"+(_amount*_amountDetail.total).toFixed(0)+"</span></span></div>";
+                                                _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(1)+"% <span class='sub'>$"+(_amount*_amountDetail.total).toFixed(2)+"</span></span></div>";
 
                                             }
                                         });
