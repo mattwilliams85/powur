@@ -6,21 +6,30 @@
                 {{#if this.amountDetail.total}}<span style="padding-right:20px;">Bonus Total: ${{this.amountDetail.total}}</span>{{/if}}
                 {{#if this.amountDetail.maxPercentage}}<span>Max Percentage: {{this.amountDetail.maxPercentage}}%</span>{{/if}}
                 <br>
-                Entry Mode: <a href="#" class="js-bonus_payment_mode_percentage">Percentage</a>  |  <a href="#" class="js-bonus_payment_mode_dollar">Exact Dollar Amount</a>
+                Entry Mode: <a href="#" class="js-bonus_payment_mode_percentage">Rounded</a>  |  <a href="#" class="js-bonus_payment_mode_dollar">Exact</a>
             </span>
+            <div>
+                <div id="bonus_payment_mode_percentage" class="active">
+                {{#each this.properties.amounts}}
+                    <span class="form_row" style="padding-bottom:8px; padding-top:0px;" data-amount-array-index="{{@index}}">
+                        <div class="js-percentage_container" data-amount-array-index="{{@index}}" data-amount-percentage="{{this}}">
+                            <div class="js-percentage_bar"></div>
+                            <div class="js-percentage_label">Rank {{math @index "+" 1}}</div>
+                        </div>
 
-            <div id="bonus_payment_mode_percentage" class="active">
-            {{#each this.properties.amounts}}
-                <span class="form_row" style="padding-bottom:8px; padding-top:0px;" data-amount-array-index="{{@index}}">
-                    <div class="js-percentage_container" data-amount-array-index="{{@index}}" data-amount-percentage="{{this}}">
-                        <div class="js-percentage_bar"></div>
-                        <div class="js-percentage_label">Rank {{math @index "+" 1}}</div>
-                    </div>
+                    </span>     
+                {{/each}}
+                </div>
 
-                </span>     
-            {{/each}}
+                <div id="bonus_payment_mode_dollar" style="display:none;">
+                {{#each this.properties.amounts}}
+                    <span class="form_row" style="padding-bottom:8px; padding-top:0px; width:120px; float:left; clear:none;" data-amount-array-index="{{@index}}">
+                        <label>Rank {{math @index "+" 1}}</label>
+                        <input  data-amount-array-index="{{@index}}" type="text" value="{{math this "*" 100}}%" style="width:115px; float:left;">
+                    </span>     
+                {{/each}}
+                </div>
             </div>
-
 
             <button class="js-update_bonus_payment button">Update Payments</button>
 

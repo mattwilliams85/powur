@@ -536,7 +536,7 @@ jQuery(function($){
 
                                             }
                                         });
-                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
+                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments yy</a></div>";
                                         _row.find(".js-bonus_details").append(_display);
                                     }
                                 }
@@ -893,13 +893,40 @@ jQuery(function($){
                     $(this).attr("data-amount-percentage",_percentage);
                 });
 
+                //input toggle
+                $(".js-bonus_payment_mode_percentage").on("click", function(e){
+                    e.preventDefault();
+                    $("#bonus_payment_mode_dollar, #bonus_payment_mode_percentage").removeClass("active");
+                    $("#bonus_payment_mode_dollar").fadeOut(200, function(){
+                        $("#bonus_payment_mode_percentage").fadeIn(200);
+                        $("#bonus_payment_mode_percentage").addClass("active");
+                    });
+                });
+
+                $(".js-bonus_payment_mode_dollar").on("click", function(e){
+                    e.preventDefault();
+                    $("#bonus_payment_mode_dollar, #bonus_payment_mode_percentage").removeClass("active");
+                    $("#bonus_payment_mode_percentage").fadeOut(200, function(){
+                        $("#bonus_payment_mode_dollar").fadeIn(200);
+                        $("#bonus_payment_mode_dollar").addClass("active");
+                    });
+                });
+
 
                 $(".js-update_bonus_payment").on("click", function(e){
                     e.preventDefault();
                     var _amounts=[];
-                     $(".js-percentage_container").each(function(){
-                        _amounts.push(parseFloat($(this).attr("data-amount-percentage")));
-                     });
+
+                    if($("#bonus_payment_mode_percentage").hasClass("active")){
+                        $(".js-percentage_container").each(function(){
+                            _amounts.push(parseFloat($(this).attr("data-amount-percentage")));
+                         });
+                    }else{
+                        $("#bonus_payment_mode_dollar input").each(function(){
+                            _amounts.push($(this).val().replace(/[^0-9|\.]/g,"")*1.00/100.00);
+                        });
+                    }
+
                     _ajax({
                         _ajaxType:_options._popupData.method,
                         _url:_options._popupData.href,
