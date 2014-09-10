@@ -23,7 +23,9 @@ jQuery(function($){
 
     $(document).on("click", ".admin_top_level_nav", function(e){
         $(".admin_top_level_nav").removeClass("active");
-        window.location=($(e.target).attr("href").replace("#admin-","")=="plans")?"/a/products":"/a/users";
+        if($(e.target).attr("href").replace("#admin-","")=="plans") window.location="/a/products";
+        if($(e.target).attr("href").replace("#admin-","")=="quotes") window.location="/a/quotes";
+
     });
 
 
@@ -155,6 +157,27 @@ jQuery(function($){
 
                 break;
 
+                case "#admin-users-sales-rank_achievements":
+                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                        $(".section_subnav a").removeClass("js-active");                        
+                        $(".section_subnav a:eq(1)").addClass("js-active");
+                        var _endPoints =[];
+                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href);
+                        EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+                            var _displayData={};
+                            $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
+                            _displayData.entities.forEach(function(_entity){
+                                _d = new Date(_entity.properties.achieved_at);
+                                _entity.properties.achieved_at = _d.toLocaleDateString();
+                            });
+                            _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
+                            });      
+                        });
+                    });
+                break;
+
                 case "#admin-users-sales-order_totals":
                     _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
@@ -283,9 +306,19 @@ jQuery(function($){
                 _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-search-results]"));
             }); 
 
-            _getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"));
+            _getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
+                //wire up search
              $(".js-admin_dashboard_column.summary").css("display","none");
              $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
+
+                $(".js-search_box").on("keypress", function(e){
+                    if(e.keyCode == 13){
+                        console.log($(e.target).val())
+                        _dashboard.searchUser($(e.target).val());
+                    }
+                });
+
+            });
 
             $(document).on("click", ".js-search_result", function(e){
                 e.preventDefault();
@@ -296,6 +329,8 @@ jQuery(function($){
                 switchCurrentUser(e);
                 $(".js-admin_dashboard_column.summary, .js-admin_dashboard_column.detail").animate({opacity:1});
             });
+
+
         }
 
         function _displayPopup(_options){

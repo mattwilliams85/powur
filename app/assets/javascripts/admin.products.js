@@ -536,7 +536,7 @@ jQuery(function($){
 
                                             }
                                         });
-                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments yy</a></div>";
+                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
                                         _row.find(".js-bonus_details").append(_display);
                                     }
                                 }
