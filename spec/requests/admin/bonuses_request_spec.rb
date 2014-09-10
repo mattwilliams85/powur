@@ -44,6 +44,7 @@ describe '/a/bonuses' do
       create_list(:rank, 3)
       bonus = create(:unilevel_sales_bonus)
       create(:bonus_requirement, bonus: bonus)
+
       get bonus_path(bonus), format: :json
 
       expect_classes 'bonus'
@@ -53,8 +54,11 @@ describe '/a/bonuses' do
       expect(create).to be
     end
 
-    it 'returns a promote out bonus' do
+    it 'returns a promote-out bonus' do
       bonus = create(:promote_out_bonus)
+      create(:bonus_requirement, bonus: bonus)
+      create(:bonus_requirement, bonus: bonus, source: false)
+
       get bonus_path(bonus), format: :json
 
       expect_classes 'bonus'

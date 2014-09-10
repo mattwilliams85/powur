@@ -78,7 +78,7 @@ class PayPeriod < ActiveRecord::Base
     process_pay_period_rank_achievements(order, totals)
 
     order.user.parent_ids.each do |user_id|
-      parent = upline_users.find { |u| u.id == user_id }
+      parent = find_upline_user(user_id)
       parent_totals = find_order_total(user_id, order.product_id)
 
       process_lifetime_rank_achievements(order, parent_totals, parent)
@@ -130,6 +130,10 @@ class PayPeriod < ActiveRecord::Base
       map(&:rank_id).max || user.organic_rank
   end
 
+  def find_upline_user(user_id)
+    parent = upline_users.find { |u| u.id == user_id }
+  end
+
   private
 
   def users_with_orders
@@ -141,7 +145,8 @@ class PayPeriod < ActiveRecord::Base
       parent_ids = users_with_orders.map(&:parent_ids).flatten.uniq
       parents = users_with_orders.select { |u| parent_ids.include?(u.id) }
       missing_ids = parent_ids - parents.map(&:id)
-      parents + User.select(:id, :upline, :lifetime_rank).where(id: missing_ids).entries
+      parents + User.select(:id, :upline, :lifetime_rank, :organic_rank).
+        where(id: missing_ids).entries
     end
   end
 
@@ -151,7 +156,7 @@ class PayPeriod < ActiveRecord::Base
 
   def direct_downline_users
     @direct_downline_users ||= begin
-      User.select(:id, :upline, :lifetime_rank).
+      User.select(:id, :upline, :lifetime_rank, :organic_rank).
         with_parent(*all_user_ids).entries
     end
   end

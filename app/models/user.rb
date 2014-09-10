@@ -71,6 +71,10 @@ class User < ActiveRecord::Base
     self.upline[-2]
   end
 
+  def has_parent?
+    !!parent_id
+  end
+
   def parent_ids
     self.upline[0..-2]
   end

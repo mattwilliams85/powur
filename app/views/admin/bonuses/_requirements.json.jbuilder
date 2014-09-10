@@ -11,7 +11,7 @@ if bonus.can_add_requirement?
       reference:  { type: :link, rel: :products, value: :id, name: :name }).
     field(:quantity, :number, value: 1)
 
-  unless bonus.solo_requirement?
+  if bonus.allows_many_requirements? && !bonus.source_requirement
     create_action.field(:source, :checkbox, value: true)
   end
   
