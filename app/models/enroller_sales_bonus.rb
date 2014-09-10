@@ -4,6 +4,23 @@ class EnrollerSalesBonus < Bonus
   belongs_to :max_user_rank, class_name: 'Rank'
   belongs_to :min_upline_rank, class_name: 'Rank'
 
+
+  # ||= source_product.total_bonus_allocation(self.id)
+  def percentage_used
+    other_bonuses = source_product.bonuses.reject { |b| b.id == self.id }
+
+    amounts = other_bonuses.map do |bonus|
+      if bonus.is_a?(DirectSalesBonus)
+        bonus.default_level.amounts[max_user_rank_id - 1]
+      else
+        bonus.max_amount
+      end
+    end
+
+    amounts.inject(:+)
+  end
+
+
   def create_payments!(order, pay_period)
     return unless order.user.has_parent?
     rank_id = pay_period.find_pay_as_rank(order.user)

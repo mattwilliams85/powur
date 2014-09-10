@@ -52,7 +52,7 @@ class PayPeriod < ActiveRecord::Base
       process_order!(order)
       yield(order) if block_given?
     end
-    # process_at_pay_period_end_rank_bonuses!
+    process_at_pay_period_end_rank_bonuses!
   end
 
   def process_order_totals!(order)
@@ -98,7 +98,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def process_at_pay_period_end_rank_bonuses!
-    orders.each { |order| process_bonuses(order, :pay_period_end) }
+    orders.each { |order| process_order_bonuses(order, :pay_period_end) }
   end
 
   def child_totals_for(user_id, product_id)
