@@ -74,12 +74,6 @@ jQuery(function($){
                                 $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-users]").position().left+28)+"px");
                                 $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
 
-                                //wire up search
-                                $(".js-search_box").on("keypress", function(e){
-                                    if(e.keyCode == 13){
-                                        _dashboard.searchUser($(e.target).val());
-                                    }
-                                });
 
                                 //prepare the drop down for the root user on the left nav
                                 _data.currentUser["userDropDown"]=[];
@@ -167,10 +161,6 @@ jQuery(function($){
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
-                            _displayData.entities.forEach(function(_entity){
-                                _d = new Date(_entity.properties.achieved_at);
-                                _entity.properties.achieved_at = _d.toLocaleDateString();
-                            });
                             _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
                             });      
@@ -307,17 +297,8 @@ jQuery(function($){
             }); 
 
             _getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
-                //wire up search
-             $(".js-admin_dashboard_column.summary").css("display","none");
-             $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
-
-                $(".js-search_box").on("keypress", function(e){
-                    if(e.keyCode == 13){
-                        console.log($(e.target).val())
-                        _dashboard.searchUser($(e.target).val());
-                    }
-                });
-
+                $(".js-admin_dashboard_column.summary").css("display","none");
+                $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
             });
 
             $(document).on("click", ".js-search_result", function(e){
@@ -406,6 +387,14 @@ jQuery(function($){
             e.preventDefault();
             _dashboard.switchCurrentUser(e);
         });        
+
+        $(document).on("keypress", ".js-search_box" , function(e){
+            if(e.keyCode == 13){
+                console.log($(e.target).val())
+                _dashboard.searchUser($(e.target).val());
+            }
+        });
+
 
         $(window).resize(function(){
             $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"200px"});

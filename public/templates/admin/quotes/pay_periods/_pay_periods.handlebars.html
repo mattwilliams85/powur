@@ -4,27 +4,25 @@
         <th style="width:10%;">Type</th>
         <th style="width:18%;">Start Date</th>
         <th style="width:18%;">End Date</th>
-        <th style="width:auto;"></th>
+        <th style="width:auto; float:right;">Actions</th>
     </tr>
     {{#each this.entities}}
     <tr data-pay-period-id="{{this.properties.id}}">
-            {{#compare this.properties.calculated false operator="=="}}
         <td style="vertical-align:middle;">{{this.properties.id}}</a></td>
-            {{else}}
-        <td style="vertical-align:middle;"><a href="#" class="js-pay_period_link">{{this.properties.id}}</a></td>
-        {{/compare}}
         <td style="vertical-align:middle;">{{this.properties.type}}</td>
         <td style="vertical-align:middle;">{{this.properties.startDisplayDate}} 
         <td style="vertical-align:middle;">{{this.properties.endDisplayDate}}</td>
-        <td style="vertical-align:middle;">
+        <td style="vertical-align:middle; float:right;">
             {{#if this.actions}}
             {{#compare this.properties.calculated false operator="=="}}
                 <a href="#" class="js-calculate_pay_period button">Calculate</a>
             {{else}}
-                <a href="#" class="js-calculate_pay_period button quiet" style="color:#cecece;">Recalculate</a>
+                <a href="#" class="js-order_totals_link" style="vertical-align:middle;">Order Totals <span style="color:#cecece;">|</span>
+                <a href="#" class="js-rank_achievements_link"  style="vertical-align:middle;">Rank Achievements</a> <span style="color:#cecece;">|</span> 
+                <a href="#" class="js-calculate_pay_period" style="color:#cecece;">Recalculate</a>
             {{/compare}}
             {{else}}
-                <span style="display:block; float:right; color:#ccc;">Pending Process</span> 
+                <span style="display:block; float:right; color:#ccc;">&#133;&#133;</span> 
             {{/if}}
 
         </td>
