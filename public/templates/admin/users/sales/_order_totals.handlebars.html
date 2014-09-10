@@ -2,7 +2,7 @@
 <table class="_table _spreadSheet">
     {{#if this.paginationInfo}}
     <tr>
-        <td colspan="5" style="text-align:center; padding-bottom:32px;">
+        <td colspan="4" style="text-align:center; padding-bottom:32px;">
             {{#each this.paginationInfo.display}}
             <div class="js-pagination">
                 {{#if this.link}}
@@ -22,7 +22,6 @@
         <td style="width:30%;">Product</td>
         <td style="width:15%">Personal Sales</td>
         <td style="width:15%">Group Sales</td>
-        <td style="width:20%">Order Total</td>
     <tr>
 
     {{#each this.entities}}
@@ -61,15 +60,13 @@
             </div>
 
         </td>
-        <td>
-        </td>
 
     </tr>
     {{/each}}
 
     {{#if this.paginationInfo}}
     <tr>
-        <td colspan="5" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
+        <td colspan="4" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
             {{#each this.paginationInfo.display}}
             <div class="js-pagination">
                 {{#if this.link}}

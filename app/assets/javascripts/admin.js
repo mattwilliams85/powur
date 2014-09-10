@@ -151,28 +151,12 @@ jQuery(function($){
 
                 break;
 
-                case "#admin-users-sales-rank_achievements":
-                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
-                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
-                        $(".section_subnav a").removeClass("js-active");                        
-                        $(".section_subnav a:eq(1)").addClass("js-active");
-                        var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href);
-                        EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
-                            var _displayData={};
-                            $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
-                            _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
-                                console.log(_displayData);
-                            });      
-                        });
-                    });
-                break;
 
                 case "#admin-users-sales-order_totals":
                     _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         $(".section_subnav a").removeClass("js-active");                        
-                        $(".section_subnav a:eq(2)").addClass("js-active");
+                        $(".section_subnav a:eq(1)").addClass("js-active");
                         var _endPoints =[];
                         _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href);
                         _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href);
@@ -180,12 +164,45 @@ jQuery(function($){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0]);
                             _getTemplate("/templates/admin/users/sales/_order_totals.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
-                                console.log(_displayData);
                             });      
                         });
                     });
 
                 break;
+
+                case "#admin-users-sales-rank_achievements":
+                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                        $(".section_subnav a").removeClass("js-active");                        
+                        $(".section_subnav a:eq(2)").addClass("js-active");
+                        var _endPoints =[];
+                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href);
+                        EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+                            var _displayData={};
+                            $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
+                            _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            });      
+                        });
+                    });
+                break;
+
+                case "#admin-users-sales-bonus_payments":
+                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                        $(".section_subnav a").removeClass("js-active");                        
+                        $(".section_subnav a:eq(3)").addClass("js-active");
+                        var _endPoints =[];
+                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "bonus_payments"]})[0].href);
+                        EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+                            var _displayData={};
+                            $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0]);
+                            _getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
+                            });      
+                        });
+                    });
+                break;
+
 
                 case "#admin-users-genealogy":
                     _getTemplate("/templates/admin/users/genealogy/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){

@@ -1,20 +1,38 @@
-<table class="_table">
+<table class="_table _spreadSheet">
 
 
     <tr>
         <th>Order Date</th>
-        <th>Customer</th>
-        <th>Product</th>
-        <th>Sales Volume</th>
+        <th colspan="3">Order Info</th>
         <th>Status</th>
 
     </tr>
     {{#each this.entities}}
     <tr data-quote-id="{{this.properties.id}}">
-        <td>{{this.properties.localDateString}}</td>
-        <td>{{this.properties.customer}}</td>
-        <td>{{this.properties.product}}</td>
-        <td></td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{{localtime this.properties.order_date}}}
+            </div>
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Customer</span>
+                {{{this.properties.customer}}}
+            </div>
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Product Name</span>
+                {{{this.properties.product}}}
+            </div>
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Quantity</span>
+                {{{this.properties.quantity}}}
+            </div>
+        </td>
         <td>{{this.properties.status}}</td>
     </tr>
     {{/each}}
@@ -36,15 +54,5 @@
         </td>
     </tr>
     {{/if}}
-    <!--
-    <tr>
-        <td colspan="6" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">
-            <button class="button js-add_new_product" style="float:none; margin:auto;">Add a new Uni-level Bonus</button>
-            <p style="line-height: 22px; color: #999; padding-top: 20px;">
-                Uni-level bonuses are mapped directly to ranks.  If you do not see Uni-Level options appear in the product creation popup, please specify ranks <a href="">here</a>.
-            </p>
-        </td>
-    </tr>
-    -->
 </table>
 
