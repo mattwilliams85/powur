@@ -101,7 +101,7 @@ jQuery(function($){
                         }
                         $(".js-quotes_sort_type").on("change", function(e){
                             _data.quotes.sortBy=$(e.target).val();
-                            _searchQuotes(e, function(){displayQuotes("#admin-quotes-quotes")});
+                            _search(e, "quotes", function(){displayQuotes("#admin-quotes-quotes")});
                         });
                     });
 
@@ -120,14 +120,14 @@ jQuery(function($){
                                 if(($(e.target).val().trim().length>0) && ($(e.target).val().trim().length<3)) return;
                                 _data.quotes.search={};
                                 _data.quotes.search.term=$(e.target).val().trim();
-                                _searchQuotes(e, function(){displayQuotes("#admin-quotes-quotes")});
+                                _search(e, "quotes", function(){displayQuotes("#admin-quotes-quotes")});
                             }
                         });
 
 
                         $(".js-pagination a").on("click", function(e){
                             e.preventDefault();
-                            _searchQuotes(e, function(){displayQuotes("#admin-quotes-quotes")});
+                            _search(e, "quotes", function(){displayQuotes("#admin-quotes-quotes")});
                         });
 
 
@@ -216,7 +216,7 @@ jQuery(function($){
                         }
                         $(".js-orders_sort_type").on("change", function(e){
                             _data.orders.sortBy=$(e.target).val();
-                            _searchOrders(e, function(){displayQuotes("#admin-quotes-orders")});
+                            _search(e, "orders", function(){displayQuotes("#admin-quotes-orders")});
                         });
                     });                
 
@@ -232,13 +232,13 @@ jQuery(function($){
                                 if(($(e.target).val().trim().length>0) && ($(e.target).val().trim().length<3)) return;
                                 _data.orders.search={};
                                 _data.orders.search.term=$(e.target).val().trim();
-                                _searchOrders(e, function(){displayQuotes("#admin-quotes-orders")});
+                                _search(e, "orders",  function(){displayQuotes("#admin-quotes-orders")});
                             }
                         });
                         //pagination
                         $(".js-pagination a").on("click", function(e){
                             e.preventDefault();
-                            _searchOrders(e, function(){displayQuotes("#admin-quotes-orders")});
+                            _search(e, "orders", function(){displayQuotes("#admin-quotes-orders")});
                         });
                     });
 
@@ -402,11 +402,15 @@ jQuery(function($){
         }
 
 
-        function _searchQuotes(e, _callback){
+        function _search(e, _type, _callback){
             _data.quotes.search.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
+            var _url="";
+            if (_type=="quotes") _url="/a/quotes";
+            if (_type=="orders") _url="/a/orders";
+
             _ajax({
                 _ajaxType:"get",
-                _url:"/a/quotes",
+                _url:_url,
                 _postObj:{
                     search:_data.quotes.search.term,
                     sort:_data.quotes.sortBy,
@@ -418,28 +422,6 @@ jQuery(function($){
                         _quote.properties._dataStatusDisplay = _quote.properties.data_status.toString();
                         _d = new Date(_quote.properties.created_at);
                         _quote.properties.localDateString = _d.toLocaleDateString();
-                    });
-                    if(typeof _callback == "function") _callback();
-                    else return data;
-                }
-            });
-        }
-
-       function _searchOrders(e, _callback){
-            _data.orders.search.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
-            _ajax({
-                _ajaxType:"get",
-                _url:"/a/orders",
-                _postObj:{
-                    search:_data.orders.search.term,
-                    sort:_data.orders.sortBy,
-                    page:_data.orders.search.page
-                },
-                _callback:function(data, text){
-                    _data.orders.search.results=data;
-                    _data.orders.search.results.entities.forEach(function(_order){
-                        _d = new Date(_order.properties.order_date);
-                        _order.properties.localDateString = _d.toLocaleDateString();
                     });
                     if(typeof _callback == "function") _callback();
                     else return data;
