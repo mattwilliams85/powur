@@ -44,6 +44,7 @@ describe '/a/bonuses' do
       create_list(:rank, 3)
       bonus = create(:unilevel_sales_bonus)
       create(:bonus_requirement, bonus: bonus)
+      create(:bonus_level, bonus: bonus, level: 1, amounts: [ 0.125, 0.125, 0.125, 0.125, ])
 
       get bonus_path(bonus), format: :json
 

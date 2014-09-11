@@ -36,9 +36,9 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def reset_orders!
-    self.order_totals.destroy_all
-    self.rank_achievements.destroy_all
-    self.bonus_payments.destroy_all
+    self.bonus_payments.delete_all
+    self.rank_achievements.delete_all
+    self.order_totals.delete_all
   end
 
   def process_order!(order)
@@ -131,7 +131,11 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def find_upline_user(user_id)
-    parent = upline_users.find { |u| u.id == user_id }
+    upline_users.find { |u| u.id == user_id }
+  end
+
+  def user_active?(user_id)
+    user_active_list[user_id] ||= user_qualified_active?(user_id)
   end
 
   private
@@ -299,6 +303,19 @@ class PayPeriod < ActiveRecord::Base
     product = products.find { |p| p.id == product_id }
     product.bonuses.select do |b|
       b.enabled? && b.use_rank_at == use_rank_at.to_s && bonus_available?(b)
+    end
+  end
+
+  def user_active_list
+    @user_active_list ||= {}
+  end
+
+  def user_qualified_active?(user_id)
+    active_qualifications.empty? || active_qualifications.any? do |path, qualifications|
+      qualifications.all? do |qualification|
+        totals = find_order_total!(user_id, qualification.product_id)
+        qualification.met?(totals)
+      end
     end
   end
 

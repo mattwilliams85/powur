@@ -32,7 +32,10 @@ describe '/a/quotes' do
 
       create(:quote, user: user)
       create(:quote, customer: customer)
-      create_list(:quote, 3)
+      1.upto(3).each do |i|
+        customer = create(:customer, first_name: 'Alice', last_name: 'Jones')
+        create(:quote, customer: customer)
+      end
 
       get admin_quotes_path, format: :json, search: 'gary'
 
