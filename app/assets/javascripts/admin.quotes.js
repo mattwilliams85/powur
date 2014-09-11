@@ -359,7 +359,7 @@ jQuery(function($){
                                         _popupData.pay_period = _pay_period_obj.properties;
                                         _popupData.title="Order Totals Detail";
                                         _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(_order_total_obj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
-                                        _popupData.paginationInfo.templateName="/templates/admin/quotes/popups/_order_total_listing.handlebars.html",
+                                        _popupData.paginationInfo.templateName="/templates/admin/quotes/popups/_order_totals_listing.handlebars.html",
                                         _popupData.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
 
                                         $("#js-screen_mask").fadeIn(100, function(){
