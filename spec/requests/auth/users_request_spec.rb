@@ -16,7 +16,7 @@ describe '/u/users' do
       expect_200
 
       expect_classes('users', 'list')
-      expect(json_body['entities'].size).to eq(8)
+      expect(json_body['entities'].size).to   eq(8)
     end
 
   end
@@ -49,4 +49,40 @@ describe '/u/users' do
     end
 
   end
+
+  describe '/u/users/:id/downline' do
+    it 'returns the downline users' do
+      child = create_list(:user, 3, sponsor: @user).first
+
+      create_list(:user, 2, sponsor: child)
+
+      get downline_user_path(@user), format: :json
+
+      expect_200
+
+      found_child = json_body['entities'].find { |e| e['properties']['id'] == child.id }
+      expect(found_child).to_not be_nil
+      expect(found_child['properties']['downline_count']).to eq(2)
+    end
+  end
+
+
+  describe '/u/users/:id/upline' do
+    it 'returns the upline users' do
+      grand_parent = create(:user, sponsor: @user, first_name: 'Pappy')
+      parent = create(:user, sponsor: grand_parent, first_name: 'Parent')
+      child = create(:user, sponsor: parent, first_name: 'Child')
+      
+      get upline_user_path(child), format: :json
+
+      expect_200
+
+      found_parent = json_body['entities'].find { |e| e['properties']['id'] == parent.id }
+      found_grand_parent = json_body['entities'].find { |e| e['properties']['id'] == grand_parent.id }
+      expect(found_parent).to_not be_nil
+      expect(found_grand_parent).to_not be_nil
+      expect(json_body['entities'].count).to eq(3)
+    end
+  end
+
 end
