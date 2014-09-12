@@ -2,8 +2,27 @@ module Auth
 
   class UsersController < AuthController
 
+    before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
+    
     def index
-      @users = list_criteria
+      respond_to do |format|
+        format.html
+        format.json do
+          @users = list_criteria
+        end
+      end
+    end
+
+    def downline
+      @users = @user.downline_users
+
+      render 'index'
+    end
+
+    def upline
+      @users = @user.upline_users
+
+      render 'index'
     end
 
     def search
@@ -20,6 +39,10 @@ module Auth
 
     def list_criteria
       User.where(sponsor_id: current_user.id).order(created_at: :desc)
+    end
+
+    def fetch_user
+      @user = User.find(params[:id])
     end
 
   end

@@ -14,4 +14,14 @@ class UnilevelSalesBonus < Bonus
     levels.reject! { |l| l.level == excluded_level } if excluded_level
     levels.map(&:max).inject(:+) || 0.0
   end
+
+  def create_payments!(order, pay_period)
+    upline = order.user.parent_ids.reverse
+    levels = bonus_levels.sort_by(&:level).reverse
+    levels.each do |level|
+
+
+    end
+  end
+
 end

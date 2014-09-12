@@ -20,7 +20,6 @@ class EnrollerSalesBonus < Bonus
     amounts.inject(:+)
   end
 
-
   def create_payments!(order, pay_period)
     return unless order.user.has_parent?
     rank_id = pay_period.find_pay_as_rank(order.user)
@@ -38,6 +37,7 @@ class EnrollerSalesBonus < Bonus
   private
 
   def parent_qualified?(parent, pay_period, order)
+    return false unless pay_period.user_active?(parent.id)
     rank_id = pay_period.find_pay_as_rank(parent)
     return false if rank_id < min_upline_rank_id
     amount = rank_amount(rank_id)
