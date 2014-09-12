@@ -39,7 +39,10 @@ Rails.application.routes.draw do
       collection do
         get '' => 'users#search', constraints: has_params(:search)
       end
+      resources :orders, only: [ :index ], controller: :user_orders
+      resources :order_totals, only: [ :index ], controller: :user_order_totals
     end
+
 
     resources :quotes, only: [ :index, :create, :destroy, :update, :show ], as: :user_quotes do
       collection do
