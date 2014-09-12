@@ -13,7 +13,7 @@ module Auth
     private
 
     def fetch_user
-      user = User.find(params[:user_id].to_i)
+      user = User.find_by_id(params[:user_id].to_i) or not_found!(:user, params[:user_id])
 
       @order_totals = user.order_totals.order(:pay_period_id)
       @orders_totals_path = user_order_totals_path(user)

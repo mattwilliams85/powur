@@ -42,7 +42,7 @@ module Auth
     end
 
     def fetch_user
-      @user = User.find(params[:id])
+      @user = User.find_by(id: params[:id]) or not_found!(:user)
     end
 
   end
