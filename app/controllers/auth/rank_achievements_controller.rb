@@ -1,4 +1,4 @@
-module Admin
+module Auth
 
   class RankAchievementsController < AdminController
 
