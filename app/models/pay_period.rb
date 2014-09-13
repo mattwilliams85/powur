@@ -126,8 +126,9 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def find_pay_as_rank(user)
-    rank_achievements.select { |a| a.user_id == user.id }.
-      map(&:rank_id).max || user.organic_rank
+    user.pay_period_rank ||= rank_achievements.
+      select { |a| a.user_id == user.id }.map(&:rank_id).max
+    user.pay_as_rank
   end
 
   def find_upline_user(user_id)
@@ -136,6 +137,13 @@ class PayPeriod < ActiveRecord::Base
 
   def user_active?(user_id)
     user_active_list[user_id] ||= user_qualified_active?(user_id)
+  end
+
+  def compressed_upline(user)
+    upline = user.parent_ids.map do |id|
+      upline_users.find { |u| u.id == id }
+    end
+    upline.select { |u| user_active?(u) }.reverse
   end
 
   private
@@ -269,7 +277,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def increment_upline_totals(order)
-    user_ids = order.user.upline - [ order.user_id ]
+    user_ids = order.user.parent_ids
     group_totals = self.order_totals.select do |ot|
       user_ids.include?(ot.user_id) && ot.product_id == order.product_id
     end

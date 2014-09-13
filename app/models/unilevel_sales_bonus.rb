@@ -1,5 +1,4 @@
 class UnilevelSalesBonus < Bonus
-  include BonusEnums
 
   def last_bonus_level
     self.bonus_levels.count
@@ -15,13 +14,41 @@ class UnilevelSalesBonus < Bonus
     levels.map(&:max).inject(:+) || 0.0
   end
 
+  def sorted_levels
+    @sorted_levels ||= bonus_levels.order(level: :asc)
+  end
+
   def create_payments!(order, pay_period)
-    upline = order.user.parent_ids.reverse
-    levels = bonus_levels.sort_by(&:level).reverse
-    levels.each do |level|
+    return unless order.user.has_parent?
+    upline = pay_period.compressed_upline(order.user)
+    return if upline.empty?
 
-
+    sorted_levels.each do |bonus_level|
+      min_rank = bonus_level.min_rank
+      begin
+        parent = upline.shift
+      end until parent.nil? || user_rank_met?(parent, min_rank, pay_period)
+      break if parent.nil?
+      amount = payment_amount(bonus_level, parent.pay_as_rank)
+      attrs = {
+        bonus_id: self.id,
+        user_id:  parent.id,
+        amount:   amount }
+      payment = pay_period.bonus_payments.create!(attrs)
+      payment.bonus_payment_orders.create!(order_id: order.id)
     end
+    
+  end
+
+  private
+
+  def user_rank_met?(user, rank, pay_period)
+    pay_period.find_pay_as_rank(user) >= rank
+  end
+
+  def payment_amount(bonus_level, rank)
+    amount = bonus_level.amounts[rank - 1]
+    amount ? amount * source_product.commission_amount : 0.0
   end
 
 end

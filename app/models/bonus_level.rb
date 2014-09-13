@@ -39,6 +39,10 @@ class BonusLevel < ActiveRecord::Base
     available_amount * remaining_percentage
   end
 
+  def min_rank
+    amounts.index { |i| i > 0 } + 1
+  end
+
   private
 
   def percentage_used_by_other_levels

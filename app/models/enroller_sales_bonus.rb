@@ -1,11 +1,8 @@
 class EnrollerSalesBonus < Bonus
-  include BonusEnums
 
   belongs_to :max_user_rank, class_name: 'Rank'
   belongs_to :min_upline_rank, class_name: 'Rank'
 
-
-  # ||= source_product.total_bonus_allocation(self.id)
   def percentage_used
     other_bonuses = source_product.bonuses.reject { |b| b.id == self.id }
 
@@ -22,10 +19,9 @@ class EnrollerSalesBonus < Bonus
 
   def create_payments!(order, pay_period)
     return unless order.user.has_parent?
-    rank_id = pay_period.find_pay_as_rank(order.user)
-    return if rank_id > max_user_rank_id
 
     parent = pay_period.find_upline_user(order.user.parent_id)
+
     if !parent_qualified?(parent, pay_period, order) && self.compress
       while parent.has_parent? do
         parent = pay_period.find_upline_user(parent.parent_id)

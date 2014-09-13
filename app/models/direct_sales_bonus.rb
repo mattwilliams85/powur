@@ -1,5 +1,4 @@
 class DirectSalesBonus < Bonus
-  include BonusEnums
 
   def payment_amount(rank_id)
     source_product.commission_amount * normalized_amounts[rank_id - 1]

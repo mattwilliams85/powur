@@ -52,6 +52,7 @@ describe '/a/users' do
 
       expect_entities 'user-orders', 'user-order_totals'
     end
+
   end
 
   describe '#update' do

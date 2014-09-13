@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   scope :with_parent, ->(*user_ids){
     where('upline[array_length(upline, 1) - 1] IN (?)', user_ids.flatten) }
 
-  attr_accessor :child_order_totals
+  attr_accessor :child_order_totals, :pay_period_rank
 
   before_validation do
     self.lifetime_rank ||= Rank.find_or_create_by_id(1).id
@@ -86,6 +86,10 @@ class User < ActiveRecord::Base
 
   def make_customer!
     Customer.create!(first_name: first_name, last_name: last_name, email: email)
+  end
+
+  def pay_as_rank
+    pay_period_rank || organic_rank
   end
 
   private
