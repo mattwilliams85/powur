@@ -41,6 +41,12 @@ describe '/u/users' do
 
   describe '/:id' do
 
+    it 'returns not found with an invalid user id' do
+      get user_path(42), format: :json
+
+      expect_alert_error
+    end
+
     it 'returns the user detail' do
       user = create(:user, sponsor: @user)
       get user_path(user), format: :json
