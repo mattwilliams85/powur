@@ -48,6 +48,8 @@ Rails.application.routes.draw do
         get :upline
       end
 
+      resources :rank_achievements, only: [ :index ], controller: :user_rank_achievements
+      
     end
 
 
