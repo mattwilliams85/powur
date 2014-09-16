@@ -32,7 +32,7 @@ module Auth
     end
 
     def show
-      @user = current_user.distributors.find_by(id: params[:id]) or not_found!(:user)
+      
     end
 
     private
