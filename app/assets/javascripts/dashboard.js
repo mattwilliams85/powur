@@ -1,4 +1,4 @@
-var _myID=100; //current user id
+var _myID=0; //current user id
 var _data={}; //main data object that contains user profile and genelogy info
 var _animation_speed = 300;
 var _dashboard;
@@ -11,6 +11,7 @@ jQuery(function($){
 		//get current user profile and initiate dashboard data
 		_getRoot(function(){
 			$(".js-user_first_name").text(_data.root.properties.first_name + " : RANK 0");
+			_myID = _data.root.properties.id;
 			_dashboard = new Dashboard();
 			_dashboard.displayTeam();
 			_dashboard.displayQuote();
@@ -27,7 +28,6 @@ jQuery(function($){
 
 //populate initial data on dashboard screen
 function Dashboard(){
-
 	_data.global = {};
 	_data.global.thumbnail_size={"width":256,"height":197};
 	_data.global.grid_width=32;
@@ -43,9 +43,19 @@ function Dashboard(){
 		_data.team=[]; // instantiate team/downlink genealogy object
 		_data.team_count_per_page=4; // determine how many thumbnails to show per pagination
 		_data._team=[];
-		_getData(_myID, "team", _data.team, function(){
-				_displayData(_tab, _data["team"],$("#dashboard_team .section_content.team_info .pagination_content"));
+
+		_ajax({
+			_ajaxType:"get",
+			_url:"/u/users/"+_myID+"/downline",
+			_callback:function(data, text){
+				var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
+				_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _containerObj);
+				$.extend(true, _data.team, data.entities); 
+				_containerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
+				if(data.entities.length>=4) _containerObj.siblings(".nav").fadeIn();
+			}
 		});
+
 		
 		//put in hooks for team drllldown
 		$(document).on("click",".js-team_thumbnail", function(e){
@@ -204,6 +214,7 @@ function Dashboard(){
 	//wire up the pagination hooks
 	$(document).on("click", ".pagination_container .nav", function(e){
 		e.preventDefault();
+		console.log("clicked on nav")
 		_pagination_content= $(this).siblings(".pagination_content");
 
 		//animate the content
@@ -272,13 +283,16 @@ function Dashboard(){
 				})
 				.done(function(data){
 					//prepare leader info
-					_userDetail={};
+					var _userDetail={};
 					_userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
 					_userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
 					_userDetail["email"] = data.properties.email;
 					_userDetail["phone"] = data.properties.phone;
 					_userDetail["generation"] = _drillDownLevel;
 					//for(key in data[0].rank[data[0].rank.length-1]) _userDetail["rank"] = key;
+
+					_userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"children"})[0].href;
+
 
 					//add new team drilldown basic template layout with leader info
 					_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
@@ -290,19 +304,27 @@ function Dashboard(){
 					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
 
 					_getTemplate("/templates/drilldowns/_team_details.handlebars.html", 
-								 _userDetail, 
-								 _drilldownContainerObj,
-								 function(){
-								 	//once the basic template is set, now populate the downlink information
-								 	//had to do this as callback due to the asynchronous nature of the calls
-								 	//animate up-arrow
-								 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-								 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
-								 	//populate downlink thumbnails
-								 	_downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
-									_tempUserTeam=[];
-									_getData(_options._userID, "team", _tempUserTeam, function(){_displayData("team", _tempUserTeam, _downlinkContainerObj)});
-								 });
+						_userDetail, 
+						_drilldownContainerObj,
+						function(){
+							//once the basic template is set, now populate the downlink information
+							//had to do this as callback due to the asynchronous nature of the calls
+							//animate up-arrow
+							_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
+							_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+							//populate downlink thumbnails
+							_downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
+							_ajax({
+								_ajaxType:"get",
+								_url:_userDetail.downline_url,
+								_callback:function(data, text){
+									_downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
+									_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _downlinkContainerObj);
+									if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
+
+								}
+							});
+						});
 				})
 				.fail(function(data){
 					_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";

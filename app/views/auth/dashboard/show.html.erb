@@ -1,6 +1,6 @@
 <% content_for :javascript_includes do %>
 	<%= javascript_include_tag "dashboard.js" %>
-	<%= javascript_include_tag "kevins_shitty_javascript.js" %>
+	<%#= javascript_include_tag "kevins_shitty_javascript.js" %>
 <% end %>
 
 <style>
@@ -11,10 +11,17 @@
 		padding:32px 32px 0 0;
 		margin: 0 0 0 32px;
 	}
+
+	.drilldown_content_section{
+		margin: 0 0 0 250px;
+		width:inherit;
+	}
+	.drilldown_content_section.summary{
+		width:250px;
+	}
 </style>
 
 <% if params[:first_run] == "true" %>
-
 	<div id="system_feedback">
 		<h1>Way to go! You're now a Sunstand advocate!</h1>
 		<p>Help us reach our global goals of neutralizing the carbon footprint of 4 million people and getting solar into 2 million homes by 2025.</p> 
@@ -23,7 +30,6 @@
 		<div class="system_feedback_graphic dev_img_placeholder">[recruit advocates graphic]</div>
 		<div class="system_feedback_graphic dev_img_placeholder">[change the world graphic]</div>
 	</div>
-
 <% else %>
 <% end %> 
 

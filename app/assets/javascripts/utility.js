@@ -224,12 +224,10 @@ function _formErrorHandling(_formObj, _error){
 function _getRoot(_callback){
     $.ajax({
         type:"get",
-        url:"/",
-        data:{}
+        url:"/"
     }).done(function(data, text){
         if(typeof _data === "object" )_data.root = $.extend(true, {}, data);
         else console.log(data);
-        
         if(typeof _callback === "function") _callback();
      });
 }    
