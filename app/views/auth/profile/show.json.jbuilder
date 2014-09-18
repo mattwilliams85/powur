@@ -1,6 +1,6 @@
 siren json
 
-json.partial! 'item', user: @user, detail: true
+json.partial! 'item', user: @user, detail: false
 
 json.properties do
   json.(@user, :first_name, :last_name, :email,
@@ -9,7 +9,7 @@ json.properties do
 end
 
 actions \
-  action(:update, :patch, profile_path(@user)).
+  action(:update, :patch, profile_path()).
     field(:first_name, :text, value: @user.first_name).
     field(:last_name, :text, value: @user.last_name).
     field(:email, :email, value: @user.email).
