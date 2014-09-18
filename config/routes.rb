@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   # logged in user routes
   scope :u, module: :auth do
     resource :dashboard, only: [ :show ], controller: :dashboard
+    resource :profile, only: [ :show, :update ], controller: :profile
 
     resources :invites, only: [ :index, :create, :destroy ] do
       member do

@@ -1,0 +1,57 @@
+<% content_for :javascript_includes do %>
+	<%# javascript_include_tag "profile.js" %>
+<% end %>
+
+<style>
+	.edit_user input
+	{
+		width:300px;
+		padding:5px;
+		margin:7px;
+	}
+
+	.edit_user label
+	{
+		position: relative;
+	}
+
+	.user_field
+	{
+		position: relative;
+		display:block;
+		margin:0;
+	}
+</style>
+
+<section id="profile_kpis" class="profile_section" data-drilldown-level="0">
+
+	<div class="section_header">
+		<div class="section_header_content">
+			<p>Profile Section Header</p>
+		
+		</div>
+	</div>
+
+	<div class="section_body">
+		<div class="section_content">
+		<!-- SECTION CONTENT -->
+				
+		<!-- SECTION HEADER -->
+		<h3>USER:	</h3>
+			<h3><%= @user.first_name %></h3>
+			<h3><%= @user.last_name %></h3>
+			<h3><%= @user.phone %></h3>
+			<h3><%= @user.email %></h3>	
+<!-- 		<%= form_for @user, :url => url_for(:controller => 'profile', :action => 'update') do |f| %>
+		    <div class='user_field'><label for="user_first_name">First Name:</label><%= f.text_field :first_name %></div>
+  			<div class='user_field'><label for="user_last_name">Last Name:</label><%= f.text_field :last_name %></div>
+  			<div class='user_field'><label for="user_email">Email:</label><%= f.email_field :email %></div>
+  			<div class='user_field'><label for="user_phone">Phone:</label><%= f.text_field :phone %></div>
+  			<div class='user_field'><%= f.submit	 %></div>
+		<%  end %> -->	
+		</div>
+	</div>
+	
+</section>
+
+	
