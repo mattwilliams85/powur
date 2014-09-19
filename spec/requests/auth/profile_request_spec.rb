@@ -15,21 +15,25 @@ describe '/u/profile' do
       expect_200
 
       #expect_classes('profile_section')
-      
+
     end
   end
 
-  # describe '#update' do
 
-  #   let(:params) {{
-  #     phone:  '8888888888',
-  #     format:   :json }}
 
-  #   it 'updates a user' do
-  #     user = current_user
-  #     patch profile_path(user), params, format: :json
+  # describe '/update_password' do
+  #   it 'Updates the current user password' do
+  #     @user.password = "huntingKnife"
+  #     puts @user.name
+  #     post update_password_profile_path, current_password: @user.password,
+  #       new_password: 'dragonsAwake!', new_password_confirm: 'dragonsAwake!', format: :json
+
   #     expect_200
-  #     #expect(json_body['properties']['phone']).to eq(params[:phone])
-  #   end 
+  #     expect_confirm
+
+  #     user = User.authenticate(@user.email, 'dragonsAwake!')
+  #     expect(user).to_not be_nil
+  #   end
   # end
+
 end

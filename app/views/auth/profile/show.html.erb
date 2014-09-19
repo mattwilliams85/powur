@@ -42,14 +42,34 @@
 			<h3><%= @user.last_name %></h3>
 			<h3><%= @user.phone %></h3>
 			<h3><%= @user.email %></h3>	
-<!-- 		<%= form_for @user, :url => url_for(:controller => 'profile', :action => 'update') do |f| %>
-		    <div class='user_field'><label for="user_first_name">First Name:</label><%= f.text_field :first_name %></div>
-  			<div class='user_field'><label for="user_last_name">Last Name:</label><%= f.text_field :last_name %></div>
-  			<div class='user_field'><label for="user_email">Email:</label><%= f.email_field :email %></div>
-  			<div class='user_field'><label for="user_phone">Phone:</label><%= f.text_field :phone %></div>
-  			<div class='user_field'><%= f.submit	 %></div>
-		<%  end %> -->	
 		</div>
+
+
+		<section id="user_content" class="reset_password">
+
+		    <h3>Reset Password</h3>
+
+		    <form id="user_update_password_form" class="js-password_update_form" method="POST" action="/u/profile/update_password">
+		    <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+		    	<span class="form_row">
+		            <label for="current_password">Current Password</label>
+		            <input id="current_password" name="current_password" type="password" placeholder="Current Password" required>
+		        </span>
+
+		        <span class="form_row">
+		            <label for="new_password">New Password</label>
+		            <input id="new_password" name="new_password" type="password" placeholder="New Password" required>
+		        </span>
+
+		        <span class="form_row">
+		            <label for="new_password_confirm">Confirm Password</label>
+		            <input id="new_password_confirm" name="new_password_confirm" type="password" placeholder="Ne Password Confirm Password" required>
+		        </span>
+
+		        <button class="button">Submit</button>
+		    </form>
+		</section>
+
 	</div>
 	
 </section>

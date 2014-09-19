@@ -38,6 +38,7 @@ en:
     reset_token_invalid: Invalid reset password token
     reset_token_expired: The reset password token was expired
     reset_token: Invalid or expired password reset token
+    password_update: You have entered an incorrect current password.
     password_confirm: The confirm password does not match
     delete_rank: You can only delete the last rank
     delete_product: You cannot delete a product with existing quotes/orders
@@ -56,6 +57,7 @@ en:
     update: "%{entity} successfully updated"
     reset_password_request: "A Password Reset email has been sent to %{email}"
     reset_password: Password reset successfully
+    update_password: Your password was successfully updated
     quote_resent: Your quote has been resent
   entities:
     invite:

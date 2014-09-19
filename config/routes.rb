@@ -28,8 +28,11 @@ Rails.application.routes.draw do
   # logged in user routes
   scope :u, module: :auth do
     resource :dashboard, only: [ :show ], controller: :dashboard
-    resource :profile, only: [ :show, :update ], controller: :profile
 
+    resource :profile, only: [ :show, :update, :password_reset ], controller: :profile do
+      post 'update_password', to: "profile#update_password"
+    end
+    
     resources :invites, only: [ :index, :create, :destroy ] do
       member do
         post :resend
