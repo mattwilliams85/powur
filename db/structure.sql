@@ -548,7 +548,9 @@ CREATE TABLE users (
     rank_path character varying(255),
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sponsor_id integer
+    sponsor_id integer,
+    utilities hstore,
+    profile hstore
 );
 
 
@@ -1203,4 +1205,8 @@ INSERT INTO schema_migrations (version) VALUES ('20140709083435');
 INSERT INTO schema_migrations (version) VALUES ('20140804061544');
 
 INSERT INTO schema_migrations (version) VALUES ('20140820042927');
+
+INSERT INTO schema_migrations (version) VALUES ('20140919222256');
+
+INSERT INTO schema_migrations (version) VALUES ('20140920001013');
 

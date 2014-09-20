@@ -2,22 +2,22 @@ require 'spec_helper'
 
 describe '/u/profile' do
 
-  before :each do
-    login_user
-  end
+  # before :each do
+  #   login_user
+  # end
 
-  describe '#show' do
+  # describe '#show' do
 
-    it 'returns a user profile' do
-      create_list(:user, 3)
-      get profile_path, format: :html
+  #   it 'returns a user profile' do
+  #     create_list(:user, 3)
+  #     get profile_path, format: :html
 
-      expect_200
+  #     expect_200
 
-      #expect_classes('profile_section')
+  #     #expect_classes('profile_section')
 
-    end
-  end
+  #   end
+  # end
 
 
 
