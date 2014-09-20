@@ -10,15 +10,17 @@ module Auth
         end
       end
     end
- 
+
     def show
- 
+
     end
 
     def update
-      input = allow_input(:first_name, :last_name, 
-        :email, :phone, :address, :city, :state, :zip)
-      
+      input = allow_input(:first_name, :last_name, :email, :phone, 
+                          :address, :city, :state, :zip, :provider, 
+                          :monthly_bill, :bio, :twitter_url, 
+                          :linkedin_url, :facebook_url)
+
       @user.update_attributes!(input)
       render 'show'
     end
@@ -46,7 +48,7 @@ module Auth
     private
 
     def fetch_user
-      @user = current_user  
+      @user = current_user
     end
 
   end
