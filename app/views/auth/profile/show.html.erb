@@ -1,5 +1,5 @@
 <% content_for :javascript_includes do %>
-	<%# javascript_include_tag "profile.js" %>
+	<% javascript_include_tag "profile.js" %>
 <% end %>
 
 <style>
@@ -21,11 +21,209 @@
 		display:block;
 		margin:0;
 	}
+	.summary{
+		width:216px; 
+		padding:32px; 
+		float:left;
+		min-height:300px;
+	}
+	.data_content{
+		width:935px; 
+		padding:32px; 
+		height:auto; 
+		border-left:1px solid #ccc; 
+		float:left;
+	}
+	.data_content>section{
+		background:#fff;
+		border:1px solid #ccc;
+	}
+	.data_content section .header{
+		width:inherit;
+		height: 35px;
+		background: #333;
+		color:#eee;
+		text-transform: capitalize;
+		text-align: left;
+		padding:5px 0px 5px 30px;
+		line-height: 36px;
+		font-size:18px;
+	}
+	.data_content section .sub_header{
+		text-align: left;
+		color:#000;
+		font-size:16px; 
+	}
+
+	.data_content section .content{
+		color:#ccc;
+		text-align: left;
+		padding:5px 30px 5px 30px;
+		text-align: left;
+		height:auto;
+	}
+	.data_content section .content::after{
+		 padding-top: 6.25%; /* percentage of containing block _width_ */
+		  display: block;
+		  content: '';
+  	}
+	.data_content section .content label {
+		top:5px;
+		font-size:10px;
+	}
+	.data_content section .content input,
+	.data_content section .content textarea  {
+		padding-top:18px;
+		border-radius: 0px;
+		height:50px;
+		float:left;
+		color:#333;
+		transition: all .3s linear;
+	}
+
+	.data_content section .content textarea {
+		padding:30px 16px 16px 16px;
+		font-family: Muli, sans-serif;
+		font-size: 20px;
+		background-color: rgba(0, 0, 0, 0.0784314);
+		resize: none;
+		outline: none;
+		width:837px;
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		min-height: 200px;
+	}
+	.data_content section .content textarea:focus,
+	.data_content section .content input:focus{
+		background:#d6d6d6;
+		border:#b3b3b3;
+  		transition: all .3s linear;
+	}
+
+	.data_content section .content .form_element{
+		display:block;
+		position: relative;
+		width:inherit;
+		float:left;
+		margin-right:20px;
+	}
+	.data_content section .content .form_element.full{
+		width:100%;
+	}
+	.data_content section .content .form_element.half{
+		width:48.62%;
+	}
+	.data_content section .content .form_element.quarter{
+		width:23.4%;
+	}
+	.data_content section .content .form_element.end{
+		margin-right: 0px;
+	}
 </style>
 
-<section id="profile_kpis" class="profile_section" data-drilldown-level="0">
+<section class="dashboard_section" >
 
-	<div class="section_header">
+	<div class="section_body">
+		<div class="section_content">
+
+			<div class="summary">photos and social links</div>
+			<div class="data_content">
+
+				<section class="basic_info">
+					<div class="header">Basic Info</div>
+					<div class="content">
+						<section>
+							<div class="sub_header">Contact Info</div>
+							<form id="contact_info">
+								<div class="form_element half">
+									<label for="first_name">First Name</label>
+									<input name="first_name" type="text" value="<%= @user.first_name %>">
+								</div>
+								<div class="form_element half end">
+									<label for="last_name">Last Name</label>
+									<input name="last_name" type="text" value="<%= @user.last_name %>">
+								</div>
+								<div class="form_element half">
+									<label for="email">Email</label>
+									<input name="email" type="text" value="<%= @user.email %>">
+								</div>
+								<div class="form_element half end">
+									<label for="phone">Phone Number</label>
+									<input name="phone" type="text" value="<%= @user.phone %>">
+								</div>
+							</form>
+						</section>
+						<br>
+						<section>
+							<div class="sub_header">Home Info</div>
+							<form id="home_info">
+								<div class="form_element full">
+									<label for="address">Address</label>
+									<input name="address" type="text" >
+								</div>
+								<div class="form_element half">
+									<label for="address">city</label>
+									<input name="city" type="text" >
+								</div>
+								<div class="form_element quarter">
+									<label for="state">State</label>
+									<input name="state" type="text" >
+								</div>
+								<div class="form_element quarter end">
+									<label for="zip">Zip</label>
+									<input name="zip" type="text">
+								</div>
+							</form>
+						</section>
+
+					<br>
+						<section>
+							<div class="sub_header">Bio/Experience</div>
+							<form id="bio">
+								<div class="form_element full">
+									<textarea name="bio" ></textarea>
+								</div>
+							</form>
+						</section>
+					</div>
+				</section>
+
+
+				<br><br>
+
+				<section class="password">
+					<div class="header">Password</div>
+					<div class="content">
+						<section>
+							<div class="sub_header">Update Password</div>
+							<form id="contact_info">
+								<div class="form_element half">
+									<label for="password">Current Password</label>
+									<input name="password" type="password" >
+								</div>
+								<div class="form_element half end">
+									<label for="password">New Password</label>
+									<input name="password" type="password" >
+								</div>
+								<div class="form_element half"> &nbsp;
+								</div>
+								<div class="form_element half end">
+									<label for="password_confirm">Confirm New Password</label>
+									<input name="password_confirm" type="password" >
+								</div>
+
+							</form>
+
+						</section>
+
+					</div>
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+	<!--
+	<div class="section_header">	
 		<div class="section_header_content">
 			<p>Profile Section Header</p>
 		
@@ -34,9 +232,7 @@
 
 	<div class="section_body">
 		<div class="section_content">
-		<!-- SECTION CONTENT -->
 				
-		<!-- SECTION HEADER -->
 		<h3>USER:	</h3>
 			<h3><%= @user.first_name %></h3>
 			<h3><%= @user.last_name %></h3>
@@ -46,6 +242,13 @@
 			<h3><%= @user.provider %></h3>
 			<h3><%= @user.monthly_bill %></h3>
 			<h3><%= @user.twitter_url %></h3>
+ 		<%= form_for @user, :url => url_for(:controller => 'profile', :action => 'update') do |f| %>
+		    <div class='user_field'><label for="user_first_name">First Name:</label><%= f.text_field :first_name %></div>
+  			<div class='user_field'><label for="user_last_name">Last Name:</label><%= f.text_field :last_name %></div>
+  			<div class='user_field'><label for="user_email">Email:</label><%= f.email_field :email %></div>
+  			<div class='user_field'><label for="user_phone">Phone:</label><%= f.text_field :phone %></div>
+  			<div class='user_field'><%= f.submit	 %></div>
+		<%  end %> 
 		</div>
 
 
@@ -75,6 +278,7 @@
 		</section>
 
 	</div>
+	-->
 	
 </section>
 

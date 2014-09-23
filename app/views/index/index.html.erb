@@ -1,14 +1,143 @@
 <% content_for :javascript_includes do %>
-	<%= javascript_include_tag "kevins_shitty_javascript.js" %>
+	<%#= javascript_include_tag "kevins_shitty_javascript.js" %>
 	<%= javascript_include_tag "index.js" %>
 <% end %>
+<style>
+body#landing header li a{
+	background:transparent;
+}
+.landing_banner{
+	background-image:none;
+	background-color: #75b5d3;
+	height: auto;
+}
+.landing_banner #banner_graphic_br{
+	background-image: url(/images/home/solar_panel_bg.jpg);
+	background-position: top center;
+	background-repeat: no-repeat;
+	background-size: 110% auto;
+	top:0px;
+	opacity:.6;
+	height:auto;
+	transition: background-size 0.2s linear;
+}
 
+.landing_banner #banner_graphic_br:hover{
+	background-size: 112% auto;
+	opacity:.8;	
+	transition:all 0.2s linear;
+
+}
+.landing_banner h1{
+	font-size:30px;
+	line-height: 35px;
+}
+
+
+#our_mission{
+	background-image:none;
+	background-color: #75b5d3;
+	border:0px;
+	z-index:30;
+	margin-top:-3%;
+}
+#first_image{
+	background-image:url(/images/home/field_bg.jpg);
+	background-position: top center;
+	background-size: cover;
+	padding-bottom:40%;
+	border:0px;
+	transition: all 0.2s linear;
+	background-repeat:no-repeat;
+	background-attachment: scroll;}
+
+
+#sales_process{
+	background-color: #f0f0ef;
+	height:800px;
+	background-image:none;
+}
+#doing_good{
+	height:100vh;
+	background-image:url(/images/home/beach_bg.jpg);
+	background-position: top center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.invite_code.js-code,
+.invite_code.js-code:focus{
+	border:3px solid #fff;
+	height:59px;
+	transition:all 0.3s linear;
+
+}
+.cta .button{
+	background-color:#fff;
+	color:#333;
+	border:3px solid #fff;
+}
+.cta .button:hover{
+	background-color:#fff;
+	color:#333;
+	border:3px solid #fff;
+}
+
+.process_image{
+	width:400px;
+}
+.process_image:hover{
+	width:450px;
+	transition:all .2s linear;
+}
+
+h1.section_header{
+	border:0;
+	font-size:45px;
+	letter-spacing: 3px;
+}
+
+footer{
+	background:#404241;
+}
+.play_video{
+	border-radius:5px; 
+	border:3px solid white; 
+	width:100px; 
+	height:auto; background:rgba(0,0,0,.1); 
+	text-align:center; 
+	margin:auto;padding:10px;
+	font-size:24px;
+	margin-top:30px;
+	cursor:pointer;
+}
+.circle_1{
+	background:url("/images/home/process/4.png");
+	background-size: 400px auto;
+	background-position: center center;
+	transition:all 0.15s linear;
+	border:2px solid #fff;
+
+}
+
+.circle_1:hover{
+	background-size: 450px auto;
+	background-position: center center;
+	transition:all 0.15s linear;
+}
+
+.play_video:hover{
+	height:auto; background:rgba(0,0,0,.3); 
+	transition:all 0.3s linear;
+}
+
+</style>
 <section id="index_banner" class="landing_banner">
 	<div id="banner_graphic_br"></div>
 
 	<div id="index_banner_content" class="banner_content">
 		<h1>We're putting solar panels on 2 million homes by 2025.</h1>
-		<h2>And we'll pay you $1,000,000,000 to help us do it.</h2>
+		<h1>And we'll pay you $1,000,000,000 to help us do it.</h1>
 
 		<form class="cta js-cta_form">
 			<span class="form_row">
@@ -19,161 +148,74 @@
 
 		</form>
 
+
+		<h1 class="section_header" style="padding-top:22%;">The Story of SunStand...</h1>
+		<div style="width:720px; margin:auto;">
+			<p style="font-size:18px;">We have an epic vision. It involves you, a clean energy future for all generations, leading the next great energy boom, and entrepreneurship at it's finest.  This is the story of SunStand... and the role you play.</p>
+			<div class="play_video">Play</div>
+		</div>
+
 	</div>
 
-	<div class="scroll_leader">There's a revolution coming.
-	  	<span class="expand">
-	  		<i class="fa fa-angle-down"></i>
-	  	</span>
-	</div>
 </section>
 
-<section id="our_mission" class="landing">
-
-	<h2>Our Mission is Twofold</h2>
-	
-	<p>To put solar panels on over 2,000,000 homes by 2025 thereby making one of the most significant contributions possible towards reducing climate change&hellip;</p>
-
-	<p>And to create a platform that allows individuals to participate in one of the most meaningful wealth transfers in the history of humanity, the shift from dirty to clean energy.</p>
-
-	<h2>We're starting a chain reaction by&hellip;</h2>
-
-</section>
 
 <section id="first_image" class="image_section landing">
-		<div id="first_image_br"></div>
 
-		<h2 class="goal_title">
-		  	<div class="round_icon icon-link2"></div>
-		</h2>
-
-	<div id="goals">
-
-		<div class="goal_text first">
-			<div class="number">
-				<span>1</span>
-			</div>
-			<span class="text">
-				<div class="round_icon icon-group2"></div>
-				Building the world's largest network of peer to peer, direct sales solar advocates, so that we&hellip;
-			</span>
-		</div>
-
-		<div class="goal_text second">
-			<div class="number">
-				<span>2</span>
-			</div>
-			<span class="text">
-				<div class="round_icon icon-money2"></div>
-				Facilitate the largest transfer of wealth in history through the decentralization of energy production, which will&hellip;
-			</span>
-		</div>
-
-		<div class="goal_text third">
-			<div class="number">
-				<span>3</span>
-			</div>
-			<span class="text"><div class="round_icon icon-home"></div>Reverse climate change by turning millions of American homes clean and carbon-positive, so we&hellip;
-			</span>
-		</div>
-
-		<div class="goal_text fourth">	
-			<div class="number">
-				<span>4</span>
-			</div>
-			<span class="text"><div class="round_icon icon-leaf"></div>Create a sustainable, renewable and clean energy solution for all future generations.
-		</span>
-		</div>
-
+	<div style="width:465px; height:200px; margin:auto; margin-top:20%;">
+		<div style="height:5px; width:185px; background:#fff; float:left; margin-top:15px;"></div>		
+		<div style="height:auto; padding:5px; width:85px;  float:left; color:#fff; font-size:32px">OUR</div>
+		<div style="height:5px; width:185px; background:#fff; float:left; margin-top:15px;"></div>
+		<div style="width:100%;clear:both; color:#fff;margin:auto;	letter-spacing:3px; font-size:150px;padding-top:60px;">
+			GOAL
+		</div>		
+		<div style="height:5px; width:100%; background:#fff; float:left; margin-top:65px;"></div>		
 	</div>
+
+	<div style="width:1300px; margin:auto; margin-top:100px;">
+		<p style="font-size:28px; color:#fff; line-height:70px;">To Eliminate 36,000,000,000 pounds of CO2 Emissions Per year by 2005<br>(the equivalent of not burning 20 billion pounds of coal per year)
+		</p>
+	</div>
+
 </section>
 
 
 <section id="sales_process" class="landing">	
-
-	<h2>The solar revolution is here, and it will be disruptive.</h2>
-	
-	<p>Right now, solar represents only a tiny fraction of the $120 billion residential energy market in the United States. However, between rapidly falling production costs, aggressive rebate and financing programs, and increasing concerns over disasters caused by coal and other "dirty" energy companies, solar power in America is exploding. Sunstand is the first direct sales platform 100% focused on this coming solar revolution.</p>
-
-	<h2>U.S. Solar Growth vs. Price per Watt</h2>
-
-	<div id="solar_growth"></div>
-
-	<h2>There's never been a easier time to sell solar.</h2>
-
-	<p>Sunstand has partnered with Sunrun to offer customers a no-brainer deal to get started with solar. $0 down financing, no installation or maintenance fees, and instead of paying the electric company, customers just make the same low payment every month on the panels themselves.</p>
-
-	<div id="deal_points">
-		<span class="deal_point">
-			<span>$0<br/>Down</span>
-		</span>
-		<span class="deal_point">
-			<span>$0<br/>Install</span>
-		</span>
-		<span class="deal_point">
-			<span>Save<br/>10-30%<br/>Monthly</span>
-		</span>
-	</div>
-
-	<p>As a Sunstand Advocate, you'll 1) connect with homeowners, 2) do a quick screen to make sure they could benefit from solar, and 3) collect some information from their electric bill so Sunrun can get them a quote. When those quotes go to installation, you get a commission. It's an easy task, but one that's hard for a national company like Sunrun to scale using full-time employees. Couple this with the coming solar boom, and you've got an incredible opportunity to participate in the $120 billion dollar annual residential solar market.</p>
-
-	<div id="customer_checklist" class="landing_bar">
-		<span class="plain_icon">
-			<i class="fa fa-check-square-o"></i>
-			Owns their home
-		</span>
-		<span class="plain_icon">
-			<i class="fa fa-check-square-o"></i>
-			Benefits from solar
-		</span>
-		<span class="plain_icon">
-			<i class="fa fa-check-square-o"></i>
-			Electric usage from bill
-		</span>
+	<h1 class="section_header" style="font-size:50px; margin-top:-50px;">HOW</h1>
+	<div style="width:1150px; margin:auto; margin-top:75px;">
+		<div class="circle_1" style="width:400px; height:400px; border-radius:400px; margin:auto; overflow:hidden;">
+		</div>
 	</div>
 
 </section>
 
-<section id="second_image" class="image_section landing">
-		<div id="second_image_br"></div>
-</section>
-
-<section id="growing_business" class="landing">
-
-
-	<h2>You're growing a business, so don't go it alone.</h2>
-	
-	<p>The Sunstand platform gives you unprecedented ability to build your own solar sales team.  As you invite advocates to join your organization, you earn commission overrides on all their new customers. The bigger your team, the bigger your earnings, and the bigger your impact on our environment.</p>
-
-	<p>Because we're passionate about changing the world, it will always be free to become a Sunstand Advocate. The more you grow your business, the more rewards and perks you'll see. When the time comes, upgrading to a Pro account gets you access to advanced tools, training, and reporting so you can make an even bigger impact.</p>
-
-
-
-</section>
-
-<section id="third_image" class="image_section landing">
-		<div id="third_image_br"></div>
-</section>
 
 <section id="doing_good" class="landing">
+	<h1 class="section_header" style="padding-top:12%; color:#fff;">What's in it for you</h1>
 
-	<h2>It's not just about solar. It's about doing good.</h2>
+	<div style="width:1150px; margin:auto;">
+		<p style="font-size:18px; color:#fff;margin-bottom:0px;">We shift the power, literally and metaphorically from the old guard fossil fuel industry into the hands of clean energy entrepreneurs just like you.  By distributing solar through our peer-to-peer model, you reap the financial rewards of the next great energy boom, NOT the oil or coal industry.</p>
+	</div>
+	<div style="width:1150px; padding:20px; margin:auto;font-size:18px; letter-spacing:4px; color:#fff;">. . . . . . . . . . . . . . . . .</div>
+	<div style="width:1150px; margin:auto;">
+		<p style="font-size:18px; color:#fff;">You could build a life changing part time or full time income from the palm of your hand with sunstand.  This is one of the largest wealth trends you’ll see in your lifetime, as over $120 billion per year is still up for grabs.  It's a simple business powered by sunstand's technology, with $0 up front costs and no risk.  Not to mention, you can feel good every single day knowing your actions will have impact on future generations for centuries to come.
+		</p>
+	</div>
 
-	<p>While we know that the solar industry is going to provide an incredible opportunity to shift wealth, create jobs, build new companies, and invigorate our economy, we understand that it's more than just a booming market.</p>
 
-	<p>The real opportunity here is in changing the course of human history.</p>
+	<form class="cta js-cta_form">
+		<span class="form_row">
+			<label for="code">Enter Your Invite Code</label>
+			<input class="invite_code js-code" name="code" type="text" required/>
+		</span>
+		<button class="button js-show_signup_form">Go</button>
 
-	<p>Now, that may sound a little grand, but the truth is that our environment needs that change to happen, and it's not going to come from the top - it's going to come from people like you. By decentralizing energy production with clean energy, and shifting the wealth away from oil and coal companies, we're disrupting their ability to influence policy-makers and pollute our environment. This is how we make a difference. This is what it's all about.</p>
-
-	<h2>This is giving power back to the people, literally</strong></h2>
-
-		<form class="cta secondary js-cta_form">
-			<span class="form_row">
-				<label for="code">Enter Your Invite Code</label>
-				<input class="invite_code js-code" name="code" type="text" required/>
-			</span>
-			<button class="button js-show_signup_form">Go</button>
-
-		</form>
+	</form>
 </section>
+
+<Script>
+	$(document).ready(function(){
+		//$(".landing_banner #banner_graphic_br").animate({"opacity":.55}, 500);
+	});
+</script>
 
