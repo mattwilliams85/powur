@@ -11,3 +11,4 @@ links \
   link(:self, user_path(user)),
   link(:children, downline_user_path(user)),
   link(:ancestors, upline_user_path(user))
+  link(:profile, profile_path())

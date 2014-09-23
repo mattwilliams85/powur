@@ -86,4 +86,13 @@ Rails.application.configure do
   config.action_mailer.default_options = { 
     from: 'EyeCueLab Stage Mailer <no-reply+stage@eyecuelab.com>' }
   config.action_controller.asset_host = "http://#{config.action_mailer.default_url_options[:host]}"
+
+  config.paperclip_defaults = {
+  :storage => :s3,
+  :s3_credentials => {
+    :bucket => 'sunstand-dev',
+    :access_key_id =>'AKIAJNXDRQYTTYZ3RTIA',
+    :secret_access_key => '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'
+  }
+}
 end

@@ -252,29 +252,21 @@
 		</div>
 
 
+		<h2>avatar</h2>
+
+		<%= image_tag @user.avatar.url(:thumb) %>
+		<%= form_for @user, remote:true, :url => update_avatar_profile_path, :html => { :multipart => true } do |form| %>
+		  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+		<%= token_tag %>
+			<%= form.check_box :remove_avatar %><%= form.label "Clear Avatar" %><br />
+ 
+		  <%= form.file_field :avatar %>
+		  <%= form.submit %>
+		<% end %>
+		</div>
 		<section id="user_content" class="reset_password">
-
-		    <h3>Reset Password</h3>
-
-		    <form id="user_update_password_form" class="js-password_update_form" method="POST" action="/u/profile/update_password">
-		    <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
-		    	<span class="form_row">
-		            <label for="current_password">Current Password</label>
-		            <input id="current_password" name="current_password" type="password" placeholder="Current Password" required>
-		        </span>
-
-		        <span class="form_row">
-		            <label for="new_password">New Password</label>
-		            <input id="new_password" name="new_password" type="password" placeholder="New Password" required>
-		        </span>
-
-		        <span class="form_row">
-		            <label for="new_password_confirm">Confirm Password</label>
-		            <input id="new_password_confirm" name="new_password_confirm" type="password" placeholder="Ne Password Confirm Password" required>
-		        </span>
-
-		        <button class="button">Submit</button>
-		    </form>
 		</section>
 
 	</div>

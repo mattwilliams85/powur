@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
     resource :profile, only: [ :show, :update, :password_reset ], controller: :profile do
       post 'update_password', to: "profile#update_password"
+      patch 'update_avatar', to: "profile#update_avatar"
     end
     
     resources :invites, only: [ :index, :create, :destroy ] do

@@ -20,6 +20,41 @@ class User < ActiveRecord::Base
   has_many :rank_achievements
   has_many :bonus_payments
 
+  attr_accessor :remove_avatar
+  attr_accessor :avatar_content_type, :avatar_file_name
+
+  has_attached_file :avatar, 
+  :path => ":rails_root/public/system/:class/:attachement/:id/:basename_:style.:extension",
+  :url => "/system/:class/:attachement/:id/:basename_:style.:extension",
+  :styles => {
+    :thumb    => ['100x100#',  :jpg, :quality => 70],
+    :preview  => ['480x480#',  :jpg, :quality => 70],
+    :large    => ['600>',      :jpg, :quality => 70],
+    :retina   => ['1200>',     :jpg, :quality => 30]
+  },
+  :convert_options => {
+    :thumb    => '-set colorspace sRGB -strip',
+    :preview  => '-set colorspace sRGB -strip',
+    :large    => '-set colorspace sRGB -strip',
+    :retina   => '-set colorspace sRGB -strip -sharpen 0x0.5'
+  }
+
+  # Validate content type
+  validates_attachment_content_type :avatar, :content_type => /\Aimage/
+  # Validate filename
+  validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpe?g\Z/, /gif\Z/]
+  # Explicitly do not validate
+  do_not_validate_attachment_file_type :avatar
+
+  # validates_attachment :avatar,
+  #   :presence => true,
+  #   :size => { :in => 0..10.megabytes },
+  #   :content_type => { :content_type => /^image\/(jpeg|png|gif|tiff)$/ }
+  before_save :delete_avatar, if: ->{ remove_avatar == '1' && !avatar_updated_at_changed? }
+   
+
+  after_create :set_upline
+  
   scope :with_upline_at, ->(id, level){ 
     where('upline[?] = ?', level, id).where('id != ?', id) }
   scope :at_level, ->(rank){ where('array_length(upline, 1) = ?', rank) }
@@ -42,8 +77,6 @@ class User < ActiveRecord::Base
     self.lifetime_rank ||= Rank.find_or_create_by_id(1).id
     self.organic_rank ||= 1
   end
-
-  after_create :set_upline
 
   def full_name
     "#{first_name} #{last_name}"
@@ -121,4 +154,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  def delete_avatar
+    self.avatar = nil
+  end
 end
