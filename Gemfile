@@ -10,6 +10,9 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder'
+gem 'paperclip','~> 4.2'
+gem 'aws-sdk'
+gem 's3_direct_upload'
 
 gem 'postgres_ext'
 gem 'composite_primary_keys'
@@ -35,7 +38,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'awesome_print'
-
+  gem 'byebug'
   # gem 'debugger'
 end
 

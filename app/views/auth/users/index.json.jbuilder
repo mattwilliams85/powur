@@ -10,3 +10,4 @@ actions \
 
 links \
   link(:self, users_path)
+  link(:self, profile_path)
