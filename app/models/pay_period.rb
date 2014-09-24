@@ -3,12 +3,13 @@ class PayPeriod < ActiveRecord::Base
   has_many :order_totals, dependent: :destroy
   has_many :rank_achievements, dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
+  has_many :bonus_payment_orders, through: :bonus_payments, dependent: :destroy
 
   scope :next_to_calculate, ->(){
     order(id: :asc).where('calculated_at is null').first }
 
   before_create do
-    self.id ||= self.class.id_from_date(self.start_date)
+    self.id ||= self.class.id_from(self.start_date)
   end
 
   def calculable?
@@ -36,6 +37,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def reset_orders!
+    BonusPaymentOrder.delete_all_for_pay_period(self.id)
     self.bonus_payments.delete_all
     self.rank_achievements.delete_all
     self.order_totals.delete_all

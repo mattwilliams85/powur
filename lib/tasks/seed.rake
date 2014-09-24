@@ -109,7 +109,7 @@ namespace :sunstand do
 
       # Promote Out Bonus
       bonus = PromoteOutBonus.create!(bonus_plan_id: 1, name: 'Promote-Out',
-        schedule: :monthly, achieved_rank_id: 2, min_upline_rank_id: 2)
+        schedule: :monthly, achieved_rank_id: 2, min_upline_rank_id: 2, flat_amount: 150)
 
       # Unilevel Bonus
       bonus = UnilevelSalesBonus.create!(bonus_plan_id: 1, name: 'Unileveled',

@@ -168,9 +168,9 @@ describe '/a/bonuses' do
     it 'updates the flat amount' do
       bonus = create(:promote_out_bonus)
 
-      patch bonus_path(bonus), flat_amount: 42, format: :json
+      patch bonus_path(bonus), flat_amount: 42.0, format: :json
 
-      expect(json_body['properties']['flat_amount']).to eq(42)
+      expect(json_body['properties']['flat_amount']).to eq("42.0")
     end
 
     it 'updates the compress flag' do

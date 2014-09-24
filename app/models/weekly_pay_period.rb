@@ -4,6 +4,10 @@ class WeeklyPayPeriod < PayPeriod
     'Weekly'
   end
 
+  before_create do
+    self.end_date ||= start_date.end_of_week
+  end
+
   def rank_has_path?(rank, path)
     rank.weekly_path?(path)
   end
@@ -31,7 +35,7 @@ class WeeklyPayPeriod < PayPeriod
     def find_or_create_by_id(id)
       find_or_create_by(id: id) do |period|
         period.start_date = Date.parse(id)
-        period.end_date = period.start_date.end_of_week
+        # period.end_date = period.start_date.end_of_week
       end
     rescue ActiveRecord::RecordNotUnique
       retry
