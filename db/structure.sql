@@ -170,7 +170,7 @@ CREATE TABLE bonuses (
     max_user_rank_id integer,
     min_upline_rank_id integer,
     compress boolean DEFAULT false NOT NULL,
-    flat_amount integer DEFAULT 0 NOT NULL,
+    flat_amount numeric(10,2) DEFAULT 0.0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

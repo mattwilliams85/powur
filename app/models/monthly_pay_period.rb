@@ -4,6 +4,10 @@ class MonthlyPayPeriod < PayPeriod
     'Monthly'
   end
 
+  before_create do
+    self.end_date ||= start_date.end_of_month
+  end
+
   def rank_has_path?(rank, path)
     rank.monthly_path?(path)
   end
@@ -33,7 +37,7 @@ class MonthlyPayPeriod < PayPeriod
     def find_or_create_by_id(id)
       find_or_create_by(id: id) do |period|
         period.start_date = Date.parse("#{id}-01")
-        period.end_date = period.start_date.end_of_month
+        # period.end_date = period.start_date.end_of_month
       end
     rescue ActiveRecord::RecordNotUnique
       retry
