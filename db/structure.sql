@@ -550,7 +550,11 @@ CREATE TABLE users (
     updated_at timestamp without time zone NOT NULL,
     sponsor_id integer,
     utilities hstore,
-    profile hstore
+    profile hstore,
+    avatar_file_name character varying(255),
+    avatar_content_type character varying(255),
+    avatar_file_size integer,
+    avatar_updated_at timestamp without time zone
 );
 
 

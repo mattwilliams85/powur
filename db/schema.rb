@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20140820042927) do
     t.integer  "max_user_rank_id"
     t.integer  "min_upline_rank_id"
     t.boolean  "compress",           default: false, null: false
-    t.integer  "flat_amount",        default: 0,     null: false
+    t.decimal  "amount",            precision: 10, scale: 2, default: 0,     null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end

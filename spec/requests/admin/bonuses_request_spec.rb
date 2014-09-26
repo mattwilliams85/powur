@@ -170,7 +170,7 @@ describe '/a/bonuses' do
 
       patch bonus_path(bonus), flat_amount: 42.0, format: :json
 
-      expect(json_body['properties']['flat_amount'].to_f.to_s).to eq("42.0")
+      expect(json_body['properties']['flat_amount']).to eq("42.0")
     end
 
     it 'updates the compress flag' do
