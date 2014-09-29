@@ -67,9 +67,10 @@
 		margin:auto;
 	}	
 	#story_of_sunstand{
-		padding:40px 0;
+		padding:1px 0;
 		background-color: #90c4db;
 		color:#fff;
+		margin-top:0%;
 
 	}
 	p.large{
@@ -78,7 +79,7 @@
 	}
 	p.medium{
 		font-size:18px;
-		line-height: 34px;
+		line-height: 24px;
 
 	}		
 	#first_image{
@@ -99,12 +100,12 @@
 		#first_image .goal_badge{
 			width:50%;
 			margin:auto; 
-			margin-top:5%;
+			margin-top:10%;
 		}	
 	footer{
 		background:#404241;
 	}
-.play_video{
+	.play_video{
 		border-radius:5px; 
 		border:3px solid white; 
 		width:100px; 
@@ -123,7 +124,7 @@
 	}
 
 	#doing_good{
-		height:100vh;
+		height:1400px;
 		background-image:url(/images/home/beach_bg.jpg);
 		background-position: 100% top;
 		background-size: cover;
@@ -171,7 +172,9 @@
 	.step_container{
 		height: auto;
 	}	
-
+	#whats_in_it_for_you{
+		padding-top:50%; 
+	}
 }
 
 @media (min-width:640px) and (max-width: 1024px){
@@ -257,7 +260,7 @@
 		#first_image .goal_badge{
 			width:45%;
 			margin:auto; 
-			margin-top:5%;
+			margin-top:10%;
 		}	
 	footer{
 		background:#404241;
@@ -330,6 +333,9 @@
 	.step_container{
 		height: auto;
 	}	
+	#whats_in_it_for_you{
+		padding-top:24%; 
+	}	
 }
 
 @media all and (min-width:1024px){
@@ -339,6 +345,7 @@
 	#first_image .goal{
 		font-size:150px;
 	}
+
 	#index_banner{
 		background-image: url(/images/home/solar_panel_bg.jpg);
 		background-repeat:no-repeat;
@@ -349,7 +356,7 @@
 		opacity:.8;
 	}
 	#index_banner_content{
-		margin-top:22%;}
+		margin-top:19%;}
 
 	.landing_banner h1{
 		font-size:30px;
@@ -378,7 +385,7 @@
 		#first_image .goal_badge{
 			width:40%;
 			margin:auto; 
-			margin-top:15%;
+			margin-top:22%;
 		}	
 
 	#sales_process{
@@ -391,7 +398,7 @@
 	#doing_good{
 		height:100vh;
 		background-image:url(/images/home/beach_bg.jpg);
-		background-position: 100% top;
+		background-position: top center;
 		background-size: cover;
 		background-repeat: no-repeat;
 	}
@@ -487,6 +494,9 @@
 	p.medium{
 		font-size:18px;
 	}
+	#whats_in_it_for_you{
+		padding-top:24%; 
+	}
 }
 
 </style>
@@ -509,7 +519,7 @@
 </section>
 
 <section id="story_of_sunstand">
-	<h1 class="section_header" style="margin-top:5%;">The Story of SunStand...</h1>
+	<h1 class="section_header" style="margin-top:1%;">The Story of SunStand...</h1>
 		<p class="large" style="padding-top:3%; width:55%; margin:auto;">We have an epic vision. It involves you, a clean energy future for all generations, leading the next great energy boom, and entrepreneurship at it's finest.  This is the story of SunStand... and the role you play.</p>
 		<div class="play_video">Play</div>
 
@@ -549,7 +559,7 @@
 
 
 <section id="doing_good" class="landing">
-	<h1 class="section_header" style="padding-top:15%; color:#fff;">What's in it for you</h1>
+	<h1 class="section_header" style="color:#fff;" id="whats_in_it_for_you">What's in it for you</h1>
 
 	<div style="width:85%; margin:auto; padding-top:3%;">
 		<p class="medium" style="color:#fff;margin-bottom:0px;">We shift the power, literally and metaphorically from the old guard fossil fuel industry into the hands of clean energy entrepreneurs just like you.  By distributing solar through our peer-to-peer model, you reap the financial rewards of the next great energy boom, NOT the oil or coal industry.</p>
@@ -584,13 +594,14 @@
 
 	function responsiveLogic(){
 		var max_width=1225;
-		var current_width = ($(window).width()>=max_width)? max_width:$(window).width();
+		var current_width = (($(window).width()+15)>=max_width)? max_width:($(window).width()+15);
 		var ratio = ((current_width/max_width)<0.5)? 0.5:(current_width/max_width);
 		
-
 		if(current_width>=1024){
 			$("#index_banner").css("height", ($("#index_banner").width()*0.65)+"px" );
 			$("#first_image").css("height", ($("#first_image").width()*0.73)+"px" );
+			$("#doing_good").css("height", ($("#doing_good").width()*1.2)+"px" );
+
 			$("p.large").css({
 				"font-size":Math.round(28*ratio)+"px",
 				"line-height":Math.round(48*ratio)+"px"
@@ -605,6 +616,8 @@
 		if(current_width>640 && current_width<1024){
 			$("#index_banner").css("height", ($("#index_banner").width()*0.65)+"px" );
 			$("#first_image").css("height", ($("#first_image").width()*0.73)+"px" );
+			$("#doing_good").css("height", ($("#doing_good").width()*1.6)+"px" );
+
 
 			$("p.large").css({
 				"font-size":((Math.round(28*ratio)>18)?(Math.round(28*ratio)):18)+"px",
@@ -615,8 +628,10 @@
 		}
 
 		if(current_width<=640){
-			$("#index_banner").css("height", "120%" );
+			$("#index_banner").css("height", "600px" );
 			$("#first_image").css("height", "500px" );
+			$("#doing_good").css("height", ($("#doing_good").width()*(2.9))+"px" );
+
 			$("#first_image .our").css("font-size", Math.round(28*ratio)+"px");
 			$("#first_image .goal").css("font-size", Math.round(130*ratio)+"px");
 
