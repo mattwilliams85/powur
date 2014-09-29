@@ -133,10 +133,15 @@
 
 	.circle{
 		background:url("/images/home/process/4.png");
-		background-size: 400px auto;
+		background-size: 300px auto;
 		background-position: center center;
 		transition:all 0.15s linear;
 		border:2px solid #fff;
+		width:300px; 
+		height:300px; 
+		border-radius:400px; 
+		margin:auto; 
+		overflow:hidden;
 	}
 
 	.explanation{
@@ -173,7 +178,7 @@
 		height: auto;
 	}	
 	#whats_in_it_for_you{
-		padding-top:50%; 
+		padding-top:40%; 
 	}
 }
 
@@ -240,7 +245,7 @@
 	}
 	p.medium{
 		font-size:18px;
-		line-height: 36px;
+		line-height: 24px;
 
 	}	
 	#first_image{
@@ -298,6 +303,11 @@
 		background-position: center center;
 		transition:all 0.15s linear;
 		border:2px solid #fff;
+		width:400px; 
+		height:400px; 
+		border-radius:400px; 
+		margin:auto; 
+		overflow:hidden;
 	}
 
 	.explanation{
@@ -452,6 +462,11 @@
 		background-position: center center;
 		transition:all 0.15s linear;
 		border:2px solid #fff;
+		width:400px; 
+		height:400px; 
+		border-radius:400px; 
+		margin:auto; 
+		overflow:hidden;
 	}
 
 	.explanation{
@@ -545,7 +560,7 @@
 	<h1 class="section_header">HOW</h1>
 	<div style="width:100%; margin:auto; margin-top:3%;">
 		<div class="step_container">
-			<div class="circle" style="width:400px; height:400px; border-radius:400px; margin:auto; overflow:hidden;">
+			<div class="circle" >
 			</div>
 			<div class="explanation">
 				<div class="pointer"></div>
@@ -596,6 +611,7 @@
 		var max_width=1225;
 		var current_width = (($(window).width()+15)>=max_width)? max_width:($(window).width()+15);
 		var ratio = ((current_width/max_width)<0.5)? 0.5:(current_width/max_width);
+		
 		
 		if(current_width>=1024){
 			$("#index_banner").css("height", ($("#index_banner").width()*0.65)+"px" );
