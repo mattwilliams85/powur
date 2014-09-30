@@ -2,15 +2,24 @@ module SortAndPage
   extend ActiveSupport::Concern
 
   included do
-    helper_method :paging, :paging?, :page!
+    helper_method :paging, :paging?, :page!, :filtering?, :filters
     include InstanceMethods
   end
 
   module ClassMethods
-    attr_reader :paging_options
+    attr_reader :paging_options, :filters
 
     def sort_and_page(opts)
       @paging_options = opts
+    end
+
+    def filters
+      @filters ||= {}
+    end
+
+    def filter(scope, opts)
+      has_scope scope, opts.delete(:scope_opts)
+      filters[scope] = opts.reverse_merge(id: :id, name: :name)
     end
   end
 
@@ -25,6 +34,14 @@ module SortAndPage
 
     def page!(query)
       paging.sort_and_page(query)
+    end
+
+    def filters
+      self.class.filters
+    end
+
+    def filtering?
+      !filters.empty?
     end
 
     class Paging
