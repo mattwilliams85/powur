@@ -29,6 +29,8 @@ gem 'money'
 
 gem 'pry-rails'
 
+gem 'eyecue_ipayout', :git => 'https://github.com/eyecuelab/eyecue_ipayout.git'
+
 group :development do
   gem 'spring'
   gem 'thin'
