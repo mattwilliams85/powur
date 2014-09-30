@@ -1,6 +1,6 @@
 module Auth
 
-  class RankAchievementsController < AdminController
+  class RankAchievementsController < AuthController
 
     def index
       @rank_achievements = page!(
