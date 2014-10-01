@@ -1,6 +1,7 @@
 module Admin
 
   class QuotesController < AdminController
+    include SortAndPage
 
     before_action :fetch_quote, only: [ :show ]
 

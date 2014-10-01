@@ -1,14 +1,12 @@
 module Admin
 
   class PayPeriodBonusPaymentsController < BonusPaymentsController
+    include ListQuery
 
     before_action :fetch_pay_period
 
-    SORTS = {
-      created_at: :created_at,
-      user:       'users.last_name asc, users.first_name asc' }
-
-    sort_and_page available_sorts: SORTS
+    page
+    sort created_at: :created_at, user: 'users.last_name asc, users.first_name asc'
 
     private
 

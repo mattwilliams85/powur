@@ -36,14 +36,6 @@ describe 'order totals', type: :request do
         create(:bonus_payment, pay_period: pay_period, user: @money_user)
         pay_period
       end
-
-    end
-
-    it 'orders bonus payments by pay period' do
-      get admin_user_bonus_payments_path(@money_user), format: :json
-
-      result = json_body['entities'].map { |bp| bp['properties']['pay_period_id'] }
-      expect(result).to eq(@pay_periods.map(&:id).sort.reverse)
     end
 
     it 'filters bonus payments by pay period' do

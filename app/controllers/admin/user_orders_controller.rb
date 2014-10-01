@@ -1,6 +1,7 @@
 module Admin
 
   class UserOrdersController < OrdersController
+    include SortAndPage
 
     SORTS = {
       order_date: { order_date: :desc },

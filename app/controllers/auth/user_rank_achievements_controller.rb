@@ -1,12 +1,13 @@
 module Auth
 
   class UserRankAchievementsController < RankAchievementsController
+    include SortAndPage
 
     before_action :fetch_user
 
     SORTS = {
       pay_period:  'pay_period_id desc, achieved_at asc',
-    achieved_at: :achieved_at }
+      achieved_at: :achieved_at }
 
     sort_and_page available_sorts: SORTS
 
