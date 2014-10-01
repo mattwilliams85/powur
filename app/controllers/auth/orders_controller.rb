@@ -1,6 +1,7 @@
 module Auth
 
   class OrdersController < AuthController
+    include SortAndPage
 
     before_filter :fetch_order, only: [ :show ]
 

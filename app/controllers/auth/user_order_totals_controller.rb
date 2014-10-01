@@ -1,6 +1,7 @@
 module Auth
 
   class UserOrderTotalsController < OrderTotalsController
+    include SortAndPage
 
     before_action :fetch_user
 

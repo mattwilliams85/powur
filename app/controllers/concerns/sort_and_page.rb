@@ -56,8 +56,7 @@ module SortAndPage
         @sort_key ||= begin
           key = params[:sort] && params[:sort].to_sym
           key.nil? || !opts[:available_sorts].keys.include?(key) ?
-            key = opts[:available_sorts].keys.first :
-            key
+            opts[:available_sorts].keys.first : key
         end
       end
 
@@ -66,7 +65,7 @@ module SortAndPage
       end
 
       def limit
-        @limit ||= params[:limit] ? 
+        @limit ||= params[:limit] ?
           [ params[:limit].to_i, opts[:max_limit] ].min : opts[:max_limit]
       end
 

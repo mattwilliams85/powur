@@ -1,6 +1,7 @@
 module Admin
 
   class UserRankAchievementsController < RankAchievementsController
+    include SortAndPage
 
     before_action :fetch_user
 

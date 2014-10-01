@@ -1,6 +1,7 @@
 module Admin
 
   class PayPeriodOrderTotalsController < OrderTotalsController
+    include SortAndPage
 
     before_action :fetch_pay_period
 

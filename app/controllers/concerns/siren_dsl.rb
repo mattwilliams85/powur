@@ -20,7 +20,7 @@ module SirenDSL
   Link = Struct.new(:rel, :href)
 
   included do
-    helper_method :siren, :klass, :entities, :action, :actions, :links, :link, :entity_rel, :ents, :ent
+    helper_method :siren, :klass, :entities, :action, :actions, :links, :link, :entity_rel, :ents, :ent, :index_action
   end
 
   attr_reader :json
@@ -44,9 +44,16 @@ module SirenDSL
 
   def klass(*values)
     json.set! :class, values
-    if values.include?(:list) && paging?
-      json.properties do
-        json.paging paging.meta
+    if values.include?(:list) && respond_to?(:paging?) && respond_to?(:pager)
+      if paging?
+        json.properties do
+          json.paging pager.meta
+        end
+      end
+      if sorting?
+        json.properties do
+          json.sorting sorter.meta
+        end
       end
     end
   end
@@ -110,5 +117,32 @@ module SirenDSL
 
   def link(rel, href)
     Link.new(rel, href)
+  end
+
+  def index_action(url)
+    action = action(:index, :get, url)
+
+    if paging?
+      action.field(:page, :number,
+        value:  pager[:current_page],
+        min:    1,
+        max:    pager[:page_count], required: false)
+    end
+    if sorting? && sorter[:sorts].size > 1
+      action.field(:sort, :select,
+        options:  sorter[:sorts],
+        value:    sorter[:current_sort], required: !!sorter[:required])
+    end
+    if filtering?
+      filters.each do |scope, opts|
+        action.field(scope, :select,
+          reference: { 
+            url:  instance_exec(&opts[:url]),
+            id:   opts[:id], 
+            name: opts[:name] }, required: !!opts[:required])
+      end
+    end
+
+    action
   end
 end

@@ -1,6 +1,7 @@
 module Admin
 
   class OrdersController < AdminController
+    include SortAndPage
 
     before_filter :fetch_order, only: [ :show ]
 
