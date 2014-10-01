@@ -138,6 +138,7 @@ describe PayPeriod, type: :model do
         product: product, order_date: order_date - 10.minutes)
       create(:order, user: user,
         product: product, order_date: order_date - 1.month)
+
       1.upto(3) do |i|
         create(:order, user: children.first,
           product: product, order_date: order_date - i.minutes)

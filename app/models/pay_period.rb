@@ -307,6 +307,7 @@ class PayPeriod < ActiveRecord::Base
         personal_lifetime:  pl ? pl.quantity : 0,
         group_lifetime:     gl ? gl.quantity + order.quantity : order.quantity)
     end
+
   end
 
   def products
