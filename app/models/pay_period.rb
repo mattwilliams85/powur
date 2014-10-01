@@ -12,6 +12,10 @@ class PayPeriod < ActiveRecord::Base
     self.id ||= self.class.id_from(self.start_date)
   end
 
+  def title
+    "#{type_display} (#{start_date} - #{end_date})"
+  end
+
   def calculable?
     Date.current > self.start_date
   end

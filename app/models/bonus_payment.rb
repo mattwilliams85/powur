@@ -9,4 +9,6 @@ class BonusPayment < ActiveRecord::Base
   has_many :bonus_payment_orders, dependent: :destroy
   has_many :orders, through: :bonus_payment_orders
 
+  scope :pay_period, ->(id) { where(pay_period: id) }
+
 end
