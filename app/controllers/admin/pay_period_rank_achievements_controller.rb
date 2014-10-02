@@ -1,15 +1,13 @@
 module Admin
 
   class PayPeriodRankAchievementsController < RankAchievementsController
-    include SortAndPage
+    include ListQuery
 
     before_action :fetch_pay_period
 
-    SORTS = {
-      achieved_at:  :achieved_at,
-      user:         'users.last_name asc, users.first_name asc' }
-
-    sort_and_page available_sorts: SORTS
+    page
+    sort  user: 'users.last_name asc, users.first_name asc',
+          achieved_at: { achieved_at: :asc }
 
     private
 

@@ -37,7 +37,7 @@ describe 'order totals', type: :request do
     end
 
     it 'uses a secondary sort on id' do
-      users = create_list(:user, 5, last_name: 'aaaa')
+      users = create_list(:user, 5, last_name: 'aaaa', first_name: 'bbbb')
       totals = users.map do |u|
         create(:order_total, id: rand(1000...100_000), pay_period: @pay_period, user: u)
       end
