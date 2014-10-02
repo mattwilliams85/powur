@@ -2,7 +2,7 @@ module Admin
 
   class OrdersController < AdminController
 
-    before_filter :fetch_order, only: [ :show ]
+    before_action :fetch_order, only: [ :show ]
 
     page
     sort  order_date: { order_date: :desc },

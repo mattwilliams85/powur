@@ -28,6 +28,8 @@ class Order < ActiveRecord::Base
       GROUP BY parent_id, product_id) o INNER JOIN users u ON o.parent_id = u.id"
   scope :group_totals, ->(end_date){
     find_by_sql([ GROUP_TOTALS_SQL, { end_date: end_date.to_date } ]) }
+  scope :product_totals, ->{
+    select('product_id, sum(quantity) quantity').group(:product_id) }
 
   def monthly_pay_period_id
     MonthlyPayPeriod.id_from(order_date)
@@ -43,10 +45,6 @@ class Order < ActiveRecord::Base
 
   def weekly_pay_period
     @weekly_pay_period ||= WeeklyPayPeriod.find_or_create_by_id(weekly_pay_period_id)
-  end
-
-  def increment_order_totals!
-    
   end
 
   class << self

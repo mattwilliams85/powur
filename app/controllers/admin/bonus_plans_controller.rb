@@ -2,7 +2,7 @@ module Admin
 
   class BonusPlansController < AdminController
 
-    before_filter :fetch_bonus_plan, only: [ :show, :destroy, :update ]
+    before_action :fetch_bonus_plan, only: [ :show, :destroy, :update ]
 
     def index
       @bonus_plans = BonusPlan.all.order(:name)

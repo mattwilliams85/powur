@@ -2,8 +2,8 @@ module Admin
 
   class PayPeriodsController < AdminController
 
-    before_filter :fetch_pay_periods, except: [ :index ]
-    before_filter :fetch_pay_period, only: [ :show, :calculate, :recalculate ]
+    before_action :fetch_pay_periods, except: [ :index ]
+    before_action :fetch_pay_period, only: [ :show, :calculate, :recalculate ]
 
     helper_method :can_calculate?
 
