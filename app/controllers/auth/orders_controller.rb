@@ -1,7 +1,6 @@
 module Auth
 
   class OrdersController < AuthController
-    include ListQuery
     before_filter :fetch_order, only: [ :show ]
 
     page

@@ -1,13 +1,10 @@
 module Admin
 
   class UserOrdersController < OrdersController
-    include SortAndPage
 
-    SORTS = {
-      order_date: { order_date: :desc },
-      customer:   'customers.last_name asc' }
-
-    sort_and_page available_sorts: SORTS
+    page
+    sort  order_date: { order_date: :desc },
+          customer:   'customers.last_name asc'
 
     def index
       user = User.find(params[:admin_user_id].to_i)

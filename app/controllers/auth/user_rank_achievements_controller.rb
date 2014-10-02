@@ -1,7 +1,6 @@
 module Auth
 
   class UserRankAchievementsController < RankAchievementsController
-    include ListQuery
     before_action :fetch_user
 
     page

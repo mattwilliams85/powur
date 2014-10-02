@@ -1,7 +1,6 @@
 module Admin
 
   class UserBonusPaymentsController < BonusPaymentsController
-    include ListQuery
 
     before_action :fetch_user
 

@@ -1,7 +1,6 @@
 module Admin
 
   class PayPeriodOrderTotalsController < OrderTotalsController
-    include ListQuery
 
     before_action :fetch_pay_period
 

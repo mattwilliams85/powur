@@ -1,7 +1,6 @@
 module Auth
 
   class UserOrderTotalsController < OrderTotalsController
-    include ListQuery
     before_action :fetch_user
 
     page

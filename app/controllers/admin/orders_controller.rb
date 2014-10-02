@@ -1,16 +1,13 @@
 module Admin
 
   class OrdersController < AdminController
-    include SortAndPage
 
     before_filter :fetch_order, only: [ :show ]
 
-    SORTS = {
-      order_date: { order_date: :desc },
-      customer:   'customers.last_name asc',
-      user:       'users.last_name asc' }
-
-    sort_and_page available_sorts: SORTS
+    page
+    sort  order_date: { order_date: :desc },
+          customer:   'customers.last_name asc',
+          user:       'users.last_name asc'
 
     def index(query = Order)
       respond_to do |format|
@@ -22,7 +19,7 @@ module Admin
           unless params[:search].blank?
             query = query.user_customer_search(params[:search])
           end
-          @orders = page!(query)
+          @orders = apply_list_query_options(query)
 
           render 'index'
         end

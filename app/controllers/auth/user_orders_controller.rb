@@ -1,7 +1,6 @@
 module Auth
 
   class UserOrdersController < OrdersController
-    include ListQuery
 
     page
     sort order_date: { order_date: :desc }, customer: 'customers.last_name asc'
