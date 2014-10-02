@@ -1,7 +1,6 @@
 module Admin
 
   class PayPeriodBonusPaymentsController < BonusPaymentsController
-    include ListQuery
 
     before_action :fetch_pay_period
 

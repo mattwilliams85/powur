@@ -119,9 +119,10 @@ module SirenDSL
     Link.new(rel, href)
   end
 
-  def index_action(url)
+  def index_action(url, search = false)
     action = action(:index, :get, url)
 
+    action.field(:search, :search, required: false) if search
     if paging?
       action.field(:page, :number,
         value:  pager[:current_page],

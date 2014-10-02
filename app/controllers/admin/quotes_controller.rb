@@ -1,26 +1,21 @@
 module Admin
 
   class QuotesController < AdminController
-    include SortAndPage
 
     before_action :fetch_quote, only: [ :show ]
 
-    SORTS = { 
-      created:  { created_at: :desc },
-      customer: 'customers.last_name asc',
-      user:     'users.last_name asc' }
-
-    sort_and_page available_sorts: SORTS
+    page
+    sort  created:  { created_at: :desc },
+          customer: 'customers.last_name asc',
+          user:     'users.last_name asc'
 
     def index(query = Quote)
       respond_to do |format|
         format.html { render 'index' }
         format.json do
-          query = query.
+          @quotes = apply_list_query_options(query).
             includes(:user, :product, :customer).
             references(:user, :product, :customer)
-          @quotes = page!(query)
-
           render 'index'
         end
       end

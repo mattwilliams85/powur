@@ -1,7 +1,6 @@
 module Admin
 
   class UserRankAchievementsController < RankAchievementsController
-    include ListQuery
 
     before_action :fetch_user
 
