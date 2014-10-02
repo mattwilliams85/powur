@@ -1,15 +1,12 @@
 module Admin
 
   class PayPeriodOrderTotalsController < OrderTotalsController
-    include SortAndPage
+    include ListQuery
 
     before_action :fetch_pay_period
 
-    SORTS = {
-      user:     'users.last_name asc',
-      personal: { personal: :desc } }
-
-    sort_and_page available_sorts: SORTS
+    page
+    sort  user: 'users.last_name asc, users.first_name asc'
 
     private
 
