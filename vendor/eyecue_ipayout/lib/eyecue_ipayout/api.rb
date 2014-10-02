@@ -1,6 +1,5 @@
 require 'eyecue_ipayout/config'
 require 'eyecue_ipayout/connection'
-require 'eyecue_ipayout/request'
 
 module EyecueIpayout
   class API

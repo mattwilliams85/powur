@@ -11,7 +11,6 @@ module EyecueIpayout
       end
 
       def initialize(app, gateway)
-        byebug
         @app, @gateway = app, gateway
       end
     end
