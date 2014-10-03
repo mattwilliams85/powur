@@ -1,7 +1,5 @@
 module Admin
-
   class RequirementsController < AdminController
-
     before_action :fetch_bonus
     before_action :fetch_requirement, except: [ :create ]
 
@@ -31,10 +29,9 @@ module Admin
 
     def deselect_requirement_as_source
       existing = @bonus.requirements.find_by_source(true)
-      if existing
-        existing.update_attributes!(source: false)
-        @bonus.requirements.reload
-      end
+      return unless existing
+      existing.update_attributes!(source: false)
+      @bonus.requirements.reload
     end
 
     def input
@@ -42,7 +39,8 @@ module Admin
     end
 
     def fetch_bonus
-      @bonus = Bonus.includes(:requirements, :bonus_levels).find(params[:bonus_id].to_i)
+      @bonus = Bonus.includes(:requirements, :bonus_levels)
+        .find(params[:bonus_id].to_i)
     end
 
     def fetch_requirement
@@ -52,6 +50,5 @@ module Admin
     def controller_path
       'admin/bonuses'
     end
-
   end
 end

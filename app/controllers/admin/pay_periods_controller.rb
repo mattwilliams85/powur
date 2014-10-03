@@ -1,7 +1,5 @@
 module Admin
-
   class PayPeriodsController < AdminController
-
     before_action :fetch_pay_periods, except: [ :index ]
     before_action :fetch_pay_period, only: [ :show, :calculate, :recalculate ]
 
@@ -51,7 +49,9 @@ module Admin
       return false unless period.calculable?
       @calculable_pay_periods ||= begin
         periods = %w(WeeklyPayPeriod MonthlyPayPeriod).map do |type|
-          list = @pay_periods.select { |pp| pp.type == type && pp.calculated_at.nil? }
+          list = @pay_periods.select do |pp|
+            pp.type == type && pp.calculated_at.nil?
+          end
           list.last
         end
         periods.compact.map(&:id)

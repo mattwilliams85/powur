@@ -1,12 +1,10 @@
 module Admin
-
   class UserOrderTotalsController < OrderTotalsController
-
     before_action :fetch_user
 
     page
-    sort  pay_period: { pay_period_id: :desc },
-          personal:   { personal: :desc }
+    sort pay_period: { pay_period_id: :desc },
+         personal:   { personal: :desc }
 
     private
 
@@ -16,7 +14,5 @@ module Admin
       @order_totals = user.order_totals
       @orders_totals_path = admin_user_order_totals_path(user)
     end
-
   end
-
 end

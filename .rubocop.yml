@@ -1,6 +1,12 @@
-
 Style/Documentation:
   Enabled: false
 
 Style/SpaceInsideBrackets:
   Enabled: false
+
+Style/AlignHash:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+
+Metrics/MethodLength:
+  Max: 30

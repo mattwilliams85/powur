@@ -22,13 +22,14 @@ class CreatePayPeriods < ActiveRecord::Migration
       t.foreign_key :users
       t.foreign_key :products
     end
-    add_index :order_totals, [ :pay_period_id, :user_id, :product_id ], unique: true,
-      name: 'idx_order_totals_composite_key'
+    add_index :order_totals,
+              [ :pay_period_id, :user_id, :product_id ],
+              name: 'idx_order_totals_composite_key', unique: true
 
     create_table :rank_achievements do |t|
       t.string :pay_period_id
-      t.references  :user, null: false
-      t.references  :rank, null: false
+      t.references :user, null: false
+      t.references :rank, null: false
       t.string :path, null: false
       t.datetime :achieved_at, null: false
 
@@ -36,12 +37,17 @@ class CreatePayPeriods < ActiveRecord::Migration
       t.foreign_key :users
       t.foreign_key :ranks
     end
-    add_index :rank_achievements, [ :pay_period_id, :user_id, :rank_id, :path ], 
-      unique: true, name: 'rank_achievements_comp_key_with_pp',
-      where: 'pay_period_id is not null'
-    add_index :rank_achievements, [ :user_id, :rank_id, :path ],
-      unique: true, name: 'rank_achievements_comp_key_without_pp',
-      order: { user_id: :desc, rank_id: :asc }, where: 'pay_period_id is null'
+    add_index :rank_achievements,
+              [ :pay_period_id, :user_id, :rank_id, :path ],
+              unique: true,
+              name:   'rank_achievements_comp_key_with_pp',
+              where:  'pay_period_id is not null'
+    add_index :rank_achievements,
+              [ :user_id, :rank_id, :path ],
+              unique: true,
+              name:   'rank_achievements_comp_key_without_pp',
+              order:  { user_id: :desc, rank_id: :asc },
+              where:  'pay_period_id is null'
 
     create_table :bonus_payments do |t|
       t.string :pay_period_id, null: false
@@ -63,6 +69,8 @@ class CreatePayPeriods < ActiveRecord::Migration
       t.foreign_key :bonus_payments
       t.foreign_key :orders
     end
-    execute 'alter table bonus_payment_orders add primary key (bonus_payment_id, order_id);'
+    execute '
+      alter table bonus_payment_orders
+      add primary key (bonus_payment_id, order_id);'
   end
 end
