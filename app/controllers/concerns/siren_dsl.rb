@@ -1,10 +1,23 @@
 module SirenDSL
   extend ActiveSupport::Concern
 
-  Entity = Struct.new(:klass, :rel, :href)
+  RefEntity = Struct.new(:klass, :rel, :href) do
+    def render(json)
+      json.set! :class, klass
+      json.rel [ rel ]
+      json.href href
+    end
+  end
+
+  PartialEntity = Struct.new(:name, :value, :opts) do
+    def render(json)
+      path = opts.delete(:path) || "#{name}s/item"
+      args = (opts || {}).merge(name => value)
+      json.partial!(path, args)
+    end
+  end
 
   Action = Struct.new(:name, :method, :href) do
-
     Field = Struct.new(:name, :type, :attributes)
 
     def fields
@@ -12,15 +25,16 @@ module SirenDSL
     end
 
     def field(name, type, attributes = {})
-      fields << Field.new(name, type, attributes) and self
+      fields << Field.new(name, type, attributes)
+      self
     end
-
   end
 
   Link = Struct.new(:rel, :href)
 
   included do
-    helper_method :siren, :klass, :entities, :action, :actions, :links, :link, :entity_rel, :ents, :ent, :index_action
+    helper_method :siren, :klass, :entities, :ref_entity, :partial_entity,
+                  :action, :actions, :links, :link, :entity_rel, :index_action
   end
 
   attr_reader :json
@@ -34,55 +48,41 @@ module SirenDSL
     end
   end
 
-  def message(value)
-    @message = value
-  end
-
   def confirm(value, args = {})
     message confirm: value.is_a?(Symbol) ? t("confirms.#{value}", args) : value
   end
 
+  # rubocop:disable Style/TrivialAccessors
+  def message(value)
+    @message = value
+  end
+
   def klass(*values)
     json.set! :class, values
-    if values.include?(:list)
-      json.properties do
-        json.paging pager.meta if paging?
-        json.sorting sorter.meta if sorting?
-        json.totals @totals if @totals
-      end
+    return unless values.include?(:list)
+    json.properties do
+      json.paging pager.meta if paging?
+      json.sorting sorter.meta if sorting?
+      json.totals @totals if @totals
     end
   end
 
-  def entity_rel(relationship)
-    json.rel [ relationship ]
+  def entity_rel(relationship = nil)
+    json.rel [ relationship || :item ]
   end
 
   def entities(*args)
-    opts = args.last.is_a?(Hash) ? args.pop : {}
-    partial = opts.delete(:partial) || :entity
-
-    args = opts if args.empty?
-    if args.is_a?(Array)
-      json.entities args do |arg|
-        json.partial!("#{arg}/#{partial}", opts)
-      end
-    else
-      json.entities opts do |key, value|
-        json.partial!("#{key}/#{value.delete(:partial) || partial}", value)
-      end
+    json.entities args do |entity|
+      entity.render(json)
     end
   end
 
-  def ents(*args)
-    json.entities args do |arg|
-      json.set! :class, arg.klass
-      json.rel  [ arg.rel ]
-      json.href arg.href
-    end
+  def ref_entity(klass, rel, href)
+    RefEntity.new(klass, rel, href)
   end
 
-  def ent(klass, rel, href)
-    Entity.new(klass, rel, href)
+  def partial_entity(name, value, opts = {})
+    PartialEntity.new(name, value, opts)
   end
 
   def action(name, method, href)
@@ -91,12 +91,12 @@ module SirenDSL
 
   def actions(*action_list)
     json.actions action_list do |action|
-      json.(action, :name)
+      json.call(action, :name)
       json.method action.method.to_s.upcase
-      json.(action, :href)
+      json.call(action, :href)
       json.type 'application/json'
       json.fields action.fields do |field|
-        json.(field, :name, :type)
+        json.call(field, :name, :type)
         field.attributes.each do |key, value|
           json.set! key, value
         end if field.attributes
@@ -106,7 +106,7 @@ module SirenDSL
 
   def links(*link_list)
     json.links link_list do |link|
-      json.(link, :rel, :href)
+      json.call(link, :rel, :href)
     end
   end
 
@@ -120,22 +120,24 @@ module SirenDSL
     action.field(:search, :search, required: false) if search
     if paging?
       action.field(:page, :number,
-        value:  pager[:current_page],
-        min:    1,
-        max:    pager[:page_count], required: false)
+                   value: pager[:current_page],
+                   min:   1,
+                   max:   pager[:page_count], required: false)
     end
     if sorting? && sorter[:sorts].size > 1
       action.field(:sort, :select,
-        options:  sorter[:sorts],
-        value:    sorter[:current_sort], required: !!sorter[:required])
+                   options:  sorter[:sorts],
+                   value:    sorter[:current_sort],
+                   required: !sorter[:required].nil?)
     end
     if filtering?
       filters.each do |scope, opts|
+        reference = { url:  instance_exec(&opts[:url]),
+                      id:   opts[:id],
+                      name: opts[:name] }
         action.field(scope, :select,
-          reference: { 
-            url:  instance_exec(&opts[:url]),
-            id:   opts[:id], 
-            name: opts[:name] }, required: !!opts[:required])
+                     reference: reference,
+                     required:  !opts[:required].nil?)
       end
     end
 

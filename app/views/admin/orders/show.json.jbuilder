@@ -3,7 +3,6 @@ siren json
 json.partial! 'item', order: @order, detail: true
 
 entities \
-  'admin/products'  => { product: @order.product },
-  'admin/users'     => { user: @order.user },
-  'admin/customers' => { customer: @order.customer },
-  partial: :item
+  partial_entity(:product, @order.product, path: 'admin/products/item'),
+  partial_entity(:user, @order.user, path: 'admin/users/item'),
+  partial_entity(:customer, @order.customer, path: 'admin/customers/item')

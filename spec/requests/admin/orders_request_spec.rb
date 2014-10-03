@@ -27,7 +27,10 @@ describe '/a/orders' do
       create(:order, customer: customer)
 
       3.times.each do |i|
-        user = create(:user, first_name: 'Alice', last_name: 'Smith', email: "foo#{i}@bar.com")
+        user = create(:user,
+                      first_name: 'Alice',
+                      last_name:  'Smith',
+                      email:      "foo#{i}@bar.com")
         create(:order, user: user)
       end
 
@@ -37,7 +40,7 @@ describe '/a/orders' do
     end
 
     it 'sorts and pages orders' do
-      users = [ 'aaa', 'ddd', 'bbb', 'ggg', 'ccc' ].map do |last_name|
+      users = %w(aaa ddd bbb ggg ccc).map do |last_name|
         user = create(:user, last_name: last_name)
         create(:order, user: user)
         user
@@ -46,8 +49,10 @@ describe '/a/orders' do
       get orders_path, format: :json, sort: 'user', limit: 3, page: 2
 
       result = json_body['entities'].map { |e| e['properties']['distributor'] }
-      expected = [ 'ddd', 'ggg' ].map { |name| users.find { |u| u.last_name == name }.full_name }
-      
+      expected = %w(ddd ggg).map do |name|
+        users.find { |u| u.last_name == name }.full_name
+      end
+
       expect(result).to eq(expected)
     end
 
@@ -58,12 +63,15 @@ describe '/a/orders' do
     it 'creates an order from a quote' do
       quote = create(:quote)
 
-      post orders_path, quote_id: quote.id, order_date: '2014-07-27T22:11:14.599Z', format: :json
+      post orders_path,
+           quote_id:   quote.id,
+           order_date: '2014-07-27T22:11:14.599Z',
+           format:     :json
 
       expect_classes 'order'
     end
 
-    it 'does not allow an order to be created when one already exists for a quote' do
+    it 'does not allow an order to be if when one already exists for a quote' do
       order = create(:order)
 
       post orders_path, quote_id: order.quote_id, format: :json
@@ -79,7 +87,6 @@ describe '/a/orders' do
       order = create(:order)
 
       get order_path(order), format: :json
-
       %w(product user customer).each do |klass|
         result = json_body['entities'].find { |e| e['class'].include?(klass) }
         expect(result).to be

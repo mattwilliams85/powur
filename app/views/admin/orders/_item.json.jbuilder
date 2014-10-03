@@ -1,6 +1,6 @@
 klass :order
 
-entity_rel(local_assigns[:rel] || :item) unless local_assigns[:detail]
+entity_rel(local_assigns[:rel]) unless local_assigns[:detail]
 
 json.properties do
   json.(order, :quantity, :order_date, :status)
