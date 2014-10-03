@@ -1,25 +1,17 @@
 module Admin
-
   class OrdersController < AdminController
-
     before_action :fetch_order, only: [ :show ]
 
     page
-    sort  order_date: { order_date: :desc },
-          customer:   'customers.last_name asc',
-          user:       'users.last_name asc'
+    sort order_date: { order_date: :desc },
+         customer:   'customers.last_name asc, customers.first_name asc',
+         user:       'users.last_name asc, users.first_name asc'
 
     def index(query = Order)
       respond_to do |format|
         format.html { render 'index' }
         format.json do
-          query = query.
-            includes(:user, :customer, :product).
-            references(:user, :customer, :product)
-          unless params[:search].blank?
-            query = query.user_customer_search(params[:search])
-          end
-          @orders = apply_list_query_options(query)
+          @orders = format_index_query(query)
 
           render 'index'
         end
@@ -47,6 +39,15 @@ module Admin
 
     private
 
+    def format_index_query(query)
+      unless params[:search].blank?
+        query = query.user_customer_search(params[:search])
+      end
+      apply_list_query_options(query)
+        .includes(:user, :customer, :product)
+        .references(:user, :customer, :product)
+    end
+
     def input
       allow_input(:order_date)
     end
@@ -54,7 +55,5 @@ module Admin
     def fetch_order
       @order = Order.find(params[:id].to_i)
     end
-
   end
-
 end
