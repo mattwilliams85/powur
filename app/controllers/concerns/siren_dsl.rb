@@ -44,16 +44,11 @@ module SirenDSL
 
   def klass(*values)
     json.set! :class, values
-    if values.include?(:list) && respond_to?(:paging?) && respond_to?(:pager)
-      if paging?
-        json.properties do
-          json.paging pager.meta
-        end
-      end
-      if sorting?
-        json.properties do
-          json.sorting sorter.meta
-        end
+    if values.include?(:list)
+      json.properties do
+        json.paging pager.meta if paging?
+        json.sorting sorter.meta if sorting?
+        json.totals @totals if @totals
       end
     end
   end

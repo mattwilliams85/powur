@@ -10,10 +10,10 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder'
-gem 'paperclip','~> 4.2'
+
+gem 'paperclip', '~> 4.2'
 gem 'aws-sdk'
 gem 's3_direct_upload'
-
 gem 'postgres_ext'
 gem 'composite_primary_keys'
 gem 'active_hash'
@@ -29,12 +29,12 @@ gem 'money'
 gem 'has_scope'
 
 gem 'pry-rails'
-
-gem 'eyecue_ipayout', :path => './vendor/eyecue_ipayout'
+gem 'eyecue_ipayout', path: './vendor/eyecue_ipayout'
 
 group :development do
   gem 'spring'
   gem 'thin'
+  gem 'rubocop'
 end
 
 group :development, :test do
@@ -57,4 +57,3 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # hosting environment gems
 gem 'rails_12factor', group: :production
 gem 'unicorn'
-

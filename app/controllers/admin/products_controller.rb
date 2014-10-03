@@ -1,7 +1,5 @@
 module Admin
-
   class ProductsController < AdminController
-
     before_action :fetch_product, only: [ :show, :destroy, :update ]
 
     def index
@@ -49,8 +47,5 @@ module Admin
     def fetch_product
       @product = Product.find(params[:id].to_i)
     end
-
   end
-
-
 end

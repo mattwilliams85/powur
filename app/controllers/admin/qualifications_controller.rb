@@ -1,7 +1,5 @@
 module Admin
-
   class QualificationsController < AdminController
-
     before_action :fetch_qualification, only: [ :update, :destroy ]
 
     def index
@@ -43,7 +41,5 @@ module Admin
     def fetch_qualification
       @qualification = Qualification.find(params[:id].to_i)
     end
-
   end
-
 end

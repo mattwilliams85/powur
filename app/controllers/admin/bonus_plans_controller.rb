@@ -1,8 +1,6 @@
 module Admin
-
   class BonusPlansController < AdminController
-
-    before_filter :fetch_bonus_plan, only: [ :show, :destroy, :update ]
+    before_action :fetch_bonus_plan, only: [ :show, :destroy, :update ]
 
     def index
       @bonus_plans = BonusPlan.all.order(:name)
@@ -46,12 +44,11 @@ module Admin
     end
 
     def duplicate_start_error!
-      start_year, start_month = input['start_year'].to_i, input['start_month'].to_i
-      plan = BonusPlan.where(start_year: start_year, start_month: start_month).first
+      plan = BonusPlan.where(
+        start_year:  input['start_year'].to_i,
+        start_month: input['start_month'].to_i).first
 
       error! t('errors.duplicate_bonus_plan_start', plan: plan.name)
     end
-
   end
-
 end

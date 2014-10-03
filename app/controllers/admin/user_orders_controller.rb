@@ -1,10 +1,8 @@
 module Admin
-
   class UserOrdersController < OrdersController
-
     page
-    sort  order_date: { order_date: :desc },
-          customer:   'customers.last_name asc'
+    sort order_date: { order_date: :desc },
+         customer:   'customers.last_name asc'
 
     def index
       user = User.find(params[:admin_user_id].to_i)
@@ -12,7 +10,5 @@ module Admin
 
       super(user.orders)
     end
-
   end
-
 end

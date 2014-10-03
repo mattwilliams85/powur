@@ -1,7 +1,7 @@
 module Auth
 
   class OrdersController < AuthController
-    before_filter :fetch_order, only: [ :show ]
+    before_action :fetch_order, only: [ :show ]
 
     page
     sort order_date: :order_date, customer: 'customers.last_name asc', user: 'users.last_name asc'
