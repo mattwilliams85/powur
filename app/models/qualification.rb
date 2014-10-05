@@ -1,16 +1,15 @@
 class Qualification < ActiveRecord::Base
-
   belongs_to :rank
   belongs_to :product
 
   enum time_period: { lifetime: 1, monthly: 2, weekly: 3 }
 
-  scope :active, ->{ where(rank_id: nil) }
+  scope :active, -> { where(rank_id: nil) }
 
   validates_presence_of :product_id, :quantity, :time_period
 
-  TYPES =  { 
-    sales:       'Personal Sales', 
+  TYPES =  {
+    sales:       'Personal Sales',
     group_sales: 'Group Sales' }
 
   def type_string
@@ -27,8 +26,8 @@ class Qualification < ActiveRecord::Base
 
   class << self
     def symbol_to_type(type_symbol)
-      "#{type_symbol.to_s.split('_').map(&:capitalize).join}#{self.name}".constantize
+      "#{type_symbol.to_s.split('_').map(&:capitalize).join}#{name}"
+        .constantize
     end
   end
-
 end

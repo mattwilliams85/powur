@@ -21,7 +21,8 @@ module ListQuery
     def filter(scope, opts = {})
       has_scope scope, opts.delete(:scope_opts)
       list_query_opts[:filters] ||= {}
-      list_query_opts[:filters][scope] = opts.reverse_merge(id: :id, name: :name)
+      list_query_opts[:filters][scope] = opts
+        .reverse_merge(id: :id, name: :name)
     end
 
     def list_query(query_var)
@@ -87,8 +88,10 @@ module ListQuery
     private
 
     def limit
-      @limit ||= params[:limit] ?
-        [ params[:limit].to_i, opts[:max_limit] ].min : opts[:max_limit]
+      @limit ||= begin
+        max = opts[:max_limit]
+        params[:limit] ? [ params[:limit].to_i, max ].min : max
+      end
     end
 
     def current_page
@@ -116,7 +119,8 @@ module ListQuery
 
     def initialize(params, opts = {})
       @params = params
-      @opts = { sorts: opts, secondary: opts.delete(:secondary) || { id: :asc } }
+      @opts = { sorts:     opts,
+                secondary: opts.delete(:secondary) || { id: :asc } }
     end
 
     def apply(query)
@@ -140,15 +144,15 @@ module ListQuery
     def sort_key
       @sort_key ||= begin
         key = params[:sort] && params[:sort].to_sym
-        key.nil? || !opts[:sorts].keys.include?(key) ?
-          opts[:sorts].keys.first : key
+        if key.nil? || !opts[:sorts].keys.include?(key)
+          key = opts[:sorts].keys.first
+        end
+        key
       end
     end
 
     def sort_order
       opts[:sorts][sort_key]
     end
-
   end
-
 end

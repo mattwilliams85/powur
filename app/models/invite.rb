@@ -14,18 +14,18 @@ class Invite < ActiveRecord::Base
   end
 
   def full_name
-    "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 
   def renew
-    self.update_attributes(expires: expires_timespan)
+    update_attributes(expires: expires_timespan)
   end
 
   def accept(params)
-    params[:sponsor_id] = self.sponsor_id
+    params[:sponsor_id] = sponsor_id
 
     user = User.create!(params)
-    Invite.where(email: self.email).update_all(user_id: user.id)
+    Invite.where(email: email).update_all(user_id: user.id)
     user
   end
 
@@ -40,9 +40,7 @@ class Invite < ActiveRecord::Base
   end
 
   def max_invites
-    if sponsor.remaining_invites < 1
-      errors.add(:sponsor, :exceeded_max_invites)
-    end
+    return if sponsor.remaining_invites > 0
+    errors.add(:sponsor, :exceeded_max_invites)
   end
-
 end

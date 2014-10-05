@@ -6,7 +6,7 @@ FactoryGirl.define do
 
   factory :bonus do
     bonus_plan
-    name Faker::Commerce.product_name
+    name { Faker::Commerce.product_name }
     use_rank_at :pay_period_end
 
     factory :direct_sales_bonus, class: DirectSalesBonus do

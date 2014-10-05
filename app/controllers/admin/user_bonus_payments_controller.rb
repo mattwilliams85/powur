@@ -5,7 +5,7 @@ module Admin
     page
     sort created_at: 'bonus_payments.created_at asc'
     filter :pay_period, url: -> { pay_periods_path },
-      required: true, name: :title
+           required: true, name: :title
 
     private
 

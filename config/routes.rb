@@ -108,7 +108,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :orders, only: [ :index, :create, :show ]
+    resources :orders, only: [ :index, :create, :show ] do
+      resources :bonus_payments,
+                only:       [ :index ],
+                controller: :order_bonus_payments
+    end
 
     resources :pay_periods, only: [ :index, :show ] do
       member do

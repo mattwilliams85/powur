@@ -1,5 +1,4 @@
 class BonusLevel < ActiveRecord::Base
-
   self.primary_keys = :bonus_id, :level
 
   belongs_to :bonus
@@ -11,20 +10,20 @@ class BonusLevel < ActiveRecord::Base
   end
 
   def normalized_amounts
-    self.amounts.map.to_a.fill(BigDecimal('0'), (self.amounts.size...rank_range.last))
+    amounts.map.to_a.fill(BigDecimal('0'), (amounts.size...rank_range.last))
   end
 
   def max
-    self.amounts.max || 0.0
+    amounts.max || 0.0
   end
 
   def rank_range
-    @rank_range ||= self.bonus.rank_range ||
-      ((self.amounts.empty? ? 0 : 1)..self.amounts.size)
+    @rank_range ||= bonus.rank_range ||
+      ((amounts.empty? ? 0 : 1)..amounts.size)
   end
 
-  def is_last?
-    self.level == self.bonus.last_bonus_level
+  def last?
+    level == bonus.last_bonus_level
   end
 
   def available_amount
@@ -46,7 +45,6 @@ class BonusLevel < ActiveRecord::Base
   private
 
   def percentage_used_by_other_levels
-    @percentage_used_by_other_levels ||= bonus.percentage_used_by_levels(self.level)
+    @percentage_used_by_other_levels ||= bonus.percentage_used_by_levels(level)
   end
-
 end
