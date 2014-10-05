@@ -19,6 +19,7 @@ class Bonus < ActiveRecord::Base
     foreign_key: :bonus_id, dependent: :destroy
   has_many :bonus_levels, class_name: 'BonusLevel',
     foreign_key: :bonus_id, dependent: :destroy
+  has_many :bonus_payments
 
   scope :weekly, ->() { where(schedule: :weekly) }
   scope :monthly, ->() { where(schedule: :monthly) }

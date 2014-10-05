@@ -89,6 +89,7 @@ CREATE TABLE bonus_payments (
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
     status integer DEFAULT 1 NOT NULL,
+    pay_as_rank integer DEFAULT 1 NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
 
@@ -954,6 +955,14 @@ ALTER TABLE ONLY bonus_payment_orders
 
 ALTER TABLE ONLY bonus_payments
     ADD CONSTRAINT bonus_payments_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
+-- Name: bonus_payments_pay_as_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT bonus_payments_pay_as_rank_fk FOREIGN KEY (pay_as_rank) REFERENCES ranks(id);
 
 
 --

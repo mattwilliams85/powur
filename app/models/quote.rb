@@ -23,12 +23,12 @@ class Quote < ActiveRecord::Base
 
   def data_status
     value = []
-    value << :phone if customer.phone
-    value << :email if customer.email
+    value << 'phone' if customer.phone
+    value << 'email' if customer.email
     if customer.address && customer.city && customer.state && customer.zip
-      value << :address
+      value << 'address'
     end
-    value << :utility if data['kwh']
+    value << 'utility' if data['kwh']
     value
   end
 

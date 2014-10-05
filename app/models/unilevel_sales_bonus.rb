@@ -33,9 +33,10 @@ class UnilevelSalesBonus < Bonus
 
       amount = payment_amount(bonus_level, parent.pay_as_rank)
       attrs = {
-        bonus_id: id,
-        user_id:  parent.id,
-        amount:   amount }
+        bonus_id:    id,
+        user_id:     parent.id,
+        amount:      amount,
+        pay_as_rank: parent.pay_as_rank }
       payment = pay_period.bonus_payments.create!(attrs)
       payment.bonus_payment_orders.create!(order_id: order.id)
     end

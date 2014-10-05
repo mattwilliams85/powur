@@ -55,11 +55,13 @@ class CreatePayPeriods < ActiveRecord::Migration
       t.references :user, null: false
       t.decimal :amount, null: false, precision: 10, scale: 2
       t.integer :status, null: false, default: 1
+      t.integer :pay_as_rank, null: false, default: 1
       t.datetime :created_at, null: false
 
       t.foreign_key :pay_periods
       t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
       t.foreign_key :users
+      t.foreign_key :ranks, column: :pay_as_rank, primary_key: :id
     end
 
     create_table :bonus_payment_orders, id: false do |t|

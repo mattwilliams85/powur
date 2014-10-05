@@ -36,9 +36,10 @@ class EnrollerSalesBonus < Bonus
     return false if rank_id < min_upline_rank_id
     amount = rank_amount(rank_id)
     attrs = {
-      bonus_id: id,
-      user_id:  parent.id,
-      amount:   amount }
+      bonus_id:    id,
+      user_id:     parent.id,
+      amount:      amount,
+      pay_as_rank: rank_id }
     payment = pay_period.bonus_payments.create!(attrs)
     payment.bonus_payment_orders.create!(order_id: order.id)
     true
