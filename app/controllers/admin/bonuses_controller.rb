@@ -1,7 +1,5 @@
 module Admin
-
   class BonusesController < AdminController
-
     before_action :fetch_bonus_plan, only: [ :index, :create ]
     before_action :fetch_bonus, only: [ :show, :update, :destroy ]
 
@@ -50,7 +48,7 @@ module Admin
 
     def input
       allow_input(
-        :name, :schedule, :use_rank_at, :achieved_rank_id, :max_user_rank_id, 
+        :name, :schedule, :use_rank_at, :achieved_rank_id, :max_user_rank_id,
         :min_upline_rank_id, :compress, :flat_amount)
     end
 
@@ -65,7 +63,5 @@ module Admin
     def fetch_bonus
       @bonus = Bonus.find(params[:id].to_i)
     end
-
   end
-
 end

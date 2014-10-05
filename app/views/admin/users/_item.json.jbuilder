@@ -1,11 +1,14 @@
 klass :user
 
-entity_rel(local_assigns[:rel] || :item) unless local_assigns[:detail]
+entity_rel(local_assigns[:rel]) unless local_assigns[:detail]
 
 json.properties do
-  json.(user, :id, :first_name, :last_name, :email, :phone, :level)
+  json.call(user, :id, :first_name, :last_name, :email, :phone, :level)
   json.downline_count(user.downline_count) if user.attributes['downline_count']
 end
+
+entities \
+  ref_entity(%w(users list), 'user-ancestors', upline_admin_user_path(user))
 
 links \
   link(:self, admin_user_path(user)),

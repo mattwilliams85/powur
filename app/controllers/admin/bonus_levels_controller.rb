@@ -1,7 +1,5 @@
 module Admin
-
   class BonusLevelsController < AdminController
-
     before_action :fetch_bonus
     before_action :fetch_bonus_level, except: [ :create ]
 
@@ -32,7 +30,8 @@ module Admin
     end
 
     def fetch_bonus
-      @bonus = Bonus.includes(:requirements, :bonus_levels).find(params[:bonus_id].to_i)
+      @bonus = Bonus.includes(:requirements, :bonus_levels)
+        .find(params[:bonus_id].to_i)
     end
 
     def fetch_bonus_level
@@ -42,7 +41,5 @@ module Admin
     def controller_path
       'admin/bonuses'
     end
-
   end
-
 end

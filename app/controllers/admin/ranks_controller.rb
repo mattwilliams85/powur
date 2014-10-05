@@ -1,7 +1,5 @@
 module Admin
-
   class RanksController < AdminController
-
     before_action :fetch_rank, only: [ :show, :destroy, :update ]
 
     def index
@@ -17,7 +15,7 @@ module Admin
       require_input :title
 
       @rank = Rank.create!(input)
-      
+
       render 'show'
     end
 
@@ -46,7 +44,5 @@ module Admin
     def fetch_rank
       @rank = Rank.find(params[:id].to_i)
     end
-
   end
-
 end

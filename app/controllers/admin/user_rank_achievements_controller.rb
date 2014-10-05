@@ -1,14 +1,11 @@
 module Admin
-
   class UserRankAchievementsController < RankAchievementsController
-
     before_action :fetch_user
 
-    SORTS = {
-      pay_period:  'pay_period_id desc, achieved_at asc',
-      achieved_at: :achieved_at }
-
-    sort_and_page available_sorts: SORTS
+    page
+    sort achieved_at: { achieved_at: :asc }
+    filter :pay_period, url: -> { pay_periods_path },
+           required: true, name: :title
 
     private
 
@@ -18,7 +15,5 @@ module Admin
       @rank_achievements = user.rank_achievements
       @rank_achievements_path = admin_user_rank_achievements_path(user)
     end
-
   end
-
 end

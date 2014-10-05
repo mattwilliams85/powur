@@ -14,7 +14,7 @@ if bonus_level.bonus.can_add_amounts?
   action_list << action(:update, :patch, path).amount_field(bonus_level)
 end
 
-if bonus_level.is_last?
+if bonus_level.last?
   action_list << action(:delete, :delete, bonus_level_path(bonus_level.bonus, bonus_level.level))
 end
 

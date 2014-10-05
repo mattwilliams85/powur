@@ -89,6 +89,7 @@ CREATE TABLE bonus_payments (
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
     status integer DEFAULT 1 NOT NULL,
+    pay_as_rank integer DEFAULT 1 NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
 
@@ -957,6 +958,14 @@ ALTER TABLE ONLY bonus_payments
 
 
 --
+-- Name: bonus_payments_pay_as_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT bonus_payments_pay_as_rank_fk FOREIGN KEY (pay_as_rank) REFERENCES ranks(id);
+
+
+--
 -- Name: bonus_payments_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1214,8 +1223,5 @@ INSERT INTO schema_migrations (version) VALUES ('20140919222256');
 
 INSERT INTO schema_migrations (version) VALUES ('20140920001013');
 
-<<<<<<< HEAD
-=======
 INSERT INTO schema_migrations (version) VALUES ('20140922174140');
 
->>>>>>> d3c379c94d95dd9588e4979a291b690550bd8ae3

@@ -1,7 +1,5 @@
 module Admin
-
   class RankQualificationsController < QualificationsController
-
     before_action :fetch_rank
 
     def create
@@ -29,7 +27,5 @@ module Admin
     def fetch_rank
       @rank = Rank.find(params[:rank_id].to_i)
     end
-
   end
-
 end

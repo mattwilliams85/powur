@@ -3,27 +3,28 @@ module ParamValidation
 
   included do
     rescue_from ActiveRecord::RecordInvalid, with: :active_record_error
-    rescue_from ::Errors::InputError, ::Errors::AlertError, with: :render_json_error
+    rescue_from ::Errors::InputError,
+                ::Errors::AlertError,
+                with: :render_json_error
   end
 
   protected
 
   def allow_input(*keys)
-    Hash[params.permit(*keys).map { |k,v| [ k, v.presence ] }]
+    Hash[params.permit(*keys).map { |k, v| [ k, v.presence ] }]
   end
 
   def try_input_error(value, arg_name)
-    if value.blank?
-      msg = t('errors.required', input: arg_name)
-      raise ::Errors::InputError.new(arg_name), msg
-    end
+    return unless value.blank?
+    msg = t('errors.required', input: arg_name)
+    fail ::Errors::InputError.new(arg_name), msg
   end
 
   def require_input(*args)
-    embedded_args = args.last.kind_of?(Hash) ? args.pop : {}
+    embedded_args = args.last.is_a?(Hash) ? args.pop : {}
     args.each  { |arg| try_input_error(params[arg], arg) }
-    embedded_args.each do |key, args|
-      args.each do |arg|
+    embedded_args.each do |key, value|
+      value.each do |arg|
         try_input_error(params[key][arg], "#{key}[#{arg}]")
       end
     end
@@ -31,9 +32,9 @@ module ParamValidation
 
   def error!(msg, field = nil)
     if field
-      raise ::Errors::InputError.new(field), msg
+      fail ::Errors::InputError.new(field), msg
     else
-      raise ::Errors::AlertError, msg
+      fail ::Errors::AlertError, msg
     end
   end
 
@@ -42,7 +43,7 @@ module ParamValidation
   end
 
   def active_record_error(e)
-    raise ::Errors::InputError.new(e.record.errors.first.first), e.message
+    fail ::Errors::InputError.new(e.record.errors.first.first), e.message
   rescue ::Errors::InputError => e
     render_json_error(e)
   end

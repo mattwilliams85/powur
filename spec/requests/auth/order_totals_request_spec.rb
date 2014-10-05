@@ -31,5 +31,16 @@ describe 'order totals', type: :request do
 
       expect(result).to eq([ 8, 5, 3 ])
     end
+
+    it 'pages order totals' do
+
+      create_list(:order_total, 5, user: @user)
+
+      get user_order_totals_path(@user), format: :json, limit: 3
+      expect_entities_count(3)
+
+      get user_order_totals_path(@user), format: :json, limit: 3, page: 2
+      expect_entities_count(2)
+    end
   end
 end

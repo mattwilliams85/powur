@@ -1,7 +1,6 @@
 class UnilevelSalesBonus < Bonus
-
   def last_bonus_level
-    self.bonus_levels.count
+    bonus_levels.count
   end
 
   def next_bonus_level
@@ -9,7 +8,7 @@ class UnilevelSalesBonus < Bonus
   end
 
   def percentage_used_by_levels(excluded_level = nil)
-    levels = self.bonus_levels.entries
+    levels = bonus_levels.entries
     levels.reject! { |l| l.level == excluded_level } if excluded_level
     levels.map(&:max).inject(:+) || 0.0
   end
@@ -25,19 +24,22 @@ class UnilevelSalesBonus < Bonus
 
     sorted_levels.each do |bonus_level|
       min_rank = bonus_level.min_rank
-      begin
+      parent = nil
+      loop do
         parent = upline.shift
-      end until parent.nil? || user_rank_met?(parent, min_rank, pay_period)
+        break if parent.nil? || user_rank_met?(parent, min_rank, pay_period)
+      end
       break if parent.nil?
+
       amount = payment_amount(bonus_level, parent.pay_as_rank)
       attrs = {
-        bonus_id: self.id,
-        user_id:  parent.id,
-        amount:   amount }
+        bonus_id:    id,
+        user_id:     parent.id,
+        amount:      amount,
+        pay_as_rank: parent.pay_as_rank }
       payment = pay_period.bonus_payments.create!(attrs)
       payment.bonus_payment_orders.create!(order_id: order.id)
     end
-    
   end
 
   private
@@ -50,5 +52,4 @@ class UnilevelSalesBonus < Bonus
     amount = bonus_level.amounts[rank - 1]
     amount ? amount * source_product.commission_amount : 0.0
   end
-
 end

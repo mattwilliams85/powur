@@ -1,14 +1,13 @@
 class Bonus < ActiveRecord::Base
-
-  TYPES =  { 
-    direct_sales:       'Sales - Distributor',
-    enroller_sales:     'Sales - Enroller',
-    unilevel_sales:     'Sales - Upline Leveled',
-    promote_out:        'Promote-Out',
-    differential:       'Differential' }
-  SCHEDULES = { 
-    weekly:   'Weekly',
-    monthly:  'Monthly' }
+  TYPES =  {
+    direct_sales:   'Direct Sale',
+    enroller_sales: 'Enroller',
+    unilevel_sales: 'Unilevel',
+    promote_out:    'Promote-Out',
+    differential:   'Differential' }
+  SCHEDULES = {
+    weekly:  'Weekly',
+    monthly: 'Monthly' }
 
   enum schedule:     { weekly: 1, monthly: 2 }
   enum use_rank_at:  { sale: 1, pay_period_end: 2 }
@@ -20,9 +19,10 @@ class Bonus < ActiveRecord::Base
     foreign_key: :bonus_id, dependent: :destroy
   has_many :bonus_levels, class_name: 'BonusLevel',
     foreign_key: :bonus_id, dependent: :destroy
+  has_many :bonus_payments
 
-  scope :weekly, ->(){ where(schedule: :weekly) }
-  scope :monthly, ->(){ where(schedule: :monthly) }
+  scope :weekly, ->() { where(schedule: :weekly) }
+  scope :monthly, ->() { where(schedule: :monthly) }
 
   validates_presence_of :type, :name
 
@@ -35,11 +35,11 @@ class Bonus < ActiveRecord::Base
   end
 
   def default_bonus_level
-    self.bonus_levels.where(level: 0).first
+    bonus_levels.where(level: 0).first
   end
 
   def multiple_product_types?
-    self.requirements.map(&:product_id).uniq.size > 1
+    requirements.map(&:product_id).uniq.size > 1
   end
 
   def rank_range
@@ -59,19 +59,19 @@ class Bonus < ActiveRecord::Base
   end
 
   def source_requirement
-    @source_requirement ||= self.requirements.find_by_source(true)
+    @source_requirement ||= requirements.find_by_source(true)
   end
 
-  def has_breakage_amount?
-    self.flat_amount && self.flat_amount > 0
+  def breakage_amount?
+    flat_amount && flat_amount > 0
   end
 
-  def has_source?
-    source_requirement || has_breakage_amount?
+  def source?
+    source_requirement || breakage_amount?
   end
 
   def can_add_amounts?
-    rank_range && has_source?
+    rank_range && source?
   end
 
   def source_product
@@ -79,7 +79,7 @@ class Bonus < ActiveRecord::Base
   end
 
   def percentage_used
-    @percentage_used ||= source_product.total_bonus_allocation(self.id)
+    @percentage_used ||= source_product.total_bonus_allocation(id)
   end
 
   def remaining_percentage
@@ -110,13 +110,13 @@ class Bonus < ActiveRecord::Base
     source_product.commission_amount * normalized_amounts[rank_id - 1]
   end
 
-  def create_payments!(order, pay_period)
+  def create_payments!(*)
   end
 
   class << self
     def symbol_to_type(type_symbol)
-      "#{type_symbol.to_s.split('_').map(&:capitalize).join}#{self.name}".constantize
+      "#{type_symbol.to_s.split('_').map(&:capitalize).join}#{name}"
+        .constantize
     end
   end
-
 end

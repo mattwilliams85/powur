@@ -1,5 +1,4 @@
 class MonthlyPayPeriod < PayPeriod
-
   def type_display
     'Monthly'
   end
@@ -13,15 +12,13 @@ class MonthlyPayPeriod < PayPeriod
   end
 
   def active_qualifications
-    @active_qualifications ||= Qualification.active.where.
-      not(time_period: Qualification.time_periods[:weekly]).group_by(&:path)
+    @active_qualifications ||= Qualification.active.where
+      .not(time_period: Qualification.time_periods[:weekly]).group_by(&:path)
   end
 
   def bonus_available?(bonus)
     bonus.monthly?
   end
-
-  private
 
   class << self
     def id_from(date)
