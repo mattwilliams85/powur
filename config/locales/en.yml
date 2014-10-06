@@ -77,8 +77,7 @@ en:
     pay_period: Pay Period
     lifetime: Lifetime
   totals:
-    personal_order: "%{product} - Personal Total"
-    group_order: "%{product} - Group Total"
+    product_orders: "Order Totals : %{product}"
     bonus: Bonus Total
   activerecord:
     errors:

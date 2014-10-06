@@ -5,8 +5,7 @@ class OrderTotal < ActiveRecord::Base
 
   PRODUCT_TOTALS_SELECT = '
     product_id, name,
-    sum(personal) personal_total,
-    sum("group") group_total'
+    sum(personal) personal'
   scope :product_totals, lambda {
     select(PRODUCT_TOTALS_SELECT).joins(:product).group(:product_id, :name)
   }

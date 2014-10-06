@@ -24,6 +24,7 @@ describe '/a/pay_periods' do
       order = create(:order, order_date: Date.current - 1.month)
       order.monthly_pay_period.touch :calculated_at
       pay_period = order.monthly_pay_period
+      create_list(:order_total, 3, pay_period: pay_period)
       create_list(:bonus_payment, 3, pay_period: pay_period)
 
       get pay_period_path(pay_period), format: :json
