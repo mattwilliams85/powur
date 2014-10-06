@@ -4,6 +4,7 @@ class PayPeriod < ActiveRecord::Base
   has_many :bonus_payments, dependent: :destroy
   has_many :bonus_payment_orders, through: :bonus_payments, dependent: :destroy
 
+  scope :calculated, -> { where('calculated_at is not null') }
   scope :next_to_calculate,
         -> { order(id: :asc).where('calculated_at is null').first }
 
@@ -329,7 +330,8 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def user_qualified_active?(user_id)
-    active_qualifications.empty? || active_qualifications.any? do |path, qualifications|
+    return true if active_qualifications.empty?
+    active_qualifications.any? do |_path, qualifications|
       qualifications.all? do |qualification|
         totals = find_order_total!(user_id, qualification.product_id)
         qualification.met?(totals)
@@ -359,6 +361,11 @@ class PayPeriod < ActiveRecord::Base
     def find_or_create_by_id(id)
       klass = id.include?('W') ? WeeklyPayPeriod : MonthlyPayPeriod
       klass.find_or_create_by_id(id)
+    end
+
+    def last_id
+      most_recent = calculated.order(start_date: :desc).first
+      most_recent && most_recent.id
     end
   end
 end

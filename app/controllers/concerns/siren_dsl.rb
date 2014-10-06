@@ -66,6 +66,13 @@ module SirenDSL
       if values.include?(:list)
         json.paging pager.meta if paging?
         json.sorting sorter.meta if sorting?
+        if filtering?
+          json.filters do
+            filters.keys.each do |scope|
+              json.set! scope, params[scope]
+            end
+          end
+        end
       end
       if @totals && (values.include?(:list) || opts[:totals])
         render_totals(json)

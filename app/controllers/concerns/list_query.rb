@@ -19,10 +19,14 @@ module ListQuery
     end
 
     def filter(scope, opts = {})
+      if opts[:required] && opts[:default].nil?
+        fail ArgumentError,
+             "The filter #{scope} is required but no default was supplied"
+      end
       has_scope scope, opts.delete(:scope_opts)
       list_query_opts[:filters] ||= {}
+      opts.reverse_merge!(id: :id, name: :name)
       list_query_opts[:filters][scope] = opts
-        .reverse_merge(id: :id, name: :name)
     end
 
     def list_query(query_var)
@@ -47,11 +51,20 @@ module ListQuery
   end
 
   def filters
-    self.class.list_query_opts[:filters]
+    @filters ||= begin
+      filter_list = self.class.list_query_opts[:filters] || {}
+      filter_list.each do |key, opts|
+        if opts[:required]
+          params[key] ||= instance_exec(&opts[:default])
+          filter_list.delete(key) if params[key].nil?
+        end
+      end
+      self.class.list_query_opts[:filters]
+    end
   end
 
   def filtering?
-    !filters.nil?
+    !filters.nil? && !filters.empty?
   end
 
   def apply_list_query_options(query)

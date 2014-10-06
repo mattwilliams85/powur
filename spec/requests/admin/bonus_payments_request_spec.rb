@@ -38,6 +38,7 @@ describe 'order totals', type: :request do
     it 'defaults the pay period' do
       get admin_user_bonus_payments_path(@money_user), format: :json
 
+      action = json_body['actions'].first
       
     end
 
