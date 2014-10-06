@@ -1,5 +1,7 @@
 klass :bonus_payment
 
+json.rel [ :item ] unless local_assigns[:detail]
+
 json.properties do
   json.call(bonus_payment, :pay_period_id, :created_at, :pay_as_rank)
   json.amount number_to_currency(bonus_payment.amount)

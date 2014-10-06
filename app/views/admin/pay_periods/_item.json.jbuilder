@@ -1,3 +1,4 @@
+
 klass :pay_period
 
 json.rel [ :item ] unless local_assigns[:detail]

@@ -29,11 +29,16 @@ describe 'order totals', type: :request do
     before :each do
       @money_user = create(:user)
       @pay_periods = [ 2, 3, 1 ].map do |i|
-        pay_period = WeeklyPayPeriod
-          .find_or_create_by_date(DateTime.current - i.weeks)
+        pay_period = create(:weekly_pay_period, at: DateTime.current - i.weeks)
         create(:bonus_payment, pay_period: pay_period, user: @money_user)
         pay_period
       end
+    end
+
+    it 'defaults the pay period' do
+      get admin_user_bonus_payments_path(@money_user), format: :json
+
+      
     end
 
     it 'filters bonus payments by pay period' do

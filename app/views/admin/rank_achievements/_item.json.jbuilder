@@ -1,6 +1,8 @@
 
 klass :rank_achievement
 
+json.rel [ :item ] unless local_assigns[:detail]
+
 json.properties do
   json.(rank_achievement, :pay_period_id, :user_id, :path, :rank_id, :achieved_at)
   json.lifetime rank_achievement.lifetime?
