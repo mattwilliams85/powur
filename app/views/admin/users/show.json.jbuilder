@@ -4,7 +4,8 @@ json.partial! 'item', user: @user, detail: true
 
 json.properties do
   json.call(@user, :first_name, :last_name, :email,
-            :phone, :address, :city, :state, :zip)
+            :phone, :address, :city, :state, :zip,
+            :organic_rank, :lifetime_rank)
   json.lifetime_rank @user.lifetime_rank || 1
   json
 end
@@ -16,7 +17,9 @@ entities \
   ref_entity(%w(list rank_achievements), 'user-rank_achievements',
              admin_user_rank_achievements_path(@user)),
   ref_entity(%w(list bonus_payments), 'user-bonus_payments',
-             admin_user_bonus_payments_path(@user))
+             admin_user_bonus_payments_path(@user)),
+  ref_entity(%w(list overrides), 'user-overrides',
+             admin_user_overrides_path(@user))
 
 actions \
   action(:update, :patch, admin_user_path(@user))
