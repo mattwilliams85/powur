@@ -535,7 +535,7 @@ ALTER SEQUENCE settings_id_seq OWNED BY settings.id;
 CREATE TABLE user_overrides (
     id integer NOT NULL,
     user_id integer NOT NULL,
-    type integer NOT NULL,
+    kind integer NOT NULL,
     data hstore DEFAULT ''::hstore,
     start_date date,
     end_date date

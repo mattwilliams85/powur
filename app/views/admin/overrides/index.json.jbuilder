@@ -4,10 +4,13 @@ klass :overrides, :list
 
 json.entities @overrides, partial: 'item', as: :override
 
-pay_period_ref = { url: pay_periods_path }
-actions \
-  action(:create, :post, overrides_path)
-    .field(:type, :select, options: UserOverride::enum_options(:type))
-    .field(:start_date, reference)
+if @user
+  actions action(:create, :post, admin_user_overrides_path(@user))
+    .field(:kind, :select, options: UserOverride.enum_options(:kinds))
+    .field(:start_date, :select,
+           required:  false,
+           reference: { url: pay_periods_path, id: :id, name: :title })
+    .field(:end_date, :date, required: false)
+end
 
-links link(:self, overrides_path)
+links link(:self, @user ? admin_user_overrides_path(@user) : overrides_path)

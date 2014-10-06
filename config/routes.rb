@@ -82,6 +82,7 @@ Rails.application.routes.draw do
         get :downline
         get :upline
       end
+      resources :overrides, only: [ :index, :create ]
       resources :orders, only: [ :index ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
       resources :rank_achievements,
@@ -140,7 +141,7 @@ Rails.application.routes.draw do
                 controller: :pay_period_bonus_payments
     end
 
-    resources :overrides, only: [ :index, :create, :destroy, :update ]
+    resources :overrides, only: [ :index, :update, :destroy ]
   end
 
   resource :promoter, only: [ :new, :show ] do
