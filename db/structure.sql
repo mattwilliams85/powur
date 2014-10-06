@@ -529,6 +529,39 @@ ALTER SEQUENCE settings_id_seq OWNED BY settings.id;
 
 
 --
+-- Name: user_overrides; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_overrides (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    type integer NOT NULL,
+    data hstore DEFAULT ''::hstore,
+    start_date date,
+    end_date date
+);
+
+
+--
+-- Name: user_overrides_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_overrides_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_overrides_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_overrides_id_seq OWNED BY user_overrides.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -653,6 +686,13 @@ ALTER TABLE ONLY rank_achievements ALTER COLUMN id SET DEFAULT nextval('rank_ach
 --
 
 ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_overrides ALTER COLUMN id SET DEFAULT nextval('user_overrides_id_seq'::regclass);
 
 
 --
@@ -796,6 +836,14 @@ ALTER TABLE ONLY ranks
 
 ALTER TABLE ONLY settings
     ADD CONSTRAINT settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_overrides_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_overrides
+    ADD CONSTRAINT user_overrides_pkey PRIMARY KEY (id);
 
 
 --
@@ -1166,6 +1214,14 @@ ALTER TABLE ONLY rank_achievements
 
 
 --
+-- Name: user_overrides_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_overrides
+    ADD CONSTRAINT user_overrides_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: users_lifetime_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1224,4 +1280,6 @@ INSERT INTO schema_migrations (version) VALUES ('20140919222256');
 INSERT INTO schema_migrations (version) VALUES ('20140920001013');
 
 INSERT INTO schema_migrations (version) VALUES ('20140922174140');
+
+INSERT INTO schema_migrations (version) VALUES ('20141006002457');
 

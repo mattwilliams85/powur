@@ -1,5 +1,6 @@
 module SirenDSL
   extend ActiveSupport::Concern
+  include ActionView::Helpers::NumberHelper
 
   RefEntity = Struct.new(:klass, :rel, :href) do
     def render(json)
@@ -59,11 +60,13 @@ module SirenDSL
 
   def klass(*values)
     json.set! :class, values
-    return unless values.include?(:list)
+
     json.properties do
-      json.paging pager.meta if paging?
-      json.sorting sorter.meta if sorting?
-      json.totals @totals if @totals
+      if values.include?(:list)
+        json.paging pager.meta if paging?
+        json.sorting sorter.meta if sorting?
+      end
+      render_totals(json)
     end
   end
 
@@ -142,5 +145,18 @@ module SirenDSL
     end
 
     action
+  end
+
+  private
+
+  def render_totals(json)
+    return unless @totals
+    @totals.each do |total|
+      total[:title] ||= t("totals.#{total[:id]}")
+      if total[:type] == :currency
+        total[:value] = number_to_currency(total[:value])
+      end
+    end
+    json.totals @totals
   end
 end

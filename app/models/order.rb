@@ -54,6 +54,10 @@ class Order < ActiveRecord::Base
       .find_or_create_by_id(weekly_pay_period_id)
   end
 
+  def bonus_payments?
+    bonus_payments.size > 0
+  end
+
   class << self
     def all_time_first
       Order.order(order_date: :asc).first

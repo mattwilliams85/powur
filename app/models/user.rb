@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def level
-    self.upline.size
+    upline.size
   end
 
   def downline_users
@@ -99,11 +99,11 @@ class User < ActiveRecord::Base
   end
 
   def has_role?(role)
-    self.roles.include?(role.to_s)
+    roles.include?(role.to_s)
   end
 
   def parent_id
-    self.upline[-2]
+    upline[-2]
   end
 
   def has_parent?

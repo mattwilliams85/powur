@@ -22,12 +22,14 @@ describe '/a/pay_periods' do
 
     it 'returns the details of the pay period' do
       order = create(:order, order_date: Date.current - 1.month)
-
       order.monthly_pay_period.touch :calculated_at
-      get pay_period_path(order.monthly_pay_period.id), format: :json
+      pay_period = order.monthly_pay_period
+      create_list(:bonus_payment, 3, pay_period: pay_period)
 
+      get pay_period_path(pay_period), format: :json
+
+      expect(json_body['properties']['totals']).to_not be_nil
       expect_entities 'pay_period-order_totals', 'pay_period-rank_achievements'
-
     end
 
   end

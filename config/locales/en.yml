@@ -76,6 +76,10 @@ en:
   qualification_periods:
     pay_period: Pay Period
     lifetime: Lifetime
+  totals:
+    personal_order: "%{product} - Personal Total"
+    group_order: "%{product} - Group Total"
+    bonus: Bonus Total
   activerecord:
     errors:
       messages:

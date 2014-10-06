@@ -150,7 +150,7 @@ class PayPeriod < ActiveRecord::Base
     upline = user.parent_ids.map do |id|
       upline_users.find { |u| u.id == id }
     end
-    upline.select { |u| user_active?(u) }.reverse
+    upline.select { |u| user_active?(u.id) }.reverse
   end
 
   private

@@ -16,6 +16,8 @@ module Admin
     end
 
     def show
+      bonus_amount = @pay_period.bonus_payments.sum(:amount)
+      @totals = [ { id: :bonus, value: bonus_amount, type: :currency } ]
     end
 
     def calculate
