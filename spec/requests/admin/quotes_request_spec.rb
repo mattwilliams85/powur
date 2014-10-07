@@ -32,8 +32,9 @@ describe '/a/quotes' do
 
       create(:quote, user: user)
       create(:quote, customer: customer)
-      1.upto(3).each do |i|
-        customer = create(:customer, first_name: 'Alice', last_name: 'Jones')
+
+      1.upto(3).each do
+        customer = create(:search_miss_customer)
         create(:quote, customer: customer)
       end
 
@@ -46,7 +47,8 @@ describe '/a/quotes' do
       quotes = create_list(:quote, 3)
       get admin_quotes_path, format: :json, sort: :customer
 
-      sorted_ids = quotes.sort_by { |q| q.customer.last_name }.map { |q| q.id }
+      sorted_ids = quotes
+        .sort_by { |q| q.customer.last_name }.map(&:id)
       result = json_body['entities'].map { |e| e['properties']['id'] }
 
       expect(result).to eq(sorted_ids)

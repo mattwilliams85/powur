@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_many :order_totals
   has_many :rank_achievements
   has_many :bonus_payments
+  has_many :overrides, class_name: 'UserOverride'
 
   attr_accessor :remove_avatar
   attr_accessor :avatar_content_type, :avatar_file_name

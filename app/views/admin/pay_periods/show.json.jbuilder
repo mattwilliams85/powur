@@ -1,5 +1,7 @@
 siren json
 
+klass :pay_period, totals: true
+
 json.partial! 'item', pay_period: @pay_period, detail: true
 
 if @pay_period.calculated?

@@ -59,14 +59,24 @@ module SirenDSL
   end
 
   def klass(*values)
+    opts = values.last.is_a?(Hash) ? values.pop : {}
     json.set! :class, values
 
     json.properties do
       if values.include?(:list)
         json.paging pager.meta if paging?
         json.sorting sorter.meta if sorting?
+        if filtering?
+          json.filters do
+            filters.keys.each do |scope|
+              json.set! scope, params[scope]
+            end
+          end
+        end
       end
-      render_totals(json)
+      if @totals && (values.include?(:list) || opts[:totals])
+        render_totals(json)
+      end
     end
   end
 
@@ -140,6 +150,7 @@ module SirenDSL
                       name: opts[:name] }
         action.field(scope, :select,
                      reference: reference,
+                     value:     params[scope],
                      required:  !opts[:required].nil?)
       end
     end
@@ -150,7 +161,6 @@ module SirenDSL
   private
 
   def render_totals(json)
-    return unless @totals
     @totals.each do |total|
       total[:title] ||= t("totals.#{total[:id]}")
       if total[:type] == :currency

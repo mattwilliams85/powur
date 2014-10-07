@@ -4,8 +4,11 @@ module Admin
 
     page
     sort achieved_at: { achieved_at: :asc }
-    filter :pay_period, url: -> { pay_periods_path },
-           required: true, name: :title
+    filter :pay_period,
+           url:      -> { pay_periods_path(calculated: true) },
+           required: true,
+           default:  -> { PayPeriod.last_id },
+           name:     :title
 
     private
 
