@@ -8,27 +8,52 @@
                     <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
                 {{else}}
                     {{this.display}}
-
                 {{/if}}
             </div>
             {{/each}}
 
         </td>
     </tr>
-    {{/if}}    
+    {{/if}}  
+
+    {{#if this.properties.totals}}
     <tr>
-        <th colspan="2" style="width:20%">Dates</th>
-        <th colspan="2" style="width:30%">Bonus Info</th>
+        <td colspan="5" style="background:#eee;padding:10px;">
+            <span >Overview Metrics</span><br>
+            {{#each this.properties.totals}}
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">{{this.title}}</span>
+                {{{this.value}}}
+            </div>
+            {{/each}}
+        </td>
     </tr>
+    {{/if}}  
+
+    <tr>
+        <td width="25%" style="vertical-align:middle; padding-top:10px;" colspan="2">
+            <span style="display:block; float:left; margin-right:10px;">Pay Period</span>
+            <select name="pay_period" style="float:left;" id="js-pay_period_select">
+                <option>Select a Pay Period</option>
+                {{#each this.pay_period.entities}}
+                    {{#compare this.properties.id ../entities.0.properties.pay_period_id operator="=="}}
+                        <option value="{{this.properties.id}}" selected>{{this.properties.id}}</option>
+                    {{else}}
+                        {{#compare this.actions.0.name "recalculate" operator="=="}}
+                            <option value="{{this.properties.id}}">{{this.properties.id}}</option>
+                        {{else}}
+                        {{/compare}}
+                    {{/compare}}
+                {{/each}}
+            </select>
+        </td>
+
+        <td colspan="3" style="width:30%">Bonus Info</th>
+    </tr>
+    
     {{#each this.entities}}
     <tr>
-        <td>
-            <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Timestamp</span>
-                {{{localtime this.properties.created_at}}}
-            </div>
-        </td>        
-        <td>
+        <td >
             <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Pay Period</span>
                 {{{this.properties.pay_period_id}}}
@@ -37,10 +62,24 @@
 
         <td>
             <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{{localtime this.properties.created_at}}}
+            </div>
+        </td>        
+
+        <td>
+            <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Name</span>
                 {{{this.properties.name}}}
             </div>
         </td>
+
+         <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Pay As Rank</span>
+                {{{this.properties.pay_as_rank}}}
+            </div>
+        </td>       
         <td>
             <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Amount</span>

@@ -56,7 +56,7 @@ jQuery(function($){
             }
         }
 
-        function displayUsers(_tab, _callback){
+        function displayUsers(_tab, _options){
 
             switch(_tab){
                 case "#admin-users-init":
@@ -135,8 +135,15 @@ jQuery(function($){
                     _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href);
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href);
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href,
+                            data:{}
+                        });
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href,
+                            data:{}
+                        });
+
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "orders"]})[0]);
@@ -145,6 +152,30 @@ jQuery(function($){
                                 _entity.properties.localDateString = _d.toLocaleDateString();
                             });
                             _getTemplate("/templates/admin/users/sales/_orders.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
+                                $(".js-order_details").on("click", function(e){
+                                    e.preventDefault();
+                                    var _url=$(this).attr("data-detail-href");
+                                    _ajax({
+                                        _ajaxType:"get",
+                                        _url:_url,
+                                        _callback:function(data){
+                                            _popupData = data;
+                                            _popupData.title="Order Details";
+                                            _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
+                                            _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
+                                            _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
+
+                                            console.log(_popupData);
+
+                                            $("#js-screen_mask").fadeIn(100, function(){
+                                                _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                                    _displayPopup({_popupData:_popupData});
+                                                });
+                                            });
+                                        }
+                                    });
+                                });
                             });      
                         });
                     });
@@ -158,8 +189,14 @@ jQuery(function($){
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(1)").addClass("js-active");
                         var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href);
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href);
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href,
+                            data:{}
+                        });
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href,
+                            data:{}
+                        });
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0]);
@@ -176,11 +213,15 @@ jQuery(function($){
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(2)").addClass("js-active");
                         var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href);
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href,
+                            data:{}
+                        });
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
                             _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
                             });      
                         });
                     });
@@ -192,12 +233,29 @@ jQuery(function($){
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(3)").addClass("js-active");
                         var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "bonus_payments"]})[0].href);
+                        var _filtering_obj = (typeof _options === "undefined")?{}:_options._filtering_obj;
+                        console.log(_filtering_obj);
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "bonus_payments"]})[0].href,
+                            data:_filtering_obj
+                        });
+                        _endPoints.push({
+                            url:"/a/pay_periods",
+                            data:{}
+                        });
+
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0]);
+                            _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
                             _getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
+
+                                $("#js-pay_period_select").on("change", function(e){
+                                    e.preventDefault();
+                                    displayUsers("#admin-users-sales-bonus_payments", {_filtering_obj:{pay_period:$(this).val()}});
+                                })
+
                             });      
                         });
                     });

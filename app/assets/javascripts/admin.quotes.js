@@ -287,7 +287,7 @@ jQuery(function($){
                                 _url:_getObjectsByCriteria(_pay_period_obj, {rel:"self"})[0].href,
                                 _callback:function(data, text){
                                     var _bonus_payments_url = EyeCueLab.JSON.getObjectsByPattern(data.entities, {"containsIn(class)":["list", "bonus_payments"]})[0].href;
-                                    EyeCueLab.JSON.asynchronousLoader([_bonus_payments_url], function(_returnJSONs){
+                                    EyeCueLab.JSON.asynchronousLoader([{url:_bonus_payments_url, data:{}}], function(_returnJSONs){
                                         var _bonus_payments_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0];
                                         var _popupData= _bonus_payments_obj;
 
@@ -320,7 +320,7 @@ jQuery(function($){
                                 _url:_getObjectsByCriteria(_pay_period_obj, {rel:"self"})[0].href,
                                 _callback:function(data, text){
                                     var _rank_achievements_url = EyeCueLab.JSON.getObjectsByPattern(data.entities, {"containsIn(class)":["list", "rank_achievements"]})[0].href;
-                                    EyeCueLab.JSON.asynchronousLoader([_rank_achievements_url], function(_returnJSONs){
+                                    EyeCueLab.JSON.asynchronousLoader([{url:_rank_achievements_url,data:{}}], function(_returnJSONs){
                                         var _rank_achievements_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0];
                                         var _popupData= _rank_achievements_obj;
                                         _popupData.pay_period = _pay_period_obj.properties;
@@ -353,7 +353,7 @@ jQuery(function($){
                                 _url:_getObjectsByCriteria(_pay_period_obj, {rel:"self"})[0].href,
                                 _callback:function(data, text){
                                     var _order_total_url = EyeCueLab.JSON.getObjectsByPattern(data.entities, {"containsIn(class)":["list", "order_totals"]})[0].href
-                                    EyeCueLab.JSON.asynchronousLoader([_order_total_url], function(_returnJSONs){
+                                    EyeCueLab.JSON.asynchronousLoader([{url:_order_total_url, data:{}}], function(_returnJSONs){
                                         var _order_total_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0];
                                         var _popupData= _order_total_obj;
                                         _popupData.pay_period = _pay_period_obj.properties;
