@@ -16,6 +16,17 @@ describe '/a/pay_periods' do
       expect_entities_count(5)
     end
 
+    it 'filters by calculated' do
+      create(:weekly_pay_period, calculated_at: nil)
+      pay_period = create(:monthly_pay_period)
+
+      get pay_periods_path, calculated: 'true', format: :json
+
+      expect_entities_count(1)
+      result = json_body['entities'].first
+      expect(result['properties']['id']).to eq(pay_period.id)
+    end
+
   end
 
   describe 'GET /:id' do
