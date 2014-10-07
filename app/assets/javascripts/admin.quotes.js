@@ -153,20 +153,17 @@ jQuery(function($){
                                     _popupData.properties = data.properties;
                                     _popupData.distributorInfo =  EyeCueLab.JSON.getObjectsByPattern(
                                         data, {
-                                        "containsIn(class)":["user"], 
-                                        "containsIn(rel)":["quote-user"]
+                                        "containsIn(class)":["user"] 
                                     })[0];
 
                                     _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(
                                         data, {
-                                        "containsIn(class)":["customer"], 
-                                        "containsIn(rel)":["quote-customer"]
+                                        "containsIn(class)":["customer"] 
                                     })[0];
 
                                     _popupData.productInfo =  EyeCueLab.JSON.getObjectsByPattern(
                                         data, {
-                                        "containsIn(class)":["product"], 
-                                        "containsIn(rel)":["quote-product"]
+                                        "containsIn(class)":["product"] 
                                     })[0];
 
                                     ["_path","id"].forEach(function(_hideKey){
@@ -222,8 +219,10 @@ jQuery(function($){
 
                     _displayData=(_data.orders.search.results.entities.length>0)? _data.orders.search.results : _data.orders;
                     _displayData.paginationInfo= _paginateData(_getObjectsByCriteria(_displayData, {name:"page"})[0], {prefix:"js-orders", actionableCount:10});
-
-
+                    console.log("search results")
+                    console.log(_data.orders.search.results);
+                    console.log("display")
+                    console.log(_displayData);
                     _getTemplate("/templates/admin/quotes/orders/_orders.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-search_box").on("click", function(e){e.preventDefault();});
@@ -403,25 +402,33 @@ jQuery(function($){
 
 
         function _search(e, _type, _callback){
-            _data.quotes.search.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
             var _url="";
-            if (_type=="quotes") _url="/a/quotes";
-            if (_type=="orders") _url="/a/orders";
+            var _dataObj={};
+            if (_type=="quotes") {
+                _url="/a/quotes";
+                _dataObj = _data.quotes;
+            }
+            if (_type=="orders"){
+                _url="/a/orders";
+                _dataObj = _data.orders;
+            }
+           _dataObj.search.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
 
             _ajax({
                 _ajaxType:"get",
                 _url:_url,
                 _postObj:{
-                    search:_data.quotes.search.term,
-                    sort:_data.quotes.sortBy,
-                    page:_data.quotes.search.page
+                    search:_dataObj.search.term,
+                    sort:_dataObj.sortBy,
+                    page:_dataObj.search.page
                 },
                 _callback:function(data, text){
-                    _data.quotes.search.results=data;
-                    _data.quotes.search.results.entities.forEach(function(_quote){
-                        _quote.properties._dataStatusDisplay = _quote.properties.data_status.toString();
-                        _d = new Date(_quote.properties.created_at);
-                        _quote.properties.localDateString = _d.toLocaleDateString();
+                    _dataObj.search.results=data;
+
+                    _dataObj.search.results.entities.forEach(function(_item){
+                        _item.properties._dataStatusDisplay = _item.properties.status.toString();
+                        _d = new Date(_item.properties.created_at);
+                        _item.properties.localDateString = _d.toLocaleDateString();
                     });
                     if(typeof _callback == "function") _callback();
                     else return data;
