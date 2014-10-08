@@ -79,6 +79,8 @@ en:
   totals:
     product_orders: "Order Totals : %{product}"
     bonus: Bonus Total
+  headings:
+    lifetime: Lifetime
   activerecord:
     errors:
       messages:
