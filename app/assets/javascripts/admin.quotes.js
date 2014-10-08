@@ -432,6 +432,7 @@ jQuery(function($){
                                 _showPayPeriodDetails(_options)
                             });
                         });
+
                         //default to order total
                         if(typeof _options.category ==="undefined") {
                             _options.category={
@@ -483,6 +484,32 @@ jQuery(function($){
                                             }
                                             _showPayPeriodDetails(_options);
                                         });
+
+                                        //order detail popup
+                                        $(".js-order_details").on("click", function(e){
+                                            e.preventDefault();
+                                            var _url=$(this).attr("data-detail-href");
+                                            _ajax({
+                                                _ajaxType:"get",
+                                                _url:_url,
+                                                _callback:function(data){
+                                                    _popupData = data;
+                                                    _popupData.title="Order Details";
+                                                    _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
+                                                    _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
+                                                    _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
+
+                                                    console.log(_popupData);
+
+                                                    $("#js-screen_mask").fadeIn(100, function(){
+                                                        _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                                            _displayPopup({_popupData:_popupData});
+                                                        });
+                                                    });
+                                                }
+                                            });
+                                        });
+
 
                                     });
 
