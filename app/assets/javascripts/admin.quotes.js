@@ -435,8 +435,8 @@ jQuery(function($){
                         //default to order total
                         if(typeof _options.category ==="undefined") {
                             _options.category={
-                                "classType":"order_totals",
-                                "templateName":"/templates/admin/quotes/popups/_order_totals_listing.handlebars.html"
+                                "classType":"orders",
+                                "templateName":"/templates/admin/quotes/popups/_orders_listing.handlebars.html"
                             };
                         }
 
@@ -465,6 +465,10 @@ jQuery(function($){
                                             e.preventDefault();
                                             _options.category.classType=$(this).attr("class").replace("js-active","").trim();
                                             switch(_options.category.classType){
+                                                case "orders":
+                                                    _options.category.templateName="/templates/admin/quotes/popups/_orders_listing.handlebars.html";
+                                                break;
+
                                                 case "order_totals":
                                                     _options.category.templateName="/templates/admin/quotes/popups/_order_totals_listing.handlebars.html";
                                                 break;
