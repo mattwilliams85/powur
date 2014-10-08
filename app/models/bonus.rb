@@ -1,6 +1,6 @@
 class Bonus < ActiveRecord::Base
   TYPES =  {
-    direct_sales:   'Direct Sale',
+    direct_sales:   'Direct Sales',
     enroller_sales: 'Enroller',
     unilevel_sales: 'Unilevel',
     promote_out:    'Promote-Out',
