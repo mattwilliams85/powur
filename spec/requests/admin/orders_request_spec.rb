@@ -79,9 +79,10 @@ describe 'order endpoints' do
   describe 'GET /a/orders/:id' do
     it 'includes the related entities' do
       order = create(:order)
+      create(:bonus_payment_order, order: order)
 
       get order_path(order), format: :json
-      %w(product user customer).each do |klass|
+      %w(product user customer bonus_payments).each do |klass|
         result = json_body['entities'].find { |e| e['class'].include?(klass) }
         expect(result).to be
       end
