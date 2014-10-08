@@ -40,10 +40,10 @@
                 <option>Select a Pay Period</option>
                 {{#each this.pay_period.entities}}
                     {{#compare this.properties.id ../entities.0.properties.pay_period_id operator="=="}}
-                        <option value="{{this.properties.id}}" selected>{{this.properties.id}}</option>
+                        <option value="{{this.properties.id}}" selected>{{this.properties.title}}</option>
                     {{else}}
                         {{#compare this.actions.0.name "recalculate" operator="=="}}
-                            <option value="{{this.properties.id}}">{{this.properties.id}}</option>
+                            <option value="{{this.properties.id}}">{{this.properties.title}}</option>
                         {{else}}
                         {{/compare}}
                     {{/compare}}
