@@ -271,29 +271,26 @@ jQuery(function($){
 
                     $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
                     //position indicator
-                _getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+                    _getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
                         _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-quotes-pay-periods-init]"));
                     });
                     
                     _getTemplate("/templates/admin/quotes/pay_periods/_summary.handlebars.html", {}, $(".js-admin_dashboard_column.summary"), function(){
                     });
+
                     _displayData={};
                     $.extend(true, _displayData , _data.pay_periods);
+                    
                     _displayData.entities.forEach(function(entity){
                         var t = entity.properties.start_date;
                         entity.properties.startDisplayDate=new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
                         t = entity.properties.end_date;
                         entity.properties.endDisplayDate = new Date(parseInt(t.split("-")[0]),parseInt(t.split("-")[1])-1,parseInt(t.split("-")[2])).toDateString(); 
                     });
+                    
                     _getTemplate("/templates/admin/quotes/pay_periods/_pay_periods.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-search_box").fadeOut(200);
-                        //wiire up calculationg/recalculation button
-                        $(".js-calculate_pay_period").on("click", function(e){
-                            e.preventDefault();
-                            var _pay_period_id= $(e.target).parents("tr").attr("data-pay-period-id");
-                            _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_pay_period_id]})[0], function(){displayQuotes("#admin-quotes-pay-periods-init")});
-                        });
 
                         //bonus_payments details
                         $(".js-bonus_payments_link").on("click", function(e){
@@ -397,11 +394,112 @@ jQuery(function($){
                                 }
                             }); //end of calculated pay period, order totals detail
                         });
+
+                        //send users to the pay period detail page
+                        $(".js-pay_period_detail").on("click", function(e){
+                            e.preventDefault();
+                            var _pay_period_id = $(e.target).parents("tr").attr("data-pay-period-id");
+                            var _pay_period_obj = EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_pay_period_id]})[0];
+                            _showPayPeriodDetails({_pay_period_id:_pay_period_id, _pay_period_obj:_pay_period_obj});
+                        });//end of pay period detail
+
                     });
 
                 break;
 
             }
+        }
+
+        function _showPayPeriodDetails(_options){
+            _ajax({
+                _ajaxType:"get",
+                _url:_getObjectsByCriteria(_options._pay_period_obj, {rel:"self"})[0].href,
+                _callback:function(data, text){
+                    _displayData=data;
+                    console.log(data)
+                    _getTemplate("/templates/admin/quotes/pay_periods/_pay_period_details.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
+                        $(".js-pay_period_listing").on("click", function(e){
+                            e.preventDefault();
+                            displayQuotes("#admin-quotes-pay-periods");
+                        });
+                        //calculation button
+                        $(".js-calculate_pay_period").on("click", function(e){
+                            e.preventDefault();
+                            console.log("calculating "+_options._pay_period_id)
+                            //var _pay_period_id= $(e.target).parents("tr").attr("data-pay-period-id");
+                            _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_options._pay_period_id]})[0], function(){
+
+                                _showPayPeriodDetails(_options)
+                            });
+                        });
+                        //default to order total
+                        if(typeof _options.category ==="undefined") {
+                            _options.category={
+                                "classType":"order_totals",
+                                "templateName":"/templates/admin/quotes/popups/_order_totals_listing.handlebars.html"
+                            };
+                        }
+
+                        $("#pay_period_detail_nav a."+_options.category.classType).addClass("js-active");
+
+                        _ajax({
+                            _ajaxType:"get",
+                            _url:_getObjectsByCriteria(_options._pay_period_obj, {rel:"self"})[0].href,
+                            _callback:function(data, text){
+                                if(typeof data.entities === "undefined") return;
+                                var _url = EyeCueLab.JSON.getObjectsByPattern(data.entities, {"containsIn(class)":["list", _options.category.classType]})[0].href;
+                                EyeCueLab.JSON.asynchronousLoader([{url:_url, data:{}}], function(_returnJSONs){
+                                    var _dataObj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", _options.category.classType]})[0];
+                                    var _displayData= _dataObj;
+                                    _displayData.properties.metrics =data.properties.totals;
+                                    _displayData.pay_period = _options._pay_period_obj.properties;
+                                    /*_displayData.title="Order Totals Detail<br>"+data.properties.title;
+                                    _displayData.paginationInfo=_paginateData(_getObjectsByCriteria(_dataObj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
+                                    _displayData.paginationInfo.templateName="/templates/admin/quotes/popups/_order_totals_listing.handlebars.html",
+                                    _displayData.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
+                                    */
+                                    _getTemplate(_options.category.templateName,_displayData, $(".pay_period_detail_container"), function(){
+                                        console.log(_displayData)
+                                        //navigae between sub categories
+                                        $("#pay_period_detail_nav a").on("click", function(e){
+                                            e.preventDefault();
+                                            _options.category.classType=$(this).attr("class").replace("js-active","").trim();
+                                            switch(_options.category.classType){
+                                                case "order_totals":
+                                                    _options.category.templateName="/templates/admin/quotes/popups/_order_totals_listing.handlebars.html";
+                                                break;
+                                                case "bonus_payments":
+                                                    _options.category.templateName="/templates/admin/quotes/popups/_bonus_payments_listing.handlebars.html";
+                                                break;
+
+                                                case "rank_achievements":
+                                                    _options.category.templateName="/templates/admin/quotes/popups/_rank_achievements_listing.handlebars.html";
+                                                break;
+
+                                            }
+                                            _showPayPeriodDetails(_options);
+                                        });
+
+                                    });
+
+                                    /*$("#js-screen_mask").fadeIn(100, function(){
+                                        _getTemplate("/templates/admin/quotes/popups/_pay_periods_container.handlebars.html",_displayData, $("#js-screen_mask"), function(){
+                                            $("#js-popup").css("opacity","0");
+                                            _getTemplate("/templates/admin/quotes/popups/_order_totals_listing.handlebars.html",_displayData, $("#js-popup .js-popup_content_container"), function(){
+                                                _displayPopup({_popupData:_displayData, _css:{width:1000} });
+                                                console.log(_displayData)
+
+                                            });
+                                        });
+                                    });*/
+                                });
+                            }
+                        }); //end of calculated pay period, order totals detail
+                    })
+
+                }
+            });
+
         }
 
         function _calculatePayPeriod(_pay_period, _callback){

@@ -419,7 +419,7 @@ function _getTemplate(_path, _dataObj, _targetObj, _callback){
             });
         }
         if(!_results) _results=[];
-        
+        if(typeof _dataObj === "undefined") return;
         Object.keys(_dataObj).forEach(function(_dataKey){
             var breakException = {};
             try{
