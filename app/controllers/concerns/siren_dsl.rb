@@ -145,9 +145,9 @@ module SirenDSL
     end
     if filtering?
       filters.each do |scope, opts|
-        reference = { url:  instance_exec(&opts[:url]),
-                      id:   opts[:id],
-                      name: opts[:name] }
+        reference = { url:     instance_exec(&opts[:url]),
+                      value:   opts[:id],
+                      display: opts[:name] }
         action.field(scope, :select,
                      reference: reference,
                      value:     params[scope],
