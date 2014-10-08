@@ -148,10 +148,13 @@ module SirenDSL
         reference = { url:     instance_exec(&opts[:url]),
                       value:   opts[:id],
                       display: opts[:name] }
-        action.field(scope, :select,
-                     reference: reference,
-                     value:     params[scope],
-                     required:  !opts[:required].nil?)
+        field_opts = { reference: reference,
+                       value:     params[scope],
+                       required:  !opts[:required].nil? }
+        if opts[:heading]
+          field_opts[:heading] = t("headings.#{opts[:heading]}")
+        end
+        action.field(scope, :select, field_opts)
       end
     end
 
