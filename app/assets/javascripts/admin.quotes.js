@@ -532,6 +532,7 @@ jQuery(function($){
                         _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(data, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
                         _popupData.paginationInfo.templateName = _options._popupData.paginationInfo.templateName;
                         _popupData.paginationInfo.templateContainer=_options._popupData.paginationInfo.templateContainer;
+                        _popupData.properties.metrics = _options._popupData.properties.metrics;
                         $(_popupData.paginationInfo.templateContainer).animate({"left":"-=1500", "opacity":0}, 200, function(){
                             _getTemplate(_popupData.paginationInfo.templateName,_popupData, $(_popupData.paginationInfo.templateContainer), function(){
                                 $(_popupData.paginationInfo.templateContainer).css("left","1500px");
