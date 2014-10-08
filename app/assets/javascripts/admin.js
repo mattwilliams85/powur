@@ -254,15 +254,25 @@ jQuery(function($){
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(2)").addClass("js-active");
                         var _endPoints =[];
+                        var _filtering_obj = (typeof _options === "undefined")?{}:_options._filtering_obj;
                         _endPoints.push({
                             url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href,
+                            data:{}
+                        });
+                        _endPoints.push({
+                            url:"/a/pay_periods",
                             data:{}
                         });
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
+                            _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
                             _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
+                                $("#js-pay_period_select").on("change", function(e){
+                                    e.preventDefault();
+                                    displayUsers("#admin-users-sales-rank_achievements", {_filtering_obj:{pay_period:$(this).val()}});
+                                })
                             });      
                         });
                     });
@@ -290,7 +300,6 @@ jQuery(function($){
                             _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
                             _getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
-
                                 $("#js-pay_period_select").on("change", function(e){
                                     e.preventDefault();
                                     displayUsers("#admin-users-sales-bonus_payments", {_filtering_obj:{pay_period:$(this).val()}});
