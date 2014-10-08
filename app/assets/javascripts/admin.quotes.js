@@ -437,6 +437,7 @@ jQuery(function($){
             }
            _dataObj.search.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
 
+           console.log(_dataObj);
             _ajax({
                 _ajaxType:"get",
                 _url:_url,
@@ -447,9 +448,8 @@ jQuery(function($){
                 },
                 _callback:function(data, text){
                     _dataObj.search.results=data;
-
                     _dataObj.search.results.entities.forEach(function(_item){
-                        _item.properties._dataStatusDisplay = _item.properties.status.toString();
+                        if(_type=="orders")_item.properties._dataStatusDisplay = _item.properties.status.toString();
                         _d = new Date(_item.properties.created_at);
                         _item.properties.localDateString = _d.toLocaleDateString();
                     });
