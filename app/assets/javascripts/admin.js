@@ -153,30 +153,6 @@ jQuery(function($){
                             });
                             _getTemplate("/templates/admin/users/sales/_orders.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
-                                /*$(".js-order_details").on("click", function(e){
-                                    e.preventDefault();
-                                    var _url=$(this).attr("data-detail-href");
-                                    _ajax({
-                                        _ajaxType:"get",
-                                        _url:_url,
-                                        _callback:function(data){
-                                            _popupData = data;
-                                            _popupData.title="Order Details";
-                                            _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
-                                            _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
-                                            _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
-
-                                            console.log(_popupData);
-
-                                            $("#js-screen_mask").fadeIn(100, function(){
-                                                _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                                    _displayPopup({_popupData:_popupData});
-                                                });
-                                            });
-                                        }
-                                    });
-                                });*/
-
                                 $(".js-order_details").on("click", function(e){
                                     e.preventDefault();
                                     var _url=$(this).attr("data-detail-href");
@@ -210,9 +186,7 @@ jQuery(function($){
                                                         console.log(_popupData);
                                                     });
                                                 });
-
-
-                                            })
+                                            });
                                         }
                                     });
                                 });
@@ -257,7 +231,7 @@ jQuery(function($){
                         var _filtering_obj = (typeof _options === "undefined")?{}:_options._filtering_obj;
                         _endPoints.push({
                             url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href,
-                            data:{}
+                            data:_filtering_obj
                         });
                         _endPoints.push({
                             url:"/a/pay_periods",
@@ -271,6 +245,7 @@ jQuery(function($){
                                 console.log(_displayData);
                                 $("#js-pay_period_select").on("change", function(e){
                                     e.preventDefault();
+                                    if($(this).val()=="lifetime") displayUsers("#admin-users-sales-rank_achievements", {_filtering_obj:{}});
                                     displayUsers("#admin-users-sales-rank_achievements", {_filtering_obj:{pay_period:$(this).val()}});
                                 })
                             });      

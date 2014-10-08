@@ -9,7 +9,7 @@
     </tr>
     {{#each this.entities}}
     <tr data-quote-id="{{this.properties.id}}">
-        <td>{{this.properties.localDateString}}</td>
+        <td>{{localtime this.properties.order_date}}</td>
         <td>{{this.properties.distributor}}</td>
         <td>{{this.properties.customer}}</td>
         <td>{{this.properties.product}}</td>
