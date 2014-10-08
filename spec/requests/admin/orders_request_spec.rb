@@ -26,11 +26,8 @@ describe '/a/orders' do
       create(:order, user: user)
       create(:order, customer: customer)
 
-      3.times.each do |i|
-        user = create(:user,
-                      first_name: 'Alice',
-                      last_name:  'Smith',
-                      email:      "foo#{i}@bar.com")
+      3.times.each do
+        user = create(:search_miss_user)
         create(:order, user: user)
       end
 

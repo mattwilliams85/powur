@@ -39,7 +39,7 @@ module SirenDSL
   end
 
   attr_reader :json
-
+  
   protected
 
   def siren(json)

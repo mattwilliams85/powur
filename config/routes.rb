@@ -130,6 +130,7 @@ Rails.application.routes.draw do
         post :calculate
         post :recalculate
       end
+      resources :orders, only: [ :index ], controller: :pay_period_orders
       resources :order_totals,
                 only:       [ :index ],
                 controller: :pay_period_order_totals
