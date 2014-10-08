@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'order totals', type: :request do
+describe 'bonus payments', type: :request do
 
   before :each do
     login_user
@@ -8,8 +8,7 @@ describe 'order totals', type: :request do
 
   describe '/a/pay_periods/:id/bonus_payments' do
     it 'pages a list for the pay period' do
-      pay_period = MonthlyPayPeriod
-        .find_or_create_by_date(DateTime.current - 1.month)
+      pay_period = create(:monthly_pay_period)
       create_list(:bonus_payment, 5, pay_period: pay_period, amount: 50.00)
 
       get pay_period_bonus_payments_path(pay_period),
@@ -22,6 +21,21 @@ describe 'order totals', type: :request do
 
       payment = json_body['entities'].first
       expect(payment['properties']['amount']).to eq('$50.00')
+    end
+
+    it 'filters by bonus' do
+      pay_period = create(:monthly_pay_period)
+      bonus1 = create(:enroller_sales_bonus)
+      bonus2 = create(:unilevel_sales_bonus)
+      create(:bonus_payment, pay_period: pay_period, bonus: bonus1)
+      create(:bonus_payment, pay_period: pay_period, bonus: bonus2)
+
+      get pay_period_bonus_payments_path(pay_period),
+          bonus: bonus1.id, format: :json
+
+      expect_entities_count(1)
+      result = json_body['entities'].first['properties']['name']
+      expect(result).to eq(bonus1.name)
     end
   end
 
@@ -38,8 +52,8 @@ describe 'order totals', type: :request do
     it 'defaults the pay period' do
       get admin_user_bonus_payments_path(@money_user), format: :json
 
-      action = json_body['actions'].first
-      
+      result = json_body['properties']['filters']['pay_period']
+      expect(result).to eq(PayPeriod.last_id)
     end
 
     it 'filters bonus payments by pay period' do
