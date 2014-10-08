@@ -498,19 +498,33 @@ jQuery(function($){
                                                     _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
                                                     _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
                                                     _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
+                                                    
+                                                    var _endpoints=[];
 
-                                                    console.log(_popupData);
+                                                    if(typeof EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0]!=="undefined") _endpoints.push({
+                                                            url:EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0].href,
+                                                            data:{}
+                                                        })
 
-                                                    $("#js-screen_mask").fadeIn(100, function(){
-                                                        _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                                            _displayPopup({_popupData:_popupData});
+                                                    if(typeof _getObjectsByCriteria(data, {"rel":"ancestors"}) !=="undefined" ) _endpoints.push({
+                                                            url:_getObjectsByCriteria(data, {"rel":"ancestors"})[0].href,
+                                                            data:{}
                                                         });
-                                                    });
+                                                    EyeCueLab.JSON.asynchronousLoader(_endpoints, function(_returnJSONs){
+                                                        _popupData.uplineInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","users"]})[0];
+                                                        _popupData.bonusInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","bonus_payments"]})[0];
+                                                        $("#js-screen_mask").fadeIn(100, function(){
+                                                            _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                                                _displayPopup({_popupData:_popupData, _css:{width:800}});
+                                                                console.log(_popupData);
+                                                            });
+                                                        });
+
+
+                                                    })
                                                 }
                                             });
                                         });
-
-
                                     });
 
                                     /*$("#js-screen_mask").fadeIn(100, function(){
