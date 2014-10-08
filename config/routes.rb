@@ -108,7 +108,7 @@ Rails.application.routes.draw do
       resources :bonuses, only: [ :index, :create ], as: :bonuses
     end
 
-    resources :bonuses, only: [ :destroy, :update, :show ] do
+    resources :bonuses, only: [ :index, :destroy, :update, :show ] do
       resources :requirements, only: [ :create, :update, :destroy ]
       resources :bonus_levels, only: [ :create, :update, :destroy ], as: :levels
     end
