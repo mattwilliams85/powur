@@ -219,10 +219,6 @@ jQuery(function($){
 
                     _displayData=(_data.orders.search.results.entities.length>0)? _data.orders.search.results : _data.orders;
                     _displayData.paginationInfo= _paginateData(_getObjectsByCriteria(_displayData, {name:"page"})[0], {prefix:"js-orders", actionableCount:10});
-                    console.log("search results")
-                    console.log(_data.orders.search.results);
-                    console.log("display")
-                    console.log(_displayData);
                     _getTemplate("/templates/admin/quotes/orders/_orders.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-search_box").on("click", function(e){e.preventDefault();});
@@ -239,6 +235,29 @@ jQuery(function($){
                             e.preventDefault();
                             _search(e, "orders", function(){displayQuotes("#admin-quotes-orders")});
                         });
+                        //order details
+                        $(".js-order_details").on("click", function(e){
+                            e.preventDefault();
+                            var _url=$(this).attr("data-detail-href");
+                            _ajax({
+                                _ajaxType:"get",
+                                _url:_url,
+                                _callback:function(data){
+                                    _popupData = data;
+                                    _popupData.title="Order Details";
+                                    _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
+                                    _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
+                                    _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
+
+                                    $("#js-screen_mask").fadeIn(100, function(){
+                                        _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                            _displayPopup({_popupData:_popupData});
+                                        });
+                                    });
+                                }
+                            });
+                        });
+
                     });
 
                 break;
@@ -289,9 +308,9 @@ jQuery(function($){
                                     EyeCueLab.JSON.asynchronousLoader([{url:_bonus_payments_url, data:{}}], function(_returnJSONs){
                                         var _bonus_payments_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0];
                                         var _popupData= _bonus_payments_obj;
+                                        _popupData.properties.metrics =data.properties.totals;
 
-                                        _popupData.pay_period = _pay_period_obj.properties;
-                                        _popupData.title="Bonus Payments Detail";
+                                        _popupData.title="Bonus Payments Detail <br>"+data.properties.title;
                                         _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(_bonus_payments_obj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
                                         _popupData.paginationInfo.templateName="/templates/admin/quotes/popups/_bonus_payments_listing.handlebars.html",
                                         _popupData.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
@@ -322,8 +341,9 @@ jQuery(function($){
                                     EyeCueLab.JSON.asynchronousLoader([{url:_rank_achievements_url,data:{}}], function(_returnJSONs){
                                         var _rank_achievements_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0];
                                         var _popupData= _rank_achievements_obj;
+                                        _popupData.properties.metrics =data.properties.totals;
                                         _popupData.pay_period = _pay_period_obj.properties;
-                                        _popupData.title="Rank Achievements Detail";
+                                        _popupData.title="Rank Achievements Detail<br>"+data.properties.title;
                                         _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(_rank_achievements_obj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
                                         _popupData.paginationInfo.templateName="/templates/admin/quotes/popups/_rank_achievements_listing.handlebars.html",
                                         _popupData.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
@@ -333,6 +353,7 @@ jQuery(function($){
                                                 $("#js-popup").css("opacity","0");
                                                 _getTemplate("/templates/admin/quotes/popups/_rank_achievements_listing.handlebars.html",_popupData, $("#js-popup .js-popup_content_container"), function(){
                                                     _displayPopup({_popupData:_popupData, _css:{width:1000} });
+                                                    console.log(_popupData);
                                                 });
                                             });
                                         });
@@ -355,8 +376,9 @@ jQuery(function($){
                                     EyeCueLab.JSON.asynchronousLoader([{url:_order_total_url, data:{}}], function(_returnJSONs){
                                         var _order_total_obj = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0];
                                         var _popupData= _order_total_obj;
+                                        _popupData.properties.metrics =data.properties.totals;
                                         _popupData.pay_period = _pay_period_obj.properties;
-                                        _popupData.title="Order Totals Detail";
+                                        _popupData.title="Order Totals Detail<br>"+data.properties.title;
                                         _popupData.paginationInfo=_paginateData(_getObjectsByCriteria(_order_total_obj, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
                                         _popupData.paginationInfo.templateName="/templates/admin/quotes/popups/_order_totals_listing.handlebars.html",
                                         _popupData.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
@@ -366,6 +388,7 @@ jQuery(function($){
                                                 $("#js-popup").css("opacity","0");
                                                 _getTemplate("/templates/admin/quotes/popups/_order_totals_listing.handlebars.html",_popupData, $("#js-popup .js-popup_content_container"), function(){
                                                     _displayPopup({_popupData:_popupData, _css:{width:1000} });
+                                                    console.log(_popupData)
 
                                                 });
                                             });
@@ -475,6 +498,7 @@ jQuery(function($){
             if(!_options._css.maxHeight) _options._css.maxHeight = $(window).height()-400;
             if(!_options._css.opacity) _options._css.opacity=0;
             if(!_options._css.top) _options._css.top=150;
+            $("#js-popup").css("height","auto");
             $("body").css("overflow", "hidden");
 
             $("#js-popup").css({"left":(($(window).width()/2)-(_options._css.width/2))+"px","top":_options._css.top+"px", opacity:_options._css.opacity});

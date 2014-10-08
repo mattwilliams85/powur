@@ -1,7 +1,8 @@
 
-<br><Br><br>
-<table class="_table _spreadSheet">
+<br><br><br> 
+
     {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
     <tr>
         <td colspan="4" style="text-align:center; padding-bottom:32px;">
             {{#each this.paginationInfo.display}}
@@ -17,12 +18,31 @@
 
         </td>
     </tr>
-    {{/if}}    
+</table>
+    {{/if}} 
+  {{#if this.properties.metrics}}
+ <table class="_table _spreadSheet"> 
     <tr>
-        <td style="width:20%;">Distributor Info</td>
-        <td style="width:30%;">Product</td>
-        <td style="width:15%">Personal Sales</td>
-        <td style="width:15%">Group Sales</td>
+        <td colspan="4" style="background:#eee;padding:10px;">
+            <span >Pay Period Metrics</span><br>
+            {{#each this.properties.metrics}}
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">{{this.title}}</span>
+                {{{this.value}}}
+            </div>
+            {{/each}}
+        </td>
+    </tr>
+</table>   
+    {{/if}}  
+
+<br>
+<table class="_table _spreadSheet">
+    <tr>
+        <th style="width:15%;">Distributor Info</th>
+        <th style="width:40%;">Product</th>
+        <th style="width:20%">Personal Sales</th>
+        <th style="width:20%">Group Sales</th>
     <tr>
 
     {{#each this.entities}}
@@ -65,9 +85,11 @@
     </tr>
     {{/each}}
 
+</table>
     {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
     <tr>
-        <td colspan="4" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
+        <td colspan="4" style="text-align:center; padding-bottom:32px;">
             {{#each this.paginationInfo.display}}
             <div class="js-pagination">
                 {{#if this.link}}
@@ -81,8 +103,6 @@
 
         </td>
     </tr>
-    {{/if}}
-
 </table>
-
+    {{/if}}    
 

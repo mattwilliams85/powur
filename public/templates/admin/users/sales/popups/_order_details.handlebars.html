@@ -5,7 +5,7 @@
         <table class="_table _spreadSheet">
             <tr>
                 <td>
-                    <h2 style="margin-bottom:0;">GENERAL INFO</h2>
+                    <h2 style="margin-bottom:0;">SUMMARY</h2>
                     {{#each this.properties}}
                         {{#compare @key "order_date" operator="=="}}
                         <div class="innerCell">
@@ -23,7 +23,7 @@
 
                 </td>
               <td>
-                    <h2 style="margin-bottom:0;">PRODUCT INFO</h2>
+                    <h2 style="margin-bottom:0;">PRODUCT DETAILS</h2>
                     {{#each this.productInfo.properties}}
                         <div class="innerCell">
                             <span class="label" style="text-transform:capitalize;">{{sanitize @key}}</span>

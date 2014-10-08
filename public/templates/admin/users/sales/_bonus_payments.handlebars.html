@@ -1,5 +1,5 @@
-<table class="_table _spreadSheet">
     {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
     <tr>
         <td colspan="5" style="text-align:center; padding-bottom:32px;">
             {{#each this.paginationInfo.display}}
@@ -14,9 +14,11 @@
 
         </td>
     </tr>
+</table>
     {{/if}}  
 
     {{#if this.properties.totals}}
+<table class="_table _spreadSheet">
     <tr>
         <td colspan="5" style="background:#eee;padding:10px;">
             <span >Overview Metrics</span><br>
@@ -28,8 +30,9 @@
             {{/each}}
         </td>
     </tr>
+<table>
     {{/if}}  
-
+<table class="_table _spreadSheet">
     <tr>
         <td width="25%" style="vertical-align:middle; padding-top:10px;" colspan="2">
             <span style="display:block; float:left; margin-right:10px;">Pay Period</span>
@@ -89,9 +92,11 @@
         </td>
 
     </tr>
+</table>
     {{/each}}
 
     {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
     <tr>
         <td colspan="5" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
             {{#each this.paginationInfo.display}}
@@ -107,8 +112,8 @@
 
         </td>
     </tr>
+</table>
     {{/if}}
 
-</table>
 
 

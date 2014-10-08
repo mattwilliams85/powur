@@ -201,6 +201,7 @@ jQuery(function($){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0]);
                             _getTemplate("/templates/admin/users/sales/_order_totals.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
                             });      
                         });
                     });
@@ -234,7 +235,6 @@ jQuery(function($){
                         $(".section_subnav a:eq(3)").addClass("js-active");
                         var _endPoints =[];
                         var _filtering_obj = (typeof _options === "undefined")?{}:_options._filtering_obj;
-                        console.log(_filtering_obj);
                         _endPoints.push({
                             url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "bonus_payments"]})[0].href,
                             data:_filtering_obj
