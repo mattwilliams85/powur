@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe '/a/orders' do
+describe 'order endpoints' do
 
   before :each do
     login_user
   end
 
-  describe 'GET /' do
+  describe 'GET /a/orders' do
 
     it 'pages orders' do
       create_list(:order, 5)
@@ -55,8 +55,7 @@ describe '/a/orders' do
 
   end
 
-  describe 'POST /' do
-
+  describe 'POST /a/orders' do
     it 'creates an order from a quote' do
       quote = create(:quote)
 
@@ -75,11 +74,9 @@ describe '/a/orders' do
 
       expect_alert_error
     end
-
   end
 
-  describe '/:id' do
-
+  describe 'GET /a/orders/:id' do
     it 'includes the related entities' do
       order = create(:order)
 
@@ -89,11 +86,9 @@ describe '/a/orders' do
         expect(result).to be
       end
     end
-
   end
 
   describe 'GET /users/:id/orders' do
-
     it 'renders orders for a user' do
       create(:order, user: @user)
       user = create(:user)
@@ -103,6 +98,18 @@ describe '/a/orders' do
 
       expect_entities_count(3)
     end
+  end
+
+  describe 'GET /a/pay_periods/:id/orders' do
+    it 'renders orders for a pay_period' do
+      pay_period = create(:monthly_pay_period)
+      create_list(:order, 3, order_date: pay_period.start_date + 1.day)
+
+      get pay_period_orders_path(pay_period), format: :json
+
+      expect_entities_count(3)
+    end
+
   end
 
 end
