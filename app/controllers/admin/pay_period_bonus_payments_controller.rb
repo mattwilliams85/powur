@@ -5,7 +5,7 @@ module Admin
     page
     sort created_at: :created_at,
          user:       'users.last_name asc, users.first_name asc'
-    filter :bonus, url: -> { bonuses_path }
+    filter :bonus, url: -> { bonuses_path }, heading: 'bonus'
 
     private
 
