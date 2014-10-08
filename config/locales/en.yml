@@ -81,6 +81,7 @@ en:
     bonus: Bonus Total
   headings:
     lifetime: Lifetime
+    bonus: Bonus
   activerecord:
     errors:
       messages:
