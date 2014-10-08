@@ -36,6 +36,19 @@
     {{/if}} 
 
 <br>    
+
+{{#if this.properties.sorting}}
+<div style="text-align:left;">
+<span style="display:block; float:left; padding-right:16px; font-size:18px;">SORT BY:</span>
+<select name="sorting">
+    {{#each this.properties.sorting.sorts}}
+
+        <option value="{{this}}">{{sanitize this}}</option>
+    {{/each}}
+</select>
+</div>
+{{/if}}
+
 <table class="_table _spreadSheet">
 
     <tr>
