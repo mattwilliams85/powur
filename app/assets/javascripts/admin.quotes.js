@@ -236,26 +236,12 @@ jQuery(function($){
                             _search(e, "orders", function(){displayQuotes("#admin-quotes-orders")});
                         });
                         //order details
+                        //TODO:make this global
                         $(".js-order_details").on("click", function(e){
                             e.preventDefault();
                             var _url=$(this).attr("data-detail-href");
-                            _ajax({
-                                _ajaxType:"get",
-                                _url:_url,
-                                _callback:function(data){
-                                    _popupData = data;
-                                    _popupData.title="Order Details";
-                                    _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
-                                    _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
-                                    _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
+                            _showOrderDetails(_url);
 
-                                    $("#js-screen_mask").fadeIn(100, function(){
-                                        _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                            _displayPopup({_popupData:_popupData});
-                                        });
-                                    });
-                                }
-                            });
                         });
 
                     });
@@ -489,41 +475,7 @@ jQuery(function($){
                                         $(".js-order_details").on("click", function(e){
                                             e.preventDefault();
                                             var _url=$(this).attr("data-detail-href");
-                                            _ajax({
-                                                _ajaxType:"get",
-                                                _url:_url,
-                                                _callback:function(data){
-                                                    _popupData = data;
-                                                    _popupData.title="Order Details";
-                                                    _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
-                                                    _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
-                                                    _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
-                                                    
-                                                    var _endpoints=[];
-
-                                                    if(typeof EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0]!=="undefined") _endpoints.push({
-                                                            url:EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0].href,
-                                                            data:{}
-                                                        })
-
-                                                    if(typeof _getObjectsByCriteria(data, {"rel":"ancestors"}) !=="undefined" ) _endpoints.push({
-                                                            url:_getObjectsByCriteria(data, {"rel":"ancestors"})[0].href,
-                                                            data:{}
-                                                        });
-                                                    EyeCueLab.JSON.asynchronousLoader(_endpoints, function(_returnJSONs){
-                                                        _popupData.uplineInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","users"]})[0];
-                                                        _popupData.bonusInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","bonus_payments"]})[0];
-                                                        $("#js-screen_mask").fadeIn(100, function(){
-                                                            _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                                                _displayPopup({_popupData:_popupData, _css:{width:800}});
-                                                                console.log(_popupData);
-                                                            });
-                                                        });
-
-
-                                                    })
-                                                }
-                                            });
+                                            _showOrderDetails(_url);
                                         });
                                     });
 
@@ -542,6 +494,43 @@ jQuery(function($){
                         }); //end of calculated pay period, order totals detail
                     })
 
+                }
+            });
+
+        }
+
+        function _showOrderDetails(_url){
+            _ajax({
+                _ajaxType:"get",
+                _url:_url,
+                _callback:function(data){
+                    _popupData = data;
+                    _popupData.title="Order Details";
+                    _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
+                    _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
+                    _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
+                    
+                    var _endpoints=[];
+
+                    if(typeof EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0]!=="undefined") _endpoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0].href,
+                            data:{}
+                        })
+
+                    if(typeof _getObjectsByCriteria(data, {"rel":"ancestors"}) !=="undefined" ) _endpoints.push({
+                            url:_getObjectsByCriteria(data, {"rel":"ancestors"})[0].href,
+                            data:{}
+                        });
+                    EyeCueLab.JSON.asynchronousLoader(_endpoints, function(_returnJSONs){
+                        _popupData.uplineInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","users"]})[0];
+                        _popupData.bonusInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","bonus_payments"]})[0];
+                        $("#js-screen_mask").fadeIn(100, function(){
+                            _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                _displayPopup({_popupData:_popupData, _css:{width:800}});
+                                console.log(_popupData);
+                            });
+                        });
+                    })
                 }
             });
 

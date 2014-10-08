@@ -153,7 +153,7 @@ jQuery(function($){
                             });
                             _getTemplate("/templates/admin/users/sales/_orders.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
-                                $(".js-order_details").on("click", function(e){
+                                /*$(".js-order_details").on("click", function(e){
                                     e.preventDefault();
                                     var _url=$(this).attr("data-detail-href");
                                     _ajax({
@@ -173,6 +173,46 @@ jQuery(function($){
                                                     _displayPopup({_popupData:_popupData});
                                                 });
                                             });
+                                        }
+                                    });
+                                });*/
+
+                                $(".js-order_details").on("click", function(e){
+                                    e.preventDefault();
+                                    var _url=$(this).attr("data-detail-href");
+                                    _ajax({
+                                        _ajaxType:"get",
+                                        _url:_url,
+                                        _callback:function(data){
+                                            _popupData = data;
+                                            _popupData.title="Order Details";
+                                            _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
+                                            _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
+                                            _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
+                                            
+                                            var _endpoints=[];
+
+                                            if(typeof EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0]!=="undefined") _endpoints.push({
+                                                    url:EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0].href,
+                                                    data:{}
+                                                })
+
+                                            if(typeof _getObjectsByCriteria(data, {"rel":"ancestors"}) !=="undefined" ) _endpoints.push({
+                                                    url:_getObjectsByCriteria(data, {"rel":"ancestors"})[0].href,
+                                                    data:{}
+                                                });
+                                            EyeCueLab.JSON.asynchronousLoader(_endpoints, function(_returnJSONs){
+                                                _popupData.uplineInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","users"]})[0];
+                                                _popupData.bonusInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","bonus_payments"]})[0];
+                                                $("#js-screen_mask").fadeIn(100, function(){
+                                                    _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                                        _displayPopup({_popupData:_popupData, _css:{width:800}});
+                                                        console.log(_popupData);
+                                                    });
+                                                });
+
+
+                                            })
                                         }
                                     });
                                 });
@@ -391,9 +431,19 @@ jQuery(function($){
         }
 
         function _displayPopup(_options){
-            console.log("show popup " + _options._popupData.href);
-            $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"150px", opacity:0});
-            $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
+
+            if(!_options._css) _options._css={};
+            if(!_options._css.width) _options._css.width=480;
+            if(!_options._css.maxHeight) _options._css.maxHeight = $(window).height()-400;
+            if(!_options._css.opacity) _options._css.opacity=0;
+            if(!_options._css.top) _options._css.top=150;
+            $("#js-popup").css("height","auto");
+            $("body").css("overflow", "hidden");
+
+            $("#js-popup").css({"left":(($(window).width()/2)-(_options._css.width/2))+"px","top":_options._css.top+"px", opacity:_options._css.opacity});
+            $("#js-popup").css("width", _options._css.width+"px");
+            $("#js-popup").css("max-height", _options._css.maxHeight);
+            if($("#js-popup").css("opacity")==0) $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
             $(".js-popup_form_button").on("click", function(e){
                 e.preventDefault();
                 _ajax({
@@ -401,7 +451,6 @@ jQuery(function($){
                     _url:_options._popupData.href,
                     _postObj: $("#js-popup_form").serializeObject(),
                     _callback:function(data, text){
-                        console.log(_options._callback);
                         $("#js-screen_mask").click();
                         if(typeof _options._callback === "function") _options._callback();
                     }
