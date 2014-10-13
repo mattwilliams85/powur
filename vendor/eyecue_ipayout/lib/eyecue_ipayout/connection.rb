@@ -3,6 +3,7 @@ require 'faraday_middleware'
 require 'eyecue_ipayout/core_ext/hash'
 require 'eyecue_ipayout/response/raise_client_error'
 require 'eyecue_ipayout/response/raise_server_error'
+require 'eyecue_ipayout/config'
 
 module EyecueIpayout
   module Connection
@@ -12,31 +13,43 @@ module EyecueIpayout
     #
     # @param options [Hash] A hash of options
     # @return [Faraday::Connection]
-    def connection(options = {})
-
+    def connection()
+      puts '!!!!!!EyecueIpayout::Connection ->Connection'
       default_options = {
-        :headers => {
-          :accept => 'application/json',
-          :user_agent => user_agent
+        headers: {
+          accept: 'application/json',
+          user_agent: user_agent
         },
-        :proxy => proxy,
-        :ssl => {:verify => false},
-        :url => IPAYOUT_API_ENDPOINT
-      }
-      puts "INSTANTIATE CONNECTION....."
-      faraday_options = connection_options.deep_merge(default_options)
+        ssl: { verify: false },
 
-      @connection = Faraday.new(faraday_options) do |faraday|
+      }
+
+
+      faraday_options = connection_options.deep_merge(default_options)
+      faraday_options['url'] = ENV['IPAYOUT_API_ENDPOINT']
+      puts '!!!!!!EyecueIpayout::Connection->Connection...inst connection'
+      # @connection = Faraday.new(faraday_options['url']) do |faraday|
+
+      #   faraday.request :url_encoded
+      #   faraday.response :logger
+      #   faraday.adapter Faraday.default_adapter
+      # faraday.use EyecueIpayout::Response::RaiseClientError
+      # faraday.use EyecueIpayout::Response::RaiseServerError
+      # faraday.use Faraday::Response::Mashify
+      # faraday.use Faraday::Response::ParseJson
+      # end
+
+      Faraday.new(:url => faraday_options['url']) do |faraday|
+        faraday.request :url_encoded
+        faraday.response :logger
         faraday.adapter Faraday.default_adapter
-        #faraday.response :json, :content_type => /\bjson$/
         faraday.use EyecueIpayout::Response::RaiseClientError
         faraday.use EyecueIpayout::Response::RaiseServerError
         faraday.use Faraday::Response::Mashify
         faraday.use Faraday::Response::ParseJson
-        faraday.request  :url_encoded
-        faraday.response :logger
       end
-      @connection
+
+      # @connection
     end
   end
 end
