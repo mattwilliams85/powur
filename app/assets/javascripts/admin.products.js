@@ -293,6 +293,8 @@ jQuery(function($){
                                     _popupData.title="Add a New Qualification<br>for Rank "+data.properties.id+", "+data.properties.title;
                                     _populateReferencialSelect({_popupData:_popupData});
 
+                                    console.log(_popupData);
+
                                     $("#js-screen_mask").fadeIn(100, function(){
                                         _getTemplate("/templates/admin/plans/popups/_hierarchical_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                             _displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
@@ -758,12 +760,14 @@ jQuery(function($){
 
         function _populateReferencialSelect(_options){
             //locate any "select"'s and determine the dropdown display options needed for them
+            var _displayType = (_options._popupData.href.indexOf("bonus")>=0)?"Bonus":"Qualification";
             _options._popupData.fields.forEach(function(field){
                 //populate secondary selection options 
                 if(field.type === "select"){
                     field.displayOptions=[];
                     if(typeof field.options !== "undefined") delete field.options["_path"];
-                    if(field.name=="type") field.displayOptions.push({name:"Select a Qualification Type", value:"none"});
+
+                    if(field.name=="type") field.displayOptions.push({name:"Select a "+_displayType+" Type", value:"none"});
 
                     if(typeof field.reference !== "undefined"){
                         //query specific options

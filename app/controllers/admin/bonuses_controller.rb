@@ -4,7 +4,8 @@ module Admin
     before_action :fetch_bonus, only: [ :show, :update, :destroy ]
 
     def index
-      @bonuses = @bonus_plan.bonuses.order(:created_at)
+      @bonuses = @bonus_plan ? @bonus_plan.bonuses : Bonus.all
+      @bonuses.order(:created_at)
 
       render 'index'
     end
@@ -57,6 +58,7 @@ module Admin
     end
 
     def fetch_bonus_plan
+      return unless params[:bonus_plan_id]
       @bonus_plan = BonusPlan.find(params[:bonus_plan_id].to_i)
     end
 

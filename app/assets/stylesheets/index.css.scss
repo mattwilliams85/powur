@@ -40,7 +40,7 @@ body#landing {
 	// Box properties
 
 	// Background & borders
-
+	
 	// Typography
 
 	// Other
@@ -49,7 +49,6 @@ body#landing {
 		// Mixins
 		// Box properties
 		// Background & borders
-		border-bottom: 1px solid rgba(255, 255, 255, 0);
 		// Typography
 	
 		// Other
@@ -1381,4 +1380,565 @@ body#landing {
 	
 	}
 
+}
+
+
+
+/** media query **/
+.step_arrow{
+	display:block;
+	width:80px;
+	height:80px;
+	border:2px solid #fff;
+	position:absolute;
+	background:#dfe1e1;
+	top:150px;
+	border-radius: 50px;
+	font-size:32px;
+	color:#fff;
+	line-height: 80px;
+	cursor:pointer;}
+	.step_arrow:hover{
+		background:#ccc;
+	}
+
+	.step_arrow.left{
+		left:10%;}
+	.step_arrow.right{
+		right:10%;}
+	.step_container{
+		position: relative;
+}
+
+@media (max-width: 640px){
+		body#landing header li a{
+		background-color: transparent;
+	}
+	.step_arrow{
+		display:block;
+		width:60px;
+		height:60px;
+		border:2px solid #fff;
+		position:absolute;
+		background:#dfe1e1;
+		top:120px;
+		border-radius: 50px;
+		font-size:32px;
+		color:#fff;
+		line-height: 60px;
+	}
+	.step_arrow.left{
+		left:5%;
+	}
+	.step_arrow.right{
+		right:5%;
+	}
+	#index_banner{
+		background-image: url(/images/home/solar_panel_bg.jpg);
+		background-repeat:no-repeat;
+		background-color: #75b5d3;
+		clear: both;
+		text-align: center;
+		background-size: cover;
+		opacity:.8;
+		padding-bottom:5%;		
+	}
+	#index_banner h1{
+		font-size:24px;
+		line-height: 34px;
+	}
+
+	#index_banner_content{
+		margin-top:32%;}
+
+	.cta.js-cta_form{
+		width:300px;
+		position: relative;
+		overflow:hidden;
+	}
+	.invite_code.js-code,
+	.invite_code.js-code:focus{
+		width:250px;
+		display: block;
+		float:left;
+		border:3px solid #fff;
+		height:59px;
+		transition:all 0.3s linear;
+
+	}
+	.cta{
+		margin:auto;
+		margin-top:4%;
+	}
+
+	.cta.js-cta_form button.button{
+		background-color:#fff;
+		color:#333;
+		display:block;
+		position:absolute;
+		right:0;
+		top:0;
+		border:3px solid #fff;
+	}
+	.cta .button:hover{
+		background-color:#fff;
+		color:#333;
+		border:3px solid #fff;
+	}
+	h1.section_header{
+		border:0;
+		font-size:32px;
+		margin:auto;
+	}	
+	#story_of_sunstand{
+		padding:1px 0;
+		background-color: #90c4db;
+		color:#fff;
+		margin-top:0%;
+
+	}
+	p.large{
+		font-size:18px;
+		line-height: 34px;
+	}
+	p.medium{
+		font-size:18px;
+		line-height: 24px;
+
+	}		
+	#first_image{
+		background-image:url(/images/home/field_bg.jpg);
+		background-color:#dfe1e1;
+		background-position: top center;
+		background-size: cover;
+		border:0px;
+		padding-bottom:0px;
+		background-repeat:no-repeat;}
+
+		#first_image .goal{
+			font-size:100px;}
+
+		#first_image .our{
+			padding:0;
+			font-size:14px;}
+		#first_image .goal_badge{
+			width:50%;
+			margin:auto; 
+			margin-top:10%;
+		}	
+	footer{
+		background:#404241;
+	}
+	.play_video{
+		border-radius:5px; 
+		border:3px solid white; 
+		width:100px; 
+		height:auto; background:rgba(0,0,0,.1); 
+		text-align:center; 
+		margin:auto;padding:10px;
+		font-size:24px;
+		margin-top:30px;
+		cursor:pointer;
+	}
+	#sales_process{
+		background-color: #dfe1e1;
+		background-image:none;
+		padding-bottom:3%;
+		overflow: hidden;
+	}
+
+	#doing_good{
+		height:1400px;
+		background-image:url(/images/home/beach_bg.jpg);
+		background-position: 100% top;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}	
+
+	.circle{
+		background:url("/images/home/process/1through5.jpg");
+		background-size: 1500px auto;
+		background-position: left center;
+		transition:all 0.15s linear;
+		border:2px solid #fff;
+		width:300px; 
+		height:300px; 
+		border-radius:400px; 
+		margin:auto; 
+		overflow:hidden;
+	}
+
+	.explanation{
+		width:50%;
+		padding:20px;
+		background-color: #fff;
+		margin:auto;
+		margin-top:2%;
+		position: relative;
+	}
+
+	.pointer{
+		width:65px;
+		height: 54px;
+		background:url("/images/home/step_pointer.png");
+		background-repeat: no-repeat;
+		background-position: top left;
+		position:absolute;
+		top:-54px;
+		left:35%;
+	}
+
+
+
+	.play_video:hover{
+		height:auto; background:rgba(0,0,0,.3); 
+		transition:all 0.3s linear;
+	}
+	.step_container{
+		height: auto;
+	}	
+	#whats_in_it_for_you{
+		padding-top:40%; 
+	}
+}
+
+@media (min-width:640px) and (max-width: 1024px){
+	body#landing header li a{
+		background-color: transparent;
+	}
+	.step_arrow{
+		display:block;
+		width:60px;
+		height:60px;
+		border:2px solid #fff;
+		position:absolute;
+		background:#dfe1e1;
+		top:150px;
+		border-radius: 50px;
+		font-size:32px;
+		color:#fff;
+		line-height: 60px;
+	}
+
+	.step_arrow.left{
+		left:8%;
+	}
+	.step_arrow.right{
+		right:8%;
+	}
+	#index_banner{
+		background-image: url(/images/home/solar_panel_bg.jpg);
+		background-repeat:no-repeat;
+		background-color: #75b5d3;
+		clear: both;
+		text-align: center;
+		background-size: 100% auto;
+		opacity:.8;
+		padding-bottom:5%;
+	}
+
+	#index_banner_content{
+		margin-top:12%;}
+
+	.landing_banner h1{
+		font-size:24px;
+		line-height: 32px;
+	}
+
+	.invite_code.js-code,
+	.invite_code.js-code:focus{
+		border:3px solid #fff;
+		height:59px;
+		transition:all 0.3s linear;
+
+	}
+	.cta{
+		margin:auto;
+		margin-top:4%;
+	}
+
+	.cta .button{
+		background-color:#fff;
+		color:#333;
+		border:3px solid #fff;
+	}
+	.cta .button:hover{
+		background-color:#fff;
+		color:#333;
+		border:3px solid #fff;
+	}
+	h1.section_header{
+		border:0;
+		font-size:35px;
+		margin:auto;
+	}	
+	#story_of_sunstand{
+		padding:40px 0;
+		background-color: #90c4db;
+		color:#fff;
+
+	}
+	p.large{
+		font-size:24px;
+		line-height: 36px;
+	}
+	p.medium{
+		font-size:18px;
+		line-height: 24px;
+
+	}	
+	#first_image{
+		background-image:url(/images/home/field_bg.jpg);
+		background-color:#dfe1e1;
+		background-position: top center;
+		background-size: 100% auto;
+		border:0px;
+		padding-bottom:0px;
+		background-repeat:no-repeat;}
+
+		#first_image .goal{
+			font-size:120px;}
+
+		#first_image .our{
+			font-size:28px;}
+		#first_image .goal_badge{
+			width:45%;
+			margin:auto; 
+			margin-top:10%;
+		}	
+	footer{
+		background:#404241;
+	}
+
+	.play_video{
+		border-radius:5px; 
+		border:3px solid white; 
+		width:100px; 
+		height:auto; background:rgba(0,0,0,.1); 
+		text-align:center; 
+		margin:auto;padding:10px;
+		font-size:24px;
+		margin-top:30px;
+		cursor:pointer;
+	}
+	#sales_process{
+		background-color: #dfe1e1;
+		background-image:none;
+		padding-bottom:3%;
+		overflow: hidden;
+	}
+
+	#doing_good{
+		height:100vh;
+		background-image:url(/images/home/beach_bg.jpg);
+		background-position: 100% top;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}	
+
+	.circle{
+		background:url("/images/home/process/1through5.jpg");
+		background-size: 2000px auto;
+		background-position: left center;
+		transition:all 0.15s linear;
+		border:2px solid #fff;
+		width:400px; 
+		height:400px; 
+		border-radius:400px; 
+		margin:auto; 
+		overflow:hidden;
+	}
+
+	.explanation{
+		width:50%;
+		padding:20px;
+		background-color: #fff;
+		margin:auto;
+		margin-top:2%;
+		position: relative;
+	}
+
+	.pointer{
+		width:65px;
+		height: 54px;
+		background:url("/images/home/step_pointer.png");
+		background-repeat: no-repeat;
+		background-position: top left;
+		position:absolute;
+		top:-54px;
+		left:35%;
+	}
+
+
+	.play_video:hover{
+		height:auto; background:rgba(0,0,0,.3); 
+		transition:all 0.3s linear;
+	}
+	.step_container{
+		height: auto;
+	}	
+	#whats_in_it_for_you{
+		padding-top:24%; 
+	}	
+}
+
+@media all and (min-width:1024px){
+	body#landing header li a{
+		background-color: transparent;
+	}
+	#first_image .goal{
+		font-size:150px;
+	}
+
+	#index_banner{
+		background-image: url(/images/home/solar_panel_bg.jpg);
+		background-repeat:no-repeat;
+		background-color: #75b5d3;
+		clear: both;
+		text-align: center;
+		background-size: 100% auto;
+		opacity:.8;
+	}
+	#index_banner_content{
+		margin-top:19%;}
+
+	.landing_banner h1{
+		font-size:30px;
+		line-height: 35px;
+	}
+
+
+	#story_of_sunstand{
+		padding:40px 0;
+		background-color: #90c4db;
+		color:#fff;
+
+	}
+
+	#first_image{
+		background-image:url(/images/home/field_bg.jpg);
+		background-color:#dfe1e1;
+		background-position: top center;
+		background-size: 100% auto;
+		border:0px;
+		padding-bottom:0px;
+		background-repeat:no-repeat;}
+		#first_image .our{
+			font-size:30px;
+		}
+		#first_image .goal_badge{
+			width:40%;
+			margin:auto; 
+			margin-top:22%;
+		}	
+
+	#sales_process{
+		background-color: #dfe1e1;
+		background-image:none;
+		padding-bottom:3%;
+		overflow: hidden;
+	}
+
+	#doing_good{
+		height:100vh;
+		background-image:url(/images/home/beach_bg.jpg);
+		background-position: top center;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.invite_code.js-code,
+	.invite_code.js-code:focus{
+		border:3px solid #fff;
+		height:59px;
+		transition:all 0.3s linear;
+
+	}
+	.cta{
+		margin:auto;
+		margin-top:4%;
+	}
+	.cta .button{
+		background-color:#fff;
+		color:#333;
+		border:3px solid #fff;
+	}
+	.cta .button:hover{
+		background-color:#fff;
+		color:#333;
+		border:3px solid #fff;
+	}
+
+	h1.section_header{
+		border:0;
+		font-size:45px;
+		margin:auto;
+	}
+
+	footer{
+		background:#404241;
+	}
+
+	.play_video{
+		border-radius:5px; 
+		border:3px solid white; 
+		width:100px; 
+		height:auto; background:rgba(0,0,0,.1); 
+		text-align:center; 
+		margin:auto;padding:10px;
+		font-size:24px;
+		margin-top:30px;
+		cursor:pointer;
+	}
+	.circle{
+		background:url("/images/home/process/1through5.jpg");
+		background-size: 2000px auto;
+		background-position: left center;
+		transition:all 0.15s linear;
+		border:2px solid #fff;
+		width:400px; 
+		height:400px; 
+		border-radius:400px; 
+		margin:auto; 
+		overflow:hidden;
+	}
+
+	.explanation{
+		width:50%;
+		padding:20px;
+		background-color: #fff;
+		margin:auto;
+		margin-top:2%;
+		position: relative;
+	}
+
+	.pointer{
+		width:65px;
+		height: 54px;
+		background:url("/images/home/step_pointer.png");
+		background-repeat: no-repeat;
+		background-position: top left;
+		position:absolute;
+		top:-54px;
+		left:35%;
+	}
+
+
+	.play_video:hover{
+		height:auto; background:rgba(0,0,0,.3); 
+		transition:all 0.3s linear;
+	}
+	.step_container{
+		height: auto;
+	}
+	p.large{
+		font-size:28px;
+		line-height: 48px;
+	}
+	p.medium{
+		font-size:18px;
+	}
+	#whats_in_it_for_you{
+		padding-top:24%; 
+	}
 }

@@ -419,7 +419,7 @@ function _getTemplate(_path, _dataObj, _targetObj, _callback){
             });
         }
         if(!_results) _results=[];
-        
+        if(typeof _dataObj === "undefined") return;
         Object.keys(_dataObj).forEach(function(_dataKey){
             var breakException = {};
             try{
@@ -489,7 +489,8 @@ function _getTemplate(_path, _dataObj, _targetObj, _callback){
         for(i=0;i<_endPoints.length;i++){
             $.ajax({
                 type:"get",
-                url:_endPoints[i],
+                url:_endPoints[i].url,
+                data:_endPoints[i].data
             }).done(function(data, text){
                 _returnJSONs.push(data);
                 _loadingComplete = _loadingComplete+1;

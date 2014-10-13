@@ -1,20 +1,22 @@
 <table class="_table">
-
-
-    <tr>
+   <tr>
         <th>Order Date</th>
         <th>Distributor</th>
         <th>Customer</th>
         <th>Product</th>
         <th>Status</th>
+        <th>Actions</th>
     </tr>
     {{#each this.entities}}
     <tr data-quote-id="{{this.properties.id}}">
-        <td>{{this.properties.localDateString}}</td>
+        <td>{{localtime this.properties.order_date}}</td>
         <td>{{this.properties.distributor}}</td>
         <td>{{this.properties.customer}}</td>
         <td>{{this.properties.product}}</td>
         <td>{{this.properties.status}}</td>
+        <td>
+            <a href="#" class="js-order_details" data-detail-href="{{this.links.0.href}}">View Details</a>
+        </td>
 
     </tr>
     {{/each}}

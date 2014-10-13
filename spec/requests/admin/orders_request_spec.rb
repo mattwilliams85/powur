@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe '/a/orders' do
+describe 'order endpoints' do
 
   before :each do
     login_user
   end
 
-  describe 'GET /' do
+  describe 'GET /a/orders' do
 
     it 'pages orders' do
       create_list(:order, 5)
@@ -26,8 +26,8 @@ describe '/a/orders' do
       create(:order, user: user)
       create(:order, customer: customer)
 
-      3.times.each do |i|
-        user = create(:user, first_name: 'Alice', last_name: 'Smith', email: "foo#{i}@bar.com")
+      3.times.each do
+        user = create(:search_miss_user)
         create(:order, user: user)
       end
 
@@ -37,7 +37,7 @@ describe '/a/orders' do
     end
 
     it 'sorts and pages orders' do
-      users = [ 'aaa', 'ddd', 'bbb', 'ggg', 'ccc' ].map do |last_name|
+      users = %w(aaa ddd bbb ggg ccc).map do |last_name|
         user = create(:user, last_name: last_name)
         create(:order, user: user)
         user
@@ -46,50 +46,50 @@ describe '/a/orders' do
       get orders_path, format: :json, sort: 'user', limit: 3, page: 2
 
       result = json_body['entities'].map { |e| e['properties']['distributor'] }
-      expected = [ 'ddd', 'ggg' ].map { |name| users.find { |u| u.last_name == name }.full_name }
-      
+      expected = %w(ddd ggg).map do |name|
+        users.find { |u| u.last_name == name }.full_name
+      end
+
       expect(result).to eq(expected)
     end
 
   end
 
-  describe 'POST /' do
-
+  describe 'POST /a/orders' do
     it 'creates an order from a quote' do
       quote = create(:quote)
 
-      post orders_path, quote_id: quote.id, order_date: '2014-07-27T22:11:14.599Z', format: :json
+      post orders_path,
+           quote_id:   quote.id,
+           order_date: '2014-07-27T22:11:14.599Z',
+           format:     :json
 
       expect_classes 'order'
     end
 
-    it 'does not allow an order to be created when one already exists for a quote' do
+    it 'does not allow an order to be if when one already exists for a quote' do
       order = create(:order)
 
       post orders_path, quote_id: order.quote_id, format: :json
 
       expect_alert_error
     end
-
   end
 
-  describe '/:id' do
-
+  describe 'GET /a/orders/:id' do
     it 'includes the related entities' do
       order = create(:order)
+      create(:bonus_payment_order, order: order)
 
       get order_path(order), format: :json
-
-      %w(product user customer).each do |klass|
+      %w(product user customer bonus_payments).each do |klass|
         result = json_body['entities'].find { |e| e['class'].include?(klass) }
         expect(result).to be
       end
     end
-
   end
 
   describe 'GET /users/:id/orders' do
-
     it 'renders orders for a user' do
       create(:order, user: @user)
       user = create(:user)
@@ -99,6 +99,18 @@ describe '/a/orders' do
 
       expect_entities_count(3)
     end
+  end
+
+  describe 'GET /a/pay_periods/:id/orders' do
+    it 'renders orders for a pay_period' do
+      pay_period = create(:monthly_pay_period)
+      create_list(:order, 3, order_date: pay_period.start_date + 1.day)
+
+      get pay_period_orders_path(pay_period), format: :json
+
+      expect_entities_count(3)
+    end
+
   end
 
 end

@@ -1,5 +1,5 @@
-<table class="_table _spreadSheet">
     {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
     <tr>
         <td colspan="5" style="text-align:center; padding-bottom:32px;">
             {{#each this.paginationInfo.display}}
@@ -8,27 +8,55 @@
                     <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
                 {{else}}
                     {{this.display}}
-
                 {{/if}}
             </div>
             {{/each}}
 
         </td>
     </tr>
-    {{/if}}    
+</table>
+    {{/if}}  
+
+    {{#if this.properties.totals}}
+<table class="_table _spreadSheet">
     <tr>
-        <th colspan="2" style="width:20%">Dates</th>
-        <th colspan="2" style="width:30%">Bonus Info</th>
+        <td colspan="5" style="background:#eee;padding:10px;">
+            <span >Overview Metrics</span><br>
+            {{#each this.properties.totals}}
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">{{this.title}}</span>
+                {{{this.value}}}
+            </div>
+            {{/each}}
+        </td>
     </tr>
+</table>
+    {{/if}}  
+<table class="_table _spreadSheet">
+    <tr>
+        <td width="25%" style="vertical-align:middle; padding-top:10px;" colspan="2">
+            <span style="display:block; float:left; margin-right:10px;">Pay Period</span>
+            <select name="pay_period" style="float:left;" id="js-pay_period_select">
+                <option>Select a Pay Period</option>
+                {{#each this.pay_period.entities}}
+                    {{#compare this.properties.id ../entities.0.properties.pay_period_id operator="=="}}
+                        <option value="{{this.properties.id}}" selected>{{this.properties.title}}</option>
+                    {{else}}
+                        {{#compare this.actions.0.name "recalculate" operator="=="}}
+                            <option value="{{this.properties.id}}">{{this.properties.title}}</option>
+                        {{else}}
+                        {{/compare}}
+                    {{/compare}}
+                {{/each}}
+            </select>
+        </td>
+
+        <td colspan="3" style="width:30%">Bonus Info</th>
+    </tr>
+    
     {{#each this.entities}}
     <tr>
-        <td>
-            <div class="innerCell">
-                <span class="label" style="text-transform:capitalize;">Timestamp</span>
-                {{{localtime this.properties.created_at}}}
-            </div>
-        </td>        
-        <td>
+        <td >
             <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Pay Period</span>
                 {{{this.properties.pay_period_id}}}
@@ -37,10 +65,24 @@
 
         <td>
             <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{{localtime this.properties.created_at}}}
+            </div>
+        </td>        
+
+        <td>
+            <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Name</span>
                 {{{this.properties.name}}}
             </div>
         </td>
+
+         <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Pay As Rank</span>
+                {{{this.properties.pay_as_rank}}}
+            </div>
+        </td>       
         <td>
             <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Amount</span>
@@ -51,8 +93,10 @@
 
     </tr>
     {{/each}}
+</table>
 
     {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
     <tr>
         <td colspan="5" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
             {{#each this.paginationInfo.display}}
@@ -68,8 +112,8 @@
 
         </td>
     </tr>
+</table>
     {{/if}}
 
-</table>
 
 

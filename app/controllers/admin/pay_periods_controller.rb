@@ -5,17 +5,27 @@ module Admin
 
     helper_method :can_calculate?
 
+    filter :calculated, scope_opts: { type: :boolean }
+
     def index
       respond_to do |format|
         format.html { render 'index' }
         format.json do
-          fetch_pay_periods
+          @pay_periods = apply_list_query_options(fetch_pay_periods)
           render 'index'
         end
       end
     end
 
     def show
+      product_totals = @pay_period.order_totals.product_totals
+      @totals = product_totals_hash(product_totals)
+      if @pay_period.calculated?
+        bonus_amount = @pay_period.bonus_payments.sum(:amount)
+        @totals << { id: :bonus, value: bonus_amount, type: :currency }
+      end
+
+      render 'show'
     end
 
     def calculate
@@ -38,7 +48,7 @@ module Admin
 
     def fetch_pay_periods
       PayPeriod.generate_missing
-      @pay_periods = PayPeriod.all.order(start_date: :desc).entries
+      @pay_periods = PayPeriod.order(start_date: :desc)
     end
 
     def fetch_pay_period

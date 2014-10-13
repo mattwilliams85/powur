@@ -1,11 +1,9 @@
 <table class="_table _spreadSheet">
-
-
     <tr>
         <th>Order Date</th>
         <th colspan="3">Order Info</th>
         <th>Status</th>
-
+        <th>Actions</th>
     </tr>
     {{#each this.entities}}
     <tr data-quote-id="{{this.properties.id}}">
@@ -34,6 +32,10 @@
             </div>
         </td>
         <td>{{this.properties.status}}</td>
+        <td>
+            <a href="#" class="js-order_details" data-detail-href="{{this.links.0.href}}">View Details</a>
+        </td>
+
     </tr>
     {{/each}}
 

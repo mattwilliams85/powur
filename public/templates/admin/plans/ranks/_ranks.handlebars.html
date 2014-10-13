@@ -30,7 +30,13 @@
     </tr>
     <tr  data-rank-id="{{this.properties.id}}" >
         <td colspan="4">
+            {{this.properties.titles}}
+            {{#if this.entities}}
             <a href="#" class="js-add_qualification button">+ Qualification</a>
+
+            {{else}}
+
+            {{/if}}
         </td>
     <tr>
     {{/each}}

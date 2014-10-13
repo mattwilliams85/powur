@@ -19,25 +19,25 @@ class User < ActiveRecord::Base
   has_many :order_totals
   has_many :rank_achievements
   has_many :bonus_payments
+  has_many :overrides, class_name: 'UserOverride'
 
   attr_accessor :remove_avatar
   attr_accessor :avatar_content_type, :avatar_file_name
 
-  has_attached_file :avatar, 
-  :path => ":rails_root/public/system/:class/:attachement/:id/:basename_:style.:extension",
-  :url => "/system/:class/:attachement/:id/:basename_:style.:extension",
-  :styles => {
-    :thumb    => ['100x100#',  :jpg, :quality => 70],
-    :preview  => ['480x480#',  :jpg, :quality => 70],
-    :large    => ['600>',      :jpg, :quality => 70],
-    :retina   => ['1200>',     :jpg, :quality => 30]
-  },
-  :convert_options => {
-    :thumb    => '-set colorspace sRGB -strip',
-    :preview  => '-set colorspace sRGB -strip',
-    :large    => '-set colorspace sRGB -strip',
-    :retina   => '-set colorspace sRGB -strip -sharpen 0x0.5'
-  }
+  has_attached_file :avatar,
+    path:   ':rails_root/public/system/:class/:attachement/:id/:basename_:style.:extension',
+    url:    '/system/:class/:attachement/:id/:basename_:style.:extension',
+    styles: {
+      thumb:   ['100x100#',  :jpg, :quality => 70],
+      preview: ['480x480#',  :jpg, :quality => 70],
+      large:   ['600>',      :jpg, :quality => 70],
+      retina:  ['1200>',     :jpg, :quality => 30]
+    },
+    convert_options: {
+      thumb:   '-set colorspace sRGB -strip',
+      preview: '-set colorspace sRGB -strip',
+      large:   '-set colorspace sRGB -strip',
+      retina:  '-set colorspace sRGB -strip -sharpen 0x0.5' }
 
   # Validate content type
   validates_attachment_content_type :avatar, :content_type => /\Aimage/
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   after_create :set_upline
   
-  scope :with_upline_at, ->(id, level){ 
+  scope :with_upline_at, ->(id, level) {
     where('upline[?] = ?', level, id).where('id != ?', id) }
   scope :at_level, ->(rank){ where('array_length(upline, 1) = ?', rank) }
   CHILD_COUNT_LIST = "
@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def level
-    self.upline.size
+    upline.size
   end
 
   def downline_users
@@ -99,11 +99,11 @@ class User < ActiveRecord::Base
   end
 
   def has_role?(role)
-    self.roles.include?(role.to_s)
+    roles.include?(role.to_s)
   end
 
   def parent_id
-    self.upline[-2]
+    upline[-2]
   end
 
   def has_parent?
@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
   end
 
   def parent_ids
-    self.upline[0..-2]
+    upline[0..-2]
   end
 
   def lifetime_achievements
@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
         FROM rank_achievements
         WHERE pay_period_id = ?
         GROUP BY user_id) ra
-      WHERE users.id = ra.user_id AND 
+      WHERE users.id = ra.user_id AND
         (ra.rank_id > users.lifetime_rank OR users.lifetime_rank IS NULL)"
 
     def update_lifetime_ranks(pay_period_id)

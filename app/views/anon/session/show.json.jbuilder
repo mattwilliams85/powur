@@ -3,15 +3,21 @@ siren json
 klass :session, :user
 
 json.properties do
-  json.(current_user, :id, :first_name, :last_name)
+  json.call(current_user, :id, :first_name, :last_name)
 end
 
-list = %w(auth/invites auth/users auth/quotes auth/profile)
-list << 'admin/users' if current_user.has_role?(:admin)
-entities *list
+entity_list = [
+  ref_entity(%w(list invites), 'user-invites', invites_path),
+  ref_entity(%w(list users), 'user-users', users_path),
+  ref_entity(%w(list quotes), 'user-quotes', user_quotes_path),
+  ref_entity(%w(user), 'user-profile', profile_path) ]
+if current_user.has_role?(:admin)
+  entity_list << ref_entity(%w(list users), 'admin-users', admin_users_path)
+end
 
-actions \
-  action(:logout, :delete, login_path)
+entities(*entity_list)
+
+actions action(:logout, :delete, login_path)
 
 link_list = [ link(:self, root_path), link(:index, dashboard_path) ]
 if current_user.has_role?(:admin)
@@ -25,4 +31,4 @@ if current_user.has_role?(:admin)
   link_list << link(:pay_periods, pay_periods_path)
 end
 
-links *link_list
+links(*link_list)

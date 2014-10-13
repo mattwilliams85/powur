@@ -2,6 +2,8 @@ var _data = {};
 
 jQuery(function($){
     $(document).ready(function(){
+        document.getElementById("intro").volume=0.0;
+
         _getRoot(function(){
             //populate form
             _data.action = _data.root.actions.filter(function(action){return action.name=="create";})[0];
@@ -17,6 +19,13 @@ jQuery(function($){
         });
     });
 
+    $(window).resize(function(){
+        var max_width=1225;
+        var current_width = (($(window).width()+15)>=max_width)? max_width:($(window).width()+15);
+
+    });
 });
+
+
 
 

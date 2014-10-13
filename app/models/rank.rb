@@ -1,5 +1,4 @@
 class Rank < ActiveRecord::Base
-
   has_many :qualifications, dependent: :destroy
   has_many :achieved_rank_bonuses, class_name: 'Bonus',
     foreign_key: :achieved_rank_id, dependent: :nullify
@@ -8,9 +7,10 @@ class Rank < ActiveRecord::Base
   has_many :min_upline_rank_bonuses, class_name: 'Bonus',
     foreign_key: :min_upline_rank_id, dependent: :nullify
 
-  default_scope ->(){ order(:id) }
-  scope :with_qualifications, ->(){
-    includes(:qualifications).references(:qualifications) }
+  default_scope -> { order(:id) }
+  scope :with_qualifications, lambda {
+    includes(:qualifications).references(:qualifications)
+  }
 
   validates_presence_of :title
 
@@ -23,19 +23,22 @@ class Rank < ActiveRecord::Base
   end
 
   def lifetime_path?(path)
-    !!((list = grouped_qualifications[path]) && list.all?(&:lifetime?))
+    list = grouped_qualifications[path]
+    !list.nil? && list.all?(&:lifetime?)
   end
 
   def monthly_path?(path)
-    !!((list = grouped_qualifications[path]) && list.any?(&:monthly?))
+    list = grouped_qualifications[path]
+    !list.nil? && list.any?(&:monthly?)
   end
 
   def weekly_path?(path)
-    !!((list = grouped_qualifications[path]) && list.any?(&:weekly?))
+    list = grouped_qualifications[path]
+    !list.nil? && list.any?(&:weekly?)
   end
 
   def grouped_qualifications
-    @grouped_qualifications ||= self.qualifications.group_by(&:path)
+    @grouped_qualifications ||= qualifications.group_by(&:path)
   end
 
   def qualification_paths
@@ -47,8 +50,8 @@ class Rank < ActiveRecord::Base
       if order_totals.product_id == qualification.product_id
         totals = order_totals
       else
-        totals = order_totals.pay_period.
-          find_order_total!(order_totals.user_id, qualification.product_id)
+        totals = order_totals.pay_period
+          .find_order_total!(order_totals.user_id, qualification.product_id)
       end
       qualification.met?(totals)
     end
@@ -57,12 +60,13 @@ class Rank < ActiveRecord::Base
   private
 
   def _time_period_path?(period, path)
-    !!((list = grouped_qualifications[path]) && list.all?(&period))
+    list = grouped_qualifications[path]
+    !list.nil? && list.all?(&period)
   end
 
   class << self
     def rank_range
-      return nil unless Rank.count > 0 
+      return nil unless Rank.count > 0
       (Rank.order(:id).first.id..Rank.order(:id).last.id)
     end
 
@@ -74,5 +78,4 @@ class Rank < ActiveRecord::Base
       retry
     end
   end
-
 end

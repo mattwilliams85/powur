@@ -14,4 +14,4 @@ links \
   link(:orders, user_orders_path(user)),
   link(:order_totals, user_order_totals_path(user)),
   link(:rank_achievements, user_rank_achievements_path(user)),
-  link(:profile, profile_path())
+  link(:profile, profile_path)

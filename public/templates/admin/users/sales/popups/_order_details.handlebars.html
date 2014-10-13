@@ -1,0 +1,166 @@
+<div id="js-popup">
+    <legend style="color:#333; text-transform:uppercase; font-size:18px;">{{{this.title}}}</legend>
+    <span class="subtext summary js-popup_content_container" >
+        <hr style="border:0; border-bottom:1px dashed #ccc;">
+        <table class="_table _spreadSheet">
+            <tr>
+                <td colspan="2">
+                    <h2 style="margin-bottom:0;">SUMMARY</h2>
+                    {{#each this.properties}}
+                        {{#compare @key "_path" operator="=="}}
+                        {{else}}
+
+                        {{#compare @key "order_date" operator="=="}}
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">{{sanitize @key}}</span>
+                            {{localtime this}}
+                        </div>
+
+                        {{else}}
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">{{sanitize @key}}</span>
+                            {{{this}}}
+                        </div>
+                        {{/compare}}
+                        {{/compare}}
+                    {{/each}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+
+                </td>
+            <tr>
+            <tr>
+                <td colspan="2" style="padding-top:30px;">
+                    <h2 style="margin-bottom:0;">DISTRIBUTOR DETAILS</h2>
+                    {{#each this.userInfo.properties}}
+                        {{#compare @key "_path" operator="=="}}
+                        {{else}}
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">{{sanitize @key}}</span>
+                            {{{this}}}
+                        </div>
+                        {{/compare}}
+                    {{/each}}
+
+                    {{#if this.uplineInfo}}
+
+                    <br style="clear:both">
+                    <h2 style="margin-bottom:0;">DISTRIBUTOR UPLINES</h2>
+                    <table class="_table _spreadSheet">
+                    {{#each this.uplineInfo.entities}}
+                    <tr style="border-bottom:0">
+                        <td>
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">Level</span>
+                            {{this.properties.level}}
+                        </div>
+                        <div class="innerCell" style="width:150px;">
+                            <span class="label" style="text-transform:capitalize;">Name</span>
+                            {{this.properties.first_name}} {{this.properties.last_name}}
+                        </div>
+                        <div class="innerCell" style="width:250px;">
+                            <span class="label" style="text-transform:capitalize;">email</span>
+                            {{this.properties.email}}
+                        </div>
+                        <div class="innerCell" style="width:250px;">
+                            <span class="label" style="text-transform:capitalize;">phone</span>
+                            {{this.properties.phone}}
+                        </div>
+
+                        </td>
+                    </tr>
+
+                    {{/each}}
+                    </table>
+                    {{/if}}
+                </td>
+            </tr>
+
+             {{#if this.bonusInfo}}
+             <tr>
+                <td colspan="2">
+                    <br>
+                <h2 style="margin-bottom:0;">BONUS PAYMENTS</h2>
+                    <table class="_table _spreadSheet">
+                    {{#each this.bonusInfo.entities}}
+                    <tr style="border-bottom:0">
+                        <td>
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">Date</span>
+                            {{localtime this.properties.created_at}}
+                        </div>
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">Pay As Rank</span>
+                            {{this.properties.pay_as_rank}} 
+                        </div>
+                        <div class="innerCell" style="width:100px;">
+                            <span class="label" style="text-transform:capitalize;">Type</span>
+                            {{this.properties.name}}
+                        </div>
+
+                        <div class="innerCell" style="width:100px;">
+                            <span class="label" style="text-transform:capitalize;">Amount</span>
+                            {{this.properties.amount}}
+                        </div>
+                        <div class="innerCell" style="width:300px;">
+                            <span class="label" style="text-transform:capitalize;">Payee</span>
+                            {{this.properties.user}}
+                        </div>
+
+                        </td>
+                    </tr>
+
+                    {{/each}}
+                    </table>
+                </td>
+            </tr>
+            {{/if}}
+
+            <tr>
+              <td style="padding-top:30px;">
+                    <h2 style="margin-bottom:0;">PRODUCT DETAILS</h2>
+                    {{#each this.productInfo.properties}}
+                        {{#compare @key "_path" operator="=="}}
+                        {{else}}
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">{{sanitize @key}}</span>
+                            {{{this}}}
+                        </div>
+                        {{/compare}}
+                    {{/each}}
+                </td>                
+              <td style="padding-top:30px;">
+                    <h2 style="margin-bottom:0;">CUSTOMER DETAILS</h2>
+                    {{#each this.customerInfo.properties}}
+                        {{#compare @key "_path" operator="=="}}
+                        {{else}}
+                        <div class="innerCell">
+                            <span class="label" style="text-transform:capitalize;">{{sanitize @key}}</span>
+                            {{{this}}}
+                        </div>
+                        {{/compare}}
+                    {{/each}}
+                </td>
+
+            </tr>
+
+
+        </table>
+
+        <hr style="border:0; border-bottom:1px dashed #ccc;">
+
+        <form id="js-popup_form">
+            {{#each this.fields}}
+                <input name="{{this.name}}" type="hidden" value="{{this.value}}">
+            {{/each}}
+
+            {{#compare this.name "create_order" operator="=="}}
+                <button class="js-popup_form_button button">Create Order</button>
+            {{/compare}}
+        </form>
+    <span>
+</div>
+
+

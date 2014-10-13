@@ -16,18 +16,32 @@ describe '/a/pay_periods' do
       expect_entities_count(5)
     end
 
+    it 'filters by calculated' do
+      create(:weekly_pay_period, calculated_at: nil)
+      pay_period = create(:monthly_pay_period)
+
+      get pay_periods_path, calculated: 'true', format: :json
+
+      expect_entities_count(1)
+      result = json_body['entities'].first
+      expect(result['properties']['id']).to eq(pay_period.id)
+    end
+
   end
 
   describe 'GET /:id' do
 
     it 'returns the details of the pay period' do
       order = create(:order, order_date: Date.current - 1.month)
-
       order.monthly_pay_period.touch :calculated_at
-      get pay_period_path(order.monthly_pay_period.id), format: :json
+      pay_period = order.monthly_pay_period
+      create_list(:order_total, 3, pay_period: pay_period)
+      create_list(:bonus_payment, 3, pay_period: pay_period)
 
+      get pay_period_path(pay_period), format: :json
+
+      expect(json_body['properties']['totals']).to_not be_nil
       expect_entities 'pay_period-order_totals', 'pay_period-rank_achievements'
-
     end
 
   end

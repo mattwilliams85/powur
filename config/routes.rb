@@ -19,19 +19,20 @@ Rails.application.routes.draw do
 
   # quote routes
   resource :quote, only: [ :show, :create, :update ] do
-    post  :resend
-    get   ':sponsor'         => 'quotes#new', as: :sponsor
-    get   ':sponsor/:quote'  => 'quotes#show', as: :customer
+    post :resend
+    get ':sponsor' => 'quotes#new', as: :sponsor
+    get ':sponsor/:quote' => 'quotes#show', as: :customer
   end
-
 
   # logged in user routes
   scope :u, module: :auth do
     resource :dashboard, only: [ :show ], controller: :dashboard
 
-    resource :profile, only: [ :show, :update, :password_reset ], controller: :profile do
-      post 'update_password', to: "profile#update_password"
-      patch 'update_avatar', to: "profile#update_avatar"
+    resource :profile,
+             only:       [ :show, :update, :password_reset ],
+             controller: :profile do
+      post 'update_password', to: 'profile#update_password'
+      patch 'update_avatar', to: 'profile#update_avatar'
     end
 
     resources :invites, only: [ :index, :create, :destroy ] do
@@ -53,12 +54,14 @@ Rails.application.routes.draw do
         get :upline
       end
 
-      resources :rank_achievements, only: [ :index ], controller: :user_rank_achievements
-
+      resources :rank_achievements,
+                only:       [ :index ],
+                controller: :user_rank_achievements
     end
 
-
-    resources :quotes, only: [ :index, :create, :destroy, :update, :show ], as: :user_quotes do
+    resources :quotes,
+              only: [ :index, :create, :destroy, :update, :show ],
+              as:   :user_quotes do
       collection do
         get '' => 'quotes#search', constraints: has_params(:search)
       end
@@ -79,31 +82,41 @@ Rails.application.routes.draw do
         get :downline
         get :upline
       end
+      resources :overrides, only: [ :index, :create ]
       resources :orders, only: [ :index ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
-      resources :rank_achievements, only: [ :index ], controller: :user_rank_achievements
-      resources :bonus_payments, only: [ :index ], controller: :user_bonus_payments
 
       resources :ewallet_sandbox, only: [ :index, :call ], controller: :ewallet_sandbox do
         collection do
           post 'call' => 'ewallet_sandbox', as: :call
         end
       end
+
+      resources :rank_achievements,
+                only:       [ :index ],
+                controller: :user_rank_achievements
+      resources :bonus_payments,
+                only:       [ :index ],
+                controller: :user_bonus_payments
+
     end
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
 
     resources :ranks, only: [ :index, :create, :update, :destroy, :show ] do
-      resources :qualifications, only: [ :create, :update, :destroy ], controller: :rank_qualifications
+      resources :qualifications,
+                only:       [ :create, :update, :destroy ],
+                controller: :rank_qualifications
     end
 
     resources :qualifications, only: [ :index, :create, :update, :destroy ]
 
-    resources :bonus_plans, only: [ :index, :create, :destroy, :update, :show ] do
+    resources :bonus_plans,
+              only: [ :index, :create, :destroy, :update, :show ] do
       resources :bonuses, only: [ :index, :create ], as: :bonuses
     end
 
-    resources :bonuses, only: [ :destroy, :update, :show ] do
+    resources :bonuses, only: [ :index, :destroy, :update, :show ] do
       resources :requirements, only: [ :create, :update, :destroy ]
       resources :bonus_levels, only: [ :create, :update, :destroy ], as: :levels
     end
@@ -114,18 +127,30 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :orders, only: [ :index, :create, :show ]
+    resources :orders, only: [ :index, :create, :show ] do
+      resources :bonus_payments,
+                only:       [ :index ],
+                controller: :order_bonus_payments
+    end
 
     resources :pay_periods, only: [ :index, :show ] do
       member do
         post :calculate
         post :recalculate
       end
-      resources :order_totals, only: [ :index ], controller: :pay_period_order_totals
-      resources :rank_achievements, only: [ :index ], controller: :pay_period_rank_achievements
-      resources :bonus_payments, only: [ :index ], controller: :pay_period_bonus_payments
+      resources :orders, only: [ :index ], controller: :pay_period_orders
+      resources :order_totals,
+                only:       [ :index ],
+                controller: :pay_period_order_totals
+      resources :rank_achievements,
+                only:       [ :index ],
+                controller: :pay_period_rank_achievements
+      resources :bonus_payments,
+                only:       [ :index ],
+                controller: :pay_period_bonus_payments
     end
 
+    resources :overrides, only: [ :index, :update, :destroy ]
   end
 
   resource :promoter, only: [ :new, :show ] do
@@ -133,7 +158,8 @@ Rails.application.routes.draw do
     get :thanks
   end
 
-  # These are just to fake the referral pages so the link doesn't break - safe to remove when the feature is implemented
+  # These are just to fake the referral pages so the link doesn't break
+  # safe to remove when the feature is implemented
   # get '/1234' => 'customer#index'
   # get '/4321' => 'promoter#index'
 

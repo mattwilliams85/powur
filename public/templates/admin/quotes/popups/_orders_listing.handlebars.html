@@ -1,0 +1,75 @@
+    {{#if this.properties.metrics}}
+<table class="_table _spreadSheet">
+    <tr>
+        <td colspan="5" style="background:#efefef;padding:10px;">
+            <span >Pay Period Metrics</span><br>
+            {{#each this.properties.metrics}}
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">{{this.title}}</span>
+                {{{this.value}}}
+            </div>
+            {{/each}}
+        </td>
+    </tr>
+<table>
+    {{/if}} 
+<br>    
+
+<table class="_table _spreadSheet">
+    <tr>
+        <th style="width:10%">Dates</th>
+        <th style="width:60%">Info</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+
+    {{#each this.entities}}
+    <tr data-quote-id="{{this.properties.id}}">
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{{localtime this.properties.order_date}}}
+            </div>
+        </td>
+        <td>
+            <div class="innerCell" style="width:150px;">
+                <span class="label" style="text-transform:capitalize;">Customer</span>
+                {{{this.properties.customer}}}
+            </div>
+
+            <div class="innerCell" style="width:250px;">
+                <span class="label" style="text-transform:capitalize;">Product Name</span>
+                {{{this.properties.product}}}
+            </div>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Quantity</span>
+                {{{this.properties.quantity}}}
+            </div>
+        </td>
+        <td>{{this.properties.status}}</td>
+        <td>
+            <a href="#" class="js-order_details" data-detail-href="{{this.links.0.href}}">View Details</a>
+        </td>
+
+    </tr>
+    {{/each}}
+
+    {{#if this.paginationInfo}}
+    <tr>
+        <td colspan="5" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">
+            {{#each this.paginationInfo.display}}
+            <div class="js-pagination">
+                {{#if this.link}}
+                    <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
+                {{else}}
+                    {{this.display}}
+
+                {{/if}}
+            </div>
+            {{/each}}
+
+        </td>
+    </tr>
+    {{/if}}
+</table>
+

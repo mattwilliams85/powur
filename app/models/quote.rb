@@ -1,9 +1,8 @@
 class Quote < ActiveRecord::Base
-
   belongs_to :product
   belongs_to :customer
   belongs_to :user
-  has_one    :order
+  has_one :order
 
   add_search :user, :customer, [ :user, :customer ]
 
@@ -15,7 +14,7 @@ class Quote < ActiveRecord::Base
   end
 
   def can_email?
-    self.customer.email && self.user_id && self.user.url_slug
+    customer.email && user_id && user.url_slug
   end
 
   def email_customer
@@ -23,23 +22,24 @@ class Quote < ActiveRecord::Base
   end
 
   def data_status
-    data = []
-    data << :phone if self.customer.phone
-    data << :email if self.customer.email
-    data << :address if self.customer.address && self.customer.city && self.customer.state && self.customer.zip
-    data << :utility if self.data['kwh']
-    data
+    value = []
+    value << 'phone' if customer.phone
+    value << 'email' if customer.email
+    if customer.address && customer.city && customer.state && customer.zip
+      value << 'address'
+    end
+    value << 'utility' if data['kwh']
+    value
   end
 
   def order?
-    !!self.order
+    !order.nil?
   end
 
   private
 
   def product_data
-    invalid_keys = self.data.keys.select { |key| !self.product.quote_data.include?(key) }
+    invalid_keys = data.keys.select { |key| !product.quote_data.include?(key) }
     errors.add(:data, :invalid_keys) if invalid_keys.size > 0
   end
-
 end

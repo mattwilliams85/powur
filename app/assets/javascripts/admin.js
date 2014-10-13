@@ -56,7 +56,7 @@ jQuery(function($){
             }
         }
 
-        function displayUsers(_tab, _callback){
+        function displayUsers(_tab, _options){
 
             switch(_tab){
                 case "#admin-users-init":
@@ -135,8 +135,15 @@ jQuery(function($){
                     _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href);
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href);
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href,
+                            data:{}
+                        });
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href,
+                            data:{}
+                        });
+
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "orders"]})[0]);
@@ -145,6 +152,44 @@ jQuery(function($){
                                 _entity.properties.localDateString = _d.toLocaleDateString();
                             });
                             _getTemplate("/templates/admin/users/sales/_orders.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
+                                $(".js-order_details").on("click", function(e){
+                                    e.preventDefault();
+                                    var _url=$(this).attr("data-detail-href");
+                                    _ajax({
+                                        _ajaxType:"get",
+                                        _url:_url,
+                                        _callback:function(data){
+                                            _popupData = data;
+                                            _popupData.title="Order Details";
+                                            _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
+                                            _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
+                                            _popupData.userInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["user"]})[0];
+                                            
+                                            var _endpoints=[];
+
+                                            if(typeof EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0]!=="undefined") _endpoints.push({
+                                                    url:EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["bonus_payments"]})[0].href,
+                                                    data:{}
+                                                })
+
+                                            if(typeof _getObjectsByCriteria(data, {"rel":"ancestors"}) !=="undefined" ) _endpoints.push({
+                                                    url:_getObjectsByCriteria(data, {"rel":"ancestors"})[0].href,
+                                                    data:{}
+                                                });
+                                            EyeCueLab.JSON.asynchronousLoader(_endpoints, function(_returnJSONs){
+                                                _popupData.uplineInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","users"]})[0];
+                                                _popupData.bonusInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","bonus_payments"]})[0];
+                                                $("#js-screen_mask").fadeIn(100, function(){
+                                                    _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                                        _displayPopup({_popupData:_popupData, _css:{width:800}});
+                                                        console.log(_popupData);
+                                                    });
+                                                });
+                                            });
+                                        }
+                                    });
+                                });
                             });      
                         });
                     });
@@ -158,12 +203,19 @@ jQuery(function($){
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(1)").addClass("js-active");
                         var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href);
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href);
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href,
+                            data:{}
+                        });
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "order_totals"]})[0].href,
+                            data:{}
+                        });
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0]);
                             _getTemplate("/templates/admin/users/sales/_order_totals.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
                             });      
                         });
                     });
@@ -176,11 +228,26 @@ jQuery(function($){
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(2)").addClass("js-active");
                         var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href);
+                        var _filtering_obj = (typeof _options === "undefined")?{}:_options._filtering_obj;
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "rank_achievements"]})[0].href,
+                            data:_filtering_obj
+                        });
+                        _endPoints.push({
+                            url:"/a/pay_periods",
+                            data:{}
+                        });
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
+                            _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
                             _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                                console.log(_displayData);
+                                $("#js-pay_period_select").on("change", function(e){
+                                    e.preventDefault();
+                                    if($(this).val()=="lifetime") displayUsers("#admin-users-sales-rank_achievements", {_filtering_obj:{}});
+                                    displayUsers("#admin-users-sales-rank_achievements", {_filtering_obj:{pay_period:$(this).val()}});
+                                })
                             });      
                         });
                     });
@@ -192,12 +259,27 @@ jQuery(function($){
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(3)").addClass("js-active");
                         var _endPoints =[];
-                        _endPoints.push(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "bonus_payments"]})[0].href);
+                        var _filtering_obj = (typeof _options === "undefined")?{}:_options._filtering_obj;
+                        _endPoints.push({
+                            url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "bonus_payments"]})[0].href,
+                            data:_filtering_obj
+                        });
+                        _endPoints.push({
+                            url:"/a/pay_periods",
+                            data:{}
+                        });
+
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0]);
+                            _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
                             _getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
+                                $("#js-pay_period_select").on("change", function(e){
+                                    e.preventDefault();
+                                    displayUsers("#admin-users-sales-bonus_payments", {_filtering_obj:{pay_period:$(this).val()}});
+                                })
+
                             });      
                         });
                     });
@@ -333,9 +415,19 @@ jQuery(function($){
         }
 
         function _displayPopup(_options){
-            console.log("show popup " + _options._popupData.href);
-            $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"150px", opacity:0});
-            $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
+
+            if(!_options._css) _options._css={};
+            if(!_options._css.width) _options._css.width=480;
+            if(!_options._css.maxHeight) _options._css.maxHeight = $(window).height()-400;
+            if(!_options._css.opacity) _options._css.opacity=0;
+            if(!_options._css.top) _options._css.top=150;
+            $("#js-popup").css("height","auto");
+            $("body").css("overflow", "hidden");
+
+            $("#js-popup").css({"left":(($(window).width()/2)-(_options._css.width/2))+"px","top":_options._css.top+"px", opacity:_options._css.opacity});
+            $("#js-popup").css("width", _options._css.width+"px");
+            $("#js-popup").css("max-height", _options._css.maxHeight);
+            if($("#js-popup").css("opacity")==0) $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
             $(".js-popup_form_button").on("click", function(e){
                 e.preventDefault();
                 _ajax({
@@ -343,7 +435,6 @@ jQuery(function($){
                     _url:_options._popupData.href,
                     _postObj: $("#js-popup_form").serializeObject(),
                     _callback:function(data, text){
-                        console.log(_options._callback);
                         $("#js-screen_mask").click();
                         if(typeof _options._callback === "function") _options._callback();
                     }

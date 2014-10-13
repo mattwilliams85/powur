@@ -6,5 +6,10 @@ FactoryGirl.define do
     phone             { Faker::PhoneNumber.phone_number }
     address           { Faker::Address.street_address }
     zip               { Faker::Address.zip }
+
+    factory :search_miss_customer do
+      first_name 'xxx'
+      last_name 'xxx'
+    end
   end
 end

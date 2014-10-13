@@ -1,15 +1,15 @@
 class PayPeriod < ActiveRecord::Base
-
   has_many :order_totals, dependent: :destroy
   has_many :rank_achievements, dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
   has_many :bonus_payment_orders, through: :bonus_payments, dependent: :destroy
 
-  scope :next_to_calculate, ->(){
-    order(id: :asc).where('calculated_at is null').first }
+  scope :calculated, -> { where('calculated_at is not null') }
+  scope :next_to_calculate,
+        -> { order(id: :asc).where('calculated_at is null').first }
 
   before_create do
-    self.id ||= self.class.id_from(self.start_date)
+    self.id ||= self.class.id_from(start_date)
   end
 
   def title
@@ -17,17 +17,17 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def calculable?
-    Date.current > self.start_date
+    Date.current > start_date
   end
 
   def calculated?
-    !!self.calculated_at
+    !calculated_at.nil?
   end
 
   def calculate!
     reset_orders!
     process_orders!
-    self.touch :calculated_at
+    touch :calculated_at
   end
 
   def ranks
@@ -35,16 +35,16 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def orders
-    @orders ||= Order.by_pay_period(self).
-      includes(:user, :product).references(:user, :product).
-      order(order_date: :asc).entries
+    @orders ||= Order.by_pay_period(self)
+      .includes(:user, :product).references(:user, :product)
+      .order(order_date: :asc)
   end
 
   def reset_orders!
-    BonusPaymentOrder.delete_all_for_pay_period(self.id)
-    self.bonus_payments.delete_all
-    self.rank_achievements.delete_all
-    self.order_totals.delete_all
+    BonusPaymentOrder.delete_all_for_pay_period(id)
+    bonus_payments.delete_all
+    rank_achievements.delete_all
+    order_totals.delete_all
   end
 
   def process_order!(order)
@@ -65,10 +65,10 @@ class PayPeriod < ActiveRecord::Base
     totals =  find_order_total(order.user_id, order.product_id)
     if totals
       totals.update_columns(
-        personal:           totals.personal + order.quantity,
-        group:              totals.group + order.quantity,
-        personal_lifetime:  totals.personal_lifetime + order.quantity,
-        group_lifetime:     totals.group_lifetime + order.quantity)
+        personal:          totals.personal + order.quantity,
+        group:             totals.group + order.quantity,
+        personal_lifetime: totals.personal_lifetime + order.quantity,
+        group_lifetime:    totals.group_lifetime + order.quantity)
     else
       totals = new_order_total(order)
     end
@@ -108,15 +108,16 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def child_totals_for(user_id, product_id)
-    child_ids = direct_downline_users.select { |u| u.parent_id == user_id }.map(&:id)
+    child_ids = direct_downline_users
+      .select { |u| u.parent_id == user_id }.map(&:id)
     return [] if child_ids.empty?
 
-    child_totals = self.order_totals.select do |t|
+    child_totals = order_totals.select do |t|
       t.product_id == product_id && child_ids.include?(t.user_id)
     end
 
     missing = child_ids - child_totals.map(&:user_id)
-    child_totals += missing.map do |id|
+    child_totals + missing.map do |id|
       create_order_total(id, product_id)
     end
   end
@@ -128,12 +129,13 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def find_order_total!(user_id, product_id)
-    find_order_total(user_id, product_id) || create_order_total(user_id, product_id)
+    find_order_total(user_id, product_id) ||
+      create_order_total(user_id, product_id)
   end
 
   def find_pay_as_rank(user)
-    user.pay_period_rank ||= rank_achievements.
-      select { |a| a.user_id == user.id }.map(&:rank_id).max
+    user.pay_period_rank ||= rank_achievements
+      .select { |a| a.user_id == user.id }.map(&:rank_id).max
     user.pay_as_rank
   end
 
@@ -149,7 +151,7 @@ class PayPeriod < ActiveRecord::Base
     upline = user.parent_ids.map do |id|
       upline_users.find { |u| u.id == id }
     end
-    upline.select { |u| user_active?(u) }.reverse
+    upline.select { |u| user_active?(u.id) }.reverse
   end
 
   private
@@ -163,24 +165,26 @@ class PayPeriod < ActiveRecord::Base
       parent_ids = users_with_orders.map(&:parent_ids).flatten.uniq
       parents = users_with_orders.select { |u| parent_ids.include?(u.id) }
       missing_ids = parent_ids - parents.map(&:id)
-      parents + User.select(:id, :upline, :lifetime_rank, :organic_rank).
-        where(id: missing_ids).entries
+      parents + User.select(:id, :upline, :lifetime_rank, :organic_rank)
+        .where(id: missing_ids).entries
     end
   end
 
   def all_user_ids
-    @all_user_ids ||= (users_with_orders.map(&:id) + upline_users.map(&:id)).uniq
+    @all_user_ids ||=
+      (users_with_orders.map(&:id) + upline_users.map(&:id)).uniq
   end
 
   def direct_downline_users
     @direct_downline_users ||= begin
-      User.select(:id, :upline, :lifetime_rank, :organic_rank).
-        with_parent(*all_user_ids).entries
+      User.select(:id, :upline, :lifetime_rank, :organic_rank)
+        .with_parent(*all_user_ids).entries
     end
   end
 
   def lifetime_rank_achievements
-    @lifetime_rank_achievements ||= RankAchievement.lifetime.where(user_id: all_user_ids).entries
+    @lifetime_rank_achievements ||=
+      RankAchievement.lifetime.where(user_id: all_user_ids).entries
   end
 
   def highest_rank(user_id, path, *lists)
@@ -237,7 +241,7 @@ class PayPeriod < ActiveRecord::Base
           user_id:     user.id,
           rank_id:     rank.id,
           path:        path }
-        achievement = self.rank_achievements.create!(attrs)
+        achievement = rank_achievements.create!(attrs)
         if user.lifetime_rank < achievement.rank_id
           user.update_column(:lifetime_rank, achievement.rank_id)
         end
@@ -326,7 +330,8 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def user_qualified_active?(user_id)
-    active_qualifications.empty? || active_qualifications.any? do |path, qualifications|
+    return true if active_qualifications.empty?
+    active_qualifications.any? do |_path, qualifications|
       qualifications.all? do |qualification|
         totals = find_order_total!(user_id, qualification.product_id)
         qualification.met?(totals)
@@ -357,6 +362,10 @@ class PayPeriod < ActiveRecord::Base
       klass = id.include?('W') ? WeeklyPayPeriod : MonthlyPayPeriod
       klass.find_or_create_by_id(id)
     end
-  end
 
+    def last_id
+      most_recent = calculated.order(start_date: :desc).first
+      most_recent && most_recent.id
+    end
+  end
 end

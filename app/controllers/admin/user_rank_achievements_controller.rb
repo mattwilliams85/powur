@@ -4,8 +4,10 @@ module Admin
 
     page
     sort achieved_at: { achieved_at: :asc }
-    filter :pay_period, url: -> { pay_periods_path },
-           required: true, name: :title
+    filter :pay_period,
+           url:     -> { pay_periods_path(calculated: true) },
+           name:    :title,
+           heading: 'lifetime'
 
     private
 
@@ -13,6 +15,9 @@ module Admin
       user = User.find(params[:admin_user_id].to_i)
 
       @rank_achievements = user.rank_achievements
+      if params[:pay_period].nil?
+        @rank_achievements = @rank_achievements.lifetime
+      end
       @rank_achievements_path = admin_user_rank_achievements_path(user)
     end
   end

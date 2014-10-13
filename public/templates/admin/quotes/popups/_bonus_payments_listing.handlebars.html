@@ -1,7 +1,6 @@
 
-<br><Br><br>
-<table class="_table _spreadSheet">
     {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
     <tr>
         <td colspan="5" style="text-align:center; padding-bottom:32px;">
             {{#each this.paginationInfo.display}}
@@ -17,7 +16,41 @@
 
         </td>
     </tr>
-    {{/if}}    
+</table>
+    {{/if}}
+
+    {{#if this.properties.metrics}}
+<table class="_table _spreadSheet">
+    <tr>
+        <td colspan="5" style="background:#efefef;padding:10px;">
+            <span >Pay Period Metrics</span><br>
+            {{#each this.properties.metrics}}
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">{{this.title}}</span>
+                {{{this.value}}}
+            </div>
+            {{/each}}
+        </td>
+    </tr>
+<table>
+    {{/if}} 
+
+<br>    
+
+{{#if this.properties.sorting}}
+<div style="text-align:left;">
+<span style="display:block; float:left; padding-right:16px; font-size:18px;">SORT BY:</span>
+<select name="sorting">
+    {{#each this.properties.sorting.sorts}}
+
+        <option value="{{this}}">{{sanitize this}}</option>
+    {{/each}}
+</select>
+</div>
+{{/if}}
+
+<table class="_table _spreadSheet">
+
     <tr>
         <th colspan="2" style="width:20%">Dates</th>
         <th colspan="3" style="width:30%">Bonus Info</th>
@@ -59,8 +92,10 @@
 
     </tr>
     {{/each}}
+</table>
 
     {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
     <tr>
         <td colspan="5" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
             {{#each this.paginationInfo.display}}
@@ -76,8 +111,8 @@
 
         </td>
     </tr>
+</table>
     {{/if}}
 
-</table>
 
 

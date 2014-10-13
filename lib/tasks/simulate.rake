@@ -86,7 +86,7 @@ namespace :sunstand do
       Customer.destroy_all
 
       user_count = User.count
-      args.with_defaults(per_user: 20, months_back: 6)
+      args.with_defaults(per_user: 10, months_back: 3)
 
       start_date = (DateTime.current - args[:months_back].months).beginning_of_month
       end_date = DateTime.current

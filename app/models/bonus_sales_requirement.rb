@@ -1,5 +1,4 @@
 class BonusSalesRequirement < ActiveRecord::Base
-
   self.primary_keys = :bonus_id, :product_id
 
   belongs_to :bonus
