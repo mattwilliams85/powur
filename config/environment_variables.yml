@@ -1,0 +1,32 @@
+development:
+  # iPayout eWallet web services
+  IPAYOUT_API_ENDPOINT: https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx
+  IPAYOUT_MERCHANT_GUID: a4739056-7db6-40f3-9618-f2bcccbf70cc
+  IPAYOUT_MERCHANT_PASSWORD: 9xXLvA66hi
+
+  # AMAZON S3
+  ACCESS_KEY_ID: AKIAIP4IQ77YPIRW5EWA
+  SECRET_ACCESS_KEY: 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
+  BUCKET: sunstand-dev
+
+test:
+  # iPayout eWallet web services
+  IPAYOUT_API_ENDPOINT: https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx
+  IPAYOUT_MERCHANT_GUID: a4739056-7db6-40f3-9618-f2bcccbf70cc
+  IPAYOUT_MERCHANT_PASSWORD: 9xXLvA66hi
+
+  # AMAZON S3
+  ACCESS_KEY_ID: AKIAIP4IQ77YPIRW5EWA
+  SECRET_ACCESS_KEY: 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
+  BUCKET: sunstand-dev
+
+production:
+  # iPayout eWallet web services
+  IPAYOUT_API_ENDPOINT: https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx
+  IPAYOUT_MERCHANT_GUID: a4739056-7db6-40f3-9618-f2bcccbf70cc
+  IPAYOUT_MERCHANT_PASSWORD: 9xXLvA66hi
+
+  # AMAZON S3
+  ACCESS_KEY_ID: AKIAIP4IQ77YPIRW5EWA
+  SECRET_ACCESS_KEY: 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
+  BUCKET: sunstand-dev
