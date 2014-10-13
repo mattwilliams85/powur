@@ -7,7 +7,7 @@ describe '/u/users/:id/orders' do
   end
 
   describe 'GET /' do
-    
+
     it 'returns not found with an invalid user id' do
       get user_quote_path(42), format: :json
 

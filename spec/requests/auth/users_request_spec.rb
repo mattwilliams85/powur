@@ -16,7 +16,7 @@ describe '/u/users' do
       expect_200
 
       expect_classes('users', 'list')
-      expect(json_body['entities'].size).to   eq(8)
+      expect(json_body['entities'].size).to eq(8)
     end
 
   end
@@ -27,7 +27,8 @@ describe '/u/users' do
       user1 = create(:user, sponsor: @user, first_name: 'davey')
       user2 = create(:user, sponsor: @user, last_name: 'david')
       user3 = create(:user, sponsor: @user, email: 'redave@example.org')
-      create_list(:user, 2, sponsor: @user, first_name: 'Mary', last_name: 'Jones')
+      create_list(:user, 2, sponsor: @user, first_name: 'Mary',
+                  last_name: 'Jones')
 
       get users_path, search: 'dave', format: :json
 
@@ -66,25 +67,27 @@ describe '/u/users' do
 
       expect_200
 
-      found_child = json_body['entities'].find { |e| e['properties']['id'] == child.id }
+      found_child = json_body['entities']
+                    .find { |e| e['properties']['id'] == child.id }
       expect(found_child).to_not be_nil
       expect(found_child['properties']['downline_count']).to eq(2)
     end
   end
-
 
   describe '/u/users/:id/upline' do
     it 'returns the upline users' do
       grand_parent = create(:user, sponsor: @user, first_name: 'Pappy')
       parent = create(:user, sponsor: grand_parent, first_name: 'Parent')
       child = create(:user, sponsor: parent, first_name: 'Child')
-      
+
       get upline_user_path(child), format: :json
 
       expect_200
 
-      found_parent = json_body['entities'].find { |e| e['properties']['id'] == parent.id }
-      found_grand_parent = json_body['entities'].find { |e| e['properties']['id'] == grand_parent.id }
+      found_parent = json_body['entities']
+                    .find { |e| e['properties']['id'] == parent.id }
+      found_grand_parent = json_body['entities']
+                          .find { |e| e['properties']['id'] == grand_parent.id }
       expect(found_parent).to_not be_nil
       expect(found_grand_parent).to_not be_nil
       expect(json_body['entities'].count).to eq(3)

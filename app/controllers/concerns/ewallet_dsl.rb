@@ -9,7 +9,6 @@ module EwalletDSL
     service = client.get_service(service_name)
     options_hash   = assign_param_values(params, service.parameters)
     response = client.ewallet_request(options_hash)
-    puts "!!!!!!!RESPONSE FROM ewallet_request: "
     response
   end
 
@@ -23,12 +22,10 @@ module EwalletDSL
     api_params.each do |api_param_name, api_param_obj|
       api_param_name = api_param_obj.name
       if input_params.key? api_param_name
-        #puts 'SET KEY: ' + api_param_name + '=' + input_params[api_param_name]
         param_hash[api_param_name] = input_params[api_param_name]
       end
     end
     # check param_hash
-    #byebug
     param_hash
   end
 end

@@ -6,5 +6,4 @@ class AnonController < ApplicationController
       session[:code] = nil
     end
   end
-
 end

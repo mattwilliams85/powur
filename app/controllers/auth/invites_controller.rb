@@ -1,6 +1,5 @@
 module Auth
   class InvitesController < AuthController
-
     before_action :fetch_invite, only: [ :renew, :resend, :destroy ]
     skip_before_action :authenticate!, only: [ :show ]
 
@@ -24,9 +23,8 @@ module Auth
       end
 
       if (existing = User.find_by_email(input['email']))
-        msg = t('errors.existing_promoter', 
-          name:   existing.full_name, 
-          email:  existing.email)
+        msg = t('errors.existing_promoter',
+                name: existing.full_name, email:  existing.email)
         error!(msg, :email)
       end
 
@@ -64,5 +62,5 @@ module Auth
     def fetch_invite
       @invite = current_user.invites.find(params[:id])
     end
-  end  
+  end
 end
