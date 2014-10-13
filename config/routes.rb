@@ -33,7 +33,7 @@ Rails.application.routes.draw do
       post 'update_password', to: "profile#update_password"
       patch 'update_avatar', to: "profile#update_avatar"
     end
-    
+
     resources :invites, only: [ :index, :create, :destroy ] do
       member do
         post :resend
@@ -54,7 +54,7 @@ Rails.application.routes.draw do
       end
 
       resources :rank_achievements, only: [ :index ], controller: :user_rank_achievements
-      
+
     end
 
 
@@ -83,6 +83,12 @@ Rails.application.routes.draw do
       resources :order_totals, only: [ :index ], controller: :user_order_totals
       resources :rank_achievements, only: [ :index ], controller: :user_rank_achievements
       resources :bonus_payments, only: [ :index ], controller: :user_bonus_payments
+
+      resources :ewallet_sandbox, only: [ :index, :call ], controller: :ewallet_sandbox do
+        collection do
+          post 'call' => 'ewallet_sandbox', as: :call
+        end
+      end
     end
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
