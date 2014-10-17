@@ -4,7 +4,6 @@ module NameEmailSearch
   SEARCH = ':q % first_name or :q % last_name or email ilike :like'
 
   included do
-    scope :search, ->(query){ where(SEARCH, q: "#{query}", like: "%#{query}%") }
+    scope :search, ->(q) { where(SEARCH, q: "#{q}", like: "%#{q}%") }
   end
-
 end

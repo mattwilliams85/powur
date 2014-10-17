@@ -17,7 +17,7 @@ module UserInvites
   end
 
   def create_invite(params)
-    invite = self.invites.create!(params)
+    invite = invites.create!(params)
     send_invite(invite)
 
     invite
@@ -26,5 +26,4 @@ module UserInvites
   def send_invite(invite)
     PromoterMailer.invitation(invite).deliver
   end
-
 end

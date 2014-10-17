@@ -17,7 +17,7 @@ describe '/a' do
 
     describe 'PATCH' do
       it 'udpates the start and end date of an override' do
-        pay_period = create(:monthly_pay_period, at: Date.current - 3.months)
+        pay_period = create(:monthly_pay_period, at: 3.months.ago)
         override = create(:override)
         end_date = (Date.current + 1.month).to_s
         patch override_path(override),

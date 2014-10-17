@@ -50,9 +50,10 @@ describe User, type: :model do
     end
 
     it 'sets the upline users after create' do
-      expect(@root.upline).to eq([@root.id])
-      expect(@parent.upline).to eq([@root.id, @parent.id])
-      expect(@children.first.upline).to eq([@root.id, @parent.id, @children.first.id])
+      expect(@root.upline).to eq([ @root.id ])
+      expect(@parent.upline).to eq([ @root.id, @parent.id ])
+      expect(@children.first.upline)
+        .to eq([ @root.id, @parent.id, @children.first.id ])
     end
 
     it 'returns the upline users' do
