@@ -233,10 +233,10 @@ function Dashboard(){
 
 	//wire up search functionality in general
 	$(document).on("keyup", ".js-search_box", function(e){
-	    if(typeof _puaseDetection !=="undefined") window.clearTimeout(_puaseDetection);
+	    if(typeof _pauseDetection !=="undefined") window.clearTimeout(_pauseDetection);
 	    if($(e.target).val().length<3 && $(e.target).val().length>0) return;
 	    if($(e.target).val().length>=3 || $(e.target).val().length==0){
-	        _puaseDetection = window.setTimeout(function(){
+	        _pauseDetection = window.setTimeout(function(){
 	           _queryServer({_event:e, _callback:function(data){
 	           		_data.searchResults=[];
 	           		$.each(data.entities, function(key, val){

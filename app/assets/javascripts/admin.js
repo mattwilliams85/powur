@@ -92,16 +92,16 @@ jQuery(function($){
                             getGenealogy({
                                 _callback:function(){
                                     _data.currentUser.immediateUpline=_data.currentUser.upline[Object.keys(_data.currentUser.upline).length-1];
-                                    _getTemplate("/templates/admin/users/membership/_summary.handlebars.html", _data.currentUser, $(".js-admin_dashboard_column.summary"));
+                                    EyeCueLab.UX.getTemplate("/templates/admin/users/membership/_summary.handlebars.html", _data.currentUser, $(".js-admin_dashboard_column.summary"));
 
                                     //display main content information of the current user on the left nav
-                                    _getTemplate("/templates/admin/users/_detail_container.handlebars.html", _data.currentUser, $(".js-admin_dashboard_detail_container"), function(){
+                                    EyeCueLab.UX.getTemplate("/templates/admin/users/_detail_container.handlebars.html", _data.currentUser, $(".js-admin_dashboard_detail_container"), function(){
 
-                                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-membership]"));
+                                        SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-membership]"));
 
                                         //load editable form for the current user on the main pane 
                                         $(".js-admin_dashboard_detail").fadeOut(100, function(){
-                                            _getTemplate("/templates/admin/users/membership/_basic_info.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail"));
+                                            EyeCueLab.UX.getTemplate("/templates/admin/users/membership/_basic_info.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail"));
                                             $(".js-admin_dashboard_detail").fadeIn(300);
                                         });
                                     });
@@ -132,8 +132,8 @@ jQuery(function($){
 
                 case "#admin-users-sales":
                 case "#admin-users-sales-orders":
-                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
-                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         var _endPoints =[];
                         _endPoints.push({
                             url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "orders"]})[0].href,
@@ -151,7 +151,7 @@ jQuery(function($){
                                 _d = new Date(_entity.properties.order_date);
                                 _entity.properties.localDateString = _d.toLocaleDateString();
                             });
-                            _getTemplate("/templates/admin/users/sales/_orders.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_orders.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
                                 $(".js-order_details").on("click", function(e){
                                     e.preventDefault();
@@ -181,8 +181,8 @@ jQuery(function($){
                                                 _popupData.uplineInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","users"]})[0];
                                                 _popupData.bonusInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","bonus_payments"]})[0];
                                                 $("#js-screen_mask").fadeIn(100, function(){
-                                                    _getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                                        _displayPopup({_popupData:_popupData, _css:{width:800}});
+                                                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                                        SunStand.Admin.displayPopup({_popupData:_popupData, _css:{width:800}});
                                                         console.log(_popupData);
                                                     });
                                                 });
@@ -198,8 +198,8 @@ jQuery(function($){
 
 
                 case "#admin-users-sales-order_totals":
-                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
-                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(1)").addClass("js-active");
                         var _endPoints =[];
@@ -214,7 +214,7 @@ jQuery(function($){
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0]);
-                            _getTemplate("/templates/admin/users/sales/_order_totals.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_order_totals.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
                             });      
                         });
@@ -223,8 +223,8 @@ jQuery(function($){
                 break;
 
                 case "#admin-users-sales-rank_achievements":
-                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
-                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(2)").addClass("js-active");
                         var _endPoints =[];
@@ -241,7 +241,7 @@ jQuery(function($){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
                             _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
-                            _getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
                                 $("#js-pay_period_select").on("change", function(e){
                                     e.preventDefault();
@@ -254,8 +254,8 @@ jQuery(function($){
                 break;
 
                 case "#admin-users-sales-bonus_payments":
-                    _getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
-                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
+                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         $(".section_subnav a").removeClass("js-active");                        
                         $(".section_subnav a:eq(3)").addClass("js-active");
                         var _endPoints =[];
@@ -273,7 +273,7 @@ jQuery(function($){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0]);
                             _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
-                            _getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
                                 $("#js-pay_period_select").on("change", function(e){
                                     e.preventDefault();
@@ -287,12 +287,12 @@ jQuery(function($){
 
 
                 case "#admin-users-genealogy":
-                    _getTemplate("/templates/admin/users/genealogy/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
-                        _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-genealogy]"));
+                    EyeCueLab.UX.getTemplate("/templates/admin/users/genealogy/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                        SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-genealogy]"));
                         
                         //load user genealogy info
                         //upline links
-                        _getTemplate("/templates/admin/users/genealogy/_downline.handlebars.html",_data.currentUser.downline, $(".js-genealogy-summary_downline"), function(){
+                        EyeCueLab.UX.getTemplate("/templates/admin/users/genealogy/_downline.handlebars.html",_data.currentUser.downline, $(".js-genealogy-summary_downline"), function(){
                             $(".js-user_link").on("click", function(e){
                                 e.preventDefault();
                                 _dashboard.switchCurrentUser(e);
@@ -300,7 +300,7 @@ jQuery(function($){
                         });
 
                         //downline links
-                        _getTemplate("/templates/admin/users/genealogy/_upline.handlebars.html",_data.currentUser.upline, $(".js-genealogy-summary_upline"), function(){
+                        EyeCueLab.UX.getTemplate("/templates/admin/users/genealogy/_upline.handlebars.html",_data.currentUser.upline, $(".js-genealogy-summary_upline"), function(){
                             $(".js-user_link").on("click", function(e){
                                 e.preventDefault();
                                 _dashboard.switchCurrentUser(e);
@@ -391,11 +391,11 @@ jQuery(function($){
             _displayData.results = _results;
 
             $(".js-admin_dashboard_column.summary").animate({opacity:0});
-             _getTemplate("/templates/admin/users/search/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
-                _positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-search-results]"));
+             EyeCueLab.UX.getTemplate("/templates/admin/users/search/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+                SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-search-results]"));
             }); 
 
-            _getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
+            EyeCueLab.UX.getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                 $(".js-admin_dashboard_column.summary").css("display","none");
                 $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
                 $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
@@ -403,7 +403,7 @@ jQuery(function($){
 
             $(document).on("click", ".js-search_result", function(e){
                 e.preventDefault();
-                _getTemplate("/templates/admin/users/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"));
+                EyeCueLab.UX.getTemplate("/templates/admin/users/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"));
                 $(".js-admin_dashboard_column.summary").html("");
                 $(".js-admin_dashboard_column.detail").css({width:"960px", opacity:0});
                  $(".js-admin_dashboard_column.summary").css("display","block");
@@ -414,71 +414,6 @@ jQuery(function($){
 
         }
 
-        function _displayPopup(_options){
-
-            if(!_options._css) _options._css={};
-            if(!_options._css.width) _options._css.width=480;
-            if(!_options._css.maxHeight) _options._css.maxHeight = $(window).height()-400;
-            if(!_options._css.opacity) _options._css.opacity=0;
-            if(!_options._css.top) _options._css.top=150;
-            $("#js-popup").css("height","auto");
-            $("body").css("overflow", "hidden");
-
-            $("#js-popup").css({"left":(($(window).width()/2)-(_options._css.width/2))+"px","top":_options._css.top+"px", opacity:_options._css.opacity});
-            $("#js-popup").css("width", _options._css.width+"px");
-            $("#js-popup").css("max-height", _options._css.maxHeight);
-            if($("#js-popup").css("opacity")==0) $("#js-popup").animate({opacity:1, top:"+=30"}, 200);
-            $(".js-popup_form_button").on("click", function(e){
-                e.preventDefault();
-                _ajax({
-                    _ajaxType:_options._popupData.method,
-                    _url:_options._popupData.href,
-                    _postObj: $("#js-popup_form").serializeObject(),
-                    _callback:function(data, text){
-                        $("#js-screen_mask").click();
-                        if(typeof _options._callback === "function") _options._callback();
-                    }
-                });
-            });
-
-            if(_options._popupData.deleteOption){
-                $(".js-delete.js-delete_product").on("click", function(){
-                    _ajax({
-                        _ajaxType:"delete",
-                        _url:"/a/products/"+_data.currentProduct.properties.id,
-                        _callback:function(data, text){
-                            $("#js-screen_mask").click();
-                            if(typeof _options._callback === "function") _options._callback();
-                        }
-                    })
-                });
-            }
-        }
-
-
-        function _positionIndicator(_indicatorObj, _highlightObj){
-            if( _indicatorObj.position().left== (_highlightObj.position().left+(_highlightObj.width()/2)-10)) return;
-
-            _highlightObj.parent().find("a").removeClass("js-active");
-            _highlightObj.addClass("js-active");
-            _indicatorObj.css("left", (_highlightObj.position().left+(_highlightObj.width()/2)-10)+"px");
-            _indicatorObj.css("top", (_highlightObj.position().top+(_highlightObj.height() + 20 ))+"px");
-            _indicatorObj.animate({"top":"-=15", "opacity":1}, 300);
-        }
-
-
-
-
-        $(document).on("click", "#js-screen_mask", function(e){
-            if(!$(e.target).attr("id") || $(e.target).attr("id")!=="js-screen_mask") return;
-            $("#js-popup").animate({opacity:0, top:"-=50"},200, function(){
-                $("#js-screen_mask").fadeOut(100, function(){
-                    $("#js-popup").remove();
-                });                
-            });
-            return;
-
-        });        
 
         //wire up navigation 
         $(document).on("click", "nav.section_nav a, nav.section_subnav a", function(e){
@@ -504,11 +439,6 @@ jQuery(function($){
             }
         });
 
-
-        $(window).resize(function(){
-            $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"200px"});
-            //todo: recalculate x position for the indicators
-        })
 
         //* end admin adshboard specific utility functions
 
