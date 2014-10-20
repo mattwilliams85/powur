@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :pay_period do
     calculated_at { 1.day.ago }
 
-    ignore do
+    transient do
       at 1.month.ago
     end
 

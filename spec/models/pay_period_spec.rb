@@ -37,12 +37,6 @@ describe PayPeriod, type: :model do
     end
 
     it 'processes an enroller bonus' do
-      pending 'logic not finished'
-      # bonus = create(:enroller_sales_bonus)
-      # create(:bonus_requirement, bonus: bonus)
-      # create(:bonus_level, amounts: [ 0.0, 0.1 ])
-
-      # create(:order, product: bonus.source_product)
     end
 
   end
