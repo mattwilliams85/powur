@@ -1,20 +1,41 @@
-<table class="_table">
+<table class="_table _spreadSheet">
     <tr>
-        <th>Timestamp</th>
-        <th>Distributor</th>
-        <th>Customer</th>
-        <th>Product</th>
-        <th>Info Captured</th>
+        <th colspan="5">Quotes Info</th>
         <th>Action</th>
     </tr>
     {{#each this.entities}}
     <tr data-quote-id="{{this.properties.id}}">
-        <td>{{this.properties.localDateString}}</td>
-        <td>{{this.properties.user}}</td>
-        <td>{{this.properties.customer}}</td>
-        <td>{{this.properties.product}}</td>
-        <td style="text-transform:capitalize;">{{this.properties._dataStatusDisplay}}</td>
-        <td><a href="#" class="js-convert_quote_to_order">View Details</a></td>
+        <td>
+            <div class="innerCell" style="width:20%;">
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{localtime this.properties.created_at}}
+            </div>
+        </td>
+        <td>
+            <div class="innerCell" >
+                <span class="label" style="text-transform:capitalize;">Distributor</span>
+                {{this.properties.user}}
+            </div>
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Customer</span>
+                {{this.properties.customer}}
+             </div>           
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Product</span>
+                {{this.properties.product}}
+            </div>           
+        </td>
+        <td style="text-transform:capitalize;">
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Captured Info.</span>
+                {{this.properties._dataStatusDisplay}}
+            </div>           
+        </td>
+        <td><a href="#" class="js-convert_quote_to_order js-action">View Details</a></td>
     </tr>
     {{/each}}
 

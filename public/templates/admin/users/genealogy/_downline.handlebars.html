@@ -2,20 +2,18 @@
 <table class="genealogy_table downline">
     <tr>
         <th>Name</th>
-        <th>Rank</th>
+        <th>Level</th>
         <th>Email</th>
         <th>Phone</th>
-        <th>Sales Volume</th>
-        <th>Recruits</th>
+        <th style="text-align:center;">Recruits</th>
     </tr>
     {{#each this}}
 <tr>
     <td><a href="#{{this.id}}" class="js-user_link">{{this.first_name}} {{this.last_name}}</a></td>
-    <td></td>
+    <td>{{this.level}}</td>
     <td><a href="mailto:{{this.email}}">{{this.email}}</a></td>
     <td>{{this.phone}}</td>
-    <td></td>
-    <td>{{this.downline_count}}</td>
+    <td style="text-align:center;">{{this.downline_count}}</td>
 </tr>
     {{/each}}
 </table>

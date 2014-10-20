@@ -1,6 +1,5 @@
 module Errors
   class InputError < StandardError
-
     attr_reader :input
 
     def initialize(input)
@@ -8,7 +7,7 @@ module Errors
     end
 
     def as_json
-      { error: { type: :input, message: self.message, input: input } }
+      { error: { type: :input, message: message, input: input } }
     end
   end
 end
