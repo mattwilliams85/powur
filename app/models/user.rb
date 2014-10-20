@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :rank_achievements
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
+  has_many :user_activities
 
   attr_accessor :remove_avatar
   attr_accessor :avatar_content_type, :avatar_file_name
@@ -51,10 +52,10 @@ class User < ActiveRecord::Base
   #   :size => { :in => 0..10.megabytes },
   #   :content_type => { :content_type => /^image\/(jpeg|png|gif|tiff)$/ }
   before_save :delete_avatar, if: ->{ remove_avatar == '1' && !avatar_updated_at_changed? }
-   
+
 
   after_create :set_upline
-  
+
   scope :with_upline_at, ->(id, level) {
     where('upline[?] = ?', level, id).where('id != ?', id) }
   scope :at_level, ->(rank){ where('array_length(upline, 1) = ?', rank) }

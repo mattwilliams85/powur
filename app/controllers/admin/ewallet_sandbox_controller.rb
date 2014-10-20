@@ -8,7 +8,6 @@ module Admin
       @batch_id = Time.now.to_i
       respond_to do |format|
         format.html do
-
         end
         format.json do
 
