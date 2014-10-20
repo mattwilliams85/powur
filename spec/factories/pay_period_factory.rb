@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :pay_period do
-    calculated_at { Date.current - 1.day }
+    calculated_at { 1.day.ago }
 
     ignore do
-      at DateTime.current - 1.month
+      at 1.month.ago
     end
 
     factory :monthly_pay_period, class: 'MonthlyPayPeriod' do

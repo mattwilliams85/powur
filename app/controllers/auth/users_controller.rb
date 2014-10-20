@@ -1,9 +1,7 @@
 module Auth
-
   class UsersController < AuthController
-
     before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
-    
+
     def index
       respond_to do |format|
         format.html
@@ -32,7 +30,6 @@ module Auth
     end
 
     def show
-      
     end
 
     private
@@ -42,9 +39,7 @@ module Auth
     end
 
     def fetch_user
-      @user = User.find_by(id: params[:id]) or not_found!(:user)
+      @user = User.find_by(id: params[:id]) || not_found!(:user)
     end
-
   end
-
 end

@@ -6,7 +6,6 @@ describe 'order totals', type: :request do
     login_user
   end
 
-
   describe '/u/users/:id/order_totals' do
 
     before :each do

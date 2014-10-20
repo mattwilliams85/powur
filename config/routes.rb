@@ -85,12 +85,20 @@ Rails.application.routes.draw do
       resources :overrides, only: [ :index, :create ]
       resources :orders, only: [ :index ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
+
+      resources :ewallet_sandbox, only: [ :index, :call ], controller: :ewallet_sandbox do
+        collection do
+          post 'call' => 'ewallet_sandbox', as: :call
+        end
+      end
+
       resources :rank_achievements,
                 only:       [ :index ],
                 controller: :user_rank_achievements
       resources :bonus_payments,
                 only:       [ :index ],
                 controller: :user_bonus_payments
+
     end
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]

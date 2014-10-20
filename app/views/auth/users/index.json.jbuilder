@@ -4,10 +4,7 @@ klass :users, :list
 
 json.entities @users, partial: 'item', as: :user
 
-actions \
-  action(:index, :get, users_path).
-    field(:search, :search, required: false)
+actions action(:index, :get, users_path)
+  .field(:search, :search, required: false)
 
-links \
-  link(:self, users_path)
-  link(:self, profile_path)
+links link(:self, users_path), link(:self, profile_path)

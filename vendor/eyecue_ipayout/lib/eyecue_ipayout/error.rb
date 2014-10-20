@@ -8,7 +8,7 @@ module EyecueIpayout
     # @param [String] message
     # @param [Hash] http_headers
     # @return [EyecueIpayout::Error]
-    def initialize(message, http_headers={})
+    def initialize(message, http_headers = {})
       @http_headers = http_headers
       super message
     end
@@ -37,4 +37,3 @@ module EyecueIpayout
     end
   end
 end
-

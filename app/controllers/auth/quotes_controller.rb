@@ -1,7 +1,5 @@
 module Auth
-
   class QuotesController < AuthController
-
     before_action :fetch_quote, only: [ :show, :update, :destroy, :resend ]
 
     def index
@@ -11,10 +9,10 @@ module Auth
     end
 
     def search
-      @quotes = Quote.where(user_id: current_user.id).
-        includes(:customer, :user, :product).
-        references(:customer, :user, :product).
-        customer_search(params[:search])
+      @quotes = Quote.where(user_id: current_user.id)
+        .includes(:customer, :user, :product)
+        .references(:customer, :user, :product)
+        .customer_search(params[:search])
 
       render 'index'
     end
@@ -26,7 +24,7 @@ module Auth
     def create
       customer = Customer.create!(customer_input)
       @quote = Quote.create!(
-        product_id: product_id, 
+        product_id: product_id,
         customer:   customer,
         user:       current_user,
         data:       quote_input)
@@ -67,18 +65,18 @@ module Auth
 
     def customer_input
       allow_input(
-        :first_name, :last_name, :email, :phone, 
+        :first_name, :last_name, :email, :phone,
         :address, :city, :state, :zip)
     end
 
     def quote_input
       allow_input(
-        :utility, :rate_schedule, 
+        :utility, :rate_schedule,
         :kwh, :roof_material, :roof_age)
     end
 
     def fetch_quote
-      @quote = current_user.quotes.find_by(id: params[:id]) or 
+      @quote = current_user.quotes.find_by(id: params[:id]) ||
         not_found!(:quote)
     end
 
@@ -86,5 +84,4 @@ module Auth
       current_user.quotes.includes(:customer).order(created_at: :desc)
     end
   end
-
 end

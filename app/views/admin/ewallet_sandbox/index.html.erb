@@ -1,0 +1,145 @@
+<script type="text/javascript" charset="utf-8" async defer>
+$(function() {
+        function callService(service_name){
+
+            console.log("calling " + service_name + " service.....");
+            var username;
+            var email;
+            var merchantGUID = "a4739056-7db6-40f3-9618-f2bcccbf70cc";
+            var merchantPassword = "9xXLvA66hi";
+            var endpoint = "https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx";
+            if (service_name == 'register_user') {
+                username = $("#register_user_username").val();
+                email = $("#register_user_email").val();
+
+            }
+            else if(service_name == 'get_customer_details')
+            {
+                username = $("#customer_details_username").val();
+            }
+            else if(service_name == 'get_user_account_status')
+            {
+                username = $("#get_user_account_status_username").val();
+            }
+            else if(service_name == 'ewallet_load')
+            {
+                username = $("#ewallet_load_username").val();
+                var batch_id = $("#ewallet_load_batch_id").val();
+                var distribute_amount = $("#ewallet_load_distribute_amount").val();
+            }
+
+            var serviceJSON = [];
+            serviceJSON['register_user'] = {"api_method":"register_user","options_hash": {"fn":"eWallet_RegisterUser", "MerchantGUID": merchantGUID, "MerchantPassword":merchantPassword, "UserName":username, "endpoint":endpoint, "FirstName":"Eyecue", "LastName":"Test2", "CompanyName":"Eyecue Lab, Inc.", "Address1":"3934 NE M L King Blvd", "Address2":"", "City":"Portland", "State":"OR", "ZipCode":"97212", "Country2xFormat":"US", "PhoneNumber":"5039262516", "CellPhoneNumber":"5039262516", "EmailAddress":email, "SSN":"605280000", "CompanyTaxID":"", "GovernmentID":"", "MilitaryID":"", "PassportNumber":"", "DriversLicense":"B64578", "DateOfBirth":"5/5/1980", "WebsitePassword":"rockandroll", "DefaultCurrency":"USD", "SkipAutoSVCOrder":"", "PreferredLanguage":"", "IsBusinessUser":"", "BusinessUserName":""}};
+            serviceJSON['get_customer_details'] = {"api_method":"get_customer_details","options_hash":{"fn":"eWallet_GetCustomerDetails","endpoint":endpoint,"MerchantGUID": merchantGUID, "MerchantPassword":merchantPassword, "UserName":username}};
+            serviceJSON['get_user_account_status'] = {"api_method":"get_user_account_status","options_hash": {"fn":"eWallet_GetUserAccountStatus", "MerchantGUID": merchantGUID, "MerchantPassword":merchantPassword, "UserName":username}};
+            serviceJSON['ewallet_load'] = {"api_method":"ewallet_load","options_hash": {"fn":"eWallet_Load", "MerchantGUID": merchantGUID, "MerchantPassword":merchantPassword, "PartnerBatchID": batch_id, "PoolID": "", "arrAccounts":[{"UserName": username, "Amount":distribute_amount,"Comments":"Test Test Test", "MerchantReferenceID":ewallet_load_batch_id}], "AllowDuplicates": true, "AutoLoad": true, "CurrencyCode": "USD"}};
+
+            var jsonBody = serviceJSON[service_name];
+            console.log(jsonBody);
+          $.ajax({
+                url: "http://localhost:3000/a/users/4/ewallet_sandbox/call.json",
+                type: "post",
+                data: JSON.stringify(jsonBody),
+                contentType: "application/json;",
+                dataType: "json",
+                success: function(result){
+                    console.log("Success RESULT:...");
+                    var thing = result;
+                    console.log(thing);
+                    $("#output").html(result);
+                },
+                error:function(error){
+                    console.log(error);
+
+                    $("#output").html(error);
+                }
+
+            });
+        };
+
+        $('#register_user').click(function() {
+              callService("register_user");
+        });
+
+        $('#customer_details').click(function() {
+              callService("get_customer_details");
+        });
+
+        $('#get_user_account_status').click(function() {
+              callService("get_user_account_status");
+        })
+        $('#ewallet_load').click(function() {
+              callService("ewallet_load");
+        })
+});
+</script>
+
+<style type="text/css" media="screen">
+    .sandbox-container {
+        float:left;
+        display:block;
+        width:100%;
+        text-align:left;
+        margin:20px 0 20px 20px;
+    }
+    .sandbox-container input[type=text] {
+        width:410px;
+    }
+    .sandbox-container label {
+        float:left;
+        position:relative;
+        vertical-align: center;
+        width:110px ;
+        text-align: left;
+
+    }
+    fieldset {
+        border:1px dashed #aaa;
+        padding:15px;
+        width:600px;
+    }
+    #output {
+        float:left;
+        width:  600px;
+        height:300px;
+        text-align: left;
+        border:1px dashed #555;
+    }
+</style>
+
+<section>
+
+    <div class="sandbox-container">
+        <fieldset>
+            <label for='register_user_username'>Username:</label><input type="text" name="register_user_username" id="register_user_username" value="Eyecuetest<%=@rand_test_acct%>"/>
+            <label for='register_user_email'>Email:</label><input type="text" name="register_user_email" id="register_user_email" value="danny.mcalerney+<%=@rand_test_acct%>@eyecuelab.com"/>
+            <input type="button" value="register_user" id="register_user" name="register_user"></button>
+        </fieldset>
+    </div>
+
+    <div class="sandbox-container">
+        <fieldset>
+        <label for='customer_details_username'>Username:</label><input type="text" name="customer_details_username" id="customer_details_username" value="Eyecuetest<%=@rand_test_acct%>"/>
+            <input type="button" value="customer_details" id="customer_details" name="customer_details"></button>
+        </fieldset>
+    </div>
+    <div class="sandbox-container">
+        <fieldset>
+        <label for='get_user_account_status_username'>Username:</label><input type="text" name="get_user_account_status_username" id="get_user_account_status_username" value="Eyecuetest<%=@rand_test_acct%>"/>
+            <input type="button" value="get_user_account_status" id="get_user_account_status" name="get_user_account_status"></button>
+        </fieldset>
+    </div>
+    <div class="sandbox-container">
+        <fieldset>
+        <label for='ewallet_load_username'>Username:</label><input type="text" name="ewallet_load_username" id="ewallet_load_username" value="Eyecuetest<%=@rand_test_acct%>"/>
+        <label for='ewallet_load_batch_id'>Batch ID:</label><input type="text" name="ewallet_load_batch_id" id="ewallet_load_batch_id" value="<%= @batch_id %>"/>
+        <label for='ewallet_load_distribute_amount'>Distribute Amount:</label><input type="text" name="ewallet_load_distribute_amount" id="ewallet_load_distribute_amount" value="<%= rand(11.2...76.9).round(2) %>"/>
+            <input type="button" value="ewallet_load" id="ewallet_load" name="ewallet_load"></button>
+        </fieldset>
+    </div>
+    <div class="sandbox-container">
+        <div id='output'>
+        <p>OUTPUT: </p>
+        </div>
+    </div>
+</section>

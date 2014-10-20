@@ -3,6 +3,9 @@ require 'eyecue_ipayout/version'
 module EyecueIpayout
   # Defines constants and methods related to configuration
   module Config
+    IPAYOUT_API_ENDPOINT = ENV['IPAYOUT_API_ENDPOINT']
+    IPAYOUT_MERCHANT_GUID = ENV['IPAYOUT_MERCHANT_GUID']
+    IPAYOUT_MERCHANT_PASSWORD = ENV['IPAYOUT_MERCHANT_PASSWORD']
 
     # The access token if none is set
     DEFAULT_ACCESS_TOKEN = nil
@@ -14,7 +17,8 @@ module EyecueIpayout
     DEFAULT_CONNECTION_OPTIONS = {}
 
     # The endpoint that will be used to connect if none is set
-    DEFAULT_ENDPOINT = "http://localhost:3000/"
+    DEFAULT_ENDPOINT = ENV["IPAYOUT_API_ENDPOINT"]
+    DEFAULT_URL = ENV["IPAYOUT_API_ENDPOINT"]
 
     # The gateway server if none is set
     DEFAULT_GATEWAY = nil
@@ -25,9 +29,6 @@ module EyecueIpayout
     # The value sent in the 'User-Agent' header if none is set
     DEFAULT_USER_AGENT = "EyecueIpayout Ruby Gem #{EyecueIpayout::VERSION}"
 
-    IPAYOUT_API_ENDPOINT = ENV['IPAYOUT_API_ENDPOINT']
-    IPAYOUT_MERCHANT_GUID = ENV['IPAYOUT_MERCHANT_GUID']
-    IPAYOUT_MERCHANT_PASSWORD = ENV['IPAYOUT_MERCHANT_PASSWORD']
 
     # An array of valid keys in the options hash when configuring a {EyecueIpayout::API}
     VALID_OPTIONS_KEYS = [
@@ -37,7 +38,8 @@ module EyecueIpayout
       :gateway,
       :access_token,
       :proxy,
-      :user_agent
+      :user_agent,
+      :endpoint
     ]
 
     attr_accessor *VALID_OPTIONS_KEYS
@@ -68,6 +70,7 @@ module EyecueIpayout
       self.gateway            = DEFAULT_GATEWAY
       self.proxy              = DEFAULT_PROXY
       self.user_agent         = DEFAULT_USER_AGENT
+      self.endpoint           = DEFAULT_ENDPOINT
       self
     end
   end
