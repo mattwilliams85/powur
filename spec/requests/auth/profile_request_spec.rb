@@ -19,8 +19,11 @@ describe '/u/profile' do
   #   it 'Updates the current user password' do
   #     @user.password = "huntingKnife"
   #     puts @user.first_name
-  #     post update_password_profile_path, current_password: @user.password,
-  #       new_password: 'dragonsAwake!', new_password_confirm: 'dragonsAwake!', format: :json
+  #     post update_password_profile_path,
+  #          current_password: @user.password,
+  #          new_password:         'dragonsAwake!',
+  #          new_password_confirm: 'dragonsAwake!',
+  #          format:               :json
 
   #     expect_200
   #     expect_confirm

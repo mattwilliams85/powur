@@ -74,13 +74,13 @@ describe '/a/quotes' do
 
       get admin_quote_path(quote), format: :json
 
-      action = json_body['actions'].find { |a| a['name'] == 'create_order'}
+      action = json_body['actions'].find { |a| a['name'] == 'create_order' }
       expect(action).to_not be_nil
     end
 
     it 'includes the related order' do
       quote = create(:quote)
-      order = create(:order, quote: quote)
+      create(:order, quote: quote)
 
       get admin_quote_path(quote), format: :json
 
@@ -89,5 +89,4 @@ describe '/a/quotes' do
     end
 
   end
-
 end

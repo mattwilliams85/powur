@@ -37,11 +37,12 @@ describe PayPeriod, type: :model do
     end
 
     it 'processes an enroller bonus' do
-      bonus = create(:enroller_sales_bonus)
-      create(:bonus_requirement, bonus: bonus)
-      create(:bonus_level, amounts: [ 0.0, 0.1 ])
+      pending 'logic not finished'
+      # bonus = create(:enroller_sales_bonus)
+      # create(:bonus_requirement, bonus: bonus)
+      # create(:bonus_level, amounts: [ 0.0, 0.1 ])
 
-      order = create(:order, product: bonus.source_product)
+      # create(:order, product: bonus.source_product)
     end
 
   end
@@ -56,14 +57,17 @@ describe PayPeriod, type: :model do
 
       before :each do
         @user = create(:user)
-        @qual1 = create(:sales_qualification, rank_id: 2, time_period: :lifetime, quantity: 3)
-        @qual2 = create(:sales_qualification, rank_id: 2, time_period: :lifetime, quantity: 1)
+        @qual1 = create(:sales_qualification,
+                        rank_id: 2, time_period: :lifetime, quantity: 3)
+        @qual2 = create(:sales_qualification,
+                        rank_id: 2, time_period: :lifetime, quantity: 1)
       end
 
-      it 'does not create a lifetime achievement with only one qualification met' do
-        order = create(:order, product: @qual1.product, quantity: @qual1.quantity, user: @user)
+      it 'does not create a lifetime achievement with only one qual. met' do
+        order = create(:order, product: @qual1.product,
+                       quantity: @qual1.quantity, user: @user)
         pay_period = order.weekly_pay_period
-        
+
         pay_period.process_orders!
 
         achievement = @user.rank_achievements.first
@@ -72,9 +76,12 @@ describe PayPeriod, type: :model do
 
       it 'creates a lifetime achievement when all qualifications are met' do
         order1 = create(:order, product: @qual1.product, user: @user,
-          quantity: @qual1.quantity)
-        order2 = create(:order, product: @qual2.product, user: @user,
-          quantity: @qual2.quantity, order_date: order1.order_date + 1.minute)
+                        quantity: @qual1.quantity)
+        create(:order,
+               product:    @qual2.product,
+               user:       @user,
+               quantity:   @qual2.quantity,
+               order_date: order1.order_date + 1.minute)
         pay_period = order1.monthly_pay_period
 
         pay_period.process_orders!
@@ -87,11 +94,11 @@ describe PayPeriod, type: :model do
       end
     end
 
-
     it 'creates pay period achievements' do
       qual = create(:sales_qualification, rank_id: 2, time_period: :weekly)
       order = create(:order, product: qual.product, quantity: qual.quantity)
-      totals = create(:order_total, product: qual.product, personal: order.quantity)
+      totals = create(:order_total,
+                      product: qual.product, personal: order.quantity)
 
       order.weekly_pay_period.process_rank_achievements!(order, totals)
       achievement = order.user.rank_achievements.first
@@ -101,7 +108,10 @@ describe PayPeriod, type: :model do
 
     it 'creates rank achievements for group qualifications' do
       qual = create(:group_sales_qualification,
-        rank_id: 2, time_period: :monthly, quantity: 5, max_leg_percent: 55)
+                    rank_id:         2,
+                    time_period:     :monthly,
+                    quantity:        5,
+                    max_leg_percent: 55)
 
       product_id = qual.product_id
       order_date = DateTime.current - 2.months
@@ -109,12 +119,16 @@ describe PayPeriod, type: :model do
       children = create_list(:user, 2, sponsor: user)
 
       children.each do |child|
-        create_list(:order, 3, order_date: order_date, product_id: product_id, user: child)
+        create_list(:order, 3,
+                    order_date: order_date,
+                    product_id: product_id,
+                    user:       child)
       end
-      
+
       pay_period = MonthlyPayPeriod.find_or_create_by_date(order_date)
       pay_period.process_orders!
-      achievement = pay_period.rank_achievements.find { |a| a.user_id == user.id }
+      achievement = pay_period
+        .rank_achievements.find { |a| a.user_id == user.id }
       expect(achievement).to_not be_nil
     end
   end
@@ -174,7 +188,8 @@ describe PayPeriod, type: :model do
     before :each do
       @user = create(:user)
       @product = create(:product)
-      @pay_period = WeeklyPayPeriod.find_or_create_by_date(Date.current - 1.month)
+      @pay_period = WeeklyPayPeriod
+        .find_or_create_by_date(Date.current - 1.month)
     end
 
     def find_order_total(user = @user)
@@ -185,18 +200,18 @@ describe PayPeriod, type: :model do
 
     def add_order_total
       @pay_period.order_totals.create!(
-        user: @user,
-        product: @product,
-        personal: 1,
-        group: 1,
+        user:              @user,
+        product:           @product,
+        personal:          1,
+        group:             1,
         personal_lifetime: 1,
-        group_lifetime: 1)
+        group_lifetime:    1)
     end
 
     it 'does not query the DB each additional time' do
       user = create(:user)
-      product = create(:product)
-      pay_period = WeeklyPayPeriod.find_or_create_by_date(Date.current - 1.month)
+      create(:product)
+      WeeklyPayPeriod.find_or_create_by_date(Date.current - 1.month)
 
       expect { find_order_total }.to make_database_queries
       expect { find_order_total }.to_not make_database_queries
@@ -204,7 +219,8 @@ describe PayPeriod, type: :model do
       expect { find_order_total }.to_not make_database_queries
       user = create(:user)
       expect { find_order_total(user) }.to_not make_database_queries
-      expect { @pay_period.order_totals.each(&:pay_period) }.to_not make_database_queries
+      expect { @pay_period.order_totals.each(&:pay_period) }
+        .to_not make_database_queries
     end
 
     it 'calculates the correct group totals' do
@@ -214,7 +230,10 @@ describe PayPeriod, type: :model do
       children = create_list(:user, 2, sponsor: user)
 
       children.each do |child|
-        create_list(:order, 3, order_date: order_date, user: child, product: product)
+        create_list(:order, 3,
+                    order_date: order_date,
+                    user:       child,
+                    product:    product)
       end
 
       pay_period = MonthlyPayPeriod.find_or_create_by_date(order_date)

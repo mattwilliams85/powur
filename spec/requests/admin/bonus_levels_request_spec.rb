@@ -12,12 +12,15 @@ describe '/a/bonuses/:id/bonus_levels' do
   describe '#create' do
 
     it 'adds a bonus level to to a bonus' do
-      post bonus_levels_path(@bonus), amounts: [ 0.1, 0.4, 0.125 ], format: :json
+      post bonus_levels_path(@bonus),
+           amounts: [ 0.1, 0.4, 0.125 ], format: :json
 
       expect_classes 'bonus'
-      bonus_levels = json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
+      bonus_levels = json_body['entities']
+        .find { |e| e['class'].include?('bonus_levels') }
       expect(bonus_levels['entities'].size).to eq(1)
-      padded_value = bonus_levels['entities'].first['properties']['amounts'].last
+      padded_value = bonus_levels['entities']
+        .first['properties']['amounts'].last
       expect(padded_value).to eq(0.0)
     end
 
@@ -41,7 +44,8 @@ describe '/a/bonuses/:id/bonus_levels' do
     it 'removes the last bonus_level' do
       delete bonus_level_path(@bonus, @levels.last.level), format: :json
 
-      bonus_levels = json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
+      bonus_levels = json_body['entities']
+        .find { |e| e['class'].include?('bonus_levels') }
       expect(bonus_levels['entities'].size).to eq(2)
     end
 

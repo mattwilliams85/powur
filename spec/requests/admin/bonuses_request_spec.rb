@@ -24,7 +24,7 @@ describe '/a/bonuses' do
 
     it 'returns the bonus detail including requirements' do
       bonus = create(:bonus_requirement).bonus
-      rank = create_list(:rank, 3)
+      create_list(:rank, 3)
       get bonus_path(bonus), format: :json
 
       expect_classes 'bonus'
@@ -44,12 +44,14 @@ describe '/a/bonuses' do
       create_list(:rank, 3)
       bonus = create(:unilevel_sales_bonus)
       create(:bonus_requirement, bonus: bonus)
-      create(:bonus_level, bonus: bonus, level: 1, amounts: [ 0.125, 0.125, 0.125, 0.125, ])
+      create(:bonus_level, bonus: bonus,
+             level: 1, amounts: [ 0.125, 0.125, 0.125, 0.125 ])
 
       get bonus_path(bonus), format: :json
 
       expect_classes 'bonus'
-      bonus_levels = json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
+      bonus_levels = json_body['entities']
+        .find { |e| e['class'].include?('bonus_levels') }
       expect(bonus_levels).to be
       create = bonus_levels['actions'].find { |a| a['name'] == 'create' }
       expect(create).to be
@@ -113,8 +115,8 @@ describe '/a/bonuses' do
 
     it 'creates a direct sales bonus' do
       bonus_plan = create(:bonus_plan)
-      post bonus_plan_bonuses_path(bonus_plan), 
-        type: 'direct_sales', name: 'foo', format: :json
+      post bonus_plan_bonuses_path(bonus_plan),
+           type: 'direct_sales', name: 'foo', format: :json
 
       expect_classes 'bonus'
     end
@@ -170,7 +172,7 @@ describe '/a/bonuses' do
 
       patch bonus_path(bonus), flat_amount: 42.0, format: :json
 
-      expect(json_body['properties']['flat_amount']).to eq("42.0")
+      expect(json_body['properties']['flat_amount']).to eq('42.0')
     end
 
     it 'updates the compress flag' do
@@ -182,7 +184,7 @@ describe '/a/bonuses' do
       expect(json_body['properties']['compress']).to eq(!compress)
     end
 
-    it 'updates the bonus amounts for a bonus that does not have them defined yet' do
+    it 'updates the bonus amounts for a bonus without amounts' do
       bonus = create(:direct_sales_bonus)
       create_list(:rank, 5)
       amounts = [ 0.055, 0.102, 0.15, 0.205, 0.40 ]

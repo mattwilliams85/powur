@@ -32,10 +32,14 @@ describe Bonus, type: :model do
       create(:bonus_level, bonus: bonus1, level: 0, amounts: amounts1)
       create(:bonus_level, bonus: bonus2, level: 0, amounts: amounts2)
 
-      expect(bonus3.remaining_percentage).to eq(1.0 - (amounts1.max + amounts2.max))
-      expect(bonus3.remaining_percentage * bonus3.available_amount).to eq(bonus3.remaining_amount)
+      expect(bonus3.remaining_percentage)
+        .to eq(1.0 - (amounts1.max + amounts2.max))
+      expect(bonus3.remaining_percentage * bonus3.available_amount)
+        .to eq(bonus3.remaining_amount)
 
-      result = bonus1.percentage_used + bonus2.percentage_used + bonus3.remaining_percentage
+      result = bonus1.percentage_used +
+               bonus2.percentage_used +
+               bonus3.remaining_percentage
       expect(result).to eq(1.0)
     end
   end

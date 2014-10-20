@@ -32,14 +32,16 @@ describe 'order totals', type: :request do
       get pay_period_order_totals_path(@pay_period), format: :json, limit: 3
       expect_entities_count(3)
 
-      get pay_period_order_totals_path(@pay_period), format: :json, limit: 3, page: 2
+      get pay_period_order_totals_path(@pay_period),
+          format: :json, limit: 3, page: 2
       expect_entities_count(2)
     end
 
     it 'uses a secondary sort on id' do
       users = create_list(:user, 5, last_name: 'aaaa', first_name: 'bbbb')
       totals = users.map do |u|
-        create(:order_total, id: rand(1000...100_000), pay_period: @pay_period, user: u)
+        create(:order_total, id: rand(1000...100_000),
+               pay_period: @pay_period, user: u)
       end
 
       get pay_period_order_totals_path(@pay_period), format: :json

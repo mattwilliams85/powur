@@ -21,11 +21,12 @@ describe Auth::InvitesController do
   end
 
   describe '#create' do
-    let(:invite_params) {{
-         email:       'paul.walker+invite@eyecuelab.com',
-         first_name:  'paul',
-         last_name:   'walker',
-         phone:       '858.555.1212' }}
+    let(:invite_params) do
+      { email:      'paul.walker+invite@eyecuelab.com',
+        first_name: 'paul',
+        last_name:  'walker',
+        phone:      '858.555.1212' }
+    end
 
     it 'creates an invite' do
       post :create, invite_params
@@ -46,7 +47,7 @@ describe Auth::InvitesController do
 
     [ :email, :first_name, :last_name ].each do |input|
       it "requires #{input}" do
-        post :create, invite_params.reject { |k,v| k == input }
+        post :create, invite_params.reject { |k, _v| k == input }
 
         expect_input_error(input)
       end
@@ -54,11 +55,11 @@ describe Auth::InvitesController do
 
     it 'does not allow you to invite yourself' do
       post :create, invite_params.merge(email: @user.email)
-      
+
       expect_input_error(:email)
     end
 
-    it 'does not allow creating an invite with an existing promoter email address' do
+    it 'does not allow creating an invite with an existing email' do
       user = create(:user)
       post :create, invite_params.merge(email: user.email)
 
@@ -88,5 +89,4 @@ describe Auth::InvitesController do
       expect(expires).to be > 23.hours.from_now
     end
   end
-
 end

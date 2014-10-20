@@ -26,7 +26,11 @@ describe '/a/ranks/:id/qualifications' do
     it 'creates an active qualification' do
       product = create(:product)
       post qualifications_path,
-        type: :sales, product_id: product.id, time_period: :monthly, quantity: 5, format: :json
+           type:        :sales,
+           product_id:  product.id,
+           time_period: :monthly,
+           quantity:    5,
+           format:      :json
 
       expect_classes 'qualification'
     end
@@ -38,8 +42,9 @@ describe '/a/ranks/:id/qualifications' do
     it 'updates a qualification' do
       qualification = create(:group_sales_qualification)
 
-      patch qualification_path(qualification), 
-        max_leg_percent: 12, format: :json
+      patch qualification_path(qualification),
+            max_leg_percent: 12,
+            format:          :json
 
       max_leg_percent = json_body['properties']['max_leg_percent']
 

@@ -12,7 +12,7 @@ describe SystemSettings, type: :model do
     SystemSettings.color = 'blue'
 
     SystemSettings.defaults[:color] = 'gold'
-    
+
     expect(SystemSettings.color).to eq('blue')
   end
 

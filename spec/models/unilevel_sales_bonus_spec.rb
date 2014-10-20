@@ -12,9 +12,12 @@ describe UnilevelSalesBonus, type: :model do
       product = create(:product, bonus_volume: 500, commission_percentage: 80)
       bonus = create(:unilevel_sales_bonus, compress: true)
       create(:bonus_requirement, product: product, bonus: bonus)
-      create(:bonus_level, level: 1, bonus: bonus, amounts: [ 0.1, 0.1, 0.1, 0.1 ])
-      create(:bonus_level, level: 2, bonus: bonus, amounts: [ 0.0, 0.05, 0.05, 0.05 ])
-      create(:bonus_level, level: 3, bonus: bonus, amounts: [ 0.0, 0.0, 0.01, 0.01 ])
+      create(:bonus_level, level: 1,
+             bonus: bonus, amounts: [ 0.1, 0.1, 0.1, 0.1 ])
+      create(:bonus_level, level: 2,
+             bonus: bonus, amounts: [ 0.0, 0.05, 0.05, 0.05 ])
+      create(:bonus_level, level: 3,
+             bonus: bonus, amounts: [ 0.0, 0.0, 0.01, 0.01 ])
 
       parent1 = create(:user, organic_rank: 3)
       parent2 = create(:user, sponsor: parent1)

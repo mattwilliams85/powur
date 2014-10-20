@@ -4,12 +4,12 @@ describe Qualification, type: :model do
 
   describe '#met?' do
     def create_order_total(count, opts = {})
-      attrs = { 
-        product:            @product,
-        personal:           count,
-        group:              count,
-        personal_lifetime:  count,
-        group_lifetime:     count }.merge(opts)
+      attrs = {
+        product:           @product,
+        personal:          count,
+        group:             count,
+        personal_lifetime: count,
+        group_lifetime:    count }.merge(opts)
       create(:order_total, attrs)
     end
 
@@ -17,13 +17,13 @@ describe Qualification, type: :model do
       before :each do
         @product = create(:product)
         @period_qual = create(:sales_qualification,
-          product:      @product,
-          time_period:  :monthly,
-          quantity:     3)
+                              product:     @product,
+                              time_period: :monthly,
+                              quantity:    3)
         @life_qual = create(:sales_qualification,
-          product:  @product,
-          time_period:   :lifetime,
-          quantity: 3)
+                            product:     @product,
+                            time_period: :lifetime,
+                            quantity:    3)
       end
 
       it 'returns false when the totals are not met' do
@@ -52,9 +52,21 @@ describe Qualification, type: :model do
     describe GroupSalesQualification do
       before :each do
         @product = create(:product)
-        @period_qual = create(:group_sales_qualification, product: @product, time_period: :monthly, quantity: 3, max_leg_percent: nil)
-        @life_qual = create(:group_sales_qualification, product: @product, time_period: :lifetime, quantity: 3, max_leg_percent: nil)
-        @max_leg_period_qual = create(:group_sales_qualification, product: @product, time_period: :monthly, quantity: 3, max_leg_percent: 60)
+        @period_qual = create(:group_sales_qualification,
+                              product:         @product,
+                              time_period:     :monthly,
+                              quantity:        3,
+                              max_leg_percent: nil)
+        @life_qual = create(:group_sales_qualification,
+                            product:         @product,
+                            time_period:     :lifetime,
+                            quantity:        3,
+                            max_leg_percent: nil)
+        @max_leg_period_qual = create(:group_sales_qualification,
+                                      product:         @product,
+                                      time_period:     :monthly,
+                                      quantity:        3,
+                                      max_leg_percent: 60)
       end
 
       it 'returns true if the users group sales are enough' do
@@ -81,7 +93,8 @@ describe Qualification, type: :model do
         children = create_list(:user, n, sponsor: order_total.user)
         @child_totals = children.map do |c|
           create_order_total(child_order_count,
-            user: c, pay_period: order_total.pay_period)
+                             user:       c,
+                             pay_period: order_total.pay_period)
         end
         order_total
       end

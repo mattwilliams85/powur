@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :order_total do
-    pay_period { MonthlyPayPeriod.find_or_create_by_date(DateTime.current - 1.month) }
+    pay_period { MonthlyPayPeriod.find_or_create_by_date(1.month.ago) }
     user
     product
     personal { Random.rand(100) }

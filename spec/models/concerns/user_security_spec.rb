@@ -23,4 +23,5 @@ describe UserSecurity do
     user.send_reset_password
     expect(user.reset_token_expired?).to_not be
   end
+
 end

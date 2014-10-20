@@ -25,9 +25,15 @@ describe '/u/quotes' do
   describe '#search' do
 
     it 'returns a list of quotes for a user matching a search term' do
-      create(:quote, user: @user, customer: create(:customer, last_name: 'Garey'))
-      create(:quote, user: @user, customer: create(:customer, last_name: 'Gari'))
-      create(:quote, user: @user, customer: create(:customer, email: 'gary@example.org'))
+      create(:quote,
+             user:     @user,
+             customer: create(:customer, last_name: 'Garey'))
+      create(:quote,
+             user:     @user,
+             customer: create(:customer, last_name: 'Gari'))
+      create(:quote,
+             user:     @user,
+             customer: create(:customer, email: 'gary@example.org'))
       create_list(:quote, 2, user: @user)
 
       get user_quotes_path, search: 'Gary', format: :json
@@ -38,15 +44,16 @@ describe '/u/quotes' do
 
   describe '#create' do
 
-    let(:input_params) {{
-      email:      'newcustomer@example.org',
-      first_name: 'Big',
-      last_name:  'Money',
-      city:       'SunnyVille',
-      state:      'FL',
-      zip:        '65999',
-      roof_age:   12,
-      format:     :json }}
+    let(:input_params) do
+      { email:      'newcustomer@example.org',
+        first_name: 'Big',
+        last_name:  'Money',
+        city:       'SunnyVille',
+        state:      'FL',
+        zip:        '65999',
+        roof_age:   12,
+        format:     :json }
+    end
 
     it 'creates a new quote' do
       post user_quotes_path, input_params

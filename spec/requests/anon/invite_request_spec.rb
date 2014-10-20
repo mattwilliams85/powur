@@ -11,7 +11,7 @@ describe '/a/invite' do
       expect_input_error(:code)
     end
 
-    it 'renders an error with an invite that already has already been accepted' do
+    it 'renders an error if an invite that already has been accepted' do
       user = create(:user)
       invite = create(:invite, user: user)
 
@@ -20,7 +20,7 @@ describe '/a/invite' do
       expect_input_error(:code)
     end
 
-    it 'marks an invite with an existing user with the same email address' do
+    it 'marks an invite for an existing user with same email address' do
       invite = create(:invite)
       user = create(:user, email: invite.email)
 
@@ -71,14 +71,14 @@ describe '/a/invite' do
     end
 
     it 'requires a valid invite code' do
-      patch invite_path, @user_params.reject { |k,v| k == :code }
+      patch invite_path, @user_params.reject { |k, _v| k == :code }
 
       expect_input_error(:code)
     end
 
     it 'requires certain fields' do
       [:email, :first_name, :last_name].each do |field|
-        patch invite_path, @user_params.reject { |k,v| k == field }
+        patch invite_path, @user_params.reject { |k, _v| k == field }
 
         expect_input_error(field)
       end
@@ -90,7 +90,8 @@ describe '/a/invite' do
       expect_200
       expect_classes('session', 'user')
 
-      expect(json_body['properties']['first_name']).to include(@user_params[:first_name])
+      expect(json_body['properties']['first_name'])
+        .to include(@user_params[:first_name])
 
       @invite.reload
       expect(@invite.user_id).to_not be_nil
@@ -110,5 +111,4 @@ describe '/a/invite' do
     end
 
   end
-
 end

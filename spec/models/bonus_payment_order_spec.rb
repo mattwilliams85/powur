@@ -19,7 +19,7 @@ describe BonusPaymentOrder, type: :model do
       result.each do |record|
         expect(record.bonus_payment.pay_period_id).to eq(pp1.id)
       end
-      
+
       result = BonusPaymentOrder.for_pay_period(pp2.id).entries
       expect(result.size).to eq(1)
 

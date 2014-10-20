@@ -10,7 +10,9 @@ describe EnrollerSalesBonus, type: :model do
 
     it 'generates the correct payment' do
       product = create(:product, bonus_volume: 500, commission_percentage: 80)
-      bonus = create(:enroller_sales_bonus, max_user_rank_id: 1, min_upline_rank_id: 2)
+      bonus = create(:enroller_sales_bonus,
+                     max_user_rank_id:   1,
+                     min_upline_rank_id: 2)
       create(:bonus_requirement, product: product, bonus: bonus)
       create(:bonus_level, bonus: bonus, amounts: [ 0.0, 0.0 ])
 
@@ -27,7 +29,6 @@ describe EnrollerSalesBonus, type: :model do
 
   end
 
-
   describe '#percentage_used' do
 
     it 'accounts for max_user_id with direct sales bonus' do
@@ -36,7 +37,7 @@ describe EnrollerSalesBonus, type: :model do
       bonus = create(:direct_sales_bonus)
       create(:bonus_requirement, product: product, bonus: bonus)
       create(:bonus_level, bonus: bonus, amounts: [ 0.1, 0.2, 0.2 ])
-      
+
       bonus = create(:enroller_sales_bonus, max_user_rank_id: 1)
       create(:bonus_requirement, product: product, bonus: bonus)
 

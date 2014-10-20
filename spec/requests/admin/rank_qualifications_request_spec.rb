@@ -9,13 +9,18 @@ describe '/a/ranks/:id/qualifications' do
 
   describe '#create' do
     def assert_qualification
-      expect(json_body['entities'].first['entities'].first['class']).to include('qualification')
+      result = json_body['entities'].first['entities'].first['class']
+      expect(result).to include('qualification')
     end
 
     it 'creates a sales qualification' do
       product = create(:product)
       post rank_qualifications_path(@rank),
-        type: :sales, product_id: product.id, time_period: :monthly, quantity: 5, format: :json
+           type:        :sales,
+           product_id:  product.id,
+           time_period: :monthly,
+           quantity:    5,
+           format:      :json
 
       assert_qualification
     end
@@ -24,8 +29,12 @@ describe '/a/ranks/:id/qualifications' do
       product = create(:product)
 
       post rank_qualifications_path(@rank),
-        type: :group_sales, product_id: product.id, time_period: :lifetime, 
-        quantity: 5, max_leg_percent: 55, format: :json
+           type:            :group_sales,
+           product_id:      product.id,
+           time_period:     :lifetime,
+           quantity:        5,
+           max_leg_percent: 55,
+           format:          :json
 
       assert_qualification
     end
@@ -35,11 +44,12 @@ describe '/a/ranks/:id/qualifications' do
     it 'updates a group sales qualification' do
       qualification = create(:group_sales_qualification, rank: @rank)
 
-      patch rank_qualification_path(@rank, qualification), 
-        max_leg_percent: 12, format: :json
+      patch rank_qualification_path(@rank, qualification),
+            max_leg_percent: 12,
+            format:          :json
 
-      max_leg_percent = json_body['entities'].
-        first['entities'].first['properties']['max_leg_percent']
+      max_leg_percent = json_body['entities']
+        .first['entities'].first['properties']['max_leg_percent']
 
       expect(max_leg_percent).to eq(12)
     end
@@ -53,5 +63,4 @@ describe '/a/ranks/:id/qualifications' do
       expect(json_body['entities'].first['entities'].size).to eq(0)
     end
   end
-
 end

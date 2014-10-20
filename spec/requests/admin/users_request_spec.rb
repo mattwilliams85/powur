@@ -29,7 +29,8 @@ describe '/a/users' do
 
       expect_200
 
-      found_child = json_body['entities'].find { |e| e['properties']['id'] == child.id }
+      found_child = json_body['entities']
+        .find { |e| e['properties']['id'] == child.id }
       expect(found_child).to_not be_nil
       expect(found_child['properties']['downline_count']).to eq(2)
     end
@@ -57,9 +58,10 @@ describe '/a/users' do
 
   describe '#update' do
 
-    let(:params) {{
-      address:  '42 Sunshine Way',
-      format:   :json }}
+    let(:params) do
+      { address: '42 Sunshine Way',
+        format:  :json }
+    end
 
     it 'updates a user' do
       user = create(:user)

@@ -37,7 +37,7 @@ describe User, type: :model do
 
   describe 'contact field' do
     it 'allows properties to be set directly on the model' do
-      user = create(:user, phone: '8585551212')
+      create(:user, phone: '8585551212')
     end
   end
 
@@ -73,7 +73,8 @@ describe User, type: :model do
       user = create(:user)
       user.make_customer!
 
-      customer = Customer.where(first_name: user.first_name, last_name: user.last_name).first
+      customer = Customer
+        .where(first_name: user.first_name, last_name: user.last_name).first
       expect(customer).to_not be_nil
     end
   end

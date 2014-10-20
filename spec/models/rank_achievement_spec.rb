@@ -9,7 +9,10 @@ describe RankAchievement, type: :model do
   it 'does not allow two lifetime rank achievements' do
     achievement = create(:rank_achievement, pay_period: nil, rank_id: 2)
     expect do
-      create(:rank_achievement, pay_period: nil, rank_id: 2, user: achievement.user )
+      create(:rank_achievement,
+             pay_period: nil,
+             rank_id:    2,
+             user:       achievement.user)
     end.to raise_error(ActiveRecord::RecordNotUnique)
   end
 

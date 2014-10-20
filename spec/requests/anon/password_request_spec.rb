@@ -3,9 +3,9 @@ require 'spec_helper'
 describe '/password' do
 
   before :each do
-    @user = create(:user, 
-      reset_token:  'token_value', 
-      reset_sent_at: DateTime.current)
+    @user = create(:user,
+                   reset_token:   'token_value',
+                   reset_sent_at: DateTime.current)
   end
 
   it 'is a valid token' do
@@ -38,8 +38,11 @@ describe '/password' do
 
   describe '#update' do
     it 'accepts a request to change the password' do
-      put password_path, token: @user.reset_token,
-        password: 'new_password', password_confirm: 'new_password', format: :json
+      put password_path,
+          token:            @user.reset_token,
+          password:         'new_password',
+          password_confirm: 'new_password',
+          format:           :json
 
       expect_200
       expect_confirm
@@ -48,5 +51,4 @@ describe '/password' do
       expect(user).to_not be_nil
     end
   end
-
 end

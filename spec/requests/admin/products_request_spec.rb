@@ -49,7 +49,10 @@ describe '/a/products' do
     it 'updates a product' do
       product = create(:product)
 
-      patch product_path(product), bonus_volume: 400, quote_data: %w(foo bar), format: :json
+      patch product_path(product),
+            bonus_volume: 400,
+            quote_data:   %w(foo bar),
+            format:       :json
 
       expect(json_body['properties']['bonus_volume']).to eq(400)
       expect(json_body['properties']['quote_data']).to eq(%w(foo bar))
@@ -77,5 +80,4 @@ describe '/a/products' do
     end
 
   end
-
 end

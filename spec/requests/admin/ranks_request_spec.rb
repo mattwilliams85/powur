@@ -9,13 +9,14 @@ describe '/a/ranks' do
   describe '#index' do
 
     def find_delete_action(rank_id)
-      rank = json_body['entities'].find { |rank| rank['properties']['id'] == rank_id }
-      rank['actions'] && rank['actions'].find { |action| action['name'] == 'delete' }
+      rank = json_body['entities'].find { |r| r['properties']['id'] == rank_id }
+      rank['actions'] && rank['actions']
+        .find { |action| action['name'] == 'delete' }
     end
 
     it 'returns the list of ranks' do
-      rank = create(:qualified_rank)
-      ranks = create_list(:rank, 2)
+      create(:qualified_rank)
+      create_list(:rank, 2)
       get ranks_path, format: :json
 
       expect_classes 'ranks'
@@ -26,8 +27,6 @@ describe '/a/ranks' do
 
       action = find_delete_action(4)
       expect(action).to_not be_nil
-
-      first_rank = json_body['entities'].first
     end
 
   end
@@ -74,5 +73,4 @@ describe '/a/ranks' do
     end
 
   end
-
 end

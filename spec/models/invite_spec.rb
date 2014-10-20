@@ -24,7 +24,7 @@ describe Invite do
   end
 
   it 'does not allow an empty string on phone' do
-    expect { create(:invite, phone: '') }.to raise_error(ActiveRecord::RecordInvalid)
+    expect { create(:invite, phone: '') }
+      .to raise_error(ActiveRecord::RecordInvalid)
   end
-
 end
