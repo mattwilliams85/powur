@@ -529,6 +529,39 @@ ALTER SEQUENCE settings_id_seq OWNED BY settings.id;
 
 
 --
+-- Name: user_activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_activities (
+    id integer NOT NULL,
+    user_id integer,
+    event_time timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    event character varying(255)
+);
+
+
+--
+-- Name: user_activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_activities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_activities_id_seq OWNED BY user_activities.id;
+
+
+--
 -- Name: user_overrides; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -692,6 +725,13 @@ ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY user_activities ALTER COLUMN id SET DEFAULT nextval('user_activities_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY user_overrides ALTER COLUMN id SET DEFAULT nextval('user_overrides_id_seq'::regclass);
 
 
@@ -836,6 +876,14 @@ ALTER TABLE ONLY ranks
 
 ALTER TABLE ONLY settings
     ADD CONSTRAINT settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_activities
+    ADD CONSTRAINT user_activities_pkey PRIMARY KEY (id);
 
 
 --
@@ -1282,4 +1330,10 @@ INSERT INTO schema_migrations (version) VALUES ('20140920001013');
 INSERT INTO schema_migrations (version) VALUES ('20140922174140');
 
 INSERT INTO schema_migrations (version) VALUES ('20141006002457');
+
+INSERT INTO schema_migrations (version) VALUES ('20141014205547');
+
+INSERT INTO schema_migrations (version) VALUES ('20141017215917');
+
+INSERT INTO schema_migrations (version) VALUES ('20141017220604');
 

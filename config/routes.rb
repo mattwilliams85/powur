@@ -48,7 +48,9 @@ Rails.application.routes.draw do
 
       resources :orders, only: [ :index ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
-
+      # resources :group_stats, only: [ :index ], controller: :user_group_stats
+      resources :user_activities, only:       [ :index, :show ],
+                                  controller: :user_activities
       member do
         get :downline
         get :upline

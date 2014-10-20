@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include ParamValidation
   include SirenDSL
   include ListQuery
+  include UserEvents
 
   protect_from_forgery with: :exception
   helper_method :current_user
@@ -28,5 +29,6 @@ class ApplicationController < ActionController::Base
     reset_session
     session[:user_id] = user.id
     @current_user = user
+    track_login_event(user)
   end
 end
