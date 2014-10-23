@@ -730,7 +730,7 @@ body#landing {
 	input[type=password],
 	input[type=email] {
 		// Mixins
-		@include corners(4px, 0, 4px, 0);
+		//@include corners(4px, 0, 4px, 0);
 		// Box properties
 		display: inline-block;
 		width: $grid * 5;

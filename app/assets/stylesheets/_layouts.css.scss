@@ -2,7 +2,8 @@ body#application {
 	// Mixins
 
 	// Box properties
-	padding: $grid * 4 0 0 0;
+	//padding: $grid * 4 0 0 0;
+	padding: 100px 0 0 0;
 	@include box_sizing;
 	// Background & borders
 
@@ -15,7 +16,8 @@ body#application {
 		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
 		@include box_sizing;
 		// Box properties
-		height: $grid * 4;
+		//height: $grid * 4;
+		height:100px;
 		min-width: $desktop;
 		// Background & borders
 		background-color: $brand;
@@ -147,7 +149,7 @@ body#application {
 	// Mixins
 
 	// Box properties
-	background-color: $neutral;
+	//background-color: $neutral;
 	padding: $grid;
 	// Background & borders
 	border-bottom: $border;

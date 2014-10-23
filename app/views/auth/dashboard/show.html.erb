@@ -14,48 +14,85 @@
 
 	.drilldown_content_section{
 		margin: 0 0 0 250px;
-		width:inherit;
+		width:1006px;
 	}
-	.drilldown_content_section.summary{
-		width:250px;
+
+
+	.quotes_info{
+		background-color:#fff;
+		margin:0 8px;
+		width:1262px;
+		border:1px solid #e5e5e5;
 	}
 </style>
 
 <% if params[:first_run] == "true" %>
 	<div id="system_feedback">
 		<h1>Way to go! You're now a Sunstand advocate!</h1>
-		<p>Help us reach our global goals of neutralizing the carbon footprint of 4 million people and getting solar into 2 million homes by 2025.</p> 
-		<p>Here's how it works...</p>
-		<div class="system_feedback_graphic dev_img_placeholder">[find customers graphic]</div>
-		<div class="system_feedback_graphic dev_img_placeholder">[recruit advocates graphic]</div>
-		<div class="system_feedback_graphic dev_img_placeholder">[change the world graphic]</div>
+		<p>This is your dashboard and you will come to find this space to be the home of your solar business!</p>
+		<p>To help you make sense for the rest of the dashboard, please first go through the <a href="">Shine Certification</a></p>
+		<p><a href="">Shine Certification</a> is FREE and can be found under the <a href="">SunStand U</a>
+		<br><br>
 	</div>
 <% else %>
 <% end %> 
 
-<section id="dashboard_kpis" class="dashboard_section" data-drilldown-level="0">
-
+<section id="dashboard_personal_goals" class="dashboard_section" data-drilldown-level="0" style="margin-top:-100px;">
 	<div class="section_header">
+
 		<div class="section_header_content">
 
-			<% if params[:first_run] == "true" %>
-			<% else %>
+			<div class="section_label">
+				<div class="tag"></div>
+				<div class="text">Pay Period Goals</div>
+			</div>
 
-			<%= select_tag "Level", options_for_select(
-				[
-					"My Impact", 
-				    "Level 2 Impact",
-				    "Level 3 Impact",
-				    "Level 4 Impact",
-				    "Level 5 Impact",
-				    "Level 6 Impact",
-				    "Total Impact"
-				], ["My Impact"]),
-				{ :class => 'title_select' }
-			%>
+		</div>
+	</div>
 
-			<% end %>
+	<div class="section_body">
+		<div class="section_content">
+			<div id="goal_meters">
+				<div id="personal_sales" class="meter_container">
+					<div class="labels"></div>
+					<div class="highlight_container">
+						<div class="highlight"></div>
+					</div>
+				</div>
+				
+				<div id="group_sales" class="meter_container">
+					<div class="highlight_container">
+						<div class="highlight"></div>
+					</div>
+					<div class="labels flip"></div>
 
+				</div>
+
+			</div>
+			<div class="section_legend">
+				<div class="team"></div>
+				<span>Group Sales</span>
+				<div class="you"></div>
+				<span>Personal Sales</span>
+			</div>
+			<div class="next_rank" style="float:right;font-size:14px; text-transform:uppercase; line-height:24px;margin-top:-10px;padding-right:8px;">
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+<section id="dashboard_kpis" class="dashboard_section" data-drilldown-level="0">
+	<div class="section_header">
+
+		<div class="section_header_content">
+			<div class="section_label">
+				<div class="tag"></div>
+				<div class="text">Key performance index</div>
+			</div>
+
+		
 		</div>
 	</div>
 
@@ -155,32 +192,42 @@
 </section>
 
 <section id="dashboard_quotes" class="dashboard_section" data-drilldown-level="0">
-	<div class="section_header">
+	<div class="section_header" >
 		<div class="section_header_content">
+			<div class="section_label">
+				<div class="tag"></div>
+				<div class="text">My Customer Queue </div>
+			</div>
+			<% if params[:first_run] == "true" %>
+			<% else %>
 
-			<%= select_tag "Level", options_for_select(
-				[
-					"My Quotes", 
-				    "Level 2 Quotes",
-				    "Level 3 Quotes",
-				    "Level 4 Quotes",
-				    "Level 5 Quotes",
-				    "Level 6 Quotes",
-				    "All Quotes"
-				], ["My Quotes"]),
-				{ :class => 'title_select' }
-			%>
+			<select>
+				<option>Order by Date</option>
+				<option>Order by Name</option>
+			</select>
+			<% end %>
 
 			<% if params[:first_run] == "true" %>
 			<% else %>
 
-	            <ul class="tabs">
+
+			<select>
+				<option>With No Filter</option>
+				<option>And Show Submitted Quotes Only</option>
+				<option>And Show Incomplete Quotes Only</option>
+				<option>And Show Approved Quotes Only</option>
+			</select>
+
+	            <!--<ul class="tabs">
 	              <li><a href="" class="active">Incomplete</a></li>
 	              <li><a href="">Submitted</a></li>
 	              <li><a href="">Approved</a></li>
 	            </ul>
 
 				<span class="collection_total">47 total</span>
+
+	        	-->
+
 
 				<input type="search" class="section_search js-search_box" placeholder="search quotes" data-search-source="u/quotes" />
 			
@@ -192,16 +239,16 @@
 	<div class="section_body">
 		<div class="section_content quotes_info">
 
-			<% if params[:first_run] == "true" %>
-
-				<div class="blank_state">
-					You don't have any quotes yet. <a href="#">Add a customer lead</a> to get started.
-				</div>
-			
-			<% else %>
-
 				<%= render partial: "shared/new_quote_thumbnail"%>
 				<div class="pagination_container" data-comment="required for pagination - do not remove">
+					<% if params[:first_run] == "true" %>
+
+						<div class="blank_state">
+							You don't have any quotes yet. <a href="#">Add a customer lead</a> to get started.
+						</div>
+					
+					<% else %>
+
 					<div class="nav left"><i class="fa fa-angle-left"></i></div>
 					<div class="pagination_content">
 						<p class="blank_state">
@@ -211,9 +258,9 @@
 
 					</div>
 					<div class="nav right"><i class="fa fa-angle-right"></i></div>
+					<% end %>
 				</div>
 
-			<% end %>
 
 		</div>
 
@@ -233,47 +280,34 @@
 <section id="dashboard_team" class="dashboard_section" data-drilldown-level="0">
 	<div class="section_header">
 		<div class="section_header_content">
-
-			<%= select_tag "Level", options_for_select(
-				[
-					"My Team", 
-				    "Level 2 Team",
-				    "Level 3 Team",
-				    "Level 4 Team",
-				    "Level 5 Team",
-				    "Level 6 Team",
-				    "Everybody"
-				], ["My Team"]),
-				{ :class => 'title_select' }
-			%>
+			<div class="section_label">
+				<div class="tag"></div>
+				<div class="text">My Team</div>
+			</div>
 
 			<% if params[:first_run] == "true" %>
 			<% else %>
 
 			<%= select_tag "Level", options_for_select(
 				[
-					"All Ranks", 
-				    "Rank 1",
-				    "Rank 2",
-				    "Rank 3",
-				    "Rank 4",
-				    "Rank 5"
-				], ["All Ranks"]),
+					"Order By Ranks", 
+				    "Order By Quotes Created",
+				    "Order By New Recuits"
+				], ["Order By Ranks"]),
 				{ :class => 'title_select' }
 			%>
 
 				<%= select_tag "Show", options_for_select(
 					[
-						"Sorted By Impact", 
-					    "Sorted By Earnings",
-					    "Sorted By Newest",
-					    "Sorted By Oldest"
-					], ["Sorted By Impact"]) 
+						"Of All Time", 
+					    "In Current Pay Period Week",
+					    "In Current Pay Period Month"
+					], ["In Current Pay Period Month"]) 
 				%>
 
 				<input type="search" class="section_search js-search_box" placeholder="search team" data-search-source="u/users"/>
 
-				<span class="collection_total">17 total</span>
+				<!--<span class="collection_total">17 total</span>-->
 
 			<% end %>
 
@@ -297,6 +331,15 @@
 			</div>
 
 			<div class="pagination_container" data-comment="required for pagination - do not remove">
+
+			<% if params[:first_run] == "true" %>
+
+				<div class="blank_state">
+					You don't have any quotes yet. <a href="#">Add a customer lead</a> to get started.
+				</div>
+			
+			<% else %>
+
 				<div class="nav left"><i class="fa fa-angle-left"></i></div>
 				<div class="pagination_content">
 					<p class="blank_state">
@@ -306,12 +349,17 @@
 
 				</div>
 				<div class="nav right"><i class="fa fa-angle-right"></i></div>
+
+			<% end %>
 			</div>
 
 		</div>
 	</div>
 </section>
 
+<br><br><br>
+
+<!--
 <% if params[:first_run] == "true" %>
 <% else %>
 
@@ -386,7 +434,9 @@
 			<% end %>
 
 		</div>
-<!-- 		<%= render partial: "shared/new_link_detail"%>
- -->	</div>
+ 		<%= render partial: "shared/new_link_detail"%>
+ 	</div>
 </section>
+
+-->
 	

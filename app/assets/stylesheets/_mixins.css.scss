@@ -36,7 +36,7 @@
 	$red: #f46b41;
 	$supergreen: #95bf5c;
 	$sunnyside: #F9A600;
-	$solar: #FAEA6A;
+	$solar: #f9b513;
 	$brand: #20C2F1;
 
 	$white: #fff;
@@ -60,7 +60,8 @@
 	$brand_white: lighten($brand, 45%);
 
 
-	$dev_gray: #f7f7f9;
+	$dev_gray: #f8f8f8;
+	$dev_dark_gray: #e5e5e5;
 	$quiet: lighten($text, 34%);
 	$whisper: lighten($text, 47%);
 	$ghost: rgba(0,0,0,.08);
@@ -397,7 +398,9 @@
 			display: block;
 			position: absolute;
 			bottom: $grid / 4;
-			width: $grid * 7;
+			//width: $grid * 7;
+			width:100%;
+			left:0;
 			// Background & borders
 		
 			// Typography

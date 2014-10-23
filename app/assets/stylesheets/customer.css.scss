@@ -201,7 +201,7 @@
 
 // 	input[type=text] {
 // 		// Mixins
-// 		@include corners(4px, 0, 4px, 0);
+// 		//@include corners(4px, 0, 4px, 0);
 // 		// Box properties
 // 		display: inline-block;
 // 		width: 100%;
@@ -383,7 +383,7 @@
 
 // 		input[type=text] {
 // 			// Mixins
-// 			@include corners;
+// 			//@include corners;
 // 			// Box properties
 
 // 			margin: 0 0 $grid / 2 0;
@@ -399,7 +399,7 @@
 
 // 		.button {
 // 			// Mixins
-// 			@include corners;
+// 			//@include corners;
 // 			// Box properties
 
 // 			// Background & borders
