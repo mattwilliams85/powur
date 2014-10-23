@@ -197,6 +197,39 @@ ALTER SEQUENCE bonuses_id_seq OWNED BY bonuses.id;
 
 
 --
+-- Name: customer_notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE customer_notes (
+    id integer NOT NULL,
+    customer_id integer NOT NULL,
+    author_id integer NOT NULL,
+    note character varying(1000),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: customer_notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE customer_notes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: customer_notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE customer_notes_id_seq OWNED BY customer_notes.id;
+
+
+--
 -- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -714,6 +747,13 @@ ALTER TABLE ONLY bonuses ALTER COLUMN id SET DEFAULT nextval('bonuses_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY customer_notes ALTER COLUMN id SET DEFAULT nextval('customer_notes_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
 
 
@@ -840,6 +880,14 @@ ALTER TABLE ONLY bonus_sales_requirements
 
 ALTER TABLE ONLY bonuses
     ADD CONSTRAINT bonuses_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: customer_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY customer_notes
+    ADD CONSTRAINT customer_notes_pkey PRIMARY KEY (id);
 
 
 --
@@ -1201,6 +1249,14 @@ ALTER TABLE ONLY bonuses
 
 
 --
+-- Name: customer_notes_author_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY customer_notes
+    ADD CONSTRAINT customer_notes_author_id_fk FOREIGN KEY (author_id) REFERENCES users(id);
+
+
+--
 -- Name: distributions_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1431,4 +1487,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141017215917');
 INSERT INTO schema_migrations (version) VALUES ('20141017220604');
 
 INSERT INTO schema_migrations (version) VALUES ('20141023090103');
+
+INSERT INTO schema_migrations (version) VALUES ('20141023092335');
 

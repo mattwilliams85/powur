@@ -344,6 +344,10 @@ class PayPeriod < ActiveRecord::Base
   end
 
   class << self
+    def current
+      find_or_create_by_date(Date.current)
+    end
+
     def find_or_create_by_date(date)
       find_or_create_by_id(id_from(date.to_date))
     end
