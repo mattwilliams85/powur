@@ -14,7 +14,7 @@ namespace :sunstand do
 
     task products: :environment do
       Product.destroy_all
-      quote_fields = %w(utility average_bill rate_schedule square_feet)
+      quote_fields = %w(utility average_bill rate_schedule square_feet estimated_credit)
       # roof_material roof_age kwh
       Product.create!(
         id:                    SOLAR_ITEM_ID,

@@ -6,6 +6,7 @@ class Customer < ActiveRecord::Base
                         allow_nil: true
 
   has_many :quotes
+  has_many :notes
 
   def full_name
     "#{first_name} #{last_name}"
