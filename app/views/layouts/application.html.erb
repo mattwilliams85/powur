@@ -25,8 +25,12 @@
 						<%= link_to_unless_current 'Dashboard', "/dashboard" %>
 					</li>	
 					<li>
-						<%= link_to_unless_current 'Training', "/training" %>
+						<%= link_to_unless_current 'SunStand U', "/training" %>
 					</li>
+					<li>
+						<%= link_to_unless_current 'Marketing Center', "/training" %>
+					</li>
+
 				</ul>
 		
 				<ul id="user_nav">
@@ -40,13 +44,14 @@
 			</nav>
 		</div>
 
-		<%= render :partial => "shared/our_goal" %>
+		<%#= render :partial => "shared/our_goal" %>
 
 	</header>
 
 	<%= yield %>
 
 	<%#= render :partial => "shared/warp_nav" %>
+	<%= render :partial => "shared/footer" %>
 
 </body>
 </html>

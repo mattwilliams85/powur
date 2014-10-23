@@ -13,6 +13,7 @@ jQuery(function($){
 			$(".js-user_first_name").text(_data.root.properties.first_name + " : RANK 0");
 			_myID = _data.root.properties.id;
 			_dashboard = new Dashboard();
+			_dashboard.displayGoals();
 			_dashboard.displayTeam();
 			_dashboard.displayQuote();
 			setInterval(_dashboard._countdown, 1000);			
@@ -29,13 +30,56 @@ jQuery(function($){
 //populate initial data on dashboard screen
 function Dashboard(){
 	_data.global = {};
-	_data.global.thumbnail_size={"width":256,"height":197};
+	_data.global.thumbnail_size={"width":252,"height":197};
 	_data.global.grid_width=32;
 	_data.global.total_invitations=5;
 
 	this.displayTeam = displayTeam;
 	this.displayQuote = displayQuote;
+	this.displayGoals = displayGoals;
 	this._countdown = _countdown;
+
+	function displayGoals(){
+		_data.goals={};
+		_data.goals.rank={
+			lifetime:7,
+			organic:3,
+			next_rank:4
+		}
+		_data.goals.sales={
+			personal:{
+				min:6,
+				max:20,
+				current:12,
+			},
+			group:{
+				min:11,
+				max:43,
+				current:32
+			}
+		}
+
+		Object.keys(_data.goals.sales).forEach(function(_key){
+			var _section_width=$("#"+_key+"_sales .labels").width();
+			var notches={};
+			notches.total=_data.goals.sales[_key].max-_data.goals.sales[_key].min;
+			notches.width=Math.ceil(_section_width/notches.total);
+			notches.min=_data.goals.sales[_key].min;
+			notches.max= _data.goals.sales[_key].max-1;
+			notches.current =  _data.goals.sales[_key].current;
+			for(i=notches.min; i<=notches.max;i++){
+				var _counter = (i<10)?"0"+i:i;
+				_html=	"<div class='notch' style='width:"+((1/notches.total)*100)+"%;'>";
+				_html+=	"<span>"+_counter+"</span><div></div>";
+				if(i<notches.max)_html+=	"</div>";
+				else _html+= "<span class='last_notch'>"+(_counter+1)+"</span><div class='last_notch'></div></div>"
+				$("#"+_key+"_sales .labels").append(_html);
+			}
+			$("#"+_key+"_sales .highlight").animate({width:(((notches.current-notches.min)/notches.total*100)+"%")}, 1000)
+		});
+		$("#dashboard_personal_goals .next_rank").html("Next Rank: "+_data.goals.rank.next_rank);
+
+	}
 
 	function displayTeam(_tab){
 		if(_tab === undefined ) _tab="team.everyone";
