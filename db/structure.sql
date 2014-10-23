@@ -235,6 +235,37 @@ ALTER SEQUENCE customers_id_seq OWNED BY customers.id;
 
 
 --
+-- Name: distributions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE distributions (
+    id integer NOT NULL,
+    pay_period_id character varying(255) NOT NULL,
+    user_id integer NOT NULL,
+    amount numeric(10,2) NOT NULL
+);
+
+
+--
+-- Name: distributions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE distributions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: distributions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE distributions_id_seq OWNED BY distributions.id;
+
+
+--
 -- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -333,7 +364,11 @@ CREATE TABLE pay_periods (
     type character varying(255) NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
-    calculated_at timestamp without time zone
+    calculated_at timestamp without time zone,
+    distributed_at timestamp without time zone,
+    total_volume numeric(10,2),
+    total_bonus numeric(10,2),
+    total_breakage numeric(10,2)
 );
 
 
@@ -686,6 +721,13 @@ ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distributions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY order_totals ALTER COLUMN id SET DEFAULT nextval('order_totals_id_seq'::regclass);
 
 
@@ -806,6 +848,14 @@ ALTER TABLE ONLY bonuses
 
 ALTER TABLE ONLY customers
     ADD CONSTRAINT customers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY distributions
+    ADD CONSTRAINT distributions_pkey PRIMARY KEY (id);
 
 
 --
@@ -932,6 +982,13 @@ CREATE UNIQUE INDEX idx_order_totals_composite_key ON order_totals USING btree (
 --
 
 CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_plans USING btree (start_year, start_month);
+
+
+--
+-- Name: index_distributions_on_pay_period_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
 
 
 --
@@ -1141,6 +1198,22 @@ ALTER TABLE ONLY bonuses
 
 ALTER TABLE ONLY bonuses
     ADD CONSTRAINT bonuses_min_upline_rank_id_fk FOREIGN KEY (min_upline_rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: distributions_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY distributions
+    ADD CONSTRAINT distributions_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: distributions_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY distributions
+    ADD CONSTRAINT distributions_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -1356,4 +1429,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141014205547');
 INSERT INTO schema_migrations (version) VALUES ('20141017215917');
 
 INSERT INTO schema_migrations (version) VALUES ('20141017220604');
+
+INSERT INTO schema_migrations (version) VALUES ('20141023090103');
 

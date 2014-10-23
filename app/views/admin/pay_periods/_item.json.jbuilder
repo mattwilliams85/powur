@@ -12,7 +12,7 @@ end
 unless local_assigns[:read_only]
   action_list = []
 
-  if pay_period.calculated?
+  if pay_period.calculated? && pay_period.calculable?
     action_list << action(:recalculate, :post,
                           recalculate_pay_period_path(pay_period))
   elsif can_calculate?(pay_period)

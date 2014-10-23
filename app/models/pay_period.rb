@@ -16,8 +16,12 @@ class PayPeriod < ActiveRecord::Base
     "#{type_display} (#{start_date} - #{end_date})"
   end
 
+  def finished?
+    Date.current > end_date
+  end
+
   def calculable?
-    Date.current > start_date
+    DateTime.current > start_date && distributed_at.nil?
   end
 
   def calculated?

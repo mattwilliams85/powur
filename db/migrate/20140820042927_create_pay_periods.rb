@@ -6,6 +6,10 @@ class CreatePayPeriods < ActiveRecord::Migration
       t.date :start_date, null: false
       t.date :end_date, null: false
       t.datetime :calculated_at
+      t.datetime :distributed_at
+      t.decimal :total_volume, precision: 10, scale: 2
+      t.decimal :total_bonus, precision: 10, scale: 2
+      t.decimal :total_breakage, precision: 10, scale: 2
     end
     execute 'alter table pay_periods add primary key (id);'
 
