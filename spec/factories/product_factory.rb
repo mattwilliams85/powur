@@ -3,6 +3,6 @@ FactoryGirl.define do
     name { Faker::Commerce.product_name }
     bonus_volume 500
     commission_percentage 100
-    quote_data %w(utility rate_schedule roof_material roof_age kwh)
+    quote_data %w(utility average_bill rate_schedule square_feet)
   end
 end

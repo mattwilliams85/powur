@@ -16,7 +16,7 @@ describe '/u/quotes' do
       expect_actions('create')
 
       create_action = json_body['actions'].find { |a| a['name'] == 'create' }
-      result = create_action['fields'].any? { |f| f['name'] == 'kwh' }
+      result = create_action['fields'].any? { |f| f['name'] == 'rate_schedule' }
       expect(result).to be
     end
 
@@ -51,7 +51,7 @@ describe '/u/quotes' do
         city:       'SunnyVille',
         state:      'FL',
         zip:        '65999',
-        roof_age:   12,
+        utility:    12,
         format:     :json }
     end
 
@@ -64,7 +64,7 @@ describe '/u/quotes' do
     end
 
     it 'nils out parameters with zero length strings' do
-      post user_quotes_path, input_params.merge(city: '', roof_age: '')
+      post user_quotes_path, input_params.merge(city: '', rate_schedule: '')
 
       expect_200
       expect_classes 'quote'
@@ -84,13 +84,14 @@ describe '/u/quotes' do
       quote = create(
         :quote,
         user: @user,
-        data: { 'roof_age' => '12', 'kwh' => '1300' })
+        data: { 'square_feet' => 1200, 'rate_schedule' => 12 })
 
       get user_quote_path(quote), format: :json
 
       expect_200
       expect_classes 'quote'
-      expect(json_body['properties'].keys).to include('roof_age', 'kwh')
+      expect(json_body['properties'].keys)
+        .to include('rate_schedule', 'square_feet')
     end
 
   end

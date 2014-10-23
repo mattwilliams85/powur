@@ -100,7 +100,12 @@ Rails.application.routes.draw do
       resources :bonus_payments,
                 only:       [ :index ],
                 controller: :user_bonus_payments
+    end
 
+    resources :data, only: [ :index ] do
+      collection do
+        get :quotes
+      end
     end
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]

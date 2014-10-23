@@ -13,6 +13,7 @@ entity_list = [
   ref_entity(%w(user), 'user-profile', profile_path) ]
 if current_user.has_role?(:admin)
   entity_list << ref_entity(%w(list users), 'admin-users', admin_users_path)
+  entity_list << ref_entity(%w(data), 'admin-data', data_path)
 end
 
 entities(*entity_list)
