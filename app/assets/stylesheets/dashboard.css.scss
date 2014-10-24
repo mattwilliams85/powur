@@ -163,6 +163,7 @@
 		// Box properties
 		height:40px;
 		padding:10px;
+		padding-right:20px;
 		text-transform:uppercase;
 		font-weight:bold;
 		font-size:14px;
@@ -518,8 +519,9 @@
 
 	// Other
 	h3{
-		font-size:20px;
-		color:$dev_dark_gray;
+		font-size:14px;
+		text-transform:uppercase;
+		color:darken($dev_dark_gray, 30%);
 	}
 	.metrics_number{
 		color:$dev_dark_gray;
@@ -952,10 +954,13 @@
 	@include object_thumbnail;
 
 	// Box properties
-	width: $grid * 8;
-	height:220px;
+	//width: $grid * 8;
+	width:252px;
+	height:100%;
+	min-height:220px;
 	padding:0;
 	margin:0;
+	border:0;
 	border-right:1px solid $dev_dark_gray;
 	border-radius:0;
 	// Background & borders
@@ -963,6 +968,9 @@
 	// Typography
 
 	// Other
+	&:first-child{
+		width:255px;
+	}
 
 	.placeholder_avatar {
 		// Mixins
@@ -997,6 +1005,17 @@
 	}
 
 
+}
+
+.js-empty_seat{
+	border-right:1px solid darken($dev_dark_gray, 30%);
+
+	&:first-child{
+		width:256px;
+	}	
+	&:last-child{
+		border:0;
+	}
 }
 
 #new_quote_thumbnail {
@@ -1482,6 +1501,7 @@
 		bottom: 0;
 		text-align:center;
 		overflow: hidden;
+		padding:36px 10px 10px 10px;
 		// Background & borders
 		border-right: $light_border;
 		// Typography
@@ -1972,5 +1992,6 @@
 	}
 	.object_detail{
 		background: none;
+		padding:20px;
 	}
 

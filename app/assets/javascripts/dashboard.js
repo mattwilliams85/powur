@@ -24,6 +24,15 @@ jQuery(function($){
 			console.log(data)
 		});});
 
+		//adjust font width for metrics
+
+		$(".kpi_thumbnail h1").each(function(){
+			var _width=$(this).find("span:first").width()+174;
+			console.log(_width);
+			var _newWidth = Math.floor(220*60/_width);
+			$(this).css("font-size", _newWidth+"pt");
+		})
+
 	});
 });
 
