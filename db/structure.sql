@@ -476,6 +476,69 @@ ALTER SEQUENCE qualifications_id_seq OWNED BY qualifications.id;
 
 
 --
+-- Name: quote_field_lookups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE quote_field_lookups (
+    id integer NOT NULL,
+    quote_field_id integer NOT NULL,
+    value character varying(255) NOT NULL,
+    identifier integer NOT NULL
+);
+
+
+--
+-- Name: quote_field_lookups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE quote_field_lookups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: quote_field_lookups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE quote_field_lookups_id_seq OWNED BY quote_field_lookups.id;
+
+
+--
+-- Name: quote_fields; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE quote_fields (
+    id integer NOT NULL,
+    product_id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    data_type integer DEFAULT 1 NOT NULL,
+    required boolean DEFAULT true NOT NULL
+);
+
+
+--
+-- Name: quote_fields_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE quote_fields_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: quote_fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE quote_fields_id_seq OWNED BY quote_fields.id;
+
+
+--
 -- Name: quotes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -796,6 +859,20 @@ ALTER TABLE ONLY qualifications ALTER COLUMN id SET DEFAULT nextval('qualificati
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY quote_field_lookups ALTER COLUMN id SET DEFAULT nextval('quote_field_lookups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY quote_fields ALTER COLUMN id SET DEFAULT nextval('quote_fields_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY quotes ALTER COLUMN id SET DEFAULT nextval('quotes_id_seq'::regclass);
 
 
@@ -955,6 +1032,22 @@ ALTER TABLE ONLY qualifications
 
 
 --
+-- Name: quote_field_lookups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY quote_field_lookups
+    ADD CONSTRAINT quote_field_lookups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: quote_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY quote_fields
+    ADD CONSTRAINT quote_fields_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: quotes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1058,6 +1151,20 @@ CREATE INDEX index_qualifications_on_product_id ON qualifications USING btree (p
 --
 
 CREATE INDEX index_qualifications_on_rank_id ON qualifications USING btree (rank_id);
+
+
+--
+-- Name: index_quote_field_lookups_on_quote_field_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_quote_field_lookups_on_quote_field_id ON quote_field_lookups USING btree (quote_field_id);
+
+
+--
+-- Name: index_quote_fields_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_quote_fields_on_product_id ON quote_fields USING btree (product_id);
 
 
 --
@@ -1358,6 +1465,22 @@ ALTER TABLE ONLY qualifications
 
 ALTER TABLE ONLY qualifications
     ADD CONSTRAINT qualifications_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: quote_field_lookups_quote_field_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY quote_field_lookups
+    ADD CONSTRAINT quote_field_lookups_quote_field_id_fk FOREIGN KEY (quote_field_id) REFERENCES quote_fields(id);
+
+
+--
+-- Name: quote_fields_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY quote_fields
+    ADD CONSTRAINT quote_fields_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --

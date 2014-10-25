@@ -2,6 +2,8 @@ class Product < ActiveRecord::Base
   has_many :qualifications, dependent: :destroy
   has_many :bonus_sales_requirements, dependent: :destroy
   has_many :bonuses, through: :bonus_sales_requirements
+  has_many :quote_fields, dependent: :destroy
+  has_many :quote_field_lookups, through: :quote_fields
 
   validates_presence_of :name, :bonus_volume, :commission_percentage
 
