@@ -4,19 +4,24 @@ describe '/u/quotes' do
 
   before :each do
     login_user
+
+    @quote_field = create(:quote_field, data_type: :lookup)
+    create_list(:quote_field_lookup, 4, quote_field: @quote_field)
+    @product = @quote_field.product
+    SystemSettings.default_product_id = @product.id
   end
 
   describe '#index' do
 
     it 'returns the list of quotes for a user' do
-      create_list(:quote, 7, user: @user)
+      create_list(:quote, 7, user: @user, product: @product)
 
       get user_quotes_path, format: :json
       expect_classes('list', 'quotes')
       expect_actions('create')
 
       create_action = json_body['actions'].find { |a| a['name'] == 'create' }
-      result = create_action['fields'].any? { |f| f['name'] == 'rate_schedule' }
+      result = create_action['fields'].any? { |f| f['name'] == @quote_field.name }
       expect(result).to be
     end
 
@@ -98,12 +103,13 @@ describe '/u/quotes' do
   describe '#update' do
 
     it 'updates an existing quote' do
-      customer = create(:quote, user: @user)
+      quote = create(:quote, user: @user)
 
-      patch user_quote_path(customer.id, first_name: 'Bob'), format: :json
+      patch user_quote_path(quote.id, first_name: 'Bob'), format: :json
+      quote.reload
 
       expect_confirm
-      expect(json_body['properties']['first_name']).to eq('Bob')
+      expect(json_body['properties']['customer']).to eq(quote.customer.full_name)
     end
 
   end

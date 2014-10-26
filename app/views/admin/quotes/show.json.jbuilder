@@ -1,6 +1,6 @@
 quote_klass json
 
-detail_entities('admin')
+admin_entities
 
 unless @quote.order?
   actions \

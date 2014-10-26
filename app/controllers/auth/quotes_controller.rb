@@ -10,10 +10,7 @@ module Auth
     end
 
     def search
-      @quotes = Quote.where(user_id: current_user.id)
-        .includes(:customer, :user, :product)
-        .references(:customer, :user, :product)
-        .customer_search(params[:search])
+      @quotes = quote_list.customer_search(params[:search])
 
       render 'index'
     end
@@ -60,8 +57,12 @@ module Auth
 
     private
 
+    def product
+      @product ||= Product.default
+    end
+
     def product_id
-      SystemSettings.default_product_id
+      product.id
     end
 
     def customer_input
@@ -71,9 +72,7 @@ module Auth
     end
 
     def quote_input
-      allow_input(
-        :utility, :rate_schedule,
-        :kwh, :roof_material, :roof_age)
+      allow_input(*product.quote_fields.map(&:name))
     end
 
     def fetch_quote
@@ -82,7 +81,11 @@ module Auth
     end
 
     def quote_list
-      current_user.quotes.includes(:customer).order(created_at: :desc)
+      current_user.quotes
+        .includes(:customer, :user, :product)
+        .references(:customer, :user, :product)
+        .customer_search(params[:search])
+        .order(created_at: :desc)
     end
   end
 end

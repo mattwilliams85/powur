@@ -4,7 +4,7 @@ class QuoteField < ActiveRecord::Base
                      foreign_key: :quote_field_id,
                      dependent:   :destroy
 
-  enum data_type: { string: 1, number: 2, date: 3, lookup: 4 }
+  enum data_type: { text: 1, number: 2, date: 3, lookup: 4, boolean: 5 }
 
   validates_presence_of :product_id, :name, :data_type, :required
 

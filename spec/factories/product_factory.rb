@@ -5,4 +5,5 @@ FactoryGirl.define do
     commission_percentage 100
     quote_data %w(utility average_bill rate_schedule square_feet estimated_credit)
   end
+
 end
