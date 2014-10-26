@@ -27,6 +27,16 @@ rake sunstand:seed:bonus_plan
 
 Two products are created. One Solar Item product as well as the Consultant Certification product.
 
+## Create quote field lookup values for rate schedule, roof ages, roof types and utility companies
+
+This task happens as part of the task to create the bonus_plan, but you can use it to update or delete values
+
+```bash
+rake sunstand:import:quote_field_lookups
+```
+
+# Simulation
+
 ## Simulate User Genealogy
 
 ```bash

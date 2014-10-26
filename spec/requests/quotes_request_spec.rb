@@ -4,7 +4,7 @@ describe '/quote' do
 
   before :each do
     @user = create(:user, url_slug: 'dude')
-    SystemSettings.default_product_id = create(:product).id
+    @product = create(:sunrun_product)
   end
 
   let(:params) do
@@ -13,7 +13,7 @@ describe '/quote' do
       last_name:  'dude',
       phone:      '8585551212',
       sponsor:    @user.url_slug,
-      product_id: 1,
+      product_id: @product.id,
       format:     :json }
   end
 

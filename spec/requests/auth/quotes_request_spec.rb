@@ -5,10 +5,7 @@ describe '/u/quotes' do
   before :each do
     login_user
 
-    @quote_field = create(:quote_field, data_type: :lookup)
-    create_list(:quote_field_lookup, 4, quote_field: @quote_field)
-    @product = @quote_field.product
-    SystemSettings.default_product_id = @product.id
+    @product = create(:sunrun_product)
   end
 
   describe '#index' do
@@ -21,8 +18,6 @@ describe '/u/quotes' do
       expect_actions('create')
 
       create_action = json_body['actions'].find { |a| a['name'] == 'create' }
-      result = create_action['fields'].any? { |f| f['name'] == @quote_field.name }
-      expect(result).to be
     end
 
   end
@@ -88,8 +83,9 @@ describe '/u/quotes' do
     it 'returns a quote detail' do
       quote = create(
         :quote,
-        user: @user,
-        data: { 'square_feet' => 1200, 'rate_schedule' => 12 })
+        product: @product,
+        user:    @user,
+        data:    { 'square_feet' => 1200, 'rate_schedule' => 12 })
 
       get user_quote_path(quote), format: :json
 
@@ -109,7 +105,8 @@ describe '/u/quotes' do
       quote.reload
 
       expect_confirm
-      expect(json_body['properties']['customer']).to eq(quote.customer.full_name)
+      expect(json_body['properties']['customer'])
+        .to eq(quote.customer.full_name)
     end
 
   end

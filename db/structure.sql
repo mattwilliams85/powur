@@ -414,7 +414,6 @@ CREATE TABLE products (
     name character varying(255) NOT NULL,
     bonus_volume integer NOT NULL,
     commission_percentage integer DEFAULT 100 NOT NULL,
-    quote_data character varying(255)[] DEFAULT '{}'::character varying[],
     distributor_only boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

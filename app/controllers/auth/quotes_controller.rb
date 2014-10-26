@@ -26,7 +26,7 @@ module Auth
         customer:   customer,
         user:       current_user,
         data:       quote_input)
-
+      
       @quote.email_customer if @quote.can_email?
       show
     end

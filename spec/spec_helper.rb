@@ -26,8 +26,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     Product.create!(
       name:         'Solar Item',
-      bonus_volume: 500,
-      quote_data:   %w(utility rate_schedule roof_material roof_age kwh))
+      bonus_volume: 500)
     Rank.create(id: 1, title: 'Advocate')
   end
 

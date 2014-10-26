@@ -2,14 +2,15 @@ require 'spec_helper'
 
 describe Quote, type: :model do
   it 'does not allow data not defined for the product' do
-    expect { create(:quote, data: { 'foo' => 'bar' }) }
+    product = create(:product_with_quote_fields)
+    data = { 'foo' => 'joy', 'bar' => 'galore' }
+    expect { create(:quote, data: data) }
       .to raise_error(ActiveRecord::RecordInvalid)
   end
 
   it 'allows data defined for the product' do
-    product = create(:product, quote_data: %w(foo bar))
-
-    data = { 'foo' => 'joy', 'bar' => 'galore' }
+    product = create(:product_with_quote_fields)
+    data = Hash[product.quote_field_keys.map { |n| [ n, 'foo' ] }]
     create(:quote, product: product, data: data)
   end
 

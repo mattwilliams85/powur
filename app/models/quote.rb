@@ -46,7 +46,7 @@ class Quote < ActiveRecord::Base
   private
 
   def product_data
-    invalid_keys = data.keys.select { |key| !product.quote_data.include?(key) }
+    invalid_keys = data.keys.select { |key| !product.quote_field_keys.include?(key) }
     errors.add(:data, :invalid_keys) if invalid_keys.size > 0
   end
 

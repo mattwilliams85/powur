@@ -76,6 +76,10 @@ class QuotesController < AnonController
 
   private
 
+  def product
+    @product ||= Product.default
+  end
+
   def customer_input
     allow_input(
       :first_name, :last_name, :email, :phone, 
@@ -83,7 +87,7 @@ class QuotesController < AnonController
   end
 
   def quote_input
-    allow_input(Product.default.quote_data.map(&:to_sym))
+    allow_input(*product.quote_fields.map(&:name))
   end
 
   def quote_from_email

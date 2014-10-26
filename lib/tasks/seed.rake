@@ -15,7 +15,7 @@ namespace :sunstand do
     task sunrun_product: :environment do
       existing = Product.find(SOLAR_ITEM_ID)
       existing.destroy if existing
-      fields = { utility:           :lookup,
+      fields = { utility:          :lookup,
                  average_bill:     :number,
                  rate_schedule:    :lookup,
                  square_feet:      :number,
@@ -27,8 +27,7 @@ namespace :sunstand do
         id:                    SOLAR_ITEM_ID,
         name:                  'SunRun Solar Item',
         bonus_volume:          500,
-        commission_percentage: 80,
-        quote_data:            fields.keys)
+        commission_percentage: 80)
 
       fields.each do |name, data_type|
         QuoteField.create!(
@@ -36,8 +35,7 @@ namespace :sunstand do
           name:       name.to_s,
           data_type:  data_type)
       end
-      optional = fields.keys
-      optional.delete(:average_bill)
+      Rake::Task['sunstand:import:quote_field_lookups'].execute
     end
 
     task products: :environment do

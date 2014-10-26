@@ -31,9 +31,17 @@ class Product < ActiveRecord::Base
     bonus_volume * (0.01 * commission_percentage)
   end
 
+  def quote_field_keys
+    @quote_field_keys ||= quote_fields.map(&:name)
+  end
+
   class << self
     def default
       Product.find(SystemSettings.default_product_id)
+    rescue ActiveRecord::RecordNotFound
+      product = Product.first
+      SystemSettings.default_product_id = Product.first.id
+      product
     end
   end
 end
