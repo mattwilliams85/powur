@@ -13,6 +13,8 @@ rake db:drop db:create db:migrate
 
 ## Seed the DB with admin users
 
+Do not simply append this task to the above command, as there is a current rails bug with postgres that makes it fail
+
 ```bash
 rake db:seed
 ```

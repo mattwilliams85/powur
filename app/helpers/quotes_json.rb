@@ -122,7 +122,8 @@ module QuotesJson
   end
 
   def action_quote_fields(action)
-    Product.default.quote_fields.each do |field|
+    product = Product.default || return
+    product.quote_fields.each do |field|
       opts = { required: field.required }
       if field.lookup?
         opts[:options] = field.lookups.sort_by(&:value).map do |lookup|

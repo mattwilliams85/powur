@@ -514,7 +514,7 @@ CREATE TABLE quote_fields (
     product_id integer NOT NULL,
     name character varying(255) NOT NULL,
     data_type integer DEFAULT 1 NOT NULL,
-    required boolean DEFAULT true NOT NULL
+    required boolean DEFAULT false NOT NULL
 );
 
 

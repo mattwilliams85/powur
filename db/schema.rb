@@ -153,7 +153,6 @@ ActiveRecord::Schema.define(version: 20141023092335) do
     t.string   "name",                                  null: false
     t.integer  "bonus_volume",                          null: false
     t.integer  "commission_percentage", default: 100,   null: false
-    t.string   "quote_data",            default: [],                 array: true
     t.boolean  "distributor_only",      default: false, null: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
@@ -172,11 +171,19 @@ ActiveRecord::Schema.define(version: 20141023092335) do
   add_index "qualifications", ["product_id"], name: "index_qualifications_on_product_id", using: :btree
   add_index "qualifications", ["rank_id"], name: "index_qualifications_on_rank_id", using: :btree
 
+  create_table "quote_field_lookups", force: true do |t|
+    t.integer "quote_field_id", null: false
+    t.string  "value",          null: false
+    t.integer "identifier",     null: false
+  end
+
+  add_index "quote_field_lookups", ["quote_field_id"], name: "index_quote_field_lookups_on_quote_field_id", using: :btree
+
   create_table "quote_fields", force: true do |t|
-    t.integer "product_id",                null: false
-    t.string  "name",                      null: false
-    t.integer "data_type",  default: 1,    null: false
-    t.boolean "required",   default: true, null: false
+    t.integer "product_id",                 null: false
+    t.string  "name",                       null: false
+    t.integer "data_type",  default: 1,     null: false
+    t.boolean "required",   default: false, null: false
   end
 
   add_index "quote_fields", ["product_id"], name: "index_quote_fields_on_product_id", using: :btree
@@ -311,6 +318,8 @@ ActiveRecord::Schema.define(version: 20141023092335) do
 
   add_foreign_key "qualifications", "products", name: "qualifications_product_id_fk"
   add_foreign_key "qualifications", "ranks", name: "qualifications_rank_id_fk"
+
+  add_foreign_key "quote_field_lookups", "quote_fields", name: "quote_field_lookups_quote_field_id_fk"
 
   add_foreign_key "quote_fields", "products", name: "quote_fields_product_id_fk"
 
