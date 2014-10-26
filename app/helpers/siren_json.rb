@@ -1,7 +1,7 @@
 module SirenJson
   include ActionView::Helpers::NumberHelper
 
-  RefEntity = Struct.new(:klass, :rel, :href) do
+  EntityRef = Struct.new(:klass, :rel, :href) do
     def render(json)
       json.set! :class, klass
       json.rel [ rel ]
@@ -9,11 +9,9 @@ module SirenJson
     end
   end
 
-  PartialEntity = Struct.new(:name, :value, :opts) do
+  EntityPartial = Struct.new(:path, :rel, :opts) do
     def render(json)
-      path = opts.delete(:path) || "#{name}s/item"
-      args = (opts || {}).merge(name => value)
-      json.partial!(path, args)
+      json.partial!(path, opts.merge(rel: rel))
     end
   end
 
@@ -84,12 +82,12 @@ module SirenJson
     end
   end
 
-  def ref_entity(klass, rel, href)
-    RefEntity.new(klass, rel, href)
-  end
-
-  def partial_entity(name, value, opts = {})
-    PartialEntity.new(name, value, opts)
+  def entity(path_or_klass, rel, opts = {})
+    if opts.is_a?(String)
+      EntityRef.new(path_or_klass, rel, opts)
+    else
+      EntityPartial.new(path_or_klass, rel, opts)
+    end
   end
 
   def action(name, method, href)

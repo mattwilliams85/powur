@@ -7,8 +7,7 @@ json.properties do
   json.downline_count(user.downline_count) if user.attributes['downline_count']
 end
 
-entities \
-  ref_entity(%w(users list), 'user-ancestors', upline_admin_user_path(user))
+entities entity(%w(users list), 'user-ancestors', upline_admin_user_path(user))
 
 links link(:self, admin_user_path(user)),
       link(:children, downline_admin_user_path(user)),

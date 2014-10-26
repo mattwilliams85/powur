@@ -37,7 +37,6 @@ namespace :sunstand do
       end
       optional = fields.keys
       optional.delete(:average_bill)
-      binding.pry
     end
 
     task products: :environment do

@@ -45,15 +45,20 @@ module QuotesJson
 
   def detail_entities(context)
     list = [
-      partial_entity(:product, @quote.product,
-                     path: "#{context}/products/item"),
-      partial_entity(:user, @quote.user, path: "#{context}/users/item"),
-      partial_entity(:customer, @quote.customer,
-                     path: "#{context}/customers/item") ]
+      entity("#{context}/products/item",
+             'quote-product',
+             product: @quote.product),
+      entity("#{context}/users/item",
+             'quote-user',
+             user: @quote.user),
+      entity("#{context}/customers/item",
+             'quote-customer',
+             customer: @quote.customer) ]
 
     if @quote.order?
-      list << partial_entity(:order, @quote.order,
-                             path: "#{context}/orders/item")
+      list << entity("#{context}/orders/item",
+                     'quote-order',
+                     order: @quote.order)
     end
 
     entities(*list)

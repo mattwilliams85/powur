@@ -7,13 +7,13 @@ json.properties do
 end
 
 entity_list = [
-  ref_entity(%w(list invites), 'user-invites', invites_path),
-  ref_entity(%w(list users), 'user-users', users_path),
-  ref_entity(%w(list quotes), 'user-quotes', user_quotes_path),
-  ref_entity(%w(user), 'user-profile', profile_path) ]
+  entity(%w(list invites), 'user-invites', invites_path),
+  entity(%w(list users), 'user-users', users_path),
+  entity(%w(list quotes), 'user-quotes', user_quotes_path),
+  entity(%w(user), 'user-profile', profile_path) ]
 if current_user.has_role?(:admin)
-  entity_list << ref_entity(%w(list users), 'admin-users', admin_users_path)
-  entity_list << ref_entity(%w(data), 'admin-data', data_path)
+  entity_list << entity(%w(list users), 'admin-users', admin_users_path)
+  entity_list << entity(%w(data), 'admin-data', data_path)
 end
 
 entities(*entity_list)
