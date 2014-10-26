@@ -28,7 +28,7 @@ if current_user.has_role?(:admin)
   link_list << link(:products, products_path)
   link_list << link(:bonus_plans, bonus_plans_path)
   link_list << link(:quotes, admin_quotes_path)
-  link_list << link(:orders, orders_path)
+  link_list << link(:orders, admin_orders_path)
   link_list << link(:pay_periods, pay_periods_path)
 end
 

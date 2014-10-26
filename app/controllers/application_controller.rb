@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include SirenDSL
   include ListQuery
   include UserEvents
+  helper SirenJson
 
   protect_from_forgery with: :exception
   helper_method :current_user

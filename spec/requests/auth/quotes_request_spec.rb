@@ -88,7 +88,6 @@ describe '/u/quotes' do
 
       get user_quote_path(quote), format: :json
 
-      expect_200
       expect_classes 'quote'
       expect(json_body['properties'].keys)
         .to include('rate_schedule', 'square_feet')

@@ -39,4 +39,13 @@ describe '/quote' do
     expect_actions 'update'
   end
 
+  it 'renders an exsting quote' do
+    quote = create(:quote)
+    get customer_quote_path(@user.url_slug, quote.url_slug), format: :json
+
+    expect_classes 'quote'
+    expect_props id: quote.id
+    expect_actions 'update'
+  end
+
 end

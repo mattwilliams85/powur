@@ -1,6 +1,7 @@
 module Auth
   class QuotesController < AuthController
     before_action :fetch_quote, only: [ :show, :update, :destroy, :resend ]
+    helper QuotesJson
 
     def index
       @quotes = quote_list

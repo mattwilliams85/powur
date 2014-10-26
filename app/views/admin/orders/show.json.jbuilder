@@ -10,6 +10,6 @@ entity_list = [
 if @order.bonus_payments?
   entity_list << ref_entity(%w(list bonus_payments),
                             'order-bonus_payments',
-                            order_bonus_payments_path(@order))
+                            admin_order_bonus_payments_path(@order))
 end
 entities(*entity_list)

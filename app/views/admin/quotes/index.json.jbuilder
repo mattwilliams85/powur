@@ -1,9 +1,5 @@
-siren json
-
-klass :quotes, :list
-
-json.entities @quotes, partial: 'item', as: :quote
+quotes_klass json
 
 actions index_action(admin_quotes_path, true)
 
-links link(:self, admin_quotes_path)
+self_link admin_quotes_path

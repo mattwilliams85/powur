@@ -2,11 +2,7 @@ klass :quote
 
 entity_rel(local_assigns[:rel]) unless local_assigns[:detail]
 
-json.properties do
-  json.call(quote, :id, :data_status, :created_at)
-  json.user quote.user.full_name
-  json.customer quote.customer.full_name
-  json.product quote.product.name
-end
+admin_list_item_properties(quote)
 
-links link(:self, admin_quote_path(quote))
+self_link admin_quote_path(quote)
+

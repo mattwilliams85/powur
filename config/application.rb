@@ -20,6 +20,7 @@ module Sunstand
       enable_starttls_auto: true  }
 
     config.active_record.schema_format = :sql
+    config.action_controller.include_all_helpers = false
     ActiveSupport::Notifications.unsubscribe 'render_partial.action_view'
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.

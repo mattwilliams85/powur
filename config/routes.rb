@@ -46,7 +46,7 @@ Rails.application.routes.draw do
         get '' => 'users#search', constraints: has_params(:search)
       end
 
-      resources :orders, only: [ :index ], controller: :user_orders
+      resources :orders, only: [ :index, :show ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
       # resources :group_stats, only: [ :index ], controller: :user_group_stats
       resources :user_activities, only:       [ :index, :show ],
@@ -134,7 +134,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :orders, only: [ :index, :create, :show ] do
+    resources :orders, only: [ :index, :create, :show ], as: :admin_orders do
       resources :bonus_payments,
                 only:       [ :index ],
                 controller: :order_bonus_payments

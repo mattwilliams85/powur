@@ -1,26 +1,6 @@
-siren json
+quotes_klass json
 
-klass :quotes, :list
+actions index_action(user_quotes_path, true),
+        user_create_action
 
-json.entities @quotes, partial: 'item', as: :quote
-
-create_action = action(:create, :post, user_quotes_path)
-  .field(:first_name, :text)
-  .field(:last_name, :text)
-  .field(:email, :email, required: false)
-  .field(:phone, :text, required: false)
-  .field(:address, :text, required: false)
-  .field(:city, :text, required: false)
-  .field(:state, :text, required: false)
-  .field(:zip, :text, required: false)
-
-Product.default.quote_data.each do |key|
-  create_action.field(key, :text, required: false)
-end
-
-actions \
-  action(:index, :get, user_quotes_path)
-    .field(:search, :search, required: false),
-  create_action
-
-links link(:self, user_quotes_path)
+self_link user_quotes_path
