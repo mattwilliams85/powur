@@ -23,6 +23,14 @@ describe '/u/users/:id/orders' do
 
       expect_entities_count(3)
     end
-  end
 
+    it 'filters orders on status' do
+      create_list(:order, 2, user: @user, status: :closed)
+      create(:order, user: @user, status: :cancelled)
+
+      get user_orders_path(@user), status: 1, format: :json
+
+      expect_entities_count(2)
+    end
+  end
 end

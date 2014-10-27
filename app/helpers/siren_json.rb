@@ -41,15 +41,6 @@ module SirenJson
     end
   end
 
-  def confirm(value, args = {})
-    message confirm: value.is_a?(Symbol) ? t("confirms.#{value}", args) : value
-  end
-
-  # rubocop:disable Style/TrivialAccessors
-  def message(value)
-    @message = value
-  end
-
   def klass(*values)
     opts = values.last.is_a?(Hash) ? values.pop : {}
     json.set! :class, values
@@ -141,12 +132,15 @@ module SirenJson
     end
     if filtering?
       filters.each do |scope, opts|
-        reference = { url:     instance_exec(&opts[:url]),
-                      value:   opts[:id],
-                      display: opts[:name] }
-        field_opts = { reference: reference,
-                       value:     params[scope],
-                       required:  !opts[:required].nil? }
+        field_opts = { value: params[scope], required: !opts[:required].nil? }
+        if opts[:options]
+          field_opts[:options] = opts[:options]
+        else
+          reference = { url:     instance_exec(&opts[:url]),
+                        value:   opts[:id],
+                        display: opts[:name] }
+          field_opts[:reference] = reference
+        end
         if opts[:heading]
           field_opts[:heading] = t("headings.#{opts[:heading]}")
         end

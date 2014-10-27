@@ -2,22 +2,15 @@ module Auth
   class OrdersController < AuthController
     before_action :fetch_order, only: [ :show ]
 
-    page
-    sort order_date: :order_date, customer: 'customers.last_name asc',
-         user: 'users.last_name asc'
-
-    private
-
     def index(query = Order)
       respond_to do |format|
         format.json do
+          if params[:search].present?
+            query = query.customer_search(params[:search])
+          end
           query = apply_list_query_options(query)
             .includes(:user, :customer, :product)
             .references(:user, :customer, :product)
-          unless params[:search].blank?
-            query = apply_list_query_options(query)
-                    .user_customer_search(params[:search])
-          end
           @orders = query
 
           render 'index'

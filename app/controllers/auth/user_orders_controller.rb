@@ -1,7 +1,9 @@
 module Auth
   class UserOrdersController < OrdersController
     page
-    sort order_date: { order_date: :desc }, customer: 'customers.last_name asc'
+    sort order_date: { order_date: :desc },
+         customer:   'customers.last_name asc, customers.first_name asc'
+    filter :status, options: Order.enum_options(:statuses)
 
     def index
       respond_to do |format|

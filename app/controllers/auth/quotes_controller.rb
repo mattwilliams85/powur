@@ -27,7 +27,7 @@ module Auth
         customer:   customer,
         user:       current_user,
         data:       quote_input)
-      
+
       @quote.email_customer if @quote.can_email?
       show
     end
@@ -85,7 +85,6 @@ module Auth
       current_user.quotes
         .includes(:customer, :user, :product)
         .references(:customer, :user, :product)
-        # .order(created_at: :desc)
     end
   end
 end
