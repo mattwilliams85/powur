@@ -79,4 +79,18 @@ describe User, type: :model do
     end
   end
 
+  describe '::with_ancestor' do
+    it 'finds descendents' do
+      root = create(:user)
+      parent = create(:user, sponsor: root)
+      child = create(:user, sponsor: parent)
+
+      result = User.with_ancestor(root.id)
+      expect(result.size).to eq(2)
+
+      result = User.with_ancestor(parent.id).first
+      expect(result.id).to eq(child.id)
+    end
+  end
+
 end
