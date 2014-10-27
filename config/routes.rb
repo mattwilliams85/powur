@@ -46,6 +46,7 @@ Rails.application.routes.draw do
         get '' => 'users#search', constraints: has_params(:search)
       end
 
+      resource :goals, only: [ :show ]
       resources :orders, only: [ :index, :show ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
       # resources :group_stats, only: [ :index ], controller: :user_group_stats

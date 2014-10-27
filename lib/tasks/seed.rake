@@ -40,7 +40,7 @@ namespace :sunstand do
 
     task products: :environment do
       Product.destroy_all
-      Rake::Task['sunrun_product'].execute
+      Rake::Task['sunstand:seed:sunrun_product'].execute
       Product.create!(
         id:               CERT_ITEM_ID,
         name:             'SunStand Consultant Certification',
