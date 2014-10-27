@@ -31,8 +31,6 @@ module SirenJson
   Link = Struct.new(:rel, :href)
 
   attr_reader :json
-  
-  protected
 
   def siren(json)
     @json = json
@@ -63,8 +61,8 @@ module SirenJson
     end
   end
 
-  def entity_rel(relationship = nil)
-    json.rel [ relationship || :item ]
+  def entity_rel(value = nil)
+    json.rel [ value || :item ]
   end
 
   def entities(*args)
@@ -110,8 +108,9 @@ module SirenJson
     Link.new(rel, href)
   end
 
-  def self_link(path)
-    links link(:self, path)
+  def self_link(path, *list)
+    list.unshift(link(:self, path))
+    links(*list)
   end
 
   def index_action(url, search = false)

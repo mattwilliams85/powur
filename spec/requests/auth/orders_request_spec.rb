@@ -15,12 +15,10 @@ describe '/u/users/:id/orders' do
     end
 
     it 'renders orders for a user' do
-      create(:order, user: @user)
-      user = create(:user, sponsor: @user)
-      create_list(:order, 3, user: user)
+      create_list(:order, 3, user: @user)
+      create(:order)
 
-      get user_orders_path(user), format: :json
-
+      get user_orders_path(@user), format: :json
       expect_entities_count(3)
     end
 

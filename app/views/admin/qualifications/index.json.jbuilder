@@ -1,10 +1,6 @@
 siren json
 
-klass :qualifications, :list
-
-json.entities @qualifications,
-              partial: 'admin/qualifications/item',
-              as:      :qualification
+qual_json.list_init('admin/qualifications/item')
 
 actions action(:create, :post, qualifications_path)
   .field(:path, :text, value: 'default')
@@ -19,6 +15,4 @@ actions action(:create, :post, qualifications_path)
   .field(:max_leg_percent, :number,
          visibility: { control: :type, values: [ :group_sales ] })
 
-links \
-  link(:self, qualifications_path),
-  link(:products, products_path)
+self_link qualifications_path, link(:products, products_path)

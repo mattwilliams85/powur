@@ -66,9 +66,14 @@ class User < ActiveRecord::Base
     WHERE u.upline[?] = ? AND array_length(u.upline, 1) = ?
     ORDER BY u.last_name, u.first_name, u.id;"
   scope :child_count_list, ->(user){
-  find_by_sql([ CHILD_COUNT_LIST, user.level, user.id, user.level + 1 ]) }
-  scope :with_parent, ->(*user_ids){
-  where('upline[array_length(upline, 1) - 1] IN (?)', user_ids.flatten) }
+
+    find_by_sql([ CHILD_COUNT_LIST, user.level, user.id, user.level + 1 ]) }
+  scope :with_parent, ->(*user_ids) {
+    where('upline[array_length(upline, 1) - 1] IN (?)', user_ids.flatten) }
+  scope :with_ancestor, lambda { |user_id|
+    where("? = ANY (upline)", user_id)
+    .where('upline[array_length(upline, 1)] NOT IN (?)', user_id)
+  }
 
   attr_accessor :child_order_totals, :pay_period_rank
 

@@ -10,7 +10,8 @@ entity_list = [
   entity(%w(list invites), 'user-invites', invites_path),
   entity(%w(list users), 'user-users', users_path),
   entity(%w(list quotes), 'user-quotes', user_quotes_path),
-  entity(%w(user), 'user-profile', profile_path) ]
+  entity(%w(user), 'user-profile', profile_path),
+  entity(%w(goals), 'user-goals', user_goals_path(current_user)) ]
 if current_user.has_role?(:admin)
   entity_list << entity(%w(list users), 'admin-users', admin_users_path)
   entity_list << entity(%w(data), 'admin-data', data_path)

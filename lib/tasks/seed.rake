@@ -13,7 +13,7 @@ namespace :sunstand do
     end
 
     task sunrun_product: :environment do
-      existing = Product.find(SOLAR_ITEM_ID)
+      existing = Product.find_by_id(SOLAR_ITEM_ID)
       existing.destroy if existing
       fields = { utility:          :lookup,
                  average_bill:     :number,
@@ -40,7 +40,7 @@ namespace :sunstand do
 
     task products: :environment do
       Product.destroy_all
-      Rake::Task['sunrun_product'].execute
+      Rake::Task['sunstand:seed:sunrun_product'].execute
       Product.create!(
         id:               CERT_ITEM_ID,
         name:             'SunStand Consultant Certification',

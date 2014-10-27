@@ -1,13 +1,6 @@
 klass :qualification
 
-json.properties do
-  json.type qualification.type_string
-  json.call(qualification, :id, :type_display, :path, :time_period, :quantity)
-  if qualification.is_a?(GroupSalesQualification)
-    json.max_leg_percent qualification.max_leg_percent
-  end
-  json.product qualification.product.name
-end
+qual_json.properties(qualification)
 
 action_list = [
   action(:delete, :delete, qualification_path(qualification)) ]
@@ -25,4 +18,4 @@ end
 
 actions(*action_list)
 
-links link(:self, qualification_path(qualification))
+self_link qualification_path(qualification)

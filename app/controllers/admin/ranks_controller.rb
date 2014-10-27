@@ -1,5 +1,7 @@
 module Admin
   class RanksController < AdminController
+    helper QualificationsJson
+
     before_action :fetch_rank, only: [ :show, :destroy, :update ]
 
     def index
