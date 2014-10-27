@@ -21,14 +21,12 @@ jQuery(function($){
 
 		//wire up logout button
 		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete", function(data, text){
-			console.log(data)
 		});});
 
 		//adjust font width for metrics
 
 		$(".kpi_thumbnail h1").each(function(){
 			var _width=$(this).find("span:first").width()+174;
-			console.log(_width);
 			var _newWidth = Math.floor(220*60/_width);
 			$(this).css("font-size", _newWidth+"pt");
 		})
@@ -102,6 +100,7 @@ function Dashboard(){
 			_url:"/u/users/"+_myID+"/downline",
 			_callback:function(data, text){
 				var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
+				if(data.entities.length<=0) return;
 				_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _containerObj);
 				$.extend(true, _data.team, data.entities); 
 				_containerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
