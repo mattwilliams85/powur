@@ -2,10 +2,7 @@ module Auth
   class UsersController < AuthController
     before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
 
-    time_period =
-    order_choices =
-
-    sort order_by: { organic_rank: :desc },
+    sort order_by:  { organic_rank: :desc },
          last_name: { last_name: :desc }
          # order_by_quotes: {organic_rank: :desc}.
          # order_by_recruits: {organic_rank: :desc}
@@ -16,7 +13,8 @@ module Auth
     #        name:     :title
 
     def index
-      @users = apply_list_query_options(@users)
+      # @users = apply_list_query_options(@users)
+      @users = list_criteria
     end
 
     def downline
@@ -38,8 +36,9 @@ module Auth
     end
 
     def team
-      @users = User.where(sponsor_id: current_user.id)
-      @users = apply_list_query_options(@users)
+      query = User.where(sponsor_id: current_user.id)
+      query = query.user_search(params[:search]) if params[:search]
+      @users = apply_list_query_options(query)
     end
 
     def show

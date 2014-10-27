@@ -6,7 +6,6 @@ json.entities @users, partial: 'item', as: :user
 
 actions \
   index_action(users_path, true)
-    .field(:search, :search, required: false)
     .field(:sort_by, :select, options: { rank: 'ranks', quotes: 'quotes',
                           recruits: 'new recruits' })
     .field(:pay_period, :select,
