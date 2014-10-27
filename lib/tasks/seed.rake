@@ -13,7 +13,7 @@ namespace :sunstand do
     end
 
     task sunrun_product: :environment do
-      existing = Product.find(SOLAR_ITEM_ID)
+      existing = Product.find_by_id(SOLAR_ITEM_ID)
       existing.destroy if existing
       fields = { utility:          :lookup,
                  average_bill:     :number,
