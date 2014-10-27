@@ -2,10 +2,9 @@ siren json
 
 json.partial! 'item', bonus_plan: @bonus_plan, detail: true
 
-entities \
-  ref_entity(%w(list bonuses),
-             'bonus-plan-bonuses',
-             bonus_plan_bonuses_path(@bonus_plan))
+entities entity(%w(list bonuses),
+                'bonus-plan-bonuses',
+                bonus_plan_bonuses_path(@bonus_plan))
 
 action_list =
   [ action(:update, :patch, bonus_plan_path(@bonus_plan))

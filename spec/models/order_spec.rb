@@ -107,4 +107,15 @@ describe Order, type: :model do
     end
   end
 
+  describe '::status' do
+    it 'filters by status' do
+      order = create(:order, status: :closed)
+      create(:order, status: :cancelled)
+
+      result = Order.status(1).entries
+      expect(result.size).to eq(1)
+      expect(result.first.id).to eq(order.id)
+    end
+  end
+
 end

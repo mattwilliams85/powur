@@ -10,5 +10,5 @@ module BonusJSON
           max:       bonus.remaining_percentage)
   end
 
-  SirenDSL::Action.include(self)
+  SirenJson::Action.include(self)
 end

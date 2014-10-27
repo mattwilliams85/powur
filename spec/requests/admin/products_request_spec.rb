@@ -9,7 +9,7 @@ describe '/a/products' do
   describe '#index' do
 
     it 'returns the list of products' do
-      create_list(:product, 3)
+      create_list(:product_with_quote_fields, 3)
 
       get products_path, format: :json
 
@@ -28,7 +28,7 @@ describe '/a/products' do
       get product_path(product), format: :json
 
       expect_classes 'product'
-      expect(json_body['properties'].keys).to include('quote_data')
+      expect_props id: product.id, name: product.name
     end
 
   end
@@ -51,11 +51,9 @@ describe '/a/products' do
 
       patch product_path(product),
             bonus_volume: 400,
-            quote_data:   %w(foo bar),
             format:       :json
 
       expect(json_body['properties']['bonus_volume']).to eq(400)
-      expect(json_body['properties']['quote_data']).to eq(%w(foo bar))
     end
 
   end

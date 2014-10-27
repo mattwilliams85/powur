@@ -2,10 +2,6 @@ siren json
 
 json.partial! 'item', product: @product, detail: true
 
-json.properties do
-  json.call(@product, :quote_data)
-end
-
 actions \
   action(:update, :patch, product_path(@product))
     .field(:name, :text, value: @product.name)

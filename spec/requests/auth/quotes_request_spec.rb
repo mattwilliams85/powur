@@ -4,20 +4,20 @@ describe '/u/quotes' do
 
   before :each do
     login_user
+
+    @product = create(:sunrun_product)
   end
 
   describe '#index' do
 
     it 'returns the list of quotes for a user' do
-      create_list(:quote, 7, user: @user)
+      create_list(:quote, 7, user: @user, product: @product)
 
       get user_quotes_path, format: :json
       expect_classes('list', 'quotes')
       expect_actions('create')
 
       create_action = json_body['actions'].find { |a| a['name'] == 'create' }
-      result = create_action['fields'].any? { |f| f['name'] == 'rate_schedule' }
-      expect(result).to be
     end
 
   end
@@ -83,12 +83,12 @@ describe '/u/quotes' do
     it 'returns a quote detail' do
       quote = create(
         :quote,
-        user: @user,
-        data: { 'square_feet' => 1200, 'rate_schedule' => 12 })
+        product: @product,
+        user:    @user,
+        data:    { 'square_feet' => 1200, 'rate_schedule' => 12 })
 
       get user_quote_path(quote), format: :json
 
-      expect_200
       expect_classes 'quote'
       expect(json_body['properties'].keys)
         .to include('rate_schedule', 'square_feet')
@@ -99,12 +99,14 @@ describe '/u/quotes' do
   describe '#update' do
 
     it 'updates an existing quote' do
-      customer = create(:quote, user: @user)
+      quote = create(:quote, user: @user)
 
-      patch user_quote_path(customer.id, first_name: 'Bob'), format: :json
+      patch user_quote_path(quote.id, first_name: 'Bob'), format: :json
+      quote.reload
 
       expect_confirm
-      expect(json_body['properties']['first_name']).to eq('Bob')
+      expect(json_body['properties']['customer'])
+        .to eq(quote.customer.full_name)
     end
 
   end

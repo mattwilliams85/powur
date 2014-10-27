@@ -4,9 +4,6 @@ klass :orders, :list
 
 json.entities @orders, partial: 'item', as: :order
 
-actions \
-	index_action(@orders_path, true).field(:search, :search, required: false)
+actions index_action(@orders_path, true)
 
-
-
-links link(:self, @orders_path || orders_path)
+self_link @orders_path || user_orders_path

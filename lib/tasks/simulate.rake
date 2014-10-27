@@ -97,8 +97,10 @@ namespace :sunstand do
 
       users.each do |user|
         order_date =  random_order_date(start_date, 30)
-        Order.create!(user: user,
-          product_id: CERT_ITEM_ID, order_date: order_date, customer: user.make_customer!)
+        Order.create!(user:       user,
+                      product_id: CERT_ITEM_ID,
+                      order_date: order_date,
+                      customer:   user.make_customer!)
       end
 
       puts "Creating an average of #{args[:per_user]} orders per user between dates #{start_date} and #{end_date}"

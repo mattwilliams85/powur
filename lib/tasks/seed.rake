@@ -12,16 +12,35 @@ namespace :sunstand do
       puts 'Created Ranks 1 through 8...'
     end
 
-    task products: :environment do
-      Product.destroy_all
-      quote_fields = %w(utility average_bill rate_schedule square_feet estimated_credit)
-      # roof_material roof_age kwh
+    task sunrun_product: :environment do
+      existing = Product.find(SOLAR_ITEM_ID)
+      existing.destroy if existing
+      fields = { utility:          :lookup,
+                 average_bill:     :number,
+                 rate_schedule:    :lookup,
+                 square_feet:      :number,
+                 estimated_credit: :number,
+                 roof_type:        :lookup,
+                 roof_age:         :lookup }
+
       Product.create!(
         id:                    SOLAR_ITEM_ID,
         name:                  'SunRun Solar Item',
         bonus_volume:          500,
-        commission_percentage: 80,
-        quote_data:            quote_fields)
+        commission_percentage: 80)
+
+      fields.each do |name, data_type|
+        QuoteField.create!(
+          product_id: SOLAR_ITEM_ID,
+          name:       name.to_s,
+          data_type:  data_type)
+      end
+      Rake::Task['sunstand:import:quote_field_lookups'].execute
+    end
+
+    task products: :environment do
+      Product.destroy_all
+      Rake::Task['sunrun_product'].execute
       Product.create!(
         id:               CERT_ITEM_ID,
         name:             'SunStand Consultant Certification',

@@ -34,18 +34,18 @@ module AddSearch
     def _add_single_table_search(relation)
       sql = SEARCH % { table: _get_table_name(relation) }
 
-      scope "#{relation}_search".to_sym, lambda { |query|
+      scope "#{relation}_search".to_sym, lambda { |term|
         includes(relation).references(relation)
-          .where(sql, q: query, like: "%#{query}%")
+          .where(sql, q: term, like: "%#{term}%")
       }
     end
 
     def _add_multi_table_search(relations)
       search_scopes = relations.map { |r| method("#{r}_search") }
 
-      scope "#{relations.join('_')}_search".to_sym, lambda { |query|
+      scope "#{relations.join('_')}_search".to_sym, lambda { |term|
         includes(*relations).references(*relations)
-          .where.any_of(*search_scopes.map { |s| s.call(query) })
+          .where.any_of(*search_scopes.map { |s| s.call(term) })
       }
     end
   end

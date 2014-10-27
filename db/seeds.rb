@@ -45,3 +45,4 @@ BonusPlan.create(
   name:        'SunStand Compensation Plan',
   start_year:  2014,
   start_month: 5)
+

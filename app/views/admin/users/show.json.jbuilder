@@ -11,15 +11,15 @@ json.properties do
 end
 
 entities \
-  ref_entity(%w(list orders), 'user-orders', admin_user_orders_path(@user)),
-  ref_entity(%w(list order_totals), 'user-order_totals',
-             admin_user_order_totals_path(@user)),
-  ref_entity(%w(list rank_achievements), 'user-rank_achievements',
-             admin_user_rank_achievements_path(@user)),
-  ref_entity(%w(list bonus_payments), 'user-bonus_payments',
-             admin_user_bonus_payments_path(@user)),
-  ref_entity(%w(list overrides), 'user-overrides',
-             admin_user_overrides_path(@user))
+  entity(%w(list orders), 'user-orders', admin_user_orders_path(@user)),
+  entity(%w(list order_totals), 'user-order_totals',
+         admin_user_order_totals_path(@user)),
+  entity(%w(list rank_achievements), 'user-rank_achievements',
+         admin_user_rank_achievements_path(@user)),
+  entity(%w(list bonus_payments), 'user-bonus_payments',
+         admin_user_bonus_payments_path(@user)),
+  entity(%w(list overrides), 'user-overrides',
+         admin_user_overrides_path(@user))
 
 actions \
   action(:update, :patch, admin_user_path(@user))

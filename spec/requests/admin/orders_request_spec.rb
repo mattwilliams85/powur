@@ -10,11 +10,11 @@ describe 'order endpoints' do
 
     it 'pages orders' do
       create_list(:order, 5)
-      get orders_path, format: :json, limit: 3
+      get admin_orders_path, format: :json, limit: 3
 
       expect_entities_count(3)
 
-      get orders_path, format: :json, limit: 3, page: 2
+      get admin_orders_path, format: :json, limit: 3, page: 2
 
       expect_entities_count(2)
     end
@@ -31,7 +31,7 @@ describe 'order endpoints' do
         create(:order, user: user)
       end
 
-      get orders_path, format: :json, search: 'gary'
+      get admin_orders_path, format: :json, search: 'gary'
 
       expect_entities_count(2)
     end
@@ -43,7 +43,7 @@ describe 'order endpoints' do
         user
       end
 
-      get orders_path, format: :json, sort: 'user', limit: 3, page: 2
+      get admin_orders_path, format: :json, sort: 'user', limit: 3, page: 2
 
       result = json_body['entities'].map { |e| e['properties']['distributor'] }
       expected = %w(ddd ggg).map do |name|
@@ -59,7 +59,7 @@ describe 'order endpoints' do
     it 'creates an order from a quote' do
       quote = create(:quote)
 
-      post orders_path,
+      post admin_orders_path,
            quote_id:   quote.id,
            order_date: '2014-07-27T22:11:14.599Z',
            format:     :json
@@ -70,7 +70,7 @@ describe 'order endpoints' do
     it 'does not allow an order to be if when one already exists for a quote' do
       order = create(:order)
 
-      post orders_path, quote_id: order.quote_id, format: :json
+      post admin_orders_path, quote_id: order.quote_id, format: :json
 
       expect_alert_error
     end
@@ -81,7 +81,7 @@ describe 'order endpoints' do
       order = create(:order)
       create(:bonus_payment_order, order: order)
 
-      get order_path(order), format: :json
+      get admin_order_path(order), format: :json
       %w(product user customer bonus_payments).each do |klass|
         result = json_body['entities'].find { |e| e['class'].include?(klass) }
         expect(result).to be

@@ -82,11 +82,11 @@ class User < ActiveRecord::Base
   end
 
   def create_customer(params)
-    self.customers.create!(params)
+    customers.create!(params)
   end
 
   def upline_users
-    User.where(id: self.upline - [self.id])
+    User.where(id: upline - [id])
   end
 
   def level
@@ -113,13 +113,18 @@ class User < ActiveRecord::Base
     !!parent_id
   end
 
+  def has_ancestor?(user_id)
+    upline.include?(user_id)
+  end
+
   def parent_ids
     upline[0..-2]
   end
 
   def lifetime_achievements
-    @lifetime_achievements ||= rank_achievements.
-      where('pay_period_id is not null').order(rank_id: :desc, path: :asc).entries
+    @lifetime_achievements ||= rank_achievements
+      .where('pay_period_id is not null')
+             .order(rank_id: :desc, path: :asc).entries
   end
 
   def make_customer!
@@ -134,7 +139,7 @@ class User < ActiveRecord::Base
 
   def set_upline
     if upline.nil? || upline.empty?
-      upline = sponsor ? sponsor.upline + [id] : [id]
+      self.upline = sponsor ? sponsor.upline + [ id ] : [ id ]
       User.where(id: id).update_all(upline: upline)
     end
   end

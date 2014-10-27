@@ -9,4 +9,4 @@ json.properties do
   json.customer order.customer.full_name
 end
 
-links link(:self, order_path(order))
+self_link user_order_path(order.user_id, order)

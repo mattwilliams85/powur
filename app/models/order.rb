@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  enum status: { pending: 1, shipped: 2, cancelled: 3, refunded: 4 }
+  enum status: { closed: 1, cancelled: 2 }
 
   belongs_to :product
   belongs_to :user
@@ -17,6 +17,7 @@ class Order < ActiveRecord::Base
     select('user_id, product_id, sum(quantity) quantity')
       .group('user_id').group('product_id').order(:user_id)
   }
+  scope :status, ->(value) { where(status: value) }
 
   scope :personal_totals,
         ->(end_date) { before(end_date).user_product_grouped }
