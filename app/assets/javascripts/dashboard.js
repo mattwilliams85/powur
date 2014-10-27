@@ -30,7 +30,7 @@ jQuery(function($){
 			var _newWidth = Math.floor(220*60/_width);
 			$(this).css("font-size", _newWidth+"pt");
 		})
-
+		//test
 	});
 });
 
