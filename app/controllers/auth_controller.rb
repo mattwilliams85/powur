@@ -7,7 +7,7 @@ class AuthController < ApplicationController
 
   def fetch_downline_user(user_id)
     return current_user if user_id == current_user.id
-    User.with_ancestor(user_id).where(id: user_id).first ||
+    User.with_ancestor(user_id).where(id: user_id.to_i).first ||
       not_found!(:user, user_id)
   end
 end
