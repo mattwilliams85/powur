@@ -64,9 +64,6 @@ Rails.application.routes.draw do
     resources :quotes,
               only: [ :index, :create, :destroy, :update, :show ],
               as:   :user_quotes do
-      collection do
-        get '' => 'quotes#search', constraints: has_params(:search)
-      end
       member do
         post :resend
       end

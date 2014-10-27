@@ -6,7 +6,7 @@ class QuoteField < ActiveRecord::Base
 
   enum data_type: { text: 1, number: 2, date: 3, lookup: 4, boolean: 5 }
 
-  validates_presence_of :product_id, :name, :data_type, :required
+  validates_presence_of :product_id, :name, :data_type
 
   def add_or_update_lookup(attrs)
     if attrs[:value].blank?

@@ -1,16 +1,17 @@
 module Auth
   class QuotesController < AuthController
-    before_action :fetch_quote, only: [ :show, :update, :destroy, :resend ]
     helper QuotesJson
 
+    before_action :fetch_quote, only: [ :show, :update, :destroy, :resend ]
+
+    page
+    sort created:  { created_at: :desc },
+         customer: 'customers.last_name asc, customers.first_name asc'
+
     def index
-      @quotes = quote_list
-
-      render 'index'
-    end
-
-    def search
-      @quotes = quote_list.customer_search(params[:search])
+      query = quote_list
+      query = query.customer_search(params[:search]) if params[:search]
+      @quotes = apply_list_query_options(query)
 
       render 'index'
     end
@@ -84,8 +85,7 @@ module Auth
       current_user.quotes
         .includes(:customer, :user, :product)
         .references(:customer, :user, :product)
-        .customer_search(params[:search])
-        .order(created_at: :desc)
+        # .order(created_at: :desc)
     end
   end
 end
