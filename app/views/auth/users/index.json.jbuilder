@@ -5,7 +5,8 @@ klass :users, :list
 json.entities @users, partial: 'item', as: :user
 
 actions \
-  index_action(users_path, true).field(:search, :search, required: false)
+  index_action(users_path, true)
+    .field(:search, :search, required: false)
 
 links \
   link(:self, users_path)

@@ -54,6 +54,7 @@ Rails.application.routes.draw do
       member do
         get :downline
         get :upline
+        get :team
       end
 
       resources :rank_achievements,
