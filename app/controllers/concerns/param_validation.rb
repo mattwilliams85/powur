@@ -39,6 +39,7 @@ module ParamValidation
   end
 
   def not_found!(entity, id = params[:id])
+    response.status = :not_found
     error!(t('errors.not_found', entity: entity, id: id))
   end
 

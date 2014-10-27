@@ -8,8 +8,10 @@ module Auth
     def index
       respond_to do |format|
         format.json do
-          user = User.find_by_id(params[:user_id].to_i) ||
-                 not_found!(:user, params[:user_id])
+          user = User.find_by_id(params[:user_id].to_i)
+          unless user && user.has_ancestor?(current_user.id)
+            not_found!(:user, params[:user_id])
+          end
           @orders_path = user_orders_path(user)
 
           super(user.orders)

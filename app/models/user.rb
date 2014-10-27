@@ -84,11 +84,11 @@ class User < ActiveRecord::Base
   end
 
   def create_customer(params)
-    self.customers.create!(params)
+    customers.create!(params)
   end
 
   def upline_users
-    User.where(id: self.upline - [self.id])
+    User.where(id: upline - [id])
   end
 
   def level
@@ -111,6 +111,10 @@ class User < ActiveRecord::Base
     !!parent_id
   end
 
+  def has_ancestor?(user_id)
+    upline.include?(user_id)
+  end
+
   def parent_ids
     upline[0..-2]
   end
@@ -131,9 +135,9 @@ class User < ActiveRecord::Base
   private
 
   def set_upline
-    if self.upline.nil? || self.upline.empty?
-      self.upline = self.sponsor ? self.sponsor.upline + [self.id] : [self.id]
-      User.where(id: self.id).update_all(upline: self.upline)
+    if upline.nil? || upline.empty?
+      self.upline = sponsor ? sponsor.upline + [ id ] : [ id ]
+      User.where(id: id).update_all(upline: upline)
     end
   end
 

@@ -16,12 +16,20 @@ describe '/u/users/:id/orders' do
 
     it 'renders orders for a user' do
       create(:order, user: @user)
-      user = create(:user)
+      user = create(:user, sponsor: @user)
       create_list(:order, 3, user: user)
 
       get user_orders_path(user), format: :json
 
       expect_entities_count(3)
+    end
+
+    it 'does not allow a request for orders not in the users downline' do
+      user = create(:user)
+
+      get user_orders_path(user), format: :json
+
+      expect(response.status).to eq(404)
     end
 
     it 'filters orders on status' do
