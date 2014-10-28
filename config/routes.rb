@@ -49,7 +49,6 @@ Rails.application.routes.draw do
       resource :goals, only: [ :show ]
       resources :orders, only: [ :index, :show ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
-      # resources :group_stats, only: [ :index ], controller: :user_group_stats
       resources :user_activities, only:       [ :index, :show ],
                                   controller: :user_activities
       member do

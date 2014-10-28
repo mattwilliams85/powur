@@ -1,6 +1,7 @@
 module Auth
   class GoalsController < AuthController
     helper QualificationsJson
+    helper OrderTotalsJson
 
     def show
       @user = fetch_downline_user(params[:user_id].to_i)
@@ -18,6 +19,7 @@ module Auth
       @order_totals = product_ids.map do |id|
         pay_period.find_order_total(@user.id, id)
       end
+      binding.pry
     end
   end
 end
