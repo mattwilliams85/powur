@@ -1,5 +1,7 @@
 module Admin
   class OrderTotalsController < AdminController
+    helper OrderTotalsJson
+
     def index
       product_totals = @order_totals.product_totals
       @totals = product_totals_hash(product_totals)

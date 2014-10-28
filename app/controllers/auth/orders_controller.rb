@@ -1,6 +1,7 @@
 module Auth
   class OrdersController < AuthController
     helper OrdersJson
+    helper OrderTotalsJson
 
     before_action :fetch_order, only: [ :show ]
 

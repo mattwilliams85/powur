@@ -2,6 +2,7 @@ module Admin
   class OrdersController < AdminController
     helper OrdersJson
     helper UsersJson
+    helper OrderTotalsJson
 
     before_action :fetch_order, only: [ :show ]
 

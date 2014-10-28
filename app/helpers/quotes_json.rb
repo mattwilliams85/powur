@@ -128,9 +128,7 @@ module QuotesJson
             { value: lookup.identifier, display: lookup.value }
           end
         end
-        if block_given?
-          opts[:value] = yield(field.name)
-        end
+        opts[:value] = yield(field.name) if block_given?
         action.field(field.name, :select, opts)
       end
     end
@@ -139,5 +137,4 @@ module QuotesJson
   def quotes_json
     @quotes_json ||= QuotesViewDecorator.new(self, @quotes, @quote)
   end
-
 end

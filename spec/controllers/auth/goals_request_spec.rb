@@ -18,6 +18,8 @@ describe '/u/users/:user_id/goals', type: :request do
       quantity:    20)
 
     get user_goals_path(@user), format: :json
+
+    # binding.pry
   end
 
 end
