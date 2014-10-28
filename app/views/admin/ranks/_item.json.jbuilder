@@ -7,8 +7,8 @@ json.properties do
 end
 
 unless rank.id == 1
-  json.entities [ { rank: rank, data: rank.qualifications } ],
-                partial: 'admin/ranks/entities', as: :entity
+  entities entity('admin/qualifications/rank_index', 'rank-qualifications',
+                  rank: rank, qualifications: rank.qualifications )
 end
 
 action_list = []

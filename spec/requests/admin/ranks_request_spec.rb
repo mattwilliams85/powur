@@ -15,7 +15,7 @@ describe '/a/ranks' do
     end
 
     it 'returns the list of ranks' do
-      create(:qualified_rank)
+      qualified_rank = create(:qualified_rank)
       create_list(:rank, 2)
       get ranks_path, format: :json
 
@@ -27,6 +27,12 @@ describe '/a/ranks' do
 
       action = find_delete_action(4)
       expect(action).to_not be_nil
+
+      rank = json_body['entities']
+        .find { |e| e['properties']['id'] == qualified_rank.id }
+      qual_list = rank['entities']
+        .find { |e| e['rel'] && e['rel'].include?('rank-qualifications') }
+      expect(qual_list).to be
     end
 
   end

@@ -6,10 +6,10 @@ module QualificationsJson
       list_entities(partial_path)
     end
 
-    def item_init(rel_value)
+    def item_init(rel = nil)
       klass :qualificattion
 
-      entity_rel(rel_value)
+      entity_rel(rel) if rel
     end
 
     def properties(qualification = @item)
