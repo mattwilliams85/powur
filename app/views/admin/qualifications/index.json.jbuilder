@@ -2,17 +2,6 @@ siren json
 
 qual_json.list_init('admin/qualifications/item')
 
-actions action(:create, :post, qualifications_path)
-  .field(:path, :text, value: 'default')
-  .field(:type, :select,
-         options: Qualification::TYPES, value: :sales)
-  .field(:product_id, :select,
-         reference:  { type: :link, rel: :products, value: :id, name: :name })
-  .field(:time_period, :select,
-         options: Qualification.enum_options(:time_periods),
-         value:   :monthly)
-  .field(:quantity, :number)
-  .field(:max_leg_percent, :number,
-         visibility: { control: :type, values: [ :group_sales ] })
+actions qual_json.create_action(qualifications_path)
 
 self_link qualifications_path, link(:products, products_path)
