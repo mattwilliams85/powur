@@ -1,5 +1,7 @@
 module Auth
   class OrdersController < AuthController
+    helper OrdersJson
+
     before_action :fetch_order, only: [ :show ]
 
     def index(query = Order)

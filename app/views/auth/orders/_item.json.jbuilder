@@ -1,12 +1,5 @@
-klass :order
+orders_json.item_init(local_assigns[:rel] || 'item')
 
-entity_rel(local_assigns[:rel]) unless local_assigns[:detail]
-
-json.properties do
-  json.call(order, :quantity, :order_date, :status)
-  json.product order.product.name
-  json.distributor order.user.full_name
-  json.customer order.customer.full_name
-end
+orders_json.list_item_properties(order)
 
 self_link user_order_path(order.user_id, order)
