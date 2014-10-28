@@ -1,14 +1,11 @@
 siren json
 
-klass :ranks, :list
+ranks_json.list_init
 
 json.properties do
-  json.paths @ranks.map { |r| r.qualifications.map(&:path) }.flatten.uniq
+  json.paths @ranks.map(&:qualification_paths).flatten.uniq
 end
 
-json.entities @ranks, partial: 'item', as: :rank
+actions ranks_json.create_action
 
-actions action(:create, :post, ranks_path).field(:title, :text)
-
-links link(:self, ranks_path),
-      link(:active_qualifications, qualifications_path)
+self_link ranks_path, link(:active_qualifications, qualifications_path)
