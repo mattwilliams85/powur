@@ -1,5 +1,7 @@
 module Admin
   class OrdersController < AdminController
+    helper UsersJson
+
     before_action :fetch_order, only: [ :show ]
 
     page

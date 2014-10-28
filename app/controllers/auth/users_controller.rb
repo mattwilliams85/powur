@@ -1,5 +1,7 @@
 module Auth
   class UsersController < AuthController
+    helper UsersJson
+
     before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
 
     sort order_by:  { organic_rank: :desc },

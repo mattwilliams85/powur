@@ -25,12 +25,12 @@ module QuotesJson
       json.entities list, partial: partial_path, as: :quote
     end
 
-    def detail_properties
+    def detail_properties(quote = @item)
       list_item_properties
 
       json.properties do
-        json.call(@item.customer, :email, :phone, :address, :city, :state, :zip)
-        @item.data.each { |key, value| json.set! key, value }
+        json.call(quote.customer, :email, :phone, :address, :city, :state, :zip)
+        quote.data.each { |key, value| json.set! key, value }
       end
     end
 

@@ -1,5 +1,7 @@
 module Admin
   class UsersController < AdminController
+    helper UsersJson
+
     before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
 
     def index

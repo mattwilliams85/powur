@@ -1,11 +1,7 @@
 siren json
 
-klass :users, :list
+users_json.list_init
 
-json.entities @users, partial: 'item', as: :user
+actions index_action(users_path, true)
 
-actions \
-  action(:index, :get, admin_users_path)
-    .field(:search, :search, required: false)
-
-links link(:self, admin_users_path)
+self_link admin_users_path
