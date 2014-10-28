@@ -28,7 +28,8 @@ describe 'order endpoints' do
 
       3.times.each do
         user = create(:search_miss_user)
-        create(:order, user: user)
+        customer = create(:search_miss_customer)
+        create(:order, user: user, customer: customer)
       end
 
       get admin_orders_path, format: :json, search: 'gary'
