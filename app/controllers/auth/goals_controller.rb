@@ -19,7 +19,6 @@ module Auth
       @order_totals = product_ids.map do |id|
         pay_period.find_order_total(@user.id, id)
       end
-      binding.pry
     end
   end
 end
