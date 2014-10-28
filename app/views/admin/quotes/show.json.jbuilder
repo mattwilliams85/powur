@@ -1,6 +1,10 @@
-quote_klass json
+siren json
 
-admin_entities
+quotes_json.item_init
+
+quotes_json.detail_properties
+
+quotes_json.admin_entities
 
 unless @quote.order?
   actions \

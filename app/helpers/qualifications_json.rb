@@ -1,17 +1,6 @@
 module QualificationsJson
-  class QualificationViewDecorator < SimpleDelegator
-    attr_reader :list, :item
-
-    def initialize(view, list, item)
-      super(view)
-      @list, @item = list, item
-    end
-
-    def list_entities(partial_path, list = @list)
-      json.entities list, partial: partial_path, as: :qualification
-    end
-
-    def list_init(partial_path)
+  class QualificationViewDecorator < JsonDecorator
+    def list_init(partial_path = 'item')
       klass :qualifications, :list
 
       list_entities(partial_path)
@@ -33,6 +22,10 @@ module QualificationsJson
         end
         json.product qualification.product.name
       end
+    end
+
+    def list_entities(partial_path, list = @list)
+      json.entities list, partial: partial_path, as: :qualification
     end
 
     def create_action(path)

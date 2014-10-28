@@ -1,4 +1,6 @@
-quotes_klass json
+siren json
+
+quotes_json.list_init
 
 actions index_action(admin_quotes_path, true)
 

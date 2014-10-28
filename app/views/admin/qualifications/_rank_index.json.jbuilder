@@ -1,4 +1,3 @@
-
 klass :qualifications, :list
 
 qual_json.list_entities('admin/qualifications/rank_item', qualifications)
