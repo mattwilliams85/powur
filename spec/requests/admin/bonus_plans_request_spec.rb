@@ -4,7 +4,7 @@ describe '/a/bonus_plans' do
 
   before :each do
     login_user
-    @start_year, @start_month = DateTime.now.year, DateTime.now.month
+    @start_year, @start_month = DateTime.current.year, DateTime.current.month
   end
 
   describe 'GET /' do

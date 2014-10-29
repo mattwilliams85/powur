@@ -25,14 +25,14 @@ class BonusPlan < ActiveRecord::Base
 
   def active_before_now?
     return false unless start?
-    year, month = DateTime.now.year, DateTime.now.month
+    year, month = DateTime.current.year, DateTime.current.month
     (start_year == year && start_month <= month) ||
       start_year < year
   end
 
   class << self
     def current
-      year, month = DateTime.now.year, DateTime.now.month
+      year, month = DateTime.current.year, DateTime.current.month
       active_before(year, month).first
     end
   end

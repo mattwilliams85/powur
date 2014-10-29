@@ -92,7 +92,7 @@ describe EyecueIpayout do
     options_hash[:fn] = 'eWallet_Load',
     options_hash[:MerchantGUID] =IPAYOUT_MERCHANT_GUID,
     options_hash[:MerchantPassword] =IPAYOUT_MERCHANT_PASSWORD,
-    options_hash[:PartnerBatchID] = DateTime.now.to_s,
+    options_hash[:PartnerBatchID] = DateTime.current.to_s,
     options_hash[:PoolID] = '',
     options_hash[:arrAccounts] = [{:UserName => 'eyecueTestuser', :Amount => 1.00, :Comments => 'Test Test Test', :MerchantReferenceID => transaction_hex}],
     options_hash[:AllowDuplicates] = true,

@@ -18,8 +18,8 @@ describe BonusPlan, type: :model do
   describe '#active' do
 
     before :each do
-      @year = DateTime.now.year
-      @month = DateTime.now.month
+      @year = DateTime.current.year
+      @month = DateTime.current.month
     end
 
     it 'returns true if the plan is the one with the latest start date' do
