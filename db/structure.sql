@@ -775,16 +775,6 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: utilities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE utilities (
-    id integer NOT NULL,
-    name character varying(255) NOT NULL
-);
-
-
---
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1100,14 +1090,6 @@ ALTER TABLE ONLY user_overrides
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: utilities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY utilities
-    ADD CONSTRAINT utilities_pkey PRIMARY KEY (id);
 
 
 --
@@ -1567,8 +1549,6 @@ ALTER TABLE ONLY users
 --
 
 SET search_path TO "$user",public;
-
-INSERT INTO schema_migrations (version) VALUES ('20140423060923');
 
 INSERT INTO schema_migrations (version) VALUES ('20140514044342');
 

@@ -327,6 +327,7 @@ function Dashboard(){
 				})
 				.done(function(data){
 					//prepare leader info
+					console.log(data);
 					var _userDetail={};
 					_userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
 					_userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
@@ -335,7 +336,7 @@ function Dashboard(){
 					_userDetail["generation"] = _drillDownLevel;
 					//for(key in data[0].rank[data[0].rank.length-1]) _userDetail["rank"] = key;
 
-					_userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"children"})[0].href;
+					_userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
 
 
 					//add new team drilldown basic template layout with leader info
