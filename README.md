@@ -1,4 +1,5 @@
 
+
 ## Setting up Postgres
 
 Follow the instuctions here:
@@ -45,7 +46,7 @@ rake sunstand:import:quote_field_lookups
 rake sunstand:simulate:users
 ```
 
-There are options that can be used on this command in the form 
+There are options that can be used on this command in the form
 
 ```bash
 rake sunstand:simulate:users[1000,20,3]
@@ -65,5 +66,5 @@ Arguments can be used for this command as well
 rake sunstand:simulate:orders[20,4]
 ```
 
-The first argument is the average # of orders per user. A random amount is selected between 0 and twice the #. Orders are generated for approximately 85% of the users for the Solar Item product. One order is created for approximately 75% of the users for the Consultant Certification product. The second argument is how many months back in which to generate orders. A random date is selected between the first of that month and now. The amounts in the example are the defaults. 
+The first argument is the average # of orders per user. A random amount is selected between 0 and twice the #. Orders are generated for approximately 85% of the users for the Solar Item product. One order is created for approximately 75% of the users for the Consultant Certification product. The second argument is how many months back in which to generate orders. A random date is selected between the first of that month and now. The amounts in the example are the defaults.
 

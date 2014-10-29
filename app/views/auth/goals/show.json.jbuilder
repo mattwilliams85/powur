@@ -7,7 +7,7 @@ json.properties do
   json.next_rank @next_rank.id
 end
 
-ent_list = []
+ent_list = [ entity('auth/order_totals/index', 'goals-order_totals') ]
 if @next_rank
   ent_list << entity('auth/qualifications/index', 'goals-qualifications')
 end

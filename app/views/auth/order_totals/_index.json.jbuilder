@@ -1,6 +1,6 @@
 siren json
 
-totals_json.list_init
+totals_json.list_init('auth/order_totals/item')
 
 actions index_action(@order_totals_path, false)
 

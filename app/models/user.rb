@@ -26,19 +26,17 @@ class User < ActiveRecord::Base
   attr_accessor :avatar_content_type, :avatar_file_name
 
   has_attached_file :avatar,
-    path:   ':rails_root/public/system/:class/:attachement/:id/:basename_:style.:extension',
-    url:    '/system/:class/:attachement/:id/:basename_:style.:extension',
-    styles: {
-      thumb:   ['100x100#',  :jpg, :quality => 70],
-      preview: ['480x480#',  :jpg, :quality => 70],
-      large:   ['600>',      :jpg, :quality => 70],
-      retina:  ['1200>',     :jpg, :quality => 30]
-    },
-    convert_options: {
-      thumb:   '-set colorspace sRGB -strip',
-      preview: '-set colorspace sRGB -strip',
-      large:   '-set colorspace sRGB -strip',
-      retina:  '-set colorspace sRGB -strip -sharpen 0x0.5' }
+                    path:   ':rails_root/public/system/:class/:attachement/:id/:basename_:style.:extension',
+                    url:    '/system/:class/:attachement/:id/:basename_:style.:extension',
+                    styles: { thumb:   ['100x100#',  :jpg, :quality => 70],
+                              preview: ['480x480#',  :jpg, :quality => 70],
+                              large:   ['600>',      :jpg, :quality => 70],
+                              retina:  ['1200>',     :jpg, :quality => 30]},
+                    convert_options: {
+                                      thumb:   '-set colorspace sRGB -strip',
+                                      preview: '-set colorspace sRGB -strip',
+                                      large:   '-set colorspace sRGB -strip',
+                                      retina:  '-set colorspace sRGB -strip -sharpen 0x0.5' }
 
   # Validate content type
   validates_attachment_content_type :avatar, :content_type => /\Aimage/
@@ -57,7 +55,7 @@ class User < ActiveRecord::Base
   after_create :set_upline
 
   scope :with_upline_at, ->(id, level) {
-    where('upline[?] = ?', level, id).where('id != ?', id) }
+  where('upline[?] = ?', level, id).where('id != ?', id) }
   scope :at_level, ->(rank){ where('array_length(upline, 1) = ?', rank) }
   CHILD_COUNT_LIST = "
     SELECT u.*, child_count - 1 downline_count
@@ -68,6 +66,7 @@ class User < ActiveRecord::Base
     WHERE u.upline[?] = ? AND array_length(u.upline, 1) = ?
     ORDER BY u.last_name, u.first_name, u.id;"
   scope :child_count_list, ->(user){
+
     find_by_sql([ CHILD_COUNT_LIST, user.level, user.id, user.level + 1 ]) }
   scope :with_parent, ->(*user_ids) {
     where('upline[array_length(upline, 1) - 1] IN (?)', user_ids.flatten) }
@@ -103,6 +102,10 @@ class User < ActiveRecord::Base
     User.child_count_list(self)
   end
 
+  def downline_users_count
+    downline_users.count
+  end
+
   def has_role?(role)
     roles.include?(role.to_s)
   end
@@ -124,8 +127,9 @@ class User < ActiveRecord::Base
   end
 
   def lifetime_achievements
-    @lifetime_achievements ||= rank_achievements.
-      where('pay_period_id is not null').order(rank_id: :desc, path: :asc).entries
+    @lifetime_achievements ||= rank_achievements
+      .where('pay_period_id is not null')
+             .order(rank_id: :desc, path: :asc).entries
   end
 
   def make_customer!
@@ -147,15 +151,15 @@ class User < ActiveRecord::Base
 
   class << self
     UPDATE_LIFETIME_RANKS = "
-      UPDATE users
-      SET lifetime_rank = ra.rank_id
-      FROM (
-        SELECT user_id, max(rank_id) rank_id
-        FROM rank_achievements
-        WHERE pay_period_id = ?
-        GROUP BY user_id) ra
-      WHERE users.id = ra.user_id AND
-        (ra.rank_id > users.lifetime_rank OR users.lifetime_rank IS NULL)"
+        UPDATE users
+        SET lifetime_rank = ra.rank_id
+        FROM (
+          SELECT user_id, max(rank_id) rank_id
+          FROM rank_achievements
+          WHERE pay_period_id = ?
+          GROUP BY user_id) ra
+        WHERE users.id = ra.user_id AND
+          (ra.rank_id > users.lifetime_rank OR users.lifetime_rank IS NULL)"
 
     def update_lifetime_ranks(pay_period_id)
       sql = sanitize_sql([ UPDATE_LIFETIME_RANKS, pay_period_id ])

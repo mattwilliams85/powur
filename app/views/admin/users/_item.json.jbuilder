@@ -1,14 +1,5 @@
-klass :user
+users_json.item_init(local_assigns[:rel] || 'item')
 
-entity_rel(local_assigns[:rel]) unless local_assigns[:detail]
+users_json.list_item_properties(user)
 
-json.properties do
-  json.call(user, :id, :first_name, :last_name, :email, :phone, :level)
-  json.downline_count(user.downline_count) if user.attributes['downline_count']
-end
-
-entities entity(%w(users list), 'user-ancestors', upline_admin_user_path(user))
-
-links link(:self, admin_user_path(user)),
-      link(:children, downline_admin_user_path(user)),
-      link(:ancestors, upline_admin_user_path(user))
+self_link admin_user_path(user)

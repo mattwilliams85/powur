@@ -1,3 +1,5 @@
-quote_klass json
+siren json
 
-actions customer_create_action
+quotes_json.item_init
+
+actions quotes_json.customer_create_action(@sponsor.url_slug)

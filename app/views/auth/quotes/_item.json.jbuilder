@@ -1,9 +1,7 @@
-klass :quote
+quotes_json.item_init(local_assigns[:rel] || 'item')
 
-json.rel [ :item ]
+quotes_json.list_item_properties(quote)
 
-list_item_properties(quote)
-
-user_entities(quote)
+quotes_json.user_entities(quote)
 
 self_link user_quote_path(quote)

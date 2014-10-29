@@ -35,7 +35,8 @@ describe '/a/quotes' do
 
       1.upto(3).each do
         customer = create(:search_miss_customer)
-        create(:quote, customer: customer)
+        user = create(:search_miss_user)
+        create(:quote, customer: customer, user: user)
       end
 
       get admin_quotes_path, format: :json, search: 'gary'

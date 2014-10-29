@@ -1,14 +1,22 @@
 module Auth
   class UsersController < AuthController
+    helper UsersJson
+
     before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
 
+    sort order_by:  { organic_rank: :desc },
+         last_name: { last_name: :desc }
+         # order_by_quotes: {organic_rank: :desc}.
+         # order_by_recruits: {organic_rank: :desc}
+    # filter :pay_period,
+    #        url:      -> { pay_periods_path },
+    #        required: true,
+    #        default:  -> { PayPeriod.last_id },
+    #        name:     :title
+
     def index
-      respond_to do |format|
-        format.html
-        format.json do
-          @users = list_criteria
-        end
-      end
+      # @users = apply_list_query_options(@users)
+      @users = list_criteria
     end
 
     def downline
@@ -29,13 +37,27 @@ module Auth
       render 'index'
     end
 
+    def team
+      query = User.where(sponsor_id: current_user.id)
+      query = query.user_search(params[:search]) if params[:search]
+      @users = apply_list_query_options(query)
+    end
+
     def show
     end
 
     private
 
+    def team_list_criteria
+      query = User.where(sponsor_id: current_user.id)
+
+      if(params.has_key?(:order))
+        query.order(organic_rank: :desc)
+      end
+    end
+
     def list_criteria
-      User.where(sponsor_id: current_user.id).order(created_at: :desc)
+      User.where(sponsor_id: current_user.id)
     end
 
     def fetch_user

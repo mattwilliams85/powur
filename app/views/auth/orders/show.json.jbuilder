@@ -1,5 +1,7 @@
 siren json
 
-json.partial! 'item', order: @order, detail: true
+orders_json.item_init
 
-entities entity('auth/users/item', 'order-user', user: @order.user)
+orders_json.list_item_properties
+
+orders_json.user_entities

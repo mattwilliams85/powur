@@ -1,5 +1,6 @@
 module Admin
   class RanksController < AdminController
+    helper RanksJson
     helper QualificationsJson
 
     before_action :fetch_rank, only: [ :show, :destroy, :update ]

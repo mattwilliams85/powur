@@ -1,8 +1,6 @@
 siren json
 
-klass :order_totals, :list
-
-json.entities @order_totals, partial: 'item', as: :order_total
+totals_json.list_init
 
 actions index_action(@orders_totals_path)
 
