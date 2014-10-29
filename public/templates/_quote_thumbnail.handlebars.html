@@ -1,4 +1,4 @@
-<div id="{{bindingObj}}" alt="{{id}}" class="quote_thumbnail js-quote_thumbnail js-thumbnail_parent">
+<div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="quote_thumbnail js-quote_thumbnail js-thumbnail_parent">
 	<div class="js-thumbnail">
       <div class="quote_requirements">
 
@@ -28,8 +28,8 @@
 
       </div>
 
-      <span class="quote_name">{{name}}</span>
-      <span class="quote_status subtext" style="text-transform:capitalize;">{{status}}</span>
+      <span class="quote_name">{{this.properties.customer}}</span>
+      <span class="quote_status subtext" style="text-transform:capitalize; font-size:11px;">{{this.properties.product}}</span>
 
     	<span class="expand">
     		<i class="fa fa-angle-down"></i>

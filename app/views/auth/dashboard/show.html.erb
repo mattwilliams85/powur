@@ -193,17 +193,12 @@
 				<div class="tag"></div>
 				<div class="text">My Customer Queue </div>
 			</div>
-			<% if params[:first_run] == "true" %>
-			<% else %>
 
-			<select>
-				<option>Order by Date</option>
-				<option>Order by Name</option>
+			<select id="quote_sort" name="quote_sort">
+				<option value="created">Order by Date</option>
+				<option value="customer">Order by Name</option>
 			</select>
-			<% end %>
 
-			<% if params[:first_run] == "true" %>
-			<% else %>
 
 
 			<select>
@@ -213,20 +208,8 @@
 				<option>And Show Approved Quotes Only</option>
 			</select>
 
-	            <!--<ul class="tabs">
-	              <li><a href="" class="active">Incomplete</a></li>
-	              <li><a href="">Submitted</a></li>
-	              <li><a href="">Approved</a></li>
-	            </ul>
-
-				<span class="collection_total">47 total</span>
-
-	        	-->
-
-
-				<input type="search" class="section_search js-search_box" placeholder="search quotes" data-search-source="u/quotes" />
+			<input type="search" class="section_search js-search_box" id="quote_search" name="quote_search" placeholder="search quotes" data-search-source="u/quotes" />
 			
-			<% end %>
 
 		</div>
 	</div>
@@ -236,13 +219,6 @@
 
 				<%= render partial: "shared/new_quote_thumbnail"%>
 				<div class="pagination_container" data-comment="required for pagination - do not remove">
-					<% if params[:first_run] == "true" %>
-
-						<div class="blank_state">
-							You don't have any quotes yet. <a href="#">Add a customer lead</a> to get started.
-						</div>
-					
-					<% else %>
 
 					<div class="nav left"><i class="fa fa-angle-left"></i></div>
 					<div class="pagination_content">
@@ -253,21 +229,10 @@
 
 					</div>
 					<div class="nav right"><i class="fa fa-angle-right"></i></div>
-					<% end %>
 				</div>
 
 
 		</div>
-
-			<% if params[:first_run] == "true" %>
-			<% else %>
-
-	<!-- 			<div class="section_notification positive">
-					<a href="#">This is a positive notification about Barry - click to go to a new page...</a>
-					<span class="dismiss"><i class="fa fa-times"></i></span>
-				</div> -->
-			
-			<% end %>
 
 	</div>
 </section>
