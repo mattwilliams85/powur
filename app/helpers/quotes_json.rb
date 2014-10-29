@@ -124,6 +124,8 @@ module QuotesJson
       product.quote_fields.each do |field|
         opts = { required: field.required }
         if field.lookup?
+          values = field.lookups.sort_by(&:value)
+          next if values.empty?
           opts[:options] = field.lookups.sort_by(&:value).map do |lookup|
             { value: lookup.identifier, display: lookup.value }
           end
