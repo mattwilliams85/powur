@@ -1,6 +1,5 @@
 class QuotesController < AnonController
   layout 'user'
-  helper QuotesJson
 
   before_action :fetch_sponsor, only: [ :new, :show, :create, :update ]
 

@@ -1,8 +1,5 @@
 module Auth
   class GoalsController < AuthController
-    helper QualificationsJson
-    helper OrderTotalsJson
-
     def show
       @user = fetch_downline_user(params[:user_id].to_i)
       pay_period = MonthlyPayPeriod.current

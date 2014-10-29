@@ -1,8 +1,5 @@
 module Admin
   class QuotesController < AdminController
-    helper QuotesJson
-    helper UsersJson
-    helper OrdersJson
 
     before_action :fetch_quote, only: [ :show ]
 

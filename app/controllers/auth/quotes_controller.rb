@@ -1,8 +1,5 @@
 module Auth
   class QuotesController < AuthController
-    helper QuotesJson
-    helper OrdersJson
-
     before_action :fetch_quote, only: [ :show, :update, :destroy, :resend ]
 
     page
