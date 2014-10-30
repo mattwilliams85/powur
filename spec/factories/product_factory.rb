@@ -14,10 +14,16 @@ FactoryGirl.define do
       end
     end
 
+    factory :default_product do
+      after(:create) do |product, _|
+        SystemSettings.default_product_id = product.id
+      end
+    end
+
     factory :sunrun_product do
       name 'SunRun Solar Item'
 
-      after(:create) do |product, _evaluator|
+      after(:create) do |product, _|
         fields = {
           utility:          :lookup,
           average_bill:     :number,

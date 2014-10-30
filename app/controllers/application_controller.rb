@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper SirenJson
 
   protect_from_forgery with: :exception
-  helper_method :current_user
+  helper_method :current_user, :ranks
 
   def redirect_to(*args)
     respond_to do |format|
@@ -31,5 +31,9 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
     @current_user = user
     track_login_event(user)
+  end
+
+  def all_ranks
+    @all_ranks ||= Rank.all.includes(:qualifications).references(:qualifications)
   end
 end

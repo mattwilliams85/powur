@@ -5,14 +5,8 @@ module Auth
       pay_period = MonthlyPayPeriod.current
       @pay_as_rank = pay_period.find_pay_as_rank(@user)
 
-      @next_rank = Rank.find_by_id(@pay_as_rank + 1)
-      @qualifications = 
-        if @next_rank
-          @next_rank.qualifications
-        else
-          @pay_as_rank.qualifications
-        end
-      product_ids = @qualifications.map(&:product_id).uniq
+      @ranks = all_ranks
+      product_ids = @ranks.map(&:qualifications).flatten.map(&:product_id).uniq
       @order_totals = product_ids.map do |id|
         pay_period.find_order_total(@user.id, id)
       end

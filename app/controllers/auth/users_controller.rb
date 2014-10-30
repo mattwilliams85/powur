@@ -4,6 +4,7 @@ module Auth
 
     sort order_by:  { organic_rank: :desc },
          last_name: { last_name: :desc }
+         # orders: { "order_totals"}
          # order_by_quotes: {organic_rank: :desc}.
          # order_by_recruits: {organic_rank: :desc}
     # filter :pay_period,

@@ -19,6 +19,17 @@ describe '/u/users' do
       expect(json_body['entities'].size).to eq(8)
     end
 
+    it 'returns the users team sorted by order count for lifetime' do
+      product = create(:default_product)
+
+      1.upto(3) do
+        user = create(:user, sponsor: @user)
+        create(:order_total, user: user)
+      end
+
+      # order_totals = 
+    end
+
   end
 
   describe '#search' do

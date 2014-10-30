@@ -21,12 +21,20 @@ class RanksJson < JsonDecorator
     end
   end
 
-  def admin_entities(rank = @item)
+  def rank_entities(rank, qual_path)
     return if rank.id == 1
-    entities entity('admin/qualifications/rank_index',
+    entities entity(qual_path,
                     'rank-qualifications',
                     rank:           rank,
                     qualifications: rank.qualifications)
+  end
+
+  def admin_entities(rank = @item)
+    rank_entities(rank, 'admin/qualifications/rank_index')
+  end
+
+  def user_entities(rank = @item)
+    rank_entities(rank, 'auth/qualifications/index')
   end
 
   def admin_item_actions(rank = @item)
