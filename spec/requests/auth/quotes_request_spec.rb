@@ -18,6 +18,11 @@ describe '/u/quotes' do
       expect_actions('create')
 
       create_action = json_body['actions'].find { |a| a['name'] == 'create' }
+      expect(create_action).to be
+      field = create_action['fields']
+        .find { |f| f['name'] == 'credit_approved' }
+      expect(field).to be
+      expect(field['type']).to eq('checkbox')
     end
 
   end

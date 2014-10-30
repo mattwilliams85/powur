@@ -130,7 +130,7 @@ class QuotesJson < JsonDecorator
         end
       end
       opts[:value] = yield(field.name) if block_given?
-      action.field(field.name, :select, opts)
+      action.field(field.name, field.view_type, opts)
     end
   end
 end

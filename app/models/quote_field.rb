@@ -30,6 +30,16 @@ class QuoteField < ActiveRecord::Base
     end
   end
 
+  def view_type
+    if lookup?
+      :select
+    elsif boolean?
+      :checkbox
+    else
+      data_type
+    end
+  end
+
   private
 
   def lookup_from_row(row, counter)

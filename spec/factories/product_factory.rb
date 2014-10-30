@@ -29,7 +29,7 @@ FactoryGirl.define do
           average_bill:     :number,
           rate_schedule:    :lookup,
           square_feet:      :number,
-          estimated_credit: :number,
+          credit_approved:  :boolean,
           roof_type:        :lookup,
           roof_age:         :lookup }
         fields.each do |name, data_type|
