@@ -14,7 +14,7 @@ class UsersJson < JsonDecorator
   def list_item_properties(user = @item)
     json.properties do
       json.call(user, :id, :first_name, :last_name, :email, :phone, :level)
-      %w(downline_count).each do |field|
+      %w(downline_count personal personal_lifetime group group_lifetime).each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]
       end
     end

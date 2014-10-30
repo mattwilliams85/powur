@@ -39,7 +39,8 @@ module UserScopes
                     product_id:    [ Product.default_id, nil ] }
       where_sql = { order_totals: where_sql }
 
-      select(PERF_SELECT).joins(PERF_JOIN).where(where_sql).order(order_by)
+      select(PERF_SELECT).joins(PERF_JOIN)
+        .where(where_sql).order("#{order_by} desc")
     }
   end
 

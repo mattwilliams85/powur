@@ -19,17 +19,27 @@ describe '/u/users' do
     end
 
     it 'returns the users team sorted by order count for lifetime' do
+      pay_period = MonthlyPayPeriod.current
       product = create(:default_product)
 
-      1.upto(3) do
+      totals = 1.upto(3).map do |i|
         user = create(:user, sponsor: @user)
-        create(:order_total, user: user)
+        create(:order_total,
+               user:       user,
+               product:    product,
+               pay_period: pay_period)
       end
+      totals.sort_by!(&:group)
 
-      get users_path, 
-          format:                  :json,
+      get users_path,
           'performance[metric]' => 'group',
-          'performance[period]' => 'monthly'
+          'performance[period]' => 'monthly',
+          format:                  :json
+      result = json_body['entities']
+        .sort_by { |e| e['properties']['group'] }
+        .map { |e| e['properties']['id'] }
+
+      expect(result).to eq(totals.map(&:user_id))
     end
 
   end
