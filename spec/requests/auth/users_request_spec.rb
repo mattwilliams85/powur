@@ -14,7 +14,7 @@ describe '/u/users' do
       get users_path, format: :json
 
       expect_200
-
+      binding.pry
       expect_classes('users', 'list')
       expect(json_body['entities'].size).to eq(8)
     end
@@ -27,7 +27,10 @@ describe '/u/users' do
         create(:order_total, user: user)
       end
 
-      # order_totals = 
+      get users_path, 
+          format:                  :json,
+          'performance[metric]' => 'group',
+          'performance[period]' => 'monthly'
     end
 
   end

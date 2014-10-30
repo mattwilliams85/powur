@@ -2,20 +2,18 @@ module Auth
   class UsersController < AuthController
     before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
 
-    sort order_by:  { organic_rank: :desc },
-         last_name: { last_name: :desc }
-         # orders: { "order_totals"}
-         # order_by_quotes: {organic_rank: :desc}.
-         # order_by_recruits: {organic_rank: :desc}
-    # filter :pay_period,
-    #        url:      -> { pay_periods_path },
-    #        required: true,
-    #        default:  -> { PayPeriod.last_id },
-    #        name:     :title
+    sort user: 'users.last_name asc, users.first_name asc'
+    filter :performance,
+           fields: { metric: { options: { personal: 'Personal Sales',
+                                          group:    'Group Sales' } },
+                     period: { options: { monthly:  'Monthly',
+                                          lifetime: 'Lifetime' } } },
+           scope_opts: { type: :hash, using: [ :metric, :period ] }
 
-    def index
-      # @users = apply_list_query_options(@users)
-      @users = list_criteria
+    def index(query = list_criteria)
+      @users = apply_list_query_options(query)
+
+      render 'index'
     end
 
     def downline
@@ -31,9 +29,7 @@ module Auth
     end
 
     def search
-      @users = list_criteria.search(params[:search])
-
-      render 'index'
+      index(list_criteria.search(params[:search]))
     end
 
     def team
@@ -47,16 +43,8 @@ module Auth
 
     private
 
-    def team_list_criteria
-      query = User.where(sponsor_id: current_user.id)
-
-      if(params.has_key?(:order))
-        query.order(organic_rank: :desc)
-      end
-    end
-
     def list_criteria
-      User.where(sponsor_id: current_user.id)
+      User.with_parent(current_user.id)
     end
 
     def fetch_user

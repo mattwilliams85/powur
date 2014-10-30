@@ -17,6 +17,6 @@ class AdminController < AuthController
   private
 
   def verify_admin
-    redirect_to(dashboard_url) unless current_user.has_role?(:admin)
+    redirect_to(dashboard_url) unless current_user.role?(:admin)
   end
 end

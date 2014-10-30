@@ -12,7 +12,7 @@ entity_list = [
   entity(%w(list quotes), 'user-quotes', user_quotes_path),
   entity(%w(user), 'user-profile', profile_path),
   entity(%w(goals), 'user-goals', user_goals_path(current_user)) ]
-if current_user.has_role?(:admin)
+if current_user.role?(:admin)
   entity_list << entity(%w(list users), 'admin-users', admin_users_path)
   entity_list << entity(%w(data), 'admin-data', data_path)
 end
@@ -22,7 +22,7 @@ entities(*entity_list)
 actions action(:logout, :delete, login_path)
 
 link_list = [ link(:self, root_path), link(:index, dashboard_path) ]
-if current_user.has_role?(:admin)
+if current_user.role?(:admin)
   link_list << link(:users, admin_users_path)
   link_list << link(:profile, profile_path)
   link_list << link(:ranks, ranks_path)

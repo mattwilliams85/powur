@@ -18,7 +18,7 @@ class UnilevelSalesBonus < Bonus
   end
 
   def create_payments!(order, pay_period)
-    return unless order.user.has_parent?
+    return unless order.user.parent?
     upline = pay_period.compressed_upline(order.user)
     return if upline.empty?
 

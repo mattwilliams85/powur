@@ -36,6 +36,10 @@ class Product < ActiveRecord::Base
   end
 
   class << self
+    def default_id
+      SystemSettings.default_product_id
+    end
+
     def default
       Product.find(SystemSettings.default_product_id)
     rescue ActiveRecord::RecordNotFound

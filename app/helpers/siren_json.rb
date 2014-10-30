@@ -131,19 +131,13 @@ module SirenJson
     end
     if filtering?
       filters.each do |scope, opts|
-        field_opts = { value: params[scope], required: !opts[:required].nil? }
-        if opts[:options]
-          field_opts[:options] = opts[:options]
+        if opts[:fields]
+          opts[:fields].each do |key, value|
+            filter_field(action, "#{scope}[#{key}]", value)
+          end
         else
-          reference = { url:     instance_exec(&opts[:url]),
-                        value:   opts[:id],
-                        display: opts[:name] }
-          field_opts[:reference] = reference
-        end
-        if opts[:heading]
-          field_opts[:heading] = t("headings.#{opts[:heading]}")
-        end
-        action.field(scope, :select, field_opts)
+          filter_field(action, scope, opts)
+        end        
       end
     end
 
@@ -151,6 +145,22 @@ module SirenJson
   end
 
   private
+
+  def filter_field(action, scope, opts)
+    field_opts = { value: params[scope], required: !opts[:required].nil? }
+    if opts[:options]
+      field_opts[:options] = opts[:options]
+    else
+      reference = { url:     instance_exec(&opts[:url]),
+                    value:   opts[:id],
+                    display: opts[:name] }
+      field_opts[:reference] = reference
+    end
+    if opts[:heading]
+      field_opts[:heading] = t("headings.#{opts[:heading]}")
+    end
+    action.field(scope, :select, field_opts)
+  end
 
   def render_totals(json)
     @totals.each do |total|

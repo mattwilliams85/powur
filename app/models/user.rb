@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   include UserSecurity
   include UserInvites
   include NameEmailSearch
+  include UserScopes
 
   validates :email, email: true, presence: true
   validates_presence_of :encrypted_password, on: :create
@@ -26,22 +27,23 @@ class User < ActiveRecord::Base
   attr_accessor :avatar_content_type, :avatar_file_name
 
   has_attached_file :avatar,
-                    path:   ':rails_root/public/system/:class/:attachement/:id/:basename_:style.:extension',
-                    url:    '/system/:class/:attachement/:id/:basename_:style.:extension',
-                    styles: { thumb:   ['100x100#',  :jpg, :quality => 70],
-                              preview: ['480x480#',  :jpg, :quality => 70],
-                              large:   ['600>',      :jpg, :quality => 70],
-                              retina:  ['1200>',     :jpg, :quality => 30]},
+                    path:            ':rails_root/public/system/:class/:attachement/:id/:basename_:style.:extension',
+                    url:             '/system/:class/:attachement/:id/:basename_:style.:extension',
+                    styles:          {
+                      thumb:   [ '100x100#', :jpg, quality: 70 ],
+                      preview: [ '480x480#', :jpg, quality: 70 ],
+                      large:   [ '600>',     :jpg, quality: 70 ],
+                      retina:  [ '1200>',    :jpg, quality: 30 ] },
                     convert_options: {
-                                      thumb:   '-set colorspace sRGB -strip',
-                                      preview: '-set colorspace sRGB -strip',
-                                      large:   '-set colorspace sRGB -strip',
-                                      retina:  '-set colorspace sRGB -strip -sharpen 0x0.5' }
+                      thumb:   '-set colorspace sRGB -strip',
+                      preview: '-set colorspace sRGB -strip',
+                      large:   '-set colorspace sRGB -strip',
+                      retina:  '-set colorspace sRGB -strip -sharpen 0x0.5' }
 
   # Validate content type
-  validates_attachment_content_type :avatar, :content_type => /\Aimage/
+  validates_attachment_content_type :avatar, content_type: /\Aimage/
   # Validate filename
-  validates_attachment_file_name :avatar, :matches => [/png\Z/, /jpe?g\Z/, /gif\Z/]
+  validates_attachment_file_name :avatar, matches: [/png\Z/, /jpe?g\Z/, /gif\Z/]
   # Explicitly do not validate
   do_not_validate_attachment_file_type :avatar
 
@@ -49,31 +51,9 @@ class User < ActiveRecord::Base
   #   :presence => true,
   #   :size => { :in => 0..10.megabytes },
   #   :content_type => { :content_type => /^image\/(jpeg|png|gif|tiff)$/ }
-  before_save :delete_avatar, if: ->{ remove_avatar == '1' && !avatar_updated_at_changed? }
-
+  before_save :delete_avatar, if: -> { remove_avatar == '1' && !avatar_updated_at_changed? }
 
   after_create :set_upline
-
-  scope :with_upline_at, ->(id, level) {
-  where('upline[?] = ?', level, id).where('id != ?', id) }
-  scope :at_level, ->(rank){ where('array_length(upline, 1) = ?', rank) }
-  CHILD_COUNT_LIST = "
-    SELECT u.*, child_count - 1 downline_count
-    FROM (
-      SELECT unnest(upline) parent_id, count(id) child_count
-      FROM users
-      GROUP BY parent_id) c INNER JOIN users u ON c.parent_id = u.id
-    WHERE u.upline[?] = ? AND array_length(u.upline, 1) = ?
-    ORDER BY u.last_name, u.first_name, u.id;"
-  scope :child_count_list, ->(user){
-
-    find_by_sql([ CHILD_COUNT_LIST, user.level, user.id, user.level + 1 ]) }
-  scope :with_parent, ->(*user_ids) {
-    where('upline[array_length(upline, 1) - 1] IN (?)', user_ids.flatten) }
-  scope :with_ancestor, lambda { |user_id|
-    where("? = ANY (upline)", user_id)
-    .where('upline[array_length(upline, 1)] NOT IN (?)', user_id)
-  }
 
   attr_accessor :child_order_totals, :pay_period_rank
 
@@ -106,7 +86,7 @@ class User < ActiveRecord::Base
     downline_users.count
   end
 
-  def has_role?(role)
+  def role?(role)
     roles.include?(role.to_s)
   end
 
@@ -114,11 +94,11 @@ class User < ActiveRecord::Base
     upline[-2]
   end
 
-  def has_parent?
-    !!parent_id
+  def parent?
+    !parent_id.nil?
   end
 
-  def has_ancestor?(user_id)
+  def ancestor?(user_id)
     upline.include?(user_id)
   end
 
@@ -143,10 +123,9 @@ class User < ActiveRecord::Base
   private
 
   def set_upline
-    if upline.nil? || upline.empty?
-      self.upline = sponsor ? sponsor.upline + [ id ] : [ id ]
-      User.where(id: id).update_all(upline: upline)
-    end
+    return if upline && !upline.empty?
+    self.upline = sponsor ? sponsor.upline + [ id ] : [ id ]
+    User.where(id: id).update_all(upline: upline)
   end
 
   class << self

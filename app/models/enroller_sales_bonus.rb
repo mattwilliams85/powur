@@ -17,12 +17,12 @@ class EnrollerSalesBonus < Bonus
   end
 
   def create_payments!(order, pay_period)
-    return unless order.user.has_parent?
+    return unless order.user.parent?
 
     parent = pay_period.find_upline_user(order.user.parent_id)
 
     return if parent_qualified?(parent, pay_period, order) || !compress
-    while parent.has_parent?
+    while parent.parent?
       parent = pay_period.find_upline_user(parent.parent_id)
       break if parent_qualified?(parent, pay_period, order)
     end

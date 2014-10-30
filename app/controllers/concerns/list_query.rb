@@ -68,9 +68,9 @@ module ListQuery
   end
 
   def apply_list_query_options(query)
-    query = pager.apply(query) if paging?
-    query = sorter.apply(query) if sorting?
     query = apply_scopes(query) if filtering?
+    query = sorter.apply(query) if sorting?
+    query = pager.apply(query) if paging?
     query
   end
 
