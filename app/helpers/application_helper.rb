@@ -22,4 +22,8 @@ module ApplicationHelper
   def totals_json
     @totals_json ||= OrderTotalsJson.new(self, @order_totals, nil)
   end
+
+  def profile_json
+    @orders_json ||= ProfileJson.new(self, @profile, @user)
+  end
 end

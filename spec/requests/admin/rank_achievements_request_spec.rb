@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'order totals', type: :request do
+describe 'rank achievements', type: :request do
 
   before :each do
     login_user
