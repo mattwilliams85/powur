@@ -6,6 +6,7 @@ module Auth
         format.html
         format.json do
           @user = current_user
+          @profile = @user.profile
         end
       end
     end
