@@ -7,9 +7,10 @@ module Auth
 
       @ranks = all_ranks
       product_ids = @ranks.map(&:qualifications).flatten.map(&:product_id).uniq
+
       @order_totals = product_ids.map do |product_id|
         pay_period.find_order_total(@user.id, product_id)
-      end
+      end.compact
     end
   end
 end
