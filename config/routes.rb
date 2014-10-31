@@ -73,6 +73,8 @@ Rails.application.routes.draw do
   # logged in admin routes
   scope :a, module: :admin do
 
+    get '' => 'root#index', as: :admin_root
+
     resources :users, only: [ :index, :show, :update ], as: :admin_users do
       collection do
         get '' => 'users#search', constraints: has_params(:search)
