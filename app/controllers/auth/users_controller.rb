@@ -6,8 +6,9 @@ module Auth
     filter :performance,
            fields: { metric: { options: { personal: 'Personal Sales',
                                           group:    'Group Sales' } },
-                     period: { options: { monthly:  'Monthly',
-                                          lifetime: 'Lifetime' } } },
+                     period: { options: { lifetime: 'Lifetime',
+                                          monthly:  'Monthly',
+                                          weekly:   'Weekly' } } },
            scope_opts: { type: :hash, using: [ :metric, :period ] }
 
     def index(query = list_criteria)
@@ -32,12 +33,6 @@ module Auth
       index(list_criteria.search(params[:search]))
     end
 
-    def team
-      query = User.where(sponsor_id: current_user.id)
-      query = query.user_search(params[:search]) if params[:search]
-      @users = apply_list_query_options(query)
-    end
-
     def show
     end
 
@@ -48,7 +43,7 @@ module Auth
     end
 
     def fetch_user
-      @user = User.find_by(id: params[:id]) || not_found!(:user)
+      @user = User.find_by(id: params[:id].to_i) || not_found!(:user)
     end
   end
 end

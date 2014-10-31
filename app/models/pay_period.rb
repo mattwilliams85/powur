@@ -20,6 +20,14 @@ class PayPeriod < ActiveRecord::Base
     Date.current > end_date
   end
 
+  def distributed?
+    !distributed_at.nil?
+  end
+
+  def distributable?
+    finished? && calculated? && !distributed
+  end
+
   def calculable?
     DateTime.current > start_date && distributed_at.nil?
   end

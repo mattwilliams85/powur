@@ -13,6 +13,10 @@ module SpecHelpers
     response[:json_body] ||= MultiJson.load(response.body)
   end
 
+  def response_to_file(name)
+    File.open(File.join('/tmp', name), 'w') { |f| f.write(response.body) }
+  end
+
   def expect_200
     expect(response.status).to eq(200)
   end

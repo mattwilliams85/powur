@@ -54,7 +54,6 @@ Rails.application.routes.draw do
       member do
         get :downline
         get :upline
-        get :team
       end
 
       resources :rank_achievements,
@@ -142,6 +141,7 @@ Rails.application.routes.draw do
       member do
         post :calculate
         post :recalculate
+        post :distribute
       end
       resources :orders, only: [ :index ], controller: :pay_period_orders
       resources :order_totals,

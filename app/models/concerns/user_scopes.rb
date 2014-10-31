@@ -35,7 +35,8 @@ module UserScopes
     scope :performance, lambda { |metric, period|
       order_by = "order_totals.#{metric}"
       order_by += '_lifetime' if period == 'lifetime'
-      where_sql = { pay_period_id: [ MonthlyPayPeriod.current.id, nil ],
+      pp_klass = period == 'monthly' ? MonthlyPayPeriod : WeeklyPayPeriod
+      where_sql = { pay_period_id: [ pp_klass.current.id, nil ],
                     product_id:    [ Product.default_id, nil ] }
       where_sql = { order_totals: where_sql }
 

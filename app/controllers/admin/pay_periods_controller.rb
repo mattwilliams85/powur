@@ -44,6 +44,10 @@ module Admin
       calculate
     end
 
+    def distribute
+      
+    end
+
     private
 
     def fetch_pay_periods
