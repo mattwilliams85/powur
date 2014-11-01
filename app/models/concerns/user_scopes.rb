@@ -32,7 +32,7 @@ module UserScopes
         .map { |f| "order_totals.#{f}" }.join(', ')
     PERF_JOIN = 'left join order_totals on users.id = order_totals.user_id'
 
-    scope :performance, lambda { |metric, period|
+    scope :order_totals, lambda { |metric, period|
       order_by = "order_totals.#{metric}"
       order_by += '_lifetime' if period == 'lifetime'
       pp_klass = period == 'monthly' ? MonthlyPayPeriod : WeeklyPayPeriod
@@ -43,6 +43,25 @@ module UserScopes
       select(PERF_SELECT).joins(PERF_JOIN)
         .where(where_sql).order("#{order_by} desc")
     }
+
+    scope :quote_count, lambda { |period|
+      query = select('users.*, count(quotes.id) quote_count')
+        .joins('left outer join quotes on users.id = quotes.user_id')
+        .group('users.id').order('quote_count desc')
+      if period != 'lifetime'
+        klass = period == 'monthly' ? MonthlyPayPeriod : WeeklyPayPeriod
+        pay_period = klass.current
+        query = query
+          .where('created_at > ?', pay_period.start_date)
+          .where('created_at < ?', pay_period.end_date + 1.day)
+      end
+      query
+    }
+
+    scope :performance, lambda { |metric, period|
+      metric == 'quotes' ? quote_count(period) : order_totals(metric, period)
+    }
+
   end
 
   module ClassMethods

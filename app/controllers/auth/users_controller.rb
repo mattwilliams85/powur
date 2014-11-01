@@ -4,11 +4,12 @@ module Auth
 
     sort user: 'users.last_name asc, users.first_name asc'
     filter :performance,
-           fields: { metric: { options: { personal: 'Personal Sales',
-                                          group:    'Group Sales' } },
-                     period: { options: { lifetime: 'Lifetime',
-                                          monthly:  'Monthly',
-                                          weekly:   'Weekly' } } },
+           fields:     { metric: { options: { quotes:   'Quote Count',
+                                              personal: 'Personal Sales',
+                                              group:    'Group Sales' } },
+                         period: { options: { lifetime: 'Lifetime',
+                                              monthly:  'Monthly',
+                                              weekly:   'Weekly' } } },
            scope_opts: { type: :hash, using: [ :metric, :period ] }
 
     def index(query = list_criteria)
