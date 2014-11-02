@@ -1,9 +1,7 @@
 siren json
 
-klass :rank_achievements, :list
-
-json.entities @rank_achievements, partial: 'item', as: :rank_achievement
+rank_achievements_json.list_init('admin/rank_achievements/item')
 
 actions index_action(@rank_achievements_path)
 
-links link(:self, @rank_achievements_path)
+self_link @rank_achievements_path

@@ -18,7 +18,10 @@ describe '/u/users/:user_id/goals', type: :request do
   end
 
   it 'returns the current users goals' do
-    create(:order_total, user: @user, pay_period: @pay_period, product: @product)
+    create(:order_total,
+           user:       @user,
+           pay_period: @pay_period,
+           product:    @product)
 
     get user_goals_path(@user), format: :json
 
@@ -31,7 +34,8 @@ describe '/u/users/:user_id/goals', type: :request do
   it 'works when the user has no order totals' do
     get user_goals_path(@user), format: :json
 
-    totals = json_body['entities'].find { |e| e['rel'].include?('goals-order_totals') }
+    totals = json_body['entities']
+      .find { |e| e['rel'].include?('goals-order_totals') }
     expect(totals).to be
     expect(totals['entities'].size).to eq(0)
   end

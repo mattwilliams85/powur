@@ -3,10 +3,8 @@ klass :rank_achievement
 
 json.rel [ :item ] unless local_assigns[:detail]
 
-json.properties do
-  json.call(rank_achievement, :pay_period_id, :user_id,
-            :path, :rank_id, :achieved_at)
-  json.lifetime rank_achievement.lifetime?
-  json.user rank_achievement.user.full_name
-  json.rank rank_achievement.rank.title
-end
+rank_achievements_json.item_init(local_assigns[:rel] || 'item')
+
+rank_achievements_json.list_item_properties(rank_achievement)
+
+self_link admin_user_rank_achievements_path(rank_achievement)
