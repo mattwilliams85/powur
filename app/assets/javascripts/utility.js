@@ -464,7 +464,43 @@ function _getRoot(_callback){
     }).done(function(data, text){
         if(typeof _data === "object" )_data.root = $.extend(true, {}, data);
         else console.log(data);
-        if(typeof _callback === "function") _callback();
+        loadingCategories=[
+            {
+                url:"/u/profile",
+                name:"profile",
+                data:{}
+            },
+            {
+                url:"/u/users/"+_data.root.properties.id+"/order_totals",
+                name:"order_totals",
+                data:{}
+            },
+            {
+                url:"/u/users/"+_data.root.properties.id+"/orders",
+                name:"orders",
+                data:{}                
+            },
+            {
+                url:"/u/users/"+_data.root.properties.id+"/rank_achievements",
+                name:"rank_achievements",
+                data:{}                
+            },
+            {
+                url:"/u/users/"+_data.root.properties.id+"/goals",
+                name:"goals",
+                data:{}                
+            }                        
+        ];
+        EyeCueLab.JSON.asynchronousLoader(loadingCategories, function(_returnJSONs){
+            _data.currentUser=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["user"]})[0].properties;
+            _data.currentUser.order_totals=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["order_totals"]})[0];
+            _data.currentUser.orders=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["orders"]})[0];
+            _data.currentUser.rank_achievements=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["rank_achievements"]})[0];
+            _data.currentUser.goals=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["goals"]})[0];
+            if(typeof _callback === "function") _callback();
+
+        });
+
      });
 }    
 

@@ -10,7 +10,7 @@ jQuery(function($){
 
 		//get current user profile and initiate dashboard data
 		_getRoot(function(){
-			$(".js-user_first_name").text(_data.root.properties.first_name + " : RANK 0");
+			$(".js-user_first_name").text(_data.root.properties.first_name );
 			_myID = _data.root.properties.id;
 			_dashboard = new Dashboard();
 			_dashboard.displayGoals();
@@ -46,45 +46,101 @@ function Dashboard(){
 	this.displayGoals = displayGoals;
 	this._countdown = _countdown;
 
-	function displayGoals(){
-		_data.goals={};
-		_data.goals.rank={
-			lifetime:7,
-			organic:3,
-			next_rank:4
-		}
-		_data.goals.sales={
+	function displayGoals(path){
+
+		// hook up the control for changing paths
+		$("#pay_period_goal_path").on("change", function(e){
+			$("#goal_meters .labels, #goal_meters .highlight").html("");
+				displayGoals($(this).val());
+		});
+
+		var goals={};
+		goals.sales={
 			personal:{
-				min:6,
-				max:20,
-				current:12,
+				min:0,
+				max:0,
+				current:0,
 			},
 			group:{
-				min:11,
-				max:43,
-				current:32
+				min:0,
+				max:0,
+				current:0
 			}
 		}
+		//populate path dropdown
+		if(typeof path === "undefined"){
+			goals.paths=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].properties.paths;
+			$("#pay_period_goal_path").html("");
+			goals.paths.forEach(function(path){
+				$("#pay_period_goal_path").append("<option value="+path+">Path: "+path+"</option>");
+			});
+		}
 
-		Object.keys(_data.goals.sales).forEach(function(_key){
+
+		goals.rank={
+			pay_as_rank:_data.currentUser.goals.properties.pay_as_rank,
+			next_rank:_data.currentUser.goals.properties.pay_as_rank+1
+		}
+
+		goals.next_rank=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].entities[goals.rank.next_rank-1];
+		if(goals.rank.pay_as_rank>1){
+			goals.current_rank=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].entities[goals.rank.pay_as_rank-1];
+		}
+		goals.next_rank.qualifications=_getObjectsByCriteria(goals.next_rank, {path:$("#pay_period_goal_path").val()});
+		
+		var displayPrimaryProduct={
+			id:1, /* this is hardcoded for the sunrun solar item, this what will be displayed in the bars */
+			name:"SunRun Solar Item"
+		}
+
+
+		//setup current personal and group sales total
+		var sales = _getObjectsByCriteria(_data.currentUser.order_totals, {product:displayPrimaryProduct.name})[0];
+		goals.sales.personal.current=sales.personal;
+		goals.sales.group.current=sales.group;
+
+		//setup the max
+		goals.next_rank.qualifications.forEach(function(qualification){
+			if(qualification.product_id==displayPrimaryProduct.id){
+				$("#dashboard_personal_goals .product").html("Product: "+qualification.product);
+				switch(qualification.type_display.toLowerCase()){
+					case "personal sales":
+						goals.sales.personal.max=qualification.quantity;
+						$("#dashboard_personal_goals .personal_sales").html("Personal "+qualification.time_period+" sales");
+						if(goals.sales.personal.current>goals.sales.personal.max) goals.sales.personal.current = goals.sales.personal.max
+					break;
+
+					case "group sales":
+						goals.sales.group.max=qualification.quantity;
+						$("#dashboard_personal_goals .group_sales").html("Group "+qualification.time_period+" sales");
+						if(goals.sales.group.current>goals.sales.group.max) goals.sales.group.current = goals.sales.group.max
+					break;
+				}
+			}
+		});
+
+		console.log(goals)
+		
+		Object.keys(goals.sales).forEach(function(_key){
 			var _section_width=$("#"+_key+"_sales .labels").width();
 			var notches={};
-			notches.total=_data.goals.sales[_key].max-_data.goals.sales[_key].min;
+			notches.total=goals.sales[_key].max-goals.sales[_key].min;
 			notches.width=Math.ceil(_section_width/notches.total);
-			notches.min=_data.goals.sales[_key].min;
-			notches.max= _data.goals.sales[_key].max-1;
-			notches.current =  _data.goals.sales[_key].current;
+			notches.min=goals.sales[_key].min;
+			notches.max=goals.sales[_key].max-1;
+			notches.current = goals.sales[_key].current;
 			for(i=notches.min; i<=notches.max;i++){
 				var _counter = (i<10)?"0"+i:i;
+				var _maxCounter = (notches.max+1<10)?"0"+(notches.max+1):(notches.max+1);
 				_html=	"<div class='notch' style='width:"+((1/notches.total)*100)+"%;'>";
 				_html+=	"<span>"+_counter+"</span><div></div>";
 				if(i<notches.max)_html+=	"</div>";
-				else _html+= "<span class='last_notch'>"+(_counter+1)+"</span><div class='last_notch'></div></div>"
+				else _html+= "<span class='last_notch'>"+_maxCounter+"</span><div class='last_notch'></div></div>"
 				$("#"+_key+"_sales .labels").append(_html);
 			}
 			$("#"+_key+"_sales .highlight").animate({width:(((notches.current-notches.min)/notches.total*100)+"%")}, 1000)
 		});
-		$("#dashboard_personal_goals .next_rank").html("Next Rank: "+_data.goals.rank.next_rank);
+		$("#dashboard_personal_goals .next_rank").html("Next Rank: "+goals.rank.next_rank);
 
 	}
 
