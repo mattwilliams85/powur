@@ -492,11 +492,11 @@ function _getRoot(_callback){
             }                        
         ];
         EyeCueLab.JSON.asynchronousLoader(loadingCategories, function(_returnJSONs){
-            _data.currentUser=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["user"]})[0].properties;
-            _data.currentUser.order_totals=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["order_totals"]})[0];
-            _data.currentUser.orders=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["orders"]})[0];
-            _data.currentUser.rank_achievements=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["rank_achievements"]})[0];
-            _data.currentUser.goals=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["goals"]})[0];
+            _data.currentUser=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"profile"})[0].properties;
+            _data.currentUser.order_totals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"order_totals"})[0];
+            _data.currentUser.goals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"goals"})[0];
+            _data.currentUser.rank_achievements=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"rank_achievements"})[0];
+            _data.currentUser.orders=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"orders"})[0];
             if(typeof _callback === "function") _callback();
 
         });
@@ -761,15 +761,18 @@ jQuery(function($){
         var _returnJSONs=[];
         var _loadingComplete=0;
         for(i=0;i<_endPoints.length;i++){
-            $.ajax({
-                type:"get",
-                url:_endPoints[i].url,
-                data:_endPoints[i].data
-            }).done(function(data, text){
-                _returnJSONs.push(data);
-                _loadingComplete = _loadingComplete+1;
-                if(_loadingComplete==_endPoints.length) _callback(_returnJSONs);
-            })
+            (function(index){
+                $.ajax({
+                    type:"get",
+                    url:_endPoints[i].url,
+                    data:_endPoints[i].data
+                }).done(function(data, text){
+                    if(typeof _endPoints[index].name !=="undefined") data.endpoint_name=_endPoints[index].name;
+                    _returnJSONs.push(data);
+                    _loadingComplete = _loadingComplete+1;
+                    if(_loadingComplete==_endPoints.length) _callback(_returnJSONs);
+                })
+            })(i);
         }
     }
 

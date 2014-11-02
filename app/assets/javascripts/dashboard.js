@@ -112,7 +112,7 @@ function Dashboard(){
 
 					case "group sales":
 						goals.sales.group.max=qualification.quantity;
-						$("#dashboard_personal_goals .group_sales").html("Group "+qualification.time_period+" sales");
+						$("#dashboard_personal_goals .personal_sales").html("Personal "+qualification.time_period+" sales");
 						if(goals.sales.group.current>goals.sales.group.max) goals.sales.group.current = goals.sales.group.max
 					break;
 				}
