@@ -88,7 +88,7 @@ namespace :sunstand do
       user_count = User.count
       args.with_defaults(per_user: 10, months_back: 3)
 
-      start_date = (DateTime.current - args[:months_back].months).beginning_of_month
+      start_date = (DateTime.current - args[:months_back].to_i.months).beginning_of_month
       end_date = DateTime.current
       days_from_start = end_date.mjd - start_date.mjd
 
@@ -106,7 +106,7 @@ namespace :sunstand do
       puts "Creating an average of #{args[:per_user]} orders per user between dates #{start_date} and #{end_date}"
 
       User.all.each do |user|
-        order_amount = rand(0...args[:per_user]*2)
+        order_amount = rand(0...args[:per_user].to_i * 2)
         puts "Creating #{order_amount} Solar Item order(s) for user #{user.full_name}"
         0.upto(order_amount) do |i|
           customer = Customer.create!(
