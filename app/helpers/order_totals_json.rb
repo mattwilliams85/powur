@@ -13,7 +13,7 @@ class OrderTotalsJson < JsonDecorator
 
   def list_item_properties(totals = @item)
     json.properties do
-      json.call(totals, :id, :pay_period_id, :personal, :group,
+      json.call(totals, :id, :pay_period_id, :product_id, :user_id, :personal, :group,
                 :personal_lifetime, :group_lifetime)
       json.product totals.product.name
       json.distributor totals.user.full_name
