@@ -4,8 +4,10 @@ module Admin
     before_action :fetch_pay_period, only: [ :show, :calculate, :recalculate ]
 
     helper_method :can_calculate?
+    helper_method :can_distribute?
 
     filter :calculated, scope_opts: { type: :boolean }
+    filter :distributed, scope_opts: { type: :boolean }
 
     def index
       respond_to do |format|
@@ -21,6 +23,11 @@ module Admin
       product_totals = @pay_period.order_totals.product_totals
       @totals = product_totals_hash(product_totals)
       if @pay_period.calculated?
+        bonus_amount = @pay_period.bonus_payments.sum(:amount)
+        @totals << { id: :bonus, value: bonus_amount, type: :currency }
+      end
+
+      if @pay_period.distributed?
         bonus_amount = @pay_period.bonus_payments.sum(:amount)
         @totals << { id: :bonus, value: bonus_amount, type: :currency }
       end
@@ -45,7 +52,10 @@ module Admin
     end
 
     def distribute
-      
+      unless can_distribute?(@pay_period)
+        error! t('errors.period_not_distributable')
+      end
+      @pay_period.distribute!
     end
 
     private
@@ -71,6 +81,20 @@ module Admin
         periods.compact.map(&:id)
       end
       @calculable_pay_periods.include?(period.id)
+    end
+
+    def can_distribute?(period)
+      return false unless period.distributable?
+      @distributable_pay_periods ||= begin
+        periods = %w(WeeklyPayPeriod MonthlyPayPeriod).map do |type|
+          list = @pay_periods.select do |pp|
+            pp.type == type && pp.distributed_at.nil?
+          end
+          list.last
+        end
+        periods.compact.map(&:id)
+      end
+      @distributable_pay_periods.include?(period.id)
     end
   end
 end

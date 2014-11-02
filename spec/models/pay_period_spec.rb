@@ -177,6 +177,56 @@ describe PayPeriod, type: :model do
     end
   end
 
+  describe '#payout!' do
+
+    before :each do
+      create_list(:rank, 3)
+    end
+
+    it 'creates order totals' do
+      order_date = DateTime.current - 1.month
+      order = create(:order, order_date: order_date)
+      product = create(:product)
+
+      parent = create(:user)
+      user = create(:user, sponsor: parent)
+      children = create_list(:user, 2, sponsor: user)
+
+      create(:order, user: user,
+        product: product, order_date: order_date - 10.minutes)
+      create(:order, user: user,
+        product: product, order_date: order_date - 1.month)
+
+      1.upto(3) do |i|
+        create(:order, user: children.first,
+          product: product, order_date: order_date - i.minutes)
+      end
+      create(:order, user: children.last,
+        product: product, quantity: 2, order_date: order_date - 5.minutes)
+
+      pay_period = order.monthly_pay_period
+      pay_period.calculate!
+
+      order_total = OrderTotal.where(user_id: user.id,
+        product_id: product.id, pay_period_id: pay_period.id).first
+
+      expect(order_total).to_not be_nil
+      expect(order_total.personal).to eq(1)
+      expect(order_total.group).to eq(6)
+      expect(order_total.personal_lifetime).to eq(2)
+      expect(order_total.group_lifetime).to eq(7)
+
+      order_total = OrderTotal.where(user_id: children.first,
+        product_id: product.id, pay_period_id: pay_period.id).first
+
+      expect(order_total).to_not be_nil
+      expect(order_total.personal).to eq(3)
+      expect(order_total.group).to eq(3)
+      expect(order_total.personal_lifetime).to eq(3)
+      expect(order_total.group_lifetime).to eq(3)
+    end
+  end
+
   describe '#order_totals' do
 
     before :each do
