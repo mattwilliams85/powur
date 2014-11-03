@@ -393,7 +393,7 @@ function Dashboard(){
 					_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 					_drilldownContainerObj.css("opacity","0");
 					// _drilldownContainerObj.scrollView(180);
-					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
+					_drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
 
 					_getTemplate("/templates/drilldowns/_team_details.handlebars.html", 
 						_userDetail, 
@@ -402,8 +402,8 @@ function Dashboard(){
 							//once the basic template is set, now populate the downlink information
 							//had to do this as callback due to the asynchronous nature of the calls
 							//animate up-arrow
-							_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-							_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+							_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+							_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 							//populate downlink thumbnails
 							_downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
 							_ajax({
@@ -457,8 +457,8 @@ function Dashboard(){
 						});
 						//populate drilldown
 						EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
-						 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+						 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 						 	$("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
 						 	$("#customer_contact_form select[name='roof_material'] option").filter(function(){return $(this).text()==_userDetail.roof_material}).attr("selected", true);
 
@@ -512,8 +512,8 @@ function Dashboard(){
 
 				//populate drilldown
 				EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", {}, _drilldownContainerObj, function(){
-				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 					//wire up lead submission hook
 					$("#new_lead_contact_form button").on("click", function(e){
 						e.preventDefault();
@@ -537,7 +537,7 @@ function Dashboard(){
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=256px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=240px", opacity:1}, _animation_speed);	
 
 				_data["invitations"]=[];
 				//get listing array from json
@@ -548,8 +548,8 @@ function Dashboard(){
 
 					//first place the listing template
 					_getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
-						_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 		_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+						_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+				 		_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 	
 				 		//display thumbnails
 				 		_getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
@@ -612,8 +612,8 @@ function Dashboard(){
 				if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _invitationDetail.invitationType="New";
 
 				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
-					_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+					_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 
 					
 					$("#new_promoter_invitation_form .button").unbind();
@@ -679,8 +679,8 @@ function Dashboard(){
 				}
 
 				_getTemplate(_templatePath, _impactMetricsDetail, _drilldownContainerObj, function(){
-				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 				});
 
 			break;
