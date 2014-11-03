@@ -18,7 +18,7 @@ describe '/u/users' do
       expect(json_body['entities'].size).to eq(8)
     end
 
-    it 'returns the users team sorted by order count for lifetime' do
+    it 'returns the users team sorted by group monthly count' do
       pay_period = MonthlyPayPeriod.current
       product = create(:default_product)
 
@@ -29,17 +29,35 @@ describe '/u/users' do
                product:    product,
                pay_period: pay_period)
       end
-      totals.sort_by!(&:group)
+      totals.sort_by(&:group).reverse.map(&:user_id)
 
       get users_path,
           'performance[metric]' => 'group',
           'performance[period]' => 'monthly',
           format:                  :json
+
       result = json_body['entities']
-        .sort_by { |e| e['properties']['group'] }
         .map { |e| e['properties']['id'] }
 
-      expect(result).to eq(totals.map(&:user_id))
+      expected = totals.sort_by(&:group).reverse.map(&:user_id)
+      expect(result).to eq(expected)
+    end
+
+    it 'returns the users team sorted by quote count' do
+      users = [ rand(5) + 1, rand(5) + 1, rand(5) + 1 ].map do |count|
+        user = create(:user, sponsor: @user)
+        create_list(:quote, count, user: user)
+      end
+
+      get users_path,
+          'performance[metric]' => 'quotes',
+          'performance[period]' => 'lifetime',
+          format: :json
+
+      result = json_body['entities']
+        .map { |e| e['properties']['quote_count'] }
+
+      expect(result).to eq(result.sort.reverse)
     end
 
   end
