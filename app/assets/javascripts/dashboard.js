@@ -162,54 +162,66 @@ function Dashboard(){
 				search:_data.team_search
 			},
 			_callback:function(data, text){
+				if(data.entities.length<=0) return;
 				var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
 				_data.team=data;
-				if(data.entities.length<=0) return;
-				EyeCueLab.UX.getTemplate("/templates/_team_thumbnail2.handlebars.html", _data.team, _containerObj, function(){
-					_containerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
-					if(data.entities.length>=4) _containerObj.siblings(".nav").fadeIn();
+				_containerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
+				if(data.entities.length>=4) _containerObj.siblings(".nav").fadeIn();
 
-					$(".js-invites_thumbnail").unbind();
-					$("#team_search").unbind();
-					$("#performance_metric").unbind();
-					$("#performance_period").unbind();
-
-					//wire up invitations listing hook
-					$(".js-invites_thumbnail").on("click", function(e){
-						e.preventDefault();
-						_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
-						_drillDown({"_type":"invitations",
-									"_mainSectionID":$(e.target).parents("section").attr("id"), 
-									"_thumbnailIdentifier":".js-invites_thumbnail",
-									"_target":$(e.target),
-									"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
-					});
-
-					$("#team_search").on("keyup", function(e){
-						switch(e.keyCode){
-							case 13:
-								if($(e.target).val().length<3 && $(e.target).val().length>0) return;
-					    		if($(e.target).val().length>=3 || $(e.target).val().length==0){
-									$("#dashboard_team > section").remove();
-					    			_data.team_search=$(e.target).val();
-									_collapseTeam();
-									displayTeam();
-					    		}
-							break;
+				_containerObj.html("");
+				_data.team.entities.forEach(function(member){
+					_ajax({
+						_ajaxType:"get",
+						_url:"/u/users/"+member.properties.id+"/downline",
+						_callback:function(data, text){
+							member.properties.downline_count = data.entities.length;
+							EyeCueLab.UX.getTemplate("/templates/_team_thumbnail3.handlebars.html", member, undefined, function(html){
+								_containerObj.append(html);
+							});
 						}
 					});
-
-					$("#performance_period, #performance_metric").on("change", function(e){
-						e.preventDefault();
-						_data[$(this).attr("name")]=$(this).val();
-						$("#dashboard_team > section").remove();
-						_collapseTeam();
-						displayTeam();
-
-					})
-
-
 				});
+				
+
+				$(".js-invites_thumbnail").unbind();
+				$("#team_search").unbind();
+				$("#performance_metric").unbind();
+				$("#performance_period").unbind();
+
+				//wire up invitations listing hook
+				$(".js-invites_thumbnail").on("click", function(e){
+					e.preventDefault();
+					_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
+					_drillDown({"_type":"invitations",
+								"_mainSectionID":$(e.target).parents("section").attr("id"), 
+								"_thumbnailIdentifier":".js-invites_thumbnail",
+								"_target":$(e.target),
+								"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+				});
+
+				$("#team_search").on("keyup", function(e){
+					switch(e.keyCode){
+						case 13:
+							if($(e.target).val().length<3 && $(e.target).val().length>0) return;
+				    		if($(e.target).val().length>=3 || $(e.target).val().length==0){
+								$("#dashboard_team > section").remove();
+				    			_data.team_search=$(e.target).val();
+								_collapseTeam();
+								displayTeam();
+				    		}
+						break;
+					}
+				});
+
+				$("#performance_period, #performance_metric").on("change", function(e){
+					e.preventDefault();
+					_data[$(this).attr("name")]=$(this).val();
+					$("#dashboard_team > section").remove();
+					_collapseTeam();
+					displayTeam();
+
+				})
+
 			}
 		});
 
@@ -410,9 +422,27 @@ function Dashboard(){
 								_ajaxType:"get",
 								_url:_userDetail.downline_url,
 								_callback:function(data, text){
+
+									//team drilldown
+
 									_downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
-									_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _downlinkContainerObj);
 									if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
+									
+									data.entities.forEach(function(member){
+										_downlinkContainerObj.html("");
+										_ajax({
+											_ajaxType:"get",
+											_url:"/u/users/"+member.properties.id+"/downline",
+											_callback:function(data, text){
+												_downlinkContainerObj
+												member.properties.downline_count = data.entities.length;
+												EyeCueLab.UX.getTemplate("/templates/_team_thumbnail3.handlebars.html", member, undefined, function(html){
+													_downlinkContainerObj.append(html);
+												});
+											}
+										});
+									});
+									//_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _downlinkContainerObj);
 					
 								}
 							});
@@ -956,7 +986,6 @@ function Dashboard(){
 
 	$(document).on("click", ".js-team_thumbnail", function(e){
 		e.preventDefault();
-		console.log("hi")
 		_drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
 		_thisThumbnail = $(e.target).parents(".js-team_thumbnail");
 		_drillDown({"_type":"team.everyone",
