@@ -202,13 +202,14 @@
 				<option value="created">Order by Date</option>
 				<option value="customer">Order by Name</option>
 			</select>
-
+			<!--
 			<select>
 				<option>With No Filter</option>
 				<option>And Show Submitted Quotes Only</option>
 				<option>And Show Incomplete Quotes Only</option>
 				<option>And Show Approved Quotes Only</option>
 			</select>
+			-->
 
 			<input type="search" class="section_search js-search_box" id="quote_search" name="quote_search" placeholder="search quotes" data-search-source="u/quotes" />
 			
@@ -250,24 +251,17 @@
 			<% if params[:first_run] == "true" %>
 			<% else %>
 
-			<%= select_tag "Level", options_for_select(
-				[
-					"Order By Ranks", 
-				    "Order By Quotes Created",
-				    "Order By New Recuits"
-				], ["Order By Ranks"]),
-				{ :class => 'title_select' }
-			%>
-
-				<%= select_tag "Show", options_for_select(
-					[
-						"Of All Time", 
-					    "In Current Pay Period Week",
-					    "In Current Pay Period Month"
-					], ["In Current Pay Period Month"]) 
-				%>
-
-				<input type="search" class="section_search js-search_box" placeholder="search team" data-search-source="u/users"/>
+			<select id="performance_metric" name="team_metric">
+				<option value="quotes">Order By Quote</option>
+				<option value="personal">Order By Personal Sales</option>
+				<option value="group">Order By Group Sales</option>
+			</select> 
+			<select id="performance_period" name="team_period">
+				<option value="lifetime">In Lifetime</option>
+				<option value="monthly">In Current Monthl Pay Period</option>
+				<option value="weekly">In Current Weekly Pay Period</option>
+			</select> 
+			<input id="team_search" type="search" class="section_search js-search_box" placeholder="search team" data-search-source="u/users"/>
 
 				<!--<span class="collection_total">17 total</span>-->
 

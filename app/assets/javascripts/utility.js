@@ -349,7 +349,7 @@ function _ajax(_options){
         return false;
     }
     //if (_ajaxType.toLowerCase() =="delete") _dataType="html";
-
+    console.log(_postObj)
     $.ajax({
         type:_ajaxType,
         data:_postObj,
