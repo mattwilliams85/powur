@@ -776,6 +776,13 @@ function Dashboard(){
 				_endPoint ="/users";
 			break;
 
+			case "impact_metrics":
+				return;
+			break;
+
+			default:
+			break;
+
 
 		}
 
