@@ -52,8 +52,8 @@ module UserScopes
         klass = period == 'monthly' ? MonthlyPayPeriod : WeeklyPayPeriod
         pay_period = klass.current
         query = query
-          .where('created_at > ?', pay_period.start_date)
-          .where('created_at < ?', pay_period.end_date + 1.day)
+          .where('quotes.created_at > ?', pay_period.start_date)
+          .where('quotes.created_at < ?', pay_period.end_date + 1.day)
       end
       query
     }
