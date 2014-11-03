@@ -59,18 +59,18 @@ class PayPeriod < ActiveRecord::Base
     order_totals.delete_all
   end
 
-  def process_order!(order)
-    totals = process_order_totals!(order)
-    process_at_sale_rank_bonuses!(order)
-    process_rank_achievements!(order, totals)
-  end
-
   def process_orders!
     orders.each do |order|
       process_order!(order)
       yield(order) if block_given?
     end
     process_at_pay_period_end_rank_bonuses!
+  end
+
+  def process_order!(order)
+    totals = process_order_totals!(order)
+    process_at_sale_rank_bonuses!(order)
+    process_rank_achievements!(order, totals)
   end
 
   def process_order_totals!(order)
