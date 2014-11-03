@@ -21,9 +21,7 @@ module Auth
     end
 
     def downline
-      @users = @user.downline_users
-
-      render 'index'
+      index(User.with_parent(@user.id))
     end
 
     def upline
