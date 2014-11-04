@@ -28,8 +28,7 @@ class ProfileJson < JsonDecorator
     list_item_properties
 
     json.properties do
-      json.call(user, :address, :city, :state, :zip, :organic_rank,
-                :lifetime_rank)
+      json.call(user,:first_name, :last_name, :email, :phone, :bio, :avatar, :address, :city, :state, :zip)
     end
   end
 
@@ -58,6 +57,8 @@ class ProfileJson < JsonDecorator
         .field(:provider, :text, value: user.provider)
         .field(:monthly_bill, :text, value: user.monthly_bill)
         .field(:bio, :text, value: user.bio)
+        .field(:avatar, :text, value: user.avatar)
+        .field(:avatar_file_name, :text, value: user.avatar_file_name)
         .field(:twitter_url, :text, value: user. twitter_url)
         .field(:linkedin_url, :text, value: user. linkedin_url)
         .field(:facebook_url, :text, value: user. facebook_url)

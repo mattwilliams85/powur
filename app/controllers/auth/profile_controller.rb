@@ -15,38 +15,34 @@ module Auth
     end
 
     def update
-      input = allow_input(:first_name, :last_name, :email, :phone,
-                          :address, :city, :state, :zip, :provider,
-                          :monthly_bill, :bio, :twitter_url,
-                          :linkedin_url, :facebook_url, :avatar)
-
-      @user.update_attributes!(input)
-      render 'show'
+      @user.update_attributes(user_params)
     end
 
     def update_avatar
+      puts params
       if !params[:user]
         error!(t('errors.update_avatar'))
       end
-
+      @user = current_user
       if params[:user][:remove_avatar] == 1
         @user.avatar = ''
       else
-        @user = current_user
         @user.avatar = params[:user][:avatar]
+        #@user.avatar = params[:user_avatar]
+        # @user.avatar_file_name = params[:user_avatar].original_filename
       end
 
       if @user.save!
-        confirm :update_password
+        confirm :update_avatar
+      else
+        puts 'User wasn\'t saved'
       end
-
-      redirect_to action: 'show'
+      render 'show'
     end
 
     def update_password
       require_input :current_password, :new_password, :new_password_confirm
       user = current_user
-
       unless user && user.password_match?(params['current_password'])
         error!(t('errors.password_update'), :current_password)
       end
@@ -55,15 +51,27 @@ module Auth
         error!(t('errors.password_confirm'), :new_password_confirm)
       end
 
+      puts "SET NEW PASSWORD:"
       user.password = params[:new_password]
       user.save!
 
       confirm :update_password
 
-      render 'show'
+      respond_to do |format|
+        format.js
+      end
+      #render 'show'
     end
 
     private
+
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :email, :phone, :address, :city, :state, :zip, :bio)
+    end
+
+    def avatar_params
+      params.require(:user).permit(:user_avatar, :authenticity_token)
+    end
 
     def fetch_user
       @user = current_user
