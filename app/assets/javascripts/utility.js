@@ -349,7 +349,6 @@ function _ajax(_options){
         return false;
     }
     //if (_ajaxType.toLowerCase() =="delete") _dataType="html";
-
     $.ajax({
         type:_ajaxType,
         data:_postObj,
@@ -785,17 +784,18 @@ jQuery(function($){
             success: function(_source){
                 var _template = Handlebars.compile(_source);
                 var _html="";
-                if(_dataObj != undefined){
+                if(typeof _dataObj !== "undefined"){
                     if(_dataObj.constructor==Array){
                         for(i=0;i<_dataObj.length;i++)
                             _html+=_template(_dataObj[i]);
                     }else{
                         _html=_template(_dataObj);
                     }
-                    _targetObj.html(_html);
+                    if(typeof _targetObj !=="undefined") _targetObj.html(_html);
                 }
-                if(_callback !== undefined)
-                    _callback();
+
+                if(typeof _targetObj == "undefined") _callback(_html);
+                if(typeof _callback !== "undefined") _callback();
             }
         });
     }

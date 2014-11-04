@@ -83,6 +83,8 @@ en:
   headings:
     lifetime: Lifetime
     bonus: Bonus
+    order_by: Order By
+    for_period: For Period
   activerecord:
     errors:
       messages:

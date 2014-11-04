@@ -6,10 +6,12 @@ module Auth
     filter :performance,
            fields:     { metric: { options: { quotes:   'Quote Count',
                                               personal: 'Personal Sales',
-                                              group:    'Group Sales' } },
+                                              group:    'Group Sales' },
+                                   heading: :order_by },
                          period: { options: { lifetime: 'Lifetime',
                                               monthly:  'Monthly',
-                                              weekly:   'Weekly' } } },
+                                              weekly:   'Weekly' },
+                                   heading: :for_period } },
            scope_opts: { type: :hash, using: [ :metric, :period ] }
 
     def index(query = list_criteria)
@@ -19,9 +21,7 @@ module Auth
     end
 
     def downline
-      @users = @user.downline_users
-
-      render 'index'
+      index(User.with_parent(@user.id))
     end
 
     def upline
