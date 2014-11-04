@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   store_accessor :contact, :address, :city, :state, :zip, :phone
   store_accessor :utilities, :provider, :monthly_bill
-  store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url
+  store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url, :avatar, :avatar_file_name
   validates_presence_of :phone, :zip
   validates_presence_of :address, :city, :state, allow_nil: true
 
@@ -27,13 +27,18 @@ class User < ActiveRecord::Base
   attr_accessor :avatar_content_type, :avatar_file_name
 
   has_attached_file :avatar,
-                    path:            ':rails_root/public/system/:class/:attachement/:id/:basename_:style.:extension',
-                    url:             '/system/:class/:attachement/:id/:basename_:style.:extension',
+                    path:            '/avatars/:id/:basename_:style.:extension',
+                    url:             ':s3_domain_url',
+                    default_url:     '/assets/default_avatars/avatar_defaults-04.jpg',
+                    storage:         :s3,
+                    s3_credentials:  { bucket: ENV['AWS_BUCKET'],
+                                       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+                                       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'] },
                     styles:          {
-                      thumb:   [ '100x100#', :jpg, quality: 70 ],
-                      preview: [ '480x480#', :jpg, quality: 70 ],
-                      large:   [ '600>',     :jpg, quality: 70 ],
-                      retina:  [ '1200>',    :jpg, quality: 30 ] },
+                    thumb:   [ '100x100#', :jpg, quality: 70 ],
+                    preview: [ '480x480#', :jpg, quality: 70 ],
+                    large:   [ '600>',     :jpg, quality: 70 ],
+                    retina:  [ '1200>',    :jpg, quality: 30 ] },
                     convert_options: {
                       thumb:   '-set colorspace sRGB -strip',
                       preview: '-set colorspace sRGB -strip',
@@ -47,11 +52,7 @@ class User < ActiveRecord::Base
   # Explicitly do not validate
   do_not_validate_attachment_file_type :avatar
 
-  # validates_attachment :avatar,
-  #   :presence => true,
-  #   :size => { :in => 0..10.megabytes },
-  #   :content_type => { :content_type => /^image\/(jpeg|png|gif|tiff)$/ }
-  before_save :delete_avatar, if: -> { remove_avatar == '1' && !avatar_updated_at_changed? }
+  #before_save :delete_avatar, if: -> { remove_avatar == '1' && !avatar_updated_at_changed? }
 
   after_create :set_upline
 
@@ -118,6 +119,17 @@ class User < ActiveRecord::Base
 
   def pay_as_rank
     pay_period_rank || organic_rank
+  end
+
+  def image_url(image_size = 'thumb')
+    full_file_name = avatar_file_name
+    split_name = full_file_name.split('.')
+    filename = split_name[0]
+    extension = split_name[1]
+    #url = https://s3.amazonaws.com/sunstand-dev/avatars/:user_id/name_<size>
+    base_avatar_url = 'https://s3.amazonaws.com/sunstand-dev/avatars/'
+    return_url = base_avatar_url + self.id.to_s + '/' + filename + '_' + image_size + '.' + extension
+    return return_url
   end
 
   private
