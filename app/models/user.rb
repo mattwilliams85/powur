@@ -126,10 +126,10 @@ class User < ActiveRecord::Base
     split_name = full_file_name.split('.')
     filename = split_name[0]
     extension = split_name[1]
-    #url = https://s3.amazonaws.com/sunstand-dev/avatars/:user_id/name_<size>
-    base_avatar_url = 'https://s3.amazonaws.com/sunstand-dev/avatars/'
-    return_url = base_avatar_url + self.id.to_s + '/' + filename + '_' + image_size + '.' + extension
-    return return_url
+    base_avatar_url = 'https://s3.amazonaws.com/' +
+                      ENV['AWS_BUCKET'] + '/avatars/'
+    return_url = base_avatar_url + id.to_s + '/' + filename +
+                 '_' + image_size + '.' + extension
   end
 
   private
