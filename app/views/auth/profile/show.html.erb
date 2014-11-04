@@ -190,13 +190,14 @@
 							<div id="avatar-container" class="form_element half">
 								<%= image_tag @user.avatar.url(:thumb) %>
 
-								<%= form_for @user, remote:true, :url => update_avatar_profile_path, :html => { :multipart => true } do |form| %>
+								<%= form_for @user, remote:true, :url => update_avatar_profile_path, :html => { :multipart => true, :'data-type' => 'json' } do |form| %>
 								  <% @user.errors.full_messages.each do |msg| %>
 						    <li><%= msg %></li>
 						  <% end %>
 								<%= token_tag %>
 									<%= form.check_box :remove_avatar %><%= form.label "Clear Avatar" %>
 								  <%= form.file_field :avatar %>
+								  <%= form.hidden_field :avatar_file_name %>
 								  <%= form.submit %>
 								<% end %>
 								</div>

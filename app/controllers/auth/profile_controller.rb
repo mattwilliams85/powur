@@ -1,7 +1,10 @@
 module Auth
   class ProfileController < AuthController
-    before_action :fetch_user, only: [ :show, :update, :update_password ]
-    def index
+    before_action :fetch_user, only: [ :show, :update, :update_avatar,
+                                       :update_password ]
+
+
+    def show
       respond_to do |format|
         format.html
         format.json do
@@ -11,25 +14,18 @@ module Auth
       end
     end
 
-    def show
-    end
-
     def update
       @user.update_attributes(user_params)
     end
 
     def update_avatar
-      puts params
-      if !params[:user]
-        error!(t('errors.update_avatar'))
-      end
       @user = current_user
       if params[:user][:remove_avatar] == 1
         @user.avatar = ''
-      else
+        @user.avatar_file_name = ' '
+      elsif params[:user].key?(:avatar)
         @user.avatar = params[:user][:avatar]
-        #@user.avatar = params[:user_avatar]
-        # @user.avatar_file_name = params[:user_avatar].original_filename
+        @user.avatar_file_name = params[:user][:avatar].original_filename
       end
 
       if @user.save!
@@ -37,7 +33,7 @@ module Auth
       else
         puts 'User wasn\'t saved'
       end
-      render 'show'
+      redirect_to('show')
     end
 
     def update_password
@@ -51,22 +47,22 @@ module Auth
         error!(t('errors.password_confirm'), :new_password_confirm)
       end
 
-      puts "SET NEW PASSWORD:"
       user.password = params[:new_password]
       user.save!
 
       confirm :update_password
 
-      respond_to do |format|
-        format.js
-      end
-      #render 'show'
+      # respond_to do |format|
+      #   format.js
+      # end
     end
 
     private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :phone, :address, :city, :state, :zip, :bio)
+      params.require(:user).permit(:first_name, :last_name, :email,
+                                   :phone, :address, :city, :state,
+                                   :zip, :bio)
     end
 
     def avatar_params
