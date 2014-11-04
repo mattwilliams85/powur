@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   end
 
   def downline_users
-    User.child_count_list(self)
+    User.with_downline_counts.with_parent(self.id)
   end
 
   def downline_users_count

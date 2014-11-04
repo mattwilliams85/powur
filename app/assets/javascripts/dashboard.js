@@ -112,14 +112,12 @@ function Dashboard(){
 
 					case "group sales":
 						goals.sales.group.max=qualification.quantity;
-						$("#dashboard_personal_goals .personal_sales").html("Personal "+qualification.time_period+" sales");
+						$("#dashboard_personal_goals .group_sales").html("Group "+qualification.time_period+" sales");
 						if(goals.sales.group.current>goals.sales.group.max) goals.sales.group.current = goals.sales.group.max
 					break;
 				}
 			}
 		});
-
-		console.log(goals)
 		
 		Object.keys(goals.sales).forEach(function(_key){
 			var _section_width=$("#"+_key+"_sales .labels").width();
@@ -147,78 +145,88 @@ function Dashboard(){
 	function displayTeam(_tab){
 		if(_tab === undefined ) _tab="team.everyone";
 
+		if(typeof _data.team_search === "undefined" )_data.team_search="";
+		if(typeof _data.team_metric === "undefined" )_data.team_metric="quotes";
+		if(typeof _data.team_period === "undefined" )_data.team_period="lifetime";
+
 		_data.team=[]; // instantiate team/downlink genealogy object
 		_data.team_count_per_page=4; // determine how many thumbnails to show per pagination
 		_data._team=[];
 
 		_ajax({
 			_ajaxType:"get",
-			_url:"/u/users/"+_myID+"/downline",
+			_url:"/u/users/",
+			_postObj:{
+				"performance[metric]":_data.team_metric,
+				"performance[period]":_data.team_period,
+				search:_data.team_search
+			},
 			_callback:function(data, text){
-				var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
 				if(data.entities.length<=0) return;
-				_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _containerObj);
-				$.extend(true, _data.team, data.entities); 
+				var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
+				_data.team=data;
 				_containerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
 				if(data.entities.length>=4) _containerObj.siblings(".nav").fadeIn();
+
+				_containerObj.html("");
+				_data.team.entities.forEach(function(member){
+					_ajax({
+						_ajaxType:"get",
+						_url:"/u/users/"+member.properties.id+"/downline",
+						_callback:function(data, text){
+							member.properties.downline_count = data.entities.length;
+							EyeCueLab.UX.getTemplate("/templates/_team_thumbnail3.handlebars.html", member, undefined, function(html){
+								_containerObj.append(html);
+							});
+						}
+					});
+				});
+				
+
+				$(".js-invites_thumbnail").unbind();
+				$("#team_search").unbind();
+				$("#performance_metric").unbind();
+				$("#performance_period").unbind();
+
+				//wire up invitations listing hook
+				$(".js-invites_thumbnail").on("click", function(e){
+					e.preventDefault();
+					_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
+					_drillDown({"_type":"invitations",
+								"_mainSectionID":$(e.target).parents("section").attr("id"), 
+								"_thumbnailIdentifier":".js-invites_thumbnail",
+								"_target":$(e.target),
+								"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+				});
+
+				$("#team_search").on("keyup", function(e){
+					switch(e.keyCode){
+						case 13:
+							if($(e.target).val().length<3 && $(e.target).val().length>0) return;
+				    		if($(e.target).val().length>=3 || $(e.target).val().length==0){
+								$("#dashboard_team > section").remove();
+				    			_data.team_search=$(e.target).val();
+								_collapseTeam();
+								displayTeam();
+				    		}
+						break;
+					}
+				});
+
+				$("#performance_period, #performance_metric").on("change", function(e){
+					e.preventDefault();
+					_data[$(this).attr("name")]=$(this).val();
+					$("#dashboard_team > section").remove();
+					_collapseTeam();
+					displayTeam();
+
+				})
+
 			}
 		});
 
-		
-		//put in hooks for team drllldown
-		$(document).on("click",".js-team_thumbnail", function(e){
-			e.preventDefault();
-			_drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
-			_thisThumbnail = $(e.target).parents(".js-team_thumbnail");
-			_drillDown({"_type":_tab,
-						"_mainSectionID":"dashboard_team", 
-						"_thumbnailIdentifier":".js-team_thumbnail",
-						"_target":$(e.target),
-						"_userID":_drillDownUserID, 
-						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
-		});
-		//wire up invitations listing hook
-		$(document).on("click", ".js-invites_thumbnail", function(e){
-			e.preventDefault();
-			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
-			_drillDown({"_type":"invitations",
-						"_mainSectionID":$(e.target).parents("section").attr("id"), 
-						"_thumbnailIdentifier":".js-invites_thumbnail",
-						"_target":$(e.target),
-						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
-		});
-		//wire up invitation detail hooks
-		$(document).on("click", ".js-new_invite_thumbnail", function(e){
-			e.preventDefault();
-			_drillDown({"_type":"new_invitations",
-						"_mainSectionID":$(this).parents("section.dashboard_section").attr("id"), 
-						"_thumbnailIdentifier":".js-new_invite_thumbnail",
-						"_target":$(e.target),
-						"_arrowPosition":$(this).find("span.expand i").offset().left});
-		});	
-
 		_updateInvitationSummary();
 
-		//wire up new invitation submission hook
-		$(document).on("click", "#new_promoter_invitation_form .button", function(e){
-			e.preventDefault();
-			_thisForm = $(e.target).closest("#new_promoter_invitation_form");
-			_formSubmit(e, $("#new_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
-		});
-
-		//wire up remove pending advocate capabilities
-		$(document).on("click", ".js-remove_advocate", function(e){
-			e.preventDefault();
-			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-			_ajax({_ajaxType:"delete", _url:"/u/invites/"+_id, _callback:_displayUpdatedInvitation()});
-		});
-
-		//wire up resend advocate invitation capaibiltiies 
-		$(document).on("click", ".js-resend_invite_to_advocate", function(e){
-			e.preventDefault();
-			_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-			_ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
-		});	
 	}
 
 	//start quote dashboard info
@@ -254,7 +262,7 @@ function Dashboard(){
 					//put in sort filter
 					$("#quote_sort").on("change", function(e){
 						_data.quote_sort=$(this).val();
-						_displayUpdatedLeads();
+						displayQuote();
 					});
 
 
@@ -265,7 +273,7 @@ function Dashboard(){
 					    		if($(e.target).val().length>=3 || $(e.target).val().length==0){
 									$("#dashboard_quotes > section").remove();
 					    			_data.quote_search=$(e.target).val();
-									_displayUpdatedLeads()
+									displayQuote()
 					    		}
 							break;
 						}
@@ -302,10 +310,6 @@ function Dashboard(){
 			}
 		});
 
-		
-		
-
-
 	}//end quote dashboard info
 
 	//wire up impact metrics hooks
@@ -329,8 +333,7 @@ function Dashboard(){
 	})();
 
 	//wire up the pagination hooks
-	$(".pagination_container .nav").unbind();
-	$(".pagination_container .nav").on("click", function(e){
+	$(document).on("click", ".pagination_container .nav", function(e){
 		e.preventDefault();
 		console.log("clicked on nav")
 		_pagination_content= $(this).siblings(".pagination_content");
@@ -402,7 +405,7 @@ function Dashboard(){
 					_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 					_drilldownContainerObj.css("opacity","0");
 					// _drilldownContainerObj.scrollView(180);
-					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
+					_drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
 
 					_getTemplate("/templates/drilldowns/_team_details.handlebars.html", 
 						_userDetail, 
@@ -411,18 +414,36 @@ function Dashboard(){
 							//once the basic template is set, now populate the downlink information
 							//had to do this as callback due to the asynchronous nature of the calls
 							//animate up-arrow
-							_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-							_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+							_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+							_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 							//populate downlink thumbnails
 							_downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
 							_ajax({
 								_ajaxType:"get",
 								_url:_userDetail.downline_url,
 								_callback:function(data, text){
-									_downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
-									_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _downlinkContainerObj);
-									if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
 
+									//team drilldown
+
+									_downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
+									if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
+									
+									data.entities.forEach(function(member){
+										_downlinkContainerObj.html("");
+										_ajax({
+											_ajaxType:"get",
+											_url:"/u/users/"+member.properties.id+"/downline",
+											_callback:function(data, text){
+												_downlinkContainerObj
+												member.properties.downline_count = data.entities.length;
+												EyeCueLab.UX.getTemplate("/templates/_team_thumbnail3.handlebars.html", member, undefined, function(html){
+													_downlinkContainerObj.append(html);
+												});
+											}
+										});
+									});
+									//_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _downlinkContainerObj);
+					
 								}
 							});
 						});
@@ -466,8 +487,8 @@ function Dashboard(){
 						});
 						//populate drilldown
 						EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
-						 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+						 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 						 	$("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
 						 	$("#customer_contact_form select[name='roof_material'] option").filter(function(){return $(this).text()==_userDetail.roof_material}).attr("selected", true);
 
@@ -480,13 +501,13 @@ function Dashboard(){
 								e.preventDefault();
 								_thisThumbnail.find(".expand").click();
 								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-								_ajax({_ajaxType:"delete", _url:"/u/quotes/"+_quoteID, _callback:_displayUpdatedLeads()});
+								_ajax({_ajaxType:"delete", _url:"/u/quotes/"+_quoteID, _callback:displayQuote()});
 							});
 
 							$("#customer_contact_form .js-update_customer_info").on("click", function(e){
 								e.preventDefault();
 								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-								_ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:_displayUpdatedLeads()});
+								_ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:displayQuote()});
 								_thisThumbnail.find(".expand").click();
 
 							});
@@ -494,7 +515,7 @@ function Dashboard(){
 							$(".js-resend_quote_email").on("click", function(e){
 								e.preventDefault();
 								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-								_ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:_displayUpdatedLeads()});
+								_ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:displayQuote()});
 								_thisThumbnail.find(".expand").click();
 
 							});		
@@ -521,8 +542,8 @@ function Dashboard(){
 
 				//populate drilldown
 				EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", {}, _drilldownContainerObj, function(){
-				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 					//wire up lead submission hook
 					$("#new_lead_contact_form button").on("click", function(e){
 						e.preventDefault();
@@ -531,7 +552,7 @@ function Dashboard(){
 							$("#new_lead_contact_form").fadeOut(150, function(){
 								$("#new_lead_contact_form input").val("");
 								$("#new_lead_contact_form").fadeIn();
-								_displayUpdatedLeads();
+								displayQuote();
 							});
 						});
 					});
@@ -546,7 +567,7 @@ function Dashboard(){
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=256px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=240px", opacity:1}, _animation_speed);	
 
 				_data["invitations"]=[];
 				//get listing array from json
@@ -557,9 +578,9 @@ function Dashboard(){
 
 					//first place the listing template
 					_getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
-						_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 		_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
-
+						_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+				 		_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+	
 				 		//display thumbnails
 				 		_getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
 			 				
@@ -586,6 +607,19 @@ function Dashboard(){
 			 							$(this).text("Expired");
 			 					}
 			 				});
+
+
+							$(".js-new_invite_thumbnail").unbind();
+							//wire up invitation detail hooks
+							$(".js-new_invite_thumbnail").on("click", function(e){
+								e.preventDefault();
+								_drillDown({"_type":"new_invitations",
+											"_mainSectionID":$(this).parents("section.dashboard_section").attr("id"), 
+											"_thumbnailIdentifier":".js-new_invite_thumbnail",
+											"_target":$(e.target),
+											"_arrowPosition":$(this).find("span.expand i").offset().left});
+							});	
+
 				 		});
 					});
 
@@ -608,8 +642,38 @@ function Dashboard(){
 				if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _invitationDetail.invitationType="New";
 
 				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
-					_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+					_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+
+					
+					$("#new_promoter_invitation_form .button").unbind();
+					$(".js-remove_advocate").unbind();
+					$(".js-resend_invite_to_advocate").unbind();
+
+					//wire up new invitation submission hook
+					
+					$("#new_promoter_invitation_form .button").on("click", function(e){
+						e.preventDefault();
+						_thisForm = $(e.target).closest("#new_promoter_invitation_form");
+						_formSubmit(e, $("#new_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
+					});
+
+					//wire up remove pending advocate capabilities
+					$(".js-remove_advocate").on("click", function(e){
+						e.preventDefault();
+						_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+						_ajax({_ajaxType:"delete", _url:"/u/invites/"+_id, _callback:_displayUpdatedInvitation()});
+					});
+
+					//wire up resend advocate invitation capaibiltiies 
+					$(".js-resend_invite_to_advocate").on("click", function(e){
+						e.preventDefault();
+						_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+						_ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
+					});	
+
+
+
 				});
 
 			break;
@@ -645,8 +709,8 @@ function Dashboard(){
 				}
 
 				_getTemplate(_templatePath, _impactMetricsDetail, _drilldownContainerObj, function(){
-				 	_drilldownContainerObj.find(".arrow").css("left",(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 1000);
+				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 				});
 
 			break;
@@ -655,6 +719,7 @@ function Dashboard(){
 				console.log("Drilldown type not found");
 			break;
 		}
+
 
 		//sub function of the drilldown that checks for the need to collapse children drilldowns
 		function _collapseDrillDown(_options){
@@ -665,11 +730,12 @@ function Dashboard(){
 			_thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
 			_drillDownDepth = _topLevelSectionObj.children("section").length;
 
+
 			//fade all other "unfocused" thumbnail out
 			for(i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
 				if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
 					_neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
-					_neighborThumbnail.animate({"opacity":".3"}, 1000);
+					_neighborThumbnail.animate({"opacity":".3"}, 300);
 					_neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
 					_neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
 				}
@@ -691,7 +757,7 @@ function Dashboard(){
 				return;
 			}
 
-			_thisThumbnail.animate({"opacity":1}, 1000);
+			_thisThumbnail.animate({"opacity":1}, 300);
 			_thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
 			_thisThumbnail.find("span.expand i").addClass("fa-angle-up");
 		}
@@ -708,7 +774,13 @@ function Dashboard(){
 		});*/
 	}
 
+	function _collapseTeam(){
+		$("#dashboard_team .js-team_thumbnail").animate({"opacity":1});
+		$("#dashboard_team .js-team_thumbnail").removeClass("fa-angle-up");
+		$("#dashboard_team .js-team_thumbnail").removeClass("fa-angle-down");
+		$("#dashboard_team .js-team_thumbnail").addClass("fa-angle-down");
 
+	}
 
 	//load the user dashboard basic info base on the current selected user id 
 	//_dataType dictates which endpoint to hit
@@ -732,6 +804,13 @@ function Dashboard(){
 
 			case "team":
 				_endPoint ="/users";
+			break;
+
+			case "impact_metrics":
+				return;
+			break;
+
+			default:
 			break;
 
 
@@ -905,47 +984,25 @@ function Dashboard(){
 		});	
 	}
 
-	function _displayUpdatedLeads(){
-		//refresh the entire section
-		displayQuote();
-		return;
-		_data.quotes=[];
-		$("#dashboard_quotes .section_content.quotes_info .pagination_content").fadeOut(150, function(){
-			$("#dashboard_quotes .section_content.quotes_info .pagination_content").html("");
-			_ajax({
-				_ajaxType:"get",
-				_url:"/u/quotes",
-				_postObj:{
-					search:_data.quote_search,
-					sort:_data.quote_sort
-				},				
-				_callback:function(data, type){
-					_data.quotes=data;
-					if(_data.quotes.entities.length<=0)
-						$("#dashboard_quotes .section_content.quotes_info .pagination_content").innerhtml("<p class='blank_state'>You don't have any quotes yet.<br/><i class='fa fa-arrow-left'></i> Add a quotes</a> to get started.</p>");
-					EyeCueLab.UX.getTemplate("/templates/_quote_thumbnail.handlebars.html", data.entities, $("#dashboard_quotes .section_content.quotes_info .pagination_content"));
-					$("#dashboard_quotes .section_content.quotes_info .pagination_content").fadeIn();
-
-				}
-			});
-		});
-	}
-
-	/*function _displayUpdatedSearchResults(_options){
-		_sectionID="#"+$(_options._event.target).parents("section").attr("id");
-		_displayType = _sectionID.indexOf("team")>=0? "team":"quotes"
-		$(_sectionID+" .section_content .pagination_content").fadeOut(150, function(){
-			$(_sectionID+" .section_content .pagination_content").html("");
-			_displayData(_displayType, _data.searchResults, $(_sectionID+" .section_content .pagination_content"));
-			$(_sectionID+" .section_content .pagination_content").fadeIn();
-		});
-	}*/
-
+	$(document).on("click", ".js-team_thumbnail", function(e){
+		e.preventDefault();
+		_drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
+		_thisThumbnail = $(e.target).parents(".js-team_thumbnail");
+		_drillDown({"_type":"team.everyone",
+					"_mainSectionID":"dashboard_team", 
+					"_thumbnailIdentifier":".js-team_thumbnail",
+					"_target":$(e.target),
+					"_userID":_drillDownUserID, 
+					"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+	});
 
 }// end Dashboard class
 
 
 // Faux form editing animations
+
+
+
 
 $(document).on("focus", "input", function(e){
    var elem = $(this);
