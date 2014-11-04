@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   has_attached_file :avatar,
                     path:            '/avatars/:id/:basename_:style.:extension',
                     url:             ':s3_domain_url',
-                    default_url:     '/assets/default_avatars/avatar_defaults-04.jpg',
+                    default_url:     '/default_avatars/avatar_defaults-04.jpg',
                     storage:         :s3,
                     s3_credentials:  { bucket: ENV['AWS_BUCKET'],
                                        access_key_id: ENV['AWS_ACCESS_KEY_ID'],

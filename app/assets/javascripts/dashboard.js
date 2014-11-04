@@ -24,13 +24,12 @@ jQuery(function($){
 		});});
 
 		//adjust font width for metrics
-
 		$(".kpi_thumbnail h1").each(function(){
 			var _width=$(this).find("span:first").width()+174;
 			var _newWidth = Math.floor(220*60/_width);
 			$(this).css("font-size", _newWidth+"pt");
-		})
-		//test
+		});
+
 	});
 });
 
@@ -153,6 +152,7 @@ function Dashboard(){
 		_data.team_count_per_page=4; // determine how many thumbnails to show per pagination
 		_data._team=[];
 
+
 		_ajax({
 			_ajaxType:"get",
 			_url:"/u/users/",
@@ -162,9 +162,13 @@ function Dashboard(){
 				search:_data.team_search
 			},
 			_callback:function(data, text){
+				console.log(data)
+
 				if(data.entities.length<=0) return;
 				var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
 				_data.team=data;
+				_containerObj.siblings(".nav").css("display","none");
+				_containerObj.css("left","0")
 				_containerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
 				if(data.entities.length>=4) _containerObj.siblings(".nav").fadeIn();
 
@@ -422,8 +426,6 @@ function Dashboard(){
 								_ajaxType:"get",
 								_url:_userDetail.downline_url,
 								_callback:function(data, text){
-
-									//team drilldown
 
 									_downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
 									if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
