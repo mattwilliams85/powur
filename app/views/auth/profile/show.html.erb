@@ -130,14 +130,16 @@
 
 	#avatar-container {
 
-		float:left;
-		text-align:left;
+		text-align:center;
 	}
 
 	#avatar-container img {
-		float:left;
+		display: block;
+		margin:auto;
 		text-align:left;
-		border:1px solid #333;
+		border:1px solid #fff;
+		border-radius:200pt;
+
 	}
 
 	#avatar-container input {
@@ -184,25 +186,25 @@
 
 	<div class="section_body">
 		<div class="section_content">
+			<div class="summary" id="sidebar"
+				<section>
+					<div id="avatar-container" class="form_element half">
+						<%= image_tag @user.avatar.url(:thumb) %>
 
-			<div class="summary" id="sidebar">photos and social links
-						<section>
-							<div id="avatar-container" class="form_element half">
-								<%= image_tag @user.avatar.url(:thumb) %>
-
-								<%= form_for @user, remote:true, :url => update_avatar_profile_path, :html => { :multipart => true, :'data-type' => 'json' } do |form| %>
-								  <% @user.errors.full_messages.each do |msg| %>
-						    <li><%= msg %></li>
-						  <% end %>
-								<%= token_tag %>
-									<%= form.check_box :remove_avatar %><%= form.label "Clear Avatar" %>
-								  <%= form.file_field :avatar %>
-								  <%= form.hidden_field :avatar_file_name %>
-								  <%= form.submit %>
-								<% end %>
-								</div>
-							</div>
-						</section>
+						<%= form_for @user, remote:true, :url => update_avatar_profile_path, :html => { :multipart => true, :'data-type' => 'json' } do |form| %>
+						  <% @user.errors.full_messages.each do |msg| %>
+				    <li><%= msg %></li>
+				  <% end %>
+						<%= token_tag %>
+							<%#= form.check_box :remove_avatar %>
+							<%#= form.label "Clear Avatar" %>
+						  <%= form.file_field :avatar %>
+						  <%= form.hidden_field :avatar_file_name %>
+						  <%= form.submit %>
+						<% end %>
+						</div>
+					</div>
+				</section>
 
 			</div>
 

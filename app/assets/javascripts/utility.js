@@ -687,6 +687,7 @@ jQuery(function($){
     EyeCueLab.JSON.getObjectsByPattern = function(_dataObj, _pattern, _results, _searchCriteria){
         if(!_searchCriteria) {
             _searchCriteria = {};
+
             Object.keys(_pattern).forEach(function(_key){
                 if(_key.indexOf("containsIn") >=0) _searchCriteria[(_key.replace(/(containsIn)*(\(|\))*/g,""))]=_pattern[_key]; 
             });
@@ -729,10 +730,14 @@ jQuery(function($){
                             break;
 
                             case "String":
-                                //string, search through the immediate containing values (e.g. class, properties)
-                                Object.keys(_dataObj[_searchKey]).forEach(function(_k){
-                                    if(_dataObj[_searchKey][_k] === _searchCriterion.term) _matchFound+=1; 
-                                });
+                                //string, search through the immediate containing values (e.g. class, properties) 
+                                try{
+                                    Object.keys(_dataObj[_searchKey]).forEach(function(_k){
+                                        if(_dataObj[_searchKey][_k] === _searchCriterion.term) _matchFound+=1; 
+                                    });
+                                }catch(e){
+                                    throw breakException;
+                                }
                             break;
                         }
                     }
