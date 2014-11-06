@@ -92,6 +92,7 @@ jQuery(function($){
                             getGenealogy({
                                 _callback:function(){
                                     _data.currentUser.immediateUpline=_data.currentUser.upline[Object.keys(_data.currentUser.upline).length-1];
+                                    console.log(_data.currentUser.immediateUpline)
                                     EyeCueLab.UX.getTemplate("/templates/admin/users/membership/_summary.handlebars.html", _data.currentUser, $(".js-admin_dashboard_column.summary"));
 
                                     //display main content information of the current user on the left nav
@@ -316,17 +317,17 @@ jQuery(function($){
 
 
         function getGenealogy(_options){
-            ["val=ancestors", "val=children"].forEach(function(_criteria){
-                if(_getObjectsByCriteria(_data.currentUser, _criteria).length>0){
+            ["user-ancestors", "user-children"].forEach(function(_criteria){
+                if(EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(rel)":[_criteria]}).length>0){
                     _ajax({
                         _ajaxType:"get",
-                        _url:_getObjectsByCriteria(_data.currentUser, _criteria)[0].href,
+                        _url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(rel)":[_criteria]})[0].href,
                         _callback:function(data, text){
                             _genealogyData = {};
                             _getObjectsByCriteria(data, "key=first_name").forEach(function(member, index){_genealogyData[index]=member;});
-                            if(_criteria==="val=children") _data.currentUser.downline=_genealogyData;
+                            if(_criteria==="user-children") _data.currentUser.downline=_genealogyData;
                             else _data.currentUser.upline=_genealogyData;
-                            if(!!_options && typeof _options._callback === "function" && _criteria==="val=children") _options._callback();
+                            if(!!_options && typeof _options._callback === "function" && _criteria==="user-children") _options._callback();
                         }
                     });
                 }
