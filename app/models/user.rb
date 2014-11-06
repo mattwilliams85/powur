@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   store_accessor :contact, :address, :city, :state, :zip, :phone
   store_accessor :utilities, :provider, :monthly_bill
-  store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url, :avatar, :avatar_file_name
+  store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url
   validates_presence_of :phone, :zip
   validates_presence_of :address, :city, :state, allow_nil: true
 
@@ -22,9 +22,6 @@ class User < ActiveRecord::Base
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
-
-  attr_accessor :remove_avatar
-  attr_accessor :avatar_content_type, :avatar_file_name
 
   has_attached_file :avatar,
                     path:            '/avatars/:id/:basename_:style.:extension',

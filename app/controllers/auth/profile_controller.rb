@@ -5,10 +5,14 @@ module Auth
 
 
     def show
+      @user = current_user
+
+      @profile = @user.profile
       respond_to do |format|
         format.html
         format.json do
           @user = current_user
+          byebug
           @profile = @user.profile
         end
       end
@@ -19,21 +23,9 @@ module Auth
     end
 
     def update_avatar
-      @user = current_user
-      if params[:user][:remove_avatar] == 1
-        @user.avatar = ''
-        @user.avatar_file_name = ' '
-      elsif params[:user].key?(:avatar)
-        @user.avatar = params[:user][:avatar]
-        @user.avatar_file_name = params[:user][:avatar].original_filename
-      end
-
-      if @user.save!
-        confirm :update_avatar
-      else
-        puts 'User wasn\'t saved'
-      end
-      redirect_to('show')
+      @user.avatar = params[:user][:avatar]
+      @user.save
+      redirect_to profile_path
     end
 
     def update_password
@@ -62,11 +54,15 @@ module Auth
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email,
                                    :phone, :address, :city, :state,
-                                   :zip, :bio)
+                                   :zip, :bio,:avatar_file_name, :avatar)
     end
 
-    def avatar_params
-      params.require(:user).permit(:user_avatar, :authenticity_token)
+    # def avatar_params
+    #   params.require(:user).permit(:avatar,:avatar_file_name)
+    # end
+
+   def avatar_params
+        params.require(:user).permit(:avatar_file_name)
     end
 
     def fetch_user
