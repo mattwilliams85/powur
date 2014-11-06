@@ -11,15 +11,6 @@ class ProfileJson < JsonDecorator
     entity_rel(rel) if rel
   end
 
-  def list_item_properties(user = @item)
-    json.properties do
-      json.call(user, :id, :first_name, :last_name, :email, :phone, :level)
-      %w(downline_count personal personal_lifetime group group_lifetime).each do |field|
-        json.set! field, user.attributes[field] if user.attributes[field]
-      end
-    end
-  end
-
   def list_entities(partial_path, list = @list)
     json.entities list, partial: partial_path, as: :user
   end
@@ -28,20 +19,22 @@ class ProfileJson < JsonDecorator
     list_item_properties
 
     json.properties do
-      json.call(user,:first_name, :last_name, :email, :phone, :bio, :avatar, :address, :city, :state, :zip)
+      json.call(user, :first_name, :last_name, :email, :phone,
+                :bio, :avatar, :avatar_file_name, :address,
+                :city, :state, :zip)
     end
   end
 
-  def user_entities(user)
-    entities \
-      entity(%w(list users), 'user-children', downline_user_path(user)),
-      entity(%w(list users), 'user-ancestors', upline_user_path(user)),
-      entity(%w(list orders), 'user-orders', user_orders_path(user)),
-      entity(%w(list order_totals), 'user-order_totals',
-             user_order_totals_path(user)),
-     entity(%w(list rank_achievements), 'user-rank_achievements',
-             user_rank_achievements_path(user))
-  end
+  # def user_entities(user)
+  #   entities \
+  #     entity(%w(list users), 'user-children', downline_user_path(user)),
+  #     entity(%w(list users), 'user-ancestors', upline_user_path(user)),
+  #     entity(%w(list orders), 'user-orders', user_orders_path(user)),
+  #     entity(%w(list order_totals), 'user-order_totals',
+  #            user_order_totals_path(user)),
+  #    entity(%w(list rank_achievements), 'user-rank_achievements',
+  #            user_rank_achievem ents_path(user))
+  # end
 
   def update_action(profile_path, user)
     actions \
@@ -57,8 +50,6 @@ class ProfileJson < JsonDecorator
         .field(:provider, :text, value: user.provider)
         .field(:monthly_bill, :text, value: user.monthly_bill)
         .field(:bio, :text, value: user.bio)
-        .field(:avatar, :text, value: user.avatar)
-        .field(:avatar_file_name, :text, value: user.avatar_file_name)
         .field(:twitter_url, :text, value: user. twitter_url)
         .field(:linkedin_url, :text, value: user. linkedin_url)
         .field(:facebook_url, :text, value: user. facebook_url)

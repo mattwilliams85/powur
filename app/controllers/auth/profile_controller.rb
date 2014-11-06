@@ -1,17 +1,21 @@
 module Auth
   class ProfileController < AuthController
-    before_action :fetch_user, only: [ :show, :update, :update_password ]
-    def index
+    before_action :fetch_user, only: [ :show, :update, :update_avatar,
+                                       :update_password ]
+
+
+    def show
+      @user = current_user
+
+      @profile = @user.profile
       respond_to do |format|
         format.html
         format.json do
           @user = current_user
+          byebug
           @profile = @user.profile
         end
       end
-    end
-
-    def show
     end
 
     def update
@@ -19,25 +23,9 @@ module Auth
     end
 
     def update_avatar
-      puts params
-      if !params[:user]
-        error!(t('errors.update_avatar'))
-      end
-      @user = current_user
-      if params[:user][:remove_avatar] == 1
-        @user.avatar = ''
-      else
-        @user.avatar = params[:user][:avatar]
-        #@user.avatar = params[:user_avatar]
-        # @user.avatar_file_name = params[:user_avatar].original_filename
-      end
-
-      if @user.save!
-        confirm :update_avatar
-      else
-        puts 'User wasn\'t saved'
-      end
-      render 'show'
+      @user.avatar = params[:user][:avatar]
+      @user.save
+      redirect_to profile_path
     end
 
     def update_password
@@ -51,26 +39,30 @@ module Auth
         error!(t('errors.password_confirm'), :new_password_confirm)
       end
 
-      puts "SET NEW PASSWORD:"
       user.password = params[:new_password]
       user.save!
 
       confirm :update_password
 
-      respond_to do |format|
-        format.js
-      end
-      #render 'show'
+      # respond_to do |format|
+      #   format.js
+      # end
     end
 
     private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :phone, :address, :city, :state, :zip, :bio)
+      params.require(:user).permit(:first_name, :last_name, :email,
+                                   :phone, :address, :city, :state,
+                                   :zip, :bio,:avatar_file_name, :avatar)
     end
 
-    def avatar_params
-      params.require(:user).permit(:user_avatar, :authenticity_token)
+    # def avatar_params
+    #   params.require(:user).permit(:avatar,:avatar_file_name)
+    # end
+
+   def avatar_params
+        params.require(:user).permit(:avatar_file_name)
     end
 
     def fetch_user

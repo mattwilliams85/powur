@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   store_accessor :contact, :address, :city, :state, :zip, :phone
   store_accessor :utilities, :provider, :monthly_bill
-  store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url, :avatar, :avatar_file_name
+  store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url
   validates_presence_of :phone, :zip
   validates_presence_of :address, :city, :state, allow_nil: true
 
@@ -23,13 +23,10 @@ class User < ActiveRecord::Base
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
 
-  attr_accessor :remove_avatar
-  attr_accessor :avatar_content_type, :avatar_file_name
-
   has_attached_file :avatar,
                     path:            '/avatars/:id/:basename_:style.:extension',
                     url:             ':s3_domain_url',
-                    default_url:     '/assets/default_avatars/avatar_defaults-04.jpg',
+                    default_url:     '/temp_dev_images/Tim.jpg',
                     storage:         :s3,
                     s3_credentials:  { bucket: ENV['AWS_BUCKET'],
                                        access_key_id: ENV['AWS_ACCESS_KEY_ID'],
@@ -126,10 +123,10 @@ class User < ActiveRecord::Base
     split_name = full_file_name.split('.')
     filename = split_name[0]
     extension = split_name[1]
-    #url = https://s3.amazonaws.com/sunstand-dev/avatars/:user_id/name_<size>
-    base_avatar_url = 'https://s3.amazonaws.com/sunstand-dev/avatars/'
-    return_url = base_avatar_url + self.id.to_s + '/' + filename + '_' + image_size + '.' + extension
-    return return_url
+    base_avatar_url = 'https://s3.amazonaws.com/' +
+                      ENV['AWS_BUCKET'] + '/avatars/'
+    return_url = base_avatar_url + id.to_s + '/' + filename +
+                 '_' + image_size + '.' + extension
   end
 
   private
