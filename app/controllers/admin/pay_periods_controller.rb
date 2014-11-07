@@ -1,13 +1,13 @@
 module Admin
   class PayPeriodsController < AdminController
     before_action :fetch_pay_periods, except: [ :index ]
-    before_action :fetch_pay_period, only: [ :show, :calculate, :recalculate ]
+    before_action :fetch_pay_period, only: [ :show, :calculate, :recalculate, :disburse ]
 
     helper_method :can_calculate?
-    helper_method :can_distribute?
+    helper_method :can_disburse?
 
     filter :calculated, scope_opts: { type: :boolean }
-    filter :distributed, scope_opts: { type: :boolean }
+    filter :disbursed, scope_opts: { type: :boolean }
 
     def index
       respond_to do |format|
@@ -27,7 +27,7 @@ module Admin
         @totals << { id: :bonus, value: bonus_amount, type: :currency }
       end
 
-      if @pay_period.distributed?
+      if @pay_period.disbursed?
         bonus_amount = @pay_period.bonus_payments.sum(:amount)
         @totals << { id: :bonus, value: bonus_amount, type: :currency }
       end
@@ -51,11 +51,14 @@ module Admin
       calculate
     end
 
-    def distribute
-      unless can_distribute?(@pay_period)
-        error! t('errors.period_not_distributable')
+    def disburse
+      unless can_disburse?(@pay_period)
+        error! t('errors.period_not_disbursable ')
       end
-      @pay_period.distribute!
+      puts "$$$$$$$$$$ DISBURSE FOR PAY PERIOD " + @pay_period.start_date.to_s + " - " + @pay_period.end_date.to_s
+
+      render 'index'
+      @pay_period.disburse!
     end
 
     private
@@ -83,18 +86,18 @@ module Admin
       @calculable_pay_periods.include?(period.id)
     end
 
-    def can_distribute?(period)
-      return false unless period.distributable?
-      @distributable_pay_periods ||= begin
+    def can_disburse?(period)
+      return false unless period.disbursable?
+      @disbursable_pay_periods ||= begin
         periods = %w(WeeklyPayPeriod MonthlyPayPeriod).map do |type|
           list = @pay_periods.select do |pp|
-            pp.type == type && pp.distributed_at.nil?
+            pp.type == type && pp.disbursed_at.nil?
           end
           list.last
         end
         periods.compact.map(&:id)
       end
-      @distributable_pay_periods.include?(period.id)
+      @disbursable_pay_periods.include?(period.id)
     end
   end
 end

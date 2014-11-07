@@ -177,53 +177,28 @@ describe PayPeriod, type: :model do
     end
   end
 
-  describe '#payout!' do
+  describe '#disburse!' do
 
     before :each do
-      create_list(:rank, 3)
+      @payment_user = create(:user)
+      @pay_periods = [ 2, 3, 1 ].map do |i|
+        pay_period = create(:weekly_pay_period, at: DateTime.current - i.weeks)
+        create(:bonus_payment, pay_period: pay_period, user: @payment_user)
+        pay_period
+      end
     end
 
-    it 'creates order totals' do
-      order_date = DateTime.current - 1.month
-      order = create(:order, order_date: order_date)
-      product = create(:product)
+    it 'ensures a non-calculated pay period is ineligible for dispursement' do
+      pay_period = MonthlyPayPeriod.find_or_create_by_date(DateTime.now)
+      check_disbursable = pay_period.disbursable?
+      expect(check_disbursable).to eq(false)
+    end
 
-      parent = create(:user)
-      user = create(:user, sponsor: parent)
-      children = create_list(:user, 2, sponsor: user)
-
-      create(:order, user: user,
-        product: product, order_date: order_date - 10.minutes)
-      create(:order, user: user,
-        product: product, order_date: order_date - 1.month)
-
-      1.upto(3) do |i|
-        create(:order, user: children.first,
-          product: product, order_date: order_date - i.minutes)
-      end
-      create(:order, user: children.last,
-        product: product, quantity: 2, order_date: order_date - 5.minutes)
-
-      pay_period = order.monthly_pay_period
-      pay_period.calculate!
-
-      order_total = OrderTotal.where(user_id: user.id,
-        product_id: product.id, pay_period_id: pay_period.id).first
-
-      expect(order_total).to_not be_nil
-      expect(order_total.personal).to eq(1)
-      expect(order_total.group).to eq(6)
-      expect(order_total.personal_lifetime).to eq(2)
-      expect(order_total.group_lifetime).to eq(7)
-
-      order_total = OrderTotal.where(user_id: children.first,
-        product_id: product.id, pay_period_id: pay_period.id).first
-
-      expect(order_total).to_not be_nil
-      expect(order_total.personal).to eq(3)
-      expect(order_total.group).to eq(3)
-      expect(order_total.personal_lifetime).to eq(3)
-      expect(order_total.group_lifetime).to eq(3)
+    it 'ensures a calculated pay period is eligible for dispursement' do
+      pay_period = MonthlyPayPeriod.find_or_create_by_date(DateTime.now)
+      pay_period.calculated = true
+      check_disbursable = pay_period.disbursable?
+      expect(check_disbursable).to eq(true)
     end
   end
 

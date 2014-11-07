@@ -8,6 +8,8 @@ class PayPeriod < ActiveRecord::Base
   scope :next_to_calculate,
         -> { order(id: :asc).where('calculated_at is null').first }
 
+  scope :dispursed, -> { where('calculated_at is not null') }
+
   before_create do
     self.id ||= self.class.id_from(start_date)
   end
@@ -20,16 +22,23 @@ class PayPeriod < ActiveRecord::Base
     Date.current > end_date
   end
 
-  def distributed?
-    !distributed_at.nil?
+  def disbursed?
+    !disbursed_at.nil?
   end
 
-  def distributable?
-    finished? && calculated? && !distributed
+  def disbursable?
+    finished? && calculated? && !disbursed?
+  end
+
+  def disburse!
+    puts "DISBURESE! from pay_period.rb"
+
+    process_bonus_payments!
+    touch :dusbursed_at
   end
 
   def calculable?
-    DateTime.current > start_date && distributed_at.nil?
+    DateTime.current > start_date && disbursed_at.nil?
   end
 
   def calculated?
@@ -56,7 +65,7 @@ class PayPeriod < ActiveRecord::Base
     BonusPaymentOrder.delete_all_for_pay_period(id)
     bonus_payments.delete_all
     rank_achievements.delete_all
-    order_totals.delete_all
+    order_totals.delete_all_for_pay_period
   end
 
   def process_orders!
@@ -87,6 +96,25 @@ class PayPeriod < ActiveRecord::Base
 
     increment_upline_totals(order)
     totals
+  end
+
+  def process_bonus_payments!
+
+    # Take this bonus_payment's user and aggregated amount
+    # and construct a multi-user batch query that sends out
+    # to iPayout's 'eWallet_Load' service
+
+    # construct_ewallet_load_query
+
+    # result = call_ewallet_load_service
+
+    # record results in database
+
+    bonus_payments.each do |bonus_payment|
+      process_bonus_payment!(bonus_payment)
+      yield(bonus_payment) if block_given?
+    end
+    #process_at_pay_period_end_rank_bonuses!
   end
 
   def process_rank_achievements!(order, totals = nil)

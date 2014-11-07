@@ -35,6 +35,7 @@ group :development do
   gem 'spring'
   gem 'thin'
   gem 'rubocop'
+  gem 'meta_request'
 end
 
 group :development, :test do

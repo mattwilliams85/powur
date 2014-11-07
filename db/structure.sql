@@ -398,7 +398,7 @@ CREATE TABLE pay_periods (
     start_date date NOT NULL,
     end_date date NOT NULL,
     calculated_at timestamp without time zone,
-    distributed_at timestamp without time zone,
+    disbursed_at timestamp without time zone,
     total_volume numeric(10,2),
     total_bonus numeric(10,2),
     total_breakage numeric(10,2)
@@ -775,6 +775,16 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: utilities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE utilities (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1090,6 +1100,14 @@ ALTER TABLE ONLY user_overrides
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: utilities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY utilities
+    ADD CONSTRAINT utilities_pkey PRIMARY KEY (id);
 
 
 --
@@ -1550,6 +1568,8 @@ ALTER TABLE ONLY users
 
 SET search_path TO "$user",public;
 
+INSERT INTO schema_migrations (version) VALUES ('20140423060923');
+
 INSERT INTO schema_migrations (version) VALUES ('20140514044342');
 
 INSERT INTO schema_migrations (version) VALUES ('20140515033329');
@@ -1591,4 +1611,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141017220604');
 INSERT INTO schema_migrations (version) VALUES ('20141023090103');
 
 INSERT INTO schema_migrations (version) VALUES ('20141023092335');
+
+INSERT INTO schema_migrations (version) VALUES ('20141106012152');
 
