@@ -23,7 +23,7 @@ puts 'Call eWallet_GetCustomerDetails'
 service = client.get_service('get_customer_details')
 options_hash   = assign_param_values(params, service.parameters)
 response = client.ewallet_request(options_hash)
-byebug
+
 
 response
 # service = EyecueIpayout::Service.new("eWallet_RegisterUser")
@@ -194,6 +194,3 @@ response
 # response = client.eWallet_request(params_hash, {})
 ################### eWallet_RequestUserAutoLogin #################################
 
-byebug
-puts '!!!!!!!END!!!!!!!'
-puts ''

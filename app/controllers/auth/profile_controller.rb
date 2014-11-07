@@ -12,7 +12,6 @@ module Auth
         format.html
         format.json do
           @user = current_user
-          byebug
           @profile = @user.profile
         end
       end
