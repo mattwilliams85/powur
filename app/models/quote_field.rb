@@ -47,7 +47,8 @@ class QuoteField < ActiveRecord::Base
   def to_csv(value)
     return nil if value.nil?
     if lookup?
-      lookups.find(value).identifier
+      lookup = lookups.find_by(id: value)
+      lookup ? lookup.identifier : nil
     else
       normalize(value)
     end
