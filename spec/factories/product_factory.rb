@@ -24,8 +24,7 @@ FactoryGirl.define do
       name 'SunRun Solar Item'
 
       after(:create) do |product, _|
-        { utility:          :lookup,
-          average_bill:     :number,
+        { average_bill:     :number,
           square_feet:      :number,
           credit_approved:  :boolean,
           roof_type:        :lookup,

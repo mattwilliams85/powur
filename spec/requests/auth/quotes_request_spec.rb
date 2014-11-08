@@ -20,10 +20,15 @@ describe '/u/quotes' do
       create_action = json_body['actions'].find { |a| a['name'] == 'create' }
       expect(create_action).to be
 
-      %w(utility credit_approved roof_age).each do |name|
+      %w(credit_approved roof_age).each do |name|
         field = create_action['fields'].find { |f| f['name'] == name }
         expect(field).to be
       end
+
+      field = create_action['fields'].find { |f| f['name'] == 'utility' }
+      expect(field).to be
+      option = field['options'].first
+      expect(option['group']).to be
     end
 
   end
