@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   store_accessor :contact, :address, :city, :state, :zip, :phone
   store_accessor :utilities, :provider, :monthly_bill
   store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url
+  store_accessor :large_image_url, :medium_image_url, :thumb_image_url
   validates_presence_of :phone, :zip
   validates_presence_of :address, :city, :state, allow_nil: true
 
@@ -127,6 +128,18 @@ class User < ActiveRecord::Base
                       ENV['AWS_BUCKET'] + '/avatars/'
     return_url = base_avatar_url + id.to_s + '/' + filename +
                  '_' + image_size + '.' + extension
+  end
+
+  def large_image_url
+    image_url("large")
+  end
+
+  def medium_image_url
+    image_url("medium")
+  end
+
+  def thumb_image_url
+    image_url("thumb")
   end
 
   private
