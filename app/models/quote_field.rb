@@ -36,11 +36,20 @@ class QuoteField < ActiveRecord::Base
 
   def normalize(value)
     if boolean?
-      ![ 0, false, 'false', nil ].include?(value)
+      ![ 0, false, 'false' ].include?(value)
     elsif number? && !value.nil?
       value.to_i
     else
       value
+    end
+  end
+
+  def to_csv(value)
+    return nil if value.nil?
+    if lookup?
+      lookups.find(value).identifier
+    else
+      normalize(value)
     end
   end
 
