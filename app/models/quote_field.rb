@@ -34,6 +34,16 @@ class QuoteField < ActiveRecord::Base
     end
   end
 
+  def normalize(value)
+    if boolean?
+      ![ 0, false, 'false', nil ].include?(value)
+    elsif number? && !value.nil?
+      value.to_i
+    else
+      value
+    end
+  end
+
   private
 
   def lookup_from_row(row)

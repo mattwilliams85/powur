@@ -85,8 +85,8 @@ class QuotesJson < JsonDecorator
       .field(:state, :text, required: false, value: @item.customer.state)
       .field(:zip, :text, required: false, value: @item.customer.zip)
 
-    action_quote_fields(action) do |name|
-      @item.data[name]
+    action_quote_fields(action) do |field, opts|
+      opts[:value] = field.normalize(@item.data[field.name])
     end
 
     action
@@ -126,12 +126,12 @@ class QuotesJson < JsonDecorator
         lookups = field.lookups.sort_by { |i| [ i.group, i.value ] }
         next if lookups.empty?
         opts[:options] = lookups.map do |lookup|
-          attrs = { value: lookup.identifier, display: lookup.value }
+          attrs = { display: lookup.value }
           attrs[:group] = lookup.group if lookup.group
           attrs
         end
       end
-      opts[:value] = yield(field.name) if block_given?
+      yield(field, opts) if block_given?
       quote_action.field(field.name, field.view_type, opts)
     end
   end
