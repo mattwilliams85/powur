@@ -95,9 +95,10 @@ function Dashboard(){
 
 		//setup current personal and group sales total
 		var sales = _getObjectsByCriteria(_data.currentUser.order_totals, {product:displayPrimaryProduct.name})[0];
-		goals.sales.personal.current=sales.personal;
-		goals.sales.group.current=sales.group;
-
+		if(typeof sales !=="undefined"){
+			goals.sales.personal.current=sales.personal;
+			goals.sales.group.current=sales.group;
+		}
 		//setup the max
 		goals.next_rank.qualifications.forEach(function(qualification){
 			if(qualification.product_id==displayPrimaryProduct.id){
