@@ -17,17 +17,11 @@ class QuoteField < ActiveRecord::Base
   end
 
   def lookups_from_records(records)
-    counter = 0
-    records.each do |row|
-      lookup_from_row(row, counter += 1)
-    end
+    records.each { |row| lookup_from_row(row) }
   end
 
   def lookups_from_csv(csv)
-    counter = 0
-    CSV.parse(csv) do |row|
-      lookup_from_row(row, counter += 1)
-    end
+    CSV.parse(csv) { |row| lookup_from_row(row) }
   end
 
   def view_type
@@ -42,9 +36,9 @@ class QuoteField < ActiveRecord::Base
 
   private
 
-  def lookup_from_row(row, counter)
-    attrs = { value: row[0].presence }
-    attrs[:identifier] = row[1].presence ? row[1].to_i : counter
+  def lookup_from_row(row)
+    attrs = { value: row[0].presence.to_s,
+              identifier: row[1].presence ? row[1].to_s : row[0].to_s }
     add_or_update_lookup(attrs)
   end
 

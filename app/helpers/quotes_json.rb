@@ -123,10 +123,12 @@ class QuotesJson < JsonDecorator
     product.quote_fields.each do |field|
       opts = { required: field.required }
       if field.lookup?
-        values = field.lookups.sort_by(&:value)
-        next if values.empty?
-        opts[:options] = field.lookups.sort_by(&:value).map do |lookup|
-          { value: lookup.identifier, display: lookup.value }
+        lookups = field.lookups.sort_by { |i| [ i.group, i.value ] }
+        next if lookups.empty?
+        opts[:options] = lookups.map do |lookup|
+          attrs = { value: lookup.identifier, display: lookup.value }
+          attrs[:group] = lookup.group if lookup.group
+          attrs
         end
       end
       opts[:value] = yield(field.name) if block_given?

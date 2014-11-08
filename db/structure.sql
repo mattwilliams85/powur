@@ -482,7 +482,8 @@ CREATE TABLE quote_field_lookups (
     id integer NOT NULL,
     quote_field_id integer NOT NULL,
     value character varying(255) NOT NULL,
-    identifier integer NOT NULL
+    identifier character varying(255) NOT NULL,
+    "group" character varying(255)
 );
 
 
