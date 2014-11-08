@@ -118,7 +118,7 @@ class QuotesJson < JsonDecorator
            order: quote.order)
   end
 
-  def action_quote_fields(action)
+  def action_quote_fields(quote_action)
     product = Product.default || return
     product.quote_fields.each do |field|
       opts = { required: field.required }
@@ -132,7 +132,7 @@ class QuotesJson < JsonDecorator
         end
       end
       opts[:value] = yield(field.name) if block_given?
-      action.field(field.name, field.view_type, opts)
+      quote_action.field(field.name, field.view_type, opts)
     end
   end
 end

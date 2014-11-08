@@ -17,7 +17,6 @@ namespace :sunstand do
       existing.destroy if existing
       fields = { utility:          :lookup,
                  average_bill:     :number,
-                 rate_schedule:    :lookup,
                  square_feet:      :number,
                  credit_approved:  :boolean,
                  roof_type:        :lookup,
