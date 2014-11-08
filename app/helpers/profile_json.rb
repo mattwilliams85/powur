@@ -3,6 +3,7 @@ class ProfileJson < JsonDecorator
     klass :users, :list
 
     list_entities(partial_path)
+
   end
 
   def item_init(rel = nil)
@@ -21,7 +22,9 @@ class ProfileJson < JsonDecorator
     json.properties do
       json.call(user, :first_name, :last_name, :email, :phone,
                 :bio, :avatar, :avatar_file_name, :address,
-                :city, :state, :zip)
+                :city, :state, :zip, :large_image_url,
+                :medium_image_url, :thumb_image_url)
+
     end
   end
 

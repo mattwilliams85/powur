@@ -22,6 +22,7 @@ class CreateProducts < ActiveRecord::Migration
       t.references :quote_field, null: false, index: true
       t.string :value, null: false
       t.integer :identifier, null: false
+      t.string :group
 
       t.foreign_key :quote_fields
     end
