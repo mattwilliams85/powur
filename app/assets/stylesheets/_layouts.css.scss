@@ -126,12 +126,20 @@ body#application {
 		// Typography
 	
 		// Other
+		img{
+			float:left;
+			margin-top:-17px;
+			margin-right:10px;
+			width:64px;
+			border-radius:50px;
+		}
 	
 		a.username {
 			// Mixins
 		
 			// Box properties
-			width: $grid * 7;
+			width:auto;
+			float:left;
 			display: block;
 			padding: 0;
 			// Background & borders
