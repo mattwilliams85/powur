@@ -119,15 +119,19 @@ class User < ActiveRecord::Base
     pay_period_rank || organic_rank
   end
 
-  def image_url(image_size = 'thumb')
-    full_file_name = avatar_file_name
-    split_name = full_file_name.split('.')
-    filename = split_name[0]
-    extension = split_name[1]
-    base_avatar_url = 'https://s3.amazonaws.com/' +
-                      ENV['AWS_BUCKET'] + '/avatars/'
-    return_url = base_avatar_url + id.to_s + '/' + filename +
-                 '_' + image_size + '.' + extension
+  def image_url(image_size = "thumb")
+    if !avatar_file_name.nil?
+      full_file_name = avatar_file_name
+      split_name = full_file_name.split('.')
+      filename = split_name[0]
+      extension = split_name[1]
+      base_avatar_url = "https://s3.amazonaws.com/" +
+                        ENV["AWS_BUCKET"] + "/avatars/"
+      return_url = base_avatar_url + id.to_s + "/" + filename +
+                   "_" + image_size + "." + extension
+      else
+        return_url=nil
+    end
   end
 
   def large_image_url

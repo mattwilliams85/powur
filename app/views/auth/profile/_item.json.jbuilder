@@ -8,6 +8,7 @@ json.properties do
             :monthly_bill, :bio, :twitter_url, :linkedin_url,
             :large_image_url, :medium_image_url, :thumb_image_url)
   json
+  
 end
 
 #entities entity('auth/users/item', ' profile-user', user: user)
