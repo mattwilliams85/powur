@@ -79,7 +79,7 @@
 		min-height:300px;
 	}
 	.data_content{
-		width:935px;
+		width:900px;
 		padding:32px;
 		height:auto;
 		border-left:1px solid #ccc;
@@ -135,16 +135,18 @@
 	.data_content section .content input,
 	.data_content section .content textarea  {
 		padding-top:18px;
+		padding-left:6px;
 		border-radius: 0px;
 		height:50px;
 		float:left;
 		display:block;
+		font-size:16px;
 		color:#333;
 
 	}
 
 	.data_content section .content textarea {
-		padding:30px 16px 16px 16px;
+		padding:30px 5px 5px 5px;
 		font-family: Muli, sans-serif;
 		font-size: 20px;
 		background-color: rgba(0, 0, 0, 0.0784314);
@@ -166,6 +168,7 @@
 		width:410px;
 		float:left;
 		margin-right:20px;
+		overflow: hidden;
 	}
 	.data_content section .content .form_element.full{
 		width:100%;
@@ -225,7 +228,7 @@
 	}
 
 	#sidebar {
-		width:350px;
+		width:250px;
 		display:block;
 		float:left;
 	}
@@ -233,13 +236,20 @@
 	#user_remove_avatar {
 		width:75px;
 	}
-
+	section{
+		overflow: hidden;
+	}
+	h3{
+		float:left;
+	}
 </style>
 
 <section class="dashboard_section" >
 
 	<div class="section_body">
 		<div class="section_content">
+
+
 			<div class="summary" id="sidebar">
 				<section>
 					<div id="avatar-container" class="form_element half">
@@ -252,7 +262,7 @@
 						<% end %>
 						<%= form_for @user, remote:true, :url => update_avatar_profile_path, :html => { :multipart => true, :'data-type' => 'json' } do |form| %>
 						  <% @user.errors.full_messages.each do |msg| %>
-				    <li><%= msg %></li>
+				   		 <li><%= msg %></li>
 				  <% end %>
 						<%= token_tag %>
 
@@ -263,19 +273,20 @@
 						  <%= form.hidden_field :avatar_updated_at %>
 						  <%= form.submit "Upload Photo" ,id: "submit-photo" %>
 						<% end %>
-						</div>
 					</div>
 				</section>
-
 			</div>
 
 
 			<div class="data_content">
 
 				<section class="basic_info" style="padding-bottom:30px;">
-					<div class="header">Basic Info</div>
+					<div class="header">Personal Info</div>
 					<div class="content">
 						<section>
+							<br>
+							<h3>Contact info</h3>
+
 							<%= form_for @user, remote: true, :url => url_for(:controller => 'profile', :action => 'update'), :html => { :'data-type' => 'json'} do |f| %>
 						    <div class='form_element half'>
 						    		<label for="user_first_name">First Name</label>
@@ -293,47 +304,40 @@
 				  				<label for="user_phone">Phone</label>
 				  				<%= f.text_field :phone %>
 				  			</div>
-				  			<div class='user_field'>
-				  				<%= f.submit "Submit Contact", id: "submit-update-contact" 	%>
-				  			</div>
-
-						<% end %>
 						</section>
 
 						<br>
 						<section>
-							<%= form_for @user, remote: true,	 :url => url_for(:controller => 'profile', :action => 'update') do |f| %>
+							<h3>Address</h3>
+							<br style="clear:both;">
 						    <div class='form_element half'>
-						    		<label for="user_address">Address</label>
+						    		<label for="user_address" style="top:0;">Address</label>
 						    		<%= f.text_field :address %>
 						    </div>
 				  			<div class='form_element end'>
-				  				<label for="user_city">City</label>
+				  				<label for="user_city" style="top:0;">City</label>
 				  				<%= f.text_field :city %>
 				  			</div>
 				  			<div class='form_element half'>
-				  				<label for="user_state">State</label>
+				  				<label for="user_state" style="top:0;">State</label>
 				  				<%= f.text_field :state %>
 				  			</div>
 				  			<div class='form_element end'>
-				  				<label for="user_zip">Zip</label>
+				  				<label for="user_zip" style="top:0;">Zip</label>
 				  				<%= f.text_field :zip %>
 				  			</div>
-				  			<div class='user_field'>
-				  				<%= f.submit "Submit Address", id: "submit-update-address" 	%>
-				  			</div>
 
-							<% end %>
 						</section>
 						<br>
 						<section>
-							<%= form_for @user, remote: true, :url => url_for(:controller => 'profile', :action => 'update') do |f| %>
+							<h3>More about you</h3>
+
 						    <div class='form_element full'>
 						    		<label for="user_first_name">Bio/Experience</label>
 						    		<%= f.text_area :bio %>
 						    </div>
 				  			<div class='user_field'>
-				  					<%= f.submit "Submit Bio", id: "submit-update-bio" %>
+				  					<%= f.submit "Update Personal Info", id: "submit-update-bio" %>
 				  			</div>
 
 							<% end %>
@@ -341,8 +345,11 @@
 
 					</div>
 
-				</section>
+				</section><!--end basic info -->
+
+
 				<br><br>
+				
 				<section class="password" style="padding-bottom:30px;">
 					<div class="header">Update Password</div>
 					<div class="content">
@@ -362,20 +369,18 @@
 							<label for="new_password_confirm" style="top:0;">Confirm New Password</label>
 							<%= password_field_tag :new_password_confirm %>
 						</div>
-						<div class="form_element half"> &nbsp;
-						</div>
-						<div class="form_element half end">
+						<div class="form_element full">
 						<%= submit_tag "Update Password", id: "submit-update-password" %>
 						</div>
 					<% end %>
 					</div>
-				</section>
+				</section><!-- end password -->
 
-			</div>
-		</div>
-	</div>
+			</div><!-- end data content -->
+		</div><!--end section_content -->
+	</div> <!-- end setction_body -->
 
-</section>
+</section><!--end dashboard_section -->
 
 
 <script>
