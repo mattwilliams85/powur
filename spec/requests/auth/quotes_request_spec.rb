@@ -96,13 +96,12 @@ describe '/u/quotes' do
         :quote,
         product: @product,
         user:    @user,
-        data:    { 'square_feet' => 1200, 'rate_schedule' => 12 })
+        data:    { 'square_feet' => 1200 })
 
       get user_quote_path(quote), format: :json
 
       expect_classes 'quote'
-      expect(json_body['properties'].keys)
-        .to include('rate_schedule', 'square_feet')
+      expect(json_body['properties'].keys).to include('square_feet')
     end
 
   end
