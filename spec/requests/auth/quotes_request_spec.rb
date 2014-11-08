@@ -19,10 +19,16 @@ describe '/u/quotes' do
 
       create_action = json_body['actions'].find { |a| a['name'] == 'create' }
       expect(create_action).to be
-      field = create_action['fields']
-        .find { |f| f['name'] == 'credit_approved' }
+
+      %w(credit_score_qualified roof_age).each do |name|
+        field = create_action['fields'].find { |f| f['name'] == name }
+        expect(field).to be
+      end
+
+      field = create_action['fields'].find { |f| f['name'] == 'utility' }
       expect(field).to be
-      expect(field['type']).to eq('checkbox')
+      option = field['options'].first
+      expect(option['group']).to be
     end
 
   end
@@ -57,6 +63,7 @@ describe '/u/quotes' do
         state:      'FL',
         zip:        '65999',
         utility:    12,
+        roof_age:   3,
         format:     :json }
     end
 
@@ -69,7 +76,7 @@ describe '/u/quotes' do
     end
 
     it 'nils out parameters with zero length strings' do
-      post user_quotes_path, input_params.merge(city: '', rate_schedule: '')
+      post user_quotes_path, input_params.merge(city: '', roof_age: '')
 
       expect_200
       expect_classes 'quote'
@@ -90,13 +97,11 @@ describe '/u/quotes' do
         :quote,
         product: @product,
         user:    @user,
-        data:    { 'square_feet' => 1200, 'rate_schedule' => 12 })
+        data:    { 'square_feet' => 1200, utility: 2, roof_age: 1 })
 
       get user_quote_path(quote), format: :json
-
       expect_classes 'quote'
-      expect(json_body['properties'].keys)
-        .to include('rate_schedule', 'square_feet')
+      expect(json_body['properties'].keys).to include('square_feet')
     end
 
   end

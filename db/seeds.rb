@@ -1,5 +1,6 @@
 
 puts 'Seeding Admin users'
+User.destroy_all
 User.create(
   email:      'jon@sunstand.com',
   password:   'solarpower',
@@ -40,9 +41,9 @@ User.create(
   url_slug:   'daniel',
   roles:      [ 'admin' ])
 
+BonusPlan.destroy_all
 BonusPlan.create(
   id:          1,
   name:        'SunStand Compensation Plan',
   start_year:  2014,
   start_month: 5)
-

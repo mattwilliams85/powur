@@ -24,17 +24,17 @@ FactoryGirl.define do
       name 'SunRun Solar Item'
 
       after(:create) do |product, _|
-        fields = {
-          utility:          :lookup,
-          average_bill:     :number,
-          rate_schedule:    :lookup,
-          square_feet:      :number,
-          credit_approved:  :boolean,
-          roof_type:        :lookup,
-          roof_age:         :lookup }
-        fields.each do |name, data_type|
+        create(:quote_field,
+               product:   product,
+               name:      'average_bill',
+               required:  true,
+               data_type: :number)
+        { square_feet:             :number,
+          credit_score_qualified:  :boolean,
+          roof_type:               :lookup,
+          roof_age:                :lookup }.each do |name, data_type|
           if data_type == :lookup
-            create(:lookup_field, name: name, product: product)
+            create(:lookup_field, name: name.to_s, product: product)
           else
             create(:quote_field,
                    product:   product,
@@ -42,6 +42,8 @@ FactoryGirl.define do
                    data_type: data_type)
           end
         end
+        create(:lookup_field, name: 'utility', product: product, group: true)
+
         SystemSettings.default_product_id = product.id
       end
     end

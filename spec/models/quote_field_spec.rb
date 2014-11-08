@@ -17,10 +17,10 @@ describe QuoteField, type: :model do
       expect(@field.lookups.size).to eq(2)
       lookup = @field.lookups.first
       expect(lookup.value).to eq('foo')
-      expect(lookup.identifier).to eq(lookups.first.identifier)
+      expect(lookup.identifier).to eq(lookups.first.identifier.to_s)
       lookup = @field.lookups.last
       expect(lookup.value).to eq('bar')
-      expect(lookup.identifier).to eq(lookups.last.identifier)
+      expect(lookup.identifier).to eq(lookups.last.identifier.to_s)
     end
 
   end
@@ -37,10 +37,10 @@ describe QuoteField, type: :model do
       expect(@field.lookups.size).to eq(2)
       lookup = @field.lookups.first
       expect(lookup.value).to eq('foo')
-      expect(lookup.identifier).to eq(1)
+      expect(lookup.identifier).to eq('foo')
       lookup = @field.lookups.last
       expect(lookup.value).to eq('bar')
-      expect(lookup.identifier).to eq(2)
+      expect(lookup.identifier).to eq('bar')
     end
 
     it 'deletes existing fields with empty values' do

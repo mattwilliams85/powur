@@ -85,8 +85,8 @@ class QuotesJson < JsonDecorator
       .field(:state, :text, required: false, value: @item.customer.state)
       .field(:zip, :text, required: false, value: @item.customer.zip)
 
-    action_quote_fields(action) do |name|
-      @item.data[name]
+    action_quote_fields(action) do |field, opts|
+      opts[:value] = field.normalize(@item.data[field.name])
     end
 
     action
@@ -118,19 +118,21 @@ class QuotesJson < JsonDecorator
            order: quote.order)
   end
 
-  def action_quote_fields(action)
+  def action_quote_fields(quote_action)
     product = Product.default || return
     product.quote_fields.each do |field|
       opts = { required: field.required }
       if field.lookup?
-        values = field.lookups.sort_by(&:value)
-        next if values.empty?
-        opts[:options] = field.lookups.sort_by(&:value).map do |lookup|
-          { value: lookup.identifier, display: lookup.value }
+        lookups = field.lookups.sort_by { |i| [ i.group, i.value ] }
+        next if lookups.empty?
+        opts[:options] = lookups.map do |lookup|
+          attrs = { display: lookup.value }
+          attrs[:group] = lookup.group if lookup.group
+          attrs
         end
       end
-      opts[:value] = yield(field.name) if block_given?
-      action.field(field.name, field.view_type, opts)
+      yield(field, opts) if block_given?
+      quote_action.field(field.name, field.view_type, opts)
     end
   end
 end

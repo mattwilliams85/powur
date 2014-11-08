@@ -28,10 +28,6 @@ describe UserActivity, type: :model do
     create(:user_activity,
            user_id:    user.id,
            event:      'login',
-           event_time: 1.week.ago)
-    create(:user_activity,
-           user_id:    user.id,
-           event:      'login',
            event_time: 2.months.ago)
 
     activities = UserActivity.for_user_by_pay_period(pay_period, user)

@@ -12,11 +12,19 @@ FactoryGirl.define do
 
   factory :lookup_field, class: QuoteField do
     data_type :lookup
-    after(:create) do |field, _evaluator|
+
+    transient do
+      group false
+    end
+
+    after(:create) do |field, evaluator|
       1.upto(3).each do |i|
-        create(:quote_field_lookup, value: "#{field.name}-#{i}", identifier: i)
+        attrs = { value:       "#{field.name}-#{i}",
+                  identifier:  i,
+                  quote_field: field }
+        attrs[:group] = 'GroupName' if evaluator.group
+        create(:quote_field_lookup, attrs)
       end
     end
   end
-
 end

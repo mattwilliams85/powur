@@ -15,13 +15,12 @@ namespace :sunstand do
     task sunrun_product: :environment do
       existing = Product.find_by_id(SOLAR_ITEM_ID)
       existing.destroy if existing
-      fields = { utility:          :lookup,
-                 average_bill:     :number,
-                 rate_schedule:    :lookup,
-                 square_feet:      :number,
-                 credit_approved:  :boolean,
-                 roof_type:        :lookup,
-                 roof_age:         :lookup }
+      fields = { utility:                 :lookup,
+                 average_bill:            :number,
+                 square_feet:             :number,
+                 credit_score_qualified:  :boolean,
+                 roof_type:               :lookup,
+                 roof_age:                :lookup }
 
       Product.create!(
         id:                    SOLAR_ITEM_ID,
@@ -35,6 +34,8 @@ namespace :sunstand do
           name:       name.to_s,
           data_type:  data_type)
       end
+      field = QuoteField.find_by(name: 'average_bill')
+      field.update_column(:required, true)
       Rake::Task['sunstand:import:quote_field_lookups'].execute
     end
 
