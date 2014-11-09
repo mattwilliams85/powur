@@ -103,7 +103,7 @@ access_token: The token value to use in API resource requests
 token_type: 'Bearer'
 expires_in: The # of seconds in which the token will expire
 refresh_token: The token value to use in order to refresh an expired token or a token soon to expire
-user_uri: The url to the user as represented by the token
+user: The url to the user API resource as represented by the token
 ```
 
 In order to refresh a token, make a POST request to the token endpoint:

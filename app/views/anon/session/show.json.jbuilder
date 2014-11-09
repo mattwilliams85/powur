@@ -14,7 +14,7 @@ entity_list = [
   entity(%w(goals), 'user-goals', user_goals_path(current_user)) ]
 if current_user.role?(:admin)
   entity_list << entity(%w(list users), 'admin-users', admin_users_path)
-  entity_list << entity(%w(data), 'admin-data', data_path)
+  entity_list << entity(%w(system), 'admin-system', system_path)
 end
 
 entities(*entity_list)

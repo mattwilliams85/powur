@@ -105,7 +105,7 @@ Rails.application.routes.draw do
                 controller: :user_bonus_payments
     end
 
-    resources :data, only: [ :index ] do
+    resource :system, only: [ :index, :show ] do
       collection do
         get :quotes
       end
@@ -169,6 +169,11 @@ Rails.application.routes.draw do
     post 'token' => 'token#refresh_token', constraints: param_values?(grant_type: 'refresh_token')
     post 'token' => 'token#unsupported_grant_type', constraints: params?(:grant_type)
     post 'token' => 'token#invalid_request'
+
+    scope 'v(:v)' do
+      resource :user, only: [ :show ]
+    end
+
   end
 
   resource :promoter, only: [ :new, :show ] do

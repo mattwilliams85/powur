@@ -1,6 +1,6 @@
 module Admin
-  class DataController < AdminController
-    def index
+  class SystemsController < AdminController
+    def show
     end
 
     QUOTE_FIELDS = %w(customer_first_name customer_last_name customer_email

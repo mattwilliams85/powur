@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '/a/data' do
+describe '/a/system' do
 
   before :each do
     login_user
@@ -8,7 +8,7 @@ describe '/a/data' do
 
   describe 'GET /' do
     it 'includes the actions' do
-      get data_path, format: :json
+      get system_path, format: :json
 
       expect_classes 'data'
       expect_actions 'quotes'
@@ -20,7 +20,7 @@ describe '/a/data' do
       product = create(:sunrun_product)
       create_list(:complete_quote, 4, product: product)
       create(:quote, product: product)
-      get quotes_data_path, format: :json
+      get quotes_system_path, format: :json
 
       expect(response.headers['Content-Type']).to eq('text/csv')
 
