@@ -41,6 +41,7 @@ User.create(
   url_slug:   'daniel',
   roles:      [ 'admin' ])
 
+puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all
 BonusPlan.create(
   id:          1,
@@ -48,6 +49,7 @@ BonusPlan.create(
   start_year:  2014,
   start_month: 5)
 
+puts 'Seeding Api Client Credentials'
 ApiClient.destroy_all
 ApiClient.create!(
   id:     'ios.sunstand.com',
