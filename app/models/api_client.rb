@@ -4,6 +4,6 @@ class ApiClient < ActiveRecord::Base
   has_many :tokens,
            class_name:  'ApiToken',
            inverse_of:  :client,
-           foreign_key: 'client_id'
+           foreign_key: 'client_id',
            dependent:   :destroy
 end
