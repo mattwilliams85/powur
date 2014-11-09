@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
-  def has_params(*args)
-    ->(r){ args.none? { |a| r.params[a].blank? } }
+  def params?(*args)
+    ->(r) { args.none? { |a| r.params[a].blank? } }
+  end
+
+  def param_values?(args)
+    ->(r) { args.all? { |k, v| r.params[k] == v } }
   end
 
   # anonymous routes
@@ -43,7 +47,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [ :index, :show ] do
       collection do
-        get '' => 'users#search', constraints: has_params(:search)
+        get '' => 'users#search', constraints: params?(:search)
       end
 
       resource :goals, only: [ :show ]
@@ -77,7 +81,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [ :index, :show, :update ], as: :admin_users do
       collection do
-        get '' => 'users#search', constraints: has_params(:search)
+        get '' => 'users#search', constraints: params?(:search)
       end
       member do
         get :downline
@@ -129,7 +133,7 @@ Rails.application.routes.draw do
 
     resources :quotes, only: [ :index, :show ], as: :admin_quotes do
       collection do
-        get '' => 'quotes#search', constraints: has_params(:search)
+        get '' => 'quotes#search', constraints: params?(:search)
       end
     end
 
@@ -158,6 +162,13 @@ Rails.application.routes.draw do
     end
 
     resources :overrides, only: [ :index, :update, :destroy ]
+  end
+
+  namespace :api, defaults: { format: 'json' } do
+    post 'token' => 'token#ropc', constraints: param_values?(grant_type: 'password')
+    post 'token' => 'token#refresh_token', constraints: param_values?(grant_type: 'refresh_token')
+    post 'token' => 'token#unsupported_grant_type', constraints: params?(:grant_type)
+    post 'token' => 'token#invalid_request'
   end
 
   resource :promoter, only: [ :new, :show ] do
