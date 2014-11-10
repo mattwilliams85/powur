@@ -32,7 +32,7 @@ gem 'pry-rails'
 gem 'eyecue_ipayout', path: './vendor/eyecue_ipayout'
 
 group :development do
-  gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'thin'
   gem 'rubocop'
 end
