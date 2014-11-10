@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '/a/system' do
+describe '/a/system', type: :request do
 
   before :each do
     login_user
