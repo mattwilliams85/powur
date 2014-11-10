@@ -58,6 +58,29 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: api_clients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE api_clients (
+    id character varying(255) NOT NULL,
+    secret character varying(255) NOT NULL
+);
+
+
+--
+-- Name: api_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE api_tokens (
+    id character varying(255) NOT NULL,
+    access_token character varying(255) NOT NULL,
+    client_id character varying(255) NOT NULL,
+    user_id integer NOT NULL,
+    expires_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: bonus_levels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -902,6 +925,22 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
+-- Name: api_clients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY api_clients
+    ADD CONSTRAINT api_clients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT api_tokens_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: bonus_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1101,6 +1140,13 @@ CREATE UNIQUE INDEX idx_order_totals_composite_key ON order_totals USING btree (
 
 
 --
+-- Name: index_api_tokens_on_access_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_api_tokens_on_access_token ON api_tokens USING btree (access_token);
+
+
+--
 -- Name: index_bonus_plans_on_start_year_and_start_month; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1231,6 +1277,22 @@ CREATE UNIQUE INDEX rank_achievements_comp_key_without_pp ON rank_achievements U
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: api_tokens_client_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT api_tokens_client_id_fk FOREIGN KEY (client_id) REFERENCES api_clients(id);
+
+
+--
+-- Name: api_tokens_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT api_tokens_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -1592,4 +1654,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141017220604');
 INSERT INTO schema_migrations (version) VALUES ('20141023090103');
 
 INSERT INTO schema_migrations (version) VALUES ('20141023092335');
+
+INSERT INTO schema_migrations (version) VALUES ('20141108221107');
+
+INSERT INTO schema_migrations (version) VALUES ('20141108221116');
 
