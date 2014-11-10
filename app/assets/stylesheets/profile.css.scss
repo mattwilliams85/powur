@@ -18,8 +18,12 @@ body{
     float:none;
     max-width: 100px;
     clear:both;
+    outline:none;
 }
 
+#submit-photo{
+    outline:none;
+}
 #avatar-container input[type=submit],
 .data_content section .content input[type=submit]{
     -moz-box-sizing: border-box;
@@ -238,5 +242,7 @@ section{
     overflow: hidden;
 }
 h3{
+    font-size:12pt;
+    text-transform:uppercase;
     float:left;
 }
