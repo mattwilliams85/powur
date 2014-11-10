@@ -21,7 +21,7 @@ class CreateProducts < ActiveRecord::Migration
     create_table :quote_field_lookups do |t|
       t.references :quote_field, null: false, index: true
       t.string :value, null: false
-      t.integer :identifier, null: false
+      t.string :identifier, null: false
       t.string :group
 
       t.foreign_key :quote_fields

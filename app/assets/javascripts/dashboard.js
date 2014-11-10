@@ -16,6 +16,7 @@ jQuery(function($){
 			_dashboard.displayGoals();
 			_dashboard.displayTeam();
 			_dashboard.displayQuote();
+			if(_data.currentUser.thumb_image_url) $("#js-user_profile_image").attr("src", _data.currentUser.thumb_image_url);
 			setInterval(_dashboard._countdown, 1000);			
 		});
 
@@ -95,9 +96,10 @@ function Dashboard(){
 
 		//setup current personal and group sales total
 		var sales = _getObjectsByCriteria(_data.currentUser.order_totals, {product:displayPrimaryProduct.name})[0];
-		goals.sales.personal.current=sales.personal;
-		goals.sales.group.current=sales.group;
-
+		if(typeof sales !=="undefined"){
+			goals.sales.personal.current=sales.personal;
+			goals.sales.group.current=sales.group;
+		}
 		//setup the max
 		goals.next_rank.qualifications.forEach(function(qualification){
 			if(qualification.product_id==displayPrimaryProduct.id){
@@ -162,8 +164,6 @@ function Dashboard(){
 				search:_data.team_search
 			},
 			_callback:function(data, text){
-				console.log(data)
-
 				if(data.entities.length<=0) return;
 				var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
 				_data.team=data;

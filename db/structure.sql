@@ -58,6 +58,29 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: api_clients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE api_clients (
+    id character varying(255) NOT NULL,
+    secret character varying(255) NOT NULL
+);
+
+
+--
+-- Name: api_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE api_tokens (
+    id character varying(255) NOT NULL,
+    access_token character varying(255) NOT NULL,
+    client_id character varying(255) NOT NULL,
+    user_id integer NOT NULL,
+    expires_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: bonus_levels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -482,7 +505,8 @@ CREATE TABLE quote_field_lookups (
     id integer NOT NULL,
     quote_field_id integer NOT NULL,
     value character varying(255) NOT NULL,
-    identifier integer NOT NULL
+    identifier integer NOT NULL,
+    "group" character varying(255)
 );
 
 
@@ -775,16 +799,6 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: utilities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE utilities (
-    id integer NOT NULL,
-    name character varying(255) NOT NULL
-);
-
-
---
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -908,6 +922,22 @@ ALTER TABLE ONLY user_overrides ALTER COLUMN id SET DEFAULT nextval('user_overri
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: api_clients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY api_clients
+    ADD CONSTRAINT api_clients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: api_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT api_tokens_pkey PRIMARY KEY (id);
 
 
 --
@@ -1103,18 +1133,17 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: utilities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY utilities
-    ADD CONSTRAINT utilities_pkey PRIMARY KEY (id);
-
-
---
 -- Name: idx_order_totals_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX idx_order_totals_composite_key ON order_totals USING btree (pay_period_id, user_id, product_id);
+
+
+--
+-- Name: index_api_tokens_on_access_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_api_tokens_on_access_token ON api_tokens USING btree (access_token);
 
 
 --
@@ -1248,6 +1277,22 @@ CREATE UNIQUE INDEX rank_achievements_comp_key_without_pp ON rank_achievements U
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: api_tokens_client_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT api_tokens_client_id_fk FOREIGN KEY (client_id) REFERENCES api_clients(id);
+
+
+--
+-- Name: api_tokens_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT api_tokens_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -1568,8 +1613,6 @@ ALTER TABLE ONLY users
 
 SET search_path TO "$user",public;
 
-INSERT INTO schema_migrations (version) VALUES ('20140423060923');
-
 INSERT INTO schema_migrations (version) VALUES ('20140514044342');
 
 INSERT INTO schema_migrations (version) VALUES ('20140515033329');
@@ -1613,4 +1656,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141023090103');
 INSERT INTO schema_migrations (version) VALUES ('20141023092335');
 
 INSERT INTO schema_migrations (version) VALUES ('20141106012152');
+
+INSERT INTO schema_migrations (version) VALUES ('20141108221107');
+
+INSERT INTO schema_migrations (version) VALUES ('20141108221116');
 

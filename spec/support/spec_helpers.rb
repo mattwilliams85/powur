@@ -60,4 +60,15 @@ module SpecHelpers
     expect(json_body['properties']['_message']).to_not be_nil
     expect(json_body['properties']['_message']['confirm']).to_not be_nil
   end
+
+  def expect_api_error(error = :invalid_request)
+    expect(json_body['error']).to eq(error.to_s)
+  end
+
+  def authorize_header(u, p = nil)
+    u, p = u.id, u.secret if p.nil?
+    header = ActionController::HttpAuthentication::Basic
+      .encode_credentials(u, p)
+    { 'HTTP_AUTHORIZATION' => header }
+  end
 end
