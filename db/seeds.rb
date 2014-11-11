@@ -4,7 +4,7 @@ User.destroy_all
 User.create(
   email:      'jon@sunstand.com',
   password:   'solarpower',
-  first_name: 'Jonanthan',
+  first_name: 'Jonathan',
   last_name:  'Budd',
   phone:      '858.555.1212',
   zip:        '92023',
