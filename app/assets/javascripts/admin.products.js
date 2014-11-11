@@ -157,7 +157,8 @@ jQuery(function($){
                                     delete field.options._path;
                                     field.displayOptions=[];
                                     Object.keys(field.options).forEach(function(_key){
-                                        field.displayOptions.push({name:_key, value:field.options[_key]});
+                                        field.displayOptions.push({name:field.options[_key], value:_key});
+                                        console.log(_key);
                                     });
                                 }
                             });
@@ -224,7 +225,7 @@ jQuery(function($){
                                     delete field.options._path;
                                     field.displayOptions=[];
                                     Object.keys(field.options).forEach(function(_key){
-                                        field.displayOptions.push({name:_key, value:field.options[_key]});
+                                        field.displayOptions.push({name:field.options[_key], value:_key});
                                     });
                                 }
                             });
