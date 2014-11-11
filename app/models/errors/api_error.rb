@@ -4,10 +4,15 @@ module Errors
     attr_accessor :error_klass, :backtrace
 
     UNAUTHORIZED = [ :invalid_client ]
+    SERVER_ERRORS = [ :server_error ]
 
     def initialize(error)
       @error = error
-      @status = :unauthorized if UNAUTHORIZED.include?(error)
+      if UNAUTHORIZED.include?(error)
+        @status = :unauthorized
+      elsif SERVER_ERRORS.include?(error)
+        @status = :internal_server_error
+      end
     end
 
     def status

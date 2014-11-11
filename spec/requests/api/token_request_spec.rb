@@ -23,6 +23,16 @@ describe '/api/token', type: :request do
       end
     end
 
+    it 'needs the client to exist' do
+      ApiClient.destroy_all
+      user = create(:user)
+      post_token username:   user.email,
+                 password:   'password',
+                 grant_type: 'password'
+
+      expect_api_error(:invalid_client)
+    end
+
     it 'requires a grant_type paramter' do
       post_token(nil)
 

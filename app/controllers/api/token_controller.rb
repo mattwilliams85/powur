@@ -46,7 +46,9 @@ module Api
       @client = authenticate_with_http_basic do |u, p|
         ApiClient.by_credentials(u, p)
       end
-      error!(:invalid_client, 'invalid client credentials') unless @client
+      if @client.nil? || @client.empty?
+        error!(:invalid_client, 'invalid client credentials')
+      end
     end
 
     def modify_expires?
