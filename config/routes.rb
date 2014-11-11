@@ -165,16 +165,20 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: { format: 'json' } do
-    post 'token' => 'token#ropc', constraints: param_values?(grant_type: 'password')
-    post 'token' => 'token#refresh_token', constraints: param_values?(grant_type: 'refresh_token')
-    post 'token' => 'token#unsupported_grant_type', constraints: params?(:grant_type)
-    post 'token' => 'token#invalid_request'
-
+    # backwards compat. example
     namespace :v1 do
       resource :session, only: [ :show ]
     end
 
+    root to: 'root#show'
+
     scope '(v:v)' do
+      resource :password, only: [ :create ]
+      post 'token' => 'token#ropc', constraints: param_values?(grant_type: 'password')
+      post 'token' => 'token#refresh_token', constraints: param_values?(grant_type: 'refresh_token')
+      post 'token' => 'token#unsupported_grant_type', constraints: params?(:grant_type)
+      post 'token' => 'token#invalid_request'
+
       resource :session, only: [ :show ]
       resources :users, only: [ :index ] do
         member do
