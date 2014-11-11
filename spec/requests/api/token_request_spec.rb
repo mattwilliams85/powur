@@ -68,6 +68,7 @@ describe '/api/token', type: :request do
           post_token username:   user.email,
                      password:   'password',
                      grant_type: 'password'
+
           expect_token
           expect(json_body['session']).to be
         end
