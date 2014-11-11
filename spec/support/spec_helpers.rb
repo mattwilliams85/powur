@@ -9,6 +9,11 @@ module SpecHelpers
     end
   end
 
+  def login_api_user
+    @token = create(:api_token)
+    @user = @token.user
+  end
+
   def json_body
     response[:json_body] ||= MultiJson.load(response.body)
   end
@@ -70,5 +75,19 @@ module SpecHelpers
     header = ActionController::HttpAuthentication::Basic
       .encode_credentials(u, p)
     { 'HTTP_AUTHORIZATION' => header }
+  end
+
+  def bearer_header(token_value)
+    { 'HTTP_AUTHORIZATION' => "Bearer #{token_value}" }
+  end
+
+  def api_header
+    login_api_user
+    bearer_header(@token.access_token)
+  end
+
+  def api_param
+    login_api_user
+    { access_token: @token.access_token }
   end
 end

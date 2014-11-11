@@ -1,8 +1,13 @@
 class ApiController < ActionController::Base
+  include SirenDSL
+  helper SirenJson
+
   before_action :authenticate!
 
   rescue_from Exception, with: :server_error
   rescue_from Errors::ApiError, with: :error_response
+
+  helper_method :current_user
 
   protected
 
@@ -19,7 +24,40 @@ class ApiController < ActionController::Base
 
   private
 
+  def bearer_auth_header
+    return nil if request.authorization.nil?
+    parts = request.authorization.split(' ')
+    return nil unless parts.first == 'Bearer'
+    parts.last
+  end
+
+  def bearer_parameter
+    params[:access_token]
+  end
+
+  def access_token_param
+    bearer_auth_header || bearer_parameter
+  end
+
+  def access_token
+    @access_token ||= ApiToken.find_by(access_token: access_token_param)
+  end
+
+  def valid_token?
+    !access_token.nil?
+  end
+
+  def token_expired?
+    access_token.expired?
+  end
+
+  def current_user
+    @current_user ||= access_token.user
+  end
+
   def authenticate!
+    error!(:invalid_token, 'access_token is invalid') unless valid_token?
+    error!(:invalid_grant, 'access_token is expired') if token_expired?
   end
 
   def server_error(e)

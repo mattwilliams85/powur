@@ -170,10 +170,20 @@ Rails.application.routes.draw do
     post 'token' => 'token#unsupported_grant_type', constraints: params?(:grant_type)
     post 'token' => 'token#invalid_request'
 
-    scope 'v(:v)' do
-      resource :user, only: [ :show ]
+    namespace :v1 do
+      resource :session, only: [ :show ]
     end
 
+    scope '(v:v)' do
+      resource :session, only: [ :show ]
+      resources :users, only: [ :index ] do
+        member do
+          get :downline
+        end
+      end
+      resources :invites, only: [ :index, :create ]
+      resources :quotes, only: [ :index, :create ]
+    end
   end
 
   resource :promoter, only: [ :new, :show ] do

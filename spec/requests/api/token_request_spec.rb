@@ -59,6 +59,7 @@ describe '/api/token', type: :request do
                      password:   'password',
                      grant_type: 'password'
           expect_token
+          expect(json_body['session']).to be
         end
 
         it 'allows settings a quicker expiration' do
