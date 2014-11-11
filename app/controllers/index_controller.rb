@@ -1,4 +1,5 @@
 class IndexController < AnonController
+  before_filter :current_user?, only: :index
   layout 'landing'
 
   def index
@@ -21,4 +22,5 @@ class IndexController < AnonController
   def root_template
     logged_in? ? 'show' : (invite? ? 'registration' : 'anonymous')
   end
+
 end

@@ -1,5 +1,6 @@
 module Anon
   class SessionController < AnonController
+    before_filter :current_user?, only: [:index, :show]
     layout 'user'
 
     def index
