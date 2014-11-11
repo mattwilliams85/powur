@@ -194,9 +194,9 @@ api_versions: An array of API versions currently supported on the server.
 {
   "access_token": "82601bace46850ae901a2d8d8241e0c94c8f58d97d6904c14a5e40679b9677d462e8b62f8ce4bb5a731e617812826a996c2f88a79f8464180ba2f074119f9829",
   "token_type": "Bearer",
-  "expires_in": -864000,
+  "expires_in": 3600,
   "refresh_token": "09f5c09d112b4aefdfd293975d4f5dd11b53f52d9d11d19a8a8e5d047d82bf8f82031140fba89bb8f2daac7b22f0699ce0724961d7de8d9355ace0c43d972814",
-  "session": "/api/session"
+  "session": "/api/v1/session"
 }
 ```
 
