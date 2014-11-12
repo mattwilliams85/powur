@@ -82,12 +82,89 @@ secret: ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e
 
 ### API Fundamentals
 
+The API security conforms to the popular OAuth2 protocol. http://tools.ietf.org/html/rfc6749#section-11.4
+
+#### Root Resource
+
+The root resource is used to determine the API entry points for the application as well retrieve the meta-data for the forgot password functionality. Include the `v` parameter with the server API version you are targeting so that the subsequent URLs will be versioned according to the version the client is using. This should be the only URL path that the client app needs to hard code. The API responses will include all the meta-data necessary to construct requests for API resources.
+
+GET {host}/api?v=1
+
+```json
+{
+  "class": [
+    "api"
+  ],
+  "actions": [
+    {
+      "name": "password",
+      "method": "POST",
+      "href": "/api/password",
+      "type": "application/json",
+      "fields": [
+        {
+          "name": "email",
+          "type": "email",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "token",
+      "method": "POST",
+      "href": "/api/v1/token",
+      "type": "application/json",
+      "fields": [
+        {
+          "name": "grant_type",
+          "type": "text",
+          "value": "password",
+          "required": true
+        },
+        {
+          "name": "username",
+          "type": "email",
+          "required": true
+        },
+        {
+          "name": "password",
+          "type": "password",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "refresh_token",
+      "method": "POST",
+      "href": "/api/v1/token",
+      "type": "application/json",
+      "fields": [
+        {
+          "name": "grant_type",
+          "type": "text",
+          "value": "refresh_token",
+          "required": true
+        },
+        {
+          "name": "refresh_token",
+          "type": "text",
+          "required": true
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "rel": "self",
+      "href": "/api"
+    }
+  ]
+}
+```
+
 #### Token Endpoint
 
-The token endpoint is at:
-  {host}/api/token
-
-In order to get a token, the grant type used is the "Resource Owner Password Credentials Grant": http://tools.ietf.org/html/rfc6749#section-4.3
+In order to obtain an authorization token, the grant type used is the "Resource Owner Password Credentials Grant": http://tools.ietf.org/html/rfc6749#section-4.3
 
 When making a request for a token, the client application must also authenticate itself with the API. It does this by including the a Basic Authorization header with the client application credentials:
 ```
@@ -99,7 +176,6 @@ Include the following parameters to a POST request to the token:
 grant_type: 'password'
 username: The user's email address
 password: The user's password
-v: The API version the client is using
 ```
 
 Optionally, a parameter `expires_in` may be used with the # of seconds in which the token will expire. This is for testing purposes to create a token that will expire shortly or immediately (by including a negative number). By default, a token expires in 1 day.
@@ -118,12 +194,11 @@ api_versions: An array of API versions currently supported on the server.
 {
   "access_token": "82601bace46850ae901a2d8d8241e0c94c8f58d97d6904c14a5e40679b9677d462e8b62f8ce4bb5a731e617812826a996c2f88a79f8464180ba2f074119f9829",
   "token_type": "Bearer",
-  "expires_in": -864000,
+  "expires_in": 3600,
   "refresh_token": "09f5c09d112b4aefdfd293975d4f5dd11b53f52d9d11d19a8a8e5d047d82bf8f82031140fba89bb8f2daac7b22f0699ce0724961d7de8d9355ace0c43d972814",
-  "session": "/api/session"
+  "session": "/api/v1/session"
 }
 ```
-If present, the `v` parameter in the request will change the session URL to include the api version. I.E. `v=1` -> `/api/v1/session`.
 
 #### Refreshing a Token
 
@@ -131,7 +206,6 @@ In order to refresh a token, make a POST request to the token endpoint:
 ```
 grant_type: 'refresh_token'
 refresh_token: The refresh token value
-v: The API version the client is using
 ```
 The response will be the same token response with a new access_token and refresh_token.
 
