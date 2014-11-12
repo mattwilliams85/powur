@@ -809,8 +809,8 @@ jQuery(function($){
 });//jQuery
 
 //Shortens strings larger than their respective div with '...'
-String.prototype.format_length = function(){
-    if(this.length > 29){
-      return this.substring(0,29) + "..."
+String.prototype.format_length = function(char_limit){
+    if(this.length > char_limit){
+      return this.substring(0,char_limit) + "..."
     }
 }
