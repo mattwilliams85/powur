@@ -807,3 +807,10 @@ jQuery(function($){
 
 }(window.EyeCueLab = window.EyeCueLab || {}, jQuery));
 });//jQuery
+
+//Shortens strings larger than their respective div with '...'
+String.prototype.format_length = function(){
+    if(this.length > 29){
+      return this.substring(0,29) + "..."
+    }
+}

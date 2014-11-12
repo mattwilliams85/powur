@@ -31,7 +31,9 @@ jQuery(function($){
         _ajaxType:"get",
         _url:"/",
         _callback:function(data, text){
+
             _data.root=data;
+            console.log(_data.root)
             _data.rootUsers=[];
             _data.currentUser={};
             _dashboard = new AdminDashboard();
@@ -122,7 +124,7 @@ jQuery(function($){
 
                             _qualification_group.forEach(function(_qualification){
                                 var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product : " ";
-                                _row.find(".js-active_type").append("<div class='innerCell'><span class='label'>"+_prod+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
+                                _row.find(".js-active_type").append("<div class='innerCell'><span class='label'>"+_prod.format_length()+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                 _conditions=[];
                                 for(var _p in _qualification.properties){
                                     switch (_p){
@@ -130,7 +132,7 @@ jQuery(function($){
                                             //do not display these values
                                         break;
                                         default:
-                                            _conditions.push( "<div class='innerCell'>"+("<span class='label'>"+_p+"</span>"+_qualification.properties[_p]).replace(/\_/g," ")+"</div>");
+                                            _conditions.push( "<div class='innerCell'>"+("<span class='label'>"+ _p +"</span>"+_qualification.properties[_p]).replace(/\_/g," ")+"</div>");
                                         break;
                                     }
                                 }
@@ -187,7 +189,7 @@ jQuery(function($){
                                 _row.find(".js-qualification_rank").append("<div class='innerCell' style='height:"+_padding+"px'><span class='js-qualification_path label'>Path: "+_qualification_path+"</span><a href='#"+_rankID+"' class='js-rank_link'>"+_rankObj.properties.id+", "+_rankObj.properties.title+"</a>");
 
                                 _qualification_group.forEach(function(_qualification){
-                                    var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product : " ";
+                                    var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product.format_length() : " ";
                                     _row.find(".js-qualification_type").append("<div class='innerCell'><span class='label'>"+_prod+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                     _conditions=[];
                                     for(var _p in _qualification.properties){
