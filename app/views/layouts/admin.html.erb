@@ -12,7 +12,7 @@
 </head>
 <body id="application">
 	<header>
-		<div id="header_container">
+		<div id="header_container" style="position:absolute;width:100%">
 			<nav>
 				<ul>
 					<li class="main_logo">	
@@ -41,8 +41,10 @@
 					</li>
 				</ul>
 			</nav>
+			<section id="subheader_bar" style="">
+			    <div class="js-dashboard_section_indicator top_level"></div>
+			</section>
 		</div>
-
 		<%#= render :partial => "shared/our_goal" %>
 
 	</header>
