@@ -6,7 +6,6 @@ module Auth
 
     def show
       @user = current_user
-
       @profile = @user.profile
       respond_to do |format|
         format.html
