@@ -1,5 +1,4 @@
 class IndexController < AnonController
-  before_filter :current_user?, only: :index
   layout 'landing'
 
   def index

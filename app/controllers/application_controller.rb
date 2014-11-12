@@ -26,10 +26,6 @@ class ApplicationController < ActionController::Base
     !current_user.nil?
   end
 
-  def current_user?
-    redirect_to dashboard_path if !current_user.nil?
-  end
-
   def login_user(user)
     reset_session
     session[:user_id] = user.id
