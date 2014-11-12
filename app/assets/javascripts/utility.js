@@ -95,6 +95,13 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
     }[operator];
 });
 
+Handlebars.registerHelper("format_length", function(str, char_limit) {
+    char_limit = parseInt(char_limit);
+    if(str.length > char_limit){
+      return str.substring(0,char_limit).trim() + "..."
+    };
+})
+
 
 
 /** start admin utilties **/
