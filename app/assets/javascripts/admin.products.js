@@ -124,7 +124,7 @@ jQuery(function($){
 
                             _qualification_group.forEach(function(_qualification){
                                 var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product : " ";
-                                _row.find(".js-active_type").append("<div class='innerCell'><span class='label'>"+_prod.format_length()+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
+                                _row.find(".js-active_type").append("<div class='innerCell'><span class='label'>"+_prod.format_length(29)+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                 _conditions=[];
                                 for(var _p in _qualification.properties){
                                     switch (_p){
