@@ -159,11 +159,12 @@ jQuery(function($){
                                     delete field.options._path;
                                     field.displayOptions=[];
                                     Object.keys(field.options).forEach(function(_key){
-                                        field.displayOptions.push({name:_key, value:field.options[_key]});
+                                        field.displayOptions.push({name:field.options[_key], value:_key});
+                                        console.log(_key);
                                     });
                                 }
                             });
-                            _popupData.title="Editing Qaulification";
+                            _popupData.title="Editing Qualification";
                             _popupData.deleteOption={};
                             _popupData.id=_qualificationID;
                             _popupData.deleteOption.name="Remove this Qualification";
@@ -226,7 +227,7 @@ jQuery(function($){
                                     delete field.options._path;
                                     field.displayOptions=[];
                                     Object.keys(field.options).forEach(function(_key){
-                                        field.displayOptions.push({name:_key, value:field.options[_key]});
+                                        field.displayOptions.push({name:field.options[_key], value:_key});
                                     });
                                 }
                             });

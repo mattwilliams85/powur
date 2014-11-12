@@ -17,7 +17,11 @@
                 {{#compare this.type "select" operator="=="}}
                     <select name="{{this.name}}">
                         {{#each this.displayOptions}}
-                        <option value="{{this.value}}">{{this.name}}</option>
+                            {{#compare this.value ../value operator="=="}}
+                                <option value="{{this.value}}" selected>{{this.name}}</option>
+                            {{else}}
+                                <option value="{{this.value}}">{{this.name}}</option>
+                            {{/compare}}
                         {{/each}}
                     </select>
                 {{/compare}}

@@ -43,11 +43,11 @@
 				<section class="basic_info" style="padding-bottom:30px;">
 					<div class="header">Personal Info</div>
 					<div class="content">
-						<section>
 							<br>
 							<h3>Contact info</h3>
 
 							<%= form_for @user, remote: true, :url => url_for(:controller => 'profile', :action => 'update'), :html => { :'data-type' => 'json'} do |f| %>
+						<section>
 						    <div class='form_element half'>
 						    		<label for="user_first_name">First Name</label>
 						    		<%= f.text_field :first_name %>
@@ -71,19 +71,19 @@
 							<h3>Address</h3>
 							<br style="clear:both;">
 						    <div class='form_element half'>
-						    		<label for="user_address" style="top:0;">Address</label>
+						    		<label for="user_address">Address</label>
 						    		<%= f.text_field :address %>
 						    </div>
 				  			<div class='form_element end'>
-				  				<label for="user_city" style="top:0;">City</label>
+				  				<label for="user_city">City</label>
 				  				<%= f.text_field :city %>
 				  			</div>
 				  			<div class='form_element half'>
-				  				<label for="user_state" style="top:0;">State</label>
+				  				<label for="user_state">State</label>
 				  				<%= f.text_field :state %>
 				  			</div>
 				  			<div class='form_element end'>
-				  				<label for="user_zip" style="top:0;">Zip</label>
+				  				<label for="user_zip">Zip</label>
 				  				<%= f.text_field :zip %>
 				  			</div>
 
@@ -92,7 +92,7 @@
 						<section>
 							<h3>More about you</h3>
 							<br>
-							<span style="font-size:12px;float:left;margin-top:-15px;">Information in this sectino will be used for your public pages</span>
+							<span style="font-size:12px;float:left;margin-top:-15px;">Information in this section will be used for your public pages</span>
 						    <div class='form_element full'>
 						    		<label for="user_first_name">Bio/Experience</label>
 						    		<%= f.text_area :bio %>
@@ -101,8 +101,8 @@
 				  					<%= f.submit "Update Personal Info", id: "submit-update-bio" %>
 				  			</div>
 
-							<% end %>
 						</section>
+							<% end %>
 
 					</div>
 
