@@ -92,7 +92,7 @@ jQuery(function($){
                             getGenealogy({
                                 _callback:function(){
                                     _data.currentUser.immediateUpline=_data.currentUser.upline[Object.keys(_data.currentUser.upline).length-1];
-                                    console.log(_data.currentUser.immediateUpline)
+                                    // console.log(_data.currentUser.immediateUpline)
                                     EyeCueLab.UX.getTemplate("/templates/admin/users/membership/_summary.handlebars.html", _data.currentUser, $(".js-admin_dashboard_column.summary"));
 
                                     //display main content information of the current user on the left nav
@@ -110,9 +110,9 @@ jQuery(function($){
                             });
                         }
                     });
-
+                    
                     //wire up the udpate button for the current user
-                    $(".js-update_distributor_info").on("click" , function(e){
+                    $(document).on('click','.js-update_distributor_info',function(e){
                         e.preventDefault();
                         _ajax({
                             _ajaxType:"patch",
@@ -125,7 +125,17 @@ jQuery(function($){
                     });
 
                     //TODO: wire up  force rank override button
-                    //
+                    $(document).on('click','.js-force_rank_override',function(e){
+                        e.preventDefault();
+                        _ajax({
+                            _ajaxType:"patch",
+                            _url:"/a/users/"+_data.currentUser.id,
+                            _postObj:$("#admin-users-membership-basic_info-contact_form").serializeObject(),
+                            _callback:function(data, text){
+                                _dashboard.displayUsers("#admin-users-membership-basic_info");
+                            }
+                        })
+                    });
 
                 break;
 
