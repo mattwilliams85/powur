@@ -190,7 +190,7 @@ jQuery(function($){
                                 _row.find(".js-qualification_rank").append("<div class='innerCell' style='height:"+_padding+"px'><span class='js-qualification_path label'>Path: "+_qualification_path+"</span><a href='#"+_rankID+"' class='js-rank_link'>"+_rankObj.properties.id+", "+_rankObj.properties.title+"</a>");
 
                                 _qualification_group.forEach(function(_qualification){
-                                    var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product.format_length() : " ";
+                                    var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product.format_length(29) : " ";
                                     _row.find(".js-qualification_type").append("<div class='innerCell'><span class='label'>"+_prod+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                     _conditions=[];
                                     for(var _p in _qualification.properties){
