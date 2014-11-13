@@ -184,8 +184,8 @@ jQuery(function($){
                                                     data:{}
                                                 })
 
-                                            if(typeof _getObjectsByCriteria(data, {"rel":"ancestors"}) !=="undefined" ) _endpoints.push({
-                                                    url:_getObjectsByCriteria(data, {"rel":"ancestors"})[0].href,
+                                            if(typeof _getObjectsByCriteria(data, {"rel":"user-ancestors"}) !=="undefined" ) _endpoints.push({
+                                                    url:_getObjectsByCriteria(data, {"rel":"user-ancestors"})[0].href,
                                                     data:{}
                                                 });
                                             EyeCueLab.JSON.asynchronousLoader(_endpoints, function(_returnJSONs){
