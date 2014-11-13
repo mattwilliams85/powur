@@ -9,5 +9,9 @@ class BonusPayment < ActiveRecord::Base
   has_many :orders, through: :bonus_payment_orders
 
   scope :pay_period, ->(id) { where(pay_period: id) }
-  scope :bonus, ->(id) { where(bonus_id: id) }
+  scope :bonus, ->(id) { where(bonus_id: id.to_i) }
+  scope :bonus_sums, lambda { 
+    select('bonus_id, sum(amount) amount, count(id) quantity')
+      .includes(:bonus).group(:bonus_id)
+  }
 end

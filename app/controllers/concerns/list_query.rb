@@ -2,7 +2,7 @@ module ListQuery
   extend ActiveSupport::Concern
 
   included do
-    helper_method :paging?, :pager, :sorting?, :sorter, :filtering?, :filters
+    helper_method :paging?, :pager, :sorting?, :sorter, :filtering?, :filters, :list_query_applied?
   end
 
   module ClassMethods
@@ -34,32 +34,36 @@ module ListQuery
     end
   end
 
+  def list_opts
+    self.class.list_query_opts
+  end
+
   def paging?
-    !self.class.list_query_opts[:paging_opts].nil?
+    !list_opts[:paging_opts].nil?
   end
 
   def pager
-    @pager ||= Pager.new(params, self.class.list_query_opts[:paging_opts])
+    @pager ||= Pager.new(params, list_opts[:paging_opts])
   end
 
   def sorting?
-    !self.class.list_query_opts[:sorting_opts].nil?
+    !list_opts[:sorting_opts].nil?
   end
 
   def sorter
-    @sorter ||= Sorter.new(params, self.class.list_query_opts[:sorting_opts])
+    @sorter ||= Sorter.new(params, list_opts[:sorting_opts])
   end
 
   def filters
     @filters ||= begin
-      filter_list = self.class.list_query_opts[:filters] || {}
+      filter_list = list_opts[:filters] || {}
       filter_list.each do |key, opts|
         if opts[:required]
           params[key] ||= instance_exec(&opts[:default])
           filter_list.delete(key) if params[key].nil?
         end
       end
-      self.class.list_query_opts[:filters]
+      list_opts[:filters]
     end
   end
 
@@ -67,7 +71,12 @@ module ListQuery
     !filters.nil? && !filters.empty?
   end
 
+  def list_query_applied?
+    !@list_query_klass.nil?
+  end
+
   def apply_list_query_options(query)
+    @list_query_klass = true
     query = apply_scopes(query) if filtering?
     query = sorter.apply(query) if sorting?
     query = pager.apply(query) if paging?

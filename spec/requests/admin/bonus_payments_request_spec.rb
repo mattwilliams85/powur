@@ -42,9 +42,12 @@ describe 'bonus payments', type: :request do
   describe '/a/users/:id/bonus_payments' do
     before :each do
       @money_user = create(:user)
+      @bonus_payments = []
       @pay_periods = [ 2, 3, 1 ].map do |i|
         pay_period = create(:weekly_pay_period, at: DateTime.current - i.weeks)
-        create(:bonus_payment, pay_period: pay_period, user: @money_user)
+        @bonus_payments << create(:bonus_payment,
+                                  pay_period: pay_period,
+                                  user:       @money_user)
         pay_period
       end
     end
@@ -63,6 +66,14 @@ describe 'bonus payments', type: :request do
       expect_entities_count(1)
       result = json_body['entities'].first['properties']['pay_period_id']
       expect(result).to eq(@pay_periods.first.id)
+    end
+
+    it 'filters bonus payments by bonus' do
+      bonus_id = @bonus_payments.first.bonus_id
+      get admin_user_bonus_payments_path(@money_user),
+          format: :json, bonus: bonus_id, pay_period: @pay_periods.first.id
+
+      expect_entities_count 1
     end
   end
 
