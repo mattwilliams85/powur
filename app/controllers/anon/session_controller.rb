@@ -1,5 +1,4 @@
 module Anon
-
   class SessionController < AnonController
     layout 'user'
 
@@ -10,7 +9,7 @@ module Anon
     def create
       require_input :email, :password
 
-      user = User.authenticate(params[:email], params[:password]) or
+      user = User.authenticate(params[:email], params[:password]) ||
         error!(t('errors.credentials'), :email)
 
       login_user(user)
@@ -23,7 +22,5 @@ module Anon
 
       redirect_to root_url
     end
-
   end
-
 end

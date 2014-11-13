@@ -161,7 +161,7 @@ jQuery(function($){
                                     });
                                 }
                             });
-                            _popupData.title="Editing Qaulification";
+                            _popupData.title="Editing Qualification";
                             _popupData.deleteOption={};
                             _popupData.id=_qualificationID;
                             _popupData.deleteOption.name="Remove this Qualification";

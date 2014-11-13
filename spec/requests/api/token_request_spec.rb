@@ -21,6 +21,18 @@ describe '/api/token', type: :request do
       %w(access_token token_type expires_in refresh_token).each do |key|
         expect(json_body[key]).to be
       end
+
+      expect(json_body['expires_in']).to be > 0
+    end
+
+    it 'needs the client to exist' do
+      ApiClient.destroy_all
+      user = create(:user)
+      post_token username:   user.email,
+                 password:   'password',
+                 grant_type: 'password'
+
+      expect_api_error(:invalid_client)
     end
 
     it 'requires a grant_type paramter' do
@@ -58,7 +70,9 @@ describe '/api/token', type: :request do
           post_token username:   user.email,
                      password:   'password',
                      grant_type: 'password'
+
           expect_token
+          expect(json_body['session']).to be
         end
 
         it 'allows settings a quicker expiration' do

@@ -9,6 +9,9 @@ module Admin
            required: true,
            default:  -> { PayPeriod.last_id },
            name:     :title
+    filter :bonus,
+           options: -> { Hash[Bonus.all.map { |b| [ b.id.to_i, b.name ] }] },
+           required: false
 
     private
 

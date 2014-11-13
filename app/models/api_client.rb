@@ -1,5 +1,5 @@
 class ApiClient < ActiveRecord::Base
-  scope :by_credentials, ->(id, secret) { find_by(id: id, secret: secret) }
+  scope :by_credentials, ->(id, secret) { where(id: id, secret: secret) }
 
   has_many :tokens,
            class_name:  'ApiToken',

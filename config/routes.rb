@@ -88,8 +88,6 @@ Rails.application.routes.draw do
         get :upline
       end
       resources :overrides, only: [ :index, :create ]
-      resources :orders, only: [ :index ], controller: :user_orders
-      resources :order_totals, only: [ :index ], controller: :user_order_totals
 
       resources :ewallet_sandbox, only: [ :index, :call ], controller: :ewallet_sandbox do
         collection do
@@ -97,6 +95,10 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :pay_periods, only: [ :index, :show ], controller: :user_pay_periods
+
+      resources :orders, only: [ :index ], controller: :user_orders
+      resources :order_totals, only: [ :index ], controller: :user_order_totals
       resources :rank_achievements,
                 only:       [ :index ],
                 controller: :user_rank_achievements
@@ -165,15 +167,29 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: { format: 'json' } do
-    post 'token' => 'token#ropc', constraints: param_values?(grant_type: 'password')
-    post 'token' => 'token#refresh_token', constraints: param_values?(grant_type: 'refresh_token')
-    post 'token' => 'token#unsupported_grant_type', constraints: params?(:grant_type)
-    post 'token' => 'token#invalid_request'
-
-    scope 'v(:v)' do
-      resource :user, only: [ :show ]
+    # backwards compat. example
+    namespace :v1 do
+      resource :session, only: [ :show ]
     end
 
+    root to: 'root#show'
+
+    scope '(v:v)' do
+      resource :password, only: [ :create ]
+      post 'token' => 'token#ropc', constraints: param_values?(grant_type: 'password')
+      post 'token' => 'token#refresh_token', constraints: param_values?(grant_type: 'refresh_token')
+      post 'token' => 'token#unsupported_grant_type', constraints: params?(:grant_type)
+      post 'token' => 'token#invalid_request'
+
+      resource :session, only: [ :show ]
+      resources :users, only: [ :index ] do
+        member do
+          get :downline
+        end
+      end
+      resources :invites, only: [ :index, :create ]
+      resources :quotes, only: [ :index, :create ]
+    end
   end
 
   resource :promoter, only: [ :new, :show ] do
