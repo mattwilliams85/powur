@@ -502,7 +502,7 @@ jQuery(function($){
                                 if(!_skip) _display+="<div class='innerCell'><span class='label'>"+_key.replace(/\_/g," ").replace(/percentage/i, "%")+"</span><span class='content'>"+_bonus.properties[_key]+"</span></div>";
                             });
                             _row.find(".js-bonus_details").append(_display);
-                            _row.find(".js-bonus_details").append("<br style='clear:both;'>");
+                            _row.find(".js-bonus_details").append("<div class='innerCell' style='display:block; float:right;'><a href=#"+_bonusID+" class=js-bonus_link>Edit Summary</a></div><br style='clear:both;'></div>");
                             
 
                             //show requirements
@@ -515,7 +515,7 @@ jQuery(function($){
                                     JSON.stringify(_properties).replace(/\_/g, " ").replace(/["{}]/g, "").split(",").forEach(function(_property){
                                         _display+="<div class='innerCell'><span class='label'>"+_property.split(":")[0]+"</span><span class='content'>"+_property.split(":")[1]+"</span></div>";
                                     });
-                                    _display +="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_requirement' href='#"+_getObjectsByCriteria(_requirement, {name: "update"})[0].href+"'>Edit Requirement</a></div><br style='clear:both;'>";
+                                    _display +="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_requirement' href='#"+_getObjectsByCriteria(_requirement, {name: "update"})[0].href+"'>Edit Requirements</a></div><br style='clear:both;'>";
                                 });
                                 _row.find(".js-bonus_details").append(_display);
                             }
