@@ -25,6 +25,7 @@ class Invite < ActiveRecord::Base
     params[:sponsor_id] = sponsor_id
 
     user = User.create!(params)
+    binding.pry
     Invite.where(email: email).update_all(user_id: user.id)
     user
   end

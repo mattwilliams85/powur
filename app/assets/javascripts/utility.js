@@ -468,45 +468,47 @@ function _getRoot(_callback){
         type:"get",
         url:"/"
     }).done(function(data, text){
+        console.log(data)
         if(typeof _data === "object" )_data.root = $.extend(true, {}, data);
         else console.log(data);
-        loadingCategories=[
-            {
-                url:"/u/profile",
-                name:"profile",
-                data:{}
-            },
-            {
-                url:"/u/users/"+_data.root.properties.id+"/order_totals",
-                name:"order_totals",
-                data:{}
-            },
-            {
-                url:"/u/users/"+_data.root.properties.id+"/orders",
-                name:"orders",
-                data:{}                
-            },
-            {
-                url:"/u/users/"+_data.root.properties.id+"/rank_achievements",
-                name:"rank_achievements",
-                data:{}                
-            },
-            {
-                url:"/u/users/"+_data.root.properties.id+"/goals",
-                name:"goals",
-                data:{}                
-            }                        
-        ];
-        EyeCueLab.JSON.asynchronousLoader(loadingCategories, function(_returnJSONs){
-            _data.currentUser=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"profile"})[0].properties;
-            _data.currentUser.order_totals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"order_totals"})[0];
-            _data.currentUser.goals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"goals"})[0];
-            _data.currentUser.rank_achievements=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"rank_achievements"})[0];
-            _data.currentUser.orders=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"orders"})[0];
-            if(typeof _callback === "function") _callback();
+        if(_data.root.properties){
+            loadingCategories=[
+                {
+                    url:"/u/profile",
+                    name:"profile",
+                    data:{}
+                },
+                {
+                    url:"/u/users/"+_data.root.properties.id+"/order_totals",
+                    name:"order_totals",
+                    data:{}
+                },
+                {
+                    url:"/u/users/"+_data.root.properties.id+"/orders",
+                    name:"orders",
+                    data:{}                
+                },
+                {
+                    url:"/u/users/"+_data.root.properties.id+"/rank_achievements",
+                    name:"rank_achievements",
+                    data:{}                
+                },
+                {
+                    url:"/u/users/"+_data.root.properties.id+"/goals",
+                    name:"goals",
+                    data:{}                
+                }                        
+            ];
+            EyeCueLab.JSON.asynchronousLoader(loadingCategories, function(_returnJSONs){
+                _data.currentUser=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"profile"})[0].properties;
+                _data.currentUser.order_totals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"order_totals"})[0];
+                _data.currentUser.goals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"goals"})[0];
+                _data.currentUser.rank_achievements=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"rank_achievements"})[0];
+                _data.currentUser.orders=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"orders"})[0];
+                if(typeof _callback === "function") _callback();
 
-        });
-
+            });
+        }
      });
 }    
 

@@ -8,4 +8,11 @@ class PromotersController < AnonController
   def show
   end
 
+  def new
+    respond_to do |format|
+      format.html
+      format.json { "anon/session/registration"}
+    end
+  end
+
 end
