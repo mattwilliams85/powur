@@ -27,6 +27,7 @@ class OrdersJson < JsonDecorator
   def admin_entities(order = @item)
     list = [
       entity('admin/products/item', 'order-product', product: order.product),
+      entity(%w(list users), 'user-ancestors', upline_user_path(order.user)),
       entity('admin/users/item', 'order-user', user: order.user),
       entity('admin/customers/item', 'order-customer',
              customer: order.customer) ]
