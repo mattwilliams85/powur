@@ -1,4 +1,5 @@
 class PayPeriod < ActiveRecord::Base
+  include EwalletDSL
   has_many :order_totals, dependent: :destroy
   has_many :rank_achievements, dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
@@ -8,7 +9,7 @@ class PayPeriod < ActiveRecord::Base
   scope :next_to_calculate,
         -> { order(id: :asc).where('calculated_at is null').first }
 
-  scope :dispursed, -> { where('calculated_at is not null') }
+  scope :dispursed, -> { where('dispursed_at is not null') }
 
   before_create do
     self.id ||= self.class.id_from(start_date)
@@ -31,10 +32,22 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def disburse!
-    puts "DISBURESE! from pay_period.rb"
+    puts 'XXXXXXXX DISBURSE! from pay_period.rb'
 
-    process_bonus_payments!
-    touch :dusbursed_at
+    payments_per_user = BonusPayment.user_bonus_totals(self)
+    query = prepare_load_request(self, payments_per_user)
+    result = ewallet_request("ewallet_load", query)
+
+    if result[:m_Code] == '200'
+      puts "Successful Load Request" + result[:m_Text]
+      ap result
+      # Distribution.create(pay_period: self, user_id: user.id, amount: result['Balance'])
+      #touch :disbursed_at
+    else
+      puts "Unsuccessful Load Request"
+
+      #The load was not successful
+    end
   end
 
   def calculable?
@@ -65,7 +78,11 @@ class PayPeriod < ActiveRecord::Base
     BonusPaymentOrder.delete_all_for_pay_period(id)
     bonus_payments.delete_all
     rank_achievements.delete_all
-    order_totals.delete_all_for_pay_period
+    begin
+      order_totals.delete_all_for_pay_period
+    rescue
+      puts "Error deleting order totals"
+    end
   end
 
   def process_orders!
@@ -96,25 +113,6 @@ class PayPeriod < ActiveRecord::Base
 
     increment_upline_totals(order)
     totals
-  end
-
-  def process_bonus_payments!
-
-    # Take this bonus_payment's user and aggregated amount
-    # and construct a multi-user batch query that sends out
-    # to iPayout's 'eWallet_Load' service
-
-    # construct_ewallet_load_query
-
-    # result = call_ewallet_load_service
-
-    # record results in database
-
-    bonus_payments.each do |bonus_payment|
-      process_bonus_payment!(bonus_payment)
-      yield(bonus_payment) if block_given?
-    end
-    #process_at_pay_period_end_rank_bonuses!
   end
 
   def process_rank_achievements!(order, totals = nil)

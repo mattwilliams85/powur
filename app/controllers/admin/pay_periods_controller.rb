@@ -1,7 +1,8 @@
 module Admin
   class PayPeriodsController < AdminController
     before_action :fetch_pay_periods, except: [ :index ]
-    before_action :fetch_pay_period, only: [ :show, :calculate, :recalculate, :disburse ]
+    before_action :fetch_pay_period, only: [ :show, :calculate,
+                                             :recalculate, :disburse ]
 
     helper_method :can_calculate?
     helper_method :can_disburse?
@@ -35,6 +36,8 @@ module Admin
       render 'show'
     end
 
+
+
     def calculate
       unless can_calculate?(@pay_period)
         error! t('errors.period_not_calculable')
@@ -52,13 +55,16 @@ module Admin
     end
 
     def disburse
-      unless can_disburse?(@pay_period)
-        error! t('errors.period_not_disbursable ')
+      puts '$$$$$$$$$$ DISBURSE FOR PAY PERIOD ' +
+            @pay_period.start_date.to_s +
+           ' - ' + @pay_period.end_date.to_s
+      unless @pay_period.disbursable?
+        error!(t('errors. period_not_disbursable'))
       end
-      puts "$$$$$$$$$$ DISBURSE FOR PAY PERIOD " + @pay_period.start_date.to_s + " - " + @pay_period.end_date.to_s
+      puts '$$$$$$$$$$ NO ERRROR..commence disburse!'
 
-      render 'index'
       @pay_period.disburse!
+      render 'index'
     end
 
     private
@@ -87,7 +93,11 @@ module Admin
     end
 
     def can_disburse?(period)
-      return false unless period.disbursable?
+      unless period.disbursable?
+        puts "#$$$$$$$$$$can_disburse?.......PAY PERIOD IS NOT DISBURSABLE. RETURN FALSE"
+        return false
+      end
+      puts "^^^^^^^^^^^^^^^^^can_disburse?.......PAY PERIOD IS DISBURSABLE. Build disbursable_pay_Periods"
       @disbursable_pay_periods ||= begin
         periods = %w(WeeklyPayPeriod MonthlyPayPeriod).map do |type|
           list = @pay_periods.select do |pp|
