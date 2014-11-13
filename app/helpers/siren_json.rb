@@ -44,7 +44,7 @@ module SirenJson
     json.set! :class, values
 
     json.properties do
-      if values.include?(:list)
+      if values.include?(:list) && list_query_applied?
         json.paging pager.meta if paging?
         json.sorting sorter.meta if sorting?
         if filtering?
@@ -137,7 +137,7 @@ module SirenJson
           end
         else
           filter_field(action, scope, opts)
-        end        
+        end
       end
     end
 
@@ -147,18 +147,21 @@ module SirenJson
   private
 
   def filter_field(action, scope, opts)
-    field_opts = { value: params[scope], required: !opts[:required].nil? }
+    field_opts = { value: params[scope], required: !!opts[:required] }
     if opts[:options]
-      field_opts[:options] = opts[:options]
+      field_opts[:options] = if opts[:options].is_a?(Hash)
+        opts[:options]
+      else
+        instance_exec(&opts[:options])
+      end
     else
       reference = { url:     instance_exec(&opts[:url]),
                     value:   opts[:id],
                     display: opts[:name] }
       field_opts[:reference] = reference
     end
-    if opts[:heading]
-      field_opts[:heading] = t("headings.#{opts[:heading]}")
-    end
+    field_opts[:heading] = t("headings.#{opts[:heading]}") if opts[:heading]
+
     action.field(scope, :select, field_opts)
   end
 

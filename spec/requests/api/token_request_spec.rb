@@ -21,6 +21,8 @@ describe '/api/token', type: :request do
       %w(access_token token_type expires_in refresh_token).each do |key|
         expect(json_body[key]).to be
       end
+
+      expect(json_body['expires_in']).to be > 0
     end
 
     it 'needs the client to exist' do
