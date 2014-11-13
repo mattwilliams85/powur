@@ -5,7 +5,7 @@ module Admin
 
     def index
       @bonuses = @bonus_plan ? @bonus_plan.bonuses : Bonus.all
-      @bonuses.order(:created_at)
+      @bonuses = @bonuses.order('type')
 
       render 'index'
     end
