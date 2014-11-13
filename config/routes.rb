@@ -88,8 +88,6 @@ Rails.application.routes.draw do
         get :upline
       end
       resources :overrides, only: [ :index, :create ]
-      resources :orders, only: [ :index ], controller: :user_orders
-      resources :order_totals, only: [ :index ], controller: :user_order_totals
 
       resources :ewallet_sandbox, only: [ :index, :call ], controller: :ewallet_sandbox do
         collection do
@@ -97,6 +95,10 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :pay_periods, only: [ :index, :show ], controller: :user_pay_periods
+
+      resources :orders, only: [ :index ], controller: :user_orders
+      resources :order_totals, only: [ :index ], controller: :user_order_totals
       resources :rank_achievements,
                 only:       [ :index ],
                 controller: :user_rank_achievements
