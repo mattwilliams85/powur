@@ -19,7 +19,7 @@ module Anon
       user = @invite.accept(input)
 
       login_user(user)
-      redirect_to '/login'
+      render 'anon/session/show'
     end
 
     def destroy
