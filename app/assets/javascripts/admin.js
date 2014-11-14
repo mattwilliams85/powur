@@ -92,7 +92,6 @@ jQuery(function($){
                             getGenealogy({
                                 _callback:function(){
                                     _data.currentUser.immediateUpline=_data.currentUser.upline[Object.keys(_data.currentUser.upline).length-1];
-                                    // console.log(_data.currentUser.immediateUpline)
                                     EyeCueLab.UX.getTemplate("/templates/admin/users/membership/_summary.handlebars.html", _data.currentUser, $(".js-admin_dashboard_column.summary"));
 
                                     //display main content information of the current user on the left nav

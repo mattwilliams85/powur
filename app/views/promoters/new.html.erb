@@ -156,17 +156,17 @@
         		<h3>Create your account</h3>
         		<span class="form_row">
         			<label for="first_name">First Name</label>
-        			<input id="first_name" name="first_name" type="text" placeholder="First Name" class="validate" required/>
+        			<input id="first_name" name="first_name" type="text" placeholder="First Name" class="validate" value="<%= @invite.first_name %>"required/>
         		</span>
 
         		<span class="form_row">
         			<label for="last_name">Last Name</label>
-        			<input id="last_name" name="last_name" type="text" placeholder="Last Name" class="validate" required/>
+        			<input id="last_name" name="last_name" type="text" placeholder="Last Name" class="validate" value="<%= @invite.last_name %>"required/>
         		</span>
 
         		<span class="form_row">
         			<label for="email">Email</label>
-        			<input id="email" name="email" type="text" placeholder="Email" class="validate" required/>
+        			<input id="email" name="email" type="text" placeholder="Email" class="validate" value="<%= @invite.email %>"required/>
         		</span>
 
         		<span class="form_row">

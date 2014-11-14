@@ -14,7 +14,7 @@ describe User, type: :model do
     end
 
     it 'does not return the user with an invalid password' do
-      expect(User.authenticate(@user.email, 'nope')).to be_nil
+      expect(User.authenticate(@user.email, 'wrong')).to be_nil
     end
 
     it 'changes the password' do
