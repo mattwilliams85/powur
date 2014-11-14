@@ -11,22 +11,13 @@ module EwalletDSL
   def ewallet_request(service_name, query)
     client = EyecueIpayout.new
     puts 'eWallet_request:: call:' + service_name
-
-
-
     service = client.get_service(service_name)
-
-
     puts "CHECK service.parameters"
     puts "CHECK query['parameters']"
     populated_params = assign_param_values(query['options_hash'], service.parameters)
     pp populated_params
-
-
     response = client.ewallet_request(populated_params)
-
     # response = client.ewallet_request(query)
-
     response
   end
 
@@ -57,6 +48,20 @@ module EwalletDSL
   def prepare_register_request(user)
     puts 'PREPARE REGISTER REQUEST'
     construct_ewallet_registration_query(user)
+  end
+
+  def register_new_ipayout_user(user)
+    request_params = prepare_register_request(user)
+    result = ewallet_request("register_user", request_params)
+
+    if result[:m_Text] == 'OK'
+      puts "Successful Registration Request" + result[:m_Text]
+      ap result
+    else
+      puts "Unsuccessful Registration Request"
+      # USE TRANSLATION ERROR HERE from en locale
+      #The load was not successful
+    end
   end
 
 end

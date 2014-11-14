@@ -166,6 +166,11 @@ Rails.application.routes.draw do
     resources :overrides, only: [ :index, :update, :destroy ]
   end
 
+  # logged in admin routes
+  scope :gateway, module: :gateway do
+    get 'ipayout/verify_user', to: 'ipayout#verify_user'
+  end
+
   namespace :api, defaults: { format: 'json' } do
     # backwards compat. example
     namespace :v1 do
@@ -196,6 +201,7 @@ Rails.application.routes.draw do
     get :request
     get :thanks
   end
+
 
   # These are just to fake the referral pages so the link doesn't break
   # safe to remove when the feature is implemented
