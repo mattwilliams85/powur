@@ -122,7 +122,7 @@ describe PayPeriod, type: :model do
       pay_period = MonthlyPayPeriod.find_or_create_by_date(order_date)
       pay_period.process_orders!
       achievement = pay_period
-        .rank_achievements.find { |a| a.user_id == user.id }
+      .rank_achievements.find { |a| a.user_id == user.id }
       expect(achievement).to_not be_nil
     end
   end
@@ -143,22 +143,23 @@ describe PayPeriod, type: :model do
       children = create_list(:user, 2, sponsor: user)
 
       create(:order, user: user,
-        product: product, order_date: order_date - 10.minutes)
+             product: product, order_date: order_date - 10.minutes)
       create(:order, user: user,
-        product: product, order_date: order_date - 1.month)
+             product: product, order_date: order_date - 1.month)
 
       1.upto(3) do |i|
         create(:order, user: children.first,
-          product: product, order_date: order_date - i.minutes)
+               product: product, order_date: order_date - i.minutes)
       end
       create(:order, user: children.last,
-        product: product, quantity: 2, order_date: order_date - 5.minutes)
+             product: product, quantity: 2, order_date: order_date - 5.minutes)
 
       pay_period = order.monthly_pay_period
       pay_period.calculate!
 
-      order_total = OrderTotal.where(user_id: user.id,
-        product_id: product.id, pay_period_id: pay_period.id).first
+      order_total = OrderTotal.where(user_id:       user.id,
+                                     product_id:    product.id,
+                                     pay_period_id: pay_period.id).first
 
       expect(order_total).to_not be_nil
       expect(order_total.personal).to eq(1)
@@ -166,8 +167,9 @@ describe PayPeriod, type: :model do
       expect(order_total.personal_lifetime).to eq(2)
       expect(order_total.group_lifetime).to eq(7)
 
-      order_total = OrderTotal.where(user_id: children.first,
-        product_id: product.id, pay_period_id: pay_period.id).first
+      order_total = OrderTotal.where(user_id:       children.first,
+                                     product_id:    product.id,
+                                     pay_period_id: pay_period.id).first
 
       expect(order_total).to_not be_nil
       expect(order_total.personal).to eq(3)
@@ -195,8 +197,10 @@ describe PayPeriod, type: :model do
     end
 
     it 'ensures a calculated pay period is eligible for dispursement' do
-      pay_period = MonthlyPayPeriod.find_or_create_by_date(DateTime.now)
-      pay_period.calculated = true
+      pay_period = MonthlyPayPeriod
+                  .find_or_create_by_date(DateTime.now - 2.months)
+      pay_period.disbursed_at = nil
+      pay_period.calculated_at = DateTime.now - 1.month
       check_disbursable = pay_period.disbursable?
       expect(check_disbursable).to eq(true)
     end
@@ -208,7 +212,7 @@ describe PayPeriod, type: :model do
       @user = create(:user)
       @product = create(:product)
       @pay_period = WeeklyPayPeriod
-        .find_or_create_by_date(Date.current - 1.month)
+      .find_or_create_by_date(Date.current - 1.month)
     end
 
     def find_order_total(user = @user)
@@ -239,7 +243,7 @@ describe PayPeriod, type: :model do
       user = create(:user)
       expect { find_order_total(user) }.to_not make_database_queries
       expect { @pay_period.order_totals.each(&:pay_period) }
-        .to_not make_database_queries
+      .to_not make_database_queries
     end
 
     it 'calculates the correct group totals' do
