@@ -1,33 +1,33 @@
 // Opaque header & parallax on scroll
 
-    window.onscroll = function() {
-      var yOffset = window.pageYOffset;
+    // window.onscroll = function() {
+    //   var yOffset = window.pageYOffset;
 
     //$(".js_scrolling_header").css("backgroundColor", "rgba(32,194,241," + (yOffset * .001) + ")");
     //$(".js_scrolling_header").css("borderColor", "rgba(21, 130, 177," + (yOffset * .001) + ")");
 
-    var banner1 = document.getElementById("banner_graphic_br");
-      var banner2 = document.getElementById("first_image_br");
-      var banner3 = document.getElementById("second_image_br");
-      var banner4 = document.getElementById("third_image_br");
-      var speed = 9;
+      // var banner1 = document.getElementById("px_story_of_sunstand");
+      // var banner2 = document.getElementById("px_first_image");
+      // var banner3 = document.getElementById("px_sales_process");
+      // var banner4 = document.getElementById("px_doing_good");
+      // var speed = 5;
 
-      var parallax = function(lax) {
-      lax.style.webkitTransform = 'translate3d(0px,' + Math.round(yOffset / speed) + 'px, 0px)';
-      };
+      // var parallax = function(lax, speed) {
+      //   lax.style.webkitTransform = 'translate3d(0px,-' + Math.round(yOffset / speed) + 'px, 0px)';
+      // };
 
-    parallax(banner1);
-    parallax(banner2);
-    parallax(banner3);
-    parallax(banner4);
-    };
+    // parallax(banner1, 6);
+    // parallax(banner2, 5);
+    // parallax(banner3, 7);
+    // parallax(banner4, 3);
+    // };
 
-    jQuery.easing.def = "easeInOutQuart";
+    // jQuery.easing.def = "easeInOutQuart";
 
 // Fade in scroll leader
 
-    $('.scroll_leader').css('opacity', '0');
-    $('.scroll_leader').delay('500').animate({ opacity: 1, bottom: "45px" }, 'slow', 'swing');
+    // $('.scroll_leader').css('opacity', '0');
+    // $('.scroll_leader').delay('500').animate({ opacity: 1, bottom: "45px" }, 'slow', 'swing');
 
 // Fake showing landing forms
 

@@ -39,7 +39,9 @@ body#application {
 	// Typography
 
 	// Other
-
+	li {
+		cursor: pointer;
+	}
 }
 
 .main_logo {
@@ -122,7 +124,6 @@ body#application {
 		// Box properties
 		float: left;
 		// Background & borders
-	
 		// Typography
 	
 		// Other
@@ -332,4 +333,9 @@ input.read_only {
 	color: $text;
 	// Other
 
+}
+
+tr .js-bonus_details {
+	// Box properties
+	padding-top:16px !important;
 }

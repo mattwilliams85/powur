@@ -1,10 +1,10 @@
 class Bonus < ActiveRecord::Base
   TYPES =  {
+    differential:   'Differential',
     direct_sales:   'Direct Sales',
     enroller_sales: 'Enroller',
-    unilevel_sales: 'Unilevel',
     promote_out:    'Promote-Out',
-    differential:   'Differential' }
+    unilevel_sales: 'Unilevel'}
   SCHEDULES = {
     weekly:  'Weekly',
     monthly: 'Monthly' }

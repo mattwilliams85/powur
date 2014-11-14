@@ -95,6 +95,13 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
     }[operator];
 });
 
+Handlebars.registerHelper("format_length", function(str, char_limit) {
+    char_limit = parseInt(char_limit);
+    if(str.length > char_limit){
+      return str.substring(0,char_limit).trim() + "..."
+    };
+})
+
 
 
 /** start admin utilties **/
@@ -463,43 +470,44 @@ function _getRoot(_callback){
     }).done(function(data, text){
         if(typeof _data === "object" )_data.root = $.extend(true, {}, data);
         else console.log(data);
-        loadingCategories=[
-            {
-                url:"/u/profile",
-                name:"profile",
-                data:{}
-            },
-            {
-                url:"/u/users/"+_data.root.properties.id+"/order_totals",
-                name:"order_totals",
-                data:{}
-            },
-            {
-                url:"/u/users/"+_data.root.properties.id+"/orders",
-                name:"orders",
-                data:{}                
-            },
-            {
-                url:"/u/users/"+_data.root.properties.id+"/rank_achievements",
-                name:"rank_achievements",
-                data:{}                
-            },
-            {
-                url:"/u/users/"+_data.root.properties.id+"/goals",
-                name:"goals",
-                data:{}                
-            }                        
-        ];
-        EyeCueLab.JSON.asynchronousLoader(loadingCategories, function(_returnJSONs){
-            _data.currentUser=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"profile"})[0].properties;
-            _data.currentUser.order_totals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"order_totals"})[0];
-            _data.currentUser.goals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"goals"})[0];
-            _data.currentUser.rank_achievements=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"rank_achievements"})[0];
-            _data.currentUser.orders=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"orders"})[0];
-            if(typeof _callback === "function") _callback();
+        if(_data.root.properties){
+            loadingCategories=[
+                {
+                    url:"/u/profile",
+                    name:"profile",
+                    data:{}
+                },
+                {
+                    url:"/u/users/"+_data.root.properties.id+"/order_totals",
+                    name:"order_totals",
+                    data:{}
+                },
+                {
+                    url:"/u/users/"+_data.root.properties.id+"/orders",
+                    name:"orders",
+                    data:{}                
+                },
+                {
+                    url:"/u/users/"+_data.root.properties.id+"/rank_achievements",
+                    name:"rank_achievements",
+                    data:{}                
+                },
+                {
+                    url:"/u/users/"+_data.root.properties.id+"/goals",
+                    name:"goals",
+                    data:{}                
+                }                        
+            ];
+            EyeCueLab.JSON.asynchronousLoader(loadingCategories, function(_returnJSONs){
+                _data.currentUser=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"profile"})[0].properties;
+                _data.currentUser.order_totals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"order_totals"})[0];
+                _data.currentUser.goals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"goals"})[0];
+                _data.currentUser.rank_achievements=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"rank_achievements"})[0];
+                _data.currentUser.orders=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"orders"})[0];
+                if(typeof _callback === "function") _callback();
 
-        });
-
+            });
+        }
      });
 }    
 
@@ -807,3 +815,10 @@ jQuery(function($){
 
 }(window.EyeCueLab = window.EyeCueLab || {}, jQuery));
 });//jQuery
+
+//Shortens strings larger than their respective div with '...'
+String.prototype.format_length = function(char_limit){
+    if(this.length > char_limit){
+      return this.substring(0,char_limit).trim() + "..."
+    }
+}

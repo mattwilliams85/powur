@@ -31,6 +31,7 @@ jQuery(function($){
         _ajaxType:"get",
         _url:"/",
         _callback:function(data, text){
+
             _data.root=data;
             _data.rootUsers=[];
             _data.currentUser={};
@@ -122,7 +123,7 @@ jQuery(function($){
 
                             _qualification_group.forEach(function(_qualification){
                                 var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product : " ";
-                                _row.find(".js-active_type").append("<div class='innerCell'><span class='label'>"+_prod+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
+                                _row.find(".js-active_type").append("<div class='innerCell'><span class='label'>"+_prod.format_length(29)+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                 _conditions=[];
                                 for(var _p in _qualification.properties){
                                     switch (_p){
@@ -130,7 +131,7 @@ jQuery(function($){
                                             //do not display these values
                                         break;
                                         default:
-                                            _conditions.push( "<div class='innerCell'>"+("<span class='label'>"+_p+"</span>"+_qualification.properties[_p]).replace(/\_/g," ")+"</div>");
+                                            _conditions.push( "<div class='innerCell'>"+("<span class='label'>"+ _p +"</span>"+_qualification.properties[_p]).replace(/\_/g," ")+"</div>");
                                         break;
                                     }
                                 }
@@ -157,7 +158,7 @@ jQuery(function($){
                                     delete field.options._path;
                                     field.displayOptions=[];
                                     Object.keys(field.options).forEach(function(_key){
-                                        field.displayOptions.push({name:_key, value:field.options[_key]});
+                                        field.displayOptions.push({name:field.options[_key], value:_key});
                                     });
                                 }
                             });
@@ -187,7 +188,7 @@ jQuery(function($){
                                 _row.find(".js-qualification_rank").append("<div class='innerCell' style='height:"+_padding+"px'><span class='js-qualification_path label'>Path: "+_qualification_path+"</span><a href='#"+_rankID+"' class='js-rank_link'>"+_rankObj.properties.id+", "+_rankObj.properties.title+"</a>");
 
                                 _qualification_group.forEach(function(_qualification){
-                                    var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product : " ";
+                                    var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product.format_length(29) : " ";
                                     _row.find(".js-qualification_type").append("<div class='innerCell'><span class='label'>"+_prod+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                     _conditions=[];
                                     for(var _p in _qualification.properties){
@@ -224,7 +225,7 @@ jQuery(function($){
                                     delete field.options._path;
                                     field.displayOptions=[];
                                     Object.keys(field.options).forEach(function(_key){
-                                        field.displayOptions.push({name:_key, value:field.options[_key]});
+                                        field.displayOptions.push({name:field.options[_key], value:_key});
                                     });
                                 }
                             });
@@ -499,7 +500,7 @@ jQuery(function($){
                                 if(!_skip) _display+="<div class='innerCell'><span class='label'>"+_key.replace(/\_/g," ").replace(/percentage/i, "%")+"</span><span class='content'>"+_bonus.properties[_key]+"</span></div>";
                             });
                             _row.find(".js-bonus_details").append(_display);
-                            _row.find(".js-bonus_details").append("<br style='clear:both;'>");
+                            _row.find(".js-bonus_details").append("<div class='innerCell' style='display:block; float:right;'><a href=#"+_bonusID+" class=js-bonus_link>Edit Summary</a></div><br style='clear:both;'></div>");
                             
 
                             //show requirements
@@ -512,7 +513,7 @@ jQuery(function($){
                                     JSON.stringify(_properties).replace(/\_/g, " ").replace(/["{}]/g, "").split(",").forEach(function(_property){
                                         _display+="<div class='innerCell'><span class='label'>"+_property.split(":")[0]+"</span><span class='content'>"+_property.split(":")[1]+"</span></div>";
                                     });
-                                    _display +="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_requirement' href='#"+_getObjectsByCriteria(_requirement, {name: "update"})[0].href+"'>Edit Requirement</a></div><br style='clear:both;'>";
+                                    _display +="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_requirement' href='#"+_getObjectsByCriteria(_requirement, {name: "update"})[0].href+"'>Edit Requirements</a></div><br style='clear:both;'>";
                                 });
                                 _row.find(".js-bonus_details").append(_display);
                             }
