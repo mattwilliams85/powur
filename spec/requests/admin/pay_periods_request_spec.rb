@@ -1,4 +1,4 @@
-  require 'spec_helper'
+require 'spec_helper'
 
 describe '/a/pay_periods' do
 
@@ -75,5 +75,24 @@ describe '/a/pay_periods' do
       post recalculate_pay_period_path(pay_period.id), format: :json
     end
   end
+
+
+  # describe 'POST /:id/distribute' do
+
+  #   it 'distributes totaled bonus amounts to users for a pay period' do
+  #     pay_period = create(:monthly_pay_period)
+  #     create_list(:bonus_payment, 5, pay_period: pay_period, amount: 50.00)
+
+  #     get pay_periods_path, format: :json
+  #     pay_period = json_body['entities'].last
+  #     id = pay_period['properties']['id']
+
+  #     post distribute_pay_period_path(id), format: :json
+
+  #     expect_classes('pay_periods')
+  #     pay_period = json_body['entities'].last
+  #     expect(pay_period['properties']['distributed']).to be
+  #   end
+  # end
 
 end
