@@ -468,7 +468,6 @@ function _getRoot(_callback){
         type:"get",
         url:"/"
     }).done(function(data, text){
-        console.log(data)
         if(typeof _data === "object" )_data.root = $.extend(true, {}, data);
         else console.log(data);
         if(_data.root.properties){

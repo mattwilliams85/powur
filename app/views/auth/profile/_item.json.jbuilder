@@ -7,7 +7,6 @@ json.properties do
             :phone, :address, :city, :state, :zip, :provider,
             :monthly_bill, :bio, :twitter_url, :linkedin_url,
             :large_image_url, :medium_image_url, :thumb_image_url)
-  # json
   
 end
 

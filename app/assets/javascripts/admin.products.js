@@ -33,7 +33,6 @@ jQuery(function($){
         _callback:function(data, text){
 
             _data.root=data;
-            console.log(_data.root)
             _data.rootUsers=[];
             _data.currentUser={};
             _dashboard = new AdminDashboard();
@@ -160,7 +159,6 @@ jQuery(function($){
                                     field.displayOptions=[];
                                     Object.keys(field.options).forEach(function(_key){
                                         field.displayOptions.push({name:field.options[_key], value:_key});
-                                        console.log(_key);
                                     });
                                 }
                             });
