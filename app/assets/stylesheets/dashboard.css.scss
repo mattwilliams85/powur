@@ -2,7 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 .dashboard_section {
 	// Mixins
@@ -527,7 +534,7 @@
 		text-transform:uppercase;
 		color:darken($dev_dark_gray, 30%);
 	}
-	.metrics_number{
+	.kpi_value{
 		color:$dev_dark_gray;
 		margin-top:38px;
 		font-size:60pt;

@@ -15,7 +15,8 @@ jQuery(function($){
 			_dashboard = new Dashboard();
 			_dashboard.displayGoals();
 			_dashboard.displayTeam();
-			_dashboard.displayQuote();
+			_dashboard.displayQuotes();
+			_dashboard.displayKPIs();
 			if(_data.currentUser.thumb_image_url) $("#js-user_profile_image").attr("src", _data.currentUser.thumb_image_url);
 			setInterval(_dashboard._countdown, 1000);			
 		});
@@ -42,9 +43,35 @@ function Dashboard(){
 	_data.global.total_invitations=5;
 
 	this.displayTeam = displayTeam;
-	this.displayQuote = displayQuote;
+	this.displayQuotes = displayQuotes;
 	this.displayGoals = displayGoals;
+	this.displayKPIs = displayKPIs;
 	this._countdown = _countdown;
+
+
+	function displayKPIs(){
+		var kpi={
+			environment:{
+				tab:{
+					value:721.34,
+					label:"CO2 Tons Saved"
+				}
+			},
+			leads:{
+				tab:{
+					value:78,
+					label:"leads"
+				}
+			}
+
+
+		}
+
+		Object.keys(kpi).forEach(function(key){
+			$(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_value span").html(kpi[key].tab.value)
+			$(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_label").html(kpi[key].tab.label)
+		});	
+	}	
 
 	function displayGoals(path){
 
@@ -234,7 +261,7 @@ function Dashboard(){
 	}
 
 	//start quote dashboard info
-	function displayQuote(_tab){
+	function displayQuotes(_tab){
 		if(_tab === undefined ) _tab="quotes";
 
 		_data.quotes =[];
@@ -266,7 +293,7 @@ function Dashboard(){
 					//put in sort filter
 					$("#quote_sort").on("change", function(e){
 						_data.quote_sort=$(this).val();
-						displayQuote();
+						displayQuotes();
 					});
 
 
@@ -277,7 +304,7 @@ function Dashboard(){
 					    		if($(e.target).val().length>=3 || $(e.target).val().length==0){
 									$("#dashboard_quotes > section").remove();
 					    			_data.quote_search=$(e.target).val();
-									displayQuote()
+									displayQuotes()
 					    		}
 							break;
 						}
@@ -503,13 +530,13 @@ function Dashboard(){
 								e.preventDefault();
 								_thisThumbnail.find(".expand").click();
 								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-								_ajax({_ajaxType:"delete", _url:"/u/quotes/"+_quoteID, _callback:displayQuote()});
+								_ajax({_ajaxType:"delete", _url:"/u/quotes/"+_quoteID, _callback:displayQuotes()});
 							});
 
 							$("#customer_contact_form .js-update_customer_info").on("click", function(e){
 								e.preventDefault();
 								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-								_ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:displayQuote()});
+								_ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:displayQuotes()});
 								_thisThumbnail.find(".expand").click();
 
 							});
@@ -517,7 +544,7 @@ function Dashboard(){
 							$(".js-resend_quote_email").on("click", function(e){
 								e.preventDefault();
 								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-								_ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:displayQuote()});
+								_ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:displayQuotes()});
 								_thisThumbnail.find(".expand").click();
 
 							});		
@@ -554,7 +581,7 @@ function Dashboard(){
 							$("#new_lead_contact_form").fadeOut(150, function(){
 								$("#new_lead_contact_form input").val("");
 								$("#new_lead_contact_form").fadeIn();
-								displayQuote();
+								displayQuotes();
 							});
 						});
 					});
@@ -687,17 +714,16 @@ function Dashboard(){
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=446px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=490px", opacity:1}, _animation_speed);	
 				var _templatePath;
 				var _impactMetricsDetail = {};
-
 				//todo: inject context/data under each template
 				switch(_options._kpiType){
-					case "type1":
+					case "environment":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
-					case "type2":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_customer_details.handlebars.html";
+					case "leads":
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_leads_details.handlebars.html";
 					break;
 					case "type3":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
