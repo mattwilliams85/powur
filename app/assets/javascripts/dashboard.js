@@ -687,7 +687,7 @@ function Dashboard(){
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=446px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=490px", opacity:1}, _animation_speed);	
 				var _templatePath;
 				var _impactMetricsDetail = {};
 
@@ -700,7 +700,7 @@ function Dashboard(){
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_customer_details.handlebars.html";
 					break;
 					case "type3":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_leads_details.handlebars.html";
 					break;
 					case "type4":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
