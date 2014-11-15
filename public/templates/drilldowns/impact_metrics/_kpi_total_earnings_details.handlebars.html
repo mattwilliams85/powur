@@ -112,6 +112,12 @@
   #global-legend {
     background-color:rgba(249,166,0,1);
   }
+  #top-performer{
+    background-color: rgba(44,148,105,1);
+  }
+  .hide{
+    display: none;
+  }
 
 </style>
 
@@ -179,6 +185,11 @@
                   <span id="average" class="legend-text">Global Avg</span>
                 </div>
                 <br>
+                <div class="legend hide">
+                  <div class="legend-item" id="top-performer"></div>
+                  <span id="performer" class="legend-text"></span>
+                </div>
+
                 <br>
                 {{!-- <span class="subtext"> <a href="#">View Details ></a></span> --}}
               </div>
@@ -227,6 +238,16 @@ var leadsData = {
     ]
 };
 
+var topPerformers=[];
+["John Doe", "Danny Smith", "Lisa Williams"].forEach(function(name){
+  var tempData =[];
+  for(i=0;i<12;i++) tempData.push(Math.floor(Math.random()*50+50));
+  topPerformers.push({
+    name:name,
+    data:tempData
+  });
+});
+
 var options = {
     // Number - pixel width of padding around tooltip text
     tooltipYPadding: 8,
@@ -269,15 +290,11 @@ var options = {
     //Boolean - Whether to fill the dataset with a colour
     datasetFill : true,
 
-    multiTooltipTemplate: "<%='$' + value + ',000' %>",
-
     animationSteps : 75,
     // Boolean - If we want to override with a hard coded scale
     scaleOverride: true,
 
       scaleFontSize: 13,
-
-      scaleLabel : "<%= !Number(value) ? '' : Number(value) + 'k'%>",
  
       // ** Required if scaleOverride is true **
       // Number - The number of steps in a hard coded scale
@@ -300,50 +317,28 @@ $(".contributor")
     })
     .append("<hr style='border-color:rgba(255,255,255,.08);margin:5px 0 5px 0'> ")
 
-$(".contributor").on("click",function(e){
+$(".avatar").on("click",function(e){
+  
   e.preventDefault();
-  console.log($(this).index())
-  leadsData.datasets[2].data[3]= 60;
-  leadsData.datasets[2].data[4]= 60;
-  leadsData.datasets[2].data[5]= 20;
-  leadsData.datasets[2].data[6]= 60;
-  leadsData.datasets[2].data[7]= 61;
-  leadsData.datasets[2].data[8]= 32;
-  leadsData.datasets[2].data[9]= 25;
-  leadsData.datasets[2].data[10]= 20;
-  leadsData.datasets[2].data[11]= 10;
+  e.stopPropagation();
+  $.extend(leadsData.datasets[2], topPerformers[$(this).attr("id").replace("avatar","")-1]);
 
   leadsData.datasets[2].strokeColor = "rgba(44,148,105,1)";
   // leadsChart.update();
-  leadsData.datasets[2].pointColor= "rgba(249,166,0,1)";
+  leadsData.datasets[2].pointColor= "rgba(44,148,105,1)";
   leadsData.datasets[2].pointStrokeColor= "#fff";
   leadsData.datasets[2].pointHighlightFill= "#fff";
   leadsData.datasets[2].pointHighlightStroke= "rgba(220,220,220,1)";
   console.log(leadsData.datasets[2].strokeColor);
-  options.animationSteps=1;
+  options.animationSteps=5;
   var ctx = document.getElementById("leadsChart").getContext("2d");
   var leadsChart = new Chart(ctx).Line(leadsData, options);
 
-  $('#selected_user').hide().html("Jon Doe").fadeIn(500);
+  $("#performer").html(topPerformers[$(this).attr("id").replace("avatar","")-1].name);
+  $(".legend").removeClass("hide");
+
 })
 
 
-function resetData(){
-  leadsChart.datasets[0].points[0].value = 65;
-  leadsChart.datasets[0].points[1].value = 59;
-  leadsChart.datasets[0].points[2].value = 80;
-  leadsChart.datasets[0].points[3].value = 81;
-  leadsChart.datasets[0].points[4].value = 56;
-  leadsChart.datasets[0].points[5].value = 55;
-  leadsChart.datasets[0].points[6].value = 40;
-  leadsChart.datasets[0].points[7].value = 80;
-  leadsChart.datasets[0].points[8].value = 81;
-  leadsChart.datasets[0].points[9].value = 56;
-  leadsChart.datasets[0].points[10].value = 55;
-  leadsChart.datasets[0].points[11].value = 20;
-
-  leadsChart.update();
-  $('#selected_user').hide().html("My Earnings").fadeIn(500);
-} 
 
 </script>

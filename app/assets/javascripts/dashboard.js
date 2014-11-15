@@ -700,7 +700,7 @@ function Dashboard(){
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_customer_details.handlebars.html";
 					break;
 					case "type3":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings.html.erb";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
 					break;
 					case "type4":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
