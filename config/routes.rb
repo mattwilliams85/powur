@@ -169,6 +169,7 @@ Rails.application.routes.draw do
   # logged in admin routes
   scope :gateway, module: :gateway do
     get 'ipayout/verify_user', to: 'ipayout#verify_user'
+    post 'ipayout/notify_merchant', to: 'ipayout#notify_merchant'
   end
 
   namespace :api, defaults: { format: 'json' } do
