@@ -1,0 +1,368 @@
+<style>
+  a{
+    cursor:pointer;
+  }
+
+  table {
+    width:100%;
+  }
+
+  .avatar {
+    width:70px;
+    height:70px;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border-radius:50%;
+    background-size:contain;
+    float:left;
+    border:2px solid white;
+  }
+
+  #avatar1 {
+    background-image: url('https://avatars0.githubusercontent.com/u/5414273?v=3&s=460');
+  }
+
+  #avatar2 {
+    background-image: url('https://avatars2.githubusercontent.com/u/8699048?v=3&s=460')
+  }
+
+  #avatar3 {
+    background-image: url('https://avatars1.githubusercontent.com/u/5241140?v=3&s=460')
+  }
+
+  .subtext {
+    font-size:0.8em;
+  }
+
+  .info-box {
+    display:inline-block;
+    padding-top:10px;
+  }
+
+  .info-text {
+    padding:2.5px 0 0 21px;
+    float:left;
+  }
+
+  .light-text {
+    color:#eee;
+    font-size:0.85em;
+  }
+
+  .legend {
+    display;inline;
+  }
+
+  .legend-item {
+    width:25px;height:20px;
+    float:left;
+    margin-top:5px;
+  }
+
+  .legend-text {
+    font-size:0.8em;
+    float:left;
+    padding-left:5px;
+  }
+
+  .contributors {
+    padding-top:20px;
+  }
+
+  .contributor {
+    width:275px;
+  }
+
+
+  .earnings-header {
+    padding-left:25%;
+    padding-top:10px;
+    width:267;
+  }
+
+  .contributors-td {
+    vertical-align:top;
+  }
+
+  .chart-td {
+    border-left:1px solid rgba(100,100,100,0.9);
+    padding-left:20px;
+  }
+
+  .leads-chart {
+    padding-top:20px;
+  }
+
+  .legend-box {
+    vertical-align:top;
+    display:inline-block;
+    padding:50px 0 50px 15px;
+    width:150px;
+  }
+
+  .learn-more {
+    font-size:0.7em;
+
+  }
+
+  #user-legend {
+    background-color:rgba(32,194,241,1);
+  }
+
+  #global-legend {
+    background-color:rgba(249,166,0,1);
+  }
+
+</style>
+
+<div class="arrow"></div>
+<div class="drilldown_content">
+  <div id="kpi_leads_detail" class="object_detail">
+   <div class="object_detail_arrow"></div>
+    <span class="dismiss"><i class="fa fa-times"></i></span>
+    <div class="object_detail_content">
+      <div class="object_detail_content_section summary">
+				<table width="1320">
+          <tr>
+            <td><span>Top Contributors</span></td>
+            <td class="earnings-header"><span>Total Earnings</span></td>
+          </tr>
+					<tr>
+						<td class="contributors-td" width="325">
+              <span class="subtext">In the past 12 months your team has preformed 4% above average.</span>
+              <div class="contributors">
+                <div class="contributor">
+                  <div class="info-box">
+                    <div id="avatar1" class="avatar"></div>
+                      <div class="info-text">
+                        <a id="hover1"><span>Jon Doe</span></a>
+                        <br> 
+                        <span class="light-text">Earnings Share: 57% </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="contributor">
+                  <div class="info-box">
+                    <div id="avatar2" class="avatar"></div>
+                      <div class="info-text">
+                        <a id="hover2"><span>Sam Smith</span></a>
+                        <br> 
+                        <span class="light-text">Earnings Share: 57% </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="contributor">
+                  <div class="info-box">
+                    <div id="avatar3" class="avatar"></div>
+                      <div class="info-text">
+                        <a id="hover3"><span>Lisa Williams</span></a>
+                        <br> 
+                        <span class="light-text">Earnings Share: 57% </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+						<td class="chart-td">
+              <canvas id="leadsChart" width="670" height="375"></canvas>
+              <div class="legend-box">
+                <div class="legend">
+                  <div class="legend-item" id="user-legend"></div>
+                  <span id="selected_user" class="legend-text">My Earnings</span>
+                </div>
+                <br>
+                <div class="legend">
+                  <div class="legend-item" id="global-legend"></div>
+                  <span id="average" class="legend-text">Global Avg</span>
+                </div>
+                <br>
+                <br>
+                <span class="subtext"> <a href="#">View Details ></a></span>
+              </div>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+ 
+var leadsData = {
+    labels: ["Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
+    datasets: [
+        {
+          label: "My dataset",
+          fillColor: "rgba(220,220,0,0)",
+          strokeColor: "rgba(32,194,241,1)",
+          pointColor: "rgba(32,194,241,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: [ 65, 59, 80, 81, 56, 55, 40, 80, 81, 56, 55, 20]
+        },
+        {
+          label: "Team dataset",
+          fillColor: "rgba(220,220,220,0)",
+          strokeColor: "rgba(249,166,0,1)",
+          pointColor: "rgba(249,166,0,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          data: [28, 48, 40, 19, 86, 27, 90, 28, 48, 40, 19, 36]
+        }
+    ]
+};
+
+var options = {
+    // Number - pixel width of padding around tooltip text
+    tooltipYPadding: 8,
+
+    // Number - pixel width of padding around tooltip text
+    tooltipXPadding: 8,
+
+    ///Boolean - Whether grid lines are shown across the chart
+    scaleShowGridLines : true,
+
+    scaleFontColor: "rgba(247,239,226,0.8)",
+
+    //String - Colour of the grid lines
+    scaleGridLineColor : "rgba(255,255,255,.065)",
+
+    //Number - Width of the grid lines
+    scaleGridLineWidth : 1,
+
+    //Boolean - Whether the line is curved between points
+    bezierCurve : false,
+
+    //Boolean - Whether to show a dot for each point
+    pointDot : true,
+
+    //Number - Radius of each point dot in pixels
+    pointDotRadius : 4,
+
+    //Number - Pixel width of point dot stroke
+    pointDotStrokeWidth : 1,
+
+    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+    pointHitDetectionRadius : 20,
+
+    //Boolean - Whether to show a stroke for datasets
+    datasetStroke : true,
+
+    //Number - Pixel width of dataset stroke
+    datasetStrokeWidth : 3,
+
+    //Boolean - Whether to fill the dataset with a colour
+    datasetFill : true,
+
+    multiTooltipTemplate: "<%='$' + value + ',000' %>",
+
+    animationSteps : 75,
+    // Boolean - If we want to override with a hard coded scale
+    scaleOverride: true,
+
+      scaleFontSize: 13,
+
+      scaleLabel : "<%= !Number(value) ? '' : Number(value) + 'k'%>",
+ 
+      // ** Required if scaleOverride is true **
+      // Number - The number of steps in a hard coded scale
+      scaleSteps: 10,
+      // Number - The value jump in the hard coded scale
+      scaleStepWidth: 12,
+      // Number - The scale starting value
+      scaleStartValue: 0,
+};
+
+var ctx = document.getElementById("leadsChart").getContext("2d");
+var leadsChart = new Chart(ctx).Line(leadsData, options);
+
+$('#selected_user').hide().html("My Earnings").fadeIn(1000);
+$('#average').hide().html("Global Average").fadeIn(1000);
+$(".contributor")
+    .velocity("transition.slideUpBigIn", { 
+      stagger: 200, 
+      duration: 600
+    })
+    .append("<hr style='border-color:rgba(255,255,255,.08);margin:5px 0 5px 0'> ")
+
+$('#hover1').on('mouseover',function(){
+  leadsChart.datasets[0].points[0].value = 29;
+  leadsChart.datasets[0].points[1].value = 27;
+  leadsChart.datasets[0].points[2].value = 40;
+  leadsChart.datasets[0].points[3].value = 60;
+  leadsChart.datasets[0].points[4].value = 60;
+  leadsChart.datasets[0].points[5].value = 20;
+  leadsChart.datasets[0].points[6].value = 60;
+  leadsChart.datasets[0].points[7].value = 61;
+  leadsChart.datasets[0].points[8].value = 32;
+  leadsChart.datasets[0].points[9].value = 25;
+  leadsChart.datasets[0].points[10].value = 20;
+  leadsChart.datasets[0].points[11].value = 10;
+  // Would update the first dataset's value of 'Green' to be 10
+  leadsChart.update();
+
+  $('#selected_user').hide().html("Jon Doe").fadeIn(500);
+}).mouseout(function(){resetData()})
+
+$('#hover2').on('mouseover',function(){
+  leadsChart.datasets[0].points[0].value = 22;
+  leadsChart.datasets[0].points[1].value = 16;
+  leadsChart.datasets[0].points[2].value = 66;
+  leadsChart.datasets[0].points[3].value = 44;
+  leadsChart.datasets[0].points[4].value = 23;
+  leadsChart.datasets[0].points[5].value = 40;
+  leadsChart.datasets[0].points[6].value = 46;
+  leadsChart.datasets[0].points[7].value = 22;
+  leadsChart.datasets[0].points[8].value = 23;
+  leadsChart.datasets[0].points[9].value = 9;
+  leadsChart.datasets[0].points[10].value = 13;
+  leadsChart.datasets[0].points[11].value = 56;
+  // Would update the first dataset's value of 'Green' to be 10
+  leadsChart.update();
+
+  $('#selected_user').hide().html("Sam Smith").fadeIn(500);
+}).mouseout(function(){resetData()})
+
+$('#hover3').on('mouseover',function(){
+  leadsChart.datasets[0].points[0].value = 20;
+  leadsChart.datasets[0].points[1].value = 10;
+  leadsChart.datasets[0].points[2].value = 30;
+  leadsChart.datasets[0].points[3].value = 40;
+  leadsChart.datasets[0].points[4].value = 21;
+  leadsChart.datasets[0].points[5].value = 44;
+  leadsChart.datasets[0].points[6].value = 19;
+  leadsChart.datasets[0].points[7].value = 19;
+  leadsChart.datasets[0].points[8].value = 18;
+  leadsChart.datasets[0].points[9].value = 7;
+  leadsChart.datasets[0].points[10].value = 15;
+  leadsChart.datasets[0].points[11].value = 50;
+  // Would update the first dataset's value of 'Green' to be 10
+  leadsChart.update();
+
+  $('#selected_user').hide().html("Lisa Williams").fadeIn(500);
+}).mouseout(function(){resetData()})
+
+function resetData(){
+  leadsChart.datasets[0].points[0].value = 65;
+  leadsChart.datasets[0].points[1].value = 59;
+  leadsChart.datasets[0].points[2].value = 80;
+  leadsChart.datasets[0].points[3].value = 81;
+  leadsChart.datasets[0].points[4].value = 56;
+  leadsChart.datasets[0].points[5].value = 55;
+  leadsChart.datasets[0].points[6].value = 40;
+  leadsChart.datasets[0].points[7].value = 80;
+  leadsChart.datasets[0].points[8].value = 81;
+  leadsChart.datasets[0].points[9].value = 56;
+  leadsChart.datasets[0].points[10].value = 55;
+  leadsChart.datasets[0].points[11].value = 20;
+
+  leadsChart.update();
+  $('#selected_user').hide().html("My Earnings").fadeIn(500);
+} 
+
+</script>
