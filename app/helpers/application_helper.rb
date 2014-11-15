@@ -26,4 +26,8 @@ module ApplicationHelper
   def profile_json
     @orders_json ||= ProfileJson.new(self, @profile, @user)
   end
+
+  def pp_json
+    @orders_json ||= PayPeriodsJson.new(self, @pay_periods, @pay_period)
+  end
 end
