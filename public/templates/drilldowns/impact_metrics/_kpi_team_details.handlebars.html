@@ -45,7 +45,7 @@
 
 
 				<div class="object_detail_content_section" style="padding-left:20px;">
-					<h4>Leads Analysis</h4>
+					<h4>Team Analysis</h4>
 					<canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
 					<div style="width:150px; padding-left:50px;float:left;">
 						<br><br>
@@ -183,16 +183,32 @@ _randomData.me=[];
 _randomData.team=[];
 _randomData.performer=[];
 
-for(i=1;i<=12;i++){
-	_randomData.me.push(Math.floor(Math.random()*18+1));
-	_randomData.team.push(Math.floor(Math.random()*18+1));
+for(i=0;i<12;i++){
+	if(i==0){
+		_randomData.me.push(Math.floor(Math.random()*5+1));
+		_randomData.team.push(Math.floor(Math.random()*5+1));
+	}else{
+
+		_randomData.me.push(_randomData.me[i-1]+Math.floor(Math.random()*5+1));
+		_randomData.team.push(_randomData.me[i-1]+Math.floor(Math.random()*5+1));		
+	}
 	_randomData.performer.push(0);
 }
+console.log(_randomData);
 
 var topPerformers=[];
 ["John Doe", "Danny Smith", "Lisa Williams"].forEach(function(name){
   var tempData =[];
-  for(i=0;i<12;i++) tempData.push(Math.floor(Math.random()*10+10));
+for(i=0;i<12;i++){
+
+	if(i==0){
+		tempData.push(Math.floor(Math.random()*5+1));
+	}else{
+
+		tempData.push(tempData[i-1]+Math.floor(Math.random()*3+3));
+	}
+
+}
   topPerformers.push({
     name:name,
     data:tempData
@@ -221,7 +237,6 @@ var metricsData = {
         }
     ]
 };
-var ctx = document.getElementById("metricsChart").getContext("2d");
 
 var options={
 
@@ -255,7 +270,8 @@ var options={
 
 }
 
-var myChart = new Chart(ctx).Bar(metricsData, options);  
+var ctx = document.getElementById("metricsChart").getContext("2d");
+var myChart = new Chart(ctx).Bar(metricsData, options);
 
 $(".contributor")
     .velocity("transition.slideUpBigIn", { 

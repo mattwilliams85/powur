@@ -141,35 +141,33 @@ jQuery(function($){
                             })[0];
 
                             //fetch detail
-                            _ajax({
-                                _ajaxType:"get",
-                                _url:_getObjectsByCriteria(_quote, {rel: "self"})[0].href,
-                                _callback:function(data, text){
-                                    var _dataObj = (typeof _getObjectsByCriteria(data, {name: "create_order"})[0] === "object")? _getObjectsByCriteria(data, {name: "create_order"})[0]:{};
-                                    var _popupData = _formatPopupData(e, {
-                                        _dataObj: _dataObj,
-                                        _title: "Quote Details"
-                                    });
-                                    _popupData.properties = data.properties;
+
+                                    var _popupData= _formatPopupData(e, {
+                                    _title: "Quote Details",
+                                    _dataObj: _quote});
+
+                                    _popupData.properties = _quote.properties;
                                     _popupData.distributorInfo =  EyeCueLab.JSON.getObjectsByPattern(
-                                        data, {
+
+                                        _quote, {
                                         "containsIn(class)":["user"]
                                     })[0];
 
                                     _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(
-                                        data, {
+                                        _quote, {
                                         "containsIn(class)":["customer"]
                                     })[0];
 
                                     _popupData.productInfo =  EyeCueLab.JSON.getObjectsByPattern(
-                                        data, {
+                                        _quote, {
                                         "containsIn(class)":["product"]
+
                                     })[0];
 
                                     ["_path","id"].forEach(function(_hideKey){
-                                        delete _popupData.distributorInfo.properties[_hideKey];
-                                        delete _popupData.customerInfo.properties[_hideKey];
-                                        delete _popupData.productInfo.properties[_hideKey];
+                                        // delete _popupData.distributorInfo.properties[_hideKey];
+                                        // delete _popupData.customerInfo.properties[_hideKey];
+                                        // delete _popupData.productInfo.properties[_hideKey];
                                     });
 
                                     $("#js-screen_mask").fadeIn(100, function(){
@@ -177,8 +175,47 @@ jQuery(function($){
                                             SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayQuotes("#admin-quotes-quotes-init")}});
                                         });
                                     });
-                                }
-                            });
+
+
+                            // _ajax({
+                            //     _ajaxType:"get",
+                            //     _url:_getObjectsByCriteria(_quote, {rel: "self"})[0].href,
+                            //     _callback:function(data, text){
+                            //         // console.log(data);
+                            //         var _dataObj = (typeof _getObjectsByCriteria(data, {name: "create_order"})[0] === "object")? _getObjectsByCriteria(data, {name: "create_order"})[0]:{};
+                            //         var _popupData = _formatPopupData(e, {
+                            //             _dataObj: _dataObj,
+                            //             _title: "Quote Details"
+                            //         });
+                            //         _popupData.properties = data.properties;
+                            //         _popupData.distributorInfo =  EyeCueLab.JSON.getObjectsByPattern(
+                            //             data, {
+                            //             "containsIn(class)":["user"]
+                            //         })[0];
+
+                            //         _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(
+                            //             data, {
+                            //             "containsIn(class)":["customer"]
+                            //         })[0];
+
+                            //         _popupData.productInfo =  EyeCueLab.JSON.getObjectsByPattern(
+                            //             data, {
+                            //             "containsIn(class)":["product"]
+                            //         })[0];
+
+                            //         // ["_path","id"].forEach(function(_hideKey){
+                            //         //     // delete _popupData.distributorInfo.properties[_hideKey];
+                            //         //     // delete _popupData.customerInfo.properties[_hideKey];
+                            //         //     // delete _popupData.productInfo.properties[_hideKey];
+                            //         // });
+
+                            //         $("#js-screen_mask").fadeIn(100, function(){
+                            //             EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_quote_to_order_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                            //                 SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayQuotes("#admin-quotes-quotes-init")}});
+                            //             });
+                            //         });
+                            //     }
+                            // });
                         })
                     });
                  break;
@@ -529,8 +566,8 @@ jQuery(function($){
                             data:{}
                         })
 
-                    if(typeof _getObjectsByCriteria(data, {"rel":"ancestors"}) !=="undefined" ) _endpoints.push({
-                            url:_getObjectsByCriteria(data, {"rel":"ancestors"})[0].href,
+                    if(typeof _getObjectsByCriteria(data, {"rel":"user-ancestors"}) !=="undefined" ) _endpoints.push({
+                            url:_getObjectsByCriteria(data, {"rel":"user-ancestors"})[0].href,
                             data:{}
                         });
                     EyeCueLab.JSON.asynchronousLoader(_endpoints, function(_returnJSONs){
