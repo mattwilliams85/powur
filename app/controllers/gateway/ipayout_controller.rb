@@ -25,17 +25,17 @@ module Gateway
         @notification_type = @notification_map[params['act']]
         user = User.find_by_email(params['user'])
         case params['act']
-        when "AccCREATED"
+        when 'AccCREATED'
           #handle Account created notification
-          @notification_message = user + " created an account."
-        when "AccNOC"
+          @notification_message = user + ' created an account.'
+        when 'AccNOC'
           #handle Account created notification
           if params['status'].empty?
             break
           end
 
           @notification_status = params['status']
-          @notification_message = user + " account status has changed to " + status + "."
+          @notification_message = user + ' account status has changed to ' + status + '.'
 
         end
         puts @notification_message
