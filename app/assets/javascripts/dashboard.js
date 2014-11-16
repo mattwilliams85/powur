@@ -25,13 +25,6 @@ jQuery(function($){
 		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete", function(data, text){
 		});});
 
-		//adjust font width for metrics
-		$(".kpi_thumbnail h1").each(function(){
-			var _width=$(this).find("span:first").width()+174;
-			var _newWidth = Math.floor(220*60/_width);
-			$(this).css("font-size", _newWidth+"pt");
-		});
-
 	});
 });
 
@@ -62,15 +55,29 @@ function Dashboard(){
 					value:78,
 					label:"leads"
 				}
+			},
+			earnings:{
+				tab:{
+					value:"$2,182.67",
+					label:"Total Earnings"
+				}
 			}
-
 
 		}
 
 		Object.keys(kpi).forEach(function(key){
 			$(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_value span").html(kpi[key].tab.value)
 			$(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_label").html(kpi[key].tab.label)
+
 		});	
+		
+		//adjust font width for metrics
+		$(".kpi_thumbnail h1").each(function(){
+			var _width=$(this).find("span:first").width()+174;
+			var _newWidth = Math.floor(220*60/_width);
+			$(this).css("font-size", _newWidth+"pt");
+		});
+
 	}	
 
 	function displayGoals(path){
@@ -726,7 +733,7 @@ function Dashboard(){
 					case "leads":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_leads_details.handlebars.html";
 					break;
-					case "type3":
+					case "earnings":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
 					break;
 					case "type4":
@@ -736,6 +743,7 @@ function Dashboard(){
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 				}
+				console.log(_options._kpiType)
 
 				_getTemplate(_templatePath, _impactMetricsDetail, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));

@@ -5,14 +5,40 @@
 			<span class="dismiss"><i class="fa fa-times"></i></span>
 			<div class="object_detail_content">
 				<div class="object_detail_content_section summary">
-					<h4>Top Leads</h4>
+					<h4>Top Performer</h4>
 
-					<span class="subtext">
-						<a href="/training">Lower your carbon footprint</a>
-					</span>
-					<span class="subtext">
-						<a href="#">Learn about CO<sub>2</sub></a>
-					</span>
+                	<div class="contributor">
+	                  	<div class="info-box">
+	                    	<div id="avatar1" class="avatar"></div>
+							<div class="info-text">
+								<a id="hover1"><span>Jon Doe</span></a>
+								<br> 
+								<span class="light-text">Average Lead: 17.2 </span>
+							</div>
+	                 	</div>
+	                </div>
+
+                	<div class="contributor">
+	                  	<div class="info-box">
+	                    	<div id="avatar2" class="avatar"></div>
+							<div class="info-text">
+								<a id="hover1"><span>Jon Doe</span></a>
+								<br> 
+								<span class="light-text">Average Lead: 16.4 </span>
+							</div>
+	                 	</div>
+	                </div>
+
+                	<div class="contributor">
+	                  	<div class="info-box">
+	                    	<div id="avatar3" class="avatar"></div>
+							<div class="info-text">
+								<a id="hover1"><span>Jon Doe</span></a>
+								<br> 
+								<span class="light-text">Average Lead: 15  </span>
+							</div>
+	                 	</div>
+	                </div>
 
 				</div>
 
@@ -20,8 +46,26 @@
 				<div class="object_detail_content_section">
 					<h4>Leads Analysis</h4>
 					<canvas id="myChart" width="670" height="375" style="float:left;"></canvas>
-					<div style="width:190px; padding-left:15px;">
-						
+					<div style="width:150px; padding-left:50px;float:left;">
+						<br><br>
+		                <div class="legend">
+		                  <div class="legend-item" id="user-legend"></div>
+		                  <span id="selected_user" class="legend-text">My Leads</span>
+		                </div>
+		                <br>
+		                <div class="legend">
+		                  <div class="legend-item" id="global-legend"></div>
+		                  <span id="average" class="legend-text">Team Avg.</span>
+		                </div>
+		                <br>
+		                <div class="legend hide">
+		                  <div class="legend-item" id="top-performer"></div>
+		                  <span id="performer" class="legend-text"></span>
+		                </div>
+
+		                <br>
+
+
 					</div>
 				</div>
 
@@ -31,11 +75,89 @@
 
 
 <style>
+
+
+  .avatar {
+    width:70px;
+    height:70px;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border-radius:50%;
+    background-size:contain;
+    float:left;
+    border:2px solid white;
+  }
+
+  #avatar1 {
+    background-image: url('https://avatars0.githubusercontent.com/u/5414273?v=3&s=460');
+  }
+
+  #avatar2 {
+    background-image: url('https://avatars2.githubusercontent.com/u/8699048?v=3&s=460')
+  }
+
+  #avatar3 {
+    background-image: url('https://avatars1.githubusercontent.com/u/5241140?v=3&s=460')
+  }
+
+  .subtext {
+    font-size:0.8em;
+  }
+
+  .info-box {
+    display:inline-block;
+    padding-top:10px;
+  }
+
+  .info-text {
+    padding:2.5px 0 0 21px;
+    float:left;
+  }
+
+  .light-text {
+    color:#eee;
+    font-size:0.85em;
+  }
+
+	.legend-box {
+    vertical-align:top;
+    display:inline-block;
+  }
+
+  .legend {
+    display;inline;
+  }
+
+  .legend-item {
+    width:25px;height:20px;
+    float:left;
+    margin-top:5px;
+  }
+
+  .legend-text {
+    font-size:0.8em;
+    float:left;
+    padding-left:5px;
+  }
+  #user-legend {
+    background-color:rgba(32,194,241,1);
+  }
+
+  #global-legend {
+    background-color:rgba(249,166,0,1);
+  }
+  #top-performer{
+    background-color: rgba(44,148,105,1);
+  }
+  .hide{
+    display: none;
+  }
 h4{
 	height: 42px;
 }
 .object_detail_content_section.summary{
-	width:325px;
+	width: 300px;
+	padding-right: 25px;
 }
 .object_detail_content_section{
 	width:880px;
@@ -57,10 +179,24 @@ h4{
 _randomData = {}
 _randomData.me=[];
 _randomData.team=[];
+_randomData.performer=[];
+
 for(i=1;i<=12;i++){
-	_randomData.me.push(Math.floor(Math.random()*100+10));
-	_randomData.team.push(Math.floor(Math.random()*100+10));
+	_randomData.me.push(Math.floor(Math.random()*18+1));
+	_randomData.team.push(Math.floor(Math.random()*18+1));
+	_randomData.performer.push(0);
 }
+
+var topPerformers=[];
+["John Doe", "Danny Smith", "Lisa Williams"].forEach(function(name){
+  var tempData =[];
+  for(i=0;i<12;i++) tempData.push(Math.floor(Math.random()*10+10));
+  topPerformers.push({
+    name:name,
+    data:tempData
+  });
+});
+
 var barData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [
@@ -75,6 +211,11 @@ var barData = {
             fillColor: "#FDB45C",
             highlightFill: "#FFC870",
             data: _randomData.team
+        },
+        {
+            fillColor: "rgba(44,148,105,0)",
+            highlightFill: "rgba(44,148,105,0)",
+            data: _randomData.performer
         }
     ]
 };
@@ -114,6 +255,31 @@ var options={
 
 var myBarChart = new Chart(ctx).Bar(barData, options);  
 
+$(".contributor")
+    .velocity("transition.slideUpBigIn", { 
+      stagger: 200, 
+      duration: 600
+    })
+    .append("<hr style='border-color:rgba(255,255,255,.08);margin:5px 0 5px 0'> ")
+
+
+$(".contributor").on("click",function(e){
+  
+  e.preventDefault();
+  e.stopPropagation();
+  $.extend(barData.datasets[2], topPerformers[$(this).index()-1]);
+
+  barData.datasets[2].fillColor = "rgba(44,148,105,1)";
+  barData.datasets[2].highlightFill= "rgba(44,148,105,1)";
+
+  options.animationSteps=5;
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var myBarChart = new Chart(ctx).Bar(barData, options);  
+
+  $("#performer").html(topPerformers[$(this).index()-1].name);
+  $(".legend").removeClass("hide");
+
+});
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

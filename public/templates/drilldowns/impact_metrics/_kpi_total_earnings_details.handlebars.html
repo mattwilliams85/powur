@@ -145,7 +145,6 @@
                         <br> 
                         <span class="light-text">Earnings Share: 57% </span>
                       </div>
-                    </div>
                   </div>
                 </div>
                 <div class="contributor">
@@ -156,7 +155,6 @@
                         <br> 
                         <span class="light-text">Earnings Share: 57% </span>
                       </div>
-                    </div>
                   </div>
                 </div>
                 <div class="contributor">
@@ -167,7 +165,6 @@
                         <br> 
                         <span class="light-text">Earnings Share: 57% </span>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -191,7 +188,6 @@
                 </div>
 
                 <br>
-                {{!-- <span class="subtext"> <a href="#">View Details ></a></span> --}}
               </div>
 					</tr>
 				</table>
@@ -317,11 +313,11 @@ $(".contributor")
     })
     .append("<hr style='border-color:rgba(255,255,255,.08);margin:5px 0 5px 0'> ")
 
-$(".avatar").on("click",function(e){
+$(".contributor").on("click",function(e){
   
   e.preventDefault();
   e.stopPropagation();
-  $.extend(leadsData.datasets[2], topPerformers[$(this).attr("id").replace("avatar","")-1]);
+  $.extend(leadsData.datasets[2], topPerformers[$(this).index()]);
 
   leadsData.datasets[2].strokeColor = "rgba(44,148,105,1)";
   // leadsChart.update();
@@ -329,15 +325,14 @@ $(".avatar").on("click",function(e){
   leadsData.datasets[2].pointStrokeColor= "#fff";
   leadsData.datasets[2].pointHighlightFill= "#fff";
   leadsData.datasets[2].pointHighlightStroke= "rgba(220,220,220,1)";
-  console.log(leadsData.datasets[2].strokeColor);
-  options.animationSteps=5;
+  options.animationSteps=10;
   var ctx = document.getElementById("leadsChart").getContext("2d");
   var leadsChart = new Chart(ctx).Line(leadsData, options);
 
-  $("#performer").html(topPerformers[$(this).attr("id").replace("avatar","")-1].name);
+  $("#performer").html(topPerformers[$(this).index()].name);
   $(".legend").removeClass("hide");
 
-})
+});
 
 
 
