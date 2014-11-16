@@ -15,7 +15,6 @@
     border-radius:50%;
     background-size:contain;
     float:left;
-    border:2px solid white;
   }
 
   #avatar1 {
@@ -77,7 +76,7 @@
   .earnings-header {
     padding-left:25%;
     padding-top:10px;
-    width:267;
+    text-align: left;
   }
 
   .contributors-td {
@@ -118,7 +117,19 @@
   .hide{
     display: none;
   }
+h4{
+  height: 42px;
+}
+.object_detail_content_section.summary{
+  width: 280px;
+  padding-right: 25px;
+  border-right:1px solid rgba(100,100,100,0.9);
 
+}
+.object_detail_content_section{
+  width:880px;
+  float:left;
+}
 </style>
 
 <div class="arrow"></div>
@@ -128,69 +139,69 @@
     <span class="dismiss"><i class="fa fa-times"></i></span>
     <div class="object_detail_content">
       <div class="object_detail_content_section summary">
-				<table width="1320">
-          <tr>
-            <td><span>Top Contributors</span></td>
-            <td class="earnings-header"><span>Total Earnings</span></td>
-          </tr>
-					<tr>
-						<td class="contributors-td" width="325">
-              <span class="subtext">In the past 12 months your team has preformed 4% above average.</span>
-              <div class="contributors">
-                <div class="contributor">
-                  <div class="info-box">
-                    <div id="avatar1" class="avatar"></div>
-                      <div class="info-text">
-                        <a id="hover1"><span>Jon Doe</span></a>
-                        <br> 
-                        <span class="light-text">Earnings Share: 57% </span>
-                      </div>
+          <h4>Top Performer</h4>
+          <span class="subtext">The best performing team members in the last 6 months.</span>
+          <div class="contributors">
+            <div class="contributor">
+              <div class="info-box">
+                <div id="avatar1" class="avatar"></div>
+                  <div class="info-text">
+                    <a id="hover1"><span>Jon Doe</span></a>
+                    <br> 
+                    <span class="light-text">Earnings +57% </span>
                   </div>
-                </div>
-                <div class="contributor">
-                  <div class="info-box">
-                    <div id="avatar2" class="avatar"></div>
-                      <div class="info-text">
-                        <a id="hover2"><span>Sam Smith</span></a>
-                        <br> 
-                        <span class="light-text">Earnings Share: 57% </span>
-                      </div>
-                  </div>
-                </div>
-                <div class="contributor">
-                  <div class="info-box">
-                    <div id="avatar3" class="avatar"></div>
-                      <div class="info-text">
-                        <a id="hover3"><span>Lisa Williams</span></a>
-                        <br> 
-                        <span class="light-text">Earnings Share: 57% </span>
-                      </div>
-                  </div>
-                </div>
               </div>
-            </td>
-						<td class="chart-td">
-              <canvas id="leadsChart" width="670" height="375"></canvas>
-              <div class="legend-box">
-                <div class="legend">
-                  <div class="legend-item" id="user-legend"></div>
-                  <span id="selected_user" class="legend-text">My Earnings</span>
-                </div>
-                <br>
-                <div class="legend">
-                  <div class="legend-item" id="global-legend"></div>
-                  <span id="average" class="legend-text">Global Avg</span>
-                </div>
-                <br>
-                <div class="legend hide">
-                  <div class="legend-item" id="top-performer"></div>
-                  <span id="performer" class="legend-text"></span>
-                </div>
+            </div>
+            <div class="contributor">
+              <div class="info-box">
+                <div id="avatar2" class="avatar"></div>
+                  <div class="info-text">
+                    <a id="hover2"><span>Sam Smith</span></a>
+                    <br> 
+                    <span class="light-text">Earnings +43% </span>
+                  </div>
+              </div>
+            </div>
+            <div class="contributor">
+              <div class="info-box">
+                <div id="avatar3" class="avatar"></div>
+                  <div class="info-text">
+                    <a id="hover3"><span>Lisa Williams</span></a>
+                    <br> 
+                    <span class="light-text">Earnings +41% </span>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <br>
-              </div>
-					</tr>
-				</table>
+
+
+        <div class="object_detail_content_section" style="padding-left:20px;">
+          <h4>Earnings Analysis</h4>
+          <canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
+          <div style="width:150px; padding-left:50px;float:left;">
+            <br><br>
+            <div class="legend">
+              <div class="legend-item" id="user-legend"></div>
+              <span id="selected_user" class="legend-text">My Leads</span>
+            </div>
+            <br>
+            <div class="legend">
+              <div class="legend-item" id="global-legend"></div>
+              <span id="average" class="legend-text">Team Avg.</span>
+            </div>
+            <br>
+            <div class="legend hide">
+              <div class="legend-item" id="top-performer"></div>
+              <span id="performer" class="legend-text"></span>
+            </div>
+
+            <br>
+
+
+          </div>
+        </div>
 			</div>
 		</div>
 	</div>
@@ -199,7 +210,7 @@
 <script>
  
 var leadsData = {
-    labels: ["Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     datasets: [
         {
           label: "My dataset",
@@ -301,11 +312,11 @@ var options = {
       scaleStartValue: 0,
 };
 
-var ctx = document.getElementById("leadsChart").getContext("2d");
-var leadsChart = new Chart(ctx).Line(leadsData, options);
+var ctx = document.getElementById("metricsChart").getContext("2d");
+var myChart = new Chart(ctx).Line(leadsData, options);
 
 $('#selected_user').hide().html("My Earnings").fadeIn(1000);
-$('#average').hide().html("Global Average").fadeIn(1000);
+$('#average').hide().html("Team Average").fadeIn(1000);
 $(".contributor")
     .velocity("transition.slideUpBigIn", { 
       stagger: 200, 
@@ -317,19 +328,19 @@ $(".contributor").on("click",function(e){
   
   e.preventDefault();
   e.stopPropagation();
-  $.extend(leadsData.datasets[2], topPerformers[$(this).index()]);
+  _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
+  $.extend(leadsData.datasets[2], topPerformers[_index]);
 
   leadsData.datasets[2].strokeColor = "rgba(44,148,105,1)";
-  // leadsChart.update();
   leadsData.datasets[2].pointColor= "rgba(44,148,105,1)";
   leadsData.datasets[2].pointStrokeColor= "#fff";
   leadsData.datasets[2].pointHighlightFill= "#fff";
   leadsData.datasets[2].pointHighlightStroke= "rgba(220,220,220,1)";
   options.animationSteps=10;
-  var ctx = document.getElementById("leadsChart").getContext("2d");
-  var leadsChart = new Chart(ctx).Line(leadsData, options);
+  myChart.destroy();
+  myChart = new Chart(ctx).Line(leadsData, options);
 
-  $("#performer").html(topPerformers[$(this).index()].name);
+  $("#performer").html(topPerformers[_index].name);
   $(".legend").removeClass("hide");
 
 });

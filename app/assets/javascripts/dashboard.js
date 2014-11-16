@@ -61,6 +61,12 @@ function Dashboard(){
 					value:"$2,182.67",
 					label:"Total Earnings"
 				}
+			},
+			team_members:{
+				tab:{
+					value:327,
+					label:"Total Downline Size"
+				}
 			}
 
 		}
@@ -517,7 +523,6 @@ function Dashboard(){
 						var _updateAction={};
 						var _userDetail = data.properties;
 						$.extend(true, _updateAction, EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(fields)":{name:"zip"}})[0]);
-						console.log(_updateAction.fields)
 						_updateAction.fields.forEach(function(field){
 							_userDetail[field.name]=field.value;
 						});
@@ -736,14 +741,13 @@ function Dashboard(){
 					case "earnings":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
 					break;
-					case "type4":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+					case "team_members":
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_team_details.handlebars.html";
 					break;
 					case "type5":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 				}
-				console.log(_options._kpiType)
 
 				_getTemplate(_templatePath, _impactMetricsDetail, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
