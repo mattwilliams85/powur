@@ -16,6 +16,7 @@ class PayPeriodsJson < JsonDecorator
       json.call(pay_period, :id, :start_date, :end_date, :title)
       json.type pay_period.type_display
       json.calculated pay_period.calculated?
+      json.calculated pay_period.disbursed?
     end
   end
 

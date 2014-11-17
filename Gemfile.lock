@@ -78,6 +78,7 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
+    callsite (0.0.11)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -91,8 +92,8 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     columnize (0.8.9)
-    composite_primary_keys (7.0.12)
-      activerecord (~> 4.1.7)
+    composite_primary_keys (7.0.10)
+      activerecord (~> 4.1.4)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     daemons (1.1.9)
@@ -141,6 +142,10 @@ GEM
     kgio (2.9.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    meta_request (0.3.4)
+      callsite (~> 0.0, >= 0.0.11)
+      rack-contrib (~> 1.1)
+      railties (>= 3.0.0, < 5.0.0)
     method_source (0.8.2)
     mime-types (2.4.3)
     mini_portile (0.6.1)
@@ -174,6 +179,8 @@ GEM
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.5.2)
+    rack-contrib (1.2.0)
+      rack (>= 0.9.1)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.1.7)
@@ -272,9 +279,9 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    valid_email (0.0.10)
+    valid_email (0.0.7)
       activemodel
-      mail (~> 2.6.1)
+      mail
     vcr (2.9.3)
     webmock (1.20.4)
       addressable (>= 2.3.6)
@@ -303,6 +310,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   jquery-turbolinks
+  meta_request
   money
   paperclip (~> 4.2)
   pg
