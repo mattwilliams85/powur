@@ -6,7 +6,7 @@
 			<div class="object_detail_content">
 				<div class="object_detail_content_section summary">
 					<h4>Top Performer</h4>
-              		<span class="subtext">The best performing team members in the last 6 months.</span>
+              		<span class="subtext">The best performing team members in the last 12 months.</span>
 
                 	<div class="contributor">
 	                  	<div class="info-box">
@@ -14,7 +14,7 @@
 							<div class="info-text">
 								<a id="hover1"><span>Jon Doe</span></a>
 								<br> 
-								<span class="light-text">Average Lead: 17.2 </span>
+								<span class="light-text">Team Size: 17 </span>
 							</div>
 	                 	</div>
 	                </div>
@@ -25,7 +25,7 @@
 							<div class="info-text">
 								<a id="hover1"><span>Sam Smith</span></a>
 								<br> 
-								<span class="light-text">Average Lead: 16.4 </span>
+								<span class="light-text">Team Size: 16</span>
 							</div>
 	                 	</div>
 	                </div>
@@ -36,7 +36,7 @@
 							<div class="info-text">
 								<a id="hover1"><span>Lisa Williams</span></a>
 								<br> 
-								<span class="light-text">Average Lead: 15  </span>
+								<span class="light-text">Team Size: 15  </span>
 							</div>
 	                 	</div>
 	                </div>
@@ -51,12 +51,7 @@
 						<br><br>
 		                <div class="legend">
 		                  <div class="legend-item" id="user-legend"></div>
-		                  <span id="selected_user" class="legend-text">My Leads</span>
-		                </div>
-		                <br>
-		                <div class="legend">
-		                  <div class="legend-item" id="global-legend"></div>
-		                  <span id="average" class="legend-text">Team Avg.</span>
+		                  <span id="selected_user" class="legend-text">Team Size</span>
 		                </div>
 		                <br>
 		                <div class="legend hide">
@@ -205,7 +200,7 @@ for(i=0;i<12;i++){
 		tempData.push(Math.floor(Math.random()*5+1));
 	}else{
 
-		tempData.push(tempData[i-1]+Math.floor(Math.random()*3+3));
+		tempData.push(tempData[i-1]+Math.floor(Math.random()*3+1));
 	}
 
 }
@@ -223,12 +218,6 @@ var metricsData = {
             fillColor: "#20c2f1",
             highlightFill: "#5bd7f7",
             data: _randomData.me
-        },
-        {
-            label: "My Second dataset",
-            fillColor: "#FDB45C",
-            highlightFill: "#FFC870",
-            data: _randomData.team
         },
         {
             fillColor: "rgba(44,148,105,0)",
@@ -286,10 +275,10 @@ $(".contributor").on("click",function(e){
   e.preventDefault();
   e.stopPropagation();
   _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
-  $.extend(metricsData.datasets[2], topPerformers[_index]);
+  $.extend(metricsData.datasets[1], topPerformers[_index]);
 
-  metricsData.datasets[2].fillColor = "rgba(44,148,105,1)";
-  metricsData.datasets[2].highlightFill= "rgba(44,148,105,1)";
+  metricsData.datasets[1].fillColor = "rgba(44,148,105,1)";
+  metricsData.datasets[1].highlightFill= "rgba(44,148,105,1)";
 
   options.animationSteps=5;
   myChart.destroy();
