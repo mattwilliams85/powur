@@ -12,10 +12,7 @@ module EwalletDSL
     client = EyecueIpayout.new
     puts 'eWallet_request:: call:' + service_name
     service = client.get_service(service_name)
-    puts "CHECK service.parameters"
-    puts "CHECK query['parameters']"
     populated_params = assign_param_values(query['options_hash'], service.parameters)
-    pp populated_params
     response = client.ewallet_request(populated_params)
     # response = client.ewallet_request(query)
     response
@@ -35,18 +32,14 @@ module EwalletDSL
         param_hash[api_param_name] = input_params[api_param_name]
       end
     end
-    # check param_hash
-
     param_hash
   end
 
   def prepare_load_request(pay_period, bonus_amount_totals)
-    puts 'PREPARE LOAD REQUEST'
     construct_ewallet_load_query(pay_period, bonus_amount_totals)
   end
 
   def prepare_register_request(user)
-    puts 'PREPARE REGISTER REQUEST'
     construct_ewallet_registration_query(user)
   end
 

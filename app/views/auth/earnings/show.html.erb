@@ -39,20 +39,23 @@
       z-index: 90;
       display:none;
       background:rgba(0,0,0,.5);}
+
   #js-popup{
       display:none;
       z-index:95;
       background:rgba(255,255,255,1);
       position:fixed;
-      top:50%;
-      left:40%;
-      width:480px;
-      padding:32px;}
+      display:none;
+      top:25%;
+      left:30%;
+      padding:50px;
+  }
 
   #stats-header {
     background-color:white;
     margin:auto;
     margin-bottom:50px;
+    width:100%;
   }
 
   #stats-header td {
@@ -280,7 +283,7 @@
           </tr>
         </table>
           <div class="section_content" style="overflow:hidden;">
-            <div class="section_header date"><strong>FEBRUARY</strong></div>
+            <div class="section_header date"><strong>APRIL</strong></div>
           </div>
           <table style="width:100%;">
           <thead>
@@ -325,21 +328,70 @@
 
   </div>
 
+  <div id="js-popup">
+    
+    <table style="width:100%;">
+    <thead>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong></strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Quantity</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Product</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Amount</strong></td>
+    </thead>
+      <tr style="background:#fff;">
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Personal Sale</strong></td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Group Sale</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Enroller Bonus</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Uni-Level Bonus</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Promote-Out</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Total</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$502,231</td>
+      </tr>
+    </table>
+
+  </div>
+
 
 </section>
 
 <div id="js-screen_mask"></div>
-<div id="js-popup">asdf</div>
+
 <script type="text/javascript">
 
-var slideData = $("#slideData").html()
-  $(".test").click(function(){
-    console.log($(this).parent().parent())
-   row = $(this).parent().parent()
-   $("<tr><td colspan='5' class='dropdownz' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
-   $('.dropdownz').append(slideData)
-   $('#slideData').fadeIn(200);
-   $('.dropdownz').velocity({height:"450px"})
+// var slideData = $("#slideData").html()
+//   $(".test").click(function(){
+//     console.log($(this).parent().parent())
+//    row = $(this).parent().parent()
+//    $("<tr><td colspan='5' class='dropdownz' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
+//    $('.dropdownz').append(slideData)
+//    $('#slideData').fadeIn(200);
+//    $('.dropdownz').velocity({height:"450px"})
     // $('.dropdown').animate({height+=450})
     // $("#js-screen_mask").fadeIn(100, function(){
     //   $("#js-popup").fadeIn(100);
@@ -348,6 +400,21 @@ var slideData = $("#slideData").html()
     //     $("#js-popup").fadeOut(100);
     //   })
     // });
+var jsPopup = '<div id="js-popup"></div>'
+var popupData = $("#js-popup").html();
+
+  $(".js-modal-popup").click(function(){
+    $("#js-screen_mask").fadeIn(100, function(){
+      $("body").append(jsPopup);
+      if ($("#js-popup").html() == "") {
+        $("#js-popup").append(popupData);
+      }
+      $("#js-popup").fadeIn(100);
+      $("#js-screen_mask").click(function(){
+        $("#js-screen_mask").fadeOut(100);
+        $("#js-popup").fadeOut(100);
+      })
+    });
 
   })
 </script>
