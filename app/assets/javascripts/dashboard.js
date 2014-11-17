@@ -6,6 +6,7 @@ var _dashboard;
 
 $(window).bind('page:change', function() {
   initPage();
+  console.log("dash")
 });
 
 
