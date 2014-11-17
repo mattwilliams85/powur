@@ -1,4 +1,4 @@
-module Anon
+module Api
   class PasswordsController < ApiController
     skip_before_action :authenticate!
 
