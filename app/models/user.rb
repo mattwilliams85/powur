@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   include NameEmailSearch
   include UserScopes
 
-  validates :email, email: true, presence: true
+  #validates :email, email: true, presence: true
+  validates_presence_of :email
   validates_presence_of :encrypted_password, on: :create
   validates_presence_of :first_name, :last_name
   validates_presence_of :url_slug, :reset_token, allow_nil: true
