@@ -29,12 +29,83 @@
     opacity:.3;
     display:block;
   }
+
+  #js-screen_mask{
+      width:100%;
+      height: 100%;
+      position: fixed;
+      top:0;
+      left:0;
+      z-index: 90;
+      display:none;
+      background:rgba(0,0,0,.5);}
+
+  #js-popup{
+      z-index:95;
+      background:rgba(255,255,255,1);
+      position:fixed;
+      display:none;
+      top:25%;
+      left:30%;
+      padding:50px;}
+
+  #stats-header {
+    background-color:white;
+    margin:auto;
+    margin-bottom:50px;
+    width:100%;
+  }
+
+  #stats-header td {
+    padding:50px 70px 20px 70px;
+    border:1px solid #ddd;
+  }
+
+  .kpi_label {
+    padding-bottom:10px;
+  }
+
+  #date-dropdown {
+    width:53%;
+    margin:auto;
+  }
+
+  #stats_section_header {
+    margin-top:50px;
+  }
+
+  #body_section_header {
+    padding-top:0px;
+  }
+
+  .date {
+    margin-bottom:15px;
+  }
 </style>
 
 <section id="dashboard_personal_goals" class="dashboard_section" data-drilldown-level="0" style="margin-top:-100px;">
-  <div class="section_header">
+  <div id="stats_section_header" class="section_header">
+
     <div class="section_header_content">
 
+       <table id="stats-header">
+                <tr>
+                <td>
+                <h3 class="kpi_label">CURRENT WEEK</h3>
+                <h1 class="kpi_value" style="font-size: 31pt;"><span>$976</span></h1>
+                </td>
+                <td>
+                <h3 class="kpi_label">CURRENT MONTH</h3>
+                <h1 class="kpi_value" style="font-size: 31pt;"><span>$3,976</span></h1>
+                </td>
+                <td>
+                <h3 class="kpi_label">ACCUMULATED TOTAL</h3>
+                <h1 class="kpi_value" style="font-size: 31pt;"><span>$323,976</span></h1>
+                </td>
+                </tr>
+                </table>
+
+    <div id="date-dropdown">
       <div class="section_label">
         <div class="tag"><img src="/images/dashboard/customers_icon.png"></div>
       </div>
@@ -78,167 +149,168 @@
         <option>2016</option>
       </select>
       </div>
+    </div> 
   </div>
 
   <div class="section_body">
     <div class="section_content" style="overflow:hidden;">
-      <div class="section_header"><strong>JANUARY</strong></div>
+      <div id="body_section_header" class="section_header date"><strong>JANUARY</strong></div>
     </div>
     <table style="width:100%;">
     <thead>
-      <td style="text-align:left; padding: 5px;"><strong>Month</strong></td>
-      <td style="text-align:left; padding: 5px;"><strong>Week</strong></td>
-      <td style="text-align:left; padding: 5px;"><strong>Dates</strong></td>
-      <td style="text-align:left; padding: 5px;"><strong>Earnings</strong></td>
-      <td style="text-align:right; padding-right: 15px;"><strong>Details</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Month</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Week</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Earnings</strong></td>
+      <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
     </thead>
-      <tr style="background:#fff; border: 1px solid #ddd;">
-        <td style="text-align:left; padding: 5px; padding-left:15px;">January</td>
-        <td style="text-align:left; padding: 5px;">1</td>
-        <td style="text-align:left; padding: 5px;">1/2 - 1/9</td>
-        <td style="text-align:left; padding: 5px;">$234,567</td>
-        <td style="text-align:right; padding-right: 15px;">View Details</td>
+      <tr style="background:#fff;">
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/2 - 1/9</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
       </tr>
-      <tr style="background:#fff; border: 1px solid #ddd;">
-        <td style="text-align:left; padding: 5px; padding-left:15px;">January</td>
-        <td style="text-align:left; padding: 5px;">2</td>
-        <td style="text-align:left; padding: 5px;">1/10 - 1/17</td>
-        <td style="text-align:left; padding: 5px;">$144,151</td>
-        <td style="text-align:right; padding-right: 15px;">View Details</td>
+      <tr style="background:#fff;">
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/10 - 1/17</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$144,151</td>
+        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
       </tr>
-      <tr style="background:#fff; border: 1px solid #ddd;">
-        <td style="text-align:left; padding: 5px; padding-left:15px;">January</td>
-        <td style="text-align:left; padding: 5px;">3</td>
-        <td style="text-align:left; padding: 5px;">1/18 - 1/25</td>
-        <td style="text-align:left; padding: 5px;">$89,567</td>
-        <td style="text-align:right; padding-right: 15px;">View Details</td>
+      <tr style="background:#fff;">
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/18 - 1/25</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$89,567</td>
+        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
       </tr>
-      <tr style="background:#fff; border: 1px solid #ddd;">
-        <td style="text-align:left; padding: 5px; padding-left:15px;">January</td>
-        <td style="text-align:left; padding: 5px;">4</td>
-        <td style="text-align:left; padding: 5px;">1/25 - 1/31</td>
-        <td style="text-align:left; padding: 5px;">$112,567</td>
-        <td style="text-align:right; padding-right: 15px;">View Details</td>
+      <tr style="background:#fff;">
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/25 - 1/31</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$112,567</td>
+        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
       </tr>
     </table>
       <div class="section_content" style="overflow:hidden;">
-        <div class="section_header"><strong>FEBRUARY</strong></div>
+        <div class="section_header date"><strong>FEBRUARY</strong></div>
       </div>
       <table style="width:100%;">
       <thead>
-        <td style="text-align:left; padding: 5px;"><strong>Month</strong></td>
-        <td style="text-align:left; padding: 5px;"><strong>Week</strong></td>
-        <td style="text-align:left; padding: 5px;"><strong>Dates</strong></td>
-        <td style="text-align:left; padding: 5px;"><strong>Earnings</strong></td>
-        <td style="text-align:right; padding: 5px;"><strong>Details</strong></td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Month</strong></td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Week</strong></td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Earnings</strong></td>
+        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
       </thead>
-        <tr style="background:#fff; border: 1px solid #ddd;">
-          <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-          <td style="text-align:left; padding: 5px;">1</td>
-          <td style="text-align:left; padding: 5px;">2/1 - 2/8</td>
-          <td style="text-align:left; padding: 5px;">$234,567</td>
-          <td style="text-align:right; padding-right: 15px;">View Details</td>
+        <tr style="background:#fff;">
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/1 - 2/8</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
         </tr>
-        <tr style="background:#fff; border: 1px solid #ddd;">
-          <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-          <td style="text-align:left; padding: 5px;">2</td>
-          <td style="text-align:left; padding: 5px;">2/9 - 2/16</td>
-          <td style="text-align:left; padding: 5px;">$234,567</td>
-          <td style="text-align:right; padding-right: 15px;">View Details</td>
+        <tr style="background:#fff;">
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/9 - 2/16</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
         </tr>
-        <tr style="background:#fff; border: 1px solid #ddd;">
-          <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-          <td style="text-align:left; padding: 5px;">3</td>
-          <td style="text-align:left; padding: 5px;">2/17 - 2/24</td>
-          <td style="text-align:left; padding: 5px;">$234,567</td>
-          <td style="text-align:right; padding-right: 15px;">View Details</td>
+        <tr style="background:#fff;">
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/17 - 2/24</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
         </tr>
-        <tr style="background:#fff; border: 1px solid #ddd;">
-          <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-          <td style="text-align:left; padding: 5px;">4</td>
-          <td style="text-align:left; padding: 5px;">2/25 - 2/28</td>
-          <td style="text-align:left; padding: 5px;">$234,567</td>
-          <td style="text-align:right; padding-right: 15px;">View Details</td>
+        <tr style="background:#fff;">
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/25 - 2/28</td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
         </tr>
       </table>
         <div class="section_content" style="overflow:hidden;">
-          <div class="section_header"><strong>FEBRUARY</strong></div>
+          <div class="section_header date"><strong>MARCH</strong></div>
         </div>
         <table style="width:100%;">
         <thead>
-          <td style="text-align:left; padding: 5px;"><strong>Month</strong></td>
-          <td style="text-align:left; padding: 5px;"><strong>Week</strong></td>
-          <td style="text-align:left; padding: 5px;"><strong>Dates</strong></td>
-          <td style="text-align:left; padding: 5px;"><strong>Earnings</strong></td>
-          <td style="text-align:right; padding: 5px;"><strong>Details</strong></td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Month</strong></td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Week</strong></td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
+          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Earnings</strong></td>
+          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
         </thead>
-          <tr style="background:#fff; border: 1px solid #ddd;">
-            <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-            <td style="text-align:left; padding: 5px;">1</td>
-            <td style="text-align:left; padding: 5px;">2/1 - 2/8</td>
-            <td style="text-align:left; padding: 5px;">$234,567</td>
-            <td style="text-align:right; padding-right: 15px;">View Details</td>
+          <tr style="background:#fff;">
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/1 - 2/8</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
           </tr>
-          <tr style="background:#fff; border: 1px solid #ddd;">
-            <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-            <td style="text-align:left; padding: 5px;">2</td>
-            <td style="text-align:left; padding: 5px;">2/9 - 2/16</td>
-            <td style="text-align:left; padding: 5px;">$234,567</td>
-            <td style="text-align:right; padding-right: 15px;">View Details</td>
+          <tr style="background:#fff;">
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/9 - 2/16</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
           </tr>
-          <tr style="background:#fff; border: 1px solid #ddd;">
-            <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-            <td style="text-align:left; padding: 5px;">3</td>
-            <td style="text-align:left; padding: 5px;">2/17 - 2/24</td>
-            <td style="text-align:left; padding: 5px;">$234,567</td>
-            <td style="text-align:right; padding-right: 15px;">View Details</td>
+          <tr style="background:#fff;">
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/17 - 2/24</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
           </tr>
-          <tr style="background:#fff; border: 1px solid #ddd;">
-            <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-            <td style="text-align:left; padding: 5px;">4</td>
-            <td style="text-align:left; padding: 5px;">2/25 - 2/28</td>
-            <td style="text-align:left; padding: 5px;">$234,567</td>
-            <td style="text-align:right; padding-right: 15px;">View Details</td>
+          <tr style="background:#fff;">
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/25 - 2/28</td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
           </tr>
         </table>
           <div class="section_content" style="overflow:hidden;">
-            <div class="section_header"><strong>FEBRUARY</strong></div>
+            <div class="section_header date"><strong>APRIL</strong></div>
           </div>
           <table style="width:100%;">
           <thead>
-            <td style="text-align:left; padding: 5px;"><strong>Month</strong></td>
-            <td style="text-align:left; padding: 5px;"><strong>Week</strong></td>
-            <td style="text-align:left; padding: 5px;"><strong>Dates</strong></td>
-            <td style="text-align:left; padding: 5px;"><strong>Earnings</strong></td>
-            <td style="text-align:right; padding: 5px;"><strong>Details</strong></td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Month</strong></td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Week</strong></td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
+            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Earnings</strong></td>
+            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
           </thead>
-            <tr style="background:#fff; border: 1px solid #ddd;">
-              <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-              <td style="text-align:left; padding: 5px;">1</td>
-              <td style="text-align:left; padding: 5px;">2/1 - 2/8</td>
-              <td style="text-align:left; padding: 5px;">$234,567</td>
-              <td style="text-align:right; padding-right: 15px;">View Details</td>
+            <tr style="background:#fff;">
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/1 - 2/8</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
             </tr>
-            <tr style="background:#fff; border: 1px solid #ddd;">
-              <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-              <td style="text-align:left; padding: 5px;">2</td>
-              <td style="text-align:left; padding: 5px;">2/9 - 2/16</td>
-              <td style="text-align:left; padding: 5px;">$234,567</td>
-              <td style="text-align:right; padding-right: 15px;">View Details</td>
+            <tr style="background:#fff;">
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/9 - 2/16</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
             </tr>
-            <tr style="background:#fff; border: 1px solid #ddd;">
-              <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-              <td style="text-align:left; padding: 5px;">3</td>
-              <td style="text-align:left; padding: 5px;">2/17 - 2/24</td>
-              <td style="text-align:left; padding: 5px;">$234,567</td>
-              <td style="text-align:right; padding-right: 15px;">View Details</td>
+            <tr style="background:#fff;">
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/17 - 2/24</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
             </tr>
-            <tr style="background:#fff; border: 1px solid #ddd;">
-              <td style="text-align:left; padding: 5px; padding-left:15px;">February</td>
-              <td style="text-align:left; padding: 5px;">4</td>
-              <td style="text-align:left; padding: 5px;">2/25 - 2/28</td>
-              <td style="text-align:left; padding: 5px;">$234,567</td>
-              <td style="text-align:right; padding-right: 15px;">View Details</td>
+            <tr style="background:#fff;">
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/25 - 2/28</td>
+              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
+              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
             </tr>
           </table>
       
@@ -247,10 +319,79 @@
 
   </div>
 
+  <div id="js-popup">
+    
+    <table style="width:100%;">
+    <thead>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong></strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Quantity</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Product</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Amount</strong></td>
+    </thead>
+      <tr style="background:#fff;">
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Personal Sale</strong></td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Group Sale</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Enroller Bonus</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Uni-Level Bonus</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Promote-Out</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
+      </tr>
+      <tr style="background:#fff;">
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Total</strong></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"></td>
+      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$502,231</td>
+      </tr>
+    </table>
+
+  </div>
+
 
 </section>
 
+<div id="js-screen_mask"></div>
+
+<script type="text/javascript">
+var jsPopup = '<div id="js-popup"></div>'
+var popupData = $("#js-popup").html();
+
+  $(".js-modal-popup").click(function(){
+    $("#js-screen_mask").fadeIn(100, function(){
+      $("body").append(jsPopup);
+      if ($("#js-popup").html() == "") {
+        $("#js-popup").append(popupData);
+      }
+      $("#js-popup").fadeIn(100);
+      $("#js-screen_mask").click(function(){
+        $("#js-screen_mask").fadeOut(100);
+        $("#js-popup").fadeOut(100);
+      })
+    });
+
+  })
+</script>
+
 
 <br><br><br>
-
-  
