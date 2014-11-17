@@ -1,4 +1,5 @@
 class PayPeriod < ActiveRecord::Base
+  include EwalletDSL
   has_many :order_totals, dependent: :destroy
   has_many :rank_achievements, dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
@@ -7,6 +8,8 @@ class PayPeriod < ActiveRecord::Base
   scope :calculated, -> { where('calculated_at is not null') }
   scope :next_to_calculate,
         -> { order(id: :asc).where('calculated_at is null').first }
+
+  scope :dispursed, -> { where('dispursed_at is not null') }
 
   before_create do
     self.id ||= self.class.id_from(start_date)
@@ -20,16 +23,35 @@ class PayPeriod < ActiveRecord::Base
     Date.current > end_date
   end
 
-  def distributed?
-    !distributed_at.nil?
+  def disbursed?
+    !disbursed_at.nil?
   end
 
-  def distributable?
-    finished? && calculated? && !distributed
+  def disbursable?
+    finished? && calculated? && !disbursed?
+  end
+
+  def disburse!
+    puts 'XXXXXXXX DISBURSE! from pay_period.rb'
+
+    payments_per_user = BonusPayment.user_bonus_totals(self)
+    query = prepare_load_request(self, payments_per_user)
+    result = ewallet_request("ewallet_load", query)
+
+    if result[:m_Code] == '200'
+      puts "Successful Load Request" + result[:m_Text]
+      ap result
+      # Distribution.create(pay_period: self, user_id: user.id, amount: result['Balance'])
+      #touch :disbursed_at
+    else
+      puts "Unsuccessful Load Request"
+
+      #The load was not successful
+    end
   end
 
   def calculable?
-    DateTime.current > start_date && distributed_at.nil?
+    DateTime.current > start_date && disbursed_at.nil?
   end
 
   def calculated?
@@ -56,7 +78,11 @@ class PayPeriod < ActiveRecord::Base
     BonusPaymentOrder.delete_all_for_pay_period(id)
     bonus_payments.delete_all
     rank_achievements.delete_all
-    order_totals.delete_all
+    begin
+      order_totals.delete_all_for_pay_period
+    rescue
+      puts "Error deleting order totals"
+    end
   end
 
   def process_orders!

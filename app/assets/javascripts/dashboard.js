@@ -4,29 +4,34 @@ var _animation_speed = 300;
 var _dashboard;
 
 
-jQuery(function($){
-	$(document).ready(function(){
-		_data.root={};
-
-		//get current user profile and initiate dashboard data
-		_getRoot(function(){
-			$(".js-user_first_name").text(_data.root.properties.first_name );
-			_myID = _data.root.properties.id;
-			_dashboard = new Dashboard();
-			_dashboard.displayGoals();
-			_dashboard.displayTeam();
-			_dashboard.displayQuotes();
-			_dashboard.displayKPIs();
-			if(_data.currentUser.thumb_image_url) $("#js-user_profile_image").attr("src", _data.currentUser.thumb_image_url);
-			setInterval(_dashboard._countdown, 1000);			
-		});
-
-		//wire up logout button
-		$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete", function(data, text){
-		});});
-
-	});
+$(window).bind('page:change', function() {
+  initPage();
 });
+
+
+
+function initPage(){
+	_data.root={};
+
+	//get current user profile and initiate dashboard data
+	_getRoot(function(){
+		$(".js-user_first_name").text(_data.root.properties.first_name );
+		_myID = _data.root.properties.id;
+		_dashboard = new Dashboard();
+		_dashboard.displayGoals();
+		_dashboard.displayTeam();
+		_dashboard.displayQuotes();
+		_dashboard.displayKPIs();
+		if(_data.currentUser.thumb_image_url) $("#js-user_profile_image").attr("src", _data.currentUser.thumb_image_url);
+		setInterval(_dashboard._countdown, 1000);			
+	});
+
+	//wire up logout button
+	$("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete", function(data, text){
+	});});
+
+};
+
 
 //populate initial data on dashboard screen
 function Dashboard(){

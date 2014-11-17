@@ -3,7 +3,6 @@ module Auth
     before_action :fetch_user, only: [ :show, :update, :update_avatar,
                                        :update_password ]
 
-
     def show
       @user = current_user
       @profile = @user.profile

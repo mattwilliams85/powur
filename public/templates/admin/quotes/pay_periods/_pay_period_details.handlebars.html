@@ -4,13 +4,15 @@
     <h1>Pay Period Detail <br>{{this.properties.title}}</h1>
     <div style="float:right;vertical-align:top;">
                   {{#if this.actions}}
+
             {{#compare this.properties.calculated false operator="=="}}
                 <span class="js-calculate_pay_period button">Calculate</span>
             {{else}}
+                <a href="#" class="js-disburse_pay_period button" style="color:#cecece;">Disburse</a>
                 <a href="#" class="js-calculate_pay_period button quiet" style="color:#cecece;">Recalculate</a>
             {{/compare}}
             {{else}}
-                <span style="display:block; color:#ccc;">Queued</span> 
+                <span style="display:block; color:#ccc;">Queued</span>
             {{/if}}
     </div>
 </div>
@@ -44,20 +46,20 @@
         <td style="vertical-align:middle;">
             <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Start Date</span>
-                {{localtime this.properties.start_date}} 
+                {{localtime this.properties.start_date}}
             </div>
         </td>
         <td style="vertical-align:middle;">
             <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">End Date</span>
-                {{localtime this.properties.end_date}} 
+                {{localtime this.properties.end_date}}
             </div>
         </td>
-        
+
         <td style="vertical-align:middle;">
             {{#if this.actions}}
             {{#compare this.properties.calculated false operator="=="}}
-                <span style="display:block; color:#ccc;">---</span> 
+                <span style="display:block; color:#ccc;">---</span>
 
             {{else}}
                 <div class="innerCell">
@@ -66,12 +68,12 @@
                     <a href="#" class="js-order_totals_link" style="vertical-align:middle; padding-left:0; padding-right:0;">Order Totals</a>
                     <span style="color:#cecece;">|</span>
                     <a href="#" class="js-rank_achievements_link"  style="vertical-align:middle; padding-left:0;">Rank Achievements</a>
-                    <span style="color:#cecece;">|</span> 
+                    <span style="color:#cecece;">|</span>
                     <a href="#" class="js-bonus_payments_link"  style="vertical-align:middle; padding-left:0;">Bonus Payments</a>
                 </div>
             {{/compare}}
             {{else}}
-               <span style="display:block; color:#ccc;">---</span> 
+               <span style="display:block; color:#ccc;">---</span>
 
             {{/if}}
 
@@ -86,7 +88,7 @@
                 <a href="#" class="js-calculate_pay_period button quiet" style="color:#cecece;">Recalculate</a>
             {{/compare}}
             {{else}}
-                <span style="display:block; color:#ccc;">---</span> 
+                <span style="display:block; color:#ccc;">---</span>
             {{/if}}
 
         </td>

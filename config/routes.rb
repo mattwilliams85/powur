@@ -32,6 +32,12 @@ Rails.application.routes.draw do
   scope :u, module: :auth do
     resource :dashboard, only: [ :show ], controller: :dashboard
 
+    resource :ewallet,
+             only:       [ :index, :account_details ],
+             controller: :ewallet do
+      get 'account_details', to: 'ewallet#account_details'
+
+    end
     resource :profile,
              only:       [ :show, :update, :password_reset ],
              controller: :profile do
@@ -154,7 +160,7 @@ Rails.application.routes.draw do
       member do
         post :calculate
         post :recalculate
-        post :distribute
+        post :disburse
       end
       resources :orders, only: [ :index ], controller: :pay_period_orders
       resources :order_totals,
@@ -169,6 +175,12 @@ Rails.application.routes.draw do
     end
 
     resources :overrides, only: [ :index, :update, :destroy ]
+  end
+
+  # logged in admin routes
+  scope :gateway, module: :gateway do
+    get 'ipayout/verify_user', to: 'ipayout#verify_user'
+    post 'ipayout/notify_merchant', to: 'ipayout#notify_merchant'
   end
 
   namespace :api, defaults: { format: 'json' } do
@@ -201,6 +213,7 @@ Rails.application.routes.draw do
     get :request
     get :thanks
   end
+
 
   # These are just to fake the referral pages so the link doesn't break
   # safe to remove when the feature is implemented
