@@ -72,7 +72,12 @@ Rails.application.routes.draw do
         post :resend
       end
     end
+
+    resource :earnings, only: [:show]
+    
   end
+
+
 
   # logged in admin routes
   scope :a, module: :admin do
