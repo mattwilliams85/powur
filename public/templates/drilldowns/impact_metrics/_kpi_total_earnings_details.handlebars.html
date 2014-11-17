@@ -1,4 +1,13 @@
 <style>
+  .drilldown_content {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
   a{
     cursor:pointer;
   }
@@ -69,7 +78,9 @@
   }
 
   .contributor {
-    width:275px;
+    cursor: pointer;
+    padding-left:10px;
+    background-color:#535353;
   }
 
 
@@ -158,7 +169,7 @@ h4{
               <div class="info-box">
                 <div id="avatar2" class="avatar"></div>
                   <div class="info-text">
-                    <a id="hover2"><span>Sam Smith</span></a>
+                    <a id="hover2"><span>Danny Smith</span></a>
                     <br> 
                     <span class="light-text">Earnings +43% / 6mo</span>
                   </div>
@@ -308,12 +319,18 @@ $(".contributor").on("click",function(e){
   _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
   $.extend(metricsData.datasets[0].data, topPerformers[_index].data);
 
+  $('.contributor').each(function(){
+    $(this).velocity({backgroundColor:"#555"},100);
+  })
+  $(this).velocity({backgroundColor:"#454545"},150);
+
+
   // metricsData.datasets[1].strokeColor = "rgba(44,148,105,1)";
   // metricsData.datasets[1].pointColor= "rgba(44,148,105,1)";
   // metricsData.datasets[1].pointStrokeColor= "#fff";
   // metricsData.datasets[1].pointHighlightFill= "#fff";
   //metricsData.datasets[1].pointHighlightStroke= "rgba(220,220,220,1)";
-  options.animationSteps=5;
+  options.animationSteps=20;
   myChart.destroy();
   myChart = new Chart(ctx).Line(metricsData, options);
   $("#graph_title").html(topPerformers[_index].name+"'s Earnings to Date")

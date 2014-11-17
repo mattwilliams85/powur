@@ -1,4 +1,13 @@
 <style>
+  .drilldown_content {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
   a{
     cursor:pointer;
   }
@@ -70,7 +79,9 @@
   }
 
   .contributor {
-    width:275px;
+    cursor: pointer;
+    padding-left:10px;
+    background-color:#535353;
   }
 
 
@@ -146,7 +157,7 @@
                   <div class="info-box">
                     <div id="avatar2" class="avatar"></div>
                       <div class="info-text">
-                        <a id="hover2"><span>Sam Smith</span></a>
+                        <a id="hover2"><span>Danny Smith</span></a>
                         <br> 
                         <span class="light-text">Earnings Share: 57% </span>
                       </div>
@@ -320,9 +331,15 @@ $(".contributor").on("click",function(e){
   leadsData.datasets[2].pointHighlightFill= "#fff";
   leadsData.datasets[2].pointHighlightStroke= "rgba(220,220,220,1)";
   console.log(leadsData.datasets[2].strokeColor);
-  options.animationSteps=1;
+  options.animationSteps=20;
   var ctx = document.getElementById("leadsChart").getContext("2d");
   var leadsChart = new Chart(ctx).Line(leadsData, options);
+
+  $('.contributor').each(function(){
+    $(this).velocity({backgroundColor:"#555"},100);
+  })
+  $(this).velocity({backgroundColor:"#4545"},100);
+
 
   $('#selected_user').hide().html("Jon Doe").fadeIn(500);
 })
