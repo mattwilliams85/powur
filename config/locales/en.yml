@@ -24,6 +24,10 @@ en:
     invite: Invitation to Join SunStand
     reset-password: Password Reset Request
     customer-onboard: Sunstand Quote Request
+  valid_email:
+    validations:
+      email:
+        invalid: Please use a valid email address
   errors:
     format: "%{message}"
     required: "%{input} is required"
@@ -46,7 +50,8 @@ en:
     duplicate_bonus_plan_start: "The bonus plan %{plan} already has this start date"
     duplicate_order: The quote already has a related order
     period_not_calculable: This pay period is not eligible for calculation
-    messages: 
+    period_not_disbursable: This pay period is not eligible for distribution
+    messages:
       exceeded_max_invites: You have exceeded the max number of invites allowed
       invalid_keys: "%{attribute} has invalid keys for the product"
       blank: "%{attribute} is required"

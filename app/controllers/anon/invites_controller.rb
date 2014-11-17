@@ -1,7 +1,7 @@
 module Anon
 
   class InvitesController < AnonController
-
+    include EwalletDSL
     before_action :fetch_invite, only: [ :create, :update ]
 
     def create
@@ -17,7 +17,7 @@ module Anon
       require_input :password
       input = params.permit(:first_name, :last_name, :email, :password, :phone, :zip)
       user = @invite.accept(input)
-
+      # register_new_ipayout_user(user)
       login_user(user)
       render 'anon/session/show'
     end
