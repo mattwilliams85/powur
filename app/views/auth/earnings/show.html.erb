@@ -47,13 +47,63 @@
       left:0;
       width:480px;
       padding:32px;}
+
+  #stats-header {
+    background-color:white;
+    margin:auto;
+    margin-bottom:50px;
+  }
+
+  #stats-header td {
+    padding:50px 70px 20px 70px;
+    border:1px solid #ddd;
+  }
+
+  .kpi_label {
+    padding-bottom:10px;
+  }
+
+  #date-dropdown {
+    width:53%;
+    margin:auto;
+  }
+
+  #stats_section_header {
+    margin-top:50px;
+  }
+
+  #body_section_header {
+    padding-top:0px;
+  }
+
+  .date {
+    margin-bottom:15px;
+  }
 </style>
 
 <section id="dashboard_personal_goals" class="dashboard_section" data-drilldown-level="0" style="margin-top:-100px;">
+  <div id="stats_section_header" class="section_header">
 
-  <div class="section_header">
     <div class="section_header_content">
 
+       <table id="stats-header">
+                <tr>
+                <td>
+                <h3 class="kpi_label">CURRENT WEEK</h3>
+                <h1 class="kpi_value" style="font-size: 31pt;"><span>$976</span></h1>
+                </td>
+                <td>
+                <h3 class="kpi_label">CURRENT MONTH</h3>
+                <h1 class="kpi_value" style="font-size: 31pt;"><span>$3,976</span></h1>
+                </td>
+                <td>
+                <h3 class="kpi_label">ACCUMULATED TOTAL</h3>
+                <h1 class="kpi_value" style="font-size: 31pt;"><span>$323,976</span></h1>
+                </td>
+                </tr>
+                </table>
+
+    <div id="date-dropdown">
       <div class="section_label">
         <div class="tag"><img src="/images/dashboard/customers_icon.png"></div>
       </div>
@@ -97,11 +147,12 @@
         <option>2016</option>
       </select>
       </div>
+    </div> 
   </div>
 
   <div class="section_body">
     <div class="section_content" style="overflow:hidden;">
-      <div class="section_header"><strong>JANUARY</strong></div>
+      <div id="body_section_header" class="section_header date"><strong>JANUARY</strong></div>
     </div>
     <table style="width:100%;">
     <thead>
@@ -141,7 +192,7 @@
       </tr>
     </table>
       <div class="section_content" style="overflow:hidden;">
-        <div class="section_header"><strong>FEBRUARY</strong></div>
+        <div class="section_header date"><strong>FEBRUARY</strong></div>
       </div>
       <table style="width:100%;">
       <thead>
@@ -181,7 +232,7 @@
         </tr>
       </table>
         <div class="section_content" style="overflow:hidden;">
-          <div class="section_header"><strong>MARCH</strong></div>
+          <div class="section_header date"><strong>MARCH</strong></div>
         </div>
         <table style="width:100%;">
         <thead>
@@ -221,7 +272,7 @@
           </tr>
         </table>
           <div class="section_content" style="overflow:hidden;">
-            <div class="section_header"><strong>APRIL</strong></div>
+            <div class="section_header date"><strong>FEBRUARY</strong></div>
           </div>
           <table style="width:100%;">
           <thead>
