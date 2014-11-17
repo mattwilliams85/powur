@@ -32,6 +32,12 @@ Rails.application.routes.draw do
   scope :u, module: :auth do
     resource :dashboard, only: [ :show ], controller: :dashboard
 
+    resource :ewallet,
+             only:       [ :index, :account_details ],
+             controller: :ewallet do
+      get 'account_details', to: 'ewallet#account_details'
+
+    end
     resource :profile,
              only:       [ :show, :update, :password_reset ],
              controller: :profile do

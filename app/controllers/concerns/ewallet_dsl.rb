@@ -55,13 +55,37 @@ module EwalletDSL
     result = ewallet_request("register_user", request_params)
 
     if result[:m_Text] == 'OK'
-      puts "Successful Registration Request" + result[:m_Text]
-      ap result
+      result[:status] = "success"
     else
-      puts "Unsuccessful Registration Request"
-      # USE TRANSLATION ERROR HERE from en locale
-      #The load was not successful
+      message = "Unsuccessful Registration Request"
+      result = {status: "error", message: message}
     end
+    result
+  end
+
+  def get_ewallet_account_status(user)
+    request_params = construct_ewallet_account_status_query(user)
+    result = ewallet_request("get_user_account_status", request_params)
+
+    if result[:m_Text] == 'OK'
+      result[:status] = "success"
+    else
+      message = "Unsuccessful Account Status Request for user " + user.email
+      result = {status: "error", message: message}
+    end
+    result
+  end
+
+  def get_ewallet_customer_details(user)
+    request_params = construct_ewallet_customer_details_query(user)
+    result = ewallet_request("get_customer_details", request_params)
+    if result[:m_Text] == 'OK'
+      result[:status] = "success"
+    else
+      message = "Unsuccessful Details Request for user " + user.email
+      result = {status: "error", message: message}
+    end
+    result
   end
 
 end

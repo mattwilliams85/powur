@@ -37,6 +37,35 @@ module EwalletRequestHelper
     service_hash
   end
 
+  def construct_ewallet_account_status_query(user_params)
+    service_hash = {}
+    service_hash['api_method'] = "eWallet_GetUserAccountStatus"
+
+    options_hash = {}
+    options_hash['MerchantGUID'] = ENV['IPAYOUT_MERCHANT_GUID']
+    options_hash['MerchantPassword'] = ENV['IPAYOUT_MERCHANT_PASSWORD']
+    options_hash['fn'] = "eWallet_GetUserAccountStatus"
+    options_hash['endpoint'] = ENV['IPAYOUT_API_ENDPOINT']
+    options_hash['UserName'] = user_params[:email]
+
+    service_hash['options_hash'] = options_hash
+    service_hash
+  end
+
+  def construct_ewallet_customer_details_query(user_params)
+    service_hash = {}
+    service_hash['api_method'] = "eWallet_GetCustomerDetails"
+
+    options_hash = {}
+    options_hash['MerchantGUID'] = ENV['IPAYOUT_MERCHANT_GUID']
+    options_hash['MerchantPassword'] = ENV['IPAYOUT_MERCHANT_PASSWORD']
+    options_hash['fn'] = "eWallet_GetCustomerDetails"
+    options_hash['endpoint'] = ENV['IPAYOUT_API_ENDPOINT']
+    options_hash['UserName'] = user_params[:email]
+
+    service_hash['options_hash'] = options_hash
+    service_hash
+  end
 
   def construct_ewallet_registration_query(user_params)
     service_hash = {}
