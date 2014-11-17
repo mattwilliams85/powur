@@ -53,7 +53,7 @@ function Dashboard(){
 			leads:{
 				tab:{
 					value:78,
-					label:"leads"
+					label:"Quotes"
 				}
 			},
 			earnings:{
@@ -65,7 +65,7 @@ function Dashboard(){
 			team_members:{
 				tab:{
 					value:327,
-					label:"Total Downline Size"
+					label:"In Your Genealogy"
 				}
 			}
 
