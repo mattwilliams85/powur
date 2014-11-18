@@ -90,6 +90,14 @@
     overflow:hidden;
     position:fixed;
   }
+
+  #slideTable {
+    display:none;
+  }
+
+  .dropToggle {
+    cursor:pointer;
+  }
 </style>
 
 <section id="dashboard_personal_goals" class="dashboard_section" data-drilldown-level="0" style="margin-top:-100px;">
@@ -178,28 +186,28 @@
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/2 - 1/9</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="test">View Detailz &#x25BC;</a></td>
+        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
       </tr>
       <tr style="background:#fff;">
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/10 - 1/17</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$144,151</td>
-        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
       </tr>
       <tr style="background:#fff;">
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/18 - 1/25</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$89,567</td>
-        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
       </tr>
       <tr style="background:#fff;">
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/25 - 1/31</td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$112,567</td>
-        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
       </tr>
     </table>
       <div class="section_content" style="overflow:hidden;">
@@ -218,28 +226,28 @@
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/1 - 2/8</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
         </tr>
         <tr style="background:#fff;">
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/9 - 2/16</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
         </tr>
         <tr style="background:#fff;">
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/17 - 2/24</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
         </tr>
         <tr style="background:#fff;">
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/25 - 2/28</td>
           <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
         </tr>
       </table>
         <div class="section_content" style="overflow:hidden;">
@@ -258,28 +266,28 @@
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/1 - 2/8</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
           </tr>
           <tr style="background:#fff;">
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/9 - 2/16</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
           </tr>
           <tr style="background:#fff;">
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/17 - 2/24</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
           </tr>
           <tr style="background:#fff;">
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/25 - 2/28</td>
             <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
           </tr>
         </table>
           <div class="section_content" style="overflow:hidden;">
@@ -298,28 +306,28 @@
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/1 - 2/8</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
             </tr>
             <tr style="background:#fff;">
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/9 - 2/16</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
             </tr>
             <tr style="background:#fff;">
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/17 - 2/24</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
             </tr>
             <tr style="background:#fff;">
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/25 - 2/28</td>
               <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a href="#" class="js-modal-popup">View Details</a></td>
+              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
             </tr>
           </table>
       
@@ -382,8 +390,8 @@
 
 <div id="js-screen_mask"></div>
 
-<div  id="slideData" style="display:none">
-<table style="width:100%;height:0%;">
+<div  id="slideData">
+<table id="slideTable" style="width:100%;height:0%;z-index:999">
     <thead>
       <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong></strong></td>
       <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Quantity</strong></td>
@@ -433,36 +441,44 @@
 
 <script type="text/javascript">
 
+var dropFlag = false;
+
 var slideData = $("#slideData").html()
-  $(".test").click(function(){
-   console.log($(this).parent().parent())
-   row = $(this).parent().parent()
-   $("<tr><td colspan='5' class='dropdownz' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
-     $('.dropdownz').html(slideData)
-   // $('#slideData').fadeIn(200);
-   $('.dropdownz').velocity({height:"450px"}, function(){
+
+$(".dropToggle").click(function(e){
+  if(dropFlag == false) {
+     e.stopPropagation() 
+     row = $(this).parent().parent()
+     $("<tr id='click-me'><td colspan='5' class='dropdownz' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
+     $('.dropdownz').append(slideData)
+     $('#slideData').css("display","none")
+     $('.dropdownz').velocity({height:"330px"}, function(){
+       $('#slideTable').fadeIn(400);
+     })
+     dropFlag = true;
+
+  } else if(dropFlag == true) {
+    reverseDrop(e)
+  }
   
+    });    
 
-     $('#slideData').hide().fadeIn(600);
-   })
-    // $('.dropdown').animate({height:450})
+  $(document).on("click", function(e){
     
+    if(dropFlag == true) {
+      reverseDrop(e)
+    }
+  })
+
+  function reverseDrop(e){
+    e.stopPropagation() 
+    $('#slideTable td').css("padding","0px");
+    $('.dropdownz').css("padding","0px");
+    $('.dropdownz tr').hide()
+    $('.dropdownz').velocity({height:'0px'}, function(){
+      $('.dropdownz').remove();
     });
-// var jsPopup = '<div id="js-popup"></div>'
-// var popupData = $("#js-popup").html();
+    dropFlag = false;
+  }
 
-//   $(".js-modal-popup").click(function(){
-//     $("#js-screen_mask").fadeIn(100, function(){
-//       $("body").append(jsPopup);
-//       if ($("#js-popup").html() == "") {
-//         $("#js-popup").append(popupData);
-//       }
-//       $("#js-popup").fadeIn(100);
-//       $("#js-screen_mask").click(function(){
-//         $("#js-screen_mask").fadeOut(100);
-//         $("#js-popup").fadeOut(100);
-//       })
-//     });
-
-//   })
 </script>
