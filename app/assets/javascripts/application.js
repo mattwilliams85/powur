@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require wiselinks
 //= require velocity
 //= require handlebars
 //= require utility
