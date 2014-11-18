@@ -56,17 +56,17 @@ namespace :sunstand do
         end
       end
 
-      count_per_user = args[:total] / users.size
+      count_per_user = args[:total].to_i / users.size
 
       puts "creating at most #{args[:total]} users"
       puts "down to #{args[:levels]} levels"
 
       remainders = users.map do |user|
         puts "Generating #{count_per_user} users in the downline of #{user.full_name}"
-        generate_downline(user, args[:levels], args[:per_user], count_per_user)
+        generate_downline(user, args[:levels].to_i, args[:per_user].to_i, count_per_user)
       end
 
-      total = args[:total] - remainders.inject(:+)
+      total = args[:total].to_i - remainders.inject(:+)
 
       puts "created #{total} users"
     end
