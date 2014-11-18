@@ -29,8 +29,9 @@ describe '/a/users' do
 
       expect_200
 
-      found_child = json_body['entities']
-        .find { |e| e['properties']['id'] == child.id }
+      found_child = json_body['entities'].find do |e|
+        e['properties']['id'] == child.id
+      end
       expect(found_child).to_not be_nil
       expect(found_child['properties']['downline_count']).to eq(2)
     end

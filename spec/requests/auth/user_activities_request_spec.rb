@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-  describe '/u/users/:id/user_ativities' do
+describe '/u/users/:id/user_ativities' do
 
   describe 'GET' do
 
@@ -8,7 +8,6 @@ require 'spec_helper'
       user = create(:user)
 
       login_user
-      puts "LOGIN"
       get user_user_activities_path(user), format: :json
       expect(json_body['actions']).to be_nil
     end
@@ -25,6 +24,5 @@ require 'spec_helper'
     get user_user_activities_path(user), format: :json
     expect_entities_count(2)
   end
-
 
 end

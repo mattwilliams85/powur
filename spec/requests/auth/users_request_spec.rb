@@ -36,8 +36,7 @@ describe '/u/users' do
           'performance[period]' => 'monthly',
           format:                  :json
 
-      result = json_body['entities']
-        .map { |e| e['properties']['id'] }
+      result = json_body['entities'].map { |e| e['properties']['id'] }
 
       expected = totals.sort_by(&:group).reverse.map(&:user_id)
       expect(result).to eq(expected)
@@ -54,8 +53,7 @@ describe '/u/users' do
           'performance[period]' => 'lifetime',
           format: :json
 
-      result = json_body['entities']
-        .map { |e| e['properties']['quote_count'] }
+      result = json_body['entities'].map { |e| e['properties']['quote_count'] }
 
       expect(result).to eq(result.sort.reverse)
     end
@@ -125,10 +123,12 @@ describe '/u/users' do
 
       expect_200
 
-      found_parent = json_body['entities']
-                    .find { |e| e['properties']['id'] == parent.id }
-      found_grand_parent = json_body['entities']
-                          .find { |e| e['properties']['id'] == grand_parent.id }
+      found_parent = json_body['entities'].find do |e|
+        e['properties']['id'] == parent.id
+      end
+      found_grand_parent = json_body['entities'].find do |e|
+        e['properties']['id'] == grand_parent.id
+      end
       expect(found_parent).to_not be_nil
       expect(found_grand_parent).to_not be_nil
       expect(json_body['entities'].count).to eq(3)

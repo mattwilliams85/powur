@@ -1,4 +1,4 @@
-ruby '2.1.2'
+ruby '2.1.5'
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.7'
@@ -34,7 +34,7 @@ gem 'eyecue_ipayout', path: './vendor/eyecue_ipayout'
 group :development do
   gem 'spring-commands-rspec'
   gem 'thin'
-  gem 'rubocop'
+  gem 'rubocop', require: false
   gem 'meta_request'
 end
 

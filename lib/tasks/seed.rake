@@ -15,12 +15,12 @@ namespace :sunstand do
     task sunrun_product: :environment do
       existing = Product.find_by_id(SOLAR_ITEM_ID)
       existing.destroy if existing
-      fields = { utility:                 :lookup,
-                 average_bill:            :number,
-                 square_feet:             :number,
-                 credit_score_qualified:  :boolean,
-                 roof_type:               :lookup,
-                 roof_age:                :lookup }
+      fields = { utility:                :lookup,
+                 average_bill:           :number,
+                 square_feet:            :number,
+                 credit_score_qualified: :boolean,
+                 roof_type:              :lookup,
+                 roof_age:               :lookup }
 
       Product.create!(
         id:                    SOLAR_ITEM_ID,
@@ -220,9 +220,12 @@ namespace :sunstand do
                         start_year: 2014, start_month: 5)
 
       # Direct Sales Bonus
-      bonus = DirectSalesBonus
-        .create!(bonus_plan_id: 1, name: 'Direct Sales',
-                 schedule: :weekly, compress: false, use_rank_at: :sale)
+      bonus = DirectSalesBonus.create!(
+        bonus_plan_id: 1,
+        name:          'Direct Sales',
+        schedule:      :weekly,
+        compress:      false,
+        use_rank_at:   :sale)
       BonusSalesRequirement.create!(bonus: bonus, product_id: SOLAR_ITEM_ID)
       BonusLevel.create!(
         bonus:   bonus,

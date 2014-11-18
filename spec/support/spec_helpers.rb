@@ -72,8 +72,8 @@ module SpecHelpers
 
   def authorize_header(u, p = nil)
     u, p = u.id, u.secret if p.nil?
-    header = ActionController::HttpAuthentication::Basic
-      .encode_credentials(u, p)
+    basic = ActionController::HttpAuthentication::Basic
+    header = basic.encode_credentials(u, p)
     { 'HTTP_AUTHORIZATION' => header }
   end
 

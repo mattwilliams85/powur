@@ -21,7 +21,8 @@ describe '/api/session', type: :request do
       get api_session_path, { v: 1 }, api_header
 
       expect_classes 'session'
-      expect_entities 'user-quotes', 'user-invites', 'user-children', 'session-user'
+      expect_entities 'user-quotes', 'user-invites',
+                      'user-children', 'session-user'
     end
 
     it 'returns the session with a valid bearer token parameter' do
