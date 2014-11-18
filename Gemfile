@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder'
+gem 'wiselinks'
 
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk'

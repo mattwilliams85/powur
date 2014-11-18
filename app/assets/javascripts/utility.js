@@ -320,13 +320,12 @@ jQuery(function($){
     }
 
     SunStand.Admin.positionIndicator = function (_indicatorObj, _highlightObj){
-        if( _indicatorObj.position().left== (_highlightObj.position().left+(_highlightObj.width()/2)-10)) return;
-
         _highlightObj.parent().find("a").removeClass("js-active");
         _highlightObj.addClass("js-active");
         _indicatorObj.css("left", (_highlightObj.position().left+(_highlightObj.width()/2)-10)+"px");
         _indicatorObj.css("top", (_highlightObj.position().top+(_highlightObj.height() + 20 ))+"px");
         _indicatorObj.animate({"top":"-=15", "opacity":1}, 300);
+        if( _indicatorObj.position().left== (_highlightObj.position().left+(_highlightObj.width()/2)-10)) return;
     }
 
 }(window.SunStand = window.SunStand || {}, jQuery));
