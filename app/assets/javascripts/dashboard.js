@@ -8,8 +8,6 @@ $(window).bind('page:change', function() {
   initPage();
 });
 
-
-
 function initPage(){
 	_data.root={};
 

@@ -1,6 +1,6 @@
 
 <% content_for :javascript_includes do %>
-	<%= javascript_include_tag "promoter.js" %>
+	<%= javascript_include_tag "promoter.js", "data-turbolinks-track" => true %> %>
 <% end %>
 
 <%= stylesheet_link_tag  "promoter", media: "all" %>
