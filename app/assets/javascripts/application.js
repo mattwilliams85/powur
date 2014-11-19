@@ -10,10 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require wiselinks
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require wiselinks
 //= require velocity
 //= require handlebars
 //= require utility
