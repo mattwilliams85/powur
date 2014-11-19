@@ -14,7 +14,6 @@ module EyecueIpayout
     # @instantiate EyecueIpayout::ServiceParam.new("FirstName", "String", true)
 
     def initialize
-      puts '!!!!!!!!!INITIALIZE SERVICE PARAM MAP'
       @ewallet_services = {}
       build_service_map
     end
@@ -88,6 +87,16 @@ module EyecueIpayout
       get_user_account_status_service.add_param('MerchantPassword',
                                                 'String', true)
       get_user_account_status_service.add_param('UserName', 'String', true)
+      get_user_account_status_service.response_parameters = ['m_Code', 'm_Text']
+      #  eWallet_RequestUserAutoLogin Service
+      request_user_auto_login_service = EyecueIpayout::Service.new('request_user_auto_login')
+      request_user_auto_login_service.add_param('fn', 'String', true)
+      request_user_auto_login_service.add_param('endpoint', 'String', true)
+      request_user_auto_login_service.add_param('MerchantGUID', 'String', true)
+      request_user_auto_login_service.add_param('MerchantPassword',
+                                                'String', true)
+      request_user_auto_login_service.add_param('UserName', 'String', true)
+      request_user_auto_login_service.response_parameters = ['m_Code', 'm_Text', 'm_ProcessorTransactionRefNumber']
 
       #  eWallet_G_serviceetUserAccountStatus Service
       ewallet_load_service = EyecueIpayout::Service.new('ewallet_load')
@@ -108,6 +117,7 @@ module EyecueIpayout
       @ewallet_services['get_customer_details'] = get_customer_details_service
       @ewallet_services['get_user_account_status'] = get_user_account_status_service
       @ewallet_services['ewallet_load'] = ewallet_load_service
+      @ewallet_services['request_user_auto_login'] = request_user_auto_login_service
     end
   end
 end

@@ -18,7 +18,7 @@ Rails.application.configure do
   config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  config.action_mailer.default_options = { 
+  config.action_mailer.default_options = {
     from: 'EyeCueLab Local Mailer <no-reply+local@eyecuelab.com>' }
   config.action_controller.asset_host = "http://#{config.action_mailer.default_url_options[:host]}"
 
@@ -27,8 +27,8 @@ Rails.application.configure do
     :storage => :s3,
     :s3_credentials => {
       :bucket => "sunstand-dev",
-      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+      :access_key_id => Rails.application.secrets[:AWS_ACCESS_KEY_ID],
+      :secret_access_key => Rails.application.secrets[:AWS_SECRET_ACCESS_KEY]
     }
   }
 

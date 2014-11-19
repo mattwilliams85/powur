@@ -18,7 +18,7 @@ module EyecueIpayout
       @request_param_names = []
       @response_param_names = []
 
-      # Hashof this service's parameters
+      # Hash of this service's parameters
       # wherein the key is the parameter name
       # and the value is the actual EyecueIpayout::ServiceParam object
       # parameters['eWallet_GetCustomerDetails'] =

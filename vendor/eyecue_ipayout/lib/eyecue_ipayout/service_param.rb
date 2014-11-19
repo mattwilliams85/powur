@@ -3,8 +3,11 @@ module EyecueIpayout
   # allowing access to the Parameter name, as well
   # as other useful stuff like whether or not the API
   # requires it or the expected type.
+
   # It's worth lies in DEFINING the api constraints
-  # through our wrapper.  Also, If the API changes,
+  # through our wrapper.
+
+  # Also, If the API changes,
   # we'll only have to change the wrapper in one place
   # (during the instantiation of this object)
   class ServiceParam

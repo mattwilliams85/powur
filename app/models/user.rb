@@ -30,9 +30,9 @@ class User < ActiveRecord::Base
                     url:             ':s3_domain_url',
                     default_url:     '/temp_dev_images/Tim.jpg',
                     storage:         :s3,
-                    s3_credentials:  { bucket: ENV['AWS_BUCKET'],
-                                       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-                                       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'] },
+                    s3_credentials:  { bucket: Rails.application.secrets[:AWS_BUCKET],
+                                       access_key_id: Rails.application.secrets[:AWS_ACCESS_KEY_ID],
+                                       secret_access_key: Rails.application.secrets[:AWS_SECRET_ACCESS_KEY] },
                     styles:          {
                     thumb:   [ '100x100#', :jpg, quality: 70 ],
                     preview: [ '480x480#', :jpg, quality: 70 ],
