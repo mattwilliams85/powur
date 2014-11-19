@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: <%= ENV['SUNSTAND_DATABASE_NAME'] || 'sunstand_production' %>
-  username: <%= ENV['SUNSTAND_DATABASE_USER'] || 'sunstand' %>
-  password: <%= ENV['SUNSTAND_DATABASE_PASSWORD'] %>
+  pool: 120

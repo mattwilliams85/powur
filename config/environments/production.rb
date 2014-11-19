@@ -82,10 +82,10 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = { host: 'sunstand.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'sunstand.eyecuelab.com' }
   config.action_mailer.default_options = { 
     from: 'EyeCueLab Stage Mailer <no-reply+stage@eyecuelab.com>' }
-  config.action_controller.asset_host = "http://#{config.action_mailer.default_url_options[:host]}"
+  # config.action_controller.asset_host = "http://#{config.action_mailer.default_url_options[:host]}"
 
   config.paperclip_defaults = {
   :storage => :s3,
