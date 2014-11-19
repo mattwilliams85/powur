@@ -19,10 +19,10 @@ module EwalletDSL
 
   def build_ewallet_initialization_params
     params = {}
-    params[:endpoint] = Rails.application.secrets[:IPAYOUT_API_ENDPOINT]
-    params[:merchant_guid] = Rails.application.secrets[:IPAYOUT_MERCHANT_GUID]
+    params[:endpoint] = ENV['IPAYOUT_API_ENDPOINT']
+    params[:merchant_guid] = ENV['IPAYOUT_MERCHANT_GUID']
     params[:merchant_password] =
-      Rails.application.secrets[:IPAYOUT_MERCHANT_PASSWORD]
+      ENV['IPAYOUT_MERCHANT_PASSWORD']
     params
   end
   # returns a hash consisting of the available service
@@ -90,7 +90,7 @@ module EwalletDSL
     if result[:ProcessorTransactionRefNumber]
       ref = result[:ProcessorTransactionRefNumber]
     end
-    Rails.application.secrets[:IPAYOUT_AUTO_LOGIN_ENDPOINT] + ref
+    ENV['IPAYOUT_AUTO_LOGIN_ENDPOINT'] + ref
   end
 
   def get_ewallet_customer_details(user)

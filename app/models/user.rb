@@ -30,9 +30,9 @@ class User < ActiveRecord::Base
                     url:             ':s3_domain_url',
                     default_url:     '/temp_dev_images/Tim.jpg',
                     storage:         :s3,
-                    s3_credentials:  { bucket: Rails.application.secrets[:AWS_BUCKET],
-                                       access_key_id: Rails.application.secrets[:AWS_ACCESS_KEY_ID],
-                                       secret_access_key: Rails.application.secrets[:AWS_SECRET_ACCESS_KEY] },
+                    s3_credentials:  { bucket: ENV['AWS_BUCKET'],
+                                       access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+                                       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'] },
                     styles:          {
                     thumb:   [ '100x100#', :jpg, quality: 70 ],
                     preview: [ '480x480#', :jpg, quality: 70 ],
@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
       filename = split_name[0]
       extension = split_name[1]
       base_avatar_url = "https://s3.amazonaws.com/" +
-                        Rails.application.secrets[:AWS_BUCKET] + "/avatars/"
+                        ENV['AWS_BUCKET'] + "/avatars/"
       return_url = base_avatar_url + id.to_s + "/" + filename +
                    "_" + image_size + "." + extension
       else

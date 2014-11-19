@@ -27,8 +27,8 @@ Rails.application.configure do
     :storage => :s3,
     :s3_credentials => {
       :bucket => "sunstand-dev",
-      :access_key_id => Rails.application.secrets[:AWS_ACCESS_KEY_ID],
-      :secret_access_key => Rails.application.secrets[:AWS_SECRET_ACCESS_KEY]
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
     }
   }
 

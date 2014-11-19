@@ -85,7 +85,9 @@ describe '/a/invite' do
     end
 
     # it 'registers a new promoter' do
-    #   patch invite_path, @user_params
+    #   VCR.use_cassette('invite register') do
+    #     patch invite_path, @user_params
+    #   end
 
     #   expect_200
     #   expect_classes('session', 'user')
@@ -101,7 +103,9 @@ describe '/a/invite' do
     # it 'associates any outstanding invites with the new promoter' do
     #   invites = create_list(:invite, 2, email: @invite.email)
 
-    #   patch invite_path, @user_params
+    #   VCR.use_cassette('associate_invites_register') do
+    #     patch invite_path, @user_params
+    #   end
 
     #   id = json_body['properties']['id']
     #   invites.each do |invite|
