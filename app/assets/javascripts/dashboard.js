@@ -198,6 +198,17 @@ function Dashboard(){
 		_data.team_count_per_page=4; // determine how many thumbnails to show per pagination
 		_data._team=[];
 
+		//wire up invitations listing hook
+		$(".js-invites_thumbnail").on("click", function(e){
+			e.preventDefault();
+			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
+			_drillDown({"_type":"invitations",
+						"_mainSectionID":$(e.target).parents("section").attr("id"), 
+						"_thumbnailIdentifier":".js-invites_thumbnail",
+						"_target":$(e.target),
+						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+		});
+
 
 		_ajax({
 			_ajaxType:"get",
@@ -208,6 +219,7 @@ function Dashboard(){
 				search:_data.team_search
 			},
 			_callback:function(data, text){
+				console.log(data)
 				if(data.entities.length<=0) return;
 				var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
 				_data.team=data;
@@ -235,17 +247,6 @@ function Dashboard(){
 				$("#team_search").unbind();
 				$("#performance_metric").unbind();
 				$("#performance_period").unbind();
-
-				//wire up invitations listing hook
-				$(".js-invites_thumbnail").on("click", function(e){
-					e.preventDefault();
-					_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
-					_drillDown({"_type":"invitations",
-								"_mainSectionID":$(e.target).parents("section").attr("id"), 
-								"_thumbnailIdentifier":".js-invites_thumbnail",
-								"_target":$(e.target),
-								"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
-				});
 
 				$("#team_search").on("keyup", function(e){
 					switch(e.keyCode){
