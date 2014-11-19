@@ -7,6 +7,13 @@
 # Ignore bundler config.
 /.bundle
 
+irb_scratch.rb
+EXAMPLES.json
+vendor/eyecue_ipayout/.gitignore
+vendor/eyecue_ipayout/reload.sh
+config/rails_best_practices.yml
+config/secrets.yml
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal

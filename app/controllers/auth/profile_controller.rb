@@ -1,11 +1,17 @@
 module Auth
   class ProfileController < AuthController
+    include EwalletDSL
     before_action :fetch_user, only: [ :show, :update, :update_avatar,
                                        :update_password ]
 
     def show
       @user = current_user
       @profile = @user.profile
+      @ewallet_details = get_ewallet_customer_details(@user)
+
+      @auto_login_url = build_auto_login_url(@user)
+
+
       respond_to do |format|
         format.html
         format.json do

@@ -32,21 +32,18 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def disburse!
-    puts 'XXXXXXXX DISBURSE! from pay_period.rb'
-
     payments_per_user = BonusPayment.user_bonus_totals(self)
+
     query = prepare_load_request(self, payments_per_user)
-    result = ewallet_request("ewallet_load", query)
+    result = ewallet_request('ewallet_load', query)
 
     if result[:m_Code] == '200'
-      puts "Successful Load Request" + result[:m_Text]
+      puts 'Successful Load Request' + result[:m_Text]
       ap result
       # Distribution.create(pay_period: self, user_id: user.id, amount: result['Balance'])
-      #touch :disbursed_at
+      # touch :disbursed_at
     else
-      puts "Unsuccessful Load Request"
-
-      #The load was not successful
+      puts 'Unsuccessful Load Request'
     end
   end
 
@@ -70,8 +67,8 @@ class PayPeriod < ActiveRecord::Base
 
   def orders
     @orders ||= Order.by_pay_period(self)
-      .includes(:user, :product).references(:user, :product)
-      .order(order_date: :asc)
+                .includes(:user, :product).references(:user, :product)
+                .order(order_date: :asc)
   end
 
   def reset_orders!
@@ -81,7 +78,7 @@ class PayPeriod < ActiveRecord::Base
     begin
       order_totals.delete_all_for_pay_period
     rescue
-      puts "Error deleting order totals"
+      puts 'Error deleting order totals'
     end
   end
 
@@ -147,7 +144,7 @@ class PayPeriod < ActiveRecord::Base
 
   def child_totals_for(user_id, product_id)
     child_ids = direct_downline_users
-      .select { |u| u.parent_id == user_id }.map(&:id)
+                .select { |u| u.parent_id == user_id }.map(&:id)
     return [] if child_ids.empty?
 
     child_totals = order_totals.select do |t|
@@ -173,7 +170,7 @@ class PayPeriod < ActiveRecord::Base
 
   def find_pay_as_rank(user)
     user.pay_period_rank ||= rank_achievements
-      .select { |a| a.user_id == user.id }.map(&:rank_id).max
+    .select { |a| a.user_id == user.id }.map(&:rank_id).max
     user.pay_as_rank
   end
 
@@ -204,7 +201,7 @@ class PayPeriod < ActiveRecord::Base
       parents = users_with_orders.select { |u| parent_ids.include?(u.id) }
       missing_ids = parent_ids - parents.map(&:id)
       parents + User.select(:id, :upline, :lifetime_rank, :organic_rank)
-        .where(id: missing_ids).entries
+      .where(id: missing_ids).entries
     end
   end
 
@@ -216,7 +213,7 @@ class PayPeriod < ActiveRecord::Base
   def direct_downline_users
     @direct_downline_users ||= begin
       User.select(:id, :upline, :lifetime_rank, :organic_rank)
-        .with_parent(*all_user_ids).entries
+      .with_parent(*all_user_ids).entries
     end
   end
 
@@ -250,7 +247,7 @@ class PayPeriod < ActiveRecord::Base
           achieved_at: order.order_date,
           user_id:     user.id,
           rank_id:     rank.id,
-          path:        path }
+        path:        path }
         achievement = RankAchievement.create!(attrs)
         lifetime_rank_achievements << achievement
         if user.organic_rank < achievement.rank_id
@@ -268,7 +265,7 @@ class PayPeriod < ActiveRecord::Base
 
     qualification_paths.each do |path|
       start = highest_rank(user.id, path,
-        lifetime_rank_achievements, rank_achievements)
+                           lifetime_rank_achievements, rank_achievements)
 
       ranks[start..-1].each do |rank|
         break unless rank_has_path?(rank, path) &&
@@ -278,7 +275,7 @@ class PayPeriod < ActiveRecord::Base
           achieved_at: order.order_date,
           user_id:     user.id,
           rank_id:     rank.id,
-          path:        path }
+        path:        path }
         achievement = rank_achievements.create!(attrs)
         if user.lifetime_rank < achievement.rank_id
           user.update_column(:lifetime_rank, achievement.rank_id)
@@ -312,12 +309,12 @@ class PayPeriod < ActiveRecord::Base
     gl = find_group_lifetime(user_id, product_id)
 
     self.order_totals.create!(
-      user_id:            user_id,
-      product_id:         product_id,
-      personal:           quantity,
-      group:              quantity,
-      personal_lifetime:  pl ? pl.quantity + quantity : quantity,
-      group_lifetime:     gl ? gl.quantity + quantity : quantity)
+        user_id:            user_id,
+        product_id:         product_id,
+        personal:           quantity,
+        group:              quantity,
+        personal_lifetime:  pl ? pl.quantity + quantity : quantity,
+        group_lifetime:     gl ? gl.quantity + quantity : quantity)
   end
 
   def new_order_total(order)
@@ -333,7 +330,7 @@ class PayPeriod < ActiveRecord::Base
     group_totals.each do |gt|
       gt.update_columns(
         group:          gt.group + order.quantity,
-        group_lifetime: gt.group_lifetime + order.quantity)
+      group_lifetime: gt.group_lifetime + order.quantity)
     end
 
     missing = user_ids - group_totals.map(&:user_id)
@@ -347,7 +344,7 @@ class PayPeriod < ActiveRecord::Base
         personal:           0,
         group:              order.quantity,
         personal_lifetime:  pl ? pl.quantity : 0,
-        group_lifetime:     gl ? gl.quantity + order.quantity : order.quantity)
+        group_lifetime:       gl ? gl.quantity + order.quantity : order.quantity)
     end
 
   end
