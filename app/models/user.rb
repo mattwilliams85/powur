@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
       filename = split_name[0]
       extension = split_name[1]
       base_avatar_url = "https://s3.amazonaws.com/" +
-                        ENV["AWS_BUCKET"] + "/avatars/"
+                        Rails.application.secrets[:AWS_BUCKET] + "/avatars/"
       return_url = base_avatar_url + id.to_s + "/" + filename +
                    "_" + image_size + "." + extension
       else

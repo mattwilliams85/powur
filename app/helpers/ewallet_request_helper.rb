@@ -10,7 +10,8 @@ module EwalletRequestHelper
     options_hash = {}
     options_hash['MerchantGUID'] =
       Rails.application.secrets[:IPAYOUT_MERCHANT_GUID]
-    options_hash['MerchantPassword'] = ENV['IPAYOUT_MERCHANT_PASSWORD']
+    options_hash['MerchantPassword'] =
+      Rails.application.secrets[:IPAYOUT_MERCHANT_PASSWORD]
     options_hash['endpoint'] = Rails.application.secrets[:IPAYOUT_API_ENDPOINT]
     options_hash
   end
