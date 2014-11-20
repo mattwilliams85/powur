@@ -12,7 +12,6 @@ module EwalletDSL
                                            service.parameters)
 
     response = client.ewallet_request(populated_params)
-    # response = client.ewallet_request(query)
     response
   end
 
