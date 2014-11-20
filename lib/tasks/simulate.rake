@@ -3,16 +3,17 @@ namespace :sunstand do
 
     def generate_user(attrs = {})
       attrs = {
-        password:   'solarpower',
-        email:      Faker::Internet.email,
-        first_name: Faker::Name.first_name,
-        last_name:  Faker::Name.last_name,
-        phone:      Faker::PhoneNumber.phone_number,
-        zip:        Faker::Address.zip,
-        address:    Faker::Address.street_address,
-        city:       Faker::Address.city,
-        state:      Faker::Address.state_abbr,
-        lifetime_rank: 1 }.merge(attrs)
+        password:      'solarpower',
+        email:         Faker::Internet.email,
+        first_name:    Faker::Name.first_name,
+        last_name:     Faker::Name.last_name,
+        phone:         Faker::PhoneNumber.phone_number,
+        zip:           Faker::Address.zip,
+        address:       Faker::Address.street_address,
+        city:          Faker::Address.city,
+        state:         Faker::Address.state_abbr,
+        lifetime_rank: 1,
+        created_at:    2.years.ago }.merge(attrs)
 
       User.create!(attrs)
     end
