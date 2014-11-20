@@ -2,7 +2,7 @@
 	<% javascript_include_tag "profile.js" %>
 <% end %>
 
-<%= stylesheet_link_tag    "profile", media: "all", "data-turbolinks-track" => true %>
+<%= stylesheet_link_tag "profile", media: "all", "data-turbolinks-track" => true %>
 
 <section class="dashboard_section" >
 
@@ -149,11 +149,13 @@
 							<label style="top:0;">Verified: </label>
 							<p style="margin-top:15px"><%= @ewallet_details.IsInfoVerified %></p>
 						</div>
-						<div class="form_element half">
-							<label style="top:0;">eWallet URL: </label>
-							<a hrf="<%= @auto_login_url %>" target='_blank'><%= @auto_login_url %></a>
+						<div class="form_element full">
+							<label style="top:0;">eWallet URL: </label><br/>
+							<span style="font-size:12px;"><%= @auto_login_url %></span>
 						</div>
-
+						<div class="form_element half">
+								<button style="margin-top:25px;" onclick="window.open('<%= @auto_login_url %>','_blank');">Go to my eWallet</button>
+						</div>
 					</div>
 				</section>
 			</div><!-- end data content -->
