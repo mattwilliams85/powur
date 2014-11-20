@@ -710,7 +710,7 @@ jQuery(function($){
                     _data.quotes.entities.forEach(function(_quote){
                         _d = new Date(_quote.properties.created_at);
                         _quote.properties.localDateString = _d.toLocaleDateString();
-                        _quote.properties._dataStatusDisplay = _quote.properties.data_status.toString();
+                        _quote.properties._dataStatusDisplay = _quote.properties.data_status.join(", ");
                     });
                     if(typeof _callback === "function") _callback();
                 }
