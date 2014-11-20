@@ -585,16 +585,22 @@ jQuery(function($){
 
         }
 
+        function leavePageWarning(){
+            return "It looks like you're still calculating..."
+        }
+
         function _calculatePayPeriod(_pay_period, _callback){
-            var _action=_getObjectsByCriteria(_pay_period, "val~calculate")[0];
-            $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"The calculation may take a few moments to complete. Thank you!"}, $("#js-screen_mask"), function(){
+            var _action=_getObjectsByCriteria(_pay_period, "val~calculate")[0];   
+            $("#js-wait_screen_mask").fadeIn(100, function(){
+                window.onbeforeunload = leavePageWarning
+                EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"The calculation may take a few moments to complete. Thank you!"}, $("#js-wait_screen_mask"), function(){
                     SunStand.Admin.displayPopup({_popupData:{}});
                     _ajax({
                         _ajaxType:_action.method,
                         _url:_action.href,
                         _callback:function(data, text){
-                            $("#js-screen_mask").fadeOut(100);
+                            window.onbeforeunload = null;
+                            $("#js-wait_screen_mask").fadeOut(100);
                             $("body").css("overflow", "auto");
                             if(typeof _callback == "function") _callback();
                             else return data;
