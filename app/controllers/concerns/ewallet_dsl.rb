@@ -87,6 +87,7 @@ module EwalletDSL
 
   def build_auto_login_url(user)
     result = request_user_auto_login(user)
+    ref = ''
     if result[:ProcessorTransactionRefNumber]
       ref = result[:ProcessorTransactionRefNumber]
     end
