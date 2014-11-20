@@ -9,7 +9,8 @@ User.create(
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'jon',
-  roles:      [ 'admin' ])
+  roles:      [ 'admin' ],
+  created_at: 2.years.ago)
 
 User.create(
   email:      'paul.walker@eyecuelab.com',
@@ -19,7 +20,8 @@ User.create(
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'paul',
-  roles:      [ 'admin' ])
+  roles:      [ 'admin' ],
+  created_at: 2.years.ago)
 
 User.create(
   email:      'rick.hou@eyecuelab.com',
@@ -29,7 +31,8 @@ User.create(
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'rick',
-  roles:      [ 'admin' ])
+  roles:      [ 'admin' ],
+  created_at: 2.years.ago)
 
 User.create(
   email:      'daniel.mcalerney@eyecuelab.com',
@@ -39,7 +42,8 @@ User.create(
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'daniel',
-  roles:      [ 'admin' ])
+  roles:      [ 'admin' ],
+  created_at: 2.years.ago)
 
 puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all
