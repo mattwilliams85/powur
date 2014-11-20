@@ -23,7 +23,7 @@ module EyecueIpayout
 
 
       faraday_options = connection_options.deep_merge(default_options)
-      faraday_options['url'] = EyecueIpayout.endpoint
+      faraday_options['url'] = EyecueIpayout.configuration.endpoint
 
       Faraday.new(:url => faraday_options['url']) do |faraday|
         faraday.request :url_encoded

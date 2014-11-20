@@ -10,6 +10,7 @@ module EwalletDSL
     service = client.get_service(service_name)
     populated_params = assign_param_values(query['options_hash'],
                                            service.parameters)
+
     response = client.ewallet_request(populated_params)
     # response = client.ewallet_request(query)
     response
