@@ -5,9 +5,14 @@ module Admin
 
     def create
       deselect_requirement_as_source
-      @bonus.requirements.create!(input)
-
-      render 'show'
+      existing = @bonus.requirements.find_by_source(input["product_id"])
+      if existing
+        @bonus.requirements.create(input)
+        render 'show'
+      else
+        # notify duplicate error
+        render 'show'
+      end
     end
 
     def update
