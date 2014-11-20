@@ -1,0 +1,35 @@
+# Be sure to restart your server when you modify this file.
+
+# Your secret key is used for verifying the integrity of signed cookies.
+# If you change this key, all old signed cookies will become invalid!
+
+# Make sure the secret is at least 30 characters and all random,
+# no regular words or you'll be exposed to dictionary attacks.
+# You can use `rake secret` to generate a secure secret key.
+
+# Make sure the secrets in this file are kept private
+# if you're sharing your code publicly.
+
+development:
+  secret_key_base: 187aca0962adf1334246bf8444b853dca825058ec576685536e6389cff4b1cccc30e18f812f2f77e844f218eb3987781276066c357f6b602f65841261e20f055
+  # iPayout eWallet web services
+  IPAYOUT_API_ENDPOINT: https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx
+  IPAYOUT_AUTO_LOGIN_ENDPOINT: https://sunstand.testewallet.com/MemberLogin.aspx?secKey=
+  IPAYOUT_MERCHANT_GUID: a4739056-7db6-40f3-9618-f2bcccbf70cc
+  IPAYOUT_MERCHANT_PASSWORD: 9xXLvA66hi
+  # AMAZON S3
+  AWS_ACCESS_KEY_ID: AKIAIP4IQ77YPIRW5EWA
+  AWS_SECRET_ACCESS_KEY: 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
+  AWS_BUCKET: sunstand-dev
+test:
+  secret_key_base: c067388df669c07808e590a8600622d4d09832398fb48b87a617db1c30f27a54fbd045779921dcb13ad20a593eb0bd6b861eca948ba76d1bddce0773de7f382d
+  IPAYOUT_API_ENDPOINT: https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx
+  IPAYOUT_AUTO_LOGIN_ENDPOINT: https://sunstand.toestewallet.com/MemberLogin.aspx?secKey=
+  IPAYOUT_MERCHANT_GUID: a4739056-7db6-40f3-9618-f2bcccbf70cc
+  IPAYOUT_MERCHANT_PASSWORD: 9xXLvA66hi
+  # AMAZON S3
+  AWS_ACCESS_KEY_ID: AKIAIP4IQ77YPIRW5EWA
+  AWS_SECRET_ACCESS_KEY: 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
+  AWS_BUCKET: sunstand-dev
+production:
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
