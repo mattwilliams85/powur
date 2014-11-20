@@ -137,33 +137,33 @@
 					</div>
 				</section><!-- end password -->
 				<br/>
-				<section class="password" style="padding-bottom:30px;">
+				<section style="padding-bottom:30px;">
 					<div class="header">iPayout Account</div>
-					<div class="content">
+					<div class="content" style="margin-top:10px">
 						<!-- ewallet stuff -->
 						<div class="form_element half end">
-							<label style="top:0;">Username</label>
+							<span style="top:0;color:rgb(53,53,53)">Username</span>
 						<% if @ewallet_details %>
-							<p style="margin-top:15px"><%= @ewallet_details.Email %></p>
+							<p><%= @ewallet_details.Email %></p>
 						</div>
 						<div class="form_element half end">
-							<label style="top:0;">Verified: </label>
-							<p style="margin-top:15px"><%= @ewallet_details.IsInfoVerified %></p>
+							<span style="top:0;color:rgb(53,53,53)">Verified: </span>
+							<p><%= @ewallet_details.IsInfoVerified %></p>
 						</div>
 						<%else%>
 						<div class="form_element half end">
-							<label style="top:0;">Account Details: </label>
-							<p style="margin-top:15px">Error fetching eWallet account details.</p>
+							<span style="top:0;rgb(53,53,53)">Account Details: </span>
+							<p>Error fetching eWallet account details.</p>
 						</div>
 						<% end %>
 
 						<% if @auto_login_url %>
 							<div class="form_element full">
-								<label style="top:0;">eWallet URL: </label><br/>
-								<span style="font-size:12px;"><%= @auto_login_url %></span>
+								<span style="top:0;color:rgb(53,53,53)">eWallet URL: </span><br/>
+								<span style="font-size:0.8em;"><%= @auto_login_url %></span>
 							</div>
-							<div class="form_element half">
-									<button style="margin-top:25px;" onclick="window.open('<%= @auto_login_url %>','_blank');">Go to my eWallet</button>
+							<div class="form_element half" style="width:100%">
+									<button class="button" style="margin-top:25px;float:left" onclick="window.open('<%= @auto_login_url %>','_blank');">Go to my eWallet</button>
 							</div>
 						<% end %>
 
