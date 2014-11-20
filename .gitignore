@@ -13,7 +13,6 @@ vendor/eyecue_ipayout/.gitignore
 vendor/eyecue_ipayout/reload.sh
 config/rails_best_practices.yml
 config/secrets.yml
-config/application.yml
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
