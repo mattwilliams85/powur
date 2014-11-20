@@ -96,7 +96,7 @@ module EwalletRequestHelper
     options_hash['fn'] = 'eWallet_RegisterUser'
     options_hash['UserName'] = user_params[:email]
     options_hash['FirstName'] = user_params[:first_name]
-    options_hash['LastName'] = user_params[:first_name]
+    options_hash['LastName'] = user_params[:last_name]
     options_hash['EmailAddress'] = user_params[:email]
     options_hash['Address1'] = user_params[:address_1]
     options_hash['Address2'] = user_params[:address_2]

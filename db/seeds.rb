@@ -45,6 +45,28 @@ User.create(
   roles:      [ 'admin' ],
   created_at: 2.years.ago)
 
+User.create(
+  email:      'andrew.westling@eyecuelab.com',
+  password:   'solarpower',
+  first_name: 'Andrew',
+  last_name:  'Westling',
+  phone:      '666.666.1212',
+  zip:        '92023',
+  url_slug:   'andrew',
+  roles:      [ 'admin' ],
+  created_at: 2.years.ago)
+
+User.create(
+  email:      'matthew.williams@eyecuelab.com',
+  password:   'solarpower',
+  first_name: 'Matthew',
+  last_name:  'Williams',
+  phone:      '777.777.1212',
+  zip:        '92023',
+  url_slug:   'matthew',
+  roles:      [ 'admin' ],
+  created_at: 2.years.ago)
+
 puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all
 BonusPlan.create(
