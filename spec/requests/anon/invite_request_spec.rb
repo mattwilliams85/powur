@@ -84,35 +84,28 @@ describe '/a/invite' do
       end
     end
 
-    # it 'registers a new promoter' do
-    #   VCR.use_cassette('invite register') do
-    #     patch invite_path, @user_params
-    #   end
+    it 'registers a new promoter' do
+      patch invite_path, @user_params
+      expect_200
+      expect_classes('session', 'user')
 
-    #   expect_200
-    #   expect_classes('session', 'user')
+      expect(json_body['properties']['first_name'])
+        .to include(@user_params[:first_name])
 
-    #   expect(json_body['properties']['first_name'])
-    #     .to include(@user_params[:first_name])
+      @invite.reload
+      expect(@invite.user_id).to_not be_nil
+      expect(@invite.user_id).to eq(json_body['properties']['id'])
+    end
 
-    #   @invite.reload
-    #   expect(@invite.user_id).to_not be_nil
-    #   expect(@invite.user_id).to eq(json_body['properties']['id'])
-    # end
-
-    # it 'associates any outstanding invites with the new promoter' do
-    #   invites = create_list(:invite, 2, email: @invite.email)
-
-    #   VCR.use_cassette('associate_invites_register') do
-    #     patch invite_path, @user_params
-    #   end
-
-    #   id = json_body['properties']['id']
-    #   invites.each do |invite|
-    #     invite.reload
-    #     expect(invite.user_id).to eq(id)
-    #   end
-    # end
+    it 'associates any outstanding invites with the new promoter' do
+      invites = create_list(:invite, 2, email: @invite.email)
+      patch invite_path, @user_params
+      id = json_body['properties']['id']
+      invites.each do |invite|
+        invite.reload
+        expect(invite.user_id).to eq(id)
+      end
+    end
 
   end
 end
