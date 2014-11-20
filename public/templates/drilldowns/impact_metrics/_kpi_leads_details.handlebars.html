@@ -1,82 +1,127 @@
 
 <div class="arrow"></div>
 <div class="drilldown_content">
-		<div id="kpi_environment_detail" class="object_detail">
-			<span class="dismiss"><i class="fa fa-times"></i></span>
-			<div class="object_detail_content">
-				<div class="object_detail_content_section summary">
-					<h4>Current Progress</h4>
-              		<span class="subtext">Snapshot of how your team is performing in this month</span>
-                  <div class="contributors">
-                	<div class="contributor">
-	                  	<div class="info-box">
-	                    	<div id="avatar1" class="avatar"></div>
+	<div id="kpi_environment_detail" class="object_detail">
+		<div class="object_detail_content">
+			<div class="object_detail_content_section summary" >
+				<h4>Current Progress</h4>
+	      		<a class="return_to_team" style="z-index:99;margin:auto;display:block;height:30px; display:none; float:left; font-size:14px; text-transform:uppercase;">
+	      			Return To Team Details
+	      		</a>
+	      		<span class="subtext progress_description" style="clear:both;">						
+	      				Today: 34 Qutoes, 22 Sales <br>This Week: 78 Quotes, 45 Sales
+	      		</span>
+				<div class="contributors" >
+					<div class="contributor">
+						<div class="info-box">
+							<div id="avatar1" class="avatar"></div>
 							<div class="info-text">
 								<a id="hover1"><span>Jon Doe</span></a>
 								<br> 
 								<span class="light-text">24 Quotes, 17 Sales</span>
 							</div>
-	                 	</div>
-	                </div>
+						</div>
+					</div>
 
-                	<div class="contributor">
-	                  	<div class="info-box">
-	                    	<div id="avatar2" class="avatar"></div>
+					<div class="contributor">
+						<div class="info-box">
+							<div id="avatar2" class="avatar"></div>
 							<div class="info-text">
 								<a id="hover1"><span>Danny Smith</span></a>
 								<br> 
 								<span class="light-text">13 Quotes, 5 Sales</span>
 							</div>
-	                 	</div>
-	                </div>
+						</div>
+					</div>
 
-                	<div class="contributor">
-	                  	<div class="info-box">
-	                    	<div id="avatar3" class="avatar"></div>
+					<div class="contributor">
+						<div class="info-box">
+							<div id="avatar3" class="avatar"></div>
 							<div class="info-text">
 								<a id="hover1"><span>Lisa Williams</span></a>
 								<br> 
 								<span class="light-text">10 Quotes, 2 Sales</span>
 							</div>
-	                 	</div>
-	                </div>
+						</div>
+					</div>
 
 				</div>
-        </div>
+			</div>
 
-				<div class="object_detail_content_section" style="padding-left:20px;">
-					<h4 id="graph_title">Full Genealogy Conversion History</h4>
-					<canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
-					<div style="width:150px; padding-left:50px;float:left;">
-						<br><br>
-		                <div class="legend">
+			<div class="object_detail_content_section" style="padding-left:20px;">
+				<h4 id="graph_title">Full Genealogy Conversion History </h4>
+				<canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
+				
+				<div class="time_unit_nav">
+					<i class="fa fa-chevron-left" style="color:#555;padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px;margin-right:10px;"></i> <span>Week 11/1 - 11/7</span> <i class="fa fa-chevron-right" style="color:#555; padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px; margin-left:10px;"></i>
+				</div>
+
+				<div style="width:150px; padding-left:50px;float:left;">
+					<div class="time_scale">
+						Time Scale: <br>
+						<span class="active week">Week</span><span class="month">Month</span>
+					</div>
+					<br><br style="clear:both;">
+		            <div class="legend">
 		                  <div class="legend-item" id="user-legend"></div>
 		                  <span id="selected_user" class="legend-text">Quotes</span>
-		                </div>
-		                <br>
-		                <div class="legend">
+		            </div>
+		            <br>
+		            <div class="legend">
 		                  <div class="legend-item" id="global-legend"></div>
 		                  <span id="average" class="legend-text">Sales</span>
-		                </div>
-		                <br>
-		                <div class="legend hide">
+		            </div>
+		            <br>
+		            <div class="legend hide">
 		                  <div class="legend-item" id="top-performer"></div>
 		                  <span id="performer" class="legend-text"></span>
-		                </div>
+		            </div>
 
-		                <br>
-
-
-					</div>
+		            <br>
 				</div>
-
 			</div>
-		</div>
+
+		</div> <!-- end object detail content -->
+	</div>
 </div>
 
 
 <style>
+  .snapshot{
+  	line-height: 14px;
+  }
+  .time_unit_nav{
+  	position: absolute;
+  	bottom:10px;
+  	left:370px;
+  	width:630px;
+  	height:30px;
+  	text-align: center;
+  }
+  .time_scale, .snapshot, .time_unit_nav{
+  	font-size:12px;
+  	text-transform: uppercase;
+  }
+  .time_scale span{
+  	display:block;
+  	float:left;
+  	padding:10px;
+  	border:1px solid #ccc;
+  	width:50px;
+  	text-align: center;
+  	margin-top:-5px;
+  	cursor: pointer;
 
+  }
+  .time_scale span:first-of-type{
+  	border-right:0px;
+  }
+
+  .time_scale span.active{
+  	background:#ccc;
+  	color:#333;
+  	transition:all 1s;
+  }
 
   .avatar {
     width:70px;
@@ -178,13 +223,15 @@ h4{
 
 .contributors {
   padding-top:15px;
+  z-index:5;
+  display:inline-block;
 
 }
 
 .contributor {
   cursor: pointer;
-  padding-left:10px;
-  background-color:#535353;
+  padding:0 15px;
+
 }
 
 .drilldown_content {
@@ -195,52 +242,69 @@ h4{
   -ms-user-select: none;
   user-select: none;
 }
+.return_to_team{
+	cursor: pointer;
+}
 
 </style>
 <script>
-_randomData = {}
-_randomData.me=[];
-_randomData.team=[];
-_randomData.performer=[];
-
-for(i=1;i<=12;i++){
-	_randomData.me.push(Math.floor(Math.random()*18+75));
-	_randomData.team.push(Math.floor(Math.random()*18+75));
-	_randomData.performer.push(0);
-}
-
+var _randomData = {}
+	_randomData.me=[];
+	_randomData.team=[];
+	_randomData.performer=[];
+var _labels=[];
 var topPerformers=[];
-["John Doe", "Danny Smith", "Lisa Williams"].forEach(function(name){
-  var tempData1 =[];
-  var tempData2 =[];
-
-  for(i=0;i<12;i++) tempData1.push(Math.floor(Math.random()*30+10));
-  for(i=0;i<12;i++) tempData2.push(Math.floor(Math.random()*30+10));
-
-  topPerformers.push({
-    name:name,
-    data1:tempData1,
-    data2:tempData2
-  });
-});
 
 var metricsData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: _labels,
     datasets: [
         {
             label: "My First dataset",
             fillColor: "#20c2f1",
             highlightFill: "#5bd7f7",
-            data: _randomData.me
+            data: []
         },
         {
             label: "My Second dataset",
             fillColor: "#FDB45C",
             highlightFill: "#FFC870",
-            data: _randomData.team
+            data: []
         }
     ]
 };
+
+generateData(7);
+$.extend(metricsData.datasets[0].data, _randomData.me);
+$.extend(metricsData.datasets[1].data, _randomData.team);
+
+function generateData(days){
+	if(typeof days ==="undefined") days=7;
+
+	for(i=1;i<=days;i++){
+		_labels.push("11/"+i);
+	}
+	for(i=1;i<=days;i++){
+		_randomData.me.push(Math.floor(Math.random()*18+75));
+		_randomData.team.push(Math.floor(Math.random()*18+75));
+	}
+
+	["John Doe", "Danny Smith", "Lisa Williams"].forEach(function(name){
+	  var tempData1 =[];
+	  var tempData2 =[];
+
+	  for(i=1;i<=days;i++) tempData1.push(Math.floor(Math.random()*30+10));
+	  for(i=1;i<=days;i++) tempData2.push(Math.floor(Math.random()*30+10));
+
+	  topPerformers.push({
+	    name:name,
+	    data1:tempData1,
+	    data2:tempData2
+	  });
+	});	
+}
+
+
+
 var ctx = document.getElementById("metricsChart").getContext("2d");
 
 var options={
@@ -297,16 +361,69 @@ $(".contributor")
     .append("<hr style='border-color:rgba(255,255,255,.08);margin:5px 0 5px 0'> ")
 
 
+$(".return_to_team").on("click",function(e){
+	$.extend(metricsData.datasets[0].data, _randomData.me);
+	$.extend(metricsData.datasets[1].data, _randomData.team);
+	myChart.destroy();
+ 	myChart = new Chart(ctx).Bar(metricsData, options);  
+  	$("#graph_title").html("Full Genealogy Conversion History");
+  	$(".contributor").css("background","none");
+  	$(".return_to_team").fadeOut();
+    $(".progress_description").fadeIn();
+
+});
+
+$(".time_scale .month").on("click", function(){
+	_randomData.me.length=0;
+	_randomData.team.length=0;
+	_labels.length=0;
+	topPerformers.length=0;
+	metricsData.datasets[0].data.length=0;
+	metricsData.datasets[1].data.length=0;
+
+	generateData(30);
+	$.extend(metricsData.datasets[0].data, _randomData.me);
+	$.extend(metricsData.datasets[1].data, _randomData.team);
+	options.animationSteps=20;
+	myChart.destroy();
+	myChart = new Chart(ctx).Bar(metricsData, options);  
+	$("#graph_title").html("Full Genealogy Conversion History");
+	$(".time_unit_nav span").html("November, 2014")
+	$(".time_scale .week").removeClass("active");
+	$(this).addClass("active");
+})
+
+$(".time_scale .week").on("click", function(){
+	_randomData.me.length=0;
+	_randomData.team.length=0;
+	_labels.length=0;
+	topPerformers.length=0;
+	metricsData.datasets[0].data.length=0;
+	metricsData.datasets[1].data.length=0;
+
+	generateData(7);
+	$.extend(metricsData.datasets[0].data, _randomData.me);
+	$.extend(metricsData.datasets[1].data, _randomData.team);
+	options.animationSteps=20;
+	myChart.destroy();
+	myChart = new Chart(ctx).Bar(metricsData, options);  
+	$("#graph_title").html("Full Genealogy Conversion History");
+	$(".time_unit_nav span").html("Week 11/1 - 11/7");
+	$(".time_scale .month").removeClass("active");
+	$(this).addClass("active");
+})
+
+
+
 $(".contributor").on("click",function(e){
   
   e.preventDefault();
   e.stopPropagation();
+  $(".return_to_team").fadeIn();
   _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
-  $('.contributor').each(function(){
-    $(this).velocity({backgroundColor:"#555"},100);
-  })
+  $('.contributor').css("background","none");
   $(this).velocity({backgroundColor:"#454545"},150);
-
+  $(".progress_description").fadeOut();
   $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
   $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
 
