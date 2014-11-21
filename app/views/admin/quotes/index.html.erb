@@ -4,7 +4,7 @@
 
 <style>
     body#application{
-        padding-top:108px;
+        /*padding-top:108px;*/
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -178,7 +178,6 @@
             ._spreadSheet h4.subRow{
                 text-transform:uppercase; color:#ccc; font-size:11px; line-height:18px; margin-bottom:8px; border-bottom:1px dotted #ccc;
             }
-
     #js-wait_screen_mask{
         width:100%;
         height: 100%;
@@ -187,8 +186,19 @@
         left:0;
         z-index: 90;
         display:none;
+        background:rgba(0,0,0,.5);
+    }
+    #js-screen_mask {
+        width:100%;
+        height: 100%;
+        position: fixed;
+        top:0;
+        left:0;
+        z-index: 90;
+        display:none;
         background:rgba(0,0,0,.5);}
-    #js-popup{
+
+    #js-popup {
         z-index:95;
         background:rgba(255,255,255,1);
         position:fixed;
@@ -197,8 +207,10 @@
         overflow-x:hidden;
         left:0;
         width:480px;
-        padding:32px;}
-    .button{ outline: none;}
+        padding:32px;
+    }
+    .button{ outline: none;
+    }
     header nav ul li a.active{
         color:#fff;
     }
