@@ -1,5 +1,5 @@
 require 'spec_helper'
-require 'byebug'
+#require 'byebug'
 require 'securerandom'
 
 describe EyecueIpayout do

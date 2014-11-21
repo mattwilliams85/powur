@@ -254,19 +254,19 @@ var _randomData = {}
 	_randomData.performer=[];
 var _labels=[];
 var topPerformers=[];
-
+var currentlyViewing="team";
 var metricsData = {
     labels: _labels,
     datasets: [
         {
             label: "My First dataset",
-            fillColor: "#20c2f1",
+            fillColor: "rgba(32, 194, 241,1)",
             highlightFill: "#5bd7f7",
             data: []
         },
         {
             label: "My Second dataset",
-            fillColor: "#FDB45C",
+            fillColor: "rgba(253, 180, 92, .9)",
             highlightFill: "#FFC870",
             data: []
         }
@@ -351,7 +351,7 @@ var options={
 
 }
 
-var myChart = new Chart(ctx).Bar(metricsData, options);  
+var myChart = new Chart(ctx).Line(metricsData, options);  
 
 $(".contributor")
     .velocity("transition.slideUpBigIn", { 
@@ -365,11 +365,12 @@ $(".return_to_team").on("click",function(e){
 	$.extend(metricsData.datasets[0].data, _randomData.me);
 	$.extend(metricsData.datasets[1].data, _randomData.team);
 	myChart.destroy();
- 	myChart = new Chart(ctx).Bar(metricsData, options);  
+ 	myChart = new Chart(ctx).Line(metricsData, options);  
   	$("#graph_title").html("Full Genealogy Conversion History");
   	$(".contributor").css("background","none");
   	$(".return_to_team").fadeOut();
     $(".progress_description").fadeIn();
+    currentlyViewing="team";
 
 });
 
@@ -382,12 +383,19 @@ $(".time_scale .month").on("click", function(){
 	metricsData.datasets[1].data.length=0;
 
 	generateData(30);
-	$.extend(metricsData.datasets[0].data, _randomData.me);
-	$.extend(metricsData.datasets[1].data, _randomData.team);
+
+	if(currentlyViewing=="team"){
+		$("#graph_title").html("Full Genealogy Conversion History");
+		$.extend(metricsData.datasets[0].data, _randomData.me);
+		$.extend(metricsData.datasets[1].data, _randomData.team);
+	}else{
+		$("#graph_title").html(topPerformers[_index].name+"'s Conversion History")
+  		$.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
+  		$.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
+	}
 	options.animationSteps=20;
 	myChart.destroy();
-	myChart = new Chart(ctx).Bar(metricsData, options);  
-	$("#graph_title").html("Full Genealogy Conversion History");
+	myChart = new Chart(ctx).Line(metricsData, options);  
 	$(".time_unit_nav span").html("November, 2014")
 	$(".time_scale .week").removeClass("active");
 	$(this).addClass("active");
@@ -402,12 +410,25 @@ $(".time_scale .week").on("click", function(){
 	metricsData.datasets[1].data.length=0;
 
 	generateData(7);
+
+	if(currentlyViewing=="team"){
+		$("#graph_title").html("Full Genealogy Conversion History");
+		$.extend(metricsData.datasets[0].data, _randomData.me);
+		$.extend(metricsData.datasets[1].data, _randomData.team);
+	}else{
+		$("#graph_title").html(topPerformers[_index].name+"'s Conversion History")
+  		$.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
+  		$.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
+	}
 	$.extend(metricsData.datasets[0].data, _randomData.me);
 	$.extend(metricsData.datasets[1].data, _randomData.team);
+	$.extend(metricsData.datasets[0].data, _randomData.me);
+	$.extend(metricsData.datasets[1].data, _randomData.team);
+
 	options.animationSteps=20;
 	myChart.destroy();
-	myChart = new Chart(ctx).Bar(metricsData, options);  
-	$("#graph_title").html("Full Genealogy Conversion History");
+	myChart = new Chart(ctx).Line(metricsData, options);  
+
 	$(".time_unit_nav span").html("Week 11/1 - 11/7");
 	$(".time_scale .month").removeClass("active");
 	$(this).addClass("active");
@@ -426,13 +447,14 @@ $(".contributor").on("click",function(e){
   $(".progress_description").fadeOut();
   $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
   $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
+  currentlyViewing="individuals";
 
   // metricsData.datasets[2].fillColor = "rgba(44,148,105,1)";
   // metricsData.datasets[2].highlightFill= "rgba(44,148,105,1)";
 
   options.animationSteps=20;
   myChart.destroy();
-  myChart = new Chart(ctx).Bar(metricsData, options);  
+  myChart = new Chart(ctx).Line(metricsData, options);  
   $("#graph_title").html(topPerformers[_index].name+"'s Conversion History")
   // $("#performer").html(topPerformers[_index].name);
   // $(".legend").removeClass("hide");
