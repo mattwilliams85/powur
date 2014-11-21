@@ -199,11 +199,6 @@ function Dashboard(){
 		_data._team=[];
 
 		//wire up invitations listing hook
-		console.log("hey")
-$(document).on("click", function(e){
-	console.log($(e.target))
-})
-
 		$(".js-invites_thumbnail").on("click", function(e){
 			console.log("click")
 			e.preventDefault();
