@@ -1,5 +1,5 @@
 class AdminController < AuthController
-  include BonusJSON
+  include BonusJson
   layout 'admin'
   before_action :verify_admin
 
