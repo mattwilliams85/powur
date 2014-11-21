@@ -199,7 +199,13 @@ function Dashboard(){
 		_data._team=[];
 
 		//wire up invitations listing hook
+		console.log("hey")
+$(document).on("click", function(e){
+	console.log($(e.target))
+})
+
 		$(".js-invites_thumbnail").on("click", function(e){
+			console.log("click")
 			e.preventDefault();
 			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
 			_drillDown({"_type":"invitations",
@@ -243,7 +249,7 @@ function Dashboard(){
 				});
 				
 
-				$(".js-invites_thumbnail").unbind();
+				// $(".js-invites_thumbnail").unbind();
 				$("#team_search").unbind();
 				$("#performance_metric").unbind();
 				$("#performance_period").unbind();
