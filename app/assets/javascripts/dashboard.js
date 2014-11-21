@@ -172,6 +172,9 @@ function Dashboard(){
 			notches.min=goals.sales[_key].min;
 			notches.max=goals.sales[_key].max-1;
 			notches.current = goals.sales[_key].current;
+			console.log("before")
+			console.log(notches)
+			console.log("after")
 			for(i=notches.min; i<=notches.max;i++){
 				var _counter = (i<10)?"0"+i:i;
 				var _maxCounter = (notches.max+1<10)?"0"+(notches.max+1):(notches.max+1);
