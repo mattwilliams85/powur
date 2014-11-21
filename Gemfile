@@ -28,7 +28,6 @@ gem 'faker'
 gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of'
 gem 'money'
 gem 'has_scope'
-gem 'figaro'
 
 gem 'pry-rails'
 gem 'eyecue_ipayout', path: './vendor/eyecue_ipayout'

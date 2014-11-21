@@ -1,10 +1,7 @@
 require 'eyecue_ipayout/version'
 module EyecueIpayout
   module Config
-    # IPAYOUT_API_ENDPOINT = 'https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx'
-    # IPAYOUT_MERCHANT_GUID = 'a4739056-7db6-40f3-9618-f2bcccbf70cc'
-    # IPAYOUT_MERCHANT_PASSWORD = '9xXLvA66hi'
-    # end
+
     # The access token if none is set
     class << self
       attr_accessor :merchant_guid

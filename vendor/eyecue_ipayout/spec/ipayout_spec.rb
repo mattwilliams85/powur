@@ -47,9 +47,9 @@ describe EyecueIpayout do
     email_address = 'register-test' + rand.to_s[2..6] + '@eyecuelab.com'
     options_hash = {}
     options_hash[:fn] = 'eWallet_RegisterUser'
-    options_hash[:endpoint] = ENV['IPAYOUT_API_ENDPOINT']
-    options_hash[:MerchantGUID] = ENV['IPAYOUT_MERCHANT_GUID']
-    options_hash[:MerchantPassword] = ENV['IPAYOUT_MERCHANT_PASSWORD']
+    options_hash[:endpoint] = Rails.application.secrets.ipayout_api_endpoint
+    options_hash[:MerchantGUID] = Rails.application.secrets.ipayout_merchant_guid
+    options_hash[:MerchantPassword] = Rails.application.secrets.ipayout_merchant_password
     options_hash[:UserName] = email_address = 'register-test' + rand.to_s[2..6] + '@eyecuelab.com'
     options_hash[:FirstName] = 'Glen'
     options_hash[:LastName] = 'Danzig'
@@ -85,9 +85,9 @@ describe EyecueIpayout do
   it 'should fetch registered users account status' do
     options_hash = {}
     options_hash[:fn] = 'eWallet_GetUserAccountStatus'
-    options_hash[:endpoint] = ENV['IPAYOUT_API_ENDPOINT']
-    options_hash[:MerchantGUID] = ENV['IPAYOUT_MERCHANT_GUID']
-    options_hash[:MerchantPassword] = ENV['IPAYOUT_MERCHANT_PASSWORD']
+    options_hash[:endpoint] = Rails.application.secrets.ipayout_api_endpoint
+    options_hash[:MerchantGUID] = Rails.application.secrets.ipayout_merchant_guid
+    options_hash[:MerchantPassword] = Rails.application.secrets.ipayout_merchant_password
     options_hash[:UserName] = 'eyecueTest20'
     response = @client.ewallet_request(options_hash)
     print response
@@ -98,9 +98,9 @@ describe EyecueIpayout do
   it 'should fetch registered user\'s account details' do
     options_hash = {}
     options_hash[:fn] = 'eWallet_GetCustomerDetails'
-    options_hash[:endpoint] = ENV['IPAYOUT_API_ENDPOINT']
-    options_hash[:MerchantGUID] = ENV['IPAYOUT_MERCHANT_GUID']
-    options_hash[:MerchantPassword] = ENV['IPAYOUT_MERCHANT_PASSWORD']
+    options_hash[:endpoint] = Rails.application.secrets.ipayout_api_endpoint
+    options_hash[:MerchantGUID] = Rails.application.secrets.ipayout_merchant_guid
+    options_hash[:MerchantPassword] = Rails.application.secrets.ipayout_merchant_password
     options_hash[:UserName] = 'eyecueTestUser'
     response = @client.ewallet_request(options_hash)
     expect(response['m_Text']).to eq('OK')
@@ -116,9 +116,9 @@ describe EyecueIpayout do
 
     options_hash = {}
     options_hash[:fn]               = 'eWallet_Load'
-    options_hash[:endpoint]         = ENV['IPAYOUT_API_ENDPOINT']
-    options_hash[:MerchantGUID]     = ENV['IPAYOUT_MERCHANT_GUID']
-    options_hash[:MerchantPassword] = ENV['IPAYOUT_MERCHANT_PASSWORD']
+    options_hash[:endpoint]         = Rails.application.secrets.ipayout_api_endpoint
+    options_hash[:MerchantGUID]     = Rails.application.secrets.ipayout_merchant_guid
+    options_hash[:MerchantPassword] = Rails.application.secrets.ipayout_merchant_password
     options_hash[:PartnerBatchID]   = DateTime.now.to_s
     options_hash[:PoolID]           = ''
     options_hash[:arrAccounts]      = [{ UserName: 'eyecueTestuser',
@@ -138,9 +138,9 @@ describe EyecueIpayout do
   it 'should fetch registered user\'s account balance' do
     options_hash = {}
     options_hash[:fn] = 'eWallet_GetCurrencyBalance'
-    options_hash[:endpoint] = ENV['IPAYOUT_API_ENDPOINT']
-    options_hash[:MerchantGUID] = ENV['IPAYOUT_MERCHANT_GUID']
-    options_hash[:MerchantPassword] = ENV['IPAYOUT_MERCHANT_PASSWORD']
+    options_hash[:endpoint] = Rails.application.secrets.ipayout_api_endpoint
+    options_hash[:MerchantGUID] = Rails.application.secrets.ipayout_merchant_guid
+    options_hash[:MerchantPassword] = Rails.application.secrets.ipayout_merchant_password
     options_hash[:UserName] = 'eyecueTestUser'
     options_hash[:CurrencyCode] = 'USD'
     response = @client.ewallet_request(options_hash)
