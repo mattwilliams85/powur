@@ -3,8 +3,9 @@ jQuery(function($){
     $.ajaxSetup({
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr("content"),
-            Accept : 'application/json; charset=utf-8'
-        }
+            Accept : 'application/json; charset=utf-8',
+        },
+        cache: false
     });
 
     //Utility added to jQuery that allows drilldowns to scroll to view
