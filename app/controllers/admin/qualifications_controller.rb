@@ -1,6 +1,5 @@
 module Admin
   class QualificationsController < AdminController
-
     before_action :fetch_qualification, only: [ :update, :destroy ]
 
     def index
@@ -32,7 +31,8 @@ module Admin
     protected
 
     def input
-      allow_input(:rank_path_id, :time_period, :quantity, :max_leg_percent, :product_id)
+      allow_input(:rank_path_id, :time_period, :quantity, :max_leg_percent,
+                  :product_id)
     end
 
     def qualification_klass
@@ -40,7 +40,8 @@ module Admin
     end
 
     def fetch_qualification
-      @qualification = Qualification.find(params[:id].to_i)
+      @qualification = Qualification.includes(
+        :product).references(:product).find(params[:id].to_i)
     end
   end
 end
