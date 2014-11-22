@@ -48,6 +48,7 @@ describe '/u/quotes' do
       create_list(:quote, 2, user: @user)
 
       get user_quotes_path, search: 'Gary', format: :json
+
       expect(json_body['entities'].size).to eq(3)
     end
 
