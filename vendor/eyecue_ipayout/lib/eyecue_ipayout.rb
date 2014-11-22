@@ -3,7 +3,7 @@ require 'eyecue_ipayout/config'
 require 'eyecue_ipayout/configuration'
 require 'eyecue_ipayout/service'
 require 'eyecue_ipayout/service_param'
-#require 'byebug'
+
 module EyecueIpayout
   extend Config
   class << self
