@@ -106,8 +106,7 @@ jQuery(function($){
                     });
 
                     _displayData=(_data.quotes.search.results.entities.length>0)? _data.quotes.search.results : _data.quotes;
-                    _displayData.paginationInfo= _paginateData(_getObjectsByCriteria(_displayData, {name:"page"})[0], {prefix:"js-quotes", actionableCount:10});
-
+                    _displayData.paginationInfo= SunStand.UX.paginateData(_getObjectsByCriteria(_displayData, {name:"page"})[0], {prefix:"js-quotes", actionableCount:10});
 
 
                     EyeCueLab.UX.getTemplate("/templates/admin/quotes/quotes/_quotes.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
@@ -702,11 +701,21 @@ jQuery(function($){
 
 
         function _loadQuotesInfo(_callback){
+            if(typeof _data.quotes === "undefined") _data.quotes={};
+            if(typeof _data.quotes.filterObj === "undefined") _data.quotes.filterObj={};
+
             _ajax({
                 _ajaxType:"get",
                 _url:"/a/quotes",
+                _postObj:_data.quotes.filterObj,
                 _callback:function(data, text){
                     _data.quotes = data;
+                    _data.quotes.filterObj={};
+                    Object.keys(data.properties).forEach(function(key){
+                        console.log(key)
+                        _data.quotes.filterObj[key]="";
+                    });
+
                     _data.quotes.entities.forEach(function(_quote){
                         _d = new Date(_quote.properties.created_at);
                         _quote.properties.localDateString = _d.toLocaleDateString();

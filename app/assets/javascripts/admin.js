@@ -138,7 +138,28 @@ jQuery(function($){
 
                 break;
 
+                case "#admin-users-membership-earnings":
+                    var _endPoints=[];
+                    _ajax({
+                        _ajaxType:"get",
+                        _url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(class)":["list", "pay_periods"]})[0].href,
+                        _callback:function(data, text){
+                            _data.currentUser.pay_periods=data;
+                            //caching locally for all returned pay_periods 
+                            _data.currentUser.pay_periods.entities.forEach(function(pay_period){
+                                _endPoints.push({
+                                    url:_getObjectsByCriteria(pay_period, "key=href")[0].href,
+                                    data:{},
+                                    name:pay_period.properties.id
+                                });
+                            })
+                            EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+                                console.log(_returnJSONs)
+                            })
 
+                        }
+                    });
+                break;
 
                 case "#admin-users-sales":
                 case "#admin-users-sales-orders":
@@ -278,10 +299,10 @@ jQuery(function($){
                             url:"/a/pay_periods",
                             data:{}
                         });
-
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0]);
+                            _displayData.filtering_obj = _filtering_obj;
                             _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
                             EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
