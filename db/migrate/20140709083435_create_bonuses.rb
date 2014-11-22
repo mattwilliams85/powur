@@ -19,7 +19,6 @@ class CreateBonuses < ActiveRecord::Migration
       t.references  :min_upline_rank
       t.boolean     :compress,  null: false, default: false
       t.decimal     :flat_amount, null: false, precision: 10, scale: 2, default: 0.0
-
       t.timestamps  null: false
 
       t.foreign_key :bonus_plans
@@ -39,15 +38,26 @@ class CreateBonuses < ActiveRecord::Migration
     end
     execute 'alter table bonus_sales_requirements add primary key (bonus_id, product_id);'
 
-    create_table :bonus_levels, id: false do |t|
-      t.references :bonus, null: false
+    create_table :bonus_levels do |t|
+      t.references :bonus, null: false, index: true
       t.integer :level, null: false, default: 0
+      t.references :rank_path, null: false
       t.decimal :amounts, null: false, array: true, precision: 5, scale: 5, default: []
+      t.references :rank_path
 
       t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
+      t.foreign_key :rank_paths
     end
-    execute 'alter table bonus_levels add primary key (bonus_id, level);'
-
+    add_index :bonus_levels,
+              [ :bonus_id, :level, :rank_path_id ],
+              unique: true,
+              where:  'rank_path_id is not null',
+              name:   'bonus_levels_comp_key_with_rp'
+    add_index :bonus_levels,
+              [ :bonus_id, :level, :rank_path_id ],
+              unique: true,
+              where:  'rank_path_id is null',
+              name:   'bonus_levels_comp_key_without_rp'
   end
 
 end

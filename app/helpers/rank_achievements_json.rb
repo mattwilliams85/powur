@@ -18,7 +18,6 @@ module RankAchievementsJson
                   :path, :rank_id, :achieved_at)
         json.lifetime rank_achievement.lifetime?
         json.user rank_achievement.user.full_name
-
       end
     end
 
@@ -46,8 +45,9 @@ module RankAchievementsJson
   end
 
   def rank_achievements_json
-    @rank_achievement_json ||= RankAchievementsViewDecorator
-                                .new(self, @rank_achievements,
-                                     @rank_achievement)
+    @rank_achievement_json ||= RankAchievementsViewDecorator.new(
+      self,
+      @rank_achievements,
+      @rank_achievement)
   end
 end

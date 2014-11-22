@@ -10,8 +10,8 @@ describe 'rank achievements', type: :request do
   describe '/a/pay_periods/:id/rank_achievements' do
 
     it 'pages a list for the pay period' do
-      pay_period = WeeklyPayPeriod
-        .find_or_create_by_date(DateTime.current - 1.month)
+      at = DateTime.current - 1.month
+      pay_period = WeeklyPayPeriod.find_or_create_by_date(at)
       achievement = create(:rank_achievement,
                            rank_id:    2,
                            pay_period: pay_period)
@@ -40,8 +40,10 @@ describe 'rank achievements', type: :request do
       get pay_period_rank_achievements_path(achievement.pay_period),
           format: :json, sort: :user
 
-      expected = list.sort_by { |a| [ a.user.last_name, a.user.first_name ] }
-        .map { |a| a.user.full_name }
+      expected = list.sort_by do |a|
+        [ a.user.last_name, a.user.first_name ]
+      end
+      expected = expected.map { |a| a.user.full_name }
       result = json_body['entities'].map { |a| a['properties']['user'] }
 
       expect(result).to eq(expected)

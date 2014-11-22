@@ -4,6 +4,7 @@ FactoryGirl.define do
     factory :sales_qualification, class: SalesQualification do
       type 'SalesQualification'
       time_period :lifetime
+      rank_path
       quantity { Faker::Number.number(1).to_i }
       product
 

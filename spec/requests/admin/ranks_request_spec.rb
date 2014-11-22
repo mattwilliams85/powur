@@ -28,10 +28,12 @@ describe '/a/ranks' do
       action = find_delete_action(4)
       expect(action).to_not be_nil
 
-      rank = json_body['entities']
-        .find { |e| e['properties']['id'] == qualified_rank.id }
-      qual_list = rank['entities']
-        .find { |e| e['rel'] && e['rel'].include?('rank-qualifications') }
+      rank = json_body['entities'].find do |e|
+        e['properties']['id'] == qualified_rank.id
+      end
+      qual_list = rank['entities'].find do |e|
+        e['rel'] && e['rel'].include?('rank-qualifications')
+      end
       expect(qual_list).to be
     end
 

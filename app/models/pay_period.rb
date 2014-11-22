@@ -1,5 +1,9 @@
 class PayPeriod < ActiveRecord::Base
+  include Calculator::RankAchievements
+  include Calculator::OrderTotals
+  include Calculator::Bonuses
   include EwalletDSL
+
   has_many :order_totals, dependent: :destroy
   has_many :rank_achievements, dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
@@ -96,55 +100,9 @@ class PayPeriod < ActiveRecord::Base
     process_rank_achievements!(order, totals)
   end
 
-  def process_order_totals!(order)
-    totals =  find_order_total(order.user_id, order.product_id)
-    if totals
-      totals.update_columns(
-        personal:          totals.personal + order.quantity,
-        group:             totals.group + order.quantity,
-        personal_lifetime: totals.personal_lifetime + order.quantity,
-        group_lifetime:    totals.group_lifetime + order.quantity)
-    else
-      totals = new_order_total(order)
-    end
-
-    increment_upline_totals(order)
-    totals
-  end
-
-  def process_rank_achievements!(order, totals = nil)
-    totals ||= find_order_total(order.user_id, order.product_id)
-
-    process_lifetime_rank_achievements(order, totals)
-    process_pay_period_rank_achievements(order, totals)
-
-    order.user.parent_ids.each do |user_id|
-      parent = find_upline_user(user_id)
-      parent_totals = find_order_total(user_id, order.product_id)
-
-      process_lifetime_rank_achievements(order, parent_totals, parent)
-      process_pay_period_rank_achievements(order, parent_totals, parent)
-    end
-  end
-
-  def process_order_bonuses(order, use_rank_at)
-    bonuses = bonuses_for(order.product_id, use_rank_at)
-    bonuses.each do |bonus|
-      bonus.create_payments!(order, self)
-    end
-  end
-
-  def process_at_sale_rank_bonuses!(order)
-    process_order_bonuses(order, :sale)
-  end
-
-  def process_at_pay_period_end_rank_bonuses!
-    orders.each { |order| process_order_bonuses(order, :pay_period_end) }
-  end
-
   def child_totals_for(user_id, product_id)
     child_ids = direct_downline_users
-                .select { |u| u.parent_id == user_id }.map(&:id)
+      .select { |u| u.parent_id == user_id }.map(&:id)
     return [] if child_ids.empty?
 
     child_totals = order_totals.select do |t|
@@ -222,74 +180,16 @@ class PayPeriod < ActiveRecord::Base
       RankAchievement.lifetime.where(user_id: all_user_ids).entries
   end
 
-  def highest_rank(user_id, path, *lists)
-    lists.inject([ 1 ]) do |ranks, list|
-      ranks << list.select { |a| a.user_id == user_id && a.path == path }.
-        map(&:rank_id).max
-    end.compact.max
-  end
-
   def qualification_paths
     @qualification_paths ||= ranks.second ? ranks.second.qualification_paths : []
   end
 
-  def process_lifetime_rank_achievements(order, totals, user = nil)
-    user ||= order.user
-
-    qualification_paths.each do |path|
-      start = highest_rank(user.id, path, lifetime_rank_achievements)
-
-      ranks[start..-1].each do |rank|
-        break unless rank.lifetime_path?(path) &&
-          rank.qualified_path?(path, totals)
-
-        attrs = {
-          achieved_at: order.order_date,
-          user_id:     user.id,
-          rank_id:     rank.id,
-        path:        path }
-        achievement = RankAchievement.create!(attrs)
-        lifetime_rank_achievements << achievement
-        if user.organic_rank < achievement.rank_id
-          user.update_column(:organic_rank, achievement.rank_id)
-        end
-        if user.lifetime_rank < achievement.rank_id
-          user.update_column(:lifetime_rank, achievement.rank_id)
-        end
-      end
-    end
-  end
-
-  def process_pay_period_rank_achievements(order, totals, user = nil)
-    user ||= order.user
-
-    qualification_paths.each do |path|
-      start = highest_rank(user.id, path,
-                           lifetime_rank_achievements, rank_achievements)
-
-      ranks[start..-1].each do |rank|
-        break unless rank_has_path?(rank, path) &&
-          rank.qualified_path?(path, totals)
-
-        attrs = {
-          achieved_at: order.order_date,
-          user_id:     user.id,
-          rank_id:     rank.id,
-        path:        path }
-        achievement = rank_achievements.create!(attrs)
-        if user.lifetime_rank < achievement.rank_id
-          user.update_column(:lifetime_rank, achievement.rank_id)
-        end
-      end
-    end
-  end
-
   def lifetime_personal_totals
-    @lifetime_personal_totals ||= Order.personal_totals(self.start_date).entries
+    @lifetime_personal_totals ||= Order.personal_totals(start_date).entries
   end
 
   def lifetime_group_totals
-    @lifetime_group_totals ||= Order.group_totals(self.start_date).entries
+    @lifetime_group_totals ||= Order.group_totals(start_date).entries
   end
 
   def find_personal_lifetime(user_id, product_id)
@@ -308,45 +208,17 @@ class PayPeriod < ActiveRecord::Base
     pl = find_personal_lifetime(user_id, product_id)
     gl = find_group_lifetime(user_id, product_id)
 
-    self.order_totals.create!(
-        user_id:            user_id,
-        product_id:         product_id,
-        personal:           quantity,
-        group:              quantity,
-        personal_lifetime:  pl ? pl.quantity + quantity : quantity,
-        group_lifetime:     gl ? gl.quantity + quantity : quantity)
+    order_totals.create!(
+      user_id:           user_id,
+      product_id:        product_id,
+      personal:          quantity,
+      group:             quantity,
+      personal_lifetime: pl ? pl.quantity + quantity : quantity,
+      group_lifetime:    gl ? gl.quantity + quantity : quantity)
   end
 
   def new_order_total(order)
     create_order_total(order.user_id, order.product_id, order.quantity)
-  end
-
-  def increment_upline_totals(order)
-    user_ids = order.user.parent_ids
-    group_totals = self.order_totals.select do |ot|
-      user_ids.include?(ot.user_id) && ot.product_id == order.product_id
-    end
-
-    group_totals.each do |gt|
-      gt.update_columns(
-        group:          gt.group + order.quantity,
-      group_lifetime: gt.group_lifetime + order.quantity)
-    end
-
-    missing = user_ids - group_totals.map(&:user_id)
-    missing.each do |user_id|
-      pl = find_personal_lifetime(user_id, order.product_id)
-      gl = find_group_lifetime(user_id, order.product_id)
-
-      self.order_totals.create!(
-        user_id:            user_id,
-        product_id:         order.product_id,
-        personal:           0,
-        group:              order.quantity,
-        personal_lifetime:  pl ? pl.quantity : 0,
-        group_lifetime:       gl ? gl.quantity + order.quantity : order.quantity)
-    end
-
   end
 
   def products
@@ -389,11 +261,10 @@ class PayPeriod < ActiveRecord::Base
 
       [ MonthlyPayPeriod, WeeklyPayPeriod ].each do |period_klass|
         ids = period_klass.ids_from(first_order.order_date)
-        unless ids.empty?
-          existing = period_klass.where(id: ids).pluck(:id)
-          ids -= existing
-          ids.each { |id| period_klass.find_or_create_by_id(id) }
-        end
+        next if ids.empty?
+        existing = period_klass.where(id: ids).pluck(:id)
+        ids -= existing
+        ids.each { |id| period_klass.find_or_create_by_id(id) }
       end
     end
 

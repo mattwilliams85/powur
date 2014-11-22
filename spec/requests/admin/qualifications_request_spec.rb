@@ -25,12 +25,14 @@ describe '/a/ranks/:id/qualifications' do
 
     it 'creates an active qualification' do
       product = create(:product)
+      rank_path = create(:rank_path)
       post qualifications_path,
-           type:        :sales,
-           product_id:  product.id,
-           time_period: :monthly,
-           quantity:    5,
-           format:      :json
+           type:         :sales,
+           product_id:   product.id,
+           time_period:  :monthly,
+           rank_path_id: rank_path.id,
+           quantity:     5,
+           format:       :json
 
       expect_classes 'qualification'
     end

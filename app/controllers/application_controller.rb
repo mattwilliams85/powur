@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper SirenJson
 
   protect_from_forgery with: :exception
-  helper_method :current_user, :ranks
+  helper_method :current_user, :all_ranks, :all_paths
 
   def redirect_to(*args)
     respond_to do |format|
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= session[:user_id] &&
-      User.find_by(id: session[:user_id].to_i)
+                      User.find_by(id: session[:user_id].to_i)
   end
 
   def logged_in?
@@ -35,5 +35,9 @@ class ApplicationController < ActionController::Base
 
   def all_ranks
     @all_ranks ||= Rank.all.includes(:qualifications).references(:qualifications)
+  end
+
+  def all_paths
+    @all_paths ||= RankPath.all.order(:name)
   end
 end

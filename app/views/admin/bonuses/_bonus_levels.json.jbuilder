@@ -1,8 +1,7 @@
 klass :bonus_levels, :list
 
-json.entities bonus_levels, partial: 'bonus_level', as: :bonus_level
+json.entities bonus.bonus_levels, partial: 'bonus_level', as: :bonus_level
 
-if bonus.can_add_amounts?
-  actions action(:create, :post,
-                 bonus_levels_path(bonus)).amount_field(bonus.default_level)
-end
+if bonus_json.can_add_level?(bonus)
+  actions bonus_json.create_level_action(bonus)
+end  

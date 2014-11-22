@@ -34,20 +34,21 @@ class CreatePayPeriods < ActiveRecord::Migration
       t.string :pay_period_id
       t.references :user, null: false
       t.references :rank, null: false
-      t.string :path, null: false
+      t.references :rank_path, null: false
       t.datetime :achieved_at, null: false
 
       t.foreign_key :pay_periods
       t.foreign_key :users
       t.foreign_key :ranks
+      t.foreign_key :rank_paths
     end
     add_index :rank_achievements,
-              [ :pay_period_id, :user_id, :rank_id, :path ],
+              [ :pay_period_id, :user_id, :rank_id, :rank_path_id ],
               unique: true,
               name:   'rank_achievements_comp_key_with_pp',
               where:  'pay_period_id is not null'
     add_index :rank_achievements,
-              [ :user_id, :rank_id, :path ],
+              [ :user_id, :rank_id, :rank_path_id ],
               unique: true,
               name:   'rank_achievements_comp_key_without_pp',
               order:  { user_id: :desc, rank_id: :asc },
