@@ -957,7 +957,35 @@ jQuery(function($){
                 }
             });
         }
+        
+        //admin toolbar
+        $('.hover-box').hover(function(e){
+            e.stopPropagation()
+            $('.js-admin_tab').velocity({ translateX: 105 }, {
+                duration: 300,
+            easing: [ .35,-0.69,.47,.71 ],
+            complete: function(){
+              $('.hidden').fadeIn(300)
+                }
+            });
+            
+            $('.side-panel-item').velocity({ translateX: -105 }, {
+              duration: 300,
+              easing: [ .35,-0.69,.47,.71 ]
+            });
+            
+            $('#panel-pointer').fadeOut(0); 
+        })
 
+        $( ".hover-box" ).mouseleave(function(e) {
+            e.stopPropagation()
+                    $('.side-panel-item').velocity({ translateX: 0});
+                    $('.js-admin_tab').velocity({ translateX: 0,
+                    complete: function(){
+                $('.hidden').fadeOut(100)
+              }
+            });
+        });
        //* end admin adshboard specific utility functions
 
 

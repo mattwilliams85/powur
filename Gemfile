@@ -11,6 +11,7 @@ gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'wiselinks'
+gem 'font-awesome-sass', '~> 4.2.0'
 
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk'

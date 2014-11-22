@@ -19,9 +19,6 @@
 						<a href="/">
 							<%= render :partial => "shared/sunstand_logo_svg" %>
 						</a>
-					</li>	
-					<li>
-						<a href="/u/dashboard">Dashboard</a>
 					</li>					
 					<li>
 						<a href="#admin-users" class="admin_top_level_nav">Users</a>
@@ -54,6 +51,7 @@
 
 	<%= yield %>
 
-<div id="js-screen_mask"></div>
+	<%= render :partial => "shared/admin_toolbar" %>
+	<div id="js-screen_mask"></div>
 </body>
 </html>

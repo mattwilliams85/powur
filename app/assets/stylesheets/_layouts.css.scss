@@ -339,3 +339,76 @@ tr .js-bonus_details {
 	// Box properties
 	padding-top:16px !important;
 }
+
+// Admin Toolbar
+
+	.js-admin_tab {
+		cursor:pointer;
+		position:fixed;
+		top:25%;
+		left:-140px;
+		height:215px;
+		width:200px;
+		color:rgb(255,255,255);
+		background-color:rgb(40,195,250);
+		/*border:2px solid rgb(35,190,245);*/
+		border-top-right-radius:2.5px;
+		border-bottom-right-radius:2.5px;
+	  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.7);
+	  -moz-box-shadow:    0px 0px 5px 0px rgba(50, 50, 50, 0.7);
+	  box-shadow:         0px 0px 5px 0px rgba(50, 50, 50, 0.7);
+}
+
+.side-panel-item {
+	position:relative;
+	left:155px;
+	cursor:pointer;
+	height:30px;
+}
+
+#side-1 {
+	top:10%;
+}
+
+#side-2 {
+	top:13%;
+}
+
+#side-3 {
+	top:15%;
+}
+
+#side-4 {
+	top:18%;
+}
+
+.hidden {
+	display:none;
+	margin-left:17.5px;
+	font-size:0.8em;
+}
+
+.hover-box {
+	position:fixed;
+	top:22%;
+	left:-75px;
+	height:260px;
+	width:205px;
+}
+
+#admin-hover-box {
+	height:350px;
+	width:250px;
+}
+
+#admin-tab {
+	height:260px;
+}
+
+.side-panel-item a {
+	color:rgb(10, 127, 161);
+}
+
+.side-panel-item a:hover {
+	color:#fff;
+}
