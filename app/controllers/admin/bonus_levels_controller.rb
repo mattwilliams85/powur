@@ -26,19 +26,20 @@ module Admin
     private
 
     def input
-      allow_input(amounts: [])
+      allow_input(:rank_path_id, amounts: [])
     end
 
     def fetch_bonus
-      @bonus = Bonus
-        .includes(:requirements, :bonus_levels)
-        .references(:requirements, :bonus_levels)
-        .find(params[:bonus_id].to_i)
+      @bonus = Bonus.includes(
+        :requirements, :bonus_levels).references(
+        :requirements, :bonus_levels).find(
+        params[:bonus_id].to_i)
     end
 
     def fetch_bonus_level
-      @bonus_level = BonusLevel.where(id: params[:id].to_i)
-        .includes(:bonus).references(:bonus).first
+      @bonus_level = BonusLevel.where(id: params[:id].to_i).includes(
+        :bonus, :rank_path).references(
+        :bonus, :rank_path).first
       @bonus = @bonus_level.bonus
     end
 
