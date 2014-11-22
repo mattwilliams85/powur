@@ -15,6 +15,9 @@ entity_list = [
 if current_user.role?(:admin)
   entity_list << entity(%w(list users), 'admin-users', admin_users_path)
   entity_list << entity(%w(system), 'admin-system', system_path)
+  entity_list << entity(%w(list ranks), 'admin-ranks', ranks_path)
+  entity_list << entity(%w(list products), 'admin-products', products_path)
+  entity_list << entity(%w(list rank_paths), 'admin-rank_paths', rank_paths_path)
 end
 
 entities(*entity_list)
