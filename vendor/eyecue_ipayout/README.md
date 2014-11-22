@@ -69,6 +69,21 @@ Here's how you can use this gem to interact with the iPayout eWallet API.
 
 This gem targets the main service that accepts and returns JSON. iPayout provides endpoints that accept and return different formats (like XML).  However, the JSON endpoint represents is their most recent service an
 
+### Initialization
+In your Rails 4.1 project, create an initializer called eyecue_ipayout.rb in config/inititalizers.  You can pass your project's credentials through EyecueIpayout.configuration like so:
+
+```ruby
+EyecueIpayout.configuration do |config|
+  config.endpoint =
+    Rails.application.secrets.ipayout_api_endpoint
+  config.merchant_guid =
+    Rails.application.secrets.ipayout_merchant_guid
+  config.merchant_password =
+    Rails.application.secrets.ipayout_merchant_password
+end
+
+```
+
 ### the Client
 The Client is the higher-level object that speaks to the iPayout eWallet API. It also provides the Service objects.
 
@@ -78,9 +93,9 @@ The Client is the higher-level object that speaks to the iPayout eWallet API. It
   client = EyecueIpayout.new
   options_hash = {}
   options_hash[:fn] = 'eWallet_GetCustomerDetails'
-  options_hash[:endpoint] = IPAYOUT_API_ENDPOINT
-  options_hash[:MerchantGUID] = IPAYOUT_MERCHANT_GUID
-  options_hash[:MerchantPassword] = EyecueIpayout.merchant_password
+  options_hash[:endpoint] = EyecueIpayout.configuration.endpoint
+  options_hash[:MerchantGUID] = EyecueIpayout.configuration.merchant_guid
+  options_hash[:MerchantPassword] = EyecueIpayout.configuration.merchant_password
   options_hash[:UserName] = 'Glen Danzig'
 
   service_name = "get_customer_details"
@@ -117,17 +132,25 @@ Here's the guts of that JSON request (to the test server, in this example):
 
 ### Which services can I hit?
 
+#### Request automatic login token
+params = {fn: 'eWallet_RequestUserAutoLogin', .....}
+client.ewallet_request(params)
+
 #### Register a new user with iPayout
-client.ewallet_request('register_user')
+params = {fn: 'eWallet_RegisterUser', .....}
+client.ewallet_request(params)
 
 #### Get an iPayout user's account details
-client.ewallet_request('get_customer_details')
+params = {fn: 'eWallet_GetCustomerDetails', .....}
+client.ewallet_request(params)
 
 #### See if their account is active
-client.ewallet_request('get_user_account_status')
+params = {fn: 'eWallet_GetUserAccountStatus', .....}
+client.ewallet_request(params)
 
 #### Distribute money to an iPayout user
-client.ewallet_request('ewallet_load')
+params = {fn: "eWallet_Load", .....}
+client.ewallet_request(params)
 
 ## The Response
 
@@ -138,14 +161,6 @@ Responses differ per service request.  There are, however, a couple of consistan
   m_code : That's the numerical response status for your request.  200 means it processed just fine.  500 means there was a server error.
 
   m_text: This is the human readable message that reports your request's result status.
-
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/eyecue_ipayout/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
 
 
 

@@ -24,7 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'webmock'
-  spec.add_development_dependency 'byebug'
   spec.add_development_dependency 'factory_girl_rails', '~> 4.0'
   spec.add_dependency 'hashie'
   spec.add_dependency 'faraday'

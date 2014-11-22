@@ -1,8 +1,10 @@
 EyecueIpayout.configure do |config|
+
   config.endpoint =
-    ENV['IPAYOUT_API_ENDPOINT']
+    Rails.application.secrets.ipayout_api_endpoint
   config.merchant_guid =
-    ENV['IPAYOUT_MERCHANT_GUID']
+    Rails.application.secrets.ipayout_merchant_guid
   config.merchant_password =
-    ENV['IPAYOUT_MERCHANT_PASSWORD']
+    Rails.application.secrets.ipayout_merchant_password
 end
+
