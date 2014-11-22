@@ -3,7 +3,7 @@ require 'eyecue_ipayout/config'
 require 'eyecue_ipayout/configuration'
 require 'eyecue_ipayout/service'
 require 'eyecue_ipayout/service_param'
-#require 'byebug'
+
 module EyecueIpayout
   extend Config
   class << self
@@ -38,4 +38,16 @@ module EyecueIpayout
   def self.configure
     yield(configuration)
   end
+
+  # if ENV['IPAYOUT_API_ENDPOINT']
+  #   self.endpoint = ENV['IPAYOUT_API_ENDPOINT']
+  # end
+
+  # if ENV['IPAYOUT_MERCHANT_PASSWORD']
+  #   self.merchant_password = ENV['IPAYOUT_MERCHANT_PASSWORD']
+  # end
+
+  # if ENV['IPAYOUT_MERCHANT_GUID']
+  #   self.merchant_guid = ENV['IPAYOUT_MERCHANT_GUID']
+  # end
 end

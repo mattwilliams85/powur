@@ -20,9 +20,6 @@ namespace :sunstand do
       puts 'Adding primary key for :bonus_sales_requirements'
       execute 'alter table bonus_sales_requirements add primary key (bonus_id, product_id);'
 
-      puts 'Adding primary key for :bonus_levels'
-      execute 'alter table bonus_levels add primary key (bonus_id, level);'
-
       puts 'Adding primary key for :pay_periods'
       execute 'alter table pay_periods add primary key (id);'
 

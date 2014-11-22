@@ -25,10 +25,12 @@ describe '/a/bonuses/:id/requirements' do
       post bonus_requirements_path(@bonus), product_id: @product.id,
         source: true, format: :json
 
-      requirements = json_body['entities']
-        .find { |e| e['class'].include?('requirements') }
-      existing = requirements['entities']
-        .find { |e| e['properties']['product_id'] == req.product_id }
+      requirements = json_body['entities'].find do |e|
+        e['class'].include?('requirements')
+      end
+      existing = requirements['entities'].find do |e|
+        e['properties']['product_id'] == req.product_id
+      end
       expect(existing['properties']['source']).to eq(false)
     end
 
@@ -44,8 +46,9 @@ describe '/a/bonuses/:id/requirements' do
             source:   true,
             format:   :json
 
-      req_list = json_body['entities']
-        .find { |e| e['class'].include?('requirements') }
+      req_list = json_body['entities'].find do |e|
+        e['class'].include?('requirements')
+      end
       result = req_list['entities'].first['properties']['quantity']
 
       expect(result).to eq(22)
@@ -62,8 +65,9 @@ describe '/a/bonuses/:id/requirements' do
              format: :json
 
       expect_classes 'bonus'
-      list = json_body['entities']
-        .find { |e| e['class'].include?('requirements') }
+      list = json_body['entities'].find do |e|
+        e['class'].include?('requirements')
+      end
       expect(list['entities'].size).to eq(0)
     end
 

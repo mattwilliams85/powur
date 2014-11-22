@@ -15,23 +15,28 @@ describe '/a/ranks/:id/qualifications' do
 
     it 'creates a sales qualification' do
       product = create(:product)
+      path = create(:rank_path)
+
       post rank_qualifications_path(@rank),
-           type:        :sales,
-           product_id:  product.id,
-           time_period: :monthly,
-           quantity:    5,
-           format:      :json
+           type:         :sales,
+           product_id:   product.id,
+           time_period:  :monthly,
+           rank_path_id: path.id,
+           quantity:     5,
+           format:       :json
 
       assert_qualification
     end
 
     it 'creates a group sales qualification' do
       product = create(:product)
+      path = create(:rank_path)
 
       post rank_qualifications_path(@rank),
            type:            :group_sales,
            product_id:      product.id,
            time_period:     :lifetime,
+           rank_path_id:    path.id,
            quantity:        5,
            max_leg_percent: 55,
            format:          :json
@@ -48,8 +53,8 @@ describe '/a/ranks/:id/qualifications' do
             max_leg_percent: 12,
             format:          :json
 
-      max_leg_percent = json_body['entities']
-        .first['entities'].first['properties']['max_leg_percent']
+      entity = json_body['entities'].first['entities']
+      max_leg_percent = entity.first['properties']['max_leg_percent']
 
       expect(max_leg_percent).to eq(12)
     end

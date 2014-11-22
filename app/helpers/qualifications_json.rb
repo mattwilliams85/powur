@@ -30,7 +30,8 @@ class QualificationsJson < JsonDecorator
   def create_action(path)
     product_ref = { type: :link, rel: :products, value: :id, name: :name }
     action(:create, :post, path)
-      .field(:path, :text, value: 'default')
+      .field(:rank_path_id, :select,
+             options:  Hash[all_paths.map { |p| [ p.id, p.name ] }])
       .field(:type, :select,
              options: Qualification::TYPES, value: :sales)
       .field(:product_id, :select, reference:  product_ref)
@@ -44,7 +45,9 @@ class QualificationsJson < JsonDecorator
 
   def update_action(path, qual)
     action = action(:update, :patch, path)
-      .field(:path, :text, value: qual.path)
+      .field(:rank_path_id, :select,
+             options: Hash[all_paths.map { |p| [ p.id, p.name ] }],
+             value:   qual.rank_path_id)
       .field(:time_period, :select,
              options: Qualification.enum_options(:time_periods),
              value:   qual.time_period)

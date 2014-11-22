@@ -51,15 +51,24 @@ describe PayPeriod, type: :model do
 
       before :each do
         @user = create(:user)
+        path = create(:rank_path)
         @qual1 = create(:sales_qualification,
-                        rank_id: 2, time_period: :lifetime, quantity: 3)
+                        rank_id:     2,
+                        time_period: :lifetime,
+                        rank_path:   path,
+                        quantity:    3)
         @qual2 = create(:sales_qualification,
-                        rank_id: 2, time_period: :lifetime, quantity: 1)
+                        rank_id:     2,
+                        rank_path:   path,
+                        time_period: :lifetime,
+                        quantity:    1)
       end
 
       it 'does not create a lifetime achievement with only one qual. met' do
-        order = create(:order, product: @qual1.product,
-                       quantity: @qual1.quantity, user: @user)
+        order = create(:order, 
+                       product:  @qual1.product,
+                       quantity: @qual1.quantity,
+                       user:     @user)
         pay_period = order.weekly_pay_period
 
         pay_period.process_orders!

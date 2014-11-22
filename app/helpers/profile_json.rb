@@ -3,7 +3,6 @@ class ProfileJson < JsonDecorator
     klass :users, :list
 
     list_entities(partial_path)
-
   end
 
   def item_init(rel = nil)

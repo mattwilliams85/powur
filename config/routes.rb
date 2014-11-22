@@ -132,6 +132,8 @@ Rails.application.routes.draw do
                 controller: :rank_qualifications
     end
 
+    resources :rank_paths, only: [ :index, :create, :update, :destroy ]
+
     resources :qualifications, only: [ :index, :create, :update, :destroy ]
 
     resources :bonus_plans,
@@ -141,8 +143,9 @@ Rails.application.routes.draw do
 
     resources :bonuses, only: [ :index, :destroy, :update, :show ] do
       resources :requirements, only: [ :create, :update, :destroy ]
-      resources :bonus_levels, only: [ :create, :update, :destroy ], as: :levels
+      resources :bonus_levels, only: [ :create ], as: :levels
     end
+    resources :bonus_levels, only: [ :update, :destroy ], as: :bonus_levels
 
     resources :quotes, only: [ :index, :show ], as: :admin_quotes do
       collection do

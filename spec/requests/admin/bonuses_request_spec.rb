@@ -28,7 +28,7 @@ describe '/a/bonuses' do
       get bonus_path(bonus), format: :json
 
       expect_classes 'bonus'
-      expect_entities_count(1)
+      expect_entities_count(2)
       expect(json_body['entities'].first['entities'].size).to eq(1)
     end
 
@@ -50,8 +50,9 @@ describe '/a/bonuses' do
       get bonus_path(bonus), format: :json
 
       expect_classes 'bonus'
-      bonus_levels = json_body['entities']
-        .find { |e| e['class'].include?('bonus_levels') }
+      bonus_levels = json_body['entities'].find do |e|
+        e['class'].include?('bonus_levels')
+      end
       expect(bonus_levels).to be
       create = bonus_levels['actions'].find { |a| a['name'] == 'create' }
       expect(create).to be
@@ -72,6 +73,67 @@ describe '/a/bonuses' do
       get bonus_path(bonus), format: :json
 
       expect_classes 'bonus'
+    end
+
+    describe 'bonus_level action' do
+
+      def create_action
+        levels = json_body['entities'].find do |e|
+          e['class'].include?('bonus_levels')
+        end
+        levels['actions'] &&
+          levels['actions'].find { |a| a['name'] == 'create' }
+      end
+
+      def rank_path_field
+        action = create_action
+        action['fields'].find { |f| f['name'] == 'rank_path_id' }
+      end
+
+      def expect_rank_path_field(options_count, required)
+        field = rank_path_field
+
+        expect(field).to be
+        expect(field['options'].size).to eq(options_count)
+        expect(field['required']).to eq(required)
+      end
+
+      it 'does not include the rank_path field with no paths' do
+        create_list(:rank, 2)
+        bonus = create(:bonus_requirement).bonus
+        get bonus_path(bonus), format: :json
+
+        expect(rank_path_field).to_not be
+      end
+
+      it 'when null rank_path level defined, no create action' do
+        create_list(:rank, 2)
+        create_list(:rank_path, 2)
+        bonus = create(:bonus_requirement).bonus
+        create(:bonus_level, bonus: bonus, rank_path: nil)
+        get bonus_path(bonus), format: :json
+
+        expect(create_action).to_not be
+      end
+
+      it 'when only one path choice left, rank_path field has 1 option' do
+        create_list(:rank, 2)
+        rank_paths = create_list(:rank_path, 2)
+        bonus = create(:bonus_requirement).bonus
+        create(:bonus_level, bonus: bonus, rank_path: rank_paths.first)
+        get bonus_path(bonus), format: :json
+
+        expect_rank_path_field(1, true)
+      end
+
+      it 'includes the rank_path field with 2 paths' do
+        create_list(:rank, 2)
+        create_list(:rank_path, 2)
+        bonus = create(:bonus_requirement).bonus
+        get bonus_path(bonus), format: :json
+
+        expect_rank_path_field(2, false)
+      end
     end
 
     describe 'update action' do

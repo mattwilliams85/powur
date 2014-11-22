@@ -1,34 +1,43 @@
 module SirenJson
   include ActionView::Helpers::NumberHelper
 
-  EntityRef = Struct.new(:klass, :rel, :href) do
+  class EntityRef
+    pattr_initialize :klass, :rel, :href
+
     def render(json)
-      json.set! :class, klass
-      json.rel [ rel ]
-      json.href href
+      json.set! :class, @klass
+      json.rel [ @rel ]
+      json.href @href
     end
   end
 
-  EntityPartial = Struct.new(:path, :rel, :opts) do
+  class EntityPartial
+    pattr_initialize :path, :rel, :opts
+
     def render(json)
-      json.partial!(path, opts.merge(rel: rel))
+      json.partial!(@path, @opts.merge(rel: @rel))
     end
   end
 
-  Action = Struct.new(:name, :method, :href) do
-    Field = Struct.new(:name, :type, :attributes)
+  class Action
+    class Field
+      vattr_initialize :name, :type, :attributes
+    end
+    vattr_initialize :name, :method, :href
 
     def fields
       @fields ||= []
     end
 
-    def field(name, type, attributes = {})
-      fields << Field.new(name, type, attributes)
+    def field(fname, type, attributes = {})
+      fields << Field.new(fname, type, attributes)
       self
     end
   end
 
-  Link = Struct.new(:rel, :href)
+  class Link
+    vattr_initialize :rel, :href
+  end
 
   attr_reader :json
 

@@ -38,7 +38,7 @@ class Rank < ActiveRecord::Base
   end
 
   def grouped_qualifications
-    @grouped_qualifications ||= qualifications.group_by(&:path)
+    @grouped_qualifications ||= qualifications.group_by(&:rank_path)
   end
 
   def qualification_paths

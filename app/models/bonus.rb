@@ -38,6 +38,10 @@ class Bonus < ActiveRecord::Base
     bonus_levels.where(level: 0).first
   end
 
+  def highest_bonus_level
+    bonus_levels.map(&:level).max
+  end
+
   def multiple_product_types?
     requirements.map(&:product_id).uniq.size > 1
   end
@@ -70,12 +74,22 @@ class Bonus < ActiveRecord::Base
     source_requirement || breakage_amount?
   end
 
-  def can_add_amounts?
-    rank_range && source?
-  end
-
   def source_product
     source_requirement.product
+  end
+
+  def all_paths_level?
+    level = bonus_levels.entries.first
+    !level.nil? && level.all_paths?
+  end
+
+  def can_add_amounts?(path_count = nil)
+    return false if !source? || all_paths_level?
+
+    path_count ||= RankPath.count
+    levels = bonus_levels.entries
+    (path_count.zero? && levels.size.zero?) ||
+      path_count > levels.size
   end
 
   def percentage_used

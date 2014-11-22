@@ -1,6 +1,8 @@
 klass :requirements, :list
 
-json.entities requirements, partial: 'requirement', as: :requirement
+entity_rel(rel) if rel
+
+json.entities bonus.requirements, partial: 'requirement', as: :requirement
 
 if bonus.can_add_requirement?
   create_action = action(:create, :post, bonus_requirements_path(bonus))

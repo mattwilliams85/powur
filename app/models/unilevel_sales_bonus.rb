@@ -1,10 +1,6 @@
 class UnilevelSalesBonus < Bonus
-  def last_bonus_level
-    bonus_levels.count
-  end
-
   def next_bonus_level
-    last_bonus_level + 1
+    (highest_bonus_level || 0) + 1
   end
 
   def percentage_used_by_levels(excluded_level = nil)
@@ -15,6 +11,10 @@ class UnilevelSalesBonus < Bonus
 
   def sorted_levels
     @sorted_levels ||= bonus_levels.order(level: :asc)
+  end
+
+  def can_add_amounts?(path_count = nil)
+    source?
   end
 
   def create_payments!(order, pay_period)

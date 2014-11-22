@@ -6,11 +6,10 @@ json.properties do
   json.amounts bonus.normalized_amounts
 end
 
-json.entities \
-  [ { bonus: bonus, data: bonus.requirements, partial: 'requirements' } ],
-  partial: 'entities', as: :entity
+bonus_json.item_entities
 
-update = action(:update, :patch, bonus_path(bonus))
+update = bonus_json
+  .action(:update, :patch, bonus_path(bonus))
   .field(:name, :text, value: bonus.name)
   .field(:schedule, :select,
          options: Bonus.enum_options(:schedules),
@@ -26,6 +25,6 @@ update = action(:update, :patch, bonus_path(bonus))
   .field(:compress, :checkbox, value: bonus.compress)
   .field(:flat_amount, :number, value: bonus.flat_amount)
 
-update.amount_field(bonus) if bonus.can_add_amounts?
+bonus_json.amount_field(update, bonus) if bonus_json.can_add_level?(bonus)
 
 actions update, action(:delete, :delete, bonus_path(bonus))

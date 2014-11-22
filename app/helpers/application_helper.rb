@@ -30,4 +30,8 @@ module ApplicationHelper
   def pp_json
     @orders_json ||= PayPeriodsJson.new(self, @pay_periods, @pay_period)
   end
+
+  def bonus_json
+    @bonus_json ||= BonusJson.new(self, @bonuses, @bonus)
+  end
 end

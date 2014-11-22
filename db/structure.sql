@@ -85,10 +85,31 @@ CREATE TABLE api_tokens (
 --
 
 CREATE TABLE bonus_levels (
+    id integer NOT NULL,
     bonus_id integer NOT NULL,
     level integer DEFAULT 0 NOT NULL,
+    rank_path_id integer,
     amounts numeric(5,5)[] DEFAULT '{}'::numeric[] NOT NULL
 );
+
+
+--
+-- Name: bonus_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE bonus_levels_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: bonus_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE bonus_levels_id_seq OWNED BY bonus_levels.id;
 
 
 --
@@ -469,12 +490,12 @@ ALTER SEQUENCE products_id_seq OWNED BY products.id;
 CREATE TABLE qualifications (
     id integer NOT NULL,
     type character varying(255) NOT NULL,
-    path character varying(255) DEFAULT 'default'::character varying NOT NULL,
     time_period integer NOT NULL,
     quantity integer DEFAULT 1 NOT NULL,
     max_leg_percent integer,
     rank_id integer,
-    product_id integer NOT NULL
+    product_id integer NOT NULL,
+    rank_path_id integer NOT NULL
 );
 
 
@@ -605,7 +626,7 @@ CREATE TABLE rank_achievements (
     pay_period_id character varying(255),
     user_id integer NOT NULL,
     rank_id integer NOT NULL,
-    path character varying(255) NOT NULL,
+    rank_path_id integer NOT NULL,
     achieved_at timestamp without time zone NOT NULL
 );
 
@@ -627,6 +648,35 @@ CREATE SEQUENCE rank_achievements_id_seq
 --
 
 ALTER SEQUENCE rank_achievements_id_seq OWNED BY rank_achievements.id;
+
+
+--
+-- Name: rank_paths; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE rank_paths (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL
+);
+
+
+--
+-- Name: rank_paths_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE rank_paths_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rank_paths_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE rank_paths_id_seq OWNED BY rank_paths.id;
 
 
 --
@@ -766,10 +816,10 @@ CREATE TABLE users (
     upline integer[] DEFAULT '{}'::integer[],
     lifetime_rank integer,
     organic_rank integer,
-    rank_path character varying(255),
+    rank_path_id integer,
+    sponsor_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sponsor_id integer,
     utilities hstore,
     profile hstore,
     avatar_file_name character varying(255),
@@ -796,6 +846,13 @@ CREATE SEQUENCE users_id_seq
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_levels ALTER COLUMN id SET DEFAULT nextval('bonus_levels_id_seq'::regclass);
 
 
 --
@@ -900,6 +957,13 @@ ALTER TABLE ONLY rank_achievements ALTER COLUMN id SET DEFAULT nextval('rank_ach
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY rank_paths ALTER COLUMN id SET DEFAULT nextval('rank_paths_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq'::regclass);
 
 
@@ -945,7 +1009,7 @@ ALTER TABLE ONLY api_tokens
 --
 
 ALTER TABLE ONLY bonus_levels
-    ADD CONSTRAINT bonus_levels_pkey PRIMARY KEY (bonus_id, level);
+    ADD CONSTRAINT bonus_levels_pkey PRIMARY KEY (id);
 
 
 --
@@ -1093,6 +1157,14 @@ ALTER TABLE ONLY rank_achievements
 
 
 --
+-- Name: rank_paths_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY rank_paths
+    ADD CONSTRAINT rank_paths_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1133,6 +1205,20 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: bonus_levels_comp_key_with_rp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX bonus_levels_comp_key_with_rp ON bonus_levels USING btree (bonus_id, level, rank_path_id) WHERE (rank_path_id IS NOT NULL);
+
+
+--
+-- Name: bonus_levels_comp_key_without_rp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX bonus_levels_comp_key_without_rp ON bonus_levels USING btree (bonus_id, level, rank_path_id) WHERE (rank_path_id IS NULL);
+
+
+--
 -- Name: idx_order_totals_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1144,6 +1230,13 @@ CREATE UNIQUE INDEX idx_order_totals_composite_key ON order_totals USING btree (
 --
 
 CREATE UNIQUE INDEX index_api_tokens_on_access_token ON api_tokens USING btree (access_token);
+
+
+--
+-- Name: index_bonus_levels_on_bonus_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_bonus_levels_on_bonus_id ON bonus_levels USING btree (bonus_id);
 
 
 --
@@ -1262,14 +1355,14 @@ CREATE UNIQUE INDEX index_users_on_url_slug ON users USING btree (url_slug);
 -- Name: rank_achievements_comp_key_with_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX rank_achievements_comp_key_with_pp ON rank_achievements USING btree (pay_period_id, user_id, rank_id, path) WHERE (pay_period_id IS NOT NULL);
+CREATE UNIQUE INDEX rank_achievements_comp_key_with_pp ON rank_achievements USING btree (pay_period_id, user_id, rank_id, rank_path_id) WHERE (pay_period_id IS NOT NULL);
 
 
 --
 -- Name: rank_achievements_comp_key_without_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX rank_achievements_comp_key_without_pp ON rank_achievements USING btree (user_id DESC, rank_id, path) WHERE (pay_period_id IS NULL);
+CREATE UNIQUE INDEX rank_achievements_comp_key_without_pp ON rank_achievements USING btree (user_id DESC, rank_id, rank_path_id) WHERE (pay_period_id IS NULL);
 
 
 --
@@ -1301,6 +1394,14 @@ ALTER TABLE ONLY api_tokens
 
 ALTER TABLE ONLY bonus_levels
     ADD CONSTRAINT bonus_levels_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
+-- Name: bonus_levels_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_levels
+    ADD CONSTRAINT bonus_levels_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
 
 
 --
@@ -1512,6 +1613,14 @@ ALTER TABLE ONLY qualifications
 
 
 --
+-- Name: qualifications_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT qualifications_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
 -- Name: quote_field_lookups_quote_field_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1568,6 +1677,14 @@ ALTER TABLE ONLY rank_achievements
 
 
 --
+-- Name: rank_achievements_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT rank_achievements_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
 -- Name: rank_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1600,6 +1717,14 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: users_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
 -- Name: users_sponsor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1616,6 +1741,8 @@ SET search_path TO "$user",public;
 INSERT INTO schema_migrations (version) VALUES ('20140514044342');
 
 INSERT INTO schema_migrations (version) VALUES ('20140515033329');
+
+INSERT INTO schema_migrations (version) VALUES ('20140515150333');
 
 INSERT INTO schema_migrations (version) VALUES ('20140515201745');
 

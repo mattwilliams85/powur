@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>SunStand</title>
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 	<%= javascript_include_tag "Chart", "data-turbolinks-track" => true %>
@@ -24,7 +23,7 @@
 					</li>
 					<li>
 						<%= link_to_unless_current 'Dashboard', "/u/dashboard" %>
-					</li>	
+					</li>
 					<li>
 						<%= link_to_unless_current 'Earnings', "/u/earnings" %>
 					</li>
@@ -58,6 +57,9 @@
 
 	<%#= render :partial => "shared/warp_nav" %>
 	<%= render :partial => "shared/footer" %>
+	<%= render :partial => "shared/dash_toolbar" %>
+
+	
 
 </body>
 </html>

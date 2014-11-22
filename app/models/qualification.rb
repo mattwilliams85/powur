@@ -1,12 +1,13 @@
 class Qualification < ActiveRecord::Base
   belongs_to :rank
   belongs_to :product
+  belongs_to :rank_path
 
   enum time_period: { lifetime: 1, monthly: 2, weekly: 3 }
 
   scope :active, -> { where(rank_id: nil) }
 
-  validates_presence_of :product_id, :quantity, :time_period
+  validates_presence_of :product_id, :quantity, :time_period, :rank_path_id
 
   TYPES =  {
     sales:       'Personal Sales',
@@ -22,6 +23,10 @@ class Qualification < ActiveRecord::Base
 
   def pay_period?
     self.monthly? || self.weekly?
+  end
+
+  def path
+    rank_path.name
   end
 
   class << self

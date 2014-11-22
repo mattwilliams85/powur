@@ -1,7 +1,6 @@
 class BonusLevel < ActiveRecord::Base
-  self.primary_keys = :bonus_id, :level
-
   belongs_to :bonus
+  belongs_to :rank_path
 
   validates_presence_of :bonus_id, :level, :amounts
 
@@ -11,6 +10,10 @@ class BonusLevel < ActiveRecord::Base
 
   def normalized_amounts
     amounts.map.to_a.fill(BigDecimal('0'), (amounts.size...rank_range.last))
+  end
+
+  def all_paths?
+    rank_path_id.nil?
   end
 
   def max
@@ -23,7 +26,7 @@ class BonusLevel < ActiveRecord::Base
   end
 
   def last?
-    level == bonus.last_bonus_level
+    level == bonus.highest_bonus_level
   end
 
   def available_amount
