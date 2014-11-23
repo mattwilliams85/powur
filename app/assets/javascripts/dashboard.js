@@ -159,6 +159,7 @@ function Dashboard(){
 		if(goals.rank.pay_as_rank>1){
 			goals.current_rank=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].entities[goals.rank.pay_as_rank-1];
 		}
+
 		goals.next_rank.qualifications=_getObjectsByCriteria(goals.next_rank, {path:$("#pay_period_goal_path").val()});
 		
 		var displayPrimaryProduct={
