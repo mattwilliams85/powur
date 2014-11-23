@@ -6,12 +6,15 @@ describe '/a/ranks' do
     login_user
   end
 
-  describe '#index' do
+  describe 'GET /' do
 
-    def find_delete_action(rank_id)
-      rank = json_body['entities'].find { |r| r['properties']['id'] == rank_id }
-      rank['actions'] && rank['actions']
-        .find { |action| action['name'] == 'delete' }
+    def find_rank(rank_id)
+      json_body['entities'].find { |r| r['properties']['id'] == rank_id }
+    end
+
+    def find_action(rank_id, name)
+      rank = find_rank(rank_id)
+      rank['actions'] && rank['actions'].find { |a| a['name'] == name }
     end
 
     it 'returns the list of ranks' do
@@ -22,10 +25,10 @@ describe '/a/ranks' do
       expect_classes 'ranks'
       expect_entities_count(4)
 
-      action = find_delete_action(3)
+      action = find_action(3, 'delete')
       expect(action).to be_nil
 
-      action = find_delete_action(4)
+      action = find_action(4, 'delete')
       expect(action).to_not be_nil
 
       rank = json_body['entities'].find do |e|
@@ -35,6 +38,40 @@ describe '/a/ranks' do
         e['rel'] && e['rel'].include?('rank-qualifications')
       end
       expect(qual_list).to be
+    end
+
+    def qual_list(rank_id)
+      rank = find_rank(rank_id)
+      rank['entities'].find { |e| e['class'].include?('qualifications') }
+    end
+
+    def qual_list_action(rank_id, name)
+      quals = qual_list(rank_id)
+      quals['actions'] &&
+        quals['actions'].find { |a| a['name'] == name }
+    end
+
+    def create_action_result
+      create_list(:rank, 2)
+      get ranks_path, format: :json
+      qual_list_action(3, 'create')
+    end
+
+    it 'does not render create quals without a rank_path' do
+      create(:product)
+      expect(create_action_result).to_not be
+    end
+
+    it 'does not render create quals without a product' do
+      Product.destroy_all
+      create(:rank_path)
+      expect(create_action_result).to_not be
+    end
+
+    it 'renders create quals without a product and rank_path' do
+      create(:product)
+      create(:rank_path)
+      expect(create_action_result).to be
     end
 
   end
