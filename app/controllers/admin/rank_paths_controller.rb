@@ -25,7 +25,7 @@ module Admin
     private
 
     def input
-      allow_input(:name)
+      allow_input(:name, :description)
     end
 
     def fetch_rank_path
