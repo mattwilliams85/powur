@@ -8,11 +8,7 @@ json.properties do
   json.rank_path bonus_level.rank_path_id && bonus_level.rank_path.name
 end
 
-action_list = []
-
-if bonus_level.bonus.can_add_amounts?
-  action_list << bonus_json.update_level_action(bonus_level)
-end
+action_list = [ bonus_json.update_level_action(bonus_level) ]
 
 if bonus_level.last?
   action_list << action(
