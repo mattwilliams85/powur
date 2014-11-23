@@ -12,12 +12,18 @@ entity_list = [
   entity(%w(list quotes), 'user-quotes', user_quotes_path),
   entity(%w(user), 'user-profile', profile_path),
   entity(%w(goals), 'user-goals', user_goals_path(current_user)) ]
+
 if current_user.role?(:admin)
   entity_list << entity(%w(list users), 'admin-users', admin_users_path)
   entity_list << entity(%w(system), 'admin-system', system_path)
   entity_list << entity(%w(list ranks), 'admin-ranks', ranks_path)
   entity_list << entity(%w(list products), 'admin-products', products_path)
-  entity_list << entity(%w(list rank_paths), 'admin-rank_paths', rank_paths_path)
+  entity_list << entity(%w(list rank_paths),
+                        'admin-rank_paths',
+                        rank_paths_path)
+  entity_list << entity(%w(list active_qualifications),
+                        'admin-active_qualifications',
+                        qualifications_path)
 end
 
 entities(*entity_list)
@@ -25,8 +31,6 @@ entities(*entity_list)
 actions action(:logout, :delete, login_path)
 
 link_list = [ link(:self, root_path), link(:index, dashboard_path) ]
-if current_user.role?(:admin)
-  link_list << link(:admin, admin_root_path)
-end
+link_list << link(:admin, admin_root_path) if current_user.role?(:admin)
 
 links(*link_list)

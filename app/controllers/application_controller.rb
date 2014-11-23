@@ -40,4 +40,8 @@ class ApplicationController < ActionController::Base
   def all_paths
     @all_paths ||= RankPath.all.order(:name)
   end
+
+  def all_products
+    @all_products ||= Product.all.order(:name)
+  end
 end
