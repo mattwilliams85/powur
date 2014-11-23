@@ -14,6 +14,15 @@ describe '/a/rank_paths', type: :request do
 
       expect_entities_count(3)
     end
+
+    it 'creates a new rank_path' do
+      post rank_paths_path, name: 'foo', description: 'bar', format: :json
+
+      expect_entities_count(1)
+      path_props = json_body['entities'].first['properties']
+      expect(path_props['name']).to eq('foo')
+      expect(path_props['description']).to eq('bar')
+    end
   end
 
   describe '/:id' do
