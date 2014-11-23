@@ -109,26 +109,32 @@ jQuery(function($){
                         });
                     });
 
-                    EyeCueLab.UX.getTemplate("/templates/admin/plans/ranks/_ranks.handlebars.html", _data.ranks, $(".js-admin_dashboard_detail_container"), function(){
+                    var _displayData={};
+                    _displayData.ranks=_data.ranks;
+                    _displayData.active_qualifications=_data.active_qualifications;
+    
+                    EyeCueLab.UX.getTemplate("/templates/admin/plans/ranks/_ranks.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         
                         //load active qualifications
+                        var _row =$("#js-active_qualification_row");
+                        _row.find(".js-active_path").html("");
+
                         for(_active_qualification_path in _data.active_qualification_paths){
                             _qualification_group=_data.active_qualification_paths[_active_qualification_path];
                             if(_qualification_group.length==0) return;
-                            var _row =$("#js-active_qualification_row");
-                            _row.find(".js-active_path").html("");
                             _padding=50*_qualification_group.length;
-
                             _row.find(".js-active_path").append("<div class='innerCell' style='height:"+_padding+"px'><span class='js-qualification_path label'>Path: "+_active_qualification_path+"</span>"+"<span style='line-height:20px;display:block; padding:5px 4px;'>Active Req.</span>");
 
                             _qualification_group.forEach(function(_qualification){
                                 var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product : " ";
+                                console.log(_prod);
+
                                 _row.find(".js-active_type").append("<div class='innerCell'><span class='label'>"+_prod.format_length(29)+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                 _conditions=[];
                                 for(var _p in _qualification.properties){
                                     switch (_p){
-                                        case "_path": case "path": case "type": case "id": case "type_display": case "product":
+                                        case "_path": case "path": case "type": case "id": case "type_display": case "product_id":
                                             //do not display these values
                                         break;
                                         default:

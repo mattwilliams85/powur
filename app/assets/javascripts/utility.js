@@ -858,4 +858,5 @@ String.prototype.format_length = function(char_limit){
     if(this.length > char_limit){
       return this.substring(0,char_limit).trim() + "..."
     }
+    else return this;
 }

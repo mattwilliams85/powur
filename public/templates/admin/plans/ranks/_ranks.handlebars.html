@@ -6,6 +6,8 @@
         <th>Conditions</th>
         <th width="15%">Action</th>
     </tr>
+
+    {{#if this.active_qualifications.actions}}
     <tr id="js-active_qualification_row" style="text-transform:capitalize; border:0;">
         <td class="js-active_path">Active Req.</td>
         <td class="js-active_type"></td>
@@ -17,11 +19,18 @@
             <a href="#" class="js-add_active_qualification button">+ Qualification</a>
         </td>
     <tr>
+    {{else}}
+    <tr style="border:0;">
+        <td colspan="4" style="text-align:center; color:#ccc;">
+            <i class="fa fa-exclamation-triangle"></i> You must have an active Product AND an active Qualification Path to add a new Qualification for the Active Requirements
+        </td>
+    <tr>
+    {{/if}}
     <tr style="border-bottom:3px double #ccc;">
         <td colspan="4"></td>
     </tr>
 
-    {{#each this.entities}}
+    {{#each this.ranks.entities}}
     <tr data-rank-id="{{this.properties.id}}" style="text-transform:capitalize; color:#9b9b9b; border:0;">
         <td class="js-qualification_rank" style="vertical-align:top;"><a href="#{{this.properties.id}}" class="js-rank_link">{{this.properties.id}}, {{this.properties.title}}</a></td>
         <td class="js-qualification_type"></td>
