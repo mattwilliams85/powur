@@ -1,45 +1,41 @@
+<style>
+    td{
+        vertical-align: top;
+        line-height: 20px;
+        padding-right:20px;
+        font-size:14px;
+        padding-top:20px !important;
+        padding-bottom:40px !important;
+    }
+
+</style>
 
 <table class="_table _spreadSheet">
+    {{#compare this.entities.length 0 operator="=="}}
+    <tr style="text-transform:capitalize; color:#9b9b9b; border:0;">
+        <td colspan="3" style="vertical-align:middle; text-align:center;"><br><br>You have no Qualification Paths defined.<br>At least one Qualification Path must exist to create Rank Qualifications.</td>
+    </tr>
+
+    {{else}}
+
     <tr>
-        <th width="15%">Qaulification Path Name</th>
-        <th width="20%">Type</th>
-        <th>Conditions</th>
-        <th width="15%">Action</th>
+        <th width="15%">Path Name</th>
+        <th width="65%" >Description</th>
+        <th width="20%">Action</th>
     </tr>
-    <tr id="js-active_qualification_row" style="text-transform:capitalize; border:0;">
-        <td class="js-active_path">Active Req.</td>
-        <td class="js-active_type"></td>
-        <td class="js-active_conditions"></td>
-        <td class="js-active_actions"></td>
-    </tr>
-    <tr style="border:0;">
-        <td colspan="4">
-            <a href="#" class="js-add_active_qualification button">+ Qualification</a>
-        </td>
-    <tr>
-    <tr style="border-bottom:3px double #ccc;">
-        <td colspan="4"></td>
-    </tr>
+
 
     {{#each this.entities}}
-    <tr data-rank-id="{{this.properties.id}}" style="text-transform:capitalize; color:#9b9b9b; border:0;">
-        <td class="js-qualification_rank" style="vertical-align:top;"><a href="#{{this.properties.id}}" class="js-rank_link">{{this.properties.id}}, {{this.properties.title}}</a></td>
-        <td class="js-qualification_type"></td>
-        <td class="js-qualification_conditions"></td>
-        <td class="js-qualification_actions"></td>
-    </tr>
-    <tr  data-rank-id="{{this.properties.id}}" >
-        <td colspan="4">
-            {{this.properties.titles}}
-            {{#if this.entities}}
-            <a href="#" class="js-add_qualification button">+ Qualification</a>
-
-            {{else}}
-
-            {{/if}}
+    <tr style="text-transform:capitalize; color:#9b9b9b; border-bottom:1px solid #ccc;" data-rank-path-id="{{this.properties.id}}">
+        <td><a href="#{{this.properties.id}}" class="js-edit_rank_path" >{{this.properties.name}}</a></td>
+        <td style="padding-right:40px;">{{this.properties.description}}</td>
+        <td>
+            <a href="#{{this.properties.id}}" class="js-edit_rank_path">Edit Qualification Path</a>
         </td>
-    <tr>
+    </tr>
+
     {{/each}}
+    {{/compare}}
 
 </table>
 
