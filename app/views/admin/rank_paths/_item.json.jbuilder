@@ -1,7 +1,7 @@
 klass :rank_path
 
 json.properties do
-  json.call(rank_path, :id, :name)
+  json.call(rank_path, :id, :name, :description)
 end
 
 actions \
