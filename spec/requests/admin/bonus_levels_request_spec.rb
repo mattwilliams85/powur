@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '/a/bonuses/:id/bonus_levels' do
+describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
 
   before :each do
     login_user
@@ -10,7 +10,7 @@ describe '/a/bonuses/:id/bonus_levels' do
     @path = create(:rank_path)
   end
 
-  describe '#create' do
+  describe 'POST /' do
 
     it 'adds a bonus level to to a bonus' do
       post bonus_levels_path(@bonus),
@@ -19,26 +19,39 @@ describe '/a/bonuses/:id/bonus_levels' do
            format:       :json
 
       expect_classes 'bonus'
+
       bonus_levels = json_body['entities'].find do |e|
         e['class'].include?('bonus_levels')
       end
       expect(bonus_levels['entities'].size).to eq(1)
+
       level = bonus_levels['entities'].first
       expect(level['properties']['rank_path']).to eq(@path.name)
+
       padded_value = level['properties']['amounts'].last
       expect(padded_value).to eq(0.0)
     end
 
+    it 'adds a bonus level to a standard bonus' do
+      bonus = create(:direct_sales_bonus)
+      post bonus_levels_path(bonus),
+           rank_path_id: @path.id,
+           amounts:      [ 0.1, 0.4, 0.125 ],
+           format:       :json
+
+      expect_classes 'bonus'
+    end
+
   end
 
-  describe '#update' do
+  describe 'PATCH /:id' do
 
     it 'updates a bonus level' do
     end
 
   end
 
-  describe '#destroy' do
+  describe 'DELETE /:id' do
 
     before :each do
       @levels = 1.upto(3).map do |i|

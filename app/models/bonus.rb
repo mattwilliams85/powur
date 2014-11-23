@@ -42,6 +42,10 @@ class Bonus < ActiveRecord::Base
     bonus_levels.map(&:level).max
   end
 
+  def next_bonus_level
+    0
+  end
+
   def multiple_product_types?
     requirements.map(&:product_id).uniq.size > 1
   end
