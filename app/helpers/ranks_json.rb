@@ -1,17 +1,11 @@
 class RanksJson < JsonDecorator
-  def list_init(partial_path = 'item')
-    klass :ranks, :list
-
-    list_entities(partial_path)
-  end
-
   def item_init(rel = nil)
     klass :rank
 
     entity_rel(rel) if rel
   end
 
-  def list_entities(partial_path, list = @list)
+  def list_entities(partial_path = 'item', list = @list)
     json.entities list, partial: partial_path, as: :rank
   end
 
