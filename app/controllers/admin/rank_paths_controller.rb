@@ -8,6 +8,12 @@ module Admin
       render 'index'
     end
 
+    def create
+      RankPath.create!(input)
+
+      index
+    end
+
     def update
       require_input :name
 
