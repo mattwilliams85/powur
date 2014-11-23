@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper SirenJson
 
   protect_from_forgery with: :exception
-  helper_method :current_user, :all_ranks, :all_paths
+  helper_method :current_user, :all_ranks, :all_paths, :all_products
 
   def redirect_to(*args)
     respond_to do |format|

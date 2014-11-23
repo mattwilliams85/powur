@@ -28,13 +28,15 @@ class QualificationsJson < JsonDecorator
   end
 
   def create_action(path)
-    product_ref = { type: :link, rel: :products, value: :id, name: :name }
     action(:create, :post, path)
       .field(:rank_path_id, :select,
-             options:  Hash[all_paths.map { |p| [ p.id, p.name ] }])
+             options:  Hash[all_paths.map { |p| [ p.id, p.name ] }],
+             required: true)
       .field(:type, :select,
-             options: Qualification::TYPES, value: :sales)
-      .field(:product_id, :select, reference:  product_ref)
+             options: Qualification::TYPES, required: true, value: :sales)
+      .field(:product_id, :select,
+             options:  Hash[all_products.map { |p| [ p.id, p.name ] }],
+             required: true)
       .field(:time_period, :select,
              options: Qualification.enum_options(:time_periods),
              value:   :monthly)
@@ -44,19 +46,28 @@ class QualificationsJson < JsonDecorator
   end
 
   def update_action(path, qual)
-    action = action(:update, :patch, path)
+    update = action(:update, :patch, path)
       .field(:rank_path_id, :select,
-             options: Hash[all_paths.map { |p| [ p.id, p.name ] }],
-             value:   qual.rank_path_id)
+             options:  Hash[all_paths.map { |p| [ p.id, p.name ] }],
+             required: true,
+             value:    qual.rank_path_id)
+      .field(:type, :select,
+             options:  Qualification::TYPES,
+             required: true,
+             value:    qual.type)
+      .field(:product_id, :select,
+             options:  Hash[all_products.map { |p| [ p.id, p.name ] }],
+             required: true,
+             value:    qual.product_id)
       .field(:time_period, :select,
              options: Qualification.enum_options(:time_periods),
              value:   qual.time_period)
       .field(:quantity, :number, value: qual.quantity)
     if qual.is_a?(GroupSalesQualification)
-      action.field(:max_leg_percent,
+      update.field(:max_leg_percent,
                    :number, value: qual.max_leg_percent)
     end
-    action
+    update
   end
 
   def delete_action(path)

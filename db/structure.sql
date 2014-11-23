@@ -656,7 +656,8 @@ ALTER SEQUENCE rank_achievements_id_seq OWNED BY rank_achievements.id;
 
 CREATE TABLE rank_paths (
     id integer NOT NULL,
-    name character varying(255) NOT NULL
+    name character varying(255) NOT NULL,
+    description character varying(255)
 );
 
 
