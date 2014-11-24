@@ -775,13 +775,13 @@ function Dashboard(){
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 					case "leads":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_leads_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_quotes_details.handlebars.html";
 					break;
 					case "earnings":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
 					break;
 					case "team_members":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_team_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_genealogy_details.handlebars.html";
 					break;
 					case "type5":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
