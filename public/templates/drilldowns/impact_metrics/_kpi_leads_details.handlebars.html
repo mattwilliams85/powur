@@ -5,7 +5,7 @@
 		<div class="object_detail_content">
 			<div class="object_detail_content_section summary" >
 				<h4>Current Progress</h4>
-	      		<a class="return_to_team" style="z-index:99;margin:auto;display:block;height:30px; display:none; float:left; font-size:14px; text-transform:uppercase;">
+	      		<a class="return_to_team" style="z-index:99;margin:auto;display:block;height:50px; display:none; float:left; font-size:14px; text-transform:uppercase;">
 	      			Return To Team Details
 	      		</a>
 	      		<span class="subtext progress_description" style="clear:both;">						
@@ -262,12 +262,16 @@ var metricsData = {
             label: "My First dataset",
             fillColor: "rgba(253, 180, 92, 0.9)",
             highlightFill: "#5bd7f7",
+            pointColor: "rgba(253, 180, 92, 0.9)",
+            pointStrokeColor: "#eee",
             data: []
         },
         {
             label: "My Second dataset",
             fillColor: "rgba(32, 194, 241,0.9)",
             highlightFill: "#FFC870",
+            pointColor: "rgba(32, 194, 241,0.9)",
+            pointStrokeColor: "#eee",
             data: []
         }
     ]
@@ -327,6 +331,9 @@ var options={
 
     //Number - Pixel width of the bar stroke
     barStrokeWidth : 2,
+
+    //Point dot size
+    pointDotRadius : 3,
 
     //Number - Spacing between each of the X value sets
     barValueSpacing : 5,

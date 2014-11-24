@@ -1,19 +1,120 @@
+<div class="arrow"></div>
+<div class="drilldown_content">
+  <div id="kpi_environment_detail" class="object_detail">
+    <div class="object_detail_content">
+      <div class="object_detail_content_section summary" >
+        <h4>My Team</h4>
+            <a class="return_to_team" style="z-index:99;margin:auto;display:block;height:50px; display:none; float:left; font-size:14px; text-transform:uppercase;">
+              Return To Team Details
+            </a>
+            <span class="subtext progress_description" style="clear:both;">           
+                Ordered by performance in the past 6 months.
+            </span>
+        <div class="contributors" >
+          <div class="contributor">
+            <div class="info-box">
+              <div id="avatar1" class="avatar"></div>
+              <div class="info-text">
+                <a id="hover1"><span>Jon Doe</span></a>
+                <br> 
+                <span class="light-text">Earnings +57% / 6mo </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contributor">
+            <div class="info-box">
+              <div id="avatar2" class="avatar"></div>
+              <div class="info-text">
+                <a id="hover1"><span>Danny Smith</span></a>
+                <br> 
+                <span class="light-text">Earnings +43% / 6mo</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contributor">
+            <div class="info-box">
+              <div id="avatar3" class="avatar"></div>
+              <div class="info-text">
+                <a id="hover1"><span>Lisa Williams</span></a>
+                <br> 
+                <span class="light-text">Earnings +41% / 6mo</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="object_detail_content_section" style="padding-left:20px;">
+        <h4 id="graph_title">Total Earnings to Date</h4>
+        <canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
+        
+        <div class="time_unit_nav">
+          <i class="fa fa-chevron-left" style="color:#555;padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px;margin-right:10px;"></i> <span>Week 11/1 - 11/7</span> <i class="fa fa-chevron-right" style="color:#555; padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px; margin-left:10px;"></i>
+        </div>
+
+        <div style="width:150px; padding-left:50px;float:left;">
+          <div class="time_scale">
+            Time Scale: <br>
+            <span class="active week">Week</span><span class="month">Month</span>
+          </div>
+          <br><br style="clear:both;">
+                <div class="legend">
+                      <div class="legend-item" id="user-legend"></div>
+                      <span id="selected_user" class="legend-text">Quotes</span>
+                </div>
+                <br>
+                <div class="legend hide">
+                      <div class="legend-item" id="top-performer"></div>
+                      <span id="performer" class="legend-text"></span>
+                </div>
+
+                <br>
+        </div>
+      </div>
+
+    </div> <!-- end object detail content -->
+  </div>
+</div>
+
+
 <style>
-  .drilldown_content {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  .snapshot{
+    line-height: 14px;
   }
-  
-  a{
-    cursor:pointer;
+  .time_unit_nav{
+    position: absolute;
+    bottom:10px;
+    left:370px;
+    width:630px;
+    height:30px;
+    text-align: center;
+  }
+  .time_scale, .snapshot, .time_unit_nav{
+    font-size:12px;
+    text-transform: uppercase;
+  }
+  .time_scale span{
+    display:block;
+    float:left;
+    padding:10px;
+    border:1px solid #ccc;
+    width:50px;
+    text-align: center;
+    margin-top:-5px;
+    cursor: pointer;
+
+  }
+  .time_scale span:first-of-type{
+    border-right:0px;
   }
 
-  table {
-    width:100%;
+  .time_scale span.active{
+    background:#ccc;
+    color:#333;
+    transition:all 1s;
   }
 
   .avatar {
@@ -54,7 +155,12 @@
 
   .light-text {
     color:#eee;
-    font-size:0.85em;
+    font-size:0.75em;
+  }
+
+  .legend-box {
+    vertical-align:top;
+    display:inline-block;
   }
 
   .legend {
@@ -72,49 +178,6 @@
     float:left;
     padding-left:5px;
   }
-
-  .contributors {
-    padding-top:20px;
-  }
-
-  .contributor {
-    cursor: pointer;
-    padding-left:10px;
-    background-color:#535353;
-  }
-
-
-  .earnings-header {
-    padding-left:25%;
-    padding-top:10px;
-    text-align: left;
-  }
-
-  .contributors-td {
-    vertical-align:top;
-  }
-
-  .chart-td {
-    border-left:1px solid rgba(100,100,100,0.9);
-    padding-left:20px;
-  }
-
-  .leads-chart {
-    padding-top:20px;
-  }
-
-  .legend-box {
-    vertical-align:top;
-    display:inline-block;
-    padding:50px 0 50px 15px;
-    width:150px;
-  }
-
-  .learn-more {
-    font-size:0.7em;
-
-  }
-
   #user-legend {
     background-color:rgba(32,194,241,1);
   }
@@ -141,79 +204,43 @@ h4{
   width:880px;
   float:left;
 }
+.graph {
+  width: 1180px;
+  height: 300px;
+  float: left;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  padding-top: 20px;
+  margin-right:20px;
+}
+
+.contributors {
+  padding-top:15px;
+  z-index:5;
+  display:inline-block;
+
+}
+
+.contributor {
+  cursor: pointer;
+  padding:0 15px;
+  background-color:#535353;
+}
+
+.drilldown_content {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.return_to_team{
+  cursor: pointer;
+}
+
 </style>
-
-<div class="arrow"></div>
-<div class="drilldown_content">
-  <div id="kpi_leads_detail" class="object_detail">
-   <div class="object_detail_arrow"></div>
-    <span class="dismiss"><i class="fa fa-times"></i></span>
-    <div class="object_detail_content">
-      <div class="object_detail_content_section summary">
-          <h4>My Team</h4>
-          <span class="subtext">
-            Ordered by performance in the past 6 months.
-          </span>
-          <div class="contributors">
-            <div class="contributor">
-              <div class="info-box">
-                <div id="avatar1" class="avatar"></div>
-                  <div class="info-text">
-                    <a id="hover1"><span>Jon Doe</span></a>
-                    <br> 
-                    <span class="light-text">Earnings +57% / 6mo </span>
-                  </div>
-              </div>
-            </div>
-            <div class="contributor">
-              <div class="info-box">
-                <div id="avatar2" class="avatar"></div>
-                  <div class="info-text">
-                    <a id="hover2"><span>Danny Smith</span></a>
-                    <br> 
-                    <span class="light-text">Earnings +43% / 6mo</span>
-                  </div>
-              </div>
-            </div>
-            <div class="contributor">
-              <div class="info-box">
-                <div id="avatar3" class="avatar"></div>
-                  <div class="info-text">
-                    <a id="hover3"><span>Lisa Williams</span></a>
-                    <br> 
-                    <span class="light-text">Earnings +41% / 6mo</span>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-
-        <div class="object_detail_content_section" style="padding-left:20px;">
-          <h4 id="graph_title">My Earnings to Date</h4>
-          <canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
-          <div style="width:150px; padding-left:50px;float:left;">
-            <br><br>
-            <div class="legend">
-              <div class="legend-item" id="user-legend"></div>
-              <span id="selected_user" class="legend-text">My Leads</span>
-            </div>
-            <br>
-            <div class="legend hide">
-              <div class="legend-item" id="top-performer"></div>
-              <span id="performer" class="legend-text"></span>
-            </div>
-
-            <br>
-
-
-          </div>
-        </div>
-			</div>
-		</div>
-	</div>
-</div>
 
 <script>
  
@@ -312,13 +339,27 @@ $(".contributor")
     })
     .append("<hr style='border-color:rgba(255,255,255,.08);margin:5px 0 5px 0'> ")
 
+$(".return_to_team").on("click",function(e){
+  $.extend(metricsData.datasets[0].data, metricsData);
+  // $.extend(metricsData.datasets[1].data, tempData.team);
+  myChart.destroy();
+  myChart = new Chart(ctx).Line(metricsData, options);  
+    $("#graph_title").html("Total Earnings to Date");
+    $(".contributor").css("background","#545454");
+    $(".return_to_team").hide();
+    $(".progress_description").fadeIn();
+    currentlyViewing="team";
+
+});
+
 $(".contributor").on("click",function(e){
   
   e.preventDefault();
   e.stopPropagation();
   _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
   $.extend(metricsData.datasets[0].data, topPerformers[_index].data);
-
+  $(".return_to_team").fadeIn();
+  $(".progress_description").hide();
   $('.contributor').each(function(){
     $(this).velocity({backgroundColor:"#555"},100);
   })
