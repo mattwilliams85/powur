@@ -269,7 +269,7 @@ function Dashboard(){
 						_url:"/u/users/"+member.properties.id+"/downline",
 						_callback:function(data, text){
 							member.properties.downline_count = data.entities.length;
-							EyeCueLab.UX.getTemplate("/templates/_team_thumbnail3.handlebars.html", member, undefined, function(html){
+							EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
 								_containerObj.append(html);
 							});
 						}
@@ -523,8 +523,6 @@ function Dashboard(){
 											}
 										});
 									});
-									//_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _downlinkContainerObj);
-					
 								}
 							});
 						});
