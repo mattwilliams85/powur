@@ -103,6 +103,10 @@ Handlebars.registerHelper("format_length", function(str, char_limit) {
     };
 })
 
+//Handlebar helper to parse JSON objects
+Handlebars.registerHelper('json', function(context) {
+    return JSON.stringify(context);
+});
 
 
 /** start admin utilties **/
