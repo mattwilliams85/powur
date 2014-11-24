@@ -154,6 +154,29 @@ h4{
           <span class="subtext">
             Ordered by performance in the past 6 months.
           </span>
+          <script>
+            //bringing in current user's downline on the left side of KPIs (andrew)
+
+            function populateContributors() {
+              var _contributors = $(".contributors");
+              _contributors.html("");
+
+              _data.team.entities.forEach(function(member) {
+                _ajax({
+                  _ajaxType: "get",
+                  _url: "/u/users/" + member.properties.id + "/downline",
+                  _callback: function(data, text) {
+                    member.properties.downline_count = data.entities.length;
+                    EyeCueLab.UX.getTemplate("/templates/_kpi_total_earnings_team_thumbnail.handlebars.html", member, undefined, function(html) {
+                      _contributors.append(html);
+                    });
+                  }
+                });
+              });
+            }
+
+            populateContributors();
+          </script>
           <div class="contributors">
             <div class="contributor">
               <div class="info-box">
