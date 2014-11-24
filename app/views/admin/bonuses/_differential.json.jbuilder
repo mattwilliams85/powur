@@ -3,12 +3,11 @@ json.properties do
   json.max_user_rank bonus.max_user_rank && bonus.max_user_rank.title
   json.min_upline_rank bonus.min_upline_rank && bonus.min_upline_rank.title
   json.call(bonus, :compress)
-  json.amounts bonus.normalized_amounts
 end
 
 bonus_json.item_entities
 
-update = action(:update, :patch, bonus_path(bonus))
+actions action(:update, :patch, bonus_path(bonus))
   .field(:name, :text, value: bonus.name)
   .field(:schedule, :select,
          options: Bonus.enum_options(:schedules),
@@ -22,8 +21,5 @@ update = action(:update, :patch, bonus_path(bonus))
   .field(:min_upline_rank_id, :select,
          reference: { type: :link, rel: :ranks, value: :id, name: :title },
          value:     bonus.min_upline_rank_id)
-  .field(:compress, :checkbox, value: bonus.compress)
-
-update.amount_field(bonus) if bonus_json.can_add_level?(bonus)
-
-actions update, action(:delete, :delete, bonus_path(bonus))
+  .field(:compress, :checkbox, value: bonus.compress),
+  action(:delete, :delete, bonus_path(bonus))

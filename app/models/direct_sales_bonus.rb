@@ -1,6 +1,7 @@
 class DirectSalesBonus < Bonus
   def payment_amount(rank_id)
-    source_product.commission_amount * normalized_amounts[rank_id - 1]
+    0
+    # source_product.commission_amount * normalized_amounts[rank_id - 1]
   end
 
   def create_payments!(order, pay_period)

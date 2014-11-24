@@ -34,7 +34,7 @@ class EnrollerSalesBonus < Bonus
     return false unless pay_period.user_active?(parent.id)
     rank_id = pay_period.find_pay_as_rank(parent)
     return false if rank_id < min_upline_rank_id
-    amount = rank_amount(rank_id)
+    amount = 0#rank_amount(rank_id)
     attrs = {
       bonus_id:    id,
       user_id:     parent.id,

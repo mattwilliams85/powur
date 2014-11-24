@@ -58,10 +58,6 @@ class Bonus < ActiveRecord::Base
     default_bonus_level || BonusLevel.new(level: 0, bonus: self)
   end
 
-  def normalized_amounts
-    default_level.normalized_amounts
-  end
-
   def max_amount
     default_level.max
   end
@@ -122,10 +118,6 @@ class Bonus < ActiveRecord::Base
 
   def enabled?
     !bonus_levels.empty?
-  end
-
-  def rank_amount(rank_id)
-    source_product.commission_amount * normalized_amounts[rank_id - 1]
   end
 
   def create_payments!(*)

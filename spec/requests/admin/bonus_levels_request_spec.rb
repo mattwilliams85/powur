@@ -29,7 +29,7 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
       expect(level['properties']['rank_path']).to eq(@path.name)
 
       padded_value = level['properties']['amounts'].last
-      expect(padded_value).to eq(0.0)
+      expect(padded_value).to eq('0.0')
     end
 
     it 'adds a bonus level to a standard bonus' do

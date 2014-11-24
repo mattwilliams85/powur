@@ -24,17 +24,6 @@ module Admin
     def update
       @bonus.update_attributes!(input)
 
-      if params[:amounts]
-        amounts = params[:amounts].map(&:to_f)
-
-        bonus_level = @bonus.default_bonus_level
-        if bonus_level
-          bonus_level.update_attributes(amounts: amounts)
-        else
-          @bonus.bonus_levels.create!(level: 0, amounts: amounts)
-        end
-      end
-
       render 'show'
     end
 

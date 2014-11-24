@@ -4,7 +4,7 @@ json.rel [ :item ]
 
 json.properties do
   json.call(bonus_level, :level)
-  json.amounts bonus_level.normalized_amounts.map(&:to_f)
+  json.amounts bonus_level.normalize_amounts(all_ranks.size)
   json.rank_path bonus_level.rank_path_id && bonus_level.rank_path.name
 end
 
