@@ -78,6 +78,7 @@
     </div>
     <!-- end object detail content -->
   </div>
+
 </div>
 
 
@@ -235,6 +236,7 @@ var _labels = [];
 var topPerformers = [];
 var currentlyViewing = "team";
 var metricsData = {
+
   labels: _labels,
   datasets: [{
     label: "My First dataset",
@@ -247,6 +249,7 @@ var metricsData = {
     highlightFill: "#FFC870",
     data: []
   }]
+
 };
 
 generateData(7);
@@ -308,8 +311,12 @@ var options = {
   //Number - Spacing between each of the X value sets
   barValueSpacing: 5,
 
-  //Number - Spacing between data sets within X values
-  barDatasetSpacing: 1,
+  //Point dot size
+  pointDotRadius : 3,
+
+  //Number - Spacing between each of the X value sets
+  barValueSpacing : 5,
+
 
   scaleOverride: true,
 
