@@ -22,7 +22,7 @@ describe BonusLevel, type: :model do
 
         bonus_level = create(:bonus_level, bonus: unilevel, level: 2)
 
-        expect(bonus_level.remaining_percentage).to eq(0.45)
+        expect(bonus_level.bonus.remaining_percentage).to eq(0.45)
         remaining_amount = \
           bonus_level.remaining_percentage * bonus_level.available_amount
         expect(bonus_level.remaining_amount).to eq(remaining_amount)

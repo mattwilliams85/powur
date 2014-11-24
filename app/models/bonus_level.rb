@@ -8,8 +8,8 @@ class BonusLevel < ActiveRecord::Base
     write_attribute(:amounts, value.map(&:to_f))
   end
 
-  def normalized_amounts
-    amounts.map.to_a.fill(BigDecimal('0'), (amounts.size...rank_range.last))
+  def normalize_amounts(total)
+    amounts.map.to_a.fill(BigDecimal('0'), (amounts.size...total))
   end
 
   def all_paths?
@@ -20,25 +20,8 @@ class BonusLevel < ActiveRecord::Base
     amounts.max || 0.0
   end
 
-  def rank_range
-    @rank_range ||= bonus.rank_range ||
-      ((amounts.empty? ? 0 : 1)..amounts.size)
-  end
-
   def last?
     level == bonus.highest_bonus_level
-  end
-
-  def available_amount
-    bonus.available_amount
-  end
-
-  def remaining_percentage
-    bonus.remaining_percentage - percentage_used_by_other_levels
-  end
-
-  def remaining_amount
-    available_amount * remaining_percentage
   end
 
   def min_rank
