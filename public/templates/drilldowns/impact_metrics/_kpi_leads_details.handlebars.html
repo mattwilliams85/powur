@@ -231,7 +231,7 @@ h4{
 .contributor {
   cursor: pointer;
   padding:0 15px;
-
+  background-color:#535353;
 }
 
 .drilldown_content {
@@ -442,8 +442,10 @@ $(".contributor").on("click",function(e){
   e.stopPropagation();
   $(".return_to_team").fadeIn();
   _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
-  $('.contributor').css("background","none");
-  $(this).velocity({backgroundColor:"#454545"},150);
+  $('.contributor').each(function(){
+    $(this).velocity({backgroundColor:"#545454"},100);
+  })
+  $(this).velocity({backgroundColor:"#454545"},100);
   $(".progress_description").fadeOut();
   $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
   $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
