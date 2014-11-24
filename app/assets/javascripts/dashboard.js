@@ -517,7 +517,7 @@ function Dashboard(){
 											_callback:function(data, text){
 												_downlinkContainerObj
 												member.properties.downline_count = data.entities.length;
-												EyeCueLab.UX.getTemplate("/templates/_team_thumbnail3.handlebars.html", member, undefined, function(html){
+												EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
 													_downlinkContainerObj.append(html);
 												});
 											}

@@ -2,22 +2,53 @@
 <div class="drilldown_content">
   <div id="kpi_environment_detail" class="object_detail">
     <div class="object_detail_content">
-      <div class="object_detail_content_section summary" >
-        <h4>My Team</h4>
-            <a class="return_to_team" style="z-index:99;margin:auto;display:block;height:50px; display:none; float:left; font-size:14px; text-transform:uppercase;">
-              Return To Team Details
-            </a>
-            <span class="subtext progress_description" style="clear:both;">           
-                Ordered by performance in the past 6 months.
-            </span>
-        <div class="contributors" >
-          <div class="contributor">
-            <div class="info-box">
-              <div id="avatar1" class="avatar"></div>
-              <div class="info-text">
-                <a id="hover1"><span>Jon Doe</span></a>
-                <br> 
-                <span class="light-text">Earnings +57% / 6mo </span>
+      <div class="object_detail_content_section summary">
+          <h4>My Team</h4>
+          <span class="subtext">
+            Ordered by performance in the past 6 months.
+          </span>
+          <script>
+            //bringing in current user's downline on the left side of KPIs (andrew)
+
+            function populateContributors() {
+              var _contributors = $(".contributors");
+              _contributors.html("");
+
+              _data.team.entities.forEach(function(member) {
+                _ajax({
+                  _ajaxType: "get",
+                  _url: "/u/users/" + member.properties.id + "/downline",
+                  _callback: function(data, text) {
+                    member.properties.downline_count = data.entities.length;
+                    EyeCueLab.UX.getTemplate("/templates/_kpi_total_earnings_team_thumbnail.handlebars.html", member, undefined, function(html) {
+                      _contributors.append(html);
+                    });
+                  }
+                });
+              });
+            }
+
+            populateContributors();
+          </script>
+          <div class="contributors">
+            <div class="contributor">
+              <div class="info-box">
+                <div id="avatar1" class="avatar"></div>
+                  <div class="info-text">
+                    <a id="hover1"><span>Jon Doe</span></a>
+                    <br> 
+                    <span class="light-text">Earnings +57% / 6mo </span>
+                  </div>
+              </div>
+            </div>
+            <div class="contributor">
+              <div class="info-box">
+                <div id="avatar2" class="avatar"></div>
+                  <div class="info-text">
+                    <a id="hover2"><span>Danny Smith</span></a>
+                    <br> 
+                    <span class="light-text">Earnings +43% / 6mo</span>
+                  </div>
               </div>
             </div>
           </div>
