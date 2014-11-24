@@ -260,13 +260,13 @@ var metricsData = {
     datasets: [
         {
             label: "My First dataset",
-            fillColor: "rgba(32, 194, 241,1)",
+            fillColor: "rgba(253, 180, 92, 0.9)",
             highlightFill: "#5bd7f7",
             data: []
         },
         {
             label: "My Second dataset",
-            fillColor: "rgba(253, 180, 92, .9)",
+            fillColor: "rgba(32, 194, 241,0.9)",
             highlightFill: "#FFC870",
             data: []
         }
@@ -285,7 +285,7 @@ function generateData(days){
 	}
 	for(i=1;i<=days;i++){
 		_randomData.me.push(Math.floor(Math.random()*18+75));
-		_randomData.team.push(Math.floor(Math.random()*18+75));
+		_randomData.team.push(Math.floor(Math.random()*18+25));
 	}
 
 	["John Doe", "Danny Smith", "Lisa Williams"].forEach(function(name){
@@ -367,8 +367,8 @@ $(".return_to_team").on("click",function(e){
 	myChart.destroy();
  	myChart = new Chart(ctx).Line(metricsData, options);  
   	$("#graph_title").html("Full Genealogy Conversion History");
-  	$(".contributor").css("background","none");
-  	$(".return_to_team").fadeOut();
+  	$(".contributor").css("background","#545454");
+  	$(".return_to_team").hide();
     $(".progress_description").fadeIn();
     currentlyViewing="team";
 
@@ -442,11 +442,11 @@ $(".contributor").on("click",function(e){
   e.stopPropagation();
   $(".return_to_team").fadeIn();
   _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
+  $(".progress_description").hide();
   $('.contributor').each(function(){
     $(this).velocity({backgroundColor:"#545454"},100);
   })
   $(this).velocity({backgroundColor:"#454545"},100);
-  $(".progress_description").fadeOut();
   $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
   $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
   currentlyViewing="individuals";
