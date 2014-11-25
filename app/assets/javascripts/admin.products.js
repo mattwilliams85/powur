@@ -589,17 +589,26 @@ jQuery(function($){
                             //show bonus payments
 
                             _display="<h4 class='subRow'>// Bonus Payments</h4>";
-                            var _multipleLevelBonus = (_getObjectsByCriteria(_bonus, {level:0}).length>1);
+                            var _multipleLevelBonus = (_getObjectsByCriteria(_bonus, {level:0}).length<1);
                             //loop through each bonus level (even with a single one)
-                            _bonus.bonus_levels.entities.forEach(function(_bonus_level){
+                            _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
+
+                                if(_multipleLevelBonus)
+                                    _display+="<div class='rotate js-bonus_level_label'>Level "+(_index+1)+"</div><div class='js-bonus_level_bracket'></div>";
+
                                 // go through amounts within each level
+
                                 _bonus_level.properties.amounts.forEach(function(_amount, _index){
                                     var _rankID = 1+_index;
-                                    var _rankTitle=_getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
-                                        _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(1)+"% <span class='sub'>$"+(_amount*_bonus.properties.available_amount).toFixed(2)+"</span></span></div>";
+                                    var _rankTitle=_getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;                                    
+                                    _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(1)+"% <span class='sub'>$"+(_amount*_bonus.properties.available_amount).toFixed(2)+"</span></span></div>";
                                 });
+                                if(_multipleLevelBonus)
+                                    _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_level_payment' href='#"+_getObjectsByCriteria(_bonus_level.actions, {name: "update"})[0].href+"'>Adjust Payments</a></div>";
+                                else
+                                    _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
+                                _display+="<br style='clear:both;'>";
                             });
-                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
 
                             _row.find(".js-bonus_details").append(_display);
 
@@ -646,7 +655,67 @@ jQuery(function($){
                             //     }
                             // }
                         });
-                        
+
+                        //wire up add new bonus level
+                        $(".js-add_bonus_level").on("click", function(e){
+                            e.preventDefault();
+                            var _popupData=[];
+                            var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
+                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
+                            
+                            _popupData = _getObjectsByCriteria(_bonus.bonus_levels.actions, {name: "create"})[0];
+                            _popupData.popupType = "bonus_payment";                            
+                            _popupData._bonusID = _bonusID;
+                            _popupData["properties"] = {};
+                            $.extend(true, _popupData.properties, _bonus.properties);
+                            
+                            //prep artificial amounts
+                            _popupData.properties["amounts"]=[];
+                            _popupData.amountDetail = {};
+                            _popupData.amountDetail = _getObjectsByCriteria(_popupData, {name:"amounts"})[0];
+                            _popupData.amountDetail.value=[];
+                            for(i=0;i<_data.ranks.entities.length;i++) _popupData.amountDetail["value"].push(0.00);
+                            _popupData.amountDetail.max=_bonus.properties.remaining_percentage;
+                            _popupData.amountDetail.maxPercentage = (_bonus.properties.remaining_percentage*100.00).toFixed(1);
+                            _popupData.amountDetail.total=_bonus.properties.available_amount;
+
+                            _popupData.title="Add a new Bonus Level <br> For Bonus: "+_bonus.properties.name;
+
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                });
+                            });
+                        });
+
+                        //wire up edit bonus payment link
+                        $(".js-edit_bonus_payment").on("click", function(e){
+                            e.preventDefault();
+                            var _popupData=[];
+                            var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses.entities, {"containsIn(properties)":[{id:_bonusID}], "containsIn(class)":["bonus"]})[0];
+                            if(typeof _bonus === "undefined") return;
+
+                            _popupData = _getObjectsByCriteria(_bonus.bonus_levels, {name: "update"})[0];
+                            _popupData.popupType = "bonus_payment";                            
+                            _popupData._bonusID = _bonusID;
+                            _popupData["properties"] = {};
+                            $.extend(true, _popupData.properties, _bonus.properties);
+                            _popupData.amountDetail = _getObjectsByCriteria(_popupData, {name:"amounts"})[0];
+                            _popupData.amountDetail.max=_bonus.properties.remaining_percentage;
+                            _popupData.amountDetail.maxPercentage = (_bonus.properties.remaining_percentage*100.00).toFixed(1);
+                            _popupData.amountDetail.total=_bonus.properties.available_amount;
+
+                            _popupData.title="Editing Payments<br> For Bonus: "+_bonus.properties.name;
+                            //_populateReferencialSelect({_popupData:_popupData});
+
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                });
+                            });
+                        });
+
                         //wire up the edit bonus link
                         $(".js-bonus_link").on("click", function(e){
                             e.preventDefault();
@@ -723,61 +792,8 @@ jQuery(function($){
                             });
                         });
 
-                        //wire up edit bonus payment link
-                        $(".js-edit_bonus_payment").on("click", function(e){
-                            e.preventDefault();
-                            var _popupData=[];
-                            var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses.entities, {"containsIn(properties)":[{id:_bonusID}], "containsIn(class)":["bonus"]})[0];
-                            if(typeof _bonus === "undefined") return;
 
-                            _popupData = _getObjectsByCriteria(_bonus.bonus_levels, {name: "update"})[0];
-                            _popupData.popupType = "bonus_payment";                            
-                            _popupData._bonusID = _bonusID;
-                            _popupData["properties"] = {};
-                            $.extend(true, _popupData.properties, _bonus.properties);
-                            _popupData.amountDetail = _getObjectsByCriteria(_popupData, {name:"amounts"})[0];
-                            _popupData.amountDetail.maxPercentage = (_bonus.properties.remaining_percentage*100.00).toFixed(1);
-                            _popupData.amountDetail.total=_bonus.properties.available_amount;
 
-                            _popupData.title="Editing Payments<br> For Bonus: "+_bonus.properties.name;
-                            //_populateReferencialSelect({_popupData:_popupData});
-
-                            $("#js-screen_mask").fadeIn(100, function(){
-                                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                    SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
-                                });
-                            });
-                        });
-
-                        //wire up add new bonus level
-                        $(".js-add_bonus_level").on("click", function(e){
-                            e.preventDefault();
-                            var _popupData=[];
-                            var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
-                            
-                            _popupData = _getObjectsByCriteria(_bonus.bonus_levels.actions, {name: "create"})[0];
-                            _popupData.popupType = "bonus_payment";                            
-                            _popupData._bonusID = _bonusID;
-                            _popupData["properties"] = {};
-                            $.extend(true, _popupData.properties, _bonus.properties);
-                            //prep artificial amounts
-                            _popupData.properties["amounts"]=[];
-                            for(i=0;i<_data.ranks.entities.length;i++) _popupData.properties["amounts"].push(0.00);
-                            _popupData.amountDetail = {};
-                            $.extend(true, _popupData.amountDetail, _getObjectsByCriteria(_popupData, {name: "amounts"})[0]);
-                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(1);
-
-                            _popupData.title="Add a new Bonus Level <br> For Bonus: "+_bonus.properties.name;
-
-                            $("#js-screen_mask").fadeIn(100, function(){
-                                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                    SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
-                                });
-                            });
-                        });
-                        
                         //wire up edit bonus level payments
                         $(".js-edit_bonus_level_payment").on("click", function(e){
                             e.preventDefault();
@@ -802,8 +818,9 @@ jQuery(function($){
                             
                             _popupData.amountDetail = {};
                             $.extend(true, _popupData.amountDetail, _getObjectsByCriteria(_popupData, {name: "amounts"})[0]);
+                            _popupData.amountDetail.max=_bonus.properties.remaining_percentage;
                             _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(1);
-
+                            _popupData.amountDetail.total=_bonus.properties.available_amount;
                             _popupData.title="Edit a Bonus Level <br> For Bonus: "+_bonus.properties.name;
                             
                             if(_last_bonus_level){
