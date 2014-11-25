@@ -249,6 +249,7 @@ jQuery(function($){
 
         //wire up dynamic bonus amount assignment
         if(_options._popupData.popupType === "bonus_payment"){
+            console.log(_options)
             var _amountDetail = _getObjectsByCriteria(_options._popupData.fields, {name:"amounts"})[0];
             $(".js-percentage_container").each(function(){
                 var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
