@@ -1,7 +1,5 @@
 <div class="arrow">
 </div>
-
-<h1></h1>
 <div class="drilldown_content">
   <div id="kpi_environment_detail" class="object_detail">
     <div class="object_detail_content">
@@ -10,9 +8,23 @@
         <a class="return_to_team" style="z-index:99;margin:auto;display:block;height:30px; display:none; float:left; font-size:14px; text-transform:uppercase;">Return To Team Details</a>
         <span class="subtext progress_description" style="clear:both;">
         Today: 34 Quotes, 22 Sales <br>
-        This Week: 78 Quotes, 45 Sales
+        This Week: 78 Quotes, <span class="totalOrdersForWeek">0</span> Sales
         </span>
         <script>
+
+        //total orders for the given week
+
+          function totalOrdersForWeek(){
+            var _ordersCounter = 0;
+            _data.team.entities.forEach(function(member){
+              _data.impact_metrics.push({"id": member.properties.id, "orders": member.properties.orders, "week": "this week"});
+              _ordersCounter += member.properties.orders;
+            })
+            $(".totalOrdersForWeek").html(_ordersCounter);
+            return _ordersCounter;
+          }
+
+
           //bringing in current user's downline on the left side of KPIs (andrew)
 
           function populateContributors() {
@@ -33,6 +45,7 @@
             });
           }
 
+          totalOrdersForWeek();
           populateContributors();
         </script>
         <div class="contributors">
@@ -374,19 +387,30 @@ _data.team.entities.forEach(function(member){
     data:{},
     name:member.properties.email
   });
-})
+}) 
 
 EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
    $.each(_returnJSONs, function(index, member){
     var counter = 0;
     member.entities.forEach(function(order){
       var orderDate = new Date(order.properties.order_date);
-      if(orderDate.getWeek() === 45){
+      if(orderDate.getWeek() === 38){
         counter += 1
       }
     });
   _data.team.entities[index].properties.orders = counter
   });
 })
+
+//Orders Total for given week
+function totalOrdersForWeek(){
+  var _ordersCounter = 0;
+  _data.team.entities.forEach(function(member){
+    _data.impact_metrics.push({"id": member.properties.id, "orders": member.properties.orders, "week": "this week"});
+    _ordersCounter += member.properties.orders;
+  })
+  $(".totalOrdersForWeek").html(_ordersCounter);
+  return _ordersCounter;
+}
 
 </script>
