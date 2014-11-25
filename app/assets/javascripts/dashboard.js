@@ -269,7 +269,7 @@ function Dashboard(){
 						_url:"/u/users/"+member.properties.id+"/downline",
 						_callback:function(data, text){
 							member.properties.downline_count = data.entities.length;
-							EyeCueLab.UX.getTemplate("/templates/_team_thumbnail3.handlebars.html", member, undefined, function(html){
+							EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
 								_containerObj.append(html);
 							});
 						}
@@ -414,7 +414,6 @@ function Dashboard(){
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});	
 	})();
-
 	//wire up the pagination hooks
 	$(document).on("click", ".pagination_container .nav", function(e){
 		e.preventDefault();
@@ -517,14 +516,12 @@ function Dashboard(){
 											_callback:function(data, text){
 												_downlinkContainerObj
 												member.properties.downline_count = data.entities.length;
-												EyeCueLab.UX.getTemplate("/templates/_team_thumbnail3.handlebars.html", member, undefined, function(html){
+												EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
 													_downlinkContainerObj.append(html);
 												});
 											}
 										});
 									});
-									//_getTemplate("/templates/_team_thumbnail2.handlebars.html", data, _downlinkContainerObj);
-					
 								}
 							});
 						});
@@ -775,13 +772,13 @@ function Dashboard(){
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 					case "leads":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_leads_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_quotes_details.handlebars.html";
 					break;
 					case "earnings":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
 					break;
 					case "team_members":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_team_details.handlebars.html";
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_genealogy_details.handlebars.html";
 					break;
 					case "type5":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
