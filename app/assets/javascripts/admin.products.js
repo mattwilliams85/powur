@@ -128,7 +128,6 @@ jQuery(function($){
 
                             _qualification_group.forEach(function(_qualification){
                                 var _prod = (typeof _qualification.properties.product !== "undefined")? _qualification.properties.product : " ";
-                                console.log(_prod);
 
                                 _row.find(".js-active_type").append("<div class='innerCell'><span class='label'>"+_prod.format_length(29)+"</span>"+_qualification.properties.type_display.replace(/\_/g," ")+"</div><br style='clear:both;'>");
                                 _conditions=[];
@@ -588,47 +587,64 @@ jQuery(function($){
                             }
 
                             //show bonus payments
-                            var _amountDetail = _getObjectsByCriteria(_bonus.actions, {name: "amounts"})[0];
-                            if((typeof _bonus.properties.amounts !== "undefined" && _bonus.properties.amounts.length>0 ) || (typeof _bonus.bonus_levels !== "undefined")){
-                                _display="<h4 class='subRow'>// Bonus Payments</h4>";
-                                if((typeof _amountDetail === "undefined") && (typeof _bonus.bonus_levels === "undefined")) _display+="Please select a product source";
-                                else{
-                                    if(typeof _bonus.bonus_levels !=="undefined"){
-                                        //show uni-level payment structure
-                                        if(_bonus.bonus_levels.entities.length==0) _display+="Please add a bonus level";
-                                        _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
-                                            var _amountDetail = _getObjectsByCriteria(_bonus_level, "key=total")[0];
-                                            var _amount = _bonus_level.properties.amounts;
 
-                                            _display+="<div class='rotate js-bonus_level_label'>Level "+(_index+1)+"</div><div class='js-bonus_level_bracket'></div>";
-                                            _display+="<div class='js-bonus_level_amount_container'>";
-                                            _data.ranks.entities.forEach(function(_rank, _index){
-                                                _display+="<div class='innerCell'><span class='label'>"+_rank.properties.id+", "+_rank.properties.title+"</span><span class='content'>"+(_amount[_index]*100).toFixed(1)+"% <span style='font-size:11px; color:#9b9b9b;'>$"+(_amount[_index]*_amountDetail.total).toFixed(2)+"</span></span></div>";
-                                            });
-                                            _display+="</div>";
-                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_level_payment' href='#"+_getObjectsByCriteria(_bonus_level.actions, {name: "update"})[0].href+"'>Adjust Payments</a></div>";
-                                            _display+="<br style='clear:both;'>"
-                                            _row.find(".js-bonus_details").append(_display);
-                                            _display="";
-                                            _row.find(".js-bonus_level_bracket:eq("+_index+")").css("height",  (_row.find(".js-bonus_level_amount_container:eq("+_index+")").height()-5)+"px");
-                                        });
+                            _display="<h4 class='subRow'>// Bonus Payments</h4>";
+                            var _multipleLevelBonus = (_getObjectsByCriteria(_bonus, {level:0}).length>1);
+                            //loop through each bonus level (even with a single one)
+                            _bonus.bonus_levels.entities.forEach(function(_bonus_level){
+                                // go through amounts within each level
+                                _bonus_level.properties.amounts.forEach(function(_amount, _index){
+                                    var _rankID = 1+_index;
+                                    var _rankTitle=_getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                                        _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(1)+"% <span class='sub'>$"+(_amount*_bonus.properties.available_amount).toFixed(2)+"</span></span></div>";
+                                });
+                            });
+                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
 
-                                    }else{
-                                        //show all other payment structure
-                                        delete _bonus.properties.amounts._path;
-                                        _bonus.properties.amounts.forEach(function(_amount, _index){
-                                            var _rankID = _amountDetail.first+_index;
-                                            if (_rankID <= _amountDetail.last){
-                                                var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
-                                                _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(1)+"% <span class='sub'>$"+(_amount*_amountDetail.total).toFixed(2)+"</span></span></div>";
+                            _row.find(".js-bonus_details").append(_display);
 
-                                            }
-                                        });
-                                            _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
-                                        _row.find(".js-bonus_details").append(_display);
-                                    }
-                                }
-                            }
+
+
+                            // if((typeof _bonus.properties.amounts !== "undefined" && _bonus.properties.amounts.length>0 ) || (typeof _bonus.bonus_levels !== "undefined")){
+                            //     _display="<h4 class='subRow'>// Bonus Payments</h4>";
+                            //     if((typeof _amountDetail === "undefined") && (typeof _bonus.bonus_levels === "undefined")) _display+="Please select a product source";
+                            //     else{
+                            //         if(typeof _bonus.bonus_levels !=="undefined"){
+                            //             //show uni-level payment structure
+                            //             if(_bonus.bonus_levels.entities.length==0) _display+="Please add a bonus level";
+                            //             _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
+                            //                 var _amountDetail = _getObjectsByCriteria(_bonus_level, "key=total")[0];
+                            //                 var _amount = _bonus_level.properties.amounts;
+
+                            //                 _display+="<div class='rotate js-bonus_level_label'>Level "+(_index+1)+"</div><div class='js-bonus_level_bracket'></div>";
+                            //                 _display+="<div class='js-bonus_level_amount_container'>";
+                            //                 _data.ranks.entities.forEach(function(_rank, _index){
+                            //                     _display+="<div class='innerCell'><span class='label'>"+_rank.properties.id+", "+_rank.properties.title+"</span><span class='content'>"+(_amount[_index]*100).toFixed(1)+"% <span style='font-size:11px; color:#9b9b9b;'>$"+(_amount[_index]*_amountDetail.total).toFixed(2)+"</span></span></div>";
+                            //                 });
+                            //                 _display+="</div>";
+                            //                 _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_level_payment' href='#"+_getObjectsByCriteria(_bonus_level.actions, {name: "update"})[0].href+"'>Adjust Payments</a></div>";
+                            //                 _display+="<br style='clear:both;'>"
+                            //                 _row.find(".js-bonus_details").append(_display);
+                            //                 _display="";
+                            //                 _row.find(".js-bonus_level_bracket:eq("+_index+")").css("height",  (_row.find(".js-bonus_level_amount_container:eq("+_index+")").height()-5)+"px");
+                            //             });
+
+                            //         }else{
+                            //             //show all other payment structure
+                            //             delete _bonus.properties.amounts._path;
+                            //             _bonus.properties.amounts.forEach(function(_amount, _index){
+                            //                 var _rankID = _amountDetail.first+_index;
+                            //                 if (_rankID <= _amountDetail.last){
+                            //                     var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                            //                     _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(1)+"% <span class='sub'>$"+(_amount*_amountDetail.total).toFixed(2)+"</span></span></div>";
+
+                            //                 }
+                            //             });
+                            //                 _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
+                            //             _row.find(".js-bonus_details").append(_display);
+                            //         }
+                            //     }
+                            // }
                         });
                         
                         //wire up the edit bonus link
@@ -712,15 +728,18 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData=[];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses.entities, {"containsIn(properties)":[{id:_bonusID}], "containsIn(class)":["bonus"]})[0];
+                            if(typeof _bonus === "undefined") return;
 
-                            _popupData = _getObjectsByCriteria(_bonus.actions, {name: "update"})[0];
+                            _popupData = _getObjectsByCriteria(_bonus.bonus_levels, {name: "update"})[0];
                             _popupData.popupType = "bonus_payment";                            
                             _popupData._bonusID = _bonusID;
                             _popupData["properties"] = {};
                             $.extend(true, _popupData.properties, _bonus.properties);
                             _popupData.amountDetail = _getObjectsByCriteria(_popupData, {name:"amounts"})[0];
-                            _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(1);
+                            _popupData.amountDetail.maxPercentage = (_bonus.properties.remaining_percentage*100.00).toFixed(1);
+                            _popupData.amountDetail.total=_bonus.properties.available_amount;
+
                             _popupData.title="Editing Payments<br> For Bonus: "+_bonus.properties.name;
                             //_populateReferencialSelect({_popupData:_popupData});
 
@@ -880,9 +899,10 @@ jQuery(function($){
                                 $.extend(true, _bonus_plan, data);
 
                                 //get bonuses associated with the plan
+
                                 _ajax({
                                     _ajaxType:"get",
-                                    _url:_getObjectsByPath(_bonus_plan, _getObjectsByCriteria(_bonus_plan, "val=bonuses")[0]._path, -1).href,
+                                    _url:EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["list", "bonuses"]})[0].href,
                                     _callback:function(data, text){
                                         _bonus_plan.bonuses={};
                                         $.extend(true, _bonus_plan.bonuses, data);

@@ -198,6 +198,8 @@ var myChart = new Chart(ctx).Line(metricsData, options);
 var position = 0;
 var page = 1;
 var total_pages = Math.ceil(_data.team.entities.length / 3)
+var now = new Date();
+var _endPoints = [];
 
 $(".contributor")
 
@@ -364,4 +366,27 @@ $(".contributor").on("click", function(e) {
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+//Orders By Week
+_data.team.entities.forEach(function(member){
+  _endPoints.push({
+    url:"/u/users/"+member.properties.id+"/orders",
+    data:{},
+    name:member.properties.email
+  });
+})
+
+EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+   $.each(_returnJSONs, function(index, member){
+    var counter = 0;
+    member.entities.forEach(function(order){
+      var orderDate = new Date(order.properties.order_date);
+      if(orderDate.getWeek() === 45){
+        counter += 1
+      }
+    });
+  _data.team.entities[index].properties.orders = counter
+  });
+})
+
 </script>
