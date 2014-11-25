@@ -38,6 +38,9 @@
         <div class="contributors">
           
         </div>
+        <div class="scroll-arrows">
+          <i class="fa fa-chevron-down fa-1x"></i><span class="page-count">1 of 6</span><i class="fa fa-chevron-up fa-1x"></i>
+        </div>
       </div>
 
       <div class="object_detail_content_section" style="padding-left:20px;">
@@ -192,6 +195,9 @@ var options = {
 }
 
 var myChart = new Chart(ctx).Line(metricsData, options);
+var position = 0;
+var page = 1;
+var total_pages = Math.ceil(_data.team.entities.length / 3)
 
 $(".contributor")
 
@@ -276,7 +282,56 @@ $(".time_scale .week").on("click", function() {
   $(this).addClass("active");
 })
 
+  $('.fa-chevron-down').show();
+  $('.fa-chevron-down').on("click", function(e) {
+    if($('.fa-chevron-down').hasClass("active")){
+      e.preventDefault();
+      e.stopPropagation();
+      page += 1
+      $('.page-count').html(page + " of " + total_pages);
+      checkPage()
+      position -= 270;
+      $('.contributor').each(function() {
+        $(this).velocity({translateY: position + "px"});
+      })
+    }
+  });
 
+  $('.fa-chevron-up').on("click", function(e) {
+      if($('.fa-chevron-up').hasClass("active")){
+        e.preventDefault();
+        e.stopPropagation();
+        page -= 1;
+        $('.page-count').html(page + " of " + total_pages);
+        checkPage();
+        position += 270;
+        $('.contributor').each(function() {
+          $(this).velocity({translateY: position + "px"});
+        })
+      };
+    });
+
+
+function checkPage(){
+  if (page != 1) {
+    $('.fa-chevron-up').css("opacity","1");
+    $('.fa-chevron-up').addClass("active");
+  } else {
+    $('.fa-chevron-up').css("opacity","0.3");
+    $('.fa-chevron-up').removeClass("active");
+  }
+
+  if (page !=  total_pages) {
+    $('.fa-chevron-down').css("opacity","1");
+    $('.fa-chevron-down').addClass("active");
+  } else {
+    $('.fa-chevron-down').css("opacity","0.3");
+    $('.fa-chevron-down').removeClass("active");
+  }
+}
+
+
+checkPage()
 
 $(".contributor").on("click", function(e) {
 
