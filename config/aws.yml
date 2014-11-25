@@ -8,6 +8,11 @@ test:
   secret_access_key: '5JGHsLiETbSbEnlhN1P8u85MTJ74Xxs+O4v9BzQz'
   bucket: 'sunstand-dev'
 
+staging:
+  access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  bucket: 'sunstand-dev'
+
 production:
   access_key_id: AKIAIP4IQ77YPIRW5EWA
   secret_access_key: '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'
