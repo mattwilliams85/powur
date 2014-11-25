@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   after_create :set_upline
 
-  attr_accessor :child_order_totals, :pay_period_rank
+  attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count
 
   before_validation do
     self.lifetime_rank ||= Rank.find_or_create_by_id(1).id
@@ -68,6 +68,10 @@ class User < ActiveRecord::Base
 
   def create_customer(params)
     customers.create!(params)
+  end
+
+  def quote_count_for_pay_period(pay_period)
+    User.pay_period_quote_counts(self.id, pay_period)
   end
 
   def upline_users
