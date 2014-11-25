@@ -2055,7 +2055,7 @@
   }
 
   #avatar1 {
-    background-image: url('https://avatars0.githubusercontent.com/u/5414273?v=3&s=460');
+    background-image: url('http://heintendsvictory.org/wp-content/uploads/default-avatar.png');
   }
 
   #avatar2 {
@@ -2143,9 +2143,11 @@ h4{
 }
 
 .contributors {
-  padding-top:15px;
+  margin-top:15px;
   z-index:5;
   display:inline-block;
+  height:265px;
+  overflow:hidden;
 
 }
 
@@ -2165,5 +2167,37 @@ h4{
 }
 .return_to_team{
   cursor: pointer;
+}
+
+.scroll-arrows{
+	position:relative;
+	color:#545454;
+	z-index:90;
+}
+
+.fa-chevron-down {
+	padding:4px;
+	position:absolute;
+	top:420px;
+	left:75px;
+	border-radius:100%;
+	background-color:rgb(238,238,238);
+}
+
+.fa-chevron-up {
+	padding:4px;
+	position:absolute;
+	top:420px;
+	left:175px;
+	border-radius:100%;
+	background-color:rgb(238,238,238);
+}
+
+.page-count {
+	font-size:0.85em;
+	color:rgb(238,238,238);
+	position:absolute;
+	top:420px;
+	left:115px;
 }
 
