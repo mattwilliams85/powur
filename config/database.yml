@@ -78,6 +78,11 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+
+staging:
+  <<: *default
+  pool: 120
+
 production:
   <<: *default
   pool: 120
