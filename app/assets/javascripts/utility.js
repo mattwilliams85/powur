@@ -873,3 +873,12 @@ Date.prototype.getWeek = function(){
     d.setDate(d.getDate()+4-(d.getDay()||7));
     return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
 };
+
+//Add # of days to current date
+Date.prototype.addDays = function(days)
+{
+    var d = new Date(this.valueOf());
+    d.setDate(d.getDate() + days);
+    return d;
+}
+

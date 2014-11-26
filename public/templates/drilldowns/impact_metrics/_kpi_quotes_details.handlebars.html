@@ -39,7 +39,7 @@
           
         </div>
         <div class="scroll-arrows">
-          <i class="fa fa-chevron-down fa-1x"></i><span class="page-count">1 of 6</span><i class="fa fa-chevron-up fa-1x"></i>
+          <i class="fa fa-chevron-up fa-1x"></i><span class="page-count">1 of 6</span><i class="fa fa-chevron-down fa-1x"></i>
         </div>
       </div>
 
@@ -48,7 +48,7 @@
         <canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
 
         <div class="time_unit_nav">
-          <i class="fa fa-chevron-left" style="color:#555;padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px;margin-right:10px;"></i> <span>Week 11/1 - 11/7</span> <i class="fa fa-chevron-right" style="color:#555; padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px; margin-left:10px;"></i>
+          <i class="fa fa-chevron-left back" style="color:#555;padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px;margin-right:10px;"></i> <span class="week-span"></span> <i class="fa fa-chevron-right forward" style="color:#555; padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px; margin-left:10px;"></i>
         </div>
 
         <div style="width:150px; padding-left:50px;float:left;">
@@ -199,10 +199,71 @@ var position = 0;
 var page = 1;
 var total_pages = Math.ceil(_data.team.entities.length / 3)
 var now = new Date();
+var nowWeek = (new Date()).getWeek();
+var nowMonth = (new Date()).getMonth();
 var _endPoints = [];
+var scale = "week"
+
+
+//TIME FUNCTIONS
+displayWeek()
+
+  $('.back').on("click", function(){
+    if(scale == "month"){
+    monthBack()
+    displayMonth()
+    } else {
+      weekBack()
+      displayWeek()
+    }
+  })
+
+  $('.forward').on("click", function(){
+    if(scale == "month"){
+    monthForward()
+    displayMonth()
+    } else {
+      weekForward()
+      displayWeek()
+    }
+  })
+
+  function weekOfMonth(){
+    return Math.ceil(now.getDate()/7);
+  }
+
+  function weekBack() {
+    now = new Date(now.setDate(now.getDate() - 7))
+  }
+
+  function weekForward() {
+    now = new Date(now.setDate(now.getDate() + 7))
+  }
+
+  function displayWeek(){
+    $(".week-span").html("WEEK " + $.datepicker.formatDate('mm/dd', now) + " - " + $.datepicker.formatDate('mm/dd', now.addDays(7)));
+  }
+
+  function monthBack() {
+    now = new Date(now.setMonth(now.getMonth() - 1))
+  }
+
+  function monthForward() {
+    now = new Date(now.setMonth(now.getMonth() + 1))
+  }
+
+  function displayMonth(){
+    $(".week-span").html($.datepicker.formatDate('MM, yy', now));
+  }
+
+//////////////////////////////////////////
+
+//MONTH FUNCTIONS
+
+
+//////////////////////////////////////////
 
 $(".contributor")
-
     .velocity("transition.slideUpBigIn", { 
       stagger: 200, 
       duration: 600
@@ -225,65 +286,70 @@ $(".return_to_team").on("click",function(e){
 });
 
 $(".time_scale .month").on("click", function() {
-  _randomData.me.length = 0;
-  _randomData.team.length = 0;
-  _labels.length = 0;
-  topPerformers.length = 0;
-  metricsData.datasets[0].data.length = 0;
-  metricsData.datasets[1].data.length = 0;
+  displayMonth()
+  scale = "month"
+  // _randomData.me.length = 0;
+  // _randomData.team.length = 0;
+  // _labels.length = 0;
+  // topPerformers.length = 0;
+  // metricsData.datasets[0].data.length = 0;
+  // metricsData.datasets[1].data.length = 0;
 
-  generateData(30);
+  // generateData(30);
 
-  if (currentlyViewing == "team") {
-    $("#graph_title").html("Full Genealogy Conversion History");
-    $.extend(metricsData.datasets[0].data, _randomData.me);
-    $.extend(metricsData.datasets[1].data, _randomData.team);
-  } else {
-    $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
-    $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
-    $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
-  }
-  options.animationSteps = 20;
-  myChart.destroy();
-  myChart = new Chart(ctx).Line(metricsData, options);
-  $(".time_unit_nav span").html("November, 2014")
+  // if (currentlyViewing == "team") {
+  //   $("#graph_title").html("Full Genealogy Conversion History");
+  //   $.extend(metricsData.datasets[0].data, _randomData.me);
+  //   $.extend(metricsData.datasets[1].data, _randomData.team);
+  // } else {
+  //   $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
+  //   $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
+  //   $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
+  // }
+  // options.animationSteps = 20;
+  // myChart.destroy();
+  // myChart = new Chart(ctx).Line(metricsData, options);
+  // $(".time_unit_nav span").html("November, 2014")
   $(".time_scale .week").removeClass("active");
   $(this).addClass("active");
 })
 
 $(".time_scale .week").on("click", function() {
-  _randomData.me.length = 0;
-  _randomData.team.length = 0;
-  _labels.length = 0;
-  topPerformers.length = 0;
-  metricsData.datasets[0].data.length = 0;
-  metricsData.datasets[1].data.length = 0;
+  displayWeek()
+  scale = "week"
+  // _randomData.me.length = 0;
+  // _randomData.team.length = 0;
+  // _labels.length = 0;
+  // topPerformers.length = 0;
+  // metricsData.datasets[0].data.length = 0;
+  // metricsData.datasets[1].data.length = 0;
 
-  generateData(7);
+  // generateData(7);
 
-  if (currentlyViewing == "team") {
-    $("#graph_title").html("Full Genealogy Conversion History");
-    $.extend(metricsData.datasets[0].data, _randomData.me);
-    $.extend(metricsData.datasets[1].data, _randomData.team);
-  } else {
-    $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
-    $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
-    $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
-  }
-  $.extend(metricsData.datasets[0].data, _randomData.me);
-  $.extend(metricsData.datasets[1].data, _randomData.team);
-  $.extend(metricsData.datasets[0].data, _randomData.me);
-  $.extend(metricsData.datasets[1].data, _randomData.team);
+  // if (currentlyViewing == "team") {
+  //   $("#graph_title").html("Full Genealogy Conversion History");
+  //   $.extend(metricsData.datasets[0].data, _randomData.me);
+  //   $.extend(metricsData.datasets[1].data, _randomData.team);
+  // } else {
+  //   $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
+  //   $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
+  //   $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
+  // }
+  // $.extend(metricsData.datasets[0].data, _randomData.me);
+  // $.extend(metricsData.datasets[1].data, _randomData.team);
+  // $.extend(metricsData.datasets[0].data, _randomData.me);
+  // $.extend(metricsData.datasets[1].data, _randomData.team);
 
-  options.animationSteps = 20;
-  myChart.destroy();
-  myChart = new Chart(ctx).Line(metricsData, options);
+  // options.animationSteps = 20;
+  // myChart.destroy();
+  // myChart = new Chart(ctx).Line(metricsData, options);
 
-  $(".time_unit_nav span").html("Week 11/1 - 11/7");
+  // $(".time_unit_nav span").html("Week 11/1 - 11/7");
   $(".time_scale .month").removeClass("active");
   $(this).addClass("active");
 })
 
+// PAGINATION FOR USERS
   $('.fa-chevron-down').show();
   $('.fa-chevron-down').on("click", function(e) {
     if($('.fa-chevron-down').hasClass("active")){
@@ -332,8 +398,9 @@ function checkPage(){
   }
 }
 
-
 checkPage()
+
+//////////////////////////
 
 $(".contributor").on("click", function(e) {
 
@@ -368,25 +435,29 @@ function numberWithCommas(x) {
 }
 
 //Orders By Week
-_data.team.entities.forEach(function(member){
-  _endPoints.push({
-    url:"/u/users/"+member.properties.id+"/orders",
-    data:{},
-    name:member.properties.email
-  });
-})
-
-EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
-   $.each(_returnJSONs, function(index, member){
-    var counter = 0;
-    member.entities.forEach(function(order){
-      var orderDate = new Date(order.properties.order_date);
-      if(orderDate.getWeek() === 45){
-        counter += 1
-      }
+function populateWeekData(){
+  _data.team.entities.forEach(function(member){
+    console.log(member)
+    _endPoints.push({
+      url:"/u/users/"+member.properties.id+"/orders",
+      data:{},
+      name:member.properties.email
     });
-  _data.team.entities[index].properties.orders = counter
-  });
-})
+  })
 
+  EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+     $.each(_returnJSONs, function(index, member){
+      var counter = 0;
+      member.entities.forEach(function(order){
+        var orderDate = new Date(order.properties.order_date);
+        if(orderDate.getWeek() === now.getWeek()){
+          counter += 1
+        }
+      });
+    _data.team.entities[index].properties.orders = counter
+    });
+  })
+}
+
+populateWeekData()
 </script>
