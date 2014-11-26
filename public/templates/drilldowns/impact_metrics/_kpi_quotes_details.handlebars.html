@@ -202,7 +202,7 @@ function randomizeData(length){
   metricsData.datasets[0].data = []
   metricsData.datasets[1].data = []
   for(i = 0; i <= length; i++) {
-    metricsData.datasets[0].data.push(Math.floor(Math.random() * 20 + 20));
+    metricsData.datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
     metricsData.datasets[1].data.push(Math.floor(Math.random() * 10 + 15));
   }
 }
@@ -220,7 +220,6 @@ displayWeek()
     if(scale == "month"){
       monthBack()
       displayMonth()
-
       myChart.destroy();
       randomizeData(30)
       setScale() 
@@ -306,10 +305,9 @@ $(".time_scale .month").on("click", function() {
   setCalendarMonth()
   displayMonth()
   scale = "month"
-  setScale()
   myChart.destroy();
-  
   randomizeData(30)
+  setScale()
   myChart = new Chart(ctx).Line(metricsData, options);
   
   $(".time_scale .week").removeClass("active");
@@ -320,9 +318,9 @@ $(".time_scale .week").on("click", function() {
   setCalendarWeek()
   displayWeek()
   scale = "week"
-  setScale()
   myChart.destroy();
   randomizeData(6)
+  setScale()
   myChart = new Chart(ctx).Line(metricsData, options);
  
   $(".time_scale .month").removeClass("active");
