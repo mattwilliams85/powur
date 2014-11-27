@@ -207,10 +207,7 @@ function randomizeData(length){
   }
 }
 
-var ctx = document.getElementById("metricsChart").getContext("2d");
-
-
-
+var ctx = $("#metricsChart").get(0).getContext("2d");
 var myChart = new Chart(ctx).Line(metricsData, options);
 
 //TIME FUNCTIONS
@@ -223,6 +220,8 @@ displayWeek()
       myChart.destroy();
       randomizeData(30)
       setScale() 
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 375 
       myChart = new Chart(ctx).Line(metricsData, options);
     } else {
       weekBack()
@@ -230,7 +229,9 @@ displayWeek()
       setScale() 
       myChart.destroy();
       randomizeData(6)
-      setScale() 
+      setScale()
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 375  
       myChart = new Chart(ctx).Line(metricsData, options);
     }
   })
@@ -242,6 +243,8 @@ displayWeek()
       setScale() 
       myChart.destroy();
       randomizeData(30)
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 375 
       myChart = new Chart(ctx).Line(metricsData, options);
     } else {
       weekForward()
@@ -249,6 +252,8 @@ displayWeek()
       setScale() 
       myChart.destroy();
       randomizeData(6)
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 375 
       myChart = new Chart(ctx).Line(metricsData, options);
     }
   })
@@ -308,6 +313,8 @@ $(".time_scale .month").on("click", function() {
   myChart.destroy();
   randomizeData(30)
   setScale()
+  ctx.canvas.width = 670 
+  ctx.canvas.height = 375 
   myChart = new Chart(ctx).Line(metricsData, options);
   
   $(".time_scale .week").removeClass("active");
@@ -321,6 +328,8 @@ $(".time_scale .week").on("click", function() {
   myChart.destroy();
   randomizeData(6)
   setScale()
+  ctx.canvas.width = 670 
+  ctx.canvas.height = 375 
   myChart = new Chart(ctx).Line(metricsData, options);
  
   $(".time_scale .month").removeClass("active");
