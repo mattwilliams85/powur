@@ -447,34 +447,29 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-//Orders By Week
+function getAllOrders(){
 
-function populateWeekData(){
   _data.team.entities.forEach(function(member){
-    console.log(member)
     _endPoints.push({
       url:"/u/users/"+member.properties.id+"/orders",
       data:{},
       name:member.properties.email
     });
-  })
+  });
 
   EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
-     $.each(_returnJSONs, function(index, member){
-      var counter = 0;
+    var allOrders = [];
+     _returnJSONs.forEach(function(member){
       member.entities.forEach(function(order){
-        var orderDate = new Date(order.properties.order_date);
-        if(orderDate.getWeek() === now.getWeek()){
-          counter += 1
-        }
+        allOrders.push(order);
       });
-    _data.team.entities[index].properties.orders = counter
     });
-  })
+   _data.impact_metrics.orders = {"all": allOrders}
+  });
+  console.log("getAllOrders() finished; _data.impact_metrics.orders.all should be populated with all orders from your genealogy.")
 }
 
-
-populateWeekData()
+getAllOrders();
 
 //Orders Total for given week
 function totalOrdersForWeek(){
