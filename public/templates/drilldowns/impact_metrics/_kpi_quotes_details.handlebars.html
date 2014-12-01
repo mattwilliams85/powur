@@ -290,9 +290,11 @@ displayWeek()
 
 
 $(".return_to_team").on("click",function(e){
-	$.extend(metricsData.datasets[0].data, _randomData.me);
-	$.extend(metricsData.datasets[1].data, _randomData.team);
 	myChart.destroy();
+  randomizeData(30)
+  setScale()
+  ctx.canvas.width = 670 
+  ctx.canvas.height = 375 
  	myChart = new Chart(ctx).Line(metricsData, options);  
   	$("#graph_title").html("Full Genealogy Conversion History");
   	$(".contributor").css("background","#545454");
@@ -400,14 +402,16 @@ function contributorEvents(){
     })
     $(this).velocity({backgroundColor:"#454545"},100);
 
-    $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
-    $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
     currentlyViewing = "individuals";
 
     options.animationSteps = 20;
     myChart.destroy();
+    randomizeData(30)
+    setScale()
+    ctx.canvas.width = 670 
+    ctx.canvas.height = 375 
     myChart = new Chart(ctx).Line(metricsData, options);
-    $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
+    $("#graph_title").html(_data.team.entities[$(this).index()].properties.first_name + "'s Conversion History")
   });
 
   $(".contributor")
@@ -473,11 +477,12 @@ function totalOrdersForWeek(){
         _url: "/u/users/" + member.properties.id + "/downline",
         _callback: function(data, text) {
           count += 1
+          console.log("count: " + count + " length: " + _data.team.entities.length)
           member.properties.downline_count = data.entities.length;
           EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
             _contributors.append(html);
           });
-          if(count == _data.team.entities.length) contributorEvents();
+          if(count >= _data.team.entities.length) contributorEvents();
         }
       });
     });
