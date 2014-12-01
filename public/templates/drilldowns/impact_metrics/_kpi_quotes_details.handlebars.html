@@ -5,7 +5,7 @@
     <div class="object_detail_content">
       <div class="object_detail_content_section summary">
         <h4>Current Progress</h4>
-        <a class="return_to_team" style="z-index:99;margin:auto;display:block;height:30px; display:none; float:left; font-size:14px; text-transform:uppercase;">Return To Team Details</a>
+        <a class="return_to_team" style="z-index:99;margin:auto;display:block;height:50px; display:none; float:left; font-size:14px; text-transform:uppercase;">Return To Team Details</a>
         <span class="subtext progress_description" style="clear:both;">
         Today: 34 Quotes, 22 Sales <br>
         This Week: 78 Quotes, <span class="totalOrdersForWeek">0</span> Sales
@@ -338,6 +338,9 @@ $(".time_scale .week").on("click", function() {
 // PAGINATION FOR USERS
   $('.fa-chevron-down').show();
   $('.fa-chevron-down').on("click", function(e) {
+    $('.contributor').each(function(){
+      $(this).velocity({backgroundColor:"#545454"},100);
+    })
     if($('.fa-chevron-down').hasClass("active")){
       e.preventDefault();
       e.stopPropagation();
@@ -352,6 +355,9 @@ $(".time_scale .week").on("click", function() {
   });
 
   $('.fa-chevron-up').on("click", function(e) {
+    $('.contributor').each(function(){
+      $(this).velocity({backgroundColor:"#545454"},100);
+    })
       if($('.fa-chevron-up').hasClass("active")){
         e.preventDefault();
         e.stopPropagation();
@@ -397,7 +403,6 @@ function contributorEvents(){
     _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
     $(".progress_description").hide();
     $('.contributor').each(function(){
-      console.log("click")
       $(this).velocity({backgroundColor:"#545454"},100);
     })
     $(this).velocity({backgroundColor:"#454545"},100);
@@ -415,6 +420,7 @@ function contributorEvents(){
   });
 
   $(".contributor")
+      .show()
       .velocity("transition.slideUpBigIn", { 
         stagger: 200, 
         duration: 600
@@ -468,7 +474,6 @@ function totalOrdersForWeek(){
 
   function populateContributors() {
     var _contributors = $(".contributors");
-    var count = 0;
     _contributors.html("");
 
     _data.team.entities.forEach(function(member) {
@@ -476,13 +481,11 @@ function totalOrdersForWeek(){
         _ajaxType: "get",
         _url: "/u/users/" + member.properties.id + "/downline",
         _callback: function(data, text) {
-          count += 1
-          console.log("count: " + count + " length: " + _data.team.entities.length)
           member.properties.downline_count = data.entities.length;
           EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
+          if($('.contributor').length == _data.team.entities.length) contributorEvents();
             _contributors.append(html);
           });
-          if(count >= _data.team.entities.length) contributorEvents();
         }
       });
     });
