@@ -1,7 +1,7 @@
-<div class="arrow">
-</div>
+<div class="arrow"></div>
 <div class="drilldown_content">
   <div id="kpi_environment_detail" class="object_detail">
+
     <div class="object_detail_content">
       <div class="object_detail_content_section summary">
         <h4>Current Progress</h4>
@@ -10,60 +10,20 @@
         Today: 34 Quotes, 22 Sales <br>
         This Week: 78 Quotes, <span class="totalOrdersForWeek">0</span> Sales
         </span>
-        <script>
-
-        //total orders for the given week
-
-          function totalOrdersForWeek(){
-            var _ordersCounter = 0;
-            _data.team.entities.forEach(function(member){
-              _data.impact_metrics.push({"id": member.properties.id, "orders": member.properties.orders, "week": "this week"});
-              _ordersCounter += member.properties.orders;
-            })
-            $(".totalOrdersForWeek").html(_ordersCounter);
-            return _ordersCounter;
-          }
-
-
-          //bringing in current user's downline on the left side of KPIs (andrew)
-
-          function populateContributors() {
-            var _contributors = $(".contributors");
-            _contributors.html("");
-
-            _data.team.entities.forEach(function(member) {
-              _ajax({
-                _ajaxType: "get",
-                _url: "/u/users/" + member.properties.id + "/downline",
-                _callback: function(data, text) {
-                  member.properties.downline_count = data.entities.length;
-                  EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
-                    _contributors.append(html);
-                  });
-                }
-              });
-            });
-          }
-
-          totalOrdersForWeek();
-          populateContributors();
-        </script>
-        <div class="contributors">
-          
-        </div>
+        <div class="contributors"></div>
         <div class="scroll-arrows">
-          <i class="fa fa-chevron-up fa-1x"></i><span class="page-count">1 of 6</span><i class="fa fa-chevron-down fa-1x"></i>
+          <i class="fa fa-chevron-up fa-1x"></i><span class="page-count"></span><i class="fa fa-chevron-down fa-1x"></i>
         </div>
       </div>
 
       <div class="object_detail_content_section" style="padding-left:20px;">
         <h4 id="graph_title">Full Genealogy Conversion History </h4>
         <canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
-
         <div class="time_unit_nav">
-          <i class="fa fa-chevron-left back" style="color:#555;padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px;margin-right:10px;"></i> <span class="week-span"></span> <i class="fa fa-chevron-right forward" style="color:#555; padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px; margin-left:10px;"></i>
+          <i class="fa fa-chevron-left back" style="color:#555;padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px;margin-right:10px;"></i> 
+          <span class="week-span"></span> 
+          <i class="fa fa-chevron-right forward" style="color:#555; padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px; margin-left:10px;"></i>
         </div>
-
         <div style="width:150px; padding-left:50px;float:left;">
           <div class="time_scale">
             Time Scale:
@@ -86,76 +46,56 @@
             <div class="legend-item" id="top-performer"></div>
             <span id="performer" class="legend-text"></span>
           </div>
-
           <br>
-        </div>
-      </div>
-
-    </div>
-    <!-- end object detail content -->
-  </div>
-</div>
-
+        </div> <!-- end legend section -->
+      </div> <!-- end object_detail_content_section -->
+    </div> <!-- end object_detail_content -->
+  </div> <!-- end object_detail -->
+</div> <!-- end drilldown_content -->
 
 
 <script>
-var _randomData = {}
-_randomData.me = [];
-_randomData.team = [];
-_randomData.performer = [];
+
 var _labels = [];
+var position = 0;
+var page = 1;
+var total_pages = Math.ceil(_data.team.entities.length / 3)
+var now = new Date()
+now = setCalendarWeek()
+var nowWeek = (new Date()).getWeek();
+var nowMonth = (new Date()).getMonth();
+var _endPoints = [];
+var scale = "week"
 var topPerformers = [];
 var currentlyViewing = "team";
+var scaleSteps = ""
+
+var teamWeekData = {
+                    "sales":[23,24,26,0,0,0,0],
+                    "quotes":[19,21,19,0,0,0,0]
+                   };
+
+var teamMonthData = {
+                   "sales":[19,20,23,24,26,20,21,22,23,22,21,20,19,17,20,25,26,21,20,20,20,25,25,23,21,23,24,26,0,0,0],
+                   "quotes":[15,16,19,19,15,16,17,17,15,13,16,17,12,15,21,21,19,15,15,16,17,23,21,20,19,19,21,19,0,0,0]
+                  };
+
 var metricsData = {
-
-  labels: _labels,
-  datasets: [{
-    label: "My First dataset",
-    fillColor: "rgba(32, 194, 241,1)",
-    highlightFill: "#5bd7f7",
-    data: []
-  }, {
-    label: "My Second dataset",
-    fillColor: "rgba(253, 180, 92, .9)",
-    highlightFill: "#FFC870",
-    data: []
-  }]
-
+ labels: _labels,
+ datasets: [{
+   label: "My First dataset",
+   fillColor: "rgba(32, 194, 241,.9)",
+   highlightFill: "#5bd7f7",
+   strokeColor: "rgba(220,220,220,1)",
+   data: teamWeekData["sales"]
+ }, {
+   label: _labels,
+   fillColor: "rgba(253, 180, 92, .9)",
+   highlightFill: "#FFC870",
+   strokeColor: "rgba(220,220,220,1)",
+   data: teamWeekData["quotes"]
+ }]
 };
-
-generateData(7);
-$.extend(metricsData.datasets[0].data, _randomData.me);
-$.extend(metricsData.datasets[1].data, _randomData.team);
-
-function generateData(days) {
-  if (typeof days === "undefined") days = 7;
-
-  for (i = 1; i <= days; i++) {
-    _labels.push("11/" + i);
-  }
-  for (i = 1; i <= days; i++) {
-    _randomData.me.push(Math.floor(Math.random() * 18 + 75));
-    _randomData.team.push(Math.floor(Math.random() * 18 + 25));
-  }
-
-  ["John Doe", "Danny Smith", "Lisa Williams"].forEach(function(name) {
-    var tempData1 = [];
-    var tempData2 = [];
-
-    for (i = 1; i <= days; i++) tempData1.push(Math.floor(Math.random() * 30 + 10));
-    for (i = 1; i <= days; i++) tempData2.push(Math.floor(Math.random() * 30 + 10));
-
-    topPerformers.push({
-      name: name,
-      data1: tempData1,
-      data2: tempData2
-    });
-  });
-}
-
-
-
-var ctx = document.getElementById("metricsChart").getContext("2d");
 
 var options = {
 
@@ -167,7 +107,12 @@ var options = {
 
   //String - Colour of the grid lines
   scaleGridLineColor: "rgba(255,255,255,.15)",
+
+  scaleLineColor: "rgba(255,255,255,.15)",
+
   scaleFontColor: "#fff",
+
+  bezierCurveTension : .3,
 
   //Number - Width of the grid lines
   scaleGridLineWidth: 1,
@@ -181,63 +126,135 @@ var options = {
   //Number - Spacing between each of the X value sets
   barValueSpacing: 5,
 
-
   //Number - Spacing between data sets within X values
   barDatasetSpacing: 1,
 
-    //Point dot size
-    pointDotRadius : 3,
-
-
+  //Point dot size
+  pointDotRadius : 4,
 
   scaleOverride: true,
 
-  scaleFontSize: 13,
+    scaleFontSize: 13,
 
-  // ** Required if scaleOverride is true **
-  // Number - The number of steps in a hard coded scale
-  scaleSteps: 12,
-  // Number - The value jump in the hard coded scale
-  scaleStepWidth: 12,
-  // Number - The scale starting value
-  scaleStartValue: 0,
+    scaleLabel : " <%= !Number(value) ? '' :  Number(value)%>",
+
+    // ** Required if scaleOverride is true **
+    // Number - The number of steps in a hard coded scale
+    scaleSteps: 12,
+    // Number - The value jump in the hard coded scale
+    scaleStepWidth: Math.floor(scaleSteps / 12),
+    // Number - The scale starting value
+    scaleStartValue: 0,
 
   //String - A legend template
   legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
 }
 
-var myChart = new Chart(ctx).Line(metricsData, options);
-var position = 0;
-var page = 1;
-var total_pages = Math.ceil(_data.team.entities.length / 3)
-var now = new Date();
-var nowWeek = (new Date()).getWeek();
-var nowMonth = (new Date()).getMonth();
-var _endPoints = [];
-var scale = "week"
+setScale();
 
+function setScale() {
+  _labels = [];
+
+  if(scale == "week") {
+    for (i = 0; i <= 6; i++) {
+      _labels.push(now.getMonth() + 1 + "/" + (now.addDays(i).getDate()));
+    }
+    options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.5)/12);
+  } else {
+    for (i = 0; i <= numberOfDaysInMonth() - 1; i++) {
+      _labels.push(now.getMonth() + 1 + "/" + (now.getDate() + i));
+    }
+    options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.5)/12);
+  }
+
+  metricsData.labels = _labels
+}
+
+// function getTeamWeekData() {
+//   total = 0;
+//   _data.impact_metrics.orders[(now.getYear() + 1900) + "W" + now.getWeek()].forEach(function(user){
+//     users.orders.forEach(function(order){
+//       if(order){
+
+//       }
+//     })
+//   })
+//   return total;
+// }
+
+function setCalendarWeek(){
+  daysFromSun = now.getDay()
+  return new Date(now.setDate(now.getDate() - daysFromSun))
+}
+
+function setCalendarMonth(){
+  return now.setDate(1);
+}
+
+function numberOfDaysInMonth(){
+  days = new Date(now);
+  days = new Date(days.setMonth(now.getMonth() + 1));
+  return (new Date(days.setDate(0))).getDate();
+} 
+
+function randomizeData(length){
+  metricsData.datasets[0].data = []
+  metricsData.datasets[1].data = []
+  for(i = 0; i <= length; i++) {
+    metricsData.datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
+    metricsData.datasets[1].data.push(Math.floor(Math.random() * 10 + 15));
+  }
+}
+
+var ctx = $("#metricsChart").get(0).getContext("2d");
+var myChart = new Chart(ctx).Line(metricsData, options);
 
 //TIME FUNCTIONS
 displayWeek()
 
   $('.back').on("click", function(){
     if(scale == "month"){
-    monthBack()
-    displayMonth()
+      monthBack()
+      displayMonth()
+      myChart.destroy();
+      randomizeData(30)
+      setScale() 
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 375 
+      myChart = new Chart(ctx).Line(metricsData, options);
     } else {
       weekBack()
       displayWeek()
+      setScale() 
+      myChart.destroy();
+      randomizeData(6)
+      setScale()
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 375  
+      myChart = new Chart(ctx).Line(metricsData, options);
     }
   })
 
   $('.forward').on("click", function(){
     if(scale == "month"){
-    monthForward()
-    displayMonth()
+      monthForward()
+      displayMonth()
+      setScale() 
+      myChart.destroy();
+      randomizeData(30)
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 375 
+      myChart = new Chart(ctx).Line(metricsData, options);
     } else {
       weekForward()
       displayWeek()
+      setScale() 
+      myChart.destroy();
+      randomizeData(6)
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 375 
+      myChart = new Chart(ctx).Line(metricsData, options);
     }
   })
 
@@ -269,19 +286,7 @@ displayWeek()
     $(".week-span").html($.datepicker.formatDate('MM, yy', now));
   }
 
-//////////////////////////////////////////
 
-//MONTH FUNCTIONS
-
-
-//////////////////////////////////////////
-
-$(".contributor")
-    .velocity("transition.slideUpBigIn", { 
-      stagger: 200, 
-      duration: 600
-    })
-    .append("<hr style='border-color:rgba(255,255,255,.08);margin:5px 0 5px 0'> ")
 
 
 $(".return_to_team").on("click",function(e){
@@ -294,73 +299,39 @@ $(".return_to_team").on("click",function(e){
   	$(".return_to_team").hide();
     $(".progress_description").fadeIn();
     currentlyViewing="team";
-
-
 });
 
 $(".time_scale .month").on("click", function() {
+  setCalendarMonth()
   displayMonth()
   scale = "month"
-  // _randomData.me.length = 0;
-  // _randomData.team.length = 0;
-  // _labels.length = 0;
-  // topPerformers.length = 0;
-  // metricsData.datasets[0].data.length = 0;
-  // metricsData.datasets[1].data.length = 0;
-
-  // generateData(30);
-
-  // if (currentlyViewing == "team") {
-  //   $("#graph_title").html("Full Genealogy Conversion History");
-  //   $.extend(metricsData.datasets[0].data, _randomData.me);
-  //   $.extend(metricsData.datasets[1].data, _randomData.team);
-  // } else {
-  //   $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
-  //   $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
-  //   $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
-  // }
-  // options.animationSteps = 20;
-  // myChart.destroy();
-  // myChart = new Chart(ctx).Line(metricsData, options);
-  // $(".time_unit_nav span").html("November, 2014")
+  myChart.destroy();
+  randomizeData(30)
+  setScale()
+  ctx.canvas.width = 670 
+  ctx.canvas.height = 375 
+  myChart = new Chart(ctx).Line(metricsData, options);
+  
   $(".time_scale .week").removeClass("active");
   $(this).addClass("active");
 })
 
 $(".time_scale .week").on("click", function() {
+  setCalendarWeek()
   displayWeek()
   scale = "week"
-  // _randomData.me.length = 0;
-  // _randomData.team.length = 0;
-  // _labels.length = 0;
-  // topPerformers.length = 0;
-  // metricsData.datasets[0].data.length = 0;
-  // metricsData.datasets[1].data.length = 0;
-
-  // generateData(7);
-
-  // if (currentlyViewing == "team") {
-  //   $("#graph_title").html("Full Genealogy Conversion History");
-  //   $.extend(metricsData.datasets[0].data, _randomData.me);
-  //   $.extend(metricsData.datasets[1].data, _randomData.team);
-  // } else {
-  //   $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
-  //   $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
-  //   $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
-  // }
-  // $.extend(metricsData.datasets[0].data, _randomData.me);
-  // $.extend(metricsData.datasets[1].data, _randomData.team);
-  // $.extend(metricsData.datasets[0].data, _randomData.me);
-  // $.extend(metricsData.datasets[1].data, _randomData.team);
-
-  // options.animationSteps = 20;
-  // myChart.destroy();
-  // myChart = new Chart(ctx).Line(metricsData, options);
-
-  // $(".time_unit_nav span").html("Week 11/1 - 11/7");
+  myChart.destroy();
+  randomizeData(6)
+  setScale()
+  ctx.canvas.width = 670 
+  ctx.canvas.height = 375 
+  myChart = new Chart(ctx).Line(metricsData, options);
+ 
   $(".time_scale .month").removeClass("active");
   $(this).addClass("active");
 })
+
+ $('.page-count').html(page + " of " + total_pages);
 
 // PAGINATION FOR USERS
   $('.fa-chevron-down').show();
@@ -415,33 +386,36 @@ checkPage()
 
 //////////////////////////
 
-$(".contributor").on("click", function(e) {
+function contributorEvents(){
 
-  e.preventDefault();
-  e.stopPropagation();
-  $(".return_to_team").fadeIn();
-  _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
-  $(".progress_description").hide();
-  $('.contributor').each(function(){
-    $(this).velocity({backgroundColor:"#545454"},100);
-  })
-  $(this).velocity({backgroundColor:"#454545"},100);
+  $(".contributor").on("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $(".return_to_team").fadeIn();
+    _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
+    $(".progress_description").hide();
+    $('.contributor').each(function(){
+      console.log("click")
+      $(this).velocity({backgroundColor:"#545454"},100);
+    })
+    $(this).velocity({backgroundColor:"#454545"},100);
 
-  $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
-  $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
-  currentlyViewing = "individuals";
+    $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
+    $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
+    currentlyViewing = "individuals";
 
-  // metricsData.datasets[2].fillColor = "rgba(44,148,105,1)";
-  // metricsData.datasets[2].highlightFill= "rgba(44,148,105,1)";
+    options.animationSteps = 20;
+    myChart.destroy();
+    myChart = new Chart(ctx).Line(metricsData, options);
+    $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
+  });
 
-  options.animationSteps = 20;
-  myChart.destroy();
-  myChart = new Chart(ctx).Line(metricsData, options);
-  $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
-    // $("#performer").html(topPerformers[_index].name);
-    // $(".legend").removeClass("hide");
-
-});
+  $(".contributor")
+      .velocity("transition.slideUpBigIn", { 
+        stagger: 200, 
+        duration: 600
+      })
+}
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -482,4 +456,72 @@ function totalOrdersForWeek(){
   return _ordersCounter;
 }
 
+  //bringing in current user's downline on the left side of KPIs (andrew)
+
+  function populateContributors() {
+    var _contributors = $(".contributors");
+    var count = 0;
+    _contributors.html("");
+
+    _data.team.entities.forEach(function(member) {
+      _ajax({
+        _ajaxType: "get",
+        _url: "/u/users/" + member.properties.id + "/downline",
+        _callback: function(data, text) {
+          count += 1
+          member.properties.downline_count = data.entities.length;
+          EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
+            _contributors.append(html);
+          });
+          if(count == _data.team.entities.length) contributorEvents();
+        }
+      });
+    });
+  }
+
+ 
+  totalOrdersForWeek();
+  populateContributors();
+
+
+ 
+// RANDOM DATA GENERATION 
+
+// var _randomData = {}
+// _randomData.me = [];
+// _randomData.team = [];
+// _randomData.performer = [];
+
+// generateData(7);
+// $.extend(metricsData.datasets[0].data, _randomData.me);
+// $.extend(metricsData.datasets[1].data, _randomData.team);
+
+// function generateData(days) {
+//   if (typeof days === "undefined") days = 7;
+
+//   for (i = 1; i <= days; i++) {
+//     _labels.push("11/" + i);
+//   }
+//   for (i = 1; i <= days; i++) {
+//     _randomData.me.push(Math.floor(Math.random() * 18 + 75));
+//     _randomData.team.push(Math.floor(Math.random() * 18 + 25));
+//   }
+
+//   ["John Doe", "Danny Smith", "Lisa Williams"].forEach(function(name) {
+//     var tempData1 = [];
+//     var tempData2 = [];
+
+//     for (i = 1; i <= days; i++) tempData1.push(Math.floor(Math.random() * 30 + 10));
+//     for (i = 1; i <= days; i++) tempData2.push(Math.floor(Math.random() * 30 + 10));
+
+//     topPerformers.push({
+//       name: name,
+//       data1: tempData1,
+//       data2: tempData2
+//     });
+//   });
+// }
+
 </script>
+
+
