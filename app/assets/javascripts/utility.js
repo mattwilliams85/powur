@@ -882,3 +882,10 @@ Date.prototype.addDays = function(days)
     return d;
 }
 
+Date.prototype.getWeekYear = function ()   
+{  
+    var target  = new Date(this.valueOf());  
+    target.setDate(target.getDate() - ((this.getDay() + 6) % 7) + 3);  
+      
+    return target.getFullYear();  
+}  

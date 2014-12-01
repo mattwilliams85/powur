@@ -12,7 +12,7 @@
         </span>
         <div class="contributors"></div>
         <div class="scroll-arrows">
-          <i class="fa fa-chevron-up fa-1x"></i><span class="page-count">1 of 6</span><i class="fa fa-chevron-down fa-1x"></i>
+          <i class="fa fa-chevron-up fa-1x"></i><span class="page-count"></span><i class="fa fa-chevron-down fa-1x"></i>
         </div>
       </div>
 
@@ -158,14 +158,14 @@ function setScale() {
 
   if(scale == "week") {
     for (i = 0; i <= 6; i++) {
-      _labels.push(now.getMonth() + 1 + "/" + (now.getDate() + i));
-      options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.5)/12);
+      _labels.push(now.getMonth() + 1 + "/" + (now.addDays(i).getDate()));
     }
+    options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.5)/12);
   } else {
     for (i = 0; i <= numberOfDaysInMonth() - 1; i++) {
       _labels.push(now.getMonth() + 1 + "/" + (now.getDate() + i));
-      options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.5)/12);
     }
+    options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.5)/12);
   }
 
   metricsData.labels = _labels
@@ -286,12 +286,7 @@ displayWeek()
     $(".week-span").html($.datepicker.formatDate('MM, yy', now));
   }
 
-$(".contributor")
-    .velocity("transition.slideUpBigIn", { 
-      stagger: 200, 
-      duration: 600
-    })
-    .append("<hr style='border-color:rgba(255,255,255,.08);margin:5px 0 5px 0'> ")
+
 
 
 $(".return_to_team").on("click",function(e){
@@ -335,6 +330,8 @@ $(".time_scale .week").on("click", function() {
   $(".time_scale .month").removeClass("active");
   $(this).addClass("active");
 })
+
+ $('.page-count').html(page + " of " + total_pages);
 
 // PAGINATION FOR USERS
   $('.fa-chevron-down').show();
@@ -389,29 +386,36 @@ checkPage()
 
 //////////////////////////
 
-$(".contributor").on("click", function(e) {
+function contributorEvents(){
 
-  e.preventDefault();
-  e.stopPropagation();
-  $(".return_to_team").fadeIn();
-  _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
-  $(".progress_description").hide();
-  $('.contributor').each(function(){
-    console.log("click")
-    $(this).velocity({backgroundColor:"#545454"},100);
-  })
-  $(this).velocity({backgroundColor:"#454545"},100);
+  $(".contributor").on("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $(".return_to_team").fadeIn();
+    _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
+    $(".progress_description").hide();
+    $('.contributor').each(function(){
+      console.log("click")
+      $(this).velocity({backgroundColor:"#545454"},100);
+    })
+    $(this).velocity({backgroundColor:"#454545"},100);
 
-  $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
-  $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
-  currentlyViewing = "individuals";
+    $.extend(metricsData.datasets[0].data, topPerformers[_index].data1);
+    $.extend(metricsData.datasets[1].data, topPerformers[_index].data2);
+    currentlyViewing = "individuals";
 
-  options.animationSteps = 20;
-  myChart.destroy();
-  myChart = new Chart(ctx).Line(metricsData, options);
-  $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
+    options.animationSteps = 20;
+    myChart.destroy();
+    myChart = new Chart(ctx).Line(metricsData, options);
+    $("#graph_title").html(topPerformers[_index].name + "'s Conversion History")
+  });
 
-});
+  $(".contributor")
+      .velocity("transition.slideUpBigIn", { 
+        stagger: 200, 
+        duration: 600
+      })
+}
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -460,6 +464,7 @@ function totalOrdersForWeek(){
 
   function populateContributors() {
     var _contributors = $(".contributors");
+    var count = 0;
     _contributors.html("");
 
     _data.team.entities.forEach(function(member) {
@@ -467,10 +472,12 @@ function totalOrdersForWeek(){
         _ajaxType: "get",
         _url: "/u/users/" + member.properties.id + "/downline",
         _callback: function(data, text) {
+          count += 1
           member.properties.downline_count = data.entities.length;
           EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
             _contributors.append(html);
           });
+          if(count == _data.team.entities.length) contributorEvents();
         }
       });
     });
