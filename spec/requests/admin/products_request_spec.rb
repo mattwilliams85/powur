@@ -77,5 +77,13 @@ describe '/a/products' do
       expect_alert_error
     end
 
+    it 'returns the product sku' do
+      product = create(:product)
+
+      get product_path(product), format: :json
+
+      expect_classes 'product'
+      expect_props id: product.id, name: product.name
+    end
   end
 end

@@ -13,9 +13,7 @@ module Admin
 
     def create
       require_input :name
-
       @product = Product.create!(input)
-
       render 'show'
     end
 

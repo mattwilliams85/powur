@@ -32,9 +32,12 @@ Rails.application.routes.draw do
   scope :u, module: :auth do
     resource :dashboard, only: [ :show ], controller: :dashboard
 
-    resource :empower_merchant, only:       [ :sandbox],
-                                controller: :empower_merchant do
+    resource :empower_merchant, only: [ :sandbox, :process_card, :confirmation ], controller: :empower_merchant do
       get 'sandbox', to: 'empower_merchant#sandbox'
+      get 'confirmation', to: 'empower_merchant#confirmation'
+      collection do
+        post 'process_card' => 'empower_merchant', as: :process_card
+      end
     end
 
     resource :ewallet, only:       [ :index, :account_details ],

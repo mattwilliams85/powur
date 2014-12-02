@@ -1,7 +1,152 @@
+    <% content_for :javascript_includes do %>
+    <%= javascript_include_tag "creditly.js" %>
+<% end %>
+<%= stylesheet_link_tag "creditly", media: "all" %>
+
+  <script type="text/javascript">
+    $(function() {
+      console.log("BEGIN");
+      var amount = $("#direct-post-amount").val();
+      var product_id = $("#direct-post-product-id").val();
+      var creditly = Creditly.initialize(
+          '.creditly-wrapper .expiration-month-and-year',
+          '.creditly-wrapper .credit-card-number',
+          '.creditly-wrapper .security-code',
+          '.creditly-wrapper .card-type');
+
+      $("#process-form").click(function(e) {
+        e.preventDefault();
+        var output = creditly.validate();
+        if (output) {
+          console.log(output);
+          var jsonBody = {"authenticity_token": output['authenticity_token'], 'amount': amount, 'number':output['number'], 'security_code': output['security_code'], 'name': output['name'], 'expiration_month': output['expiration_month'],'expiration_year': output['expiration_year'], 'product_id': product_id}
+          $.ajax({
+                url: "http://localhost:3000/u/empower_merchant/process_card.json",
+                type: "post",
+                data: JSON.stringify(jsonBody),
+                contentType: "application/json;",
+                dataType: "json",
+                success: function(result){
+                    console.log("Success RESULT:...");
+
+                    console.log(result);
+                    //$("#output").html(result);
+                },
+                error:function(error){
+                    console.log(error);
+
+                    $("#output").html(error);
+                }
+
+            });
+        }
+      });
+    });
+
+  </script>
+
+<style>
+
+.nmi-container {
+  width:100%;
+  float:left;
+  margin:20px 0px 10px 20px;
+  min-height:430px;
+}
+
+.nmi-container label {
+font-family: "Varela Round", sans-serif;
+color:#eee;
+font-size: 13.33333px;
+line-height: 16px;
+text-transform: uppercase;
+top: 0px;
+position: relative;
+left: 0px;
+float: left;
+}
+.nmi-container fieldset {
+  border:1px solid #333;
+  width:630px;
+}
+</style>
 <section id="em-sandbox">
 
     <div class="sandbox-container">
         <h3>Empower Merchant Sandbox</h3>
     </div>
+
+    <section class="nmi-container">
+      <form action="https://secure.nmi.com/cart/cart.php" method="POST">
+        <input type="hidden" name="key_id" value="5034198" />
+        <input type="hidden" name="action" value="process_fixed" />
+        <input type="hidden" name="amount" value="500.00" />
+        <input type="hidden" name="order_description" value="Sunstand Certification" />
+        <input type="hidden" name="language" value="en" />
+        <input type="hidden" name="url_finish" value="<%= confirmation_empower_merchant_path %>" />
+        <input type="hidden" name="customer_receipt" value="true" />
+        <input type="hidden" name="hash" value="action|amount|order_description|987e169ef7cd5eea1aefb942eb496422" />
+        <fieldset>
+          <legend>Quick Click</legend>
+          <h3>SunRun Solar Item - $500.00 USD </h3>
+          <input type="submit" name="submit" value="Buy Now" />
+          <p>This example represents the "Buy It Now" button. A user can click this and they will be ushered to a checkout page (hosted by Empower Merchant).  From there, they'll complete a transaction and return to a URL of our choice. </p>
+        </fieldset>
+
+        </form>
+    </section>
+
+    <section class='nmi-container'>
+      <form class="creditly-card-form">
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+        <div class="top-level-wrapper blue-theme-wrapper">
+          <section class="creditly-wrapper blue-theme">
+            <div class="credit-card-wrapper">
+              <div class="first-row form-group">
+                <div class="col-sm-8 controls">
+                  <label class="control-label">Card Number</label>
+                  <input class="number credit-card-number form-control"
+                    type="text" name="number" value="4111111111111111"
+                    inputmode="numeric" autocomplete="cc-number" autocompletetype="cc-number" x-autocompletetype="cc-number"
+                    placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
+                </div>
+                <div class="col-sm-4 controls">
+                  <label class="control-label">CVV</label>
+                  <input class="security-code form-control"·
+                    inputmode="numeric"
+                    pattern="\d*"
+                    type="text" name="security-code" value="444"
+                    placeholder="&#149;&#149;&#149;">
+                </div>
+              </div>
+              <div class="second-row form-group">
+                <div class="col-sm-8 controls">
+                  <label class="control-label">Name on Card</label>
+                  <input class="billing-address-name form-control"
+                    type="text" name="name"
+                    value="Danny Test">
+                </div>
+                <div class="col-sm-4 controls">
+                  <label class="control-label">Expiration</label>
+                  <input class="expiration-month-and-year form-control"
+                    type="text" name="expiration-month-and-year" value="10/19"
+                    placeholder="MM / YY">
+                </div>
+              </div>
+              <div class="card-type"></div>
+            </div>
+          </section>
+          <input type='hidden' name='amount' id="direct-post-amount" value='500'/>
+          <input type='hidden' name='product_id' id="direct-post-product-id" value='1'/>
+          <button class="creditly-blue-theme-submit" id="process-form"><span>Process</span></button>
+        </div>
+      </form>
+
+      <div id="output">OUTPUT GOES HERE....</div>
+    </section><!--End credit direct post nmi-container -->
+
+
+
+
 
 </section>

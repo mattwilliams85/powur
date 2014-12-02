@@ -1,5 +1,7 @@
 module EmpowerMerchantDSL
   extend ActiveSupport::Concern
+  # require 'active_merchant'
+
   include EmpowerMerchantRequestHelper
   attr_accessor :client
 
@@ -11,8 +13,10 @@ module EmpowerMerchantDSL
     conn = establish_connection
   end
 
-  private
 
-  # def ###
-  # end
+  def post(text)
+    options = { :body => {:status => text}}
+    self.class.post('/statuses/update.json', options)
+  end
+
 end

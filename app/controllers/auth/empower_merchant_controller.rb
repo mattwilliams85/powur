@@ -1,6 +1,6 @@
 module Auth
   class EmpowerMerchantController < AuthController
-    include EmpowerMerchantDSL
+    include EmpowerMerchantRequestHelper
     before_action :fetch_user
 
     def index
@@ -13,8 +13,15 @@ module Auth
     end
 
     def sandbox
-      # sandbox stuff
-      conn = connect
+    end
+
+    def confirmation
+      # Transaction Complete
+    end
+
+    def process_card
+      response = post_sale(params)
+      #record_transaction(response)
     end
 
     def fetch_user
