@@ -1365,7 +1365,7 @@
 	position: relative;
 	width: 1264px;
 	margin: 0 auto;
-	background-color:#535353;
+	background-color:#444;
 	// Background & borders
 	border-top:1px solid rgba(255, 255, 255, 0.06);
 
@@ -2045,8 +2045,8 @@
   }
 
   .avatar {
-    width:70px;
-    height:70px;
+    width:55px;
+    height:55px;
     -moz-border-radius:50%;
     -webkit-border-radius:50%;
     border-radius:50%;
@@ -2072,17 +2072,22 @@
 
   .info-box {
     display:inline-block;
-    padding-top:10px;
+    padding:10px 0 0 0;
   }
 
   .info-text {
-    padding:2.5px 0 0 21px;
+    padding:0 0 0 20px;
     float:left;
   }
 
   .light-text {
     color:#eee;
     font-size:0.75em;
+    display:block;
+  }
+
+  .contributor-name {
+  	font-size:0.9em;
   }
 
   .legend-box {
@@ -2144,20 +2149,20 @@ h4{
 }
 
 .contributors {
-  margin-top:15px;
   z-index:5;
   display:inline-block;
-  height:265px;
+  height:385px;
+  width:255px;
   overflow:hidden;
-  padding:10px 0 15px 0;
-  border-top:1.5px solid rgba(100,100,100,0.9);
-  border-bottom:1.5px solid rgba(100,100,100,0.9);
 }
 
 .contributor {
   cursor: pointer;
-  padding:0 15px;
-  background-color:#535353;
+  background-color:#555553;
+  padding-left:10px;
+  height:75px;
+  border-top:1px solid #444;
+  border-bottom:1px solid #444;
 }
 
 .drilldown_content {
@@ -2173,23 +2178,21 @@ h4{
 }
 
 .scroll-arrows{
+	font-size:1.5em;
 	color:#545454;
 	z-index:90;
 	width:200px;
+	margin-bottom:10px;
 	margin:auto;
-	margin-top:5px;
+
 }
 
-.fa-chevron-down {
-	padding:4px;
-	border-radius:100%;
-	background-color:rgb(238,238,238);
+.fa-caret-down {
+	color:rgb(238,238,238)
 }
 
-.fa-chevron-up {
-	padding:4px;
-	border-radius:100%;
-	background-color:rgb(238,238,238);
+.fa-caret-up {
+	color:rgb(238,238,238)
 }
 
 .fa-chevron-right, .fa-chevron-left {

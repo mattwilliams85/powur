@@ -4,15 +4,11 @@
 
     <div class="object_detail_content">
       <div class="object_detail_content_section summary">
-        <h4>Current Progress</h4>
-        <a class="return_to_team" style="z-index:99;margin:auto;display:block;height:50px; display:none; float:left; font-size:16px; text-transform:uppercase;">Return To Team Details</a>
-        <span class="subtext progress_description" style="clear:both;">
-        Today: 34 Quotes, 22 Sales <br>
-        This Week: 78 Quotes, <span class="totalOrdersForWeek">0</span> Sales
-        </span>
+        <h4>Top Performers</h4>
+        <a class="return_to_team" style="z-index:99;margin:auto;display:block; display:none; float:left; font-size:16px; text-transform:uppercase;">Return To Team Details</a>
         <div class="contributors"></div>
         <div class="scroll-arrows">
-          <i class="fa fa-chevron-up fa-1x"></i><span class="page-count"></span><i class="fa fa-chevron-down fa-1x"></i>
+          <i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>
         </div>
       </div>
 
@@ -336,16 +332,16 @@ $(".time_scale .week").on("click", function() {
  $('.page-count').html(page + " of " + total_pages);
 
 // PAGINATION FOR USERS
-  $('.fa-chevron-down').show();
-  $('.fa-chevron-down').on("click", function(e) {
+  $('.fa-caret-down').show();
+  $('.fa-caret-down').on("click", function(e) {
     $('.contributor').each(function(){
       $(this).velocity({backgroundColor:"#545454"},100);
     })
-    if($('.fa-chevron-down').hasClass("active")){
+    if($('.fa-caret-down').hasClass("active")){
       e.preventDefault();
       e.stopPropagation();
       page += 1
-      $('.page-count').html(page + " of " + total_pages);
+      // $('.page-count').html(page + " of " + total_pages);
       checkPage()
       position -= 270;
       $('.contributor').each(function() {
@@ -354,15 +350,15 @@ $(".time_scale .week").on("click", function() {
     }
   });
 
-  $('.fa-chevron-up').on("click", function(e) {
+  $('.fa-caret-up').on("click", function(e) {
     $('.contributor').each(function(){
       $(this).velocity({backgroundColor:"#545454"},100);
     })
-      if($('.fa-chevron-up').hasClass("active")){
+      if($('.fa-caret-up').hasClass("active")){
         e.preventDefault();
         e.stopPropagation();
         page -= 1;
-        $('.page-count').html(page + " of " + total_pages);
+        // $('.page-count').html(page + " of " + total_pages);
         checkPage();
         position += 270;
         $('.contributor').each(function() {
@@ -374,19 +370,19 @@ $(".time_scale .week").on("click", function() {
 
 function checkPage(){
   if (page != 1) {
-    $('.fa-chevron-up').css("opacity","1");
-    $('.fa-chevron-up').addClass("active");
+    $('.fa-caret-up').css("opacity","1");
+    $('.fa-caret-up').addClass("active");
   } else {
-    $('.fa-chevron-up').css("opacity","0.3");
-    $('.fa-chevron-up').removeClass("active");
+    $('.fa-caret-up').css("opacity","0.3");
+    $('.fa-caret-up').removeClass("active");
   }
 
   if (page !=  total_pages) {
-    $('.fa-chevron-down').css("opacity","1");
-    $('.fa-chevron-down').addClass("active");
+    $('.fa-caret-down').css("opacity","1");
+    $('.fa-caret-down').addClass("active");
   } else {
-    $('.fa-chevron-down').css("opacity","0.3");
-    $('.fa-chevron-down').removeClass("active");
+    $('.fa-caret-down').css("opacity","0.3");
+    $('.fa-caret-down').removeClass("active");
   }
 }
 
