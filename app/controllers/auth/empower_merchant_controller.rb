@@ -20,8 +20,9 @@ module Auth
     end
 
     def process_card
-      response = post_sale(params)
-      #record_transaction(response)
+      @transaction = post_sale(params)
+      record_transaction(params['empower_merchant'], @transaction)
+      @transaction
     end
 
     def fetch_user

@@ -26,11 +26,11 @@
                 data: JSON.stringify(jsonBody),
                 contentType: "application/json;",
                 dataType: "json",
-                success: function(result){
+                success: function(transaction){
                     console.log("Success RESULT:...");
 
                     console.log(result);
-                    //$("#output").html(result);
+                    $("#output").html("<h3>Transaction ID: </h3><span>" + transaction['transactionid'] + "</span>");
                 },
                 error:function(error){
                     console.log(error);
@@ -51,7 +51,7 @@
   width:100%;
   float:left;
   margin:20px 0px 10px 20px;
-  min-height:430px;
+  min-height:300px;
 }
 
 .nmi-container label {
@@ -68,6 +68,11 @@ float: left;
 .nmi-container fieldset {
   border:1px solid #333;
   width:630px;
+}
+#output {
+  margin-top:10px;
+  min-height:50px;
+  background-color:#DDD;
 }
 </style>
 <section id="em-sandbox">
@@ -98,6 +103,9 @@ float: left;
 
     <section class='nmi-container'>
       <form class="creditly-card-form">
+      <fieldset>
+        <legend>Direct Post</legend>
+        <h3>SunRun Solar Item - $500.00 USD </h3>
         <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
         <div class="top-level-wrapper blue-theme-wrapper">
           <section class="creditly-wrapper blue-theme">
@@ -140,9 +148,18 @@ float: left;
           <input type='hidden' name='product_id' id="direct-post-product-id" value='1'/>
           <button class="creditly-blue-theme-submit" id="process-form"><span>Process</span></button>
         </div>
+        <div id="output">Transaction Results....</div>
+        <ul>
+          <li>1. The customer sends their payment information to the merchant's web site.</li>
+          <li>2. The merchant web site posts the payment data to the Payment Gateway.</li>
+          <li>3. The Payment Gateway responds immediately with the results of the transactions.</li>
+          <li>4. The merchant web site displays the appropriate message to the customer.</li>
+        </ul>
+
+        </fieldset>
       </form>
 
-      <div id="output">OUTPUT GOES HERE....</div>
+
     </section><!--End credit direct post nmi-container -->
 
 
