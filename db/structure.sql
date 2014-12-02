@@ -450,6 +450,39 @@ CREATE TABLE pay_periods (
 
 
 --
+-- Name: product_receipts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE product_receipts (
+    id integer NOT NULL,
+    product_id integer NOT NULL,
+    user_id integer NOT NULL,
+    amount numeric(10,2) NOT NULL,
+    transaction_id character varying(255) NOT NULL,
+    order_id character varying(255) NOT NULL
+);
+
+
+--
+-- Name: product_receipts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE product_receipts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_receipts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE product_receipts_id_seq OWNED BY product_receipts.id;
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -460,7 +493,8 @@ CREATE TABLE products (
     commission_percentage integer DEFAULT 100 NOT NULL,
     distributor_only boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    sku character varying(255)
 );
 
 
@@ -916,6 +950,13 @@ ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY product_receipts ALTER COLUMN id SET DEFAULT nextval('product_receipts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
 
 
@@ -1110,6 +1151,14 @@ ALTER TABLE ONLY pay_periods
 
 
 --
+-- Name: product_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY product_receipts
+    ADD CONSTRAINT product_receipts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: products_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1259,6 +1308,13 @@ CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distribu
 --
 
 CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
+
+
+--
+-- Name: index_product_receipts_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_product_receipts_on_user_id ON product_receipts USING btree (user_id);
 
 
 --
@@ -1598,6 +1654,22 @@ ALTER TABLE ONLY orders
 
 
 --
+-- Name: product_receipts_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_receipts
+    ADD CONSTRAINT product_receipts_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: product_receipts_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_receipts
+    ADD CONSTRAINT product_receipts_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: qualifications_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1788,4 +1860,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141106012152');
 INSERT INTO schema_migrations (version) VALUES ('20141108221107');
 
 INSERT INTO schema_migrations (version) VALUES ('20141108221116');
+
+INSERT INTO schema_migrations (version) VALUES ('20141125215349');
+
+INSERT INTO schema_migrations (version) VALUES ('20141126112350');
 

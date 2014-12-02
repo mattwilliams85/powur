@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  after_create :assign_sku
+
   has_many :qualifications, dependent: :destroy
   has_many :bonus_sales_requirements, dependent: :destroy
   has_many :bonuses, through: :bonus_sales_requirements
@@ -36,6 +38,10 @@ class Product < ActiveRecord::Base
     @quote_field_keys ||= quote_fields.map(&:name)
   end
 
+  def assign_sku
+    sku = id.to_s.rjust(7,'0')
+    save
+  end
   class << self
     def default_id
       SystemSettings.default_product_id

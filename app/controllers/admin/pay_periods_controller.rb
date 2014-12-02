@@ -36,8 +36,6 @@ module Admin
       render 'show'
     end
 
-
-
     def calculate
       unless can_calculate?(@pay_period)
         error! t('errors.period_not_calculable')
@@ -55,14 +53,9 @@ module Admin
     end
 
     def disburse
-      puts '$$$$$$$$$$ DISBURSE FOR PAY PERIOD ' +
-            @pay_period.start_date.to_s +
-           ' - ' + @pay_period.end_date.to_s
       unless @pay_period.disbursable?
         error!(t('errors. period_not_disbursable'))
       end
-      puts '$$$$$$$$$$ NO ERRROR..commence disburse!'
-
       @pay_period.disburse!
       render 'index'
     end
@@ -94,10 +87,8 @@ module Admin
 
     def can_disburse?(period)
       unless period.disbursable?
-        puts "#$$$$$$$$$$can_disburse?.......PAY PERIOD IS NOT DISBURSABLE. RETURN FALSE"
         return false
       end
-      puts "^^^^^^^^^^^^^^^^^can_disburse?.......PAY PERIOD IS DISBURSABLE. Build disbursable_pay_Periods"
       @disbursable_pay_periods ||= begin
         periods = %w(WeeklyPayPeriod MonthlyPayPeriod).map do |type|
           list = @pay_periods.select do |pp|
