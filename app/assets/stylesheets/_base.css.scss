@@ -1,5 +1,6 @@
 // Base Styles
 
+
 body {
 	// Mixins
 
@@ -688,5 +689,37 @@ input[type="search"]::-webkit-search-cancel-button {
 		}
 	}
 
-	}
+}
 
+
+	// #select-dropdown {
+	//    width:200px;
+	//    overflow:hidden;
+	//    border:1px solid #eee
+	// }
+
+	// #select-dropdown select {
+	//    width:110%;
+	//   -webkit-appearance: none;
+	//   -moz-appearance: none;
+
+	// }
+
+	// #select-dropdown {
+	//    -webkit-touch-callout: none;
+	//    -webkit-user-select: none;
+	//    -khtml-user-select: none;
+	//    -moz-user-select: none;
+	//    -ms-user-select: none;
+	//    user-select: none;
+	// }
+	// ::-moz-selection {
+	//    background: transparent;
+	// }
+	// ::selection { 
+	//    background: transparent; 
+	// }
+
+	// #select-dropdown .fa-caret-down {
+	// 	height:1px;
+	// }
