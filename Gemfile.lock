@@ -313,6 +313,7 @@ DEPENDENCIES
   eyecue_ipayout!
   factory_girl_rails
   faker
+  faraday
   font-awesome-sass (~> 4.2.0)
   foreigner!
   gibbon
