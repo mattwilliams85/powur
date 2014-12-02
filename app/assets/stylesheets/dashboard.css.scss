@@ -2003,7 +2003,7 @@
 	}
 	.object_detail{
 		background: none;
-		padding:20px;
+		padding:20px 10px 10px 0;
 	}
 
 
@@ -2130,7 +2130,7 @@ h4{
   width: 280px;
   padding-right: 25px;
   height:445px;
-  border-right:1px solid rgba(100,100,100,0.9);
+  // border-right:1px solid rgba(100,100,100,0.9);
 
 }
 .object_detail_content_section{
@@ -2151,15 +2151,16 @@ h4{
 .contributors {
   z-index:5;
   display:inline-block;
-  height:385px;
-  width:255px;
+  height:386px;
+  width:260px;
   overflow:hidden;
+  margin:10px 0 0 0;
 }
 
 .contributor {
   cursor: pointer;
   background-color:#555553;
-  padding-left:10px;
+  padding-left:15px;
   height:75px;
   border-top:1px solid #444;
   border-bottom:1px solid #444;
@@ -2184,7 +2185,7 @@ h4{
 	width:200px;
 	margin-bottom:10px;
 	margin:auto;
-
+	padding:0 0 0 60px;
 }
 
 .fa-caret-down {
@@ -2199,12 +2200,26 @@ h4{
 	cursor:pointer;
 }
 
+.chart-icon {
+	color:rgb(238,238,238) !important;
+	padding:0 15px 0 15px;
+	font-size:1.5em;
+}
+
+.progress_description {
+	padding:0 0 0 15px;
+}
+
+.return_to_team i {
+	font-size:1.25em;
+}
+
 .page-count {
 	font-size:0.85em;
 	color:rgb(238,238,238);
 }
 
 .scroll-arrows i {
-	margin:0 15px 0 15px
+	margin:0 10px 0 25px
 }
 

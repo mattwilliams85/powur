@@ -4,8 +4,8 @@
 
     <div class="object_detail_content">
       <div class="object_detail_content_section summary">
-        <h4>Top Performers</h4>
-        <a class="return_to_team" style="z-index:99;margin:auto;display:block; display:none; float:left; font-size:16px; text-transform:uppercase;">Return To Team Details</a>
+        <span class="progress_description">Top Performers</span>
+        <a class="return_to_team" style="z-index:99;margin:auto;display:block; display:none; float:left; font-size:16px; text-transform:uppercase;"><i class="fa fa-bar-chart chart-icon"></i>  Return To Team</a>
         <div class="contributors"></div>
         <div class="scroll-arrows">
           <i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>
@@ -13,7 +13,7 @@
       </div>
 
       <div class="object_detail_content_section" style="padding-left:20px;">
-        <h4 id="graph_title">Full Genealogy Conversion History </h4>
+        <span id="graph_title" style="font-size:1.05em">Full Genealogy Conversion History </span>
         <canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
         <div class="time_unit_nav">
           <i class="fa fa-chevron-left back" style="color:#555;padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px;margin-right:10px;"></i> 
@@ -55,7 +55,7 @@
 var _labels = [];
 var position = 0;
 var page = 1;
-var total_pages = Math.ceil(_data.team.entities.length / 3)
+// var total_pages = Math.ceil(_data.team.entities.length / 5)
 var now = new Date()
 now = setCalendarWeek()
 var nowWeek = (new Date()).getWeek();
@@ -282,9 +282,6 @@ displayWeek()
     $(".week-span").html($.datepicker.formatDate('MM, yy', now));
   }
 
-
-
-
 $(".return_to_team").on("click",function(e){
 	myChart.destroy();
   randomizeData(30)
@@ -329,7 +326,7 @@ $(".time_scale .week").on("click", function() {
   $(this).addClass("active");
 })
 
- $('.page-count').html(page + " of " + total_pages);
+ // $('.page-count').html(page + " of " + total_pages);
 
 // PAGINATION FOR USERS
   $('.fa-caret-down').show();
@@ -343,7 +340,7 @@ $(".time_scale .week").on("click", function() {
       page += 1
       // $('.page-count').html(page + " of " + total_pages);
       checkPage()
-      position -= 270;
+      position -= 385;
       $('.contributor').each(function() {
         $(this).velocity({translateY: position + "px"});
       })
@@ -360,7 +357,7 @@ $(".time_scale .week").on("click", function() {
         page -= 1;
         // $('.page-count').html(page + " of " + total_pages);
         checkPage();
-        position += 270;
+        position += 385;
         $('.contributor').each(function() {
           $(this).velocity({translateY: position + "px"});
         })
@@ -377,7 +374,7 @@ function checkPage(){
     $('.fa-caret-up').removeClass("active");
   }
 
-  if (page !=  total_pages) {
+  if (page !=  2) {
     $('.fa-caret-down').css("opacity","1");
     $('.fa-caret-down').addClass("active");
   } else {
@@ -401,7 +398,7 @@ function contributorEvents(){
     $('.contributor').each(function(){
       $(this).velocity({backgroundColor:"#545454"},100);
     })
-    $(this).velocity({backgroundColor:"#454545"},100);
+    $(this).velocity({backgroundColor:"#333"},100);
 
     currentlyViewing = "individuals";
 
@@ -467,15 +464,17 @@ function totalOrdersForWeek(){
   function populateContributors() {
     var _contributors = $(".contributors");
     _contributors.html("");
+    array = _data.team.entities.slice(0,10)
 
-    _data.team.entities.forEach(function(member) {
+    array.forEach(function(member) {
       _ajax({
         _ajaxType: "get",
         _url: "/u/users/" + member.properties.id + "/downline",
         _callback: function(data, text) {
+          console.log(data)
           member.properties.downline_count = data.entities.length;
           EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
-          if($('.contributor').length == _data.team.entities.length) contributorEvents();
+          if($('.contributor').length == array.length) contributorEvents();
             _contributors.append(html);
           });
         }

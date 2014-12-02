@@ -762,7 +762,7 @@ function Dashboard(){
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=490px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=500px", opacity:1}, _animation_speed);	
 				//_drilldownContainerObj.velocity({height:"+=490px", opacity:1}, _animation_speed);	
 				var _templatePath;
 				var _impactMetricsDetail = {};
