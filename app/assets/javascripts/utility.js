@@ -280,7 +280,7 @@ jQuery(function($){
 
                 _amountDetail.max=_amountDetail.max_values[$(this).attr("data-amount-array-index")];
                 if(_percentage>=_amountDetail.max) _percentage=_amountDetail.max;
-                $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100.00).toFixed(2)+"% out of "+(_amountDetail.max*100.00).toFixed(2)+"%] $"+(_percentage*_amountDetail.total).toFixed(2)+"");
+                $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100.00).toFixed(1)+"% out of "+(_amountDetail.max*100.00).toFixed(1)+"%] $"+(_percentage*_amountDetail.total).toFixed(2)+"");
                 $(this).find(".js-percentage_label").css("color","#ddd");
             });
 
