@@ -1,7 +1,21 @@
 <div id="js-popup">
     <legend style="color:#333; text-transform:uppercase; font-size:18px;">{{{this.title}}}</legend>
     <span class="subtext summary js-popup_content_container">
+        {{this.properties.rank_path}}
         <form id="js-popup_form">
+            {{#if this.amountDetail.paths}}
+            <div>
+                <label>Bonus Path</label>
+                <select name="{{this.amountDetail.paths.name}}" id="{{this.amountDetail.paths.name}}">
+                    {{#each this.amountDetail.paths.options}}
+                        <option value={{@key}}>{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <br style="clear:both;">        
+            <hr>
+            {{/if}}
+
             <span class="form_row" style="padding-bottom:8px; padding-top:0px; border-bottom:1px dashed #ccc; margin-bottom:16px; font-size:12px; text-transform:uppercase;">
                 {{#if this.amountDetail.total}}<span style="padding-right:20px;">Bonus Total: ${{this.amountDetail.total}}</span>{{/if}}
                 {{#if this.amountDetail.maxPercentage}}<span>Percentage Available: {{this.amountDetail.maxPercentage}}%</span>{{/if}}
@@ -30,9 +44,12 @@
                 {{/each}}
                 </div>
             </div>
-
-            <button class="js-update_bonus_payment button">Update Payments</button>
-
+            <br style="clear:both;">
+            {{#if this.buttonText}}
+                <button class="js-update_bonus_payment button">{{{this.buttonText}}}</button>
+            {{else}}
+                <button class="js-update_bonus_payment button">Update Payments</button>
+            {{/if}}
             {{#if this.deleteOption}}
             <br><br><br>
             <legend style="color:#333; text-transform:uppercase; font-size:18px;">{{this.deleteOption.name}}</legend>
