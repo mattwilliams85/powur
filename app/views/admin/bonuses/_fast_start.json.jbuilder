@@ -7,3 +7,4 @@ actions action(:update, :patch, bonus_path(bonus))
          value:   bonus.time_period)
   .field(:time_amount, :number, value: bonus.time_amount),
         action(:delete, :delete, bonus_path(bonus))
+  .field(:flat_amount, :number, value: bonus.flat_amount)

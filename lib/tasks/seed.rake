@@ -326,6 +326,20 @@ namespace :sunstand do
       BonusLevel.create!(bonus: bonus, level: 8, rank_path_id: PRO_PATH_ID,
                          amounts: Array.new(2, 0.025).unshift(0, 0, 0, 0, 0, 0))
 
+      # Fast-Start Bonus
+      bonus = FastStartBonus.create!(
+        bonus_plan_id:      1,
+        name:               'Fast-Start',
+        schedule:           :monthly,
+        time_period:        'months',
+        time_amount:        1)
+      BonusSalesRequirement.create!(bonus:      bonus,
+                                    product_id: SOLAR_ITEM_ID,
+                                    quantity:   3)
+      BonusLevel.create!(
+        bonus:   bonus,
+        amounts: [ 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 ])
+
       # Differential Bonus
       bonus = DifferentialBonus.create!(
         bonus_plan_id:      1,
