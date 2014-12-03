@@ -1,5 +1,6 @@
-deployment:
-  staging:
-    branch: staging
-    heroku:
-      appname: sunstand-dev
+# deployment:
+#   staging:
+#     branch: master
+#     heroku:
+#       appname: sunstand-dev
+
