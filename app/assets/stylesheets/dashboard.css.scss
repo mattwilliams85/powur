@@ -2014,19 +2014,30 @@
   .time_unit_nav{
     position: absolute;
     bottom:10px;
-    left:370px;
+    left:335px;
     width:630px;
-    height:30px;
+    font-size:1.1em !important;
     text-align: center;
+    text-transform: capitalize !important;
+  }
+
+  .time_unit_nav span {
+  	cursor:pointer;
   }
   .time_scale, .snapshot, .time_unit_nav{
     font-size:12px;
     text-transform: uppercase;
+    float:left;
   }
+
+  .time_scale {
+  	float:right;
+  }
+
   .time_scale span{
     display:block;
     float:left;
-    padding:10px;
+    padding:0 5px 0 5px;
     border:1px solid #ccc;
     width:50px;
     text-align: center;
@@ -2092,11 +2103,15 @@
 
   .legend-box {
     vertical-align:top;
-    display:inline-block;
+    display:inline;
+    float:left;
+    padding:15px 0 5px 0;
+    width:100%;
   }
 
   .legend {
-    display:inline;
+    display:inline !important;
+    float:left;
   }
 
   .legend-item {
@@ -2123,18 +2138,19 @@
   .hide{
     display: none;
   }
-h4{
+
+h4 {
   height: 42px;
 }
 .object_detail_content_section.summary{
   width: 280px;
-  padding-right: 25px;
+  padding-right: 10px;
   height:445px;
   // border-right:1px solid rgba(100,100,100,0.9);
 
 }
 .object_detail_content_section{
-  width:880px;
+  width:660px;
   float:left;
 }
 .graph {
@@ -2151,7 +2167,7 @@ h4{
 .contributors {
   z-index:5;
   display:inline-block;
-  height:386px;
+  height:406px;
   width:260px;
   overflow:hidden;
   margin:10px 0 0 0;
@@ -2160,7 +2176,7 @@ h4{
 .contributor {
   cursor: pointer;
   background-color:#555553;
-  padding-left:15px;
+  padding:1px 0 3px 15px;
   height:75px;
   border-top:1px solid #444;
   border-bottom:1px solid #444;
@@ -2188,15 +2204,11 @@ h4{
 	padding:0 0 0 60px;
 }
 
-.fa-caret-down {
+.fa-caret-down, .fa-caret-up {
 	color:rgb(238,238,238)
 }
 
-.fa-caret-up {
-	color:rgb(238,238,238)
-}
-
-.fa-chevron-right, .fa-chevron-left {
+.fa-caret-right, .fa-caret-left {
 	cursor:pointer;
 }
 
@@ -2221,4 +2233,33 @@ h4{
 
 .scroll-arrows i {
 	margin:0 10px 0 25px
+}
+
+.time_unit_nav span {
+	font-size:0.78em !important;
+}
+
+.team_statistics {
+  h3 {
+    font-size: 0.95em;
+    height: 42px;
+    color:#fff;
+    margin:0 0 0 -10px;
+  }
+  h4 {
+  font-size: 0.95em;
+  height: 30px;
+  // font-weight:600;
+  color:#fff;
+  }
+  .label{
+  font-size:0.8em !important;
+  display:inline-block;
+  color:#ccc;
+
+  }
+}
+
+.week-span {
+	text-transform:uppercase;
 }

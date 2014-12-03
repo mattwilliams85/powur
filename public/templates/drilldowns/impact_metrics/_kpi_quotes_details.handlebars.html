@@ -13,38 +13,52 @@
       </div>
 
       <div class="object_detail_content_section" style="padding-left:20px;">
-        <span id="graph_title" style="font-size:1.05em">Full Genealogy Conversion History </span>
-        <canvas id="metricsChart" width="670" height="375" style="float:left;"></canvas>
-        <div class="time_unit_nav">
-          <i class="fa fa-chevron-left back" style="color:#555;padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px;margin-right:10px;"></i> 
-          <span class="week-span"></span> 
-          <i class="fa fa-chevron-right forward" style="color:#555; padding:5px; background:#ccc; border-radius:30px; height:15px;width:15px; line-height:18px; margin-left:10px;"></i>
-        </div>
-        <div style="width:150px; padding-left:50px;float:left;">
-          <div class="time_scale">
-            Time Scale:
-            <br>
-            <span class="active week">Week</span><span class="month">Month</span>
-          </div>
-          <br>
-          <br style="clear:both;">
+        <span id="graph_title" style="font-size:1.05em">Full Performance History </span>
+        <br>
+        <div class="legend-box">
           <div class="legend">
             <div class="legend-item" id="user-legend"></div>
             <span id="selected_user" class="legend-text">Quotes</span>
           </div>
-          <br>
-          <div class="legend">
+          <div class="legend" style="padding-left:15px">
             <div class="legend-item" id="global-legend"></div>
             <span id="average" class="legend-text">Sales</span>
           </div>
-          <br>
-          <div class="legend hide">
-            <div class="legend-item" id="top-performer"></div>
-            <span id="performer" class="legend-text"></span>
+          <div class="time_scale" style="padding-left:20px">
+            <span class="active week">Week</span><span class="month">Month</span>
           </div>
-          <br>
-        </div> <!-- end legend section -->
-      </div> <!-- end object_detail_content_section -->
+        </div> <!-- end legend-box -->
+        {{!-- <div style="display:block;"> --}}
+        <div class="week-span" style="display:block;font-size:0.8em;width:175px;margin:0 auto;text-align:center"></div>
+        {{!-- </div> --}}
+        <canvas id="metricsChart" width="670" height="330" style="float:left;"></canvas>
+        <div class="time_unit_nav">
+          <i class="fa fa-caret-left back" style="color:rgb(238,238,238); margin-right:10px;"></i> 
+          <span class="current">Current</span> 
+          <i class="fa fa-caret-right forward" style="color:rgb(238,238,238); margin-left:10px;"></i>
+        </div>
+        </div> <!-- end object_detail_content_section -->
+        <div style="width:150px; padding-left:75px;padding-top:5px;float:left;">
+        <div class="team_statistics">
+            <h3>TEAM STATS</h3>
+            <h4>Today</h4>
+            <div class="team_statistics box">
+              <span class="label" >Quotes: 3</span>
+              <span class="label" style="display:block">Sales: 5</span>
+            </div>
+            <h4 style="padding-top:20px">This Week</h4>
+            <div class="team_statistics box"></div>
+              <span class="label">Quotes: 9</span>
+              <span class="label" style="display:block">Sales: 12</span>
+            <h4 style="padding-top:20px">Total Active</h4>
+            <div class="team_statistics box">
+              <span class="label" >Quotes: 503</span>
+              <span class="label" style="display:block">Sales: 295</span>
+            </div>
+
+                  </div>
+          
+     
     </div> <!-- end object_detail_content -->
   </div> <!-- end object_detail -->
 </div> <!-- end drilldown_content -->
@@ -112,18 +126,6 @@ var options = {
 
   //Number - Width of the grid lines
   scaleGridLineWidth: 1,
-
-  //Boolean - If there is a stroke on each bar
-  barShowStroke: true,
-
-  //Number - Pixel width of the bar stroke
-  barStrokeWidth: 2,
-
-  //Number - Spacing between each of the X value sets
-  barValueSpacing: 5,
-
-  //Number - Spacing between data sets within X values
-  barDatasetSpacing: 1,
 
   //Point dot size
   pointDotRadius : 4,
@@ -217,7 +219,7 @@ displayWeek()
       randomizeData(30)
       setScale() 
       ctx.canvas.width = 670 
-      ctx.canvas.height = 375 
+      ctx.canvas.height = 330 
       myChart = new Chart(ctx).Line(metricsData, options);
     } else {
       weekBack()
@@ -227,7 +229,7 @@ displayWeek()
       randomizeData(6)
       setScale()
       ctx.canvas.width = 670 
-      ctx.canvas.height = 375  
+      ctx.canvas.height = 330  
       myChart = new Chart(ctx).Line(metricsData, options);
     }
   })
@@ -240,7 +242,7 @@ displayWeek()
       myChart.destroy();
       randomizeData(30)
       ctx.canvas.width = 670 
-      ctx.canvas.height = 375 
+      ctx.canvas.height = 330 
       myChart = new Chart(ctx).Line(metricsData, options);
     } else {
       weekForward()
@@ -249,7 +251,7 @@ displayWeek()
       myChart.destroy();
       randomizeData(6)
       ctx.canvas.width = 670 
-      ctx.canvas.height = 375 
+      ctx.canvas.height = 330 
       myChart = new Chart(ctx).Line(metricsData, options);
     }
   })
@@ -279,7 +281,7 @@ displayWeek()
   }
 
   function displayMonth(){
-    $(".week-span").html($.datepicker.formatDate('MM, yy', now));
+    $(".week-span").html($.datepicker.formatDate('MM', now));
   }
 
 $(".return_to_team").on("click",function(e){
@@ -287,14 +289,27 @@ $(".return_to_team").on("click",function(e){
   randomizeData(30)
   setScale()
   ctx.canvas.width = 670 
-  ctx.canvas.height = 375 
+  ctx.canvas.height = 330 
  	myChart = new Chart(ctx).Line(metricsData, options);  
-  	$("#graph_title").html("Full Genealogy Conversion History");
+  	$("#graph_title").html("Full Performance History");
   	$(".contributor").css("background","#545454");
   	$(".return_to_team").hide();
     $(".progress_description").fadeIn();
     currentlyViewing="team";
 });
+
+//FOR DEMO (DELETE AFTER)
+$(".current").on("click", function(e){
+    now = new Date()
+    if(scale == "week") displayWeek()
+    if(scale == "month") displayMonth()
+    myChart.destroy();
+    randomizeData(30)
+    setScale()
+    ctx.canvas.width = 670 
+    ctx.canvas.height = 330 
+    myChart = new Chart(ctx).Line(metricsData, options); 
+})
 
 $(".time_scale .month").on("click", function() {
   setCalendarMonth()
@@ -304,7 +319,7 @@ $(".time_scale .month").on("click", function() {
   randomizeData(30)
   setScale()
   ctx.canvas.width = 670 
-  ctx.canvas.height = 375 
+  ctx.canvas.height = 330 
   myChart = new Chart(ctx).Line(metricsData, options);
   
   $(".time_scale .week").removeClass("active");
@@ -319,7 +334,7 @@ $(".time_scale .week").on("click", function() {
   randomizeData(6)
   setScale()
   ctx.canvas.width = 670 
-  ctx.canvas.height = 375 
+  ctx.canvas.height = 330 
   myChart = new Chart(ctx).Line(metricsData, options);
  
   $(".time_scale .month").removeClass("active");
@@ -340,7 +355,7 @@ $(".time_scale .week").on("click", function() {
       page += 1
       // $('.page-count').html(page + " of " + total_pages);
       checkPage()
-      position -= 385;
+      position -= 406;
       $('.contributor').each(function() {
         $(this).velocity({translateY: position + "px"});
       })
@@ -357,7 +372,7 @@ $(".time_scale .week").on("click", function() {
         page -= 1;
         // $('.page-count').html(page + " of " + total_pages);
         checkPage();
-        position += 385;
+        position += 406;
         $('.contributor').each(function() {
           $(this).velocity({translateY: position + "px"});
         })
@@ -407,9 +422,9 @@ function contributorEvents(){
     randomizeData(30)
     setScale()
     ctx.canvas.width = 670 
-    ctx.canvas.height = 375 
+    ctx.canvas.height = 330 
     myChart = new Chart(ctx).Line(metricsData, options);
-    $("#graph_title").html($(this).attr('id') + "'s Conversion History")
+    $("#graph_title").html($(this).attr('id') + "'s Performance History")
   });
 
   $(".contributor")
@@ -422,6 +437,12 @@ function contributorEvents(){
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function randomizeOrders(){
+  _data.team.entities.forEach(function(member){
+    member.properties.orders = Math.floor(Math.random() * 30 + 10)
+  });
 }
 
 function getAllOrders(){
@@ -482,8 +503,8 @@ function totalOrdersForWeek(){
     });
   }
 
- 
-  totalOrdersForWeek();
+  randomizeOrders();
+  // totalOrdersForWeek();
   populateContributors();
 
 </script>
