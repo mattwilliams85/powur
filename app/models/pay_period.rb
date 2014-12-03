@@ -76,11 +76,7 @@ class PayPeriod < ActiveRecord::Base
     BonusPaymentOrder.delete_all_for_pay_period(id)
     bonus_payments.delete_all
     rank_achievements.delete_all
-    begin
-      order_totals.delete_all_for_pay_period
-    rescue
-      puts 'Error deleting order totals'
-    end
+    order_totals.delete_all
   end
 
   def process_orders!
