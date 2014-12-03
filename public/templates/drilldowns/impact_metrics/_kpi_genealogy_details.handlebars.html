@@ -268,7 +268,7 @@ displayWeek()
   }
 
   function displayWeek(){
-    $(".week-span").html("WEEK " + $.datepicker.formatDate('mm/dd', now) + " - " + $.datepicker.formatDate('mm/dd', now.addDays(7)));
+    $(".week-span").html("WEEK " + now.getWeek());
   }
 
   function monthBack() {
