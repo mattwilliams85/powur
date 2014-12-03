@@ -26,6 +26,11 @@ FactoryGirl.define do
       compress true
     end
 
+    factory :fast_start_bonus, class: FastStartBonus do
+      # time_period :months
+      # time_amount 2
+    end
+
     factory :promote_out_bonus, class: PromoteOutBonus do
       schedule :monthly
       association :achieved_rank, factory: :rank
