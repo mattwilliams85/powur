@@ -9,9 +9,9 @@ end
 
 actions \
   action(:update, :patch, override_path(override))
-    .field(:start_date, :select,
-           required:  false,
-           value:     override.start_date,
-           reference: { url: pay_periods_path, id: :id, name: :title })
-    .field(:end_date, :date, required: false, value: override.end_date),
+  .field(:start_date, :select,
+         required:  false,
+         value:     override.start_date,
+         reference: { url: pay_periods_path, id: :id, name: :title })
+  .field(:end_date, :date, required: false, value: override.end_date),
   action(:delete, :delete, override_path(override))
