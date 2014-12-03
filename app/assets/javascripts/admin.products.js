@@ -591,11 +591,10 @@ jQuery(function($){
                             var _multipleLevelBonus = (_getObjectsByCriteria(_bonus, {level:0}).length<1);
                             //loop through each bonus level (even with a single one)
                             _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
-                                console.log(_bonus_level);
                                 if(typeof _bonus_level.properties.rank_path !=="undefined")
                                     _display+="<div class='subRow'>Bonus Path: "+_bonus_level.properties.rank_path.name+"</div>";
                                 if(_multipleLevelBonus)
-                                    _display+="<div class='rotate js-bonus_level_label'>Level "+(_index+1)+"</div><div class='js-bonus_level_bracket'></div>";
+                                    _display+="<div class='rotate js-bonus_level_label'>Level "+_bonus_level.properties.level+"</div><div class='js-bonus_level_bracket'></div>";
 
                                 // go through amounts within each level
 
@@ -685,8 +684,7 @@ jQuery(function($){
                             //add paths info if it exists
                             if(_getObjectsByCriteria(_bonus, {name:"rank_path_id"}).length>0){
                                 _popupData.amountDetail.paths=_getObjectsByCriteria(_bonus, {name:"rank_path_id"})[0];
-
-                                delete _popupData.amountDetail.paths.options._path;
+                                delete _popupData.amountDetail.paths.options["_path"];
                             }
 
                             $("#js-screen_mask").fadeIn(100, function(){
@@ -729,7 +727,6 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData = [];
                             var _bonusID= $(e.target)[0].tagName.toLowerCase()==="select"? parseInt($(e.target).val().replace("#","")) : parseInt($(e.target).attr("href").replace("#",""));
-
                             var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses,
                                 {
                                     "containsIn(properties)":[{id:_bonusID}],
@@ -763,7 +760,6 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData=[];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-
                             var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses,
                                 {
                                     "containsIn(properties)":[{id:_bonusID}],
