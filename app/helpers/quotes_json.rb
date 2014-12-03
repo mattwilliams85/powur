@@ -66,8 +66,8 @@ class QuotesJson < JsonDecorator
 
   def user_create_action
     action = create_action(user_quotes_path)
-      .field(:email, :email, required: false)
-      .field(:phone, :text, required: false)
+             .field(:email, :email, required: false)
+             .field(:phone, :text, required: false)
 
     action_quote_fields(action)
 
@@ -76,14 +76,14 @@ class QuotesJson < JsonDecorator
 
   def update_action(path)
     action = action(:update, :patch, path)
-      .field(:first_name, :text, value: @item.customer.first_name)
-      .field(:last_name, :text, value: @item.customer.last_name)
-      .field(:email, :email, required: false, value: @item.customer.email)
-      .field(:phone, :text, required: false, value: @item.customer.phone)
-      .field(:address, :text, required: false, value: @item.customer.address)
-      .field(:city, :text, required: false, value: @item.customer.city)
-      .field(:state, :text, required: false, value: @item.customer.state)
-      .field(:zip, :text, required: false, value: @item.customer.zip)
+             .field(:first_name, :text, value: @item.customer.first_name)
+             .field(:last_name, :text, value: @item.customer.last_name)
+             .field(:email, :email, required: false, value: @item.customer.email)
+             .field(:phone, :text, required: false, value: @item.customer.phone)
+             .field(:address, :text, required: false, value: @item.customer.address)
+             .field(:city, :text, required: false, value: @item.customer.city)
+             .field(:state, :text, required: false, value: @item.customer.state)
+             .field(:zip, :text, required: false, value: @item.customer.zip)
 
     action_quote_fields(action) do |field, opts|
       opts[:value] = field.normalize(@item.data[field.name])

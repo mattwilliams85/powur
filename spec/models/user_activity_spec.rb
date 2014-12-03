@@ -22,9 +22,9 @@ describe UserActivity, type: :model do
 
   it 'returns a list of user_activities for a given pay period' do
     user = create(:user)
-    pay_period = create(:weekly_pay_period, at: DateTime.current-3.days)
+    pay_period = create(:weekly_pay_period, at: DateTime.current - 3.days)
     create(:user_activity,
-           user_id:   user.id, event: 'login', event_time: DateTime.current-3.days)
+           user_id:   user.id, event: 'login', event_time: DateTime.current - 3.days)
     create(:user_activity,
            user_id:    user.id,
            event:      'login',

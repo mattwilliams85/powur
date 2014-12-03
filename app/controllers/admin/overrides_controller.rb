@@ -9,7 +9,7 @@ module Admin
     def index
       @overrides = params[:admin_user_id] ? @user.overrides : UserOverride.all
       @overrides = apply_list_query_options(@overrides)
-        .includes(:user).references(:user)
+                   .includes(:user).references(:user)
 
       render 'index'
     end

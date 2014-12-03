@@ -76,7 +76,7 @@ module Auth
 
     def fetch_quote
       @quote = current_user.quotes.find_by(id: params[:id]) ||
-        not_found!(:quote)
+               not_found!(:quote)
     end
 
     def quote_list

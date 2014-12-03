@@ -47,22 +47,22 @@ class QualificationsJson < JsonDecorator
 
   def update_action(path, qual)
     update = action(:update, :patch, path)
-      .field(:rank_path_id, :select,
-             options:  Hash[all_paths.map { |p| [ p.id, p.name ] }],
-             required: true,
-             value:    qual.rank_path_id)
-      .field(:type, :select,
-             options:  Qualification::TYPES,
-             required: true,
-             value:    qual.type)
-      .field(:product_id, :select,
-             options:  Hash[all_products.map { |p| [ p.id, p.name ] }],
-             required: true,
-             value:    qual.product_id)
-      .field(:time_period, :select,
-             options: Qualification.enum_options(:time_periods),
-             value:   qual.time_period)
-      .field(:quantity, :number, value: qual.quantity)
+             .field(:rank_path_id, :select,
+                    options:  Hash[all_paths.map { |p| [ p.id, p.name ] }],
+                    required: true,
+                    value:    qual.rank_path_id)
+             .field(:type, :select,
+                    options:  Qualification::TYPES,
+                    required: true,
+                    value:    qual.type)
+             .field(:product_id, :select,
+                    options:  Hash[all_products.map { |p| [ p.id, p.name ] }],
+                    required: true,
+                    value:    qual.product_id)
+             .field(:time_period, :select,
+                    options: Qualification.enum_options(:time_periods),
+                    value:   qual.time_period)
+             .field(:quantity, :number, value: qual.quantity)
     if qual.is_a?(GroupSalesQualification)
       update.field(:max_leg_percent,
                    :number, value: qual.max_leg_percent)

@@ -57,7 +57,7 @@ class QuoteField < ActiveRecord::Base
   private
 
   def lookup_from_row(row)
-    attrs = { value: row[0].presence.to_s,
+    attrs = { value:      row[0].presence.to_s,
               identifier: row[1].present? ? row[1].to_s : row[0].to_s }
     attrs[:group] = row[2].presence.to_s if row[2].present?
     add_or_update_lookup(attrs)

@@ -1,7 +1,5 @@
 module Anon
-
   class PasswordsController < AnonController
-
     layout 'user'
 
     before_action :fetch_user_from_token, only: [ :new ]
@@ -17,7 +15,7 @@ module Anon
     def create
       require_input :email
 
-      user = User.find_by_email(params[:email]) or 
+      user = User.find_by_email(params[:email]) or
         error!(t('errors.email_not_found'), :email)
 
       user.send_reset_password
@@ -54,7 +52,7 @@ module Anon
       !@user.nil? && !@user.reset_token_expired?
     end
 
-    private 
+    private
 
     def fetch_user_from_token
       require_input :token
@@ -65,5 +63,4 @@ module Anon
       redirect_to root_url
     end
   end
-
 end

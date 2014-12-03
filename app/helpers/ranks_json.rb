@@ -33,7 +33,7 @@ class RanksJson < JsonDecorator
 
   def admin_item_actions(rank = @item)
     list = [ action(:update, :patch, rank_path(rank))
-      .field(:title, :text, value: rank.title) ]
+             .field(:title, :text, value: rank.title) ]
     list << action(:delete, :delete, rank_path(rank)) if rank.last_rank?
     actions(*list)
   end

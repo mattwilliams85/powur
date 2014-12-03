@@ -63,23 +63,22 @@ namespace :sunstand do
     task qualifications: [ :ranks, :products, :rank_paths ] do
       Qualification.destroy_all
 
+      ## Pro Path
       # active qualifications
       SalesQualification.create!(time_period:  :lifetime,
                                  product_id:   CERT_ITEM_ID,
                                  rank_path_id: PRO_PATH_ID)
-      puts 'Created Active Qualifications...'
-
+      # Rank 1
+      SalesQualification.create!(time_period:  :lifetime,
+                                 product_id:   CERT_ITEM_ID,
+                                 rank_id:      1,
+                                 rank_path_id: PRO_PATH_ID)
       # Rank 2
       SalesQualification.create!(time_period:  :lifetime,
                                  product_id:   SOLAR_ITEM_ID,
                                  rank_id:      2,
                                  quantity:     3,
                                  rank_path_id: PRO_PATH_ID)
-      SalesQualification.create!(time_period:  :lifetime,
-                                 product_id:   CERT_ITEM_ID,
-                                 rank_id:      2,
-                                 rank_path_id: PRO_PATH_ID)
-
       # Rank 3
       SalesQualification.create!(time_period:  :lifetime,
                                  product_id:   SOLAR_ITEM_ID,
@@ -92,7 +91,6 @@ namespace :sunstand do
                                       quantity:        7,
                                       max_leg_percent: 75,
                                       rank_path_id:    PRO_PATH_ID)
-
       # Rank 4
       SalesQualification.create!(time_period:  :lifetime,
                                  product_id:   SOLAR_ITEM_ID,
@@ -154,6 +152,7 @@ namespace :sunstand do
                                       max_leg_percent: 50,
                                       rank_path_id:    PRO_PATH_ID)
 
+      ## Basic path...
       # active qualifications
       SalesQualification.create!(time_period:  :monthly,
                                  product_id:   SOLAR_ITEM_ID,
@@ -169,7 +168,6 @@ namespace :sunstand do
                                       rank_id:      2,
                                       quantity:     5,
                                       rank_path_id: BASIC_PATH_ID)
-
       # Rank 3
       SalesQualification.create!(time_period:  :lifetime,
                                  product_id:   SOLAR_ITEM_ID,
@@ -182,7 +180,6 @@ namespace :sunstand do
                                       quantity:        7,
                                       max_leg_percent: 75,
                                       rank_path_id:    BASIC_PATH_ID)
-
       # Rank 4
       SalesQualification.create!(time_period:  :lifetime,
                                  product_id:   SOLAR_ITEM_ID,
@@ -243,7 +240,6 @@ namespace :sunstand do
                                       quantity:        500,
                                       max_leg_percent: 50,
                                       rank_path_id:    BASIC_PATH_ID)
-
 
       puts 'Created Rank Qualifications...'
     end
@@ -272,19 +268,17 @@ namespace :sunstand do
         amounts:      [ 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50 ])
 
       # Enroller Bonus
-      bonus = EnrollerSalesBonus.create!(
+      bonus = EnrollerBonus.create!(
         bonus_plan_id:      1,
         name:               'Enroller',
-        schedule:           :monthly,
-        max_user_rank_id:   1,
-        min_upline_rank_id: 2)
+        schedule:           :monthly)
       BonusSalesRequirement.create!(bonus: bonus, product_id: SOLAR_ITEM_ID)
       BonusLevel.create!(
         bonus:   bonus,
         amounts: [ 0.0, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125 ])
 
       # Unilevel Bonus
-      bonus = UnilevelSalesBonus.create!(
+      bonus = UnilevelBonus.create!(
         bonus_plan_id: 1,
         name:          'Uni-level',
         schedule:      :monthly,
@@ -331,6 +325,20 @@ namespace :sunstand do
         amounts: Array.new(2, 0.0125).unshift(0, 0, 0, 0, 0, 0))
       BonusLevel.create!(bonus: bonus, level: 8, rank_path_id: PRO_PATH_ID,
                          amounts: Array.new(2, 0.025).unshift(0, 0, 0, 0, 0, 0))
+
+      # Fast-Start Bonus
+      bonus = FastStartBonus.create!(
+        bonus_plan_id:      1,
+        name:               'Fast-Start',
+        schedule:           :monthly,
+        time_period:        'months',
+        time_amount:        1)
+      BonusSalesRequirement.create!(bonus:      bonus,
+                                    product_id: SOLAR_ITEM_ID,
+                                    quantity:   3)
+      BonusLevel.create!(
+        bonus:   bonus,
+        amounts: [ 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 ])
 
       # Differential Bonus
       bonus = DifferentialBonus.create!(

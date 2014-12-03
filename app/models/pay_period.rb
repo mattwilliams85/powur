@@ -68,8 +68,8 @@ class PayPeriod < ActiveRecord::Base
 
   def orders
     @orders ||= Order.by_pay_period(self)
-      .includes(:user, :product).references(:user, :product)
-      .order(order_date: :asc)
+                .includes(:user, :product).references(:user, :product)
+                .order(order_date: :asc)
   end
 
   def reset_orders!
@@ -95,7 +95,7 @@ class PayPeriod < ActiveRecord::Base
 
   def child_totals_for(user_id, product_id)
     child_ids = direct_downline_users
-      .select { |u| u.parent_id == user_id }.map(&:id)
+                .select { |u| u.parent_id == user_id }.map(&:id)
     return [] if child_ids.empty?
 
     child_totals = order_totals.select do |t|
@@ -121,7 +121,7 @@ class PayPeriod < ActiveRecord::Base
 
   def find_pay_as_rank(user)
     user.pay_period_rank ||= rank_achievements
-    .select { |a| a.user_id == user.id }.map(&:rank_id).max
+                             .select { |a| a.user_id == user.id }.map(&:rank_id).max
     user.pay_as_rank
   end
 

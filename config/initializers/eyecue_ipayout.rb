@@ -7,4 +7,3 @@ EyecueIpayout.configure do |config|
   config.merchant_password =
     Rails.application.secrets.ipayout_merchant_password
 end
-

@@ -1,5 +1,4 @@
 module Anon
-
   class InvitesController < AnonController
     include EwalletDSL
     before_action :fetch_invite, only: [ :create, :update ]
@@ -28,7 +27,7 @@ module Anon
       render 'anon/session/anonymous'
     end
 
-  private
+    private
 
     def invalid_code!
       error!(t('errors.invalid_code'), :code)
@@ -42,7 +41,5 @@ module Anon
         invalid_code!
       end
     end
-
   end
-
 end

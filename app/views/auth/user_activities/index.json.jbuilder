@@ -1,6 +1,6 @@
 siren json
 
-#klass :user_activities, :list
+# klass :user_activities, :list
 
 json.entities @user_activities, partial: 'item', as: :user_activity
 

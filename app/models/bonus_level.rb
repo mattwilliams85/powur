@@ -18,7 +18,7 @@ class BonusLevel < ActiveRecord::Base
   end
 
   def remaining_percentages(max_rank = nil)
-    bonus.remaining_percentages_for_level(self.id, max_rank)
+    bonus.remaining_percentages_for_level(id, max_rank)
   end
 
   def all_paths?
@@ -39,5 +39,4 @@ class BonusLevel < ActiveRecord::Base
   def min_rank
     (amounts.index { |i| i > 0 } || amounts.size) + 1
   end
-
 end

@@ -8,5 +8,4 @@ unless all_paths.empty? || all_products.empty?
   actions qual_json.create_action(rank_qualifications_path(rank))
 end
 
-
 links link(:products, products_path)

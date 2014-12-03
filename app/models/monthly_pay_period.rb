@@ -13,7 +13,7 @@ class MonthlyPayPeriod < PayPeriod
 
   def active_qualifications
     @active_qualifications ||= Qualification.active.where
-      .not(time_period: Qualification.time_periods[:weekly]).group_by(&:path)
+                               .not(time_period: Qualification.time_periods[:weekly]).group_by(&:path)
   end
 
   def bonus_available?(bonus)

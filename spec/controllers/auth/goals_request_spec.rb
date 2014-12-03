@@ -35,7 +35,7 @@ describe '/u/users/:user_id/goals', type: :request do
     get user_goals_path(@user), format: :json
 
     totals = json_body['entities']
-      .find { |e| e['rel'].include?('goals-order_totals') }
+             .find { |e| e['rel'].include?('goals-order_totals') }
     expect(totals).to be
     expect(totals['entities'].size).to eq(0)
   end

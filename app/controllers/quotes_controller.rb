@@ -4,7 +4,7 @@ class QuotesController < AnonController
   before_action :fetch_sponsor, only: [ :new, :show, :create, :update ]
 
   def new
-    sponsor? or redirect_to root_url
+    sponsor? || redirect_to(root_url)
   end
 
   def details
@@ -36,7 +36,7 @@ class QuotesController < AnonController
   def update
     require_input :quote
 
-    quote? or not_found!(:quote, params[:quote])
+    quote? || not_found!(:quote, params[:quote])
 
     quote.customer.update_attributes!(customer_input)
     quote.update_attributes!(quote_input)
@@ -47,7 +47,7 @@ class QuotesController < AnonController
   def resend
     require_input :email, :product_id
 
-    quote_from_email? or 
+    quote_from_email? ||
       error!(t('errors.quote_not_found', email: params[:email]), :email)
 
     confirm :quote_resent
@@ -81,7 +81,7 @@ class QuotesController < AnonController
 
   def customer_input
     allow_input(
-      :first_name, :last_name, :email, :phone, 
+      :first_name, :last_name, :email, :phone,
       :address, :city, :state, :zip)
   end
 
@@ -90,12 +90,11 @@ class QuotesController < AnonController
   end
 
   def quote_from_email
-    @quote ||= Quote.where(product_id: Product.default.id).
-      joins(:customer).where('customers.email' => params[:email]).first
+    @quote ||= Quote.where(product_id: Product.default.id)
+               .joins(:customer).where('customers.email' => params[:email]).first
   end
 
   def quote_from_email?
     !!quote_from_email
   end
-  
 end

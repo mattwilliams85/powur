@@ -26,7 +26,7 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
       expect(bonus_levels['entities'].size).to eq(1)
 
       level = bonus_levels['entities'].first
-      expect(level['properties']['rank_path']).to eq(@path.name)
+      expect(level['properties']['rank_path']['name']).to eq(@path.name)
 
       padded_value = level['properties']['amounts'].last
       expect(padded_value).to eq('0.0')
@@ -62,7 +62,7 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
            format:       :json
 
       amounts = json_body['entities']
-        .find { |e| e['class'].include?('bonus_levels') }
+                .find { |e| e['class'].include?('bonus_levels') }
       expect(amounts.size).to eq(2)
     end
 

@@ -43,7 +43,7 @@ module Admin
         :state,
         :zip,
         :organic_rank)
-      
+
       @user.update_attributes!(input)
 
       render 'show'

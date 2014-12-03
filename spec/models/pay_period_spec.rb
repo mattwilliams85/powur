@@ -65,7 +65,7 @@ describe PayPeriod, type: :model do
       end
 
       it 'does not create a lifetime achievement with only one qual. met' do
-        order = create(:order, 
+        order = create(:order,
                        product:  @qual1.product,
                        quantity: @qual1.quantity,
                        user:     @user)
@@ -131,7 +131,7 @@ describe PayPeriod, type: :model do
       pay_period = MonthlyPayPeriod.find_or_create_by_date(order_date)
       pay_period.process_orders!
       achievement = pay_period
-      .rank_achievements.find { |a| a.user_id == user.id }
+                    .rank_achievements.find { |a| a.user_id == user.id }
       expect(achievement).to_not be_nil
     end
   end
@@ -207,7 +207,7 @@ describe PayPeriod, type: :model do
 
     it 'ensures a calculated pay period is eligible for dispursement' do
       pay_period = MonthlyPayPeriod
-                  .find_or_create_by_date(DateTime.now - 2.months)
+                   .find_or_create_by_date(DateTime.now - 2.months)
       pay_period.disbursed_at = nil
       pay_period.calculated_at = DateTime.now - 1.month
       check_disbursable = pay_period.disbursable?
@@ -221,7 +221,7 @@ describe PayPeriod, type: :model do
       @user = create(:user)
       @product = create(:product)
       @pay_period = WeeklyPayPeriod
-      .find_or_create_by_date(Date.current - 1.month)
+                    .find_or_create_by_date(Date.current - 1.month)
     end
 
     def find_order_total(user = @user)
@@ -252,7 +252,7 @@ describe PayPeriod, type: :model do
       user = create(:user)
       expect { find_order_total(user) }.to_not make_database_queries
       expect { @pay_period.order_totals.each(&:pay_period) }
-      .to_not make_database_queries
+        .to_not make_database_queries
     end
 
     it 'calculates the correct group totals' do

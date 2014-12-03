@@ -43,7 +43,7 @@ class Order < ActiveRecord::Base
 
   def monthly_pay_period
     @monthly_pay_period ||= MonthlyPayPeriod
-      .find_or_create_by_id(monthly_pay_period_id)
+                            .find_or_create_by_id(monthly_pay_period_id)
   end
 
   def weekly_pay_period_id
@@ -52,7 +52,7 @@ class Order < ActiveRecord::Base
 
   def weekly_pay_period
     @weekly_pay_period ||= WeeklyPayPeriod
-      .find_or_create_by_id(weekly_pay_period_id)
+                           .find_or_create_by_id(weekly_pay_period_id)
   end
 
   def bonus_payments?

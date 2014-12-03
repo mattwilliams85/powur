@@ -41,7 +41,7 @@ module UserScopes
 
     ORDER_TOTALS_SELECT = \
       'users.*, ' + %w(personal group personal_lifetime group_lifetime)
-        .map { |f| "coalesce(order_totals.#{f}, 0) as #{f}" }.join(', ')
+                    .map { |f| "coalesce(order_totals.#{f}, 0) as #{f}" }.join(', ')
     ORDER_TOTALS_JOIN = \
       'left join order_totals on users.id = order_totals.user_id'
 

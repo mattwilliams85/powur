@@ -8,7 +8,7 @@ describe RankAchievement, type: :model do
 
   it 'does not allow two lifetime rank achievements' do
     path = create(:rank_path)
-    achievement = create(:rank_achievement, 
+    achievement = create(:rank_achievement,
                          pay_period: nil,
                          rank_id:    2,
                          rank_path:  path)

@@ -14,7 +14,6 @@ module Auth
 
     def account_details
       @ewallet_account_details = get_ewallet_customer_details(@user)
-
     end
 
     def fetch_user

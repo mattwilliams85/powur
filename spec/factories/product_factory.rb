@@ -29,10 +29,10 @@ FactoryGirl.define do
                name:      'average_bill',
                required:  true,
                data_type: :number)
-        { square_feet:             :number,
-          credit_score_qualified:  :boolean,
-          roof_type:               :lookup,
-          roof_age:                :lookup }.each do |name, data_type|
+        { square_feet:            :number,
+          credit_score_qualified: :boolean,
+          roof_type:              :lookup,
+          roof_age:               :lookup }.each do |name, data_type|
           if data_type == :lookup
             create(:lookup_field, name: name.to_s, product: product)
           else

@@ -34,7 +34,7 @@ class ApiToken < ActiveRecord::Base
 
   private
 
-  def random_secret(size = 64)
+  def random_secret(_size = 64)
     SecureRandom.hex(64)
   end
 end

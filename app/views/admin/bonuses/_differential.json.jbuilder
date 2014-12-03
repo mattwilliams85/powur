@@ -22,4 +22,4 @@ actions action(:update, :patch, bonus_path(bonus))
          reference: { type: :link, rel: :ranks, value: :id, name: :title },
          value:     bonus.min_upline_rank_id)
   .field(:compress, :checkbox, value: bonus.compress),
-  action(:delete, :delete, bonus_path(bonus))
+        action(:delete, :delete, bonus_path(bonus))

@@ -1,6 +1,5 @@
 module Admin
   class QuotesController < AdminController
-
     before_action :fetch_quote, only: [ :show ]
 
     page
@@ -13,8 +12,8 @@ module Admin
         format.html { render 'index' }
         format.json do
           @quotes = apply_list_query_options(query)
-            .includes(:user, :product, :customer)
-            .references(:user, :product, :customer)
+                    .includes(:user, :product, :customer)
+                    .references(:user, :product, :customer)
           render 'index'
         end
       end
