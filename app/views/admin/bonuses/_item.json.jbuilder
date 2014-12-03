@@ -7,9 +7,7 @@ json.properties do
   json.schedule bonus.schedule.titleize
   json.use_rank_at bonus.use_rank_at.titleize
   if bonus.source?
-    json.call(bonus,
-              :available_amount,
-              :remaining_percentage)
+    json.call(bonus, :available_amount)
   end
 end
 

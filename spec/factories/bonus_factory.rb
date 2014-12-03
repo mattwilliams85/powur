@@ -14,14 +14,14 @@ FactoryGirl.define do
       use_rank_at :sale
     end
 
-    factory :enroller_sales_bonus, class: EnrollerSalesBonus do
+    factory :enroller_bonus, class: EnrollerBonus do
       schedule :monthly
-      association :max_user_rank, factory: :rank
-      association :min_upline_rank, factory: :rank
+      # association :max_user_rank, factory: :rank
+      # association :min_upline_rank, factory: :rank
       compress true
     end
 
-    factory :unilevel_sales_bonus, class: UnilevelSalesBonus do
+    factory :unilevel_bonus, class: UnilevelBonus do
       schedule :monthly
       compress true
     end

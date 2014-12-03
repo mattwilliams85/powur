@@ -9,6 +9,5 @@ module Api
 
       render 'api/api/show'
     end
-
   end
 end

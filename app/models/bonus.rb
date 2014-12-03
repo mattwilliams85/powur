@@ -1,10 +1,11 @@
 class Bonus < ActiveRecord::Base
   TYPES =  {
-    differential:   'Differential',
-    direct_sales:   'Direct Sales',
-    enroller_sales: 'Enroller',
-    promote_out:    'Promote-Out',
-    unilevel_sales: 'Unilevel'}
+    direct_sales: 'Direct Sales',
+    enroller:     'Enroller',
+    unilevel:     'Unilevel',
+    fast_start:   'Fast Start' }
+    # differential:   'Differential',
+    # promote_out:    'Promote-Out' }
   SCHEDULES = {
     weekly:  'Weekly',
     monthly: 'Monthly' }
@@ -34,12 +35,8 @@ class Bonus < ActiveRecord::Base
     TYPES[type_string.to_sym]
   end
 
-  def default_bonus_level
-    bonus_levels.where(level: 0).first
-  end
-
   def highest_bonus_level
-    bonus_levels.map(&:level).max
+    bonus_levels.empty? ? 0 : bonus_levels.map(&:level).max
   end
 
   def next_bonus_level
@@ -66,16 +63,16 @@ class Bonus < ActiveRecord::Base
     @source_requirement ||= requirements.find_by_source(true)
   end
 
+  def source_product
+    source_requirement.product
+  end
+
   def breakage_amount?
     flat_amount && flat_amount > 0
   end
 
   def source?
     source_requirement || breakage_amount?
-  end
-
-  def source_product
-    source_requirement.product
   end
 
   def all_paths_level?
@@ -87,25 +84,30 @@ class Bonus < ActiveRecord::Base
     return false if !source? || all_paths_level?
 
     path_count ||= RankPath.count
-    levels = bonus_levels.entries
-    (path_count.zero? && levels.size.zero?) ||
-      path_count > levels.size
+    level_count = bonus_levels.entries.size
+    (path_count.zero? && level_count.zero?) || path_count > level_count
   end
 
-  def percentage_used
-    @percentage_used ||= source_product.total_bonus_allocation(id)
+  def percentages_used(max_rank)
+    amounts = if max_level_amounts.size == 1
+      max_level_amounts.first
+    else
+      max_level_amounts.transpose.map { |a| a.inject(:+) }
+    end
+
+    amounts.fill(BigDecimal('0'), amounts.size...max_rank)[0...max_rank]
   end
 
-  def remaining_percentage
-    1.0 - percentage_used
+  def remaining_percentages(max_rank)
+    other_product_percentages(max_rank).map { |percent| 1.0 - percent }
+  end
+
+  def remaining_percentages_for_level(level_id, max_rank)
+    remaining_percentages(max_rank)
   end
 
   def available_amount
-    source_product.commission_amount
-  end
-
-  def remaining_amount
-    available_amount * remaining_percentage
+    breakage_amount? ? flat_amount : source_product.commission_amount
   end
 
   def allows_many_requirements?
@@ -120,7 +122,54 @@ class Bonus < ActiveRecord::Base
     !bonus_levels.empty?
   end
 
+  def payment_amount(rank_id, path_id, level = 0)
+    level = bonus_levels.select { |bl| bl.level == level }.find do |bl|
+      bl.rank_path_id.nil? || bl.path_id == path_id
+    end
+    percent = level.normalize_amounts(rank_id).last
+    available_amount * percent
+  end
+
   def create_payments!(*)
+  end
+
+  protected
+
+  def other_product_bonuses
+    @other_product_bonuses ||= begin
+      join_where = { source: true, product_id: source_product.id }
+      where = { bonus_sales_requirements: join_where }
+      Bonus.where(where).where('id <> ?', id).joins(:requirements)
+    end
+  end
+
+  def other_product_percentages(max_rank)
+    if other_product_bonuses.empty?
+      return Array.new(max_rank, BigDecimal('0'))
+    end
+
+    percents = other_product_bonuses.map { |b| b.percentages_used(max_rank) }
+    percents.map! do |op|
+      op.fill(BigDecimal('0'), (op.size...max_rank))[0...max_rank]
+    end
+    percents.transpose.map { |i| i.reduce(:+) }
+  end
+
+  def calculate_max_amounts(levels, max_size = nil)
+    max_size ||= levels.map { |l| l.amounts.size }.max
+    amounts = levels.map { |l| l.filled_amounts(max_size) }
+    amounts.size == 1 ? amounts.first : amounts.transpose.map(&:max)
+  end
+
+  def max_level_amounts
+    @max_level_amounts ||= begin
+      max_size = bonus_levels.map { |level| level.amounts.size }.max
+      grouped_amounts = bonus_levels.sort_by(&:level).group_by(&:level)
+      grouped_amounts.each do |number, levels|
+        grouped_amounts[number] = calculate_max_amounts(levels, max_size)
+      end
+      grouped_amounts.values
+    end
   end
 
   class << self

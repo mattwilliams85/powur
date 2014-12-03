@@ -17,13 +17,13 @@ class BonusJson < JsonDecorator
   def create_level_action(bonus)
     create_action = action(:create, :post, bonus_levels_path(bonus))
     rank_path_field(create_action, bonus)
-    amount_field(create_action)
+    amount_field(create_action, bonus.remaining_percentages(all_ranks.last.id))
     create_action
   end
 
   def update_level_action(bonus_level)
     update = action(:update, :patch, bonus_level_path(bonus_level))
-    amount_field(update, bonus_level.normalize_amounts(all_ranks.last.id))
+    amount_field(update, bonus_level.remaining_percentages(all_ranks.last.id))
     update
   end
 
@@ -41,11 +41,11 @@ class BonusJson < JsonDecorator
       required: !bonus.bonus_levels.empty?)
   end
 
-  def amount_field(action, value = nil)
+  def amount_field(action, max_values, value = nil)
     attrs = {
       value_type: :dollar_percentage,
-      first:      all_ranks.first.id,
-      last:       all_ranks.last.id }
+      size:       all_ranks.last.id,
+      max_values: max_values }
     attrs[:value] = value
     action.field(:amounts, :array, attrs)
   end
