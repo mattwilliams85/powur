@@ -18,7 +18,6 @@
 
             <span class="form_row" style="padding-bottom:8px; padding-top:0px; border-bottom:1px dashed #ccc; margin-bottom:16px; font-size:12px; text-transform:uppercase;">
                 {{#if this.amountDetail.total}}<span style="padding-right:20px;">Bonus Total: ${{this.amountDetail.total}}</span>{{/if}}
-                {{#if this.amountDetail.maxPercentage}}<span>Percentage Available: {{this.amountDetail.maxPercentage}}%</span>{{/if}}
                 <br>
                 Entry Mode: <a href="#" class="js-bonus_payment_mode_percentage">Rounded</a>  |  <a href="#" class="js-bonus_payment_mode_dollar">Exact</a>
             </span>
@@ -26,7 +25,7 @@
                 <div id="bonus_payment_mode_percentage" class="active">
                 {{#each this.amountDetail.value}}
                     <span class="form_row" style="padding-bottom:8px; padding-top:0px; " data-amount-array-index="{{@index}}">
-                        <div class="js-percentage_container" data-amount-array-index="{{@index}}" data-amount-percentage="{{this}}">
+                        <div class="js-percentage_container" data-amount-array-index="{{@index}}" data-max-percentage="{{#index_of ../this.amountDetail.max_values @index}}{{/index_of}}" data-amount-percentage="{{this}}">
                             <div class="js-percentage_bar"></div>
                             <div class="js-percentage_label">Rank {{math @index "+" 1}}</div>
                         </div>

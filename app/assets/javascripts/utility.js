@@ -54,6 +54,11 @@ Handlebars.registerHelper('localtime', function(_value){
     return _t.toLocaleDateString();
 });
 
+//return array element from index
+Handlebars.registerHelper('index_of', function(context,ndx) {
+  return context[ndx];
+});
+
 //Handlebar helper to allow comparisons
 Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
     if (arguments.length < 3)
@@ -259,8 +264,9 @@ jQuery(function($){
             _amountDetail.total=_options._popupData.amountDetail.total;
 
             $(".js-percentage_container").each(function(){
-                var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
-                var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                var _rankIndex = (parseInt($(this).attr("data-amount-array-index")));
+                var _rankTitle = _data.ranks.entities[_rankIndex].properties.title;
+                var _rankID = _data.ranks.entities[_rankIndex].properties.id;
                 var _barWidth = $(this).width();
                 $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(1)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(2)+"</span>");
                 $(this).find(".js-percentage_bar").animate({"width":(_barWidth*$(this).attr("data-amount-percentage")).toFixed(0)+"px"},300);
@@ -272,18 +278,21 @@ jQuery(function($){
                 var _position = {x: e.pageX - $(this).offset().left, y: e.pageY - $(this).offset().top}
                 var _percentage = (_position.x/_barWidth).toFixed(3);
                 //_percentage=(Math.round(_percentage)<Math.ceil(_percentage))? Math.floor(_percentage):Math.floor(_percentage)+0.5;
-                var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
-                var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                var _rankIndex = (parseInt($(this).attr("data-amount-array-index")));
+                var _rankTitle = _data.ranks.entities[_rankIndex].properties.title;
+                var _rankID = _data.ranks.entities[_rankIndex].properties.id;
 
+                _amountDetail.max=_amountDetail.max_values[$(this).attr("data-amount-array-index")];
                 if(_percentage>=_amountDetail.max) _percentage=_amountDetail.max;
-                $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100.00).toFixed(1)+"%] [$"+(_percentage*_amountDetail.total).toFixed(2)+"]");
+                $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100.00).toFixed(2)+"% out of "+(_amountDetail.max*100.00).toFixed(2)+"%] $"+(_percentage*_amountDetail.total).toFixed(2)+"");
                 $(this).find(".js-percentage_label").css("color","#ddd");
             });
 
             $(".js-percentage_container").on("mouseout", function(e){
                 e.preventDefault();
-                var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
-                var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                var _rankIndex = (parseInt($(this).attr("data-amount-array-index")));
+                var _rankTitle = _data.ranks.entities[_rankIndex].properties.title;
+                var _rankID = _data.ranks.entities[_rankIndex].properties.id;
                 $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(1)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(2)+"</span>");
                 $(this).find(".js-percentage_label").css("color","#fff");
             });

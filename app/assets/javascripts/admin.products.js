@@ -587,12 +587,13 @@ jQuery(function($){
                             }
 
                             //show bonus payments
-
                             _display="<h4 class='subRow'>// Bonus Payments</h4>";
                             var _multipleLevelBonus = (_getObjectsByCriteria(_bonus, {level:0}).length<1);
                             //loop through each bonus level (even with a single one)
                             _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
-                                console.log(_bonus_level)
+                                console.log(_bonus_level);
+                                if(typeof _bonus_level.properties.rank_path !=="undefined")
+                                    _display+="<div class='subRow'>Bonus Path: "+_bonus_level.properties.rank_path.name+"</div>";
                                 if(_multipleLevelBonus)
                                     _display+="<div class='rotate js-bonus_level_label'>Level "+(_index+1)+"</div><div class='js-bonus_level_bracket'></div>";
 
@@ -603,10 +604,7 @@ jQuery(function($){
                                     var _rankTitle=_getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;                                    
                                     _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(1)+"% <span class='sub'>$"+(_amount*_bonus.properties.available_amount).toFixed(2)+"</span></span></div>";
                                 });
-                                if(_multipleLevelBonus)
-                                    _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_level_payment' href='#"+_getObjectsByCriteria(_bonus_level.actions, {name: "update"})[0].href+"'>Adjust Payments</a></div>";
-                                else
-                                    _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
+                                _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_level_payment' href='#"+_getObjectsByCriteria(_bonus_level.actions, {name: "update"})[0].href+"'>Adjust Payments</a></div>";
                                 _display+="<br style='clear:both;'>";
                             });
 
