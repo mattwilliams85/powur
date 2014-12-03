@@ -60,11 +60,11 @@ class Quote < ActiveRecord::Base
     def to_csv(query)
       query = query.includes(:user, :customer).references(:user, :customer)
       quote_fields = Product.default.quote_fields
-        .includes(:lookups).references(:lookups).entries
+                     .includes(:lookups).references(:lookups).entries
       quote_fields = QUOTE_FIELDS
-        .map { |name| quote_fields.find { |qf| qf.name == name } }
+                     .map { |name| quote_fields.find { |qf| qf.name == name } }
       required_quote_fields = quote_fields
-        .select { |qf| qf.required }.map(&:name)
+                              .select(&:required).map(&:name)
 
       CSV.generate do |csv|
         csv << CSV_HEADERS

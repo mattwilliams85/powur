@@ -159,9 +159,9 @@ module SirenJson
     field_opts = { value: params[scope], required: !!opts[:required] }
     if opts[:options]
       field_opts[:options] = if opts[:options].is_a?(Hash)
-        opts[:options]
-      else
-        instance_exec(&opts[:options])
+                               opts[:options]
+                             else
+                               instance_exec(&opts[:options])
       end
     else
       reference = { url:     instance_exec(&opts[:url]),

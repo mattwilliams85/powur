@@ -15,7 +15,7 @@ class GroupSalesQualification < Qualification
   def max_leg_percent_met?(totals, child_totals = nil)
     return true if max_leg_percent.nil? || max_leg_percent.zero?
     child_totals ||= totals.pay_period
-      .child_totals_for(totals.user_id, product_id)
+                     .child_totals_for(totals.user_id, product_id)
     return false if child_totals.empty?
 
     value = pay_period? ? :group : :group_lifetime

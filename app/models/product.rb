@@ -31,7 +31,7 @@ class Product < ActiveRecord::Base
   end
 
   def assign_sku
-    sku = id.to_s.rjust(7,'0')
+    sku = id.to_s.rjust(7, '0')
     save
   end
   class << self

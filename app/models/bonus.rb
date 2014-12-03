@@ -4,8 +4,8 @@ class Bonus < ActiveRecord::Base
     enroller:     'Enroller',
     unilevel:     'Unilevel',
     fast_start:   'Fast Start' }
-    # differential:   'Differential',
-    # promote_out:    'Promote-Out' }
+  # differential:   'Differential',
+  # promote_out:    'Promote-Out' }
   SCHEDULES = {
     weekly:  'Weekly',
     monthly: 'Monthly' }
@@ -90,9 +90,9 @@ class Bonus < ActiveRecord::Base
 
   def percentages_used(max_rank)
     amounts = if max_level_amounts.size == 1
-      max_level_amounts.first
-    else
-      max_level_amounts.transpose.map { |a| a.inject(:+) }
+                max_level_amounts.first
+              else
+                max_level_amounts.transpose.map { |a| a.inject(:+) }
     end
 
     amounts.fill(BigDecimal('0'), amounts.size...max_rank)[0...max_rank]
@@ -102,7 +102,7 @@ class Bonus < ActiveRecord::Base
     other_product_percentages(max_rank).map { |percent| 1.0 - percent }
   end
 
-  def remaining_percentages_for_level(level_id, max_rank)
+  def remaining_percentages_for_level(_level_id, max_rank)
     remaining_percentages(max_rank)
   end
 

@@ -51,7 +51,7 @@ class Rank < ActiveRecord::Base
         totals = order_totals
       else
         totals = order_totals.pay_period
-          .find_order_total!(order_totals.user_id, qualification.product_id)
+                 .find_order_total!(order_totals.user_id, qualification.product_id)
       end
       qualification.met?(totals)
     end
