@@ -13,7 +13,7 @@
       </div>
 
       <div class="object_detail_content_section" style="padding-left:20px;">
-        <span id="graph_title" style="font-size:1.05em">Total Earnings to Date </span>
+        <span id="graph_title" style="font-size:1.05em">Full Genealogy Conversion History </span>
         <br>
         <div class="legend-box">
           <div class="legend">
@@ -39,14 +39,17 @@
             <h3>TEAM STATS</h3>
             <h4>Today</h4>
             <div class="team_statistics box">
-              <span class="label" >Earnings: $350</span>
+              <span class="label" >Leads: 3</span>
+              <span class="label" style="display:block">Conversion: 5</span>
             </div>
             <h4 style="padding-top:20px">This Week</h4>
             <div class="team_statistics box"></div>
-              <span class="label">Earnings: $1,500</span>
+              <span class="label">Leads: 6</span>
+              <span class="label" style="display:block">Conversion: 9</span>
             <h4 style="padding-top:20px">Total Active</h4>
             <div class="team_statistics box">
-              <span class="label" >Earnings: $2,182.67</span>
+              <span class="label" >Leads: 53</span>
+              <span class="label" style="display:block">Conversion: 82</span>
             </div>
 
                   </div>
@@ -82,69 +85,55 @@ var teamMonthData = {
                   };
 
 var metricsData = {
-    labels: _labels,
-    datasets: [
-        {
-          label: "My dataset",
-          fillColor: "rgba(220,220,0,0)",
-          strokeColor: "rgba(32,194,241,1)",
-          pointColor: "rgba(32,194,241,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: teamWeekData["sales"]
-        }
-    ]
+ labels: _labels,
+ datasets: [{
+   label: "My First dataset",
+   fillColor: "rgba(32, 194, 241,.9)",
+   highlightFill: "#5bd7f7",
+   strokeColor: "rgba(32, 194, 241,.9)",
+   data: teamWeekData["sales"]
+ }]
 };
 
 var options = {
-    // Number - pixel width of padding around tooltip text
-    tooltipYPadding: 8,
 
-    // Number - pixel width of padding around tooltip text
-    tooltipXPadding: 8,
+  //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+  scaleBeginAtZero: true,
 
-    ///Boolean - Whether grid lines are shown across the chart
-    scaleShowGridLines : true,
+  //Boolean - Whether grid lines are shown across the chart
+  scaleShowGridLines: true,
 
-    scaleFontColor: "rgba(247,239,226,0.8)",
+  //String - Colour of the grid lines
+  scaleGridLineColor: "rgba(255,255,255,.15)",
 
-    //String - Colour of the grid lines
-    scaleGridLineColor : "rgba(255,255,255,.065)",
+  scaleLineColor: "rgba(255,255,255,.15)",
 
-    //Number - Width of the grid lines
-    scaleGridLineWidth : 1,
+  scaleFontColor: "#fff",
 
-    //Boolean - Whether the line is curved between points
-    bezierCurve : false,
+  bezierCurveTension : .3,
 
-    //Boolean - Whether to show a dot for each point
-    pointDot : true,
+  //Number - Width of the grid lines
+  scaleGridLineWidth: 1,
 
-    //Number - Radius of each point dot in pixels
-    pointDotRadius : 4,
+  //Boolean - If there is a stroke on each bar
+  barShowStroke: true,
 
-    //Number - Pixel width of point dot stroke
-    pointDotStrokeWidth : 1,
+  //Number - Pixel width of the bar stroke
+  barStrokeWidth: 2,
 
-    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-    pointHitDetectionRadius : 20,
+  //Number - Spacing between each of the X value sets
+  barValueSpacing: 20,
 
-    //Boolean - Whether to show a stroke for datasets
-    datasetStroke : true,
+  //Number - Spacing between data sets within X values
+  barDatasetSpacing: 1,
 
-    //Number - Pixel width of dataset stroke
-    datasetStrokeWidth : 3,
+  //Point dot size
+  pointDotRadius : 4,
 
-    //Boolean - Whether to fill the dataset with a colour
-    datasetFill : true,
-
-    animationSteps : 75,
-    // Boolean - If we want to override with a hard coded scale
-    scaleOverride: true,
+  scaleOverride: true,
 
     scaleFontSize: 13,
- 
+
     scaleLabel : " <%= !Number(value) ? '' :  Number(value)%>",
 
     // ** Required if scaleOverride is true **
@@ -216,7 +205,7 @@ function randomizeData(length){
 }
 
 var ctx = $("#metricsChart").get(0).getContext("2d");
-var myChart = new Chart(ctx).Line(metricsData, options);
+var myChart = new Chart(ctx).Bar(metricsData, options);
 
 //TIME FUNCTIONS
 displayWeek()
@@ -230,7 +219,7 @@ displayWeek()
       setScale() 
       ctx.canvas.width = 670 
       ctx.canvas.height = 330 
-      myChart = new Chart(ctx).Line(metricsData, options);
+      myChart = new Chart(ctx).Bar(metricsData, options);
     } else {
       weekBack()
       displayWeek()
@@ -240,7 +229,7 @@ displayWeek()
       setScale()
       ctx.canvas.width = 670 
       ctx.canvas.height = 330  
-      myChart = new Chart(ctx).Line(metricsData, options);
+      myChart = new Chart(ctx).Bar(metricsData, options);
     }
   })
 
@@ -253,7 +242,7 @@ displayWeek()
       randomizeData(29)
       ctx.canvas.width = 670 
       ctx.canvas.height = 330 
-      myChart = new Chart(ctx).Line(metricsData, options);
+      myChart = new Chart(ctx).Bar(metricsData, options);
     } else {
       weekForward()
       displayWeek()
@@ -262,7 +251,7 @@ displayWeek()
       randomizeData(6)
       ctx.canvas.width = 670 
       ctx.canvas.height = 330 
-      myChart = new Chart(ctx).Line(metricsData, options);
+      myChart = new Chart(ctx).Bar(metricsData, options);
     }
   })
 
@@ -300,8 +289,8 @@ $(".return_to_team").on("click",function(e){
   setScale()
   ctx.canvas.width = 670 
   ctx.canvas.height = 330 
-  myChart = new Chart(ctx).Line(metricsData, options);  
-    $("#graph_title").html("Total Earnings to Date");
+  myChart = new Chart(ctx).Bar(metricsData, options);  
+    $("#graph_title").html("Full Genealogy Conversion History");
     $(".contributor").css("background","#545454");
     $(".return_to_team").hide();
     $(".progress_description").fadeIn();
@@ -318,7 +307,7 @@ $(".current").on("click", function(e){
     setScale()
     ctx.canvas.width = 670 
     ctx.canvas.height = 330 
-    myChart = new Chart(ctx).Line(metricsData, options); 
+    myChart = new Chart(ctx).Bar(metricsData, options); 
 })
 
 $(".time_scale .month").on("click", function() {
@@ -331,7 +320,7 @@ $(".time_scale .month").on("click", function() {
   setScale()
   ctx.canvas.width = 670 
   ctx.canvas.height = 330 
-  myChart = new Chart(ctx).Line(metricsData, options);
+  myChart = new Chart(ctx).Bar(metricsData, options);
   
   $(".time_scale .week").removeClass("active");
   $(this).addClass("active");
@@ -347,7 +336,7 @@ $(".time_scale .week").on("click", function() {
   setScale()
   ctx.canvas.width = 670 
   ctx.canvas.height = 330 
-  myChart = new Chart(ctx).Line(metricsData, options);
+  myChart = new Chart(ctx).Bar(metricsData, options);
  
   $(".time_scale .month").removeClass("active");
   $(this).addClass("active");
@@ -435,8 +424,8 @@ function contributorEvents(){
     setScale()
     ctx.canvas.width = 670 
     ctx.canvas.height = 330 
-    myChart = new Chart(ctx).Line(metricsData, options);
-    $("#graph_title").html($(this).attr('id') + "'s Earnings to Date")
+    myChart = new Chart(ctx).Bar(metricsData, options);
+    $("#graph_title").html($(this).attr('id') + "'s Conversion History")
   });
 
   $(".contributor")
@@ -506,7 +495,7 @@ function totalOrdersForWeek(){
         _callback: function(data, text) {
           console.log(data)
           member.properties.downline_count = data.entities.length;
-          EyeCueLab.UX.getTemplate("/templates/_kpi_total_earnings_team_thumbnail.handlebars.html", member, undefined, function(html) {
+          EyeCueLab.UX.getTemplate("/templates/_kpi_genealogy_team_thumbnail.handlebars.html", member, undefined, function(html) {
           if($('.contributor').length == array.length) contributorEvents();
             _contributors.append(html);
           });

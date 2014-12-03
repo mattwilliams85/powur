@@ -1,366 +1,513 @@
-<style>
-  .drilldown_content {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  
-  a{
-    cursor:pointer;
-  }
-
-  table {
-    width:100%;
-  }
-
-  .avatar {
-    width:70px;
-    height:70px;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
-    border-radius:50%;
-    background-size:contain;
-    float:left;
-    border:2px solid white;
-  }
-
-  #avatar1 {
-    background-image: url('https://avatars0.githubusercontent.com/u/5414273?v=3&s=460');
-  }
-
-  #avatar2 {
-    background-image: url('https://avatars2.githubusercontent.com/u/8699048?v=3&s=460')
-  }
-
-  #avatar3 {
-    background-image: url('https://avatars1.githubusercontent.com/u/5241140?v=3&s=460')
-  }
-
-  .subtext {
-    font-size:0.8em;
-  }
-
-  .info-box {
-    display:inline-block;
-    padding-top:10px;
-  }
-
-  .info-text {
-    padding:2.5px 0 0 21px;
-    float:left;
-  }
-
-  .light-text {
-    color:#eee;
-    font-size:0.85em;
-  }
-
-  .legend {
-    display;inline;
-  }
-
-  .legend-item {
-    width:25px;height:20px;
-    float:left;
-    margin-top:5px;
-  }
-
-  .legend-text {
-    font-size:0.8em;
-    float:left;
-    padding-left:5px;
-  }
-
-  .contributors {
-    padding-top:20px;
-  }
-
-  .contributor {
-    cursor: pointer;
-    padding-left:10px;
-    background-color:#535353;
-  }
-
-
-  .earnings-header {
-    padding-left:25%;
-    padding-top:10px;
-    width:267;
-  }
-
-  .contributors-td {
-    vertical-align:top;
-  }
-
-  .chart-td {
-    border-left:1px solid rgba(100,100,100,0.9);
-    padding-left:20px;
-  }
-
-  .leads-chart {
-    padding-top:20px;
-  }
-
-  .legend-box {
-    vertical-align:top;
-    display:inline-block;
-    padding:50px 0 50px 15px;
-    width:150px;
-  }
-
-  .learn-more {
-    font-size:0.7em;
-
-  }
-
-  #user-legend {
-    background-color:rgba(32,194,241,1);
-  }
-
-  #global-legend {
-    background-color:rgba(249,166,0,1);
-  }
-
-</style>
-
 <div class="arrow"></div>
 <div class="drilldown_content">
-  <div id="kpi_leads_detail" class="object_detail">
-   <div class="object_detail_arrow"></div>
-    <span class="dismiss"><i class="fa fa-times"></i></span>
+  <div id="kpi_environment_detail" class="object_detail">
+
     <div class="object_detail_content">
       <div class="object_detail_content_section summary">
-				<table width="1320">
-          <tr>
-            <td><span>Top Contributors</span></td>
-            <td class="earnings-header"><span>Total Earnings</span></td>
-          </tr>
-					<tr>
-						<td class="contributors-td" width="325">
-              <span class="subtext">In the past 12 months your team has preformed 4% above average.</span>
-              <div class="contributors">
-                <div class="contributor">
-                  <div class="info-box">
-                    <div id="avatar1" class="avatar"></div>
-                      <div class="info-text">
-                        <a id="hover1"><span>Jon Doe</span></a>
-                        <br> 
-                        <span class="light-text">Earnings Share: 57% </span>
-                      </div>
-                    </div>
+        <span class="progress_description">Top Performers</span>
+        <a class="return_to_team" style="z-index:99;margin:auto;display:block; display:none; float:left; font-size:16px; text-transform:uppercase;"><i class="fa fa-bar-chart chart-icon"></i>  Return To Team</a>
+        <div class="contributors"></div>
+        <div class="scroll-arrows">
+          <i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>
+        </div>
+      </div>
+
+      <div class="object_detail_content_section" style="padding-left:20px;">
+        <span id="graph_title" style="font-size:1.05em">Full Genealogy Conversion History </span>
+        <br>
+        <div class="legend-box">
+          <div class="legend">
+            <div class="legend-item" id="user-legend"></div>
+            <span id="selected_user" class="legend-text">Team Size</span>
+          </div>
+          <div class="time_scale" style="padding-left:20px">
+            <span class="active week">Week</span><span class="month">Month</span>
+          </div>
+        </div> <!-- end legend-box -->
+        {{!-- <div style="display:block;"> --}}
+        <div class="week-span" style="display:block;font-size:0.8em;width:175px;margin:0 auto;text-align:center"></div>
+        {{!-- </div> --}}
+        <canvas id="metricsChart" width="670" height="330" style="float:left;"></canvas>
+        <div class="time_unit_nav">
+          <i class="fa fa-caret-left back" style="color:rgb(238,238,238); margin-right:10px;"></i> 
+          <span class="current">Current</span> 
+          <i class="fa fa-caret-right forward" style="color:rgb(238,238,238); margin-left:10px;"></i>
+        </div>
+        </div> <!-- end object_detail_content_section -->
+        <div style="width:150px; padding-left:75px;padding-top:5px;float:left;">
+        <div class="team_statistics">
+            <h3>TEAM STATS</h3>
+            <h4>Today</h4>
+            <div class="team_statistics box">
+              <span class="label" >Leads: 3</span>
+              <span class="label" style="display:block">Conversion: 5</span>
+            </div>
+            <h4 style="padding-top:20px">This Week</h4>
+            <div class="team_statistics box"></div>
+              <span class="label">Leads: 6</span>
+              <span class="label" style="display:block">Conversion: 9</span>
+            <h4 style="padding-top:20px">Total Active</h4>
+            <div class="team_statistics box">
+              <span class="label" >Leads: 53</span>
+              <span class="label" style="display:block">Conversion: 82</span>
+            </div>
+
                   </div>
-                </div>
-                <div class="contributor">
-                  <div class="info-box">
-                    <div id="avatar2" class="avatar"></div>
-                      <div class="info-text">
-                        <a id="hover2"><span>Danny Smith</span></a>
-                        <br> 
-                        <span class="light-text">Earnings Share: 57% </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="contributor">
-                  <div class="info-box">
-                    <div id="avatar3" class="avatar"></div>
-                      <div class="info-text">
-                        <a id="hover3"><span>Lisa Williams</span></a>
-                        <br> 
-                        <span class="light-text">Earnings Share: 57% </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </td>
-						<td class="chart-td">
-              <canvas id="leadsChart" width="670" height="375"></canvas>
-              <div class="legend-box">
-                <div class="legend">
-                  <div class="legend-item" id="user-legend"></div>
-                  <span id="selected_user" class="legend-text">My Earnings</span>
-                </div>
-                <br>
-                <div class="legend">
-                  <div class="legend-item" id="global-legend"></div>
-                  <span id="average" class="legend-text">Global Avg</span>
-                </div>
-                <br>
-                <br>
-                {{!-- <span class="subtext"> <a href="#">View Details ></a></span> --}}
-              </div>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
+          
+     
+    </div> <!-- end object_detail_content -->
+  </div> <!-- end object_detail -->
+</div> <!-- end drilldown_content -->
+
 
 <script>
- 
-var leadsData = {
-    labels: ["Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov"],
-    datasets: [
-        {
-          label: "My dataset",
-          fillColor: "rgba(220,220,0,0)",
-          strokeColor: "rgba(32,194,241,1)",
-          pointColor: "rgba(32,194,241,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [ 65, 59, 80, 81, 56, 55, 40, 80, 81, 56, 55, 20]
-        },
-        {
-          label: "Global dataset",
-          fillColor: "rgba(220,220,220,0)",
-          strokeColor: "rgba(249,166,0,1)",
-          pointColor: "rgba(249,166,0,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [28, 48, 40, 19, 86, 27, 90, 28, 48, 40, 19, 36]
-        },
-        {
-          label: "Team dataset",
-          fillColor: "rgba(220,220,220,0)",
-          strokeColor: "rgba(44,148,105,0)",
-          pointColor: "rgba(249,166,0,0)",
-          pointStrokeColor: "rgba(255,255,255,0)",
-          pointHighlightFill: "rgba(255,255,255,0)",
-          pointHighlightStroke: "rgba(220,220,220,0)",
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        }
-    ]
+
+var _labels = [];
+var position = 0;
+var page = 1;
+// var total_pages = Math.ceil(_data.team.entities.length / 5)
+var now = new Date()
+now = setCalendarWeek()
+var nowWeek = (new Date()).getWeek();
+var nowMonth = (new Date()).getMonth();
+var _endPoints = [];
+var scale = "week"
+var topPerformers = [];
+var currentlyViewing = "team";
+var scaleSteps = ""
+
+var teamWeekData = {
+                    "sales":[23,24,26,0,0,0,0],
+                   };
+
+var teamMonthData = {
+                   "sales":[19,20,23,24,26,20,21,22,23,22,21,20,19,17,20,25,26,21,20,20,20,25,25,23,21,23,24,26,0,0,0],
+                  };
+
+var metricsData = {
+ labels: _labels,
+ datasets: [{
+   label: "My First dataset",
+   fillColor: "rgba(32, 194, 241,.9)",
+   highlightFill: "#5bd7f7",
+   strokeColor: "rgba(32, 194, 241,.9)",
+   data: teamWeekData["sales"]
+ }]
 };
 
 var options = {
-    // Number - pixel width of padding around tooltip text
-    tooltipYPadding: 8,
 
-    // Number - pixel width of padding around tooltip text
-    tooltipXPadding: 8,
+  //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+  scaleBeginAtZero: true,
 
-    ///Boolean - Whether grid lines are shown across the chart
-    scaleShowGridLines : true,
+  //Boolean - Whether grid lines are shown across the chart
+  scaleShowGridLines: true,
 
-    scaleFontColor: "rgba(247,239,226,0.8)",
+  //String - Colour of the grid lines
+  scaleGridLineColor: "rgba(255,255,255,.15)",
 
-    //String - Colour of the grid lines
-    scaleGridLineColor : "rgba(255,255,255,.065)",
+  scaleLineColor: "rgba(255,255,255,.15)",
 
-    //Number - Width of the grid lines
-    scaleGridLineWidth : 1,
+  scaleFontColor: "#fff",
 
-    //Boolean - Whether the line is curved between points
-    bezierCurve : false,
+  bezierCurveTension : .3,
 
-    //Boolean - Whether to show a dot for each point
-    pointDot : true,
+  //Number - Width of the grid lines
+  scaleGridLineWidth: 1,
 
-    //Number - Radius of each point dot in pixels
-    pointDotRadius : 4,
+  //Boolean - If there is a stroke on each bar
+  barShowStroke: true,
 
-    //Number - Pixel width of point dot stroke
-    pointDotStrokeWidth : 1,
+  //Number - Pixel width of the bar stroke
+  barStrokeWidth: 2,
 
-    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-    pointHitDetectionRadius : 20,
+  //Number - Spacing between each of the X value sets
+  barValueSpacing: 20,
 
-    //Boolean - Whether to show a stroke for datasets
-    datasetStroke : true,
+  //Number - Spacing between data sets within X values
+  barDatasetSpacing: 1,
 
-    //Number - Pixel width of dataset stroke
-    datasetStrokeWidth : 3,
+  //Point dot size
+  pointDotRadius : 4,
 
-    //Boolean - Whether to fill the dataset with a colour
-    datasetFill : true,
+  scaleOverride: true,
 
-    multiTooltipTemplate: "<%='$' + value + ',000' %>",
+    scaleFontSize: 13,
 
-    animationSteps : 75,
-    // Boolean - If we want to override with a hard coded scale
-    scaleOverride: true,
+    scaleLabel : " <%= !Number(value) ? '' :  Number(value)%>",
 
-      scaleFontSize: 13,
+    // ** Required if scaleOverride is true **
+    // Number - The number of steps in a hard coded scale
+    scaleSteps: 12,
+    // Number - The value jump in the hard coded scale
+    scaleStepWidth: Math.floor(scaleSteps / 12),
+    // Number - The scale starting value
+    scaleStartValue: 0,
 
-      scaleLabel : "<%= !Number(value) ? '' : Number(value) + 'k'%>",
- 
-      // ** Required if scaleOverride is true **
-      // Number - The number of steps in a hard coded scale
-      scaleSteps: 10,
-      // Number - The value jump in the hard coded scale
-      scaleStepWidth: 12,
-      // Number - The scale starting value
-      scaleStartValue: 0,
-};
+  //String - A legend template
+  legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
-var ctx = document.getElementById("leadsChart").getContext("2d");
-var leadsChart = new Chart(ctx).Line(leadsData, options);
+}
 
-$('#selected_user').hide().html("My Earnings").fadeIn(1000);
-$('#average').hide().html("Global Average").fadeIn(1000);
-$(".contributor")
-    .velocity("transition.slideUpBigIn", { 
-      stagger: 200, 
-      duration: 600
-    })
-    .append("<hr style='border-color:rgba(255,255,255,.08);margin:5px 0 5px 0'> ")
+setScale();
 
-$(".contributor").on("click",function(e){
-  e.preventDefault();
-  console.log($(this).index())
-  leadsData.datasets[2].data[3]= 60;
-  leadsData.datasets[2].data[4]= 60;
-  leadsData.datasets[2].data[5]= 20;
-  leadsData.datasets[2].data[6]= 60;
-  leadsData.datasets[2].data[7]= 61;
-  leadsData.datasets[2].data[8]= 32;
-  leadsData.datasets[2].data[9]= 25;
-  leadsData.datasets[2].data[10]= 20;
-  leadsData.datasets[2].data[11]= 10;
+function setScale() {
+  _labels = [];
 
-  leadsData.datasets[2].strokeColor = "rgba(44,148,105,1)";
-  // leadsChart.update();
-  leadsData.datasets[2].pointColor= "rgba(249,166,0,1)";
-  leadsData.datasets[2].pointStrokeColor= "#fff";
-  leadsData.datasets[2].pointHighlightFill= "#fff";
-  leadsData.datasets[2].pointHighlightStroke= "rgba(220,220,220,1)";
-  console.log(leadsData.datasets[2].strokeColor);
-  options.animationSteps=20;
-  var ctx = document.getElementById("leadsChart").getContext("2d");
-  var leadsChart = new Chart(ctx).Line(leadsData, options);
+  if(scale == "week") {
+    for (i = 0; i <= 6; i++) {
+      _labels.push(now.getMonth() + 1 + "/" + (now.addDays(i).getDate()));
+    }
+    options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.5)/12);
+  } else {
+    for (i = 0; i <= numberOfDaysInMonth() - 1; i++) {
+      _labels.push(now.getMonth() + 1 + "/" + (now.getDate() + i));
+    }
+    options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.5)/12);
+  }
 
-  $('.contributor').each(function(){
-    $(this).velocity({backgroundColor:"#555"},100);
-  })
-  $(this).velocity({backgroundColor:"#4545"},100);
+  metricsData.labels = _labels
+}
 
+// function getTeamWeekData() {
+//   total = 0;
+//   _data.impact_metrics.orders[(now.getYear() + 1900) + "W" + now.getWeek()].forEach(function(user){
+//     users.orders.forEach(function(order){
+//       if(order){
 
-  $('#selected_user').hide().html("Jon Doe").fadeIn(500);
-})
+//       }
+//     })
+//   })
+//   return total;
+// }
 
+function setCalendarWeek(){
+  daysFromSun = now.getDay()
+  return new Date(now.setDate(now.getDate() - daysFromSun))
+}
 
-function resetData(){
-  leadsChart.datasets[0].points[0].value = 65;
-  leadsChart.datasets[0].points[1].value = 59;
-  leadsChart.datasets[0].points[2].value = 80;
-  leadsChart.datasets[0].points[3].value = 81;
-  leadsChart.datasets[0].points[4].value = 56;
-  leadsChart.datasets[0].points[5].value = 55;
-  leadsChart.datasets[0].points[6].value = 40;
-  leadsChart.datasets[0].points[7].value = 80;
-  leadsChart.datasets[0].points[8].value = 81;
-  leadsChart.datasets[0].points[9].value = 56;
-  leadsChart.datasets[0].points[10].value = 55;
-  leadsChart.datasets[0].points[11].value = 20;
+function setCalendarMonth(){
+  return now.setDate(1);
+}
 
-  leadsChart.update();
-  $('#selected_user').hide().html("My Earnings").fadeIn(500);
+function numberOfDaysInMonth(){
+  days = new Date(now);
+  days = new Date(days.setMonth(now.getMonth() + 1));
+  return (new Date(days.setDate(0))).getDate();
 } 
 
+function randomizeData(length){
+  total = 0;
+  metricsData.datasets[0].data = []
+  for(i = 0; i <= length; i++) {
+    metricsData.datasets[0].data.push(Math.floor(Math.random() * 5 + 1));
+  }
+}
+
+var ctx = $("#metricsChart").get(0).getContext("2d");
+var myChart = new Chart(ctx).Bar(metricsData, options);
+
+//TIME FUNCTIONS
+displayWeek()
+
+  $('.back').on("click", function(){
+    if(scale == "month"){
+      monthBack()
+      displayMonth()
+      myChart.destroy();
+      randomizeData(29)
+      setScale() 
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 330 
+      myChart = new Chart(ctx).Bar(metricsData, options);
+    } else {
+      weekBack()
+      displayWeek()
+      setScale() 
+      myChart.destroy();
+      randomizeData(6)
+      setScale()
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 330  
+      myChart = new Chart(ctx).Bar(metricsData, options);
+    }
+  })
+
+  $('.forward').on("click", function(){
+    if(scale == "month"){
+      monthForward()
+      displayMonth()
+      setScale() 
+      myChart.destroy();
+      randomizeData(29)
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 330 
+      myChart = new Chart(ctx).Bar(metricsData, options);
+    } else {
+      weekForward()
+      displayWeek()
+      setScale() 
+      myChart.destroy();
+      randomizeData(6)
+      ctx.canvas.width = 670 
+      ctx.canvas.height = 330 
+      myChart = new Chart(ctx).Bar(metricsData, options);
+    }
+  })
+
+  function weekOfMonth(){
+    return Math.ceil(now.getDate()/7);
+  }
+
+  function weekBack() {
+    now = new Date(now.setDate(now.getDate() - 7))
+  }
+
+  function weekForward() {
+    now = new Date(now.setDate(now.getDate() + 7))
+  }
+
+  function displayWeek(){
+    $(".week-span").html("WEEK " + $.datepicker.formatDate('mm/dd', now) + " - " + $.datepicker.formatDate('mm/dd', now.addDays(7)));
+  }
+
+  function monthBack() {
+    now = new Date(now.setMonth(now.getMonth() - 1))
+  }
+
+  function monthForward() {
+    now = new Date(now.setMonth(now.getMonth() + 1))
+  }
+
+  function displayMonth(){
+    $(".week-span").html($.datepicker.formatDate('MM', now));
+  }
+
+$(".return_to_team").on("click",function(e){
+  myChart.destroy();
+  randomizeData(29)
+  setScale()
+  ctx.canvas.width = 670 
+  ctx.canvas.height = 330 
+  myChart = new Chart(ctx).Bar(metricsData, options);  
+    $("#graph_title").html("Full Genealogy Conversion History");
+    $(".contributor").css("background","#545454");
+    $(".return_to_team").hide();
+    $(".progress_description").fadeIn();
+    currentlyViewing="team";
+});
+
+//FOR DEMO (DELETE AFTER)
+$(".current").on("click", function(e){
+    now = new Date()
+    if(scale == "week") displayWeek()
+    if(scale == "month") displayMonth()
+    myChart.destroy();
+    randomizeData(29)
+    setScale()
+    ctx.canvas.width = 670 
+    ctx.canvas.height = 330 
+    myChart = new Chart(ctx).Bar(metricsData, options); 
+})
+
+$(".time_scale .month").on("click", function() {
+  options.barValueSpacing = 3;
+  setCalendarMonth()
+  displayMonth()
+  scale = "month"
+  myChart.destroy();
+  randomizeData(29)
+  setScale()
+  ctx.canvas.width = 670 
+  ctx.canvas.height = 330 
+  myChart = new Chart(ctx).Bar(metricsData, options);
+  
+  $(".time_scale .week").removeClass("active");
+  $(this).addClass("active");
+})
+
+$(".time_scale .week").on("click", function() {
+  options.barValueSpacing = 20;
+  setCalendarWeek()
+  displayWeek()
+  scale = "week"
+  myChart.destroy();
+  randomizeData(6)
+  setScale()
+  ctx.canvas.width = 670 
+  ctx.canvas.height = 330 
+  myChart = new Chart(ctx).Bar(metricsData, options);
+ 
+  $(".time_scale .month").removeClass("active");
+  $(this).addClass("active");
+})
+
+ // $('.page-count').html(page + " of " + total_pages);
+
+// PAGINATION FOR USERS
+  $('.fa-caret-down').show();
+  $('.fa-caret-down').on("click", function(e) {
+    $('.contributor').each(function(){
+      $(this).velocity({backgroundColor:"#545454"},100);
+    })
+    if($('.fa-caret-down').hasClass("active")){
+      e.preventDefault();
+      e.stopPropagation();
+      page += 1
+      // $('.page-count').html(page + " of " + total_pages);
+      checkPage()
+      position -= 406;
+      $('.contributor').each(function() {
+        $(this).velocity({translateY: position + "px"});
+      })
+    }
+  });
+
+  $('.fa-caret-up').on("click", function(e) {
+    $('.contributor').each(function(){
+      $(this).velocity({backgroundColor:"#545454"},100);
+    })
+      if($('.fa-caret-up').hasClass("active")){
+        e.preventDefault();
+        e.stopPropagation();
+        page -= 1;
+        // $('.page-count').html(page + " of " + total_pages);
+        checkPage();
+        position += 406;
+        $('.contributor').each(function() {
+          $(this).velocity({translateY: position + "px"});
+        })
+      };
+    });
+
+
+function checkPage(){
+  if (page != 1) {
+    $('.fa-caret-up').css("opacity","1");
+    $('.fa-caret-up').addClass("active");
+  } else {
+    $('.fa-caret-up').css("opacity","0.3");
+    $('.fa-caret-up').removeClass("active");
+  }
+
+  if (page !=  2) {
+    $('.fa-caret-down').css("opacity","1");
+    $('.fa-caret-down').addClass("active");
+  } else {
+    $('.fa-caret-down').css("opacity","0.3");
+    $('.fa-caret-down').removeClass("active");
+  }
+}
+
+checkPage()
+
+//////////////////////////
+
+function contributorEvents(){
+
+  $(".contributor").on("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $(".return_to_team").fadeIn();
+    _index=$(this).find(".avatar").attr("id").replace("avatar","")-1;
+    $(".progress_description").hide();
+    $('.contributor').each(function(){
+      $(this).velocity({backgroundColor:"#545454"},100);
+    })
+    $(this).velocity({backgroundColor:"#333"},100);
+
+    currentlyViewing = "individuals";
+
+    options.animationSteps = 20;
+    myChart.destroy();
+    randomizeData(29)
+    setScale()
+    ctx.canvas.width = 670 
+    ctx.canvas.height = 330 
+    myChart = new Chart(ctx).Bar(metricsData, options);
+    $("#graph_title").html($(this).attr('id') + "'s Conversion History")
+  });
+
+  $(".contributor")
+      .show()
+      .velocity("transition.slideUpBigIn", { 
+        stagger: 200, 
+        duration: 600
+      })
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function randomizeOrders(){
+  _data.team.entities.forEach(function(member){
+    member.properties.orders = Math.floor(Math.random() * 30 + 10)
+  });
+}
+
+function getAllOrders(){
+
+  _data.team.entities.forEach(function(member){
+    _endPoints.push({
+      url:"/u/users/"+member.properties.id+"/orders",
+      data:{},
+      name:member.properties.email
+    });
+  });
+
+  EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+    var allOrders = [];
+     _returnJSONs.forEach(function(member){
+      member.entities.forEach(function(order){
+        allOrders.push(order);
+      });
+    });
+   _data.impact_metrics.orders = {"all": allOrders}
+  });
+  console.log("getAllOrders() finished; _data.impact_metrics.orders.all should be populated with all orders from your genealogy.")
+}
+
+getAllOrders();
+
+//Orders Total for given week
+function totalOrdersForWeek(){
+  var _ordersCounter = 0;
+  _data.team.entities.forEach(function(member){
+    _data.impact_metrics.push({"id": member.properties.id, "orders": member.properties.orders, "week": "this week"});
+    _ordersCounter += member.properties.orders;
+  })
+  $(".totalOrdersForWeek").html(_ordersCounter);
+  return _ordersCounter;
+}
+
+  //bringing in current user's downline on the left side of KPIs (andrew)
+
+  function populateContributors() {
+    var _contributors = $(".contributors");
+    _contributors.html("");
+    array = _data.team.entities.slice(0,10)
+
+    array.forEach(function(member) {
+      _ajax({
+        _ajaxType: "get",
+        _url: "/u/users/" + member.properties.id + "/downline",
+        _callback: function(data, text) {
+          console.log(data)
+          member.properties.downline_count = data.entities.length;
+          EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
+          if($('.contributor').length == array.length) contributorEvents();
+            _contributors.append(html);
+          });
+        }
+      });
+    });
+  }
+
+  randomizeOrders();
+  // totalOrdersForWeek();
+  populateContributors();
+
 </script>
+
+
