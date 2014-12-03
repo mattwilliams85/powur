@@ -17,6 +17,10 @@ module UserScopes
     #   ORDER BY u.last_name, u.first_name, u.id;"
     # find_by_sql([ CHILD_COUNT_LIST, user.level, user.id, user.level + 1 ])
 
+    scope :for_bonuses, lambda {
+      select(:id, :upline, :lifetime_rank, :organic_rank, :rank_path_id)
+    }
+
     scope :downline_counts, lambda {
       select('unnest(users.upline) parent_id, count(users.id) - 1 downline_count').group('parent_id')
     }

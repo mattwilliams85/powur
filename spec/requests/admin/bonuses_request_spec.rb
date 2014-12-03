@@ -33,7 +33,7 @@ describe '/a/bonuses' do
     end
 
     it 'returns an enroller sales bonus' do
-      bonus = create(:enroller_sales_bonus)
+      bonus = create(:enroller_bonus)
 
       get bonus_path(bonus), format: :json
 
@@ -42,7 +42,7 @@ describe '/a/bonuses' do
 
     it 'returns an unilevel sales bonus' do
       create_list(:rank, 3)
-      bonus = create(:unilevel_sales_bonus)
+      bonus = create(:unilevel_bonus)
       create(:bonus_requirement, bonus: bonus)
       create(:bonus_level, bonus: bonus,
              level: 1, amounts: [ 0.125, 0.125, 0.125, 0.125 ])
@@ -175,15 +175,6 @@ describe '/a/bonuses' do
       expect(json_body['properties']['name']).to eq('foo')
     end
 
-    it 'updates the max user rank' do
-      bonus = create(:enroller_sales_bonus)
-      rank = create(:rank)
-
-      patch bonus_path(bonus), max_user_rank_id: rank.id, format: :json
-
-      expect(json_body['properties']['max_user_rank']).to eq(rank.title)
-    end
-
     it 'updates the min upline rank' do
       bonus = create(:differential_bonus)
       rank = create(:rank)
@@ -202,7 +193,7 @@ describe '/a/bonuses' do
     end
 
     it 'updates the compress flag' do
-      bonus = create(:unilevel_sales_bonus)
+      bonus = create(:unilevel_bonus)
 
       compress = bonus.compress
       patch bonus_path(bonus), compress: !compress, format: :json

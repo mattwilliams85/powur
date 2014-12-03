@@ -30,9 +30,11 @@ gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of'
 gem 'money'
 gem 'has_scope'
 gem 'attr_extras'
+gem 'faraday'
 
 gem 'pry-rails'
 gem 'eyecue_ipayout', path: './vendor/eyecue_ipayout'
+gem 'nmi_direct_post'
 
 group :development do
   gem 'spring-commands-rspec'

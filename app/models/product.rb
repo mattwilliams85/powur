@@ -1,4 +1,6 @@
 class Product < ActiveRecord::Base
+  after_create :assign_sku
+
   has_many :qualifications, dependent: :destroy
   has_many :bonus_sales_requirements, dependent: :destroy
   has_many :bonuses, through: :bonus_sales_requirements
@@ -7,14 +9,6 @@ class Product < ActiveRecord::Base
 
   validates_presence_of :name, :bonus_volume, :commission_percentage
   validates :commission_percentage, numericality: { less_than_or_equal_to: 100 }
-
-  def total_bonus_allocation(exception_bonus_id = nil)
-    where = { bonus_sales_requirements: { product_id: id, source: true } }
-    query = Bonus.joins(:requirements).where(where)
-    query = query.where.not(id: exception_bonus_id) if exception_bonus_id
-    bonuses = query.entries
-    bonuses.empty? ? 0.0 : bonuses.map(&:max_amount).inject(:+)
-  end
 
   def sale_bonuses
     @sale_bonuses ||= bonuses.select { |b| b.sale? && b.enabled? }
@@ -36,6 +30,10 @@ class Product < ActiveRecord::Base
     @quote_field_keys ||= quote_fields.map(&:name)
   end
 
+  def assign_sku
+    sku = id.to_s.rjust(7,'0')
+    save
+  end
   class << self
     def default_id
       SystemSettings.default_product_id

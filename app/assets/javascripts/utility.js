@@ -253,8 +253,12 @@ jQuery(function($){
 
         //wire up dynamic bonus amount assignment
         if(_options._popupData.popupType === "bonus_payment"){
-            console.log(_options)
+            console.log(_options._popupData)
             var _amountDetail = _getObjectsByCriteria(_options._popupData.fields, {name:"amounts"})[0];
+            _amountDetail.max=_options._popupData.amountDetail.max;
+            _amountDetail.maxPercentage=_options._popupData.amountDetail.maxPercentage;
+            _amountDetail.total=_options._popupData.amountDetail.total;
+
             $(".js-percentage_container").each(function(){
                 var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
                 var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
@@ -271,6 +275,7 @@ jQuery(function($){
                 //_percentage=(Math.round(_percentage)<Math.ceil(_percentage))? Math.floor(_percentage):Math.floor(_percentage)+0.5;
                 var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
                 var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+
                 if(_percentage>=_amountDetail.max) _percentage=_amountDetail.max;
                 $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100.00).toFixed(1)+"%] [$"+(_percentage*_amountDetail.total).toFixed(2)+"]");
                 $(this).find(".js-percentage_label").css("color","#ddd");

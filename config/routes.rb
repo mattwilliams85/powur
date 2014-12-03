@@ -34,9 +34,16 @@ Rails.application.routes.draw do
     
     resource :dashboard, only: [ :show ], controller: :dashboard
 
-    resource :ewallet,
-             only:       [ :index, :account_details ],
-             controller: :ewallet do
+    resource :empower_merchant, only: [ :sandbox, :process_card, :confirmation ], controller: :empower_merchant do
+      get 'sandbox', to: 'empower_merchant#sandbox'
+      get 'confirmation', to: 'empower_merchant#confirmation'
+      collection do
+        post 'process_card' => 'empower_merchant', as: :process_card
+      end
+    end
+
+    resource :ewallet, only:       [ :index, :account_details ],
+                       controller: :ewallet do
       get 'account_details', to: 'ewallet#account_details'
 
     end
@@ -68,24 +75,26 @@ Rails.application.routes.draw do
         get :upline
       end
 
-      resources :rank_achievements,
-                only:       [ :index ],
-                controller: :user_rank_achievements
+      resources :rank_achievements, only:       [ :index ],
+                                    controller: :user_rank_achievements
     end
 
-    resources :quotes,
-              only: [ :index, :create, :destroy, :update, :show ],
-              as:   :user_quotes do
+    resources :quotes, only: [ :index, :create, :destroy, :update, :show ],
+                       as:   :user_quotes do
       member do
         post :resend
       end
     end
 
     resource :earnings, only: [:show]
-    
+
+    resources :ewallet_sandbox, only:       [ :index, :call ],
+                                controller: :ewallet_sandbox do
+      collection do
+        post 'call' => 'ewallet_sandbox', as: :call
+      end
+    end
   end
-
-
 
   # logged in admin routes
   scope :a, module: :admin do
@@ -113,11 +122,11 @@ Rails.application.routes.draw do
       resources :orders, only: [ :index ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
       resources :rank_achievements,
-                only:       [ :index ],
-                controller: :user_rank_achievements
+        only:       [ :index ],
+        controller: :user_rank_achievements
       resources :bonus_payments,
-                only:       [ :index ],
-                controller: :user_bonus_payments
+        only:       [ :index ],
+        controller: :user_bonus_payments
     end
 
     resource :system, only: [ :index, :show ] do
@@ -130,8 +139,8 @@ Rails.application.routes.draw do
 
     resources :ranks, only: [ :index, :create, :update, :destroy, :show ] do
       resources :qualifications,
-                only:       [ :create, :update, :destroy ],
-                controller: :rank_qualifications
+        only:       [ :create, :update, :destroy ],
+        controller: :rank_qualifications
     end
 
     resources :rank_paths, only: [ :index, :create, :update, :destroy ]
@@ -139,7 +148,7 @@ Rails.application.routes.draw do
     resources :qualifications, only: [ :index, :create, :update, :destroy ]
 
     resources :bonus_plans,
-              only: [ :index, :create, :destroy, :update, :show ] do
+    only: [ :index, :create, :destroy, :update, :show ] do
       resources :bonuses, only: [ :index, :create ], as: :bonuses
     end
 
@@ -157,8 +166,8 @@ Rails.application.routes.draw do
 
     resources :orders, only: [ :index, :create, :show ], as: :admin_orders do
       resources :bonus_payments,
-                only:       [ :index ],
-                controller: :order_bonus_payments
+        only:       [ :index ],
+        controller: :order_bonus_payments
     end
 
     resources :pay_periods, only: [ :index, :show ] do
@@ -182,7 +191,7 @@ Rails.application.routes.draw do
     resources :overrides, only: [ :index, :update, :destroy ]
   end
 
-  # logged in admin routes
+
   scope :gateway, module: :gateway do
     get 'ipayout/verify_user', to: 'ipayout#verify_user'
     post 'ipayout/notify_merchant', to: 'ipayout#notify_merchant'
@@ -198,9 +207,12 @@ Rails.application.routes.draw do
 
     scope '(v:v)' do
       resource :password, only: [ :create ]
-      post 'token' => 'token#ropc', constraints: param_values?(grant_type: 'password')
-      post 'token' => 'token#refresh_token', constraints: param_values?(grant_type: 'refresh_token')
-      post 'token' => 'token#unsupported_grant_type', constraints: params?(:grant_type)
+      post 'token' => 'token#ropc',
+        constraints: param_values?(grant_type: 'password')
+      post 'token' => 'token#refresh_token',
+        constraints: param_values?(grant_type: 'refresh_token')
+      post 'token' => 'token#unsupported_grant_type',
+        constraints: params?(:grant_type)
       post 'token' => 'token#invalid_request'
 
       resource :session, only: [ :show ]
@@ -218,7 +230,6 @@ Rails.application.routes.draw do
     get :request
     get :thanks
   end
-
 
   # These are just to fake the referral pages so the link doesn't break
   # safe to remove when the feature is implemented

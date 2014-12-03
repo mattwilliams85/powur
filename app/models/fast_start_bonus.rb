@@ -1,0 +1,3 @@
+class FastStartBonus < Bonus
+
+end

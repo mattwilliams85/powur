@@ -31,6 +31,7 @@ module ParamValidation
   end
 
   def error!(msg, field = nil)
+    msg = t("errors.#{msg}") if msg.is_a?(Symbol)
     if field
       fail ::Errors::InputError.new(field), msg
     else
