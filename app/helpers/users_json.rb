@@ -29,7 +29,7 @@ class UsersJson < JsonDecorator
 
     json.properties do
       json.call(user, :address, :city, :state, :zip, :organic_rank,
-                :lifetime_rank)
+                :lifetime_rank, :avatar, :avatar_file_name)
     end
   end
 
