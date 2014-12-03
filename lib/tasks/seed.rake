@@ -244,7 +244,6 @@ namespace :sunstand do
                                       max_leg_percent: 50,
                                       rank_path_id:    BASIC_PATH_ID)
 
-
       puts 'Created Rank Qualifications...'
     end
 

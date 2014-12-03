@@ -120,11 +120,11 @@ Rails.application.routes.draw do
       resources :orders, only: [ :index ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
       resources :rank_achievements,
-        only:       [ :index ],
-        controller: :user_rank_achievements
+                only:       [ :index ],
+                controller: :user_rank_achievements
       resources :bonus_payments,
-        only:       [ :index ],
-        controller: :user_bonus_payments
+                only:       [ :index ],
+                controller: :user_bonus_payments
     end
 
     resource :system, only: [ :index, :show ] do
@@ -137,8 +137,8 @@ Rails.application.routes.draw do
 
     resources :ranks, only: [ :index, :create, :update, :destroy, :show ] do
       resources :qualifications,
-        only:       [ :create, :update, :destroy ],
-        controller: :rank_qualifications
+                only:       [ :create, :update, :destroy ],
+                controller: :rank_qualifications
     end
 
     resources :rank_paths, only: [ :index, :create, :update, :destroy ]
@@ -146,7 +146,7 @@ Rails.application.routes.draw do
     resources :qualifications, only: [ :index, :create, :update, :destroy ]
 
     resources :bonus_plans,
-    only: [ :index, :create, :destroy, :update, :show ] do
+              only: [ :index, :create, :destroy, :update, :show ] do
       resources :bonuses, only: [ :index, :create ], as: :bonuses
     end
 
@@ -164,8 +164,8 @@ Rails.application.routes.draw do
 
     resources :orders, only: [ :index, :create, :show ], as: :admin_orders do
       resources :bonus_payments,
-        only:       [ :index ],
-        controller: :order_bonus_payments
+                only:       [ :index ],
+                controller: :order_bonus_payments
     end
 
     resources :pay_periods, only: [ :index, :show ] do
@@ -188,7 +188,6 @@ Rails.application.routes.draw do
 
     resources :overrides, only: [ :index, :update, :destroy ]
   end
-
 
   scope :gateway, module: :gateway do
     get 'ipayout/verify_user', to: 'ipayout#verify_user'

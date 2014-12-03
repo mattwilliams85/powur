@@ -6,7 +6,7 @@ namespace :sunstand do
       ActiveRecord::Base.connection.execute(query)
     end
 
-    task :after_schema_load => :environment do
+    task after_schema_load: :environment do
 
       puts 'Adding primary key for :utilities'
       execute 'alter table utilities add primary key (id);'

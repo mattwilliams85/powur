@@ -22,7 +22,7 @@ namespace :sunstand do
       return max_users if max_users.zero? || levels.zero?
       per_user = max_users if max_users < per_user
 
-      children = 1.upto(rand(0..per_user)).map do |i|
+      children = 1.upto(rand(0..per_user)).map do |_i|
         generate_user(sponsor: user)
       end
       max_users -= children.count
@@ -30,7 +30,7 @@ namespace :sunstand do
       puts "\tgenerated #{children.count} children: #{max_users} max left..."
       children.each do |child|
         max_users = generate_downline(
-          child, 
+          child,
           levels - 1,
           per_user - (per_user / levels),
           max_users)
@@ -41,18 +41,18 @@ namespace :sunstand do
     end
 
     desc 'Simulate users'
-    task :users, [ :total, :per_user, :levels ] => :environment do |t, args|
-      args.with_defaults(total: 1000, per_user: 20, levels: 3 )
+    task :users, [ :total, :per_user, :levels ] => :environment do |_t, args|
+      args.with_defaults(total: 1000, per_user: 20, levels: 3)
 
       users = User.all.to_a
 
       Rank.find_or_create_by_id(1)
 
       if users.empty?
-        puts "no users found generating 5 root admin users"
-        users = 1.upto(5).map { |i| generate_user(roles: %w(admin)) }
-        
-        users.each do |user| 
+        puts 'no users found generating 5 root admin users'
+        users = 1.upto(5).map { |_i| generate_user(roles: %w(admin)) }
+
+        users.each do |user|
           puts "generated #{user.full_name} : #{user.email}"
         end
       end
@@ -85,7 +85,7 @@ namespace :sunstand do
       DateTime.current.to_i % n == 0
     end
 
-    task :orders, [ :per_user, :months_back ] => :environment do |t, args|
+    task :orders, [ :per_user, :months_back ] => :environment do |_t, args|
       Order.destroy_all
       Quote.destroy_all
       Customer.destroy_all
@@ -117,7 +117,7 @@ namespace :sunstand do
       User.all.each do |user|
         order_amount = rand(0...args[:per_user].to_i * 2)
         puts "Creating #{order_amount} Solar Item order(s) for user #{user.full_name}"
-        0.upto(order_amount) do |i|
+        0.upto(order_amount) do |_i|
           customer = Customer.create!(
             email:      Faker::Internet.email,
             first_name: Faker::Name.first_name,

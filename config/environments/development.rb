@@ -22,13 +22,12 @@ Rails.application.configure do
     from: 'EyeCueLab Local Mailer <no-reply+local@eyecuelab.com>' }
   config.action_controller.asset_host = "http://#{config.action_mailer.default_url_options[:host]}"
 
-
   config.paperclip_defaults = {
-    :storage => :s3,
-    :s3_credentials => {
-      :bucket => "sunstand-dev",
-      :access_key_id => Rails.application.secrets.aws_access_key_id,
-      :secret_access_key => Rails.application.secrets.aws_secret_access_key
+    storage:        :s3,
+    s3_credentials: {
+      bucket:            'sunstand-dev',
+      access_key_id:     Rails.application.secrets.aws_access_key_id,
+      secret_access_key: Rails.application.secrets.aws_secret_access_key
     }
   }
 
