@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EnrollerSalesBonus, type: :model do
+describe EnrollerBonus, type: :model do
 
   before :each do
     create_list(:rank, 3)
@@ -10,11 +10,9 @@ describe EnrollerSalesBonus, type: :model do
 
     it 'generates the correct payment' do
       product = create(:product, bonus_volume: 500, commission_percentage: 80)
-      bonus = create(:enroller_sales_bonus,
-                     max_user_rank_id:   1,
-                     min_upline_rank_id: 2)
+      bonus = create(:enroller_bonus)
       create(:bonus_requirement, product: product, bonus: bonus)
-      create(:bonus_level, bonus: bonus, amounts: [ 0.0, 0.0 ])
+      create(:bonus_level, bonus: bonus, amounts: [ 0.0, 0.1 ])
 
       parent = create(:user, organic_rank: 2)
       user = create(:user, sponsor: parent)
@@ -25,6 +23,7 @@ describe EnrollerSalesBonus, type: :model do
 
       expect(payment).to_not be_nil
       expect(payment.user_id).to eq(parent.id)
+      expect(payment.amount).to eq(40)
     end
 
   end

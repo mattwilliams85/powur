@@ -11,7 +11,7 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
   describe 'POST /' do
 
     it 'adds a bonus level to to a bonus' do
-      bonus = create(:unilevel_sales_bonus)
+      bonus = create(:unilevel_bonus)
       create(:bonus_requirement, bonus: bonus)
       post bonus_levels_path(bonus),
            rank_path_id: @path.id,
@@ -78,7 +78,7 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
   describe 'DELETE /:id' do
 
     it 'removes the last bonus_level' do
-      bonus = create(:unilevel_sales_bonus)
+      bonus = create(:unilevel_bonus)
       create(:bonus_requirement, bonus: bonus)
       levels = 1.upto(3).map do |i|
         create(:bonus_level, level: i, bonus: bonus)

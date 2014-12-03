@@ -1,4 +1,4 @@
-class UnilevelSalesBonus < Bonus
+class UnilevelBonus < Bonus
   def sorted_levels
     @sorted_levels ||= bonus_levels.order(level: :asc)
   end
@@ -42,7 +42,9 @@ class UnilevelSalesBonus < Bonus
       end
       break if parent.nil?
 
-      amount = payment_amount(bonus_level, parent.pay_as_rank)
+      amount = payment_amount(parent.pay_as_rank,
+                              parent.rank_path_id,
+                              bonus_level.level)
       attrs = {
         bonus_id:    id,
         user_id:     parent.id,
@@ -59,8 +61,4 @@ class UnilevelSalesBonus < Bonus
     pay_period.find_pay_as_rank(user) >= rank
   end
 
-  def payment_amount(bonus_level, rank)
-    amount = bonus_level.amounts[rank - 1]
-    amount ? amount * source_product.commission_amount : 0.0
-  end
 end
