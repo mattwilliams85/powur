@@ -214,6 +214,7 @@ CREATE TABLE bonuses (
     achieved_rank_id integer,
     max_user_rank_id integer,
     min_upline_rank_id integer,
+    meta_data hstore DEFAULT ''::hstore,
     compress boolean DEFAULT false NOT NULL,
     flat_amount numeric(10,2) DEFAULT 0.0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
