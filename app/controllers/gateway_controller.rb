@@ -1,5 +1,4 @@
 class GatewayController < ApplicationController
-
   protected
 
   def error!(error, msg)

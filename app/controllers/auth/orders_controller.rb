@@ -9,8 +9,8 @@ module Auth
             query = query.customer_search(params[:search])
           end
           query = apply_list_query_options(query)
-            .includes(:user, :customer, :product)
-            .references(:user, :customer, :product)
+                  .includes(:user, :customer, :product)
+                  .references(:user, :customer, :product)
           @orders = query
 
           render 'index'

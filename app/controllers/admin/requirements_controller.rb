@@ -40,7 +40,7 @@ module Admin
 
     def fetch_bonus
       @bonus = Bonus.includes(:requirements, :bonus_levels)
-        .find(params[:bonus_id].to_i)
+               .find(params[:bonus_id].to_i)
     end
 
     def fetch_requirement

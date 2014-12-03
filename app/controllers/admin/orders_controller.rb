@@ -1,6 +1,5 @@
 module Admin
   class OrdersController < AdminController
-
     before_action :fetch_order, only: [ :show ]
 
     page

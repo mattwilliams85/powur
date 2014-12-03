@@ -11,7 +11,6 @@ module Auth
 
       @auto_login_url = build_auto_login_url(@user)
 
-
       respond_to do |format|
         format.html
         format.json do
@@ -57,16 +56,16 @@ module Auth
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email,
                                    :phone, :address, :city, :state,
-                                   :zip, :bio,:avatar_file_name, :avatar)
+                                   :zip, :bio, :avatar_file_name, :avatar)
     end
 
     # def avatar_params
     #   params.require(:user).permit(:avatar,:avatar_file_name)
     # end
 
-   def avatar_params
-        params.require(:user).permit(:avatar_file_name)
-    end
+    def avatar_params
+      params.require(:user).permit(:avatar_file_name)
+     end
 
     def fetch_user
       @user = current_user

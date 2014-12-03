@@ -14,7 +14,7 @@ module Auth
 
     def fetch_user
       user = User.find_by(id: params[:user_id].to_i) ||
-        not_found!(:user, params[:user_id])
+             not_found!(:user, params[:user_id])
 
       @rank_achievements = user.rank_achievements
       @rank_achievements_path = user_rank_achievements_path(user)

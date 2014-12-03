@@ -9,11 +9,10 @@ class PromotersController < AnonController
   end
 
   def new
-    @invite = Invite.find_by("id" => params["code"])
+    @invite = Invite.find_by('id' => params['code'])
     respond_to do |format|
       format.html
-      format.json { "anon/session/registration"}
+      format.json { 'anon/session/registration' }
     end
   end
-
 end
