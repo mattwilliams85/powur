@@ -103,6 +103,10 @@ Handlebars.registerHelper("format_length", function(str, char_limit) {
     };
 })
 
+//Handlebar helper to parse JSON objects
+Handlebars.registerHelper('json', function(context) {
+    return JSON.stringify(context);
+});
 
 
 /** start admin utilties **/
@@ -866,3 +870,27 @@ String.prototype.format_length = function(char_limit){
     }
     else return this;
 }
+
+//Returns week number from formated Date
+Date.prototype.getWeek = function(){
+    var d = new Date(+this);
+    d.setHours(0,0,0);
+    d.setDate(d.getDate()+4-(d.getDay()||7));
+    return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+};
+
+//Add # of days to current date
+Date.prototype.addDays = function(days)
+{
+    var d = new Date(this.valueOf());
+    d.setDate(d.getDate() + days);
+    return d;
+}
+
+Date.prototype.getWeekYear = function ()   
+{  
+    var target  = new Date(this.valueOf());  
+    target.setDate(target.getDate() - ((this.getDay() + 6) % 7) + 3);  
+      
+    return target.getFullYear();  
+}  

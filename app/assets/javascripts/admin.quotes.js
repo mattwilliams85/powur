@@ -615,7 +615,7 @@ jQuery(function($){
             console.log(_callback)
             var _action=_getObjectsByCriteria(_pay_period, "val~disburse")[0];
             $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"The calculation may take a few moments to complete. Thakn you!"}, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"The calculation may take a few moments to complete. Thank you!"}, $("#js-screen_mask"), function(){
                     SunStand.Admin.displayPopup({_popupData:{}});
                     _ajax({
                         _ajaxType:_action.method,

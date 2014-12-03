@@ -30,6 +30,8 @@ Rails.application.routes.draw do
 
   # logged in user routes
   scope :u, module: :auth do
+    resource :kpi_metrics, only: [ :show ]
+    
     resource :dashboard, only: [ :show ], controller: :dashboard
 
     resource :empower_merchant, only: [ :sandbox, :process_card, :confirmation ], controller: :empower_merchant do
