@@ -2264,3 +2264,13 @@ h4 {
 .week-span {
 	text-transform:uppercase;
 }
+
+.return_to_team {
+	z-index:99;
+	margin:auto;
+	display:block;
+	display:none;
+	float:left;
+	font-size:16px;
+	text-transform:uppercase;
+}
