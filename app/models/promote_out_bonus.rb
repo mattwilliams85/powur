@@ -10,12 +10,8 @@ class PromoteOutBonus < Bonus
     available_amount
   end
 
-  def percentage_used
-    0.0
-  end
-
-  def remaining_percentage
-    1.0 - percentage_used
+  def remaining_percentages(max_rank)
+    Array.new(max_rank, BigDecimal.new('1'))
   end
 
   def allows_many_requirements?

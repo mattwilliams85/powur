@@ -71,8 +71,8 @@ class PayPeriod < ActiveRecord::Base
 
   def orders
     @orders ||= Order.by_pay_period(self)
-                .includes(:user, :product).references(:user, :product)
-                .order(order_date: :asc)
+      .includes(:user, :product).references(:user, :product)
+      .order(order_date: :asc)
   end
 
   def reset_orders!

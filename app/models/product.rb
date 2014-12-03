@@ -8,14 +8,6 @@ class Product < ActiveRecord::Base
   validates_presence_of :name, :bonus_volume, :commission_percentage
   validates :commission_percentage, numericality: { less_than_or_equal_to: 100 }
 
-  def total_bonus_allocation(exception_bonus_id = nil)
-    where = { bonus_sales_requirements: { product_id: id, source: true } }
-    query = Bonus.joins(:requirements).where(where)
-    query = query.where.not(id: exception_bonus_id) if exception_bonus_id
-    bonuses = query.entries
-    bonuses.empty? ? 0.0 : bonuses.map(&:max_amount).inject(:+)
-  end
-
   def sale_bonuses
     @sale_bonuses ||= bonuses.select { |b| b.sale? && b.enabled? }
   end

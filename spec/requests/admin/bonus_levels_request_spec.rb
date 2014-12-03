@@ -32,8 +32,19 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
       expect(padded_value).to eq('0.0')
     end
 
+    it 'does not allow bonus amounts when the bonus has no source' do
+      bonus = create(:direct_sales_bonus)
+      post bonus_levels_path(bonus),
+           rank_path_id: @path.id,
+           amounts:      [ 0.1, 0.4, 0.125 ],
+           format:       :json
+
+      expect_alert_error
+    end
+
     it 'adds a bonus level to a standard bonus' do
       bonus = create(:direct_sales_bonus)
+      create(:bonus_requirement, bonus: bonus)
       post bonus_levels_path(bonus),
            rank_path_id: @path.id,
            amounts:      [ 0.1, 0.4, 0.125 ],

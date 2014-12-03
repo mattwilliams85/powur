@@ -2,18 +2,14 @@ class EnrollerSalesBonus < Bonus
   belongs_to :max_user_rank, class_name: 'Rank'
   belongs_to :min_upline_rank, class_name: 'Rank'
 
-  def percentage_used
-    other_bonuses = source_product.bonuses.reject { |b| b.id == id }
-
-    amounts = other_bonuses.map do |bonus|
-      if bonus.is_a?(DirectSalesBonus)
-        bonus.default_level.amounts[max_user_rank_id - 1]
-      else
-        bonus.max_amount
-      end
+  def percentages_used(max_rank)
+    max = bonus_levels.map(&:amounts).flatten.max
+    amounts = bonus_levels.map do |level|
+      level.normalize_amounts(max_rank)
+        .map { |a| a.zero? ? max : BigDecimal('0') }
     end
-
-    amounts.inject(:+)
+    return amounts.first if amounts.size == 1
+    amounts.transpose.map(&:max)
   end
 
   def create_payments!(order, pay_period)

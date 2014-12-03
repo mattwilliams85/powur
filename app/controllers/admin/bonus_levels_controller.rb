@@ -4,6 +4,9 @@ module Admin
     before_action :fetch_bonus_level, except: [ :create ]
 
     def create
+      unless @bonus.can_add_amounts?(all_paths.size)
+        error!(:cannot_add_amounts)
+      end
       @bonus_level = @bonus.bonus_levels.create!(
         input.merge(level: @bonus.next_bonus_level))
 

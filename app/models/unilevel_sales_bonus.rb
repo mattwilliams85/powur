@@ -1,20 +1,31 @@
 class UnilevelSalesBonus < Bonus
-  def next_bonus_level
-    (highest_bonus_level || 0) + 1
-  end
-
-  def percentage_used_by_levels(excluded_level = nil)
-    levels = bonus_levels.entries
-    levels.reject! { |l| l.level == excluded_level } if excluded_level
-    levels.map(&:max).inject(:+) || 0.0
-  end
-
   def sorted_levels
     @sorted_levels ||= bonus_levels.order(level: :asc)
   end
 
-  def can_add_amounts?(path_count = nil)
+  def can_add_amounts?(_path_count = nil)
     source?
+  end
+
+  def next_bonus_level
+    (highest_bonus_level || 0) + 1
+  end
+
+  def remaining_percentages(max_rank)
+    return super if bonus_levels.empty?
+
+    [ other_product_percentages(max_rank), percentages_used(max_rank) ]
+      .transpose.map { |i| i.reduce(:+) }
+      .map { |percent| 1.0 - percent }
+  end
+
+  def remaining_percentages_for_level(level, max_rank = nil)
+    levels = bonus_levels.select { |l| l.level == level }
+    max_amounts = calculate_max_amounts(levels)
+    remaining_percentages(max_rank).each_with_index.map do |a, i|
+      subtracted = max_amounts[i]
+      subtracted ? a + subtracted : a
+    end
   end
 
   def create_payments!(order, pay_period)
