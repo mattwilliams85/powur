@@ -42,10 +42,7 @@ class PayPeriod < ActiveRecord::Base
     result = ewallet_request('ewallet_load', query)
 
     if result[:m_Code] == '200'
-      puts 'Successful Load Request' + result[:m_Text]
       ap result
-      # Distribution.create(pay_period: self, user_id: user.id, amount: result['Balance'])
-      # touch :disbursed_at
     else
       puts 'Unsuccessful Load Request'
     end

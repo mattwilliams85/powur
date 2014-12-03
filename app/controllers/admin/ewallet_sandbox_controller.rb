@@ -10,18 +10,12 @@ module Admin
         format.html do
         end
         format.json do
-
         end
       end
     end
 
     def call
       @response = ewallet_request(params['api_method'], params['options_hash'])
-      # puts '!!!!!!RESPONSE FROM CONTROLLER'
-      # puts @response
-      # respond_with do |format|
-      #   format.json { render json: @response, status: :ok }
-      # end
     end
   end
 end
