@@ -253,7 +253,6 @@ jQuery(function($){
 
         //wire up dynamic bonus amount assignment
         if(_options._popupData.popupType === "bonus_payment"){
-            console.log(_options._popupData)
             var _amountDetail = _getObjectsByCriteria(_options._popupData.fields, {name:"amounts"})[0];
             _amountDetail.max=_options._popupData.amountDetail.max;
             _amountDetail.maxPercentage=_options._popupData.amountDetail.maxPercentage;
@@ -331,12 +330,16 @@ jQuery(function($){
                     $("#bonus_payment_mode_dollar input").each(function(){
                         _amounts.push($(this).val().replace(/[^0-9|\.]/g,"")*1.00/100.00);
                     });
-                }
+                };
+                var _postObj = {};
+                if($(e.target).parents("form").find("select[name='rank_path_id']").length>0)
+                    _postObj.rank_path_id=$(e.target).parents("form").find("select[name='rank_path_id']").val()*1;
+                _postObj.amounts = _amounts;
 
                 _ajax({
                     _ajaxType:_options._popupData.method,
                     _url:_options._popupData.href,
-                    _postObj: {amounts:_amounts},
+                    _postObj: _postObj,
                     _callback:function(data, text){
                         $("#js-screen_mask").click();
                         $("body").css("overflow", "auto");
