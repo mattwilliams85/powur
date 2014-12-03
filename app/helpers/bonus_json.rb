@@ -23,7 +23,9 @@ class BonusJson < JsonDecorator
 
   def update_level_action(bonus_level)
     update = action(:update, :patch, bonus_level_path(bonus_level))
-    amount_field(update, bonus_level.remaining_percentages(all_ranks.last.id))
+    amount_field(update,
+                 bonus_level.remaining_percentages(all_ranks.last.id),
+                 bonus_level.normalize_amounts(all_ranks.size))
     update
   end
 
