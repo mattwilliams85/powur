@@ -272,7 +272,7 @@ namespace :sunstand do
         amounts:      [ 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50, 0.50 ])
 
       # Enroller Bonus
-      bonus = EnrollerSalesBonus.create!(
+      bonus = EnrollerBonus.create!(
         bonus_plan_id:      1,
         name:               'Enroller',
         schedule:           :monthly,
@@ -284,7 +284,7 @@ namespace :sunstand do
         amounts: [ 0.0, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125 ])
 
       # Unilevel Bonus
-      bonus = UnilevelSalesBonus.create!(
+      bonus = UnilevelBonus.create!(
         bonus_plan_id: 1,
         name:          'Uni-level',
         schedule:      :monthly,
