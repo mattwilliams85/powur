@@ -1,8 +1,4 @@
 class UnilevelBonus < Bonus
-  def sorted_levels
-    @sorted_levels ||= bonus_levels.order(level: :asc)
-  end
-
   def can_add_amounts?(_path_count = nil)
     source?
   end
@@ -33,32 +29,41 @@ class UnilevelBonus < Bonus
     upline = pay_period.compressed_upline(order.user)
     return if upline.empty?
 
-    sorted_levels.each do |bonus_level|
-      min_rank = bonus_level.min_rank
-      parent = nil
-      loop do
-        parent = upline.shift
-        break if parent.nil? || user_rank_met?(parent, min_rank, pay_period)
-      end
+    bonus_levels.sort_by(&:level).group_by(&:level).each do |level, amounts|
+      parent = find_qualified_parent(upline, amounts, pay_period)
       break if parent.nil?
 
-      amount = payment_amount(parent.pay_as_rank,
-                              parent.rank_path_id,
-                              bonus_level.level)
-      attrs = {
-        bonus_id:    id,
-        user_id:     parent.id,
-        amount:      amount,
-        pay_as_rank: parent.pay_as_rank }
-      payment = pay_period.bonus_payments.create!(attrs)
-      payment.bonus_payment_orders.create!(order_id: order.id)
+      pay_parent(parent, level, pay_period, order)
     end
   end
 
   private
 
-  def user_rank_met?(user, rank, pay_period)
-    pay_period.find_pay_as_rank(user) >= rank
+  def parent_qualified?(parent, amounts, pay_period)
+    pay_level = amounts.find do |level|
+      level.rank_path_id.nil? || level.rank_path_id == parent.rank_path_id
+    end
+    pay_level && pay_period.find_pay_as_rank(parent) >= pay_level.min_rank
   end
 
+  def find_qualified_parent(upline, amounts, pay_period)
+    parent = nil
+    loop do
+      parent = upline.shift
+      break if parent.nil? || parent_qualified?(parent, amounts, pay_period)
+    end
+    parent
+  end
+
+  def pay_parent(parent, level, pay_period, order)
+    amount = payment_amount(parent.pay_as_rank,
+                            parent.rank_path_id,
+                            level)
+    attrs = { bonus_id:    id,
+              user_id:     parent.id,
+              amount:      amount,
+              pay_as_rank: parent.pay_as_rank }
+    payment = pay_period.bonus_payments.create!(attrs)
+    payment.bonus_payment_orders.create!(order_id: order.id)
+  end
 end

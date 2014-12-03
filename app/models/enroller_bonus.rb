@@ -4,17 +4,12 @@ class EnrollerBonus < Bonus
     amounts.size == 1 ? amounts.first : amounts.transpose.map(&:max)
   end
 
-  def max_user_rank
-    @max_user_rank ||= begin
-      indexes = bonus_levels.map do |bl|
-        bl.amounts.find_index { |a| !a.zero? } || bl.amounts.size - 1
-      end
-      indexes.min || 0
-    end
+  def min_upline_rank
+    @min_upline_rank ||= bonus_levels.map(&:min_rank).min || 1
   end
 
-  def min_upline_rank
-    max_user_rank + 1
+  def max_user_rank
+    min_upline_rank - 1
   end
 
   def create_payments!(order, pay_period)

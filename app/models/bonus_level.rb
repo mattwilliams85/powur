@@ -37,7 +37,7 @@ class BonusLevel < ActiveRecord::Base
   end
 
   def min_rank
-    amounts.index { |i| i > 0 } + 1
+    (amounts.index { |i| i > 0 } || amounts.size) + 1
   end
 
 end
