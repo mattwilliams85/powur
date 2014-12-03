@@ -76,11 +76,7 @@ class PayPeriod < ActiveRecord::Base
     BonusPaymentOrder.delete_all_for_pay_period(id)
     bonus_payments.delete_all
     rank_achievements.delete_all
-    begin
-      order_totals.delete_all_for_pay_period
-    rescue
-      puts 'Error deleting order totals'
-    end
+    order_totals.delete_all
   end
 
   def process_orders!
@@ -155,8 +151,7 @@ class PayPeriod < ActiveRecord::Base
       parent_ids = users_with_orders.map(&:parent_ids).flatten.uniq
       parents = users_with_orders.select { |u| parent_ids.include?(u.id) }
       missing_ids = parent_ids - parents.map(&:id)
-      parents + User.select(:id, :upline, :lifetime_rank, :organic_rank)
-      .where(id: missing_ids).entries
+      parents + User.for_bonuses.where(id: missing_ids).entries
     end
   end
 
@@ -167,8 +162,7 @@ class PayPeriod < ActiveRecord::Base
 
   def direct_downline_users
     @direct_downline_users ||= begin
-      User.select(:id, :upline, :lifetime_rank, :organic_rank)
-      .with_parent(*all_user_ids).entries
+      User.for_bonuses.with_parent(*all_user_ids).entries
     end
   end
 

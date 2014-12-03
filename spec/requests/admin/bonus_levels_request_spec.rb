@@ -5,15 +5,15 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
   before :each do
     login_user
     create_list(:rank, 4)
-    @bonus = create(:unilevel_sales_bonus)
-    create(:bonus_requirement, bonus: @bonus)
     @path = create(:rank_path)
   end
 
   describe 'POST /' do
 
     it 'adds a bonus level to to a bonus' do
-      post bonus_levels_path(@bonus),
+      bonus = create(:unilevel_bonus)
+      create(:bonus_requirement, bonus: bonus)
+      post bonus_levels_path(bonus),
            rank_path_id: @path.id,
            amounts:      [ 0.1, 0.4, 0.125 ],
            format:       :json
@@ -53,6 +53,19 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
       expect_classes 'bonus'
     end
 
+    it 'fills the bonus level with other paths' do
+      path2 = create(:rank_path)
+      bonus = create(:bonus_requirement).bonus
+      post bonus_levels_path(bonus),
+           rank_path_id: @path.id,
+           amounts:      [ 0.1, 0.4, 0.125 ],
+           format:       :json
+
+      amounts = json_body['entities']
+        .find { |e| e['class'].include?('bonus_levels') }
+      expect(amounts.size).to eq(2)
+    end
+
   end
 
   describe 'PATCH /:id' do
@@ -64,14 +77,13 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
 
   describe 'DELETE /:id' do
 
-    before :each do
-      @levels = 1.upto(3).map do |i|
-        create(:bonus_level, level: i, bonus: @bonus)
-      end
-    end
-
     it 'removes the last bonus_level' do
-      delete bonus_level_path(@levels.last), format: :json
+      bonus = create(:unilevel_bonus)
+      create(:bonus_requirement, bonus: bonus)
+      levels = 1.upto(3).map do |i|
+        create(:bonus_level, level: i, bonus: bonus)
+      end
+      delete bonus_level_path(levels.last), format: :json
 
       bonus_levels = json_body['entities'].find do |e|
         e['class'].include?('bonus_levels')

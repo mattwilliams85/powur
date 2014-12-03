@@ -45,7 +45,7 @@ describe Bonus, type: :model do
     end
 
     it 'returns the correct values for enroller bonus' do
-      bonus = create(:enroller_sales_bonus)
+      bonus = create(:enroller_bonus)
       create(:bonus_requirement, bonus: bonus, product: @product)
       create(:bonus_level,
              bonus:     bonus,
@@ -57,7 +57,7 @@ describe Bonus, type: :model do
     end
 
     it 'returns the correct values for unilevel bonus' do
-      bonus = create(:unilevel_sales_bonus)
+      bonus = create(:unilevel_bonus)
       create(:bonus_requirement, bonus: bonus, product: @product)
       create(:bonus_level,
              bonus:     bonus,

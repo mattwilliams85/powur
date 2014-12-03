@@ -4,11 +4,10 @@ module Admin
     before_action :fetch_bonus_level, except: [ :create ]
 
     def create
-      unless @bonus.can_add_amounts?(all_paths.size)
-        error!(:cannot_add_amounts)
-      end
+      error!(:cannot_add_amounts) unless @bonus.can_add_amounts?(all_paths.size)
       @bonus_level = @bonus.bonus_levels.create!(
         input.merge(level: @bonus.next_bonus_level))
+      fill_level if params[:rank_path_id]
 
       render 'show'
     end
@@ -28,9 +27,27 @@ module Admin
 
     private
 
+    def fill_level
+      level_id = @bonus.highest_bonus_level
+      all_paths.reject { |p| p.id == params[:rank_path_id] }.each do |path|
+        exists = @bonus.bonus_levels.any? do |bl|
+          bl.level == level_id && bl.rank_path_id == path.id
+        end
+        next if exists
+        @bonus.bonus_levels.create!(
+          level:        level_id,
+          rank_path_id: path.id,
+          amounts:      Array.new(all_paths.size, BigDecimal.new('0')))
+      end
+    end
+
     def input
       allow_input(:rank_path_id, amounts: [])
     end
+
+    # def amounts_input
+    #   params.permit(:amounts)[:amounts].map
+    # end
 
     def fetch_bonus
       @bonus = Bonus.includes(

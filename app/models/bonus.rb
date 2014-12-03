@@ -1,10 +1,11 @@
 class Bonus < ActiveRecord::Base
   TYPES =  {
-    differential:   'Differential',
-    direct_sales:   'Direct Sales',
-    enroller_sales: 'Enroller',
-    promote_out:    'Promote-Out',
-    unilevel_sales: 'Unilevel' }
+    direct_sales: 'Direct Sales',
+    enroller:     'Enroller',
+    unilevel:     'Unilevel',
+    fast_start:   'Fast Start' }
+    # differential:   'Differential',
+    # promote_out:    'Promote-Out' }
   SCHEDULES = {
     weekly:  'Weekly',
     monthly: 'Monthly' }
@@ -62,16 +63,16 @@ class Bonus < ActiveRecord::Base
     @source_requirement ||= requirements.find_by_source(true)
   end
 
+  def source_product
+    source_requirement.product
+  end
+
   def breakage_amount?
     flat_amount && flat_amount > 0
   end
 
   def source?
     source_requirement || breakage_amount?
-  end
-
-  def source_product
-    source_requirement.product
   end
 
   def all_paths_level?
@@ -106,7 +107,7 @@ class Bonus < ActiveRecord::Base
   end
 
   def available_amount
-    source_product.commission_amount
+    breakage_amount? ? flat_amount : source_product.commission_amount
   end
 
   def allows_many_requirements?
@@ -119,6 +120,14 @@ class Bonus < ActiveRecord::Base
 
   def enabled?
     !bonus_levels.empty?
+  end
+
+  def payment_amount(rank_id, path_id, level = 0)
+    level = bonus_levels.select { |bl| bl.level == level }.find do |bl|
+      bl.rank_path_id.nil? || bl.path_id == path_id
+    end
+    percent = level.normalize_amounts(rank_id).last
+    available_amount * percent
   end
 
   def create_payments!(*)

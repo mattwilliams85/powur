@@ -9,7 +9,8 @@ class BonusLevel < ActiveRecord::Base
   end
 
   def normalize_amounts(total)
-    amounts.map.to_a.fill(BigDecimal('0'), (amounts.size...total))[0...total]
+    amounts.map { |a| a.is_a?(BigDecimal) ? a : BigDecimal.new(a.to_s) }
+      .to_a.fill(BigDecimal('0'), (amounts.size...total))[0...total]
   end
 
   def filled_amounts(size)
@@ -36,7 +37,7 @@ class BonusLevel < ActiveRecord::Base
   end
 
   def min_rank
-    amounts.index { |i| i > 0 } + 1
+    (amounts.index { |i| i > 0 } || amounts.size) + 1
   end
 
 end
