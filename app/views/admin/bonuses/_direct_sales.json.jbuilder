@@ -1,6 +1,3 @@
-
-bonus_json.item_entities
-
 update = bonus_json.action(:update, :patch, bonus_path(bonus))
          .field(:name, :text, value: bonus.name)
          .field(:schedule, :select,
