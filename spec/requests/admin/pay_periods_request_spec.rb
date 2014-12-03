@@ -76,7 +76,6 @@ describe '/a/pay_periods' do
     end
   end
 
-
   # describe 'POST /:id/distribute' do
 
   #   it 'distributes totaled bonus amounts to users for a pay period' do

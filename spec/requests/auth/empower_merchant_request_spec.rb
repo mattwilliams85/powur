@@ -9,7 +9,7 @@ describe '/u/empower_merchant' do
   describe '#sandbox' do
     it "display has the text 'Empower Merchant Sandbox'" do
       get sandbox_empower_merchant_path
-       expect_200
+      expect_200
       expect(response.body).to match(/Empower Merchant Sandbox/)
     end
   end

@@ -17,7 +17,7 @@ describe Distribution, type: :model do
                           user_id: user.id, amount: amount2)
 
       distributions = Distribution.where(user_id:       user.id,
-                                        pay_period_id: pay_period1.id)
+                                         pay_period_id: pay_period1.id)
       expect(distributions.size).to eq(1)
     end
   end

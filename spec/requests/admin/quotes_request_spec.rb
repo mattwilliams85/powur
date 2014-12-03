@@ -49,7 +49,7 @@ describe '/a/quotes' do
       get admin_quotes_path, format: :json, sort: :customer
 
       sorted_ids = quotes
-        .sort_by { |q| q.customer.last_name }.map(&:id)
+                   .sort_by { |q| q.customer.last_name }.map(&:id)
       result = json_body['entities'].map { |e| e['properties']['id'] }
 
       expect(result).to eq(sorted_ids)

@@ -74,7 +74,7 @@ describe User, type: :model do
       user.make_customer!
 
       customer = Customer
-        .where(first_name: user.first_name, last_name: user.last_name).first
+                 .where(first_name: user.first_name, last_name: user.last_name).first
       expect(customer).to_not be_nil
     end
   end

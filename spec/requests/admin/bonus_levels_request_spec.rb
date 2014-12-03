@@ -62,7 +62,7 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
            format:       :json
 
       amounts = json_body['entities']
-        .find { |e| e['class'].include?('bonus_levels') }
+                .find { |e| e['class'].include?('bonus_levels') }
       expect(amounts.size).to eq(2)
     end
 
