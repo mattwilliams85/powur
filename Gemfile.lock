@@ -158,6 +158,10 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    nmi_direct_post (0.1.2)
+      activemodel
+      activesupport
+      addressable
     nokogiri (1.6.4.1)
       mini_portile (~> 0.6.0)
     paperclip (4.2.0)
@@ -309,6 +313,7 @@ DEPENDENCIES
   eyecue_ipayout!
   factory_girl_rails
   faker
+  faraday
   font-awesome-sass (~> 4.2.0)
   foreigner!
   gibbon
@@ -318,6 +323,7 @@ DEPENDENCIES
   jquery-turbolinks
   meta_request
   money
+  nmi_direct_post
   paperclip (~> 4.2)
   pg
   postgres_ext
