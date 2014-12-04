@@ -591,10 +591,15 @@ jQuery(function($){
                             var _multipleLevelBonus = (_getObjectsByCriteria(_bonus, {level:0}).length<1);
                             //loop through each bonus level (even with a single one)
                             _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
-                                if(typeof _bonus_level.properties.rank_path !=="undefined")
-                                    _display+="<div class='subRow'>Bonus Path: "+_bonus_level.properties.rank_path.name+"</div>";
-                                if(_multipleLevelBonus)
-                                    _display+="<div class='rotate js-bonus_level_label'>Level "+_bonus_level.properties.level+"</div><div class='js-bonus_level_bracket'></div>";
+                                if(typeof _bonus_level.properties.rank_path !=="undefined"){
+
+                                    _display+="<div class='subRow'>";
+                                    _display+="<span style='color:#ccc;position:absolute;right:8px;'>"+_bonus.properties.name+"</span> ";
+                                    _display+=(typeof _bonus_level.properties.rank_path.name ==="undefined"?"All Paths":_bonus_level.properties.rank_path.name );
+                                    _display+=", "+(_bonus_level.properties.level==0?"All Levels":"Level "+_bonus_level.properties.level)+"</div>";
+                                }
+                                // if(_multipleLevelBonus)
+                                //     _display+="<div class='rotate js-bonus_level_label'>Level "+_bonus_level.properties.level+"</div><div class='js-bonus_level_bracket'></div>";
 
                                 // go through amounts within each level
 
