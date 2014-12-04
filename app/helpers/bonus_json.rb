@@ -29,18 +29,20 @@ class BonusJson < JsonDecorator
     update
   end
 
-  def available_paths(bonus)
-    path_ids = bonus.bonus_levels.map(&:rank_path_id)
+  def available_paths(bonus, level)
+    path_ids = bonus.bonus_levels.select { |bl| bl.level == level }
+      .map(&:rank_path_id)
     all_paths.reject { |p| path_ids.include?(p.id) }
   end
 
   def rank_path_field(action, bonus)
-    paths = available_paths(bonus)
-    return if paths.empty?
+    # paths = available_paths(bonus)
+    # return if paths.empty?
+    options = Hash[all_paths.map { |p| [ p.id, p.name ] }]
     action.field(
       :rank_path_id, :select,
-      options:  Hash[paths.map { |p| [ p.id, p.name ] }],
-      required: !bonus.bonus_levels.empty?)
+      options:  options = Hash[all_paths.map { |p| [ p.id, p.name ] }],
+      required: false)
   end
 
   def amount_field(action, max_values, value = nil)

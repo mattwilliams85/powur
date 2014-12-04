@@ -318,6 +318,7 @@ DEPENDENCIES
   foreigner!
   gibbon
   has_scope
+  httparty
   jbuilder
   jquery-rails
   jquery-turbolinks

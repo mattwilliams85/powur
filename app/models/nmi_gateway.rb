@@ -1,6 +1,4 @@
 class NmiGateway
-  require 'HTTParty'
-
   def initialize
     @login = {}
     @order = {}

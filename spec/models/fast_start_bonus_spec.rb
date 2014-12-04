@@ -14,6 +14,6 @@ describe FastStartBonus, type: :model do
 
   it 'returns an integer for the time_amount property' do
     bonus = create(:fast_start_bonus, time_amount: '2')
-    expect(bonus.time_amount).to be_a(Fixnum)
+    expect(bonus.time_amount_int).to be_a(Fixnum)
   end
 end

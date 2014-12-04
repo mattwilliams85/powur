@@ -5,9 +5,12 @@ module Admin
 
     def create
       error!(:cannot_add_amounts) unless @bonus.can_add_amounts?(all_paths.size)
+      clear_level(@bonus.next_bonus_level) unless rank_path_input?
+
       @bonus_level = @bonus.bonus_levels.create!(
         input.merge(level: @bonus.next_bonus_level))
-      fill_level if params[:rank_path_id]
+
+      fill_level if rank_path_input?
 
       render 'show'
     end
@@ -19,13 +22,16 @@ module Admin
     end
 
     def destroy
-      @bonus_level.destroy
-      @bonus.bonus_levels.reload
+      clear_level(@bonus_level.level)
 
       render 'show'
     end
 
     private
+
+    def clear_level(level)
+      @bonus.bonus_levels.where(level: level).destroy_all
+    end
 
     def fill_level
       level_id = @bonus.highest_bonus_level
@@ -41,13 +47,13 @@ module Admin
       end
     end
 
+    def rank_path_input?
+      params[:rank_path_id].present?
+    end
+
     def input
       allow_input(:rank_path_id, amounts: [])
     end
-
-    # def amounts_input
-    #   params.permit(:amounts)[:amounts].map
-    # end
 
     def fetch_bonus
       @bonus = Bonus.includes(
