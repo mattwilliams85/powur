@@ -147,6 +147,14 @@ describe '/a/bonuses' do
       expect_classes 'bonus'
     end
 
+    it'creates a fast-start bonus' do
+      bonus_plan = create(:bonus_plan)
+      post bonus_plan_bonuses_path(bonus_plan),
+           type: 'fast_start', name: 'foo', format: :json
+
+      expect_classes 'bonus'
+    end
+
   end
 
   describe '#destroy' do
