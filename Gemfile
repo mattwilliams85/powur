@@ -31,6 +31,7 @@ gem 'money'
 gem 'has_scope'
 gem 'attr_extras'
 gem 'faraday'
+gem 'httparty'
 
 gem 'pry-rails'
 gem 'eyecue_ipayout', path: './vendor/eyecue_ipayout'
