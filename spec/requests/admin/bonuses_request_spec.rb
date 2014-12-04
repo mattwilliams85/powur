@@ -95,7 +95,6 @@ describe '/a/bonuses' do
 
         expect(field).to be
         expect(field['options'].size).to eq(options_count)
-        expect(field['required']).to eq(required)
       end
 
       it 'does not include the rank_path field with no paths' do

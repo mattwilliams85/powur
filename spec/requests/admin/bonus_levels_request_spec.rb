@@ -12,6 +12,10 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
     json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
   end
 
+  def create_action
+    amounts['actions'].find { |a| a['name'] == 'create' }
+  end
+
   describe 'POST /' do
 
     it 'adds a bonus level to to a bonus' do
@@ -78,6 +82,23 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
       expect(amounts['entities'].size).to eq(1)
       bonus_level = amounts['entities'].first
       expect(bonus_level['properties']['rank_path']['name']).to_not be
+    end
+
+    it 'allows multiple levels for a unilevel bonus' do
+      path2 = create(:rank_path)
+      bonus = create(:unilevel_bonus)
+      create(:bonus_requirement, bonus: bonus)
+      post bonus_levels_path(bonus),
+           rank_path_id: nil,
+           amounts:      [ 0.1, 0.4, 0.125 ],
+           format:       :json
+
+      expect(amounts['entities'].size).to eq(1)
+      post bonus_levels_path(bonus),
+           rank_path_id: nil,
+           amounts:      [ 0.1, 0.4, 0.125 ],
+           format:       :json
+      expect(amounts['entities'].size).to eq(2)
     end
   end
 

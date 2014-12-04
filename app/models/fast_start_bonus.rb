@@ -9,6 +9,6 @@ class FastStartBonus < Bonus
             allow_nil:    true
 
   def time_amount_int
-    time_amount.present? ? nil : time_amount.to_i
+    time_amount.presence && time_amount.to_i
   end
 end
