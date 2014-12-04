@@ -89,16 +89,17 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
       bonus = create(:unilevel_bonus)
       create(:bonus_requirement, bonus: bonus)
       post bonus_levels_path(bonus),
-           rank_path_id: nil,
+           rank_path_id: @path.id,
            amounts:      [ 0.1, 0.4, 0.125 ],
            format:       :json
 
-      expect(amounts['entities'].size).to eq(1)
+      expect(amounts['entities'].size).to eq(2)
+
       post bonus_levels_path(bonus),
            rank_path_id: nil,
            amounts:      [ 0.1, 0.4, 0.125 ],
            format:       :json
-      expect(amounts['entities'].size).to eq(2)
+      expect(amounts['entities'].size).to eq(3)
     end
   end
 
