@@ -54,6 +54,11 @@ Handlebars.registerHelper('localtime', function(_value){
     return _t.toLocaleDateString();
 });
 
+//return array element from index
+Handlebars.registerHelper('index_of', function(context,ndx) {
+  return context[ndx];
+});
+
 //Handlebar helper to allow comparisons
 Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
     if (arguments.length < 3)
@@ -253,15 +258,15 @@ jQuery(function($){
 
         //wire up dynamic bonus amount assignment
         if(_options._popupData.popupType === "bonus_payment"){
-            console.log(_options._popupData)
             var _amountDetail = _getObjectsByCriteria(_options._popupData.fields, {name:"amounts"})[0];
             _amountDetail.max=_options._popupData.amountDetail.max;
             _amountDetail.maxPercentage=_options._popupData.amountDetail.maxPercentage;
             _amountDetail.total=_options._popupData.amountDetail.total;
 
             $(".js-percentage_container").each(function(){
-                var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
-                var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                var _rankIndex = (parseInt($(this).attr("data-amount-array-index")));
+                var _rankTitle = _data.ranks.entities[_rankIndex].properties.title;
+                var _rankID = _data.ranks.entities[_rankIndex].properties.id;
                 var _barWidth = $(this).width();
                 $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(1)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(2)+"</span>");
                 $(this).find(".js-percentage_bar").animate({"width":(_barWidth*$(this).attr("data-amount-percentage")).toFixed(0)+"px"},300);
@@ -273,18 +278,21 @@ jQuery(function($){
                 var _position = {x: e.pageX - $(this).offset().left, y: e.pageY - $(this).offset().top}
                 var _percentage = (_position.x/_barWidth).toFixed(3);
                 //_percentage=(Math.round(_percentage)<Math.ceil(_percentage))? Math.floor(_percentage):Math.floor(_percentage)+0.5;
-                var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
-                var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                var _rankIndex = (parseInt($(this).attr("data-amount-array-index")));
+                var _rankTitle = _data.ranks.entities[_rankIndex].properties.title;
+                var _rankID = _data.ranks.entities[_rankIndex].properties.id;
 
+                _amountDetail.max=_amountDetail.max_values[$(this).attr("data-amount-array-index")];
                 if(_percentage>=_amountDetail.max) _percentage=_amountDetail.max;
-                $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100.00).toFixed(1)+"%] [$"+(_percentage*_amountDetail.total).toFixed(2)+"]");
+                $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": ["+(_percentage*100.00).toFixed(1)+"% out of "+(_amountDetail.max*100.00).toFixed(1)+"%] $"+(_percentage*_amountDetail.total).toFixed(2)+"");
                 $(this).find(".js-percentage_label").css("color","#ddd");
             });
 
             $(".js-percentage_container").on("mouseout", function(e){
                 e.preventDefault();
-                var _rankID = (parseInt($(this).attr("data-amount-array-index"))+_amountDetail.first);
-                var _rankTitle = _getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
+                var _rankIndex = (parseInt($(this).attr("data-amount-array-index")));
+                var _rankTitle = _data.ranks.entities[_rankIndex].properties.title;
+                var _rankID = _data.ranks.entities[_rankIndex].properties.id;
                 $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(1)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(2)+"</span>");
                 $(this).find(".js-percentage_label").css("color","#fff");
             });
@@ -331,12 +339,16 @@ jQuery(function($){
                     $("#bonus_payment_mode_dollar input").each(function(){
                         _amounts.push($(this).val().replace(/[^0-9|\.]/g,"")*1.00/100.00);
                     });
-                }
+                };
+                var _postObj = {};
+                if($(e.target).parents("form").find("select[name='rank_path_id']").length>0)
+                    _postObj.rank_path_id=$(e.target).parents("form").find("select[name='rank_path_id']").val()*1;
+                _postObj.amounts = _amounts;
 
                 _ajax({
                     _ajaxType:_options._popupData.method,
                     _url:_options._popupData.href,
-                    _postObj: {amounts:_amounts},
+                    _postObj: _postObj,
                     _callback:function(data, text){
                         $("#js-screen_mask").click();
                         $("body").css("overflow", "auto");

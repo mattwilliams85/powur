@@ -587,14 +587,19 @@ jQuery(function($){
                             }
 
                             //show bonus payments
-
                             _display="<h4 class='subRow'>// Bonus Payments</h4>";
                             var _multipleLevelBonus = (_getObjectsByCriteria(_bonus, {level:0}).length<1);
                             //loop through each bonus level (even with a single one)
                             _bonus.bonus_levels.entities.forEach(function(_bonus_level, _index){
+                                if(typeof _bonus_level.properties.rank_path !=="undefined"){
 
-                                if(_multipleLevelBonus)
-                                    _display+="<div class='rotate js-bonus_level_label'>Level "+(_index+1)+"</div><div class='js-bonus_level_bracket'></div>";
+                                    _display+="<div class='subRow'>";
+                                    _display+="<span style='color:#ccc;position:absolute;right:8px;'>"+_bonus.properties.name+"</span> ";
+                                    _display+=(typeof _bonus_level.properties.rank_path.name ==="undefined"?"All Paths":_bonus_level.properties.rank_path.name );
+                                    _display+=", "+(_bonus_level.properties.level==0?"All Levels":"Level "+_bonus_level.properties.level)+"</div>";
+                                }
+                                // if(_multipleLevelBonus)
+                                //     _display+="<div class='rotate js-bonus_level_label'>Level "+_bonus_level.properties.level+"</div><div class='js-bonus_level_bracket'></div>";
 
                                 // go through amounts within each level
 
@@ -603,16 +608,11 @@ jQuery(function($){
                                     var _rankTitle=_getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;                                    
                                     _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(1)+"% <span class='sub'>$"+(_amount*_bonus.properties.available_amount).toFixed(2)+"</span></span></div>";
                                 });
-                                if(_multipleLevelBonus)
-                                    _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_level_payment' href='#"+_getObjectsByCriteria(_bonus_level.actions, {name: "update"})[0].href+"'>Adjust Payments</a></div>";
-                                else
-                                    _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_payment' href='#'>Adjust Payments</a></div>";
+                                _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_level_payment' href='#"+_getObjectsByCriteria(_bonus_level.actions, {name: "update"})[0].href+"'>Adjust Payments</a></div>";
                                 _display+="<br style='clear:both;'>";
                             });
 
                             _row.find(".js-bonus_details").append(_display);
-
-
 
                             // if((typeof _bonus.properties.amounts !== "undefined" && _bonus.properties.amounts.length>0 ) || (typeof _bonus.bonus_levels !== "undefined")){
                             //     _display="<h4 class='subRow'>// Bonus Payments</h4>";
@@ -654,6 +654,7 @@ jQuery(function($){
                             //         }
                             //     }
                             // }
+
                         });
 
                         //wire up add new bonus level
@@ -661,8 +662,12 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData=[];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
-                            
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses, 
+                                {
+                                    "containsIn(properties)":[{id:_bonusID}],
+                                    "containsIn(class)":["bonus"]
+                                })[0];
+
                             _popupData = _getObjectsByCriteria(_bonus.bonus_levels.actions, {name: "create"})[0];
                             _popupData.popupType = "bonus_payment";                            
                             _popupData._bonusID = _bonusID;
@@ -678,8 +683,14 @@ jQuery(function($){
                             _popupData.amountDetail.max=_bonus.properties.remaining_percentage;
                             _popupData.amountDetail.maxPercentage = (_bonus.properties.remaining_percentage*100.00).toFixed(1);
                             _popupData.amountDetail.total=_bonus.properties.available_amount;
-
                             _popupData.title="Add a new Bonus Level <br> For Bonus: "+_bonus.properties.name;
+                            _popupData.buttonText="Create Bonus Level";
+
+                            //add paths info if it exists
+                            if(_getObjectsByCriteria(_bonus, {name:"rank_path_id"}).length>0){
+                                _popupData.amountDetail.paths=_getObjectsByCriteria(_bonus, {name:"rank_path_id"})[0];
+                                delete _popupData.amountDetail.paths.options["_path"];
+                            }
 
                             $("#js-screen_mask").fadeIn(100, function(){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
@@ -708,7 +719,7 @@ jQuery(function($){
 
                             _popupData.title="Editing Payments<br> For Bonus: "+_bonus.properties.name;
                             //_populateReferencialSelect({_popupData:_popupData});
-
+                            console.log(_bonus)
                             $("#js-screen_mask").fadeIn(100, function(){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
@@ -721,7 +732,13 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData = [];
                             var _bonusID= $(e.target)[0].tagName.toLowerCase()==="select"? parseInt($(e.target).val().replace("#","")) : parseInt($(e.target).attr("href").replace("#",""));
-                            _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
+
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses, 
+                                {
+                                    "containsIn(properties)":[{id:_bonusID}],
+                                    "containsIn(class)":["bonus"]
+                                })[0];
+
                             _popupData = _getObjectsByCriteria(_bonus.actions, "val=update")[0];
 
                             //hide the amounts form the update
@@ -749,7 +766,12 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData=[];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
+
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses, 
+                                {
+                                    "containsIn(properties)":[{id:_bonusID}],
+                                    "containsIn(class)":["bonus"]
+                                })[0];
                             
                             _popupData = _getObjectsByCriteria(_bonus.requirements, {name:"create"})[0];
                             _popupData.fields.forEach(function(field){
@@ -799,9 +821,14 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData=[];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-                            var _bonus = _getObjectsByPath(_data.bonuses, _getObjectsByCriteria(_data.bonuses, {id:_bonusID})[0]._path, -1);
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses, 
+                                {
+                                    "containsIn(properties)":[{id:_bonusID}],
+                                    "containsIn(class)":["bonus"]
+                                })[0];
+
                             var _bonuseLevelPaymentHref = $(e.target).attr("href").replace("#","");
-                            var _bonus_levels=_getObjectsByPath(_data.bonuses, _bonus._path).bonus_levels;
+                            var _bonus_levels=_bonus.bonus_levels
                             var _last_bonus_level =false;
 
                             _popupData=_getObjectsByCriteria(_data.bonuses, {href:_bonuseLevelPaymentHref}).filter(function(_action){return _action.name=="update"})[0];
@@ -823,6 +850,12 @@ jQuery(function($){
                             _popupData.amountDetail.total=_bonus.properties.available_amount;
                             _popupData.title="Edit a Bonus Level <br> For Bonus: "+_bonus.properties.name;
                             
+                            //add paths info if it exists
+                            if(_getObjectsByCriteria(_bonus, {name:"rank_path_id"}).length>0){
+                                _popupData.amountDetail.paths=_getObjectsByCriteria(_bonus, {name:"rank_path_id"})[0];
+                                delete _popupData.amountDetail.paths.options._path;
+                            }
+
                             if(_last_bonus_level){
                                 _popupData.deleteOption={};
                                 _popupData.href=_bonuseLevelPaymentHref;
