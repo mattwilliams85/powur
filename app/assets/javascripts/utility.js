@@ -342,7 +342,7 @@ jQuery(function($){
                 };
                 var _postObj = {};
                 if($(e.target).parents("form").find("select[name='rank_path_id']").length>0)
-                    _postObj.rank_path_id=$(e.target).parents("form").find("select[name='rank_path_id']").val()*1;
+                    _postObj.rank_path_id=$(e.target).parents("form").find("select[name='rank_path_id']").val();
                 _postObj.amounts = _amounts;
 
                 _ajax({
