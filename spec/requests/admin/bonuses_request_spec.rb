@@ -97,12 +97,12 @@ describe '/a/bonuses' do
         expect(field['options'].size).to eq(options_count)
       end
 
-      it 'does not include the rank_path field with no paths' do
+      it 'always includes the rank_path field' do
         create_list(:rank, 2)
         bonus = create(:bonus_requirement).bonus
         get bonus_path(bonus), format: :json
 
-        expect(rank_path_field).to_not be
+        expect(rank_path_field).to be
       end
 
       it 'when null rank_path level defined, no create action' do
@@ -113,16 +113,6 @@ describe '/a/bonuses' do
         get bonus_path(bonus), format: :json
 
         expect(create_action).to_not be
-      end
-
-      it 'when only one path choice left, rank_path field has 1 option' do
-        create_list(:rank, 2)
-        rank_paths = create_list(:rank_path, 2)
-        bonus = create(:bonus_requirement).bonus
-        create(:bonus_level, bonus: bonus, rank_path: rank_paths.first)
-        get bonus_path(bonus), format: :json
-
-        expect_rank_path_field(1, true)
       end
 
       it 'includes the rank_path field with 2 paths' do
