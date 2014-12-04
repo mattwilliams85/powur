@@ -21,8 +21,15 @@ module Auth
 
     def process_card
       @transaction = post_sale(params)
-      record_transaction(params['empower_merchant'], @transaction)
-      @transaction
+      if @transaction['response_code'] == '300'
+        @receipt['responsetext'] = 'Error Connecting to Empower Merchant'
+        @receipt['authcode'] = '0'
+        @receipt['transactionid'] = '0'
+      else
+        @receipt = record_transaction(params['empower_merchant'], @transaction)
+      end
+
+      @receipt
     end
 
     def fetch_user

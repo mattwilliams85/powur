@@ -29,8 +29,9 @@
                 success: function(transaction){
                     console.log("Success RESULT:...");
 
-                    console.log(result);
-                    $("#output").html("<h3>Transaction ID: </h3><span>" + transaction['transactionid'] + "</span>");
+                    console.log(transaction);
+                    //$("#output").html("<h3>Transaction ID: </h3><span>" + transaction['transactionid'] + " || Auth Code: " + transaction['transaction_id'] + " || Message: " + transaction['responsetext'] + "</span>");
+                    $("#output").html("The Direct Post API is currently unavailable.");
                 },
                 error:function(error){
                     console.log(error);
@@ -73,6 +74,9 @@ float: left;
   min-height:50px;
   background-color:#DDD;
 }
+.small {
+  font-size:12px;
+}
 </style>
 <section id="em-sandbox">
 
@@ -105,6 +109,7 @@ float: left;
       <fieldset>
         <legend>Direct Post</legend>
         <h3>SunRun Solar Item - $500.00 USD </h3>
+        <span class="small">*values are pre-filled for test purposes.</span>
         <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
         <div class="top-level-wrapper blue-theme-wrapper">
           <section class="creditly-wrapper blue-theme">
@@ -113,7 +118,7 @@ float: left;
                 <div class="col-sm-8 controls">
                   <label class="control-label">Card Number</label>
                   <input class="number credit-card-number form-control"
-                    type="text" name="number" value="4111111111111111"
+                    type="text" name="number" value="4111 1111 1111 1111"
                     inputmode="numeric" autocomplete="cc-number" autocompletetype="cc-number" x-autocompletetype="cc-number"
                     placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
                 </div>
@@ -131,7 +136,7 @@ float: left;
                   <label class="control-label">Name on Card</label>
                   <input class="billing-address-name form-control"
                     type="text" name="name"
-                    value="Danny Test">
+                    value="Test Person">
                 </div>
                 <div class="col-sm-4 controls">
                   <label class="control-label">Expiration</label>
@@ -157,12 +162,5 @@ float: left;
 
         </fieldset>
       </form>
-
-
     </section><!--End credit direct post nmi-container -->
-
-
-
-
-
 </section>
