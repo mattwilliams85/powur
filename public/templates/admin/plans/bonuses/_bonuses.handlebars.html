@@ -15,13 +15,9 @@
             {{#if this.requirements.actions}}            
                 <a href="#" class="js-add_bonus_requirement button" >+ Requirement</a>
             {{/if}}
-            <!--
-            {{#if this.properties.amounts}}
-            <a href="#" class="js-edit_bonus_payment button quiet" style="margin-right:10px;" >Adjust Payments</a>
-            {{/if}} 
-            -->    
+
             {{#if this.requirements.entities}}
-                {{#if this.bonus_levels}}
+                {{#if this.bonus_levels.actions}}
                 <a href="#" class="js-add_bonus_level button quiet" style="margin-right:10px;" >+ Bonus Level</a>
                 {{/if}}           
             {{/if}}  
