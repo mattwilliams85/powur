@@ -4,26 +4,21 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore bundler config.
+.env
+.me
 /.bundle
+public/assets/**
 
 irb_scratch.rb
 EXAMPLES.json
 vendor/eyecue_ipayout/.gitignore
 vendor/eyecue_ipayout/reload.sh
 config/rails_best_practices.yml
-config/secrets.yml
-
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 .DS_Store
 
-.env
-.me
 # Ignore application configuration
 /config/application.yml
