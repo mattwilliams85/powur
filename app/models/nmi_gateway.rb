@@ -49,7 +49,6 @@ class NmiGateway
 
   def do_post(sale_params)
     post_body = build_post_body(sale_params)
-
     nmi_base_uri = 'https://secure.nmi.com'
     conn = Faraday.new(url: nmi_base_uri) do |faraday|
       faraday.request :url_encoded             # form-encode POST params
