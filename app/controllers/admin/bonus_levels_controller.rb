@@ -7,7 +7,7 @@ module Admin
       error!(:cannot_add_amounts) unless @bonus.can_add_amounts?(all_paths.size)
       @bonus_level = @bonus.bonus_levels.create!(
         input.merge(level: @bonus.next_bonus_level))
-      fill_level if params[:rank_path_id]
+      fill_level if params[:rank_path_id].present?
 
       render 'show'
     end
@@ -44,10 +44,6 @@ module Admin
     def input
       allow_input(:rank_path_id, amounts: [])
     end
-
-    # def amounts_input
-    #   params.permit(:amounts)[:amounts].map
-    # end
 
     def fetch_bonus
       @bonus = Bonus.includes(

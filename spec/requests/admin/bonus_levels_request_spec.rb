@@ -7,6 +7,10 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
     create_list(:rank, 4)
     @path = create(:rank_path)
   end
+  
+  def amounts
+    json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
+  end
 
   describe 'POST /' do
 
@@ -61,11 +65,20 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
            amounts:      [ 0.1, 0.4, 0.125 ],
            format:       :json
 
-      amounts = json_body['entities']
-                .find { |e| e['class'].include?('bonus_levels') }
       expect(amounts.size).to eq(2)
     end
 
+    it 'allows a bonus level without a rank path' do
+      bonus = create(:bonus_requirement).bonus
+      post bonus_levels_path(bonus),
+           rank_path_id: nil,
+           amounts:      [ 0.1, 0.4, 0.125 ],
+           format:       :json
+
+      expect(amounts['entities'].size).to eq(1)
+      bonus_level = amounts['entities'].first
+      expect(bonus_level['properties']['rank_path']['name']).to_not be
+    end
   end
 
   describe 'PATCH /:id' do
