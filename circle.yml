@@ -3,4 +3,3 @@ deployment:
     branch: develop
     heroku:
       appname: sunstand-staging
-
