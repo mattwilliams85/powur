@@ -27,8 +27,8 @@ FactoryGirl.define do
     end
 
     factory :fast_start_bonus, class: FastStartBonus do
-      # time_period :months
-      # time_amount 2
+      time_period 'months'
+      time_amount 2
     end
 
     factory :promote_out_bonus, class: PromoteOutBonus do

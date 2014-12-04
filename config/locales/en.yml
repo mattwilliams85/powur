@@ -90,10 +90,17 @@ en:
     bonus: Bonus
     order_by: Order By
     for_period: For Period
+  enums:
+    time_period:
+      days: Days
+      months: Months
+      years: Years
   activerecord:
     errors:
       messages:
         record_invalid: "%{errors}"
+        inclusion: "'%{value}' is not a valid value for %{attribute}"
+        greater_than: "%{attribute} must be greater than %{count}" 
 
 # activerecord.errors.models.user.attributes.name.blank
 # activerecord.errors.models.user.blank

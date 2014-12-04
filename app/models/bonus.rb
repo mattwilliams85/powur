@@ -63,6 +63,10 @@ class Bonus < ActiveRecord::Base
     @source_requirement ||= requirements.find_by_source(true)
   end
 
+  def sales_requirement?
+    !source_requirement.nil?
+  end
+
   def source_product
     source_requirement.product
   end
@@ -107,7 +111,13 @@ class Bonus < ActiveRecord::Base
   end
 
   def available_amount
-    breakage_amount? ? flat_amount : source_product.commission_amount
+    amount = if sales_requirement?
+      source_product.commission_amount * source_requirement.quantity
+    else
+      0
+    end
+    amount += flat_amount if breakage_amount?
+    amount
   end
 
   def allows_many_requirements?
