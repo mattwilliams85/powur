@@ -61,6 +61,9 @@ function randomizeOrders() {
   _data.team.entities.forEach(function(member) {
     member.properties.orders = Math.floor(Math.random() * 30 + 10)
   });
+  _data.team.entities.forEach(function(member) {
+    member.properties.quotes = Math.floor(Math.random() * 30 + 5)
+  });
 }
 
 function randomizeData(length) {
