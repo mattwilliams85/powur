@@ -1312,13 +1312,6 @@ CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
 
 
 --
--- Name: index_product_receipts_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_product_receipts_on_user_id ON product_receipts USING btree (user_id);
-
-
---
 -- Name: index_qualifications_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1865,4 +1858,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141108221116');
 INSERT INTO schema_migrations (version) VALUES ('20141125215349');
 
 INSERT INTO schema_migrations (version) VALUES ('20141126112350');
+
+INSERT INTO schema_migrations (version) VALUES ('20141204005149');
 

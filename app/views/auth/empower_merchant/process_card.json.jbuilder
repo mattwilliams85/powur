@@ -1,3 +1,3 @@
-json.responsetext @transaction['responsetext']
-json.authcode @transaction['authcode']
-json.transactionid @transaction['transactionid']
+json.responsetext @receipt['responsetext']
+json.authcode @receipt['authcode']
+json.transactionid @receipt['transaction_id']

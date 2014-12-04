@@ -23,6 +23,7 @@ module EmpowerMerchantRequestHelper
                                     amount:         transaction['amount'],
                                     transaction_id: response['transactionid'].first,
                                     order_id:       response['orderid'].first)
+
     receipt
   end
 end

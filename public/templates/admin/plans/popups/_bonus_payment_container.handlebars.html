@@ -7,6 +7,7 @@
             <div>
                 <label>Bonus Path</label>
                 <select name="{{this.amountDetail.paths.name}}" id="{{this.amountDetail.paths.name}}">
+                    <option value="">All Paths</option>
                     {{#each this.amountDetail.paths.options}}
                         <option value={{@key}}>{{this}}</option>
                     {{/each}}
