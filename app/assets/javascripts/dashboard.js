@@ -120,7 +120,7 @@ function Dashboard(){
 	}	
 
 	function displayGoals(path){
-
+		return;
 		// hook up the control for changing paths
 		$("#pay_period_goal_path").on("change", function(e){
 			$("#goal_meters .labels, #goal_meters .highlight").html("");
@@ -329,18 +329,32 @@ function Dashboard(){
 			},
 			_callback:function(data, type){
 				_data.quotes=data;
+				$(".js-new_quote_thumbnail").unbind();
+				//wire up new leads hooks
+				$(".js-new_quote_thumbnail").on("click", function(e){
+					e.preventDefault();
+					_thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
+					_thisAudience =  $(e.target).parents(".js-new_quote_thumbnail").attr("data-audience");
+					_drillDown({"_type":"new_quote",
+								"_mainSectionID":$(e.target).parents("section").attr("id"), 
+								"_thumbnailIdentifier":".js-new_quote_thumbnail",
+								"_target":$(e.target),
+								"_audience":_thisAudience, 
+								"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+				});
+
 				if(_data.quotes.entities.length<=0) return;
 				var _containerObj = $("#dashboard_quotes .section_content.quotes_info .pagination_content");
 				_containerObj.html("");
 				if(_data.quotes.entities.length>4) _containerObj.siblings(".nav").fadeIn();
 				_containerObj.css("width", (_data.global.thumbnail_size.width*_data.quotes.entities.length)+"px");
 
+
 				EyeCueLab.UX.getTemplate("/templates/_quote_thumbnail.handlebars.html", data.entities, _containerObj, function(){
 
 					$("#quote_sort").unbind();
 					$("#quote_search").unbind();
 					$(".js-quote_thumbnail").unbind();
-					$(".js-new_quote_thumbnail").unbind();
 
 					//put in sort filter
 					$("#quote_sort").on("change", function(e){
@@ -375,18 +389,7 @@ function Dashboard(){
 									"_arrowPosition":_thisThumbnail.find(".expand .fa").offset().left});
 					});	
 
-					//wire up new leads hooks
-					$(".js-new_quote_thumbnail").on("click", function(e){
-						e.preventDefault();
-						_thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
-						_thisAudience =  $(e.target).parents(".js-new_quote_thumbnail").attr("data-audience");
-						_drillDown({"_type":"new_quote",
-									"_mainSectionID":$(e.target).parents("section").attr("id"), 
-									"_thumbnailIdentifier":".js-new_quote_thumbnail",
-									"_target":$(e.target),
-									"_audience":_thisAudience, 
-									"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
-					});
+
 
 				});
 
