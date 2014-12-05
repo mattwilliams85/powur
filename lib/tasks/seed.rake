@@ -333,12 +333,12 @@ namespace :sunstand do
         schedule:           :monthly,
         time_period:        'months',
         time_amount:        1)
-      BonusSalesRequirement.create!(bonus:      bonus,
-                                    product_id: SOLAR_ITEM_ID,
-                                    quantity:   3)
-      BonusLevel.create!(
-        bonus:   bonus,
-        amounts: [ 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 ])
+      # BonusSalesRequirement.create!(bonus:      bonus,
+      #                               product_id: SOLAR_ITEM_ID,
+      #                               quantity:   3)
+      # BonusLevel.create!(
+      #   bonus:   bonus,
+      #   amounts: [ 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1 ])
 
       # Differential Bonus
       bonus = DifferentialBonus.create!(
