@@ -4,7 +4,6 @@ module Auth
     helper_method :orders_for_user
 
     def index
-    
     end
 
     def show
@@ -15,8 +14,8 @@ module Auth
 
     def generate_periods
       @periods = []
-      (Time.now.strftime("%U").to_i).times do |i|
-        @periods << "#{Time.now.strftime("%Y")}W#{i + 1}"
+      (Time.now.strftime('%U').to_i).times do |i|
+        @periods << "#{Time.now.strftime('%Y')}W#{i + 1}"
       end
       @periods
     end
@@ -26,7 +25,7 @@ module Auth
       users_for_period = []
       total_downline.each do |user|
         user.orders.each do |order|
-          if order.order_date.strftime("%YW%U") == period
+          if order.order_date.strftime('%YW%U') == period
             @user_orders << order
             users_for_period << user
           end
@@ -44,6 +43,5 @@ module Auth
       end
       orders_for_user
     end
-
   end
 end
