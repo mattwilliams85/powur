@@ -202,9 +202,6 @@ function Dashboard(){
 			notches.min=goals.sales[_key].min;
 			notches.max=goals.sales[_key].max-1;
 			notches.current = goals.sales[_key].current;
-			console.log("before")
-			console.log(notches)
-			console.log("after")
 			for(i=notches.min; i<=notches.max;i++){
 				var _counter = (i<10)?"0"+i:i;
 				var _maxCounter = (notches.max+1<10)?"0"+(notches.max+1):(notches.max+1);
@@ -233,7 +230,6 @@ function Dashboard(){
 
 		//wire up invitations listing hook
 		$(".js-invites_thumbnail").on("click", function(e){
-			console.log("click")
 			e.preventDefault();
 			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
 			_drillDown({"_type":"invitations",
@@ -242,7 +238,6 @@ function Dashboard(){
 						"_target":$(e.target),
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 		});
-
 
 		_ajax({
 			_ajaxType:"get",
@@ -276,8 +271,6 @@ function Dashboard(){
 					});
 				});
 				
-
-				// $(".js-invites_thumbnail").unbind();
 				$("#team_search").unbind();
 				$("#performance_metric").unbind();
 				$("#performance_period").unbind();
@@ -302,14 +295,10 @@ function Dashboard(){
 					$("#dashboard_team > section").remove();
 					_collapseTeam();
 					displayTeam();
-
-				})
-
+				});
 			}
 		});
-
 		_updateInvitationSummary();
-
 	}
 
 	//start quote dashboard info
