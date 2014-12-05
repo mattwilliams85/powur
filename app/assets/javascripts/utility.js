@@ -91,7 +91,7 @@ Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
 Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
     lvalue = parseFloat(lvalue);
     rvalue = parseFloat(rvalue);
-        
+
     return {
         "+": lvalue + rvalue,
         "-": lvalue - rvalue,
@@ -122,10 +122,10 @@ $(document).on("click", "#js-screen_mask", function(e){
         $("#js-screen_mask").fadeOut(100, function(){
             $("body").css("overflow", "auto");
             $("#js-popup").remove();
-        });                
+        });
     });
     return;
-});        
+});
 
 $(window).resize(function(){
     $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"200px"});
@@ -201,7 +201,7 @@ jQuery(function($){
         });
 
 
-        //wire up pagination if it exists 
+        //wire up pagination if it exists
         $(".js-pagination a").on("click", function(e){
             e.preventDefault();
             var _action = _getObjectsByCriteria(_options._popupData.actions, {name:"list"})[0];
@@ -242,8 +242,8 @@ jQuery(function($){
                     }
                     _secondaryOptions=[];
                     _options._popupData.fields.forEach(function(field){
-                        if(!!field.visibility && 
-                            field.visibility.control=="type" && 
+                        if(!!field.visibility &&
+                            field.visibility.control=="type" &&
                             field.visibility.values.indexOf($(e.target).val())>=0){
                                 _secondaryOptions.push(field);
                         }
@@ -296,7 +296,7 @@ jQuery(function($){
                 $(this).find(".js-percentage_label").html(_rankID+", "+_rankTitle+": "+($(this).attr("data-amount-percentage")*100).toFixed(1)+"% <span style='font-size:10px;'>$"+($(this).attr("data-amount-percentage")*_amountDetail.total).toFixed(2)+"</span>");
                 $(this).find(".js-percentage_label").css("color","#fff");
             });
-            
+
             $(".js-percentage_container").on("click", function(e){
                 e.preventDefault();
                 var _barWidth = $(this).width();
@@ -435,7 +435,7 @@ function _ajax(_options){
 //_uploadEndpoint is the server-side endpoint that recieves the multipart upload
 //optoinal: _options._fileNameDisplay shows the file that's been selected by user
 //optional: _options._uploadProgressDisplay shows the upload progress
-//optional: _callback function that is triggered after the upload has been completed 
+//optional: _callback function that is triggered after the upload has been completed
 function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
 	var _formData = new FormData();
 	var _supportedFiles = /(\.jpg|\.jpeg|\.pdf|\.gif|\.png)$/i;
@@ -491,7 +491,7 @@ function _formSubmit(_event, _formObj, _endPoint, _verb, _callback){
     }
 
     _ajax({
-        _ajaxType:_verb,  
+        _ajaxType:_verb,
         _postObj:_serializedData,
         _url:_endPoint,
         _callback: function(data, text){
@@ -501,7 +501,7 @@ function _formSubmit(_event, _formObj, _endPoint, _verb, _callback){
                 if(typeof _callback !== "undefined") _callback(data, text);
             }
         }
-    }); 
+    });
 }
 
 //function that handles error handling
@@ -543,19 +543,19 @@ function _getRoot(_callback){
                 {
                     url:"/u/users/"+_data.root.properties.id+"/orders",
                     name:"orders",
-                    data:{}                
+                    data:{}
                 },
                 {
                     url:"/u/users/"+_data.root.properties.id+"/rank_achievements",
                     name:"rank_achievements",
-                    data:{}                
+                    data:{}
                 },
                 {
                     url:"/u/users/"+_data.root.properties.id+"/goals",
                     name:"goals",
-                    data:{}                
-                }              
-                        
+                    data:{}
+                }
+
             ];
             EyeCueLab.JSON.asynchronousLoader(loadingCategories, function(_returnJSONs){
                 _data.currentUser=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"profile"})[0].properties;
@@ -568,7 +568,7 @@ function _getRoot(_callback){
             });
         }
      });
-}    
+}
 
 
 
@@ -599,7 +599,7 @@ function _queryServer(_options){
 //  "key=xxx" returns all objects that contain keys that match xxx exactly
 //  "val~xxx" returns all objects that contain values that match xxx partially (somewhere in the string)
 //  "key~xxx" returns all objects that contain keys that match xxx partially (somewhere in the string)
-//  {xxx:"yyy"} returns all objects that contain keys that match xxx AND values that match "yyy" 
+//  {xxx:"yyy"} returns all objects that contain keys that match xxx AND values that match "yyy"
 //_results: optional, the object that stores the result
 //_path: internal, do not pass in _path information
 function _getObjectsByCriteria(_dataObj, _criteria, _results, _path){
@@ -644,7 +644,7 @@ function _getObjectsByCriteria(_dataObj, _criteria, _results, _path){
     return _results;
 }
 
-// returns the object by path.  
+// returns the object by path.
 // optional _parentLevel provides ability to traverse up the JSON tree: -1 returns parent, -2 returns two levels up, etc.
 function _getObjectsByPath(_dataObj, _path, _parentLevel){
     if(typeof _parentLevel === "undefined") _parentLevel=0;
@@ -678,7 +678,7 @@ function _formatPopupData(e, _options){
         _popupData.deleteOption = {};
         $.extend(true, _popupData.deleteOption, _options._deleteOption);
     }
- 
+
     return _popupData;
 }
 
@@ -742,8 +742,8 @@ function _getTemplate(_path, _dataObj, _targetObj, _callback){
 }
 
 //Usage:
-//  EyeCueLab.JSON.getObjectsByPattern( data, 
-//                                      {"containsIn(class)":["bonuses", "list"], 
+//  EyeCueLab.JSON.getObjectsByPattern( data,
+//                                      {"containsIn(class)":["bonuses", "list"],
 //                                       "containsIn(links)":[{rel: "self"}]}
 //  )
 jQuery(function($){
@@ -756,7 +756,7 @@ jQuery(function($){
             _searchCriteria = {};
 
             Object.keys(_pattern).forEach(function(_key){
-                if(_key.indexOf("containsIn") >=0) _searchCriteria[(_key.replace(/(containsIn)*(\(|\))*/g,""))]=_pattern[_key]; 
+                if(_key.indexOf("containsIn") >=0) _searchCriteria[(_key.replace(/(containsIn)*(\(|\))*/g,""))]=_pattern[_key];
             });
         }
         if(!_results) _results=[];
@@ -797,10 +797,10 @@ jQuery(function($){
                             break;
 
                             case "String":
-                                //string, search through the immediate containing values (e.g. class, properties) 
+                                //string, search through the immediate containing values (e.g. class, properties)
                                 try{
                                     Object.keys(_dataObj[_searchKey]).forEach(function(_k){
-                                        if(_dataObj[_searchKey][_k] === _searchCriterion.term) _matchFound+=1; 
+                                        if(_dataObj[_searchKey][_k] === _searchCriterion.term) _matchFound+=1;
                                     });
                                 }catch(e){
                                     throw breakException;
@@ -817,7 +817,7 @@ jQuery(function($){
                 _results.forEach(function(_result){if(_result === _dataObj) throw breakException;});
                 _results.push(_dataObj);
 
-            }catch(e){ 
+            }catch(e){
                 if(e !==breakException) throw e;
             }
 
@@ -899,10 +899,10 @@ Date.prototype.addDays = function(days)
     return d;
 }
 
-Date.prototype.getWeekYear = function ()   
-{  
-    var target  = new Date(this.valueOf());  
-    target.setDate(target.getDate() - ((this.getDay() + 6) % 7) + 3);  
-      
-    return target.getFullYear();  
-}  
+Date.prototype.getWeekYear = function ()
+{
+    var target  = new Date(this.valueOf());
+    target.setDate(target.getDate() - ((this.getDay() + 6) % 7) + 3);
+
+    return target.getFullYear();
+}

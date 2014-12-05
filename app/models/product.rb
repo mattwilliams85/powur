@@ -42,8 +42,12 @@ class Product < ActiveRecord::Base
     def default
       Product.find(default_id)
     rescue ActiveRecord::RecordNotFound
-      product = Product.first
-      SystemSettings.default_product_id = Product.first.id
+      if Product.any?
+        product = Product.first
+        SystemSettings.default_product_id = Product.first.id
+      else
+        product = false
+      end
       product
     end
   end

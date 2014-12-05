@@ -1,11 +1,11 @@
 <% if current_user.roles.include?("admin") %>
     <div class="hover-box">
       <div class="js-admin_tab">
-        <div class="side-panel-item" id="side-1"><a href="/a/users"><i class="fa fa-users fa-1x"></i><span style="padding-left:3px" class="hidden">Users</span></a></div>
+        <div class="side-panel-item" id="side-1"><a href="/a/users"><span>Users</span><i class="fa fa-users fa-1x"></i></a></div>
         <br>
-        <div class="side-panel-item" id="side-2"><a href="/a/products"><i class="fa fa-table fa-1x"></i><span class="hidden"> Plan</span></div>
+        <div class="side-panel-item" id="side-2"><a href="/a/products"><span>Plan</span><i class="fa fa-table fa-1x"></i></div>
         <br>
-        <div class="side-panel-item" id="side-3"><a href="/a/quotes"><i class="fa fa-line-chart fa-1x"></i><span class="hidden">Quotes</span></div>
+        <div class="side-panel-item" id="side-3"><a href="/a/quotes"><span>Quotes</span><i class="fa fa-line-chart fa-1x"></i></div>
       </div>
     </div>
   <% end %>

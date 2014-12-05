@@ -112,10 +112,10 @@ jQuery(function($){
                     var _displayData={};
                     _displayData.ranks=_data.ranks;
                     _displayData.active_qualifications=_data.active_qualifications;
-    
+
                     EyeCueLab.UX.getTemplate("/templates/admin/plans/ranks/_ranks.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
-                        
+
                         //load active qualifications
                         var _row =$("#js-active_qualification_row");
                         _row.find(".js-active_path").html("");
@@ -151,12 +151,12 @@ jQuery(function($){
                         //wire up active qualification edit
                         $(".js-active_qualification_link").on("click", function(e){
                             e.preventDefault();
-                            _qualificationID = parseInt($(e.target).attr("href").replace("#","")); 
+                            _qualificationID = parseInt($(e.target).attr("href").replace("#",""));
                             _qualificationPath = $(e.target).attr("data-qualification-path");
                             _qualification=_data.active_qualification_paths[_qualificationPath].filter(function(_q){return _q.properties.id==_qualificationID})[0];
-                            
+
                             var _popupData =[];
-                            
+
                             _popupData = _qualification.actions.filter(function(action){return action.name==="update"})[0];
                             _popupData.fields.forEach(function(field){
                                 field.display_name=field.name.replace(/\_/g," ");
@@ -220,7 +220,7 @@ jQuery(function($){
                         $(".js-qualification_link").on("click", function(e){
                             e.preventDefault();
                             _rankID = $(e.target).parents("tr").attr("data-rank-id");
-                            _qualificationID = parseInt($(e.target).attr("href").replace("#","")); 
+                            _qualificationID = parseInt($(e.target).attr("href").replace("#",""));
                             _qualificationPath = $(e.target).attr("data-qualification-path");
                             _qualification=_data.qualifications[_rankID][_qualificationPath].filter(function(_q){return _q.properties.id==_qualificationID})[0];
                             var _popupData =[];
@@ -251,7 +251,7 @@ jQuery(function($){
                         //wire up rank edit
                         $(".js-rank_link").on("click", function(e){
                             e.preventDefault();
-                            _rankID = parseInt($(e.target).attr("href").replace("#",""));                 
+                            _rankID = parseInt($(e.target).attr("href").replace("#",""));
                             _ajax({
                                 _ajaxType:"get",
                                 _url:"/a/ranks/"+_rankID,
@@ -288,11 +288,11 @@ jQuery(function($){
                                     _popupData.id=_rankID;
                                     _popupData.popupType = "hierarchical";
                                     _popupData.primaryOptions=[];
-                                    
+
                                     _popupData.fields.forEach(function(field){
                                         field.display_name=field.name.replace(/\_/g," ");
                                         if (typeof field.visibility === "undefined"){
-                                            _popupData.primaryOptions.push(_getObjectsByCriteria(_popupData.fields,{name:field.name})[0]); 
+                                            _popupData.primaryOptions.push(_getObjectsByCriteria(_popupData.fields,{name:field.name})[0]);
                                         }
                                     });
 
@@ -321,7 +321,7 @@ jQuery(function($){
                             _popupData.fields.forEach(function(field){
                                 field.display_name=field.name.replace(/\_/g," ");
                                 if (typeof field.visibility === "undefined"){
-                                    _popupData.primaryOptions.push(_getObjectsByCriteria(_popupData.fields,{name:field.name})[0]); 
+                                    _popupData.primaryOptions.push(_getObjectsByCriteria(_popupData.fields,{name:field.name})[0]);
                                 }
                             });
 
@@ -354,7 +354,7 @@ jQuery(function($){
                             var _popupData = _formatPopupData(e, {
                                 _dataObj: _getObjectsByCriteria(_data.rank_paths, "val=create")[0],
                                 _title: "Create a new Qualification Path"
-                            });                            
+                            });
                             $("#js-screen_mask").fadeIn(100, function(){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){
@@ -384,7 +384,7 @@ jQuery(function($){
                                     buttonName: "js-delete_product",
                                     description: "When you remove a Path, all Associated Ranks and Bonus Amounts will be removed immediately.  Please exercise with caution."
                                 }
-                            });  
+                            });
 
                             $("#js-screen_mask").fadeIn(100, function(){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
@@ -415,7 +415,7 @@ jQuery(function($){
                     _summaryData={};
                     _summaryData.entities=_data.products.entities;
                     _summaryData.currentProduct=_data.currentProduct;
-                    
+
                     EyeCueLab.UX.getTemplate("/templates/admin/plans/products/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
                         //wire up new product button
                         $(".js-add_new_product").unbind();
@@ -424,7 +424,7 @@ jQuery(function($){
                             var _popupData = _formatPopupData(e, {
                                 _dataObj: _getObjectsByCriteria(_data.products, "val=create")[0],
                                 _title: "Create a new Product"
-                            });                            
+                            });
                             $("#js-screen_mask").fadeIn(100, function(){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
@@ -436,7 +436,7 @@ jQuery(function($){
                     EyeCueLab.UX.getTemplate("/templates/admin/plans/products/_products.handlebars.html", _data.products, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-product_select option[value="+_data.currentProduct.properties.id+"]").attr("selected", "selected");
-                        
+
                         //edit product
                         $( ".js-edit_product").on("click", function(e){
                             e.preventDefault();
@@ -457,7 +457,7 @@ jQuery(function($){
                                             buttonName: "js-delete_product",
                                             description: "When you remove a product, all compensation calculation will be removed immediately.  Please exercise with caution."
                                         }
-                                    });      
+                                    });
 
                                     $("#js-screen_mask").fadeIn(100, function(){
                                         EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
@@ -499,7 +499,7 @@ jQuery(function($){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     SunStand.Admin.displayPopup({ _popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
-                            }); 
+                            });
                         });
 
                         //add a new bonus plan
@@ -512,7 +512,7 @@ jQuery(function($){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
-                            }); 
+                            });
                         });
 
                         //edit an existing bonus plan
@@ -532,7 +532,7 @@ jQuery(function($){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
-                            }); 
+                            });
                         });
                         //switch current bonus plan
                         $(".js-bonus_plan_select").on("change", function(e){
@@ -548,7 +548,7 @@ jQuery(function($){
 
                     EyeCueLab.UX.getTemplate("/templates/admin/plans/bonuses/_bonuses.handlebars.html", _data.bonuses , $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
-                        
+
 
                         _data.bonuses.entities.forEach(function(_bonus){
                             delete _bonus.properties["_path"];
@@ -569,7 +569,7 @@ jQuery(function($){
                             });
                             _row.find(".js-bonus_details").append(_display);
                             _row.find(".js-bonus_details").append("<div class='innerCell' style='display:block; float:right;'><a href=#"+_bonusID+" class=js-bonus_link>Edit Summary</a></div><br style='clear:both;'></div>");
-                            
+
 
                             //show requirements
                             if(typeof _bonus.requirements !== "undefined" && _bonus.requirements.entities.length>0){
@@ -605,7 +605,7 @@ jQuery(function($){
 
                                 _bonus_level.properties.amounts.forEach(function(_amount, _index){
                                     var _rankID = 1+_index;
-                                    var _rankTitle=_getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;                                    
+                                    var _rankTitle=_getObjectsByCriteria(_data.ranks.entities, {id:_rankID}).filter(function(_rank){return typeof _rank.title!=="undefined"})[0].title;
                                     _display+="<div class='innerCell'><span class='label'>"+_rankID+", "+_rankTitle+"</span><span class='super'>"+(_amount*100).toFixed(1)+"% <span class='sub'>$"+(_amount*_bonus.properties.available_amount).toFixed(2)+"</span></span></div>";
                                 });
                                 _display+="<div class='innerCell' style='display:block; float:right;'><a class='js-edit_bonus_level_payment' href='#"+_getObjectsByCriteria(_bonus_level.actions, {name: "update"})[0].href+"'>Adjust Payments</a></div>";
@@ -662,18 +662,18 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData=[];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses, 
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses,
                                 {
                                     "containsIn(properties)":[{id:_bonusID}],
                                     "containsIn(class)":["bonus"]
                                 })[0];
 
                             _popupData = _getObjectsByCriteria(_bonus.bonus_levels.actions, {name: "create"})[0];
-                            _popupData.popupType = "bonus_payment";                            
+                            _popupData.popupType = "bonus_payment";
                             _popupData._bonusID = _bonusID;
                             _popupData["properties"] = {};
                             $.extend(true, _popupData.properties, _bonus.properties);
-                            
+
                             //prep artificial amounts
                             _popupData.properties["amounts"]=[];
                             _popupData.amountDetail = {};
@@ -708,7 +708,7 @@ jQuery(function($){
                             if(typeof _bonus === "undefined") return;
 
                             _popupData = _getObjectsByCriteria(_bonus.bonus_levels, {name: "update"})[0];
-                            _popupData.popupType = "bonus_payment";                            
+                            _popupData.popupType = "bonus_payment";
                             _popupData._bonusID = _bonusID;
                             _popupData["properties"] = {};
                             $.extend(true, _popupData.properties, _bonus.properties);
@@ -732,8 +732,7 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData = [];
                             var _bonusID= $(e.target)[0].tagName.toLowerCase()==="select"? parseInt($(e.target).val().replace("#","")) : parseInt($(e.target).attr("href").replace("#",""));
-
-                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses, 
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses,
                                 {
                                     "containsIn(properties)":[{id:_bonusID}],
                                     "containsIn(class)":["bonus"]
@@ -766,13 +765,12 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData=[];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-
-                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses, 
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses,
                                 {
                                     "containsIn(properties)":[{id:_bonusID}],
                                     "containsIn(class)":["bonus"]
                                 })[0];
-                            
+
                             _popupData = _getObjectsByCriteria(_bonus.requirements, {name:"create"})[0];
                             _popupData.fields.forEach(function(field){
                                 field.display_name=field.name.replace(/\_/g," ");
@@ -786,7 +784,7 @@ jQuery(function($){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                                 });
-                            }); 
+                            });
                         });
 
                         //wire up edit bonus requirement link
@@ -826,7 +824,7 @@ jQuery(function($){
                             e.preventDefault();
                             var _popupData=[];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses, 
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses,
                                 {
                                     "containsIn(properties)":[{id:_bonusID}],
                                     "containsIn(class)":["bonus"]
@@ -838,23 +836,23 @@ jQuery(function($){
 
                             _popupData=_getObjectsByCriteria(_data.bonuses, {href:_bonuseLevelPaymentHref}).filter(function(_action){return _action.name=="update"})[0];
                             if(_getObjectsByCriteria(_data.bonuses, {href:_bonuseLevelPaymentHref}).filter(function(_action){return _action.name=="delete"}).length>0) _last_bonus_level= true;
-                            _popupData.popupType = "bonus_payment";                            
+                            _popupData.popupType = "bonus_payment";
                             _popupData._bonusID = _bonusID;
-                            
+
                             _popupData["properties"] = {};
                             $.extend(true, _popupData.properties, _bonus.properties);
-                            
+
                             _popupData.properties["amounts"]=[];
                             delete _getObjectsByPath(_bonus_levels, _getObjectsByCriteria(_bonus_levels, {href:_bonuseLevelPaymentHref})[0]._path, -2).properties.amounts._path;
                             $.extend(true, _popupData.properties.amounts, _popupData.properties.amounts=_getObjectsByPath(_bonus_levels, _getObjectsByCriteria(_bonus_levels, {href:_bonuseLevelPaymentHref})[0]._path, -2).properties.amounts);
-                            
+
                             _popupData.amountDetail = {};
                             $.extend(true, _popupData.amountDetail, _getObjectsByCriteria(_popupData, {name: "amounts"})[0]);
                             _popupData.amountDetail.max=_bonus.properties.remaining_percentage;
                             _popupData.amountDetail.maxPercentage = (_popupData.amountDetail.max*100.00).toFixed(1);
                             _popupData.amountDetail.total=_bonus.properties.available_amount;
                             _popupData.title="Edit a Bonus Level <br> For Bonus: "+_bonus.properties.name;
-                            
+
                             //add paths info if it exists
                             if(_getObjectsByCriteria(_bonus, {name:"rank_path_id"}).length>0){
                                 _popupData.amountDetail.paths=_getObjectsByCriteria(_bonus, {name:"rank_path_id"})[0];
@@ -868,7 +866,7 @@ jQuery(function($){
                                 _popupData.deleteOption.buttonName="js-delete_bonus_level";
                                 _popupData.deleteOption.description="When you remove a bonus level, all compensation calculation will be changed immediately.  Please exercise with caution."
                             }
-                            
+
                             $("#js-screen_mask").fadeIn(100, function(){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
                                     SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
@@ -903,7 +901,7 @@ jQuery(function($){
             //locate any "select"'s and determine the dropdown display options needed for them
             var _displayType = (_options._popupData.href.indexOf("bonus")>=0)?"Bonus":"Qualification";
             _options._popupData.fields.forEach(function(field){
-                //populate secondary selection options 
+                //populate secondary selection options
                 if(field.type === "select"){
                     field.displayOptions=[];
                     if(typeof field.options !== "undefined") delete field.options["_path"];
@@ -984,7 +982,7 @@ jQuery(function($){
                                                         _bonus_detail_loaded +=1;
 
                                                         console.log("loading: bonus detail... \""+ _bonus_plan.properties.name+ "\" > \""+_bonus.properties.name+"\" ("+_bonus_detail_loaded+" of "+_bonus_plan.bonuses.entities.length+")");
-                                                        
+
                                                         //check if last of the plan and the last of the bonus in the plan are both loaded
                                                         if((_bonus_detail_loaded == _bonus_plan.bonuses.entities.length) && (_bonus_plans_loaded ==  _data.bonus_plans.entities.length)){
                                                             console.log("complete: bonus plans... \""+ _bonus_plan.properties.name+ "\"");
@@ -1063,7 +1061,7 @@ jQuery(function($){
 
                         _getObjectsByCriteria(_rank,  "val=qualification").forEach(function(_q){
                             //use path as a way to group qualifications
-                            if(typeof _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path] === "undefined"){ 
+                            if(typeof _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path] === "undefined"){
                                 _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path] =[];
                             }
                             _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path].push(_getObjectsByPath(_rank, _q._path, -1));
@@ -1112,7 +1110,7 @@ jQuery(function($){
                 }
             });
         }
-        
+
         //admin toolbar
         $('.hover-box').hover(function(e){
             e.stopPropagation()
@@ -1123,13 +1121,13 @@ jQuery(function($){
               $('.hidden').fadeIn(300)
                 }
             });
-            
+
             $('.side-panel-item').velocity({ translateX: -105 }, {
               duration: 300,
               easing: [ .35,-0.69,.47,.71 ]
             });
-            
-            $('#panel-pointer').fadeOut(0); 
+
+            $('#panel-pointer').fadeOut(0);
         })
 
         $( ".hover-box" ).mouseleave(function(e) {

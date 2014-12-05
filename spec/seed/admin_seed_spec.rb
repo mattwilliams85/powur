@@ -10,4 +10,3 @@ describe 'admin seed' do
   end
   
 end
-
