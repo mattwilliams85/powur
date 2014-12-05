@@ -2014,9 +2014,10 @@
   }
   .time_unit_nav{
     position: absolute;
-    bottom:10px;
-    left:350px;
+    bottom:5px;
+    left:305px;
     width:630px;
+    height:40px;
     font-size:1.1em !important;
     text-align: center;
     text-transform: capitalize !important;
@@ -2058,6 +2059,7 @@
   }
 
   .avatar {
+  	margin-left:2px;
     width:55px;
     height:55px;
     -moz-border-radius:50%;
@@ -2065,18 +2067,7 @@
     border-radius:50%;
     background-size:contain;
     float:left;
-  }
-
-  #avatar1 {
-    background-image: url('http://heintendsvictory.org/wp-content/uploads/default-avatar.png');
-  }
-
-  #avatar2 {
-    background-image: url('https://avatars2.githubusercontent.com/u/8699048?v=3&s=460')
-  }
-
-  #avatar3 {
-    background-image: url('https://avatars1.githubusercontent.com/u/5241140?v=3&s=460')
+    background-image:url('http://heintendsvictory.org/wp-content/uploads/default-avatar.png');
   }
 
   .subtext {
@@ -2094,8 +2085,14 @@
   }
 
   .light-text {
-    color:#eee;
+    color:#ccc;
     font-size:0.75em;
+    display:block;
+  }
+
+  .light-text-small {
+    color:#eee;
+    font-size:0.6em;
     display:block;
   }
 
@@ -2157,7 +2154,6 @@ h4 {
 .object_detail_content_section{
   width:660px;
   float:left;
-  padding-left:20px;
 }
 .graph {
   width: 1180px;
@@ -2190,6 +2186,9 @@ h4 {
   height:75px;
   border-top:1px solid #444;
   border-bottom:1px solid #444;
+  -webkit-box-shadow: 9px 5px 5px 0px rgba(50, 50, 50, 0.5);
+  -moz-box-shadow:    9px 5px 5px 0px rgba(50, 50, 50, 0.5);
+  box-shadow:         9px 5px 5px 0px rgba(50, 50, 50, 0.5);
 }
 
 .drilldown_content {
@@ -2221,8 +2220,10 @@ h4 {
 
 .fa-caret-right, .fa-caret-left {
 	cursor:pointer;
+	font-size:1.5em !important;
 	color:rgb(238,238,238);
-	margin:0 10px 0 10px;
+	vertical-align:top;
+	padding:2.5px 5px 0 5px;
 }
 
 .chart-icon {
@@ -2249,7 +2250,7 @@ h4 {
 }
 
 .time_unit_nav span {
-	font-size:0.78em !important;
+	font-size:1em;
 }
 
 .team_statistics {
@@ -2267,7 +2268,7 @@ h4 {
   h4 {
   font-size: 0.95em;
   height: 30px;
-  padding-top:20px;
+  padding-top:30px;
   color:#fff;
   }
   .label{
@@ -2299,5 +2300,22 @@ h4 {
 
 #legend2 {
 	padding-left:15px;
+}
+
+.current {
+	// background-color:rgb(238,238,238);
+	color:rgb(238,238,238);
+	border:1px solid rgb(238,238,238);
+	padding:5px 10px 5px 10px;
+	vertical-align:center;
+	margin-top:10px;
+	font-size:12px !important;
+}
+
+.user-contributor {
+	// background-color:rgb(55,55,55);
+
+	color:rgb(53,53,53)!important;
+	display:none;
 }
 

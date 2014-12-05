@@ -2,7 +2,8 @@ var scale = "week";
 var _labels = [];
 var position = 0;
 var page = 1;
-var now = setCalendar();
+var now = new Date()
+now = setCalendar()
 var myChart = ""
 var ctx = ""
 
@@ -64,6 +65,9 @@ function randomizeOrders() {
   _data.team.entities.forEach(function(member) {
     member.properties.quotes = Math.floor(Math.random() * 30 + 5)
   });
+  _data.team.entities.forEach(function(member) {
+      member.properties.avatar = randomAvatar()
+    });
 }
 
 function randomizeData(length) {
@@ -73,6 +77,11 @@ function randomizeData(length) {
     metricsData.datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
     metricsData.datasets[1].data.push(Math.floor(Math.random() * 10 + 15));
   }
+}
+
+function randomAvatar(){
+  gender = ["men","women"]
+  return "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
 }
 
 function rebuildChart(scale){
@@ -88,7 +97,7 @@ function rebuildChart(scale){
 function populateContributors() {
   var _contributors = $(".contributors");
 
-  top_ten = _data.team.entities.slice(0, 10)
+  top_ten = _data.team.entities.slice(0, 9)
 
   top_ten.forEach(function(member) {
     _ajax({
@@ -97,7 +106,7 @@ function populateContributors() {
       _callback: function(data, text) {
         member.properties.downline_count = data.entities.length;
         EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
-          if ($('.contributor').length == top_ten.length) contributorEvents();
+          if ($('.contributor').length == top_ten.length + 1) contributorEvents();
           _contributors.append(html);
         });
       }
@@ -111,20 +120,19 @@ function setScale() {
   
   if (scale == "week") {
     for (i = 0; i <= 6; i++) {
-      _labels.push(now.getMonth() + 1 + "/" + (now.addDays(i).getDate()));
+      _labels.push(now.addDays(i).getMonth() + 1 + "/" + (now.addDays(i).getDate()));
     }
   } else {
     for (i = 0; i <= numberOfDaysInMonth() - 1; i++) {
-      _labels.push(now.getMonth() + 1 + "/" + (now.getDate() + i));
+      _labels.push(now.addDays(i).getMonth() + 1 + "/" + (now.getDate() + i));
     }
   }
-  options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.5) / 12);
+  options.scaleStepWidth = Math.ceil((Math.max.apply(Math, metricsData.datasets[0].data) * 1.2) / 12);
   metricsData.labels = _labels
 }
 
 function setCalendar() {
   if(scale === "week") {
-    now = new Date()
     daysFromSun = now.getDay()
     return new Date(now.setDate(now.getDate() - daysFromSun))
   } 
@@ -170,7 +178,7 @@ $('.forward').on("click", function() {
 
 $(".return_to_team").on("click", function(e) {
   rebuildChart(numberOfDaysInMonth() - 1)
-  $(".graph_title").html("Full Performance History");
+  $(".graph_title").html("Full Conversion History");
   $(".contributor").css("background", "#545454");
   $(".return_to_team").hide();
   $(".progress_description").fadeIn();
@@ -192,7 +200,7 @@ $(".time_scale .month").on("click", function() {
 $(".time_scale .week").on("click", function() {
   scale = "week"
   setCalendar()
-  rebuildChart(30)
+  rebuildChart(6)
   $(".time_scale .month").removeClass("active");
   $(this).addClass("active");
 })
@@ -231,7 +239,9 @@ function animateContributors(){
 function checkPage() {
   if (page === 1) {
     $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
-    $('.fa-caret-down').css("opacity", "1").addClass("active");
+    if(_data.team.entities.length >= 5){
+      $('.fa-caret-down').css("opacity", "1").addClass("active");
+    }
   } else {
     $('.fa-caret-up').css("opacity", "1").addClass("active");
     $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
@@ -248,6 +258,7 @@ function contributorEvents() {
       duration: 600
     })
   $(".contributor").on("click", function(e) {
+    console.log(this)
     e.preventDefault();
     e.stopPropagation();
     $(".return_to_team").fadeIn();
@@ -264,7 +275,7 @@ function contributorEvents() {
 
     options.animationSteps = 20;
     rebuildChart(30)
-    $(".graph_title").html($(this).attr('id') + "'s Performance History")
+    $(".graph_title").html($(this).attr('id') + "'s Conversion History")
   });
 }
 // ** END **

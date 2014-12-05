@@ -8,14 +8,24 @@
       <div class="object_detail_content_section summary">
         <span class="progress_description">Top Performers</span>
         <a class="return_to_team"><i class="fa fa-bar-chart chart-icon"></i>  Return To Team</a>
-        <div class="contributors"></div>
+        <div class="contributors">
+          <div class="contributor user-contributor" id="{{currentUser.first_name}}">
+            <div class="info-box">
+              <div id="user-avatar" class="avatar" style="background-image:url({{currentUser.thumb_image_url}}); border:2px solid #fff;"></div>
+              <div class="info-text" style="">
+                <a id="hover1"><span class="contributor-name" style="color:#fff !important">{{currentUser.first_name}} {{currentUser.last_name}}</span></a>
+                <span class="light-text" style="">87 Quotes, 95 Orders</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="scroll-arrows">
           <i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>
         </div>
       </div>
 
       <div class="object_detail_content_section">
-        <span class="graph_title">Full Performance History </span>
+        <span class="graph_title">Full Conversion History </span>
         <br>
         <div class="legend-box">
           <div class="legend">
@@ -36,7 +46,7 @@
 
         <div class="time_unit_nav">
           <i class="fa fa-caret-left back"></i>
-          <span class="current">Current</span>
+          <span class="current">TODAY</span>
           <i class="fa fa-caret-right forward"></i>
         </div>
       </div> <!-- end object_detail_content_section -->
@@ -49,8 +59,8 @@
         <span class="label">Quotes: 9</span>
         <span class="label">Sales: 12</span>
         <h4 style="padding-top:20px">Total Active</h4>
-        <span class="label">Quotes: 503</span>
-        <span class="label">Sales: 295</span>
+        <span class="label">My Quotes: 503</span>
+        <span class="label">Team Quotes: 650</span>
       </div> <!-- end team_statistics_box -->
     </div> <!-- end object_detail_content -->
   </div> <!-- end object_detail -->

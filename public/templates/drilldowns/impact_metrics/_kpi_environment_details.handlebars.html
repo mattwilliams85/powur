@@ -125,7 +125,7 @@ var pieData = [
 
 ];
 
-
+var gas_total = total*143
 var ctx = document.getElementById("myChart").getContext("2d");
 var options={
     // Boolean - Determines whether to draw tooltips on the canvas or not
@@ -213,11 +213,27 @@ var options={
 
 var myDoughnutChart = new Chart(ctx).Doughnut(pieData,options);
 
-var total = 721.34;
+var total = 722;
 
-$(".statistics .coal").html(numberWithCommas(Math.ceil(total/2.08)));
+$(".statistics .coal").html(numberWithCommas(Math.ceil(total/2)));
 $(".statistics .tree").html(numberWithCommas(Math.ceil(total)));
-$(".statistics .gas").html(numberWithCommas(Math.ceil(total*143)));
+$(".statistics .gas").html(numberWithCommas(Math.ceil(total*113)));
+
+$('.statistics span').each(function () {
+    $(this).prop('Counter',1).animate({
+        Counter: removeCommas($(this).text())
+    }, {
+        duration: 1000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(numberWithCommas(Math.ceil(now)));
+        }
+    });
+});
+
+function removeCommas(str) {
+    return(str.replace(/,/g,''));
+}
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

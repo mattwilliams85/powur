@@ -214,11 +214,11 @@ CREATE TABLE bonuses (
     achieved_rank_id integer,
     max_user_rank_id integer,
     min_upline_rank_id integer,
+    meta_data hstore DEFAULT ''::hstore,
     compress boolean DEFAULT false NOT NULL,
     flat_amount numeric(10,2) DEFAULT 0.0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    meta_data hstore
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -1860,6 +1860,4 @@ INSERT INTO schema_migrations (version) VALUES ('20141125215349');
 INSERT INTO schema_migrations (version) VALUES ('20141126112350');
 
 INSERT INTO schema_migrations (version) VALUES ('20141204005149');
-
-INSERT INTO schema_migrations (version) VALUES ('20141204215113');
 
