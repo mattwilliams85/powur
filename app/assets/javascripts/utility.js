@@ -54,6 +54,12 @@ Handlebars.registerHelper('localtime', function(_value){
     return _t.toLocaleDateString();
 });
 
+
+
+Handlebars.registerHelper('contains_in_array', function(a, v, options){
+    return (a.indexOf(v)>=0)?options.fn(this):options.inverse(this);
+})
+
 //return array element from index
 Handlebars.registerHelper('index_of', function(context,ndx) {
   return context[ndx];

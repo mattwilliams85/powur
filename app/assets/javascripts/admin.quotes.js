@@ -82,30 +82,26 @@ jQuery(function($){
                     //position indicator
                     EyeCueLab.UX.getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-quotes-quotes]"));
-                        if((!!_data.quotes.search) && (!!_data.quotes.search.results)) $(".js-search_box").val(_data.quotes.search.term);
+                        if((!!_data.quotes.filterObj.search)) $(".js-search_box").val(_data.quotes.filterObj.search);
                     });
 
-                    if(!_data.quotes.search){
-                        _data.quotes.search={};
-                        _data.quotes.search.term="";
-                        _data.quotes.search.results={};
-                        _data.quotes.search.results.entities=[];
-                    }
 
                     EyeCueLab.UX.getTemplate("/templates/admin/quotes/quotes/_summary.handlebars.html", {}, $(".js-admin_dashboard_column.summary"), function(){
-                        if(!_data.quotes.sortBy) _data.quotes.sortBy = "created";
-                        else{
-                             $(".js-quotes_sort_type option").each(function(){
-                                if(this.value === _data.quotes.sortBy) $(".js-quotes_sort_type").val(this.value);
-                             })
-                        }
+                        
+                        if(!_data.quotes.filterObj.page)_data.quotes.filterObj.page=1;
+                        if(!_data.quotes.filterObj.sort)_data.quotes.filterObj.sort = "created";
+                        
+                        $(".js-quotes_sort_type option").each(function(){
+                            if(this.value === _data.quotes.filterObj.sort) $(".js-quotes_sort_type").val(this.value);
+                        })
+
                         $(".js-quotes_sort_type").on("change", function(e){
-                            _data.quotes.sortBy=$(e.target).val();
-                            _search(e, "quotes", function(){displayQuotes("#admin-quotes-quotes")});
+                            _data.quotes.filterObj.sort=$(this).val();
+                            _loadQuotesInfo(function(){displayQuotes("#admin-quotes-quotes");});
                         });
                     });
 
-                    _displayData=(_data.quotes.search.results.entities.length>0)? _data.quotes.search.results : _data.quotes;
+                    var _displayData=_data.quotes;
                     _displayData.paginationInfo= SunStand.UX.paginateData(_getObjectsByCriteria(_displayData, {name:"page"})[0], {prefix:"js-quotes", actionableCount:10});
 
 
@@ -117,16 +113,16 @@ jQuery(function($){
                         $(".js-search_box").on("keypress", function(e){
                             if(e.keyCode == 13){
                                 if(($(e.target).val().trim().length>0) && ($(e.target).val().trim().length<3)) return;
-                                _data.quotes.search={};
-                                _data.quotes.search.term=$(e.target).val().trim();
-                                _search(e, "quotes", function(){displayQuotes("#admin-quotes-quotes")});
+                                _data.quotes.filterObj.search=$(e.target).val().trim();
+                                _loadQuotesInfo(function(){displayQuotes("#admin-quotes-quotes");});
                             }
                         });
 
-
+                        //wire up pagination
                         $(".js-pagination a").on("click", function(e){
                             e.preventDefault();
-                            _search(e, "quotes", function(){displayQuotes("#admin-quotes-quotes")});
+                            _data.quotes.filterObj.page = $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
+                            _loadQuotesInfo(function(){displayQuotes("#admin-quotes-quotes");});
                         });
 
 
@@ -141,81 +137,39 @@ jQuery(function($){
 
                             //fetch detail
 
-                                    var _popupData= _formatPopupData(e, {
-                                    _title: "Quote Details",
-                                    _dataObj: _quote});
+                            var _popupData= _formatPopupData(e, {
+                            _title: "Quote Details",
+                            _dataObj: _quote});
 
-                                    _popupData.properties = _quote.properties;
-                                    _popupData.distributorInfo =  EyeCueLab.JSON.getObjectsByPattern(
+                            _popupData.properties = _quote.properties;
+                            _popupData.distributorInfo =  EyeCueLab.JSON.getObjectsByPattern(
 
-                                        _quote, {
-                                        "containsIn(class)":["user"]
-                                    })[0];
+                                _quote, {
+                                "containsIn(class)":["user"]
+                            })[0];
 
-                                    _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(
-                                        _quote, {
-                                        "containsIn(class)":["customer"]
-                                    })[0];
+                            _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(
+                                _quote, {
+                                "containsIn(class)":["customer"]
+                            })[0];
 
-                                    _popupData.productInfo =  EyeCueLab.JSON.getObjectsByPattern(
-                                        _quote, {
-                                        "containsIn(class)":["product"]
+                            _popupData.productInfo =  EyeCueLab.JSON.getObjectsByPattern(
+                                _quote, {
+                                "containsIn(class)":["product"]
+                            })[0];
 
-                                    })[0];
+                            ["_path","id"].forEach(function(_hideKey){
+                                delete _popupData.distributorInfo.properties[_hideKey];
+                                delete _popupData.customerInfo.properties[_hideKey];
+                                delete _popupData.productInfo.properties[_hideKey];
+                            });
 
-                                    ["_path","id"].forEach(function(_hideKey){
-                                        // delete _popupData.distributorInfo.properties[_hideKey];
-                                        // delete _popupData.customerInfo.properties[_hideKey];
-                                        // delete _popupData.productInfo.properties[_hideKey];
-                                    });
-
-                                    $("#js-screen_mask").fadeIn(100, function(){
-                                        EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_quote_to_order_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                            SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayQuotes("#admin-quotes-quotes-init")}});
-                                        });
-                                    });
-
-
-                            // _ajax({
-                            //     _ajaxType:"get",
-                            //     _url:_getObjectsByCriteria(_quote, {rel: "self"})[0].href,
-                            //     _callback:function(data, text){
-                            //         // console.log(data);
-                            //         var _dataObj = (typeof _getObjectsByCriteria(data, {name: "create_order"})[0] === "object")? _getObjectsByCriteria(data, {name: "create_order"})[0]:{};
-                            //         var _popupData = _formatPopupData(e, {
-                            //             _dataObj: _dataObj,
-                            //             _title: "Quote Details"
-                            //         });
-                            //         _popupData.properties = data.properties;
-                            //         _popupData.distributorInfo =  EyeCueLab.JSON.getObjectsByPattern(
-                            //             data, {
-                            //             "containsIn(class)":["user"]
-                            //         })[0];
-
-                            //         _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(
-                            //             data, {
-                            //             "containsIn(class)":["customer"]
-                            //         })[0];
-
-                            //         _popupData.productInfo =  EyeCueLab.JSON.getObjectsByPattern(
-                            //             data, {
-                            //             "containsIn(class)":["product"]
-                            //         })[0];
-
-                            //         // ["_path","id"].forEach(function(_hideKey){
-                            //         //     // delete _popupData.distributorInfo.properties[_hideKey];
-                            //         //     // delete _popupData.customerInfo.properties[_hideKey];
-                            //         //     // delete _popupData.productInfo.properties[_hideKey];
-                            //         // });
-
-                            //         $("#js-screen_mask").fadeIn(100, function(){
-                            //             EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_quote_to_order_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                            //                 SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayQuotes("#admin-quotes-quotes-init")}});
-                            //             });
-                            //         });
-                            //     }
-                            // });
-                        })
+                            $("#js-screen_mask").fadeIn(100, function(){
+                                EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_quote_to_order_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                    SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayQuotes("#admin-quotes-quotes-init")}});
+                                });
+                            });
+                        });
                     });
                  break;
 
@@ -230,46 +184,42 @@ jQuery(function($){
                     //position indicator
                     EyeCueLab.UX.getTemplate("/templates/admin/quotes/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-quotes-orders-init]"));
-                        if((!!_data.orders.search) && (!!_data.orders.search.results)) $(".js-search_box").val(_data.orders.search.term);
+                        if((!!_data.orders.filterObj.search)) $(".js-search_box").val(_data.orders.filterObj.search);
                     });
 
-                    if(!_data.orders.search){
-                        _data.orders.search={};
-                        _data.orders.search.term="";
-                        _data.orders.search.results={};
-                        _data.orders.search.results.entities=[];
-                    }
-
                     EyeCueLab.UX.getTemplate("/templates/admin/quotes/orders/_summary.handlebars.html", {}, $(".js-admin_dashboard_column.summary"), function(){
-                        if(!_data.orders.sortBy) _data.orders.sortBy = "created";
-                        else{
-                             $(".js-orders_sort_type option").each(function(){
-                                if(this.value === _data.orders.sortBy) $(".js-orders_sort_type").val(this.value);
-                             })
-                        }
+                        if(!_data.orders.filterObj.page) _data.orders.filterObj.page = 1;
+                        if(!_data.orders.filterObj.sort) _data.orders.filterObj.sort = "created";
+
+                        $(".js-orders_sort_type option").each(function(){
+                            if(this.value === _data.orders.filterObj.sort) $(".js-orders_sort_type").val(this.value);
+                        });
+
                         $(".js-orders_sort_type").on("change", function(e){
-                            _data.orders.sortBy=$(e.target).val();
-                            _search(e, "orders", function(){displayQuotes("#admin-quotes-orders")});
+                            _data.orders.filterObj.sort=$(e.target).val();
+                            _loadOrdersInfo(function(){displayQuotes("#admin-quotes-orders")});
                         });
                     });
 
-                    _displayData=(_data.orders.search.results.entities.length>0)? _data.orders.search.results : _data.orders;
+                    var _displayData=_data.orders;
                     _displayData.paginationInfo= _paginateData(_getObjectsByCriteria(_displayData, {name:"page"})[0], {prefix:"js-orders", actionableCount:10});
+
                     EyeCueLab.UX.getTemplate("/templates/admin/quotes/orders/_orders.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-search_box").on("click", function(e){e.preventDefault();});
                         $(".js-search_box").on("keypress", function(e){
                             if(e.keyCode == 13){
                                 if(($(e.target).val().trim().length>0) && ($(e.target).val().trim().length<3)) return;
-                                _data.orders.search={};
-                                _data.orders.search.term=$(e.target).val().trim();
-                                _search(e, "orders",  function(){displayQuotes("#admin-quotes-orders")});
+                                _data.orders.filterObj.search=$(e.target).val().trim();
+                                _loadOrdersInfo(function(){displayQuotes("#admin-quotes-orders")});
                             }
                         });
+
                         //pagination
                         $(".js-pagination a").on("click", function(e){
                             e.preventDefault();
-                            _search(e, "orders", function(){displayQuotes("#admin-quotes-orders")});
+                            _data.orders.filterObj.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
+                            _loadOrdersInfo(function(){displayQuotes("#admin-quotes-orders")});
                         });
                         //order details
                         //TODO:make this global
@@ -615,7 +565,7 @@ jQuery(function($){
             console.log(_callback)
             var _action=_getObjectsByCriteria(_pay_period, "val~disburse")[0];
             $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"The calculation may take a few moments to complete. Thank you!"}, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"The calculation may take a few moments to complete. Thakn you!"}, $("#js-screen_mask"), function(){
                     SunStand.Admin.displayPopup({_popupData:{}});
                     _ajax({
                         _ajaxType:_action.method,
@@ -628,41 +578,6 @@ jQuery(function($){
                         }
                     });
                 });
-            });
-        }
-
-        function _search(e, _type, _callback){
-            var _url="";
-            var _dataObj={};
-            if (_type=="quotes") {
-                _url="/a/quotes";
-                _dataObj = _data.quotes;
-            }
-            if (_type=="orders"){
-                _url="/a/orders";
-                _dataObj = _data.orders;
-            }
-           _dataObj.search.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
-
-           console.log(_dataObj);
-            _ajax({
-                _ajaxType:"get",
-                _url:_url,
-                _postObj:{
-                    search:_dataObj.search.term,
-                    sort:_dataObj.sortBy,
-                    page:_dataObj.search.page
-                },
-                _callback:function(data, text){
-                    _dataObj.search.results=data;
-                    _dataObj.search.results.entities.forEach(function(_item){
-                        if(_type=="orders")_item.properties._dataStatusDisplay = _item.properties.status.toString();
-                        _d = new Date(_item.properties.created_at);
-                        _item.properties.localDateString = _d.toLocaleDateString();
-                    });
-                    if(typeof _callback == "function") _callback();
-                    else return data;
-                }
             });
         }
 
@@ -699,22 +614,32 @@ jQuery(function($){
             });
         }
 
+        function _initFilterObj(_listObj, _filterObj){
+            if(_getObjectsByCriteria(_listObj, {name:"index"})[0] &&
+                _getObjectsByCriteria(_listObj, {name:"index"})[0].fields.length>0){
+                _getObjectsByCriteria(_listObj, {name:"index"})[0].fields.forEach(function(field){
+                    _filterObj[field.name]=undefined;
+                });
+            }
+        }
 
         function _loadQuotesInfo(_callback){
             if(typeof _data.quotes === "undefined") _data.quotes={};
-            if(typeof _data.quotes.filterObj === "undefined") _data.quotes.filterObj={};
+            if(typeof _data.quotes.filterObj !=="undefined") delete _data.quotes.filterObj._path;
 
             _ajax({
                 _ajaxType:"get",
                 _url:"/a/quotes",
                 _postObj:_data.quotes.filterObj,
                 _callback:function(data, text){
+                    var _filterObj = _data.quotes.filterObj; 
                     _data.quotes = data;
-                    _data.quotes.filterObj={};
-                    Object.keys(data.properties).forEach(function(key){
-                        console.log(key)
-                        _data.quotes.filterObj[key]="";
-                    });
+                    _data.quotes.filterObj = _filterObj;
+
+                    if(typeof _data.quotes.filterObj === "undefined") {
+                        _data.quotes.filterObj={};
+                        _initFilterObj(data, _data.quotes.filterObj);
+                    }
 
                     _data.quotes.entities.forEach(function(_quote){
                         _d = new Date(_quote.properties.created_at);
@@ -726,14 +651,25 @@ jQuery(function($){
             });
         }
 
-        function _loadOrdersInfo(_callback, _options){
-            var _postObj=(_options && _options._postObj)?_options._postObj:{};
+
+        function _loadOrdersInfo(_callback){
+            if(typeof _data.orders === "undefined") _data.orders={};
+            if(typeof _data.orders.filterObj !=="undefined") delete _data.orders.filterObj._path;
+            console.log(_data.orders.filterObj)
             _ajax({
                 _ajaxType:"get",
                 _url:"/a/orders",
-                _postObj:_postObj,
+                _postObj:_data.orders.filterObj,
                 _callback:function(data, text){
+                    var _filterObj = _data.orders.filterObj;
                     _data.orders = data;
+                    _data.orders.filterObj=_filterObj;
+
+                    if(typeof _data.orders.filterObj === "undefined") {
+                        _data.orders.filterObj={};
+                        _initFilterObj(data, _data.orders.filterObj);
+                    }
+
                     _data.orders.entities.forEach(function(_quote){
                         _d = new Date(_quote.properties.order_date);
                         _quote.properties.localDateString = _d.toLocaleDateString();
@@ -760,34 +696,6 @@ jQuery(function($){
                     if(typeof _callback === "function") _callback();
                 }
             });
-        //admin toolbar
-        $('.hover-box').hover(function(e){
-            e.stopPropagation()
-            $('.js-admin_tab').velocity({ translateX: 105 }, {
-                duration: 300,
-            easing: [ .35,-0.69,.47,.71 ],
-            complete: function(){
-              $('.hidden').fadeIn(300)
-                }
-            });
-            
-            $('.side-panel-item').velocity({ translateX: -105 }, {
-              duration: 300,
-              easing: [ .35,-0.69,.47,.71 ]
-            });
-            
-            $('#panel-pointer').fadeOut(0); 
-        })
-
-        $( ".hover-box" ).mouseleave(function(e) {
-            e.stopPropagation()
-                    $('.side-panel-item').velocity({ translateX: 0});
-                    $('.js-admin_tab').velocity({ translateX: 0,
-                    complete: function(){
-                $('.hidden').fadeOut(100)
-              }
-            });
-        });
         }
 
 

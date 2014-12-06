@@ -392,8 +392,6 @@ tr .js-bonus_details {
 	position:fixed;
 	top:22%;
 	left:-75px;
-	height:260px;
-	width:205px;
 }
 
 #admin-hover-box {
@@ -406,9 +404,21 @@ tr .js-bonus_details {
 }
 
 .side-panel-item a {
-	color:rgb(10, 127, 161);
+	color:#0a7fa1;
+	span{
+		font-size:12px;
+		text-transform:uppercase;
+		width:50px;
+		display:block;
+		float:left;
+		text-align:right;
+		padding-right:20px;
+		margin-left:-65px;
+	}
 }
+
 
 .side-panel-item a:hover {
 	color:#fff;
+	transition:all .5s;
 }
