@@ -21,33 +21,24 @@ jQuery(function($){
         }
     });
 
-    //admin toolbar
+        //admin toolbar
     $('.hover-box').hover(function(e){
+        $('.js-admin_tab').stop();
         e.stopPropagation()
-        $('.js-admin_tab').velocity({ translateX: 105 }, {
-            duration: 300,
-        easing: [ .35,-0.69,.47,.71 ],
-        complete: function(){
-          $('.hidden').fadeIn(300)
-            }
-        });
-        
-        $('.side-panel-item').velocity({ translateX: -105 }, {
-          duration: 300,
-          easing: [ .35,-0.69,.47,.71 ]
-        });
-        
-        $('#panel-pointer').fadeOut(0); 
-    })
+        if($('.js-admin_tab').is(':animated')) return;
+        $('.js-admin_tab').animate({
+            "left":"-70px"
+        }, 300);
+
+    });
 
     $( ".hover-box" ).mouseleave(function(e) {
+        $('.js-admin_tab').stop();
         e.stopPropagation()
-                $('.side-panel-item').velocity({ translateX: 0});
-                $('.js-admin_tab').velocity({ translateX: 0,
-                complete: function(){
-            $('.hidden').fadeOut(100)
-          }
-        });
+        $('.js-admin_tab').animate({
+            "left":"-140px"
+        },300);
+
     });
 
     $(document).on("click", ".admin_top_level_nav", function(e){

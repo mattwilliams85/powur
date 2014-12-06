@@ -768,7 +768,7 @@ function Dashboard(){
 					break;
 				}
 
-				_getTemplate(_templatePath, _impactMetricsDetail, _drilldownContainerObj, function(){
+				_getTemplate(_templatePath, _data, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 				});

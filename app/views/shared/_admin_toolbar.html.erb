@@ -1,13 +1,28 @@
-<% if current_user.roles.include?("admin") %>
-    <div class="hover-box" id="admin-hover-box">
-      <div id="admin-tab" class="js-admin_tab">
-        <div class="side-panel-item" style="top:8%"><a href="/u/dashboard"><i class='fa fa-bar-chart'></i><span style="padding-left:2pt" class="hidden">Dashboard</span></a></div>
+<!-- <% if current_user.roles.include?("admin") %>
+    <div class="hover-box">
+      <div class="js-admin_tab">
+        <div class="side-panel-item" id="side-1"><a href="/u/dashboard"><i class='fa fa-bar-chart'></i><span>Dashboard</span></a></div>
         <br>
-        <div class="side-panel-item" style="top:8%"><a href="/u/earnings"><i class="fa fa-newspaper-o"></i><span style="padding-left:3pt" class="hidden">Earnings</span></a></div>
+        <div class="side-panel-item" id="side-2"><a href="/u/earnings"><i class="fa fa-newspaper-o"></i><span>Earnings</span></a></div>
         <br>
-        <div class="side-panel-item" style="top:8%"><a href="/u/university"><i class="fa fa-graduation-cap"></i><span class="hidden">University</span></a></div>
+        <div class="side-panel-item" id="side-3"><a href="/u/university"><i class="fa fa-graduation-cap"></i><span>University</span></a></div>
         <br>
         <div class="side-panel-item" style="top:8%"><a href="/u/marketing"><i class="fa fa-paper-plane"></i><span style="padding-left:5px" class="hidden">Marketing</span></a></div>
       </div>
     </div>
 <% end %>
+ -->
+
+ <% if current_user.roles.include?("admin") %>
+    <div class="hover-box">
+      <div class="js-admin_tab"  id="admin-tab">
+        <div class="side-panel-item" id="side-1"><a href="/u/dashboard"><span style="position:absolute;left:-30px">Dashboard</span><i class="fa fa-bar-chart fa-1x"></i></a></div>
+        <br>
+        <div class="side-panel-item" id="side-2"><a href="/u/earnings"><span style="position:absolute;left:-30px">Earnings</span><i class="fa fa-newspaper-o"></i></div>
+        <br>
+        <div class="side-panel-item" id="side-3"><a href="/u/university"><span style="position:absolute;left:-30px">University</span><i class="fa fa-graduation-cap"></i></div>
+        <br>
+        <div class="side-panel-item" id="side-4"><a href="/u/marketing"><span style="position:absolute;left:-30px">University</span><i class="fa fa-paper-plane"></i></div>
+      </div>
+    </div>
+  <% end %>
