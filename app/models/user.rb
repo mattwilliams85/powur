@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
   before_validation do
     self.lifetime_rank ||= Rank.find_or_create_by_id(1).id
     self.organic_rank ||= 1
+    if rank_path_id.nil?
+      default = RankPath.where(default: true).first
+      self.rank_path_id = default.id if default
+    end
   end
 
   def full_name
