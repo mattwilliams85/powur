@@ -27,31 +27,31 @@ class Rank < ActiveRecord::Base
     @last_rank ||= Rank.count == id
   end
 
-  def lifetime_path?(path)
-    list = grouped_qualifications[path]
+  def lifetime_path?(path_id)
+    list = grouped_qualifications[path_id]
     !list.nil? && list.all?(&:lifetime?)
   end
 
-  def monthly_path?(path)
-    list = grouped_qualifications[path]
+  def monthly_path?(path_id)
+    list = grouped_qualifications[path_id]
     !list.nil? && list.any?(&:monthly?)
   end
 
-  def weekly_path?(path)
-    list = grouped_qualifications[path]
+  def weekly_path?(path_id)
+    list = grouped_qualifications[path_id]
     !list.nil? && list.any?(&:weekly?)
   end
 
   def grouped_qualifications
-    @grouped_qualifications ||= qualifications.group_by(&:rank_path)
+    @grouped_qualifications ||= qualifications.group_by(&:rank_path_id)
   end
 
   def qualification_paths
     grouped_qualifications.keys
   end
 
-  def qualified_path?(path, order_totals)
-    grouped_qualifications[path].all? do |qualification|
+  def qualified_path?(path_id, order_totals)
+    grouped_qualifications[path_id].all? do |qualification|
       if order_totals.product_id == qualification.product_id
         totals = order_totals
       else
@@ -64,8 +64,8 @@ class Rank < ActiveRecord::Base
 
   private
 
-  def _time_period_path?(period, path)
-    list = grouped_qualifications[path]
+  def _time_period_path?(period, path_id)
+    list = grouped_qualifications[path_id]
     !list.nil? && list.all?(&period)
   end
 

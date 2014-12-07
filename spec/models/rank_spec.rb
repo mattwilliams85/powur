@@ -24,7 +24,7 @@ describe Rank, type: :model do
     create_list(:sales_qualification, 2, rank_path: path2, rank: rank)
 
     expect(rank.qualification_paths.size).to eq(2)
-    expect(rank.grouped_qualifications[path1].size).to eq(1)
-    expect(rank.grouped_qualifications[path2].size).to eq(2)
+    expect(rank.grouped_qualifications[path1.id].size).to eq(1)
+    expect(rank.grouped_qualifications[path2.id].size).to eq(2)
   end
 end

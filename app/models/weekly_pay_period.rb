@@ -7,8 +7,8 @@ class WeeklyPayPeriod < PayPeriod
     self.end_date ||= start_date.end_of_week
   end
 
-  def rank_has_path?(rank, path)
-    rank.weekly_path?(path)
+  def rank_has_path?(rank, path_id)
+    rank.weekly_path?(path_id)
   end
 
   def active_qualifications

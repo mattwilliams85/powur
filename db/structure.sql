@@ -693,7 +693,7 @@ CREATE TABLE rank_paths (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
     description character varying(255),
-    "default" boolean DEFAULT false NOT NULL
+    precedence integer DEFAULT 1 NOT NULL
 );
 
 
@@ -1366,6 +1366,13 @@ CREATE UNIQUE INDEX index_quotes_on_url_slug ON quotes USING btree (url_slug);
 --
 
 CREATE INDEX index_quotes_on_user_id ON quotes USING btree (user_id);
+
+
+--
+-- Name: index_rank_paths_on_precedence; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_rank_paths_on_precedence ON rank_paths USING btree (precedence);
 
 
 --

@@ -4,7 +4,17 @@ class User < ActiveRecord::Base
   include NameEmailSearch
   include UserScopes
 
-  # validates :email, email: true, presence: true
+  belongs_to :rank_path
+
+  has_many :quotes
+  has_many :customers, through: :quotes
+  has_many :orders
+  has_many :order_totals
+  has_many :rank_achievements
+  has_many :bonus_payments
+  has_many :overrides, class_name: 'UserOverride'
+  has_many :user_activities
+
   validates_presence_of :email
   validates_presence_of :encrypted_password, on: :create
   validates_presence_of :first_name, :last_name
@@ -16,14 +26,6 @@ class User < ActiveRecord::Base
   validates_presence_of :phone, :zip
   validates_presence_of :address, :city, :state, allow_nil: true
 
-  has_many :quotes
-  has_many :customers, through: :quotes
-  has_many :orders
-  has_many :order_totals
-  has_many :rank_achievements
-  has_many :bonus_payments
-  has_many :overrides, class_name: 'UserOverride'
-  has_many :user_activities
 
   aws_bucket = Rails.application.secrets.aws_bucket
   aws_access_key_id = Rails.application.secrets.aws_access_key_id
@@ -62,7 +64,7 @@ class User < ActiveRecord::Base
     self.lifetime_rank ||= Rank.find_or_create_by_id(1).id
     self.organic_rank ||= 1
     if rank_path_id.nil?
-      default = RankPath.where(default: true).first
+      default = RankPath.where(precedence: 1).first
       self.rank_path_id = default.id if default
     end
   end

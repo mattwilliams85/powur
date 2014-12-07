@@ -56,8 +56,8 @@ namespace :sunstand do
     task rank_paths: :environment do
       RankPath.destroy_all
 
-      RankPath.create!(id: BASIC_PATH_ID, name: 'Basic')
-      RankPath.create!(id: PRO_PATH_ID, name: 'Pro')
+      RankPath.create!(id: BASIC_PATH_ID, name: 'Basic', precedence: 1)
+      RankPath.create!(id: PRO_PATH_ID, name: 'Pro', precedence: 2)
     end
 
     task qualifications: [ :ranks, :products, :rank_paths ] do
