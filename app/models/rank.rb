@@ -18,8 +18,13 @@ class Rank < ActiveRecord::Base
     self.id ||= Rank.count + 1
   end
 
-  def last_rank?
-    @last_rank ||= Rank.count == self.id
+  def first?
+    id == 1
+  end
+
+  # TODO: ineffecient, deprecate
+  def last?
+    @last_rank ||= Rank.count == id
   end
 
   def lifetime_path?(path)

@@ -9,7 +9,7 @@ module Admin
     end
 
     def create
-      RankPath.create!(input)
+      RankPath.create!(input.merge(default: all_paths.empty?))
 
       index
     end

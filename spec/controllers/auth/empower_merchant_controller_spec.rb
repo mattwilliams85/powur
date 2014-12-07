@@ -9,7 +9,7 @@ RSpec.describe Auth::EmpowerMerchantController, type: :controller do
       # user_activity login event is created during authentication
       login_user
       get :sandbox, format: :html
-      response.status.should eql(200)
+      expect(response.status).to eq(200)
     end
   end
 end

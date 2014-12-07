@@ -28,7 +28,7 @@ module Admin
     end
 
     def destroy
-      error!(t('errors.delete_rank')) unless @rank.last_rank?
+      error!(t('errors.delete_rank')) unless @rank.last?
 
       @rank.destroy
 

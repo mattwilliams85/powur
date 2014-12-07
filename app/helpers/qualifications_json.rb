@@ -27,10 +27,11 @@ class QualificationsJson < JsonDecorator
     json.entities list, partial: partial_path, as: :qualification
   end
 
-  def create_action(path)
-    action(:create, :post, path)
+  def create_action(url_path, opts = {})
+    opts[:paths] ||= all_paths
+    action(:create, :post, url_path)
       .field(:rank_path_id, :select,
-             options:  Hash[all_paths.map { |p| [ p.id, p.name ] }],
+             options:  Hash[opts[:paths].map { |p| [ p.id, p.name ] }],
              required: true)
       .field(:type, :select,
              options: Qualification::TYPES, required: true, value: :sales)
@@ -43,6 +44,12 @@ class QualificationsJson < JsonDecorator
       .field(:quantity, :number)
       .field(:max_leg_percent, :number,
              visibility: { control: :type, values: [ :group_sales ] })
+  end
+
+  def rank_create_action(rank)
+    url_path = rank_qualifications_path(rank)
+    rank_paths = rank.first? ? all_paths.reject { |p| p.default } : all_paths
+    create_action(url_path, paths: rank_paths)
   end
 
   def update_action(path, qual)
