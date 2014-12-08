@@ -198,7 +198,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def products
-    @products ||= Product.all.entries
+    @products ||= Product.with_bonuses.entries
   end
 
   def bonuses_for(product_id, use_rank_at)

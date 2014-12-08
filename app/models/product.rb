@@ -10,6 +10,8 @@ class Product < ActiveRecord::Base
   validates_presence_of :name, :bonus_volume, :commission_percentage
   validates :commission_percentage, numericality: { less_than_or_equal_to: 100 }
 
+  scope :with_bonuses, -> { includes(bonuses: [ :bonus_levels ]) }
+
   def sale_bonuses
     @sale_bonuses ||= bonuses.select { |b| b.sale? && b.enabled? }
   end
@@ -31,8 +33,8 @@ class Product < ActiveRecord::Base
   end
 
   def assign_sku
-    sku = id.to_s.rjust(7, '0')
-    save
+    self.sku = id.to_s.rjust(7, '0')
+    save!
   end
   class << self
     def default_id
