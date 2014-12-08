@@ -401,6 +401,25 @@ tr .js-bonus_details {
 
 #admin-tab {
 	height:260px;
+	.side-panel-item a {
+		color:#0a7fa1;
+		span{
+			font-size: 12px;
+			text-transform: uppercase;
+			width: 70px;
+			display: block;
+			float: left;
+			text-align: right;
+			padding-right: 20px;
+			margin-left: -97px;
+		}
+	.side-panel-item a:hover {
+		color:#fff;
+		transition:all .5s;
+	}
+}
+
+
 }
 
 .side-panel-item a {
