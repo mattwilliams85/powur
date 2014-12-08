@@ -222,7 +222,7 @@ class PayPeriod < ActiveRecord::Base
     return true if qualifiers.empty?
 
     qualifiers.all? do |qualifier|
-      totals = find_order_total!(user.id, qualification.product_id)
+      totals = find_order_total!(user.id, qualifier.product_id)
       qualifier.met?(totals)
     end
   end
