@@ -129,15 +129,15 @@ class PayPeriod < ActiveRecord::Base
     upline_users.find { |u| u.id == user_id }
   end
 
-  def user_active?(user_id)
-    user_active_list[user_id] ||= user_qualified_active?(user_id)
+  def user_active?(user)
+    user_active_list[user.id] ||= user_qualified_active?(user)
   end
 
   def compressed_upline(user)
     upline = user.parent_ids.map do |id|
       upline_users.find { |u| u.id == id }
     end
-    upline.select { |u| user_active?(u.id) }.reverse
+    upline.select { |u| user_active?(u) }.reverse
   end
 
   private
@@ -223,13 +223,18 @@ class PayPeriod < ActiveRecord::Base
     @user_active_list ||= {}
   end
 
-  def user_qualified_active?(user_id)
-    return true if active_qualifications.empty?
-    active_qualifications.any? do |_path, qualifications|
-      qualifications.all? do |qualification|
-        totals = find_order_total!(user_id, qualification.product_id)
-        qualification.met?(totals)
-      end
+  def active_qualifiers
+    @active_qualifiers ||= Qualification.active
+  end
+
+  def user_qualified_active?(user)
+    qualifiers = (active_qualifiers[nil] || []) + 
+                 (active_qualifiers[user.rank_path_id] || [])
+    return true if qualifiers.empty?
+
+    qualifiers.all? do |qualifier|
+      totals = find_order_total!(user.id, qualification.product_id)
+      qualifier.met?(totals)
     end
   end
 

@@ -134,7 +134,7 @@ class Bonus < ActiveRecord::Base
 
   def payment_amount(rank_id, path_id, level = 0)
     level = bonus_levels.select { |bl| bl.level == level }.find do |bl|
-      bl.rank_path_id.nil? || bl.path_id == path_id
+      bl.rank_path_id.nil? || bl.rank_path_id == path_id
     end
     percent = level.normalize_amounts(rank_id).last
     available_amount * percent
