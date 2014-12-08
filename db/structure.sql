@@ -531,7 +531,7 @@ CREATE TABLE qualifications (
     max_leg_percent integer,
     rank_id integer,
     product_id integer NOT NULL,
-    rank_path_id integer NOT NULL
+    rank_path_id integer
 );
 
 
@@ -693,7 +693,8 @@ ALTER SEQUENCE rank_achievements_id_seq OWNED BY rank_achievements.id;
 CREATE TABLE rank_paths (
     id integer NOT NULL,
     name character varying(255) NOT NULL,
-    description character varying(255)
+    description character varying(255),
+    precedence integer DEFAULT 1 NOT NULL
 );
 
 
@@ -1366,6 +1367,13 @@ CREATE UNIQUE INDEX index_quotes_on_url_slug ON quotes USING btree (url_slug);
 --
 
 CREATE INDEX index_quotes_on_user_id ON quotes USING btree (user_id);
+
+
+--
+-- Name: index_rank_paths_on_precedence; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_rank_paths_on_precedence ON rank_paths USING btree (precedence);
 
 
 --

@@ -68,7 +68,7 @@ describe '/a/ranks' do
       expect(create_action_result).to_not be
     end
 
-    it 'renders create quals without a product and rank_path' do
+    it 'renders create quals when there are product and ranks_path' do
       create(:product)
       create(:rank_path)
       expect(create_action_result).to be
