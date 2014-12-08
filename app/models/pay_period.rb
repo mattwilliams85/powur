@@ -40,12 +40,6 @@ class PayPeriod < ActiveRecord::Base
 
     query = prepare_load_request(self, payments_per_user)
     result = ewallet_request('ewallet_load', query)
-
-    if result[:m_Code] == '200'
-      ap result
-    else
-      puts 'Unsuccessful Load Request'
-    end
   end
 
   def calculable?
@@ -228,7 +222,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def user_qualified_active?(user)
-    qualifiers = (active_qualifiers[nil] || []) + 
+    qualifiers = (active_qualifiers[nil] || []) +
                  (active_qualifiers[user.rank_path_id] || [])
     return true if qualifiers.empty?
 
