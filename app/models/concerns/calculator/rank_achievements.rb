@@ -46,7 +46,16 @@ module Calculator
       user ||= order.user
 
       path = user.rank_path
-      start = highest_rank(user.id, path.id, lifetime_rank_achievements)
+      highest = highest_achievement(user.id,
+                                    path.id,
+                                    lifetime_rank_achievements)
+      if highest
+        update_user_lifetime_rank(user, highest)
+        start = highest.rank_id
+      else
+        start = 1
+      end
+
       ranks[start..-1].each do |rank|
         break unless rank.lifetime_path?(path.id) &&
                      rank.qualified_path?(path.id, totals)
@@ -59,9 +68,11 @@ module Calculator
       user ||= order.user
 
       path = user.rank_path
-      start = highest_rank(user.id, path.id,
-                           lifetime_rank_achievements,
-                           rank_achievements)
+      highest = highest_achievement(
+        user.id,
+        path.id,
+        lifetime_rank_achievements + rank_achievements)
+      start = highest ? highest.rank_id  : 1
       ranks[start..-1].each do |rank|
         break unless rank_has_path?(rank, path.id) &&
                      rank.qualified_path?(path.id, totals)
@@ -72,20 +83,28 @@ module Calculator
 
     private
 
+    def lifetime_rank_achievements
+      @lifetime_rank_achievements ||=
+        RankAchievement.lifetime.where(user_id: all_user_ids).entries
+    end
+
     def rank_paths
       @rank_paths ||= RankPath.all.order(:precedence)
+    end
+
+    def rank_path(id)
+      rank_paths.find { |path| path.id == id }
     end
 
     def default_rank_path
       @default_rank_path ||= rank_paths.find(&:default?)
     end
 
-    def highest_rank(user_id, path_id, *lists)
-      lists.inject([ 1 ]) do |ranks, list|
-        ranks << list.select do |a|
-          a.user_id == user_id && a.rank_path_id == path_id
-        end.map(&:rank_id).max
-      end.compact.max
+    def highest_achievement(user_id, path_id, list)
+      achievements = list.select { |a| a.user_id == user_id }
+      achievements.sort_by do |a|
+        [ rank_path(a.rank_path_id).precedence, a.rank_id ]
+      end.last
     end
 
     def rank_achieved!(user, rank, path, order, builder = rank_achievements)
@@ -105,11 +124,16 @@ module Calculator
       achievement = rank_achieved!(user, rank, path, order, RankAchievement)
 
       lifetime_rank_achievements << achievement
-      return unless user.organic_rank < achievement.rank_id
 
+      update_user_lifetime_rank(user, achievement)
+    end
+
+    def update_user_lifetime_rank(user, achievement)
+      return if user.rank_path_id == achievement.rank_path_id &&
+                user.organic_rank == achievement.rank_id
       user.update_columns(
         organic_rank: achievement.rank_id,
-        rank_path_id: path.id)
+        rank_path_id: achievement.rank_path_id)
     end
   end
 end

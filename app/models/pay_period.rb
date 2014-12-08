@@ -160,11 +160,6 @@ class PayPeriod < ActiveRecord::Base
     end
   end
 
-  def lifetime_rank_achievements
-    @lifetime_rank_achievements ||=
-      RankAchievement.lifetime.where(user_id: all_user_ids).entries
-  end
-
   def lifetime_personal_totals
     @lifetime_personal_totals ||= Order.personal_totals(start_date).entries
   end

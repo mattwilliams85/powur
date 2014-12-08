@@ -18,8 +18,8 @@ module Sunstand
       password:             'TrCgMfSpdGnbfztgaiAuvQ',
       authentication:       'plain',
       enable_starttls_auto: true  }
-    config.action_mailer.default_url_options = \
-      { host: ENV['EMAIL_HOST'] || 'http://localhost:3000' }
+    email_host = ENV['EMAIL_HOST'] || 'http://localhost:3000'
+    config.action_mailer.default_url_options = { host: email_host }
     config.action_mailer.default_options = {
       from: "SunStand <no-reply#{Rails.env}@sunstand.com>" }
 
