@@ -5,20 +5,23 @@
   <div id="kpi_environment_detail" class="object_detail">
 
     <div class="object_detail_content">
-      <div class="object_detail_content_section summary">
-        <span class="progress_description">Top Performers</span>
-        <a class="return_to_team"><i class="fa fa-bar-chart chart-icon"></i>  Return To Team</a>
-        <div class="contributors">
-          <div class="contributor user-contributor" id="{{currentUser.first_name}}">
-            <div class="info-box">
-              <div id="user-avatar" class="avatar" style="background-image:url({{currentUser.thumb_image_url}}); border:1.5pt solid rgb(238,238,238);"></div>
-              <div class="info-text" style="">
-                <a id="hover1"><span class="contributor-name" style="color:#fff !important">{{currentUser.first_name}} {{currentUser.last_name}}</span></a>
-                <span class="light-text" style="">87 Quotes, 95 Orders</span>
-              </div>
-            </div>
-          </div>
+      <div class="object_detail_user_summary">
+        <div class="swap-text-box">
+        <span class="progress_description">&nbsp;</span>
+        <a class="return_to_team"><i class="fa fa-bar-chart chart-icon"></i>  Return To Team Graph</a>
         </div>
+        <div class="user-contributor" id="{{currentUser.first_name}}">
+                  <div class="user-info-box">
+                    <div id="user-avatar" class="avatar" style="background-image:url({{currentUser.thumb_image_url}});"></div>
+                    <br>
+                    <div class="info-text user-info-text">
+                      <a id="hover1"><span class="contributor-name">{{currentUser.first_name}} {{currentUser.last_name}}</span></a>
+                      <span class="light-text small-text">87 Quotes, 95 Orders</span>
+                    </div>
+                  </div>
+                  <span class="contributors-header">Top Performers</span>
+              </div>
+        <div class="contributors"></div>
         <div class="scroll-arrows">
           <i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>
         </div>

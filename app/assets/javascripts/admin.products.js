@@ -1122,6 +1122,10 @@ jQuery(function($){
 
         });
 
+         // $('.js-admin_tab').velocity({ translateX: 105 }, {
+         //        duration: 300,
+         //    easing: [ .35,-0.69,.47,.71 ],
+
         $( ".hover-box" ).mouseleave(function(e) {
             $('.js-admin_tab').stop();
             e.stopPropagation()

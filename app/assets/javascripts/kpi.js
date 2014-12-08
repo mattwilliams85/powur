@@ -2,6 +2,7 @@ var scale = "week";
 var _labels = [];
 var position = 0;
 var page = 1;
+var page_total = _data.team.entities.length
 var now = new Date()
 now = setCalendar()
 var myChart = ""
@@ -106,7 +107,7 @@ function populateContributors() {
       _callback: function(data, text) {
         member.properties.downline_count = data.entities.length;
         EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
-          if ($('.contributor').length == top_ten.length + 1) contributorEvents();
+          if ($('.contributor').length == top_ten.length) contributorEvents();
           _contributors.append(html);
         });
       }
@@ -179,9 +180,9 @@ $('.forward').on("click", function() {
 $(".return_to_team").on("click", function(e) {
   rebuildChart(numberOfDaysInMonth() - 1)
   $(".graph_title").html("Full Conversion History");
-  $(".contributor").css("background", "#545454");
-  $(".return_to_team").hide();
+  $(".contributor, .user-contributor").css("background", "#545454");
   $(".progress_description").fadeIn();
+  $(".return_to_team").hide();
 });
 
 $(".current").on("click", function(e) {
@@ -209,7 +210,7 @@ $(".time_scale .week").on("click", function() {
 $('.fa-caret-down').on("click", function(e) {
   if ($(this).hasClass("active")) {
       page += 1;
-      position -= 406;
+      position -= 290;
       animateContributors()
     };
 });
@@ -217,7 +218,7 @@ $('.fa-caret-down').on("click", function(e) {
 $('.fa-caret-up').on("click", function(e) {
   if ($('.fa-caret-up').hasClass("active")) {
     page -= 1;
-    position += 406;
+    position += 290;
     animateContributors()
   };
 });
@@ -239,11 +240,13 @@ function animateContributors(){
 function checkPage() {
   if (page === 1) {
     $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
-    if(_data.team.entities.length >= 5){
+    if(page_total >= 5){
       $('.fa-caret-down').css("opacity", "1").addClass("active");
     }
   } else {
     $('.fa-caret-up').css("opacity", "1").addClass("active");
+  }
+  if (page >= (page_total / 4) - 1) {
     $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
   }
 }
@@ -257,14 +260,14 @@ function contributorEvents() {
       stagger: 200,
       duration: 600
     })
-  $(".contributor").on("click", function(e) {
+  $(".contributor, .user-contributor").on("click", function(e) {
     console.log(this)
     e.preventDefault();
     e.stopPropagation();
     $(".return_to_team").fadeIn();
     _index = $(this).find(".avatar").attr("id").replace("avatar", "") - 1;
     $(".progress_description").hide();
-    $('.contributor').each(function() {
+    $('.contributor, .user-contributor').each(function() {
       $(this).velocity({
         backgroundColor: "#545454"
       }, 100);
