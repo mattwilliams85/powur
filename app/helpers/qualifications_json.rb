@@ -15,7 +15,8 @@ class QualificationsJson < JsonDecorator
     json.properties do
       json.type qualification.type_string
       json.call(qualification, :id, :type_display,
-                :path, :time_period, :quantity, :product_id)
+                :time_period, :quantity, :product_id)
+      json.path qualification.rank_path_id && qualification.path
       if qualification.is_a?(GroupSalesQualification)
         json.max_leg_percent qualification.max_leg_percent
       end
