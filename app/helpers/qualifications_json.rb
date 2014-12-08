@@ -48,7 +48,7 @@ class QualificationsJson < JsonDecorator
 
   def rank_create_action(rank)
     url_path = rank_qualifications_path(rank)
-    rank_paths = rank.first? ? all_paths.reject { |p| p.default } : all_paths
+    rank_paths = rank.first? ? all_paths.reject { |p| p.default? } : all_paths
     create_action(url_path, paths: rank_paths)
   end
 
