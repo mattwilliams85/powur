@@ -56,7 +56,7 @@ class QualificationsJson < JsonDecorator
     update = action(:update, :patch, path)
              .field(:rank_path_id, :select,
                     options:  Hash[all_paths.map { |p| [ p.id, p.name ] }],
-                    required: true,
+                    required: false,
                     value:    qual.rank_path_id)
              .field(:type, :select,
                     options:  Qualification::TYPES,
