@@ -555,18 +555,13 @@ function _getRoot(_callback){
                     url:"/u/users/"+_data.root.properties.id+"/rank_achievements",
                     name:"rank_achievements",
                     data:{}
-                },
-                {
-                    url:"/u/users/"+_data.root.properties.id+"/goals",
-                    name:"goals",
-                    data:{}
                 }
 
             ];
             EyeCueLab.JSON.asynchronousLoader(loadingCategories, function(_returnJSONs){
                 _data.currentUser=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"profile"})[0].properties;
                 _data.currentUser.order_totals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"order_totals"})[0];
-                _data.currentUser.goals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"goals"})[0];
+                //_data.currentUser.goals=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"goals"})[0];
                 _data.currentUser.rank_achievements=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"rank_achievements"})[0];
                 _data.currentUser.orders=_getObjectsByCriteria(_returnJSONs, {endpoint_name:"orders"})[0];
                 if(typeof _callback === "function") _callback();
