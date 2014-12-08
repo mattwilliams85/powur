@@ -8,7 +8,7 @@ class CreateQualifications < ActiveRecord::Migration
 
       t.references :rank, index: true
       t.references :product, index: true, null: false
-      t.references :rank_path, null: false
+      t.references :rank_path
 
       t.foreign_key :ranks
       t.foreign_key :products
@@ -16,8 +16,3 @@ class CreateQualifications < ActiveRecord::Migration
     end
   end
 end
-
-
-# - certification/test flag
-# - n lifetime sales
-# - n pay period group sales, max leg % 

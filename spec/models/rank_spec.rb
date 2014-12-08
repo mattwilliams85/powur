@@ -23,8 +23,13 @@ describe Rank, type: :model do
     create(:group_sales_qualification, rank_path: path1, rank: rank)
     create_list(:sales_qualification, 2, rank_path: path2, rank: rank)
 
-    expect(rank.qualification_paths.size).to eq(2)
-    expect(rank.grouped_qualifications[path1.id].size).to eq(1)
-    expect(rank.grouped_qualifications[path2.id].size).to eq(2)
+    expect(rank.qualifiers(path1.id).size).to eq(1)
+    expect(rank.qualifiers(path2.id).size).to eq(2)
+
+
+    create(:sales_qualification, rank_path: nil, rank: rank)
+    rank = Rank.find(rank.id)
+    expect(rank.qualifiers(path1.id).size).to eq(2)
+    expect(rank.qualifiers(path2.id).size).to eq(3)
   end
 end

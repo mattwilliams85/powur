@@ -7,7 +7,7 @@ class Qualification < ActiveRecord::Base
 
   scope :active, -> { where(rank_id: nil) }
 
-  validates_presence_of :product_id, :quantity, :time_period, :rank_path_id
+  validates_presence_of :product_id, :quantity, :time_period
 
   TYPES =  {
     sales:       'Personal Sales',

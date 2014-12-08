@@ -32,7 +32,7 @@ class QualificationsJson < JsonDecorator
     action(:create, :post, url_path)
       .field(:rank_path_id, :select,
              options:  Hash[opts[:paths].map { |p| [ p.id, p.name ] }],
-             required: true)
+             required: false)
       .field(:type, :select,
              options: Qualification::TYPES, required: true, value: :sales)
       .field(:product_id, :select,

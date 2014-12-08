@@ -530,7 +530,7 @@ CREATE TABLE qualifications (
     max_leg_percent integer,
     rank_id integer,
     product_id integer NOT NULL,
-    rank_path_id integer NOT NULL
+    rank_path_id integer
 );
 
 

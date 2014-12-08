@@ -171,10 +171,6 @@ class PayPeriod < ActiveRecord::Base
       RankAchievement.lifetime.where(user_id: all_user_ids).entries
   end
 
-  def qualification_paths
-    @qualification_paths ||= ranks.second ? ranks.second.qualification_paths : []
-  end
-
   def lifetime_personal_totals
     @lifetime_personal_totals ||= Order.personal_totals(start_date).entries
   end
