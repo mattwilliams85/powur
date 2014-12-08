@@ -17,4 +17,5 @@
 //= require velocity
 //= require handlebars
 //= require utility
+//= require Chart
 //= require turbolinks
