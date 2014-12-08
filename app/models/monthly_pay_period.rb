@@ -11,10 +11,8 @@ class MonthlyPayPeriod < PayPeriod
     rank.monthly_path?(path_id)
   end
 
-  def active_qualifications
-    @active_qualifications ||= Qualification.active.where
-      .not(time_period: Qualification.time_periods[:weekly])
-      .group_by(&:path)
+  def active_qualifiers
+    @active_qualifiers ||= super.select { |q| !q.weekly? }.group_by(&:rank_path_id)
   end
 
   def bonus_available?(bonus)
