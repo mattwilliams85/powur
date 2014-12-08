@@ -16,7 +16,6 @@ class RanksJson < JsonDecorator
   end
 
   def rank_entities(rank, qual_path)
-    return if rank.id == 1
     entities entity(qual_path,
                     'rank-qualifications',
                     rank:           rank,
