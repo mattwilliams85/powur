@@ -46,7 +46,7 @@ var options = {
                    </ul>"
 }
 
-function initPage(){
+function initKPI(){
   displayTimeScale()
   randomizeData(6);
   setScale();
@@ -269,4 +269,3 @@ function contributorEvents() {
 }
 // ** END **
 
-initPage()
