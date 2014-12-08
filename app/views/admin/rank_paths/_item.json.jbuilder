@@ -2,6 +2,7 @@ klass :rank_path
 
 json.properties do
   json.call(rank_path, :id, :name, :description, :precedence)
+  json.default rank_path.default?
 end
 
 action_list = [
