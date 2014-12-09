@@ -11,12 +11,18 @@ class UsersJson < JsonDecorator
     entity_rel(rel) if rel
   end
 
-  def list_item_properties(user = @item)
+  def list_item_properties(user = @item) # rubocop:disable Metrics/AbcSize
     json.properties do
       json.call(user, :id, :first_name, :last_name, :email, :phone, :level)
-      %w(downline_count personal personal_lifetime group group_lifetime).each do |field|
+      %w(downline_count personal personal_lifetime
+         group group_lifetime).each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]
       end
+      json.avatar do
+        [ :thumb, :medium, :large ].each do |key|
+          json.set! key, user.avatar_url(key)
+        end
+      end if user.avatar?
     end
   end
 
@@ -24,7 +30,7 @@ class UsersJson < JsonDecorator
     json.entities list, partial: partial_path, as: :user
   end
 
-  def detail_properties(user = @item)
+  def detail_properties(user = @item) # rubocop:disable Metrics/AbcSize
     list_item_properties
 
     json.properties do
@@ -39,7 +45,7 @@ class UsersJson < JsonDecorator
     end
   end
 
-  def admin_entities(user = @item)
+  def admin_entities(user = @item) # rubocop:disable Metrics/AbcSize
     entities \
       entity(%w(list users), 'user-children', downline_admin_user_path(user)),
       entity(%w(list users), 'user-ancestors', upline_admin_user_path(user)),
@@ -67,7 +73,7 @@ class UsersJson < JsonDecorator
              user_rank_achievements_path(user))
   end
 
-  def update_action(path, user = @item)
+  def update_action(path, user = @item) # rubocop:disable Metrics/AbcSize
     action(:update, :patch, path)
       .field(:first_name, :text, value: user.first_name)
       .field(:last_name, :text, value: user.last_name)

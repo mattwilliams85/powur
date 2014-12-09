@@ -86,8 +86,8 @@ module SpecHelpers
     bearer_header(@token.access_token)
   end
 
-  def api_param
-    login_api_user
+  def token_param
+    login_api_user unless @token
     { access_token: @token.access_token }
   end
 end

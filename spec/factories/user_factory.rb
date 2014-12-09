@@ -8,6 +8,7 @@ FactoryGirl.define do
     sequence(:url_slug) { |n| "#{first_name.downcase}_#{n}" }
     roles [ 'admin' ]
     lifetime_rank { Rank.find_or_create_by_id(1) }
+    avatar_file_name 'avatar.png'
 
     factory :search_miss_user do
       first_name 'xxx'

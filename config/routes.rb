@@ -217,36 +217,13 @@ Rails.application.routes.draw do
       resource :session, only: [ :show ]
       resources :users, only: [ :index ] do
         member do
-          get :downline
+          get :downline, as: 'downline'
         end
       end
-      resources :users, only: [ :index ]
       resources :invites, only: [ :index, :create ]
       resources :quotes, only: [ :index, :create ]
     end
   end
-
-  resource :promoter, only: [ :new, :show ] do
-    get :request
-    get :thanks
-  end
-
-  # These are just to fake the referral pages so the link doesn't break
-  # safe to remove when the feature is implemented
-  # get '/1234' => 'customer#index'
-  # get '/4321' => 'promoter#index'
-
-  get 'thanks' => 'customer#thanks'
-
-  get 'user' => 'user#index'
-
-  get 'organization' => 'organization#index'
-
-  get 'upgrade' => 'upgrade#index'
-
-  get 'training' => 'training#index'
-
-  get 'settings' => 'settings#index'
 
   root 'index#index'
 end

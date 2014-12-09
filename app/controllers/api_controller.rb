@@ -1,4 +1,5 @@
 class ApiController < ActionController::Base
+  include ListQuery
   include SirenDSL
   helper SirenJson
 

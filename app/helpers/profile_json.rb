@@ -21,22 +21,14 @@ class ProfileJson < JsonDecorator
     json.properties do
       json.call(user, :first_name, :last_name, :email, :phone,
                 :bio, :avatar, :avatar_file_name, :address,
-                :city, :state, :zip, :large_image_url,
-                :medium_image_url, :thumb_image_url)
-
+                :city, :state, :zip)
+      json.avatar do
+        [ :thumb, :medium, :large ].each do |key|
+          json.set! key, user.avatar_url(key)
+        end
+      end if user.avatar?
     end
   end
-
-  # def user_entities(user)
-  #   entities \
-  #     entity(%w(list users), 'user-children', downline_user_path(user)),
-  #     entity(%w(list users), 'user-ancestors', upline_user_path(user)),
-  #     entity(%w(list orders), 'user-orders', user_orders_path(user)),
-  #     entity(%w(list order_totals), 'user-order_totals',
-  #            user_order_totals_path(user)),
-  #    entity(%w(list rank_achievements), 'user-rank_achievements',
-  #            user_rank_achievem ents_path(user))
-  # end
 
   def update_action(profile_path, user)
     actions \
@@ -52,8 +44,8 @@ class ProfileJson < JsonDecorator
       .field(:provider, :text, value: user.provider)
       .field(:monthly_bill, :text, value: user.monthly_bill)
       .field(:bio, :text, value: user.bio)
-      .field(:twitter_url, :text, value: user. twitter_url)
-      .field(:linkedin_url, :text, value: user. linkedin_url)
-      .field(:facebook_url, :text, value: user. facebook_url)
+      .field(:twitter_url, :text, value: user.twitter_url)
+      .field(:linkedin_url, :text, value: user.linkedin_url)
+      .field(:facebook_url, :text, value: user.facebook_url)
   end
 end

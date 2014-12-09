@@ -33,7 +33,7 @@ gem 'attr_extras'
 gem 'faraday'
 gem 'httparty'
 gem 'delayed_job_active_record'
-
+gem 'airbrake'
 gem 'pry-rails'
 gem 'eyecue_ipayout', path: './vendor/eyecue_ipayout'
 gem 'nmi_direct_post'

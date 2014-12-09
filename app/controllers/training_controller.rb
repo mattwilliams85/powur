@@ -1,2 +1,0 @@
-class TrainingController < ApplicationController
-end

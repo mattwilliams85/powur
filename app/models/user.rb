@@ -15,17 +15,16 @@ class User < ActiveRecord::Base
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
 
+  store_accessor :contact, :address, :city, :state, :zip, :phone
+  store_accessor :utilities, :provider, :monthly_bill
+  store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url
+
   validates_presence_of :email
   validates_presence_of :encrypted_password, on: :create
   validates_presence_of :first_name, :last_name
   validates_presence_of :url_slug, :reset_token, allow_nil: true
-  store_accessor :contact, :address, :city, :state, :zip, :phone
-  store_accessor :utilities, :provider, :monthly_bill
-  store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url
-  store_accessor :large_image_url, :medium_image_url, :thumb_image_url
   validates_presence_of :phone, :zip
   validates_presence_of :address, :city, :state, allow_nil: true
-
 
   aws_bucket = Rails.application.secrets.aws_bucket
   aws_access_key_id = Rails.application.secrets.aws_access_key_id
@@ -131,31 +130,18 @@ class User < ActiveRecord::Base
     pay_period_rank || organic_rank
   end
 
-  def image_url(image_size = 'thumb')
-    if !avatar_file_name.nil?
-      full_file_name = avatar_file_name
-      split_name = full_file_name.split('.')
-      filename = split_name[0]
-      extension = split_name[1]
-      base_avatar_url = 'https://s3.amazonaws.com/' +
-                        Rails.application.secrets.aws_bucket + '/avatars/'
-      return_url = base_avatar_url + id.to_s + '/' + filename +
-                   '_' + image_size + '.' + extension
-    else
-      return_url = nil
-    end
+  def avatar_url(image_size = :thumb)
+    return nil if avatar_file_name.nil?
+
+    bucket = Rails.application.secrets.aws_bucket
+    base_url = "https://s3.amazonaws.com/#{bucket}/avatars"
+    filename, extension = avatar_file_name.split('.')
+
+    "#{base_url}#{id}/#{filename}_#{image_size}.#{extension}"
   end
 
-  def large_image_url
-    image_url('large')
-  end
-
-  def medium_image_url
-    image_url('medium')
-  end
-
-  def thumb_image_url
-    image_url('thumb')
+  def avatar?
+    !avatar_file_name.nil?
   end
 
   private

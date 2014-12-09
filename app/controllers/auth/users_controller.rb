@@ -44,7 +44,7 @@ module Auth
     end
 
     def fetch_user
-      @user = User.find_by(id: params[:id].to_i) || not_found!(:user)
+      @user = fetch_downline_user(params[:id].to_i)
     end
   end
 end

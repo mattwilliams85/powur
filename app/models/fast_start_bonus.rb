@@ -33,6 +33,8 @@ class FastStartBonus < Bonus
     payment.bonus_payment_orders.create!(order_id: order.id)
   end
 
+  private
+
   def qualified_in_time?(order)
     (order.order_date.to_i - order.user.created_at.to_i) < time_span
   end
