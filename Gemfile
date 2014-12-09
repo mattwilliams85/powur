@@ -43,6 +43,7 @@ group :development do
   gem 'thin'
   gem 'rubocop', require: false
   gem 'meta_request'
+  gem 'foreman'
 end
 
 group :development, :test do

@@ -42,7 +42,7 @@ namespace :sunstand do
 
     desc 'Simulate users'
     task :users, [ :total, :per_user, :levels ] => :environment do |_t, args|
-      args.with_defaults(total: 1000, per_user: 20, levels: 3)
+      args.with_defaults(total: 600, per_user: 20, levels: 4)
 
       users = User.all.to_a
 
@@ -91,7 +91,7 @@ namespace :sunstand do
       Customer.destroy_all
 
       user_count = User.count
-      args.with_defaults(per_user: 10, months_back: 3)
+      args.with_defaults(per_user: 10, months_back: 2)
 
       start_date = (DateTime.current - args[:months_back].to_i.months).beginning_of_month
       end_date = DateTime.current
@@ -115,7 +115,7 @@ namespace :sunstand do
       roof_types = QuoteField.find_by(name: 'roof_type').lookups.map(&:id)
 
       User.all.each do |user|
-        order_amount = rand(0...args[:per_user].to_i * 2)
+        order_amount = rand(0...args[:per_user].to_i * 3)
         puts "Creating #{order_amount} Solar Item order(s) for user #{user.full_name}"
         0.upto(order_amount) do |_i|
           customer = Customer.create!(
