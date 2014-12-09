@@ -124,7 +124,10 @@
 
 					<span class="form_row">
 						<label for="credit_score_qualified">Estimated Credit Score</label>
-						<input type="text" name="credit_score_qualified" placeholder="Estimated Credit Score" value="{{this.credit_score_qualified}}">
+						<select id="credit_score_qualified" name="credit_score_qualified" placeholder="Credit Score">
+							{{#compare true this.credit_score_qualified}}<option value="true" selected>{{else}}<option value="true">{{/compare}}Above 600</option>
+							{{#compare false this.credit_score_qualified}}<option value="false" selected>{{else}}<option value="false">{{/compare}}Below 600</option>
+						</select>
 					</span>
 
 				</fieldset>
