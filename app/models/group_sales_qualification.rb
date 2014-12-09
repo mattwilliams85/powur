@@ -14,16 +14,25 @@ class GroupSalesQualification < Qualification
 
   def max_leg_percent_met?(totals, child_totals = nil)
     return true if max_leg_percent.nil? || max_leg_percent.zero?
-    child_totals ||= totals.pay_period
-                     .child_totals_for(totals.user_id, product_id)
+    child_totals ||= totals.pay_period.child_totals_for(
+      totals.user_id, product_id)
     return false if child_totals.empty?
 
-    value = pay_period? ? :group : :group_lifetime
-    quantities = child_totals.map(&value)
+    smaller_legs = calculate_non_high_legs(child_totals)
+    smaller_legs >= percent_needed_for_smaller_legs
+  end
+
+  private
+
+  def totals_key
+    pay_period? ? :group : :group_lifetime
+  end
+
+  def calculate_non_high_legs(child_totals)
+    quantities = child_totals.map(&totals_key)
     total_quantity = quantities.inject(:+)
 
     smaller_legs_total = total_quantity - quantities.max
-    smaller_legs_percent = (BigDecimal.new(smaller_legs_total) / quantity)
-    smaller_legs_percent >= percent_needed_for_smaller_legs
+    BigDecimal.new(smaller_legs_total) / quantity
   end
 end

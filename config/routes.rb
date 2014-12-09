@@ -220,6 +220,7 @@ Rails.application.routes.draw do
           get :downline
         end
       end
+      resources :users, only: [ :index ]
       resources :invites, only: [ :index, :create ]
       resources :quotes, only: [ :index, :create ]
     end

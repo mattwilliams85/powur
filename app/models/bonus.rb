@@ -97,7 +97,7 @@ class Bonus < ActiveRecord::Base
                 max_level_amounts.first
               else
                 max_level_amounts.transpose.map { |a| a.inject(:+) }
-    end
+              end
 
     amounts.fill(BigDecimal('0'), amounts.size...max_rank)[0...max_rank]
   end
@@ -154,9 +154,7 @@ class Bonus < ActiveRecord::Base
   end
 
   def other_product_percentages(max_rank)
-    if other_product_bonuses.empty?
-      return Array.new(max_rank, BigDecimal('0'))
-    end
+    return Array.new(max_rank, BigDecimal('0')) if other_product_bonuses.empty?
 
     percents = other_product_bonuses.map { |b| b.percentages_used(max_rank) }
     percents.map! do |op|
