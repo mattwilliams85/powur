@@ -38,17 +38,17 @@ function randomAvatar(){
   return "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
 }
 
-function rebuildChart(scale){
+function rebuildChart(){
+  if(scale === "week") timeScale = 6
+  if(scale === "month") timeScale = numberOfDaysInMonth() - 1
   displayTimeScale()
   myChart.destroy();
-  randomizeData(scale)
+  randomizeData(timeScale)
   setScale()
   ctx.canvas.width = 670
   ctx.canvas.height = 330
   if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
   if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
-  if(scale === "month") options.barValueSpacing = 3;
-  if(scale === "week") options.barValueSpacing = 20;
 }
 
 function populateContributors() {
@@ -137,35 +137,33 @@ function displayTimeScale() {
 $('.back').on("click", function() {
   calendarBack()
   timeScale = 6;
-  if(scale == "month") timeScale = numberOfDaysInMonth() - 1
-  rebuildChart(timeScale)
+  rebuildChart()
 })
 
 $('.forward').on("click", function() {
   calendarForward()
   timeScale = 6;
-  if(scale == "month") timeScale = numberOfDaysInMonth() - 1
-  rebuildChart(timeScale)
+  rebuildChart()
 })
 
 $(".return_to_team").on("click", function(e) {
-  if(scale === "month") rebuildChart(numberOfDaysInMonth() - 1)
-  if(scale === "week") rebuildChart(6)
   $(".graph_title").html("Full Conversion History");
   $(".contributor, .user-contributor").css("background", "#545454");
   $(".progress_description").fadeIn();
   $(".return_to_team").hide();
+  rebuildChart();
 });
 
 $(".current").on("click", function(e) {
   now = new Date()
-  rebuildChart(29)
+  rebuildChart()
 })
 
 $(".time_scale .month").on("click", function() {
   scale = "month"
   setCalendar()
-  rebuildChart(29)
+  options.pointDotRadius = 3;
+  rebuildChart()
   $(".time_scale .week").removeClass("active");
   $(this).addClass("active");
 })
@@ -173,7 +171,8 @@ $(".time_scale .month").on("click", function() {
 $(".time_scale .week").on("click", function() {
   scale = "week"
   setCalendar()
-  rebuildChart(6)
+  options.pointDotRadius = 4;
+  rebuildChart()
   $(".time_scale .month").removeClass("active");
   $(this).addClass("active");
 })
@@ -199,7 +198,6 @@ function animateContributors(){
   checkPage();
   $('.contributor').each(function() {
     $(this).velocity({
-      backgroundColor: "#545454"
     }, 100);
   })
   $('.contributor').each(function() {
@@ -254,8 +252,7 @@ function contributorEvents() {
     }, 100);
 
     options.animationSteps = 20;
-    if(scale === "week") rebuildChart(6)
-    if(scale === "month") rebuildChart(29)
+    rebuildChart()
     if(kpiType === "quotes") $(".graph_title").html($(this).attr('id') + "'s Conversion History")
     if(kpiType === "genealogy") $(".graph_title").html($(this).attr('id') + "'s Growth History")
     if(kpiType === "earnings") $(".graph_title").html($(this).attr('id') + "'s Earnings History")
