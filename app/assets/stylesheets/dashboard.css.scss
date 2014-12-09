@@ -2059,7 +2059,6 @@
   }
 
   .avatar {
-  	margin-left:5px;
     width:50px;
     height:50px;
     -moz-border-radius:50%;
@@ -2203,8 +2202,8 @@ h4 {
 	line-height:25px;
   cursor: pointer;
   background-color:#555553;
-  padding:1px 0 3px 15px;
-  height:66px;
+  padding:1px 0 3px 10px;
+  height:65px;
   border-top:1px solid #444;
   border-bottom:1px solid #444;
   -webkit-box-shadow: 9px 5px 5px 0px rgba(50, 50, 50, 0.5);
@@ -2333,8 +2332,8 @@ h4 {
 	 background-color:#555553;
 	cursor: pointer;
 	// background-color:#ccc;
-	padding:5px 0 5px 0;
-	height:170px;
+	padding:0 0 5px 0;
+	height:175px;
 	color:rgb(53,53,53)!important;
 	line-height:25px;
 }

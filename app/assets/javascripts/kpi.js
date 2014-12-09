@@ -51,6 +51,18 @@ function rebuildChart(scale){
 }
 
 function populateContributors() {
+  console.log(kpiType)
+  switch(kpiType){
+    case "leads":
+      _template = "/templates/_kpi_quote_team_thumbnail.handlebars.html"
+      break;
+    case "team_members":
+      _template = "/templates/_kpi_genealogy_team_thumbnail.handlebars.html"
+      break;
+    case "earnings":
+      _template = "/templates/_kpi_total_earnings_team_thumbnail.handlebars.html"
+    break;
+  }
   if(_data.team.entities.length >= 1) {
     var _contributors = $(".contributors");
 
@@ -62,7 +74,7 @@ function populateContributors() {
         _url: "/u/users/" + member.properties.id + "/downline",
         _callback: function(data, text) {
           member.properties.downline_count = data.entities.length;
-          EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
+            EyeCueLab.UX.getTemplate(_template, member, undefined, function(html) {
             if ($('.contributor').length == top_ten.length) contributorEvents();
             _contributors.append(html);
           });
@@ -167,7 +179,7 @@ $(".time_scale .week").on("click", function() {
 $('.fa-caret-down').on("click", function(e) {
   if ($(this).hasClass("active")) {
       page += 1;
-      position -= 290;
+      position -= 284;
       animateContributors()
     };
 });
@@ -175,7 +187,7 @@ $('.fa-caret-down').on("click", function(e) {
 $('.fa-caret-up').on("click", function(e) {
   if ($('.fa-caret-up').hasClass("active")) {
     page -= 1;
-    position += 290;
+    position += 284;
     animateContributors()
   };
 });

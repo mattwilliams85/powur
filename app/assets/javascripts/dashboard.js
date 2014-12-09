@@ -2,6 +2,7 @@ var _myID=0; //current user id
 var _data={}; //main data object that contains user profile and genelogy info
 var _animation_speed = 300;
 var _dashboard;
+var kpiType = ""
 
 $(window).bind('page:change', function() {
   initPage();
@@ -749,7 +750,8 @@ function Dashboard(){
 				var _templatePath;
 				var _impactMetricsDetail = {};
 				//todo: inject context/data under each template
-				switch(_options._kpiType){
+				kpiType = _options._kpiType
+				switch(kpiType){
 					case "environment":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 
@@ -772,7 +774,7 @@ function Dashboard(){
 				_getTemplate(_templatePath, _data, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-				 	if(_options._kpiType !== "environment") initKPI();
+				 	if(kpiType !== "environment") initKPI();
 				});
 
 			break;
