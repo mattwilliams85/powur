@@ -51,23 +51,25 @@ function rebuildChart(scale){
 }
 
 function populateContributors() {
-  var _contributors = $(".contributors");
+  if(_data.team.entities.length >= 1) {
+    var _contributors = $(".contributors");
 
-  top_ten = _data.team.entities.slice(0, 9)
+    top_ten = _data.team.entities.slice(0, 9)
 
-  top_ten.forEach(function(member) {
-    _ajax({
-      _ajaxType: "get",
-      _url: "/u/users/" + member.properties.id + "/downline",
-      _callback: function(data, text) {
-        member.properties.downline_count = data.entities.length;
-        EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
-          if ($('.contributor').length == top_ten.length) contributorEvents();
-          _contributors.append(html);
-        });
-      }
+    top_ten.forEach(function(member) {
+      _ajax({
+        _ajaxType: "get",
+        _url: "/u/users/" + member.properties.id + "/downline",
+        _callback: function(data, text) {
+          member.properties.downline_count = data.entities.length;
+          EyeCueLab.UX.getTemplate("/templates/_kpi_quote_team_thumbnail.handlebars.html", member, undefined, function(html) {
+            if ($('.contributor').length == top_ten.length) contributorEvents();
+            _contributors.append(html);
+          });
+        }
+      });
     });
-  });
+  }
 }
 
 // ** CALENDAR FUNCTIONS **

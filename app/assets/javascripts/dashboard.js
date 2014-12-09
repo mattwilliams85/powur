@@ -3,7 +3,6 @@ var _data={}; //main data object that contains user profile and genelogy info
 var _animation_speed = 300;
 var _dashboard;
 
-
 $(window).bind('page:change', function() {
   initPage();
 });
@@ -753,9 +752,11 @@ function Dashboard(){
 				switch(_options._kpiType){
 					case "environment":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+
 					break;
 					case "leads":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_quotes_details.handlebars.html";
+
 					break;
 					case "earnings":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
@@ -771,7 +772,7 @@ function Dashboard(){
 				_getTemplate(_templatePath, _data, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-				 	initKPI();
+				 	if(_options._kpiType !== "environment") initKPI();
 				});
 
 			break;
