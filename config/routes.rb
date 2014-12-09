@@ -215,15 +215,18 @@ Rails.application.routes.draw do
       post 'token' => 'token#invalid_request'
 
       resource :session, only: [ :show ]
-      resources :users, only: [ :index ] do
+      resources :users, only: [ :index, :show ] do
         member do
-          get :downline, as: 'downline'
+          get :downline
         end
       end
       resources :invites, only: [ :index, :create ]
       resources :quotes, only: [ :index, :create ]
     end
   end
+
+  resource :promoter, only: [ :new, :show ]
+
 
   root 'index#index'
 end
