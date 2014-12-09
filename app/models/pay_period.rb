@@ -42,15 +42,28 @@ class PayPeriod < ActiveRecord::Base
     ewallet_request('ewallet_load', query)
   end
 
-  def calculable?
-    DateTime.current > start_date && disbursed_at.nil?
-  end
-
   def calculated?
     !calculated_at.nil?
   end
 
+  def calculating?
+    calculate_queued && !calculated?
+  end
+
+  def calculable?
+    !disbursed? && DateTime.current > start_date && !calculating?
+  end
+
+  def queue_calculate
+    touch(:calculate_queued)
+    delay.calculate!
+  end
+
   def calculate!
+    result = self.class.where(id: id)
+      .where('calculate_queued is not null')
+      .update_all(calculate_started: DateTime.current)
+    return unless result == 1
     reset_orders!
     process_orders!
     touch :calculated_at

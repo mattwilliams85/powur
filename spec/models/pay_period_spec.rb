@@ -174,7 +174,7 @@ describe PayPeriod, type: :model do
              product: product, quantity: 2, order_date: order_date - 5.minutes)
 
       pay_period = order.monthly_pay_period
-      pay_period.calculate!
+      pay_period.queue_calculate
 
       order_total = OrderTotal.where(user_id:       user.id,
                                      product_id:    product.id,

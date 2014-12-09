@@ -5,7 +5,11 @@ class CreatePayPeriods < ActiveRecord::Migration
       t.string :type, null: false
       t.date :start_date, null: false
       t.date :end_date, null: false
+      t.datetime :calculate_queued
+      t.datetime :calculate_started
       t.datetime :calculated_at
+      t.datetime :distribute_queued
+      t.datetime :distribute_started
       t.datetime :distributed_at
       t.decimal :total_volume, precision: 10, scale: 2
       t.decimal :total_bonus, precision: 10, scale: 2

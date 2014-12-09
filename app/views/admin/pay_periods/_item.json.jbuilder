@@ -5,8 +5,9 @@ json.rel [ :item ] unless local_assigns[:detail]
 json.properties do
   json.call(pay_period, :id, :start_date, :end_date, :title)
   json.type pay_period.type_display
+  json.calculating pay_period.calculating?
   json.calculated pay_period.calculated?
-  json.dusbursed pay_period.disbursed?
+  json.disbursed pay_period.disbursed?
 end
 
 unless local_assigns[:read_only]

@@ -313,6 +313,45 @@ ALTER SEQUENCE customers_id_seq OWNED BY customers.id;
 
 
 --
+-- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE delayed_jobs (
+    id integer NOT NULL,
+    priority integer DEFAULT 0 NOT NULL,
+    attempts integer DEFAULT 0 NOT NULL,
+    handler text NOT NULL,
+    last_error text,
+    run_at timestamp without time zone,
+    locked_at timestamp without time zone,
+    failed_at timestamp without time zone,
+    locked_by character varying(255),
+    queue character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE delayed_jobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: delayed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
+
+
+--
 -- Name: distributions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -442,7 +481,11 @@ CREATE TABLE pay_periods (
     type character varying(255) NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
+    calculate_queued timestamp without time zone,
+    calculate_started timestamp without time zone,
     calculated_at timestamp without time zone,
+    distribute_queued timestamp without time zone,
+    distribute_started timestamp without time zone,
     disbursed_at timestamp without time zone,
     total_volume numeric(10,2),
     total_bonus numeric(10,2),
@@ -932,6 +975,13 @@ ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distributions_id_seq'::regclass);
 
 
@@ -1114,6 +1164,14 @@ ALTER TABLE ONLY customers
 
 
 --
+-- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY delayed_jobs
+    ADD CONSTRAINT delayed_jobs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1269,6 +1327,13 @@ CREATE UNIQUE INDEX bonus_levels_comp_key_with_rp ON bonus_levels USING btree (b
 --
 
 CREATE UNIQUE INDEX bonus_levels_comp_key_without_rp ON bonus_levels USING btree (bonus_id, level, rank_path_id) WHERE (rank_path_id IS NULL);
+
+
+--
+-- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
 
 
 --
@@ -1871,4 +1936,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141126112350');
 INSERT INTO schema_migrations (version) VALUES ('20141204005149');
 
 INSERT INTO schema_migrations (version) VALUES ('20141205231913');
+
+INSERT INTO schema_migrations (version) VALUES ('20141208233620');
 
