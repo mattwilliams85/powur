@@ -74,7 +74,7 @@ function Dashboard(){
 					label:"CO2 Tons Saved"
 				}
 			},
-			leads:{
+			quotes:{
 				tab:{
 					value:78,
 					label:"Quotes"
@@ -86,7 +86,7 @@ function Dashboard(){
 					label:"Total Earnings"
 				}
 			},
-			team_members:{
+			genealogy:{
 				tab:{
 					value:327,
 					label:"In Your Genealogy"
@@ -756,15 +756,14 @@ function Dashboard(){
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 
 					break;
-					case "leads":
+					case "quotes":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_quotes_details.handlebars.html";
-
+					break;
+					case "genealogy":
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_genealogy_details.handlebars.html";
 					break;
 					case "earnings":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
-					break;
-					case "team_members":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_genealogy_details.handlebars.html";
 					break;
 					case "type5":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";

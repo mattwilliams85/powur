@@ -53,10 +53,10 @@ function rebuildChart(scale){
 
 function populateContributors() {
   switch(kpiType){
-    case "leads":
+    case "quotes":
       _template = "/templates/_kpi_quote_team_thumbnail.handlebars.html"
       break;
-    case "team_members":
+    case "genealogy":
       _template = "/templates/_kpi_genealogy_team_thumbnail.handlebars.html"
       break;
     case "earnings":
@@ -149,7 +149,8 @@ $('.forward').on("click", function() {
 })
 
 $(".return_to_team").on("click", function(e) {
-  rebuildChart(numberOfDaysInMonth() - 1)
+  if(scale === "month") rebuildChart(numberOfDaysInMonth() - 1)
+  if(scale === "week") rebuildChart(6)
   $(".graph_title").html("Full Conversion History");
   $(".contributor, .user-contributor").css("background", "#545454");
   $(".progress_description").fadeIn();
@@ -238,7 +239,6 @@ function contributorEvents() {
       duration: 600
     })
   $(".contributor, .user-contributor").on("click", function(e) {
-    console.log(this)
     e.preventDefault();
     e.stopPropagation();
     $(".return_to_team").fadeIn();
@@ -254,8 +254,11 @@ function contributorEvents() {
     }, 100);
 
     options.animationSteps = 20;
-    rebuildChart(29)
-    $(".graph_title").html($(this).attr('id') + "'s Conversion History")
+    if(scale === "week") rebuildChart(6)
+    if(scale === "month") rebuildChart(29)
+    if(kpiType === "quotes") $(".graph_title").html($(this).attr('id') + "'s Conversion History")
+    if(kpiType === "genealogy") $(".graph_title").html($(this).attr('id') + "'s Growth History")
+    if(kpiType === "earnings") $(".graph_title").html($(this).attr('id') + "'s Earnings History")
   });
 }
 // ** END **

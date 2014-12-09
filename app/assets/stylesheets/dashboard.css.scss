@@ -2219,16 +2219,14 @@ h4 {
   -ms-user-select: none;
   user-select: none;
 }
-.return_to_team{
-  cursor: pointer;
-}
+
 
 .scroll-arrows{
 	background-color:#373737;
 	font-size:1.5em;
 	color:#545454;
 	z-index:90;
-	padding:0 90px 0 66px;
+	padding:4px 90px 0 66px;
 	margin-top:0;
 	position:absolute;
 	bottom:0;
@@ -2257,6 +2255,7 @@ h4 {
 	background-color:#373737;
 	width: 100%;
 	float:left;
+	text-align:center;
 }
 
 .page-count {
@@ -2311,11 +2310,14 @@ h4 {
 	font-size:0.7em;
 	display:none;
 	padding-left:15px;
+	float:left;
+	padding:2px 15px 0 15px;
+	cursor:pointer;
 }
 
 .progress_description {
 	background-color:#333;
-	font-size:0.7em
+	font-size:13px;
 }
 
 #legend2 {
