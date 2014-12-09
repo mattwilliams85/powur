@@ -1,6 +1,6 @@
 module Api
   class UsersController < ApiController
-    before_action :fetch_user, only: [ :downline ]
+    before_action :fetch_user, only: [ :downline, :show ]
 
     page
     sort user: 'users.last_name asc, users.first_name asc'
@@ -13,8 +13,11 @@ module Api
     end
 
     def downline
-      @self_path = downline_api_user_path(v: params[:v], id: @user)
       index
+    end
+
+    def show
+      render 'show'
     end
 
     private
