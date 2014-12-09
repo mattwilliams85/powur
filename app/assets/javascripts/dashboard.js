@@ -770,7 +770,7 @@ function Dashboard(){
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
 					break;
 				}
-
+				if(_data.currentUser.thumb_image_url === "") _data.currentUser.thumb_image_url = "http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578"
 				_getTemplate(_templatePath, _data, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);

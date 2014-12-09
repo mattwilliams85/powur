@@ -2,7 +2,6 @@ var scale = "week";
 var _labels = [];
 var position = 0;
 var page = 1;
-var page_total = _data.team.entities.length
 var now = new Date()
 now = setCalendar()
 var myChart = ""
@@ -21,15 +20,17 @@ function initKPI(){
 }
 
 function randomizeOrders() {
-  _data.team.entities.forEach(function(member) {
-    member.properties.orders = Math.floor(Math.random() * 30 + 10)
-  });
-  _data.team.entities.forEach(function(member) {
-    member.properties.quotes = Math.floor(Math.random() * 30 + 5)
-  });
-  _data.team.entities.forEach(function(member) {
-      member.properties.avatar = randomAvatar()
+  if(_data.team.entities){
+    _data.team.entities.forEach(function(member) {
+      member.properties.orders = Math.floor(Math.random() * 30 + 10)
     });
+    _data.team.entities.forEach(function(member) {
+      member.properties.quotes = Math.floor(Math.random() * 30 + 5)
+    });
+    _data.team.entities.forEach(function(member) {
+        member.properties.avatar = randomAvatar()
+    });
+  }
 }
 
 function randomAvatar(){
@@ -51,7 +52,6 @@ function rebuildChart(scale){
 }
 
 function populateContributors() {
-  console.log(kpiType)
   switch(kpiType){
     case "leads":
       _template = "/templates/_kpi_quote_team_thumbnail.handlebars.html"
@@ -63,7 +63,7 @@ function populateContributors() {
       _template = "/templates/_kpi_total_earnings_team_thumbnail.handlebars.html"
     break;
   }
-  if(_data.team.entities.length >= 1) {
+  if(_data.team.entities) {
     var _contributors = $(".contributors");
 
     top_ten = _data.team.entities.slice(0, 9)
@@ -81,6 +81,8 @@ function populateContributors() {
         }
       });
     });
+  } else {
+    contributorEvents();
   }
 }
 
@@ -207,6 +209,8 @@ function animateContributors(){
 }
 
 function checkPage() {
+  if (_data.team.entities) {
+  page_total = _data.team.entities.length
   if (page === 1) {
     $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
     if(page_total >= 5){
@@ -216,6 +220,10 @@ function checkPage() {
     $('.fa-caret-up').css("opacity", "1").addClass("active");
   }
   if (page >= (page_total / 4) - 1) {
+    $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
+  }
+  } else {
+    $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
     $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
   }
 }
