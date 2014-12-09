@@ -8,10 +8,12 @@ describe '/api/users', type: :request do
   describe 'GET /' do
 
     it 'returns the immediate downline users for the current user' do
-      create_list(:user, 3, sponsor: @user)
+      users = create_list(:user, 3, sponsor: @user)
       create_list(:user, 2)
 
       get api_users_path, token_param
+
+      expect_entities_count(3)
     end
 
   end
