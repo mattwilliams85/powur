@@ -11,17 +11,18 @@
         <a class="return_to_team"><i class="fa fa-bar-chart chart-icon"></i>  Return To Team Graph</a>
         </div>
         <div class="user-contributor" id="{{currentUser.first_name}}">
-                  <div class="user-info-box">
-                    <div id="user-avatar" class="avatar" style="background-image:url({{currentUser.thumb_image_url}});"></div>
-                    <br>
-                    <div class="info-text user-info-text">
-                      <a id="hover1"><span class="contributor-name">{{currentUser.first_name}} {{currentUser.last_name}}</span></a>
-                      <span class="light-text small-text">87 Quotes, 95 Orders</span>
-                    </div>
-                  </div>
-                  <span class="contributors-header">Top Performers</span>
+          <div class="user-info-box">
+            <div id="user-avatar" class="avatar" style="background-image:url({{currentUser.thumb_image_url}});"></div>
+              <br>
+              <div class="info-text user-info-text">
+                <a id="hover1"><span class="contributor-name">{{currentUser.first_name}} {{currentUser.last_name}}</span></a>
+                <span class="light-text small-text">87 Quotes, 95 Orders</span>
               </div>
-        <div class="contributors"></div>
+            </div>
+            <span class="contributors-header">Top Performers</span>
+          </div>
+          <div class="contributors"></div>
+        </div>
         <div class="scroll-arrows">
           <i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>
         </div>
@@ -57,14 +58,73 @@
         <h3>TEAM STATS</h3>
         <h4>Today</h4>
         <span class="label">Quotes: 3</span>
-        <span class="label" style="">Sales: 5</span>
+        <span class="label">Sales: 5</span>
         <h4>This Week</h4>
         <span class="label">Quotes: 9</span>
         <span class="label">Sales: 12</span>
-        <h4 style="padding-top:20px">Total Active</h4>
+        <h4 style="">Total Active</h4>
         <span class="label">My Quotes: 503</span>
         <span class="label">Team Quotes: 650</span>
       </div> <!-- end team_statistics_box -->
     </div> <!-- end object_detail_content -->
   </div> <!-- end object_detail -->
 </div> <!-- end drilldown_content -->
+
+<script type="text/javascript">
+  var chartType = "line"
+
+  var metricsData = {
+    labels: _labels,
+    datasets: [{
+      fillColor: "rgba(32, 194, 241,.9)",
+      highlightFill: "#5bd7f7",
+      strokeColor: "rgba(220,220,220,1)",
+      pointColor: "rgba(32, 194, 241,.9)",
+      data: []
+    }, {
+      fillColor: "rgba(253, 180, 92, .9)",
+      highlightFill: "#FFC870",
+      strokeColor: "rgba(220,220,220,1)",
+      pointColor: "rgba(253, 180, 92, .9)",
+      data: []
+    }]
+  };
+
+  var options = {
+    scaleGridLineColor: "rgba(255,255,255,.15)",
+    scaleLineColor: "rgba(255,255,255,.15)",
+    scaleFontColor: "#fff",
+    barShowStroke: true,
+    barStrokeWidth: 2,
+    barValueSpacing: 20,
+    barDatasetSpacing: 1,
+    scaleFontSize: 13,
+    scaleOverride: true,
+    // ** Required if scaleOverride is true **
+    scaleSteps: 12,
+    scaleStepWidth: 12,
+    scaleStartValue: 0,
+    // ** end **
+    scaleLabel: " <%= !Number(value) ? '' :  Number(value)%>",
+    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"> \
+                       <% for (var i=0; i<datasets.length; i++){%> \
+                         <li><span style=\"background-color:<%=datasets[i].lineColor%>\"> \
+                           </span><%if(datasets[i].label){%><%=datasets[i].label%><%}%> \
+                         </li> \
+                       <%}%> \
+                     </ul>"
+  }
+
+  function randomizeData(length) {
+  metricsData.datasets[0].data = []
+  metricsData.datasets[1].data = []
+  for (i = 0; i <= length; i++) {
+    metricsData.datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
+    metricsData.datasets[1].data.push(Math.floor(Math.random() * 10 + 15));
+  }
+}
+
+initPage()
+
+
+</script>

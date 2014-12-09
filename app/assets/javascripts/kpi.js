@@ -8,46 +8,6 @@ now = setCalendar()
 var myChart = ""
 var ctx = ""
 
-var metricsData = {
-  labels: _labels,
-  datasets: [{
-    fillColor: "rgba(32, 194, 241,.9)",
-    highlightFill: "#5bd7f7",
-    strokeColor: "rgba(220,220,220,1)",
-    pointColor: "rgba(32, 194, 241,.9)",
-    data: []
-  }, {
-    fillColor: "rgba(253, 180, 92, .9)",
-    highlightFill: "#FFC870",
-    strokeColor: "rgba(220,220,220,1)",
-    pointColor: "rgba(253, 180, 92, .9)",
-    data: []
-  }]
-};
-
-var options = {
-  scaleGridLineColor: "rgba(255,255,255,.15)",
-  scaleLineColor: "rgba(255,255,255,.15)",
-  scaleFontColor: "#fff",
-  bezierCurveTension: .3,
-  pointDotRadius: 4,
-  scaleFontSize: 13,
-  scaleOverride: true,
-  // ** Required if scaleOverride is true **
-  scaleSteps: 12,
-  scaleStepWidth: 12,
-  scaleStartValue: 0,
-  // ** end **
-  scaleLabel: " <%= !Number(value) ? '' :  Number(value)%>",
-  legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"> \
-                     <% for (var i=0; i<datasets.length; i++){%> \
-                       <li><span style=\"background-color:<%=datasets[i].lineColor%>\"> \
-                         </span><%if(datasets[i].label){%><%=datasets[i].label%><%}%> \
-                       </li> \
-                     <%}%> \
-                   </ul>"
-}
-
 function initPage(){
   displayTimeScale()
   randomizeData(6);
@@ -56,7 +16,8 @@ function initPage(){
   populateContributors();
   checkPage()
   ctx = $("#metricsChart").get(0).getContext("2d");
-  myChart = new Chart(ctx).Line(metricsData, options);
+  if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
+  if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
 }
 
 function randomizeOrders() {
@@ -71,15 +32,6 @@ function randomizeOrders() {
     });
 }
 
-function randomizeData(length) {
-  metricsData.datasets[0].data = []
-  metricsData.datasets[1].data = []
-  for (i = 0; i <= length; i++) {
-    metricsData.datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
-    metricsData.datasets[1].data.push(Math.floor(Math.random() * 10 + 15));
-  }
-}
-
 function randomAvatar(){
   gender = ["men","women"]
   return "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
@@ -92,7 +44,10 @@ function rebuildChart(scale){
   setScale()
   ctx.canvas.width = 670
   ctx.canvas.height = 330
-  myChart = new Chart(ctx).Line(metricsData, options);
+  if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
+  if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
+  if(scale === "month") options.barValueSpacing = 3;
+  if(scale === "week") options.barValueSpacing = 20;
 }
 
 function populateContributors() {
@@ -165,14 +120,14 @@ function displayTimeScale() {
 // ** JQUERY EVENTS **
 $('.back').on("click", function() {
   calendarBack()
-  timeScale = 7;
+  timeScale = 6;
   if(scale == "month") timeScale = numberOfDaysInMonth() - 1
   rebuildChart(timeScale)
 })
 
 $('.forward').on("click", function() {
   calendarForward()
-  timeScale = 7;
+  timeScale = 6;
   if(scale == "month") timeScale = numberOfDaysInMonth() - 1
   rebuildChart(timeScale)
 })
@@ -187,13 +142,13 @@ $(".return_to_team").on("click", function(e) {
 
 $(".current").on("click", function(e) {
   now = new Date()
-  rebuildChart(30)
+  rebuildChart(29)
 })
 
 $(".time_scale .month").on("click", function() {
   scale = "month"
   setCalendar()
-  rebuildChart(30)
+  rebuildChart(29)
   $(".time_scale .week").removeClass("active");
   $(this).addClass("active");
 })
@@ -277,10 +232,9 @@ function contributorEvents() {
     }, 100);
 
     options.animationSteps = 20;
-    rebuildChart(30)
+    rebuildChart(29)
     $(".graph_title").html($(this).attr('id') + "'s Conversion History")
   });
 }
 // ** END **
 
-initPage()
