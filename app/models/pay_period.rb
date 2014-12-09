@@ -39,24 +39,31 @@ class PayPeriod < ActiveRecord::Base
     payments_per_user = BonusPayment.user_bonus_totals(self)
 
     query = prepare_load_request(self, payments_per_user)
-    result = ewallet_request('ewallet_load', query)
-
-    if result[:m_Code] == '200'
-      ap result
-    else
-      puts 'Unsuccessful Load Request'
-    end
-  end
-
-  def calculable?
-    DateTime.current > start_date && disbursed_at.nil?
+    ewallet_request('ewallet_load', query)
   end
 
   def calculated?
     !calculated_at.nil?
   end
 
+  def calculating?
+    calculate_queued && !calculated?
+  end
+
+  def calculable?
+    !disbursed? && DateTime.current > start_date && !calculating?
+  end
+
+  def queue_calculate
+    touch(:calculate_queued)
+    delay.calculate!
+  end
+
   def calculate!
+    result = self.class.where(id: id)
+      .where('calculate_queued is not null')
+      .update_all(calculate_started: DateTime.current)
+    return unless result == 1
     reset_orders!
     process_orders!
     touch :calculated_at
@@ -129,15 +136,15 @@ class PayPeriod < ActiveRecord::Base
     upline_users.find { |u| u.id == user_id }
   end
 
-  def user_active?(user_id)
-    user_active_list[user_id] ||= user_qualified_active?(user_id)
+  def user_active?(user)
+    user_active_list[user.id] ||= user_qualified_active?(user)
   end
 
   def compressed_upline(user)
     upline = user.parent_ids.map do |id|
       upline_users.find { |u| u.id == id }
     end
-    upline.select { |u| user_active?(u.id) }.reverse
+    upline.select { |u| user_active?(u) }.reverse
   end
 
   private
@@ -164,15 +171,6 @@ class PayPeriod < ActiveRecord::Base
     @direct_downline_users ||= begin
       User.for_bonuses.with_parent(*all_user_ids).entries
     end
-  end
-
-  def lifetime_rank_achievements
-    @lifetime_rank_achievements ||=
-      RankAchievement.lifetime.where(user_id: all_user_ids).entries
-  end
-
-  def qualification_paths
-    @qualification_paths ||= ranks.second ? ranks.second.qualification_paths : []
   end
 
   def lifetime_personal_totals
@@ -213,7 +211,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def products
-    @products ||= Product.all.entries
+    @products ||= Product.with_bonuses.entries
   end
 
   def bonuses_for(product_id, use_rank_at)
@@ -227,13 +225,18 @@ class PayPeriod < ActiveRecord::Base
     @user_active_list ||= {}
   end
 
-  def user_qualified_active?(user_id)
-    return true if active_qualifications.empty?
-    active_qualifications.any? do |_path, qualifications|
-      qualifications.all? do |qualification|
-        totals = find_order_total!(user_id, qualification.product_id)
-        qualification.met?(totals)
-      end
+  def active_qualifiers
+    @active_qualifiers ||= Qualification.active
+  end
+
+  def user_qualified_active?(user)
+    qualifiers = (active_qualifiers[nil] || []) +
+                 (active_qualifiers[user.rank_path_id] || [])
+    return true if qualifiers.empty?
+
+    qualifiers.all? do |qualifier|
+      totals = find_order_total!(user.id, qualifier.product_id)
+      qualifier.met?(totals)
     end
   end
 

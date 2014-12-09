@@ -9,14 +9,14 @@ module Admin
     end
 
     def create
-      RankPath.create!(input)
+      precedence = all_paths.last ? all_paths.last.precedence + 1 : 1
+      RankPath.create!(input.merge(precedence: precedence))
 
       index
     end
 
     def update
       require_input :name
-
       @rank_path.update_attributes!(input)
 
       index

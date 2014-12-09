@@ -38,7 +38,7 @@ class EnrollerBonus < Bonus
   end
 
   def try_pay_parent(parent, pay_period, order)
-    return false unless pay_period.user_active?(parent.id)
+    return false unless pay_period.user_active?(parent)
     parent_rank = pay_period.find_pay_as_rank(parent)
     return false if parent_rank < min_upline_rank
 

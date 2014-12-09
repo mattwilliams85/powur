@@ -16,19 +16,4 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
 
   config.action_view.raise_on_missing_translations = true
-
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
-  config.action_mailer.default_options = {
-    from: 'EyeCueLab Local Mailer <no-reply+local@eyecuelab.com>' }
-  config.action_controller.asset_host = "http://#{config.action_mailer.default_url_options[:host]}"
-
-  config.paperclip_defaults = {
-    storage:        :s3,
-    s3_credentials: {
-      bucket:            'sunstand-dev',
-      access_key_id:     Rails.application.secrets.aws_access_key_id,
-      secret_access_key: Rails.application.secrets.aws_secret_access_key
-    }
-  }
-
 end

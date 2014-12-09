@@ -15,8 +15,8 @@ describe EyecueIpayout do
     before do
       EyecueIpayout.configure do |config|
         config.endpoint = 'https://testewallet.com/xxxxxx/ws_JsonAdapter.aspx'
-        config.merchant_password = "elS0l"
-        config.merchant_guid = "1212112121212121"
+        config.merchant_password = 'elS0l'
+        config.merchant_guid = '1212112121212121'
       end
     end
 
@@ -24,7 +24,7 @@ describe EyecueIpayout do
       config = EyecueIpayout.configuration
       expect(config.endpoint).to eq('https://testewallet.com/xxxxxx/ws_JsonAdapter.aspx')
       expect(config.merchant_password).to eq('elS0l')
-      expect(config.merchant_guid).to eq("1212112121212121")
+      expect(config.merchant_guid).to eq('1212112121212121')
     end
   end
 
@@ -51,7 +51,8 @@ describe EyecueIpayout do
     options_hash[:fn] = 'eWallet_RegisterUser'
     options_hash[:endpoint] = EyecueIpayout.configuration.endpoint
     options_hash[:MerchantGUID] = EyecueIpayout.configuration.merchant_guid
-    options_hash[:MerchantPassword] = EyecueIpayout.configuration.merchant_password
+    options_hash[:MerchantPassword] =
+      EyecueIpayout.configuration.merchant_password
     options_hash[:UserName] = email_address
     options_hash[:FirstName] = 'Glen'
     options_hash[:LastName] = 'Danzig'
@@ -78,7 +79,6 @@ describe EyecueIpayout do
     options_hash[:PreferredLanguage] = ''
     options_hash[:IsBusinessUser] = ''
     options_hash[:BusinessUserName] = ''
-    pp options_hash
     response = @client.ewallet_request(options_hash)
 
     expect(response['m_Text']).to eq('OK')
@@ -89,10 +89,10 @@ describe EyecueIpayout do
     options_hash[:fn] = 'eWallet_GetUserAccountStatus'
     options_hash[:endpoint] = EyecueIpayout.configuration.endpoint
     options_hash[:MerchantGUID] = EyecueIpayout.configuration.merchant_guid
-    options_hash[:MerchantPassword] = EyecueIpayout.configuration.merchant_password
+    options_hash[:MerchantPassword] =
+      EyecueIpayout.configuration.merchant_password
     options_hash[:UserName] = email_address
     response = @client.ewallet_request(options_hash)
-    print response
     expect(response['m_Text']).to eq('OK')
     expect(response).to include('AccStatus')
   end
@@ -102,7 +102,8 @@ describe EyecueIpayout do
     options_hash[:fn] = 'eWallet_GetCustomerDetails'
     options_hash[:endpoint] = EyecueIpayout.configuration.endpoint
     options_hash[:MerchantGUID] = EyecueIpayout.configuration.merchant_guid
-    options_hash[:MerchantPassword] = EyecueIpayout.configuration.merchant_password
+    options_hash[:MerchantPassword] =
+      EyecueIpayout.configuration.merchant_password
     options_hash[:UserName] = email_address
     response = @client.ewallet_request(options_hash)
     expect(response['m_Text']).to eq('OK')
@@ -120,19 +121,18 @@ describe EyecueIpayout do
     options_hash[:fn]               = 'eWallet_Load'
     options_hash[:endpoint]         = EyecueIpayout.configuration.endpoint
     options_hash[:MerchantGUID]     = EyecueIpayout.configuration.merchant_guid
-    options_hash[:MerchantPassword] = EyecueIpayout.configuration.merchant_password
+    options_hash[:MerchantPassword] =
+      EyecueIpayout.configuration.merchant_password
     options_hash[:PartnerBatchID]   = DateTime.now.to_s
     options_hash[:PoolID]           = ''
-    options_hash[:arrAccounts]      = [{ UserName: email_address,
-                                         Amount:   1.00,
-                                         Comments: 'Test Test Test',
-                                         MerchantReferenceID:
-                                         transaction_hex }]
+    options_hash[:arrAccounts]      = [{ UserName:            email_address,
+                                         Amount:              1.00,
+                                         Comments:            'Test Test Test',
+                                         MerchantReferenceID: transaction_hex }]
     options_hash[:AllowDuplicates]  = true
     options_hash[:AutoLoad]         = true
     options_hash[:CurrencyCode]     = 'USD'
     response = @client.ewallet_request(options_hash)
-    print response
     expect(response['m_Text']).to eq('OK')
     expect(response).to include('TransactionRefID')
   end
@@ -142,11 +142,11 @@ describe EyecueIpayout do
     options_hash[:fn] = 'eWallet_GetCurrencyBalance'
     options_hash[:endpoint] = EyecueIpayout.configuration.endpoint
     options_hash[:MerchantGUID] = EyecueIpayout.configuration.merchant_guid
-    options_hash[:MerchantPassword] = EyecueIpayout.configuration.merchant_password
+    options_hash[:MerchantPassword] =
+      EyecueIpayout.configuration.merchant_password
     options_hash[:UserName] = email_address
     options_hash[:CurrencyCode] = 'USD'
     response = @client.ewallet_request(options_hash)
-    print response
     expect(response['m_Text']).to eq('OK')
     expect(response).to include('CurrencyCode')
   end

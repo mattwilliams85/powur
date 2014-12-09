@@ -8,7 +8,7 @@ now = setCalendar()
 var myChart = ""
 var ctx = ""
 
-function initPage(){
+function initKPI(){
   displayTimeScale()
   randomizeData(6);
   setScale();

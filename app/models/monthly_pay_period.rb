@@ -7,13 +7,12 @@ class MonthlyPayPeriod < PayPeriod
     self.end_date ||= start_date.end_of_month
   end
 
-  def rank_has_path?(rank, path)
-    rank.monthly_path?(path)
+  def rank_has_path?(rank, path_id)
+    rank.monthly_path?(path_id)
   end
 
-  def active_qualifications
-    @active_qualifications ||= Qualification.active.where
-                               .not(time_period: Qualification.time_periods[:weekly]).group_by(&:path)
+  def active_qualifiers
+    @active_qualifiers ||= super.select { |q| !q.weekly? }.group_by(&:rank_path_id)
   end
 
   def bonus_available?(bonus)

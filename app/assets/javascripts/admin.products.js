@@ -74,7 +74,7 @@ jQuery(function($){
                 case "#admin-plans-init":
                     $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-plans]").position().left+28)+"px");
                     $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
-                    displayPlans("#admin-plans-ranks");
+                    displayPlans("#admin-plans-products-init");
 
                 break;
 
@@ -1055,17 +1055,14 @@ jQuery(function($){
                     _data.ranks = data;
                     _data.qualifications = {};
 
-                    _getObjectsByCriteria(_data.ranks, "val=rank").forEach(function(_r){
-                        _rank = _getObjectsByPath(_data.ranks, _r._path, -1);
+                    EyeCueLab.JSON.getObjectsByPattern(_data.ranks, {"containsIn(class)":["rank"]}).forEach(function(_rank){
                         _data.qualifications[_rank.properties.id]={};
-
-                        _getObjectsByCriteria(_rank,  "val=qualification").forEach(function(_q){
+                        EyeCueLab.JSON.getObjectsByPattern(_rank, {"containsIn(class)":["qualification"]}).forEach(function(_qualification){
                             //use path as a way to group qualifications
-                            if(typeof _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path] === "undefined"){
-                                _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path] =[];
+                            if(typeof _data.qualifications[_rank.properties.id][_qualification.properties.path] === "undefined"){
+                                _data.qualifications[_rank.properties.id][_qualification.properties.path] =[];
                             }
-                            _data.qualifications[_rank.properties.id][_getObjectsByPath(_rank, _q._path, -1).properties.path].push(_getObjectsByPath(_rank, _q._path, -1));
-                            //_data.qualifications[_rank.properties.id].push(_getObjectsByPath(_rank, _q._path, -1));
+                            _data.qualifications[_rank.properties.id][_qualification.properties.path].push(_qualification);
                         });
 
                     });

@@ -16,7 +16,6 @@ class RanksJson < JsonDecorator
   end
 
   def rank_entities(rank, qual_path)
-    return if rank.id == 1
     entities entity(qual_path,
                     'rank-qualifications',
                     rank:           rank,
@@ -34,7 +33,7 @@ class RanksJson < JsonDecorator
   def admin_item_actions(rank = @item)
     list = [ action(:update, :patch, rank_path(rank))
              .field(:title, :text, value: rank.title) ]
-    list << action(:delete, :delete, rank_path(rank)) if rank.last_rank?
+    list << action(:delete, :delete, rank_path(rank)) if rank.last?
     actions(*list)
   end
 

@@ -4,8 +4,7 @@ module Admin
     before_action :fetch_pay_period, only: [ :show, :calculate,
                                              :recalculate, :disburse ]
 
-    helper_method :can_calculate?
-    helper_method :can_disburse?
+    helper_method :can_calculate?, :can_disburse?
 
     filter :calculated, scope_opts: { type: :boolean }
     filter :disbursed, scope_opts: { type: :boolean }
@@ -37,10 +36,9 @@ module Admin
     end
 
     def calculate
-      unless can_calculate?(@pay_period)
-        error! t('errors.period_not_calculable')
-      end
-      @pay_period.calculate!
+      t(:period_not_calculable) unless can_calculate?(@pay_period)
+
+      @pay_period.queue_calculate
 
       render 'index'
     end

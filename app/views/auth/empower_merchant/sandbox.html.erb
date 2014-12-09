@@ -19,7 +19,7 @@
         var output = creditly.validate();
         if (output) {
           console.log(output);
-          var jsonBody = {"authenticity_token": output['authenticity_token'], 'amount': amount, 'number':output['number'], 'security_code': output['security_code'], 'name': output['name'], 'expiration_month': output['expiration_month'],'expiration_year': output['expiration_year'], 'product_id': product_id}
+          var jsonBody = {"authenticity_token": output['authenticity_token'], 'amount': amount, 'number':output['number'], 'security_code': output['security_cod  e'], 'name': output['name'], 'expiration_month': output['expiration_month'],'expiration_year': output['expiration_year'], 'product_id': product_id}
           $.ajax({
                 url: "http://localhost:3000/u/empower_merchant/process_card.json",
                 type: "post",
@@ -30,8 +30,8 @@
                     console.log("Success RESULT:...");
 
                     console.log(transaction);
-                    //$("#output").html("<h3>Transaction ID: </h3><span>" + transaction['transactionid'] + " || Auth Code: " + transaction['transaction_id'] + " || Message: " + transaction['responsetext'] + "</span>");
-                    $("#output").html("The Direct Post API is currently unavailable.");
+                    $("#output").html("<h3>Transaction ID: </h3><span>" + transaction['transactionid'] + "</span>");
+
                 },
                 error:function(error){
                     console.log(error);
@@ -49,7 +49,7 @@
 <style>
 
 .nmi-container {
-  width:35%;
+  width:55%;
   margin:auto;
   min-height:300px;
 }

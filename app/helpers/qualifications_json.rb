@@ -15,7 +15,8 @@ class QualificationsJson < JsonDecorator
     json.properties do
       json.type qualification.type_string
       json.call(qualification, :id, :type_display,
-                :path, :time_period, :quantity, :product_id)
+                :time_period, :quantity, :product_id)
+      json.path qualification.rank_path_id && qualification.path
       if qualification.is_a?(GroupSalesQualification)
         json.max_leg_percent qualification.max_leg_percent
       end
@@ -27,11 +28,12 @@ class QualificationsJson < JsonDecorator
     json.entities list, partial: partial_path, as: :qualification
   end
 
-  def create_action(path)
-    action(:create, :post, path)
+  def create_action(url_path, opts = {})
+    opts[:paths] ||= all_paths
+    action(:create, :post, url_path)
       .field(:rank_path_id, :select,
-             options:  Hash[all_paths.map { |p| [ p.id, p.name ] }],
-             required: true)
+             options:  Hash[opts[:paths].map { |p| [ p.id, p.name ] }],
+             required: false)
       .field(:type, :select,
              options: Qualification::TYPES, required: true, value: :sales)
       .field(:product_id, :select,
@@ -45,11 +47,17 @@ class QualificationsJson < JsonDecorator
              visibility: { control: :type, values: [ :group_sales ] })
   end
 
+  def rank_create_action(rank)
+    url_path = rank_qualifications_path(rank)
+    rank_paths = rank.first? ? all_paths.reject { |p| p.default? } : all_paths
+    create_action(url_path, paths: rank_paths)
+  end
+
   def update_action(path, qual)
     update = action(:update, :patch, path)
              .field(:rank_path_id, :select,
                     options:  Hash[all_paths.map { |p| [ p.id, p.name ] }],
-                    required: true,
+                    required: false,
                     value:    qual.rank_path_id)
              .field(:type, :select,
                     options:  Qualification::TYPES,

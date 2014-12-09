@@ -51,7 +51,7 @@ describe PayPeriod, type: :model do
 
       before :each do
         @user = create(:user)
-        path = create(:rank_path)
+        path = create(:default_rank_path)
         @qual1 = create(:sales_qualification,
                         rank_id:     2,
                         time_period: :lifetime,
@@ -98,10 +98,15 @@ describe PayPeriod, type: :model do
     end
 
     it 'creates pay period achievements' do
-      qual = create(:sales_qualification, rank_id: 2, time_period: :weekly)
+      path = create(:default_rank_path)
+      qual = create(:sales_qualification,
+                    rank_id:     2,
+                    time_period: :weekly,
+                    rank_path:   path)
       order = create(:order, product: qual.product, quantity: qual.quantity)
       totals = create(:order_total,
-                      product: qual.product, personal: order.quantity)
+                      product:  qual.product,
+                      personal: order.quantity)
 
       order.weekly_pay_period.process_rank_achievements!(order, totals)
       achievement = order.user.rank_achievements.first
@@ -110,7 +115,9 @@ describe PayPeriod, type: :model do
     end
 
     it 'creates rank achievements for group qualifications' do
+      path = create(:default_rank_path)
       qual = create(:group_sales_qualification,
+                    rank_path:       path,
                     rank_id:         2,
                     time_period:     :monthly,
                     quantity:        5,
@@ -130,10 +137,13 @@ describe PayPeriod, type: :model do
 
       pay_period = MonthlyPayPeriod.find_or_create_by_date(order_date)
       pay_period.process_orders!
-      achievement = pay_period
-                    .rank_achievements.find { |a| a.user_id == user.id }
+
+      achievement = pay_period.rank_achievements.find do |a|
+        a.user_id == user.id
+      end
       expect(achievement).to_not be_nil
     end
+
   end
 
   describe '#calculate!' do
@@ -164,7 +174,7 @@ describe PayPeriod, type: :model do
              product: product, quantity: 2, order_date: order_date - 5.minutes)
 
       pay_period = order.monthly_pay_period
-      pay_period.calculate!
+      pay_period.queue_calculate
 
       order_total = OrderTotal.where(user_id:       user.id,
                                      product_id:    product.id,

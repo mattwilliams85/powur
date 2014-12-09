@@ -22,6 +22,7 @@ module EmpowerMerchantRequestHelper
                                     user_id:        current_user.id,
                                     amount:         transaction['amount'],
                                     transaction_id: response['transactionid'].first,
+                                    auth_code:      response['authcode'].first,
                                     order_id:       response['orderid'].first)
 
     receipt
