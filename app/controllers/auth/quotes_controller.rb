@@ -32,7 +32,7 @@ module Auth
 
     def update
       @quote.customer.update_attributes!(customer_input)
-      @quote.update_attributes!(quote_input)
+      @quote.update(data: quote_input)
 
       confirm :update, entity: @quote.customer.full_name
 

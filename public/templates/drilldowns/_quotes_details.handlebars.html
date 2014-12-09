@@ -91,15 +91,16 @@
 						<label for="average_bill">Estimated Monthly Bill</label>
 						<input type="text" name="average_bill" placeholder="Estimated Monthly Bill" value="{{this.average_bill}}">
 					</span>
+
 					<span class="form_row">
-						<label for="roof_material">Roof Type</label>
-						<select id="roof_material" name="roof_material">
-							<option value="Thatch">Thatch</option>
-							<option value="Shingle">Shingle</option>
-							<option value="Ceramic">Ceramic</option>
-							<option value="Membrane Roofing">Membrane Roofing</option>
-							<option value="Metal">Metal</option>
-							<option value="Concrete or Fiber Cement" >Concrete or Fiber Cement</option>
+						<label for="roof_type">Roof Type</label>
+						<select id="roof_type" name="roof_type">
+							{{#compare "Thatch" this.roof_type}}<option value="Thatch" selected>{{else}}<option value="Thatch">{{/compare}}Thatch</option>
+							{{#compare "Shingle" this.roof_type}}<option value="Shingle" selected>{{else}}<option value="Shingle">{{/compare}}Shingle</option>
+							{{#compare "Ceramic" this.roof_type}}<option value="Ceramic" selected>{{else}}<option value="Ceramic">{{/compare}}Ceramic</option>
+							{{#compare "Membrane Roofing" this.roof_type}}<option value="Membrane Roofing" selected>{{else}}<option value="Membrane Roofing">{{/compare}}Membrane Roofing</option>
+							{{#compare "Metal" this.roof_type}}<option value="Metal" selected>{{else}}<option value="Metal">{{/compare}}Metal</option>
+							{{#compare "Concrete or Fiber Cement" this.roof_type}}<option value="Concrete or Fiber Cement" selected>{{else}}<option value="Concrete or Fiber Cement">{{/compare}}Concrete or Fiber Cement</option>
 						</select>						
 					</span>
 					<span style="clear:both;padding:4px; display:block;"></span>
@@ -107,11 +108,11 @@
 					<span class="form_row">
 						<label for="roof_age">Roof Age</label>
 						<select id="roof_age" name="roof_age" placeholder="Roof Age" >
-							<option value="0~5">New</option>
-							<option value="5~10">5 to 10 Years</option>
-							<option value="10~20">10 to 20 Years</option>
-							<option value="20~30">20 to 30 Years</option>
-							<option value="30+">More than 30 Years</option>
+							{{#compare "0~5" this.roof_age}}<option value="0~5" selected>{{else}}<option value="0~5">{{/compare}}New</option>
+							{{#compare "5~10" this.roof_age}}<option value="5~10" selected>{{else}}<option value="5~10">{{/compare}}5 to 10 Years</option>
+							{{#compare "10~20" this.roof_age}}<option value="10~20" selected>{{else}}<option value="10~20">{{/compare}}10 to 20 Years</option>
+							{{#compare "20~30" this.roof_age}}<option value="20~30" selected>{{else}}<option value="20~30">{{/compare}}20 to 30 Years</option>
+							{{#compare "30+" this.roof_age}}<option value="30+" selected>{{else}}<option value="30+">{{/compare}}More than 30 Years</option>
 						</select>	
 					</span>
 					<span style="clear:both;padding:4px; display:block;"></span>
@@ -122,8 +123,11 @@
 					</span>
 
 					<span class="form_row">
-						<label for="estimated_credit">Estimated Credit Score</label>
-						<input type="text" name="estimated_credit" placeholder="Home Square Footage" value="{{this.estimated_credit}}">
+						<label for="credit_score_qualified">Estimated Credit Score</label>
+						<select id="credit_score_qualified" name="credit_score_qualified" placeholder="Credit Score">
+							{{#compare true this.credit_score_qualified}}<option value="true" selected>{{else}}<option value="true">{{/compare}}Above 600</option>
+							{{#compare false this.credit_score_qualified}}<option value="false" selected>{{else}}<option value="false">{{/compare}}Below 600</option>
+						</select>
 					</span>
 
 				</fieldset>

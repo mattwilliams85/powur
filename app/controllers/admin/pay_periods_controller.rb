@@ -84,9 +84,8 @@ module Admin
     end
 
     def can_disburse?(period)
-      unless period.disbursable?
-        return false
-      end
+      return false unless period.disbursable?
+
       @disbursable_pay_periods ||= begin
         periods = %w(WeeklyPayPeriod MonthlyPayPeriod).map do |type|
           list = @pay_periods.select do |pp|
