@@ -22,7 +22,7 @@ jQuery(function($){
             for(i=0; i<_data.loadCategories.length;i++){
                 console.log("complete: global data... "+_data.loadCategories[i]);
             }
-            _dashboard.displayQuotes("#admin-quotes-init");
+            _dashboard.displayQuotes("#admin-quotes-pay-periods-init");
         }
     }
     _data.load();
