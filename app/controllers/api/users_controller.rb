@@ -13,7 +13,7 @@ module Api
     end
 
     def downline
-      @self_path = downline_api_user_path(@user)
+      @self_path = downline_api_user_path(v: params[:v], id: @user)
       index
     end
 

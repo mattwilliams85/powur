@@ -17,4 +17,17 @@ describe '/api/users', type: :request do
     end
 
   end
+
+  describe 'GET /:id/downline' do
+
+    it 'returns the immediate downline of a user in the downline' do
+      user = create(:user, sponsor: @user)
+      create_list(:user, 2, sponsor: user)
+
+      get downline_api_user_path(id: user), token_param
+
+      expect_entities_count(2)
+    end
+
+  end
 end

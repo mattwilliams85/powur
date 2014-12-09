@@ -227,6 +227,5 @@ Rails.application.routes.draw do
 
   resource :promoter, only: [ :new, :show ]
 
-
   root 'index#index'
 end
