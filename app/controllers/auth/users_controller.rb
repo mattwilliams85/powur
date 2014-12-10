@@ -1,6 +1,6 @@
 module Auth
   class UsersController < AuthController
-    before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
+    before_action :fetch_user, only: [ :show, :downline, :upline, :update ]
 
     sort user: 'users.last_name asc, users.first_name asc'
     filter :performance,
@@ -14,24 +14,28 @@ module Auth
                                    heading: :for_period } },
            scope_opts: { type: :hash, using: [ :metric, :period ] }
 
-    def index(query = list_criteria)
-      @users = apply_list_query_options(query)
+    def index
+      @users = apply_list_query_options(list_query)
 
       render 'index'
     end
 
     def downline
-      index(User.with_parent(@user.id))
+      @list_query = User.with_parent(@user.id)
+
+      index
     end
 
     def upline
-      @users = @user.upline_users
+      @list_query = @user.upline_users
 
-      render 'index'
+      index
     end
 
     def search
-      index(list_criteria.search(params[:search]))
+      @list_query = list_query.search(params[:search])
+
+      index
     end
 
     def show
@@ -39,8 +43,8 @@ module Auth
 
     private
 
-    def list_criteria
-      User.with_parent(current_user.id)
+    def list_query
+      @list_query ||= User.with_parent(current_user.id)
     end
 
     def fetch_user

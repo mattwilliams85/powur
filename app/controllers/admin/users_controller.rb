@@ -33,16 +33,8 @@ module Admin
     end
 
     def update
-      input = allow_input(
-        :first_name,
-        :last_name,
-        :email,
-        :phone,
-        :address,
-        :city,
-        :state,
-        :zip,
-        :organic_rank)
+      input = allow_input(:first_name, :last_name, :email, :phone,
+                          :address, :city, :state, :zip)
 
       @user.update_attributes!(input)
 

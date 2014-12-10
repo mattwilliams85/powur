@@ -22,9 +22,6 @@ describe '/api/users', type: :request do
 
       get api_users_path, token_param
 
-      expect_entities_count(4)
-      first_user = json_body['entities'].first
-      expect(first_user['properties']['id']).to eq(@user.id)
       expect_children(children)
     end
 
@@ -38,7 +35,6 @@ describe '/api/users', type: :request do
 
       get downline_api_user_path(id: user), token_param
 
-      expect_entities_count(2)
       expect(children)
     end
 

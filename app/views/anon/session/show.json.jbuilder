@@ -30,7 +30,10 @@ entities(*entity_list)
 
 actions action(:logout, :delete, login_path)
 
-link_list = [ link(:self, root_path), link(:index, dashboard_path) ]
+link_list = [ 
+  link(:self, root_path),
+  link(:index, dashboard_path),
+  link(:profile, profile_path) ]
 link_list << link(:admin, admin_root_path) if current_user.role?(:admin)
 
 links(*link_list)

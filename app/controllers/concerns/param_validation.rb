@@ -30,9 +30,10 @@ module ParamValidation
     end
   end
 
-  def error!(msg, field = nil)
-    msg = t("errors.#{msg}") if msg.is_a?(Symbol)
-    if field
+  def error!(msg, field = nil, opts = {})
+    opts = field if field.is_a?(Hash)
+    msg = t("errors.#{msg}", opts) if msg.is_a?(Symbol)
+    if field && field.is_a?(Symbol)
       fail ::Errors::InputError.new(field), msg
     else
       fail ::Errors::AlertError, msg

@@ -2,6 +2,6 @@ siren json
 
 users_json.list_init
 
-actions index_action(users_path, true)
+actions index_action(request.path, true)
 
-self_link users_path, link(:self, profile_path)
+self_link request.path
