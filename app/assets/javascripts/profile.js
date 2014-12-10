@@ -22,7 +22,7 @@ function initPage(){
     _getRoot(function(){
         $(".js-user_first_name").text(_data.root.properties.first_name );
         _myID = _data.root.properties.id;
-        if(_data.currentUser.thumb_image_url) $("#js-user_profile_image").attr("src", _data.currentUser.thumb_image_url);
+        if(_data.currentUser.avatar) $("#js-user_profile_image").attr("src", _data.currentUser.avatar.thumb);
     });
 
     $("#submit-photo").on("click", function(e){
