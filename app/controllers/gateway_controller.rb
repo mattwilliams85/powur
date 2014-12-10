@@ -1,4 +1,4 @@
-class GatewayController < ApplicationController
+class GatewayController < WebController
   protected
 
   def error!(error, msg)

@@ -1,4 +1,4 @@
-class ApiController < ActionController::Base
+class ApiController < ApplicationController
   include ListQuery
   include SirenDSL
   helper SirenJson
@@ -7,8 +7,6 @@ class ApiController < ActionController::Base
 
   rescue_from Exception, with: :server_error
   rescue_from Errors::ApiError, with: :error_response
-
-  helper_method :current_user
 
   protected
 
@@ -21,12 +19,6 @@ class ApiController < ActionController::Base
     return params.permit(*args) if missing.empty?
     msg = "missing the following required params: \"#{missing.join(', ')}\""
     error!(:invalid_request, msg)
-  end
-
-  def fetch_downline_user(user_id)
-    return current_user if user_id == current_user.id
-    User.with_ancestor(current_user.id).where(id: user_id.to_i).first ||
-      not_found!(:user, user_id)
   end
 
   private

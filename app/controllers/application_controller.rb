@@ -1,40 +1,20 @@
 class ApplicationController < ActionController::Base
-  include ParamValidation
   include SirenDSL
   include ListQuery
-  include UserEvents
   helper SirenJson
 
-  protect_from_forgery with: :exception
   helper_method :current_user, :all_ranks, :all_paths, :all_products
 
-  def redirect_to(*args)
-    respond_to do |format|
-      format.json do
-        render json: { redirect: args.first }, status: :ok
-      end
-      format.all { super }
-    end
-  end
+  protected
 
   def current_user
-    @current_user ||= session[:user_id] &&
-                      User.find_by(id: session[:user_id].to_i)
-  end
-
-  def logged_in?
-    !current_user.nil?
-  end
-
-  def login_user(user)
-    reset_session
-    session[:user_id] = user.id
-    @current_user = user
-    track_login_event(user)
+    fail NotImplementedError
   end
 
   def all_ranks
-    @all_ranks ||= Rank.all.includes(:qualifications).references(:qualifications)
+    @all_ranks ||= Rank.all
+                   .includes(:qualifications)
+                   .references(:qualifications)
   end
 
   def all_paths
@@ -43,5 +23,11 @@ class ApplicationController < ActionController::Base
 
   def all_products
     @all_products ||= Product.all.order(:name)
+  end
+
+  def fetch_downline_user(user_id)
+    return current_user if user_id == current_user.id
+    User.with_ancestor(current_user.id).where(id: user_id.to_i).first ||
+      not_found!(:user, user_id)
   end
 end
