@@ -130,20 +130,6 @@ class User < ActiveRecord::Base
     pay_period_rank || organic_rank
   end
 
-  def avatar_url(image_size = :thumb)
-    return nil if avatar_file_name.nil?
-
-    bucket = Rails.application.secrets.aws_bucket
-    base_url = "https://s3.amazonaws.com/#{bucket}/avatars"
-    filename, extension = avatar_file_name.split('.')
-
-    "#{base_url}/#{id}/#{filename}_#{image_size}.#{extension}"
-  end
-
-  def avatar?
-    !avatar_file_name.nil?
-  end
-
   private
 
   def set_upline
