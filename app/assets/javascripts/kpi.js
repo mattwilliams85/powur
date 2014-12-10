@@ -53,14 +53,17 @@ function rebuildChart(){
 
 function populateContributors() {
   switch(kpiType){
-    case "quotes":
-      _template = "/templates/_kpi_quote_team_thumbnail.handlebars.html"
+    case "conversion":
+      _template = "/templates/_kpi_conversion_team_thumbnail.handlebars.html"
       break;
     case "genealogy":
       _template = "/templates/_kpi_genealogy_team_thumbnail.handlebars.html"
       break;
     case "earnings":
       _template = "/templates/_kpi_total_earnings_team_thumbnail.handlebars.html"
+    break;
+    case "hot_quotes":
+      _template = "/templates/_kpi_hot_quotes_team_thumbnail.handlebars.html"
     break;
   }
   if(_data.team.entities) {
@@ -253,7 +256,7 @@ function contributorEvents() {
 
     options.animationSteps = 20;
     rebuildChart()
-    if(kpiType === "quotes") $(".graph_title").html($(this).attr('id') + "'s Conversion History")
+    if(kpiType === "conversion") $(".graph_title").html($(this).attr('id') + "'s Conversion History")
     if(kpiType === "genealogy") $(".graph_title").html($(this).attr('id') + "'s Growth History")
     if(kpiType === "earnings") $(".graph_title").html($(this).attr('id') + "'s Earnings History")
   });

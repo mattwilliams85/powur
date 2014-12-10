@@ -907,3 +907,10 @@ Date.prototype.getWeekYear = function ()
 
     return target.getFullYear();
 }
+
+(function ( $ ) {
+  $.fn.progress = function() {
+    var percent = this.data("percent");
+    this.css("width", percent+"%");
+  };
+}( jQuery ));

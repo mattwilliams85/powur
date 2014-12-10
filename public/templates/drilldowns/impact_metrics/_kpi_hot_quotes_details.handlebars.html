@@ -1,0 +1,326 @@
+<div class="arrow"></div>
+<div class="drilldown_content">
+  <div id="kpi_environment_detail" class="object_detail">
+
+    <div class="object_detail_content">
+      <div class="object_detail_user_summary">
+        <div class="swap-text-box">
+        <span class="progress_description">MEMBERS WITH HOT QUOTES</span>
+        <a class="return_to_team" style=""><i class="fa fa-bar-chart chart-icon"></i>  Return To Team Graph</a>
+        </div>
+        <div >
+          </div>
+          <div class="contributors" style="height:455px"></div>
+        </div>
+        <div class="scroll-arrows">
+          <i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i>
+        </div>
+      </div>
+
+      <div class="object_detail_content_section" style="width:580px;margin-left:15px;">
+        <span class="graph_title">Rankings</span>
+        <br>
+        <div class="rank-columns">
+          <div class="rank-column">
+            <span>Current Rank</span>
+            <br>
+            <img class="badge" src="/assets/badges/badge_01.png">
+          </div>
+          <div class="rank-column" style="padding-right:35px">
+            <span style="margin-left:5px">Next Rank</span>
+            <br>
+            <img class="badge" src="/assets/badges/badge_02.png">
+          </div>
+          <div class="rank-column">
+            <span>Highest Rank Achieved</span>
+            <br>
+            <img class="badge" src="/assets/badges/badge_03.png" style="margin:0 32.5px;">
+          </div>
+        </div><!-- end rank-columns -->
+        <span id="qualification-header">Qualifications</span>
+        <br>
+        <div class="bar-one bar-con">
+          <div class="inner-bar" data-percent="30">
+            <div class="bar" data-percent="70"></div>
+          </div>
+        </div>
+        <div class="bar-two bar-con">
+          <div class="bar" data-percent="50"></div>
+        </div>
+  
+      </div> <!-- end object_detail_content_section -->
+      <div  style="padding-top:35px;">
+        <h3>Your Hot Quotes</h3>
+        <br>
+        <div class="hot-quote-box">
+          <a class="quote-name">John Smith</a>
+          <br>
+          <span class="quote-detail">Phone: 206-555-4890</span>
+          <br>
+          <span class="quote-detail">Email: fake123@yahoo.com</span>
+        </div>
+        <div class="hot-quote-box">
+          <a class="quote-name">Sally Jane</a>
+          <br>
+          <span class="quote-detail">Phone: 360-555-4791</span>
+          <br>
+          <span class="quote-detail">Email: false259@aol.com</span>
+        </div>
+        <div class="hot-quote-box">
+          <a class="quote-name">Pete Williams</a>
+          <br>
+          <span class="quote-detail">Phone: 480-555-4433</span>
+          <br>
+          <span class="quote-detail">Email: negative34@gmail.com</span>
+        </div>
+        <div class="hot-quote-arrows">
+          <i class="fa fa-caret-up" style="font-size:1.5em"></i>
+          <i class="fa fa-caret-down" style="font-size:1.5em"></i>
+        </div>
+      </div> <!-- end team_statistics_box -->
+    </div> <!-- end object_detail_content -->
+  </div> <!-- end object_detail -->
+</div> <!-- end drilldown_content -->
+
+<style>
+    .rank-columns {
+      display:inline-block;
+    }
+
+    .rank-column {
+      float:left;
+      padding:50px 60px 20px 0;
+      font-size:0.8em;
+    }
+
+    .badge {
+      height:auto;
+      width:75px;
+      background-color:rgba(0,0,0,0);
+    }
+
+    .bar-con{
+      background-color:#ccc;
+      height:0.8em;
+      margin-bottom:2.5em;
+      width:85%;
+    }
+    .bar{
+      float:left;
+      height:100%;
+      width:0%;
+    }
+
+    .bar-one .bar {
+      background-color:rgb(32, 194, 241); 
+      transition: width 0.5s linear;
+       -webkit-transition: width 0.5s linear;
+      -moz-transition: width 0.5s linear;
+      -o-transition: width 0.5s linear;
+    }
+
+    .bar-one .inner-bar {
+      display:inline;
+      float:left;
+      height:100%;
+      width:0%;
+      background-color:rgb(2, 164, 211); 
+      transition: width 0.5s linear;
+    }
+
+    .bar-two .bar{
+      background-color:rgb(253, 180, 92);
+      transition: width 0.5s linear;
+    }
+    .bar-three .bar{
+      background-color:#FF9900;
+      .transition(@time:4s, @animation:cubic-bezier(.72,.45,.9,.12));
+    }
+    #qualification-header {
+      display:block;
+    }
+
+    .quote-name {
+      font-size:0.95em;
+    }
+
+    .quote-detail {
+      font-size:0.85em;
+    }
+
+    .hot-quote-box {
+      padding-top:15px;
+      font-size:0.95em;
+    }
+
+    .hot-quote-arrows {
+      padding:15px 0 0 0;
+    }
+
+    .hot-quote-arrows .fa-caret-up {
+      padding:40px 45px 0 45px;
+    }
+
+</style>
+
+<script type="text/javascript">
+
+var position = 0;
+var page = 1;
+
+function initKPI(){
+  randomizeOrders();
+  populateContributors();
+  checkPage()
+}
+
+function randomizeOrders() {
+  if(_data.team.entities){
+    _data.team.entities.forEach(function(member) {
+      member.properties.orders = Math.floor(Math.random() * 30 + 10)
+    });
+    _data.team.entities.forEach(function(member) {
+      member.properties.quotes = Math.floor(Math.random() * 30 + 5)
+    });
+    _data.team.entities.forEach(function(member) {
+        member.properties.avatar = randomAvatar()
+    });
+  }
+}
+
+function randomAvatar(){
+  gender = ["men","women"]
+  return "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
+}
+
+function populateContributors() {
+  switch(kpiType){
+    case "conversion":
+      _template = "/templates/_kpi_conversion_team_thumbnail.handlebars.html"
+      break;
+    case "genealogy":
+      _template = "/templates/_kpi_genealogy_team_thumbnail.handlebars.html"
+      break;
+    case "earnings":
+      _template = "/templates/_kpi_total_earnings_team_thumbnail.handlebars.html"
+    break;
+    case "hot_quotes":
+      _template = "/templates/_kpi_hot_quotes_team_thumbnail.handlebars.html"
+    break;
+  }
+  if(_data.team.entities) {
+    var _contributors = $(".contributors");
+
+    top_ten = _data.team.entities.slice(0, 9)
+
+    top_ten.forEach(function(member) {
+      _ajax({
+        _ajaxType: "get",
+        _url: "/u/users/" + member.properties.id + "/downline",
+        _callback: function(data, text) {
+          member.properties.downline_count = data.entities.length;
+            EyeCueLab.UX.getTemplate(_template, member, undefined, function(html) {
+            if ($('.contributor').length == top_ten.length) contributorEvents();
+            _contributors.append(html);
+          });
+        }
+      });
+    });
+  } else {
+    contributorEvents();
+  }
+}
+
+// ** PAGINATION FOR USERS **
+$('.fa-caret-down').on("click", function(e) {
+  if ($(this).hasClass("active")) {
+      page += 1;
+      position -= 457;
+      animateContributors()
+    };
+});
+
+$('.fa-caret-up').on("click", function(e) {
+  if ($('.fa-caret-up').hasClass("active")) {
+    page -= 1;
+    position += 457;
+    animateContributors()
+  };
+});
+
+function animateContributors(){
+  checkPage();
+  $('.contributor').each(function() {
+    $(this).velocity({
+    }, 100);
+  })
+  $('.contributor').each(function() {
+    $(this).velocity({
+      translateY: position + "px"
+    });
+  })
+}
+
+function checkPage() {
+  if (_data.team.entities) {
+  page_total = _data.team.entities.length
+  if (page === 1) {
+    $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
+    if(page_total >= 5){
+      $('.fa-caret-down').css("opacity", "1").addClass("active");
+    }
+  } else {
+    $('.fa-caret-up').css("opacity", "1").addClass("active");
+  }
+  if (page >= (page_total / 6) - 1) {
+    $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
+  }
+  } else {
+    $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
+    $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
+  }
+}
+// ** END **
+
+// Runs after ajax returns 10 users
+function contributorEvents() {
+  $(".bar-one .inner-bar").progress();
+  setInterval(function () {
+    $(".bar-one .bar").progress();
+  }, 500);
+  $(".bar-two .bar").progress();
+
+  $(".contributor")
+    .show()
+    .velocity("transition.slideUpBigIn", {
+      stagger: 200,
+      duration: 600
+    })
+  $(".contributor, .user-contributor").on("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $(".return_to_team").fadeIn();
+    _index = $(this).find(".avatar").attr("id").replace("avatar", "") - 1;
+    $(".progress_description").hide();
+    $('.contributor, .user-contributor').each(function() {
+      $(this).velocity({
+        backgroundColor: "#545454"
+      }, 100);
+    })
+    $(this).velocity({
+      backgroundColor: "#333"
+    }, 100);
+
+    options.animationSteps = 20;
+    rebuildChart()
+    if(kpiType === "conversion") $(".graph_title").html($(this).attr('id') + "'s Conversion History")
+    if(kpiType === "genealogy") $(".graph_title").html($(this).attr('id') + "'s Growth History")
+    if(kpiType === "earnings") $(".graph_title").html($(this).attr('id') + "'s Earnings History")
+  });
+}
+// ** END **
+
+initKPI()
+
+</script>
+

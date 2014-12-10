@@ -74,10 +74,10 @@ function Dashboard(){
 					label:"CO2 Tons Saved"
 				}
 			},
-			quotes:{
+			conversion:{
 				tab:{
 					value:78,
-					label:"Quotes"
+					label:"Orders"
 				}
 			},
 			earnings:{
@@ -91,7 +91,13 @@ function Dashboard(){
 					value:327,
 					label:"In Your Genealogy"
 				}
-			}
+			},
+			hot_quotes:{
+				tab:{
+					value:11,
+					label:"Hot Quotes"
+				}
+			},
 
 		}
 
@@ -754,10 +760,9 @@ function Dashboard(){
 				switch(kpiType){
 					case "environment":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
-
 					break;
-					case "quotes":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_quotes_details.handlebars.html";
+					case "conversion":
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_conversion_details.handlebars.html";
 					break;
 					case "genealogy":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_genealogy_details.handlebars.html";
@@ -765,15 +770,15 @@ function Dashboard(){
 					case "earnings":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
 					break;
-					case "type5":
-						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+					case "hot_quotes":
+						_templatePath="/templates/drilldowns/impact_metrics/_kpi_hot_quotes_details.handlebars.html";
 					break;
 				}
 				if(_data.currentUser.thumb_image_url === "") _data.currentUser.thumb_image_url = "http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578"
 				_getTemplate(_templatePath, _data, _drilldownContainerObj, function(){
 				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-				 	if(kpiType !== "environment") initKPI();
+				 	if((kpiType !== "environment") && (kpiType !== "hot_quotes")) initKPI()
 				});
 
 			break;
