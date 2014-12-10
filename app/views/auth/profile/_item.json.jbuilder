@@ -5,9 +5,12 @@ json.rel [ :item ] unless local_assigns[:detail]
 json.properties do
   json.call(@user, :first_name, :last_name, :email,
             :phone, :address, :city, :state, :zip, :provider,
-            :monthly_bill, :bio, :twitter_url, :linkedin_url,
-            :large_image_url, :medium_image_url, :thumb_image_url)
-
+            :monthly_bill, :bio, :twitter_url, :linkedin_url)
+  json.avatar do
+    [ :thumb, :medium, :large ].each do |key|
+      json.set! key, user.avatar_url(key)
+    end
+  end if @user.avatar?
 end
 
 # entities entity('auth/users/item', ' profile-user', user: user)
