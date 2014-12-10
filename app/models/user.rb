@@ -137,7 +137,7 @@ class User < ActiveRecord::Base
     base_url = "https://s3.amazonaws.com/#{bucket}/avatars"
     filename, extension = avatar_file_name.split('.')
 
-    "#{base_url}#{id}/#{filename}_#{image_size}.#{extension}"
+    "#{base_url}/#{id}/#{filename}_#{image_size}.#{extension}"
   end
 
   def avatar?
