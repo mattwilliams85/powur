@@ -16,7 +16,7 @@
 					<!--<h4>File Name:<%= @user.avatar_file_name %></h4>-->
 
 						<% if @user.avatar_file_name %>
-							<img src="<%= @user.image_url %>" id="user_profile">
+							<img src="<%= @user.avatar_url %>" id="user_profile">
 						<%else%>
 							<img src="/temp_dev_images/Tim.jpg" id="user_profile">
 						<% end %>
