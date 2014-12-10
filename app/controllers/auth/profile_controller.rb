@@ -8,25 +8,19 @@ module Auth
       @user = current_user
       @profile = @user.profile
       @ewallet_details = get_ewallet_customer_details(@user)
-
       @auto_login_url = build_auto_login_url(@user)
-
-      respond_to do |format|
-        format.html
-        format.json do
-          @user = current_user
-          @profile = @user.profile
-        end
-      end
     end
 
     def update
       @user.update_attributes(user_params)
+
+      render 'show'
     end
 
     def update_avatar
       @user.avatar = params[:user][:avatar]
       @user.save
+
       redirect_to profile_path
     end
 
@@ -46,9 +40,7 @@ module Auth
 
       confirm :update_password
 
-      # respond_to do |format|
-      #   format.js
-      # end
+      render 'show'
     end
 
     private
