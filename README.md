@@ -262,3 +262,31 @@ When making a request for an API resource, if the access_token is invalid for so
 }
 ```
 The user should be logged out of the application in this case and the token data should be deleted.
+
+#### Api Workflow in CURL
+
+
+api root
+```bash
+curl -u "ios.sunstand.com:ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e56ae7ecd4bd2915d56720871907e33b191db11a0d4603c33892a" -X POST -d "grant_type=password&username=jon@sunstand.com&password=solarpower" "http://sunstand-staging.eyecuelab.com/api/v1/token"
+```
+response: https://gist.github.com/paulwalker/bf0ff2c05b50a0bcc97f
+
+token
+```bash
+curl -u "ios.sunstand.com:ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e56ae7ecd4bd2915d56720871907e33b191db11a0d4603c33892a" -X POST -d "grant_type=password&username=jon@sunstand.com&password=solarpower" "http://sunstand-staging.eyecuelab.com/api/v1/token"
+```
+response: https://gist.github.com/paulwalker/5898adbd4a0d5978c375
+
+take the access_token from the response you get and use as the parameter in subsequent requests
+
+session
+```bash
+curl "http://sunstand-staging.eyecuelab.com/api/v1/session?access_token=accd89aa0a2b2b55789df28f98ba82b63a1dab38188db488cb45853d73a144289c5f7e14feadf5f580c4b685b921fc2f5caecbe14a82ecc38b27342bd32f4796"
+```
+response: https://gist.github.com/paulwalker/302bd4cfe9d76a5bce8a
+
+users
+```bash
+curl "http://sunstand-staging.eyecuelab.com/api/v1/users?access_token=accd89aa0a2b2b55789df28f98ba82b63a1dab38188db488cb45853d73a144289c5f7e14feadf5f580c4b685b921fc2f5caecbe14a82ecc38b27342bd32f4796"
+```
