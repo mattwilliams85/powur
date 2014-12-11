@@ -26,7 +26,7 @@ describe '/api/session', type: :request do
     end
 
     it 'returns the session with a valid bearer token parameter' do
-      get api_session_path, token_param
+      get api_session_path(v: 1), token_param
 
       expect_classes 'session'
     end
