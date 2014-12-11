@@ -221,7 +221,7 @@ function checkPage() {
   } else {
     $('.fa-caret-up').css("opacity", "1").addClass("active");
   }
-  if (page >= (page_total / 4) - 1) {
+  if (page >= (Math.ceil(page_total / 4))) {
     $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
   }
   } else {
@@ -263,3 +263,26 @@ function contributorEvents() {
 }
 // ** END **
 
+//Returns week number from formated Date
+Date.prototype.getWeek = function(){
+    var d = new Date(+this);
+    d.setHours(0,0,0);
+    d.setDate(d.getDate()+4-(d.getDay()||7));
+    return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+};
+
+//Add # of days to current date
+Date.prototype.addDays = function(days)
+{
+    var d = new Date(this.valueOf());
+    d.setDate(d.getDate() + days);
+    return d;
+}
+
+Date.prototype.getWeekYear = function ()
+{
+    var target  = new Date(this.valueOf());
+    target.setDate(target.getDate() - ((this.getDay() + 6) % 7) + 3);
+
+    return target.getFullYear();
+}
