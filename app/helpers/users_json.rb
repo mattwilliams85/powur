@@ -36,7 +36,7 @@ class UsersJson < JsonDecorator
     json.properties do
       json.call(user, :address, :city, :state, :zip, :avatar, :avatar_file_name)
       rank = all_ranks.find { |p| p.id == user.organic_rank }
-      json.orgnanic_rank rank.title
+      json.organic_rank rank.title
       rank = all_ranks.find { |p| p.id == user.lifetime_rank }
       json.lifetime_rank rank.title
       if user.rank_path_id
