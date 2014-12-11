@@ -47,7 +47,7 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def calculating?
-    calculate_queued && !calculated?
+    !calculate_started.nil? && !calculated?
   end
 
   def calculable?
@@ -56,13 +56,16 @@ class PayPeriod < ActiveRecord::Base
 
   def queue_calculate
     touch(:calculate_queued)
+    update_attribute(:calculate_started, nil)
     delay.calculate!
   end
 
   def calculate!
     result = self.class.where(id: id)
       .where('calculate_queued is not null')
-      .update_all(calculate_started: DateTime.current)
+      .update_all(calculate_started: DateTime.current,
+                  calculate_queued:  nil,
+                  calculated_at:     nil)
     return unless result == 1
     reset_orders!
     process_orders!

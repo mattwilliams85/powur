@@ -198,9 +198,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     # backwards compat. example
-    namespace :v1 do
-      resource :session, only: [ :show ]
-    end
+    # namespace :v1 do
+    #   resource :session, only: [ :show ]
+    # end
 
     root to: 'root#show'
 
