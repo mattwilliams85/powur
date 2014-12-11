@@ -1,11 +1,11 @@
 module EwalletDSL
   extend ActiveSupport::Concern
-  require 'eyecue_ipayout'
+  require 'ipayout'
   include EwalletRequestHelper
   attr_accessor :client
 
   def ewallet_request(service_name, query)
-    client = EyecueIpayout.new
+    client = Ipayout.new
     service = client.get_service(service_name)
     populated_params = assign_param_values(query['options_hash'],
                                            service.parameters)

@@ -18,15 +18,17 @@ GIT
   specs:
     same_time (0.0.1)
 
-PATH
-  remote: ./vendor/eyecue_ipayout
+GIT
+  remote: https://github.com/eyecuelab/ipayout.git
+  revision: f82c6f106ced05111912cbcd8b9a4cfebc80c195
   specs:
-    eyecue_ipayout (0.0.1)
+    ipayout (0.0.1)
       extlib
       faraday
       faraday_middleware
       hashie
       multi_json
+      pry-rails
 
 GEM
   remote: https://rubygems.org/
@@ -324,7 +326,6 @@ DEPENDENCIES
   database_cleaner
   db-query-matchers
   delayed_job_active_record
-  eyecue_ipayout!
   factory_girl_rails
   faker
   faraday
@@ -334,6 +335,7 @@ DEPENDENCIES
   gibbon
   has_scope
   httparty
+  ipayout!
   jbuilder
   jquery-rails
   jquery-turbolinks
