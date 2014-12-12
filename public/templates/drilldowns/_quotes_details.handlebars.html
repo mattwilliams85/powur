@@ -43,10 +43,24 @@
               <legend><i class="fa fa-envelope"></i> Contact Info</legend>
 							{{#each this._customerFields}}
 								{{#compare this.type "text"}} <!-- if the type is text -->
-									<span class="form_row">
+									{{#compare this.name "first_name"}} <!-- it's the first name field, make it a half column -->
+									<span class="form_row half">
 										<label for="{{this.name}}">{{sanitize this.name}}</label>
 										<input type="{{this.type}}" name="{{this.name}}" value="{{this.value}}"></input>
-									</span>	
+									</span>
+									{{else}} <!-- it's the last name field, also make it a half column --> 
+										{{#compare this.name "last_name"}}
+										<span class="form_row half">
+											<label for="{{this.name}}">{{sanitize this.name}}</label>
+											<input type="{{this.type}}" name="{{this.name}}" value="{{this.value}}"></input>
+										</span>
+										{{else}}  <!-- neither first nor last name, make it full-width -->
+											<span class="form_row">
+												<label for="{{this.name}}">{{sanitize this.name}}</label>
+												<input type="{{this.type}}" name="{{this.name}}" value="{{this.value}}"></input>
+											</span>		
+										{{/compare}}
+									{{/compare}}
 								{{/compare}}
 								{{#compare this.type "email"}} <!-- if the type is email -->
 								<span class="form_row">
@@ -65,7 +79,11 @@
 									<label for="{{this.name}}">{{sanitize this.name}}</label>
 									<select id="{{this.name}}" name="{{this.name}}">
 									{{#each this.options}}
-									<option name="{{this.display}}" value="{{this.display}}">{{this.display}}</option>
+										{{#compare ../../value this.display}}
+											<option name="{{this.display}}" value="{{this.display}}" selected>{{this.display}}</option>
+										{{else}}
+											<option name="{{this.display}}" value="{{this.display}}">{{this.display}}</option>
+										{{/compare}}
 									{{/each}}
 									</select>
 									</span>
@@ -112,7 +130,11 @@
               		<label for="{{this.name}}">{{sanitize this.name}}</label>
               		<select id="{{this.name}}" name="{{this.name}}">
               		{{#each this.options}}
-              		<option name="{{this.display}}" value="{{this.display}}">{{this.display}}</option>
+              			{{#compare ../../value this.display}}
+              				<option name="{{this.display}}" value="{{this.display}}" selected>{{this.display}}</option>
+              			{{else}}
+              				<option name="{{this.display}}" value="{{this.display}}">{{this.display}}</option>
+              			{{/compare}}
               		{{/each}}
               		</select>
               		</span>
@@ -211,3 +233,15 @@
 	-->
     </div>
 </div>
+
+<style>
+.form_row{
+	height:69px !important;
+}
+
+form select {
+	margin-bottom: 8px;
+	height:61px;
+}
+
+</style>
