@@ -546,7 +546,22 @@ function Dashboard(){
 					_url:"/u/quotes/"+_options._userID, 
 					_callback:function(data, text){
 						var _updateAction={};
-						var _userDetail = data.properties;
+						var _userDetail = data;
+						
+						_userDetail._allFields = _getObjectsByCriteria(data, "val=update")[0].fields;
+						
+						_userDetail._quoteFields = [];
+						_userDetail._customerFields = [];
+
+
+						["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
+							_userDetail._quoteFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+						});
+						
+						["first_name", "last_name", "address", "email", "phone", "city", "state", "zip"].forEach(function(field_name){
+							_userDetail._customerFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+						});
+
 						$.extend(true, _updateAction, EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(fields)":{name:"zip"}})[0]);
 						_updateAction.fields.forEach(function(field){
 							_userDetail[field.name]=field.value;
