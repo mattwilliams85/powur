@@ -537,7 +537,7 @@ function Dashboard(){
 				$("#dashboard_quotes").append(_html);
 				_drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=1200px", opacity:1}, _animation_speed);	
 
 				//retrieve info from /customers/:id for the quote
 				_userDetail={};
@@ -546,13 +546,29 @@ function Dashboard(){
 					_url:"/u/quotes/"+_options._userID, 
 					_callback:function(data, text){
 						var _updateAction={};
-						var _userDetail = data.properties;
+						var _userDetail = data;
+						
+						_userDetail._allFields = _getObjectsByCriteria(data, "val=update")[0].fields;
+						
+						_userDetail._quoteFields = [];
+						_userDetail._customerFields = [];
+
+
+						["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
+							_userDetail._quoteFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+						});
+						
+						["first_name", "last_name", "address", "email", "phone", "city", "state", "zip"].forEach(function(field_name){
+							_userDetail._customerFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+						});
+
 						$.extend(true, _updateAction, EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(fields)":{name:"zip"}})[0]);
 						_updateAction.fields.forEach(function(field){
 							_userDetail[field.name]=field.value;
 						});
 						//populate drilldown
 						EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+						 	console.log(_userDetail);
 						 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 						 	$("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
