@@ -39,7 +39,8 @@ class PayPeriod < ActiveRecord::Base
     payments_per_user = BonusPayment.user_bonus_totals(self)
 
     query = prepare_load_request(self, payments_per_user)
-    ewallet_request('ewallet_load', query)
+
+    ewallet_request(:ewallet_load, query)
   end
 
   def calculated?
