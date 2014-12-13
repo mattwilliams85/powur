@@ -42,6 +42,18 @@ jQuery(function($){
 });
 
 
+Handlebars.registerHelper("debug", function(optionalValue) {
+  console.log("Current Context");
+  console.log("====================");
+  console.log(this);
+
+  if (optionalValue) {
+    console.log("Value");
+    console.log("====================");
+    console.log(optionalValue);
+  }
+});
+
 Handlebars.registerHelper('sanitize', function(_value){
     _value = _value.replace("_", " ");
     _value = _value.replace(/percentage/gi, "\%");

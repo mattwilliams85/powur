@@ -1,81 +1,95 @@
 <div class="arrow"></div>
 <div class="drilldown_content">
-    <div class="modal_overlay">
-        <div class="modal_content">
-            <span>
+  <div class="modal_overlay">
+    <div class="modal_content">
+      <span>
 				Are you sure you would like to delete this quote?<br/>
 				This cannot be undone.
 			</span>
-            <div class="modal_actions">
-                <a href="#" class="button quiet"><i class="fa fa-times"></i> Cancel</a>
+      <div class="modal_actions">
+        <a href="#" class="button quiet"><i class="fa fa-times"></i> Cancel</a>
 
-                <a href="#" class="button warning"><i class="fa fa-trash-o"></i> Delete Quote</a>
+        <a href="#" class="button warning"><i class="fa fa-trash-o"></i> Delete Quote</a>
 
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="drilldown_content_section summary">
-        <h4>Incomplete Quote</h4>
-        <p class="subtext">Add the missing information to complete the quote, or send the customer a link so they can complete it. Once a quote is complete, it can be sent to Sunrun for followup.</p>
-        <ul>
-            {{#each this.properties.quote_status}} {{#if this.properties.reason}}
-            <li><span class="subtext">{{@key}} on {{this.properties.date}} - {{this.properties.reason}}</span>
-            </li>
-            {{else}} {{#compare @key "Approved" operator="=="}}
+  </div>
+  <div class="drilldown_content_section summary">
+    <h4>Incomplete Quote</h4>
+    <p class="subtext">Add the missing information to complete the quote, or send the customer a link so they can complete it. Once a quote is complete, it can be sent to Sunrun for followup.</p>
+    <ul>
+      {{#each this.properties.quote_status}}
+        {{#if this.properties.reason}}
+          <li><span class="subtext">{{@key}} on {{this.properties.date}} - {{this.properties.reason}}</span>
+          </li>
+        {{else}}
+          {{#compare @key "Approved" operator="==" }}
             <li><span class="subtext">{{@key}} on {{this.properties}}</span>
             </li>
-            {{else}}
-            <li><span class="subtext">{{@key}} on {{this.properties}}</span>
-            </li>
-            {{/compare}} {{/if}} {{/each}}
-        </ul>
-        <div class="summary_actions">
-            <!--<a href="#" class="button quiet js-remove_quote"><i class="fa fa-trash-o"></i> Delete Quote</a>-->
-            <a href="#" class="button quiet js-resend_quote_email"><i class="fa fa-envelope"></i> Email link to customer</a>
-            <!--<a href="#" class="button disabled js-submit_to_sunrun"><i class="fa fa-arrow-up"></i> Submit quote</a>-->
-        </div>
+        {{else}}
+          <li><span class="subtext">{{@key}} on {{this.properties}}</span>
+          </li>
+          {{/compare}}
+        {{/if}}
+      {{/each}}
+    </ul>
+    <div class="summary_actions">
+      <!-- <a href="#" class="button quiet js-remove_quote"><i class="fa fa-trash-o"></i> Delete Quote</a> -->
+      <a href="#" class="button quiet js-resend_quote_email"><i class="fa fa-envelope"></i> Email link to customer</a>
+      <!--<a href="#" class="button disabled js-submit_to_sunrun"><i class="fa fa-arrow-up"></i> Submit quote</a>-->
     </div>
-    <div class="drilldown_content_section">
+  </div>
+  <div class="drilldown_content_section">
 
-        <form id="customer_contact_form" class="quote_form" data-customer-id="{{this.properties.id}}">
-          <fieldset class="one">
-            <fieldset class="contact_info">
-              <legend><i class="fa fa-envelope"></i> Contact Info</legend>
-							{{#each this._customerFields}}
-								{{#compare this.type "text"}} <!-- if the type is text -->
-									{{#compare this.name "first_name"}} <!-- it's the first name field, make it a half column -->
-									<span class="form_row half">
+    <form id="customer_contact_form" class="quote_form" data-customer-id="{{this.properties.id}}">
+      <fieldset class="one">
+        <fieldset class="contact_info">
+          <legend><i class="fa fa-envelope"></i> Contact Info</legend>
+          {{#each this._customerFields}}
+            {{#compare this.type "text"}}
+              {{#compare this.name "first_name"}}
+                <span class="form_row half">
 										<label for="{{this.name}}">{{sanitize this.name}}</label>
 										<input type="{{this.type}}" name="{{this.name}}" value="{{this.value}}"></input>
-									</span>
-									{{else}} <!-- it's the last name field, also make it a half column --> 
-										{{#compare this.name "last_name"}}
-										<span class="form_row half">
+									</span> {{else}}
+                  {{#compare this.name "last_name"}}
+                    <span class="form_row half">
 											<label for="{{this.name}}">{{sanitize this.name}}</label>
 											<input type="{{this.type}}" name="{{this.name}}" value="{{this.value}}"></input>
-										</span>
-										{{else}}  <!-- neither first nor last name, make it full-width -->
+										</span> {{else}}
+										{{#compare this.name "state"}}
 											<span class="form_row">
+											<label for="{{this.name}}">{{sanitize this.name}}</label>
+												<select name="{{this.name}}">
+												{{#each this.fields}}
+													{{#compare this.value .}}
+													<option name="{{.}}" value="{{.}}" selected>{{.}}</option>
+													{{else}}
+													<option name="{{.}}" value="{{.}}">{{.}}</option>
+													{{/compare}}
+												{{/each}}
+												</select>
+											</span>
+										{{else}}
+                      <span class="form_row">
 												<label for="{{this.name}}">{{sanitize this.name}}</label>
 												<input type="{{this.type}}" name="{{this.name}}" value="{{this.value}}"></input>
-											</span>		
-										{{/compare}}
-									{{/compare}}
+											</span> {{/compare}}
 								{{/compare}}
-								{{#compare this.type "email"}} <!-- if the type is email -->
-								<span class="form_row">
+              {{/compare}}
+            {{/compare}}
+            {{#compare this.type "email"}}
+              <span class="form_row">
 									<label for="{{this.name}}">{{sanitize this.name}}</label>
 									<input type="{{this.type}}" name="{{this.name}}" value="{{this.value}}"></input>
-								</span>
-								{{/compare}}
-								{{#compare this.type "number"}} <!-- if the type is number -->
-								<span class="form_row">
+								</span> {{/compare}}
+            {{#compare this.type "number"}}
+              <span class="form_row">
 									<label for="{{this.name}}">{{sanitize this.name}}</label>
 									<input type="text" name="{{this.name}}" value="{{this.value}}"></input>
-								</span>
-								{{/compare}}
-								{{#compare this.type "select"}}
-									<span class="form_row">
+								</span> {{/compare}}
+            {{#compare this.type "select"}}
+              <span class="form_row">
 									<label for="{{this.name}}">{{sanitize this.name}}</label>
 									<select id="{{this.name}}" name="{{this.name}}">
 									{{#each this.options}}
@@ -86,47 +100,42 @@
 										{{/compare}}
 									{{/each}}
 									</select>
-									</span>
-								{{/compare}}
-								{{#compare this.type "checkbox"}}
-									<span class="form_row">
+									</span> {{/compare}}
+            {{#compare this.type "checkbox"}}
+              <span class="form_row">
 									<label for="{{this.name}}">{{this.name}}</label>
 									{{#compare this.value true}}
 									<input type="" checked name="{{this.name}}"></input>
 									{{else}}
 									<input type="{{this.type}}" name="{{this.name}}"></input>
 									{{/compare}}
-									</span>
-								{{/compare}}
-							{{/each}}
-            </fieldset>
-          </fieldset>
+									</span> {{/compare}}
+          {{/each}}
+        </fieldset>
+      </fieldset>
 
-          <fieldset class="two">
-            <fieldset class="utility">
-              <legend><i class="fa fa-bolt"></i> House & Utility Info</legend>
-              
-              {{#each this._quoteFields}}
-              	{{#compare this.type "text"}} <!-- if the type is text -->
-              		<span class="form_row">
+      <fieldset class="two">
+        <fieldset class="utility">
+          <legend><i class="fa fa-bolt"></i> House & Utility Info</legend>
+
+          {{#each this._quoteFields}}
+            {{#compare this.type "text"}}
+              <span class="form_row">
               			<label for="{{this.name}}">{{sanitize this.name}}</label>
               			<input type="{{this.type}}" name="{{this.name}}" value="{{this.value}}"></input>
-              		</span>	
-              	{{/compare}}
-              	{{#compare this.type "email"}} <!-- if the type is email -->
-              	<span class="form_row">
+              		</span> {{/compare}}
+            {{#compare this.type "email"}}
+              <span class="form_row">
               		<label for="{{this.name}}">{{sanitize this.name}}</label>
               		<input type="{{this.type}}" name="{{this.name}}" value="{{this.value}}"></input>
-              	</span>
-              	{{/compare}}
-              	{{#compare this.type "number"}} <!-- if the type is number -->
-              	<span class="form_row">
+              	</span> {{/compare}}
+            {{#compare this.type "number"}}
+              <span class="form_row">
               		<label for="{{this.name}}">{{sanitize this.name}}</label>
               		<input type="text" name="{{this.name}}" value="{{this.value}}"></input>
-              	</span>
-              	{{/compare}}
-              	{{#compare this.type "select"}}
-              		<span class="form_row">
+              	</span> {{/compare}}
+            {{#compare this.type "select"}}
+              <span class="form_row">
               		<label for="{{this.name}}">{{sanitize this.name}}</label>
               		<select id="{{this.name}}" name="{{this.name}}">
               		{{#each this.options}}
@@ -137,10 +146,9 @@
               			{{/compare}}
               		{{/each}}
               		</select>
-              		</span>
-              	{{/compare}}
-              	{{#compare this.type "checkbox"}}
-              		<span class="form_row">
+              		</span> {{/compare}}
+            {{#compare this.type "checkbox"}}
+              <span class="form_row">
               		<label for="{{this.name}}">{{sanitize this.name}}</label>
               		<select name="{{this.name}}">
               		{{#compare this.value true}}
@@ -151,97 +159,24 @@
               		<option value="false" selected>Not Qualified</input>
               		{{/compare}}
               		</select>
-              		</span>
-              	{{/compare}}
-              {{/each}}
+              		</span> {{/compare}}
+          {{/each}}
+        </fieldset>
+        <fieldset class="actions">
+          <button class="button js-update_customer_info">Update Customer Info</button>
+        </fieldset>
 
-
-              {{!-- <span class="form_row">
-								<label for="utility">Utility Provider</label>
-								<input type="text" name="utility" value="{{this.properties.utility}}">
-							</span>
-	            
-	            <span class="form_row">
-								<label for="average_bill">Estimated Monthly Bill</label>
-								<input type="text" name="average_bill" placeholder="Estimated Monthly Bill" value="{{this.properties.average_bill}}">
-							</span>
-
-              <span class="form_row">
-						<label for="roof_type">Roof Type</label>
-						<select id="roof_type" name="roof_type">
-							{{#compare "Thatch" this.properties.roof_type}}<option value="Thatch" selected>{{else}}<option value="Thatch">{{/compare}}Thatch</option>
-							{{#compare "Shingle" this.properties.roof_type}}<option value="Shingle" selected>{{else}}<option value="Shingle">{{/compare}}Shingle</option>
-							{{#compare "Ceramic" this.properties.roof_type}}<option value="Ceramic" selected>{{else}}<option value="Ceramic">{{/compare}}Ceramic</option>
-							{{#compare "Membrane Roofing" this.properties.roof_type}}<option value="Membrane Roofing" selected>{{else}}<option value="Membrane Roofing">{{/compare}}Membrane Roofing</option>
-							{{#compare "Metal" this.properties.roof_type}}<option value="Metal" selected>{{else}}<option value="Metal">{{/compare}}Metal</option>
-							{{#compare "Concrete or Fiber Cement" this.properties.roof_type}}<option value="Concrete or Fiber Cement" selected>{{else}}<option value="Concrete or Fiber Cement">{{/compare}}Concrete or Fiber Cement</option>
-						</select>
-					</span>
-                    <span style="clear:both;padding:4px; display:block;"></span>
-
-                    <span class="form_row">
-						<label for="roof_age">Roof Age</label>
-						<select id="roof_age" name="roof_age" placeholder="Roof Age" >
-							{{#each this.actions}}
-								{{#compare this.name "update"}}
-									{{#each this.fields}}
-										{{#compare this.name "roof_age"}}
-											{{#each this.options}}
-												<option value="{{this.display}}">{{this.display}}</option>
-											{{/each}}
-										{{/compare}}
-									{{/each}}
-								{{/compare}}
-							{{/each}}
-						</select>	
-					</span>
-                    <span style="clear:both;padding:4px; display:block;"></span>
-
-                    <span class="form_row">
-						<label for="square_feet">Home Square Footage</label>
-						<input type="text" name="square_feet" placeholder="Home Square Footage" value="{{this.properties.square_feet}}">
-					</span>
-
-                    <span class="form_row">
-						<label for="credit_score_qualified">Estimated Credit Score</label>
-						<select id="credit_score_qualified" name="credit_score_qualified" placeholder="Credit Score">
-							{{#compare true this.properties.credit_score_qualified}}<option value="true" selected>{{else}}<option value="true">{{/compare}}Above 600</option>
-							{{#compare false this.properties.credit_score_qualified}}<option value="false" selected>{{else}}<option value="false">{{/compare}}Below 600</option>
-						</select>
-					</span>
- --}}
-          </fieldset>
-          <fieldset class="actions">
-              <button class="button js-update_customer_info">Update Customer Info</button>
-              <button class="button js-remove_quote">Remove Quote</button>
-          </fieldset>
-
-	        </fieldset>
-        </form>
-        <!--
-		<form id="{{this.info.id}}_lead_utility_form" class="sidebar utility">
-			<lable>Utility Info</lable><br>
-			<span class="subtext">Verified Kilowatt-Hour (kWh)</span>
-			<input type="text" name="kwh" value="{{this.kwh}}">
-			{{#if this.utility_info.document}}
-				<br><br>
-				<span class="subtext">Uploaded Utility Document</span>
-				<a href="">{{this.utility_info.document}}</a><br><br>
-			{{/if}}
-				<span class="button">Request Utility Verification</a>
-		</form>
-	-->
-    </div>
+      </fieldset>
+    </form>
+  </div>
 </div>
 
 <style>
-.form_row{
-	height:69px !important;
-}
-
-form select {
-	margin-bottom: 8px;
-	height:61px;
-}
-
+  .form_row {
+    height: 69px !important;
+  }
+  form select {
+    margin-bottom: 8px;
+    height: 61px;
+  }
 </style>

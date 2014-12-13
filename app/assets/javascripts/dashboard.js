@@ -554,13 +554,68 @@ function Dashboard(){
 						_userDetail._customerFields = [];
 
 
-						["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
-							_userDetail._quoteFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
-						});
-						
-						["first_name", "last_name", "address", "email", "phone", "city", "state", "zip"].forEach(function(field_name){
-							_userDetail._customerFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
-						});
+            ["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
+              _userDetail._quoteFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+            });
+            
+            ["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
+              _userDetail._customerFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+            });
+            
+            _userDetail._customerFields[6].fields = [
+            "Alabama",
+            "Alaska",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "District of Columbia",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Massachusetts",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Pennsylvania",
+            "Puerto Rico",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Washington",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming"
+            ];
 
 						$.extend(true, _updateAction, EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(fields)":{name:"zip"}})[0]);
 						_updateAction.fields.forEach(function(field){
@@ -619,24 +674,101 @@ function Dashboard(){
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);  
+				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);
 
-				//populate drilldown
-				EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", {}, _drilldownContainerObj, function(){
-					_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-					_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-					//wire up lead submission hook
-					$("#new_lead_contact_form button").on("click", function(e){
-						e.preventDefault();
-						_formSubmit(e, $("#new_lead_contact_form"), "/u/quotes", "POST", function(data, text){
-							//$(".js-new_quote_thumbnail .expand").click();
-							$("#new_lead_contact_form").fadeOut(150, function(){
-								$("#new_lead_contact_form input").val("");
-								$("#new_lead_contact_form").fadeIn();
-								displayQuotes();
+				_fields={};
+				_ajax({
+					_ajaxType:"get", 
+					_url:"/u/quotes/", 
+					_callback:function(data, text){
+						var _userDetail = data;
+						
+						_fields._allFields = _getObjectsByCriteria(data, "val=create")[0].fields;
+						
+						_fields._quoteFields = [];
+						_fields._customerFields = [];
+
+						["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
+							_fields._quoteFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
+						});
+						
+						["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
+							_fields._customerFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
+						});	
+
+            _fields._customerFields[6].fields = [
+            "Alabama",
+            "Alaska",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "District of Columbia",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Massachusetts",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Pennsylvania",
+            "Puerto Rico",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Washington",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming"
+            ];
+
+						//populate drilldown
+						EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", _fields, _drilldownContainerObj, function(){
+						 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+							//wire up lead submission hook
+							$("#new_lead_contact_form button").on("click", function(e){
+								e.preventDefault();
+								_formSubmit(e, $("#new_lead_contact_form"), "/u/quotes", "POST", function(data, text){
+									//$(".js-new_quote_thumbnail .expand").click();
+									$("#new_lead_contact_form").fadeOut(150, function(){
+										$("#new_lead_contact_form input").val("");
+										$("#new_lead_contact_form").fadeIn();
+										displayQuotes();
+									});
+								});
 							});
 						});
-					});
+					}
 
 				});
 			break;
@@ -1088,8 +1220,8 @@ function Dashboard(){
 
 // Faux form editing animations
 
-
-
+	
+	
 
 $(document).on("focus", "input", function(e){
 	 var elem = $(this);
