@@ -4,8 +4,8 @@ json.rel [ :item ] unless local_assigns[:detail]
 
 json.properties do
   json.call(@user, :first_name, :last_name, :email,
-            :phone, :address, :city, :state, :zip, :provider,
-            :monthly_bill, :bio, :twitter_url, :linkedin_url)
+            :phone, :address, :city, :state, :zip,
+            :bio, :twitter_url, :linkedin_url)
   json.avatar do
     [ :thumb, :medium, :large ].each do |key|
       json.set! key, user.avatar.url(key)

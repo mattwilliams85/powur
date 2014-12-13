@@ -7,8 +7,7 @@ module EwalletDSL
   def ewallet_request(service_name, query)
     client = Ipayout.new
     service = client.get_service(service_name)
-    populated_params = assign_param_values(query['options_hash'],
-                                           service.parameters)
+    populated_params = assign_param_values(query['options_hash'], service.parameters)
 
     response = client.ewallet_request(populated_params)
     response
@@ -16,14 +15,6 @@ module EwalletDSL
 
   private
 
-  def build_ewallet_initialization_params
-    params = {}
-    params[:endpoint] = Rails.application.secrets.ipayout_api_endpoint
-    params[:merchant_guid] = Rails.application.secrets.ipayout_merchant_guid
-    params[:merchant_password] =
-      Rails.application.secrets.ipayout_merchant_password
-    params
-  end
   # returns a hash consisting of the available service
   # paramaters populated with any matching parameter value from the form.
   def assign_param_values(input_params, api_params)
@@ -47,7 +38,8 @@ module EwalletDSL
 
   def register_new_ipayout_user(user)
     request_params = prepare_register_request(user)
-    result = ewallet_request('register_user', request_params)
+
+    result = ewallet_request(:register_user, request_params)
 
     if result[:m_Text] == 'OK'
       result[:status] = 'success'
@@ -60,7 +52,7 @@ module EwalletDSL
 
   def get_ewallet_account_status(user)
     request_params = build_account_query(user)
-    result = ewallet_request('get_user_account_status', request_params)
+    result = ewallet_request(:get_user_account_status, request_params)
 
     if result[:m_Text] == 'OK'
       result[:status] = 'success'
@@ -73,7 +65,7 @@ module EwalletDSL
 
   def request_user_auto_login(user)
     request_params = build_auto_login_query(user)
-    result = ewallet_request('request_user_auto_login', request_params)
+    result = ewallet_request(:request_user_auto_login, request_params)
 
     if result[:m_Text] == 'OK'
       result[:status] = 'success'
@@ -95,7 +87,7 @@ module EwalletDSL
 
   def get_ewallet_customer_details(user)
     request_params = build_details_query(user)
-    result = ewallet_request('get_customer_details', request_params)
+    result = ewallet_request(:get_customer_details, request_params)
     if result[:m_Text] == 'OK'
       result[:status] = 'success'
     else
