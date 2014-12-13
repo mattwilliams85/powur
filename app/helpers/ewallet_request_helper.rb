@@ -30,8 +30,7 @@ module EwalletRequestHelper
 
   def build_load_query(pay_period, bonus_payments)
     service_hash = {}
-    service_hash['api_method'] = 'ewallet_load'
-
+    service_hash['api_method'] = :ewallet_load
     options_hash = initialize_base_options_hash
     options_hash['fn'] = 'eWallet_Load'
     options_hash['PartnerBatchID'] = pay_period.id.to_s
@@ -90,8 +89,7 @@ module EwalletRequestHelper
 
   def build_registration_query(user_params)
     service_hash = {}
-    service_hash['api_method'] = 'register_user'
-
+    service_hash['api_method'] = :register_user
     options_hash = initialize_base_options_hash
     options_hash['fn'] = 'eWallet_RegisterUser'
     options_hash['UserName'] = user_params[:email]
