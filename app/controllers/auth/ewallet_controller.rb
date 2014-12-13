@@ -4,12 +4,12 @@ module Auth
     before_action :fetch_user
 
     def index
-      respond_to do |format|
-        format.html do
-        end
-        format.json do
-        end
-      end
+      # respond_to do |format|
+      #   format.html do
+      #   end
+      #   format.json do
+      #   end
+      # end
     end
 
     def account_details
