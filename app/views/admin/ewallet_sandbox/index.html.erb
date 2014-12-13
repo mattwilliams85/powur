@@ -76,12 +76,17 @@ $(function() {
 </script>
 
 <style type="text/css" media="screen">
+    #admin-tab {
+        display:none;
+    }
+    #sandbox-content {
+        text-align:center;
+    }
     .sandbox-container {
-        float:left;
         display:block;
-        width:100%;
+        width:600px;
         text-align:left;
-        margin:20px 0 20px 20px;
+        margin:20px 0 20px 80px;
     }
     .sandbox-container input[type=text] {
         width:410px;
@@ -108,7 +113,7 @@ $(function() {
     }
 </style>
 
-<section>
+<section id="sandbox-content">
 
     <div class="sandbox-container">
         <fieldset>
