@@ -41,8 +41,6 @@ class ProfileJson < JsonDecorator
       .field(:city, :text, value: user.city)
       .field(:state, :text, value: user.state)
       .field(:zip, :text, value: user.zip)
-      .field(:provider, :text, value: user.provider)
-      .field(:monthly_bill, :text, value: user.monthly_bill)
       .field(:bio, :text, value: user.bio)
       .field(:twitter_url, :text, value: user.twitter_url)
       .field(:linkedin_url, :text, value: user.linkedin_url)
