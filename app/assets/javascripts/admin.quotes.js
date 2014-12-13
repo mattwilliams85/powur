@@ -421,8 +421,8 @@ jQuery(function($){
                             console.log("calculating "+_options._pay_period_id)
                             //var _pay_period_id= $(e.target).parents("tr").attr("data-pay-period-id");
                             _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_options._pay_period_id]})[0], function(){
-
-                                _showPayPeriodDetails(_options)
+                                
+                                 _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});
                             });
                         });
 

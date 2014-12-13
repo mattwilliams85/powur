@@ -5,7 +5,7 @@ var _dashboard;
 var kpiType = ""
 
 $(window).bind('page:change', function() {
-  initPage();
+	initPage();
 });
 
 
@@ -22,7 +22,7 @@ function initPage(){
 		_dashboard.displayQuotes();
 		_dashboard.displayKPIs();
 		if(_data.currentUser.avatar) $("#js-user_profile_image").attr("src", _data.currentUser.avatar.thumb);
-		setInterval(_dashboard._countdown, 1000);			
+		setInterval(_dashboard._countdown, 1000);     
 	});
 
 	//wire up logout button
@@ -105,7 +105,7 @@ function Dashboard(){
 			$(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_value span").html(kpi[key].tab.value)
 			$(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_label").html(kpi[key].tab.label)
 
-		});	
+		}); 
 		
 		//adjust font width for metrics
 		$(".kpi_thumbnail h1").each(function(){
@@ -114,7 +114,7 @@ function Dashboard(){
 			$(this).css("font-size", _newWidth+"pt");
 		});
 
-	}	
+	} 
 
 	function displayGoals(path){
 		return;
@@ -202,9 +202,9 @@ function Dashboard(){
 			for(i=notches.min; i<=notches.max;i++){
 				var _counter = (i<10)?"0"+i:i;
 				var _maxCounter = (notches.max+1<10)?"0"+(notches.max+1):(notches.max+1);
-				_html=	"<div class='notch' style='width:"+((1/notches.total)*100)+"%;'>";
-				_html+=	"<span>"+_counter+"</span><div></div>";
-				if(i<notches.max)_html+=	"</div>";
+				_html=  "<div class='notch' style='width:"+((1/notches.total)*100)+"%;'>";
+				_html+= "<span>"+_counter+"</span><div></div>";
+				if(i<notches.max)_html+=  "</div>";
 				else _html+= "<span class='last_notch'>"+_maxCounter+"</span><div class='last_notch'></div></div>"
 				$("#"+_key+"_sales .labels").append(_html);
 			}
@@ -276,12 +276,12 @@ function Dashboard(){
 					switch(e.keyCode){
 						case 13:
 							if($(e.target).val().length<3 && $(e.target).val().length>0) return;
-				    		if($(e.target).val().length>=3 || $(e.target).val().length==0){
+								if($(e.target).val().length>=3 || $(e.target).val().length==0){
 								$("#dashboard_team > section").remove();
-				    			_data.team_search=$(e.target).val();
+									_data.team_search=$(e.target).val();
 								_collapseTeam();
 								displayTeam();
-				    		}
+								}
 						break;
 					}
 				});
@@ -353,11 +353,11 @@ function Dashboard(){
 						switch(e.keyCode){
 							case 13:
 								if($(e.target).val().length<3 && $(e.target).val().length>0) return;
-					    		if($(e.target).val().length>=3 || $(e.target).val().length==0){
+									if($(e.target).val().length>=3 || $(e.target).val().length==0){
 									$("#dashboard_quotes > section").remove();
-					    			_data.quote_search=$(e.target).val();
+										_data.quote_search=$(e.target).val();
 									displayQuotes()
-					    		}
+									}
 							break;
 						}
 					});
@@ -373,7 +373,7 @@ function Dashboard(){
 									"_target":$(e.target),
 									"_userID":_drillDownUserID, 
 									"_arrowPosition":_thisThumbnail.find(".expand .fa").offset().left});
-					});	
+					}); 
 
 
 
@@ -401,7 +401,7 @@ function Dashboard(){
 						"_target":$(e.target),
 						"_kpiType":_thisKpiType, 
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
-		});	
+		}); 
 	})();
 	//wire up the pagination hooks
 	$(document).on("click", ".pagination_container .nav", function(e){
@@ -429,7 +429,7 @@ function Dashboard(){
 		if($(this).attr("class")===undefined) $(this).attr("class", "");
 		if ($(this).attr("class").indexOf("active")>=0) return;
 		
-		_tabSelect({	"_type":$(this).attr("data-tab-type"),
+		_tabSelect({  "_type":$(this).attr("data-tab-type"),
 				"_mainSectionID":$(this).parents("section").attr("id"),
 				"_target":$(e.target),
 		});
@@ -521,8 +521,8 @@ function Dashboard(){
 					_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 					_drilldownContainerObj.css("opacity","0");
 					// _drilldownContainerObj.scrollView(180);
-					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);	
-					_userDetail={};		
+					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);  
+					_userDetail={};   
 					_getTemplate("/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
 
 				});
@@ -537,7 +537,7 @@ function Dashboard(){
 				$("#dashboard_quotes").append(_html);
 				_drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=1200px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);  
 
 				//retrieve info from /customers/:id for the quote
 				_userDetail={};
@@ -554,13 +554,68 @@ function Dashboard(){
 						_userDetail._customerFields = [];
 
 
-						["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
-							_userDetail._quoteFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
-						});
-						
-						["first_name", "last_name", "address", "email", "phone", "city", "state", "zip"].forEach(function(field_name){
-							_userDetail._customerFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
-						});
+            ["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
+              _userDetail._quoteFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+            });
+            
+            ["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
+              _userDetail._customerFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+            });
+            
+            _userDetail._customerFields[6].fields = [
+            "Alabama",
+            "Alaska",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "District of Columbia",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Massachusetts",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Pennsylvania",
+            "Puerto Rico",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Washington",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming"
+            ];
 
 						$.extend(true, _updateAction, EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(fields)":{name:"zip"}})[0]);
 						_updateAction.fields.forEach(function(field){
@@ -568,16 +623,15 @@ function Dashboard(){
 						});
 						//populate drilldown
 						EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
-						 	console.log(_userDetail);
-						 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-						 	$("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
-						 	$("#customer_contact_form select[name='roof_material'] option").filter(function(){return $(this).text()==_userDetail.roof_material}).attr("selected", true);
+							_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+							_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+							$("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
+							$("#customer_contact_form select[name='roof_material'] option").filter(function(){return $(this).text()==_userDetail.roof_material}).attr("selected", true);
 
-						 	$(".js-remove_quote").unbind();
-						 	$("#customer_contact_form .js-update_customer_info").unbind();
-						 	$(".js-resend_quote_email").unbind();
-						 	$(".js-close_drilldown").unbind();
+							$(".js-remove_quote").unbind();
+							$("#customer_contact_form .js-update_customer_info").unbind();
+							$(".js-resend_quote_email").unbind();
+							$(".js-close_drilldown").unbind();
 
 							$(".js-remove_quote").on("click", function(e){
 								e.preventDefault();
@@ -600,7 +654,7 @@ function Dashboard(){
 								_ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:displayQuotes()});
 								_thisThumbnail.find(".expand").click();
 
-							});		
+							});   
 
 							$(".js-close_drilldown").on("click" , function(){
 								e.preventDefault();
@@ -620,24 +674,101 @@ function Dashboard(){
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);
 
-				//populate drilldown
-				EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", {}, _drilldownContainerObj, function(){
-				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-					//wire up lead submission hook
-					$("#new_lead_contact_form button").on("click", function(e){
-						e.preventDefault();
-						_formSubmit(e, $("#new_lead_contact_form"), "/u/quotes", "POST", function(data, text){
-							//$(".js-new_quote_thumbnail .expand").click();
-							$("#new_lead_contact_form").fadeOut(150, function(){
-								$("#new_lead_contact_form input").val("");
-								$("#new_lead_contact_form").fadeIn();
-								displayQuotes();
+				_fields={};
+				_ajax({
+					_ajaxType:"get", 
+					_url:"/u/quotes/", 
+					_callback:function(data, text){
+						var _userDetail = data;
+						
+						_fields._allFields = _getObjectsByCriteria(data, "val=create")[0].fields;
+						
+						_fields._quoteFields = [];
+						_fields._customerFields = [];
+
+						["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
+							_fields._quoteFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
+						});
+						
+						["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
+							_fields._customerFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
+						});	
+
+            _fields._customerFields[6].fields = [
+            "Alabama",
+            "Alaska",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "District of Columbia",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Massachusetts",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Pennsylvania",
+            "Puerto Rico",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Washington",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming"
+            ];
+
+						//populate drilldown
+						EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", _fields, _drilldownContainerObj, function(){
+						 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+						 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+							//wire up lead submission hook
+							$("#new_lead_contact_form button").on("click", function(e){
+								e.preventDefault();
+								_formSubmit(e, $("#new_lead_contact_form"), "/u/quotes", "POST", function(data, text){
+									//$(".js-new_quote_thumbnail .expand").click();
+									$("#new_lead_contact_form").fadeOut(150, function(){
+										$("#new_lead_contact_form input").val("");
+										$("#new_lead_contact_form").fadeIn();
+										displayQuotes();
+									});
+								});
 							});
 						});
-					});
+					}
 
 				});
 			break;
@@ -649,7 +780,7 @@ function Dashboard(){
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=240px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=240px", opacity:1}, _animation_speed);  
 
 				_data["invitations"]=[];
 				//get listing array from json
@@ -661,34 +792,34 @@ function Dashboard(){
 					//first place the listing template
 					_getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
 						_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-				 		_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+						_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 	
-				 		//display thumbnails
-				 		_getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
-			 				
-			 				//wire up expiration timer
-			 				_now = new Date();
-			 				$(".js-expiration").each(function(){
-			 					var _remainingSeconds, _remainingMinutes, _remainingHours;
+						//display thumbnails
+						_getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
+							
+							//wire up expiration timer
+							_now = new Date();
+							$(".js-expiration").each(function(){
+								var _remainingSeconds, _remainingMinutes, _remainingHours;
 
-			 					_expiration = new Date($(this).attr("data-expiration-timestamp"));
-			 					_totalSeconds = Math.round((_expiration-_now)/1000);
-			 					if(_totalSeconds >0){
-				 					_remainingHours = Math.floor(_totalSeconds/(60*60));
-				 					_totalSeconds = _totalSeconds - _remainingHours*(3600);
-				 					_remainingMinutes =  Math.floor(_totalSeconds/(60));
-				 					_remainingSeconds = _totalSeconds - _remainingMinutes*(60);
-			 						if(_remainingSeconds<10) _remainingSeconds = "0"+_remainingSeconds;
-			 						if(_remainingMinutes<10) _remainingMinutes = "0"+_remainingMinutes;
-			 						if(_remainingHours<10) _remainingHours = "0"+_remainingHours;
-			 						$(this).find(".js-expiration-hours").text(_remainingHours);
-				 					$(this).find(".js-expiration-minutes").text(_remainingMinutes);
-				 					$(this).find(".js-expiration-seconds").text(_remainingSeconds);
-			 					}else{
-			 						if($(this).closest(".js-new_invite_thumbnail").attr("class").indexOf("js-empty_seat")<0)
-			 							$(this).text("Expired");
-			 					}
-			 				});
+								_expiration = new Date($(this).attr("data-expiration-timestamp"));
+								_totalSeconds = Math.round((_expiration-_now)/1000);
+								if(_totalSeconds >0){
+									_remainingHours = Math.floor(_totalSeconds/(60*60));
+									_totalSeconds = _totalSeconds - _remainingHours*(3600);
+									_remainingMinutes =  Math.floor(_totalSeconds/(60));
+									_remainingSeconds = _totalSeconds - _remainingMinutes*(60);
+									if(_remainingSeconds<10) _remainingSeconds = "0"+_remainingSeconds;
+									if(_remainingMinutes<10) _remainingMinutes = "0"+_remainingMinutes;
+									if(_remainingHours<10) _remainingHours = "0"+_remainingHours;
+									$(this).find(".js-expiration-hours").text(_remainingHours);
+									$(this).find(".js-expiration-minutes").text(_remainingMinutes);
+									$(this).find(".js-expiration-seconds").text(_remainingSeconds);
+								}else{
+									if($(this).closest(".js-new_invite_thumbnail").attr("class").indexOf("js-empty_seat")<0)
+										$(this).text("Expired");
+								}
+							});
 
 
 							$(".js-new_invite_thumbnail").unbind();
@@ -700,9 +831,9 @@ function Dashboard(){
 											"_thumbnailIdentifier":".js-new_invite_thumbnail",
 											"_target":$(e.target),
 											"_arrowPosition":$(this).find("span.expand i").offset().left});
-							});	
+							}); 
 
-				 		});
+						});
 					});
 
 				});
@@ -725,7 +856,7 @@ function Dashboard(){
 
 				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
 					_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+					_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 
 					
 					$("#new_promoter_invitation_form .button").unbind();
@@ -752,7 +883,7 @@ function Dashboard(){
 						e.preventDefault();
 						_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
 						_ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
-					});	
+					}); 
 
 
 
@@ -760,19 +891,21 @@ function Dashboard(){
 
 			break;
 
-
+			// mattmarker
 			case "impact_metrics":
 				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
 				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);	
-				//_drilldownContainerObj.velocity({height:"+=490px", opacity:1}, _animation_speed);	
+				_drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);  
+				//_drilldownContainerObj.velocity({height:"+=490px", opacity:1}, _animation_speed); 
 				var _templatePath;
 				var _impactMetricsDetail = {};
 				//todo: inject context/data under each template
 				kpiType = _options._kpiType
+				$(".arrow").hide()
+				$(".js-thumbnail").find(".arrow").css("bottom","-20px")
 				switch(kpiType){
 					case "environment":
 						_templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
@@ -792,9 +925,9 @@ function Dashboard(){
 				}
 				if(!_data.currentUser.avatar) _data.currentUser.avatar = { thumb: "http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578" }
 				_getTemplate(_templatePath, _data, _drilldownContainerObj, function(){
-				 	_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-				 	_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-				 	if((kpiType !== "environment") && (kpiType !== "hot_quotes")) initKPI()
+					$(".section_content").css("border-bottom-width","0px");
+					$(".kpi_thumbnail[data-kpi-type=" + kpiType + "]").find(".arrow").show().animate({bottom:"+=20px"}, 500);
+					if((kpiType !== "environment") && (kpiType !== "hot_quotes")) initKPI()
 				});
 
 			break;
@@ -808,9 +941,9 @@ function Dashboard(){
 		//sub function of the drilldown that checks for the need to collapse children drilldowns
 		function _collapseDrillDown(_options){
 			//set up context for what's being clicked
-			_currentLevelSectionObj=_options._target.closest("section"); 				
-			_drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1; 					
-			_topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;	
+			_currentLevelSectionObj=_options._target.closest("section");        
+			_drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;          
+			_topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj; 
 			_thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
 			_drillDownDepth = _topLevelSectionObj.children("section").length;
 
@@ -832,6 +965,8 @@ function Dashboard(){
 
 			//if checking on self collapse everything
 			if(_thisThumbnail.find("span.expand i").attr("class").indexOf("fa-angle-up")>=0){
+				$(".arrow").css("bottom","-20px").hide();
+				$(".section_content").css("border-bottom-width","1px");
 				_thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
 				_thisThumbnail.find("span.expand i").addClass("fa-angle-down");
 				_abortDrillDown=true;
@@ -1050,9 +1185,9 @@ function Dashboard(){
 			$(".js-remaining_invitations").text(_availableInvitations);
 			_expiredInvitations=0;
 			for(i=0;i<_data.invitations.length;i++) {
-			 	_now = new Date();
-				_expiration = new Date(	_data.invitations[i].expires);
-				_totalSeconds = Math.round((_expiration-_now)/1000);				
+				_now = new Date();
+				_expiration = new Date( _data.invitations[i].expires);
+				_totalSeconds = Math.round((_expiration-_now)/1000);        
 				if(_totalSeconds <0) _expiredInvitations++;
 			}
 			$(".js-expired_invitations").text(_expiredInvitations+" Expired");
@@ -1065,7 +1200,7 @@ function Dashboard(){
 		$(".js-remaining_invitations").click();
 		_updateInvitationSummary(function(){
 			$(".js-remaining_invitations").click();
-		});	
+		}); 
 	}
 
 	$(document).on("click", ".js-team_thumbnail", function(e){
@@ -1085,24 +1220,24 @@ function Dashboard(){
 
 // Faux form editing animations
 
-
-
+	
+	
 
 $(document).on("focus", "input", function(e){
-   var elem = $(this);
+	 var elem = $(this);
 
-   // Save current value of element
-   elem.data('oldVal', elem.val());
+	 // Save current value of element
+	 elem.data('oldVal', elem.val());
 
-   // Look for changes in the value
-   elem.bind("propertychange keyup input paste", function(event){
-      // If value has changed...
-      if (elem.data('oldVal') != elem.val()) {
-       // Updated stored value
-       elem.data('oldVal', elem.val());
+	 // Look for changes in the value
+	 elem.bind("propertychange keyup input paste", function(event){
+			// If value has changed...
+			if (elem.data('oldVal') != elem.val()) {
+			 // Updated stored value
+			 elem.data('oldVal', elem.val());
 
 		$(this).parents(".form_row").siblings(".form_edit_actions").fadeIn(100);
 
-     }
-   });
+		 }
+	 });
  });

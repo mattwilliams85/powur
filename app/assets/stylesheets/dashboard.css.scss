@@ -525,6 +525,8 @@
 	border-right:1px solid #e5e5e5;
 	border-radius:0;
 	margin:0;
+	overflow:hidden;
+	border-bottom-width:0px;
 	// Background & borders
 
 	// Typography
@@ -1967,10 +1969,11 @@
 		height: 0px;
 		border-style: solid;
 		border-width: 0 20px 20px 20px;
-		border-color: transparent transparent #535353 transparent;
+		border-color: transparent transparent #444 transparent;
 		position:absolute;
-		top:0px;
-		left:0;
+		left:104px;
+		bottom:-20px;
+		z-index:5;
 	}
 	.team_info{
 		position:relative;

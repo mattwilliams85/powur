@@ -60,7 +60,11 @@
                 <span class="label" style="text-transform:capitalize; color:green;">Calculated</span>
             {{/compare}}
             {{else}}
-                <span class="label" style="text-transform:capitalize; color:Red;">Queued</span>
+                {{#compare this.properties.calculating true operator="=="}}
+                    <span class="label" style="display:block; color:red;">Calculating...</span>
+                {{else}}
+                    <span class="label" style="display:block; color:red;">Queued</span>
+                {{/compare}}
 
             {{/if}}            
             <a href="#" class="js-pay_period_detail">View Details</a>

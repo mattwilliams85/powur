@@ -12,164 +12,132 @@
 
 	<div class="drilldown_content_section">
 
-		<form id="new_lead_contact_form" class="quote_form">
-			<fieldset class="one">
-				<fieldset class="contact_info">
-					<legend><i class="fa fa-envelope"></i> Contact Info</legend>
-					<span class="form_row half">
-						<label for="first_name">First Name</label>
-						<input type="text" name="first_name" placeholder="First Name">
-					</span>
-					<span class="form_row half">
-						<label for="last_name">Last Name</label>
-						<input type="text" name="last_name" placeholder="Last Name">
-					</span>
-					<span class="form_row">
-						<label for="email">Email</label>
-						<input type="text" name="email" placeholder="Email Address">
-					</span>					
-				</fieldset>
-				
-				<fieldset class="address">
-					<span class="form_row">
-						<label for="address">Street Address & Unit#</label>
-						<input type="text" name="address" placeholder="Street">
-					</span>
+<form id="new_lead_contact_form" class="quote_form">
+      <fieldset class="one">
+        <fieldset class="contact_info">
+          <legend><i class="fa fa-envelope"></i> Contact Info</legend>
+          {{#each this._customerFields}}
+            {{#compare this.type "text"}}
+              {{#compare this.name "first_name"}}
+                <span class="form_row half">
+                    <label for="{{this.name}}">{{sanitize this.name}}</label>
+                    <input type="{{this.type}}" name="{{this.name}}"></input>
+                  </span> {{else}}
+                  {{#compare this.name "last_name"}}
+                    <span class="form_row half">
+                      <label for="{{this.name}}">{{sanitize this.name}}</label>
+                      <input type="{{this.type}}" name="{{this.name}}"></input>
+                    </span> {{else}}
+                    {{#compare this.name "state"}}
+                    <span class="form_row">
+                      <label for="{{this.name}}">{{sanitize this.name}}</label>
+                      <select name="{{this.name}}">
+                        {{#each this.fields}}
+                        <option name="{{.}}" value="{{.}}">{{.}}</option>
+                        {{/each}}
+                      </select>
+                      </span>
+                    {{else}}
+                      <span class="form_row">
+                        <label for="{{this.name}}">{{sanitize this.name}}</label>
+                        <input type="{{this.type}}" name="{{this.name}}"></input>
+                      </span> {{/compare}}
+                {{/compare}}
+              {{/compare}}
+            {{/compare}}
+            {{#compare this.type "email"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <input type="{{this.type}}" name="{{this.name}}"></input>
+                </span> {{/compare}}
+            {{#compare this.type "number"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <input type="text" name="{{this.name}}"></input>
+                </span> {{/compare}}
+            {{#compare this.type "select"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <select id="{{this.name}}" name="{{this.name}}">
+                  {{#each this.options}}
+                    {{#compare ../../value this.display}}
+                      <option name="{{this.display}}" value="{{this.display}}" selected>{{this.display}}</option>
+                    {{else}}
+                      <option name="{{this.display}}" value="{{this.display}}">{{this.display}}</option>
+                    {{/compare}}
+                  {{/each}}
+                  </select>
+                  </span> {{/compare}}
+            {{#compare this.type "checkbox"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{this.name}}</label>
+                  {{#compare this.value true}}
+                  <input type="" checked name="{{this.name}}"></input>
+                  {{else}}
+                  <input type="{{this.type}}" name="{{this.name}}"></input>
+                  {{/compare}}
+                  </span> {{/compare}}
+          {{/each}}
+        </fieldset>
+      </fieldset>
 
-					<span class="form_row">
-						<label for="city">City</label>
-						<input type="text" name="city" placeholder="City">
-					</span>
+      <fieldset class="two">
+        <fieldset class="utility">
+          <legend><i class="fa fa-bolt"></i> House & Utility Info</legend>
 
-					<span class="form_row half">
-						<label for="state">State</label>
-						<select id="state" name="state">
-							<option selected="selected" value="Alabama">Alabama</option>
-							<option value="Alaska">Alaska</option>
-							<option value="Arizona">Arizona</option>
-							<option value="Arkansas">Arkansas</option>
-							<option value="California">California</option>
-							<option value="Colorado">Colorado</option>
-							<option value="Connecticut">Connecticut</option>
-							<option value="Delaware">Delaware</option>
-							<option value="District of Columbia">District of Columbia</option>
-							<option value="Florida">Florida</option>
-							<option value="Georgia">Georgia</option>
-							<option value="Hawaii">Hawaii</option>
-							<option value="Idaho">Idaho</option>
-							<option value="Illinois">Illinois</option>
-							<option value="Indiana">Indiana</option>
-							<option value="Iowa">Iowa</option>
-							<option value="Kansas">Kansas</option>
-							<option value="Kentucky">Kentucky</option>
-							<option value="Louisiana">Louisiana</option>
-							<option value="Maine">Maine</option>
-							<option value="Maryland">Maryland</option>
-							<option value="Massachusetts">Massachusetts</option>
-							<option value="Michigan">Michigan</option>
-							<option value="Minnesota">Minnesota</option>
-							<option value="Mississippi">Mississippi</option>
-							<option value="Missouri">Missouri</option>
-							<option value="Montana">Montana</option>
-							<option value="Nebraska">Nebraska</option>
-							<option value="Nevada">Nevada</option>
-							<option value="New Hampshire">New Hampshire</option>
-							<option value="New Jersey">New Jersey</option>
-							<option value="New Mexico">New Mexico</option>
-							<option value="New York">New York</option>
-							<option value="North Carolina">North Carolina</option>
-							<option value="North Dakota">North Dakota</option>
-							<option value="Ohio">Ohio</option>
-							<option value="Oklahoma">Oklahoma</option>
-							<option value="Oregon">Oregon</option>
-							<option value="Pennsylvania">Pennsylvania</option>
-							<option value="Puerto Rico">Puerto Rico</option>
-							<option value="Rhode Island">Rhode Island</option>
-							<option value="South Carolina">South Carolina</option>
-							<option value="South Dakota">South Dakota</option>
-							<option value="Tennessee">Tennessee</option>
-							<option value="Texas">Texas</option>
-							<option value="Utah">Utah</option>
-							<option value="Vermont">Vermont</option>
-							<option value="Virginia">Virginia</option>
-							<option value="Washington">Washington</option>
-							<option value="West Virginia">West Virginia</option>
-							<option value="Wisconsin">Wisconsin</option>
-							<option value="Wyoming">Wyoming</option>
-						</select>		
-					</span>
-					<span class="form_row half">
-						<label for="zip">Zip</label>
-						<input type="text" name="zip" placeholder="Zipcode">
-					</span>
-					<span class="form_row half">
-						<label for="roof_material">Roof Type</label>
-						<select id="roof_material" name="roof_material">
-							<option value="Thatch">Thatch</option>
-							<option value="Shingle">Shingle</option>
-							<option value="Ceramic">Ceramic</option>
-							<option value="Membrane Roofing">Membrane Roofing</option>
-							<option value="Metal">Metal</option>
-							<option value="Concrete or Fiber Cement" >Concrete or Fiber Cement</option>
-						</select>						
-					</span>
-					<span class="form_row half">
-						<label for="roof_age">Roof Age</label>
-						<select id="roof_age" name="roof_age" placeholder="Roof Age" >
-							<option value="0~5">New</option>
-							<option value="5~10">5 to 10 Years</option>
-							<option value="10~20">10 to 20 Years</option>
-							<option value="20~30">20 to 30 Years</option>
-							<option value="30+">More than 30 Years</option>
-						</select>						
+          {{#each this._quoteFields}}
+            {{#compare this.type "text"}}
+              <span class="form_row">
+                    <label for="{{this.name}}">{{sanitize this.name}}</label>
+                    <input type="{{this.type}}" name="{{this.name}}"></input>
+                  </span> {{/compare}}
+            {{#compare this.type "email"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <input type="{{this.type}}" name="{{this.name}}"></input>
+                </span> {{/compare}}
+            {{#compare this.type "number"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <input type="text" name="{{this.name}}"></input>
+                </span> {{/compare}}
+            {{#compare this.type "select"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <select id="{{this.name}}" name="{{this.name}}">
+                  {{#each this.options}}
+                    <option name="{{this.display}}" value="{{this.display}}">{{this.display}}</option>
+                  {{/each}}
+                  </select>
+                  </span> {{/compare}}
+            {{#compare this.type "checkbox"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <select name="{{this.name}}">
+                    <option value="true" selected>Qualified</option>
+                    <option value="false">Not Qualified</option>
+                  </select>
+                  </span> {{/compare}}
+          {{/each}}
+        </fieldset>
+        <fieldset class="actions">
+          <button class="button js-update_customer_info">Create Quote</button>
+        </fieldset>
 
-					</span>
-				</fieldset>
-			</fieldset>
-			<fieldset class="two">
-				<fieldset class="utility">
-					<legend><i class="fa fa-bolt"></i> Utility Info</legend>
-					<span class="form_row">
-						<label for="provider">Utility Provider</label>
-						<input type="text" name="provider" placeholder="Utility Info">
-					</span>
-					<span class="form_row">
-						<label for="bill">Estimated Monthly Bill</label>
-						<input type="text" name="bill" placeholder="Estimated Monthly Bill">
-					</span>
-				</fieldset>
-
-				<fieldset class="contact_info">
-					<legend><i class="fa fa-phone"></i> Phone Number</legend>
-					<span class="form_row">
-						<label for="phone">Phone</label>
-						<input type="text" name="phone" placeholder="Phone">
-					</span>
-				</fieldset>
-				<fieldset class="actions">
-					<button class="button">Create Quote</button>
-				</fieldset>
-			</fieldset>	
-			
-		</form>
-
-		<!--
-		<form id="{{this.info.id}}_lead_utility_form" class="sidebar utility">
-			<lable>Additional Info</lable><br>
-			<span class="subtext">Verified Kilowatt-Hour (kWh)</span>
-			<input type="text" name="utility.kwh" value="{{this.utility_info.kwh}}">
-			{{#if this.utility_info.document}}
-				<br><br>
-				<span class="subtext">Uploaded Utility Document</span>
-				<a href="">{{this.utility_info.document}}</a><br><br>
-			{{/if}}
-				<button class="button">Request Utility Verification</button>
-		</form>
-		-->
+      </fieldset>
+    </form>
 	</div>		
 
 </div>
 
-
+<style>
+  .form_row {
+    height: 69px !important;
+  }
+  form select {
+    margin-bottom: 8px;
+    height: 61px;
+  }
+</style>
 
 

@@ -1,4 +1,4 @@
-<div class="arrow"></div>
+
 <div class="drilldown_content">
   <div id="kpi_environment_detail" class="object_detail">
 
@@ -163,7 +163,8 @@
 
 var userPosition = 0;
 var quotePosition = 0;
-var page = 1;
+var userPage = 1;
+var quotePage = 1;
 
 function initKPI(){
   randomizeData();
@@ -239,7 +240,6 @@ function populateHotQuotes() {
         _ajaxType: "get",
         _url: "/u/quotes/" + quote.properties.id,
         _callback: function(data, text) {
-          console.log(data.properties)
             EyeCueLab.UX.getTemplate("/templates/_kpi_hot_quotes.handlebars.html", data, undefined, function(html) {
             if ($('.hot-quote-box').length == (quotes.length)) $('.hot-quote-box').fadeIn()
             _hotQuotes.append(html);
@@ -255,7 +255,7 @@ function populateHotQuotes() {
 // ** PAGINATION **
 $('.paginate-user-down').on("click", function(e) {
   if ($(this).hasClass("active")) {
-      page += 1;
+      userPage += 1;
       userPosition -= 284;
       animateContributors()
     };
@@ -263,16 +263,15 @@ $('.paginate-user-down').on("click", function(e) {
 
 $('.paginate-user-up').on("click", function(e) {
   if ($('.fa-caret-up').hasClass("active")) {
-    page -= 1;
+    userPage -= 1;
     userPosition += 284;
     animateContributors()
   };
 });
 
 $('.paginate-quote-down').on("click", function(e) {
-  console.log("hey")
   if ($(this).hasClass("active")) {
-      page += 1;
+      quotePage += 1;
       quotePosition -= 333;
       animateQuotes()
     };
@@ -280,7 +279,7 @@ $('.paginate-quote-down').on("click", function(e) {
 
 $('.paginate-quote-up').on("click", function(e) {
   if ($('.fa-caret-up').hasClass("active")) {
-    page -= 1;
+    quotePage -= 1;
     quotePosition += 333;
     animateQuotes()
   };
@@ -301,7 +300,7 @@ function animateContributors(){
   })
   $('.contributor').each(function() {
     $(this).velocity({
-      translateY: quotePosition + "px"
+      translateY: userPosition + "px"
     });
   })
 }
@@ -322,7 +321,7 @@ function animateQuotes(){
 function checkUserPage() {
   if (_data.team.entities) {
   page_total = _data.team.entities.length
-  if (page === 1) {
+  if (userPage === 1) {
     $('.paginate-user-up').css("opacity", "0.3").removeClass("active");
     if(page_total >= 5){
       $('.paginate-user-down').css("opacity", "1").addClass("active");
@@ -330,7 +329,7 @@ function checkUserPage() {
   } else {
     $('.paginate-user-up').css("opacity", "1").addClass("active");
   }
-  if (page >= (Math.ceil(page_total / 4))) {
+  if (userPage >= (Math.ceil(page_total / 4))) {
     $('.paginate-user-down').css("opacity", "0.3").removeClass("active");
   }
   } else {
@@ -342,7 +341,7 @@ function checkUserPage() {
 function checkQuotePage() {
   if (_data.quotes) {
   page_total = _data.quotes.entities.length
-  if (page === 1) {
+  if (quotePage === 1) {
     $('.paginate-quote-up').css("opacity", "0.3").removeClass("active");
     if(page_total >= 3){
       $('.paginate-quote-down').css("opacity", "1").addClass("active");
@@ -350,7 +349,7 @@ function checkQuotePage() {
   } else {
     $('.paginate-quote-up').css("opacity", "1").addClass("active");
   }
-  if (page >= (Math.ceil(page_total / 3))) {
+  if (quotePage >= (Math.ceil(page_total / 3))) {
     $('.paginate-quote-down').css("opacity", "0.3").removeClass("active");
   }
   } else {
