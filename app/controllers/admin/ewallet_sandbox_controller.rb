@@ -15,7 +15,9 @@ module Admin
     end
 
     def call
-      @response = ewallet_request(params['api_method'], params['options_hash'])
+      api_method = params['api_method'].parameterize.underscore.to_sym
+
+      @response = ewallet_request(api_method, params['options_hash'])
     end
   end
 end

@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
   has_many :user_activities
 
   store_accessor :contact, :address, :city, :state, :zip, :phone
-  store_accessor :utilities, :provider, :monthly_bill
   store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url
 
   validates_presence_of :email
