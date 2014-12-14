@@ -20,7 +20,7 @@ GIT
 
 GIT
   remote: https://github.com/eyecuelab/ipayout.git
-  revision: f82c6f106ced05111912cbcd8b9a4cfebc80c195
+  revision: 345f8c9c22965378245bee7b76dc054ceea55a5e
   specs:
     ipayout (0.0.1)
       extlib

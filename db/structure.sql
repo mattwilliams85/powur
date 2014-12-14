@@ -901,7 +901,6 @@ CREATE TABLE users (
     sponsor_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    utilities hstore,
     profile hstore,
     avatar_file_name character varying(255),
     avatar_content_type character varying(255),
@@ -1938,4 +1937,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141204005149');
 INSERT INTO schema_migrations (version) VALUES ('20141205231913');
 
 INSERT INTO schema_migrations (version) VALUES ('20141208233620');
+
+INSERT INTO schema_migrations (version) VALUES ('20141212003512');
 
