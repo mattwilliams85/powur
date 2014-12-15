@@ -765,7 +765,7 @@ jQuery(function($){
           clearTimeout(timeoutEvent);
           timeoutEvent = setTimeout(checkCalculation, 15000);
         } else {
-            if(_checkNeeded) _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});   
+            if(_checkNeeded && ($('.pay_period_info').length > 0)) _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});   
         }
       });
     }
