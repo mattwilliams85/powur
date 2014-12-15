@@ -1,4 +1,16 @@
 GIT
+  remote: git://github.com/eyecuelab/ipayout.git
+  revision: 345f8c9c22965378245bee7b76dc054ceea55a5e
+  specs:
+    ipayout (0.0.1)
+      extlib
+      faraday
+      faraday_middleware
+      hashie
+      multi_json
+      pry-rails
+
+GIT
   remote: git://github.com/matthuhiggins/foreigner.git
   revision: d1cdc84e23bb761f7f735a769c639e9f33a440de
   specs:
@@ -17,18 +29,6 @@ GIT
   revision: 6ea4a4a2540ccd14fb8d972f2872ce3f20106acf
   specs:
     same_time (0.0.1)
-
-GIT
-  remote: git@github.com:eyecuelab/ipayout.git
-  revision: 345f8c9c22965378245bee7b76dc054ceea55a5e
-  specs:
-    ipayout (0.0.1)
-      extlib
-      faraday
-      faraday_middleware
-      hashie
-      multi_json
-      pry-rails
 
 GEM
   remote: https://rubygems.org/

@@ -35,7 +35,7 @@ gem 'httparty'
 gem 'delayed_job_active_record'
 gem 'airbrake'
 gem 'pry-rails'
-gem 'ipayout', git: 'git@github.com:eyecuelab/ipayout.git'
+gem 'ipayout', github: 'eyecuelab/ipayout'
 gem 'nmi_direct_post'
 
 group :development do
