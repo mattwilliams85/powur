@@ -94,6 +94,7 @@ jQuery(function($){
 
                 case "#admin-quotes-quotes-init":
                     _loadQuotesInfo(function(){displayQuotes("#admin-quotes-quotes");});
+                    checkCalculation()
                 break;
 
                 case "#admin-quotes-quotes":
@@ -396,6 +397,10 @@ jQuery(function($){
                             _showPayPeriodDetails({_pay_period_id:_pay_period_id, _pay_period_obj:_pay_period_obj});
                         });//end of pay period detail
 
+                        $(".js-refresh").on("click", function(e){
+                            e.preventDefault();
+                            _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});
+                        })
                     });
 
                 break;
@@ -420,9 +425,13 @@ jQuery(function($){
                             e.preventDefault();
                             console.log("calculating "+_options._pay_period_id)
                             //var _pay_period_id= $(e.target).parents("tr").attr("data-pay-period-id");
-                            _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_options._pay_period_id]})[0], function(){
-                                
-                                 _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});
+                            _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_options._pay_period_id]})[0], function(){  
+                            setTimeout(function(){
+                                $("#js-wait_screen_mask").fadeOut(100);
+                                _loadPayPeriodsInfo(function(){
+                                    displayQuotes("#admin-quotes-pay-periods");});
+                                    checkCalculation(); 
+                                }, 4000);
                             });
                         });
 
@@ -570,7 +579,6 @@ jQuery(function($){
                         _url:_action.href,
                         _callback:function(data, text){
                             window.onbeforeunload = null;
-                            $("#js-wait_screen_mask").fadeOut(100);
                             $("body").css("overflow", "auto");
                             if(typeof _callback == "function") _callback();
                             else return data;
@@ -738,6 +746,29 @@ jQuery(function($){
         },300);
 
     });
+
+    // Refreshes page when calculations are finished
+    var timeoutEvent = setTimeout(checkCalculation, 15000);
+    var _checkNeeded = false;
+
+    function checkCalculation(){
+      $.ajax({type:"get", url:"/a/pay_periods"}).done(function(data){
+        var _stopCheck=true;
+        for(i=0;i<data.entities.length;i++){
+          if(data.entities[i].properties.calculating){
+            _stopCheck=false;
+            _checkNeeded=true;
+            break;
+          }
+        }
+        if(!_stopCheck){
+          clearTimeout(timeoutEvent);
+          timeoutEvent = setTimeout(checkCalculation, 15000);
+        } else {
+            if(_checkNeeded) _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});   
+        }
+      });
+    }
 
 
         //* end admin adshboard specific utility functions
