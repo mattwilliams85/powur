@@ -623,6 +623,7 @@ input[type="search"]::-webkit-search-cancel-button {
 		background-size: contain;
 		background-color: $ghost;
 		border: 1px solid $ghost;
+		// width: calc(100% + 3em);
 
 		// Typography
 		color: $quiet;
@@ -644,6 +645,17 @@ input[type="search"]::-webkit-search-cancel-button {
 		}
 	}
 
+	select::-ms-expand {
+	    display: none;
+	}
+
+	/* the following is a workaround to hide our custom dropdown arrow on mozilla browsers (can remove this in Firefox 35) */
+
+	:-moz-any(select) {
+		background-image: none; /* this takes away our arrow and uses the firefox standard arrow */
+	}
+	/* end workaround */
+
 	form {
 		// Mixins
 	
@@ -664,11 +676,13 @@ input[type="search"]::-webkit-search-cancel-button {
 			padding: $grid / 1.125 $grid / 2 $grid / 3.5;
 			// Background & borders
 			background-image: image-url('select_arrow.svg') ;
-			background-position: right bottom;
+			background-position: right bottom 50%;
 			background-repeat: no-repeat;
 			background-size: contain;
 			background-color: $ghost;
 			border: 1px solid $ghost;
+			// width: calc(100% + 3em);
+
 
 			// Typography
 			text-indent: 0.01px;
@@ -679,6 +693,9 @@ input[type="search"]::-webkit-search-cancel-button {
 			// Other
 			-moz-appearance: none;
 			-webkit-appearance: none;
+			-ms-appearance: none;
+			-o-appearance: none;
+			appearance: none;
 
 		&:hover {
 			color: $whisper;
@@ -693,20 +710,20 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 
-	// #select-dropdown {
+	// .select-dropdown {
 	//    width:200px;
 	//    overflow:hidden;
 	//    border:1px solid #eee
 	// }
 
-	// #select-dropdown select {
+	// .select-dropdown select {
 	//    width:110%;
 	//   -webkit-appearance: none;
 	//   -moz-appearance: none;
 
 	// }
 
-	// #select-dropdown {
+	// .select-dropdown {
 	//    -webkit-touch-callout: none;
 	//    -webkit-user-select: none;
 	//    -khtml-user-select: none;
@@ -721,6 +738,6 @@ input[type="search"]::-webkit-search-cancel-button {
 	//    background: transparent; 
 	// }
 
-	// #select-dropdown .fa-caret-down {
+	// .select-dropdown .fa-caret-down {
 	// 	height:1px;
 	// }
