@@ -28,11 +28,11 @@ module Auth
       require_input :current_password, :new_password, :new_password_confirm
       user = current_user
       unless user && user.password_match?(params['current_password'])
-        error!(t('errors.password_update'), :current_password)
+        error!(:password_update, :current_password)
       end
 
       unless params[:new_password] == params[:new_password_confirm]
-        error!(t('errors.password_confirm'), :new_password_confirm)
+        error!(:password_confirm, :new_password_confirm)
       end
 
       user.password = params[:new_password]

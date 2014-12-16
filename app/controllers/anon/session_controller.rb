@@ -10,7 +10,7 @@ module Anon
       require_input :email, :password
 
       user = User.authenticate(params[:email], params[:password]) ||
-             error!(t('errors.credentials'), :email)
+             error!(:credentials, :email)
 
       login_user(user)
 

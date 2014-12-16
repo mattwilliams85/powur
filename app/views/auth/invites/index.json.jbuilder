@@ -8,10 +8,10 @@ end
 
 json.entities @invites, partial: 'item', as: :invite
 
-actions action(:create, :post, invites_path)
+actions action(:create, :post, request.path)
   .field(:email, :email)
   .field(:first_name, :text)
   .field(:last_name, :text)
   .field(:phone, :text, required: false)
 
-links link(:self, invites_path)
+self_link request.path

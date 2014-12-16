@@ -37,8 +37,8 @@ en:
     credentials: Invalid email or password
     invalid_code: Invalid invite code
     email_not_found: This email was not found in our system
-    quote_not_found: "A quote was not found for the email %{email}"
-    quote_exists: "A quote already exists with the email %{email}"
+    quote_not_found: "A quote was not found for the email '%{email}'"
+    quote_exists: "A quote already exists with the email '%{email}'"
     reset_token_invalid: Invalid reset password token
     reset_token_expired: The reset password token was expired
     reset_token: Invalid or expired password reset token
@@ -52,6 +52,17 @@ en:
     period_not_calculable: This pay period is not eligible for calculation
     period_not_disbursable: This pay period is not eligible for distribution
     cannot_add_amounts: Bonus amounts cannot be added to this bonus
+    api:
+      invalid_grant:
+        refresh_token: invalid refresh_token
+        password: 'invalid username and/or password'
+        expired: access_token is expired
+      invalid_token: access_token is invalid
+      invalid_client: invalid client credentials
+      unsupported_grant_type: "invalid grant_type value of: '%{grant_type}'"
+      invalid_request:
+        params: "missing the following required params: '%{params}'"
+      invalid_scope: "unsupported api version %{v}"
     messages:
       exceeded_max_invites: You have exceeded the max number of invites allowed
       invalid_keys: "%{attribute} has invalid keys for the product"

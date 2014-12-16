@@ -30,7 +30,7 @@ module Anon
     private
 
     def invalid_code!
-      error!(t('errors.invalid_code'), :code)
+      error!(:invalid_code, :code)
     end
 
     def fetch_invite

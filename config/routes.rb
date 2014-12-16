@@ -220,7 +220,11 @@ Rails.application.routes.draw do
           get :downline
         end
       end
-      resources :invites, only: [ :index, :create ]
+      resources :invites, only: [ :index, :create, :show ] do
+        member do
+          post :resend
+        end
+      end
       resources :quotes, only: [ :index, :create ]
     end
   end

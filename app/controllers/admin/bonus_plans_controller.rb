@@ -48,7 +48,7 @@ module Admin
         start_year:  input['start_year'].to_i,
         start_month: input['start_month'].to_i).first
 
-      error! t('errors.duplicate_bonus_plan_start', plan: plan.name)
+      error! t(:duplicate_bonus_plan_start, plan: plan.name)
     end
   end
 end

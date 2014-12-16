@@ -1,6 +1,6 @@
 module Auth
   class InvitesController < AuthController
-    before_action :fetch_invite, only: [ :show, :renew, :resend, :destroy ]
+    before_action :fetch_invite, only: [ :show, :resend, :destroy ]
     skip_before_action :authenticate!, only: [ :show ]
 
     def index

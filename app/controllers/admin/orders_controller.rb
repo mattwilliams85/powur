@@ -31,7 +31,7 @@ module Admin
 
       render 'show'
     rescue ActiveRecord::RecordNotUnique
-      error! t('errors.duplicate_order')
+      error!(:duplicate_order)
     end
 
     def show

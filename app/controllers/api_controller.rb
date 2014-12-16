@@ -10,15 +10,36 @@ class ApiController < ApplicationController
 
   protected
 
-  def error!(error, msg)
+  def api_error!(error, *args)
+    opts = args.last.is_a?(Hash) ? args.pop : {}
+    msg = if args.last.is_a?(String)
+      args.pop
+    else
+      t(args.unshift('errors.api', error).join('.'), opts)
+    end
+
     fail Errors::ApiError.new(error), msg
   end
 
-  def expect_params(*args)
+  # def error!(error, msg)
+  #   fail Errors::ApiError.new(error), msg
+  # end
+
+  def error!(msg, field = nil, opts = {})
+    opts = field if field.is_a?(Hash)
+    msg = t("errors.#{msg}", opts) if msg.is_a?(Symbol)
+    args = field.is_a?(Symbol) ? { 'error_parameters' => [ field ] } : {}
+    api_error!(:bad_request, msg, args)
+  end
+
+  def allow_input(*keys)
+    Hash[params.permit(*keys).map { |k, v| [ k, v.presence ] }]
+  end
+
+  def require_input(*args)
     missing = args.select { |arg| !params[arg].present? }
     return params.permit(*args) if missing.empty?
-    msg = "missing the following required params: \"#{missing.join(', ')}\""
-    error!(:invalid_request, msg)
+    api_error!(:invalid_request, params: missing.join(','))
   end
 
   private
@@ -55,12 +76,12 @@ class ApiController < ApplicationController
   end
 
   def authenticate!
-    error!(:invalid_token, 'access_token is invalid') unless valid_token?
-    error!(:invalid_grant, 'access_token is expired') if token_expired?
+    api_error!(:invalid_token) unless valid_token?
+    api_error!(:invalid_grant, :expired) if token_expired?
   end
 
   def server_error(e)
-    error!(:server_error, e.message)
+    api_error!(:server_error, e.message)
   rescue Errors::ApiError => ex
     unless Rails.env.production?
       ex.backtrace = e.backtrace

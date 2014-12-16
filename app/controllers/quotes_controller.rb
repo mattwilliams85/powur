@@ -23,7 +23,7 @@ class QuotesController < AnonController
     not_found!(:sponsor, params[:sponsor]) unless sponsor?
 
     if quote_from_email?
-      error!(t('errors.quote_exists', email: params[:email]), :email)
+      error!(:quote_exists, :email, email: params[:email])
     end
 
     customer = Customer.create!(customer_input)
@@ -48,7 +48,7 @@ class QuotesController < AnonController
     require_input :email, :product_id
 
     quote_from_email? ||
-      error!(t('errors.quote_not_found', email: params[:email]), :email)
+      error!(:quote_not_found, :email, email: params[:email])
 
     confirm :quote_resent
 

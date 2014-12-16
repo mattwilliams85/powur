@@ -6,7 +6,7 @@ module Api
 
     def show
       return unless params[:v] && !VALID_API_RANGE.cover?(params[:v].to_i)
-      error!(:invalid_scope, "unsupported api version \"#{params[:v]}\"")
+      api_error!(:invalid_scope, v: params[:v])
     end
   end
 end

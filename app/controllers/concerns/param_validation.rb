@@ -33,7 +33,7 @@ module ParamValidation
   def error!(msg, field = nil, opts = {})
     opts = field if field.is_a?(Hash)
     msg = t("errors.#{msg}", opts) if msg.is_a?(Symbol)
-    if field && field.is_a?(Symbol)
+    if field.is_a?(Symbol)
       fail ::Errors::InputError.new(field), msg
     else
       fail ::Errors::AlertError, msg
@@ -42,7 +42,7 @@ module ParamValidation
 
   def not_found!(entity, id = params[:id])
     response.status = :not_found
-    error!(t('errors.not_found', entity: entity, id: id))
+    error!(:not_found, entity: entity, id: id)
   end
 
   def active_record_error(e)

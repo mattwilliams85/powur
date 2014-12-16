@@ -33,7 +33,7 @@ module Admin
 
       render 'index'
     rescue ActiveRecord::InvalidForeignKey
-      error!(t('errors.delete_product'))
+      error!(:delete_product)
     end
 
     private

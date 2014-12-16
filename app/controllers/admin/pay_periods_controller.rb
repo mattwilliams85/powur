@@ -52,7 +52,7 @@ module Admin
 
     def disburse
       unless @pay_period.disbursable?
-        error!(t('errors. period_not_disbursable'))
+        error!(:period_not_disbursable)
       end
       @pay_period.disburse!
       render 'index'
