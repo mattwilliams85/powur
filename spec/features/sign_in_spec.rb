@@ -1,9 +1,9 @@
 require 'spec_helper'
-# require_relative '../../app/models/user_activity'
+require_relative '../../app/models/user_activity'
 require_relative '../../app/helpers/json_decorator'
 
 describe "Sign In", :js do
-  let!(:user) { create(:user, password: 'password') }
+  let!(:user) { create(:user) }
 
   before do
     visit "/"
