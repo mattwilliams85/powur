@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe '/quote' do
 
-  before :each do
+  before do
+    DatabaseCleaner.clean
     @user = create(:user, url_slug: 'dude')
     @product = create(:sunrun_product)
   end

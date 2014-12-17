@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe '/a/bonus_plans' do
 
-  before :each do
+  before do
+    DatabaseCleaner.clean
     login_user
     @start_year, @start_month = DateTime.current.year, DateTime.current.month
   end

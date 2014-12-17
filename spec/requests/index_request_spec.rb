@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'index' do
-
   it 'renders an anonymous session when the user is not logged in' do
     get root_path, format: :json
 
@@ -30,5 +29,24 @@ describe 'index' do
     expect_200
     expect_classes('session', 'registration')
     expect_actions('create')
+  end
+
+  context 'when NOT signed in' do
+    it 'should NOT redirect' do
+      get '/'
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  context 'when signed in' do
+    before do
+      login_user
+    end
+
+    it 'should redirect to a dashboard' do
+      get '/'
+      expect(response).to have_http_status(302)
+      expect(response).to redirect_to(dashboard_path)
+    end
   end
 end

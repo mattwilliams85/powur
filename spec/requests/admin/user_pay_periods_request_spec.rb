@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe '/u/users/:admin_user_id/pay_periods' do
 
-  before :each do
+  before do
+    DatabaseCleaner.clean
     login_user
   end
 

@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe '/password' do
 
-  before :each do
+  before do
+    User.delete_all
     @user = create(:user,
                    reset_token:   'token_value',
                    reset_sent_at: DateTime.current)

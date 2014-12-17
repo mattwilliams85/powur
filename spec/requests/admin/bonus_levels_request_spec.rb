@@ -2,12 +2,13 @@ require 'spec_helper'
 
 describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
 
-  before :each do
+  before do
+    DatabaseCleaner.clean
     login_user
     create_list(:rank, 4)
     @path = create(:rank_path)
   end
-  
+
   def amounts
     json_body['entities'].find { |e| e['class'].include?('bonus_levels') }
   end

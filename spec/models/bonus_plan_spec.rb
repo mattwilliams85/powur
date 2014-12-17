@@ -17,7 +17,8 @@ describe BonusPlan, type: :model do
 
   describe '#active' do
 
-    before :each do
+    before do
+      DatabaseCleaner.clean
       @year = DateTime.current.year
       @month = DateTime.current.month
     end

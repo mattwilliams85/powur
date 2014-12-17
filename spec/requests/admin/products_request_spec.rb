@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe '/a/products' do
 
-  before :each do
+  before do
+    DatabaseCleaner.clean
     login_user
   end
 
@@ -14,7 +15,7 @@ describe '/a/products' do
       get products_path, format: :json
 
       expect_classes 'products', 'list'
-      expect_entities_count(4)
+      expect_entities_count(3)
       expect_actions 'create'
     end
 
@@ -65,7 +66,7 @@ describe '/a/products' do
 
       delete product_path(product), format: :json
 
-      expect_entities_count(1)
+      expect_entities_count(0)
     end
 
     it 'does not allow a product to be deleted that has existing quotes' do

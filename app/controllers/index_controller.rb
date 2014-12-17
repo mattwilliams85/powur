@@ -3,7 +3,9 @@ class IndexController < AnonController
 
   def index
     respond_to do |format|
-      format.html
+      format.html {
+        redirect_to dashboard_path if logged_in?
+      }
       format.json { render "anon/session/#{root_template}" }
     end
   end

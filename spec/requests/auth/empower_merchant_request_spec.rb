@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe '/u/empower_merchant' do
 
-  before :each do
-    login_user
+  before do
+    login_real_user
   end
 
   describe '#sandbox' do

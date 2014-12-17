@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe '/a/ranks' do
 
-  before :each do
-    login_user
+  before do
+    DatabaseCleaner.clean
+    login_real_user
   end
 
   describe 'GET /' do

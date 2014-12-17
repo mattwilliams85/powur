@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe '/u/quotes' do
 
-  before :each do
-    login_user
-
+  before do
+    DatabaseCleaner.clean
+    login_real_user
     @product = create(:sunrun_product)
   end
 

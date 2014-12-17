@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe 'rank achievements', type: :request do
 
-  before :each do
+  before do
+    DatabaseCleaner.clean
     login_user
     create_list(:rank, 5)
   end

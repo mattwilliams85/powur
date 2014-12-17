@@ -59,6 +59,8 @@ group :test do
   gem 'webmock', require: 'webmock/rspec'
   gem 'vcr'
   gem 'db-query-matchers'
+  gem "capybara"
+  gem 'capybara-firebug'
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc

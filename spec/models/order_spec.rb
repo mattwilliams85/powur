@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Order, type: :model do
 
+  before do
+    DatabaseCleaner.clean
+  end
+
   it 'searches by user' do
     user = create(:user, first_name: 'Garey')
     create(:order, user: user)

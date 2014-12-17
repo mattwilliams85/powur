@@ -2,6 +2,8 @@ module Anon
   class SessionController < AnonController
     layout 'user'
 
+    before_filter :redirect_if_logged_in, except: [:destroy]
+
     def index
       render 'index'
     end
@@ -21,6 +23,11 @@ module Anon
       reset_session
 
       redirect_to root_url
+    end
+
+    private
+    def redirect_if_logged_in
+      redirect_to dashboard_path if logged_in?
     end
   end
 end

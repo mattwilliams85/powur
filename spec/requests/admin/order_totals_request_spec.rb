@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe 'order totals', type: :request do
 
-  before :each do
+  before do
+    DatabaseCleaner.clean
     login_user
   end
 
@@ -11,8 +12,7 @@ describe 'order totals', type: :request do
   end
 
   describe '/a/pay_periods/:id/order_totals' do
-
-    before :each do
+    before do
       @pay_period = create_pay_period(DateTime.current - 1.month)
     end
 
