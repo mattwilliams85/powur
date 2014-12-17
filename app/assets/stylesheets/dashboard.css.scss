@@ -2149,6 +2149,9 @@
   #global-legend {
     background-color:rgba(249,166,0,1);
   }
+  #extra-legend {
+    background-color:#FF5E27;
+  }
   #top-performer{
     background-color: rgba(44,148,105,1);
   }
@@ -2241,7 +2244,7 @@ h4 {
 	cursor:pointer;
 }
 
-.fa-caret-right, .fa-caret-left {
+.time_unit_nav > .fa-caret-right, .time_unit_nav > .fa-caret-left {
 	cursor:pointer;
 	font-size:20px !important;
 	color:rgb(238,238,238);
