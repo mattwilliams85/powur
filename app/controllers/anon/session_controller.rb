@@ -14,7 +14,7 @@ module Anon
       user = User.authenticate(params[:email], params[:password]) ||
              error!(:credentials, :email)
 
-      login_user(user)
+      login_user(user, params[:remember_me] == 'on')
 
       render 'show'
     end
