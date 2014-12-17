@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe '/u/users/:user_id/goals', type: :request do
 
-  before :each do
-    login_user
+  before do
+    login_real_user
     @pay_period = MonthlyPayPeriod.current
     create_list(:rank, 3)
     sales_qual = create(:sales_qualification, rank_id: 2,

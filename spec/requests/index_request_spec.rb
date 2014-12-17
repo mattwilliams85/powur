@@ -40,7 +40,7 @@ describe 'index' do
 
   context 'when signed in' do
     before do
-      allow_any_instance_of(IndexController).to receive(:logged_in?).and_return(true)
+      login_user
     end
 
     it 'should redirect to a dashboard' do

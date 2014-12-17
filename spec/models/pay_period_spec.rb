@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe PayPeriod, type: :model do
 
+  before do
+    DatabaseCleaner.clean
+  end
+
   describe '::generate_missing' do
 
     it 'backfills missing pay periods' do

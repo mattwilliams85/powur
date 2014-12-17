@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe '/a' do
 
-  before :each do
+  before do
+    DatabaseCleaner.clean
     login_user
   end
 

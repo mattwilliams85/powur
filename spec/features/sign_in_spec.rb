@@ -25,6 +25,8 @@ describe "Sign In", :js do
       fill_in 'email', with: user.email
       fill_in 'password', with: 'password'
       click_on 'Log in'
+      sleep 2
+      # expect(first('nav ul').text).to match /DASHBOARD/
       expect(page).to have_content 'DASHBOARD'
       expect(current_path).to eq('/u/dashboard')
     end

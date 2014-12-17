@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe 'order endpoints' do
 
-  before :each do
+  before do
+    DatabaseCleaner.clean
     login_user
   end
 
@@ -92,7 +93,7 @@ describe 'order endpoints' do
 
   describe 'GET /users/:id/orders' do
     it 'renders orders for a user' do
-      create(:order, user: @user)
+      create(:order)
       user = create(:user)
       create_list(:order, 3, user: user)
 

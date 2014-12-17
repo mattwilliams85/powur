@@ -2,8 +2,9 @@ require 'spec_helper'
 
 describe '/a/quotes' do
 
-  before :each do
-    login_user
+  before do
+    DatabaseCleaner.clean
+    login_real_user
   end
 
   describe '/' do

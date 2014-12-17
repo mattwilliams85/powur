@@ -1,6 +1,16 @@
 # helper methods for spec tests
 module SpecHelpers
   def login_user
+    @user = double('signed_in_user', id: 1, email: 'user1@example.com', first_name: 'Bob', last_name: 'Smith', roles: ['admin'])
+    allow(@user).to receive(:role?).with(:admin).and_return(true)
+    if defined?(session)
+      session[:user_id] = @user.id
+    else
+      allow_any_instance_of(WebController).to receive(:current_user).and_return(@user)
+    end
+  end
+
+  def login_real_user
     @user = create(:user)
     if defined?(session)
       session[:user_id] = @user.id

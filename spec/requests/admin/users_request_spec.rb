@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe '/a/users' do
 
-  before :each do
-    login_user
+  before do
+    login_real_user
   end
 
   describe '#index' do

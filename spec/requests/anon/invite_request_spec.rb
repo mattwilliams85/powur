@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe '/a/invite' do
+  before do
+    DatabaseCleaner.clean
+  end
 
   describe 'POST' do
 
