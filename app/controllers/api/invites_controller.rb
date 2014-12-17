@@ -6,6 +6,10 @@ module Api
 
     private
 
+    def list_query
+      current_user.invites.order(created_at: :desc)
+    end
+
     def controller_path
       'auth/invites'
     end

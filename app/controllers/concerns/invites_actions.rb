@@ -6,7 +6,7 @@ module InvitesActions
   end
 
   def index
-    @invites = current_user.active_invites.order(created_at: :desc)
+    @invites = list_query
 
     render 'index'
   end
@@ -39,6 +39,10 @@ module InvitesActions
   end
 
   private
+
+  def list_query
+    current_user.active_invites.order(created_at: :desc)
+  end
 
   def input
     allow_input(:email, :first_name, :last_name, :phone)

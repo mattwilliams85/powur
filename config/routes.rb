@@ -220,7 +220,7 @@ Rails.application.routes.draw do
           get :downline
         end
       end
-      resources :invites, only: [ :index, :create, :show ] do
+      resources :invites, only: [ :index, :create, :destroy ] do
         member do
           post :resend
         end
