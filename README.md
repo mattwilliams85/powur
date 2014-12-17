@@ -60,6 +60,7 @@ The first argument is the approximate total # of users. The second is the max # 
 rake sunstand:simulate:orders
 ```
 
+
 Arguments can be used for this command as well
 
 ```bash
