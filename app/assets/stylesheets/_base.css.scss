@@ -651,9 +651,10 @@ input[type="search"]::-webkit-search-cancel-button {
 
 	/* the following is a workaround to hide our custom dropdown arrow on mozilla browsers (can remove this in Firefox 35) */
 
-	:-moz-any(select) {
-		background-image: none; /* this takes away our arrow and uses the firefox standard arrow */
-	}
+	// :-moz-any(select) {
+	// 	background-image: none; this takes away our arrow and uses the firefox standard arrow
+	// }
+	
 	/* end workaround */
 
 	form {

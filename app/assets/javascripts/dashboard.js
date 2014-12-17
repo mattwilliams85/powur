@@ -8,6 +8,39 @@ $(window).bind('page:change', function() {
 	initPage();
 });
 
+//apply browser-specific rules
+//(this must be executed after each asynchronous request if it affects DOM elements)
+
+function applyBrowserSpecificRules() {
+  if (navigator.userAgent.indexOf("Chrome") != -1) {
+    // (chrome-specific stuff here)
+  } else if (navigator.userAgent.indexOf("Opera") != -1) {
+    // (opera-specific stuff here)
+  } else if (navigator.userAgent.indexOf("Firefox") != -1) {
+    // (firefox-specific stuff here)
+
+    //dropdown arrows workaround for FF 34 and below
+    if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){ //test for Firefox/x.x or Firefox x.x (ignoring remaining digits);
+      var ffversion = new Number(RegExp.$1) // capture x.x portion and store as a number
+      if (ffversion >= 35) {
+        var _selects = document.querySelectorAll('select');
+        for (var i=0; i<_selects.length; i++) {
+          _selects[i].style.backgroundImage = "/assets/select_arrow.svg";
+        };
+      } else {
+        var _selects = document.querySelectorAll('select');
+        for (var i=0; i<_selects.length; i++) {
+          _selects[i].style.backgroundImage = "none";
+        };
+      }
+    }
+  } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) {
+    // (IE-specific stuff here)
+  } else {
+    // (browser isn't one of the above)
+  }
+}
+
 
 function initPage(){
 	_data.root={};
@@ -58,8 +91,8 @@ function Dashboard(){
 	_data.global.thumbnail_size={"width":252,"height":197};
 	_data.global.grid_width=32;
 	_data.global.total_invitations=5;
-
 	this.displayTeam = displayTeam;
+
 	this.displayQuotes = displayQuotes;
 	this.displayGoals = displayGoals;
 	this.displayKPIs = displayKPIs;
@@ -623,6 +656,10 @@ function Dashboard(){
 						});
 						//populate drilldown
 						EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+							
+							//!!! applyBrowserSpecificRules() to solve compatibility issues for DOM elements on asynchronous requests
+							applyBrowserSpecificRules();
+
 							_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 							_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 							$("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
@@ -1241,3 +1278,8 @@ $(document).on("focus", "input", function(e){
 		 }
 	 });
  });
+
+
+$(document).ready(function(){
+	applyBrowserSpecificRules();
+});
