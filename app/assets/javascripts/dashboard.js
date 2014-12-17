@@ -680,7 +680,8 @@ function Dashboard(){
 							$("#customer_contact_form .js-update_customer_info").on("click", function(e){
 								e.preventDefault();
 								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-								_ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject(), _callback:displayQuotes()});
+								_ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject()});
+								displayQuotes(); //this function can't happen as callback of _ajax() function because it will retrieve the old data
 								_thisThumbnail.find(".expand").click();
 
 							});
