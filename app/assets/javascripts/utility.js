@@ -63,7 +63,7 @@ Handlebars.registerHelper('sanitize', function(_value){
 
 Handlebars.registerHelper('localtime', function(_value){
     var _t = new Date(_value);
-    return _t.toLocaleDateString();
+    return (_t.getMonth()+1)+"/"+(_t.getDate())+"/"+(_t.getFullYear());
 });
 
 
