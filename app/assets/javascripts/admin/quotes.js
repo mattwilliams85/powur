@@ -109,10 +109,10 @@ jQuery(function($){
 
 
                     EyeCueLab.UX.getTemplate("/templates/admin/quotes/quotes/_summary.handlebars.html", {}, $(".js-admin_dashboard_column.summary"), function(){
-                        
+
                         if(!_data.quotes.filterObj.page)_data.quotes.filterObj.page=1;
                         if(!_data.quotes.filterObj.sort)_data.quotes.filterObj.sort = "created";
-                        
+
                         $(".js-quotes_sort_type option").each(function(){
                             if(this.value === _data.quotes.filterObj.sort) $(".js-quotes_sort_type").val(this.value);
                         })
@@ -425,12 +425,12 @@ jQuery(function($){
                             e.preventDefault();
                             console.log("calculating "+_options._pay_period_id)
                             //var _pay_period_id= $(e.target).parents("tr").attr("data-pay-period-id");
-                            _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_options._pay_period_id]})[0], function(){  
+                            _calculatePayPeriod(EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_options._pay_period_id]})[0], function(){
                             setTimeout(function(){
                                 $("#js-wait_screen_mask").fadeOut(100);
                                 _loadPayPeriodsInfo(function(){
                                     displayQuotes("#admin-quotes-pay-periods");});
-                                    checkCalculation(); 
+                                    checkCalculation();
                                 }, 4000);
                             });
                         });
@@ -569,7 +569,7 @@ jQuery(function($){
         }
 
         function _calculatePayPeriod(_pay_period, _callback){
-            var _action=_getObjectsByCriteria(_pay_period, "val~calculate")[0];   
+            var _action=_getObjectsByCriteria(_pay_period, "val~calculate")[0];
             $("#js-wait_screen_mask").fadeIn(100, function(){
                 window.onbeforeunload = leavePageWarning
                 EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"The calculation may take a few moments to complete. Thank you!"}, $("#js-wait_screen_mask"), function(){
@@ -661,7 +661,7 @@ jQuery(function($){
                 _url:"/a/quotes",
                 _postObj:_data.quotes.filterObj,
                 _callback:function(data, text){
-                    var _filterObj = _data.quotes.filterObj; 
+                    var _filterObj = _data.quotes.filterObj;
                     _data.quotes = data;
                     _data.quotes.filterObj = _filterObj;
 
@@ -765,7 +765,7 @@ jQuery(function($){
           clearTimeout(timeoutEvent);
           timeoutEvent = setTimeout(checkCalculation, 15000);
         } else {
-            if(_checkNeeded && ($('.pay_period_info').length > 0)) _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});   
+            if(_checkNeeded && ($('.pay_period_info').length > 0)) _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});
         }
       });
     }

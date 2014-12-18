@@ -794,12 +794,12 @@ jQuery(function($){
                             var _requirementHref = $(e.target).attr("href").replace("#","");
                             var _popupData = _getObjectsByCriteria(_data.bonuses, "val="+_requirementHref).filter(function(_action){return _action.name=="update"})[0];
                             var _bonusID = $(e.target).parents("tr").attr("data-bonus-id");
-                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses, 
+                            var _bonus = EyeCueLab.JSON.getObjectsByPattern(_data.bonuses,
                                 {
                                     "containsIn(properties)":[{id:_bonusID}],
                                     "containsIn(class)":["bonus"]
                                 })[0];
-                            
+
                             _popupData.fields.forEach(function(field){field.display_name=field.name.replace(/\_/g," ");});
                             _popupData.title="Editing Bonus Requirement<br> For Bonus: "+_bonus.properties.name;
                             _popupData.deleteOption={};
