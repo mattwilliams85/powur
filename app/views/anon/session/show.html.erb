@@ -1,12 +1,7 @@
-<% content_for :javascript_includes do %>
-  <%= javascript_include_tag "user.js" %>
-<% end %>
-
 <section id="user_content" class="user" style="height:80vh;">
   <h3>Promoter Login</h3>
 
   <form id="user_login" class="js-login_form">
-
     <span class="form_row">
       <label for="email">Email</label>
       <input name="email" type="text" class="validate" required autofocus/>
@@ -18,12 +13,11 @@
     </span>
 
     <span class="form_row checkbox">
-      <input name="remember_me" id="remember_me" type="checkbox" required />
+      <input name="remember_me" id="remember_me" type="checkbox" />
       <label for="remember_me" class="checkbox small"> remember me</label>
     </span>
 
     <a href="<%= password_path %>" class="secondary_button">Reset password</a>
     <input type="submit" class="button" value="Log in"/>
   </form>
-
 </section>
