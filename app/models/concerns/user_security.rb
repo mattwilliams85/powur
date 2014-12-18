@@ -48,6 +48,20 @@ module UserSecurity
     PromoterMailer.reset_password(self).deliver
   end
 
+  # Updates last_sign_in_at and remember_created_at timestamps
+  def update_sign_in_timestamps! remember_me=nil
+    timestamp = Time.now.utc
+    self.last_sign_in_at = timestamp
+    self.remember_created_at = remember_me ? timestamp : nil
+    save(validate: false)
+  end
+
+  # Returns false if user's last sign in was more than an hour ago
+  # and remember me option was not used
+  def sign_in_expired?
+    !remember_created_at && (last_sign_in_at.nil? || last_sign_in_at < Time.now.utc - 1.hour)
+  end
+
   private
 
   def hash_password(value)
