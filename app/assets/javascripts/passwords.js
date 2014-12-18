@@ -1,4 +1,4 @@
-//passwords.js
+'use strict';
 
 jQuery(function($){
     //wire up reset form

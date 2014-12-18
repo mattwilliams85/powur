@@ -1,8 +1,10 @@
+'use strict';
+
 var _myID=0; //current user id
 var _data={}; //main data object that contains user profile and genelogy info
 var _animation_speed = 300;
 var _dashboard;
-var kpiType = ""
+var kpiType = '';
 
 $(window).bind('page:change', function() {
 	initPage();
@@ -55,7 +57,7 @@ function initPage(){
 		_dashboard.displayQuotes();
 		_dashboard.displayKPIs();
 		if(_data.currentUser.avatar) $("#js-user_profile_image").attr("src", _data.currentUser.avatar.thumb);
-		setInterval(_dashboard._countdown, 1000);     
+		setInterval(_dashboard._countdown, 1000);
 	});
 
 	//wire up logout button
@@ -138,8 +140,8 @@ function Dashboard(){
 			$(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_value span").html(kpi[key].tab.value)
 			$(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_label").html(kpi[key].tab.label)
 
-		}); 
-		
+		});
+
 		//adjust font width for metrics
 		$(".kpi_thumbnail h1").each(function(){
 			var _width=$(this).find("span:first").width()+174;
@@ -147,7 +149,7 @@ function Dashboard(){
 			$(this).css("font-size", _newWidth+"pt");
 		});
 
-	} 
+	}
 
 	function displayGoals(path){
 		return;
@@ -191,7 +193,7 @@ function Dashboard(){
 		}
 
 		goals.next_rank.qualifications=_getObjectsByCriteria(goals.next_rank, {path:$("#pay_period_goal_path").val()});
-		
+
 		var displayPrimaryProduct={
 			id:1, /* this is hardcoded for the sunrun solar item, this what will be displayed in the bars */
 			name:"SunRun Solar Item"
@@ -223,7 +225,7 @@ function Dashboard(){
 				}
 			}
 		});
-		
+
 		Object.keys(goals.sales).forEach(function(_key){
 			var _section_width=$("#"+_key+"_sales .labels").width();
 			var notches={};
@@ -263,7 +265,7 @@ function Dashboard(){
 			e.preventDefault();
 			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
 			_drillDown({"_type":"invitations",
-						"_mainSectionID":$(e.target).parents("section").attr("id"), 
+						"_mainSectionID":$(e.target).parents("section").attr("id"),
 						"_thumbnailIdentifier":".js-invites_thumbnail",
 						"_target":$(e.target),
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
@@ -300,7 +302,7 @@ function Dashboard(){
 						}
 					});
 				});
-				
+
 				$("#team_search").unbind();
 				$("#performance_metric").unbind();
 				$("#performance_period").unbind();
@@ -355,10 +357,10 @@ function Dashboard(){
 					_thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
 					_thisAudience =  $(e.target).parents(".js-new_quote_thumbnail").attr("data-audience");
 					_drillDown({"_type":"new_quote",
-								"_mainSectionID":$(e.target).parents("section").attr("id"), 
+								"_mainSectionID":$(e.target).parents("section").attr("id"),
 								"_thumbnailIdentifier":".js-new_quote_thumbnail",
 								"_target":$(e.target),
-								"_audience":_thisAudience, 
+								"_audience":_thisAudience,
 								"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 				});
 				if(_data.quotes.entities.length<=0) return;
@@ -367,7 +369,7 @@ function Dashboard(){
 				if(_data.quotes.entities.length>4) _containerObj.siblings(".nav").fadeIn();
 				_containerObj.css("width", (_data.global.thumbnail_size.width*_data.quotes.entities.length)+"px");
 				var _displayData= data.entities;
-				
+
 
 				EyeCueLab.UX.getTemplate("/templates/_quote_thumbnail.handlebars.html", data.entities, _containerObj, function(){
 
@@ -401,12 +403,12 @@ function Dashboard(){
 						_drillDownUserID=$(e.target).parents(".js-quote_thumbnail").attr("alt");
 						_thisThumbnail = $(e.target).parents(".js-quote_thumbnail");
 						_drillDown({"_type":_tab,
-									"_mainSectionID":"dashboard_quotes", 
+									"_mainSectionID":"dashboard_quotes",
 									"_thumbnailIdentifier":".js-quote_thumbnail",
 									"_target":$(e.target),
-									"_userID":_drillDownUserID, 
+									"_userID":_drillDownUserID,
 									"_arrowPosition":_thisThumbnail.find(".expand .fa").offset().left});
-					}); 
+					});
 
 
 
@@ -429,12 +431,12 @@ function Dashboard(){
 			_thisKpiType = $(e.target).parents(".kpi_thumbnail").attr("data-kpi-type");
 
 			_drillDown({"_type":"impact_metrics",
-						"_mainSectionID":"dashboard_kpis", 
+						"_mainSectionID":"dashboard_kpis",
 						"_thumbnailIdentifier":".kpi_thumbnail",
 						"_target":$(e.target),
-						"_kpiType":_thisKpiType, 
+						"_kpiType":_thisKpiType,
 						"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
-		}); 
+		});
 	})();
 	//wire up the pagination hooks
 	$(document).on("click", ".pagination_container .nav", function(e){
@@ -461,7 +463,7 @@ function Dashboard(){
 		e.preventDefault();
 		if($(this).attr("class")===undefined) $(this).attr("class", "");
 		if ($(this).attr("class").indexOf("active")>=0) return;
-		
+
 		_tabSelect({  "_type":$(this).attr("data-tab-type"),
 				"_mainSectionID":$(this).parents("section").attr("id"),
 				"_target":$(e.target),
@@ -505,14 +507,14 @@ function Dashboard(){
 					//add new team drilldown basic template layout with leader info
 					_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 					$("#dashboard_team").append(_html);
-					
+
 					_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 					_drilldownContainerObj.css("opacity","0");
 					// _drilldownContainerObj.scrollView(180);
 					_drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
 
-					_getTemplate("/templates/drilldowns/_team_details.handlebars.html", 
-						_userDetail, 
+					_getTemplate("/templates/drilldowns/_team_details.handlebars.html",
+						_userDetail,
 						_drilldownContainerObj,
 						function(){
 							//once the basic template is set, now populate the downlink information
@@ -529,7 +531,7 @@ function Dashboard(){
 
 									_downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
 									if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
-									
+
 									data.entities.forEach(function(member){
 										_downlinkContainerObj.html("");
 										_ajax({
@@ -554,14 +556,14 @@ function Dashboard(){
 					_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 					_drilldownContainerObj.css("opacity","0");
 					// _drilldownContainerObj.scrollView(180);
-					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);  
-					_userDetail={};   
+					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
+					_userDetail={};
 					_getTemplate("/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
 
 				});
 			break;
-			
-		
+
+
 			case "quotes":
 				if(_data.quotes.length==0) return;
 
@@ -570,19 +572,19 @@ function Dashboard(){
 				$("#dashboard_quotes").append(_html);
 				_drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);  
+				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);
 
 				//retrieve info from /customers/:id for the quote
 				_userDetail={};
 				_ajax({
-					_ajaxType:"get", 
-					_url:"/u/quotes/"+_options._userID, 
+					_ajaxType:"get",
+					_url:"/u/quotes/"+_options._userID,
 					_callback:function(data, text){
 						var _updateAction={};
 						var _userDetail = data;
-						
+
 						_userDetail._allFields = _getObjectsByCriteria(data, "val=update")[0].fields;
-						
+
 						_userDetail._quoteFields = [];
 						_userDetail._customerFields = [];
 
@@ -590,11 +592,11 @@ function Dashboard(){
             ["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
               _userDetail._quoteFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
             });
-            
+
             ["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
               _userDetail._customerFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
             });
-            
+
             _userDetail._customerFields[6].fields = [
             "Alabama",
             "Alaska",
@@ -656,7 +658,7 @@ function Dashboard(){
 						});
 						//populate drilldown
 						EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
-							
+
 							//!!! applyBrowserSpecificRules() to solve compatibility issues for DOM elements on asynchronous requests
 							applyBrowserSpecificRules();
 
@@ -692,7 +694,7 @@ function Dashboard(){
 								_ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:displayQuotes()});
 								_thisThumbnail.find(".expand").click();
 
-							});   
+							});
 
 							$(".js-close_drilldown").on("click" , function(){
 								e.preventDefault();
@@ -716,23 +718,23 @@ function Dashboard(){
 
 				_fields={};
 				_ajax({
-					_ajaxType:"get", 
-					_url:"/u/quotes/", 
+					_ajaxType:"get",
+					_url:"/u/quotes/",
 					_callback:function(data, text){
 						var _userDetail = data;
-						
+
 						_fields._allFields = _getObjectsByCriteria(data, "val=create")[0].fields;
-						
+
 						_fields._quoteFields = [];
 						_fields._customerFields = [];
 
 						["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
 							_fields._quoteFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
 						});
-						
+
 						["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
 							_fields._customerFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
-						});	
+						});
 
             _fields._customerFields[6].fields = [
             "Alabama",
@@ -818,7 +820,7 @@ function Dashboard(){
 
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=240px", opacity:1}, _animation_speed);  
+				_drilldownContainerObj.animate({height:"+=240px", opacity:1}, _animation_speed);
 
 				_data["invitations"]=[];
 				//get listing array from json
@@ -831,10 +833,10 @@ function Dashboard(){
 					_getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
 						_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 						_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-	
+
 						//display thumbnails
 						_getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
-							
+
 							//wire up expiration timer
 							_now = new Date();
 							$(".js-expiration").each(function(){
@@ -865,11 +867,11 @@ function Dashboard(){
 							$(".js-new_invite_thumbnail").on("click", function(e){
 								e.preventDefault();
 								_drillDown({"_type":"new_invitations",
-											"_mainSectionID":$(this).parents("section.dashboard_section").attr("id"), 
+											"_mainSectionID":$(this).parents("section.dashboard_section").attr("id"),
 											"_thumbnailIdentifier":".js-new_invite_thumbnail",
 											"_target":$(e.target),
 											"_arrowPosition":$(this).find("span.expand i").offset().left});
-							}); 
+							});
 
 						});
 					});
@@ -896,7 +898,7 @@ function Dashboard(){
 					_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 					_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 
-					
+
 					$("#new_promoter_invitation_form .button").unbind();
 					$(".js-remove_advocate").unbind();
 					$(".js-resend_invite_to_advocate").unbind();
@@ -907,7 +909,7 @@ function Dashboard(){
 					})
 
 					//wire up new invitation submission hook
-					
+
 					$("#new_promoter_invitation_form .button").on("click", function(e){
 						e.preventDefault();
 						_thisForm = $(e.target).closest("#new_promoter_invitation_form");
@@ -921,12 +923,12 @@ function Dashboard(){
 						_ajax({_ajaxType:"delete", _url:"/u/invites/"+_id, _callback:_displayUpdatedInvitation()});
 					});
 
-					//wire up resend advocate invitation capaibiltiies 
+					//wire up resend advocate invitation capaibiltiies
 					$(".js-resend_invite_to_advocate").on("click", function(e){
 						e.preventDefault();
 						//if the information in the form has changed
-						if (($("#js-invite_first_name").val !== _invitationDetail.first_name) || 
-								($("#js-invite_last_name").val !== _invitationDetail.last_name) || 
+						if (($("#js-invite_first_name").val !== _invitationDetail.first_name) ||
+								($("#js-invite_last_name").val !== _invitationDetail.last_name) ||
 								($("#js-invite_email").val !== _invitationDetail.email)) {
 									//release the current invite code
 									_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
@@ -939,7 +941,7 @@ function Dashboard(){
 							_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
 							_ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
 						}
-					}); 
+					});
 
 
 
@@ -954,8 +956,8 @@ function Dashboard(){
 				$("#"+_options._mainSectionID).append(_html);
 				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
-				_drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);  
-				//_drilldownContainerObj.velocity({height:"+=490px", opacity:1}, _animation_speed); 
+				_drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);
+				//_drilldownContainerObj.velocity({height:"+=490px", opacity:1}, _animation_speed);
 				var _templatePath;
 				var _impactMetricsDetail = {};
 				//todo: inject context/data under each template
@@ -997,9 +999,9 @@ function Dashboard(){
 		//sub function of the drilldown that checks for the need to collapse children drilldowns
 		function _collapseDrillDown(_options){
 			//set up context for what's being clicked
-			_currentLevelSectionObj=_options._target.closest("section");        
-			_drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;          
-			_topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj; 
+			_currentLevelSectionObj=_options._target.closest("section");
+			_drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
+			_topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
 			_thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
 			_drillDownDepth = _topLevelSectionObj.children("section").length;
 
@@ -1057,7 +1059,7 @@ function Dashboard(){
 
 	}
 
-	//load the user dashboard basic info base on the current selected user id 
+	//load the user dashboard basic info base on the current selected user id
 	//_dataType dictates which endpoint to hit
 	//optional: save info into a data variable if the variable is defined in param, otherwise display data object
 	//optional: callback to allow additional operations (e.g. display) post loading
@@ -1068,7 +1070,7 @@ function Dashboard(){
 			case "team":
 				_endPoint ="/u/users";
 			break;
-			
+
 			case "quotes":
 				_endPoint="/u/quotes";
 			break;
@@ -1166,7 +1168,7 @@ function Dashboard(){
 			break;
 
 		}
-		//naive determine pagination 
+		//naive determine pagination
 		_containerObj.css("width", (_data.global.thumbnail_size.width*_processedJSON.length)+"px");
 
 		//show pagination nav if thumbnail count is more than 4
@@ -1236,14 +1238,14 @@ function Dashboard(){
 		//update invitation summary
 		_data["invitations"]=[];
 		_getData(_myID, "invitations", _data["invitations"], function(){
-			_availableInvitations = _data.global.total_invitations; 
+			_availableInvitations = _data.global.total_invitations;
 			for(i=0;i<_data.invitations.length;i++) if(typeof _data.invitations[i].id !== "undefined") _availableInvitations--;
 			$(".js-remaining_invitations").text(_availableInvitations);
 			_expiredInvitations=0;
 			for(i=0;i<_data.invitations.length;i++) {
 				_now = new Date();
 				_expiration = new Date( _data.invitations[i].expires);
-				_totalSeconds = Math.round((_expiration-_now)/1000);        
+				_totalSeconds = Math.round((_expiration-_now)/1000);
 				if(_totalSeconds <0) _expiredInvitations++;
 			}
 			$(".js-expired_invitations").text(_expiredInvitations+" Expired");
@@ -1256,7 +1258,7 @@ function Dashboard(){
 		$(".js-remaining_invitations").click();
 		_updateInvitationSummary(function(){
 			$(".js-remaining_invitations").click();
-		}); 
+		});
 	}
 
 	$(document).on("click", ".js-team_thumbnail", function(e){
@@ -1264,10 +1266,10 @@ function Dashboard(){
 		_drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
 		_thisThumbnail = $(e.target).parents(".js-team_thumbnail");
 		_drillDown({"_type":"team.everyone",
-					"_mainSectionID":"dashboard_team", 
+					"_mainSectionID":"dashboard_team",
 					"_thumbnailIdentifier":".js-team_thumbnail",
 					"_target":$(e.target),
-					"_userID":_drillDownUserID, 
+					"_userID":_drillDownUserID,
 					"_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
 	});
 
@@ -1276,8 +1278,8 @@ function Dashboard(){
 
 // Faux form editing animations
 
-	
-	
+
+
 
 $(document).on("focus", "input", function(e){
 	 var elem = $(this);

@@ -1,3 +1,5 @@
+'use strict';
+
 jQuery(function($){
     //All jquery ajax requests must use CSRF token
     $.ajaxSetup({

@@ -1,4 +1,4 @@
-//admin.js
+'use strict';
 
 var _data={};
 var _dashboard;

@@ -1,3 +1,5 @@
+'use strict';
+
 // Opaque header & parallax on scroll
 
     // window.onscroll = function() {
@@ -66,7 +68,3 @@ jQuery(function($){
     });
   });
 });
-
-
-
-

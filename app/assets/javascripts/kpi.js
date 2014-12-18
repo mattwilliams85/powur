@@ -1,3 +1,5 @@
+'use strict';
+
 var scale = "week";
 var _labels = [];
 var position = 0;
@@ -92,7 +94,7 @@ function populateContributors() {
 // ** CALENDAR FUNCTIONS **
 function setScale() {
   _labels = [];
-  
+
   if (scale == "week") {
     for (i = 0; i <= 6; i++) {
       _labels.push(now.addDays(i).getMonth() + 1 + "/" + (now.addDays(i).getDate()));
@@ -110,7 +112,7 @@ function setCalendar() {
   if(scale === "week") {
     daysFromSun = now.getDay()
     return new Date(now.setDate(now.getDate() - daysFromSun))
-  } 
+  }
   if(scale === "month") return now.setDate(1);
 }
 
