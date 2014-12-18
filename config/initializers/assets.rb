@@ -13,6 +13,7 @@ Rails.application.config.assets.precompile += %w( quote.js )
 Rails.application.config.assets.precompile += %w( admin.js )
 Rails.application.config.assets.precompile += %w( admin.products.js )
 Rails.application.config.assets.precompile += %w( admin.quotes.js )
+Rails.application.config.assets.precompile += ['admin/users.css']
 Rails.application.config.assets.precompile += %w( profile.js )
 Rails.application.config.assets.precompile += %w( profile.css )
 Rails.application.config.assets.precompile += %w( creditly.css )
