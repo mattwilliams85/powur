@@ -37,6 +37,7 @@ gem 'airbrake'
 gem 'pry-rails'
 gem 'ipayout', github: 'eyecuelab/ipayout'
 gem 'nmi_direct_post'
+gem 'week_of_month'
 
 group :development do
   gem 'spring-commands-rspec'

@@ -10,6 +10,7 @@ class BonusPayment < ActiveRecord::Base
 
   scope :pay_period, ->(id) { where(pay_period: id) }
 
+  scope :for_user, ->(id) { where(user_id: id.to_i) }
   scope :bonus, ->(id) { where(bonus_id: id.to_i) }
   scope :before, ->(date) { where('created_at < ?', date.to_date) }
   scope :after, ->(date) { where('created_at >= ?', date.to_date) }
@@ -20,6 +21,13 @@ class BonusPayment < ActiveRecord::Base
                                 .group(:user_id)
                                 .order(:user_id)
                             }
+
+  scope :user_bonus_summary, lambda { |user_id, pay_periods|
+                               select('sum(amount) AMOUNT, pay_period_id')
+                                 .group(:pay_period_id)
+                                 .for_user(user_id)
+                                 .where('pay_period_id IN(?)', pay_periods.ids)
+                             }
 
   scope :bonus_sums, lambda {
     select('bonus_id, sum(amount) amount, count(id) quantity')

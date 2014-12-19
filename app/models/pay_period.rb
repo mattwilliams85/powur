@@ -15,12 +15,24 @@ class PayPeriod < ActiveRecord::Base
 
   scope :dispursed, -> { where('dispursed_at is not null') }
 
+
+  scope :within_date_range,
+        ->(range_start, range_end) { after(range_start).before(range_end) }
+
   before_create do
     self.id ||= self.class.id_from(start_date)
   end
 
   def title
     "#{type_display} (#{start_date} - #{end_date})"
+  end
+
+  def date_range_display(format = nil)
+    if format
+      "#{start_date.strftime(format)} - #{end_date.strftime(format)}"
+    else
+      "#{start_date} - #{end_date}"
+    end
   end
 
   def finished?

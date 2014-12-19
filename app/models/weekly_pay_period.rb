@@ -1,4 +1,5 @@
 class WeeklyPayPeriod < PayPeriod
+
   def type_display
     'Weekly'
   end
@@ -17,6 +18,10 @@ class WeeklyPayPeriod < PayPeriod
 
   def bonus_available?(bonus)
     bonus.weekly?
+  end
+
+  def week_number
+    self.week_of_month
   end
 
   class << self

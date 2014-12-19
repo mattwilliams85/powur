@@ -31,10 +31,12 @@ Rails.application.routes.draw do
   # logged in user routes
   scope :u, module: :auth do
     resource :kpi_metrics, only: [ :show ]
-    
+
     resource :dashboard, only: [ :show ], controller: :dashboard
 
-    resource :empower_merchant, only: [ :sandbox, :process_card, :confirmation ], controller: :empower_merchant do
+    resource :empower_merchant,
+             only:       [ :sandbox, :process_card, :confirmation ],
+             controller: :empower_merchant do
       get 'sandbox', to: 'empower_merchant#sandbox'
       get 'confirmation', to: 'empower_merchant#confirmation'
       collection do
@@ -86,7 +88,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :earnings, only: [:show]
+    resources :earnings, only:       [ :index, :show, :summary, :detail ],
+                         controller: :earnings do
+      collection do
+        get :summary
+        get :detail
+      end
+    end
 
     resources :ewallet_sandbox, only:       [ :index, :call ],
                                 controller: :ewallet_sandbox do
@@ -111,13 +119,15 @@ Rails.application.routes.draw do
       end
       resources :overrides, only: [ :index, :create ]
 
-      resources :ewallet_sandbox, only: [ :index, :call ], controller: :ewallet_sandbox do
+      resources :ewallet_sandbox, only:       [ :index, :call ],
+                                  controller: :ewallet_sandbox do
         collection do
           post 'call' => 'ewallet_sandbox', as: :call
         end
       end
 
-      resources :pay_periods, only: [ :index, :show ], controller: :user_pay_periods
+      resources :pay_periods, only:       [ :index, :show ],
+                              controller: :user_pay_periods
 
       resources :orders, only: [ :index ], controller: :user_orders
       resources :order_totals, only: [ :index ], controller: :user_order_totals
