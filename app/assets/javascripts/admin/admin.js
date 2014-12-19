@@ -1,4 +1,4 @@
-//admin.js
+'use strict';
 
 var _data={};
 var _dashboard;
@@ -217,7 +217,7 @@ jQuery(function($){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "orders"]})[0]);
                             _displayData.entities.forEach(function(_entity){
-                                _d = new Date(_entity.properties.order_date);
+                                var _d = new Date(_entity.properties.order_date);
                                 _entity.properties.localDateString = _d.toLocaleDateString();
                             });
                             EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_orders.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
@@ -391,7 +391,7 @@ jQuery(function($){
                         _ajaxType:"get",
                         _url:EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.actions, {"containsIn(rel)":[_criteria]})[0].href,
                         _callback:function(data, text){
-                            _genealogyData = {};
+                            var _genealogyData = {};
                             _getObjectsByCriteria(data, "key=first_name").forEach(function(member, index){_genealogyData[index]=member;});
                             if(_criteria==="user-children") _data.currentUser.downline=_genealogyData;
                             else _data.currentUser.upline=_genealogyData;

@@ -1,3 +1,5 @@
+'use strict';
+
 var _data = {};
 
 jQuery(function($){
@@ -43,5 +45,3 @@ jQuery(function($){
         }});
     });
 });
-
-

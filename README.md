@@ -60,6 +60,7 @@ The first argument is the approximate total # of users. The second is the max # 
 rake sunstand:simulate:orders
 ```
 
+
 Arguments can be used for this command as well
 
 ```bash
@@ -289,4 +290,63 @@ response: https://gist.github.com/paulwalker/302bd4cfe9d76a5bce8a
 users
 ```bash
 curl "http://sunstand-staging.eyecuelab.com/api/v1/users?access_token=accd89aa0a2b2b55789df28f98ba82b63a1dab38188db488cb45853d73a144289c5f7e14feadf5f580c4b685b921fc2f5caecbe14a82ecc38b27342bd32f4796"
+```
+
+# Heroku Deployment
+
+## Staging
+sunstand-staging.eyecuelab.com
+
+The staging server is updated whenever anyone executes a succcessful push to the 'develop' branch.
+
+
+
+## Production
+sunstand-staging.eyecuelab.com
+
+Set up your remote in your project's .git/config file
+
+```bash
+[remote "production"]
+  url = git@heroku.com:sunstand.git
+```
+
+The staging server is updated whenever anyone executes a succcessful push to the 'master' branch.
+
+This is a pretty typical workflow if you ever have need to deploy development changes to production.
+
+```bash
+git branch #starting on branch develop
+git checkout master
+git pull origin master
+git merge develop
+bundle install
+rake db:migrate
+rake spec
+git push production master
+```
+As you can see, we are pushing to 'production master' as opposed to 'origin master'
+
+
+### Production tasks
+
+You don't have to run these every time. Typically, you do when you have changes to seed data
+or some heavy-duty database changes.
+
+It's important to specify 'sunstand' for the --confirm and --app tag.  Otherwise, this will
+run on staging.
+
+
+```bash
+# reset the database
+heroku pg:reset HEROKU_POSTGRESQL_AMBER_URL --confirm sunstand
+
+# migrate the data
+heroku run rake db:migrate --app sunstand
+
+# add the admin users
+heroku run rake db:seed --app sunstand
+
+# populate the bonus_plans, geaneology, and orders
+heroku run rake sunstand:seed:bonus_plan sunstand:simulate:users sunstand:simulate:orders --app sunstand
 ```

@@ -1,3 +1,5 @@
+'use strict';
+
 jQuery(function($){
     //All jquery ajax requests must use CSRF token
     $.ajaxSetup({
@@ -81,7 +83,7 @@ Handlebars.registerHelper('index_of', function(context,ndx) {
 Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
     if (arguments.length < 3)
         throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
-    operator = options.hash.operator || "==";
+    var operator = options.hash.operator || "==";
     var operators = {
         '==':       function(l,r) { return l == r; },
         '===':      function(l,r) { return l === r; },
@@ -171,7 +173,7 @@ jQuery(function($){
         }
         if(_startPage==2) _pages.push({display:1, link:_options.prefix+" 1"});
 
-        for(i=_startPage; i<=_endPage; i++){
+        for(var i=_startPage; i<=_endPage; i++){
             if(i==_currentPage) _pages.push({display:i, link:""});
             else _pages.push({display:i, link:_options.prefix+" "+i});
         }
@@ -459,7 +461,7 @@ function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
 	var _supportedFiles = /(\.jpg|\.jpeg|\.pdf|\.gif|\.png)$/i;
 
 	_formInputObj.on("change", function(e){
-		for(i=0;i<$(this).file.length;i++){
+		for(var i=0;i<$(this).file.length;i++){
 			_file = $(this).file[i];
 
 			if(!!_file.type.match(_supportedFiles)){
@@ -547,7 +549,7 @@ function _getRoot(_callback){
         if(typeof _data === "object" )_data.root = $.extend(true, {}, data);
         else console.log(data);
         if(_data.root.properties){
-            loadingCategories=[
+            var loadingCategories=[
                 {
                     url:"/u/profile",
                     name:"profile",
@@ -664,10 +666,10 @@ function _getObjectsByPath(_dataObj, _path, _parentLevel){
     if(typeof _dataObj !== "object") return;
     if(typeof _path !== "string") return;
 
-    _evalString="_dataObj";
-    _depth=_path.split("/");
+    var _evalString="_dataObj";
+    var _depth=_path.split("/");
     if(_depth[0]==="") _depth.shift();
-    for (i=_parentLevel;i<0;i++) _depth.pop();
+    for (var i=_parentLevel;i<0;i++) _depth.pop();
 
     _depth.forEach(function(_d) {_evalString+="[\""+_d+"\"]"});
     return eval(_evalString);;
@@ -710,7 +712,7 @@ function _paginateData(_dataObj, _options){
     }
     if(_startPage==2) _pages.push({display:1, link:_options.prefix+" 1"});
 
-    for(i=_startPage; i<=_endPage; i++){
+    for(var i=_startPage; i<=_endPage; i++){
         if(i==_currentPage) _pages.push({display:i, link:""});
         else _pages.push({display:i, link:_options.prefix+" "+i});
     }
@@ -741,7 +743,7 @@ function _getTemplate(_path, _dataObj, _targetObj, _callback){
             var _html="";
             if(_dataObj != undefined){
                 if(_dataObj.constructor==Array){
-                    for(i=0;i<_dataObj.length;i++)
+                    for(var i=0;i<_dataObj.length;i++)
                         _html+=_template(_dataObj[i]);
                 }else{
                     _html=_template(_dataObj);
@@ -783,19 +785,19 @@ jQuery(function($){
 
                     //check for value match
                     var _matchFound=0;
-                    for(i=0; i<_searchCriteria[_searchKey].length;i++){
-                        _searchCriterion={
+                    for(var i=0; i<_searchCriteria[_searchKey].length;i++){
+                        var _searchCriterion={
                             term:_searchCriteria[_searchKey][i],
                             type:Object.prototype.toString.call(_searchCriteria[_searchKey][i]).replace(/(\[object\s|\])/g,"" )
                         };
 
                         switch(_searchCriterion.type){
                             case "Object":
-                                _sk = Object.keys(_searchCriterion.term)[0];
+                                var _sk = Object.keys(_searchCriterion.term)[0];
 
                                 //loop through the data object if the type is array (e.g. actions)
                                 if(Object.prototype.toString.call(_dataObj[_searchKey]).replace(/(\[object\s|\])/g,"" )=="Array"){
-                                    for(i=0;i<_dataObj[_searchKey].length;i++){
+                                    for(var i=0;i<_dataObj[_searchKey].length;i++){
                                         Object.keys(_dataObj[_searchKey][i]).forEach(function(_dk){
                                             if((_sk==_dk) && (_searchCriterion.term[_sk]==_dataObj[_searchKey][i][_dk])) _matchFound+=1;
                                         });
@@ -844,7 +846,7 @@ jQuery(function($){
     EyeCueLab.JSON.asynchronousLoader = function(_endPoints, _callback){
         var _returnJSONs=[];
         var _loadingComplete=0;
-        for(i=0;i<_endPoints.length;i++){
+        for(var i=0;i<_endPoints.length;i++){
             (function(index){
                 $.ajax({
                     type:"get",
@@ -871,7 +873,7 @@ jQuery(function($){
                 var _html="";
                 if(typeof _dataObj !== "undefined"){
                     if(_dataObj.constructor==Array){
-                        for(i=0;i<_dataObj.length;i++)
+                        for(var i=0;i<_dataObj.length;i++)
                             _html+=_template(_dataObj[i]);
                     }else{
                         _html=_template(_dataObj);
@@ -890,7 +892,7 @@ jQuery(function($){
 
 //Shortens strings larger than their respective div with '...'
 String.prototype.format_length = function(char_limit){
-    if(this.length > char_limit){
+    if(this && this.length > char_limit){
       return this.substring(0,char_limit).trim() + "..."
     }
     else return this;

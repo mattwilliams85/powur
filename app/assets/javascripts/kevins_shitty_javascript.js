@@ -1,3 +1,5 @@
+'use strict';
+
 // Colors
 
 	var _brand = "32,194,241"
@@ -6,7 +8,7 @@
 
 
 // Wrap thumbnail objects in a container per row
-	
+
 
 		// function wrapThumbsInRows() {
 
@@ -44,7 +46,7 @@
 		//  $(window).resize(wrapThumbsInRows);
 
 
-	
+
 // Show expanded details for dashboard objects
 
 
@@ -72,7 +74,7 @@
 			$(detail).parent().css("marginBottom",(detailHeight + 16) + "px");
 
 		}
-		
+
 		//detailExpander.stopPropagation();
 
 	}
@@ -134,7 +136,7 @@
 	// 			if ($(this).val().length > 2) {
 	// 	    		$(this).addClass("is_valid");
 	// 	    	} else {
-	// 	    		$(this).addClass("is_not_valid");		    		
+	// 	    		$(this).addClass("is_not_valid");
 	// 			};
 
 	//     	});
@@ -166,17 +168,17 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 		// 		if ($(this).val().length > 2) {
 		//     		$(this).addClass("is_valid");
 		//     	} else {
-		//     		$(this).addClass("is_not_valid");		    		
+		//     		$(this).addClass("is_not_valid");
 		// 		};
 
 	 //    	});
 
-		
+
 	// System feedback demo for settings page
 
 		// $(".show_system_feedback").click(function() {
 		// 	$("#system_feedback").removeClass("hide");
-		
+
 		// 	// Fadeout element after delay - ie, system feedback notice
 		// 	$(".js-auto_fade_away").delay("2000").fadeTo("slow", 0.01, function(){ //fade
 		// 	    $(this).slideUp("slow", function() { //slide up
@@ -413,6 +415,3 @@ $(document).ready(function() { // bind to document.ready instead of window.load 
 				new Chart(detailTeamConversions).Pie(detailTeamConversionsData);
 
 });
-
-
-

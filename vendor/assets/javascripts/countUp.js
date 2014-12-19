@@ -22,7 +22,7 @@ function countUp(target, startVal, endVal, decimals, duration, options) {
         separator : ',', // character to use as a separator
         decimal : '.' // character to use as a decimal
     }
-    
+
     // make sure requestAnimationFrame and cancelAnimationFrame are defined
     // polyfill for browsers without native support
     // by Opera engineer Erik Möller
@@ -50,7 +50,7 @@ function countUp(target, startVal, endVal, decimals, duration, options) {
     }
 
     var self = this;
-    
+
     this.d = (typeof target === 'string') ? document.getElementById(target) : target;
     this.startVal = Number(startVal);
     this.endVal = Number(endVal);
@@ -63,20 +63,20 @@ function countUp(target, startVal, endVal, decimals, duration, options) {
     this.decimals = Math.max(0, decimals || 0);
     this.dec = Math.pow(10, this.decimals);
     this.duration = duration * 1000 || 2000;
-    
+
     // Robert Penner's easeOutExpo
     this.easeOutExpo = function(t, b, c, d) {
         return c * (-Math.pow(2, -10 * t / d) + 1) * 1024 / 1023 + b;
     }
     this.count = function(timestamp) {
-        
+
         if (self.startTime === null) self.startTime = timestamp;
 
         self.timestamp = timestamp;
 
         var progress = timestamp - self.startTime;
         self.remaining = self.duration - progress;
-        
+
         // to ease or not to ease
         if (self.options.useEasing) {
             if (self.countDown) {
@@ -93,27 +93,27 @@ function countUp(target, startVal, endVal, decimals, duration, options) {
                 self.frameVal = self.startVal + (self.endVal - self.startVal) * (progress / self.duration);
             }
         }
-        
+
         // decimal
         self.frameVal = Math.round(self.frameVal*self.dec)/self.dec;
-        
+
         // don't go past endVal since progress can exceed duration in the last frame
         if (self.countDown) {
             self.frameVal = (self.frameVal < self.endVal) ? self.endVal : self.frameVal;
         } else {
             self.frameVal = (self.frameVal > self.endVal) ? self.endVal : self.frameVal;
         }
-        
+
         // format and print value
         self.d.innerHTML = self.formatNumber(self.frameVal.toFixed(self.decimals));
-               
+
         // whether to continue
         if (progress < self.duration) {
             self.rAF = requestAnimationFrame(self.count);
         } else {
             if (self.callback != null) self.callback();
         }
-    }  
+    }
     this.start = function(callback) {
         self.callback = callback;
         // make sure values are valid
