@@ -19,7 +19,7 @@ jQuery(function($){
         if(_loading) _data.loadTimer = setTimeout(_data.load, 100);
         else{
             clearTimeout(_data.loadTimer);
-            for(i=0; i<_data.loadCategories.length;i++){
+            for(var i=0; i<_data.loadCategories.length;i++){
                 console.log("complete: global data... "+_data.loadCategories[i]);
             }
             _dashboard.displayQuotes("#admin-quotes-pay-periods-init");
@@ -671,7 +671,7 @@ jQuery(function($){
                     }
 
                     _data.quotes.entities.forEach(function(_quote){
-                        _d = new Date(_quote.properties.created_at);
+                        var _d = new Date(_quote.properties.created_at);
                         _quote.properties.localDateString = _d.toLocaleDateString();
                         _quote.properties._dataStatusDisplay = _quote.properties.data_status.join(", ");
                     });
@@ -700,7 +700,7 @@ jQuery(function($){
                     }
 
                     _data.orders.entities.forEach(function(_quote){
-                        _d = new Date(_quote.properties.order_date);
+                        var _d = new Date(_quote.properties.order_date);
                         _quote.properties.localDateString = _d.toLocaleDateString();
                     });
                     if(typeof _callback === "function") _callback();
@@ -754,7 +754,7 @@ jQuery(function($){
     function checkCalculation(){
       $.ajax({type:"get", url:"/a/pay_periods"}).done(function(data){
         var _stopCheck=true;
-        for(i=0;i<data.entities.length;i++){
+        for(var i=0;i<data.entities.length;i++){
           if(data.entities[i].properties.calculating){
             _stopCheck=false;
             _checkNeeded=true;

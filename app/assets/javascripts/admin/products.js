@@ -8,7 +8,7 @@ jQuery(function($){
     _data.loadTimer="";
     _data.load = function(){
         var _loading=false;
-        for(i=0; i<_data.loadCategories.length;i++){
+        for(var i=0; i<_data.loadCategories.length;i++){
             if(typeof _data[_data.loadCategories[i]] === "undefined"){
                 console.log("loading: global data... "+_data.loadCategories[i]);
 
@@ -19,7 +19,7 @@ jQuery(function($){
         if(_loading) _data.loadTimer = setTimeout(_data.load, 10);
         else{
             clearTimeout(_data.loadTimer);
-            for(i=0; i<_data.loadCategories.length;i++){
+            for(var i=0; i<_data.loadCategories.length;i++){
                 console.log("complete: global data... "+_data.loadCategories[i]);
             }
             _dashboard.displayPlans("#admin-plans-init");
@@ -90,7 +90,7 @@ jQuery(function($){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-ranks]"));
                     });
 
-                    _summaryData={};
+                    var _summaryData={};
                     EyeCueLab.UX.getTemplate("/templates/admin/plans/ranks/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
                         //wire up add rank functionality
                         $(".js-add_new_rank").on("click", function(e){
@@ -412,7 +412,7 @@ jQuery(function($){
                     EyeCueLab.UX.getTemplate("/templates/admin/plans/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-products]"));
                     });
-                    _summaryData={};
+                    var _summaryData={};
                     _summaryData.entities=_data.products.entities;
                     _summaryData.currentProduct=_data.currentProduct;
 
@@ -482,7 +482,7 @@ jQuery(function($){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-bonuses]"));
                     });
 
-                    _summaryData={};
+                    var _summaryData={};
                     $.extend(true, _summaryData, _data.bonus_plans);
                     _summaryData.currentBonusPlan={};
                     $.extend(true, _summaryData.currentBonusPlan, _data.currentBonusPlan);
@@ -679,7 +679,7 @@ jQuery(function($){
                             _popupData.amountDetail = {};
                             _popupData.amountDetail = _getObjectsByCriteria(_popupData, {name:"amounts"})[0];
                             _popupData.amountDetail.value=[];
-                            for(i=0;i<_data.ranks.entities.length;i++) _popupData.amountDetail["value"].push(0.00);
+                            for(var i=0;i<_data.ranks.entities.length;i++) _popupData.amountDetail["value"].push(0.00);
                             _popupData.amountDetail.max=_bonus.properties.remaining_percentage;
                             _popupData.amountDetail.maxPercentage = (_bonus.properties.remaining_percentage*100.00).toFixed(1);
                             _popupData.amountDetail.total=_bonus.properties.available_amount;
@@ -1075,7 +1075,7 @@ jQuery(function($){
                             _data.active_qualification_paths ={};
                             _getObjectsByCriteria(_data.active_qualifications, "key=path").forEach(function(_p){
                                 if(typeof _data.active_qualification_paths[_p.path] === "undefined") _data.active_qualification_paths[_p.path]=[];
-                                _active_qualification = _getObjectsByPath(_data.active_qualifications, _p._path, -1);
+                                var _active_qualification = _getObjectsByPath(_data.active_qualifications, _p._path, -1);
                                 _data.active_qualification_paths[_p.path].push(_active_qualification);
 
                             });

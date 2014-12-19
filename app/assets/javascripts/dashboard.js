@@ -234,10 +234,10 @@ function Dashboard(){
 			notches.min=goals.sales[_key].min;
 			notches.max=goals.sales[_key].max-1;
 			notches.current = goals.sales[_key].current;
-			for(i=notches.min; i<=notches.max;i++){
+			for(var i=notches.min; i<=notches.max;i++){
 				var _counter = (i<10)?"0"+i:i;
 				var _maxCounter = (notches.max+1<10)?"0"+(notches.max+1):(notches.max+1);
-				_html=  "<div class='notch' style='width:"+((1/notches.total)*100)+"%;'>";
+				var _html=  "<div class='notch' style='width:"+((1/notches.total)*100)+"%;'>";
 				_html+= "<span>"+_counter+"</span><div></div>";
 				if(i<notches.max)_html+=  "</div>";
 				else _html+= "<span class='last_notch'>"+_maxCounter+"</span><div class='last_notch'></div></div>"
@@ -263,7 +263,7 @@ function Dashboard(){
 		//wire up invitations listing hook
 		$(".js-invites_thumbnail").on("click", function(e){
 			e.preventDefault();
-			_thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
+			var _thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
 			_drillDown({"_type":"invitations",
 						"_mainSectionID":$(e.target).parents("section").attr("id"),
 						"_thumbnailIdentifier":".js-invites_thumbnail",
@@ -354,8 +354,8 @@ function Dashboard(){
 				//wire up new leads hooks
 				$(".js-new_quote_thumbnail").on("click", function(e){
 					e.preventDefault();
-					_thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
-					_thisAudience =  $(e.target).parents(".js-new_quote_thumbnail").attr("data-audience");
+					var _thisThumbnail = $(e.target).parents(".js-new_quote_thumbnail");
+					var _thisAudience =  $(e.target).parents(".js-new_quote_thumbnail").attr("data-audience");
 					_drillDown({"_type":"new_quote",
 								"_mainSectionID":$(e.target).parents("section").attr("id"),
 								"_thumbnailIdentifier":".js-new_quote_thumbnail",
@@ -400,8 +400,8 @@ function Dashboard(){
 					//put in hooks for quotes thumbnail
 					$(".js-quote_thumbnail").on("click", function(e){
 						e.preventDefault();
-						_drillDownUserID=$(e.target).parents(".js-quote_thumbnail").attr("alt");
-						_thisThumbnail = $(e.target).parents(".js-quote_thumbnail");
+						var _drillDownUserID=$(e.target).parents(".js-quote_thumbnail").attr("alt");
+						var _thisThumbnail = $(e.target).parents(".js-quote_thumbnail");
 						_drillDown({"_type":_tab,
 									"_mainSectionID":"dashboard_quotes",
 									"_thumbnailIdentifier":".js-quote_thumbnail",
@@ -427,8 +427,8 @@ function Dashboard(){
 		//put in hooks for kpi thumbnails
 		$(document).on("click",".kpi_thumbnail", function(e){
 			e.preventDefault();
-			_thisThumbnail = $(e.target).parents(".kpi_thumbnail");
-			_thisKpiType = $(e.target).parents(".kpi_thumbnail").attr("data-kpi-type");
+			var _thisThumbnail = $(e.target).parents(".kpi_thumbnail");
+			var _thisKpiType = $(e.target).parents(".kpi_thumbnail").attr("data-kpi-type");
 
 			_drillDown({"_type":"impact_metrics",
 						"_mainSectionID":"dashboard_kpis",
@@ -484,7 +484,7 @@ function Dashboard(){
 			case "team.everyone":
 			case "team":
 				//determine the next drilldown level
-				_drillDownLevel=$("#dashboard_team .drilldown").length+1;
+				var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
 
 				//compile leader (hero) info
 				$.getJSON("/u/users/"+_options._userID, function(){
@@ -505,10 +505,10 @@ function Dashboard(){
 
 
 					//add new team drilldown basic template layout with leader info
-					_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+					var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 					$("#dashboard_team").append(_html);
 
-					_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+					var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 					_drilldownContainerObj.css("opacity","0");
 					// _drilldownContainerObj.scrollView(180);
 					_drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
@@ -523,7 +523,7 @@ function Dashboard(){
 							_drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
 							_drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 							//populate downlink thumbnails
-							_downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
+							var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
 							_ajax({
 								_ajaxType:"get",
 								_url:_userDetail.downline_url,
@@ -551,13 +551,13 @@ function Dashboard(){
 						});
 				})
 				.fail(function(data){
-					_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+					var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 					$("#dashboard_team").append(_html);
-					_drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+					var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 					_drilldownContainerObj.css("opacity","0");
 					// _drilldownContainerObj.scrollView(180);
 					_drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
-					_userDetail={};
+					var _userDetail={};
 					_getTemplate("/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
 
 				});
@@ -567,15 +567,15 @@ function Dashboard(){
 			case "quotes":
 				if(_data.quotes.length==0) return;
 
-				_drillDownLevel=$("#dashboard_quotes .drilldown").length+1;
-				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				var _drillDownLevel=$("#dashboard_quotes .drilldown").length+1;
+				var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#dashboard_quotes").append(_html);
-				_drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
+				var _drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);
 
 				//retrieve info from /customers/:id for the quote
-				_userDetail={};
+				var _userDetail={};
 				_ajax({
 					_ajaxType:"get",
 					_url:"/u/quotes/"+_options._userID,
@@ -675,13 +675,13 @@ function Dashboard(){
 							$(".js-remove_quote").on("click", function(e){
 								e.preventDefault();
 								_thisThumbnail.find(".expand").click();
-								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
+								var _quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
 								_ajax({_ajaxType:"delete", _url:"/u/quotes/"+_quoteID, _callback:displayQuotes()});
 							});
 
 							$("#customer_contact_form .js-update_customer_info").on("click", function(e){
 								e.preventDefault();
-								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
+								var _quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
 								_ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject()});
 								displayQuotes(); //this function can't happen as callback of _ajax() function because it will retrieve the old data
 								_thisThumbnail.find(".expand").click();
@@ -690,7 +690,7 @@ function Dashboard(){
 
 							$(".js-resend_quote_email").on("click", function(e){
 								e.preventDefault();
-								_quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
+								var _quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
 								_ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:displayQuotes()});
 								_thisThumbnail.find(".expand").click();
 
@@ -709,10 +709,10 @@ function Dashboard(){
 			break;
 
 			case "new_quote":
-				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+				var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
-				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+				var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);
 
@@ -814,11 +814,11 @@ function Dashboard(){
 			break;
 
 			case "invitations":
-				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+				var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
 
-				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+				var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=240px", opacity:1}, _animation_speed);
 
@@ -827,7 +827,7 @@ function Dashboard(){
 				_getData(_myID, "invitations", _data["invitations"], function(){
 
 					//pad the data object with blank invitations
-					for(i=_data["invitations"].length; i<5; i++) _data["invitations"].push({});
+					for(var i=_data["invitations"].length; i<5; i++) _data["invitations"].push({});
 
 					//first place the listing template
 					_getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
@@ -880,18 +880,18 @@ function Dashboard(){
 			break;
 
 			case "new_invitations":
-				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+				var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
 
-				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+				var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=400px", opacity:1}, _animation_speed);
 
 				_invitationDetail = {};
 				_invitationDetail = _data["invitations"][_thisThumbnail.index()];
 				_invitationDetail.invitationType="Existing";
-				_thisThumbnail = $(_options._target).parents(_options._thumbnailIdentifier);
+				var _thisThumbnail = $(_options._target).parents(_options._thumbnailIdentifier);
 				if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _invitationDetail.invitationType="New";
 
 				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
@@ -951,10 +951,10 @@ function Dashboard(){
 
 			// mattmarker
 			case "impact_metrics":
-				_drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-				_html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+				var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+				var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
 				$("#"+_options._mainSectionID).append(_html);
-				_drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+				var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);
 				//_drilldownContainerObj.velocity({height:"+=490px", opacity:1}, _animation_speed);
@@ -999,17 +999,17 @@ function Dashboard(){
 		//sub function of the drilldown that checks for the need to collapse children drilldowns
 		function _collapseDrillDown(_options){
 			//set up context for what's being clicked
-			_currentLevelSectionObj=_options._target.closest("section");
-			_drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
-			_topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
-			_thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
-			_drillDownDepth = _topLevelSectionObj.children("section").length;
+			var _currentLevelSectionObj=_options._target.closest("section");
+			var _drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
+			var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
+			var _thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
+			var _drillDownDepth = _topLevelSectionObj.children("section").length;
 
 
 			//fade all other "unfocused" thumbnail out
-			for(i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
+			for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
 				if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
-					_neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
+					var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
 					_neighborThumbnail.animate({"opacity":".3"}, 300);
 					_neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
 					_neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
@@ -1017,7 +1017,7 @@ function Dashboard(){
 			}
 
 			//close any level after the current level
-			for(i=_drillDownDepth;i>_drillDownFocusLevel;i--){
+			for(var i=_drillDownDepth;i>_drillDownFocusLevel;i--){
 					_topLevelSectionObj.find("[data-drilldown-level="+i+"]").remove();
 			}
 
@@ -1159,7 +1159,7 @@ function Dashboard(){
 					_tempObj["name"]= val.full_name;
 					_tempObj["status"]=val.status;
 
-					for(i=0;i<val.data_status.length;i++)
+					for(var i=0;i<val.data_status.length;i++)
 						_tempObj[val.data_status[i]]="complete";
 
 					_processedJSON.push(_tempObj);
@@ -1193,7 +1193,7 @@ function Dashboard(){
 				var _html="";
 				if(_dataObj != undefined){
 					if(_dataObj.constructor==Array){
-						for(i=0;i<_dataObj.length;i++)
+						for(var i=0;i<_dataObj.length;i++)
 							_html+=_template(_dataObj[i]);
 					}else{
 						_html=_template(_dataObj);
@@ -1238,11 +1238,11 @@ function Dashboard(){
 		//update invitation summary
 		_data["invitations"]=[];
 		_getData(_myID, "invitations", _data["invitations"], function(){
-			_availableInvitations = _data.global.total_invitations;
-			for(i=0;i<_data.invitations.length;i++) if(typeof _data.invitations[i].id !== "undefined") _availableInvitations--;
+			var _availableInvitations = _data.global.total_invitations;
+			for(var i=0;i<_data.invitations.length;i++) if(typeof _data.invitations[i].id !== "undefined") _availableInvitations--;
 			$(".js-remaining_invitations").text(_availableInvitations);
-			_expiredInvitations=0;
-			for(i=0;i<_data.invitations.length;i++) {
+			var _expiredInvitations=0;
+			for(var i=0;i<_data.invitations.length;i++) {
 				_now = new Date();
 				_expiration = new Date( _data.invitations[i].expires);
 				_totalSeconds = Math.round((_expiration-_now)/1000);
@@ -1263,8 +1263,8 @@ function Dashboard(){
 
 	$(document).on("click", ".js-team_thumbnail", function(e){
 		e.preventDefault();
-		_drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
-		_thisThumbnail = $(e.target).parents(".js-team_thumbnail");
+		var _drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
+		var _thisThumbnail = $(e.target).parents(".js-team_thumbnail");
 		_drillDown({"_type":"team.everyone",
 					"_mainSectionID":"dashboard_team",
 					"_thumbnailIdentifier":".js-team_thumbnail",
