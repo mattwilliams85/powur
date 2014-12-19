@@ -838,17 +838,17 @@ function Dashboard(){
 						_getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
 
 							//wire up expiration timer
-							_now = new Date();
+							var _now = new Date();
 							$(".js-expiration").each(function(){
 								var _remainingSeconds, _remainingMinutes, _remainingHours;
 
-								_expiration = new Date($(this).attr("data-expiration-timestamp"));
-								_totalSeconds = Math.round((_expiration-_now)/1000);
+								var _expiration = new Date($(this).attr("data-expiration-timestamp"));
+								var _totalSeconds = Math.round((_expiration-_now)/1000);
 								if(_totalSeconds >0){
-									_remainingHours = Math.floor(_totalSeconds/(60*60));
-									_totalSeconds = _totalSeconds - _remainingHours*(3600);
-									_remainingMinutes =  Math.floor(_totalSeconds/(60));
-									_remainingSeconds = _totalSeconds - _remainingMinutes*(60);
+									var _remainingHours = Math.floor(_totalSeconds/(60*60));
+									var _totalSeconds = _totalSeconds - _remainingHours*(3600);
+									var _remainingMinutes =  Math.floor(_totalSeconds/(60));
+									var _remainingSeconds = _totalSeconds - _remainingMinutes*(60);
 									if(_remainingSeconds<10) _remainingSeconds = "0"+_remainingSeconds;
 									if(_remainingMinutes<10) _remainingMinutes = "0"+_remainingMinutes;
 									if(_remainingHours<10) _remainingHours = "0"+_remainingHours;
@@ -888,10 +888,10 @@ function Dashboard(){
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=400px", opacity:1}, _animation_speed);
 
-				_invitationDetail = {};
+				var _invitationDetail = {};
+				var _thisThumbnail = $(_options._target).parents(_options._thumbnailIdentifier);
 				_invitationDetail = _data["invitations"][_thisThumbnail.index()];
 				_invitationDetail.invitationType="Existing";
-				var _thisThumbnail = $(_options._target).parents(_options._thumbnailIdentifier);
 				if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _invitationDetail.invitationType="New";
 
 				_getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
@@ -1243,9 +1243,9 @@ function Dashboard(){
 			$(".js-remaining_invitations").text(_availableInvitations);
 			var _expiredInvitations=0;
 			for(var i=0;i<_data.invitations.length;i++) {
-				_now = new Date();
-				_expiration = new Date( _data.invitations[i].expires);
-				_totalSeconds = Math.round((_expiration-_now)/1000);
+				var _now = new Date();
+				var _expiration = new Date( _data.invitations[i].expires);
+				var _totalSeconds = Math.round((_expiration-_now)/1000);
 				if(_totalSeconds <0) _expiredInvitations++;
 			}
 			$(".js-expired_invitations").text(_expiredInvitations+" Expired");

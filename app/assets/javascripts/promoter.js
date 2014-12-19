@@ -16,7 +16,7 @@ jQuery(function($){
 
     $(document).on("click", ".js-signup_form .button", function(e){
         e.preventDefault();
-        _action = _data.root.actions[0]
+        var _action = _data.root.actions[0]
         _formSubmit(e, $(".js-signup_form"), _action.href, _action.method, function(data, text){
             window.location = data.links.filter(function(link){return link.rel=="index"})[0].href;
         });
