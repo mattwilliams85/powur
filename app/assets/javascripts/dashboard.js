@@ -901,6 +901,11 @@ function Dashboard(){
 					$(".js-remove_advocate").unbind();
 					$(".js-resend_invite_to_advocate").unbind();
 
+					//change "Resend Invite" button text to "Update Invite" if the user changes the info on the form
+					$(".js-invite").on("input", function(e){
+						$(".js-resend_invite_to_advocate_text").text("Update Invite");
+					})
+
 					//wire up new invitation submission hook
 					
 					$("#new_promoter_invitation_form .button").on("click", function(e){
@@ -919,8 +924,21 @@ function Dashboard(){
 					//wire up resend advocate invitation capaibiltiies 
 					$(".js-resend_invite_to_advocate").on("click", function(e){
 						e.preventDefault();
-						_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-						_ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
+						//if the information in the form has changed
+						if (($("#js-invite_first_name").val !== _invitationDetail.first_name) || 
+								($("#js-invite_last_name").val !== _invitationDetail.last_name) || 
+								($("#js-invite_email").val !== _invitationDetail.email)) {
+									//release the current invite code
+									_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+									_ajax({_ajaxType:"delete", _url:"/u/invites/"+_id});
+									//create a new invite with the new form information
+									_thisForm = $(e.target).closest("#existing_promoter_invitation_form");
+									_formSubmit(e, $("#existing_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
+						} else {
+							//otherwise, resend the invite
+							_id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+							_ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
+						}
 					}); 
 
 
