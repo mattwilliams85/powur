@@ -9,6 +9,7 @@ FactoryGirl.define do
     roles [ 'admin' ]
     lifetime_rank { Rank.find_or_create_by_id(1) }
     avatar_file_name 'avatar.png'
+    last_sign_in_at Time.now.utc
 
     factory :search_miss_user do
       first_name 'xxx'

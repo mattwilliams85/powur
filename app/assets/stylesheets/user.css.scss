@@ -3,503 +3,504 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 // Reset the field
-	@import "reset";
+  @import "reset";
 
 // Make mixins and variables available
 
-	@import "_mixins";
-	@import "iconsweet";
+  @import "_mixins";
+  @import "iconsweet";
 
 // SMACCS CSS architecture (kinda)
 
-	// Set base styles (element tags only)
+  // Set base styles (element tags only)
 
-		@import "_base";
+    @import "_base";
 
-	// Define our layouts
+  // Define our layouts
 
-		@import "_layouts";
+    @import "_layouts";
 
-	// Define our modules
+  // Define our modules
 
-		@import "_modules";
+    @import "_modules";
 
-	// Define our states
+  // Define our states
 
-		@import "_state";
+    @import "_state";
 
 // And just for development
 
-	@import "development";
+  @import "development";
 
 // Layout specific styles
 
 body#user {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
-	header {
-		// Mixins
-		// Box properties
-		// Background & borders
-		background-color: $brand;
-		border-bottom: 1px solid rgba(255, 255, 255, 0);
-		// Typography
-	
-		// Other
-	
-		li {
-			// Mixins
+  header {
+    // Mixins
+    // Box properties
+    // Background & borders
+    background-color: $brand;
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+    // Typography
 
-			// Box properties
-			float: right;
-			// Background & borders
+    // Other
 
-			// Typography
-		
-			// Other
-		
-			a {
-				// Mixins
-				@include corners;
+    li {
+      // Mixins
 
-				// Box properties
-				// Background & borders
-				border: 1px solid $white;
-				background: $brand;
-				// Typography
-				color: white;
-				// Other
-				
-				&:hover {
-					// Mixins
-				
-					// Box properties
-				
-					// Background & borders
-					background-color: $sunnyside;
-					// Typography
-					// Other
-				
-				}
-			}		
-		}
-	}
+      // Box properties
+      float: right;
+      // Background & borders
+
+      // Typography
+
+      // Other
+
+      a {
+        // Mixins
+        @include corners;
+
+        // Box properties
+        // Background & borders
+        border: 1px solid $white;
+        background: $brand;
+        // Typography
+        color: white;
+        // Other
+
+        &:hover {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+          background-color: $sunnyside;
+          // Typography
+          // Other
+
+        }
+      }
+    }
+  }
 }
 
 .customer_banner {
-	// Mixins
-	@include box_sizing;
-	// Box properties
-	width: 100%;
-	margin-top: $grid * 3;
-	padding: $grid;
-	// Background & borders
-	background: $ghost;
-	border-bottom: 1px solid $ghost;
-	// Typography
-	color: $text;
-	text-align: center;
-	// Other
+  // Mixins
+  @include box_sizing;
+  // Box properties
+  width: 100%;
+  margin-top: $grid * 3;
+  padding: $grid;
+  // Background & borders
+  background: $ghost;
+  border-bottom: 1px solid $ghost;
+  // Typography
+  color: $text;
+  text-align: center;
+  // Other
 
-	h3 {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
-	
-		// Typography
-		text-align: center;
-		// Other
-	
-	}
+  h3 {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+    text-align: center;
+    // Other
+
+  }
 
 }
 
 #user_content {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	margin: $grid * 6 auto 0;
-	width: $tablet;
-	// Background & borders
+  // Box properties
+  margin: $grid * 6 auto 0;
+  width: $tablet;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 .customer_content {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	margin: $grid auto 0;
-	width: $phone;
-	padding-bottom:200px;
+  // Box properties
+  margin: $grid auto 0;
+  width: $phone;
+  padding-bottom:200px;
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
- 	@media screen and (min-width: $tablet) {
-		width: $tablet;
-	}
+   @media screen and (min-width: $tablet) {
+    width: $tablet;
+  }
 
- 	@media screen and (min-width: $desktop) {
-		width: $desktop;
-	}
+   @media screen and (min-width: $desktop) {
+    width: $desktop;
+  }
 
 }
 
 #customer_signup {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
-	fieldset {
+  fieldset {
 
-	 	@media screen and (min-width: $tablet) {
+     @media screen and (min-width: $tablet) {
 
-			// Mixins
-		
-			// Box properties
-			padding-left: $grid * 4;
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-			
-		}
+      // Mixins
 
-	 	@media screen and (min-width: $desktop) {
+      // Box properties
+      padding-left: $grid * 4;
+      // Background & borders
 
-			// Mixins
-		
-			// Box properties
-			padding-left: $grid * 12;
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-			
-		}
-	}
-}	
+      // Typography
+
+      // Other
+
+    }
+
+     @media screen and (min-width: $desktop) {
+
+      // Mixins
+
+      // Box properties
+      padding-left: $grid * 12;
+      // Background & borders
+
+      // Typography
+
+      // Other
+
+    }
+  }
+}
 
 .form_sidebar {
 
-	// Mixins
+  // Mixins
 
-	// Box properties
-	display: none;
-	overflow: hidden;
-	// Background & borders
+  // Box properties
+  display: none;
+  overflow: hidden;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
-	p {
-		// Mixins
-	
-		// Box properties
-		display: none;
-		margin: 0;
-		padding: 0;
-		// Background & borders
-	
-		// Typography
-		text-align: center;
-		// Other
-	
-	}
+  p {
+    // Mixins
 
- 	@media screen and (min-width: $tablet) {
+    // Box properties
+    display: none;
+    margin: 0;
+    padding: 0;
+    // Background & borders
 
-		// Mixins
-		@include box_sizing;
-		// Box properties
-		display: block;
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		width: $grid * 4;
-		overflow: auto;
-		height: 100%;
-		float: left;
-		padding: $grid $grid / 2 0;
-		// Background & borders
+    // Typography
+    text-align: center;
+    // Other
 
-		// Typography
+  }
 
-		// Other
+   @media screen and (min-width: $tablet) {
 
-	}
+    // Mixins
+    @include box_sizing;
+    // Box properties
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: $grid * 4;
+    overflow: auto;
+    height: 100%;
+    float: left;
+    padding: $grid $grid / 2 0;
+    // Background & borders
+
+    // Typography
+
+    // Other
+
+  }
 
 
- 	@media screen and (min-width: $desktop) {
+   @media screen and (min-width: $desktop) {
 
-		// Mixins
-		@include box_sizing;
-		// Box properties
+    // Mixins
+    @include box_sizing;
+    // Box properties
 
-		width: $grid * 12;
-		// Background & borders
+    width: $grid * 12;
+    // Background & borders
 
-		// Typography
+    // Typography
 
-		// Other
+    // Other
 
-		p {
-			// Mixins
-		
-			// Box properties
-			display: block;
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-		
-		}
-	}
+    p {
+      // Mixins
+
+      // Box properties
+      display: block;
+      // Background & borders
+
+      // Typography
+
+      // Other
+
+    }
+  }
 }
 
 .step_label {
-	// Mixins
-	@include circle_with_text;
-	@include small_title;
-	// Box properties
-	width: $grid * 2.5;
-	height: $grid * 2.5;
-	margin:  0 auto;
-	// Background & borders
-	background: $brand;
+  // Mixins
+  @include circle_with_text;
+  @include small_title;
+  // Box properties
+  width: $grid * 2.5;
+  height: $grid * 2.5;
+  margin:  0 auto;
+  // Background & borders
+  background: $brand;
 
-	// Typography
-	color: white;
-	// Other
+  // Typography
+  color: white;
+  // Other
 
-	 i {
-		// Mixins
-	
-		// Box properties
-		display: inline-block;
-		margin-bottom: $grid / 4;
-		// Background & borders
-	
-		// Typography
-		font-size: $grid / 1.5;
-		// Other
-	
-	}
+   i {
+    // Mixins
 
- 	@media screen and (min-width: $desktop) {
-		// Mixins
-		@include circle_with_text;
-		@include small_title;
-		// Box properties
-		width: $grid * 2.5;
-		height: $grid * 2.5;
-		margin:  0 auto $grid / 2;
-		// Background & borders
-		background: $brand;
+    // Box properties
+    display: inline-block;
+    margin-bottom: $grid / 4;
+    // Background & borders
 
-		// Typography
-		color: white;
-		// Other
-	}
+    // Typography
+    font-size: $grid / 1.5;
+    // Other
+
+  }
+
+   @media screen and (min-width: $desktop) {
+    // Mixins
+    @include circle_with_text;
+    @include small_title;
+    // Box properties
+    width: $grid * 2.5;
+    height: $grid * 2.5;
+    margin:  0 auto $grid / 2;
+    // Background & borders
+    background: $brand;
+
+    // Typography
+    color: white;
+    // Other
+  }
 
 }
 
 h3 {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	margin-bottom: $grid / 4;
-	// Background & borders
+  // Box properties
+  margin-bottom: $grid / 4;
+  // Background & borders
 
-	// Typography
-	color: $quiet;
-	text-align: left;
-	// Other
+  // Typography
+  color: $quiet;
+  text-align: left;
+  // Other
 
 }
 
 // Forms
 
-	.form_row.checkbox {
-		// Mixins
-	
-		// Box properties
-		width: 75%;
-		float: left;
-		padding: $grid / 4;
-		// Background & borders
+  .form_row.checkbox {
+    // Mixins
 
-		// Typography
-	
-		// Other
-	
-	}
+    // Box properties
+    width: 75%;
+    float: left;
+    padding: $grid / 4;
+    // Background & borders
 
-	form {
-		// Mixins
+    // Typography
 
-		// Box properties
+    // Other
 
-		// Background & borders
+  }
 
-		// Typography
+  form {
+    // Mixins
 
-		// Other
+    // Box properties
 
-	}
+    // Background & borders
 
-	label:not(.checkbox) {
-		// Mixins
+    // Typography
 
-		// Box properties
+    // Other
 
-		// Background & borders
-	
-		// Typography
+  }
 
-		// Other
-	
-	}
+  label:not(.checkbox) {
+    // Mixins
 
-	label.checkbox {
-		// Mixins
-	
-		// Box properties
+    // Box properties
 
-		// Background & borders
-	
-		// Typography
-		color: $quiet;
-		// Other
-	
-	}
+    // Background & borders
 
-	input + label {
+    // Typography
 
-	}
+    // Other
 
-	input[type=text],
-	input[type=password],
-	input[type=email] {
-		// Mixins
+  }
 
-		// Box properties
+  label.checkbox {
+    // Mixins
 
-		// Background & borders
-		background-color: white;
-		// Typography
-		color: $text;
-		// Other
-		
-		&:focus {
-			// Mixins
-		
-			// Box properties
-		
-			// Background & borders
-			background-color: white;
-			// Typography
-			color: $text;
-			// Other
+    // Box properties
 
-		}
-	}
+    // Background & borders
 
-	input[type=search] {
-		// Mixins
+    // Typography
+    color: $quiet;
+    // Other
+    cursor: pointer;
+    &.small {
+      font-size: .7em;
+    }
+  }
 
-		// Box properties
+  input + label {
 
-		// Background & borders
+  }
 
-		// Typography
+  input[type=text],
+  input[type=password],
+  input[type=email] {
+    // Mixins
 
-		// Other
+    // Box properties
 
-	}
+    // Background & borders
+    background-color: white;
+    // Typography
+    color: $text;
+    // Other
 
-	::-webkit-input-placeholder {
+    &:focus {
+      // Mixins
 
-	}
+      // Box properties
 
-	:-moz-placeholder { /* Firefox 18- */
+      // Background & borders
+      background-color: white;
+      // Typography
+      color: $text;
+      // Other
 
-	}
+    }
+  }
 
-	::-moz-placeholder {  /* Firefox 19+ */
+  input[type=search] {
+    // Mixins
 
-	}
+    // Box properties
 
-	:-ms-input-placeholder {  
+    // Background & borders
 
-	}
+    // Typography
 
+    // Other
 
-	[placeholder]:focus::-webkit-input-placeholder {
+  }
 
-	}
+  ::-webkit-input-placeholder {
 
-	input:focus::-webkit-input-placeholder { color:transparent; }
-	input:focus:-moz-placeholder { }
+  }
 
-	input[type=checkbox] {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
-	
-		// Typography
+  :-moz-placeholder { /* Firefox 18- */
 
-		// Other
-	}
+  }
 
-	select {
-		// Mixins
+  ::-moz-placeholder {  /* Firefox 19+ */
 
-		// Box properties
+  }
 
-		// Background & borders
-		background-color: white !important;
-		// Typography
+  :-ms-input-placeholder {
 
-		// Other
-
-		&:hover {
-
-		}
-
-		&:focus {
-
-		}
-	}
+  }
 
 
+  [placeholder]:focus::-webkit-input-placeholder {
+
+  }
+
+  input:focus::-webkit-input-placeholder { color:transparent; }
+  input:focus:-moz-placeholder { }
+
+  input[type=checkbox] {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+
+    // Other
+  }
+
+  select {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+    background-color: white !important;
+    // Typography
+
+    // Other
+
+    &:hover {
+
+    }
+
+    &:focus {
+
+    }
+  }

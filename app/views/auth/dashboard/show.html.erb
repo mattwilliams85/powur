@@ -1,6 +1,8 @@
 <% content_for :javascript_includes do %>
 	<%= javascript_include_tag "dashboard.js", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag "kpi.js", "data-turbolinks-track" => true %>
 	<%#= javascript_include_tag "kevins_shitty_javascript.js" %>
+		<%= javascript_include_tag "kpi.js", "data-turbolinks-track" => true %>
 <% end %>
 
 <style>
@@ -49,7 +51,7 @@
 		<br><br>
 	</div>
 <% else %>
-<% end %> 
+<% end %>
 
 <section id="dashboard_personal_goals" class="dashboard_section" data-drilldown-level="0" style="margin-top:-100px;">
 	<div class="section_header">
@@ -79,7 +81,7 @@
 						<div class="highlight"></div>
 					</div>
 				</div>
-				
+
 				<div id="group_sales" class="meter_container">
 					<div class="highlight_container">
 						<div class="highlight"></div>
@@ -112,7 +114,7 @@
 				<div class="text">Key performance indicators</div>
 			</div>
 
-		
+
 		</div>
 	</div>
 
@@ -229,7 +231,7 @@
 			-->
 
 			<input type="search" class="section_search js-search_box" id="quote_search" name="quote_search" data-search-source="u/quotes" />
-			
+
 
 		</div>
 	</div>
@@ -272,12 +274,12 @@
 				<option value="quotes">Order By Quote</option>
 				<option value="personal">Order By Personal Sales</option>
 				<option value="group">Order By Group Sales</option>
-			</select> 
+			</select>
 			<select id="performance_period" name="team_period">
 				<option value="lifetime">In Lifetime</option>
 				<option value="monthly">In Current Monthly Pay Period</option>
 				<option value="weekly">In Current Weekly Pay Period</option>
-			</select> 
+			</select>
 			<input id="team_search" type="search" class="section_search js-search_box" data-search-source="u/users"/>
 
 				<!--<span class="collection_total">17 total</span>-->
@@ -288,7 +290,7 @@
 	</div>
 
 	<div class="section_body">
-			
+
 		<div class="section_content team_info">
 			<div class="new_thumbnail js-thumbnail_parent js-invites_thumbnail">
 				<div class="js-thumbnail" >
@@ -310,7 +312,7 @@
 				<div class="blank_state">
 					You don't have any quotes yet. <a href="#">Add a customer lead</a> to get started.
 				</div>
-			
+
 			<% else %>
 
 				<div class="nav left"><i class="fa fa-angle-left"></i></div>
@@ -332,7 +334,7 @@
 
 
 
-	
+
 <br><br><br>
 
 <!--
@@ -345,7 +347,7 @@
 
 				<%= select_tag "Level", options_for_select(
 					[
-						"My Earnings", 
+						"My Earnings",
 					    "Level 2 Earnings",
 					    "Level 3 Earnings",
 					    "Level 4 Earnings",
@@ -358,7 +360,7 @@
 
 				<%= select_tag "Level", options_for_select(
 					[
-						"Past month", 
+						"Past month",
 					    "Past 3 months",
 					    "Past 6 months",
 					    "Past year",
@@ -415,4 +417,3 @@
 </section>
 
 -->
-	

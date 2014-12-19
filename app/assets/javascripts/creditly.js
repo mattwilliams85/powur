@@ -1,3 +1,5 @@
+'use strict';
+
 var Creditly = (function() {
   var getInputValue = function(e, selector) {
     var inputValue = document.querySelector(selector).value.trim();

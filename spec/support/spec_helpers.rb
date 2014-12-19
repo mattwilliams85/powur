@@ -1,8 +1,13 @@
 # helper methods for spec tests
 module SpecHelpers
+  def mocked_user
+    user = double('signed_in_user', id: 1, email: 'user1@example.com', first_name: 'Bob', last_name: 'Smith', roles: ['admin'])
+    allow(user).to receive(:role?).with(:admin).and_return(true)
+    user
+  end
+
   def login_user
-    @user = double('signed_in_user', id: 1, email: 'user1@example.com', first_name: 'Bob', last_name: 'Smith', roles: ['admin'])
-    allow(@user).to receive(:role?).with(:admin).and_return(true)
+    @user = mocked_user
     if defined?(session)
       session[:user_id] = @user.id
     else

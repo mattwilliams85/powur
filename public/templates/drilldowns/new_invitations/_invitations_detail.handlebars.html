@@ -44,25 +44,20 @@
 
 			<h4>Contact Info</h4>
 
-			<div class="form_edit_actions">
-				<a class="button save_changes">Save changes</a>
-				<a class="secondary_button cancel_changes">Cancel</a>
-			</div>
-
 			<span class="form_row">
 				<label for="first_name">First Name</label>
-				<input type="text" name="first_name" value="{{first_name}}">
+				<input class="js-invite" type="text" id="js-invite_first_name" name="first_name" value="{{first_name}}">
 			</span>
 			<span class="form_row">
 				<label for="last_name">Last Name</label>
-				<input type="text" name="last_name" value="{{last_name}}">
+				<input class="js-invite" type="text" id="js-invite_last_name" name="last_name" value="{{last_name}}">
 			</span>
 			<span class="form_row">
 				<label for="email">Email</label>
-				<input type="text" name="email" value="{{email}}">
+				<input class="js-invite" type="text" name="email" id="js-invite_email" id="email" value="{{email}}">
 			</span>	
 
-			<button class="button js-resend_invite_to_advocate">Resend Invite</button>
+			<button class="button js-resend_invite_to_advocate"><span class="js-resend_invite_to_advocate_text">Resend Invite</span></button>
 			<button class="quiet_button js-remove_advocate">Release</button>
 
 		</form>

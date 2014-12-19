@@ -21,9 +21,9 @@
 // 		// Background & borders
 // 		border-bottom: 1px solid rgba(255, 255, 255, 0);
 // 		// Typography
-	
+
 // 		// Other
-	
+
 // 		li {
 // 			// Mixins
 
@@ -32,9 +32,9 @@
 // 			// Background & borders
 
 // 			// Typography
-		
+
 // 			// Other
-		
+
 // 			a {
 // 				// Mixins
 // 				@include corners;
@@ -46,33 +46,33 @@
 // 				// Typography
 // 				color: white;
 // 				// Other
-				
+
 // 				&:hover {
 // 					// Mixins
-				
+
 // 					// Box properties
-				
+
 // 					// Background & borders
 // 					background-color: $sunnyside;
 // 					// Typography
 // 					// Other
-				
+
 // 				}
-// 			}		
+// 			}
 // 		}
 // 	}
 
 // 	#index_banner {
 // 		// Mixins
-	
+
 // 		// Box properties
-		
+
 // 		// Background & borders
 
 // 		// Typography
-	
+
 // 		// Other
-	
+
 // 	}
 
 
@@ -85,11 +85,11 @@
 
 
 // 	// Background & borders
-	
+
 // 	// Typography
 
 // 	// Other
-		
+
 // 	a:not(.button) {
 // 		// Mixins
 // 		@include corners(3px, 3px, 3px, 3px);
@@ -105,15 +105,15 @@
 
 // 		&:hover {
 // 			// Mixins
-		
+
 // 			// Box properties
-		
+
 // 			// Background & borders
 // 			background-color: rgba($brand_shadow, 1);
 
 // 			// Typography
 // 			// Other
-		
+
 // 		}
 // 	}
 // }
@@ -131,30 +131,30 @@
 
 // 	.form_row {
 // 		// Mixins
-	
+
 // 		// Box properties
 // 		width: 70%;
 // 		float: left;
-	
+
 // 		// Background & borders
-	
+
 // 		// Typography
-	
+
 // 		// Other
 
 // 		&.actions {
 // 				// Mixins
-			
+
 // 				// Box properties
 // 				width: 30%;
 // 				float: left;
 // 				// Background & borders
-				
+
 // 				// Typography
-			
+
 // 				// Other
-			
-// 			}	
+
+// 			}
 // 	}
 
 // 	label {
@@ -162,21 +162,21 @@
 // 		@include no_shadow;
 
 // 		// Box properties
-	
+
 // 		// Background & borders
-	
+
 // 		// Typography
 // 		font-family: $form_font;
 // 		color: white;
 // 		// Other
-	
+
 // 	}
 
 // 	select {
 // 		// Mixins
-	
+
 // 		// Box properties
-	
+
 // 		// Background & borders
 // 		background-color: $brand;
 // 		border-color: white;
@@ -187,13 +187,13 @@
 
 // 		&:focus {
 // 			// Mixins
-		
+
 // 			// Box properties
-		
+
 // 			// Background & borders
-		
+
 // 			// Typography
-		
+
 // 			// Other
 // 			outline: none;
 // 		}
@@ -212,64 +212,64 @@
 // 		// Typography
 // 		color: white;
 // 		// Other
-	
+
 // 	}
 
 // 	#city {
 // 		// Mixins
-	
+
 // 		// Box properties
 // 		width: $grid * 11;
 // 		float: left;
 // 		margin-right: $grid;
 // 		// Background & borders
-	
+
 // 		// Typography
-	
+
 // 		// Other
-	
+
 // 	}
 
 // 	#state {
 // 		// Mixins
-	
+
 // 		// Box properties
 // 		width: $grid * 2;
 // 		float: left;
 // 		// Background & borders
-	
+
 // 		// Typography
 // 		text-align: center;
 // 		// Other
-	
+
 // 	}
 
 // 	#roof_age {
 // 		// Mixins
-	
+
 // 		// Box properties
 // 		width: $grid * 6;
 // 		float: left;
 // 		margin-right: $grid;
 // 		// Background & borders
-	
+
 // 		// Typography
 // 		// Other
-	
+
 // 	}
 
 
 // 	#roof_material {
 // 		// Mixins
-	
+
 // 		// Box properties
 // 		width: $grid * 7;
 // 		float: left;
 // 		// Background & borders
-	
+
 // 		// Typography
 // 		// Other
-	
+
 // 	}
 
 
@@ -282,10 +282,10 @@
 // 	}
 
 // 	::-moz-placeholder {  /* Firefox 19+ */
-// 	   color: white;  
+// 	   color: white;
 // 	}
 
-// 	:-ms-input-placeholder {  
+// 	:-ms-input-placeholder {
 // 	   color: white;
 // 	}
 
@@ -302,32 +302,32 @@
 // 		// Typography
 // 		color: white;
 // 		// Other
-	
+
 // 		&:hover {
 // 			// Mixins
-		
+
 // 			// Box properties
-		
+
 // 			// Background & borders
 // 			background: darken($sunnyside, 10%);
 // 			// Typography
-		
+
 // 			// Other
-		
+
 // 		}
 // 	}
 
 // 	&.one {
 // 		// Mixins
-	
+
 // 		// Box properties
-	
+
 // 		// Background & borders
-	
+
 // 		// Typography
-	
+
 // 		// Other
-		
+
 // 		.button {
 // 			// Mixins
 
@@ -339,46 +339,46 @@
 // 			// Typography
 
 // 			// Other
-		
+
 // 		}
 // 	}
 
 // 	&.two {
 // 		// Mixins
-	
+
 // 		// Box properties
-	
+
 // 		// Background & borders
-	
+
 // 		// Typography
-	
+
 // 		// Other
-	
+
 // 		.form_row {
 // 			// Mixins
-		
+
 // 			// Box properties
 // 			width: 100%;
-		
+
 // 			// Background & borders
-		
+
 // 			// Typography
-		
+
 // 			// Other
 
 // 			&.actions {
 // 					// Mixins
-				
+
 // 					// Box properties
 // 					width: 100%;
 
 // 					// Background & borders
-					
+
 // 					// Typography
-				
+
 // 					// Other
-				
-// 				}	
+
+// 				}
 // 		}
 
 // 		input[type=text] {
@@ -392,7 +392,7 @@
 // 			// Typography
 
 // 			// Other
-		
+
 // 		}
 
 
@@ -407,7 +407,7 @@
 // 			// Typography
 
 // 			// Other
-		
+
 // 		}
 // 	}
 // }

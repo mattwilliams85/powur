@@ -14,6 +14,8 @@ EXAMPLES.json
 vendor/eyecue_ipayout/.gitignore
 vendor/eyecue_ipayout/reload.sh
 config/rails_best_practices.yml
+node_modules
+npm-debug.log
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
@@ -22,3 +24,5 @@ config/rails_best_practices.yml
 
 # Ignore application configuration
 /config/application.yml
+
+node_modules

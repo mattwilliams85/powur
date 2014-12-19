@@ -1,3 +1,5 @@
+'use strict';
+
 // Opaque header & parallax on scroll
 
     // window.onscroll = function() {
@@ -60,13 +62,9 @@ jQuery(function($){
       _formSubmit(e, $(e.target).closest(".js-cta_form"), "/invite", "post", function(data, text){
         console.log(data);
         if(Object.keys(data).indexOf("links")>=0)
-          for(i=0; i<data.links.length;i++)
+          for(var i=0; i<data.links.length;i++)
             if(data.links[i].rel === "new") window.location.replace(data.links[i].href);
       });
     });
   });
 });
-
-
-
-
