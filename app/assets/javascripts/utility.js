@@ -528,10 +528,10 @@ function _formSubmit(_event, _formObj, _endPoint, _verb, _callback){
 function _formErrorHandling(_formObj, _error){
     switch (_error.type){
         case "input":
-            _input= _formObj.find("input[name='"+_error.input+"']");
+            var _input= _formObj.find("input[name='"+_error.input+"']");
              _formObj.find("input[name='"+_error.input+"']").parents(".form_row").addClass("is_not_valid");
             _formObj.find(".js-error").remove();
-            _html="<span class='js-error'>"+_error.message+"</span>";
+            var _html="<span class='js-error'>"+_error.message+"</span>";
             _input.parents(".form_row").prepend(_html);
 
         break;

@@ -9,14 +9,14 @@ jQuery(function($){
     _getRoot(function(){
       //populate form
       _data.action = _data.root.actions.filter(function(action){return action.name=="create";})[0];
-      for(i=0;i<_data.action.fields.length;i++)
+      for(var i=0;i<_data.action.fields.length;i++)
         $(".js-signup_form").find("input[name='"+_data.action.fields[i].name+"']").val(_data.action.fields[i].value)
     });
   });
 
   $(document).on("click", ".js-signup_form .button", function(e){
     e.preventDefault();
-    var _action = _data.root.actions[0]
+    var _action = _data.root.actions[3]
     _formSubmit(e, $(".js-signup_form"), _action.href, _action.method, function(data, text){
       window.location = data.links.filter(function(link){return link.rel=="index"})[0].href;
     });

@@ -15,4 +15,6 @@ actions \
 
 links \
   link(:self, promoter_path(code: @invite.id)),
-  link(:new, new_promoter_path(code: @invite.id))
+  link(:new, new_promoter_path(code: @invite.id)),
+  link(:index, dashboard_path)
+

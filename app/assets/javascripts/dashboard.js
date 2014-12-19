@@ -3,7 +3,7 @@
 var _myID=0; //current user id
 var _data={}; //main data object that contains user profile and genelogy info
 var _animation_speed = 300;
-var _dashboard;
+var _dashboard; 
 var kpiType = '';
 
 $(window).bind('page:change', function() {
@@ -15,29 +15,34 @@ $(window).bind('page:change', function() {
 // if it affects DOM elements
 
 function applyBrowserSpecificRules() {
-  if (navigator.userAgent.indexOf("Chrome") != -1) {
+  if (navigator.userAgent.indexOf('Chrome') !== -1) {
     // (chrome-specific stuff here)
-  } else if (navigator.userAgent.indexOf("Opera") != -1) {
+  } else if (navigator.userAgent.indexOf('Opera') !== -1) {
     // (opera-specific stuff here)
-  } else if (navigator.userAgent.indexOf("Firefox") != -1) {
+  } else if (navigator.userAgent.indexOf('Firefox') !== -1) {
     // (firefox-specific stuff here)
 
     //dropdown arrows workaround for FF 34 and below
-    if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){ //test for Firefox/x.x or Firefox x.x (ignoring remaining digits);
-      var ffversion = new Number(RegExp.$1) // capture x.x portion and store as a number
+    //test for Firefox/x.x or Firefox x.x (ignoring remaining digits);
+    if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){ 
+      var _selects;
+      var i;
+      // capture x.x portion and store as a number
+      var ffversion = new Number(RegExp.$1); 
       if (ffversion >= 35) {
-        var _selects = document.querySelectorAll('select');
-        for (var i=0; i<_selects.length; i++) {
-          _selects[i].style.backgroundImage = "/assets/select_arrow.svg";
-        };
+        _selects = document.querySelectorAll('select');
+        for (i=0; i<_selects.length; i++) {
+          _selects[i].style.backgroundImage = '/assets/select_arrow.svg';
+        }
       } else {
-        var _selects = document.querySelectorAll('select');
-        for (var i=0; i<_selects.length; i++) {
-          _selects[i].style.backgroundImage = "none";
-        };
+        _selects = document.querySelectorAll('select');
+        for (i=0; i<_selects.length; i++) {
+          _selects[i].style.backgroundImage = 'none';
+        }
       }
     }
-  } else if ((navigator.userAgent.indexOf("MSIE") != -1) || (!!document.documentMode == true)) {
+  } else if ((navigator.userAgent.indexOf('MSIE') !== -1) || 
+    (document.documentMode === true)) {
     // (IE-specific stuff here)
   } else {
     // (browser isn't one of the above)
@@ -50,48 +55,47 @@ function initPage(){
 
   //get current user profile and initiate dashboard data
   _getRoot(function(){
-    $(".js-user_first_name").text(_data.root.properties.first_name );
+    $('.js-user_first_name').text(_data.root.properties.first_name );
     _myID = _data.root.properties.id;
     _dashboard = new Dashboard();
     _dashboard.displayGoals();
     _dashboard.displayTeam();
     _dashboard.displayQuotes();
     _dashboard.displayKPIs();
-    if(_data.currentUser.avatar) $("#js-user_profile_image").attr("src", _data.currentUser.avatar.thumb);
+    if(_data.currentUser.avatar) $('#js-user_profile_image').attr('src', _data.currentUser.avatar.thumb);
     setInterval(_dashboard._countdown, 1000);
   });
 
   //wire up logout button
-  $("#user_logout").on("click", function(e){_formSubmit(e, {}, "/login", "delete", function(data, text){
-  });});
+  $('#user_logout').on('click', function(e){
+    _formSubmit(e, {}, '/login', 'delete', function(data, text){
+    });
+  });
 
   //admin toolbar
   $('.hover-box').hover(function(e){
     $('.js-admin_tab').stop();
-    e.stopPropagation()
+    e.stopPropagation();
     if($('.js-admin_tab').is(':animated')) return;
     $('.js-admin_tab').animate({
-      "left":"-70px"
+      'left':'-70px'
     }, 300);
-
   });
 
-  $( ".hover-box" ).mouseleave(function(e) {
+  $('.hover-box').mouseleave(function(e) {
     $('.js-admin_tab').stop();
-    e.stopPropagation()
+    e.stopPropagation();
     $('.js-admin_tab').animate({
-      "left":"-140px"
+      'left':'-140px'
     },300);
-
   });
-
-};
+}
 
 
 //populate initial data on dashboard screen
 function Dashboard(){
   _data.global = {};
-  _data.global.thumbnail_size={"width":252,"height":197};
+  _data.global.thumbnail_size={'width':252,'height':197};
   _data.global.grid_width=32;
   _data.global.total_invitations=5;
   this.displayTeam = displayTeam;
@@ -107,35 +111,34 @@ function Dashboard(){
       environment:{
         tab:{
           value:721.34,
-          label:"CO2 Tons Saved"
+          label:'CO2 Tons Saved'
         }
       },
       conversion:{
         tab:{
           value:78,
-          label:"Orders"
+          label:'Orders'
         }
       },
       earnings:{
         tab:{
-          value:"$2,182.67",
-          label:"Total Earnings"
+          value:'$2,182.67',
+          label:'Total Earnings'
         }
       },
       genealogy:{
         tab:{
           value:327,
-          label:"In Your Genealogy"
+          label:'In Your Genealogy'
         }
       },
       hot_quotes:{
         tab:{
           value:11,
-          label:"Hot Quotes"
+          label:'Hot Quotes'
         }
       },
-
-    }
+    };
 
     Object.keys(kpi).forEach(function(key){
       $(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_value span").html(kpi[key].tab.value)
@@ -442,11 +445,10 @@ function Dashboard(){
   //wire up the pagination hooks
   $(document).on("click", ".pagination_container .nav", function(e){
     e.preventDefault();
-    console.log("clicked on nav")
-    _pagination_content= $(this).siblings(".pagination_content");
+    var _pagination_content= $(this).siblings(".pagination_content");
 
     //animate the content
-    _pagination_width=_data.team_count_per_page*_data.global.thumbnail_size.width;
+    var _pagination_width=_data.team_count_per_page*_data.global.thumbnail_size.width;
 
     //return if it's already being animated
     if( _pagination_content.filter(':animated').length>0) return;
@@ -599,58 +601,58 @@ function Dashboard(){
             });
 
             _userDetail._customerFields[6].fields = [
-            "Alabama",
-            "Alaska",
-            "Arizona",
-            "Arkansas",
-            "California",
-            "Colorado",
-            "Connecticut",
-            "Delaware",
-            "District of Columbia",
-            "Florida",
-            "Georgia",
-            "Hawaii",
-            "Idaho",
-            "Illinois",
-            "Indiana",
-            "Iowa",
-            "Kansas",
-            "Kentucky",
-            "Louisiana",
-            "Maine",
-            "Maryland",
-            "Massachusetts",
-            "Michigan",
-            "Minnesota",
-            "Mississippi",
-            "Missouri",
-            "Montana",
-            "Nebraska",
-            "Nevada",
-            "New Hampshire",
-            "New Jersey",
-            "New Mexico",
-            "New York",
-            "North Carolina",
-            "North Dakota",
-            "Ohio",
-            "Oklahoma",
-            "Oregon",
-            "Pennsylvania",
-            "Puerto Rico",
-            "Rhode Island",
-            "South Carolina",
-            "South Dakota",
-            "Tennessee",
-            "Texas",
-            "Utah",
-            "Vermont",
-            "Virginia",
-            "Washington",
-            "West Virginia",
-            "Wisconsin",
-            "Wyoming"
+            'Alabama',
+            'Alaska',
+            'Arizona',
+            'Arkansas',
+            'California',
+            'Colorado',
+            'Connecticut',
+            'Delaware',
+            'District of Columbia',
+            'Florida',
+            'Georgia',
+            'Hawaii',
+            'Idaho',
+            'Illinois',
+            'Indiana',
+            'Iowa',
+            'Kansas',
+            'Kentucky',
+            'Louisiana',
+            'Maine',
+            'Maryland',
+            'Massachusetts',
+            'Michigan',
+            'Minnesota',
+            'Mississippi',
+            'Missouri',
+            'Montana',
+            'Nebraska',
+            'Nevada',
+            'New Hampshire',
+            'New Jersey',
+            'New Mexico',
+            'New York',
+            'North Carolina',
+            'North Dakota',
+            'Ohio',
+            'Oklahoma',
+            'Oregon',
+            'Pennsylvania',
+            'Puerto Rico',
+            'Rhode Island',
+            'South Carolina',
+            'South Dakota',
+            'Tennessee',
+            'Texas',
+            'Utah',
+            'Vermont',
+            'Virginia',
+            'Washington',
+            'West Virginia',
+            'Wisconsin',
+            'Wyoming'
             ];
 
             $.extend(true, _updateAction, EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(fields)":{name:"zip"}})[0]);
@@ -738,58 +740,58 @@ function Dashboard(){
             });
 
             _fields._customerFields[6].fields = [
-            "Alabama",
-            "Alaska",
-            "Arizona",
-            "Arkansas",
-            "California",
-            "Colorado",
-            "Connecticut",
-            "Delaware",
-            "District of Columbia",
-            "Florida",
-            "Georgia",
-            "Hawaii",
-            "Idaho",
-            "Illinois",
-            "Indiana",
-            "Iowa",
-            "Kansas",
-            "Kentucky",
-            "Louisiana",
-            "Maine",
-            "Maryland",
-            "Massachusetts",
-            "Michigan",
-            "Minnesota",
-            "Mississippi",
-            "Missouri",
-            "Montana",
-            "Nebraska",
-            "Nevada",
-            "New Hampshire",
-            "New Jersey",
-            "New Mexico",
-            "New York",
-            "North Carolina",
-            "North Dakota",
-            "Ohio",
-            "Oklahoma",
-            "Oregon",
-            "Pennsylvania",
-            "Puerto Rico",
-            "Rhode Island",
-            "South Carolina",
-            "South Dakota",
-            "Tennessee",
-            "Texas",
-            "Utah",
-            "Vermont",
-            "Virginia",
-            "Washington",
-            "West Virginia",
-            "Wisconsin",
-            "Wyoming"
+            'Alabama',
+            'Alaska',
+            'Arizona',
+            'Arkansas',
+            'California',
+            'Colorado',
+            'Connecticut',
+            'Delaware',
+            'District of Columbia',
+            'Florida',
+            'Georgia',
+            'Hawaii',
+            'Idaho',
+            'Illinois',
+            'Indiana',
+            'Iowa',
+            'Kansas',
+            'Kentucky',
+            'Louisiana',
+            'Maine',
+            'Maryland',
+            'Massachusetts',
+            'Michigan',
+            'Minnesota',
+            'Mississippi',
+            'Missouri',
+            'Montana',
+            'Nebraska',
+            'Nevada',
+            'New Hampshire',
+            'New Jersey',
+            'New Mexico',
+            'New York',
+            'North Carolina',
+            'North Dakota',
+            'Ohio',
+            'Oklahoma',
+            'Oregon',
+            'Pennsylvania',
+            'Puerto Rico',
+            'Rhode Island',
+            'South Carolina',
+            'South Dakota',
+            'Tennessee',
+            'Texas',
+            'Utah',
+            'Vermont',
+            'Virginia',
+            'Washington',
+            'West Virginia',
+            'Wisconsin',
+            'Wyoming'
             ];
 
             //populate drilldown
@@ -913,14 +915,14 @@ function Dashboard(){
 
           $("#new_promoter_invitation_form .button").on("click", function(e){
             e.preventDefault();
-            _thisForm = $(e.target).closest("#new_promoter_invitation_form");
+            var _thisForm = $(e.target).closest("#new_promoter_invitation_form");
             _formSubmit(e, $("#new_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
           });
 
           //wire up remove pending advocate capabilities
           $(".js-remove_advocate").on("click", function(e){
             e.preventDefault();
-            _id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+            var _id = $(e.target).closest(".drilldown_content_section").find(".invite_code").text();
             _ajax({_ajaxType:"delete", _url:"/u/invites/"+_id, _callback:_displayUpdatedInvitation()});
           });
 
