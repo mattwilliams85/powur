@@ -716,7 +716,7 @@ function Dashboard(){
 				_drilldownContainerObj.css("opacity","0");
 				_drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);
 
-				_fields={};
+				var _fields={};
 				_ajax({
 					_ajaxType:"get",
 					_url:"/u/quotes/",
