@@ -457,40 +457,40 @@ function _ajax(_options){
 //optional: _options._uploadProgressDisplay shows the upload progress
 //optional: _callback function that is triggered after the upload has been completed
 function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
-	var _formData = new FormData();
-	var _supportedFiles = /(\.jpg|\.jpeg|\.pdf|\.gif|\.png)$/i;
+  var _formData = new FormData();
+  var _supportedFiles = /(\.jpg|\.jpeg|\.pdf|\.gif|\.png)$/i;
 
-	_formInputObj.on("change", function(e){
-		for(var i=0;i<$(this).file.length;i++){
-			_file = $(this).file[i];
+  _formInputObj.on("change", function(e){
+    for(var i=0;i<$(this).file.length;i++){
+      _file = $(this).file[i];
 
-			if(!!_file.type.match(_supportedFiles)){
-				//display filename is display object is provided
-				if(_options._uploadProgressDisplay !== undefined)
-					_options._uploadProgressDisplay.html("Uploading "+_file.filename);
+      if(!!_file.type.match(_supportedFiles)){
+        //display filename is display object is provided
+        if(_options._uploadProgressDisplay !== undefined)
+          _options._uploadProgressDisplay.html("Uploading "+_file.filename);
 
-				_fileReader = new FileReader();
-				_fileReader.on("onloadend", function(e){
-					if(_options._uploadProgressDisplay !== undefined)
-						_options._uploadProgressDisplay.html(_file.filename+" upload completed");
-				});
-				_fileReader.readAsDataURL(_file);
-				_formData.append("attachments[]", _file);
+        _fileReader = new FileReader();
+        _fileReader.on("onloadend", function(e){
+          if(_options._uploadProgressDisplay !== undefined)
+            _options._uploadProgressDisplay.html(_file.filename+" upload completed");
+        });
+        _fileReader.readAsDataURL(_file);
+        _formData.append("attachments[]", _file);
 
 
-			}else{
-				if(_options._uploadProgressDisplay !== undefined)
-					_options._uploadProgressDisplay.html(_file.filename+" is not a supported file.");
-				console.log(_file.filename+" is not a supported file.")
-			}
-		}
+      }else{
+        if(_options._uploadProgressDisplay !== undefined)
+          _options._uploadProgressDisplay.html(_file.filename+" is not a supported file.");
+        console.log(_file.filename+" is not a supported file.")
+      }
+    }
 
-		//upload file
+    //upload file
         var _options={};
         _options._url = _uploadEndpoint;
         _options._postObj = _formdata;
         _ajax(_options);
-	});
+  });
 
 }
 

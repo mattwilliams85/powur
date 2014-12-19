@@ -1,419 +1,419 @@
 body#application {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	//padding: $grid * 4 0 0 0;
-	padding: 100px 0 0 0;
-	@include box_sizing;
-	// Background & borders
+  // Box properties
+  //padding: $grid * 4 0 0 0;
+  padding: 100px 0 0 0;
+  @include box_sizing;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
-	header {
-		// Mixins
-		@include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
-		@include box_sizing;
-		// Box properties
-		//height: $grid * 4;
-		height:100px;
-		min-width: $desktop;
-		// Background & borders
-		background-color: $brand;
-		// Typography
-	
-		// Other
-	
-	}
+  header {
+    // Mixins
+    @include gradient(lighten($brand, 2%), $brand, darken($brand, 2%));
+    @include box_sizing;
+    // Box properties
+    //height: $grid * 4;
+    height:100px;
+    min-width: $desktop;
+    // Background & borders
+    background-color: $brand;
+    // Typography
+
+    // Other
+
+  }
 }
 
 #header_container {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	width: $desktop;
-	margin: 0 auto;
-	// Background & borders
+  // Box properties
+  width: $desktop;
+  margin: 0 auto;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
-	li {
-		cursor: pointer;
-	}
+  // Other
+  li {
+    cursor: pointer;
+  }
 }
 
 .main_logo {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	padding: 0;
-	margin-right: $grid;
-	margin-top: 0;
-	float: left;
-	// Background & borders
-	border: none;
-	background: none;
-	// Typography
+  // Box properties
+  padding: 0;
+  margin-right: $grid;
+  margin-top: 0;
+  float: left;
+  // Background & borders
+  border: none;
+  background: none;
+  // Typography
 
-	// Other
+  // Other
 
-	a {
-		// Mixins
-	
-		// Box properties
-		display: block;
+  a {
+    // Mixins
 
-		overflow: auto;
-		// Background & borders
-		background: none;
-		border: none !important;
-		// Typography
-		
-		// Other
-	
-		&:hover {
-			// Mixins
-		
-			// Box properties
-		
-			// Background & borders
-			background: none !important;
-			border: none !important;
-			// Typography
-		
-			// Other
-		
-		}
-	}
+    // Box properties
+    display: block;
+
+    overflow: auto;
+    // Background & borders
+    background: none;
+    border: none !important;
+    // Typography
+
+    // Other
+
+    &:hover {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+      background: none !important;
+      border: none !important;
+      // Typography
+
+      // Other
+
+    }
+  }
 }
 
 #sunstand_logo {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	display: block;
-	height: $grid * 2;
-	width: $grid * 5.42;
-	overflow: hidden;
-	float: left;
-	// Background & borders
+  // Box properties
+  display: block;
+  height: $grid * 2;
+  width: $grid * 5.42;
+  overflow: hidden;
+  float: left;
+  // Background & borders
 
-	// Typography
-	text-indent: 9999em;
-	// Other
+  // Typography
+  text-indent: 9999em;
+  // Other
 
 }
 
 #user_nav {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	float: right;
+  // Box properties
+  float: right;
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
-	line-height: $grid;
-	// Other
+  // Typography
+  line-height: $grid;
+  // Other
 
-	li {
-		// Mixins
-	
-		// Box properties
-		float: left;
-		// Background & borders
-		// Typography
-	
-		// Other
-		img{
-			float:left;
-			margin-top:-17px;
-			margin-right:10px;
-			width:64px;
-			border-radius:50px;
-		}
-	
-		a.username {
-			// Mixins
-		
-			// Box properties
-			width:auto;
-			float:left;
-			display: block;
-			padding: 0;
-			// Background & borders
+  li {
+    // Mixins
 
-			// Typography
+    // Box properties
+    float: left;
+    // Background & borders
+    // Typography
 
-			// Other
-		
-		}
-	}
+    // Other
+    img{
+      float:left;
+      margin-top:-17px;
+      margin-right:10px;
+      width:64px;
+      border-radius:50px;
+    }
+
+    a.username {
+      // Mixins
+
+      // Box properties
+      width:auto;
+      float:left;
+      display: block;
+      padding: 0;
+      // Background & borders
+
+      // Typography
+
+      // Other
+
+    }
+  }
 }
 
 
 #system_feedback {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	//background-color: $neutral;
-	padding: $grid;
-	// Background & borders
-	border-bottom: $border;
-	// Typography
-	text-align: center;
-	// Other
+  // Box properties
+  //background-color: $neutral;
+  padding: $grid;
+  // Background & borders
+  border-bottom: $border;
+  // Typography
+  text-align: center;
+  // Other
 
-	h1 {
-		// Mixins
-	
-		// Box properties
-		margin: 0;
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-	
-	}
+  h1 {
+    // Mixins
 
-	p {
-		// Mixins
-	
-		// Box properties
-		margin: 0;
-		// Background & borders
-	
-		// Typography
-		font-size: $grid / 2;
-		line-height: $line_height;
-		color: $quiet;
-		// Other
-	
-	}
+    // Box properties
+    margin: 0;
+    // Background & borders
 
-	.system_feedback_graphic {
-		// Mixins
-	
-		// Box properties
-		width: auto;
-		display: inline-block;
-		margin:  $grid / 2 0;
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-	
-	}
+    // Typography
+
+    // Other
+
+  }
+
+  p {
+    // Mixins
+
+    // Box properties
+    margin: 0;
+    // Background & borders
+
+    // Typography
+    font-size: $grid / 2;
+    line-height: $line_height;
+    color: $quiet;
+    // Other
+
+  }
+
+  .system_feedback_graphic {
+    // Mixins
+
+    // Box properties
+    width: auto;
+    display: inline-block;
+    margin:  $grid / 2 0;
+    // Background & borders
+
+    // Typography
+
+    // Other
+
+  }
 
 }
 
 .footer_column {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	width: $grid * 7;
-	float: left;
-	// Background & borders
+  // Box properties
+  width: $grid * 7;
+  float: left;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 // Forms
 
 .form_row {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	display: block;
-	position: relative;
-	overflow: auto;
-	clear: both;
-	// Background & borders
+  // Box properties
+  display: block;
+  position: relative;
+  overflow: auto;
+  clear: both;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
-	&.half {
-		// Mixins
-		@include box_sizing;
-		// Box properties
-		width: 100%;
-		float: left;
-		clear: none;
-		// Background & borders
-	
-		// Typography
-	
-		// Other
+  &.half {
+    // Mixins
+    @include box_sizing;
+    // Box properties
+    width: 100%;
+    float: left;
+    clear: none;
+    // Background & borders
 
-		@media screen and (min-width: $tablet) {
-			width: 50%;
-			padding: 0 $grid / 8 0 0;
-		}
+    // Typography
 
-		&:nth-of-type(even) {
-			// Mixins
-		
-			// Box properties
-			
-			// Background & borders
-			
-			// Typography
-		
-			// Other
+    // Other
 
-			@media screen and (min-width: $tablet) {
-				width: 50%;
-				padding: 0 0 0 $grid / 8;
-			}
-			
-		}
+    @media screen and (min-width: $tablet) {
+      width: 50%;
+      padding: 0 $grid / 8 0 0;
+    }
 
-		&:nth-of-type(odd) {
-			// Mixins
-		
-			// Box properties
-			clear: both;
-			// Background & borders
-			
-			// Typography
-		
-			// Other
-			
-		}
+    &:nth-of-type(even) {
+      // Mixins
 
-	}
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+
+      // Other
+
+      @media screen and (min-width: $tablet) {
+        width: 50%;
+        padding: 0 0 0 $grid / 8;
+      }
+
+    }
+
+    &:nth-of-type(odd) {
+      // Mixins
+
+      // Box properties
+      clear: both;
+      // Background & borders
+
+      // Typography
+
+      // Other
+
+    }
+
+  }
 
 
-	&.checkbox {
-		// Mixins
-	
-		// Box properties
-		display: block;
-		width: 100%;
-		padding: $grid / 2 0;
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-	
-	}
+  &.checkbox {
+    // Mixins
 
-	&.text {
-		// Mixins
-	
-		// Box properties
-		padding-bottom: $grid / 2;
-		// Background & borders
-		
-		// Typography
-	
-		// Other
-	
-	}
+    // Box properties
+    display: block;
+    width: 100%;
+    padding: $grid / 2 0;
+    // Background & borders
+
+    // Typography
+
+    // Other
+
+  }
+
+  &.text {
+    // Mixins
+
+    // Box properties
+    padding-bottom: $grid / 2;
+    // Background & borders
+
+    // Typography
+
+    // Other
+
+  }
 }
 
 input.read_only {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	border-color: transparent;
-	// Background & borders
+  // Box properties
+  border-color: transparent;
+  // Background & borders
 
-	// Typography
-	color: $text;
-	// Other
+  // Typography
+  color: $text;
+  // Other
 
 }
 
 tr .js-bonus_details {
-	// Box properties
-	padding-top:16px !important;
+  // Box properties
+  padding-top:16px !important;
 }
 
 // Admin Toolbar
 
-	.js-admin_tab {
-		cursor:pointer;
-		position:fixed;
-		top:25%;
-		left:-140px;
-		height:215px;
-		width:200px;
-		color:rgb(255,255,255);
-		background-color:rgb(40,195,250);
-		/*border:2px solid rgb(35,190,245);*/
-		border-top-right-radius:2.5px;
-		border-bottom-right-radius:2.5px;
-	  -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.7);
-	  -moz-box-shadow:    0px 0px 5px 0px rgba(50, 50, 50, 0.7);
-	  box-shadow:         0px 0px 5px 0px rgba(50, 50, 50, 0.7);
+  .js-admin_tab {
+    cursor:pointer;
+    position:fixed;
+    top:25%;
+    left:-140px;
+    height:215px;
+    width:200px;
+    color:rgb(255,255,255);
+    background-color:rgb(40,195,250);
+    /*border:2px solid rgb(35,190,245);*/
+    border-top-right-radius:2.5px;
+    border-bottom-right-radius:2.5px;
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 0.7);
+    -moz-box-shadow:    0px 0px 5px 0px rgba(50, 50, 50, 0.7);
+    box-shadow:         0px 0px 5px 0px rgba(50, 50, 50, 0.7);
 }
 
 .side-panel-item {
-	position:relative;
-	left:155px;
-	cursor:pointer;
-	height:30px;
+  position:relative;
+  left:155px;
+  cursor:pointer;
+  height:30px;
 }
 
 #side-1 {
-	top:10%;
+  top:10%;
 }
 
 #side-2 {
-	top:13%;
+  top:13%;
 }
 
 #side-3 {
-	top:15%;
+  top:15%;
 }
 
 #side-4 {
-	top:18%;
+  top:18%;
 }
 
 .hidden {
-	display:none;
-	margin-left:17.5px;
-	font-size:0.8em;
+  display:none;
+  margin-left:17.5px;
+  font-size:0.8em;
 }
 
 .hover-box {
-	position:fixed;
-	top:22%;
-	left:-75px;
+  position:fixed;
+  top:22%;
+  left:-75px;
 }
 
 #admin-tab {
-	height:300px;
+  height:300px;
 }
 
 .side-panel-item a {
-	color:#0a7fa1;
-	span{
-		font-size:12px;
-		text-transform:uppercase;
-		width:50px;
-		display:block;
-		float:left;
-		text-align:right;
-		padding-right:20px;
-		margin-left:-65px;
-	}
+  color:#0a7fa1;
+  span{
+    font-size:12px;
+    text-transform:uppercase;
+    width:50px;
+    display:block;
+    float:left;
+    text-align:right;
+    padding-right:20px;
+    margin-left:-65px;
+  }
 }
 
 
 .side-panel-item a:hover {
-	color:#fff;
-	transition:all .5s;
+  color:#fff;
+  transition:all .5s;
 }
