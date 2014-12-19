@@ -7,3 +7,6 @@ json.properties do
   json.pay_period_date_range earning.pay_period.date_range_display('%m-%d')
   json.pay_period_week_number earning.pay_period.start_date.week_of_month
 end
+
+actions \
+  action(:detail, :post, detail_earnings_path(earning.id))

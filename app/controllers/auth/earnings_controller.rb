@@ -19,14 +19,17 @@ module Auth
       @earnings = fetch_earnings(params, @pay_periods)
     end
 
+    # this call will fetch the details for a bonus payment
     def detail
-      # this call will fetch the details for a bonus payment
-      # params['pay_period_id']
-      # params['user_id']
-      # params['bonus_payment_id']
+      @earning_detail = fetch_earning_details[:bonus_payment_id]
+      # reference @earning_detail.orders
     end
 
     private
+
+    def fetch_earning_details(params)
+      BonusPayment.find(params[:bonus_payment_id])
+    end
 
     def fetch_pay_period_range(params)
       range_start = DateTime.new(params[:start_year].to_i,

@@ -14,8 +14,8 @@ class PayPeriod < ActiveRecord::Base
         -> { order(id: :asc).where('calculated_at is null').first }
 
   scope :dispursed, -> { where('dispursed_at is not null') }
-
-
+  scope :before, ->(date) { where('end_date < ?', date.to_date) }
+  scope :after, ->(date) { where('start_date >= ?', date.to_date) }
   scope :within_date_range,
         ->(range_start, range_end) { after(range_start).before(range_end) }
 
