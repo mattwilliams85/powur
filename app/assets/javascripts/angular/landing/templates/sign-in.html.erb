@@ -1,0 +1,27 @@
+<ng-include src="'<%=asset_path("shared/header.html") %>'"></ng-include>
+
+<section id="user_content" class="user" style="height:80vh;">
+  <h3>Promoter Login</h3>
+
+  <form name="form" id="user_login" class="js-login_form" ng-submit="signIn($event)">
+    <span class="form_row">
+      <label for="email">Email</label>
+      <input ng-model="user.email" name="email" type="text" class="validate" required autofocus/>
+    </span>
+
+    <span class="form_row">
+      <label for="password">Password</label>
+      <input ng-model="user.password" name="password" type="password" class="validate" required/>
+    </span>
+
+    <span class="form_row checkbox">
+      <input name="remember_me" id="remember_me" type="checkbox" />
+      <label ng-model="user.remember_me" for="remember_me" class="checkbox small"> remember me</label>
+    </span>
+
+    <a href="/password" class="secondary_button">Reset password</a>
+    <input type="submit" class="button" value="Log in"/>
+  </form>
+</section>
+
+<ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>

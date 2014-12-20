@@ -2,26 +2,25 @@ require 'spec_helper'
 # require_relative '../../app/models/user_activity'
 # require_relative '../../app/helpers/json_decorator'
 
-describe "Sign In", :js, type: :feature do
+describe 'Sign In', :js, type: :feature do
   let!(:user) { create(:user) }
 
   before do
-    visit "/"
-    click_on 'Sign in'
+    visit '/'
+    click_on 'Sign In'
   end
 
-  context "when wrong data" do
-    it "should show error message" do
+  context 'when wrong data' do
+    it 'should show error message' do
       fill_in 'email', with: user.email
       fill_in 'password', with: 'wrongpassword'
       click_on 'Log in'
       expect(page).to have_content 'INVALID EMAIL OR PASSWORD'
-      expect(current_path).to eq('/login')
     end
   end
 
-  context "when correct data" do
-    it "should sign in and redirect to a profile page" do
+  context 'when correct data' do
+    it 'should sign in and redirect to a profile page' do
       fill_in 'email', with: user.email
       fill_in 'password', with: 'password'
       click_on 'Log in'

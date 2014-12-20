@@ -1,0 +1,17 @@
+<header ng-class="{'sign-in': signInPage}">
+  <nav>
+    <ul>
+      <li class="main_logo">
+        <a href="/">
+          <ng-include src="'<%=asset_path("shared/sunstand_logo_svg.html") %>'"></ng-include>
+        </a>
+      </li>
+    </ul>
+
+    <ul ng-if="!signInPage" id="user_nav">
+      <li>
+        <a href="#/sign-in">Sign In</a>
+      </li>
+    </ul>
+  </nav>
+</header>

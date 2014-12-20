@@ -1,44 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="sunstandApp">
 <head>
-	<title>Welcome to SunStand</title>
-	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-	<%= stylesheet_link_tag  "index", media: "all", "data-turbolinks-track" => true %>
-	<%#= javascript_include_tag "index", "data-turbolinks-track" => true %>
-	<%= yield :javascript_includes %>
-	<%= csrf_meta_tags %>
-
-	<%= render :partial => "shared/head" %>
-	
+  <title>Welcome to SunStand</title>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular-route.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular-resource.min.js"></script>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "landing", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "landing", media: "all", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+  <%= render :partial => "shared/head" %>
 </head>
-<body id="landing">
-	<header class="js_scrolling_header">
+<body>
 
-		<nav>
-			<ul>
-				<li class="main_logo">	
-					<a href="/">
-						<%= render :partial => "shared/sunstand_logo_svg" %>
-					</a>
-				</li>
-			</ul>
+  <ng-view></ng-view>
 
-			<ul id="user_nav">
-				<li>
-					<%= link_to_unless_current 'Sign in', login_path %>
-				</li>
-			</ul>
-		</nav>
-
-	</header>
-
-	<%= yield %>
-
-	
-
-	<%= render :partial => "shared/footer" %>
-
-	<%#= render :partial => "shared/warp_nav" %>
+  <script type="text/javascript">
+    SignedIn = <%= current_user ? 'true' : 'false' %>;
+  </script>
 
 </body>
 </html>

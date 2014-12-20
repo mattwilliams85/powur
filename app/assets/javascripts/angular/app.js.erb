@@ -1,0 +1,48 @@
+'use strict';
+
+var sunstandApp = angular.module('sunstandApp', [
+  'ngRoute',
+
+  'sunstandControllers',
+  'sunstandServices',
+
+  // Directives
+  // 'sunstandApp.signInForm',
+  // 'sunstandApp.fileS3Uploader'
+]).run(['$rootScope', '$location', function ($rootScope, $location) {
+  // $rootScope.siteData = SiteData || {};
+  // $rootScope.currentUser = $rootScope.siteData.user;
+
+  $rootScope.isSignedIn = function() {
+    return SignedIn || false;
+  };
+
+  $rootScope.redirectToDashboardIfSignedIn = function() {
+    if ($rootScope.isSignedIn()) {
+      // $location.path('/u/dashboard');
+      window.location = '/u/dashboard';
+    }
+  };
+}]);
+
+var sunstandControllers = angular.module('sunstandControllers', []);
+var sunstandServices = angular.module('sunstandServices', ['ngResource']);
+
+
+sunstandApp.config(
+  ['$routeProvider', function($routeProvider) {
+    $routeProvider.
+    when('/home', {
+      templateUrl: '<%=asset_path("angular/landing/templates/index.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    when('/sign-in', {
+      templateUrl: '<%=asset_path("angular/landing/templates/sign-in.html")%>',
+      controller: 'LandingCtrl'
+    }).
+
+    otherwise({
+      redirectTo: '/home'
+    });
+  }]
+);
