@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'earnings', type: :request do
 
   before :each do
+    DatabaseCleaner.clean
     login_user
   end
 
