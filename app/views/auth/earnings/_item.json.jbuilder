@@ -9,4 +9,9 @@ json.properties do
 end
 
 actions \
-  action(:detail, :post, detail_earnings_path(earning.id))
+  action = action(:detail, :get, detail_earnings_path)
+           .field(:pay_period_id,
+                  :text,
+                  value: earning.pay_period_id)
+           .field(:user_id, :text,
+                  value: @user.id)
