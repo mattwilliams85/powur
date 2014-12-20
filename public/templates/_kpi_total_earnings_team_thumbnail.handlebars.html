@@ -2,7 +2,7 @@
   <div class="info-box">
     <div id="avatar1" class="avatar" style="background-image:url({{this.properties.avatar}}) !important"></div>
     <div class="info-text">
-      <a id="hover1"><span class="contributor-name">{{this.properties.first_name}} {{this.properties.last_name}}</span></a>
+      <a id="hover1"><span class="contributor-name">{{format_fullname_length this.properties.first_name this.properties.last_name 20}}</span></a>
       <span class="light-text">${{this.properties.orders}}0 YTD Earnings</span>
     </div>
   </div>
