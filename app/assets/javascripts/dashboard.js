@@ -135,7 +135,7 @@ function Dashboard(){
       hot_quotes:{
         tab:{
           value:11,
-          label:'Hot Quotes'
+          label:"Current Rank"
         }
       },
     };

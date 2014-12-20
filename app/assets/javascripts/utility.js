@@ -123,9 +123,14 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
 
 Handlebars.registerHelper("format_length", function(str, char_limit) {
     char_limit = parseInt(char_limit);
-    if(str.length > char_limit){
-      return str.substring(0,char_limit).trim() + "..."
-    };
+    if(str.length > char_limit) return str.substring(0,char_limit).trim() + "...";
+    else return str;
+})
+
+Handlebars.registerHelper("format_fullname_length", function(firstName, lastName, char_limit) {
+    char_limit = parseInt(char_limit);
+    if((firstName.length + lastName.length) > char_limit) return (firstName + " " + lastName).substring(0,char_limit).trim() + "...";
+    else return (firstName + " " + lastName);
 })
 
 //Handlebar helper to parse JSON objects
