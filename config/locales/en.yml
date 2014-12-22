@@ -25,6 +25,7 @@ en:
     invite: Invitation to Join SunStand
     reset-password: Password Reset Request
     customer-onboard: Sunstand Quote Request
+    welcome-new-user: Welcome to Sunstand
   valid_email:
     validations:
       email:

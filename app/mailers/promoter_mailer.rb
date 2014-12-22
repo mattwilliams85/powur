@@ -33,6 +33,15 @@ class PromoterMailer < ActionMailer::Base
     mail_chimp to, 'new-team-member', merge_vars
   end
 
+  def welcome_new_user(user)
+    # 'welcome' email when a new user redeems his/her invite
+    # used when a new user redeems his/her invite (on invites_controller)
+    to = "#{user.full_name} <#{user.email}>"
+    merge_vars = {}
+
+    mail_chimp to, 'welcome-new-user', merge_vars
+  end
+
   private
 
   def mail_chimp(to, template, merge_vars = {})
