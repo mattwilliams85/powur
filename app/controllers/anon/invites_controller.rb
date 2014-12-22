@@ -22,6 +22,7 @@ module Anon
                             :zip)
       user = @invite.accept(input)
       find_or_create_ipayout_account(user)
+      PromoterMailer.notify_upline(user).deliver
 
       login_user(user)
       render 'anon/session/show'

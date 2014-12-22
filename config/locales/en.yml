@@ -21,6 +21,7 @@
 
 en:
   email_subjects:
+    new-team-member: You just got a new Sunstand teammate...
     invite: Invitation to Join SunStand
     reset-password: Password Reset Request
     customer-onboard: Sunstand Quote Request

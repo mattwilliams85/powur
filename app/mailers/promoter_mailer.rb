@@ -23,6 +23,16 @@ class PromoterMailer < ActionMailer::Base
     mail_chimp to, 'customer-onboard', merge_vars
   end
 
+  def notify_upline(user)
+    # notifies an upline user that they have a new downline team member
+    # used when a new user redeems his/her invite (on invites_controller)
+    sponsor = user.sponsor
+    to = "#{sponsor.full_name} <#{sponsor.email}>"
+    merge_vars = { new_team_member: user.full_name }
+
+    mail_chimp to, 'new-team-member', merge_vars
+  end
+
   private
 
   def mail_chimp(to, template, merge_vars = {})
