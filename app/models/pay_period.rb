@@ -14,11 +14,10 @@ class PayPeriod < ActiveRecord::Base
         -> { order(id: :asc).where('calculated_at is null').first }
 
   scope :dispursed, -> { where('dispursed_at is not null') }
-  scope :before, ->(date) { where('end_date < ?', date.to_date) }
-  scope :after, ->(date) { where('start_date >= ?', date.to_date) }
-  scope :within_date_range,
-        ->(range_start, range_end) { after(range_start).before(range_end) }
 
+  scope :within_date_range, lambda { |range_start, range_end|
+                              where(start_date: range_start..range_end)
+                            }
   before_create do
     self.id ||= self.class.id_from(start_date)
   end
@@ -74,11 +73,12 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def calculate!
-    result = self.class.where(id: id)
-      .where('calculate_queued is not null')
-      .update_all(calculate_started: DateTime.current,
-                  calculate_queued:  nil,
-                  calculated_at:     nil)
+    result = self.class
+             .where(id: id)
+             .where('calculate_queued is not null')
+             .update_all(calculate_started: DateTime.current,
+                         calculate_queued:  nil,
+                         calculated_at:     nil)
     return unless result == 1
     reset_orders!
     process_orders!
@@ -144,7 +144,8 @@ class PayPeriod < ActiveRecord::Base
 
   def find_pay_as_rank(user)
     user.pay_period_rank ||= rank_achievements
-                             .select { |a| a.user_id == user.id }.map(&:rank_id).max
+                             .select { |a| a.user_id == user.id }
+                             .map(&:rank_id).max
     user.pay_as_rank
   end
 

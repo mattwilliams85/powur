@@ -15,7 +15,7 @@ class BonusPayment < ActiveRecord::Base
   scope :before, ->(date) { where('created_at < ?', date.to_date) }
   scope :after, ->(date) { where('created_at >= ?', date.to_date) }
 
-  scope :user_bonus_totals, ->(period) {
+  scope :user_bonus_totals, lambda { |period|
                               select('user_id, sum(amount) AMOUNT')
                                 .pay_period(period)
                                 .group(:user_id)

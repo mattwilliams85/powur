@@ -14,21 +14,26 @@ module Auth
       end
     end
 
+    # endpoint for ajax call that populates the earnings
+    # show action
     def summary
+      @user = fetch_user
       @pay_periods = fetch_pay_period_range(params)
       @earnings = fetch_earnings(params, @pay_periods)
     end
 
     # this call will fetch the details for a bonus payment
+    # required params: user_id, pay_period_id
     def detail
-      @earning_detail = fetch_earning_details[:bonus_payment_id]
-      # reference @earning_detail.orders
+      @user = fetch_user
+      @pay_period = PayPeriod.find(params[:pay_period_id])
+      @earning_details = fetch_earning_details(@user, @pay_period)
     end
 
     private
 
-    def fetch_earning_details(params)
-      BonusPayment.find(params[:bonus_payment_id])
+    def fetch_earning_details(user, pay_period)
+      pay_period.bonus_payments.for_user(user.id)
     end
 
     def fetch_pay_period_range(params)
@@ -38,6 +43,10 @@ module Auth
                                params[:end_month].to_i, -1)
 
       PayPeriod.within_date_range(range_start, range_end)
+    end
+
+    def fetch_user
+      User.find(params[:user_id])
     end
 
     def fetch_earnings(params, pay_periods)

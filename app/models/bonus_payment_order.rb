@@ -9,6 +9,8 @@ class BonusPaymentOrder < ActiveRecord::Base
     joins(:bonus_payment).where(where_arg)
   }
 
+  scope :for_user, ->(id) { where(user_id: id.to_i) }
+
   scope :for_user_pay_period, lambda { |pay_period_id, user_id|
     pp_where_arg = { bonus_payments: { pay_period_id: pay_period_id } }
     user_where_arg = { bonus_payments: { user_id: user_id } }

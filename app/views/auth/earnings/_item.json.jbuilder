@@ -1,17 +1,11 @@
-klass :earnings
+earnings_json.item_init(local_assigns[:rel] || 'earning')
 
-json.properties do
-  json.call(earning, :amount)
-  json.pay_period_title earning.pay_period.title
-  json.pay_period_type earning.pay_period.type_display
-  json.pay_period_date_range earning.pay_period.date_range_display('%m-%d')
-  json.pay_period_week_number earning.pay_period.start_date.week_of_month
-end
+earnings_json.list_item_properties(earning)
 
 actions \
-  action = action(:detail, :get, detail_earnings_path)
-           .field(:pay_period_id,
-                  :text,
-                  value: earning.pay_period_id)
-           .field(:user_id, :text,
-                  value: @user.id)
+  action(:detail, :get, detail_earnings_path)
+  .field(:pay_period_id,
+         :text,
+         value: earning.pay_period_id)
+  .field(:user_id, :text,
+         value:    @user.id)
