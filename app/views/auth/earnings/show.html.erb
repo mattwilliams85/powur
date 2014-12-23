@@ -105,120 +105,66 @@
 
     <div class="section_header_content">
 
-       <table id="stats-header">
-                <tr>
-                <td>
-                <h3 class="kpi_label">CURRENT WEEK</h3>
-                <h1 class="kpi_value" style="font-size: 31pt;"><span>$976</span></h1>
-                </td>
-                <td>
-                <h3 class="kpi_label">CURRENT MONTH</h3>
-                <h1 class="kpi_value" style="font-size: 31pt;"><span>$3,976</span></h1>
-                </td>
-                <td>
-                <h3 class="kpi_label">ACCUMULATED TOTAL</h3>
-                <h1 class="kpi_value" style="font-size: 31pt;"><span>$323,976</span></h1>
-                </td>
-                </tr>
-                </table>
+    </div>
 
     <div id="date-dropdown">
       <div class="section_label">
         <div class="tag"><img src="/images/dashboard/customers_icon.png"></div>
       </div>
+
       <select class="dropdown">
-        <option>January</option>
-        <option>February</option>
-        <option>March</option>
-        <option>April</option>
-        <option>May</option>
-        <option>June</option>
-        <option>July</option>
-        <option>August</option>
-        <option>September</option>
-        <option>October</option>
-        <option>November</option>
-        <option>December</option>
+        <% @months.each_with_index do |month, index|%>
+          <% if index + 1 == Date.today.month %>
+            <option selected><%=@months[index]%></option>
+          <% else %>
+            <option><%=@months[index]%></option>
+          <% end %>
+        <% end %>
       </select>
+
       <select class="dropdown">
-        <option>2015</option>
-        <option>2016</option>
+        <% @currentYear = Date.today.year %>
+        <option selected><%= @currentYear %></option>
+        <% until @currentYear == 2013 %>
+          <option><%= @currentYear -= 1%></option>
+        <% end %>
       </select>
       <div class="section_label">
         <div class="text">&nbsp;&nbsp;to</div>
       </div>
+
       <select class="dropdown">
-        <option>January</option>
-        <option>February</option>
-        <option>March</option>
-        <option selected>April</option>
-        <option>May</option>
-        <option>June</option>
-        <option>July</option>
-        <option>August</option>
-        <option>September</option>
-        <option>October</option>
-        <option>November</option>
-        <option>December</option>
+        <% @months.each_with_index do |month, index|%>
+          <% if index + 1 == Date.today.month %>
+            <option selected><%=@months[index]%></option>
+          <% else %>
+            <option><%=@months[index]%></option>
+          <% end %>
+        <% end %>
       </select>
+
       <select class="dropdown">
-        <option>2015</option>
-        <option>2016</option>
+        <% @currentYear = Date.today.year %>
+        <option selected><%= @currentYear %></option>
+        <% until @currentYear == 2013 %>
+          <option><%= @currentYear -= 1%></option>
+        <% end %>
       </select>
       </div>
     </div> 
   </div>
 
   <div class="section_body">
-    <div class="section_content" style="overflow:hidden;">
-      <div id="body_section_header" class="section_header date"><strong>JANUARY</strong></div>
-    </div>
-    <table style="width:100%;">
-    <thead>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Month</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Week</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Earnings</strong></td>
-      <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
-    </thead>
-      <tr style="background:#fff;">
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/2 - 1/9</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-      </tr>
-      <tr style="background:#fff;">
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/10 - 1/17</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$144,151</td>
-        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-      </tr>
-      <tr style="background:#fff;">
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/18 - 1/25</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$89,567</td>
-        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-      </tr>
-      <tr style="background:#fff;">
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">January</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1/25 - 1/31</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$112,567</td>
-        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-      </tr>
-    </table>
-      <div class="section_content" style="overflow:hidden;">
+    
+     <!--  <div class="section_content" style="overflow:hidden;">
         <div class="section_header date"><strong>FEBRUARY</strong></div>
       </div>
       <table style="width:100%;">
       <thead>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Month</strong></td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Week</strong></td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Pay Period</strong></td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Type</strong></td>
         <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Earnings</strong></td>
+        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Amount</strong></td>
         <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
       </thead>
         <tr style="background:#fff;">
@@ -381,7 +327,7 @@
       <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"></td>
       <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$502,231</td>
       </tr>
-    </table>
+    </table> -->
 
   </div>
 
@@ -442,43 +388,104 @@
 <script type="text/javascript">
 
 var dropFlag = false;
-
 var slideData = $("#slideData").html()
+var selectedYear = (new Date()).getYear() + 1900
+var selectedMonth = (new Date()).getMonth() 
 
-$(".dropToggle").click(function(e){
-  if(dropFlag == false) {
-     e.stopPropagation() 
-     row = $(this).parent().parent()
-     $("<tr id='click-me'><td colspan='5' class='dropdownz' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
-     $('.dropdownz').append(slideData)
-     $('#slideData').css("display","none")
-     $('.dropdownz').velocity({height:"330px"}, function(){
-       $('#slideTable').fadeIn(400);
-     })
-     dropFlag = true;
+// _ajax({
+//   _ajaxType: "get",
+//   _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+selectedYear+"&start_month="+selectedMonth+"&end_year="+selectedYear+"&end_month="+selectedMonth,
+//   _callback: function(data, text) {
+//       EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", data, undefined, function(html) {
+//        $(".section_header_content").append(html);
+//     });
+//   }
+// });
 
-  } else if(dropFlag == true) {
-    reverseDrop(e)
-  }
-  
-    });    
+// _ajax({
+//   _ajaxType: "get",
+//   _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+selectedYear+"&start_month="+selectedMonth+"&end_year="+selectedYear+"&end_month="+selectedMonth,
+//   _callback: function(data, text) {
+//       console.log(data)
+//       EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, undefined, function(html) {
+//        $(".section_body").append(html);
+//        clickEvents();
+//     });
+//   }
+// });
 
-  $(document).on("click", function(e){
-    
-    if(dropFlag == true) {
+$(document).ready(function(){
+var _endPoints =[];
+_endPoints.push({
+    url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+selectedYear+"&start_month="+selectedMonth+"&end_year="+selectedYear+"&end_month="+selectedMonth,
+    data:{},
+    name:"Summary"
+});
+_endPoints.push({
+    url:"/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+selectedYear+"-"+selectedMonth,
+    data:{},
+    name:"Detail"
+});
+
+EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+  _summaryData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings"]})
+  _detailsData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings_detail"]})
+  console.log(_summaryData)
+  EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", _summaryData, $(".section_header_content"), function(html) {
+  });
+  EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", _detailsData,  $(".section_body"), function(html) {
+    clickEvents();
+  });
+});
+
+// _ajax({
+//   _ajaxType: "get",
+//   _url: "/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+selectedYear+"-"+selectedMonth,
+//   _callback: function(data, text) {
+//       console.log(data)
+//       EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, undefined, function(html) {
+//        $(".section_body").append(html);
+//     });
+//   }
+// });
+
+function clickEvents(){ 
+  console.log("clickEvents()")
+  $(".dropToggle").click(function(e){
+    if(dropFlag == false) {
+       e.stopPropagation() 
+       row = $(this).parent().parent()
+       $("<tr id='click-me'><td colspan='5' class='dropdownz' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
+       $('.dropdownz').append(slideData)
+       $('#slideData').css("display","none")
+       $('.dropdownz').velocity({height:"330px"}, function(){
+         $('#slideTable').fadeIn(400);
+       })
+       dropFlag = true;
+
+    } else if(dropFlag == true) {
       reverseDrop(e)
     }
-  })
+    
+      });    
 
-  function reverseDrop(e){
-    e.stopPropagation() 
-    $('#slideTable td').css("padding","0px");
-    $('.dropdownz').css("padding","0px");
-    $('.dropdownz tr').hide()
-    $('.dropdownz').velocity({height:'0px'}, function(){
-      $('.dropdownz').remove();
-    });
-    dropFlag = false;
+    $(document).on("click", function(e){
+      
+      if(dropFlag == true) {
+        reverseDrop(e)
+      }
+    })
+
+    function reverseDrop(e){
+      e.stopPropagation() 
+      $('#slideTable td').css("padding","0px");
+      $('.dropdownz').css("padding","0px");
+      $('.dropdownz tr').hide()
+      $('.dropdownz').velocity({height:'0px'}, function(){
+        $('.dropdownz').remove();
+      });
+      dropFlag = false;
+    }
   }
-
+})
 </script>

@@ -107,6 +107,18 @@ Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
     }
 });
 
+//Handlebar helper to dispay numbers as currency
+Handlebars.registerHelper('formatCurrency', function(amount) {
+    return parseInt(amount).toFixed(0).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+});
+
+//Handlebar helper to dispay correct name for month number
+Handlebars.registerHelper('formatMonth', function(monthNumber) {
+    monthNames = [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" ];
+    return monthNames[monthNumber]
+});
+
 //Handlebar helper to allow mathematical calculations
 Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
     lvalue = parseFloat(lvalue);
