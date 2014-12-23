@@ -4,4 +4,4 @@
 //= require_tree ./angular/landing
 //= require_tree ./angular/vendor
 
-//= require index.js
+// require index.js

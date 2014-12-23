@@ -1,1994 +1,383 @@
-// Place all the styles related to the index controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "foundation_and_overrides";
 
-// Reset the field
-@import "reset";
+$secondary-color: #33caf5;
 
-@import "_mixins";
-@import "iconsweet";
-
-@import "_base";
-@import "_layouts";
-@import "_modules";
-@import "_state";
-
-// And just for development
-@import "development";
-
-
-body {
-  header {
-    li {
-      float: right;
-
-      a {
-        @include corners;
-        border: 1px solid $ghost;
-        background: $brand;
-        color: #fff;
-
-        &:hover {
-          border-color: $ghost;
-          background-color: lighten($brand, 10%);
-        }
-      }
-    }
-
-    &.sign-in {
-      background-color: $brand;
-      border-bottom: 1px solid rgba(255, 255, 255, 0);
-
-      li {
-        float: right;
-
-        a {
-          @include corners;
-          border: 1px solid $white;
-          background: $brand;
-          color: white;
-          &:hover {
-            background-color: $sunnyside;
-          }
-        }
-      }
-    }
-
-    #user_nav a {
-      color: #fff;
-      background:transparent;
-    }
-  }
+html, body {
+  height: 100%;
 }
 
-.landing_banner {
-  // Mixins
-  @include box_sizing;
 
-  // Box properties
-  padding: $grid $grid * 2 0;
-  overflow: hidden;
-  height: 100vh;
-  position: relative;
-  // Background & borders
+/*
+ * HEADER
+ *
+*/
+#sun_landing_header {
+  font-family: $header-font-family;
+  left: 0;
+  top: 0;
+  padding: 1em 0;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
 
-  /* IE10 Consumer Preview */
-  background-image: -ms-radial-gradient(right top, circle farthest-side, #FFFFFF 0%,  $brand 80%);
-
-  /* Mozilla Firefox */
-  background-image: -moz-radial-gradient(right top, circle farthest-side, #FFFFFF 0%, $brand 80%);
-
-  /* Opera */
-  background-image: -o-radial-gradient(right top, circle farthest-side, #FFFFFF 0%, $brand 80%);
-
-  /* Webkit (Safari/Chrome 10) */
-  background-image: -webkit-gradient(radial, right top, 0, right bottom, 956, color-stop(0, #FFFFFF), color-stop(1, $brand));
-
-  /* Webkit (Chrome 11+) */
-  background-image: -webkit-radial-gradient(right top, circle farthest-side, #FFFFFF 0%, $brand 80%);
-
-  /* W3C Markup, IE10 Release Preview */
-  background-image: radial-gradient(circle farthest-side at right top, #FFFFFF 0%, $brand 80%);
-
-  // Typography
-  text-align: center;
-  color: white;
-
-  // Other
-
-  // This garbage is because Safari's text rendering sucks over animated elements
-  z-index: 1;
-  -webkit-font-smoothing: subpixel-antialiased;
-  -webkit-backface-visibility: hidden;
-  -webkit-transform: translate3d(0,0,0);
-  -moz-transform: translate3d(0,0,0);
-  transform: translate3d(0,0,0);
-
-  #banner_graphic_br {
-    // Mixins
-
-    // Box properties
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 60vh;
-    width: 100%;
-    background-image: url(image-path('panel_test.png'));
-    background-repeat: no-repeat;
-    background-position: left top;
-    background-size: cover;
-    z-index: 0;
+  a {
+    color: #fff;
   }
 
-  .banner_content {
-    position: relative;
-  }
-
-  h1 {
-    margin: 0 0 $grid / 2 0;
-    font-size: $font_size * 2;
-    line-height: $font_size * 2.5;
-  }
-
-  h2 {
-    @include italic;
-    margin: 0 0 $grid / 2 0;
-    font-size: $font_size * 2;
-    line-height: $font_size * 2;
-  }
-
-  p {
-    margin: 0 0 0 0;
-    padding: 0;
-  }
-
-  .scroll_leader {
-    // Mixins
-    @include corners;
-    @include box_sizing;
-    // Box properties
-    position: absolute;
-    bottom: $grid;
-    padding: $grid;
-    left: 50%;
-    margin-left: -$grid * 6;
-    width: $grid * 12;
-    // Background & borders
-    // Typography
-    text-align: center;
-    // Other
-
-  }
-}
-
-.cta {
-  // Mixins
-
-  // Box properties
-  margin: $grid * 2 auto 0;
-  overflow: auto;
-  width: $grid * 16;
-  // Background & borders
-  // Typography
-  text-align: center;
-  // Other
-
-  .form_row {
-    // Mixins
-
-    // Box properties
-    width: $grid * 14;
+  .header-nav-link {
+    background: image-url('landing/menu-icon.png') left center no-repeat;
+    width: 21px;
+    height: 19px;
     float: left;
-    // Background & borders
-
-    // Typography
-
-    // Other
-
+    margin-top: 8px;
   }
 
-  label {
-    color: white;
+  .header-nav {
+    display: none;
   }
 
-  input {
-    // Mixins
-    @include field_box;
-    @include corners(2px,0,2px,0);
-    // Box properties
-    width: $grid * 14;
-    margin: 0 -7px 0 0;
-
-    // Background & borders
-    border: $border;
-    background-color: $ghost;
-    // Typography
-    color: white;
-    -webkit-font-smoothing: subpixel-antialiased;
-
-    // Other
-
-    &:focus {
-      border: 1px solid $ghost;
-      color: white;
-    }
-  }
-
-  .button {
-    // Mixins
-    @include box_sizing;
-    @include corners(0,2px,0,2px);
-    // Box properties
+  .logo {
+    background: image-url('landing/logo.png') left center no-repeat;
     display: block;
-    width: $grid * 2;
-    height: 59px;
-    clear: none;
-    float: left;
-    padding: $grid / 3 $grid / 2;
-    margin-top: 0;
-    // Background & borders
-    border-color: $ghost;
-    background-color: $brand;
-    // Typography
-    color: white;
-    line-height: $font_size;
-    font-size: $font_size;
-    line-height: $font_size;
-    font-family: $title_font;
-    text-transform: none;
-    // Other
-
-    &:hover {
-      // Mixins
-
-      // Box properties
-
-      // Background & borders
-      border-color: $ghost;
-      background-color: lighten($brand, 10%);
-      // Typography
-
-      // Other
-
-    }
+    width: 140px;
+    margin: 0 auto;
+    height: 37px;
+    line-height: 37px;
+    text-align: left;
+    padding-left: 45px;
   }
 
-  &.secondary {
-    .js-error {
-      color: $quiet;
-    }
-
-    label {
-      color: $quiet;
-    }
-
-    input {
-      border-color: rgba($quiet, .5);
-      background: white;
-      // Typography
-      color: $quiet;
-      // Other
-
-      &:focus {
-        // Mixins
-
-        // Box properties
-
-        // Background & borders
-
-        // Typography
-        color: $quiet;
-        // Other
-
-      }
-    }
-
-    ::-webkit-input-placeholder {
-      color: $quiet;
-    }
-
-    :-moz-placeholder { /* Firefox 18- */
-      color: $quiet;
-    }
-
-    ::-moz-placeholder {  /* Firefox 19+ */
-      color: $quiet;
-    }
-
-    :-ms-input-placeholder {
-      color: $quiet;
-    }
-
-    .button {
-      // Mixins
-
-      // Box properties
-
-      // Background & borders
-      border-color: rgba($quiet, .5);
-      // Typography
-
-      // Other
-
-      &:hover {
-        // Mixins
-
-        // Box properties
-
-        // Background & borders
-        // Typography
-
-        // Other
-
-      }
-    }
-  }
-}
-
-#index_banner_content {
-  // Mixins
-
-  // Box properties
-  margin-top: 28vh;
-  position: relative;
-  // Background & borders
-
-  // Typography
-
-  // Other
-
-}
-
-#promoter_banner_content {
-  // Mixins
-
-  // Box properties
-  margin-top: 28vh;
-  position: relative;
-  // Background & borders
-
-  // Typography
-
-  // Other
-
-  h1 {
-    // Mixins
-
-    // Box properties
-    margin-bottom: $grid / 2;
-    // Background & borders
-
-    // Typography
-
-    // Other
-
-  }
-
-  .cta {
-    // Mixins
-
-    // Box properties
-    margin-top: $grid;
-    margin-bottom: 0;
-    // Background & borders
-
-    // Typography
-
-    // Other
-
-  }
-}
-
-#thanks_banner_content {
-  // Mixins
-
-  // Box properties
-  margin-top: 28vh;
-  position: relative;
-  // Background & borders
-
-  // Typography
-
-  // Other
-
-}
-
-.signup_form {
-  // Mixins
-
-  // Box properties
-
-  // Background & borders
-
-  // Typography
-  color: white;
-  // Other
-  opacity: 0;
-
-  h3 {
-    // Mixins
-
-    // Box properties
-
-    // Background & borders
-
-    // Typography
-    font-family: $small_title_font;
+  .sign-in {
+    background: none;
+    display: inline-block;
+    line-height: 2.3em;
+    float: right;
+    padding: 0 1em;
+    border: 2px solid #fff;
     text-transform: uppercase;
-    margin-bottom: $grid / 4;
-    // Other
-
+    font-size: .8em;
   }
 
+  &.invert {
+    background: #fff;
 
-  label {
-    // Mixins
+    a {
+      color: $secondary-color;
+    }
 
-    // Box properties
+    .header-nav-link {
+      background-image: image-url('landing/menu-icon-inverted.png');
+    }
 
-    // Background & borders
+    .logo {
+      background-image: image-url('landing/logo-inverted.png');
+    }
 
-    // Typography
-    color: white;
-    // Other
-
+    .sign-in {
+      border-color: $secondary-color;
+    }
   }
+}
 
-  input[type=text],
-  input[type=email] {
-    // Mixins
-    // Box properties
-    // Background & borders
-    border-color: rgba(white, .5);
 
-    background-color: rgba($brand, .5);
-    // Typography
-    color: white;
-    // Other
+/*
+ * FOOTER
+ *
+*/
+.sun-landing-footer {
+  background: #383838;
 
-  }
-
-  ::-webkit-input-placeholder {
-    color: transparent;
-  }
-
-  :-moz-placeholder { /* Firefox 18- */
-    color: transparent;
-  }
-
-  ::-moz-placeholder {  /* Firefox 19+ */
-    color: transparent;
-  }
-
-  :-ms-input-placeholder {
-    color: transparent;
+  .footer-content {
+    margin: 2em 0;
   }
 
   a {
-    // Mixins
+    color: #fff;
+  }
 
-    // Box properties
+  .footer-nav {
+    color: #fff;
+    margin-bottom: 1em;
 
-    // Background & borders
-    background: $brand;
-    // Typography
-    color: white;
-    // Other
+    ul {
+      margin: 0;
 
-    &:hover {
-      // Mixins
-
-      // Box properties
-
-      // Background & borders
-      background: $brand_shadow;
-      // Typography
-
-      // Other
-
+      li {
+        text-transform: uppercase;
+        display: inline-block;
+      }
     }
   }
 
-  .form_row.last {
-    // Mixins
+  .social-links {
+    float: right;
 
-    // Box properties
+    a {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-left: 20px;
 
-    // Background & borders
-
-    // Typography
-
-    // Other
-
-    input {
-      // Mixins
-
-      // Box properties
-
-      // Background & borders
-      border-bottom: 1px solid rgba(white, .5);
-      // Typography
-
-      // Other
-
+      &.facebook {
+        background: image-url('landing/icons/facebook.png') no-repeat;
+      }
+      &.twitter {
+        background: image-url('landing/icons/twitter.png') no-repeat;
+      }
+      &.youtube {
+        background: image-url('landing/icons/youtube.png') no-repeat;
+      }
     }
   }
 
-  .button {
-    // Mixins
-
-    // Box properties
-    padding: $grid / 4 $grid / 2;
-
-    // Background & borders
-    background: $brand;
-    border: 1px solid rgba(white, .5);
-    // Typography
-
-    // Other
-
-    &:hover {
-      // Mixins
-
-      // Box properties
-
-      // Background & borders
-      background: $sunnyside;
-      // Typography
-
-      // Other
-
-    }
+  .copyright {
+    float: left;
+    color: #7c7c7c;
+    font-size: .9em;
   }
 }
 
-.signup_form {
-  // Mixins
 
-  // Box properties
-  width: $grid * 12;
-  // Background & borders
-
-  // Typography
-
-  // Other
-
-}
-
-#sub_banner {
-  // Mixins
-
-  // Box properties
-  padding: $grid / 2;
-  // Background & borders
-  background: $brand;
-  // Typography
-  color: white;
-  // Other
-
-  h2 {
-    // Mixins
-
-    // Box properties
-    display: inline-block;
-    margin: 0;
-    // Background & borders
-
-    // Typography
-
-    // Other
-
-  }
-
-  .button {
-    // Mixins
-    @include corners(0, 4px, 0, 4px);
-    // Box properties
-    display: inline-block;
-    width: auto;
-    margin: 0;
-    // Background & borders
-    border-color: white;
-    background: none;
-    // Typography
-    color: white;
-    // Other
-
-    &:hover {
-      // Mixins
-      // Box properties
-
-      // Background & borders
-      background-color: $sunnyside;
-      // Typography
-      color: white;
-      // Other
-
-    }
-  }
-
-  input[type=text],
-  input[type=password],
-  input[type=email] {
-    // Mixins
-    //@include corners(4px, 0, 4px, 0);
-    // Box properties
-    display: inline-block;
-    width: $grid * 5;
-    margin: 0px -7px 0 $grid / 4;
-    // Background & borders
-    border-color: white;
-    // Typography
-    color: $brand;
-    font-size: $grid / 2;
-    line-height: $line_height;
-    text-align: center;
-
-  }
-}
-
-.landing {
-  // Mixins
-
-  // Box properties
-  padding: $grid * 2 0 0 0;
-  overflow: auto;
-
-  // Background & borders
-  background-color: $white;
-  background-image: url(image-path('bg_sandnoise.jpg'));
-  background-repeat: repeat;
-  // Typography
-  text-align: center;
-  // Other
-
-  h2 {
-    // Mixins
-
-    // Box properties
-    margin-bottom: $grid / 2;
-    // Background & borders
-
-    // Typography
-    font-size: $font_size * 1.5;
-    // Other
-
-  }
-
-  p {
-    // Mixins
-
-    // Box properties
-    margin: 0 auto $grid;
-    width: 75%;
-    clear: both;
-    // Background & borders
-
-    // Typography
-
-    color: $quiet;
-    // Other
-
-  }
-
-  .get_started {
-    // Mixins
-
-    // Box properties
-    margin-top: $grid;
-    display: inline-block;
-    width: auto;
-    // Background & borders
-
-    // Typography
-
-    // Other
-
-  }
-
-  .dev_img_placeholder {
-    // Mixins
-
-    // Box properties
-    width: 75%;
-    height: $grid * 8;
-    margin:0 auto $grid;
-    // Background & borders
-
-    // Typography
-
-    // Other
-
-  }
-
-}
-
-
-.round_icon {
-  // Mixins
-
-  // Box properties
-  width: $grid * 2;
-  height: $grid * 2;
-  margin: 0 auto $grid / 4;
-  // Background & borders
-
-  // Typography
-  font-size: $grid * 2;
-
-  // Other
-
-}
-
-.landing_bar {
-  // Mixins
-
-  // Box properties
-  overflow: auto;
-
-  // Background & borders
-  // Typography
-
-  // Other
-
-}
-
-#deal_points {
-  // Mixins
-
-  // Box properties
-  width: $grid * 18;
-  margin: 0 auto;
-  // Background & borders
-
-  // Typography
-
-  // Other
-
-}
-
-.deal_point {
-  // Mixins
-  @include circle_with_text;
-  // Box properties
-  float: left;
-  width: $grid * 4;
-  height: $grid * 4;
-  // Background & borders
-  background: $sunnyside;
-  // Typography
-  line-height: $font_size;
-  color: white;
-  // Other
-
-}
-
-.customer_points {
-  // Mixins
-  // Box properties
-  margin: $grid;
-  padding: $grid;
-  display: inline-block;
-  width: $grid * 5;
-  // Background & borders
-
-  // Typography
-  text-align: center;
-  font-size: $font_size * 3;
-  color: $whisper;
-  // Other
-
-}
-
-.plain_icon {
-  // Mixins
-  // Box properties
-  margin: 0 $grid;
-  padding: 0 $grid 0;
-  display: inline-block;
-  width: $grid * 5;
-  // Background & borders
-
-  // Typography
-  text-align: center;
-
-  // Other
-
-}
-
-#customer_checklist {
-  // Mixins
-
-  // Box properties
-  padding: $grid /2;
-  // Background & borders
-  background: $brand;
-  // Typography
-  color: $white;
-
-  // Other
-
-}
-
-#solar_growth {
-  // Mixins
-
-  // Box properties
-  width: 75%;
-  height: $grid * 12;
-  margin: 0 auto $grid;
-  // Background & borders
-  background-image: url(image-path('solar_growth_graph.svg'));
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
-  // Typography
-
-  // Other
-
-}
-
-#our_mission {
-  // Mixins
-
-  // Box properties
-  overflow: auto;
-  padding: $grid * 2 0 $grid;
-  // Background & borders
-
-  border-top: 1px solid white;
-  border-bottom: 1px solid darken($white, 55%);
-  // Typography
-
-  // Other
-
-  p {
-    // Mixins
-
-    // Box properties
-    margin: 0 auto $grid;
-    width: 75%;
-
-    // Background & borders
-
-    // Typography
-    text-align: center;
-    // Other
-
-  }
-}
-
-#sales_process {
-  // Mixins
-
-  // Box properties
-  // Background & borders
-
-  // Typography
-  text-align: center;
-  // Other
-
-}
-
-#growing_business {
-  // Mixins
-
-  // Box properties
-  padding-bottom: $grid * 18;
-  // Background & borders
-  background:
-  url(image-path('dashboard_hero.png')) no-repeat center bottom,
-  url(image-path('bg_sandnoise.jpg')) repeat;
-
-
-  // Typography
-
-  // Other
-
-}
-
-#doing_good {
-  // Mixins
-
-  // Box properties
-  padding-bottom: $grid * 2;
-  // Background & borders
-
-  // Typography
-
-  // Other
-}
-
-#first_image {
-  // Mixins
-
-  // Box properties
-  height: $grid * 27;
+/*
+ * LEFT MENU
+ *
+*/
+.sun-landing-wrapper {
   position: relative;
-  overflow: hidden;
-  // Background & borders
-
-  border-color: white;
-  // Typography
-
-  // Other
-
-  #first_image_br {
-    // Mixins
-
-    // Box properties
-    height: 105%;
-    width: 105%;
-    position: absolute;
-    top: -185px;
-    // Background & borders
-    background-image: url(image-path('city.jpg'));
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    // Typography
-
-    // Other
-    z-index: 0;
-  }
-
-  #goals {
-    // Mixins
-
-    // Box properties
-    width: $grid * 28;
-    overflow: visible;
-    margin: $grid * 3 auto 0;
-    // Background & borders
-
-    // Typography
-
-    // Other
-
-  }
-
-  .goal_title {
-    // Mixins
-    @include corners(0,0,500px,500px);
-    // Box properties
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: $grid * 4.5;
-    margin-left: -$grid * 2.25;
-    padding: 0;
-    // Background & borders
-    background-color: rgba(0,0,0,.4);
-    // Typography
-    font-size: $font_size;
-    text-align: center;
-    color: white;
-    // Other
-
-  }
-
-
-  .goal_text {
-    // Mixins
-    @include corners;
-    @include box_sizing;
-
-    // Box properties
-
-    display: table;
-    position: relative;
-    padding: $grid;
-    height: $grid * 9;
-    margin: 0 0 $grid * 2 0;
-    overflow: visible;
-    float: left;
-    width: $grid * 13;
-    // Background & borders
-    background-color: rgba(0,0,0,.4);
-    // Typography
-    color: $white;
-    // Other
-
-    span.text {
-      // Mixins
-
-      // Box properties
-      display: table-cell;
-      // Background & borders
-
-      // Typography
-      vertical-align: middle;
-      // Other
-    }
-
-    .number {
-      // Mixins
-      @include corners(500px, 500px, 500px, 500px);
-
-      // Box properties
-      display: table;
-      position: absolute;
-      top: -$grid * 1;
-      left: 50%;
-      margin-left: -$grid;
-      height: $grid * 2;
-      width: $grid * 2;
-
-      // Background & borders
-      background: $text;
-
-      // Typography
-      font-size: $font_size;
-      // Other
-      z-index: 300;
-
-      span {
-        // Mixins
-
-        // Box properties
-        display: table-cell;
-        // Background & borders
-
-        // Typography
-        vertical-align: middle;
-        // Other
-
-      }
-    }
-
-    &.first {
-      // Mixins
-      @include corners(3px,0,3px,0);
-      // Box properties
-      margin-right: $grid * 2;
-      // Background & borders
-
-      // Typography
-
-      // Other
-    }
-
-    // &.first:after {
-      // 	// Mixins
-
-      // 	// Box properties
-      // 	position: absolute;
-      // 	left: 100%;
-      // 	top: 0;
-      // 	width: 0;
-      // 	height: 0;
-      // 	// Background & borders
-      // 	border-top: $grid * 4 solid transparent;
-      // 	border-left: $grid * 2 solid rgba(0,0,0,.4);
-      // 	border-bottom: $grid * 4 solid transparent;
-      // 	// Typography
-
-      // 	// Other
-      // 	content: "";
-      // 	z-index: 190;
-      // }
-
-      &.second {
-        // Mixins
-        @include corners(3px,3px,0,0);
-
-        // Box properties
-
-        // Background & borders
-
-        // Typography
-
-        // Other
-      }
-
-      // &.second:after {
-        // 	// Mixins
-
-        // 	// Box properties
-        // 	position: absolute;
-        // 	left: 0;
-        // 	bottom: -$grid * 2;
-        // 	width: 0;
-        // 	height: 0;
-        // 	// Background & borders
-        // 	border-right: $grid * 7 solid transparent;
-        // 	border-left: $grid * 7 solid transparent;
-        // 	border-top: $grid * 2 solid rgba(0,0,0,.4);
-
-        // 	// Typography
-
-        // 	// Other
-        // 	content: "";
-        // 	z-index: 190;
-        // }
-
-        &.third {
-          // Mixins
-
-          // Box properties
-          clear: both;
-          margin-right: $grid * 2;
-          // Background & borders
-
-          // Typography
-
-          // Other
-        }
-
-        &.fourth {
-          // Mixins
-          @include corners(0,3px,0,3px);
-          // Box properties
-
-          // Background & borders
-
-          // Typography
-
-          // Other
-
-        }
-
-        // &.fourth:after {
-          // 	// Mixins
-
-          // 	// Box properties
-          // 	position: absolute;
-          // 	left:-$grid * 2;
-          // 	top: 0;
-          // 	width: 0;
-          // 	height: 0;
-          // 	// Background & borders
-          // 	border-top: $grid * 4 solid transparent;
-          // 	border-bottom: $grid * 4 solid transparent;
-          // 	border-right: $grid * 2 solid rgba(0,0,0,.4);
-
-          // 	// Typography
-
-          // 	// Other
-          // 	content: "";
-          // 	z-index: 190;
-          // }
-        }
-      }
-
-
-      #second_image {
-        // Mixins
-
-        // Box properties
-        height: $grid * 18;
-        position: relative;
-        overflow: hidden;
-        // Background & borders
-
-        border-color: white;
-        // Typography
-
-        // Other
-
-        #second_image_br {
-          // Mixins
-
-          // Box properties
-          height: 110%;
-          width: 110%;
-          position: absolute;
-          top: -445px;
-          // Background & borders
-          background-image: url(image-path('kids.jpg'));
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-size: cover;
-          border-color: white;
-          // Typography
-
-          // Other
-
-        }
-      }
-
-      #third_image {
-        // Mixins
-
-        // Box properties
-        height: $grid * 20;
-        position: relative;
-        overflow: hidden;
-        // Background & borders
-
-        border-top: 1px solid $whisper;
-        // Typography
-
-        // Other
-
-        #third_image_br {
-          // Mixins
-
-          // Box properties
-          height: 110%;
-          width: 110%;
-          position: absolute;
-          top: -645px;
-          // Background & borders
-          background-image: url(image-path('couple.jpg'));
-          background-position: center center;
-          background-repeat: no-repeat;
-          background-size: cover;
-          // Typography
-
-          // Other
-
-        }
-      }
-
-      #solar_advocate {
-        // Mixins
-
-        // Box properties
-        // Background & borders
-
-        background-image: url(image-path('dashboard_hero.png'));
-        background-repeat: no-repeat;
-        background-position:  right -50px top;
-        background-size: 50%;
-        // Typography
-        text-align: left;
-        // Other
-
-        h2 {
-          // Mixins
-          // Box properties
-
-          // Background & borders
-
-          // Typography
-          text-align: left;
-
-          // Other
-
-        }
-
-        p {
-          // Mixins
-
-          // Box properties
-          width: 50%;
-          // Background & borders
-
-          // Typography
-
-          // Other
-
-        }
-
-      }
-
-
-
-      /** media query **/
-      .step_arrow{
-        display:block;
-        width:80px;
-        height:80px;
-        border:2px solid #fff;
-        position:absolute;
-        background:#dfe1e1;
-        top:150px;
-        border-radius: 50px;
-        font-size:32px;
-        color:#fff;
-        line-height: 80px;
-        cursor:pointer;}
-        .step_arrow:hover{
-          background:#ccc;
-        }
-
-        .step_arrow.left{
-          left:10%;}
-          .step_arrow.right{
-            right:10%;}
-            .step_container{
-              position: relative;
-            }
-
-            @media (max-width: 640px){
-              body#landing header li a{
-                background-color: transparent;
-              }
-              .step_arrow{
-                display:block;
-                width:60px;
-                height:60px;
-                border:2px solid #fff;
-                position:absolute;
-                background:#dfe1e1;
-                top:120px;
-                border-radius: 50px;
-                font-size:32px;
-                color:#fff;
-                line-height: 60px;
-              }
-              .step_arrow.left{
-                left:5%;
-              }
-              .step_arrow.right{
-                right:5%;
-              }
-              #index_banner{
-                background-image: url(/images/home/solar_panel_bg.jpg);
-                background-repeat:no-repeat;
-                background-color: #75b5d3;
-                clear: both;
-                text-align: center;
-                background-size: cover;
-                opacity:.8;
-                padding-bottom:5%;
-              }
-              #index_banner h1{
-                font-size:24px;
-                line-height: 34px;
-              }
-
-              #index_banner_content{
-                margin-top:32%;}
-
-                .cta.js-cta_form{
-                  width:300px;
-                  position: relative;
-                  overflow:hidden;
-                }
-                .invite_code.js-code,
-                .invite_code.js-code:focus{
-                  width:250px;
-                  display: block;
-                  float:left;
-                  border:3px solid #fff;
-                  height:59px;
-                  transition:all 0.3s linear;
-
-                }
-                .cta{
-                  margin:auto;
-                  margin-top:4%;
-                }
-
-                .cta.js-cta_form button.button{
-                  background-color:#fff;
-                  color:#333;
-                  display:block;
-                  position:absolute;
-                  right:0;
-                  top:0;
-                  border:3px solid #fff;
-                }
-                .cta .button:hover{
-                  background-color:#fff;
-                  color:#333;
-                  border:3px solid #fff;
-                }
-                h1.section_header{
-                  border:0;
-                  font-size:32px;
-                  margin:auto;
-                }
-                #story_of_sunstand{
-                  padding:1px 0;
-                  background-color: #90c4db;
-                  color:#fff;
-                  margin-top:0%;
-
-                }
-                p.large{
-                  font-size:18px;
-                  line-height: 34px;
-                }
-                p.medium{
-                  font-size:18px;
-                  line-height: 24px;
-
-                }
-                #first_image{
-                  background-image:url(/images/home/field_bg.jpg);
-                  background-color:#dfe1e1;
-                  background-position: top center;
-                  background-size: cover;
-                  border:0px;
-                  padding-bottom:0px;
-                  background-repeat:no-repeat;}
-
-                  #first_image .goal{
-                    font-size:100px;}
-
-                    #first_image .our{
-                      padding:0;
-                      font-size:14px;}
-                      #first_image .goal_badge{
-                        width:50%;
-                        margin:auto;
-                        margin-top:10%;
-                      }
-                      footer{
-                        background:#404241;
-                      }
-                      .play_video{
-                        border-radius:5px;
-                        border:3px solid white;
-                        width:100px;
-                        height:auto; background:rgba(0,0,0,.1);
-                        text-align:center;
-                        margin:auto;padding:10px;
-                        font-size:24px;
-                        margin-top:30px;
-                        cursor:pointer;
-                      }
-                      #sales_process{
-                        background-color: #dfe1e1;
-                        background-image:none;
-                        padding-bottom:3%;
-                        overflow: hidden;
-                      }
-
-                      #doing_good{
-                        height:1400px;
-                        background-image:url(/images/home/beach_bg.jpg);
-                        background-position: 100% top;
-                        background-size: cover;
-                        background-repeat: no-repeat;
-                      }
-
-                      .circle{
-                        background:url("/images/home/process/1through5.jpg");
-                        background-size: 1500px auto;
-                        background-position: left center;
-                        transition:all 0.15s linear;
-                        border:2px solid #fff;
-                        width:300px;
-                        height:300px;
-                        border-radius:400px;
-                        margin:auto;
-                        overflow:hidden;
-                      }
-
-                      .explanation{
-                        width:50%;
-                        padding:20px;
-                        background-color: #fff;
-                        margin:auto;
-                        margin-top:2%;
-                        position: relative;
-                      }
-
-                      .pointer{
-                        width:65px;
-                        height: 54px;
-                        background:url("/images/home/step_pointer.png");
-                        background-repeat: no-repeat;
-                        background-position: top left;
-                        position:absolute;
-                        top:-54px;
-                        left:35%;
-                      }
-
-
-
-                      .play_video:hover{
-                        height:auto; background:rgba(0,0,0,.3);
-                        transition:all 0.3s linear;
-                      }
-                      .step_container{
-                        height: auto;
-                      }
-                      #whats_in_it_for_you{
-                        padding-top:40%;
-                      }
-                    }
-
-                    @media (min-width:640px) and (max-width: 1024px){
-                      body#landing header li a{
-                        background-color: transparent;
-                      }
-                      .step_arrow{
-                        display:block;
-                        width:60px;
-                        height:60px;
-                        border:2px solid #fff;
-                        position:absolute;
-                        background:#dfe1e1;
-                        top:150px;
-                        border-radius: 50px;
-                        font-size:32px;
-                        color:#fff;
-                        line-height: 60px;
-                      }
-
-                      .step_arrow.left{
-                        left:8%;
-                      }
-                      .step_arrow.right{
-                        right:8%;
-                      }
-                      #index_banner{
-                        background-image: url(/images/home/solar_panel_bg.jpg);
-                        background-repeat:no-repeat;
-                        background-color: #75b5d3;
-                        clear: both;
-                        text-align: center;
-                        background-size: 100% auto;
-                        opacity:.8;
-                        padding-bottom:5%;
-                      }
-
-                      #index_banner_content{
-                        margin-top:12%;}
-
-                        .landing_banner h1{
-                          font-size:24px;
-                          line-height: 32px;
-                        }
-
-                        .invite_code.js-code,
-                        .invite_code.js-code:focus{
-                          border:3px solid #fff;
-                          height:59px;
-                          transition:all 0.3s linear;
-
-                        }
-                        .cta{
-                          margin:auto;
-                          margin-top:4%;
-                        }
-
-                        .cta .button{
-                          background-color:#fff;
-                          color:#333;
-                          border:3px solid #fff;
-                        }
-                        .cta .button:hover{
-                          background-color:#fff;
-                          color:#333;
-                          border:3px solid #fff;
-                        }
-                        h1.section_header{
-                          border:0;
-                          font-size:35px;
-                          margin:auto;
-                        }
-                        #story_of_sunstand{
-                          padding:40px 0;
-                          background-color: #90c4db;
-                          color:#fff;
-
-                        }
-                        p.large{
-                          font-size:24px;
-                          line-height: 36px;
-                        }
-                        p.medium{
-                          font-size:18px;
-                          line-height: 24px;
-
-                        }
-                        #first_image{
-                          background-image:url(/images/home/field_bg.jpg);
-                          background-color:#dfe1e1;
-                          background-position: top center;
-                          background-size: 100% auto;
-                          border:0px;
-                          padding-bottom:0px;
-                          background-repeat:no-repeat;}
-
-                          #first_image .goal{
-                            font-size:120px;}
-
-                            #first_image .our{
-                              font-size:28px;}
-                              #first_image .goal_badge{
-                                width:45%;
-                                margin:auto;
-                                margin-top:10%;
-                              }
-                              footer{
-                                background:#404241;
-                              }
-
-                              .play_video{
-                                border-radius:5px;
-                                border:3px solid white;
-                                width:100px;
-                                height:auto; background:rgba(0,0,0,.1);
-                                text-align:center;
-                                margin:auto;padding:10px;
-                                font-size:24px;
-                                margin-top:30px;
-                                cursor:pointer;
-                              }
-                              #sales_process{
-                                background-color: #dfe1e1;
-                                background-image:none;
-                                padding-bottom:3%;
-                                overflow: hidden;
-                              }
-
-                              #doing_good{
-                                height:100vh;
-                                background-image:url(/images/home/beach_bg.jpg);
-                                background-position: 100% top;
-                                background-size: cover;
-                                background-repeat: no-repeat;
-                              }
-
-                              .circle{
-                                background:url("/images/home/process/1through5.jpg");
-                                background-size: 2000px auto;
-                                background-position: left center;
-                                transition:all 0.15s linear;
-                                border:2px solid #fff;
-                                width:400px;
-                                height:400px;
-                                border-radius:400px;
-                                margin:auto;
-                                overflow:hidden;
-                              }
-
-                              .explanation{
-                                width:50%;
-                                padding:20px;
-                                background-color: #fff;
-                                margin:auto;
-                                margin-top:2%;
-                                position: relative;
-                              }
-
-                              .pointer{
-                                width:65px;
-                                height: 54px;
-                                background:url("/images/home/step_pointer.png");
-                                background-repeat: no-repeat;
-                                background-position: top left;
-                                position:absolute;
-                                top:-54px;
-                                left:35%;
-                              }
-
-
-                              .play_video:hover{
-                                height:auto; background:rgba(0,0,0,.3);
-                                transition:all 0.3s linear;
-                              }
-                              .step_container{
-                                height: auto;
-                              }
-                              #whats_in_it_for_you{
-                                padding-top:24%;
-                              }
-                            }
-
-                            @media all and (min-width:1024px){
-                              body#landing header li a{
-                                background-color: transparent;
-                              }
-                              #first_image .goal{
-                                font-size:150px;
-                              }
-
-                              #index_banner{
-                                background-image: url(/images/home/solar_panel_bg.jpg);
-                                background-repeat:no-repeat;
-                                background-color: #75b5d3;
-                                clear: both;
-                                text-align: center;
-                                background-size: 100% auto;
-                                opacity:.8;
-                              }
-                              #index_banner_content{
-                                margin-top:19%;}
-
-                                .landing_banner h1{
-                                  font-size:30px;
-                                  line-height: 35px;
-                                }
-
-
-                                #story_of_sunstand{
-                                  padding:40px 0;
-                                  background-color: #90c4db;
-                                  color:#fff;
-
-                                }
-
-                                #first_image{
-                                  background-image:url(/images/home/field_bg.jpg);
-                                  background-color:#dfe1e1;
-                                  background-position: top center;
-                                  background-size: 100% auto;
-                                  border:0px;
-                                  padding-bottom:0px;
-                                  background-repeat:no-repeat;}
-                                  #first_image .our{
-                                    font-size:30px;
-                                  }
-                                  #first_image .goal_badge{
-                                    width:40%;
-                                    margin:auto;
-                                    margin-top:22%;
-                                  }
-
-                                  #sales_process{
-                                    background-color: #dfe1e1;
-                                    background-image:none;
-                                    padding-bottom:3%;
-                                    overflow: hidden;
-                                  }
-
-                                  #doing_good{
-                                    height:100vh;
-                                    background-image:url(/images/home/beach_bg.jpg);
-                                    background-position: top center;
-                                    background-size: cover;
-                                    background-repeat: no-repeat;
-                                  }
-
-                                  .invite_code.js-code,
-                                  .invite_code.js-code:focus{
-                                    border:3px solid #fff;
-                                    height:59px;
-                                    transition:all 0.3s linear;
-
-                                  }
-                                  .cta{
-                                    margin:auto;
-                                    margin-top:4%;
-                                  }
-                                  .cta .button{
-                                    background-color:#fff;
-                                    color:#333;
-                                    border:3px solid #fff;
-                                  }
-                                  .cta .button:hover{
-                                    background-color:#fff;
-                                    color:#333;
-                                    border:3px solid #fff;
-                                  }
-
-                                  h1.section_header{
-                                    border:0;
-                                    font-size:45px;
-                                    margin:auto;
-                                  }
-
-                                  footer{
-                                    background:#404241;
-                                  }
-
-                                  .play_video{
-                                    border-radius:5px;
-                                    border:3px solid white;
-                                    width:100px;
-                                    height:auto; background:rgba(0,0,0,.1);
-                                    text-align:center;
-                                    margin:auto;padding:10px;
-                                    font-size:24px;
-                                    margin-top:30px;
-                                    cursor:pointer;
-                                  }
-                                  .circle{
-                                    background:url("/images/home/process/1through5.jpg");
-                                    background-size: 2000px auto;
-                                    background-position: left center;
-                                    transition:all 0.15s linear;
-                                    border:2px solid #fff;
-                                    width:400px;
-                                    height:400px;
-                                    border-radius:400px;
-                                    margin:auto;
-                                    overflow:hidden;
-                                  }
-
-                                  .explanation{
-                                    width:50%;
-                                    padding:20px;
-                                    background-color: #fff;
-                                    margin:auto;
-                                    margin-top:2%;
-                                    position: relative;
-                                  }
-
-                                  .pointer{
-                                    width:65px;
-                                    height: 54px;
-                                    background:url("/images/home/step_pointer.png");
-                                    background-repeat: no-repeat;
-                                    background-position: top left;
-                                    position:absolute;
-                                    top:-54px;
-                                    left:35%;
-                                  }
-
-
-                                  .play_video:hover{
-                                    height:auto; background:rgba(0,0,0,.3);
-                                    transition:all 0.3s linear;
-                                  }
-                                  .step_container{
-                                    height: auto;
-                                  }
-                                  p.large{
-                                    font-size:28px;
-                                    line-height: 48px;
-                                  }
-                                  p.medium{
-                                    font-size:18px;
-                                  }
-                                  #whats_in_it_for_you{
-                                    padding-top:24%;
-                                  }
-                                }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// User
-
-.customer_banner {
-  @include box_sizing;
-
+  z-index: 5;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
   width: 100%;
-  margin-top: $grid * 3;
-  padding: $grid;
-  background: $ghost;
-  border-bottom: 1px solid $ghost;
-  color: $text;
-  text-align: center;
-
-  h3 {
-    text-align: center;
-  }
-
+  height: 100%;
 }
 
-#user_content {
-  margin: $grid * 6 auto 0;
-  width: $tablet;
-
-  .form_row.checkbox {
-    width: 75%;
-    float: left;
-    padding: $grid / 4;
-  }
-
-  label.checkbox {
-    color: $quiet;
-    cursor: pointer;
-    &.small {
-      font-size: .7em;
-    }
-  }
-
-
-  input[type=text],
-  input[type=password],
-  input[type=email] {
-    background-color: white;
-    color: $text;
-
-    &:focus {
-      background-color: white;
-      color: $text;
-    }
-  }
-
-  input:focus::-webkit-input-placeholder { color:transparent; }
-
-  select {
-    background-color: white !important;
-  }
-}
-
-.customer_content {
-  margin: $grid auto 0;
-  width: $phone;
-  padding-bottom:200px;
-
-  @media screen and (min-width: $tablet) {
-    width: $tablet;
-  }
-
-  @media screen and (min-width: $desktop) {
-    width: $desktop;
-  }
-
-}
-
-#customer_signup {
-  fieldset {
-    @media screen and (min-width: $tablet) {
-      padding-left: $grid * 4;
-    }
-
-    @media screen and (min-width: $desktop) {
-      padding-left: $grid * 12;
-    }
-  }
-}
-
-.form_sidebar {
-  display: none;
+.sun-left-menu {
+  position: fixed;
+  z-index: 10;
+  background-color: #383838;
   overflow: hidden;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  left: -300px;
 
-  p {
-    display: none;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-
-  @media screen and (min-width: $tablet) {
-    @include box_sizing;
-
-    display: block;
-    position: absolute;
-    top: 0;
+  &.active {
     left: 0;
-    bottom: 0;
-    width: $grid * 4;
-    overflow: auto;
-    height: 100%;
-    float: left;
-    padding: $grid $grid / 2 0;
   }
 
+  ul {
+    list-style-type: none;
+    margin: 40px 0 0 0;
+    padding: 0;
+  }
 
-  @media screen and (min-width: $desktop) {
-    @include box_sizing;
+  li {
+    display: block;
+    border-bottom: solid 1px #2d2d2d;
+    font-size: .9em;
+    font-weight: bold;
+    text-transform: uppercase;
 
-    width: $grid * 12;
+    &:first-child {
+      background-image: image-url("landing/icons/home.png");
+      background-repeat: no-repeat;
+      background-position: 40px center;
+      border-top: solid 1px #2d2d2d;
+      a {
+        padding-left: 80px;
+      }
+    }
 
-    p {
-      display: block;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #2f2f2f;
     }
   }
-}
 
-.step_label {
-  @include circle_with_text;
-  @include small_title;
-
-  width: $grid * 2.5;
-  height: $grid * 2.5;
-  margin:  0 auto;
-  background: $brand;
-  color: white;
-
-  i {
-    display: inline-block;
-    margin-bottom: $grid / 4;
-    font-size: $grid / 1.5;
-  }
-
-  @media screen and (min-width: $desktop) {
-    @include circle_with_text;
-    @include small_title;
-
-    width: $grid * 2.5;
-    height: $grid * 2.5;
-    margin:  0 auto $grid / 2;
-    background: $brand;
-    color: white;
+  a {
+    color: #979797;
+    display: block;
+    padding: 1.1em 0 1.1em 40px;
   }
 }
 
-h3 {
-  margin-bottom: $grid / 4;
-  color: $quiet;
-  text-align: left;
+#sun_landing_mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+
+/*
+ * HOME PAGE
+ *
+*/
+.sun-landing {
+  height: 100%;
+  position: relative;
+  z-index: 1;
+
+  h1, h2, h3, h4, h5 {
+    font-family: "Montserrat";
+    font-weight: normal;
+    display: block;
+    text-align: left;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .sun-fixed-bg {
+    position: relative;
+    min-height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    z-index: 1;
+    background-attachment: scroll;
+    @media #{$small} {
+      background-attachment: fixed;
+    }
+  }
+
+  .sun-home-intro {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+
+    h1 {
+      color: #fff;
+      font-size: 4.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+
+  .sun-scrolling-bg {
+    position: relative;
+    z-index: 2;
+    min-height: 100%;
+
+    .sun-home-content {
+      padding: 10em 0 0 0;
+      text-align: center;
+
+      h4, h5 {
+        margin-top: 1.5em;
+      }
+      h4 {
+        font-size: 2.5em;
+      }
+      h5 {
+        font-size: 1.8em;
+        text-align: center;
+      }
+    }
+  }
+
+  .sun-buttons-wrapper {
+    margin-top: 3em;
+
+    .button {
+      background: #2ecc71;
+      text-transform: uppercase;
+      margin-right: 1em;
+    }
+
+    .sun-button-transparent {
+      border: 1px solid #000;
+      background: none;
+      color: #000;
+    }
+  }
+
+  .globe-image {
+    background: image-url('landing/globe.png') no-repeat;
+    width: 125px;
+    height: 126px;
+    margin: 0 auto;
+  }
+
+  .scales-image {
+    background: image-url('landing/scales.png') no-repeat;
+    width: 143px;
+    height: 127px;
+    margin: 0 auto;
+  }
+
+  .house-image {
+    background: image-url('landing/hauzz.png') no-repeat;
+    width: 134px;
+    height: 131px;
+    margin: 0 auto;
+  }
+
+  .flame-image {
+    background: image-url('landing/flame.png') no-repeat;
+    width: 103px;
+    height: 102px;
+    margin: 0 auto;
+  }
+
+  .sun-bg-1 {
+    background-image: image-url("landing/bg-1.jpg");
+  }
+  .sun-bg-2 {
+    background: #f4f6f7;
+  }
+  .sun-bg-3 {
+    background-image: image-url("landing/bg-3.jpg");
+  }
+
+  .sun-next-pointer {
+    background-image: image-url("landing/icons/arrow-down.png");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    bottom: 1em;
+    color: $secondary-color;
+    display: block;
+    font-weight: bold;
+    height: 40px;
+    left: 50%;
+    margin-left: -100px;
+    position: absolute;
+    text-align: center;
+    text-transform: uppercase;
+    width: 200px;
+
+    &.inverted {
+      background-image: image-url("landing/icons/arrow-down-inverted.png");
+      color: #fff;
+    }
+  }
 }

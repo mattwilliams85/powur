@@ -1,203 +1,81 @@
-<ng-include src="'<%=asset_path("shared/header.html") %>'"></ng-include>
+<ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
+<div class="sun-landing-wrapper">
+  <ng-include src="'<%=asset_path("shared/header.html") %>'"></ng-include>
 
+  <main class="sun-landing">
 
-<style>
-  body header{
-    background:transparent;
-  }
-  body header #sunstand_logo a,
-
-  video {
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    height: auto;
-    overflow: hidden;
-    opacity:.15;
-  }
-</style>
-
-
-<section id="index_banner" class="landing_banner">
-  <div id="index_banner_content" class="banner_content" >
-    <h1>We're putting solar panels on 2 million homes by 2025.</h1>
-    <h1>And we'll pay you $1,000,000,000 to help us do it.</h1>
-
-    <form class="cta js-cta_form">
-      <span class="form_row">
-        <label for="code">Enter Your Invite Code</label>
-        <input class="invite_code js-code" name="code" type="text" required/>
-      </span>
-      <button class="button js-show_signup_form">Go</button>
-
-    </form>
-
-  </div>
-
-</section>
-
-
-<section id="story_of_sunstand">
-  <h1 class="section_header" style="margin-top:1%;">The Story of SunStand...</h1>
-  <p class="large" style="padding-top:3%; width:55%; margin:auto;">We have an epic vision. It involves you, a clean energy future for all generations, leading the next great energy boom, and entrepreneurship at it's finest.  This is the story of SunStand... and the role you play.</p>
-  <div class="play_video">Play</div>
-
-</section>
-
-<section id="first_image" class="image_section landing">
-
-  <div style="text-align:center;" class="goal_badge">
-    <div style="height:5px; width:40%; background:#fff; float:left; margin-top:15px;"></div>
-    <div style="height:auto; width:20%;  float:left; color:#fff;" class="our">OUR</div>
-    <div style="height:5px; width:40%; background:#fff; float:left; margin-top:15px;"></div>
-    <div style="width:100%;clear:both; color:#fff;margin:auto;	letter-spacing:3px; ;padding-top:10%;" class="goal">GOAL</div>
-    <div style="height:5px; width:100%; background:#fff; float:left; margin-top:13%;"></div>
-  </div>
-
-  <p class="large" style="color:#fff; padding-top:3%;">To Eliminate 36,000,000,000 pounds of CO2 Emissions Per year by 2005 (the equivalent of not burning 20 billion pounds of coal per year)
-  </p>
-
-</section>
-
-
-<section id="sales_process" class="landing">
-  <h1 class="section_header 1" style="display:block;">How</h1>
-  <h1 class="section_header 2" style="display:none;">Strategy</h1>
-  <h1 class="section_header 3" style="display:none;">Plan</h1>
-  <h1 class="section_header 4" style="display:none;">Result</h1>
-  <h1 class="section_header 5" style="display:none;">How We Measure Success</h1>
-
-  <div style="width:100%; margin:auto; margin-top:3%;">
-    <div class="step_container">
-      <div class="step_arrow left"> <i class="fa fa-angle-left"></i> </div>
-      <div class="step_arrow right"> <i class="fa fa-angle-right"></i></div>
-
-      <div class="circle" >
+    <div class="sun-fixed-bg sun-bg-1" id="anchor_1">
+      <div class="sun-home-intro">
+        <div class="row">
+          <h1>We are starting a chain reaction by:</h1>
+        </div>
       </div>
-      <div class="explanation">
-        <div class="pointer"></div>
-        <p class="medium content 1" style="margin:auto auto; display:block;">
-          By equipping 2,000,000 homes with solar, for FREE, via solar as a service that our partner Sunrun pioneered.
-        </p>
-        <p class="medium content 2" style="margin:auto auto; display:none;">
-          Create the world’s #1 direct selling platform for solar energy, and engage the entrepreneurial spirit of citizens of the United States to embark on an epic, globe-changing mission to create a clean, renewable energy future for all generations.
-        </p>
-        <p class="medium content 3" style="margin:auto auto; display:none;">
-          Use our technology to make it easy, simple, & fast to refer your networks to go solar for free, reduce their power bills up to 40%, and invite other entrepreneurs to join your team. The bigger your team, the more carbon you reduce, and the greater your wealth.
-        </p>
-        <p class="medium content 4" style="margin:auto auto; display:none;">
-          We shift the power, literally and metaphorically from the old guard fossil fuel industry into the hands of clean energy entrepreneurs just like you.  By distributing solar through our peer-to-peer model, you reap the financial rewards of the next great energy boom, NOT the oil or coal industry.
+      <a class="sun-next-pointer inverted" ng-click="gotoAnchor('building_large_network')"></a>
+    </div>
 
-        </p>
-        <p class="medium content 5" style="margin:auto auto; display:none;">
-          1. When we’ve paid out over $1,000,000,000 to our clean energy advocates who spread solar across the country...<br><br>
+    <div class="sun-scrolling-bg" id="building_large_network">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <div class="globe-image"></div>
+          <h4>Building the world's largest network of peer to peer solar advocates.</h5>
+        </div>
+      </div>
+      <a class="sun-next-pointer" ng-click="gotoAnchor('decentralization_of_energy_production')">So that we</a>
+    </div>
 
-          2. When we’re saving our planet by reducing 18,242,000 TONS of CO2 emissions per year...<br><br>
+    <div class="sun-scrolling-bg sun-bg-2" id="decentralization_of_energy_production">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <div class="scales-image"></div>
+          <h4>Facilitate the largest transfer of wealth in history through the decentralization of energy production.</h5>
+        </div>
+      </div>
+      <a class="sun-next-pointer" ng-click="gotoAnchor('reverse_climate_change')">Which will</a>
+    </div>
 
-          3. When we’ve weakened the strangle hold big oil has on politics by gathering 1 million votes to help pass the carbon tax & put a true price on carbon emissions.
-        </p>
+    <div class="sun-scrolling-bg" id="reverse_climate_change">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <div class="house-image"></div>
+          <h4>Reverse climate change by turning millions of American homes clean and carbon-positive.</h5>
+        </div>
+      </div>
+      <a class="sun-next-pointer" ng-click="gotoAnchor('clean_energy_solution')">So we</a>
+    </div>
 
+    <div class="sun-scrolling-bg sun-bg-2" id="clean_energy_solution">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <div class="flame-image"></div>
+          <h4>Create a sustainable, renewable and clean energy solution for all future generations.</h5>
+        </div>
+      </div>
+      <a class="sun-next-pointer" ng-click="gotoAnchor('solar_revolution')"></a>
+    </div>
+
+    <div class="sun-fixed-bg sun-bg-3" id="solar_revolution">
+      <div class="sun-home-intro">
+        <div class="row">
+          <h1>The solar revolution is here.</h1>
+        </div>
+      </div>
+      <a class="sun-next-pointer inverted" ng-click="gotoAnchor('how_to_participate')">It will be disruptive</a>
+    </div>
+
+    <div class="sun-scrolling-bg" id="how_to_participate">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <h5>Select how you want to participate in the revolution.</h5>
+          <div class="sun-buttons-wrapper">
+            <a class="button sun-button-transparent" ng-href="">Create Energy</a>
+            <a class="button" ng-href="">Create Wealth</a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
 
+    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
 
-<section id="doing_good" class="landing">
-  <h1 class="section_header" style="color:#fff;" id="whats_in_it_for_you">What's in it for you</h1>
-
-  <div style="width:85%; margin:auto; padding-top:3%;">
-    <p class="medium" style="color:#fff;margin-bottom:0px;">We shift the power, literally and metaphorically from the old guard fossil fuel industry into the hands of clean energy entrepreneurs just like you.  By distributing solar through our peer-to-peer model, you reap the financial rewards of the next great energy boom, NOT the oil or coal industry.</p>
-  </div>
-  <div style="width:85%; padding:20px; margin:auto;font-size:18px; letter-spacing:4px; color:#fff;">. . . . . . . . . . . . . . . . .</div>
-  <div style="width:85%; margin:auto;">
-    <p class="medium" style="color:#fff;">You could build a life changing part time or full time income from the palm of your hand with sunstand.  This is one of the largest wealth trends you’ll see in your lifetime, as over $120 billion per year is still up for grabs.  It's a simple business powered by sunstand's technology, with $0 up front costs and no risk.  Not to mention, you can feel good every single day knowing your actions will have impact on future generations for centuries to come.
-    </p>
-  </div>
-
-
-  <form class="cta js-cta_form">
-    <span class="form_row">
-      <label for="code">Enter Your Invite Code</label>
-      <input class="invite_code js-code" name="code" type="text" required/>
-    </span>
-    <button class="button js-show_signup_form">Go</button>
-
-  </form>
-</section>
-
-<script>
-  var _stepCounter=1;
-
-  $(document).ready(function(){
-    responsiveLogic();
-
-    $(window).resize(function(e){
-      e.preventDefault();
-      responsiveLogic();
-    });
-    $(document).on("click", ".step_arrow", function(e){
-      e.preventDefault();
-      _stepCounter = ($(this).attr("class").replace("step_arrow","").replace(" ","")=="right")?_stepCounter+1:_stepCounter-1;
-      if(_stepCounter>5) _stepCounter=1;
-      if(_stepCounter<1) _stepCounter=5;
-      var current_width = $(window).width()+15;
-      $(".circle").animate({"background-position":(current_width<=640)?((_stepCounter-1)*-300)+"px":((_stepCounter-1)*-400)+"px"})
-      $("#sales_process .section_header").css("display","none");
-      $("#sales_process .medium.content").css("display","none");
-      $("#sales_process .section_header."+_stepCounter).fadeIn();
-      $("#sales_process .medium.content."+_stepCounter).fadeIn();
-
-    });
-
-  });
-
-  function responsiveLogic(){
-    var max_width=1225;
-    var current_width = (($(window).width()+15)>=max_width)? max_width:($(window).width()+15);
-    var ratio = ((current_width/max_width)<0.5)? 0.5:(current_width/max_width);
-
-
-    if(current_width>=1024){
-      $("#index_banner").css("height", ($("#index_banner").width()*0.65)+"px" );
-      $("#first_image").css("height", ($("#first_image").width()*0.73)+"px" );
-      $("#doing_good").css("height", ($("#doing_good").width()*1.2)+"px" );
-      $("p.large").css({
-        "font-size":Math.round(28*ratio)+"px",
-        "line-height":Math.round(48*ratio)+"px"
-      });
-      $("p.medium").css("font-size", (18*ratio)+"px");
-      $("#first_image .our").css("font-size", Math.round(30*ratio)+"px");
-      $("#first_image .goal").css("font-size", Math.round(150*ratio)+"px");
-
-    }
-
-    if(current_width>640 && current_width<1024){
-      $("#index_banner").css("height", ($("#index_banner").width()*0.65)+"px" );
-      $("#first_image").css("height", ($("#first_image").width()*0.73)+"px" );
-      $("#doing_good").css("height", ($("#doing_good").width()*1.6)+"px" );
-      $("p.large").css({
-        "font-size":((Math.round(28*ratio)>18)?(Math.round(28*ratio)):18)+"px",
-        "line-height":Math.round(48*ratio)+"px"
-      });
-      $("#first_image .our").css("font-size", Math.round(28*ratio)+"px");
-      $("#first_image .goal").css("font-size", Math.round(150*ratio)+"px");
-    }
-
-    if(current_width<=640){
-      $("#index_banner").css("height", "600px" );
-      $("#first_image").css("height", "500px" );
-      $("#doing_good").css("height", ($("#doing_good").width()*(2.9))+"px" );
-      $("#first_image .our").css("font-size", Math.round(28*ratio)+"px");
-      $("#first_image .goal").css("font-size", Math.round(130*ratio)+"px");
-    }
-
-    $(".circle").css("background-position", (current_width<=640)?((_stepCounter-1)*-300)+"px":((_stepCounter-1)*-400)+"px");
-
-  }
-</script>
-
-
-
-<ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+  </main>
+</div>

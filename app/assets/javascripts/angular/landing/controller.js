@@ -1,24 +1,54 @@
 'use strict';
 
-function LandingCtrl($scope, $location) {
+function LandingCtrl($scope, $location, $timeout, $anchorScroll) {
   $scope.redirectToDashboardIfSignedIn();
 
-  $scope.signIn = function(e) {
-    _formSubmit(e, $('#user_login'), '/login', 'post', function(data) {
-      for (var i=0;i<=data.links.length;i++) {
-        if (data.links[i].rel.indexOf('index')>=0) {
-          window.location=data.links[i].href;
-        }
+  $scope.isMenuActive = false;
+
+  $scope.invertHeaderColor = function() {
+    var docEl = document.documentElement;
+    var $header;
+    var height = $(window).height() - 20;
+    window.onscroll = function headerScrollInvert() {
+      var sTop = (this.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
+      $header = document.getElementById('sun_landing_header');
+
+      if (!$header) return;
+
+      if (sTop > height) {
+        $header.setAttribute('class', 'invert');
+      } else {
+        $header.setAttribute('class', '');
       }
-    });
+    };
   };
 
-  this.init($scope, $location);
+  $scope.gotoAnchor = function(id) {
+    if ($location.hash() !== id) {
+      $location.hash(id);
+    } else {
+      $anchorScroll();
+    }
+  };
+
+  $scope.hideMenuClick = function() {
+    $scope.isMenuActive = false;
+  };
+
+  $scope.showMenuClick = function() {
+    $scope.isMenuActive = true;
+  };
+
+  this.init($scope, $location, $timeout);
   this.fetch($scope);
 }
 
 
-LandingCtrl.prototype.init = function($scope, $location) {
+LandingCtrl.prototype.init = function($scope, $location, $timeout) {
+  $timeout(function() {
+    $scope.invertHeaderColor();
+  }, 2000);
+
   // Setting mode based on the url
   $scope.mode = 'index';
   if (/\/sign-in$/.test($location.path())) $scope.mode = 'sign-in';
@@ -33,5 +63,5 @@ LandingCtrl.prototype.fetch = function($scope) {
 };
 
 
-LandingCtrl.$inject = ['$scope', '$location', '$routeParams'];
+LandingCtrl.$inject = ['$scope', '$location', '$timeout', '$anchorScroll'];
 sunstandControllers.controller('LandingCtrl', LandingCtrl);
