@@ -4,10 +4,15 @@ module Auth
       @months = [ "January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December" ]
       render 'show.html.erb'
+      @user = current_user
+      @downline = @user.downline_users
+      @total_earnings = current_user.bonus_payments.sum(:amount)
+      @downline.each do |user|
+        @total_earnings += user.bonus_payments.sum(:amount)
+      end
     end
 
     def show
-
       # Most of this is placeholder until we implement the frontend
       # @user = current_user
       # @downline = @user.downline_users
@@ -20,13 +25,6 @@ module Auth
     # endpoint for ajax call that populates the earnings
     # show action
     def summary
-
-      @user = current_user
-      @downline = @user.downline_users
-      @total_earnings = current_user.bonus_payments.sum(:amount)
-      @downline.each do |user|
-        @total_earnings += user.bonus_payments.sum(:amount)
-      end
       @user = fetch_user
       @pay_periods = fetch_pay_period_range(params)
       @earnings = fetch_earnings(params, @pay_periods)
