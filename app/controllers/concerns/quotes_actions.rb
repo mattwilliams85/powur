@@ -70,4 +70,23 @@ module QuotesActions
     @quote = current_user.quotes.find_by(id: params[:id]) ||
              not_found!(:quote)
   end
+
+  def customer_input
+    allow_input(
+      :first_name, :last_name, :email, :phone,
+      :address, :city, :state, :zip)
+  end
+
+  def quote_input
+    allow_input(*product.quote_fields.map(&:name))
+  end
+
+  def product
+    @product ||= Product.default
+  end
+
+  def product_id
+    product.id
+  end
+
 end

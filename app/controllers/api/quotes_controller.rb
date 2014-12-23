@@ -13,6 +13,5 @@ module Api
     def user_quote_path(quote)
       api_quote_path(quote, v: params[:v])
     end
-
   end
 end
