@@ -22,6 +22,7 @@ module Calculator
       process_pay_period_rank_achievements(order, totals, user)
     end
 
+    # rubocop:disable Metrics/AbcSize
     def process_rank_path_changes(order, totals, user = nil)
       user ||= order.user
 
@@ -29,12 +30,7 @@ module Calculator
         user.update_column(:rank_path_id, default_rank_path.id)
       end
 
-      paths = rank_paths.select do |path|
-        path.precedence > user.rank_path.precedence
-      end
-
-      first_rank = ranks.first
-      paths.each do |path|
+      new_user_paths(user).each do |path|
         next unless first_rank.lifetime_path?(path.id) &&
                     first_rank.qualified_path?(path.id, totals)
 
@@ -47,7 +43,6 @@ module Calculator
 
       path = user.rank_path
       highest = highest_achievement(user.id,
-                                    path.id,
                                     lifetime_rank_achievements)
       if highest
         update_user_lifetime_rank(user, highest)
@@ -70,7 +65,6 @@ module Calculator
       path = user.rank_path
       highest = highest_achievement(
         user.id,
-        path.id,
         lifetime_rank_achievements + rank_achievements)
       start = highest ? highest.rank_id  : 1
       ranks[start..-1].each do |rank|
@@ -83,9 +77,17 @@ module Calculator
 
     private
 
+    def new_user_paths(user)
+      rank_paths.select { |path| path.precedence > user.rank_path.precedence }
+    end
+
     def lifetime_rank_achievements
       @lifetime_rank_achievements ||=
         RankAchievement.lifetime.where(user_id: all_user_ids).entries
+    end
+
+    def first_rank
+      ranks.first
     end
 
     def rank_paths
@@ -100,7 +102,7 @@ module Calculator
       @default_rank_path ||= rank_paths.find(&:default?)
     end
 
-    def highest_achievement(user_id, path_id, list)
+    def highest_achievement(user_id, list)
       achievements = list.select { |a| a.user_id == user_id }
       achievements.sort_by do |a|
         [ rank_path(a.rank_path_id).precedence, a.rank_id ]

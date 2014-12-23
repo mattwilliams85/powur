@@ -12,7 +12,9 @@ class MonthlyPayPeriod < PayPeriod
   end
 
   def active_qualifiers
-    @active_qualifiers ||= super.select { |q| !q.weekly? }.group_by(&:rank_path_id)
+    @active_qualifiers ||= begin
+      super.select { |q| !q.weekly? }.group_by(&:rank_path_id)
+    end
   end
 
   def bonus_available?(bonus)
@@ -33,7 +35,6 @@ class MonthlyPayPeriod < PayPeriod
     def find_or_create_by_id(id)
       find_or_create_by(id: id) do |period|
         period.start_date = Date.parse("#{id}-01")
-        # period.end_date = period.start_date.end_of_month
       end
     rescue ActiveRecord::RecordNotUnique
       retry

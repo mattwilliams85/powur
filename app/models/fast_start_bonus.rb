@@ -17,9 +17,7 @@ class FastStartBonus < Bonus
   end
 
   def create_payments!(order, pay_period)
-    return unless qualified_in_time?(order)
-    totals = pay_period.find_order_total(order.user_id, order.product_id)
-    return unless qualified_for_quantity?(totals)
+    return unless qualified?(order, pay_period)
 
     rank_id = pay_period.find_pay_as_rank(order.user)
     amount = payment_amount(rank_id, order.user.rank_path_id)
@@ -40,7 +38,13 @@ class FastStartBonus < Bonus
   end
 
   def qualified_for_quantity?(totals)
-     totals.personal_lifetime == source_requirement.quantity
+    totals.personal_lifetime == source_requirement.quantity
+  end
+
+  def qualified?(order, pay_period)
+    return false unless qualified_in_time?(order)
+    totals = pay_period.find_order_total(order.user_id, order.product_id)
+    qualified_for_quantity?(totals)
   end
 
   def time_span

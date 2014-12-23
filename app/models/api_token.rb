@@ -1,5 +1,8 @@
 class ApiToken < ActiveRecord::Base
-  belongs_to :client, class_name: 'ApiClient', foreign_key: 'client_id', inverse_of: :tokens
+  belongs_to :client,
+             class_name:  'ApiClient',
+             foreign_key: 'client_id',
+             inverse_of:  :tokens
   belongs_to :user
 
   validates_presence_of :access_token, :client_id, :user_id, :expires_at

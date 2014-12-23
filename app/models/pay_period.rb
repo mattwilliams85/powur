@@ -1,4 +1,4 @@
-class PayPeriod < ActiveRecord::Base
+class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   include Calculator::RankAchievements
   include Calculator::OrderTotals
   include Calculator::Bonuses
@@ -116,7 +116,7 @@ class PayPeriod < ActiveRecord::Base
     process_rank_achievements!(order, totals)
   end
 
-  def child_totals_for(user_id, product_id)
+  def child_totals_for(user_id, product_id) # rubocop:disable Metrics/AbcSize
     child_ids = direct_downline_users
                 .select { |u| u.parent_id == user_id }.map(&:id)
     return [] if child_ids.empty?

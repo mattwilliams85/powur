@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
   # Explicitly do not validate
   do_not_validate_attachment_file_type :avatar
 
-  after_create :set_upline
+  after_create :hydrate_upline
 
   attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count
 
@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
 
   private
 
-  def set_upline
+  def hydrate_upline # rubocop:disable Metrics/AbcSize
     return if upline && !upline.empty?
     self.upline = sponsor ? sponsor.upline + [ id ] : [ id ]
     User.where(id: id).update_all(upline: upline)

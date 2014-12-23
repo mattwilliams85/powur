@@ -1,5 +1,4 @@
 class WeeklyPayPeriod < PayPeriod
-
   def type_display
     'Weekly'
   end
@@ -13,7 +12,9 @@ class WeeklyPayPeriod < PayPeriod
   end
 
   def active_qualifiers
-    @active_qualifiers ||= super.select { |q| !q.weekly? }.group_by(&:rank_path_id)
+    @active_qualifiers ||= begin
+      super.select { |q| !q.weekly? }.group_by(&:rank_path_id)
+    end
   end
 
   def bonus_available?(bonus)
@@ -21,7 +22,7 @@ class WeeklyPayPeriod < PayPeriod
   end
 
   def week_number
-    self.week_of_month
+    week_of_month
   end
 
   class << self

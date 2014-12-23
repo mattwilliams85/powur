@@ -2,7 +2,7 @@ module Calculator
   module OrderTotals
     extend ActiveSupport::Concern
 
-    def process_order_totals!(order)
+    def process_order_totals!(order) # rubocop:disable Metrics/AbcSize
       totals =  find_order_total(order.user_id, order.product_id)
       if totals
         totals.update_columns(
@@ -18,19 +18,9 @@ module Calculator
       totals
     end
 
-    def increment_upline_totals(order)
-      user_ids = order.user.parent_ids
-      upline_group_totals = order_totals.select do |ot|
-        user_ids.include?(ot.user_id) && ot.product_id == order.product_id
-      end
+    def increment_upline_totals(order) # rubocop:disable Metrics/AbcSize
+      missing = order.user.parent_ids - update_existing_upline(order)
 
-      upline_group_totals.each do |gt|
-        gt.update_columns(
-          group:          gt.group + order.quantity,
-          group_lifetime: gt.group_lifetime + order.quantity)
-      end
-
-      missing = user_ids - upline_group_totals.map(&:user_id)
       missing.each do |user_id|
         pl = find_personal_lifetime(user_id, order.product_id)
         gl = find_group_lifetime(user_id, order.product_id)
@@ -43,6 +33,23 @@ module Calculator
           personal_lifetime: pl ? pl.quantity : 0,
           group_lifetime:    gl ? gl.quantity + order.quantity : order.quantity)
       end
+    end
+
+    private
+
+    def update_existing_upline(order) # rubocop:disable Metrics/AbcSize
+      user_ids = order.user.parent_ids
+      upline_group_totals = order_totals.select do |ot|
+        user_ids.include?(ot.user_id) && ot.product_id == order.product_id
+      end
+
+      upline_group_totals.each do |gt|
+        gt.update_columns(
+          group:          gt.group + order.quantity,
+          group_lifetime: gt.group_lifetime + order.quantity)
+      end
+
+      upline_group_totals.map(&:user_id)
     end
   end
 end

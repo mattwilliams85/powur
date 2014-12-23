@@ -82,7 +82,7 @@ class NmiGateway
     end
 
     # response = conn.post '/api/transact.php', post_body
-    response = conn.post '/api/transact.php'+post_query
+    response = conn.post("/api/transact.php/#{post_query}")
 
     CGI.parse(response.body)
   end

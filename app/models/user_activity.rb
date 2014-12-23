@@ -10,7 +10,7 @@ class UserActivity < ActiveRecord::Base
   scope :by_pay_period,
         ->(period) { before(period.end_date + 1.day).after(period.start_date) }
 
-  scope :for_user_by_pay_period, ->(pay_period, user) {
+  scope :for_user_by_pay_period, lambda { |pay_period, user|
     where('user_id = ?', user.id)
       .before(pay_period.end_date + 1.day)
       .after(pay_period.start_date)
