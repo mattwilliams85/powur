@@ -235,7 +235,7 @@ Rails.application.routes.draw do
           post :resend
         end
       end
-      resources :quotes, only: [ :index, :create ]
+      resources :quotes, only: [ :index, :create, :show ]
     end
   end
 
