@@ -25,6 +25,10 @@ module Anon
       PromoterMailer.notify_upline(user).deliver
       PromoterMailer.welcome_new_user(user).deliver
 
+      # Set the URL slug of the new user
+      # (the SecureRandom number is to safeguard against users with the same name)
+      user.url_slug = "#{user.first_name}-#{user.last_name}-#{SecureRandom.random_number(100)}"
+
       login_user(user)
       render 'anon/session/show'
     end
