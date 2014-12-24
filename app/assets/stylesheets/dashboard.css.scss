@@ -61,7 +61,7 @@
 
   select{
     border:1px solid $dev_dark_gray;
-    background-size: 40px;
+    background-size: 40px 40px;
     background-color: #fff;
     height:62px;
     position:relative;
@@ -73,7 +73,7 @@
 
   input[type=search] {
     border:1px solid $dev_dark_gray;
-    background-size: 40px;
+    background-size: 40px 40px;
     background-color: #fff;
     height:62px;
     position:relative;

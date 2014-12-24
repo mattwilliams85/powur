@@ -620,7 +620,8 @@ input[type="search"]::-webkit-search-cancel-button {
     background-image: image-url('select_arrow.svg') ;
     background-position: right center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 40px 40px;
+    background-origin: padding-box;
     background-color: $ghost;
     border: 1px solid $ghost;
     // width: calc(100% + 3em);
