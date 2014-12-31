@@ -9,12 +9,14 @@ module Api
 
     private
 
-    def controller_path
-      'auth/users'
-    end
-
     def user_path(user)
       api_user_path(v: params[:v], id: user)
+    end
+
+    class << self
+      def controller_path
+        'auth/users'
+      end
     end
   end
 end

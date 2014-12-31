@@ -22,8 +22,8 @@ module Anon
                             :zip)
       user = @invite.accept(input)
       find_or_create_ipayout_account(user)
-      PromoterMailer.notify_upline(user).deliver
-      PromoterMailer.welcome_new_user(user).deliver
+      PromoterMailer.notify_upline(user).deliver_later
+      PromoterMailer.welcome_new_user(user).deliver_later
 
       # Set the URL slug of the new user
       # (the SecureRandom number is to safeguard against users with the same name)

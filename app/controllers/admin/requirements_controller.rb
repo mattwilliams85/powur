@@ -1,5 +1,6 @@
 module Admin
   class RequirementsController < AdminController
+    # prepend_view_path 'app/views/admin/bonuses'
     before_action :fetch_bonus
     before_action :fetch_requirement, except: [ :create ]
 
@@ -47,8 +48,10 @@ module Admin
       @requirement = @bonus.requirements.find([ @bonus.id, params[:id].to_i ])
     end
 
-    def controller_path
-      'admin/bonuses'
+    class << self
+      def controller_path
+        'admin/bonuses'
+      end
     end
   end
 end

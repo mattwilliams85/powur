@@ -69,8 +69,10 @@ module Admin
       @bonus = @bonus_level.bonus
     end
 
-    def controller_path
-      'admin/bonuses'
+    class << self
+      def controller_path
+        'admin/bonuses'
+      end
     end
   end
 end

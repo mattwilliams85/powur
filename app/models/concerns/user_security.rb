@@ -45,7 +45,7 @@ module UserSecurity
   def send_reset_password
     ensure_reset_password_token
 
-    PromoterMailer.reset_password(self).deliver
+    PromoterMailer.reset_password(self).deliver_later
   end
 
   # Updates last_sign_in_at and remember_created_at timestamps
