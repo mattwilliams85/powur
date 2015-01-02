@@ -1,7 +1,7 @@
-ruby '2.1.5'
+ruby '2.2.0'
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.7.1'
+gem 'rails', '4.2.0'
 gem 'pg'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
@@ -13,11 +13,11 @@ gem 'jbuilder'
 gem 'wiselinks'
 gem 'font-awesome-sass', '~> 4.2.0'
 
-gem 'paperclip', '~> 4.2'
+gem 'paperclip'
 gem 'aws-sdk'
 gem 's3_direct_upload'
-gem 'postgres_ext'
-gem 'composite_primary_keys'
+gem 'postgres_ext', github: 'dockyard/postgres_ext'
+gem 'composite_primary_keys', github: 'composite-primary-keys/composite_primary_keys', branch: 'ar_4.2.x'
 gem 'active_hash'
 gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
@@ -38,6 +38,7 @@ gem 'pry-rails'
 gem 'ipayout', github: 'eyecuelab/ipayout'
 gem 'nmi_direct_post'
 gem 'week_of_month'
+gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
 
 group :development do
   gem 'spring-commands-rspec'

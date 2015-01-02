@@ -6,12 +6,14 @@ module Api
 
     private
 
-    def controller_path
-      'auth/quotes'
+    def user_quote_path(quote)
+      api_quote_path(id: quote, v: params[:v])
     end
 
-    def user_quote_path(quote)
-      api_quote_path(quote, v: params[:v])
+    class << self
+      def controller_path
+        'auth/quotes'
+      end
     end
   end
 end

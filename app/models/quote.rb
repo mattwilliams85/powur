@@ -18,7 +18,7 @@ class Quote < ActiveRecord::Base
   end
 
   def email_customer
-    PromoterMailer.new_quote(self).deliver if can_email?
+    PromoterMailer.new_quote(self).deliver_later if can_email?
   end
 
   def data_status

@@ -31,6 +31,7 @@ module Sunstand
         secret_access_key: Rails.application.secrets.aws_secret_access_key } }
 
     config.active_record.schema_format = :sql
+    config.active_record.raise_in_transactional_callbacks = true
     ActiveSupport::Notifications.unsubscribe 'render_partial.action_view'
     config.middleware.delete Rack::ETag
   end
