@@ -1,8 +1,8 @@
 module Auth
   class EarningsController < AuthController
     def index
-      @months = [ "January", "February", "March", "April", "May", "June",
-          "July", "August", "September", "October", "November", "December" ]
+      @months = %w(January February March April May June July
+                   August September October November December)
       render 'show.html.erb'
       @user = current_user
       @downline = @user.downline_users
