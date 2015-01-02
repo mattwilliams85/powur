@@ -37,6 +37,14 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/landing/templates/sign-in.html")%>',
       controller: 'LandingCtrl'
     }).
+    when('/reset-password', {
+      templateUrl: '<%=asset_path("angular/landing/templates/reset-password.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    when('/edit-password/:resetPasswordToken', {
+      templateUrl: '<%=asset_path("angular/landing/templates/edit-password.html")%>',
+      controller: 'LandingCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'

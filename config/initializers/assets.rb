@@ -7,7 +7,6 @@ Rails.application.config.assets.precompile += [
 Rails.application.config.assets.precompile += %w( creditly.js )
 Rails.application.config.assets.precompile += %w( dashboard.js )
 Rails.application.config.assets.precompile += %w( kpi.js )
-Rails.application.config.assets.precompile += %w( passwords.js )
 Rails.application.config.assets.precompile += %w( profile.js )
 Rails.application.config.assets.precompile += %w( promoter.js )
 Rails.application.config.assets.precompile += %w( quote.js )

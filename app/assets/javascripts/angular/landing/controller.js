@@ -1,6 +1,6 @@
 'use strict';
 
-function LandingCtrl($scope, $rootScope, $http, $location, $timeout, $anchorScroll) {
+function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $anchorScroll) {
   $scope.redirectToDashboardIfSignedIn();
 
   $scope.isMenuActive = false;
@@ -41,16 +41,17 @@ function LandingCtrl($scope, $rootScope, $http, $location, $timeout, $anchorScro
   };
 
   $scope.signIn = function() {
-    var csrfToken, headers;
-
     if ($scope.user && $scope.user.email && $scope.user.password) {
-      csrfToken = $('meta[name="csrf-token"]').attr('content');
-      headers = {'X-CSRF-Token': csrfToken};
-
-      $http.post('/login.json', {email: $scope.user.email, password: $scope.user.password, remember_me: $scope.user.remember_me}, {headers: headers}).
+      $http.post('/login.json', {
+        email: $scope.user.email,
+        password: $scope.user.password,
+        remember_me: $scope.user.remember_me
+      }, {
+        xsrfHeaderName: 'X-CSRF-Token'
+      }).
       success(function(data) {
         if (data.error) {
-          $("<div class='reveal-modal' data-reveal><h3>Oops, wrong email or password</h3><a class='close-reveal-modal'>&#215;</a></div>").foundation('reveal', 'open');
+          $('<div class=\'reveal-modal\' data-reveal><h3>Oops, wrong email or password</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
           $(document).foundation();
         } else {
           $rootScope.isSignedIn = true;
@@ -59,6 +60,53 @@ function LandingCtrl($scope, $rootScope, $http, $location, $timeout, $anchorScro
       }).
       error(function() {
         console.log('Sign In Error');
+      });
+    } else {
+      $scope.showValidationMessages = true;
+    }
+  };
+
+  $scope.resetPassword = function() {
+    if ($scope.user && $scope.user.email) {
+      $http.post('/password.json', {
+        email: $scope.user.email
+      }, {
+        xsrfHeaderName: 'X-CSRF-Token'
+      }).
+      success(function() {
+        $location.path('/sign-in');
+        $('<div class=\'reveal-modal\' data-reveal><h3>We received your request. You\'ll get an email if we have an account associated with it.</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+        $(document).foundation();
+      }).
+      error(function() {
+        console.log('Reset Password Error');
+      });
+    } else {
+      $scope.showValidationMessages = true;
+    }
+  };
+
+  $scope.updatePassword = function() {
+    if ($scope.user && $scope.user.password && $scope.user.password_confirm) {
+      $http.put('/password.json', {
+        password: $scope.user.password,
+        password_confirm: $scope.user.password_confirm,
+        token: $routeParams.resetPasswordToken
+      }, {
+        xsrfHeaderName: 'X-CSRF-Token'
+      }).
+      success(function(data) {
+        if (data.error) {
+          $('<div class=\'reveal-modal\' data-reveal><h3>' + data.error.message + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+          $(document).foundation();
+        } else {
+          $location.path('/sign-in');
+          $('<div class=\'reveal-modal\' data-reveal><h3>' + data.properties._message.confirm + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+          $(document).foundation();
+        }
+      }).
+      error(function() {
+        console.log('Reset Password Error');
       });
     } else {
       $scope.showValidationMessages = true;
@@ -89,5 +137,5 @@ LandingCtrl.prototype.fetch = function($scope) {
 };
 
 
-LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$timeout', '$anchorScroll'];
+LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$anchorScroll'];
 sunstandControllers.controller('LandingCtrl', LandingCtrl);

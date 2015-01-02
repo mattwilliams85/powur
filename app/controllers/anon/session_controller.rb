@@ -1,7 +1,5 @@
 module Anon
   class SessionController < AnonController
-    before_filter :redirect_if_logged_in, except: [:destroy]
-
     def create
       require_input :email, :password
 
@@ -10,18 +8,15 @@ module Anon
 
       login_user(user, params[:remember_me] == true)
 
-      render 'show'
+      respond_to do |format|
+        format.html { render text: '' }
+        format.json { render 'show' }
+      end
     end
 
     def destroy
       reset_session
       redirect_to root_url
-    end
-
-    private
-
-    def redirect_if_logged_in
-      redirect_to dashboard_path if logged_in?
     end
   end
 end
