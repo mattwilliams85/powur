@@ -13,15 +13,18 @@ class NmiGateway
   end
 
   def set_billing(user)
-    @billing[:firstname] = user.first_name
-    @billing[:lastname]  = user.last_name
-    @billing[:email]     = user.email
-    @billing[:address1]  = user.contact['address']
-    @billing[:address2]  = user.contact['address']
-    @billing[:city]      = user.contact['city']
-    @billing[:state]     = user.contact['state']
-    @billing[:zip]       = user.contact['zip']
-    @billing[:phone]     = user.contact['phone']
+    @billing = {
+      firstname: user.first_name,
+      lastname:  user.last_name,
+      email:     user.email,
+      address1:  user.contact['address'],
+      address2:  user.contact['address'],
+      city:      user.contact['city'],
+      state:     user.contact['state'],
+      zip:       user.contact['zip'],
+      phone:     user.contact['phone']
+    }
+
   end
 
   def billing_query_params
@@ -38,41 +41,40 @@ class NmiGateway
   end
 
   def do_sale(card_params)
-    sale_params = {}
-    sale_params[:amount] = card_params[:amount]
-    sale_params[:number] = card_params[:number]
-    sale_params[:security_code] = card_params[:security_code]
-    sale_params[:exp_date] = card_params[:exp_date]
-    sale_params[:product] = '1'
-    do_post(sale_params)
+    params = {
+      amount: card_params[:amount],
+      number: card_params[:number],
+      security_code: card_params[:security_code],
+      exp_date: card_params[:exp_date],
+      product: '1'
+    }
+
+    do_post(params)
   end
 
   def build_post_body(sale_params)
     post_body = @billing
-    post_body[:username] = @login['username']
-    post_body[:password] = @login['password']
-    post_body[:ccnumber] = sale_params[:number]
-    post_body[:ccexp] = sale_params[:exp_date]
-    post_body[:amount] = URI.escape('%.2f' % sale_params[:amount])
-    post_body[:cvv] = sale_params[:security_code]
-    post_body[:type] = 'sale'
+    post_body.merge(
+                      username: @login['username'],
+                      password: @login['password'],
+                      ccnumber: sale_params[:number],
+                      ccexp:    sale_params[:exp_date],
+                      amount:   URI.escape('%.2f' %
+                                            sale_params[:amount]),
+                      cvv:      sale_params[:security_code],
+                      type:     'sale')
   end
 
   def build_post_query(sale_params)
-    query = '?'
-    query += '&username=demo'
-    query += '&password=password'
-    query += '&type=sale'
-    query += '&ccnumber=' + sale_params[:number].to_s
-    query += '&ccexp=' + sale_params[:exp_date]
-    query += '&amount=' + URI.escape('%.2f' % sale_params[:amount])
-    query += '&cvv=' + sale_params[:security_code]
+    query = "?&username=demo&password=password&type=sale&ccnumber=%s&ccexp=%s&amount=%s&cvv=%s" %
+            [sale_params[:number].to_s,
+            sale_params[:exp_date],
+            URI.escape('%.2f' % sale_params[:amount]),
+            sale_params[:security_code]]
     query += billing_query_params
-    query
   end
 
   def do_post(sale_params)
-    # post_body = build_post_body(sale_params)
     post_query = build_post_query(sale_params)
 
     nmi_base_uri = 'https://secure.nmi.com'

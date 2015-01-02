@@ -413,7 +413,7 @@ jQuery(function($){
                 _ajaxType:"get",
                 _url:_getObjectsByCriteria(_options._pay_period_obj, {rel:"self"})[0].href,
                 _callback:function(data, text){
-                    _displayData=data;
+                    var _displayData=data;
                     console.log(data)
                     EyeCueLab.UX.getTemplate("/templates/admin/quotes/pay_periods/_pay_period_details.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                         $(".js-pay_period_listing").on("click", function(e){

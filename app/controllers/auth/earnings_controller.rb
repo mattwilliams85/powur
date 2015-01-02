@@ -26,8 +26,9 @@ module Auth
     # show action
     def summary
       @user = fetch_user
-      @pay_periods = fetch_pay_period_range(params)
-      @earnings = fetch_earnings(params, @pay_periods)
+      @pay_periods = fetch_pay_period_range(params).order(:start_date)
+      @earnings = fetch_earnings(@user.id, @pay_periods)
+      @earnings_group = structured_earnings(@pay_periods, @earnings, @user)
     end
 
     # this call will fetch the details for a bonus payment
@@ -39,6 +40,20 @@ module Auth
     end
 
     private
+
+    #  REFACTOR: There has to be a better way to do this.
+    #  I'm attempting to show all the pay periods in the date range
+    #  even if they don't have a bonus_payment (earning)
+    def structured_earnings(pay_periods, earnings, user)
+      @earnings_map = {}
+      @earnings_map = pay_periods.map do |pp|
+        { pay_period: pp,
+          earning:    earnings.find_by_pay_period_id(pp.id),
+          user_id:    user.id }
+      end
+
+      @earnings_map
+    end
 
     def fetch_earning_details(user, pay_period)
       pay_period.bonus_payments.for_user(user.id)
@@ -57,8 +72,8 @@ module Auth
       User.find(params[:user_id])
     end
 
-    def fetch_earnings(params, pay_periods)
-      BonusPayment.user_bonus_summary(params[:user_id], pay_periods)
+    def fetch_earnings(user_id, pay_periods)
+      BonusPayment.user_bonus_summary(user_id, pay_periods)
     end
   end
 end
