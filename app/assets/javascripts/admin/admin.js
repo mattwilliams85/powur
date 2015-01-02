@@ -17,6 +17,8 @@ jQuery(function($){
             _dashboard.getRootUsers({_callback:function(){
                 _data.currentUser=_data.rootUsers[0];
                 _dashboard.displayUsers("#admin-users-init");
+                applyBrowserSpecificRules();
+
             }});
         }
     });
@@ -57,6 +59,7 @@ jQuery(function($){
         this.displayUsers = displayUsers;
         this.switchCurrentUser = switchCurrentUser;
         this.searchUser = searchUser;
+
 
         //function get root users if _id is undefined
         //otherwise get specific user info
@@ -120,6 +123,8 @@ jQuery(function($){
 
                                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-membership]"));
 
+                                        applyBrowserSpecificRules(); //this fixes the double arrow issue on selects in Firefox <34 (function exists in utility.js)
+
                                         //load editable form for the current user on the main pane
                                         $(".js-admin_dashboard_detail").fadeOut(100, function(){
                                             EyeCueLab.UX.getTemplate("/templates/admin/users/membership/_basic_info.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail"));
@@ -156,6 +161,7 @@ jQuery(function($){
                             }
                         })
                     });
+
 
                 break;
 
@@ -311,7 +317,9 @@ jQuery(function($){
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
                             _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
                             EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
-                                console.log(_displayData);
+                                
+                                applyBrowserSpecificRules(); //this fixes the double arrow issue on selects in Firefox <34 (function exists in utility.js)
+
                                 $("#js-pay_period_select").on("change", function(e){
                                     e.preventDefault();
                                     if($(this).val()=="lifetime") displayUsers("#admin-users-sales-rank_achievements", {_filtering_obj:{}});
@@ -343,7 +351,9 @@ jQuery(function($){
                             _displayData.filtering_obj = _filtering_obj;
                             _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
                             EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
-                                console.log(_displayData);
+
+                                applyBrowserSpecificRules(); //this fixes the double arrow issue on selects in Firefox <34 (function exists in utility.js)
+
                                 $("#js-pay_period_select").on("change", function(e){
                                     e.preventDefault();
                                     displayUsers("#admin-users-sales-bonus_payments", {_filtering_obj:{pay_period:$(this).val()}});
@@ -511,7 +521,8 @@ jQuery(function($){
 
         //* end admin adshboard specific utility functions
 
-
+    
     }//end AdminDashboard class
+
 
 });
