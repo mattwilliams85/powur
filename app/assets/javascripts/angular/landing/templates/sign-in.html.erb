@@ -1,27 +1,116 @@
-<ng-include src="'<%=asset_path("shared/header.html") %>'"></ng-include>
+<ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
-<section id="user_content" class="user" style="height:80vh;">
-  <h3>Promoter Login</h3>
+<div class="sun-landing-wrapper">
+  <ng-include src="'<%=asset_path("shared/header.html") %>'"></ng-include>
 
-  <form name="form" id="user_login" class="js-login_form" ng-submit="signIn($event)">
-    <span class="form_row">
-      <label for="email">Email</label>
-      <input ng-model="user.email" name="email" type="text" class="validate" required autofocus/>
-    </span>
+  <main class="sun-landing">
 
-    <span class="form_row">
-      <label for="password">Password</label>
-      <input ng-model="user.password" name="password" type="password" class="validate" required/>
-    </span>
+    <div class="sun-fixed-bg sun-bg-1" id="anchor_1">
+      <div class="sun-sign-in-wrapper">
+        <div class="row">
+          <div class="large-2 columns">
+            &nbsp;
+          </div>
 
-    <span class="form_row checkbox">
-      <input name="remember_me" id="remember_me" type="checkbox" />
-      <label ng-model="user.remember_me" for="remember_me" class="checkbox small"> remember me</label>
-    </span>
+          <div class="large-8 columns">
+            <h1>Promoter Login</h1>
 
-    <a href="/password" class="secondary_button">Reset password</a>
-    <input type="submit" class="button" value="Log in"/>
-  </form>
-</section>
+            <form name="form" ng-submit="signIn()" novalidate>
+              <label for="user_email">Email</label>
+              <p>
+                <span ng-show="showValidationMessages && !!form.user_email.$invalid" class="radius alert label">This is not a valid email</span>
+                <input ng-model="user.email" id="user_email" name="user_email" type="email" ng-required='true' />
+              </p>
 
-<ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+              <label for="user_password">Password</label>
+              <p>
+                <span ng-show="showValidationMessages && !!form.user_password.$invalid" class="radius alert label">Enter password</span>
+                <input ng-model="user.password" id="user_password" name="user_password" type="password" ng-required='true' />
+              </p>
+
+              <p>
+                <input ng-model="user.remember_me" name="remember_me" id="remember_me" type="checkbox" />
+                <label for="remember_me" class="checkbox small"> remember me</label>
+              </p>
+
+              <input class="large button" type="submit" value="Sign In" />
+              <a ng-href="#/forgot-password" class="forgot-password">Forgot Password?</a>
+
+              <!-- or <a ng-href="#/sign-up">Sign Up</a> -->
+            </form>
+          </div>
+
+          <div class="large-2 columns">
+            &nbsp;
+          </div>
+
+        </div>
+      </div>
+      <a class="sun-next-pointer inverted" ng-click="gotoAnchor('building_large_network')"></a>
+    </div>
+
+    <div class="sun-scrolling-bg" id="building_large_network">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <div class="globe-image"></div>
+          <h4>Building the world's largest network of peer to peer solar advocates.</h5>
+          </div>
+        </div>
+        <a class="sun-next-pointer" ng-click="gotoAnchor('decentralization_of_energy_production')">So that we</a>
+      </div>
+
+      <div class="sun-scrolling-bg sun-bg-2" id="decentralization_of_energy_production">
+        <div class="row">
+          <div class="large-12 columns sun-home-content">
+            <div class="scales-image"></div>
+            <h4>Facilitate the largest transfer of wealth in history through the decentralization of energy production.</h5>
+            </div>
+          </div>
+          <a class="sun-next-pointer" ng-click="gotoAnchor('reverse_climate_change')">Which will</a>
+        </div>
+
+        <div class="sun-scrolling-bg" id="reverse_climate_change">
+          <div class="row">
+            <div class="large-12 columns sun-home-content">
+              <div class="house-image"></div>
+              <h4>Reverse climate change by turning millions of American homes clean and carbon-positive.</h5>
+              </div>
+            </div>
+            <a class="sun-next-pointer" ng-click="gotoAnchor('clean_energy_solution')">So we</a>
+          </div>
+
+          <div class="sun-scrolling-bg sun-bg-2" id="clean_energy_solution">
+            <div class="row">
+              <div class="large-12 columns sun-home-content">
+                <div class="flame-image"></div>
+                <h4>Create a sustainable, renewable and clean energy solution for all future generations.</h5>
+                </div>
+              </div>
+              <a class="sun-next-pointer" ng-click="gotoAnchor('solar_revolution')"></a>
+            </div>
+
+            <div class="sun-fixed-bg sun-bg-3" id="solar_revolution">
+              <div class="sun-home-intro">
+                <div class="row">
+                  <h1>The solar revolution is here.</h1>
+                </div>
+              </div>
+              <a class="sun-next-pointer inverted" ng-click="gotoAnchor('how_to_participate')">It will be disruptive</a>
+            </div>
+
+            <div class="sun-scrolling-bg" id="how_to_participate">
+              <div class="row">
+                <div class="large-12 columns sun-home-content">
+                  <h5>Select how you want to participate in the revolution.</h5>
+                  <div class="sun-buttons-wrapper">
+                    <a class="button sun-button-transparent" ng-href="">Create Energy</a>
+                    <a class="button" ng-href="">Create Wealth</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+
+          </main>
+        </div>

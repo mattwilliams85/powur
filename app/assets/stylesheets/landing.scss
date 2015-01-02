@@ -380,4 +380,51 @@ html, body {
       color: #fff;
     }
   }
+
+  .sun-sign-in-wrapper {
+    padding-top: 200px;
+
+    h1 {
+      color: #fff;
+      font-size: 2.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    label {
+      color: #fff;
+      font-size: 1.3em;
+    }
+
+    .checkbox {
+      display: inline;
+      font-size: 1em;
+    }
+
+    button, .button {
+      display: block;
+      background: #2ecc71;
+      border: none;
+      color: #fff;
+      display: inline-block;
+      font-size: 1.3em;
+      font-weight: normal;
+      padding: .5em 1em;
+      text-transform: uppercase;
+      margin-right: 1em;
+    }
+
+    .forgot-password {
+      color: #fff;
+    }
+
+    input[type=text], input[type=password], input[type=email] {
+      font-size: 1.3em;
+    }
+  }
 }

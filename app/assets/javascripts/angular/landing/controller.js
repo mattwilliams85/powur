@@ -1,9 +1,10 @@
 'use strict';
 
-function LandingCtrl($scope, $location, $timeout, $anchorScroll) {
+function LandingCtrl($scope, $rootScope, $http, $location, $timeout, $anchorScroll) {
   $scope.redirectToDashboardIfSignedIn();
 
   $scope.isMenuActive = false;
+  $scope.showValidationMessages = false;
 
   $scope.invertHeaderColor = function() {
     var docEl = document.documentElement;
@@ -39,6 +40,31 @@ function LandingCtrl($scope, $location, $timeout, $anchorScroll) {
     $scope.isMenuActive = true;
   };
 
+  $scope.signIn = function() {
+    var csrfToken, headers;
+
+    if ($scope.user && $scope.user.email && $scope.user.password) {
+      csrfToken = $('meta[name="csrf-token"]').attr('content');
+      headers = {'X-CSRF-Token': csrfToken};
+
+      $http.post('/login.json', {email: $scope.user.email, password: $scope.user.password, remember_me: $scope.user.remember_me}, {headers: headers}).
+      success(function(data) {
+        if (data.error) {
+          $("<div class='reveal-modal' data-reveal><h3>Oops, wrong email or password</h3><a class='close-reveal-modal'>&#215;</a></div>").foundation('reveal', 'open');
+          $(document).foundation();
+        } else {
+          $rootScope.isSignedIn = true;
+          $scope.redirectToDashboardIfSignedIn();
+        }
+      }).
+      error(function() {
+        console.log('Sign In Error');
+      });
+    } else {
+      $scope.showValidationMessages = true;
+    }
+  };
+
   this.init($scope, $location, $timeout);
   this.fetch($scope);
 }
@@ -63,5 +89,5 @@ LandingCtrl.prototype.fetch = function($scope) {
 };
 
 
-LandingCtrl.$inject = ['$scope', '$location', '$timeout', '$anchorScroll'];
+LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$timeout', '$anchorScroll'];
 sunstandControllers.controller('LandingCtrl', LandingCtrl);

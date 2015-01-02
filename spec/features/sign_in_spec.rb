@@ -12,18 +12,18 @@ describe 'Sign In', :js, type: :feature do
 
   context 'when wrong data' do
     it 'should show error message' do
-      fill_in 'email', with: user.email
-      fill_in 'password', with: 'wrongpassword'
-      click_on 'Log in'
-      expect(page).to have_content 'INVALID EMAIL OR PASSWORD'
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: 'wrongpassword'
+      click_on 'Sign In'
+      expect(page).to have_content 'Oops, wrong email or password'
     end
   end
 
   context 'when correct data' do
     it 'should sign in and redirect to a profile page' do
-      fill_in 'email', with: user.email
-      fill_in 'password', with: 'password'
-      click_on 'Log in'
+      fill_in 'user_email', with: user.email
+      fill_in 'user_password', with: 'password'
+      click_on 'Sign In'
       sleep 2
       # expect(first('nav ul').text).to match /DASHBOARD/
       expect(page).to have_content 'DASHBOARD'

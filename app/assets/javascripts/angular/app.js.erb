@@ -12,13 +12,10 @@ var sunstandApp = angular.module('sunstandApp', [
 ]).run(['$rootScope', '$location', function ($rootScope, $location) {
   // $rootScope.siteData = SiteData || {};
   // $rootScope.currentUser = $rootScope.siteData.user;
-
-  $rootScope.isSignedIn = function() {
-    return SignedIn || false;
-  };
+  $rootScope.isSignedIn = SignedIn || false;
 
   $rootScope.redirectToDashboardIfSignedIn = function() {
-    if ($rootScope.isSignedIn()) {
+    if ($rootScope.isSignedIn) {
       // $location.path('/u/dashboard');
       window.location = '/u/dashboard';
     }
