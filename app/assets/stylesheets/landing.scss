@@ -277,9 +277,12 @@ html, body {
 
     h1 {
       color: #fff;
-      font-size: 4.5em;
+      font-size: 2em;
       font-weight: bold;
       text-transform: uppercase;
+      @media #{$small} {
+        font-size: 4.5em;
+      }
     }
   }
 
