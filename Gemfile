@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
 gem 'pg'
+
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -10,8 +11,9 @@ gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder'
-gem 'wiselinks'
+# gem 'wiselinks'
 gem 'font-awesome-sass', '~> 4.2.0'
+gem 'zurb-foundation', '~> 4.3'
 
 gem 'paperclip'
 gem 'aws-sdk'
@@ -61,7 +63,7 @@ group :test do
   gem 'webmock', require: 'webmock/rspec'
   gem 'vcr'
   gem 'db-query-matchers'
-  gem "capybara"
+  gem 'capybara'
   gem 'capybara-firebug'
 end
 
