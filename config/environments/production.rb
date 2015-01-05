@@ -83,5 +83,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # For Mailchimp to handle the images in emails
-  config.action_controller.asset_host = 'http://sunstand.eyecuelab.com'
+
+  config.action_controller.asset_host = ENV['EMAIL_HOST'] || 'http://sunstand.eyecuelab.com'
 end
