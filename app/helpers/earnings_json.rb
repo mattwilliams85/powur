@@ -35,7 +35,9 @@ class EarningsJson < JsonDecorator
       json.pay_period_title pay_period.title
       json.pay_period_type pay_period.type_display
       json.pay_period_date_range pay_period.date_range_display('%m-%d')
-      json.pay_period_week_number pay_period.start_date.strftime("%U").to_i
+      # if pay_period.type_display == "Weekly"
+      #   json.pay_period_week_number pay_period.start_date.week_of_month
+      # end
     end
   end
 
@@ -56,7 +58,7 @@ class EarningsJson < JsonDecorator
     actions \
       action(:detail, :get, detail_earnings_path)
       .field(:pay_period_id, :text, value: earning.pay_period_id)
-      .field(:user_id, :text, value: user_id)
+      .field(:user_id, :text, value: user _id)
   end
 
   # Details
