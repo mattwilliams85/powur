@@ -394,6 +394,7 @@ jQuery(function($){
                             e.preventDefault();
                             var _pay_period_id = $(e.target).parents("tr").attr("data-pay-period-id");
                             var _pay_period_obj = EyeCueLab.JSON.getObjectsByPattern(_data.pay_periods, {"containsIn(properties)":[_pay_period_id]})[0];
+                            _data.pay_periods.properties.current_pay_period = _pay_period_obj
                             _showPayPeriodDetails({_pay_period_id:_pay_period_id, _pay_period_obj:_pay_period_obj});
                         });//end of pay period detail
 
@@ -479,6 +480,8 @@ jQuery(function($){
                                         $("#pay_period_detail_nav a").on("click", function(e){
                                             e.preventDefault();
                                             _options.category.classType=$(this).attr("class").replace("js-active","").trim();
+                                            if (_data.pay_periods.properties.current_pay_period.properties.calculated === true) {
+
                                             switch(_options.category.classType){
                                                 case "orders":
                                                     _options.category.templateName="/templates/admin/quotes/popups/_orders_listing.handlebars.html";
@@ -487,6 +490,7 @@ jQuery(function($){
                                                 case "order_totals":
                                                     _options.category.templateName="/templates/admin/quotes/popups/_order_totals_listing.handlebars.html";
                                                 break;
+
                                                 case "bonus_payments":
                                                     _options.category.templateName="/templates/admin/quotes/popups/_bonus_payments_listing.handlebars.html";
                                                 break;
@@ -497,6 +501,22 @@ jQuery(function($){
 
                                             }
                                             _showPayPeriodDetails(_options);
+                                            } else {
+                                                switch(_options.category.classType){
+
+                                                    case "order_totals":
+                                                        alert("You need to calculate the pay period before you can view Order Totals.");
+                                                    break;
+
+                                                    case "bonus_payments":
+                                                        alert("You need to calculate the pay period before you can view Bonus Payments.");
+                                                    break;
+
+                                                    case "rank_achievements":
+                                                        alert("You need to calculate the pay period before you can view Rank Achievements.");
+                                                    break;
+                                            }
+                                        }
                                         });
 
                                         //order detail popup
