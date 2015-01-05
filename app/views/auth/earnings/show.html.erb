@@ -68,7 +68,7 @@
   }
 
   #date-dropdown {
-    width:53%;
+    width:800px;
     margin:auto;
   }
 
@@ -77,7 +77,8 @@
   }
 
   #body_section_header {
-    padding-top:0px;
+    text-align:center;
+    margin-left:-50px;
   }
 
   .date {
@@ -112,224 +113,49 @@
         <div class="tag"><img src="/images/dashboard/customers_icon.png"></div>
       </div>
 
-      <select class="dropdown">
+      <select class="dropdown" id="startMonth">
         <% @months.each_with_index do |month, index|%>
           <% if index + 1 == Date.today.month %>
-            <option selected><%=@months[index]%></option>
+            <option value="<%=(index + 1)%>" selected><%=@months[index]%></option>
           <% else %>
-            <option><%=@months[index]%></option>
+            <option value="<%=(index + 1)%>"><%=@months[index]%></option>
           <% end %>
         <% end %>
       </select>
 
-      <select class="dropdown">
+      <select class="dropdown" id="startYear">
         <% @currentYear = Date.today.year %>
-        <option selected><%= @currentYear %></option>
+        <option value="<%=@currentYear%>" selected><%= @currentYear %></option>
         <% until @currentYear == 2013 %>
-          <option><%= @currentYear -= 1%></option>
+          <option value="<%=@currentYear -= 1%>"><%= @currentYear -= 1%></option>
         <% end %>
       </select>
       <div class="section_label">
         <div class="text">&nbsp;&nbsp;to</div>
       </div>
 
-      <select class="dropdown">
+      <select class="dropdown" id="endMonth">
         <% @months.each_with_index do |month, index|%>
           <% if index + 1 == Date.today.month %>
-            <option selected><%=@months[index]%></option>
+            <option value="<%=(index + 1)%>" selected><%=@months[index]%></option>
           <% else %>
-            <option><%=@months[index]%></option>
+            <option value="<%=(index + 1)%>"><%=@months[index]%></option>
           <% end %>
         <% end %>
       </select>
 
-      <select class="dropdown">
+      <select class="dropdown" id="endYear">
         <% @currentYear = Date.today.year %>
-        <option selected><%= @currentYear %></option>
+        <option value="<%=@currentYear%>" selected><%= @currentYear %></option>
         <% until @currentYear == 2013 %>
-          <option><%= @currentYear -= 1%></option>
+          <option value="<%=@currentYear -= 1%>"><%= @currentYear -= 1%></option>
         <% end %>
       </select>
       </div>
     </div> 
   </div>
 
-  <div class="section_body">
-    
-     <!--  <div class="section_content" style="overflow:hidden;">
-        <div class="section_header date"><strong>FEBRUARY</strong></div>
-      </div>
-      <table style="width:100%;">
-      <thead>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Pay Period</strong></td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Type</strong></td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Amount</strong></td>
-        <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
-      </thead>
-        <tr style="background:#fff;">
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/1 - 2/8</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-        </tr>
-        <tr style="background:#fff;">
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/9 - 2/16</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-        </tr>
-        <tr style="background:#fff;">
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/17 - 2/24</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-        </tr>
-        <tr style="background:#fff;">
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">February</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/25 - 2/28</td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-        </tr>
-      </table>
-        <div class="section_content" style="overflow:hidden;">
-          <div class="section_header date"><strong>MARCH</strong></div>
-        </div>
-        <table style="width:100%;">
-        <thead>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Month</strong></td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Week</strong></td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
-          <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Earnings</strong></td>
-          <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
-        </thead>
-          <tr style="background:#fff;">
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/1 - 2/8</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-          </tr>
-          <tr style="background:#fff;">
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/9 - 2/16</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-          </tr>
-          <tr style="background:#fff;">
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/17 - 2/24</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-          </tr>
-          <tr style="background:#fff;">
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">March</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/25 - 2/28</td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-          </tr>
-        </table>
-          <div class="section_content" style="overflow:hidden;">
-            <div class="section_header date"><strong>APRIL</strong></div>
-          </div>
-          <table style="width:100%;">
-          <thead>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Month</strong></td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Week</strong></td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
-            <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Earnings</strong></td>
-            <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
-          </thead>
-            <tr style="background:#fff;">
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">1</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/1 - 2/8</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-            </tr>
-            <tr style="background:#fff;">
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/9 - 2/16</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-            </tr>
-            <tr style="background:#fff;">
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">3</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/17 - 2/24</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-            </tr>
-            <tr style="background:#fff;">
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">April</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">4</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">2/25 - 2/28</td>
-              <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$234,567</td>
-              <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
-            </tr>
-          </table>
-      
-    </div>
-
-
-  </div>
-
-  <div id="js-popup">
-    
-    <table style="width:100%;">
-    <thead>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong></strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Quantity</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Product</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Amount</strong></td>
-    </thead>
-      <tr style="background:#fff;">
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Personal Sale</strong></td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
-        <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
-      </tr>
-      <tr style="background:#fff;">
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Group Sale</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
-      </tr>
-      <tr style="background:#fff;">
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Enroller Bonus</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
-      </tr>
-      <tr style="background:#fff;">
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Uni-Level Bonus</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
-      </tr>
-      <tr style="background:#fff;">
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Promote-Out</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">23</td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">SunRun Solar Item</td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$50,231</td>
-      </tr>
-      <tr style="background:#fff;">
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;"><strong>Total</strong></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"></td>
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$502,231</td>
-      </tr>
-    </table> -->
-
-  </div>
+  <div class="section_body"></div>
 
 
 </section>
@@ -382,6 +208,7 @@
       </tr>
     </table>
 </div>
+<div class="temp"></div>
 <br><br><br>
 
 
@@ -389,12 +216,14 @@
 
 var dropFlag = false;
 var slideData = $("#slideData").html()
-var selectedYear = (new Date()).getYear() + 1900
-var selectedMonth = (new Date()).getMonth() 
+var startYear = (new Date()).getYear() + 1900
+var startMonth = (new Date()).getMonth() + 1
+var endYear = (new Date()).getYear() + 1900
+var endMonth = (new Date()).getMonth() + 1
 
 // _ajax({
 //   _ajaxType: "get",
-//   _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+selectedYear+"&start_month="+selectedMonth+"&end_year="+selectedYear+"&end_month="+selectedMonth,
+//   _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+startMonth+"&end_year="+startYear+"&end_month="+startMonth,
 //   _callback: function(data, text) {
 //       EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", data, undefined, function(html) {
 //        $(".section_header_content").append(html);
@@ -404,7 +233,7 @@ var selectedMonth = (new Date()).getMonth()
 
 // _ajax({
 //   _ajaxType: "get",
-//   _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+selectedYear+"&start_month="+selectedMonth+"&end_year="+selectedYear+"&end_month="+selectedMonth,
+//   _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+startMonth+"&end_year="+startYear+"&end_month="+startMonth,
 //   _callback: function(data, text) {
 //       console.log(data)
 //       EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, undefined, function(html) {
@@ -415,32 +244,63 @@ var selectedMonth = (new Date()).getMonth()
 // });
 
 $(document).ready(function(){
-var _endPoints =[];
-_endPoints.push({
-    url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+selectedYear+"&start_month="+selectedMonth+"&end_year="+selectedYear+"&end_month="+selectedMonth,
-    data:{},
-    name:"Summary"
-});
-_endPoints.push({
-    url:"/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+selectedYear+"-"+selectedMonth,
-    data:{},
-    name:"Detail"
-});
 
-EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
-  _summaryData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings"]})
-  _detailsData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings_detail"]})
-  console.log(_summaryData)
-  EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", _summaryData, $(".section_header_content"), function(html) {
-  });
-  EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", _detailsData,  $(".section_body"), function(html) {
-    clickEvents();
-  });
-});
+function getEarnings(){
 
+  var _endPoints =[];
+  _endPoints.push({
+      url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+startMonth+"&end_year="+startYear+"&end_month="+startMonth,
+      // url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+2014+"&start_month="+10+"&end_year="+2014+"&end_month="+10,
+      data:{},
+      name:"Summary"
+  });
+  _endPoints.push({
+      url:"/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+startYear+"W"+startMonth,
+      data:{},
+      name:"Detail"
+  });
+  EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
+    _summaryData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings"]})
+    _detailsData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings_detail"]})
+    console.log(_summaryData)
+    if(_summaryData[0].entities.length === 0){
+      for (var i = 0; i < 4; i++) {
+         _summaryData[0].entities[i] = []
+         _summaryData[0].entities[i].properties = {
+                                                  "pay_period_type":"Weekly",
+                                                  "amount":0,
+                                                  "pay_period_week_number":(i + 1),
+                                                  "pay_period_date_range":startMonth
+                                                }
+      }
+      _summaryData[0].properties.active = false;
+    } 
+    // else {
+    //   for (var i = 0; i < 4; i++) {
+    //     if(_summaryData[0].entities[i].properties.pay_period_type === "Monthly") break;
+    //     if(_summaryData[0][i].properties.pay_period_week_number !== (i + 1)){
+    //       i = 0;
+    //       _summaryData[0].entities[i].properties = {
+    //                                                      "pay_period_title":"Weekly",
+    //                                                      "amount":0,
+    //                                                      "pay_period_week_number":(i + 1)
+    //                                                    }
+    //     }
+    //   }
+    // }
+
+    EyeCueLab.UX.getTemplate("/templates/auth/earnings/_header.handlebars.html", _summaryData, $(".section_header_content"), function(html) {
+    });
+    EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", _summaryData, $(".section_body"), function(html) {
+    });
+    EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", _detailsData,  $(".temp"), function(html) {
+      clickEvents();
+    });
+  });
+}
 // _ajax({
 //   _ajaxType: "get",
-//   _url: "/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+selectedYear+"-"+selectedMonth,
+//   _url: "/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+startYear+"-"+startMonth,
 //   _callback: function(data, text) {
 //       console.log(data)
 //       EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, undefined, function(html) {
@@ -449,25 +309,24 @@ EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
 //   }
 // });
 
-function clickEvents(){ 
-  console.log("clickEvents()")
-  $(".dropToggle").click(function(e){
-    if(dropFlag == false) {
-       e.stopPropagation() 
-       row = $(this).parent().parent()
-       $("<tr id='click-me'><td colspan='5' class='dropdownz' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
-       $('.dropdownz').append(slideData)
-       $('#slideData').css("display","none")
-       $('.dropdownz').velocity({height:"330px"}, function(){
-         $('#slideTable').fadeIn(400);
-       })
-       dropFlag = true;
+  function clickEvents(){ 
+    $(".dropToggle").click(function(e){
+      if(dropFlag == false) {
+        e.stopPropagation() 
+        row = $(this).parent().parent()
+        $("<tr id='click-me'><td colspan='5' class='dropdownz' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
+        $('.dropdownz').append(slideData)
+        $('#slideData').css("display","none")
+        $('.dropdownz').velocity({height:"330px"}, function(){
+          $('#slideTable').fadeIn(400);
+        })
+        dropFlag = true;
 
-    } else if(dropFlag == true) {
-      reverseDrop(e)
-    }
-    
-      });    
+      } else if(dropFlag == true) {
+        reverseDrop(e)
+      }
+      
+    });    
 
     $(document).on("click", function(e){
       
@@ -487,5 +346,18 @@ function clickEvents(){
       dropFlag = false;
     }
   }
+  $('.dropdown').on("change",function(){
+    startYear = $('#startYear option:selected').val()
+    startMonth = $('#startMonth option:selected').val()
+    endYear = $('#endYear option:selected').val()
+    endMonth = $('#endMonth option:selected').val()
+    console.log("starYear: " + startYear)
+    console.log("startMonth: " + startMonth)
+    console.log("endYear: " + endYear)
+    console.log("endMonth: " + endMonth)
+    // getEarnings();
+  })
+
+  getEarnings();
 })
 </script>

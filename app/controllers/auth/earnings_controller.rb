@@ -4,22 +4,10 @@ module Auth
       @months = %w(January February March April May June July
                    August September October November December)
       render 'show.html.erb'
-      @user = current_user
-      @downline = @user.downline_users
-      @total_earnings = current_user.bonus_payments.sum(:amount)
-      @downline.each do |user|
-        @total_earnings += user.bonus_payments.sum(:amount)
-      end
     end
 
     def show
       # Most of this is placeholder until we implement the frontend
-      # @user = current_user
-      # @downline = @user.downline_users
-      # @total_earnings = current_user.bonus_payments.sum(:amount)
-      # @downline.each do |user|
-      #   @total_earnings += user.bonus_payments.sum(:amount)
-      # end
     end
 
     # endpoint for ajax call that populates the earnings
@@ -29,14 +17,15 @@ module Auth
       @pay_periods = fetch_pay_period_range(params).order(:start_date, :type)
       @earnings = fetch_earnings(@user.id, @pay_periods)
       @earnings_group = structured_earnings(@pay_periods, @earnings, @user)
+      @total_earnings = current_user.bonus_payments.sum(:amount)
     end
 
     # this call will fetch the details for a bonus payment
     # required params: user_id, pay_period_id
     def detail
       @user = fetch_user
-      @pay_period = PayPeriod.find(params[:pay_period_id])
-      @earning_details = fetch_earning_details(@user, @pay_period)
+      @pay_period = PayPeriod.find_by(id: params[:pay_period_id])
+      @earning_details = fetch_earning_details(@user, @pay_period) if @pay_period 
     end
 
     private
