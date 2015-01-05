@@ -3,6 +3,11 @@ class WebController < ApplicationController
   include UserEvents
 
   protect_from_forgery with: :exception
+  after_filter :set_csrf_cookie_for_ng
+
+  def set_csrf_cookie_for_ng
+    cookies['XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery?
+  end
 
   def current_user
     @current_user ||= session[:user_id] && User.find_by(id: session[:user_id].to_i)

@@ -8,7 +8,8 @@ class PromoterMailer < ActionMailer::Base
 
   def reset_password(user)
     to = "#{user.full_name} <#{user.email}>"
-    merge_vars = { reset_url: new_password_url(token: user.reset_token) }
+    url = root_url + "#/edit-password/#{user.reset_token}"
+    merge_vars = { reset_url: url }
 
     mail_chimp to, 'reset-password', merge_vars
   end

@@ -1,0 +1,22 @@
+<ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
+
+<div class="sun-landing-wrapper">
+  <ng-include src="'<%=asset_path("shared/header.html") %>'"></ng-include>
+
+  <main class="sun-landing">
+
+    <div class="sun-fixed-bg sun-bg-1" id="anchor_1">
+      <div class="sun-home-intro">
+        <div class="row">
+          <h1>We are starting a chain reaction by:</h1>
+        </div>
+      </div>
+      <a class="sun-next-pointer inverted" ng-click="gotoAnchor('building_large_network')"></a>
+    </div>
+
+    <ng-include src="'<%=asset_path("shared/landing-features.html") %>'"></ng-include>
+
+    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+
+  </main>
+</div>

@@ -392,312 +392,316 @@ footer {
 
 // Forms
 
-  form {
+form {
+  // Mixins
+
+  // Box properties
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow: auto;
+  // Background & borders
+
+  // Typography
+  text-align: left;
+  // Other
+
+}
+
+fieldset {
+  // Mixins
+
+  // Box properties
+  position: relative;;
+  overflow: auto;
+  padding: 0 $grid $grid;
+  // Background & borders
+
+  // Typography
+
+  // Other
+  transition: opacity .25s ease-in-out;
+
+  &:disabled {
     // Mixins
 
     // Box properties
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    overflow: auto;
+
     // Background & borders
 
     // Typography
-    text-align: left;
-    // Other
 
+    // Other
+    opacity:.25;
   }
 
   fieldset {
     // Mixins
 
     // Box properties
-    position: relative;;
-    overflow: auto;
-    padding: 0 $grid $grid;
+    padding: 0;
     // Background & borders
 
     // Typography
 
     // Other
-    transition: opacity .25s ease-in-out;
 
-    &:disabled {
-      // Mixins
-
-      // Box properties
-
-      // Background & borders
-
-      // Typography
-
-      // Other
-      opacity:.25;
-    }
-
-    fieldset {
-      // Mixins
-
-      // Box properties
-      padding: 0;
-      // Background & borders
-
-      // Typography
-
-      // Other
-
-    }
   }
+}
 
-  legend {
+legend {
+  // Mixins
+
+  // Box properties
+  margin-bottom: $grid / 2;
+  // Background & borders
+
+  // Typography
+  color: $quiet;
+  // Other
+
+}
+
+label:not(.checkbox) {
+  // Mixins
+  @include small_title;
+  // Box properties
+  position: absolute;
+  top: $grid / 4;
+  left: $grid / 2;
+  text-align: right;
+
+  // Background & borders
+
+  // Typography
+  color: $quiet;
+  // Other
+
+}
+
+label.checkbox {
+  // Mixins
+
+  // Box properties
+  padding-left: $grid / 4;
+  // Background & borders
+
+  // Typography
+  font-size: $grid / 2;
+  line-height: $line_height;
+  font-family: $small_title_font;
+  text-transform: uppercase;
+  // Other
+
+}
+
+input + label {
+  margin-top: $grid;
+}
+
+input[type=text],
+input[type=password],
+input[type=email] {
+  // Mixins
+  @include field_box;
+
+  // Box properties
+  margin-bottom: $grid / 4;
+  // Background & borders
+  border: $border;
+  background-color: $ghost;
+  // Typography
+  color: white;
+
+  // Other
+
+  &:focus {
     // Mixins
 
     // Box properties
-    margin-bottom: $grid / 2;
-    // Background & borders
 
-    // Typography
-    color: $quiet;
-    // Other
-
-  }
-
-  label:not(.checkbox) {
-    // Mixins
-    @include small_title;
-    // Box properties
-    position: absolute;
-    top: $grid / 4;
-    left: $grid / 2;
-    text-align: right;
-
-    // Background & borders
-
-    // Typography
-    color: $quiet;
-    // Other
-
-  }
-
-  label.checkbox {
-    // Mixins
-
-    // Box properties
-    padding-left: $grid / 4;
-    // Background & borders
-
-    // Typography
-    font-size: $grid / 2;
-    line-height: $line_height;
-    font-family: $small_title_font;
-    text-transform: uppercase;
-    // Other
-
-  }
-
-  input + label {
-    margin-top: $grid;
-  }
-
-  input[type=text],
-  input[type=password],
-  input[type=email] {
-    // Mixins
-    @include field_box;
-
-    // Box properties
-    margin-bottom: $grid / 4;
-    // Background & borders
-    border: $border;
-    background-color: $ghost;
-    // Typography
-    color: white;
-
-    // Other
-
-    &:focus {
-      // Mixins
-
-      // Box properties
-
-      // Background & borders
-      outline: none;
-      border-color: $ghost_dark;
-      background-color: $ghost_dark;
-      // Typography
-      color: white;
-      font-style: normal;
-      // Other
-
-    }
-  }
-
-  input[type=search] {
-    // Mixins
-    @include form_box;
-    @include no_shadow;
-    @include box_sizing;
-    @include corners(32px, 32px, 32px, 32px);
-    // Box properties
-    float: left;
-    margin: 0;
-    padding-left: $grid;
-    width: auto;
     // Background & borders
     outline: none;
-    background-image: image-url('search.svg');
-    background-position: left center;
-    background-repeat: no-repeat;
-    background-size: contain;
-
-    background-color: white;
-    border: $border;
+    border-color: $ghost_dark;
+    background-color: $ghost_dark;
     // Typography
-    text-transform: none;
-    color: $whisper;
+    color: white;
+    font-style: normal;
     // Other
-    -webkit-appearance: none;
+
   }
+}
+
+input[type=search] {
+  // Mixins
+  @include form_box;
+  @include no_shadow;
+  @include box_sizing;
+  // @include corners(32px, 32px, 32px, 32px);
+  // Box properties
+  float: left;
+  margin: 0;
+  padding-left: $grid;
+  width: auto;
+  // Background & borders
+  outline: none;
+  background-image: image-url('search.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+
+  background-color: white;
+  border: $border;
+  // Typography
+  text-transform: none;
+  color: $whisper;
+  // Other
+  -webkit-appearance: none;
+}
 
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
 }
 
-  ::-webkit-input-placeholder {
-     color: transparent;
+::-webkit-input-placeholder {
+  color: transparent;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  color: transparent;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  color: transparent;
+}
+
+:-ms-input-placeholder {
+  color: transparent;
+}
+
+::-ms-clear {
+  display: none;
+}
+
+
+[placeholder]:focus::-webkit-input-placeholder {
+  // transition: opacity 0.5s 0 ease;
+  opacity: 0;
+}
+
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; }
+
+input[type=checkbox] {
+  // Mixins
+
+  // Box properties
+  display: inline-block;
+
+  // Background & borders
+
+  // Typography
+
+  // Other
+}
+
+select {
+  // Mixins
+  @include form_box;
+  @include small_title;
+  @include box_sizing;
+  @include corners;
+
+  // Box properties
+  margin:0 $grid / 8 0 0;
+  margin-bottom: $grid / 4;
+  padding-right:$grid * 1.5;
+  padding-left: $grid / 4;
+  width: auto;
+  float: left;
+  // Background & borders
+  background-image: image-url('select_arrow.svg') ;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+  background-origin: padding-box;
+  background-color: $ghost;
+  border: 1px solid $ghost;
+  // width: calc(100% + 3em);
+
+  // Typography
+  color: $quiet;
+  text-indent: 0.01px;
+  text-overflow: "";
+
+
+  // Other
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  &:hover {
+    color: $text;
+    border-color: $whisper;
   }
 
-  :-moz-placeholder { /* Firefox 18- */
-     color: transparent;
+  &:focus {
+    outline: none;
   }
+}
 
-  ::-moz-placeholder {  /* Firefox 19+ */
-     color: transparent;
-  }
+select::-ms-expand {
+    display: none;
+}
 
-  :-ms-input-placeholder {
-     color: transparent;
-  }
+/* the following is a workaround to hide our custom dropdown arrow on mozilla browsers (can remove this in Firefox 35) */
 
+// :-moz-any(select) {
+// 	background-image: none; // this takes away our arrow and uses the firefox standard arrow
+// }
 
-  [placeholder]:focus::-webkit-input-placeholder {
-    // transition: opacity 0.5s 0 ease;
-    opacity: 0;
-  }
+/* end workaround */
 
-  input:focus::-webkit-input-placeholder { color:transparent; }
-  input:focus:-moz-placeholder { color:transparent; }
+form {
+  // Mixins
 
-  input[type=checkbox] {
-    // Mixins
+  // Box properties
 
-    // Box properties
-    display: inline-block;
+  // Background & borders
 
-    // Background & borders
+  // Typography
 
-    // Typography
-
-    // Other
-  }
+  // Other
 
   select {
     // Mixins
-    @include form_box;
-    @include small_title;
-    @include box_sizing;
-    @include corners;
+    @include field_box;
 
     // Box properties
     margin:0 $grid / 8 0 0;
-    margin-bottom: $grid / 4;
-    padding-right:$grid * 1.5;
-    padding-left: $grid / 4;
-    width: auto;
-    float: left;
+    padding: $grid / 1.125 $grid / 2 $grid / 3.5;
     // Background & borders
     background-image: image-url('select_arrow.svg') ;
-    background-position: right center;
+    background-position: right bottom 50%;
     background-repeat: no-repeat;
     background-size: 40px 40px;
-    background-origin: padding-box;
     background-color: $ghost;
     border: 1px solid $ghost;
     // width: calc(100% + 3em);
 
+
     // Typography
-    color: $quiet;
     text-indent: 0.01px;
     text-overflow: "";
+    text-transform: none;
 
 
     // Other
     -moz-appearance: none;
     -webkit-appearance: none;
-
-    &:hover {
-      color: $text;
-      border-color: $whisper;
-    }
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  select::-ms-expand {
-      display: none;
-  }
-
-  /* the following is a workaround to hide our custom dropdown arrow on mozilla browsers (can remove this in Firefox 35) */
-
-  // :-moz-any(select) {
-  // 	background-image: none; this takes away our arrow and uses the firefox standard arrow
-  // }
-
-  /* end workaround */
-
-  form {
-    // Mixins
-
-    // Box properties
-
-    // Background & borders
-
-    // Typography
-
-    // Other
-
-    select {
-      // Mixins
-      @include field_box;
-
-      // Box properties
-      margin:0 $grid / 8 0 0;
-      padding: $grid / 1.125 $grid / 2 $grid / 3.5;
-      // Background & borders
-      background-image: image-url('select_arrow.svg') ;
-      background-position: right bottom 50%;
-      background-repeat: no-repeat;
-      background-size: contain;
-      background-color: $ghost;
-      border: 1px solid $ghost;
-      // width: calc(100% + 3em);
-
-
-      // Typography
-      text-indent: 0.01px;
-      text-overflow: "";
-      text-transform: none;
-
-
-      // Other
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      -ms-appearance: none;
-      -o-appearance: none;
-      appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
 
     &:hover {
       color: $whisper;
@@ -708,7 +712,6 @@ input[type="search"]::-webkit-search-cancel-button {
       outline: none;
     }
   }
-
 }
 
 
