@@ -35,7 +35,7 @@ class EarningsJson < JsonDecorator
       json.pay_period_title pay_period.title
       json.pay_period_type pay_period.type_display
       json.pay_period_date_range pay_period.date_range_display('%m-%d')
-      json.pay_period_week_number pay_period.start_date.week_of_month
+      json.pay_period_week_number pay_period.start_date.strftime("%U").to_i
     end
   end
 

@@ -26,7 +26,7 @@ module Auth
     # show action
     def summary
       @user = fetch_user
-      @pay_periods = fetch_pay_period_range(params).order(:start_date)
+      @pay_periods = fetch_pay_period_range(params).order(:start_date, :type)
       @earnings = fetch_earnings(@user.id, @pay_periods)
       @earnings_group = structured_earnings(@pay_periods, @earnings, @user)
     end
