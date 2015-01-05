@@ -58,7 +58,7 @@ class EarningsJson < JsonDecorator
     actions \
       action(:detail, :get, detail_earnings_path)
       .field(:pay_period_id, :text, value: earning.pay_period_id)
-      .field(:user_id, :text, value: user _id)
+      .field(:user_id, :text, value: user_id)
   end
 
   # Details

@@ -244,7 +244,6 @@ var endMonth = (new Date()).getMonth() + 1
 // });
 
 $(document).ready(function(){
-<<<<<<< HEAD
 
 function getEarnings(){
 
@@ -348,6 +347,7 @@ function getEarnings(){
     }
   }
   $('.dropdown').on("change",function(){
+<<<<<<< HEAD
     startYear = $('#startYear option:selected').val()
     startMonth = $('#startMonth option:selected').val()
     endYear = $('#endYear option:selected').val()
@@ -357,6 +357,11 @@ function getEarnings(){
     console.log("endYear: " + endYear)
     console.log("endMonth: " + endMonth)
     // getEarnings();
+=======
+    startYear = $('.startYear option:selected').val()
+    startMonth = 
+    getEarnings();
+>>>>>>> update earnings page to show -bash when no pay period or bonus payment exists
   })
 
   getEarnings();
