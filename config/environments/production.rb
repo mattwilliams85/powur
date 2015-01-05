@@ -81,4 +81,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # For Mailchimp to handle the images in emails
+  config.action_controller.asset_host = 'http://sunstand.eyecuelab.com'
 end

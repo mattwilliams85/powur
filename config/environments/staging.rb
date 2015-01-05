@@ -1,5 +1,4 @@
 Rails.application.configure do
-
   config.cache_classes = true
   config.eager_load = true
 
@@ -20,4 +19,6 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.active_record.dump_schema_after_migration = false
+
+  config.action_controller.asset_host = 'http://sunstand-staging.herokuapp.com'
 end
