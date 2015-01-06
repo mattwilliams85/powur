@@ -20,5 +20,5 @@ Rails.application.configure do
 
   config.active_record.dump_schema_after_migration = false
 
-  config.action_controller.asset_host = ENV['EMAIL_HOST'] || 'http://sunstand-staging.herokuapp.com'
+  config.action_controller.asset_host = ENV['CLOUDFRONT_HOST'] || 'http://d3w33jwmha69ob.cloudfront.net'
 end
