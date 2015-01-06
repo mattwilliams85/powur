@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SunStand</title>
-	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-	<%= javascript_include_tag "Chart", "data-turbolinks-track" => true %>
-	<%= yield :javascript_includes %>
-	<%= csrf_meta_tags %>
-	
-	<%= render :partial => "shared/head" %>
+  <title>SunStand</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "Chart", "data-turbolinks-track" => true %>
+  <%= yield :javascript_includes %>
+  <%= csrf_meta_tags %>
+
+  <%= render :partial => "shared/head" %>
 
 </head>
 <body id="application">
-	<header>
-		<div id="header_container">
-			<nav>
-				<ul>
-					<li class="main_logo">	
-						<a href="/">
-							<%= render :partial => "shared/sunstand_logo_svg" %>
-						</a>
-					</li>
-					<li>
-						<%= link_to_unless_current 'Dashboard', "/u/dashboard" %>
-					</li>
-					<li>
-						<%= link_to_unless_current 'Earnings', "/u/earnings" %>
-					</li>
-					<li>
-						<%= link_to_unless_current 'SunStand U', "/u/university" %>
-					</li>
-					<li>
-						<%= link_to_unless_current 'Marketing', "/u/marketing" %>
-					</li>
+  <header>
+    <div id="header_container">
+      <nav>
+        <ul>
+          <li class="main_logo">
+            <a href="/">
+              <%= render :partial => "shared/sunstand_logo_svg" %>
+            </a>
+          </li>
+          <li>
+            <%= link_to_unless_current 'Dashboard', "/u/dashboard" %>
+          </li>
+          <li>
+            <%= link_to_unless_current 'Earnings', "/u/earnings" %>
+          </li>
+          <li>
+            <%= link_to_unless_current 'SunStand U', "/u/university" %>
+          </li>
+          <li>
+            <%= link_to_unless_current 'Marketing', "/u/marketing" %>
+          </li>
 
 
-				</ul>
-		
-				<ul id="user_nav">
-					<li>
-						<a href="/u/profile"><img src="/temp_dev_images/Tim.jpg" id="js-user_profile_image" ></a>
-						<a href="/u/profile" class="username js-user_first_name" style="inline-block;"></a>
-					</li>
-					<li>
-						<%= link_to 'Sign out', login_path, method: "delete" %> 
-					</li>
-				</ul>
-			</nav>
-		</div>
+        </ul>
 
-		<%#= render :partial => "shared/our_goal" %>
+        <ul id="user_nav">
+          <li>
+            <a href="/u/profile"><img src="/temp_dev_images/Tim.jpg" id="js-user_profile_image" ></a>
+            <a href="/u/profile" class="username js-user_first_name" style="inline-block;"></a>
+          </li>
+          <li>
+            <%= link_to 'Sign out', login_path, method: "delete" %>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
-	</header>
+    <%#= render :partial => "shared/our_goal" %>
 
-	<%= yield %>
+  </header>
 
-	<%#= render :partial => "shared/warp_nav" %>
-	<%= render :partial => "shared/footer" %>
-	<%= render :partial => "shared/dash_toolbar" %>
+  <%= yield %>
 
-	
+  <%#= render :partial => "shared/warp_nav" %>
+  <%= render :partial => "shared/footer" %>
+  <%= render :partial => "shared/dash_toolbar" %>
+
+
 
 </body>
 </html>
