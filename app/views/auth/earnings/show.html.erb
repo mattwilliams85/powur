@@ -1,6 +1,5 @@
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "dashboard.js" %>
-  <%#= javascript_include_tag "kevins_shitty_javascript.js" %>
 <% end %>
 
 <style>
@@ -68,7 +67,7 @@
   }
 
   #date-dropdown {
-    width:800px;
+    width:750px;
     margin:auto;
   }
 
@@ -127,7 +126,8 @@
         <% @currentYear = Date.today.year %>
         <option value="<%=@currentYear%>" selected><%= @currentYear %></option>
         <% until @currentYear == 2013 %>
-          <option value="<%=@currentYear -= 1%>"><%= @currentYear -= 1%></option>
+          <% @currentYear -= 1%>
+          <option value="<%=@currentYear%>"><%=@currentYear%></option>
         <% end %>
       </select>
       <div class="section_label">
@@ -148,12 +148,14 @@
         <% @currentYear = Date.today.year %>
         <option value="<%=@currentYear%>" selected><%= @currentYear %></option>
         <% until @currentYear == 2013 %>
-          <option value="<%=@currentYear -= 1%>"><%= @currentYear -= 1%></option>
+         <% @currentYear -= 1%>
+          <option value="<%=@currentYear%>"><%=@currentYear%></option>
         <% end %>
       </select>
       </div>
     </div> 
   </div>
+  <div class="warn_me"></div>
 
   <div class="section_body"></div>
 
@@ -220,6 +222,7 @@ var startYear = (new Date()).getYear() + 1900
 var startMonth = (new Date()).getMonth() + 1
 var endYear = (new Date()).getYear() + 1900
 var endMonth = (new Date()).getMonth() + 1
+var currentMonth = 0;
 
 // _ajax({
 //   _ajaxType: "get",
@@ -245,36 +248,64 @@ var endMonth = (new Date()).getMonth() + 1
 
 $(document).ready(function(){
 
-function getEarnings(){
+function checkRange(){
+  var range = endMonth - startMonth + ((endYear - startYear)*12);
+  if(range < 0) $('')
+  else return range + 1;
+}
 
+function getEarnings(){
+  currentMonth = parseInt(startMonth)
   var _endPoints =[];
+  var range = checkRange()
+  for(i=0;i<range;i++){
+    if(currentMonth == 12){
+      currentMonth = 0
+      startYear += 1
+    }
+  currentMonth += 1 
+
   _endPoints.push({
-      url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+startMonth+"&end_year="+startYear+"&end_month="+startMonth,
+      url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+currentMonth+"&end_year="+startYear+"&end_month="+currentMonth,
       // url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+2014+"&start_month="+10+"&end_year="+2014+"&end_month="+10,
       data:{},
       name:"Summary"
   });
   _endPoints.push({
-      url:"/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+startYear+"W"+startMonth,
+      url:"/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+startYear+"W"+currentMonth,
       data:{},
       name:"Detail"
   });
+  }
   EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
     _summaryData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings"]})
     _detailsData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings_detail"]})
-    console.log(_summaryData)
-    if(_summaryData[0].entities.length === 0){
-      for (var i = 0; i < 4; i++) {
-         _summaryData[0].entities[i] = []
-         _summaryData[0].entities[i].properties = {
-                                                  "pay_period_type":"Weekly",
-                                                  "amount":0,
-                                                  "pay_period_week_number":(i + 1),
-                                                  "pay_period_date_range":startMonth
-                                                }
+        currentMonth -= 2;
+    for(var i = 0; i < _summaryData.length; i++){
+        if(currentMonth == 12){
+          currentMonth = 0
+        }
+      if(_summaryData[i].entities.length === 0){
+        _summaryData[i].entities[0] = [] 
+        _summaryData[i].entities[0].properties = {
+                                                  "pay_period_month":(String(currentMonth)), 
+                                                  "pay_period_type":"Monthly"
+                                                 }
+        for (var n = 1; n < 5; n++) {
+           _summaryData[i].entities[n] = []
+           _summaryData[i].entities[n].properties = {
+                                                    "pay_period_type":"Weekly",
+                                                    "amount":0,
+                                                    "pay_period_week_number":(n),
+                                                    "pay_period_date_range":"-"
+                                                  }
+        }
+        _summaryData[i].properties.active = false;
+      } else {
+        _summaryData[i].entities[0].properties.pay_period_month = (String(currentMonth))
       }
-      _summaryData[0].properties.active = false;
-    } 
+      currentMonth += 1 
+    }
     // else {
     //   for (var i = 0; i < 4; i++) {
     //     if(_summaryData[0].entities[i].properties.pay_period_type === "Monthly") break;
@@ -289,12 +320,12 @@ function getEarnings(){
     //   }
     // }
 
-    EyeCueLab.UX.getTemplate("/templates/auth/earnings/_header.handlebars.html", _summaryData, $(".section_header_content"), function(html) {
+    EyeCueLab.UX.getTemplate("/templates/auth/earnings/_header.handlebars.html", _summaryData[0], $(".section_header_content"), function(html) {
     });
     EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", _summaryData, $(".section_body"), function(html) {
+      clickEvents();
     });
     EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", _detailsData,  $(".temp"), function(html) {
-      clickEvents();
     });
   });
 }
@@ -347,22 +378,24 @@ function getEarnings(){
     }
   }
   $('.dropdown').on("change",function(){
-<<<<<<< HEAD
     startYear = $('#startYear option:selected').val()
     startMonth = $('#startMonth option:selected').val()
+    if(startMonth < 10) startMonth = "0" + startMonth
     endYear = $('#endYear option:selected').val()
     endMonth = $('#endMonth option:selected').val()
-    console.log("starYear: " + startYear)
-    console.log("startMonth: " + startMonth)
-    console.log("endYear: " + endYear)
-    console.log("endMonth: " + endMonth)
-    // getEarnings();
-=======
-    startYear = $('.startYear option:selected').val()
-    startMonth = 
+    if(endMonth < 10) endMonth = "0" + endMonth
     getEarnings();
->>>>>>> update earnings page to show -bash when no pay period or bonus payment exists
   })
+
+  function fillHeaders(){
+
+    var months = [ "","January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December" ]
+    $('.date').each(function(index, element){
+      // console.log($( this ).index())
+      // $(value).html(months[currentMonth])
+    })
+  }
 
   getEarnings();
 })

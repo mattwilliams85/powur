@@ -150,7 +150,7 @@ Handlebars.registerHelper('formatCurrency', function(amount) {
 
 //Handlebar helper to dispay correct name for month number
 Handlebars.registerHelper('formatMonth', function(monthNumber) {
-    monthNames = [ "January", "February", "March", "April", "May", "June",
+    var monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
     return monthNames[monthNumber]
 });
