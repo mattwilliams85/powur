@@ -1,19 +1,19 @@
 'use strict';
 
-jQuery(function($){
-  $(document).ready(function(){
-
-    $('#user_login').on('submit', function(e) {
-      _formSubmit(e, $('#user_login'), '/login', 'post', function(data) {
-        for (var i=0;i<=data.links.length;i++) {
-          if (data.links[i].rel.indexOf('index')>=0) {
-            window.location=data.links[i].href;
-          }
-        }
-      });
-    });
-  });
-});
+// jQuery(function($){
+//   $(document).ready(function(){
+//
+//     $('#user_login').on('submit', function(e) {
+//       _formSubmit(e, $('#user_login'), '/login', 'post', function(data) {
+//         for (var i=0;i<=data.links.length;i++) {
+//           if (data.links[i].rel.indexOf('index')>=0) {
+//             window.location=data.links[i].href;
+//           }
+//         }
+//       });
+//     });
+//   });
+// });
 
 jQuery(function($){
   $(document).ready(function(){

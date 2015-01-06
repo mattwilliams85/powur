@@ -43,6 +43,42 @@ jQuery(function($){
 
 });
 
+//browser specific rules function 
+function applyBrowserSpecificRules() {
+  if (navigator.userAgent.indexOf('Chrome') !== -1) {
+    // (chrome-specific stuff here)
+  } else if (navigator.userAgent.indexOf('Opera') !== -1) {
+    // (opera-specific stuff here)
+  } else if (navigator.userAgent.indexOf('Firefox') !== -1) {
+    // (firefox-specific stuff here)
+
+    //dropdown arrows workaround for FF 34 and below
+    //test for Firefox/x.x or Firefox x.x (ignoring remaining digits);
+    if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){ 
+      var _selects;
+      var i;
+      // capture x.x portion and store as a number
+      var ffversion = new Number(RegExp.$1); 
+      if (ffversion >= 35) {
+        _selects = document.querySelectorAll('select');
+        for (i=0; i<_selects.length; i++) {
+          _selects[i].style.backgroundImage = '/assets/select_arrow.svg';
+        }
+      } else {
+        _selects = document.querySelectorAll('select');
+        for (i=0; i<_selects.length; i++) {
+          _selects[i].style.backgroundImage = 'none';
+        }
+      }
+    }
+  } else if ((navigator.userAgent.indexOf('MSIE') !== -1) || 
+    (document.documentMode === true)) {
+    // (IE-specific stuff here)
+  } else {
+    // (browser isn't one of the above)
+  }
+}
+
 
 Handlebars.registerHelper("debug", function(optionalValue) {
   console.log("Current Context");
@@ -114,7 +150,7 @@ Handlebars.registerHelper('formatCurrency', function(amount) {
 
 //Handlebar helper to dispay correct name for month number
 Handlebars.registerHelper('formatMonth', function(monthNumber) {
-    monthNames = [ "January", "February", "March", "April", "May", "June",
+    var monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
     return monthNames[monthNumber]
 });
@@ -413,6 +449,9 @@ jQuery(function($){
                 });
             });
         }
+
+        applyBrowserSpecificRules(); //this fixes the double arrow issue on selects in Firefox <34
+
     }
 
     SunStand.Admin.positionIndicator = function (_indicatorObj, _highlightObj){
@@ -462,6 +501,9 @@ function _ajax(_options){
         },
         error: function(request, status, error){
             console.log("Post error: "+error.message);
+            if (request.status === 401) {
+                window.location = "/#/sign-in";
+            }
         }
     });
 }

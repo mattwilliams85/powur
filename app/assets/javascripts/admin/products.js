@@ -2,6 +2,7 @@
 
 var _data={};
 var _dashboard;
+
 _data.loadCategories=["products", "ranks", "qualifications", "active_qualifications", "active_qualification_paths", "bonuses", "bonus_plans_loaded", "quotes"];
 
 jQuery(function($){
@@ -299,6 +300,7 @@ jQuery(function($){
                                     _popupData.title="Add a New Qualification<br>for Rank "+data.properties.id+", "+data.properties.title;
                                     _populateReferencialSelect({_popupData:_popupData});
 
+
                                     console.log(_popupData);
 
                                     $("#js-screen_mask").fadeIn(100, function(){
@@ -434,6 +436,7 @@ jQuery(function($){
                     });
 
                     EyeCueLab.UX.getTemplate("/templates/admin/plans/products/_products.handlebars.html", _data.products, $(".js-admin_dashboard_detail_container"), function(){
+
                         $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
                         $(".js-product_select option[value="+_data.currentProduct.properties.id+"]").attr("selected", "selected");
 
@@ -543,6 +546,8 @@ jQuery(function($){
                             $.extend(true, _data.bonuses, _data.currentBonusPlan.bonuses);
                             displayPlans("#admin-plans-bonuses");
                         });
+
+                        applyBrowserSpecificRules(); //this fixes the double arrow issue on selects in Firefox <34 (function exists in utility.js)
 
                     });
 
@@ -755,9 +760,10 @@ jQuery(function($){
 
                             $("#js-screen_mask").fadeIn(100, function(){
                                 EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
-                                    SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
+                                    SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init");}});
                                 });
                             });
+
                         });
 
                         //wire up add bonus requirement link
@@ -930,6 +936,7 @@ jQuery(function($){
                     }
                 }
             });
+        
         }
 
 

@@ -13,17 +13,6 @@ describe '/password' do
     expect(@user.reset_token_expired?).to_not be
   end
 
-  describe '/new' do
-
-    it 'renders the password form with a valid reset token' do
-      get new_password_path, token: @user.reset_token
-
-      expect_200
-      expect(response.body).to match(/Confirm Password/)
-    end
-
-  end
-
   describe '#create' do
 
     it 'accepts a request to reset the password and sends the email' do
@@ -32,7 +21,6 @@ describe '/password' do
       post password_path, email: user.email, format: :json
 
       expect_200
-      expect_confirm
     end
 
   end

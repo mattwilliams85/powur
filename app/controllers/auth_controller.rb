@@ -2,6 +2,11 @@ class AuthController < WebController
   before_action :authenticate!
 
   def authenticate!
-    redirect_to(root_url) unless logged_in?
+    return true if logged_in?
+    if request.xhr?
+      head :unauthorized
+    else
+      redirect_to(root_url)
+    end
   end
 end

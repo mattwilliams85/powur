@@ -14,42 +14,6 @@ $(window).bind('page:change', function() {
 // this must be executed after each asynchronous request
 // if it affects DOM elements
 
-function applyBrowserSpecificRules() {
-  if (navigator.userAgent.indexOf('Chrome') !== -1) {
-    // (chrome-specific stuff here)
-  } else if (navigator.userAgent.indexOf('Opera') !== -1) {
-    // (opera-specific stuff here)
-  } else if (navigator.userAgent.indexOf('Firefox') !== -1) {
-    // (firefox-specific stuff here)
-
-    //dropdown arrows workaround for FF 34 and below
-    //test for Firefox/x.x or Firefox x.x (ignoring remaining digits);
-    if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){ 
-      var _selects;
-      var i;
-      // capture x.x portion and store as a number
-      var ffversion = new Number(RegExp.$1); 
-      if (ffversion >= 35) {
-        _selects = document.querySelectorAll('select');
-        for (i=0; i<_selects.length; i++) {
-          _selects[i].style.backgroundImage = '/assets/select_arrow.svg';
-        }
-      } else {
-        _selects = document.querySelectorAll('select');
-        for (i=0; i<_selects.length; i++) {
-          _selects[i].style.backgroundImage = 'none';
-        }
-      }
-    }
-  } else if ((navigator.userAgent.indexOf('MSIE') !== -1) || 
-    (document.documentMode === true)) {
-    // (IE-specific stuff here)
-  } else {
-    // (browser isn't one of the above)
-  }
-}
-
-
 function initPage(){
   _data.root={};
 
@@ -662,7 +626,7 @@ function Dashboard(){
             //populate drilldown
             EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
 
-              //!!! applyBrowserSpecificRules() to solve compatibility issues for DOM elements on asynchronous requests
+              //!!! applyBrowserSpecificRules() to solve compatibility issues for DOM elements on asynchronous requests (function exists in utility.js)
               applyBrowserSpecificRules();
 
               _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
@@ -1305,5 +1269,5 @@ $(document).on("focus", "input", function(e){
 
 
 $(document).ready(function(){
-  applyBrowserSpecificRules();
+  applyBrowserSpecificRules(); // to solve browser-specific DOM render issues (function exists in utility.js)
 });

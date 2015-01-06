@@ -1,6 +1,6 @@
 siren json
 
-klass :earnings_detail, :list
+klass :earning_details, :list
 
 earnings_json.list_detail_entities('earning_detail', @earning_details)
 actions index_action(@detail_earnings_path)

@@ -18,6 +18,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   scope :within_date_range, lambda { |range_start, range_end|
                               where(start_date: range_start..range_end)
                             }
+
   before_create do
     self.id ||= self.class.id_from(start_date)
   end
