@@ -30,24 +30,25 @@
   }
 
   #js-screen_mask{
-      width:100%;
-      height: 100%;
-      position: fixed;
-      top:0;
-      left:0;
-      z-index: 90;
-      display:none;
-      background:rgba(0,0,0,.5);}
+    width:100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 90;
+    display:none;
+    background:rgba(0,0,0,.5);
+  }
 
   #js-popup{
-      display:none;
-      z-index:95;
-      background:rgba(255,255,255,1);
-      position:fixed;
-      display:none;
-      top:25%;
-      left:30%;
-      padding:50px;
+    display:none;
+    z-index:95;
+    background:rgba(255,255,255,1);
+    position:fixed;
+    display:none;
+    top:25%;
+    left:30%;
+    padding:50px;
   }
 
   #stats-header {
@@ -103,9 +104,7 @@
 <section id="dashboard_personal_goals" class="dashboard_section" data-drilldown-level="0" style="margin-top:-100px;">
   <div id="stats_section_header" class="section_header">
 
-    <div class="section_header_content">
-
-    </div>
+    <div class="section_header_content"></div>
 
     <div id="date-dropdown">
       <div class="section_label">
@@ -158,7 +157,6 @@
   <div class="warn_me"></div>
 
   <div class="section_body"></div>
-
 
 </section>
 
@@ -256,12 +254,13 @@ function checkRange(){
 
 function getEarnings(){
   currentMonth = parseInt(startMonth)
+  currentYear = parseInt(startYear)
   var _endPoints =[];
   var range = checkRange()
   for(i=0;i<range;i++){
     if(currentMonth == 12){
       currentMonth = 0
-      startYear += 1
+      currentYear += 1
     }
   currentMonth += 1 
 
@@ -280,14 +279,18 @@ function getEarnings(){
   EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
     _summaryData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings"]})
     _detailsData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings_detail"]})
-        currentMonth -= 2;
+    currentMonth = startMonth - 1;
+    var currentYear = startYear;
     for(var i = 0; i < _summaryData.length; i++){
         if(currentMonth == 12){
-          currentMonth = 0
+          currentMonth = 0;
+
+          currentYear = parseInt(currentYear) + 1;
         }
       if(_summaryData[i].entities.length === 0){
         _summaryData[i].entities[0] = [] 
         _summaryData[i].entities[0].properties = {
+                                                  "pay_period_year":(String(currentYear)),
                                                   "pay_period_month":(String(currentMonth)), 
                                                   "pay_period_type":"Monthly"
                                                  }
@@ -303,6 +306,7 @@ function getEarnings(){
         _summaryData[i].properties.active = false;
       } else {
         _summaryData[i].entities[0].properties.pay_period_month = (String(currentMonth))
+        _summaryData[i].entities[0].properties.pay_period_year = (String(currentYear))
       }
       currentMonth += 1 
     }
