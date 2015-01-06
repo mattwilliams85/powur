@@ -1,0 +1,267 @@
+html, body {
+  height: 100%;
+}
+
+
+/*
+* HEADER
+*
+*/
+#sun_landing_header {
+  font-family: $header-font-family;
+  left: 0;
+  top: 0;
+  padding: 1em 0;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+
+  a {
+    color: #fff;
+  }
+
+  .header-nav-link {
+    background: image-url('landing/menu-icon.png') left center no-repeat;
+    width: 21px;
+    height: 19px;
+    float: left;
+    margin-top: 8px;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .logo {
+    background: image-url('landing/logo.png') left center no-repeat;
+    display: block;
+    width: 140px;
+    margin: 0 auto;
+    height: 37px;
+    line-height: 37px;
+    text-align: left;
+    padding-left: 45px;
+  }
+
+  .sign-in {
+    background: none;
+    display: inline-block;
+    line-height: 2.3em;
+    float: right;
+    padding: 0 1em;
+    border: 2px solid #fff;
+    text-transform: uppercase;
+    font-size: .8em;
+  }
+
+  &.invert {
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+
+    a {
+      color: $secondary-color;
+    }
+
+    .header-nav-link {
+      background-image: image-url('landing/menu-icon-inverted.png');
+    }
+
+    .logo {
+      background-image: image-url('landing/logo-inverted.png');
+    }
+
+    .sign-in {
+      border-color: $secondary-color;
+    }
+  }
+}
+
+
+/*
+* FOOTER
+*
+*/
+.sun-landing-footer {
+  background: #383838;
+
+  .footer-content {
+    margin: 2em 0;
+  }
+
+  a {
+    color: #fff;
+  }
+
+  .footer-nav {
+    color: #fff;
+    margin-bottom: 1em;
+
+    ul {
+      margin: 0;
+
+      li {
+        text-transform: uppercase;
+        display: inline-block;
+      }
+    }
+  }
+
+  .social-links {
+    float: right;
+
+    a {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-left: 20px;
+
+      &.facebook {
+        background: image-url('landing/icons/facebook.png') no-repeat;
+      }
+      &.twitter {
+        background: image-url('landing/icons/twitter.png') no-repeat;
+      }
+      &.youtube {
+        background: image-url('landing/icons/youtube.png') no-repeat;
+      }
+    }
+  }
+
+  .copyright {
+    float: left;
+    color: #7c7c7c;
+    font-size: .9em;
+  }
+}
+
+
+/*
+* LEFT MENU
+*
+*/
+.sun-landing-wrapper {
+  position: relative;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  width: 100%;
+  height: 100%;
+}
+
+.sun-left-menu {
+  position: fixed;
+  z-index: 10;
+  background-color: #383838;
+  overflow: hidden;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  left: -300px;
+
+  &.active {
+    left: 0;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 40px 0 0 0;
+    padding: 0;
+  }
+
+  li {
+    display: block;
+    border-bottom: solid 1px #2d2d2d;
+    font-size: .9em;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &:first-child {
+      background-image: image-url("landing/icons/home.png");
+      background-repeat: no-repeat;
+      background-position: 40px center;
+      border-top: solid 1px #2d2d2d;
+      a {
+        padding-left: 80px;
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #2f2f2f;
+    }
+  }
+
+  a {
+    color: #979797;
+    display: block;
+    padding: 1.1em 0 1.1em 40px;
+  }
+}
+
+#sun_landing_mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+
+/*
+ * Misc
+ *
+*/
+.sun-fixed-bg {
+  position: relative;
+  min-height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 1;
+  background-attachment: scroll;
+  @media #{$small} {
+    background-attachment: fixed;
+  }
+}
+
+.sun-scrolling-bg {
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+
+  .sun-home-content {
+    padding: 10em 0 0 0;
+    text-align: center;
+
+    h4, h5 {
+      margin-top: 1.5em;
+    }
+    h4 {
+      font-size: 2.5em;
+    }
+    h5 {
+      font-size: 1.8em;
+      text-align: center;
+    }
+  }
+}
