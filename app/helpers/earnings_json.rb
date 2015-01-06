@@ -69,10 +69,10 @@ class EarningsJson < JsonDecorator
   def list_detail_properties(earning)
     json.properties do
       json.call(earning, :id, :amount, :user_id, :bonus_id)
-      # json.bonus_title earning.bonus.type_string
+      json.bonus_title earning.bonus.type_string
       json.pay_period_id earning.pay_period.id
       json.pay_period_type earning.pay_period.type_display
-
+      
       order_entities('order', earning.orders)
     end
   end
@@ -92,6 +92,7 @@ class EarningsJson < JsonDecorator
     json.properties do
       json.order_id order.id
       json.product_id order.product_id
+      json.product_name order.product.name
       json.quantity order.quantity
       json.order_date order.order_date
       json.user_id order.user_id

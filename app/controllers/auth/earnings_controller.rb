@@ -45,7 +45,7 @@ module Auth
     end
 
     def fetch_earning_details(user, pay_period)
-      pay_period.bonus_payments.for_user(user.id)
+      pay_period.bonus_payments.includes(:orders).for_user(user.id)
     end
 
     def fetch_pay_period_range(params)
