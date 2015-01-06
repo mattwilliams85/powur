@@ -222,27 +222,19 @@ var endYear = (new Date()).getYear() + 1900
 var endMonth = (new Date()).getMonth() + 1
 var currentMonth = 0;
 
-// _ajax({
-//   _ajaxType: "get",
-//   _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+startMonth+"&end_year="+startYear+"&end_month="+startMonth,
-//   _callback: function(data, text) {
-//       EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", data, undefined, function(html) {
-//        $(".section_header_content").append(html);
-//     });
-//   }
-// });
+_ajax({
+  _ajaxType: "get",
+  _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+startMonth+"&end_year="+endYear+"&end_month="+endMonth,
+  _callback: function(data, text) {
+    console.log(data)
+    if(data.entities.length == 0){
+      data.properties.active = false;
+    }
+      EyeCueLab.UX.getTemplate("/templates/auth/earnings/_header.handlebars.html", data, $(".section_header_content"), function(html) {
+          });
+  }
+});
 
-// _ajax({
-//   _ajaxType: "get",
-//   _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+startMonth+"&end_year="+startYear+"&end_month="+startMonth,
-//   _callback: function(data, text) {
-//       console.log(data)
-//       EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, undefined, function(html) {
-//        $(".section_body").append(html);
-//        clickEvents();
-//     });
-//   }
-// });
 
 $(document).ready(function(){
 
@@ -310,22 +302,7 @@ function getEarnings(){
       }
       currentMonth += 1 
     }
-    // else {
-    //   for (var i = 0; i < 4; i++) {
-    //     if(_summaryData[0].entities[i].properties.pay_period_type === "Monthly") break;
-    //     if(_summaryData[0][i].properties.pay_period_week_number !== (i + 1)){
-    //       i = 0;
-    //       _summaryData[0].entities[i].properties = {
-    //                                                      "pay_period_title":"Weekly",
-    //                                                      "amount":0,
-    //                                                      "pay_period_week_number":(i + 1)
-    //                                                    }
-    //     }
-    //   }
-    // }
-
-    EyeCueLab.UX.getTemplate("/templates/auth/earnings/_header.handlebars.html", _summaryData[0], $(".section_header_content"), function(html) {
-    });
+    
     EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", _summaryData, $(".section_body"), function(html) {
       clickEvents();
     });
@@ -333,16 +310,7 @@ function getEarnings(){
     });
   });
 }
-// _ajax({
-//   _ajaxType: "get",
-//   _url: "/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+startYear+"-"+startMonth,
-//   _callback: function(data, text) {
-//       console.log(data)
-//       EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, undefined, function(html) {
-//        $(".section_body").append(html);
-//     });
-//   }
-// });
+
 
   function clickEvents(){ 
     $(".dropToggle").click(function(e){
