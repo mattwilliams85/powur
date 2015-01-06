@@ -32,8 +32,9 @@
       <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">-</td>
     {{/if}}
     {{#if this.properties.total_earnings}}
+    
       <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">${{this.properties.total_earnings}}</td>
-      <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle">View Details &#x25BC;</a></td>
+      <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle" id="{{this.properties.pay_period_id}}">View Details &#x25BC;</a></td>
     {{else}}
       <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$0</td>
       <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;color:#ccc">View Details &#x25BC;</td>
