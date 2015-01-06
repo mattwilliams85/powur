@@ -52,7 +52,9 @@ var sunstandServices = angular.module('sunstandServices', ['ngResource', 'uiSlid
 
 
 sunstandApp.config(
-  ['$routeProvider', function($routeProvider) {
+  ['$routeProvider', '$sceProvider', function($routeProvider, $sceProvider) {
+    $sceProvider.enabled(false);
+
     $routeProvider.
     when('/home', {
       templateUrl: '<%=asset_path("angular/landing/templates/index.html")%>',
