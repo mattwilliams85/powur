@@ -12,9 +12,8 @@ Rails.application.config.assets.precompile += %w( promoter.js )
 Rails.application.config.assets.precompile += %w( quote.js )
 Rails.application.config.assets.precompile += %w( user.js )
 
-# Angular
 Rails.application.config.assets.precompile += [
-  'landing.js'
+  'new/application.js'
 ]
 
 # Vendor Javascripts
