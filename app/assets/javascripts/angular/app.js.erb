@@ -9,21 +9,46 @@ var sunstandApp = angular.module('sunstandApp', [
   // Directives
   // 'sunstandApp.signInForm',
   // 'sunstandApp.fileS3Uploader'
-]).run(['$rootScope', '$location', function ($rootScope, $location) {
+]).run(['$rootScope', '$location', '$anchorScroll', function ($rootScope, $location, $anchorScroll) {
   // $rootScope.siteData = SiteData || {};
   // $rootScope.currentUser = $rootScope.siteData.user;
   $rootScope.isSignedIn = SignedIn || false;
 
   $rootScope.redirectToDashboardIfSignedIn = function() {
     if ($rootScope.isSignedIn) {
-      // $location.path('/u/dashboard');
       window.location = '/u/dashboard';
+    }
+  };
+
+  $rootScope.invertHeaderColor = function() {
+    var docEl = document.documentElement,
+    header,
+    height = $(window).height() - 20;
+    window.onscroll = function headerScrollInvert() {
+      var sTop = (this.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
+      header = document.getElementById('sun_landing_header');
+
+      if (!header) return;
+
+      if (sTop > height) {
+        header.setAttribute('class', 'invert');
+      } else {
+        header.setAttribute('class', '');
+      }
+    };
+  };
+
+  $rootScope.gotoAnchor = function(id) {
+    if ($location.hash() !== id) {
+      $location.hash(id);
+    } else {
+      $anchorScroll();
     }
   };
 }]);
 
 var sunstandControllers = angular.module('sunstandControllers', []);
-var sunstandServices = angular.module('sunstandServices', ['ngResource']);
+var sunstandServices = angular.module('sunstandServices', ['ngResource', 'uiSlider']);
 
 
 sunstandApp.config(
@@ -44,6 +69,10 @@ sunstandApp.config(
     when('/edit-password/:resetPasswordToken', {
       templateUrl: '<%=asset_path("angular/landing/templates/edit-password.html")%>',
       controller: 'LandingCtrl'
+    }).
+    when('/create-wealth', {
+      templateUrl: '<%=asset_path("angular/promo/templates/create-wealth.html")%>',
+      controller: 'PromoCtrl'
     }).
 
     otherwise({

@@ -1,8 +1,8 @@
 module Admin
   class EwalletSandboxController < AdminController
     include EwalletDSL
-    require 'time'
-    respond_to :html, :json
+    # require 'time'
+    # respond_to :html, :json
     def index
       @rand_test_acct = rand(99)
       @batch_id = Time.now.to_i

@@ -1,0 +1,339 @@
+.sun-promo {
+  height: 100%;
+  position: relative;
+  z-index: 1;
+
+  h1, h2, h3, h4, h5 {
+    font-family: "Montserrat";
+    font-weight: normal;
+  }
+
+  .sun-promo-intro {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    text-align: left;
+
+    h1 {
+      color: #fff;
+      font-size: 2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: 1em;
+
+      @media #{$small} {
+        font-size: 4em;
+      }
+    }
+
+    p {
+      font-size: 1.4em;
+    }
+
+    .button {
+      background-image: image-url("promo/on-button.png");
+      font-size: .8em;
+      background-position: center 7px;
+      background-repeat: no-repeat;
+      background-color: #0b0b0b;
+      line-height: 50px;
+      padding: 30px 5px 0 5px;
+
+      @media #{$small} {
+        font-size: 1em;
+        background-position: 20px center;
+        line-height: 70px;
+        padding: 0 20px 0 70px;
+      }
+    }
+  }
+
+  .sun-promo-content {
+    padding-top: 150px;
+    padding-bottom: 100px;
+  }
+
+  .sun-promo-dim {
+    .highlighted {
+      color: #f4c751;
+    }
+
+    h2 {
+      color: #fff;
+      font-size: 2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: 1em;
+
+      @media #{$small} {
+        font-size: 3.5em;
+      }
+    }
+
+    p {
+      color: #fff;
+      font-size: 1.2em;
+      margin: 100px 0;
+    }
+
+    .video-player-wrapper {
+      width: 100%;
+      height: 380px;
+      background-image: image-url("promo/video-placeholder.jpg");
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+  }
+
+  .sun-promo-slide-3 {
+    h2, h5 {
+      font-weight: bold;
+      line-height: 1em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    h5 {
+      color: #f4c751;
+      font-size: 2em;
+      margin-bottom: 2em;
+    }
+
+    h2 {
+      font-size: 4em;
+      margin: .5em 0 .7em 0;
+    }
+
+    hr {
+      border-top: 2px solid #20c2f1;
+      width: 50px;
+    }
+
+    span {
+      font-size: 1.1em;
+    }
+    span.small {
+      font-size: 1em;
+    }
+    span.big {
+      font-size: 1.3em;
+    }
+
+    .clock {
+      background-image: image-url("promo/clock-icon.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+      line-height: 32px;
+      margin: 2em 0 .5em 0;
+      padding-left: 40px;
+      font-size: 32px;
+      font-weight: bold;
+      font-family: "Montserrat";
+    }
+
+    .highlighted {
+      color: #20c2f1;
+      font-size: inherit;
+    }
+  }
+
+  .sun-promo-slide-4 {
+    h4, h5 {
+      color: #fff;
+      font-weight: bold;
+      line-height: 1em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    h5 {
+      font-size: 1.9em;
+      margin: 3em 0;
+    }
+
+    h4 {
+      font-size: 3em;
+      color: #fceecb;
+      margin: .2em 0;
+    }
+
+    span {
+      line-height: 1.5em;
+    }
+
+    .slide-4-extra {
+      text-align: center;
+      margin-top: 3em;
+      font-size: 1em;
+      color: #70633f;
+    }
+  }
+
+  .sun-promo-slide-5 {
+    text-align: center;
+
+    h4, h5 {
+      font-size: 2em;
+      line-height: 1em;
+      text-transform: uppercase;
+    }
+
+    h4 {
+      color: #f4c751;
+      font-weight: bold;
+      margin-bottom: 2em;
+    }
+
+    h5 {
+      color: #383838;
+      display: inline;
+      font-weight: normal;
+      margin-bottom: .5em;
+
+      b {
+        font-weight: bold;
+      }
+    }
+
+    span.big {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    .selections-wrapper {
+      margin-top: 100px;
+      text-align: left;
+
+      h5 {
+        font-size: 1.7em;
+      }
+
+      span {
+        font-size: .8em;
+      }
+
+      .selection-1 {
+        background: image-url("promo/pencil-icon.png") no-repeat 20px center;
+        padding: 20px 0 50px 100px;
+      }
+
+      .selection-2 {
+        background: image-url("promo/share-icon.png") no-repeat 20px center;
+        padding: 20px 0 50px 120px;
+      }
+
+      .selection-3 {
+        background: image-url("promo/make-it-rain-icon.png") no-repeat 20px center;
+        padding: 20px 0 50px 120px;
+      }
+    }
+  }
+
+  .sun-promo-slide-6 {
+    .slide-6-extra {
+      margin-top: 500px;
+
+      @media #{$medium} {
+        margin-top: 0;
+      }
+    }
+
+    .screen-with-zoom {
+      position: absolute;
+      left: 0;
+    }
+
+    h4 {
+      color: #f4c751;
+      font-size: 2em;
+      line-height: 1em;
+      text-transform: uppercase;
+      margin-bottom: 2em;
+    }
+
+    span {
+      color: #fff;
+      display: block;
+      line-height: 1.5em;
+      margin: 20px 0 100px 0;
+
+      &.small {
+        color: #bbb;
+        font-size: .9em;
+      }
+    }
+  }
+
+  .sun-promo-slider-wrapper {
+    text-align: center;
+
+    h5 {
+      color: #f4c751;
+      font-size: 1.2em;
+      text-transform: uppercase;
+    }
+
+    span {
+      color: #a8a8a8;
+    }
+
+    .slider-inner {
+      margin: 30px auto 50px auto;
+      position: relative;
+      text-align: left;
+      width: 300px;
+
+      span.pointer {
+        background-color: #20c2f1;
+        height: 30px;
+        width: 30px;
+        top: -11px;
+
+        &:after {
+          background-color: #20c2f1;
+          color: #000;
+          content: '$';
+          font-size: 1.2em;
+          left: 9px;
+          top: 4px;
+        }
+      }
+
+      .image-2 {
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+
+  .sun-bg-1 {
+    background-image: image-url("promo/bg-1.jpg");
+  }
+
+  .sun-bg-2 {
+    background-image: image-url("promo/bg-2.jpg");
+  }
+
+  .sun-bg-3 {
+    background-color: #fff;
+  }
+
+  .sun-bg-4 {
+    background-color: #f4c751;
+  }
+
+  .sun-bg-5 {
+    background-color: #fff;
+  }
+
+  .sun-bg-6 {
+    background-image: image-url("promo/bg-2.jpg");
+  }
+}

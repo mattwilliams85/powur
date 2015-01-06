@@ -2,40 +2,12 @@
 
 function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $anchorScroll) {
   $scope.redirectToDashboardIfSignedIn();
-
-  $scope.isMenuActive = false;
   $scope.showValidationMessages = false;
 
-  $scope.invertHeaderColor = function() {
-    var docEl = document.documentElement;
-    var $header;
-    var height = $(window).height() - 20;
-    window.onscroll = function headerScrollInvert() {
-      var sTop = (this.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
-      $header = document.getElementById('sun_landing_header');
-
-      if (!$header) return;
-
-      if (sTop > height) {
-        $header.setAttribute('class', 'invert');
-      } else {
-        $header.setAttribute('class', '');
-      }
-    };
-  };
-
-  $scope.gotoAnchor = function(id) {
-    if ($location.hash() !== id) {
-      $location.hash(id);
-    } else {
-      $anchorScroll();
-    }
-  };
-
+  $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
     $scope.isMenuActive = false;
   };
-
   $scope.showMenuClick = function() {
     $scope.isMenuActive = true;
   };
