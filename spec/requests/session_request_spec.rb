@@ -22,3 +22,16 @@ describe '/login' do
     end
   end
 end
+
+describe 'authenticate!' do
+  context 'signed out' do
+    it 'returns a 401 for XHR' do
+      xhr :get, dashboard_path
+      response.code.should == '401'
+    end
+    it 'redirects to sign-in on request' do
+      get dashboard_path
+      response.code.should == '302'
+    end
+  end
+end

@@ -501,6 +501,9 @@ function _ajax(_options){
         },
         error: function(request, status, error){
             console.log("Post error: "+error.message);
+            if (request.status === 401) {
+                window.location = "/#/sign-in";
+            }
         }
     });
 }
