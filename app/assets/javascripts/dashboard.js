@@ -663,9 +663,13 @@ function Dashboard(){
 
               });
 
-              $(".js-close_drilldown").on("click" , function(){
+              //wire up cancel button
+              $(".js-close_drilldown").on("click", function(e){
                 e.preventDefault();
-                $(".js-new_quote_thumbnail .expand").click();
+                $(".js-thumbnail span.expand i").removeClass("fa-angle-up");
+                $(".js-thumbnail span.expand i").addClass("fa-angle-down");
+                _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
+                $(".js-thumbnail").parent(".quote_thumbnail").animate({opacity:1}, _animation_speed);
               });
 
             });
@@ -773,6 +777,13 @@ function Dashboard(){
                     displayQuotes();
                   });
                 });
+              });
+              //wire up cancel button
+              $(".js-close_drilldown").on("click", function(e){
+                e.preventDefault();
+                $(".js-new_quote_thumbnail span.expand i").removeClass("fa-angle-up");
+                $(".js-new_quote_thumbnail span.expand i").addClass("fa-angle-down");
+                _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
               });
             });
           }
