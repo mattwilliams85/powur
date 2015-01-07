@@ -88,7 +88,10 @@ describe '/a/invite' do
     end
 
     it 'registers a new promoter' do
-      patch invite_path, @user_params
+      VCR.use_cassette('ipayout_register') do
+        patch invite_path, @user_params
+      end
+
       expect_200
       expect_classes('session', 'user')
 
