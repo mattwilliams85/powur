@@ -1,6 +1,6 @@
 <ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
-<div class="sun-landing-wrapper">
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
   <ng-include src="'<%=asset_path("shared/header.html") %>'"></ng-include>
 
   <main class="sun-promo">

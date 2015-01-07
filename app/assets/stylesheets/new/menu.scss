@@ -1,0 +1,118 @@
+/*
+ * Left Menu
+ *
+*/
+
+.sun-landing-wrapper {
+  position: relative;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  width: 100%;
+  height: 100%;
+
+  &.active {
+    left: 300px;
+
+    #sun_landing_header {
+      left: 300px;
+    }
+  }
+}
+
+.sun-left-menu {
+  position: fixed;
+  z-index: 10;
+  background-color: #383838;
+  overflow: hidden;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  left: -300px;
+
+  &.active {
+    left: 0;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 40px 0 0 0;
+    padding: 0;
+  }
+
+  li {
+    display: block;
+    border-bottom: solid 1px #2d2d2d;
+    font-size: .9em;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &:first-child {
+      background-image: image-url("landing/icons/home.png");
+      background-repeat: no-repeat;
+      background-position: 40px center;
+      border-top: solid 1px #2d2d2d;
+      a {
+        padding-left: 80px;
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background-color: #2f2f2f;
+    }
+
+    &.sub-parent {
+      background-image: image-url("landing/menu-arrow-icon.png");
+      background-repeat: no-repeat;
+      background-position: 250px center;
+    }
+  }
+
+  .sub-menu {
+    li {
+      &:first-child {
+        background-image: none;
+        border-top: none;
+      }
+
+      a {
+        padding-left: 60px;
+      }
+    }
+  }
+
+  a {
+    color: #979797;
+    display: block;
+    padding: 1.1em 0 1.1em 40px;
+  }
+}
+
+#sun_landing_mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
