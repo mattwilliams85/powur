@@ -328,8 +328,8 @@ function Dashboard(){
                 "_mainSectionID":$(e.target).parents("section").attr("id"),
                 "_thumbnailIdentifier":".js-new_quote_thumbnail",
                 "_target":$(e.target),
-                "_audience":_thisAudience,
-                "_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+                "_audience":_thisAudience
+              });
         });
         if(_data.quotes.entities.length<=0) return;
         var _containerObj = $("#dashboard_quotes .section_content.quotes_info .pagination_content");
@@ -374,14 +374,10 @@ function Dashboard(){
                   "_mainSectionID":"dashboard_quotes",
                   "_thumbnailIdentifier":".js-quote_thumbnail",
                   "_target":$(e.target),
-                  "_userID":_drillDownUserID,
-                  "_arrowPosition":_thisThumbnail.find(".expand .fa").offset().left});
+                  "_userID":_drillDownUserID
+                });
           });
-
-
-
         });
-
       }
     });
 
@@ -629,8 +625,12 @@ function Dashboard(){
               //!!! applyBrowserSpecificRules() to solve compatibility issues for DOM elements on asynchronous requests (function exists in utility.js)
               applyBrowserSpecificRules();
 
-              _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-              _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+
+              //reset all arrows
+              $('.arrow').css({bottom: "-20px", display: "none"});
+              //show this thumbnail's arrow
+              $('#' + _userDetail.properties.id + '_thumbnail' + ' .arrow').show().animate({bottom:"+=20px"}, 500);
+
               $("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
               $("#customer_contact_form select[name='roof_material'] option").filter(function(){return $(this).text()==_userDetail.roof_material}).attr("selected", true);
 
@@ -760,8 +760,12 @@ function Dashboard(){
 
             //populate drilldown
             EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", _fields, _drilldownContainerObj, function(){
-               _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-               _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+
+              //reset all arrows
+              $('.arrow').css({bottom: "-20px", display: "none"});
+              //show this thumbnail's arrow
+              $('#new_quote_thumbnail' + ' .arrow').show().animate({bottom:"+=20px"}, 500);
+
               //wire up lead submission hook
               $("#new_lead_contact_form button").on("click", function(e){
                 e.preventDefault();
