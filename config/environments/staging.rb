@@ -19,6 +19,4 @@ Rails.application.configure do
   config.log_formatter = ::Logger::Formatter.new
 
   config.active_record.dump_schema_after_migration = false
-
-  config.action_controller.asset_host = ENV['CLOUDFRONT_HOST'] || 'http://d3w33jwmha69ob.cloudfront.net'
 end
