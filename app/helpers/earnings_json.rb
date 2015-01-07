@@ -35,9 +35,9 @@ class EarningsJson < JsonDecorator
       json.pay_period_title pay_period.title
       json.pay_period_type pay_period.type_display
       json.pay_period_date_range pay_period.date_range_display('%m-%d')
-      # if pay_period.type_display == "Weekly"
-      #   json.pay_period_week_number pay_period.start_date.week_of_month
-      # end
+      if pay_period.type_display == "Weekly"
+        json.pay_period_week_number pay_period.start_date.week_of_month - 1
+      end
     end
   end
 
