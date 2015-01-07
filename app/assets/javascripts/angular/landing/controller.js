@@ -4,6 +4,8 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   $scope.redirectToDashboardIfSignedIn();
   $scope.showValidationMessages = false;
 
+  $anchorScroll();
+
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
     $scope.isMenuActive = false;
