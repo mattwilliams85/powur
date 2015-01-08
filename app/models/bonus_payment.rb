@@ -28,6 +28,11 @@ class BonusPayment < ActiveRecord::Base
                                  .group(:pay_period_id)
                                  .where('pay_period_id IN(?)', pay_periods.ids)
                              }
+  scope :bonus_totals_by_type, lambda { |pay_period|
+                                select('sum(amount) AMOUNT, bonus_id')
+                                  .group(:bonus_id)
+                                  .where('pay_period_id = ?', pay_period.id)
+                              }
   # scope orders for bonus payment
   scope :bonus_sums, lambda {
     select('bonus_id, sum(amount) amount, count(id) quantity')

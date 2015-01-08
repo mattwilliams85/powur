@@ -26,6 +26,7 @@ Rails.application.config.assets.precompile += %w( index.css )
 Rails.application.config.assets.precompile += %w( profile.css )
 Rails.application.config.assets.precompile += %w( promoter.css )
 Rails.application.config.assets.precompile += %w( user.css )
+Rails.application.config.assets.precompile += %w( earnings.css )
 
 Rails.application.config.assets.precompile += [
   'new/application.css'

@@ -1,9 +1,3 @@
-<script type="text/javascript">
-  var months = [ "","January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December" ]
-  // $('.date span').html(months[parseInt($('.date span').attr('id').substring(0,2))])
-</script>
-
 <div class="section_content" style="overflow:hidden;">
 
 <div id="body_section_header" class="section_header" style="text-transform:uppercase;">
@@ -14,29 +8,33 @@
 </div>
 <table style="width:100%;">
 <thead>
-  <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Pay Period</strong></td>
-  <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Dates</strong></td>
-  <td style="text-align:left; border: 1px solid #ddd; padding: 5px;"><strong>Amount</strong></td>
-  <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><strong>Details</strong></td>
+  <td class="details-cell"><strong>Pay Period</strong></td>
+  <td class="details-cell"><strong>Dates</strong></td>
+  <td class="details-cell"><strong>Amount</strong></td>
+  <td class="details-cell"><strong>Details</strong></td>
 </thead>
   {{#each this.entities}}
-  <tr style="background:#fff;">
+  <tr class="summary-row">
     {{#compare this.properties.pay_period_type "Monthly" operator="==="}}
-    <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">Month</td>
+      <td class="details-cell">Monthly</td>
     {{else}}
-    <td style="text-align:left; border: 1px solid #ddd; padding: 5px; padding-left:15px;">Week {{this.properties.pay_period_week_number}}</td>
+      <td class="details-cell">Weekly</td>
     {{/compare}}
     {{#if this.properties.pay_period_date_range}}
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">{{this.properties.pay_period_date_range}}</td>
+      <td class="details-cell">{{this.properties.pay_period_date_range}}</td>
     {{else}}
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">-</td>
+      <td class="details-cell">-</td>
     {{/if}}
     {{#if this.properties.total_earnings}}
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">${{this.properties.total_earnings}}</td>
-      <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;"><a class="dropToggle" id="{{this.properties.pay_period_id}}">View Details &#x25BC;</a></td>
+      <td class="details-cell">${{this.properties.total_earnings}}</td>
+      {{#compare this.properties.pay_period_type "Monthly" operator="==="}}
+        <td class="details-cell right-aligned"><a class="dropToggle monthly" id="{{this.properties.pay_period_id}}">View Details  <i class="icon-chevron-down"></i></a></td>
+      {{else}}
+        <td class="details-cell right-aligned"><a class="dropToggle weekly" id="{{this.properties.pay_period_id}}">View Details  <i class="icon-chevron-down"></i></a></td>
+      {{/compare}}
     {{else}}
-      <td style="text-align:left; border: 1px solid #ddd; padding: 5px;">$0</td>
-      <td style="text-align:right; border: 1px solid #ddd; padding-right: 15px;color:#ccc">View Details &#x25BC;</td>
+      <td class="details-cell">$0</td>
+      <td class="details-cell right-aligned" style="color:#ccc">View Details <i class="icon-chevron-down"></i> </td>
     {{/if}}
   </tr>
   {{/each}}
