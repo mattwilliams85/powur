@@ -311,7 +311,7 @@ Set up your remote in your project's .git/config file
   url = git@heroku.com:sunstand.git
 ```
 
-The staging server is updated whenever anyone executes a succcessful push to the 'master' branch.
+The staging server is updated whenever anyone executes a succcessful push to the 'develop' branch.
 
 This is a pretty typical workflow if you ever have need to deploy development changes to production.
 
