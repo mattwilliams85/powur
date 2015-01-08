@@ -266,7 +266,6 @@ The user should be logged out of the application in this case and the token data
 
 #### Api Workflow in CURL
 
-
 api root
 ```bash
 curl -u "ios.sunstand.com:ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e56ae7ecd4bd2915d56720871907e33b191db11a0d4603c33892a" -X POST -d "grant_type=password&username=jon@sunstand.com&password=solarpower" "http://sunstand-staging.eyecuelab.com/api/v1/token"
