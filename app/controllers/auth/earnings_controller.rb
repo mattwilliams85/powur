@@ -14,7 +14,7 @@ module Auth
     # show action
     def summary
       @user = fetch_user
-      @pay_periods = fetch_pay_period_range(params).order(:start_date, :type)
+      @pay_periods = fetch_pay_period_range(params).order(:type)
       @earnings = fetch_earnings(@user.id, @pay_periods)
       @earnings_group = structured_earnings(@pay_periods, @earnings, @user)
       @total_earnings = current_user.bonus_payments.sum(:amount)

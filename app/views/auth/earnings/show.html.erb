@@ -1,108 +1,12 @@
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "dashboard.js" %>
 <% end %>
 
-<style>
-  .full{
-    overflow: hidden;
-  }
-  .promoter_info.contact{
-    padding:32px 32px 0 0;
-    margin: 0 0 0 32px;
-  }
 
-  .drilldown_content_section{
-    margin: 0 0 0 250px;
-    width:1006px;
-  }
-
-
-  .quotes_info{
-    background-color:#fff;
-    margin:0 8px;
-    width:1262px;
-    border:1px solid #e5e5e5;
-  }
-  .fa-angle-down::before,
-  .fa-angle-up::before{
-    opacity:.3;
-    display:block;
-  }
-
-  #js-screen_mask{
-    width:100%;
-    height: 100%;
-    position: fixed;
-    top:0;
-    left:0;
-    z-index: 90;
-    display:none;
-    background:rgba(0,0,0,.5);
-  }
-
-  #js-popup{
-    display:none;
-    z-index:95;
-    background:rgba(255,255,255,1);
-    position:fixed;
-    display:none;
-    top:25%;
-    left:30%;
-    padding:50px;
-  }
-
-  #stats-header {
-    background-color:white;
-    margin:auto;
-    margin-bottom:50px;
-    width:100%;
-  }
-
-  #stats-header td {
-    padding:50px 70px 20px 70px;
-    border:1px solid #ddd;
-  }
-
-  .kpi_label {
-    padding-bottom:10px;
-  }
-
-  #date-dropdown {
-    width:750px;
-    margin:auto;
-  }
-
-  #stats_section_header {
-    margin-top:50px;
-  }
-
-  #body_section_header {
-    text-align:center;
-    margin-left:-50px;
-  }
-
-  .date {
-    margin-bottom:15px;
-  }
-
-  .dropdown {
-    background-color:#333;
-    height:0px;
-    overflow:hidden;
-    position:fixed;
-  }
-
-  #slideTable {
-    display:none;
-  }
-
-  .dropToggle {
-    cursor:pointer;
-  }
-</style>
-
-<section id="dashboard_personal_goals" class="dashboard_section" data-drilldown-level="0" style="margin-top:-100px;">
-  <div id="stats_section_header" class="section_header">
+<section id="dashboard_personal_goals" data-drilldown-level="0">
+  <div class="section_header">
 
     <div class="section_header_content"></div>
 
@@ -154,12 +58,13 @@
       </div>
     </div> 
   </div>
-  <div class="warn_me"></div>
+  <br>
+  <br>
+  <div class="warning"></div>
 
   <div class="section_body"></div>
 
 </section>
-<!-- <div id="js-screen_mask"></div> -->
 
 <br><br><br>
 
@@ -168,7 +73,6 @@
 
 var dropFlag = false;
 var _detailsData = [];
-// var detailsTemplate = Handlebars.compile("/templates/auth/earnings/_details.handlebars.html");
 var startYear = (new Date()).getYear() + 1900
 var startMonth = (new Date()).getMonth() + 1
 var endYear = (new Date()).getYear() + 1900
@@ -179,7 +83,6 @@ _ajax({
   _ajaxType: "get",
   _url: "/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+startMonth+"&end_year="+endYear+"&end_month="+endMonth,
   _callback: function(data, text) {
-    console.log(data)
     if(data.entities.length == 0){
       data.properties.active = false;
     }
@@ -192,13 +95,14 @@ _ajax({
 $(document).ready(function(){
 
 function checkRange(){
+  $('.warning').empty()
   var range = endMonth - startMonth + ((endYear - startYear)*12);
-  if(range < 0) $('')
+  if(range < 0) $('.warning').html("Invalid Date Range")
   else return range + 1;
 }
 
 function getEarnings(){
-  currentMonth = parseInt(startMonth)
+  currentMonth = parseInt(startMonth - 1)
   currentYear = parseInt(startYear)
   var _endPoints =[];
   var range = checkRange()
@@ -207,24 +111,19 @@ function getEarnings(){
       currentMonth = 0
       currentYear += 1
     }
-  currentMonth += 1 
 
-  _endPoints.push({
-      // url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+currentMonth+"&end_year="+startYear+"&end_month="+currentMonth,
-      url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+2014+"&start_month="+10+"&end_year="+2014+"&end_month="+10,
-      data:{},
-      name:"Summary"
-  });
-  // _endPoints.push({
-  //     url:"/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+startYear+"-"+currentMonth,
-  //     data:{},
-  //     name:"Detail"
-  // });
+    currentMonth += 1 
+    console.log(currentMonth)
+    _endPoints.push({
+        url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+currentMonth+"&end_year="+startYear+"&end_month="+currentMonth,
+        // url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+2014+"&start_month="+10+"&end_year="+2014+"&end_month="+10,
+        data:{},
+        name:"Summary"
+    });
   }
   EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
     _summaryData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "earnings"]})
-    // _detailsData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["earning_details"]})
-    console.log(_detailsData)
+
     currentMonth = startMonth - 1;
     var currentYear = startYear;
     for(var i = 0; i < _summaryData.length; i++){
@@ -251,6 +150,9 @@ function getEarnings(){
         }
         _summaryData[i].properties.active = false;
       } else {
+        // for(var n=0;n<4;n++){
+        //   if _summaryData[i].entities[n].
+        // }
         _summaryData[i].entities[0].properties.pay_period_month = (String(currentMonth))
         _summaryData[i].entities[0].properties.pay_period_year = (String(currentYear))
       }
@@ -260,14 +162,12 @@ function getEarnings(){
     EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", _summaryData, $(".section_body"), function(html) {
       clickEvents();
     });
-    // EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", _detailsData,  $(".temp"), function(html) {
-    // });
   });
 }
 
 
   function clickEvents(){ 
-    $(".dropToggle").click(function(e){
+    $(".dropToggle.weekly").click(function(e){
       if(dropFlag == false) {
         e.stopPropagation() 
         row = $(this).parent().parent()
@@ -279,22 +179,18 @@ function getEarnings(){
             if(data.entities.length == 0){
               data.properties.active = false;
             }
-        // $('.dropDownDetails').append(detailsTemplate)
 
         EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, $(".dropDownDetails"), function(html) {
             });
-        // $('#slideData').css("display","none")
         $('.dropDownDetails').velocity({height:"330px"}, function(){
           $('#slideTable').fadeIn(400);
         })
         dropFlag = true;
-
           }
         });
       } else if(dropFlag == true) {
         reverseDrop(e)
       }
-      
     });    
 
     $(document).on("click", function(e){
@@ -303,6 +199,8 @@ function getEarnings(){
         reverseDrop(e)
       }
     })
+
+    
 
     function reverseDrop(e){
       e.stopPropagation() 
@@ -330,8 +228,6 @@ function getEarnings(){
     var months = [ "","January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December" ]
     $('.date').each(function(index, element){
-      // console.log($( this ).index())
-      // $(value).html(months[currentMonth])
     })
   }
 

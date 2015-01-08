@@ -928,7 +928,6 @@ jQuery(function($){
         $.ajax({
             url:_path,
             success: function(_source){
-                console.log(_dataObj)
                 var _template = Handlebars.compile(_source);
                 var _html="";
                 if(typeof _dataObj !== "undefined"){

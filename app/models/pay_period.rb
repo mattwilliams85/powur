@@ -16,7 +16,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   scope :dispursed, -> { where('dispursed_at is not null') }
 
   scope :within_date_range, lambda { |range_start, range_end|
-                              where(start_date: range_start..range_end)
+                              where(end_date: range_start..range_end)
                             }
 
   before_create do
