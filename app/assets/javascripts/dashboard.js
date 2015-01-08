@@ -770,11 +770,14 @@ function Dashboard(){
               $("#new_lead_contact_form button").on("click", function(e){
                 e.preventDefault();
                 _formSubmit(e, $("#new_lead_contact_form"), "/u/quotes", "POST", function(data, text){
-                  //$(".js-new_quote_thumbnail .expand").click();
                   $("#new_lead_contact_form").fadeOut(150, function(){
                     $("#new_lead_contact_form input").val("");
                     $("#new_lead_contact_form").fadeIn();
                     displayQuotes();
+                    //close the drilldown after create
+                    $(".js-new_quote_thumbnail span.expand i").removeClass("fa-angle-up");
+                    $(".js-new_quote_thumbnail span.expand i").addClass("fa-angle-down");
+                    _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
                   });
                 });
               });
