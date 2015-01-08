@@ -58,9 +58,9 @@ module UserSecurity
 
   # Returns false if user's last sign in was more than an hour ago
   # and remember me option was not used
-  def sign_in_expired?
+  def sign_in_expired?(session_expires_at)
     !remember_created_at &&
-      (last_sign_in_at.nil? || last_sign_in_at < Time.now.utc - 1.hour)
+      (session_expires_at.nil? || session_expires_at < Time.current)
   end
 
   private

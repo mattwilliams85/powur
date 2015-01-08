@@ -10,6 +10,7 @@ module SpecHelpers
     @user = mocked_user
     if defined?(session)
       session[:user_id] = @user.id
+      session[:expires_at] = Time.current + 1.hour
     else
       allow_any_instance_of(WebController).to receive(:current_user).and_return(@user)
     end
@@ -19,6 +20,7 @@ module SpecHelpers
     @user = create(:user)
     if defined?(session)
       session[:user_id] = @user.id
+      session[:expires_at] = Time.current + 1.hour
     else
       post login_path, email: @user.email, password: 'password'
     end
