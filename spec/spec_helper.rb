@@ -43,10 +43,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  VCR.configure do |config|
-    config.cassette_library_dir = 'spec/cassettes'
-    config.hook_into :webmock
-    config.ignore_localhost = true
+  VCR.configure do |c|
+    c.cassette_library_dir = 'spec/cassettes'
+    c.hook_into :webmock
+    c.ignore_localhost = true
   end
   # WebMock.disable_net_connect!(allow_localhost: true, allow: 'http://127.0.0.1/58858')
   # ## Mock Framework
