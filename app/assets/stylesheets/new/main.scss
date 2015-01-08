@@ -59,6 +59,10 @@ html, body {
     font-size: .8em;
   }
 
+  &.hidden {
+    top: -200px;
+  }
+
   &.invert {
     background: #fff;
     border-bottom: 1px solid #ccc;

@@ -20,6 +20,7 @@ var sunstandApp = angular.module('sunstandApp', [
     }
   };
 
+  // TODO: move header functionality into its own directive
   $rootScope.invertHeaderColor = function() {
     var docEl = document.documentElement,
     header,
@@ -31,9 +32,19 @@ var sunstandApp = angular.module('sunstandApp', [
       if (!header) return;
 
       if (sTop > height) {
-        header.setAttribute('class', 'invert');
+        if (header.className !== 'invert') {
+          header.setAttribute('class', 'hidden');
+          setTimeout(function invertHeader() {
+            header.setAttribute('class', 'invert');
+          }, 200);
+        }
       } else {
-        header.setAttribute('class', '');
+        if (header.className !== '') {
+          header.setAttribute('class', 'hidden');
+          setTimeout(function invertHeader() {
+            header.setAttribute('class', '');
+          }, 200);
+        }
       }
     };
   };
