@@ -1,6 +1,6 @@
 'use strict';
 
-function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $anchorScroll) {
+function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $anchorScroll, $interval) {
   $scope.redirectToDashboardIfSignedIn();
   $scope.showValidationMessages = false;
 
@@ -88,7 +88,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   };
 
   this.init($scope, $location, $timeout);
-  this.fetch($scope);
+  this.fetch($scope, $interval);
 }
 
 
@@ -98,18 +98,29 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
   }, 2000);
 
   // Setting mode based on the url
-  $scope.mode = 'index';
-  if (/\/sign-in$/.test($location.path())) $scope.mode = 'sign-in';
+  $scope.mode = '';
+  if (/\/home$/.test($location.path())) return $scope.mode = 'home';
+  if (/\/sign-in$/.test($location.path())) return $scope.mode = 'sign-in';
 };
 
 
-LandingCtrl.prototype.fetch = function($scope) {
-  if ($scope.mode === 'sign-in') {
-    // Do something here only for sign in page
+LandingCtrl.prototype.fetch = function($scope, $interval) {
+  if ($scope.mode === 'home') {
+    // Only for home page
+    $scope.currentHomeSlide = 0;
+    var sliderStop = $interval(function() {
+      $scope.currentHomeSlide += 1;
+      if ($scope.currentHomeSlide >= 3) {
+        $interval.cancel(sliderStop);
+        sliderStop = undefined;
+      }
+    }, 2000);
+  } else if ($scope.mode === 'sign-in') {
+    // Only for sign in page
     $scope.signInPage = true;
   }
 };
 
 
-LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$anchorScroll'];
+LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$anchorScroll', '$interval'];
 sunstandControllers.controller('LandingCtrl', LandingCtrl);

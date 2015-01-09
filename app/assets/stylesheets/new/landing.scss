@@ -25,6 +25,11 @@
     -o-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     text-align: center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
 
     h1 {
       color: #fff;
@@ -111,6 +116,10 @@
       background-image: image-url("landing/icons/arrow-down-inverted.png");
       color: #fff;
     }
+
+    &.inactive {
+      display: none;
+    }
   }
 
   .sun-sign-in-wrapper {
@@ -157,6 +166,25 @@
 
     input[type=text], input[type=password], input[type=email] {
       font-size: 1.3em;
+    }
+  }
+}
+
+
+// Landing page slider
+.sun-slider {
+  position: relative;
+
+  .slide {
+    left: -100%;
+
+    &.inactive {
+      width: 100%;
+      left: 150%;
+    }
+
+    &.active {
+      left: 50%;
     }
   }
 }
