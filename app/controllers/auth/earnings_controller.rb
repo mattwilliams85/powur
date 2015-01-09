@@ -28,6 +28,13 @@ module Auth
       @earning_details = fetch_earning_details(@user, @pay_period) if @pay_period 
     end
 
+    def bonus
+      @user = fetch_user
+      @pay_period = PayPeriod.find_by(id: params[:pay_period_id])
+      @bonus_summary = BonusPayment.bonus_totals_by_type(@pay_period).for_user(4)
+      @total = @pay_period.bonus_payments.for_user(4).sum(:amount)
+    end
+
     private
 
     #  REFACTOR: There has to be a better way to do this.
@@ -45,7 +52,7 @@ module Auth
     end
 
     def fetch_earning_details(user, pay_period)
-      pay_period.bonus_payments.includes(:orders).for_user(user.id)
+      pay_period.bonus_payments.includes(:orders).order(:bonus_id).for_user(user.id)
     end
 
     def fetch_pay_period_range(params)

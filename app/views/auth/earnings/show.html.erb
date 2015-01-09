@@ -4,7 +4,6 @@
   <%= javascript_include_tag "dashboard.js" %>
 <% end %>
 
-
 <section id="dashboard_personal_goals" data-drilldown-level="0">
   <div class="section_header">
 
@@ -71,7 +70,6 @@
 
 <script type="text/javascript">
 
-var dropFlag = false;
 var _detailsData = [];
 var startYear = (new Date()).getYear() + 1900
 var startMonth = (new Date()).getMonth() + 1
@@ -113,10 +111,9 @@ function getEarnings(){
     }
 
     currentMonth += 1 
-    console.log(currentMonth)
     _endPoints.push({
-        url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+currentMonth+"&end_year="+startYear+"&end_month="+currentMonth,
-        // url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+2014+"&start_month="+10+"&end_year="+2014+"&end_month="+10,
+        // url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+currentMonth+"&end_year="+startYear+"&end_month="+currentMonth,
+        url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+2014+"&start_month="+10+"&end_year="+2014+"&end_month="+10,
         data:{},
         name:"Summary"
     });
@@ -168,50 +165,111 @@ function getEarnings(){
 
   function clickEvents(){ 
     $(".dropToggle.weekly").click(function(e){
-      if(dropFlag == false) {
+      if(!$(this).hasClass("active")) {
         e.stopPropagation() 
+        $(this).addClass("active")
         row = $(this).parent().parent()
-        $("<tr id='click-me'><td colspan='5' class='dropDownDetails' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
+        $("<tr class='temp-row'><td colspan='5' class='dropDownDetails' id='row"+row.index()+"' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
         _ajax({
           _ajaxType: "get",
-          _url:"/u/earnings/detail?format=json&user_id=<%=current_user.id%>&pay_period_id="+$(this).attr("id"),
+          _url:"/u/earnings/detail?format=json&user_id=1&pay_period_id="+$(this).attr("id"),
           _callback: function(data, text) {
             if(data.entities.length == 0){
               data.properties.active = false;
             }
-
-        EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, $(".dropDownDetails"), function(html) {
+        EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, $('#row'+row.index()+''), function(html) {
             });
         $('.dropDownDetails').velocity({height:"330px"}, function(){
-          $('#slideTable').fadeIn(400);
+          $('.slideTable').fadeIn(400);
         })
-        dropFlag = true;
           }
         });
-      } else if(dropFlag == true) {
-        reverseDrop(e)
+      } else {
+        $(this).removeClass("active")
+        reverseDrop($(this))
       }
     });    
 
-    $(document).on("click", function(e){
-      
-      if(dropFlag == true) {
-        reverseDrop(e)
+    $(".dropToggle.monthly").click(function(e){
+      if(!$(this).hasClass("active")) {
+        e.stopPropagation() 
+        $(this).addClass("active")
+        row = $(this).parent().parent()
+        $("<tr class='temp-row'><td colspan='5' class='dropDownDetails' id='row"+row.index()+"' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
+        _ajax({
+          _ajaxType: "get",
+          _url:"/u/earnings/bonus?format=json&user_id=1&pay_period_id="+$(this).attr("id"),
+          _callback: function(data, text) {
+            if(data.entities.length == 0){
+              data.properties.active = false;
+            }
+        EyeCueLab.UX.getTemplate("/templates/auth/earnings/_bonus.handlebars.html", data, $('#row'+row.index()+''), function(html) {
+          secondaryEvents()
+            });
+        $('.dropDownDetails').velocity({height:"330px"}, function(){
+          $('.slideTable').fadeIn(400);
+        })
+          }
+        });
+      } else {
+        $(this).removeClass("active")
+        reverseDrop($(this))
       }
-    })
+    });    
+
+
+        // $(document).on("click", function(e){
+          
+        //   if(dropFlag == true) {
+        //     reverseDrop(e)
+        //   }
+        // })
 
     
 
-    function reverseDrop(e){
-      e.stopPropagation() 
-      $('#slideTable td').css("padding","0px");
-      $('.dropDownDetails').css("padding","0px");
-      $('.dropDownDetails tr').hide()
-      $('.dropDownDetails').velocity({height:'0px'}, function(){
-        $('.dropDownDetails').remove();
+    function reverseDrop(selected){
+      selected = selected.parent().parent().next()
+      selected.find('.slideTable td').css("padding","0px");
+      selected.find('#slideData').remove()
+      selected.find('.dropDownDetails').css("padding","0px");
+      selected.find('.dropDownDetails tr').remove()
+      selected.find('.dropDownDetails').velocity({height:'0px'}, function(){
+        selected.find('.dropDownDetails').remove();
       });
-      dropFlag = false;
+      // dropFlag = false;
     }
+
+    function secondaryEvents(){
+
+      $(".dropToggle.summary").click(function(e){
+        if(!$(this).hasClass("active")) {
+          e.stopPropagation() 
+          $(this).addClass("active")
+          row = $(this).parent().parent()
+          $("<tr class='temp-row'><td colspan='5' class='dropDownDetails' id='subrow"+row.index()+"' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
+          _ajax({
+            _ajaxType: "get",
+            _url:"/u/earnings/detail?format=json&user_id=1&pay_period_id="+$(this).attr("id"),
+            _callback: function(data, text) {
+              console.log(data)
+              if(data.entities.length == 0){
+                data.properties.active = false;
+              }
+              console.log(row.index())
+          EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, $('#subrow'+row.index()+''), function(html) {
+              });
+          $('.dropDownDetails').velocity({height:"330px"}, function(){
+            $('.slideTable').fadeIn(400);
+          })
+            }
+          });
+        } else {
+          $(this).removeClass("active")
+          reverseDrop($(this))
+        }
+      });
+    }
+
   }
   $('.dropdown').on("change",function(){
     startYear = $('#startYear option:selected').val()
@@ -233,4 +291,6 @@ function getEarnings(){
 
   getEarnings();
 })
+
+
 </script>

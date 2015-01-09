@@ -13,6 +13,17 @@ class EarningsJson < JsonDecorator
     json.entities list, partial: partial_path, as: :earning_period
   end
 
+  def list_bonus_summary(partial_path, list = @list)
+    json.entities list, partial: partial_path, as: :pay_period_detail
+  end
+
+  def bonus_summary_properties(bonus_summary)
+    json.properties do
+      json.bonus_title Bonus.find(bonus_summary.bonus_id).type
+      json.amount bonus_summary.amount.to_i
+    end
+  end
+
   # earning periods are objects that contain pay_period
   # properties as well as aggregated amount totals from
   # bonus_payments (earnings)
@@ -38,7 +49,7 @@ class EarningsJson < JsonDecorator
       if pay_period.type_display == "Weekly"
         json.pay_period_week_number pay_period.start_date.week_of_month 
       else  
-        json.info BonusPayment.bonus_totals_by_type(pay_period).for_user(1)
+        json.bonus_summaries =  BonusPayment.bonus_totals_by_type(pay_period).for_user(4)
       end
     end
   end

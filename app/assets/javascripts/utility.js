@@ -148,11 +148,29 @@ Handlebars.registerHelper('formatCurrency', function(amount) {
     return parseInt(amount).toFixed(0).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 });
 
+//Handlebar helper to change underscores to dashes
+Handlebars.registerHelper('formatUnderscore', function(string) {
+    return string.replace(/[_]/g, '-');
+});
+
 //Handlebar helper to dispay correct name for month number
 Handlebars.registerHelper('formatMonth', function(monthNumber) {
     var monthNames = [ "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December" ];
     return monthNames[monthNumber]
+});
+
+//Handlebar helper function compare new variable to previously stored variable
+//Can also be used to detect change in group type
+var storedJson = ""
+
+Handlebars.registerHelper('storeJson', function(json) {
+    storedJson = json;
+});
+
+Handlebars.registerHelper('compareJson', function(json, options) {  
+  if(json === storedJson) return options.fn(this);
+  else return options.inverse(this);
 });
 
 //Handlebar helper to allow mathematical calculations

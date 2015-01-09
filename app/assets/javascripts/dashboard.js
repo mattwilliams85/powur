@@ -46,6 +46,7 @@ function initPage(){
     }, 300);
   });
 
+
   $('.hover-box').mouseleave(function(e) {
     $('.js-admin_tab').stop();
     e.stopPropagation();

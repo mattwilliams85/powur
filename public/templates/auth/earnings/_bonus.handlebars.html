@@ -1,0 +1,21 @@
+<div id="slideData">
+  <table class="slideTable">
+    <span class="bonus-header-title">Pay Period Summary</span>
+    <hr class="bonus-header-hr">
+    <tr>
+      <td class="details-cell header-cell">Bonus Type</td>
+      <td class="details-cell header-cell" style="text-align:right">Total</td>
+      <td class="details-cell header-cell" style="text-align:right">Details</td>
+    </tr>
+    {{#each entities}}
+    <tr class="details-row">
+      <td class="details-cell">{{this.properties.bonus_title}}</td>
+      <td class="details-cell" style="text-align:right">${{formatCurrency this.properties.amount}}</td>
+      <td class="details-cell" style="text-align:right;"><a class="dropToggle summary"  id="{{../this.properties.pay_period_id}}">View Details  <i class="icon-chevron-down"></i></a></td>
+    <tr>
+    {{/each}}
+    <td class="details-cell"></td>
+    <td class="details-cell"><span style="float:right">Grand Total &nbsp; &nbsp; &nbsp; ${{formatCurrency this.properties.total}}</span></td>
+    <td class="details-cell"></td>
+    </table>
+</div>
