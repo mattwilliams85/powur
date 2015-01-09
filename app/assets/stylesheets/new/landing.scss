@@ -97,7 +97,7 @@
   }
 
   .sun-next-pointer {
-    background-image: image-url("landing/icons/arrow-down.png");
+    background-image: image-url("landing/arrow-down-icon.png");
     background-repeat: no-repeat;
     background-position: center bottom;
     bottom: 1em;
@@ -113,7 +113,7 @@
     width: 200px;
 
     &.inverted {
-      background-image: image-url("landing/icons/arrow-down-inverted.png");
+      background-image: image-url("landing/arrow-down-inverted-icon.png");
       color: #fff;
     }
 
