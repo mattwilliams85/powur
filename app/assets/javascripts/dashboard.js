@@ -54,6 +54,10 @@ function initPage(){
       'left':'-140px'
     },300);
   });
+
+  $('.js-barlink').on("click", function(){
+    window.location.href = $(this).attr("id")
+  })
 }
 
 
