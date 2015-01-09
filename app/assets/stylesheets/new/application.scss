@@ -1,9 +1,12 @@
 @import "foundation_and_overrides";
-
 $secondary-color: #33caf5;
+
+@import "angular-slider.min";
+
+@import "compass/utilities/sprites";
+@import "sun-sprites/*.png";
 
 @import "new/main";
 @import "new/menu";
 @import "new/landing";
 @import "new/promo";
-@import "angular-slider.min";

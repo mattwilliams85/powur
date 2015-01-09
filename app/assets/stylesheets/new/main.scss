@@ -26,9 +26,9 @@ html, body {
   }
 
   .header-nav-link {
-    background: image-url('landing/menu-icon.png') left center no-repeat;
-    width: 21px;
-    height: 19px;
+    @include sun-sprites-sprite(header-menu-icon);
+    height: sun-sprites-sprite-height(header-menu-icon);
+    width: sun-sprites-sprite-width(header-menu-icon);
     float: left;
     margin-top: 8px;
   }
@@ -38,11 +38,11 @@ html, body {
   }
 
   .logo {
-    background: image-url('landing/logo.png') left center no-repeat;
+    @include sun-sprites-sprite(header-logo);
+    height: sun-sprites-sprite-height(header-logo);
+    width: sun-sprites-sprite-width(header-logo);
     display: block;
-    width: 140px;
     margin: 0 auto;
-    height: 37px;
     line-height: 37px;
     text-align: left;
     padding-left: 45px;
@@ -72,11 +72,11 @@ html, body {
     }
 
     .header-nav-link {
-      background-image: image-url('landing/menu-icon-inverted.png');
+      @include sun-sprites-sprite(header-menu-icon-inverted);
     }
 
     .logo {
-      background-image: image-url('landing/logo-inverted.png');
+      @include sun-sprites-sprite(header-logo-inverted);
     }
 
     .sign-in {
@@ -125,13 +125,16 @@ html, body {
       margin-left: 20px;
 
       &.facebook {
-        background: image-url('landing/icons/facebook.png') no-repeat;
+        @include sun-sprites-sprite(facebook-icon);
+        height: sun-sprites-sprite-height(facebook-icon);
       }
       &.twitter {
-        background: image-url('landing/icons/twitter.png') no-repeat;
+        @include sun-sprites-sprite(twitter-icon);
+        height: sun-sprites-sprite-height(twitter-icon);
       }
       &.youtube {
-        background: image-url('landing/icons/youtube.png') no-repeat;
+        @include sun-sprites-sprite(youtube-icon);
+        height: sun-sprites-sprite-height(youtube-icon);
       }
     }
   }

@@ -14,6 +14,7 @@ gem 'jbuilder'
 # gem 'wiselinks'
 gem 'font-awesome-sass', '~> 4.2.0'
 gem 'zurb-foundation', '~> 4.3'
+gem 'compass-rails'
 
 gem 'paperclip'
 gem 'aws-sdk'
