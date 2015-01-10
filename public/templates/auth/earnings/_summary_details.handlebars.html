@@ -8,7 +8,6 @@
       <td class="details-cell header-cell">Customer</td>
       <td class="details-cell header-cell">Amount</td>
     </tr>
-    {{json .}}
     {{#each entities}}
         {{#each this.properties.entities}}
           <tr class="details-row">
@@ -51,7 +50,7 @@
             {{#each this.paginationInfo.display}}
             <div class="js-pagination" style="display:inline">
                 {{#if this.link}}
-                    <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
+                    <a href="#" data-page-number="{{this.display}}">{{this.display}}</a>
                 {{else}}
                     {{this.display}}
 

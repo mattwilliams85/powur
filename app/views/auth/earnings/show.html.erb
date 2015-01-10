@@ -113,8 +113,8 @@ function getEarnings(){
 
     currentMonth += 1 
     _endPoints.push({
-        // url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+currentMonth+"&end_year="+startYear+"&end_month="+currentMonth,
-        url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+2014+"&start_month="+10+"&end_year="+2014+"&end_month="+10,
+        url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+startYear+"&start_month="+currentMonth+"&end_year="+startYear+"&end_month="+currentMonth,
+        // url:"/u/earnings/summary?format=json&user_id=<%=current_user.id%>&start_year="+2014+"&start_month="+10+"&end_year="+2014+"&end_month="+10,
         data:{},
         name:"Summary"
     });
@@ -248,24 +248,11 @@ function getEarnings(){
             _ajaxType: "get",
             _url:"/u/earnings/bonus_detail?format=json&user_id=1&pay_period_id="+pay_period_id+"&bonus_id="+bonus_id+"&page="+detailsPage,
             _callback: function(data, text) {
+
              
-              if(data.entities.length == 0){
-                data.properties.active = false;
-              }
-          EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary_details.handlebars.html", data, $('#subrow'+row.index()+''), function(html) {
-            $(".js-pagination a").on("click", function(e){
-                e.stopPropagation();
-                e.preventDefault();
-                data.paginationInfo.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
-                _ajax({
-                  _ajaxType: "get",
-                  _url:"/u/earnings/bonus_detail?format=json&user_id=1&pay_period_id="+pay_period_id+"&bonus_id="+bonus_id+"&page="+detailsPage,
-                  _callback: function(data, text) {
-                   EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary_details.handlebars.html", data, $('#subrow'+row.index()+''), function(html) {
-                    });
-                 }
-               });
-            });
+           EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary_details.handlebars.html", data, $('#subrow'+row.index()+''), function(html) {
+            recursiveJquery(data, pay_period_id, bonus_id, row)
+          
 
               });
           data.paginationInfo=_paginateData(_getObjectsByCriteria(data, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
@@ -314,5 +301,26 @@ function getEarnings(){
   getEarnings();
 })
 
+function recursiveJquery(data, pay_period_id, bonus_id, row){
+  $(".js-pagination a").on("click", function(e){
+    console.log("click!")
+    detailsPage = $(this).attr("data-page-number")
+      e.stopPropagation();
+      e.preventDefault();
+      data.paginationInfo.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
+      _ajax({
+        _ajaxType: "get",
+        _url:"/u/earnings/bonus_detail?format=json&user_id=1&pay_period_id="+pay_period_id+"&bonus_id="+bonus_id+"&page="+detailsPage,
+        _callback: function(data, text) {
+          data.paginationInfo=_paginateData(_getObjectsByCriteria(data, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
+          data.paginationInfo.templateName="/templates/admin/quotes/popups/_order_totals_listing.handlebars.html",
+          data.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
+          EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary_details.handlebars.html", data, $('#subrow'+row.index()+''), function(html) {
+            recursiveJquery(data, pay_period_id, bonus_id, row)
+          });
+       }
+     });
+  });
+}
 
 </script>
