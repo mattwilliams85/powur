@@ -11,7 +11,12 @@
     <tr class="details-row">
       <td class="details-cell">{{this.properties.bonus_title}}</td>
       <td class="details-cell" style="text-align:right">${{formatCurrency this.properties.amount}}</td>
-      <td class="details-cell" style="text-align:right;"><a class="dropToggle summary"  id="{{../this.properties.pay_period_id}}">View Details  <i class="icon-chevron-down"></i></a></td>
+      {{../this.properties.length}}
+      {{#compare ../this.properties.length 0 operator="=="}}
+      <td class="details-cell right-aligned" style="color:#ccc">{{../this.properties.length}} <i class="icon-chevron-down"></i> </td>
+      {{else}}
+      <td class="details-cell" style="text-align:right;"><a class="dropToggle summary"  id="{{../this.properties.pay_period_id}}">View Details  <i id="{{this.properties.bonus_id}}" class="icon-chevron-down"></i></a></td>
+      {{/compare}}
     <tr>
     {{/each}}
     <td class="details-cell"></td>

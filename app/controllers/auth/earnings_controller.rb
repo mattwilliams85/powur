@@ -1,5 +1,7 @@
 module Auth
   class EarningsController < AuthController
+    page max_limit: 20
+
     def index
       @months = %w(January February March April May June July
                    August September October November December)
@@ -15,9 +17,10 @@ module Auth
     def summary
       @user = fetch_user
       @pay_periods = fetch_pay_period_range(params).order(:type)
+      @total_earnings = current_user.bonus_payments.sum(:amount)
       @earnings = fetch_earnings(@user.id, @pay_periods)
       @earnings_group = structured_earnings(@pay_periods, @earnings, @user)
-      @total_earnings = current_user.bonus_payments.sum(:amount)
+
     end
 
     # this call will fetch the details for a bonus payment
@@ -25,7 +28,9 @@ module Auth
     def detail
       @user = fetch_user
       @pay_period = PayPeriod.find_by(id: params[:pay_period_id])
-      @earning_details = fetch_earning_details(@user, @pay_period) if @pay_period
+      details = fetch_earning_details(@user, @pay_period) if @pay_period
+      query = apply_list_query_options(details)
+      @earning_details = query
     end
 
     def bonus
@@ -33,6 +38,15 @@ module Auth
       @pay_period = PayPeriod.find_by(id: params[:pay_period_id])
       @bonus_summary = BonusPayment.bonus_totals_by_type(@pay_period).for_user(4)
       @total = @pay_period.bonus_payments.for_user(4).sum(:amount)
+    end
+
+    def bonus_detail
+      @user = fetch_user
+      @pay_period = PayPeriod.find_by(id: params[:pay_period_id])
+      @bonus = Bonus.find(params[:bonus_id])
+      details = BonusPayment.bonus(@bonus.id).for_user(current_user.id)
+      query = apply_list_query_options(details)
+      @bonus_payments = query
     end
 
     private

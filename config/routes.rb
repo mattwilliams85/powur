@@ -88,12 +88,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :earnings, only:       [ :index, :show, :summary, :detail, :bonus ],
+    resources :earnings, only:       [ :index, :show, :summary, :detail, :bonus, :bonus_detail ],
                          controller: :earnings do
       collection do
         get :summary
         get :detail
         get :bonus
+        get :bonus_detail
       end
     end
 

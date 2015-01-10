@@ -76,6 +76,7 @@ var startMonth = (new Date()).getMonth() + 1
 var endYear = (new Date()).getYear() + 1900
 var endMonth = (new Date()).getMonth() + 1
 var currentMonth = 0;
+var detailsPage = 1;
 
 _ajax({
   _ajaxType: "get",
@@ -194,17 +195,19 @@ function getEarnings(){
       if(!$(this).hasClass("active")) {
         e.stopPropagation() 
         $(this).addClass("active")
-        row = $(this).parent().parent()
+        var pay_period_id = $(this).attr("id")
+        var row = $(this).parent().parent()
         $("<tr class='temp-row'><td colspan='5' class='dropDownDetails' id='row"+row.index()+"' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
         _ajax({
           _ajaxType: "get",
-          _url:"/u/earnings/bonus?format=json&user_id=1&pay_period_id="+$(this).attr("id"),
+          _url:"/u/earnings/bonus?format=json&user_id=1&pay_period_id="+pay_period_id,
           _callback: function(data, text) {
+          
             if(data.entities.length == 0){
               data.properties.active = false;
             }
         EyeCueLab.UX.getTemplate("/templates/auth/earnings/_bonus.handlebars.html", data, $('#row'+row.index()+''), function(html) {
-          secondaryEvents()
+          secondaryEvents(pay_period_id, row)
             });
         $('.dropDownDetails').velocity({height:"330px"}, function(){
           $('.slideTable').fadeIn(400);
@@ -216,16 +219,6 @@ function getEarnings(){
         reverseDrop($(this))
       }
     });    
-
-
-        // $(document).on("click", function(e){
-          
-        //   if(dropFlag == true) {
-        //     reverseDrop(e)
-        //   }
-        // })
-
-    
 
     function reverseDrop(selected){
       selected = selected.parent().parent().next()
@@ -239,25 +232,54 @@ function getEarnings(){
       // dropFlag = false;
     }
 
-    function secondaryEvents(){
 
+
+    function secondaryEvents(pay_period_id, row){
       $(".dropToggle.summary").click(function(e){
+        e.preventDefault()
+        e.stopPropagation() 
+        var bonus_id = $(this).children().attr("id")
         if(!$(this).hasClass("active")) {
-          e.stopPropagation() 
           $(this).addClass("active")
           row = $(this).parent().parent()
           $("<tr class='temp-row'><td colspan='5' class='dropDownDetails' id='subrow"+row.index()+"' style='background-color:#333;color:#eee;text-align:left;padding:30px'></td></tr>").insertAfter(row);
+
           _ajax({
             _ajaxType: "get",
-            _url:"/u/earnings/detail?format=json&user_id=1&pay_period_id="+$(this).attr("id"),
+            _url:"/u/earnings/bonus_detail?format=json&user_id=1&pay_period_id="+pay_period_id+"&bonus_id="+bonus_id+"&page="+detailsPage,
             _callback: function(data, text) {
-              console.log(data)
+             
               if(data.entities.length == 0){
                 data.properties.active = false;
               }
-              console.log(row.index())
-          EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, $('#subrow'+row.index()+''), function(html) {
+          EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary_details.handlebars.html", data, $('#subrow'+row.index()+''), function(html) {
+            $(".js-pagination a").on("click", function(e){
+                e.stopPropagation();
+                e.preventDefault();
+                data.paginationInfo.page= $(e.target).attr("data-page-number")? $(e.target).attr("data-page-number").split(" ")[1]:1;
+                _ajax({
+                  _ajaxType: "get",
+                  _url:"/u/earnings/bonus_detail?format=json&user_id=1&pay_period_id="+pay_period_id+"&bonus_id="+bonus_id+"&page="+detailsPage,
+                  _callback: function(data, text) {
+                   EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary_details.handlebars.html", data, $('#subrow'+row.index()+''), function(html) {
+                    });
+                 }
+               });
+            });
+
               });
+          data.paginationInfo=_paginateData(_getObjectsByCriteria(data, {name:"page"})[0], {prefix:"js-popup", actionableCount:10});
+          data.paginationInfo.templateName="/templates/admin/quotes/popups/_order_totals_listing.handlebars.html",
+          data.paginationInfo.templateContainer="#js-popup .js-popup_content_container";
+          
+          // EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details_listing.handlebars.html", data, undefined, function(html) {
+
+          //    $('#subrow'+row.index()+'').append(html)
+          //    console.log("after")
+                  // });
+
+
+          
           $('.dropDownDetails').velocity({height:"330px"}, function(){
             $('.slideTable').fadeIn(400);
           })

@@ -19,7 +19,8 @@ class EarningsJson < JsonDecorator
 
   def bonus_summary_properties(bonus_summary)
     json.properties do
-      json.bonus_title Bonus.find(bonus_summary.bonus_id).type
+      json.bonus_title Bonus.find(bonus_summary.bonus_id).name
+      json.bonus_id bonus_summary.bonus_id
       json.amount bonus_summary.amount.to_i
     end
   end
