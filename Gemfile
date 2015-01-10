@@ -42,6 +42,7 @@ gem 'ipayout', github: 'eyecuelab/ipayout'
 gem 'nmi_direct_post'
 gem 'week_of_month'
 gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
+gem 'newrelic_rpm'
 
 group :development do
   gem 'spring-commands-rspec'
