@@ -25,7 +25,7 @@ module Auth
     def detail
       @user = fetch_user
       @pay_period = PayPeriod.find_by(id: params[:pay_period_id])
-      @earning_details = fetch_earning_details(@user, @pay_period) if @pay_period 
+      @earning_details = fetch_earning_details(@user, @pay_period) if @pay_period
     end
 
     def bonus
@@ -52,7 +52,7 @@ module Auth
     end
 
     def fetch_earning_details(user, pay_period)
-      pay_period.bonus_payments.includes(:orders).order(:bonus_id).for_user(user.id)
+      pay_period.bonus_payments.includes(bonus: [], orders: [:product, :customer]).order(:bonus_id).for_user(user.id)
     end
 
     def fetch_pay_period_range(params)
