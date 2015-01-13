@@ -917,14 +917,14 @@ function Dashboard(){
                 ($("#js-invite_last_name").val !== _invitationDetail.last_name) ||
                 ($("#js-invite_email").val !== _invitationDetail.email)) {
                   //release the current invite code
-                  _id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+                  var _id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
                   _ajax({_ajaxType:"delete", _url:"/u/invites/"+_id});
                   //create a new invite with the new form information
-                  _thisForm = $(e.target).closest("#existing_promoter_invitation_form");
+                  var _thisForm = $(e.target).closest("#existing_promoter_invitation_form");
                   _formSubmit(e, $("#existing_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
             } else {
               //otherwise, resend the invite
-              _id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+              var _id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
               _ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
             }
           });
