@@ -348,6 +348,8 @@ jQuery(function($){
                     EyeCueLab.UX.getTemplate("/templates/admin/plans/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-paths]"));
                     });
+
+                    var _summaryData = {};
                     EyeCueLab.UX.getTemplate("/templates/admin/plans/paths/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
 
                         $(".js-add_new_path").unbind();
