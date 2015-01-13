@@ -7,7 +7,7 @@ module Api
 
       user.send_reset_password if user
 
-      render 'api/api/show'
+      render 'api/root/show'
     end
   end
 end
