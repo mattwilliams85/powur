@@ -21,6 +21,12 @@ var sunstandApp = angular.module('sunstandApp', [
       }
     };
 
+    $rootScope.redirectUnlessSignedIn = function() {
+      if (!$rootScope.isSignedIn) {
+        window.location = '#/sign-in';
+      }
+    };
+
     // TODO: move header functionality into its own directive
     $rootScope.invertHeaderColor = function() {
       var docEl = document.documentElement,
@@ -28,7 +34,7 @@ var sunstandApp = angular.module('sunstandApp', [
       height = $(window).height() - 20;
       window.onscroll = function headerScrollInvert() {
         var sTop = (this.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
-        header = document.getElementById('sun_landing_header');
+        header = document.getElementById('sun_header_guest');
 
         if (!header) return;
 
@@ -91,6 +97,8 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/landing/templates/edit-password.html")%>',
       controller: 'LandingCtrl'
     }).
+
+    // Promo
     when('/create-wealth', {
       templateUrl: '<%=asset_path("angular/promo/templates/create-wealth.html")%>',
       controller: 'PromoCtrl'
@@ -98,6 +106,12 @@ sunstandApp.config(
     when('/create-energy', {
       templateUrl: '<%=asset_path("angular/promo/templates/create-energy.html")%>',
       controller: 'PromoCtrl'
+    }).
+
+    // University
+    when('/university', {
+      templateUrl: '<%=asset_path("angular/university/templates/index.html")%>',
+      controller: 'UniversityCtrl'
     }).
 
     otherwise({

@@ -539,7 +539,10 @@ CREATE TABLE products (
     distributor_only boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sku character varying
+    sku character varying,
+    description text,
+    certifiable boolean DEFAULT false,
+    image_original_path character varying
 );
 
 
@@ -1380,6 +1383,13 @@ CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
 
 
 --
+-- Name: index_products_on_certifiable; Type: INDEX; Schema: public; Owner: -; Tablespace:
+--
+
+CREATE INDEX index_products_on_certifiable ON products USING btree (certifiable);
+
+
+--
 -- Name: index_qualifications_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1944,3 +1954,4 @@ INSERT INTO schema_migrations (version) VALUES ('20141212003512');
 
 INSERT INTO schema_migrations (version) VALUES ('20141217193712');
 
+INSERT INTO schema_migrations (version) VALUES ('20150112233624');

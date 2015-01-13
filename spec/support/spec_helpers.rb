@@ -14,6 +14,7 @@ module SpecHelpers
     else
       allow_any_instance_of(WebController).to receive(:current_user).and_return(@user)
     end
+    @user
   end
 
   def login_real_user

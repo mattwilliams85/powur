@@ -104,6 +104,8 @@ Rails.application.routes.draw do
         post 'call' => 'ewallet_sandbox', as: :call
       end
     end
+
+    resources :university_classes, only: [:index, :show]
   end
 
   # logged in admin routes

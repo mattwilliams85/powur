@@ -1,11 +1,9 @@
 class IndexController < AnonController
-  layout 'landing'
+  layout 'ng_app'
 
   def index
     respond_to do |format|
-      format.html {
-        redirect_to dashboard_path if logged_in?
-      }
+      format.html
       format.json { render "anon/session/#{root_template}" }
     end
   end

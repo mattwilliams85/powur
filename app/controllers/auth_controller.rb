@@ -6,7 +6,7 @@ class AuthController < WebController
     if request.xhr?
       head :unauthorized
     else
-      redirect_to(root_url)
+      redirect_to(root_path)
     end
   end
 end

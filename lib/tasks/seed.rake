@@ -49,7 +49,9 @@ namespace :sunstand do
         id:               CERT_ITEM_ID,
         name:             'SunStand Consultant Certification',
         bonus_volume:     300,
-        distributor_only: true)
+        distributor_only: true,
+        certifiable: true,
+        image_original_path: 'http://lorempixel.com/400/400/abstract')
       puts 'Created Products for solar item and consultant certification'
     end
 
