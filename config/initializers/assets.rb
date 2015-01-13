@@ -4,6 +4,7 @@ Rails.application.config.assets.precompile += [
   'admin/products.js',
   'admin/quotes.js'
 ]
+Rails.application.config.assets.precompile += %w( earnings.js )
 Rails.application.config.assets.precompile += %w( creditly.js )
 Rails.application.config.assets.precompile += %w( dashboard.js )
 Rails.application.config.assets.precompile += %w( kpi.js )

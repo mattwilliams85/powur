@@ -48,12 +48,16 @@ class EarningsJson < JsonDecorator
       json.pay_period_type pay_period.type_display
       json.pay_period_date_range pay_period.date_range_display('%m-%d')
       if pay_period.type_display == "Weekly"
-        json.pay_period_week_number pay_period.start_date.week_of_month 
+        json.pay_period_week_number pay_period.end_date
       else  
         json.bonus_summaries =  BonusPayment.bonus_totals_by_type(pay_period).for_user(4)
       end
     end
   end
+
+  # def week_number(date)
+  #   if (date.week_of_month == 5) then 1 else date.week_of_month end
+  # end
 
   def list_earning_properties(earning, user_id)
     if earning.nil?

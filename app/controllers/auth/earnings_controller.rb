@@ -20,7 +20,7 @@ module Auth
       @total_earnings = current_user.bonus_payments.sum(:amount)
       @earnings = fetch_earnings(@user.id, @pay_periods)
       @earnings_group = structured_earnings(@pay_periods, @earnings, @user)
-
+      create_missing(@earnings_group) if @earnings_group.length < 5
     end
 
     # this call will fetch the details for a bonus payment
@@ -63,6 +63,13 @@ module Auth
       end
 
       @earnings_map
+    end
+
+    def create_missing(earnings_group)
+
+      # (5 - earnings_group.length).times do 
+      #   @earnings_group << PayPeriod.new(:end_date)
+      # end
     end
 
     def fetch_earning_details(user, pay_period)
