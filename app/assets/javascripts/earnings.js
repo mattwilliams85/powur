@@ -27,6 +27,10 @@ _ajax({
 
     $(document).ready(function(){
 
+      $(document).on("click", function(e){
+       
+      })
+
       //Returns the number of months between two dates
       function checkRange(){
         $('.warning').empty()

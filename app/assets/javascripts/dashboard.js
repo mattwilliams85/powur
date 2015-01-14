@@ -30,6 +30,10 @@ function initPage(){
     setInterval(_dashboard._countdown, 1000);
   });
 
+  $('.js-user_first_name').on("click",function(){
+     window.location.href = $(this).attr("href")
+  })
+
   //wire up logout button
   $('#user_logout').on('click', function(e){
     _formSubmit(e, {}, '/login', 'delete', function(data, text){
