@@ -151,7 +151,7 @@ jQuery(function($){
                         //wire up convert quotes to order
                         $(".js-convert_quote_to_order").on("click", function(e){
                             e.preventDefault();
-                            _quote = EyeCueLab.JSON.getObjectsByPattern(
+                            var _quote = EyeCueLab.JSON.getObjectsByPattern(
                                 _data.quotes, {
                                 "containsIn(properties)":[{id:$(e.target).parents("tr").attr("data-quote-id")}],
                                 "containsIn(links)":[{rel:"self"}]
@@ -552,7 +552,7 @@ jQuery(function($){
                 _ajaxType:"get",
                 _url:_url,
                 _callback:function(data){
-                    _popupData = data;
+                    var _popupData = data;
                     _popupData.title="Order Details";
                     _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
                     _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];
