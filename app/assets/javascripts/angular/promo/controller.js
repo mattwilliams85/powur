@@ -25,7 +25,7 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
   $scope.$watch('slider', function(newValue) {
     if (newValue === '1') {
       $timeout(function() {
-        $scope.gotoAnchor('case_for_solar');
+        $scope.gotoAnchor('on_slider_move');
       }, 200);
     }
   });

@@ -95,6 +95,10 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/promo/templates/create-wealth.html")%>',
       controller: 'PromoCtrl'
     }).
+    when('/create-energy', {
+      templateUrl: '<%=asset_path("angular/promo/templates/create-energy.html")%>',
+      controller: 'PromoCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'

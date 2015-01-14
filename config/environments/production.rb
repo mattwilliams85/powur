@@ -35,7 +35,7 @@ Rails.application.configure do
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.1'
   config.action_controller.asset_host = Proc.new { |source|
-    if source.ends_with?('.html')
+    if source.ends_with?('.html') || source.ends_with?('.woff') || source.ends_with?('.ttf')
       ''
     else
       ENV['ASSETS_HOST'] || 'http://sunstand.eyecuelab.com'
