@@ -469,7 +469,9 @@ jQuery(function($){
         }
 
         applyBrowserSpecificRules(); //this fixes the double arrow issue on selects in Firefox <34
-        $("#js-popup").show();
+
+        $("#js-popup").fadeIn(100);
+
     }
 
     SunStand.Admin.positionIndicator = function (_indicatorObj, _highlightObj){
