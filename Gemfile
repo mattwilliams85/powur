@@ -12,7 +12,7 @@ gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder'
 # gem 'wiselinks'
-gem 'font-awesome-sass', '~> 4.2.0'
+# gem 'font-awesome-sass', '~> 4.2.0'
 gem 'zurb-foundation', '~> 4.3'
 gem 'compass-rails'
 
