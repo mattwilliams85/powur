@@ -12,6 +12,7 @@ td:nth-child(3){
 }
 
 
+
 .bonus-header-hr {
   border: none;
   margin-top:10px;
@@ -110,6 +111,13 @@ td:nth-child(3){
   height:0px;
   overflow:hidden;
   position:fixed;
+}
+
+.dropDownDetails {
+  background-color:#333;
+  color:#eee;
+  text-align:left;
+  padding:30px
 }
 
 .slideTable {

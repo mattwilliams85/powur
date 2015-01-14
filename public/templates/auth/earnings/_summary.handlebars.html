@@ -28,13 +28,13 @@
     {{#if this.properties.total_earnings}}
       <td class="details-cell">${{formatCurrency this.properties.total_earnings}}</td>
       {{#compare this.properties.pay_period_type "Monthly" operator="==="}}
-        <td class="details-cell right-aligned"><a class="dropToggle monthly" id="{{this.properties.pay_period_id}}">View Details  <i class="icon-chevron-down"></i></a></td>
+        <td class="details-cell right-aligned"><a class="dropToggle monthly" id="{{this.properties.pay_period_id}}">View Details  <i class="fa fa-chevron-down"></i></a></td>
       {{else}}
-        <td class="details-cell right-aligned"><a class="dropToggle weekly" id="{{this.properties.pay_period_id}}">View Details  <i class="icon-chevron-down"></i></a></td>
+        <td class="details-cell right-aligned"><a class="dropToggle weekly" id="{{this.properties.pay_period_id}}">View Details  <i class="fa fa-chevron-down"></i></a></td>
       {{/compare}}
     {{else}}
       <td class="details-cell">$0</td>
-      <td class="details-cell right-aligned" style="color:#ccc">View Details <i class="icon-chevron-down"></i> </td>
+      <td class="details-cell right-aligned" style="color:#ccc">View Details <i class="fa fa-chevron-down"></i> </td>
     {{/if}}
   </tr>
   {{/each}}
