@@ -1118,28 +1118,28 @@ jQuery(function($){
         }
 
         //admin toolbar
-        $('.hover-box').hover(function(e){
-            $('.js-admin_tab').stop();
-            e.stopPropagation()
-            if($('.js-admin_tab').is(':animated')) return;
-            $('.js-admin_tab').animate({
-                "left":"-40px"
-            }, 300);
+        // $('.hover-box').hover(function(e){
+        //     $('.js-admin_tab').stop();
+        //     e.stopPropagation()
+        //     if($('.js-admin_tab').is(':animated')) return;
+        //     $('.js-admin_tab').animate({
+        //         "left":"-40px"
+        //     }, 300);
 
-        });
+        // });
 
-         // $('.js-admin_tab').velocity({ translateX: 105 }, {
-         //        duration: 300,
-         //    easing: [ .35,-0.69,.47,.71 ],
+        //  // $('.js-admin_tab').velocity({ translateX: 105 }, {
+        //  //        duration: 300,
+        //  //    easing: [ .35,-0.69,.47,.71 ],
 
-        $( ".hover-box" ).mouseleave(function(e) {
-            $('.js-admin_tab').stop();
-            e.stopPropagation()
-            $('.js-admin_tab').animate({
-                "left":"-140px"
-            },300);
+        // $( ".hover-box" ).mouseleave(function(e) {
+        //     $('.js-admin_tab').stop();
+        //     e.stopPropagation()
+        //     $('.js-admin_tab').animate({
+        //         "left":"-140px"
+        //     },300);
 
-        });
+        // });
        //* end admin adshboard specific utility functions
 
 
