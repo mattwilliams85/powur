@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>SunStand</title>
-	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-	<%= javascript_include_tag "Chart", "data-turbolinks-track" => true %>
-	<%= yield :javascript_includes %>
-	<%= csrf_meta_tags %>
-	<%= render :partial => "shared/head" %>
+  <title>SunStand</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "Chart", "data-turbolinks-track" => true %>
+  <%= yield :javascript_includes %>
+  <%= csrf_meta_tags %>
+  <%= render :partial => "shared/head" %>
 
 </head>
 <body id="application">
-	<header>
-		<div id="header_container" style="position:absolute;width:100%">
-			<nav>
-				<ul>
-					<li class="main_logo">	
-						<a href="/">
-							<%= render :partial => "shared/sunstand_logo_svg" %>
-						</a>
-					</li>					
-					<li>
-						<a href="#admin-users" class="admin_top_level_nav">Users</a>
-					</li>	
-					<li>
-						<a href="#admin-plans" class="admin_top_level_nav">Plans</a>
-					</li>
-					<li>
-						<a href="#admin-quotes" class="admin_top_level_nav">Quotes & Orders</a>
-					</li>
+  <header>
+    <div id="header_container" style="position:absolute;width:100%">
+      <nav>
+        <ul>
+          <li class="main_logo">
+            <a href="/">
+              <%= render :partial => "shared/sunstand_logo_svg" %>
+            </a>
+          </li>
+          <li>
+            <a href="#admin-users" class="admin_top_level_nav">Users</a>
+          </li>
+          <li>
+            <a href="#admin-plans" class="admin_top_level_nav">Plans</a>
+          </li>
+          <li>
+            <a href="#admin-quotes" class="admin_top_level_nav">Quotes & Orders</a>
+          </li>
 
-				</ul>
-		
-				<ul id="user_nav">
-					<li>
-						<a href="/settings" class="username js-user_first_name"></a>
-					</li>
-					<li>
-						<%= link_to 'Sign out', login_path, method: "delete" %> 
-					</li>
-				</ul>
-			</nav>
-			<section id="subheader_bar" style="">
-			    <div class="js-dashboard_section_indicator top_level"></div>
-			</section>
-		</div>
-		<%#= render :partial => "shared/our_goal" %>
+        </ul>
 
-	</header>
+        <ul id="user_nav">
+          <li>
+            <a href="/settings" class="username js-user_first_name"></a>
+          </li>
+          <li>
+            <%= link_to 'Sign out', login_path, method: "delete" %>
+          </li>
+        </ul>
+      </nav>
+      <section id="subheader_bar" style="">
+          <div class="js-dashboard_section_indicator top_level"></div>
+      </section>
+    </div>
+    <%#= render :partial => "shared/our_goal" %>
 
-	<%= yield %>
+  </header>
 
-	<%= render :partial => "shared/admin_toolbar" %>
-	<div id="js-screen_mask"></div>
+  <%= yield %>
+
+  <%= render :partial => "shared/admin_toolbar" %>
+  <div id="js-screen_mask"></div>
 </body>
 </html>

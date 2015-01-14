@@ -1,614 +1,614 @@
 // Common elements (.classes)
 
-	.button {
-		// Mixins
-		@include button;
-
-		// Box properties
-
-		// Background & borders
-
-		// Typography
-
-		// Other
-
-	}
-
-  	.quiet_button {
-		// Mixins
-		@include button;
-		// Box properties
-		margin-right: $grid / 2;
-		// Background & borders
-		border: $border;
-		background-color: $ghost;
-
-		// Typography
-		color: white;
-
-		// Other
-
-		&:hover {
-	    	// Mixins
-	    
-	    	// Box properties
-	    
-	    	// Background & borders
-			border-color: $ghost_dark;
-			background-color: $ghost_dark;
-	    	// Typography
-	    	color: white;
-	    	// Other
-		}
-
-	    &.active {
-	    	// Mixins
-	    
-	    	// Box properties
-	    
-	    	// Background & borders
-	    	background: $sunnyside;
-	    	border-color: darken($sunnyside, 2%);
-	    	// Typography
-	    	color: white;
-	    	// Other
-	    }
-  	}
-
-	a.secondary_button {
-		// Mixins
-		@include small_title;
-		@include form_padding;
-		// Box properties
-		margin-top: $grid / 4;
-		display: block;
-		float: left;
-	
-		// Background & borders
-		color: $whisper;
-		// Typography
-	
-		// Other
-
-		&:hover {
-			// Mixins
-		
-			// Box properties
-		
-			// Background & borders
-
-			// Typography
-			color: $brand;
-			// Other
-		
-		}
-	
-	}
-
-	.dismiss {
-		// Mixins
-
-		// Box properties
-		position: absolute;
-		top: $grid / 2;
-		right: $grid * .75;
-
-		// Background & borders
-
-		// Typography
-		font-size: $grid / 2;
-		// Other
-		z-index: 100;
-	}
-
-	.subtext {
-		// Mixins
-
-		// Box properties
-		display: block;
-		// Background & borders
-
-		// Typography
-		font-size: $grid / 2;
-		line-height: $line_height;
-		color: $quiet;
-		// Other
-
-	}
-
-	.expand {
-		// Mixins
-
-		// Box properties
-		display: block;
-		// Background & borders
-
-		// Typography
-		text-align: center;
-		color: $whisper;
-		// Other
-
-	}
-
-	.badge {
-		// Mixins
-		@include corners;
-		@include small_title;
-		// Box properties
-		display: inline-block;
-		padding:$grid / 8 $grid / 4;
-		// Background & borders
-		background-color: $ghost;
-		// Typography
-
-		// Other
-
-	}
-
-	.section_header {
-		// Mixins
-		@include box_sizing;
-		// Box properties
-		width: 100%;
-		// Background & borders
-		border-bottom: $border;
-		// Typography
-
-		// Other
-
-		.section_header_content {
-			// Mixins
-			@include box_sizing;
-			// Box properties
-			width: $desktop;
-			margin: 0 auto;
-			padding:$grid / 4;
-			overflow: auto;
-
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-
-			.section_title {
-				// Mixins
-
-				@include form_box;
-				@include corners;
-
-				// Box properties
-				float: left;
-				margin:0 $grid / 4 0 0;
-				width: auto;
-				// Background & borders
-				background: $ghost;
-				border: 1px solid $ghost;
-				// Typography
-				color: $quiet;
-				// Other
-
-				&:hover {
-					// Mixins
-				
-					// Box properties
-				
-					// Background & borders
-
-					// Typography
-
-					// Other
-				
-				}
-			}
-		}
-	}
-
-	.title_select {
-		// Mixins	
-
-	}
-
-	.section_search {
-		// Mixins
-	
-		// Box properties
-		float: right !important;
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-	
-	}
-
-	.collection_total {
-		// Mixins
-		@include small_title;
-		@include form_padding;
-		// Box properties
-		display: block;
-		float: left;
-		// Background & borders
-		border: 1px solid transparent;
-		text-align: left;
-		// Typography
-		color: $whisper;
-		// Other
-	
-	}
-
-	.tabs {
-		// Mixins
-		@include small_title;
-		// Box properties
-		float: left;
-		margin-right: $grid / 4;
-		// Background & borders
-
-		// Typography
-		color: $whisper;
-
-		// Other
-
-		li {
-			// Mixins
-			@include box_sizing;
-			@include corners;
-			// Box properties
-			margin: 0 0 0 -1px;
-			display: block;
-			float: left;
-			position: relative;
-			// background & borders
-	
-			// Typography
-			list-style: none;
-			// Other
-			
-			&:last-child {
-				// Mixins
-			
-				// Box properties
-			
-				// Background & borders
-
-				// Typography
-			
-				// Other
-
-				a {
-					// Mixins
-					@include corners(0, 4px, 0, 4px);
-					// Box properties
-				
-					// Background & borders
-
-					// Typography
-				
-					// Other
-				
-				}
-			}
-
-			&:first-child {
-				// Mixins
-			
-				// Box properties
-			
-				// Background & borders
-
-				// Typography
-			
-				// Other
-
-				a {
-					// Mixins
-					@include corners(4px, 0, 4px, 0);
-					// Box properties
-				
-					// Background & borders
-
-					// Typography
-				
-					// Other
-				
-				}
-			}
-
-			a {
-				// Mixins
-				@include form_box;
-				@include small_title;
-				@include corners(0,0,0,0);
-				// Box properties
-				margin-bottom: 0;
-				// Background & borders
-				border-top: 1px solid $ghost;
-				border-bottom: 1px solid $ghost;
-				border-right: 1px solid $ghost;
-				border-left: 1px solid $ghost;
-
-				// Typography
-				color: $whisper;
-				// Other
-
-				&:hover {
-					// Mixins
-				
-					// Box properties
-				
-					// Background & borders
-					background-color: $ghost;
-
-					// Typography
-					color: $whisper;
-					// Other
-				
-				}
-
-
-				&.active {
-					// Mixins
-					// Box properties
-				
-					// Background & borders
-					background-color: $ghost;
-					// Typography
-					color: $quiet;
-					// Other
-				
-				}
-			}
-		}
-
-		select {
-			// Mixins
-		
-			// Box properties
-			margin-bottom: 0;
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-		
-		}
-
-		.badge {
-			// Mixins
-			@include circle_with_text;
-			// Box properties
-			height: $grid / 1.5;
-			width: $grid / 1.5;
-			padding-top: 1px;
-			margin: -3px -9px 0 4px;
-			float: right;
-			// Background & borders
-		
-			// Typography
-
-			// Other
-		
-		}
-	}
-
-	.sort {
-		// Mixins
-		@extend .tabs;
-		// Box properties
-		float: right;
-
-		// Background & borders
-
-		// Typography
-
-		// Other
-	}
-
-	.search {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
-	
-		// Typography
-		font-size: $font_size;
-		// Other
-	
-	}
+  .button {
+    // Mixins
+    @include button;
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+
+    // Other
+
+  }
+
+    .quiet_button {
+    // Mixins
+    @include button;
+    // Box properties
+    margin-right: $grid / 2;
+    // Background & borders
+    border: $border;
+    background-color: $ghost;
+
+    // Typography
+    color: white;
+
+    // Other
+
+    &:hover {
+        // Mixins
+
+        // Box properties
+
+        // Background & borders
+      border-color: $ghost_dark;
+      background-color: $ghost_dark;
+        // Typography
+        color: white;
+        // Other
+    }
+
+      &.active {
+        // Mixins
+
+        // Box properties
+
+        // Background & borders
+        background: $sunnyside;
+        border-color: darken($sunnyside, 2%);
+        // Typography
+        color: white;
+        // Other
+      }
+    }
+
+  a.secondary_button {
+    // Mixins
+    @include small_title;
+    @include form_padding;
+    // Box properties
+    margin-top: $grid / 4;
+    display: block;
+    float: left;
+
+    // Background & borders
+    color: $whisper;
+    // Typography
+
+    // Other
+
+    &:hover {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+      color: $brand;
+      // Other
+
+    }
+
+  }
+
+  .dismiss {
+    // Mixins
+
+    // Box properties
+    position: absolute;
+    top: $grid / 2;
+    right: $grid * .75;
+
+    // Background & borders
+
+    // Typography
+    font-size: $grid / 2;
+    // Other
+    z-index: 100;
+  }
+
+  .subtext {
+    // Mixins
+
+    // Box properties
+    display: block;
+    // Background & borders
+
+    // Typography
+    font-size: $grid / 2;
+    line-height: $line_height;
+    color: $quiet;
+    // Other
+
+  }
+
+  .expand {
+    // Mixins
+
+    // Box properties
+    display: block;
+    // Background & borders
+
+    // Typography
+    text-align: center;
+    color: $whisper;
+    // Other
+
+  }
+
+  .badge {
+    // Mixins
+    @include corners;
+    @include small_title;
+    // Box properties
+    display: inline-block;
+    padding:$grid / 8 $grid / 4;
+    // Background & borders
+    background-color: $ghost;
+    // Typography
+
+    // Other
+
+  }
+
+  .section_header {
+    // Mixins
+    @include box_sizing;
+    // Box properties
+    width: 100%;
+    // Background & borders
+    border-bottom: $border;
+    // Typography
+
+    // Other
+
+    .section_header_content {
+      // Mixins
+      @include box_sizing;
+      // Box properties
+      width: $desktop;
+      margin: 0 auto;
+      padding:$grid / 4;
+      overflow: auto;
+
+      // Background & borders
+
+      // Typography
+
+      // Other
+
+      .section_title {
+        // Mixins
+
+        @include form_box;
+        @include corners;
+
+        // Box properties
+        float: left;
+        margin:0 $grid / 4 0 0;
+        width: auto;
+        // Background & borders
+        background: $ghost;
+        border: 1px solid $ghost;
+        // Typography
+        color: $quiet;
+        // Other
+
+        &:hover {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+
+          // Typography
+
+          // Other
+
+        }
+      }
+    }
+  }
+
+  .title_select {
+    // Mixins
+
+  }
+
+  .section_search {
+    // Mixins
+
+    // Box properties
+    float: right !important;
+    // Background & borders
+
+    // Typography
+
+    // Other
+
+  }
+
+  .collection_total {
+    // Mixins
+    @include small_title;
+    @include form_padding;
+    // Box properties
+    display: block;
+    float: left;
+    // Background & borders
+    border: 1px solid transparent;
+    text-align: left;
+    // Typography
+    color: $whisper;
+    // Other
+
+  }
+
+  .tabs {
+    // Mixins
+    @include small_title;
+    // Box properties
+    float: left;
+    margin-right: $grid / 4;
+    // Background & borders
+
+    // Typography
+    color: $whisper;
+
+    // Other
+
+    li {
+      // Mixins
+      @include box_sizing;
+      @include corners;
+      // Box properties
+      margin: 0 0 0 -1px;
+      display: block;
+      float: left;
+      position: relative;
+      // background & borders
+
+      // Typography
+      list-style: none;
+      // Other
+
+      &:last-child {
+        // Mixins
+
+        // Box properties
+
+        // Background & borders
+
+        // Typography
+
+        // Other
+
+        a {
+          // Mixins
+          @include corners(0, 4px, 0, 4px);
+          // Box properties
+
+          // Background & borders
+
+          // Typography
+
+          // Other
+
+        }
+      }
+
+      &:first-child {
+        // Mixins
+
+        // Box properties
+
+        // Background & borders
+
+        // Typography
+
+        // Other
+
+        a {
+          // Mixins
+          @include corners(4px, 0, 4px, 0);
+          // Box properties
+
+          // Background & borders
+
+          // Typography
+
+          // Other
+
+        }
+      }
+
+      a {
+        // Mixins
+        @include form_box;
+        @include small_title;
+        @include corners(0,0,0,0);
+        // Box properties
+        margin-bottom: 0;
+        // Background & borders
+        border-top: 1px solid $ghost;
+        border-bottom: 1px solid $ghost;
+        border-right: 1px solid $ghost;
+        border-left: 1px solid $ghost;
+
+        // Typography
+        color: $whisper;
+        // Other
+
+        &:hover {
+          // Mixins
+
+          // Box properties
+
+          // Background & borders
+          background-color: $ghost;
+
+          // Typography
+          color: $whisper;
+          // Other
+
+        }
+
+
+        &.active {
+          // Mixins
+          // Box properties
+
+          // Background & borders
+          background-color: $ghost;
+          // Typography
+          color: $quiet;
+          // Other
+
+        }
+      }
+    }
+
+    select {
+      // Mixins
+
+      // Box properties
+      margin-bottom: 0;
+      // Background & borders
+
+      // Typography
+
+      // Other
+
+    }
+
+    .badge {
+      // Mixins
+      @include circle_with_text;
+      // Box properties
+      height: $grid / 1.5;
+      width: $grid / 1.5;
+      padding-top: 1px;
+      margin: -3px -9px 0 4px;
+      float: right;
+      // Background & borders
+
+      // Typography
+
+      // Other
+
+    }
+  }
+
+  .sort {
+    // Mixins
+    @extend .tabs;
+    // Box properties
+    float: right;
+
+    // Background & borders
+
+    // Typography
+
+    // Other
+  }
+
+  .search {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+    font-size: $font_size;
+    // Other
+
+  }
 
 
 
 // Unique elements (#IDs)
 
-	// Global progress bar
+  // Global progress bar
 
-		// Background colors for pixelfucking the progress bar
+    // Background colors for pixelfucking the progress bar
 
-			$global_progress_color: #777;
-			$solar_progress_bar_color: $brand;
-			$global_title_color: $solar_progress_bar_color;
-			$global_border_color: darken($brand, 19%);
+      $global_progress_color: #777;
+      $solar_progress_bar_color: $brand;
+      $global_title_color: $solar_progress_bar_color;
+      $global_border_color: darken($brand, 19%);
 
-		#subheader_bar {
-			// Mixins
-			@include small_title;
-			@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
-			// Box properties
-			padding: 0;
-			overflow: visible;
-			position: relative;
-			height: $grid;
-			// Background & borders
-			border-top: 1px solid $global_border_color;
-			border-bottom: 1px solid #555;
-			// Typography
-			line-height: $grid;
-			// Other
+    #subheader_bar {
+      // Mixins
+      @include small_title;
+      @include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
+      // Box properties
+      padding: 0;
+      overflow: visible;
+      position: relative;
+      height: $grid;
+      // Background & borders
+      border-top: 1px solid $global_border_color;
+      border-bottom: 1px solid #555;
+      // Typography
+      line-height: $grid;
+      // Other
 
-			#subheader_bar_content {
-				// Mixins
-				@include box_sizing;
-				// Box properties
-				width: $desktop;
-				margin: 0 auto;			
-				// Background & borders
-			
-				// Typography
-			
-				// Other
-			
-			}
+      #subheader_bar_content {
+        // Mixins
+        @include box_sizing;
+        // Box properties
+        width: $desktop;
+        margin: 0 auto;
+        // Background & borders
 
-			#global_progress_content {
-				// Mixins
-				@include box_sizing;
-				// Box properties
-				width: $desktop - $grid * 2;
-				height: $grid;
-				margin: 0;
-				float: left;
-				overflow: auto;
-				position: relative;
-				// Background & borders
+        // Typography
 
-				// Typography
-			
-				// Other
-			
-			}
+        // Other
 
-			.tic {
-				// Mixins
-				@include box_sizing;
-				// Box properties
-				position: relative;
-				height: $grid;
-				width: 100%;
-				// Background & borders
-				background-image: image-url('bg_tic.svg');
-				background-color: $text;
-				background-repeat: repeat-x;
-				background-size: contain;
-				border-right: 1px solid #333;
-				// Typography
-			
-				// Other
-			
-			}
+      }
+
+      #global_progress_content {
+        // Mixins
+        @include box_sizing;
+        // Box properties
+        width: $desktop - $grid * 2;
+        height: $grid;
+        margin: 0;
+        float: left;
+        overflow: auto;
+        position: relative;
+        // Background & borders
+
+        // Typography
+
+        // Other
+
+      }
+
+      .tic {
+        // Mixins
+        @include box_sizing;
+        // Box properties
+        position: relative;
+        height: $grid;
+        width: 100%;
+        // Background & borders
+        background-image: image-url('bg_tic.svg');
+        background-color: $text;
+        background-repeat: repeat-x;
+        background-size: contain;
+        border-right: 1px solid #333;
+        // Typography
+
+        // Other
+
+      }
 
 
-			#goal_select {
-				// Mixins
-				@include box_sizing;
-				@include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
+      #goal_select {
+        // Mixins
+        @include box_sizing;
+        @include gradient(darken($global_progress_color, 14%), darken($global_progress_color, 10%), darken($global_progress_color, 6%));
 
-				// Box properties
+        // Box properties
 
-				height: $grid;
-				width: $grid * 5.5;
-				margin: 0;
-				position: absolute;
-				left: 0;
-				// Background & borders
+        height: $grid;
+        width: $grid * 5.5;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        // Background & borders
 
-				border-right: 1px solid $global_border_color;
-				// Typography
-				color: $white;
+        border-right: 1px solid $global_border_color;
+        // Typography
+        color: $white;
 
-				// Other
-				z-index: 500;
+        // Other
+        z-index: 500;
 
-				&:hover {
-					// Mixins
+        &:hover {
+          // Mixins
 
-					// Box properties
-				
-					// Background & borders
-				
-					// Typography
-				
-					// Other
-				
-				}
-			}
+          // Box properties
 
-			#solar_progress_bar {
-				// Mixins
-				@include corners(0, $grid, 0, $grid);
-				@include gradient(darken($solar_progress_bar_color, 8%), darken($solar_progress_bar_color, 12%), darken($solar_progress_bar_color, 14%));
-				@include box_sizing;
-				// Box properties
-				width: 64%;
-				height: $grid;
-				float: left;
-				// Background & borders
-				background-color: $solar_progress_bar_color;
-				border-right: 1px solid #333;
-				border-left: 1px solid #333;
+          // Background & borders
 
-				// Typography
-				text-align: center;
-				// Other
+          // Typography
 
-				.solar_progress_bar_text {
-					// Mixins
-				
-					// Box properties
-					height: $grid;
-					display: block;
-					padding: 0 $grid / 2;
-					// Background & borders
-				
-					// Typography
-					color: $white;
-					// Other
-				
-				}
-			
-			}
+          // Other
 
-			#goal_text {
-				// Mixins
-				@include box_sizing;
-				// Box properties
-				float: right;
-				height: 100%;
-				width: $grid * 5;
-				padding-right: $grid / 4;
-				// Background & borders
-			
-				// Typography
-				color: $whisper;
-				text-align: right;
-				// Other
-			
-			}
-		}
+        }
+      }
 
-		#notification_center_toggle {
-			// Mixins
-		
-			// Box properties
-		
-			// Background & borders
-		
-			// Typography
-			color: $white;
-			// Other
-		
-			.badge {
-				// Mixins
-			
-				// Box properties
-			
-				// Background & borders
-				background: $sunnyside;
-				// Typography
-			
-				// Other
-			
-			}
-		}
+      #solar_progress_bar {
+        // Mixins
+        @include corners(0, $grid, 0, $grid);
+        @include gradient(darken($solar_progress_bar_color, 8%), darken($solar_progress_bar_color, 12%), darken($solar_progress_bar_color, 14%));
+        @include box_sizing;
+        // Box properties
+        width: 64%;
+        height: $grid;
+        float: left;
+        // Background & borders
+        background-color: $solar_progress_bar_color;
+        border-right: 1px solid #333;
+        border-left: 1px solid #333;
+
+        // Typography
+        text-align: center;
+        // Other
+
+        .solar_progress_bar_text {
+          // Mixins
+
+          // Box properties
+          height: $grid;
+          display: block;
+          padding: 0 $grid / 2;
+          // Background & borders
+
+          // Typography
+          color: $white;
+          // Other
+
+        }
+
+      }
+
+      #goal_text {
+        // Mixins
+        @include box_sizing;
+        // Box properties
+        float: right;
+        height: 100%;
+        width: $grid * 5;
+        padding-right: $grid / 4;
+        // Background & borders
+
+        // Typography
+        color: $whisper;
+        text-align: right;
+        // Other
+
+      }
+    }
+
+    #notification_center_toggle {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+      color: $white;
+      // Other
+
+      .badge {
+        // Mixins
+
+        // Box properties
+
+        // Background & borders
+        background: $sunnyside;
+        // Typography
+
+        // Other
+
+      }
+    }

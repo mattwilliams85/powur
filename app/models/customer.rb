@@ -14,6 +14,10 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def address_complete?
+    address && city && state && zip
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end

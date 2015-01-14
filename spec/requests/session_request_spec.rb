@@ -21,25 +21,20 @@ describe '/login' do
       expect_classes('session', 'user')
     end
   end
+end
 
-  describe 'GET' do
-    context 'when NOT signed in' do
-      it 'should NOT redirect' do
-        get '/login'
-        expect(response).to have_http_status(200)
-      end
+describe 'authenticate!' do
+  context 'signed out' do
+    it 'returns a 401 for XHR' do
+      xhr :get, dashboard_path
+
+      expect(response.status).to eq(401)
     end
 
-    context 'when signed in' do
-      before do
-        login_user
-      end
+    it 'redirects to sign-in on request' do
+      get dashboard_path
 
-      it 'should redirect to a dashboard' do
-        get '/login'
-        expect(response).to have_http_status(302)
-        expect(response).to redirect_to(dashboard_path)
-      end
+      expect(response.status).to eq(302)
     end
   end
 end

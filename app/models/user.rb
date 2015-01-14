@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   include UserInvites
   include NameEmailSearch
   include UserScopes
+  include PaperclipScopes
 
   belongs_to :rank_path
 
@@ -25,36 +26,7 @@ class User < ActiveRecord::Base
   validates_presence_of :phone, :zip
   validates_presence_of :address, :city, :state, allow_nil: true
 
-  aws_bucket = Rails.application.secrets.aws_bucket
-  aws_access_key_id = Rails.application.secrets.aws_access_key_id
-  aws_secret_key = Rails.application.secrets.aws_secret_access_key
-  has_attached_file :avatar,
-                    path:            '/avatars/:id/:basename_:style.:extension',
-                    url:             ':s3_domain_url',
-                    default_url:     '/temp_dev_images/Tim.jpg',
-                    storage:         :s3,
-                    s3_credentials:  { bucket:            aws_bucket,
-                                       access_key_id:     aws_access_key_id,
-                                       secret_access_key: aws_secret_key },
-                    styles:          {
-                      thumb:   [ '100x100#', :jpg, quality: 70 ],
-                      preview: [ '480x480#', :jpg, quality: 70 ],
-                      large:   [ '600>',     :jpg, quality: 70 ],
-                      retina:  [ '1200>',    :jpg, quality: 30 ] },
-                    convert_options: {
-                      thumb:   '-set colorspace sRGB -strip',
-                      preview: '-set colorspace sRGB -strip',
-                      large:   '-set colorspace sRGB -strip',
-                      retina:  '-set colorspace sRGB -strip -sharpen 0x0.5' }
-
-  # Validate content type
-  validates_attachment_content_type :avatar, content_type: /\Aimage/
-  # Validate filename
-  validates_attachment_file_name :avatar, matches: [/png\Z/, /jpe?g\Z/, /gif\Z/]
-  # Explicitly do not validate
-  do_not_validate_attachment_file_type :avatar
-
-  after_create :set_upline
+  after_create :hydrate_upline
 
   attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count
 
@@ -131,7 +103,7 @@ class User < ActiveRecord::Base
 
   private
 
-  def set_upline
+  def hydrate_upline # rubocop:disable Metrics/AbcSize
     return if upline && !upline.empty?
     self.upline = sponsor ? sponsor.upline + [ id ] : [ id ]
     User.where(id: id).update_all(upline: upline)
@@ -153,9 +125,5 @@ class User < ActiveRecord::Base
       sql = sanitize_sql([ UPDATE_LIFETIME_RANKS, pay_period_id ])
       connection.execute(sql)
     end
-  end
-
-  def delete_avatar
-    self.avatar = nil
   end
 end

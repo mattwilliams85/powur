@@ -1,0 +1,48 @@
+<div class="slideData">
+  <table class="slideTable">
+    <span class="bonus-header-title">{{formatUnderscore entities.0.properties.bonus_title}}</span>
+    <hr class="bonus-header-hr">
+    <tr>
+      <td class="inner-details-cell header-cell">Order ID</td>
+      <td class="inner-details-cell header-cell">Order Date</td>
+      <td class="inner-details-cell header-cell">Customer</td>
+      <td class="inner-details-cell header-cell">Amount</td>
+    </tr>
+  
+    {{storeJson entities.0.properties.bonus_title}}
+    {{#each entities}}
+      {{#compareJson this.properties.bonus_title}}
+        {{storeJson this.properties.bonus_title}}
+        {{#each this.properties.entities}}
+          <tr class="details-row alternating">
+            <td class="inner-details-cell">{{this.properties.order_id}}</td>
+            <td class="inner-details-cell">{{this.properties.order_date}}</td>
+            <td class="inner-details-cell">{{this.properties.customer_name}}</td>
+            <td class="inner-details-cell">${{formatCurrency ../this.properties.amount}}</td>
+          </tr>
+        {{/each}}
+    {{else}}
+        </table>
+        <table class="slideTable">
+        {{storeJson this.properties.bonus_title}}
+        <br>
+        <span class="bonus-header-title">{{formatUnderscore this.properties.bonus_title}}</span>
+        <hr class="bonus-header-hr">
+        <tr>
+          <td class="inner-details-cell header-cell">Order ID</td>
+          <td class="inner-details-cell header-cell">Order Date</td>
+          <td class="inner-details-cell header-cell">Customer</td>
+          <td class="inner-details-cell header-cell">Amount</td>
+        </tr>
+        <tr class="inner-details-row alternating">
+          {{#each this.properties.entities}}
+          <td class="inner-details-cell">{{this.properties.order_id}}</td>
+          <td class="inner-details-cell">{{this.properties.order_date}}</td>
+          <td class="inner-details-cell">{{this.properties.customer_name}}</td>
+          <td class="inner-details-cell">${{formatCurrency ../this.properties.amount}}</td>
+          {{/each}}
+        </tr>
+      {{/compareJson}}
+    {{/each}}
+    </table>
+</div>

@@ -1,3 +1,5 @@
+'use strict';
+
 jQuery(function($){
     //All jquery ajax requests must use CSRF token
     $.ajaxSetup({
@@ -41,6 +43,42 @@ jQuery(function($){
 
 });
 
+//browser specific rules function 
+function applyBrowserSpecificRules() {
+  if (navigator.userAgent.indexOf('Chrome') !== -1) {
+    // (chrome-specific stuff here)
+  } else if (navigator.userAgent.indexOf('Opera') !== -1) {
+    // (opera-specific stuff here)
+  } else if (navigator.userAgent.indexOf('Firefox') !== -1) {
+    // (firefox-specific stuff here)
+
+    //dropdown arrows workaround for FF 34 and below
+    //test for Firefox/x.x or Firefox x.x (ignoring remaining digits);
+    if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){ 
+      var _selects;
+      var i;
+      // capture x.x portion and store as a number
+      var ffversion = new Number(RegExp.$1); 
+      if (ffversion >= 35) {
+        _selects = document.querySelectorAll('select');
+        for (i=0; i<_selects.length; i++) {
+          _selects[i].style.backgroundImage = '/assets/select_arrow.svg';
+        }
+      } else {
+        _selects = document.querySelectorAll('select');
+        for (i=0; i<_selects.length; i++) {
+          _selects[i].style.backgroundImage = 'none';
+        }
+      }
+    }
+  } else if ((navigator.userAgent.indexOf('MSIE') !== -1) || 
+    (document.documentMode === true)) {
+    // (IE-specific stuff here)
+  } else {
+    // (browser isn't one of the above)
+  }
+}
+
 
 Handlebars.registerHelper("debug", function(optionalValue) {
   console.log("Current Context");
@@ -81,7 +119,7 @@ Handlebars.registerHelper('index_of', function(context,ndx) {
 Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
     if (arguments.length < 3)
         throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
-    operator = options.hash.operator || "==";
+    var operator = options.hash.operator || "==";
     var operators = {
         '==':       function(l,r) { return l == r; },
         '===':      function(l,r) { return l === r; },
@@ -105,6 +143,36 @@ Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
     }
 });
 
+//Handlebar helper to dispay numbers as currency
+Handlebars.registerHelper('formatCurrency', function(amount) {
+    return parseInt(amount).toFixed(0).toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+});
+
+//Handlebar helper to change underscores to dashes
+Handlebars.registerHelper('formatUnderscore', function(string) {
+    return string.replace(/[_]/g, '-');
+});
+
+//Handlebar helper to dispay correct name for month number
+Handlebars.registerHelper('formatMonth', function(monthNumber) {
+    var monthNames = [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" ];
+    return monthNames[monthNumber]
+});
+
+//Handlebar helper function compare new variable to previously stored variable
+//Can also be used to detect change in group type
+var storedJson = ""
+
+Handlebars.registerHelper('storeJson', function(json) {
+    storedJson = json;
+});
+
+Handlebars.registerHelper('compareJson', function(json, options) {  
+  if(json === storedJson) return options.fn(this);
+  else return options.inverse(this);
+});
+
 //Handlebar helper to allow mathematical calculations
 Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
     lvalue = parseFloat(lvalue);
@@ -121,9 +189,14 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
 
 Handlebars.registerHelper("format_length", function(str, char_limit) {
     char_limit = parseInt(char_limit);
-    if(str.length > char_limit){
-      return str.substring(0,char_limit).trim() + "..."
-    };
+    if(str.length > char_limit) return str.substring(0,char_limit).trim() + "...";
+    else return str;
+})
+
+Handlebars.registerHelper("format_fullname_length", function(firstName, lastName, char_limit) {
+    char_limit = parseInt(char_limit);
+    if((firstName.length + lastName.length) > char_limit) return (firstName + " " + lastName).substring(0,char_limit).trim() + "...";
+    else return (firstName + " " + lastName);
 })
 
 //Handlebar helper to parse JSON objects
@@ -171,7 +244,7 @@ jQuery(function($){
         }
         if(_startPage==2) _pages.push({display:1, link:_options.prefix+" 1"});
 
-        for(i=_startPage; i<=_endPage; i++){
+        for(var i=_startPage; i<=_endPage; i++){
             if(i==_currentPage) _pages.push({display:i, link:""});
             else _pages.push({display:i, link:_options.prefix+" "+i});
         }
@@ -394,6 +467,11 @@ jQuery(function($){
                 });
             });
         }
+
+        applyBrowserSpecificRules(); //this fixes the double arrow issue on selects in Firefox <34
+
+        $("#js-popup").fadeIn(100);
+
     }
 
     SunStand.Admin.positionIndicator = function (_indicatorObj, _highlightObj){
@@ -443,6 +521,9 @@ function _ajax(_options){
         },
         error: function(request, status, error){
             console.log("Post error: "+error.message);
+            if (request.status === 401) {
+                window.location = "/#/sign-in";
+            }
         }
     });
 }
@@ -455,40 +536,40 @@ function _ajax(_options){
 //optional: _options._uploadProgressDisplay shows the upload progress
 //optional: _callback function that is triggered after the upload has been completed
 function ajaxUpload(_formInputObj, _uploadEndpoint, _options, _callback){
-	var _formData = new FormData();
-	var _supportedFiles = /(\.jpg|\.jpeg|\.pdf|\.gif|\.png)$/i;
+  var _formData = new FormData();
+  var _supportedFiles = /(\.jpg|\.jpeg|\.pdf|\.gif|\.png)$/i;
 
-	_formInputObj.on("change", function(e){
-		for(i=0;i<$(this).file.length;i++){
-			_file = $(this).file[i];
+  _formInputObj.on("change", function(e){
+    for(var i=0;i<$(this).file.length;i++){
+      _file = $(this).file[i];
 
-			if(!!_file.type.match(_supportedFiles)){
-				//display filename is display object is provided
-				if(_options._uploadProgressDisplay !== undefined)
-					_options._uploadProgressDisplay.html("Uploading "+_file.filename);
+      if(!!_file.type.match(_supportedFiles)){
+        //display filename is display object is provided
+        if(_options._uploadProgressDisplay !== undefined)
+          _options._uploadProgressDisplay.html("Uploading "+_file.filename);
 
-				_fileReader = new FileReader();
-				_fileReader.on("onloadend", function(e){
-					if(_options._uploadProgressDisplay !== undefined)
-						_options._uploadProgressDisplay.html(_file.filename+" upload completed");
-				});
-				_fileReader.readAsDataURL(_file);
-				_formData.append("attachments[]", _file);
+        _fileReader = new FileReader();
+        _fileReader.on("onloadend", function(e){
+          if(_options._uploadProgressDisplay !== undefined)
+            _options._uploadProgressDisplay.html(_file.filename+" upload completed");
+        });
+        _fileReader.readAsDataURL(_file);
+        _formData.append("attachments[]", _file);
 
 
-			}else{
-				if(_options._uploadProgressDisplay !== undefined)
-					_options._uploadProgressDisplay.html(_file.filename+" is not a supported file.");
-				console.log(_file.filename+" is not a supported file.")
-			}
-		}
+      }else{
+        if(_options._uploadProgressDisplay !== undefined)
+          _options._uploadProgressDisplay.html(_file.filename+" is not a supported file.");
+        console.log(_file.filename+" is not a supported file.")
+      }
+    }
 
-		//upload file
+    //upload file
         var _options={};
         _options._url = _uploadEndpoint;
         _options._postObj = _formdata;
         _ajax(_options);
-	});
+  });
 
 }
 
@@ -526,10 +607,10 @@ function _formSubmit(_event, _formObj, _endPoint, _verb, _callback){
 function _formErrorHandling(_formObj, _error){
     switch (_error.type){
         case "input":
-            _input= _formObj.find("input[name='"+_error.input+"']");
+            var _input= _formObj.find("input[name='"+_error.input+"']");
              _formObj.find("input[name='"+_error.input+"']").parents(".form_row").addClass("is_not_valid");
             _formObj.find(".js-error").remove();
-            _html="<span class='js-error'>"+_error.message+"</span>";
+            var _html="<span class='js-error'>"+_error.message+"</span>";
             _input.parents(".form_row").prepend(_html);
 
         break;
@@ -547,7 +628,7 @@ function _getRoot(_callback){
         if(typeof _data === "object" )_data.root = $.extend(true, {}, data);
         else console.log(data);
         if(_data.root.properties){
-            loadingCategories=[
+            var loadingCategories=[
                 {
                     url:"/u/profile",
                     name:"profile",
@@ -664,10 +745,10 @@ function _getObjectsByPath(_dataObj, _path, _parentLevel){
     if(typeof _dataObj !== "object") return;
     if(typeof _path !== "string") return;
 
-    _evalString="_dataObj";
-    _depth=_path.split("/");
+    var _evalString="_dataObj";
+    var _depth=_path.split("/");
     if(_depth[0]==="") _depth.shift();
-    for (i=_parentLevel;i<0;i++) _depth.pop();
+    for (var i=_parentLevel;i<0;i++) _depth.pop();
 
     _depth.forEach(function(_d) {_evalString+="[\""+_d+"\"]"});
     return eval(_evalString);;
@@ -710,7 +791,7 @@ function _paginateData(_dataObj, _options){
     }
     if(_startPage==2) _pages.push({display:1, link:_options.prefix+" 1"});
 
-    for(i=_startPage; i<=_endPage; i++){
+    for(var i=_startPage; i<=_endPage; i++){
         if(i==_currentPage) _pages.push({display:i, link:""});
         else _pages.push({display:i, link:_options.prefix+" "+i});
     }
@@ -741,7 +822,7 @@ function _getTemplate(_path, _dataObj, _targetObj, _callback){
             var _html="";
             if(_dataObj != undefined){
                 if(_dataObj.constructor==Array){
-                    for(i=0;i<_dataObj.length;i++)
+                    for(var i=0;i<_dataObj.length;i++)
                         _html+=_template(_dataObj[i]);
                 }else{
                     _html=_template(_dataObj);
@@ -783,19 +864,19 @@ jQuery(function($){
 
                     //check for value match
                     var _matchFound=0;
-                    for(i=0; i<_searchCriteria[_searchKey].length;i++){
-                        _searchCriterion={
+                    for(var i=0; i<_searchCriteria[_searchKey].length;i++){
+                        var _searchCriterion={
                             term:_searchCriteria[_searchKey][i],
                             type:Object.prototype.toString.call(_searchCriteria[_searchKey][i]).replace(/(\[object\s|\])/g,"" )
                         };
 
                         switch(_searchCriterion.type){
                             case "Object":
-                                _sk = Object.keys(_searchCriterion.term)[0];
+                                var _sk = Object.keys(_searchCriterion.term)[0];
 
                                 //loop through the data object if the type is array (e.g. actions)
                                 if(Object.prototype.toString.call(_dataObj[_searchKey]).replace(/(\[object\s|\])/g,"" )=="Array"){
-                                    for(i=0;i<_dataObj[_searchKey].length;i++){
+                                    for(var i=0;i<_dataObj[_searchKey].length;i++){
                                         Object.keys(_dataObj[_searchKey][i]).forEach(function(_dk){
                                             if((_sk==_dk) && (_searchCriterion.term[_sk]==_dataObj[_searchKey][i][_dk])) _matchFound+=1;
                                         });
@@ -844,7 +925,7 @@ jQuery(function($){
     EyeCueLab.JSON.asynchronousLoader = function(_endPoints, _callback){
         var _returnJSONs=[];
         var _loadingComplete=0;
-        for(i=0;i<_endPoints.length;i++){
+        for(var i=0;i<_endPoints.length;i++){
             (function(index){
                 $.ajax({
                     type:"get",
@@ -871,7 +952,7 @@ jQuery(function($){
                 var _html="";
                 if(typeof _dataObj !== "undefined"){
                     if(_dataObj.constructor==Array){
-                        for(i=0;i<_dataObj.length;i++)
+                        for(var i=0;i<_dataObj.length;i++)
                             _html+=_template(_dataObj[i]);
                     }else{
                         _html=_template(_dataObj);
@@ -890,7 +971,7 @@ jQuery(function($){
 
 //Shortens strings larger than their respective div with '...'
 String.prototype.format_length = function(char_limit){
-    if(this.length > char_limit){
+    if(this && this.length > char_limit){
       return this.substring(0,char_limit).trim() + "..."
     }
     else return this;

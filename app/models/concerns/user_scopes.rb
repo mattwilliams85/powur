@@ -21,17 +21,21 @@ module UserScopes
       select(:id, :upline, :lifetime_rank, :organic_rank, :rank_path_id)
     }
 
+    DOWN_COUNTS_SELECT = \
+      'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
     scope :downline_counts, lambda {
-      select('unnest(users.upline) parent_id, count(users.id) - 1 downline_count').group('parent_id')
+      select(DOWN_COUNTS_SELECT).group('parent_id')
     }
 
     scope :with_downline_counts, lambda {
-      select('users.*, dc.downline_count')
-        .joins("INNER JOIN (#{downline_counts.to_sql}) dc ON users.id = dc.parent_id")
+      joins_sql = "INNER JOIN (#{downline_counts.to_sql}) dc
+        ON users.id = dc.parent_id"
+      select('users.*, dc.downline_count').joins(joins_sql)
     }
 
     scope :with_parent, lambda { |*user_ids|
-      where('users.upline[array_length(users.upline, 1) - 1] IN (?)', user_ids.flatten)
+      where('users.upline[array_length(users.upline, 1) - 1] IN (?)',
+            user_ids.flatten)
     }
 
     scope :with_ancestor, lambda { |user_id|
@@ -39,9 +43,11 @@ module UserScopes
         .where('upline[array_length(upline, 1)] NOT IN (?)', user_id)
     }
 
+    OT_SELECT_FIELDS = %w(personal group personal_lifetime group_lifetime)
     ORDER_TOTALS_SELECT = \
-      'users.*, ' + %w(personal group personal_lifetime group_lifetime)
-                    .map { |f| "coalesce(order_totals.#{f}, 0) as #{f}" }.join(', ')
+      'users.*, ' + OT_SELECT_FIELDS.map do |f|
+        "coalesce(order_totals.#{f}, 0) as #{f}"
+      end.join(', ')
     ORDER_TOTALS_JOIN = \
       'left join order_totals on users.id = order_totals.user_id'
 

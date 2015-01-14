@@ -14,9 +14,21 @@ module Anon
 
     def update
       require_input :password
-      input = params.permit(:first_name, :last_name, :email, :password, :phone, :zip)
+      input = params.permit(:first_name,
+                            :last_name,
+                            :email,
+                            :password,
+                            :phone,
+                            :zip)
       user = @invite.accept(input)
       find_or_create_ipayout_account(user)
+      PromoterMailer.notify_upline(user).deliver_later
+      PromoterMailer.welcome_new_user(user).deliver_later
+
+      # Set the URL slug of the new user
+      # (the SecureRandom number is to safeguard against users with the same name)
+      user.url_slug = "#{user.first_name}-#{user.last_name}-#{SecureRandom.random_number(100)}"
+
       login_user(user)
       render 'anon/session/show'
     end
@@ -34,7 +46,7 @@ module Anon
     end
 
     def fetch_invite
-      @invite = Invite.find_by(id: params[:code], user_id: nil) or invalid_code!
+      @invite = Invite.find_by(id: params[:code], user_id: nil) || invalid_code!
       user = User.find_by_email(@invite.email)
       if user
         @invite.update_attribute(:user_id, user.id)

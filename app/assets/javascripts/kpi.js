@@ -1,3 +1,5 @@
+'use strict';
+
 var scale = "week";
 var _labels = [];
 var position = 0;
@@ -6,6 +8,7 @@ var now = new Date()
 now = setCalendar()
 var myChart = ""
 var ctx = ""
+var timeScale;
 
 function initKPI(){
   displayTimeScale()
@@ -34,7 +37,7 @@ function randomizeOrders() {
 }
 
 function randomAvatar(){
-  gender = ["men","women"]
+  var gender = ["men","women"]
   return "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
 }
 
@@ -54,22 +57,21 @@ function rebuildChart(){
 function populateContributors() {
   switch(kpiType){
     case "conversion":
-      _template = "/templates/_kpi_conversion_team_thumbnail.handlebars.html"
+      var _template = "/templates/_kpi_conversion_team_thumbnail.handlebars.html"
       break;
     case "genealogy":
-      _template = "/templates/_kpi_genealogy_team_thumbnail.handlebars.html"
+      var _template = "/templates/_kpi_genealogy_team_thumbnail.handlebars.html"
       break;
     case "earnings":
-      _template = "/templates/_kpi_total_earnings_team_thumbnail.handlebars.html"
+      var _template = "/templates/_kpi_total_earnings_team_thumbnail.handlebars.html"
     break;
     case "hot_quotes":
-      _template = "/templates/_kpi_hot_quotes_team_thumbnail.handlebars.html"
+      var _template = "/templates/_kpi_hot_quotes_team_thumbnail.handlebars.html"
     break;
   }
   if(_data.team.entities) {
     var _contributors = $(".contributors");
-
-    top_ten = _data.team.entities.slice(0, 9)
+    var top_ten = _data.team.entities.slice(0, 9)
 
     top_ten.forEach(function(member) {
       _ajax({
@@ -89,10 +91,30 @@ function populateContributors() {
   }
 }
 
+function checkPage() {
+    if (_data.team.entities) {
+    var page_total = _data.team.entities.length
+    if (page === 1) {
+      $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
+      if(page_total >= 5){
+        $('.fa-caret-down').css("opacity", "1").addClass("active");
+      }
+    } else {
+      $('.fa-caret-up').css("opacity", "1").addClass("active");
+    }
+    if (page >= (Math.ceil(page_total / 4))) {
+      $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
+    }
+    } else {
+      $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
+      $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
+    }
+  } 
+
 // ** CALENDAR FUNCTIONS **
 function setScale() {
-  _labels = [];
-  
+  var _labels = [];
+
   if (scale == "week") {
     for (i = 0; i <= 6; i++) {
       _labels.push(now.addDays(i).getMonth() + 1 + "/" + (now.addDays(i).getDate()));
@@ -108,14 +130,14 @@ function setScale() {
 
 function setCalendar() {
   if(scale === "week") {
-    daysFromSun = now.getDay()
+    var daysFromSun = now.getDay()
     return new Date(now.setDate(now.getDate() - daysFromSun))
-  } 
+  }
   if(scale === "month") return now.setDate(1);
 }
 
 function numberOfDaysInMonth() {
-  days = new Date(now);
+  var days = new Date(now);
   days = new Date(days.setMonth(now.getMonth() + 1));
   return (new Date(days.setDate(0))).getDate();
 }
@@ -136,100 +158,6 @@ function displayTimeScale() {
 }
 // ** END **
 
-// ** JQUERY EVENTS **
-$('.back').on("click", function() {
-  calendarBack()
-  timeScale = 6;
-  rebuildChart()
-})
-
-$('.forward').on("click", function() {
-  calendarForward()
-  timeScale = 6;
-  rebuildChart()
-})
-
-$(".return_to_team").on("click", function(e) {
-  $(".graph_title").html("Full Conversion History");
-  $(".contributor, .user-contributor").css("background", "#545454");
-  $(".progress_description").fadeIn();
-  $(".return_to_team").hide();
-  rebuildChart();
-});
-
-$(".current").on("click", function(e) {
-  now = new Date()
-  rebuildChart()
-})
-
-$(".time_scale .month").on("click", function() {
-  scale = "month"
-  setCalendar()
-  options.pointDotRadius = 3;
-  rebuildChart()
-  $(".time_scale .week").removeClass("active");
-  $(this).addClass("active");
-})
-
-$(".time_scale .week").on("click", function() {
-  scale = "week"
-  setCalendar()
-  options.pointDotRadius = 4;
-  rebuildChart()
-  $(".time_scale .month").removeClass("active");
-  $(this).addClass("active");
-})
-
-// ** PAGINATION FOR USERS **
-$('.fa-caret-down').on("click", function(e) {
-  if ($(this).hasClass("active")) {
-      page += 1;
-      position -= 284;
-      animateContributors()
-    };
-});
-
-$('.fa-caret-up').on("click", function(e) {
-  if ($('.fa-caret-up').hasClass("active")) {
-    page -= 1;
-    position += 284;
-    animateContributors()
-  };
-});
-
-function animateContributors(){
-  checkPage();
-  $('.contributor').each(function() {
-    $(this).velocity({
-    }, 100);
-  })
-  $('.contributor').each(function() {
-    $(this).velocity({
-      translateY: position + "px"
-    });
-  })
-}
-
-function checkPage() {
-  if (_data.team.entities) {
-  page_total = _data.team.entities.length
-  if (page === 1) {
-    $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
-    if(page_total >= 5){
-      $('.fa-caret-down').css("opacity", "1").addClass("active");
-    }
-  } else {
-    $('.fa-caret-up').css("opacity", "1").addClass("active");
-  }
-  if (page >= (Math.ceil(page_total / 4))) {
-    $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
-  }
-  } else {
-    $('.fa-caret-up').css("opacity", "0.3").removeClass("active");
-    $('.fa-caret-down').css("opacity", "0.3").removeClass("active");
-  }
-}
-// ** END **
 
 // Runs after ajax returns 10 users
 function contributorEvents() {
@@ -243,7 +171,7 @@ function contributorEvents() {
     e.preventDefault();
     e.stopPropagation();
     $(".return_to_team").fadeIn();
-    _index = $(this).find(".avatar").attr("id").replace("avatar", "") - 1;
+    var _index = $(this).find(".avatar").attr("id").replace("avatar", "") - 1;
     $(".progress_description").hide();
     $('.contributor, .user-contributor').each(function() {
       $(this).velocity({
@@ -260,8 +188,83 @@ function contributorEvents() {
     if(kpiType === "genealogy") $(".graph_title").html($(this).attr('id') + "'s Growth History")
     if(kpiType === "earnings") $(".graph_title").html($(this).attr('id') + "'s Earnings History")
   });
-}
-// ** END **
+
+  // ** JQUERY EVENTS **
+  $('.back').on("click", function() {
+    calendarBack()
+    timeScale = 6;
+    rebuildChart()
+  })
+
+  $('.forward').on("click", function() {
+    calendarForward()
+    timeScale = 6;
+    rebuildChart()
+  })
+
+  $(".return_to_team").on("click", function(e) {
+    $(".graph_title").html("Full Conversion History");
+    $(".contributor, .user-contributor").css("background", "#545454");
+    $(".progress_description").fadeIn();
+    $(".return_to_team").hide();
+    rebuildChart();
+  });
+
+  $(".current").on("click", function(e) {
+    now = new Date()
+    rebuildChart()
+  })
+
+  $(".time_scale .month").on("click", function() {
+    scale = "month"
+    setCalendar()
+    options.pointDotRadius = 3;
+    rebuildChart()
+    $(".time_scale .week").removeClass("active");
+    $(this).addClass("active");
+  })
+
+  $(".time_scale .week").on("click", function() {
+    scale = "week"
+    setCalendar()
+    options.pointDotRadius = 4;
+    rebuildChart()
+    $(".time_scale .month").removeClass("active");
+    $(this).addClass("active");
+  })
+
+  // ** PAGINATION FOR USERS **
+  $('.fa-caret-down').on("click", function(e) {
+    if ($(this).hasClass("active")) {
+        page += 1;
+        position -= 284;
+        animateContributors()
+      };
+  });
+
+  $('.fa-caret-up').on("click", function(e) {
+    if ($('.fa-caret-up').hasClass("active")) {
+      page -= 1;
+      position += 284;
+      animateContributors()
+    };
+  });
+
+  function animateContributors(){
+    checkPage();
+    $('.contributor').each(function() {
+      $(this).velocity({
+      }, 100);
+    })
+    $('.contributor').each(function() {
+      $(this).velocity({
+        translateY: position + "px"
+      });
+    })
+  } // ** END JQUERY EVENTS ** 
+
+  
+} // ** END CONTRIBUTOR EVENTS ** 
 
 //Returns week number from formated Date
 Date.prototype.getWeek = function(){

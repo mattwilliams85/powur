@@ -1,202 +1,202 @@
 .hide {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	display: none !important;
-	// Background & borders
+  // Box properties
+  display: none !important;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 .show {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	display: block !important;
-	// Background & borders
+  // Box properties
+  display: block !important;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 .is_valid {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 .is_not_valid {
 
-	label {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
-	
-		// Typography
-		color: white;
-		// Other
-	
-	}
+  label {
+    // Mixins
 
-	input {
-		// Mixins
+    // Box properties
 
-		// Box properties
+    // Background & borders
 
-		// Background & borders
-		background-image: url(image-path('bg_clapper.svg'));
-		background-position: right top;
-		background-repeat: repeat-x;
-		background-size: $grid * 1.25;
-		// Typography
+    // Typography
+    color: white;
+    // Other
 
-		// Other
-	
-	}
+  }
+
+  input {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+    background-image: url(image-path('bg_clapper.svg'));
+    background-position: right top;
+    background-repeat: repeat-x;
+    background-size: $grid * 1.25;
+    // Typography
+
+    // Other
+
+  }
 }
 
 .active_label {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
-	color: white;
-	// Other
+  // Typography
+  color: white;
+  // Other
 
 }
 
 .saved_fieldset {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
-	opacity: .25;
+  // Other
+  opacity: .25;
 }
 
 .saved_button {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
-	background-color: $supergreen;
-	border: 1px solid darken($supergreen, 2%);
+  // Background & borders
+  background-color: $supergreen;
+  border: 1px solid darken($supergreen, 2%);
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
-	&:hover {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
-		background-color: $supergreen;
-		border: 1px solid darken($supergreen, 2%);
-		// Typography
-	
-		// Other
-	
-	}
+  &:hover {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+    background-color: $supergreen;
+    border: 1px solid darken($supergreen, 2%);
+    // Typography
+
+    // Other
+
+  }
 
 }
 
 .js-error {
 
 
-			// Mixins
-			@include small_title;
-			// Box properties
-			position: absolute;
-			top: $grid / 4;
-			right: $grid / 2;
-			text-align: right;
-			padding: 0;
-			// Background & borders
-			background: none;
-			// Typography
-			color: white;
-			// Other
+      // Mixins
+      @include small_title;
+      // Box properties
+      position: absolute;
+      top: $grid / 4;
+      right: $grid / 2;
+      text-align: right;
+      padding: 0;
+      // Background & borders
+      background: none;
+      // Typography
+      color: white;
+      // Other
 
 }
 
 // Expections for User layouts
 
-body#user {
-	// Mixins
+body#user, form#user_login {
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
-	.is_not_valid {
+  .is_not_valid {
 
-		label {
-			// Mixins
-		
-			// Box properties
-		
-			// Background & borders
-		
-			// Typography
-			color: $red;
-			// Other
-		
+    label {
+      // Mixins
 
-		}
+      // Box properties
 
-		input {
-			// Mixins
+      // Background & borders
 
-			// Box properties
+      // Typography
+      color: $red;
+      // Other
 
-			// Background & borders
-			background-image: url(image-path('bg_clapper_inverted.svg'));
 
-			// Typography
+    }
 
-			// Other
-		
-		}
-	}
+    input {
+      // Mixins
 
-	.js-error {
-			// Mixins
+      // Box properties
 
-			// Box properties
+      // Background & borders
+      background-image: url(image-path('bg_clapper_inverted.svg'));
 
-			// Background & borders
-		
-			// Typography
-			color: $red;
-			// Other
+      // Typography
 
-	}
+      // Other
+
+    }
+  }
+
+  .js-error {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+      color: $red;
+      // Other
+
+  }
 }

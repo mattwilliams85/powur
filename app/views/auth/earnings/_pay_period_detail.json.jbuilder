@@ -1,0 +1,1 @@
+earnings_json.bonus_summary_properties(pay_period_detail)

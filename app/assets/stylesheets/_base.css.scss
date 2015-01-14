@@ -2,167 +2,167 @@
 
 
 body {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	padding: 0;
-	overflow: auto;
-	// Background & borders
-	background: #f8f8f8;
+  // Box properties
+  padding: 0;
+  overflow: auto;
+  // Background & borders
+  background: #f8f8f8;
 
-	// Typography
-	color: $text;
-	font-family: $body_font;
+  // Typography
+  color: $text;
+  font-family: $body_font;
 
-	// Other
+  // Other
 
 }
 
 h1 {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	margin-bottom: $grid;
+  // Box properties
+  margin-bottom: $grid;
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
-	font-family: $title_font;
-	font-weight: normal;
+  // Typography
+  font-family: $title_font;
+  font-weight: normal;
 
-	// Other
+  // Other
 
 }
 
 h2, h3, h4, h5, h6 {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	margin-bottom: $grid / 2;
-	// Background & borders
+  // Box properties
+  margin-bottom: $grid / 2;
+  // Background & borders
 
-	// Typography
-	font-family: $title_font;
-	font-weight: normal;
+  // Typography
+  font-family: $title_font;
+  font-weight: normal;
 
-	// Other
+  // Other
 
 }
 
 h3 {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	margin-bottom: 0;
-	// Background & borders
+  // Box properties
+  margin-bottom: 0;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 h4 {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	margin-bottom: 0;
-	// Background & borders
+  // Box properties
+  margin-bottom: 0;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 a {
-	// Mixins
-	@include corners(3px, 3px, 3px, 3px);
-	// Box properties
-	// padding: 0 4px;
-	// Background & borders
-	// Typography
-	color: $brand;
-	text-decoration: none;
+  // Mixins
+  @include corners(3px, 3px, 3px, 3px);
+  // Box properties
+  // padding: 0 4px;
+  // Background & borders
+  // Typography
+  color: $brand;
+  text-decoration: none;
 
-	// Other
+  // Other
 
-	&:hover {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
+  &:hover {
+    // Mixins
 
-		// Typography
+    // Box properties
 
-		// Other
-	
-	}
+    // Background & borders
+
+    // Typography
+
+    // Other
+
+  }
 }
 
 em {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 p {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 p + p {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	margin-top: $grid;
+  // Box properties
+  margin-top: $grid;
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 p + h2 {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	margin-top: $grid;
-	// Background & borders
+  // Box properties
+  margin-top: $grid;
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 p + a {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
@@ -176,569 +176,573 @@ sub { top: 0.4em; }
 
 
 header {
-	// Mixins
-	@include box_sizing;
-	@include small_title;
-	// Box properties
-	position: fixed;
-	top: 0;
-	width: 100%;
-	// Background & borders
-	background-color: none;
+  // Mixins
+  @include box_sizing;
+  @include small_title;
+  // Box properties
+  position: fixed;
+  top: 0;
+  width: 100%;
+  // Background & borders
+  background-color: none;
 
-	// Typography
-	text-align: left;
+  // Typography
+  text-align: left;
 
-	// Other
-	z-index: 1000;
+  // Other
+  z-index: 1000;
 
-	nav {
-		// Mixins
+  nav {
+    // Mixins
 
-		// Box properties
-		overflow: auto;
-		padding: $grid / 4 0;
+    // Box properties
+    overflow: auto;
+    padding: $grid / 4 0;
 
-		// Background & borders
+    // Background & borders
 
-		// Typography
-		// Other
-	
-		ul {
-			// Mixins
-		
-			// Box properties
-			float: left;
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-			
-			li {
-				// Mixins
-			
-				// Box properties
-				float: left;
-				display: inline-block;
-				margin-left: 0;
-				margin-top: $grid / 4;
-				padding: $grid / 2;
-				// Background & borders
-			
-				// Typography
-				font-size: $grid / 2;
-				line-height: $grid;
-				text-align: center;
-				color: white;
-				// Other
-			
-				&:first-child {
-					// Mixins
-				
-					// Box properties
-					margin-left: 0;
-					// Background & borders
-				
-					// Typography
-				
-					// Other
-				
-				}
-			
-				a {
-					// Mixins
+    // Typography
+    // Other
 
-					// Box properties
-					margin: 0;
-					padding: $grid / 4 $grid / 2;
+    ul {
+      // Mixins
 
-					// Background & borders
-				
-					// Typography
-					color: $brand_dark;
-					// Other
+      // Box properties
+      float: left;
+      // Background & borders
 
-					&:hover {
-						// Mixins
-					
-						// Box properties
-					
-						// Background & borders
+      // Typography
 
-						// Typography
-						color: white;
-						// Other
-					
-					}
+      // Other
 
-				}
-			}
-		}
-	}
+      li {
+        // Mixins
+
+        // Box properties
+        float: left;
+        display: inline-block;
+        margin-left: 0;
+        margin-top: $grid / 4;
+        padding: $grid / 2;
+        // Background & borders
+
+        // Typography
+        font-size: $grid / 2;
+        line-height: $grid;
+        text-align: center;
+        color: white;
+        // Other
+
+        &:first-child {
+          // Mixins
+
+          // Box properties
+          margin-left: 0;
+          // Background & borders
+
+          // Typography
+
+          // Other
+
+        }
+
+        a {
+          // Mixins
+
+          // Box properties
+          margin: 0;
+          padding: $grid / 4 $grid / 2;
+
+          // Background & borders
+
+          // Typography
+          color: $brand_dark;
+          // Other
+
+          &:hover {
+            // Mixins
+
+            // Box properties
+
+            // Background & borders
+
+            // Typography
+            color: white;
+            // Other
+
+          }
+
+        }
+      }
+    }
+  }
 }
 
 section {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
-	text-align: center;
+  // Typography
+  text-align: center;
 
-	// Other
+  // Other
 
 }
 
 article {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 aside {
-	// Mixins
+  // Mixins
 
-	// Box properties
+  // Box properties
 
-	// Background & borders
+  // Background & borders
 
-	// Typography
+  // Typography
 
-	// Other
+  // Other
 
 }
 
 ul {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	
-	// Background & borders
+  // Box properties
 
-	// Typography
+  // Background & borders
 
-	// Other
+  // Typography
+
+  // Other
 
 }
 
 footer {
-	// Mixins
+  // Mixins
 
-	// Box properties
-	padding: $grid * 2 $grid * 3 $grid * 5;
-	overflow: auto;
-	// Background & borders
-	border-top: $border;
-	//background: $sunnyside;
-	background:#404241;
-	// Typography
-	text-align: center;
-	color: white;
-	text-align: left;
-	// Other
+  // Box properties
+  padding: $grid * 2 $grid * 3 $grid * 5;
+  overflow: auto;
+  // Background & borders
+  border-top: $border;
+  //background: $sunnyside;
+  background:#404241;
+  // Typography
+  text-align: center;
+  color: white;
+  text-align: left;
+  // Other
 
-	h3 {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
-		// Typography
-		text-transform: uppercase;
-		font-size: $grid / 2;
-		color: rgba(white, .6);
-		// Other
-	
-	}
+  h3 {
+    // Mixins
 
-	ul {
-		// Mixins
-	
-		// Box properties
-		
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-	
-		li {
-			// Mixins
-		
-			// Box properties
-				
-			// Background & borders
-		
-			// Typography
-			list-style: none;
-			text-transform: uppercase;
-			font-size: $grid / 2;
-			// Other
-		
-		}
-	}
+    // Box properties
+
+    // Background & borders
+    // Typography
+    text-transform: uppercase;
+    font-size: $grid / 2;
+    color: rgba(white, .6);
+    // Other
+
+  }
+
+  ul {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+
+    // Typography
+
+    // Other
+
+    li {
+      // Mixins
+
+      // Box properties
+
+      // Background & borders
+
+      // Typography
+      list-style: none;
+      text-transform: uppercase;
+      font-size: $grid / 2;
+      // Other
+
+    }
+  }
 
 }
 
 // Forms
 
-	form {
-		// Mixins
+form {
+  // Mixins
 
-		// Box properties
-		width: 100%;
-		margin: 0 auto;
-		position: relative;
-		overflow: auto;
-		// Background & borders
+  // Box properties
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow: auto;
+  // Background & borders
 
-		// Typography
-		text-align: left;
-		// Other
+  // Typography
+  text-align: left;
+  // Other
 
-	}
+}
 
-	fieldset {
-		// Mixins
-	
-		// Box properties
-		position: relative;;
-		overflow: auto;
-		padding: 0 $grid $grid;
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-		transition: opacity .25s ease-in-out;
+fieldset {
+  // Mixins
 
-		&:disabled {
-			// Mixins
-		
-			// Box properties
-		
-			// Background & borders
-		
-			// Typography
-			
-			// Other
-			opacity:.25;
-		}
+  // Box properties
+  position: relative;;
+  overflow: auto;
+  padding: 0 $grid $grid;
+  // Background & borders
 
-		fieldset {
-			// Mixins
-		
-			// Box properties
-			padding: 0;
-			// Background & borders
-		
-			// Typography
-		
-			// Other
-		
-		}
-	}
+  // Typography
 
-	legend {
-		// Mixins
-	
-		// Box properties
-		margin-bottom: $grid / 2;
-		// Background & borders
-	
-		// Typography
-		color: $quiet;
-		// Other
-	
-	}
+  // Other
+  transition: opacity .25s ease-in-out;
 
-	label:not(.checkbox) {
-		// Mixins
-		@include small_title;
-		// Box properties
-		position: absolute;
-		top: $grid / 4;
-		left: $grid / 2;
-		text-align: right;
+  &:disabled {
+    // Mixins
 
-		// Background & borders
-	
-		// Typography
-		color: $quiet;
-		// Other
-	
-	}
+    // Box properties
 
-	label.checkbox {
-		// Mixins
-	
-		// Box properties
-		padding-left: $grid / 4;
-		// Background & borders
-	
-		// Typography
-		font-size: $grid / 2;
-		line-height: $line_height;
-		font-family: $small_title_font;
-		text-transform: uppercase;
-		// Other
-	
-	}
+    // Background & borders
 
-	input + label {
-		margin-top: $grid;
-	}
+    // Typography
 
-	input[type=text],
-	input[type=password],
-	input[type=email] {
-		// Mixins
-		@include field_box;
+    // Other
+    opacity:.25;
+  }
 
-		// Box properties
-		margin-bottom: $grid / 4;
-		// Background & borders
-		border: $border;
-		background-color: $ghost;
-		// Typography
-		color: white;
+  fieldset {
+    // Mixins
 
-		// Other
-		
-		&:focus {
-			// Mixins
-		
-			// Box properties
-		
-			// Background & borders
-			outline: none;
-			border-color: $ghost_dark;
-			background-color: $ghost_dark;
-			// Typography
-			color: white;
-			font-style: normal;
-			// Other
+    // Box properties
+    padding: 0;
+    // Background & borders
 
-		}
-	}
+    // Typography
 
-	input[type=search] {
-		// Mixins
-		@include form_box;
-		@include no_shadow;
-		@include box_sizing;
-		@include corners(32px, 32px, 32px, 32px);
-		// Box properties
-		float: left;
-		margin: 0;
-		padding-left: $grid;
-		width: auto;
-		// Background & borders
-		outline: none;
-		background-image: image-url('search.svg');
-		background-position: left center;
-		background-repeat: no-repeat;
-		background-size: contain;
+    // Other
 
-		background-color: white;
-		border: $border;
-		// Typography
-		text-transform: none;
-		color: $whisper;
-		// Other
-		-webkit-appearance: none;
-	}
+  }
+}
+
+legend {
+  // Mixins
+
+  // Box properties
+  margin-bottom: $grid / 2;
+  // Background & borders
+
+  // Typography
+  color: $quiet;
+  // Other
+
+}
+
+label:not(.checkbox) {
+  // Mixins
+  @include small_title;
+  // Box properties
+  position: absolute;
+  top: $grid / 4;
+  left: $grid / 2;
+  text-align: right;
+
+  // Background & borders
+
+  // Typography
+  color: $quiet;
+  // Other
+
+}
+
+label.checkbox {
+  // Mixins
+
+  // Box properties
+  padding-left: $grid / 4;
+  // Background & borders
+
+  // Typography
+  font-size: $grid / 2;
+  line-height: $line_height;
+  font-family: $small_title_font;
+  text-transform: uppercase;
+  // Other
+
+}
+
+input + label {
+  margin-top: $grid;
+}
+
+input[type=text],
+input[type=password],
+input[type=email] {
+  // Mixins
+  @include field_box;
+
+  // Box properties
+  margin-bottom: $grid / 4;
+  // Background & borders
+  border: $border;
+  background-color: $ghost;
+  // Typography
+  color: white;
+
+  // Other
+
+  &:focus {
+    // Mixins
+
+    // Box properties
+
+    // Background & borders
+    outline: none;
+    border-color: $ghost_dark;
+    background-color: $ghost_dark;
+    // Typography
+    color: white;
+    font-style: normal;
+    // Other
+
+  }
+}
+
+input[type=search] {
+  // Mixins
+  @include form_box;
+  @include no_shadow;
+  @include box_sizing;
+  // @include corners(32px, 32px, 32px, 32px);
+  // Box properties
+  float: left;
+  margin: 0;
+  padding-left: $grid;
+  width: auto;
+  // Background & borders
+  outline: none;
+  background-image: image-url('search.svg');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+
+  background-color: white;
+  border: $border;
+  // Typography
+  text-transform: none;
+  color: $whisper;
+  // Other
+  -webkit-appearance: none;
+}
 
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
 }
 
-	::-webkit-input-placeholder {
-	   color: transparent;
-	}
+::-webkit-input-placeholder {
+  color: transparent;
+}
 
-	:-moz-placeholder { /* Firefox 18- */
-	   color: transparent;  
-	}
+:-moz-placeholder { /* Firefox 18- */
+  color: transparent;
+}
 
-	::-moz-placeholder {  /* Firefox 19+ */
-	   color: transparent;  
-	}
+::-moz-placeholder {  /* Firefox 19+ */
+  color: transparent;
+}
 
-	:-ms-input-placeholder {  
-	   color: transparent;  
-	}
+:-ms-input-placeholder {
+  color: transparent;
+}
 
-
-	[placeholder]:focus::-webkit-input-placeholder {
-	  // transition: opacity 0.5s 0 ease; 
-	  opacity: 0;
-	}
-
-	input:focus::-webkit-input-placeholder { color:transparent; }
-	input:focus:-moz-placeholder { color:transparent; }
-
-	input[type=checkbox] {
-		// Mixins
-	
-		// Box properties
-		display: inline-block;
-	
-		// Background & borders
-	
-		// Typography
-
-		// Other
-	}
-
-	select {
-		// Mixins
-		@include form_box;
-		@include small_title;
-		@include box_sizing;
-		@include corners;
-
-		// Box properties
-		margin:0 $grid / 8 0 0;
-		margin-bottom: $grid / 4;
-		padding-right:$grid * 1.5;
-		padding-left: $grid / 4;
-		width: auto;
-		float: left;
-		// Background & borders
-		background-image: image-url('select_arrow.svg') ;
-		background-position: right center;
-		background-repeat: no-repeat;
-		background-size: contain;
-		background-color: $ghost;
-		border: 1px solid $ghost;
-		// width: calc(100% + 3em);
-
-		// Typography
-		color: $quiet;
-		text-indent: 0.01px;
-		text-overflow: "";
-
-
-		// Other
-		-moz-appearance: none;
-		-webkit-appearance: none;
-
-		&:hover {
-			color: $text;
-			border-color: $whisper;
-		}
-
-		&:focus {
-			outline: none;
-		}
-	}
-
-	select::-ms-expand {
-	    display: none;
-	}
-
-	/* the following is a workaround to hide our custom dropdown arrow on mozilla browsers (can remove this in Firefox 35) */
-
-	// :-moz-any(select) {
-	// 	background-image: none; this takes away our arrow and uses the firefox standard arrow
-	// }
-	
-	/* end workaround */
-
-	form {
-		// Mixins
-	
-		// Box properties
-	
-		// Background & borders
-	
-		// Typography
-	
-		// Other
-
-		select {
-			// Mixins
-			@include field_box;
-
-			// Box properties
-			margin:0 $grid / 8 0 0;
-			padding: $grid / 1.125 $grid / 2 $grid / 3.5;
-			// Background & borders
-			background-image: image-url('select_arrow.svg') ;
-			background-position: right bottom 50%;
-			background-repeat: no-repeat;
-			background-size: contain;
-			background-color: $ghost;
-			border: 1px solid $ghost;
-			// width: calc(100% + 3em);
-
-
-			// Typography
-			text-indent: 0.01px;
-			text-overflow: "";
-			text-transform: none;
-
-
-			// Other
-			-moz-appearance: none;
-			-webkit-appearance: none;
-			-ms-appearance: none;
-			-o-appearance: none;
-			appearance: none;
-
-		&:hover {
-			color: $whisper;
-			border-color: $whisper;
-		}
-
-		&:focus {
-			outline: none;
-		}
-	}
-
+::-ms-clear {
+  display: none;
 }
 
 
-	// .select-dropdown {
-	//    width:200px;
-	//    overflow:hidden;
-	//    border:1px solid #eee
-	// }
+[placeholder]:focus::-webkit-input-placeholder {
+  // transition: opacity 0.5s 0 ease;
+  opacity: 0;
+}
 
-	// .select-dropdown select {
-	//    width:110%;
-	//   -webkit-appearance: none;
-	//   -moz-appearance: none;
+input:focus::-webkit-input-placeholder { color:transparent; }
+input:focus:-moz-placeholder { color:transparent; }
 
-	// }
+input[type=checkbox] {
+  // Mixins
 
-	// .select-dropdown {
-	//    -webkit-touch-callout: none;
-	//    -webkit-user-select: none;
-	//    -khtml-user-select: none;
-	//    -moz-user-select: none;
-	//    -ms-user-select: none;
-	//    user-select: none;
-	// }
-	// ::-moz-selection {
-	//    background: transparent;
-	// }
-	// ::selection { 
-	//    background: transparent; 
-	// }
+  // Box properties
+  display: inline-block;
 
-	// .select-dropdown .fa-caret-down {
-	// 	height:1px;
-	// }
+  // Background & borders
+
+  // Typography
+
+  // Other
+}
+
+select {
+  // Mixins
+  @include form_box;
+  @include small_title;
+  @include box_sizing;
+  @include corners;
+
+  // Box properties
+  margin:0 $grid / 8 0 0;
+  margin-bottom: $grid / 4;
+  padding-right:$grid * 1.5;
+  padding-left: $grid / 4;
+  width: auto;
+  float: left;
+  // Background & borders
+  background-image: image-url('select_arrow.svg') ;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+  background-origin: padding-box;
+  background-color: $ghost;
+  border: 1px solid $ghost;
+  // width: calc(100% + 3em);
+
+  // Typography
+  color: $quiet;
+  text-indent: 0.01px;
+  text-overflow: "";
+
+
+  // Other
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  &:hover {
+    color: $text;
+    border-color: $whisper;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+/* the following is a workaround to hide our custom dropdown arrow on mozilla browsers (can remove this in Firefox 35) */
+
+// :-moz-any(select) {
+// 	background-image: none; // this takes away our arrow and uses the firefox standard arrow
+// }
+
+/* end workaround */
+
+form {
+  // Mixins
+
+  // Box properties
+
+  // Background & borders
+
+  // Typography
+
+  // Other
+
+  select {
+    // Mixins
+    @include field_box;
+
+    // Box properties
+    margin:0 $grid / 8 0 0;
+    padding: $grid / 1.125 $grid / 2 $grid / 3.5;
+    // Background & borders
+    background-image: image-url('select_arrow.svg') ;
+    background-position: right bottom 50%;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-color: $ghost;
+    border: 1px solid $ghost;
+    // width: calc(100% + 3em);
+
+
+    // Typography
+    text-indent: 0.01px;
+    text-overflow: "";
+    text-transform: none;
+
+
+    // Other
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+
+    &:hover {
+      color: $whisper;
+      border-color: $whisper;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+
+  // .select-dropdown {
+  //    width:200px;
+  //    overflow:hidden;
+  //    border:1px solid #eee
+  // }
+
+  // .select-dropdown select {
+  //    width:110%;
+  //   -webkit-appearance: none;
+  //   -moz-appearance: none;
+
+  // }
+
+  // .select-dropdown {
+  //    -webkit-touch-callout: none;
+  //    -webkit-user-select: none;
+  //    -khtml-user-select: none;
+  //    -moz-user-select: none;
+  //    -ms-user-select: none;
+  //    user-select: none;
+  // }
+  // ::-moz-selection {
+  //    background: transparent;
+  // }
+  // ::selection {
+  //    background: transparent;
+  // }
+
+  // .select-dropdown .fa-caret-down {
+  // 	height:1px;
+  // }

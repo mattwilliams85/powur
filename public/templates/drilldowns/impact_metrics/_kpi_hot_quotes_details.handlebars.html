@@ -1,81 +1,80 @@
 <div class="drilldown_content">
   <div id="kpi_environment_detail" class="object_detail">
 
-    <div class="object_detail_content_section" style="width:850px;margin-left:30px;">
-      <span class="graph_title">Rank</span>
+    <div class="object_detail_content_section">
+      <span>Rank Achievements</span>
       <br>
-        <div class="rank-columns" style="margin-left:80px">
+        <div class="rank-columns" >
           <div class="rank-column">
-            <span style="margin-left:35px">Current Rank</span>
+            <span id="current-rank-header">Current Rank</span>
             <br>
             <img class="badge" id="current-rank" src="/images/dashboard/rank1.png"/>
           </div>
           <div class="rank-column">
-            <span style="margin-left:46px">Next Rank</span>
+            <span id="next-rank-header">Next Rank</span>
             <br>
             <img class="badge" id="next-rank" src="/images/dashboard/rank2.png"/>
           </div>
           <div class="rank-column">
-            <span style="margin-left:3px">Highest Rank Achieved</span>
+            <span id="highest-rank-header">Highest Rank Achieved</span>
             <br>
             <img class="badge" id="highest-rank" src="/images/dashboard/rank3.png"/>
           </div>
         </div><!-- end rank-columns -->
-        <span style="float:left" style="font-size:1em" >Qualifications</span>
-        <div id="qualification-header">
-        <div class="legend-item" id="user-legend" style="margin-left:300px;"></div>
-        <span style="float:left">Personal</span>
-        <div class="legend-item" id="global-legend"></div>
-        <span style="float:left">Team</span>
-        <div class="legend-item" id="extra-legend"></div>
-        <span style="float:left">Max Leg</span>
+        <span id="qualification-header">Qualifications</span>
+        <div id="qualification-legend">
+          <div class="legend-item" id="user-legend"></div>
+          <span style="float:left">Personal</span>
+          <div class="legend-item" id="global-legend"></div>
+          <span style="float:left">Team</span>
+          <div class="legend-item" id="extra-legend"></div>
+          <span style="float:left">Max Leg</span>
         </div>
-        {{!--  <div class="legend-item" id="user-legend"></div>
-            <span id="selected_user" class="legend-text">Quotes</span> --}}
 
-          <i class="fa fa-caret-left" style="float:left;margin-top:82.5px;margin-left:20px;font-size:30px"></i>
-          <div class="progress-column" style="padding-left:45px;width:150px;">
-             <div class="completed-rank-inner"></div>
-             <div class="completed-rank-outer"></div>
-             <canvas id="progressChart1" width="172" height="172" style="z-index:5;position:absolute"></canvas>
-             <canvas id="progressChart1-1" width="139" height="139" style="z-index:500;position:absolute;left:61px;top:31px;"></canvas>
-             <div class="rank-number" style="position:absolute;left:80px;top:72px;width:100px;text-align:center;display:none">
-              <span>RANK</span>
-              <br>
-              <span>1</span>
-             </div>
-          </div>
-          <div class="progress-column">
-             <div class="completed-rank-inner"></div>
-             <div class="completed-rank-outer"></div>
-             <canvas id="progressChart2" width="172" height="172" style="z-index:5;position:absolute"></canvas>
-             <canvas id="progressChart2-1" width="139" height="139" style="z-index:500;position:absolute;left:61px;top:31px;"></canvas>
-             <div class="rank-number" style="position:absolute;left:80px;top:72px;width:100px;text-align:center;display:none">
-              <span>RANK</span>
-              <br>
-              <span>2</span>
-             </div>
-          </div>
-          <div class="progress-column">
-             <div class="completed-rank-inner"></div>
-             <div class="completed-rank-outer"></div>
-             <div class="rank-number" style="position:absolute;left:80px;top:72px;width:100px;text-align:center;display:none;color:#bbb">
-              <span style="margin-left:2px;">RANK</span>
-              <br>
-              <span>3</span>
-             </div>
-          </div>
-          <i class="fa fa-caret-right" style="float:left;margin-top:85px;padding-left:80px;font-size:30px"></i>
-
+        <i class="fa fa-caret-left rank-caret-left"></i>
+        <div class="progress-column" id="leading-progress-column">
+           <div class="outer-radial-shell"></div>
+           <div class="inner-radial-shell"></div>
+           <canvas id="radialProgress1-1" class="outer-radial-bar" width="172" height="172"></canvas>
+           <canvas id="radialProgress1-2" class="inner-radial-bar" width="139" height="139"></canvas>
+           <div class="rank-number">
+            <span>RANK</span>
+            <br>
+            <span>1</span>
+           </div>
+        </div>
+        <div class="progress-column">
+           <div class="outer-radial-shell"></div>
+           <div class="inner-radial-shell"></div>
+           <canvas id="progressChart2-1" class="outer-radial-bar" width="172" height="172" ></canvas>
+           <canvas id="progressChart2-2"  class="inner-radial-bar" width="139" height="139"></canvas>
+           <div class="rank-number">
+            <span>RANK</span>
+            <br>
+            <span>2</span>
+           </div>
+        </div>
+        <div class="progress-column">
+           <div class="outer-radial-shell"></div>
+           <div class="inner-radial-shell"></div>
+           <div class="rank-number inactive-rank">
+            <span style="margin-left:2px;">RANK</span>
+            <br>
+            <span>3</span>
+           </div>
+        </div>
+        <i class="fa fa-caret-right rank-caret-right"></i>
       </div><!-- end object_detail_content_section -->
-      <div class="object_detail_user_summary" style="float:right;margin-right:0;">
+
+      <div class="object_detail_user_summary">
         <div class="swap-text-box">
           <span class="progress_description" id="members-tab">MEMBERS</span> <span class="progress_description" id="quotes-tab">HOT QUOTES</span>
-          <a class="return_to_team" style=""><i class="fa fa-bar-chart chart-icon"></i>  Return To Team Graph</a>
+          <a class="return_to_team"><i class="fa fa-bar-chart chart-icon"></i>  Return To Team Graph</a>
         </div>
         <div>
         </div>
-        <div class="contributors" style="height:455px"></div>
+        <div class="contributors"></div>
+        <div class="hot-quotes"></div>
         <div class="scroll-arrows">
           <i class="fa fa-caret-up paginate-quote-up"></i><i class="fa fa-caret-down paginate-quote-down"></i>
           <i class="fa fa-caret-up paginate-user-up"></i><i class="fa fa-caret-down paginate-user-down"></i>
@@ -85,8 +84,40 @@
 </div><!-- end drilldown_content -->
 
 <style>
+.object_detail_content_section {
+  width:850px;
+  margin-left:30px;
+}
+
+.rank-caret-left {
+  float:left;
+  margin-top:82.5px;
+  margin-left:20px;
+  font-size:30px;
+}
+
+.rank-caret-right {
+  float:left;
+  margin-top:85px;
+  padding-left:80px;
+  font-size:30px
+}
+
+#current-rank-header {
+  margin-left:30px;
+}
+
+#next-rank-header {
+  margin-left:40px;
+}
+
+#highest-rank-header {
+  margin-left:3px;
+}
+
 .rank-columns {
   display: inline-block;
+  margin-left:80px;
 }
 
 .circle {
@@ -101,6 +132,11 @@
   font-size: 0.8em;
 }
 
+#leading-progress-column {
+  padding-left:45px;
+  width:150px;
+}
+
 .progress-column {
   width:150px;
   float: left;
@@ -109,14 +145,25 @@
   margin-left:20px;
 }
 
+.outer-radial-bar {
+  z-index:5;
+  position:absolute;
+}
+
+.inner-radial-bar {
+  z-index:10;
+  position:absolute;
+  left:61px;
+  top:31px;
+}
+
 .paginate-quote-up, .paginate-quote-down {
   display:none;
 }
 
-.completed-rank-outer {
+.outer-radial-shell {
   height:145px;
   width:145px;
-  /*border:12.5px solid rgb(32,194,241);*/
   border:13px solid #999;
   border-radius:100%;
   position:absolute;
@@ -124,13 +171,9 @@
   left:46px;
 }
 
-.completed-rank-inner {
+.inner-radial-shell {
   height:115px;
   width:115px;
-  /*border:10px solid rgb(253, 180, 92);*/
-  /*border:12px solid #aaa;
-  left:63px;
-  top:33px;*/
   border-radius:100%;
   position:absolute;
   border:13px solid #666;
@@ -141,7 +184,7 @@
 .badge {
   background-color:#444;
   height:auto;
-  width:165px;
+  width:150px;
 }
 
 #current-rank {
@@ -159,13 +202,14 @@
   color:#444;
   background-color:rgb(238,238,238);
   padding:10px 35px 10px 30px;
+  float:left;
   cursor:pointer;
 }
 
 #quotes-tab {
-  /*border:1px solid rgb(238,238,238);*/
-  padding:10px 15px 10px 15px;
+  padding:10px 18px 10px 19px;
   cursor:pointer;
+  float:left;
   background-color:#555;
 }
 
@@ -195,23 +239,35 @@
   background-color: rgb(2, 164, 211);
   transition: width 0.5s linear;
 }
+
 .bar-two .bar {
   background-color: rgb(253, 180, 92);
   transition: width 0.5s linear;
 }
+
 .bar-three .bar {
   background-color: #FF9900;
   .transition(@time: 4s, @animation: cubic-bezier(.72, .45, .9, .12));
 }
+
 #qualification-header {
+  float:left;
+  font-size:1em;
+}
+
+#qualification-legend {
   display: block;
   height:35px;
   width:800px;
 }
 
-#qualification-header > span, #qualification-header > div {
+#qualification-legend > span, #qualification-legend > div {
   margin-left:15px;
   font-size:0.8em;
+}
+
+#user-legend {
+  margin-left:300px !important;
 }
 
 .quote-name {
@@ -221,24 +277,41 @@
   font-size: 0.85em;
 }
 .hot-quote-box {
-  padding-top: 15px;
   font-size: 0.80em;
-  padding-left:15px;
+  border-bottom:1px solid #555;
+  padding:10px 0px 8px 15px;
   display:none;
- white-space: nowrap;
+  white-space: nowrap;
    overflow: hidden;
 }
-.hot-quote-arrows {
-  padding: 15px 0 0 0;
+
+.fa-caret-up {
+  padding-left:65px;
 }
-.hot-quote-arrows .fa-caret-up {
-  padding: 40px 45px 0 45px;
+
+.fa-caret-up, .fa-caret-down {
+  float:left;
+}
+
+
+.scroll-arrows {
+  height:50px;
+  padding:0px;
+  background-color:#555;
+  height:35px;
+  right:0;
+  width:100%;
 }
 
 .contributor {
-  height:70px;
+  /*height:80px;*/
+  height:102px;
+  /*padding-top:5px;*/
   background-color:#333;
-  border-bottom:2px solid #333;
+  border-bottom:2px solid #444;
+  border-top:0px;
+  margin-top:1px;
+  line-height:20px;
 }
 
 .contributor a {
@@ -247,10 +320,54 @@
 
 .contributors {
    border-left:3px solid #333; 
+   height:445px;
+   margin-top:5px;
 }
-/*.avatar {
-  padding:50px;
-}*/
+
+.hot-quotes {
+  border-left:3px solid #333; 
+  height:455px;
+  display:none;
+  z-index:5;
+  display:inline-block;
+  width:260px;
+  overflow:hidden;
+  line-height:29px;
+  margin-top:2px;
+}
+
+.rank-number {
+  position:absolute;
+  left:80px;
+  top:72px;
+  width:100px;
+  text-align:center;
+  display:none
+}
+
+div.rank-number.inactive-rank {
+  color:#bbb;
+}
+
+.object_detail_user_summary {
+  position:absolute;
+  right:0;
+  margin-right:0;
+  height:525px;
+}
+
+.avatar {
+  width:80px;
+  height:80px;
+  margin-top:5px;
+}
+
+.button {
+  padding:5px 10px;
+  font-size:0.8em;
+  position:absolute;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -341,28 +458,28 @@ var options = {
 
 setTimeout(function(){
 $(".rank-number").fadeIn(1000)
-var ctx = document.getElementById("progressChart1").getContext("2d");
+var ctx = document.getElementById("radialProgress1-1").getContext("2d");
 var myDoughnutChart = new Chart(ctx).Doughnut(data1,options);
-var ctx = document.getElementById("progressChart2").getContext("2d");
+var ctx = document.getElementById("progressChart2-1").getContext("2d");
 var myDoughnutChart = new Chart(ctx).Doughnut(data1,options);
 setTimeout(function(){
-var ctx = document.getElementById("progressChart1-1").getContext("2d");
+var ctx = document.getElementById("radialProgress1-2").getContext("2d");
 var myDoughnutChart = new Chart(ctx).Doughnut(data3,options);
-var ctx = document.getElementById("progressChart2-1").getContext("2d");
+var ctx = document.getElementById("progressChart2-2").getContext("2d");
 var myDoughnutChart = new Chart(ctx).Doughnut(data2,options);
 },500)
 },300)
 
 
-function initKPI() {
-  randomizeOrders();
-  populateContributors();
+function initQuoteKPI() {
+  randomizeQuoteOrders();
+  populateQuoteContributors();
   populateHotQuotes();
   checkQuotePage()
   checkUserPage()
 }
 
-function randomizeOrders() {
+function randomizeQuoteOrders() {
   if (_data.team.entities) {
     _data.team.entities.forEach(function(member) {
       member.properties.orders = Math.floor(Math.random() * 30 + 10)
@@ -384,7 +501,7 @@ function randomAvatar() {
 function populateHotQuotes() {
    
   if(_data.quotes) {
-    _hotQuotes = $(".contributors");
+    _hotQuotes = $(".hot-quotes");
     quotes = _data.quotes.entities
     quotes.forEach(function(quote) {
       _ajax({
@@ -399,11 +516,11 @@ function populateHotQuotes() {
       });
     });
   } else {
-    // contributorEvents();
+    // contributorQuoteEvents();
   }
 }
 
-function populateContributors() {
+function populateQuoteContributors() {
     switch (kpiType) {
       case "conversion":
         _template = "/templates/_kpi_conversion_team_thumbnail.handlebars.html"
@@ -428,28 +545,28 @@ function populateContributors() {
           _callback: function(data, text) {
             member.properties.downline_count = data.entities.length;
             EyeCueLab.UX.getTemplate(_template, member, undefined, function(html) {
-              if ($('.contributor').length == top_ten.length) contributorEvents();
+              if ($('.contributor').length == top_ten.length) contributorQuoteEvents();
               _contributors.append(html);
             });
           }
         });
       });
     } else {
-      contributorEvents();
+      contributorQuoteEvents();
     }
   }
   // ** PAGINATION FOR USERS **
 $('.paginate-user-down').on("click", function(e) {
   if ($(this).hasClass("active")) {
     userPage += 1;
-    userPosition -= 457;
+    userPosition -= 435;
     animateContributors()
   };
 });
 $('.paginate-user-up').on("click", function(e) {
   if ($('.fa-caret-up').hasClass("active")) {
     userPage -= 1;
-    userPosition += 457;
+    userPosition += 435;
     animateContributors()
   };
 });
@@ -457,30 +574,34 @@ $('.paginate-user-up').on("click", function(e) {
 $('.paginate-quote-down').on("click", function(e) {
   if ($(this).hasClass("active")) {
       quotePage += 1;
-      quotePosition -= 440;
+      quotePosition -= 432;
       animateQuotes()
     };
 });
 $('.paginate-quote-up').on("click", function(e) {
   if ($('.fa-caret-up').hasClass("active")) {
     quotePage -= 1;
-    quotePosition += 440;
+    quotePosition += 432;
     animateQuotes()
   };
 });
 
 
   $('#quotes-tab').on("click",function(){
-    $(".contributor").hide()
-    $(".hot-quote-box").fadeIn()
+    $('#members-tab').animate({backgroundColor: "#555"},100).animate({color:"#eee"},100);
+    $('#quotes-tab').animate({backgroundColor: "#eee"},100).animate({color:"#444"},100);
+    $(".contributors").hide()
+    $(".hot-quotes").fadeIn()
     $(".paginate-user-up").hide()
     $(".paginate-user-down").hide()
     $(".paginate-quote-up").show()
     $(".paginate-quote-down").show()
   })
   $('#members-tab').on("click",function(){
-    $(".hot-quote-box").hide()
-    $(".contributor").fadeIn()
+    $('#quotes-tab').animate({backgroundColor: "#555"},100).animate({color:"#eee"},100);
+    $('#members-tab').animate({backgroundColor: "#eee"},100).animate({color:"#444"},100);
+    $(".hot-quotes").hide()
+    $(".contributors").fadeIn()
     $(".paginate-user-up").show()
     $(".paginate-user-down").show()
     $(".paginate-quote-up").hide()
@@ -521,6 +642,8 @@ function checkUserPage() {
     $('.paginate-user-up').css("opacity", "0.3").removeClass("active");
     if(page_total >= 5){
       $('.paginate-user-down').css("opacity", "1").addClass("active");
+    } else {
+      $('.paginate-user-down').css("opacity", "0,3").removeClass("active");
     }
   } else {
     $('.paginate-user-up').css("opacity", "1").addClass("active");
@@ -554,7 +677,7 @@ function checkQuotePage() {
 }
   // ** END **
   // Runs after ajax returns 10 users
-function contributorEvents() {
+function contributorQuoteEvents() {
 
     $(".bar-one .inner-bar").progress();
     setInterval(function() {
@@ -589,5 +712,5 @@ function contributorEvents() {
     // });
   }
   // ** END **
-initKPI()
+initQuoteKPI()
 </script>

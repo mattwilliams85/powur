@@ -1,4 +1,4 @@
-class PayPeriod < ActiveRecord::Base
+class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   include Calculator::RankAchievements
   include Calculator::OrderTotals
   include Calculator::Bonuses
@@ -15,12 +15,24 @@ class PayPeriod < ActiveRecord::Base
 
   scope :dispursed, -> { where('dispursed_at is not null') }
 
+  scope :within_date_range, lambda { |range_start, range_end|
+                              where(end_date: range_start..range_end)
+                            }
+
   before_create do
     self.id ||= self.class.id_from(start_date)
   end
 
   def title
     "#{type_display} (#{start_date} - #{end_date})"
+  end
+
+  def date_range_display(format = nil)
+    if format
+      "#{start_date.strftime(format)} - #{end_date.strftime(format)}"
+    else
+      "#{start_date} - #{end_date}"
+    end
   end
 
   def finished?
@@ -62,11 +74,12 @@ class PayPeriod < ActiveRecord::Base
   end
 
   def calculate!
-    result = self.class.where(id: id)
-      .where('calculate_queued is not null')
-      .update_all(calculate_started: DateTime.current,
-                  calculate_queued:  nil,
-                  calculated_at:     nil)
+    result = self.class
+             .where(id: id)
+             .where('calculate_queued is not null')
+             .update_all(calculate_started: DateTime.current,
+                         calculate_queued:  nil,
+                         calculated_at:     nil)
     return unless result == 1
     reset_orders!
     process_orders!
@@ -104,7 +117,7 @@ class PayPeriod < ActiveRecord::Base
     process_rank_achievements!(order, totals)
   end
 
-  def child_totals_for(user_id, product_id)
+  def child_totals_for(user_id, product_id) # rubocop:disable Metrics/AbcSize
     child_ids = direct_downline_users
                 .select { |u| u.parent_id == user_id }.map(&:id)
     return [] if child_ids.empty?
@@ -132,7 +145,8 @@ class PayPeriod < ActiveRecord::Base
 
   def find_pay_as_rank(user)
     user.pay_period_rank ||= rank_achievements
-                             .select { |a| a.user_id == user.id }.map(&:rank_id).max
+                             .select { |a| a.user_id == user.id }
+                             .map(&:rank_id).max
     user.pay_as_rank
   end
 

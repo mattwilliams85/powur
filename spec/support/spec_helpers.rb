@@ -1,10 +1,16 @@
 # helper methods for spec tests
 module SpecHelpers
+  def mocked_user
+    user = double('signed_in_user', id: 1, email: 'user1@example.com', first_name: 'Bob', last_name: 'Smith', roles: ['admin'])
+    allow(user).to receive(:role?).with(:admin).and_return(true)
+    user
+  end
+
   def login_user
-    @user = double('signed_in_user', id: 1, email: 'user1@example.com', first_name: 'Bob', last_name: 'Smith', roles: ['admin'])
-    allow(@user).to receive(:role?).with(:admin).and_return(true)
+    @user = mocked_user
     if defined?(session)
       session[:user_id] = @user.id
+      session[:expires_at] = Time.current + 1.hour
     else
       allow_any_instance_of(WebController).to receive(:current_user).and_return(@user)
     end
@@ -14,6 +20,7 @@ module SpecHelpers
     @user = create(:user)
     if defined?(session)
       session[:user_id] = @user.id
+      session[:expires_at] = Time.current + 1.hour
     else
       post login_path, email: @user.email, password: 'password'
     end

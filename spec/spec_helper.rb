@@ -3,7 +3,6 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
-require 'vcr_setup.rb'
 require 'capybara/rspec'
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -44,6 +43,12 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  VCR.configure do |c|
+    c.cassette_library_dir = 'spec/cassettes'
+    c.hook_into :webmock
+    c.ignore_localhost = true
+  end
+  # WebMock.disable_net_connect!(allow_localhost: true, allow: 'http://127.0.0.1/58858')
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
@@ -51,7 +56,7 @@ RSpec.configure do |config|
   # config.mock_with :mocha
   # config.mock_with :flexmock
   # config.mock_with :rr
-  WebMock.disable_net_connect!(allow_localhost: true)
+  # WebMock.disable_net_connect!(allow_localhost: true)
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

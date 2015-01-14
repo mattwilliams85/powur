@@ -65,7 +65,7 @@ class QuotesJson < JsonDecorator
   end
 
   def user_create_action
-    action = create_action(user_quotes_path)
+    action = create_action(request.path)
              .field(:email, :email, required: false)
              .field(:phone, :text, required: false)
 

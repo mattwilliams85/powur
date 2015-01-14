@@ -34,4 +34,8 @@ module ApplicationHelper
   def bonus_json
     @bonus_json ||= BonusJson.new(self, @bonuses, @bonus)
   end
+
+  def earnings_json
+    @earnings_json ||= EarningsJson.new(self, @earnings, @earning)
+  end
 end

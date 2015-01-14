@@ -18,16 +18,14 @@ class Quote < ActiveRecord::Base
   end
 
   def email_customer
-    PromoterMailer.new_quote(self).deliver if can_email?
+    PromoterMailer.new_quote(self).deliver_later if can_email?
   end
 
   def data_status
     value = []
     value << 'phone' if customer.phone
     value << 'email' if customer.email
-    if customer.address && customer.city && customer.state && customer.zip
-      value << 'address'
-    end
+    value << 'address' if customer.address_complete?
     value << 'utility' if data['utility']
     value
   end
@@ -57,7 +55,7 @@ class Quote < ActiveRecord::Base
     utility average_bill roof_type roof_age credit_score_qualified square_feet)
 
   class << self
-    def to_csv(query)
+    def to_csv(query) # rubocop:disable Metrics/AbcSize
       query = query.includes(:user, :customer).references(:user, :customer)
       quote_fields = Product.default.quote_fields
                      .includes(:lookups).references(:lookups).entries

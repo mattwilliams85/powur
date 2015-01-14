@@ -1,0 +1,107 @@
+'use strict';
+
+var sunstandApp = angular.module('sunstandApp', [
+  'ngRoute',
+
+  'sunstandControllers',
+  'sunstandServices',
+
+  // Directives
+  // 'sunstandApp.signInForm',
+  // 'sunstandApp.fileS3Uploader'
+]).run(['$rootScope', '$location', '$anchorScroll', '$document',
+  function ($rootScope, $location, $anchorScroll, $document) {
+    // $rootScope.siteData = SiteData || {};
+    // $rootScope.currentUser = $rootScope.siteData.user;
+    $rootScope.isSignedIn = SignedIn || false;
+
+    $rootScope.redirectToDashboardIfSignedIn = function() {
+      if ($rootScope.isSignedIn) {
+        window.location = '/u/dashboard';
+      }
+    };
+
+    // TODO: move header functionality into its own directive
+    $rootScope.invertHeaderColor = function() {
+      var docEl = document.documentElement,
+      header,
+      height = $(window).height() - 20;
+      window.onscroll = function headerScrollInvert() {
+        var sTop = (this.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
+        header = document.getElementById('sun_landing_header');
+
+        if (!header) return;
+
+        if (sTop > height) {
+          if (header.className !== 'invert') {
+            header.setAttribute('class', 'hidden');
+            setTimeout(function invertHeader() {
+              header.setAttribute('class', 'invert');
+            }, 200);
+          }
+        } else {
+          if (header.className !== '') {
+            header.setAttribute('class', 'hidden');
+            setTimeout(function invertHeader() {
+              header.setAttribute('class', '');
+            }, 200);
+          }
+        }
+      };
+    };
+
+    $rootScope.gotoAnchor = function(id) {
+      var duration = 500;
+      var offset = 0; // pixels; adjust for floating menu, context etc
+      // Scroll to #some-id with N px "padding"
+      var someElement = angular.element(document.getElementById(id));
+      $document.scrollToElement(someElement, offset, duration);
+    };
+  }
+]);
+
+var sunstandControllers = angular.module(
+  'sunstandControllers',
+  []
+);
+var sunstandServices = angular.module(
+  'sunstandServices',
+  ['ngResource', 'uiSlider', 'duScroll']
+);
+
+
+sunstandApp.config(
+  ['$routeProvider', '$sceProvider', function($routeProvider, $sceProvider) {
+    $sceProvider.enabled(false);
+
+    $routeProvider.
+    when('/home', {
+      templateUrl: '<%=asset_path("angular/landing/templates/index.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    when('/sign-in', {
+      templateUrl: '<%=asset_path("angular/landing/templates/sign-in.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    when('/reset-password', {
+      templateUrl: '<%=asset_path("angular/landing/templates/reset-password.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    when('/edit-password/:resetPasswordToken', {
+      templateUrl: '<%=asset_path("angular/landing/templates/edit-password.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    when('/create-wealth', {
+      templateUrl: '<%=asset_path("angular/promo/templates/create-wealth.html")%>',
+      controller: 'PromoCtrl'
+    }).
+    when('/create-energy', {
+      templateUrl: '<%=asset_path("angular/promo/templates/create-energy.html")%>',
+      controller: 'PromoCtrl'
+    }).
+
+    otherwise({
+      redirectTo: '/home'
+    });
+  }]
+);

@@ -1,0 +1,85 @@
+<ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
+
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
+  <ng-include src="'<%=asset_path("shared/header.html") %>'"></ng-include>
+
+  <main class="sun-promo">
+
+    <div class="sun-fixed-bg sun-bg-7" id="anchor_1">
+      <div class="sun-promo-intro">
+        <div class="row">
+          <h1>For <span class="highlighted">$0 UPFRONT</span>, you can generate your own SOLAR electricity.</h1>
+          <p>Not only will it lower your electricity bill, it is 100% clean and renewable energy your grandkids will thank you for.</p>
+          <a class="button watch" ng-click="gotoAnchor('anchor_2')">Watch how</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-3" id="anchor_2">
+      <div class="row sun-promo-content">
+        <h2>Goodbye coal, <span class="highlighted">Hello sunshine.</span></h2>
+
+        <div class="large-3 columns">
+          <div class="sunrun-icon-wrapper"></div>
+          <span>More than 60,000 customers have produced 344 Gigawatt hours of solar energy.</span>
+        </div>
+
+        <div class="large-9 columns">
+          <span>Sunstand is putting power back in the hands of the people, literally. We’ve partnered with the world’s most innovative and pioneering solar company, Sunrun, to deliver you cheaper power that costs nothing out of pocket, and is 100% carbon free.</span>
+          <br />
+          <br />
+          <b>Each time a new homeowner goes solar through sunstand and sunrun, you change the world in these simple, yet profound ways:</b>
+        </div>
+
+        <div class="large-12 columns sun-promo-slider-wrapper">
+          <h5>Drag the $ across to ‘You’ to continue:</h5>
+
+          <div class="slider-inner">
+            <slider floor="0" ceiling="1" step="1" precision="0" ng-model="slider" translate="sliderOnChange"></slider>
+            <img class="image-1" src="<%=asset_path('promo/slider-item-1.1.png')%>" />
+            <img class="image-2" src="<%=asset_path('promo/slider-item-2.1-hidden.png')%>" />
+          </div>
+
+          <span>If you’re having problems, <a ng-click="gotoAnchor('on_slider_move')">click here to continue</a>.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-5" id="on_slider_move">
+      <div class="row sun-promo-content">
+        <div class="large-4 columns">
+          <div class="icon-placeholder"><div class="decentralize-icon-wrapper"></div></div>
+          <h3>Decentralize energy production</h3>
+          <span>Sunrun decentralizes energy production, meaning you produce your own power from your own rooftop. This lessens your dependence on utility monopolies and the grid. Utilities charge us more money every year, and if the grid goes down, we go down.</span>
+        </div>
+
+        <div class="large-4 columns">
+          <div class="icon-placeholder"><div class="pocket-wallet-icon-wrapper"></div></div>
+          <h3>Money in your pocket</h3>
+          <span>Sunrun puts more money back in your pocket, right where it belongs. Every year the cost of energy increases. Do you know Americans spend an average of $80 billion dollars MORE in discretionary income per year on energy, than we did just 20 years ago? That’s a lot of money that should still be in our pockets, and with solar, it will be.</span>
+        </div>
+
+        <div class="large-4 columns">
+          <div class="icon-placeholder"><div class="pollution-icon-wrapper"></div></div>
+          <h3>Stop carbon pollution</h3>
+          <span>No more carbon pollution. Scientists have warned we are in uncharted territory. Rapid release of C02 into the atmosphere is changing the very climate of this planet, causing record temperatures, drought, and rising sea levels. If we don’t find a different source of energy than fossil fuels, we are leaving a legacy of destruction for future generations. It’s time to change.</span>
+        </div>
+      </div>
+
+      <a class="sun-next-pointer" ng-click="gotoAnchor('anchor_4')">what's in it for you?</a>
+    </div>
+
+    <div class="sun-fixed-bg sun-bg-8" id="anchor_4">
+      <div class="sun-promo-intro">
+        <div class="row">
+          <h1>Join the revolution to take back your power.</h1>
+          <h5>Contact the person who referred you to Sunstand.</h5>
+          <p>Get a quote  to see if you can save money, and our planet by going solar.<br />It costs nothing, and you’ll know quickly if this is the right choice for you.</p>
+        </div>
+      </div>
+    </div>
+
+    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+
+  </main>
+</div>

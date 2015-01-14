@@ -207,7 +207,7 @@ describe PayPeriod, type: :model do
     before :each do
       @payment_user = create(:user)
       @pay_periods = [ 2, 3, 1 ].map do |i|
-        pay_period = create(:weekly_pay_period, at: DateTime.current - i.weeks)
+        pay_period = create(:weekly_pay_period, start_date: DateTime.current - i.weeks)
         create(:bonus_payment, pay_period: pay_period, user: @payment_user)
         pay_period
       end

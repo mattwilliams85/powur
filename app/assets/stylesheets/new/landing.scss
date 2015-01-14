@@ -1,0 +1,191 @@
+.sun-landing {
+  height: 100%;
+  position: relative;
+  z-index: 1;
+
+  h1, h2, h3, h4, h5 {
+    font-family: "Montserrat";
+    font-weight: normal;
+    display: block;
+    text-align: left;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .sun-home-intro {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+
+    h1 {
+      color: #fff;
+      font-size: 2em;
+      font-weight: bold;
+      text-transform: uppercase;
+      @media #{$small} {
+        font-size: 4.5em;
+      }
+    }
+  }
+
+  .sun-buttons-wrapper {
+    margin-top: 3em;
+
+    .button {
+      background: #2ecc71;
+      text-transform: uppercase;
+      margin-right: 1em;
+    }
+
+    .sun-button-transparent {
+      border: 1px solid #000;
+      background: none;
+      color: #000;
+    }
+  }
+
+  .globe-image {
+    background: image-url('landing/globe.gif') no-repeat;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  .scales-image {
+    background: image-url('landing/scales-grey.gif') no-repeat;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  .house-image {
+    background: image-url('landing/hauzz.gif') no-repeat;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  .flame-image {
+    background: image-url('landing/flame-grey.gif') no-repeat;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  .sun-bg-1 {
+    background-image: image-url("landing/bg-1.jpg");
+  }
+  .sun-bg-2 {
+    background: #f4f6f7;
+  }
+  .sun-bg-3 {
+    background-image: image-url("landing/bg-3.jpg");
+  }
+
+  .sun-sign-in-wrapper {
+    padding-top: 200px;
+
+    h1 {
+      color: #fff;
+      font-size: 2.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    form {
+      text-align: left;
+    }
+
+    label {
+      color: #fff;
+      font-size: 1.3em;
+    }
+
+    .checkbox {
+      display: inline;
+      font-size: 1em;
+    }
+
+    button, .button {
+      display: block;
+      background: #2ecc71;
+      border: none;
+      color: #fff;
+      display: inline-block;
+      font-size: 1.3em;
+      font-weight: normal;
+      padding: .5em 1em;
+      text-transform: uppercase;
+      margin-right: 1em;
+    }
+
+    .forgot-password {
+      color: #fff;
+    }
+
+    input[type=text], input[type=password], input[type=email] {
+      font-size: 1.3em;
+    }
+  }
+}
+
+
+.sun-next-pointer {
+  background-image: image-url("landing/arrow-down-icon.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  bottom: 1em;
+  color: $secondary-color;
+  display: block;
+  font-weight: bold;
+  height: 40px;
+  left: 50%;
+  margin-left: -100px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  width: 200px;
+
+  &.inverted {
+    background-image: image-url("landing/arrow-down-inverted-icon.png");
+    color: #fff;
+  }
+
+  &.inactive {
+    display: none;
+  }
+}
+
+
+// Landing page slider
+.sun-slider {
+  position: relative;
+
+  .slide {
+    left: -100%;
+
+    &.inactive {
+      width: 100%;
+      left: 150%;
+    }
+
+    &.active {
+      left: 50%;
+    }
+  }
+}

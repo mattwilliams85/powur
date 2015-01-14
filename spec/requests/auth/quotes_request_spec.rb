@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe '/u/quotes' do
+describe '/u/quotes', type: :request do
 
   before do
     DatabaseCleaner.clean

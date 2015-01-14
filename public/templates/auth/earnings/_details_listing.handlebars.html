@@ -1,0 +1,21 @@
+<br>
+{{#if this.paginationInfo}}
+<table class="_table _spreadSheet" style="margin:auto">
+    <tr>
+        <td colspan="5" style="text-align:center; padding-bottom:32px;">
+            {{#each this.paginationInfo.display}}
+            <div class="js-pagination" style="display:inline">
+                {{#if this.link}}
+                    <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
+                {{else}}
+                    {{this.display}}
+
+                {{/if}}
+            </div>
+            {{/each}}
+
+        </td>
+    </tr>
+</table>
+{{/if}}
+

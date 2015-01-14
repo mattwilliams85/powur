@@ -1,0 +1,41 @@
+<ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
+
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
+  <ng-include src="'<%=asset_path("shared/header.html") %>'"></ng-include>
+
+  <main class="sun-landing">
+
+    <div class="sun-fixed-bg sun-bg-1 sun-slider" id="anchor_1">
+      <div id="slide0"  class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 0, 'inactive': currentHomeSlide > 0}">
+        <div class="row">
+          <h1>It's going to be legen...</h1>
+        </div>
+      </div>
+
+      <div id="slide1" class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 1, 'inactive': currentHomeSlide > 1}">
+        <div class="row">
+          <h1>Wait for it ....</h1>
+        </div>
+      </div>
+
+      <div id="slide2" class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 2, 'inactive': currentHomeSlide > 2}">
+        <div class="row">
+          <h1>dary...</h1>
+        </div>
+      </div>
+
+      <div id="slide3" class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 3}">
+        <div class="row">
+          <h1>We are starting a chain reaction by:</h1>
+        </div>
+      </div>
+
+      <a class="sun-next-pointer inverted" ng-class="{'inactive': currentHomeSlide !== 3}" ng-click="gotoAnchor('building_large_network')"></a>
+    </div>
+
+    <ng-include src="'<%=asset_path("shared/landing-features.html") %>'"></ng-include>
+
+    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+
+  </main>
+</div>

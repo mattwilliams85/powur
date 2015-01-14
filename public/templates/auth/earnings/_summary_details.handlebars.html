@@ -1,0 +1,44 @@
+<div class="slideData">
+    <span class="bonus-header-title">{{formatUnderscore entities.0.properties.bonus_title}}</span>
+    <hr class="bonus-header-hr">
+    <div class="paginated">
+    <table class="slideTable">
+    <tr>
+      <td class="inner-details-cell header-cell">Order ID</td>
+      <td class="inner-details-cell header-cell">Order Date</td>
+      <td class="inner-details-cell header-cell">Customer</td>
+      <td class="inner-details-cell header-cell">Amount</td>
+    </tr>
+    {{#each entities}}
+        {{#each this.properties.entities}}
+          <tr class="details-row alternating">
+            <td class="inner-details-cell">{{this.properties.order_id}}</td>
+            <td class="inner-details-cell">{{this.properties.order_date}}</td>
+            <td class="inner-details-cell">{{this.properties.customer_name}}</td>
+            <td class="inner-details-cell">${{formatCurrency ../this.properties.amount}}</td>
+          </tr>
+        {{/each}}
+    {{/each}}
+    </table>
+
+    <br>
+    {{#if this.paginationInfo}}
+    <table class="_table _spreadSheet" style="margin:auto">
+        <tr>
+            <td colspan="5" style="text-align:center; padding-bottom:32px;">
+                {{#each this.paginationInfo.display}}
+                <div class="js-pagination" style="display:inline">
+                    {{#if this.link}}
+                        <a href="#" data-page-number="{{this.display}}">{{this.display}}</a>
+                    {{else}}
+                        {{this.display}}
+
+                    {{/if}}
+                </div>
+                {{/each}}
+            </td>
+        </tr>
+    </table>
+    {{/if}}
+    </div>
+</div>

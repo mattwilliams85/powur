@@ -13,9 +13,7 @@ class EnrollerBonus < Bonus
   end
 
   def create_payments!(order, pay_period)
-    return unless order.user.parent?
-    user_rank = pay_period.find_pay_as_rank(order.user)
-    return unless user_rank <= max_user_rank
+    return unless qualifies_for_upline?(order, pay_period)
 
     parent = pay_period.find_upline_user(order.user.parent_id)
 
@@ -27,6 +25,12 @@ class EnrollerBonus < Bonus
   end
 
   private
+
+  def qualifies_for_upline?(order, pay_period)
+    return false unless order.user.parent?
+    user_rank = pay_period.find_pay_as_rank(order.user)
+    user_rank <= max_user_rank
+  end
 
   def inversed_amounts(max_rank)
     max = bonus_levels.map(&:amounts).flatten.max

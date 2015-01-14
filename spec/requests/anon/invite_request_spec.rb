@@ -6,7 +6,6 @@ describe '/a/invite' do
   end
 
   describe 'POST' do
-
     it 'renders an error with an invalid code' do
       post invite_path, code: 'nope', format: :json
 
@@ -55,11 +54,9 @@ describe '/a/invite' do
       expect_200
       expect_classes('session', 'anonymous')
     end
-
   end
 
   describe 'PATCH' do
-
     before(:each) do
       @invite = create(:invite)
       @user_params = {
@@ -88,7 +85,10 @@ describe '/a/invite' do
     end
 
     it 'registers a new promoter' do
-      patch invite_path, @user_params
+      VCR.use_cassette('ipayout_register') do
+        patch invite_path, @user_params
+      end
+
       expect_200
       expect_classes('session', 'user')
 
@@ -102,13 +102,15 @@ describe '/a/invite' do
 
     it 'associates any outstanding invites with the new promoter' do
       invites = create_list(:invite, 2, email: @invite.email)
-      patch invite_path, @user_params
+      VCR.use_cassette('invite_promoter_association') do
+        patch invite_path, @user_params
+      end
+
       id = json_body['properties']['id']
       invites.each do |invite|
         invite.reload
         expect(invite.user_id).to eq(id)
       end
     end
-
   end
 end

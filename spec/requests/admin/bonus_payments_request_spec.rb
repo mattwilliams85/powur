@@ -45,7 +45,7 @@ describe 'bonus payments', type: :request do
       @money_user = create(:user)
       @bonus_payments = []
       @pay_periods = [ 2, 3, 1 ].map do |i|
-        pay_period = create(:weekly_pay_period, at: DateTime.current - i.weeks)
+        pay_period = create(:weekly_pay_period, start_date: DateTime.current - i.weeks)
         @bonus_payments << create(:bonus_payment,
                                   pay_period: pay_period,
                                   user:       @money_user)
@@ -80,7 +80,7 @@ describe 'bonus payments', type: :request do
 
   describe '/a/orders/:admin_order_id/bonus_payments' do
     it 'returns bonus payments associated with an order' do
-      pay_period = create(:weekly_pay_period, at: DateTime.current - 1.month)
+      pay_period = create(:weekly_pay_period, start_date: DateTime.current - 1.month)
       order = create(:order)
 
       [ :direct_sales_bonus, :enroller_bonus ].each do |bonus_type|

@@ -1,4 +1,4 @@
-class Bonus < ActiveRecord::Base
+class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
   TYPES =  {
     direct_sales: 'Direct Sales',
     enroller:     'Enroller',
@@ -111,11 +111,12 @@ class Bonus < ActiveRecord::Base
   end
 
   def available_amount
-    amount = if sales_requirement?
-      source_product.commission_amount * source_requirement.quantity
-    else
-      0
-    end
+    amount =
+      if sales_requirement?
+        source_product.commission_amount * source_requirement.quantity
+      else
+        0
+      end
     amount += flat_amount if breakage_amount?
     amount
   end
@@ -153,7 +154,7 @@ class Bonus < ActiveRecord::Base
     end
   end
 
-  def other_product_percentages(max_rank)
+  def other_product_percentages(max_rank) # rubocop:disable Metrics/AbcSize
     return Array.new(max_rank, BigDecimal('0')) if other_product_bonuses.empty?
 
     percents = other_product_bonuses.map { |b| b.percentages_used(max_rank) }

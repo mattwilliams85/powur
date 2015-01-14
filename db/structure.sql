@@ -62,8 +62,8 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE api_clients (
-    id character varying(255) NOT NULL,
-    secret character varying(255) NOT NULL
+    id character varying NOT NULL,
+    secret character varying NOT NULL
 );
 
 
@@ -72,9 +72,9 @@ CREATE TABLE api_clients (
 --
 
 CREATE TABLE api_tokens (
-    id character varying(255) NOT NULL,
-    access_token character varying(255) NOT NULL,
-    client_id character varying(255) NOT NULL,
+    id character varying NOT NULL,
+    access_token character varying NOT NULL,
+    client_id character varying NOT NULL,
     user_id integer NOT NULL,
     expires_at timestamp without time zone NOT NULL
 );
@@ -128,7 +128,7 @@ CREATE TABLE bonus_payment_orders (
 
 CREATE TABLE bonus_payments (
     id integer NOT NULL,
-    pay_period_id character varying(255) NOT NULL,
+    pay_period_id character varying NOT NULL,
     bonus_id integer NOT NULL,
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
@@ -163,7 +163,7 @@ ALTER SEQUENCE bonus_payments_id_seq OWNED BY bonus_payments.id;
 
 CREATE TABLE bonus_plans (
     id integer NOT NULL,
-    name character varying(255) NOT NULL,
+    name character varying NOT NULL,
     start_year integer,
     start_month integer
 );
@@ -207,8 +207,8 @@ CREATE TABLE bonus_sales_requirements (
 CREATE TABLE bonuses (
     id integer NOT NULL,
     bonus_plan_id integer NOT NULL,
-    type character varying(255) NOT NULL,
-    name character varying(255) NOT NULL,
+    type character varying NOT NULL,
+    name character varying NOT NULL,
     schedule integer DEFAULT 2 NOT NULL,
     use_rank_at integer DEFAULT 2 NOT NULL,
     achieved_rank_id integer,
@@ -280,14 +280,14 @@ ALTER SEQUENCE customer_notes_id_seq OWNED BY customer_notes.id;
 
 CREATE TABLE customers (
     id integer NOT NULL,
-    first_name character varying(255) NOT NULL,
-    last_name character varying(255) NOT NULL,
-    email character varying(255),
-    phone character varying(255),
-    address character varying(255),
-    city character varying(255),
-    state character varying(255),
-    zip character varying(255),
+    first_name character varying NOT NULL,
+    last_name character varying NOT NULL,
+    email character varying,
+    phone character varying,
+    address character varying,
+    city character varying,
+    state character varying,
+    zip character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -325,8 +325,8 @@ CREATE TABLE delayed_jobs (
     run_at timestamp without time zone,
     locked_at timestamp without time zone,
     failed_at timestamp without time zone,
-    locked_by character varying(255),
-    queue character varying(255),
+    locked_by character varying,
+    queue character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
 );
@@ -357,7 +357,7 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 CREATE TABLE distributions (
     id integer NOT NULL,
-    pay_period_id character varying(255) NOT NULL,
+    pay_period_id character varying NOT NULL,
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL
 );
@@ -387,11 +387,11 @@ ALTER SEQUENCE distributions_id_seq OWNED BY distributions.id;
 --
 
 CREATE TABLE invites (
-    id character varying(255) NOT NULL,
-    email character varying(255) NOT NULL,
-    first_name character varying(255) NOT NULL,
-    last_name character varying(255) NOT NULL,
-    phone character varying(255),
+    id character varying NOT NULL,
+    email character varying NOT NULL,
+    first_name character varying NOT NULL,
+    last_name character varying NOT NULL,
+    phone character varying,
     expires timestamp without time zone NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -406,7 +406,7 @@ CREATE TABLE invites (
 
 CREATE TABLE order_totals (
     id integer NOT NULL,
-    pay_period_id character varying(255) NOT NULL,
+    pay_period_id character varying NOT NULL,
     user_id integer NOT NULL,
     product_id integer NOT NULL,
     personal integer DEFAULT 0 NOT NULL,
@@ -477,8 +477,8 @@ ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
 --
 
 CREATE TABLE pay_periods (
-    id character varying(255) NOT NULL,
-    type character varying(255) NOT NULL,
+    id character varying NOT NULL,
+    type character varying NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
     calculate_queued timestamp without time zone,
@@ -502,9 +502,9 @@ CREATE TABLE product_receipts (
     product_id integer NOT NULL,
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
-    transaction_id character varying(255) NOT NULL,
-    order_id character varying(255) NOT NULL,
-    auth_code character varying(255)
+    transaction_id character varying NOT NULL,
+    order_id character varying NOT NULL,
+    auth_code character varying
 );
 
 
@@ -533,13 +533,13 @@ ALTER SEQUENCE product_receipts_id_seq OWNED BY product_receipts.id;
 
 CREATE TABLE products (
     id integer NOT NULL,
-    name character varying(255) NOT NULL,
+    name character varying NOT NULL,
     bonus_volume integer NOT NULL,
     commission_percentage integer DEFAULT 100 NOT NULL,
     distributor_only boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    sku character varying(255)
+    sku character varying
 );
 
 
@@ -568,7 +568,7 @@ ALTER SEQUENCE products_id_seq OWNED BY products.id;
 
 CREATE TABLE qualifications (
     id integer NOT NULL,
-    type character varying(255) NOT NULL,
+    type character varying NOT NULL,
     time_period integer NOT NULL,
     quantity integer DEFAULT 1 NOT NULL,
     max_leg_percent integer,
@@ -604,9 +604,9 @@ ALTER SEQUENCE qualifications_id_seq OWNED BY qualifications.id;
 CREATE TABLE quote_field_lookups (
     id integer NOT NULL,
     quote_field_id integer NOT NULL,
-    value character varying(255) NOT NULL,
-    identifier character varying(255) NOT NULL,
-    "group" character varying(255)
+    value character varying NOT NULL,
+    identifier character varying NOT NULL,
+    "group" character varying
 );
 
 
@@ -636,7 +636,7 @@ ALTER SEQUENCE quote_field_lookups_id_seq OWNED BY quote_field_lookups.id;
 CREATE TABLE quote_fields (
     id integer NOT NULL,
     product_id integer NOT NULL,
-    name character varying(255) NOT NULL,
+    name character varying NOT NULL,
     data_type integer DEFAULT 1 NOT NULL,
     required boolean DEFAULT false NOT NULL
 );
@@ -667,7 +667,7 @@ ALTER SEQUENCE quote_fields_id_seq OWNED BY quote_fields.id;
 
 CREATE TABLE quotes (
     id integer NOT NULL,
-    url_slug character varying(255) NOT NULL,
+    url_slug character varying NOT NULL,
     data hstore DEFAULT ''::hstore NOT NULL,
     customer_id integer NOT NULL,
     product_id integer NOT NULL,
@@ -702,7 +702,7 @@ ALTER SEQUENCE quotes_id_seq OWNED BY quotes.id;
 
 CREATE TABLE rank_achievements (
     id integer NOT NULL,
-    pay_period_id character varying(255),
+    pay_period_id character varying,
     user_id integer NOT NULL,
     rank_id integer NOT NULL,
     rank_path_id integer NOT NULL,
@@ -735,8 +735,8 @@ ALTER SEQUENCE rank_achievements_id_seq OWNED BY rank_achievements.id;
 
 CREATE TABLE rank_paths (
     id integer NOT NULL,
-    name character varying(255) NOT NULL,
-    description character varying(255),
+    name character varying NOT NULL,
+    description character varying,
     precedence integer DEFAULT 1 NOT NULL
 );
 
@@ -766,7 +766,7 @@ ALTER SEQUENCE rank_paths_id_seq OWNED BY rank_paths.id;
 
 CREATE TABLE ranks (
     id integer NOT NULL,
-    title character varying(255) NOT NULL
+    title character varying NOT NULL
 );
 
 
@@ -775,7 +775,7 @@ CREATE TABLE ranks (
 --
 
 CREATE TABLE schema_migrations (
-    version character varying(255) NOT NULL
+    version character varying NOT NULL
 );
 
 
@@ -785,7 +785,7 @@ CREATE TABLE schema_migrations (
 
 CREATE TABLE settings (
     id integer NOT NULL,
-    var character varying(255) NOT NULL,
+    var character varying NOT NULL,
     value text,
     thing_id integer,
     thing_type character varying(30),
@@ -823,7 +823,7 @@ CREATE TABLE user_activities (
     event_time timestamp without time zone,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    event character varying(255)
+    event character varying
 );
 
 
@@ -885,15 +885,15 @@ ALTER SEQUENCE user_overrides_id_seq OWNED BY user_overrides.id;
 
 CREATE TABLE users (
     id integer NOT NULL,
-    email character varying(255) NOT NULL,
-    encrypted_password character varying(255) NOT NULL,
-    first_name character varying(255) NOT NULL,
-    last_name character varying(255) NOT NULL,
+    email character varying NOT NULL,
+    encrypted_password character varying NOT NULL,
+    first_name character varying NOT NULL,
+    last_name character varying NOT NULL,
     contact hstore DEFAULT ''::hstore,
-    url_slug character varying(255),
-    reset_token character varying(255),
+    url_slug character varying,
+    reset_token character varying,
     reset_sent_at timestamp without time zone,
-    roles character varying(255)[] DEFAULT '{}'::character varying[],
+    roles character varying[] DEFAULT '{}'::character varying[],
     upline integer[] DEFAULT '{}'::integer[],
     lifetime_rank integer,
     organic_rank integer,
@@ -902,10 +902,12 @@ CREATE TABLE users (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     profile hstore,
-    avatar_file_name character varying(255),
-    avatar_content_type character varying(255),
+    avatar_file_name character varying,
+    avatar_content_type character varying,
     avatar_file_size integer,
-    avatar_updated_at timestamp without time zone
+    avatar_updated_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone
 );
 
 
@@ -1939,4 +1941,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141205231913');
 INSERT INTO schema_migrations (version) VALUES ('20141208233620');
 
 INSERT INTO schema_migrations (version) VALUES ('20141212003512');
+
+INSERT INTO schema_migrations (version) VALUES ('20141217193712');
 
