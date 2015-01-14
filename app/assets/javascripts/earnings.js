@@ -71,7 +71,7 @@ _ajax({
 
       function populateMissing(){
         currentMonth = startMonth - 1;
-        currentYear = startYear;
+        currentYear = parseInt(startYear);
 
         for(var i = 0; i < _summaryData.length; i++){
           if(currentMonth == 12){

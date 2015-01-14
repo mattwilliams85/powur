@@ -42,27 +42,6 @@ jQuery(function($){
         }
     });
 
-     //admin toolbar
-     // $('.hover-box').hover(function(e){
-     //     $('.js-admin_tab').stop();
-     //     e.stopPropagation()
-     //     if($('.js-admin_tab').is(':animated')) return;
-     //     $('.js-admin_tab').animate({
-     //         "left":"-40px"
-     //     }, 300);
-
-     // });
-
-     // $( ".hover-box" ).mouseleave(function(e) {
-     //     $('.js-admin_tab').stop();
-     //     e.stopPropagation()
-     //     $('.js-admin_tab').animate({
-     //         "left":"-140px"
-     //     },300);
-
-     // });
-    //* end admin adshboard specific utility functions
-
     $(document).on("click", ".admin_top_level_nav", function(e){
         switch($(e.target).attr("href").replace("#admin-","")){
             case "users":
@@ -776,15 +755,18 @@ jQuery(function($){
         var _stopCheck=true;
         for(var i=0;i<data.entities.length;i++){
           if(data.entities[i].properties.calculating){
+            console.log("checking calc")
             _stopCheck=false;
             _checkNeeded=true;
             break;
           }
         }
         if(!_stopCheck){
+            console.log("Calculations underway, rechecking")
           clearTimeout(timeoutEvent);
           timeoutEvent = setTimeout(checkCalculation, 15000);
         } else {
+            console.log("No Calculations Being Processed")
             if(_checkNeeded && ($('.pay_period_info').length > 0)) _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});
         }
       });

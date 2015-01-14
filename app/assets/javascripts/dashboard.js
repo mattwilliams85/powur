@@ -39,29 +39,6 @@ function initPage(){
     _formSubmit(e, {}, '/login', 'delete', function(data, text){
     });
   });
-
-  // //admin toolbar
-  // $('.hover-box').hover(function(e){
-  //   $('.js-admin_tab').stop();
-  //   e.stopPropagation();
-  //   if($('.js-admin_tab').is(':animated')) return;
-  //   $('.js-admin_tab').animate({
-  //     'left':'-70px'
-  //   }, 300);
-  // });
-
-
-  // $('.hover-box').mouseleave(function(e) {
-  //   $('.js-admin_tab').stop();
-  //   e.stopPropagation();
-  //   $('.js-admin_tab').animate({
-  //     'left':'-140px'
-  //   },300);
-  // });
-
-  // $('.js-barlink').on("click", function(){
-  //   window.location.href = $(this).attr("id")
-  // })
 }
 
 
