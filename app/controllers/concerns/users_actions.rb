@@ -39,6 +39,10 @@ module UsersActions
   end
 
   def fetch_user
-    @user = fetch_downline_user(params[:id].to_i)
+    if current_user.role?('admin')
+      @user = User.find_by(id: params[:id].to_i) || not_found!(:user, params[:id])
+    else
+      @user = fetch_downline_user(params[:id].to_i)
+    end
   end
 end

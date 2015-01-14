@@ -43,24 +43,24 @@ jQuery(function($){
     });
 
      //admin toolbar
-     $('.hover-box').hover(function(e){
-         $('.js-admin_tab').stop();
-         e.stopPropagation()
-         if($('.js-admin_tab').is(':animated')) return;
-         $('.js-admin_tab').animate({
-             "left":"-40px"
-         }, 300);
+     // $('.hover-box').hover(function(e){
+     //     $('.js-admin_tab').stop();
+     //     e.stopPropagation()
+     //     if($('.js-admin_tab').is(':animated')) return;
+     //     $('.js-admin_tab').animate({
+     //         "left":"-40px"
+     //     }, 300);
 
-     });
+     // });
 
-     $( ".hover-box" ).mouseleave(function(e) {
-         $('.js-admin_tab').stop();
-         e.stopPropagation()
-         $('.js-admin_tab').animate({
-             "left":"-140px"
-         },300);
+     // $( ".hover-box" ).mouseleave(function(e) {
+     //     $('.js-admin_tab').stop();
+     //     e.stopPropagation()
+     //     $('.js-admin_tab').animate({
+     //         "left":"-140px"
+     //     },300);
 
-     });
+     // });
     //* end admin adshboard specific utility functions
 
     $(document).on("click", ".admin_top_level_nav", function(e){
@@ -151,7 +151,7 @@ jQuery(function($){
                         //wire up convert quotes to order
                         $(".js-convert_quote_to_order").on("click", function(e){
                             e.preventDefault();
-                            _quote = EyeCueLab.JSON.getObjectsByPattern(
+                            var _quote = EyeCueLab.JSON.getObjectsByPattern(
                                 _data.quotes, {
                                 "containsIn(properties)":[{id:$(e.target).parents("tr").attr("data-quote-id")}],
                                 "containsIn(links)":[{rel:"self"}]
@@ -552,7 +552,7 @@ jQuery(function($){
                 _ajaxType:"get",
                 _url:_url,
                 _callback:function(data){
-                    _popupData = data;
+                    var _popupData = data;
                     _popupData.title="Order Details";
                     _popupData.productInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["product"]})[0];
                     _popupData.customerInfo = EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(class)":["customer"]})[0];

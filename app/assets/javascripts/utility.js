@@ -218,6 +218,9 @@ $(document).on("click", "#js-screen_mask", function(e){
     return;
 });
 
+
+
+
 $(window).resize(function(){
     $("#js-popup").css({"left":(($(window).width()/2)-240)+"px","top":"200px"});
     //%TODO: recalculate x position for the indicators

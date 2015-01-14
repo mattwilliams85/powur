@@ -24,24 +24,24 @@ jQuery(function($){
     });
 
          //admin toolbar
-         $('.hover-box').hover(function(e){
-             $('.js-admin_tab').stop();
-             e.stopPropagation()
-             if($('.js-admin_tab').is(':animated')) return;
-             $('.js-admin_tab').animate({
-                 "left":"-40px"
-             }, 300);
+         // $('.hover-box').hover(function(e){
+         //     $('.js-admin_tab').stop();
+         //     e.stopPropagation()
+         //     if($('.js-admin_tab').is(':animated')) return;
+         //     $('.js-admin_tab').animate({
+         //         "left":"-40px"
+         //     }, 300);
 
-         });
+         // });
 
-         $( ".hover-box" ).mouseleave(function(e) {
-             $('.js-admin_tab').stop();
-             e.stopPropagation()
-             $('.js-admin_tab').animate({
-                 "left":"-140px"
-             },300);
+         // $( ".hover-box" ).mouseleave(function(e) {
+         //     $('.js-admin_tab').stop();
+         //     e.stopPropagation()
+         //     $('.js-admin_tab').animate({
+         //         "left":"-140px"
+         //     },300);
 
-         });
+         // });
         //* end admin adshboard specific utility functions
 
     $(document).on("click", ".admin_top_level_nav", function(e){

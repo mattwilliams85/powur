@@ -3,7 +3,7 @@
   position: relative;
   z-index: 1;
 
-  h1, h2, h3, h4, h5 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: "Montserrat";
     font-weight: normal;
     margin-bottom: .8em;
@@ -30,7 +30,7 @@
       line-height: 1em;
 
       .highlighted {
-        color: #20c2f1;
+        color: $sun-color-blue;
       }
 
       @media #{$small} {
@@ -65,7 +65,7 @@
         background-image: image-url("promo/play-icon.png");
         background-position: center 7px;
         background-repeat: no-repeat;
-        background-color: #20c2f1;
+        background-color: $sun-color-blue;
 
         @media #{$small} {
           font-size: 1em;
@@ -89,7 +89,7 @@
       line-height: 1em;
 
       .highlighted {
-        color: #f4c751;
+        color: $sun-color-orange;
       }
 
       @media #{$small} {
@@ -106,7 +106,7 @@
     p {
       color: #fff;
       font-size: 1.2em;
-      margin: 100px 0;
+      margin: 80px 0;
     }
 
     .video-player-wrapper {
@@ -127,7 +127,7 @@
     }
 
     h5 {
-      color: #f4c751;
+      color: $sun-color-orange;
       font-size: 2em;
       margin-bottom: 2em;
     }
@@ -138,10 +138,13 @@
     }
 
     hr {
-      border-top: 2px solid #20c2f1;
+      border-top: 2px solid $sun-color-blue;
       width: 50px;
     }
 
+    i {
+      font-style: initial;
+    }
     span {
       font-size: 1.1em;
     }
@@ -165,7 +168,7 @@
     }
 
     .highlighted {
-      color: #20c2f1;
+      color: $sun-color-blue;
       font-size: inherit;
     }
   }
@@ -212,7 +215,7 @@
     }
 
     h4 {
-      color: #f4c751;
+      color: $sun-color-orange;
       font-weight: bold;
       margin-bottom: 2em;
     }
@@ -277,7 +280,7 @@
     }
 
     h4 {
-      color: #f4c751;
+      color: $sun-color-orange;
       font-size: 2em;
       line-height: 1em;
       text-transform: uppercase;
@@ -294,6 +297,32 @@
         color: #bbb;
         font-size: .9em;
       }
+    }
+  }
+
+  .sun-promo-energy-slide-4 {
+    h4 {
+      font-size: 2.2em;
+      font-weight: bold;
+    }
+
+    h5 {
+      color: $sun-color-blue;
+      font-size: 2em;
+      font-weight: bold;
+      margin: .7em 0 2em 0;
+      text-transform: uppercase;
+    }
+
+    h6 {
+      font-size: 1.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    hr {
+      border-top: 2px solid $sun-color-blue;
+      width: 50px;
     }
   }
 
@@ -317,13 +346,13 @@
       width: 300px;
 
       span.pointer {
-        background-color: #20c2f1;
+        background-color: $sun-color-blue;
         height: 30px;
         width: 30px;
         top: -11px;
 
         &:after {
-          background-color: #20c2f1;
+          background-color: $sun-color-blue;
           color: #000;
           content: '$';
           font-size: 1.2em;
@@ -368,6 +397,13 @@
     margin-bottom: 20px;
   }
 
+  .sun-logo-wrapper {
+    @include sun-sprites-sprite(sun-logo);
+    height: sun-sprites-sprite-height(sun-logo);
+    width: sun-sprites-sprite-width(sun-logo);
+    margin-bottom: 40px;
+  }
+
   .sun-bg-1 {
     background-image: image-url("promo/bg-1.jpg");
   }
@@ -381,7 +417,7 @@
 
     .sun-promo-slider-wrapper {
       h5 {
-        color: #f4c751;
+        color: $sun-color-orange;
       }
     }
   }
@@ -395,7 +431,7 @@
 
     .sun-promo-slider-wrapper {
       h5 {
-        color: #20c2f1;
+        color: $sun-color-blue;
       }
     }
   }
@@ -414,7 +450,7 @@
   }
 
   .sun-bg-4 {
-    background-color: #f4c751;
+    background-color: $sun-color-orange;
   }
 
   .sun-bg-6 {
@@ -433,7 +469,7 @@
     background-image: image-url("promo/bg-8.jpg");
 
     h5 {
-      color: #f4c751;
+      color: $sun-color-orange;
       font-size: 1.5em;
     }
 

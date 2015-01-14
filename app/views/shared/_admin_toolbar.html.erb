@@ -1,15 +1,39 @@
-
-
- <% if current_user.roles.include?("admin") %>
-    <div class="hover-box">
-      <div class="js-admin_tab"  id="admin-tab">
-        <div class="side-panel-item" id="side-1"><a href="/u/dashboard"><span style="position:absolute;left:-30px">Dashboard</span><i class="fa fa-bar-chart fa-1x"></i></a></div>
-        <br>
-        <div class="side-panel-item" id="side-2"><a href="/u/earnings"><span style="position:absolute;left:-30px">Earnings</span><i class="fa fa-newspaper-o"></i></a></div>
-        <br>
-        <div class="side-panel-item" id="side-3"><a href="/u/university"><span style="position:absolute;left:-30px">University</span><i class="fa fa-graduation-cap"></i></a></div>
-        <br>
-        <div class="side-panel-item" id="side-4"><a href="/u/marketing"><span style="position:absolute;left:-30px">Marketing</span><i class="fa fa-paper-plane"></i></a></div>
-      </div>
+<% if current_user.roles.include?("admin") %>
+  <div class="hover-box">
+    <div class="js-admin_tab"  id="admin-tab">
+      <div class="side-panel-item" id="side-1"><a id="/u/dashboard" class="js-barlink"><span style="position:absolute;left:-30px">Dashboard</span><i class="fa fa-bar-chart fa-1x"></i></a></div>
+      <br>
+      <div class="side-panel-item" id="side-2"><a id="/u/earnings" class="js-barlink"><span style="position:absolute;left:-30px">Earnings</span><i class="fa fa-newspaper-o"></i></a></div>
+      <br>
+      <div class="side-panel-item" id="side-3"><a id="/u/university" class="js-barlink"><span style="position:absolute;left:-30px">University</span><i class="fa fa-graduation-cap"></i></a></div>
+      <br>
+      <div class="side-panel-item" id="side-4"><a id="/u/marketing" class="js-barlink"><span style="position:absolute;left:-30px">Marketing</span><i class="fa fa-paper-plane"></i></a></div>
     </div>
-  <% end %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+
+$('.hover-box').hover(function(e){
+    $('.js-admin_tab').stop();
+    e.stopPropagation()
+    if($('.js-admin_tab').is(':animated')) return;
+    $('.js-admin_tab').animate({
+        "left":"-40px"
+    }, 300);
+
+});
+
+$( ".hover-box" ).mouseleave(function(e) {
+    $('.js-admin_tab').stop();
+    e.stopPropagation()
+    $('.js-admin_tab').animate({
+        "left":"-140px"
+    },300);
+});
+
+$('.js-barlink').on("click", function(){
+  window.location.href = $(this).attr("id")
+})
+
+</script>
