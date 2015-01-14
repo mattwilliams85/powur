@@ -96,32 +96,6 @@
     background-image: image-url("landing/bg-3.jpg");
   }
 
-  .sun-next-pointer {
-    background-image: image-url("landing/arrow-down-icon.png");
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    bottom: 1em;
-    color: $secondary-color;
-    display: block;
-    font-weight: bold;
-    height: 40px;
-    left: 50%;
-    margin-left: -100px;
-    position: absolute;
-    text-align: center;
-    text-transform: uppercase;
-    width: 200px;
-
-    &.inverted {
-      background-image: image-url("landing/arrow-down-inverted-icon.png");
-      color: #fff;
-    }
-
-    &.inactive {
-      display: none;
-    }
-  }
-
   .sun-sign-in-wrapper {
     padding-top: 200px;
 
@@ -167,6 +141,33 @@
     input[type=text], input[type=password], input[type=email] {
       font-size: 1.3em;
     }
+  }
+}
+
+
+.sun-next-pointer {
+  background-image: image-url("landing/arrow-down-icon.png");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  bottom: 1em;
+  color: $secondary-color;
+  display: block;
+  font-weight: bold;
+  height: 40px;
+  left: 50%;
+  margin-left: -100px;
+  position: absolute;
+  text-align: center;
+  text-transform: uppercase;
+  width: 200px;
+
+  &.inverted {
+    background-image: image-url("landing/arrow-down-inverted-icon.png");
+    color: #fff;
+  }
+
+  &.inactive {
+    display: none;
   }
 }
 
