@@ -753,14 +753,24 @@ jQuery(function($){
     function checkCalculation(){
       $.ajax({type:"get", url:"/a/pay_periods"}).done(function(data){
         var _stopCheck=true;
-        for(var i=0;i<data.entities.length;i++){
-          if(data.entities[i].properties.calculating){
-            console.log("checking calc")
-            _stopCheck=false;
-            _checkNeeded=true;
-            break;
+        var index = -1;
+
+        if (index < 0){
+          for(var i=0;i<data.entities.length;i++){
+            if(data.entities[i].properties.calculating){
+              index = i
+              _stopCheck=false;
+              _checkNeeded=true;
+              break;
+            }
           }
+        } else {
+            if(data.entities(index).properties.calculating){
+              _stopCheck=false;
+              _checkNeeded=true;
+            }
         }
+
         if(!_stopCheck){
             console.log("Calculations underway, rechecking")
           clearTimeout(timeoutEvent);
