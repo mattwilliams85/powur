@@ -101,6 +101,8 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
   $scope.mode = '';
   if (/\/home$/.test($location.path())) return $scope.mode = 'home';
   if (/\/sign-in$/.test($location.path())) return $scope.mode = 'sign-in';
+  if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
+  if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
 };
 
 
@@ -118,6 +120,11 @@ LandingCtrl.prototype.fetch = function($scope, $interval) {
   } else if ($scope.mode === 'sign-in') {
     // Only for sign in page
     $scope.signInPage = true;
+  } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
+    $scope.activeFAQItemId = 'faq_item_1';
+    $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
+      'Sunstand Customer FAQ' :
+      'Sunstand Advocate FAQ';
   }
 };
 

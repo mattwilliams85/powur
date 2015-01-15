@@ -39,17 +39,17 @@ var sunstandApp = angular.module('sunstandApp', [
         if (!header) return;
 
         if (sTop > height) {
-          if (header.className !== 'invert') {
-            header.setAttribute('class', 'hidden');
+          if (header.className !== 'sun-header-guest invert') {
+            header.setAttribute('class', 'sun-header-guest hidden');
             setTimeout(function invertHeader() {
-              header.setAttribute('class', 'invert');
+              header.setAttribute('class', 'sun-header-guest invert');
             }, 200);
           }
         } else {
           if (header.className !== '') {
-            header.setAttribute('class', 'hidden');
+            header.setAttribute('class', 'sun-header-guest hidden');
             setTimeout(function invertHeader() {
-              header.setAttribute('class', '');
+              header.setAttribute('class', 'sun-header-guest');
             }, 200);
           }
         }
@@ -95,6 +95,16 @@ sunstandApp.config(
     }).
     when('/edit-password/:resetPasswordToken', {
       templateUrl: '<%=asset_path("angular/landing/templates/edit-password.html")%>',
+      controller: 'LandingCtrl'
+    }).
+
+    // FAQ
+    when('/customer-faq', {
+      templateUrl: '<%=asset_path("angular/landing/templates/customer-faq.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    when('/advocate-faq', {
+      templateUrl: '<%=asset_path("angular/landing/templates/advocate-faq.html")%>',
       controller: 'LandingCtrl'
     }).
 
