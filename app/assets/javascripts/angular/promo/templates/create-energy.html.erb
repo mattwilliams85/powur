@@ -17,7 +17,9 @@
 
     <div class="sun-scrolling-bg sun-bg-3" id="anchor_2">
       <div class="row sun-promo-content">
-        <h2>Goodbye coal, <span class="highlighted">Hello sunshine.</span></h2>
+        <div class="large-12 columns">
+          <h2>Goodbye coal, <span class="highlighted">Hello sunshine.</span></h2>
+        </div>
 
         <div class="large-3 columns">
           <div class="sunrun-icon-wrapper"></div>
@@ -65,12 +67,42 @@
           <span>No more carbon pollution. Scientists have warned we are in uncharted territory. Rapid release of C02 into the atmosphere is changing the very climate of this planet, causing record temperatures, drought, and rising sea levels. If we don’t find a different source of energy than fossil fuels, we are leaving a legacy of destruction for future generations. It’s time to change.</span>
         </div>
       </div>
-
       <a class="sun-next-pointer" ng-click="gotoAnchor('anchor_4')">what's in it for you?</a>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-3" id="anchor_4">
-      <div class="row sun-promo-content sun-promo-energy-slide-4">
+    <div class="sun-fixed-bg sun-bg-9" id="anchor_4">
+      <div class="sun-promo-content sun-promo-energy-slide-4">
+        <div class="row">
+          <div class="large-4 columns left-part">
+            <div class="left-bg"></div>
+            <div class="inner-content">
+              <h1>What's in it for you?</h1>
+              <p>We thought you’d never ask. Solar is simply one of the BEST decisions a homeowner can make today. Over two thirds of the homes in this country can get their electricity more cost effective from solar than coal, and that’s not some distant future… it’s now. If you qualify for $0 down financing, the switch to solar is literally FREE.</p>
+            </div>
+          </div>
+
+          <div class="large-8 columns right-part">
+            <div class="right-bg"></div>
+            <div class="inner-content">
+              <div ng-repeat="slide in energySlides">
+                <div class="slide-show-wrapper" ng-class="{'active': currentSlide === energySlides.indexOf(slide)}">
+                  <img ng-repeat="img in slide.images" class="slide-image" ng-src="{{img}}" />
+                  <div class="clearfix"></div>
+                  <p>{{slide.text}}</p>
+                </div>
+              </div>
+
+              <div class="slide-show-dots">
+                <a ng-repeat="slide in energySlides" ng-class="{'active': currentSlide === energySlides.indexOf(slide)}" ng-click="stopSlideShowOn(slide)"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-3" id="anchor_5">
+      <div class="row sun-promo-content sun-promo-energy-slide-5">
         <div class="large-4 columns">
           <div class="sun-logo-wrapper"></div>
           <img src="<%=asset_path('promo/image-1.jpg')%>" />
@@ -85,11 +117,10 @@
           <p>Through sunstand, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
         </div>
       </div>
-
-      <a class="sun-next-pointer" ng-click="gotoAnchor('anchor_5')">what's next</a>
+      <a class="sun-next-pointer" ng-click="gotoAnchor('anchor_6')">what's next</a>
     </div>
 
-    <div class="sun-fixed-bg sun-bg-8" id="anchor_5">
+    <div class="sun-fixed-bg sun-bg-8" id="anchor_6">
       <div class="sun-promo-intro">
         <div class="row">
           <h1>Join the revolution to take back your power.</h1>
