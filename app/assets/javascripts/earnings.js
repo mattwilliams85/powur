@@ -50,7 +50,6 @@ _ajax({
             currentYear += 1
           }
           currentMonth += 1 
-          console.log("month: "+currentMonth+" | year: "+currentYear)
           _endPoints.push({
               url:"/u/earnings/summary?format=json&user_id="+current_user+"&start_year="+startYear+"&start_month="+currentMonth+"&end_year="+startYear+"&end_month="+currentMonth,
               // url:"/u/earnings/summary?format=json&user_id="+current_user+"&start_year="+2014+"&start_month="+10+"&end_year="+2014+"&end_month="+10,

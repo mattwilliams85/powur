@@ -772,11 +772,9 @@ jQuery(function($){
         }
 
         if(!_stopCheck){
-            console.log("Calculations underway, rechecking")
           clearTimeout(timeoutEvent);
           timeoutEvent = setTimeout(checkCalculation, 15000);
         } else {
-            console.log("No Calculations Being Processed")
             if(_checkNeeded && ($('.pay_period_info').length > 0)) _loadPayPeriodsInfo(function(){displayQuotes("#admin-quotes-pay-periods");});
         }
       });
