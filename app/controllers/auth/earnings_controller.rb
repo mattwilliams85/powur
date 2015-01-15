@@ -36,8 +36,8 @@ module Auth
     def bonus
       @user = fetch_user
       @pay_period = PayPeriod.find_by(id: params[:pay_period_id])
-      @bonus_summary = BonusPayment.bonus_totals_by_type(@pay_period).for_user(4)
-      @total = @pay_period.bonus_payments.for_user(4).sum(:amount)
+      @bonus_summary = BonusPayment.bonus_totals_by_type(@pay_period).for_user(@user.id)
+      @total = @pay_period.bonus_payments.for_user(@user.id).sum(:amount)
     end
 
     def bonus_detail
