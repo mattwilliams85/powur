@@ -9,18 +9,18 @@ var sunstandApp = angular.module('sunstandApp', [
   // Directives
   // 'sunstandApp.signInForm',
   // 'sunstandApp.fileS3Uploader'
-]).run(['$rootScope', '$location', '$document',
-  function ($rootScope, $location, $document) {
+]).run(['$rootScope', '$location', '$document', 'CurrentUser',
+  function ($rootScope, $location, $document, CurrentUser) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
     /*
      * Fill in User object with data if user is signed in but object is empty
     */
-    $rootScope.$on('$routeChangeSuccess', function(event, next, current) {
-      if ($scope.isSignedIn) {
+    $rootScope.$on('$includeContentLoaded', function(event, next, current) {
+      if ($rootScope.isSignedIn) {
         CurrentUser.get().then(function(data) {
-          $scope.currentUser = data;
+          $rootScope.currentUser = data;
         });
       }
     });

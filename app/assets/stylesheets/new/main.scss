@@ -90,39 +90,101 @@ html, body {
 */
 #sun_header {
   background: $sun-color-blue;
-  font-family: $header-font-family;
-  height: 70px;
+  font-family: "Varela Round", sans-serif;
   left: 0;
   top: 0;
-  padding-top: 1em;
+  padding: 10px;
   position: fixed;
+  text-transform: uppercase;
   width: 100%;
   z-index: 2;
 
+  .sun-header {
+    list-style-position: outside;
+
+    li {
+      display: block;
+      float: left;
+    }
+
+    .logo {
+      float: none;
+      margin-bottom: 20px;
+
+      a {
+        @include sun-sprites-sprite(header-logo);
+        height: sun-sprites-sprite-height(header-logo);
+        display: block;
+        line-height: 37px;
+        text-align: left;
+        padding-left: 45px;
+        font-size: 1.2em;
+        font-family: "Varela Round", sans-serif;
+        margin-right: 30px;
+        text-transform: none;
+      }
+
+      @media #{$small} {
+        float: left;
+        margin-bottom: 0;
+      }
+    }
+
+    .menu-item {
+      a {
+        margin-right: 20px;
+        line-height: 37px;
+        font-size: 1.2em;
+      }
+    }
+
+    .sign-out {
+      a {
+        background: none;
+        display: inline-block;
+        line-height: 33px;
+        padding: 0 1em;
+        border: 2px solid #fff;
+        font-size: .8em;
+        font-family: $header-font-family;
+      }
+    }
+
+    .avatar {
+      a {
+        float: right;
+        margin-right: 10px;
+
+        img {
+          width: 37px;
+          border-radius: 50px;
+        }
+      }
+    }
+
+    .username {
+      a {
+        display: none;
+        float: right;
+        margin: 0 20px 0 0;
+        padding: 1px 0 0 0;
+        line-height: 37px;
+        font-size: 1em;
+
+        i {
+          font-style: normal;
+          color: #4a4747;
+        }
+
+        @media #{$small} {
+          display: block;
+        }
+      }
+    }
+  }
+
   a {
     color: #fff;
-  }
-
-  .logo {
-    @include sun-sprites-sprite(header-logo);
-    height: sun-sprites-sprite-height(header-logo);
-    width: sun-sprites-sprite-width(header-logo);
-    display: block;
-    float: left;
-    line-height: 37px;
-    text-align: left;
-    padding-left: 45px;
-  }
-
-  .sign-out {
-    background: none;
-    display: inline-block;
-    line-height: 2.3em;
-    float: right;
-    padding: 0 1em;
-    border: 2px solid #fff;
-    text-transform: uppercase;
-    font-size: .8em;
   }
 }
 
@@ -200,6 +262,7 @@ html, body {
   background-position: center center;
   z-index: 1;
   background-attachment: scroll;
+
   @media #{$small} {
     background-attachment: fixed;
   }

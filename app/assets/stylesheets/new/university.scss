@@ -1,3 +1,7 @@
 .sun-university {
-  margin-top: 70px;
+  margin-top: 150px;
+
+  @media #{$small} {
+    margin-top: 70px;
+  }
 }

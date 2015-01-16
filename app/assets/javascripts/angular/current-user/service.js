@@ -1,6 +1,9 @@
 'use strict';
 
 function CurrentUser($http, $q, $cacheFactory) {
+  var cache = $cacheFactory('CurrentUser');
+  var isProcessingRequest;
+
   var service = {
 
     /*
@@ -8,19 +11,23 @@ function CurrentUser($http, $q, $cacheFactory) {
     */
     get: function() {
       var dfr = $q.defer();
-      var cache = $cacheFactory('CurrentUser');
       var userData = cache.get('data');
 
-      if (userData && userData.email) {
+      if (isProcessingRequest) {
+        dfr.resolve({});
+      } else if (userData && userData.email) {
         dfr.resolve(userData);
       } else {
+        isProcessingRequest = true;
         $http({
           method: 'GET',
           url: '/u/profile.json'
         }).success(function(res) {
           cache.put('data', res.properties);
+          isProcessingRequest = false;
           dfr.resolve(cache.get('data'));
         }).error(function(err) {
+          isProcessingRequest = false;
           console.log('エラー', err);
           dfr.reject(err);
         });
