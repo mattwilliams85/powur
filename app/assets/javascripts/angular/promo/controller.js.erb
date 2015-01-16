@@ -1,9 +1,7 @@
 'use strict';
 
-function PromoCtrl($scope, $location, $timeout, $interval, $anchorScroll) {
+function PromoCtrl($scope, $location, $timeout, $interval) {
   $scope.redirectToDashboardIfSignedIn();
-
-  $anchorScroll();
 
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
@@ -105,5 +103,5 @@ PromoCtrl.prototype.fetch = function($scope, $interval) {
 };
 
 
-PromoCtrl.$inject = ['$scope', '$location', '$timeout', '$interval', '$anchorScroll'];
+PromoCtrl.$inject = ['$scope', '$location', '$timeout', '$interval'];
 sunstandControllers.controller('PromoCtrl', PromoCtrl);

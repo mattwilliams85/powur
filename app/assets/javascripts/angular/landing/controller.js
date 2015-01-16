@@ -1,10 +1,8 @@
 'use strict';
 
-function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $anchorScroll, $interval) {
+function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval) {
   $scope.redirectToDashboardIfSignedIn();
   $scope.showValidationMessages = false;
-
-  $anchorScroll();
 
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
@@ -129,5 +127,5 @@ LandingCtrl.prototype.fetch = function($scope, $interval) {
 };
 
 
-LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$anchorScroll', '$interval'];
+LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval'];
 sunstandControllers.controller('LandingCtrl', LandingCtrl);
