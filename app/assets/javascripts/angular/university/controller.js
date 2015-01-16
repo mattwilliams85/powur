@@ -3,6 +3,10 @@
 function UniversityCtrl($scope, $location, UniversityClass) {
   $scope.redirectUnlessSignedIn();
 
+  $scope.canTakeClass = function(universityClass) {
+    return universityClass.properties.purchased || universityClass.properties.price === 0;
+  };
+
   this.init($scope, $location);
   this.fetch($scope, UniversityClass);
 }

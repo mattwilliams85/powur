@@ -3,6 +3,7 @@ namespace :sunstand do
 
     SOLAR_ITEM_ID = 1
     CERT_ITEM_ID  = 2
+    CERT2_ITEM_ID  = 3
 
     BASIC_PATH_ID = 1
     PRO_PATH_ID   = 2
@@ -48,10 +49,21 @@ namespace :sunstand do
       Product.create!(
         id:               CERT_ITEM_ID,
         name:             'SunStand Consultant Certification',
+        description:      'Why sunstand’s business model,
+                          which empowers them to be their own home based entrepreneur.',
         bonus_volume:     300,
         distributor_only: true,
         certifiable: true,
-        image_original_path: 'http://lorempixel.com/400/400/abstract')
+        image_original_path: 'http://lorempixel.com/output/abstract-q-c-400-400-3.jpg')
+      Product.create!(
+        id:               CERT2_ITEM_ID,
+        name:             'Shine',
+        description:      'Why sunstand’s business model,
+                          which empowers them to be their own home based entrepreneur.',
+        bonus_volume:     0,
+        distributor_only: true,
+        certifiable: true,
+        image_original_path: 'http://lorempixel.com/output/abstract-q-c-400-400-7.jpg')
       puts 'Created Products for solar item and consultant certification'
     end
 

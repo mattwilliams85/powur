@@ -9,8 +9,8 @@ var sunstandApp = angular.module('sunstandApp', [
   // Directives
   // 'sunstandApp.signInForm',
   // 'sunstandApp.fileS3Uploader'
-]).run(['$rootScope', '$location', '$document', 'CurrentUser',
-  function ($rootScope, $location, $document, CurrentUser) {
+]).run(['$rootScope', '$location', '$document', '$http', 'CurrentUser',
+  function ($rootScope, $location, $document, $http, CurrentUser) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
@@ -64,6 +64,17 @@ var sunstandApp = angular.module('sunstandApp', [
           }
         }
       };
+    };
+
+    // TODO: move header functionality into its own directive
+    $rootScope.signOut = function() {
+      var cb = function() {
+        $rootScope.isSignedIn = false;
+        window.location = '#/sign-in';
+      };
+      $http.delete('/login.json', {
+        xsrfHeaderName: 'X-CSRF-Token'
+      }).success(cb).error(cb);
     };
 
     $rootScope.gotoAnchor = function(id) {

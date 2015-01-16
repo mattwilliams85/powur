@@ -2,7 +2,7 @@
   <div class="row">
     <div class="large-12 columns">
       <ul class="sun-header">
-        <li class="right sign-out"><a ng-href="#/sign-out">Sign Out</a></li>
+        <li class="right sign-out"><a ng-click="signOut()">Sign Out</a></li>
         <li class="right username"><a ng-href="/u/profile">{{currentUser.first_name}} <i>{{currentUser.last_name}}</i></a></li>
         <li class="right avatar"><a ng-href="/u/profile"><img src="<%=asset_path('temp_dev_images/profile.jpg')%>" ng-src="{{currentUser.avatar.thumb}}"></a></li>
 

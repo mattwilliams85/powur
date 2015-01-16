@@ -1,7 +1,67 @@
 .sun-university {
-  margin-top: 150px;
+  margin-top: 180px;
 
   @media #{$small} {
-    margin-top: 70px;
+    margin-top: 110px;
+  }
+
+  .university-class-item-wrapper {
+    .class-item {
+      border: 1px solid #f8f8f8;
+      height: 450px;
+      margin: 0 20px 50px 0;
+      width: 100%;
+
+      .image-wrapper {
+        height: 230px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      h6 {
+        display: inline-block;
+        width: 80%;
+        overflow: hidden;
+        line-height: 1.7em;
+        height: 1.7em;
+      }
+
+      h5 {
+        display: inline-block;
+        float: right;
+        width: 18%;
+        text-align: right;
+      }
+
+      .class-info {
+        padding: 10px;
+      }
+
+      .class-progress {
+        height: 30px;
+      }
+
+      .description {
+        color: #a4a4a4;
+        display: inline-block;
+        font-size: .8em;
+        height: 60px;
+        overflow: hidden;
+        padding: 0 20px;
+      }
+
+      .button {
+        display: block;
+        margin: 0 20px;
+        background: #59a2e7;
+
+        &.purchase {
+          background: #e75959;
+        }
+      }
+    }
   }
 }
