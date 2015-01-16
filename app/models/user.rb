@@ -101,6 +101,10 @@ class User < ActiveRecord::Base
     pay_period_rank || organic_rank
   end
 
+  def assign_parent(parent)
+    self.class.move_user(self, parent)
+  end
+
   private
 
   def hydrate_upline # rubocop:disable Metrics/AbcSize
@@ -124,6 +128,20 @@ class User < ActiveRecord::Base
     def update_lifetime_ranks(pay_period_id)
       sql = sanitize_sql([ UPDATE_LIFETIME_RANKS, pay_period_id ])
       connection.execute(sql)
+    end
+
+    UPDATE_PARENT = "upline = ARRAY[%s] || upline[%s:array_length(upline,1)]"
+
+    def move_user(user, parent)
+      if user.id == parent.id
+        fail ArgumentError, 'A user cannot be their own parent'
+      end
+      if parent.ancestor?(user.id)
+        fail ArgumentError, 'A parent cannot be moved to a child'
+      end
+      sql = UPDATE_PARENT % [ parent.upline.join(','), user.level ]
+      where("upline && ARRAY[?]", user.id).update_all(sql)
+      user.upline = parent.upline + [ user.id ]
     end
   end
 end

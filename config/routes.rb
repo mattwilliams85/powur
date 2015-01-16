@@ -75,6 +75,8 @@ Rails.application.routes.draw do
       member do
         get :downline
         get :upline
+        post :move
+        get :eligible_parents
       end
 
       resources :rank_achievements, only:       [ :index ],
@@ -120,6 +122,8 @@ Rails.application.routes.draw do
       member do
         get :downline
         get :upline
+        post :move
+        get :eligible_parents
       end
       resources :overrides, only: [ :index, :create ]
 

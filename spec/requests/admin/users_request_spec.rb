@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe '/a/users' do
 
-  before do
+  before :each do
     login_real_user
   end
 
@@ -55,7 +55,23 @@ describe '/a/users' do
       expect_entities 'user-orders', 'user-order_totals'
     end
 
+
+    describe '/eligible_parents' do
+
+      it 'returns the correct parents with the correct order' do
+        mover = create(:user, sponsor: @user)
+        create(:user, sponsor: @user)
+
+        get eligible_parents_admin_user_path(mover), format: :json
+
+        expect_entities_count(1)
+      end
+
+    end
+
   end
+
+
 
   describe '#update' do
 

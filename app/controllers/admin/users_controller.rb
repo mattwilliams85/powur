@@ -1,6 +1,6 @@
 module Admin
   class UsersController < AdminController
-    before_action :fetch_user, only: [ :downline, :upline, :show, :update ]
+    before_action :fetch_user, only: [ :downline, :upline, :show, :update, :eligible_parents, :move ]
 
     def index
       respond_to do |format|
@@ -37,6 +37,25 @@ module Admin
                           :address, :city, :state, :zip)
 
       @user.update_attributes!(input)
+
+      render 'show'
+    end
+
+    def eligible_parents
+      @users = User
+        .where('NOT (? = ANY (upline))', @user.id)
+        .where('id <> ?', @user.parent_id)
+        .order(:upline)
+
+      render 'auth/users/select_index'
+    end
+
+    def move
+      require_input :parent_id
+
+      parent = User.find(params[:parent_id].to_i)
+
+      @user.assign_parent(parent)
 
       render 'show'
     end

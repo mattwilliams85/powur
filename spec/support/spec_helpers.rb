@@ -17,8 +17,8 @@ module SpecHelpers
     @user
   end
 
-  def login_real_user
-    @user = create(:user)
+  def login_real_user(attrs = {})
+    @user = create(:user, attrs)
     if defined?(session)
       session[:user_id] = @user.id
       session[:expires_at] = Time.current + 1.hour
