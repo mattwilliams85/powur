@@ -201,7 +201,7 @@ Handlebars.registerHelper("format_fullname_length", function(firstName, lastName
 
 //Handlebar helper to parse JSON objects
 Handlebars.registerHelper('json', function(context) {
-    return JSON.stringify(context);
+    console.log(JSON.stringify(context));
 });
 
 

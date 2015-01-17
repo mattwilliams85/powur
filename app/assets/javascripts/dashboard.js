@@ -440,16 +440,15 @@ function Dashboard(){
     switch(_options._type){
       case "team.everyone":
       case "team":
+
         //determine the next drilldown level
         var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
-
         //compile leader (hero) info
         $.getJSON("/u/users/"+_options._userID, function(){
           console.log("... loading user#"+_options._userID+" profile info");
         })
         .done(function(data){
           //prepare leader info
-          console.log(data);
           var _userDetail={};
           _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
           _userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
@@ -457,19 +456,16 @@ function Dashboard(){
           _userDetail["phone"] = data.properties.phone;
           _userDetail["generation"] = _drillDownLevel;
           //for(key in data[0].rank[data[0].rank.length-1]) _userDetail["rank"] = key;
-
           _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
-
 
           //add new team drilldown basic template layout with leader info
           var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
           $("#dashboard_team").append(_html);
-
+          
           var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
-          _drilldownContainerObj.css("opacity","0");
           // _drilldownContainerObj.scrollView(180);
           _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
-
+          
           _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
             _userDetail,
             _drilldownContainerObj,
@@ -477,8 +473,16 @@ function Dashboard(){
               //once the basic template is set, now populate the downlink information
               //had to do this as callback due to the asynchronous nature of the calls
               //animate up-arrow
-              _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-              _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+              // _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+              // _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+              // _drilldownContainerObj.find(".arrow").hide();
+              if(_drillDownLevel % 2 === 0){
+                 $('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#333") 
+                 $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#444") 
+              } else {
+                 $('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#444")
+                 $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#333") 
+              }
               //populate downlink thumbnails
               var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
               _ajax({
@@ -486,10 +490,12 @@ function Dashboard(){
                 _url:_userDetail.downline_url,
                 _callback:function(data, text){
 
+
                   _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
-                  if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
+                  if(data.entities.length>=5) _downlinkContainerObj.siblings(".nav").fadeIn();
 
                   data.entities.forEach(function(member){
+
                     _downlinkContainerObj.html("");
                     _ajax({
                       _ajaxType:"get",
@@ -498,6 +504,12 @@ function Dashboard(){
                         _downlinkContainerObj
                         member.properties.downline_count = data.entities.length;
                         EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
+                          if(_drillDownLevel % 2 === 0){
+                            $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#333") 
+                          } else {
+                            $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#444")  
+                          }
+                          
                           _downlinkContainerObj.append(html);
                         });
                       }
@@ -997,17 +1009,17 @@ function Dashboard(){
       }
 
       //if checking on self collapse everything
-      if(_thisThumbnail.find("span.expand i").attr("class").indexOf("fa-angle-up")>=0){
-        $(".arrow").css("bottom","-20px").hide();
-        $(".section_content").css("border-bottom-width","1px");
-        _thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
-        _thisThumbnail.find("span.expand i").addClass("fa-angle-down");
-        _abortDrillDown=true;
+      // if(_thisThumbnail.find("span.expand i").attr("class").indexOf(".team_tab")>=0){
+      //   $(".arrow").css("bottom","-20px").hide();
+      //   $(".section_content").css("border-bottom-width","1px");
+      //   _thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
+      //   _thisThumbnail.find("span.expand i").addClass("fa-angle-down");
+      //   _abortDrillDown=true;
 
-        _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
-        clearTimeout();
-        return;
-      }
+      //   _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
+      //   clearTimeout();
+      //   return;
+      // }
 
       _thisThumbnail.animate({"opacity":1}, 300);
       _thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
@@ -1236,19 +1248,25 @@ function Dashboard(){
     });
   }
 
-  $(document).on("click", ".js-team_thumbnail", function(e){
+  $(document).on("click", ".js-team_tab", function(e){
     e.preventDefault();
+    $(this).addClass('active_tab')
+    $(this).siblings().removeClass('active_tab')
+    $(this).parents().eq(4).css("border-bottom","0px")
     var _drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
     var _thisThumbnail = $(e.target).parents(".js-team_thumbnail");
     _drillDown({"_type":"team.everyone",
           "_mainSectionID":"dashboard_team",
           "_thumbnailIdentifier":".js-team_thumbnail",
           "_target":$(e.target),
-          "_userID":_drillDownUserID,
-          "_arrowPosition":_thisThumbnail.find("span.expand i").offset().left});
+          "_userID":_drillDownUserID});
   });
 
+
+
+ 
 }// end Dashboard class
+
 
 
 // Faux form editing animations

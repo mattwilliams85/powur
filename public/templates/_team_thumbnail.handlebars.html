@@ -1,5 +1,5 @@
-<div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="team_thumbnail js-team_thumbnail js-thumbnail_parent">
-	<div class="js-thumbnail">
+<div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="team_thumbnail js-team_thumbnail js-thumbnail_parent hover-team">
+	<div class="js-thumbnail ">
         {{#if this.properties.profile_image}}
 		<img class="advocate_avatar" src="{{this.properties.profile_image}}">
         {{else}}
@@ -10,7 +10,81 @@
 			<span>Rank: {{this.properties.level}}, Team: {{this.properties.downline_count}}</span>
         </span>
 		<span class="expand">
-			<i class="fa fa-angle-down"></i>
+			{{!-- <i class="fa fa-angle-down"></i> --}}
 		</span>
 	</div>
+<div class="js-tabs">
+  {{#compare this.properties.downline_count 0 operator=">"}}
+    <div class="js-team_tab team_tab">TEAM</div>
+    <div class="js-impact_tab team_tab">KPI</div>
+    <div class="js-info_tab team_tab">INFO</div>
+  {{else}}
+    <div class="js-impact_tab team_tab" style="width:110px">KPI</div>
+    <div class="js-info_tab team_tab" style="width:110px">INFO</div>
+  {{/compare}}
 </div>
+</div>
+
+<style type="text/css">
+  .js-tabs {
+    position:absolute;
+    bottom:-50px;
+    left:12px;
+  }
+
+  .team_tab {
+    width:70px;
+    height:50px;
+    display:inline-block;
+    font-size:0.8em;
+    color:#eee;
+    padding-top:3px;
+    /*opacity:0.9;*/
+  }
+
+  .js-team_tab {
+    background-color:#193640;
+  }
+
+  .js-impact_tab {
+    background-color:#326C7F;
+  }
+
+  .js-info_tab {
+    background-color:#4BA1BF;
+  }
+
+  .team_tab:hover {
+    background-color:#333;
+  }
+
+  .active_tab {
+    background-color:#444;
+  }
+
+  .js-thumbnail {
+
+  }
+
+</style>
+
+<script type="text/javascript">
+  $(".hover-team").on("mouseenter", function(e){
+    e.preventDefault(e);
+    $(this).find('.team_tab')
+    .velocity({
+      translateY: "-35px"
+    },{
+      queue: false }, 200)
+  })
+
+  $(".hover-team").on("mouseleave", function(e){
+    e.preventDefault(e);
+    console.log("hover")
+    $(this).find('.team_tab').not('.active_tab')
+    .velocity({
+      translateY: "0"
+    },{
+      queue: false }, 200)
+  })
+</script>
