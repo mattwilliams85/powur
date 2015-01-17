@@ -35,9 +35,15 @@
       font-size: 2em;
       font-weight: bold;
       text-transform: uppercase;
+
       @media #{$small} {
         font-size: 4.5em;
       }
+    }
+
+    p {
+      color: #fff;
+      font-size: 1.4em;
     }
   }
 
@@ -94,6 +100,9 @@
   .sun-bg-3 {
     background-image: image-url("landing/bg-3.jpg");
   }
+  .sun-bg-4 {
+    background-image: image-url("landing/bg-4.jpg");
+  }
 
   .sun-sign-in-wrapper {
     padding-top: 200px;
@@ -139,6 +148,14 @@
 
     input[type=text], input[type=password], input[type=email] {
       font-size: 1.3em;
+    }
+  }
+}
+
+.sun-sign-up-page {
+  .sun-home-intro {
+    h1 {
+      text-align: center;
     }
   }
 }
