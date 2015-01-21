@@ -55,7 +55,7 @@
   }
 
   .team_tab:hover {
-    background-color:#333;
+    background-color:#555;
   }
 
   .active_tab {
@@ -63,28 +63,27 @@
   }
 
   .js-thumbnail {
-
+    
   }
 
 </style>
 
 <script type="text/javascript">
-  $(".hover-team").on("mouseenter", function(e){
-    e.preventDefault(e);
-    $(this).find('.team_tab')
-    .velocity({
-      translateY: "-35px"
-    },{
-      queue: false }, 200)
-  })
+$(".hover-team").on("mouseenter", function(e){
+  e.preventDefault(e);
+  $(this).find('.team_tab')
+  .velocity({
+    translateY: "-35px"
+  },{
+    queue: false }, 200)
+})
 
-  $(".hover-team").on("mouseleave", function(e){
-    e.preventDefault(e);
-    console.log("hover")
-    $(this).find('.team_tab').not('.active_tab')
-    .velocity({
-      translateY: "0"
-    },{
-      queue: false }, 200)
-  })
+$(".hover-team").on("mouseleave", function(e){
+  e.preventDefault(e);
+  $(this).find('.team_tab').not('.active_tab')
+  .velocity({
+    translateY: "0"
+  },{
+    queue: false }, 200)
+})
 </script>

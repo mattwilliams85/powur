@@ -256,7 +256,9 @@ function Dashboard(){
               member.properties.downline_count = data.entities.length;
               EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
                 _containerObj.append(html);
+                // mattmark
               });
+
             }
           });
         });
@@ -438,6 +440,44 @@ function Dashboard(){
     if(_abortDrillDown) return;
 
     switch(_options._type){
+      case "info":
+       var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
+              //compile leader (hero) info
+              $.getJSON("/u/users/"+_options._userID, function(){
+                console.log("... loading user#"+_options._userID+" profile info");
+              })
+              .done(function(data){
+                //prepare leader info
+                var _userDetail={};
+                _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
+                // _userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
+                var gender = ["men","women"]
+                _userDetail["profile_image"] = "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
+                // 
+                _userDetail["email"] = data.properties.email;
+                _userDetail["phone"] = data.properties.phone;
+                _userDetail["generation"] = _drillDownLevel;
+                _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
+
+                //add new team drilldown basic template layout with leader info
+                var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+                $("#dashboard_team").append(_html);
+                
+                var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+
+                _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
+                _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
+                  _userDetail,
+                  _drilldownContainerObj,
+                  function(){
+                    var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
+                    _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
+                    EyeCueLab.UX.getTemplate("/templates/_info_thumbnail.handlebars.html", _userDetail, undefined, function(html){
+                      _downlinkContainerObj.html(html);
+                    });
+                });
+              });
+        break;
       case "team.everyone":
       case "team":
 
@@ -936,7 +976,6 @@ function Dashboard(){
 
       break;
 
-      // mattmarker
       case "impact_metrics":
         var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
         var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
@@ -1248,19 +1287,59 @@ function Dashboard(){
     });
   }
 
+  //mattmark
   $(document).on("click", ".js-team_tab", function(e){
     e.preventDefault();
-    $(this).addClass('active_tab')
-    $(this).siblings().removeClass('active_tab')
-    $(this).parents().eq(4).css("border-bottom","0px")
-    var _drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
-    var _thisThumbnail = $(e.target).parents(".js-team_thumbnail");
-    _drillDown({"_type":"team.everyone",
-          "_mainSectionID":"dashboard_team",
-          "_thumbnailIdentifier":".js-team_thumbnail",
-          "_target":$(e.target),
-          "_userID":_drillDownUserID});
+    if($(this).hasClass('active_tab')){
+      _closeTeamDrilldown($(this))
+    } else {
+      $(this).addClass('active_tab')
+      $(this).siblings().removeClass('active_tab')
+      $(this).parents().eq(4).css("border-bottom","0px")
+      var _drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
+      var _thisThumbnail = $(e.target).parents(".js-team_thumbnail");
+      _drillDown({"_type":"team.everyone",
+            "_mainSectionID":"dashboard_team",
+            "_thumbnailIdentifier":".js-team_thumbnail",
+            "_target":$(e.target),
+            "_userID":_drillDownUserID});
+    }
   });
+
+  $(document).on("click", ".js-info_tab", function(e){
+    e.preventDefault();
+    if($(this).hasClass('active_tab')){
+      _closeTeamDrilldown($(this))
+    } else {
+      $(this).addClass('active_tab')
+      $(this).siblings().removeClass('active_tab')
+      $(this).parents().eq(4).css("border-bottom","0px")
+      var _drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
+      var _thisThumbnail = $(e.target).parents(".js-team_thumbnail");
+      console.log(_thisThumbnail)
+      console.log(_drillDownUserID)
+      _drillDown({"_type":"info",
+            "_mainSectionID":"dashboard_team",
+            "_thumbnailIdentifier":".js-team_thumbnail",
+            "_target":$(e.target),
+            "_userID":_drillDownUserID});
+    }
+  });
+
+  // //mattmark
+  // function _infoDrilldown(user_id, thumbnail){
+  //   thumbnail.parents().eq(3).append('<div style="display:inline-block"> sup guys </div>')
+  // }
+
+  function _closeTeamDrilldown(selected){
+    selected.removeClass('active_tab')
+    var _thisLevel = parseInt(selected.closest('section').attr('data-drilldown-level'))
+    var _lastLevel = parseInt($('.drilldown').last().attr('data-drilldown-level'))
+    if(_thisLevel == 0) selected.closest('.team_info').css('border','1px solid #E5E5E5')
+    for(var i=_thisLevel;i < _lastLevel;i++){
+      $('.drilldown.level_'+(i+1)).hide()
+    }
+  }
 
 
 
@@ -1270,9 +1349,6 @@ function Dashboard(){
 
 
 // Faux form editing animations
-
-
-
 
 $(document).on("focus", "input", function(e){
    var elem = $(this);
