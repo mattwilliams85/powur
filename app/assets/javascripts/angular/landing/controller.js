@@ -3,6 +3,7 @@
 function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Invite, Geo) {
   $scope.redirectToDashboardIfSignedIn();
   $scope.showValidationMessages = false;
+  $scope.isSubmitDisabled = false;
 
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
@@ -42,19 +43,46 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     if ($scope.invite && $scope.invite.code) {
       Invite.validate($scope.invite.code).then(function(data) {
         if (data.error) {
-          $scope.invite.properties = null;
+          $scope.invite = {};
           $scope.user = {};
           $scope.invite.error = data.error;
         } else {
-          $scope.invite.error = null;
-          $scope.invite.properties = data.properties;
+          $scope.invite = data;
           $scope.user.first_name = data.properties.first_name;
           $scope.user.last_name = data.properties.last_name;
           $scope.user.email = data.properties.email;
         }
       });
+    }
+  };
+
+  var signUpCallback = function(data) {
+    $scope.formErrorMessages = {};
+    if (data.errors) {
+      $.each(data.errors, function(key, errors) {
+        // Only take first error message from the array
+        var errorMessage = errors[0];
+        if (errorMessage) {
+          $scope.formErrorMessages[key] = errors[0];
+        }
+      });
     } else {
-      $scope.showValidationMessages = true;
+      $location.path('/sign-in');
+      $('<div class=\'reveal-modal\' data-reveal><h3>You\'ve successfully Signed Up. Now you may Sign In.</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+      $(document).foundation();
+    }
+    $scope.isSubmitDisabled = false;
+  };
+  $scope.signUp = function() {
+    if ($scope.user) {
+      $scope.isSubmitDisabled = true;
+      var path;
+      for (var i in $scope.invite.actions) {
+        if ($scope.invite.actions[i].name === 'create_account') {
+          path = $scope.invite.actions[i].href;
+        }
+      }
+      Invite.signUp($scope.invite.properties.id, $scope.user, path).then(signUpCallback);
     }
   };
 

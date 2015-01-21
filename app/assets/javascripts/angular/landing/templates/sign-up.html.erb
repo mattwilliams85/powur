@@ -62,26 +62,41 @@
 
             <div class="row">
               <div class="large-6 columns">
+                <span ng-show="formErrorMessages['first_name']" class="radius alert label">{{formErrorMessages['first_name']}}</span>
                 <input ng-model="user.first_name" type="text" class="radius" placeholder="First Name" />
               </div>
               <div class="large-6 columns">
+                <span ng-show="formErrorMessages['last_name']" class="radius alert label">{{formErrorMessages['last_name']}}</span>
                 <input ng-model="user.last_name" type="text" class="radius" placeholder="Last Name" />
               </div>
 
               <div class="large-12 columns">
+                <span ng-show="formErrorMessages['email']" class="radius alert label">{{formErrorMessages['email']}}</span>
                 <input ng-model="user.email" type="text" class="radius" placeholder="Email" />
-                <input type="text" class="radius" placeholder="password" />
-                <input type="text" class="radius" placeholder="Retype password" />
-                <input type="checkbox"><label>Send me email communications</label>
-                <input type="text" class="radius" placeholder="Address line 1" />
-                <input type="text" class="radius" placeholder="Address line 2" />
+
+                <span ng-show="formErrorMessages['password']" class="radius alert label">{{formErrorMessages['password']}}</span>
+                <input ng-model="user.password" type="password" class="radius" placeholder="password" />
+
+                <span ng-show="formErrorMessages['password_confirmation']" class="radius alert label">{{formErrorMessages['password_confirmation']}}</span>
+                <input ng-model="user.password_confirmation" type="password" class="radius" placeholder="Retype password" />
+
+                <input ng-model="user.communications" type="checkbox"><label>Send me email communications</label>
+                <div class="clearfix"></div>
+
+                <span ng-show="formErrorMessages['phone']" class="radius alert label">{{formErrorMessages['phone']}}</span>
+                <input ng-model="user.phone" type="text" class="radius" placeholder="Phone" />
+
+                <input ng-model="user.address" type="text" class="radius" placeholder="Address line 1" />
+
+                <input ng-model="user.address2" type="text" class="radius" placeholder="Address line 2" />
               </div>
 
               <div class="large-6 columns">
-                <input type="text" class="radius" placeholder="City" />
+                <input ng-model="user.city" type="text" class="radius" placeholder="City" />
               </div>
               <div class="large-6 columns">
-                <input type="text" class="radius" placeholder="Zip code" />
+                <span ng-show="formErrorMessages['zip']" class="radius alert label">{{formErrorMessages['zip']}}</span>
+                <input ng-model="user.zip" type="text" class="radius" placeholder="Zip code" />
               </div>
 
               <div class="large-6 columns">
@@ -96,9 +111,11 @@
               </div>
 
               <div class="large-12 columns">
-                <input type="checkbox"><label>I agree to the Terms of Service and Privacy Policy</label>
+                <span ng-show="formErrorMessages['tos']" class="radius alert label">{{formErrorMessages['tos']}}</span>
+                <div class="clearfix"></div>
+                <input ng-model="user.tos" type="checkbox"><label>I agree to the Terms of Service and Privacy Policy</label>
 
-                <input class="large button" type="submit" value="Register for free" />
+                <input class="large button" ng-disabled="isSubmitDisabled" type="submit" value="Register for free" />
               </div>
             </div>
 

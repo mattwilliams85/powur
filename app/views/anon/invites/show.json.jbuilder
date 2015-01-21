@@ -21,7 +21,7 @@ actions \
   .field(:zip, :text)
   .field(:password, :password),
   action(:reset, :delete, invite_path),
-  action(:create_account, :patch, invite_path)
+  action(:create_account, :patch, invite_path(format: :json))
   .field(:email, :email)
   .field(:password, :password)
   .field(:code, :code)
