@@ -334,7 +334,7 @@ jQuery(function($){
                         $("#js-popup_form .js-popup_form_button").css("display","none");
                         return;
                     }
-                    _secondaryOptions=[];
+                    var _secondaryOptions=[];
                     _options._popupData.fields.forEach(function(field){
                         if(!!field.visibility &&
                             field.visibility.control=="type" &&

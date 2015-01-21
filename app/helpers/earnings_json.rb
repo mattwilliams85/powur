@@ -48,9 +48,9 @@ class EarningsJson < JsonDecorator
       json.pay_period_type pay_period.type_display
       json.pay_period_date_range pay_period.date_range_display('%m-%d')
       if pay_period.type_display == "Weekly"
-        json.pay_period_week_number pay_period.end_date
+        json.pay_period_week_number pay_period.end_date.week_of_month 
       else  
-        json.bonus_summaries =  BonusPayment.bonus_totals_by_type(pay_period).for_user(4)
+        json.bonus_summaries =  BonusPayment.bonus_totals_by_type(pay_period).for_user(current_user.id)
       end
     end
   end

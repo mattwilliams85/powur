@@ -75,6 +75,8 @@ Rails.application.routes.draw do
       member do
         get :downline
         get :upline
+        post :move
+        get :eligible_parents
       end
 
       resources :rank_achievements, only:       [ :index ],
@@ -104,6 +106,8 @@ Rails.application.routes.draw do
         post 'call' => 'ewallet_sandbox', as: :call
       end
     end
+
+    resources :university_classes, only: [:index, :show]
   end
 
   # logged in admin routes
@@ -118,6 +122,8 @@ Rails.application.routes.draw do
       member do
         get :downline
         get :upline
+        post :move
+        get :eligible_parents
       end
       resources :overrides, only: [ :index, :create ]
 

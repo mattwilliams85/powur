@@ -42,27 +42,6 @@ jQuery(function($){
         }
     });
 
-     //admin toolbar
-     // $('.hover-box').hover(function(e){
-     //     $('.js-admin_tab').stop();
-     //     e.stopPropagation()
-     //     if($('.js-admin_tab').is(':animated')) return;
-     //     $('.js-admin_tab').animate({
-     //         "left":"-40px"
-     //     }, 300);
-
-     // });
-
-     // $( ".hover-box" ).mouseleave(function(e) {
-     //     $('.js-admin_tab').stop();
-     //     e.stopPropagation()
-     //     $('.js-admin_tab').animate({
-     //         "left":"-140px"
-     //     },300);
-
-     // });
-    //* end admin adshboard specific utility functions
-
     $(document).on("click", ".admin_top_level_nav", function(e){
         switch($(e.target).attr("href").replace("#admin-","")){
             case "users":
@@ -774,13 +753,24 @@ jQuery(function($){
     function checkCalculation(){
       $.ajax({type:"get", url:"/a/pay_periods"}).done(function(data){
         var _stopCheck=true;
-        for(var i=0;i<data.entities.length;i++){
-          if(data.entities[i].properties.calculating){
-            _stopCheck=false;
-            _checkNeeded=true;
-            break;
+        var index = -1;
+
+        if (index < 0){
+          for(var i=0;i<data.entities.length;i++){
+            if(data.entities[i].properties.calculating){
+              index = i
+              _stopCheck=false;
+              _checkNeeded=true;
+              break;
+            }
           }
+        } else {
+            if(data.entities(index).properties.calculating){
+              _stopCheck=false;
+              _checkNeeded=true;
+            }
         }
+
         if(!_stopCheck){
           clearTimeout(timeoutEvent);
           timeoutEvent = setTimeout(checkCalculation, 15000);

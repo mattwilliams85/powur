@@ -20,6 +20,11 @@ FactoryGirl.define do
       end
     end
 
+    factory :certifiable_product do
+      certifiable true
+      image_original_path 'http://lorempixel.com/400/400/abstract'
+    end
+
     factory :sunrun_product do
       name 'SunRun Solar Item'
 

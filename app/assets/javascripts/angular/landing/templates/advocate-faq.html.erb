@@ -1,0 +1,85 @@
+<ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
+
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
+  <ng-include src="'<%=asset_path("shared/header-faq.html") %>'"></ng-include>
+
+  <main class="sun-faq">
+
+    <div class="sun-fixed-bg sun-bg-1" id="anchor_1">
+      <div id="slide0"  class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 0, 'inactive': currentHomeSlide > 0}">
+        <div class="row">
+          <div class="large-12 columns">
+            <h2>FREQUENTLY ASKED QUESTIONS</h2>
+          </div>
+
+          <div class="clearfix"></div>
+
+          <ul class="sun-accordion">
+            <li class="accordion-item" ng-class="{'active': activeFAQItemId === 'faq_item_1'}">
+              <a class="accordion-button" ng-click="activeFAQItemId = 'faq_item_1'"><b>1.</b> Why should i switch to solar energy?</a>
+              <div class="accordion-content">
+                <p>Solar could very well be the greatest financial opportunity you’ll see in your lifetime. Here are just the top three reasons why we believe it represents a tremendous sales opportunity for you:</p>
+                <p>Solar is a booming business across America. Solar installations grew 41% in 2013 (Source: GTM Research and the Solar Energy Industries Association). The factors driving this growth demonstrate the industry’s promise:</p>
+                <p>a) More and more people are waking up to the critical need to move away from fossil fuels;</p>
+                <p>b) Solar technology has gotten significantly more efficient;</p>
+                <p>c) The price of sunlight never goes up. Dirty power costs rise every year; and,</p>
+                <p>d) Innovative service models are enabling homeowners to jump on board with solar with no upfront costs, while paying less per month than they currently spend for electricity.</p>
+                <p>e) By reducing climate change, you can create personal climate wealth.</p>
+                <p>Solar’s recent growth only scratches the surface of its immense potential. Based on a 2013 year-end report from “TheEnergyCollective.com,” solar has been installed on less than 250,000 homes in the U.S.  There are more than 90 million single family homes in the U.S. and as many as 50 million more households in multi-family structures.  With the cost of traditional electricity constantly increasing, it’s just a matter of time before qualified homeowners make the switch to the cheaper, cleaner energy source.  While solar may not work on every residential structure in the U.S., just a small wedge of this market is worth hundreds of billions of dollars.  Without question, the solar industry is poised to shift wealth, create jobs, build new companies, and invigorate our economy.  You can be a part of that shift.</p>
+                <p>Solar is the #1 solution to dirty, coal-powered electricity. Your efforts to share the benefits of solar with more people will make a meaningful difference in addressing climate change, which is possibly the single biggest issue facing our species today.  Your great grand-children and their children’s children will thank you one day for taking a stand to address this issue.</p>
+              </div>
+            </li>
+
+            <li class="accordion-item" ng-class="{'active': activeFAQItemId === 'faq_item_2'}">
+              <a class="accordion-button odd" ng-click="activeFAQItemId = 'faq_item_2'"><b>2.</b> What are the benefits to selling solar as a Sunstand Advocate?</a>
+              <div class="accordion-content">
+                <p>Solar could very well be the greatest financial opportunity you’ll see in your lifetime. Here are just the top three reasons why we believe it represents a tremendous sales opportunity for you:</p>
+                <p>Solar is a booming business across America. Solar installations grew 41% in 2013 (Source: GTM Research and the Solar Energy Industries Association). The factors driving this growth demonstrate the industry’s promise:</p>
+                <p>a) More and more people are waking up to the critical need to move away from fossil fuels;</p>
+                <p>b) Solar technology has gotten significantly more efficient;</p>
+                <p>c) The price of sunlight never goes up. Dirty power costs rise every year; and,</p>
+                <p>d) Innovative service models are enabling homeowners to jump on board with solar with no upfront costs, while paying less per month than they currently spend for electricity.</p>
+                <p>e) By reducing climate change, you can create personal climate wealth.</p>
+                <p>Solar’s recent growth only scratches the surface of its immense potential. Based on a 2013 year-end report from “TheEnergyCollective.com,” solar has been installed on less than 250,000 homes in the U.S.  There are more than 90 million single family homes in the U.S. and as many as 50 million more households in multi-family structures.  With the cost of traditional electricity constantly increasing, it’s just a matter of time before qualified homeowners make the switch to the cheaper, cleaner energy source.  While solar may not work on every residential structure in the U.S., just a small wedge of this market is worth hundreds of billions of dollars.  Without question, the solar industry is poised to shift wealth, create jobs, build new companies, and invigorate our economy.  You can be a part of that shift.</p>
+                <p>Solar is the #1 solution to dirty, coal-powered electricity. Your efforts to share the benefits of solar with more people will make a meaningful difference in addressing climate change, which is possibly the single biggest issue facing our species today.  Your great grand-children and their children’s children will thank you one day for taking a stand to address this issue.</p>
+              </div>
+            </li>
+
+            <li class="accordion-item" ng-class="{'active': activeFAQItemId === 'faq_item_3'}">
+              <a class="accordion-button" ng-click="activeFAQItemId = 'faq_item_3'"><b>3.</b> Who are Sunstand’s leaders?</a>
+              <div class="accordion-content">
+                <p>Solar could very well be the greatest financial opportunity you’ll see in your lifetime. Here are just the top three reasons why we believe it represents a tremendous sales opportunity for you:</p>
+                <p>Solar is a booming business across America. Solar installations grew 41% in 2013 (Source: GTM Research and the Solar Energy Industries Association). The factors driving this growth demonstrate the industry’s promise:</p>
+                <p>a) More and more people are waking up to the critical need to move away from fossil fuels;</p>
+                <p>b) Solar technology has gotten significantly more efficient;</p>
+                <p>c) The price of sunlight never goes up. Dirty power costs rise every year; and,</p>
+                <p>d) Innovative service models are enabling homeowners to jump on board with solar with no upfront costs, while paying less per month than they currently spend for electricity.</p>
+                <p>e) By reducing climate change, you can create personal climate wealth.</p>
+                <p>Solar’s recent growth only scratches the surface of its immense potential. Based on a 2013 year-end report from “TheEnergyCollective.com,” solar has been installed on less than 250,000 homes in the U.S.  There are more than 90 million single family homes in the U.S. and as many as 50 million more households in multi-family structures.  With the cost of traditional electricity constantly increasing, it’s just a matter of time before qualified homeowners make the switch to the cheaper, cleaner energy source.  While solar may not work on every residential structure in the U.S., just a small wedge of this market is worth hundreds of billions of dollars.  Without question, the solar industry is poised to shift wealth, create jobs, build new companies, and invigorate our economy.  You can be a part of that shift.</p>
+                <p>Solar is the #1 solution to dirty, coal-powered electricity. Your efforts to share the benefits of solar with more people will make a meaningful difference in addressing climate change, which is possibly the single biggest issue facing our species today.  Your great grand-children and their children’s children will thank you one day for taking a stand to address this issue.</p>
+              </div>
+            </li>
+
+            <li class="accordion-item" ng-class="{'active': activeFAQItemId === 'faq_item_4'}">
+              <a class="accordion-button odd" ng-click="activeFAQItemId = 'faq_item_4'"><b>4.</b> Why did Sunstand choose to sell solar through network marketing?</a>
+              <div class="accordion-content">
+                <p>Solar could very well be the greatest financial opportunity you’ll see in your lifetime. Here are just the top three reasons why we believe it represents a tremendous sales opportunity for you:</p>
+                <p>Solar is a booming business across America. Solar installations grew 41% in 2013 (Source: GTM Research and the Solar Energy Industries Association). The factors driving this growth demonstrate the industry’s promise:</p>
+                <p>a) More and more people are waking up to the critical need to move away from fossil fuels;</p>
+                <p>b) Solar technology has gotten significantly more efficient;</p>
+                <p>c) The price of sunlight never goes up. Dirty power costs rise every year; and,</p>
+                <p>d) Innovative service models are enabling homeowners to jump on board with solar with no upfront costs, while paying less per month than they currently spend for electricity.</p>
+                <p>e) By reducing climate change, you can create personal climate wealth.</p>
+                <p>Solar’s recent growth only scratches the surface of its immense potential. Based on a 2013 year-end report from “TheEnergyCollective.com,” solar has been installed on less than 250,000 homes in the U.S.  There are more than 90 million single family homes in the U.S. and as many as 50 million more households in multi-family structures.  With the cost of traditional electricity constantly increasing, it’s just a matter of time before qualified homeowners make the switch to the cheaper, cleaner energy source.  While solar may not work on every residential structure in the U.S., just a small wedge of this market is worth hundreds of billions of dollars.  Without question, the solar industry is poised to shift wealth, create jobs, build new companies, and invigorate our economy.  You can be a part of that shift.</p>
+                <p>Solar is the #1 solution to dirty, coal-powered electricity. Your efforts to share the benefits of solar with more people will make a meaningful difference in addressing climate change, which is possibly the single biggest issue facing our species today.  Your great grand-children and their children’s children will thank you one day for taking a stand to address this issue.</p>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+  </main>
+</div>

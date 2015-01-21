@@ -9,15 +9,31 @@ var sunstandApp = angular.module('sunstandApp', [
   // Directives
   // 'sunstandApp.signInForm',
   // 'sunstandApp.fileS3Uploader'
-]).run(['$rootScope', '$location', '$anchorScroll', '$document',
-  function ($rootScope, $location, $anchorScroll, $document) {
-    // $rootScope.siteData = SiteData || {};
-    // $rootScope.currentUser = $rootScope.siteData.user;
-    $rootScope.isSignedIn = SignedIn || false;
+]).run(['$rootScope', '$location', '$document', '$http', 'CurrentUser',
+  function ($rootScope, $location, $document, $http, CurrentUser) {
+    $rootScope.currentUser = {};
+    $rootScope.isSignedIn = !!SignedIn;
+
+    /*
+     * Fill in User object with data if user is signed in but object is empty
+    */
+    $rootScope.$on('$includeContentLoaded', function(event, next, current) {
+      if ($rootScope.isSignedIn) {
+        CurrentUser.get().then(function(data) {
+          $rootScope.currentUser = data;
+        });
+      }
+    });
 
     $rootScope.redirectToDashboardIfSignedIn = function() {
       if ($rootScope.isSignedIn) {
         window.location = '/u/dashboard';
+      }
+    };
+
+    $rootScope.redirectUnlessSignedIn = function() {
+      if (!$rootScope.isSignedIn) {
+        window.location = '#/sign-in';
       }
     };
 
@@ -28,26 +44,37 @@ var sunstandApp = angular.module('sunstandApp', [
       height = $(window).height() - 20;
       window.onscroll = function headerScrollInvert() {
         var sTop = (this.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
-        header = document.getElementById('sun_landing_header');
+        header = document.getElementById('sun_header_guest');
 
         if (!header) return;
 
         if (sTop > height) {
-          if (header.className !== 'invert') {
-            header.setAttribute('class', 'hidden');
+          if (header.className !== 'sun-header-guest invert') {
+            header.setAttribute('class', 'sun-header-guest hidden');
             setTimeout(function invertHeader() {
-              header.setAttribute('class', 'invert');
+              header.setAttribute('class', 'sun-header-guest invert');
             }, 200);
           }
         } else {
           if (header.className !== '') {
-            header.setAttribute('class', 'hidden');
+            header.setAttribute('class', 'sun-header-guest hidden');
             setTimeout(function invertHeader() {
-              header.setAttribute('class', '');
+              header.setAttribute('class', 'sun-header-guest');
             }, 200);
           }
         }
       };
+    };
+
+    // TODO: move header functionality into its own directive
+    $rootScope.signOut = function() {
+      var cb = function() {
+        $rootScope.isSignedIn = false;
+        window.location = '#/sign-in';
+      };
+      $http.delete('/login.json', {
+        xsrfHeaderName: 'X-CSRF-Token'
+      }).success(cb).error(cb);
     };
 
     $rootScope.gotoAnchor = function(id) {
@@ -91,6 +118,18 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/landing/templates/edit-password.html")%>',
       controller: 'LandingCtrl'
     }).
+
+    // FAQ
+    when('/customer-faq', {
+      templateUrl: '<%=asset_path("angular/landing/templates/customer-faq.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    when('/advocate-faq', {
+      templateUrl: '<%=asset_path("angular/landing/templates/advocate-faq.html")%>',
+      controller: 'LandingCtrl'
+    }).
+
+    // Promo
     when('/create-wealth', {
       templateUrl: '<%=asset_path("angular/promo/templates/create-wealth.html")%>',
       controller: 'PromoCtrl'
@@ -98,6 +137,12 @@ sunstandApp.config(
     when('/create-energy', {
       templateUrl: '<%=asset_path("angular/promo/templates/create-energy.html")%>',
       controller: 'PromoCtrl'
+    }).
+
+    // University
+    when('/university', {
+      templateUrl: '<%=asset_path("angular/university/templates/index.html")%>',
+      controller: 'UniversityCtrl'
     }).
 
     otherwise({

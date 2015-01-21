@@ -4,7 +4,6 @@
   z-index: 1;
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Montserrat";
     font-weight: normal;
     margin-bottom: .8em;
   }
@@ -301,6 +300,104 @@
   }
 
   .sun-promo-energy-slide-4 {
+    height: 100%;
+    padding: 0;
+
+    .row {
+      height: 100%;
+    }
+
+    .left-part {
+      color: #383838;
+      height: 100%;
+      z-index: 1;
+
+      .left-bg {
+        background: $sun-color-blue;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        width: 2000px;
+      }
+    }
+
+    .right-part {
+      color: #fff;
+      display: none;
+      height: 100%;
+
+      .right-bg {
+        background: image-url('promo/semitrgrid.png');
+        height: 100%;
+        position: absolute;
+        left: -1px;
+        width: 2000px;
+      }
+
+      p {
+        font-size: 1.3em;
+        margin-top: 50px;
+        max-width: 500px;
+      }
+
+      @media #{$small} {
+        display: block;
+      }
+    }
+
+    .inner-content {
+      padding-top: 150px;
+      position: relative;
+
+      .slide-show-wrapper {
+        margin-bottom: 50px;
+
+        ///// for the transition
+        left: -1000px;
+        position: absolute;
+        -webkit-transition: all 0.3s;
+        -moz-transition: all 0.3s;
+        -ms-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
+        z-index: 0;
+        /////
+
+        &.active {
+          left: 0
+        }
+
+        .slide-image {
+          margin-right: 10px;
+          width: 190px;
+        }
+      }
+
+      .slide-show-dots {
+        margin-top: 400px;
+
+        a {
+          display: inline-block;
+          margin-right: 10px;
+          @include sun-sprites-sprite(slide-show-dot);
+          height: sun-sprites-sprite-height(slide-show-dot);
+          width: sun-sprites-sprite-width(slide-show-dot);
+
+          &.active {
+            @include sun-sprites-sprite(slide-show-dot-active);
+            height: sun-sprites-sprite-height(slide-show-dot-active);
+            width: sun-sprites-sprite-width(slide-show-dot-active);
+          }
+        }
+      }
+    }
+
+    h1 {
+      color: #fff;
+    }
+  }
+
+  .sun-promo-energy-slide-5 {
     h4 {
       font-size: 2.2em;
       font-weight: bold;
@@ -476,5 +573,11 @@
     p {
       color: #fff;
     }
+  }
+
+  .sun-bg-9 {
+    background-image: image-url("promo/bg-9.jpg");
+    height: 100%;
+    overflow: hidden;
   }
 }

@@ -1,0 +1,16 @@
+<header id="sun_header">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="sun-header">
+        <li class="right sign-out"><a ng-click="signOut()">Sign Out</a></li>
+        <li class="right username"><a ng-href="/u/profile">{{currentUser.first_name}} <i>{{currentUser.last_name}}</i></a></li>
+        <li class="right avatar"><a ng-href="/u/profile"><img src="<%=asset_path('temp_dev_images/profile.jpg')%>" ng-src="{{currentUser.avatar.thumb}}"></a></li>
+
+        <li class="logo"><a ng-href="/">sunstand</a></li>
+        <li class="menu-item"><a ng-href="/u/dashboard">Dashboard</a></li>
+        <li class="menu-item"><a ng-href="#/university">Sunstand U</a></li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</header>

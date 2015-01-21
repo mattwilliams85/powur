@@ -11,7 +11,7 @@ namespace :sunstand do
         zip:           Faker::Address.zip,
         address:       Faker::Address.street_address,
         city:          Faker::Address.city,
-        state:         Faker::Address.state_abbr,
+        state:         Faker::Address.state,
         lifetime_rank: 1,
         created_at:    2.years.ago }.merge(attrs)
 
@@ -125,7 +125,7 @@ namespace :sunstand do
             phone:      Faker::PhoneNumber.phone_number,
             address:    Faker::Address.street_address,
             city:       Faker::Address.city,
-            state:      Faker::Address.state_abbr,
+            state:      Faker::Address.state,
             zip:        Faker::Address.zip)
 
           data = {

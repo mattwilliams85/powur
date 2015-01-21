@@ -38,4 +38,12 @@ module ApplicationHelper
   def earnings_json
     @earnings_json ||= EarningsJson.new(self, @earnings, @earning)
   end
+
+  def university_classes_json
+    @university_classes_json ||= UniversityClassesJson.new(
+      self,
+      @university_classes,
+      @university_class
+    )
+  end
 end

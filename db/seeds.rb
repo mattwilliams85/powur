@@ -1,7 +1,8 @@
 
 puts 'Seeding Admin users'
 User.destroy_all
-User.create(
+
+jon = User.create(
   email:      'jon@sunstand.com',
   password:   'solarpower',
   first_name: 'Jonathan',
@@ -77,6 +78,18 @@ User.create(
   url_slug:   'sasha',
   roles:      [ 'admin' ],
   created_at: 2.years.ago)
+
+User.create(
+  email:      'robert@sunstand.com',
+  password:   'solarpower',
+  first_name: 'Robert',
+  last_name:  'Styler',
+  phone:      '777.777.1212',
+  zip:        '92023',
+  url_slug:   'robert',
+  roles:      [ 'admin' ],
+  created_at: 2.years.ago,
+  sponsor_id: jon.id)
 
 puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all

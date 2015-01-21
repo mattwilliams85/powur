@@ -6,11 +6,13 @@ class Product < ActiveRecord::Base
   has_many :bonuses, through: :bonus_sales_requirements
   has_many :quote_fields, dependent: :destroy
   has_many :quote_field_lookups, through: :quote_fields
+  has_many :product_receipts
 
   validates_presence_of :name, :bonus_volume, :commission_percentage
   validates :commission_percentage, numericality: { less_than_or_equal_to: 100 }
 
   scope :with_bonuses, -> { includes(bonuses: [ :bonus_levels ]) }
+  scope :certifiable, -> { where(certifiable: true) }
 
   def sale_bonuses
     @sale_bonuses ||= bonuses.select { |b| b.sale? && b.enabled? }
@@ -36,6 +38,11 @@ class Product < ActiveRecord::Base
     self.sku = id.to_s.rjust(7, '0')
     save!
   end
+
+  def purchased_by?(user_id)
+    product_receipts.where(user_id: user_id).count > 0
+  end
+
   class << self
     def default_id
       SystemSettings.default_product_id

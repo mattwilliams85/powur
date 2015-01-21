@@ -2,7 +2,7 @@ module UsersActions
   extend ActiveSupport::Concern
 
   included do
-    before_action :fetch_user, only: [ :show, :downline, :upline ]
+    before_action :fetch_user, only: [ :show, :downline, :upline, :move, :eligible_parents ]
   end
 
   def index
@@ -39,7 +39,7 @@ module UsersActions
   end
 
   def fetch_user
-    if current_user.role?('admin')
+    if current_user.role?(:admin)
       @user = User.find_by(id: params[:id].to_i) || not_found!(:user, params[:id])
     else
       @user = fetch_downline_user(params[:id].to_i)

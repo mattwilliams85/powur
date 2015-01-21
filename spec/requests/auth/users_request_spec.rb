@@ -2,9 +2,8 @@ require 'spec_helper'
 
 describe '/u/users' do
 
-  before do
-    DatabaseCleaner.clean
-    login_real_user
+  before :each do
+    login_real_user(roles: [])
   end
 
   describe '#index' do
@@ -133,6 +132,64 @@ describe '/u/users' do
       expect(found_parent).to_not be_nil
       expect(found_grand_parent).to_not be_nil
       expect(json_body['entities'].count).to eq(3)
+    end
+  end
+
+  describe '/u/users/:id/eligible_parents' do
+
+    def user_exists?(id)
+      json_body['entities'].any? { |e| e['properties']['id'] == id }
+    end
+
+    it 'returns the correct parents with the correct order' do
+      mover = create(:user, sponsor: @user)
+      ineligible = create(:user, sponsor: mover)
+      parent1 = create(:user, sponsor: @user)
+      parent2 = create(:user, sponsor: @user)
+      child1 = create(:user, sponsor: parent1)
+      child2 = create(:user, sponsor: parent2)
+      grand_child = create(:user, sponsor: child1)
+
+      get eligible_parents_user_path(mover), format: :json
+
+      expect(user_exists?(ineligible.id)).to_not be
+      [ parent1, parent2, child1, child2, grand_child ].each do |user|
+        expect(user_exists?(user.id)).to be
+      end
+    end
+  end
+
+  describe '/u/users/:id/move' do
+    it 'moves a user in the genealogy' do
+      parent1 = create(:user, sponsor: @user)
+      parent2 = create(:user, sponsor: @user)
+      child = create(:user, sponsor: parent1)
+      
+      post move_user_path(parent1, parent_id: parent2.id), format: :json
+
+      parent1.reload
+      child.reload
+      expect(parent1.parent_id).to eq(parent2.id)
+      expect(child.ancestor?(parent2.id)).to be
+    end
+
+    it 'does not allow moving a user not in the downline' do
+      @user.update_column(:roles, [])
+      parent = create(:user, sponsor: @user)
+      other_user = create(:user)
+
+      post move_user_path(other_user, parent_id: parent.id), format: :json
+
+      expect_alert_error
+    end
+
+    it 'does not allow moving to a user not in the downline' do
+      other_user = create(:user)
+      child = create(:user, sponsor: @user)
+
+      post move_user_path(child, parent_id: other_user.id), format: :json
+
+      expect_alert_error
     end
   end
 
