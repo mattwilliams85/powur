@@ -91,6 +91,18 @@ User.create(
   created_at: 2.years.ago,
   sponsor_id: jon.id)
 
+User.create(
+  email:      'andrea@sunstand.com',
+  password:   'solarpower',
+  first_name: 'Andrea',
+  last_name:  'Budd',
+  phone:      '777.777.1212',
+  zip:        '92023',
+  url_slug:   'andrea',
+  roles:      [ 'admin' ],
+  created_at: 2.years.ago,
+  sponsor_id: jon.id)
+
 puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all
 BonusPlan.create(
