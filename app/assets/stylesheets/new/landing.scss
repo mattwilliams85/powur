@@ -254,8 +254,15 @@
     margin: 0 10px 30px 0;
   }
 
-  select {
-    font-size: 2em;
+  form {
+    &.inactive {
+      h2 {
+        color: #969797;
+        span {
+          color: #8adcf4;
+        }
+      }
+    }
   }
 }
 

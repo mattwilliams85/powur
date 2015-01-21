@@ -22,7 +22,10 @@ class User < ActiveRecord::Base
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications
 
-  validates :email, presence: true
+  validates :email,
+    uniqueness: { message: 'This email is taken', case_sensitive: false },
+    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, message: 'Incorrect email address' },
+    presence: true
   validates :encrypted_password, presence: true, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true
