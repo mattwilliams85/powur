@@ -142,15 +142,15 @@
 					<div class="content" style="margin-top:10px">
 						<!-- ewallet stuff -->
 						<div class="form_element half end">
-							<span style="top:0;color:rgb(53,53,53)">Username</span>
-						<% if @ewallet_details %>
+							<span style="top:0;color:rgb(53,53,53)">Username: </span>
+						<% if !@ewallet_details.value?("error") %>
 							<p><%= @ewallet_details.Email %></p>
 						</div>
 						<div class="form_element half end">
 							<span style="top:0;color:rgb(53,53,53)">Verified: </span>
 							<p><%= @ewallet_details.IsInfoVerified %></p>
 						</div>
-						<%else%>
+						<% else %>
 						<div class="form_element half end">
 							<span style="top:0;rgb(53,53,53)">Account Details: </span>
 							<p>Error fetching eWallet account details.</p>
