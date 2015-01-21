@@ -51,7 +51,7 @@
     margin-top: 3em;
 
     .button {
-      background: #2ecc71;
+      background: $sun-color-green;
       text-transform: uppercase;
       margin-right: 1em;
     }
@@ -157,6 +157,105 @@
     h1 {
       text-align: center;
     }
+  }
+
+  .sign-up-forms {
+    margin-top: 100px;
+  }
+
+  h2 {
+    width: initial;
+    margin: 0 0 1em 0;
+    text-transform: uppercase;
+    font-size: 1.8em;
+    font-weight: bold;
+
+    span {
+      color: $sun-color-blue;
+    }
+  }
+
+  h6 {
+    font-size: 1em;
+    width: initial;
+    margin: .8em 0 1em 0;
+  }
+
+  .invite-form {
+    input, .button {
+      font-size: 1.4em;
+    }
+
+    .button {
+      background-image: image-url("landing/arrow-right-icon.png");
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    .small {
+      color: #afb4b9;
+      font-size: .8em;
+
+      &.sun-error {
+        color: red;
+      }
+
+      &.sun-success {
+        color: $sun-color-green;
+      }
+    }
+  }
+
+  .invite-sponsor-info {
+    margin-top: 30px;
+
+    img {
+      border-radius: 30px;
+      float: left;
+      margin: 0 20px 20px 0;
+      width: 60px;
+    }
+
+    span {
+      font-size: .9em;
+      line-height: 1.8em;
+
+      &.big {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .referral-info {
+    margin: 100px 0;
+
+    @media #{$small} {
+      margin: 200px 0;
+    }
+
+    .lock-icon {
+      @include sun-sprites-sprite(lock-icon);
+      height: sun-sprites-sprite-height(lock-icon);
+      width: sun-sprites-sprite-width(lock-icon);
+    }
+  }
+
+  .button {
+    text-transform: uppercase;
+    background-color: $sun-color-green;
+  }
+
+  label {
+    display: inline-block;
+  }
+
+  input[type="checkbox"] {
+    margin: 0 10px 30px 0;
+  }
+
+  select {
+    font-size: 2em;
   }
 }
 

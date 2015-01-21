@@ -17,7 +17,9 @@ Rails.application.routes.draw do
       put :update, on: :member
     end
 
-    resource :invite, only: [ :create, :update, :destroy ]
+    resource :invite, only: [ :create, :update, :destroy ] do
+      post :validate
+    end
 
   end
 

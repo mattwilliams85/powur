@@ -1,7 +1,7 @@
 module Anon
   class InvitesController < AnonController
     include EwalletDSL
-    before_action :fetch_invite, only: [ :create, :update ]
+    before_action :fetch_invite, only: [ :create, :update, :validate ]
 
     def create
       require_input :code
@@ -37,6 +37,10 @@ module Anon
       reset_session
 
       render 'anon/session/anonymous'
+    end
+
+    def validate
+      render 'show'
     end
 
     private

@@ -2,6 +2,15 @@ siren json
 
 klass :invite
 
+json.properties do
+  json.id @invite.id
+  json.sponsor_name @invite.sponsor.full_name
+  json.sponsor_avatar @invite.sponsor.avatar.url(:thumb)
+  json.first_name @invite.first_name
+  json.last_name @invite.last_name
+  json.email @invite.email
+end
+
 actions \
   action(:create, :post, invite_path)
   .field(:code, :hidden, value: @invite.id)
@@ -11,10 +20,13 @@ actions \
   .field(:phone, :text, value: @invite.phone)
   .field(:zip, :text)
   .field(:password, :password),
-  action(:reset, :delete, invite_path)
+  action(:reset, :delete, invite_path),
+  action(:create_account, :patch, invite_path)
+  .field(:email, :email)
+  .field(:password, :password)
+  .field(:code, :code)
 
 links \
   link(:self, promoter_path(code: @invite.id)),
   link(:new, new_promoter_path(code: @invite.id)),
   link(:index, dashboard_path)
-

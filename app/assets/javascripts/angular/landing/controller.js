@@ -1,6 +1,6 @@
 'use strict';
 
-function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval) {
+function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Invite, Geo) {
   $scope.redirectToDashboardIfSignedIn();
   $scope.showValidationMessages = false;
 
@@ -36,6 +36,31 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     } else {
       $scope.showValidationMessages = true;
     }
+  };
+
+  $scope.validateInvite = function() {
+    if ($scope.invite && $scope.invite.code) {
+      Invite.validate($scope.invite.code).then(function(data) {
+        if (data.error) {
+          $scope.invite.properties = null;
+          $scope.user = {};
+          $scope.invite.error = data.error;
+        } else {
+          $scope.invite.error = null;
+          $scope.invite.properties = data.properties;
+          $scope.user.first_name = data.properties.first_name;
+          $scope.user.last_name = data.properties.last_name;
+          $scope.user.email = data.properties.email;
+        }
+      });
+    } else {
+      $scope.showValidationMessages = true;
+    }
+  };
+
+  $scope.clearInviteValidationForm = function() {
+    $scope.invite = {};
+    $scope.user = {};
   };
 
   $scope.resetPassword = function() {
@@ -86,7 +111,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   };
 
   this.init($scope, $location, $timeout);
-  this.fetch($scope, $interval);
+  this.fetch($scope, $interval, Geo);
 }
 
 
@@ -105,7 +130,7 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
 };
 
 
-LandingCtrl.prototype.fetch = function($scope, $interval) {
+LandingCtrl.prototype.fetch = function($scope, $interval, Geo) {
   if ($scope.mode === 'home') {
     // Only for home page
     $scope.currentHomeSlide = 0;
@@ -127,9 +152,13 @@ LandingCtrl.prototype.fetch = function($scope, $interval) {
       'Sunstand Advocate FAQ';
   } else if ($scope.mode === 'sign-up') {
     // Only for sign up page
+    $scope.invite = {};
+    $scope.user = {};
+    $scope.countries = Geo.countries();
+    $scope.states = Geo.states();
   }
 };
 
 
-LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval'];
+LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'Invite', 'Geo'];
 sunstandControllers.controller('LandingCtrl', LandingCtrl);

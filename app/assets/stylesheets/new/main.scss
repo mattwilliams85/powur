@@ -289,3 +289,9 @@ html, body {
     }
   }
 }
+
+input {
+  &.radius {
+    @include radius($input-border-radius);
+  }
+}

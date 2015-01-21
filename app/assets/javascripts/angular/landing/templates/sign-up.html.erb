@@ -14,21 +14,98 @@
       </div>
     </div>
 
-
-
-
-
-    <!-- <div class="sun-fixed-bg sun-bg-4">
+    <div class="sun-scrolling-bg sign-up-forms">
       <div class="row">
         <div class="large-6 medium-6 columns">
-          left column
+          <form name="validateInviteForm" ng-submit="validateInvite()" class="invite-form" novalidate>
+
+            <h2><span>1.</span> Enter your invite code</h2>
+
+            <div class="row collapse">
+              <div class="small-5 columns">
+                <input ng-model="invite.code" name="invite_code" type="text" placeholder="Invite code" ng-required='true' />
+              </div>
+              <div class="small-2 columns">
+                <input class="button postfix" type="submit" value="" />
+              </div>
+              <div class="small-5 columns">
+                &nbsp;
+              </div>
+            </div>
+            <span ng-if="!invite.error && !invite.properties" class="small">No invite code? Please contact the person who told you about Sunstand.</span>
+            <span ng-if="invite.error" class="small sun-error">{{invite.error.message}}</span>
+            <span ng-if="invite.properties" class="small sun-success">SUCCESS! <a ng-click="clearInviteValidationForm()">Click here</a> to enter a different invite code</span>
+
+            <div class="invite-sponsor-info" ng-if="invite.properties">
+              <img ng-src="{{invite.properties.sponsor_avatar}}" />
+              <span>You were referred to Sunstand by:</span><br />
+              <span class="big">{{invite.properties.sponsor_name}}</span>
+            </div>
+
+            <div class="row referral-info">
+              <div class="small-2 columns">
+                <div class="lock-icon"></div>
+              </div>
+              <div class="small-10 columns">
+                <h6>Sunstand is referral only, private network.</h6>
+                <span class="small">New members require an invite code from an existing Sunstand Advocate in order to join the network.</span>
+              </div>
+            </div>
+
+          </form>
         </div>
 
         <div class="large-6 medium-6 columns">
-          right column
+          <form name="signUpForm" ng-submit="signUp()" novalidate>
+
+            <h2><span>2.</span> Register</h2>
+
+            <div class="row">
+              <div class="large-6 columns">
+                <input ng-model="user.first_name" type="text" class="radius" placeholder="First Name" />
+              </div>
+              <div class="large-6 columns">
+                <input ng-model="user.last_name" type="text" class="radius" placeholder="Last Name" />
+              </div>
+
+              <div class="large-12 columns">
+                <input ng-model="user.email" type="text" class="radius" placeholder="Email" />
+                <input type="text" class="radius" placeholder="password" />
+                <input type="text" class="radius" placeholder="Retype password" />
+                <input type="checkbox"><label>Send me email communications</label>
+                <input type="text" class="radius" placeholder="Address line 1" />
+                <input type="text" class="radius" placeholder="Address line 2" />
+              </div>
+
+              <div class="large-6 columns">
+                <input type="text" class="radius" placeholder="City" />
+              </div>
+              <div class="large-6 columns">
+                <input type="text" class="radius" placeholder="Zip code" />
+              </div>
+
+              <div class="large-6 columns">
+                <select ng-model="user.state" ng-options="state.abbr as state.name for state in states">
+                  <option value="">State</option>
+                </select>
+              </div>
+              <div class="large-6 columns">
+                <select ng-model="user.country" ng-options="country.abbr as country.name for country in countries">
+                  <option value="">Country</option>
+                </select>
+              </div>
+
+              <div class="large-12 columns">
+                <input type="checkbox"><label>I agree to the Terms of Service and Privacy Policy</label>
+
+                <input class="large button" type="submit" value="Register for free" />
+              </div>
+            </div>
+
+          </form>
         </div>
       </div>
-    </div> -->
+    </div>
 
     <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
   </main>
