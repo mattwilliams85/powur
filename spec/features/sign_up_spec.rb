@@ -34,7 +34,7 @@ describe 'Sign Up', :js, type: :feature do
       fill_in 'user_zip', with: '12345'
       check('I agree to the Terms of Service and Privacy Policy')
 
-      VCR.use_cassette('sign_up') do
+      VCR.use_cassette('ipayout_register') do
         click_on 'Register for free'
         # Button should be disabled while request is processing
         expect(page).to have_button("Register for free", disabled: true)

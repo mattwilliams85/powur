@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
   private
 
   def set_url_slug
-    self.url_slug = "#{first_name}-#{last_name}-#{SecureRandom.random_number(100)}"
+    self.url_slug = "#{first_name}-#{last_name}-#{SecureRandom.random_number(1000)}"
   end
 
   def hydrate_upline # rubocop:disable Metrics/AbcSize

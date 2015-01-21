@@ -10,7 +10,7 @@ describe User, type: :model do
     let(:password) { 'password123' }
 
     before :each do
-      @user = create(:user, password: password)
+      @user = create(:user, password: password, password_confirmation: password)
     end
 
     it 'returns the user with valid credentials' do
