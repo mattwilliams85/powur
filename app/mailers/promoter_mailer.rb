@@ -2,8 +2,8 @@ class PromoterMailer < ActionMailer::Base
   def invitation(invite)
     to = "#{invite.full_name} <#{invite.email}>"
     # url = root_url(code: invite.id)
-    url = root_url + "#/sign-up"
-    merge_vars = { code: invite.id, invite_url: root_url(code: invite.id) }
+    url = root_url + "#/sign-up/" + invite.id
+    merge_vars = { code: invite.id, invite_url: url }
 
     mail_chimp to, :invite, merge_vars
   end
