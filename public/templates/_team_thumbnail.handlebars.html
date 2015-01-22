@@ -12,17 +12,18 @@
 		<span class="expand">
 			{{!-- <i class="fa fa-angle-down"></i> --}}
 		</span>
-	</div>
+  </div>
 <div class="js-tabs">
   {{#compare this.properties.downline_count 0 operator=">"}}
-    <div class="js-team_tab team_tab">TEAM</div>
-    <div class="js-impact_tab team_tab">KPI</div>
-    <div class="js-info_tab team_tab">INFO</div>
+    <div class="team_tab" id="js-team_tab">TEAM</div>
+    <div class="team_tab" id="js-impact_tab">KPI</div>
+    <div class="team_tab" id="js-info_tab">INFO</div>
   {{else}}
-    <div class="js-impact_tab team_tab" style="width:110px">KPI</div>
-    <div class="js-info_tab team_tab" style="width:110px">INFO</div>
+    <div class="team_tab" id="js-impact_tab" style="width:110px">KPI</div>
+    <div class="team_tab" id="js-info_tab" style="width:110px">INFO</div>
   {{/compare}}
 </div>
+    <i class="js-link_user fa fa-link"></i>
 </div>
 
 <style type="text/css">
@@ -39,31 +40,45 @@
     font-size:0.8em;
     color:#eee;
     padding-top:3px;
+    transition: background-color 0.4s ease;
     /*opacity:0.9;*/
   }
 
-  .js-team_tab {
-    background-color:#193640;
+  #js-team_tab {
+    background-color:#214754;
   }
 
-  .js-impact_tab {
+  #js-impact_tab {
     background-color:#326C7F;
   }
 
-  .js-info_tab {
+  #js-info_tab {
     background-color:#4BA1BF;
   }
 
   .team_tab:hover {
-    background-color:#555;
+    background-color:#333 !important;
+
   }
 
   .active_tab {
     background-color:#444;
   }
 
-  .js-thumbnail {
-    
+  .js-link_user {
+    position:absolute;
+    top:15px;
+    right:15px;
+    color:#139FD4;
+  }
+
+  .js-link_user:hover {
+    font-size:1.1em;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
   }
 
 </style>

@@ -9,6 +9,10 @@ now = setCalendar()
 var myChart = ""
 var ctx = ""
 var timeScale;
+var metricsData = metricsData || {}
+var options = options || {}
+var chartType = chartType || ""
+
 
 function initKPI(){
   displayTimeScale()
@@ -20,6 +24,34 @@ function initKPI(){
   ctx = $("#metricsChart").get(0).getContext("2d");
   if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
   if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
+}
+
+function initUserKPI(kpiType,chartStyle){
+  if(myChart) myChart.destroy();
+  chartType = chartStyle
+  if(kpiType === "orders") {
+    metricsData = metricsData1
+    options = options1
+  }
+  if(kpiType === "genealogy") {
+    metricsData = metricsData2
+    options = options2
+  }
+  if(kpiType === "earnings") {
+    metricsData = metricsData3
+    options = options3  
+  } 
+  displayTimeScale()
+  randomizeData(6);
+  setScale();
+  randomizeOrders();
+  checkPage()
+  ctx = $("#metricsChart").get(0).getContext("2d");
+  ctx.canvas.width = 670
+  ctx.canvas.height = 330
+  if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
+  if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
+  
 }
 
 function randomizeOrders() {
@@ -116,11 +148,11 @@ function setScale() {
   var _labels = [];
 
   if (scale == "week") {
-    for (i = 0; i <= 6; i++) {
+    for (var i = 0; i <= 6; i++) {
       _labels.push(now.addDays(i).getMonth() + 1 + "/" + (now.addDays(i).getDate()));
     }
   } else {
-    for (i = 0; i <= numberOfDaysInMonth() - 1; i++) {
+    for (var i = 0; i <= numberOfDaysInMonth() - 1; i++) {
       _labels.push(now.addDays(i).getMonth() + 1 + "/" + (now.getDate() + i));
     }
   }

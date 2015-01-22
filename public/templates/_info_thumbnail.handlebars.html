@@ -11,7 +11,7 @@
   </div>
     <div class="js-thumbnail ">
       <span class="info_title">NAME</span>
-      <i class="fa fa-user fa-4x"></i>
+      <i class="fa fa-user"></i>
       <span class="info_detail">{{format_length this.name 15}}</span>
     </div>
   </div>
@@ -21,8 +21,8 @@
   </div>
     <div class="js-thumbnail ">
       <span class="info_title">PHONE</span>
-      <i class="fa fa-phone fa-4x"></i>
-      <span class="info_detail">{{this.phone}}</span>
+      <i class="fa fa-phone"></i>
+      <span class="info_detail" style="margin-top:21px">{{this.phone}}</span>
     </div>
   </div>
 </div>
@@ -31,8 +31,8 @@
   </div>
     <div class="js-thumbnail ">
       <span class="info_title">EMAIL</span>
-      <i class="fa fa-envelope fa-4x"></i>
-       <a href="#"><span class="info_detail">{{format_length this.email 15}}</span></a>
+      <i class="fa fa-envelope"></i>
+       <a href="#"><span class="info_detail" style="margin-top:25px">{{format_length this.email 15}}</span></a>
     </div>
   </div>
 </div>
@@ -76,13 +76,15 @@
 
 
   .info_title {
-    margin-top:20px;
+    font-size:0.9em;
+    margin-top:25px;
     display:block;
   }
 
   .info_detail {
     margin-top:20px;
     display:block;
+    font-size:0.95em;
   }
 
   .js-thumbnail .avatar {
@@ -92,13 +94,13 @@
   }
 
   .js-thumbnail .fa-envelope {
-    margin-top:20px;
-    font-size:4.1em;
+    margin-top:16px;
+    font-size:4em;
   }
 
   .js-thumbnail .fa-phone {
     margin-top:21px;
-    font-size:4.2em;
+    font-size:4em;
   }
 
   .js-thumbnail .fa-user {
@@ -108,7 +110,7 @@
 
   .js-thumbnail .fa-generation {
     font-size:7em;
-    margin-top:70px
+    margin-top:68px
   }
 
 </style>

@@ -447,6 +447,7 @@ function Dashboard(){
                 console.log("... loading user#"+_options._userID+" profile info");
               })
               .done(function(data){
+                _alternateColor(_drillDownLevel)
                 //prepare leader info
                 var _userDetail={};
                 _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
@@ -478,6 +479,41 @@ function Dashboard(){
                 });
               });
         break;
+
+      //mattmarker
+      case "kpi":
+       var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
+                    //compile leader (hero) info
+                    $.getJSON("/u/users/"+_options._userID, function(){
+                      console.log("... loading user#"+_options._userID+" profile info");
+                    })
+                    .done(function(data){
+                     
+                      //prepare leader info
+                      var _userDetail={};
+                      _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
+
+                      //add new team drilldown basic template layout with leader info
+                      var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+                      $("#dashboard_team").append(_html);
+                      
+                      var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+
+                      _drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);
+                      _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
+                        _userDetail,
+                        _drilldownContainerObj,
+                        function(){
+                          var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
+                          _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
+                          EyeCueLab.UX.getTemplate("/templates/_kpi_conversion_thumbnail.handlebars.html", _userDetail, undefined, function(html){
+                            _downlinkContainerObj.html(html);
+                            _alternateColor(_drillDownLevel)
+                          });
+                      });
+                    });
+              break;
+
       case "team.everyone":
       case "team":
 
@@ -516,13 +552,8 @@ function Dashboard(){
               // _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
               // _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
               // _drilldownContainerObj.find(".arrow").hide();
-              if(_drillDownLevel % 2 === 0){
-                 $('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#333") 
-                 $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#444") 
-              } else {
-                 $('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#444")
-                 $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#333") 
-              }
+              _alternateColor(_drillDownLevel)
+              
               //populate downlink thumbnails
               var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
               _ajax({
@@ -1288,48 +1319,89 @@ function Dashboard(){
   }
 
   //mattmark
-  $(document).on("click", ".js-team_tab", function(e){
+  // $(document).on("click", ".js-team_tab", function(e){
+  //   e.preventDefault();
+  //   if($(this).hasClass('active_tab')){
+  //     _closeTeamDrilldown($(this))
+  //   } else {
+  //     _teamDrilldown('team.everyone', $(this))
+  //   }
+  // });
+
+  // $(document).on("click", ".js-impact_tab", function(e){
+  //   e.preventDefault();
+  //   if($(this).hasClass('active_tab')){
+  //     _closeTeamDrilldown($(this))
+  //   } else {
+  //     _teamDrilldown('kpi' , $(this))
+  //   }
+  // });
+
+  // $(document).on("click", ".js-info_tab", function(e){
+  //   e.preventDefault();
+  //   if($(this).hasClass('active_tab')){
+  //     _closeTeamDrilldown($(this))
+  //   } else {
+  //     _teamDrilldown('info' , $(this))
+  //   }
+  // });
+
+  $(document).on("click", ".team_tab", function(e){
     e.preventDefault();
     if($(this).hasClass('active_tab')){
       _closeTeamDrilldown($(this))
     } else {
-      $(this).addClass('active_tab')
-      $(this).siblings().removeClass('active_tab')
-      $(this).parents().eq(4).css("border-bottom","0px")
-      var _drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
-      var _thisThumbnail = $(e.target).parents(".js-team_thumbnail");
-      _drillDown({"_type":"team.everyone",
-            "_mainSectionID":"dashboard_team",
-            "_thumbnailIdentifier":".js-team_thumbnail",
-            "_target":$(e.target),
-            "_userID":_drillDownUserID});
+      switch($(this).attr('id')){
+        case 'js-team_tab':
+          _teamDrilldown('team.everyone' , $(this))
+          break;
+        case 'js-impact_tab':
+          _teamDrilldown('kpi' , $(this))
+          break;
+        case 'js-info_tab':
+          _teamDrilldown('info' , $(this))
+          break;
+      }
     }
   });
 
-  $(document).on("click", ".js-info_tab", function(e){
+  $(document).on("click", ".js-kpi_tab", function(e){
     e.preventDefault();
-    if($(this).hasClass('active_tab')){
-      _closeTeamDrilldown($(this))
-    } else {
-      $(this).addClass('active_tab')
-      $(this).siblings().removeClass('active_tab')
-      $(this).parents().eq(4).css("border-bottom","0px")
-      var _drillDownUserID=$(e.target).parents(".js-team_thumbnail").attr("alt");
-      var _thisThumbnail = $(e.target).parents(".js-team_thumbnail");
-      console.log(_thisThumbnail)
-      console.log(_drillDownUserID)
-      _drillDown({"_type":"info",
-            "_mainSectionID":"dashboard_team",
-            "_thumbnailIdentifier":".js-team_thumbnail",
-            "_target":$(e.target),
-            "_userID":_drillDownUserID});
+    if(!$(this).hasClass('active')){
+      $(this).addClass('active').siblings().removeClass('active')
+    }
+    switch($(this).attr('id')){
+      case 'js-orders_tab':
+        initUserKPI("orders", "line")
+        break;
+      case 'js-genealogy_tab':
+        initUserKPI("genealogy", "bar")
+        break;
+      case 'js-earnings_tab':
+        initUserKPI("earnings", "line")
+        break;
+      case 'js-ranking_tab':
+        console.log('no ranking!')
+        // var chartType = "genealogy"
+        //        initUserKPI()
+        break;
     }
   });
 
-  // //mattmark
-  // function _infoDrilldown(user_id, thumbnail){
-  //   thumbnail.parents().eq(3).append('<div style="display:inline-block"> sup guys </div>')
-  // }
+
+
+  function _teamDrilldown(_type, target){
+    target.addClass('active_tab')
+    target.siblings().removeClass('active_tab')
+    target.parents().eq(4).css("border-bottom","0px")
+    var _drillDownUserID=target.parents(".js-team_thumbnail").attr("alt");
+    var _thisThumbnail = target.parents(".js-team_thumbnail");
+    _drillDown({"_type": _type,
+      "_mainSectionID":"dashboard_team",
+      "_thumbnailIdentifier":".js-team_thumbnail",
+      "_target":target,
+      "_userID":_drillDownUserID});
+  }
 
   function _closeTeamDrilldown(selected){
     selected.removeClass('active_tab')
@@ -1338,6 +1410,17 @@ function Dashboard(){
     if(_thisLevel == 0) selected.closest('.team_info').css('border','1px solid #E5E5E5')
     for(var i=_thisLevel;i < _lastLevel;i++){
       $('.drilldown.level_'+(i+1)).hide()
+    }
+  }
+
+  function _alternateColor(_drillDownLevel){
+    if(_drillDownLevel % 2 === 0){
+      console.log($('.drilldown.level_'+_drillDownLevel).find('.drilldown_content'))
+       $('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#333") 
+       $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#444") 
+    } else {
+       $('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#444")
+       $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#333") 
     }
   }
 
