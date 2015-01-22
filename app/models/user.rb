@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
     on: :create
   validates :password_confirmation, presence: true, on: :create
   validates_presence_of :url_slug, :reset_token, allow_nil: true
-  validates_presence_of :address, :city, :state, allow_nil: true
+  # validates_presence_of :address, :city, :state, allow_nil: true
   validates :tos,
     presence: { message: "You didn't agree to the terms and privacy policy"},
     acceptance: { accept: true },

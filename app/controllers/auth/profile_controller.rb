@@ -12,6 +12,8 @@ module Auth
     end
 
     def update
+      user_params['email'].downcase! if user_params['email']
+
       @user.update_attributes(user_params)
 
       render 'show'

@@ -27,6 +27,8 @@ module Anon
                             :tos,
                             :communications)
 
+      input['email'].downcase! if input['email']
+
       user = @invite.accept(input)
 
       if user.errors.empty?
@@ -58,7 +60,7 @@ module Anon
 
     def fetch_invite
       @invite = Invite.find_by(id: params[:code], user_id: nil) || invalid_code!
-      user = User.find_by_email(@invite.email)
+      user = User.find_by_email(@invite.email.downcase)
       if user
         @invite.update_attribute(:user_id, user.id)
         invalid_code!
