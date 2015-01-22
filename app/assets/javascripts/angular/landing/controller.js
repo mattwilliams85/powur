@@ -40,6 +40,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   };
 
   $scope.validateInvite = function() {
+    var code;
     if ($scope.invite && $scope.invite.code) {
       Invite.validate($scope.invite.code).then(function(data) {
         if (data.error) {
@@ -47,7 +48,9 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
           $scope.user = {};
           $scope.invite.error = data.error;
         } else {
+          code = $scope.invite.code;
           $scope.invite = data;
+          $scope.invite.code = code;
           $scope.user.first_name = data.properties.first_name;
           $scope.user.last_name = data.properties.last_name;
           $scope.user.email = data.properties.email;
@@ -139,7 +142,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   };
 
   this.init($scope, $location, $timeout);
-  this.fetch($scope, $interval, Geo);
+  this.fetch($scope, $interval, $routeParams, Geo);
 }
 
 
@@ -154,11 +157,11 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
   if (/\/sign-in$/.test($location.path())) return $scope.mode = 'sign-in';
   if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
   if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
-  if (/\/sign-up$/.test($location.path())) return $scope.mode = 'sign-up';
+  if (/\/sign-up/.test($location.path())) return $scope.mode = 'sign-up';
 };
 
 
-LandingCtrl.prototype.fetch = function($scope, $interval, Geo) {
+LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
   if ($scope.mode === 'home') {
     // Only for home page
     $scope.currentHomeSlide = 0;
@@ -184,6 +187,8 @@ LandingCtrl.prototype.fetch = function($scope, $interval, Geo) {
     $scope.user = {};
     $scope.countries = Geo.countries();
     $scope.states = Geo.states();
+    $scope.invite.code = $routeParams.inviteCode;
+    if ($scope.invite.code) $scope.validateInvite();
   }
 };
 
