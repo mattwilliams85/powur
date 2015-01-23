@@ -45,6 +45,14 @@ describe User, type: :model do
     end
   end
 
+  describe '#create' do
+
+    it 'destroys the invite used to create the user' do
+      user = create(:user)
+      expect(Invite.find_by(email: "#{user.email}")).to be_nil
+    end
+  end
+
   describe '#upline' do
 
     before :each do
