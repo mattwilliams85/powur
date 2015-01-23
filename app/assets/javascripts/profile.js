@@ -5,7 +5,11 @@ var _data={}; //main data object that contains user profile and genelogy info
 
 function initPage() {
   _getRoot(function(){
-    $('.js-user_first_name').text(_data.root.properties.first_name );
+    if ((_data.root.properties.first_name).length >= 11) {
+      $('.js-user_first_name').text(_data.root.properties.first_name.substring(0,12) + '...');
+    } else {
+      $('.js-user_first_name').text(_data.root.properties.first_name );
+    }
     _myID = _data.root.properties.id;
     if(_data.currentUser.avatar) $('#js-user_profile_image')
       .attr('src', _data.currentUser.avatar.thumb);
