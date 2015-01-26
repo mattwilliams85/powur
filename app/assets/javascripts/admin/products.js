@@ -17,11 +17,11 @@ jQuery(function($){
         break;
       }
     }
+    jQuery.ajaxSetup({cache:true});
     if(_loading) {
-      EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"Loading Administration Dashboard"}, $("#js-wait_screen_mask"), function(){
-          SunStand.Admin.displayPopup({_popupData:{}}
-            );
-        });
+      // EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"Loading Administration Dashboard"}, $("#js-wait_screen_mask"), function(){
+      //     SunStand.Admin.displayPopup({_popupData:{}});
+      // });
       _data.loadTimer = setTimeout(_data.load, 10);
     } else {
       clearTimeout(_data.loadTimer);
