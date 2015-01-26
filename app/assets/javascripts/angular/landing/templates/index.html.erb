@@ -33,9 +33,114 @@
       <a class="sun-next-pointer inverted" ng-class="{'inactive': currentHomeSlide !== 3}" ng-click="gotoAnchor('building_large_network')"></a>
     </div>
 
-    <ng-include src="'<%=asset_path("shared/landing-features.html") %>'"></ng-include>
 
-    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+    <div class="sun-scrolling-bg sun-bg-2" id="building_large_network">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <div class="gif1"></div>
+          <h4>Building the world's largest network of peer to peer solar advocates.</h4>
+        </div>
+      </div>
+      <a class="sun-next-pointer" ng-click="gotoAnchor('decentralization_of_energy_production')">So that we</a>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-3" id="decentralization_of_energy_production">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <div class="gif2"></div>
+          <h4>Facilitate the largest transfer of wealth in history through the decentralization of energy production.</h4>
+        </div>
+      </div>
+      <a class="sun-next-pointer" ng-click="gotoAnchor('reverse_climate_change')">Which will</a>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-4" id="reverse_climate_change">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <div class="gif3"></div>
+          <h4>Reverse climate change by turning millions of American homes clean and carbon-positive.</h4>
+        </div>
+      </div>
+      <a class="sun-next-pointer" ng-click="gotoAnchor('clean_energy_solution')">So we</a>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-5" id="clean_energy_solution">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <div class="gif4"></div>
+          <h4>Create a sustainable, renewable and clean energy solution for all future generations.</h4>
+        </div>
+      </div>
+      <a class="sun-next-pointer" ng-click="gotoAnchor('solar_revolution')"></a>
+    </div>
+
+    <div class="sun-scrolling-bg  sun-bg-6" id="solar_revolution">
+      <div class="sun-home-intro">
+        <div class="row">
+          <h1>The solar revolution is here.</h1>
+        </div>
+      </div>
+      <a class="sun-next-pointer inverted" ng-click="gotoAnchor('how_to_participate')">It will be disruptive</a>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-7" id="how_to_participate">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <h5>Select how you want to participate in the revolution.</h5>
+          <div class="sun-buttons-wrapper">
+            <a class="button sun-button-transparent" ng-href="#/create-energy">Create Energy</a>
+            <a class="button" ng-href="#/create-wealth">Create Wealth</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="sun-landing-footer">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="footer-content">
+            <nav class="footer-nav">
+              <ul>
+                <li><a ng-href="">Contact</a></li> |
+                <li><a ng-href="">Privacy</a></li> |
+                <li><a ng-href="">Terms</a></li>
+              </ul>
+            </nav>
+
+            <div class="copyright">
+              Copyright © 2014 - 2015 Sunstand Inc. All rights reserved.
+            </div>
+
+            <div class="social-links">
+              <a class="facebook" href=""></a>
+              <a class="twitter" href=""></a>
+              <a class="youtube" href=""></a>
+            </div>
+
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </footer>
 
   </main>
+
+  <div class="slide-guide">
+    <div class="slide-dot active" id='slide-dot1' data='1'></div>
+    <div class="slide-dot" id='slide-dot2' data='2'></div>
+    <div class="slide-dot" id='slide-dot3' data='3'></div>
+    <div class="slide-dot" id='slide-dot4' data='4'></div>
+    <div class="slide-dot" id='slide-dot5' data='5'></div>
+    <div class="slide-dot" id='slide-dot6' data='6'></div>
+    <div class="slide-dot" id='slide-dot7' data='7'></div>
+  </div>
+
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+
+});
+</script>
+

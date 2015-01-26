@@ -195,6 +195,10 @@ html, body {
 */
 .sun-landing-footer {
   background: #383838;
+  width:100%;
+  z-index:20;
+  position:absolute;
+  bottom:0;
 
   .footer-content {
     margin: 2em 0;
@@ -256,7 +260,7 @@ html, body {
 */
 .sun-fixed-bg {
   position: relative;
-  min-height: 100%;
+  height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -269,9 +273,15 @@ html, body {
 }
 
 .sun-scrolling-bg {
-  position: relative;
+  position: absolute;
   z-index: 2;
-  min-height: 100%;
+  height: 100%;
+  width:100%;
+  top:0;
+  left:0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 
   .sun-home-content {
     padding: 10em 0 0 0;
@@ -290,8 +300,17 @@ html, body {
   }
 }
 
+
 input {
   &.radius {
     @include radius($input-border-radius);
   }
+
+.scrolly {
+  overflow-y: hidden;
+  max-height: 0px; /* approximate max height */
+
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }

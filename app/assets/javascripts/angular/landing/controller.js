@@ -5,6 +5,8 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   $scope.showValidationMessages = false;
   $scope.isSubmitDisabled = false;
 
+  // $scope.animatedGif = '<%=asset_path()%>'
+
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
     $scope.isMenuActive = false;
@@ -191,6 +193,107 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
     if ($scope.invite.code) $scope.validateInvite();
   }
 };
+  
+  var slide = 0
+  function slideTransition(direction){
+    if(direction == "down"){
+      slide+=1
+      // if(slide === 1) $('.gif1').css('background',"url('landing/globe.gif')");
+      $('#slide-dot'+(slide+1)).addClass('active').siblings().removeClass('active')
+      $('.sun-bg-'+slide).slideUp(1500,'easeOutExpo', function(){
+         $(window).bind('DOMMouseScroll mouswheel', mouseWheel());
+         $(window).bind('click', arrowNav());
+      });
+    } else {
+      $('#slide-dot'+(slide)).addClass('active').siblings().removeClass('active')
+      $('.sun-bg-'+slide).slideDown(1500,'easeOutExpo', function(){
+          slide-=1
+         $(window).bind('DOMMouseScroll mouswheel', mouseWheel());
+         $(window).bind('click', arrowNav());
+      });
+  
+    }
+
+   
+
+    var header = document.getElementById('sun_header_guest');
+
+    if (!header) return;
+
+    if (slide > 0) {
+      if (header.className !== 'sun-header-guest invert') {
+        header.setAttribute('class', 'sun-header-guest hidden');
+        setTimeout(function invertHeader() {
+          header.setAttribute('class', 'sun-header-guest invert');
+        }, 200);
+      }
+    } else {
+      if (header.className !== '') {
+        header.setAttribute('class', 'sun-header-guest hidden');
+        setTimeout(function invertHeader() {
+          header.setAttribute('class', 'sun-header-guest');
+        }, 200);
+      }
+    }
+  }
+
+
+  function arrowNav(){
+    $(document).on('click', '.sun-next-pointer',function(e){
+      e.preventDefault();
+      $(document).unbind()
+      slideTransition('down')
+    });
+  }
+
+  function mouseWheel(){
+
+  $(document).bind('DOMMouseScroll mousewheel', function(e){
+    // $(window).unbind('DOMMouseScroll mouswheel', mouseWheel());
+     if( e.originalEvent.detail > 0 || e.originalEvent.wheelDelta < 0 ) {
+      if(slide !== 6){
+        $(document).unbind()
+        slideTransition('down')
+      }
+     } else {
+        if(slide !== 0){
+          $(document).unbind()
+          slideTransition('up')
+        }
+      }
+      //prevent page fom scrolling
+      return false;
+    });
+  }
+
+  $(document).on('click','.slide-dot', function(e){
+    if($(this).hasClass('active')) return;
+    var value = parseInt($(this).attr('data')) 
+    slideDotTransition(value);
+  })
+
+
+  function slideDotTransition(value){
+      var speed1 = 0
+      var speed2 = 0
+      if(slide > value) speed1 = 1500
+      else speed2 = 1500
+      slide = value 
+      $('#slide-dot'+slide).addClass('active').siblings().removeClass('active')
+      for(var i=0; i < 7; i++){
+        if(i === slide) $('.sun-bg-'+i).slideDown(speed1,'easeOutExpo', function(){});
+        else $('.sun-bg-'+i).slideUp(speed2,'easeOutExpo', function(){});
+      }
+   
+  }
+
+  setTimeout(function() { 
+    arrowNav()
+    mouseWheel(); 
+  },6500);
+
+
+
 
 
 LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'Invite', 'Geo'];

@@ -45,6 +45,17 @@ class UsersJson < JsonDecorator
     end
   end
 
+  def item_actions(user)
+    if user.placeable?(current_user)
+      json.actions do
+        json.name "place"
+        json.method "UPDATE"
+        json.href "/u/users/"+user.id.to_s+"?sponsor_id="
+        json.type "application/json"
+      end
+    end
+  end
+
   def admin_entities(user = @item) # rubocop:disable Metrics/AbcSize
     entities \
       entity(%w(list users), 'user-children', downline_admin_user_path(user)),

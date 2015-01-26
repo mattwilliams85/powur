@@ -1,17 +1,18 @@
 <div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="team_thumbnail js-team_thumbnail js-thumbnail_parent hover-team">
-	<div class="js-thumbnail ">
+  <div class="js-thumbnail">
         {{#if this.properties.profile_image}}
-		<img class="advocate_avatar" src="{{this.properties.profile_image}}">
+    <img class="advocate_avatar" src="{{this.properties.profile_image}}">
         {{else}}
         <img class="advocate_avatar" src="/temp_dev_images/Tim.jpg">
+        <img class="link_icon" src="http://uxrepo.com/static/icon-sets/font-awesome/svg/link.svg">
         {{/if}}
-		<span>{{this.properties.first_name}} {{this.properties.last_name}}</span>
-		<span class="subtext">
-			<span>Rank: {{this.properties.level}}, Team: {{this.properties.downline_count}}</span>
+    <span>{{this.properties.first_name}} {{this.properties.last_name}}</span>
+    <span class="subtext">
+      <span>Rank: {{this.properties.level}}, Team: {{this.properties.downline_count}}</span>
         </span>
-		<span class="expand">
-			{{!-- <i class="fa fa-angle-down"></i> --}}
-		</span>
+    <span class="expand">
+      {{!-- <i class="fa fa-angle-down"></i> --}}
+    </span>
   </div>
 <div class="js-tabs">
   {{#compare this.properties.downline_count 0 operator=">"}}
@@ -23,15 +24,17 @@
     <div class="team_tab" id="js-info_tab" style="width:110px">INFO</div>
   {{/compare}}
 </div>  
-    {{#each this.actions}}
-      {{#compare this "place" operator="=="}}
-    <i class="js-link_user fa fa-link"></i>
-    {{!-- <a><span class="js-link_user" style="font-size:0.7em">ASSIGN</span></a> --}}
-      {{/compare}}
-    {{/each}}
+
 </div>
 
 <style type="text/css">
+  .link_icon {
+    display:block;
+    display:none;
+    height:35px;
+    width:35px;
+  }
+
   .team_thumbnail {
     cursor:default;
   }
@@ -93,6 +96,8 @@
     transition: all 0.3s;
   }
 
+
+
 </style>
 
 <script type="text/javascript">
@@ -113,4 +118,10 @@ $(".hover-team").on("mouseleave", function(e){
   },{
     queue: false }, 200)
 })
+
+// $(".js-thumbnail").on("mouseenter", function(e){
+//   e.preventDefault(e);
+//   $(this).find('.advocate_avatar').hide()
+//   $(this).find('.link_icon').show()
+// });
 </script>

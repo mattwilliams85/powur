@@ -1,7 +1,38 @@
+// .hide-gif {
+//   background:transparent !important;
+// }
+
+.slide-dot {
+  padding:6px;
+  margin:20px;
+  background-color:#ccc;
+  border-radius:100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -o-border-radius: 100%;
+}
+
+.slide-guide {
+  z-index:100;
+  position:absolute;
+  right:0;
+  top:40%;
+
+  .active {
+    background-color:#666 !important;
+  }
+}
+
 .sun-landing {
   height: 100%;
   position: relative;
   z-index: 1;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   h1, h2, h3, h4, h5 {
     font-weight: normal;
@@ -11,6 +42,7 @@
     margin-left: auto;
     margin-right: auto;
   }
+
 
   .sun-home-intro {
     position: absolute;
@@ -63,28 +95,28 @@
     }
   }
 
-  .globe-image {
+  .gif1 {
     background: image-url('landing/globe.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
-  .scales-image {
+  .gif2 {
     background: image-url('landing/scales-grey.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
-  .house-image {
+  .gif3 {
     background: image-url('landing/hauzz.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
-  .flame-image {
+  .gif4 {
     background: image-url('landing/flame-grey.gif') no-repeat;
     width: 200px;
     height: 200px;
@@ -93,16 +125,53 @@
 
   .sun-bg-1 {
     background-image: image-url("landing/bg-1.jpg");
+    height:100%;
+    width:100%;
+    z-index:80;
   }
   .sun-bg-2 {
-    background: #f4f6f7;
+    background-color: #fff;
+    height:100%;
+    width:100%;
+    z-index:70;
   }
   .sun-bg-3 {
-    background-image: image-url("landing/bg-3.jpg");
+     
+    height:100%;
+    width:100%;
+    background: #f4f6f7;
+    z-index:60;
   }
+
   .sun-bg-4 {
-    background-image: image-url("landing/bg-4.jpg");
+    height:100%;
+    width:100%;
+       background: #fff;
+    z-index:50;
   }
+
+  .sun-bg-5 {
+    height:100%;
+    width:100%;
+    background: #f4f6f7;
+    z-index:40;
+  }
+
+  .sun-bg-6 {
+    height:100%;
+    width:100%;
+    background-image: image-url("landing/bg-3.jpg");
+    z-index:30;
+  }
+
+  .sun-bg-7 {
+    background-color: #fff;
+    height:100%;
+    width:100%;
+    z-index:20;
+  }
+
+
 
   .sun-sign-in-wrapper {
     padding-top: 200px;

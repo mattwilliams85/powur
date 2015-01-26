@@ -480,7 +480,6 @@ function Dashboard(){
               });
         break;
 
-      //mattmarker
       case "kpi":
        var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
                     //compile leader (hero) info
@@ -513,6 +512,56 @@ function Dashboard(){
                       });
                     });
               break;
+
+//mattmarker
+      case "team.immediate":
+      _ajax({
+      _ajaxType:"get",
+      _url:"/u/users/",
+      _postObj:{
+        "performance[metric]":_data.team_metric,
+        "performance[period]":_data.team_period,
+        search:_data.team_search
+      },
+      _callback:function(data, text){
+        console.log(data)
+        if(data.entities.length<=0) return;
+        // var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
+        _data.team=data;
+        // _containerObj.siblings(".nav").css("display","none");
+        // _containerObj.css("left","0")
+        // _containerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
+        // if(data.entities.length>=4) _containerObj.siblings(".nav").fadeIn();
+        _drillDownLevel = 1
+        var _userDetail={};
+        var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></div></section>";
+        $("#dashboard_team").append(_html);
+        var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+         _getTemplate("/templates/drilldowns/_team_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+
+        _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
+        _data.team.entities.forEach(function(member){
+          if(member.properties.id === parseInt(_options._userID)) return;
+          var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
+          if(data.entities.length>=5) _downlinkContainerObj.siblings(".nav").fadeIn();
+          _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
+          _ajax({
+            _ajaxType:"get",
+            _url:"/u/users/"+member.properties.id+"/downline",
+            _callback:function(data, text){
+              member.properties.downline_count = data.entities.length;
+              EyeCueLab.UX.getTemplate("/templates/_placement_thumbnail.handlebars.html", member, undefined, function(html){
+                 _downlinkContainerObj.append(html);
+                // mattmark
+              });
+
+            }
+          });
+        });
+      });
+    }
+  })
+             break;
 
       case "team.everyone":
       case "team":
@@ -566,7 +615,6 @@ function Dashboard(){
                   if(data.entities.length>=5) _downlinkContainerObj.siblings(".nav").fadeIn();
 
                   data.entities.forEach(function(member){
-
                     _downlinkContainerObj.html("");
                     _ajax({
                       _ajaxType:"get",
@@ -1066,7 +1114,7 @@ function Dashboard(){
       //fade all other "unfocused" thumbnail out
       for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
         if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
-          var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
+          var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")").find('.js-thumbnail'));
           _neighborThumbnail.animate({"opacity":".3"}, 300);
           _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
           _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
@@ -1318,34 +1366,7 @@ function Dashboard(){
     });
   }
 
-  //mattmark
-  // $(document).on("click", ".js-team_tab", function(e){
-  //   e.preventDefault();
-  //   if($(this).hasClass('active_tab')){
-  //     _closeTeamDrilldown($(this))
-  //   } else {
-  //     _teamDrilldown('team.everyone', $(this))
-  //   }
-  // });
-
-  // $(document).on("click", ".js-impact_tab", function(e){
-  //   e.preventDefault();
-  //   if($(this).hasClass('active_tab')){
-  //     _closeTeamDrilldown($(this))
-  //   } else {
-  //     _teamDrilldown('kpi' , $(this))
-  //   }
-  // });
-
-  // $(document).on("click", ".js-info_tab", function(e){
-  //   e.preventDefault();
-  //   if($(this).hasClass('active_tab')){
-  //     _closeTeamDrilldown($(this))
-  //   } else {
-  //     _teamDrilldown('info' , $(this))
-  //   }
-  // });
-
+  //mattmarker
   $(document).on("click", ".team_tab", function(e){
     e.preventDefault();
     if($(this).hasClass('active_tab')){
@@ -1381,13 +1402,25 @@ function Dashboard(){
         initUserKPI("earnings", "line")
         break;
       case 'js-ranking_tab':
-        console.log('no ranking!')
-        // var chartType = "genealogy"
-        //        initUserKPI()
-        break;
     }
   });
 
+  $(document).on("click", ".js-link_user", function(e){
+     _teamDrilldown('team.immediate' , $(this))
+
+    //animation
+    var thumbnailArray = $(this).closest('.js-team_thumbnail').siblings('div')
+    var i = 3
+    var a = setInterval(function(){
+      $(thumbnailArray[i]).velocity({translateX: '1000px'},400)
+      i -= 1
+      if(i < 0) clearInterval(a)
+    },100)
+       // $(element).velocity({translateX: '1000px'},500)
+     
+
+ 
+  });
 
 
   function _teamDrilldown(_type, target){
