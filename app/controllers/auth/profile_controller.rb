@@ -12,6 +12,8 @@ module Auth
     end
 
     def update
+      user_params['email'].downcase! if user_params['email']
+
       @user.update_attributes(user_params)
 
       render 'show'
@@ -25,6 +27,7 @@ module Auth
     end
 
     def update_password
+      @ewallet_details = get_ewallet_customer_details(@user)
       require_input :current_password, :new_password, :new_password_confirm
       user = current_user
       unless user && user.password_match?(params['current_password'])

@@ -24,7 +24,7 @@ class Invite < ActiveRecord::Base
   def accept(params)
     params[:sponsor_id] = sponsor_id
 
-    user = User.create!(params)
+    user = User.create(params)
     Invite.where(email: email).update_all(user_id: user.id)
     user
   end

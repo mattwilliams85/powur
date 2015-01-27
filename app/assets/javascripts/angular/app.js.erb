@@ -110,6 +110,14 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/landing/templates/sign-in.html")%>',
       controller: 'LandingCtrl'
     }).
+    when('/sign-up', {
+      templateUrl: '<%=asset_path("angular/landing/templates/sign-up.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    when('/sign-up/:inviteCode', {
+      templateUrl: '<%=asset_path("angular/landing/templates/sign-up.html")%>',
+      controller: 'LandingCtrl'
+    }).
     when('/reset-password', {
       templateUrl: '<%=asset_path("angular/landing/templates/reset-password.html")%>',
       controller: 'LandingCtrl'

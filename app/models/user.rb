@@ -16,19 +16,41 @@ class User < ActiveRecord::Base
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
 
-  store_accessor :contact, :address, :city, :state, :zip, :phone
-  store_accessor :profile, :bio, :twitter_url, :linkedin_url, :facebook_url
+  store_accessor :contact,
+                 :address, :city, :state, :country, :zip, :phone
+  store_accessor :profile,
+                 :bio, :twitter_url, :linkedin_url, :facebook_url,
+                 :communications
 
-  validates_presence_of :email
-  validates_presence_of :encrypted_password, on: :create
-  validates_presence_of :first_name, :last_name
+  validates :email,
+    uniqueness: { message: 'This email is taken', case_sensitive: false },
+    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, message: 'Incorrect email address' },
+    presence: true
+  validates :encrypted_password, presence: true, on: :create
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+  validates :phone, presence: true
+  validates :zip, presence: true
+  validates :password,
+    presence: true,
+    length: { minimum: 8, maximum: 40, message: 'Password not less than 8 symbols' },
+    confirmation: true,
+    on: :create
+  validates :password_confirmation, presence: true, on: :create
   validates_presence_of :url_slug, :reset_token, allow_nil: true
-  validates_presence_of :phone, :zip
-  validates_presence_of :address, :city, :state, allow_nil: true
+  # validates_presence_of :address, :city, :state, allow_nil: true
+  validates :tos,
+    presence: { message: "You didn't agree to the terms and privacy policy"},
+    acceptance: { accept: true },
+    on: :create
 
+  before_create :set_url_slug
+  before_create :destroy_used_invite
   after_create :hydrate_upline
 
-  attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count
+  attr_reader :password
+  attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count,
+                :tos, :password_confirmation
 
   before_validation do
     self.lifetime_rank ||= Rank.find_or_create_by_id(1).id
@@ -106,6 +128,14 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def destroy_used_invite
+    Invite.find_by(email: '#{email}').destroy! if Invite.find_by(email: '#{email}')
+  end
+
+  def set_url_slug
+    self.url_slug = "#{first_name}-#{last_name}-#{SecureRandom.random_number(1000)}"
+  end
 
   def hydrate_upline # rubocop:disable Metrics/AbcSize
     return if upline && !upline.empty?

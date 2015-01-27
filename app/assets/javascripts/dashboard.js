@@ -19,7 +19,11 @@ function initPage(){
 
   //get current user profile and initiate dashboard data
   _getRoot(function(){
-    $('.js-user_first_name').text(_data.root.properties.first_name );
+    if ((_data.root.properties.first_name).length >= 11) {
+      $('.js-user_first_name').text(_data.root.properties.first_name.substring(0,12) + '...');
+    } else {
+      $('.js-user_first_name').text(_data.root.properties.first_name );
+    }
     _myID = _data.root.properties.id;
     _dashboard = new Dashboard();
     _dashboard.displayGoals();

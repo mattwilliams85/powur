@@ -10,7 +10,7 @@ describe User, type: :model do
     let(:password) { 'password123' }
 
     before :each do
-      @user = create(:user, password: password)
+      @user = create(:user, password: password, password_confirmation: password)
     end
 
     it 'returns the user with valid credentials' do
@@ -42,6 +42,14 @@ describe User, type: :model do
   describe 'contact field' do
     it 'allows properties to be set directly on the model' do
       create(:user, phone: '8585551212')
+    end
+  end
+
+  describe '#create' do
+
+    it 'destroys the invite used to create the user' do
+      user = create(:user)
+      expect(Invite.find_by(email: "#{user.email}")).to be_nil
     end
   end
 

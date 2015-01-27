@@ -1,7 +1,7 @@
 module Anon
   class InvitesController < AnonController
     include EwalletDSL
-    before_action :fetch_invite, only: [ :create, :update ]
+    before_action :fetch_invite, only: [ :create, :update, :validate ]
 
     def create
       require_input :code
@@ -13,30 +13,43 @@ module Anon
     end
 
     def update
-      require_input :password
       input = params.permit(:first_name,
                             :last_name,
                             :email,
                             :password,
+                            :password_confirmation,
+                            :address,
+                            :city,
                             :phone,
-                            :zip)
+                            :zip,
+                            :state,
+                            :country,
+                            :tos,
+                            :communications)
+
+      input['email'].downcase! if input['email']
+
       user = @invite.accept(input)
-      find_or_create_ipayout_account(user)
-      PromoterMailer.notify_upline(user).deliver_later
-      PromoterMailer.welcome_new_user(user).deliver_later
 
-      # Set the URL slug of the new user
-      # (the SecureRandom number is to safeguard against users with the same name)
-      user.url_slug = "#{user.first_name}-#{user.last_name}-#{SecureRandom.random_number(100)}"
+      if user.errors.empty?
+        find_or_create_ipayout_account(user)
+        PromoterMailer.notify_upline(user).deliver_later
+        PromoterMailer.welcome_new_user(user).deliver_later
 
-      login_user(user)
-      render 'anon/session/show'
+        head 200
+      else
+        render json: {errors: user.errors.messages}
+      end
     end
 
     def destroy
       reset_session
 
       render 'anon/session/anonymous'
+    end
+
+    def validate
+      render 'show'
     end
 
     private
@@ -47,7 +60,7 @@ module Anon
 
     def fetch_invite
       @invite = Invite.find_by(id: params[:code], user_id: nil) || invalid_code!
-      user = User.find_by_email(@invite.email)
+      user = User.find_by_email(@invite.email.downcase)
       if user
         @invite.update_attribute(:user_id, user.id)
         invalid_code!

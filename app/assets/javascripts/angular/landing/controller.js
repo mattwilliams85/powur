@@ -1,8 +1,9 @@
 'use strict';
 
-function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval) {
+function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Invite, Geo) {
   $scope.redirectToDashboardIfSignedIn();
   $scope.showValidationMessages = false;
+  $scope.isSubmitDisabled = false;
 
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
@@ -36,6 +37,61 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     } else {
       $scope.showValidationMessages = true;
     }
+  };
+
+  $scope.validateInvite = function() {
+    var code;
+    if ($scope.invite && $scope.invite.code) {
+      Invite.validate($scope.invite.code).then(function(data) {
+        if (data.error) {
+          $scope.invite = {};
+          $scope.user = {};
+          $scope.invite.error = data.error;
+        } else {
+          code = $scope.invite.code;
+          $scope.invite = data;
+          $scope.invite.code = code;
+          $scope.user.first_name = data.properties.first_name;
+          $scope.user.last_name = data.properties.last_name;
+          $scope.user.email = data.properties.email;
+        }
+      });
+    }
+  };
+
+  var signUpCallback = function(data) {
+    $scope.formErrorMessages = {};
+    if (data.errors) {
+      $.each(data.errors, function(key, errors) {
+        // Only take first error message from the array
+        var errorMessage = errors[0];
+        if (errorMessage) {
+          $scope.formErrorMessages[key] = errors[0];
+        }
+      });
+    } else {
+      $location.path('/sign-in');
+      $('<div class=\'reveal-modal\' data-reveal><h3>You\'ve successfully Signed Up. Now you may Sign In.</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+      $(document).foundation();
+    }
+    $scope.isSubmitDisabled = false;
+  };
+  $scope.signUp = function() {
+    if ($scope.user) {
+      $scope.isSubmitDisabled = true;
+      var path;
+      for (var i in $scope.invite.actions) {
+        if ($scope.invite.actions[i].name === 'create_account') {
+          path = $scope.invite.actions[i].href;
+        }
+      }
+      Invite.signUp($scope.invite.properties.id, $scope.user, path).then(signUpCallback);
+    }
+  };
+
+  $scope.clearInviteValidationForm = function() {
+    $scope.invite = {};
+    $scope.user = {};
   };
 
   $scope.resetPassword = function() {
@@ -86,7 +142,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   };
 
   this.init($scope, $location, $timeout);
-  this.fetch($scope, $interval);
+  this.fetch($scope, $interval, $routeParams, Geo);
 }
 
 
@@ -101,10 +157,11 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
   if (/\/sign-in$/.test($location.path())) return $scope.mode = 'sign-in';
   if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
   if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
+  if (/\/sign-up/.test($location.path())) return $scope.mode = 'sign-up';
 };
 
 
-LandingCtrl.prototype.fetch = function($scope, $interval) {
+LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
   if ($scope.mode === 'home') {
     // Only for home page
     $scope.currentHomeSlide = 0;
@@ -119,13 +176,22 @@ LandingCtrl.prototype.fetch = function($scope, $interval) {
     // Only for sign in page
     $scope.signInPage = true;
   } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
+    // Only for faq pages
     $scope.activeFAQItemId = 'faq_item_1';
     $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
       'Sunstand Customer FAQ' :
       'Sunstand Advocate FAQ';
+  } else if ($scope.mode === 'sign-up') {
+    // Only for sign up page
+    $scope.invite = {};
+    $scope.user = {};
+    $scope.countries = Geo.countries();
+    $scope.states = Geo.states();
+    $scope.invite.code = $routeParams.inviteCode;
+    if ($scope.invite.code) $scope.validateInvite();
   }
 };
 
 
-LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval'];
+LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'Invite', 'Geo'];
 sunstandControllers.controller('LandingCtrl', LandingCtrl);
