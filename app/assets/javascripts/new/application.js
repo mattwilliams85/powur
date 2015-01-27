@@ -8,6 +8,7 @@
 //= require_tree ../angular/invite
 //= require_tree ../angular/landing
 //= require_tree ../angular/promo
+//= require_tree ../angular/sun-scroll
 //= require_tree ../angular/university
 //= require_tree ../angular/vendor
 

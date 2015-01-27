@@ -2,26 +2,6 @@
 //   background:transparent !important;
 // }
 
-.slide-dot {
-  padding:6px;
-  margin:20px;
-  background-color:#ccc;
-  border-radius:100%;
-  -moz-border-radius: 100%;
-  -webkit-border-radius: 100%;
-  -o-border-radius: 100%;
-}
-
-.slide-guide {
-  z-index:100;
-  position:absolute;
-  right:0;
-  top:40%;
-
-  .active {
-    background-color:#666 !important;
-  }
-}
 
 .sun-landing {
   height: 100%;
@@ -123,55 +103,64 @@
     margin: 0 auto;
   }
 
-  .sun-bg-1 {
-    background-image: image-url("landing/bg-1.jpg");
+  .scroll-slide-1 {
     height:100%;
     width:100%;
     z-index:80;
   }
-  .sun-bg-2 {
-    background-color: #fff;
+  .scroll-slide-2 {
     height:100%;
     width:100%;
     z-index:70;
   }
-  .sun-bg-3 {
+  .scroll-slide-3 {
      
     height:100%;
     width:100%;
-    background: #f4f6f7;
     z-index:60;
   }
 
-  .sun-bg-4 {
+  .scroll-slide-4 {
     height:100%;
     width:100%;
-       background: #fff;
     z-index:50;
   }
 
-  .sun-bg-5 {
+  .scroll-slide-5 {
     height:100%;
     width:100%;
-    background: #f4f6f7;
     z-index:40;
   }
 
-  .sun-bg-6 {
+  .scroll-slide-6 {
     height:100%;
     width:100%;
-    background-image: image-url("landing/bg-3.jpg");
     z-index:30;
   }
 
-  .sun-bg-7 {
-    background-color: #fff;
+  .scroll-slide-7 {
     height:100%;
     width:100%;
     z-index:20;
   }
 
+  .sun-bg-1 {
+     background-image: image-url("landing/bg-1.jpg");
+   }
 
+   .sun-bg-2 {
+     background: #fff;
+   }
+
+   .sun-bg-3 {
+     background: #f4f6f7;
+   }
+   .sun-bg-4 {
+     background-image: image-url("landing/bg-3.jpg");
+   }
+   .sun-bg-5 {
+     background-image: image-url("landing/bg-4.jpg");
+   }
 
   .sun-sign-in-wrapper {
     padding-top: 200px;

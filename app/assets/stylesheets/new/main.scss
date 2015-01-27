@@ -6,6 +6,27 @@ html, body {
 /*
  * HEADER for guest user
 */
+.slide-dot {
+  padding:6px;
+  margin:20px;
+  background-color:#ccc;
+  border-radius:100%;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -o-border-radius: 100%;
+}
+
+.slide-guide {
+  z-index:100;
+  position:absolute;
+  right:0;
+  top:40%;
+
+  .active {
+    background-color:#666 !important;
+  }
+}
+
 .sun-header-guest {
   font-family: $header-font-family;
   left: 0;
@@ -196,7 +217,7 @@ html, body {
 .sun-landing-footer {
   background: #383838;
   width:100%;
-  z-index:20;
+  z-index:30;
   position:absolute;
   bottom:0;
 
@@ -253,6 +274,9 @@ html, body {
   }
 }
 
+.slide-dot {
+  cursor:pointer;
+}
 
 /*
  * Misc
@@ -284,7 +308,7 @@ html, body {
   background-position: center center;
 
   .sun-home-content {
-    padding: 10em 0 0 0;
+    margin-top:35%;
     text-align: center;
 
     h4, h5 {
@@ -305,12 +329,16 @@ input {
   &.radius {
     @include radius($input-border-radius);
   }
+}
 
-.scrolly {
-  overflow-y: hidden;
-  max-height: 0px; /* approximate max height */
+.sun-landing {
 
-  transition-property: all;
-  transition-duration: .5s;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  .scrolly {
+    overflow-y: hidden;
+    max-height: 0px; /* approximate max height */
+
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
 }
