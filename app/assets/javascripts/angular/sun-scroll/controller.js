@@ -4,6 +4,18 @@ function SunScrollCtrl($scope, $rootScope, $location, $routeParams, $timeout, $i
   $scope.currentSlide = 0;
   $scope.selectedSlide = 0;
   $scope.dots = []
+
+  $scope.$on("$routeChangeSuccess", function($currentRoute, $previousRoute) {
+    if($location.path() === "/home") {
+      console.log('home')
+      $scope.createDots(7)
+      $scope.scrollTimeout();
+    } else {
+      console.log('not home')
+      $scope.createDots(6)
+      $scope.mouseWheel();
+    }
+  });
   // $scope.dots = [{active:true},{active:false},{active:false},{active:false},{active:false},{active:false},{active:false}];
 
 
@@ -19,7 +31,6 @@ function SunScrollCtrl($scope, $rootScope, $location, $routeParams, $timeout, $i
   }
 
   $scope.clickSlideDot = function(value){
-    // if($(this).hasClass('active')) return;
     $scope.selectedSlide = value 
     $scope.slideNavigation();
   }
@@ -104,7 +115,6 @@ function SunScrollCtrl($scope, $rootScope, $location, $routeParams, $timeout, $i
 
     $scope.dots[$scope.currentSlide].active = false;
     $scope.currentSlide = $scope.selectedSlide;
-    debugger
     $scope.dots[$scope.currentSlide].active = true;
 
     for(var i=0; i < 7; i++){
@@ -112,11 +122,9 @@ function SunScrollCtrl($scope, $rootScope, $location, $routeParams, $timeout, $i
       else $('.scroll-slide-'+(i+1)).slideUp(speed2,'easeOutExpo', function(){});
     }
   }
-
-
-  $scope.createDots(7)
-  $scope.scrollTimeout();
 }
+
+
 
 SunScrollCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$timeout', '$interval'];
 sunstandControllers.controller('SunScrollCtrl', SunScrollCtrl);
