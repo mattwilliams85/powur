@@ -910,7 +910,8 @@ CREATE TABLE users (
     avatar_file_size integer,
     avatar_updated_at timestamp without time zone,
     remember_created_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone
+    last_sign_in_at timestamp without time zone,
+    smarteru_employee_id character varying
 );
 
 
@@ -1955,3 +1956,5 @@ INSERT INTO schema_migrations (version) VALUES ('20141212003512');
 INSERT INTO schema_migrations (version) VALUES ('20141217193712');
 
 INSERT INTO schema_migrations (version) VALUES ('20150112233624');
+
+INSERT INTO schema_migrations (version) VALUES ('20150126211538');
