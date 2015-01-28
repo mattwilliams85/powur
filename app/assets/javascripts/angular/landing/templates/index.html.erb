@@ -1,11 +1,11 @@
 <ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
-<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}" ng-controller="SunScrollCtrl">
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}" >
   <ng-include src="'<%=asset_path("shared/header-signed-out.html") %>'"></ng-include>
 
-  <main class="sun-landing">
+  <main class="sun-landing" id="pagepiling">
 
-    <div class="sun-scrolling-bg sun-bg-1 sun-slider scroll-slide-1" id="anchor_1">
+    <div class="sun-scrolling-bg sun-bg-1 sun-slider section" id="anchor_1 section1">
       <div id="slide0"  class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 0, 'inactive': currentHomeSlide > 0}">
         <div class="row">
           <h1>It's going to be legen...</h1>
@@ -30,60 +30,60 @@
         </div>
       </div>
 
-      <a class="sun-next-pointer inverted" ng-class="{'inactive': currentHomeSlide !== 3}" ng-click="clickSlideDot(0)"></a>
+      <a class="sun-next-pointer inverted"></a>
     </div>
 
 
-    <div class="sun-scrolling-bg sun-bg-2 scroll-slide-2" id="building_large_network">
+    <div class="sun-scrolling-bg sun-bg-2 section" id="section2">
       <div class="row">
         <div class="large-12 columns sun-home-content">
           <div class="gif1"></div>
           <h4>Building the world's largest network of peer to peer solar advocates.</h4>
         </div>
       </div>
-      <a class="sun-next-pointer" ng-click="clickSlideDot(1)">So that we</a>
+      <a class="sun-next-pointer">So that we</a>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-3 scroll-slide-3" id="decentralization_of_energy_production">
+    <div class="sun-scrolling-bg sun-bg-3 section" id="section3">
       <div class="row">
         <div class="large-12 columns sun-home-content">
           <div class="gif2"></div>
           <h4>Facilitate the largest transfer of wealth in history through the decentralization of energy production.</h4>
         </div>
       </div>
-      <a class="sun-next-pointer" ng-click="clickSlideDot(2)">Which will</a>
+      <a class="sun-next-pointer">Which will</a>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-2 scroll-slide-4" id="reverse_climate_change">
+    <div class="sun-scrolling-bg sun-bg-2 section">
       <div class="row">
         <div class="large-12 columns sun-home-content">
           <div class="gif3"></div>
           <h4>Reverse climate change by turning millions of American homes clean and carbon-positive.</h4>
         </div>
       </div>
-      <a class="sun-next-pointer" ng-click="clickSlideDot(3)">So we</a>
+      <a class="sun-next-pointer">So we</a>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-3 scroll-slide-5" id="clean_energy_solution">
+    <div class="sun-scrolling-bg sun-bg-3 section">
       <div class="row">
         <div class="large-12 columns sun-home-content">
           <div class="gif4"></div>
           <h4>Create a sustainable, renewable and clean energy solution for all future generations.</h4>
         </div>
       </div>
-      <a class="sun-next-pointer" ng-click="clickSlideDot(4)"></a>
+      <a class="sun-next-pointer"></a>
     </div>
 
-    <div class="sun-scrolling-bg  sun-bg-4 scroll-slide-6" id="solar_revolution">
+    <div class="sun-scrolling-bg  sun-bg-4 section">
       <div class="sun-home-intro">
         <div class="row">
-          <h1>The solar revolution is here.</h1>
+          <h1 style="width:70%">The solar revolution is here.</h1>
         </div>
       </div>
-      <a class="sun-next-pointer inverted" ng-click="clickSlideDot(5)">It will be disruptive</a>
+      <a class="sun-next-pointer inverted">It will be disruptive</a>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-2 scroll-slide-7" id="how_to_participate">
+    <div class="sun-scrolling-bg sun-bg-2 section">
       <div class="row">
         <div class="large-12 columns sun-home-content">
           <h5>Select how you want to participate in the revolution.</h5>
@@ -93,11 +93,43 @@
           </div>
         </div>
       </div>
+      <footer class="sun-landing-footer">
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="footer-content">
+              <nav class="footer-nav">
+                <ul>
+                  <li><a href="">Contact</a></li> |
+                  <li><a href="">Privacy</a></li> |
+                  <li><a href="">Terms</a></li>
+                </ul>
+              </nav>
+
+              <div class="copyright">
+                Copyright © 2014 - 2015 Sunstand Inc. All rights reserved.
+              </div>
+
+              <div class="social-links">
+                <a class="facebook" href=""></a>
+                <a class="twitter" href=""></a>
+                <a class="youtube" href=""></a>
+              </div>
+
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
     </div>
   </main>
 
-  <div class="slide-guide">
+<!--   <div class="slide-guide">
     <div ng-repeat="dot in dots" class="slide-dot" ng-class="{'active': dot.active}" id='slide-dot1' ng-click="clickSlideDot(dots.indexOf(dot))"></div>
-  </div>
+  </div> -->
 
 </div>
+
+<style type="text/css">
+  footer { display:none;}
+</style>

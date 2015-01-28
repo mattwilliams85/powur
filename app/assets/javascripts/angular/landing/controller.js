@@ -13,6 +13,8 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     $scope.isMenuActive = true;
   };
 
+
+
   $scope.signIn = function() {
     if ($scope.user && $scope.user.email && $scope.user.password) {
       $http.post('/login.json', {
@@ -114,6 +116,38 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     }
   };
 
+//   $scope.pagePiler2 = function(){
+//     $('#pagepiling2').pagepiling({
+//         menu: null,
+//         direction: 'vertical',
+//         verticalCentered: true,
+//         sectionsColor: [],
+//         anchors: [],
+//         scrollingSpeed: 700,
+//         easing: 'swing',
+//         loopBottom: false,
+//         loopTop: false,
+//         css3: true,
+//         navigation: {
+//             'textColor': '#000',
+//             'bulletsColor': '#000',
+//             'position': 'right',
+//             'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
+//         },
+//         normalScrollElements: null,
+//         normalScrollElementTouchThreshold: 5,
+//         touchSensitivity: 5,
+//         keyboardScrolling: true,
+//         sectionSelector: '.section',
+//         animateAnchor: false,
+// // 
+//         //events
+//         onLeave: function(index, nextIndex, direction){},
+//         afterLoad: function(anchorLink, index){$('header').addClass('invert'),$('footer').show(),$('#pp-nav').fadeIn('slow');},
+//         afterRender: function(){},
+//     });   
+//   };
+
   $scope.updatePassword = function() {
     if ($scope.user && $scope.user.password && $scope.user.password_confirm) {
       $http.put('/password.json', {
@@ -147,9 +181,6 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
 
 
 LandingCtrl.prototype.init = function($scope, $location, $timeout) {
-  $timeout(function() {
-    $scope.invertHeaderColor();
-  }, 2000);
 
   // Setting mode based on the url
   $scope.mode = '';
@@ -163,6 +194,10 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
 
 LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
   if ($scope.mode === 'home') {
+    $timeout(function() {
+      $scope.readyPiler();
+    }, 6500);
+
     // Only for home page
     $scope.currentHomeSlide = 0;
     var sliderStop = $interval(function() {
@@ -172,7 +207,6 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
         sliderStop = undefined;
       }
     }, 2000);
-  } else if ($scope.mode === 'create-energy') {
     
   } else if ($scope.mode === 'sign-in') {
     // Only for sign in page
@@ -193,6 +227,55 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
     if ($scope.invite.code) $scope.validateInvite();
   }
 };
+
+// function pagePiler2(){
+//   $('#pagepiling2').pagepiling({
+//     menu: null,
+//     direction: 'vertical',
+//     verticalCentered: true,
+//     sectionsColor: [],
+//     anchors: [],
+//     scrollingSpeed: 700,
+//     easing: 'swing',
+//     loopBottom: false,
+//     loopTop: false,
+//     css3: true,
+//     navigation: {
+//         'textColor': '#000',
+//         'bulletsColor': '#000',
+//         'position': 'right',
+//         'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
+//     },
+//     normalScrollElements: null,
+//     normalScrollElementTouchThreshold: 5,
+//     touchSensitivity: 5,
+//     keyboardScrolling: true,
+//     sectionSelector: '.section',
+//     animateAnchor: false,
+// // 
+//     //events
+//     onLeave: function(index, nextIndex, direction){},
+//     afterLoad: function(anchorLink, index){$('header').addClass('invert'),$('footer').show(),$('#pp-nav').fadeIn('slow');},
+//     afterRender: function(){},
+//   });   
+// }
+
+  //   $('#pp-nav').hide();
+  //   $timeout(function() {
+  //     if ($('#pagepiling2').length > 0){
+  //       console.log('woo')
+      
+  //       $('#pp-nav').hide();
+  //     }
+  //   }, 6500);
+  // }
+  
+  // $(document).ready(function(){
+  //   setTimeout(function(){
+  //     pagePiler2();
+  //   },6500)
+  // });
+
 
 LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'Invite', 'Geo'];
 sunstandControllers.controller('LandingCtrl', LandingCtrl);
