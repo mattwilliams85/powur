@@ -19,6 +19,7 @@ class UniversityClassesJson < JsonDecorator
       json.image_url university_class.image_original_path
       json.price university_class.bonus_volume
       json.purchased university_class.purchased_by?(current_user.id)
+      json.enrollable !!university_class.smarteru_module_id
     end
   end
 

@@ -26,6 +26,26 @@ function UniversityClass($http, $q) {
 
 
     /*
+    * Enroll in a class
+    */
+    enroll: function(action) {
+      var dfr = $q.defer();
+
+      $http({
+        method: action.method,
+        url: action.href
+      }).success(function(res) {
+        dfr.resolve(res);
+      }).error(function(err) {
+        console.log('エラー', err);
+        dfr.reject(err);
+      });
+
+      return dfr.promise;
+    },
+
+
+    /*
      * Get one item
     */
     get: function(id, path) {

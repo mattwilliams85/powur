@@ -98,8 +98,9 @@ var sunstandServices = angular.module(
 
 
 sunstandApp.config(
-  ['$routeProvider', '$sceProvider', function($routeProvider, $sceProvider) {
+  ['$routeProvider', '$sceProvider', '$httpProvider', function($routeProvider, $sceProvider, $httpProvider) {
     $sceProvider.enabled(false);
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
 
     $routeProvider.
     when('/home', {

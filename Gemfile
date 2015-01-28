@@ -1,6 +1,8 @@
 ruby '2.2.0'
 source 'https://rubygems.org'
 
+gem 'dotenv-rails', groups: [:development, :test]
+
 gem 'rails', '4.2.0'
 gem 'pg'
 
@@ -43,6 +45,8 @@ gem 'nmi_direct_post'
 gem 'week_of_month'
 gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
 gem 'newrelic_rpm'
+gem 'aasm'
+gem 'smarteru'
 
 group :development do
   gem 'spring-commands-rspec'
