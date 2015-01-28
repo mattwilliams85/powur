@@ -13,7 +13,7 @@ var sunstandApp = angular.module('sunstandApp', [
   function ($rootScope, $location, $document, $http, CurrentUser) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
-    
+
     // if($location.path() === '/home' || '/create-energy' || '/create-wealth'){
       $('#pp-nav').hide();
     // }
@@ -48,41 +48,38 @@ var sunstandApp = angular.module('sunstandApp', [
           },100)
         }
       });
-    }
+    };
 
-      $rootScope.pagePiler = function(){
-        console.log('wooz')
-        $('#pagepiling').pagepiling({
-            menu: null,
-            direction: 'vertical',
-            verticalCentered: true,
-            sectionsColor: [],
-            anchors: [],
-            scrollingSpeed: 700,
-            easing: 'swing',
-            loopBottom: false,
-            loopTop: false,
-            css3: true,
-            navigation: {
-                'textColor': '#888',
-                'bulletsColor': '#888',
-                'position': 'right',
-                'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
-            },
-            normalScrollElements: null,
-            normalScrollElementTouchThreshold: 5,
-            touchSensitivity: 5,
-            keyboardScrolling: true,
-            sectionSelector: '.section',
-            animateAnchor: false,
-    // 
-            //events
-            onLeave: function(index, nextIndex, direction){},
-            afterLoad: function(anchorLink, index){$('header').addClass('invert'),$('footer').show(),$('#pp-nav').fadeIn('slow'),$('#dim_the_lights').css('opacity','1')},
-            afterRender: function(){$('#pp-nav').hide();},
-        });   
-      };
-
+    $rootScope.pagePiler = function(){
+      $('#pagepiling').pagepiling({
+        menu: null,
+        direction: 'vertical',
+        verticalCentered: true,
+        sectionsColor: [],
+        anchors: [],
+        scrollingSpeed: 700,
+        easing: 'swing',
+        loopBottom: false,
+        loopTop: false,
+        css3: true,
+        navigation: {
+          'textColor': '#888',
+          'bulletsColor': '#888',
+          'position': 'right',
+          'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
+        },
+        normalScrollElements: null,
+        normalScrollElementTouchThreshold: 5,
+        touchSensitivity: 5,
+        keyboardScrolling: true,
+        sectionSelector: '.section',
+        animateAnchor: false,
+        //events
+        onLeave: function(index, nextIndex, direction){},
+        afterLoad: function(anchorLink, index){$('header').addClass('invert'),$('footer').show(),$('#pp-nav').fadeIn('slow'),$('#dim_the_lights').css('opacity','1')},
+        afterRender: function(){$('#pp-nav').hide();},
+      });
+    };
 
     // TODO: move header functionality into its own directive
     $rootScope.invertHeaderColor = function() {
@@ -117,7 +114,8 @@ var sunstandApp = angular.module('sunstandApp', [
     $rootScope.signOut = function() {
       var cb = function() {
         $rootScope.isSignedIn = false;
-        window.location = '#/sign-in';
+        // window.location = '#/sign-in';
+        $location.path('/sign-in');
       };
       $http.delete('/login.json', {
         xsrfHeaderName: 'X-CSRF-Token'
@@ -210,4 +208,3 @@ sunstandApp.config(
     });
   }]
 );
-
