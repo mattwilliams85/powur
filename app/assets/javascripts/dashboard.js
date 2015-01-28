@@ -1424,6 +1424,7 @@ function Dashboard(){
 
 
   function _teamDrilldown(_type, target){
+    console.log(target)
     target.addClass('active_tab')
     target.siblings().removeClass('active_tab')
     target.parents().eq(4).css("border-bottom","0px")
