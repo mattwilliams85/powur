@@ -494,7 +494,7 @@ CREATE TABLE pay_periods (
 
 
 --
--- Name: product_enrollments; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: product_enrollments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE product_enrollments (
@@ -1258,7 +1258,7 @@ ALTER TABLE ONLY pay_periods
 
 
 --
--- Name: product_enrollments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: product_enrollments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY product_enrollments
@@ -1433,14 +1433,14 @@ CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
 
 
 --
--- Name: index_product_enrollments_on_user_id_and_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_product_enrollments_on_user_id_and_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_product_enrollments_on_user_id_and_product_id ON product_enrollments USING btree (user_id, product_id);
 
 
 --
--- Name: index_products_on_certifiable; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_products_on_certifiable; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_products_on_certifiable ON products USING btree (certifiable);
@@ -2018,3 +2018,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150126211538');
 INSERT INTO schema_migrations (version) VALUES ('20150127022344');
 
 INSERT INTO schema_migrations (version) VALUES ('20150127195532');
+
