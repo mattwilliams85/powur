@@ -109,7 +109,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :university_classes, only: [:index, :show]
+    resources :university_classes, only: [:index, :show] do
+      member do
+        post :enroll
+      end
+    end
   end
 
   # logged in admin routes

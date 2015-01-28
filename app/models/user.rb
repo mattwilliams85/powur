@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
+  has_many :product_enrollments, dependent: :destroy
 
   store_accessor :contact,
                  :address, :city, :state, :country, :zip, :phone

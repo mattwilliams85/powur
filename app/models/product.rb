@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
   has_many :quote_fields, dependent: :destroy
   has_many :quote_field_lookups, through: :quote_fields
   has_many :product_receipts
+  has_many :product_enrollments, dependent: :destroy
 
   validates_presence_of :name, :bonus_volume, :commission_percentage
   validates :commission_percentage, numericality: { less_than_or_equal_to: 100 }
@@ -41,6 +42,10 @@ class Product < ActiveRecord::Base
 
   def purchased_by?(user_id)
     product_receipts.where(user_id: user_id).count > 0
+  end
+
+  def is_free?
+    bonus_volume == 0
   end
 
   class << self

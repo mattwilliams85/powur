@@ -13,8 +13,8 @@
           <h5 ng-if="classItem.properties.price > 0">${{classItem.properties.price}}</h5>
           <h6>{{classItem.properties.name}}</h6>
           <p class="description">{{classItem.properties.description}}</p>
-          <a class="button small" ng-click="takeClassClick()" ng-if="canTakeClass(classItem)">Take Class</a>
-          <a class="button small purchase" ng-click="purchaseClassClick()" ng-if="!canTakeClass(classItem)">Purchase</a>
+          <a class="button small" ng-click="takeClassClick(classItem)" ng-if="canTakeClass(classItem)">Take Class</a>
+          <a class="button small purchase" ng-click="purchaseClassClick()" ng-if="canPurchaseClass(classItem)">Purchase</a>
         </div>
       </div>
     </div>
