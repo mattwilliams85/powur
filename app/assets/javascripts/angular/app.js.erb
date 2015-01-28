@@ -200,6 +200,10 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/university/templates/index.html")%>',
       controller: 'UniversityCtrl'
     }).
+    when('/university/classes/:classId/purchase', {
+      templateUrl: '<%=asset_path("angular/university/templates/purchase.html")%>',
+      controller: 'UniversityCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'
