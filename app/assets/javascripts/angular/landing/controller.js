@@ -179,8 +179,8 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
     // Only for faq pages
     $scope.activeFAQItemId = 'faq_item_1';
     $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
-      'Sunstand Customer FAQ' :
-      'Sunstand Advocate FAQ';
+      'Powur Customer FAQ' :
+      'Powur Advocate FAQ';
   } else if ($scope.mode === 'sign-up') {
     // Only for sign up page
     $scope.invite = {};
