@@ -12,6 +12,7 @@ Rails.application.config.assets.precompile += %w( profile.js )
 Rails.application.config.assets.precompile += %w( promoter.js )
 Rails.application.config.assets.precompile += %w( quote.js )
 Rails.application.config.assets.precompile += %w( user.js )
+Rails.application.config.assets.precompile += %w( jquery.pagepiling.js )
 
 Rails.application.config.assets.precompile += [
   'new/application.js'
@@ -28,6 +29,7 @@ Rails.application.config.assets.precompile += %w( profile.css )
 Rails.application.config.assets.precompile += %w( promoter.css )
 Rails.application.config.assets.precompile += %w( user.css )
 Rails.application.config.assets.precompile += %w( earnings.css )
+Rails.application.config.assets.precompile += %w( jquery.pagepiling.css )
 
 Rails.application.config.assets.precompile += [
   'new/application.css'

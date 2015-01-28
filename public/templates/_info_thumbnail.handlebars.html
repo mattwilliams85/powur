@@ -1,0 +1,116 @@
+<div class="team_thumbnail">
+  <div class="js-thumbnail ">
+  </div>
+    <div class="js-thumbnail ">
+      <div class="avatar" style="background-image:url({{this.profile_image}}) !important"></div>
+    </div>
+  </div>
+</div>
+<div class="team_thumbnail">
+  <div class="js-thumbnail ">
+  </div>
+    <div class="js-thumbnail ">
+      <span class="info_title">NAME</span>
+      <i class="fa fa-user"></i>
+      <span class="info_detail">{{format_length this.name 15}}</span>
+    </div>
+  </div>
+</div>
+<div class="team_thumbnail">
+  <div class="js-thumbnail ">
+  </div>
+    <div class="js-thumbnail ">
+      <span class="info_title">PHONE</span>
+      <i class="fa fa-phone"></i>
+      <span class="info_detail" style="margin-top:21px">{{this.phone}}</span>
+    </div>
+  </div>
+</div>
+<div class="team_thumbnail">
+  <div class="js-thumbnail ">
+  </div>
+    <div class="js-thumbnail ">
+      <span class="info_title">EMAIL</span>
+      <i class="fa fa-envelope"></i>
+       <a href="#"><span class="info_detail" style="margin-top:25px">{{format_length this.email 15}}</span></a>
+    </div>
+  </div>
+</div>
+<div class="team_thumbnail">
+  <div class="js-thumbnail ">
+  </div>
+    <div class="js-thumbnail ">
+      <span class="info_title">GENERATION</span>
+      <span class="info_detail fa-generation" style="">{{this.generation}}</span>
+    </div>
+  </div>
+</div>
+
+
+<style type="text/css">
+  .js-tabs {
+    position:absolute;
+    bottom:-50px;
+    left:12px;
+  }
+
+  .js-team_tab {
+    background-color:#193640;
+  }
+
+  .js-impact_tab {
+    background-color:#326C7F;
+  }
+
+  .js-info_tab {
+    background-color:#4BA1BF;
+  }
+
+  .team_tab:hover {
+    background-color:#555;
+  }
+
+  .team_tab.active_tab {
+    background-color:#444;
+  }
+
+
+  .info_title {
+    font-size:0.9em;
+    margin-top:25px;
+    display:block;
+  }
+
+  .info_detail {
+    margin-top:20px;
+    display:block;
+    font-size:0.95em;
+  }
+
+  .js-thumbnail .avatar {
+    margin:40px;
+    padding:55px;
+    border:3px solid;
+  }
+
+  .js-thumbnail .fa-envelope {
+    margin-top:16px;
+    font-size:4em;
+  }
+
+  .js-thumbnail .fa-phone {
+    margin-top:21px;
+    font-size:4em;
+  }
+
+  .js-thumbnail .fa-user {
+    margin-top:20px;
+    font-size:4em;
+  }
+
+  .js-thumbnail .fa-generation {
+    font-size:7em;
+    margin-top:68px
+  }
+
+</style>

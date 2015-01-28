@@ -111,6 +111,11 @@ class User < ActiveRecord::Base
     upline[0..-2]
   end
 
+  def placeable?(current_user)
+    # CHANGE TO <= 60 WHEN NOT TESTING! -matthew
+    ((Time.now - created_at) / 86400) <= 800 && sponsor_id == current_user.id
+  end
+
   def lifetime_achievements
     @lifetime_achievements ||= rank_achievements
                                .where('pay_period_id is not null')

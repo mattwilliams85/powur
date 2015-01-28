@@ -38,7 +38,7 @@ describe 'Sign Up', :js, type: :feature do
         click_on 'Register for free'
         # Button should be disabled while request is processing
         expect(page).to have_button("Register for free", disabled: true)
-        sleep 2
+        sleep 4
         expect(page).to have_content 'successfully Signed Up'
       end
     end
