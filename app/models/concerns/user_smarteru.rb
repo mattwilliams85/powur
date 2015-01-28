@@ -1,7 +1,10 @@
+require 'rest-client'
+
 module UserSmarteru
   extend ActiveSupport::Concern
 
   def smarteru_client
+    RestClient.proxy = ENV["QUOTAGUARDSTATIC_URL"] if Rails.env.production?
     @smarteru_client ||= Smarteru::Client.new(
       account_api_key: Rails.application.secrets.smarteru_account_api_key,
       user_api_key: Rails.application.secrets.smarteru_user_api_key
@@ -50,7 +53,7 @@ module UserSmarteru
     response = smarteru_client.request('createUser', payload)
 
     unless response.success?
-      Airbrake.notify(response.error)
+      Airbrake.notify(response.error.to_s)
       return false
     end
     update_column(:smarteru_employee_id, id)
@@ -82,7 +85,7 @@ module UserSmarteru
     if response.result.present? || (response.error && response.error[:error][:error_id] == 'ELM:19')
       return self.product_enrollments.find_or_create_by(product_id: product.id)
     end
-    Airbrake.notify(response.error)
+    Airbrake.notify(response.error.to_s)
     false
   end
 
@@ -99,7 +102,7 @@ module UserSmarteru
     }
     response = smarteru_client.request('requestExternalAuthorization', payload)
     unless response.success?
-      Airbrake.notify(response.error)
+      Airbrake.notify(response.error.to_s)
       return false
     end
     response.result[:redirect_path]
