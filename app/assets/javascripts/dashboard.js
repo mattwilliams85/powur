@@ -528,8 +528,7 @@ function Dashboard(){
         var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
         $("#dashboard_quotes").append(_html);
         var _drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
-        _drilldownContainerObj.css("opacity","0");
-        
+
         //retrieve info from /customers/:id for the quote
         var _userDetail={};
         _ajax({
@@ -662,7 +661,10 @@ function Dashboard(){
               });
 
             });
-          _drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);
+
+          _drilldownContainerObj.css({"opacity":"0"});
+          _drilldownContainerObj.animate({"height":"+=608px", "opacity": 1}, _animation_speed);
+          
           }
 
         });
@@ -674,7 +676,6 @@ function Dashboard(){
         var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
         $("#"+_options._mainSectionID).append(_html);
         var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
-        _drilldownContainerObj.css("opacity","0");
 
         var _fields={};
         _ajax({
@@ -778,7 +779,9 @@ function Dashboard(){
                 _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
               });
             });
-        _drilldownContainerObj.animate({height:"+=608px", opacity:1}, _animation_speed);
+
+            _drilldownContainerObj.css({"opacity":"0"});
+            _drilldownContainerObj.animate({"height":"+=608px", "opacity": 1}, _animation_speed);
 
           }
 
