@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   include NameEmailSearch
   include UserScopes
   include PaperclipScopes
+  include UserSmarteru
 
   belongs_to :rank_path
 
@@ -15,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
+  has_many :product_enrollments, dependent: :destroy
 
   store_accessor :contact,
                  :address, :city, :state, :country, :zip, :phone
@@ -107,6 +109,11 @@ class User < ActiveRecord::Base
 
   def parent_ids
     upline[0..-2]
+  end
+
+  def placeable?(current_user)
+    # CHANGE TO <= 60 WHEN NOT TESTING! -matthew
+    ((Time.now - created_at) / 86400) <= 800 && sponsor_id == current_user.id
   end
 
   def lifetime_achievements

@@ -1,262 +1,262 @@
 <% content_for :javascript_includes do %>
-	<%= javascript_include_tag "dashboard.js", "data-turbolinks-track" => true %>
-	<%= javascript_include_tag "kpi.js", "data-turbolinks-track" => true %>
-	<%#= javascript_include_tag "kevins_shitty_javascript.js" %>
-		<%= javascript_include_tag "kpi.js", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "dashboard.js", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "kpi.js", "data-turbolinks-track" => true %>
+  <%#= javascript_include_tag "kevins_shitty_javascript.js" %>
+    <%= javascript_include_tag "kpi.js", "data-turbolinks-track" => true %>
 <% end %>
 
 <style>
 
-	.dashboard_section {
-		    -webkit-touch-callout: none;
-		    -webkit-user-select: none;
-		    -khtml-user-select: none;
-		    -moz-user-select: none;
-		    -ms-user-select: none;
-		    user-select: none;
-	}
-	.full{
-		overflow: hidden;
-	}
-	.promoter_info.contact{
-		padding:32px 32px 0 0;
-		margin: 0 0 0 32px;
-	}
+  .dashboard_section {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+  }
+  .full{
+    overflow: hidden;
+  }
+  .promoter_info.contact{
+    padding:32px 32px 0 0;
+    margin: 0 0 0 32px;
+  }
 
-	.drilldown_content_section{
-		margin: 0 0 0 250px;
-		width:1006px;
-	}
+  .drilldown_content_section{
+    margin: 0 0 0 250px;
+    width:1006px;
+  }
 
 
-	.quotes_info{
-		background-color:#fff;
-		margin:0 8px;
-		width:1262px;
-		border:1px solid #e5e5e5;
-	}
-	.fa-angle-down::before,
-	.fa-angle-up::before{
-		opacity:.3;
-		display:block;
-	}
+  .quotes_info{
+    background-color:#fff;
+    margin:0 8px;
+    width:1262px;
+    border:1px solid #e5e5e5;
+  }
+  .fa-angle-down::before,
+  .fa-angle-up::before{
+    opacity:.3;
+    display:block;
+  }
 </style>
 
 <% if params[:first_run] == "true" %>
-	<div id="system_feedback">
-		<h1>Way to go! You're now a Sunstand advocate!</h1>
-		<p>This is your dashboard and you will come to find this space to be the home of your solar business!</p>
-		<p>To help you make sense for the rest of the dashboard, please first go through the <a href="">Shine Certification</a></p>
-		<p><a href="">Shine Certification</a> is FREE and can be found under the <a href="">SunStand U</a>
-		<br><br>
-	</div>
+  <div id="system_feedback">
+    <h1>Way to go! You're now a Powur advocate!</h1>
+    <p>This is your dashboard and you will come to find this space to be the home of your solar business!</p>
+    <p>To help you make sense for the rest of the dashboard, please first go through the <a href="">Shine Certification</a></p>
+    <p><a href="">Shine Certification</a> is FREE and can be found under the <a href="">Powur U</a>
+    <br><br>
+  </div>
 <% else %>
 <% end %>
 
 <section id="dashboard_personal_goals" class="dashboard_section" data-drilldown-level="0" style="margin-top:-100px;">
-	<div class="section_header">
+  <div class="section_header">
 
-		<div class="section_header_content">
+    <div class="section_header_content">
 
-			<div class="section_label">
-				<div class="tag"><img src="/images/dashboard/goals_icon.png"></div>
-				<div class="text">Pay Period Goals</div>
-			</div>
-			<div id="select-dropdown">
-			<!-- <i class="fa fa-caret-down" style="color:#000"></i> -->
-			<select id="pay_period_goal_path">
-			</select>
-			</div>
-		</div>
-	</div>
+      <div class="section_label">
+        <div class="tag"><img src="/images/dashboard/goals_icon.png"></div>
+        <div class="text">Pay Period Goals</div>
+      </div>
+      <div id="select-dropdown">
+      <!-- <i class="fa fa-caret-down" style="color:#000"></i> -->
+      <select id="pay_period_goal_path">
+      </select>
+      </div>
+    </div>
+  </div>
 
-	<div class="section_body">
-		<div class="section_content" style="overflow:hidden;">
-			<span class="product" style="text-transform:uppercase; font-size:14px; display:block; float:right;margin-right:8px;">Product: NO DATA </span>
-			<br>
-			<div id="goal_meters">
-				<div id="personal_sales" class="meter_container">
-					<div class="labels"></div>
-					<div class="highlight_container">
-						<div class="highlight"></div>
-					</div>
-				</div>
+  <div class="section_body">
+    <div class="section_content" style="overflow:hidden;">
+      <span class="product" style="text-transform:uppercase; font-size:14px; display:block; float:right;margin-right:8px;">Product: NO DATA </span>
+      <br>
+      <div id="goal_meters">
+        <div id="personal_sales" class="meter_container">
+          <div class="labels"></div>
+          <div class="highlight_container">
+            <div class="highlight"></div>
+          </div>
+        </div>
 
-				<div id="group_sales" class="meter_container">
-					<div class="highlight_container">
-						<div class="highlight"></div>
-					</div>
-					<div class="labels flip"></div>
+        <div id="group_sales" class="meter_container">
+          <div class="highlight_container">
+            <div class="highlight"></div>
+          </div>
+          <div class="labels flip"></div>
 
-				</div>
+        </div>
 
-			</div>
-			<div class="section_legend">
-				<div class="team"></div>
-				<span class="group_sales">Group Sales</span>
-				<div class="you"></div>
-				<span class="personal_sales">Personal Sales</span>
-			</div>
-			<div class="next_rank" style="float:right;font-size:14px; text-transform:uppercase; line-height:24px;margin-top:-10px;padding-right:8px;">
-			</div>
+      </div>
+      <div class="section_legend">
+        <div class="team"></div>
+        <span class="group_sales">Group Sales</span>
+        <div class="you"></div>
+        <span class="personal_sales">Personal Sales</span>
+      </div>
+      <div class="next_rank" style="float:right;font-size:14px; text-transform:uppercase; line-height:24px;margin-top:-10px;padding-right:8px;">
+      </div>
 
-		</div>
-	</div>
+    </div>
+  </div>
 </section>
 
 
 <section id="dashboard_kpis" class="dashboard_section" data-drilldown-level="0">
-	<div class="section_header">
+  <div class="section_header">
 
-		<div class="section_header_content">
-			<div class="section_label">
-				<div class="tag"><img src="/images/dashboard/kpi_icon.png"></div>
-				<div class="text">Key performance indicators</div>
-			</div>
+    <div class="section_header_content">
+      <div class="section_label">
+        <div class="tag"><img src="/images/dashboard/kpi_icon.png"></div>
+        <div class="text">Key performance indicators</div>
+      </div>
 
 
-		</div>
-	</div>
+    </div>
+  </div>
 
-	<div class="section_body">
-		<div class="section_content">
+  <div class="section_body">
+    <div class="section_content">
 
-			<% if params[:first_run] == "true" %>
-				<div class="blank_state">
-					You don't have any metrics yet. <a onclick="detailExpander('invite_detail', 'Invite');">Invite a fellow advocate</a> or <a href="#">add a customer quote</a> to watch your impact grow.
-				</div>
-			<% else %>
+      <% if params[:first_run] == "true" %>
+        <div class="blank_state">
+          You don't have any metrics yet. <a onclick="detailExpander('invite_detail', 'Invite');">Invite a fellow advocate</a> or <a href="#">add a customer quote</a> to watch your impact grow.
+        </div>
+      <% else %>
 
-				<div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="environment">
-					<div class="js-thumbnail">
-					<div class="arrow"></div>
-						<h1 class="kpi_value"><span>XX</span></h1>
-						<h3 class="kpi_label">No Data</h3>
-						<span class="expand">
-							<i class="fa fa-angle-down"></i>
-						</span>
-					</div>
+        <div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="environment">
+          <div class="js-thumbnail">
+          <div class="arrow"></div>
+            <h1 class="kpi_value"><span>XX</span></h1>
+            <h3 class="kpi_label">No Data</h3>
+            <span class="expand">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </div>
 
-						<%#= render partial: "shared/kpi_environment_detail"%>
+            <%#= render partial: "shared/kpi_environment_detail"%>
 
-				</div>
+        </div>
 
-				<div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="conversion">
-					<div class="js-thumbnail">
-					<div class="arrow"></div>
-						<h1 class="kpi_value"><span>XX</span></h1>
-						<h3 class="kpi_label">No Data</h3>
-						<span class="expand">
-							<i class="fa fa-angle-down"></i>
-						</span>
-					</div>
-					<% if false %>
-						<%= render partial: "shared/kpi_customer_detail"%>
-					<% end %>
-				</div>
+        <div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="conversion">
+          <div class="js-thumbnail">
+          <div class="arrow"></div>
+            <h1 class="kpi_value"><span>XX</span></h1>
+            <h3 class="kpi_label">No Data</h3>
+            <span class="expand">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </div>
+          <% if false %>
+            <%= render partial: "shared/kpi_customer_detail"%>
+          <% end %>
+        </div>
 
-				<div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="genealogy">
-					<div class="js-thumbnail">
-					<div class="arrow"></div>
-						<h1 class="kpi_value"><span>XX</span></h1>
-						<h3 class="kpi_label">No Data</h3>
-						<span class="expand">
-							<i class="fa fa-angle-down"></i>
-						</span>
-					</div>
+        <div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="genealogy">
+          <div class="js-thumbnail">
+          <div class="arrow"></div>
+            <h1 class="kpi_value"><span>XX</span></h1>
+            <h3 class="kpi_label">No Data</h3>
+            <span class="expand">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </div>
 
-					<% if false %>
-						<%= render partial: "shared/kpi_team_detail"%>
-					<% end %>
+          <% if false %>
+            <%= render partial: "shared/kpi_team_detail"%>
+          <% end %>
 
-				</div>
+        </div>
 
-				<div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="earnings">
-					<div class="js-thumbnail">
-					<div class="arrow"></div>
-						<h1 class="kpi_value"><span>XX</span></h1>
-						<h3 class="kpi_label">No Data</h3>
-						<span class="expand">
-							<i class="fa fa-angle-down"></i>
-						</span>
-					</div>
+        <div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="earnings">
+          <div class="js-thumbnail">
+          <div class="arrow"></div>
+            <h1 class="kpi_value"><span>XX</span></h1>
+            <h3 class="kpi_label">No Data</h3>
+            <span class="expand">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </div>
 
-					<% if false %>
-						<%= render partial: "shared/kpi_volume_detail"%>
-					<% end %>
+          <% if false %>
+            <%= render partial: "shared/kpi_volume_detail"%>
+          <% end %>
 
-				</div>
+        </div>
 
-				<div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="hot_quotes">
-					<div class="js-thumbnail" >
-					<div class="arrow"></div>
-						<h1 class="kpi_value" style="margin:0px"><img id="header-badge" src="/images/dashboard/rank1.png" style=""/></h1>
-						<h3 class="kpi_label">No Data</h3>
-						<span class="expand">
-							<i class="fa fa-angle-down"></i>
-						</span>
-					</div>
+        <div class="kpi_thumbnail js-thumbnail_parent noselect" data-kpi-type="hot_quotes">
+          <div class="js-thumbnail" >
+          <div class="arrow"></div>
+            <h1 class="kpi_value" style="margin:0px"><img id="header-badge" src="/images/dashboard/rank1.png" style=""/></h1>
+            <h3 class="kpi_label">No Data</h3>
+            <span class="expand">
+              <i class="fa fa-angle-down"></i>
+            </span>
+          </div>
 
-					<% if false %>
-						<%= render partial: "shared/kpi_rank_detail"%>
-					<% end %>
+          <% if false %>
+            <%= render partial: "shared/kpi_rank_detail"%>
+          <% end %>
 
-				</div>
+        </div>
 
-			<% end %>
+      <% end %>
 
-		</div>
-	</div>
+    </div>
+  </div>
 </section>
 
 <section id="dashboard_quotes" class="dashboard_section" data-drilldown-level="0">
-	<div class="section_header" >
-		<div class="section_header_content">
-			<div class="section_label">
-				<div class="tag"><img src="/images/dashboard/customers_icon.png"></div>
-				<div class="text">My Customers Queue </div>
-			</div>
+  <div class="section_header" >
+    <div class="section_header_content">
+      <div class="section_label">
+        <div class="tag"><img src="/images/dashboard/customers_icon.png"></div>
+        <div class="text">My Customers Queue </div>
+      </div>
 
-			<select id="quote_sort" name="quote_sort">
-				<option value="created">Order by Date</option>
-				<option value="customer">Order by Name</option>
-			</select>
-			<!--
-			<select>
-				<option>With No Filter</option>
-				<option>And Show Submitted Quotes Only</option>
-				<option>And Show Incomplete Quotes Only</option>
-				<option>And Show Approved Quotes Only</option>
-			</select>
-			-->
+      <select id="quote_sort" name="quote_sort">
+        <option value="created">Order by Date</option>
+        <option value="customer">Order by Name</option>
+      </select>
+      <!--
+      <select>
+        <option>With No Filter</option>
+        <option>And Show Submitted Quotes Only</option>
+        <option>And Show Incomplete Quotes Only</option>
+        <option>And Show Approved Quotes Only</option>
+      </select>
+      -->
 
-			<input type="search" class="section_search js-search_box" id="quote_search" name="quote_search" data-search-source="u/quotes" />
-
-
-		</div>
-	</div>
-
-	<div class="section_body">
-		<div class="section_content quotes_info">
-
-				<%= render partial: "shared/new_quote_thumbnail"%>
-				<div class="pagination_container" data-comment="required for pagination - do not remove">
-
-					<div class="nav left"><i class="fa fa-angle-left"></i></div>
-					<div class="pagination_content">
-						<p class="blank_state">
-						You don't have any quotes yet.
-						<br/><i class="fa fa-arrow-left"></i>&nbsp; Add a quotes</a> to get started.
-						</p>
-
-					</div>
-					<div class="nav right"><i class="fa fa-angle-right"></i></div>
-				</div>
+      <input type="search" class="section_search js-search_box" id="quote_search" name="quote_search" data-search-source="u/quotes" />
 
 
-		</div>
+    </div>
+  </div>
 
-	</div>
+  <div class="section_body">
+    <div class="section_content quotes_info">
+
+        <%= render partial: "shared/new_quote_thumbnail"%>
+        <div class="pagination_container" data-comment="required for pagination - do not remove">
+
+          <div class="nav left"><i class="fa fa-angle-left"></i></div>
+          <div class="pagination_content">
+            <p class="blank_state">
+            You don't have any quotes yet.
+            <br/><i class="fa fa-arrow-left"></i>&nbsp; Add a quotes</a> to get started.
+            </p>
+
+          </div>
+          <div class="nav right"><i class="fa fa-angle-right"></i></div>
+        </div>
+
+
+    </div>
+
+  </div>
 </section>
 
 <section id="dashboard_team" class="dashboard_section" data-drilldown-level="0">
@@ -293,7 +293,7 @@
 
 		<div class="section_content team_info">
 			<div class="new_thumbnail js-thumbnail_parent js-invites_thumbnail">
-				<div class="js-thumbnail" >
+				<div class="js-thumbnail">
 					<span class="placeholder_avatar">
 						<span class="js-remaining_invitations"></span>
 					</span>
@@ -341,79 +341,79 @@
 <% if params[:first_run] == "true" %>
 <% else %>
 
-	<section id="dashboard_payments" class="dashboard_section">
-		<div class="section_header">
-			<div class="section_header_content">
+  <section id="dashboard_payments" class="dashboard_section">
+    <div class="section_header">
+      <div class="section_header_content">
 
-				<%= select_tag "Level", options_for_select(
-					[
-						"My Earnings",
-					    "Level 2 Earnings",
-					    "Level 3 Earnings",
-					    "Level 4 Earnings",
-					    "Level 5 Earnings",
-					    "Level 6 Earnings",
-					    "Total Earnings"
-					], ["My Earnings"]),
-					{ :class => 'title_select' }
-				%>
+        <%= select_tag "Level", options_for_select(
+          [
+            "My Earnings",
+              "Level 2 Earnings",
+              "Level 3 Earnings",
+              "Level 4 Earnings",
+              "Level 5 Earnings",
+              "Level 6 Earnings",
+              "Total Earnings"
+          ], ["My Earnings"]),
+          { :class => 'title_select' }
+        %>
 
-				<%= select_tag "Level", options_for_select(
-					[
-						"Past month",
-					    "Past 3 months",
-					    "Past 6 months",
-					    "Past year",
-					    "All time"
-					], ["Past month"]),
-					{ :class => 'title_select' }
-				%>
+        <%= select_tag "Level", options_for_select(
+          [
+            "Past month",
+              "Past 3 months",
+              "Past 6 months",
+              "Past year",
+              "All time"
+          ], ["Past month"]),
+          { :class => 'title_select' }
+        %>
 
-			</div>
-		</div>
+      </div>
+    </div>
 
-		<div class="section_body">
-			<div class="section_content">
-				<%= render partial: "shared/payment_thumbnail", :locals => {:id => "1", :amount => "$2,345", :mail_date => "4/1/14", :has_mailed => false}%>
-				<%= render partial: "shared/payment_thumbnail", :locals => {:id => "2", :amount => "$1,234", :mail_date => "3/23/14", :has_mailed => true}%>
-				<%= render partial: "shared/payment_thumbnail", :locals => {:id => "3", :amount => "$789", :mail_date => "3/16/14", :has_mailed => true}%>
-			</div>
-		</div>
-	</section>
+    <div class="section_body">
+      <div class="section_content">
+        <%= render partial: "shared/payment_thumbnail", :locals => {:id => "1", :amount => "$2,345", :mail_date => "4/1/14", :has_mailed => false}%>
+        <%= render partial: "shared/payment_thumbnail", :locals => {:id => "2", :amount => "$1,234", :mail_date => "3/23/14", :has_mailed => true}%>
+        <%= render partial: "shared/payment_thumbnail", :locals => {:id => "3", :amount => "$789", :mail_date => "3/16/14", :has_mailed => true}%>
+      </div>
+    </div>
+  </section>
 
 <% end %>
 
 <section id="dashboard_pages" class="dashboard_section">
-	<div class="section_header">
-		<div class="section_header_content">
-			<h2 class="section_title">Your Pages</h2>
-		</div>
-	</div>
+  <div class="section_header">
+    <div class="section_header_content">
+      <h2 class="section_title">Your Pages</h2>
+    </div>
+  </div>
 
-	<div class="section_body">
-		<div class="section_content">
+  <div class="section_body">
+    <div class="section_content">
 
-			<% if params[:pro] == "true" %>
+      <% if params[:pro] == "true" %>
 
-				<%= render partial: "shared/new_link_thumbnail" %>
-				<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
-				<%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
+        <%= render partial: "shared/new_link_thumbnail" %>
+        <%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
+        <%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
 
-			<% else %>
+      <% else %>
 
-				<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Customers", :url => "/1234"}%>
-				<%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Promoters", :url => "/4321"}%>
+        <%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Customers", :url => "/1234"}%>
+        <%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Promoters", :url => "/4321"}%>
 
-				<div class="blank_state hide">
-					<p>This is a static page that you can share with others.</p>
-					<p>To generate custom url's for tracking campaigns, <a href="/upgrade">upgrade to Pro</a>.</p>
-				</div>
+        <div class="blank_state hide">
+          <p>This is a static page that you can share with others.</p>
+          <p>To generate custom url's for tracking campaigns, <a href="/upgrade">upgrade to Pro</a>.</p>
+        </div>
 
-			<% end %>
+      <% end %>
 
-		</div>
- 		<%= render partial: "shared/new_link_detail"%>
- 	</div>
+    </div>
+     <%= render partial: "shared/new_link_detail"%>
+   </div>
 </section>
 
 -->

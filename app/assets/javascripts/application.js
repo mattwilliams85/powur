@@ -24,3 +24,4 @@
 //= require utility
 //= require Chart
 //= require turbolinks
+//= require jquery.pagepiling.js

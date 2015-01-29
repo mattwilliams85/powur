@@ -1,16 +1,32 @@
+// .hide-gif {
+//   background:transparent !important;
+// }
+
+
 .sun-landing {
   height: 100%;
   position: relative;
   z-index: 1;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   h1, h2, h3, h4, h5 {
     font-weight: normal;
     display: block;
     text-align: left;
-    width: 80%;
+    width: 85%;
     margin-left: auto;
     margin-right: auto;
   }
+
+  h1 {
+    width: 80%;
+  }
+
 
   .sun-home-intro {
     position: absolute;
@@ -63,46 +79,92 @@
     }
   }
 
-  .globe-image {
+  .gif1 {
     background: image-url('landing/globe.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
-  .scales-image {
+  .gif2 {
     background: image-url('landing/scales-grey.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
-  .house-image {
+  .gif3 {
     background: image-url('landing/hauzz.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
-  .flame-image {
+  .gif4 {
     background: image-url('landing/flame-grey.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
+  // .scroll-slide-1 {
+  //   height:100%;
+  //   width:100%;
+  //   z-index:80;
+  // }
+  // .scroll-slide-2 {
+  //   height:100%;
+  //   width:100%;
+  //   z-index:70;
+  // }
+  // .scroll-slide-3 {
+     
+  //   height:100%;
+  //   width:100%;
+  //   z-index:60;
+  // }
+
+  // .scroll-slide-4 {
+  //   height:100%;
+  //   width:100%;
+  //   z-index:50;
+  // }
+
+  // .scroll-slide-5 {
+  //   height:100%;
+  //   width:100%;
+  //   z-index:40;
+  // }
+
+  // .scroll-slide-6 {
+  //   height:100%;
+  //   width:100%;
+  //   z-index:30;
+  // }
+
+  // .scroll-slide-7 {
+  //   height:100%;
+  //   width:100%;
+  //   z-index:20;
+  // }
+
   .sun-bg-1 {
-    background-image: image-url("landing/bg-1.jpg");
-  }
-  .sun-bg-2 {
-    background: #f4f6f7;
-  }
-  .sun-bg-3 {
-    background-image: image-url("landing/bg-3.jpg");
-  }
-  .sun-bg-4 {
-    background-image: image-url("landing/bg-4.jpg");
-  }
+     background-image: image-url("landing/bg-1.jpg");
+   }
+
+   .sun-bg-2 {
+     background: #fff;
+   }
+
+   .sun-bg-3 {
+     background: #f4f6f7;
+   }
+   .sun-bg-4 {
+     background-image: image-url("landing/bg-3.jpg");
+   }
+   .sun-bg-5 {
+     background-image: image-url("landing/bg-4.jpg");
+   }
 
   .sun-sign-in-wrapper {
     padding-top: 200px;
@@ -293,11 +355,11 @@
   }
 }
 
-
 // Landing page slider
 .sun-slider {
   overflow: hidden;
   position: relative;
+  z-index:3;
 
   .slide {
     left: -100%;

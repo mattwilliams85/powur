@@ -32,13 +32,13 @@
                 &nbsp;
               </div>
             </div>
-            <span ng-if="!invite.error && !invite.properties" class="small">No invite code? Please contact the person who told you about Sunstand.</span>
+            <span ng-if="!invite.error && !invite.properties" class="small">No invite code? Please contact the person who told you about Powur.</span>
             <span ng-if="invite.error" class="small sun-error">{{invite.error.message}}</span>
             <span ng-if="invite.properties" class="small sun-success">SUCCESS! <a ng-click="clearInviteValidationForm()">Click here</a> to enter a different invite code</span>
 
             <div class="invite-sponsor-info" ng-if="invite.properties">
               <img ng-src="{{invite.properties.sponsor_avatar}}" />
-              <span>You were referred to Sunstand by:</span><br />
+              <span>You were referred to Powur by:</span><br />
               <span class="big">{{invite.properties.sponsor_name}}</span>
             </div>
 
@@ -47,8 +47,8 @@
                 <div class="lock-icon"></div>
               </div>
               <div class="small-10 columns">
-                <h6>Sunstand is referral only, private network.</h6>
-                <span class="small">New members require an invite code from an existing Sunstand Advocate in order to join the network.</span>
+                <h6>Powur is referral only, private network.</h6>
+                <span class="small">New members require an invite code from an existing Powur Advocate in order to join the network.</span>
               </div>
             </div>
 

@@ -494,6 +494,39 @@ CREATE TABLE pay_periods (
 
 
 --
+-- Name: product_enrollments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE product_enrollments (
+    id integer NOT NULL,
+    product_id integer,
+    user_id integer,
+    state character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: product_enrollments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE product_enrollments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_enrollments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE product_enrollments_id_seq OWNED BY product_enrollments.id;
+
+
+--
 -- Name: product_receipts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -542,7 +575,8 @@ CREATE TABLE products (
     sku character varying,
     description text,
     certifiable boolean DEFAULT false,
-    image_original_path character varying
+    image_original_path character varying,
+    smarteru_module_id character varying(50)
 );
 
 
@@ -910,7 +944,8 @@ CREATE TABLE users (
     avatar_file_size integer,
     avatar_updated_at timestamp without time zone,
     remember_created_at timestamp without time zone,
-    last_sign_in_at timestamp without time zone
+    last_sign_in_at timestamp without time zone,
+    smarteru_employee_id character varying
 );
 
 
@@ -1001,6 +1036,13 @@ ALTER TABLE ONLY order_totals ALTER COLUMN id SET DEFAULT nextval('order_totals_
 --
 
 ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_enrollments ALTER COLUMN id SET DEFAULT nextval('product_enrollments_id_seq'::regclass);
 
 
 --
@@ -1216,6 +1258,14 @@ ALTER TABLE ONLY pay_periods
 
 
 --
+-- Name: product_enrollments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY product_enrollments
+    ADD CONSTRAINT product_enrollments_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: product_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1383,7 +1433,14 @@ CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
 
 
 --
--- Name: index_products_on_certifiable; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_product_enrollments_on_user_id_and_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_product_enrollments_on_user_id_and_product_id ON product_enrollments USING btree (user_id, product_id);
+
+
+--
+-- Name: index_products_on_certifiable; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_products_on_certifiable ON products USING btree (certifiable);
@@ -1955,3 +2012,10 @@ INSERT INTO schema_migrations (version) VALUES ('20141212003512');
 INSERT INTO schema_migrations (version) VALUES ('20141217193712');
 
 INSERT INTO schema_migrations (version) VALUES ('20150112233624');
+
+INSERT INTO schema_migrations (version) VALUES ('20150126211538');
+
+INSERT INTO schema_migrations (version) VALUES ('20150127022344');
+
+INSERT INTO schema_migrations (version) VALUES ('20150127195532');
+

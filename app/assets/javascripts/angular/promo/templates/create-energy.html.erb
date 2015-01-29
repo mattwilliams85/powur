@@ -1,11 +1,11 @@
 <ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
-<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}" >
   <ng-include src="'<%=asset_path("shared/header-signed-out.html") %>'"></ng-include>
 
-  <main class="sun-promo">
+  <main class="sun-promo" id="pagepiling">
 
-    <div class="sun-fixed-bg sun-bg-7" id="anchor_1">
+    <div class="sun-scrolling-bg sun-fixed-bg sun-bg-7 section" id="anchor_1">
       <div class="sun-promo-intro">
         <div class="row">
           <h1>For <span class="highlighted">$0 UPFRONT</span>, you can upgrade your home to solar.</h1>
@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-3" id="anchor_2">
+    <div class="sun-scrolling-bg sun-bg-3 section" id="anchor_2">
       <div class="row sun-promo-content">
         <div class="large-12 columns">
           <h2>Goodbye coal, <span class="highlighted">Hello sunshine.</span></h2>
@@ -27,10 +27,10 @@
         </div>
 
         <div class="large-9 columns">
-          <span>Sunstand is putting power back in the hands of the people, literally. We’ve partnered with the world’s most innovative and pioneering solar company, Sunrun, to deliver you cheaper power that costs nothing out of pocket, and is 100% carbon free.</span>
+          <span>Powur is putting power back in the hands of the people, literally. We’ve partnered with the world’s most innovative and pioneering solar company, Sunrun, to deliver you cheaper power that costs nothing out of pocket, and is 100% carbon free.</span>
           <br />
           <br />
-          <b>Each time a new homeowner goes solar through sunstand and sunrun, you change the world in these simple, yet profound ways:</b>
+          <b>Each time a new homeowner goes solar through Powur and sunrun, you change the world in these simple, yet profound ways:</b>
         </div>
 
         <div class="large-12 columns sun-promo-slider-wrapper">
@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-5" id="on_slider_move">
+    <div class="sun-scrolling-bg sun-bg-5 section" id="on_slider_move">
       <div class="row sun-promo-content">
         <div class="large-4 columns">
           <div class="icon-placeholder"><div class="decentralize-icon-wrapper"></div></div>
@@ -70,7 +70,7 @@
       <a class="sun-next-pointer" ng-click="gotoAnchor('anchor_4')">what's in it for you?</a>
     </div>
 
-    <div class="sun-fixed-bg sun-bg-9" id="anchor_4">
+    <div class="sun-scrolling-bg sun-bg-9 section" id="anchor_4">
       <div class="sun-promo-content sun-promo-energy-slide-4">
         <div class="row">
           <div class="large-4 columns left-part">
@@ -86,7 +86,7 @@
             <div class="inner-content">
               <div ng-repeat="slide in energySlides">
                 <div class="slide-show-wrapper" ng-class="{'active': currentSlide === energySlides.indexOf(slide)}">
-                  <img ng-repeat="img in slide.images" class="slide-image" ng-src="{{img}}" />
+                  <img ng-repeat="img in slide.images" class="image" ng-src="{{img}}" />
                   <div class="clearfix"></div>
                   <p>{{slide.text}}</p>
                 </div>
@@ -101,36 +101,66 @@
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-3" id="anchor_5">
-      <div class="row sun-promo-content sun-promo-energy-slide-5">
+    <div class="sun-scrolling-bg sun-bg-3 section" id="anchor_5">
+      <div class="row sun-promo-content sun-promo-energy-5">
         <div class="large-4 columns">
           <div class="sun-logo-wrapper"></div>
           <img src="<%=asset_path('promo/image-1.jpg')%>" />
         </div>
 
         <div class="large-8 columns">
-          <h5>What's the Sunstand difference?</h5>
+          <h5>What's the Powur difference?</h5>
           <h6>Cheaper, cleaner power</h6>
           <hr />
           <h4>Referred to you by<br />a trusted friend</h4>
-          <p>At sunstand, we are doing our part to share solar. We recognize the biggest gap is new homeowners discovering solar from someone they can trust. That’s why we created our advocate program, and why we partnered with the #1 solar company in America.</p>
-          <p>Through sunstand, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
+          <p>At Powur, we are doing our part to share solar. We recognize the biggest gap is new homeowners discovering solar from someone they can trust. That’s why we created our advocate program, and why we partnered with the #1 solar company in America.</p>
+          <p>Through Powur, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
         </div>
       </div>
       <a class="sun-next-pointer" ng-click="gotoAnchor('anchor_6')">what's next</a>
     </div>
 
-    <div class="sun-fixed-bg sun-bg-8" id="anchor_6">
+    <div class="sun-scrolling-bg sun-bg-8 section" id="anchor_6">
       <div class="sun-promo-intro">
         <div class="row">
           <h1>Join the revolution to take back your power.</h1>
-          <h5>Contact the person who referred you to Sunstand.</h5>
+          <h5>Contact the person who referred you to Powur.</h5>
           <p>Get a quote  to see if you can save money, and our planet by going solar.<br />It costs nothing, and you’ll know quickly if this is the right choice for you.</p>
         </div>
       </div>
+      <footer class="sun-landing-footer">
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="footer-content">
+              <nav class="footer-nav">
+                <ul>
+                  <li><a href="">Contact</a></li> |
+                  <li><a href="">Privacy</a></li> |
+                  <li><a href="">Terms</a></li>
+                </ul>
+              </nav>
+
+              <div class="copyright">
+                Copyright © 2014 - 2015 Sunstand Inc. All rights reserved.
+              </div>
+
+              <div class="social-links">
+                <a class="facebook" href=""></a>
+                <a class="twitter" href=""></a>
+                <a class="youtube" href=""></a>
+              </div>
+
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
 
-    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
 
   </main>
+
+  <div class="guide">
+    <div ng-repeat="dot in dots" class="dot" ng-class="{'active': dot.active}" id='dot1' ng-click="clickSlideDot(dots.indexOf(dot))"></div>
+  </div>
 </div>

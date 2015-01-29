@@ -57,6 +57,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.0.8)
     actionmailer (4.2.0)
       actionpack (= 4.2.0)
       actionview (= 4.2.0)
@@ -162,7 +163,10 @@ GEM
       delayed_job (>= 3.0, < 4.1)
     diff-lcs (1.2.5)
     dotenv (1.0.2)
+    dotenv-rails (1.0.2)
+      dotenv (= 1.0.2)
     erubis (2.7.0)
+    escape_utils (1.0.1)
     execjs (2.2.2)
     extlib (0.9.16)
     factory_girl (4.5.0)
@@ -208,6 +212,7 @@ GEM
       turbolinks
     json (1.8.1)
     kgio (2.9.2)
+    libxml-ruby (2.8.0)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -225,6 +230,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    netrc (0.10.2)
     newrelic_rpm (3.9.9.275)
     nmi_direct_post (0.1.3)
       activemodel
@@ -232,6 +238,7 @@ GEM
       addressable
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
+    ox (2.1.6)
     paperclip (4.2.1)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -289,6 +296,9 @@ GEM
     raindrops (0.13.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    rest-client (1.7.2)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rspec-core (3.1.7)
       rspec-support (~> 3.1.0)
     rspec-expectations (3.1.2)
@@ -334,6 +344,10 @@ GEM
       rubyzip (~> 1.0)
       websocket (~> 1.0)
     slop (3.6.0)
+    smarteru (0.0.1)
+      libxml-ruby (~> 2.8)
+      rest-client (~> 1.7)
+      xmlhasher (~> 0.0.6)
     spring (1.2.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -373,6 +387,9 @@ GEM
       crack (>= 0.3.2)
     websocket (1.2.1)
     week_of_month (1.2.3.2)
+    xmlhasher (0.0.6)
+      escape_utils (>= 0.3.2)
+      ox (>= 2.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
     zurb-foundation (4.3.2)
@@ -382,6 +399,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   active_hash
   activerecord_any_of!
   airbrake
@@ -398,6 +416,7 @@ DEPENDENCIES
   database_cleaner
   db-query-matchers
   delayed_job_active_record
+  dotenv-rails
   eventmachine!
   factory_girl_rails
   faker
@@ -428,6 +447,7 @@ DEPENDENCIES
   same_time!
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
+  smarteru
   spring-commands-rspec
   thin
   turbolinks
