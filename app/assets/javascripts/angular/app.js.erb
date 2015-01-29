@@ -42,8 +42,9 @@ var sunstandApp = angular.module('sunstandApp', [
 
     $rootScope.readyPiler = function(){
       $(document).ready(function(){
-        if($location.path() === '/home' || '/create-energy' || '/create-wealth'){
-          setTimeout(function(){
+        if($location.path() === '/home' || '/create-energy' || '/create-wealth') {
+          $('html').addClass('piling-on');
+          setTimeout(function() {
             $rootScope.pagePiler();
           },100)
         }
@@ -75,9 +76,17 @@ var sunstandApp = angular.module('sunstandApp', [
         sectionSelector: '.section',
         animateAnchor: false,
         //events
-        onLeave: function(index, nextIndex, direction){},
-        afterLoad: function(anchorLink, index){$('header').addClass('invert'),$('footer').show(),$('#pp-nav').fadeIn('slow'),$('#dim_the_lights').css('opacity','1')},
-        afterRender: function(){$('#pp-nav').hide();},
+        onLeave: function(index, nextIndex, direction){
+        },
+        afterLoad: function(anchorLink, index) {
+          $('header').addClass('invert');
+          $('footer').show();
+          $('#pp-nav').fadeIn('slow');
+          $('#dim_the_lights').css('opacity','1')
+        },
+        afterRender: function(){
+          $('#pp-nav').hide();
+        }
       });
     };
 
