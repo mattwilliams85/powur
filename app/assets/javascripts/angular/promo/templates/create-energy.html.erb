@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 <ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
 <div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}" >
@@ -5,13 +7,16 @@
 
   <main class="sun-promo" id="pagepiling">
 
-    <div class="sun-scrolling-bg sun-fixed-bg sun-bg-7 section" id="anchor_1">
+    <div class="sun-scrolling-bg sun-fixed-bg sun-bg-7 section inverted" id="anchor_1">
       <div class="sun-promo-intro">
         <div class="row">
           <h1>For <span class="highlighted">$0 UPFRONT</span>, you can upgrade your home to solar.</h1>
           <p>Not only will it lower your electricity bill, it is 100% clean and renewable energy your grandkids will thank you for.</p>
           <a class="button watch" ng-click="gotoAnchor('anchor_2')">Watch how</a>
         </div>
+      </div>
+      <div class="arrow-box inverted">
+        <i class="fa fa-chevron-down fa-3x"></i>
       </div>
     </div>
 
@@ -67,10 +72,13 @@
           <span>No more carbon pollution. Scientists have warned we are in uncharted territory. Rapid release of C02 into the atmosphere is changing the very climate of this planet, causing record temperatures, drought, and rising sea levels. If we don’t find a different source of energy than fossil fuels, we are leaving a legacy of destruction for future generations. It’s time to change.</span>
         </div>
       </div>
-      <a class="sun-next-pointer" ng-click="gotoAnchor('anchor_4')">what's in it for you?</a>
+      <div class="arrow-box">
+        <span>What's in it for you?</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-9 section" id="anchor_4">
+    <div class="sun-scrolling-bg sun-bg-9 section inverted" id="anchor_4">
       <div class="sun-promo-content sun-promo-energy-slide-4">
         <div class="row">
           <div class="large-4 columns left-part">
@@ -99,6 +107,9 @@
           </div>
         </div>
       </div>
+      <div class="arrow-box inverted">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
     </div>
 
     <div class="sun-scrolling-bg sun-bg-3 section" id="anchor_5">
@@ -117,10 +128,13 @@
           <p>Through Powur, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
         </div>
       </div>
-      <a class="sun-next-pointer" ng-click="gotoAnchor('anchor_6')">what's next</a>
+     <div class="arrow-box">
+      <span>What's next?</span>
+      <i class="fa fa-chevron-down fa-3x"></i>
+    </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-8 section" id="anchor_6">
+    <div class="sun-scrolling-bg sun-bg-8 section inverted" id="anchor_6">
       <div class="sun-promo-intro">
         <div class="row">
           <h1>Join the revolution to take back your power.</h1>

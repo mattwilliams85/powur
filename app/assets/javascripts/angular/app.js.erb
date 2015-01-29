@@ -41,17 +41,17 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     $rootScope.readyPiler = function(){
-      $(document).ready(function(){
-        if($location.path() === '/home' || '/create-energy' || '/create-wealth') {
-          $('html').addClass('piling-on');
-          setTimeout(function() {
-            $rootScope.pagePiler();
-          },100)
-        }
-      });
+      $('#pp-nav').hide();
+      if($location.path() === '/home' || '/create-energy' || '/create-wealth') {
+        $('html').addClass('piling-on');
+        setTimeout(function() {
+          $rootScope.pagePiler();
+        },100)
+      }
     };
 
     $rootScope.pagePiler = function(){
+
       $('#pagepiling').pagepiling({
         menu: null,
         direction: 'vertical',
@@ -64,8 +64,8 @@ var sunstandApp = angular.module('sunstandApp', [
         loopTop: false,
         css3: true,
         navigation: {
-          'textColor': '#888',
-          'bulletsColor': '#888',
+          'textColor': '#fff',
+          'bulletsColor': '#333',
           'position': 'right',
           'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
         },
@@ -77,17 +77,43 @@ var sunstandApp = angular.module('sunstandApp', [
         animateAnchor: false,
         //events
         onLeave: function(index, nextIndex, direction){
+          changeNavColor()
         },
         afterLoad: function(anchorLink, index) {
+          animateActiveNav()
           $('header').addClass('invert');
           $('footer').show();
           $('#pp-nav').fadeIn('slow');
-          $('#dim_the_lights').css('opacity','1')
+          $('#dim_the_lights').css('opacity','1');
+         
         },
         afterRender: function(){
           $('#pp-nav').hide();
         }
       });
+      function animateActiveNav(){
+        if($('.pp-section.active').hasClass('inverted')){
+          $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
+          $('a.active').find('span').animate({backgroundColor:'#fff'},100);
+          $.fn.pagepiling.updateColor('#fff')
+          
+        } else {
+          $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
+          $('a.active').find('span').animate({backgroundColor:'#555'},100);
+          $.fn.pagepiling.updateColor('#555')
+        }
+      }
+
+      function changeNavColor(){
+        if($('.pp-section.active').hasClass('inverted')){
+          $('#pp-nav').find('span').animate({borderColor:'#fff'},200);
+          $('a.active').find('span').css('background','#fff');
+        } else {
+          $('#pp-nav').find('span').animate({borderColor:'#555'},200);
+    
+          $('a.active').find('span').css('background','#555');
+        }
+      }
     };
 
     // TODO: move header functionality into its own directive

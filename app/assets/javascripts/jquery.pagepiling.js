@@ -52,6 +52,13 @@
             afterRender: null
         }, options);
 
+        $.fn.pagepiling.updateColor = function(color){
+           // options.navigation.tooltips = color;
+           options.navigation.textColor = color
+           var nav = $('#pp-nav');
+           nav.css('color', options.navigation.textColor);
+        };
+
 
         //easeInQuart animation included in the plugin
         $.extend($.easing,{ easeInQuart: function (x, t, b, c, d) { return c*(t/=d)*t*t*t + b; }});
@@ -808,7 +815,7 @@
                     }
                 }
                 // nav.find('ul').append('<li data-tooltip="' + tooltip + '"><a href="#' + link + '"><span></span></a></li>');
-                nav.find('ul').append('<li data-tooltip="' + tooltip + '"><a><span></span></a></li>');
+                nav.find('ul').append('<li data-tooltip="' + tooltip + '"><a><span></span></a></li>')
             }
 
             nav.find('span').css('border-color', options.navigation.bulletsColor);
@@ -834,13 +841,23 @@
             });
         });
 
+        $(document).on('click', '.fa-chevron-down', function(e){
+            e.preventDefault();
+            var next = $('.pp-section.active').next('.pp-section');
+            scrollPage(next)
+        });
+
         /**
         * Navigation tooltips
         */
         $(document).on({
             mouseenter: function(){
                 var tooltip = $(this).data('tooltip');
-                $('<div class="pp-tooltip ' + options.navigation.position +'">' + tooltip + '</div>').hide().appendTo($(this)).fadeIn(200);
+                $('<div class="pp-tooltip ' + options.navigation.position +'">' + tooltip + '</div>')
+                .css('color', options.navigation
+                .textColor).hide()
+                .appendTo($(this))
+                .fadeIn(200);
             },
             mouseleave: function(){
                 $(this).find('.pp-tooltip').fadeOut(200, function() {

@@ -3,6 +3,40 @@ html, body {
   // overflow: auto;
 }
 
+.fixed-footer {
+  footer {
+    position:absolute;
+  }
+}
+
+.arrow-box {
+  bottom: -3em;
+  color: $secondary-color;
+  display: block;
+  left: 50%;
+  margin-left: -115px;
+  position: absolute;
+  text-align: center;
+  width: 215px;
+  cursor:pointer;
+
+  &.inverted {
+    color: #fff;
+  }
+
+  &.inactive {
+    display: none;
+  }
+
+  .fa-chevron-down {
+    display:block;
+  }
+
+  span {
+    font-size:1.5em;
+  }
+}
+
 .sun-header-guest {
   font-family: $header-font-family;
   left: 0;
@@ -193,7 +227,7 @@ html, body {
 .sun-landing-footer {
   background: #383838;
   width:100%;
-  z-index:30;
+  z-index:1;
   // position:absolute;
   bottom:0;
 

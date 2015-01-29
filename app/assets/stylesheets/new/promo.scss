@@ -188,7 +188,7 @@
 
     h4 {
       font-size: 3em;
-      color: #fceecb;
+      color: #fff;
       margin: .2em 0;
     }
 
@@ -200,7 +200,7 @@
       text-align: center;
       margin-top: 3em;
       font-size: 1em;
-      color: #70633f;
+      color: #444;
     }
   }
 
@@ -461,6 +461,7 @@
       }
 
       .image-2 {
+        opacity:0.3;
         position: absolute;
         right: 0;
       }

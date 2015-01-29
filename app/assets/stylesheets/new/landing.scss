@@ -27,7 +27,6 @@
     width: 80%;
   }
 
-
   .sun-home-intro {
     position: absolute;
     left: 50%;
@@ -106,47 +105,6 @@
     height: 200px;
     margin: 0 auto;
   }
-
-  // .scroll-slide-1 {
-  //   height:100%;
-  //   width:100%;
-  //   z-index:80;
-  // }
-  // .scroll-slide-2 {
-  //   height:100%;
-  //   width:100%;
-  //   z-index:70;
-  // }
-  // .scroll-slide-3 {
-     
-  //   height:100%;
-  //   width:100%;
-  //   z-index:60;
-  // }
-
-  // .scroll-slide-4 {
-  //   height:100%;
-  //   width:100%;
-  //   z-index:50;
-  // }
-
-  // .scroll-slide-5 {
-  //   height:100%;
-  //   width:100%;
-  //   z-index:40;
-  // }
-
-  // .scroll-slide-6 {
-  //   height:100%;
-  //   width:100%;
-  //   z-index:30;
-  // }
-
-  // .scroll-slide-7 {
-  //   height:100%;
-  //   width:100%;
-  //   z-index:20;
-  // }
 
   .sun-bg-1 {
      background-image: image-url("landing/bg-1.jpg");
@@ -329,31 +287,7 @@
 }
 
 
-.sun-next-pointer {
-  background-image: image-url("landing/arrow-down-icon.png");
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  bottom: 1em;
-  color: $secondary-color;
-  display: block;
-  font-weight: bold;
-  height: 40px;
-  left: 50%;
-  margin-left: -100px;
-  position: absolute;
-  text-align: center;
-  text-transform: uppercase;
-  width: 200px;
 
-  &.inverted {
-    background-image: image-url("landing/arrow-down-inverted-icon.png");
-    color: #fff;
-  }
-
-  &.inactive {
-    display: none;
-  }
-}
 
 // Landing page slider
 .sun-slider {

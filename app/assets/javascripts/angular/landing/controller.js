@@ -114,38 +114,6 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     }
   };
 
-//   $scope.pagePiler2 = function(){
-//     $('#pagepiling2').pagepiling({
-//         menu: null,
-//         direction: 'vertical',
-//         verticalCentered: true,
-//         sectionsColor: [],
-//         anchors: [],
-//         scrollingSpeed: 700,
-//         easing: 'swing',
-//         loopBottom: false,
-//         loopTop: false,
-//         css3: true,
-//         navigation: {
-//             'textColor': '#000',
-//             'bulletsColor': '#000',
-//             'position': 'right',
-//             'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
-//         },
-//         normalScrollElements: null,
-//         normalScrollElementTouchThreshold: 5,
-//         touchSensitivity: 5,
-//         keyboardScrolling: true,
-//         sectionSelector: '.section',
-//         animateAnchor: false,
-// //
-//         //events
-//         onLeave: function(index, nextIndex, direction){},
-//         afterLoad: function(anchorLink, index){$('header').addClass('invert'),$('footer').show(),$('#pp-nav').fadeIn('slow');},
-//         afterRender: function(){},
-//     });
-//   };
-
   $scope.updatePassword = function() {
     if ($scope.user && $scope.user.password && $scope.user.password_confirm) {
       $http.put('/password.json', {
@@ -180,18 +148,38 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
 
 LandingCtrl.prototype.init = function($scope, $location, $timeout) {
 
+  // Runs page-piler after intro
   $('html').removeClass('piling-on');
+  $('#pp-nav').hide();
   if ($location.path() === '/home') {
-    var pilerTimer = setTimeout(function() {
+    var pilerTimer = $timeout(function() {
+      $('.arrow-box').animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
       $scope.readyPiler();
-    }, 6500);
+    }, 4500);
   }
-  $scope.$on('$routeChangeStart', function(next, current) {
-     stopTimer();
-   });
-  function stopTimer() {
-    clearTimeout(pilerTimer);
+
+  if ($location.path() === '/sign-up') {
+    $scope.readyPiler();
+    var pilerTimer = $timeout(function() {
+      $('.arrow-box').animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
+    }, 3000);
+
+    // Cancels if user leaves page
+    $scope.$on('$locationChangeStart', function(){
+      $timeout.cancel(pilerTimer);
+    });
+  } else {
+    $('.arrow-box').css('bottom','3em')
   }
+
+  // Cancels if user leaves page
+  $scope.$on('$locationChangeStart', function(){
+    $timeout.cancel(pilerTimer);
+  });
 
   // Setting mode based on the url
   $scope.mode = '';
@@ -211,7 +199,7 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
     $scope.currentHomeSlide = 0;
     var sliderStop = $interval(function() {
       $scope.currentHomeSlide += 1;
-      if ($scope.currentHomeSlide >= 3) {
+      if ($scope.currentHomeSlide >= 2) {
         $interval.cancel(sliderStop);
         sliderStop = undefined;
       }
