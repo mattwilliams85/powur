@@ -1,7 +1,41 @@
 @import "foundation-grid";
 
+.aw-tooltip{
+    display: inline;
+    position: relative;
+}
+
+.aw-tooltip:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: 26px;
+    color: #fff;
+    content: "";
+    left: 20%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 220px;
+}
+
+.aw-tooltip:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+}
+
 .aw-db-topper-background {
   background-color: #444;
+}
+
+.aw-fade-in {
+  opacity: 0;
 }
 
 .aw-db-topper-mask {
@@ -31,6 +65,11 @@
 .aw-label {
   color: #fff;
   font-size: 14pt;
+}
+
+.aw-badge {
+  display: float;
+  margin-left: -10%;
 }
 
 .aw-vertical-middle {
@@ -71,7 +110,7 @@
 
 .aw-db-topper-footer {
   background: #333;
-  height: 140px;
+  padding-bottom: 20px;
   width: 100%;
 }
 

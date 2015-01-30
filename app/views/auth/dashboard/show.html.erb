@@ -1,6 +1,7 @@
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "dashboard.js", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "kpi.js", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "dashboard-topper.js", "data-turbolinks-track" => true %>
 <% end %>
 
 <style>
@@ -51,7 +52,7 @@
 <% else %>
 <% end %>
 
-<section id="dashboard_personal_goals" class="dashboard_section aw-db-topper-background" data-drilldown-level="0" style="margin-top:-100px;">
+<section id="dashboard_personal_goals" class="dashboard_section aw-db-topper-background aw-fade-in" data-drilldown-level="0" style="margin-top:-100px;">
   <div class="section_header">
     <div class="section_header_content">
     <!-- Legacy: Leave this section because it positions the Dashboard Topper at the right distance from the navbar -->
@@ -61,7 +62,7 @@
   <div class="section_body">
     <div class="section_content" style="overflow:hidden;">
       <!-- Row: The main Dashboard Topper -->
-      <div class="row">
+      <div class="row aw-fade-in">
         <!-- Welcome Section -->
         <div class="small-8 large-8 columns">
           <!-- Row: Photo and Name/Quote -->
@@ -72,7 +73,7 @@
             </div>
             <!-- Name and Motivational Quote --> 
             <div class="aw-vertical-middle small-9 large-9 columns">
-              <span class="left aw-name">Welcome, Jonathan</span>
+              <span class="left aw-name">Welcome, <span id="aw-first-name">Jonathan</span></span>
               <br>
               <span class="left aw-motivational-quote">The world needs you.</span>
             </div>
@@ -81,23 +82,24 @@
           <div class="row">
             <span class="left aw-bump-down aw-label">Your Pay Period Goals</span>
             <div class="small-10 large-10 columns">
-              <div id="goal_meters">
-                <div id="personal_rooftops" class="meter_container">
-                  <div class="labels"></div>
-                  <div class="highlight_container">
-                    <div class="highlight" style="width:68%;"></div>
+              <div class="row">
+                <div id="goal_meters">
+                  <div id="personal_rooftops" class="meter_container">
+                    <div class="highlight_container">
+                      <div class="highlight"></div>
+                    </div>
                   </div>
-                </div>
-                <div id="group_rooftops" class="meter_container">
-                  <div class="highlight_container">
-                    <div class="highlight" style="width:51%;"></div>
+                  <div id="group_rooftops" class="meter_container">
+                    <div class="highlight_container">
+                      <div class="highlight"></div>
+                    </div>
                   </div>
-                  <img class="right" src="<%= image_path("badges/badge_02.png") %>">
                 </div>
               </div>
             </div>
             <!-- Badge --> 
             <div class="small-2 large-2 columns">
+              <img class="aw-badge" src="<%= image_path("badges/badge_02.png") %>">
             </div>
           </div>
           <div class="section_legend">
@@ -147,12 +149,12 @@
   </div>
 </section>
 <!-- Faux-Row: Dashboard Topper Footer (darkened bar at bottom) -->
-<!-- (This has to be outside of div.row because .row's width is relative to parent elements) -->
-<div class="aw-db-topper-footer">
+<!-- (This has to be outside of div.row because a .row's width is relative to parent elements) -->
+<div class="aw-db-topper-footer aw-fade-in">
   <!-- Row: Quote to Share -->
   <div class="row">
     <div class="aw-share-quote small-12 large-12 columns">
-      <span class="aw-share-quote">The solar revolution has begun. Powur is leading the way by empowering everyday heroes. Find out more about this compelling opportunity.</span>
+      <span class="aw-share-quote"></span>
     </div>
   </div>
   <!-- Row: Share Links -->

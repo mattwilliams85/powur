@@ -1458,9 +1458,8 @@ function Dashboard(){
     }
   }
 
+  DashboardTopper.readyGO();
 
-
- 
 }// end Dashboard class
 
 
