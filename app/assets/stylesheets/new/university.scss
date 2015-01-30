@@ -7,13 +7,13 @@
 
   .university-class-item-wrapper {
     .class-item {
-      border: 1px solid #f8f8f8;
-      height: 450px;
+      border: 1px solid #ececec;
+      height: 550px;
       margin: 0 20px 50px 0;
       width: 100%;
 
       .image-wrapper {
-        height: 230px;
+        height: 330px;
         overflow: hidden;
 
         img {
@@ -92,6 +92,10 @@
     .image-wrapper {
       height: 370px;
       overflow: hidden;
+
+      img {
+        width: 100%;
+      }
     }
 
     .purchase-form-wrapper {

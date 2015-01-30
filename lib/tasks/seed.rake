@@ -54,7 +54,7 @@ namespace :sunstand do
         bonus_volume:     300,
         distributor_only: true,
         certifiable: true,
-        image_original_path: 'http://lorempixel.com/output/abstract-q-c-400-400-3.jpg',
+        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certificaion.png',
         smarteru_module_id: '8361')
       Product.create!(
         id:               CERT2_ITEM_ID,
@@ -64,7 +64,7 @@ namespace :sunstand do
         bonus_volume:     0,
         distributor_only: true,
         certifiable: true,
-        image_original_path: 'http://lorempixel.com/output/abstract-q-c-400-400-7.jpg',
+        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/class.png',
         smarteru_module_id: '8362')
       puts 'Created Products for solar item and consultant certification'
     end
