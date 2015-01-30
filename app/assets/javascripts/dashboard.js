@@ -920,6 +920,8 @@ function Dashboard(){
       break;
 
       case "invitations":
+        $('#dashboard_team .drilldown').remove();
+        console.log('invitation case')
         var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
         var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
         $("#"+_options._mainSectionID).append(_html);
@@ -1313,6 +1315,7 @@ function Dashboard(){
 
   //start timeout function
   function _countdown(){
+    console.log('count')
     var _remainingSeconds, _remainingMinutes, _remainingHours;
     $(".js-expiration-seconds").each(function(){
       _remainingSeconds = $(this).text()*1-1;
@@ -1332,10 +1335,9 @@ function Dashboard(){
       if(_remainingSeconds<10) _remainingSeconds = "0"+_remainingSeconds;
       if(_remainingMinutes<10) _remainingMinutes = "0"+_remainingMinutes;
       if(_remainingHours<10) _remainingHours = "0"+_remainingHours;
-
-      $(".js-expiration-seconds").text(_remainingSeconds);
-      $(".js-expiration-minutes").text(_remainingMinutes);
-      $(".js-expiration-hours").text(_remainingHours);
+      $(this).text(_remainingSeconds);
+      $(this).siblings(".js-expiration-minutes").text(_remainingMinutes);
+      $(this).siblings(".js-expiration-hours").text(_remainingHours);
     });
   }
 
