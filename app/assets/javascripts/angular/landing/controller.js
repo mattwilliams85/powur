@@ -161,19 +161,26 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
   }
 
   if ($location.path() === '/sign-up') {
-    $scope.readyPiler();
-    var pilerTimer = $timeout(function() {
-      $('.arrow-box').animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
-    }, 3000);
+    if(window.outerHeight > 1100){
+      $scope.readyPiler();
 
-    // Cancels if user leaves page
-    $scope.$on('$locationChangeStart', function(){
-      $timeout.cancel(pilerTimer);
-    });
-  } else {
-    $('.arrow-box').css('bottom','3em')
+      var pilerTimer = $timeout(function() {
+        $('.arrow-box').animate({
+          bottom: "3em"
+        }, 500, "easeOutBounce" );
+      }, 500);
+
+      // Cancels if user leaves page
+      $scope.$on('$locationChangeStart', function(){
+        $timeout.cancel(pilerTimer);
+      });
+    } else {
+      $scope.invertHeaderColor();
+      $('#pagepiling').css('overflow','visible')
+      $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
+      $('.arrow-box').css('bottom','3em')
+      // $('row')
+    }
   }
 
   // Cancels if user leaves page

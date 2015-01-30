@@ -17,9 +17,6 @@ html.piling-on {
     margin:0;
     padding:0;
 
-    footer {
-      display: none;
-    }
   }
 
   /*Avoid flicker on slides transitions for mobile phones #336 */
@@ -140,7 +137,6 @@ html.piling-on {
   overflow: hidden;
 
   footer {
-    display: none;
     position: absolute;
   }
 }
