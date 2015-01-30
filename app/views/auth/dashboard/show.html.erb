@@ -54,13 +54,14 @@
 <section id="dashboard_personal_goals" class="dashboard_section aw-db-topper-background" data-drilldown-level="0" style="margin-top:-100px;">
   <div class="section_header">
     <div class="section_header_content">
-
+    <!-- Legacy: Leave this section because it positions the Dashboard Topper at the right distance from the navbar -->
     </div>
   </div>
 
   <div class="section_body">
     <div class="section_content" style="overflow:hidden;">
-      <div class="row aw-db-topper-background">
+      <!-- Row: The main Dashboard Topper -->
+      <div class="row">
         <!-- Welcome Section -->
         <div class="small-8 large-8 columns">
           <!-- Row: Photo and Name/Quote -->
@@ -78,27 +79,33 @@
           </div>
           <!-- Row: Pay Period Goals --> 
           <div class="row">
-            <span class="left aw-label">Your Pay Period Goals</span>
-            <div id="goal_meters">
-              <div id="personal_sales" class="meter_container">
-                <div class="labels"></div>
-                <div class="highlight_container">
-                  <div class="highlight"></div>
+            <span class="left aw-bump-down aw-label">Your Pay Period Goals</span>
+            <div class="small-10 large-10 columns">
+              <div id="goal_meters">
+                <div id="personal_rooftops" class="meter_container">
+                  <div class="labels"></div>
+                  <div class="highlight_container">
+                    <div class="highlight" style="width:68%;"></div>
+                  </div>
+                </div>
+                <div id="group_rooftops" class="meter_container">
+                  <div class="highlight_container">
+                    <div class="highlight" style="width:51%;"></div>
+                  </div>
+                  <img class="right" src="<%= image_path("badges/badge_02.png") %>">
                 </div>
               </div>
-              <div id="group_sales" class="meter_container">
-                <div class="highlight_container">
-                  <div class="highlight"></div>
-                </div>
-                <div class="labels flip"></div>
-              </div>
+            </div>
+            <!-- Badge --> 
+            <div class="small-2 large-2 columns">
             </div>
           </div>
           <div class="section_legend">
-            <div class="team"></div>
-            <span class="group_sales">Group Sales</span>
-            <div class="you"></div>
-            <span class="personal_sales">Personal Sales</span>
+            <div class="personal"></div>
+            <span class="aw-label personal_rooftops">Personal Rooftops</span>
+            <br>
+            <div class="group"></div>
+            <span class="aw-label group_rooftops">Group Rooftops</span>
           </div>
         </div>
         <!-- News Section --> 
@@ -123,11 +130,40 @@
               <p class="aw-news-date">17 January 2015</p>
             </div>
           </div>
+          <!-- Row: News Pagination -->
+          <div class="row">
+            <div class="small-12 large-12 columns">
+              <span class="aw-news-pagination"><a href="#"><i class="fa fa-caret-left"></i></a> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#"><i class="fa fa-caret-right"></i></a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-12 large-12 columns">
+          <br>
         </div>
       </div>
     </div>
   </div>
 </section>
+<!-- Faux-Row: Dashboard Topper Footer (darkened bar at bottom) -->
+<!-- (This has to be outside of div.row because .row's width is relative to parent elements) -->
+<div class="aw-db-topper-footer">
+  <!-- Row: Quote to Share -->
+  <div class="row">
+    <div class="aw-share-quote small-12 large-12 columns">
+      <span class="aw-share-quote">The solar revolution has begun. Powur is leading the way by empowering everyday heroes. Find out more about this compelling opportunity.</span>
+    </div>
+  </div>
+  <!-- Row: Share Links -->
+  <div class="row">
+    <div class="aw-share-links">
+      <span class="aw-share-links">Share this </span>
+      <a href="#"><i class="fa fa-twitter-square fa-fw fa-2x aw-blue-share-link"></i></a>
+      <a href="#"><i class="fa fa-facebook-square fa-fw fa-2x aw-blue-share-link"></i></a>
+    </div>
+  </div>
+</div>
 
 
 <section id="dashboard_kpis" class="dashboard_section" data-drilldown-level="0">

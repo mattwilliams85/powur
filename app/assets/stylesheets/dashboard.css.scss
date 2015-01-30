@@ -119,11 +119,11 @@
     line-height:24px;
     margin-right:15px;
   }
-  .team{
+  .group{
     background:$solar;
   }
-  .you{
-    background:$brand;
+  .personal{
+    background:#2ECC71;
   }
 }
 
@@ -250,6 +250,7 @@
       width:inherit;
       height:15px;
       background:$dev_dark_gray;
+      margin-top: 2px;
     }
 
     .highlight{
@@ -257,10 +258,10 @@
       height:inherit;
     }
   }
-  #personal_sales .highlight{
-    background:$brand;
+  #personal_rooftops .highlight{
+    background:#2ECC71;
   }
-  #group_sales .highlight{
+  #group_rooftops .highlight{
     background:$solar;
   }
 
