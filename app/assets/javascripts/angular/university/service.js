@@ -26,14 +26,16 @@ function UniversityClass($http, $q) {
 
 
     /*
-    * Enroll in a class
+    * Execute an action
     */
-    enroll: function(action) {
+    execute: function(action, data) {
       var dfr = $q.defer();
+      data = data || {};
 
       $http({
         method: action.method,
-        url: action.href
+        url: action.href,
+        data: data
       }).success(function(res) {
         dfr.resolve(res);
       }).error(function(err) {
@@ -48,12 +50,12 @@ function UniversityClass($http, $q) {
     /*
      * Get one item
     */
-    get: function(id, path) {
+    get: function(id) {
       var dfr = $q.defer();
 
       $http({
         method: 'GET',
-        url: path
+        url: '/u/university_classes/' + id
       }).success(function(res) {
         dfr.resolve(res);
       }).error(function(err) {

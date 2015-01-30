@@ -48,6 +48,23 @@ class Product < ActiveRecord::Base
     bonus_volume == 0
   end
 
+  def purchase(form, user)
+    nmi_gateway = NmiGateway.new(form)
+    response = nmi_gateway.do_post
+
+    if response['response_code'].first == '100'
+      return product_receipts.create(
+        user_id:        user.id,
+        amount:         form[:amount]*100,
+        transaction_id: response['transactionid'].first,
+        auth_code:      response['authcode'].first,
+        order_id:       response['orderid'].first
+      )
+    else
+      return false
+    end
+  end
+
   class << self
     def default_id
       SystemSettings.default_product_id

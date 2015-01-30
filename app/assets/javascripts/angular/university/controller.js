@@ -1,6 +1,6 @@
 'use strict';
 
-function UniversityCtrl($scope, $location, $window, $anchorScroll, UniversityClass) {
+function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams, UniversityClass, CurrentUser, Geo) {
   $scope.redirectUnlessSignedIn();
 
   function getAction(actions, name) {
@@ -29,7 +29,7 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, UniversityCla
     $(document).foundation();
 
     var action = getAction(classItem.actions, 'enroll');
-    return UniversityClass.enroll(action).then(function(data) {
+    return UniversityClass.execute(action).then(function(data) {
       $window.location.href = data.redirect_to;
     }, function() {
       $('body').trigger('click'); // close old modal
@@ -37,34 +37,56 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, UniversityCla
     });
   };
 
-  $scope.purchaseClass = function(classItem) {
+  $scope.purchase = function(classItem) {
+    $scope.isPurchaseDisabled = true;
+    $scope.errorMessage = null;
     var action = getAction(classItem.actions, 'purchase');
-    return UniversityClass.purchase(action).then(function(data) {
-debugger;
-console.log('purchased ...', data);
+    return UniversityClass.execute(action, {card: $scope.card}).then(function(data) {
+      // redirect or something
+    }, function errorCallback(data) {
+      $scope.isPurchaseDisabled = false;
+      if (data.errors) {
+        for (var property in data.errors) {
+          return $scope.errorMessage = data.errors[property][0];
+        }
+      }
     });
   };
 
   this.init($scope, $location);
-  this.fetch($scope, UniversityClass);
+  this.fetch($scope, $routeParams, UniversityClass, CurrentUser, Geo);
 }
 
 
 UniversityCtrl.prototype.init = function($scope, $location) {
   // Setting mode based on the url
   $scope.mode = 'index';
-  if (/\/[\d]+$/.test($location.path())) $scope.mode = 'else';
+  if (/\/purchase$/.test($location.path())) return $scope.mode = 'purchase';
 };
 
 
-UniversityCtrl.prototype.fetch = function($scope, UniversityClass) {
+UniversityCtrl.prototype.fetch = function($scope, $routeParams, UniversityClass, CurrentUser, Geo) {
   if ($scope.mode === 'index') {
     return UniversityClass.list().then(function(items) {
       $scope.universityClasses = items;
+    });
+  } else if ($scope.mode === 'purchase') {
+    $scope.errorMessage;
+    $scope.card = {};
+    $scope.$watch('currentUser', function(data) {
+      if (data && data.first_name) {
+        $scope.card.name = data.first_name + ' ' + data.last_name;
+        $scope.card.zip = data.zip;
+      }
+    });
+    $scope.states = Geo.states();
+
+    return UniversityClass.get($routeParams.classId).then(function(data) {
+      $scope.classItem = data;
     });
   }
 };
 
 
-UniversityCtrl.$inject = ['$scope', '$location', '$window', '$anchorScroll', 'UniversityClass'];
+UniversityCtrl.$inject = ['$scope', '$location', '$window', '$anchorScroll', '$routeParams', 'UniversityClass', 'CurrentUser', 'Geo'];
 sunstandControllers.controller('UniversityCtrl', UniversityCtrl);

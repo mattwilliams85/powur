@@ -1,10 +1,89 @@
 <ng-include src="'<%=asset_path("shared/header-signed-in.html") %>'"></ng-include>
 
-<main class="sun-university">
+<main class="sun-university class-purchase-page">
 
   <div class="row">
-    <div class="large-12">
-      <h2>Coming soon ...</h2>
+    <div class="large-12 columns">
+      <h1>{{classItem.properties.name}}</h1>
+    </div>
+
+    <div class="large-6 columns">
+      <div class="image-wrapper"><img ng-src="{{classItem.properties.image_url}}" /></div>
+    </div>
+
+    <div class="large-6 columns">
+      <span class="description">{{classItem.properties.description}}</span>
+      <span class="price-wrapper">Total: ${{classItem.properties.price/100}}</span>
+    </div>
+
+    <div class="large-12 columns">
+      <div class="purchase-form-wrapper">
+
+        <form name="purchaseForm" ng-submit="purchase(classItem)" novalidate>
+
+          <div class="row">
+            <div class="large-12 columns">
+              <h2>Purchase</h2>
+            </div>
+
+            <div class="large-6 columns">
+              <div class="form-row">
+                <label>Card Number</label>
+                <input ng-model="card.number" name="card_number" type="text" />
+              </div>
+
+              <div class="form-row">
+                <label>Expiration</label>
+                <input ng-model="card.expiration" name="card_expiration" placeholder="MMYY" type="text" />
+              </div>
+
+              <div class="form-row">
+                <label>Security Code</label>
+                <input ng-model="card.cvv" name="card_cvv" type="text" />
+              </div>
+            </div>
+
+            <div class="large-6 columns">
+              <div class="form-row">
+                <label>Name</label>
+                <input ng-model="card.name" name="card_name" type="text" />
+              </div>
+
+              <div class="form-row">
+                <label>Address line</label>
+                <input ng-model="card.address" name="card_address" type="text" />
+              </div>
+
+              <div class="form-row">
+                <label>Address line 2</label>
+                <input ng-model="card.address2" name="card_address2" type="text" />
+              </div>
+
+              <div class="form-row">
+                <label>City</label>
+                <input ng-model="card.city" name="card_city" type="text" />
+              </div>
+
+              <div class="form-row">
+                <label>State</label>
+                <select ng-model="card.state" ng-options="state.abbr as state.name for state in states">
+                  <option value="">State</option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <label>Zip</label>
+                <input ng-model="card.zip" name="card_zip" type="text" />
+              </div>
+            </div>
+
+            <div class="large-12 columns">
+              {{errorMessage}}
+              <input class="button right" type="submit" ng-disabled="isPurchaseDisabled" value="Purchase" />
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
