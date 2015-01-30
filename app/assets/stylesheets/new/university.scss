@@ -1,6 +1,5 @@
 .sun-university {
   margin-top: 210px;
-  padding-bottom: 150px;
 
   @media #{$small} {
     margin-top: 140px;
@@ -64,10 +63,6 @@
         }
       }
     }
-  }
-
-  footer {
-    position: fixed;
   }
 
   &.class-purchase-page {
