@@ -1,0 +1,191 @@
+/*
+ * HEADER for a guest user
+*/
+.sun-header-guest {
+  font-family: $header-font-family;
+  left: 0;
+  top: 0;
+  padding: 1em 0;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+
+  a {
+    color: #fff;
+  }
+
+  .header-nav-link {
+    @include sun-sprites-sprite(header-menu-icon);
+    height: sun-sprites-sprite-height(header-menu-icon);
+    width: sun-sprites-sprite-width(header-menu-icon);
+    float: left;
+    margin-top: 8px;
+  }
+
+  .header-nav {
+    display: none;
+  }
+
+  .logo {
+    @include sun-sprites-sprite(header-logo);
+    height: sun-sprites-sprite-height(header-logo);
+    width: sun-sprites-sprite-width(header-logo);
+    display: block;
+    margin: 0 auto;
+    line-height: 37px;
+    text-align: left;
+    padding-left: 45px;
+  }
+
+  .sign-in {
+    background: none;
+    display: inline-block;
+    line-height: 2.3em;
+    float: right;
+    padding: 0 1em;
+    border: 2px solid #fff;
+    text-transform: uppercase;
+    font-size: .8em;
+  }
+
+  &.hidden {
+    top: -200px;
+  }
+
+  &.invert {
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+
+    a {
+      color: $secondary-color;
+    }
+
+    .header-nav-link {
+      @include sun-sprites-sprite(header-menu-icon-inverted);
+    }
+
+    .logo {
+      @include sun-sprites-sprite(header-logo-inverted);
+    }
+
+    .sign-in {
+      border-color: $secondary-color;
+    }
+  }
+}
+
+
+/*
+ * HEADER for signed in user
+*/
+#sun_header {
+  background: $sun-color-blue;
+  font-family: "Varela Round", sans-serif;
+  left: 0;
+  top: 0;
+  position: fixed;
+  text-transform: uppercase;
+  // height: 100px;
+  width: 100%;
+  z-index: 2;
+
+  .sun-header {
+    list-style-position: outside;
+    margin-top: 30px;
+
+    li {
+      display: block;
+      float: left;
+      margin-right: 50px;
+    }
+
+    .logo {
+      float: none;
+      margin-right: 60px;
+      margin-bottom: 20px;
+
+      a {
+        background-image: image-url('powur-white-logo.png');
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        background-position: 0 3px;
+        display: block;
+        width: 150px;
+        height: 70px;
+      }
+
+      @media #{$small} {
+        float: left;
+        margin-bottom: 0;
+      }
+    }
+
+    .menu-item {
+      a {
+        line-height: 37px;
+        font-size: 1em;
+      }
+    }
+
+    .sign-out {
+      margin-right: 0;
+
+      // a {
+      //   background: none;
+      //   display: inline-block;
+      //   line-height: 33px;
+      //   padding: 0 1em;
+      //   border: 2px solid #fff;
+      //   font-size: .8em;
+      //   font-family: $header-font-family;
+      // }
+    }
+
+    .avatar {
+      top: -12px;
+      position: relative;
+      margin-right: 20px;
+
+      a {
+        float: right;
+
+        img {
+          width: 64px;
+          border-radius: 50px;
+        }
+      }
+    }
+
+    .username {
+      a {
+        display: none;
+        float: right;
+        margin: 0 20px 0 0;
+        line-height: 37px;
+        font-size: 1em;
+
+        i {
+          font-style: normal;
+          color: #4a4747;
+        }
+
+        @media #{$small} {
+          display: block;
+        }
+      }
+    }
+  }
+
+  a {
+    color: #0a7fa1;
+
+    &.active {
+      color: #fff;
+    }
+  }
+}
