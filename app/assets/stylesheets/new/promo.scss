@@ -268,6 +268,14 @@
     .slide-6-extra {
       margin-top: 500px;
 
+      .button {
+        background: $sun-color-green;
+        font-size:1.3em;
+        text-transform: uppercase;
+        margin-right: 1em;
+        padding:20px 60px;
+      }
+
       @media #{$medium} {
         margin-top: 0;
       }
@@ -317,8 +325,15 @@
         background: $sun-color-blue;
         height: 110%;
         position: absolute;
+        margin-left:100px;
         right: 0;
         width: 2000px;
+      }
+
+      .inner-content {
+        margin-left:0;
+        right:50px;
+        padding-top: 140px;
       }
     }
 
@@ -349,6 +364,7 @@
     .inner-content {
       padding-top: 150px;
       position: relative;
+      margin-left:50px;
 
       .slide-show-wrapper {
         margin-bottom: 50px;
@@ -368,9 +384,13 @@
           left: 0
         }
 
-        .slide-image {
-          margin-right: 10px;
-          width: 190px;
+        .image {
+          margin-right: 15px;
+          width: 150px;
+        }
+        p {
+          font-size:1.5em;
+          line-height:1.5em;;
         }
       }
 

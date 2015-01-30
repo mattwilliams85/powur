@@ -3,6 +3,10 @@ html, body {
   // overflow: auto;
 }
 
+.highlighted {
+  color: $sun-color-orange;
+}
+
 .sun-sign-up-page {
   footer {
     position:relative;
