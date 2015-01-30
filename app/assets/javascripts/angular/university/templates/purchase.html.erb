@@ -2,7 +2,7 @@
 
 <main class="sun-university class-purchase-page">
 
-  <div class="row">
+  <div class="row" ng-if="!purchaseComplete">
     <div class="large-12 columns">
       <h1>{{classItem.properties.name}}</h1>
     </div>
@@ -77,13 +77,26 @@
               </div>
             </div>
 
-            <div class="large-12 columns">
-              {{errorMessage}}
+            <div class="large-10 columns">
+              <div class="error-message-wrapper">{{errorMessage}}</div>
+            </div>
+
+            <div class="large-2 columns">
               <input class="button right" type="submit" ng-disabled="isPurchaseDisabled" value="Purchase" />
             </div>
           </div>
         </form>
       </div>
+    </div>
+  </div>
+
+  <div class="row" ng-if="purchaseComplete">
+    <div class="large-12 columns purchase-complete-page">
+      <div class="purchase-complete-inner">
+        <h1>Thank you!</h1>
+        <span>Your purchase is complete</span>
+      </div>
+      <span>Please click <a ng-click="takeClass(classItem)">here</a> to proceed to the class</span>
     </div>
   </div>
 

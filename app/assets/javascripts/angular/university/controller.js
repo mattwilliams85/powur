@@ -23,7 +23,7 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams,
            !universityClass.properties.purchased);
   };
 
-  $scope.takeClassClick = function(classItem) {
+  $scope.takeClass = function(classItem) {
     $anchorScroll();
     $('<div class=\'reveal-modal\' data-reveal><h3>Enrolling ...</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
     $(document).foundation();
@@ -42,7 +42,7 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams,
     $scope.errorMessage = null;
     var action = getAction(classItem.actions, 'purchase');
     return UniversityClass.execute(action, {card: $scope.card}).then(function(data) {
-      // redirect or something
+      $scope.purchaseComplete = true;
     }, function errorCallback(data) {
       $scope.isPurchaseDisabled = false;
       if (data.errors) {
@@ -54,7 +54,7 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams,
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $routeParams, UniversityClass, CurrentUser, Geo);
+  this.fetch($scope, $routeParams, $location, UniversityClass, CurrentUser, Geo);
 }
 
 
@@ -65,7 +65,7 @@ UniversityCtrl.prototype.init = function($scope, $location) {
 };
 
 
-UniversityCtrl.prototype.fetch = function($scope, $routeParams, UniversityClass, CurrentUser, Geo) {
+UniversityCtrl.prototype.fetch = function($scope, $routeParams, $location, UniversityClass, CurrentUser, Geo) {
   if ($scope.mode === 'index') {
     return UniversityClass.list().then(function(items) {
       $scope.universityClasses = items;
@@ -83,6 +83,9 @@ UniversityCtrl.prototype.fetch = function($scope, $routeParams, UniversityClass,
 
     return UniversityClass.get($routeParams.classId).then(function(data) {
       $scope.classItem = data;
+      if ($scope.classItem.properties.purchased || $scope.classItem.properties.price === 0) {
+        $location.path('/university');
+      }
     });
   }
 };

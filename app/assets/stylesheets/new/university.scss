@@ -206,10 +206,41 @@
       }
     }
 
+    .error-message-wrapper {
+      text-align: right;
+      color: #ff3a3a;
+      padding-top: 35px;
+    }
+
     .button {
       margin-top: 20px;
       background: $sun-color-green;
       text-transform: uppercase;
+    }
+  }
+
+  .purchase-complete-page {
+    text-align: center;
+    font-size: 1.5em;
+
+    .purchase-complete-inner {
+      background-image: image-url('university/purchase-complete-bg.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      height: 437px;
+      padding-top: 150px;
+      margin-bottom: 20px;
+
+      h1 {
+        color: #fff;
+        font-size: 4em;
+        text-transform: uppercase;
+        margin: 0;
+      }
+
+      span {
+        color: #fff;
+      }
     }
   }
 }
