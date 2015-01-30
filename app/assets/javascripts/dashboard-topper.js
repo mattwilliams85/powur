@@ -9,7 +9,10 @@ var DashboardTopper = {
     $('#aw-first-name').text(_data.currentUser.first_name);
   },
 
-  // function
+  // function to fill in avatar
+  fillAvatar: function() {
+    if(_data.currentUser.avatar) $('#aw-avatar').attr('src', _data.currentUser.avatar.large);
+  },
 
   // function to fill news items feed
   // parameter _lastID is the ID of the last post shown on the page,
@@ -47,6 +50,7 @@ var DashboardTopper = {
   // function to run all of the above
   readyGO: function() {
     this.fillFirstName();
+    this.fillAvatar();
     this.fillNewsItems();
     this.fillPayPeriodGoals();
     this.fillShareQuote();

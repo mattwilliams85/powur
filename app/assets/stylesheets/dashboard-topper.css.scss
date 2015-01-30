@@ -1,5 +1,24 @@
 @import "foundation-grid";
 
+// Special Classes
+.aw-bump-25 {
+  margin-top: 25px;
+}
+
+.aw-bump-40 {
+  margin-top: 40px;
+}
+
+.aw-db-topper-background {
+  background-color: #444;
+}
+
+// Fades (sets initial opacity to 0, then DashboardTopper.fadeItIn(); animates to 1)
+.aw-fade-in {
+  opacity: 0;
+}
+
+// Tooltips on meters
 .aw-tooltip{
     display: inline;
     position: relative;
@@ -21,7 +40,7 @@
 
 .aw-tooltip:before{
     border: solid;
-    border-color: #333 transparent;
+    border-color: #333;
     border-width: 6px 6px 0 6px;
     bottom: 20px;
     content: "";
@@ -30,30 +49,13 @@
     z-index: 99;
 }
 
-.aw-db-topper-background {
-  background-color: #444;
-}
-
-.aw-fade-in {
-  opacity: 0;
-}
-
-.aw-db-topper-mask {
-  background-image: image-url('static/image_03.jpg');
-  opacity: 0.3;
-}
-
+// Welcome Section
 .aw-name {
   color: #fff;
   font-size: 24pt;
 }
 
 .aw-motivational-quote {
-  color: #fff;
-  font-size: 14pt;
-}
-
-.aw-latest-news-label {
   color: #fff;
   font-size: 14pt;
 }
@@ -72,23 +74,21 @@
   margin-left: -10%;
 }
 
-.aw-vertical-middle {
-  height: 100%;
-  vertical-align: middle;
-}
-
-.aw-avatar {
+#aw-avatar {
   width:128px;
   height: auto;
 }
 
+
+// News Section 
 .aw-news-item-container {
   padding-top: 10px;
   margin: 5px;
 }
 
-.aw-bump-down {
-  padding-top: 40px;
+.aw-latest-news-label {
+  color: #fff;
+  font-size: 14pt;
 }
 
 .aw-news-item {
@@ -108,6 +108,7 @@
   font-size: 12pt;
 }
 
+// Share Quote Section ("footer")
 .aw-db-topper-footer {
   background: #333;
   padding-bottom: 20px;
