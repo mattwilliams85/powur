@@ -21,13 +21,14 @@ function initKPI(){
   randomizeOrders();
   populateContributors();
   checkPage()
-  ctx = $("#metricsChart").get(0).getContext("2d");
+  var ctx = document.getElementById("metricsChart").getContext("2d");
   if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
   if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
 }
 
 function initUserKPI(kpiType,chartStyle){
-  if(myChart) myChart.destroy();
+  var myChart2;
+  if(myChart2) myChart2.destroy();
   chartType = chartStyle
   if(kpiType === "orders") {
     metricsData = metricsData1
@@ -46,12 +47,11 @@ function initUserKPI(kpiType,chartStyle){
   setScale();
   randomizeOrders();
   checkPage()
-  ctx = $("#metricsChart").get(0).getContext("2d");
-  ctx.canvas.width = 670
-  ctx.canvas.height = 330
-  if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
-  if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
-  
+  var ctx2 = document.getElementById("metricsChart2").getContext("2d");
+  ctx2.canvas.width = 670
+  ctx2.canvas.height = 330
+  if(chartType === "line") myChart2 = new Chart(ctx2).Line(metricsData, options);
+  if(chartType === "bar") myChart2 = new Chart(ctx2).Bar(metricsData, options);
 }
 
 function randomizeOrders() {
@@ -104,7 +104,6 @@ function populateContributors() {
   if(_data.team.entities) {
     var _contributors = $(".contributors");
     var top_ten = _data.team.entities.slice(0, 9)
-
     top_ten.forEach(function(member) {
       _ajax({
         _ajaxType: "get",
