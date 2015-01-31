@@ -32,14 +32,15 @@
   }
 
   .logo {
-    @include sun-sprites-sprite(header-logo);
-    height: sun-sprites-sprite-height(header-logo);
-    width: sun-sprites-sprite-width(header-logo);
+    background-image: image-url('powur-white-logo.png');
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: 0 10px;
     display: block;
     margin: 0 auto;
     line-height: 37px;
     text-align: left;
-    padding-left: 45px;
+    width: 70px;
   }
 
   .sign-in {
@@ -70,7 +71,7 @@
     }
 
     .logo {
-      @include sun-sprites-sprite(header-logo-inverted);
+      background-image: image-url('powur-black-logo.png');
     }
 
     .sign-in {
