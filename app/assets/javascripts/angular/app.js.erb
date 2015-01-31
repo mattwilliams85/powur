@@ -13,7 +13,7 @@ var sunstandApp = angular.module('sunstandApp', [
   function ($rootScope, $location, $document, $http, CurrentUser) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
-    
+
     // if($location.path() === '/home' || '/create-energy' || '/create-wealth'){
       $('#pp-nav').hide();
     // }
@@ -41,48 +41,82 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     $rootScope.readyPiler = function(){
-      $(document).ready(function(){
-        if($location.path() === '/home' || '/create-energy' || '/create-wealth'){
-          setTimeout(function(){
-            $rootScope.pagePiler();
-          },100)
+      $('#pp-nav').hide();
+      if($location.path() === '/home' || '/create-energy' || '/create-wealth') {
+        $('html').addClass('piling-on');
+        setTimeout(function() {
+          $rootScope.pagePiler();
+        },100)
+      }
+    };
+
+    $rootScope.pagePiler = function(){
+      $('#pagepiling').pagepiling({
+        menu: null,
+        direction: 'vertical',
+        verticalCentered: true,
+        sectionsColor: [],
+        anchors: [],
+        scrollingSpeed: 700,
+        easing: 'swing',
+        loopBottom: false,
+        loopTop: false,
+        css3: true,
+        navigation: {
+          'textColor': '#fff',
+          'bulletsColor': '#333',
+          'position': 'right',
+          'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
+        },
+        normalScrollElements: null,
+        normalScrollElementTouchThreshold: 5,
+        touchSensitivity: 5,
+        keyboardScrolling: true,
+        sectionSelector: '.section',
+        animateAnchor: false,
+        //events
+        onLeave: function(index, nextIndex, direction){
+          changeNavColor()
+        },
+        afterLoad: function(anchorLink, index) {
+          animateActiveNav()
+          $('header').addClass('invert');
+          // $('footer').show();
+          $('#pp-nav').fadeIn('slow');
+          $('#dim_the_lights').css('opacity','1');
+
+        },
+        afterRender: function(){
+          $('#pp-nav').hide();
         }
       });
-    }
+      function animateActiveNav(){
+        if($('.pp-section.active').hasClass('inverted')){
+          $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
+          $('a.active').find('span').animate({backgroundColor:'#fff'},100);
+          $.fn.pagepiling.updateColor('#fff')
+        } else {
+          $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
+          $('a.active').find('span').animate({backgroundColor:'#555'},100);
+          $.fn.pagepiling.updateColor('#555')
+        }
+      }
 
-      $rootScope.pagePiler = function(){
-        console.log('wooz')
-        $('#pagepiling').pagepiling({
-            menu: null,
-            direction: 'vertical',
-            verticalCentered: true,
-            sectionsColor: [],
-            anchors: [],
-            scrollingSpeed: 700,
-            easing: 'swing',
-            loopBottom: false,
-            loopTop: false,
-            css3: true,
-            navigation: {
-                'textColor': '#888',
-                'bulletsColor': '#888',
-                'position': 'right',
-                'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
-            },
-            normalScrollElements: null,
-            normalScrollElementTouchThreshold: 5,
-            touchSensitivity: 5,
-            keyboardScrolling: true,
-            sectionSelector: '.section',
-            animateAnchor: false,
-    // 
-            //events
-            onLeave: function(index, nextIndex, direction){},
-            afterLoad: function(anchorLink, index){$('header').addClass('invert'),$('footer').show(),$('#pp-nav').fadeIn('slow'),$('#dim_the_lights').css('opacity','1')},
-            afterRender: function(){$('#pp-nav').hide();},
-        });   
-      };
+      function changeNavColor(){
+        if($('.pp-section.active').hasClass('inverted')){
+          $('#pp-nav').find('span').animate({borderColor:'#fff'},200);
+          $('a.active').find('span').css('background','#fff');
+        } else {
+          $('#pp-nav').find('span').animate({borderColor:'#555'},200);
+          $('a.active').find('span').css('background','#555');
+        }
+      }
+    };
 
+    $rootScope.showModal = function(text, modalClass) {
+      modalClass = modalClass || '';
+      $('<div class=\'reveal-modal ' + modalClass + '\' data-reveal><h3>' + text + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+    };
 
     // TODO: move header functionality into its own directive
     $rootScope.invertHeaderColor = function() {
@@ -117,7 +151,8 @@ var sunstandApp = angular.module('sunstandApp', [
     $rootScope.signOut = function() {
       var cb = function() {
         $rootScope.isSignedIn = false;
-        window.location = '#/sign-in';
+        // window.location = '#/sign-in';
+        $location.path('/sign-in');
       };
       $http.delete('/login.json', {
         xsrfHeaderName: 'X-CSRF-Token'
@@ -200,10 +235,13 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/university/templates/index.html")%>',
       controller: 'UniversityCtrl'
     }).
+    when('/university/classes/:classId/purchase', {
+      templateUrl: '<%=asset_path("angular/university/templates/purchase.html")%>',
+      controller: 'UniversityCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'
     });
   }]
 );
-

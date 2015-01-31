@@ -1386,6 +1386,7 @@
     .pagination_content,
     .pagination_container{
       height:100%;
+
     }
 
     .team_thumbnail{
@@ -1394,6 +1395,12 @@
       height:100%;
     }
 
+  }
+}
+
+.drilldown {
+  .new_thumbnail {
+    border-right:1px solid #555;
   }
 }
 
@@ -1879,6 +1886,7 @@
   position:absolute;
   left:0;
   top:0;
+
   // Background & borders
 
   // Typography
@@ -1987,7 +1995,7 @@
   }
   .pagination_container{
     height:220px;
-    width:1006px; /*contains 4 thumbs */
+    width:1005px; /*contains 4 thumbs */
     overflow:hidden;
     position:relative;}
     .pagination_container .nav{

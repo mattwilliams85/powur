@@ -18,17 +18,34 @@ function PromoCtrl($scope, $location, $timeout, $interval) {
 
 
 PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
-  $timeout(function() {
-    $scope.invertHeaderColor();
-  }, 2000);
+
+  if ($location.path() === '/create-energy') {
+    var pilerTimer = $timeout(function() {
+      $('.arrow-box').animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
+    }, 3000);
+
+    // Cancels if user leaves page
+    $scope.$on('$locationChangeStart', function(){
+      $timeout.cancel(pilerTimer);
+    });
+  } else {
+    $('.arrow-box').css('bottom','3em')
+  }
 
   $scope.readyPiler();
 
   $scope.$watch('slider', function(newValue) {
     if (newValue === '1') {
+      $('.image-2').animate({opacity:'1'},200)
+      $('.image-1').animate({opacity:'0.3'},200)
       $timeout(function() {
-        $scope.gotoAnchor('on_slider_move');
+        $.fn.pagepiling.moveSectionDown();
       }, 200);
+    } else {
+      $('.image-2').animate({opacity:'0.3'},200)
+      $('.image-1').animate({opacity:'1'},200)
     }
   });
 

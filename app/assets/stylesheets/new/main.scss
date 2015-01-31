@@ -1,253 +1,46 @@
 html, body {
   height: 100%;
+  // overflow: auto;
 }
 
-.sun-header-guest {
-  font-family: $header-font-family;
-  left: 0;
-  top: 0;
-  padding: 1em 0;
-  position: fixed;
-  width: 100%;
-  z-index: 2;
-  -webkit-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  -ms-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  transition: all 0.3s;
+.highlighted {
+  color: $sun-color-orange;
+}
 
-  a {
+.sun-sign-up-page {
+  footer {
+    position:relative;
+  }
+}
+
+.arrow-box {
+  bottom: -3em;
+  color: $secondary-color;
+  display: block;
+  left: 50%;
+  margin-left: -115px;
+  position: absolute;
+  text-align: center;
+  width: 215px;
+  cursor:pointer;
+
+  &.inverted {
     color: #fff;
   }
 
-  .header-nav-link {
-    @include sun-sprites-sprite(header-menu-icon);
-    height: sun-sprites-sprite-height(header-menu-icon);
-    width: sun-sprites-sprite-width(header-menu-icon);
-    float: left;
-    margin-top: 8px;
-  }
-
-  .header-nav {
+  &.inactive {
     display: none;
   }
 
-  .logo {
-    @include sun-sprites-sprite(header-logo);
-    height: sun-sprites-sprite-height(header-logo);
-    width: sun-sprites-sprite-width(header-logo);
-    display: block;
-    margin: 0 auto;
-    line-height: 37px;
-    text-align: left;
-    padding-left: 45px;
+  .fa-chevron-down {
+    display:block;
   }
 
-  .sign-in {
-    background: none;
-    display: inline-block;
-    line-height: 2.3em;
-    float: right;
-    padding: 0 1em;
-    border: 2px solid #fff;
-    text-transform: uppercase;
-    font-size: .8em;
-  }
-
-  &.hidden {
-    top: -200px;
-  }
-
-  &.invert {
-    background: #fff;
-    border-bottom: 1px solid #ccc;
-
-    a {
-      color: $secondary-color;
-    }
-
-    .header-nav-link {
-      @include sun-sprites-sprite(header-menu-icon-inverted);
-    }
-
-    .logo {
-      @include sun-sprites-sprite(header-logo-inverted);
-    }
-
-    .sign-in {
-      border-color: $secondary-color;
-    }
+  span {
+    font-size:1.5em;
   }
 }
 
-
-/*
- * HEADER for signed in user
-*/
-#sun_header {
-  background: $sun-color-blue;
-  font-family: "Varela Round", sans-serif;
-  left: 0;
-  top: 0;
-  padding: 10px;
-  position: fixed;
-  text-transform: uppercase;
-  width: 100%;
-  z-index: 2;
-
-  .sun-header {
-    list-style-position: outside;
-
-    li {
-      display: block;
-      float: left;
-    }
-
-    .logo {
-      float: none;
-      margin-bottom: 20px;
-
-      a {
-        @include sun-sprites-sprite(header-logo);
-        height: sun-sprites-sprite-height(header-logo);
-        display: block;
-        line-height: 37px;
-        text-align: left;
-        padding-left: 45px;
-        font-size: 1.2em;
-        font-family: "Varela Round", sans-serif;
-        margin-right: 30px;
-        text-transform: none;
-      }
-
-      @media #{$small} {
-        float: left;
-        margin-bottom: 0;
-      }
-    }
-
-    .menu-item {
-      a {
-        margin-right: 20px;
-        line-height: 37px;
-        font-size: 1.2em;
-      }
-    }
-
-    .sign-out {
-      a {
-        background: none;
-        display: inline-block;
-        line-height: 33px;
-        padding: 0 1em;
-        border: 2px solid #fff;
-        font-size: .8em;
-        font-family: $header-font-family;
-      }
-    }
-
-    .avatar {
-      a {
-        float: right;
-        margin-right: 10px;
-
-        img {
-          width: 37px;
-          border-radius: 50px;
-        }
-      }
-    }
-
-    .username {
-      a {
-        display: none;
-        float: right;
-        margin: 0 20px 0 0;
-        padding: 1px 0 0 0;
-        line-height: 37px;
-        font-size: 1em;
-
-        i {
-          font-style: normal;
-          color: #4a4747;
-        }
-
-        @media #{$small} {
-          display: block;
-        }
-      }
-    }
-  }
-
-  a {
-    color: #fff;
-  }
-}
-
-
-/*
-* FOOTER
-*
-*/
-.sun-landing-footer {
-  background: #383838;
-  width:100%;
-  z-index:30;
-  position:absolute;
-  bottom:0;
-
-  .footer-content {
-    margin: 2em 0;
-  }
-
-  a {
-    color: #fff;
-  }
-
-  .footer-nav {
-    color: #fff;
-    margin-bottom: 1em;
-
-    ul {
-      margin: 0;
-
-      li {
-        text-transform: uppercase;
-        display: inline-block;
-      }
-    }
-  }
-
-  .social-links {
-    float: right;
-
-    a {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      margin-left: 20px;
-
-      &.facebook {
-        @include sun-sprites-sprite(facebook-icon);
-        height: sun-sprites-sprite-height(facebook-icon);
-      }
-      &.twitter {
-        @include sun-sprites-sprite(twitter-icon);
-        height: sun-sprites-sprite-height(twitter-icon);
-      }
-      &.youtube {
-        @include sun-sprites-sprite(youtube-icon);
-        height: sun-sprites-sprite-height(youtube-icon);
-      }
-    }
-  }
-
-  .copyright {
-    float: left;
-    color: #7c7c7c;
-    font-size: .9em;
-  }
-}
 
 // .slide-dot {
 //   cursor:pointer;
@@ -317,3 +110,13 @@ input {
 //     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 //   }
 // }
+
+.sun-modal {
+  background-image: image-url('powur-white-logo.png');
+  background-color: #f4c751;
+  background-repeat: no-repeat;
+  background-position: 50% 4em;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 10em;
+}

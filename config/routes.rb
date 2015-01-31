@@ -111,7 +111,7 @@ Rails.application.routes.draw do
 
     resources :university_classes, only: [:index, :show] do
       member do
-        post :enroll
+        post :enroll, :purchase
       end
     end
   end

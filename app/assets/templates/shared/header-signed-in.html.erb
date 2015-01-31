@@ -2,13 +2,16 @@
   <div class="row">
     <div class="large-12 columns">
       <ul class="sun-header">
-        <li class="right sign-out"><a ng-click="signOut()">Sign Out</a></li>
-        <li class="right username"><a ng-href="/u/profile">{{currentUser.first_name}} <i>{{currentUser.last_name}}</i></a></li>
+        <li class="right menu-item sign-out"><a ng-click="signOut()">Sign Out</a></li>
+        <!-- <li class="right username"><a ng-href="/u/profile">{{currentUser.first_name}} <i>{{currentUser.last_name}}</i></a></li> -->
+        <li class="right username"><a ng-href="/u/profile">{{currentUser.first_name}}</a></li>
         <li class="right avatar"><a ng-href="/u/profile"><img src="<%=asset_path('temp_dev_images/profile.jpg')%>" ng-src="{{currentUser.avatar.thumb}}"></a></li>
 
-        <li class="logo"><a ng-href="/">powur</a></li>
+        <li class="logo"><a ng-href="/">&nbsp;</a></li>
         <li class="menu-item"><a ng-href="/u/dashboard">Dashboard</a></li>
-        <li class="menu-item"><a ng-href="#/university">Powur U</a></li>
+        <li class="menu-item"><a ng-href="/u/earnings">Earnings</a></li>
+        <li class="menu-item"><a class="active" ng-href="#/university">Powur U</a></li>
+        <li class="menu-item"><a>Marketing</a></li>
       </ul>
       <div class="clearfix"></div>
     </div>
