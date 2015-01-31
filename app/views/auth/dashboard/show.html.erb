@@ -1,8 +1,7 @@
 <% content_for :javascript_includes do %>
   <%= javascript_include_tag "dashboard.js", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "kpi.js", "data-turbolinks-track" => true %>
-  <%#= javascript_include_tag "kevins_shitty_javascript.js" %>
-    <%= javascript_include_tag "kpi.js", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "dashboard-topper.js", "data-turbolinks-track" => true %>
 <% end %>
 
 <style>
@@ -53,56 +52,124 @@
 <% else %>
 <% end %>
 
-<section id="dashboard_personal_goals" class="dashboard_section" data-drilldown-level="0" style="margin-top:-100px;">
+<section id="dashboard_personal_goals" class="dashboard_section aw-db-topper-background aw-fade-in" data-drilldown-level="0" style="margin-top:-100px;">
   <div class="section_header">
-
     <div class="section_header_content">
-
-      <div class="section_label">
-        <div class="tag"><img src="/images/dashboard/goals_icon.png"></div>
-        <div class="text">Pay Period Goals</div>
-      </div>
-      <div id="select-dropdown">
-      <!-- <i class="fa fa-caret-down" style="color:#000"></i> -->
-      <select id="pay_period_goal_path">
-      </select>
-      </div>
+    <!-- Legacy: Leave this section because it positions the Dashboard Topper at the right distance from the navbar -->
     </div>
   </div>
 
   <div class="section_body">
     <div class="section_content" style="overflow:hidden;">
-      <span class="product" style="text-transform:uppercase; font-size:14px; display:block; float:right;margin-right:8px;">Product: NO DATA </span>
-      <br>
-      <div id="goal_meters">
-        <div id="personal_sales" class="meter_container">
-          <div class="labels"></div>
-          <div class="highlight_container">
-            <div class="highlight"></div>
+      <!-- Row: The main Dashboard Topper -->
+      <div class="row aw-fade-in">
+        <!-- Welcome Section -->
+        <div class="small-8 large-8 columns">
+          <!-- Row: Photo and Name/Quote -->
+          <div class="row"> 
+            <!-- Photo -->
+            <div class="small-3 large-3 columns">
+              <img id="aw-avatar" class="aw-round-image" src="<%= image_path("temp_dev_images/Tim.jpg") %>">
+            </div>
+            <!-- Name and Motivational Quote --> 
+            <div class="aw-bump-40 small-9 large-9 columns">
+              <span class="left aw-name">Welcome, <span id="aw-first-name">Jonathan</span></span>
+              <br>
+              <span class="left aw-motivational-quote">The world needs you.</span>
+            </div>
+          </div>
+          <!-- Row: Pay Period Goals --> 
+          <div class="row">
+            <span class="left aw-label aw-bump-40">Your Pay Period Goals</span>
+            <div class="small-10 large-10 columns">
+              <div class="row">
+                <div id="goal_meters" class="aw-bump-25">
+                  <div id="personal_rooftops" class="meter_container">
+                    <div class="highlight_container">
+                      <div class="highlight">
+                        <div class="aw-tooltip aw-tt-above"><span id="personal_rooftops_tooltip" class="aw-tooltip-text"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="group_rooftops" class="meter_container">
+                    <div class="highlight_container">
+                      <div class="highlight">
+                        <div class="aw-tooltip aw-tt-below"><span id="group_rooftops_tooltip" class="aw-tooltip-text"></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Badge --> 
+            <div class="small-2 large-2 columns">
+              <img class="aw-badge" src="<%= image_path("badges/badge_02.png") %>">
+            </div>
+          </div>
+          <div class="section_legend">
+            <div class="personal"></div>
+            <span class="aw-label personal_rooftops">Personal Rooftops</span>
+            <br>
+            <div class="group"></div>
+            <span class="aw-label group_rooftops">Group Rooftops</span>
           </div>
         </div>
-
-        <div id="group_sales" class="meter_container">
-          <div class="highlight_container">
-            <div class="highlight"></div>
+        <!-- News Section --> 
+        <div class="small-4 large-4 columns">
+          <!-- Row: News Label -->
+          <div class="row">
+            <div class="small-12 large-12 columns">
+              <span class="left aw-label">Latest News</span>
+            </div>
           </div>
-          <div class="labels flip"></div>
-
+          <!-- Row: News Item -->
+          <div class="row">
+            <div class="aw-news-item-container small-12 large-12 columns">
+              <p class="aw-news-item">The future of the planet is in our hands. <a href="#">http://fb.me/28P80vSUb</a></p>
+              <p class="aw-news-date">28 January 2015</p>
+            </div>
+          </div>
+          <!-- Row: News Item -->
+          <div class="row">
+            <div class="aw-news-item-container small-12 large-12 columns">
+              <p class="aw-news-item">Obi-Wan is here. The Force is with him. What good is a reward if you ain't around to use it? Besides, attacking that battle station ain't my idea of courage. It's more like…suicide. She must have hidden the plans in the escape pod. Send a detachment down to retrieve them, and see to it personally, Commander. There'll be no one to stop us this time! <a href="#">http://fb.me/28P80vSUb</a></p>
+              <p class="aw-news-date">17 January 2015</p>
+            </div>
+          </div>
+          <!-- Row: News Pagination -->
+          <div class="row">
+            <div class="small-12 large-12 columns">
+              <span class="aw-news-pagination"><a href="#"><i class="fa fa-caret-left"></i></a> <a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#"><i class="fa fa-caret-right"></i></a></span>
+            </div>
+          </div>
         </div>
-
       </div>
-      <div class="section_legend">
-        <div class="team"></div>
-        <span class="group_sales">Group Sales</span>
-        <div class="you"></div>
-        <span class="personal_sales">Personal Sales</span>
+      <div class="row">
+        <div class="small-12 large-12 columns">
+          <br>
+        </div>
       </div>
-      <div class="next_rank" style="float:right;font-size:14px; text-transform:uppercase; line-height:24px;margin-top:-10px;padding-right:8px;">
-      </div>
-
     </div>
   </div>
 </section>
+<!-- Faux-Row: Dashboard Topper Footer (darkened bar at bottom) -->
+<!-- (This has to be outside of div.row because a .row's width is relative to parent elements) -->
+<div class="aw-db-topper-footer aw-fade-in">
+  <!-- Row: Quote to Share -->
+  <div class="row">
+    <div class="aw-share-quote small-12 large-12 columns">
+      <span class="aw-share-quote"></span>
+    </div>
+  </div>
+  <!-- Row: Share Links -->
+  <div class="row">
+    <div class="aw-share-links">
+      <span class="aw-share-links">Share this </span>
+      <a href="#"><i class="fa fa-twitter-square fa-fw fa-2x aw-blue-share-link"></i></a>
+      <a href="#"><i class="fa fa-facebook-square fa-fw fa-2x aw-blue-share-link"></i></a>
+    </div>
+  </div>
+</div>
 
 
 <section id="dashboard_kpis" class="dashboard_section" data-drilldown-level="0">
@@ -331,89 +398,7 @@
 		</div>
 	</div>
 </section>
+<br>
+<br>
+<br>
 
-
-
-
-<br><br><br>
-
-<!--
-<% if params[:first_run] == "true" %>
-<% else %>
-
-  <section id="dashboard_payments" class="dashboard_section">
-    <div class="section_header">
-      <div class="section_header_content">
-
-        <%= select_tag "Level", options_for_select(
-          [
-            "My Earnings",
-              "Level 2 Earnings",
-              "Level 3 Earnings",
-              "Level 4 Earnings",
-              "Level 5 Earnings",
-              "Level 6 Earnings",
-              "Total Earnings"
-          ], ["My Earnings"]),
-          { :class => 'title_select' }
-        %>
-
-        <%= select_tag "Level", options_for_select(
-          [
-            "Past month",
-              "Past 3 months",
-              "Past 6 months",
-              "Past year",
-              "All time"
-          ], ["Past month"]),
-          { :class => 'title_select' }
-        %>
-
-      </div>
-    </div>
-
-    <div class="section_body">
-      <div class="section_content">
-        <%= render partial: "shared/payment_thumbnail", :locals => {:id => "1", :amount => "$2,345", :mail_date => "4/1/14", :has_mailed => false}%>
-        <%= render partial: "shared/payment_thumbnail", :locals => {:id => "2", :amount => "$1,234", :mail_date => "3/23/14", :has_mailed => true}%>
-        <%= render partial: "shared/payment_thumbnail", :locals => {:id => "3", :amount => "$789", :mail_date => "3/16/14", :has_mailed => true}%>
-      </div>
-    </div>
-  </section>
-
-<% end %>
-
-<section id="dashboard_pages" class="dashboard_section">
-  <div class="section_header">
-    <div class="section_header_content">
-      <h2 class="section_title">Your Pages</h2>
-    </div>
-  </div>
-
-  <div class="section_body">
-    <div class="section_content">
-
-      <% if params[:pro] == "true" %>
-
-        <%= render partial: "shared/new_link_thumbnail" %>
-        <%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "March Facebook Post", :url => "sunstand.com/1234", :total_hits => "12,472", :start_date => "3/1/14"}%>
-        <%= render partial: "shared/link_thumbnail", :locals => {:campaign_title => "February Email Blast", :url => "sunstand.com/4321", :total_hits => "840", :start_date => "2/16/14"}%>
-
-      <% else %>
-
-        <%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Customers", :url => "/1234"}%>
-        <%= render partial: "shared/page_thumbnail", :locals => {:page_title => "For Promoters", :url => "/4321"}%>
-
-        <div class="blank_state hide">
-          <p>This is a static page that you can share with others.</p>
-          <p>To generate custom url's for tracking campaigns, <a href="/upgrade">upgrade to Pro</a>.</p>
-        </div>
-
-      <% end %>
-
-    </div>
-     <%= render partial: "shared/new_link_detail"%>
-   </div>
-</section>
-
--->

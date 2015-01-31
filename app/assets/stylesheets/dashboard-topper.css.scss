@@ -1,0 +1,157 @@
+@import "foundation-grid";
+
+// Special Classes
+.aw-bump-25 {
+  margin-top: 25px;
+}
+
+.aw-bump-40 {
+  margin-top: 40px;
+}
+
+.aw-db-topper-background {
+  background-color: #444;
+}
+
+// Fades (sets initial opacity to 0, then DashboardTopper.fadeItIn(); animates to 1)
+.aw-fade-in {
+  opacity: 0;
+}
+
+// Tooltips on meters
+div.aw-tooltip {
+  position: relative;
+  right: -38px;
+  display: inline;
+}
+
+div.aw-tooltip span {
+  position: relative;
+  padding: 4px 20px;
+  color: #FFFFFF;
+  background: #000000;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 4px;
+  opacity: 0.8;
+  left: 50%;
+  margin-left: -76px;
+  z-index: 999;
+}
+// Arrow
+div.aw-tooltip span:after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; 
+  height: 0;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+
+.aw-tt-above {
+  bottom: 45px;
+  span:after {
+    top: 100%;
+    border-top: 8px solid #000000;
+  }
+}
+
+.aw-tt-below {
+  top: 25px;
+  span:after {
+    bottom: 100%;
+    border-bottom: 8px solid #000000;
+  }
+}
+
+.aw-tooltip-text {
+  font-size: 12pt;
+}
+
+// Welcome Section
+.aw-name {
+  color: #fff;
+  font-size: 24pt;
+}
+
+.aw-motivational-quote {
+  color: #fff;
+  font-size: 14pt;
+}
+
+.aw-round-image {
+  border-radius: 50%;
+}
+
+.aw-label {
+  color: #fff;
+  font-size: 14pt;
+}
+
+.aw-badge {
+  display: float;
+  margin-left: -60px;
+}
+
+#aw-avatar {
+  width:128px;
+  height: auto;
+}
+
+
+// News Section 
+.aw-news-item-container {
+  padding-top: 10px;
+  margin: 5px;
+}
+
+.aw-latest-news-label {
+  color: #fff;
+  font-size: 14pt;
+}
+
+.aw-news-item {
+  color: #fff;
+  font-size: 12pt;
+  text-align: left;
+  line-height: 15pt;
+}
+
+.aw-news-date {
+  font-size: 10pt;
+  color: #aaa;
+  text-align: left;
+}
+
+.aw-news-pagination {
+  font-size: 12pt;
+}
+
+// Share Quote Section ("footer")
+.aw-db-topper-footer {
+  background: #333;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.aw-share-quote {
+  color: #fff;
+  font-size: 16pt;
+  padding-top: 20px;
+}
+
+.aw-share-links {
+  margin-left: 10px;
+  margin-top: 10px;
+  text-transform: uppercase;
+  font-size: 10pt;
+  color: #fff;
+  vertical-align: middle;
+}
+
+.aw-blue-share-link {
+  color: #20c2f1;
+  vertical-align: -5px;
+}
