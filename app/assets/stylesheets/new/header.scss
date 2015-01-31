@@ -184,7 +184,7 @@
   a {
     color: #0a7fa1;
 
-    &.active {
+    &.active, &:hover {
       color: #fff;
     }
   }
