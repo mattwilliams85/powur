@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
 <ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
 <div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}" >
@@ -5,32 +7,28 @@
 
   <main class="sun-landing" id="pagepiling">
 
-    <div class="sun-scrolling-bg sun-bg-1 sun-slider section" id="anchor_1 section1">
+    <div class="sun-scrolling-bg sun-bg-1 sun-slider section inverted" id="anchor_1 section1">
       <div id="slide0"  class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 0, 'inactive': currentHomeSlide > 0}">
         <div class="row">
-          <h1>It's going to be legen...</h1>
+          <h1>We're Putting Solar on 2 Million Homes by 2025.</h1>
         </div>
       </div>
 
       <div id="slide1" class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 1, 'inactive': currentHomeSlide > 1}">
         <div class="row">
-          <h1>Wait for it ....</h1>
+          <h1>and We'll Pay You $1,000,000,000 to Help Us Do It.</h1>
         </div>
       </div>
 
-      <div id="slide2" class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 2, 'inactive': currentHomeSlide > 2}">
+      <div id="slide2" class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 2}">
         <div class="row">
-          <h1>dary...</h1>
+          <h1>We are starting this chain reaction by...</h1>
         </div>
       </div>
 
-      <div id="slide3" class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 3}">
-        <div class="row">
-          <h1>We are starting a chain reaction by:</h1>
-        </div>
+      <div class="arrow-box inverted">
+        <i class="fa fa-chevron-down fa-3x"></i>
       </div>
-
-      <a class="sun-next-pointer inverted"></a>
     </div>
 
 
@@ -41,7 +39,10 @@
           <h4>Building the world's largest network of peer to peer solar advocates.</h4>
         </div>
       </div>
-      <a class="sun-next-pointer">So that we</a>
+      <div class="arrow-box">
+        <span>So that we</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
     </div>
 
     <div class="sun-scrolling-bg sun-bg-3 section" id="section3">
@@ -51,7 +52,10 @@
           <h4>Facilitate the largest transfer of wealth in history through the decentralization of energy production.</h4>
         </div>
       </div>
-      <a class="sun-next-pointer">Which will</a>
+      <div class="arrow-box">
+        <span>Which will</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
     </div>
 
     <div class="sun-scrolling-bg sun-bg-2 section">
@@ -61,7 +65,10 @@
           <h4>Reverse climate change by turning millions of American homes clean and carbon-positive.</h4>
         </div>
       </div>
-      <a class="sun-next-pointer">So we</a>
+      <div class="arrow-box">
+        <span>So we</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
     </div>
 
     <div class="sun-scrolling-bg sun-bg-3 section">
@@ -71,16 +78,21 @@
           <h4>Create a sustainable, renewable and clean energy solution for all future generations.</h4>
         </div>
       </div>
-      <a class="sun-next-pointer"></a>
+     <div class="arrow-box">
+       <i class="fa fa-chevron-down fa-3x"></i>
+     </div>
     </div>
 
-    <div class="sun-scrolling-bg  sun-bg-4 section">
+    <div class="sun-scrolling-bg  sun-bg-4 section inverted">
       <div class="sun-home-intro">
         <div class="row">
           <h1 style="width:70%">The solar revolution is here.</h1>
         </div>
       </div>
-      <a class="sun-next-pointer inverted">It will be disruptive</a>
+     <div class="arrow-box inverted">
+       <span>It will be disruptive</span>
+       <i class="fa fa-chevron-down fa-3x"></i>
+     </div>
     </div>
 
     <div class="sun-scrolling-bg sun-bg-2 section">

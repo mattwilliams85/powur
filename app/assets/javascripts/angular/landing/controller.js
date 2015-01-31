@@ -24,7 +24,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       }).
       success(function(data) {
         if (data.error) {
-          $('<div class=\'reveal-modal\' data-reveal><h3>Oops, wrong email or password</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+          $scope.showModal('Oops, wrong email or password');
           $(document).foundation();
         } else {
           $rootScope.isSignedIn = true;
@@ -71,7 +71,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       });
     } else {
       $location.path('/sign-in');
-      $('<div class=\'reveal-modal\' data-reveal><h3>You\'ve successfully Signed Up. Now you may Sign In.</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+      $scope.showModal('You\'ve successfully Signed Up. Now you may Sign In.');
       $(document).foundation();
     }
     $scope.isSubmitDisabled = false;
@@ -103,7 +103,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       }).
       success(function() {
         $location.path('/sign-in');
-        $('<div class=\'reveal-modal\' data-reveal><h3>We received your request. You\'ll get an email if we have an account associated with it.</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+        $scope.showModal('We received your request. You\'ll get an email if we have an account associated with it.');
         $(document).foundation();
       }).
       error(function() {
@@ -113,38 +113,6 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       $scope.showValidationMessages = true;
     }
   };
-
-//   $scope.pagePiler2 = function(){
-//     $('#pagepiling2').pagepiling({
-//         menu: null,
-//         direction: 'vertical',
-//         verticalCentered: true,
-//         sectionsColor: [],
-//         anchors: [],
-//         scrollingSpeed: 700,
-//         easing: 'swing',
-//         loopBottom: false,
-//         loopTop: false,
-//         css3: true,
-//         navigation: {
-//             'textColor': '#000',
-//             'bulletsColor': '#000',
-//             'position': 'right',
-//             'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
-//         },
-//         normalScrollElements: null,
-//         normalScrollElementTouchThreshold: 5,
-//         touchSensitivity: 5,
-//         keyboardScrolling: true,
-//         sectionSelector: '.section',
-//         animateAnchor: false,
-// //
-//         //events
-//         onLeave: function(index, nextIndex, direction){},
-//         afterLoad: function(anchorLink, index){$('header').addClass('invert'),$('footer').show(),$('#pp-nav').fadeIn('slow');},
-//         afterRender: function(){},
-//     });
-//   };
 
   $scope.updatePassword = function() {
     if ($scope.user && $scope.user.password && $scope.user.password_confirm) {
@@ -157,11 +125,11 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       }).
       success(function(data) {
         if (data.error) {
-          $('<div class=\'reveal-modal\' data-reveal><h3>' + data.error.message + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+          $scope.showModal(data.error.message);
           $(document).foundation();
         } else {
           $location.path('/sign-in');
-          $('<div class=\'reveal-modal\' data-reveal><h3>' + data.properties._message.confirm + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+          $scope.showModal(data.properties._message.confirm);
           $(document).foundation();
         }
       }).
@@ -180,18 +148,45 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
 
 LandingCtrl.prototype.init = function($scope, $location, $timeout) {
 
+  // Runs page-piler after intro
   $('html').removeClass('piling-on');
+  $('#pp-nav').hide();
   if ($location.path() === '/home') {
-    var pilerTimer = setTimeout(function() {
+    var pilerTimer = $timeout(function() {
+      $('.arrow-box').animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
       $scope.readyPiler();
-    }, 6500);
+    }, 4500);
   }
-  $scope.$on('$routeChangeStart', function(next, current) {
-     stopTimer();
-   });
-  function stopTimer() {
-    clearTimeout(pilerTimer);
+
+  if ($location.path() === '/sign-up') {
+    if(window.outerHeight > 1100){
+      $scope.readyPiler();
+
+      var pilerTimer = $timeout(function() {
+        $('.arrow-box').animate({
+          bottom: "3em"
+        }, 500, "easeOutBounce" );
+      }, 500);
+
+      // Cancels if user leaves page
+      $scope.$on('$locationChangeStart', function(){
+        $timeout.cancel(pilerTimer);
+      });
+    } else {
+      $scope.invertHeaderColor();
+      $('#pagepiling').css('overflow','visible')
+      $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
+      $('.arrow-box').css('bottom','3em')
+      // $('row')
+    }
   }
+
+  // Cancels if user leaves page
+  $scope.$on('$locationChangeStart', function(){
+    $timeout.cancel(pilerTimer);
+  });
 
   // Setting mode based on the url
   $scope.mode = '';
@@ -211,7 +206,7 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
     $scope.currentHomeSlide = 0;
     var sliderStop = $interval(function() {
       $scope.currentHomeSlide += 1;
-      if ($scope.currentHomeSlide >= 3) {
+      if ($scope.currentHomeSlide >= 2) {
         $interval.cancel(sliderStop);
         sliderStop = undefined;
       }

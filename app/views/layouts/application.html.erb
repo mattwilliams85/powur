@@ -19,7 +19,8 @@
         <ul>
           <li class="main_logo">
             <a href="/">
-              <%= render :partial => "shared/sunstand_logo_svg" %>
+              <%=image_tag('powur-white-logo.png', class: 'logo-img') %>
+              <%#= render :partial => "shared/sunstand_logo_svg" %>
             </a>
           </li>
           <li>
@@ -32,7 +33,7 @@
             <%= link_to_unless_current 'Powur U', "/#/university" %>
           </li>
           <li>
-            <%= link_to_unless_current 'Marketing', "/u/marketing" %>
+            <%= link_to_unless_current 'Marketing', "#" %>
           </li>
 
 

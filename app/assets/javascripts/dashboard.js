@@ -221,7 +221,11 @@ function Dashboard(){
     //wire up invitations listing hook
     $(".js-invites_thumbnail").on("click", function(e){
       e.preventDefault();
+      $(this).closest('.team_info').css("border-bottom","0px")
       var _thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
+      if(_thisThumbnail.find("span.expand i").hasClass('fa-angle-up')){
+        _thisThumbnail.closest('.team_info').css("border-bottom","1px solid #ccc")
+      }
       _drillDown({"_type":"invitations",
             "_mainSectionID":$(e.target).parents("section").attr("id"),
             "_thumbnailIdentifier":".js-invites_thumbnail",
@@ -482,36 +486,36 @@ function Dashboard(){
 
       case "kpi":
        var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
-                    //compile leader (hero) info
-                    $.getJSON("/u/users/"+_options._userID, function(){
-                      console.log("... loading user#"+_options._userID+" profile info");
-                    })
-                    .done(function(data){
-                     
-                      //prepare leader info
-                      var _userDetail={};
-                      _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
+        //compile leader (hero) info
+        $.getJSON("/u/users/"+_options._userID, function(){
+          console.log("... loading user#"+_options._userID+" profile info");
+        })
+        .done(function(data){
+         
+          //prepare leader info
+          var _userDetail={};
+          _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
 
-                      //add new team drilldown basic template layout with leader info
-                      var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
-                      $("#dashboard_team").append(_html);
-                      
-                      var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+          //add new team drilldown basic template layout with leader info
+          var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+          $("#dashboard_team").append(_html);
+          
+          var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 
-                      _drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);
-                      _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
-                        _userDetail,
-                        _drilldownContainerObj,
-                        function(){
-                          var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
-                          _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
-                          EyeCueLab.UX.getTemplate("/templates/_kpi_conversion_thumbnail.handlebars.html", _userDetail, undefined, function(html){
-                            _downlinkContainerObj.html(html);
-                            _alternateColor(_drillDownLevel)
-                          });
-                      });
-                    });
-              break;
+          _drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);
+          _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
+            _userDetail,
+            _drilldownContainerObj,
+            function(){
+              var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
+              _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
+              EyeCueLab.UX.getTemplate("/templates/_kpi_conversion_thumbnail.handlebars.html", _userDetail, undefined, function(html){
+                _downlinkContainerObj.html(html);
+                _alternateColor(_drillDownLevel)
+              });
+          });
+        });
+        break;
 
 //mattmarker
       case "team.immediate":
@@ -920,6 +924,7 @@ function Dashboard(){
       break;
 
       case "invitations":
+        $('#dashboard_team .drilldown').remove();
         var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
         var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
         $("#"+_options._mainSectionID).append(_html);
@@ -971,7 +976,9 @@ function Dashboard(){
               $(".js-new_invite_thumbnail").unbind();
               //wire up invitation detail hooks
               $(".js-new_invite_thumbnail").on("click", function(e){
+                $('#dashboard_team .level_2').remove();
                 e.preventDefault();
+                // e.stopPropagation();
                 _drillDown({"_type":"new_invitations",
                       "_mainSectionID":$(this).parents("section.dashboard_section").attr("id"),
                       "_thumbnailIdentifier":".js-new_invite_thumbnail",
@@ -995,11 +1002,11 @@ function Dashboard(){
         _drilldownContainerObj.animate({height:"+=400px", opacity:1}, _animation_speed);
 
         var _invitationDetail = {};
-        var _thisThumbnail = $(_options._target).parents(_options._thumbnailIdentifier);
+        var _thisThumbnail = $(_options._target)
+        if(!_thisThumbnail.hasClass('new_thumbnail')) _thisThumbnail = $(_options._target).parents(_options._thumbnailIdentifier)
         _invitationDetail = _data["invitations"][_thisThumbnail.index()];
         _invitationDetail.invitationType="Existing";
         if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _invitationDetail.invitationType="New";
-
         _getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
           _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
           _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
@@ -1102,48 +1109,99 @@ function Dashboard(){
 
 
     //sub function of the drilldown that checks for the need to collapse children drilldowns
-    function _collapseDrillDown(_options){
-      //set up context for what's being clicked
-      var _currentLevelSectionObj=_options._target.closest("section");
-      var _drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
-      var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
-      var _thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
-      var _drillDownDepth = _topLevelSectionObj.children("section").length;
+  //   function _collapseDrillDown(_options){
+  //     //set up context for what's being clicked
+  //     var _currentLevelSectionObj=_options._target.closest("section");
+  //     var _drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
+  //     var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
+  //     var _thisThumbnail = _options._target //use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
+  //     var _drillDownDepth = _topLevelSectionObj.children("section").length;
 
 
-      //fade all other "unfocused" thumbnail out
-      for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
-        if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
-          var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")").find('.js-thumbnail'));
-          _neighborThumbnail.animate({"opacity":".3"}, 300);
-          _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
-          _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
+  //     //fade all other "unfocused" thumbnail out
+  //     for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
+  //       if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
+  //         var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")").find('.js-thumbnail'));
+  //         _neighborThumbnail.animate({opacity:'0.3'},300)
+  //         _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
+  //         _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
+  //       }
+  //     }
+  //     _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
+  //     _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
+  //     //close any level after the current level
+  //     for(var i=_drillDownDepth;i>_drillDownFocusLevel;i--){
+  //         _topLevelSectionObj.find("[data-drilldown-level="+i+"]").animate({"opacity": "0", "height": "-700px"}, _animation_speed);
+  //     }
+
+  //     //if checking on self collapse everything
+  //     // if(_thisThumbnail.find("span.expand i").attr("class").indexOf(".team_tab")>=0){
+  //     //   $(".arrow").css("bottom","-20px").hide();
+  //     //   $(".section_content").css("border-bottom-width","1px");
+  //     //   _thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
+  //     //   _thisThumbnail.find("span.expand i").addClass("fa-angle-down");
+  //     //   _abortDrillDown=true;
+
+  //     //   _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
+  //     //   clearTimeout();
+  //     //   return;
+  //     // }
+
+  //     _thisThumbnail.animate({"opacity":1}, 300);
+  //     _thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
+  //     _thisThumbnail.find("span.expand i").addClass("fa-angle-up");
+  //   }
+  // }
+
+  function _collapseDrillDown(_options){
+       //set up context for what's being clicked
+       var _currentLevelSectionObj=_options._target.closest("section");
+       var _drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
+       var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
+       var _thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
+       var _drillDownDepth = _topLevelSectionObj.children("section").length;
+       if(_thisThumbnail.length === 0) _thisThumbnail = _options._target
+
+       //fade all other "unfocused" thumbnail out
+       for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
+         if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
+           var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
+           _neighborThumbnail.find('.js-thumbnail').animate({"opacity":".3"}, 300);
+           _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
+           _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
+         }
+       }
+       _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
+       _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
+
+       //close any level after the current level
+       for(var i=_drillDownDepth;i>_drillDownFocusLevel;i--){
+           _topLevelSectionObj.find("[data-drilldown-level="+i+"]").remove();
+       }
+
+       //if checking on self collapse everything
+       // if(_thisThumbnail.hasClass()
+       if(!_thisThumbnail.hasClass('team_thumbnail')){
+        if(_thisThumbnail.find("span.expand i").attr("class").indexOf("fa-angle-up")>=0){
+          $(".arrow").css("bottom","-20px").hide();
+          $(".section_content").css("border-bottom-width","1px");
+          _thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
+          _thisThumbnail.find("span.expand i").addClass("fa-angle-down");
+          _abortDrillDown=true;
+
+          _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
+          clearTimeout();
+          return;
         }
-      }
+       }
+       
 
-      //close any level after the current level
-      for(var i=_drillDownDepth;i>_drillDownFocusLevel;i--){
-          _topLevelSectionObj.find("[data-drilldown-level="+i+"]").animate({"opacity": "0", "height": "-700px"}, _animation_speed);
-      }
+       _thisThumbnail.animate({"opacity":1}, 300);
+       _thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
+       _thisThumbnail.find("span.expand i").addClass("fa-angle-up");
+     }
+   }
 
-      //if checking on self collapse everything
-      // if(_thisThumbnail.find("span.expand i").attr("class").indexOf(".team_tab")>=0){
-      //   $(".arrow").css("bottom","-20px").hide();
-      //   $(".section_content").css("border-bottom-width","1px");
-      //   _thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
-      //   _thisThumbnail.find("span.expand i").addClass("fa-angle-down");
-      //   _abortDrillDown=true;
-
-      //   _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
-      //   clearTimeout();
-      //   return;
-      // }
-
-      _thisThumbnail.animate({"opacity":1}, 300);
-      _thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
-      _thisThumbnail.find("span.expand i").addClass("fa-angle-up");
-    }
-  }
 
 
 
@@ -1332,10 +1390,9 @@ function Dashboard(){
       if(_remainingSeconds<10) _remainingSeconds = "0"+_remainingSeconds;
       if(_remainingMinutes<10) _remainingMinutes = "0"+_remainingMinutes;
       if(_remainingHours<10) _remainingHours = "0"+_remainingHours;
-
-      $(".js-expiration-seconds").text(_remainingSeconds);
-      $(".js-expiration-minutes").text(_remainingMinutes);
-      $(".js-expiration-hours").text(_remainingHours);
+      $(this).text(_remainingSeconds);
+      $(this).siblings(".js-expiration-minutes").text(_remainingMinutes);
+      $(this).siblings(".js-expiration-hours").text(_remainingHours);
     });
   }
 
@@ -1372,6 +1429,8 @@ function Dashboard(){
     if($(this).hasClass('active_tab')){
       _closeTeamDrilldown($(this))
     } else {
+      $('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
+      $(this).addClass('active_tab')
       switch($(this).attr('id')){
         case 'js-team_tab':
           _teamDrilldown('team.everyone' , $(this))
@@ -1424,7 +1483,6 @@ function Dashboard(){
 
 
   function _teamDrilldown(_type, target){
-    console.log(target)
     target.addClass('active_tab')
     target.siblings().removeClass('active_tab')
     target.parents().eq(4).css("border-bottom","0px")
@@ -1441,6 +1499,7 @@ function Dashboard(){
     selected.removeClass('active_tab')
     var _thisLevel = parseInt(selected.closest('section').attr('data-drilldown-level'))
     var _lastLevel = parseInt($('.drilldown').last().attr('data-drilldown-level'))
+    console.log(selected.closest('.team_info'))
     if(_thisLevel == 0) selected.closest('.team_info').css('border','1px solid #E5E5E5')
     for(var i=_thisLevel;i < _lastLevel;i++){
       $('.drilldown.level_'+(i+1)).hide()
@@ -1449,7 +1508,6 @@ function Dashboard(){
 
   function _alternateColor(_drillDownLevel){
     if(_drillDownLevel % 2 === 0){
-      console.log($('.drilldown.level_'+_drillDownLevel).find('.drilldown_content'))
        $('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#333") 
        $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#444") 
     } else {

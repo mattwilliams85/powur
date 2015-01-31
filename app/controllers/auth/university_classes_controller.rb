@@ -2,7 +2,7 @@ module Auth
   class UniversityClassesController < AuthController
     page
 
-    before_filter :find_university_class, only: [:show, :enroll]
+    before_filter :find_university_class, only: [:show, :enroll, :purchase]
     before_filter :validate_class_availability, only: [:enroll]
 
     def index
@@ -10,15 +10,16 @@ module Auth
     end
 
     def purchase
-      # @transaction = post_sale(params)
-      #
-      # if @transaction['response_code'].first == '300'
-      #   @receipt['responsetext'] = 'Error Connecting to Empower Merchant'
-      #   @receipt['authcode'] = '0'
-      #   @receipt['transaction_id'] = '0'
-      # else
-      #   @receipt = record_transaction(params, @transaction)
-      # end
+      form = Forms::PurchaseUniversityClass.new(params[:card].merge(
+        product_id: @university_class.id,
+        amount: @university_class.bonus_volume/100
+      ))
+      if form.valid?
+        return head 200 if @university_class.purchase(form.as_json, current_user)
+        render json: { errors: {number: ['Error, couldn\'t process a card']}}, status: :unprocessable_entity
+      else
+        render json: { errors: form.errors.messages }, status: :unprocessable_entity
+      end
     end
 
     def enroll

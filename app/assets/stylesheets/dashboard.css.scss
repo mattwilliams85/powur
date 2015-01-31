@@ -1396,6 +1396,12 @@
   }
 }
 
+.drilldown {
+  .new_thumbnail {
+    border-right:1px solid #555;
+  }
+}
+
 .modal_overlay {
   // Mixins
   @include box_sizing;
