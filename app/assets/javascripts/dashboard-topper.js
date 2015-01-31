@@ -24,11 +24,11 @@ var DashboardTopper = {
   // function to fill pay period goals from _data
   fillPayPeriodGoals: function() {
     // set the tooltip text
-    $('#personal_rooftops_tooltip').text('personal');
-    $('#group_rooftops_tooltip').text('group');
+    $('#personal_rooftops_tooltip').text('3 of 5 Personal Rooftops');
+    $('#group_rooftops_tooltip').text('9 of 20 Group Rooftops');
     // animate the fill of the meter
     $('#personal_rooftops .highlight_container .highlight').animate({'width':'60%'}, 1000);
-    $('#group_rooftops .highlight_container .highlight').animate({'width':'55%'}, 1000);
+    $('#group_rooftops .highlight_container .highlight').animate({'width':'45%'}, 1000);
   },
 
   // function to get inspirational quote to share at bottom of dashboard topper

@@ -21,19 +21,19 @@
 // Tooltips on meters
 div.aw-tooltip {
   position: relative;
+  right: -38px;
   display: inline;
 }
+
 div.aw-tooltip span {
-  position: absolute;
-  padding: 4px;
+  position: relative;
+  padding: 4px 20px;
   color: #FFFFFF;
   background: #000000;
-  // height: 30px;
-  // line-height: 30px;
+  line-height: 30px;
   text-align: center;
   border-radius: 4px;
   opacity: 0.8;
-  bottom: 30px;
   left: 50%;
   margin-left: -76px;
   z-index: 999;
@@ -42,15 +42,30 @@ div.aw-tooltip span {
 div.aw-tooltip span:after {
   content: '';
   position: absolute;
-  top: 100%;
   left: 50%;
   margin-left: -8px;
   width: 0; 
   height: 0;
-  border-top: 8px solid #000000;
   border-right: 8px solid transparent;
   border-left: 8px solid transparent;
 }
+
+.aw-tt-above {
+  bottom: 45px;
+  span:after {
+    top: 100%;
+    border-top: 8px solid #000000;
+  }
+}
+
+.aw-tt-below {
+  top: 25px;
+  span:after {
+    bottom: 100%;
+    border-bottom: 8px solid #000000;
+  }
+}
+
 .aw-tooltip-text {
   font-size: 12pt;
 }
@@ -77,7 +92,7 @@ div.aw-tooltip span:after {
 
 .aw-badge {
   display: float;
-  margin-left: -10%;
+  margin-left: -60px;
 }
 
 #aw-avatar {
