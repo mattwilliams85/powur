@@ -110,3 +110,13 @@ input {
 //     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 //   }
 // }
+
+.sun-modal {
+  background-image: image-url('powur-white-logo.png');
+  background-color: #f4c751;
+  background-repeat: no-repeat;
+  background-position: 50% 4em;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 10em;
+}

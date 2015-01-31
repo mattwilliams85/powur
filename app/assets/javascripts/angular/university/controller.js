@@ -25,7 +25,7 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams,
 
   $scope.takeClass = function(classItem) {
     $anchorScroll();
-    $('<div class=\'reveal-modal\' data-reveal><h3>Enrolling ...</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+    $scope.showModal('Enrolling ...', 'sun-modal');
     $(document).foundation();
 
     var action = getAction(classItem.actions, 'enroll');
@@ -33,7 +33,7 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams,
       $window.location.href = data.redirect_to;
     }, function() {
       $('body').trigger('click'); // close old modal
-      $('<div class=\'reveal-modal\' data-reveal><h3>Oops error, we can\'t enroll you at the moment</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+      $scope.showModal('Oops error, we can\'t enroll you at the moment');
     });
   };
 
