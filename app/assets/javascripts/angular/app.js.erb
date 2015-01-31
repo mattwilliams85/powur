@@ -51,7 +51,6 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     $rootScope.pagePiler = function(){
-
       $('#pagepiling').pagepiling({
         menu: null,
         direction: 'vertical',
@@ -85,7 +84,7 @@ var sunstandApp = angular.module('sunstandApp', [
           // $('footer').show();
           $('#pp-nav').fadeIn('slow');
           $('#dim_the_lights').css('opacity','1');
-         
+
         },
         afterRender: function(){
           $('#pp-nav').hide();
@@ -96,7 +95,6 @@ var sunstandApp = angular.module('sunstandApp', [
           $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
           $('a.active').find('span').animate({backgroundColor:'#fff'},100);
           $.fn.pagepiling.updateColor('#fff')
-          
         } else {
           $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
           $('a.active').find('span').animate({backgroundColor:'#555'},100);
@@ -110,10 +108,14 @@ var sunstandApp = angular.module('sunstandApp', [
           $('a.active').find('span').css('background','#fff');
         } else {
           $('#pp-nav').find('span').animate({borderColor:'#555'},200);
-    
           $('a.active').find('span').css('background','#555');
         }
       }
+    };
+
+    $rootScope.showModal = function(text, modalClass) {
+      modalClass = modalClass || '';
+      $('<div class=\'reveal-modal ' + modalClass + '\' data-reveal><h3>' + text + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
     };
 
     // TODO: move header functionality into its own directive

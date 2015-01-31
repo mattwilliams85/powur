@@ -24,7 +24,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       }).
       success(function(data) {
         if (data.error) {
-          $('<div class=\'reveal-modal\' data-reveal><h3>Oops, wrong email or password</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+          $scope.showModal('Oops, wrong email or password');
           $(document).foundation();
         } else {
           $rootScope.isSignedIn = true;
@@ -71,7 +71,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       });
     } else {
       $location.path('/sign-in');
-      $('<div class=\'reveal-modal\' data-reveal><h3>You\'ve successfully Signed Up. Now you may Sign In.</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+      $scope.showModal('You\'ve successfully Signed Up. Now you may Sign In.');
       $(document).foundation();
     }
     $scope.isSubmitDisabled = false;
@@ -103,7 +103,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       }).
       success(function() {
         $location.path('/sign-in');
-        $('<div class=\'reveal-modal\' data-reveal><h3>We received your request. You\'ll get an email if we have an account associated with it.</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+        $scope.showModal('We received your request. You\'ll get an email if we have an account associated with it.');
         $(document).foundation();
       }).
       error(function() {
@@ -125,11 +125,11 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       }).
       success(function(data) {
         if (data.error) {
-          $('<div class=\'reveal-modal\' data-reveal><h3>' + data.error.message + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+          $scope.showModal(data.error.message);
           $(document).foundation();
         } else {
           $location.path('/sign-in');
-          $('<div class=\'reveal-modal\' data-reveal><h3>' + data.properties._message.confirm + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+          $scope.showModal(data.properties._message.confirm);
           $(document).foundation();
         }
       }).
