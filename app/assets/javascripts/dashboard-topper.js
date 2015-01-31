@@ -23,7 +23,12 @@ var DashboardTopper = {
 
   // function to fill pay period goals from _data
   fillPayPeriodGoals: function() {
-
+    // set the tooltip text
+    $('#personal_rooftops_tooltip').text('personal');
+    $('#group_rooftops_tooltip').text('group');
+    // animate the fill of the meter
+    $('#personal_rooftops .highlight_container .highlight').animate({'width':'60%'}, 1000);
+    $('#group_rooftops .highlight_container .highlight').animate({'width':'55%'}, 1000);
   },
 
   // function to get inspirational quote to share at bottom of dashboard topper
@@ -34,8 +39,10 @@ var DashboardTopper = {
     var _shareQuotes = [
       'The solar revolution has begun. Powur is leading the way by empowering' +
       ' everyday heroes. Find out more about this compelling opportunity.',
-      'Only you can stop forest fires.',
-      'Try to be a rainbow in someone\'s cloud.'
+      'We\'re cutting yearly energy costs by thousands of dollars for homeowners across' +
+      ' the United States. Powur advocates are helping us save the world with sunshine.',
+      'Turn a sunny day into a sustainable future. Join Powur and start taking back' +
+      ' the future of energy!'
       ];
     var _randomIndex = Math.floor((Math.random() * _shareQuotes.length));
     $('.aw-share-quote').text(_shareQuotes[_randomIndex]);
@@ -43,8 +50,6 @@ var DashboardTopper = {
 
   fadeItIn: function() {
     $('.aw-fade-in').animate({'opacity':'1'}, 500);
-    $('#group_rooftops .highlight_container .highlight').animate({'width':'54%'}, 1000);
-    $('#personal_rooftops .highlight_container .highlight').animate({'width':'72%'}, 1000);
   },
 
   // function to run all of the above
