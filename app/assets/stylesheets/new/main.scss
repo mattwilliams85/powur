@@ -42,12 +42,8 @@ html, body {
 }
 
 
-// .slide-dot {
-//   cursor:pointer;
-// }
-
 /*
- * Misc
+ * Misc / Utility
  *
 */
 .sun-fixed-bg {
@@ -65,12 +61,9 @@ html, body {
 }
 
 .sun-scrolling-bg {
-  // position: absolute;
   z-index: 2;
   height: 100%;
   width:100%;
-  // top:0;
-  // left:0;
   padding-bottom:40px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -90,26 +83,29 @@ html, body {
       text-align: center;
     }
   }
-}
 
+  .sun-buttons-wrapper {
+    margin-top: 3em;
+
+    .button {
+      background: $sun-color-green;
+      text-transform: uppercase;
+      margin-right: 1em;
+    }
+
+    .sun-button-transparent {
+      border: 1px solid #000;
+      background: none;
+      color: #000;
+    }
+  }
+}
 
 input {
   &.radius {
     @include radius($input-border-radius);
   }
 }
-
-// .sun-landing {
-
-//   .scrolly {
-//     overflow-y: hidden;
-//     max-height: 0px; /* approximate max height */
-
-//     transition-property: all;
-//     transition-duration: .5s;
-//     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
-//   }
-// }
 
 .sun-modal {
   background-image: image-url('powur-white-logo.png');
@@ -119,4 +115,9 @@ input {
   text-align: center;
   text-transform: uppercase;
   padding-top: 10em;
+}
+
+.narrow {
+  margin-left: 10%;
+  margin-right: 10%;
 }

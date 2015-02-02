@@ -195,13 +195,11 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
   if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
   if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
   if (/\/sign-up/.test($location.path())) return $scope.mode = 'sign-up';
-
 };
 
 
 LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
   if ($scope.mode === 'home') {
-
     // Only for home page
     $scope.currentHomeSlide = 0;
     var sliderStop = $interval(function() {
@@ -211,14 +209,12 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
         sliderStop = undefined;
       }
     }, 2000);
-
   } else if ($scope.mode === 'sign-in') {
     // Only for sign in page
     $scope.signInPage = true;
   } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
-    $('#pp-nav').hide();
-
     // Only for faq pages
+    $('#pp-nav').hide();
     $scope.activeFAQItemId = 'faq_item_1';
     $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
       'Powur Customer FAQ' :

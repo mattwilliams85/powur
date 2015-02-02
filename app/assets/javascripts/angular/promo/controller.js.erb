@@ -30,7 +30,7 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
     $scope.$on('$locationChangeStart', function(){
       $timeout.cancel(pilerTimer);
     });
-  } else {
+  } else if ($location.path() === '/create-wealth') {
     $('.arrow-box').css('bottom','3em')
   }
 
