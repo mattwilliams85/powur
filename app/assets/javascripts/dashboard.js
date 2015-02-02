@@ -30,7 +30,7 @@ function initPage(){
     _dashboard.displayTeam();
     _dashboard.displayQuotes();
     _dashboard.displayKPIs();
-    if(_data.currentUser.avatar) $('#js-user_profile_image').attr('src', _data.currentUser.avatar.thumb);
+    // if(_data.currentUser.avatar) $('#js-user_profile_image').attr('src', _data.currentUser.avatar.thumb);
     setInterval(_dashboard._countdown, 1000);
   });
 
