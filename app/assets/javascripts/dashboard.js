@@ -519,6 +519,9 @@ function Dashboard(){
 
 //mattmarker
       case "team.immediate":
+
+      var _thisThumbnail = $(_options._target)
+      _thisThumbnail.closest('.team_info').find('.nav').hide();
       _ajax({
       _ajaxType:"get",
       _url:"/u/users/",
@@ -530,12 +533,7 @@ function Dashboard(){
       _callback:function(data, text){
         console.log(data)
         if(data.entities.length<=0) return;
-        // var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
         _data.team=data;
-        // _containerObj.siblings(".nav").css("display","none");
-        // _containerObj.css("left","0")
-        // _containerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
-        // if(data.entities.length>=4) _containerObj.siblings(".nav").fadeIn();
         _drillDownLevel = 1
         var _userDetail={};
         var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></div></section>";
@@ -556,7 +554,7 @@ function Dashboard(){
               member.properties.downline_count = data.entities.length;
               EyeCueLab.UX.getTemplate("/templates/_placement_thumbnail.handlebars.html", member, undefined, function(html){
                  _downlinkContainerObj.append(html);
-                // mattmark
+                $('html *').addClass('custom-cursor')
               });
 
             }
@@ -1465,20 +1463,36 @@ function Dashboard(){
   });
 
   $(document).on("click", ".js-link_user", function(e){
-     _teamDrilldown('team.immediate' , $(this))
-
-    //animation
+    $("body").mousemove(function(e) { 
+        $('.link-icon').css('left', e.pageX + 20).css('top', e.pageY - 20).css('display', 'block');
+    });
+    var _thisLink = $(this)
     var thumbnailArray = $(this).closest('.js-team_thumbnail').siblings('div')
     var i = 3
-    var a = setInterval(function(){
-      $(thumbnailArray[i]).velocity({translateX: '1000px'},400)
-      i -= 1
-      if(i < 0) clearInterval(a)
-    },100)
-       // $(element).velocity({translateX: '1000px'},500)
-     
-
- 
+    if(!_thisLink.hasClass('active')) {
+      $('html *').addClass('custom-cursor')
+      _teamDrilldown('team.immediate' , _thisLink)
+      _thisLink.addClass('active')
+      _thisLink.parent().css('border-left','1px solid #eee')
+      //animation
+      var a = setInterval(function(){
+        $(thumbnailArray[i]).velocity({translateX: '1000px'},400)
+        i -= 1
+        if(i < 0) clearInterval(a)
+      },100)
+    } else {
+      $('html *').removeClass('custom-cursor')
+      _thisLink.parent().css('border-left-width','0px')
+      _thisLink.removeClass('active')
+      _closeTeamDrilldown(_thisLink)
+      _thisLink.closest('.team_info').find('.nav').show();
+      //animation
+      var a = setInterval(function(){
+        $(thumbnailArray[i]).velocity({translateX: '0'},400).find('.js-thumbnail').animate({"opacity":"1"}, 300);
+        i -= 1
+        if(i < 0) clearInterval(a)
+      },100)
+    }
   });
 
 
@@ -1499,7 +1513,6 @@ function Dashboard(){
     selected.removeClass('active_tab')
     var _thisLevel = parseInt(selected.closest('section').attr('data-drilldown-level'))
     var _lastLevel = parseInt($('.drilldown').last().attr('data-drilldown-level'))
-    console.log(selected.closest('.team_info'))
     if(_thisLevel == 0) selected.closest('.team_info').css('border','1px solid #E5E5E5')
     for(var i=_thisLevel;i < _lastLevel;i++){
       $('.drilldown.level_'+(i+1)).hide()

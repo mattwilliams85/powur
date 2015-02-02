@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.link-icon {
+  background: image-url('Untitled-2.png');
+  display:none;
+  position:absolute;
+  height:64px;
+  width:64px;
+  z-index:9999999999999;
+}
+
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

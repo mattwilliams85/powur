@@ -187,8 +187,7 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
     $scope.signInPage = true;
   } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
     // Only for faq pages
-    $('#pp-nav').hide();
-    $scope.activeFAQItemId = 'faq_item_1';
+
     $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
       'Powur Customer FAQ' :
       'Powur Advocate FAQ';
