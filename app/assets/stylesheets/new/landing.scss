@@ -34,17 +34,18 @@
     -o-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     text-align: center;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
 
     h1 {
       color: #fff;
-      font-size: 2em;
+      width:900px;
       font-weight: bold;
       text-transform: uppercase;
+      // position:absolute;
 
       @media #{$small} {
         font-size: 4.5em;
@@ -57,29 +58,151 @@
     }
   }
 
+  .sun-buttons-wrapper {
+    margin-top: 3em;
+
+    .button {
+      background: $sun-color-green;
+      text-transform: uppercase;
+      margin-right: 1em;
+      font-size:1.5em;
+    }
+
+    @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,900);
+
+    //colors
+    $blue: #E1332D;
+    $pink: #fff;
+
+    //base styles
+
+    * {
+      box-sizing: inherit;
+      transition-property: all;
+      transition-duration: .6s;
+      transition-timing-function: ease;
+    }
+
+    html,
+    body {
+      box-sizing: border-box;
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      background: $blue;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+    }
+
+    .buttons {
+      display: table;
+      height: 100%;
+      width: 100%;
+    }
+
+    .container { 
+      display: table-cell;
+      padding: 1em;
+      text-align: center; 
+      vertical-align: middle;
+    }
+
+    //MATTS WHACKY BUTTON ANIMATIONS//
+
+    .btn-1 {
+      background: darken(#fff, 1.5%);
+      color:#333;
+      
+      svg {
+        height: 67px;
+        left: 0;
+        position: absolute;
+        top: 0; 
+        width: 100%; 
+      }
+      
+      rect {
+        fill: none;
+        stroke: #333;
+        stroke-width: 3;
+        stroke-dasharray: 700, 0;
+      }
+    }
+
+    .btn-1:hover {
+      background: rgba( $sun-color-blue, 0);
+      
+      rect {
+        stroke-width: 6;
+        stroke-dasharray: 120, 470;
+        stroke-dashoffset: 170;
+        transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+    }
+
+    .btn-2:hover{
+      background:#fff;
+      color:$sun-color-green;
+    }
+    .btn-2:before,.btn-2:after{
+      content:'';
+      position:absolute;
+      top:0;
+      right:0;
+      height:2px;
+      width:0;
+      background: $sun-color-green;
+      transition:400ms ease all;
+    }
+    .btn-2:after{
+      right:inherit;
+      top:inherit;
+      left:0;
+      bottom:0;
+    }
+    .btn-2:hover:before,.btn-2:hover:after{
+      width:100%;
+      transition:800ms ease all;
+    }
+
+    // END //
+
+    .sun-button-transparent {
+      border: 1px solid #000;
+      background: none;
+      color: #000;
+    }
+  }
+
+  .hidden {
+    visibility:hidden;
+  }
+
   .gif1 {
-    background: image-url('landing/globe.gif') no-repeat;
+    // background: image-url('landing/globe.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
   .gif2 {
-    background: image-url('landing/scales-grey.gif') no-repeat;
+    // background: image-url('landing/scales-grey.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
   .gif3 {
-    background: image-url('landing/hauzz.gif') no-repeat;
+    // background: image-url('landing/hauzz.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;
   }
 
   .gif4 {
-    background: image-url('landing/flame-grey.gif') no-repeat;
+    // background: image-url('landing/flame-grey.gif') no-repeat;
     width: 200px;
     height: 200px;
     margin: 0 auto;

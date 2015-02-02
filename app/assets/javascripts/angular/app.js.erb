@@ -67,7 +67,8 @@ var sunstandApp = angular.module('sunstandApp', [
           'textColor': '#fff',
           'bulletsColor': '#333',
           'position': 'right',
-          'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
+          'tooltips': ''
+          // 'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
         },
         normalScrollElements: null,
         normalScrollElementTouchThreshold: 5,
@@ -78,6 +79,16 @@ var sunstandApp = angular.module('sunstandApp', [
         //events
         onLeave: function(index, nextIndex, direction) {
           changeNavColor()
+          if($location.path() === '/home') {
+            setTimeout(function(){
+              if(index === 1) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
+              if(index === 2) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
+              if(index === 3) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
+              if(index === 4) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
+              $rootScope.$apply();
+              $('.gif'+index).removeClass('hidden')
+            },1000)
+          }
         },
         afterLoad: function(anchorLink, index) {
           animateActiveNav()
@@ -85,14 +96,19 @@ var sunstandApp = angular.module('sunstandApp', [
           // $('footer').show();
           $('#pp-nav').fadeIn('slow');
           $('#dim_the_lights').css('opacity','1');
-
         },
-        afterRender: function() {
+        afterRender: function(index) {
           $('#pp-nav').hide();
         }
       });
-      function animateActiveNav() {
-        if ($('.pp-section.active').hasClass('inverted')) {
+      if ($location.path() == "/create-wealth") {
+        $.fn.pagepiling.setAllowScrolling(false)
+      } else {
+        $.fn.pagepiling.setAllowScrolling(true)
+      }
+
+      function animateActiveNav(){
+        if($('.pp-section.active').hasClass('inverted')){
           $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
           $('a.active').find('span').animate({backgroundColor:'#fff'},100);
           $.fn.pagepiling.updateColor('#fff')
@@ -147,6 +163,12 @@ var sunstandApp = angular.module('sunstandApp', [
         }
       };
     };
+
+    $rootScope.isMenuLinkActive = function(path) {
+
+      if(path === $location.path()) return true;
+      return false;
+    }
 
     // TODO: move header functionality into its own directive
     $rootScope.signOut = function() {

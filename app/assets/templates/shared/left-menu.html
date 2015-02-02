@@ -2,19 +2,25 @@
 
 <nav class="sun-left-menu" ng-class="{'active': isMenuActive}">
   <ul>
-    <li><a style="color:#eee" ng-href="#/home">HOME</a></li>
-    <li><a style="color:#eee" ng-href="#/create-energy">CREATE ENERGY</a></li>
-    <li><a style="color:#eee" ng-href="#/create-wealth">CREATE WEALTH</a></li>
-    <li class="sub-parent"><a style="color:#eee" ng-click="showMenuLearnMore = !showMenuLearnMore">LEARN MORE</a></li>
-    <div class="sub-menu" ng-if="showMenuLearnMore">
-      <li><a style="color:#eee" ng-href="#/why-solar">Why solar?</a></li>
-      <li><a style="color:#eee" ng-href="#/why-us">Why us?</a></li>
-      <li><a style="color:#eee" ng-href="#/why-direct-selling">Why direct selling?</a></li>
-      <li><a style="color:#eee" ng-href="#/why-you">Why you?</a></li>
+    <div class="first-menu">
+      <li><a ng-href="#/home" ng-class="{'active': isMenuLinkActive('/home')}"><i class="fa fa-home" ng-class="{'active': isMenuLinkActive('/home')}"></i>HOME</a></li>
+      <li><a ng-href="#/create-energy" ng-class="{'active': isMenuLinkActive('/create-energy')}">CREATE ENERGY</a></li>
+      <li><a ng-href="#/create-wealth" ng-class="{'active': isMenuLinkActive('/create-wealth')}" class="bottom-link">CREATE WEALTH</a></li>
     </div>
-    <li><a ng-href="#/our-origin">Our Origin</a></li>
-    <li><a ng-href="#/our-team">Our Team</a></li>
-    <li><a ng-href="#/customer-faq">Customer FAQ</a></li>
-    <li><a ng-href="#/advocate-faq">Advocate FAQ</a></li>
+    <div class="second-menu">
+      <li class="sub-parent"><a ng-click="showMenuLearnMore = !showMenuLearnMore">Learn More</a></li>
+      <div class="sub-menu" ng-if="showMenuLearnMore">
+        <li><a ng-href="#/why-solar">Why solar?</a></li>
+        <li><a ng-href="#/why-us">Why us?</a></li>
+        <li><a ng-href="#/why-direct-selling">Why direct selling?</a></li>
+        <li><a ng-href="#/why-you">Why you?</a></li>
+      </div>
+      <ul>
+      <li><a ng-href="#/our-origin">Our Origin</a></li>
+      <li><a ng-href="#/our-team">Our Team</a></li>
+      <li><a ng-href="#/customer-faq">Customer FAQ</a></li>
+      <li><a ng-href="#/advocate-faq">Advocate FAQ</a></li>
+      </ul>
+    <div class="second-menu">
   </ul>
 </nav>
