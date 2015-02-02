@@ -48,6 +48,10 @@ var DashboardTopper = {
     $('.aw-share-quote').text(_shareQuotes[_randomIndex]);
   },
 
+  fadeOutLoader: function() {
+    $('.aw-spinner').hide();
+  },
+
   fadeItIn: function() {
     $('.aw-fade-in').animate({'opacity':'1'}, 500);
   },
@@ -59,6 +63,7 @@ var DashboardTopper = {
     this.fillNewsItems();
     this.fillPayPeriodGoals();
     this.fillShareQuote();
+    this.fadeOutLoader();
     this.fadeItIn();
   },
 
