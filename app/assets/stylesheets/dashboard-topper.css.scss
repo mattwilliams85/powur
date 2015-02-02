@@ -10,7 +10,12 @@
 }
 
 .aw-db-topper-background {
-  background-color: #444;
+  // background-color: #444;
+  background-image: url(image_path('dandelions.png'));
+  background-repeat: no-repeat;
+  min-height: 600px;
+  background-size: cover;
+
 }
 
 // Fades (sets initial opacity to 0, then DashboardTopper.fadeItIn(); animates to 1)
@@ -132,20 +137,21 @@ div.aw-tooltip span:after {
   font-size: 12pt;
 }
 
-// Share Quote Section ("footer")
-.aw-db-topper-footer {
-  background: #333;
-  padding-bottom: 20px;
-  width: 100%;
+// Share Quote Section
+
+.aw-darker-bg {
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .aw-share-quote {
+  text-align: left;
   color: #fff;
   font-size: 16pt;
   padding-top: 20px;
 }
 
 .aw-share-links {
+  text-align: left;
   margin-left: 10px;
   margin-top: 10px;
   text-transform: uppercase;
