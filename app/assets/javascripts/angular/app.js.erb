@@ -43,12 +43,10 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     $rootScope.readyPiler = function(){
-      if($location.path() === '/home' || $location.path() === '/create-energy') {
-        $('html').addClass('piling-on');
-        setTimeout(function() {
-          $rootScope.pagePiler();
-        },100)
-      }
+      $('html').addClass('piling-on');
+      setTimeout(function() {
+        $rootScope.pagePiler();
+      }, 100);
     };
 
     $rootScope.pagePiler = function(){
@@ -101,10 +99,11 @@ var sunstandApp = angular.module('sunstandApp', [
           $('#pp-nav').hide();
         }
       });
-      if ($location.path() == "/create-wealth") {
-        $.fn.pagepiling.setAllowScrolling(false)
+
+      if ($location.path() === "/create-wealth") {
+        $.fn.pagepiling.setAllowScrolling(false);
       } else {
-        $.fn.pagepiling.setAllowScrolling(true)
+        $.fn.pagepiling.setAllowScrolling(true);
       }
 
       function animateActiveNav(){
