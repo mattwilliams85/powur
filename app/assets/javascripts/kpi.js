@@ -6,8 +6,10 @@ var position = 0;
 var page = 1;
 var now = new Date()
 now = setCalendar()
-var myChart = ""
+var myChart
+var myChart2;
 var ctx = ""
+var ctx2 = ""
 var timeScale;
 var metricsData = metricsData || {}
 var options = options || {}
@@ -15,20 +17,26 @@ var chartType = chartType || ""
 
 
 function initKPI(){
+  if(myChart2) myChart2.destroy
+  if(myChart) myChart.destroy
   displayTimeScale()
   randomizeData(6);
   setScale();
   randomizeOrders();
   populateContributors();
   checkPage()
-  var ctx = document.getElementById("metricsChart").getContext("2d");
+  ctx = document.getElementById("metricsChart").getContext("2d");
   if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
   if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
 }
 
 function initUserKPI(kpiType,chartStyle){
-  var myChart2;
-  if(myChart2) myChart2.destroy();
+  $('#metricsChart2').remove();
+  $('.canvas-box').append('<canvas id="metricsChart2" width="670" height="330" style="float:left;"></canvas>')
+  if(myChart2) myChart2.destroy
+  if(myChart) myChart.destroy
+  options = ""
+  metricsData = ""
   chartType = chartStyle
   if(kpiType === "orders") {
     metricsData = metricsData1
@@ -45,9 +53,8 @@ function initUserKPI(kpiType,chartStyle){
   displayTimeScale()
   randomizeData(6);
   setScale();
-  randomizeOrders();
   checkPage()
-  var ctx2 = document.getElementById("metricsChart2").getContext("2d");
+  ctx2 = document.getElementById("metricsChart2").getContext("2d");
   ctx2.canvas.width = 670
   ctx2.canvas.height = 330
   if(chartType === "line") myChart2 = new Chart(ctx2).Line(metricsData, options);
@@ -77,13 +84,28 @@ function rebuildChart(){
   if(scale === "week") timeScale = 6
   if(scale === "month") timeScale = numberOfDaysInMonth() - 1
   displayTimeScale()
-  myChart.destroy();
-  randomizeData(timeScale)
-  setScale()
-  ctx.canvas.width = 670
-  ctx.canvas.height = 330
-  if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
-  if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
+  if(ctx2) {
+    if(myChart)myChart.destroy();
+    myChart2.destroy();
+    randomizeData(timeScale)
+    setScale()
+    ctx2.canvas.width = 670
+    ctx2.canvas.height = 330
+    if(chartType === "line") myChart = new Chart(ctx2).Line(metricsData, options);
+    if(chartType === "bar") myChart = new Chart(ctx2).Bar(metricsData, options);
+  }
+  if(ctx) {
+    if(myChart2)myChart2.destroy();
+    myChart.destroy();
+    randomizeData(timeScale)
+    setScale()
+    ctx.canvas.width = 670
+    ctx.canvas.height = 330
+    if(chartType === "line") myChart = new Chart(ctx).Line(metricsData, options);
+    if(chartType === "bar") myChart = new Chart(ctx).Bar(metricsData, options);
+  }
+  
+  
 }
 
 function populateContributors() {

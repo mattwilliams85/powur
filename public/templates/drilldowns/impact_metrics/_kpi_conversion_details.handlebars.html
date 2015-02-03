@@ -115,10 +115,16 @@
 
   function randomizeData(length) {
   metricsData.datasets[0].data = []
-  metricsData.datasets[1].data = []
-  for (i = 0; i <= length; i++) {
-    metricsData.datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
-    metricsData.datasets[1].data.push(Math.floor(Math.random() * 20 + 15));
+  if (metricsData.datasets.length < 2) {
+   for (i = 0; i <= length; i++) {
+     metricsData.datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
+   }
+  } else {
+   metricsData.datasets[1].data = []
+   for (i = 0; i <= length; i++) {
+     metricsData.datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
+     metricsData.datasets[1].data.push(Math.floor(Math.random() * 20 + 15));
+   }
   }
 }
 
