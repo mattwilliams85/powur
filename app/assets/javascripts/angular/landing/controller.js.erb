@@ -197,23 +197,25 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
       'Powur Advocate FAQ';
   } else if ($scope.mode === 'sign-up') {
     // Only for sign up page
-    if(window.outerHeight > 1100){
-      $scope.readyPiler();
-      var pilerTimer = $timeout(function() {
-        $('.arrow-box').animate({
-          bottom: "3em"
-        }, 500, "easeOutBounce" );
-      }, 500);
-      // Cancels if user leaves page
-      $scope.$on('$locationChangeStart', function(){
-        $timeout.cancel(pilerTimer);
-      });
-    } else {
-      $scope.invertHeaderColor();
-      $('#pagepiling').css('overflow','visible')
-      $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
-      $('.arrow-box').css('bottom','3em')
-    }
+    $scope.setupInvertHeader();
+
+    // if(window.outerHeight > 1100){
+    //   $scope.readyPiler();
+    //   var pilerTimer = $timeout(function() {
+    //     $('.arrow-box').animate({
+    //       bottom: "3em"
+    //     }, 500, "easeOutBounce" );
+    //   }, 500);
+    //   // Cancels if user leaves page
+    //   $scope.$on('$locationChangeStart', function(){
+    //     $timeout.cancel(pilerTimer);
+    //   });
+    // } else {
+    //   $scope.invertHeaderColor();
+    //   $('#pagepiling').css('overflow','visible')
+    //   $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
+    //   $('.arrow-box').css('bottom','3em')
+    // }
 
     $scope.invite = {};
     $scope.user = {};

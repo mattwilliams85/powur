@@ -9,8 +9,8 @@ var sunstandApp = angular.module('sunstandApp', [
   // Directives
   // 'sunstandApp.signInForm',
   // 'sunstandApp.fileS3Uploader'
-]).run(['$rootScope', '$location', '$document', '$http', 'CurrentUser',
-  function ($rootScope, $location, $document, $http, CurrentUser) {
+]).run(['$rootScope', '$location', '$document', '$http', '$window', 'CurrentUser',
+  function ($rootScope, $location, $document, $http, $window, CurrentUser) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
@@ -163,8 +163,19 @@ var sunstandApp = angular.module('sunstandApp', [
       };
     };
 
-    $rootScope.isMenuLinkActive = function(path) {
+    $rootScope.setupInvertHeader = function() {
+      angular.element($window).bind("scroll", function() {
+        var header = document.getElementById('sun_header_guest');
+        if (header && header.className !== 'sun-header-guest invert') {
+          header.setAttribute('class', 'sun-header-guest hidden');
+          setTimeout(function invertHeader() {
+            header.setAttribute('class', 'sun-header-guest invert');
+          }, 200);
+        }
+      });
+    };
 
+    $rootScope.isMenuLinkActive = function(path) {
       if(path === $location.path()) return true;
       return false;
     }

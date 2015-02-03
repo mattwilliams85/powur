@@ -7,11 +7,11 @@ html, body {
   color: $sun-color-orange;
 }
 
-.sun-sign-up-page {
-  footer {
-    position:relative;
-  }
-}
+// .sun-sign-up-page {
+//   footer {
+//     position:relative;
+//   }
+// }
 
 .arrow-box {
   bottom: -3em;
@@ -109,10 +109,10 @@ html, body {
       width: 100%;
     }
 
-    .container { 
+    .container {
       display: table-cell;
       padding: 1em;
-      text-align: center; 
+      text-align: center;
       vertical-align: middle;
     }
 

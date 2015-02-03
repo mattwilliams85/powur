@@ -45,18 +45,6 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
     }
   ];
 
-  $scope.setupInvertHeader = function() {
-    angular.element($window).bind("scroll", function() {
-      var header = document.getElementById('sun_header_guest');
-      if (header && header.className !== 'sun-header-guest invert') {
-        header.setAttribute('class', 'sun-header-guest hidden');
-        setTimeout(function invertHeader() {
-          header.setAttribute('class', 'sun-header-guest invert');
-        }, 200);
-      }
-    });
-  };
-
   this.init($scope, $location, $timeout, $interval);
   this.fetch($scope, $interval, $timeout);
 }
