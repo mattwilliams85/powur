@@ -532,9 +532,9 @@ body {
   }
 
   .sun-logo-wrapper {
-    @include sun-sprites-sprite(sun-logo);
-    height: sun-sprites-sprite-height(sun-logo);
-    width: sun-sprites-sprite-width(sun-logo);
+    // @include sun-sprites-sprite(sun-logo);
+    // height: sun-sprites-sprite-height(sun-logo);
+    // width: sun-sprites-sprite-width(sun-logo);
     margin-bottom: 40px;
   }
 
