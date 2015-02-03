@@ -58,66 +58,6 @@
     }
   }
 
-  .sun-buttons-wrapper {
-    margin-top: 3em;
-
-    .button {
-      background: $sun-color-green;
-      text-transform: uppercase;
-      margin-right: 1em;
-      font-size:2em;
-    }
-
-    @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,900);
-
-    //colors
-    $blue: #E1332D;
-    $pink: #fff;
-
-    //base styles
-
-    * {
-      box-sizing: inherit;
-      transition-property: all;
-      transition-duration: .6s;
-      transition-timing-function: ease;
-    }
-
-    html,
-    body {
-      box-sizing: border-box;
-      height: 100%;
-      width: 100%;
-    }
-
-    body {
-      background: $blue;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-    }
-
-    .buttons {
-      display: table;
-      height: 100%;
-      width: 100%;
-    }
-
-    .container { 
-      display: table-cell;
-      padding: 1em;
-      text-align: center; 
-      vertical-align: middle;
-    }
-
-    
-
-    .sun-button-transparent {
-      border: 2px solid #000;
-      background: none;
-      color: #000;
-    }
-  }
-
   .hidden {
     visibility:hidden;
   }

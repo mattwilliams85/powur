@@ -92,7 +92,6 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
 PromoCtrl.prototype.fetch = function($scope, $interval, $timeout) {
   if ($scope.mode === 'create-wealth') {
     $scope.setupInvertHeader();
-
     // Clock
     $scope.minTime = new Date(2000, 1, 1, 0, 0, 0, 0).valueOf();
     // Max time is 3 minutes

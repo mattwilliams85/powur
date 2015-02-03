@@ -92,13 +92,36 @@ html, body {
       background: $sun-color-green;
       text-transform: uppercase;
       margin-right: 1em;
+      font-size:2em;
+
+      &.sun-button-solid:hover{
+        background:#20B552;
+      }
+
+      &.sun-button-transparent:hover{
+        background:#eee;
+      }
+    }
+
+    .buttons {
+      display: table;
+      height: 100%;
+      width: 100%;
+    }
+
+    .container { 
+      display: table-cell;
+      padding: 1em;
+      text-align: center; 
+      vertical-align: middle;
     }
 
     .sun-button-transparent {
-      border: 1px solid #000;
+      border: 2px solid #000;
       background: none;
       color: #000;
     }
+
   }
 }
 
