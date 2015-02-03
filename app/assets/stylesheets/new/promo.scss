@@ -592,6 +592,63 @@
     }
   }
 
+  &.sun-our-origin-page {
+    .sun-origin-story-bg {
+      background-image: image-url("promo/rainforest.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 325px;
+      padding-top: 150px;
+
+      h1 {
+        color: #fff;
+        text-transform: uppercase;
+      }
+    }
+
+    .origin-people {
+      margin: 125px 0 70px 0;
+      width: 100%;
+    }
+
+    .our-origin-ico {
+      margin: 40px 0;
+      width: 100%;
+    }
+
+    blockquote {
+      border: none;
+      color: #000;
+      font-size: 2em;
+      font-weight: bold;
+      padding: 1em 0;
+      quotes: "\201C""\201D""\2018""\2019";
+
+      &:before {
+        color: $sun-color-orange;
+        content: open-quote;
+        font-size: 2em;
+        line-height: 1em;
+        margin-right: .5em;
+      }
+    }
+
+    .signature {
+      h3 {
+        font-weight: bold;
+        margin-top: 70px;
+      }
+
+      img {
+        margin: 0 0 20px 0;
+      }
+
+      p {
+        margin-bottom: 100px;
+      }
+    }
+  }
+
   .sun-bg-1 {
     background-image: image-url("promo/bg-1.jpg");
   }
