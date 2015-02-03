@@ -14,9 +14,6 @@ var sunstandApp = angular.module('sunstandApp', [
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
-    // if($location.path() === '/home' || '/create-energy' || '/create-wealth'){
-      $('#pp-nav').hide();
-    // }
     /*
      * Fill in User object with data if user is signed in but object is empty
     */
@@ -40,8 +37,12 @@ var sunstandApp = angular.module('sunstandApp', [
       }
     };
 
-    $rootScope.readyPiler = function(){
+    $rootScope.removePiler = function(){
+      $('html').removeClass('piling-on');
       $('#pp-nav').hide();
+    };
+
+    $rootScope.readyPiler = function(){
       if($location.path() === '/home' || '/create-energy' || '/create-wealth') {
         $('html').addClass('piling-on');
         setTimeout(function() {
@@ -75,7 +76,7 @@ var sunstandApp = angular.module('sunstandApp', [
         sectionSelector: '.section',
         animateAnchor: false,
         //events
-        onLeave: function(index, nextIndex, direction){
+        onLeave: function(index, nextIndex, direction) {
           changeNavColor()
         },
         afterLoad: function(anchorLink, index) {
@@ -86,12 +87,12 @@ var sunstandApp = angular.module('sunstandApp', [
           $('#dim_the_lights').css('opacity','1');
 
         },
-        afterRender: function(){
+        afterRender: function() {
           $('#pp-nav').hide();
         }
       });
-      function animateActiveNav(){
-        if($('.pp-section.active').hasClass('inverted')){
+      function animateActiveNav() {
+        if ($('.pp-section.active').hasClass('inverted')) {
           $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
           $('a.active').find('span').animate({backgroundColor:'#fff'},100);
           $.fn.pagepiling.updateColor('#fff')
@@ -102,7 +103,7 @@ var sunstandApp = angular.module('sunstandApp', [
         }
       }
 
-      function changeNavColor(){
+      function changeNavColor() {
         if($('.pp-section.active').hasClass('inverted')){
           $('#pp-nav').find('span').animate({borderColor:'#fff'},200);
           $('a.active').find('span').css('background','#fff');
@@ -231,6 +232,10 @@ sunstandApp.config(
     }).
     when('/why-solar', {
       templateUrl: '<%=asset_path("angular/promo/templates/why-solar.html")%>',
+      controller: 'PromoCtrl'
+    }).
+    when('/our-origin', {
+      templateUrl: '<%=asset_path("angular/promo/templates/our-origin.html")%>',
       controller: 'PromoCtrl'
     }).
 

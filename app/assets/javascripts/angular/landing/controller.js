@@ -2,6 +2,8 @@
 
 function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Invite, Geo) {
   $scope.redirectToDashboardIfSignedIn();
+  $scope.removePiler();
+
   $scope.showValidationMessages = false;
   $scope.isSubmitDisabled = false;
 
@@ -142,52 +144,11 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   };
 
   this.init($scope, $location, $timeout);
-  this.fetch($scope, $interval, $routeParams, Geo);
+  this.fetch($scope, $interval, $routeParams, $timeout, Geo);
 }
 
 
 LandingCtrl.prototype.init = function($scope, $location, $timeout) {
-
-  // Runs page-piler after intro
-  $('html').removeClass('piling-on');
-  $('#pp-nav').hide();
-  if ($location.path() === '/home') {
-    var pilerTimer = $timeout(function() {
-      $('.arrow-box').animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
-      $scope.readyPiler();
-    }, 4500);
-  }
-
-  if ($location.path() === '/sign-up') {
-    if(window.outerHeight > 1100){
-      $scope.readyPiler();
-
-      var pilerTimer = $timeout(function() {
-        $('.arrow-box').animate({
-          bottom: "3em"
-        }, 500, "easeOutBounce" );
-      }, 500);
-
-      // Cancels if user leaves page
-      $scope.$on('$locationChangeStart', function(){
-        $timeout.cancel(pilerTimer);
-      });
-    } else {
-      $scope.invertHeaderColor();
-      $('#pagepiling').css('overflow','visible')
-      $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
-      $('.arrow-box').css('bottom','3em')
-      // $('row')
-    }
-  }
-
-  // Cancels if user leaves page
-  $scope.$on('$locationChangeStart', function(){
-    $timeout.cancel(pilerTimer);
-  });
-
   // Setting mode based on the url
   $scope.mode = '';
   if (/\/home$/.test($location.path())) return $scope.mode = 'home';
@@ -198,9 +159,21 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
 };
 
 
-LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
+LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout, Geo) {
+  // Cancels if user leaves page
+  $scope.$on('$locationChangeStart', function(){
+    $timeout.cancel(pilerTimer);
+  });
+
   if ($scope.mode === 'home') {
     // Only for home page
+    var pilerTimer = $timeout(function() {
+      $('.arrow-box').animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
+      $scope.readyPiler();
+    }, 4500);
+
     $scope.currentHomeSlide = 0;
     var sliderStop = $interval(function() {
       $scope.currentHomeSlide += 1;
@@ -221,6 +194,24 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
       'Powur Advocate FAQ';
   } else if ($scope.mode === 'sign-up') {
     // Only for sign up page
+    if(window.outerHeight > 1100){
+      $scope.readyPiler();
+      var pilerTimer = $timeout(function() {
+        $('.arrow-box').animate({
+          bottom: "3em"
+        }, 500, "easeOutBounce" );
+      }, 500);
+      // Cancels if user leaves page
+      $scope.$on('$locationChangeStart', function(){
+        $timeout.cancel(pilerTimer);
+      });
+    } else {
+      $scope.invertHeaderColor();
+      $('#pagepiling').css('overflow','visible')
+      $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
+      $('.arrow-box').css('bottom','3em')
+    }
+
     $scope.invite = {};
     $scope.user = {};
     $scope.countries = Geo.countries();
