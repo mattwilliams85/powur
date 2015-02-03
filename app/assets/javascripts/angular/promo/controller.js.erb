@@ -56,7 +56,6 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
         }, 200);
       }
     });
-<<<<<<< HEAD
   };
 
   this.init($scope, $location, $timeout, $interval);
@@ -65,14 +64,6 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
 
 
 PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
-=======
-  } else {
-    $('.arrow-box').css('bottom','3em')
-  }
-
-  $scope.readyPiler();
-
->>>>>>> remove slide transitions from create-wealth page
   $scope.$watch('slider', function(newValue) {
     if (newValue === '1') {
       $('.image-2').animate({opacity:'1'},200)
