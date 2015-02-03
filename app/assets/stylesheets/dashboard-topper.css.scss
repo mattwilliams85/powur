@@ -1,5 +1,12 @@
 @import "foundation-grid";
 
+// fix for the grid box-sizing incompatibility
+#dashboard_personal_goals * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .aw-spinner {
   margin: 100px auto 0;
   width: 70px;
