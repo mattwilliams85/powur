@@ -9,14 +9,11 @@ var sunstandApp = angular.module('sunstandApp', [
   // Directives
   // 'sunstandApp.signInForm',
   // 'sunstandApp.fileS3Uploader'
-]).run(['$rootScope', '$location', '$document', '$http', 'CurrentUser',
-  function ($rootScope, $location, $document, $http, CurrentUser) {
+]).run(['$rootScope', '$location', '$document', '$http', '$window', 'CurrentUser',
+  function ($rootScope, $location, $document, $http, $window, CurrentUser) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
-    // if($location.path() === '/home' || '/create-energy' || '/create-wealth'){
-      $('#pp-nav').hide();
-    // }
     /*
      * Fill in User object with data if user is signed in but object is empty
     */
@@ -40,14 +37,16 @@ var sunstandApp = angular.module('sunstandApp', [
       }
     };
 
-    $rootScope.readyPiler = function(){
+    $rootScope.removePiler = function(){
+      $('html').removeClass('piling-on');
       $('#pp-nav').hide();
-      if($location.path() === '/home' || '/create-energy' || '/create-wealth') {
-        $('html').addClass('piling-on');
-        setTimeout(function() {
-          $rootScope.pagePiler();
-        },100)
-      }
+    };
+
+    $rootScope.readyPiler = function(){
+      $('html').addClass('piling-on');
+      setTimeout(function() {
+        $rootScope.pagePiler();
+      }, 100);
     };
 
     $rootScope.pagePiler = function(){
@@ -66,7 +65,8 @@ var sunstandApp = angular.module('sunstandApp', [
           'textColor': '#fff',
           'bulletsColor': '#333',
           'position': 'right',
-          'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
+          'tooltips': ''
+          // 'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
         },
         normalScrollElements: null,
         normalScrollElementTouchThreshold: 5,
@@ -75,8 +75,18 @@ var sunstandApp = angular.module('sunstandApp', [
         sectionSelector: '.section',
         animateAnchor: false,
         //events
-        onLeave: function(index, nextIndex, direction){
+        onLeave: function(index, nextIndex, direction) {
           changeNavColor()
+          if($location.path() === '/home') {
+            setTimeout(function(){
+              if(index === 1) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
+              if(index === 2) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
+              if(index === 3) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
+              if(index === 4) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
+              $rootScope.$apply();
+              $('.gif'+index).removeClass('hidden')
+            },1000)
+          }
         },
         afterLoad: function(anchorLink, index) {
           animateActiveNav()
@@ -84,12 +94,18 @@ var sunstandApp = angular.module('sunstandApp', [
           // $('footer').show();
           $('#pp-nav').fadeIn('slow');
           $('#dim_the_lights').css('opacity','1');
-
         },
-        afterRender: function(){
+        afterRender: function(index) {
           $('#pp-nav').hide();
         }
       });
+
+      if ($location.path() === "/create-wealth") {
+        $.fn.pagepiling.setAllowScrolling(false);
+      } else {
+        $.fn.pagepiling.setAllowScrolling(true);
+      }
+
       function animateActiveNav(){
         if($('.pp-section.active').hasClass('inverted')){
           $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
@@ -102,7 +118,7 @@ var sunstandApp = angular.module('sunstandApp', [
         }
       }
 
-      function changeNavColor(){
+      function changeNavColor() {
         if($('.pp-section.active').hasClass('inverted')){
           $('#pp-nav').find('span').animate({borderColor:'#fff'},200);
           $('a.active').find('span').css('background','#fff');
@@ -147,6 +163,23 @@ var sunstandApp = angular.module('sunstandApp', [
       };
     };
 
+    $rootScope.setupInvertHeader = function() {
+      angular.element($window).bind("scroll", function() {
+        var header = document.getElementById('sun_header_guest');
+        if (header && header.className !== 'sun-header-guest invert') {
+          header.setAttribute('class', 'sun-header-guest hidden');
+          setTimeout(function invertHeader() {
+            header.setAttribute('class', 'sun-header-guest invert');
+          }, 200);
+        }
+      });
+    };
+
+    $rootScope.isMenuLinkActive = function(path) {
+      if(path === $location.path()) return true;
+      return false;
+    }
+
     // TODO: move header functionality into its own directive
     $rootScope.signOut = function() {
       var cb = function() {
@@ -163,8 +196,15 @@ var sunstandApp = angular.module('sunstandApp', [
       var duration = 500;
       var offset = 0; // pixels; adjust for floating menu, context etc
       // Scroll to #some-id with N px "padding"
-      var someElement = angular.element(document.getElementById(id));
-      $document.scrollToElement(someElement, offset, duration);
+      $('body').css('background','#111')
+      $('.sun-bg-1').animate({opacity: "0"}, 700 ,function(){
+        var someElement = angular.element(document.getElementById(id));
+        $document.scrollToElement(someElement, offset, duration);
+        setTimeout(function(){
+          $('.sun-bg-1').css('opacity','1')
+          $('body').css('background','transparent')
+        },800)
+      });
     };
   }
 ]);
@@ -227,6 +267,18 @@ sunstandApp.config(
     }).
     when('/create-energy', {
       templateUrl: '<%=asset_path("angular/promo/templates/create-energy.html")%>',
+      controller: 'PromoCtrl'
+    }).
+    when('/why-solar', {
+      templateUrl: '<%=asset_path("angular/promo/templates/why-solar.html")%>',
+      controller: 'PromoCtrl'
+    }).
+    when('/why-you', {
+      templateUrl: '<%=asset_path("angular/promo/templates/why-you.html")%>',
+      controller: 'PromoCtrl'
+    }).
+    when('/our-origin', {
+      templateUrl: '<%=asset_path("angular/promo/templates/our-origin.html")%>',
       controller: 'PromoCtrl'
     }).
 

@@ -21,7 +21,7 @@ module Sunstand
     email_host = ENV['EMAIL_HOST'] || 'http://localhost:3000'
     config.action_mailer.default_url_options = { host: email_host }
     config.action_mailer.default_options = {
-      from: "SunStand <no-reply#{Rails.env}@sunstand.com>" }
+      from: "Powur <no-reply#{Rails.env}@powur.com>" }
 
     config.paperclip_defaults = {
       storage:        :s3,

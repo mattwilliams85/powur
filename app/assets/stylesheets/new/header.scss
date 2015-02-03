@@ -2,7 +2,6 @@
  * HEADER for a guest user
 */
 .sun-header-guest {
-  font-family: $header-font-family;
   left: 0;
   top: 0;
   padding: 1em 0;
@@ -38,9 +37,10 @@
     background-position: 0 10px;
     display: block;
     margin: 0 auto;
-    line-height: 37px;
+    margin-top: -15px;
+    line-height: 50px;
     text-align: left;
-    width: 70px;
+    width: 120px;
   }
 
   .sign-in {
@@ -71,7 +71,7 @@
     }
 
     .logo {
-      background-image: image-url('powur-black-logo.png');
+      background-image: image-url('powur-blue-logo.png');
     }
 
     .sign-in {
@@ -91,7 +91,7 @@
   top: 0;
   position: fixed;
   text-transform: uppercase;
-  // height: 100px;
+  height: 100px;
   width: 100%;
   z-index: 2;
 
@@ -116,6 +116,7 @@
         background-repeat: no-repeat;
         background-position: 0 3px;
         display: block;
+        margin-top: -15px;
         width: 150px;
         height: 70px;
       }
@@ -143,7 +144,6 @@
       //   padding: 0 1em;
       //   border: 2px solid #fff;
       //   font-size: .8em;
-      //   font-family: $header-font-family;
       // }
     }
 

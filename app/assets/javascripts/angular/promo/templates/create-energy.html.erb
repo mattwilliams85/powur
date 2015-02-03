@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
 <ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
 <div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}" >
@@ -10,7 +8,7 @@
     <div class="sun-scrolling-bg sun-fixed-bg sun-bg-7 section inverted" id="anchor_1">
       <div class="sun-promo-intro">
         <div class="row">
-          <h1>For <span class="highlighted">$0 UPFRONT</span>, you can upgrade your home to solar.</h1>
+          <h1>For <span class="highlight-1">$0 UPFRONT</span>, you can upgrade your home to solar.</h1>
           <p>Not only will it lower your electricity bill, it is 100% clean and renewable energy your grandkids will thank you for.</p>
           <a class="button watch" ng-click="gotoAnchor('anchor_2')">Watch how</a>
         </div>
@@ -32,10 +30,10 @@
         </div>
 
         <div class="large-9 columns">
-          <span>Powur is putting power back in the hands of the people, literally. We’ve partnered with the world’s most innovative and pioneering solar company, Sunrun, to deliver you cheaper power that costs nothing out of pocket, and is 100% carbon free.</span>
+          <span>Powur is putting power back in the hands of the people, literally. We’ve partnered with the world’s most innovative and pioneering solar company, SolarCity, to deliver you cheaper power that costs nothing out of pocket, and is 100% carbon free.</span>
           <br />
           <br />
-          <b>Each time a new homeowner goes solar through Powur and sunrun, you change the world in these simple, yet profound ways:</b>
+          <b>Each time a new homeowner goes solar through Powur and SolarCity, you change the world in these simple, yet profound ways:</b>
         </div>
 
         <div class="large-12 columns sun-promo-slider-wrapper">
@@ -57,13 +55,13 @@
         <div class="large-4 columns">
           <div class="icon-placeholder"><div class="decentralize-icon-wrapper"></div></div>
           <h3>Decentralize energy production</h3>
-          <span>Sunrun decentralizes energy production, meaning you produce your own power from your own rooftop. This lessens your dependence on utility monopolies and the grid. Utilities charge us more money every year, and if the grid goes down, we go down.</span>
+          <span>SolarCity decentralizes energy production, meaning you produce your own power from your own rooftop. This lessens your dependence on utility monopolies and the grid. Utilities charge us more money every year, and if the grid goes down, we go down.</span>
         </div>
 
         <div class="large-4 columns">
           <div class="icon-placeholder"><div class="pocket-wallet-icon-wrapper"></div></div>
           <h3>Money in your pocket</h3>
-          <span>Sunrun puts more money back in your pocket, right where it belongs. Every year the cost of energy increases. Do you know Americans spend an average of $80 billion dollars MORE in discretionary income per year on energy, than we did just 20 years ago? That’s a lot of money that should still be in our pockets, and with solar, it will be.</span>
+          <span>SolarCity puts more money back in your pocket, right where it belongs. Every year the cost of energy increases. Do you know Americans spend an average of $80 billion dollars MORE in discretionary income per year on energy, than we did just 20 years ago? That’s a lot of money that should still be in our pockets, and with solar, it will be.</span>
         </div>
 
         <div class="large-4 columns">
@@ -115,7 +113,7 @@
     <div class="sun-scrolling-bg sun-bg-3 section" id="anchor_5">
       <div class="row sun-promo-content sun-promo-energy-5">
         <div class="large-4 columns">
-          <div class="sun-logo-wrapper"></div>
+          <img class="sun-logo-wrapper" src="<%=asset_path('powur-blue-logo.png')%>" />
           <img src="<%=asset_path('promo/image-1.jpg')%>" />
         </div>
 
@@ -128,10 +126,10 @@
           <p>Through Powur, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
         </div>
       </div>
-     <div class="arrow-box">
-      <span>What's next?</span>
-      <i class="fa fa-chevron-down fa-3x"></i>
-    </div>
+      <div class="arrow-box">
+        <span>What's next?</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
     </div>
 
     <div class="sun-scrolling-bg sun-bg-8 section inverted" id="anchor_6">
@@ -142,33 +140,7 @@
           <p>Get a quote  to see if you can save money, and our planet by going solar.<br />It costs nothing, and you’ll know quickly if this is the right choice for you.</p>
         </div>
       </div>
-      <footer class="sun-landing-footer">
-        <div class="row">
-          <div class="large-12 columns">
-            <div class="footer-content">
-              <nav class="footer-nav">
-                <ul>
-                  <li><a href="">Contact</a></li> |
-                  <li><a href="">Privacy</a></li> |
-                  <li><a href="">Terms</a></li>
-                </ul>
-              </nav>
-
-              <div class="copyright">
-                Copyright © 2014 - 2015 Sunstand Inc. All rights reserved.
-              </div>
-
-              <div class="social-links">
-                <a class="facebook" href=""></a>
-                <a class="twitter" href=""></a>
-                <a class="youtube" href=""></a>
-              </div>
-
-              <div class="clearfix"></div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
     </div>
 
 

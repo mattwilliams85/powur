@@ -1,26 +1,21 @@
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
 <ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
 <div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
   <ng-include src="'<%=asset_path("shared/header-signed-out.html") %>'"></ng-include>
 
-  <main class="sun-landing sun-sign-up-page" id="pagepiling">
+  <main class="sun-landing sun-sign-up-page">
 
-    <div class="sun-fixed-bg sun-bg-4 section inverted">
-      <div class="sun-home-intro">
-        <div class="row">
+    <div class="sun-bg-6">
+      <div class="row">
+        <div class="large-12 columns text-center">
           <h1>Let's Go!</h1>
           <p>Complete your FREE registration by filling in the form below. See you inside.</p>
         </div>
       </div>
-      <div class="arrow-box inverted">
-        <i class="fa fa-chevron-down fa-3x" id="sign-up-form-link"></i>
-      </div>
     </div>
 
-    <div class="sun-scrolling-bg section">
-      <div class="row">
+    <div class="sun-scrolling-bg">
+      <div class="row sign-up-forms-wrapper">
         <div class="large-6 medium-6 columns">
           <form name="validateInviteForm" ng-submit="validateInvite()" class="invite-form" ng-class="{'inactive': invite.properties}" novalidate>
 
@@ -131,8 +126,3 @@
 
   </main>
 </div>
-
-
-<style type="text/css">
-  
-</style>

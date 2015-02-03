@@ -1,14 +1,11 @@
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-
 <ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
 
-<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}" style="background-color:#000">
-
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
   <ng-include src="'<%=asset_path("shared/header-signed-out.html") %>'"></ng-include>
 
-  <main class="sun-promo" id="pagepiling">
+  <main class="sun-promo">
 
-    <div class="sun-scrolling-bg sun-bg-1 section" id="dim_the_lights">
+    <div class="sun-fixed-bg sun-bg-1" id="anchor_1">
       <div class="sun-promo-intro">
         <div class="row">
           <h1>Powur is the world’s first solar business in your pocket.</h1>
@@ -18,7 +15,7 @@
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-2 scroll-slide-2 section inverted" >
+    <div class="sun-bg-6 scroll-slide-2" id="dim_the_lights">
       <div class="row sun-promo-content sun-promo-dim">
         <div class="large-6 columns">
           <h2>The <span class="highlighted">greatest transfer of wealth</span> in human history has begun.</h2>
@@ -46,7 +43,7 @@
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-3 scroll-slide-3 section" id="on_slider_move">
+    <div class="sun-scrolling-bg sun-bg-3" id="on_slider_move">
       <div class="row sun-promo-content sun-promo-slide-3">
         <div class="large-4 columns">
           <img src="<%=asset_path("promo/image-placeholder.jpg")%>" />
@@ -61,17 +58,14 @@
           <h5>The case for solar</h5>
           <span>With record breaking installations in 2014, a new American home goes solar every 3 minutes. Solar is hitting critical mainstream capacity because:</span>
           <h2>It saves money.<br />It's simple.</h2>
-          <span class="small">Innovative financing plans have made it zero risk, zero money down, brain dead simple for homeowners to go solar & save money.  There are 48 million homes that could get cheaper, cleaner power from solar right now.  Most of these homeowners simply don’t know how much money they can save,</span>
+          <span class="small">Innovative financing plans have made it zero risk, zero money down, brain dead <b>simple</b> for homeowners to go solar & <b>save money.</b>  There are 48 million homes that could get cheaper, cleaner power from solar right now.  Most of these homeowners simply don’t know how much money they can save,</span>
           <hr />
           <span class="big">that's where you come in.</span>
         </div>
       </div>
-      <div class="arrow-box">
-        <i class="fa fa-chevron-down fa-3x"></i>
-      </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-4 scroll-slide-4 section">
+    <div class="sun-bg-4">
       <div class="row sun-promo-content sun-promo-slide-4">
         <div class="large-6 columns">
           <img src="<%=asset_path("promo/browser-and-phone.png")%>" />
@@ -88,12 +82,9 @@
           <span>READY TO CHANGE HANDS FOR THOSE WHO PLAY A ROLE IN DISTRIBUTION.</span>
         </div>
       </div>
-      <div class="arrow-box inverted">
-        <i class="fa fa-chevron-down fa-3x"></i>
-      </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-3 scroll-slide-5 section">
+    <div class=".scroll-slide-3 scroll-slide-3 sun-bg-3 " >
       <div class="row sun-promo-content sun-promo-slide-5">
         <div class="large-12 columns">
           <h4>How it works</h4>
@@ -125,16 +116,14 @@
           </div>
         </div>
       </div>
-      <div class="arrow-box">
-        <span>Sign up now</span>
-        <i class="fa fa-chevron-down fa-3x"></i>
+      <div class="scroll-down">
+      <span>KEEP SCROLLING DOWN TO SIGN UP FOR FREE</span>
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-6 scroll-slide-6 section inverted">
+    <div class="sun-bg-6">
       <div class="row sun-promo-content sun-promo-slide-6">
         <img class="screen-with-zoom" src="<%=asset_path("promo/screen-with-zoom.png")%>" />
-
         <div class="large-4 columns">
           &nbsp;
         </div>
@@ -143,19 +132,12 @@
           <h4>Earn an extra $1,000 your first 30 days starting a business with Powur.</h4>
           <span>Getting started is free, & easy.  Simply register to become a Powur advocate.  Then, we’ll pair you with the business coach who invited you here to discuss your next steps.  Powur has pioneered a brand new model for you to share solar energy with the people you care about, and build a sustainable, generous income from the comfort of your home.</span>
 
-          <a class="button bg-green" href="#/sign-up">Sign Up Free</a>
+          <a class="button btn-green" ng-href="#/sign-up">Sign Up Free</a>
           <br />
-          <span class="small">Questions? Contact Dilbert Pickles on 123 456 789 to find out more.</span>
+          <span class="small">Questions? Contact Jonathan Budd on 123 456 789 to find out more.</span>
         </div>
       </div>
-    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
     </div>
-
-
+    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
   </main>
-
-  <!-- <div class="slide-guide">
-    <div ng-repeat="dot in dots" class="slide-dot" ng-class="{'active': dot.active}" id='slide-dot1' ng-click="clickSlideDot(dots.indexOf(dot))"></div>
-  </div> -->
-  </div>
 </div>

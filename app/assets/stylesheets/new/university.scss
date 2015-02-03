@@ -72,7 +72,6 @@
     }
 
     span, label {
-      font-family: $header-font-family;
       line-height: 1.5em;
     }
 
@@ -149,7 +148,6 @@
       display: block;
       width: 100%;
       vertical-align: baseline;
-      font-family: $header-font-family;
       font-size: 1.8em;
       line-height: 1.8em;
       -webkit-font-smoothing: subpixel-antialiased;
@@ -193,7 +191,6 @@
       -webkit-appearance: none;
       margin-bottom: 8px;
       height: 61px;
-      font-family: $header-font-family;
       font-size: 1.8em;
 
       &:hover {

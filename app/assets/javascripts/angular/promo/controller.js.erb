@@ -1,8 +1,8 @@
-
 'use strict';
 
-function PromoCtrl($scope, $location, $timeout, $interval) {
+function PromoCtrl($scope, $location, $timeout, $interval, $window) {
   $scope.redirectToDashboardIfSignedIn();
+  $scope.removePiler();
 
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
@@ -12,36 +12,54 @@ function PromoCtrl($scope, $location, $timeout, $interval) {
     $scope.isMenuActive = true;
   };
 
+  $scope.stopSlideShowOn = function(slide) {
+    $scope.currentSlide = $scope.energySlides.indexOf(slide);
+    $interval.cancel($scope.sliderStop);
+    $scope.sliderStop = undefined;
+  };
+
+  $scope.energySlides = [
+    {
+      images: [
+        'http://lorempixel.com/200/200/nature/1/',
+        'http://lorempixel.com/200/200/nature/2/',
+        '<%=asset_url("promo/slide-show-item.jpg") %>'
+      ],
+      text: 'Lock in a low rate on your electricity for the next 20 years, effectively guaranteeing no more price increases, or inflation costs for energy!'
+    },
+    {
+      images: [
+        'http://lorempixel.com/200/200/nature/3/',
+        'http://lorempixel.com/200/200/nature/4/',
+        '<%=asset_url("promo/slide-show-item.jpg") %>'
+      ],
+      text: 'Lock in a low rate on your electricity for the next 20 years, effectively guaranteeing no more price increases, or inflation costs for energy!'
+    },
+    {
+      images: [
+        'http://lorempixel.com/200/200/nature/5/',
+        'http://lorempixel.com/200/200/nature/6/',
+        '<%=asset_url("promo/slide-show-item.jpg") %>'
+      ],
+      text: 'Lock in a low rate on your electricity for the next 20 years, effectively guaranteeing no more price increases, or inflation costs for energy!'
+    }
+  ];
+
   this.init($scope, $location, $timeout, $interval);
-  this.fetch($scope, $interval);
+  this.fetch($scope, $interval, $timeout);
 }
 
 
 PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
-
-  if ($location.path() === '/create-energy') {
-    var pilerTimer = $timeout(function() {
-      $('.arrow-box').animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
-    }, 3000);
-
-    // Cancels if user leaves page
-    $scope.$on('$locationChangeStart', function(){
-      $timeout.cancel(pilerTimer);
-    });
-  } else {
-    $('.arrow-box').css('bottom','3em')
-  }
-
-  $scope.readyPiler();
-
   $scope.$watch('slider', function(newValue) {
     if (newValue === '1') {
       $('.image-2').animate({opacity:'1'},200)
       $('.image-1').animate({opacity:'0.3'},200)
       $timeout(function() {
-        $.fn.pagepiling.moveSectionDown();
+        if ($location.path() === '/create-energy') {
+          $.fn.pagepiling.moveSectionDown();
+        }
+        $scope.gotoAnchor('on_slider_move')
       }, 200);
     } else {
       $('.image-2').animate({opacity:'0.3'},200)
@@ -50,13 +68,19 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
   });
 
   // Setting mode based on the url
-  $scope.mode = 'create-wealth';
-  if (/\/create-energy$/.test($location.path())) $scope.mode = 'create-energy';
+  $scope.mode = '';
+  if (/\/create-wealth$/.test($location.path())) return $scope.mode = 'create-wealth';
+  if (/\/create-energy$/.test($location.path())) return $scope.mode = 'create-energy';
+  if (/\/why-solar$/.test($location.path())) return $scope.mode = 'why-solar';
+  if (/\/why-you$/.test($location.path())) return $scope.mode = 'why-you';
+  if (/\/our-origin$/.test($location.path())) return $scope.mode = 'our-origin';
 };
 
 
-PromoCtrl.prototype.fetch = function($scope, $interval) {
+PromoCtrl.prototype.fetch = function($scope, $interval, $timeout) {
   if ($scope.mode === 'create-wealth') {
+    $scope.setupInvertHeader();
+    // Clock
     $scope.minTime = new Date(2000, 1, 1, 0, 0, 0, 0).valueOf();
     // Max time is 3 minutes
     $scope.maxTime = new Date(2000, 1, 1, 0, 0, 0, 0).valueOf() + (1000 * 60 * 3);
@@ -78,38 +102,17 @@ PromoCtrl.prototype.fetch = function($scope, $interval) {
       }
     }, 1000);
   } else if ($scope.mode === 'create-energy') {
-    $scope.stopSlideShowOn = function(slide) {
-      $scope.currentSlide = $scope.energySlides.indexOf(slide);
-      $interval.cancel($scope.sliderStop);
-      $scope.sliderStop = undefined;
-    };
+    var pilerTimer = $timeout(function() {
+      $('.arrow-box').animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
+    }, 3000);
 
-    $scope.energySlides = [
-      {
-        images: [
-          'http://lorempixel.com/200/200/nature/1/',
-          'http://lorempixel.com/200/200/nature/2/',
-          '<%=asset_url("promo/slide-show-item.jpg") %>'
-        ],
-        text: 'Lock in a low rate on your electricity for the next 20 years, effectively guaranteeing no more price increases, or inflation costs for energy!'
-      },
-      {
-        images: [
-          'http://lorempixel.com/200/200/nature/3/',
-          'http://lorempixel.com/200/200/nature/4/',
-          '<%=asset_url("promo/slide-show-item.jpg") %>'
-        ],
-        text: 'Lock in a low rate on your electricity for the next 20 years, effectively guaranteeing no more price increases, or inflation costs for energy!'
-      },
-      {
-        images: [
-          'http://lorempixel.com/200/200/nature/5/',
-          'http://lorempixel.com/200/200/nature/6/',
-          '<%=asset_url("promo/slide-show-item.jpg") %>'
-        ],
-        text: 'Lock in a low rate on your electricity for the next 20 years, effectively guaranteeing no more price increases, or inflation costs for energy!'
-      }
-    ];
+    // Cancels if user leaves page
+    $scope.$on('$locationChangeStart', function(){
+      $timeout.cancel(pilerTimer);
+    });
+    $scope.readyPiler();
 
     $scope.currentSlide = 0;
     $scope.sliderStop = $interval(function() {
@@ -118,10 +121,16 @@ PromoCtrl.prototype.fetch = function($scope, $interval) {
       } else {
         $scope.currentSlide += 1;
       }
-    }, 3000);
+    }, 6000);
+  } else if ($scope.mode === 'why-solar') {
+    $scope.readyPiler();
+  } else if ($scope.mode === 'why-you') {
+    $scope.readyPiler();
+  } else if ($scope.mode === 'our-origin') {
+    $scope.setupInvertHeader();
   }
 };
 
 
-PromoCtrl.$inject = ['$scope', '$location', '$timeout', '$interval'];
+PromoCtrl.$inject = ['$scope', '$location', '$timeout', '$interval', '$window'];
 sunstandControllers.controller('PromoCtrl', PromoCtrl);

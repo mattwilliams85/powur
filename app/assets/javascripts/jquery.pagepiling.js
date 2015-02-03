@@ -831,15 +831,15 @@
             scrollPage($('.pp-section').eq(index));
         });
 
-        $(document).on('click', '.dim', function(e){
-            e.preventDefault();
-            $('#dim_the_lights').animate(
-            {opacity: "0"}, 700 
-            ,function(){
+        // $(document).on('click', '.dim', function(e){
+        //     e.preventDefault();
+        //     $('#dim_the_lights').animate(
+        //     {opacity: "0"}, 700 
+        //     ,function(){
 
-            scrollPage($('.pp-section').eq(1));
-            });
-        });
+        //     scrollPage($('.pp-section').eq(1));
+        //     });
+        // });
 
         $(document).on('click', '.fa-chevron-down', function(e){
             e.preventDefault();

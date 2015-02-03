@@ -5,7 +5,15 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
-    margin-bottom: .8em;
+    margin-bottom: 1em;
+
+    .highlight-1, &.highlight-1 {
+      color: $sun-color-blue;
+    }
+
+    .highlight-2, &.highlight-2 {
+      color: $sun-color-orange;
+    }
   }
 
   .sun-promo-intro {
@@ -28,8 +36,12 @@
       text-transform: uppercase;
       line-height: 1em;
 
-      .highlighted {
+      .highlight-1, &.highlight-1 {
         color: $sun-color-blue;
+      }
+
+      .highlight-2, &.highlight-2 {
+        color: $sun-color-orange;
       }
 
       @media #{$small} {
@@ -163,7 +175,6 @@
       padding-left: 40px;
       font-size: 32px;
       font-weight: bold;
-      font-family: "Montserrat";
     }
 
     .highlighted {
@@ -332,7 +343,6 @@
 
       .inner-content {
         margin-left:0;
-        right:50px;
         padding-top: 140px;
       }
     }
@@ -517,10 +527,125 @@
   }
 
   .sun-logo-wrapper {
-    @include sun-sprites-sprite(sun-logo);
-    height: sun-sprites-sprite-height(sun-logo);
-    width: sun-sprites-sprite-width(sun-logo);
+    // @include sun-sprites-sprite(sun-logo);
+    // height: sun-sprites-sprite-height(sun-logo);
+    // width: sun-sprites-sprite-width(sun-logo);
     margin-bottom: 40px;
+  }
+
+  .stand-and-sun-icon-wrapper {
+    @include sun-sprites-sprite(stand-and-sun-icon);
+    height: sun-sprites-sprite-height(stand-and-sun-icon);
+    width: sun-sprites-sprite-width(stand-and-sun-icon);
+    display: inline-block;
+    margin-bottom: 40px;
+  }
+
+  &.sun-why-solar-page {
+    .slide-2-ico-wrapper {
+      height: 100px;
+      margin-top: 40px;
+      text-align: center;
+
+      .ico-1 {
+        @include sun-sprites-sprite(why-solar-ico-1);
+        height: sun-sprites-sprite-height(why-solar-ico-1);
+        width: sun-sprites-sprite-width(why-solar-ico-1);
+        display: inline-block;
+      }
+
+      .ico-2 {
+        @include sun-sprites-sprite(why-solar-ico-2);
+        height: sun-sprites-sprite-height(why-solar-ico-2);
+        width: sun-sprites-sprite-width(why-solar-ico-2);
+        display: inline-block;
+      }
+
+      .ico-3 {
+        @include sun-sprites-sprite(why-solar-ico-3);
+        height: sun-sprites-sprite-height(why-solar-ico-3);
+        width: sun-sprites-sprite-width(why-solar-ico-3);
+        display: inline-block;
+      }
+
+      .ico-4 {
+        @include sun-sprites-sprite(why-solar-ico-4);
+        height: sun-sprites-sprite-height(why-solar-ico-4);
+        width: sun-sprites-sprite-width(why-solar-ico-4);
+        display: inline-block;
+      }
+
+      .ico-5 {
+        @include sun-sprites-sprite(why-solar-ico-5);
+        height: sun-sprites-sprite-height(why-solar-ico-5);
+        width: sun-sprites-sprite-width(why-solar-ico-5);
+        display: inline-block;
+      }
+
+      .ico-6 {
+        @include sun-sprites-sprite(why-solar-ico-6);
+        height: sun-sprites-sprite-height(why-solar-ico-6);
+        width: sun-sprites-sprite-width(why-solar-ico-6);
+        display: inline-block;
+      }
+    }
+  }
+
+  &.sun-our-origin-page {
+    .sun-origin-story-bg {
+      background-image: image-url("promo/rainforest.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 325px;
+      padding-top: 150px;
+
+      h1 {
+        color: #fff;
+        text-transform: uppercase;
+      }
+    }
+
+    .origin-people {
+      margin: 125px 0 70px 0;
+      width: 100%;
+    }
+
+    .our-origin-ico {
+      margin: 40px 0;
+      width: 100%;
+    }
+
+    blockquote {
+      border: none;
+      color: #000;
+      font-size: 2em;
+      font-weight: bold;
+      padding: 1em 0;
+      quotes: "\201C""\201D""\2018""\2019";
+
+      &:before {
+        color: $sun-color-orange;
+        content: open-quote;
+        font-size: 2em;
+        line-height: 1em;
+        margin-right: .5em;
+      }
+    }
+
+    .signature {
+      h3 {
+        font-weight: bold;
+        margin-top: 70px;
+      }
+
+      img {
+        margin: 0 0 20px 0;
+      }
+
+      p {
+        margin-bottom: 100px;
+      }
+    }
   }
 
   .sun-bg-1 {
@@ -602,4 +727,77 @@
     height: 100%;
     overflow: hidden;
   }
+
+  .sun-bg-10 {
+    background-image: image-url("promo/bg-10.jpg");
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .sun-bg-11 {
+    background-image: image-url("promo/bg-11.jpg");
+
+    h5 {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 2em;
+    }
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .sun-bg-12 {
+    background-image: image-url("promo/bg-12.jpg");
+
+    h2 {
+      color: #fff;
+    }
+  }
+
+  .sun-bg-13 {
+    background-image: image-url("promo/bg-13.jpg");
+
+    h2 {
+      color: #fff;
+    }
+
+    p {
+      color: #fff;
+    }
+  }
+}
+
+.scroll-slide-2 {
+  height:100vh;
+  min-height:1200px;
+  h2 {
+    color:#fff;
+  }
+  h5 {
+    color:$sun-color-orange;
+  }
+}
+
+.scroll-slide-3 {
+  height:900px;
+}
+
+
+.btn-green:hover {
+  background:#20B552 !important;
+}
+
+.scroll-down {
+  padding-top:150px;
+  color:#bbb;
+  margin:auto;
+  width:400px;
+}
+
+.scroll-slide-3 {
+  position:relative !important;
 }

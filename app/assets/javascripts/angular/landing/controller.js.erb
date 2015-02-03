@@ -2,6 +2,8 @@
 
 function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Invite, Geo) {
   $scope.redirectToDashboardIfSignedIn();
+  $scope.removePiler();
+
   $scope.showValidationMessages = false;
   $scope.isSubmitDisabled = false;
 
@@ -58,6 +60,11 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       });
     }
   };
+
+  $rootScope.gif1Src = "<%= asset_path('blank_gif.png') %>"
+  $rootScope.gif2Src = "<%= asset_path('blank_gif.png') %>"
+  $rootScope.gif3Src = "<%= asset_path('blank_gif.png') %>"
+  $rootScope.gif4Src = "<%= asset_path('blank_gif.png') %>"
 
   var signUpCallback = function(data) {
     $scope.formErrorMessages = {};
@@ -142,52 +149,11 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   };
 
   this.init($scope, $location, $timeout);
-  this.fetch($scope, $interval, $routeParams, Geo);
+  this.fetch($scope, $interval, $routeParams, $timeout, Geo);
 }
 
 
 LandingCtrl.prototype.init = function($scope, $location, $timeout) {
-
-  // Runs page-piler after intro
-  $('html').removeClass('piling-on');
-  $('#pp-nav').hide();
-  if ($location.path() === '/home') {
-    var pilerTimer = $timeout(function() {
-      $('.arrow-box').animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
-      $scope.readyPiler();
-    }, 4500);
-  }
-
-  if ($location.path() === '/sign-up') {
-    if(window.outerHeight > 1100){
-      $scope.readyPiler();
-
-      var pilerTimer = $timeout(function() {
-        $('.arrow-box').animate({
-          bottom: "3em"
-        }, 500, "easeOutBounce" );
-      }, 500);
-
-      // Cancels if user leaves page
-      $scope.$on('$locationChangeStart', function(){
-        $timeout.cancel(pilerTimer);
-      });
-    } else {
-      $scope.invertHeaderColor();
-      $('#pagepiling').css('overflow','visible')
-      $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
-      $('.arrow-box').css('bottom','3em')
-      // $('row')
-    }
-  }
-
-  // Cancels if user leaves page
-  $scope.$on('$locationChangeStart', function(){
-    $timeout.cancel(pilerTimer);
-  });
-
   // Setting mode based on the url
   $scope.mode = '';
   if (/\/home$/.test($location.path())) return $scope.mode = 'home';
@@ -195,14 +161,24 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
   if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
   if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
   if (/\/sign-up/.test($location.path())) return $scope.mode = 'sign-up';
-
 };
 
 
-LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
-  if ($scope.mode === 'home') {
+LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout, Geo) {
+  // Cancels if user leaves page
+  $scope.$on('$locationChangeStart', function(){
+    $timeout.cancel(pilerTimer);
+  });
 
+  if ($scope.mode === 'home') {
     // Only for home page
+    var pilerTimer = $timeout(function() {
+      $('.arrow-box').animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
+      $scope.readyPiler();
+    }, 6500);
+
     $scope.currentHomeSlide = 0;
     var sliderStop = $interval(function() {
       $scope.currentHomeSlide += 1;
@@ -210,21 +186,37 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, Geo) {
         $interval.cancel(sliderStop);
         sliderStop = undefined;
       }
-    }, 2000);
-
+    }, 3000);
   } else if ($scope.mode === 'sign-in') {
     // Only for sign in page
     $scope.signInPage = true;
   } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
-    $('#pp-nav').hide();
-
     // Only for faq pages
-    $scope.activeFAQItemId = 'faq_item_1';
     $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
       'Powur Customer FAQ' :
       'Powur Advocate FAQ';
   } else if ($scope.mode === 'sign-up') {
     // Only for sign up page
+    $scope.setupInvertHeader();
+
+    // if(window.outerHeight > 1100){
+    //   $scope.readyPiler();
+    //   var pilerTimer = $timeout(function() {
+    //     $('.arrow-box').animate({
+    //       bottom: "3em"
+    //     }, 500, "easeOutBounce" );
+    //   }, 500);
+    //   // Cancels if user leaves page
+    //   $scope.$on('$locationChangeStart', function(){
+    //     $timeout.cancel(pilerTimer);
+    //   });
+    // } else {
+    //   $scope.invertHeaderColor();
+    //   $('#pagepiling').css('overflow','visible')
+    //   $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
+    //   $('.arrow-box').css('bottom','3em')
+    // }
+
     $scope.invite = {};
     $scope.user = {};
     $scope.countries = Geo.countries();
