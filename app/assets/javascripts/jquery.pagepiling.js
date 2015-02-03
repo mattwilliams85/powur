@@ -841,10 +841,11 @@
         //     });
         // });
 
-        $(document).on('click', '.fa-chevron-down', function(e){
+        $('.fa-chevron-down').click(function(e){
             e.preventDefault();
-            var next = $('.pp-section.active').next('.pp-section');
+            var next = $('.pp-section.active').next('.section');
             scrollPage(next)
+            e.stopPropagation();         
         });
 
         /**
