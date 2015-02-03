@@ -176,10 +176,16 @@ div.aw-tooltip span:after {
   font-size: 10pt;
   color: #aaa;
   text-align: left;
+  margin-top: 0px;
 }
 
 .aw-news-pagination {
   font-size: 12pt;
+}
+
+.aw-emphasis {
+  // color: #20c2f1;
+  text-decoration: underline;
 }
 
 // Share Quote Section
