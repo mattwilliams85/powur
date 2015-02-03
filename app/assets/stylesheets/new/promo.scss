@@ -1,3 +1,7 @@
+body {
+  background:#000;
+}
+
 .sun-promo {
   height: 100%;
   position: relative;
@@ -750,4 +754,35 @@
       color: #fff;
     }
   }
+}
+
+.scroll-slide-2 {
+  height:100vh;
+  min-height:1200px;
+  h2 {
+    color:#fff;
+  }
+  h5 {
+    color:$sun-color-orange;
+  }
+}
+
+.scroll-slide-3 {
+  height:900px;
+}
+
+
+.btn-green:hover {
+  background:#20B552 !important;
+}
+
+.scroll-down {
+  padding-top:150px;
+  color:#bbb;
+  margin:auto;
+  width:400px;
+}
+
+.scroll-slide-3 {
+  position:relative !important;
 }

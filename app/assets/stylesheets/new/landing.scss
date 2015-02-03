@@ -65,7 +65,7 @@
       background: $sun-color-green;
       text-transform: uppercase;
       margin-right: 1em;
-      font-size:1.5em;
+      font-size:2em;
     }
 
     @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,900);
@@ -116,7 +116,7 @@
       color:#333;
       
       svg {
-        height: 67px;
+        height: 89px;
         left: 0;
         position: absolute;
         top: 0; 
@@ -136,7 +136,7 @@
       
       rect {
         stroke-width: 6;
-        stroke-dasharray: 120, 470;
+        stroke-dasharray: 120, 412;
         stroke-dashoffset: 170;
         transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
       }
@@ -151,7 +151,7 @@
       position:absolute;
       top:0;
       right:0;
-      height:2px;
+      height:3px;
       width:0;
       background: $sun-color-green;
       transition:400ms ease all;

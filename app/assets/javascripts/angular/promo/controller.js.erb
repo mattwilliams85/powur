@@ -56,6 +56,7 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
         }, 200);
       }
     });
+<<<<<<< HEAD
   };
 
   this.init($scope, $location, $timeout, $interval);
@@ -64,12 +65,23 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
 
 
 PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
+=======
+  } else {
+    $('.arrow-box').css('bottom','3em')
+  }
+
+  $scope.readyPiler();
+
+>>>>>>> remove slide transitions from create-wealth page
   $scope.$watch('slider', function(newValue) {
     if (newValue === '1') {
       $('.image-2').animate({opacity:'1'},200)
       $('.image-1').animate({opacity:'0.3'},200)
       $timeout(function() {
-        $.fn.pagepiling.moveSectionDown();
+        if ($location.path() === '/create-energy') {
+          $.fn.pagepiling.moveSectionDown();
+        }
+        $scope.gotoAnchor('on_slider_move')
       }, 200);
     } else {
       $('.image-2').animate({opacity:'0.3'},200)
