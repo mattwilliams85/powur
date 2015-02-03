@@ -177,16 +177,21 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
         bottom: "3em"
       }, 500, "easeOutBounce" );
       $scope.readyPiler();
-    }, 6500);
+    }, 4000);
 
     $scope.currentHomeSlide = 0;
-    var sliderStop = $interval(function() {
-      $scope.currentHomeSlide += 1;
-      if ($scope.currentHomeSlide >= 2) {
-        $interval.cancel(sliderStop);
-        sliderStop = undefined;
-      }
-    }, 3000);
+    
+    $timeout(function() {
+      $scope.currentHomeSlide +=1;
+      var sliderStop = $interval(function() {
+        $scope.currentHomeSlide += 1;
+        if ($scope.currentHomeSlide >= 2) {
+          $interval.cancel(sliderStop);
+          sliderStop = undefined;
+        }
+      }, 3000);
+    }, 500);
+
   } else if ($scope.mode === 'sign-in') {
     // Only for sign in page
     $scope.signInPage = true;

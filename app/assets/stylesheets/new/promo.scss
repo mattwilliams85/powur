@@ -331,6 +331,10 @@
       color: #383838;
       height: 100%;
       z-index: 1;
+      display:none;
+      @media #{$medium} {
+        display:block;
+      }
 
       .left-bg {
         background: $sun-color-blue;
@@ -349,7 +353,7 @@
 
     .right-part {
       color: #fff;
-      display: none;
+      // display: none;
       height: 100%;
 
       .right-bg {
@@ -366,9 +370,9 @@
         max-width: 500px;
       }
 
-      @media #{$small} {
-        display: block;
-      }
+      // @media #{$small} {
+      //   display: block;
+      // }
     }
 
     .inner-content {
@@ -726,6 +730,7 @@
     background-image: image-url("promo/bg-9.jpg");
     height: 100%;
     overflow: hidden;
+    background-size:cover;
   }
 
   .sun-bg-10 {

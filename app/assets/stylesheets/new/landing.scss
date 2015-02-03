@@ -45,12 +45,20 @@
       width:900px;
       font-weight: bold;
       text-transform: uppercase;
-      // position:absolute;
-
+      // position:absolute;    
       @media #{$small} {
         font-size: 4.5em;
       }
     }
+    h3 {
+      color: #000;
+      width:900px;
+      line-height: 1.5em;
+      font-size: 1.5em;
+      // text-transform: uppercase;
+      // position:absolute;
+    }
+
 
     p {
       color: #fff;
