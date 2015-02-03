@@ -1,0 +1,84 @@
+<ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
+
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
+  <ng-include src="'<%=asset_path("shared/header-signed-out.html") %>'"></ng-include>
+
+  <main class="sun-promo sun-why-direct-page" id="pagepiling">
+
+    <div class="sun-scrolling-bg sun-bg-14 section inverted">
+      <div class="sun-promo-intro">
+        <div class="row">
+          <h1 class="narrow">Solar is finally ready for <br /><span class="highlight-2">Direct Selling.</span></h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-3 section">
+      <div class="row sun-promo-content">
+        <div class="large-6 columns">
+          <h3 class="uppercase"><b>The <span class="highlight-2">direct sales</span> industry generates over $160 billion dollars per year in revenue, with over 90,000,000 active distributors.</b></h3>
+          <h4>That is a huge industry.</h4>
+        </div>
+
+        <div class="large-6 columns">
+          <p>In America alone, it’s over $30 billion a year, with 16.8 million active direct sellers.  Think of how many millions of Americans earn their livelihood through direct selling.</p>
+          <p>We all know someone in direct sales, have bought something, or have been part of a company ourselves.  The industry is so big in fact, it just wasn’t possible for solar to keep up with the pace direct sales could grow… until now.</p>
+          <p>Billions of dollars and millions of man hours have gone into manufacturing, finance, and installation systems that now have solar ready to scale across the country.</p>
+          <p>What’s missing are passionate, enthusiastic, financially motivated people who want to build a business championing the cause.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-15 section inverted">
+      <div class="sun-promo-content">
+        <div class="row">
+          <div class="large-5 columns">
+            <h2>Enter <br /><span class="highlight-2">direct sales</span></h2>
+          </div>
+
+          <div class="large-7 columns slide-show-wrapper">
+            <div ng-repeat="slide in promoSlides">
+              <div class="slide-show-inner" ng-class="{'active': currentSlide === promoSlides.indexOf(slide)}">
+                <img ng-repeat="img in slide.images" class="image" ng-src="{{img}}" />
+                <div class="clearfix"></div>
+                <p>{{slide.text}}</p>
+              </div>
+            </div>
+
+            <div class="slide-show-dots">
+              <a ng-repeat="slide in promoSlides" ng-class="{'active': currentSlide === promoSlides.indexOf(slide)}" ng-click="stopSlideShowOn(slide)"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-5 section">
+      <div class="row sun-promo-content">
+        <div class="large-6 columns">
+          <h4>Oh, and one more thing.</h4>
+          <h3 class="uppercase">We haven't found any model that returns <span class="highlight-2">"Power to the people"</span> more literally.</h3>
+        </div>
+
+        <div class="large-6 columns">
+          <p>Through the direct selling model, we can shift the wealth from dirty energy companies to people like YOU... while at the same time decentralizing energy production, and powering our homes from clean sunshine generated on our own rooftops. That is a big metaphorical deal, and we think it’s a sign of the changing times we live in. Some might even call what we are doing...</p>
+          <p>Dare I say, a <i>revolution</i>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-3 section">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <h5>Select how you want to participate in the revolution.</h5>
+          <div class="sun-buttons-wrapper">
+            <a class="button sun-button-transparent" ng-href="#/create-energy">POWER</a>
+            <a class="button sun-button-solid" ng-href="#/create-wealth">WEALTH</a>
+          </div>
+        </div>
+      </div>
+      <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+    </div>
+
+  </main>
+</div>

@@ -171,7 +171,6 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
   });
 
   if ($scope.mode === 'home') {
-    // Only for home page
     var pilerTimer = $timeout(function() {
       $('.arrow-box').animate({
         bottom: "3em"
@@ -192,34 +191,13 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
       }, 3000);
     }, 500);
   } else if ($scope.mode === 'sign-in') {
-    // Only for sign in page
     $scope.signInPage = true;
   } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
-    // Only for faq pages
     $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
       'Powur Customer FAQ' :
       'Powur Advocate FAQ';
   } else if ($scope.mode === 'sign-up') {
-    // Only for sign up page
     $scope.setupInvertHeader();
-
-    // if(window.outerHeight > 1100){
-    //   $scope.readyPiler();
-    //   var pilerTimer = $timeout(function() {
-    //     $('.arrow-box').animate({
-    //       bottom: "3em"
-    //     }, 500, "easeOutBounce" );
-    //   }, 500);
-    //   // Cancels if user leaves page
-    //   $scope.$on('$locationChangeStart', function(){
-    //     $timeout.cancel(pilerTimer);
-    //   });
-    // } else {
-    //   $scope.invertHeaderColor();
-    //   $('#pagepiling').css('overflow','visible')
-    //   $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
-    //   $('.arrow-box').css('bottom','3em')
-    // }
 
     $scope.invite = {};
     $scope.user = {};

@@ -129,6 +129,65 @@
     }
   }
 
+
+  /*
+   * Promo Page Slide Show
+  */
+  .slide-show-wrapper {
+    overflow: hidden;
+
+    .slide-show-inner {
+      margin-bottom: 50px;
+
+      ///// for the transition
+      left: -1000px;
+      position: absolute;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -ms-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      z-index: 0;
+      /////
+
+      &.active {
+        left: 0
+      }
+
+      .image {
+        margin-right: 15px;
+        width: 150px;
+      }
+
+      p {
+        font-size: 1.2em;
+        line-height: 1.5em;
+        margin-top: 50px;
+        max-width: 500px;
+      }
+    }
+
+    .slide-show-dots {
+      margin-top: 400px;
+
+      a {
+        display: inline-block;
+        margin-right: 10px;
+        @include sun-sprites-sprite(slide-show-dot);
+        height: sun-sprites-sprite-height(slide-show-dot);
+        width: sun-sprites-sprite-width(slide-show-dot);
+
+        &.active {
+          @include sun-sprites-sprite(slide-show-dot-active);
+          height: sun-sprites-sprite-height(slide-show-dot-active);
+          width: sun-sprites-sprite-width(slide-show-dot-active);
+        }
+      }
+    }
+  }
+  /* end slide show */
+
+
   .sun-promo-slide-3 {
     h2, h5 {
       font-weight: bold;
@@ -355,6 +414,7 @@
       color: #fff;
       // display: none;
       height: 100%;
+      overflow: initial;
 
       .right-bg {
         background: image-url('promo/semitrgrid.png');
@@ -363,68 +423,12 @@
         left: -1px;
         width: 2000px;
       }
-
-      p {
-        font-size: 1.3em;
-        margin-top: 50px;
-        max-width: 500px;
-      }
-
-      // @media #{$small} {
-      //   display: block;
-      // }
     }
 
     .inner-content {
       padding-top: 150px;
       position: relative;
       margin-left:50px;
-
-      .slide-show-wrapper {
-        margin-bottom: 50px;
-
-        ///// for the transition
-        left: -1000px;
-        position: absolute;
-        -webkit-transition: all 0.3s;
-        -moz-transition: all 0.3s;
-        -ms-transition: all 0.3s;
-        -o-transition: all 0.3s;
-        transition: all 0.3s;
-        z-index: 0;
-        /////
-
-        &.active {
-          left: 0
-        }
-
-        .image {
-          margin-right: 15px;
-          width: 150px;
-        }
-        p {
-          font-size:1.5em;
-          line-height:1.5em;;
-        }
-      }
-
-      .slide-show-dots {
-        margin-top: 400px;
-
-        a {
-          display: inline-block;
-          margin-right: 10px;
-          @include sun-sprites-sprite(slide-show-dot);
-          height: sun-sprites-sprite-height(slide-show-dot);
-          width: sun-sprites-sprite-width(slide-show-dot);
-
-          &.active {
-            @include sun-sprites-sprite(slide-show-dot-active);
-            height: sun-sprites-sprite-height(slide-show-dot-active);
-            width: sun-sprites-sprite-width(slide-show-dot-active);
-          }
-        }
-      }
     }
 
     h1 {
@@ -543,6 +547,38 @@
     width: sun-sprites-sprite-width(stand-and-sun-icon);
     display: inline-block;
     margin-bottom: 40px;
+  }
+
+  &.sun-create-wealth-page {
+    .scroll-slide-2 {
+      height:100vh;
+      min-height:1200px;
+
+      h2 {
+        color:#fff;
+      }
+
+      h5 {
+        color:$sun-color-orange;
+      }
+    }
+
+    .scroll-slide-3 {
+      height:900px;
+      position:relative !important;
+    }
+
+
+    .btn-green:hover {
+      background:#20B552 !important;
+    }
+
+    .scroll-down {
+      padding-top:150px;
+      color:#bbb;
+      margin:auto;
+      width:400px;
+    }
   }
 
   &.sun-why-solar-page {
@@ -694,6 +730,10 @@
     }
   }
 
+  &.sun-why-direct-page {
+
+  }
+
   .sun-bg-1 {
     background-image: image-url("promo/bg-1.jpg");
   }
@@ -717,6 +757,10 @@
 
     h2 {
       color: #383838;
+    }
+
+    h4 {
+      text-transform: uppercase;
     }
 
     .sun-promo-slider-wrapper {
@@ -816,35 +860,26 @@
       color: #fff;
     }
   }
-}
 
-.scroll-slide-2 {
-  height:100vh;
-  min-height:1200px;
-  h2 {
-    color:#fff;
+  .sun-bg-14 {
+    background-image: image-url("promo/bg-14.jpg");
+
+    h4 {
+      text-transform: uppercase;
+    }
   }
-  h5 {
-    color:$sun-color-orange;
+
+  .sun-bg-15 {
+    background-image: image-url("promo/bg-15.jpg");
+
+    h2 {
+      color: #fff;
+    }
+
+    .slide-show-inner {
+      p {
+        color: #fff;
+      }
+    }
   }
-}
-
-.scroll-slide-3 {
-  height:900px;
-}
-
-
-.btn-green:hover {
-  background:#20B552 !important;
-}
-
-.scroll-down {
-  padding-top:150px;
-  color:#bbb;
-  margin:auto;
-  width:400px;
-}
-
-.scroll-slide-3 {
-  position:relative !important;
 }
