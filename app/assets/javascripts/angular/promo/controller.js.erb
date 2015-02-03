@@ -81,9 +81,11 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
   });
 
   // Setting mode based on the url
-  $scope.mode = 'create-wealth';
+  $scope.mode = '';
+  if (/\/create-wealth$/.test($location.path())) return $scope.mode = 'create-wealth';
   if (/\/create-energy$/.test($location.path())) return $scope.mode = 'create-energy';
   if (/\/why-solar$/.test($location.path())) return $scope.mode = 'why-solar';
+  if (/\/why-you$/.test($location.path())) return $scope.mode = 'why-you';
   if (/\/our-origin$/.test($location.path())) return $scope.mode = 'our-origin';
 };
 
@@ -136,6 +138,8 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout) {
       }
     }, 6000);
   } else if ($scope.mode === 'why-solar') {
+    $scope.readyPiler();
+  } else if ($scope.mode === 'why-you') {
     $scope.readyPiler();
   } else if ($scope.mode === 'our-origin') {
     $scope.setupInvertHeader();
