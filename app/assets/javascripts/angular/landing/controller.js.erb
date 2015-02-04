@@ -10,9 +10,11 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
     $scope.isMenuActive = false;
+    $('#pp-nav').fadeIn();
   };
   $scope.showMenuClick = function() {
     $scope.isMenuActive = true;
+    $('#pp-nav').fadeOut();
   };
 
   $scope.signIn = function() {
