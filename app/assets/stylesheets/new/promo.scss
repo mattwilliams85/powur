@@ -595,6 +595,48 @@
     }
   }
 
+  &.sun-why-you-page {
+    .huge-purpose-image-wrapper {
+      height: 200px;
+      text-align: center;
+
+      .purpose-img-1 {
+        @include sun-sprites-sprite(why-you-ico-1);
+        height: sun-sprites-sprite-height(why-you-ico-1);
+        width: sun-sprites-sprite-width(why-you-ico-1);
+        display: inline-block;
+      }
+
+      .purpose-img-2 {
+        @include sun-sprites-sprite(why-you-ico-2);
+        height: sun-sprites-sprite-height(why-you-ico-2);
+        width: sun-sprites-sprite-width(why-you-ico-2);
+        display: inline-block;
+      }
+
+      .purpose-img-3 {
+        @include sun-sprites-sprite(why-you-ico-3);
+        height: sun-sprites-sprite-height(why-you-ico-3);
+        width: sun-sprites-sprite-width(why-you-ico-3);
+        display: inline-block;
+      }
+
+      .purpose-img-4 {
+        @include sun-sprites-sprite(why-you-ico-4);
+        height: sun-sprites-sprite-height(why-you-ico-4);
+        width: sun-sprites-sprite-width(why-you-ico-4);
+        display: inline-block;
+      }
+
+      .purpose-img-5 {
+        @include sun-sprites-sprite(why-you-ico-5);
+        height: sun-sprites-sprite-height(why-you-ico-5);
+        width: sun-sprites-sprite-width(why-you-ico-5);
+        display: inline-block;
+      }
+    }
+  }
+
   &.sun-our-origin-page {
     .sun-origin-story-bg {
       background-image: image-url("promo/rainforest.jpg");

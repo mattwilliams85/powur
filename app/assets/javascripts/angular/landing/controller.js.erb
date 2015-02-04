@@ -180,7 +180,7 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
     }, 4000);
 
     $scope.currentHomeSlide = 0;
-    
+
     $timeout(function() {
       $scope.currentHomeSlide +=1;
       var sliderStop = $interval(function() {
@@ -191,7 +191,6 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
         }
       }, 3000);
     }, 500);
-
   } else if ($scope.mode === 'sign-in') {
     // Only for sign in page
     $scope.signInPage = true;

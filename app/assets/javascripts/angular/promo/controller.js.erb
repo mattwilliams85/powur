@@ -13,7 +13,11 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
   };
 
   $scope.stopSlideShowOn = function(slide) {
-    $scope.currentSlide = $scope.energySlides.indexOf(slide);
+    if (slide === parseInt(slide, 10)) { // check if integer
+      $scope.currentSlide = slide;
+    } else {
+      $scope.currentSlide = $scope.energySlides.indexOf(slide);
+    }
     $interval.cancel($scope.sliderStop);
     $scope.sliderStop = undefined;
   };
@@ -126,6 +130,18 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout) {
     $scope.readyPiler();
   } else if ($scope.mode === 'why-you') {
     $scope.readyPiler();
+
+    $scope.currentSlide = 0;
+    $timeout(function() {
+      $scope.currentSlide += 1;
+      $scope.sliderStop = $interval(function() {
+        if ($scope.currentSlide >= 4) {
+          $scope.currentSlide = 0;
+        } else {
+          $scope.currentSlide += 1;
+        }
+      }, 5000);
+    }, 500);
   } else if ($scope.mode === 'our-origin') {
     $scope.setupInvertHeader();
   }
