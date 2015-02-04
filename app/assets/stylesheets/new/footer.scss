@@ -10,6 +10,13 @@
 
   .footer-content {
     margin: 2em 0;
+
+    @media #{$small} {
+      font-size: 0.8em;
+      .footer-content {
+        margin:1.2em;
+      }
+    }
   }
 
   a {
@@ -58,13 +65,6 @@
     float: left;
     color: #7c7c7c;
     font-size: .9em;
-  }
-  
-  @media #{$small} {
-    font-size: 0.8em;
-    .footer-content {
-      margin:1.2em;
-    }
   }
 }
 
