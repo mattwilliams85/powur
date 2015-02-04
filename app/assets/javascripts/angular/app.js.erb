@@ -79,10 +79,11 @@ var sunstandApp = angular.module('sunstandApp', [
           changeNavColor()
           if($location.path() === '/home') {
             setTimeout(function(){
-              if(index === 1) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
-              if(index === 2) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
-              if(index === 3) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
-              if(index === 4) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
+              if(nextIndex === 2) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
+              if(nextIndex === 3) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
+              if(nextIndex === 4) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
+              if(nextIndex === 5) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
+                console.log(nextIndex)
               $rootScope.$apply();
               $('.gif'+index).removeClass('hidden')
             },1000)

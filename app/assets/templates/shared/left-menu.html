@@ -8,7 +8,7 @@
       <li><a ng-href="#/create-wealth" ng-class="{'active': isMenuLinkActive('/create-wealth')}" class="bottom-link">WEALTH</a></li>
     </div>
     <div class="second-menu">
-      <li class="sub-parent"><a ng-click="showMenuLearnMore = !showMenuLearnMore">Learn More</a></li>
+      <li class="sub-parent" ng-class="{'active': showMenuLearnMore}"><a ng-click="showMenuLearnMore = !showMenuLearnMore">Learn More</a></li>
       <div class="sub-menu" ng-if="showMenuLearnMore">
         <li><a ng-href="#/why-solar" ng-class="{'active': isMenuLinkActive('/why-solar')}">Why solar?</a></li>
         <!-- <li><a ng-href="#/why-us">Why us?</a></li> -->
