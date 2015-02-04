@@ -12,17 +12,31 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
     $scope.isMenuActive = true;
   };
 
+  $scope.setupPromoSlider = function(slides) {
+    $scope.promoSlides = slides;
+    $scope.currentSlide = 0;
+    $scope.sliderStop = $interval(function() {
+      if ($scope.currentSlide >= $scope.promoSlides.length - 1) {
+        $scope.currentSlide = 0;
+      } else {
+        $scope.currentSlide += 1;
+      }
+    }, 6000);
+  };
+
   $scope.stopSlideShowOn = function(slide) {
     if (slide === parseInt(slide, 10)) { // check if integer
       $scope.currentSlide = slide;
     } else {
-      $scope.currentSlide = $scope.energySlides.indexOf(slide);
+      $scope.currentSlide = $scope.promoSlides.indexOf(slide);
     }
     $interval.cancel($scope.sliderStop);
     $scope.sliderStop = undefined;
   };
 
-  $scope.energySlides = [
+  // $scope.promoSlides = [];
+
+  $scope.energyPromoSlides = [
     {
       images: [
         'http://lorempixel.com/200/200/nature/1/',
@@ -49,6 +63,33 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
     }
   ];
 
+  $scope.directSalePromoSlides = [
+    {
+      images: [
+        'http://lorempixel.com/200/200/nature/1/',
+        'http://lorempixel.com/200/200/nature/2/',
+        'http://lorempixel.com/200/200/nature/9/'
+      ],
+      text: 'There is no industry as good at spreading products via word of mouth as ours.  Despite the often misunderstood nature of direct sales, the numbers don’t lie.  Direct sales has the potential to create millions of solar customers over the next decade… and generate BILLIONS in wealth for those who do.'
+    },
+    {
+      images: [
+        'http://lorempixel.com/200/200/nature/3/',
+        'http://lorempixel.com/200/200/nature/4/',
+        'http://lorempixel.com/200/200/nature/5/'
+      ],
+      text: 'There is no industry as good at spreading products via word of mouth as ours.  Despite the often misunderstood nature of direct sales, the numbers don’t lie.  Direct sales has the potential to create millions of solar customers over the next decade… and generate BILLIONS in wealth for those who do.'
+    },
+    {
+      images: [
+        'http://lorempixel.com/200/200/nature/6/',
+        'http://lorempixel.com/200/200/nature/7/',
+        'http://lorempixel.com/200/200/nature/8/'
+      ],
+      text: 'There is no industry as good at spreading products via word of mouth as ours.  Despite the often misunderstood nature of direct sales, the numbers don’t lie.  Direct sales has the potential to create millions of solar customers over the next decade… and generate BILLIONS in wealth for those who do.'
+    }
+  ];
+
   this.init($scope, $location, $timeout, $interval);
   this.fetch($scope, $interval, $timeout);
 }
@@ -57,17 +98,17 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
 PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
   $scope.$watch('slider', function(newValue) {
     if (newValue === '1') {
-      $('.image-2').animate({opacity:'1'},200)
-      $('.image-1').animate({opacity:'0.3'},200)
+      $('.image-2').animate({opacity:'1'},200);
+      $('.image-1').animate({opacity:'0.3'},200);
       $timeout(function() {
         if ($location.path() === '/create-energy') {
           $.fn.pagepiling.moveSectionDown();
         }
-        $scope.gotoAnchor('on_slider_move')
+        $scope.gotoAnchor('on_slider_move');
       }, 200);
     } else {
-      $('.image-2').animate({opacity:'0.3'},200)
-      $('.image-1').animate({opacity:'1'},200)
+      $('.image-2').animate({opacity:'0.3'},200);
+      $('.image-1').animate({opacity:'1'},200);
     }
   });
 
@@ -77,6 +118,7 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
   if (/\/create-energy$/.test($location.path())) return $scope.mode = 'create-energy';
   if (/\/why-solar$/.test($location.path())) return $scope.mode = 'why-solar';
   if (/\/why-you$/.test($location.path())) return $scope.mode = 'why-you';
+  if (/\/why-direct-selling$/.test($location.path())) return $scope.mode = 'why-direct-selling';
   if (/\/our-origin$/.test($location.path())) return $scope.mode = 'our-origin';
 };
 
@@ -113,19 +155,11 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout) {
     }, 3000);
 
     // Cancels if user leaves page
-    $scope.$on('$locationChangeStart', function(){
+    $scope.$on('$locationChangeStart', function() {
       $timeout.cancel(pilerTimer);
     });
     $scope.readyPiler();
-
-    $scope.currentSlide = 0;
-    $scope.sliderStop = $interval(function() {
-      if ($scope.currentSlide >= $scope.energySlides.length - 1) {
-        $scope.currentSlide = 0;
-      } else {
-        $scope.currentSlide += 1;
-      }
-    }, 6000);
+    $scope.setupPromoSlider($scope.energyPromoSlides);
   } else if ($scope.mode === 'why-solar') {
     $scope.readyPiler();
   } else if ($scope.mode === 'why-you') {
@@ -142,6 +176,9 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout) {
         }
       }, 5000);
     }, 500);
+  } else if ($scope.mode === 'why-direct-selling') {
+    $scope.readyPiler();
+    $scope.setupPromoSlider($scope.directSalePromoSlides);
   } else if ($scope.mode === 'our-origin') {
     $scope.setupInvertHeader();
   }
