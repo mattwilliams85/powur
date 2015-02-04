@@ -59,6 +59,13 @@
     color: #7c7c7c;
     font-size: .9em;
   }
+  
+  @media #{$small} {
+    font-size: 0.8em;
+    .footer-content {
+      margin:1.2em;
+    }
+  }
 }
 
 

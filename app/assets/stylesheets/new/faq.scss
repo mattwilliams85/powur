@@ -24,15 +24,20 @@
   }
 
   footer {
+    position:fixed;
     bottom:0;
   }
 
   .sun-accordion {
     list-style-position: outside;
-    margin-bottom:100px;
+    margin-bottom:200px;
 
     .accordion-item {
       display: block;
+
+      .accordion-content {
+        display: none;
+      }
 
       &.active {
         .accordion-content {
