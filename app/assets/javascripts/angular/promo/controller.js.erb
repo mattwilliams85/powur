@@ -137,7 +137,7 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
     $(window).on('beforeunload', function() {
         $(window).scrollTop(0);
     });
-    $('body').css('overflow','hidden')
+    $('body').addClass('no-scroll')
     $scope.setupInvertHeader();
     // Clock
     $scope.minTime = new Date(2000, 1, 1, 0, 0, 0, 0).valueOf();

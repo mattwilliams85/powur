@@ -9,12 +9,13 @@
   bottom:0;
 
   .footer-content {
-    margin: 2em 0;
+    margin: 1.2em;
+    font-size: 12px;
 
-    @media #{$small} {
-      font-size: 0.8em;
+    @media #{$medium} {
+      font-size: 16px;
       .footer-content {
-        margin:1.2em;
+        margin:2em;
       }
     }
   }

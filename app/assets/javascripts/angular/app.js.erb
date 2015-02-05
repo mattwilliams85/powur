@@ -39,6 +39,7 @@ var sunstandApp = angular.module('sunstandApp', [
 
     $rootScope.removePiler = function(){
       $('html').removeClass('piling-on');
+      $('body').removeClass('no-scroll');
       $('#pp-nav').hide();
     };
 
