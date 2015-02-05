@@ -126,6 +126,7 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anc
   if (/\/create-energy$/.test($location.path())) return $scope.mode = 'create-energy';
   if (/\/why-solar$/.test($location.path())) return $scope.mode = 'why-solar';
   if (/\/why-you$/.test($location.path())) return $scope.mode = 'why-you';
+  if (/\/why-powur$/.test($location.path())) return $scope.mode = 'why-powur';
   if (/\/why-direct-selling$/.test($location.path())) return $scope.mode = 'why-direct-selling';
   if (/\/our-origin$/.test($location.path())) return $scope.mode = 'our-origin';
 };
@@ -169,6 +170,8 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
     $scope.setupPromoSlider($scope.energyPromoSlides);
   } else if ($scope.mode === 'why-solar') {
     $scope.animateArrow('#arrow_1')
+    $scope.readyPiler();
+  } else if ($scope.mode === 'why-powur') {
     $scope.readyPiler();
   } else if ($scope.mode === 'why-you') {
     $scope.animateArrow('#arrow_1')

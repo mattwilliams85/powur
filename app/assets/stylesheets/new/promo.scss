@@ -768,6 +768,12 @@
         color: $sun-color-blue;
       }
     }
+
+    hr.shorty {
+      border-color: $sun-color-blue;
+      border-width: 2px;
+      width: 40px;
+    }
   }
 
   .sun-bg-5 {
@@ -881,5 +887,26 @@
         color: #fff;
       }
     }
+  }
+
+  .sun-bg-16 {
+    background-image: image-url("promo/bg-16.jpg");
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .sun-bg-17 {
+    background-image: image-url("promo/bg-17.jpg");
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .sun-bg-18 {
+    background-image: image-url("promo/bg-18.jpg");
+    text-align: center;
   }
 }
