@@ -133,6 +133,7 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anc
   if (/\/why-powur$/.test($location.path())) return $scope.mode = 'why-powur';
   if (/\/why-direct-selling$/.test($location.path())) return $scope.mode = 'why-direct-selling';
   if (/\/our-origin$/.test($location.path())) return $scope.mode = 'our-origin';
+  if (/\/our-team$/.test($location.path())) return $scope.mode = 'our-team';
 };
 
 
@@ -195,6 +196,72 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
     $scope.setupPromoSlider($scope.directSalePromoSlides);
   } else if ($scope.mode === 'our-origin') {
     $scope.setupInvertHeader();
+  } else if ($scope.mode === 'our-team') {
+    $scope.faces = [
+      {
+        name: 'Jonathan Budd',
+        title: 'Founder/CEO',
+        image: "<%=asset_path('promo/people/jb.jpg') %>",
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        showDetails: false
+      },
+      {
+        name: 'Jonathan Budd',
+        title: 'Founder/CEO',
+        image: "<%=asset_path('promo/people/2.jpg') %>",
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        showDetails: false
+      },
+      {
+        name: 'Jonathan Budd',
+        title: 'Founder/CEO',
+        image: "<%=asset_path('promo/people/3.jpg') %>",
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        showDetails: false
+      },
+      {
+        name: 'Jonathan Budd',
+        title: 'Founder/CEO',
+        image: "<%=asset_path('promo/people/4.jpg') %>",
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        showDetails: false
+      },
+      {
+        name: 'Jonathan Budd',
+        title: 'Founder/CEO',
+        image: "<%=asset_path('promo/people/5.jpg') %>",
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        showDetails: false
+      },
+      {
+        name: 'Jonathan Budd',
+        title: 'Founder/CEO',
+        image: "<%=asset_path('promo/people/6.jpg') %>",
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        showDetails: false
+      },
+      {
+        name: 'Jonathan Budd',
+        title: 'Founder/CEO',
+        image: "<%=asset_path('promo/people/7.jpg') %>",
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        showDetails: false
+      },
+      {
+        name: 'Rick Hou',
+        title: 'Founder/CEO',
+        image: "<%=asset_path('promo/people/rh.jpg') %>",
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        showDetails: false
+      },
+      {
+        name: 'Jonathan Budd',
+        title: 'Founder/CEO',
+        image: "<%=asset_path('promo/people/9.jpg') %>",
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        showDetails: false
+      }
+    ];
   }
 };
 

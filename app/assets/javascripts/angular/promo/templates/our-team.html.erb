@@ -1,0 +1,37 @@
+<ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
+
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
+  <ng-include src="'<%=asset_path("shared/header-signed-out.html") %>'"></ng-include>
+
+  <main class="sun-promo sun-our-team-page">
+
+    <div class="sun-our-team-bg">
+      <div class="row">
+        <div class="large-12 columns">
+          <h1 class="text-center">Our band of warriors</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="row faces-wrapper">
+      <div class="large-4 medium-6 columns" ng-repeat="face in faces">
+        <div class="face-wrapper">
+          <div class="face-mask" ng-if="!face.showDetails">
+            <span class="name">{{face.name}}</span><br />
+            <span class="title">{{face.title}}</span><br />
+            <a class="details" ng-click="face.showDetails = true">View Details</a>
+          </div>
+          <div class="face-mask" ng-if="face.showDetails">
+            <span class="more-details">
+              {{face.details}}<br />
+              <a ng-click="face.showDetails = false">hide</a>
+            </span><br />
+          </div>
+          <img class="face" ng-src="{{face.image}}" />
+        </div>
+      </div>
+    </div>
+
+    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+  </main>
+</div>
