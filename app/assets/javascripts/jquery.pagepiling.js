@@ -842,7 +842,6 @@
         // });
 
         $('.arrow-box').click(function(e){
-            console.log('click')
             e.preventDefault();
             var next = $('.pp-section.active').next('.section');
             scrollPage(next)

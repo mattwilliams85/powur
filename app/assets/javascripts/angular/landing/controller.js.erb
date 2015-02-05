@@ -150,9 +150,24 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     }
   };
 
+  $scope.animateArrow = function(id){
+    var pilerTimer = $timeout(function() {
+      $(id).animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
+      $scope.readyPiler();
+    }, 5000);
+
+    $scope.$on('$locationChangeStart', function(){
+      $timeout.cancel(pilerTimer);
+    });
+  }
+
   this.init($scope, $location, $timeout);
   this.fetch($scope, $interval, $routeParams, $timeout, Geo);
 }
+
+
 
 
 LandingCtrl.prototype.init = function($scope, $location, $timeout) {
@@ -168,15 +183,9 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
 
 LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout, Geo) {
   // Cancels if user leaves page
-  $scope.$on('$locationChangeStart', function(){
-    $timeout.cancel(pilerTimer);
-  });
 
   if ($scope.mode === 'home') {
-    var pilerTimer = $timeout(function() {
-      $('.arrow-box').animate({ bottom: "3em" }, 500, "easeOutBounce" );
-      $scope.readyPiler();
-    }, 4000);
+    $scope.animateArrow('#arrow_1')
 
     $scope.currentHomeSlide = 0;
 
@@ -190,7 +199,7 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
           sliderStop = undefined;
         }
       // Slide transition speed
-      }, 3000);
+      }, 3500);
     }, 500);
   } else if ($scope.mode === 'sign-in') {
     $scope.signInPage = true;

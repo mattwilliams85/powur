@@ -30,6 +30,10 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
         bottom: "3em"
       }, 500, "easeOutBounce" );
     }, 3000);
+
+    $scope.$on('$locationChangeStart', function() {
+      $timeout.cancel(pilerTimer);
+    });
   }
 
   $scope.stopSlideShowOn = function(slide) {
@@ -162,10 +166,6 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
     }, 1000);
   } else if ($scope.mode === 'create-energy') {
     $scope.animateArrow('#arrow_1')
-    // Cancels if user leaves page
-    $scope.$on('$locationChangeStart', function() {
-      $timeout.cancel(pilerTimer);
-    });
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.energyPromoSlides);
   } else if ($scope.mode === 'why-solar') {
