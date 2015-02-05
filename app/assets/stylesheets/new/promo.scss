@@ -410,6 +410,7 @@ $large-screen: em-calc(1300);
 
     .screen-with-zoom {
       width:33%;
+      max-width:400px;
       position: absolute;
       left: 0;
     }
