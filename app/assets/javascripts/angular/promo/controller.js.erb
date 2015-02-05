@@ -1,6 +1,6 @@
 'use strict';
 
-function PromoCtrl($scope, $location, $timeout, $interval, $window) {
+function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScroll) {
   $scope.redirectToDashboardIfSignedIn();
   $scope.removePiler();
 
@@ -90,12 +90,12 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window) {
     }
   ];
 
-  this.init($scope, $location, $timeout, $interval);
-  this.fetch($scope, $interval, $timeout);
+  this.init($scope, $location, $timeout, $interval, $anchorScroll);
+  this.fetch($scope, $interval, $timeout, $anchorScroll, $location);
 }
 
 
-PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
+PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anchorScroll) {
   $scope.$watch('slider', function(newValue) {
     if (newValue === '1') {
       $('.image-2').animate({opacity:'1'},200);
@@ -123,8 +123,12 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval) {
 };
 
 
-PromoCtrl.prototype.fetch = function($scope, $interval, $timeout) {
+PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll, $location) {
   if ($scope.mode === 'create-wealth') {
+    $(window).on('beforeunload', function() {
+        $(window).scrollTop(0);
+    });
+    $('body').css('overflow','hidden')
     $scope.setupInvertHeader();
     // Clock
     $scope.minTime = new Date(2000, 1, 1, 0, 0, 0, 0).valueOf();
@@ -185,5 +189,5 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout) {
 };
 
 
-PromoCtrl.$inject = ['$scope', '$location', '$timeout', '$interval', '$window'];
+PromoCtrl.$inject = ['$scope', '$location', '$timeout', '$interval', '$window', '$anchorScroll'];
 sunstandControllers.controller('PromoCtrl', PromoCtrl);

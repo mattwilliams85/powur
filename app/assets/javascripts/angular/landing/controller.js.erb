@@ -174,9 +174,7 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
 
   if ($scope.mode === 'home') {
     var pilerTimer = $timeout(function() {
-      $('.arrow-box').animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
+      $('.arrow-box').animate({ bottom: "3em" }, 500, "easeOutBounce" );
       $scope.readyPiler();
     }, 4000);
 
@@ -186,10 +184,12 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
       $scope.currentHomeSlide +=1;
       var sliderStop = $interval(function() {
         $scope.currentHomeSlide += 1;
+        // Set number of slide transitions
         if ($scope.currentHomeSlide >= 2) {
           $interval.cancel(sliderStop);
           sliderStop = undefined;
         }
+      // Slide transition speed
       }, 3000);
     }, 500);
   } else if ($scope.mode === 'sign-in') {

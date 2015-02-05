@@ -198,6 +198,7 @@ var sunstandApp = angular.module('sunstandApp', [
       var offset = 0; // pixels; adjust for floating menu, context etc
       // Scroll to #some-id with N px "padding"
       $('body').css('background','#111')
+      if(id === 'on_slider_move') $('body').css('overflow','visible')
       $('.sun-bg-1').animate({opacity: "0"}, 700 ,function(){
         var someElement = angular.element(document.getElementById(id));
         $document.scrollToElement(someElement, offset, duration);
