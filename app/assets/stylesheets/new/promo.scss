@@ -1,3 +1,5 @@
+$large-screen: em-calc(1300);
+
 .sun-promo {
   height: 100%;
   position: relative;
@@ -5,7 +7,10 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
+    @media #{$large} {
+      margin-bottom: 1em;
+    }
 
     .highlight-1, &.highlight-1 {
       color: $sun-color-blue;
@@ -31,7 +36,8 @@
 
     h1 {
       color: #fff;
-      font-size: 2em;
+      width:750px;
+      font-size: 3.5em;
       font-weight: bold;
       text-transform: uppercase;
       line-height: 1em;
@@ -44,8 +50,9 @@
         color: $sun-color-orange;
       }
 
-      @media #{$small} {
+      @media #{$large} {
         font-size: 4em;
+        width:100%;
       }
     }
 
@@ -94,19 +101,60 @@
     line-height: 1.6em;
 
     h1, h2 {
-      font-size: 2em;
+      font-size: 2.3em;
       font-weight: bold;
       text-transform: uppercase;
       line-height: 1em;
+      text-align:center;
+      @media #{$medium} {
+        font-size: 3.3em;
+        width:100%;
+        text-align:left;
+      }
 
       .highlighted {
         color: $sun-color-orange;
       }
+    }
 
-      @media #{$small} {
-        font-size: 3.3em;
+    .alt-large-4 {
+      width:30%;
+      float:left;
+      padding-left:4%;
+      @media #{$large} {
+        padding:0 3%;
+      }
+      h3 {
+        font-size:1.4em;
+        line-height:1em;
+        @media #{$large} {
+          font-size:1.8em;
+          line-height:1.4em;
+        }
+      }
+      span {
+        line-height:0.9em;
+        @media #{$large} {
+          line-height:1.6em;
+        }
       }
     }
+
+    .alt-large-9 {
+      padding:0 10%;
+      @media #{$large} {
+        padding:0 2%;
+      }
+    } 
+
+    .alt-large-8 {
+      width:60%;
+      float:left;
+      padding-left:4%;
+      @media #{$large} {
+        padding:0 3%;
+      }
+    } 
 
     b {
       font-size: 1.1em;
@@ -346,7 +394,7 @@
         padding:20px 60px;
       }
 
-      @media #{$medium} {
+      @media #{$large} {
         margin-top: 0;
       }
     }
@@ -391,7 +439,7 @@
       height: 100%;
       z-index: 1;
       display:none;
-      @media #{$medium} {
+      @media #{$large} {
         display:block;
       }
 
@@ -467,8 +515,12 @@
     text-align: center;
 
     h5 {
-      font-size: 1.2em;
+      font-size: 1em;
       text-transform: uppercase;
+      @media #{$large} {
+        font-size: 1.2em;
+        width:100%;
+      }
     }
 
     span {
@@ -510,7 +562,11 @@
     @include sun-sprites-sprite(sunrun-icon);
     height: sun-sprites-sprite-height(sunrun-icon);
     width: sun-sprites-sprite-width(sunrun-icon);
-    margin-bottom: 2em;
+    margin:auto;
+
+    @media #{$large} {
+      margin:0 0 2em 0;
+    }
   }
 
   .decentralize-icon-wrapper {
@@ -546,7 +602,9 @@
     height: sun-sprites-sprite-height(stand-and-sun-icon);
     width: sun-sprites-sprite-width(stand-and-sun-icon);
     display: inline-block;
-    margin-bottom: 40px;
+    @media #{$large} {
+      margin-bottom: 40px;
+    }
   }
 
   &.sun-create-wealth-page {

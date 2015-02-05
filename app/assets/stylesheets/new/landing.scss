@@ -45,14 +45,16 @@
       width:900px;
       font-weight: bold;
       text-transform: uppercase;
-      // position:absolute;
+      &.slide-header {
+        width:790px;
+      }
       @media #{$small} {
         font-size: 4.5em;
       }
     }
     h3 {
       color: #000;
-      width:900px;
+      width:870px;
       line-height: 1.5em;
       font-size: 1.5em;
       // text-transform: uppercase;

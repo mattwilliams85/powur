@@ -156,7 +156,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
         bottom: "3em"
       }, 500, "easeOutBounce" );
       $scope.readyPiler();
-    }, 5000);
+    }, 6500);
 
     $scope.$on('$locationChangeStart', function(){
       $timeout.cancel(pilerTimer);
@@ -166,9 +166,6 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   this.init($scope, $location, $timeout);
   this.fetch($scope, $interval, $routeParams, $timeout, Geo);
 }
-
-
-
 
 LandingCtrl.prototype.init = function($scope, $location, $timeout) {
   // Setting mode based on the url
@@ -199,7 +196,7 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
           sliderStop = undefined;
         }
       // Slide transition speed
-      }, 3500);
+      }, 5000);
     }, 500);
   } else if ($scope.mode === 'sign-in') {
     $scope.signInPage = true;
