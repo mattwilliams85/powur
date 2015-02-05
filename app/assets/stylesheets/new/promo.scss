@@ -106,7 +106,7 @@ $large-screen: em-calc(1300);
       text-transform: uppercase;
       line-height: 1em;
       text-align:center;
-      @media #{$medium} {
+      @media #{$large} {
         font-size: 3.3em;
         width:100%;
         text-align:left;
@@ -169,11 +169,15 @@ $large-screen: em-calc(1300);
     }
 
     .video-player-wrapper {
-      width: 100%;
-      height: 380px;
+      width:330px;
+      height:220px;
       background-image: image-url("promo/video-placeholder.jpg");
       background-repeat: no-repeat;
       background-position: center center;
+      @media #{$large} {
+        width: 610px;
+        height: 380px;
+      }
     }
   }
 
@@ -383,8 +387,13 @@ $large-screen: em-calc(1300);
   }
 
   .sun-promo-slide-6 {
+    .large-8 {
+      width:60%;
+      @media #{$large} {
+        width:66.66%;
+      }
+    }
     .slide-6-extra {
-      margin-top: 500px;
 
       .button {
         background: $sun-color-green;
@@ -400,6 +409,7 @@ $large-screen: em-calc(1300);
     }
 
     .screen-with-zoom {
+      width:33%;
       position: absolute;
       left: 0;
     }
@@ -614,10 +624,79 @@ $large-screen: em-calc(1300);
 
       h2 {
         color:#fff;
+        font-size:2.3em;
+        @media #{$large} {
+          font-size: 3.3em;
+        }
+      }
+
+      p {
+        margin: 2% 5%;
+        font-size:1em;
       }
 
       h5 {
         color:$sun-color-orange;
+      }
+    }
+
+    .sun-promo-slide-3 {
+      h2 {
+        font-size:3em;
+        @media #{$large} {
+          font-size:4em;
+        }
+      }
+    }
+
+    .sun-promo-slide-4 {
+      text-align:center;
+      @media #{$large} {
+        text-align:none;
+      }
+    }
+
+    .sun-promo-slide-5 {
+      .large-4 {
+        width:33%;
+        @media #{$large} {
+          width:33.33%;
+        }
+      }
+    }
+
+    .alt-large-6 {
+      width:40%;
+      margin:0 5%;
+      @media #{$large} {
+        width:50%;
+        margin:0;
+      }
+      h2 {
+        text-align:left;
+      }
+    }
+
+    .alt-large-12 {
+      margin:0 0;
+      @media #{$large} {
+       margin:5% 0;
+      }
+    }
+
+    .alt-large-4 {
+      margin:0 0;
+      width:25%;
+      @media #{$large} {
+       margin:5% 0;
+       width:33.33%;
+      }
+    }
+
+    .alt-large-8 {
+      width:50%;
+      @media #{$large} {
+       width:66.66%;
       }
     }
 
@@ -872,6 +951,10 @@ $large-screen: em-calc(1300);
     }
 
     .sun-promo-slider-wrapper {
+      margin:0;
+      @media #{$large} {
+        margin:3% 3%;
+      }
       h5 {
         color: $sun-color-orange;
       }
