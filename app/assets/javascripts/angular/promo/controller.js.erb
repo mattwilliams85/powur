@@ -24,6 +24,14 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
     }, 6000);
   };
 
+  $scope.animateArrow = function(id){
+    var pilerTimer = $timeout(function() {
+      $(id).animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
+    }, 3000);
+  }
+
   $scope.stopSlideShowOn = function(slide) {
     if (slide === parseInt(slide, 10)) { // check if integer
       $scope.currentSlide = slide;
@@ -152,12 +160,7 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
       }
     }, 1000);
   } else if ($scope.mode === 'create-energy') {
-    var pilerTimer = $timeout(function() {
-      $('.arrow-box').animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
-    }, 3000);
-
+    $scope.animateArrow('#arrow_1')
     // Cancels if user leaves page
     $scope.$on('$locationChangeStart', function() {
       $timeout.cancel(pilerTimer);
@@ -165,14 +168,17 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.energyPromoSlides);
   } else if ($scope.mode === 'why-solar') {
+    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
   } else if ($scope.mode === 'why-you') {
+    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
 
     $scope.currentSlide = 0;
     $timeout(function() {
       $scope.currentSlide += 1;
       $scope.sliderStop = $interval(function() {
+        if ($scope.currentSlide >= 3) { $scope.animateArrow('#arrow_2') }
         if ($scope.currentSlide >= 4) {
           $scope.currentSlide = 0;
         } else {
@@ -181,6 +187,7 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
       }, 5000);
     }, 500);
   } else if ($scope.mode === 'why-direct-selling') {
+    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.directSalePromoSlides);
   } else if ($scope.mode === 'our-origin') {
