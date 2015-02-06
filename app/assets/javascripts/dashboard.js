@@ -451,7 +451,6 @@ function Dashboard(){
                 console.log("... loading user#"+_options._userID+" profile info");
               })
               .done(function(data){
-                _alternateColor(_drillDownLevel)
                 //prepare leader info
                 var _userDetail={};
                 _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
@@ -479,6 +478,7 @@ function Dashboard(){
                     _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
                     EyeCueLab.UX.getTemplate("/templates/_info_thumbnail.handlebars.html", _userDetail, undefined, function(html){
                       _downlinkContainerObj.html(html);
+                      _alternateColor(_drillDownLevel)
                     });
                 });
               });

@@ -49,22 +49,20 @@ namespace :sunstand do
       Product.create!(
         id:               CERT_ITEM_ID,
         name:             'SunStand Consultant Certification',
-        description:      'Why sunstand’s business model,
-                          which empowers them to be their own home based entrepreneur.',
+        description:      'Powur Certification gives you all the tools you need to build a high performing team and share in the rewards of their success. If you are going to mentor others, you need training. This is your first step. Now you have the power.',
         bonus_volume:     300,
         distributor_only: true,
         certifiable: true,
-        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certificaion.png',
+        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certification.jpg',
         smarteru_module_id: '8361')
       Product.create!(
         id:               CERT2_ITEM_ID,
         name:             'Shine',
-        description:      'Why sunstand’s business model,
-                          which empowers them to be their own home based entrepreneur.',
+        description:      'Taking a bold step into a new industry requires new skills and an entrepreneurial spirit. From the basics of the solar energy industry to transforming yourself into a business leader, Shine gives you the tools you need to hit the ground running.',
         bonus_volume:     0,
         distributor_only: true,
         certifiable: true,
-        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/class.png',
+        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/shine.jpg',
         smarteru_module_id: '8362')
       puts 'Created Products for solar item and consultant certification'
     end

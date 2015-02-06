@@ -15,8 +15,8 @@
           <div class="clearfix"></div>
 
           <ul class="sun-accordion">
-            <li class="accordion-item" ng-class="{'active': activeFAQItemId === 'faq_item_1'}">
-              <a class="accordion-button" ng-click="activeFAQItemId = 'faq_item_1'"><b>1.</b> Why should i switch to solar energy?</a>
+            <li class="accordion-item" ng-class="{'': !isActive1, 'active': isActive1}">
+              <a class="accordion-button" ng-click="isActive1 = !isActive1"><b>1.</b> Why should I switch to solar energy?</a>
               <div class="accordion-content">
                 <p>Solar could very well be the greatest financial opportunity you’ll see in your lifetime. Here are just the top three reasons why we believe it represents a tremendous sales opportunity for you:</p>
                 <p>Solar is a booming business across America. Solar installations grew 41% in 2013 (Source: GTM Research and the Solar Energy Industries Association). The factors driving this growth demonstrate the industry’s promise:</p>
@@ -30,8 +30,8 @@
               </div>
             </li>
 
-            <li class="accordion-item" ng-class="{'active': activeFAQItemId === 'faq_item_2'}">
-              <a class="accordion-button odd" ng-click="activeFAQItemId = 'faq_item_2'"><b>2.</b> What are the benefits to selling solar as a Powur Advocate?</a>
+            <li class="accordion-item" ng-class="{'': !isActive2, 'active': isActive2}">
+              <a class="accordion-button odd" ng-click="isActive2 = !isActive2"><b>2.</b> What are the benefits to selling solar as a Powur Advocate?</a>
               <div class="accordion-content">
                 <p>Solar could very well be the greatest financial opportunity you’ll see in your lifetime. Here are just the top three reasons why we believe it represents a tremendous sales opportunity for you:</p>
                 <p>Solar is a booming business across America. Solar installations grew 41% in 2013 (Source: GTM Research and the Solar Energy Industries Association). The factors driving this growth demonstrate the industry’s promise:</p>
@@ -45,8 +45,8 @@
               </div>
             </li>
 
-            <li class="accordion-item" ng-class="{'active': activeFAQItemId === 'faq_item_3'}">
-              <a class="accordion-button" ng-click="activeFAQItemId = 'faq_item_3'"><b>3.</b> Who are Powur’s leaders?</a>
+            <li class="accordion-item" ng-class="{'': !isActive3, 'active': isActive3}">
+              <a class="accordion-button" ng-click="isActive3 = !isActive3"><b>3.</b> Who are Powur’s leaders?</a>
               <div class="accordion-content">
                 <p>Solar could very well be the greatest financial opportunity you’ll see in your lifetime. Here are just the top three reasons why we believe it represents a tremendous sales opportunity for you:</p>
                 <p>Solar is a booming business across America. Solar installations grew 41% in 2013 (Source: GTM Research and the Solar Energy Industries Association). The factors driving this growth demonstrate the industry’s promise:</p>
@@ -60,8 +60,8 @@
               </div>
             </li>
 
-            <li class="accordion-item" ng-class="{'active': activeFAQItemId === 'faq_item_4'}">
-              <a class="accordion-button odd" ng-click="activeFAQItemId = 'faq_item_4'"><b>4.</b> Why did Powur choose to sell solar through network marketing?</a>
+            <li class="accordion-item" ng-class="{'': !isActive4, 'active': isActive4}">
+              <a class="accordion-button odd" ng-click="isActive4 = !isActive4"><b>4.</b> Why did Powur choose to sell solar through network marketing?</a>
               <div class="accordion-content">
                 <p>Solar could very well be the greatest financial opportunity you’ll see in your lifetime. Here are just the top three reasons why we believe it represents a tremendous sales opportunity for you:</p>
                 <p>Solar is a booming business across America. Solar installations grew 41% in 2013 (Source: GTM Research and the Solar Energy Industries Association). The factors driving this growth demonstrate the industry’s promise:</p>
@@ -78,8 +78,7 @@
 
         </div>
       </div>
+      <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
     </div>
-
-    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
   </main>
 </div>

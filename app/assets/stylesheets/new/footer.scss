@@ -9,7 +9,15 @@
   bottom:0;
 
   .footer-content {
-    margin: 2em 0;
+    margin: 1.2em;
+    font-size: 12px;
+
+    @media #{$medium} {
+      font-size: 16px;
+      .footer-content {
+        margin:2em;
+      }
+    }
   }
 
   a {
@@ -60,7 +68,6 @@
     font-size: .9em;
   }
 }
-
 
 /*
  * FOOTER for signed in user

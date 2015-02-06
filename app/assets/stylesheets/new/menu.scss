@@ -79,7 +79,7 @@
 
     i {
       color:inherit;
-      padding-right:20px;
+      padding-right:10px;
     }
 
     .bottom-link {
@@ -96,11 +96,14 @@
     }
 
     &.sub-parent {
-      background-image: image-url("landing/menu-arrow-icon.png");
+      background-image: image-url("landing/menu-arrow-icon-right.png");
       background-repeat: no-repeat;
       background-position: 250px center;
       margin-top:40px;
-      // border-bottom: solid 1px #2d2d2d;
+      
+      &.active {
+        background-image: image-url("landing/menu-arrow-icon-down.png");
+      }
     }
   }
 

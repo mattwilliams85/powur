@@ -39,6 +39,7 @@ var sunstandApp = angular.module('sunstandApp', [
 
     $rootScope.removePiler = function(){
       $('html').removeClass('piling-on');
+      $('body').removeClass('no-scroll');
       $('#pp-nav').hide();
     };
 
@@ -79,10 +80,11 @@ var sunstandApp = angular.module('sunstandApp', [
           changeNavColor()
           if($location.path() === '/home') {
             setTimeout(function(){
-              if(index === 1) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
-              if(index === 2) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
-              if(index === 3) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
-              if(index === 4) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
+              if(nextIndex === 2) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
+              if(nextIndex === 3) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
+              if(nextIndex === 4) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
+              if(nextIndex === 5) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
+                console.log(nextIndex)
               $rootScope.$apply();
               $('.gif'+index).removeClass('hidden')
             },1000)
@@ -201,9 +203,18 @@ var sunstandApp = angular.module('sunstandApp', [
         var someElement = angular.element(document.getElementById(id));
         $document.scrollToElement(someElement, offset, duration);
         setTimeout(function(){
-          $('.sun-bg-1').css('opacity','1')
+          //prevents users from getting stuck on second slide
+          if(id === 'dim_the_lights') {
+            $('.sun-bg-1').hide()
+            $('body').scrollTop(0);
+          }
+          if(id === 'on_slider_move') {
+            $('body').css('overflow','visible')
+            $('.sun-bg-1').css('opacity','1').show();
+            $(window).scrollTop($(".sun-promo-slide-3").offset().top)
+          }
           $('body').css('background','transparent')
-        },800)
+        },700)
       });
     };
   }
@@ -277,8 +288,20 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/promo/templates/why-you.html")%>',
       controller: 'PromoCtrl'
     }).
+    when('/why-direct-selling', {
+      templateUrl: '<%=asset_path("angular/promo/templates/why-direct-selling.html")%>',
+      controller: 'PromoCtrl'
+    }).
+    when('/why-powur', {
+      templateUrl: '<%=asset_path("angular/promo/templates/why-powur.html")%>',
+      controller: 'PromoCtrl'
+    }).
     when('/our-origin', {
       templateUrl: '<%=asset_path("angular/promo/templates/our-origin.html")%>',
+      controller: 'PromoCtrl'
+    }).
+    when('/our-team', {
+      templateUrl: '<%=asset_path("angular/promo/templates/our-team.html")%>',
       controller: 'PromoCtrl'
     }).
 

@@ -841,7 +841,7 @@
         //     });
         // });
 
-        $('.fa-chevron-down').click(function(e){
+        $('.arrow-box').click(function(e){
             e.preventDefault();
             var next = $('.pp-section.active').next('.section');
             scrollPage(next)

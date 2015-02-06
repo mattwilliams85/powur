@@ -45,14 +45,16 @@
       width:900px;
       font-weight: bold;
       text-transform: uppercase;
-      // position:absolute;    
+      &.slide-header {
+        width:790px;
+      }
       @media #{$small} {
         font-size: 4.5em;
       }
     }
     h3 {
       color: #000;
-      width:900px;
+      width:870px;
       line-height: 1.5em;
       font-size: 1.5em;
       // text-transform: uppercase;
@@ -306,13 +308,31 @@
 }
 
 
-// Landing page slider
+// Page slider
 .sun-slider {
   overflow: hidden;
   position: relative;
   z-index:3;
 
   .slide {
+    ////
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    transition: all 0.4s;
+    ////
     left: -100%;
 
     &.inactive {
@@ -322,6 +342,31 @@
 
     &.active {
       left: 50%;
+    }
+  }
+
+  .slide-show-dots {
+    position: absolute;
+    margin-top: 400px;
+    left: 50%;
+    // position center:
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+
+    a {
+      display: inline-block;
+      margin-right: 10px;
+      border: 1px solid #555;
+      border-radius: 10px;
+      height: 10px;
+      width: 10px;
+
+      &.active {
+        background: #555;
+      }
     }
   }
 }

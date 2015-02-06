@@ -10,9 +10,11 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
     $scope.isMenuActive = false;
+    $('#pp-nav').fadeIn();
   };
   $scope.showMenuClick = function() {
     $scope.isMenuActive = true;
+    $('#pp-nav').fadeOut();
   };
 
   $scope.signIn = function() {
@@ -148,10 +150,22 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     }
   };
 
+  $scope.animateArrow = function(id){
+    var pilerTimer = $timeout(function() {
+      $(id).animate({
+        bottom: "3em"
+      }, 500, "easeOutBounce" );
+      $scope.readyPiler();
+    }, 6500);
+
+    $scope.$on('$locationChangeStart', function(){
+      $timeout.cancel(pilerTimer);
+    });
+  }
+
   this.init($scope, $location, $timeout);
   this.fetch($scope, $interval, $routeParams, $timeout, Geo);
 }
-
 
 LandingCtrl.prototype.init = function($scope, $location, $timeout) {
   // Setting mode based on the url
@@ -166,61 +180,32 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
 
 LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout, Geo) {
   // Cancels if user leaves page
-  $scope.$on('$locationChangeStart', function(){
-    $timeout.cancel(pilerTimer);
-  });
 
   if ($scope.mode === 'home') {
-    // Only for home page
-    var pilerTimer = $timeout(function() {
-      $('.arrow-box').animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
-      $scope.readyPiler();
-    }, 4000);
+    $scope.animateArrow('#arrow_1')
 
     $scope.currentHomeSlide = 0;
-    
+
     $timeout(function() {
       $scope.currentHomeSlide +=1;
       var sliderStop = $interval(function() {
         $scope.currentHomeSlide += 1;
+        // Set number of slide transitions
         if ($scope.currentHomeSlide >= 2) {
           $interval.cancel(sliderStop);
           sliderStop = undefined;
         }
-      }, 3000);
+      // Slide transition speed
+      }, 5000);
     }, 500);
-
   } else if ($scope.mode === 'sign-in') {
-    // Only for sign in page
     $scope.signInPage = true;
   } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
-    // Only for faq pages
     $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
       'Powur Customer FAQ' :
       'Powur Advocate FAQ';
   } else if ($scope.mode === 'sign-up') {
-    // Only for sign up page
     $scope.setupInvertHeader();
-
-    // if(window.outerHeight > 1100){
-    //   $scope.readyPiler();
-    //   var pilerTimer = $timeout(function() {
-    //     $('.arrow-box').animate({
-    //       bottom: "3em"
-    //     }, 500, "easeOutBounce" );
-    //   }, 500);
-    //   // Cancels if user leaves page
-    //   $scope.$on('$locationChangeStart', function(){
-    //     $timeout.cancel(pilerTimer);
-    //   });
-    // } else {
-    //   $scope.invertHeaderColor();
-    //   $('#pagepiling').css('overflow','visible')
-    //   $('.sun-scrolling-bg').removeClass('section').css('padding-top','100px')
-    //   $('.arrow-box').css('bottom','3em')
-    // }
 
     $scope.invite = {};
     $scope.user = {};
