@@ -18,12 +18,16 @@
     color: #fff;
   }
 
-  .header-nav-link {
-    @include sun-sprites-sprite(header-menu-icon);
-    height: sun-sprites-sprite-height(header-menu-icon);
-    width: sun-sprites-sprite-width(header-menu-icon);
-    float: left;
-    margin-top: 8px;
+  // .header-nav-link {
+  //   @include sun-sprites-sprite(header-menu-icon);
+  //   height: sun-sprites-sprite-height(header-menu-icon);
+  //   width: sun-sprites-sprite-width(header-menu-icon);
+  //   float: left;
+  //   margin-top: 8px;
+  // }
+
+  .menu-icon {
+    font-size: 2em;
   }
 
   .header-nav {
@@ -37,7 +41,7 @@
     background-position: 0 10px;
     display: block;
     margin: 0 auto;
-    margin-top: -15px;
+    margin-top: -45px;
     line-height: 50px;
     text-align: left;
     width: 120px;
@@ -187,6 +191,38 @@
 
     &.active, &:hover {
       color: #fff;
+    }
+  }
+}
+
+// Make the header buttons thumb-sized on mobile
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 960px) {
+
+  #sun_header_guest {
+
+    .menu-icon {
+      font-size: 5em;
+    }
+
+    .logo {
+      width: 300px;
+      background-position: 0px;
+      margin-top: -75px;
+      line-height: 90px;
+    }
+
+    .sign-in {
+      background: none;
+      display: inline-block;
+      line-height: 2.3em;
+      float: right;
+      padding: 0 1em;
+      border: 2px solid #fff;
+      text-transform: uppercase;
+      font-size: 2em;
     }
   }
 }
