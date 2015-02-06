@@ -24,3 +24,9 @@ button, .button {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+
+@mixin landing-sprite($name) {
+  @include sun-sprites-sprite($name);
+  height: sun-sprites-sprite-height($name);
+  width: sun-sprites-sprite-width($name);
+}
