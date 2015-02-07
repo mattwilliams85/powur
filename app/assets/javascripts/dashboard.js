@@ -554,7 +554,8 @@ function Dashboard(){
               member.properties.downline_count = data.entities.length;
               EyeCueLab.UX.getTemplate("/templates/_placement_thumbnail.handlebars.html", member, undefined, function(html){
                  _downlinkContainerObj.append(html);
-                $('html *').addClass('custom-cursor')
+                 _linkEvents();
+                 $(".team_info").css("border-bottom-width","1px");
               });
 
             }
@@ -1151,6 +1152,40 @@ function Dashboard(){
   //   }
   // }
 
+  function _linkEvents(){
+    $('.secondary').off().on('click', function() {
+      if(confirm("Are you sure you want to move this user?\n\n[Users can only be moved once]")) {
+        console.log("truth")
+        displayTeam("team.everone")
+        _collapseDrillDown(_options)
+      } else {
+        console.log("nope")
+      }
+    });
+
+    $(".hover-team").on("mouseenter", function(e){
+      e.preventDefault(e);
+      $(this).find('.team_tab')
+      .velocity({
+        translateY: "-35px"
+      },{
+        queue: false }, 200)
+    })
+
+    $(".hover-team").on("mouseleave", function(e){
+      e.preventDefault(e);
+      $(this).find('.team_tab').not('.active_tab')
+      .velocity({
+        translateY: "0"
+      },{
+        queue: false }, 200)
+    })
+
+    $('.secondary').on("mouseenter", function(){$(this).find('.advocate_avatar').attr("src","/images/dashboard/plus.png");})
+    $('.secondary').on("mouseleave", function(){$(this).find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg");})
+    $('.secondary').css('cursor','pointer')
+  }
+
   function _collapseDrillDown(_options){
        //set up context for what's being clicked
        var _currentLevelSectionObj=_options._target.closest("section");
@@ -1217,7 +1252,6 @@ function Dashboard(){
     $("#dashboard_team .js-team_thumbnail").removeClass("fa-angle-up");
     $("#dashboard_team .js-team_thumbnail").removeClass("fa-angle-down");
     $("#dashboard_team .js-team_thumbnail").addClass("fa-angle-down");
-
   }
 
   //load the user dashboard basic info base on the current selected user id
@@ -1463,17 +1497,18 @@ function Dashboard(){
   });
 
   $(document).on("click", ".js-link_user", function(e){
-    $("body").mousemove(function(e) { 
-        $('.link-icon').css('left', e.pageX + 20).css('top', e.pageY - 20).css('display', 'block');
-    });
+    // $("body").mousemove(function(e) { 
+    //     $('.link-icon').css('left', e.pageX + 20).css('top', e.pageY - 20).css('display', 'block');
+    // });
+    
     var _thisLink = $(this)
     var thumbnailArray = $(this).closest('.js-team_thumbnail').siblings('div')
     var i = 3
     if(!_thisLink.hasClass('active')) {
-      $('html *').addClass('custom-cursor')
+      // $('html *').addClass('custom-cursor')
       _teamDrilldown('team.immediate' , _thisLink)
       _thisLink.addClass('active')
-      _thisLink.parent().css('border-left','1px solid #eee')
+      _thisLink.parent().css('border-left','1px solid #eee').find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png");
       //animation
       var a = setInterval(function(){
         $(thumbnailArray[i]).velocity({translateX: '1000px'},400)
@@ -1481,7 +1516,8 @@ function Dashboard(){
         if(i < 0) clearInterval(a)
       },100)
     } else {
-      $('html *').removeClass('custom-cursor')
+      _closeLinkDrilldown();
+      _thisLink.closest('.js-team_thumbnail').find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
       _thisLink.parent().css('border-left-width','0px')
       _thisLink.removeClass('active')
       _closeTeamDrilldown(_thisLink)
@@ -1495,11 +1531,29 @@ function Dashboard(){
     }
   });
 
+  function _closeLinkDrilldown(){
+    var _thisLink = $(this)
+    var thumbnailArray = $(this).closest('.js-team_thumbnail').siblings('div')
+    var i = 3
+    _thisLink.closest('.js-team_thumbnail').find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
+    _thisLink.parent().css('border-left-width','0px')
+    _thisLink.removeClass('active')
+    _closeTeamDrilldown(_thisLink)
+    _thisLink.closest('.team_info').find('.nav').show();
+    //animation
+    var a = setInterval(function(){
+      $(thumbnailArray[i]).velocity({translateX: '0'},400).find('.js-thumbnail').animate({"opacity":"1"}, 300);
+      i -= 1
+      if(i < 0) clearInterval(a)
+    },100)
+  }
+
 
   function _teamDrilldown(_type, target){
     target.addClass('active_tab')
     target.siblings().removeClass('active_tab')
     target.parents().eq(4).css("border-bottom","0px")
+    target.closest('.team_info').css("border-bottom","0px")
     var _drillDownUserID=target.parents(".js-team_thumbnail").attr("alt");
     var _thisThumbnail = target.parents(".js-team_thumbnail");
     _drillDown({"_type": _type,

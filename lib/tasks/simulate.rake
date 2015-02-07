@@ -4,6 +4,8 @@ namespace :sunstand do
     def generate_user(attrs = {})
       attrs = {
         password:      'solarpower',
+        password_confirmation: 'solarpower',
+        tos:           true,
         email:         Faker::Internet.email,
         first_name:    Faker::Name.first_name,
         last_name:     Faker::Name.last_name,

@@ -1,4 +1,4 @@
-<div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="team_thumbnail js-team_thumbnail js-thumbnail_parent hover-team">
+<div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="team_thumbnail js-team_thumbnail js-thumbnail_parent hover-team secondary">
   <div class="js-thumbnail">
         {{#if this.properties.profile_image}}
     <img class="advocate_avatar" src="{{this.properties.profile_image}}">
@@ -101,23 +101,10 @@
 </style>
 
 <script type="text/javascript">
-$(".hover-team").on("mouseenter", function(e){
-  e.preventDefault(e);
-  $(this).find('.team_tab')
-  .velocity({
-    translateY: "-35px"
-  },{
-    queue: false }, 200)
-})
 
-$(".hover-team").on("mouseleave", function(e){
-  e.preventDefault(e);
-  $(this).find('.team_tab').not('.active_tab')
-  .velocity({
-    translateY: "0"
-  },{
-    queue: false }, 200)
-})
+
+
+
 
 
 </script>
