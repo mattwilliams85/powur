@@ -5,7 +5,7 @@ var _data={}; //main data object that contains user profile and genelogy info
 var _animation_speed = 300;
 var _dashboard; 
 var kpiType = '';
-var selectedUser = null;
+var selectedUser = {};
 
 $(window).bind('page:change', function() {
   initPage();
@@ -1164,11 +1164,12 @@ function Dashboard(){
   //mattmarker
   function _linkEvents(){
       $(document).off('click','.advocate_avatar').on('click','.advocate_avatar', function() {
-        if(confirm("Are you sure you want to move this user?")) {
+        var parentUserName = $(this).closest('.team_thumbnail').find('.name-span').text()
+        if(confirm("Click OK to place "+selectedUser.name+" on "+parentUserName+"'s team. You cannot undo this action.")) {
           var action = _data.currentUser.actions[0]
           _ajax({
             _ajaxType: action.method,
-            _url: action.href+"?format=json&parent_id="+$(this).closest('.team_thumbnail').attr('alt')+"&child_id="+selectedUser,
+            _url: action.href+"?format=json&parent_id="+$(this).closest('.team_thumbnail').attr('alt')+"&child_id="+selectedUser.id,
             _callback:function(data,text){
             }
           })
@@ -1198,12 +1199,12 @@ function Dashboard(){
         queue: false }, 200)
     })
     $(document).on("mouseenter", ".team_thumbnail", function(){
-      if($(this).attr("alt") !== selectedUser){
+      if($(this).attr("alt") !== selectedUser.id){
         $(this).find('.advocate_avatar').attr("src","/images/dashboard/plus.png")
       }
     })
     $(document).on("mouseleave", ".team_thumbnail", function(){
-      if($(this).attr("alt") !== selectedUser){
+      if($(this).attr("alt") !== selectedUser.id){
         $(this).find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
       }
     })
@@ -1523,7 +1524,8 @@ function Dashboard(){
   $(document).on("click", ".js-link_user", function(e){
     var _thisLink = $(this)
     var thumbnailArray = $(this).closest('.js-team_thumbnail').siblings('div')
-    selectedUser = _thisLink.parent().attr("alt")
+    selectedUser.id = _thisLink.parent().attr("alt")
+    selectedUser.name = _thisLink.parent().find(".name-span").text();
     var i = 3
     if(!_thisLink.hasClass('active')) {
       // $('html *').addClass('custom-cursor')
