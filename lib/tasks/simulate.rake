@@ -14,8 +14,7 @@ namespace :sunstand do
         address:       Faker::Address.street_address,
         city:          Faker::Address.city,
         state:         Faker::Address.state,
-        lifetime_rank: 1,
-        created_at:    2.years.ago }.merge(attrs)
+        lifetime_rank: 1 }.merge(attrs)
 
       User.create!(attrs)
     end

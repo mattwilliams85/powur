@@ -26,9 +26,7 @@ module Auth
 
     def move
       require_input :parent_id
-      # parent = User.with_parent(current_user.id)
-      #   .where(id: params[:parent_id].to_i).first
-      # not_found!(:user, params[:parent_id]) if parent.nil?
+      
       child = User.find(params[:child_id])
       parent = User.find(params[:parent_id])
       child.assign_parent(parent)

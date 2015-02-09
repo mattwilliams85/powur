@@ -10,8 +10,7 @@ jon = User.create(
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'jon',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  roles:      [ 'admin' ])
 
 User.create(
   email:      'paul.walker@eyecuelab.com',
@@ -21,8 +20,7 @@ User.create(
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'paul',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  roles:      [ 'admin' ])
 
 User.create(
   email:      'rick.hou@eyecuelab.com',
@@ -32,8 +30,7 @@ User.create(
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'rick',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  roles:      [ 'admin' ])
 
 User.create(
   email:      'daniel.mcalerney@eyecuelab.com',
@@ -43,8 +40,7 @@ User.create(
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'daniel',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  roles:      [ 'admin' ])
 
 User.create(
   email:      'andrew.westling@eyecuelab.com',
@@ -54,8 +50,7 @@ User.create(
   phone:      '666.666.1212',
   zip:        '92023',
   url_slug:   'andrew',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  roles:      [ 'admin' ])
 
 User.create(
   email:      'matthew.williams@eyecuelab.com',
@@ -65,8 +60,7 @@ User.create(
   phone:      '777.777.1212',
   zip:        '92023',
   url_slug:   'matthew',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  roles:      [ 'admin' ])
 
 User.create(
   email:      'sasha.shamne@eyecuelab.com',
@@ -76,8 +70,7 @@ User.create(
   phone:      '777.777.1212',
   zip:        '92023',
   url_slug:   'sasha',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  roles:      [ 'admin' ])
 
 User.create(
   email:      'robert@sunstand.com',
@@ -88,7 +81,6 @@ User.create(
   zip:        '92023',
   url_slug:   'robert',
   roles:      [ 'admin' ],
-  created_at: 2.years.ago,
   sponsor_id: jon.id)
 
 User.create(
@@ -100,7 +92,6 @@ User.create(
   zip:        '92023',
   url_slug:   'andrea',
   roles:      [ 'admin' ],
-  created_at: 2.years.ago,
   sponsor_id: jon.id)
 
 puts 'Seeding Bonus Plan'

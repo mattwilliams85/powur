@@ -1115,91 +1115,35 @@ function Dashboard(){
       break;
     }
 
-
-    //sub function of the drilldown that checks for the need to collapse children drilldowns
-  //   function _collapseDrillDown(_options){
-  //     //set up context for what's being clicked
-  //     var _currentLevelSectionObj=_options._target.closest("section");
-  //     var _drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
-  //     var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
-  //     var _thisThumbnail = _options._target //use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
-  //     var _drillDownDepth = _topLevelSectionObj.children("section").length;
-
-
-  //     //fade all other "unfocused" thumbnail out
-  //     for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
-  //       if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
-  //         var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")").find('.js-thumbnail'));
-  //         _neighborThumbnail.animate({opacity:'0.3'},300)
-  //         _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
-  //         _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
-  //       }
-  //     }
-  //     _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
-  //     _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
-  //     //close any level after the current level
-  //     for(var i=_drillDownDepth;i>_drillDownFocusLevel;i--){
-  //         _topLevelSectionObj.find("[data-drilldown-level="+i+"]").animate({"opacity": "0", "height": "-700px"}, _animation_speed);
-  //     }
-
-  //     //if checking on self collapse everything
-  //     // if(_thisThumbnail.find("span.expand i").attr("class").indexOf(".team_tab")>=0){
-  //     //   $(".arrow").css("bottom","-20px").hide();
-  //     //   $(".section_content").css("border-bottom-width","1px");
-  //     //   _thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
-  //     //   _thisThumbnail.find("span.expand i").addClass("fa-angle-down");
-  //     //   _abortDrillDown=true;
-
-  //     //   _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
-  //     //   clearTimeout();
-  //     //   return;
-  //     // }
-
-  //     _thisThumbnail.animate({"opacity":1}, 300);
-  //     _thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
-  //     _thisThumbnail.find("span.expand i").addClass("fa-angle-up");
-  //   }
-  // }
-
-  //mattmarker
   function _linkEvents(){
-      $(document).off('click','.advocate_avatar').on('click','.advocate_avatar', function() {
-        var parentUserName = $(this).closest('.team_thumbnail').find('.name-span').text()
-        if(confirm("Click OK to place "+selectedUser.name+" on "+parentUserName+"'s team. You cannot undo this action.")) {
-          var action = _data.currentUser.actions[0]
-          _ajax({
-            _ajaxType: action.method,
-            _url: action.href+"?format=json&parent_id="+$(this).closest('.team_thumbnail').attr('alt')+"&child_id="+selectedUser.id,
-            _callback:function(data,text){
-            }
-          })
-          displayTeam("team.everone")
-          _collapseDrillDown(_options)
-        } else {
-          console.log("nope")
-        }
+    var action = _data.currentUser.actions[0]
 
-      });
+    //Move User Warning
+    $(document).off('click','.advocate_avatar').on('click','.advocate_avatar', function() {
+      var parentUserName = $(this).closest('.team_thumbnail').find('.name-span').text()
+      var parentID = $(this).closest('.team_thumbnail').attr('alt')
 
+      if(confirm("Click OK to place "+selectedUser.name+" on "+parentUserName+"'s team. You cannot undo this action.")) {
+        _ajax({
+          _ajaxType: action.method,
+          _url: action.href+"?format=json&parent_id="+parentID+"&child_id="+selectedUser.id,
+        })
+        displayTeam("team.everone")
+        _collapseDrillDown(_options)
+      }
+    });
+
+    //Animations
     $(".hover-team").on("mouseenter", function(e){
-      e.preventDefault(e);
-      $(this).find('.team_tab')
-      .velocity({
-        translateY: "-35px"
-      },{
-        queue: false }, 200)
+      $(this).find('.team_tab').velocity({translateY: "-35px"},{queue: false}, 200)
+    })
+    $(".hover-team").on("mouseleave", function(e){
+      $(this).find('.team_tab').not('.active_tab').velocity({translateY: "0px"},{queue: false}, 200)
     })
 
-    $(".hover-team").on("mouseleave", function(e){
-      e.preventDefault(e);
-      $(this).find('.team_tab').not('.active_tab')
-      .velocity({
-        translateY: "0"
-      },{
-        queue: false }, 200)
-    })
     $(document).on("mouseenter", ".team_thumbnail", function(){
       if($(this).attr("alt") !== selectedUser.id){
+        $(this).find('.advocate_avatar').css('cursor','pointer')
         $(this).find('.advocate_avatar').attr("src","/images/dashboard/plus.png")
       }
     })
@@ -1207,8 +1151,7 @@ function Dashboard(){
       if($(this).attr("alt") !== selectedUser.id){
         $(this).find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
       }
-    })
-    $('.advocate_avatar').css('cursor','pointer')
+    }) 
   }
 
   function _collapseDrillDown(_options){
@@ -1238,7 +1181,6 @@ function Dashboard(){
        }
 
        //if checking on self collapse everything
-       // if(_thisThumbnail.hasClass()
        if(!_thisThumbnail.hasClass('team_thumbnail')){
         if(_thisThumbnail.find("span.expand i").attr("class").indexOf("fa-angle-up")>=0){
           $(".arrow").css("bottom","-20px").hide();
@@ -1253,23 +1195,16 @@ function Dashboard(){
         }
        }
        
-
        _thisThumbnail.animate({"opacity":1}, 300);
        _thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
        _thisThumbnail.find("span.expand i").addClass("fa-angle-up");
      }
    }
 
-
-
-
   function _tabSelect(_options){
     var _tabData;
     console.log(_options._mainSectionID);
     console.log(_options._type);
-    /*_getData(_myID,_options._type, _tabData, function(){
-      _displayData(_options._type, _tabData)
-    });*/
   }
 
   function _collapseTeam(){
@@ -1480,9 +1415,8 @@ function Dashboard(){
     });
   }
 
-  //mattmarker
+  //team tab options 
   $(document).on("click", ".team_tab", function(e){
-    e.preventDefault();
     if($(this).hasClass('active_tab')){
       _closeTeamDrilldown($(this))
     } else {
@@ -1490,18 +1424,19 @@ function Dashboard(){
       $(this).addClass('active_tab')
       switch($(this).attr('id')){
         case 'js-team_tab':
-          _teamDrilldown('team.everyone' , $(this))
+          _teamDrilldown('team.everyone', $(this))
           break;
         case 'js-impact_tab':
-          _teamDrilldown('kpi' , $(this))
+          _teamDrilldown('kpi', $(this))
           break;
         case 'js-info_tab':
-          _teamDrilldown('info' , $(this))
+          _teamDrilldown('info', $(this))
           break;
       }
     }
   });
 
+  //kpi side-tab options
   $(document).on("click", ".js-kpi_tab", function(e){
     e.preventDefault();
     if(!$(this).hasClass('active')){
@@ -1528,7 +1463,6 @@ function Dashboard(){
     selectedUser.name = _thisLink.parent().find(".name-span").text();
     var i = 3
     if(!_thisLink.hasClass('active')) {
-      // $('html *').addClass('custom-cursor')
       _teamDrilldown('team.immediate' , _thisLink)
       _thisLink.addClass('active')
       _thisLink.parent().css('border-left','1px solid #eee').find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png");
