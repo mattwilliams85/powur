@@ -39,12 +39,12 @@ gem 'delayed_job_active_record'
 gem 'airbrake'
 gem 'pry-rails'
 gem 'ipayout', github: 'eyecuelab/ipayout'
-gem 'nmi_direct_post'
+# gem 'nmi_direct_post'
 gem 'week_of_month'
 gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
 gem 'newrelic_rpm'
 gem 'aasm'
-gem 'smarteru'
+gem 'smarteru', github: 'eyecuelab/smarteru'
 
 group :development do
   gem 'spring-commands-rspec'
