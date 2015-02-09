@@ -132,6 +132,7 @@ class User < ActiveRecord::Base
 
   def assign_parent(parent)
     self.class.move_user(self, parent)
+    self.update(moved: true)
   end
 
   private

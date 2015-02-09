@@ -5,6 +5,7 @@ var _data={}; //main data object that contains user profile and genelogy info
 var _animation_speed = 300;
 var _dashboard; 
 var kpiType = '';
+var selectedUser = null;
 
 $(window).bind('page:change', function() {
   initPage();
@@ -58,6 +59,8 @@ function Dashboard(){
   this.displayGoals = displayGoals;
   this.displayKPIs = displayKPIs;
   this._countdown = _countdown;
+
+  
 
 
   function displayKPIs(){
@@ -520,14 +523,20 @@ function Dashboard(){
 //mattmarker
       case "team.immediate":
 
+      _ajax({
+        _ajaxType:"get",
+        _url:"/u/users/"+_data.currentUser.id,
+        _callback:function(data,text){
+          _data.currentUser.actions = data.actions
+        }
+      })
+
       var _thisThumbnail = $(_options._target)
       _thisThumbnail.closest('.team_info').find('.nav').hide();
       _ajax({
       _ajaxType:"get",
       _url:"/u/users/",
       _postObj:{
-        "performance[metric]":_data.team_metric,
-        "performance[period]":_data.team_period,
         search:_data.team_search
       },
       _callback:function(data, text){
@@ -1152,16 +1161,24 @@ function Dashboard(){
   //   }
   // }
 
+  //mattmarker
   function _linkEvents(){
-    $('.secondary').off().on('click', function() {
-      if(confirm("Are you sure you want to move this user?\n\n[Users can only be moved once]")) {
-        console.log("truth")
-        displayTeam("team.everone")
-        _collapseDrillDown(_options)
-      } else {
-        console.log("nope")
-      }
-    });
+      $(document).off('click','.advocate_avatar').on('click','.advocate_avatar', function() {
+        if(confirm("Are you sure you want to move this user?")) {
+          var action = _data.currentUser.actions[0]
+          _ajax({
+            _ajaxType: action.method,
+            _url: action.href+"?format=json&parent_id="+$(this).closest('.team_thumbnail').attr('alt')+"&child_id="+selectedUser,
+            _callback:function(data,text){
+            }
+          })
+          displayTeam("team.everone")
+          _collapseDrillDown(_options)
+        } else {
+          console.log("nope")
+        }
+
+      });
 
     $(".hover-team").on("mouseenter", function(e){
       e.preventDefault(e);
@@ -1180,10 +1197,17 @@ function Dashboard(){
       },{
         queue: false }, 200)
     })
-
-    $('.secondary').on("mouseenter", function(){$(this).find('.advocate_avatar').attr("src","/images/dashboard/plus.png");})
-    $('.secondary').on("mouseleave", function(){$(this).find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg");})
-    $('.secondary').css('cursor','pointer')
+    $(document).on("mouseenter", ".team_thumbnail", function(){
+      if($(this).attr("alt") !== selectedUser){
+        $(this).find('.advocate_avatar').attr("src","/images/dashboard/plus.png")
+      }
+    })
+    $(document).on("mouseleave", ".team_thumbnail", function(){
+      if($(this).attr("alt") !== selectedUser){
+        $(this).find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
+      }
+    })
+    $('.advocate_avatar').css('cursor','pointer')
   }
 
   function _collapseDrillDown(_options){
@@ -1497,12 +1521,9 @@ function Dashboard(){
   });
 
   $(document).on("click", ".js-link_user", function(e){
-    // $("body").mousemove(function(e) { 
-    //     $('.link-icon').css('left', e.pageX + 20).css('top', e.pageY - 20).css('display', 'block');
-    // });
-    
     var _thisLink = $(this)
     var thumbnailArray = $(this).closest('.js-team_thumbnail').siblings('div')
+    selectedUser = _thisLink.parent().attr("alt")
     var i = 3
     if(!_thisLink.hasClass('active')) {
       // $('html *').addClass('custom-cursor')
@@ -1518,7 +1539,7 @@ function Dashboard(){
     } else {
       _closeLinkDrilldown();
       _thisLink.closest('.js-team_thumbnail').find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
-      _thisLink.parent().css('border-left-width','0px')
+      
       _thisLink.removeClass('active')
       _closeTeamDrilldown(_thisLink)
       _thisLink.closest('.team_info').find('.nav').show();
@@ -1526,12 +1547,17 @@ function Dashboard(){
       var a = setInterval(function(){
         $(thumbnailArray[i]).velocity({translateX: '0'},400).find('.js-thumbnail').animate({"opacity":"1"}, 300);
         i -= 1
-        if(i < 0) clearInterval(a)
+        if(i < 0) {
+          clearInterval(a)
+          _thisLink.parent().css('border-left-width','0px')
+        }
       },100)
     }
   });
 
   function _closeLinkDrilldown(){
+    $(document).off("mouseenter", ".team_thumbnail")
+    $(document).off("mouseleave", ".team_thumbnail")
     var _thisLink = $(this)
     var thumbnailArray = $(this).closest('.js-team_thumbnail').siblings('div')
     var i = 3
@@ -1542,12 +1568,11 @@ function Dashboard(){
     _thisLink.closest('.team_info').find('.nav').show();
     //animation
     var a = setInterval(function(){
-      $(thumbnailArray[i]).velocity({translateX: '0'},400).find('.js-thumbnail').animate({"opacity":"1"}, 300);
+      $(thumbnailArray[i]).velocity({translateX: '0'},400).find('.js-thumbnail').animate({"opacity":"1"}, 300).css('opacity','1');
       i -= 1
       if(i < 0) clearInterval(a)
     },100)
   }
-
 
   function _teamDrilldown(_type, target){
     target.addClass('active_tab')
@@ -1565,12 +1590,18 @@ function Dashboard(){
 
   function _closeTeamDrilldown(selected){
     selected.removeClass('active_tab')
+    selected.closest('.js-team_thumbnail').siblings('div').find('.js-thumbnail').animate({opacity:'1'},300)
     var _thisLevel = parseInt(selected.closest('section').attr('data-drilldown-level'))
     var _lastLevel = parseInt($('.drilldown').last().attr('data-drilldown-level'))
     if(_thisLevel == 0) selected.closest('.team_info').css('border','1px solid #E5E5E5')
+    
     for(var i=_thisLevel;i < _lastLevel;i++){
       $('.drilldown.level_'+(i+1)).hide()
     }
+  }
+
+  function _moveUser(event){
+  
   }
 
   function _alternateColor(_drillDownLevel){
