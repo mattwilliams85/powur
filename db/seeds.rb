@@ -2,9 +2,11 @@
 puts 'Seeding Admin users'
 User.destroy_all
 
-jon = User.create(
-  email:      'jon@sunstand.com',
+jon = User.create!(
+  email:      'jon@powur.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Jonathan',
   last_name:  'Budd',
   phone:      '858.555.1212',
@@ -12,9 +14,11 @@ jon = User.create(
   url_slug:   'jon',
   roles:      [ 'admin' ])
 
-User.create(
+User.create!(
   email:      'paul.walker@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Paul',
   last_name:  'Walker',
   phone:      '858.555.1212',
@@ -22,9 +26,11 @@ User.create(
   url_slug:   'paul',
   roles:      [ 'admin' ])
 
-User.create(
+User.create!(
   email:      'rick.hou@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Rick',
   last_name:  'Hou',
   phone:      '858.555.1212',
@@ -32,9 +38,11 @@ User.create(
   url_slug:   'rick',
   roles:      [ 'admin' ])
 
-User.create(
+User.create!(
   email:      'daniel.mcalerney@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Daniel',
   last_name:  'Mcalerney',
   phone:      '858.555.1212',
@@ -42,9 +50,11 @@ User.create(
   url_slug:   'daniel',
   roles:      [ 'admin' ])
 
-User.create(
+User.create!(
   email:      'andrew.westling@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Andrew',
   last_name:  'Westling',
   phone:      '666.666.1212',
@@ -52,9 +62,11 @@ User.create(
   url_slug:   'andrew',
   roles:      [ 'admin' ])
 
-User.create(
+User.create!(
   email:      'matthew.williams@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Matthew',
   last_name:  'Williams',
   phone:      '777.777.1212',
@@ -62,9 +74,11 @@ User.create(
   url_slug:   'matthew',
   roles:      [ 'admin' ])
 
-User.create(
+User.create!(
   email:      'sasha.shamne@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Sasha',
   last_name:  'Shamne',
   phone:      '777.777.1212',
@@ -72,9 +86,11 @@ User.create(
   url_slug:   'sasha',
   roles:      [ 'admin' ])
 
-User.create(
-  email:      'robert@sunstand.com',
+User.create!(
+  email:      'robert@powur.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Robert',
   last_name:  'Styler',
   phone:      '777.777.1212',
@@ -83,9 +99,11 @@ User.create(
   roles:      [ 'admin' ],
   sponsor_id: jon.id)
 
-User.create(
-  email:      'andrea@sunstand.com',
+User.create!(
+  email:      'andrea@powur.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Andrea',
   last_name:  'Budd',
   phone:      '777.777.1212',
@@ -96,7 +114,7 @@ User.create(
 
 puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all
-BonusPlan.create(
+BonusPlan.create!(
   id:          1,
   name:        'SunStand Compensation Plan',
   start_year:  2014,
