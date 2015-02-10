@@ -183,7 +183,7 @@ describe '/u/users' do
       expect_alert_error
     end
 
-    pending 'does not allow moving to a user not in the downline' do
+    it 'does not allow moving to a user not in the downline' do
       other_user = create(:user)
       child = create(:user, sponsor: @user)
 

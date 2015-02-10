@@ -37,14 +37,20 @@ module Auth
 
       require_input :parent_id
 
-      # parent = User.with_parent(current_user.id)
-      #   .where(id: params[:parent_id].to_i).first
-      # not_found!(:user, params[:parent_id]) if parent.nil?
+     
 
       parent = User.find(params[:parent_id])
-      not_found!(:user, params[:parent_id]) if parent.nil?
+      if parent.ancestor?(current_user.id) && @user.ancestor?(current_user.id)
+        @user.assign_parent(parent)
+      else
+        not_found!(:user, current_user.id)
+      end
 
-      @user.assign_parent(parent)
+      # parent = User.with_parent(parent.id)
+      #   .where(id: current_user.id).first
+      # not_found!(:user, current_user.id) if parent.nil?
+
+      
 
       render 'show'
     end
