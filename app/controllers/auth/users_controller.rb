@@ -25,11 +25,26 @@ module Auth
     end
 
     def move
-      require_input :parent_id
+      # require_input :parent_id
       
-      child = User.find(params[:child_id])
+      # child = User.find(params[:child_id])
+      # parent = User.find(params[:parent_id])
+      # child.assign_parent(parent)
+
+      # @user = User.find(current_user.id)
+
+      # render 'show'
+
+      require_input :parent_id
+
+      # parent = User.with_parent(current_user.id)
+      #   .where(id: params[:parent_id].to_i).first
+      # not_found!(:user, params[:parent_id]) if parent.nil?
+
       parent = User.find(params[:parent_id])
-      child.assign_parent(parent)
+      not_found!(:user, params[:parent_id]) if parent.nil?
+
+      @user.assign_parent(parent)
 
       render 'show'
     end

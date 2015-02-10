@@ -34,8 +34,7 @@ module UserScopes
     }
 
     scope :with_parent, lambda { |*user_ids|
-      where('users.upline[array_length(users.upline, 1) - 1] IN (?)',
-            user_ids.flatten)
+      where('users.upline[array_length(users.upline, 1) - 1] IN (?)', user_ids.flatten)
     }
 
     scope :with_ancestor, lambda { |user_id|

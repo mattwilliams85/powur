@@ -1126,7 +1126,8 @@ function Dashboard(){
       if(confirm("Click OK to place "+selectedUser.name+" on "+parentUserName+"'s team. You cannot undo this action.")) {
         _ajax({
           _ajaxType: action.method,
-          _url: action.href+"?format=json&parent_id="+parentID+"&child_id="+selectedUser.id,
+          // _url: action.href+"?format=json&parent_id="+parentID+"&child_id="+selectedUser.id,
+          _url: "/u/users/"+selectedUser.id+"/move?format=json&parent_id="+parentID,
         })
         displayTeam("team.everone")
         _collapseDrillDown(_options)
@@ -1457,51 +1458,52 @@ function Dashboard(){
   });
 
   $(document).on("click", ".js-link_user", function(e){
-    var _thisLink = $(this)
-    var thumbnailArray = $(this).closest('.js-team_thumbnail').siblings('div')
-    selectedUser.id = _thisLink.parent().attr("alt")
-    selectedUser.name = _thisLink.parent().find(".name-span").text();
+    var thisLink = $(this)
+    var thisThumbnail = $(this).closest('.js-team_thumbnail')
+    var thumbnailArray = thisThumbnail.siblings('div')
     var i = 3
-    if(!_thisLink.hasClass('active')) {
-      _teamDrilldown('team.immediate' , _thisLink)
-      _thisLink.addClass('active')
-      _thisLink.parent().css('border-left','1px solid #eee').find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png");
-      //animation
+    selectedUser.id = thisThumbnail.attr("alt")
+    selectedUser.name = thisThumbnail.find(".name-span").text();
+    
+    thisLink.toggleClass('active')
+
+    if(thisLink.hasClass('active')) {
+      _teamDrilldown('team.immediate' , thisLink)
+      thisThumbnail.css('border-left','1px solid #eee')
+      .find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png");
+
+      //animates each neighbor
       var a = setInterval(function(){
         $(thumbnailArray[i]).velocity({translateX: '1000px'},400)
         i -= 1
         if(i < 0) clearInterval(a)
       },100)
     } else {
-      _closeLinkDrilldown();
-      _thisLink.closest('.js-team_thumbnail').find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
+      thisThumbnail.find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
+      thisThumbnail.find('.nav').show();
+      _closeLinkDrilldown(thisLink, thumbnailArray, i);
+      _closeTeamDrilldown(thisLink)
       
-      _thisLink.removeClass('active')
-      _closeTeamDrilldown(_thisLink)
-      _thisLink.closest('.team_info').find('.nav').show();
       //animation
       var a = setInterval(function(){
         $(thumbnailArray[i]).velocity({translateX: '0'},400).find('.js-thumbnail').animate({"opacity":"1"}, 300);
         i -= 1
         if(i < 0) {
           clearInterval(a)
-          _thisLink.parent().css('border-left-width','0px')
+          thisLink.parent().css('border-left-width','0px')
         }
       },100)
     }
   });
 
-  function _closeLinkDrilldown(){
+  function _closeLinkDrilldown(thisLink, thumbnailArray, i){
     $(document).off("mouseenter", ".team_thumbnail")
-    $(document).off("mouseleave", ".team_thumbnail")
-    var _thisLink = $(this)
-    var thumbnailArray = $(this).closest('.js-team_thumbnail').siblings('div')
-    var i = 3
-    _thisLink.closest('.js-team_thumbnail').find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
-    _thisLink.parent().css('border-left-width','0px')
-    _thisLink.removeClass('active')
-    _closeTeamDrilldown(_thisLink)
-    _thisLink.closest('.team_info').find('.nav').show();
+               .off("mouseleave", ".team_thumbnail")
+    thumbnailArray.find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
+    thumbnailArray.css('border-left-width','0px')
+    thisLink.removeClass('active')
+    _closeTeamDrilldown(thisLink)
+    thisLink.closest('.team_info').find('.nav').show();
     //animation
     var a = setInterval(function(){
       $(thumbnailArray[i]).velocity({translateX: '0'},400).find('.js-thumbnail').animate({"opacity":"1"}, 300).css('opacity','1');
