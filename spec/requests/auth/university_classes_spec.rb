@@ -9,12 +9,14 @@ describe '/u/university_classes', type: :request do
   end
 
   context 'signed in' do
+    let(:product_enrollment) { double('enrollment') }
+    let(:current_user) { login_user }
     let!(:certifiable_product1) { create(:certifiable_product) }
     let!(:product) { create(:product) }
     let!(:certifiable_product2) { create(:certifiable_product) }
 
     before do
-      login_user
+      allow(current_user).to receive_message_chain(:product_enrollments, :find_by).and_return([product_enrollment])
     end
 
     it 'should return a list of certifiable products' do
@@ -28,8 +30,13 @@ end
 
 describe '/u/university_classes/:id', type: :request do
   context 'signed in' do
+    let(:product_enrollment) { double('enrollment') }
+    let(:current_user) { login_user }
     let!(:certifiable_product) { create(:certifiable_product, bonus_volume: 123) }
-    let!(:current_user) { login_user }
+
+    before do
+      allow(current_user).to receive_message_chain(:product_enrollments, :find_by).and_return([product_enrollment])
+    end
 
     it 'should return a json with a properties' do
       get university_class_path(certifiable_product), format: :json
