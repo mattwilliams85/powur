@@ -498,6 +498,7 @@ function Dashboard(){
           //prepare leader info
           var _userDetail={};
           _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
+          _userDetail["stats"] = "0";
 
           //add new team drilldown basic template layout with leader info
           var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
@@ -548,6 +549,7 @@ function Dashboard(){
         var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></div></section>";
         $("#dashboard_team").append(_html);
         var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+        _userDetail.generation = 1;
          _getTemplate("/templates/drilldowns/_team_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
 
         _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
@@ -555,7 +557,7 @@ function Dashboard(){
           if(member.properties.id === parseInt(_options._userID)) return;
           var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
           if(data.entities.length>=5) _downlinkContainerObj.siblings(".nav").fadeIn();
-          _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
+          _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*4)+"px");
           _ajax({
             _ajaxType:"get",
             _url:"/u/users/"+member.properties.id+"/downline",
@@ -594,12 +596,13 @@ function Dashboard(){
           _userDetail["generation"] = _drillDownLevel;
           //for(key in data[0].rank[data[0].rank.length-1]) _userDetail["rank"] = key;
           _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
+          _userDetail["generation"] = _drillDownLevel;
 
           //add new team drilldown basic template layout with leader info
           var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
           $("#dashboard_team").append(_html);
           
-          var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+          var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']'); 
           // _drilldownContainerObj.scrollView(180);
           _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
           
@@ -616,7 +619,7 @@ function Dashboard(){
               _alternateColor(_drillDownLevel)
               
               //populate downlink thumbnails
-              var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
+              var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content'); 
               _ajax({
                 _ajaxType:"get",
                 _url:_userDetail.downline_url,
@@ -624,10 +627,9 @@ function Dashboard(){
 
 
                   _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
-                  if(data.entities.length>=5) _downlinkContainerObj.siblings(".nav").fadeIn();
+                  if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
 
                   data.entities.forEach(function(member){
-                    _downlinkContainerObj.html("");
                     _ajax({
                       _ajaxType:"get",
                       _url:"/u/users/"+member.properties.id+"/downline",
@@ -1418,10 +1420,11 @@ function Dashboard(){
 
   //team tab options 
   $(document).on("click", ".team_tab", function(e){
+    var thisThumbnail = $(this).closest(".team_thumbnail")
     if($(this).hasClass('active_tab')){
       _closeTeamDrilldown($(this))
     } else {
-      $('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
+      thisThumbnail.siblings().find('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
       $(this).addClass('active_tab')
       switch($(this).attr('id')){
         case 'js-team_tab':

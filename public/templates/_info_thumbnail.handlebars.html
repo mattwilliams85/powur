@@ -35,20 +35,12 @@
       {{#compare this.generation "1" operator="=="}}
       <span class="info_title">EMAIL</span>
       <i class="fa fa-envelope"></i>
-       <a href="#"><span class="info_detail" style="margin-top:25px">{{format_length this.email 15}}</span></a>
+       <a href="mailto:{{this.email}}?Subject=Attention Sunstand Advocate!" target="_top"><span class="info_detail" style="margin-top:25px">{{format_length this.email 15}}</span></a>
        {{/compare}}
     </div>
   </div>
 </div>
-<div class="team_thumbnail">
-  <div class="js-thumbnail ">
-  </div>
-    <div class="js-thumbnail ">
-      <span class="info_title">GENERATION</span>
-      <span class="info_detail fa-generation" style="">{{this.generation}}</span>
-    </div>
-  </div>
-</div>
+
 
 
 <style type="text/css">

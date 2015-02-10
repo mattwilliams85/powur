@@ -16,13 +16,23 @@
   </div>
 <div class="js-tabs">
   {{#compare this.properties.downline_count 0 operator=">"}}
-    <div class="team_tab" id="js-team_tab">TEAM</div>
-    <div class="team_tab" id="js-impact_tab">KPI</div>
-    <div class="team_tab" id="js-info_tab">INFO</div>
+    {{#compare this.properties.level 3 operator="<"}}
+      <div class="team_tab" id="js-team_tab">TEAM</div>
+      <div class="team_tab" id="js-impact_tab">KPI</div>
+      <div class="team_tab" id="js-info_tab">INFO</div>
+    {{else}}
+      <div class="team_tab" id="js-team_tab" style="width:110px">TEAM</div>
+      <div class="team_tab" id="js-impact_tab" style="width:110px">KPI</div>
+    {{/compare}}
   {{else}}
-    <div class="team_tab" id="js-impact_tab" style="width:110px">KPI</div>
-    <div class="team_tab" id="js-info_tab" style="width:110px">INFO</div>
+    {{#compare this.properties.level 3 operator="<"}}
+      <div class="team_tab" id="js-impact_tab" style="width:110px">KPI</div>
+      <div class="team_tab" id="js-info_tab" style="width:110px">INFO</div>
+    {{else}}
+      <div class="team_tab" id="js-impact_tab" style="width:220px">KPI</div>
+    {{/compare}}
   {{/compare}}
+
 </div>  
     {{#each this.actions}}
       {{#compare this "place" operator="=="}}
