@@ -107,4 +107,44 @@ module UserSmarteru
     end
     response.result[:redirect_path]
   end
+
+  # Get User's learner reports from SmarterU
+  # Using user's employee_id
+  # Returns array of reports for each class
+  #
+  # ==== Example
+  # user.smarteru_learner_reports
+  def smarteru_learner_reports
+    payload = {
+      report: {
+        filters: {
+          groups: {
+            group_names: {
+              group_name: Rails.application.secrets.smarteru_group_name
+            }
+          },
+          learning_modules: {},
+          users: {
+            user_identifier: {
+              employee_i_d: smarteru_employee_id
+            }
+          }
+        },
+        columns: [
+          { column_name: 'ENROLLED_DATE' },
+          { column_name: 'COMPLETED_DATE' },
+          { column_name: 'DUE_DATE' },
+          { column_name: 'LAST_ACCESSED_DATE' },
+          { column_name: 'STARTED_DATE' }
+        ],
+        custom_fields: {}
+      }
+    }
+    response = smarteru_client.request('getLearnerReport', payload)
+    unless response.success?
+      Airbrake.notify(response.error.to_s)
+      return false
+    end
+    response.result[:learner_report][:learner].to_a # Calling .to_a to standardize because if only one report returned, it would have it as an object
+  end
 end
