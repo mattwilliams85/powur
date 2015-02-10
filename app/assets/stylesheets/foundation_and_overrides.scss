@@ -14,6 +14,7 @@ $input-border-radius: 3px;
 
 @import "foundation";
 @import "foundation/components/grid-5";
+@import "foundation/components/tooltips";
 
 .clearfix {
   @include clearfix;
