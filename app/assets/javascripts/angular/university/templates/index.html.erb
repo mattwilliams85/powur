@@ -7,7 +7,7 @@
       <div class="class-item">
         <div class="image-wrapper"><img ng-src="{{classItem.properties.image_url}}" /></div>
 
-        <div class="class-progress">&nbsp;</div>
+        <div class="class-progress" ng-class="{'started': classItem.properties.state === 'started', 'completed': classItem.properties.state === 'completed'}"><div class="progress-inner">&nbsp;</div></div>
 
         <div class="class-info">
           <h5 ng-if="classItem.properties.price > 0">${{classItem.properties.price/100}}</h5>

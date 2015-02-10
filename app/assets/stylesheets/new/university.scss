@@ -41,7 +41,31 @@
       }
 
       .class-progress {
-        height: 30px;
+        height: 15px;
+        margin: 15px 30px 0 30px;
+
+        .progress-inner {
+          height: 100%;
+          line-height: 100%;
+        }
+
+        &.started {
+          background-color: #d4d5d5;
+
+          .progress-inner {
+            background-color: #42bc1d;
+            width: 50%;
+          }
+        }
+
+        &.completed {
+          background-color: #d4d5d5;
+
+          .progress-inner {
+            background-color: #42bc1d;
+            width: 100%;
+          }
+        }
       }
 
       .description {
