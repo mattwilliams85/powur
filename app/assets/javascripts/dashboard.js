@@ -585,7 +585,6 @@ function Dashboard(){
         _userDetail["phone"] = data.properties.phone;
         _userDetail["generation"] = _drillDownLevel;
         _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
-        _userDetail["generation"] = 1
 
         //add new team drilldown basic template layout with leader info
         var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
