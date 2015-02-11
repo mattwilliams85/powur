@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
   end
 
   def placeable?(current_user)
-    ((Time.now - created_at) / 86400) <= 60 && sponsor_id == current_user.id
+    ((Time.now - created_at) / 86400) <= 0 && sponsor_id == current_user.id
   end
 
   def lifetime_achievements
