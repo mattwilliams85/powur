@@ -4,11 +4,13 @@
     <div class="info-text">
       <a id="hover1"><span class="contributor-name">{{format_fullname_length this.properties.first_name this.properties.last_name 16}}</span></a>
       <span class="light-text" style="font-size:0.85em">{{this.properties.orders}} Hot Quotes</span>
+      {{#compare this.properties.level "2" operator="<="}}
       <a href="mailto:{{this.properties.email}}?Subject=You're on fire!" target="_top">
         <div class="button">
           <i class="fa fa-envelope"></i><span> Contact</span>
         </div>
       </a>
+      {{/compare}}
     </div>
   </div>
 </div>

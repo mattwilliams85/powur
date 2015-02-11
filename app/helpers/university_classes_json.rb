@@ -20,6 +20,7 @@ class UniversityClassesJson < JsonDecorator
       json.price university_class.bonus_volume
       json.purchased university_class.purchased_by?(current_user.id)
       json.enrollable !!university_class.smarteru_module_id
+      json.state current_user.product_enrollments.find_by(product_id: university_class.id).try(:state)
     end
   end
 

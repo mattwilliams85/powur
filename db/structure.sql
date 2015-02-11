@@ -401,6 +401,37 @@ CREATE TABLE invites (
 
 
 --
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE notifications (
+    id integer NOT NULL,
+    content text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE notifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
+
+
+--
 -- Name: order_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -945,7 +976,8 @@ CREATE TABLE users (
     avatar_updated_at timestamp without time zone,
     remember_created_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
-    smarteru_employee_id character varying
+    smarteru_employee_id character varying,
+    moved boolean
 );
 
 
@@ -1022,6 +1054,13 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 --
 
 ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distributions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
 
 
 --
@@ -1231,6 +1270,14 @@ ALTER TABLE ONLY distributions
 
 ALTER TABLE ONLY invites
     ADD CONSTRAINT invites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY notifications
+    ADD CONSTRAINT notifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -2018,4 +2065,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150126211538');
 INSERT INTO schema_migrations (version) VALUES ('20150127022344');
 
 INSERT INTO schema_migrations (version) VALUES ('20150127195532');
+
+INSERT INTO schema_migrations (version) VALUES ('20150209185127');
+
+INSERT INTO schema_migrations (version) VALUES ('20150209200417');
 

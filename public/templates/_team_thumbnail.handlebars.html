@@ -1,3 +1,4 @@
+
 <div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="team_thumbnail js-team_thumbnail js-thumbnail_parent hover-team">
 	<div class="js-thumbnail ">
         {{#if this.properties.profile_image}}
@@ -5,7 +6,7 @@
         {{else}}
         <img class="advocate_avatar" src="/temp_dev_images/Tim.jpg">
         {{/if}}
-		<span>{{this.properties.first_name}} {{this.properties.last_name}}</span>
+		<span class="name-span">{{this.properties.first_name}} {{this.properties.last_name}}</span>
 		<span class="subtext">
 			<span>Rank: {{this.properties.level}}, Team: {{this.properties.downline_count}}</span>
         </span>
@@ -15,17 +16,31 @@
   </div>
 <div class="js-tabs">
   {{#compare this.properties.downline_count 0 operator=">"}}
-    <div class="team_tab" id="js-team_tab">TEAM</div>
-    <div class="team_tab" id="js-impact_tab">KPI</div>
-    <div class="team_tab" id="js-info_tab">INFO</div>
+    {{#compare this.properties.level 3 operator="<"}}
+      <div class="team_tab" id="js-team_tab">TEAM</div>
+      <div class="team_tab" id="js-impact_tab">KPI</div>
+      <div class="team_tab" id="js-info_tab">INFO</div>
+    {{else}}
+      <div class="team_tab" id="js-team_tab" style="width:110px">TEAM</div>
+      <div class="team_tab" id="js-impact_tab" style="width:110px">KPI</div>
+    {{/compare}}
   {{else}}
-    <div class="team_tab" id="js-impact_tab" style="width:110px">KPI</div>
-    <div class="team_tab" id="js-info_tab" style="width:110px">INFO</div>
+    {{#compare this.properties.level 3 operator="<"}}
+      <div class="team_tab" id="js-impact_tab" style="width:110px">KPI</div>
+      <div class="team_tab" id="js-info_tab" style="width:110px">INFO</div>
+    {{else}}
+      <div class="team_tab" id="js-impact_tab" style="width:220px">KPI</div>
+    {{/compare}}
   {{/compare}}
+
 </div>  
     {{#each this.actions}}
       {{#compare this "place" operator="=="}}
-    <i class="js-link_user fa fa-link"></i>
+        {{#compare this.properties.moved "true" operator="!="}}
+          {{#compare ../../../this.properties.level "2" operator="<="}}
+          <i class="js-link_user fa fa-link"></i>
+          {{/compare}}
+        {{/compare}}
     {{!-- <a><span class="js-link_user" style="font-size:0.7em">ASSIGN</span></a> --}}
       {{/compare}}
     {{/each}}

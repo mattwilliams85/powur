@@ -112,8 +112,7 @@ class User < ActiveRecord::Base
   end
 
   def placeable?(current_user)
-    # CHANGE TO <= 60 WHEN NOT TESTING! -matthew
-    ((Time.now - created_at) / 86400) <= 800 && sponsor_id == current_user.id
+    ((Time.now - created_at) / 86400) <= 60 && sponsor_id == current_user.id
   end
 
   def lifetime_achievements
@@ -132,6 +131,7 @@ class User < ActiveRecord::Base
 
   def assign_parent(parent)
     self.class.move_user(self, parent)
+    self.update(moved: true)
   end
 
   private

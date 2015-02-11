@@ -44,6 +44,10 @@
     left: 0;
   }
 
+  .close-menu-mobile {
+    display: none;
+  }
+
   .first-menu {
     padding-top:40px;
 
@@ -98,8 +102,8 @@
     &.sub-parent {
       background-image: image-url("landing/menu-arrow-icon-right.png");
       background-repeat: no-repeat;
-      background-position: 250px center;
-      margin-top:40px;
+      background-position: 90% center;
+      margin-top: center;
       
       &.active {
         background-image: image-url("landing/menu-arrow-icon-down.png");
@@ -154,5 +158,73 @@
 
   &.active {
     display: block;
+  }
+}
+
+// Menu for mobile devices
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 960px) {
+
+  html {
+    overflow: auto;
+  }
+
+  .sun-left-menu {
+    display: none;
+
+    &.active {
+      display: block;
+      overflow: auto;
+      width:100%;
+    }
+
+    li {
+      display: block;
+      font-size: 2.5em;
+      font-weight: bold;
+      line-height:2em;
+
+      .active {
+        color:#fff;
+      }
+
+      &.sub-parent {
+        background-image: image-url("landing/menu-arrow-icon-right.png");
+        background-size: 36px 40px;
+        background-repeat: no-repeat;
+        background-position: 90% center;
+        margin-top: center;
+        
+        &.active {
+          background-image: image-url("landing/menu-arrow-icon-down.png");
+          background-size: 40px 36px;
+        }
+      }
+
+    }
+
+    .close-menu-mobile {
+      display: block;
+    }
+
+    .first-menu {
+      padding-top:40px;
+
+      ul {
+        list-style-type: none;
+        margin: 40px 0 0;
+        padding: 0;
+      }
+
+      li {
+        &:first-child {
+          border-top: solid 1px #2d2d2d;
+          a {
+            padding-left: 40px;
+          }
+        }
+      }
+    }
   }
 }

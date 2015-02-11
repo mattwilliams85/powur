@@ -1,39 +1,31 @@
-{{!-- 	<div class="arrow"></div> --}}
-	<div class="drilldown_content">
-		{{!-- <div class="drilldown_content_section summary">
-			<h4 style="margin-top:25px;">{{this.name}}</h4>
-			<span class="subtext">Generation {{this.generation}}</span>
-			<span class="subtext">{{this.phone}}</a></span>	
-			<span class="subtext"><a href="mailto:{{email}}">{{this.email}}</a></span>
-
-		</div> --}}
-		<div class="drilldown_content_section" style="overflow:hidden;">
-			<div class="section_content team_info" >
-				<div class="pagination_container" data-comment="required for pagination - do not remove drilldown">
-					<div class="nav left"><i class="fa fa-angle-left"></i></div>
-					<div class="pagination_content">
-						{{!-- {{this.first_name}} has not invited anyone yet. Send an encouragment email!  --}}
-					</div>
-					<div class="nav right"><i class="fa fa-angle-right"></i></div>
-				</div>					
-			</div>
+{{#if this.stats}}
+<div class="drilldown_content">
+	<div class="drilldown_content_section kpi_container ">
+		<div class="section_content team_info" >
+			<div class="pagination_container kpi_container" data-comment="required for pagination - do not remove drilldown">
+				<div class="nav left"><i class="fa fa-angle-left"></i></div>
+				<div class="pagination_content">
+				</div>
+				<div class="nav right"><i class="fa fa-angle-right"></i></div>
+			</div>					
 		</div>
 	</div>
-
-	<style type="text/css">
-
-
-	#dashboard_team .pagination_container {
-		width:inherit !important;
-	}
-
-	#dashboard_team .drilldown_content_section {
-		margin-left:0 !important;
-	}
-
-	#dashboard_team .drilldown_content_section {
-		width:1255px;
-	}
-
-	</style>
-
+</div>
+{{else}}
+<div class="drilldown_content">
+	<div class="drilldown_content_section summary">
+		<span class="info_title">GENERATION</span>
+		<span class="info_detail fa-generation">{{this.generation}}</span>
+	</div>
+	<div class="drilldown_content_section details">
+		<div class="section_content team_info" >
+			<div class="pagination_container" data-comment="required for pagination - do not remove drilldown">
+				<div class="nav left"><i class="fa fa-angle-left"></i></div>
+				<div class="pagination_content">
+				</div>
+				<div class="nav right"><i class="fa fa-angle-right"></i></div>
+			</div>					
+		</div>
+	</div>
+</div>
+{{/if}}

@@ -145,7 +145,7 @@ $large-screen: em-calc(1300);
       @media #{$large} {
         padding:0 2%;
       }
-    } 
+    }
 
     .alt-large-8 {
       width:60%;
@@ -154,7 +154,7 @@ $large-screen: em-calc(1300);
       @media #{$large} {
         padding:0 3%;
       }
-    } 
+    }
 
     b {
       font-size: 1.1em;
@@ -225,14 +225,10 @@ $large-screen: em-calc(1300);
       a {
         display: inline-block;
         margin-right: 10px;
-        @include sun-sprites-sprite(slide-show-dot);
-        height: sun-sprites-sprite-height(slide-show-dot);
-        width: sun-sprites-sprite-width(slide-show-dot);
+        @include landing-sprite(slide-show-dot);
 
         &.active {
-          @include sun-sprites-sprite(slide-show-dot-active);
-          height: sun-sprites-sprite-height(slide-show-dot-active);
-          width: sun-sprites-sprite-width(slide-show-dot-active);
+          @include landing-sprite(slide-show-dot-active);
         }
       }
     }
@@ -586,9 +582,7 @@ $large-screen: em-calc(1300);
   }
 
   .sunrun-icon-wrapper {
-    @include sun-sprites-sprite(sunrun-icon);
-    height: sun-sprites-sprite-height(sunrun-icon);
-    width: sun-sprites-sprite-width(sunrun-icon);
+    @include landing-sprite(sunrun-icon);
     margin:auto;
 
     @media #{$large} {
@@ -597,38 +591,27 @@ $large-screen: em-calc(1300);
   }
 
   .decentralize-icon-wrapper {
-    @include sun-sprites-sprite(decentralize-icon);
-    height: sun-sprites-sprite-height(decentralize-icon);
-    width: sun-sprites-sprite-width(decentralize-icon);
+    @include landing-sprite(decentralize-icon);
     margin-bottom: 20px;
   }
 
   .pocket-wallet-icon-wrapper {
-    @include sun-sprites-sprite(pocket-wallet-icon);
-    height: sun-sprites-sprite-height(pocket-wallet-icon);
-    width: sun-sprites-sprite-width(pocket-wallet-icon);
+    @include landing-sprite(pocket-wallet-icon);
     margin-bottom: 20px;
   }
 
   .pollution-icon-wrapper {
-    @include sun-sprites-sprite(pollution-icon);
-    height: sun-sprites-sprite-height(pollution-icon);
-    width: sun-sprites-sprite-width(pollution-icon);
+    @include landing-sprite(pollution-icon);
     margin-bottom: 20px;
   }
 
   .sun-logo-wrapper {
-    // @include sun-sprites-sprite(sun-logo);
-    // height: sun-sprites-sprite-height(sun-logo);
-    // width: sun-sprites-sprite-width(sun-logo);
     margin:0 0 40px 40px;
     width:250px;
   }
 
   .stand-and-sun-icon-wrapper {
-    @include sun-sprites-sprite(stand-and-sun-icon);
-    height: sun-sprites-sprite-height(stand-and-sun-icon);
-    width: sun-sprites-sprite-width(stand-and-sun-icon);
+    @include landing-sprite(stand-and-sun-icon);
     display: inline-block;
     @media #{$large} {
       margin-bottom: 40px;
@@ -742,46 +725,11 @@ $large-screen: em-calc(1300);
       margin-top: 40px;
       text-align: center;
 
-      .ico-1 {
-        @include sun-sprites-sprite(why-solar-ico-1);
-        height: sun-sprites-sprite-height(why-solar-ico-1);
-        width: sun-sprites-sprite-width(why-solar-ico-1);
-        display: inline-block;
-      }
-
-      .ico-2 {
-        @include sun-sprites-sprite(why-solar-ico-2);
-        height: sun-sprites-sprite-height(why-solar-ico-2);
-        width: sun-sprites-sprite-width(why-solar-ico-2);
-        display: inline-block;
-      }
-
-      .ico-3 {
-        @include sun-sprites-sprite(why-solar-ico-3);
-        height: sun-sprites-sprite-height(why-solar-ico-3);
-        width: sun-sprites-sprite-width(why-solar-ico-3);
-        display: inline-block;
-      }
-
-      .ico-4 {
-        @include sun-sprites-sprite(why-solar-ico-4);
-        height: sun-sprites-sprite-height(why-solar-ico-4);
-        width: sun-sprites-sprite-width(why-solar-ico-4);
-        display: inline-block;
-      }
-
-      .ico-5 {
-        @include sun-sprites-sprite(why-solar-ico-5);
-        height: sun-sprites-sprite-height(why-solar-ico-5);
-        width: sun-sprites-sprite-width(why-solar-ico-5);
-        display: inline-block;
-      }
-
-      .ico-6 {
-        @include sun-sprites-sprite(why-solar-ico-6);
-        height: sun-sprites-sprite-height(why-solar-ico-6);
-        width: sun-sprites-sprite-width(why-solar-ico-6);
-        display: inline-block;
+      @for $i from 1 through 6 {
+        .ico-#{$i} {
+          @include landing-sprite(why-solar-ico-#{$i});
+          display: inline-block;
+        }
       }
     }
   }
@@ -791,39 +739,11 @@ $large-screen: em-calc(1300);
       height: 200px;
       text-align: center;
 
-      .purpose-img-1 {
-        @include sun-sprites-sprite(why-you-ico-1);
-        height: sun-sprites-sprite-height(why-you-ico-1);
-        width: sun-sprites-sprite-width(why-you-ico-1);
-        display: inline-block;
-      }
-
-      .purpose-img-2 {
-        @include sun-sprites-sprite(why-you-ico-2);
-        height: sun-sprites-sprite-height(why-you-ico-2);
-        width: sun-sprites-sprite-width(why-you-ico-2);
-        display: inline-block;
-      }
-
-      .purpose-img-3 {
-        @include sun-sprites-sprite(why-you-ico-3);
-        height: sun-sprites-sprite-height(why-you-ico-3);
-        width: sun-sprites-sprite-width(why-you-ico-3);
-        display: inline-block;
-      }
-
-      .purpose-img-4 {
-        @include sun-sprites-sprite(why-you-ico-4);
-        height: sun-sprites-sprite-height(why-you-ico-4);
-        width: sun-sprites-sprite-width(why-you-ico-4);
-        display: inline-block;
-      }
-
-      .purpose-img-5 {
-        @include sun-sprites-sprite(why-you-ico-5);
-        height: sun-sprites-sprite-height(why-you-ico-5);
-        width: sun-sprites-sprite-width(why-you-ico-5);
-        display: inline-block;
+      @for $i from 1 through 5 {
+        .purpose-img-#{$i} {
+          @include landing-sprite(why-you-ico-#{$i});
+          display: inline-block;
+        }
       }
     }
   }
@@ -949,6 +869,31 @@ $large-screen: em-calc(1300);
         .face-mask {
           display: block;
         }
+      }
+    }
+  }
+
+  &.sun-our-dna-page {
+    .sun-promo-content {
+      padding-top: 300px;
+      padding-bottom: 250px;
+    }
+
+    .dna-wrapper {
+      height: 444px;
+      overflow: hidden;
+    }
+
+    .dna-ico-wrapper {
+      height: 170px;
+      text-align: center;
+      padding-top: 70px;
+    }
+
+    @for $i from 1 through 20 {
+      .dna-ico-#{$i} {
+        @include landing-sprite(our-dna-ico-#{$i});
+        display: inline-block;
       }
     }
   }
@@ -1136,5 +1081,22 @@ $large-screen: em-calc(1300);
   .sun-bg-18 {
     background-image: image-url("promo/bg-18.jpg");
     text-align: center;
+  }
+
+  .sun-bg-19 {
+    background-image: image-url("promo/bg-19.jpg");
+    background-color: #fff;
+
+    .sun-promo-intro {
+      width: 100%;
+    }
+  }
+
+  .sun-bg-20 {
+    background-image: image-url("promo/bg-20.jpg");
+
+    p {
+      color: #fff;
+    }
   }
 }

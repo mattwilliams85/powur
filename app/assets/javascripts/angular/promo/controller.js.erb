@@ -134,6 +134,7 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anc
   if (/\/why-direct-selling$/.test($location.path())) return $scope.mode = 'why-direct-selling';
   if (/\/our-origin$/.test($location.path())) return $scope.mode = 'our-origin';
   if (/\/our-team$/.test($location.path())) return $scope.mode = 'our-team';
+  if (/\/our-dna$/.test($location.path())) return $scope.mode = 'our-dna';
 };
 
 
@@ -195,6 +196,8 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.directSalePromoSlides);
   } else if ($scope.mode === 'our-origin') {
+    $scope.setupInvertHeader();
+  } else if ($scope.mode === 'our-dna') {
     $scope.setupInvertHeader();
   } else if ($scope.mode === 'our-team') {
     $scope.faces = [

@@ -381,6 +381,14 @@
 
   }
 
+  .drilldown_content_section.summary {
+    margin:32px 0 0 0;
+  }
+
+  .drilldown_content_section.details {
+    margin:0 0 0 250px;
+  }
+
 }
 
 #dashboard_team {
@@ -406,6 +414,164 @@
 
     // Other
 
+  }
+
+  .js-tabs {
+    position:absolute;
+    bottom:-50px;
+    left:12px;
+  }
+
+  .js-team_tab {
+    background-color:#193640;
+  }
+
+  .js-impact_tab {
+    background-color:#326C7F;
+  }
+
+  .js-info_tab {
+    background-color:#4BA1BF;
+  }
+
+  .team_tab:hover {
+    background-color:#444;
+  }
+
+  .team_tab.active_tab {
+    background-color:#444;
+  }
+
+
+  .info_title {
+    font-size:0.9em;
+    margin-top:25px;
+    display:block;
+  }
+
+  .info_detail {
+    margin-top:20px;
+    display:block;
+    font-size:0.95em;
+  }
+
+  .js-thumbnail .avatar {
+    margin:40px;
+    padding:55px;
+    border:3px solid;
+  }
+
+  .js-thumbnail .fa-envelope {
+    margin-top:16px;
+    font-size:4em;
+  }
+
+  .team_thumbnail .fa-phone {
+    margin-top:21px;
+    font-size:4em;
+  }
+
+  .js-thumbnail .fa-user {
+    margin-top:20px;
+    font-size:4em;
+  }
+
+  .js-thumbnail .fa-generation {
+    font-size:7em;
+    margin-top:68px
+  }
+
+  .info_title {
+    font-size:0.9em;
+    margin-top:25px;
+    display:block;
+  }
+
+  .info_detail {
+    margin-top:20px;
+    display:block;
+    font-size:0.95em;
+  }
+
+  .fa-generation {
+    font-size:7em;
+    margin-top:68px
+  }
+
+  .details {
+    margin-left:248px;
+  }
+
+  .pagination_container.kpi_container {
+    overflow:visible !important;
+  }
+
+  .drilldown_content_section.kpi_container {
+    width:1255px;
+  }
+
+  .link_icon {
+    display:block;
+    display:none;
+    height:35px;
+    width:35px;
+  }
+
+  .team_thumbnail {
+    cursor:default;
+  }
+
+  .js-tabs {
+    position:absolute;
+    bottom:-50px;
+    left:12px;
+  }
+
+  .team_tab {
+    z-index:99;
+    width:70px;
+    height:50px;
+    display:inline-block;
+    font-size:0.8em;
+    color:#eee;
+    padding-top:3px;
+    cursor:pointer;
+    transition: background-color 0.4s ease;
+    /*opacity:0.9;*/
+  }
+
+  #js-team_tab {
+    background-color:#214754;
+  }
+
+  #js-impact_tab {
+    background-color:#326C7F;
+  }
+
+  #js-info_tab {
+    background-color:#4BA1BF;
+  }
+
+  .active_tab {
+    background-color:#444;
+  }
+
+  .js-link_user {
+    background-color: transparent;
+    position:absolute;
+    cursor:pointer;
+    top:15px;
+    right:15px;
+    color:#139FD4;
+  }
+
+  .js-link_user:hover {
+    font-size:1.1em;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
   }
 
 }
@@ -1532,7 +1698,7 @@
     bottom: 0;
     text-align:center;
     overflow: hidden;
-    padding:36px 10px 10px 10px;
+    padding:0px 10px 10px 10px;
     // Background & borders
     border-right: $light_border;
     // Typography
@@ -2388,3 +2554,10 @@ h4 {
   background-color:#000;
   width:1000px;
 }
+
+.top_level {
+  .js-thumbnail {
+    background-color:#fff;
+  }
+}
+

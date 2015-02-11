@@ -1,4 +1,4 @@
-<div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="team_thumbnail js-team_thumbnail js-thumbnail_parent hover-team">
+<div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="team_thumbnail js-team_thumbnail js-thumbnail_parent hover-team secondary">
   <div class="js-thumbnail">
         {{#if this.properties.profile_image}}
     <img class="advocate_avatar" src="{{this.properties.profile_image}}">
@@ -6,7 +6,7 @@
         <img class="advocate_avatar" src="/temp_dev_images/Tim.jpg">
         <img class="link_icon" src="http://uxrepo.com/static/icon-sets/font-awesome/svg/link.svg">
         {{/if}}
-    <span>{{this.properties.first_name}} {{this.properties.last_name}}</span>
+    <span class="name-span">{{this.properties.first_name}} {{this.properties.last_name}}</span>
     <span class="subtext">
       <span>Rank: {{this.properties.level}}, Team: {{this.properties.downline_count}}</span>
         </span>
@@ -24,100 +24,3 @@
     <div class="team_tab" id="js-info_tab" style="width:110px">INFO</div>
   {{/compare}}
 </div>  
-
-</div>
-
-<style type="text/css">
-  .link_icon {
-    display:block;
-    display:none;
-    height:35px;
-    width:35px;
-  }
-
-  .team_thumbnail {
-    cursor:default;
-  }
-
-  .js-tabs {
-    position:absolute;
-    bottom:-50px;
-    left:12px;
-  }
-
-  .team_tab {
-    width:70px;
-    height:50px;
-    display:inline-block;
-    font-size:0.8em;
-    color:#eee;
-    padding-top:3px;
-    cursor:pointer;
-    transition: background-color 0.4s ease;
-    /*opacity:0.9;*/
-  }
-
-  #js-team_tab {
-    background-color:#214754;
-  }
-
-  #js-impact_tab {
-    background-color:#326C7F;
-  }
-
-  #js-info_tab {
-    background-color:#4BA1BF;
-  }
-
-  .team_tab:hover {
-    background-color:#333 !important;
-
-  }
-
-  .active_tab {
-    background-color:#444;
-  }
-
-  .js-link_user {
-    background-color: transparent;
-    position:absolute;
-    cursor:pointer;
-    top:15px;
-    right:15px;
-    color:#139FD4;
-  }
-
-  .js-link_user:hover {
-    font-size:1.1em;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    -ms-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s;
-  }
-
-
-
-</style>
-
-<script type="text/javascript">
-$(".hover-team").on("mouseenter", function(e){
-  e.preventDefault(e);
-  $(this).find('.team_tab')
-  .velocity({
-    translateY: "-35px"
-  },{
-    queue: false }, 200)
-})
-
-$(".hover-team").on("mouseleave", function(e){
-  e.preventDefault(e);
-  $(this).find('.team_tab').not('.active_tab')
-  .velocity({
-    translateY: "0"
-  },{
-    queue: false }, 200)
-})
-
-
-</script>

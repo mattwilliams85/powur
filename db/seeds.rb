@@ -2,110 +2,112 @@
 puts 'Seeding Admin users'
 User.destroy_all
 
-jon = User.create(
-  email:      'jon@sunstand.com',
+jon = User.create!(
+  email:      'jon@powur.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Jonathan',
   last_name:  'Budd',
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'jon',
   roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  smarteru_employee_id: '1')
 
-User.create(
+User.create!(
   email:      'paul.walker@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Paul',
   last_name:  'Walker',
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'paul',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  roles:      [ 'admin' ])
 
-User.create(
+User.create!(
   email:      'rick.hou@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Rick',
   last_name:  'Hou',
   phone:      '858.555.1212',
   zip:        '92023',
   url_slug:   'rick',
   roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  smarteru_employee_id: '3')
 
-User.create(
-  email:      'daniel.mcalerney@eyecuelab.com',
-  password:   'solarpower',
-  first_name: 'Daniel',
-  last_name:  'Mcalerney',
-  phone:      '858.555.1212',
-  zip:        '92023',
-  url_slug:   'daniel',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
-
-User.create(
+User.create!(
   email:      'andrew.westling@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Andrew',
   last_name:  'Westling',
   phone:      '666.666.1212',
   zip:        '92023',
   url_slug:   'andrew',
   roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  smarteru_employee_id: '5')
 
-User.create(
+User.create!(
   email:      'matthew.williams@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Matthew',
   last_name:  'Williams',
   phone:      '777.777.1212',
   zip:        '92023',
   url_slug:   'matthew',
-  roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  roles:      [ 'admin' ])
 
-User.create(
+User.create!(
   email:      'sasha.shamne@eyecuelab.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Sasha',
   last_name:  'Shamne',
   phone:      '777.777.1212',
   zip:        '92023',
   url_slug:   'sasha',
   roles:      [ 'admin' ],
-  created_at: 2.years.ago)
+  smarteru_employee_id: '7')
 
-User.create(
-  email:      'robert@sunstand.com',
+User.create!(
+  email:      'robert@powur.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Robert',
   last_name:  'Styler',
   phone:      '777.777.1212',
   zip:        '92023',
   url_slug:   'robert',
   roles:      [ 'admin' ],
-  created_at: 2.years.ago,
-  sponsor_id: jon.id)
+  sponsor_id: jon.id,
+  smarteru_employee_id: '8')
 
-User.create(
-  email:      'andrea@sunstand.com',
+User.create!(
+  email:      'andrea@powur.com',
   password:   'solarpower',
+  password_confirmation: 'solarpower',
+  tos: true,
   first_name: 'Andrea',
   last_name:  'Budd',
   phone:      '777.777.1212',
   zip:        '92023',
   url_slug:   'andrea',
   roles:      [ 'admin' ],
-  created_at: 2.years.ago,
   sponsor_id: jon.id)
 
 puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all
-BonusPlan.create(
+BonusPlan.create!(
   id:          1,
   name:        'SunStand Compensation Plan',
   start_year:  2014,

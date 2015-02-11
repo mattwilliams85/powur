@@ -164,6 +164,9 @@ input {
 .uppercase {
   text-transform: uppercase;
 }
+.normal-case {
+  text-transform: none !important;
+}
 
 .sun-sign-up-page {
   .sun-fixed-bg {

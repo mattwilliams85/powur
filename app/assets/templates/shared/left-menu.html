@@ -1,6 +1,9 @@
 <div id="sun_landing_mask" ng-click="hideMenuClick()" ng-class="{'active': isMenuActive}"></div>
 
 <nav class="sun-left-menu" ng-class="{'active': isMenuActive}">
+  <div class="close-menu-mobile">
+    <a ng-click="hideMenuClick()"><i class="fa fa-5x fa-times"></i></a>
+  </div>
   <ul>
     <div class="first-menu">
       <li><a ng-href="#/home" ng-class="{'active': isMenuLinkActive('/home')}"><i class="fa fa-home" ng-class="{'active': isMenuLinkActive('/home')}"></i>HOME</a></li>
@@ -20,6 +23,7 @@
       <ul>
         <li><a ng-href="#/our-origin" ng-class="{'active': isMenuLinkActive('/our-origin')}">Our Origin</a></li>
         <li><a ng-href="#/our-team" ng-class="{'active': isMenuLinkActive('/our-team')}">Our Team</a></li>
+        <li><a ng-href="#/our-dna" ng-class="{'active': isMenuLinkActive('/our-dna')}">Our DNA</a></li>
         <li><a ng-href="#/customer-faq" ng-class="{'active': isMenuLinkActive('/customer-faq')}">Customer FAQ</a></li>
         <li><a ng-href="#/advocate-faq" ng-class="{'active': isMenuLinkActive('/advocate-faq')}">Advocate FAQ</a></li>
       </ul>
