@@ -5,7 +5,7 @@ var _data={}; //main data object that contains user profile and genelogy info
 var _animation_speed = 300;
 var _dashboard; 
 var kpiType = '';
-var selectedUser = {};
+var selectedUser = {}; //Tracks selected user during downline exploration
 
 $(window).bind('page:change', function() {
   initPage();
@@ -46,7 +46,6 @@ function initPage(){
   });
 }
 
-
 //populate initial data on dashboard screen
 function Dashboard(){
   _data.global = {};
@@ -60,9 +59,7 @@ function Dashboard(){
   this.displayKPIs = displayKPIs;
   this._countdown = _countdown;
 
-  
-
-
+  //KPI Lables
   function displayKPIs(){
     var kpi={
       environment:{
@@ -436,8 +433,6 @@ function Dashboard(){
     });
   });
 
-
-
   //main function that handles adding different types of drilldowns in different areas of the dashboard
   //the _options has options for the drilldown
   function _drillDown(_options){
@@ -449,43 +444,43 @@ function Dashboard(){
     switch(_options._type){
       case "info":
        var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
-              //compile leader (hero) info
-              $.getJSON("/u/users/"+_options._userID, function(){
-                console.log("... loading user#"+_options._userID+" profile info");
-              })
-              .done(function(data){
-                //prepare leader info
-                var _userDetail={};
-                _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
-                // _userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
-                var gender = ["men","women"]
-                _userDetail["profile_image"] = "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
-                // 
-                _userDetail["email"] = data.properties.email;
-                _userDetail["phone"] = data.properties.phone;
-                _userDetail["generation"] = _drillDownLevel;
-                _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
+        //compile leader (hero) info
+        $.getJSON("/u/users/"+_options._userID, function(){
+          console.log("... loading user#"+_options._userID+" profile info");
+        })
+        .done(function(data){
+          //prepare leader info
+          var _userDetail={};
+          _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
+          // _userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
+          var gender = ["men","women"]
+          _userDetail["profile_image"] = "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
+          // 
+          _userDetail["email"] = data.properties.email;
+          _userDetail["phone"] = data.properties.phone;
+          _userDetail["generation"] = 1
+          _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
 
-                //add new team drilldown basic template layout with leader info
-                var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
-                $("#dashboard_team").append(_html);
-                
-                var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+          //add new team drilldown basic template layout with leader info
+          var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+          $("#dashboard_team").append(_html);
+          
+          var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 
-                _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
-                _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
-                  _userDetail,
-                  _drilldownContainerObj,
-                  function(){
-                    var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
-                    _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
-                    EyeCueLab.UX.getTemplate("/templates/_info_thumbnail.handlebars.html", _userDetail, undefined, function(html){
-                      _downlinkContainerObj.html(html);
-                      _alternateColor(_drillDownLevel)
-                    });
-                });
+          _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
+          _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
+            _userDetail,
+            _drilldownContainerObj,
+            function(){
+              var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
+              _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
+              EyeCueLab.UX.getTemplate("/templates/_info_thumbnail.handlebars.html", _userDetail, undefined, function(html){
+                _downlinkContainerObj.html(html);
+                _alternateColor(_drillDownLevel)
               });
-        break;
+          });
+        });
+      break;
 
       case "kpi":
        var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
@@ -521,606 +516,586 @@ function Dashboard(){
         });
         break;
 
-//mattmarker
       case "team.immediate":
 
-      _ajax({
-        _ajaxType:"get",
-        _url:"/u/users/"+_data.currentUser.id,
-        _callback:function(data,text){
-          _data.currentUser.actions = data.actions
-        }
-      })
-
-      var _thisThumbnail = $(_options._target)
-      _thisThumbnail.closest('.team_info').find('.nav').hide();
-      _ajax({
-      _ajaxType:"get",
-      _url:"/u/users/",
-      _postObj:{
-        search:_data.team_search
-      },
-      _callback:function(data, text){
-        console.log(data)
-        if(data.entities.length<=0) return;
-        _data.team=data;
-        _drillDownLevel = 1
-        var _userDetail={};
-        var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></div></section>";
-        $("#dashboard_team").append(_html);
-        var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
-        _userDetail.generation = 1;
-         _getTemplate("/templates/drilldowns/_team_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
-
-        _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
-        _data.team.entities.forEach(function(member){
-          if(member.properties.id === parseInt(_options._userID)) return;
-          var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
-          if(data.entities.length>=5) _downlinkContainerObj.siblings(".nav").fadeIn();
-          _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*4)+"px");
-          _ajax({
-            _ajaxType:"get",
-            _url:"/u/users/"+member.properties.id+"/downline",
-            _callback:function(data, text){
-              member.properties.downline_count = data.entities.length;
-              EyeCueLab.UX.getTemplate("/templates/_placement_thumbnail.handlebars.html", member, undefined, function(html){
-                 _downlinkContainerObj.append(html);
-                 _linkEvents();
-                 $(".team_info").css("border-bottom-width","1px");
-              });
-
-            }
-          });
-        });
-      });
-    }
-  })
-             break;
-
-      case "team.everyone":
-      case "team":
-
-        //determine the next drilldown level
-        var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
-        //compile leader (hero) info
-        $.getJSON("/u/users/"+_options._userID, function(){
-          console.log("... loading user#"+_options._userID+" profile info");
-        })
-        .done(function(data){
-          //prepare leader info
-          var _userDetail={};
-          _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
-          _userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
-          _userDetail["email"] = data.properties.email;
-          _userDetail["phone"] = data.properties.phone;
-          _userDetail["generation"] = _drillDownLevel;
-          //for(key in data[0].rank[data[0].rank.length-1]) _userDetail["rank"] = key;
-          _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
-          _userDetail["generation"] = _drillDownLevel;
-
-          //add new team drilldown basic template layout with leader info
-          var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
-          $("#dashboard_team").append(_html);
-          
-          var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']'); 
-          // _drilldownContainerObj.scrollView(180);
-          _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
-          
-          _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
-            _userDetail,
-            _drilldownContainerObj,
-            function(){
-              //once the basic template is set, now populate the downlink information
-              //had to do this as callback due to the asynchronous nature of the calls
-              //animate up-arrow
-              // _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-              // _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-              // _drilldownContainerObj.find(".arrow").hide();
-              _alternateColor(_drillDownLevel)
-              
-              //populate downlink thumbnails
-              var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content'); 
-              _ajax({
-                _ajaxType:"get",
-                _url:_userDetail.downline_url,
-                _callback:function(data, text){
-
-
-                  _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
-                  if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
-
-                  data.entities.forEach(function(member){
-                    _ajax({
-                      _ajaxType:"get",
-                      _url:"/u/users/"+member.properties.id+"/downline",
-                      _callback:function(data, text){
-                        _downlinkContainerObj
-                        member.properties.downline_count = data.entities.length;
-                        EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
-                          if(_drillDownLevel % 2 === 0){
-                            $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#333") 
-                          } else {
-                            $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#444")  
-                          }
-                          
-                          _downlinkContainerObj.append(html);
-                        });
-                      }
-                    });
-                  });
-                }
-              });
-            });
-        })
-        .fail(function(data){
-          var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
-          $("#dashboard_team").append(_html);
-          var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
-          _drilldownContainerObj.css("opacity","0");
-          // _drilldownContainerObj.scrollView(180);
-          _drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
-          var _userDetail={};
-          _getTemplate("/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
-
-        });
-      break;
-
-
-      case "quotes":
-        if(_data.quotes.length==0) return;
-
-        var _drillDownLevel=$("#dashboard_quotes .drilldown").length+1;
-        var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
-        $("#dashboard_quotes").append(_html);
-        var _drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
-
-        //retrieve info from /customers/:id for the quote
-        var _userDetail={};
         _ajax({
           _ajaxType:"get",
-          _url:"/u/quotes/"+_options._userID,
-          _callback:function(data, text){
-            var _updateAction={};
-            var _userDetail = data;
+          _url:"/u/users/"+_data.currentUser.id,
+          _callback:function(data,text){
+            _data.currentUser.actions = data.actions
+          }
+        })
 
-            _userDetail._allFields = _getObjectsByCriteria(data, "val=update")[0].fields;
+        var _thisThumbnail = $(_options._target)
+        _thisThumbnail.closest('.team_info').find('.nav').hide();
+        _ajax({
+        _ajaxType:"get",
+        _url:"/u/users/",
+        _postObj:{
+          search:_data.team_search
+        },
+        _callback:function(data, text){
+          _data.team=data;
+          _drillDownLevel = 1
+          var _userDetail={};
+          _userDetail["generation"] = 1
+          var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></div></section>";
+          $("#dashboard_team").append(_html);
+          var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+           _getTemplate("/templates/drilldowns/_team_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+          _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
+          _data.team.entities.forEach(function(member){
+            if(member.properties.id === parseInt(_options._userID)) return;
+            var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
+            if(data.entities.length>=5) _downlinkContainerObj.siblings(".nav").fadeIn();
+            $(".team_info").css("border-bottom-width","1px");
+            _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*4)+"px");
+            _ajax({
+              _ajaxType:"get",
+              _url:"/u/users/"+member.properties.id+"/downline",
+              _callback:function(data, text){
+                member.properties.downline_count = data.entities.length;
+                EyeCueLab.UX.getTemplate("/templates/_placement_thumbnail.handlebars.html", member, undefined, function(html){
+                   _downlinkContainerObj.append(html);
+                   _linkEvents();
+                });
+              }
+            });
+          });
+        });
+      } 
+    })
+    break;
 
-            _userDetail._quoteFields = [];
-            _userDetail._customerFields = [];
+    case "team.everyone":
+    case "team":
+
+      //determine the next drilldown level
+      var _drillDownLevel=$("#dashboard_team .drilldown").length+1;
+      //compile leader (hero) info
+      $.getJSON("/u/users/"+_options._userID, function(){
+        console.log("... loading user#"+_options._userID+" profile info");
+      })
+      .done(function(data){
+        //prepare leader info
+        var _userDetail={};
+        _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
+        _userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
+        _userDetail["email"] = data.properties.email;
+        _userDetail["phone"] = data.properties.phone;
+        _userDetail["generation"] = _drillDownLevel;
+        _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
+        _userDetail["generation"] = 1
+
+        //add new team drilldown basic template layout with leader info
+        var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+        $("#dashboard_team").append(_html);
+        
+        var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']'); 
+        // _drilldownContainerObj.scrollView(180);
+        _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
+        
+        _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
+          _userDetail,
+          _drilldownContainerObj,
+          function(){
+            _alternateColor(_drillDownLevel)
+            
+            //populate downlink thumbnails
+            var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content'); 
+            _ajax({
+              _ajaxType:"get",
+              _url:_userDetail.downline_url,
+              _callback:function(data, text){
+                _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
+                if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
+
+                data.entities.forEach(function(member){
+                  _ajax({
+                    _ajaxType:"get",
+                    _url:"/u/users/"+member.properties.id+"/downline",
+                    _callback:function(data, text){
+                      _downlinkContainerObj
+                      member.properties.downline_count = data.entities.length;
+                      EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
+                        //Makes previous tab match color of new drilldown
+                        _downlinkContainerObj.append(html);
+                      });
+                    }
+                  });
+                });
+              }
+            });
+          });
+      })
+      .fail(function(data){
+        var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+        $("#dashboard_team").append(_html);
+        var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
+        _drilldownContainerObj.css("opacity","0");
+        // _drilldownContainerObj.scrollView(180);
+        _drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
+        var _userDetail={};
+        _getTemplate("/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
+
+      });
+    break;
 
 
-            ["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
-              _userDetail._quoteFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+    case "quotes":
+      if(_data.quotes.length==0) return;
+
+      var _drillDownLevel=$("#dashboard_quotes .drilldown").length+1;
+      var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+      $("#dashboard_quotes").append(_html);
+      var _drilldownContainerObj = $('#dashboard_quotes [data-drilldown-level='+_drillDownLevel+']');
+
+      //retrieve info from /customers/:id for the quote
+      var _userDetail={};
+      _ajax({
+        _ajaxType:"get",
+        _url:"/u/quotes/"+_options._userID,
+        _callback:function(data, text){
+          var _updateAction={};
+          var _userDetail = data;
+
+          _userDetail._allFields = _getObjectsByCriteria(data, "val=update")[0].fields;
+
+          _userDetail._quoteFields = [];
+          _userDetail._customerFields = [];
+
+
+          ["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
+            _userDetail._quoteFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+          });
+
+          ["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
+            _userDetail._customerFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
+          });
+
+          _userDetail._customerFields[6].fields = [
+          'Alabama',
+          'Alaska',
+          'Arizona',
+          'Arkansas',
+          'California',
+          'Colorado',
+          'Connecticut',
+          'Delaware',
+          'District of Columbia',
+          'Florida',
+          'Georgia',
+          'Hawaii',
+          'Idaho',
+          'Illinois',
+          'Indiana',
+          'Iowa',
+          'Kansas',
+          'Kentucky',
+          'Louisiana',
+          'Maine',
+          'Maryland',
+          'Massachusetts',
+          'Michigan',
+          'Minnesota',
+          'Mississippi',
+          'Missouri',
+          'Montana',
+          'Nebraska',
+          'Nevada',
+          'New Hampshire',
+          'New Jersey',
+          'New Mexico',
+          'New York',
+          'North Carolina',
+          'North Dakota',
+          'Ohio',
+          'Oklahoma',
+          'Oregon',
+          'Pennsylvania',
+          'Puerto Rico',
+          'Rhode Island',
+          'South Carolina',
+          'South Dakota',
+          'Tennessee',
+          'Texas',
+          'Utah',
+          'Vermont',
+          'Virginia',
+          'Washington',
+          'West Virginia',
+          'Wisconsin',
+          'Wyoming'
+          ];
+
+          $.extend(true, _updateAction, EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(fields)":{name:"zip"}})[0]);
+          _updateAction.fields.forEach(function(field){
+            _userDetail[field.name]=field.value;
+          });
+          //populate drilldown
+          EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+
+            //!!! applyBrowserSpecificRules() to solve compatibility issues for DOM elements on asynchronous requests (function exists in utility.js)
+            applyBrowserSpecificRules();
+
+            _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+            _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+            $("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
+            $("#customer_contact_form select[name='roof_material'] option").filter(function(){return $(this).text()==_userDetail.roof_material}).attr("selected", true);
+
+            $(".js-remove_quote").unbind();
+            $("#customer_contact_form .js-update_customer_info").unbind();
+            $(".js-resend_quote_email").unbind();
+            $(".js-close_drilldown").unbind();
+
+            $(".js-remove_quote").on("click", function(e){
+              e.preventDefault();
+              _thisThumbnail.find(".expand").click();
+              var _quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
+              _ajax({_ajaxType:"delete", _url:"/u/quotes/"+_quoteID, _callback:displayQuotes()});
             });
 
-            ["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
-              _userDetail._customerFields.push(_getObjectsByCriteria(_userDetail._allFields, "val="+field_name)[0])
-            });
-
-            _userDetail._customerFields[6].fields = [
-            'Alabama',
-            'Alaska',
-            'Arizona',
-            'Arkansas',
-            'California',
-            'Colorado',
-            'Connecticut',
-            'Delaware',
-            'District of Columbia',
-            'Florida',
-            'Georgia',
-            'Hawaii',
-            'Idaho',
-            'Illinois',
-            'Indiana',
-            'Iowa',
-            'Kansas',
-            'Kentucky',
-            'Louisiana',
-            'Maine',
-            'Maryland',
-            'Massachusetts',
-            'Michigan',
-            'Minnesota',
-            'Mississippi',
-            'Missouri',
-            'Montana',
-            'Nebraska',
-            'Nevada',
-            'New Hampshire',
-            'New Jersey',
-            'New Mexico',
-            'New York',
-            'North Carolina',
-            'North Dakota',
-            'Ohio',
-            'Oklahoma',
-            'Oregon',
-            'Pennsylvania',
-            'Puerto Rico',
-            'Rhode Island',
-            'South Carolina',
-            'South Dakota',
-            'Tennessee',
-            'Texas',
-            'Utah',
-            'Vermont',
-            'Virginia',
-            'Washington',
-            'West Virginia',
-            'Wisconsin',
-            'Wyoming'
-            ];
-
-            $.extend(true, _updateAction, EyeCueLab.JSON.getObjectsByPattern(data, {"containsIn(fields)":{name:"zip"}})[0]);
-            _updateAction.fields.forEach(function(field){
-              _userDetail[field.name]=field.value;
-            });
-            //populate drilldown
-            EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
-
-              //!!! applyBrowserSpecificRules() to solve compatibility issues for DOM elements on asynchronous requests (function exists in utility.js)
-              applyBrowserSpecificRules();
-
-              _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-              _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-              $("#customer_contact_form select[name='state'] option").filter(function(){return $(this).text()==_userDetail.state}).attr("selected", true);
-              $("#customer_contact_form select[name='roof_material'] option").filter(function(){return $(this).text()==_userDetail.roof_material}).attr("selected", true);
-
-              $(".js-remove_quote").unbind();
-              $("#customer_contact_form .js-update_customer_info").unbind();
-              $(".js-resend_quote_email").unbind();
-              $(".js-close_drilldown").unbind();
-
-              $(".js-remove_quote").on("click", function(e){
-                e.preventDefault();
-                _thisThumbnail.find(".expand").click();
-                var _quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-                _ajax({_ajaxType:"delete", _url:"/u/quotes/"+_quoteID, _callback:displayQuotes()});
-              });
-
-              $("#customer_contact_form .js-update_customer_info").on("click", function(e){
-                e.preventDefault();
-                var _quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-                _ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject()});
-                displayQuotes(); //this function can't happen as callback of _ajax() function because it will retrieve the old data
-                _thisThumbnail.find(".expand").click();
-
-              });
-
-              $(".js-resend_quote_email").on("click", function(e){
-                e.preventDefault();
-                var _quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
-                _ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:displayQuotes()});
-                _thisThumbnail.find(".expand").click();
-
-              });
-
-              //wire up cancel button
-              $(".js-close_drilldown").on("click", function(e){
-                e.preventDefault();
-                $(".js-thumbnail span.expand i").removeClass("fa-angle-up");
-                $(".js-thumbnail span.expand i").addClass("fa-angle-down");
-                _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
-                $(".js-thumbnail").parent(".quote_thumbnail").animate({opacity:1}, _animation_speed);
-              });
+            $("#customer_contact_form .js-update_customer_info").on("click", function(e){
+              e.preventDefault();
+              var _quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
+              _ajax({_ajaxType:"patch", _url:"/u/quotes/"+_quoteID, _postObj:$("#customer_contact_form").serializeObject()});
+              displayQuotes(); //this function can't happen as callback of _ajax() function because it will retrieve the old data
+              _thisThumbnail.find(".expand").click();
 
             });
+
+            $(".js-resend_quote_email").on("click", function(e){
+              e.preventDefault();
+              var _quoteID = $(e.target).parents(".drilldown_content").find("#customer_contact_form").attr("data-customer-id");
+              _ajax({_ajaxType:"post", _url:"/u/quotes/"+_quoteID+"/resend", _postObj:{}, _callback:displayQuotes()});
+              _thisThumbnail.find(".expand").click();
+
+            });
+
+            //wire up cancel button
+            $(".js-close_drilldown").on("click", function(e){
+              e.preventDefault();
+              $(".js-thumbnail span.expand i").removeClass("fa-angle-up");
+              $(".js-thumbnail span.expand i").addClass("fa-angle-down");
+              _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
+              $(".js-thumbnail").parent(".quote_thumbnail").animate({opacity:1}, _animation_speed);
+            });
+
+          });
+
+        _drilldownContainerObj.css({"opacity":"0"});
+        _drilldownContainerObj.animate({"height":"+=608px", "opacity": 1}, _animation_speed);
+        
+        }
+
+      });
+
+    break;
+
+    case "new_quote":
+      var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+      var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+      $("#"+_options._mainSectionID).append(_html);
+      var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+
+      var _fields={};
+      _ajax({
+        _ajaxType:"get",
+        _url:"/u/quotes/",
+        _callback:function(data, text){
+          var _userDetail = data;
+
+          _fields._allFields = _getObjectsByCriteria(data, "val=create")[0].fields;
+
+          _fields._quoteFields = [];
+          _fields._customerFields = [];
+
+          ["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
+            _fields._quoteFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
+          });
+
+          ["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
+            _fields._customerFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
+          });
+
+          _fields._customerFields[6].fields = [
+          'Alabama',
+          'Alaska',
+          'Arizona',
+          'Arkansas',
+          'California',
+          'Colorado',
+          'Connecticut',
+          'Delaware',
+          'District of Columbia',
+          'Florida',
+          'Georgia',
+          'Hawaii',
+          'Idaho',
+          'Illinois',
+          'Indiana',
+          'Iowa',
+          'Kansas',
+          'Kentucky',
+          'Louisiana',
+          'Maine',
+          'Maryland',
+          'Massachusetts',
+          'Michigan',
+          'Minnesota',
+          'Mississippi',
+          'Missouri',
+          'Montana',
+          'Nebraska',
+          'Nevada',
+          'New Hampshire',
+          'New Jersey',
+          'New Mexico',
+          'New York',
+          'North Carolina',
+          'North Dakota',
+          'Ohio',
+          'Oklahoma',
+          'Oregon',
+          'Pennsylvania',
+          'Puerto Rico',
+          'Rhode Island',
+          'South Carolina',
+          'South Dakota',
+          'Tennessee',
+          'Texas',
+          'Utah',
+          'Vermont',
+          'Virginia',
+          'Washington',
+          'West Virginia',
+          'Wisconsin',
+          'Wyoming'
+          ];
+
+          //populate drilldown
+          EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", _fields, _drilldownContainerObj, function(){
+             _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+             _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+            //wire up lead submission hook
+            $("#new_lead_contact_form button").on("click", function(e){
+              e.preventDefault();
+              _formSubmit(e, $("#new_lead_contact_form"), "/u/quotes", "POST", function(data, text){
+                $("#new_lead_contact_form").fadeOut(150, function(){
+                  $("#new_lead_contact_form input").val("");
+                  $("#new_lead_contact_form").fadeIn();
+                  displayQuotes();
+                  //close the drilldown after create
+                  $(".js-new_quote_thumbnail span.expand i").removeClass("fa-angle-up");
+                  $(".js-new_quote_thumbnail span.expand i").addClass("fa-angle-down");
+                  _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
+                });
+              });
+            });
+            //wire up cancel button
+            $(".js-close_drilldown").on("click", function(e){
+              e.preventDefault();
+              $(".js-new_quote_thumbnail span.expand i").removeClass("fa-angle-up");
+              $(".js-new_quote_thumbnail span.expand i").addClass("fa-angle-down");
+              _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
+            });
+          });
 
           _drilldownContainerObj.css({"opacity":"0"});
           _drilldownContainerObj.animate({"height":"+=608px", "opacity": 1}, _animation_speed);
-          
-          }
 
-        });
+        }
 
-      break;
+      });
+    break;
 
-      case "new_quote":
-        var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-        var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
-        $("#"+_options._mainSectionID).append(_html);
-        var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+    case "invitations":
+      $('#dashboard_team .drilldown').remove();
+      var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+      var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+      $("#"+_options._mainSectionID).append(_html);
 
-        var _fields={};
-        _ajax({
-          _ajaxType:"get",
-          _url:"/u/quotes/",
-          _callback:function(data, text){
-            var _userDetail = data;
+      var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+      _drilldownContainerObj.css("opacity","0");
+      _drilldownContainerObj.animate({height:"+=240px", opacity:1}, _animation_speed);
 
-            _fields._allFields = _getObjectsByCriteria(data, "val=create")[0].fields;
+      _data["invitations"]=[];
+      //get listing array from json
+      _getData(_myID, "invitations", _data["invitations"], function(){
 
-            _fields._quoteFields = [];
-            _fields._customerFields = [];
+        //pad the data object with blank invitations
+        for(var i=_data["invitations"].length; i<5; i++) _data["invitations"].push({});
 
-            ["roof_age", "roof_type", "credit_score_qualified", "square_feet", "average_bill", "utility"].forEach(function(field_name){
-              _fields._quoteFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
-            });
-
-            ["first_name", "last_name", "email", "phone", "address", "city", "state", "zip"].forEach(function(field_name){
-              _fields._customerFields.push(_getObjectsByCriteria(_fields._allFields, "val="+field_name)[0])
-            });
-
-            _fields._customerFields[6].fields = [
-            'Alabama',
-            'Alaska',
-            'Arizona',
-            'Arkansas',
-            'California',
-            'Colorado',
-            'Connecticut',
-            'Delaware',
-            'District of Columbia',
-            'Florida',
-            'Georgia',
-            'Hawaii',
-            'Idaho',
-            'Illinois',
-            'Indiana',
-            'Iowa',
-            'Kansas',
-            'Kentucky',
-            'Louisiana',
-            'Maine',
-            'Maryland',
-            'Massachusetts',
-            'Michigan',
-            'Minnesota',
-            'Mississippi',
-            'Missouri',
-            'Montana',
-            'Nebraska',
-            'Nevada',
-            'New Hampshire',
-            'New Jersey',
-            'New Mexico',
-            'New York',
-            'North Carolina',
-            'North Dakota',
-            'Ohio',
-            'Oklahoma',
-            'Oregon',
-            'Pennsylvania',
-            'Puerto Rico',
-            'Rhode Island',
-            'South Carolina',
-            'South Dakota',
-            'Tennessee',
-            'Texas',
-            'Utah',
-            'Vermont',
-            'Virginia',
-            'Washington',
-            'West Virginia',
-            'Wisconsin',
-            'Wyoming'
-            ];
-
-            //populate drilldown
-            EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", _fields, _drilldownContainerObj, function(){
-               _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-               _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-              //wire up lead submission hook
-              $("#new_lead_contact_form button").on("click", function(e){
-                e.preventDefault();
-                _formSubmit(e, $("#new_lead_contact_form"), "/u/quotes", "POST", function(data, text){
-                  $("#new_lead_contact_form").fadeOut(150, function(){
-                    $("#new_lead_contact_form input").val("");
-                    $("#new_lead_contact_form").fadeIn();
-                    displayQuotes();
-                    //close the drilldown after create
-                    $(".js-new_quote_thumbnail span.expand i").removeClass("fa-angle-up");
-                    $(".js-new_quote_thumbnail span.expand i").addClass("fa-angle-down");
-                    _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
-                  });
-                });
-              });
-              //wire up cancel button
-              $(".js-close_drilldown").on("click", function(e){
-                e.preventDefault();
-                $(".js-new_quote_thumbnail span.expand i").removeClass("fa-angle-up");
-                $(".js-new_quote_thumbnail span.expand i").addClass("fa-angle-down");
-                _drilldownContainerObj.animate({height:"-=700px", opacity:0}, _animation_speed);
-              });
-            });
-
-            _drilldownContainerObj.css({"opacity":"0"});
-            _drilldownContainerObj.animate({"height":"+=608px", "opacity": 1}, _animation_speed);
-
-          }
-
-        });
-      break;
-
-      case "invitations":
-        $('#dashboard_team .drilldown').remove();
-        var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-        var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
-        $("#"+_options._mainSectionID).append(_html);
-
-        var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
-        _drilldownContainerObj.css("opacity","0");
-        _drilldownContainerObj.animate({height:"+=240px", opacity:1}, _animation_speed);
-
-        _data["invitations"]=[];
-        //get listing array from json
-        _getData(_myID, "invitations", _data["invitations"], function(){
-
-          //pad the data object with blank invitations
-          for(var i=_data["invitations"].length; i<5; i++) _data["invitations"].push({});
-
-          //first place the listing template
-          _getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
-            _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
-            _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
-
-            //display thumbnails
-            _getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
-
-              //wire up expiration timer
-              var _now = new Date();
-              $(".js-expiration").each(function(){
-                var _remainingSeconds, _remainingMinutes, _remainingHours;
-
-                var _expiration = new Date($(this).attr("data-expiration-timestamp"));
-                var _totalSeconds = Math.round((_expiration-_now)/1000);
-                if(_totalSeconds >0){
-                  var _remainingHours = Math.floor(_totalSeconds/(60*60));
-                  var _totalSeconds = _totalSeconds - _remainingHours*(3600);
-                  var _remainingMinutes =  Math.floor(_totalSeconds/(60));
-                  var _remainingSeconds = _totalSeconds - _remainingMinutes*(60);
-                  if(_remainingSeconds<10) _remainingSeconds = "0"+_remainingSeconds;
-                  if(_remainingMinutes<10) _remainingMinutes = "0"+_remainingMinutes;
-                  if(_remainingHours<10) _remainingHours = "0"+_remainingHours;
-                  $(this).find(".js-expiration-hours").text(_remainingHours);
-                  $(this).find(".js-expiration-minutes").text(_remainingMinutes);
-                  $(this).find(".js-expiration-seconds").text(_remainingSeconds);
-                }else{
-                  if($(this).closest(".js-new_invite_thumbnail").attr("class").indexOf("js-empty_seat")<0)
-                    $(this).text("Expired");
-                }
-              });
-
-
-              $(".js-new_invite_thumbnail").unbind();
-              //wire up invitation detail hooks
-              $(".js-new_invite_thumbnail").on("click", function(e){
-                $('#dashboard_team .level_2').remove();
-                e.preventDefault();
-                // e.stopPropagation();
-                _drillDown({"_type":"new_invitations",
-                      "_mainSectionID":$(this).parents("section.dashboard_section").attr("id"),
-                      "_thumbnailIdentifier":".js-new_invite_thumbnail",
-                      "_target":$(e.target),
-                      "_arrowPosition":$(this).find("span.expand i").offset().left});
-              });
-
-            });
-          });
-
-        });
-      break;
-
-      case "new_invitations":
-        var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-        var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
-        $("#"+_options._mainSectionID).append(_html);
-
-        var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
-        _drilldownContainerObj.css("opacity","0");
-        _drilldownContainerObj.animate({height:"+=400px", opacity:1}, _animation_speed);
-
-        var _invitationDetail = {};
-        var _thisThumbnail = $(_options._target)
-        if(!_thisThumbnail.hasClass('new_thumbnail')) _thisThumbnail = $(_options._target).parents(_options._thumbnailIdentifier)
-        _invitationDetail = _data["invitations"][_thisThumbnail.index()];
-        _invitationDetail.invitationType="Existing";
-        if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _invitationDetail.invitationType="New";
-        _getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
+        //first place the listing template
+        _getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
           _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
           _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 
+          //display thumbnails
+          _getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
 
-          $("#new_promoter_invitation_form .button").unbind();
-          $(".js-remove_advocate").unbind();
-          $(".js-resend_invite_to_advocate").unbind();
+            //wire up expiration timer
+            var _now = new Date();
+            $(".js-expiration").each(function(){
+              var _remainingSeconds, _remainingMinutes, _remainingHours;
 
-          //change "Resend Invite" button text to "Update Invite" if the user changes the info on the form
-          $(".js-invite").on("input", function(e){
-            $(".js-resend_invite_to_advocate_text").text("Update Invite");
-          })
+              var _expiration = new Date($(this).attr("data-expiration-timestamp"));
+              var _totalSeconds = Math.round((_expiration-_now)/1000);
+              if(_totalSeconds >0){
+                var _remainingHours = Math.floor(_totalSeconds/(60*60));
+                var _totalSeconds = _totalSeconds - _remainingHours*(3600);
+                var _remainingMinutes =  Math.floor(_totalSeconds/(60));
+                var _remainingSeconds = _totalSeconds - _remainingMinutes*(60);
+                if(_remainingSeconds<10) _remainingSeconds = "0"+_remainingSeconds;
+                if(_remainingMinutes<10) _remainingMinutes = "0"+_remainingMinutes;
+                if(_remainingHours<10) _remainingHours = "0"+_remainingHours;
+                $(this).find(".js-expiration-hours").text(_remainingHours);
+                $(this).find(".js-expiration-minutes").text(_remainingMinutes);
+                $(this).find(".js-expiration-seconds").text(_remainingSeconds);
+              }else{
+                if($(this).closest(".js-new_invite_thumbnail").attr("class").indexOf("js-empty_seat")<0)
+                  $(this).text("Expired");
+              }
+            });
 
-          //wire up new invitation submission hook
 
-          $("#new_promoter_invitation_form .button").on("click", function(e){
-            e.preventDefault();
-            var _thisForm = $(e.target).closest("#new_promoter_invitation_form");
-            _formSubmit(e, $("#new_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
+            $(".js-new_invite_thumbnail").unbind();
+            //wire up invitation detail hooks
+            $(".js-new_invite_thumbnail").on("click", function(e){
+              $('#dashboard_team .level_2').remove();
+              e.preventDefault();
+              // e.stopPropagation();
+              _drillDown({"_type":"new_invitations",
+                    "_mainSectionID":$(this).parents("section.dashboard_section").attr("id"),
+                    "_thumbnailIdentifier":".js-new_invite_thumbnail",
+                    "_target":$(e.target),
+                    "_arrowPosition":$(this).find("span.expand i").offset().left});
+            });
+
           });
-
-          //wire up remove pending advocate capabilities
-          $(".js-remove_advocate").on("click", function(e){
-            e.preventDefault();
-            var _id = $(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-            _ajax({_ajaxType:"delete", _url:"/u/invites/"+_id, _callback:_displayUpdatedInvitation()});
-          });
-
-          //wire up resend advocate invitation capaibiltiies
-          $(".js-resend_invite_to_advocate").on("click", function(e){
-            e.preventDefault();
-            //if the information in the form has changed
-            if (($("#js-invite_first_name").val !== _invitationDetail.first_name) ||
-                ($("#js-invite_last_name").val !== _invitationDetail.last_name) ||
-                ($("#js-invite_email").val !== _invitationDetail.email)) {
-                  //release the current invite code
-                  var _id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-                  _ajax({_ajaxType:"delete", _url:"/u/invites/"+_id});
-                  //create a new invite with the new form information
-                  var _thisForm = $(e.target).closest("#existing_promoter_invitation_form");
-                  _formSubmit(e, $("#existing_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
-            } else {
-              //otherwise, resend the invite
-              var _id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
-              _ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
-            }
-          });
-
-
-
         });
 
-      break;
+      });
+    break;
 
-      case "impact_metrics":
-        var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
-        var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
-        $("#"+_options._mainSectionID).append(_html);
-        var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
-        _drilldownContainerObj.css("opacity","0");
-        _drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);
-        //_drilldownContainerObj.velocity({height:"+=490px", opacity:1}, _animation_speed);
-        var _templatePath;
-        var _impactMetricsDetail = {};
-        //todo: inject context/data under each template
-        kpiType = _options._kpiType
-        $(".arrow").hide()
-        $(".js-thumbnail").find(".arrow").css("bottom","-20px")
-        switch(kpiType){
-          case "environment":
-            _templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
-          break;
-          case "conversion":
-            _templatePath="/templates/drilldowns/impact_metrics/_kpi_conversion_details.handlebars.html";
-          break;
-          case "genealogy":
-            _templatePath="/templates/drilldowns/impact_metrics/_kpi_genealogy_details.handlebars.html";
-          break;
-          case "earnings":
-            _templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
-          break;
-          case "hot_quotes":
-            _templatePath="/templates/drilldowns/impact_metrics/_kpi_hot_quotes_details.handlebars.html";
-          break;
-        }
-        if(!_data.currentUser.avatar) _data.currentUser.avatar = { thumb: "http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578" }
-        _getTemplate(_templatePath, _data, _drilldownContainerObj, function(){
-          $(".section_content").css("border-bottom-width","0px");
-          $(".kpi_thumbnail[data-kpi-type=" + kpiType + "]").find(".arrow").show().animate({bottom:"+=20px"}, 500);
-          if((kpiType !== "environment") && (kpiType !== "hot_quotes")) initKPI()
+    case "new_invitations":
+      var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+      var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+      $("#"+_options._mainSectionID).append(_html);
+
+      var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+      _drilldownContainerObj.css("opacity","0");
+      _drilldownContainerObj.animate({height:"+=400px", opacity:1}, _animation_speed);
+
+      var _invitationDetail = {};
+      var _thisThumbnail = $(_options._target)
+      if(!_thisThumbnail.hasClass('new_thumbnail')) _thisThumbnail = $(_options._target).parents(_options._thumbnailIdentifier)
+      _invitationDetail = _data["invitations"][_thisThumbnail.index()];
+      _invitationDetail.invitationType="Existing";
+      if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _invitationDetail.invitationType="New";
+      _getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
+        _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
+        _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
+
+
+        $("#new_promoter_invitation_form .button").unbind();
+        $(".js-remove_advocate").unbind();
+        $(".js-resend_invite_to_advocate").unbind();
+
+        //change "Resend Invite" button text to "Update Invite" if the user changes the info on the form
+        $(".js-invite").on("input", function(e){
+          $(".js-resend_invite_to_advocate_text").text("Update Invite");
+        })
+
+        //wire up new invitation submission hook
+
+        $("#new_promoter_invitation_form .button").on("click", function(e){
+          e.preventDefault();
+          var _thisForm = $(e.target).closest("#new_promoter_invitation_form");
+          _formSubmit(e, $("#new_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
         });
 
-      break;
+        //wire up remove pending advocate capabilities
+        $(".js-remove_advocate").on("click", function(e){
+          e.preventDefault();
+          var _id = $(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+          _ajax({_ajaxType:"delete", _url:"/u/invites/"+_id, _callback:_displayUpdatedInvitation()});
+        });
 
-      default:
-        console.log("Drilldown type not found");
-      break;
-    }
+        //wire up resend advocate invitation capaibiltiies
+        $(".js-resend_invite_to_advocate").on("click", function(e){
+          e.preventDefault();
+          //if the information in the form has changed
+          if (($("#js-invite_first_name").val !== _invitationDetail.first_name) ||
+              ($("#js-invite_last_name").val !== _invitationDetail.last_name) ||
+              ($("#js-invite_email").val !== _invitationDetail.email)) {
+                //release the current invite code
+                var _id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+                _ajax({_ajaxType:"delete", _url:"/u/invites/"+_id});
+                //create a new invite with the new form information
+                var _thisForm = $(e.target).closest("#existing_promoter_invitation_form");
+                _formSubmit(e, $("#existing_promoter_invitation_form"), "/u/invites", "POST", _displayUpdatedInvitation)
+          } else {
+            //otherwise, resend the invite
+            var _id =$(e.target).closest(".drilldown_content_section").find(".invite_code").text();
+            _ajax({_ajaxType:"post", _url:"/u/invites/"+_id+"/resend", _callback:_displayUpdatedInvitation()});
+          }
+        });
 
+
+
+      });
+
+    break;
+
+    case "impact_metrics":
+      var _drillDownLevel=$("#"+_options._mainSectionID+" .drilldown").length+1;
+      var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
+      $("#"+_options._mainSectionID).append(_html);
+      var _drilldownContainerObj = $("#"+_options._mainSectionID+" [data-drilldown-level="+_drillDownLevel+"]");
+      _drilldownContainerObj.css("opacity","0");
+      _drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);
+      var _templatePath;
+      var _impactMetricsDetail = {};
+      kpiType = _options._kpiType
+      $(".arrow").hide()
+      $(".js-thumbnail").find(".arrow").css("bottom","-20px")
+
+      switch(kpiType){
+        case "environment":
+          _templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+        break;
+        case "conversion":
+          _templatePath="/templates/drilldowns/impact_metrics/_kpi_conversion_details.handlebars.html";
+        break;
+        case "genealogy":
+          _templatePath="/templates/drilldowns/impact_metrics/_kpi_genealogy_details.handlebars.html";
+        break;
+        case "earnings":
+          _templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
+        break;
+        case "hot_quotes":
+          _templatePath="/templates/drilldowns/impact_metrics/_kpi_hot_quotes_details.handlebars.html";
+        break;
+      }
+      if(!_data.currentUser.avatar) _data.currentUser.avatar = { thumb: "http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578" }
+      _getTemplate(_templatePath, _data, _drilldownContainerObj, function(){
+        $(".section_content").css("border-bottom-width","0px");
+        $(".kpi_thumbnail[data-kpi-type=" + kpiType + "]").find(".arrow").show().animate({bottom:"+=20px"}, 500);
+        if((kpiType !== "environment") && (kpiType !== "hot_quotes")) initKPI()
+      });
+
+    break;
+
+    default:
+      console.log("Drilldown type not found");
+    break;
+  }
+
+  //JQUERY Events for placement
   function _linkEvents(){
     var action = _data.currentUser.actions[0]
 
-    //Move User Warning
     $(document).off('click','.advocate_avatar').on('click','.advocate_avatar', function() {
       var parentUserName = $(this).closest('.team_thumbnail').find('.name-span').text()
       var parentID = $(this).closest('.team_thumbnail').attr('alt')
@@ -1128,7 +1103,6 @@ function Dashboard(){
       if(confirm("Click OK to place "+selectedUser.name+" on "+parentUserName+"'s team. You cannot undo this action.")) {
         _ajax({
           _ajaxType: action.method,
-          // _url: action.href+"?format=json&parent_id="+parentID+"&child_id="+selectedUser.id,
           _url: "/u/users/"+selectedUser.id+"/move?format=json&parent_id="+parentID,
         })
         displayTeam("team.everone")
@@ -1548,10 +1522,12 @@ function Dashboard(){
   function _alternateColor(_drillDownLevel){
     if(_drillDownLevel % 2 === 0){
        $('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#333") 
+       $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#333") 
        $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#444") 
     } else {
        $('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#444")
-       $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#333") 
+       $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#333")
+       $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#444")   
     }
   }
 

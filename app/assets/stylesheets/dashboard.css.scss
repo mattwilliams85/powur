@@ -408,6 +408,100 @@
 
   }
 
+  .js-tabs {
+    position:absolute;
+    bottom:-50px;
+    left:12px;
+  }
+
+  .js-team_tab {
+    background-color:#193640;
+  }
+
+  .js-impact_tab {
+    background-color:#326C7F;
+  }
+
+  .js-info_tab {
+    background-color:#4BA1BF;
+  }
+
+  .team_tab:hover {
+    background-color:#555;
+  }
+
+  .team_tab.active_tab {
+    background-color:#444;
+  }
+
+
+  .info_title {
+    font-size:0.9em;
+    margin-top:25px;
+    display:block;
+  }
+
+  .info_detail {
+    margin-top:20px;
+    display:block;
+    font-size:0.95em;
+  }
+
+  .js-thumbnail .avatar {
+    margin:40px;
+    padding:55px;
+    border:3px solid;
+  }
+
+  .js-thumbnail .fa-envelope {
+    margin-top:16px;
+    font-size:4em;
+  }
+
+  .team_thumbnail .fa-phone {
+    margin-top:21px;
+    font-size:4em;
+  }
+
+  .js-thumbnail .fa-user {
+    margin-top:20px;
+    font-size:4em;
+  }
+
+  .js-thumbnail .fa-generation {
+    font-size:7em;
+    margin-top:68px
+  }
+  
+  .info_title {
+    font-size:0.9em;
+    margin-top:25px;
+    display:block;
+  }
+
+  .info_detail {
+    margin-top:20px;
+    display:block;
+    font-size:0.95em;
+  }
+
+  .fa-generation {
+    font-size:7em;
+    margin-top:68px
+  }
+
+  .details {
+    margin-left:248px;
+  }
+
+  .pagination_container.kpi_container {
+    overflow:visible !important;
+  }
+
+  .drilldown_content_section.kpi_container {
+    width:1255px;
+  }
+
 }
 
 #dashboard_customers {
