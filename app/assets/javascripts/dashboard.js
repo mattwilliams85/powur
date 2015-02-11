@@ -1105,6 +1105,8 @@ function Dashboard(){
           _url: "/u/users/"+selectedUser.id+"/move?format=json&parent_id="+parentID,
         })
         displayTeam("team.everone")
+        $(document).off("mouseenter", ".team_thumbnail")
+                   .off("mouseleave", ".team_thumbnail")
         _collapseDrillDown(_options)
       }
     });
@@ -1459,7 +1461,6 @@ function Dashboard(){
       thisThumbnail.find('.nav').show();
       _closeLinkDrilldown(thisLink, thumbnailArray, i);
       _closeTeamDrilldown(thisLink)
-      
       //animation
       var a = setInterval(function(){
         $(thumbnailArray[i]).velocity({translateX: '0'},400).find('.js-thumbnail').animate({"opacity":"1"}, 300);
