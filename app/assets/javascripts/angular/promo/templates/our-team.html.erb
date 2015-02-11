@@ -16,16 +16,10 @@
     <div class="row faces-wrapper">
       <div class="large-4 medium-6 columns" ng-repeat="face in faces">
         <div class="face-wrapper">
-          <div class="face-mask" ng-if="!face.showDetails">
+          <div class="face-mask">
             <span class="name">{{face.name}}</span><br />
             <span class="title">{{face.title}}</span><br />
-            <a class="details" ng-click="face.showDetails = true">View Details</a>
-          </div>
-          <div class="face-mask" ng-if="face.showDetails">
-            <span class="more-details">
-              {{face.details}}<br />
-              <a ng-click="face.showDetails = false">hide</a>
-            </span><br />
+            <span class="more-details">{{face.details}}</span>
           </div>
           <img class="face" ng-src="{{face.image}}" />
         </div>

@@ -835,8 +835,6 @@ $large-screen: em-calc(1300);
       }
 
       .face-mask {
-        background: rgba(0, 0, 0, 0.5);
-        display: none;
         width: 100%;
         height: 500px;
         position: absolute;
@@ -847,18 +845,15 @@ $large-screen: em-calc(1300);
           color: #fff;
           display: inline-block;
           font-size: 2em;
-          margin-top: 45%;
+          margin-top: 90%;
         }
         .title {
           color: $sun-color-orange;
           font-size: 1.1em;
         }
-        .details {
-          color: #fff;
-        }
         .more-details {
           color: #fff;
-          display: inline-block;
+          display: none;
           margin: 20px;
           font-size: .7em;
           line-height: 2em;
@@ -867,7 +862,16 @@ $large-screen: em-calc(1300);
       }
       &:hover {
         .face-mask {
-          display: block;
+          background: rgba(0, 0, 0, 0.5);
+        }
+        .name {
+          display: none;
+        }
+        .title {
+          display: none;
+        }
+        .more-details {
+          display: inline-block;
         }
       }
     }
