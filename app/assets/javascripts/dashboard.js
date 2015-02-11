@@ -1442,6 +1442,7 @@ function Dashboard(){
     var i = 3
     selectedUser.id = thisThumbnail.attr("alt")
     selectedUser.name = thisThumbnail.find(".name-span").text();
+    $('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
     
     thisLink.toggleClass('active')
 
@@ -1462,14 +1463,6 @@ function Dashboard(){
       _closeLinkDrilldown(thisLink, thumbnailArray, i);
       _closeTeamDrilldown(thisLink)
       //animation
-      var a = setInterval(function(){
-        $(thumbnailArray[i]).velocity({translateX: '0'},400).find('.js-thumbnail').animate({"opacity":"1"}, 300);
-        i -= 1
-        if(i < 0) {
-          clearInterval(a)
-          thisLink.parent().css('border-left-width','0px')
-        }
-      },100)
     }
   });
 
