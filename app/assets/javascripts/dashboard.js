@@ -1496,7 +1496,9 @@ function Dashboard(){
       "_userID":_drillDownUserID});
   }
 
-  function _closeTeamDrilldown(selected){
+  function _closeTeamDrilldown(selected){   
+    var _drillDownLevel = selected.closest('.drilldown').attr('data-drilldown-level') || 0
+    $('.level_'+_drillDownLevel).find('.active_tab').removeClass("dark darker")
     selected.removeClass('active_tab')
     selected.closest('.js-team_thumbnail').siblings('div').find('.js-thumbnail').animate({opacity:'1'},300)
     var _thisLevel = parseInt(selected.closest('section').attr('data-drilldown-level'))
@@ -1515,12 +1517,12 @@ function Dashboard(){
   function _alternateColor(_drillDownLevel){
     if(_drillDownLevel % 2 === 0){
        $('#dashboard_team').find('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#333") 
-       // $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#333") 
-       // $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#444") 
+       $('.level_'+_drillDownLevel).find('.active_tab').addClass("darker")
+       $('.level_'+(_drillDownLevel - 1)).find('.active_tab').addClass("dark")
     } else {
        $('#dashboard_team').find('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#444")
-       // $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#333")
-       // $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#444")   
+       $('.level_'+(_drillDownLevel - 1)).find('.active_tab').addClass("darker")  
+       $('.level_'+_drillDownLevel).find('.active_tab').addClass("dark")
     }
   }
 
