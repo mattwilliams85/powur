@@ -1515,12 +1515,12 @@ function Dashboard(){
   function _alternateColor(_drillDownLevel){
     if(_drillDownLevel % 2 === 0){
        $('#dashboard_team').find('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#333") 
-       $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#333") 
-       $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#444") 
+       // $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#333") 
+       // $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#444") 
     } else {
        $('#dashboard_team').find('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#444")
-       $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#333")
-       $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#444")   
+       // $('.drilldown.level_'+_drillDownLevel).find('.active_tab').css('background-color',"#333")
+       // $('.drilldown.level_'+(_drillDownLevel - 1)).find('.active_tab').css('background-color',"#444")   
     }
   }
 
