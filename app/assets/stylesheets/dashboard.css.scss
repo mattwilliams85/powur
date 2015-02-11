@@ -381,6 +381,14 @@
 
   }
 
+  .drilldown_content_section.summary {
+    margin:32px 0 0 0;
+  }
+
+  .drilldown_content_section.details {
+    margin:0 0 0 250px;
+  }
+
 }
 
 #dashboard_team {
@@ -472,7 +480,7 @@
     font-size:7em;
     margin-top:68px
   }
-  
+
   .info_title {
     font-size:0.9em;
     margin-top:25px;
@@ -500,6 +508,75 @@
 
   .drilldown_content_section.kpi_container {
     width:1255px;
+  }
+
+  .link_icon {
+    display:block;
+    display:none;
+    height:35px;
+    width:35px;
+  }
+
+  .team_thumbnail {
+    cursor:default;
+  }
+
+  .js-tabs {
+    position:absolute;
+    bottom:-50px;
+    left:12px;
+  }
+
+  .team_tab {
+    z-index:99;
+    width:70px;
+    height:50px;
+    display:inline-block;
+    font-size:0.8em;
+    color:#eee;
+    padding-top:3px;
+    cursor:pointer;
+    transition: background-color 0.4s ease;
+    /*opacity:0.9;*/
+  }
+
+  #js-team_tab {
+    background-color:#214754;
+  }
+
+  #js-impact_tab {
+    background-color:#326C7F;
+  }
+
+  #js-info_tab {
+    background-color:#4BA1BF;
+  }
+
+  .team_tab:hover {
+    background-color:#333 !important;
+
+  }
+
+  .active_tab {
+    background-color:#444;
+  }
+
+  .js-link_user {
+    background-color: transparent;
+    position:absolute;
+    cursor:pointer;
+    top:15px;
+    right:15px;
+    color:#139FD4;
+  }
+
+  .js-link_user:hover {
+    font-size:1.1em;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
   }
 
 }
