@@ -2,7 +2,7 @@
   <tr>
     <td>
       <h3 class="kpi_label">CURRENT WEEK</h3>
-      {{#compare this.properties.active false operator="=="}}
+      {{#compare this.properties.has_week false operator="=="}}
         <h1 class="kpi_value"><span>$0</span></h1>
         {{else}}
         {{#each this.entities}}
@@ -14,18 +14,14 @@
     </td>
     <td>
       <h3 class="kpi_label">CURRENT MONTH</h3>
-      {{#compare this.properties.active false operator="=="}}
+      {{#compare this.properties.has_month false operator="=="}}
         <h1 class="kpi_value"><span>$0</span></h1>
         {{else}}
-        {{#compare this.entities.[0].properties.pay_period_type "Monthly" operator="=="}}
-          <h1 class="kpi_value"><span>${{formatCurrency this.entities.[0].properties.total_earnings}}</span></h1>
-        {{else}}
-          {{#each this.entities}}
-            {{#compare this.properties.pay_period_week_number ../this.properties.current_week operator="=="}}
-              <h1 class="kpi_value"><span>${{formatCurrency this.properties.total_earnings}}</span></h1>
-            {{/compare}}
-          {{/each}}
-        {{/compare}}
+        {{#each this.entities}}
+          {{#compare this.properties.pay_period_type "Monthly" operator="=="}}
+            <h1 class="kpi_value"><span>${{formatCurrency this.properties.total_earnings}}</span></h1>
+          {{/compare}}
+        {{/each}}
       {{/compare}}
     </td>
     <td>
