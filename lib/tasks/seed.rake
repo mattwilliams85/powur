@@ -48,9 +48,9 @@ namespace :sunstand do
       Rake::Task['sunstand:seed:sunrun_product'].execute
       Product.create!(
         id:               CERT_ITEM_ID,
-        name:             'SunStand Consultant Certification',
+        name:             'Powur Consultant Certification',
         description:      'Powur Certification gives you all the tools you need to build a high performing team and share in the rewards of their success. If you are going to mentor others, you need training. This is your first step. Now you have the power.',
-        bonus_volume:     300,
+        bonus_volume:     14900,
         distributor_only: true,
         certifiable: true,
         image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certification.jpg',
@@ -165,7 +165,7 @@ namespace :sunstand do
     task bonus_plan: [ :qualifications ] do
       BonusPlan.destroy_all
 
-      BonusPlan.create!(id: 1, name: 'SunStand Compensation Plan',
+      BonusPlan.create!(id: 1, name: 'Powur Compensation Plan',
                         start_year: 2014, start_month: 5)
 
       # Direct Sales Bonus
