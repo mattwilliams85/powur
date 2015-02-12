@@ -38,7 +38,7 @@ Rails.application.configure do
     if source.ends_with?('.html') || source.ends_with?('.woff') || source.ends_with?('.ttf')
       ''
     else
-      ENV['ASSETS_HOST'] || 'http://sunstand.eyecuelab.com'
+      ENV['ASSETS_HOST'] || 'http://powur.eyecuelab.com'
     end
   }
 
