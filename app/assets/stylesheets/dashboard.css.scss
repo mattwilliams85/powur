@@ -416,32 +416,58 @@
 
   }
 
+  .dark {
+    background-color:#333 !important;
+  }
+
+  .darker {
+    background-color:#444 !important;
+  }
+
   .js-tabs {
     position:absolute;
     bottom:-50px;
     left:12px;
   }
 
-  .js-team_tab {
-    background-color:#193640;
+  .team_tab {
+    width:70px;
+    height:50px;
+    display:inline-block;
+    font-size:0.8em;
+    color:#eee;
+    padding-top:3px;
+    cursor:pointer;
+    transition: background-color 0.4s ease;
   }
 
-  .js-impact_tab {
+  #js-team_tab {
+    background-color:#1F434F;
+  }
+
+  #js-team_tab:hover {
+    background-color:#062730 !important;
+  }
+
+  #js-impact_tab {
     background-color:#326C7F;
   }
 
-  .js-info_tab {
+  #js-impact_tab:hover {
+    background-color:#275563 !important;
+  }
+
+  #js-info_tab {
     background-color:#4BA1BF;
   }
 
-  .team_tab:hover {
-    background-color:#444;
+  #js-info_tab:hover {
+    background-color:#408AA3 !important;
   }
 
   .team_tab.active_tab {
     background-color:#444;
   }
-
 
   .info_title {
     font-size:0.9em;
@@ -476,23 +502,6 @@
     font-size:4em;
   }
 
-  .js-thumbnail .fa-generation {
-    font-size:7em;
-    margin-top:68px
-  }
-
-  .info_title {
-    font-size:0.9em;
-    margin-top:25px;
-    display:block;
-  }
-
-  .info_detail {
-    margin-top:20px;
-    display:block;
-    font-size:0.95em;
-  }
-
   .fa-generation {
     font-size:7em;
     margin-top:68px
@@ -521,43 +530,8 @@
     cursor:default;
   }
 
-  .js-tabs {
-    position:absolute;
-    bottom:-50px;
-    left:12px;
-  }
-
-  .team_tab {
-    z-index:99;
-    width:70px;
-    height:50px;
-    display:inline-block;
-    font-size:0.8em;
-    color:#eee;
-    padding-top:3px;
-    cursor:pointer;
-    transition: background-color 0.4s ease;
-    /*opacity:0.9;*/
-  }
-
-  #js-team_tab {
-    background-color:#214754;
-  }
-
-  #js-impact_tab {
-    background-color:#326C7F;
-  }
-
-  #js-info_tab {
-    background-color:#4BA1BF;
-  }
-
-  .active_tab {
-    background-color:#444;
-  }
-
   .js-link_user {
-    background-color: transparent;
+    background-color: transparent !important;
     position:absolute;
     cursor:pointer;
     top:15px;
@@ -1862,7 +1836,7 @@
   height: 100%;
   overflow: hidden;
   // Background & borders
-  border-right: $light_border;
+  // border-right: $light_border;
   // Typography
 
   // Other

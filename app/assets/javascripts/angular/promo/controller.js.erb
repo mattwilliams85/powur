@@ -200,68 +200,48 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
   } else if ($scope.mode === 'our-dna') {
     $scope.setupInvertHeader();
   } else if ($scope.mode === 'our-team') {
+    $scope.setupInvertHeader();
     $scope.faces = [
       {
         name: 'Jonathan Budd',
         title: 'Founder/CEO',
         image: "<%=asset_path('promo/people/jb.jpg') %>",
-        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        details: 'Jonathan heads up day-to-day operations and strategy that allow Powur’s entrepreneurs to succeed at their finest.  From forming key strategic partnerships, attracting the best talent, and innovating how solar is sold... Jonathan has his hands in everything Powur.  Prior to Powur, he built one of the largest online training and education companies in direct selling with more than 100,000 customers.  In 2010, he shifted his entrepreneurial pursuits toward projects focused on game-changing global impact.  He founded MyStand in 2011, which developed a first-of-its-kind gaming app to engage users in positive global change.  He is also Founder and Executive Director of The Global Transformation Council, Inc., a 501c3 organization that’s donated close to $1,000,000 to local and global initiatives for change.',
         showDetails: false
       },
       {
-        name: 'Jonathan Budd',
-        title: 'Founder/CEO',
+        name: 'Robert Styler',
+        title: 'Chief Sales Officer',
         image: "<%=asset_path('promo/people/2.jpg') %>",
-        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Powur’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
         showDetails: false
       },
       {
-        name: 'Jonathan Budd',
-        title: 'Founder/CEO',
+        name: 'Patrick Combs',
+        title: 'Chief Inspiration Officer',
         image: "<%=asset_path('promo/people/3.jpg') %>",
-        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        details: 'Patrick Combs is a brilliant thought leader, entrepreneur, and artist and is responsible for helping everyone at Powur live their fullest potential, and succeed at the highest level.  He is internationally known as a best-selling author, Hall of Fame Inspirational speaker, humorous performer and television personality. He was interviewed by Barbara Walters at age 35 on his success expertise and has hosted a global teleconference show, "Beyond Discovery," for which he probed the minds and success strategies of one hundred millionaires, gold medalists, bestselling authors, humanitarians, doctors, psychologists, healers, musicians, athletes and adventurers. For the past 10 years, he has toured theaters around the world with his one-man comedy show, “Man 1, Bank 0”, which has been presented by HBO and is considered one of the most successful one-man shows in the world today.',
         showDetails: false
       },
       {
-        name: 'Jonathan Budd',
-        title: 'Founder/CEO',
-        image: "<%=asset_path('promo/people/4.jpg') %>",
-        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
-        showDetails: false
-      },
-      {
-        name: 'Jonathan Budd',
-        title: 'Founder/CEO',
-        image: "<%=asset_path('promo/people/5.jpg') %>",
-        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
-        showDetails: false
-      },
-      {
-        name: 'Jonathan Budd',
-        title: 'Founder/CEO',
-        image: "<%=asset_path('promo/people/6.jpg') %>",
-        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
-        showDetails: false
-      },
-      {
-        name: 'Jonathan Budd',
-        title: 'Founder/CEO',
+        name: 'Craig Jorgensen',
+        title: 'Chief Designer',
         image: "<%=asset_path('promo/people/7.jpg') %>",
-        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        details: 'Craig has led UI/UX on multiple direct selling company launches, including one of the fastest growing direct sales start-ups in history, reaching 1,000,000+ users in 78 days during its 2013 pre-launch. He has a foundation in traditional print and advertising coupled with digital applications know-how, which makes him an unstoppable force in Powur.',
         showDetails: false
       },
       {
         name: 'Rick Hou',
-        title: 'Founder/CEO',
+        title: 'Chief Technology Officer',
         image: "<%=asset_path('promo/people/rh.jpg') %>",
-        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        details: 'Rick oversees all development of Powur’s proprietary software platform, and leads the execution of the Company’s technology vision and strategy.  He is the founder of EyeCue Lab, a professional services incubator focused on providing technical and business expertise to startups, and has been the key architect in a wide array of technology projects including enterprise level applications, social networks, games, and SaaS e-commerce platforms. Rick thrives on rapid prototyping and bringing a concept to MVP and has put his love for all aspects of product development to good use for such companies as ESPN, Toyota, Disney Roambi, and Shazam.',
         showDetails: false
       },
       {
-        name: 'Jonathan Budd',
-        title: 'Founder/CEO',
+        name: 'Andrea Budd',
+        title: 'Chief Operating Officer',
         image: "<%=asset_path('promo/people/9.jpg') %>",
-        details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Sunstand’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+        details: 'With nearly three decades of leadership experience at industrial, non-profit, financial services and training firms in both traditional and new economy businesses, Andrea’s focus is on developing and executing operational best practices across Powur’s financial, human resources, customer service, legal, and regulatory compliance activities.  She left the corporate world in 2009 to join Empowered Entrepreneurs, an educational and training company founded by Jonathan Budd, and shepherded its operational and financial stability during its period of rapid-fire growth. Previously, she was President of the philanthropic foundation for a 125-year old financial services firm.  Prior to that, she played a key communications role in the company’s demutualization and $854 million Initial Public Offering.',
         showDetails: false
       }
     ];
