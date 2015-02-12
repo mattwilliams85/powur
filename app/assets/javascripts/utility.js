@@ -160,6 +160,14 @@ Handlebars.registerHelper('formatMonth', function(monthNumber) {
     return monthNames[monthNumber]
 });
 
+// Handlebars.registerHelper('numberToMonth', function(monthNumber) {
+//     console.log(monthNumber)
+//     monthNumber = parseInt(monthNumber.slice(-2)) - 1;
+//     var monthNames = [ "January", "February", "March", "April", "May", "June",
+//     "July", "August", "September", "October", "November", "December" ];
+//     return monthNames[monthNumber]
+// });
+
 //Handlebar helper function compare new variable to previously stored variable
 //Can also be used to detect change in group type
 var storedJson = ""

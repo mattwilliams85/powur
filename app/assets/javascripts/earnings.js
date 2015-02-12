@@ -16,19 +16,19 @@ _ajax({
       _ajaxType: "get",
       _url: "/u/earnings/summary?format=json&user_id=" + current_user + "&start_year=" + startYear + "&start_month=" + startMonth + "&end_year=" + endYear + "&end_month=" + endMonth,
       _callback: function(data, text) {
-        data.properties.active = false;
+        data.properties.has_week = false;
+        data.properties.has_month = false;
         $.each(data.entities, function(i, entity) {
-          if(entity.properties.pay_period_week_number == data.properties.current_week){ data.properties.active == true }
+          if(entity.properties.pay_period_week_number === data.properties.current_week && entity.properties.total_earnings !== null){ 
+            data.properties.has_week = true 
+          }
+          if(entity.properties.pay_period_type === "Monthly"){ data.properties.has_month = true }
         })
         EyeCueLab.UX.getTemplate("/templates/auth/earnings/_header.handlebars.html", data, $(".section_header_content"), function(html) {});
       }
     });
 
     $(document).ready(function() {
-
-      $(document).on("click", function(e) {
-
-      })
 
       //Returns the number of months between two dates
       function checkRange() {
@@ -44,22 +44,24 @@ _ajax({
         var _endPoints = [];
         var range = checkRange()
         for (i = 0; i < range; i++) {
-          if (currentMonth == 12) {
+          if (currentMonth === 12) {
             currentMonth = 0
             currentYear += 1
           }
           currentMonth += 1
+
           _endPoints.push({
-            url: "/u/earnings/summary?format=json&user_id=" + current_user + "&start_year=" + startYear + "&start_month=" + currentMonth + "&end_year=" + startYear + "&end_month=" + currentMonth,
+            url: "/u/earnings/summary?format=json&user_id=" + current_user + "&start_year=" + currentYear + "&start_month=" + currentMonth + "&end_year=" + currentYear + "&end_month=" + currentMonth,
             data: {},
             name: "Summary"
           });
         }
         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs) {
           _summaryData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {
-            "containsIn(class)": ["list", "earnings"]
-          })
+            "containsIn(class)": ["earnings", "list"]
 
+          })
+         
           populateMissing(_summaryData)
 
           EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", _summaryData, $(".section_body"), function(html) {
