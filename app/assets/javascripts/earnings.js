@@ -105,10 +105,10 @@ _ajax({
       }
 
       function clickEvents() {
-        $(".dropToggle.weekly").click(function(e) {
+        $(".dropToggle.weekly").on("click",function(e) {
+          if($(".dropDownDetails").hasClass('velocity-animating')) return;
           var selected = $(this)
           if (!selected.hasClass("active")) {
-            e.stopPropagation()
             selected.addClass("active")
             var row = selected.parent().parent()
             createRow(row)
@@ -118,7 +118,7 @@ _ajax({
             }, function() {
               _ajax({
                 _ajaxType: "get",
-                _url: "/u/earnings/detail?format=json&user_id=" + current_user + "&pay_period_id=" + e.target.id,
+                _url: "/u/earnings/detail?format=json&user_id=" + current_user + "&pay_period_id=" + selected.attr("id"),
                 _callback: function(data, text) {
                   if (data.entities.length == 0) {
                     data.properties.active = false;
@@ -136,6 +136,7 @@ _ajax({
         });
 
         $(".dropToggle.monthly").click(function(e) {
+          if($(".dropDownDetails").hasClass('velocity-animating')) return;
           var selected = $(this)
           if (!$(this).hasClass("active")) {
             e.stopPropagation()
@@ -170,8 +171,7 @@ _ajax({
         //For dropdowns within dropdowns
         function secondaryEvents(pay_period_id, row) {
           $(".dropToggle.summary").click(function(e) {
-            e.preventDefault()
-            e.stopPropagation()
+            if($(".dropDownDetails").hasClass('velocity-animating')) return;
             var selected = $(this)
             var bonus_id = selected.children().attr("id")
             if (!selected.hasClass("active")) {
