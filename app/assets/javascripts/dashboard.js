@@ -31,7 +31,6 @@ function initPage(){
     _dashboard.displayTeam();
     _dashboard.displayQuotes();
     _dashboard.displayKPIs();
-    // if(_data.currentUser.avatar) $('#js-user_profile_image').attr('src', _data.currentUser.avatar.thumb);
     setInterval(_dashboard._countdown, 1000);
   });
 
@@ -242,7 +241,6 @@ function Dashboard(){
         search:_data.team_search
       },
       _callback:function(data, text){
-        console.log(data)
         if(data.entities.length<=0) return;
         var _containerObj = $("#dashboard_team .section_content.team_info .pagination_content");
         _data.team=data;
@@ -452,10 +450,8 @@ function Dashboard(){
           //prepare leader info
           var _userDetail={};
           _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
-          // _userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
           var gender = ["men","women"]
           _userDetail["profile_image"] = "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
-          // 
           _userDetail["email"] = data.properties.email;
           _userDetail["phone"] = data.properties.phone;
           _userDetail["generation"] = 1
@@ -579,10 +575,6 @@ function Dashboard(){
       .done(function(data){
         //prepare leader info
         var _userDetail={};
-        _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
-        _userDetail["profile_image"] = "/temp_dev_images/Tim.jpg";
-        _userDetail["email"] = data.properties.email;
-        _userDetail["phone"] = data.properties.phone;
         _userDetail["generation"] = _drillDownLevel;
         _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
 
@@ -599,7 +591,6 @@ function Dashboard(){
           _drilldownContainerObj,
           function(){
             _alternateColor(_drillDownLevel)
-            
             //populate downlink thumbnails
             var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content'); 
             _ajax({
@@ -617,7 +608,6 @@ function Dashboard(){
                       _downlinkContainerObj
                       member.properties.downline_count = data.entities.length;
                       EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
-                        //Makes previous tab match color of new drilldown
                         _downlinkContainerObj.append(html);
                       });
                     }
@@ -1126,8 +1116,9 @@ function Dashboard(){
       }
     })
     $(document).on("mouseleave", ".team_thumbnail", function(){
+      var avatar =  $(this).find('.advocate_avatar')
       if($(this).attr("alt") !== selectedUser.id){
-        $(this).find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
+        avatar.attr("src",avatar.attr("data"))
       }
     }) 
   }
@@ -1266,7 +1257,9 @@ function Dashboard(){
           _tempObj={};
           _tempObj["bindingObj"]=val.id+"_thumbnail";
           _tempObj["id"]=val.id;
-          _tempObj["profile_image"]= (typeof val.profile_image === "undefined")? "/temp_dev_images/Tim.jpg" : val.profile_image;
+          // _tempObj["profile_image"]= (typeof val.profile_image === "undefined")? "/temp_dev_images/Tim.jpg" : val.profile_image;
+          var gender = ["men","women"]
+          _userDetail["profile_image"] = "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random()*2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
           _tempObj["first_name"]= val.first_name;
           _tempObj["name"]= val.first_name+" "+val.last_name;
           _tempObj["phone"]= val.phone;
@@ -1397,8 +1390,11 @@ function Dashboard(){
   $(document).on("click", ".team_tab", function(e){
     var thisThumbnail = $(this).closest(".team_thumbnail")
     if($(this).hasClass('active_tab')){
+      $(this).removeClass("dark darker")
       _closeTeamDrilldown($(this))
     } else {
+      var _drillDownLevel = thisThumbnail.closest('.drilldown').attr('data-drilldown-level') || 0
+      $('.level_'+_drillDownLevel).find('.active_tab').removeClass("dark darker")
       thisThumbnail.siblings().find('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
       $(this).addClass('active_tab')
       switch($(this).attr('id')){
@@ -1442,9 +1438,10 @@ function Dashboard(){
     var i = 3
     selectedUser.id = thisThumbnail.attr("alt")
     selectedUser.name = thisThumbnail.find(".name-span").text();
-    $('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
-    
+    thumbnailArray.find('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
     thisLink.toggleClass('active')
+
+    $('.team_tab').removeClass("dark darker")
 
     if(thisLink.hasClass('active')) {
       _teamDrilldown('team.immediate' , thisLink)
@@ -1498,7 +1495,7 @@ function Dashboard(){
 
   function _closeTeamDrilldown(selected){   
     var _drillDownLevel = selected.closest('.drilldown').attr('data-drilldown-level') || 0
-    $('.level_'+_drillDownLevel).find('.active_tab').removeClass("dark darker")
+    $("#dashboard_team").find('.level_'+_drillDownLevel).find('.active_tab').removeClass("dark darker")
     selected.removeClass('active_tab')
     selected.closest('.js-team_thumbnail').siblings('div').find('.js-thumbnail').animate({opacity:'1'},300)
     var _thisLevel = parseInt(selected.closest('section').attr('data-drilldown-level'))
@@ -1506,7 +1503,7 @@ function Dashboard(){
     if(_thisLevel == 0) selected.closest('.team_info').css('border','1px solid #E5E5E5')
     
     for(var i=_thisLevel;i < _lastLevel;i++){
-      $('.drilldown.level_'+(i+1)).hide()
+      $("#dashboard_team").find('.drilldown.level_'+(i+1)).hide()
     }
   }
 
