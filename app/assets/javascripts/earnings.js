@@ -19,8 +19,8 @@ _ajax({
         data.properties.has_week = false;
         data.properties.has_month = false;
         $.each(data.entities, function(i, entity) {
-          if(entity.properties.pay_period_week_number === data.properties.current_week && entity.properties.total_earnings !== null){ 
-            data.properties.has_week = true 
+          if(entity.properties.pay_period_week_number === data.properties.current_week && entity.properties.total_earnings !== null){
+            data.properties.has_week = true
           }
           if(entity.properties.pay_period_type === "Monthly"){ data.properties.has_month = true }
         })
@@ -59,9 +59,8 @@ _ajax({
         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs) {
           _summaryData = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {
             "containsIn(class)": ["earnings", "list"]
-
           })
-         
+
           populateMissing(_summaryData)
 
           EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", _summaryData, $(".section_body"), function(html) {
