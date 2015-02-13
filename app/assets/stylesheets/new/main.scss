@@ -132,9 +132,9 @@ html, body {
     }
 
     .sun-button-transparent {
-      border: 2px solid #000;
+      border: 2px solid $header-font-color;
       background: none;
-      color: #000;
+      color: $header-font-color;
     }
 
   }

@@ -449,7 +449,8 @@ $large-screen: em-calc(1300);
       height: 100%;
       z-index: 1;
       display:none;
-      @media #{$large} {
+
+      @media #{$medium} {
         display:block;
       }
 
