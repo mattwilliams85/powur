@@ -205,8 +205,6 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
       'Powur Customer FAQ' :
       'Powur Advocate FAQ';
   } else if ($scope.mode === 'sign-up') {
-    $scope.setupInvertHeader();
-
     $scope.invite = {};
     $scope.user = {};
     $scope.countries = Geo.countries();

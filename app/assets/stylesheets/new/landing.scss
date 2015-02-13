@@ -124,19 +124,21 @@
      background-image: image-url("landing/bg-4.jpg");
      background-repeat: no-repeat;
      background-size: cover;
-     height: 325px;
+     height: 345px;
      padding-top: 150px;
+     text-align: center;
 
      h1 {
        color: #fff;
        display: inline;
        text-transform: uppercase;
-       font-size: 2.5em;
+       font-size: 4.4em;
        font-weight: bold;
      }
 
      p {
        color: #fff;
+       font-size: 1.3em;
      }
    }
 
@@ -212,7 +214,7 @@
   }
 
   h6 {
-    font-size: 1em;
+    font-size: 1.2em;
     width: initial;
     margin: .8em 0 1em 0;
   }
@@ -276,9 +278,19 @@
       width: sun-sprites-sprite-width(lock-icon);
     }
 
+    h6 {
+      padding-left: 10px;
+    }
+
     span {
       width: 80%;
       display: inline-block;
+      padding-left: 10px;
+
+      &.small {
+        color: $header-font-color;
+        line-height: 1.8em;
+      }
     }
   }
 
@@ -289,6 +301,8 @@
 
   label {
     display: inline-block;
+    color: #afb4b9;
+    font-size: .8em;
   }
 
   input[type="checkbox"] {
