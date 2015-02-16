@@ -769,6 +769,17 @@ $large-screen: em-calc(1300);
         }
       }
     }
+
+    .slide-show-dots {
+      margin-top: 0;
+      bottom: 6em;
+    }
+
+    .sun-slider {
+      h2 {
+        display: inline;
+      }
+    }
   }
 
   &.sun-our-origin-page {
@@ -1052,6 +1063,7 @@ $large-screen: em-calc(1300);
 
     h2 {
       color: #fff;
+      font-size: 2.1em;
     }
   }
 
