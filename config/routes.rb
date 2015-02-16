@@ -213,6 +213,9 @@ Rails.application.routes.draw do
     end
 
     resources :overrides, only: [ :index, :update, :destroy ]
+
+    resources :notifications,
+              only: [ :index, :create, :destroy, :show, :update ]
   end
 
   scope :gateway, module: :gateway do
