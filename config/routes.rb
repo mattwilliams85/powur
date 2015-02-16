@@ -114,6 +114,10 @@ Rails.application.routes.draw do
         post :enroll, :purchase
       end
     end
+
+    resources :notifications,
+                only:       [ :index, :show ],
+                as:         :user_notifications
   end
 
   # logged in admin routes
@@ -215,7 +219,8 @@ Rails.application.routes.draw do
     resources :overrides, only: [ :index, :update, :destroy ]
 
     resources :notifications,
-              only: [ :index, :create, :destroy, :show, :update ]
+                only: [ :index, :create, :destroy, :show, :update ],
+                as:   :admin_notifications
   end
 
   scope :gateway, module: :gateway do
