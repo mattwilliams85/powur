@@ -13,7 +13,6 @@ var sunstandApp = angular.module('sunstandApp', [
   function ($rootScope, $location, $document, $http, $window, CurrentUser) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
-
     /*
      * Fill in User object with data if user is signed in but object is empty
     */
@@ -51,6 +50,7 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     $rootScope.pagePiler = function(){
+      $(document).foundation('tooltips', 'hide', $('li'));
       $('#pagepiling').pagepiling({
         menu: null,
         direction: 'vertical',
@@ -67,7 +67,6 @@ var sunstandApp = angular.module('sunstandApp', [
           'bulletsColor': '#333',
           'position': 'right',
           'tooltips': ''
-          // 'tooltips': ['Page 1', 'Page 2', 'Page 3', 'Page 4','Page 5','Page 6','Page 7']
         },
         normalScrollElements: null,
         normalScrollElementTouchThreshold: 5,
@@ -78,22 +77,21 @@ var sunstandApp = angular.module('sunstandApp', [
         //events
         onLeave: function(index, nextIndex, direction) {
           changeNavColor()
-          if($location.path() === '/home') {
-            setTimeout(function(){
-              if(nextIndex === 2) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
-              if(nextIndex === 3) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
-              if(nextIndex === 4) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
-              if(nextIndex === 5) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
-                console.log(nextIndex)
-              $rootScope.$apply();
-              $('.gif'+index).removeClass('hidden')
-            },1000)
-          }
+          setTimeout(function(){
+            if(nextIndex === 1) { $('.sun-header-guest').velocity("transition.slideUpBigOut", function(){
+              $('.sun-header-guest').toggleClass("invert").show().velocity({ opacity: 1 }, 200);
+            }) }
+            if(nextIndex > 1 && !$('.sun-header-guest').hasClass("invert")) { $('.sun-header-guest').toggleClass("invert").velocity("transition.slideDownBigIn");}
+            if(nextIndex === 2) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
+            if(nextIndex === 3) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
+            if(nextIndex === 4) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
+            if(nextIndex === 5) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
+            $rootScope.$apply();
+            $('.gif'+index).removeClass('hidden')
+          },650)
         },
         afterLoad: function(anchorLink, index) {
           animateActiveNav()
-          $('header').addClass('invert');
-          // $('footer').show();
           $('#pp-nav').fadeIn('slow');
           $('#dim_the_lights').css('opacity','1');
         },
@@ -137,33 +135,33 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     // TODO: move header functionality into its own directive
-    $rootScope.invertHeaderColor = function() {
-      var docEl = document.documentElement,
-      header,
-      height = $(window).height() - 20;
-      window.onscroll = function headerScrollInvert() {
-        var sTop = (this.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
-        header = document.getElementById('sun_header_guest');
+    // $rootScope.invertHeaderColor = function() {
+    //   var docEl = document.documentElement,
+    //   header,
+    //   height = $(window).height() - 20;
+    //   window.onscroll = function headerScrollInvert() {
+    //     var sTop = (this.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
+    //     header = document.getElementById('sun_header_guest');
 
-        if (!header) return;
+    //     if (!header) return;
 
-        if (sTop > height) {
-          if (header.className !== 'sun-header-guest invert') {
-            header.setAttribute('class', 'sun-header-guest hidden');
-            setTimeout(function invertHeader() {
-              header.setAttribute('class', 'sun-header-guest invert');
-            }, 200);
-          }
-        } else {
-          if (header.className !== '') {
-            header.setAttribute('class', 'sun-header-guest hidden');
-            setTimeout(function invertHeader() {
-              header.setAttribute('class', 'sun-header-guest');
-            }, 200);
-          }
-        }
-      };
-    };
+    //     if (sTop > height) {
+    //       if (header.className !== 'sun-header-guest invert') {
+    //         header.setAttribute('class', 'sun-header-guest hidden');
+    //         setTimeout(function invertHeader() {
+    //           header.setAttribute('class', 'sun-header-guest invert');
+    //         }, 200);
+    //       }
+    //     } else {
+    //       if (header.className !== '') {
+    //         header.setAttribute('class', 'sun-header-guest hidden');
+    //         setTimeout(function invertHeader() {
+    //           header.setAttribute('class', 'sun-header-guest');
+    //         }, 200);
+    //       }
+    //     }
+    //   };
+    // };
 
     $rootScope.setupInvertHeader = function() {
       angular.element($window).bind("scroll", function() {
@@ -176,6 +174,22 @@ var sunstandApp = angular.module('sunstandApp', [
         }
       });
     };
+
+    $rootScope.enableScrollDetect = function() {
+      $(window).scroll(function () {
+        var screenHeight = $(window).height() - ($(window).height() / 1.5)
+        var scrollPos = $(window).scrollTop()
+        if($('.sun-header-guest').hasClass("velocity-animating")) return;
+        if(scrollPos < screenHeight && $('.sun-header-guest').hasClass("invert")) {
+          $('.sun-header-guest').velocity("transition.slideUpBigOut", function(){
+            $('.sun-header-guest').toggleClass("invert").show().velocity({ opacity: 1 }, 200);
+          }) 
+        } 
+        if(scrollPos > screenHeight && !$('.sun-header-guest').hasClass("invert")) {
+          $('.sun-header-guest').toggleClass("invert").velocity("transition.slideDownBigIn");
+        }
+      });
+    }
 
     $rootScope.isMenuLinkActive = function(path) {
       if(path === $location.path()) return true;
@@ -209,9 +223,13 @@ var sunstandApp = angular.module('sunstandApp', [
             $('body').scrollTop(0);
           }
           if(id === 'on_slider_move') {
-            $('body').css('overflow','visible')
             $('.sun-bg-1').css('opacity','1').show();
             $(window).scrollTop($(".sun-promo-slide-3").offset().top)
+            if($('body').css("overflow") !== "visible") {
+              $('body').css('overflow','visible')
+              $('.sun-header-guest').toggleClass("invert").velocity("transition.slideDownBigIn")
+              $rootScope.enableScrollDetect();;
+            }
           }
           $('body').css('background','transparent')
         },700)

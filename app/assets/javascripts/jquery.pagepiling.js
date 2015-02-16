@@ -831,20 +831,9 @@
             scrollPage($('.pp-section').eq(index));
         });
 
-        // $(document).on('click', '.dim', function(e){
-        //     e.preventDefault();
-        //     $('#dim_the_lights').animate(
-        //     {opacity: "0"}, 700 
-        //     ,function(){
-
-        //     scrollPage($('.pp-section').eq(1));
-        //     });
-        // });
-
         $('.arrow-box').click(function(e){
             e.preventDefault();
-            var next = $('.pp-section.active').next('.section');
-            scrollPage(next)
+            $.fn.pagepiling.moveSectionDown();
             e.stopPropagation();         
         });
 

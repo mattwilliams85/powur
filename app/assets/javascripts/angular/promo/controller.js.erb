@@ -138,7 +138,7 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
 
 PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anchorScroll) {
   $scope.$watch('slider', function(newValue) {
-    if (newValue === '1') {
+    if (newValue === '50') {
       $('.image-2').animate({opacity:'1'},200);
       $('.image-1').animate({opacity:'0.3'},200);
       $timeout(function() {
@@ -146,10 +146,12 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anc
           $.fn.pagepiling.moveSectionDown();
         }
         $scope.gotoAnchor('on_slider_move');
-      }, 200);
-    } else {
-      $('.image-2').animate({opacity:'0.3'},200);
-      $('.image-1').animate({opacity:'1'},200);
+      }, 400);
+      $timeout(function() { 
+        $('.image-2').css("opacity",'0.3');
+        $('.image-1').css("opacity",'1');
+       $('.pointer').css('left',0);
+      },2000)
     }
   });
 
@@ -173,7 +175,7 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
         $(window).scrollTop(0);
     });
     $('body').addClass('no-scroll')
-    $scope.setupInvertHeader();
+    // $scope.setupInvertHeader();
     // Clock
     $scope.minTime = new Date(2000, 1, 1, 0, 0, 0, 0).valueOf();
     // Max time is 3 minutes
