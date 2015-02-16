@@ -43,16 +43,12 @@ jQuery(function($){
     });
 
     $(document).on("click", ".admin_top_level_nav", function(e){
-        switch($(e.target).attr("href").replace("#admin-","")){
-            case "users":
-                window.location="/a/users";
-            break;
-
-            case "plans":
-                window.location="/a/products";
-            break;
-        }
+        $(".admin_top_level_nav").removeClass("active");
+        if($(e.target).attr("href").replace("#admin-","")=="plans") window.location="/a/products";
+        if($(e.target).attr("href").replace("#admin-","")=="users") window.location="/a/users";
+        if($(e.target).attr("href").replace("#admin-","")=="notifications") window.location="/a/notifications";
     });
+
     $(document).on("click", ".section_nav a", function(e){_dashboard.displayQuotes($(e.target).attr("href"));});
 
     function AdminDashboard(){
