@@ -17,40 +17,25 @@
       </div>
     </div>
 
+
+
     <div class="sun-scrolling-bg sun-bg-3 section">
       <div class="row sun-promo-content">
         <div class="large-12 columns">
           <h2 class="narrow">The facts are clear.<br /><span class="highlighted">Solar is exploding</span><br />Across America.</h2>
         </div>
 
-        <div class="large-4 columns">
-          <div class="slide-2-ico-wrapper"><div class="ico-1"></div></div>
-          <p>The Department of Energy estimates that 2/3 of every home in America will get its power cheaper from solar than any other energy source by 2015.</p>
-        </div>
+        <div class="large-12 columns slide-show-wrapper">
+          <div ng-repeat="slide in slides" class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
+            <div class="small-4 columns slide-2-slider-item" ng-repeat="slideItem in slide">
+              <div class="slide-2-ico-wrapper"><div ng-class="slideItem.className"></div></div>
+              <p>{{slideItem.text}}</p>
+            </div>
+          </div>
 
-        <div class="large-4 columns">
-          <div class="slide-2-ico-wrapper"><div class="ico-2"></div></div>
-          <p>And many billions of dollars of institutional capital from the smartest money on the planet (Sequoia Capital, Goldman Sachs, Google, Bank of America, and so many more) is being invested in solar.</p>
-        </div>
-
-        <div class="large-4 columns">
-          <div class="slide-2-ico-wrapper"><div class="ico-3"></div></div>
-          <p>Over 23,000 new jobs were added to the solar industry in 2013, 10x the national job average, bringing the total workers in solar to more than 145,000.  That’s as much as the entire 150-year-old coal industry. (and the market is less than 1% installed!)</p>
-        </div>
-
-        <div class="large-4 columns">
-          <div class="slide-2-ico-wrapper"><div class="ico-4"></div></div>
-          <p>Barclays has downgraded the utility energy sector referencing “Significant risk due to residential solar’s disruptive potential”</p>
-        </div>
-
-        <div class="large-4 columns">
-          <div class="slide-2-ico-wrapper"><div class="ico-5"></div></div>
-          <p>Every three minutes a new American homeowner installs solar panels on their roof.</p>
-        </div>
-
-        <div class="large-4 columns">
-          <div class="slide-2-ico-wrapper"><div class="ico-6"></div></div>
-          <p>More solar has been installed in the last 18 months than the previous 30 years.</p>
+          <div class="slide-show-dots on-white">
+            <a ng-repeat="slide in slides" ng-class="{'active': currentSlide === slides.indexOf(slide)}" ng-click="stopSlideShowOn(slide)"></a>
+          </div>
         </div>
       </div>
       <div class="arrow-box dark">
@@ -81,22 +66,21 @@
     </div>
 
     <div class="sun-scrolling-bg sun-bg-11 section inverted">
-      <!-- <div class="sun-promo-intro"> -->
-        <div class="row">
-          <div class="large-6 columns">
-            <h1 class="uppercase highlight-2">Countless pioneers have laid the groundwork for this revolution.</h1>
-          </div>
+      <div class="row">
+        <div class="large-6 columns">
+          <h1 class="uppercase highlight-2">Countless pioneers have laid the groundwork for this revolution.</h1>
+        </div>
 
-          <div class="large-6 columns">
-            <p>The solar industry has gone through massive change in the last decade as companies have innovated the financial models, the manufacturing, the design systems, the ease of permitting, the installer networks, and the list goes on.</p>
-            <p>Solar is now in a position where after 40 years of innovation, it is finally ready to scale across the country.  What the industry needs now… is distribution.  That’s where you, and direct selling, enters the picture.  The greatest opportunity existing in solar is to acquire new customers, and put more panels on more rooftops.</p>
-            <h5>This presents aN enormous business opportunity.</h5>
-          </div>
+        <div class="large-6 columns">
+          <p>The solar industry has gone through massive change in the last decade as companies have innovated the financial models, the manufacturing, the design systems, the ease of permitting, the installer networks, and the list goes on.</p>
+          <p>Solar is now in a position where after 40 years of innovation, it is finally ready to scale across the country.  What the industry needs now… is distribution.  That’s where you, and direct selling, enters the picture.  The greatest opportunity existing in solar is to acquire new customers, and put more panels on more rooftops.</p>
+          <h5>This presents aN enormous business opportunity.</h5>
         </div>
-        <div class="arrow-box inverted">
-          <span>FIND OUT MORE</span>
-          <i class="fa fa-chevron-down fa-3x"></i>
-        </div>
+      </div>
+      <div class="arrow-box inverted">
+        <span>FIND OUT MORE</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
     </div>
 
     <div class="sun-scrolling-bg sun-bg-5 section">

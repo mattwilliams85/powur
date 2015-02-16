@@ -13,10 +13,10 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
   };
 
   $scope.setupPromoSlider = function(slides) {
-    $scope.promoSlides = slides;
+    $scope.slides = slides;
     $scope.currentSlide = 0;
     $scope.sliderStop = $interval(function() {
-      if ($scope.currentSlide >= $scope.promoSlides.length - 1) {
+      if ($scope.currentSlide >= $scope.slides.length - 1) {
         $scope.currentSlide = 0;
       } else {
         $scope.currentSlide += 1;
@@ -40,13 +40,11 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
     if (slide === parseInt(slide, 10)) { // check if integer
       $scope.currentSlide = slide;
     } else {
-      $scope.currentSlide = $scope.promoSlides.indexOf(slide);
+      $scope.currentSlide = $scope.slides.indexOf(slide);
     }
     $interval.cancel($scope.sliderStop);
     $scope.sliderStop = undefined;
   };
-
-  // $scope.promoSlides = [];
 
   $scope.energyPromoSlides = [
     {
@@ -100,6 +98,37 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
       ],
       text: 'There is no industry as good at spreading products via word of mouth as ours.  Despite the often misunderstood nature of direct sales, the numbers don’t lie.  Direct sales has the potential to create millions of solar customers over the next decade… and generate BILLIONS in wealth for those who do.'
     }
+  ];
+
+  $scope.whySolarPromoSlides = [
+    [
+      {
+        className: 'ico-1',
+        text: 'The Department of Energy estimates that 2/3 of every home in America will get its power cheaper from solar than any other energy source by 2015.'
+      },
+      {
+        className: 'ico-2',
+        text: 'And many billions of dollars of institutional capital from the smartest money on the planet (Sequoia Capital, Goldman Sachs, Google, Bank of America, and so many more) is being invested in solar.'
+      },
+      {
+        className: 'ico-3',
+        text: 'Over 23,000 new jobs were added to the solar industry in 2013, 10x the national job average, bringing the total workers in solar to more than 145,000.  That’s as much as the entire 150-year-old coal industry. (and the market is less than 1% installed!)'
+      }
+    ],
+    [
+      {
+        className: 'ico-4',
+        text: 'Barclays has downgraded the utility energy sector referencing “Significant risk due to residential solar’s disruptive potential”'
+      },
+      {
+        className: 'ico-5',
+        text: 'Every three minutes a new American homeowner installs solar panels on their roof.'
+      },
+      {
+        className: 'ico-6',
+        text: 'More solar has been installed in the last 18 months than the previous 30 years.'
+      }
+    ]
   ];
 
   this.init($scope, $location, $timeout, $interval, $anchorScroll);
@@ -173,6 +202,7 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
   } else if ($scope.mode === 'why-solar') {
     $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
+    $scope.setupPromoSlider($scope.whySolarPromoSlides);
   } else if ($scope.mode === 'why-powur') {
     $scope.readyPiler();
   } else if ($scope.mode === 'why-you') {

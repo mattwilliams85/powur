@@ -231,6 +231,19 @@ $large-screen: em-calc(1300);
           @include landing-sprite(slide-show-dot-active);
         }
       }
+
+      &.on-white {
+        a {
+          border-color: #555;
+          border-radius: 10px;
+          border: 1px solid #555;
+          background: none;
+
+          &.active {
+            background: #555;
+          }
+        }
+      }
     }
   }
   /* end slide show */
@@ -721,6 +734,15 @@ $large-screen: em-calc(1300);
   }
 
   &.sun-why-solar-page {
+    .slide-show-inner {
+      width: 100%;
+      left: -100%;
+    }
+
+    .slide-2-slider-item {
+
+    }
+
     .slide-2-ico-wrapper {
       height: 100px;
       margin-top: 40px;

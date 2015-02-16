@@ -45,8 +45,8 @@
           </div>
 
           <div class="large-7 columns slide-show-wrapper">
-            <div ng-repeat="slide in promoSlides">
-              <div class="slide-show-inner" ng-class="{'active': currentSlide === promoSlides.indexOf(slide)}">
+            <div ng-repeat="slide in slides">
+              <div class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
                 <img ng-repeat="img in slide.images" class="image" ng-src="{{img}}" />
                 <div class="clearfix"></div>
                 <p>{{slide.text}}</p>
@@ -54,7 +54,7 @@
             </div>
 
             <div class="slide-show-dots">
-              <a ng-repeat="slide in promoSlides" ng-class="{'active': currentSlide === promoSlides.indexOf(slide)}" ng-click="stopSlideShowOn(slide)"></a>
+              <a ng-repeat="slide in slides" ng-class="{'active': currentSlide === slides.indexOf(slide)}" ng-click="stopSlideShowOn(slide)"></a>
             </div>
           </div>
         </div>
