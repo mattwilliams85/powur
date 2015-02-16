@@ -177,7 +177,7 @@ var sunstandApp = angular.module('sunstandApp', [
 
     $rootScope.enableScrollDetect = function() {
       $(window).scroll(function () {
-        var screenHeight = $(window).height() - ($(window).height() / 1.5)
+        var screenHeight = $(window).height() - ($(window).height() / 1.4)
         var scrollPos = $(window).scrollTop()
         if($('.sun-header-guest').hasClass("velocity-animating")) return;
         if(scrollPos < screenHeight && $('.sun-header-guest').hasClass("invert")) {
