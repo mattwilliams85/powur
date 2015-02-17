@@ -62,8 +62,7 @@ var sunstandApp = angular.module('sunstandApp', [
       }, 100);
     };
 
-    $rootScope.pagePiler = function(){
-      $(document).foundation('tooltips', 'hide', $('li'));
+    $rootScope.pagePiler = function() {
       $('#pagepiling').pagepiling({
         menu: null,
         direction: 'vertical',
@@ -106,6 +105,10 @@ var sunstandApp = angular.module('sunstandApp', [
           },650)
         },
         afterLoad: function(anchorLink, index) {
+          // Removing tooltips (conflicts with foundation tooltips)
+          $('#pp-nav li').removeAttr('data-tooltip');
+          $(document).off('mouseenter', '#pp-nav li');
+
           animateActiveNav()
           $('#pp-nav').fadeIn('slow');
           $('#dim_the_lights').css('opacity','1');
@@ -199,8 +202,8 @@ var sunstandApp = angular.module('sunstandApp', [
         if(scrollPos < screenHeight && $('.sun-header-guest').hasClass("invert")) {
           $('.sun-header-guest').velocity("transition.slideUpBigOut", function(){
             $('.sun-header-guest').toggleClass("invert").show().velocity({ opacity: 1 }, 200);
-          }) 
-        } 
+          })
+        }
         if(scrollPos > screenHeight && !$('.sun-header-guest').hasClass("invert")) {
           $('.sun-header-guest').toggleClass("invert").velocity("transition.slideDownBigIn");
         }
