@@ -1,13 +1,13 @@
 // Notifications-Specific Classes
 
 .admin-notifications-item_container {
+  position: relative;
   padding: 16px;
-  // position: absolute;
   display: block;
   border-radius: 4px;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.08);
-
+  margin-bottom: 15px;
 }
 
 .admin-notifications-item_container p.date {
@@ -15,7 +15,6 @@
   line-height: 16px;
   text-transform: uppercase;
   font-family: "Varela Round", sans-serif;
-  // position: absolute;
   top: 8px;
   left: 16px;
   text-align: left;
@@ -27,6 +26,12 @@
   text-align: left;
   top: 30px;
   left: 16px;
+}
+
+.admin-notifications-item_container a.remove_x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 

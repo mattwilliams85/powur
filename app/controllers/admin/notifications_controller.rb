@@ -14,6 +14,15 @@ module Admin
       render 'index'
     end
 
+    def destroy
+      @notification = Notification.find(params[:id])
+
+      @notification.destroy!
+      @notifications = Notification.all.reverse_order
+
+      render 'index'
+    end
+
     private
 
     def input

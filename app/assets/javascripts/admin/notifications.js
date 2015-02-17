@@ -81,6 +81,22 @@ jQuery(function($) {
       });
     });
 
+    // Wire up Remove X's on posts
+    $(document).on('click','.js-remove_notification', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      var _notificationID = $(e.target).parents('.js-remove_notification').attr("data-notification_id");
+      if (confirm("Are you sure you want to remove this notification?")) {
+        _ajax({
+          _ajaxType:'DELETE',
+          _url:'/a/notifications/' + _notificationID,
+          _callback:function(){
+            _dashboard.reloadData();
+          }
+        });
+      } else return;
+    });
+
     // Function Accessors
     this.showNotifications = showNotifications;
     this.showSummary = showSummary;
