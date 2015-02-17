@@ -1,0 +1,716 @@
+<div class="drilldown_content">
+  <div id="kpi_environment_detail" class="object_detail">
+
+    <div class="object_detail_content_section">
+      <span>Rank Achievements</span>
+      <br>
+        <div class="rank-columns" >
+          <div class="rank-column">
+            <span id="current-rank-header">Current Rank</span>
+            <br>
+            <img class="badge" id="current-rank" src="/images/dashboard/rank1.png"/>
+          </div>
+          <div class="rank-column">
+            <span id="next-rank-header">Next Rank</span>
+            <br>
+            <img class="badge" id="next-rank" src="/images/dashboard/rank2.png"/>
+          </div>
+          <div class="rank-column">
+            <span id="highest-rank-header">Highest Rank Achieved</span>
+            <br>
+            <img class="badge" id="highest-rank" src="/images/dashboard/rank3.png"/>
+          </div>
+        </div><!-- end rank-columns -->
+        <span id="qualification-header">Qualifications</span>
+        <div id="qualification-legend">
+          <div class="legend-item" id="user-legend"></div>
+          <span style="float:left">Personal</span>
+          <div class="legend-item" id="global-legend"></div>
+          <span style="float:left">Team</span>
+          <div class="legend-item" id="extra-legend"></div>
+          <span style="float:left">Max Leg</span>
+        </div>
+
+        <i class="fa fa-caret-left rank-caret-left"></i>
+        <div class="progress-column" id="leading-progress-column">
+           <div class="outer-radial-shell"></div>
+           <div class="inner-radial-shell"></div>
+           <canvas id="radialProgress1-1" class="outer-radial-bar" width="172" height="172"></canvas>
+           <canvas id="radialProgress1-2" class="inner-radial-bar" width="139" height="139"></canvas>
+           <div class="rank-number">
+            <span>RANK</span>
+            <br>
+            <span>1</span>
+           </div>
+        </div>
+        <div class="progress-column">
+           <div class="outer-radial-shell"></div>
+           <div class="inner-radial-shell"></div>
+           <canvas id="progressChart2-1" class="outer-radial-bar" width="172" height="172" ></canvas>
+           <canvas id="progressChart2-2"  class="inner-radial-bar" width="139" height="139"></canvas>
+           <div class="rank-number">
+            <span>RANK</span>
+            <br>
+            <span>2</span>
+           </div>
+        </div>
+        <div class="progress-column">
+           <div class="outer-radial-shell"></div>
+           <div class="inner-radial-shell"></div>
+           <div class="rank-number inactive-rank">
+            <span style="margin-left:2px;">RANK</span>
+            <br>
+            <span>3</span>
+           </div>
+        </div>
+        <i class="fa fa-caret-right rank-caret-right"></i>
+      </div><!-- end object_detail_content_section -->
+
+      <div class="object_detail_user_summary">
+        <div class="swap-text-box">
+          <span class="progress_description" id="members-tab">MEMBERS</span> <span class="progress_description" id="quotes-tab">HOT QUOTES</span>
+          <a class="return_to_team"><i class="fa fa-bar-chart chart-icon"></i>  Return To Team Graph</a>
+        </div>
+        <div>
+        </div>
+        <div class="contributors"></div>
+        <div class="hot-quotes"></div>
+        <div class="scroll-arrows">
+          <i class="fa fa-caret-up paginate-quote-up"></i><i class="fa fa-caret-down paginate-quote-down"></i>
+          <i class="fa fa-caret-up paginate-user-up"></i><i class="fa fa-caret-down paginate-user-down"></i>
+        </div>
+      </div>
+  </div><!-- end object_detail -->
+</div><!-- end drilldown_content -->
+
+<style>
+.object_detail_content_section {
+  width:850px;
+  margin-left:30px;
+}
+
+.rank-caret-left {
+  float:left;
+  margin-top:82.5px;
+  margin-left:20px;
+  font-size:30px;
+}
+
+.rank-caret-right {
+  float:left;
+  margin-top:85px;
+  padding-left:80px;
+  font-size:30px
+}
+
+#current-rank-header {
+  margin-left:30px;
+}
+
+#next-rank-header {
+  margin-left:40px;
+}
+
+#highest-rank-header {
+  margin-left:3px;
+}
+
+.rank-columns {
+  display: inline-block;
+  margin-left:80px;
+}
+
+.circle {
+  padding:75px;
+  background-color:white;
+  border-radius:100%;
+}
+
+.rank-column {
+  float: left;
+  padding: 5px 45px 0px 0;
+  font-size: 0.8em;
+}
+
+#leading-progress-column {
+  padding-left:45px;
+  width:150px;
+}
+
+.progress-column {
+  width:150px;
+  float: left;
+  padding: 15px 0px 0px 45px;
+  position:relative;
+  margin-left:20px;
+}
+
+.outer-radial-bar {
+  z-index:5;
+  position:absolute;
+}
+
+.inner-radial-bar {
+  z-index:10;
+  position:absolute;
+  left:61px;
+  top:31px;
+}
+
+.paginate-quote-up, .paginate-quote-down {
+  display:none;
+}
+
+.outer-radial-shell {
+  height:145px;
+  width:145px;
+  border:13px solid #999;
+  border-radius:100%;
+  position:absolute;
+  top:16px;
+  left:46px;
+}
+
+.inner-radial-shell {
+  height:115px;
+  width:115px;
+  border-radius:100%;
+  position:absolute;
+  border:13px solid #666;
+  left:61px;
+  top:31px;
+}
+
+.badge {
+  background-color:#444;
+  height:auto;
+  width:150px;
+}
+
+#current-rank {
+}
+
+#next-rank {
+
+}
+
+#highest-rank {
+
+}
+
+#members-tab {
+  color:#444;
+  background-color:rgb(238,238,238);
+  padding:10px 35px 10px 30px;
+  float:left;
+  cursor:pointer;
+}
+
+#quotes-tab {
+  padding:10px 18px 10px 19px;
+  cursor:pointer;
+  float:left;
+  background-color:#555;
+}
+
+.bar-con {
+  background-color: #ccc;
+  height: 0.8em;
+  margin-bottom: 2.5em;
+  width: 85%;
+}
+.bar {
+  float: left;
+  height: 100%;
+  width: 0%;
+}
+.bar-one .bar {
+  background-color: rgb(32, 194, 241);
+  transition: width 0.5s linear;
+  -webkit-transition: width 0.5s linear;
+  -moz-transition: width 0.5s linear;
+  -o-transition: width 0.5s linear;
+}
+.bar-one .inner-bar {
+  display: inline;
+  float: left;
+  height: 100%;
+  width: 0%;
+  background-color: rgb(2, 164, 211);
+  transition: width 0.5s linear;
+}
+
+.bar-two .bar {
+  background-color: rgb(253, 180, 92);
+  transition: width 0.5s linear;
+}
+
+.bar-three .bar {
+  background-color: #FF9900;
+  .transition(@time: 4s, @animation: cubic-bezier(.72, .45, .9, .12));
+}
+
+#qualification-header {
+  float:left;
+  font-size:1em;
+}
+
+#qualification-legend {
+  display: block;
+  height:35px;
+  width:800px;
+}
+
+#qualification-legend > span, #qualification-legend > div {
+  margin-left:15px;
+  font-size:0.8em;
+}
+
+#user-legend {
+  margin-left:300px !important;
+}
+
+.quote-name {
+  font-size: 0.95em;
+}
+.quote-detail {
+  font-size: 0.85em;
+}
+.hot-quote-box {
+  font-size: 0.80em;
+  border-bottom:1px solid #555;
+  padding:10px 0px 8px 15px;
+  display:none;
+  white-space: nowrap;
+   overflow: hidden;
+}
+
+.fa-caret-up {
+  padding-left:65px;
+}
+
+.fa-caret-up, .fa-caret-down {
+  float:left;
+}
+
+
+.scroll-arrows {
+  height:50px;
+  padding:0px;
+  background-color:#555;
+  height:35px;
+  right:0;
+  width:100%;
+}
+
+.contributor {
+  /*height:80px;*/
+  height:102px;
+  /*padding-top:5px;*/
+  background-color:#333;
+  border-bottom:2px solid #444;
+  border-top:0px;
+  margin-top:1px;
+  line-height:20px;
+}
+
+.contributor a {
+  color:rgb(238,238,238);
+}
+
+.contributors {
+   border-left:3px solid #333;
+   height:445px;
+   margin-top:5px;
+}
+
+.hot-quotes {
+  border-left:3px solid #333;
+  height:455px;
+  display:none;
+  z-index:5;
+  display:inline-block;
+  width:260px;
+  overflow:hidden;
+  line-height:29px;
+  margin-top:2px;
+}
+
+.rank-number {
+  position:absolute;
+  left:80px;
+  top:72px;
+  width:100px;
+  text-align:center;
+  display:none
+}
+
+div.rank-number.inactive-rank {
+  color:#bbb;
+}
+
+.object_detail_user_summary {
+  position:absolute;
+  right:0;
+  margin-right:0;
+  height:525px;
+}
+
+.avatar {
+  width:80px;
+  height:80px;
+  margin-top:5px;
+}
+
+.button {
+  padding:5px 10px;
+  font-size:0.8em;
+  position:absolute;
+}
+
+</style>
+
+<script type="text/javascript">
+var userPosition = 0;
+var quotePosition = 0;
+var userPage = 1;
+var quotePage = 1;
+
+var data1 = [
+    {
+        value: 300,
+        color:"rgba(32,194,241,1)",
+        highlight: "rgba(32,194,241,1)",
+        label: "Personal"
+    },
+    {
+        value: 0,
+        color: "#444",
+        highlight: "#444",
+        label: ""
+    }
+]
+
+var data2 = [
+    {
+        value: 300,
+        color:"rgba(253, 180, 92, 1)",
+        highlight: "rgba(253, 180, 92, 1)",
+        label: "Team"
+    },
+    {
+        value: 50,
+        color: "#FF5E27",
+        highlight: "rgb(253,50,0)",
+        label: "Max Leg"
+    },
+    {
+        value: 70,
+        color: "#666",
+        highlight: "#666",
+        label: ""
+    }
+]
+
+var data3 = [
+    {
+        value: 300,
+        color:"rgba(253, 180, 92, 1)",
+        highlight: "rgba(32,194,241,1)",
+        label: "Personal Progress"
+    },
+    {
+        value: 0,
+        color: "#444",
+        highlight: "#444",
+        label: ""
+    }
+]
+
+var options = {
+    //Boolean - Whether we should show a stroke on each segment
+    segmentShowStroke : false,
+
+    //String - The colour of each segment stroke
+    segmentStrokeColor : "#fff",
+
+    //Number - The width of each segment stroke
+    segmentStrokeWidth : 4,
+
+    //Number - The percentage of the chart that we cut out of the middle
+    percentageInnerCutout : 85, // This is 0 for Pie charts
+
+    //Number - Amount of animation steps
+    animationSteps : 100,
+
+    //String - Animation easing effect
+    animationEasing : "easeOutExpo",
+
+    //Boolean - Whether we animate the rotation of the Doughnut
+    animateRotate : true,
+
+    //Boolean - Whether we animate scaling the Doughnut from the centre
+    animateScale : false,
+
+    //String - A legend template
+    legendTemplate: ""
+}
+
+setTimeout(function(){
+$(".rank-number").fadeIn(1000)
+var ctx = document.getElementById("radialProgress1-1").getContext("2d");
+var myDoughnutChart = new Chart(ctx).Doughnut(data1,options);
+var ctx = document.getElementById("progressChart2-1").getContext("2d");
+var myDoughnutChart = new Chart(ctx).Doughnut(data1,options);
+setTimeout(function(){
+var ctx = document.getElementById("radialProgress1-2").getContext("2d");
+var myDoughnutChart = new Chart(ctx).Doughnut(data3,options);
+var ctx = document.getElementById("progressChart2-2").getContext("2d");
+var myDoughnutChart = new Chart(ctx).Doughnut(data2,options);
+},500)
+},300)
+
+
+function initQuoteKPI() {
+  randomizeQuoteOrders();
+  populateQuoteContributors();
+  populateHotQuotes();
+  checkQuotePage()
+  checkUserPage()
+}
+
+function randomizeQuoteOrders() {
+  if (_data.team.entities) {
+    _data.team.entities.forEach(function(member) {
+      member.properties.orders = Math.floor(Math.random() * 30 + 10)
+    });
+    _data.team.entities.forEach(function(member) {
+      member.properties.quotes = Math.floor(Math.random() * 30 + 5)
+    });
+    _data.team.entities.forEach(function(member) {
+      member.properties.avatar = randomAvatar()
+    });
+  }
+}
+
+function randomAvatar() {
+  gender = ["men", "women"]
+  return "http://api.randomuser.me/portraits/med/" + gender[Math.floor(Math.random() * 2)] + "/" + Math.floor(Math.random() * 97) + ".jpg"
+}
+
+function populateHotQuotes() {
+
+  if(_data.quotes) {
+    _hotQuotes = $(".hot-quotes");
+    quotes = _data.quotes.entities
+    quotes.forEach(function(quote) {
+      _ajax({
+        _ajaxType: "get",
+        _url: "/u/quotes/" + quote.properties.id,
+        _callback: function(data, text) {
+            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_kpi_hot_quotes.handlebars.html')%>", data, undefined, function(html) {
+            if ($('.hot-quote-box').length == (quotes.length)) $('.hot-quote-box').fadeIn()
+            _hotQuotes.append(html);
+          });
+        }
+      });
+    });
+  } else {
+    // contributorQuoteEvents();
+  }
+}
+
+function populateQuoteContributors() {
+    switch (kpiType) {
+      case "conversion":
+        _template = "<%=asset_path('hb_templates/_kpi_conversion_team_thumbnail.handlebars.html')%>"
+        break;
+      case "genealogy":
+        _template = "<%=asset_path('hb_templates/_kpi_genealogy_team_thumbnail.handlebars.html')%>"
+        break;
+      case "earnings":
+        _template = "<%=asset_path('hb_templates/_kpi_total_earnings_team_thumbnail.handlebars.html')%>"
+        break;
+      case "hot_quotes":
+        _template = "<%=asset_path('hb_templates/_kpi_hot_quotes_team_thumbnail.handlebars.html')%>"
+        break;
+    }
+    if (_data.team.entities) {
+      var _contributors = $(".contributors");
+      top_ten = _data.team.entities.slice(0, 9)
+      top_ten.forEach(function(member) {
+        _ajax({
+          _ajaxType: "get",
+          _url: "/u/users/" + member.properties.id + "/downline",
+          _callback: function(data, text) {
+            member.properties.downline_count = data.entities.length;
+            EyeCueLab.UX.getTemplate(_template, member, undefined, function(html) {
+              if ($('.contributor').length == top_ten.length) contributorQuoteEvents();
+              _contributors.append(html);
+            });
+          }
+        });
+      });
+    } else {
+      contributorQuoteEvents();
+    }
+  }
+  // ** PAGINATION FOR USERS **
+$('.paginate-user-down').on("click", function(e) {
+  if ($(this).hasClass("active")) {
+    userPage += 1;
+    userPosition -= 435;
+    animateContributors()
+  };
+});
+$('.paginate-user-up').on("click", function(e) {
+  if ($('.fa-caret-up').hasClass("active")) {
+    userPage -= 1;
+    userPosition += 435;
+    animateContributors()
+  };
+});
+
+$('.paginate-quote-down').on("click", function(e) {
+  if ($(this).hasClass("active")) {
+      quotePage += 1;
+      quotePosition -= 432;
+      animateQuotes()
+    };
+});
+$('.paginate-quote-up').on("click", function(e) {
+  if ($('.fa-caret-up').hasClass("active")) {
+    quotePage -= 1;
+    quotePosition += 432;
+    animateQuotes()
+  };
+});
+
+
+  $('#quotes-tab').on("click",function(){
+    $('#members-tab').animate({backgroundColor: "#555"},100).animate({color:"#eee"},100);
+    $('#quotes-tab').animate({backgroundColor: "#eee"},100).animate({color:"#444"},100);
+    $(".contributors").hide()
+    $(".hot-quotes").fadeIn()
+    $(".paginate-user-up").hide()
+    $(".paginate-user-down").hide()
+    $(".paginate-quote-up").show()
+    $(".paginate-quote-down").show()
+  })
+  $('#members-tab').on("click",function(){
+    $('#quotes-tab').animate({backgroundColor: "#555"},100).animate({color:"#eee"},100);
+    $('#members-tab').animate({backgroundColor: "#eee"},100).animate({color:"#444"},100);
+    $(".hot-quotes").hide()
+    $(".contributors").fadeIn()
+    $(".paginate-user-up").show()
+    $(".paginate-user-down").show()
+    $(".paginate-quote-up").hide()
+    $(".paginate-quote-down").hide()
+  })
+
+
+  function animateContributors(){
+    checkUserPage();
+    $('.contributor').each(function() {
+      $(this).velocity({
+      }, 100);
+    })
+    $('.contributor').each(function() {
+      $(this).velocity({
+        translateY: userPosition + "px"
+      });
+    })
+  }
+
+function animateQuotes(){
+  checkQuotePage();
+  $('.hot-quote-box').each(function() {
+    $(this).velocity({
+    }, 100);
+  })
+  $('.hot-quote-box').each(function() {
+    $(this).velocity({
+      translateY: quotePosition + "px"
+    });
+  })
+}
+
+function checkUserPage() {
+  if (_data.team.entities) {
+  page_total = _data.team.entities.length
+  if (userPage === 1) {
+    $('.paginate-user-up').css("opacity", "0.3").removeClass("active");
+    if(page_total >= 5){
+      $('.paginate-user-down').css("opacity", "1").addClass("active");
+    } else {
+      $('.paginate-user-down').css("opacity", "0,3").removeClass("active");
+    }
+  } else {
+    $('.paginate-user-up').css("opacity", "1").addClass("active");
+  }
+  if (userPage >= (Math.ceil(page_total / 4))) {
+    $('.paginate-user-down').css("opacity", "0.3").removeClass("active");
+  }
+  } else {
+    $('.paginate-user-up').css("opacity", "0.3").removeClass("active");
+    $('.paginate-user-down').css("opacity", "0.3").removeClass("active");
+  }
+}
+function checkQuotePage() {
+  if (_data.quotes) {
+  page_total = _data.quotes.entities.length
+  if (quotePage === 1) {
+    $('.paginate-quote-up').css("opacity", "0.3").removeClass("active");
+    if(page_total >= 4){
+      $('.paginate-quote-down').css("opacity", "1").addClass("active");
+    }
+  } else {
+    $('.paginate-quote-up').css("opacity", "1").addClass("active");
+  }
+  if (quotePage >= (Math.ceil(page_total / 4))) {
+    $('.paginate-quote-down').css("opacity", "0.3").removeClass("active");
+  }
+  } else {
+    $('.paginate-quote-up').css("opacity", "0.3").removeClass("active");
+    $('.paginate-quote-down').css("opacity", "0.3").removeClass("active");
+  }
+}
+  // ** END **
+  // Runs after ajax returns 10 users
+function contributorQuoteEvents() {
+
+    $(".bar-one .inner-bar").progress();
+    setInterval(function() {
+      $(".bar-one .bar").progress();
+    }, 500);
+    $(".bar-two .bar").progress();
+    $(".contributor")
+      .fadeIn("slow")
+      // .velocity("transition.slideUpBigIn", {
+      //   stagger: 200,
+      //   duration: 600
+      // })
+    // $(".contributor, .user-contributor").on("click", function(e) {
+    //   e.preventDefault();
+    //   e.stopPropagation();
+    //   $(".return_to_team").fadeIn();
+    //   _index = $(this).find(".avatar").attr("id").replace("avatar", "") - 1;
+    //   $(".progress_description").hide();
+    //   $('.contributor, .user-contributor').each(function() {
+    //     $(this).velocity({
+    //       backgroundColor: "#545454"
+    //     }, 100);
+    //   })
+    //   $(this).velocity({
+    //     backgroundColor: "#333"
+    //   }, 100);
+    //   options.animationSteps = 20;
+    //   rebuildChart()
+    //   if (kpiType === "conversion") $(".graph_title").html($(this).attr('id') + "'s Conversion History")
+    //   if (kpiType === "genealogy") $(".graph_title").html($(this).attr('id') + "'s Growth History")
+    //   if (kpiType === "earnings") $(".graph_title").html($(this).attr('id') + "'s Earnings History")
+    // });
+  }
+  // ** END **
+initQuoteKPI()
+</script>

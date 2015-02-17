@@ -19,7 +19,7 @@ jQuery(function($){
     }
     jQuery.ajaxSetup({cache:true});
     if(_loading) {
-      // EyeCueLab.UX.getTemplate("/templates/admin/quotes/popups/_processing_popup.handlebars.html",{title:"Please Wait", instructions:"Loading Administration Dashboard"}, $("#js-wait_screen_mask"), function(){
+      // EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/quotes/popups/_processing_popup.handlebars.html')%>",{title:"Please Wait", instructions:"Loading Administration Dashboard"}, $("#js-wait_screen_mask"), function(){
       //     SunStand.Admin.displayPopup({_popupData:{}});
       // });
       _data.loadTimer = setTimeout(_data.load, 10);
@@ -94,12 +94,12 @@ jQuery(function($){
         case "#admin-plans-ranks":
           $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
           //position indicator
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
-            SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-ranks]"));
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/_nav.handlebars.html')%>", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+            SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level')%>"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-ranks]"));
           });
 
           var _summaryData={};
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/ranks/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/ranks/_summary.handlebars.html')%>", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
             //wire up add rank functionality
             $(".js-add_new_rank").on("click", function(e){
               e.preventDefault();
@@ -110,7 +110,7 @@ jQuery(function($){
               _popupData.title="Add a new Rank";
 
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                 });
               });
@@ -121,7 +121,7 @@ jQuery(function($){
           _displayData.ranks=_data.ranks;
           _displayData.active_qualifications=_data.active_qualifications;
 
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/ranks/_ranks.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/ranks/_ranks.handlebars.html')%>", _displayData, $(".js-admin_dashboard_detail_container"), function(){
             $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
 
             //load active qualifications
@@ -183,7 +183,7 @@ jQuery(function($){
               _popupData.deleteOption.buttonName="js-delete_qualification";
               _popupData.deleteOption.description="";
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                 });
               });
@@ -250,7 +250,7 @@ jQuery(function($){
               _popupData.deleteOption.buttonName="js-delete_qualification";
               _popupData.deleteOption.description="";
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                 });
               });
@@ -275,7 +275,7 @@ jQuery(function($){
                   if(_data.ranks.entities.length == _rankID) _popupData.deleteOption.buttonName="js-delete_rank";
                   _popupData.deleteOption.description="Only the highest Rank can be removed at this time";
                   $("#js-screen_mask").fadeIn(100, function(){
-                    EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                       SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                     });
                   });
@@ -311,7 +311,7 @@ jQuery(function($){
                   console.log(_popupData);
 
                   $("#js-screen_mask").fadeIn(100, function(){
-                    EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_hierarchical_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_hierarchical_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                       SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                     });
                   });
@@ -338,7 +338,7 @@ jQuery(function($){
               _populateReferencialSelect({_popupData:_popupData});
 
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_hierarchical_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_hierarchical_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-ranks-init")}});
                 });
               });
@@ -352,12 +352,12 @@ jQuery(function($){
         case "#admin-plans-paths":
           $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
           //position indicator
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/_nav.handlebars.html')%>", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
             SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-paths]"));
           });
 
           var _summaryData = {};
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/paths/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/paths/_summary.handlebars.html')%>", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
 
             $(".js-add_new_path").unbind();
             $(".js-add_new_path").on("click", function(e){
@@ -367,7 +367,7 @@ jQuery(function($){
                 _title: "Create a new Qualification Path"
               });
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){
                     _loadRankPathsInfo(function(){displayPlans("#admin-plans-paths")})
                   }});
@@ -376,7 +376,7 @@ jQuery(function($){
             });
           });
 
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/paths/_paths.handlebars.html", _data.rank_paths, $(".js-admin_dashboard_detail_container"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/paths/_paths.handlebars.html')%>", _data.rank_paths, $(".js-admin_dashboard_detail_container"), function(){
             $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",1);
             //edit rank_path
 
@@ -398,7 +398,7 @@ jQuery(function($){
               });
 
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                     SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){
                     _loadRankPathsInfo(function(){displayPlans("#admin-plans-paths")})
                   }});
@@ -420,14 +420,14 @@ jQuery(function($){
           $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
 
           //position indicator
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/_nav.handlebars.html')%>", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
             SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-products]"));
           });
           var _summaryData={};
           _summaryData.entities=_data.products.entities;
           _summaryData.currentProduct=_data.currentProduct;
 
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/products/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/products/_summary.handlebars.html')%>", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
             //wire up new product button
             $(".js-add_new_product").unbind();
             $(".js-add_new_product").on("click", function(e){
@@ -437,14 +437,14 @@ jQuery(function($){
                 _title: "Create a new Product"
               });
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
                 });
               });
             });
           });
 
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/products/_products.handlebars.html", _data.products, $(".js-admin_dashboard_detail_container"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/products/_products.handlebars.html')%>", _data.products, $(".js-admin_dashboard_detail_container"), function(){
 
             $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
             $(".js-product_select option[value="+_data.currentProduct.properties.id+"]").attr("selected", "selected");
@@ -472,7 +472,7 @@ jQuery(function($){
                   });
 
                   $("#js-screen_mask").fadeIn(100, function(){
-                    EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                       SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-products-init")}});
                     });
                   });
@@ -490,7 +490,7 @@ jQuery(function($){
         case "#admin-plans-bonuses":
           $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").css("opacity",0);
           //position indicator
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/_nav.handlebars.html')%>", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
             SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-plans-bonuses]"));
           });
 
@@ -498,7 +498,7 @@ jQuery(function($){
           $.extend(true, _summaryData, _data.bonus_plans);
           _summaryData.currentBonusPlan={};
           $.extend(true, _summaryData.currentBonusPlan, _data.currentBonusPlan);
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/bonuses/_summary.handlebars.html", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/bonuses/_summary.handlebars.html')%>", _summaryData, $(".js-admin_dashboard_column.summary"), function(){
             //add a new bonus to a plan
             $(".js-add_new_bonus").on("click", function(e){
               var _popupData = _formatPopupData(e, {
@@ -508,7 +508,7 @@ jQuery(function($){
               _populateReferencialSelect({_popupData:_popupData});
 
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({ _popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                 });
               });
@@ -521,7 +521,7 @@ jQuery(function($){
                 _title: "Create a new Bonus Plan"
               });
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                 });
               });
@@ -541,7 +541,7 @@ jQuery(function($){
 
               });
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                 });
               });
@@ -560,7 +560,7 @@ jQuery(function($){
 
           });
 
-          EyeCueLab.UX.getTemplate("/templates/admin/plans/bonuses/_bonuses.handlebars.html", _data.bonuses , $(".js-admin_dashboard_detail_container"), function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/bonuses/_bonuses.handlebars.html')%>", _data.bonuses , $(".js-admin_dashboard_detail_container"), function(){
             $(".js-admin_dashboard_detail_container, .js-admin_dashboard_column.summary").animate({"opacity":1});
 
 
@@ -707,7 +707,7 @@ jQuery(function($){
               }
 
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_bonus_payment_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                 });
               });
@@ -735,7 +735,7 @@ jQuery(function($){
               //_populateReferencialSelect({_popupData:_popupData});
               console.log(_bonus)
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_bonus_payment_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                 });
               });
@@ -768,7 +768,7 @@ jQuery(function($){
               _populateReferencialSelect({_popupData:_popupData});
 
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init");}});
                 });
               });
@@ -796,7 +796,7 @@ jQuery(function($){
               _populateReferencialSelect({_popupData:_popupData});
 
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                 });
               });
@@ -826,7 +826,7 @@ jQuery(function($){
               _populateReferencialSelect({_popupData:_popupData});
 
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_standard_popup_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_standard_popup_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                 });
               });
@@ -883,7 +883,7 @@ jQuery(function($){
               }
 
               $("#js-screen_mask").fadeIn(100, function(){
-                EyeCueLab.UX.getTemplate("/templates/admin/plans/popups/_bonus_payment_container.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_bonus_payment_container.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                   SunStand.Admin.displayPopup({_popupData:_popupData, _callback:function(){displayPlans("#admin-plans-bonuses-init")}});
                 });
               });
@@ -945,7 +945,7 @@ jQuery(function($){
           }
         }
       });
-    
+
     }
 
 

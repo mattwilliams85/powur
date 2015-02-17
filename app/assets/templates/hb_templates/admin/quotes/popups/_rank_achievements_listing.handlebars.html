@@ -1,0 +1,130 @@
+    {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
+    <tr>
+        <td colspan="8" style="text-align:center; padding-bottom:32px;">
+            {{#each this.paginationInfo.display}}
+            <div class="js-pagination">
+                {{#if this.link}}
+                    <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
+                {{else}}
+                    {{this.display}}
+
+                {{/if}}
+            </div>
+            {{/each}}
+
+        </td>
+    </tr>
+</table>    
+    {{/if}}    
+
+    {{#if this.properties.metrics}}
+<table class="_table _spreadSheet">
+    <tr>
+        <td colspan="5" style="background:#efefef;padding:10px;">
+            <span >Pay Period Metrics</span><br>
+            {{#each this.properties.metrics}}
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">{{this.title}}</span>
+                {{{this.value}}}
+            </div>
+            {{/each}}
+        </td>
+    </tr>
+</table>
+    {{/if}} 
+
+<table class="_table _spreadSheet">
+    <tr>
+        <th colspan="2" style="width:20%">Dates</th>
+        <th colspan="2" style="width:30%">User Info</th>
+        <th colspan="4">Rank Info</th>
+    </tr>
+    {{#each this.entities}}
+    <tr>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{{localtime this.properties.achieved_at}}}
+            </div>
+        </td>        
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Pay Period</span>
+                {{{this.properties.pay_period_id}}}
+            </div>
+        </td>
+
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Name</span>
+                {{{this.properties.user}}}
+            </div>
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">ID</span>
+                {{{this.properties.user_id}}}
+            </div>
+
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Name</span>
+                {{{this.properties.rank}}}
+            </div>
+        </td>
+
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Rank</span>
+                {{{this.properties.rank_id}}}
+            </div>
+        </td>
+        <td>
+
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Type</span>
+            {{#if this.properties.lifetime}}
+                Lifetime
+            {{else}}
+                Pay Period
+            {{/if}}
+            </div>
+        </td>
+        <td>
+
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Path</span>
+                {{{this.properties.path}}}
+                </span>
+            </div>
+
+        </td>
+    </tr>
+    {{/each}}
+</table>
+
+    {{#if this.paginationInfo}}
+<table class="_table _spreadSheet">
+    <tr>
+        <td colspan="8" style="border-top:1px solid #ccc; text-align:center;padding:32px;">
+            {{#each this.paginationInfo.display}}
+            <div class="js-pagination">
+                {{#if this.link}}
+                    <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
+                {{else}}
+                    {{this.display}}
+
+                {{/if}}
+            </div>
+            {{/each}}
+
+        </td>
+    </tr>
+
+</table>
+    {{/if}}
+
+
+

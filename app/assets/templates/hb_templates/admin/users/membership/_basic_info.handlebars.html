@@ -1,0 +1,81 @@
+
+    <form id="admin-users-membership-basic_info-contact_form" class="quote_form admin_form" DATA-user-id="{{this.id}}">
+        <fieldset class="one">
+            <fieldset class="contact_info">
+
+                <legend>Advocate Contact Info</legend>
+                <span class="form_row half">
+                    <label for="first_name">First Name</label>
+                    <input type="text" name="first_name" value="{{this.first_name}}">
+                </span>
+                <span class="form_row half">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" name="last_name" value="{{this.last_name}}">
+                </span>
+                <span class="form_row">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" value="{{this.email}}">
+                </span>
+                <span class="form_row">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" value="{{this.phone}}">
+                </span>
+
+                <div class="form_edit_actions">
+                    <a class="button save_changes">Save changes</a>
+                    <a class="secondary_button cancel_changes">Cancel</a>
+                </div>
+            </fieldset>
+
+            <fieldset class="address">
+                <legend>Advocate Location</legend>
+
+                <span class="form_row">
+                    <label for="street">Street Address & Unit#</label>
+                    <input type="text" name="address" value="{{this.address}}">
+                </span>
+                <span class="form_row">
+                    <label for="city">City</label>
+                    <input type="text" name="city" value="{{this.city}}">
+                </span>
+                <span class="form_row half">
+                    <label for="state">State</label>
+                     <input type="text" name="state" value="{{this.state}}">             
+                </span>
+                <span class="form_row half">
+                    <label for="zip">Zip</label>
+                    <input type="text" name="zip" value="{{this.zip}}">
+                </span>
+                <a href="#" class="button js-update_distributor_info">Update Advocate</a>
+
+            </fieldset>
+
+
+        </fieldset>
+
+        <fieldset class="two">
+
+            <fieldset class="contact_info">
+                <legend>Rank Summary</legend>
+                <div class="flex_row">
+                    <div>Organic Rank:</div>
+                    <div>{{this.organic_rank}}</div>
+                </div>
+                <div class="flex_row">
+                    <div>Lifetime Rank:</div>
+                    <div>{{this.lifetime_rank}}</div>
+                </div>
+                <br>
+                <span class="form_row">
+                    <label for="organic_rank">Force Rank</label>
+                    <input type="text" name="organic_rank" value="{{this.organic_rank}}">
+                </span>
+                <button class="button quiet js-force_rank_override">Force Rank Override</button>
+
+            </fieldset>
+
+        </fieldset>
+    </form>
+
+
+

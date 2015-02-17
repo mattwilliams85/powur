@@ -1,0 +1,37 @@
+<legend style="color:#333; text-transform:uppercase; font-size:18px;">Bonus Plans</legend>
+<span class="subtext summary">
+    <ul>
+
+        <li style="padding-bottom:40px;">
+            <select style="width:192px;" class="js-bonus_plan_select" >
+                {{#each this.entities}}
+                    {{#compare this.actions.0.href ../currentBonusPlan.actions.0.href operator="=="}}
+                    <option value="{{this.actions.0.href}}" selected>{{format_length this.properties.name "13"}}</option>
+                    {{else}}
+                    <option value="{{this.actions.0.href}}">{{this.properties.name}}</option>
+                    {{/compare}}
+                {{/each}}
+            </select><br><br>
+        </li>
+        {{#each this.entities}}
+            {{#compare this.actions.0.href ../currentBonusPlan.actions.0.href operator="=="}}
+                <li>Effective Month: {{this.properties.start_month}} </li>
+                <li>Effective Year: {{this.properties.start_year}} </li>
+                {{#if this.properties.active }}
+                <li>Plan Status: Active</li>
+                {{else}}
+                <li>Plan Status: Inactive</li>
+                {{/if}}
+            {{/compare}}
+        {{/each}}
+    </ul>
+</span>    
+<hr style="border-top: 1px dashed #aaa;">
+<span class="subtext summary">
+    <button class="button js-add_new_bonus" style="float:none; width:192px;">Add a new Bonus</button>
+    <button class="button js-edit_bonus_plan" style="float:none; width:192px;">Edit Bonus Plan</button>
+<hr style="border-top: 1px dashed #aaa;">
+    <button class="button js-add_new_bonus_plan quiet" style="float:none; width:192px;">Create Bonus Plan</button>
+</span>
+
+

@@ -1,0 +1,78 @@
+<div class="arrow"></div>
+<div class="drilldown_content">
+	{{#compare invitationType "New" operator="=="}}
+	<div class="drilldown_content_section summary">
+		<h4>New Invite</h4> 
+		<p class="subtext">Enter in a name and an email address sned out and invitation.</p>
+		<p class="subtext">Invite expire after 24 hours. You can renew or release invite codes to either extend or cancel the invitation.</p>
+	</div>
+
+	<div class="drilldown_content_section details">
+	
+		<form id="new_promoter_invitation_form" class="main">
+			
+			<h4>Contact Info</h4>
+
+			<span class="form_row">
+				<label for="first_name">First Name</label>
+				<input type="text" name="first_name">
+			</span>
+			<span class="form_row">
+				<label for="last_name">Last Name</label>
+				<input type="text" name="last_name">
+			</span>
+			<span class="form_row">
+				<label for="email">Email</label>
+				<input type="text" name="email">
+			</span>					
+
+			<button class="button">Send Invite</button>
+
+		</form>
+
+	</div>
+	{{else}}
+	<div class="drilldown_content_section summary">
+		<h4>Pending Invite</h4> 
+		<p class="subtext">Enter in a name and an email address to send out and invitation.</p>
+		<p class="subtext">Invite expire after 24 hours. You can renew or release invite codes to either extend or cancel the invitation.</p>
+	</div>
+
+	<div class="drilldown_content_section details">
+
+		<form id="existing_promoter_invitation_form" class="main">
+
+			<h4>Contact Info</h4>
+
+			<span class="form_row">
+				<label for="first_name">First Name</label>
+				<input class="js-invite" type="text" id="js-invite_first_name" name="first_name" value="{{first_name}}">
+			</span>
+			<span class="form_row">
+				<label for="last_name">Last Name</label>
+				<input class="js-invite" type="text" id="js-invite_last_name" name="last_name" value="{{last_name}}">
+			</span>
+			<span class="form_row">
+				<label for="email">Email</label>
+				<input class="js-invite" type="text" name="email" id="js-invite_email" id="email" value="{{email}}">
+			</span>	
+
+			<button class="button js-resend_invite_to_advocate"><span class="js-resend_invite_to_advocate_text">Resend Invite</span></button>
+			<button class="quiet_button js-remove_advocate">Release</button>
+
+		</form>
+
+		<div id="invite_actions" class="sidebar">
+			<h4>Invite Code</h4>
+			<span class="invite_code">{{id}}</span>
+
+
+		</div>
+
+	</div>		
+	{{/compare}}
+</div>
+
+
+
+

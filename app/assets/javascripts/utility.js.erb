@@ -43,7 +43,7 @@ jQuery(function($){
 
 });
 
-//browser specific rules function 
+//browser specific rules function
 function applyBrowserSpecificRules() {
   if (navigator.userAgent.indexOf('Chrome') !== -1) {
     // (chrome-specific stuff here)
@@ -54,11 +54,11 @@ function applyBrowserSpecificRules() {
 
     //dropdown arrows workaround for FF 34 and below
     //test for Firefox/x.x or Firefox x.x (ignoring remaining digits);
-    if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){ 
+    if (/Firefox[\/\s](\d+\.\d+)/.test(navigator.userAgent)){
       var _selects;
       var i;
       // capture x.x portion and store as a number
-      var ffversion = new Number(RegExp.$1); 
+      var ffversion = new Number(RegExp.$1);
       if (ffversion >= 35) {
         _selects = document.querySelectorAll('select');
         for (i=0; i<_selects.length; i++) {
@@ -71,7 +71,7 @@ function applyBrowserSpecificRules() {
         }
       }
     }
-  } else if ((navigator.userAgent.indexOf('MSIE') !== -1) || 
+  } else if ((navigator.userAgent.indexOf('MSIE') !== -1) ||
     (document.documentMode === true)) {
     // (IE-specific stuff here)
   } else {
@@ -176,7 +176,7 @@ Handlebars.registerHelper('storeJson', function(json) {
     storedJson = json;
 });
 
-Handlebars.registerHelper('compareJson', function(json, options) {  
+Handlebars.registerHelper('compareJson', function(json, options) {
   if(json === storedJson) return options.fn(this);
   else return options.inverse(this);
 });
@@ -333,7 +333,7 @@ jQuery(function($){
         //wire up dynamic interaction for the select/option
         if(_options._popupData.popupType === "hierarchical"){
             $("#js-popup_form .js-popup_form_button").css("display","none");
-            _getTemplate("/templates/admin/plans/popups/_options.handlebars.html", _options._popupData.primaryOptions, $("#js-popup_form .primaryOptions"), function(){
+            _getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_options.handlebars.html')%>", _options._popupData.primaryOptions, $("#js-popup_form .primaryOptions"), function(){
 
                 $("#js-popup_form .primaryOptions select[name=type]").on("change", function(e){
                     $("#js-popup_form .js-popup_form_button").css("display","block");
@@ -350,7 +350,7 @@ jQuery(function($){
                                 _secondaryOptions.push(field);
                         }
                     });
-                    _getTemplate("/templates/admin/plans/popups/_options.handlebars.html", _secondaryOptions, $("#js-popup_form .secondaryOptions"), function(){
+                    _getTemplate("<%=asset_path('hb_templates/admin/plans/popups/_options.handlebars.html')%>", _secondaryOptions, $("#js-popup_form .secondaryOptions"), function(){
                         $("#js-popup_form .js-popup_form_button").fadeIn();
 
                     });
@@ -842,7 +842,8 @@ function _getTemplate(_path, _dataObj, _targetObj, _callback){
             }
             if(_callback !== undefined)
                 _callback();
-        }
+        },
+        cache: true
     });
 }
 
@@ -973,9 +974,10 @@ jQuery(function($){
 
                 if(typeof _targetObj == "undefined") _callback(_html);
                 if(typeof _callback !== "undefined") _callback();
-            }
+            },
+            cache: true
         });
-    }
+    };
 
 }(window.EyeCueLab = window.EyeCueLab || {}, jQuery));
 });//jQuery

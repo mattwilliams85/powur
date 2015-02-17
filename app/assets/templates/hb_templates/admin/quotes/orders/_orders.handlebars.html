@@ -1,0 +1,71 @@
+<table class="_table _spreadSheet">
+   <tr>
+        <th width="50%">Order Info</th>
+        <th>Advocate</th>
+        <th>Customer</th>
+        <th>Actions</th>
+    </tr>
+    {{#each this.entities}}
+    <tr data-quote-id="{{this.properties.id}}">
+        <td>
+            <table class="_table _spreadSheet">
+            <tr><td style="padding-top:0px;">
+            <div class="innerCell" style="width:20%;">
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{localtime this.properties.order_date}}
+            </div>
+
+            <div class="innerCell" style="width:40%;">
+                <span class="label" style="text-transform:capitalize;">Product</span>
+                {{this.properties.product}}
+            </div>
+
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Status</span>
+                {{this.properties.status}}
+            </div>
+            </td></tr>
+            </table>
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Name</span>
+                {{this.properties.distributor}}
+            </div>
+
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Name</span>
+                {{this.properties.customer}}
+            </div>
+
+        </td>
+
+        <td>
+            <a href="#" class="js-order_details js-action" data-detail-href="{{this.links.0.href}}">View Details</a>
+        </td>
+
+    </tr>
+    {{/each}}
+
+    {{#if this.paginationInfo}}
+    <tr>
+        <td colspan="4" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">
+            {{#each this.paginationInfo.display}}
+            <div class="js-pagination">
+                {{#if this.link}}
+                    <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
+                {{else}}
+                    {{this.display}}
+
+                {{/if}}
+            </div>
+            {{/each}}
+
+        </td>
+    </tr>
+    {{/if}}
+
+</table>
+

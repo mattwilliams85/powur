@@ -1,0 +1,143 @@
+<div class="arrow"></div>
+<div class="drilldown_content">
+
+	<div class="drilldown_content_section summary">
+		<h4>Add a new Quote</h4>
+		<span class="subtext">The basic required information include their name and email address.<br><br>You may complete the rest of the information or edit them once the Quote is created.</span>
+
+		<div class="summary_actions">
+			<a href="#" class="button quiet js-close_drilldown"><i class="fa fa-times"></i> Cancel</a>
+		</div>
+	</div>
+
+	<div class="drilldown_content_section details">
+
+<form id="new_lead_contact_form" class="quote_form">
+      <fieldset class="one">
+        <fieldset class="contact_info">
+          <legend><i class="fa fa-envelope"></i> Contact Info</legend>
+          {{#each this._customerFields}}
+            {{#compare this.type "text"}}
+              {{#compare this.name "first_name"}}
+                <span class="form_row half">
+                    <label for="{{this.name}}">{{sanitize this.name}}</label>
+                    <input type="{{this.type}}" name="{{this.name}}"></input>
+                  </span> {{else}}
+                  {{#compare this.name "last_name"}}
+                    <span class="form_row half">
+                      <label for="{{this.name}}">{{sanitize this.name}}</label>
+                      <input type="{{this.type}}" name="{{this.name}}"></input>
+                    </span> {{else}}
+                    {{#compare this.name "state"}}
+                    <span class="form_row">
+                      <label for="{{this.name}}">{{sanitize this.name}}</label>
+                      <select name="{{this.name}}">
+                        {{#each this.fields}}
+                        <option name="{{.}}" value="{{.}}">{{.}}</option>
+                        {{/each}}
+                      </select>
+                      </span>
+                    {{else}}
+                      <span class="form_row">
+                        <label for="{{this.name}}">{{sanitize this.name}}</label>
+                        <input type="{{this.type}}" name="{{this.name}}"></input>
+                      </span> {{/compare}}
+                {{/compare}}
+              {{/compare}}
+            {{/compare}}
+            {{#compare this.type "email"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <input type="{{this.type}}" name="{{this.name}}"></input>
+                </span> {{/compare}}
+            {{#compare this.type "number"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <input type="text" name="{{this.name}}"></input>
+                </span> {{/compare}}
+            {{#compare this.type "select"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <select id="{{this.name}}" name="{{this.name}}">
+                  {{#each this.options}}
+                    {{#compare ../../value this.display}}
+                      <option name="{{this.display}}" value="{{this.display}}" selected>{{this.display}}</option>
+                    {{else}}
+                      <option name="{{this.display}}" value="{{this.display}}">{{this.display}}</option>
+                    {{/compare}}
+                  {{/each}}
+                  </select>
+                  </span> {{/compare}}
+            {{#compare this.type "checkbox"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{this.name}}</label>
+                  {{#compare this.value true}}
+                  <input type="" checked name="{{this.name}}"></input>
+                  {{else}}
+                  <input type="{{this.type}}" name="{{this.name}}"></input>
+                  {{/compare}}
+                  </span> {{/compare}}
+          {{/each}}
+        </fieldset>
+      </fieldset>
+
+      <fieldset class="two">
+        <fieldset class="utility">
+          <legend><i class="fa fa-bolt"></i> House & Utility Info</legend>
+
+          {{#each this._quoteFields}}
+            {{#compare this.type "text"}}
+              <span class="form_row">
+                    <label for="{{this.name}}">{{sanitize this.name}}</label>
+                    <input type="{{this.type}}" name="{{this.name}}"></input>
+                  </span> {{/compare}}
+            {{#compare this.type "email"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <input type="{{this.type}}" name="{{this.name}}"></input>
+                </span> {{/compare}}
+            {{#compare this.type "number"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <input type="text" name="{{this.name}}"></input>
+                </span> {{/compare}}
+            {{#compare this.type "select"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <select id="{{this.name}}" name="{{this.name}}">
+                  {{#each this.options}}
+                    <option name="{{this.display}}" value="{{this.display}}">{{this.display}}</option>
+                  {{/each}}
+                  </select>
+                  </span> {{/compare}}
+            {{#compare this.type "checkbox"}}
+              <span class="form_row">
+                  <label for="{{this.name}}">{{sanitize this.name}}</label>
+                  <select name="{{this.name}}">
+                    <option value="true" selected>Qualified</option>
+                    <option value="false">Not Qualified</option>
+                  </select>
+                  </span> {{/compare}}
+          {{/each}}
+        </fieldset>
+        <fieldset class="actions">
+          <button class="button js-update_customer_info">Create Quote</button>
+        </fieldset>
+
+      </fieldset>
+    </form>
+	</div>		
+
+</div>
+
+<style>
+  .form_row {
+    height: 69px !important;
+  }
+  form select {
+    margin-bottom: 8px;
+    height: 61px;
+  }
+</style>
+
+

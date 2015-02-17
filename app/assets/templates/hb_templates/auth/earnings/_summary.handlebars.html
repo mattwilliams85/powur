@@ -1,0 +1,41 @@
+<div class="section_content" style="overflow:hidden;">
+
+<div id="body_section_header" class="section_header" style="text-transform:uppercase;">
+  <span>{{formatMonth this.entities.0.properties.pay_period_month}} - </span>
+  <span>{{this.entities.0.properties.pay_period_year}}</span>
+</div>
+
+</div>
+<table style="width:100%;">
+<thead>
+  <td class="details-cell"><strong>Pay Period</strong></td>
+  <td class="details-cell"><strong>Dates</strong></td>
+  <td class="details-cell"><strong>Amount</strong></td>
+  <td class="details-cell" style="text-align:right"><strong>Details</strong></td>
+</thead>
+  {{#each this.entities}}
+  <tr class="summary-row">
+    {{#compare this.properties.pay_period_type "Monthly" operator="==="}}
+      <td class="details-cell">Monthly</td>
+    {{else}}
+      <td class="details-cell">Weekly</td>
+    {{/compare}}
+    {{#if this.properties.pay_period_date_range}}
+      <td class="details-cell">{{this.properties.pay_period_date_range}}</td>
+    {{else}}
+      <td class="details-cell">-</td>
+    {{/if}}
+    {{#if this.properties.total_earnings}}
+      <td class="details-cell">${{formatCurrency this.properties.total_earnings}}</td>
+      {{#compare this.properties.pay_period_type "Monthly" operator="==="}}
+        <td class="details-cell right-aligned"><a class="dropToggle monthly" id="{{this.properties.pay_period_id}}">View Details  <i class="fa fa-chevron-down"></i></a></td>
+      {{else}}
+        <td class="details-cell right-aligned"><a class="dropToggle weekly" id="{{this.properties.pay_period_id}}">View Details  <i class="fa fa-chevron-down"></i></a></td>
+      {{/compare}}
+    {{else}}
+      <td class="details-cell">$0</td>
+      <td class="details-cell right-aligned" style="color:#ccc">View Details <i class="fa fa-chevron-down"></i> </td>
+    {{/if}}
+  </tr>
+  {{/each}}
+</table>

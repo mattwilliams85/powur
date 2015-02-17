@@ -1,0 +1,95 @@
+<table class="_table _spreadSheet" >
+    <tr>
+        <th style="vertical-align:middle;">Dates</th>
+        <th style="width:50%;vertical-align:middle;">
+            <span style="display:block; float:left; margin-right:10px;">Pay Period</span>
+            <select name="pay_period" style="float:left;" id="js-pay_period_select">
+                <option>Select a Pay Period</option>
+                <option value="lifetime">Lifetime Rank Achievements</option>
+
+                {{#each this.pay_period.entities}}
+                    {{#compare this.properties.id ../entities.0.properties.pay_period_id operator="=="}}
+                        <option value="{{this.properties.id}}" selected>{{this.properties.title}}</option>
+                    {{else}}
+                        {{#compare this.actions.0.name "recalculate" operator="=="}}
+                            <option value="{{this.properties.id}}">{{this.properties.title}}</option>
+                        {{else}}
+                        {{/compare}}
+                    {{/compare}}
+                {{/each}}
+            </select>
+        </th>
+        <th  style="vertical-align:middle; " colspan="4">Rank Info</th>
+    </tr>
+    {{#each this.entities}}
+    <tr>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Timestamp</span>
+                {{{localtime this.properties.achieved_at}}}
+            </div>
+        </td>
+        <td>
+
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Pay Period ID</span>
+                {{{this.properties.pay_period_id}}}
+            </div>
+
+        </td>
+        <td>
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Rank</span>
+                {{{this.properties.rank_id}}}
+            </div>
+        </td>
+        <td>
+
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Name</span>
+                {{{this.properties.rank}}}
+            </div>
+        </td>
+        <td>
+
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Type</span>
+            {{#if this.properties.lifetime}}
+                Lifetime
+            {{else}}
+                Pay Period
+            {{/if}}
+            </div>
+        </td>
+        <td>
+
+            <div class="innerCell">
+                <span class="label" style="text-transform:capitalize;">Path</span>
+                {{{this.properties.path}}}
+                </span>
+            </div>
+
+        </td>
+    </tr>
+    {{/each}}
+
+    {{#if this.paginationInfo}}
+    <tr>
+        <td colspan="5" style="border-top:1px dashed #ccc; text-align:center;padding:32px;">
+            {{#each this.paginationInfo.display}}
+            <div class="js-pagination">
+                {{#if this.link}}
+                    <a href="#" data-page-number="{{this.link}}">{{this.display}}</a>
+                {{else}}
+                    {{this.display}}
+
+                {{/if}}
+            </div>
+            {{/each}}
+
+        </td>
+    </tr>
+    {{/if}}
+
+</table>
+

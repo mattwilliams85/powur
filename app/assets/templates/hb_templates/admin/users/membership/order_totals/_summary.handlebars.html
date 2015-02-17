@@ -1,0 +1,66 @@
+<div class="js-thumbnail" >
+    <span ><img class="advocate_avatar" src="/temp_dev_images/Tim.jpg"/></span>
+    {{#if this.userDropDown}}
+        <select class="js-user_select" style="width:192px;">
+            {{#each this.userDropDown}}
+                <option value="#{{this.id}}">{{this.first_name}} {{this.last_name}}</option>
+            {{/each}}
+        </select>
+    {{else}}
+    <span class="js-advocate_name">{{this.first_name}} {{this.last_name}}</span>
+    {{/if}}
+    <br><br>
+    <span class="subtext summary">
+        <ul>
+            <li>Status: </li>
+            <li>Rank: </li>
+            <li>Level: {{this.level}}</li>
+            <li>Leg Size: {{this.downline_count}}</li> 
+            </li>
+            <li style="padding-bottom:40px;">
+                <select class="js-user_select" style="width:192px;">
+                    {{#if this.upline}}
+                        <option value="">Upline</option>
+                        {{#each this.upline}}
+                            <option value="#{{this.id}}" >{{this.level}}: {{this.first_name}} {{this.last_name}}</option>
+                        {{/each}}
+                    {{/if}}
+                </select>
+            </li>
+            <li>
+                <select class="js-user_select" style="width:192px;">
+                    {{#if this.downline}}
+                        <option value="">Recruits</option>
+                        {{#each this.downline}}
+                            <option value="#{{this.id}}" >{{this.first_name}} {{this.last_name}}</option>
+                        {{/each}}
+                    {{/if}}
+                </select>
+            </li><br><br>
+            <!--<li>Uplink: <a class="js-user_link" href="#{{this.immediateUpline.id}}">{{this.immediateUpline.first_name}} {{this.immediateUpline.last_name}}</a></li>-->
+        </ul>
+    </span>
+    <span class="subtext summary">
+        <ul>
+            <li>Email:<a href="mailto:{{this.email}}">{{this.email}}</a></li>
+            <li>Phone: {{this.phone}}</li>
+        </ul>
+    </span>    
+    <span class="subtext summary">
+        <ul>
+            <li>Sales Volume:</li>
+            <li>Commission:</li>
+        </ul>
+    </span>    
+    <span class="subtext summary">
+        <ul>
+            <li>Created:</li>
+            <li>Member Since:</li>
+            <li>Last login:</li>
+        </ul>
+    </span>    
+
+</div>
+
+
+

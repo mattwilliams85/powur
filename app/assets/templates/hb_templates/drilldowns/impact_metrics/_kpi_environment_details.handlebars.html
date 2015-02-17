@@ -1,0 +1,240 @@
+
+<div class="drilldown_content">
+		<div id="kpi_environment_detail" class="object_detail">
+			<span class="dismiss"><i class="fa fa-times"></i></span>
+			<div class="object_detail_content">
+				<div class="object_detail_content_section summary">
+					<h4 style="padding-left:30px">Environmental Impact</h4>
+					<div class="graph">
+						<canvas id="myChart" width="250" height="250"></canvas>
+						<span style="position:absolute; top:215px;left:95px;line-height:18px; text-transform:uppercase;">Contribution<br>breakdown</span>
+						<span class="subtext">
+							<a href="/training">Lower your carbon footprint</a>
+						</span>
+						<span class="subtext">
+							<a href="#">Learn about CO<sub>2</sub></a>
+						</span>
+					</div>
+				</div>
+
+				<div style="position:absolute; top:87.5px;left:315px;">
+					<div class="statistics">
+						<div>
+							<img src="/images/dashboard/coal_icon.png">
+							<span class="coal"></span>
+							<h3>Tons of dirty energy (coal) you and your team removed</h3>
+						</div>
+						<div>
+							<img src="/images/dashboard/tree_icon.png">
+							<span class="tree"></span>
+							<h3>Number of trees you and your team have grown</h3>
+
+						</div>
+						<div>
+							<img src="/images/dashboard/gas_icon.png">
+							<span class="gas"></span>
+							<h3>Gallons of gas you and your team have saved</h3>
+						</div>
+
+					</div>
+			</div>
+		</div>
+</div>
+
+
+<style>
+.drilldown_content {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.statistics{
+	width:850px;
+	height: 100%;
+	padding-left:20px;
+	float:left;
+}
+
+.statistics div{
+	width:250px;
+	padding:16px;
+	height: 100%;
+	float:left;
+	text-align: center;
+}
+.statistics span{
+	clear:both;
+	padding:16px;
+	height: 100%;
+	font-size:34pt;
+	display: block;
+	margin:auto;
+	text-align: center;
+}
+
+.statistics div img{
+	background-color: #20c2f1;
+	padding:40px;
+	margin-top:60px;
+	border-radius: 80px;
+}
+
+.statistics div h3{
+	margin-top:30px;
+	font-size:12pt;
+	line-height: 14pt;
+}
+
+.graph {
+	width: 300px;
+	height: 300px;
+	float: left;
+	font-size: 14px;
+	color: #fff;
+	text-align: center;
+	padding-top: 35px;
+	/*border-right:1px solid #777;*/
+}
+
+.object_detail_content_section {
+    padding-bottom:15px;
+}
+
+</style>
+<script>
+
+
+var pieData = [
+    {
+        value: 101.34,
+        color:"#20c2f1",
+        highlight: "#5bd7f7",
+        label: "Me"
+    },
+    {
+        value: 620,
+        color: "#FDB45C",
+        highlight: "#FFC870",
+        label: "Grid"
+    },
+
+];
+
+var gas_total = total*143
+var ctx = document.getElementById("myChart").getContext("2d");
+var options={
+    // Boolean - Determines whether to draw tooltips on the canvas or not
+    showTooltips: true,
+
+	// Array - Array of string names to attach tooltip events
+    tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+
+    // String - Tooltip background colour
+    tooltipFillColor: "rgba(0,0,0,0.8)",
+
+    // String - Tooltip label font declaration for the scale label
+    tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+    // Number - Tooltip label font size in pixels
+    tooltipFontSize: 14,
+
+    // String - Tooltip font weight style
+    tooltipFontStyle: "normal",
+
+    // String - Tooltip label font colour
+    tooltipFontColor: "#fff",
+
+    // String - Tooltip title font declaration for the scale label
+    tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+    // Number - Tooltip title font size in pixels
+    tooltipTitleFontSize: 14,
+
+    // String - Tooltip title font weight style
+    tooltipTitleFontStyle: "bold",
+
+    // String - Tooltip title font colour
+    tooltipTitleFontColor: "#fff",
+
+    // Number - pixel width of padding around tooltip text
+    tooltipYPadding: 6,
+
+    // Number - pixel width of padding around tooltip text
+    tooltipXPadding: 6,
+
+    // Number - Size of the caret on the tooltip
+    tooltipCaretSize: 8,
+
+    // Number - Pixel radius of the tooltip border
+    tooltipCornerRadius: 6,
+
+    // Number - Pixel offset from point x to tooltip edge
+    tooltipXOffset: 10,
+
+    // String - Template string for single tooltips
+    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+
+    // String - Template string for single tooltips
+    multiTooltipTemplate: "<%= value %>",
+
+    //Boolean - Whether we should show a stroke on each segment
+    segmentShowStroke : true,
+
+    //String - The colour of each segment stroke
+    segmentStrokeColor : "#535353",
+
+    //Number - The width of each segment stroke
+    segmentStrokeWidth : 2,
+
+    //Number - The percentage of the chart that we cut out of the middle
+    percentageInnerCutout : 60, // This is 0 for Pie charts
+
+    //Number - Amount of animation steps
+    animationSteps : 100,
+
+    //String - Animation easing effect
+    animationEasing : "easeOutBounce",
+
+    //Boolean - Whether we animate the rotation of the Doughnut
+    animateRotate : true,
+
+    //Boolean - Whether we animate scaling the Doughnut from the centre
+    animateScale : false,
+
+    //String - A legend template
+    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+
+}
+
+var myDoughnutChart = new Chart(ctx).Doughnut(pieData,options);
+
+var total = 722;
+
+$(".statistics .coal").html(numberWithCommas(Math.ceil(total/2)));
+$(".statistics .tree").html(numberWithCommas(Math.ceil(total)));
+$(".statistics .gas").html(numberWithCommas(Math.ceil(total*113)));
+
+$('.statistics span').each(function () {
+    $(this).prop('Counter',1).animate({
+        Counter: removeCommas($(this).text())
+    }, {
+        duration: 1000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(numberWithCommas(Math.ceil(now)));
+        }
+    });
+});
+
+function removeCommas(str) {
+    return(str.replace(/,/g,''));
+}
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+</script>

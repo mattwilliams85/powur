@@ -1,0 +1,41 @@
+<style>
+    td{
+        vertical-align: top;
+        line-height: 20px;
+        padding-right:20px;
+        font-size:14px;
+        padding-top:20px !important;
+        padding-bottom:40px !important;
+    }
+
+</style>
+
+<table class="_table _spreadSheet">
+    {{#compare this.entities.length 0 operator="=="}}
+    <tr style="text-transform:capitalize; color:#9b9b9b; border:0;">
+        <td colspan="3" style="vertical-align:middle; text-align:center;"><br><br>You have no Qualification Paths defined.<br>At least one Qualification Path must exist to create Rank Qualifications.</td>
+    </tr>
+
+    {{else}}
+
+    <tr>
+        <th width="15%">Path Name</th>
+        <th width="65%" >Description</th>
+        <th width="20%">Action</th>
+    </tr>
+
+
+    {{#each this.entities}}
+    <tr style="text-transform:capitalize; color:#9b9b9b; border-bottom:1px solid #ccc;" data-rank-path-id="{{this.properties.id}}">
+        <td><a href="#{{this.properties.id}}" class="js-edit_rank_path" >{{this.properties.name}}</a></td>
+        <td style="padding-right:40px;">{{this.properties.description}}</td>
+        <td>
+            <a href="#{{this.properties.id}}" class="js-edit_rank_path">Edit Qualification Path</a>
+        </td>
+    </tr>
+
+    {{/each}}
+    {{/compare}}
+
+</table>
+

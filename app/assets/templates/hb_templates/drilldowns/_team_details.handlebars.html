@@ -1,0 +1,31 @@
+{{#if this.stats}}
+<div class="drilldown_content">
+	<div class="drilldown_content_section kpi_container ">
+		<div class="section_content team_info" >
+			<div class="pagination_container kpi_container" data-comment="required for pagination - do not remove drilldown">
+				<div class="nav left"><i class="fa fa-angle-left"></i></div>
+				<div class="pagination_content">
+				</div>
+				<div class="nav right"><i class="fa fa-angle-right"></i></div>
+			</div>					
+		</div>
+	</div>
+</div>
+{{else}}
+<div class="drilldown_content">
+	<div class="drilldown_content_section summary">
+		<span class="info_title">GENERATION</span>
+		<span class="info_detail fa-generation">{{this.generation}}</span>
+	</div>
+	<div class="drilldown_content_section details">
+		<div class="section_content team_info" >
+			<div class="pagination_container" data-comment="required for pagination - do not remove drilldown">
+				<div class="nav left"><i class="fa fa-angle-left"></i></div>
+				<div class="pagination_content">
+				</div>
+				<div class="nav right"><i class="fa fa-angle-right"></i></div>
+			</div>					
+		</div>
+	</div>
+</div>
+{{/if}}
