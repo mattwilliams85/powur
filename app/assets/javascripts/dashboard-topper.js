@@ -18,7 +18,21 @@ var DashboardTopper = {
   // parameter _lastID is the ID of the last post shown on the page,
   // so the function knows where to start when getting more posts
   fillNewsItems: function(_lastID) {
-
+    _ajax({
+        _ajaxType:'get',
+        _url:'/u/notifications',
+        _callback:function(data){
+          _data.notifications = data;
+          EyeCueLab.UX.getTemplate(
+            '/templates/auth/notifications/_list.handlebars.html',
+            _data.notifications,
+            $('#aw-news-notifications'),
+            function(){
+              $('#aw-news').animate({'opacity': 1}, 200);
+            }
+          );
+        }
+    });
   },
 
   // function to fill pay period goals from _data
