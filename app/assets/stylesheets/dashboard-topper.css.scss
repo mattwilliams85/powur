@@ -166,6 +166,12 @@ div.aw-tooltip span:after {
 
 
 // News Section 
+#aw-news-notifications {
+  height: 450px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .aw-news-item-container {
   padding-top: 10px;
   margin: 5px;
@@ -181,6 +187,7 @@ div.aw-tooltip span:after {
   font-size: 12pt;
   text-align: left;
   line-height: 15pt;
+  margin-right: 8px;
 }
 
 .aw-news-date {
@@ -195,8 +202,20 @@ div.aw-tooltip span:after {
 }
 
 .aw-emphasis {
-  // color: #20c2f1;
   text-decoration: underline;
+}
+
+// News Section: custom scroller
+#aw-news-notifications::-webkit-scrollbar {
+  width: 8px;
+}
+
+#aw-news-notifications::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+
+#aw-news-notifications::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,1);
 }
 
 // Share Quote Section
