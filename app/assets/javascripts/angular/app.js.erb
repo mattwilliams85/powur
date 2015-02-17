@@ -262,11 +262,7 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/landing/templates/sign-in.html")%>',
       controller: 'LandingCtrl'
     }).
-    when('/sign-up', {
-      templateUrl: '<%=asset_path("angular/landing/templates/sign-up.html")%>',
-      controller: 'LandingCtrl'
-    }).
-    when('/sign-up/:inviteCode', {
+    when('/sign-up/:inviteCode?', {
       templateUrl: '<%=asset_path("angular/landing/templates/sign-up.html")%>',
       controller: 'LandingCtrl'
     }).
@@ -290,7 +286,7 @@ sunstandApp.config(
     }).
 
     // Promo
-    when('/create-wealth', {
+    when('/create-wealth/:inviteCode?', {
       templateUrl: '<%=asset_path("angular/promo/templates/create-wealth.html")%>',
       controller: 'PromoCtrl'
     }).

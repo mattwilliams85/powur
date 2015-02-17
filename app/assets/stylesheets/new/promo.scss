@@ -804,6 +804,11 @@ $large-screen: em-calc(1300);
     .our-origin-ico {
       margin: 40px 0;
       width: 100%;
+      display: none;
+
+      @media #{$small} {
+        display: block;
+      }
     }
 
     blockquote {
