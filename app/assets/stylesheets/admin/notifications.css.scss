@@ -1,3 +1,37 @@
+// Notifications-Specific Classes
+
+.admin-notifications-item_container {
+  padding: 16px;
+  // position: absolute;
+  display: block;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+
+}
+
+.admin-notifications-item_container p.date {
+  font-size: 14px;
+  line-height: 16px;
+  text-transform: uppercase;
+  font-family: "Varela Round", sans-serif;
+  // position: absolute;
+  top: 8px;
+  left: 16px;
+  text-align: left;
+  color: #9b9b9b;
+}
+
+.admin-notifications-item_container p.content {
+  font-size: 24px;
+  text-align: left;
+  top: 30px;
+  left: 16px;
+}
+
+
+// Standard Dashboard Classes
+
 .js-dashboard_section_indicator{
   position:absolute;
   width: 0;
@@ -17,6 +51,13 @@
 
 .js-admin_dashboard_column.detail{
   width: 960px;
+}
+
+.js-admin_dashboard_detail_container legend {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 4px;
 }
 
 .js-admin_dashboard_detail_container{
