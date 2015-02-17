@@ -4,7 +4,7 @@ module Auth
       respond_to do |format|
         format.html
         format.json do
-          @notifications = Notification.all
+          @notifications = Notification.all.order(id: :desc)
         end
       end
     end

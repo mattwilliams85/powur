@@ -4,7 +4,7 @@ module Admin
       respond_to do |format|
         format.html
         format.json do
-          @notifications = Notification.all.reverse_order
+          @notifications = Notification.all.order(id: :desc)
         end
       end
     end
@@ -18,7 +18,7 @@ module Admin
       @notification = Notification.find(params[:id])
 
       @notification.destroy!
-      @notifications = Notification.all.reverse_order
+      @notifications = Notification.all.order(id: :desc)
 
       render 'index'
     end
