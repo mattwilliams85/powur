@@ -150,18 +150,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     }
   };
 
-  $scope.animateArrow = function(id){
-    var pilerTimer = $timeout(function() {
-      $(id).animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
-      $scope.readyPiler();
-    }, 6500);
-
-    $scope.$on('$locationChangeStart', function(){
-      $timeout.cancel(pilerTimer);
-    });
-  }
+ $rootScope.animateArrow(1,6500)
 
   this.init($scope, $location, $timeout);
   this.fetch($scope, $interval, $routeParams, $timeout, Geo);

@@ -1,6 +1,10 @@
 'use strict';
 
+<<<<<<< HEAD
 function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScroll, $routeParams) {
+=======
+function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, $anchorScroll) {
+>>>>>>> arrows now animate on all marketing pages
   $scope.redirectToDashboardIfSignedIn();
   $scope.removePiler();
   $scope.inviteCode = null;
@@ -25,17 +29,7 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
     }, 6000);
   };
 
-  $scope.animateArrow = function(id) {
-    var pilerTimer = $timeout(function() {
-      $(id).animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
-    }, 3000);
-
-    $scope.$on('$locationChangeStart', function() {
-      $timeout.cancel(pilerTimer);
-    });
-  }
+  $rootScope.animateArrow(1,3000)
 
   $scope.stopSlideShowOn = function(slide) {
     if (slide === parseInt(slide, 10)) { // check if integer
@@ -283,5 +277,9 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
 };
 
 
+<<<<<<< HEAD
 PromoCtrl.$inject = ['$scope', '$location', '$timeout', '$interval', '$window', '$anchorScroll', '$routeParams'];
+=======
+PromoCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', '$interval', '$window', '$anchorScroll'];
+>>>>>>> arrows now animate on all marketing pages
 sunstandControllers.controller('PromoCtrl', PromoCtrl);

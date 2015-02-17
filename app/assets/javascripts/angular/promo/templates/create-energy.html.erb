@@ -40,7 +40,7 @@
           <h5>Drag the $ across to ‘You’ to continue:</h5>
 
           <div class="slider-inner">
-            <slider floor="0" ceiling="1" step="1" precision="0" ng-model="slider" translate="sliderOnChange"></slider>
+            <slider floor="0" ceiling="50" step="1" precision="0" ng-model="slider" translate="sliderOnChange"></slider>
             <img class="image-1" src="<%=asset_path('promo/slider-item-1.1.png')%>" />
             <img class="image-2" src="<%=asset_path('promo/slider-item-2.1-hidden.png')%>" />
           </div>
@@ -48,6 +48,7 @@
           <span>If you’re having problems, <a ng-click="gotoAnchor('on_slider_move')">click here to continue</a>.</span>
         </div>
       </div>
+      <div class="arrow-box"></div>
     </div>
 
     <div class="sun-scrolling-bg sun-bg-5 section" id="on_slider_move">
@@ -70,7 +71,7 @@
           <span>No more carbon pollution. Scientists have warned we are in uncharted territory. Rapid release of C02 into the atmosphere is changing the very climate of this planet, causing record temperatures, drought, and rising sea levels. If we don’t find a different source of energy than fossil fuels, we are leaving a legacy of destruction for future generations. It’s time to change.</span>
         </div>
       </div>
-      <div class="arrow-box">
+      <div class="arrow-box" id="arrow_3">
         <span class="optional">What's in it for you?</span>
         <i class="fa fa-chevron-down fa-3x"></i>
       </div>
@@ -105,7 +106,7 @@
           </div>
         </div>
       </div>
-      <div class="arrow-box inverted">
+      <div class="arrow-box inverted"  id="arrow_4">
         <i class="fa fa-chevron-down fa-3x"></i>
       </div>
     </div>
@@ -135,7 +136,7 @@
           <p>Through Powur, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
         </div>
       </div>
-      <div class="arrow-box">
+      <div class="arrow-box"  id="arrow_5">
         <span>What's next?</span>
         <i class="fa fa-chevron-down fa-3x"></i>
       </div>

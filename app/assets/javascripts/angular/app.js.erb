@@ -9,8 +9,8 @@ var sunstandApp = angular.module('sunstandApp', [
   // Directives
   // 'sunstandApp.signInForm',
   // 'sunstandApp.fileS3Uploader'
-]).run(['$rootScope', '$location', '$document', '$http', '$window', 'CurrentUser',
-  function ($rootScope, $location, $document, $http, $window, CurrentUser) {
+]).run(['$rootScope', '$location', '$document', '$http', '$window', '$timeout', 'CurrentUser',
+  function ($rootScope, $location, $document, $http, $window, $timeout, CurrentUser) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
     /*
@@ -35,6 +35,19 @@ var sunstandApp = angular.module('sunstandApp', [
         window.location = '#/sign-in';
       }
     };
+
+    $rootScope.animateArrow = function(id,time){
+      var element = $(".arrow-box")[id-1]
+      var pilerTimer = $timeout(function() {
+        $(element).show().animate({
+          bottom: "3em"
+        }, 500, "easeOutBounce" );
+      }, time);
+
+      $rootScope.$on('$locationChangeStart', function() {
+        $timeout.cancel(pilerTimer);
+      });
+    }
 
     $rootScope.removePiler = function(){
       $('html').removeClass('piling-on');
@@ -77,6 +90,8 @@ var sunstandApp = angular.module('sunstandApp', [
         //events
         onLeave: function(index, nextIndex, direction) {
           changeNavColor()
+          // $('.arrow-box').css("bottom","-4em").hide();
+          $rootScope.animateArrow(nextIndex,1800);
           setTimeout(function(){
             if(nextIndex === 1) { $('.sun-header-guest').velocity("transition.slideUpBigOut", function(){
               $('.sun-header-guest').toggleClass("invert").show().velocity({ opacity: 1 }, 200);
@@ -94,6 +109,7 @@ var sunstandApp = angular.module('sunstandApp', [
           animateActiveNav()
           $('#pp-nav').fadeIn('slow');
           $('#dim_the_lights').css('opacity','1');
+
         },
         afterRender: function(index) {
           $('#pp-nav').hide();
