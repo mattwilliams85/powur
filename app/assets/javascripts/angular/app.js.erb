@@ -40,7 +40,7 @@ var sunstandApp = angular.module('sunstandApp', [
       var element = $(".arrow-box")[id-1]
       var pilerTimer = $timeout(function() {
         $(element).show().animate({
-          bottom: "3em"
+          bottom: "2em"
         }, 500, "easeOutBounce" );
       }, time);
 
@@ -89,7 +89,6 @@ var sunstandApp = angular.module('sunstandApp', [
         //events
         onLeave: function(index, nextIndex, direction) {
           changeNavColor()
-          // $('.arrow-box').css("bottom","-4em").hide();
           $rootScope.animateArrow(nextIndex,1800);
           setTimeout(function(){
             if(nextIndex === 1) { $('.sun-header-guest').velocity("transition.slideUpBigOut", function(){
@@ -207,6 +206,9 @@ var sunstandApp = angular.module('sunstandApp', [
         if(scrollPos > screenHeight && !$('.sun-header-guest').hasClass("invert")) {
           $('.sun-header-guest').toggleClass("invert").velocity("transition.slideDownBigIn");
         }
+      });
+      $rootScope.$on('$locationChangeStart', function() {
+        $rootScope.enableScrollDetect.stop()
       });
     }
 

@@ -1,4 +1,5 @@
 $large-screen: em-calc(1300);
+$xl-screen: em-calc(1500);
 
 .sun-promo {
   height: 100%;
@@ -162,6 +163,10 @@ $large-screen: em-calc(1300);
   }
 
   .sun-promo-dim {
+    padding-top:90px;
+    @media #{$large} {
+      padding-top:150px;
+    }
     p {
       color: #fff;
       font-size: 1.2em;
@@ -186,11 +191,11 @@ $large-screen: em-calc(1300);
    * Promo Page Slide Show
   */
   .slide-show-wrapper {
+    height:400px;
     overflow: hidden;
 
     .slide-show-inner {
       margin-bottom: 50px;
-
       ///// for the transition
       left: -1000px;
       position: absolute;
@@ -212,7 +217,10 @@ $large-screen: em-calc(1300);
       }
 
       p {
-        font-size: 1.2em;
+        font-size: 1em;
+        @media #{$large} {
+          font-size: 1.2em;
+        }
         line-height: 1.5em;
         margin-top: 50px;
         max-width: 500px;
@@ -220,7 +228,8 @@ $large-screen: em-calc(1300);
     }
 
     .slide-show-dots {
-      margin-top: 400px;
+      position:absolute;
+      bottom:50px;
 
       a {
         display: inline-block;
@@ -250,6 +259,11 @@ $large-screen: em-calc(1300);
 
 
   .sun-promo-slide-3 {
+    padding-top:100px;
+    @media #{$large} {
+      padding-top:150px;
+    }
+
     h2, h5 {
       font-weight: bold;
       line-height: 1em;
@@ -510,6 +524,8 @@ $large-screen: em-calc(1300);
 
 
   .sun-promo-energy-slide-5 {
+    padding-bottom:70px !important;
+
     h2 {
       font-size:2.5em;
       text-align:left;
@@ -620,7 +636,7 @@ $large-screen: em-calc(1300);
   }
 
   .sun-logo-wrapper {
-    margin:0 0 40px 40px;
+    margin:0 0 30px 40px;
     width:250px;
   }
 
@@ -734,18 +750,26 @@ $large-screen: em-calc(1300);
   }
 
   &.sun-why-solar-page {
+    .sun-bg-3, .sun-bg-5, .sun-bg-11  {
+      .row {
+        width:90%;
+        padding-bottom:100px;
+        padding-top:100px;
+      }
+  
+    }
     .slide-show-inner {
       width: 100%;
       left: -100%;
     }
 
-    .slide-2-slider-item {
-
-    }
-
     .slide-2-ico-wrapper {
-      height: 100px;
-      margin-top: 40px;
+      height: 50px;
+      margin-top: 30px;
+      @media #{$large}{ 
+        margin-top: 40px;
+        height: 100px;
+      }
       text-align: center;
 
       @for $i from 1 through 6 {
@@ -771,8 +795,8 @@ $large-screen: em-calc(1300);
     }
 
     .slide-show-dots {
-      margin-top: 0;
-      bottom: 6em;
+      position:absolute;
+      top:0;
     }
 
     .sun-slider {
@@ -917,6 +941,10 @@ $large-screen: em-calc(1300);
   }
 
   &.sun-our-dna-page {
+    .row {
+      padding:0 3%;
+    }
+
     .sun-promo-content {
       padding-top: 300px;
       padding-bottom: 250px;
@@ -1151,8 +1179,13 @@ $large-screen: em-calc(1300);
     background-image: image-url("promo/bg-19.jpg");
     background-color: #fff;
 
+    h1 { 
+      text-align:center;
+      width:100%;
+    }
+
     .sun-promo-intro {
-      width: 100%;
+      width:100%;
     }
   }
 

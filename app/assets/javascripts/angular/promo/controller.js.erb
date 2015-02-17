@@ -130,12 +130,12 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
     ]
   ];
 
-  this.init($scope, $location, $timeout, $interval, $anchorScroll);
-  this.fetch($scope, $interval, $timeout, $anchorScroll, $location, $routeParams);
+  this.init($scope, $rootScope, $location, $timeout, $interval, $anchorScroll);
+  this.fetch($scope, $rootScope, $interval, $timeout, $anchorScroll, $location, $routeParams);
 }
 
 
-PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anchorScroll) {
+PromoCtrl.prototype.init = function($scope, $rootScope, $location, $timeout, $interval, $anchorScroll) {
   $scope.$watch('slider', function(newValue) {
     if (newValue === '50') {
       $('.image-2').animate({opacity:'1'},200);
@@ -168,7 +168,7 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anc
 };
 
 
-PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll, $location, $routeParams) {
+PromoCtrl.prototype.fetch = function($scope, $rootScope,  $interval, $timeout, $anchorScroll, $location, $routeParams) {
   if ($scope.mode === 'create-wealth') {
     $(window).on('beforeunload', function() {
         $(window).scrollTop(0);
@@ -198,24 +198,20 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
     }, 1000);
     $scope.inviteCode = $routeParams.inviteCode;
   } else if ($scope.mode === 'create-energy') {
-    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.energyPromoSlides);
   } else if ($scope.mode === 'why-solar') {
-    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.whySolarPromoSlides);
   } else if ($scope.mode === 'why-powur') {
     $scope.readyPiler();
   } else if ($scope.mode === 'why-you') {
-    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
 
     $scope.currentSlide = 0;
     $timeout(function() {
       $scope.currentSlide += 1;
       $scope.sliderStop = $interval(function() {
-        if ($scope.currentSlide >= 3) { $scope.animateArrow('#arrow_2') }
         if ($scope.currentSlide >= 4) {
           $scope.currentSlide = 0;
         } else {
@@ -224,15 +220,14 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
       }, 5000);
     }, 500);
   } else if ($scope.mode === 'why-direct-selling') {
-    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.directSalePromoSlides);
   } else if ($scope.mode === 'our-origin') {
-    $scope.setupInvertHeader();
+    $rootScope.enableScrollDetect();
   } else if ($scope.mode === 'our-dna') {
-    $scope.setupInvertHeader();
+    $rootScope.enableScrollDetect();
   } else if ($scope.mode === 'our-team') {
-    $scope.setupInvertHeader();
+    $rootScope.enableScrollDetect();
     $scope.faces = [
       {
         name: 'Jonathan Budd',
