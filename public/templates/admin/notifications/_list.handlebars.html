@@ -1,0 +1,16 @@
+<!-- Hard-Coded "Create" Action -->
+
+<div class="action-create">
+  <form id="admin-notifications-create_notification_form">
+    <span class="form_row">
+      <label for="content">New Notification</label>
+      <input type="text" id="content" name="content">
+    </span>
+    <a href="#" class="button js-create_notification">Post</a>
+  </form>
+</div>
+
+{{#each this.entities}}
+  <p>{{ this.properties.content }}</p>
+  <hr>
+{{/each}}

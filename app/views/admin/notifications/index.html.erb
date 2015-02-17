@@ -1,0 +1,17 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag 'admin/notifications.js' %>
+  <%= stylesheet_link_tag 'admin/notifications.css' %>
+<% end %>
+
+<section id="admin" class="dashboard_section admin">
+  <div class="section_body">
+    <div class="section_content">
+      <div class="js-admin_dashboard_column summary"></div>
+
+      <div class="js-admin_dashboard_column detail">
+        <div class="js-admin_dashboard_detail_container"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
