@@ -2,8 +2,12 @@
 <!-- Row: News Item -->
 <div class="row">
   <div class="aw-news-item-container small-12 large-12 columns">
-    <p class="aw-news-item" data-notification_id="{{ this.properties.id }}">{{ this.properties.content }}</p>
+    <p class="aw-news-item" data-notification_id="{{ this.properties.id }}">{{{ this.properties.content }}}</p>
     <p class="aw-news-date">{{localtime this.properties.created_at}}</p>
   </div>
 </div>
 {{/each}}
+
+<div class="aw-news-load-more row">
+  <a class="js-news_load_more" href="#">Load More</a>
+</div>

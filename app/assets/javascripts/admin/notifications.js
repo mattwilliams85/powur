@@ -71,10 +71,12 @@ jQuery(function($) {
     $(document).on('click','.js-create_notification', function(e) {
       e.stopPropagation();
       e.preventDefault();
+      var _postObj = $('#admin-notifications-create_notification_form').serializeObject();
+      _postObj.content = Autolinker.link(_postObj.content);
       _ajax({
         _ajaxType:'POST',
         _url:'/a/notifications/',
-        _postObj:$('#admin-notifications-create_notification_form').serializeObject(),
+        _postObj: _postObj,
         _callback:function(){
           _dashboard.reloadData();
         }
