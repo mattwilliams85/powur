@@ -1,10 +1,6 @@
 'use strict';
 
-<<<<<<< HEAD
-function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScroll, $routeParams) {
-=======
-function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, $anchorScroll) {
->>>>>>> arrows now animate on all marketing pages
+function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, $anchorScroll, $routeParams) {
   $scope.redirectToDashboardIfSignedIn();
   $scope.removePiler();
   $scope.inviteCode = null;
@@ -276,10 +272,5 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
   }
 };
 
-
-<<<<<<< HEAD
-PromoCtrl.$inject = ['$scope', '$location', '$timeout', '$interval', '$window', '$anchorScroll', '$routeParams'];
-=======
-PromoCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', '$interval', '$window', '$anchorScroll'];
->>>>>>> arrows now animate on all marketing pages
+PromoCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', '$interval', '$window', '$anchorScroll', '$routeParams'];
 sunstandControllers.controller('PromoCtrl', PromoCtrl);

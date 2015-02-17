@@ -942,7 +942,17 @@ $large-screen: em-calc(1300);
   }
 
   &.sun-why-direct-page {
-
+    .slide-2 {
+      padding:0 7%;
+    }
+    .large-6 {
+      padding-right:5%;
+    }
+    @media #{$large} {
+      .slide-2 {
+        padding:0%;
+      }
+    }
   }
 
   .sun-bg-1 {
