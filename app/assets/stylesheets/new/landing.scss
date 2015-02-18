@@ -191,6 +191,16 @@
 }
 
 .sun-sign-up-page {
+  height: auto;
+
+  .sun-fixed-bg {
+    height: 40%
+  }
+
+  .sun-scrolling-bg {
+    margin-top: 100px;
+  }
+
   .sun-home-intro {
     h1 {
       text-align: center;
