@@ -29,13 +29,13 @@ Rails.application.config.assets.precompile += [
   'admin/users.css',
   'admin/notifications.css'
 ]
-Rails.application.config.assets.precompile += %w( 'creditly.css' )
-Rails.application.config.assets.precompile += %w( 'index.css' )
-Rails.application.config.assets.precompile += %w( 'profile.css' )
-Rails.application.config.assets.precompile += %w( 'promoter.css' )
-Rails.application.config.assets.precompile += %w( 'user.css' )
-Rails.application.config.assets.precompile += %w( 'earnings.css' )
-Rails.application.config.assets.precompile += %w( 'jquery.pagepiling.css )
+Rails.application.config.assets.precompile += %w( creditly.css )
+Rails.application.config.assets.precompile += %w( index.css )
+Rails.application.config.assets.precompile += %w( profile.css )
+Rails.application.config.assets.precompile += %w( promoter.css )
+Rails.application.config.assets.precompile += %w( user.css )
+Rails.application.config.assets.precompile += %w( earnings.css )
+Rails.application.config.assets.precompile += %w( jquery.pagepiling.css )
 
 Rails.application.config.assets.precompile += [
   'new/application.css'
