@@ -33,6 +33,36 @@ var DashboardTopper = {
           );
         }
     });
+
+    // Wire up Load More button
+    $(document).on('click','.aw-news-load-more', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      var _nextPage = (_data.notifications.properties.paging.current_page) + 1;
+
+      $('.aw-news-load-more').remove();
+
+      // Populate _data with next page
+        _ajax({
+            _ajaxType:'get',
+            _url:'/u/notifications?page=' + _nextPage,
+            _callback:function(data){
+              _data.notifications = data;
+              EyeCueLab.UX.getTemplate(
+                '/templates/auth/notifications/_list.handlebars.html',
+                _data.notifications,
+                undefined,
+                function(_returnHTML){
+                  $('#aw-news-notifications').append(_returnHTML);
+
+                  // If no more posts, remove the "Load More" button
+                  if (_data.notifications.entities.length === 0) $('.aw-news-load-more').remove();
+                }
+              );
+            }
+        });
+    });
   },
 
   // function to fill pay period goals from _data

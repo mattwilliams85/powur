@@ -1,10 +1,13 @@
 module Admin
   class NotificationsController < AdminController
+    page
+    sort id:  { id: :desc }
+
     def index
       respond_to do |format|
         format.html
         format.json do
-          @notifications = Notification.all.order(id: :desc)
+          @notifications = apply_list_query_options(Notification)
         end
       end
     end
