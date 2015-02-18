@@ -1,6 +1,6 @@
 module Admin
   class NotificationsController < AdminController
-    page
+    page max_limit: 3
     sort id:  { id: :desc }
 
     def index

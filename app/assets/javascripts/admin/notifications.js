@@ -46,6 +46,7 @@ jQuery(function($) {
       );
     }
 
+
     function reloadData() {
       _ajax({
         _ajaxType:'get',
@@ -56,16 +57,6 @@ jQuery(function($) {
         }
       });
     }
-
-    // Prevent Enter from Submitting Form
-    $(document).ready(function() {
-      $(window).keydown(function(event){
-        if(event.keyCode == 13) {
-          event.preventDefault();
-          return false;
-        }
-      });
-    });
 
     // Wire up the Post button
     $(document).on('click','.js-create_notification', function(e) {
@@ -81,6 +72,7 @@ jQuery(function($) {
           _dashboard.reloadData();
         }
       });
+      $('#content').val('');
     });
 
     // Wire up Remove X's on posts
@@ -98,6 +90,37 @@ jQuery(function($) {
         });
       } else return;
     });
+
+    // Wire up Load More button
+    $(document).on('click','.js-load_more', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      var _nextPage = (_data.notifications.properties.paging.current_page) + 1;
+
+      $('.js-load_more').remove();
+
+      // Populate _data with next page
+        _ajax({
+            _ajaxType:'get',
+            _url:'/a/notifications?page=' + _nextPage,
+            _callback:function(data){
+              _data.notifications = data;
+              EyeCueLab.UX.getTemplate(
+                '/templates/admin/notifications/_list.handlebars.html',
+                _data.notifications,
+                undefined,
+                function(_returnHTML){
+                  $('.js-admin_dashboard_detail_container').append(_returnHTML);
+
+                  // If no more posts, remove the "Load More" button
+                  if (_data.notifications.entities.length === 0) $('.js-load_more').remove();
+                }
+              );
+            }
+        });
+    });
+
 
     // Function Accessors
     this.showNotifications = showNotifications;
