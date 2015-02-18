@@ -192,6 +192,9 @@ $xl-screen: em-calc(1500);
   */
   .slide-show-wrapper {
     height:400px;
+    @media #{$large} {
+      height:500px;
+    }
     overflow: hidden;
 
     .slide-show-inner {
@@ -229,8 +232,6 @@ $xl-screen: em-calc(1500);
 
     .slide-show-dots {
       position:absolute;
-      bottom:80px;
-      left:48%;
 
       a {
         display: inline-block;
@@ -467,6 +468,10 @@ $xl-screen: em-calc(1500);
     height: 100%;
     padding: 0;
     margin-top:5%;
+
+    .slide-show-dots {
+      bottom:-350px;
+    }
 
     .row {
       height: 100%;
@@ -765,6 +770,11 @@ $xl-screen: em-calc(1500);
       .sun-promo-content {
         padding-bottom:0px;
       }
+    }
+
+    .slide-show-dots {
+      bottom:80px;
+      left:48%;
     }
 
     .slide-show-inner {
