@@ -150,17 +150,19 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     }
   };
 
-   $rootScope.animateArrow(1,6500)
-   var landingTimer = $timeout(function(){
-    $scope.readyPiler();
-    $rootScope.animateArrow(1,100)
-   },6500)
-   $scope.$on('$locationChangeStart', function(){
+  $scope.landingPageDelay = function(){
+    $rootScope.animateArrow(1,6500)
+    var landingTimer = $timeout(function(){
+      $scope.readyPiler();
+      $rootScope.animateArrow(1,100)
+    },6500)
+    $scope.$on('$locationChangeStart', function(){
       $timeout.cancel(landingTimer);
-   });
+    });
+  }
 
   this.init($scope, $location, $timeout);
-  this.fetch($scope, $interval, $routeParams, $timeout, Geo);
+  this.fetch($scope, $rootScope, $interval, $routeParams, $timeout, Geo);
 }
 
 LandingCtrl.prototype.init = function($scope, $location, $timeout) {
@@ -174,12 +176,11 @@ LandingCtrl.prototype.init = function($scope, $location, $timeout) {
 };
 
 
-LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout, Geo) {
+LandingCtrl.prototype.fetch = function($scope, $rootScope, $interval, $routeParams, $timeout, Geo) {
   // Cancels if user leaves page
 
   if ($scope.mode === 'home') {
-    $scope.animateArrow('#arrow_1')
-
+    $scope.landingPageDelay();
     $scope.currentHomeSlide = 0;
 
     $timeout(function() {
@@ -197,6 +198,7 @@ LandingCtrl.prototype.fetch = function($scope, $interval, $routeParams, $timeout
   } else if ($scope.mode === 'sign-in') {
     $scope.signInPage = true;
   } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
+    $rootScope.enableScrollDetect();
     $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
       'Powur Customer FAQ' :
       'Powur Advocate FAQ';

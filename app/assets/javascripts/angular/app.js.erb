@@ -63,6 +63,7 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     $rootScope.pagePiler = function() {
+      if($('#pagepiling').length === 0) return;
       $('#pagepiling').pagepiling({
         menu: null,
         direction: 'vertical',
