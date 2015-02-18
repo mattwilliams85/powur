@@ -32,6 +32,20 @@
   position: absolute;
   top: 10px;
   right: 10px;
+  color: #aaa;
+}
+
+#content { // textarea input box
+  font-family: "Varela Round", sans-serif;
+  font-size: 24px;
+  padding-left: 15px;
+  padding-top: 30px;
+  max-width: 930px;
+  min-width: 930px;
+  height: 80px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: rgba(0,0,0,0.08);
 }
 
 
