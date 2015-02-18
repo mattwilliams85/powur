@@ -1,0 +1,32 @@
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag 'admin/notifications.js' %>
+  <%= stylesheet_link_tag 'admin/notifications.css' %>
+<% end %>
+
+<section id="admin" class="dashboard_section admin">
+  <div class="section_body">
+    <div class="section_content">
+      <div class="js-admin_dashboard_column summary"></div>
+
+      <div class="js-admin_dashboard_column detail">
+        <!-- Hard-Coded "Create" Action -->
+
+        <legend>New Notification</legend>
+        <div class="action-create">
+          <form id="admin-notifications-create_notification_form">
+            <span class="form_row">
+              <label for="content">Notification Text</label>
+              <textarea id="content" name="content"></textarea>
+            </span>
+            <a href="#" class="button js-create_notification">Post</a>
+          </form>
+        </div>
+
+        <legend>Posted Notifications</legend>
+
+        <div class="js-admin_dashboard_detail_container"></div>
+      </div>
+
+    </div>
+  </div>
+</section>

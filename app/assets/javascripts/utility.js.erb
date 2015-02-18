@@ -212,6 +212,11 @@ Handlebars.registerHelper('json', function(context) {
     console.log(JSON.stringify(context));
 });
 
+//Handlebars helper to convert new lines to <br>'s
+Handlebars.registerHelper('nl2br', function(text) {
+    var nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2');
+    return new Handlebars.SafeString(nl2br);
+});
 
 /** start admin utilties **/
 

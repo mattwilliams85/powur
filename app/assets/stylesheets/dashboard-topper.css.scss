@@ -75,6 +75,10 @@
   opacity: 0;
 }
 
+#aw-news {
+  opacity: 0;
+}
+
 // Tooltips on meters
 div.aw-tooltip {
   position: relative;
@@ -162,6 +166,12 @@ div.aw-tooltip span:after {
 
 
 // News Section 
+#aw-news-notifications {
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .aw-news-item-container {
   padding-top: 10px;
   margin: 5px;
@@ -177,6 +187,7 @@ div.aw-tooltip span:after {
   font-size: 12pt;
   text-align: left;
   line-height: 15pt;
+  margin-right: 30px;
 }
 
 .aw-news-date {
@@ -186,13 +197,34 @@ div.aw-tooltip span:after {
   margin-top: 0px;
 }
 
-.aw-news-pagination {
-  font-size: 12pt;
+.aw-news-load-more {
+  position: relative;
+  width: 30%;
+  margin: auto;
+  display: block;
+  font-size: 10pt;
+  height: 30px;
+  background: rgba(0,0,0,0.3);
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
 }
 
 .aw-emphasis {
-  // color: #20c2f1;
   text-decoration: underline;
+}
+
+// News Section: custom scroller
+#aw-news-notifications::-webkit-scrollbar {
+  width: 8px;
+}
+
+#aw-news-notifications::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.2);
+}
+
+#aw-news-notifications::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,1);
 }
 
 // Share Quote Section
