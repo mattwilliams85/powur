@@ -4,6 +4,7 @@ namespace :sunstand do
     SOLAR_ITEM_ID = 1
     CERT_ITEM_ID  = 2
     CERT2_ITEM_ID  = 3
+    CERT3_ITEM_ID = 4
 
     BASIC_PATH_ID = 1
     PRO_PATH_ID   = 2
@@ -48,13 +49,13 @@ namespace :sunstand do
       Rake::Task['sunstand:seed:sunrun_product'].execute
       Product.create!(
         id:               CERT_ITEM_ID,
-        name:             'Powur Consultant Certification',
+        name:             'Certified -- Grow your Grid',
         description:      'Powur Certification gives you all the tools you need to build a high performing team and share in the rewards of their success. If you are going to mentor others, you need training. This is your first step. Now you have the power.',
         bonus_volume:     14900,
         distributor_only: true,
         certifiable: true,
         image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certification.jpg',
-        smarteru_module_id: '8361')
+        smarteru_module_id: '8342')
       Product.create!(
         id:               CERT2_ITEM_ID,
         name:             'Shine',
@@ -64,6 +65,15 @@ namespace :sunstand do
         certifiable: true,
         image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/shine.jpg',
         smarteru_module_id: '8362')
+      Product.create!(
+        id:               CERT3_ITEM_ID,
+        name:             'Fast Impact Training (FIT)',
+        description:      'Fast Impact Training',
+        bonus_volume:     0,
+        distributor_only: true,
+        certifiable: true,
+        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/fit.jpg',
+        smarteru_module_id: '8319')
       puts 'Created Products for solar item and consultant certification'
     end
 
