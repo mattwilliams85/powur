@@ -32,7 +32,7 @@ jQuery(function($) {
 
     function showSummary() {
       EyeCueLab.UX.getTemplate(
-        '/templates/admin/notifications/_summary.handlebars.html',
+        '<%= asset_path("hb_templates/admin/notifications/_summary.handlebars.html") %>',
         '',
         $('.js-admin_dashboard_column.summary')
       );
@@ -40,7 +40,7 @@ jQuery(function($) {
 
     function showNotifications(){
       EyeCueLab.UX.getTemplate(
-        '/templates/admin/notifications/_list.handlebars.html',
+        '<%= asset_path("hb_templates/admin/notifications/_list.handlebars.html") %>',
         _data.notifications,
         $('.js-admin_dashboard_detail_container')
       );
@@ -107,7 +107,7 @@ jQuery(function($) {
             _callback:function(data){
               _data.notifications = data;
               EyeCueLab.UX.getTemplate(
-                '/templates/admin/notifications/_list.handlebars.html',
+                '<%= asset_path("hb_templates/admin/notifications/_list.handlebars.html") %>',
                 _data.notifications,
                 undefined,
                 function(_returnHTML){

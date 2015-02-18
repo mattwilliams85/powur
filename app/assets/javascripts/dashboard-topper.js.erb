@@ -24,7 +24,7 @@ var DashboardTopper = {
         _callback:function(data){
           _data.notifications = data;
           EyeCueLab.UX.getTemplate(
-            '/templates/auth/notifications/_list.handlebars.html',
+            '<%= asset_path("hb_templates/auth/notifications/_list.handlebars.html") %>',
             _data.notifications,
             $('#aw-news-notifications'),
             function(){
@@ -50,7 +50,7 @@ var DashboardTopper = {
             _callback:function(data){
               _data.notifications = data;
               EyeCueLab.UX.getTemplate(
-                '/templates/auth/notifications/_list.handlebars.html',
+                '<%= asset_path("hb_templates/auth/notifications/_list.handlebars.html") %>',
                 _data.notifications,
                 undefined,
                 function(_returnHTML){
