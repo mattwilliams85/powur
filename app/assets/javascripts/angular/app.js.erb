@@ -37,6 +37,7 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     $rootScope.animateArrow = function(id,time){
+      $timeout.cancel(pilerTimer);
       var element = $(".arrow-box")[id-1]
       var pilerTimer = $timeout(function() {
         $(element).show().animate({
