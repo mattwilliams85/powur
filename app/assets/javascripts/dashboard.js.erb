@@ -93,6 +93,16 @@ function Dashboard(){
       },
     };
 
+    var badgeImagesArray = [
+      "<%=asset_path('badges/rank0.png') %>",
+      "<%=asset_path('badges/rank1.png') %>",
+      "<%=asset_path('badges/rank2.png') %>",
+      "<%=asset_path('badges/rank3.png') %>",
+      "<%=asset_path('badges/rank4.png') %>",
+      "<%=asset_path('badges/rank5.png') %>",
+      "<%=asset_path('badges/rank6.png') %>",
+    ]
+
     Object.keys(kpi).forEach(function(key){
       $(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_value span").html(kpi[key].tab.value)
       $(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_label").html(kpi[key].tab.label)
@@ -105,13 +115,13 @@ function Dashboard(){
       var _newWidth = Math.floor(220*60/_width);
       $(this).css("font-size", _newWidth+"pt");
     });
-    $("#header-badge").attr("src","/assets/badges/rank"+_data.currentUser.organic_rank+".png")
-    $(".aw-badge").attr("src","/assets/badges/rank"+(_data.currentUser.organic_rank+1)+".png")
+    $("#header-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.organic_rank])
+    $(".aw-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.next_rank]) 
 
   }
 
   function displayGoals(path){
-    return;
+    // return;
     // hook up the control for changing paths
     $("#pay_period_goal_path").on("change", function(e){
       $("#goal_meters .labels, #goal_meters .highlight").html("");
@@ -131,6 +141,7 @@ function Dashboard(){
         current:0
       }
     }
+
     //populate path dropdown
     if(typeof path === "undefined"){
       goals.paths=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].properties.paths;

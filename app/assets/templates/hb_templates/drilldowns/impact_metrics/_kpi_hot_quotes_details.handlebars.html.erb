@@ -8,17 +8,29 @@
           <div class="rank-column">
             <span id="current-rank-header">Current Rank</span>
             <br>
-            <img class="badge" id="current-rank" src="/assets/badges/rank{{this.currentUser.organic_rank}}.png"/>
+            {{#each currentUser.goals.entities.1.entities}}
+              {{#compare this.properties.id ../this.currentUser.goals.properties.organic_rank operator="=="}}
+                <img class="badge" id="next-rank" src="{{this.properties.badge_path}}"/>
+              {{/compare}}
+            {{/each}}
           </div>
           <div class="rank-column">
             <span id="next-rank-header">Next Rank</span>
             <br>
-            <img class="badge" id="next-rank" src="/assets/badges/rank{{math this.currentUser.organic_rank '+' 1}}.png"/>
+            {{#each currentUser.goals.entities.1.entities}}
+              {{#compare this.properties.id ../this.currentUser.goals.properties.next_rank operator="=="}}
+                <img class="badge" id="next-rank" src="{{this.properties.badge_path}}"/>
+              {{/compare}}
+            {{/each}}
           </div>
           <div class="rank-column">
             <span id="highest-rank-header">Highest Rank Achieved</span>
             <br>
-            <img class="badge" id="highest-rank" src="/assets/badges/rank{{this.currentUser.lifetime_rank}}.png"/>
+            {{#each currentUser.goals.entities.1.entities}}
+              {{#compare this.properties.id ../this.currentUser.goals.properties.lifetime_rank operator="=="}}
+                <img class="badge" id="next-rank" src="{{this.properties.badge_path}}"/>
+              {{/compare}}
+            {{/each}}
           </div>
         </div><!-- end rank-columns -->
         <span id="qualification-header">Qualifications</span>
