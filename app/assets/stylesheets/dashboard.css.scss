@@ -688,7 +688,7 @@
     color:darken($dev_dark_gray, 30%);
   }
   .kpi_value{
-    color:$dev_dark_gray;
+    color:darken($dev_dark_gray, 30%);
     margin-top:38px;
     font-size:60pt;
   }

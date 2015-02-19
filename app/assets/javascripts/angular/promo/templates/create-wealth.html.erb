@@ -33,7 +33,7 @@
           <h5>Drag the $ across to ‘You’ to continue:</h5>
 
           <div class="slider-inner">
-            <slider floor="0" ceiling="1" step="1" precision="0" ng-model="slider" translate="sliderOnChange"></slider>
+            <slider floor="0" ceiling="50" step="1" precision="0" ng-model="slider" translate="sliderOnChange"></slider>
             <img class="image-1" src="<%=asset_path('promo/slider-item-1.png')%>" />
             <img class="image-2" src="<%=asset_path('promo/slider-item-2-hidden.png')%>" />
           </div>
@@ -132,7 +132,7 @@
           <h4>Earn an extra $1,000 your first 30 days starting a business with Powur.</h4>
           <span>Getting started is free, & easy.  Simply register to become a Powur advocate.  Then, we’ll pair you with the business coach who invited you here to discuss your next steps.  Powur has pioneered a brand new model for you to share solar energy with the people you care about, and build a sustainable, generous income from the comfort of your home.</span>
 
-          <a class="button btn-green" ng-href="#/sign-up">Sign Up Free</a>
+          <a class="button btn-green" ng-href="#/sign-up/{{inviteCode}}">Sign Up Free</a>
           <br />
           <span class="small">Questions? Contact Jonathan Budd on 123 456 789 to find out more.</span>
         </div>

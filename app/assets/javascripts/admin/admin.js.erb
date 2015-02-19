@@ -48,6 +48,7 @@ jQuery(function($){
         $(".admin_top_level_nav").removeClass("active");
         if($(e.target).attr("href").replace("#admin-","")=="plans") window.location="/a/products";
         if($(e.target).attr("href").replace("#admin-","")=="quotes") window.location="/a/quotes";
+        if($(e.target).attr("href").replace("#admin-","")=="notifications") window.location="/a/notifications";
 
     });
 
@@ -116,10 +117,10 @@ jQuery(function($){
                             getGenealogy({
                                 _callback:function(){
                                     _data.currentUser.immediateUpline=_data.currentUser.upline[Object.keys(_data.currentUser.upline).length-1];
-                                    EyeCueLab.UX.getTemplate("/templates/admin/users/membership/_summary.handlebars.html", _data.currentUser, $(".js-admin_dashboard_column.summary"));
+                                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/membership/_summary.handlebars.html')%>", _data.currentUser, $(".js-admin_dashboard_column.summary"));
 
                                     //display main content information of the current user on the left nav
-                                    EyeCueLab.UX.getTemplate("/templates/admin/users/_detail_container.handlebars.html", _data.currentUser, $(".js-admin_dashboard_detail_container"), function(){
+                                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/_detail_container.handlebars.html')%>", _data.currentUser, $(".js-admin_dashboard_detail_container"), function(){
 
                                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-membership]"));
 
@@ -127,7 +128,7 @@ jQuery(function($){
 
                                         //load editable form for the current user on the main pane
                                         $(".js-admin_dashboard_detail").fadeOut(100, function(){
-                                            EyeCueLab.UX.getTemplate("/templates/admin/users/membership/_basic_info.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail"));
+                                            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/membership/_basic_info.handlebars.html')%>", _data.currentUser,  $(".js-admin_dashboard_detail"));
                                             $(".js-admin_dashboard_detail").fadeIn(300);
                                         });
                                     });
@@ -185,7 +186,7 @@ jQuery(function($){
 
 
 
-                        EyeCueLab.UX.getTemplate("/templates/admin/users/_detail_container.handlebars.html", _data.currentUser, $(".js-admin_dashboard_detail_container"), function(){
+                        EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/_detail_container.handlebars.html')%>", _data.currentUser, $(".js-admin_dashboard_detail_container"), function(){
 
                           SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-membership]"));
 
@@ -193,7 +194,7 @@ jQuery(function($){
                           $(".section_subnav a:eq(1)").addClass("js-active");
 
                           $(".js-admin_dashboard_detail").fadeOut(100, function(){
-                            EyeCueLab.UX.getTemplate("/templates/admin/users/membership/_earnings_report.handlebars.html", _data.currentUser, $(".js-admin_dashboard_detail"));
+                            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/membership/_earnings_report.handlebars.html')%>", _data.currentUser, $(".js-admin_dashboard_detail"));
                             $(".js-admin_dashboard_detail").fadeIn(300);
                           });
                         });
@@ -207,7 +208,7 @@ jQuery(function($){
 
                 case "#admin-users-sales":
                 case "#admin-users-sales-orders":
-                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/sales/_summary.handlebars.html')%>", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         var _endPoints =[];
                         _endPoints.push({
@@ -226,7 +227,7 @@ jQuery(function($){
                                 var _d = new Date(_entity.properties.order_date);
                                 _entity.properties.localDateString = _d.toLocaleDateString();
                             });
-                            EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_orders.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/sales/_orders.handlebars.html')%>",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
                                 $(".js-order_details").on("click", function(e){
                                     e.preventDefault();
@@ -256,7 +257,7 @@ jQuery(function($){
                                                 _popupData.uplineInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","users"]})[0];
                                                 _popupData.bonusInfo = EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list","bonus_payments"]})[0];
                                                 $("#js-screen_mask").fadeIn(100, function(){
-                                                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/popups/_order_details.handlebars.html",_popupData, $("#js-screen_mask"), function(){
+                                                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/sales/popups/_order_details.handlebars.html')%>",_popupData, $("#js-screen_mask"), function(){
                                                         SunStand.Admin.displayPopup({_popupData:_popupData, _css:{width:800}});
                                                         console.log(_popupData);
                                                     });
@@ -273,7 +274,7 @@ jQuery(function($){
 
 
                 case "#admin-users-sales-order_totals":
-                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/sales/_summary.handlebars.html')%>", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         $(".section_subnav a").removeClass("js-active");
                         $(".section_subnav a:eq(1)").addClass("js-active");
@@ -289,7 +290,7 @@ jQuery(function($){
                         EyeCueLab.JSON.asynchronousLoader(_endPoints, function(_returnJSONs){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "order_totals"]})[0]);
-                            EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_order_totals.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/sales/_order_totals.handlebars.html')%>",_displayData,  $(".js-admin_dashboard_detail"), function(){
                                 console.log(_displayData);
                             });
                         });
@@ -298,7 +299,7 @@ jQuery(function($){
                 break;
 
                 case "#admin-users-sales-rank_achievements":
-                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/sales/_summary.handlebars.html')%>", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         $(".section_subnav a").removeClass("js-active");
                         $(".section_subnav a:eq(2)").addClass("js-active");
@@ -316,8 +317,8 @@ jQuery(function($){
                             var _displayData={};
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "rank_achievements"]})[0]);
                             _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
-                            EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_rank_achievements.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
-                                
+                            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/sales/_rank_achievements.handlebars.html')%>",_displayData,  $(".js-admin_dashboard_detail"), function(){
+
                                 applyBrowserSpecificRules(); //this fixes the double arrow issue on selects in Firefox <34 (function exists in utility.js)
 
                                 $("#js-pay_period_select").on("change", function(e){
@@ -331,7 +332,7 @@ jQuery(function($){
                 break;
 
                 case "#admin-users-sales-bonus_payments":
-                    EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/sales/_summary.handlebars.html')%>", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-sales]"));
                         $(".section_subnav a").removeClass("js-active");
                         $(".section_subnav a:eq(3)").addClass("js-active");
@@ -350,7 +351,7 @@ jQuery(function($){
                             $.extend(true, _displayData, EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "bonus_payments"]})[0]);
                             _displayData.filtering_obj = _filtering_obj;
                             _displayData.pay_period=EyeCueLab.JSON.getObjectsByPattern(_returnJSONs, {"containsIn(class)":["list", "pay_periods"]})[0];
-                            EyeCueLab.UX.getTemplate("/templates/admin/users/sales/_bonus_payments.handlebars.html",_displayData,  $(".js-admin_dashboard_detail"), function(){
+                            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/sales/_bonus_payments.handlebars.html')%>",_displayData,  $(".js-admin_dashboard_detail"), function(){
 
                                 applyBrowserSpecificRules(); //this fixes the double arrow issue on selects in Firefox <34 (function exists in utility.js)
 
@@ -366,12 +367,12 @@ jQuery(function($){
 
 
                 case "#admin-users-genealogy":
-                    EyeCueLab.UX.getTemplate("/templates/admin/users/genealogy/_summary.handlebars.html", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
+                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/genealogy/_summary.handlebars.html')%>", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function(){
                         SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-genealogy]"));
 
                         //load user genealogy info
                         //upline links
-                        EyeCueLab.UX.getTemplate("/templates/admin/users/genealogy/_downline.handlebars.html",_data.currentUser.downline, $(".js-genealogy-summary_downline"), function(){
+                        EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/genealogy/_downline.handlebars.html')%>",_data.currentUser.downline, $(".js-genealogy-summary_downline"), function(){
                             $(".js-user_link").on("click", function(e){
                                 e.preventDefault();
                                 _dashboard.switchCurrentUser(e);
@@ -379,7 +380,7 @@ jQuery(function($){
                         });
 
                         //downline links
-                        EyeCueLab.UX.getTemplate("/templates/admin/users/genealogy/_upline.handlebars.html",_data.currentUser.upline, $(".js-genealogy-summary_upline"), function(){
+                        EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/genealogy/_upline.handlebars.html')%>",_data.currentUser.upline, $(".js-genealogy-summary_upline"), function(){
                             $(".js-user_link").on("click", function(e){
                                 e.preventDefault();
                                 _dashboard.switchCurrentUser(e);
@@ -470,11 +471,11 @@ jQuery(function($){
             _displayData.results = _results;
 
             $(".js-admin_dashboard_column.summary").animate({opacity:0});
-             EyeCueLab.UX.getTemplate("/templates/admin/users/search/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
+             EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/search/_nav.handlebars.html')%>", {}, $(".js-admin_dashboard_column.detail .section_nav"), function(){
                 SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-search-results]"));
             });
 
-            EyeCueLab.UX.getTemplate("/templates/admin/users/search/_results.handlebars.html", _displayData, $(".js-admin_dashboard_detail_container"), function(){
+            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/search/_results.handlebars.html')%>", _displayData, $(".js-admin_dashboard_detail_container"), function(){
                 $(".js-admin_dashboard_column.summary").css("display","none");
                 $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
                 $(".js-admin_dashboard_column.detail").animate({width:"1216px"});
@@ -482,7 +483,7 @@ jQuery(function($){
 
             $(document).on("click", ".js-search_result", function(e){
                 e.preventDefault();
-                EyeCueLab.UX.getTemplate("/templates/admin/users/_nav.handlebars.html", {}, $(".js-admin_dashboard_column.detail .section_nav"));
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/_nav.handlebars.html')%>", {}, $(".js-admin_dashboard_column.detail .section_nav"));
                 $(".js-admin_dashboard_column.summary").html("");
                 $(".js-admin_dashboard_column.detail").css({width:"960px", opacity:0});
                  $(".js-admin_dashboard_column.summary").css("display","block");
@@ -521,7 +522,7 @@ jQuery(function($){
 
         //* end admin adshboard specific utility functions
 
-    
+
     }//end AdminDashboard class
 
 

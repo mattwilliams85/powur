@@ -1,0 +1,13 @@
+{{#each this.entities}}
+<!-- Row: News Item -->
+<div class="row">
+  <div class="aw-news-item-container small-12 large-12 columns">
+    <p class="aw-news-item" data-notification_id="{{ this.properties.id }}">{{{nl2br this.properties.content }}}</p>
+    <p class="aw-news-date">{{localtime this.properties.created_at}}</p>
+  </div>
+</div>
+{{/each}}
+
+<div class="row">
+  <a class="aw-news-load-more" href="#">Load More</a>
+</div>

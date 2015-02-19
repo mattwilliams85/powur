@@ -1,4 +1,5 @@
 $large-screen: em-calc(1300);
+$xl-screen: em-calc(1500);
 
 .sun-promo {
   height: 100%;
@@ -162,6 +163,10 @@ $large-screen: em-calc(1300);
   }
 
   .sun-promo-dim {
+    padding-top:90px;
+    @media #{$large} {
+      padding-top:150px;
+    }
     p {
       color: #fff;
       font-size: 1.2em;
@@ -186,11 +191,14 @@ $large-screen: em-calc(1300);
    * Promo Page Slide Show
   */
   .slide-show-wrapper {
+    height:400px;
+    @media #{$large} {
+      height:500px;
+    }
     overflow: hidden;
 
     .slide-show-inner {
       margin-bottom: 50px;
-
       ///// for the transition
       left: -1000px;
       position: absolute;
@@ -212,7 +220,10 @@ $large-screen: em-calc(1300);
       }
 
       p {
-        font-size: 1.2em;
+        font-size: 1em;
+        @media #{$large} {
+          font-size: 1.2em;
+        }
         line-height: 1.5em;
         margin-top: 50px;
         max-width: 500px;
@@ -220,7 +231,7 @@ $large-screen: em-calc(1300);
     }
 
     .slide-show-dots {
-      margin-top: 400px;
+      position:absolute;
 
       a {
         display: inline-block;
@@ -231,12 +242,30 @@ $large-screen: em-calc(1300);
           @include landing-sprite(slide-show-dot-active);
         }
       }
+
+      &.on-white {
+        a {
+          border-color: #555;
+          border-radius: 10px;
+          border: 1px solid #555;
+          background: none;
+
+          &.active {
+            background: #555;
+          }
+        }
+      }
     }
   }
   /* end slide show */
 
 
   .sun-promo-slide-3 {
+    padding-top:100px;
+    @media #{$large} {
+      padding-top:150px;
+    }
+
     h2, h5 {
       font-weight: bold;
       line-height: 1em;
@@ -440,6 +469,10 @@ $large-screen: em-calc(1300);
     padding: 0;
     margin-top:5%;
 
+    .slide-show-dots {
+      bottom:-350px;
+    }
+
     .row {
       height: 100%;
     }
@@ -449,7 +482,8 @@ $large-screen: em-calc(1300);
       height: 100%;
       z-index: 1;
       display:none;
-      @media #{$large} {
+
+      @media #{$medium} {
         display:block;
       }
 
@@ -496,6 +530,8 @@ $large-screen: em-calc(1300);
 
 
   .sun-promo-energy-slide-5 {
+    padding-bottom:30px !important;
+
     h2 {
       font-size:2.5em;
       text-align:left;
@@ -533,6 +569,10 @@ $large-screen: em-calc(1300);
     }
   }
 
+  .sun-promo-energy-slide-6 {
+    padding-bottom:20px !important;
+  }
+
   .sun-promo-slider-wrapper {
     margin-top: 3em;
     text-align: center;
@@ -551,7 +591,7 @@ $large-screen: em-calc(1300);
     }
 
     .slider-inner {
-      margin: 30px auto 50px auto;
+      margin: 30px auto 40px auto;
       position: relative;
       text-align: left;
       width: 300px;
@@ -606,7 +646,7 @@ $large-screen: em-calc(1300);
   }
 
   .sun-logo-wrapper {
-    margin:0 0 40px 40px;
+    margin:0 0 30px 40px;
     width:250px;
   }
 
@@ -652,12 +692,14 @@ $large-screen: em-calc(1300);
 
     .sun-promo-slide-4 {
       text-align:center;
+      width:90%;
       @media #{$medium} {
         text-align:left;
       }
     }
 
     .sun-promo-slide-5 {
+      width:90%;
       .large-4 {
         width:33%;
         @media #{$large} {
@@ -720,9 +762,37 @@ $large-screen: em-calc(1300);
   }
 
   &.sun-why-solar-page {
+    .sun-bg-3, .sun-bg-5, .sun-bg-11  {
+      .row {
+        width:90%;
+        padding-bottom:100px;
+        padding-top:100px;
+      }
+    }
+    .sun-bg-3 {
+      padding-bottom:0px;
+      .sun-promo-content {
+        padding-bottom:0px;
+      }
+    }
+
+    .slide-show-dots {
+      bottom:80px;
+      left:48%;
+    }
+
+    .slide-show-inner {
+      width: 100%;
+      left: -100%;
+    }
+
     .slide-2-ico-wrapper {
-      height: 100px;
-      margin-top: 40px;
+      height: 50px;
+      margin-top: 30px;
+      @media #{$large}{ 
+        margin-top: 40px;
+        height: 100px;
+      }
       text-align: center;
 
       @for $i from 1 through 6 {
@@ -730,6 +800,26 @@ $large-screen: em-calc(1300);
           @include landing-sprite(why-solar-ico-#{$i});
           display: inline-block;
         }
+      }
+    }
+  }
+
+  &.sun-why-powur-page {
+    .sun-promo-intro {
+      width:90%;
+
+      h1 {
+        margin-top:-20px;
+      }
+    }
+
+    .row {
+      width:90%;
+    }
+
+    .sun-bg-17, .sun-bg-18 {
+      h2 {
+        text-align:left;
       }
     }
   }
@@ -744,6 +834,26 @@ $large-screen: em-calc(1300);
           @include landing-sprite(why-you-ico-#{$i});
           display: inline-block;
         }
+      }
+    }
+
+    .sun-bg-5, .sun-bg-13 {
+      .row {
+        width:90%;
+      }
+      h2 {
+        text-align:left;
+      }
+    }
+
+    .slide-show-dots {
+      position:absolute;
+      bottom:80px;
+    }
+
+    .sun-slider {
+      h2 {
+        display: inline;
       }
     }
   }
@@ -770,6 +880,11 @@ $large-screen: em-calc(1300);
     .our-origin-ico {
       margin: 40px 0;
       width: 100%;
+      display: none;
+
+      @media #{$small} {
+        display: block;
+      }
     }
 
     blockquote {
@@ -878,6 +993,14 @@ $large-screen: em-calc(1300);
   }
 
   &.sun-our-dna-page {
+    .row {
+      width:90%;
+    }
+
+    .normal-case {
+      float:left;
+    }
+
     .sun-promo-content {
       padding-top: 300px;
       padding-bottom: 250px;
@@ -886,6 +1009,13 @@ $large-screen: em-calc(1300);
     .dna-wrapper {
       height: 444px;
       overflow: hidden;
+
+      p {
+        font-size:0.9em;
+        @media #{$large} {
+          font-size:1em;
+        }
+      }
     }
 
     .dna-ico-wrapper {
@@ -903,7 +1033,22 @@ $large-screen: em-calc(1300);
   }
 
   &.sun-why-direct-page {
-
+    .slide-2 {
+      padding:0 7%;
+    }
+    .large-6 {
+      padding-right:5%;
+    }
+    @media #{$large} {
+      .slide-2 {
+        padding:0%;
+      }
+    }
+    .sun-bg-5 {
+      .row {
+        width:90%;
+      }
+    }
   }
 
   .sun-bg-1 {
@@ -1029,6 +1174,7 @@ $large-screen: em-calc(1300);
 
     h2 {
       color: #fff;
+      font-size: 2.1em;
     }
   }
 
@@ -1072,6 +1218,11 @@ $large-screen: em-calc(1300);
     p {
       color: #fff;
     }
+
+    h1 {
+      display: inline;
+      line-height: 1.5em;
+    }
   }
 
   .sun-bg-17 {
@@ -1085,14 +1236,24 @@ $large-screen: em-calc(1300);
   .sun-bg-18 {
     background-image: image-url("promo/bg-18.jpg");
     text-align: center;
+
+    p {
+      color: #fff;
+      text-align: left;
+    }
   }
 
   .sun-bg-19 {
     background-image: image-url("promo/bg-19.jpg");
     background-color: #fff;
 
+    h1 { 
+      text-align:center;
+      width:100%;
+    }
+
     .sun-promo-intro {
-      width: 100%;
+      width:100%;
     }
   }
 

@@ -6,12 +6,12 @@
   <main class="sun-landing sun-sign-up-page">
 
     <div class="sun-fixed-bg sun-bg-6 inverted">
-      <div class="sun-home-intro">
+      <!-- <div class="sun-home-intro"> -->
         <div class="row">
           <h1>Let's Go!</h1>
           <p>Complete your FREE registration by filling in the form below. See you inside.</p>
         </div>
-      </div>
+      <!-- </div> -->
     </div>
 
     <div class="sun-scrolling-bg">
@@ -43,10 +43,10 @@
             </div>
 
             <div class="row referral-info">
-              <div class="small-2 columns">
+              <div class="large-1 columns">
                 <div class="lock-icon"></div>
               </div>
-              <div class="small-10 columns">
+              <div class="large-11 columns">
                 <h6>Powur is referral only, private network.</h6>
                 <span class="small">New members require an invite code from an existing Powur Advocate in order to join the network.</span>
               </div>
@@ -80,7 +80,7 @@
                 <span ng-show="formErrorMessages['password_confirmation']" class="radius alert label">{{formErrorMessages['password_confirmation']}}</span>
                 <input ng-model="user.password_confirmation" name="user_password_confirmation" type="password" class="radius" placeholder="Retype password" />
 
-                <input ng-model="user.communications" name="user_communications" id="user_communications" type="checkbox"><label for="user_communications">Send me email communications</label>
+                <!-- <input ng-model="user.communications" name="user_communications" id="user_communications" type="checkbox"><label for="user_communications">Send me email communications</label> -->
                 <div class="clearfix"></div>
 
                 <span ng-show="formErrorMessages['phone']" class="radius alert label">{{formErrorMessages['phone']}}</span>

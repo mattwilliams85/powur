@@ -1,0 +1,8 @@
+{{#each this.entities}}
+  <div class="admin-notifications-item_container">
+    <p class="date">{{localtime this.properties.created_at }}</p>
+    <p class="content">{{{nl2br this.properties.content }}}</p>
+    <a href="#" class="remove_x js-remove_notification" data-notification_id="{{ this.properties.id }}"><span class="fa fa-times"></span></a>
+  </div>
+{{/each}}
+<div class="js-load_more"><a href="#">Load More</a></div>

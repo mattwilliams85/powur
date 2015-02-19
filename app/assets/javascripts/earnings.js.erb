@@ -24,7 +24,7 @@ _ajax({
           }
           if(entity.properties.pay_period_type === "Monthly"){ data.properties.has_month = true }
         })
-        EyeCueLab.UX.getTemplate("/templates/auth/earnings/_header.handlebars.html", data, $(".section_header_content"), function(html) {});
+        EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/auth/earnings/_header.handlebars.html')%>", data, $(".section_header_content"), function(html) {});
       }
     });
 
@@ -63,7 +63,7 @@ _ajax({
 
           populateMissing(_summaryData)
 
-          EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary.handlebars.html", _summaryData, $(".section_body"), function(html) {
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/auth/earnings/_summary.handlebars.html')%>", _summaryData, $(".section_body"), function(html) {
             clickEvents();
           });
         });
@@ -122,7 +122,7 @@ _ajax({
                   if (data.entities.length == 0) {
                     data.properties.active = false;
                   }
-                  EyeCueLab.UX.getTemplate("/templates/auth/earnings/_details.handlebars.html", data, $('#row' + row.index() + ''), function(html) {
+                  EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/auth/earnings/_details.handlebars.html')%>", data, $('#row' + row.index() + ''), function(html) {
                     $('.slideData').fadeIn(300);
                   });
                 }
@@ -154,7 +154,7 @@ _ajax({
                   if (data.entities.length == 0) {
                     data.properties.active = false;
                   }
-                  EyeCueLab.UX.getTemplate("/templates/auth/earnings/_bonus.handlebars.html", data, $('#row' + row.index() + ''), function(html) {
+                  EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/auth/earnings/_bonus.handlebars.html')%>", data, $('#row' + row.index() + ''), function(html) {
                     $('.slideData').fadeIn(300);
                     secondaryEvents(pay_period_id, row)
                   });
@@ -184,7 +184,7 @@ _ajax({
                   _ajaxType: "get",
                   _url: "/u/earnings/bonus_detail?format=json&user_id=" + current_user + "&pay_period_id=" + pay_period_id + "&bonus_id=" + bonus_id + "&page=" + detailsPage,
                   _callback: function(data, text) {
-                    EyeCueLab.UX.getTemplate("/templates/auth/earnings/_summary_details.handlebars.html", data, $('#subrow' + row.index() + ''), function(html) {
+                    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/auth/earnings/_summary_details.handlebars.html')%>", data, $('#subrow' + row.index() + ''), function(html) {
                       $('.slideData').fadeIn(400);
                       row = $('#subrow' + row.index() + '')
                       recursiveJquery(data, pay_period_id, bonus_id, row)
@@ -195,7 +195,7 @@ _ajax({
                       prefix: "js-popup",
                       actionableCount: 10
                     });
-                    data.paginationInfo.templateName = "/templates/admin/quotes/popups/_order_totals_listing.handlebars.html",
+                    data.paginationInfo.templateName = "<%=asset_path('hb_templates/admin/quotes/popups/_order_totals_listing.handlebars.html')%>",
                       data.paginationInfo.templateContainer = "#js-popup .js-popup_content_container";
                   }
                 })
@@ -262,9 +262,9 @@ _ajax({
               prefix: "js-popup",
               actionableCount: 10
             });
-            data.paginationInfo.templateName = "/templates/admin/quotes/popups/_order_totals_listing.handlebars.html",
+            data.paginationInfo.templateName = "<%=asset_path('hb_templates/admin/quotes/popups/_order_totals_listing.handlebars.html')%>",
               data.paginationInfo.templateContainer = "#js-popup .js-popup_content_container";
-            EyeCueLab.UX.getTemplate("/templates/auth/earnings/_paginated_details.handlebars.html", data, row.find('.paginated'), function(html) {
+            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/auth/earnings/_paginated_details.handlebars.html')%>", data, row.find('.paginated'), function(html) {
               if (detailsPage < page) {
                 row.find('.paginated').velocity("transition.slideRightBigIn")
               } else {

@@ -1,8 +1,9 @@
 'use strict';
 
-function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScroll) {
+function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, $anchorScroll, $routeParams) {
   $scope.redirectToDashboardIfSignedIn();
   $scope.removePiler();
+  $scope.inviteCode = null;
 
   $scope.isMenuActive = false;
   $scope.hideMenuClick = function() {
@@ -13,10 +14,10 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
   };
 
   $scope.setupPromoSlider = function(slides) {
-    $scope.promoSlides = slides;
+    $scope.slides = slides;
     $scope.currentSlide = 0;
     $scope.sliderStop = $interval(function() {
-      if ($scope.currentSlide >= $scope.promoSlides.length - 1) {
+      if ($scope.currentSlide >= $scope.slides.length - 1) {
         $scope.currentSlide = 0;
       } else {
         $scope.currentSlide += 1;
@@ -24,29 +25,17 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
     }, 6000);
   };
 
-  $scope.animateArrow = function(id){
-    var pilerTimer = $timeout(function() {
-      $(id).animate({
-        bottom: "3em"
-      }, 500, "easeOutBounce" );
-    }, 3000);
-
-    $scope.$on('$locationChangeStart', function() {
-      $timeout.cancel(pilerTimer);
-    });
-  }
+  $rootScope.animateArrow(1,3000)
 
   $scope.stopSlideShowOn = function(slide) {
     if (slide === parseInt(slide, 10)) { // check if integer
       $scope.currentSlide = slide;
     } else {
-      $scope.currentSlide = $scope.promoSlides.indexOf(slide);
+      $scope.currentSlide = $scope.slides.indexOf(slide);
     }
     $interval.cancel($scope.sliderStop);
     $scope.sliderStop = undefined;
   };
-
-  // $scope.promoSlides = [];
 
   $scope.energyPromoSlides = [
     {
@@ -55,7 +44,7 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
         'http://lorempixel.com/200/200/nature/2/',
         '<%=asset_url("promo/slide-show-item.jpg") %>'
       ],
-      text: 'Lock in a low rate on your electricity for the next 20 years, effectively guaranteeing no more price increases, or inflation costs for energy!'
+      text: 'Save money on your current electric bill, starting TODAY.  Sometimes up to 30%.'
     },
     {
       images: [
@@ -63,7 +52,7 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
         'http://lorempixel.com/200/200/nature/4/',
         '<%=asset_url("promo/slide-show-item.jpg") %>'
       ],
-      text: 'Lock in a low rate on your electricity for the next 20 years, effectively guaranteeing no more price increases, or inflation costs for energy!'
+      text: 'Lock in a lower rate on your electricity for the next 20 years, guaranteeing no more price increases or energy inflation!'
     },
     {
       images: [
@@ -71,7 +60,15 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
         'http://lorempixel.com/200/200/nature/6/',
         '<%=asset_url("promo/slide-show-item.jpg") %>'
       ],
-      text: 'Lock in a low rate on your electricity for the next 20 years, effectively guaranteeing no more price increases, or inflation costs for energy!'
+      text: 'We handle EVERYTHING from financing, to installation, to maintenance, to insurance and warranties... you have no worries.'
+    },
+    {
+      images: [
+       'http://lorempixel.com/200/200/nature/3/',
+        'http://lorempixel.com/200/200/nature/4/',
+        '<%=asset_url("promo/slide-show-item.jpg") %>'
+      ],
+      text: 'Get peace of mind that your energy bills are protected, and you save money from this point forward.'
     }
   ];
 
@@ -90,7 +87,7 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
         'http://lorempixel.com/200/200/nature/4/',
         'http://lorempixel.com/200/200/nature/5/'
       ],
-      text: 'There is no industry as good at spreading products via word of mouth as ours.  Despite the often misunderstood nature of direct sales, the numbers don’t lie.  Direct sales has the potential to create millions of solar customers over the next decade… and generate BILLIONS in wealth for those who do.'
+      text: 'We believe sunstand could be the start of a MEGA trend. A tipping point that sends solar on the “inflection” point everyone has theorized for years. With the cost of traditional electricity constantly increasing, and the cost of solar REDUCING every year... it’s just a matter of time before qualified homeowners make the switch to the cheaper, cleaner energy source. They call it “grid parity”... and it’s happening now.'
     },
     {
       images: [
@@ -98,18 +95,49 @@ function PromoCtrl($scope, $location, $timeout, $interval, $window, $anchorScrol
         'http://lorempixel.com/200/200/nature/7/',
         'http://lorempixel.com/200/200/nature/8/'
       ],
-      text: 'There is no industry as good at spreading products via word of mouth as ours.  Despite the often misunderstood nature of direct sales, the numbers don’t lie.  Direct sales has the potential to create millions of solar customers over the next decade… and generate BILLIONS in wealth for those who do.'
+      text: 'Referral marketing is the #1 source of new solar customers, and with Sunstand, we take the power of referral marketing to new heights. If you’ve ever wanted to own your own business, have an unlimited income potential, and do something that leaves a lasting impact on our world for Centuries to come... you could not be in a better place at a better time.'
     }
   ];
 
-  this.init($scope, $location, $timeout, $interval, $anchorScroll);
-  this.fetch($scope, $interval, $timeout, $anchorScroll, $location);
+  $scope.whySolarPromoSlides = [
+    [
+      {
+        className: 'ico-1',
+        text: 'The Department of Energy estimates that 2/3 of every home in America will get its power cheaper from solar than any other energy source by 2015.'
+      },
+      {
+        className: 'ico-2',
+        text: 'And many billions of dollars of institutional capital from the smartest money on the planet (Sequoia Capital, Goldman Sachs, Google, Bank of America, and so many more) is being invested in solar.'
+      },
+      {
+        className: 'ico-3',
+        text: 'Over 23,000 new jobs were added to the solar industry in 2013, 10x the national job average, bringing the total workers in solar to more than 145,000.  That’s as much as the entire 150-year-old coal industry. (and the market is less than 1% installed!)'
+      }
+    ],
+    [
+      {
+        className: 'ico-4',
+        text: 'Barclays has downgraded the utility energy sector referencing “Significant risk due to residential solar’s disruptive potential”'
+      },
+      {
+        className: 'ico-5',
+        text: 'Every three minutes a new American homeowner installs solar panels on their roof.'
+      },
+      {
+        className: 'ico-6',
+        text: 'More solar has been installed in the last 18 months than the previous 30 years.'
+      }
+    ]
+  ];
+
+  this.init($scope, $rootScope, $location, $timeout, $interval, $anchorScroll);
+  this.fetch($scope, $rootScope, $interval, $timeout, $anchorScroll, $location, $routeParams);
 }
 
 
-PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anchorScroll) {
+PromoCtrl.prototype.init = function($scope, $rootScope, $location, $timeout, $interval, $anchorScroll) {
   $scope.$watch('slider', function(newValue) {
-    if (newValue === '1') {
+    if (newValue === '50') {
       $('.image-2').animate({opacity:'1'},200);
       $('.image-1').animate({opacity:'0.3'},200);
       $timeout(function() {
@@ -117,16 +145,18 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anc
           $.fn.pagepiling.moveSectionDown();
         }
         $scope.gotoAnchor('on_slider_move');
-      }, 200);
-    } else {
-      $('.image-2').animate({opacity:'0.3'},200);
-      $('.image-1').animate({opacity:'1'},200);
+      }, 400);
+      $timeout(function() { 
+        $('.image-2').css("opacity",'0.3');
+        $('.image-1').css("opacity",'1');
+       $('.pointer').css('left',0);
+      },2000)
     }
   });
 
   // Setting mode based on the url
   $scope.mode = '';
-  if (/\/create-wealth$/.test($location.path())) return $scope.mode = 'create-wealth';
+  if (/\/create-wealth/.test($location.path())) return $scope.mode = 'create-wealth';
   if (/\/create-energy$/.test($location.path())) return $scope.mode = 'create-energy';
   if (/\/why-solar$/.test($location.path())) return $scope.mode = 'why-solar';
   if (/\/why-you$/.test($location.path())) return $scope.mode = 'why-you';
@@ -138,13 +168,13 @@ PromoCtrl.prototype.init = function($scope, $location, $timeout, $interval, $anc
 };
 
 
-PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll, $location) {
+PromoCtrl.prototype.fetch = function($scope, $rootScope,  $interval, $timeout, $anchorScroll, $location, $routeParams) {
   if ($scope.mode === 'create-wealth') {
     $(window).on('beforeunload', function() {
         $(window).scrollTop(0);
     });
     $('body').addClass('no-scroll')
-    $scope.setupInvertHeader();
+    // $scope.setupInvertHeader();
     // Clock
     $scope.minTime = new Date(2000, 1, 1, 0, 0, 0, 0).valueOf();
     // Max time is 3 minutes
@@ -166,24 +196,22 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
         $scope.solarTime = $scope.maxTime;
       }
     }, 1000);
+    $scope.inviteCode = $routeParams.inviteCode;
   } else if ($scope.mode === 'create-energy') {
-    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.energyPromoSlides);
   } else if ($scope.mode === 'why-solar') {
-    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
+    $scope.setupPromoSlider($scope.whySolarPromoSlides);
   } else if ($scope.mode === 'why-powur') {
     $scope.readyPiler();
   } else if ($scope.mode === 'why-you') {
-    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
 
     $scope.currentSlide = 0;
     $timeout(function() {
       $scope.currentSlide += 1;
       $scope.sliderStop = $interval(function() {
-        if ($scope.currentSlide >= 3) { $scope.animateArrow('#arrow_2') }
         if ($scope.currentSlide >= 4) {
           $scope.currentSlide = 0;
         } else {
@@ -192,15 +220,14 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
       }, 5000);
     }, 500);
   } else if ($scope.mode === 'why-direct-selling') {
-    $scope.animateArrow('#arrow_1')
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.directSalePromoSlides);
   } else if ($scope.mode === 'our-origin') {
-    $scope.setupInvertHeader();
+    $rootScope.enableScrollDetect();
   } else if ($scope.mode === 'our-dna') {
-    $scope.setupInvertHeader();
+    $rootScope.enableScrollDetect();
   } else if ($scope.mode === 'our-team') {
-    $scope.setupInvertHeader();
+    $rootScope.enableScrollDetect();
     $scope.faces = [
       {
         name: 'Jonathan Budd',
@@ -248,6 +275,5 @@ PromoCtrl.prototype.fetch = function($scope, $interval, $timeout, $anchorScroll,
   }
 };
 
-
-PromoCtrl.$inject = ['$scope', '$location', '$timeout', '$interval', '$window', '$anchorScroll'];
+PromoCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', '$interval', '$window', '$anchorScroll', '$routeParams'];
 sunstandControllers.controller('PromoCtrl', PromoCtrl);

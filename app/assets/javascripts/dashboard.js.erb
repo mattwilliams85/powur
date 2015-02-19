@@ -3,7 +3,7 @@
 var _myID=0; //current user id
 var _data={}; //main data object that contains user profile and genelogy info
 var _animation_speed = 300;
-var _dashboard; 
+var _dashboard;
 var kpiType = '';
 var selectedUser = {}; //Tracks selected user during downline exploration
 
@@ -93,6 +93,16 @@ function Dashboard(){
       },
     };
 
+    var badgeImagesArray = [
+      "<%=asset_path('badges/rank0.png') %>",
+      "<%=asset_path('badges/rank1.png') %>",
+      "<%=asset_path('badges/rank2.png') %>",
+      "<%=asset_path('badges/rank3.png') %>",
+      "<%=asset_path('badges/rank4.png') %>",
+      "<%=asset_path('badges/rank5.png') %>",
+      "<%=asset_path('badges/rank6.png') %>",
+    ]
+
     Object.keys(kpi).forEach(function(key){
       $(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_value span").html(kpi[key].tab.value)
       $(".kpi_thumbnail[data-kpi-type="+key+"] .kpi_label").html(kpi[key].tab.label)
@@ -105,11 +115,13 @@ function Dashboard(){
       var _newWidth = Math.floor(220*60/_width);
       $(this).css("font-size", _newWidth+"pt");
     });
+    $("#header-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.organic_rank])
+    $(".aw-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.next_rank]) 
 
   }
 
   function displayGoals(path){
-    return;
+    // return;
     // hook up the control for changing paths
     $("#pay_period_goal_path").on("change", function(e){
       $("#goal_meters .labels, #goal_meters .highlight").html("");
@@ -129,6 +141,7 @@ function Dashboard(){
         current:0
       }
     }
+
     //populate path dropdown
     if(typeof path === "undefined"){
       goals.paths=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].properties.paths;
@@ -155,7 +168,6 @@ function Dashboard(){
       id:1, /* this is hardcoded for the sunrun solar item, this what will be displayed in the bars */
       name:"SunRun Solar Item"
     }
-
 
     //setup current personal and group sales total
     var sales = _getObjectsByCriteria(_data.currentUser.order_totals, {product:displayPrimaryProduct.name})[0];
@@ -256,7 +268,7 @@ function Dashboard(){
             _url:"/u/users/"+member.properties.id+"/downline",
             _callback:function(data, text){
               member.properties.downline_count = data.entities.length;
-              EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
+              EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>", member, undefined, function(html){
                 _containerObj.append(html);
                 // mattmark
               });
@@ -333,7 +345,7 @@ function Dashboard(){
         var _displayData= data.entities;
 
 
-        EyeCueLab.UX.getTemplate("/templates/_quote_thumbnail.handlebars.html", data.entities, _containerObj, function(){
+        EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_quote_thumbnail.handlebars.html')%>", data.entities, _containerObj, function(){
 
           $("#quote_sort").unbind();
           $("#quote_search").unbind();
@@ -460,17 +472,17 @@ function Dashboard(){
           //add new team drilldown basic template layout with leader info
           var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
           $("#dashboard_team").append(_html);
-          
+
           var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 
           _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
-          _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
+          _getTemplate("<%=asset_path('hb_templates/drilldowns/_team_details.handlebars.html')%>",
             _userDetail,
             _drilldownContainerObj,
             function(){
               var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
               _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
-              EyeCueLab.UX.getTemplate("/templates/_info_thumbnail.handlebars.html", _userDetail, undefined, function(html){
+              EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_info_thumbnail.handlebars.html')%>", _userDetail, undefined, function(html){
                 _downlinkContainerObj.html(html);
                 _alternateColor(_drillDownLevel)
               });
@@ -485,7 +497,7 @@ function Dashboard(){
           console.log("... loading user#"+_options._userID+" profile info");
         })
         .done(function(data){
-         
+
           //prepare leader info
           var _userDetail={};
           _userDetail["name"] = data.properties.first_name+" "+data.properties.last_name;
@@ -494,17 +506,17 @@ function Dashboard(){
           //add new team drilldown basic template layout with leader info
           var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
           $("#dashboard_team").append(_html);
-          
+
           var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
 
           _drilldownContainerObj.animate({height:"+=525px", opacity:1}, _animation_speed);
-          _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
+          _getTemplate("<%=asset_path('hb_templates/drilldowns/_team_details.handlebars.html')%>",
             _userDetail,
             _drilldownContainerObj,
             function(){
               var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
               _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*5)+"px");
-              EyeCueLab.UX.getTemplate("/templates/_kpi_conversion_thumbnail.handlebars.html", _userDetail, undefined, function(html){
+              EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_kpi_conversion_thumbnail.handlebars.html')%>", _userDetail, undefined, function(html){
                 _downlinkContainerObj.html(html);
                 _alternateColor(_drillDownLevel)
               });
@@ -538,7 +550,7 @@ function Dashboard(){
           var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></div></section>";
           $("#dashboard_team").append(_html);
           var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
-           _getTemplate("/templates/drilldowns/_team_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+           _getTemplate("<%=asset_path('hb_templates/drilldowns/_team_details.handlebars.html')%>", _userDetail, _drilldownContainerObj, function(){
           _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
           _data.team.entities.forEach(function(member){
             if(member.properties.id === parseInt(_options._userID)) return;
@@ -551,7 +563,7 @@ function Dashboard(){
               _url:"/u/users/"+member.properties.id+"/downline",
               _callback:function(data, text){
                 member.properties.downline_count = data.entities.length;
-                EyeCueLab.UX.getTemplate("/templates/_placement_thumbnail.handlebars.html", member, undefined, function(html){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_placement_thumbnail.handlebars.html')%>", member, undefined, function(html){
                    _downlinkContainerObj.append(html);
                    _linkEvents();
                 });
@@ -559,7 +571,7 @@ function Dashboard(){
             });
           });
         });
-      } 
+      }
     })
     break;
 
@@ -575,24 +587,24 @@ function Dashboard(){
       .done(function(data){
         //prepare leader info
         var _userDetail={};
-        _userDetail["generation"] = _drillDownLevel;
+        _userDetail["generation"] = _drillDownLevel + 1;
         _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
 
         //add new team drilldown basic template layout with leader info
         var _html="<section class=\"drilldown level_"+_drillDownLevel+"\" data-drilldown-level=\""+_drillDownLevel+"\"></section>";
         $("#dashboard_team").append(_html);
-        
-        var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']'); 
+
+        var _drilldownContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+']');
         // _drilldownContainerObj.scrollView(180);
         _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
-        
-        _getTemplate("/templates/drilldowns/_team_details.handlebars.html",
+
+        _getTemplate("<%=asset_path('hb_templates/drilldowns/_team_details.handlebars.html')%>",
           _userDetail,
           _drilldownContainerObj,
           function(){
             _alternateColor(_drillDownLevel)
             //populate downlink thumbnails
-            var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content'); 
+            var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
             _ajax({
               _ajaxType:"get",
               _url:_userDetail.downline_url,
@@ -607,7 +619,7 @@ function Dashboard(){
                     _callback:function(data, text){
                       _downlinkContainerObj
                       member.properties.downline_count = data.entities.length;
-                      EyeCueLab.UX.getTemplate("/templates/_team_thumbnail.handlebars.html", member, undefined, function(html){
+                      EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>", member, undefined, function(html){
                         _downlinkContainerObj.append(html);
                       });
                     }
@@ -625,7 +637,7 @@ function Dashboard(){
         // _drilldownContainerObj.scrollView(180);
         _drilldownContainerObj.animate({height:"+=300px", opacity:1}, _animation_speed);
         var _userDetail={};
-        _getTemplate("/templates/drilldowns/_error_state.handlebars.html", {"audience":"promoter"}, _drilldownContainerObj);
+        _getTemplate("<%=asset_path('hb_templates/drilldowns/_error_state.handlebars.html')%>", {"audience":"promoter"}, _drilldownContainerObj);
 
       });
     break;
@@ -722,7 +734,7 @@ function Dashboard(){
             _userDetail[field.name]=field.value;
           });
           //populate drilldown
-          EyeCueLab.UX.getTemplate("/templates/drilldowns/_quotes_details.handlebars.html", _userDetail, _drilldownContainerObj, function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/drilldowns/_quotes_details.handlebars.html')%>", _userDetail, _drilldownContainerObj, function(){
 
             //!!! applyBrowserSpecificRules() to solve compatibility issues for DOM elements on asynchronous requests (function exists in utility.js)
             applyBrowserSpecificRules();
@@ -774,7 +786,7 @@ function Dashboard(){
 
         _drilldownContainerObj.css({"opacity":"0"});
         _drilldownContainerObj.animate({"height":"+=608px", "opacity": 1}, _animation_speed);
-        
+
         }
 
       });
@@ -863,7 +875,7 @@ function Dashboard(){
           ];
 
           //populate drilldown
-          EyeCueLab.UX.getTemplate("/templates/drilldowns/_new_quote.handlebars.html", _fields, _drilldownContainerObj, function(){
+          EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/drilldowns/_new_quote.handlebars.html')%>", _fields, _drilldownContainerObj, function(){
              _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
              _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
             //wire up lead submission hook
@@ -916,12 +928,12 @@ function Dashboard(){
         for(var i=_data["invitations"].length; i<5; i++) _data["invitations"].push({});
 
         //first place the listing template
-        _getTemplate("/templates/drilldowns/new_invitations/_invitations_listing.handlebars.html", {}, _drilldownContainerObj, function(){
+        _getTemplate("<%=asset_path('hb_templates/drilldowns/new_invitations/_invitations_listing.handlebars.html')%>", {}, _drilldownContainerObj, function(){
           _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
           _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 
           //display thumbnails
-          _getTemplate("/templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
+          _getTemplate("<%=asset_path('hb_templates/drilldowns/new_invitations/_invitations_thumbnail.handlebars.html')%>",  _data["invitations"], _drilldownContainerObj.find(".drilldown_content_section"), function(){
 
             //wire up expiration timer
             var _now = new Date();
@@ -982,7 +994,7 @@ function Dashboard(){
       _invitationDetail = _data["invitations"][_thisThumbnail.index()];
       _invitationDetail.invitationType="Existing";
       if(_thisThumbnail.attr("class").indexOf("js-empty_seat")>=0) _invitationDetail.invitationType="New";
-      _getTemplate("/templates/drilldowns/new_invitations/_invitations_detail.handlebars.html", _invitationDetail, _drilldownContainerObj, function(){
+      _getTemplate("<%=asset_path('hb_templates/drilldowns/new_invitations/_invitations_detail.handlebars.html')%>", _invitationDetail, _drilldownContainerObj, function(){
         _drilldownContainerObj.find(".arrow").css("left",Math.floor(_options._arrowPosition-13));
         _drilldownContainerObj.find(".arrow").animate({top:"-=20px"}, 500);
 
@@ -1052,19 +1064,19 @@ function Dashboard(){
 
       switch(kpiType){
         case "environment":
-          _templatePath="/templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html";
+          _templatePath="<%=asset_path('hb_templates/drilldowns/impact_metrics/_kpi_environment_details.handlebars.html')%>";
         break;
         case "conversion":
-          _templatePath="/templates/drilldowns/impact_metrics/_kpi_conversion_details.handlebars.html";
+          _templatePath="<%=asset_path('hb_templates/drilldowns/impact_metrics/_kpi_conversion_details.handlebars.html')%>";
         break;
         case "genealogy":
-          _templatePath="/templates/drilldowns/impact_metrics/_kpi_genealogy_details.handlebars.html";
+          _templatePath="<%=asset_path('hb_templates/drilldowns/impact_metrics/_kpi_genealogy_details.handlebars.html')%>";
         break;
         case "earnings":
-          _templatePath="/templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html";
+          _templatePath="<%=asset_path('hb_templates/drilldowns/impact_metrics/_kpi_total_earnings_details.handlebars.html')%>";
         break;
         case "hot_quotes":
-          _templatePath="/templates/drilldowns/impact_metrics/_kpi_hot_quotes_details.handlebars.html";
+          _templatePath="<%=asset_path('hb_templates/drilldowns/impact_metrics/_kpi_hot_quotes_details.handlebars.html')%>";
         break;
       }
       if(!_data.currentUser.avatar) _data.currentUser.avatar = { thumb: "http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578" }
@@ -1120,7 +1132,7 @@ function Dashboard(){
       if($(this).attr("alt") !== selectedUser.id){
         avatar.attr("src",avatar.attr("data"))
       }
-    }) 
+    })
   }
 
   function _collapseDrillDown(_options){
@@ -1130,17 +1142,22 @@ function Dashboard(){
        var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
        var _thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
        var _drillDownDepth = _topLevelSectionObj.children("section").length;
+
        if(_thisThumbnail.length === 0) _thisThumbnail = _options._target
+
+        _thisThumbnail.toggleClass('active')
 
        //fade all other "unfocused" thumbnail out
        for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
          if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
            var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
-           _neighborThumbnail.find('.js-thumbnail').animate({"opacity":".3"}, 300);
+           if(_thisThumbnail.hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":".3"}, 300); }
+           if(!_thisThumbnail.hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":"1"}, 300); }
            _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
            _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
          }
        }
+
        _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
        _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
 
@@ -1163,7 +1180,7 @@ function Dashboard(){
           return;
         }
        }
-       
+
        _thisThumbnail.animate({"opacity":1}, 300);
        _thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
        _thisThumbnail.find("span.expand i").addClass("fa-angle-up");
@@ -1271,7 +1288,7 @@ function Dashboard(){
           _tempObj["team_size"]= val.genealogy.downlinks.length;*/
           _processedJSON.push(_tempObj);
         });
-        _templatePath="/templates/_team_thumbnail.handlebars.html";
+        _templatePath="<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>";
       break;
 
       case "quotes":
@@ -1290,7 +1307,7 @@ function Dashboard(){
 
           _processedJSON.push(_tempObj);
         });
-        _templatePath="/templates/_quote_thumbnail.handlebars.html";
+        _templatePath="<%=asset_path('hb_templates/_quote_thumbnail.handlebars.html')%>";
       break;
 
     }
@@ -1328,7 +1345,8 @@ function Dashboard(){
         }
         if(_callback !== undefined)
           _callback();
-      }
+      },
+      cache: true
     });
   }
 
@@ -1386,7 +1404,7 @@ function Dashboard(){
     });
   }
 
-  //team tab options 
+  //team tab options
   $(document).on("click", ".team_tab", function(e){
     var thisThumbnail = $(this).closest(".team_thumbnail")
     if($(this).hasClass('active_tab')){
@@ -1493,7 +1511,7 @@ function Dashboard(){
       "_userID":_drillDownUserID});
   }
 
-  function _closeTeamDrilldown(selected){   
+  function _closeTeamDrilldown(selected){
     var _drillDownLevel = selected.closest('.drilldown').attr('data-drilldown-level') || 0
     $("#dashboard_team").find('.level_'+_drillDownLevel).find('.active_tab').removeClass("dark darker")
     selected.removeClass('active_tab')
@@ -1501,24 +1519,24 @@ function Dashboard(){
     var _thisLevel = parseInt(selected.closest('section').attr('data-drilldown-level'))
     var _lastLevel = parseInt($('.drilldown').last().attr('data-drilldown-level'))
     if(_thisLevel == 0) selected.closest('.team_info').css('border','1px solid #E5E5E5')
-    
+
     for(var i=_thisLevel;i < _lastLevel;i++){
       $("#dashboard_team").find('.drilldown.level_'+(i+1)).hide()
     }
   }
 
   function _moveUser(event){
-  
+
   }
 
   function _alternateColor(_drillDownLevel){
     if(_drillDownLevel % 2 === 0){
-       $('#dashboard_team').find('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#333") 
+       $('#dashboard_team').find('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#333")
        $('.level_'+_drillDownLevel).find('.active_tab').addClass("darker")
        $('.level_'+(_drillDownLevel - 1)).find('.active_tab').addClass("dark")
     } else {
        $('#dashboard_team').find('.drilldown.level_'+_drillDownLevel).find('.drilldown_content').css('background-color',"#444")
-       $('.level_'+(_drillDownLevel - 1)).find('.active_tab').addClass("darker")  
+       $('.level_'+(_drillDownLevel - 1)).find('.active_tab').addClass("darker")
        $('.level_'+_drillDownLevel).find('.active_tab').addClass("dark")
     }
   }

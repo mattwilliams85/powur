@@ -47,7 +47,7 @@
       <select class="dropdown" id="endYear">
         <% @currentYear = Date.today.year %>
         <option value="<%=@currentYear%>" selected><%= @currentYear %></option>
-        <% until @currentYear == 2013 %>
+        <% until @currentYear == 2014 %>
          <% @currentYear -= 1%>
           <option value="<%=@currentYear%>"><%=@currentYear%></option>
         <% end %>

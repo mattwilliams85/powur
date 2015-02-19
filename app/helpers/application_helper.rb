@@ -46,4 +46,12 @@ module ApplicationHelper
       @university_class
     )
   end
+
+  def notifications_json
+    @notifications_json ||= NotificationsJson.new(
+      self,
+      @notifications,
+      @notification
+    )
+  end
 end

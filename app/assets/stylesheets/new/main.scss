@@ -14,12 +14,12 @@ html, body {
 
 
 .arrow-box {
-  bottom: 3em;
+  bottom: -200px;
   color: $secondary-color;
-  display: block;
+  display: none;
   left: 50%;
   margin-left: -115px;
-  position: fixed;
+  position: absolute;
   text-align: center;
   width: 215px;
   cursor:pointer;
@@ -42,16 +42,17 @@ html, body {
 
   .fa-chevron-down {
     display:block;
-    font-size:2.2em;
+    font-size:2em;
     @media #{$large} {
-      font-size: 3em;
+      font-size: 2.5em;
     }
   }
 
   span {
-    font-size:1.1em;
+    font-size:1.5rem;
+    font-weight:800;
     @media #{$large} {
-      font-size: 1.5em;
+      font-size: 2rem;
     }
   }
 }
@@ -83,6 +84,7 @@ html, body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
+  overflow:hidden;
 
   .sun-home-content {
     text-align: center;
@@ -93,6 +95,7 @@ html, body {
     }
     h4 {
       font-size: 2.5em;
+      margin-top:-10px;
     }
     h5 {
       font-size: 1.8em;
@@ -132,9 +135,9 @@ html, body {
     }
 
     .sun-button-transparent {
-      border: 2px solid #000;
+      border: 2px solid $header-font-color;
       background: none;
-      color: #000;
+      color: $header-font-color;
     }
 
   }
@@ -166,16 +169,6 @@ input {
 }
 .normal-case {
   text-transform: none !important;
-}
-
-.sun-sign-up-page {
-  .sun-fixed-bg {
-    height:40%
-  }
-
-  .sun-scrolling-bg {
-    margin-top:100px;
-  }
 }
 
 .optional {
