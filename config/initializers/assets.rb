@@ -34,6 +34,7 @@ Rails.application.config.assets.precompile += %w( profile.css )
 Rails.application.config.assets.precompile += %w( promoter.css )
 Rails.application.config.assets.precompile += %w( user.css )
 Rails.application.config.assets.precompile += %w( earnings.css )
+Rails.application.config.assets.precompile += %w( kpi.css )
 Rails.application.config.assets.precompile += %w( jquery.pagepiling.css )
 
 Rails.application.config.assets.precompile += [

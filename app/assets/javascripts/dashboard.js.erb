@@ -105,6 +105,8 @@ function Dashboard(){
       var _newWidth = Math.floor(220*60/_width);
       $(this).css("font-size", _newWidth+"pt");
     });
+    $("#header-badge").attr("src","/assets/badges/rank"+_data.currentUser.organic_rank+".png")
+    $(".aw-badge").attr("src","/assets/badges/rank"+(_data.currentUser.organic_rank+1)+".png")
 
   }
 
@@ -155,7 +157,6 @@ function Dashboard(){
       id:1, /* this is hardcoded for the sunrun solar item, this what will be displayed in the bars */
       name:"SunRun Solar Item"
     }
-
 
     //setup current personal and group sales total
     var sales = _getObjectsByCriteria(_data.currentUser.order_totals, {product:displayPrimaryProduct.name})[0];
@@ -575,7 +576,7 @@ function Dashboard(){
       .done(function(data){
         //prepare leader info
         var _userDetail={};
-        _userDetail["generation"] = _drillDownLevel;
+        _userDetail["generation"] = _drillDownLevel + 1;
         _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
 
         //add new team drilldown basic template layout with leader info
@@ -1130,17 +1131,22 @@ function Dashboard(){
        var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
        var _thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
        var _drillDownDepth = _topLevelSectionObj.children("section").length;
+
        if(_thisThumbnail.length === 0) _thisThumbnail = _options._target
+
+        _thisThumbnail.toggleClass('active')
 
        //fade all other "unfocused" thumbnail out
        for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
          if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
            var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
-           _neighborThumbnail.find('.js-thumbnail').animate({"opacity":".3"}, 300);
+           if(_thisThumbnail.hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":".3"}, 300); }
+           if(!_thisThumbnail.hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":"1"}, 300); }
            _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
            _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
          }
        }
+
        _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
        _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
 
