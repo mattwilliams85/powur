@@ -37,6 +37,19 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
     $scope.sliderStop = undefined;
   };
 
+  $scope.navigateSlideShow = function(slide, direction) {
+    // var i = $scope.slides.indexOf(slide);
+    var length = 5;
+    if(typeof $scope.slides !== "undefined") length = $scope.slides.length
+    if(direction === 'left') {
+      if(slide === 0) return;
+      $scope.stopSlideShowOn(slide - 1);
+    } else {
+      if(slide === length - 1) return;
+      $scope.stopSlideShowOn(slide + 1);
+    }
+  }
+
   $scope.energyPromoSlides = [
     {
       images: [
@@ -200,6 +213,7 @@ PromoCtrl.prototype.fetch = function($scope, $rootScope,  $interval, $timeout, $
   } else if ($scope.mode === 'create-energy') {
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.energyPromoSlides);
+    $scope.currentSlide = 0;
   } else if ($scope.mode === 'why-solar') {
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.whySolarPromoSlides);

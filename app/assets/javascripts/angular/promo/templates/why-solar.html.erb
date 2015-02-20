@@ -20,6 +20,8 @@
 
 
     <div class="sun-scrolling-bg sun-bg-3 section">
+      <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
+      <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
       <div class="row sun-promo-content">
         <div class="large-12 columns">
           <h2 class="narrow">The facts are clear.<br /><span class="highlighted">Solar is exploding</span><br />Across America.</h2>
@@ -34,9 +36,9 @@
               </div>
             </div>
           </div>
-          <div class="slide-show-dots on-white">
+          <!-- <div class="slide-show-dots on-white">
             <a ng-repeat="slide in slides" ng-class="{'active': currentSlide === slides.indexOf(slide)}" ng-click="stopSlideShowOn(slide)"></a>
-          </div>
+          </div> -->
         </div>
           <div class="arrow-box dark">
             <span>FIND OUT MORE</span>
