@@ -370,4 +370,19 @@ header nav ul li a.active{
   .form_row {
     width: 300px;
   }
+
+  .advocate-img {
+    width: 100px;
+    float: left;
+    margin-right: 20px;
+  }
+
+  .advocate-name {
+    font-weight: bold;
+    line-height: 80px;
+  }
+
+  .error {
+    color: red;
+  }
 }

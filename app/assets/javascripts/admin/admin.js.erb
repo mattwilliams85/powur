@@ -46,12 +46,61 @@ jQuery(function($){
 
 
   AdminDashboard.prototype.displayPlaceAdvocateForm = function() {
-    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/_place_advocate.handlebars.html')%>", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function() {
-      console.log('hola');
+    EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/admin/users/place_advocate/_form.handlebars.html')%>", _data.currentUser,  $(".js-admin_dashboard_detail_container"), function() {
       SunStand.Admin.positionIndicator($(".js-dashboard_section_indicator.second_level"), $(".js-admin_dashboard_column.detail nav.section_nav a[href=#admin-users-genealogy]"));
 
-      $("#place_advocate_form").on("submit", function(e) {
-debugger;
+      $('#place_advocate_form').on('submit', function() {
+        var userId = parseInt($('#place_advocate_user_id').val());
+        var innerContainer = $('.js-admin_place_advocate_inner');
+
+        $.ajax({
+          url: '/a/users/' + userId,
+          success: function(data) {
+            var templateData = {
+              currentUserName: _data.currentUser.first_name + ' ' + _data.currentUser.last_name,
+              advocate: data.properties
+            };
+            EyeCueLab.UX.getTemplate(
+              '<%=asset_path('hb_templates/admin/users/place_advocate/_confirm.handlebars.html')%>',
+              templateData,
+              innerContainer
+            );
+
+            var confirmCallback = function confirmCallback() {
+              var action;
+              for (var i in data.actions) {
+                if (data.actions[i].name === 'move') {
+                  action = data.actions[i];
+                }
+              }
+              if (!action) return false;
+              $.ajax({
+                type: action.method,
+                url: action.href,
+                data: {
+                  parent_id: _data.currentUser.id
+                },
+                success: function(data) {
+                  if (data.error) {
+                    innerContainer.html('<span class=\'error\'>Oops, error while adding advocate. Please try again later</span>');
+                  } else {
+                    innerContainer.html('<span>You\'ve successfully placed an advocate.</span>');
+                  }
+                },
+                error: function(res) {
+                  innerContainer.html('<span class=\'error\'>Oops, error. Please try again later</span>');
+                }
+              });
+              return false;
+            };
+
+            $(document).on("click", "#place_advocate_form_confirm", confirmCallback);
+          },
+          error: function() {
+            innerContainer.html('<span class=\'error\'>Oops, error. Please try different ID</span>');
+          }
+        });
+
         return false;
       });
     });
