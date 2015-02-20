@@ -201,11 +201,8 @@
     
 
     .arrow-box {
-      width:715px;
-      left:30%;
-      @media #{$large} {
-        left:40%;
-      }
+      width:686px;
+      margin-left: -350px;
       span{ 
         color: $sun-color-blue;
       }
