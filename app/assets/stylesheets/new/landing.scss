@@ -18,31 +18,27 @@
     margin-right: auto;
   }
 
-  h1 {
-    width: 80%;
-  }
-
   .sun-home-intro {
-    position: absolute;
-    left: 50%;
-    top: 50%;
+    // position: absolute;
+    // left: 50%;
+    // top: 50%;
     bottom: auto;
     right: auto;
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -ms-transform: translateX(-50%) translateY(-50%);
-    -o-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-    text-align: center;
-    -webkit-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    -ms-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    transition: all 0.4s;
+    // -webkit-transform: translateX(-50%) translateY(-50%);
+    // -moz-transform: translateX(-50%) translateY(-50%);
+    // -ms-transform: translateX(-50%) translateY(-50%);
+    // -o-transform: translateX(-50%) translateY(-50%);
+    // transform: translateX(-50%) translateY(-50%);
+    // text-align: center;
+    // -webkit-transition: all 0.4s;
+    // -moz-transition: all 0.4s;
+    // -ms-transition: all 0.4s;
+    // -o-transition: all 0.4s;
+    // transition: all 0.4s;
 
     h1 {
       color: #fff;
-      width:900px;
+    
       font-weight: bold;
       text-transform: uppercase;
       &.slide-header {
@@ -118,6 +114,42 @@
 
    .sun-bg-5 {
      background-image: image-url("landing/bg-5.jpg");
+     h1 {
+      line-height:1em;
+      text-shadow: -1px 2px 2px rgba(150, 150, 150, 0.68);
+      width:75%;
+      @media #{$large} {
+        width:85%;
+      }
+     }
+
+     h3 {
+       color:#333;
+       text-transform: capitalize;
+       font-size:2rem;
+       text-align:left;
+       width:75%;
+       @media #{$large} {
+         width:85%;
+       }
+     }
+
+     .bulb {
+      background-image: image-url("landing/bulb.png");
+      height:30px;
+      width:20px;
+      position:absolute;
+      left:23px;
+      bottom:17px;
+     }
+
+     .button {
+      background-color:#333;
+      color:#fff;
+      float:left;
+      font-size:1.4rem;
+      padding-left:60px;
+     }
    }
 
    .sun-bg-6 {
@@ -199,12 +231,6 @@
 
   .sun-scrolling-bg {
     margin-top: 100px;
-  }
-
-  .sun-home-intro {
-    h1 {
-      text-align: center;
-    }
   }
 
   .sign-up-forms-wrapper {

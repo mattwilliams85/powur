@@ -151,9 +151,10 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   };
 
   $scope.landingPageDelay = function(){
+  
     $rootScope.animateArrow(1,6500)
     var landingTimer = $timeout(function(){
-      $scope.readyPiler();
+      
       $rootScope.animateArrow(1,100)
     },6500)
     $scope.$on('$locationChangeStart', function(){
@@ -180,6 +181,7 @@ LandingCtrl.prototype.fetch = function($scope, $rootScope, $interval, $routePara
   // Cancels if user leaves page
 
   if ($scope.mode === 'home') {
+    $scope.readyPiler();
     $scope.landingPageDelay();
     $scope.currentHomeSlide = 0;
 
