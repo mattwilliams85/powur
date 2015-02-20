@@ -196,7 +196,7 @@ LandingCtrl.prototype.fetch = function($scope, $rootScope, $interval, $routePara
   } else if ($scope.mode === 'sign-in') {
     $scope.signInPage = true;
   } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
-    $rootScope.enableScrollDetect();
+    // $rootScope.enableScrollDetect();
     $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
       'Powur Customer FAQ' :
       'Powur Advocate FAQ';
