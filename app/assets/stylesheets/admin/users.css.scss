@@ -363,3 +363,26 @@ header nav ul li a.active{
     cursor:pointer;
   }
 }
+
+.admin-users-place-advocate-container {
+  text-align: left;
+
+  .form_row {
+    width: 300px;
+  }
+
+  .advocate-img {
+    width: 100px;
+    float: left;
+    margin-right: 20px;
+  }
+
+  .advocate-name {
+    font-weight: bold;
+    line-height: 80px;
+  }
+
+  .error {
+    color: red;
+  }
+}
