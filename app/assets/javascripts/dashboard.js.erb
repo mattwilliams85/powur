@@ -415,8 +415,8 @@ function Dashboard(){
   //wire up the pagination hooks
   $(document).on("click", ".pagination_container .nav", function(e){
     e.preventDefault();
-    var _pagination_content= $(this).siblings(".pagination_content");
 
+    var _pagination_content = $(this).siblings(".pagination_content");
     //animate the content
     var _pagination_width=_data.team_count_per_page*_data.global.thumbnail_size.width;
 
@@ -557,7 +557,7 @@ function Dashboard(){
             var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
             if(data.entities.length>=5) _downlinkContainerObj.siblings(".nav").fadeIn();
             $(".team_info").css("border-bottom-width","1px");
-            _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*4)+"px");
+            _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px" );
             _ajax({
               _ajaxType:"get",
               _url:"/u/users/"+member.properties.id+"/downline",
@@ -1100,6 +1100,7 @@ function Dashboard(){
     $(document).off('click','.advocate_avatar').on('click','.advocate_avatar', function() {
       var parentUserName = $(this).closest('.team_thumbnail').find('.name-span').text()
       var parentID = $(this).closest('.team_thumbnail').attr('alt')
+      if(selectedUser.name === parentUserName) return;
 
       if(confirm("Click OK to place "+selectedUser.name+" on "+parentUserName+"'s team. You cannot undo this action.")) {
         _ajax({
@@ -1109,6 +1110,7 @@ function Dashboard(){
         displayTeam("team.everone")
         $(document).off("mouseenter", ".team_thumbnail")
                    .off("mouseleave", ".team_thumbnail")
+                   .off('click', '.advocate_avatar');
         _collapseDrillDown(_options)
       }
     });
@@ -1458,21 +1460,22 @@ function Dashboard(){
     selectedUser.name = thisThumbnail.find(".name-span").text();
     thumbnailArray.find('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
     thisLink.toggleClass('active')
-
     $('.team_tab').removeClass("dark darker")
 
     if(thisLink.hasClass('active')) {
       _teamDrilldown('team.immediate' , thisLink)
       thisThumbnail.css('border-left','1px solid #eee')
       .find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png");
-
+      thisThumbnail.siblings('div').css('visibility','hidden');
       //animates each neighbor
-      var a = setInterval(function(){
-        $(thumbnailArray[i]).velocity({translateX: '1000px'},400)
-        i -= 1
-        if(i < 0) clearInterval(a)
-      },100)
+      // var a = setInterval(function(){
+      //   $(thumbnailArray[i]).velocity({translateX: '1000px'},400)
+      //   i -= 1
+      //   if(i < 0) clearInterval(a)
+      // },100)
     } else {
+      thisThumbnail.siblings('div').css('visibility','visible');
+      $(document).off('click', '.advocate_avatar');
       thisThumbnail.find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
       thisThumbnail.find('.nav').show();
       _closeLinkDrilldown(thisLink, thumbnailArray, i);
