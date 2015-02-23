@@ -268,6 +268,7 @@ function Dashboard(){
             _url:"/u/users/"+member.properties.id+"/downline",
             _callback:function(data, text){
               member.properties.downline_count = data.entities.length;
+              member.properties.generation = 1;
               EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>", member, undefined, function(html){
                 _containerObj.append(html);
                 // mattmark
@@ -619,6 +620,7 @@ function Dashboard(){
                     _callback:function(data, text){
                       _downlinkContainerObj
                       member.properties.downline_count = data.entities.length;
+                      member.properties.generation = _drillDownLevel + 1;
                       EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>", member, undefined, function(html){
                         _downlinkContainerObj.append(html);
                       });
