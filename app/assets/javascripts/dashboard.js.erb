@@ -417,7 +417,9 @@ function Dashboard(){
   $(document).on("click", ".pagination_container .nav", function(e){
     e.preventDefault();
 
+
     var _pagination_content = $(this).siblings(".pagination_content");
+    var _thisThumbnail =  _pagination_content.find(".active_tab").closest(".team_thumbnail")
     //animate the content
     var _pagination_width=_data.team_count_per_page*_data.global.thumbnail_size.width;
 
@@ -429,7 +431,12 @@ function Dashboard(){
     }else{
       if((parseInt(_pagination_content.css("width"))+parseInt(_pagination_content.css("left"))-_pagination_width)<=0) return;
       _pagination_content.animate({"left":"-="+_pagination_width+"px"});
+
     }
+    _pagination_content.find(".js-thumbnail").css("opacity","1")
+    _pagination_content.find('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
+    $('.team_tab').removeClass("dark darker")
+    _closeTeamDrilldown(_thisThumbnail)
   });
 
   //wire up the tab hooks
@@ -1148,19 +1155,23 @@ function Dashboard(){
        var _drillDownDepth = _topLevelSectionObj.children("section").length;
 
        if(_thisThumbnail.length === 0) _thisThumbnail = _options._target
-
+        _currentLevelSectionObj.find(".active").removeClass("active")
         _thisThumbnail.toggleClass('active')
+        _thisThumbnail.find(".js-thumbnail").toggleClass('active')
 
        //fade all other "unfocused" thumbnail out
-       for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
-         if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
-           var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
-           if(_thisThumbnail.hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":".3"}, 300); }
-           if(!_thisThumbnail.hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":"1"}, 300); }
-           _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
-           _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
-         }
-       }
+       // for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
+       //   if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
+       //     var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
+       //     if(_neighborThumbnail .hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":".3"}, 300); }
+       //     if(!_neighborThumbnail .hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":"1"}, 300); }
+       //     console.log()
+       //     _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
+       //     _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
+       //   }
+       // }
+       var _thisSection = $(_thisThumbnail).closest(".dashboard_section").attr("id")
+       $("#"+_thisSection).find(".js-thumbnail").not(".active").animate({"opacity":".3"}, 300);
 
        _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
        _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
