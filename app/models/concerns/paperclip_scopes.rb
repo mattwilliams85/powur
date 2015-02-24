@@ -14,7 +14,7 @@ module PaperclipScopes
                          access_key_id:     aws_access_key_id,
                          secret_access_key: aws_secret_key },
     styles:          {
-      thumb:   [ '100x100#', :jpg, quality: 70 ],
+      thumb:   [ '128x128#', :jpg, quality: 70 ],
       preview: [ '480x480#', :jpg, quality: 70 ],
       large:   [ '600>',     :jpg, quality: 70 ],
     retina:  [ '1200>',    :jpg, quality: 30 ] },
