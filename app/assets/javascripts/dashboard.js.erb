@@ -1113,9 +1113,10 @@ function Dashboard(){
     var action = _data.currentUser.actions[0]
     var thisLink = $('.fa-link.active')
     var thisThumbnail = thisLink.closest(".team_thumbnail")
-    thisThumbnail
-      .find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png")
+    thisThumbnail.find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png")
+    thisThumbnail.find('.team_tab').css("display","none")
     thisLink.switchClass('fa-link','fa-times')
+
 
     $(document).off('click','.advocate_avatar').on('click','.advocate_avatar', function() {
       var parentUserName = $(this).closest('.team_thumbnail').find('.name-span').text()
@@ -1510,6 +1511,7 @@ function Dashboard(){
       // thisThumbnail.siblings('div').css('visibility','visible');
       $(document).off('click', '.advocate_avatar');
       thisThumbnail.find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")
+      thisThumbnail.find('.team_tab').fadeIn("fast");
       thisThumbnail.find('.nav').show();
       _closeLinkDrilldown(thisLink, thumbnailArray, i);
       _closeTeamDrilldown(thisLink)
