@@ -1545,7 +1545,7 @@ function Dashboard(){
     var _thisLevel = parseInt(selected.closest('section').attr('data-drilldown-level'))
     var _lastLevel = parseInt($('.drilldown').last().attr('data-drilldown-level'))
     if(_thisLevel == 0) selected.closest('.team_info').css('border','1px solid #E5E5E5')
-
+    selected.closest(".dashboard_section").find(".js-thumbnail").animate({"opacity":"1"})
     for(var i=_thisLevel;i < _lastLevel;i++){
       $("#dashboard_team").find('.drilldown.level_'+(i+1)).hide()
     }
