@@ -31,16 +31,18 @@
       <div class="team_tab" id="js-impact_tab" style="width:220px">KPI</div>
     {{/compare}}
   {{/compare}}
-
 </div>  
     {{#each this.actions}}
       {{#compare this "place" operator="=="}}
-        {{#compare this.properties.moved "true" operator="!="}}
-          {{#compare ../../../this.properties.generation 2 operator="<"}}
-          <i class="js-link_user fa fa-link"></i>
+        {{#compare ../properties.moved "true" operator="!="}}
+          {{#compare ../../../properties.generation 2 operator="<"}}
+          {{#if ../../../../properties.place_mode}}
+            <i class="js-link_user fa fa-link active"></i>
+          {{else}}
+            <i class="js-link_user fa fa-link"></i>
+          {{/if}}
           {{/compare}}
         {{/compare}}
-    {{!-- <a><span class="js-link_user" style="font-size:0.7em">ASSIGN</span></a> --}}
       {{/compare}}
     {{/each}}
 </div>
