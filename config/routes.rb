@@ -10,7 +10,6 @@ Rails.application.routes.draw do
 
   # anonymous routes
   scope module: :anon do
-
     resource :login, controller: :session, only: [ :show, :create, :destroy ]
 
     resource :password, only: [ :show, :create, :new ] do
@@ -20,7 +19,6 @@ Rails.application.routes.draw do
     resource :invite, only: [ :create, :update, :destroy ] do
       post :validate
     end
-
   end
 
   # quote routes
@@ -118,6 +116,8 @@ Rails.application.routes.draw do
     resources :notifications,
                 only:       [ :index, :show ],
                 as:         :user_notifications
+
+    resources :resources, only: [:index, :show]
   end
 
   # logged in admin routes
@@ -221,6 +221,8 @@ Rails.application.routes.draw do
     resources :notifications,
                 only: [ :index, :create, :destroy, :show, :update ],
                 as:   :admin_notifications
+
+    resources :resources, as: :admin_resources
   end
 
   scope :gateway, module: :gateway do

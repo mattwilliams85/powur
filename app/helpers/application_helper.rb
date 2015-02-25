@@ -47,6 +47,14 @@ module ApplicationHelper
     )
   end
 
+  def resources_json
+    @resources_json ||= ResourcesJson.new(
+      self,
+      @resources,
+      @resource
+    )
+  end
+
   def notifications_json
     @notifications_json ||= NotificationsJson.new(
       self,

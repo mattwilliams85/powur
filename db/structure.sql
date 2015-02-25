@@ -839,6 +839,43 @@ CREATE TABLE ranks (
 
 
 --
+-- Name: resources; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE resources (
+    id integer NOT NULL,
+    user_id integer,
+    title character varying,
+    description text,
+    file_original_path character varying,
+    file_type character varying(60),
+    thumbnail_path character varying,
+    is_public boolean,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: resources_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE resources_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: resources_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE resources_id_seq OWNED BY resources.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1144,6 +1181,13 @@ ALTER TABLE ONLY rank_paths ALTER COLUMN id SET DEFAULT nextval('rank_paths_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY resources ALTER COLUMN id SET DEFAULT nextval('resources_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq'::regclass);
 
 
@@ -1385,6 +1429,14 @@ ALTER TABLE ONLY ranks
 
 
 --
+-- Name: resources_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY resources
+    ADD CONSTRAINT resources_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1554,6 +1606,13 @@ CREATE INDEX index_quotes_on_user_id ON quotes USING btree (user_id);
 --
 
 CREATE UNIQUE INDEX index_rank_paths_on_precedence ON rank_paths USING btree (precedence);
+
+
+--
+-- Name: index_resources_on_file_type_and_is_public; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_resources_on_file_type_and_is_public ON resources USING btree (file_type, is_public);
 
 
 --
@@ -2069,4 +2128,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150127195532');
 INSERT INTO schema_migrations (version) VALUES ('20150209185127');
 
 INSERT INTO schema_migrations (version) VALUES ('20150209200417');
+
+INSERT INTO schema_migrations (version) VALUES ('20150225110000');
 
