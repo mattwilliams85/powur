@@ -585,9 +585,14 @@ $xl-screen: em-calc(1500);
       width: 50px;
     }
 
-    .highlight-1 {
-      margin-left:-10px;
+    .medium-8 {
+      width:60%;
     }
+
+    .stock-photo {
+      margin-left:20px;
+    }
+
   }
 
   .sun-promo-energy-slide-6 {
@@ -887,7 +892,16 @@ $xl-screen: em-calc(1500);
 
     .sun-slider {
       h2 {
-        display: inline;
+        display:inline;
+        height:200px;
+      }
+      h3 {
+        width:600px;
+        margin-top:30px;
+        @media #{$large} {
+          width:800px;
+          margin-top:50px;
+        }
       }
       .fa-chevron-left {
         position:absolute;
@@ -902,6 +916,7 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-our-origin-page {
+    background:#fff;
     .sun-origin-story-bg {
       background-image: image-url("promo/rainforest.jpg");
       background-repeat: no-repeat;
