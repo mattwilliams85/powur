@@ -563,7 +563,7 @@ $xl-screen: em-calc(1500);
         line-height:30pt;
       }
     }
-    .slider-inner { 
+    .slider-inner {
       margin-top:0px !important;
       @media #{$small} {
         margin-top:15px;
@@ -572,13 +572,12 @@ $xl-screen: em-calc(1500);
         margin-top:25px;
       }
     }
-    .sun-promo-slider-wrapper { 
+    .sun-promo-slider-wrapper {
       margin-top:20px;
       @media #{$small} {
         margin-top:25px;
       }
     }
-    
   }
 
   .sun-promo-energy-slide-4 {
@@ -1021,7 +1020,7 @@ $xl-screen: em-calc(1500);
     .slide-2-ico-wrapper {
       height: 50px;
       margin-top: 30px;
-      @media #{$large}{ 
+      @media #{$large}{
         margin-top: 40px;
         height: 100px;
       }
@@ -1137,12 +1136,12 @@ $xl-screen: em-calc(1500);
         position:absolute;
         left:75%;
       }
-      
+
     }
   }
 
   &.sun-our-origin-page {
-    
+
     .sun-origin-story-bg {
       background-image: image-url("promo/rainforest.jpg");
       background-repeat: no-repeat;
@@ -1679,7 +1678,7 @@ $xl-screen: em-calc(1500);
     background-image: image-url("promo/bg-19.jpg");
     background-color: #fff;
 
-    h1 { 
+    h1 {
       text-align:center;
       margin-left:0px;
       @media #{$small} {

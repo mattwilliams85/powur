@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
 
   def assign_parent(parent, params)
     self.class.move_user(self, parent)
-    if params != 'admin' 
+    if params != 'admin'
       self.update(moved: true)
     end
   end

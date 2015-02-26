@@ -118,7 +118,7 @@ function Dashboard(){
       $(this).css("font-size", _newWidth+"pt");
     });
     $("#header-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.organic_rank])
-    $(".aw-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.next_rank]) 
+    $(".aw-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.next_rank])
 
   }
 
@@ -234,7 +234,7 @@ function Dashboard(){
     //wire up invitations listing hook
     $(".js-invites_thumbnail").on("click", function(e){
       e.preventDefault();
-     
+
       var _thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
       _closeTeamDrilldown(_thisThumbnail)
       if(_thisThumbnail.find("span.expand i").hasClass('fa-angle-up')){
@@ -441,7 +441,7 @@ function Dashboard(){
       _pagination_content.animate({"left":"-="+_pagination_width+"px"});
     }
     // _pagination_content.find(".js-thumbnail").css("opacity","1")
-    
+
     $('.team_tab').removeClass("dark darker")
     _closeTeamDrilldown(_thisThumbnail)
   });
@@ -1141,7 +1141,7 @@ function Dashboard(){
 
   //JQUERY Events for placement
   function _linkEvents(){
-    var action = _data.currentUser.actions[0] 
+    var action = _data.currentUser.actions[0];
     var thisLink = $('.fa-link.active_link')
     var thisThumbnail = thisLink.closest(".team_thumbnail")
     thisThumbnail.find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png")
@@ -1199,7 +1199,7 @@ function Dashboard(){
 
      // if(_thisThumbnail.length === 0 || _options._target.hasClass('team_tab')) _thisThumbnail = _options._target
      if(_options._target.hasClass("js-link_user")) _options._target.toggleClass("active").find('')
-     
+
      if(_thisThumbnail.find('.team_tab').hasClass('active_tab')) {
        _currentLevelSectionObj.find(".active").removeClass('active')
        _thisThumbnail.find(".js-thumbnail").addClass('active')
@@ -1220,8 +1220,8 @@ function Dashboard(){
          _thisThumbnail.addClass('active')
        }
      }
-     
-    
+
+
 
      // _currentLevelSectionObj.toggleClass('active')
 
@@ -1237,7 +1237,7 @@ function Dashboard(){
      //   }
      // }
       // _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
-      
+
      //close any level after the current level
      for(var i=_drillDownDepth;i>_drillDownFocusLevel;i--){
          _topLevelSectionObj.find("[data-drilldown-level="+i+"]").remove();
@@ -1537,7 +1537,7 @@ function Dashboard(){
     if(!thisLink.hasClass('active_link')) {
       // displayTeam("team.everyone",selectedUser.id)
       _teamDrilldown('team.single', thisLink)
-      
+
       // thisThumbnail.siblings('div').css('visibility','hidden');
 
       //animates each neighbor
