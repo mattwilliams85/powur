@@ -113,6 +113,25 @@ BonusPlan.create!(
   start_year:  2014,
   start_month: 5)
 
+puts 'Seeding Resources'
+Resource.destroy_all
+Resource.create!(
+  user_id: jon.id,
+  title: 'Powur awesome pdf file',
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  file_original_path: 'http://eyecuelab.com/doc.pdf',
+  file_type: 'application/pdf',
+  is_public: true
+)
+Resource.create!(
+  user_id: jon.id,
+  title: 'Powur awesome video',
+  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  file_original_path: 'http://eyecuelab.com/video.mp4',
+  file_type: 'video/mp4',
+  is_public: true
+)
+
 puts 'Seeding Api Client Credentials'
 ApiClient.destroy_all
 ApiClient.create!(
