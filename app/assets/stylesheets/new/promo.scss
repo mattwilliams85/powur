@@ -15,12 +15,40 @@ $xl-screen: em-calc(1500);
 
     .highlight-1, &.highlight-1 {
       color: $sun-color-blue;
+      display:inline;
     }
 
     .highlight-2, &.highlight-2 {
       color: $sun-color-orange;
     }
   }
+
+  //For Mobile
+  h1 {
+    font-size:30pt;
+    line-height:30pt;
+    @media #{$small}{
+      font-size:60pt;
+      line-height:50pt;
+    }
+  }
+  h4 {
+    font-size:20pt !important;
+    line-height:26pt;
+    @media #{$small}{
+      font-size:30pt;
+      line-height:36pt;
+    }
+  }
+  span {
+    font-size:13pt;
+    line-height:20pt;
+    @media #{$small}{
+      font-size:15pt;
+      line-height:30pt;
+    }
+  }
+  //end
 
   .sun-promo-intro {
     position: absolute;
@@ -34,14 +62,17 @@ $xl-screen: em-calc(1500);
     -o-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     text-align: left;
+    width:90%;
+    @media #{$small} {
+      width:55%;
+    }
 
     h1 {
       color: #fff;
-      width:750px;
-      font-size: 3.5em;
+      // width:750px;
+      font-size:2em;
       font-weight: bold;
       text-transform: uppercase;
-      line-height: 1em;
 
       .highlight-1, &.highlight-1 {
         color: $sun-color-blue;
@@ -53,6 +84,10 @@ $xl-screen: em-calc(1500);
 
       @media #{$large} {
         font-size: 4em;
+        width:100%;
+      }
+      @media #{$small} {
+        font-size: 3em;
         width:100%;
       }
     }
@@ -82,16 +117,13 @@ $xl-screen: em-calc(1500);
 
       &.watch {
         background-image: image-url("promo/play-icon.png");
-        background-position: center 7px;
         background-repeat: no-repeat;
         background-color: $sun-color-blue;
+        font-size: 1em;
+        background-position: 20px center;
+        line-height: 70px;
+        padding: 0 20px 0 70px;
 
-        @media #{$small} {
-          font-size: 1em;
-          background-position: 20px center;
-          line-height: 70px;
-          padding: 0 20px 0 70px;
-        }
       }
     }
   }
@@ -107,7 +139,7 @@ $xl-screen: em-calc(1500);
       text-transform: uppercase;
       line-height: 1em;
       text-align:center;
-      @media #{$large} {
+      @media #{$medium} {
         font-size: 3.3em;
         width:100%;
         text-align:left;
@@ -469,6 +501,44 @@ $xl-screen: em-calc(1500);
         font-size: .9em;
       }
     }
+  }
+  .sun-promo-energy-slide-3 {
+    .row {
+      padding-top:100px;
+    }
+
+    span, b {
+      font-size:12pt;
+      line-height:15pt;
+      @media #{$small} {
+        font-size:15pt;
+        line-height:30pt;
+      }
+    }
+    h5 {
+      font-size:12pt;
+      line-height:15pt;
+      @media #{$small} {
+        font-size:15pt;
+        line-height:30pt;
+      }
+    }
+    .slider-inner { 
+      margin-top:0px !important;
+      @media #{$small} {
+        margin-top:15px;
+      }
+      @media #{$medium} {
+        margin-top:25px;
+      }
+    }
+    .sun-promo-slider-wrapper { 
+      margin-top:20px;
+      @media #{$small} {
+        margin-top:25px;
+      }
+    }
+    
   }
 
   .sun-promo-energy-slide-4 {

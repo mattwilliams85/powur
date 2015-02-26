@@ -51,7 +51,10 @@
       color: #000;
       width:870px;
       line-height: 1.5em;
-      font-size: 1.5em;
+      font-size: 1em;
+      @media #{$small} {
+        font-size: 1.5em;
+      }
       // text-transform: uppercase;
       // position:absolute;
     }
@@ -126,11 +129,15 @@
      h3 {
        color:#333;
        text-transform: capitalize;
-       font-size:2rem;
+       font-size:1.3rem;
        text-align:left;
        width:75%;
        @media #{$large} {
+          font-size:2rem;
          width:85%;
+       }
+       @media #{$small} {
+         font-size:2rem;
        }
      }
 
@@ -179,18 +186,17 @@
     background-repeat: no-repeat;
     background-size: cover;
     .row {
-      width:85%;
+      width:90%;
+      @media #{$small} {
+        width:85%;
+      }
     }
 
     h1 { 
-      font-size:60pt;
-      line-height:55pt;
       margin:30pt 0;
     }
     .large-10 {
       span {
-        font-size:15pt;
-        line-height:30pt;
         height:20px;
         color:white;
         .highlight {
@@ -253,6 +259,30 @@
 
     input[type=text], input[type=password], input[type=email] {
       font-size: 1.3em;
+    }
+  }
+  h1 {
+    font-size:30pt;
+    line-height:30pt;
+    @media #{$small}{
+      font-size:60pt;
+      line-height:50pt;
+    }
+  }
+  h4 {
+    font-size:20pt !important;
+    line-height:26pt;
+    @media #{$small}{
+      font-size:30pt;
+      line-height:36pt;
+    }
+  }
+  span {
+    font-size:13pt;
+    line-height:20pt;
+    @media #{$small}{
+      font-size:15pt;
+      line-height:30pt;
     }
   }
 }

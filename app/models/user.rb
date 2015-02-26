@@ -129,9 +129,11 @@ class User < ActiveRecord::Base
     pay_period_rank || organic_rank
   end
 
-  def assign_parent(parent)
+  def assign_parent(parent, params)
     self.class.move_user(self, parent)
-    self.update(moved: true)
+    if params != 'admin' 
+      self.update(moved: true)
+    end
   end
 
   private

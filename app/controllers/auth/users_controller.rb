@@ -41,7 +41,7 @@ module Auth
 
       parent = User.find(params[:parent_id])
       if parent.ancestor?(current_user.id) && @user.ancestor?(current_user.id)
-        @user.assign_parent(parent)
+        @user.assign_parent(parent, 'user')
       else
         not_found!(:user, current_user.id)
       end

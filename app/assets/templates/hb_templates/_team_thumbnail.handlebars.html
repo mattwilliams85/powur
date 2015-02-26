@@ -1,3 +1,4 @@
+
 <div id="{{this.properties.id}}_thumbnail" alt="{{this.properties.id}}" class="team_thumbnail js-team_thumbnail js-thumbnail_parent hover-team">
 	<div class="js-thumbnail ">
         {{#if this.properties.profile_image}}
@@ -32,19 +33,19 @@
     {{/compare}}
   {{/compare}}
 </div>  
+  {{#if this.properties.active_link}}
+    <i class="js-link_user fa fa-link active_link"></i>
+  {{/if}}
+  {{#if this.properties.place_mode}}
+  {{else}}
     {{#each this.actions}}
       {{#compare this "place" operator="=="}}
-        {{#compare ../properties.moved "true" operator="!="}}
-          {{#compare ../../../properties.generation 2 operator="<"}}
-          {{#if ../../../../properties.place_mode}}
-            <i class="js-link_user fa fa-link active"></i>
-          {{else}}
-            <i class="js-link_user fa fa-link"></i>
-          {{/if}}
-          {{/compare}}
+        {{#compare ../../properties.moved true operator="!="}}
+          <i class="js-link_user fa fa-link"></i>
         {{/compare}}
       {{/compare}}
     {{/each}}
+  {{/if}}
 </div>
 
 <script type="text/javascript">

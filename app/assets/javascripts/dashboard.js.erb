@@ -538,6 +538,33 @@ function Dashboard(){
         });
         break;
 
+      case "team.single":
+        $('#dashboard_team').find('.drilldown').remove()
+        _data.currentUser.actions = ""
+        var _thisThumbnail = $(_options._target)
+        _thisThumbnail.closest('.team_info').find('.nav').hide();
+        _ajax({
+          _ajaxType:"get",
+          _url:"/u/users/"+selectedUser.id,
+          _postObj:{
+          },
+          _callback:function(data, text){
+            var _containerObj = $("#dashboard_team .section_content.top_level .pagination_content");
+            _containerObj.html("")
+            data.properties.place_mode = true;
+            data.properties.active_link = true;
+            $(".top_level").find('.drilldown').remove();
+            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>", data, undefined, function(html){
+                _teamDrilldown('team.immediate', $('#'+selectedUser.id+'_thumbnail'))
+               _containerObj.append(html);
+               _linkEvents();
+               return;
+            });
+
+      }
+    })
+    break;
+
       case "team.immediate":
         _ajax({
           _ajaxType:"get",
@@ -566,7 +593,7 @@ function Dashboard(){
            _getTemplate("<%=asset_path('hb_templates/drilldowns/_team_details.handlebars.html')%>", _userDetail, _drilldownContainerObj, function(){
           _drilldownContainerObj.animate({height:"+=250px", opacity:1}, _animation_speed);
           _data.team.entities.forEach(function(member){
-            if(member.properties.id === parseInt(_options._userID)) return;
+            if(member.properties.id === parseInt(selectedUser.id)) return;
             var _downlinkContainerObj = $('#dashboard_team [data-drilldown-level='+_drillDownLevel+'] .team_info .pagination_content');
             if(data.entities.length>=5) _downlinkContainerObj.siblings(".nav").fadeIn();
             $(".team_info").css("border-bottom-width","1px");
@@ -575,8 +602,9 @@ function Dashboard(){
               _ajaxType:"get",
               _url:"/u/users/"+member.properties.id+"/downline",
               _callback:function(data, text){
+                member.properties.place_mode = true;
                 member.properties.downline_count = data.entities.length;
-                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_placement_thumbnail.handlebars.html')%>", member, undefined, function(html){
+                EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>", member, undefined, function(html){
                    _downlinkContainerObj.append(html);
                    _linkEvents();
                 });
@@ -600,7 +628,6 @@ function Dashboard(){
       .done(function(data){
         //prepare leader info
         var _userDetail={};
-        console.log(data)
         _userDetail["generation"] = _drillDownLevel + 1;
         if(place_mode === true) _userDetail["generation"] -= 1
         _userDetail["downline_url"]=_getObjectsByCriteria(data, {rel:"user-children"})[0].href;
@@ -626,7 +653,6 @@ function Dashboard(){
               _callback:function(data, text){
                 _downlinkContainerObj.css("width", (_data.global.thumbnail_size.width*data.entities.length)+"px");
                 if(data.entities.length>=4) _downlinkContainerObj.siblings(".nav").fadeIn();
-
                 data.entities.forEach(function(member){
                   _ajax({
                     _ajaxType:"get",
@@ -634,6 +660,7 @@ function Dashboard(){
                     _callback:function(data, text){
                       _downlinkContainerObj
                       member.properties.downline_count = data.entities.length;
+                      if(place_mode) member.properties.place_mode = true;
                       EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>", member, undefined, function(html){
                         _downlinkContainerObj.append(html);
                       });
@@ -1110,8 +1137,8 @@ function Dashboard(){
 
   //JQUERY Events for placement
   function _linkEvents(){
-    var action = _data.currentUser.actions[0]
-    var thisLink = $('.fa-link.active')
+    var action = _data.currentUser.actions[0] 
+    var thisLink = $('.fa-link.active_link')
     var thisThumbnail = thisLink.closest(".team_thumbnail")
     thisThumbnail.find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png")
     thisThumbnail.find('.team_tab').css("display","none")
@@ -1196,7 +1223,6 @@ function Dashboard(){
 
        //if checking on self collapse everything
        if(!_thisThumbnail.hasClass('team_thumbnail')){
-        if(_thisThumbnail.find("span.expand i").attr("class").indexOf("fa-angle-up")>=0){
           $(".arrow").css("bottom","-20px").hide();
           $(".section_content").css("border-bottom-width","1px");
           _thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
@@ -1206,7 +1232,6 @@ function Dashboard(){
           _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
           clearTimeout();
           return;
-        }
        }
 
        if(_thisThumbnail.hasClass('active')){
@@ -1492,9 +1517,9 @@ function Dashboard(){
     thumbnailArray.find('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
     $('.team_tab').removeClass("dark darker")
 
-    if(!thisLink.hasClass('active')) {
-      displayTeam("team.everyone",selectedUser.id)
-      _teamDrilldown('team.immediate', thisLink)
+    if(!thisLink.hasClass('active_link')) {
+      // displayTeam("team.everyone",selectedUser.id)
+      _teamDrilldown('team.single', thisLink)
       
       // thisThumbnail.siblings('div').css('visibility','hidden');
 
@@ -1505,9 +1530,10 @@ function Dashboard(){
       //   if(i < 0) clearInterval(a)
       // },100)
     } else {
+      console.log('close')
       displayTeam("team.everyone")
       thisLink.switchClass('fa-times','fa-link')
-      thisLink.toggleClass("active")
+      thisLink.toggleClass("active_link")
       // thisThumbnail.siblings('div').css('visibility','visible');
       $(document).off('click', '.advocate_avatar');
       thisThumbnail.find('.advocate_avatar').attr("src","/temp_dev_images/Tim.jpg")

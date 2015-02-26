@@ -55,7 +55,7 @@ module Admin
 
       parent = User.find(params[:parent_id].to_i)
 
-      @user.assign_parent(parent)
+      @user.assign_parent(parent, 'admin')
 
       render 'show'
     end
