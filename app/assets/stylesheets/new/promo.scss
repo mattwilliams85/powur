@@ -32,6 +32,14 @@ $xl-screen: em-calc(1500);
       line-height:50pt;
     }
   }
+  h2 {
+    font-size:25pt;
+    line-height:25pt;
+    @media #{$small}{
+      font-size:40pt;
+      line-height:50pt;
+    }
+  }
   h4 {
     font-size:20pt !important;
     line-height:26pt;
@@ -45,7 +53,7 @@ $xl-screen: em-calc(1500);
     line-height:20pt;
     @media #{$small}{
       font-size:15pt;
-      line-height:30pt;
+      line-height:15pt;
     }
   }
   //end
@@ -76,10 +84,12 @@ $xl-screen: em-calc(1500);
 
       .highlight-1, &.highlight-1 {
         color: $sun-color-blue;
+        display:inline;
       }
 
       .highlight-2, &.highlight-2 {
         color: $sun-color-orange;
+        display:inline;
       }
 
       @media #{$large} {
@@ -103,16 +113,12 @@ $xl-screen: em-calc(1500);
 
       &.dim {
         background-image: image-url("promo/on-button.png");
-        background-position: center 7px;
+        font-size: 1em;
+        background-position: 20px center;
+        line-height: 70px;
+        padding: 0 20px 0 70px;
         background-repeat: no-repeat;
         background-color: #0b0b0b;
-
-        @media #{$small} {
-          font-size: 1em;
-          background-position: 20px center;
-          line-height: 70px;
-          padding: 0 20px 0 70px;
-        }
       }
 
       &.watch {
@@ -130,8 +136,11 @@ $xl-screen: em-calc(1500);
 
   .sun-promo-content {
     padding-top: 150px;
-    padding-bottom: 100px;
+    padding-bottom: 0px;
     line-height: 1.6em;
+    @media #{$small} {
+      padding-bottom: 100px;
+    }
 
     h1, h2 {
       font-size: 2.3em;
@@ -147,6 +156,7 @@ $xl-screen: em-calc(1500);
 
       .highlighted {
         color: $sun-color-orange;
+        display:inline;
       }
     }
 
@@ -208,12 +218,17 @@ $xl-screen: em-calc(1500);
     .video-player-wrapper {
       width:330px;
       height:220px;
+      margin:35px;
       background-image: image-url("promo/video-placeholder.jpg");
       background-repeat: no-repeat;
       background-position: center center;
       @media #{$large} {
         width: 610px;
         height: 380px;
+        margin:0px;
+      }
+      @media #{$small} {
+        margin:0px;
       }
     }
   }
@@ -301,7 +316,9 @@ $xl-screen: em-calc(1500);
 
   .sun-promo-slide-3 {
     padding-top:100px;
+    text-align:center;
     @media #{$large} {
+      text-align:none;
       padding-top:150px;
     }
 
@@ -319,8 +336,11 @@ $xl-screen: em-calc(1500);
     }
 
     h2 {
-      font-size: 4em;
+      font-size:2em;
       margin: .5em 0 .7em 0;
+      @media #{$small} {
+        font-size: 4em;
+      }
     }
 
     hr {
@@ -346,10 +366,16 @@ $xl-screen: em-calc(1500);
       background-repeat: no-repeat;
       background-position: left center;
       line-height: 32px;
-      margin: 2em 0 .5em 0;
+      float:left;
       padding-left: 40px;
       font-size: 32px;
       font-weight: bold;
+      margin: 0 0 1em 0;
+
+      @media #{$small} {
+        margin: 2em 0 .5em 0;
+        float:none;
+      }
     }
 
     .highlighted {
@@ -433,7 +459,7 @@ $xl-screen: em-calc(1500);
       }
 
       span {
-        font-size: .8em;
+        font-size: 1em;
       }
 
       .selection-1 {
@@ -545,6 +571,12 @@ $xl-screen: em-calc(1500);
     height: 100%;
     padding: 0;
     margin-top:5%;
+    font-size:1.3em;
+    @media #{$small} {
+      p {
+        font-size:1em;
+      }
+    }
 
     .fa-chevron-left,  .fa-chevron-right {
       color:#eee;
@@ -572,11 +604,6 @@ $xl-screen: em-calc(1500);
       color: #383838;
       height: 100%;
       z-index: 1;
-      display:none;
-
-      @media #{$medium} {
-        display:block;
-      }
 
       .left-bg {
         background: $sun-color-blue;
@@ -623,10 +650,13 @@ $xl-screen: em-calc(1500);
   .sun-promo-energy-slide-5 {
     padding-bottom:30px !important;
 
-    h2 {
-      font-size:2.5em;
+    h2, .highlight-1 {
+      font-size:2em;
       text-align:left;
       text-transform:none;
+      @media #{$small} {
+        font-size:2.5em;
+      }
       @media #{$large} {
         font-size:2.8em;
       }
@@ -655,8 +685,12 @@ $xl-screen: em-calc(1500);
       width: 50px;
     }
 
-    .medium-8 {
-      width:60%;
+    .large-8 {
+      width:95%;
+      margin-right:2%;
+      @media #{$small} {
+        width:60%;
+      }
     }
 
     .stock-photo {
@@ -667,6 +701,9 @@ $xl-screen: em-calc(1500);
 
   .sun-promo-energy-slide-6 {
     padding-bottom:20px !important;
+    .row {
+      width:90%;
+    }
   }
 
   .sun-promo-slider-wrapper {
@@ -756,12 +793,18 @@ $xl-screen: em-calc(1500);
 
   &.sun-create-wealth-page {
     .scroll-slide-2 {
+      .row {
+        width:90%;
+      }
       height:100vh;
       min-height:1200px;
 
       h2 {
         color:#fff;
-        font-size:2.3em;
+        font-size:1.7em;
+        @media #{$small} {
+          font-size: 2.3em;
+        }
         @media #{$large} {
           font-size: 3.3em;
         }
@@ -801,6 +844,9 @@ $xl-screen: em-calc(1500);
         @media #{$large} {
           width:33.33%;
         }
+      }
+      .medium-8 {
+        float:left;
       }
     }
 
@@ -1227,9 +1273,18 @@ $xl-screen: em-calc(1500);
 
   .sun-bg-5 {
     background-color: #f4f6f7;
-
+    .sun-promo-content {
+      padding-top:90px;
+      @media #{$small} {
+        padding-top:150px;
+      }
+    }
     .icon-placeholder {
       height: 150px;
+      margin-left:20%;
+      @media #{$small} {
+        margin-left:0px;
+      }
     }
 
     h3 {

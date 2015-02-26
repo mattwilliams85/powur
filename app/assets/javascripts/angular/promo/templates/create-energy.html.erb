@@ -21,7 +21,7 @@
     <div class="sun-scrolling-bg sun-bg-3 section sun-promo-energy-slide-3" id="anchor_2">
       <div class="row sun-promo-content">
         <div class="large-12 columns">
-          <h2>Goodbye coal, <span class="highlighted">Hello sunshine.</span></h2>
+          <h2>Goodbye coal, <div class="highlighted">Hello sunshine.</div></h2>
         </div>
 
         <div class="large-3 columns">
@@ -53,22 +53,22 @@
 
     <div class="sun-scrolling-bg sun-bg-5 section sun-promo-energy-slide-6" id="on_slider_move">
       <div class="row sun-promo-content">
-        <div class="large-4 alt-large-4 columns">
+        <div class="large-4 small-12 columns">
           <div class="icon-placeholder"><div class="decentralize-icon-wrapper"></div></div>
           <h3>Decentralize energy production</h3>
-          <span>SolarCity decentralizes energy production, meaning you produce your own power from your own rooftop. This lessens your dependence on utility monopolies and the grid. Utilities charge us more money every year, and if the grid goes down, we go down.</span>
+          <span class="optional">SolarCity decentralizes energy production, meaning you produce your own power from your own rooftop. This lessens your dependence on utility monopolies and the grid. Utilities charge us more money every year, and if the grid goes down, we go down.</span>
         </div>
 
-        <div class="large-4 alt-large-4 columns">
+        <div class="large-4 small-12 columns">
           <div class="icon-placeholder"><div class="pocket-wallet-icon-wrapper"></div></div>
           <h3>Money in your pocket</h3>
-          <span>SolarCity puts more money back in your pocket, right where it belongs. Every year the cost of energy increases. Do you know Americans spend an average of $80 billion dollars MORE in discretionary income per year on energy, than we did just 20 years ago? That’s a lot of money that should still be in our pockets, and with solar, it will be.</span>
+          <span class="optional">SolarCity puts more money back in your pocket, right where it belongs. Every year the cost of energy increases. Do you know Americans spend an average of $80 billion dollars MORE in discretionary income per year on energy, than we did just 20 years ago? That’s a lot of money that should still be in our pockets, and with solar, it will be.</span>
         </div>
 
-        <div class="large-4 alt-large-4 columns">
+        <div class="large-4 small-12 columns">
           <div class="icon-placeholder"><div class="pollution-icon-wrapper"></div></div>
           <h3>Stop carbon pollution</h3>
-          <span>No more carbon pollution. Scientists have warned we are in uncharted territory. Rapid release of C02 into the atmosphere is changing the very climate of this planet, causing record temperatures, drought, and rising sea levels. If we don’t find a different source of energy than fossil fuels, we are leaving a legacy of destruction for future generations. It’s time to change.</span>
+          <span class="optional">No more carbon pollution. Scientists have warned we are in uncharted territory. Rapid release of C02 into the atmosphere is changing the very climate of this planet, causing record temperatures, drought, and rising sea levels. If we don’t find a different source of energy than fossil fuels, we are leaving a legacy of destruction for future generations. It’s time to change.</span>
         </div>
       </div>
       <div class="arrow-box" id="arrow_3">
@@ -88,7 +88,7 @@
             </div>
           </div>
 
-          <div class="large-8 columns slide-show-wrapper right-part">
+          <div class="large-8 columns slide-show-wrapper right-part optional">
             <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
             <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
             <div class="right-bg"></div>
@@ -117,26 +117,25 @@
     <div class="sun-scrolling-bg sun-bg-3 section" id="anchor_5">
       <div class="row sun-promo-content sun-promo-energy-slide-5">
         <div class="row">
-          <div class="medium-4 columns">
-            <img class="sun-logo-wrapper" src="<%=asset_path('powur-blue-logo.png')%>" />
+          <div class="large-4 columns">
+            <img class="sun-logo-wrapper optional" src="<%=asset_path('powur-blue-logo.png')%>" />
           </div>
-          <div class="medium-8 columns">
+          <div class="large-8 small-12 columns">
             <h3 class="uppercase highlight-1"><b>What's the Powur difference?</b></h3>
           </div>
-
-
         </div>
-        <div class="medium-4 columns">
-          <div class="clearfix"></div>
-          <img class="stock-photo" src="<%=asset_path('promo/image-1.jpg')%>" />
-        </div>
-
-        <div class="medium-8 columns">
-          <h3 class="uppercase"><b>Cheaper, cleaner power</b></h3>
-          <hr class="shorty" />
-          <h2><b>Referred to you by<br />a trusted friend.</b></h2>
-          <p>At Powur, we are doing our part to share solar. We recognize the biggest gap is new homeowners discovering solar from someone they can trust. That’s why we created our advocate program, and why we partnered with the #1 solar company in America.</p>
-          <p>Through Powur, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
+        <div class="row right-part">
+          <div class="large-4 columns">
+            <div class="clearfix optional"></div>
+            <img class="stock-photo optional" src="<%=asset_path('promo/image-1.jpg')%>" />
+          </div>
+          <div class="large-8 small-12 columns">
+            <h3 class="uppercase"><b>Cheaper, cleaner power</b></h3>
+            <hr class="shorty" />
+            <h2><b>Referred to you by<br />a trusted friend.</b></h2>
+            <p>At Powur, we are doing our part to share solar. We recognize the biggest gap is new homeowners discovering solar from someone they can trust. That’s why we created our advocate program, and why we partnered with the #1 solar company in America.</p>
+            <p>Through Powur, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
+          </div>
         </div>
       </div>
       <div class="arrow-box"  id="arrow_5">

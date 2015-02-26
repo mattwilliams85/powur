@@ -172,8 +172,10 @@ input {
 }
 
 .optional {
-  display:none;
+  display:none !important;
+  visibility:hidden !important;
   @media #{$medium} {
-    display:block;
+    display:block !important;
+    visibility:visible !important;
   }
 }
