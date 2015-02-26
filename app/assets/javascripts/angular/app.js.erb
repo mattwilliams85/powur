@@ -360,6 +360,17 @@ sunstandApp.config(
       controller: 'LibraryCtrl'
     }).
 
+
+    /*
+     * Admin
+    */
+
+    // Library
+    when('/admin/resources', {
+      templateUrl: '<%=asset_path("angular/admin/resources/templates/index.html")%>',
+      controller: 'AdminResourcesCtrl'
+    }).
+
     otherwise({
       redirectTo: '/home'
     });

@@ -12,6 +12,8 @@
 //= require_tree ../angular/promo
 //= require_tree ../angular/university
 
+//= require_tree ../angular/admin/resources
+
 //= require_tree ../angular/vendor
 
 $(document).foundation();

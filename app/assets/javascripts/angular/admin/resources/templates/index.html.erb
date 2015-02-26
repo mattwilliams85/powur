@@ -1,0 +1,52 @@
+<ng-include src="'<%=asset_path("shared/header-signed-in.html") %>'"></ng-include>
+
+<main class="sun-admin-resources">
+
+  <div class="row">
+    <div class="large-4 columns">
+      <h3>Resource Manager</h3>
+      <p>Upload and manage videos and PDF documents posted to the Library section of the Advocate Dashboard</p>
+      <div class="text-center">
+        <a ng-href="#/admin/resources" class="button small">Add Video</a>
+        <a ng-href="#/admin/resources" class="button small">Add PDF</a>
+      </div>
+    </div>
+
+    <div class="large-8 columns">
+      <h3>Library</h3>
+
+      <div class="row">
+        <div class="large-12 columns">
+
+          <div ng-repeat="item in resources" class="admin-resources-list-item">
+            <span class="info">id: {{item.properties.id}}</span>
+            <span class="info">posted: {{formattedTime(item.properties.created_at)}}</span>
+            <span class="info">by: {{item.properties.user_name}}</span>
+
+            <a ng-click="delete(item)" class="manage-link">delete</a>
+            <a ng-href="#/admin/resources" class="manage-link">edit</a>
+            <a ng-if="item.properties.is_public" ng-click="unPublish(item)" class="manage-link">hide</a>
+            <a ng-if="!item.properties.is_public" ng-click="publish(item)" class="manage-link">publish</a>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="large-4 columns">
+                <img ng-src="{{item.properties.thumbnail_path}}" />
+              </div>
+
+              <div class="large-8 columns">
+                <h5>{{item.properties.title}}</h5>
+                <p>{{item.properties.description}}</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<ng-include src="'<%=asset_path("shared/footer-signed-in.html") %>'"></ng-include>
