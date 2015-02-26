@@ -353,6 +353,12 @@ sunstandApp.config(
       controller: 'UniversityCtrl'
     }).
 
+    // Library
+    when('/library', {
+      templateUrl: '<%=asset_path("angular/library/templates/index.html")%>',
+      controller: 'LibraryCtrl'
+    }).
+
     otherwise({
       redirectTo: '/home'
     });

@@ -9,8 +9,9 @@
         <li class="logo"><a ng-href="/">&nbsp;</a></li>
         <li class="menu-item"><a ng-href="/u/dashboard">Dashboard</a></li>
         <li class="menu-item"><a ng-href="/u/earnings">Earnings</a></li>
-        <li class="menu-item"><a class="active" ng-href="#/university">Powur U</a></li>
+        <li class="menu-item"><a ng-class="{'active': isMenuLinkActive('/university')}" ng-href="#/university">Powur U</a></li>
         <li class="menu-item"><a>Marketing</a></li>
+        <li class="menu-item"><a ng-class="{'active': isMenuLinkActive('/library')}" ng-href="#/library">Library</a></li>
       </ul>
       <div class="clearfix"></div>
     </div>
