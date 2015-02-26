@@ -8,6 +8,16 @@ module Auth
       @resources = apply_list_query_options(Resource.published)
     end
 
+    def videos
+      @resources = apply_list_query_options(Resource.published.videos)
+      render :index
+    end
+
+    def documents
+      @resources = apply_list_query_options(Resource.published.documents)
+      render :index
+    end
+
     private
 
     def find_resource

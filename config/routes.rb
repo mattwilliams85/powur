@@ -117,7 +117,11 @@ Rails.application.routes.draw do
                 only:       [ :index, :show ],
                 as:         :user_notifications
 
-    resources :resources, only: [:index, :show]
+    resources :resources, only: [:index, :show] do
+      collection do
+        get :videos, :documents
+      end
+    end
   end
 
   # logged in admin routes
