@@ -78,8 +78,11 @@ body {
 
   .hidden {
     display: none;
+    margin-top: 220px;
+    position: absolute;
+    width: $row_width;
+    opacity: 0;
     height: 220px;
-    width: 100%;
     background: blue;
   }
 

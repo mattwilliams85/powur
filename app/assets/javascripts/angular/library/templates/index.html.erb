@@ -21,11 +21,10 @@
   <!-- Media Items Grid -->
   <div class="row">
     <ul class="large-block-grid-5 small-block-grid-2">
-      <li class="thumbnail test-div">
-      Test Div
-      <div class="hidden"></div>
+      <li ng-repeat="item in libraryList track by $index" ng-class="setClass($index, 'thumbnail')"class="thumbnail" ng-click="_drillDown($index)">
+      {{ item }}
+      <div ng-class="setClass($index, 'drilldown');" class="hidden"></div>
       </li>
-      <li ng-repeat="item in libraryList track by $index" class="thumbnail">{{ item }}</li>
     </ul>
   </div>
 
