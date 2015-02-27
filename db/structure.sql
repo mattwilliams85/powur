@@ -2130,7 +2130,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150209185127');
 INSERT INTO schema_migrations (version) VALUES ('20150209200417');
 
 INSERT INTO schema_migrations (version) VALUES ('20150225110000');
-<<<<<<< HEAD
 
-=======
->>>>>>> Resources back-end Part 1

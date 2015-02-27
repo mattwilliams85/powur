@@ -5,6 +5,8 @@ describe 'GET /a/resources' do
 
   context 'when signed in as admin' do
     before do
+      allow(user).to receive(:full_name).and_return('Bob')
+      allow_any_instance_of(Resource).to receive(:user).and_return(user)
       create_list(:resource, 2)
       create(:resource, is_public: false)
     end
@@ -42,6 +44,11 @@ end
 describe 'GET /a/resources/:id' do
   let!(:user) { login_user }
   let(:resource) { create(:resource) }
+
+  before do
+    allow(user).to receive(:full_name).and_return('Bob')
+    allow_any_instance_of(Resource).to receive(:user).and_return(user)
+  end
 
   it 'returns json data' do
     get admin_resource_path(resource), format: :json

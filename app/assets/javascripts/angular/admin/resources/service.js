@@ -27,6 +27,27 @@ function AdminResource($http, $q) {
     /*
      * Execute an action
     */
+    create: function(data) {
+      var dfr = $q.defer();
+      data = data || {};
+
+      $http({
+        method: 'POST',
+        url: '/a/resources',
+        data: data
+      }).success(function(res) {
+        dfr.resolve(res);
+      }).error(function(err) {
+        console.log('エラー', err);
+        dfr.reject(err);
+      });
+
+      return dfr.promise;
+    },
+
+    /*
+     * Execute an action
+    */
     execute: function(action, data) {
       var dfr = $q.defer();
       data = data || {};
@@ -43,7 +64,7 @@ function AdminResource($http, $q) {
       });
 
       return dfr.promise;
-    },
+    }
 
   };
 

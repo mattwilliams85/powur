@@ -13,8 +13,9 @@ module Admin
     end
 
     def create
-      resource = Resource.create(input)
-      if resource.valid?
+      resource = Resource.new(input)
+      resource.user_id = current_user.id
+      if resource.save
         head 200
       else
         render json: { errors: resource.errors.messages }, status: :unprocessable_entity

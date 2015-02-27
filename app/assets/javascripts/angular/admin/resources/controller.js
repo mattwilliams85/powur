@@ -5,6 +5,9 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
 
   // TODO check if user is an admin
 
+  // Form Validation
+  $scope.formErrorMessages = {};
+
   function getAction(actions, name) {
     for (var i in actions) {
       if (actions[i].name === name) {
@@ -43,6 +46,42 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
     });
   };
 
+  $scope.cancel = function() {
+    $location.path('/admin/resources/');
+  };
+
+  $scope.errorMessage = function(name) {
+    return $scope.formErrorMessages[name];
+  };
+
+  var createCallback = function() {
+    $location.path('/admin/resources');
+    $scope.showModal('You\'ve successfully added file to a library.');
+    $(document).foundation();
+    $scope.isSubmitDisabled = false;
+  };
+
+  var createErrorCallback = function(data) {
+    $scope.formErrorMessages = {};
+    var keys = ['title', 'file_original_path'];
+    for(var i in keys) {
+      $scope.resourceForm[keys[i]].$dirty = false;
+      var errorMessage = data.errors[keys[i]];
+      if (errorMessage) {
+        $scope.resourceForm[keys[i]].$dirty = true;
+        $scope.formErrorMessages[keys[i]] = errorMessage[0];
+      }
+    }
+    $scope.isSubmitDisabled = false;
+  };
+
+  $scope.create = function() {
+    if ($scope.resource) {
+      $scope.isSubmitDisabled = true;
+      AdminResource.create($scope.resource).then(createCallback, createErrorCallback);
+    }
+  };
+
   $scope.confirm = function(msg, clickAction, arg) {
     if (window.confirm(msg)) {
       return $scope.$eval(clickAction)(arg);
@@ -57,7 +96,7 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
 AdminResourcesCtrl.prototype.init = function($scope, $location) {
   // Setting mode based on the url
   $scope.mode = 'index';
-  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+  if (/\/new\//.test($location.path())) return $scope.mode = 'new';
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
@@ -68,7 +107,7 @@ AdminResourcesCtrl.prototype.fetch = function($scope, $location, $routeParams, A
       $scope.resources = items.entities;
     });
   } else if ($scope.mode === 'new') {
-
+    $scope.resourceType = $routeParams.resourceType === 'video' ? 'video' : 'document';
   } else if ($scope.mode === 'edit') {
 
   }

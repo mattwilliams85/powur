@@ -1,0 +1,84 @@
+<ng-include src="'<%=asset_path("shared/header-admin.html") %>'"></ng-include>
+
+<main class="sun-admin-resources">
+
+  <div class="row">
+    <div class="large-4 columns">
+      <h3>Resource Manager</h3>
+      <p>Upload and manage videos and PDF documents posted to the Library section of the Advocate Dashboard</p>
+    </div>
+
+    <div class="large-8 columns">
+      <h3>Add a {{resourceType}}</h3>
+
+      <div class="row">
+        <div class="large-12 columns">
+
+          <form name="resourceForm" class="resource-form" ng-submit="create()" novalidate>
+
+            <div class="row">
+              <div class="large-3 columns">
+                <label for="resource_title">Title</label>
+              </div>
+
+              <div class="large-9 columns">
+                <span ng-show="resourceForm.title.$dirty && errorMessage('title')" class="radius alert label">{{errorMessage('title')}}</span>
+                <input ng-model="resource.title" name="title" id="resource_title" type="text" />
+              </div>
+            </div>
+
+            <div class="row" ng-if="resourceType === 'video'">
+              <div class="large-3 columns">
+                <label>Choose a Video File</label><br />
+                <small>Files must be .mp4 format</small>
+              </div>
+
+              <div class="large-9 columns">
+                <span ng-show="resourceForm.file_original_path.$dirty && errorMessage('file_original_path')" class="radius alert label">{{errorMessage('file_original_path')}}</span>
+                <input ng-model="resource.file_original_path" name="file_original_path" id="resource_file_original_path" type="text" ng-required="true" />
+                <file-s3-uploader data="resource.file_original_path" mode="resource_video" show-progress="1" />
+              </div>
+            </div>
+
+            <div class="row" ng-if="resourceType === 'document'">
+              <div class="large-3 columns">
+                <label>Choose a PDF File</label>
+              </div>
+
+              <div class="large-9 columns">
+                <span ng-show="resourceForm.file_original_path.$dirty && errorMessage('file_original_path')" class="radius alert label">{{errorMessage('file_original_path')}}</span>
+                <input ng-model="resource.file_original_path" name="file_original_path" id="resource_file_original_path" type="text" ng-required="true" />
+                <file-s3-uploader data="resource.file_original_path" mode="resource_document" show-progress="1" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="large-3 columns">
+                <label for="resource_description">Description</label>
+              </div>
+
+              <div class="large-9 columns">
+                <textarea ng-model="resource.description" name="description" id="resource_description"></textarea>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="large-3 columns">&nbsp;</div>
+
+              <div class="large-9 columns">
+                <input type="checkbox" name="is_public" id="resource_is_public" ng-model="resource.is_public"> <label for="resource_is_public">Publish</label>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <a ng-click="cancel()" class="button small alert left">Cancel</a>
+            <input class="button small" ng-disabled="isSubmitDisabled" type="submit" value="Submit entry" />
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
