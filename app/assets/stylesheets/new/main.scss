@@ -179,3 +179,21 @@ input {
     visibility:visible !important;
   }
 }
+
+.optional-small {
+  display:none !important;
+  visibility:hidden !important;
+  @media #{$small} {
+    display:block !important;
+    visibility:visible !important;
+  }
+}
+
+.include-medium{
+  display:block !important;
+  visibility:visible !important;
+  @media #{$medium} {
+    display:none !important;
+    visibility:hidden !important;
+  }
+}

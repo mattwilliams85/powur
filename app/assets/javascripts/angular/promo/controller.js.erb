@@ -143,6 +143,9 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
     ]
   ];
 
+  $scope.whySolarPromoSlidesSmall = $scope.whySolarPromoSlides
+  $scope.whySolarPromoSlidesSmall = [].concat.apply([],$scope.whySolarPromoSlidesSmall);
+
   this.init($scope, $rootScope, $location, $timeout, $interval, $anchorScroll);
   this.fetch($scope, $rootScope, $interval, $timeout, $anchorScroll, $location, $routeParams);
 }
@@ -216,7 +219,11 @@ PromoCtrl.prototype.fetch = function($scope, $rootScope,  $interval, $timeout, $
     $scope.currentSlide = 0;
   } else if ($scope.mode === 'why-solar') {
     $scope.readyPiler();
-    $scope.setupPromoSlider($scope.whySolarPromoSlides);
+    if(window.innerWidth <= 768) {
+      $scope.setupPromoSlider($scope.whySolarPromoSlidesSmall);
+    } else {
+      $scope.setupPromoSlider($scope.whySolarPromoSlides);
+    }
   } else if ($scope.mode === 'why-powur') {
     $scope.readyPiler();
   } else if ($scope.mode === 'why-you') {

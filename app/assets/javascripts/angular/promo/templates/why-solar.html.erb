@@ -8,7 +8,7 @@
     <div class="sun-scrolling-bg sun-bg-10 section inverted">
       <div class="sun-promo-intro">
         <div class="row">
-          <h1 class="narrow"><span class="highlight-2">Solar</span>: The direct sales opportunity of this decade</h1>
+          <h1 class="narrow"><div class="highlight-2">Solar</div>: The direct sales opportunity of this decade</h1>
           <p class="narrow">Solar energy isn’t just the #1 solution to dirty coal powered electricity… it could also be the greatest financial opportunity you might see in your lifetime.</p>
         </div>
       </div>
@@ -24,17 +24,25 @@
       <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
       <div class="row sun-promo-content">
         <div class="large-12 columns">
-          <h2 class="narrow">The facts are clear.<br /><span class="highlighted">Solar is exploding</span><br />Across America.</h2>
+          <h2 class="narrow">The facts are clear.<br /><div class="highlighted">Solar is exploding</div><br />Across America.</h2>
         </div>
 
         <div class="large-12 columns slide-show-wrapper">
-          <div ng-repeat="slide in slides" class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
+          <div ng-repeat="slide in slides" class="slide-show-inner optional-small" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
             <div class="small-4 columns" ng-repeat="slideItem in slide">
               <div class="slide-2-slider-item">
                 <div class="slide-2-ico-wrapper"><div ng-class="slideItem.className"></div></div>
                 <p>{{slideItem.text}}</p>
               </div>
             </div>
+          </div>
+          <div ng-repeat="slide in slides" class="slide-show-inner include-medium" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
+            <!-- <div class="small-4 columns" ng-repeat="slideItem in slide"> -->
+              <div class="slide-2-slider-item">
+                <div class="slide-2-ico-wrapper"><div ng-class="slide.className"></div></div>
+                <p>{{slide.text}}</p>
+              </div>
+            <!-- </div> -->
           </div>
           <!-- <div class="slide-show-dots on-white">
             <a ng-repeat="slide in slides" ng-class="{'active': currentSlide === slides.indexOf(slide)}" ng-click="stopSlideShowOn(slide)"></a>

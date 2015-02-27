@@ -897,6 +897,12 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-why-solar-page {
+    h1.highlight-2 {
+      @media #{$medium} {
+        font-size: 50pt;
+        line-height:40pt;
+      }
+    }
     .sun-bg-3, .sun-bg-5, .sun-bg-11  {
       .row {
         width:90%;
@@ -921,6 +927,34 @@ $xl-screen: em-calc(1500);
 
       .fa-chevron-right {
         left:86%;
+      }
+    }
+
+    .sun-bg-5 {
+      .icon-placeholder {
+        margin-left:0px;
+      }
+      .narrow {
+        margin-left: 0%;
+        margin-right: 0%;
+        @media #{$small} {
+         margin-left: 10%;
+         margin-right: 10%;
+        }
+      }
+      h3 {
+        font-size:1.4em;
+        @media #{$small} {
+          font-size:1.8em;
+        }
+      }
+      span {
+        font-size:12pt;
+        line-height:12pt;
+        @media #{$small} {
+          font-size:15pt;
+          line-height:15pt;
+        }
       }
     }
 
@@ -1047,11 +1081,11 @@ $xl-screen: em-calc(1500);
     .our-origin-ico {
       margin: 40px 0;
       width: 100%;
-      display: none;
+      // display: none;
 
-      @media #{$small} {
-        display: block;
-      }
+      // @media #{$small} {
+      //   display: block;
+      // }
     }
 
     blockquote {
@@ -1160,6 +1194,9 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-our-dna-page {
+    h1 {
+      font-size:3em;
+    }
     .row {
       width:90%;
     }
@@ -1174,8 +1211,25 @@ $xl-screen: em-calc(1500);
     }
 
     .dna-wrapper {
-      height: 444px;
+      height: 270px;
+      margin-bottom:20px;
+      p {
+        font-size:1.2em;
+        @media #{$large} {
+          font-size:1em;
+        }
+      }
+    }
+
+    .dna-wrapper-2 {
+      height: inherit;
       overflow: hidden;
+      margin-bottom:30px;
+
+      @media #{$medium} {
+        margin-bottom:0px;
+        height: 444px;
+      }
 
       p {
         font-size:0.9em;
