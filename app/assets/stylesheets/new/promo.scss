@@ -317,8 +317,8 @@ $xl-screen: em-calc(1500);
   .sun-promo-slide-3 {
     padding-top:100px;
     text-align:center;
-    @media #{$large} {
-      text-align:none;
+    @media #{$small} {
+      text-align:left;
       padding-top:150px;
     }
 
@@ -366,15 +366,17 @@ $xl-screen: em-calc(1500);
       background-repeat: no-repeat;
       background-position: left center;
       line-height: 32px;
-      float:left;
-      padding-left: 40px;
+      padding-left: 0px;
       font-size: 32px;
       font-weight: bold;
-      margin: 0 0 1em 0;
+      text-align:center;
+      margin: 1em auto;
+      width:240px;
 
       @media #{$small} {
+        padding-left: 40px;
+        text-align:left;
         margin: 2em 0 .5em 0;
-        float:none;
       }
     }
 
@@ -480,12 +482,10 @@ $xl-screen: em-calc(1500);
   }
 
   .sun-promo-slide-6 {
-    .large-8 {
-      width:60%;
-      @media #{$large} {
-        width:66.66%;
-      }
+    .row{
+      width:66%;
     }
+
     .slide-6-extra {
 
       .button {
@@ -832,6 +832,7 @@ $xl-screen: em-calc(1500);
     .sun-promo-slide-4 {
       text-align:center;
       width:90%;
+      padding-bottom:150px;
       @media #{$medium} {
         text-align:left;
       }
@@ -839,15 +840,7 @@ $xl-screen: em-calc(1500);
 
     .sun-promo-slide-5 {
       width:90%;
-      .large-4 {
-        width:33%;
-        @media #{$large} {
-          width:33.33%;
-        }
-      }
-      .medium-8 {
-        float:left;
-      }
+      padding-bottom:150px;
     }
 
     .alt-large-6 {
@@ -896,10 +889,10 @@ $xl-screen: em-calc(1500);
     }
 
     .scroll-down {
-      padding-top:150px;
+      padding-top:100px;
       color:#bbb;
       margin:auto;
-      width:400px;
+      width:500px;
     }
   }
 
@@ -1032,7 +1025,7 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-our-origin-page {
-    background:#fff;
+    
     .sun-origin-story-bg {
       background-image: image-url("promo/rainforest.jpg");
       background-repeat: no-repeat;
