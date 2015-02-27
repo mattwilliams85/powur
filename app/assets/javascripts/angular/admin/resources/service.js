@@ -12,7 +12,7 @@ function AdminResource($http, $q) {
 
       $http({
         method: 'GET',
-        url: '/u/resources',
+        url: '/a/resources',
         params: data
       }).success(function(res) {
         dfr.resolve(res);
@@ -22,7 +22,28 @@ function AdminResource($http, $q) {
       });
 
       return dfr.promise;
-    }
+    },
+
+    /*
+     * Execute an action
+    */
+    execute: function(action, data) {
+      var dfr = $q.defer();
+      data = data || {};
+
+      $http({
+        method: action.method,
+        url: action.href,
+        data: data
+      }).success(function(res) {
+        dfr.resolve(res);
+      }).error(function(err) {
+        console.log('エラー', err);
+        dfr.reject(err);
+      });
+
+      return dfr.promise;
+    },
 
   };
 

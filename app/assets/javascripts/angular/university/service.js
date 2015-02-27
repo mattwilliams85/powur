@@ -26,7 +26,7 @@ function UniversityClass($http, $q) {
 
 
     /*
-    * Execute an action
+     * Execute an action
     */
     execute: function(action, data) {
       var dfr = $q.defer();

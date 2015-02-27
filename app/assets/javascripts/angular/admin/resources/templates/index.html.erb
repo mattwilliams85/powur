@@ -1,4 +1,4 @@
-<ng-include src="'<%=asset_path("shared/header-signed-in.html") %>'"></ng-include>
+<ng-include src="'<%=asset_path("shared/header-admin.html") %>'"></ng-include>
 
 <main class="sun-admin-resources">
 
@@ -23,10 +23,10 @@
             <span class="info">posted: {{formattedTime(item.properties.created_at)}}</span>
             <span class="info">by: {{item.properties.user_name}}</span>
 
-            <a ng-click="delete(item)" class="manage-link">delete</a>
+            <a ng-click="confirm('Are you sure you want to delete this file?', 'delete', item)" class="manage-link">delete</a>
             <a ng-href="#/admin/resources" class="manage-link">edit</a>
-            <a ng-if="item.properties.is_public" ng-click="unPublish(item)" class="manage-link">hide</a>
-            <a ng-if="!item.properties.is_public" ng-click="publish(item)" class="manage-link">publish</a>
+            <a ng-if="item.properties.is_public" ng-click="confirm('Are you sure you want to hide this file?', 'unPublish', item)" class="manage-link">hide</a>
+            <a ng-if="!item.properties.is_public" ng-click="confirm('Are you sure you want to publish this file?', 'publish', item)" class="manage-link">publish</a>
 
             <div class="clearfix"></div>
 
@@ -48,5 +48,3 @@
     </div>
   </div>
 </main>
-
-<ng-include src="'<%=asset_path("shared/footer-signed-in.html") %>'"></ng-include>

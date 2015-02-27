@@ -5,6 +5,15 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
 
   // TODO check if user is an admin
 
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
+  }
+
   $scope.formattedTime = function(timestamp) {
     var date = new Date(timestamp);
     var day = (date.getDate() < 10 ? '0' : '') + date.getDate();
@@ -23,7 +32,21 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
   };
 
   $scope.delete = function(item) {
+    var action = getAction(item.actions, 'destroy');
+    return AdminResource.execute(action).then(function() {
+      $scope.showModal('Resource has been deleted');
+      $(document).foundation();
+      $location.path('/admin/resources/');
+    }, function() {
+      $scope.showModal('Oops error deleting the resource');
+      $(document).foundation();
+    });
+  };
 
+  $scope.confirm = function(msg, clickAction, arg) {
+    if (window.confirm(msg)) {
+      return $scope.$eval(clickAction)(arg);
+    }
   };
 
   this.init($scope, $location);
