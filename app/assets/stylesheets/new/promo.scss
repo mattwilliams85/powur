@@ -19,6 +19,7 @@ $xl-screen: em-calc(1500);
     }
 
     .highlight-2, &.highlight-2 {
+      display:inline;
       color: $sun-color-orange;
     }
   }
@@ -149,6 +150,11 @@ $xl-screen: em-calc(1500);
       line-height: 1em;
       text-align:center;
       @media #{$medium} {
+        font-size: 2.3em;
+        width:100%;
+        text-align:left;
+      }
+      @media #{$large} {
         font-size: 3.3em;
         width:100%;
         text-align:left;
@@ -370,7 +376,7 @@ $xl-screen: em-calc(1500);
       font-size: 32px;
       font-weight: bold;
       text-align:center;
-      margin: 1em auto;
+      margin:0.2em auto;
       width:240px;
 
       @media #{$small} {
@@ -531,12 +537,13 @@ $xl-screen: em-calc(1500);
   .sun-promo-energy-slide-3 {
     .row {
       padding-top:100px;
+      width:90%;
     }
 
     span, b {
       font-size:12pt;
       line-height:15pt;
-      @media #{$small} {
+      @media #{$large} {
         font-size:15pt;
         line-height:30pt;
       }
@@ -544,7 +551,7 @@ $xl-screen: em-calc(1500);
     h5 {
       font-size:12pt;
       line-height:15pt;
-      @media #{$small} {
+      @media #{$large} {
         font-size:15pt;
         line-height:30pt;
       }
@@ -577,7 +584,9 @@ $xl-screen: em-calc(1500);
         font-size:1em;
       }
     }
-
+    .arrow-box {
+      z-index:1;
+    }
     .fa-chevron-left,  .fa-chevron-right {
       color:#eee;
       position:absolute;
@@ -701,6 +710,10 @@ $xl-screen: em-calc(1500);
 
   .sun-promo-energy-slide-6 {
     padding-bottom:20px !important;
+    text-align:center;
+    @media #{$small} {
+      text-align:left;
+    }
     .row {
       width:90%;
     }
@@ -898,7 +911,13 @@ $xl-screen: em-calc(1500);
 
   &.sun-why-solar-page {
     h1.highlight-2 {
-      @media #{$medium} {
+        font-size:20pt;
+        line-height:10pt;
+      @media #{$small} {
+        font-size: 40pt;
+        line-height:30pt;
+      }
+      @media #{$large} {
         font-size: 50pt;
         line-height:40pt;
       }
@@ -987,6 +1006,12 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-why-powur-page {
+    .trim-small {
+      padding-top:50px;
+      @media #{$small} {
+        padding-top:150px;
+      }
+    }
     .sun-promo-intro {
       width:90%;
 
@@ -1003,7 +1028,20 @@ $xl-screen: em-calc(1500);
       h2 {
         text-align:left;
       }
+      .highlight-2 {
+        font-size:18pt;
+        line-height:5pt;
+        @media #{$medium} {
+          font-size:30pt;
+          line-height:30pt;
+        }
+        @media #{$large} {
+          font-size:40pt;
+          line-height:40pt;
+        }
+      }
     }
+
   }
 
   &.sun-why-you-page {
@@ -1039,8 +1077,12 @@ $xl-screen: em-calc(1500);
         height:200px;
       }
       h3 {
-        width:600px;
+        width:300px;
         margin-top:30px;
+        @media #{$small} {
+          width:600px;
+          margin-top:30px;
+        }
         @media #{$large} {
           width:800px;
           margin-top:50px;
@@ -1270,6 +1312,24 @@ $xl-screen: em-calc(1500);
         width:90%;
       }
     }
+    .image_1, .image_2 {
+      display:none !important;
+      @media #{$small} {
+        display:inline-block !important;
+      }
+    }
+    .image_0 {
+      margin-left:33%;
+      @media #{$small} {
+        margin-left:0%;
+      }
+    }
+    .slide-show-dots {
+      left:40%;
+      @media #{$small} {
+        left:0;
+      }
+    }
   }
 
   .sun-bg-1 {
@@ -1328,7 +1388,7 @@ $xl-screen: em-calc(1500);
     }
     .icon-placeholder {
       height: 150px;
-      margin-left:20%;
+      margin-left:35%;
       @media #{$small} {
         margin-left:0px;
       }

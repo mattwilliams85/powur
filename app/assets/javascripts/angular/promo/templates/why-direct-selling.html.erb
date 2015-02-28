@@ -8,7 +8,7 @@
     <div class="sun-scrolling-bg sun-bg-14 section inverted">
       <div class="sun-promo-intro">
         <div class="row">
-          <h1 class="wide">Solar is finally ready for <span class="highlight-2">Direct Selling.</span></h1>
+          <h1 class="wide">Solar is finally ready for <div class="highlight-2">Direct Selling.</div></h1>
         </div>
       </div>
       <div class="arrow-box inverted hidden"  id="arrow_1">
@@ -20,7 +20,7 @@
     <div class="sun-scrolling-bg sun-bg-3 slide-2 section">
       <div class="row sun-promo-content">
         <div class="large-6 columns">
-          <h3 class="uppercase"><b>The <span class="highlight-2">direct sales</span> industry generates over $160 billion dollars per year in revenue, with over 90,000,000 active advocates.</b></h3>
+          <h3 class="uppercase"><b>The <div class="highlight-2">direct sales</div> industry generates over $160 billion dollars per year in revenue, with over 90,000,000 active advocates.</b></h3>
           <h4>That is a huge industry.</h4>
         </div>
 
@@ -43,15 +43,15 @@
       <div class="sun-promo-content">
         <div class="row">
           <div class="large-5 columns">
-            <h2>Enter <br /><span class="highlight-2">direct sales</span></h2>
+            <h2>Enter <br /><div class="highlight-2">direct sales</div></h2>
           </div>
 
           <div class="large-7 columns slide-show-wrapper">
             <div ng-repeat="slide in slides">
               <div class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
-                <img ng-repeat="img in slide.images" class="image" ng-src="{{img}}" />
+                <img ng-repeat="img in slide.images" class="image image_{{$index}}" ng-src="{{img}}" />
                 <div class="clearfix"></div>
-                <p>{{slide.text}}</p>
+                <p class="narrow-small">{{slide.text}}</p>
               </div>
             </div>
 
@@ -73,7 +73,7 @@
       <div class="row sun-promo-content">
         <div class="large-6 columns">
           <h4>Oh, and one more thing.</h4>
-          <h3 class="uppercase">We haven't found any model that returns <span class="highlight-2">"Power to the people"</span> more literally.</h3>
+          <h3 class="uppercase">We haven't found any model that returns <div class="highlight-2">"Power to the people"</div> more literally.</h3>
         </div>
 
         <div class="large-6 columns">

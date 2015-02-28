@@ -164,6 +164,15 @@ input {
   margin-right: 10%;
 }
 
+.narrow-small {
+  margin-left: 10%;
+  margin-right: 10%;
+  @media #{$small} {
+   margin-left: 0%;
+   margin-right: 0%;
+  }
+}
+
 .uppercase {
   text-transform: uppercase;
 }
@@ -193,6 +202,15 @@ input {
   display:block !important;
   visibility:visible !important;
   @media #{$medium} {
+    display:none !important;
+    visibility:hidden !important;
+  }
+}
+
+.include-small{
+  display:block !important;
+  visibility:visible !important;
+  @media #{$small} {
     display:none !important;
     visibility:hidden !important;
   }
