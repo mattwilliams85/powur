@@ -837,6 +837,11 @@
             e.stopPropagation();
         });
 
+        $('.bulb-btn').click(function(e){
+            e.preventDefault();
+            $.fn.pagepiling.moveSectionDown();
+            e.stopPropagation();
+        });
         /**
         * Navigation tooltips
         */

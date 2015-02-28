@@ -13,7 +13,7 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams,
   }
 
   $scope.canTakeClass = function(universityClass) {
-    var enrollable = universityClass.properties.enrollable;
+    var enrollable = universityClass.properties.enrollable && universityClass.properties.state !== 'completed';
     return enrollable && (universityClass.properties.purchased || universityClass.properties.price === 0);
   };
 

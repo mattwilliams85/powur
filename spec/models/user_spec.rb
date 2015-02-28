@@ -112,7 +112,7 @@ describe User, type: :model do
       parent2 = create(:user, sponsor: root)
       child = create(:user, sponsor: parent1)
 
-      parent1.assign_parent(parent2)
+      parent1.assign_parent(parent2, '')
       expect(parent1.upline).to eq(parent2.upline + [ parent1.id ])
       child.reload
       expect(child.upline).to eq(parent2.upline + [ parent1.id, child.id ])

@@ -19,11 +19,12 @@
 
 .sun-faq {
   padding-top: 50px;
+  background:#fff;
 
   .row {
     width: 90%;
   }
-  
+
   h2 {
     font-size: 1.5em;
   }
@@ -53,6 +54,12 @@
           background-image: image-url("landing/arrow-faq-icon-active.png");
         }
       }
+
+      &:nth-child(odd) {
+        .accordion-button {
+          background-color: #07d3ff;
+        }
+      }
     }
 
     .accordion-button {
@@ -61,12 +68,8 @@
       background-repeat: no-repeat;
       background-position: right 20px center;
       color: #fff;
-      padding: 15px 20px;
+      padding: 15px 50px;
       display: block;
-
-      &.odd {
-        background-color: #07d3ff;
-      }
 
       b {
         color: #000;

@@ -22,7 +22,7 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
       } else {
         $scope.currentSlide += 1;
       }
-    }, 6000);
+    }, 20000);
   };
 
   $rootScope.animateArrow(1,3000)
@@ -36,6 +36,19 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
     $interval.cancel($scope.sliderStop);
     $scope.sliderStop = undefined;
   };
+
+  $scope.navigateSlideShow = function(slide, direction) {
+    // var i = $scope.slides.indexOf(slide);
+    var length = 5;
+    if(typeof $scope.slides !== "undefined") length = $scope.slides.length
+    if(direction === 'left') {
+      if(slide === 0) return;
+      $scope.stopSlideShowOn(slide - 1);
+    } else {
+      if(slide === length - 1) return;
+      $scope.stopSlideShowOn(slide + 1);
+    }
+  }
 
   $scope.energyPromoSlides = [
     {
@@ -87,7 +100,7 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
         'http://lorempixel.com/200/200/nature/4/',
         'http://lorempixel.com/200/200/nature/5/'
       ],
-      text: 'We believe sunstand could be the start of a MEGA trend. A tipping point that sends solar on the “inflection” point everyone has theorized for years. With the cost of traditional electricity constantly increasing, and the cost of solar REDUCING every year... it’s just a matter of time before qualified homeowners make the switch to the cheaper, cleaner energy source. They call it “grid parity”... and it’s happening now.'
+      text: 'We believe powur could be the start of a MEGA trend. A tipping point that sends solar on the “inflection” point everyone has theorized for years. With the cost of traditional electricity constantly increasing, and the cost of solar REDUCING every year... it’s just a matter of time before qualified homeowners make the switch to the cheaper, cleaner energy source. They call it “grid parity”... and it’s happening now.'
     },
     {
       images: [
@@ -95,7 +108,7 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
         'http://lorempixel.com/200/200/nature/7/',
         'http://lorempixel.com/200/200/nature/8/'
       ],
-      text: 'Referral marketing is the #1 source of new solar customers, and with Sunstand, we take the power of referral marketing to new heights. If you’ve ever wanted to own your own business, have an unlimited income potential, and do something that leaves a lasting impact on our world for Centuries to come... you could not be in a better place at a better time.'
+      text: 'Referral marketing is the #1 source of new solar customers, and with Powur, we take the power of referral marketing to new heights. If you’ve ever wanted to own your own business, have an unlimited income potential, and do something that leaves a lasting impact on our world for Centuries to come... you could not be in a better place at a better time.'
     }
   ];
 
@@ -129,6 +142,9 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
       }
     ]
   ];
+
+  $scope.whySolarPromoSlidesSmall = $scope.whySolarPromoSlides
+  $scope.whySolarPromoSlidesSmall = [].concat.apply([],$scope.whySolarPromoSlidesSmall);
 
   this.init($scope, $rootScope, $location, $timeout, $interval, $anchorScroll);
   this.fetch($scope, $rootScope, $interval, $timeout, $anchorScroll, $location, $routeParams);
@@ -200,9 +216,14 @@ PromoCtrl.prototype.fetch = function($scope, $rootScope,  $interval, $timeout, $
   } else if ($scope.mode === 'create-energy') {
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.energyPromoSlides);
+    $scope.currentSlide = 0;
   } else if ($scope.mode === 'why-solar') {
     $scope.readyPiler();
-    $scope.setupPromoSlider($scope.whySolarPromoSlides);
+    if(window.innerWidth <= 768) {
+      $scope.setupPromoSlider($scope.whySolarPromoSlidesSmall);
+    } else {
+      $scope.setupPromoSlider($scope.whySolarPromoSlides);
+    }
   } else if ($scope.mode === 'why-powur') {
     $scope.readyPiler();
   } else if ($scope.mode === 'why-you') {
@@ -244,10 +265,10 @@ PromoCtrl.prototype.fetch = function($scope, $rootScope,  $interval, $timeout, $
         showDetails: false
       },
       {
-        name: 'Patrick Combs',
-        title: 'Chief Inspiration Officer',
+        name: 'Tyler Jensen',
+        title: 'Interm CFO',
         image: "<%=asset_path('promo/people/3.jpg') %>",
-        details: 'Patrick Combs is a brilliant thought leader, entrepreneur, and artist and is responsible for helping everyone at Powur live their fullest potential, and succeed at the highest level.  He is internationally known as a best-selling author, Hall of Fame Inspirational speaker, humorous performer and television personality. He was interviewed by Barbara Walters at age 35 on his success expertise and has hosted a global teleconference show, "Beyond Discovery," for which he probed the minds and success strategies of one hundred millionaires, gold medalists, bestselling authors, humanitarians, doctors, psychologists, healers, musicians, athletes and adventurers. For the past 10 years, he has toured theaters around the world with his one-man comedy show, “Man 1, Bank 0”, which has been presented by HBO and is considered one of the most successful one-man shows in the world today.',
+        details: 'Tyler has 20+ years of experience in successful entrepreneurship and expanding business ventures, having launched and helped launch more than 100 companies and helping to raise more than $200 million for startup companies.  He plays a key role in a broad range of Powur’s operational and strategic areas, including business development, financial and growth strategies, budget forecasting, funding activities, among others.  He is the founder of The Startup Garage, a consulting firm specializing in helping entrepreneurs and business owners achieve success.  He also founded VAVi, a sport and social club which he grew to more than 25,000 members in six years and in 2008, sold for over 150 times the capital investment. ',
         showDetails: false
       },
       {

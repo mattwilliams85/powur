@@ -16,7 +16,7 @@
   </div>
 <div class="js-tabs">
   {{#compare this.properties.downline_count 0 operator=">"}}
-    {{#compare this.properties.level 3 operator="<"}}
+    {{#compare this.properties.generation 2 operator="<"}}
       <div class="team_tab" id="js-team_tab">TEAM</div>
       <div class="team_tab" id="js-impact_tab">KPI</div>
       <div class="team_tab" id="js-info_tab">INFO</div>
@@ -25,25 +25,27 @@
       <div class="team_tab" id="js-impact_tab" style="width:110px">KPI</div>
     {{/compare}}
   {{else}}
-    {{#compare this.properties.level 3 operator="<"}}
+    {{#compare this.properties.generation 2 operator="<"}}
       <div class="team_tab" id="js-impact_tab" style="width:110px">KPI</div>
       <div class="team_tab" id="js-info_tab" style="width:110px">INFO</div>
     {{else}}
       <div class="team_tab" id="js-impact_tab" style="width:220px">KPI</div>
     {{/compare}}
   {{/compare}}
-
 </div>  
+  {{#if this.properties.active_link}}
+    <i class="js-link_user fa fa-link active_link"></i>
+  {{/if}}
+  {{#if this.properties.place_mode}}
+  {{else}}
     {{#each this.actions}}
       {{#compare this "place" operator="=="}}
-        {{#compare this.properties.moved "true" operator="!="}}
-          {{#compare ../../../this.properties.level "2" operator="<="}}
+        {{#compare ../../properties.moved true operator="!="}}
           <i class="js-link_user fa fa-link"></i>
-          {{/compare}}
         {{/compare}}
-    {{!-- <a><span class="js-link_user" style="font-size:0.7em">ASSIGN</span></a> --}}
       {{/compare}}
     {{/each}}
+  {{/if}}
 </div>
 
 <script type="text/javascript">

@@ -69,3 +69,53 @@ describe '/u/university_classes/:id', type: :request do
     end
   end
 end
+
+describe 'POST /u/university_classes/:id/enroll', type: :request do
+  context 'signed in' do
+    let!(:current_user) { login_user }
+    let!(:certifiable_product) { create(:certifiable_product, bonus_volume: 0) }
+
+    before do
+      allow_any_instance_of(Product).to receive_message_chain(:product_enrollments, :find_by).and_return(product_enrollment)
+    end
+
+    context 'with no enrollment restrictions' do
+      let(:product_enrollment) { double('enrollment', completed?: false) }
+      before do
+        allow(current_user).to receive(:smarteru_sign_in).and_return("/redirectpath")
+        allow(current_user).to receive(:create_smarteru_account).and_return(true)
+        allow(current_user).to receive(:smarteru_enroll).with(certifiable_product).and_return(true)
+      end
+
+      it 'enrolls user' do
+        post enroll_university_class_path(certifiable_product), format: :json
+
+        expect(response.code).to eql('200')
+        expect(JSON.parse(response.body)['redirect_to']).to eql('/redirectpath')
+      end
+    end
+
+    context 'class was already completed by current user' do
+      let(:product_enrollment) { double('enrollment', completed?: true) }
+
+      it 'returns unauthorized' do
+        post enroll_university_class_path(certifiable_product), format: :json
+
+        expect(response.code).to eql('401')
+      end
+    end
+
+    context 'class is NOT free and was NOT purchased by current user' do
+      let(:product_enrollment) { double('enrollment', completed?: false) }
+      before do
+        allow_any_instance_of(Product).to receive(:bonus_volume).and_return(1)
+      end
+
+      it 'returns unauthorized' do
+        post enroll_university_class_path(certifiable_product), format: :json
+
+        expect(response.code).to eql('401')
+      end
+    end
+  end
+end

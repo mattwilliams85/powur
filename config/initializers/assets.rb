@@ -1,6 +1,6 @@
 # Javascripts
 Rails.application.config.assets.precompile += [
-  'admin/admin.js',
+  'admin/users.js',
   'admin/products.js',
   'admin/quotes.js',
   'admin/notifications.js'

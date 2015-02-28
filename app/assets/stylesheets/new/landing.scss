@@ -18,31 +18,26 @@
     margin-right: auto;
   }
 
-  h1 {
-    width: 80%;
-  }
-
   .sun-home-intro {
-    position: absolute;
-    left: 50%;
-    top: 50%;
+    // position: absolute;
+    // left: 50%;
+    // top: 50%;
     bottom: auto;
     right: auto;
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -ms-transform: translateX(-50%) translateY(-50%);
-    -o-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-    text-align: center;
-    -webkit-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    -ms-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    transition: all 0.4s;
+    // -webkit-transform: translateX(-50%) translateY(-50%);
+    // -moz-transform: translateX(-50%) translateY(-50%);
+    // -ms-transform: translateX(-50%) translateY(-50%);
+    // -o-transform: translateX(-50%) translateY(-50%);
+    // transform: translateX(-50%) translateY(-50%);
+    // text-align: center;
+    // -webkit-transition: all 0.4s;
+    // -moz-transition: all 0.4s;
+    // -ms-transition: all 0.4s;
+    // -o-transition: all 0.4s;
+    // transition: all 0.4s;
 
     h1 {
       color: #fff;
-      width:900px;
       font-weight: bold;
       text-transform: uppercase;
       &.slide-header {
@@ -56,7 +51,10 @@
       color: #000;
       width:870px;
       line-height: 1.5em;
-      font-size: 1.5em;
+      font-size: 1em;
+      @media #{$small} {
+        font-size: 1.5em;
+      }
       // text-transform: uppercase;
       // position:absolute;
     }
@@ -114,10 +112,54 @@
 
    .sun-bg-4 {
      background-image: image-url("landing/bg-3.jpg");
+     .arrow-box {
+      width:240px
+     }
    }
 
    .sun-bg-5 {
      background-image: image-url("landing/bg-5.jpg");
+     padding-top:70px;
+     h1 {
+      line-height:1em;
+      text-shadow: -1px 2px 2px rgba(150, 150, 150, 0.68);
+      width:75%;
+      @media #{$large} {
+        width:85%;
+      }
+     }
+
+     h3 {
+       color:#333;
+       text-transform: capitalize;
+       font-size:1.3rem;
+       text-align:left;
+       width:75%;
+       @media #{$large} {
+          font-size:2rem;
+         width:85%;
+       }
+       @media #{$small} {
+         font-size:2rem;
+       }
+     }
+
+     .bulb {
+      background-image: image-url("landing/bulb.png");
+      height:30px;
+      width:20px;
+      position:absolute;
+      left:23px;
+      bottom:17px;
+     }
+
+     .button {
+      background-color:#333;
+      color:#fff;
+      float:left;
+      font-size:1.4rem;
+      padding-left:60px;
+     }
    }
 
    .sun-bg-6 {
@@ -140,6 +182,39 @@
        color: #fff;
        font-size: 1.3em;
      }
+   }
+
+   .sun-bg-7 {
+    background-image: image-url("landing/bg-6.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    .row {
+      width:90%;
+      @media #{$small} {
+        width:85%;
+      }
+    }
+
+    h1 { 
+      margin:30pt 0;
+    }
+    .large-10 {
+      span {
+        height:20px;
+        color:white;
+        .highlight {
+          color: $sun-color-blue;
+        }
+      }
+    }
+    
+    .arrow-box {
+      width:686px;
+      margin-left: -350px;
+      span{ 
+        color: $sun-color-blue;
+      }
+    }
    }
 
   .sun-sign-in-wrapper {
@@ -188,6 +263,30 @@
       font-size: 1.3em;
     }
   }
+  h1 {
+    font-size:30pt;
+    line-height:30pt;
+    @media #{$small}{
+      font-size:60pt;
+      line-height:50pt;
+    }
+  }
+  h4 {
+    font-size:20pt !important;
+    line-height:26pt;
+    @media #{$small}{
+      font-size:30pt;
+      line-height:36pt;
+    }
+  }
+  span {
+    font-size:13pt;
+    line-height:20pt;
+    @media #{$small}{
+      font-size:15pt;
+      line-height:30pt;
+    }
+  }
 }
 
 .sun-sign-up-page {
@@ -199,12 +298,6 @@
 
   .sun-scrolling-bg {
     margin-top: 100px;
-  }
-
-  .sun-home-intro {
-    h1 {
-      text-align: center;
-    }
   }
 
   .sign-up-forms-wrapper {

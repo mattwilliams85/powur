@@ -7,8 +7,8 @@
 
     <div class="sun-scrolling-bg sun-fixed-bg sun-bg-7 section inverted" id="anchor_1">
       <div class="sun-promo-intro">
-        <div class="row">
-          <h1>For <span class="highlight-1">$0 UPFRONT</span>, you can generate your own solar electricity.</h1>
+        <div class="row"> 
+          <h1>For <div class="highlight-1">$0 UPFRONT</div>, you can generate your own electricity from solar.</h1>
           <p>Not only will it lower your electricity bill, it is 100% clean and renewable energy your grandkids will thank you for.</p>
           <a class="button watch" ng-click="gotoAnchor('anchor_2')">Watch how</a>
         </div>
@@ -18,15 +18,15 @@
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-3 section" id="anchor_2">
+    <div class="sun-scrolling-bg sun-bg-3 section sun-promo-energy-slide-3" id="anchor_2">
       <div class="row sun-promo-content">
         <div class="large-12 columns">
-          <h2>Goodbye coal, <span class="highlighted">Hello sunshine.</span></h2>
+          <h2>Goodbye coal, <div class="highlighted">Hello sunshine.</div></h2>
         </div>
 
         <div class="large-3 columns">
           <div class="sunrun-icon-wrapper"></div>
-          <span class="optional">More than 60,000 customers have produced 344 Gigawatt hours of solar energy.</span>
+          <span class="optional">More than 168,000 customers have gone solar with SolarCity.</span>
         </div>
 
         <div class="large-9 columns alt-large-9">
@@ -45,34 +45,34 @@
             <img class="image-2" src="<%=asset_path('promo/slider-item-2.1-hidden.png')%>" />
           </div>
 
-          <span>If you’re having problems, <a ng-click="gotoAnchor('on_slider_move')">click here to continue</a>.</span>
+          <span class="optional">If you’re having problems, <a ng-click="gotoAnchor('on_slider_move')">click here to continue</a>.</span>
         </div>
       </div>
       <div class="arrow-box"></div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-5 section sun-promo-energy-slide-6 " id="on_slider_move">
+    <div class="sun-scrolling-bg sun-bg-5 section sun-promo-energy-slide-6" id="on_slider_move">
       <div class="row sun-promo-content">
-        <div class="large-4 alt-large-4 columns">
+        <div class="large-4 small-12 columns">
           <div class="icon-placeholder"><div class="decentralize-icon-wrapper"></div></div>
           <h3>Decentralize energy production</h3>
-          <span>SolarCity decentralizes energy production, meaning you produce your own power from your own rooftop. This lessens your dependence on utility monopolies and the grid. Utilities charge us more money every year, and if the grid goes down, we go down.</span>
+          <span class="optional">SolarCity decentralizes energy production, meaning you produce your own power from your own rooftop. This lessens your dependence on utility monopolies and the grid. Utilities charge us more money every year, and if the grid goes down, we go down.</span>
         </div>
 
-        <div class="large-4 alt-large-4 columns">
+        <div class="large-4 small-12 columns">
           <div class="icon-placeholder"><div class="pocket-wallet-icon-wrapper"></div></div>
           <h3>Money in your pocket</h3>
-          <span>SolarCity puts more money back in your pocket, right where it belongs. Every year the cost of energy increases. Do you know Americans spend an average of $80 billion dollars MORE in discretionary income per year on energy, than we did just 20 years ago? That’s a lot of money that should still be in our pockets, and with solar, it will be.</span>
+          <span class="optional">SolarCity puts more money back in your pocket, right where it belongs. Every year the cost of energy increases. Do you know Americans spend an average of $80 billion dollars MORE in discretionary income per year on energy, than we did just 20 years ago? That’s a lot of money that should still be in our pockets, and with solar, it will be.</span>
         </div>
 
-        <div class="large-4 alt-large-4 columns">
+        <div class="large-4 small-12 columns">
           <div class="icon-placeholder"><div class="pollution-icon-wrapper"></div></div>
           <h3>Stop carbon pollution</h3>
-          <span>No more carbon pollution. Scientists have warned we are in uncharted territory. Rapid release of C02 into the atmosphere is changing the very climate of this planet, causing record temperatures, drought, and rising sea levels. If we don’t find a different source of energy than fossil fuels, we are leaving a legacy of destruction for future generations. It’s time to change.</span>
+          <span class="optional">No more carbon pollution. Scientists have warned we are in uncharted territory. Rapid release of C02 into the atmosphere is changing the very climate of this planet, causing record temperatures, drought, and rising sea levels. If we don’t find a different source of energy than fossil fuels, we are leaving a legacy of destruction for future generations. It’s time to change.</span>
         </div>
       </div>
       <div class="arrow-box" id="arrow_3">
-        <span class="optional">What's in it for you?</span>
+        <span class="optional">WHAT'S IN IT FOR YOU?</span>
         <i class="fa fa-chevron-down fa-3x"></i>
       </div>
     </div>
@@ -88,7 +88,9 @@
             </div>
           </div>
 
-          <div class="large-8 columns slide-show-wrapper right-part">
+          <div class="large-8 columns slide-show-wrapper right-part optional">
+            <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
+            <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
             <div class="right-bg"></div>
             <div class="inner-content">
               <div ng-repeat="slide in slides">
@@ -98,16 +100,17 @@
                   <p>{{slide.text}}</p>
                 </div>
               </div>
-              <div class="slide-show-dots">
+<!--               <div class="slide-show-dots">
                 <a ng-repeat="slide in slides" ng-class="{'active': currentSlide === slides.indexOf(slide)}" ng-click="stopSlideShowOn(slide)"></a>
-              </div>
+              </div> -->              
             </div>
           </div>
         </div>
+        <div class="arrow-box inverted"  id="arrow_4">
+          <i class="fa fa-chevron-down fa-3x"></i>
+        </div>
       </div>
-      <div class="arrow-box inverted"  id="arrow_4">
-        <i class="fa fa-chevron-down fa-3x"></i>
-      </div>
+      
     </div>
 
     <div class="sun-scrolling-bg sun-bg-3 section" id="anchor_5">
@@ -116,27 +119,26 @@
           <div class="large-4 columns">
             <img class="sun-logo-wrapper" src="<%=asset_path('powur-blue-logo.png')%>" />
           </div>
-          <div class="large-8 columns">
+          <div class="large-8 small-12 columns">
             <h3 class="uppercase highlight-1"><b>What's the Powur difference?</b></h3>
           </div>
-
-
         </div>
-        <div class="alt-large-4 columns">
-          <div class="clearfix"></div>
-          <img class="stock-photo" src="<%=asset_path('promo/image-1.jpg')%>" />
-        </div>
-
-        <div class="alt-large-8 columns">
-          <h3 class="uppercase"><b>Cheaper, cleaner power</b></h3>
-          <hr class="shorty" />
-          <h2><b>Referred to you by<br />a trusted friend.</b></h2>
-          <p>At Powur, we are doing our part to share solar. We recognize the biggest gap is new homeowners discovering solar from someone they can trust. That’s why we created our advocate program, and why we partnered with the #1 solar company in America.</p>
-          <p>Through Powur, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
+        <div class="row right-part">
+          <div class="large-4 columns">
+            <div class="clearfix"></div>
+            <img class="stock-photo optional-small" src="<%=asset_path('promo/image-1.jpg')%>" />
+          </div>
+          <div class="large-8 small-12 columns">
+            <h3 class="uppercase"><b>Cheaper, cleaner power</b></h3>
+            <hr class="shorty" />
+            <h2><b>Referred to you by<br />a trusted friend.</b></h2>
+            <p>At Powur, we are doing our part to share solar. We recognize the biggest gap is new homeowners discovering solar from someone they can trust. That’s why we created our advocate program, and why we partnered with the #1 solar company in America.</p>
+            <p>Through Powur, you get the reliability of a billion dollar solar provider, coupled with the assistance of someone you know & trust.</p>
+          </div>
         </div>
       </div>
       <div class="arrow-box"  id="arrow_5">
-        <span>What's next?</span>
+        <span>WHAT'S NEXT?</span>
         <i class="fa fa-chevron-down fa-3x"></i>
       </div>
     </div>

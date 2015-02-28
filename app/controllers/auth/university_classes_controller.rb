@@ -40,9 +40,8 @@ module Auth
     end
 
     def validate_class_availability
-      unless @university_class.is_free? || @university_class.purchased_by?(current_user.id)
-        head :unauthorized
-      end
+      head :unauthorized if @university_class.product_enrollments.find_by(user_id: current_user.id).try(:completed?)
+      head :unauthorized unless @university_class.is_free? || @university_class.purchased_by?(current_user.id)
     end
   end
 end

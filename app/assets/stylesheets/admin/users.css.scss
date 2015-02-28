@@ -203,12 +203,42 @@ nav.section_subnav{
   table-layout: fixed;
 }
 
-.genealogy_table th:nth-child(1){width:150px;}
-.genealogy_table th:nth-child(2){width:80px;}
-.genealogy_table th:nth-child(3){width:250px;}
-.genealogy_table th:nth-child(4){width:150px;}
-.genealogy_table td{overflow: hidden; line-height: 18px;}
-.genealogy_table th{text-transform: uppercase; font-size: 12px;}
+.genealogy_table {
+  th {
+    text-transform: uppercase;
+    font-size: 12px;
+
+    &:nth-child(1) {
+      width: 150px;
+    }
+
+    &:nth-child(2) {
+      width: 80px;
+    }
+
+    &:nth-child(3) {
+      width: 250px;
+    }
+
+    &:nth-child(4) {
+      width: 150px;
+    }
+
+    &.wide {
+      width: 200px;
+    }
+
+    &.narrow {
+      width: 40px;
+    }
+  }
+
+  td {
+    overflow: hidden;
+    line-height: 18px;
+  }
+}
+
 ._spreadSheet{
   border-collapse: collapse;
 }
@@ -361,5 +391,28 @@ header nav ul li a.active{
 
   .dropToggle {
     cursor:pointer;
+  }
+}
+
+.admin-users-place-advocate-container {
+  text-align: left;
+
+  .form_row {
+    width: 300px;
+  }
+
+  .advocate-img {
+    width: 100px;
+    float: left;
+    margin-right: 20px;
+  }
+
+  .advocate-name {
+    font-weight: bold;
+    line-height: 80px;
+  }
+
+  .error {
+    color: red;
   }
 }

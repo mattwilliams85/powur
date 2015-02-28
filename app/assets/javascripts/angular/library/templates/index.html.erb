@@ -1,0 +1,34 @@
+<ng-include src="'<%=asset_path("shared/header-signed-in.html") %>'"></ng-include>
+
+<main class="powur-library">
+
+<!-- Header Label/Dropdown Media Type Picker -->
+  <div class="row">
+    <div class="large-4 medium-4 columns">
+      <div class="section_header">
+        <div class="section_label">
+          <div class="tag"></div>
+          <select>
+            <option>All</option>
+            <option>Videos</option>
+            <option>Documents</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Media Items Grid -->
+  <div class="row">
+    <ul class="large-block-grid-5 small-block-grid-2">
+      <li class="thumbnail test-div">
+      Test Div
+      <div class="hidden"></div>
+      </li>
+      <li ng-repeat="item in libraryList track by $index" class="thumbnail">{{ item }}</li>
+    </ul>
+  </div>
+
+</main>
+
+<ng-include src="'<%=asset_path("shared/footer-signed-in.html") %>'"></ng-include>

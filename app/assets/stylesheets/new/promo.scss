@@ -15,12 +15,49 @@ $xl-screen: em-calc(1500);
 
     .highlight-1, &.highlight-1 {
       color: $sun-color-blue;
+      display:inline;
     }
 
     .highlight-2, &.highlight-2 {
+      display:inline;
       color: $sun-color-orange;
     }
   }
+
+  //For Mobile
+  h1 {
+    font-size:30pt;
+    line-height:30pt;
+    @media #{$small}{
+      font-size:60pt;
+      line-height:50pt;
+    }
+  }
+  h2 {
+    font-size:25pt;
+    line-height:25pt;
+    @media #{$small}{
+      font-size:40pt;
+      line-height:50pt;
+    }
+  }
+  h4 {
+    font-size:20pt !important;
+    line-height:26pt;
+    @media #{$small}{
+      font-size:30pt;
+      line-height:36pt;
+    }
+  }
+  span {
+    font-size:13pt;
+    line-height:20pt;
+    @media #{$small}{
+      font-size:15pt;
+      line-height:15pt;
+    }
+  }
+  //end
 
   .sun-promo-intro {
     position: absolute;
@@ -34,25 +71,34 @@ $xl-screen: em-calc(1500);
     -o-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
     text-align: left;
+    width:90%;
+    @media #{$small} {
+      width:55%;
+    }
 
     h1 {
       color: #fff;
-      width:750px;
-      font-size: 3.5em;
+      // width:750px;
+      font-size:2em;
       font-weight: bold;
       text-transform: uppercase;
-      line-height: 1em;
 
       .highlight-1, &.highlight-1 {
         color: $sun-color-blue;
+        display:inline;
       }
 
       .highlight-2, &.highlight-2 {
         color: $sun-color-orange;
+        display:inline;
       }
 
       @media #{$large} {
         font-size: 4em;
+        width:100%;
+      }
+      @media #{$small} {
+        font-size: 3em;
         width:100%;
       }
     }
@@ -68,38 +114,34 @@ $xl-screen: em-calc(1500);
 
       &.dim {
         background-image: image-url("promo/on-button.png");
-        background-position: center 7px;
+        font-size: 1em;
+        background-position: 20px center;
+        line-height: 70px;
+        padding: 0 20px 0 70px;
         background-repeat: no-repeat;
         background-color: #0b0b0b;
-
-        @media #{$small} {
-          font-size: 1em;
-          background-position: 20px center;
-          line-height: 70px;
-          padding: 0 20px 0 70px;
-        }
       }
 
       &.watch {
         background-image: image-url("promo/play-icon.png");
-        background-position: center 7px;
         background-repeat: no-repeat;
         background-color: $sun-color-blue;
+        font-size: 1em;
+        background-position: 20px center;
+        line-height: 70px;
+        padding: 0 20px 0 70px;
 
-        @media #{$small} {
-          font-size: 1em;
-          background-position: 20px center;
-          line-height: 70px;
-          padding: 0 20px 0 70px;
-        }
       }
     }
   }
 
   .sun-promo-content {
     padding-top: 150px;
-    padding-bottom: 100px;
+    padding-bottom: 0px;
     line-height: 1.6em;
+    @media #{$small} {
+      padding-bottom: 100px;
+    }
 
     h1, h2 {
       font-size: 2.3em;
@@ -107,6 +149,11 @@ $xl-screen: em-calc(1500);
       text-transform: uppercase;
       line-height: 1em;
       text-align:center;
+      @media #{$medium} {
+        font-size: 2.3em;
+        width:100%;
+        text-align:left;
+      }
       @media #{$large} {
         font-size: 3.3em;
         width:100%;
@@ -115,6 +162,7 @@ $xl-screen: em-calc(1500);
 
       .highlighted {
         color: $sun-color-orange;
+        display:inline;
       }
     }
 
@@ -176,12 +224,17 @@ $xl-screen: em-calc(1500);
     .video-player-wrapper {
       width:330px;
       height:220px;
+      margin:35px;
       background-image: image-url("promo/video-placeholder.jpg");
       background-repeat: no-repeat;
       background-position: center center;
       @media #{$large} {
         width: 610px;
         height: 380px;
+        margin:0px;
+      }
+      @media #{$small} {
+        margin:0px;
       }
     }
   }
@@ -232,6 +285,7 @@ $xl-screen: em-calc(1500);
 
     .slide-show-dots {
       position:absolute;
+      color:#ccc;
 
       a {
         display: inline-block;
@@ -259,10 +313,18 @@ $xl-screen: em-calc(1500);
   }
   /* end slide show */
 
+  .fa-chevron-left, .fa-chevron-right {
+    margin:0 10px 0 0px;
+    cursor:pointer;
+    color:#333;
+    z-index:999;
+  }
 
   .sun-promo-slide-3 {
     padding-top:100px;
-    @media #{$large} {
+    text-align:center;
+    @media #{$small} {
+      text-align:left;
       padding-top:150px;
     }
 
@@ -280,8 +342,11 @@ $xl-screen: em-calc(1500);
     }
 
     h2 {
-      font-size: 4em;
+      font-size:2em;
       margin: .5em 0 .7em 0;
+      @media #{$small} {
+        font-size: 4em;
+      }
     }
 
     hr {
@@ -307,10 +372,18 @@ $xl-screen: em-calc(1500);
       background-repeat: no-repeat;
       background-position: left center;
       line-height: 32px;
-      margin: 2em 0 .5em 0;
-      padding-left: 40px;
+      padding-left: 0px;
       font-size: 32px;
       font-weight: bold;
+      text-align:center;
+      margin:0.2em auto;
+      width:240px;
+
+      @media #{$small} {
+        padding-left: 40px;
+        text-align:left;
+        margin: 2em 0 .5em 0;
+      }
     }
 
     .highlighted {
@@ -394,7 +467,7 @@ $xl-screen: em-calc(1500);
       }
 
       span {
-        font-size: .8em;
+        font-size: 1em;
       }
 
       .selection-1 {
@@ -415,12 +488,10 @@ $xl-screen: em-calc(1500);
   }
 
   .sun-promo-slide-6 {
-    .large-8 {
-      width:60%;
-      @media #{$large} {
-        width:66.66%;
-      }
+    .row{
+      width:66%;
     }
+
     .slide-6-extra {
 
       .button {
@@ -463,11 +534,72 @@ $xl-screen: em-calc(1500);
       }
     }
   }
+  .sun-promo-energy-slide-3 {
+    .row {
+      padding-top:100px;
+      width:90%;
+    }
+
+    span, b {
+      font-size:12pt;
+      line-height:15pt;
+      @media #{$large} {
+        font-size:15pt;
+        line-height:30pt;
+      }
+    }
+    h5 {
+      font-size:12pt;
+      line-height:15pt;
+      @media #{$large} {
+        font-size:15pt;
+        line-height:30pt;
+      }
+    }
+    .slider-inner { 
+      margin-top:0px !important;
+      @media #{$small} {
+        margin-top:15px;
+      }
+      @media #{$medium} {
+        margin-top:25px;
+      }
+    }
+    .sun-promo-slider-wrapper { 
+      margin-top:20px;
+      @media #{$small} {
+        margin-top:25px;
+      }
+    }
+    
+  }
 
   .sun-promo-energy-slide-4 {
     height: 100%;
     padding: 0;
     margin-top:5%;
+    font-size:1.3em;
+    @media #{$small} {
+      p {
+        font-size:1em;
+      }
+    }
+    .arrow-box {
+      z-index:1;
+    }
+    .fa-chevron-left,  .fa-chevron-right {
+      color:#eee;
+      position:absolute;
+      top:20%;
+    }
+
+    .fa-chevron-left {
+      left:2%;
+    }
+
+    .fa-chevron-right {
+      left:67%;
+    }
 
     .slide-show-dots {
       bottom:-350px;
@@ -481,11 +613,6 @@ $xl-screen: em-calc(1500);
       color: #383838;
       height: 100%;
       z-index: 1;
-      display:none;
-
-      @media #{$medium} {
-        display:block;
-      }
 
       .left-bg {
         background: $sun-color-blue;
@@ -532,10 +659,13 @@ $xl-screen: em-calc(1500);
   .sun-promo-energy-slide-5 {
     padding-bottom:30px !important;
 
-    h2 {
-      font-size:2.5em;
+    h2, .highlight-1 {
+      font-size:2em;
       text-align:left;
       text-transform:none;
+      @media #{$small} {
+        font-size:2.5em;
+      }
       @media #{$large} {
         font-size:2.8em;
       }
@@ -564,13 +694,29 @@ $xl-screen: em-calc(1500);
       width: 50px;
     }
 
-    .highlight-1 {
-      margin-left:-10px;
+    .large-8 {
+      width:95%;
+      margin-right:2%;
+      @media #{$small} {
+        width:60%;
+      }
     }
+
+    .stock-photo {
+      margin-left:20px;
+    }
+
   }
 
   .sun-promo-energy-slide-6 {
     padding-bottom:20px !important;
+    text-align:center;
+    @media #{$small} {
+      text-align:left;
+    }
+    .row {
+      width:90%;
+    }
   }
 
   .sun-promo-slider-wrapper {
@@ -660,12 +806,18 @@ $xl-screen: em-calc(1500);
 
   &.sun-create-wealth-page {
     .scroll-slide-2 {
+      .row {
+        width:90%;
+      }
       height:100vh;
       min-height:1200px;
 
       h2 {
         color:#fff;
-        font-size:2.3em;
+        font-size:1.7em;
+        @media #{$small} {
+          font-size: 2.3em;
+        }
         @media #{$large} {
           font-size: 3.3em;
         }
@@ -693,6 +845,7 @@ $xl-screen: em-calc(1500);
     .sun-promo-slide-4 {
       text-align:center;
       width:90%;
+      padding-bottom:150px;
       @media #{$medium} {
         text-align:left;
       }
@@ -700,12 +853,7 @@ $xl-screen: em-calc(1500);
 
     .sun-promo-slide-5 {
       width:90%;
-      .large-4 {
-        width:33%;
-        @media #{$large} {
-          width:33.33%;
-        }
-      }
+      padding-bottom:150px;
     }
 
     .alt-large-6 {
@@ -754,14 +902,26 @@ $xl-screen: em-calc(1500);
     }
 
     .scroll-down {
-      padding-top:150px;
+      padding-top:100px;
       color:#bbb;
       margin:auto;
-      width:400px;
+      width:500px;
     }
   }
 
   &.sun-why-solar-page {
+    h1.highlight-2 {
+        font-size:20pt;
+        line-height:10pt;
+      @media #{$small} {
+        font-size: 40pt;
+        line-height:30pt;
+      }
+      @media #{$large} {
+        font-size: 50pt;
+        line-height:40pt;
+      }
+    }
     .sun-bg-3, .sun-bg-5, .sun-bg-11  {
       .row {
         width:90%;
@@ -773,6 +933,47 @@ $xl-screen: em-calc(1500);
       padding-bottom:0px;
       .sun-promo-content {
         padding-bottom:0px;
+      }
+      .fa-chevron-left, .fa-chevron-right {
+        position:absolute;
+        top:47%;
+        color:#333;
+      }
+
+      .fa-chevron-left {
+        left:13%;
+      }
+
+      .fa-chevron-right {
+        left:86%;
+      }
+    }
+
+    .sun-bg-5 {
+      .icon-placeholder {
+        margin-left:0px;
+      }
+      .narrow {
+        margin-left: 0%;
+        margin-right: 0%;
+        @media #{$small} {
+         margin-left: 10%;
+         margin-right: 10%;
+        }
+      }
+      h3 {
+        font-size:1.4em;
+        @media #{$small} {
+          font-size:1.8em;
+        }
+      }
+      span {
+        font-size:12pt;
+        line-height:12pt;
+        @media #{$small} {
+          font-size:15pt;
+          line-height:15pt;
+        }
       }
     }
 
@@ -805,6 +1006,12 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-why-powur-page {
+    .trim-small {
+      padding-top:50px;
+      @media #{$small} {
+        padding-top:150px;
+      }
+    }
     .sun-promo-intro {
       width:90%;
 
@@ -821,7 +1028,20 @@ $xl-screen: em-calc(1500);
       h2 {
         text-align:left;
       }
+      .highlight-2 {
+        font-size:18pt;
+        line-height:5pt;
+        @media #{$medium} {
+          font-size:30pt;
+          line-height:30pt;
+        }
+        @media #{$large} {
+          font-size:40pt;
+          line-height:40pt;
+        }
+      }
     }
+
   }
 
   &.sun-why-you-page {
@@ -853,12 +1073,35 @@ $xl-screen: em-calc(1500);
 
     .sun-slider {
       h2 {
-        display: inline;
+        display:inline;
+        height:200px;
       }
+      h3 {
+        width:300px;
+        margin-top:30px;
+        @media #{$small} {
+          width:600px;
+          margin-top:30px;
+        }
+        @media #{$large} {
+          width:800px;
+          margin-top:50px;
+        }
+      }
+      .fa-chevron-left {
+        position:absolute;
+        left:25%;
+      }
+      .fa-chevron-right {
+        position:absolute;
+        left:75%;
+      }
+      
     }
   }
 
   &.sun-our-origin-page {
+    
     .sun-origin-story-bg {
       background-image: image-url("promo/rainforest.jpg");
       background-repeat: no-repeat;
@@ -880,11 +1123,11 @@ $xl-screen: em-calc(1500);
     .our-origin-ico {
       margin: 40px 0;
       width: 100%;
-      display: none;
+      // display: none;
 
-      @media #{$small} {
-        display: block;
-      }
+      // @media #{$small} {
+      //   display: block;
+      // }
     }
 
     blockquote {
@@ -993,6 +1236,9 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-our-dna-page {
+    h1 {
+      font-size:3em;
+    }
     .row {
       width:90%;
     }
@@ -1007,8 +1253,25 @@ $xl-screen: em-calc(1500);
     }
 
     .dna-wrapper {
-      height: 444px;
+      height: 270px;
+      margin-bottom:20px;
+      p {
+        font-size:1.2em;
+        @media #{$large} {
+          font-size:1em;
+        }
+      }
+    }
+
+    .dna-wrapper-2 {
+      height: inherit;
       overflow: hidden;
+      margin-bottom:30px;
+
+      @media #{$medium} {
+        margin-bottom:0px;
+        height: 444px;
+      }
 
       p {
         font-size:0.9em;
@@ -1047,6 +1310,24 @@ $xl-screen: em-calc(1500);
     .sun-bg-5 {
       .row {
         width:90%;
+      }
+    }
+    .image_1, .image_2 {
+      display:none !important;
+      @media #{$small} {
+        display:inline-block !important;
+      }
+    }
+    .image_0 {
+      margin-left:33%;
+      @media #{$small} {
+        margin-left:0%;
+      }
+    }
+    .slide-show-dots {
+      left:40%;
+      @media #{$small} {
+        left:0;
       }
     }
   }
@@ -1099,9 +1380,18 @@ $xl-screen: em-calc(1500);
 
   .sun-bg-5 {
     background-color: #f4f6f7;
-
+    .sun-promo-content {
+      padding-top:90px;
+      @media #{$small} {
+        padding-top:150px;
+      }
+    }
     .icon-placeholder {
       height: 150px;
+      margin-left:35%;
+      @media #{$small} {
+        margin-left:0px;
+      }
     }
 
     h3 {
@@ -1200,6 +1490,24 @@ $xl-screen: em-calc(1500);
 
   .sun-bg-15 {
     background-image: image-url("promo/bg-15.jpg");
+
+    .slide-show-dots {
+      bottom:0px;
+    }
+
+    .fa-chevron-left, .fa-chevron-right {
+      position:absolute;
+      top:32%;
+      color:#ccc;
+    }
+
+    .fa-chevron-left {
+      left:39%;
+    }
+
+    .fa-chevron-right {
+      left:78%;
+    }
 
     h2 {
       color: #fff;

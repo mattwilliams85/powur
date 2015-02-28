@@ -1,0 +1,3 @@
+siren json
+resources_json.list_init
+self_link resources_path
