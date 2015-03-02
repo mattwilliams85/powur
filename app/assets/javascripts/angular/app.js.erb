@@ -374,6 +374,10 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/admin/resources/templates/new.html")%>',
       controller: 'AdminResourcesCtrl'
     }).
+    when('/admin/resources/:resourceId/edit', {
+      templateUrl: '<%=asset_path("angular/admin/resources/templates/edit.html")%>',
+      controller: 'AdminResourcesCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'

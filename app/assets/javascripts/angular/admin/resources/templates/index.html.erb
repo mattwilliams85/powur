@@ -24,9 +24,9 @@
             <span class="info">by: {{item.properties.user_name}}</span>
 
             <a ng-click="confirm('Are you sure you want to delete this file?', 'delete', item)" class="manage-link">delete</a>
-            <a ng-href="#/admin/resources" class="manage-link">edit</a>
-            <a ng-if="item.properties.is_public" ng-click="confirm('Are you sure you want to hide this file?', 'unPublish', item)" class="manage-link">hide</a>
-            <a ng-if="!item.properties.is_public" ng-click="confirm('Are you sure you want to publish this file?', 'publish', item)" class="manage-link">publish</a>
+            <a ng-href="#/admin/resources/{{item.properties.id}}/edit" class="manage-link">edit</a>
+            <!-- <a ng-if="item.properties.is_public" ng-click="confirm('Are you sure you want to hide this file?', 'unPublish', item)" class="manage-link">hide</a>
+            <a ng-if="!item.properties.is_public" ng-click="confirm('Are you sure you want to publish this file?', 'publish', item)" class="manage-link">publish</a> -->
 
             <div class="clearfix"></div>
 

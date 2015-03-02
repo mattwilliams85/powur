@@ -24,7 +24,7 @@ module Admin
 
     def update
       @resource.update_attributes(input)
-      if @resource.valid?
+      if @resource.errors.empty?
         head 200
       else
         render json: { errors: @resource.errors.messages }, status: :unprocessable_entity

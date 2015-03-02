@@ -64,3 +64,34 @@ describe 'GET /a/resources/:id' do
     )
   end
 end
+
+describe 'PUT /a/resources/:id' do
+  let!(:user) { login_user }
+  let(:resource) { create(:resource) }
+
+  let(:payload) {
+    {
+      title: 'New Title',
+      description: 'New Description',
+      file_original_path: 'http://www.newurl.com/file.mp4'
+    }
+  }
+
+  it 'returns json data' do
+    put admin_resource_path(resource), payload.merge(format: :json)
+
+    expect(response.code).to eq('200')
+    saved_resource = Resource.last
+    expect(saved_resource.title).to eq(payload[:title])
+    expect(saved_resource.description).to eq(payload[:description])
+    expect(saved_resource.file_original_path).to eq(payload[:file_original_path])
+  end
+
+  it 'does not update protected attributes' do
+    put admin_resource_path(resource), payload.merge(user_id: 12345, format: :json)
+
+    expect(response.code).to eq('200')
+    saved_resource = Resource.last
+    expect(saved_resource.user_id).to eq(resource.user_id)
+  end
+end

@@ -26,14 +26,6 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
     return month + '/' + day + '/' + year + ' ' + time;
   };
 
-  $scope.publish = function(item) {
-
-  };
-
-  $scope.unPublish = function(item) {
-
-  };
-
   $scope.delete = function(item) {
     var action = getAction(item.actions, 'destroy');
     return AdminResource.execute(action).then(function() {
@@ -82,6 +74,20 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
     }
   };
 
+  var updateCallback = function() {
+    $location.path('/admin/resources');
+    $scope.showModal('You\'ve successfully updated a library resource.');
+    $(document).foundation();
+    $scope.isSubmitDisabled = false;
+  };
+
+  $scope.update = function() {
+    if ($scope.resource) {
+      $scope.isSubmitDisabled = true;
+      AdminResource.update($scope.resource).then(updateCallback, createErrorCallback);
+    }
+  };
+
   $scope.confirm = function(msg, clickAction, arg) {
     if (window.confirm(msg)) {
       return $scope.$eval(clickAction)(arg);
@@ -109,7 +115,10 @@ AdminResourcesCtrl.prototype.fetch = function($scope, $location, $routeParams, A
   } else if ($scope.mode === 'new') {
     $scope.resourceType = $routeParams.resourceType === 'video' ? 'video' : 'document';
   } else if ($scope.mode === 'edit') {
-
+    return AdminResource.get($routeParams.resourceId).then(function(item) {
+      $scope.resource = item.properties;
+      $scope.resourceType = $scope.resource === 'video/mp4' ? 'video' : 'document';
+    });
   }
 };
 
