@@ -1190,7 +1190,6 @@ function Dashboard(){
   }
 
   function _collapseDrillDown(_options){
-    console.log('_collapseDrillDown')
        //set up context for what's being clicked
      var _currentLevelSectionObj=_options._target.closest("section");
      var _drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
@@ -1199,7 +1198,7 @@ function Dashboard(){
      var _drillDownDepth = _topLevelSectionObj.children("section").length;
 
      // if(_thisThumbnail.length === 0 || _options._target.hasClass('team_tab')) _thisThumbnail = _options._target
-     if(_options._target.hasClass("js-link_user")) _options._target.toggleClass("active")
+     if(_options._target.hasClass("js-link_user")) _options._target.toggleClass("active").find('')
 
      
      if (_thisThumbnail.hasClass("active")) {
@@ -1209,9 +1208,10 @@ function Dashboard(){
        _currentLevelSectionObj.find(".active").removeClass('active')
        _thisThumbnail.find(".js-thumbnail").addClass('active')
        _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
+       _abortDrillDown=false;
+       if(_options._target.find('.js-link_user').hasClass('active_link')) return;
        _currentLevelSectionObj.find(".js-thumbnail").not(".active").animate({"opacity":".3"}, 300);
        _thisThumbnail.addClass('active')
-       _abortDrillDown=false;
      }
     
 
@@ -1236,10 +1236,6 @@ function Dashboard(){
      // }
       // _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
       
-
-    
-    
-
      //close any level after the current level
      for(var i=_drillDownDepth;i>_drillDownFocusLevel;i--){
          _topLevelSectionObj.find("[data-drilldown-level="+i+"]").remove();
