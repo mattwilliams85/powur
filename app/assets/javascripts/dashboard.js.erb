@@ -1199,29 +1199,31 @@ function Dashboard(){
 
      // if(_thisThumbnail.length === 0 || _options._target.hasClass('team_tab')) _thisThumbnail = _options._target
      if(_options._target.hasClass("js-link_user")) _options._target.toggleClass("active").find('')
-
      
-     if (_thisThumbnail.hasClass("active")) {
-        _currentLevelSectionObj.find(".active").removeClass('active')
-        _abortDrillDown=true;
-     } else {
+     if(_thisThumbnail.find('.team_tab').hasClass('active_tab')) {
        _currentLevelSectionObj.find(".active").removeClass('active')
        _thisThumbnail.find(".js-thumbnail").addClass('active')
        _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
-       _abortDrillDown=false;
-       if(_options._target.find('.js-link_user').hasClass('active_link')) return;
        _currentLevelSectionObj.find(".js-thumbnail").not(".active").animate({"opacity":".3"}, 300);
-       _thisThumbnail.addClass('active')
+       _abortDrillDown=false;
+     } else {
+       if (_thisThumbnail.hasClass("active")) {
+          _currentLevelSectionObj.find(".active").removeClass('active')
+          _abortDrillDown=true;
+       } else {
+         _currentLevelSectionObj.find(".active").removeClass('active')
+         _thisThumbnail.find(".js-thumbnail").addClass('active')
+         _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
+         _abortDrillDown=false;
+         if(_options._target.find('.js-link_user').hasClass('active_link')) return
+         _currentLevelSectionObj.find(".js-thumbnail").not(".active").animate({"opacity":".3"}, 300);
+         _thisThumbnail.addClass('active')
+       }
      }
+     
     
 
      // _currentLevelSectionObj.toggleClass('active')
-
-     if(_thisThumbnail.hasClass('active')){
-     
-     } else {
-      
-     }
 
      //fade all other "unfocused" thumbnail out
      // for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
@@ -1249,8 +1251,8 @@ function Dashboard(){
         _thisThumbnail.find("span.expand i").addClass("fa-angle-down");
 
         _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
-        // clearTimeout();
-        // return;
+        clearTimeout();
+        return;
        }
 
        _thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
