@@ -2,31 +2,71 @@
 
 <main class="powur-library">
 
-<!-- Header Label/Dropdown Media Type Picker -->
+<!-- Header Label/Dropdown Resource Type Picker -->
   <div class="row">
-    <div class="large-4 medium-4 columns">
-      <div class="section_header">
-        <div class="section_label">
-          <div class="tag"></div>
-          <select>
-            <option>All</option>
-            <option>Videos</option>
-            <option>Documents</option>
-          </select>
-        </div>
+    <div class="large-4 medium-4 small-4 columns">
+      <div class="media-select">
+        <div class="tag"></div>
+        <select>
+          <option>All Media</option>
+          <option>Videos</option>
+          <option>Documents</option>
+        </select>
       </div>
+    </div>
+
+    <div class="large-4 medium-4 small-6 columns">
+      <input type="search"></input>
     </div>
   </div>
 
-  <!-- Media Items Grid -->
+  <!-- Library Resources Grid -->
   <div class="row">
-    <ul class="large-block-grid-5 small-block-grid-5">
-      <li ng-repeat="item in libraryList" ng-class="setClass($index, 'thumbnail')"class="thumbnail" ng-click="drillDown(item)">
-        {{ item }}
+    <ul class="large-block-grid-5 medium-block-grid-3 small-block-grid-2">
+      <li ng-repeat="item in items" class="resource" ng-click="showResource(item)">
+        <!-- Thumbnails or Media icons -->
+        <div class="media-info">
+          <img class="media-thumbnail" ng-if="item.properties.thumbnail_path !== null" src="{{item.properties.thumbnail_path}}">
+          <img class="media-icon" ng-if="item.properties.thumbnail_path === null && item.properties.file_type === 'application/pdf'" src="<%= image_path('library/pdf.png')%>">
+          <img class="media-icon" ng-if="item.properties.thumbnail_path === null && item.properties.file_type === 'video/mp4'" src="<%= image_path('library/video.png')%>">
+          <!-- Media Title -->
+          <div class="text">{{ item.properties.title }}</div>
+        </div>
+        <!-- Modal for Showing a Library Resource -->
+        <div class="hidden" id="item_{{item.properties.id}}">
+          <div class="row">
+            <div class="large-12 columns">
+              <h1>{{item.properties.title}}</h1>
+            </div>
+          </div>
+          <!-- Modal Content: If PDF Document -->
+          <div class="row" ng-if="item.properties.file_type === 'application/pdf'">
+            <div class="large-6 columns">
+              <div class="pdf-preview"></div>
+              <div class="pdf-download" ng-if="item.properties.file_type === 'application/pdf'">
+                <a class="button expand radius success" href="{{item.properties.file_original_path}}">Download this PDF</a>
+              </div>
+            </div>
+            <div class="large-6 columns">
+              <p>{{item.properties.description}}</p>
+            </div>
+          </div>
+          <!-- Modal Content: If Video -->
+          <div class="row" ng-if="item.properties.file_type === 'video/mp4'">
+            <div class="large-8 columns">
+              <video ng-if="item.properties.file_type === 'video/mp4'" width="100%" controls>
+                <source src="{{item.properties.file_original_path}}" type="video/mp4">
+              </video>
+            </div>
+            <div class="large-4 columns">
+              <p>{{item.properties.description}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- /Modal -->
       </li>
     </ul>
   </div>
-
 </main>
 
 <ng-include src="'<%=asset_path("shared/footer-signed-in.html") %>'"></ng-include>

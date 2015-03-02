@@ -1,89 +1,102 @@
-// import the colors
-@import "_mixins";
+@import "_mixins"; // includes sass variables for theme colors
+@import "_base"; // includes styles for custom select dropdowns and search input field
 
 // _mixins sets the body font size to percentage((32/1.6) / (16)) (= 125%)
-// so we'll reset font size to 100%
-body {
+// and "@mixin small_title" resets the header font size to ($font_size / 1.5)
+// So we'll reset font sizes to 100% below:
+body, header {
   font-size: 100% !important;
 }
 
 .powur-library {
   margin-top: 0;
-  padding-top: 210px;
+  padding-top: 200px;
+  padding-bottom: 210px;
 
   @media #{$small} {
     padding-top: 140px;
   }
 
-  .section_header {
-    // padding: 50px 0 20px 0;
-    // border: 0;
-
-    select{
-      border:1px solid $dev_dark_gray;
-      background-size: 40px 40px;
-      background-color: #fff;
-      height:62px;
-      position:relative;
-      display:inline-flex;
-      float:left;
-      border-radius:0;
-      margin-left:10px;
-    }
-
-    input[type=search] {
-      border:1px solid $dev_dark_gray;
-      background-size: 40px 40px;
-      background-color: #fff;
-      height:62px;
-      position:relative;
-      display:inline-flex;
-      float:left;
-      border-radius:0;
-      padding-left:30px;
-    }
-
-    .section_label {
-      border: 1px solid $dev_dark_gray;
-      background: #fff;
-      height: 60px;
-
-      .tag{
-        background:$brand;
-        width:60px;
-        height:60px;
-        float:left;
-
-        img{
-          margin-top:15px;
-        }
-      }
-
-      .text{
-        height:40px;
-        padding:10px;
-        padding-right:20px;
-        text-transform:uppercase;
-        font-weight:bold;
-        font-size:14px;
-        line-height:42px;
-      }
-    }
-  }
-  .thumbnail {
-    height: 220px;
-    background: $dev_dark_gray;
-    border: 1px solid #fff;
-  }
-
   .hidden {
     display: none;
-    margin-top: 220px;
-    position: absolute;
-    width: $row_width;
-    opacity: 0;
+  }
+
+  .media-select {
+
+    .tag {
+      background: $brand;
+      width: 60px;
+      height: 60px;
+      float: left;
+    }
+    select {
+      border:1px solid $dev_dark_gray;
+      background-size: 40px 40px;
+      background-color: #fff;
+      height:60px;
+      position:absolute;
+      display:inline-flex;
+      float: left;
+      border-radius:0;
+    }
+
+  }
+
+  input[type=search] {
+    border:1px solid $dev_dark_gray;
+    background-size: 40px 40px;
+    background-color: #fff;
+    height:60px;
+    position:relative;
+    display:inline-flex;
+    float: right;
+    border-radius:0;
+    padding-left:30px;
+  }
+
+  .resource {
     height: 220px;
-    background: blue;
+    $align-block-grid-to-grid: true;
+    background: #fff;
+    border: 1px solid $dev_dark_gray;
+    color: #333;
+
+    .media-info {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      text-align: center;
+
+      .media-thumbnail {
+        position: absolute;
+        top: 30px;
+        display: flex;
+        justify-content: center;
+        top: 60px;
+      }
+      .media-icon {
+        margin: 2em auto;
+      }
+      .text {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        bottom: 30px;
+        width: 100%;
+      }
+    }
+  }
+  .resource:hover{
+    cursor: pointer;
+  }
+
+  .pdf-preview {
+    position: absolute;
+    top: 0;
+  }
+  .pdf-download {
+    position: absolute;
+    bottom: 0;
   }
 
 }
