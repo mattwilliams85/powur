@@ -122,6 +122,8 @@ Rails.application.routes.draw do
         get :videos, :documents
       end
     end
+
+    get 'uploader_config', to: 'uploader_config#show'
   end
 
   # logged in admin routes

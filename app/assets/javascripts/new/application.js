@@ -14,6 +14,8 @@
 
 //= require_tree ../angular/admin/resources
 
+//= require_tree ../angular/modules/file-s3-uploader
+
 //= require_tree ../angular/vendor
 
 $(document).foundation();

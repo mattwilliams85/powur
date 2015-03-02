@@ -16,9 +16,12 @@ gem 'jbuilder'
 gem 'zurb-foundation', '~> 4.3'
 gem 'compass-rails'
 
-gem 'paperclip'
 gem 'aws-sdk'
+gem 'paperclip'
+gem 'carrierwave'
+gem 'carrierwave_direct'
 gem 's3_direct_upload'
+
 gem 'postgres_ext', github: 'dockyard/postgres_ext'
 gem 'composite_primary_keys', github: 'composite-primary-keys/composite_primary_keys', branch: 'ar_4.2.x'
 gem 'active_hash'
@@ -39,7 +42,6 @@ gem 'delayed_job_active_record'
 gem 'airbrake'
 gem 'pry-rails'
 gem 'ipayout', github: 'eyecuelab/ipayout'
-# gem 'nmi_direct_post'
 gem 'week_of_month'
 gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
 gem 'newrelic_rpm'
@@ -59,7 +61,6 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'awesome_print'
   gem 'byebug'
-  # gem 'debugger'
 end
 
 group :test do
