@@ -15,11 +15,20 @@ function LibraryCtrl($scope, $location, Resource) {
   $scope.resourceTypeChange = function() {
     return Resource.list({type: $scope.resourceType.type }).then(function(items) {
       $scope.items = items.entities;
+      $scope.pages = items.properties.paging;
     });
   };
 
+  $scope.resourcePageChange = function(page_to_load) {
+    return Resource.list({page: page_to_load}).then(function(items) {
+      $scope.items = $scope.items.concat(items.entities);
+      $scope.pages = items.properties.paging;
+    });
+  }
+
   return Resource.list().then(function(items) {
     $scope.items = items.entities;
+    $scope.pages = items.properties.paging;
   });
 
 }

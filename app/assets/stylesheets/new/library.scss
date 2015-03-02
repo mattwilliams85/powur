@@ -104,7 +104,6 @@ body, header {
 
 }
 
-
 .pdf-preview {
   display: flex;
   justify-content: center;
@@ -115,4 +114,9 @@ body, header {
     width: auto;
     height: auto;
   }
+}
+
+.load-more {
+  width: 100%;
+  text-align: center;
 }

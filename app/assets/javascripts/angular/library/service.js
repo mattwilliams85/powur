@@ -14,6 +14,9 @@ function Resource($http, $q) {
       if (data.type) {
         url += '/' + data.type;
       }
+      if (data.page) {
+        url += '?page=' + data.page;
+      }
       $http({
         method: 'GET',
         url: url
