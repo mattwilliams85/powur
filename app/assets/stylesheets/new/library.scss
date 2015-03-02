@@ -21,6 +21,10 @@ body, header {
     display: none;
   }
 
+  .bump {
+    padding-bottom: 30px;
+  }
+
   .media-select {
 
     .tag {
@@ -29,6 +33,7 @@ body, header {
       height: 60px;
       float: left;
     }
+
     select {
       border:1px solid $dev_dark_gray;
       background-size: 40px 40px;
@@ -56,7 +61,6 @@ body, header {
 
   .resource {
     height: 220px;
-    $align-block-grid-to-grid: true;
     background: #fff;
     border: 1px solid $dev_dark_gray;
     color: #333;
@@ -74,9 +78,11 @@ body, header {
         justify-content: center;
         top: 60px;
       }
+
       .media-icon {
         margin: 2em auto;
       }
+
       .text {
         position: absolute;
         display: flex;
@@ -86,17 +92,27 @@ body, header {
       }
     }
   }
+
   .resource:hover{
     cursor: pointer;
   }
 
-  .pdf-preview {
-    position: absolute;
-    top: 0;
-  }
   .pdf-download {
     position: absolute;
     bottom: 0;
   }
 
+}
+
+
+.pdf-preview {
+  display: flex;
+  justify-content: center;
+  top: 0;
+  padding-bottom: 20px;
+
+  img {
+    width: auto;
+    height: auto;
+  }
 }

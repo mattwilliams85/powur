@@ -3,20 +3,16 @@
 <main class="powur-library">
 
 <!-- Header Label/Dropdown Resource Type Picker -->
-  <div class="row">
+  <div class="row bump">
     <div class="large-4 medium-4 small-4 columns">
       <div class="media-select">
         <div class="tag"></div>
-        <select>
-          <option>All Media</option>
-          <option>Videos</option>
-          <option>Documents</option>
-        </select>
+        <select ng-options="type as type.name for type in resourceTypes" ng-model="resourceType" ng-change="resourceTypeChange();" ng-selected="resourceTypes[0]"></select>
       </div>
     </div>
 
     <div class="large-4 medium-4 small-6 columns">
-      <input type="search"></input>
+      <!-- <input type="search"></input> -->
     </div>
   </div>
 
@@ -42,7 +38,9 @@
           <!-- Modal Content: If PDF Document -->
           <div class="row" ng-if="item.properties.file_type === 'application/pdf'">
             <div class="large-6 columns">
-              <div class="pdf-preview"></div>
+              <div class="pdf-preview">
+                <img src="<%= image_path('library/pdf-preview.png') %>">
+              </div>
               <div class="pdf-download" ng-if="item.properties.file_type === 'application/pdf'">
                 <a class="button expand radius success" href="{{item.properties.file_original_path}}">Download this PDF</a>
               </div>
