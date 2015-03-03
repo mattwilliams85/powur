@@ -66,6 +66,18 @@
     }
   }
 
+  .sun-home-content {
+    h4 {
+      width:90%;
+      @media #{$small} {
+        width:60%;
+      }
+      @media #{$large} {
+        width:70%;
+      }
+    }
+  }
+
   .hidden {
     visibility:hidden;
   }
@@ -275,7 +287,7 @@
     font-size:20pt !important;
     line-height:26pt;
     @media #{$small}{
-      font-size:30pt;
+      font-size:30pt !important;
       line-height:36pt;
     }
   }

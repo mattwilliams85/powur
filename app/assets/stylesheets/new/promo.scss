@@ -79,7 +79,7 @@ $xl-screen: em-calc(1500);
     h1 {
       color: #fff;
       // width:750px;
-      font-size:2em;
+      font-size:2.5rem;
       font-weight: bold;
       text-transform: uppercase;
 
@@ -92,15 +92,15 @@ $xl-screen: em-calc(1500);
         color: $sun-color-orange;
         display:inline;
       }
-
-      @media #{$large} {
-        font-size: 4em;
-        width:100%;
-      }
       @media #{$small} {
-        font-size: 3em;
+        font-size: 45pt;
         width:100%;
       }
+      @media #{$large} {
+        font-size: 50pt;
+        width:100%;
+      }
+      
     }
 
     p {
@@ -493,6 +493,13 @@ $xl-screen: em-calc(1500);
     }
 
     .slide-6-extra {
+      text-align:center;
+      @media #{$small} {
+        text-align:left;
+      }
+      h4, span {
+        text-align:left;
+      }
 
       .button {
         background: $sun-color-green;
@@ -590,15 +597,15 @@ $xl-screen: em-calc(1500);
     .fa-chevron-left,  .fa-chevron-right {
       color:#eee;
       position:absolute;
-      top:20%;
+      bottom:-70px;
     }
 
     .fa-chevron-left {
-      left:2%;
+      left:-50px;
     }
 
     .fa-chevron-right {
-      left:67%;
+      left:510px;
     }
 
     .slide-show-dots {
@@ -658,6 +665,11 @@ $xl-screen: em-calc(1500);
 
   .sun-promo-energy-slide-5 {
     padding-bottom:30px !important;
+    padding-top:100px;
+    @media #{$small} {
+      padding-top:150px;
+    }
+  
 
     h2, .highlight-1 {
       font-size:2em;
@@ -752,7 +764,7 @@ $xl-screen: em-calc(1500);
           background-color: $sun-color-blue;
           color: #000;
           content: '$';
-          font-size: 1.2em;
+          font-size: 1.2rem;
           line-height: 1em;
           left: 9px;
           top: 4px;
@@ -805,6 +817,19 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-create-wealth-page {
+    .sun-promo-intro {
+      h1 {
+        text-shadow: -1px 2px 2px rgba(150, 150, 150, 0.68);
+        @media #{$medium} {
+          font-size:45pt;
+          line-height:40pt;
+        }
+        @media #{$large} {
+          font-size:55pt;
+          line-height:50pt;
+        }
+      }
+    }
     .scroll-slide-2 {
       .row {
         width:90%;
@@ -853,7 +878,10 @@ $xl-screen: em-calc(1500);
 
     .sun-promo-slide-5 {
       width:90%;
-      padding-bottom:150px;
+      padding-top:100px;
+      @media #{$small} {
+        padding-top:150px;
+      }
     }
 
     .alt-large-6 {
@@ -936,7 +964,10 @@ $xl-screen: em-calc(1500);
       }
       .fa-chevron-left, .fa-chevron-right {
         position:absolute;
-        top:47%;
+        top:50%;
+        @media #{$small}{
+          top:47%;
+        }
         color:#333;
       }
 
@@ -1045,6 +1076,15 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-why-you-page {
+    .sun-promo-intro {
+      width:85%;
+      @media #{$small}{
+        width:90%;
+        h2 { 
+          line-height:35pt;
+        }
+      }
+    }
     .huge-purpose-image-wrapper {
       height: 200px;
       text-align: center;
@@ -1056,6 +1096,7 @@ $xl-screen: em-calc(1500);
         }
       }
     }
+
 
     .sun-bg-5, .sun-bg-13 {
       .row {
@@ -1106,8 +1147,12 @@ $xl-screen: em-calc(1500);
       background-image: image-url("promo/rainforest.jpg");
       background-repeat: no-repeat;
       background-size: cover;
-      height: 325px;
-      padding-top: 150px;
+      height:200px;
+      padding-top:100px;
+      @media #{$small} {
+        height: 325px;
+        padding-top: 150px;
+      }
 
       h1 {
         color: #fff;
@@ -1141,9 +1186,16 @@ $xl-screen: em-calc(1500);
       &:before {
         color: $sun-color-orange;
         content: open-quote;
-        font-size: 2em;
-        line-height: 1em;
-        margin-right: .5em;
+        font-size: 3rem;
+        line-height: 1rem;
+        margin-right: .4em;
+      }
+      &:after {
+        color: $sun-color-orange;
+        content: close-quote;
+        font-size: 3rem;
+        line-height: 1rem;
+        margin-left: .4em;
       }
     }
 
@@ -1213,8 +1265,9 @@ $xl-screen: em-calc(1500);
           color: #fff;
           display: none;
           margin: 20px;
-          font-size: .7em;
-          line-height: 2em;
+          font-size: .9em;
+          text-align:left;
+          line-height: 1.5em;
           font-weight: normal;
         }
       }
@@ -1237,10 +1290,33 @@ $xl-screen: em-calc(1500);
 
   &.sun-our-dna-page {
     h1 {
-      font-size:3em;
+      font-size:3.5em;
     }
     .row {
       width:90%;
+    }
+
+    .dna-slide-2 {
+      padding-top:150px;
+      .sun-promo-content {
+        font-size:1.5rem;
+        @media #{$medium}{
+          font-size:1.5rem;
+        }
+        @media #{$large}{
+          font-size:1.5rem;
+        }
+      }
+    }
+
+    .sun-bg-20 {
+      p {
+        font-size:1.2em;
+        @media #{$small} {
+          font-size:1.5em;
+        }
+        
+      }
     }
 
     .normal-case {
@@ -1298,36 +1374,75 @@ $xl-screen: em-calc(1500);
   &.sun-why-direct-page {
     .slide-2 {
       padding:0 7%;
+      p {
+        line-height:15pt;
+        @media #{$small} {
+          line-height:20pt;
+        }
+      }
     }
     .large-6 {
       padding-right:5%;
     }
-    @media #{$large} {
-      .slide-2 {
-        padding:0%;
+    
+    .slide-2 {
+      .sun-promo-content {
+        padding-top:50px;
       }
     }
+    
     .sun-bg-5 {
       .row {
         width:90%;
       }
     }
-    .image_1, .image_2 {
+    .image {
       display:none !important;
       @media #{$small} {
         display:inline-block !important;
       }
     }
+    .image_1, .image_2 {
+      @media #{$small} {
+        display:inline-block !important;
+      }
+    }
     .image_0 {
+      display:none !important;
       margin-left:33%;
       @media #{$small} {
         margin-left:0%;
+        display:inline-block !important;
       }
     }
     .slide-show-dots {
       left:40%;
       @media #{$small} {
         left:0;
+      }
+    }
+
+    .outer-wrapper {
+      position:relative;
+    }
+
+    .fa-chevron-left, .fa-chevron-right {
+      top:150px;
+      @media #{$small} {
+        top:50px !important;
+
+      }
+    }
+    .fa-chevron-left {
+      left:21% !important;
+      @media #{$small} {
+        left:38% !important;
+      }
+    }
+    .fa-chevron-right {
+      left:70% !important;
+      @media #{$small} {
+        left:82% !important;
       }
     }
   }
@@ -1383,7 +1498,7 @@ $xl-screen: em-calc(1500);
     .sun-promo-content {
       padding-top:90px;
       @media #{$small} {
-        padding-top:150px;
+        padding-top:120px;
       }
     }
     .icon-placeholder {
@@ -1454,6 +1569,10 @@ $xl-screen: em-calc(1500);
       font-size: 2em;
     }
 
+    .highlight-2 {
+      font-weight:600;
+    }
+
     p {
       color: #fff;
     }
@@ -1490,14 +1609,19 @@ $xl-screen: em-calc(1500);
 
   .sun-bg-15 {
     background-image: image-url("promo/bg-15.jpg");
-
+    .row {
+      width:85%;
+      @media #{$medium} {
+        width:90%;
+      }
+    }
     .slide-show-dots {
       bottom:0px;
     }
 
     .fa-chevron-left, .fa-chevron-right {
       position:absolute;
-      top:32%;
+      bottom:-70px;
       color:#ccc;
     }
 
@@ -1557,6 +1681,15 @@ $xl-screen: em-calc(1500);
 
     h1 { 
       text-align:center;
+      margin-left:0px;
+      @media #{$small} {
+        font-size:50pt;
+        text-align:left;
+        margin-left:100px;
+      }
+      @media #{$large} {
+        margin-left:50px;
+      }
       width:100%;
     }
 

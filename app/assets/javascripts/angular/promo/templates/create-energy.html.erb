@@ -89,10 +89,11 @@
           </div>
 
           <div class="large-8 columns slide-show-wrapper right-part optional">
-            <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
-            <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
+            
             <div class="right-bg"></div>
             <div class="inner-content">
+              <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
+              <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
               <div ng-repeat="slide in slides">
                 <div class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
                   <img ng-repeat="img in slide.images" class="image" ng-src="{{img}}" />
