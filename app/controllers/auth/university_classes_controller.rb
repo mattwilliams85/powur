@@ -15,7 +15,12 @@ module Auth
         amount: @university_class.bonus_volume/100
       ))
       if form.valid?
-        return head 200 if @university_class.purchase(form.as_json, current_user)
+        if @university_class.purchase(form.as_json, current_user)
+          binding.pry
+          PromoterMailer.certification_purchase_processed(current_user).deliver_now!
+          PromoterMailer.team_leader_downline_certification_purchase(current_user).deliver_now!
+          return head 200
+        end
         render json: { errors: {number: ['Error, couldn\'t process a card']}}, status: :unprocessable_entity
       else
         render json: { errors: form.errors.messages }, status: :unprocessable_entity

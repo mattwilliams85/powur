@@ -26,6 +26,8 @@ en:
     reset-password: Password Reset Request
     customer-onboard: Congratulations, your free solar quote is on the way.
     welcome-new-user: Welcome to Powur
+    team-leader-downline-certification-purchase: One of your team members is about to upgrade their skills by going Certified
+    certification-purchase-processed: Your Powur Certification
   valid_email:
     validations:
       email:

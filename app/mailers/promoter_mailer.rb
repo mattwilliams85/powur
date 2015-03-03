@@ -45,6 +45,24 @@ class PromoterMailer < ActionMailer::Base
     mail_chimp to, 'welcome-new-user', merge_vars
   end
 
+  def certification_purchase_processed(user)
+    # notifies an advocate when their certification purchase has been processed
+    to = "#{user.full_name} <#{user.email}>"
+    merge_vars = {}
+
+    mail_chimp to, 'certification-purchase-processed', merge_vars
+  end
+
+  def team_leader_downline_certification_purchase(user)
+    # notifies team leader when downline purchases certification
+    team_leader = User.find(user.upline[-2])
+
+    to = "#{team_leader.full_name} <#{team_leader.email}>"
+    merge_vars = { team_leader: team_leader.full_name, downline_name: user.full_name }
+
+    mail_chimp to, 'team-leader-downline-certification-purchase', merge_vars
+  end
+
   private
 
   def mail_chimp(to, template, merge_vars = {})
