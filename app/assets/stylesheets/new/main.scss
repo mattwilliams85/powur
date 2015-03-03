@@ -220,3 +220,48 @@ input {
     visibility:hidden !important;
   }
 }
+
+select.powur-select {
+  // Mixins
+  display: block;
+  vertical-align: baseline;
+  font-size: 12pt;
+  line-height: 32px / 2;
+  text-transform: uppercase;
+  font-family: 'Varela Round', sans-serif;
+  border-radius: 0;
+
+  // Box properties
+  margin:0 4px 0 0;
+  margin-bottom: 8px;
+  padding-right: 56px;
+  padding-left: 10px;
+  width: auto;
+  float: left;
+
+  // Background & borders
+  background-image: image-url('select_arrow.svg') ;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+  background-origin: padding-box;
+  background-color: rgba(0,0,0,.08);
+  border: 1px solid rgba(0,0,0,.08);
+
+  // Typography
+  color: lighten(#444, 34%);
+  text-indent: 0.01px;
+  text-overflow: "";
+
+  // Other
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+select::-ms-expand {
+    display: none;
+}
