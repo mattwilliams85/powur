@@ -22,6 +22,8 @@ module Auth
       @uploader = case params[:mode]
       when "resource_attachment"
         ResourceAttachment.new.attachment_direct
+      when "resource_image"
+        ResourceImage.new.image_direct
       end
     end
   end

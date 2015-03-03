@@ -29,8 +29,11 @@
       margin-left: 10px;
     }
 
-    .info {
-      color: #ccc;
+    .top-info {
+      margin-bottom: 10px;
+      .info {
+        color: #ccc;
+      }
     }
   }
 

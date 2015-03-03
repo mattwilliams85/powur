@@ -849,7 +849,7 @@ CREATE TABLE resources (
     description text,
     file_original_path character varying,
     file_type character varying(60),
-    thumbnail_path character varying,
+    image_original_path character varying,
     is_public boolean,
     created_at timestamp without time zone,
     updated_at timestamp without time zone
@@ -2131,3 +2131,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150209200417');
 
 INSERT INTO schema_migrations (version) VALUES ('20150225110000');
 
+INSERT INTO schema_migrations (version) VALUES ('20150303172651');

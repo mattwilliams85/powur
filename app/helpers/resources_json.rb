@@ -19,7 +19,7 @@ class ResourcesJson < JsonDecorator
       json.description resource.description
       json.file_original_path resource.file_original_path
       json.file_type resource.file_type
-      json.thumbnail_path resource.thumbnail_path
+      json.image_original_path resource.image_original_path
       json.is_public !!resource.is_public
       json.user_name resource.user.full_name
       json.created_at resource.created_at.to_f * 1000

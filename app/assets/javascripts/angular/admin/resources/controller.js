@@ -26,6 +26,10 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
     return month + '/' + day + '/' + year + ' ' + time;
   };
 
+  $scope.itemThumbnail = function(item) {
+    return item.properties.image_original_path || 'defaultImageUrl';
+  };
+
   $scope.delete = function(item) {
     var action = getAction(item.actions, 'destroy');
     return AdminResource.execute(action).then(function() {

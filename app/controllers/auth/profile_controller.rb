@@ -7,11 +7,11 @@ module Auth
     def show
       @user = current_user
       @profile = @user.profile
-      @auto_login_url = build_auto_login_url(@user)
 
       respond_to do |format|
         format.json {}
         format.html {
+          @auto_login_url = build_auto_login_url(@user)
           @ewallet_details = get_ewallet_customer_details(@user)
         }
       end
