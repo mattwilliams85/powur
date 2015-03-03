@@ -4,6 +4,7 @@ class Invite < ActiveRecord::Base
   belongs_to :user, class_name: 'User'
   belongs_to :sponsor, class_name: 'User'
 
+  validates :email, uniqueness: true
   validates :email, :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
   validate :max_invites, on: :create
