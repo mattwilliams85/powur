@@ -1,3 +1,4 @@
+
 .powur-library {
   margin-top: 0;
   padding-top: 200px;
@@ -9,6 +10,11 @@
 
   .hidden {
     display: none;
+  }
+
+  // to prevent modals from loading out of view when the user scrolls:
+  .reveal-modal {
+    position: fixed;
   }
 
   .bump {

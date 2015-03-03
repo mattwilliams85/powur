@@ -149,11 +149,6 @@ input {
   }
 }
 
-// to prevent modals from loading out of view when the user scrolls:
-.reveal-modal {
-  position: fixed;
-}
-
 .sun-modal {
   background-image: image-url('powur-white-logo.png');
   background-color: #f4c751;
