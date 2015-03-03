@@ -26,6 +26,10 @@ function LibraryCtrl($scope, $location, Resource) {
     });
   }
 
+  $scope.itemThumbnail = function(item) {
+    return item.properties.image_original_path || 'defaultImageUrl';
+  };
+
   return Resource.list().then(function(items) {
     $scope.items = items.entities;
     $scope.pages = items.properties.paging;

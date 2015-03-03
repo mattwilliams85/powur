@@ -22,9 +22,9 @@
       <li ng-repeat="item in items" class="resource" ng-click="showResource(item)">
         <!-- Thumbnails or Media icons -->
         <div class="media-info">
-          <img class="media-thumbnail" ng-if="item.properties.thumbnail_path !== null" src="{{item.properties.thumbnail_path}}">
-          <img class="media-icon" ng-if="item.properties.thumbnail_path === null && item.properties.file_type === 'application/pdf'" src="<%= image_path('library/pdf.png')%>">
-          <img class="media-icon" ng-if="item.properties.thumbnail_path === null && item.properties.file_type === 'video/mp4'" src="<%= image_path('library/video.png')%>">
+          <div class="media-thumbnail">
+            <img class="thumbnail-image"  ng-src="{{itemThumbnail(item)}}">
+          </div>
           <!-- Media Title -->
           <div class="text">{{ item.properties.title }}</div>
         </div>
@@ -39,7 +39,7 @@
           <div class="row" ng-if="item.properties.file_type === 'application/pdf'">
             <div class="large-6 columns">
               <div class="pdf-preview">
-                <img src="<%= image_path('library/pdf-preview.png') %>">
+                <img ng-src="{{itemThumbnail(item)}}">
               </div>
               <div class="pdf-download" ng-if="item.properties.file_type === 'application/pdf'">
                 <a class="button expand radius success" href="{{item.properties.file_original_path}}">Download this PDF</a>
