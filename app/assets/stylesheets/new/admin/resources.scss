@@ -10,6 +10,19 @@
   .admin-resources-list-item {
     border-top: 1px dashed #000;
     padding: 10px 0;
+    color: #ccc;
+
+    h5 {
+      color: #ccc;
+    }
+
+    &.active {
+      color: $header-font-color;
+
+      h5 {
+        color: $header-font-color;
+      }
+    }
 
     .manage-link {
       float: right;

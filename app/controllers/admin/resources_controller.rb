@@ -1,6 +1,7 @@
 module Admin
   class ResourcesController < AdminController
     page
+    sort id:  { id: :desc }
 
     before_action :find_resource, only: [ :show, :destroy, :update ]
 

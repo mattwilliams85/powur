@@ -18,7 +18,7 @@
       <div class="row">
         <div class="large-12 columns">
 
-          <div ng-repeat="item in resources" class="admin-resources-list-item">
+          <div ng-repeat="item in resources" class="admin-resources-list-item" ng-class="{'active': item.properties.is_public}">
             <span class="info">id: {{item.properties.id}}</span>
             <span class="info">posted: {{formattedTime(item.properties.created_at)}}</span>
             <span class="info">by: {{item.properties.user_name}}</span>

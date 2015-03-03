@@ -1,6 +1,7 @@
 module Auth
   class ResourcesController < AuthController
     page
+    sort id:  { id: :desc }
 
     before_filter :find_resource, only: [:show]
 
