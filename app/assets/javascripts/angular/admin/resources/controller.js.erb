@@ -27,7 +27,9 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
   };
 
   $scope.itemThumbnail = function(item) {
-    return item.properties.image_original_path || 'defaultImageUrl';
+    var imgPath = item.properties.image_original_path;
+    if (imgPath) return imgPath;
+    return item.file_type === 'video/mp4' ? '<%=asset_path("library/video.png")%>' : '<%=asset_path("library/pdf.png")%>';
   };
 
   $scope.delete = function(item) {
@@ -124,7 +126,7 @@ AdminResourcesCtrl.prototype.fetch = function($scope, $location, $routeParams, A
   } else if ($scope.mode === 'edit') {
     return AdminResource.get($routeParams.resourceId).then(function(item) {
       $scope.resource = item.properties;
-      $scope.resourceType = $scope.resource === 'video/mp4' ? 'video' : 'document';
+      $scope.resourceType = $scope.resource.file_type === 'video/mp4' ? 'video' : 'document';
     });
   }
 };
