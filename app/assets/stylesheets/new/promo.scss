@@ -25,8 +25,8 @@ $xl-screen: em-calc(1500);
   }
 
   h1 {
-    font-size:30pt;
-    line-height:30pt;
+    font-size:50pt;
+    line-height:50pt;
     @media #{$small}{
       font-size:60pt;
       line-height:50pt;
@@ -77,8 +77,8 @@ $xl-screen: em-calc(1500);
     h1 {
       color: #fff;
       // width:750px;
-      font-size:2.5rem;
-      font-weight: bold;
+      font-size:4.5rem;
+      font-weight: 600;
       text-transform: uppercase;
 
       .highlight-1, &.highlight-1 {
@@ -121,13 +121,18 @@ $xl-screen: em-calc(1500);
       }
 
       &.watch {
-        background-image: image-url("promo/play-icon.png");
+        background-image: none;
         background-repeat: no-repeat;
         background-color: $sun-color-blue;
-        font-size: 1em;
+        font-size: 3em;
+        padding: 20px 50px;
+         @media #{$small} {
+          background-image: image-url("promo/play-icon.png");
+           font-size: 1em;
+           padding: 0 20px 0 70px;
+         }
         background-position: 20px center;
         line-height: 70px;
-        padding: 0 20px 0 70px;
 
       }
     }
@@ -142,7 +147,7 @@ $xl-screen: em-calc(1500);
     }
 
     h1, h2 {
-      font-size: 2.3em;
+      font-size: 4.5em;
       font-weight: bold;
       text-transform: uppercase;
       line-height: 1em;
@@ -209,10 +214,10 @@ $xl-screen: em-calc(1500);
   }
 
   .sun-promo-dim {
-    padding-top:90px;
-    @media #{$large} {
-      padding-top:150px;
-    }
+    padding-top:150px;
+    // @media #{$large} {
+    //   padding-top:150px;
+    // }
     p {
       color: #fff;
       font-size: 1.2em;
@@ -220,17 +225,17 @@ $xl-screen: em-calc(1500);
     }
 
     .video-player-wrapper {
-      width:330px;
-      height:220px;
-      margin:35px;
+      width: 610px;
+      height: 380px;
+      margin:0 15%;
       background-image: image-url("promo/video-placeholder.jpg");
       background-repeat: no-repeat;
       background-position: center center;
-      @media #{$large} {
-        width: 610px;
-        height: 380px;
-        margin:0px;
-      }
+      // @media #{$large} {
+      //   width: 610px;
+      //   height: 380px;
+      //   margin:0px;
+      // }
       @media #{$small} {
         margin:0px;
       }
@@ -370,15 +375,15 @@ $xl-screen: em-calc(1500);
       background-repeat: no-repeat;
       background-position: left center;
       line-height: 32px;
-      padding-left: 0px;
-      font-size: 32px;
+      padding-left: 40px;
+      font-size: 44px;
       font-weight: bold;
       text-align:center;
       margin:0.2em auto;
       width:240px;
 
       @media #{$small} {
-        padding-left: 40px;
+        font-size: 32px;
         text-align:left;
         margin: 2em 0 .5em 0;
       }
@@ -387,6 +392,7 @@ $xl-screen: em-calc(1500);
     .highlighted {
       color: $sun-color-blue;
       font-size: inherit;
+      display:inline;
     }
   }
 
@@ -428,8 +434,7 @@ $xl-screen: em-calc(1500);
   .sun-promo-slide-5 {
     text-align: center;
 
-    h4, h5 {
-      font-size: 2em;
+    h4, h5 { 
       line-height: 1em;
       text-transform: uppercase;
     }
@@ -438,6 +443,7 @@ $xl-screen: em-calc(1500);
       color: $sun-color-orange;
       font-weight: bold;
       margin-bottom: 2em;
+      font-size: 2em;
     }
 
     h5 {
@@ -561,17 +567,16 @@ $xl-screen: em-calc(1500);
         line-height:30pt;
       }
     }
-    .slider-inner {
-      margin-top:0px !important;
-      @media #{$small} {
-        margin-top:15px;
-      }
+
+    .slider-inner { 
+      margin-top:15px !important;
       @media #{$medium} {
         margin-top:25px;
       }
     }
-    .sun-promo-slider-wrapper {
-      margin-top:20px;
+
+    .sun-promo-slider-wrapper { 
+      margin-top:60px;
       @media #{$small} {
         margin-top:25px;
       }
@@ -583,11 +588,13 @@ $xl-screen: em-calc(1500);
     padding: 0;
     margin-top:5%;
     font-size:1.3em;
-    @media #{$small} {
-      p {
-        font-size:1em;
+    p {
+      font-size:2em;
+      @media #{$small} { 
+        font-size:1em
       }
     }
+      
     .arrow-box {
       z-index:1;
     }
@@ -628,8 +635,14 @@ $xl-screen: em-calc(1500);
       }
 
       .inner-content {
-        margin-left:0;
-        padding-top: 140px;
+        margin-left:50px;
+        padding-top: 200px;
+        width:90%;
+        @media #{$small} {
+          margin-left:0px;
+          padding-top: 140px;
+          width:100%;
+        }
       }
     }
 
@@ -662,14 +675,9 @@ $xl-screen: em-calc(1500);
 
   .sun-promo-energy-slide-5 {
     padding-bottom:30px !important;
-    padding-top:100px;
-    @media #{$small} {
-      padding-top:150px;
-    }
   
-
     h2, .highlight-1 {
-      font-size:2em;
+      font-size:4em;
       text-align:left;
       text-transform:none;
       @media #{$small} {
@@ -682,6 +690,14 @@ $xl-screen: em-calc(1500);
     h4 {
       font-size: 2.2em;
       font-weight: bold;
+    }
+
+    h3 {
+      font-size:2.5em;
+      @media #{$small} {
+        line-height:20pt;
+        font-size:27px;
+      }
     }
 
     h5 {
@@ -703,6 +719,13 @@ $xl-screen: em-calc(1500);
       width: 50px;
     }
 
+    p {
+      font-size:1.5em;
+      @media #{$small} { 
+        font-size:1em;
+      }
+    }
+
     .large-8 {
       width:95%;
       margin-right:2%;
@@ -720,11 +743,17 @@ $xl-screen: em-calc(1500);
   .sun-promo-energy-slide-6 {
     padding-bottom:20px !important;
     text-align:center;
-    @media #{$small} {
-      text-align:left;
+    span {
+      line-height:10pt;
+      @media #{$small} {
+        line-height:16pt;
+      }
     }
     .row {
       width:90%;
+      @media #{$large} {
+        width:95%
+      }
     }
   }
 
@@ -788,20 +817,32 @@ $xl-screen: em-calc(1500);
   .decentralize-icon-wrapper {
     @include landing-sprite(decentralize-icon);
     margin-bottom: 20px;
+    padding-top:20px;
+    @media #{$small} { 
+      padding-top:0px;
+    }
   }
 
   .pocket-wallet-icon-wrapper {
     @include landing-sprite(pocket-wallet-icon);
     margin-bottom: 20px;
+    padding-top:20px;
+    @media #{$small} { 
+      padding-top:0px;
+    }
   }
 
   .pollution-icon-wrapper {
     @include landing-sprite(pollution-icon);
     margin-bottom: 20px;
+    padding-top:20px;
+    @media #{$small} { 
+      padding-top:0px;
+    }
   }
 
   .sun-logo-wrapper {
-    margin:0 0 30px 40px;
+    margin:0 0 20px 40px;
     width:250px;
   }
 
@@ -814,6 +855,14 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-create-wealth-page {
+    p, span {
+      font-size:25pt;
+      line-height:30pt;
+      @media #{$small} {
+        font-size:1.2em;
+        ine-height:25pt;
+      }
+    }
     .sun-promo-intro {
       h1 {
         text-shadow: -1px 2px 2px rgba(150, 150, 150, 0.68);
@@ -826,6 +875,13 @@ $xl-screen: em-calc(1500);
           line-height:50pt;
         }
       }
+
+      p {
+        font-size:2em;
+        @media #{$small} { 
+          font-size:1em;
+        }
+      }
     }
     .scroll-slide-2 {
       .row {
@@ -836,7 +892,10 @@ $xl-screen: em-calc(1500);
 
       h2 {
         color:#fff;
-        font-size:1.7em;
+        font-size:3.3em;
+        // @media #{$small} {
+        //   font-size: 2.3em;
+        // }
         @media #{$small} {
           font-size: 2.3em;
         }
@@ -847,7 +906,10 @@ $xl-screen: em-calc(1500);
 
       p {
         margin: 2% 5%;
-        font-size:1em;
+        font-size:2em;
+        @media #{$small} { 
+          font-size:1em;
+        }
       }
 
       h5 {
@@ -856,10 +918,29 @@ $xl-screen: em-calc(1500);
     }
 
     .sun-promo-slide-3 {
+      padding-top:200px;
+      @media #{$small} {
+        padding-top:150px;
+      }
       h2 {
-        font-size:3em;
+        font-size:4em;
+        @media #{$small} {
+          font-size:3em;
+        }
         @media #{$large} {
           font-size:4em;
+        }
+      }
+      span {
+        font-size:1.5em;
+        @media #{$small} { 
+          font-size:1em;
+        }
+      }
+      h5 {
+        font-size:3em;
+        @media #{$small} {
+          font-size:2em;
         }
       }
     }
@@ -917,7 +998,10 @@ $xl-screen: em-calc(1500);
     }
 
     .scroll-slide-3 {
-      height:900px;
+      height:1050px;
+      @media #{$small} {
+        height:900px;
+      }
       position:relative !important;
     }
 
@@ -977,6 +1061,7 @@ $xl-screen: em-calc(1500);
       }
     }
 
+    //why solar
     .sun-bg-5 {
       .icon-placeholder {
         margin-left:0px;
@@ -1388,6 +1473,7 @@ $xl-screen: em-calc(1500);
       }
     }
     
+    //why direct
     .sun-bg-5 {
       .row {
         width:90%;
@@ -1500,15 +1586,32 @@ $xl-screen: em-calc(1500);
     }
     .icon-placeholder {
       height: 150px;
-      margin-left:35%;
+      margin-left:45%;
       @media #{$small} {
-        margin-left:0px;
+        margin-left:35%;
       }
     }
 
     h3 {
-      font-size: 1.8em;
+      font-size: 3.5em;
       font-weight: bold;
+      margin-bottom:1.5em;
+      @media #{$small} {
+        font-size: 1.4em;
+        margin-bottom:0;
+      }
+      @media #{$large} {
+        font-size: 1.8em;
+      }
+    }
+    span {
+      font-size: 1.1em;
+      @media #{$small} {
+        font-size: 1.1em;
+      }
+      @media #{$large} {
+        font-size: 1.4em;
+      }
     }
   }
 
@@ -1534,11 +1637,18 @@ $xl-screen: em-calc(1500);
 
     h5 {
       color: $sun-color-orange;
-      font-size: 1.5em;
+      font-size: 2.5em;
+      @media #{$small} { 
+        font-size:1.5em;
+      }
     }
 
     p {
+      font-size:1.5em;
       color: #fff;
+      @media #{$small} { 
+        font-size:1em;
+      }
     }
   }
 
