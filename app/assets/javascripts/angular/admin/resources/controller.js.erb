@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
+function AdminResourcesCtrl($scope, $location, $routeParams, $anchorScroll, AdminResource) {
   $scope.redirectUnlessSignedIn();
 
   // TODO check if user is an admin
@@ -100,6 +100,15 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
     }
   };
 
+  $scope.pagination = function(direction) {
+    var page = $scope.itemsPaging.current_page + direction;
+    return AdminResource.list({page: page}).then(function(items) {
+      $scope.resources = items.entities;
+      $scope.itemsPaging = items.properties.paging;
+      $anchorScroll();
+    });
+  };
+
   this.init($scope, $location);
   this.fetch($scope, $location, $routeParams, AdminResource);
 }
@@ -117,6 +126,7 @@ AdminResourcesCtrl.prototype.fetch = function($scope, $location, $routeParams, A
   if ($scope.mode === 'index') {
     return AdminResource.list().then(function(items) {
       $scope.resources = items.entities;
+      $scope.itemsPaging = items.properties.paging;
     });
   } else if ($scope.mode === 'new') {
     $scope.resourceType = $routeParams.resourceType === 'video' ? 'video' : 'document';
@@ -132,5 +142,5 @@ AdminResourcesCtrl.prototype.fetch = function($scope, $location, $routeParams, A
 };
 
 
-AdminResourcesCtrl.$inject = ['$scope', '$location', '$routeParams', 'AdminResource'];
+AdminResourcesCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', 'AdminResource'];
 sunstandControllers.controller('AdminResourcesCtrl', AdminResourcesCtrl);
