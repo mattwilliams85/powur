@@ -16,7 +16,6 @@ module Auth
       ))
       if form.valid?
         if @university_class.purchase(form.as_json, current_user)
-          binding.pry
           PromoterMailer.certification_purchase_processed(current_user).deliver_now!
           PromoterMailer.team_leader_downline_certification_purchase(current_user).deliver_now!
           return head 200
