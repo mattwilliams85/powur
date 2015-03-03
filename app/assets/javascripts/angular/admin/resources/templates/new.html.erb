@@ -58,6 +58,7 @@
               </div>
 
               <div class="large-9 columns">
+                <span ng-show="resourceForm.description.$dirty && errorMessage('description')" class="radius alert label">{{errorMessage('description')}}</span>
                 <textarea ng-model="resource.description" name="description" id="resource_description"></textarea>
               </div>
             </div>

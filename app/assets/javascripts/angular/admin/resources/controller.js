@@ -55,7 +55,7 @@ function AdminResourcesCtrl($scope, $location, $routeParams, AdminResource) {
 
   var createErrorCallback = function(data) {
     $scope.formErrorMessages = {};
-    var keys = ['title', 'file_original_path'];
+    var keys = ['title', 'description', 'file_original_path'];
     for(var i in keys) {
       $scope.resourceForm[keys[i]].$dirty = false;
       var errorMessage = data.errors[keys[i]];
