@@ -6,7 +6,9 @@ module Admin
     before_action :find_resource, only: [ :show, :destroy, :update ]
 
     def index
-      @resources = apply_list_query_options(Resource)
+      scope = Resource
+      scope = scope.search(params[:search]) if params[:search].present?
+      @resources = apply_list_query_options(scope)
       render 'index'
     end
 

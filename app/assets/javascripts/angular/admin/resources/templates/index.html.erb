@@ -13,9 +13,25 @@
     </div>
 
     <div class="large-8 columns">
-      <h3>Library ({{itemsPaging.item_count}})</h3>
-
       <div class="row">
+        <div class="large-8 columns">
+          <h3>Library ({{itemsPaging.item_count}})</h3>
+        </div>
+
+        <div class="large-4 columns">
+          <form name="searchForm" ng-submit="search()" novalidate>
+            <div class="row collapse">
+              <div class="large-8 columns">
+                <input ng-model="searchText" type="text" placeholder="search" />
+              </div>
+
+              <div class="large-4 columns">
+                <input class="button postfix" type="submit" value="Go" />
+              </div>
+            </div>
+          </form>
+        </div>
+
         <div class="large-12 columns">
 
           <div ng-repeat="item in resources" class="admin-resources-list-item" ng-class="{'active': item.properties.is_public}">

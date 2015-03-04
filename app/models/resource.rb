@@ -5,6 +5,8 @@ class Resource < ActiveRecord::Base
     document: 'application/pdf'
   }
 
+  SEARCH = ':q % title or :q % description'
+
   belongs_to :user
 
   validates :user_id, presence: true
@@ -21,6 +23,7 @@ class Resource < ActiveRecord::Base
   scope :published, -> { where(is_public: true) }
   scope :videos, -> { where(file_type: RESOURCE_FILE_TYPES[:video]) }
   scope :documents, -> { where(file_type: RESOURCE_FILE_TYPES[:document]) }
+  scope :search, ->(q) { where(SEARCH, q: "#{q}") }
 
   before_validation :set_file_type
 

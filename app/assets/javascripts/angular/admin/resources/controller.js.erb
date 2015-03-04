@@ -7,6 +7,9 @@ function AdminResourcesCtrl($scope, $location, $routeParams, $anchorScroll, Admi
 
   // Form Validation
   $scope.formErrorMessages = {};
+  $scope.itemsPaging = {
+    current_page: 1
+  };
 
   function getAction(actions, name) {
     for (var i in actions) {
@@ -102,11 +105,18 @@ function AdminResourcesCtrl($scope, $location, $routeParams, $anchorScroll, Admi
 
   $scope.pagination = function(direction) {
     var page = $scope.itemsPaging.current_page + direction;
-    return AdminResource.list({page: page}).then(function(items) {
+    return AdminResource.list({page: page, search: $scope.searchText}).then(function(items) {
       $scope.resources = items.entities;
       $scope.itemsPaging = items.properties.paging;
       $anchorScroll();
     });
+  };
+
+  $scope.search = function() {
+    $scope.itemsPaging = {
+      current_page: 1
+    };
+    $scope.pagination(0);
   };
 
   this.init($scope, $location);
@@ -124,10 +134,7 @@ AdminResourcesCtrl.prototype.init = function($scope, $location) {
 
 AdminResourcesCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminResource) {
   if ($scope.mode === 'index') {
-    return AdminResource.list().then(function(items) {
-      $scope.resources = items.entities;
-      $scope.itemsPaging = items.properties.paging;
-    });
+    $scope.pagination(0);
   } else if ($scope.mode === 'new') {
     $scope.resourceType = $routeParams.resourceType === 'video' ? 'video' : 'document';
     $scope.resource = {
