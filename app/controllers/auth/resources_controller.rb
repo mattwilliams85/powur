@@ -6,17 +6,11 @@ module Auth
     before_filter :find_resource, only: [:show]
 
     def index
-      @resources = apply_list_query_options(Resource.published)
-    end
-
-    def videos
-      @resources = apply_list_query_options(Resource.published.videos)
-      render :index
-    end
-
-    def documents
-      @resources = apply_list_query_options(Resource.published.documents)
-      render :index
+      scope = Resource.published
+      scope = scope.search(params[:search]) if params[:search].present?
+      scope = scope.videos if params[:type] == 'videos'
+      scope = scope.documents if params[:type] == 'documents'
+      @resources = apply_list_query_options(scope)
     end
 
     private
