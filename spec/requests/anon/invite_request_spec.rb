@@ -23,8 +23,8 @@ describe '/a/invite' do
     end
 
     it 'marks an invite for an existing user with same email address' do
-      invite = create(:invite)
-      user = create(:user, email: invite.email)
+      user = create(:user)
+      invite = create(:invite, sponsor: user, email: user.email)
 
       post invite_path, code: invite.id, format: :json
 
@@ -106,15 +106,13 @@ describe '/a/invite' do
     end
 
     it 'associates any outstanding invites with the new promoter' do
-      invites = create_list(:invite, 2, email: @invite.email)
+      # invite = create(:invite, @user.email)
       VCR.use_cassette('invite_promoter_association') do
         patch invite_path(format: :json), JSON.dump(@user_params), "CONTENT_TYPE" => "application/json"
       end
       user_id = User.find_by(email: @invite.email).id
-      invites.each do |invite|
-        invite.reload
-        expect(invite.user_id).to eq(user_id)
-      end
+      @invite.reload
+      expect(@invite.user_id).to eq(user_id)
     end
   end
 end
