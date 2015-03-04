@@ -90,8 +90,8 @@ var DashboardTopper = {
           }
         });
 
-        if(_currentGoals.personal.length) calculateRankProgress(_currentGoals.personal, _personalData, "personal")
-        if(_currentGoals.group.length) calculateRankProgress(_currentGoals.group, _personalData, "group")
+        if(_currentGoals.personal.length) calculateRankProgress(_currentGoals.personal, _personalData, "personal");
+        if(_currentGoals.group.length) calculateRankProgress(_currentGoals.group, _personalData, "group");
 
         function calculateRankProgress(currentGoals, personalData, type) {
           var personalProducts = {},
@@ -105,12 +105,12 @@ var DashboardTopper = {
           });
 
           $.each(personalData.entities, function(i, order_totals) {
-            var productID = String(order_totals.properties.product_id)
+            var productID = String(order_totals.properties.product_id);
             if(productID in personalProducts) {
               if(type === "personal") {
-                current += order_totals.properties.personal
+                current += order_totals.properties.personal;
               } else {
-                current += order_totals.properties.group
+                current += order_totals.properties.group;
               }
             }
           });
