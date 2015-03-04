@@ -7,7 +7,11 @@
         {{else}}
         {{#each this.entities}}
           {{#compare this.properties.pay_period_week_number ../this.properties.current_week operator="=="}}
-            <h1 class="kpi_value"><span>${{formatCurrency this.properties.total_earnings}}</span></h1>
+            {{#if this.properties.total_earnings}}
+              <h1 class="kpi_value"><span>${{formatCurrency this.properties.total_earnings}}</span></h1>
+            {{else}}
+              <h1 class="kpi_value"><span>$0</span></h1>
+            {{/if}}
           {{/compare}}
         {{/each}}
       {{/compare}}
@@ -19,7 +23,11 @@
         {{else}}
         {{#each this.entities}}
           {{#compare this.properties.pay_period_type "Monthly" operator="=="}}
-            <h1 class="kpi_value"><span>${{formatCurrency this.properties.total_earnings}}</span></h1>
+            {{#if this.properties.total_earnings}}
+              <h1 class="kpi_value"><span>${{formatCurrency this.properties.total_earnings}}</span></h1>
+            {{else}}
+              <h1 class="kpi_value"><span>$0</span></h1>
+            {{/if}}
           {{/compare}}
         {{/each}}
       {{/compare}}
