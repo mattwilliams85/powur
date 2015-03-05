@@ -215,9 +215,12 @@ $xl-screen: em-calc(1500);
 
   .sun-promo-dim {
     padding-top:150px;
-    // @media #{$large} {
-    //   padding-top:150px;
-    // }
+    @media #{$small} {
+      padding-top:90px;
+    }
+    @media #{$large} {
+      padding-top:150px;
+    }
     p {
       color: #fff;
       font-size: 1.2em;
@@ -231,12 +234,14 @@ $xl-screen: em-calc(1500);
       background-image: image-url("promo/video-placeholder.jpg");
       background-repeat: no-repeat;
       background-position: center center;
-      // @media #{$large} {
-      //   width: 610px;
-      //   height: 380px;
-      //   margin:0px;
-      // }
+      @media #{$large} {
+        width: 610px;
+        height: 380px;
+        margin:0px;
+      }
       @media #{$small} {
+        width:330px;
+        height:220px;
         margin:0px;
       }
     }
@@ -857,10 +862,10 @@ $xl-screen: em-calc(1500);
   &.sun-create-wealth-page {
     p, span {
       font-size:25pt;
-      line-height:30pt;
+      line-height:20pt;
       @media #{$small} {
         font-size:1.2em;
-        ine-height:25pt;
+        line-height:25pt;
       }
     }
     .sun-promo-intro {
@@ -949,8 +954,13 @@ $xl-screen: em-calc(1500);
       text-align:center;
       width:90%;
       padding-bottom:150px;
+      margin-top:100px;
       @media #{$medium} {
         text-align:left;
+      }
+      @media #{$large} {
+        text-align:left;
+        margin-top:0px;
       }
     }
 
@@ -1224,17 +1234,19 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-our-origin-page {
+    .row {
+      width:90%;
+      @media #{$small} { 
+        width: 100%;
+       }
+    }
 
     .sun-origin-story-bg {
       background-image: image-url("promo/rainforest.jpg");
       background-repeat: no-repeat;
       background-size: cover;
-      height:200px;
-      padding-top:100px;
-      @media #{$small} {
-        height: 325px;
-        padding-top: 150px;
-      }
+      height: 325px;
+      padding-top: 150px;
 
       h1 {
         color: #fff;
@@ -1298,6 +1310,10 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-our-team-page {
+    font-size:2em;
+    @media #{$small} { 
+      font-size: 0em;
+    }
     .sun-our-team-bg {
       background-image: image-url("promo/brown-grass.jpg");
       background-repeat: no-repeat;
@@ -1317,7 +1333,10 @@ $xl-screen: em-calc(1500);
     }
 
     .face-wrapper {
-      height: 500px;
+      height: 1000px;
+      @media #{$small} { 
+        height:500px;
+      }
       position: relative;
       overflow: hidden;
       margin-bottom: 40px;
@@ -1328,7 +1347,10 @@ $xl-screen: em-calc(1500);
 
       .face-mask {
         width: 100%;
-        height: 500px;
+        height: 1000px;
+        @media #{$small} { 
+          height:500px;
+        }
         position: absolute;
         text-align: center;
         line-height: 2em;
@@ -1347,6 +1369,7 @@ $xl-screen: em-calc(1500);
           color: #fff;
           display: none;
           margin: 20px;
+          
           font-size: .9em;
           text-align:left;
           line-height: 1.5em;
