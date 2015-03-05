@@ -10,16 +10,10 @@ function Resource($http, $q) {
       data = data || {};
       var dfr = $q.defer();
 
-      var url = '/u/resources';
-      if (data.type) {
-        url += '/' + data.type;
-      }
-      if (data.page) {
-        url += '?page=' + data.page;
-      }
       $http({
         method: 'GET',
-        url: url
+        url: '/u/resources',
+        params: data
       }).success(function(res) {
         dfr.resolve(res);
       }).error(function(err) {

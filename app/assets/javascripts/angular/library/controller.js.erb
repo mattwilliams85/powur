@@ -7,6 +7,10 @@ function LibraryCtrl($scope, $location, Resource) {
   $scope.resourceType = $scope.resourceTypes[0];
 
   $scope.showResource = function(item) {
+    // adding source on click to avoid preloading all videos on init page show
+    if (item.properties.file_type === 'video/mp4') {
+      $('#item_' + item.properties.id + ' video').html('<source src="' + item.properties.file_original_path + '" type="video/mp4">');
+    }
     var html = $('#item_' + item.properties.id).html();
     $('<div class=\'reveal-modal library-modal\' data-reveal>' + html + '<a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
     $(document).foundation();
