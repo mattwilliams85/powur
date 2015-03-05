@@ -1312,7 +1312,7 @@ $xl-screen: em-calc(1500);
   &.sun-our-team-page {
     font-size:2em;
     @media #{$small} { 
-      font-size: 0em;
+      font-size: 1em;
     }
     .sun-our-team-bg {
       background-image: image-url("promo/brown-grass.jpg");
