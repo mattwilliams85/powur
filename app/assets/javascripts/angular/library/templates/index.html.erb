@@ -65,7 +65,7 @@
   </div>
   <div class="row" ng-if="(pages.page_count >= 2)">
     <div class="load-more" ng-if="(pages.current_page !== pages.page_count)">
-      <a ng-click="resourcePageChange(pages.current_page + 1)">Load More</a>
+      <a class="button" ng-click="resourcePageChange(pages.current_page + 1)">Load More</a>
     </div>
   </div>
 </main>
