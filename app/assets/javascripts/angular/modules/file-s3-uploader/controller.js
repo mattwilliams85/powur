@@ -14,6 +14,8 @@ function FileS3UploaderCtrl($scope, S3UploaderService) {
     }
     S3UploaderService.getCredentials($scope.file.type, $scope.mode).then(function(creds) {
       that.uploadToS3($scope, creds);
+    }, function() {
+      alert("We can't upload this file. Please check the file type and try again.");
     });
   };
 
