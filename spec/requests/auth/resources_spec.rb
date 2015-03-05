@@ -5,6 +5,8 @@ describe 'GET /u/resources' do
     let!(:user) { login_user }
 
     before do
+      allow(user).to receive(:full_name).and_return('Bob')
+      allow_any_instance_of(Resource).to receive(:user).and_return(user)
       create_list(:resource, 2)
       create(:resource, is_public: false)
     end
@@ -35,14 +37,19 @@ describe 'GET /u/resources' do
   end
 end
 
-describe 'GET /u/resources/videos' do
+describe 'get filtered resources' do
   let!(:user) { login_user }
-  let!(:video_resource) { create(:resource, file_type: 'video/mp4') }
-  let!(:document_resource) { create(:resource, file_type: 'application/pdf') }
+  let!(:video_resource) { create(:resource, file_original_path: 'file.mp4') }
+  let!(:document_resource) { create(:resource, file_original_path: 'file.pdf') }
   let!(:unpublished_resource) { create(:resource, is_public: false) }
 
-  it 'returns json data' do
-    get videos_resources_path, format: :json
+  before do
+    allow(user).to receive(:full_name).and_return('Bob')
+    allow_any_instance_of(Resource).to receive(:user).and_return(user)
+  end
+
+  it 'returns video resource json data' do
+    get resources_path(type: 'videos'), format: :json
 
     expect_entities_count(1)
     expect_props(
@@ -55,16 +62,9 @@ describe 'GET /u/resources/videos' do
     )
     expect(JSON.parse(response.body)['entities'][0]['properties']['id']).to eq(video_resource.id)
   end
-end
 
-describe 'GET /u/resources/documents' do
-  let!(:user) { login_user }
-  let!(:video_resource) { create(:resource, file_type: 'video/mp4') }
-  let!(:document_resource) { create(:resource, file_type: 'application/pdf') }
-  let!(:unpublished_resource) { create(:resource, is_public: false) }
-
-  it 'returns json data' do
-    get documents_resources_path, format: :json
+  it 'returns document resource json data' do
+    get resources_path(type: 'documents'), format: :json
 
     expect_entities_count(1)
     expect_props(

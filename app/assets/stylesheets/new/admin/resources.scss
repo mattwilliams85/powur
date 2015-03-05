@@ -1,0 +1,68 @@
+.sun-admin-resources {
+  margin-top: 0;
+  padding-top: 210px;
+  padding-bottom: 50px;
+
+  @media #{$small} {
+    padding-top: 140px;
+  }
+
+  .admin-resources-list-item {
+    border-top: 1px dashed #000;
+    padding: 10px 0;
+    color: #ccc;
+
+    h5 {
+      color: #ccc;
+    }
+
+    &.active {
+      color: $header-font-color;
+
+      h5 {
+        color: $header-font-color;
+      }
+    }
+
+    .manage-link {
+      float: right;
+      margin-left: 10px;
+    }
+
+    .top-info {
+      margin-bottom: 10px;
+      .info {
+        color: #ccc;
+      }
+    }
+
+    .item-image {
+      max-width: 250px;
+    }
+  }
+
+  .resource-form {
+    .button {
+      margin: 20px 20px 0 0;
+    }
+
+    label {
+      display: inline-block;
+      line-height: 1em;
+    }
+
+    textarea {
+      min-height: 200px;
+    }
+
+    .file-s3-uploader-wrapper {
+      margin-bottom: 20px;
+    }
+  }
+
+  .pagination {
+    .prev {
+      margin-right: 20px;
+    }
+  }
+}

@@ -4,7 +4,6 @@ FactoryGirl.define do
     title 'Title'
     description 'Description'
     file_original_path 'http://eyecuelab.com/doc.pdf'
-    file_type 'application/pdf'
     is_public true
   end
 end

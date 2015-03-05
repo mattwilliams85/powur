@@ -1,11 +1,14 @@
 module Admin
   class ResourcesController < AdminController
     page
+    sort id:  { id: :desc }
 
     before_action :find_resource, only: [ :show, :destroy, :update ]
 
     def index
-      @resources = apply_list_query_options(Resource)
+      scope = Resource
+      scope = scope.search(params[:search]) if params[:search].present?
+      @resources = apply_list_query_options(scope)
       render 'index'
     end
 
@@ -13,8 +16,9 @@ module Admin
     end
 
     def create
-      resource = Resource.create(input)
-      if resource.valid?
+      resource = Resource.new(input)
+      resource.user_id = current_user.id
+      if resource.save
         head 200
       else
         render json: { errors: resource.errors.messages }, status: :unprocessable_entity
@@ -23,7 +27,7 @@ module Admin
 
     def update
       @resource.update_attributes(input)
-      if @resource.valid?
+      if @resource.errors.empty?
         head 200
       else
         render json: { errors: @resource.errors.messages }, status: :unprocessable_entity
@@ -38,7 +42,7 @@ module Admin
     private
 
     def input
-      allow_input(:title, :description, :is_public, :file_original_path)
+      allow_input(:title, :description, :is_public, :file_original_path, :image_original_path)
     end
 
     def find_resource

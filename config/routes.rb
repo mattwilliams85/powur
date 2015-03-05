@@ -117,11 +117,9 @@ Rails.application.routes.draw do
                 only:       [ :index, :show ],
                 as:         :user_notifications
 
-    resources :resources, only: [:index, :show] do
-      collection do
-        get :videos, :documents
-      end
-    end
+    resources :resources, only: [:index, :show]
+
+    get 'uploader_config', to: 'uploader_config#show'
   end
 
   # logged in admin routes

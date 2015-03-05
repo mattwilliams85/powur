@@ -1,86 +1,109 @@
-// import the colors
-@import "_mixins";
-
-// _mixins sets the body font size to percentage((32/1.6) / (16)) (= 125%)
-// so we'll reset font size to 100%
-body {
-  font-size: 100% !important;
-}
-
 .powur-library {
   margin-top: 0;
-  padding-top: 210px;
+  padding-top: 200px;
+  padding-bottom: 210px;
 
   @media #{$small} {
     padding-top: 140px;
   }
 
-  .section_header {
-    // padding: 50px 0 20px 0;
-    // border: 0;
+  .hidden {
+    display: none;
+  }
 
-    select{
-      border:1px solid $dev_dark_gray;
-      background-size: 40px 40px;
-      background-color: #fff;
-      height:62px;
-      position:relative;
-      display:inline-flex;
-      float:left;
-      border-radius:0;
-      margin-left:10px;
-    }
+  .bump {
+    padding-bottom: 30px;
+  }
 
-    input[type=search] {
-      border:1px solid $dev_dark_gray;
-      background-size: 40px 40px;
-      background-color: #fff;
-      height:62px;
-      position:relative;
-      display:inline-flex;
-      float:left;
-      border-radius:0;
-      padding-left:30px;
-    }
+  .media-select {
 
-    .section_label {
-      border: 1px solid $dev_dark_gray;
-      background: #fff;
+    .tag {
+      background: $sun-color-blue;
+      width: 60px;
       height: 60px;
+      float: left;
+    }
 
-      .tag{
-        background:$brand;
-        width:60px;
-        height:60px;
-        float:left;
+    select {
+      background-color: #fff;
+      height:60px;
+      position:absolute;
+      display:inline-flex;
+      float: left;
+      left: 75px;
+    }
 
-        img{
-          margin-top:15px;
+  }
+
+  input[type=search] {
+    border:1px solid $dev_dark_gray;
+    background-size: 40px 40px;
+    background-color: #fff;
+    height:60px;
+    position:relative;
+    display:inline-flex;
+    float: right;
+    border-radius:0;
+    padding-left:30px;
+  }
+
+  .resource {
+    height: 220px;
+    background: #fff;
+    border: 1px solid $dev_dark_gray;
+    color: #333;
+
+    .media-info {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      text-align: center;
+
+      .media-thumbnail {
+        justify-content: center;
+        margin: 2em auto;
+        overflow: hidden;
+        height: 125px;
+        .thumbnail-image {
+          // width: 200px;
         }
       }
 
-      .text{
-        height:40px;
-        padding:10px;
-        padding-right:20px;
-        text-transform:uppercase;
-        font-weight:bold;
-        font-size:14px;
-        line-height:42px;
+      .text {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        bottom: 30px;
+        width: 100%;
       }
     }
   }
-  .thumbnail {
-    height: 220px;
-    background: $dev_dark_gray;
-    border: 1px solid #fff;
+
+  .resource:hover{
+    cursor: pointer;
   }
 
-  .hidden {
-    display: none;
-    height: 220px;
-    width: 100%;
-    background: blue;
+  .pdf-download {
+    position: absolute;
+    bottom: 0;
   }
 
+}
+
+.pdf-preview {
+  display: flex;
+  justify-content: center;
+  top: 0;
+  padding-bottom: 20px;
+
+  img {
+    width: auto;
+    height: auto;
+  }
+}
+
+.load-more {
+  width: 100%;
+  text-align: center;
+  margin-top: 2em;
 }

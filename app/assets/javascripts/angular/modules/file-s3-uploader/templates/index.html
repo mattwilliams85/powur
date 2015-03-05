@@ -1,0 +1,5 @@
+<div class="file-s3-uploader-wrapper">
+  <input type='file' onchange='angular.element(this).scope().filesChanged(this)' class='fa-file-input' />
+  <a ng-click="upload()" class="small button success" ng-if='readyToUpload'>upload</a>
+  <div class="progress success round" ng-if='showProgressBar'><span class="meter" style='width: {{uploadPercent}}%'></span></div>
+</div>

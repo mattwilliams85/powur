@@ -24,10 +24,9 @@ $xl-screen: em-calc(1500);
     }
   }
 
-  //For Mobile
   h1 {
-    font-size:30pt;
-    line-height:30pt;
+    font-size:50pt;
+    line-height:50pt;
     @media #{$small}{
       font-size:60pt;
       line-height:50pt;
@@ -57,7 +56,6 @@ $xl-screen: em-calc(1500);
       line-height:15pt;
     }
   }
-  //end
 
   .sun-promo-intro {
     position: absolute;
@@ -79,8 +77,8 @@ $xl-screen: em-calc(1500);
     h1 {
       color: #fff;
       // width:750px;
-      font-size:2em;
-      font-weight: bold;
+      font-size:4.5rem;
+      font-weight: 600;
       text-transform: uppercase;
 
       .highlight-1, &.highlight-1 {
@@ -92,15 +90,15 @@ $xl-screen: em-calc(1500);
         color: $sun-color-orange;
         display:inline;
       }
-
-      @media #{$large} {
-        font-size: 4em;
-        width:100%;
-      }
       @media #{$small} {
-        font-size: 3em;
+        font-size: 45pt;
         width:100%;
       }
+      @media #{$large} {
+        font-size: 50pt;
+        width:100%;
+      }
+      
     }
 
     p {
@@ -123,13 +121,18 @@ $xl-screen: em-calc(1500);
       }
 
       &.watch {
-        background-image: image-url("promo/play-icon.png");
+        background-image: none;
         background-repeat: no-repeat;
         background-color: $sun-color-blue;
-        font-size: 1em;
+        font-size: 3em;
+        padding: 20px 50px;
+         @media #{$small} {
+          background-image: image-url("promo/play-icon.png");
+           font-size: 1em;
+           padding: 0 20px 0 70px;
+         }
         background-position: 20px center;
         line-height: 70px;
-        padding: 0 20px 0 70px;
 
       }
     }
@@ -144,7 +147,7 @@ $xl-screen: em-calc(1500);
     }
 
     h1, h2 {
-      font-size: 2.3em;
+      font-size: 4.5em;
       font-weight: bold;
       text-transform: uppercase;
       line-height: 1em;
@@ -211,7 +214,10 @@ $xl-screen: em-calc(1500);
   }
 
   .sun-promo-dim {
-    padding-top:90px;
+    padding-top:150px;
+    @media #{$small} {
+      padding-top:90px;
+    }
     @media #{$large} {
       padding-top:150px;
     }
@@ -222,9 +228,9 @@ $xl-screen: em-calc(1500);
     }
 
     .video-player-wrapper {
-      width:330px;
-      height:220px;
-      margin:35px;
+      width: 610px;
+      height: 380px;
+      margin:0 15%;
       background-image: image-url("promo/video-placeholder.jpg");
       background-repeat: no-repeat;
       background-position: center center;
@@ -234,6 +240,8 @@ $xl-screen: em-calc(1500);
         margin:0px;
       }
       @media #{$small} {
+        width:330px;
+        height:220px;
         margin:0px;
       }
     }
@@ -372,15 +380,15 @@ $xl-screen: em-calc(1500);
       background-repeat: no-repeat;
       background-position: left center;
       line-height: 32px;
-      padding-left: 0px;
-      font-size: 32px;
+      padding-left: 40px;
+      font-size: 44px;
       font-weight: bold;
       text-align:center;
       margin:0.2em auto;
       width:240px;
 
       @media #{$small} {
-        padding-left: 40px;
+        font-size: 32px;
         text-align:left;
         margin: 2em 0 .5em 0;
       }
@@ -389,6 +397,7 @@ $xl-screen: em-calc(1500);
     .highlighted {
       color: $sun-color-blue;
       font-size: inherit;
+      display:inline;
     }
   }
 
@@ -430,8 +439,7 @@ $xl-screen: em-calc(1500);
   .sun-promo-slide-5 {
     text-align: center;
 
-    h4, h5 {
-      font-size: 2em;
+    h4, h5 { 
       line-height: 1em;
       text-transform: uppercase;
     }
@@ -440,6 +448,7 @@ $xl-screen: em-calc(1500);
       color: $sun-color-orange;
       font-weight: bold;
       margin-bottom: 2em;
+      font-size: 2em;
     }
 
     h5 {
@@ -493,6 +502,13 @@ $xl-screen: em-calc(1500);
     }
 
     .slide-6-extra {
+      text-align:center;
+      @media #{$small} {
+        text-align:left;
+      }
+      h4, span {
+        text-align:left;
+      }
 
       .button {
         background: $sun-color-green;
@@ -556,22 +572,20 @@ $xl-screen: em-calc(1500);
         line-height:30pt;
       }
     }
+
     .slider-inner { 
-      margin-top:0px !important;
-      @media #{$small} {
-        margin-top:15px;
-      }
+      margin-top:15px !important;
       @media #{$medium} {
         margin-top:25px;
       }
     }
+
     .sun-promo-slider-wrapper { 
-      margin-top:20px;
+      margin-top:60px;
       @media #{$small} {
         margin-top:25px;
       }
     }
-    
   }
 
   .sun-promo-energy-slide-4 {
@@ -579,26 +593,28 @@ $xl-screen: em-calc(1500);
     padding: 0;
     margin-top:5%;
     font-size:1.3em;
-    @media #{$small} {
-      p {
-        font-size:1em;
+    p {
+      font-size:2em;
+      @media #{$small} { 
+        font-size:1em
       }
     }
+      
     .arrow-box {
       z-index:1;
     }
     .fa-chevron-left,  .fa-chevron-right {
       color:#eee;
       position:absolute;
-      top:20%;
+      bottom:-70px;
     }
 
     .fa-chevron-left {
-      left:2%;
+      left:-50px;
     }
 
     .fa-chevron-right {
-      left:67%;
+      left:510px;
     }
 
     .slide-show-dots {
@@ -624,8 +640,14 @@ $xl-screen: em-calc(1500);
       }
 
       .inner-content {
-        margin-left:0;
-        padding-top: 140px;
+        margin-left:50px;
+        padding-top: 200px;
+        width:90%;
+        @media #{$small} {
+          margin-left:0px;
+          padding-top: 140px;
+          width:100%;
+        }
       }
     }
 
@@ -657,10 +679,10 @@ $xl-screen: em-calc(1500);
 
 
   .sun-promo-energy-slide-5 {
-    padding-bottom:30px !important;
-
+    padding-bottom:50px !important;
+  
     h2, .highlight-1 {
-      font-size:2em;
+      font-size:4em;
       text-align:left;
       text-transform:none;
       @media #{$small} {
@@ -673,6 +695,14 @@ $xl-screen: em-calc(1500);
     h4 {
       font-size: 2.2em;
       font-weight: bold;
+    }
+
+    h3 {
+      font-size:2.5em;
+      @media #{$small} {
+        line-height:20pt;
+        font-size:27px;
+      }
     }
 
     h5 {
@@ -694,6 +724,13 @@ $xl-screen: em-calc(1500);
       width: 50px;
     }
 
+    p {
+      font-size:1.5em;
+      @media #{$small} { 
+        font-size:1em;
+      }
+    }
+
     .large-8 {
       width:95%;
       margin-right:2%;
@@ -711,11 +748,17 @@ $xl-screen: em-calc(1500);
   .sun-promo-energy-slide-6 {
     padding-bottom:20px !important;
     text-align:center;
-    @media #{$small} {
-      text-align:left;
+    span {
+      line-height:10pt;
+      @media #{$small} {
+        line-height:16pt;
+      }
     }
     .row {
       width:90%;
+      @media #{$large} {
+        width:95%
+      }
     }
   }
 
@@ -752,7 +795,7 @@ $xl-screen: em-calc(1500);
           background-color: $sun-color-blue;
           color: #000;
           content: '$';
-          font-size: 1.2em;
+          font-size: 1.2rem;
           line-height: 1em;
           left: 9px;
           top: 4px;
@@ -779,20 +822,32 @@ $xl-screen: em-calc(1500);
   .decentralize-icon-wrapper {
     @include landing-sprite(decentralize-icon);
     margin-bottom: 20px;
+    padding-top:20px;
+    @media #{$small} { 
+      padding-top:0px;
+    }
   }
 
   .pocket-wallet-icon-wrapper {
     @include landing-sprite(pocket-wallet-icon);
     margin-bottom: 20px;
+    padding-top:20px;
+    @media #{$small} { 
+      padding-top:0px;
+    }
   }
 
   .pollution-icon-wrapper {
     @include landing-sprite(pollution-icon);
     margin-bottom: 20px;
+    padding-top:20px;
+    @media #{$small} { 
+      padding-top:0px;
+    }
   }
 
   .sun-logo-wrapper {
-    margin:0 0 30px 40px;
+    margin:0 0 20px 40px;
     width:250px;
   }
 
@@ -805,6 +860,34 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-create-wealth-page {
+    p, span {
+      font-size:25pt;
+      line-height:20pt;
+      @media #{$small} {
+        font-size:1.2em;
+        line-height:25pt;
+      }
+    }
+    .sun-promo-intro {
+      h1 {
+        text-shadow: -1px 2px 2px rgba(150, 150, 150, 0.68);
+        @media #{$medium} {
+          font-size:45pt;
+          line-height:40pt;
+        }
+        @media #{$large} {
+          font-size:55pt;
+          line-height:50pt;
+        }
+      }
+
+      p {
+        font-size:2em;
+        @media #{$small} { 
+          font-size:1em;
+        }
+      }
+    }
     .scroll-slide-2 {
       .row {
         width:90%;
@@ -814,7 +897,10 @@ $xl-screen: em-calc(1500);
 
       h2 {
         color:#fff;
-        font-size:1.7em;
+        font-size:3.3em;
+        // @media #{$small} {
+        //   font-size: 2.3em;
+        // }
         @media #{$small} {
           font-size: 2.3em;
         }
@@ -825,7 +911,10 @@ $xl-screen: em-calc(1500);
 
       p {
         margin: 2% 5%;
-        font-size:1em;
+        font-size:2em;
+        @media #{$small} { 
+          font-size:1em;
+        }
       }
 
       h5 {
@@ -834,10 +923,30 @@ $xl-screen: em-calc(1500);
     }
 
     .sun-promo-slide-3 {
+      padding-top:200px;
+      @media #{$small} {
+        padding-top:150px;
+        padding-bottom:20px;
+      }
       h2 {
-        font-size:3em;
+        font-size:4em;
+        @media #{$small} {
+          font-size:3em;
+        }
         @media #{$large} {
           font-size:4em;
+        }
+      }
+      span {
+        font-size:1.5em;
+        @media #{$small} { 
+          font-size:1em;
+        }
+      }
+      h5 {
+        font-size:3em;
+        @media #{$small} {
+          font-size:2em;
         }
       }
     }
@@ -846,14 +955,22 @@ $xl-screen: em-calc(1500);
       text-align:center;
       width:90%;
       padding-bottom:150px;
+      margin-top:100px;
       @media #{$medium} {
         text-align:left;
+      }
+      @media #{$large} {
+        text-align:left;
+        margin-top:0px;
       }
     }
 
     .sun-promo-slide-5 {
       width:90%;
-      padding-bottom:150px;
+      padding-top:100px;
+      @media #{$small} {
+        padding-top:150px;
+      }
     }
 
     .alt-large-6 {
@@ -892,7 +1009,10 @@ $xl-screen: em-calc(1500);
     }
 
     .scroll-slide-3 {
-      height:900px;
+      height:1050px;
+      @media #{$small} {
+        height:900px;
+      }
       position:relative !important;
     }
 
@@ -936,7 +1056,10 @@ $xl-screen: em-calc(1500);
       }
       .fa-chevron-left, .fa-chevron-right {
         position:absolute;
-        top:47%;
+        top:50%;
+        @media #{$small}{
+          top:47%;
+        }
         color:#333;
       }
 
@@ -949,6 +1072,7 @@ $xl-screen: em-calc(1500);
       }
     }
 
+    //why solar
     .sun-bg-5 {
       .icon-placeholder {
         margin-left:0px;
@@ -990,7 +1114,7 @@ $xl-screen: em-calc(1500);
     .slide-2-ico-wrapper {
       height: 50px;
       margin-top: 30px;
-      @media #{$large}{ 
+      @media #{$large}{
         margin-top: 40px;
         height: 100px;
       }
@@ -1045,6 +1169,15 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-why-you-page {
+    .sun-promo-intro {
+      width:85%;
+      @media #{$small}{
+        width:90%;
+        h2 { 
+          line-height:35pt;
+        }
+      }
+    }
     .huge-purpose-image-wrapper {
       height: 200px;
       text-align: center;
@@ -1056,6 +1189,7 @@ $xl-screen: em-calc(1500);
         }
       }
     }
+
 
     .sun-bg-5, .sun-bg-13 {
       .row {
@@ -1096,12 +1230,18 @@ $xl-screen: em-calc(1500);
         position:absolute;
         left:75%;
       }
-      
+
     }
   }
 
   &.sun-our-origin-page {
-    
+    .row {
+      width:90%;
+      @media #{$small} { 
+        width: 100%;
+       }
+    }
+
     .sun-origin-story-bg {
       background-image: image-url("promo/rainforest.jpg");
       background-repeat: no-repeat;
@@ -1141,9 +1281,16 @@ $xl-screen: em-calc(1500);
       &:before {
         color: $sun-color-orange;
         content: open-quote;
-        font-size: 2em;
-        line-height: 1em;
-        margin-right: .5em;
+        font-size: 3rem;
+        line-height: 1rem;
+        margin-right: .4em;
+      }
+      &:after {
+        color: $sun-color-orange;
+        content: close-quote;
+        font-size: 3rem;
+        line-height: 1rem;
+        margin-left: .4em;
       }
     }
 
@@ -1164,6 +1311,10 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-our-team-page {
+    font-size:2em;
+    @media #{$small} { 
+      font-size: 1em;
+    }
     .sun-our-team-bg {
       background-image: image-url("promo/brown-grass.jpg");
       background-repeat: no-repeat;
@@ -1183,7 +1334,10 @@ $xl-screen: em-calc(1500);
     }
 
     .face-wrapper {
-      height: 500px;
+      height: 1000px;
+      @media #{$small} { 
+        height:500px;
+      }
       position: relative;
       overflow: hidden;
       margin-bottom: 40px;
@@ -1194,7 +1348,10 @@ $xl-screen: em-calc(1500);
 
       .face-mask {
         width: 100%;
-        height: 500px;
+        height: 1000px;
+        @media #{$small} { 
+          height:500px;
+        }
         position: absolute;
         text-align: center;
         line-height: 2em;
@@ -1213,8 +1370,10 @@ $xl-screen: em-calc(1500);
           color: #fff;
           display: none;
           margin: 20px;
-          font-size: .7em;
-          line-height: 2em;
+          
+          font-size: .9em;
+          text-align:left;
+          line-height: 1.5em;
           font-weight: normal;
         }
       }
@@ -1237,10 +1396,40 @@ $xl-screen: em-calc(1500);
 
   &.sun-our-dna-page {
     h1 {
-      font-size:3em;
+      font-size:3.5em;
     }
     .row {
       width:90%;
+    }
+    .dna-slide-1 {
+      font-size:2em;
+      @media #{$small} { 
+      }
+    }
+    .dna-slide-2 {
+      padding-top:150px;
+      .sun-promo-content {
+        font-size:1.5rem;
+        @media #{$medium}{
+          font-size:1.5rem;
+        }
+        @media #{$large}{
+          font-size:1.5rem;
+        }
+      }
+    }
+
+    .dna-slide-2 {
+    }
+
+    .sun-bg-20 {
+      p {
+        font-size:1.2em;
+        @media #{$small} {
+          font-size:1.5em;
+        }
+        
+      }
     }
 
     .normal-case {
@@ -1298,36 +1487,78 @@ $xl-screen: em-calc(1500);
   &.sun-why-direct-page {
     .slide-2 {
       padding:0 7%;
+      p {
+        line-height:15pt;
+        @media #{$small} {
+          line-height:20pt;
+        }
+      }
     }
     .large-6 {
       padding-right:5%;
     }
-    @media #{$large} {
-      .slide-2 {
-        padding:0%;
+    
+    .slide-2 {
+      .sun-promo-content {
+        padding-top:50px;
       }
     }
+    
+    //why direct
     .sun-bg-5 {
       .row {
         width:90%;
       }
     }
-    .image_1, .image_2 {
+    .image {
       display:none !important;
       @media #{$small} {
         display:inline-block !important;
       }
     }
+    .image_1, .image_2 {
+      @media #{$small} {
+        display:inline-block !important;
+      }
+    }
     .image_0 {
+      display:none !important;
       margin-left:33%;
       @media #{$small} {
         margin-left:0%;
+        display:inline-block !important;
       }
     }
     .slide-show-dots {
       left:40%;
       @media #{$small} {
         left:0;
+      }
+    }
+
+    .outer-wrapper {
+      position:relative;
+    }
+
+    .fa-chevron-left, .fa-chevron-right {
+      top:150px;
+      @media #{$small} {
+        top:50px !important;
+      }
+    }
+    .fa-chevron-left {
+      left:21% !important;
+      @media #{$small} {
+        left:38% !important;
+      }
+    }
+    .fa-chevron-right {
+      left:70% !important;
+      @media #{$small} {
+        left:85% !important;
+      }
+      @media #{$large} {
+        left:82% !important;
       }
     }
   }
@@ -1383,20 +1614,37 @@ $xl-screen: em-calc(1500);
     .sun-promo-content {
       padding-top:90px;
       @media #{$small} {
-        padding-top:150px;
+        padding-top:120px;
       }
     }
     .icon-placeholder {
       height: 150px;
-      margin-left:35%;
+      margin-left:45%;
       @media #{$small} {
-        margin-left:0px;
+        margin-left:35%;
       }
     }
 
     h3 {
-      font-size: 1.8em;
+      font-size: 3.5em;
       font-weight: bold;
+      margin-bottom:1.5em;
+      @media #{$small} {
+        font-size: 1.4em;
+        margin-bottom:0;
+      }
+      @media #{$large} {
+        font-size: 1.8em;
+      }
+    }
+    span {
+      font-size: 1.1em;
+      @media #{$small} {
+        font-size: 1.1em;
+      }
+      @media #{$large} {
+        font-size: 1.4em;
+      }
     }
   }
 
@@ -1422,11 +1670,18 @@ $xl-screen: em-calc(1500);
 
     h5 {
       color: $sun-color-orange;
-      font-size: 1.5em;
+      font-size: 2.5em;
+      @media #{$small} { 
+        font-size:1.5em;
+      }
     }
 
     p {
+      font-size:1.5em;
       color: #fff;
+      @media #{$small} { 
+        font-size:1em;
+      }
     }
   }
 
@@ -1452,6 +1707,10 @@ $xl-screen: em-calc(1500);
       color: #fff;
       text-transform: uppercase;
       font-size: 2em;
+    }
+
+    .highlight-2 {
+      font-weight:600;
     }
 
     p {
@@ -1490,14 +1749,19 @@ $xl-screen: em-calc(1500);
 
   .sun-bg-15 {
     background-image: image-url("promo/bg-15.jpg");
-
+    .row {
+      width:85%;
+      @media #{$medium} {
+        width:90%;
+      }
+    }
     .slide-show-dots {
       bottom:0px;
     }
 
     .fa-chevron-left, .fa-chevron-right {
       position:absolute;
-      top:32%;
+      bottom:-70px;
       color:#ccc;
     }
 
@@ -1555,8 +1819,17 @@ $xl-screen: em-calc(1500);
     background-image: image-url("promo/bg-19.jpg");
     background-color: #fff;
 
-    h1 { 
+    h1 {
       text-align:center;
+      margin-left:0px;
+      @media #{$small} {
+        font-size:50pt;
+        text-align:left;
+        margin-left:100px;
+      }
+      @media #{$large} {
+        margin-left:50px;
+      }
       width:100%;
     }
 

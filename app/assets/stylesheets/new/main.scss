@@ -42,17 +42,23 @@ html, body {
 
   .fa-chevron-down {
     display:block;
-    font-size:2em;
+    font-size:3em;
+    @media #{$small} {
+      font-size: 2em;
+    }
     @media #{$large} {
       font-size: 2.3em;
     }
   }
 
   span {
-    font-size:1.5rem;
+    font-size:23pt!important;
     font-weight:800;
+    @media #{$small} {
+      font-size: 1.5rem !important;
+    }
     @media #{$large} {
-      font-size: 2rem;
+      font-size: 2rem !important;
     }
   }
 }
@@ -104,13 +110,20 @@ html, body {
   }
 
   .sun-buttons-wrapper {
-    margin-top: 3em;
+    margin-top: 5em;
+    @media #{$small} {
+      margin-top: 3em;
+    }
 
     .button {
       background: $sun-color-green;
       text-transform: uppercase;
-      margin-right: 1em;
-      font-size:2em;
+      margin-right: .5em;
+      font-size:4em;
+      @media #{$small} {
+        font-size:2em;
+        margin-right: 1em;
+      }
 
       &.sun-button-solid:hover{
         background:#20B552;
@@ -147,6 +160,11 @@ input {
   &.radius {
     @include radius($input-border-radius);
   }
+}
+
+// to prevent modals from loading out of view when the user scrolls:
+.library-modal {
+  position: fixed;
 }
 
 .sun-modal {
@@ -214,4 +232,49 @@ input {
     display:none !important;
     visibility:hidden !important;
   }
+}
+
+select.powur-select {
+  // Mixins
+  display: block;
+  vertical-align: baseline;
+  font-size: 12pt;
+  line-height: 32px / 2;
+  text-transform: uppercase;
+  font-family: 'Varela Round', sans-serif;
+  border-radius: 0;
+
+  // Box properties
+  margin:0 4px 0 0;
+  margin-bottom: 8px;
+  padding-right: 56px;
+  padding-left: 10px;
+  width: auto;
+  float: left;
+
+  // Background & borders
+  background-image: image-url('select_arrow.svg') ;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+  background-origin: padding-box;
+  background-color: rgba(0,0,0,.08);
+  border: 1px solid rgba(0,0,0,.08);
+
+  // Typography
+  color: lighten(#444, 34%);
+  text-indent: 0.01px;
+  text-overflow: "";
+
+  // Other
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+select::-ms-expand {
+    display: none;
 }

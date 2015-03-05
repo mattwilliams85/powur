@@ -7,6 +7,7 @@ var _dashboard;
 var kpiType = '';
 var selectedUser = {}; //Tracks selected user during downline exploration
 var place_mode = false;
+var _abortDrillDown =false;
 
 $(window).bind('page:change', function() {
   initPage();
@@ -28,7 +29,7 @@ function initPage(){
     }
     _myID = _data.root.properties.id;
     _dashboard = new Dashboard();
-    _dashboard.displayGoals();
+    // _dashboard.displayGoals();
     _dashboard.displayTeam();
     _dashboard.displayQuotes();
     _dashboard.displayKPIs();
@@ -55,7 +56,7 @@ function Dashboard(){
   this.displayTeam = displayTeam;
 
   this.displayQuotes = displayQuotes;
-  this.displayGoals = displayGoals;
+  // this.displayGoals = displayGoals;
   this.displayKPIs = displayKPIs;
   this._countdown = _countdown;
 
@@ -117,107 +118,107 @@ function Dashboard(){
       $(this).css("font-size", _newWidth+"pt");
     });
     $("#header-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.organic_rank])
-    $(".aw-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.next_rank]) 
+    $(".aw-badge").attr("src",badgeImagesArray[_data.currentUser.goals.properties.next_rank])
 
   }
 
-  function displayGoals(path){
-    // return;
-    // hook up the control for changing paths
-    $("#pay_period_goal_path").on("change", function(e){
-      $("#goal_meters .labels, #goal_meters .highlight").html("");
-        displayGoals($(this).val());
-    });
+  // function displayGoals(path){
+  //   // return;
+  //   // hook up the control for changing paths
+  //   $("#pay_period_goal_path").on("change", function(e){
+  //     $("#goal_meters .labels, #goal_meters .highlight").html("");
+  //       displayGoals($(this).val());
+  //   });
 
-    var goals={};
-    goals.sales={
-      personal:{
-        min:0,
-        max:0,
-        current:0,
-      },
-      group:{
-        min:0,
-        max:0,
-        current:0
-      }
-    }
+  //   var goals={};
+  //   goals.sales={
+  //     personal:{
+  //       min:0,
+  //       max:0,
+  //       current:0,
+  //     },
+  //     group:{
+  //       min:0,
+  //       max:0,
+  //       current:0
+  //     }
+  //   }
 
-    //populate path dropdown
-    if(typeof path === "undefined"){
-      goals.paths=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].properties.paths;
-      $("#pay_period_goal_path").html("");
-      goals.paths.forEach(function(path){
-        $("#pay_period_goal_path").append("<option value="+path+">Path: "+path+"</option>");
-      });
-    }
+  //   //populate path dropdown
+  //   if(typeof path === "undefined"){
+  //     goals.paths=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].properties.paths;
+  //     $("#pay_period_goal_path").html("");
+  //     goals.paths.forEach(function(path){
+  //       $("#pay_period_goal_path").append("<option value="+path+">Path: "+path+"</option>");
+  //     });
+  //   }
 
 
-    goals.rank={
-      pay_as_rank:_data.currentUser.goals.properties.pay_as_rank,
-      next_rank:_data.currentUser.goals.properties.pay_as_rank+1
-    }
+  //   goals.rank={
+  //     pay_as_rank:_data.currentUser.goals.properties.pay_as_rank,
+  //     next_rank:_data.currentUser.goals.properties.pay_as_rank+1
+  //   }
 
-    goals.next_rank=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].entities[goals.rank.next_rank-1];
-    if(goals.rank.pay_as_rank>1){
-      goals.current_rank=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].entities[goals.rank.pay_as_rank-1];
-    }
+  //   goals.next_rank=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].entities[goals.rank.next_rank-1];
+  //   if(goals.rank.pay_as_rank>1){
+  //     goals.current_rank=EyeCueLab.JSON.getObjectsByPattern(_data.currentUser.goals, {"containsIn(class)":["ranks", "list"]})[0].entities[goals.rank.pay_as_rank-1];
+  //   }
 
-    goals.next_rank.qualifications=_getObjectsByCriteria(goals.next_rank, {path:$("#pay_period_goal_path").val()});
+  //   goals.next_rank.qualifications=_getObjectsByCriteria(goals.next_rank, {path:$("#pay_period_goal_path").val()});
 
-    var displayPrimaryProduct={
-      id:1, /* this is hardcoded for the sunrun solar item, this what will be displayed in the bars */
-      name:"SunRun Solar Item"
-    }
+  //   var displayPrimaryProduct={
+  //     id:1, /* this is hardcoded for the sunrun solar item, this what will be displayed in the bars */
+  //     name:"SunRun Solar Item"
+  //   }
 
-    //setup current personal and group sales total
-    var sales = _getObjectsByCriteria(_data.currentUser.order_totals, {product:displayPrimaryProduct.name})[0];
-    if(typeof sales !=="undefined"){
-      goals.sales.personal.current=sales.personal;
-      goals.sales.group.current=sales.group;
-    }
-    //setup the max
-    goals.next_rank.qualifications.forEach(function(qualification){
-      if(qualification.product_id==displayPrimaryProduct.id){
-        $("#dashboard_personal_goals .product").html("Product: "+qualification.product);
-        switch(qualification.type_display.toLowerCase()){
-          case "personal sales":
-            goals.sales.personal.max=qualification.quantity;
-            $("#dashboard_personal_goals .personal_sales").html("Personal "+qualification.time_period+" sales");
-            if(goals.sales.personal.current>goals.sales.personal.max) goals.sales.personal.current = goals.sales.personal.max
-          break;
+  //   //setup current personal and group sales total
+  //   var sales = _getObjectsByCriteria(_data.currentUser.order_totals, {product:displayPrimaryProduct.name})[0];
+  //   if(typeof sales !=="undefined"){
+  //     goals.sales.personal.current=sales.personal;
+  //     goals.sales.group.current=sales.group;
+  //   }
+  //   //setup the max
+  //   goals.next_rank.qualifications.forEach(function(qualification){
+  //     if(qualification.product_id==displayPrimaryProduct.id){
+  //       $("#dashboard_personal_goals .product").html("Product: "+qualification.product);
+  //       switch(qualification.type_display.toLowerCase()){
+  //         case "personal sales":
+  //           goals.sales.personal.max=qualification.quantity;
+  //           $("#dashboard_personal_goals .personal_sales").html("Personal "+qualification.time_period+" sales");
+  //           if(goals.sales.personal.current>goals.sales.personal.max) goals.sales.personal.current = goals.sales.personal.max
+  //         break;
 
-          case "group sales":
-            goals.sales.group.max=qualification.quantity;
-            $("#dashboard_personal_goals .group_sales").html("Group "+qualification.time_period+" sales");
-            if(goals.sales.group.current>goals.sales.group.max) goals.sales.group.current = goals.sales.group.max
-          break;
-        }
-      }
-    });
+  //         case "group sales":
+  //           goals.sales.group.max=qualification.quantity;
+  //           $("#dashboard_personal_goals .group_sales").html("Group "+qualification.time_period+" sales");
+  //           if(goals.sales.group.current>goals.sales.group.max) goals.sales.group.current = goals.sales.group.max
+  //         break;
+  //       }
+  //     }
+  //   });
 
-    Object.keys(goals.sales).forEach(function(_key){
-      var _section_width=$("#"+_key+"_sales .labels").width();
-      var notches={};
-      notches.total=goals.sales[_key].max-goals.sales[_key].min;
-      notches.width=Math.ceil(_section_width/notches.total);
-      notches.min=goals.sales[_key].min;
-      notches.max=goals.sales[_key].max-1;
-      notches.current = goals.sales[_key].current;
-      for(var i=notches.min; i<=notches.max;i++){
-        var _counter = (i<10)?"0"+i:i;
-        var _maxCounter = (notches.max+1<10)?"0"+(notches.max+1):(notches.max+1);
-        var _html=  "<div class='notch' style='width:"+((1/notches.total)*100)+"%;'>";
-        _html+= "<span>"+_counter+"</span><div></div>";
-        if(i<notches.max)_html+=  "</div>";
-        else _html+= "<span class='last_notch'>"+_maxCounter+"</span><div class='last_notch'></div></div>"
-        $("#"+_key+"_sales .labels").append(_html);
-      }
-      $("#"+_key+"_sales .highlight").animate({width:(((notches.current-notches.min)/notches.total*100)+"%")}, 1000)
-    });
-    $("#dashboard_personal_goals .next_rank").html("Next Rank: "+goals.rank.next_rank);
+  //   Object.keys(goals.sales).forEach(function(_key){
+  //     var _section_width=$("#"+_key+"_sales .labels").width();
+  //     var notches={};
+  //     notches.total=goals.sales[_key].max-goals.sales[_key].min;
+  //     notches.width=Math.ceil(_section_width/notches.total);
+  //     notches.min=goals.sales[_key].min;
+  //     notches.max=goals.sales[_key].max-1;
+  //     notches.current = goals.sales[_key].current;
+  //     for(var i=notches.min; i<=notches.max;i++){
+  //       var _counter = (i<10)?"0"+i:i;
+  //       var _maxCounter = (notches.max+1<10)?"0"+(notches.max+1):(notches.max+1);
+  //       var _html=  "<div class='notch' style='width:"+((1/notches.total)*100)+"%;'>";
+  //       _html+= "<span>"+_counter+"</span><div></div>";
+  //       if(i<notches.max)_html+=  "</div>";
+  //       else _html+= "<span class='last_notch'>"+_maxCounter+"</span><div class='last_notch'></div></div>"
+  //       $("#"+_key+"_sales .labels").append(_html);
+  //     }
+  //     $("#"+_key+"_sales .highlight").animate({width:(((notches.current-notches.min)/notches.total*100)+"%")}, 1000)
+  //   });
+  //   $("#dashboard_personal_goals .next_rank").html("Next Rank: "+goals.rank.next_rank);
 
-  }
+  // }
 
   function displayTeam(_tab, params){
     if(_tab === undefined ) _tab="team.everyone";
@@ -233,10 +234,13 @@ function Dashboard(){
     //wire up invitations listing hook
     $(".js-invites_thumbnail").on("click", function(e){
       e.preventDefault();
-      $(this).closest('.team_info').css("border-bottom","0px")
+
       var _thisThumbnail = $(e.target).parents(".js-invites_thumbnail");
+      _closeTeamDrilldown(_thisThumbnail)
       if(_thisThumbnail.find("span.expand i").hasClass('fa-angle-up')){
-        _thisThumbnail.closest('.team_info').css("border-bottom","1px solid #ccc")
+        _thisThumbnail.closest('.team_info').css("border-bottom","0px solid #ccc")
+      } else {
+        $(this).closest('.team_info').css("border-bottom","0px")
       }
       _drillDown({"_type":"invitations",
             "_mainSectionID":$(e.target).parents("section").attr("id"),
@@ -436,8 +440,8 @@ function Dashboard(){
       if((parseInt(_pagination_content.css("width"))+parseInt(_pagination_content.css("left"))-_pagination_width)<=0) return;
       _pagination_content.animate({"left":"-="+_pagination_width+"px"});
     }
-    _pagination_content.find(".js-thumbnail").css("opacity","1")
-    _pagination_content.find('.active_tab').velocity({translateY:'0'},300).removeClass('active_tab')
+    // _pagination_content.find(".js-thumbnail").css("opacity","1")
+
     $('.team_tab').removeClass("dark darker")
     _closeTeamDrilldown(_thisThumbnail)
   });
@@ -457,9 +461,9 @@ function Dashboard(){
   //main function that handles adding different types of drilldowns in different areas of the dashboard
   //the _options has options for the drilldown
   function _drillDown(_options){
-    var _abortDrillDown =false;
-
+    _abortDrillDown = false;
     _collapseDrillDown(_options);
+
     if(_abortDrillDown) {
       _options._target.closest(".dashboard_section").find(".js-thumbnail").animate({"opacity":"1"})
       return;
@@ -1137,7 +1141,7 @@ function Dashboard(){
 
   //JQUERY Events for placement
   function _linkEvents(){
-    var action = _data.currentUser.actions[0] 
+    var action = _data.currentUser.actions[0];
     var thisLink = $('.fa-link.active_link')
     var thisThumbnail = thisLink.closest(".team_thumbnail")
     thisThumbnail.find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png")
@@ -1187,58 +1191,70 @@ function Dashboard(){
 
   function _collapseDrillDown(_options){
        //set up context for what's being clicked
-       var _currentLevelSectionObj=_options._target.closest("section");
-       var _drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
-       var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
-       var _thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
-       var _drillDownDepth = _topLevelSectionObj.children("section").length;
+     var _currentLevelSectionObj=_options._target.closest("section");
+     var _drillDownFocusLevel=_currentLevelSectionObj.attr("data-drilldown-level")*1;
+     var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
+     var _thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
+     var _drillDownDepth = _topLevelSectionObj.children("section").length;
 
-       if(_thisThumbnail.length === 0) _thisThumbnail = _options._target
-        _currentLevelSectionObj.find(".active").removeClass("active")
-        if(_options._target.hasClass("js-link_user")) _options._target.toggleClass("active")
-        _thisThumbnail.toggleClass('active')
-        _thisThumbnail.find(".js-thumbnail").toggleClass('active')
+     // if(_thisThumbnail.length === 0 || _options._target.hasClass('team_tab')) _thisThumbnail = _options._target
+     if(_options._target.hasClass("js-link_user")) _options._target.toggleClass("active").find('')
 
-       //fade all other "unfocused" thumbnail out
-       // for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
-       //   if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
-       //     var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
-       //     if(_neighborThumbnail .hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":".3"}, 300); }
-       //     if(!_neighborThumbnail .hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":"1"}, 300); }
-       //     console.log()
-       //     _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
-       //     _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
-       //   }
-       // }
-
-       $(".level_"+_drillDownFocusLevel).find(".js-thumbnail").not(".active").animate({"opacity":".3"}, 300);
-
+     if(_thisThumbnail.find('.team_tab').hasClass('active_tab')) {
+       _currentLevelSectionObj.find(".active").removeClass('active')
+       _thisThumbnail.find(".js-thumbnail").addClass('active')
        _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
-       _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
-
-       //close any level after the current level
-       for(var i=_drillDownDepth;i>_drillDownFocusLevel;i--){
-           _topLevelSectionObj.find("[data-drilldown-level="+i+"]").remove();
-       }
-
-       //if checking on self collapse everything
-       if(!_thisThumbnail.hasClass('team_thumbnail')){
-          $(".arrow").css("bottom","-20px").hide();
-          $(".section_content").css("border-bottom-width","1px");
-          _thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
-          _thisThumbnail.find("span.expand i").addClass("fa-angle-down");
+       _currentLevelSectionObj.find(".js-thumbnail").not(".active").animate({"opacity":".3"}, 300);
+       _abortDrillDown=false;
+     } else {
+       if (_thisThumbnail.hasClass("active")) {
+          _currentLevelSectionObj.find(".active").removeClass('active')
           _abortDrillDown=true;
+       } else {
+         _currentLevelSectionObj.find(".active").removeClass('active')
+         _thisThumbnail.find(".js-thumbnail").addClass('active')
+         _thisThumbnail.find('.js-thumbnail').animate({opacity:'1'},300)
+         _abortDrillDown=false;
+         if(_options._target.find('.js-link_user').hasClass('active_link')) return
+         _currentLevelSectionObj.find(".js-thumbnail").not(".active").animate({"opacity":".3"}, 300);
+         _thisThumbnail.addClass('active')
+       }
+     }
 
-          _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
-          clearTimeout();
-          return;
+
+
+     // _currentLevelSectionObj.toggleClass('active')
+
+     //fade all other "unfocused" thumbnail out
+     // for(var i=0;i<_currentLevelSectionObj.find(_options._thumbnailIdentifier).length;i++){
+     //   if(i!=_thisThumbnail.index(_options._thumbnailIdentifier)){
+     //     var _neighborThumbnail = $(_currentLevelSectionObj.find(_options._thumbnailIdentifier+":eq("+i+")"));
+     //     if(_neighborThumbnail .hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":".3"}, 300); }
+     //     if(!_neighborThumbnail .hasClass('active')) { _neighborThumbnail.find('.js-thumbnail').animate({"opacity":"1"}, 300); }
+     //     console.log()
+     //     _neighborThumbnail.find("span.expand i").removeClass("fa-angle-up");
+     //     _neighborThumbnail.find("span.expand i").addClass("fa-angle-down");
+     //   }
+     // }
+      // _thisThumbnail.parents(_options._thumbnailIdentifier).find('.js-thumbnail').animate({opacity:'1'},300)
+
+     //close any level after the current level
+     for(var i=_drillDownDepth;i>_drillDownFocusLevel;i--){
+         _topLevelSectionObj.find("[data-drilldown-level="+i+"]").remove();
+     }
+
+     //if checking on self collapse everything
+     if(!_thisThumbnail.hasClass('team_thumbnail')){
+        $(".arrow").css("bottom","-20px").hide();
+        $(".section_content").css("border-bottom-width","1px");
+        _thisThumbnail.find("span.expand i").removeClass("fa-angle-up");
+        _thisThumbnail.find("span.expand i").addClass("fa-angle-down");
+
+        _currentLevelSectionObj.find(_options._thumbnailIdentifier).animate({"opacity":1},_animation_speed);
+        clearTimeout();
+        return;
        }
 
-       if(_thisThumbnail.hasClass('active')){
-        _abortDrillDown=false;
-       } 
-
-       _thisThumbnail.animate({"opacity":1}, 300);
        _thisThumbnail.find("span.expand i").removeClass("fa-angle-down");
        _thisThumbnail.find("span.expand i").addClass("fa-angle-up");
      }
@@ -1507,6 +1523,7 @@ function Dashboard(){
   });
 
   $(document).on("click", ".js-link_user", function(e){
+
     place_mode = !place_mode
     var thisLink = $(this)
     var thisThumbnail = $(this).closest('.js-team_thumbnail')
@@ -1520,7 +1537,7 @@ function Dashboard(){
     if(!thisLink.hasClass('active_link')) {
       // displayTeam("team.everyone",selectedUser.id)
       _teamDrilldown('team.single', thisLink)
-      
+
       // thisThumbnail.siblings('div').css('visibility','hidden');
 
       //animates each neighbor
@@ -1563,6 +1580,7 @@ function Dashboard(){
   }
 
   function _teamDrilldown(_type, target){
+    if(target.length === 0) return;
     if(target.hasClass("team_tab")) target.addClass('active_tab')
     target.siblings().removeClass('active_tab')
     target.parents().eq(4).css("border-bottom","0px")
@@ -1577,13 +1595,15 @@ function Dashboard(){
   }
 
   function _closeTeamDrilldown(selected){
+
     var _drillDownLevel = selected.closest('.drilldown').attr('data-drilldown-level') || 0
-    $("#dashboard_team").find('.level_'+_drillDownLevel).find('.active_tab').removeClass("dark darker")
+    $('.level_'+_drillDownLevel).find('.active_tab').removeClass("dark darker")
     selected.removeClass('active_tab')
     selected.closest('.js-team_thumbnail').siblings('div').find('.js-thumbnail').animate({opacity:'1'},300)
     var _thisLevel = parseInt(selected.closest('section').attr('data-drilldown-level'))
     var _lastLevel = parseInt($('.drilldown').last().attr('data-drilldown-level'))
     if(_thisLevel == 0) selected.closest('.team_info').css('border','1px solid #E5E5E5')
+    if(selected.hasClass('js-invites_thumbnail'))  $('.level_'+_drillDownLevel).find('.team_tab').velocity({translateY:'0'},300).removeClass('active_tab')
     selected.closest(".dashboard_section").find(".js-thumbnail").animate({"opacity":"1"})
     for(var i=_thisLevel;i < _lastLevel;i++){
       $("#dashboard_team").find('.drilldown.level_'+(i+1)).hide()

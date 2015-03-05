@@ -43,18 +43,13 @@
       &.slide-header {
         width:790px;
       }
-      @media #{$small} {
-        font-size: 4.5em;
-      }
+      font-size:4.5em;
     }
     h3 {
       color: #000;
       width:870px;
       line-height: 1.5em;
-      font-size: 1em;
-      @media #{$small} {
-        font-size: 1.5em;
-      }
+      font-size: 1.5em;
       // text-transform: uppercase;
       // position:absolute;
     }
@@ -63,6 +58,28 @@
     p {
       color: #fff;
       font-size: 1.4em;
+    }
+  }
+
+  .sun-home-content {
+    h4 {
+      width:85%;
+      font-size:40pt !important;
+      line-height:40pt;
+      @media #{$small} {
+        width:60%;
+        font-size:30pt !important;
+        line-height:30pt;
+      }
+      @media #{$large} {
+        width:70%;
+      }
+    }
+    h5 {
+      font-size:3em;
+      @media #{$small} {
+        font-size:1.8em;
+      }
     }
   }
 
@@ -112,6 +129,13 @@
 
    .sun-bg-4 {
      background-image: image-url("landing/bg-3.jpg");
+     h1 {
+      font-size:6em;
+      line-height:1em;
+      @media #{$small} {
+        font-size:4.5em;
+      }
+     }
      .arrow-box {
       width:240px
      }
@@ -123,42 +147,39 @@
      h1 {
       line-height:1em;
       text-shadow: -1px 2px 2px rgba(150, 150, 150, 0.68);
-      width:75%;
-      @media #{$large} {
-        width:85%;
-      }
+      width:85%;
      }
 
      h3 {
        color:#333;
        text-transform: capitalize;
-       font-size:1.3rem;
+       font-size:1.8rem;
        text-align:left;
-       width:75%;
-       @media #{$large} {
-          font-size:2rem;
-         width:85%;
-       }
-       @media #{$small} {
-         font-size:2rem;
-       }
+       width:85%;
      }
 
      .bulb {
       background-image: image-url("landing/bulb.png");
+      position:absolute;
       height:30px;
       width:20px;
-      position:absolute;
       left:23px;
       bottom:17px;
+      display:none;
+      @media #{$small} {
+        display:inline-block;
+      }
      }
 
      .button {
       background-color:#333;
       color:#fff;
       float:left;
-      font-size:1.4rem;
+      font-size:3rem;
       padding-left:60px;
+      @media #{$small} {
+        font-size:1.4rem;
+      }
      }
    }
 
@@ -188,15 +209,20 @@
     background-image: image-url("landing/bg-6.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    .row {
-      width:90%;
-      @media #{$small} {
-        width:85%;
+      .row {
+        width:90%;
+        @media #{$small} {
+          width:85%;
+        }
       }
-    }
 
     h1 { 
       margin:30pt 0;
+      font-size:5rem;
+      line-height:5rem;
+      @media #{$small} {
+        font-size:4.5rem;
+      }
     }
     .large-10 {
       span {
@@ -275,12 +301,11 @@
     font-size:20pt !important;
     line-height:26pt;
     @media #{$small}{
-      font-size:30pt;
+      font-size:30pt !important;
       line-height:36pt;
     }
   }
   span {
-    font-size:13pt;
     line-height:20pt;
     @media #{$small}{
       font-size:15pt;
