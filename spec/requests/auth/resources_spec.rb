@@ -49,7 +49,7 @@ describe 'get filtered resources' do
   end
 
   it 'returns video resource json data' do
-    get videos_resources_path, format: :json
+    get resources_path(type: 'videos'), format: :json
 
     expect_entities_count(1)
     expect_props(
@@ -64,7 +64,7 @@ describe 'get filtered resources' do
   end
 
   it 'returns document resource json data' do
-    get documents_resources_path, format: :json
+    get resources_path(type: 'documents'), format: :json
 
     expect_entities_count(1)
     expect_props(
