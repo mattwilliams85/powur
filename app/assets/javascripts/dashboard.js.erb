@@ -443,6 +443,7 @@ function Dashboard(){
     // _pagination_content.find(".js-thumbnail").css("opacity","1")
 
     $('.team_tab').removeClass("dark darker")
+    _pagination_content.find('.active_tab').removeClass('active_tab').velocity({translateY: "0px"},{queue: false}, 200)
     _closeTeamDrilldown(_thisThumbnail)
   });
 
