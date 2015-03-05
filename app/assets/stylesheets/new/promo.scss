@@ -1032,7 +1032,7 @@ $xl-screen: em-calc(1500);
   &.sun-why-solar-page {
     h1.highlight-2 {
         font-size:20pt;
-        line-height:10pt;
+        line-height:15pt;
       @media #{$small} {
         font-size: 40pt;
         line-height:30pt;
@@ -1510,25 +1510,25 @@ $xl-screen: em-calc(1500);
         width:90%;
       }
     }
-    .image {
-      display:none !important;
-      @media #{$small} {
-        display:inline-block !important;
-      }
-    }
-    .image_1, .image_2 {
-      @media #{$small} {
-        display:inline-block !important;
-      }
-    }
-    .image_0 {
-      display:none !important;
-      margin-left:33%;
-      @media #{$small} {
-        margin-left:0%;
-        display:inline-block !important;
-      }
-    }
+    // .image {
+    //   display:none !important;
+    //   @media #{$small} {
+    //     display:inline-block !important;
+    //   }
+    // }
+    // .image_1, .image_2 {
+    //   @media #{$small} {
+    //     display:inline-block !important;
+    //   }
+    // }
+    // .image_0 {
+    //   display:none !important;
+    //   margin-left:33%;
+    //   @media #{$small} {
+    //     margin-left:0%;
+    //     display:inline-block !important;
+    //   }
+    // }
     .slide-show-dots {
       left:40%;
       @media #{$small} {

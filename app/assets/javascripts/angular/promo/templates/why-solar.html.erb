@@ -28,7 +28,7 @@
         </div>
 
         <div class="large-12 columns slide-show-wrapper">
-          <div ng-repeat="slide in slides" class="slide-show-inner optional-small" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
+          <div ng-repeat="slide in slides" class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
             <div class="small-4 columns" ng-repeat="slideItem in slide">
               <div class="slide-2-slider-item">
                 <div class="slide-2-ico-wrapper"><div ng-class="slideItem.className"></div></div>
