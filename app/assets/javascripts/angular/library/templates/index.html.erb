@@ -12,7 +12,9 @@
     </div>
 
     <div class="large-4 medium-4 small-6 columns">
-      <!-- <input type="search"></input> -->
+      <form name="searchForm" ng-submit="search()" novalidate>
+        <input ng-model="searchText" type="search"></input>
+      </form>
     </div>
   </div>
 
@@ -65,7 +67,7 @@
   </div>
   <div class="row" ng-if="(pages.page_count >= 2)">
     <div class="load-more" ng-if="(pages.current_page !== pages.page_count)">
-      <a class="button" ng-click="resourcePageChange(pages.current_page + 1)">Load More</a>
+      <a class="button" ng-click="pagination(1)">Load More</a>
     </div>
   </div>
 </main>
