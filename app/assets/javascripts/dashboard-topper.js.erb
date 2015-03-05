@@ -100,6 +100,8 @@ var DashboardTopper = {
           current = 0;
 
           $.each(currentGoals, function(i, goal) {
+            // Remove line below to use multiple products.
+            if(goal.properties.product_id !== 1) return;
             personalProducts[String(goal.properties.product_id)] = goal.properties;
             total += goal.properties.quantity;
           });
@@ -116,7 +118,7 @@ var DashboardTopper = {
           });
           if(current > total) current = total;
           var percentage = (current / total)*100
-
+          
           $('#'+type+'_rooftops_tooltip').text(current+' of '+total+' '+type+' Rooftops');
           $('#'+type+'_rooftops .highlight_container .highlight').animate({'width':percentage+'%'}, 1000);
         }
