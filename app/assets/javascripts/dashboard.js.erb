@@ -428,23 +428,35 @@ function Dashboard(){
 
     var _pagination_content = $(this).siblings(".pagination_content");
     var _thisThumbnail =  _pagination_content.find(".active_tab").closest(".team_thumbnail")
+    var _thisSection = _pagination_content.closest('.pagination_container')
     //animate the content
     var _pagination_width=_data.team_count_per_page*_data.global.thumbnail_size.width;
-
+    var _adjusted_width = (parseInt(_pagination_content.css("width"))+parseInt(_pagination_content.css("left"))-_pagination_width)
     //return if it's already being animated
     if( _pagination_content.filter(':animated').length>0) return;
     if($(this).attr("class").indexOf("left")>=0){
+
+      if((parseInt(_pagination_content.css("left")) + parseInt(_pagination_width)) === 0) {
+        _thisSection.find('.fa-angle-left').hide();
+      }
+
       if(_pagination_content.css("left")=="0px") return;
+      _thisSection.find('.fa-angle-right').show();
       _pagination_content.animate({"left":"+="+_pagination_width+"px"});
     }else{
+      //Hides Right-Arrow
+      if(_adjusted_width <= 1800 && _adjusted_width >= 0) {
+        _thisSection.find('.fa-angle-right').hide();
+      }
       if((parseInt(_pagination_content.css("width"))+parseInt(_pagination_content.css("left"))-_pagination_width)<=0) return;
+      _thisSection.find('.fa-angle-left').show();
       _pagination_content.animate({"left":"-="+_pagination_width+"px"});
     }
-    // _pagination_content.find(".js-thumbnail").css("opacity","1")
 
     $('.team_tab').removeClass("dark darker")
     _pagination_content.find('.active_tab').removeClass('active_tab').velocity({translateY: "0px"},{queue: false}, 200)
     _closeTeamDrilldown(_thisThumbnail)
+
   });
 
   //wire up the tab hooks
