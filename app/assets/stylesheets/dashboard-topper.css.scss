@@ -84,6 +84,7 @@ div.aw-tooltip {
   position: relative;
   right: -38px;
   display: none;
+  white-space: nowrap;
 }
 
 div.aw-tooltip span {
@@ -103,7 +104,7 @@ div.aw-tooltip span {
 div.aw-tooltip span:after {
   content: '';
   position: absolute;
-  left: 50%;
+  left: 10%;
   margin-left: -8px;
   width: 0; 
   height: 0;
