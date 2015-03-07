@@ -480,7 +480,7 @@ jQuery(function($){
         $(".js-admin_dashboard_column.summary").html("");
         $(".js-admin_dashboard_column.detail").css({width:"960px", opacity:0});
         $(".js-admin_dashboard_column.summary").css("display","block");
-        switchCurrentUser(e);
+        _dashboard.switchCurrentUser(e);
         $(".js-admin_dashboard_column.summary, .js-admin_dashboard_column.detail").animate({opacity:1});
       });
     }
