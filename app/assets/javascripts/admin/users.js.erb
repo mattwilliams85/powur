@@ -84,7 +84,7 @@ jQuery(function($){
                   if (data.error) {
                     innerContainer.html('<span class=\'error\'>Oops, error while adding advocate. Please try again later</span>');
                   } else {
-                    innerContainer.html('<span>You\'ve successfully placed an advocate.</span>');
+                    innerContainer.html('<span>You\'ve successfully placed an advocate.</span>' + '<br><a id="place_advocate_form_done" class="button">Done</a>');
                   }
                 },
                 error: function(res) {
@@ -94,8 +94,14 @@ jQuery(function($){
               return false;
             };
 
+            var resetToUsers = function resetToUsers(){
+              _dashboard.displayUsers("#admin-users-init");
+            }
+
             $(document).on("click", "#place_advocate_form_reset", _dashboard.displayPlaceAdvocateForm);
             $(document).on("click", "#place_advocate_form_confirm", confirmCallback);
+            $(document).on("click", "#place_advocate_form_done", resetToUsers);
+
           },
           error: function() {
             innerContainer.html('<span class=\'error\'>Oops, error. Please try different ID</span>');
