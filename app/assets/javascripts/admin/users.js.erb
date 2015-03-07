@@ -94,6 +94,7 @@ jQuery(function($){
               return false;
             };
 
+            $(document).on("click", "#place_advocate_form_reset", _dashboard.displayPlaceAdvocateForm);
             $(document).on("click", "#place_advocate_form_confirm", confirmCallback);
           },
           error: function() {
