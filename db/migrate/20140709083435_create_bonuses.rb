@@ -44,7 +44,6 @@ class CreateBonuses < ActiveRecord::Migration
       t.integer :level, null: false, default: 0
       t.references :rank_path, null: false
       t.decimal :amounts, null: false, array: true, precision: 5, scale: 5, default: []
-      t.references :rank_path
 
       t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
       t.foreign_key :rank_paths

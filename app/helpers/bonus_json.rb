@@ -6,26 +6,25 @@ class BonusJson < JsonDecorator
   end
 
   def item_entities(bonus = @item)
-    entities entity('requirements', 'bonus-requirements', bonus: bonus),
-             entity('bonus_levels', 'bonus-bonus_levels', bonus: bonus)
+    entities entity('bonus_amounts', 'bonus-bonus_amounts', bonus: bonus)
   end
 
   def can_add_level?(bonus)
     !all_ranks.empty? && bonus.can_add_amounts?(all_paths.count)
   end
 
-  def create_level_action(bonus)
-    create_action = action(:create, :post, bonus_levels_path(bonus))
+  def create_amount_action(bonus)
+    create_action = action(:create, :post, bonus_amounts_path(bonus))
     rank_path_field(create_action, bonus)
-    amount_field(create_action, bonus.remaining_percentages(all_ranks.last.id))
+    amount_field(create_action, bonus.remaining_amount)
     create_action
   end
 
-  def update_level_action(bonus_level)
-    update = action(:update, :patch, bonus_level_path(bonus_level))
+  def update_amount_action(bonus_amount)
+    update = action(:update, :patch, bonus_amount_path(bonus_amount))
     amount_field(update,
-                 bonus_level.remaining_percentages(all_ranks.last.id),
-                 bonus_level.normalize_amounts(all_ranks.size))
+                 bonus_amount.bonus.remaining_amount,
+                 bonus_amount.normalize_amounts(all_ranks.size))
     update
   end
 
@@ -45,11 +44,11 @@ class BonusJson < JsonDecorator
       required: false)
   end
 
-  def amount_field(action, max_values, value = nil)
+  def amount_field(action, max, value = nil)
     attrs = {
-      value_type: :dollar_percentage,
+      value_type: :decimal,
       size:       all_ranks.last.id,
-      max_values: max_values }
+      max:        max }
     attrs[:value] = value
     action.field(:amounts, :array, attrs)
   end

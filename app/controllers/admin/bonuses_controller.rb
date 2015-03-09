@@ -38,8 +38,7 @@ module Admin
 
     def input
       allow_input(
-        :name, :schedule, :use_rank_at, :achieved_rank_id, :max_user_rank_id,
-        :min_upline_rank_id, :compress, :flat_amount, :time_period, :time_amount)
+        :name, :schedule, :compress, :time_period, :time_amount)
     end
 
     def bonus_klass

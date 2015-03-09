@@ -1,13 +1,13 @@
 module Admin
-  class BonusLevelsController < AdminController
+  class BonusAmountsController < AdminController
     before_action :fetch_bonus, only: [ :create ]
-    before_action :fetch_bonus_level, except: [ :create ]
+    before_action :fetch_bonus_amount, except: [ :create ]
 
     def create
       error!(:cannot_add_amounts) unless @bonus.can_add_amounts?(all_paths.size)
       clear_level(@bonus.next_bonus_level) unless rank_path_input?
 
-      @bonus_level = @bonus.bonus_levels.create!(
+      @bonus_amount = @bonus.bonus_amounts.create!(
         input.merge(level: @bonus.next_bonus_level))
 
       fill_level if rank_path_input?
@@ -16,13 +16,13 @@ module Admin
     end
 
     def update
-      @bonus_level.update_attributes!(input)
+      @bonus_amount.update_attributes!(input)
 
       render 'show'
     end
 
     def destroy
-      clear_level(@bonus_level.level)
+      clear_level(@bonus_amount.level)
 
       render 'show'
     end
@@ -56,17 +56,17 @@ module Admin
     end
 
     def fetch_bonus
-      @bonus = Bonus.includes(
-        :requirements, :bonus_levels).references(
-        :requirements, :bonus_levels).find(
-        params[:bonus_id].to_i)
+      @bonus = Bonus
+        .includes(:bonus_amounts)
+        .references(:bonus_amounts)
+        .find(params[:bonus_id].to_i)
     end
 
-    def fetch_bonus_level
-      @bonus_level = BonusLevel.where(id: params[:id].to_i).includes(
+    def fetch_bonus_amount
+      @bonus_amount = BonusAmount.where(id: params[:id].to_i).includes(
         :bonus, :rank_path).references(
         :bonus, :rank_path).first
-      @bonus = @bonus_level.bonus
+      @bonus = @bonus_amount.bonus
     end
 
     class << self

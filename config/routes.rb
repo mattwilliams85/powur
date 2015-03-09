@@ -184,9 +184,9 @@ Rails.application.routes.draw do
 
     resources :bonuses, only: [ :index, :destroy, :update, :show ] do
       resources :requirements, only: [ :create, :update, :destroy ]
-      resources :bonus_levels, only: [ :create ], as: :levels
+      resources :bonus_amounts, only: [ :create ], as: :amounts
     end
-    resources :bonus_levels, only: [ :update, :destroy ], as: :bonus_levels
+    resources :bonus_amounts, only: [ :update, :destroy ], as: :bonus_amounts
 
     resources :quotes, only: [ :index, :show ], as: :admin_quotes do
       collection do

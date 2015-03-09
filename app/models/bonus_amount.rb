@@ -1,4 +1,4 @@
-class BonusLevel < ActiveRecord::Base
+class BonusAmount < ActiveRecord::Base
   belongs_to :bonus
   belongs_to :rank_path
 

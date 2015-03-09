@@ -1,0 +1,3 @@
+class CABonus < Bonus
+  
+end

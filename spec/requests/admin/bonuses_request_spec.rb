@@ -3,80 +3,44 @@ require 'spec_helper'
 describe '/a/bonuses' do
 
   before do
-    DatabaseCleaner.clean
     login_user
   end
 
   describe '#index' do
 
     it 'returns a list of bonuses' do
-      bonus_plan = create(:bonus_plan)
-      create_list(:direct_sales_bonus, 3, bonus_plan: bonus_plan)
+      bonus = create(:seller_bonus)
+      create(:ca_bonus, bonus_plan: bonus.bonus_plan)
 
-      get bonus_plan_bonuses_path(bonus_plan), format: :json
+      get bonus_plan_bonuses_path(bonus.bonus_plan), format: :json
 
       expect_classes 'bonuses', 'list'
-      expect_entities_count(3)
+      expect_entities_count(2)
     end
 
   end
 
   describe '#show' do
 
-    it 'returns the bonus detail including requirements' do
-      bonus = create(:bonus_requirement).bonus
+    it 'returns the bonus detail' do
+      bonus = create(:seller_bonus)
       create_list(:rank, 3)
       get bonus_path(bonus), format: :json
 
       expect_classes 'bonus'
-      expect_entities_count(2)
-      expect(json_body['entities'].first['entities'].size).to eq(1)
+      expect_entities_count(1)
     end
 
-    it 'returns an enroller sales bonus' do
-      bonus = create(:enroller_bonus)
-
-      get bonus_path(bonus), format: :json
-
-      expect_classes 'bonus'
+    it 'includes the ca bonus details' do
     end
 
-    it 'returns an unilevel sales bonus' do
-      create_list(:rank, 3)
-      bonus = create(:unilevel_bonus)
-      create(:bonus_requirement, bonus: bonus)
-      create(:bonus_level, bonus: bonus,
-             level: 1, amounts: [ 0.125, 0.125, 0.125, 0.125 ])
-
-      get bonus_path(bonus), format: :json
-
-      expect_classes 'bonus'
-      bonus_levels = json_body['entities'].find do |e|
-        e['class'].include?('bonus_levels')
-      end
-      expect(bonus_levels).to be
-      create = bonus_levels['actions'].find { |a| a['name'] == 'create' }
-      expect(create).to be
+    it 'includes generational bonus details' do
     end
 
-    it 'returns a promote-out bonus' do
-      bonus = create(:promote_out_bonus)
-      create(:bonus_requirement, bonus: bonus)
-      create(:bonus_requirement, bonus: bonus, source: false)
-
-      get bonus_path(bonus), format: :json
-
-      expect_classes 'bonus'
+    it 'includes matching bonus details' do
     end
 
-    it 'returns a differential bonus' do
-      bonus = create(:differential_bonus)
-      get bonus_path(bonus), format: :json
-
-      expect_classes 'bonus'
-    end
-
-    describe 'bonus_level action' do
+    describe 'bonus_amounts action' do
 
       def create_action
         levels = json_body['entities'].find do |e|
@@ -129,18 +93,18 @@ describe '/a/bonuses' do
 
   describe '#create' do
 
-    it 'creates a direct sales bonus' do
+    it 'creates a seller bonus' do
       bonus_plan = create(:bonus_plan)
       post bonus_plan_bonuses_path(bonus_plan),
-           type: 'direct_sales', name: 'foo', format: :json
+           type: 'seller', name: 'foo', format: :json
 
       expect_classes 'bonus'
     end
 
-    it'creates a fast-start bonus' do
+    it'creates a ca bonus' do
       bonus_plan = create(:bonus_plan)
       post bonus_plan_bonuses_path(bonus_plan),
-           type: 'fast_start', name: 'foo', format: :json
+           type: 'cab', name: 'foo', format: :json
 
       expect_classes 'bonus'
     end
@@ -166,32 +130,15 @@ describe '/a/bonuses' do
   describe '#update' do
 
     it 'updates the bonus name' do
-      bonus = create(:direct_sales_bonus)
+      bonus = create(:seller_bonus)
 
       patch bonus_path(bonus), name: 'foo', format: :json
 
       expect(json_body['properties']['name']).to eq('foo')
     end
 
-    it 'updates the min upline rank' do
-      bonus = create(:differential_bonus)
-      rank = create(:rank)
-
-      patch bonus_path(bonus), min_upline_rank_id: rank.id, format: :json
-
-      expect(json_body['properties']['min_upline_rank']).to eq(rank.title)
-    end
-
-    it 'updates the flat amount' do
-      bonus = create(:promote_out_bonus)
-
-      patch bonus_path(bonus), flat_amount: 42.0, format: :json
-
-      expect(json_body['properties']['flat_amount']).to eq('42.0')
-    end
-
     it 'updates the compress flag' do
-      bonus = create(:unilevel_bonus)
+      bonus = create(:generational_bonus)
 
       compress = bonus.compress
       patch bonus_path(bonus), compress: !compress, format: :json

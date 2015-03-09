@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Bonus, type: :model do
   before do
-    DatabaseCleaner.clean
     Product.create!(name: 'Solar Item', bonus_volume: 500)
     Rank.create(id: 1, title: 'Advocate')
     @product = create(:product)
