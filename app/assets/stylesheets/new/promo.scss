@@ -504,12 +504,23 @@ $xl-screen: em-calc(1500);
         text-align:left;
       }
 
+      span {
+        font-size:16pt;
+        @media #{$small} { 
+          font-size:13pt;
+        }
+      }
+
       .button {
         background: $sun-color-green;
-        font-size:1.3em;
+        font-size:3em;
+        padding:20px 60px;
         text-transform: uppercase;
         margin-right: 1em;
-        padding:20px 60px;
+        @media #{$small} { 
+          font-size:1.3em;
+          padding:20px 60px;
+        }
       }
 
       @media #{$large} {
@@ -658,8 +669,10 @@ $xl-screen: em-calc(1500);
         }
         h1 {
           font-size:70pt;
+          text-align:center;
           @media #{$small} { 
-            font-size:40pt;
+            font-size:35pt;
+            text-align:left;
           }
         }
         p {
@@ -1112,6 +1125,13 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-why-solar-page {
+    .part-2 {
+      margin-top:20px;
+      @media #{$small} { 
+        margin-top:0px;
+      }
+    }
+
     .solar-slide-1 {
       p {
         font-size:2em;
@@ -1217,6 +1237,9 @@ $xl-screen: em-calc(1500);
           line-height:15pt;
         }
       }
+      .arrow-box span {
+        line-height:16pt;
+      }
     }
 
     .slide-show-dots {
@@ -1285,8 +1308,8 @@ $xl-screen: em-calc(1500);
           line-height:30pt;
         }
         @media #{$large} {
-          font-size:40pt;
-          line-height:40pt;
+          font-size:35pt;
+          line-height:35pt;
         }
       }
     }
@@ -1328,10 +1351,12 @@ $xl-screen: em-calc(1500);
     .you-solar-3 {
       h3 {
         font-size:35pt;
+        line-height:37pt;
       }
-      p .uppercase {
-        font-size:1.3em;
+      b {
+        font-size:1.5em;
         @media #{$small} { 
+          font-size:1.3em;
           padding-top:0px;
         } 
       }
@@ -1674,6 +1699,7 @@ $xl-screen: em-calc(1500);
     }
 
     .dna-slide-7 {
+      height:85vh;
       h5 {
         font-size:3em;
         @media #{$small} { 
@@ -1729,7 +1755,7 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-why-direct-page {
-    .slide-2 {
+    .direct-slide-2 {
       padding:0 7%;
       p {
         line-height:15pt;
@@ -1737,14 +1763,21 @@ $xl-screen: em-calc(1500);
           line-height:20pt;
         }
       }
+      .sun-promo-content {
+        padding-top:50px;
+      }
     }
     .large-6 {
       padding-right:5%;
     }
-    
-    .slide-2 {
-      .sun-promo-content {
-        padding-top:50px;
+
+    .direct-slide-4, .direct-slide-2 {
+      h3 {
+        font-size:25pt;
+        line-height:30pt;
+      }
+      h5 {
+        font-size:20pt;
       }
     }
     
@@ -1770,7 +1803,7 @@ $xl-screen: em-calc(1500);
       p {
         font-size:20pt;
         text-align:center;
-        max-width:750px;
+        max-width:800px;
         @media #{$small} { 
           font-size:13pt;
           max-width:500px;
