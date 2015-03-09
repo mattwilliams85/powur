@@ -12,6 +12,15 @@ html, body {
   color: $sun-color-orange;
 }
 
+slider {
+  height:25px;
+  margin:30px 5px 40px 5px;
+  @media #{$small} { 
+    height:7px;
+    margin:25px 5px;
+  }
+}
+
 
 .arrow-box {
   bottom: -200px;
