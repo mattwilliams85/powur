@@ -428,22 +428,35 @@ function Dashboard(){
 
     var _pagination_content = $(this).siblings(".pagination_content");
     var _thisThumbnail =  _pagination_content.find(".active_tab").closest(".team_thumbnail")
+    var _thisSection = _pagination_content.closest('.pagination_container')
     //animate the content
     var _pagination_width=_data.team_count_per_page*_data.global.thumbnail_size.width;
-
+    var _adjusted_width = (parseInt(_pagination_content.css("width"))+parseInt(_pagination_content.css("left"))-_pagination_width)
     //return if it's already being animated
     if( _pagination_content.filter(':animated').length>0) return;
     if($(this).attr("class").indexOf("left")>=0){
+
+      if((parseInt(_pagination_content.css("left")) + parseInt(_pagination_width)) === 0) {
+        _thisSection.find('.fa-angle-left').hide();
+      }
+
       if(_pagination_content.css("left")=="0px") return;
+      _thisSection.find('.fa-angle-right').show();
       _pagination_content.animate({"left":"+="+_pagination_width+"px"});
     }else{
+      //Hides Right-Arrow
+      if(_adjusted_width <= 1800 && _adjusted_width >= 0) {
+        _thisSection.find('.fa-angle-right').hide();
+      }
       if((parseInt(_pagination_content.css("width"))+parseInt(_pagination_content.css("left"))-_pagination_width)<=0) return;
+      _thisSection.find('.fa-angle-left').show();
       _pagination_content.animate({"left":"-="+_pagination_width+"px"});
     }
-    // _pagination_content.find(".js-thumbnail").css("opacity","1")
 
     $('.team_tab').removeClass("dark darker")
+    _pagination_content.find('.active_tab').removeClass('active_tab').velocity({translateY: "0px"},{queue: false}, 200)
     _closeTeamDrilldown(_thisThumbnail)
+
   });
 
   //wire up the tab hooks
@@ -558,9 +571,8 @@ function Dashboard(){
             data.properties.place_mode = true;
             data.properties.active_link = true;
             $(".top_level").find('.drilldown').remove();
-            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>", data, undefined, function(html){
+            EyeCueLab.UX.getTemplate("<%=asset_path('hb_templates/_team_thumbnail.handlebars.html')%>", data, _containerObj, function(html){
                 _teamDrilldown('team.immediate', $('#'+selectedUser.id+'_thumbnail'))
-               _containerObj.append(html);
                _linkEvents();
                return;
             });
@@ -587,6 +599,7 @@ function Dashboard(){
           search:_data.team_search
         },
         _callback:function(data, text){
+          console.log(data)
           _data.team=data;
           _drillDownLevel = 1
           var _userDetail={};
@@ -1142,7 +1155,7 @@ function Dashboard(){
   //JQUERY Events for placement
   function _linkEvents(){
     var action = _data.currentUser.actions[0];
-    var thisLink = $('.fa-link.active_link')
+    var thisLink = $('.active_link')
     var thisThumbnail = thisLink.closest(".team_thumbnail")
     thisThumbnail.find('.advocate_avatar').attr("src","/images/dashboard/Untitled-2.png")
     thisThumbnail.find('.team_tab').css("display","none")
@@ -1150,6 +1163,7 @@ function Dashboard(){
 
 
     $(document).off('click','.advocate_avatar').on('click','.advocate_avatar', function() {
+    
       var parentUserName = $(this).closest('.team_thumbnail').find('.name-span').text()
       var parentID = $(this).closest('.team_thumbnail').attr('alt')
       if(selectedUser.name === parentUserName) return;
@@ -1163,7 +1177,7 @@ function Dashboard(){
         $(document).off("mouseenter", ".team_thumbnail")
                    .off("mouseleave", ".team_thumbnail")
                    .off('click', '.advocate_avatar');
-        _collapseDrillDown(_options)
+        _closeTeamDrilldown(thisThumbnail);
       }
     });
 
@@ -1196,9 +1210,8 @@ function Dashboard(){
      var _topLevelSectionObj = (_drillDownFocusLevel*1>0)? _topLevelSectionObj = _currentLevelSectionObj.parents("section"):_currentLevelSectionObj;
      var _thisThumbnail = _options._target.parents(_options._thumbnailIdentifier);//use class to identify (e.g. team_thumbnail, quote_thumbnail, etc.)
      var _drillDownDepth = _topLevelSectionObj.children("section").length;
-
      // if(_thisThumbnail.length === 0 || _options._target.hasClass('team_tab')) _thisThumbnail = _options._target
-     if(_options._target.hasClass("js-link_user")) _options._target.toggleClass("active").find('')
+     if(_options._target.hasClass("js-link_user")) _options._target.toggleClass("active")
 
      if(_thisThumbnail.find('.team_tab').hasClass('active_tab')) {
        _currentLevelSectionObj.find(".active").removeClass('active')
@@ -1537,7 +1550,6 @@ function Dashboard(){
     if(!thisLink.hasClass('active_link')) {
       // displayTeam("team.everyone",selectedUser.id)
       _teamDrilldown('team.single', thisLink)
-
       // thisThumbnail.siblings('div').css('visibility','hidden');
 
       //animates each neighbor
@@ -1547,7 +1559,6 @@ function Dashboard(){
       //   if(i < 0) clearInterval(a)
       // },100)
     } else {
-      console.log('close')
       displayTeam("team.everyone")
       thisLink.switchClass('fa-times','fa-link')
       thisLink.toggleClass("active_link")

@@ -36,8 +36,12 @@
   }
 
   input[type=search] {
-    border:1px solid $dev_dark_gray;
+    outline: none;
+    background-image: image-url('search.svg');
+    background-position: left center;
+    background-repeat: no-repeat;
     background-size: 40px 40px;
+    border:1px solid $dev_dark_gray;
     background-color: #fff;
     height:60px;
     position:relative;
@@ -45,6 +49,10 @@
     float: right;
     border-radius:0;
     padding-left:30px;
+  }
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-cancel-button {
+      -webkit-appearance: none;
   }
 
   .resource {

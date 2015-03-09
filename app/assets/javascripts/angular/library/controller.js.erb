@@ -3,6 +3,9 @@
 function LibraryCtrl($scope, $location, Resource) {
   $scope.redirectUnlessSignedIn();
   $scope.items = [];
+  $scope.itemsPaging = {
+    current_page: 1
+  };
   $scope.resourceTypes = [{name: 'All Media'}, {name: 'Videos', type: 'videos'}, {name: 'Documents', type: 'documents'}];
   $scope.resourceType = $scope.resourceTypes[0];
 
@@ -23,17 +26,26 @@ function LibraryCtrl($scope, $location, Resource) {
     });
   };
 
-  $scope.resourcePageChange = function(page_to_load) {
-    return Resource.list({page: page_to_load}).then(function(items) {
-      $scope.items = $scope.items.concat(items.entities);
-      $scope.pages = items.properties.paging;
-    });
-  }
-
   $scope.itemThumbnail = function(item) {
     var imgPath = item.properties.image_original_path;
     if (imgPath) return imgPath;
     return item.properties.file_type === 'video/mp4' ? '<%=asset_path("library/video.png")%>' : '<%=asset_path("library/pdf.png")%>';
+  };
+
+  $scope.search = function() {
+    $scope.itemsPaging = {
+      current_page: 1
+    };
+    $scope.items = [];
+    $scope.pagination(0);
+  };
+
+  $scope.pagination = function(direction) {
+    var page = $scope.itemsPaging.current_page + direction;
+    return Resource.list({page: page, search: $scope.searchText}).then(function(items) {
+      $scope.items = $scope.items.concat(items.entities);
+      $scope.pages = items.properties.paging;
+    });
   };
 
   return Resource.list().then(function(items) {

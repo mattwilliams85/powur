@@ -12,6 +12,15 @@ html, body {
   color: $sun-color-orange;
 }
 
+slider {
+  height:25px;
+  margin:30px 5px 40px 5px;
+  @media #{$small} { 
+    height:7px;
+    margin:25px 5px;
+  }
+}
+
 
 .arrow-box {
   bottom: -200px;
@@ -56,9 +65,6 @@ html, body {
     font-weight:800;
     @media #{$small} {
       font-size: 1.5rem !important;
-    }
-    @media #{$large} {
-      font-size: 2rem !important;
     }
   }
 }

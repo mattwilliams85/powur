@@ -17,11 +17,11 @@
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-3 slide-2 section">
+    <div class="sun-scrolling-bg sun-bg-3 direct-slide-2 section">
       <div class="row sun-promo-content">
         <div class="large-6 columns">
           <h3 class="uppercase"><b>The <div class="highlight-2">direct sales</div> industry generates over $160 billion dollars per year in revenue, with over 90,000,000 active advocates.</b></h3>
-          <h4>That is a huge industry.</h4>
+          <h5>That is a huge industry.</h5>
         </div>
 
         <div class="large-6 columns">
@@ -37,21 +37,21 @@
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-15 section inverted">
+    <div class="sun-scrolling-bg sun-bg-15 direct-slide-3 section inverted">
       <div class="sun-promo-content">
         <div class="row">
-          <div class="large-5 columns">
+          <div class="large-5 small-12 columns">
             <h2>Enter <br /><div class="highlight-2">direct sales</div></h2>
           </div>
           <div class="outer-wrapper">
             <i class="fa fa-chevron-left fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
             <i class="fa fa-chevron-right fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
-            <div class="large-7 columns slide-show-wrapper">
+            <div class="large-7 small-12 columns slide-show-wrapper">
               <div ng-repeat="slide in slides">
                 <div class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
                   <img ng-repeat="img in slide.images" class="image image_{{$index}}" ng-src="{{img}}" />
                   <div class="clearfix"></div>
-                  <p class="narrow-small">{{slide.text}}</p>
+                  <p>{{slide.text}}</p>
                 </div>
               </div>
 
@@ -70,10 +70,10 @@
 
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-5 section">
+    <div class="sun-scrolling-bg sun-bg-5 section direct-slide-4">
       <div class="row sun-promo-content">
         <div class="large-6 columns">
-          <h4>Oh, and one more thing.</h4>
+          <h5>Oh, and one more thing.</h5>
           <h3 class="uppercase">We haven't found any model that returns <div class="highlight-2">"Power to the people"</div> more literally.</h3>
         </div>
 

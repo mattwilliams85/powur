@@ -14,6 +14,8 @@ function FileS3UploaderCtrl($scope, S3UploaderService) {
     }
     S3UploaderService.getCredentials($scope.file.type, $scope.mode).then(function(creds) {
       that.uploadToS3($scope, creds);
+    }, function() {
+      alert("The file you are trying to upload is not a supported format. Please convert videos to MPEG-4 (.mp4) or documents to PDF (.pdf) and try again.");
     });
   };
 
