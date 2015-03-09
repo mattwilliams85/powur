@@ -37,21 +37,21 @@
       </div>
     </div>
 
-    <div class="sun-scrolling-bg sun-bg-15 section inverted">
+    <div class="sun-scrolling-bg sun-bg-15 direct-slide-3 section inverted">
       <div class="sun-promo-content">
         <div class="row">
-          <div class="large-5 columns">
+          <div class="large-5 small-12 columns">
             <h2>Enter <br /><div class="highlight-2">direct sales</div></h2>
           </div>
           <div class="outer-wrapper">
             <i class="fa fa-chevron-left fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
             <i class="fa fa-chevron-right fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
-            <div class="large-7 columns slide-show-wrapper">
+            <div class="large-7 small-12 columns slide-show-wrapper">
               <div ng-repeat="slide in slides">
                 <div class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
                   <img ng-repeat="img in slide.images" class="image image_{{$index}}" ng-src="{{img}}" />
                   <div class="clearfix"></div>
-                  <p class="narrow-small">{{slide.text}}</p>
+                  <p>{{slide.text}}</p>
                 </div>
               </div>
 
