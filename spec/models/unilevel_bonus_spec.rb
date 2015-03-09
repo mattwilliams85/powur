@@ -11,7 +11,6 @@ describe UnilevelBonus, type: :model do
     it 'generates the correct bonus payments' do
       product = create(:product, bonus_volume: 500, commission_percentage: 80)
       bonus = create(:unilevel_bonus, compress: true)
-      create(:bonus_requirement, product: product, bonus: bonus)
       create(:bonus_level, level: 1,
              bonus: bonus, amounts: [ 0.1, 0.1, 0.1, 0.1 ])
       create(:bonus_level, level: 2,

@@ -9,7 +9,6 @@ describe DirectSalesBonus, type: :model do
   it 'returns the correct amount' do
     product = create(:product, bonus_volume: 500, commission_percentage: 80)
     bonus = create(:direct_sales_bonus)
-    create(:bonus_requirement, product: product, bonus: bonus)
     create(:bonus_level, bonus: bonus, amounts: [ 0.125, 0.375, 0.6 ])
 
     expect(bonus.payment_amount(1, nil)).to eq(50)

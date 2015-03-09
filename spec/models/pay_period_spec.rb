@@ -28,7 +28,6 @@ describe PayPeriod, type: :model do
   describe '#process_at_sale_rank_bonuses!' do
 
     it 'processes a direct sales bonus' do
-      bonus = create(:bonus_requirement).bonus
       order = create(:order, product: bonus.source_product)
       create(:bonus_level, bonus: bonus)
 

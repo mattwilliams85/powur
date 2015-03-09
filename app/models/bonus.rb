@@ -20,7 +20,7 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
   scope :weekly, ->() { where(schedule: :weekly) }
   scope :monthly, ->() { where(schedule: :monthly) }
 
-  validates_presence_of :type, :name
+  validates_presence_of :name
 
   def type_string
     self.class.name.underscore.gsub(/_bonus/, '')
@@ -31,9 +31,8 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def meta_data_fields
-    { }
+    {}
   end
-
 
   def highest_bonus_level
     bonus_amounts.empty? ? 0 : bonus_amounts.map(&:level).max
@@ -72,6 +71,15 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
     !bonus_amounts.empty?
   end
 
+  def amount_used
+    bonus_amounts.empty? ? 0.0 : bonus_amounts.first.max
+  end
+
+  def remaining_amount
+    return nil unless product
+    product.commission_remaining(self)
+  end
+
   def payment_amount(rank_id, path_id, level = 0)
     level = bonus_amounts.select { |ba| ba.level == level }.find do |ba|
       ba.rank_path_id.nil? || ba.rank_path_id == path_id
@@ -81,10 +89,6 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def create_payments!(*)
-  end
-
-  def remaining_amount
-    product && product.commission_amount
   end
 
   protected

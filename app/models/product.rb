@@ -2,8 +2,7 @@ class Product < ActiveRecord::Base
   after_create :assign_sku
 
   has_many :qualifications, dependent: :destroy
-  has_many :bonus_sales_requirements, dependent: :destroy
-  has_many :bonuses, through: :bonus_sales_requirements
+  has_many :bonuses
   has_many :quote_fields, dependent: :destroy
   has_many :quote_field_lookups, through: :quote_fields
   has_many :product_receipts
@@ -29,6 +28,16 @@ class Product < ActiveRecord::Base
 
   def commission_amount
     bonus_volume * (0.01 * commission_percentage)
+  end
+
+  def commission_used
+    @commission_used ||= bonuses.map(&:amount_used).inject(:+)
+  end
+
+  def commission_remaining(bonus = nil)
+    value = commission_amount - commission_used
+    value += bonus.amount_used if bonus
+    value
   end
 
   def quote_field_keys

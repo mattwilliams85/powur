@@ -21,7 +21,6 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
 
     it 'adds a bonus level to to a bonus' do
       bonus = create(:unilevel_bonus)
-      create(:bonus_requirement, bonus: bonus)
       post bonus_levels_path(bonus),
            rank_path_id: @path.id,
            amounts:      [ 0.1, 0.4, 0.125 ],
@@ -53,7 +52,6 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
 
     it 'adds a bonus level to a standard bonus' do
       bonus = create(:direct_sales_bonus)
-      create(:bonus_requirement, bonus: bonus)
       post bonus_levels_path(bonus),
            rank_path_id: @path.id,
            amounts:      [ 0.1, 0.4, 0.125 ],
@@ -64,7 +62,6 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
 
     it 'fills the bonus level with other paths' do
       path2 = create(:rank_path)
-      bonus = create(:bonus_requirement).bonus
       post bonus_levels_path(bonus),
            rank_path_id: @path.id,
            amounts:      [ 0.1, 0.4, 0.125 ],
@@ -74,7 +71,6 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
     end
 
     it 'allows a bonus level without a rank path' do
-      bonus = create(:bonus_requirement).bonus
       post bonus_levels_path(bonus),
            rank_path_id: nil,
            amounts:      [ 0.1, 0.4, 0.125 ],
@@ -88,7 +84,6 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
     it 'allows multiple levels for a unilevel bonus' do
       path2 = create(:rank_path)
       bonus = create(:unilevel_bonus)
-      create(:bonus_requirement, bonus: bonus)
       post bonus_levels_path(bonus),
            rank_path_id: @path.id,
            amounts:      [ 0.1, 0.4, 0.125 ],
@@ -115,7 +110,6 @@ describe '/a/bonuses/:admin_bonus_id/bonus_levels' do
 
     it 'removes the last bonus_level' do
       bonus = create(:unilevel_bonus)
-      create(:bonus_requirement, bonus: bonus)
       levels = 1.upto(3).map do |i|
         create(:bonus_level, level: i, bonus: bonus)
       end

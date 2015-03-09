@@ -19,7 +19,7 @@ FactoryGirl.define do
   end
 
   factory :bonus_amount do
-    association :bonus, factory: :seller_bonus
+    bonus
     level 0
     amounts [ 0.1, 0.2, 0.3, 0.4, 0.5 ]
   end

@@ -11,7 +11,6 @@ describe EnrollerBonus, type: :model do
     it 'generates the correct payment' do
       product = create(:product, bonus_volume: 500, commission_percentage: 80)
       bonus = create(:enroller_bonus)
-      create(:bonus_requirement, product: product, bonus: bonus)
       create(:bonus_level, bonus: bonus, amounts: [ 0.0, 0.1 ])
 
       parent = create(:user, organic_rank: 2)

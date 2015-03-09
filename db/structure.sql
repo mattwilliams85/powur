@@ -88,7 +88,7 @@ CREATE TABLE bonus_amounts (
     id integer NOT NULL,
     bonus_id integer NOT NULL,
     level integer DEFAULT 0 NOT NULL,
-    rank_path_id integer NOT NULL,
+    rank_path_id integer,
     amounts numeric(5,2)[] DEFAULT '{}'::numeric[] NOT NULL
 );
 
@@ -195,7 +195,7 @@ ALTER SEQUENCE bonus_plans_id_seq OWNED BY bonus_plans.id;
 CREATE TABLE bonuses (
     id integer NOT NULL,
     bonus_plan_id integer NOT NULL,
-    type character varying NOT NULL,
+    type character varying DEFAULT 'Bonus'::character varying NOT NULL,
     name character varying NOT NULL,
     schedule integer DEFAULT 2 NOT NULL,
     meta_data hstore DEFAULT ''::hstore,

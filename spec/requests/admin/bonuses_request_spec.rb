@@ -29,6 +29,12 @@ describe '/a/bonuses' do
 
       expect_classes 'bonus'
       expect_entities_count(1)
+
+      update = json_body['actions'].find { |a| a['name'] == 'update' }
+      bonus.meta_data_fields.each do |key, type|
+        result = update['fields'].any? { |f| f['name'] == key.to_s }
+        expect(result).to be
+      end
     end
 
     it 'includes the ca bonus details' do
@@ -64,7 +70,6 @@ describe '/a/bonuses' do
 
       it 'always includes the rank_path field' do
         create_list(:rank, 2)
-        bonus = create(:bonus_requirement).bonus
         get bonus_path(bonus), format: :json
 
         expect(rank_path_field).to be
@@ -73,7 +78,6 @@ describe '/a/bonuses' do
       it 'when null rank_path level defined, no create action' do
         create_list(:rank, 2)
         create_list(:rank_path, 2)
-        bonus = create(:bonus_requirement).bonus
         create(:bonus_level, bonus: bonus, rank_path: nil)
         get bonus_path(bonus), format: :json
 
@@ -83,7 +87,6 @@ describe '/a/bonuses' do
       it 'includes the rank_path field with 2 paths' do
         create_list(:rank, 2)
         create_list(:rank_path, 2)
-        bonus = create(:bonus_requirement).bonus
         get bonus_path(bonus), format: :json
 
         expect_rank_path_field(2, false)
@@ -115,10 +118,9 @@ describe '/a/bonuses' do
 
     it 'destroys a bonus' do
       bonus_plan = create(:bonus_plan)
-      bonus = create(:direct_sales_bonus, bonus_plan: bonus_plan)
-      create(:bonus_requirement, bonus: bonus)
+      bonus = create(:seller_bonus, bonus_plan: bonus_plan)
 
-      create_list(:direct_sales_bonus, 2, bonus_plan: bonus_plan)
+      create_list(:seller_bonus, 2, bonus_plan: bonus_plan)
       delete bonus_path(bonus), format: :json
 
       expect_classes 'bonuses', 'list'
