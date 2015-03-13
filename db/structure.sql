@@ -937,6 +937,49 @@ ALTER SEQUENCE user_activities_id_seq OWNED BY user_activities.id;
 
 
 --
+-- Name: user_group_requirements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_group_requirements (
+    id integer NOT NULL,
+    user_group_id character varying NOT NULL,
+    product_id integer NOT NULL,
+    event_type integer NOT NULL,
+    quantity integer DEFAULT 1 NOT NULL
+);
+
+
+--
+-- Name: user_group_requirements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_group_requirements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_group_requirements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_group_requirements_id_seq OWNED BY user_group_requirements.id;
+
+
+--
+-- Name: user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_groups (
+    id character varying NOT NULL,
+    title character varying NOT NULL,
+    description character varying
+);
+
+
+--
 -- Name: user_overrides; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -967,6 +1010,16 @@ CREATE SEQUENCE user_overrides_id_seq
 --
 
 ALTER SEQUENCE user_overrides_id_seq OWNED BY user_overrides.id;
+
+
+--
+-- Name: user_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_user_groups (
+    user_id integer NOT NULL,
+    user_group_id character varying NOT NULL
+);
 
 
 --
@@ -1181,6 +1234,13 @@ ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq':
 --
 
 ALTER TABLE ONLY user_activities ALTER COLUMN id SET DEFAULT nextval('user_activities_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_group_requirements ALTER COLUMN id SET DEFAULT nextval('user_group_requirements_id_seq'::regclass);
 
 
 --
@@ -1430,11 +1490,35 @@ ALTER TABLE ONLY user_activities
 
 
 --
+-- Name: user_group_requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_group_requirements
+    ADD CONSTRAINT user_group_requirements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_groups
+    ADD CONSTRAINT user_groups_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: user_overrides_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY user_overrides
     ADD CONSTRAINT user_overrides_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_user_groups
+    ADD CONSTRAINT user_user_groups_pkey PRIMARY KEY (user_id, user_group_id);
 
 
 --
@@ -1939,11 +2023,43 @@ ALTER TABLE ONLY rank_achievements
 
 
 --
+-- Name: user_group_requirements_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_group_requirements
+    ADD CONSTRAINT user_group_requirements_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: user_group_requirements_user_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_group_requirements
+    ADD CONSTRAINT user_group_requirements_user_group_id_fk FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
+
+
+--
 -- Name: user_overrides_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_overrides
     ADD CONSTRAINT user_overrides_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: user_user_groups_user_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_user_groups
+    ADD CONSTRAINT user_user_groups_user_group_id_fk FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
+
+
+--
+-- Name: user_user_groups_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_user_groups
+    ADD CONSTRAINT user_user_groups_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -2065,4 +2181,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150225110000');
 INSERT INTO schema_migrations (version) VALUES ('20150303172651');
 
 INSERT INTO schema_migrations (version) VALUES ('20150309071743');
+
+INSERT INTO schema_migrations (version) VALUES ('20150311194138');
 

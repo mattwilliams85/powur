@@ -45,6 +45,15 @@ describe '/a/users' do
       expect(json_body.keys).to include('redirect')
     end
 
+    it 'filters by group' do
+      group = create(:user_group)
+      create_list(:user_user_group, 3, user_group: group)
+
+      get admin_users_path, group: group.id, format: :json
+
+      expect_entities_count(3)
+    end
+
   end
 
   describe '/:id' do

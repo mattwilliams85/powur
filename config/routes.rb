@@ -183,8 +183,7 @@ Rails.application.routes.draw do
     end
 
     resources :bonuses, only: [ :index, :destroy, :update, :show ] do
-      resources :requirements, only: [ :create, :update, :destroy ]
-      resources :bonus_amounts, only: [ :create ], as: :amounts
+      resources :bonus_amounts, only: [ :create ], as: :amounts, path: :amounts
     end
     resources :bonus_amounts, only: [ :update, :destroy ], as: :bonus_amounts
 
@@ -223,6 +222,14 @@ Rails.application.routes.draw do
     resources :notifications,
                 only: [ :index, :create, :destroy, :show, :update ],
                 as:   :admin_notifications
+
+    resources :user_groups, only: [ :index, :show, :create, :update, :destroy ] do
+      resources :requirements, only: [ :create ], controller: :user_group_requirements
+    end
+    resources :user_group_requirements,
+              only:       [ :destroy, :update ],
+              controller: :user_group_requirements
+    
 
     resources :resources, as: :admin_resources
   end

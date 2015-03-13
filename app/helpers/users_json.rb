@@ -11,11 +11,13 @@ class UsersJson < JsonDecorator
     entity_rel(rel) if rel
   end
 
+  LIST_PROPS = %w(downline_count personal personal_lifetime group 
+                  group_lifetime)
   def list_item_properties(user = @item) # rubocop:disable Metrics/AbcSize
     json.properties do
-      json.call(user, :id, :first_name, :last_name, :email, :phone, :level, :moved)
-      %w(downline_count personal personal_lifetime
-         group group_lifetime).each do |field|
+      json.call(user, :id, :first_name, :last_name, :email, :phone, :level,
+                :moved)
+      LIST_PROPS.each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]
       end
       json.avatar do

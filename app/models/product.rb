@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
   has_many :quote_field_lookups, through: :quote_fields
   has_many :product_receipts
   has_many :product_enrollments, dependent: :destroy
+  has_many :user_group_requirements, dependent: :destroy
 
   validates_presence_of :name, :bonus_volume, :commission_percentage
   validates :commission_percentage, numericality: { less_than_or_equal_to: 100 }

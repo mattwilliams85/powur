@@ -90,6 +90,10 @@ module UserScopes
       end
     }
 
+    scope :in_groups, lambda { |*ids|
+      joins(:user_user_groups)
+        .where(user_user_groups: { user_group_id: ids })
+    }
   end
 
   module ClassMethods

@@ -25,6 +25,9 @@ class ProductEnrollment < ActiveRecord::Base
 
     event :complete do
       transitions from: [:enrolled, :started], to: :completed
+      after do
+        
+      end
     end
 
     event :remove do

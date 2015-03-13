@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
   has_many :product_enrollments, dependent: :destroy
+  has_many :user_user_groups, dependent: :destroy
+  has_many :user_groups, through: :user_user_groups
 
   store_accessor :contact,
                  :address, :city, :state, :country, :zip, :phone
@@ -134,6 +136,10 @@ class User < ActiveRecord::Base
     if params != 'admin'
       self.update(moved: true)
     end
+  end
+
+  def group?(group_id)
+    user_user_groups.exists?(group_id.to_s)
   end
 
   private
