@@ -111,7 +111,10 @@ $xl-screen: em-calc(1500);
 
       &.dim {
         background-image: image-url("promo/on-button.png");
-        font-size: 1em;
+        font-size: 1.3em;
+        @media #{$small} { 
+          font-size: 1em;
+        } 
         background-position: 20px center;
         line-height: 70px;
         padding: 0 20px 0 70px;
@@ -504,12 +507,23 @@ $xl-screen: em-calc(1500);
         text-align:left;
       }
 
+      span {
+        font-size:16pt;
+        @media #{$small} { 
+          font-size:13pt;
+        }
+      }
+
       .button {
         background: $sun-color-green;
-        font-size:1.3em;
+        font-size:3em;
+        padding:20px 60px;
         text-transform: uppercase;
         margin-right: 1em;
-        padding:20px 60px;
+        @media #{$small} { 
+          font-size:1.3em;
+          padding:20px 60px;
+        }
       }
 
       @media #{$large} {
@@ -658,8 +672,10 @@ $xl-screen: em-calc(1500);
         }
         h1 {
           font-size:70pt;
+          text-align:center;
           @media #{$small} { 
-            font-size:40pt;
+            font-size:35pt;
+            text-align:left;
           }
         }
         p {
@@ -831,7 +847,7 @@ $xl-screen: em-calc(1500);
     text-align: center;
 
     h5 {
-      font-size: 1em;
+      font-size: 1.5em;
       text-transform: uppercase;
       @media #{$large} {
         font-size: 1.2em;
@@ -851,18 +867,31 @@ $xl-screen: em-calc(1500);
 
       span.pointer {
         background-color: $sun-color-blue;
-        height: 30px;
-        width: 30px;
+        height: 50px;
+        width: 50px;
+        border-radius:100%;
+        border-width:0px;
         top: -11px;
+        @media #{$small} { 
+          border-width:1px;
+          height: 30px;
+          width: 30px;
+          top: -11px;
+        }
 
         &:after {
           background-color: $sun-color-blue;
           color: #000;
           content: '$';
-          font-size: 1.2rem;
+          font-size: 2.2rem;
+          left: 14px;
+          top: 6px;
+          @media #{$small} { 
+            font-size: 1.2rem;
+            left: 9px;
+            top: 4px;
+          }
           line-height: 1em;
-          left: 9px;
-          top: 4px;
         }
       }
 
@@ -935,6 +964,7 @@ $xl-screen: em-calc(1500);
     .sun-promo-intro {
       h1 {
         text-shadow: -1px 2px 2px rgba(150, 150, 150, 0.68);
+        margin-bottom:20px;
         @media #{$medium} {
           font-size:45pt;
           line-height:40pt;
@@ -1112,6 +1142,13 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-why-solar-page {
+    .part-2 {
+      margin-top:20px;
+      @media #{$small} { 
+        margin-top:0px;
+      }
+    }
+
     .solar-slide-1 {
       p {
         font-size:2em;
@@ -1217,6 +1254,9 @@ $xl-screen: em-calc(1500);
           line-height:15pt;
         }
       }
+      .arrow-box span {
+        line-height:16pt;
+      }
     }
 
     .slide-show-dots {
@@ -1285,8 +1325,8 @@ $xl-screen: em-calc(1500);
           line-height:30pt;
         }
         @media #{$large} {
-          font-size:40pt;
-          line-height:40pt;
+          font-size:35pt;
+          line-height:35pt;
         }
       }
     }
@@ -1328,10 +1368,12 @@ $xl-screen: em-calc(1500);
     .you-solar-3 {
       h3 {
         font-size:35pt;
+        line-height:37pt;
       }
-      p .uppercase {
-        font-size:1.3em;
+      b {
+        font-size:1.5em;
         @media #{$small} { 
+          font-size:1.3em;
           padding-top:0px;
         } 
       }
@@ -1674,6 +1716,7 @@ $xl-screen: em-calc(1500);
     }
 
     .dna-slide-7 {
+      height:85vh;
       h5 {
         font-size:3em;
         @media #{$small} { 
@@ -1729,7 +1772,7 @@ $xl-screen: em-calc(1500);
   }
 
   &.sun-why-direct-page {
-    .slide-2 {
+    .direct-slide-2 {
       padding:0 7%;
       p {
         line-height:15pt;
@@ -1737,14 +1780,21 @@ $xl-screen: em-calc(1500);
           line-height:20pt;
         }
       }
+      .sun-promo-content {
+        padding-top:50px;
+      }
     }
     .large-6 {
       padding-right:5%;
     }
-    
-    .slide-2 {
-      .sun-promo-content {
-        padding-top:50px;
+
+    .direct-slide-4, .direct-slide-2 {
+      h3 {
+        font-size:25pt;
+        line-height:30pt;
+      }
+      h5 {
+        font-size:20pt;
       }
     }
     
@@ -1770,7 +1820,7 @@ $xl-screen: em-calc(1500);
       p {
         font-size:20pt;
         text-align:center;
-        max-width:750px;
+        max-width:800px;
         @media #{$small} { 
           font-size:13pt;
           max-width:500px;
