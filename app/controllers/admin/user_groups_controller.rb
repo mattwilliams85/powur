@@ -13,9 +13,12 @@ module Admin
     end
 
     def create
-      @user_group = UserGroup.create!(input.merge(id: params[:id]))
-
-      show
+      @user_group = UserGroup.create(input.merge(id: params[:id]))
+      if @user_group.valid?
+        show
+      else
+        render json: { errors: @user_group.errors.messages }, status: :unprocessable_entity
+      end
     end
 
     def update

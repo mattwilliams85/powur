@@ -3,6 +3,8 @@
 function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, AdminUserGroup) {
   $scope.redirectUnlessSignedIn();
 
+  $scope.userGroup = {};
+  $scope.formErrorMessages = {};
   // TODO check if user is an admin
 
   function getAction(actions, name) {
@@ -98,7 +100,7 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, Adm
 AdminUserGroupsCtrl.prototype.init = function($scope, $location) {
   // Setting mode based on the url
   $scope.mode = 'index';
-  if (/\/new\//.test($location.path())) return $scope.mode = 'new';
+  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 

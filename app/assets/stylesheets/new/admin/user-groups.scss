@@ -17,6 +17,22 @@
     }
   }
 
+  .user-group-form {
+    .button {
+      margin: 20px 20px 0 0;
+    }
+
+    label {
+      display: inline-block;
+      line-height: 1em;
+    }
+
+    textarea {
+      min-height: 200px;
+    }
+
+  }
+
   .group-id {
     color: #ccc;
   }
