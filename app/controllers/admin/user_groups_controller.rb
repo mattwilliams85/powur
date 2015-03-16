@@ -28,8 +28,7 @@ module Admin
 
     def destroy
       @user_group.destroy
-
-      index
+      head 200
     end
 
     private
