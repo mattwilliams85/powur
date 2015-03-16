@@ -13,6 +13,7 @@
 //= require_tree ../angular/university
 
 //= require_tree ../angular/admin/resources
+//= require_tree ../angular/admin/user-groups
 
 //= require_tree ../angular/modules/file-s3-uploader
 

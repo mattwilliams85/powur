@@ -1,0 +1,32 @@
+<ng-include src="'<%=asset_path("shared/header-admin.html") %>'"></ng-include>
+
+<main class="sun-admin-user-groups">
+
+  <div class="row">
+    <div class="large-4 columns">
+      <h3>User Groups</h3>
+      <p>Create and manage User Groups</p>
+      <a class="small button">New User Group</a>
+    </div>
+    <div class="large-8 columns">
+      <div class="row">
+        <h3>User Groups ({{userGroups.length}})</h3>
+      </div>
+      <div ng-repeat="group in userGroups" class="admin-user-groups-list-item">
+        <div class="row">
+          <div class="large-4 columns">
+            <h3>{{group.properties.title}}</h3>
+            <span class="group-id">id: {{group.properties.id}}</span>
+          </div>
+          <div class="large-8 columns">
+            <p>{{group.properties.description}}</p>
+            <a class="manage-link">delete</a>
+            <a class="manage-link">edit</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</main>

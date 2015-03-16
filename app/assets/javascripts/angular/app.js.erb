@@ -377,6 +377,19 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/admin/resources/templates/edit.html")%>',
       controller: 'AdminResourcesCtrl'
     }).
+    // User Groups
+    when('/admin/user-groups', {
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/index.html")%>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    when('/admin/user-groups/new', {
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/new.html")%>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    when('/admin/user-groups/:userGroupId/edit', {
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/edit.html")%>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'
