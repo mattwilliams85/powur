@@ -23,7 +23,11 @@ module Admin
 
     def update
       @user_group.update_attributes!(input)
-      show
+      if @user_group.valid?
+        head 200
+      else
+        render json: { errors: @user_group.errors.messages }, status: :unprocessable_entity
+      end
     end
 
     def destroy
