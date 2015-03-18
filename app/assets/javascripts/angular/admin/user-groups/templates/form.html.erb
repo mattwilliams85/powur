@@ -1,32 +1,31 @@
 <div class="row">
-  <div class="large-3 columns">
-    <label for="userGroupTitle">Title</label>
+  <div class="large-4 columns">
+    <label class="right inline" for="userGroupTitle">Title</label>
   </div>
 
-  <div class="large-9 columns">
+  <div class="large-8 columns">
     <span ng-show="userGroupForm.title.$dirty && errorMessage('title')" class="radius alert label">{{errorMessage('title')}}</span>
     <input ng-model="userGroup.title" name="title" id="userGroup_title" type="text" />
   </div>
 </div>
 
 <div class="row">
-  <div class="large-3 columns">
-    <label for="userGroupId">ID</label>
-    <small>(used to refer to the User Group within Powur)</small>
+  <div class="large-4 columns">
+    <label class="right inline" for="userGroupId">ID</label>
   </div>
 
-  <div class="large-9 columns">
+  <div class="large-8 columns">
     <span ng-show="userGroupForm.id.$dirty && errorMessage('id')" class="radius alert label">{{errorMessage('id')}}</span>
     <input ng-model="userGroup.id" name="id" id="userGroup_id"3 type="text" />
   </div>
 </div>
 
 <div class="row">
-  <div class="large-3 columns">
-    <label for="userGroupDescription">Description</label>
+  <div class="large-4 columns">
+    <label class="right inline" for="userGroupDescription">Description</label>
   </div>
 
-  <div class="large-9 columns">
+  <div class="large-8 columns">
     <textarea ng-model="userGroup.description" name="description" id="userGroup_description"></textarea>
   </div>
 </div>

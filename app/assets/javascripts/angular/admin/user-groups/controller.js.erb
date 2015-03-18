@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, AdminUserGroup) {
+function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
   $scope.redirectUnlessSignedIn();
 
   $scope.userGroup = {};
@@ -17,9 +17,10 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, Adm
   }
 
   $scope.delete = function(item) {
-    var action = getAction(item.actions, 'destroy');
+    var action = getAction(item.actions, 'delete');
+    var title = item.properties.title;
     return AdminUserGroup.execute(action).then(function() {
-      $scope.showModal('User Group has been deleted');
+      $scope.showModal(title + ' has been deleted');
       $(document).foundation();
       $location.path('/admin/user-groups/');
     }, function() {
@@ -65,7 +66,7 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, Adm
   };
 
   var updateCallback = function() {
-    $location.path('/admin/user-groups');
+    $location.path('/admin/user-groups/' + $scope.userGroup.id);
     $scope.showModal('You\'ve successfully updated the User Group.');
     $(document).foundation();
     $scope.isSubmitDisabled = false;
@@ -92,6 +93,23 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, Adm
     });
   };
 
+  $scope.panel = 'users';
+  $scope.showPanel = function(panelName) {
+    if ($scope.panel === panelName) return true;
+    return false;
+  };
+
+  $scope.getUsersFromGroup = function (groupId) {
+    $http({
+      method: 'GET',
+      url: '/a/users.json?group=' + groupId
+    }).success(function(res) {
+      $scope.users = res.entities;
+    }).error(function(err) {
+      console.log('エラー', err);
+    });
+  };
+
   this.init($scope, $location);
   this.fetch($scope, $location, $routeParams, AdminUserGroup);
 }
@@ -99,7 +117,8 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, Adm
 
 AdminUserGroupsCtrl.prototype.init = function($scope, $location) {
   // Setting mode based on the url
-  $scope.mode = 'index';
+  $scope.mode = 'show';
+  if (/\/user-groups$/.test($location.path())) return $scope.mode = 'index';
   if (/\/new$/.test($location.path())) return $scope.mode = 'new';
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
@@ -113,6 +132,17 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
     });
   } else if ($scope.mode === 'new') {
 
+  } else if ($scope.mode === 'show') {
+    return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
+      $scope.group = item;
+      $scope.userGroup = item.properties;
+      $scope.requirements = item.entities[1].entities;
+
+      // get users from /a/users endpoint
+      $scope.users = [];
+      $scope.getUsersFromGroup(item.properties.id);
+    });
+
   } else if ($scope.mode === 'edit') {
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
@@ -121,5 +151,5 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
 };
 
 
-AdminUserGroupsCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', 'AdminUserGroup'];
+AdminUserGroupsCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUserGroup'];
 sunstandControllers.controller('AdminUserGroupsCtrl', AdminUserGroupsCtrl);

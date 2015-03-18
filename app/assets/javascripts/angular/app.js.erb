@@ -390,6 +390,10 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/admin/user-groups/templates/edit.html")%>',
       controller: 'AdminUserGroupsCtrl'
     }).
+    when('/admin/user-groups/:userGroupId', {
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/show.html")%>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'
