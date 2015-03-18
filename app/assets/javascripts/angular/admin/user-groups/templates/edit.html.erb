@@ -24,6 +24,7 @@
           <!-- Buttons -->
           <input class="right button" ng-disabled="isSubmitDisabled" type="submit" value="Save" />
           <a ng-href="#/admin/user-groups/{{userGroup.id}}" class="right button">Cancel</a>
+          <a ng-click="confirm('Are you sure you want to delete this group?', 'delete', group)" class="right alert button">Delete User Group</a>
         </form>
       </div>
     </div>

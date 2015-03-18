@@ -1,0 +1,11 @@
+<!-- Panel Navigation Menu -->
+<ul class="side-nav">
+  <li><a ng-class="{active:view === 'overview'}" ng-href="#/admin/user-groups/{{userGroup.id}}">Group Overview</a></li>
+  <li class="divider"></li>
+  <li><a ng-class="{active:view === 'users'}" ng-href="#/admin/user-groups/{{userGroup.id}}/users">Users</a></li>
+  <li><a ng-class="{active:view === 'requirements'}" ng-href="#/admin/user-groups/{{userGroup.id}}/requirements">Requirements</a></li>
+  <li><a ng-class="{active:view === 'bonuses'}" ng-href="#/admin/user-groups/{{userGroup.id}}/bonuses">Bonuses</a></li>
+  <li class="divider"></li>
+  <li><a ng-class="{active:view === 'edit'}" ng-href="#/admin/user-groups/{{userGroup.id}}/edit">Edit User Group</a></li>
+  <!-- <li><a ng-click="confirm('Are you sure you want to delete this group?', 'delete', group)">Delete User Group</a></li> -->
+</ul>

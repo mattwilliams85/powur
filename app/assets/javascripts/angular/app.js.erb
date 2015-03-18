@@ -394,6 +394,37 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/admin/user-groups/templates/show.html")%>',
       controller: 'AdminUserGroupsCtrl'
     }).
+    // User Groups / Users
+    when('/admin/user-groups/:userGroupId/users', {
+      templateUrl: '<%=asset_path("angular/admin/user-group-users/templates/index.html")%>',
+      controller: 'AdminUserGroupUsersCtrl'
+    }).
+    // User Groups / Requirements
+    when('/admin/user-groups/:userGroupId/requirements', {
+      templateUrl: '<%=asset_path("angular/admin/user-group-requirements/templates/index.html")%>',
+      controller: 'AdminUserGroupRequirementsCtrl'
+    }).
+    when('/admin/user-groups/:userGroupId/requirements/new', {
+      templateUrl: '<%=asset_path("angular/admin/user-group-requirements/templates/new.html")%>',
+      controller: 'AdminUserGroupRequirementsCtrl'
+    }).
+    when('/admin/user-groups/:userGroupId/requirements/:requirementId/edit', {
+      templateUrl: '<%=asset_path("angular/admin/user-group-requirements/templates/edit.html")%>',
+      controller: 'AdminUserGroupRequirementsCtrl'
+    }).
+    // User Groups / Bonuses
+    when('/admin/user-groups/:userGroupId/bonuses', {
+      templateUrl: '<%=asset_path("angular/admin/user-group-bonuses/templates/index.html")%>',
+      controller: 'AdminUserGroupBonusesCtrl'
+    }).
+    when('/admin/user-groups/:userGroupId/bonuses/new', {
+      templateUrl: '<%=asset_path("angular/admin/user-group-bonuses/templates/new.html")%>',
+      controller: 'AdminUserGroupBonusesCtrl'
+    }).
+    when('/admin/user-groups/:userGroupId/bonuses/:requirementId/edit', {
+      templateUrl: '<%=asset_path("angular/admin/user-group-bonuses/templates/edit.html")%>',
+      controller: 'AdminUserGroupBonusesCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'

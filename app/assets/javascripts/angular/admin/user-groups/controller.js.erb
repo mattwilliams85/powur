@@ -2,7 +2,7 @@
 
 function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
   $scope.redirectUnlessSignedIn();
-
+  $scope.view = 'overview';
   $scope.userGroup = {};
   $scope.formErrorMessages = {};
   // TODO check if user is an admin
@@ -93,12 +93,6 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
     });
   };
 
-  $scope.panel = 'users';
-  $scope.showPanel = function(panelName) {
-    if ($scope.panel === panelName) return true;
-    return false;
-  };
-
   $scope.getUsersFromGroup = function (groupId) {
     $http({
       method: 'GET',
@@ -128,15 +122,12 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
   if ($scope.mode === 'index') {
     return AdminUserGroup.list().then(function(items) {
       $scope.userGroups = items.entities;
-      // $anchorScroll();
     });
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
-      $scope.group = item;
       $scope.userGroup = item.properties;
-      $scope.requirements = item.entities[1].entities;
 
       // get users from /a/users endpoint
       $scope.users = [];
@@ -146,6 +137,7 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
   } else if ($scope.mode === 'edit') {
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
+      $scope.group = item;
     });
   }
 };

@@ -14,6 +14,9 @@
 
 //= require_tree ../angular/admin/resources
 //= require_tree ../angular/admin/user-groups
+//= require_tree ../angular/admin/user-group-bonuses
+//= require_tree ../angular/admin/user-group-requirements
+//= require_tree ../angular/admin/user-group-users
 
 //= require_tree ../angular/modules/file-s3-uploader
 

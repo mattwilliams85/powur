@@ -11,104 +11,35 @@
   </div>
   <div class="row">
     <div class="large-4 columns">
-      <!-- Panel Navigation Menu -->
-      <ul class="side-nav">
-        <li><a ng-class="{active:showPanel('users')}" ng-click="panel = 'users'">Users</a></li>
-        <li><a ng-class="{active:showPanel('requirements')}" ng-click="panel = 'requirements'">Requirements</a></li>
-        <li><a ng-class="{active:showPanel('bonuses')}" ng-click="panel = 'bonuses'">Bonuses</a></li>
-        <li class="divider"></li>
-        <li><a ng-class="{active:showPanel('edit')}" ng-href="#/admin/user-groups/{{userGroup.id}}/edit">Edit User Group</a></li>
-        <li><a ng-click="confirm('Are you sure you want to delete this group?', 'delete', group)">Delete User Group</a></li>
-      </ul>
+      <!-- User Groups Menu -->
+      <ng-include src="'<%=asset_path("shared/admin/user-group-menu.html") %>'"></ng-include>
     </div>
 
     <div class="large-8 columns">
       <div class="tabs-content">
-        <!-- Users Panel -->
-        <div ng-show="showPanel('users')" ng-if="mode === 'show'">
-          <h3>Users</h3>
+        <!-- Overview Panel -->
+        <div ng-show="view === 'overview'" ng-if="mode === 'show'">
+          <h3>Group Overview</h3>
           <div class="row">
-            <div class="large-12 columns">
-              <!-- Notice If No Users in Group -->
-              <p ng-if="!users.length">
-                There are no users in this User Group.
-              </p>
-              <!-- Table If Users in Group -->
-              <table ng-if="users.length">
-                <thead>
-                  <tr>
-                    <th>User Name</th>
-                    <th>ID</th>
-                    <th>Email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="user in users">
-                    <td>{{user.properties.name}}</td>
-                    <td>{{user.properties.id}}</td>
-                    <td>{{user.properties.email}}</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="large-4 columns">
+              <div class="panel">
+                <h2>{{users.length}}</h2>
+                <h4>Users</h4>
+              </div>
+            </div>
+            <div class="large-4 columns">
+              <div class="panel">
+                <h2>{{requirements.length}}</h2>
+                <h4>Requirements</h4>
+              </div>
+            </div>
+            <div class="large-4 columns">
+              <div class="panel">
+                <h2>{{bonuses.length}}</h2>
+                <h4>Bonuses</h4>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- Requirements Panel -->
-        <div ng-show="showPanel('requirements')" ng-if="mode === 'show'">
-          <div class="row">
-            <div class="large-6 columns">
-              <h3>Requirements</h3>
-            </div>
-            <div class="large-6 columns">
-              <!-- New Requirement Button -->
-              <a class="button right">Add a Requirement</a>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 columns">
-              <!-- Notice If No Requirements for Group -->
-              <p ng-if="requirements.length === 0">
-                This User Group has no requirements.
-              </p>
-              <!-- Table If Requirements for Group --> 
-              <table ng-if="requirements.length !== 0">
-                <thead>
-                  <tr>
-                    <th>Requirement Name</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr ng-repeat="requirement in requirements">
-                    <td>{{requirement.name}}</td>
-                    <td>{{requirement.description}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bonuses Panel -->
-        <div ng-show="showPanel('bonuses')" ng-if="mode === 'show'">
-          <div class="large-6 columns">
-            <h3>Bonuses</h3>
-          </div>
-          <div class="large-6 columns">
-            <!-- New Bonus Button -->
-            <a class="button right">Add a Bonus</a>
-          </div>
-        </div>
-
-        <!-- Edit Group Panel -->
-        <div ng-show="mode === 'edit'">
-          <h3>Edit User Group</h3>
-          <!-- Edit Group Form -->
-          <form name="userGroupForm" class="user-group-form" ng-submit="update()">
-            <ng-include src="'<%=asset_path("angular/admin/user-groups/templates/form.html.erb")%>'"></ng-include>
-            <!-- Buttons -->
-            <input class="right button" ng-disabled="isSubmitDisabled" type="submit" value="Save" />
-          </form>
         </div>
       </div>
     </div>
