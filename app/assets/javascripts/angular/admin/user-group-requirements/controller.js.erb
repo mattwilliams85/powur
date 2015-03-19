@@ -3,17 +3,53 @@
 function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
   $scope.redirectUnlessSignedIn();
   $scope.view = 'requirements';
-  $scope.userGroup = {};
+  $scope.requirement = {};
   // TODO check if user is an admin
+
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
+  }
 
   $scope.cancel = function() {
     $location.path('/admin/user-groups/'+ $scope.userGroup.id + '/requirements');
   };
 
+  $scope.create = function() {
+    if ($scope.requirement) {
+      $scope.isSubmitDisabled = true;
+      AdminUserGroup.execute($scope.createAction, $scope.requirement).then(createCallback);
+    }
+  };
+
+  var createCallback = function() {
+    $location.path('/admin/user-groups/' + $scope.userGroup.id + '/requirements');
+    $scope.showModal('You\'ve successfully added a new requirement.');
+    $(document).foundation();
+    $scope.isSubmitDisabled = false;
+  };
+
+  // var createErrorCallback = function(data) {
+  //   $scope.formErrorMessages = {};
+  //   var keys = ['id', 'title'];
+  //   for(var i in keys) {
+  //     $scope.newRequirementForm[keys[i]].$dirty = false;
+  //     var errorMessage = data.errors[keys[i]];
+  //     if (errorMessage) {
+  //       $scope.newRequirementForm[keys[i]].$dirty = true;
+  //       $scope.formErrorMessages[keys[i]] = errorMessage[0];
+  //     }
+  //   }
+  //   $scope.isSubmitDisabled = false;
+  // };
 
   return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
     $scope.userGroup = item.properties;
-    $scope.actions = item.entities[1].actions
+    $scope.createAction = getAction(item.entities[1].actions, 'create');
     $scope.requirements = item.entities[1].entities;
   });
 }

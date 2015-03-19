@@ -1,0 +1,18 @@
+<!-- Add Requirement Form -->
+  <div ng-repeat="field in createAction.fields" class="row">
+    <div class="large-4 columns">
+      <label class="inline" for="{{field.name}}">{{field.name}}</label>
+    </div>
+
+    <div class="large-8 columns">
+      <!-- Selects -->
+      <select ng-model="requirement[field.name]" ng-if="field.type === 'select'" name="{{field.name}}" id="{{field.name}}">
+        <option ng-repeat="(key, name) in field.options" value="{{key}}">{{name}}</option>
+      </select>
+      <!-- Text Inputs -->
+      <input ng-model="requirement[field.name]" ng-if="field.type === 'text' || field.type === 'number'" type="field.type" name="{{field.name}}" id="{{field.name}}">
+    </div>
+  </div>
+</div>
+
+<div class="clearfix"></div>

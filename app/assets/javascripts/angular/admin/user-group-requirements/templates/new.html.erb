@@ -27,9 +27,12 @@
             <div class="large-12 columns">
               <h4>Add Requirement</h4>
               <!-- New Requirement Form -->
-              <ng-include src="'<%=asset_path("angular/admin/user-group-requirements/templates/form.html.erb") %>'"></ng-include>
-              <!-- Buttons -->
-              <a ng-click="cancel()" class="button">Cancel</a>
+              <form name="newRequirementForm" ng-submit="create()">
+                <ng-include src="'<%=asset_path("angular/admin/user-group-requirements/templates/form.html.erb") %>'"></ng-include>
+                <!-- Buttons -->
+                <a ng-click="cancel()" class="button">Cancel</a>
+                <input class="button" ng-disabled="isSubmitDisabled" type="submit" value="Create Requirement" />
+              </form>
             </div>
           </div>
         </div>
