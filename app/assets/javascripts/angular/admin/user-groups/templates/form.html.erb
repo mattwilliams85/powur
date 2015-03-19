@@ -16,7 +16,7 @@
 
   <div class="large-8 columns">
     <span ng-show="userGroupForm.id.$dirty && errorMessage('id')" class="radius alert label">{{errorMessage('id')}}</span>
-    <input ng-model="userGroup.id" name="id" id="userGroup_id"3 type="text" />
+    <input ng-disabled="disableIdEdit" ng-model="userGroup.id" name="id" id="userGroup_id" type="text" />
   </div>
 </div>
 

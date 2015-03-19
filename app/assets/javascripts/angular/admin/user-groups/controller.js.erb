@@ -124,6 +124,7 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
       $scope.userGroups = items.entities;
     });
   } else if ($scope.mode === 'new') {
+    $scope.disableIdEdit = false;
 
   } else if ($scope.mode === 'show') {
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
@@ -138,6 +139,7 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
       $scope.group = item;
+      $scope.disableIdEdit = true;
     });
   }
 };
