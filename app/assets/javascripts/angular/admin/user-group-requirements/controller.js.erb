@@ -38,6 +38,12 @@ function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchor
     }
   };
 
+  $scope.update = function() {
+    if ($scope.requirement) {
+      AdminUserGroup.execute($scope.formAction, $scope.requirement).then(callback($scope.formAction.name));
+    }
+  }
+
   var createCallback = function() {
     $location.path('/admin/user-groups/' + $scope.userGroup.id + '/requirements');
     $scope.showModal('You\'ve successfully added a new requirement.');
@@ -93,8 +99,14 @@ AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $location, $ro
   } else if ($scope.reqMode === 'edit') {
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
-      $scope.requirement = $scope.getRequirementById(item, $routeParams.requirementId);
-      $scope.formAction = $scope.getAction($scope.requirement.actions, 'update');
+      $scope.requirementObj = $scope.getRequirementById(item, $routeParams.requirementId);
+      $scope.formAction = $scope.getAction($scope.requirementObj.actions, 'update');
+
+      var fields = $scope.formAction.fields;
+      // Holy Loop to fill form with existing values 🙌
+      for (var i in fields) {
+        $scope.requirement[fields[i].name] = fields[i].value;
+      }
     });
   }
 }
