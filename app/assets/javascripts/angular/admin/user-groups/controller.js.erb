@@ -8,7 +8,6 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
   // TODO check if user is an admin
 
   // Utility Functions
-
   function getAction(actions, name) {
     for (var i in actions) {
       if (actions[i].name === name) {
@@ -41,7 +40,6 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
   };
 
   // Create Action & Related Callbacks
-
   $scope.create = function() {
     if ($scope.userGroup) {
       $scope.isSubmitDisabled = true;
@@ -71,7 +69,6 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
   };
 
   // Update Action & Related Callbacks
-
   $scope.update = function() {
     if ($scope.userGroup) {
       $scope.isSubmitDisabled = true;
@@ -87,7 +84,6 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
   };
 
   // Delete Action
-
   $scope.delete = function(item) {
     var action = getAction(item.actions, 'delete');
     var title = item.properties.title;
@@ -102,7 +98,6 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
   };
 
   // List Actions
-
   $scope.getUsersFromGroup = function (groupId) {
     $http({
       method: 'GET',
@@ -146,6 +141,9 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
 
       // get requirements
       $scope.requirements = item.entities[1].entities;
+
+      // get bonuses
+      $scope.bonuses = [];
 
     });
 
