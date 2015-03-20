@@ -6,7 +6,7 @@ module Admin
       @user_group = UserGroup.find(params[:user_group_id])
       @user_group.requirements.create!(input)
 
-      render 'show'
+      head 200
     end
 
     def update
@@ -18,7 +18,7 @@ module Admin
     def destroy
       @requirement.destroy
 
-      render 'show'
+      head 200
     end
 
     private

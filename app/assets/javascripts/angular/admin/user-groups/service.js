@@ -89,7 +89,6 @@ function AdminUserGroup($http, $q) {
     execute: function(action, data) {
       var dfr = $q.defer();
       data = data || {};
-
       $http({
         method: action.method,
         url: action.href,

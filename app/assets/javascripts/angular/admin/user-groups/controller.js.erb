@@ -7,6 +7,8 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
   $scope.formErrorMessages = {};
   // TODO check if user is an admin
 
+  // Utility Functions
+
   function getAction(actions, name) {
     for (var i in actions) {
       if (actions[i].name === name) {
@@ -16,17 +18,10 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
     return;
   }
 
-  $scope.delete = function(item) {
-    var action = getAction(item.actions, 'delete');
-    var title = item.properties.title;
-    return AdminUserGroup.execute(action).then(function() {
-      $scope.showModal(title + ' has been deleted');
-      $(document).foundation();
-      $location.path('/admin/user-groups/');
-    }, function() {
-      $scope.showModal('Oops error deleting the User Group');
-      $(document).foundation();
-    });
+  $scope.confirm = function(msg, clickAction, arg) {
+    if (window.confirm(msg)) {
+      return $scope.$eval(clickAction)(arg);
+    }
   };
 
   $scope.cancel = function() {
@@ -35,6 +30,23 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
 
   $scope.errorMessage = function(name) {
     return $scope.formErrorMessages[name];
+  };
+
+  $scope.pagination = function(direction) {
+    var page = $scope.itemsPaging.current_page + direction;
+    return AdminUserGroup.list().then(function(items) {
+      $scope.userGroups = items.entities;
+      $anchorScroll();
+    });
+  };
+
+  // Create Action & Related Callbacks
+
+  $scope.create = function() {
+    if ($scope.userGroup) {
+      $scope.isSubmitDisabled = true;
+      AdminUserGroup.create($scope.userGroup).then(createCallback, createErrorCallback);
+    }
   };
 
   var createCallback = function() {
@@ -58,10 +70,12 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
     $scope.isSubmitDisabled = false;
   };
 
-  $scope.create = function() {
+  // Update Action & Related Callbacks
+
+  $scope.update = function() {
     if ($scope.userGroup) {
       $scope.isSubmitDisabled = true;
-      AdminUserGroup.create($scope.userGroup).then(createCallback, createErrorCallback);
+      AdminUserGroup.update($scope.userGroup).then(updateCallback, createErrorCallback);
     }
   };
 
@@ -72,26 +86,22 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
     $scope.isSubmitDisabled = false;
   };
 
-  $scope.update = function() {
-    if ($scope.userGroup) {
-      $scope.isSubmitDisabled = true;
-      AdminUserGroup.update($scope.userGroup).then(updateCallback, createErrorCallback);
-    }
-  };
+  // Delete Action
 
-  $scope.confirm = function(msg, clickAction, arg) {
-    if (window.confirm(msg)) {
-      return $scope.$eval(clickAction)(arg);
-    }
-  };
-
-  $scope.pagination = function(direction) {
-    var page = $scope.itemsPaging.current_page + direction;
-    return AdminUserGroup.list().then(function(items) {
-      $scope.userGroups = items.entities;
-      $anchorScroll();
+  $scope.delete = function(item) {
+    var action = getAction(item.actions, 'delete');
+    var title = item.properties.title;
+    return AdminUserGroup.execute(action).then(function() {
+      $scope.showModal(title + ' has been deleted');
+      $(document).foundation();
+      $location.path('/admin/user-groups/');
+    }, function() {
+      $scope.showModal('Oops error deleting the User Group');
+      $(document).foundation();
     });
   };
+
+  // List Actions
 
   $scope.getUsersFromGroup = function (groupId) {
     $http({
@@ -133,6 +143,10 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
       // get users from /a/users endpoint
       $scope.users = [];
       $scope.getUsersFromGroup(item.properties.id);
+
+      // get requirements
+      $scope.requirements = item.entities[1].entities;
+
     });
 
   } else if ($scope.mode === 'edit') {

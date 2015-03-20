@@ -3,13 +3,25 @@
 function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
   $scope.redirectUnlessSignedIn();
   $scope.view = 'requirements';
+
+  // $scope.requirement is required for the form
   $scope.requirement = {};
+
   // TODO check if user is an admin
 
-  function getAction(actions, name) {
+  $scope.getAction = function (actions, name) {
     for (var i in actions) {
       if (actions[i].name === name) {
         return actions[i];
+      }
+    }
+    return;
+  }
+
+  $scope.getRequirementById = function (userGroup, requirementId) {
+    for (var i in userGroup.entities[1].entities) {
+      if (userGroup.entities[1].entities[i].properties.id === parseInt(requirementId)) {
+        return (userGroup.entities[1].entities[i]);
       }
     }
     return;
@@ -22,7 +34,7 @@ function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchor
   $scope.create = function() {
     if ($scope.requirement) {
       $scope.isSubmitDisabled = true;
-      AdminUserGroup.execute($scope.createAction, $scope.requirement).then(createCallback);
+      AdminUserGroup.execute($scope.formAction, $scope.requirement).then(createCallback);
     }
   };
 
@@ -33,25 +45,58 @@ function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchor
     $scope.isSubmitDisabled = false;
   };
 
-  // var createErrorCallback = function(data) {
-  //   $scope.formErrorMessages = {};
-  //   var keys = ['id', 'title'];
-  //   for(var i in keys) {
-  //     $scope.newRequirementForm[keys[i]].$dirty = false;
-  //     var errorMessage = data.errors[keys[i]];
-  //     if (errorMessage) {
-  //       $scope.newRequirementForm[keys[i]].$dirty = true;
-  //       $scope.formErrorMessages[keys[i]] = errorMessage[0];
-  //     }
-  //   }
-  //   $scope.isSubmitDisabled = false;
-  // };
+  $scope.execute = function (action, requirement) {
+    if (action.name === 'update') {
+      $scope.requirement = requirement;
+      // $scope.formAction = $scope.getAction(requirement.actions, 'update');
+      $location.path('/admin/user-groups/' + $scope.userGroup.id + '/requirements/' + requirement.properties.id + '/edit');
+    } else {
+      AdminUserGroup.execute(action, requirement).then(callback(action.name));
+    }
+  }
 
-  return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
-    $scope.userGroup = item.properties;
-    $scope.createAction = getAction(item.entities[1].actions, 'create');
-    $scope.requirements = item.entities[1].entities;
-  });
+  var callback = function(actionName) {
+    $location.path('/admin/user-groups/' + $scope.userGroup.id + '/requirements');
+    $scope.showModal(actionName + ': You\'ve successfully updated the User Group.');
+
+    //refresh requirements
+    AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
+        $scope.requirements = item.entities[1].entities;
+      });
+
+    $(document).foundation();
+  };
+
+  this.init($scope, $location);
+  this.fetch($scope, $location, $routeParams, AdminUserGroup);
+}
+
+AdminUserGroupRequirementsCtrl.prototype.init = function($scope, $location) {
+  $scope.reqMode = 'index';
+  if (/\/requirements$/.test($location.path())) return $scope.reqMode = 'index';
+  if (/\/new$/.test($location.path())) return $scope.reqMode = 'new';
+  if (/\/edit$/.test($location.path())) return $scope.reqMode = 'edit';
+}
+
+AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminUserGroup) {
+  if ($scope.reqMode === 'index') {
+    return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
+      $scope.userGroup = item.properties;
+      $scope.requirements = item.entities[1].entities;
+    });
+  } else if ($scope.reqMode === 'new') {
+    return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
+      $scope.userGroup = item.properties;
+      $scope.requirement = {};
+      $scope.formAction = $scope.getAction(item.entities[1].actions, 'create');
+    });
+  } else if ($scope.reqMode === 'edit') {
+    return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
+      $scope.userGroup = item.properties;
+      $scope.requirement = $scope.getRequirementById(item, $routeParams.requirementId);
+      $scope.formAction = $scope.getAction($scope.requirement.actions, 'update');
+    });
+  }
 }
 
 
