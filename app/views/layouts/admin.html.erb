@@ -21,21 +21,6 @@
               <%=image_tag('powur-white-logo.png', class: 'logo-img') %>
             </a>
           </li>
-          <li>
-            <a href="#admin-users" class="admin_top_level_nav">Users</a>
-          </li>
-          <li>
-            <a href="#admin-plans" class="admin_top_level_nav">Plans</a>
-          </li>
-          <li>
-            <a href="#admin-quotes" class="admin_top_level_nav">Quotes & Orders</a>
-          </li>
-          <li>
-            <a href="#admin-notifications" class="admin_top_level_nav">Notifications</a>
-          </li>
-          <li>
-            <a href="/#/admin/resources" class="admin_top_level_nav">Library</a>
-          </li>
         </ul>
 
         <ul id="user_nav">
@@ -47,6 +32,31 @@
           </li>
         </ul>
       </nav>
+      <!-- Admin Dropdown Menu -->
+      <div class="admin-dropdown">
+          <input type="checkbox">
+          <label data-default="Administration Menu" data-active="Administration Menu"></label>
+          <ul>
+            <li>
+              <a href="#admin-users" class="admin_top_level_nav">Users</a>
+            </li>
+            <li>
+              <a href="#admin-plans" class="admin_top_level_nav">Plans</a>
+            </li>
+            <li>
+              <a href="#admin-quotes" class="admin_top_level_nav">Quotes & Orders</a>
+            </li>
+            <li>
+              <a href="#admin-notifications" class="admin_top_level_nav">Notifications</a>
+            </li>
+            <li>
+              <a class="admin_top_level_nav" href="/#/admin/resources">Library</a>
+            </li>
+            <li>
+              <a class="admin_top_level_nav" nhref="/#/admin/user-groups">User Groups</a>
+            </li>
+          </ul>
+      </div>
       <section id="subheader_bar" style="">
           <div class="js-dashboard_section_indicator top_level"></div>
       </section>

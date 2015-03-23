@@ -148,10 +148,6 @@ jQuery(function($){
           _data.currentUser.actions = _getObjectsByCriteria(data, "key=rel");
 
           if(_tab==="#admin-users-init"){
-            //set up indicator for top level
-            $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-users]").position().left+28)+"px");
-            $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
-
 
             //prepare the drop down for the root user on the left nav
             _data.currentUser["userDropDown"]=[];

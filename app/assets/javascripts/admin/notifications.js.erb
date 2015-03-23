@@ -25,11 +25,6 @@ jQuery(function($) {
 
   function AdminDashboard() {
 
-    function showArrow() {
-      $('.js-dashboard_section_indicator.top_level').css('left', ($('#header_container nav a[href=#admin-notifications]').position().left+65)+'px');
-      $('.js-dashboard_section_indicator.top_level').animate({'top':'-=15', 'opacity':1}, 300);
-    }
-
     function showSummary() {
       EyeCueLab.UX.getTemplate(
         '<%= asset_path("hb_templates/admin/notifications/_summary.handlebars.html") %>',
@@ -128,7 +123,6 @@ jQuery(function($) {
     this.reloadData = reloadData;
 
     // Load Order
-    showArrow();
     showSummary();
     showNotifications();
     // hideLoader();

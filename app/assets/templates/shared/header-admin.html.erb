@@ -4,6 +4,21 @@
       <li class="main-logo">
         <a href="/"><img src="<%=asset_path('powur-white-logo.png')%>" class="logo-img" /></a>
       </li>
+    </ul>
+    <ul class="user-nav">
+      <li>
+        <a ng-click="signOut()">Sign Out</a>
+      </li>
+    </ul>
+  </nav>
+  <section class="subheader-bar">
+    <div class="js-dashboard_section_indicator top_level"></div>
+  </section>
+  <!-- Admin Dropdown Menu -->
+  <div class="admin-dropdown">
+    <input type="checkbox">
+    <label data-default="Administration Menu" data-active="Administration Menu"></label>
+    <ul>
       <li>
         <a ng-href="/a/users" class="admin_top_level_nav">Users</a>
       </li>
@@ -23,14 +38,5 @@
         <a class="admin_top_level_nav" ng-href="#/admin/user-groups">User Groups</a>
       </li>
     </ul>
-
-    <ul class="user-nav">
-      <li>
-        <a ng-click="signOut()">Sign Out</a>
-      </li>
-    </ul>
-  </nav>
-  <section class="subheader-bar">
-    <div class="js-dashboard_section_indicator top_level"></div>
-  </section>
+  </div>
 </header>

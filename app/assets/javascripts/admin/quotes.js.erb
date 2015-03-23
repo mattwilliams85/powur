@@ -61,8 +61,6 @@ jQuery(function($){
         function displayQuotes(_tab, _callback){
             switch(_tab){
                 case "#admin-quotes-init":
-                    $(".js-dashboard_section_indicator.top_level").css("left", ($("#header_container nav a[href=#admin-quotes]").position().left+28)+"px");
-                    $(".js-dashboard_section_indicator.top_level").animate({"top":"-=15", "opacity":1}, 300);
                     displayQuotes("#admin-quotes-quotes");
 
                 break;
