@@ -27,8 +27,12 @@ function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchor
     return;
   }
 
-  $scope.cancel = function() {
+  $scope.formCancel = function() {
     $location.path('/admin/user-groups/'+ $scope.userGroup.id + '/requirements');
+  };
+
+  $scope.backToGroupList = function() {
+    $location.path('/admin/user-groups/');
   };
 
   // Create Requirement Action
