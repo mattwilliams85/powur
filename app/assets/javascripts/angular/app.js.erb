@@ -425,6 +425,24 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/admin/user-group-bonuses/templates/edit.html")%>',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
+    // Bonus Plan
+    when('/admin/bonus-plan/', {
+      templateUrl: '<%=asset_path("angular/admin/bonus-plan/templates/index.html")%>',
+      controller: 'AdminBonusPlanCtrl'
+    }).
+    // Products
+    when('/admin/products/', {
+      templateUrl: '<%=asset_path("angular/admin/products/templates/index.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/admin/products/new', {
+      templateUrl: '<%=asset_path("angular/admin/products/templates/new.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/admin/products/edit', {
+      templateUrl: '<%=asset_path("angular/admin/products/templates/edit.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'
