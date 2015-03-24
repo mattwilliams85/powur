@@ -291,13 +291,14 @@
 
 .admin-dropdown {
     position:absolute;
-    width:275px;
+    width:260px;
     height:30px;
     margin:0 0 10px;
     display:inline-block;
     z-index: 25;
     top: 34px;
     left: 200px;
+    font-size: 16px;
     color: #fff;
 }
 
@@ -360,10 +361,16 @@
     padding:0 15px;
     color: #0a7fa1;
     font-size: 16px;
+    text-align: left;
+}
+.admin-dropdown input:hover {
+  color: #fff;
 }
 
-.admin-dropdown label:before {
-    content:attr(data-default);
+.admin-dropdown label:after {
+    content: '\f078';
+    padding-left: 10px;
+    font-family: FontAwesome;
 }
 
 .admin-dropdown input:checked + label {
@@ -372,14 +379,16 @@
   background-color: #2284a1;
 }
 
-.admin-dropdown input:checked + label:before {
-    content:attr(data-active);
+.admin-dropdown input:checked + label:after {
+    content: '';
 }
 
 .admin-dropdown input:checked ~ ul {
     display:block;
+    z-index: 99;
 }
 
+// end Admin Dropdown Menu //
 
 // Make the header buttons thumb-sized on mobile
 

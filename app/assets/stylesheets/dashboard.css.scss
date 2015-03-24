@@ -2545,7 +2545,7 @@ h4 {
 
 .admin-dropdown {
     position:absolute;
-    width:275px;
+    width:260px;
     height:30px;
     margin:0 0 10px;
     display:inline-block;
@@ -2617,9 +2617,14 @@ h4 {
     font-size: 16px;
     text-align: left;
 }
+.admin-dropdown input:hover {
+  color: #fff;
+}
 
-.admin-dropdown label:before {
-    content:attr(data-default);
+.admin-dropdown label:after {
+    content: '\f078';
+    padding-left: 10px;
+    font-family: FontAwesome;
 }
 
 .admin-dropdown input:checked + label {
@@ -2628,8 +2633,8 @@ h4 {
   background-color: #2284a1;
 }
 
-.admin-dropdown input:checked + label:before {
-    content:attr(data-active);
+.admin-dropdown input:checked + label:after {
+    content: '';
 }
 
 .admin-dropdown input:checked ~ ul {
