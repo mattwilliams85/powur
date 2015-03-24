@@ -2634,6 +2634,7 @@ h4 {
 
 .admin-dropdown input:checked ~ ul {
     display:block;
+    z-index: 99;
 }
 
 // end Admin Dropdown Menu //
