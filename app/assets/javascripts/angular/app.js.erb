@@ -431,7 +431,7 @@ sunstandApp.config(
       controller: 'AdminBonusPlanCtrl'
     }).
     // Products
-    when('/admin/products/', {
+    when('/admin/products', {
       templateUrl: '<%=asset_path("angular/admin/products/templates/index.html")%>',
       controller: 'AdminProductsCtrl'
     }).
@@ -441,6 +441,10 @@ sunstandApp.config(
     }).
     when('/admin/products/edit', {
       templateUrl: '<%=asset_path("angular/admin/products/templates/edit.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/admin/products/:productId', {
+      templateUrl: '<%=asset_path("angular/admin/products/templates/show.html")%>',
       controller: 'AdminProductsCtrl'
     }).
 

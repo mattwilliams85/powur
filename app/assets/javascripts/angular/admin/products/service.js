@@ -20,7 +20,26 @@ function AdminProduct($http, $q) {
       });
 
       return dfr.promise;
-    }
+    },
+
+    /*
+     * Get an item
+    */
+    get: function(id) {
+      var dfr = $q.defer();
+
+      $http({
+        method: 'GET',
+        url: '/a/products/' + id + '.json'
+      }).success(function(res) {
+        dfr.resolve(res);
+      }).error(function(err) {
+        console.log('エラー', err);
+        dfr.reject(err);
+      });
+
+      return dfr.promise;
+    },
   };
 
   return service;
