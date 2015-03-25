@@ -1,0 +1,43 @@
+<ng-include src="'<%=asset_path("shared/header-admin.html") %>'"></ng-include>
+
+<main class="sun-admin-products">
+  <div class="row">
+    <div class="large-4 columns">
+      <a ng-click="backToIndex()" class="button">Back</a>
+    </div>
+    <div class="large-8 columns">
+      <h2>{{plan.name}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-4 columns">
+      <!-- Bonus Plan Menu -->
+      <ng-include src="'<%=asset_path("angular/admin/bonus-plans/templates/bonus-plan-menu.html")%>'"></ng-include>
+    </div>
+
+    <div class="large-8 columns">
+      <div class="tabs-content">
+        <!-- Overview Panel -->
+        <div ng-show="view === 'overview'" ng-if="mode === 'show'">
+          <h3>Bonus Plan Overview</h3>
+          <div class="row">
+            <div class="large-4 columns">
+              <div class="panel">
+                <h2>{{plan.start_month}}/{{plan.start_year}}</h2>
+                <h4>Start Date</h4>
+              </div>
+            </div>
+            <div class="large-4 columns end">
+              <div class="panel">
+                <h2 ng-if="plan.active === true">Active</h2>
+                <h2 ng-if="plan.active === false">Not Active</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</main>
