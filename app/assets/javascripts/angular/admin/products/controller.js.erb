@@ -2,16 +2,20 @@
 
 function AdminProductsCtrl($scope, $location, $routeParams, $http, AdminProduct) {
 
+  // this.init($scope, $location);
+  this.fetch($scope, $location, $routeParams, AdminProduct);
+};
 
-  AdminProductsCtrl.prototype.init = function($scope, $location){
-
-  }
-
-  AdminProductsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminProduct) {
-
-  }
+AdminProductsCtrl.prototype.init = function($scope, $location){
 
 };
+
+AdminProductsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminProduct) {
+  return AdminProduct.list().then(function(items) {
+    $scope.products = items.entities;
+  })
+};
+
 
 AdminProductsCtrl.$inject = ['$scope', '$location', '$routeParams', '$http', 'AdminProduct'];
 sunstandControllers.controller('AdminProductsCtrl', AdminProductsCtrl);
