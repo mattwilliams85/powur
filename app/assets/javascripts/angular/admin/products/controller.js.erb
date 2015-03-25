@@ -3,7 +3,7 @@
 function AdminProductsCtrl($scope, $location, $routeParams, $http, AdminProduct) {
   $scope.redirectUnlessSignedIn();
 
-  $scope.backToProductsList = function() {
+  $scope.backToIndex = function() {
     $location.path('/admin/products/');
   }
 
