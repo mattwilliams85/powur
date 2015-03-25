@@ -1,0 +1,38 @@
+'use strict';
+
+function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusPlan) {
+  $scope.redirectUnlessSignedIn();
+
+  $scope.backToIndex = function() {
+    $location.path('/admin/bonus-plans/');
+  }
+
+  this.init($scope, $location);
+  this.fetch($scope, $location, $routeParams, AdminBonusPlan);
+
+};
+
+AdminBonusPlansCtrl.prototype.init = function($scope, $location){
+  // Set mode based on URL
+  $scope.mode = 'show';
+  if (/\/bonus-plans$/.test($location.path())) return $scope.mode = 'index';
+  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+  if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
+};
+
+AdminBonusPlansCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminBonusPlan) {
+  if ($scope.mode === 'index') {
+    AdminBonusPlan.list().then(function(items) {
+      $scope.bonusPlans = items.entities;
+    })
+  } else if ($scope.mode === 'show') {
+
+  } else if ($scope.mode === 'new') {
+
+  } else if ($scope.mode === 'edit') {
+
+  }
+};
+
+AdminBonusPlansCtrl.$inject = ['$scope', '$location', '$routeParams', '$http', 'AdminBonusPlan'];
+sunstandControllers.controller('AdminBonusPlansCtrl', AdminBonusPlansCtrl);
