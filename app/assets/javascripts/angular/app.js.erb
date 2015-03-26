@@ -425,6 +425,40 @@ sunstandApp.config(
       templateUrl: '<%=asset_path("angular/admin/user-group-bonuses/templates/edit.html")%>',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
+    // Bonus Plans
+    when('/admin/bonus-plans', {
+      templateUrl: '<%=asset_path("angular/admin/bonus-plans/templates/index.html")%>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/admin/bonus-plans/new', {
+      templateUrl: '<%=asset_path("angular/admin/bonus-plans/templates/new.html")%>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/admin/bonus-plans/:bonusPlanId/edit', {
+      templateUrl: '<%=asset_path("angular/admin/bonus-plans/templates/edit.html")%>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/admin/bonus-plans/:bonusPlanId', {
+      templateUrl: '<%=asset_path("angular/admin/bonus-plans/templates/show.html")%>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    // Products
+    when('/admin/products', {
+      templateUrl: '<%=asset_path("angular/admin/products/templates/index.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/admin/products/new', {
+      templateUrl: '<%=asset_path("angular/admin/products/templates/new.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/admin/products/edit', {
+      templateUrl: '<%=asset_path("angular/admin/products/templates/edit.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/admin/products/:productId', {
+      templateUrl: '<%=asset_path("angular/admin/products/templates/show.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
 
     otherwise({
       redirectTo: '/home'

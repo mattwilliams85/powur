@@ -1,0 +1,36 @@
+'use strict';
+
+function AdminProductsCtrl($scope, $location, $routeParams, $http, AdminProduct) {
+  $scope.redirectUnlessSignedIn();
+
+  $scope.backToIndex = function() {
+    $location.path('/admin/products/');
+  }
+
+  this.init($scope, $location);
+  this.fetch($scope, $location, $routeParams, AdminProduct);
+};
+
+AdminProductsCtrl.prototype.init = function($scope, $location){
+  // Set mode based on URL
+  $scope.mode = 'show';
+  if (/\/products$/.test($location.path())) return $scope.mode = 'index';
+  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+  if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
+};
+
+AdminProductsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminProduct) {
+  if ($scope.mode === 'index') {
+    return AdminProduct.list().then(function(items) {
+      $scope.products = items.entities;
+    })
+  } else if ($scope.mode === 'show') {
+    return AdminProduct.get($routeParams.productId).then(function(item) {
+      $scope.product = item.properties;
+    })
+  }
+};
+
+
+AdminProductsCtrl.$inject = ['$scope', '$location', '$routeParams', '$http', 'AdminProduct'];
+sunstandControllers.controller('AdminProductsCtrl', AdminProductsCtrl);
