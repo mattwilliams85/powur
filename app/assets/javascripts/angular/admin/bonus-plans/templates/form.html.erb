@@ -1,0 +1,20 @@
+<!-- Add Bonus Plan Form -->
+  <div ng-repeat="field in formAction.fields" class="row">
+    <div class="large-4 columns">
+      <label class="inline" for="{{field.name}}">{{field.name}}</label>
+    </div>
+
+    <div class="large-8 columns">
+      <!-- Selects -->
+      <select ng-model="bonusPlan[field.name]" ng-if="field.type === 'select'" name="{{field.name}}" id="{{field.name}}">
+        <option ng-repeat="(key, name) in field.options" value="{{key}}">{{name}}</option>
+      </select>
+      <!-- Text Inputs -->
+      <input ng-model="bonusPlan[field.name]" ng-if="field.type === 'text'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+      <!-- Number Inputs -->
+      <input ng-model="bonusPlan[field.name]" ng-if="field.type === 'number'" type="number" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+    </div>
+  </div>
+</div>
+
+<div class="clearfix"></div>

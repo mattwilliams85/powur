@@ -16,7 +16,11 @@ module Admin
     def create
       @bonus_plan = BonusPlan.create!(input)
 
-      render 'show'
+      if @bonus_plan.save
+        head 200
+      else
+        render json: { errors: @bonus_plan.errors.messages }, status: :unprocessable_entity
+      end
     end
 
     def update

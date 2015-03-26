@@ -3,8 +3,48 @@
 function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusPlan) {
   $scope.redirectUnlessSignedIn();
 
+  // Utility Functions
+  $scope.getAction = function (actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
+  }
+
   $scope.backToIndex = function() {
     $location.path('/admin/bonus-plans/');
+  }
+
+  // Create Bonus Plan Action
+  $scope.create = function() {
+    if ($scope.bonusPlan) {
+      $scope.isSubmitDisabled = true;
+      AdminBonusPlan.execute($scope.formAction, $scope.bonusPlan).then(actionCallback);
+    }
+  }
+
+  var actionCallback = function(data) {
+    var destination = '/admin/bonus-plans/',
+        modalMessage = '';
+    if ($scope.formAction.name === 'create') {
+      destination = ('/admin/bonus-plans/');
+      modalMessage = ('You\'ve successfully added a new Bonus Plan.')
+      $scope.isSubmitDisabled = false;
+    } else if ($scope.formAction.name === 'update') {
+      destination = ('/admin/bonus-plans/');
+      modalMessage = ('You\'ve successfully updated this Bonus Plan.')
+    } else if ($scope.formAction.name === 'delete') {
+      destination = ('/admin/bonus-plans/');
+      modalMessage = ('You\'ve successfully deleted this Bonus Plan.')
+    }
+    return AdminBonusPlan.list().then(function(item) {
+      $location.path(destination)
+      $scope.bonusPlans = item.entities;
+      $(document).foundation();
+      $scope.showModal(modalMessage)
+    });
   }
 
   this.init($scope, $location);
@@ -30,6 +70,10 @@ AdminBonusPlansCtrl.prototype.fetch = function($scope, $location, $routeParams, 
       $scope.plan = item.properties;
     })
   } else if ($scope.mode === 'new') {
+    return AdminBonusPlan.list().then(function(item){
+      $scope.bonusPlan = {};
+      $scope.formAction = $scope.getAction(item.actions, 'create');
+    });
 
   } else if ($scope.mode === 'edit') {
 
