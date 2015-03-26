@@ -17,7 +17,7 @@ module Auth
       if form.valid?
         if @university_class.purchase(form.as_json, current_user)
           PromoterMailer.certification_purchase_processed(current_user).deliver_now!
-          if @current_user.upline.length >= 2
+          if @current_user.upline.length > 1
             PromoterMailer.team_leader_downline_certification_purchase(current_user).deliver_now!
           end
           return head 200
