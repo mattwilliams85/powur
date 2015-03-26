@@ -17,7 +17,9 @@ module Auth
       if form.valid?
         if @university_class.purchase(form.as_json, current_user)
           PromoterMailer.certification_purchase_processed(current_user).deliver_now!
-          PromoterMailer.team_leader_downline_certification_purchase(current_user).deliver_now!
+          if @current_user.upline.length >= 2
+            PromoterMailer.team_leader_downline_certification_purchase(current_user).deliver_now!
+          end
           return head 200
         end
         render json: { errors: {number: ['Error, couldn\'t process a card']}}, status: :unprocessable_entity
