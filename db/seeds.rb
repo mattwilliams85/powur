@@ -118,6 +118,18 @@ User.create!(
   roles:      [ ],
   sponsor_id: jon.id)
 
+User.create!(
+  email:      'demoadmin@powur.com',
+  password:   'sunlight',
+  password_confirmation: 'sunlight',
+  tos: true,
+  first_name: 'Demo',
+  last_name:  'Administrator',
+  phone:      '777.777.1212',
+  zip:        '92023',
+  url_slug:   'demo',
+  roles:      [ 'admin' ])
+
 puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all
 BonusPlan.create!(
