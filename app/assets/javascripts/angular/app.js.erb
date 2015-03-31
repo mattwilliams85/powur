@@ -396,33 +396,33 @@ sunstandApp.config(
     }).
     // User Groups / Users
     when('/admin/user-groups/:userGroupId/users', {
-      templateUrl: '<%=asset_path("angular/admin/user-group-users/templates/index.html")%>',
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/users/index.html")%>',
       controller: 'AdminUserGroupUsersCtrl'
     }).
     // User Groups / Requirements
     when('/admin/user-groups/:userGroupId/requirements', {
-      templateUrl: '<%=asset_path("angular/admin/user-group-requirements/templates/index.html")%>',
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/requirements/index.html")%>',
       controller: 'AdminUserGroupRequirementsCtrl'
     }).
     when('/admin/user-groups/:userGroupId/requirements/new', {
-      templateUrl: '<%=asset_path("angular/admin/user-group-requirements/templates/new.html")%>',
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/requirements/new.html")%>',
       controller: 'AdminUserGroupRequirementsCtrl'
     }).
     when('/admin/user-groups/:userGroupId/requirements/:requirementId/edit', {
-      templateUrl: '<%=asset_path("angular/admin/user-group-requirements/templates/edit.html")%>',
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/requirements/edit.html")%>',
       controller: 'AdminUserGroupRequirementsCtrl'
     }).
     // User Groups / Bonuses
     when('/admin/user-groups/:userGroupId/bonuses', {
-      templateUrl: '<%=asset_path("angular/admin/user-group-bonuses/templates/index.html")%>',
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/bonuses/index.html")%>',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
     when('/admin/user-groups/:userGroupId/bonuses/new', {
-      templateUrl: '<%=asset_path("angular/admin/user-group-bonuses/templates/new.html")%>',
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/bonuses/new.html")%>',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
     when('/admin/user-groups/:userGroupId/bonuses/:requirementId/edit', {
-      templateUrl: '<%=asset_path("angular/admin/user-group-bonuses/templates/edit.html")%>',
+      templateUrl: '<%=asset_path("angular/admin/user-groups/templates/bonuses/edit.html")%>',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
     // Bonus Plans
