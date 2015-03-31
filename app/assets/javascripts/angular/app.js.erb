@@ -47,7 +47,11 @@ var sunstandApp = angular.module('sunstandApp', [
       $rootScope.$on('$locationChangeStart', function() {
         $timeout.cancel(pilerTimer);
       });
-    }
+    };
+
+    $rootScope.readyAdminHeader = function() {
+      $(document).foundation();
+    };
 
     $rootScope.removePiler = function(){
       $('html').removeClass('piling-on');
