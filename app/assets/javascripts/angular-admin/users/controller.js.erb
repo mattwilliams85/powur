@@ -4,7 +4,7 @@ function AdminUsersCtrl($scope, $location, $routeParams, $anchorScroll, $http, A
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
-    $location.path('/admin/users/');
+    $location.path('/admin/#/users/');
   };
 
   this.init($scope, $location);

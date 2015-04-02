@@ -4,7 +4,7 @@ function AdminQuotesCtrl($scope, $location, $routeParams, $anchorScroll, $http, 
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
-    $location.path('/admin/quotes/');
+    $location.path('/admin/#/quotes/');
   };
 
   this.init($scope, $location);
