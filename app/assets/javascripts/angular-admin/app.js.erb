@@ -216,6 +216,19 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/orders/templates/edit.html")%>',
       controller: 'AdminOrdersCtrl'
     }).
+    // Pay Periods
+    when('/pay-periods', {
+      templateUrl: '<%=asset_path("angular-admin/pay-periods/templates/index.html")%>',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
+    when('/pay-periods/:payPeriodId', {
+      templateUrl: '<%=asset_path("angular-admin/pay-periods/templates/show.html")%>',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
+    when('/pay-periods/:payPeriodId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/pay-periods/templates/edit.html")%>',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
 
     otherwise({
       redirectTo: '/'

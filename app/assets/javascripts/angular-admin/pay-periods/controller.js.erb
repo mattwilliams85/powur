@@ -1,0 +1,42 @@
+'use strict';
+
+function AdminPayPeriodsCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminPayPeriod) {
+  $scope.redirectUnlessSignedIn();
+
+  $scope.backToIndex = function() {
+    $location.path('/admin/#/payPeriods/');
+  };
+
+  this.init($scope, $location);
+  this.fetch($scope, $location, $routeParams, AdminPayPeriod);
+}
+
+AdminPayPeriodsCtrl.prototype.init = function($scope, $location) {
+  // Setting mode based on the url
+  $scope.mode = 'show';
+  if (/\/pay-periods$/.test($location.path())) return $scope.mode = 'index';
+  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+  if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
+};
+
+AdminPayPeriodsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminPayPeriod) {
+  if ($scope.mode === 'index') {
+    return AdminPayPeriod.list().then(function(items) {
+      $scope.payPeriods = items.entities;
+    });
+  } else if ($scope.mode === 'new') {
+
+  } else if ($scope.mode === 'show') {
+    return AdminPayPeriod.get($routeParams.payPeriodId).then(function(item) {
+      $scope.payPeriod = item.properties;
+    });
+
+  } else if ($scope.mode === 'edit') {
+    return AdminPayPeriod.get($routeParams.payPeriodId).then(function(item) {
+      $scope.payPeriod = item.properties;
+    });
+  }
+};
+
+AdminPayPeriodsCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminPayPeriod'];
+sunstandControllers.controller('AdminPayPeriodsCtrl', AdminPayPeriodsCtrl);
