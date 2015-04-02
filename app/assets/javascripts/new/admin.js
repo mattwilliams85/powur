@@ -10,6 +10,7 @@
 
 //= require_tree ../angular-admin/bonus-plans
 //= require_tree ../angular-admin/products
+//= require_tree ../angular-admin/quotes
 //= require_tree ../angular-admin/resources
 //= require_tree ../angular-admin/users
 //= require_tree ../angular-admin/user-groups

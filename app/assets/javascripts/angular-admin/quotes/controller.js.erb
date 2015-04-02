@@ -1,0 +1,42 @@
+'use strict';
+
+function AdminQuotesCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminQuote) {
+  $scope.redirectUnlessSignedIn();
+
+  $scope.backToIndex = function() {
+    $location.path('/admin/quotes/');
+  };
+
+  this.init($scope, $location);
+  this.fetch($scope, $location, $routeParams, AdminQuote);
+}
+
+AdminQuotesCtrl.prototype.init = function($scope, $location) {
+  // Setting mode based on the url
+  $scope.mode = 'show';
+  if (/\/users$/.test($location.path())) return $scope.mode = 'index';
+  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+  if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
+};
+
+AdminQuotesCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminQuote) {
+  if ($scope.mode === 'index') {
+    return AdminQuote.list().then(function(items) {
+      $scope.users = items.entities;
+    });
+  } else if ($scope.mode === 'new') {
+
+  } else if ($scope.mode === 'show') {
+    return AdminQuote.get($routeParams.userGroupId).then(function(item) {
+      $scope.user = item.properties;
+    });
+
+  } else if ($scope.mode === 'edit') {
+    return AdminQuote.get($routeParams.userGroupId).then(function(item) {
+      $scope.user = item.properties;
+    });
+  }
+};
+
+AdminQuotesCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminQuote'];
+sunstandControllers.controller('AdminQuotesCtrl', AdminQuotesCtrl);
