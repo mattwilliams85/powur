@@ -27,12 +27,12 @@ AdminUsersCtrl.prototype.fetch = function($scope, $location, $routeParams, Admin
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
-    return AdminUser.get($routeParams.userGroupId).then(function(item) {
+    return AdminUser.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
     });
 
   } else if ($scope.mode === 'edit') {
-    return AdminUser.get($routeParams.userGroupId).then(function(item) {
+    return AdminUser.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
     });
   }

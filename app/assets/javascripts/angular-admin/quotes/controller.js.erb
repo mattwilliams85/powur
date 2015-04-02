@@ -27,12 +27,12 @@ AdminQuotesCtrl.prototype.fetch = function($scope, $location, $routeParams, Admi
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
-    return AdminQuote.get($routeParams.userGroupId).then(function(item) {
+    return AdminQuote.get($routeParams.quoteId).then(function(item) {
       $scope.user = item.properties;
     });
 
   } else if ($scope.mode === 'edit') {
-    return AdminQuote.get($routeParams.userGroupId).then(function(item) {
+    return AdminQuote.get($routeParams.quoteId).then(function(item) {
       $scope.user = item.properties;
     });
   }
