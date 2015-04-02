@@ -52,8 +52,8 @@ var sunstandAdminApp = angular.module('sunstandAdminApp', [
     $rootScope.signOut = function() {
       var cb = function() {
         $rootScope.isSignedIn = false;
-        // window.location = '#/sign-in';
-        $location.path('/sign-in');
+        window.location = '/#/sign-in';
+        // $location.path('/sign-in');
       };
       $http.delete('/login.json', {
         xsrfHeaderName: 'X-CSRF-Token'
