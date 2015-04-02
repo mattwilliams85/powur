@@ -1,0 +1,42 @@
+'use strict';
+
+function AdminOrdersCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminOrder) {
+  $scope.redirectUnlessSignedIn();
+
+  $scope.backToIndex = function() {
+    $location.path('/admin/#/orders/');
+  };
+
+  this.init($scope, $location);
+  this.fetch($scope, $location, $routeParams, AdminOrder);
+}
+
+AdminOrdersCtrl.prototype.init = function($scope, $location) {
+  // Setting mode based on the url
+  $scope.mode = 'show';
+  if (/\/orders$/.test($location.path())) return $scope.mode = 'index';
+  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+  if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
+};
+
+AdminOrdersCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminOrder) {
+  if ($scope.mode === 'index') {
+    return AdminOrder.list().then(function(items) {
+      $scope.orders = items.entities;
+    });
+  } else if ($scope.mode === 'new') {
+
+  } else if ($scope.mode === 'show') {
+    return AdminOrder.get($routeParams.userId).then(function(item) {
+      $scope.user = item.properties;
+    });
+
+  } else if ($scope.mode === 'edit') {
+    return AdminOrder.get($routeParams.userId).then(function(item) {
+      $scope.user = item.properties;
+    });
+  }
+};
+
+AdminOrdersCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminOrder'];
+sunstandControllers.controller('AdminOrdersCtrl', AdminOrdersCtrl);

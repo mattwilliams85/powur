@@ -203,6 +203,19 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/quotes/templates/edit.html")%>',
       controller: 'AdminQuotesCtrl'
     }).
+    // Orders
+    when('/orders', {
+      templateUrl: '<%=asset_path("angular-admin/orders/templates/index.html")%>',
+      controller: 'AdminOrdersCtrl'
+    }).
+    when('/orders/:orderId', {
+      templateUrl: '<%=asset_path("angular-admin/orders/templates/show.html")%>',
+      controller: 'AdminOrdersCtrl'
+    }).
+    when('/orders/:orderId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/orders/templates/edit.html")%>',
+      controller: 'AdminOrdersCtrl'
+    }).
 
     otherwise({
       redirectTo: '/'
