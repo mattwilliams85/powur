@@ -1,0 +1,47 @@
+<main class="sun-admin-products">
+  <div class="row">
+    <div class="large-4 columns">
+      <a ng-click="backToIndex()" class="button">Back</a>
+    </div>
+    <div class="large-8 columns">
+      <h2>{{product.name}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-4 columns">
+      <!-- Product Menu -->
+      <ng-include src="'<%=asset_path("angular/admin/products/templates/product-menu.html")%>'"></ng-include>
+    </div>
+
+    <div class="large-8 columns">
+      <div class="tabs-content">
+        <!-- Overview Panel -->
+        <div ng-show="view === 'overview'" ng-if="mode === 'show'">
+          <h3>Product Overview</h3>
+          <div class="row">
+            <div class="large-4 columns">
+              <div class="panel">
+                <h2>{{product.orders.length}}</h2>
+                <h4>Orders</h4>
+              </div>
+            </div>
+            <div class="large-4 columns">
+              <div class="panel">
+                <h2>{{product.quotes.length}}</h2>
+                <h4>Quotes</h4>
+              </div>
+            </div>
+            <div class="large-4 columns">
+              <div class="panel">
+                <h2>{{product.bonuses.length}}</h2>
+                <h4>Bonuses</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</main>

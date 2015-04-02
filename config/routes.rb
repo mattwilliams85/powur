@@ -275,4 +275,6 @@ Rails.application.routes.draw do
   resource :promoter, only: [ :new, :show ]
 
   root 'index#index'
+
+  get '/admin' => 'admin/root#index'
 end

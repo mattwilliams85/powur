@@ -1,0 +1,9 @@
+'use strict';
+
+function LandingCtrl($scope) {
+  $scope.redirectUnlessSignedIn();
+
+};
+
+LandingCtrl.$inject = ['$scope'];
+sunstandControllers.controller('LandingCtrl', LandingCtrl);

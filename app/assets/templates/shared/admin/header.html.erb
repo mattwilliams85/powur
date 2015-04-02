@@ -1,0 +1,70 @@
+<nav class="powur-header top-bar" data-options="is_hover:false">
+
+  <ul class="title-area">
+  <!-- Title Area -->
+    <li class="name main-logo">
+      <h1><a href="/"><img src="<%=asset_path('powur-white-logo.png')%>" class="logo-img" /></a></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li><a ng-href="/u/dashboard">Dashboard</a></li>
+      <li><a ng-href="/u/earnings">Earnings</a></li>
+      <li><a ng-href="=/#/university">Powur U</a></li>
+      <li><a>Marketing</a></li>
+      <li><a ng-href="/#/library">Library</a></li>
+      <li class="show-for-medium-down has-dropdown"><a>Administration</a>
+        <ul class="dropdown">
+          <li><label>People</label></li>
+          <li><a ng-href="/admin/#/users">Users</a></li>
+          <li><a ng-href="/admin/#/user-groups">User Groups</a></li>
+          <li><label>Products</label></li>
+          <li><a ng-href="/admin/#/products">Products</a></li>
+          <li><a ng-href="/admin/#/quotes">Quotes</a></li>
+          <li><a ng-href="/admin/#/orders">Orders</a></li>
+          <li><label>Pay</label></li>
+          <li><a ng-href="/admin/#/pay-periods">Pay Periods</a></li>
+          <li><a ng-href="/admin/#/bonus-plans">Bonus Plans</a></li>
+          <li><label>Powur</label></li>
+          <li><a ng-href="/admin/#/notifications">Dashboard Notifications</a></li>
+          <li><a ng-href="/admin/#/resources">Library</a></li>
+          <li><a ng-href="/admin/#/social-media">Social Media Sharing</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <!-- Account Menu -->
+      <li class="has-dropdown"><a>{{currentUser.first_name}}</a>
+        <ul class="dropdown">
+          <li><label>Account</label></li>
+          <li><a>Profile</a></li>
+          <li class="hide-for-medium-down has-dropdown"><a>Administration</a>
+            <ul class="dropdown">
+              <li><label>People</label></li>
+              <li><a ng-href="/admin/#/users">Users</a></li>
+              <li><a ng-href="/admin/#/user-groups">User Groups</a></li>
+              <li><label>Products</label></li>
+              <li><a ng-href="/admin/#/products">Products</a></li>
+              <li><a ng-href="/admin/#/quotes">Quotes</a></li>
+              <li><a ng-href="/admin/#/orders">Orders</a></li>
+              <li><label>Pay</label></li>
+              <li><a ng-href="/admin/#/pay-periods">Pay Periods</a></li>
+              <li><a ng-href="/admin/#/bonus-plans">Bonus Plans</a></li>
+              <li><label>Powur</label></li>
+              <li><a ng-href="/admin/#/notifications">Dashboard Notifications</a></li>
+              <li><a ng-href="/admin/#/resources">Library</a></li>
+              <li><a ng-href="/admin/#/social-media">Social Media Sharing</a></li>
+            </ul>
+          </li>
+          <li class="divider"></li>
+          <li><a>Sign Out</a></li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</nav>

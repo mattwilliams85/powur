@@ -1,0 +1,30 @@
+<main class="sun-admin-user-groups">
+
+  <!-- Header -->
+  <div class="row">
+    <div class="large-6 columns">
+      <h2>User Groups</h2>
+    </div>
+    <div class="large-6 columns">
+      <a ng-href="/admin/#/user-groups/new" class="button right">New User Group</a>
+    </div>
+  </div>
+  <!-- List of User Groups -->
+  <div class="row">
+    <div class="large-12 columns">
+      <div ng-repeat="group in userGroups" class="admin-user-groups-list-item">
+        <div class="row">
+          <div class="large-4 columns">
+            <h3><a ng-href="/admin/#/user-groups/{{group.properties.id}}">{{group.properties.title}}</a></h3>
+            <span class="group-id">ID: {{group.properties.id}}</span>
+          </div>
+          <div class="large-8 columns">
+            <p>{{group.properties.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</main>

@@ -1,11 +1,4 @@
 .sun-admin-products {
-  margin-top: 0;
-  padding-top: 400px;
-  padding-bottom: 50px;
-
-  @media #{$small} {
-    padding-top: 140px;
-  }
 
   .admin-products-list-item {
     border-top: 1px dashed #000;

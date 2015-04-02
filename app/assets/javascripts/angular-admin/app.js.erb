@@ -1,0 +1,185 @@
+'use strict';
+
+var sunstandAdminApp = angular.module('sunstandAdminApp', [
+  'ngRoute',
+
+  'sunstandControllers',
+  'sunstandServices',
+
+  // Directives
+  'sunstandApp.fileS3Uploader'
+]).run(['$rootScope', '$location', '$document', '$http', '$window', '$timeout', 'CurrentUser',
+  function ($rootScope, $location, $document, $http, $window, $timeout, CurrentUser) {
+    $rootScope.currentUser = {};
+    $rootScope.isSignedIn = !!SignedIn;
+    /*
+     * Fill in User object with data if user is signed in but object is empty
+    */
+    $rootScope.$on('$includeContentLoaded', function(event, next, current) {
+      if ($rootScope.isSignedIn) {
+        CurrentUser.get().then(function(data) {
+          $rootScope.currentUser = data;
+        });
+      }
+    });
+
+    $rootScope.redirectToDashboardIfSignedIn = function() {
+      if ($rootScope.isSignedIn) {
+        window.location = '/u/dashboard';
+      }
+    };
+
+    $rootScope.redirectUnlessSignedIn = function() {
+      if (!$rootScope.isSignedIn) {
+        window.location = '#/sign-in';
+      }
+    };
+
+    $rootScope.readyAdminHeader = function() {
+      $(document).foundation();
+    };
+
+    $rootScope.readyAdminSidebar = function() {
+      $(document).foundation();
+    };
+
+    $rootScope.showModal = function(text, modalClass) {
+      modalClass = modalClass || '';
+      $('<div class=\'reveal-modal ' + modalClass + '\' data-reveal><h3>' + text + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+    };
+
+    // TODO: move header functionality into its own directive
+    $rootScope.signOut = function() {
+      var cb = function() {
+        $rootScope.isSignedIn = false;
+        // window.location = '#/sign-in';
+        $location.path('/sign-in');
+      };
+      $http.delete('/login.json', {
+        xsrfHeaderName: 'X-CSRF-Token'
+      }).success(cb).error(cb);
+    };
+  }
+]);
+
+var sunstandControllers = angular.module(
+  'sunstandControllers',
+  []
+);
+var sunstandServices = angular.module(
+  'sunstandServices',
+  ['ngResource', 'uiSlider', 'duScroll']
+);
+
+
+sunstandAdminApp.config(
+  ['$routeProvider', '$sceProvider', '$httpProvider', function($routeProvider, $sceProvider, $httpProvider) {
+    $sceProvider.enabled(false);
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
+
+    $routeProvider.
+    when('/', {
+      templateUrl: '<%=asset_path("angular-admin/landing/templates/index.html")%>',
+      controller: 'LandingCtrl'
+    }).
+    // Library
+    when('/resources', {
+      templateUrl: '<%=asset_path("angular-admin/resources/templates/index.html")%>',
+      controller: 'AdminResourcesCtrl'
+    }).
+    when('/resources/new/:resourceType?', {
+      templateUrl: '<%=asset_path("angular-admin/resources/templates/new.html")%>',
+      controller: 'AdminResourcesCtrl'
+    }).
+    when('/resources/:resourceId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/resources/templates/edit.html")%>',
+      controller: 'AdminResourcesCtrl'
+    }).
+    // User Groups
+    when('/user-groups', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/index.html")%>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    when('/user-groups/new', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/new.html")%>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    when('/user-groups/:userGroupId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/edit.html")%>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    when('/user-groups/:userGroupId', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/show.html")%>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    // User Groups / Users
+    when('/user-groups/:userGroupId/users', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/users/index.html")%>',
+      controller: 'AdminUserGroupUsersCtrl'
+    }).
+    // User Groups / Requirements
+    when('/user-groups/:userGroupId/requirements', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/requirements/index.html")%>',
+      controller: 'AdminUserGroupRequirementsCtrl'
+    }).
+    when('/user-groups/:userGroupId/requirements/new', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/requirements/new.html")%>',
+      controller: 'AdminUserGroupRequirementsCtrl'
+    }).
+    when('/user-groups/:userGroupId/requirements/:requirementId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/requirements/edit.html")%>',
+      controller: 'AdminUserGroupRequirementsCtrl'
+    }).
+    // User Groups / Bonuses
+    when('/user-groups/:userGroupId/bonuses', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/bonuses/index.html")%>',
+      controller: 'AdminUserGroupBonusesCtrl'
+    }).
+    when('/user-groups/:userGroupId/bonuses/new', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/bonuses/new.html")%>',
+      controller: 'AdminUserGroupBonusesCtrl'
+    }).
+    when('/user-groups/:userGroupId/bonuses/:requirementId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/bonuses/edit.html")%>',
+      controller: 'AdminUserGroupBonusesCtrl'
+    }).
+    // Bonus Plans
+    when('/bonus-plans', {
+      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/index.html")%>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/bonus-plans/new', {
+      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/new.html")%>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/bonus-plans/:bonusPlanId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/edit.html")%>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/bonus-plans/:bonusPlanId', {
+      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/show.html")%>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    // Products
+    when('/products', {
+      templateUrl: '<%=asset_path("angular-admin/products/templates/index.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/products/new', {
+      templateUrl: '<%=asset_path("angular-admin/products/templates/new.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/products/edit', {
+      templateUrl: '<%=asset_path("angular-admin/products/templates/edit.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/products/:productId', {
+      templateUrl: '<%=asset_path("angular-admin/products/templates/show.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+
+    otherwise({
+      redirectTo: '/'
+    });
+  }]
+);

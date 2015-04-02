@@ -1,0 +1,48 @@
+<header id="sun_header_admin">
+  <nav>
+    <ul>
+      <li class="main-logo">
+        <a href="/"><img src="<%=asset_path('powur-white-logo.png')%>" class="logo-img" /></a>
+      </li>
+    </ul>
+    <ul class="user-nav">
+      <li>
+        <a ng-click="signOut()">Sign Out</a>
+      </li>
+    </ul>
+  </nav>
+  <section class="subheader-bar">
+    <div class="js-dashboard_section_indicator top_level"></div>
+  </section>
+  <!-- Admin Dropdown Menu -->
+  <div class="admin-dropdown">
+    <input type="checkbox">
+    <label>Administration Menu</label>
+    <ul>
+      <li>
+        <a ng-href="/a/users" class="admin_top_level_nav">Users</a>
+      </li>
+      <li>
+        <a ng-href="/a/products" class="admin_top_level_nav">Plans</a>
+      </li>
+      <li>
+        <a ng-href="/a/quotes" class="admin_top_level_nav">Quotes & Orders</a>
+      </li>
+      <li>
+        <a ng-href="/a/notifications" class="admin_top_level_nav">Notifications</a>
+      </li>
+      <li>
+        <a class="admin_top_level_nav" ng-href="#/admin/resources">Library</a>
+      </li>
+      <li>
+        <a class="admin_top_level_nav" ng-href="#/admin/user-groups">User Groups</a>
+      </li>
+      <li>
+        <a class="admin_top_level_nav" ng-href="#/admin/products">Products</a>
+      </li>
+      <li>
+        <a class="admin_top_level_nav" ng-href="#/admin/bonus-plans">Bonus Plans</a>
+      </li>
+    </ul>
+  </div>
+</header>

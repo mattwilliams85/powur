@@ -17,7 +17,8 @@ Rails.application.config.assets.precompile += %w( user.js )
 Rails.application.config.assets.precompile += %w( jquery.pagepiling.js )
 
 Rails.application.config.assets.precompile += [
-  'new/application.js'
+  'new/application.js',
+  'new/admin.js'
 ]
 
 # Vendor Javascripts
@@ -38,5 +39,6 @@ Rails.application.config.assets.precompile += %w( kpi.css )
 Rails.application.config.assets.precompile += %w( jquery.pagepiling.css )
 
 Rails.application.config.assets.precompile += [
-  'new/application.css'
+  'new/application.css',
+  'new/admin.css'
 ]

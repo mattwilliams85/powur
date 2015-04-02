@@ -1,0 +1,28 @@
+<main class="sun-admin-resources">
+
+  <div class="row">
+    <div class="large-4 columns">
+      <h3>Resource Manager</h3>
+      <p>Upload and manage videos and PDF documents posted to the Library section of the Advocate Dashboard</p>
+    </div>
+
+    <div class="large-8 columns">
+      <h3>Add a {{resourceType}}</h3>
+
+      <div class="row">
+        <div class="large-12 columns">
+
+          <form name="resourceForm" class="resource-form" ng-submit="create()" novalidate>
+
+            <ng-include src="'<%=asset_path("angular/admin/resources/templates/form.html") %>'"></ng-include>
+
+            <a ng-click="cancel()" class="button small alert left">Cancel</a>
+            <input class="button small" ng-disabled="isSubmitDisabled" type="submit" value="Submit entry" />
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>

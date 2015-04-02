@@ -12,11 +12,6 @@
 //= require_tree ../angular/promo
 //= require_tree ../angular/university
 
-//= require_tree ../angular/admin/resources
-//= require_tree ../angular/admin/user-groups
-//= require_tree ../angular/admin/bonus-plans
-//= require_tree ../angular/admin/products
-
 //= require_tree ../angular/modules/file-s3-uploader
 
 //= require_tree ../angular/vendor

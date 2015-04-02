@@ -1,0 +1,50 @@
+<main class="sun-admin-user-groups">
+  <div class="row">
+    <div class="large-4 columns">
+      <a ng-click="cancel()" class="button">Back</a>
+    </div>
+    <div class="large-8 columns">
+      <h2>{{userGroup.title}}</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-4 columns">
+      <ng-include src="'<%=asset_path("shared/admin/user-group-menu.html") %>'"></ng-include>
+    </div>
+
+    <div class="large-8 columns">
+      <div class="tabs-content">
+        <div>
+          <h3>Users</h3>
+          <div class="row">
+            <div class="large-12 columns">
+              <!-- Notice If No Users in Group -->
+              <p ng-if="!users.length">
+                There are no users in this User Group.
+              </p>
+              <!-- Table If Users in Group -->
+              <table ng-if="users.length">
+                <thead>
+                  <tr>
+                    <th>User Name</th>
+                    <th>ID</th>
+                    <th>Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="user in users">
+                    <td>{{user.properties.name}}</td>
+                    <td>{{user.properties.id}}</td>
+                    <td>{{user.properties.email}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</main>
