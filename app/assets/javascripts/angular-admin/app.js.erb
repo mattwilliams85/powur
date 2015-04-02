@@ -229,6 +229,19 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/pay-periods/templates/edit.html")%>',
       controller: 'AdminPayPeriodsCtrl'
     }).
+    // Dashboard Notifications
+    when('/notifications', {
+      templateUrl: '<%=asset_path("angular-admin/notifications/templates/index.html")%>',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/notifications/:notificationId', {
+      templateUrl: '<%=asset_path("angular-admin/notifications/templates/show.html")%>',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/notifications/:notificationId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/notifications/templates/edit.html")%>',
+      controller: 'AdminNotificationsCtrl'
+    }).
 
     otherwise({
       redirectTo: '/'
