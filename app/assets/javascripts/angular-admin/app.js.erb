@@ -177,6 +177,19 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/products/templates/show.html")%>',
       controller: 'AdminProductsCtrl'
     }).
+    // Users
+    when('/users', {
+      templateUrl: '<%=asset_path("angular-admin/users/templates/index.html")%>',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/users/:userId', {
+      templateUrl: '<%=asset_path("angular-admin/users/templates/show.html")%>',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/users/:userId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/users/templates/edit.html")%>',
+      controller: 'AdminUsersCtrl'
+    }).
 
     otherwise({
       redirectTo: '/'

@@ -1,0 +1,42 @@
+'use strict';
+
+function AdminUsersCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminUser) {
+  $scope.redirectUnlessSignedIn();
+
+  $scope.backToIndex = function() {
+    $location.path('/admin/users/');
+  };
+
+  this.init($scope, $location);
+  this.fetch($scope, $location, $routeParams, AdminUser);
+}
+
+AdminUsersCtrl.prototype.init = function($scope, $location) {
+  // Setting mode based on the url
+  $scope.mode = 'show';
+  if (/\/users$/.test($location.path())) return $scope.mode = 'index';
+  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+  if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
+};
+
+AdminUsersCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminUser) {
+  if ($scope.mode === 'index') {
+    return AdminUser.list().then(function(items) {
+      $scope.users = items.entities;
+    });
+  } else if ($scope.mode === 'new') {
+
+  } else if ($scope.mode === 'show') {
+    return AdminUser.get($routeParams.userGroupId).then(function(item) {
+      $scope.user = item.properties;
+    });
+
+  } else if ($scope.mode === 'edit') {
+    return AdminUser.get($routeParams.userGroupId).then(function(item) {
+      $scope.user = item.properties;
+    });
+  }
+};
+
+AdminUsersCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUser'];
+sunstandControllers.controller('AdminUsersCtrl', AdminUsersCtrl);
