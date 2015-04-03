@@ -15,6 +15,7 @@
 //= require_tree ../angular-admin/products
 //= require_tree ../angular-admin/quotes
 //= require_tree ../angular-admin/resources
+//= require_tree ../angular-admin/social-media
 //= require_tree ../angular-admin/users
 //= require_tree ../angular-admin/user-groups
 

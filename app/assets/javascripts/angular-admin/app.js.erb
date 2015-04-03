@@ -242,6 +242,19 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/notifications/templates/edit.html")%>',
       controller: 'AdminNotificationsCtrl'
     }).
+    // Social Media Sharing
+    when('/social-media', {
+      templateUrl: '<%=asset_path("angular-admin/social-media/templates/index.html")%>',
+      controller: 'AdminSocialMediaCtrl'
+    }).
+    when('/social-media/:socialMediaPostId', {
+      templateUrl: '<%=asset_path("angular-admin/social-media/templates/show.html")%>',
+      controller: 'AdminSocialMediaCtrl'
+    }).
+    when('/social-media/:socialMediaPostId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/social-media/templates/edit.html")%>',
+      controller: 'AdminSocialMediaCtrl'
+    }).
 
     otherwise({
       redirectTo: '/'

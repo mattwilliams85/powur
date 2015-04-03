@@ -1,0 +1,42 @@
+'use strict';
+
+function AdminSocialMediaCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminSocialMedia) {
+  $scope.redirectUnlessSignedIn();
+
+  $scope.backToIndex = function() {
+    $location.path('/admin/#/social-media/');
+  };
+
+  this.init($scope, $location);
+  this.fetch($scope, $location, $routeParams, AdminSocialMedia);
+}
+
+AdminSocialMediaCtrl.prototype.init = function($scope, $location) {
+  // Setting mode based on the url
+  $scope.mode = 'show';
+  if (/\/social-media$/.test($location.path())) return $scope.mode = 'index';
+  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+  if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
+};
+
+AdminSocialMediaCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminSocialMedia) {
+  if ($scope.mode === 'index') {
+    return AdminSocialMedia.list().then(function(items) {
+      $scope.socialMedia = items.entities;
+    });
+  } else if ($scope.mode === 'new') {
+
+  } else if ($scope.mode === 'show') {
+    return AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
+      $scope.socialMediaPost = item.properties;
+    });
+
+  } else if ($scope.mode === 'edit') {
+    return AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
+      $scope.socialMediaPost = item.properties;
+    });
+  }
+};
+
+AdminSocialMediaCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminSocialMedia'];
+sunstandControllers.controller('AdminSocialMediaCtrl', AdminSocialMediaCtrl);
