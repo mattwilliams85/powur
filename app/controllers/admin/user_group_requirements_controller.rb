@@ -12,7 +12,7 @@ module Admin
     def update
       @requirement.update_attributes!(input)
 
-      render 'show'
+      head 200
     end
 
     def destroy

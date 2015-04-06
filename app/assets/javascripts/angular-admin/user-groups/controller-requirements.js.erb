@@ -27,12 +27,8 @@ function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchor
     return;
   }
 
-  $scope.formCancel = function() {
-    $location.path('/admin/#/user-groups/'+ $scope.userGroup.id + '/requirements');
-  };
-
-  $scope.backToGroupList = function() {
-    $location.path('/admin/#/user-groups/');
+  $scope.cancel = function() {
+    $location.path('/user-groups/'+ $scope.userGroup.id + '/requirements');
   };
 
   // Create Requirement Action
@@ -54,7 +50,7 @@ function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchor
   $scope.execute = function (action, requirement) {
     if (action.name === 'update') {
       $scope.requirement = requirement;
-      $location.path('/admin/user-groups/' + $scope.userGroup.id + '/requirements/' + requirement.properties.id + '/edit');
+      $location.path('/user-groups/' + $scope.userGroup.id + '/requirements/' + requirement.properties.id + '/edit');
     } else if (action.name === 'delete') {
       if (window.confirm("Are you sure you want to delete this requirement?")) {
         AdminUserGroup.execute(action, requirement).then(actionCallback(action));
@@ -65,17 +61,17 @@ function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchor
   }
 
   var actionCallback = function(action) {
-    var destination = '/admin/user-groups/' + $scope.userGroup.id + '/requirements',
+    var destination = '/user-groups/' + $scope.userGroup.id + '/requirements',
         modalMessage = '';
     if (action.name === 'create') {
-      destination = ('/admin/user-groups/' + $scope.userGroup.id + '/requirements');
+      destination = ('/user-groups/' + $scope.userGroup.id + '/requirements');
       modalMessage = ('You\'ve successfully added a new requirement.')
       $scope.isSubmitDisabled = false;
     } else if (action.name === 'update') {
-      destination = ('/admin/user-groups/' + $scope.userGroup.id + '/requirements');
+      destination = ('/user-groups/' + $scope.userGroup.id + '/requirements');
       modalMessage = ('You\'ve successfully updated this requirement.')
     } else if (action.name === 'delete') {
-      destination = ('/admin/user-groups/' + $scope.userGroup.id + '/requirements');
+      destination = ('/user-groups/' + $scope.userGroup.id + '/requirements');
       modalMessage = ('You\'ve successfully deleted this requirement.')
     }
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
@@ -91,25 +87,25 @@ function AdminUserGroupRequirementsCtrl($scope, $location, $routeParams, $anchor
 }
 
 AdminUserGroupRequirementsCtrl.prototype.init = function($scope, $location) {
-  $scope.reqMode = 'index';
-  if (/\/requirements$/.test($location.path())) return $scope.reqMode = 'index';
-  if (/\/new$/.test($location.path())) return $scope.reqMode = 'new';
-  if (/\/edit$/.test($location.path())) return $scope.reqMode = 'edit';
+  $scope.mode = 'index';
+  if (/\/requirements$/.test($location.path())) return $scope.mode = 'index';
+  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+  if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 }
 
 AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminUserGroup) {
-  if ($scope.reqMode === 'index') {
+  if ($scope.mode === 'index') {
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
       $scope.requirements = item.entities[1].entities;
     });
-  } else if ($scope.reqMode === 'new') {
+  } else if ($scope.mode === 'new') {
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
       $scope.requirement = {};
       $scope.formAction = $scope.getAction(item.entities[1].actions, 'create');
     });
-  } else if ($scope.reqMode === 'edit') {
+  } else if ($scope.mode === 'edit') {
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
       $scope.requirementObj = $scope.getRequirementById(item, $routeParams.requirementId);
