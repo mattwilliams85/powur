@@ -1,5 +1,5 @@
-<!-- Requirements Panel -->
-<div>
+<main class="sun-admin-user-groups">
+  <!-- Requirements Index -->
   <div class="row">
     <div class="large-6 columns">
       <h2>Requirements</h2>
@@ -13,7 +13,7 @@
     <div class="large-12 columns">
       <!-- Notice If No Requirements for Group -->
       <p ng-if="requirements.length === 0">
-        This User Group has no requirements.
+        The '{{userGroup.title}}' group has no requirements.
       </p>
       <!-- Table If Requirements for Group -->
       <table ng-if="requirements.length !== 0" width="100%">
@@ -38,6 +38,4 @@
       </table>
     </div>
   </div>
-</div>
-
 </main>
