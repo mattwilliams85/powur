@@ -1,7 +1,7 @@
 @import "foundation/variables";
 
 /* Row Width Change */
-$row-width: em-calc(1280);
+$row-width: em-calc(1024);
 
 /* Colors */
 $sun-color-blue: #20c2f1;
@@ -15,6 +15,11 @@ $sun-menu-link-color: #0a7fa1;
   height: sun-sprites-sprite-height($name);
   width: sun-sprites-sprite-width($name);
 }
+
+/* Break Points for Screen Sizes */
+$small-screen: em-calc(768);
+$medium-screen: em-calc(1024);
+$large-screen: em-calc(1440);
 
 /* Top Bar (Admin Header) */
 /* Background color for the top bar */
@@ -66,15 +71,30 @@ $topbar-menu-icon-color-toggled: #fff;
 
 /* Transitions and breakpoint styles */
 $topbar-transition-speed: 300ms;
-$topbar-breakpoint: em-calc(1275); /* Change to 9999px for always mobile layout */
+$topbar-breakpoint: em-calc(1024); /* Change to 9999px for always mobile layout */
 $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
 
 /* Divider Styles */
 $topbar-divider-border-bottom: solid 1px lighten($topbar-bg, 10%);
-$topbar-divider-border-top: solid 1px lighten($topbar-bg, 10%);
+$topbar-divider-border-top: solid 1px darken($topbar-bg, 10%);
 
 /* Sticky Class */
 $topbar-sticky-class: ".sticky";
 $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
+
+/* Header Labels and Dropdown Links */
+$medium-and-down: "only screen and (max-width:"#{$medium-screen}")";
+
+@media #{$medium-and-down} {
+  .powur-header {
+    .top-bar-section ul li > a {
+      padding: 3px 0 3px 30px;
+    }
+
+    label {
+      margin-left: 10px;
+    }
+  }
+}
 
 @import "foundation";

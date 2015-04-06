@@ -11,12 +11,8 @@
   <section class="top-bar-section">
     <!-- Left Nav Section -->
     <ul class="left">
-      <li><a ng-href="/u/dashboard">Dashboard</a></li>
-      <li><a ng-href="/u/earnings">Earnings</a></li>
-      <li><a ng-href="=/#/university">Powur U</a></li>
-      <li><a>Marketing</a></li>
-      <li><a ng-href="/#/library">Library</a></li>
-      <li class="show-for-medium-down has-dropdown"><a>Administration</a>
+      <li><a class="show-for-large-up" ng-href="/u/dashboard">Dashboard</a></li>
+      <li class="show-for-large-up has-dropdown"><a>Administration</a>
         <ul class="dropdown">
           <li><label>People</label></li>
           <li><a ng-href="/admin/#/users">Users</a></li>
@@ -35,36 +31,41 @@
         </ul>
       </li>
     </ul>
-
     <!-- Right Nav Section -->
     <ul class="right">
       <!-- Account Menu -->
-      <li class="has-dropdown"><a>{{currentUser.first_name}}</a>
+      <li class="hide-for-medium-down has-dropdown"><a>{{currentUser.first_name}}</a>
         <ul class="dropdown">
           <li><label>Account</label></li>
           <li><a>Profile</a></li>
-          <li class="hide-for-medium-down has-dropdown"><a>Administration</a>
-            <ul class="dropdown">
-              <li><label>People</label></li>
-              <li><a ng-href="/admin/#/users">Users</a></li>
-              <li><a ng-href="/admin/#/user-groups">User Groups</a></li>
-              <li><label>Products</label></li>
-              <li><a ng-href="/admin/#/products">Products</a></li>
-              <li><a ng-href="/admin/#/quotes">Quotes</a></li>
-              <li><a ng-href="/admin/#/orders">Orders</a></li>
-              <li><label>Pay</label></li>
-              <li><a ng-href="/admin/#/pay-periods">Pay Periods</a></li>
-              <li><a ng-href="/admin/#/bonus-plans">Bonus Plans</a></li>
-              <li><label>Powur</label></li>
-              <li><a ng-href="/admin/#/notifications">Dashboard Notifications</a></li>
-              <li><a ng-href="/admin/#/resources">Library</a></li>
-              <li><a ng-href="/admin/#/social-media">Social Media Sharing</a></li>
-            </ul>
-          </li>
           <li class="divider"></li>
           <li><a ng-click="signOut()">Sign Out</a></li>
         </ul>
       </li>
+
+      <!-- For Small Screens, show all menu items in one list for Hamburger Menu -->
+      <li class="hide-for-large-up"><label>Dashboard</label></li>
+      <li class="hide-for-large-up"><a ng-href="/u/dashboard">Back to Dashboard</a></li>
+      <li class="hide-for-large-up" class="divider"></li>
+      <li class="hide-for-large-up"><label>People</label></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/users">Users</a></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/user-groups">User Groups</a></li>
+      <li class="hide-for-large-up"><label>Products</label></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/products">Products</a></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/quotes">Quotes</a></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/orders">Orders</a></li>
+      <li class="hide-for-large-up"><label>Pay</label></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/pay-periods">Pay Periods</a></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/bonus-plans">Bonus Plans</a></li>
+      <li class="hide-for-large-up"><label>Powur</label></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/notifications">Dashboard Notifications</a></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/resources">Library</a></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/social-media">Social Media Sharing</a></li>
+      <li class="hide-for-large-up" class="divider"></li>
+      <li class="hide-for-large-up"><label>Account</label></li>
+      <li class="hide-for-large-up"><a>{{currentUser.first_name}}'s Profile</a></li>
+      <li class="hide-for-large-up" class="divider"></li>
+      <li class="hide-for-large-up"><a ng-click="signOut()">Sign Out</a></li>
     </ul>
   </section>
 </nav>
