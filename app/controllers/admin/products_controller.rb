@@ -14,13 +14,13 @@ module Admin
     def create
       require_input :name
       @product = Product.create!(input)
-      render 'show'
+      head 200
     end
 
     def update
       @product.update_attributes!(input)
 
-      render 'show'
+      head 200
     end
 
     def show
@@ -31,7 +31,7 @@ module Admin
 
       @products = Product.order(:name)
 
-      render 'index'
+      head 200
     rescue ActiveRecord::InvalidForeignKey
       error!(:delete_product)
     end

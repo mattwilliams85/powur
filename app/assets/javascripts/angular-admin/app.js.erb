@@ -165,12 +165,12 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/products/templates/new.html")%>',
       controller: 'AdminProductsCtrl'
     }).
-    when('/products/edit', {
-      templateUrl: '<%=asset_path("angular-admin/products/templates/edit.html")%>',
-      controller: 'AdminProductsCtrl'
-    }).
     when('/products/:productId', {
       templateUrl: '<%=asset_path("angular-admin/products/templates/show.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/products/:productId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/products/templates/edit.html")%>',
       controller: 'AdminProductsCtrl'
     }).
     // Users
