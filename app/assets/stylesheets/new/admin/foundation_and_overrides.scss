@@ -97,4 +97,12 @@ $medium-and-down: "only screen and (max-width:"#{$medium-screen}")";
   }
 }
 
+/* Powur Typography */
+$header-font-family: "Varela Round", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$paragraph-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+
+button, .button, .panel {
+  border-radius: 5px;
+}
+
 @import "foundation";
