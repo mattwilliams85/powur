@@ -105,4 +105,17 @@ button, .button, .panel {
   border-radius: 5px;
 }
 
+// .understated class used for Delete buttons on forms
+.understated {
+  background-color: #fff !important;
+  border-color: #555 !important;
+  color: #000 !important;
+
+  &:hover {
+    background-color: #c60f13 !important;
+    border-color: #970b0e;
+    color: #fff !important;
+  }
+}
+
 @import "foundation";

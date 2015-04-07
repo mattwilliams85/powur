@@ -32,6 +32,6 @@
     <a ng-if="mode === 'edit'" ng-href="/admin/#/user-groups/{{userGroup.id}}" class="button secondary">Cancel</a>
     <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Create User Group" />
     <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update User Group" />
-    <input ng-if="mode === 'edit'" class="button alert right" ng-disabled="isSubmitDisabled" type="submit" ng-click="delete(userGroupObj)" value="Delete User Group" />
+    <input ng-if="mode === 'edit'" class="button understated right" ng-disabled="isSubmitDisabled" type="submit" ng-click="delete(userGroupObj)" value="Delete User Group" />
   </fieldset>
 </form>
