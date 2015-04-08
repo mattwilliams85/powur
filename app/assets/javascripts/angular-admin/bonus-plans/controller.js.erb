@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusPlan) {
+function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusPlan, AdminBonus) {
   $scope.redirectUnlessSignedIn();
 
   // Utility Functions
@@ -13,8 +13,8 @@ function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusP
     return;
   }
 
-  $scope.backToIndex = function() {
-    $location.path('/admin/#/bonus-plans/');
+  $scope.cancel = function() {
+    $location.path('/admin/#/bonus-plans');
   }
 
   // Create Bonus Plan Action
@@ -48,7 +48,7 @@ function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusP
   }
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminBonusPlan);
+  this.fetch($scope, $location, $routeParams, AdminBonusPlan, AdminBonus);
 
 };
 
@@ -60,15 +60,19 @@ AdminBonusPlansCtrl.prototype.init = function($scope, $location){
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminBonusPlansCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminBonusPlan) {
+AdminBonusPlansCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminBonusPlan, AdminBonus) {
   if ($scope.mode === 'index') {
     return AdminBonusPlan.list().then(function(items) {
       $scope.bonusPlans = items.entities;
     })
   } else if ($scope.mode === 'show') {
-    return AdminBonusPlan.get($routeParams.bonusPlanId).then(function(item) {
+    $scope.bonuses = [];
+    AdminBonusPlan.get($routeParams.bonusPlanId).then(function(item) {
       $scope.plan = item.properties;
-    })
+      AdminBonus.listFromHref(item.entities[0].href).then(function(bonuses) {
+        $scope.bonuses = bonuses.entities;
+      });
+    });
   } else if ($scope.mode === 'new') {
     return AdminBonusPlan.list().then(function(item){
       $scope.bonusPlan = {};
@@ -80,5 +84,5 @@ AdminBonusPlansCtrl.prototype.fetch = function($scope, $location, $routeParams, 
   }
 };
 
-AdminBonusPlansCtrl.$inject = ['$scope', '$location', '$routeParams', '$http', 'AdminBonusPlan'];
+AdminBonusPlansCtrl.$inject = ['$scope', '$location', '$routeParams', '$http', 'AdminBonusPlan', 'AdminBonus'];
 sunstandControllers.controller('AdminBonusPlansCtrl', AdminBonusPlansCtrl);

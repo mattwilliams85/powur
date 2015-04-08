@@ -1,0 +1,32 @@
+<form>
+  <fieldset>
+    <legend ng-if="mode === 'new'">New Bonus</legend>
+    <legend ng-if="mode === 'edit'">Update Bonus</legend>
+    <!-- Add Bonus Form -->
+      <div ng-repeat="field in formAction.fields" class="row">
+        <div class="large-12 columns">
+          <label class="inline" for="{{field.name}}">{{field.name}}</label>
+          <!-- Selects -->
+          <select ng-model="bonus[field.name]" ng-if="field.type === 'select'" name="{{field.name}}" id="{{field.name}}">
+            <option ng-repeat="(key, name) in field.options" value="{{key}}">{{name}}</option>
+          </select>
+          <!-- Text Inputs -->
+          <input ng-model="bonus[field.name]" ng-if="field.type === 'text'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+          <!-- Number Inputs -->
+          <input ng-model="bonus[field.name]" ng-if="field.type === 'number'" type="number" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+          <!-- Integer Inputs -->
+          <input ng-model="bonus[field.name]" ng-if="field.type === 'integer'" type="number" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+          <!-- Decimal Inputs -->
+          <input ng-model="bonus[field.name]" ng-if="field.type === 'decimal'" type="number" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <a ng-click="cancel()" class="button secondary">Cancel</a>
+    <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Bonus" />
+    <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Bonus" />
+
+  </fieldset>
+</form>
