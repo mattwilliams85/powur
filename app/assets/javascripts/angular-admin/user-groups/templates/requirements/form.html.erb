@@ -20,9 +20,14 @@
 
     <div class="clearfix"></div>
 
-    <a ng-click="cancel()" class="button secondary">Cancel</a>
-    <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Requirement" />
-    <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Requirement" />
+    <!-- Submit/Cancel Buttons -->
+    <div class="row">
+        <div class="large-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Requirement" />
+        <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Requirement" />
+      </div>
+    </div>
 
   </fieldset>
 </form>
