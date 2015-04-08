@@ -10,28 +10,16 @@
     <div class="large-12 columns">
       <div class="row">
         <div class="large-4 columns">
-          <a ng-href="/admin/#/products/{{product.id}}/orders">
-            <div class="panel">
-              <h2>{{product.orders.length}}</h2>
-              <h4>Orders</h4>
-            </div>
-          </a>
+          <div class="panel">
+            <h2>${{product.bonus_volume}}</h2>
+            <h4>Bonus Volume</h4>
+          </div>
         </div>
-        <div class="large-4 columns">
-          <a ng-href="/admin/#/products/{{product.id}}/quotes">
-            <div class="panel">
-              <h2>{{product.quotes.length}}</h2>
-              <h4>Quotes</h4>
-            </div>
-          </a>
-        </div>
-        <div class="large-4 columns">
-          <a ng-href="/admin/#/products/{{product.id}}/bonuses">
-            <div class="panel">
-              <h2>{{product.bonuses.length}}</h2>
-              <h4>Bonuses</h4>
-            </div>
-          </a>
+        <div class="large-4 columns end">
+          <div class="panel">
+            <h2>{{product.commission_percentage}}%</h2>
+            <h4>Commission Percentage</h4>
+          </div>
         </div>
       </div>
     </div>
