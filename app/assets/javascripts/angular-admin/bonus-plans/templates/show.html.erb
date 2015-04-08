@@ -1,8 +1,8 @@
 <main class="sun-admin-products">
   <div class="row">
     <div class="large-12 columns">
-      <a ng-href="/admin/#/bonus-plans/{{plan.id}}/edit" class="button right">Edit Bonus Plan</a>
-      <h2>{{plan.name}}</h2>
+      <a ng-href="/admin/#/bonus-plans/{{bonusPlan.id}}/edit" class="button right">Edit Bonus Plan</a>
+      <h2>{{bonusPlan.name}}</h2>
     </div>
   </div>
 
@@ -11,7 +11,7 @@
       <ul class="large-block-grid-4 small-block-grid-2">
         <!-- Plan Bonuses -->
         <li>
-          <a ng-href="/admin/#/bonus-plans/{{plan.id}}/bonuses">
+          <a ng-href="/admin/#/bonus-plans/{{bonusPlan.id}}/bonuses">
             <div class="panel callout">
               <h2>{{bonuses.length}}</h2>
               <h4>Bonuses</h4>
@@ -21,15 +21,15 @@
         <!-- Plan Start Date -->
         <li>
           <div class="panel">
-            <h2>{{plan.start_month}}/{{plan.start_year}}</h2>
+            <h2>{{bonusPlan.start_month}}/{{bonusPlan.start_year}}</h2>
             <h4>Start Date</h4>
           </div>
         </li>
         <!-- Plan Active/Inactive -->
         <li>
           <div class="panel">
-            <h3 ng-if="plan.active === true">Active</h3>
-            <h3 ng-if="plan.active === false">Not Active</h3>
+            <h3 ng-if="bonusPlan.active === true">Active</h3>
+            <h3 ng-if="bonusPlan.active === false">Not Active</h3>
           </div>
         </li>
       </ul>

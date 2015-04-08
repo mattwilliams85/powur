@@ -34,7 +34,7 @@ module Admin
     def destroy
       @bonus_plan.destroy
 
-      render 'index'
+      head 200
     end
 
     private
