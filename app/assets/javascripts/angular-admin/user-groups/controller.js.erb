@@ -69,9 +69,9 @@ function AdminUserGroupsCtrl($scope, $rootScope, $location, $routeParams, $ancho
   $scope.delete = function(userGroupObj) {
     var action = getAction(userGroupObj.actions, 'delete');
     var groupName = userGroupObj.properties.title;
-    if (window.confirm("Are you sure you want to delete the '" + groupName + "' user group?")) {
+    if (window.confirm("Are you sure you want to delete the ‘" + groupName + "’ user group?")) {
       return AdminUserGroup.execute(action).then(function() {
-        $scope.showModal("The '" + groupName + "' user group has been deleted.");
+        $scope.showModal("The ‘" + groupName + "’ user group has been deleted.");
         $(document).foundation();
         $location.path('/user-groups');
       }, function() {
@@ -111,14 +111,21 @@ AdminUserGroupsCtrl.prototype.init = function($scope, $location) {
 
 AdminUserGroupsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminUserGroup) {
   if ($scope.mode === 'index') {
-    return AdminUserGroup.list().then(function(items) {
+    AdminUserGroup.list().then(function(items) {
       $scope.userGroups = items.entities;
+
+      // Breadcrumbs: User Groups
+      $rootScope.breadcrumbs.push({title: 'User Groups'});
     });
   } else if ($scope.mode === 'new') {
     $scope.disableIdEdit = false;
 
+    // Breadcrumbs: User Groups / New User Group
+    $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
+    $rootScope.breadcrumbs.push({title: 'New User Group'});
+
   } else if ($scope.mode === 'show') {
-    return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
+    AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
 
       // get users from /a/users endpoint
@@ -131,14 +138,23 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       // get bonuses
       $scope.bonuses = [];
 
+      // Breadcrumbs: User Groups / User Group Name
+      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
+      $rootScope.breadcrumbs.push({title: $scope.userGroup.title});
+
     });
 
   } else if ($scope.mode === 'edit') {
-    return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
+    AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
       $scope.userGroupObj = item;
       $scope.group = item;
       $scope.disableIdEdit = true;
+
+      // Breadcrumbs: User Groups / User Group Name / Update User Group
+      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
+      $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
+      $rootScope.breadcrumbs.push({title: 'Update User Group'});
     });
   }
 };

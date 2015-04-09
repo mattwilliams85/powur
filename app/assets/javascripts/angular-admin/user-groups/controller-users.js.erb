@@ -30,6 +30,11 @@ function AdminUserGroupUsersCtrl($scope, $rootScope, $location, $routeParams, $a
   return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
     $scope.userGroup = item.properties;
     $scope.getUsersFromGroup($scope.userGroup.id);
+
+    // Breadcrumbs: User Groups / User Group Name / Users
+    $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
+    $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
+    $rootScope.breadcrumbs.push({title: 'Users'});
   });
 }
 
