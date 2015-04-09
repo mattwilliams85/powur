@@ -15,10 +15,11 @@ module Admin
 
       @bonus = bonus_klass.create!(input.merge(bonus_plan_id: @bonus_plan.id))
 
-      head 200
+      show
     end
 
     def show
+      render 'show'
     end
 
     def update
@@ -42,7 +43,7 @@ module Admin
     end
 
     def bonus_klass
-      Bonus.symbol_to_type(params[:type])
+      params[:type].constantize
     end
 
     def fetch_bonus_plan

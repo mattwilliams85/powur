@@ -6,14 +6,17 @@ describe '/a/bonuses' do
     login_user
   end
 
+  let(:bonus_plan) { create(:bonus_plan) }
+
   describe '#index' do
 
     it 'returns a list of bonuses' do
-      bonus = create(:seller_bonus)
-      create(:ca_bonus, bonus_plan: bonus.bonus_plan)
+      create(:seller_bonus, bonus_plan: bonus_plan)
+      create(:ca_bonus, bonus_plan: bonus_plan)
 
-      get bonus_plan_bonuses_path(bonus.bonus_plan), format: :json
+      get bonus_plan_bonuses_path(bonus_plan), format: :json
 
+      binding.pry
       expect_classes 'bonuses', 'list'
       expect_entities_count(2)
     end
@@ -96,18 +99,17 @@ describe '/a/bonuses' do
 
   describe '#create' do
 
+
     it 'creates a seller bonus' do
-      bonus_plan = create(:bonus_plan)
       post bonus_plan_bonuses_path(bonus_plan),
-           type: 'seller', name: 'foo', format: :json
+           type: 'SellerBonus', name: 'foo', format: :json
 
       expect_classes 'bonus'
     end
 
     it'creates a ca bonus' do
-      bonus_plan = create(:bonus_plan)
       post bonus_plan_bonuses_path(bonus_plan),
-           type: 'cab', name: 'foo', format: :json
+           type: 'CABonus', name: 'foo', format: :json
 
       expect_classes 'bonus'
     end

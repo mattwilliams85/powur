@@ -1,14 +1,14 @@
 class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
-  TYPES =  {
-    seller:       'Seller',
-    ca_bonus:     'CAB',
-    generational: 'Generational',
-    matching:     'Matching' }
+  TYPES = {
+    'SellerBonus'       => 'Seller',
+    'CABonus'           => 'Customer Acquistion',
+    'GenerationalBonus' => 'Generational',
+    'MatchingBonus'     => 'Matching' }
   SCHEDULES = {
     weekly:  'Weekly',
     monthly: 'Monthly' }
 
-  enum schedule:     { weekly: 1, monthly: 2 }
+  enum schedule: { weekly: 1, monthly: 2 }
 
   belongs_to :bonus_plan
   belongs_to :product
