@@ -116,7 +116,9 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
 
       // Breadcrumbs: User Groups
       $rootScope.breadcrumbs.push({title: 'User Groups'});
+
     });
+
   } else if ($scope.mode === 'new') {
     $scope.disableIdEdit = false;
 
@@ -131,10 +133,8 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       // get users from /a/users endpoint
       $scope.users = [];
       $scope.getUsersFromGroup(item.properties.id);
-
       // get requirements
       $scope.requirements = item.entities[1].entities;
-
       // get bonuses
       $scope.bonuses = [];
 
@@ -155,6 +155,7 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
       $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
       $rootScope.breadcrumbs.push({title: 'Update User Group'});
+
     });
   }
 };

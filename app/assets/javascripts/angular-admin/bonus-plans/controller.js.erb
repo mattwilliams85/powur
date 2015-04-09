@@ -63,22 +63,22 @@ function AdminBonusPlansCtrl($scope, $rootScope, $location, $routeParams, $http,
         modalMessage = '';
     if (action.name === 'create') {
       destination = ('/bonus-plans');
-      modalMessage = ('You\'ve successfully added a new bonus plan.')
+      modalMessage = ('You\'ve successfully added a new bonus plan.');
       $scope.isSubmitDisabled = false;
     } else if (action.name === 'update') {
       destination = ('/bonus-plans/' + $scope.bonusPlan.id);
-      modalMessage = ('You\'ve successfully updated this bonus plan.')
+      modalMessage = ('You\'ve successfully updated this bonus plan.');
     } else if (action.name === 'delete') {
       destination = ('/bonus-plans');
-      modalMessage = ('You\'ve successfully deleted this bonus plan.')
+      modalMessage = ('You\'ve successfully deleted this bonus plan.');
     }
     return AdminBonusPlan.list().then(function(item) {
-      $location.path(destination)
+      $location.path(destination);
       $scope.bonusPlans = item.entities;
       $(document).foundation();
-      $scope.showModal(modalMessage)
+      $scope.showModal(modalMessage);
     });
-  }
+  };
 
   this.init($scope, $location);
   this.fetch($scope, $rootScope, $location, $routeParams, AdminBonusPlan, AdminBonus);
@@ -100,6 +100,7 @@ AdminBonusPlansCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
 
       // Breadcrumbs: Bonus Plans
       $rootScope.breadcrumbs.push({title: 'Bonus Plans'});
+
     });
 
   } else if ($scope.mode === 'show') {
@@ -113,6 +114,7 @@ AdminBonusPlansCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       // Breadcrumbs: Bonus Plans / Bonus Plan Name
       $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/#/bonus-plans'});
       $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name});
+
     });
 
   } else if ($scope.mode === 'new') {
@@ -123,6 +125,7 @@ AdminBonusPlansCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       // Breadcrumbs: Bonus Plans / New Bonus Plan
       $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/#/bonus-plans'});
       $rootScope.breadcrumbs.push({title: 'New Bonus Plan'});
+
     });
 
   } else if ($scope.mode === 'edit') {
@@ -148,6 +151,7 @@ AdminBonusPlansCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/#/bonus-plans'});
       $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id});
       $rootScope.breadcrumbs.push({title: 'Update Bonus Plan'});
+
     });
   }
 };
