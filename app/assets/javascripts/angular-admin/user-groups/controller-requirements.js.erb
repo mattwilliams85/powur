@@ -16,7 +16,7 @@ function AdminUserGroupRequirementsCtrl($scope, $rootScope, $location, $routePar
       }
     }
     return;
-  }
+  };
 
   $scope.getRequirementById = function (userGroup, requirementId) {
     for (var i in userGroup.entities[1].entities) {
@@ -25,7 +25,7 @@ function AdminUserGroupRequirementsCtrl($scope, $rootScope, $location, $routePar
       }
     }
     return;
-  }
+  };
 
   $scope.cancel = function() {
     $location.path('/user-groups/'+ $scope.userGroup.id + '/requirements');
@@ -44,7 +44,7 @@ function AdminUserGroupRequirementsCtrl($scope, $rootScope, $location, $routePar
     if ($scope.requirement) {
       AdminUserGroup.execute($scope.formAction, $scope.requirement).then(actionCallback($scope.formAction));
     }
-  }
+  };
 
   // Generic Requirement execute() Function & Related Callback
   $scope.execute = function (action, requirement) {
@@ -58,27 +58,27 @@ function AdminUserGroupRequirementsCtrl($scope, $rootScope, $location, $routePar
     } else {
       AdminUserGroup.execute(action, requirement).then(actionCallback(action));
     }
-  }
+  };
 
   var actionCallback = function(action) {
     var destination = '/user-groups/' + $scope.userGroup.id + '/requirements',
         modalMessage = '';
     if (action.name === 'create') {
       destination = ('/user-groups/' + $scope.userGroup.id + '/requirements');
-      modalMessage = ('You\'ve successfully added a new requirement.')
+      modalMessage = ('You\'ve successfully added a new requirement.');
       $scope.isSubmitDisabled = false;
     } else if (action.name === 'update') {
       destination = ('/user-groups/' + $scope.userGroup.id + '/requirements');
-      modalMessage = ('You\'ve successfully updated this requirement.')
+      modalMessage = ('You\'ve successfully updated this requirement.');
     } else if (action.name === 'delete') {
       destination = ('/user-groups/' + $scope.userGroup.id + '/requirements');
-      modalMessage = ('You\'ve successfully deleted this requirement.')
+      modalMessage = ('You\'ve successfully deleted this requirement.');
     }
     return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
-      $location.path(destination)
+      $location.path(destination);
       $scope.requirements = item.entities[1].entities;
       $(document).foundation();
-      $scope.showModal(modalMessage)
+      $scope.showModal(modalMessage);
     });
   };
 
@@ -91,7 +91,7 @@ AdminUserGroupRequirementsCtrl.prototype.init = function($scope, $location) {
   if (/\/requirements$/.test($location.path())) return $scope.mode = 'index';
   if (/\/new$/.test($location.path())) return $scope.mode = 'new';
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
-}
+};
 
 AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminUserGroup) {
   if ($scope.mode === 'index') {
@@ -103,7 +103,9 @@ AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $rootScope, $l
       $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
       $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
       $rootScope.breadcrumbs.push({title: 'Requirements'});
+
     });
+
   } else if ($scope.mode === 'new') {
     AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
@@ -115,7 +117,9 @@ AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $rootScope, $l
       $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
       $rootScope.breadcrumbs.push({title: 'Requirements', href: '/admin/#/user-groups/' + $scope.userGroup.id + '/requirements'});
       $rootScope.breadcrumbs.push({title: 'New Requirement'});
+
     });
+
   } else if ($scope.mode === 'edit') {
     AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
       $scope.userGroup = item.properties;
@@ -133,9 +137,10 @@ AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $rootScope, $l
       $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
       $rootScope.breadcrumbs.push({title: 'Requirements', href: '/admin/#/user-groups/' + $scope.userGroup.id + '/requirements'});
       $rootScope.breadcrumbs.push({title: 'Update Requirement'});
+
     });
   }
-}
+};
 
 
 AdminUserGroupRequirementsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUserGroup'];
