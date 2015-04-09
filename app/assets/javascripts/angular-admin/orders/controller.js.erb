@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminOrdersCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminOrder) {
+function AdminOrdersCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminOrder) {
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
@@ -8,7 +8,7 @@ function AdminOrdersCtrl($scope, $location, $routeParams, $anchorScroll, $http, 
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminOrder);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminOrder);
 }
 
 AdminOrdersCtrl.prototype.init = function($scope, $location) {
@@ -19,7 +19,7 @@ AdminOrdersCtrl.prototype.init = function($scope, $location) {
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminOrdersCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminOrder) {
+AdminOrdersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminOrder) {
   if ($scope.mode === 'index') {
     return AdminOrder.list().then(function(items) {
       $scope.orders = items.entities;
@@ -38,5 +38,5 @@ AdminOrdersCtrl.prototype.fetch = function($scope, $location, $routeParams, Admi
   }
 };
 
-AdminOrdersCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminOrder'];
+AdminOrdersCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminOrder'];
 sunstandControllers.controller('AdminOrdersCtrl', AdminOrdersCtrl);

@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminQuotesCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminQuote) {
+function AdminQuotesCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminQuote) {
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
@@ -8,7 +8,7 @@ function AdminQuotesCtrl($scope, $location, $routeParams, $anchorScroll, $http, 
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminQuote);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminQuote);
 }
 
 AdminQuotesCtrl.prototype.init = function($scope, $location) {
@@ -19,7 +19,7 @@ AdminQuotesCtrl.prototype.init = function($scope, $location) {
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminQuotesCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminQuote) {
+AdminQuotesCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminQuote) {
   if ($scope.mode === 'index') {
     return AdminQuote.list().then(function(items) {
       $scope.users = items.entities;
@@ -38,5 +38,5 @@ AdminQuotesCtrl.prototype.fetch = function($scope, $location, $routeParams, Admi
   }
 };
 
-AdminQuotesCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminQuote'];
+AdminQuotesCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminQuote'];
 sunstandControllers.controller('AdminQuotesCtrl', AdminQuotesCtrl);

@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminUserGroupBonusesCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
+function AdminUserGroupBonusesCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
   $scope.redirectUnlessSignedIn();
   $scope.view = 'bonuses';
   $scope.userGroup = {};
@@ -18,5 +18,5 @@ function AdminUserGroupBonusesCtrl($scope, $location, $routeParams, $anchorScrol
 }
 
 
-AdminUserGroupBonusesCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUserGroup'];
+AdminUserGroupBonusesCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUserGroup'];
 sunstandControllers.controller('AdminUserGroupBonusesCtrl', AdminUserGroupBonusesCtrl);

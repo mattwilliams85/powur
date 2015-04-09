@@ -39,6 +39,11 @@ var sunstandAdminApp = angular.module('sunstandAdminApp', [
       $(document).foundation();
     };
 
+    // Breadcrumbs for navigation
+    $rootScope.$on('$locationChangeStart', function() {
+      $rootScope.breadcrumbs = [{title: 'Administration', href: '/admin/#'}];
+    });
+
     $rootScope.showModal = function(text, modalClass) {
       modalClass = modalClass || '';
       $('<div class=\'reveal-modal ' + modalClass + '\' data-reveal><h3>' + text + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');

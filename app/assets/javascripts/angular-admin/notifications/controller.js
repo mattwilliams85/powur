@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminNotificationsCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminNotification) {
+function AdminNotificationsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminNotification) {
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
@@ -8,7 +8,7 @@ function AdminNotificationsCtrl($scope, $location, $routeParams, $anchorScroll, 
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminNotification);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminNotification);
 }
 
 AdminNotificationsCtrl.prototype.init = function($scope, $location) {
@@ -19,7 +19,7 @@ AdminNotificationsCtrl.prototype.init = function($scope, $location) {
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminNotificationsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminNotification) {
+AdminNotificationsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminNotification) {
   if ($scope.mode === 'index') {
     return AdminNotification.list().then(function(items) {
       $scope.notifications = items.entities;
@@ -38,5 +38,5 @@ AdminNotificationsCtrl.prototype.fetch = function($scope, $location, $routeParam
   }
 };
 
-AdminNotificationsCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminNotification'];
+AdminNotificationsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminNotification'];
 sunstandControllers.controller('AdminNotificationsCtrl', AdminNotificationsCtrl);

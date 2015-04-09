@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminBonusesCtrl($scope, $location, $routeParams, $http, AdminBonusPlan, AdminBonus) {
+function AdminBonusesCtrl($scope, $rootScope, $location, $routeParams, $http, AdminBonusPlan, AdminBonus) {
   $scope.redirectUnlessSignedIn();
 
   // Utility Functions
@@ -69,7 +69,7 @@ function AdminBonusesCtrl($scope, $location, $routeParams, $http, AdminBonusPlan
   }
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminBonusPlan, AdminBonus);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminBonusPlan, AdminBonus);
 
 };
 
@@ -81,7 +81,7 @@ AdminBonusesCtrl.prototype.init = function($scope, $location){
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminBonusesCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminBonusPlan, AdminBonus) {
+AdminBonusesCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminBonusPlan, AdminBonus) {
   if ($scope.mode === 'index') {
     AdminBonusPlan.get($routeParams.bonusPlanId).then(function(item) {
       $scope.plan = item.properties;

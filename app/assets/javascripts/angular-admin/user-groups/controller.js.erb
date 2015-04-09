@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
+function AdminUserGroupsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
   $scope.redirectUnlessSignedIn();
   $scope.view = 'overview';
   $scope.userGroup = {};
@@ -94,7 +94,7 @@ function AdminUserGroupsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminUserGroup);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminUserGroup);
 }
 
 
@@ -109,7 +109,7 @@ AdminUserGroupsCtrl.prototype.init = function($scope, $location) {
 };
 
 
-AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminUserGroup) {
+AdminUserGroupsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminUserGroup) {
   if ($scope.mode === 'index') {
     return AdminUserGroup.list().then(function(items) {
       $scope.userGroups = items.entities;
@@ -144,5 +144,5 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
 };
 
 
-AdminUserGroupsCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUserGroup'];
+AdminUserGroupsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUserGroup'];
 sunstandControllers.controller('AdminUserGroupsCtrl', AdminUserGroupsCtrl);

@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminProductsCtrl($scope, $location, $routeParams, $http, AdminProduct) {
+function AdminProductsCtrl($scope, $rootScope, $location, $routeParams, $http, AdminProduct) {
   $scope.redirectUnlessSignedIn();
 
   // Utility Functions
@@ -82,7 +82,7 @@ function AdminProductsCtrl($scope, $location, $routeParams, $http, AdminProduct)
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminProduct);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminProduct);
 };
 
 AdminProductsCtrl.prototype.init = function($scope, $location){
@@ -93,7 +93,7 @@ AdminProductsCtrl.prototype.init = function($scope, $location){
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminProductsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminProduct) {
+AdminProductsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminProduct) {
   if ($scope.mode === 'index') {
     return AdminProduct.list().then(function(items) {
       $scope.products = items.entities;
@@ -123,5 +123,5 @@ AdminProductsCtrl.prototype.fetch = function($scope, $location, $routeParams, Ad
 };
 
 
-AdminProductsCtrl.$inject = ['$scope', '$location', '$routeParams', '$http', 'AdminProduct'];
+AdminProductsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$http', 'AdminProduct'];
 sunstandControllers.controller('AdminProductsCtrl', AdminProductsCtrl);

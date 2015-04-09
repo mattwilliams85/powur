@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminPayPeriodsCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminPayPeriod) {
+function AdminPayPeriodsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminPayPeriod) {
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
@@ -8,7 +8,7 @@ function AdminPayPeriodsCtrl($scope, $location, $routeParams, $anchorScroll, $ht
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminPayPeriod);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminPayPeriod);
 }
 
 AdminPayPeriodsCtrl.prototype.init = function($scope, $location) {
@@ -19,7 +19,7 @@ AdminPayPeriodsCtrl.prototype.init = function($scope, $location) {
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminPayPeriodsCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminPayPeriod) {
+AdminPayPeriodsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminPayPeriod) {
   if ($scope.mode === 'index') {
     return AdminPayPeriod.list().then(function(items) {
       $scope.payPeriods = items.entities;
@@ -38,5 +38,5 @@ AdminPayPeriodsCtrl.prototype.fetch = function($scope, $location, $routeParams, 
   }
 };
 
-AdminPayPeriodsCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminPayPeriod'];
+AdminPayPeriodsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminPayPeriod'];
 sunstandControllers.controller('AdminPayPeriodsCtrl', AdminPayPeriodsCtrl);
