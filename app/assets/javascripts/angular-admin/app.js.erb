@@ -248,8 +248,8 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/notifications/templates/index.html")%>',
       controller: 'AdminNotificationsCtrl'
     }).
-    when('/notifications/:notificationId', {
-      templateUrl: '<%=asset_path("angular-admin/notifications/templates/show.html")%>',
+    when('/notifications/new', {
+      templateUrl: '<%=asset_path("angular-admin/notifications/templates/new.html")%>',
       controller: 'AdminNotificationsCtrl'
     }).
     when('/notifications/:notificationId/edit', {
