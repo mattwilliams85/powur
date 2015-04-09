@@ -2,12 +2,9 @@
 
   <div class="row">
     <div class="large-12 columns">
-      <h3>Create a New User Group</h3>
-      <form name="userGroupForm" class="user-group-form" ng-submit="create()">
-        <ng-include src="'<%=asset_path("angular-admin/user-groups/templates/form.html.erb")%>'"></ng-include>
-        <a ng-click="cancel()" class="button small alert left">Cancel</a>
-        <input class="button small" ng-disabled="isSubmitDisabled" type="submit" value="Create User Group" />
-      </form>
+      <h2>Create a New User Group</h2>
+      <!-- User Group Form -->
+      <ng-include src="'<%=asset_path("angular-admin/user-groups/templates/form.html.erb")%>'"></ng-include>
     </div>
   </div>
 

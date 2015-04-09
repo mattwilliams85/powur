@@ -1,33 +1,40 @@
-<div class="row">
-  <div class="large-4 columns">
-    <label class="right inline" for="userGroupTitle">Title</label>
-  </div>
-
-  <div class="large-8 columns">
-    <span ng-show="userGroupForm.title.$dirty && errorMessage('title')" class="radius alert label">{{errorMessage('title')}}</span>
-    <input ng-model="userGroup.title" name="title" id="userGroup_title" type="text" />
-  </div>
-</div>
-
-<div class="row">
-  <div class="large-4 columns">
-    <label class="right inline" for="userGroupId">ID</label>
-  </div>
-
-  <div class="large-8 columns">
-    <span ng-show="userGroupForm.id.$dirty && errorMessage('id')" class="radius alert label">{{errorMessage('id')}}</span>
-    <input ng-disabled="disableIdEdit" ng-model="userGroup.id" name="id" id="userGroup_id" type="text" />
-  </div>
-</div>
-
-<div class="row">
-  <div class="large-4 columns">
-    <label class="right inline" for="userGroupDescription">Description</label>
-  </div>
-
-  <div class="large-8 columns">
-    <textarea ng-model="userGroup.description" name="description" id="userGroup_description"></textarea>
-  </div>
-</div>
-
-<div class="clearfix"></div>
+<form name="userGroupForm" class="user-group-form">
+  <fieldset>
+    <legend ng-if="mode === 'new'">New User Group</legend>
+    <legend ng-if="mode === 'edit'">Edit User Group</legend>
+    <!-- Group Title Field -->
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="userGroupTitle">Title</label>
+        <span ng-show="userGroupForm.title.$dirty && errorMessage('title')" class="radius alert label">{{errorMessage('title')}}</span>
+        <input ng-model="userGroup.title" name="title" id="userGroup_title" type="text" />
+      </div>
+    </div>
+    <!-- Group ID Field -->
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="userGroupId">ID</label>
+        <span ng-show="userGroupForm.id.$dirty && errorMessage('id')" class="radius alert label">{{errorMessage('id')}}</span>
+        <input ng-disabled="disableIdEdit" ng-model="userGroup.id" name="id" id="userGroup_id" type="text" />
+      </div>
+    </div>
+    <!-- Group Description Text Area -->
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="userGroupDescription">Description</label>
+        <textarea ng-model="userGroup.description" name="description" id="userGroup_description"></textarea>
+      </div>
+    </div>
+    <!-- Delete Button -->
+    <input ng-if="mode === 'edit'" class="tiny button understated right" ng-disabled="isSubmitDisabled" type="submit" ng-click="delete(userGroupObj)" value="Delete User Group" />
+    <!-- Submit/Cancel Buttons -->
+    <div class="row">
+      <div class="large-12 columns">
+        <a ng-if="mode === 'new'" ng-click="cancel()" class="button secondary">Cancel</a>
+        <a ng-if="mode === 'edit'" ng-href="/admin/#/user-groups/{{userGroup.id}}" class="button secondary">Cancel</a>
+        <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Create User Group" />
+        <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update User Group" />
+      </div>
+    </div>
+  </fieldset>
+</form>

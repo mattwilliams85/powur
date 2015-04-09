@@ -38,9 +38,10 @@ function AdminResourcesCtrl($scope, $location, $routeParams, $anchorScroll, Admi
   $scope.delete = function(item) {
     var action = getAction(item.actions, 'destroy');
     return AdminResource.execute(action).then(function() {
-      $scope.showModal('Resource has been deleted');
+      $scope.showModal('This resource has been deleted.');
+      $location.path('/resources');
+      $scope.pagination(0);
       $(document).foundation();
-      $location.path('/admin/resources/');
     }, function() {
       $scope.showModal('Oops error deleting the resource');
       $(document).foundation();
@@ -48,7 +49,7 @@ function AdminResourcesCtrl($scope, $location, $routeParams, $anchorScroll, Admi
   };
 
   $scope.cancel = function() {
-    $location.path('/admin/resources/');
+    $location.path('/resources');
   };
 
   $scope.errorMessage = function(name) {
@@ -56,8 +57,8 @@ function AdminResourcesCtrl($scope, $location, $routeParams, $anchorScroll, Admi
   };
 
   var createCallback = function() {
-    $location.path('/admin/resources');
-    $scope.showModal('You\'ve successfully added file to a library.');
+    $location.path('/resources');
+    $scope.showModal('You\'ve successfully added a ' + $scope.resourceType + ' to the library.');
     $(document).foundation();
     $scope.isSubmitDisabled = false;
   };
@@ -85,8 +86,8 @@ function AdminResourcesCtrl($scope, $location, $routeParams, $anchorScroll, Admi
   };
 
   var updateCallback = function() {
-    $location.path('/admin/resources');
-    $scope.showModal('You\'ve successfully updated a library resource.');
+    $location.path('/resources');
+    $scope.showModal('You\'ve successfully updated this ' + $scope.resourceType + '.');
     $(document).foundation();
     $scope.isSubmitDisabled = false;
   };

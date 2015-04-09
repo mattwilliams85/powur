@@ -1,36 +1,36 @@
 'use strict';
 
-function AdminProduct($http, $q) {
+function AdminBonus($http, $q) {
   var service = {
 
     /*
-    * Get list of Products
+    * List bonuses for given bonus plan
     */
-    list: function() {
+    list: function(bonusPlanId) {
       var dfr = $q.defer();
-
       $http({
         method: 'GET',
-        url: '/a/products.json'
+        url: '/a/bonus_plans/' + bonusPlanId + '/bonuses.json',
+        type: 'application/json'
       }).success(function(res) {
         dfr.resolve(res);
       }).error(function(err) {
         console.log('エラー', err);
         dfr.reject(err);
       });
-
+      
       return dfr.promise;
     },
 
     /*
-     * Get an item
+     * Get a Bonus
     */
     get: function(id) {
       var dfr = $q.defer();
 
       $http({
         method: 'GET',
-        url: '/a/products/' + id + '.json'
+        url: '/a/bonuses/' + id + '.json'
       }).success(function(res) {
         dfr.resolve(res);
       }).error(function(err) {
@@ -50,8 +50,27 @@ function AdminProduct($http, $q) {
       $http({
         method: action.method,
         url: action.href,
-        data: data,
-        type: action.type
+        type: action.type,
+        data: data
+      }).success(function(res) {
+        dfr.resolve(res);
+      }).error(function(err) {
+        console.log('エラー', err);
+        dfr.reject(err);
+      });
+
+      return dfr.promise;
+    },
+
+    /*
+     * Get a list from an href
+    */
+    listFromHref: function(href) {
+      var dfr = $q.defer();
+      $http({
+        method: 'GET',
+        url: href + '.json',
+        type: 'application/json'
       }).success(function(res) {
         dfr.resolve(res);
       }).error(function(err) {
@@ -66,5 +85,5 @@ function AdminProduct($http, $q) {
   return service;
 }
 
-AdminProduct.$inject = ['$http', '$q'];
-sunstandServices.factory('AdminProduct', AdminProduct);
+AdminBonus.$inject = ['$http', '$q'];
+sunstandServices.factory('AdminBonus', AdminBonus);

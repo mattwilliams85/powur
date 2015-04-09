@@ -15,7 +15,7 @@ module Admin
 
       @bonus = bonus_klass.create!(input.merge(bonus_plan_id: @bonus_plan.id))
 
-      render 'show'
+      head 200
     end
 
     def show
@@ -24,14 +24,14 @@ module Admin
     def update
       @bonus.update_attributes!(input)
 
-      render 'show'
+      head 200
     end
 
     def destroy
       @bonus_plan = @bonus.bonus_plan
       @bonus.destroy
 
-      index
+      head 200
     end
 
     private

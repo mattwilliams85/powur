@@ -16,20 +16,13 @@
 <body>
   <!-- Admin Header -->
   <ng-include src="'<%=asset_path("shared/admin/header.html") %>'"></ng-include>
+  <!-- Bread Crumbs -->
+  <ng-include src="'<%=asset_path("shared/admin/breadcrumbs.html") %>'"></ng-include>
+  <!-- Page Content -->
   <div class="row">
-    <div class="large-12 columns">
-      <h1 class="header">Powur Administration</h1>
-    </div>
-  </div>
-  <!-- Main -->
-  <div class="row">
-    <!-- Admin Sidebar -->
-    <div class="large-3 medium-2 hide-for-small columns">
-      <ng-include onload="readyAdminHeader();" src="'<%=asset_path("shared/admin/sidebar.html") %>'"></ng-include>
-    </div>
-    <!-- Page Content -->
-    <div class="large-9 medium-10 small-12 columns">
-      <ng-view onload="readyAdminSidebar();" autoscroll="true"></ng-view>
+    <div class="small-12 columns">
+      <!-- Main -->
+      <ng-view onload="foundation();" autoscroll="true"></ng-view>
     </div>
   </div>
 

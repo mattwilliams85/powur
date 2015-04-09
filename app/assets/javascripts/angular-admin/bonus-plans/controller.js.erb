@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusPlan) {
+function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusPlan, AdminBonus) {
   $scope.redirectUnlessSignedIn();
 
   // Utility Functions
@@ -13,31 +13,64 @@ function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusP
     return;
   }
 
-  $scope.backToIndex = function() {
-    $location.path('/admin/#/bonus-plans/');
+  $scope.cancel = function() {
+    if ($scope.mode === 'new') {
+      $location.path('/bonus-plans');
+    } else {
+      $location.path('/bonus-plans/' + $scope.bonusPlan.id);
+    }
   }
 
   // Create Bonus Plan Action
   $scope.create = function() {
     if ($scope.bonusPlan) {
       $scope.isSubmitDisabled = true;
-      AdminBonusPlan.execute($scope.formAction, $scope.bonusPlan).then(actionCallback);
+      AdminBonusPlan.execute($scope.formAction, $scope.bonusPlan).then(actionCallback($scope.formAction));
     }
   }
 
-  var actionCallback = function(data) {
-    var destination = '/admin/bonus-plans/',
+  // Update Bonus Plan Action
+  $scope.update = function() {
+    if ($scope.bonusPlan) {
+      AdminBonusPlan.execute($scope.formAction, $scope.bonusPlan).then(actionCallback($scope.formAction));
+    }
+  }
+
+  // Delete Action
+  $scope.delete = function(bonusPlanObj) {
+    var action = $scope.getAction(bonusPlanObj.actions, 'delete');
+    if (action) {
+      $scope.execute(action, bonusPlanObj);
+    }
+  };
+
+  // Generic Bonus Plan execute() Function
+  $scope.execute = function (action, bonusPlanObj) {
+    if (action.name === 'update') {
+      $scope.bonusPlan = bonusPlanObj.properties;
+      $location.path('/bonus-plans/' + $scope.bonusPlan.id + '/edit');
+    } else if (action.name === 'delete') {
+      if (window.confirm("Are you sure you want to delete this bonus plan?")) {
+        AdminBonusPlan.execute(action, bonusPlanObj).then(actionCallback(action));
+      }
+    } else {
+      AdminBonusPlan.execute(action, bonusPlanObj).then(actionCallback(action));
+    }
+  };
+
+  var actionCallback = function(action) {
+    var destination = '/bonus-plans',
         modalMessage = '';
-    if ($scope.formAction.name === 'create') {
-      destination = ('/admin/bonus-plans/');
-      modalMessage = ('You\'ve successfully added a new Bonus Plan.')
+    if (action.name === 'create') {
+      destination = ('/bonus-plans');
+      modalMessage = ('You\'ve successfully added a new bonus plan.')
       $scope.isSubmitDisabled = false;
-    } else if ($scope.formAction.name === 'update') {
-      destination = ('/admin/bonus-plans/');
-      modalMessage = ('You\'ve successfully updated this Bonus Plan.')
-    } else if ($scope.formAction.name === 'delete') {
-      destination = ('/admin/bonus-plans/');
-      modalMessage = ('You\'ve successfully deleted this Bonus Plan.')
+    } else if (action.name === 'update') {
+      destination = ('/bonus-plans/' + $scope.bonusPlan.id);
+      modalMessage = ('You\'ve successfully updated this bonus plan.')
+    } else if (action.name === 'delete') {
+      destination = ('/bonus-plans');
+      modalMessage = ('You\'ve successfully deleted this bonus plan.')
     }
     return AdminBonusPlan.list().then(function(item) {
       $location.path(destination)
@@ -48,7 +81,7 @@ function AdminBonusPlansCtrl($scope, $location, $routeParams, $http, AdminBonusP
   }
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminBonusPlan);
+  this.fetch($scope, $location, $routeParams, AdminBonusPlan, AdminBonus);
 
 };
 
@@ -60,15 +93,19 @@ AdminBonusPlansCtrl.prototype.init = function($scope, $location){
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminBonusPlansCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminBonusPlan) {
+AdminBonusPlansCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminBonusPlan, AdminBonus) {
   if ($scope.mode === 'index') {
     return AdminBonusPlan.list().then(function(items) {
       $scope.bonusPlans = items.entities;
     })
   } else if ($scope.mode === 'show') {
-    return AdminBonusPlan.get($routeParams.bonusPlanId).then(function(item) {
-      $scope.plan = item.properties;
-    })
+    $scope.bonuses = [];
+    AdminBonusPlan.get($routeParams.bonusPlanId).then(function(item) {
+      $scope.bonusPlan = item.properties;
+      AdminBonus.listFromHref(item.entities[0].href).then(function(bonuses) {
+        $scope.bonuses = bonuses.entities;
+      });
+    });
   } else if ($scope.mode === 'new') {
     return AdminBonusPlan.list().then(function(item){
       $scope.bonusPlan = {};
@@ -76,9 +113,26 @@ AdminBonusPlansCtrl.prototype.fetch = function($scope, $location, $routeParams, 
     });
 
   } else if ($scope.mode === 'edit') {
+    AdminBonusPlan.get($routeParams.bonusPlanId).then(function(item) {
+      $scope.bonusPlan = item.properties;
+      $scope.bonusPlanObj = item;
+      $scope.formAction = $scope.getAction(item.actions, 'update');
 
+      // Determine whether the bonus plan can be deleted
+      if ($scope.bonusPlan.active === true) {
+        $scope.canBeDeleted = false;
+      } else {
+        $scope.canBeDeleted = true;
+      }
+
+      var fields = $scope.formAction.fields;
+      // Holy Loop to fill form with existing values 🙌
+      for (var i in fields) {
+        $scope.bonusPlan[fields[i].name] = fields[i].value;
+      }
+    });
   }
 };
 
-AdminBonusPlansCtrl.$inject = ['$scope', '$location', '$routeParams', '$http', 'AdminBonusPlan'];
+AdminBonusPlansCtrl.$inject = ['$scope', '$location', '$routeParams', '$http', 'AdminBonusPlan', 'AdminBonus'];
 sunstandControllers.controller('AdminBonusPlansCtrl', AdminBonusPlansCtrl);

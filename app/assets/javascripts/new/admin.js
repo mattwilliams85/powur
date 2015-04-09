@@ -8,6 +8,7 @@
 
 //= require_tree ../angular-admin/landing
 
+//= require_tree ../angular-admin/bonus
 //= require_tree ../angular-admin/bonus-plans
 //= require_tree ../angular-admin/notifications
 //= require_tree ../angular-admin/orders

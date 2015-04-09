@@ -3,9 +3,83 @@
 function AdminProductsCtrl($scope, $location, $routeParams, $http, AdminProduct) {
   $scope.redirectUnlessSignedIn();
 
-  $scope.backToIndex = function() {
-    $location.path('/admin/#/products/');
+  // Utility Functions
+  $scope.getAction = function (actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
   }
+
+  $scope.cancel = function() {
+    $location.path('/products');
+  }
+
+  // Create Product Action
+  $scope.create = function() {
+    if ($scope.product) {
+      $scope.isSubmitDisabled = true;
+      AdminProduct.execute($scope.formAction, $scope.product).then(actionCallback($scope.formAction));
+    }
+  };
+
+  // Update Product Action
+  $scope.update = function() {
+    if ($scope.product) {
+      AdminProduct.execute($scope.formAction, $scope.product).then(actionCallback($scope.formAction));
+    }
+  }
+
+  // Delete Product Action
+  $scope.delete = function(productObj) {
+    var action = $scope.getAction(productObj.actions, 'delete');
+    var productName = productObj.properties.name;
+    if (window.confirm("Are you sure you want to delete " + productName + "?")) {
+      return AdminProduct.execute(action).then(function() {
+        $scope.showModal(productName + " has been removed from the system.");
+        $(document).foundation();
+        $location.path('/products');
+      }, function() {
+        $scope.showModal('There was an error deleting this product.');
+        $(document).foundation();
+      });
+    }
+  }
+
+  var actionCallback = function(action) {
+    var destination = '/products/' + $scope.product.id,
+        modalMessage = '';
+
+    // update action needs to send user back to product show page
+    if (action.name === 'update') {
+      destination = ('/products/' + $scope.product.id);
+      modalMessage = ('You\'ve successfully updated this product.')
+      return AdminProduct.get($routeParams.productId).then(function(item) {
+        $location.path(destination)
+        $scope.product = item.properties;
+        $(document).foundation();
+        $scope.showModal(modalMessage)
+      });
+
+    // create and delete actions need to send user back to products list page
+    } else if (action.name === 'create') {
+      destination = ('/products');
+      modalMessage = ('You\'ve successfully added a new product.')
+      $scope.isSubmitDisabled = false;
+    } else if (action.name === 'delete') {
+      destination = ('/products');
+      modalMessage = ('You\'ve successfully deleted this product.')
+    }
+    return AdminProduct.list().then(function(items) {
+      $location.path(destination)
+      $scope.products = items.entities;
+      $(document).foundation();
+      $scope.showModal(modalMessage)
+    });
+
+  };
 
   this.init($scope, $location);
   this.fetch($scope, $location, $routeParams, AdminProduct);
@@ -23,11 +97,28 @@ AdminProductsCtrl.prototype.fetch = function($scope, $location, $routeParams, Ad
   if ($scope.mode === 'index') {
     return AdminProduct.list().then(function(items) {
       $scope.products = items.entities;
-    })
+    });
+  } else if ($scope.mode === 'new') {
+    return AdminProduct.list().then(function(items) {
+      $scope.product = {}
+      $scope.formAction = $scope.getAction(items.actions, 'create');
+    });
   } else if ($scope.mode === 'show') {
     return AdminProduct.get($routeParams.productId).then(function(item) {
       $scope.product = item.properties;
-    })
+    });
+  } else if ($scope.mode === 'edit') {
+    return AdminProduct.get($routeParams.productId).then(function(item) {
+      $scope.product = item.properties;
+      $scope.productObj = item;
+      $scope.formAction = $scope.getAction($scope.productObj.actions, 'update');
+
+      var fields = $scope.formAction.fields;
+      // Holy Loop to fill form with existing values 🙌
+      for (var i in fields) {
+        $scope.product[fields[i].name] = fields[i].value;
+      }
+    });
   }
 };
 

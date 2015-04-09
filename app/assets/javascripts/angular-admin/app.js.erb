@@ -35,11 +35,7 @@ var sunstandAdminApp = angular.module('sunstandAdminApp', [
       }
     };
 
-    $rootScope.readyAdminHeader = function() {
-      $(document).foundation();
-    };
-
-    $rootScope.readyAdminSidebar = function() {
+    $rootScope.foundation = function() {
       $(document).foundation();
     };
 
@@ -160,6 +156,19 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/show.html")%>',
       controller: 'AdminBonusPlansCtrl'
     }).
+    // Bonus Plan Bonuses
+    when('/bonus-plans/:bonusPlanId/bonuses', {
+      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/bonuses/index.html")%>',
+      controller: 'AdminBonusesCtrl'
+    }).
+    when('/bonus-plans/:bonusPlanId/bonuses/new', {
+      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/bonuses/new.html")%>',
+      controller: 'AdminBonusesCtrl'
+    }).
+    when('/bonus-plans/:bonusPlanId/bonuses/:bonusId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/bonuses/edit.html")%>',
+      controller: 'AdminBonusesCtrl'
+    }).
     // Products
     when('/products', {
       templateUrl: '<%=asset_path("angular-admin/products/templates/index.html")%>',
@@ -169,12 +178,12 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/products/templates/new.html")%>',
       controller: 'AdminProductsCtrl'
     }).
-    when('/products/edit', {
-      templateUrl: '<%=asset_path("angular-admin/products/templates/edit.html")%>',
-      controller: 'AdminProductsCtrl'
-    }).
     when('/products/:productId', {
       templateUrl: '<%=asset_path("angular-admin/products/templates/show.html")%>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/products/:productId/edit', {
+      templateUrl: '<%=asset_path("angular-admin/products/templates/edit.html")%>',
       controller: 'AdminProductsCtrl'
     }).
     // Users
