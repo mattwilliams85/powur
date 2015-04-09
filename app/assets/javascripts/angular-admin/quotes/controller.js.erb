@@ -21,19 +21,34 @@ AdminQuotesCtrl.prototype.init = function($scope, $location) {
 
 AdminQuotesCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminQuote) {
   if ($scope.mode === 'index') {
-    return AdminQuote.list().then(function(items) {
+    AdminQuote.list().then(function(items) {
       $scope.users = items.entities;
+
+      // Breadcrumbs: Quotes
+      $rootScope.breadcrumbs.push({title: 'Quotes'});
+
     });
+
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
-    return AdminQuote.get($routeParams.quoteId).then(function(item) {
+    AdminQuote.get($routeParams.quoteId).then(function(item) {
       $scope.user = item.properties;
+
+      // Breadcrumbs: Quotes / View Quote
+      $rootScope.breadcrumbs.push({title: 'Quotes', href: '/admin/#/quotes'});
+      $rootScope.breadcrumbs.push({title: 'View Quote'});
+
     });
 
   } else if ($scope.mode === 'edit') {
-    return AdminQuote.get($routeParams.quoteId).then(function(item) {
+    AdminQuote.get($routeParams.quoteId).then(function(item) {
       $scope.user = item.properties;
+
+      // Breadcrumbs: Quotes / Update Quote
+      $rootScope.breadcrumbs.push({title: 'Quotes', href: '/admin/#/quotes'});
+      $rootScope.breadcrumbs.push({title: 'Update Quote'});
+
     });
   }
 };

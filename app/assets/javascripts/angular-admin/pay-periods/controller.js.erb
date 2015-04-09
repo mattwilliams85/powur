@@ -21,19 +21,35 @@ AdminPayPeriodsCtrl.prototype.init = function($scope, $location) {
 
 AdminPayPeriodsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminPayPeriod) {
   if ($scope.mode === 'index') {
-    return AdminPayPeriod.list().then(function(items) {
+    AdminPayPeriod.list().then(function(items) {
       $scope.payPeriods = items.entities;
+
+      // Breadcrumbs: Pay Periods
+      $rootScope.breadcrumbs.push({title: 'Pay Periods'});
+
     });
+
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
-    return AdminPayPeriod.get($routeParams.payPeriodId).then(function(item) {
+    AdminPayPeriod.get($routeParams.payPeriodId).then(function(item) {
       $scope.payPeriod = item.properties;
+
+      // Breadcrumbs: Pay Periods / Pay Period ID
+      $rootScope.breadcrumbs.push({title: 'Pay Periods', href: '/admin/#/pay-periods'});
+      $rootScope.breadcrumbs.push({title: $scope.payPeriod.id});
+
     });
 
   } else if ($scope.mode === 'edit') {
-    return AdminPayPeriod.get($routeParams.payPeriodId).then(function(item) {
+    AdminPayPeriod.get($routeParams.payPeriodId).then(function(item) {
       $scope.payPeriod = item.properties;
+
+      // Breadcrumbs: Pay Periods / Pay Period ID / Update Pay Period
+      $rootScope.breadcrumbs.push({title: 'Pay Periods', href: '/admin/#/pay-periods'});
+      $rootScope.breadcrumbs.push({title: $scope.payPeriod.id, href: '/admin/#/pay-periods/' + $scope.payPeriod.id});
+      $rootScope.breadcrumbs.push({title: 'Update Pay Period'});
+
     });
   }
 };

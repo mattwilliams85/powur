@@ -23,17 +23,33 @@ AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeP
   if ($scope.mode === 'index') {
     return AdminUser.list().then(function(items) {
       $scope.users = items.entities;
+
+      // Breadcrumbs: Users
+      $rootScope.breadcrumbs.push({title: 'Users'});
+
     });
+
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
     return AdminUser.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
+
+      // Breadcrumbs: Users / User Name
+      $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/#/users'});
+      $rootScope.breadcrumbs.push({title: $scope.user.full_name});
+
     });
 
   } else if ($scope.mode === 'edit') {
     return AdminUser.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
+
+      // Breadcrumbs: Users / Update User
+      $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/#/users'});
+      $rootScope.breadcrumbs.push({title: $scope.user.full_name, href: '/admin/#/users/' + $scope.user.id});
+      $rootScope.breadcrumbs.push({title: 'Update User'});
+
     });
   }
 };

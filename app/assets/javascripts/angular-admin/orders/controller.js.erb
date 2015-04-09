@@ -21,19 +21,33 @@ AdminOrdersCtrl.prototype.init = function($scope, $location) {
 
 AdminOrdersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminOrder) {
   if ($scope.mode === 'index') {
-    return AdminOrder.list().then(function(items) {
+    AdminOrder.list().then(function(items) {
       $scope.orders = items.entities;
+
+      // Breadcrumbs: Orders
+      $rootScope.breadcrumbs.push({title: 'Orders'});
+
     });
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
-    return AdminOrder.get($routeParams.userId).then(function(item) {
+    AdminOrder.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
+
+      // Breadcrumbs: Orders / View Order
+      $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/#/orders'});
+      $rootScope.breadcrumbs.push({title: 'View Order'});
+
     });
 
   } else if ($scope.mode === 'edit') {
-    return AdminOrder.get($routeParams.userId).then(function(item) {
+    AdminOrder.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
+
+      // Breadcrumbs: Orders / Update Order
+      $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/#/orders'});
+      $rootScope.breadcrumbs.push({title: 'Update Order'});
+
     });
   }
 };

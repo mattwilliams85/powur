@@ -21,19 +21,34 @@ AdminSocialMediaCtrl.prototype.init = function($scope, $location) {
 
 AdminSocialMediaCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminSocialMedia) {
   if ($scope.mode === 'index') {
-    return AdminSocialMedia.list().then(function(items) {
+    AdminSocialMedia.list().then(function(items) {
       $scope.socialMedia = items.entities;
+
+      // Breadcrumbs: Social Media Sharing
+      $rootScope.breadcrumbs.push({title: 'Social Media Sharing'});
+
     });
+
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
-    return AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
+    AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
       $scope.socialMediaPost = item.properties;
+
+      // Breadcrumbs: Social Media Sharing / View Post
+      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/#/social-media'});
+      $rootScope.breadcrumbs.push({title: 'View Post'});
+
     });
 
   } else if ($scope.mode === 'edit') {
-    return AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
+    AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
       $scope.socialMediaPost = item.properties;
+
+      // Breadcrumbs: Social Media Sharing / Update Post
+      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/#/social-media'});
+      $rootScope.breadcrumbs.push({title: 'Update Post'});
+
     });
   }
 };
