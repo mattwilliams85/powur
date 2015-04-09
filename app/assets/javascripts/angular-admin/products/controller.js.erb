@@ -109,7 +109,8 @@ AdminProductsCtrl.prototype.fetch = function($scope, $rootScope, $location, $rou
       $scope.formAction = $scope.getAction(items.actions, 'create');
 
       // Breadcrumbs: Products
-      $rootScope.breadcrumbs.push({title: 'Products'});
+      $rootScope.breadcrumbs.push({title: 'Products', href: '/admin/#/products'});
+      $rootScope.breadcrumbs.push({title: 'New Product'});
 
     });
 
@@ -118,7 +119,7 @@ AdminProductsCtrl.prototype.fetch = function($scope, $rootScope, $location, $rou
       $scope.product = item.properties;
 
       // Breadcrumbs: Products / Product Name
-      $rootScope.breadcrumbs.push({title: 'Products', href: '/admin/#/products/'});
+      $rootScope.breadcrumbs.push({title: 'Products', href: '/admin/#/products'});
       $rootScope.breadcrumbs.push({title: $scope.product.name});
 
     });
@@ -136,7 +137,7 @@ AdminProductsCtrl.prototype.fetch = function($scope, $rootScope, $location, $rou
       }
 
       // Breadcrumbs: Products / Product Name
-      $rootScope.breadcrumbs.push({title: 'Products', href: '/admin/#/products/'});
+      $rootScope.breadcrumbs.push({title: 'Products', href: '/admin/#/products'});
       $rootScope.breadcrumbs.push({title: $scope.product.name, href: '/admin/#/products/' + $scope.product.id});
       $rootScope.breadcrumbs.push({title: 'Update Product'});
 
