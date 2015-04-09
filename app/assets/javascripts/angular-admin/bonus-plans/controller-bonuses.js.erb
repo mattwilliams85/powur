@@ -14,7 +14,7 @@ function AdminBonusesCtrl($scope, $rootScope, $location, $routeParams, $http, Ad
   };
 
   $scope.cancel = function() {
-    $location.path('/bonus-plans/' + $scope.plan.id + '/bonuses');
+    $location.path('/bonus-plans/' + $scope.bonusPlan.id + '/bonuses');
   };
 
   // Create Bonus Action
@@ -36,7 +36,7 @@ function AdminBonusesCtrl($scope, $rootScope, $location, $routeParams, $http, Ad
   $scope.execute = function (action, bonus) {
     if (action.name === 'update') {
       $scope.bonus = bonus;
-      $location.path('/bonus-plans/' + $scope.plan.id + '/bonuses/' + bonus.properties.id + '/edit');
+      $location.path('/bonus-plans/' + $scope.bonusPlan.id + '/bonuses/' + bonus.properties.id + '/edit');
     } else if (action.name === 'delete') {
       if (window.confirm("Are you sure you want to delete this bonus?")) {
         AdminBonus.execute(action, bonus).then(actionCallback(action));
@@ -47,17 +47,17 @@ function AdminBonusesCtrl($scope, $rootScope, $location, $routeParams, $http, Ad
   };
 
   var actionCallback = function(action) {
-    var destination = '/bonus-plans/' + $scope.plan.id + '/bonuses',
+    var destination = '/bonus-plans/' + $scope.bonusPlan.id + '/bonuses',
         modalMessage = '';
     if (action.name === 'create') {
-      destination = ('/bonus-plans/' + $scope.plan.id + '/bonuses');
+      destination = ('/bonus-plans/' + $scope.bonusPlan.id + '/bonuses');
       modalMessage = ('You\'ve successfully added a new bonus.');
       $scope.isSubmitDisabled = false;
     } else if (action.name === 'update') {
-      destination = ('/bonus-plans/' + $scope.plan.id + '/bonuses');
+      destination = ('/bonus-plans/' + $scope.bonusPlan.id + '/bonuses');
       modalMessage = ('You\'ve successfully updated this bonus.');
     } else if (action.name === 'delete') {
-      destination = ('/bonus-plans/' + $scope.plan.id + '/bonuses');
+      destination = ('/bonus-plans/' + $scope.bonusPlan.id + '/bonuses');
       modalMessage = ('You\'ve successfully deleted this bonus.');
     }
     return AdminBonus.list($routeParams.bonusPlanId).then(function(item) {
@@ -84,28 +84,39 @@ AdminBonusesCtrl.prototype.init = function($scope, $location){
 AdminBonusesCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminBonusPlan, AdminBonus) {
   if ($scope.mode === 'index') {
     AdminBonusPlan.get($routeParams.bonusPlanId).then(function(item) {
-      $scope.plan = item.properties;
+      $scope.bonusPlan = item.properties;
     });
 
     AdminBonus.list($routeParams.bonusPlanId).then(function(items) {
       $scope.bonuses = items.entities;
+
+      // Breadcrumbs: Bonus Plans / Bonus Plan Name / Update Bonus Plan
+      $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/#/bonus-plans'});
+      $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id});
+      $rootScope.breadcrumbs.push({title: 'Bonuses'});
     });
 
   } else if ($scope.mode === 'show') {
 
   } else if ($scope.mode === 'new') {
     AdminBonusPlan.get($routeParams.bonusPlanId).then(function(item) {
-      $scope.plan = item.properties;
+      $scope.bonusPlan = item.properties;
     });
 
     AdminBonus.list($routeParams.bonusPlanId).then(function(item){
       $scope.bonus = {};
       $scope.formAction = $scope.getAction(item.actions, 'create');
+
+      // Breadcrumbs: Bonus Plans / Bonus Plan Name / Update Bonus Plan
+      $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/#/bonus-plans'});
+      $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id});
+      $rootScope.breadcrumbs.push({title: 'Bonuses', href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id + '/bonuses'});
+      $rootScope.breadcrumbs.push({title: 'New Bonus'});
     });
 
   } else if ($scope.mode === 'edit') {
     AdminBonusPlan.get($routeParams.bonusPlanId).then(function(item) {
-      $scope.plan = item.properties;
+      $scope.bonusPlan = item.properties;
     });
 
     AdminBonus.get($routeParams.bonusId).then(function(item) {
@@ -117,11 +128,17 @@ AdminBonusesCtrl.prototype.fetch = function($scope, $rootScope, $location, $rout
       for (var i in fields) {
         $scope.bonus[fields[i].name] = fields[i].value;
       }
+
+      // Breadcrumbs: Bonus Plans / Bonus Plan Name / Update Bonus Plan
+      $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/#/bonus-plans'});
+      $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id});
+      $rootScope.breadcrumbs.push({title: 'Bonuses', href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id + '/bonuses'});
+      $rootScope.breadcrumbs.push({title: 'Update Bonus'});
     });
   }
 
 };
 
 
-AdminBonusesCtrl.$inject = ['$scope', '$location', '$routeParams', '$http', 'AdminBonusPlan', 'AdminBonus'];
+AdminBonusesCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$http', 'AdminBonusPlan', 'AdminBonus'];
 sunstandControllers.controller('AdminBonusesCtrl', AdminBonusesCtrl);
