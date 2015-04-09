@@ -16,7 +16,6 @@ describe '/a/bonuses' do
 
       get bonus_plan_bonuses_path(bonus_plan), format: :json
 
-      binding.pry
       expect_classes 'bonuses', 'list'
       expect_entities_count(2)
     end
