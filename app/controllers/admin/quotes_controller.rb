@@ -1,6 +1,6 @@
 module Admin
   class QuotesController < AdminController
-    before_action :fetch_quote, only: [ :show ]
+    before_action :fetch_quote, only: [ :show, :submit ]
 
     page
     sort created:  { created_at: :desc },
@@ -26,6 +26,14 @@ module Admin
       query = Quote.user_customer_search(params[:search])
 
       index(query)
+    end
+
+    def submit
+      error!(:cannot_submit_quote) if @quote.submitted?
+
+      @quote.submit!
+
+      render 'show'
     end
 
     private

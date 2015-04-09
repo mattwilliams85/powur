@@ -188,6 +188,10 @@ Rails.application.routes.draw do
     resources :bonus_amounts, only: [ :update, :destroy ], as: :bonus_amounts
 
     resources :quotes, only: [ :index, :show ], as: :admin_quotes do
+      member do
+        post :submit
+      end
+      
       collection do
         get '' => 'quotes#search', constraints: params?(:search)
       end

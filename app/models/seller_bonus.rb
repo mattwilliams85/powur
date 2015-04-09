@@ -9,6 +9,4 @@ class SellerBonus < Bonus
   def first_n
     super && super.to_i
   end
-
-  
 end

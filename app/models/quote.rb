@@ -1,4 +1,5 @@
 class Quote < ActiveRecord::Base
+  include QuoteSubmission
   belongs_to :product
   belongs_to :customer
   belongs_to :user
@@ -32,6 +33,10 @@ class Quote < ActiveRecord::Base
 
   def order?
     !order.nil?
+  end
+
+  def submitted?
+    !provider_uid.nil?
   end
 
   private

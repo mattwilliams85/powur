@@ -726,7 +726,9 @@ CREATE TABLE quotes (
     product_id integer NOT NULL,
     user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    submitted_at timestamp without time zone,
+    provider_uid character varying
 );
 
 
@@ -2183,4 +2185,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150303172651');
 INSERT INTO schema_migrations (version) VALUES ('20150309071743');
 
 INSERT INTO schema_migrations (version) VALUES ('20150311194138');
+
+INSERT INTO schema_migrations (version) VALUES ('20150330202824');
 

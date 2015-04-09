@@ -3,10 +3,11 @@ require 'spec_helper'
 describe '/a/bonus_plans' do
 
   before do
-    DatabaseCleaner.clean
     login_user
-    @start_year, @start_month = DateTime.current.year, DateTime.current.month
   end
+
+  let(:start_year) { DateTime.current.year }
+  let(:start_month) { DateTime.current.month }
 
   describe 'GET /' do
 
@@ -25,8 +26,8 @@ describe '/a/bonus_plans' do
 
     it 'returns an individual bonus plan' do
       bonus_plan = create(:bonus_plan,
-                          start_year:  @start_year,
-                          start_month: @start_month)
+                          start_year:  start_year,
+                          start_month: start_month)
 
       get bonus_plan_path(bonus_plan), format: :json
 
@@ -46,6 +47,17 @@ describe '/a/bonus_plans' do
       expect_classes 'bonus_plan'
     end
 
+    it 'does not allow two plans with the same start time' do
+      create(:bonus_plan, start_year: start_year, start_month: start_month)
+      post bonus_plans_path,
+           name:        'foo',
+           start_year:  start_year,
+           start_month: start_month,
+           format:      :json
+
+      expect_alert_error
+    end
+
   end
 
   describe 'PATCH /:id' do
@@ -61,11 +73,11 @@ describe '/a/bonus_plans' do
     end
 
     it 'does not allow two plans with the same start time' do
-      create(:bonus_plan, start_year: @start_year, start_month: @start_month)
+      create(:bonus_plan, start_year: start_year, start_month: start_month)
       bonus_plan = create(:bonus_plan)
 
       patch bonus_plan_path(bonus_plan), format: :json,
-        start_year: @start_year, start_month: @start_month
+        start_year: start_year, start_month: start_month
 
       expect_alert_error
     end

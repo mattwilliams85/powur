@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://sctyleads-test.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=powur.com%3A1&Lead_Generator__c=2&FirstName=Shana&LastName=Hayes&Street=83528%20Kozey%20Via&City=Joannyfurt&PostalCode=31457&Phone=756.100.4257%20x3775&Email=customer.email_1%40example.org&Monthly_Electric_Bill__c=230
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '232'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/html
+      Date:
+      - Mon, 30 Mar 2015 22:45:40 GMT
+      Server:
+      - nginx
+      Content-Length:
+      - '183'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: |
+        [Error  fields='{[0]}'
+         message='Only the original designer uncheck this box. It changes who the contact point for the customer is.'
+         statusCode='FIELD_CUSTOM_VALIDATION_EXCEPTION'
+        ]
+    http_version: 
+  recorded_at: Mon, 30 Mar 2015 22:45:40 GMT
+recorded_with: VCR 2.9.3

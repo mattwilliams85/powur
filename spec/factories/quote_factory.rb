@@ -6,6 +6,7 @@ FactoryGirl.define do
     user
 
     factory :complete_quote do
+      association :product, factory: :sunrun_product
       data do
         { 'utility'      => 1,
           'average_bill' => 230,

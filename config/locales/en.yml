@@ -51,11 +51,12 @@ en:
     update_avatar: You must submit an image to change your avatar
     delete_rank: You can only delete the last rank
     delete_product: You cannot delete a product with existing quotes/orders
-    duplicate_bonus_plan_start: "The bonus plan %{plan} already has this start date"
+    duplicate_bonus_plan_start: "The bonus plan '%{plan}' already has this start date"
     duplicate_order: The quote already has a related order
     period_not_calculable: This pay period is not eligible for calculation
     period_not_disbursable: This pay period is not eligible for distribution
     cannot_add_amounts: Bonus amounts cannot be added to this bonus
+    cannot_submit_quote: Quote has already been submitted
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

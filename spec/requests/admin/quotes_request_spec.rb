@@ -8,7 +8,6 @@ describe '/a/quotes' do
   end
 
   describe '/' do
-
     it 'renders a list of quotes' do
       create_list(:quote, 5)
       get admin_quotes_path, format: :json, limit: 3
@@ -55,11 +54,9 @@ describe '/a/quotes' do
 
       expect(result).to eq(sorted_ids)
     end
-
   end
 
   describe '/:id' do
-
     it 'includes the related entities' do
       quote = create(:quote)
 
@@ -89,6 +86,28 @@ describe '/a/quotes' do
       result = json_body['entities'].find { |e| e['class'].include?('order') }
       expect(result).to_not be_nil
     end
+  end
 
+  describe '/:id/subject' do
+    let(:provider_uid) { '00Q18000001OtnbEAC' }
+
+    def submit_and_assert_success(cassette)
+      quote = create(:complete_quote)
+
+      VCR.use_cassette(cassette) do
+        post submit_admin_quote_path(quote), format: :json
+      end
+
+      expect_200
+      expect(json_body['properties']['provider_uid']).to eq(provider_uid)
+    end
+
+    it 'submits a quote to the solar provider' do
+      submit_and_assert_success('quotes/submit')
+    end
+
+    it 'handles a quote submitted twice but not recorded' do
+      submit_and_assert_success('quotes/submit_exists')
+    end
   end
 end
