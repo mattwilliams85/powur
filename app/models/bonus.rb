@@ -22,16 +22,8 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
 
   validates_presence_of :name
 
-  def type_string
-    self.class.name.underscore.gsub(/_bonus/, '')
-  end
-
   def type_display
-    TYPES[type_string.to_sym]
-  end
-
-  def meta_data_fields
-    {}
+    TYPES[self.class.name]
   end
 
   def highest_bonus_level
@@ -97,6 +89,10 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
     def symbol_to_type(type_symbol)
       "#{type_symbol.to_s.split('_').map(&:capitalize).join}#{name}"
         .constantize
+    end
+
+    def meta_data_fields
+      (typed_store_attributes || {})[:meta_data] || {}
     end
   end
 end

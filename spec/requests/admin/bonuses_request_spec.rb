@@ -33,7 +33,7 @@ describe '/a/bonuses' do
       expect_entities_count(1)
 
       update = json_body['actions'].find { |a| a['name'] == 'update' }
-      bonus.meta_data_fields.each do |key, type|
+      bonus.class.meta_data_fields.each do |key, type|
         result = update['fields'].any? { |f| f['name'] == key.to_s }
         expect(result).to be
       end
@@ -97,7 +97,6 @@ describe '/a/bonuses' do
   end
 
   describe '#create' do
-
 
     it 'creates a seller bonus' do
       post bonus_plan_bonuses_path(bonus_plan),

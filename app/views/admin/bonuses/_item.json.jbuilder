@@ -8,8 +8,9 @@ json.properties do
   if bonus.product
     json.available_amount bonus.product.commission_amount
   end
-  bonus.meta_data_fields.keys do |name|
-    json.set! name, bonus.send(name)
+
+  (bonus.meta_data || {}).keys.each do |key|
+    json.set! key, bonus.send(key)
   end
 end
 
@@ -20,8 +21,8 @@ update = bonus_json.action(:update, :patch, bonus_path(bonus))
          .field(:schedule, :select,
                 options: Bonus.enum_options(:schedules),
                 value:   bonus.schedule)
-bonus.meta_data_fields.each do |name, type|
-  update.field(name, type, value: bonus.send(name))
+bonus.class.meta_data_fields.each do |key, type|
+  update.field(key, type, value: bonus.send(key))
 end
 
 actions update, action(:delete, :delete, bonus_path(bonus))

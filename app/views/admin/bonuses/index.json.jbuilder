@@ -12,4 +12,4 @@ actions \
   .field(:type, :select, options: Bonus::TYPES)
   .field(:name, :text)
 
-links link(:self, bonus_plan_bonuses_path(@bonus_plan))
+self_link bonus_plan_bonuses_path(@bonus_plan)

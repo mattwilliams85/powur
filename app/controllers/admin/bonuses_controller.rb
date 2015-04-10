@@ -25,14 +25,14 @@ module Admin
     def update
       @bonus.update_attributes!(input)
 
-      head 200
+      show
     end
 
     def destroy
       @bonus_plan = @bonus.bonus_plan
       @bonus.destroy
 
-      head 200
+      index
     end
 
     private
