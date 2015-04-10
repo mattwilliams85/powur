@@ -77,6 +77,7 @@ sunstandAdminApp.config(
   ['$routeProvider', '$sceProvider', '$httpProvider', function($routeProvider, $sceProvider, $httpProvider) {
     $sceProvider.enabled(false);
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     $routeProvider.
     when('/', {
