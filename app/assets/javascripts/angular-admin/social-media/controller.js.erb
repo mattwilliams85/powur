@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminSocialMediaCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminSocialMedia) {
+function AdminSocialMediaCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminSocialMedia) {
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
@@ -8,7 +8,7 @@ function AdminSocialMediaCtrl($scope, $location, $routeParams, $anchorScroll, $h
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminSocialMedia);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminSocialMedia);
 }
 
 AdminSocialMediaCtrl.prototype.init = function($scope, $location) {
@@ -19,24 +19,39 @@ AdminSocialMediaCtrl.prototype.init = function($scope, $location) {
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminSocialMediaCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminSocialMedia) {
+AdminSocialMediaCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminSocialMedia) {
   if ($scope.mode === 'index') {
-    return AdminSocialMedia.list().then(function(items) {
+    AdminSocialMedia.list().then(function(items) {
       $scope.socialMedia = items.entities;
+
+      // Breadcrumbs: Social Media Sharing
+      $rootScope.breadcrumbs.push({title: 'Social Media Sharing'});
+
     });
+
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
-    return AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
+    AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
       $scope.socialMediaPost = item.properties;
+
+      // Breadcrumbs: Social Media Sharing / View Post
+      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/#/social-media'});
+      $rootScope.breadcrumbs.push({title: 'View Post'});
+
     });
 
   } else if ($scope.mode === 'edit') {
-    return AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
+    AdminSocialMedia.get($routeParams.socialMediaPostId).then(function(item) {
       $scope.socialMediaPost = item.properties;
+
+      // Breadcrumbs: Social Media Sharing / Update Post
+      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/#/social-media'});
+      $rootScope.breadcrumbs.push({title: 'Update Post'});
+
     });
   }
 };
 
-AdminSocialMediaCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminSocialMedia'];
+AdminSocialMediaCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminSocialMedia'];
 sunstandControllers.controller('AdminSocialMediaCtrl', AdminSocialMediaCtrl);

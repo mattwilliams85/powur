@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminUsersCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminUser) {
+function AdminUsersCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminUser) {
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
@@ -8,7 +8,7 @@ function AdminUsersCtrl($scope, $location, $routeParams, $anchorScroll, $http, A
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminUser);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminUser);
 }
 
 AdminUsersCtrl.prototype.init = function($scope, $location) {
@@ -19,24 +19,40 @@ AdminUsersCtrl.prototype.init = function($scope, $location) {
   if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
 };
 
-AdminUsersCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminUser) {
+AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminUser) {
   if ($scope.mode === 'index') {
     return AdminUser.list().then(function(items) {
       $scope.users = items.entities;
+
+      // Breadcrumbs: Users
+      $rootScope.breadcrumbs.push({title: 'Users'});
+
     });
+
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
     return AdminUser.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
+
+      // Breadcrumbs: Users / User Name
+      $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/#/users'});
+      $rootScope.breadcrumbs.push({title: $scope.user.full_name});
+
     });
 
   } else if ($scope.mode === 'edit') {
     return AdminUser.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
+
+      // Breadcrumbs: Users / Update User
+      $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/#/users'});
+      $rootScope.breadcrumbs.push({title: $scope.user.full_name, href: '/admin/#/users/' + $scope.user.id});
+      $rootScope.breadcrumbs.push({title: 'Update User'});
+
     });
   }
 };
 
-AdminUsersCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUser'];
+AdminUsersCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUser'];
 sunstandControllers.controller('AdminUsersCtrl', AdminUsersCtrl);

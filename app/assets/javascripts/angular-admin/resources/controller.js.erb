@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminResourcesCtrl($scope, $location, $routeParams, $anchorScroll, AdminResource) {
+function AdminResourcesCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, AdminResource) {
   $scope.redirectUnlessSignedIn();
 
   // TODO check if user is an admin
@@ -122,7 +122,7 @@ function AdminResourcesCtrl($scope, $location, $routeParams, $anchorScroll, Admi
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $location, $routeParams, AdminResource);
+  this.fetch($scope, $rootScope, $location, $routeParams, AdminResource);
 }
 
 
@@ -134,22 +134,37 @@ AdminResourcesCtrl.prototype.init = function($scope, $location) {
 };
 
 
-AdminResourcesCtrl.prototype.fetch = function($scope, $location, $routeParams, AdminResource) {
+AdminResourcesCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminResource) {
   if ($scope.mode === 'index') {
     $scope.pagination(0);
+
+    // Breadcrumbs: Library
+    $rootScope.breadcrumbs.push({title: 'Library'});
+
   } else if ($scope.mode === 'new') {
     $scope.resourceType = $routeParams.resourceType === 'video' ? 'video' : 'document';
     $scope.resource = {
       is_public: true
     };
+
+    // Breadcrumbs: Library / New (Resource Type)
+    $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/#/resources'});
+    $rootScope.breadcrumbs.push({title: 'New ' + $scope.resourceType});
+
   } else if ($scope.mode === 'edit') {
-    return AdminResource.get($routeParams.resourceId).then(function(item) {
+    AdminResource.get($routeParams.resourceId).then(function(item) {
       $scope.resource = item.properties;
       $scope.resourceType = $scope.resource.file_type === 'video/mp4' ? 'video' : 'document';
+
+      // Breadcrumbs: Library / Update (Resource Type)
+      $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/#/resources'});
+      $rootScope.breadcrumbs.push({title: 'Update ' + $scope.resourceType});
+
     });
+
   }
 };
 
 
-AdminResourcesCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', 'AdminResource'];
+AdminResourcesCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', 'AdminResource'];
 sunstandControllers.controller('AdminResourcesCtrl', AdminResourcesCtrl);

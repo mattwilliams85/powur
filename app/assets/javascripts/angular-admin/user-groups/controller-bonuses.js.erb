@@ -1,6 +1,6 @@
 'use strict';
 
-function AdminUserGroupBonusesCtrl($scope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
+function AdminUserGroupBonusesCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminUserGroup) {
   $scope.redirectUnlessSignedIn();
   $scope.view = 'bonuses';
   $scope.userGroup = {};
@@ -14,9 +14,15 @@ function AdminUserGroupBonusesCtrl($scope, $location, $routeParams, $anchorScrol
   return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
     $scope.userGroup = item.properties;
     $scope.bonuses = [];
+
+    // Breadcrumbs: User Groups / User Group Name / Bonuses
+    $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
+    $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
+    $rootScope.breadcrumbs.push({title: 'Bonuses'});
+
   });
 }
 
 
-AdminUserGroupBonusesCtrl.$inject = ['$scope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUserGroup'];
+AdminUserGroupBonusesCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminUserGroup'];
 sunstandControllers.controller('AdminUserGroupBonusesCtrl', AdminUserGroupBonusesCtrl);

@@ -1,6 +1,8 @@
 <div class="row">
   <ul class="breadcrumbs">
-    <li><a ng-href="/admin/#">Administration</a></li>
-    <li class="unavailable"><a ng-href="/admin/#">Breadcrumbs will go here</a></li>
+    <li ng-repeat="breadcrumb in breadcrumbs" ng-class="{'unavailable': !breadcrumb.href}">
+      <a ng-if="breadcrumb.href" ng-href="{{breadcrumb.href}}">{{breadcrumb.title}}</a>
+      <a ng-if="!breadcrumb.href">{{breadcrumb.title}}</a>
+    </li>
   </ul>
 </div>

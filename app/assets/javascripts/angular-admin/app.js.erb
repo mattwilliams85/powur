@@ -39,6 +39,11 @@ var sunstandAdminApp = angular.module('sunstandAdminApp', [
       $(document).foundation();
     };
 
+    // Breadcrumbs for navigation
+    $rootScope.$on('$locationChangeStart', function() {
+      $rootScope.breadcrumbs = [{title: 'Administration', href: '/admin/#'}];
+    });
+
     $rootScope.showModal = function(text, modalClass) {
       modalClass = modalClass || '';
       $('<div class=\'reveal-modal ' + modalClass + '\' data-reveal><h3>' + text + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
@@ -243,8 +248,8 @@ sunstandAdminApp.config(
       templateUrl: '<%=asset_path("angular-admin/notifications/templates/index.html")%>',
       controller: 'AdminNotificationsCtrl'
     }).
-    when('/notifications/:notificationId', {
-      templateUrl: '<%=asset_path("angular-admin/notifications/templates/show.html")%>',
+    when('/notifications/new', {
+      templateUrl: '<%=asset_path("angular-admin/notifications/templates/new.html")%>',
       controller: 'AdminNotificationsCtrl'
     }).
     when('/notifications/:notificationId/edit', {
