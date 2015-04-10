@@ -123,7 +123,7 @@ Rails.application.routes.draw do
   end
 
   # logged in admin routes
-  scope :a, module: :admin do
+  scope :a, module: :admin, defaults: { format: :json } do
 
     get '' => 'root#index', as: :admin_root
 
