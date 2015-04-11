@@ -30,7 +30,7 @@ module UserSmarteru
       user: {
         info: {
           email: email,
-          employee_i_d: id,
+          employee_i_d: email,
           given_name: first_name,
           surname: last_name,
           password: password,
@@ -56,7 +56,7 @@ module UserSmarteru
       Airbrake.notify(response.error.to_s)
       return false
     end
-    update_column(:smarteru_employee_id, id)
+    update_column(:smarteru_employee_id, email)
     return true
   end
 
