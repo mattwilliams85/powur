@@ -13,7 +13,7 @@ jon = User.create!(
   zip:        '92023',
   url_slug:   'jon',
   roles:      [ 'admin' ],
-  smarteru_employee_id: '1')
+  smarteru_employee_id: 'jon@powur.com')
 
 User.create!(
   email:      'paul.walker@eyecuelab.com',
@@ -38,7 +38,7 @@ User.create!(
   zip:        '92023',
   url_slug:   'rick',
   roles:      [ 'admin' ],
-  smarteru_employee_id: '3')
+  smarteru_employee_id: 'rick.hou@eyecuelab.com')
 
 User.create!(
   email:      'andrew.westling@eyecuelab.com',
@@ -51,7 +51,7 @@ User.create!(
   zip:        '92023',
   url_slug:   'andrew',
   roles:      [ 'admin' ],
-  smarteru_employee_id: '5')
+  smarteru_employee_id: 'andrew.westling@eyecuelab.com')
 
 User.create!(
   email:      'matthew.williams@eyecuelab.com',
@@ -76,7 +76,7 @@ User.create!(
   zip:        '92023',
   url_slug:   'sasha',
   roles:      [ 'admin' ],
-  smarteru_employee_id: '7')
+  smarteru_employee_id: 'sasha.shamne@eyecuelab.com')
 
 User.create!(
   email:      'robert@powur.com',
@@ -90,7 +90,7 @@ User.create!(
   url_slug:   'robert',
   roles:      [ 'admin' ],
   sponsor_id: jon.id,
-  smarteru_employee_id: '8')
+  smarteru_employee_id: 'robert@powur.com')
 
 User.create!(
   email:      'andrea@powur.com',

@@ -38,7 +38,7 @@ describe UserSmarteru do
           user: {
             info: {
               email: user.email,
-              employee_i_d: user.id,
+              employee_i_d: user.email,
               given_name: user.first_name,
               surname: user.last_name,
               password: password,
