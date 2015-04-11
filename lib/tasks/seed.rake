@@ -305,7 +305,7 @@ namespace :sunstand do
         content: 'The future of the planet is in our hands. <a href="http://powur.com">'
         )
       Notification.create!(
-        content: 'Did you know that one one single day, the sun sends 15,000 times as much energy to the Earth as we consume worldwide on a daily basis?'
+        content: 'Did you know that on one single day, the sun sends 15,000 times as much energy to the Earth as we consume worldwide on a daily basis?'
         )
       Notification.create!(
         content: 'Solar power is the energy of the future — safe, clean, and 100% environmentally compatible.'
