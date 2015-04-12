@@ -24,4 +24,3 @@
 //= require Chart
 //= require turbolinks
 //= require jquery.pagepiling.js
-//= require Autolinker.min.js
