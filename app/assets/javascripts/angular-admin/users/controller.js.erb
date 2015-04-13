@@ -3,8 +3,23 @@
 function AdminUsersCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminUser) {
   $scope.redirectUnlessSignedIn();
 
-  $scope.backToIndex = function() {
-    $location.path('/admin/#/users/');
+  // Utility Functions
+  $scope.getAction = function (actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
+  };
+
+  // Search for Users
+  $scope.search = function() {
+    if ($scope.userSearch) {
+      AdminUser.search($scope.searchAction, $scope.userSearch).then(function(items) {
+        $scope.users = items.entities;
+      });
+    }
   };
 
   this.init($scope, $location);
@@ -21,9 +36,10 @@ AdminUsersCtrl.prototype.init = function($scope, $location) {
 
 AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminUser) {
   if ($scope.mode === 'index') {
-    return AdminUser.list().then(function(items) {
+    AdminUser.list().then(function(items) {
       $scope.users = items.entities;
-
+      $scope.searchAction = $scope.getAction(items.actions, 'index');
+      $scope.userSearch = {};
       // Breadcrumbs: Users
       $rootScope.breadcrumbs.push({title: 'Users'});
 
@@ -32,7 +48,7 @@ AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeP
   } else if ($scope.mode === 'new') {
 
   } else if ($scope.mode === 'show') {
-    return AdminUser.get($routeParams.userId).then(function(item) {
+    AdminUser.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
 
       // Breadcrumbs: Users / User Name
@@ -42,7 +58,7 @@ AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeP
     });
 
   } else if ($scope.mode === 'edit') {
-    return AdminUser.get($routeParams.userId).then(function(item) {
+    AdminUser.get($routeParams.userId).then(function(item) {
       $scope.user = item.properties;
 
       // Breadcrumbs: Users / Update User

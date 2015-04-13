@@ -83,6 +83,23 @@ function AdminUser($http, $q) {
       return dfr.promise;
     },
 
+    search: function (action, query) {
+      var dfr = $q.defer();
+      var data = query || {};
+      $http({
+        method: action.method,
+        url: action.href + '?search=' + query.search,
+        type: action.type
+      }).success(function(res) {
+        dfr.resolve(res);
+      }).error(function(err) {
+        console.log('エラー', err);
+        dfr.reject(err);
+      });
+
+      return dfr.promise;
+    },
+
     /*
      * Execute an action
     */
