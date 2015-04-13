@@ -100,8 +100,7 @@ describe '/a/bonuses' do
 
     it 'creates a seller bonus' do
       post bonus_plan_bonuses_path(bonus_plan),
-           { type: 'SellerBonus', name: 'foo' },
-           { 'HTTP_ACCEPT' => 'application/json, text/plain, */*' }
+           type: 'SellerBonus', name: 'foo'
 
       expect_classes 'bonus'
     end
