@@ -19,9 +19,10 @@ describe UserSmarteru do
   end
 
   describe '#create_smarteru_account' do
-    subject { user.create_smarteru_account({password: password}) }
+    subject { user.create_smarteru_account({password: password, employee_i_d: employee_i_d}) }
     let(:user) { create(:user) }
     let(:password) { SecureRandom.urlsafe_base64(8) }
+    let(:employee_i_d) { rand(10 ** 10) }
 
     context 'already has smarter u account' do
       before do
@@ -38,7 +39,7 @@ describe UserSmarteru do
           user: {
             info: {
               email: user.email,
-              employee_i_d: user.email,
+              employee_i_d: employee_i_d,
               given_name: user.first_name,
               surname: user.last_name,
               password: password,

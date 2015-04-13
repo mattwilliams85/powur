@@ -26,11 +26,12 @@ module UserSmarteru
     return true if has_smarteru_account?
 
     password = opts.delete(:password) || SecureRandom.urlsafe_base64(8)
+    employee_i_d = opts.delete(:employee_i_d) || rand(10 ** 10)
     payload = {
       user: {
         info: {
           email: email,
-          employee_i_d: email,
+          employee_i_d: employee_i_d,
           given_name: first_name,
           surname: last_name,
           password: password,
@@ -56,7 +57,7 @@ module UserSmarteru
       Airbrake.notify(response.error.to_s)
       return false
     end
-    update_column(:smarteru_employee_id, email)
+    update_column(:smarteru_employee_id, employee_i_d)
     return true
   end
 
