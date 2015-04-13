@@ -8,7 +8,8 @@
           <label for="{{field.name}}">{{field.name}}</label>
           <!-- Selects -->
           <select ng-model="requirement[field.name]" ng-if="field.type === 'select'" name="{{field.name}}" id="{{field.name}}">
-            <option ng-repeat="(key, name) in field.options" value="{{key}}">{{name}}</option>
+            <option value="" disabled ng-selected="mode === 'new'">Select {{field.name}}</option>
+            <option ng-repeat="(key, name) in field.options" ng-selected="key == requirement[field.name]" value="{{key}}">{{name}}</option>
           </select>
           <!-- Text Inputs -->
           <input ng-model="requirement[field.name]" ng-if="field.type === 'text'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">

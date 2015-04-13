@@ -26,6 +26,17 @@ module Admin
       render 'index'
     end
 
+    def show
+      @notification = Notification.find(params[:id])
+    end
+
+    def update
+      @notification = Notification.find(params[:id])
+      @notification.update_attributes!(input)
+
+      render 'index'
+    end
+
     private
 
     def input

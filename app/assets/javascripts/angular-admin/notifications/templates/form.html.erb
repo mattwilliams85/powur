@@ -1,0 +1,26 @@
+<form>
+  <fieldset>
+    <legend ng-if="mode === 'new'">New Notification</legend>
+    <legend ng-if="mode === 'edit'">Update Notification</legend>
+    <!-- Add Notification Form -->
+      <div class="row">
+        <div class="large-12 columns">
+          <label for="content">Notification Content</label>
+          <textarea ng-model="notification['content']" name="content" id="content" value="{{notification['content']}}">{{notification.content}}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <!-- Submit/Cancel Buttons -->
+    <div class="row">
+        <div class="large-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Notification" />
+        <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Notification" />
+      </div>
+    </div>
+
+  </fieldset>
+</form>

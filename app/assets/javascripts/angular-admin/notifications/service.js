@@ -25,12 +25,13 @@ function AdminNotification($http, $q) {
     /*
      * Get list of notifications
     */
-    list: function() {
+    list: function(page) {
+      page = page || 1;
       var dfr = $q.defer();
 
       $http({
         method: 'GET',
-        url: '/a/notifications.json'
+        url: '/a/notifications.json?page=' + page
       }).success(function(res) {
         dfr.resolve(res);
       }).error(function(err) {

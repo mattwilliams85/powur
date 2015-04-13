@@ -8,32 +8,35 @@
 
   <div class="row">
     <div class="large-12 columns">
-      <div class="row">
-        <div class="large-4 columns">
+      <ul class="large-block-grid-3 small-block-grid-2">
+        <!-- Users in Group -->
+        <li>
           <a ng-href="/admin/#/user-groups/{{userGroup.id}}/users">
-            <div class="panel">
+            <div class="panel callout fixed-height">
               <h2>{{users.length}}</h2>
               <h4>Users</h4>
             </div>
           </a>
-        </div>
-        <div class="large-4 columns">
+        </li>
+        <!-- Requirements for Group -->
+        <li>
           <a ng-href="/admin/#/user-groups/{{userGroup.id}}/requirements">
-            <div class="panel">
+            <div class="panel callout fixed-height">
               <h2>{{requirements.length}}</h2>
               <h4>Requirements</h4>
             </div>
           </a>
-        </div>
-        <div class="large-4 columns">
+        </li>
+        <!-- Bonuses for Group -->
+        <li>
           <a ng-href="/admin/#/user-groups/{{userGroup.id}}/bonuses">
-            <div class="panel">
+            <div class="panel callout fixed-height">
               <h2>{{bonuses.length}}</h2>
               <h4>Bonuses</h4>
             </div>
           </a>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 

@@ -8,7 +8,7 @@
           <label for="{{field.name}}">{{field.name}}</label>
           <!-- Selects -->
           <select ng-model="bonus[field.name]" ng-if="field.type === 'select'" name="{{field.name}}" id="{{field.name}}">
-            <option ng-repeat="(key, name) in field.options" value="{{key}}">{{name}}</option>
+            <option ng-repeat="(key, name) in field.options" ng-selected="key == bonus[field.name]" value="{{key}}">{{name}}</option>
           </select>
           <!-- Text Inputs -->
           <input ng-model="bonus[field.name]" ng-if="field.type === 'text'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
@@ -18,6 +18,8 @@
           <input ng-model="bonus[field.name]" ng-if="field.type === 'integer'" type="number" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
           <!-- Decimal Inputs -->
           <input ng-model="bonus[field.name]" ng-if="field.type === 'decimal'" type="number" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+          <!-- Money Inputs -->
+          <input ng-model="bonus[field.name]" ng-if="field.type === 'money'" type="number" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
         </div>
       </div>
     </div>
