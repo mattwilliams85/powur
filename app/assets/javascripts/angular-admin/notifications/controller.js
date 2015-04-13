@@ -42,6 +42,8 @@ function AdminNotificationsCtrl($scope, $rootScope, $location, $routeParams, $an
   $scope.create = function() {
     if ($scope.notification) {
       $scope.isSubmitDisabled = true;
+      // User Autolinker.js to turn links into hyperlinks
+      $scope.notification.content = Autolinker.link($scope.notification.content);
       AdminNotification.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
     }
   };
@@ -50,6 +52,8 @@ function AdminNotificationsCtrl($scope, $rootScope, $location, $routeParams, $an
   $scope.update = function() {
     if ($scope.notification) {
       $scope.isSubmitDisabled = true;
+      // User Autolinker.js to turn links into hyperlinks
+      $scope.notification.content = Autolinker.link($scope.notification.content);
       AdminNotification.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
     }
   };

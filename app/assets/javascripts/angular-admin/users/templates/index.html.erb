@@ -1,5 +1,52 @@
 <main class="sun-admin-users">
 
-<h1>Users Index</h1>
-
+  <div class="row">
+    <div class="large-8 columns">
+      <h2>Users</h2>
+    </div>
+    <div class="large-4 columns">
+      <!-- Search -->
+      <form>
+        <div class="row collapse">
+          <div class="large-9 columns">
+            <input ng-model="userSearch.search" name="search" type="search" placeholder="Search for User">
+          </div>
+          <div class="large-3 columns">
+            <button class="postfix radius button" ng-click="search()">Go</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Info Panel -->
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="panel">
+      <p>Use the search tool to find users.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Users Content -->
+  <div class="row">
+    <div class="large-12 columns">
+      <table width="100%">
+        <thead>
+          <tr>
+            <th width="40">ID</th>
+            <th>Name</th>
+            <th width="150">Email</th>
+            <th width="150">Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in users">
+            <td>{{user.properties.id}}</td>
+            <td>{{user.properties.first_name}} {{user.properties.last_name}}</td>
+            <td>{{user.properties.email}}</td>
+            <td>{{user.properties.phone}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </main>
