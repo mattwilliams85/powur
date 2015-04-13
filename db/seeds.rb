@@ -13,7 +13,7 @@ jon = User.create!(
   zip:        '92023',
   url_slug:   'jon',
   roles:      [ 'admin' ],
-  smarteru_employee_id: '1')
+  smarteru_employee_id: '6177020386')
 
 User.create!(
   email:      'paul.walker@eyecuelab.com',
@@ -38,7 +38,7 @@ User.create!(
   zip:        '92023',
   url_slug:   'rick',
   roles:      [ 'admin' ],
-  smarteru_employee_id: '3')
+  smarteru_employee_id: '7295765048')
 
 User.create!(
   email:      'andrew.westling@eyecuelab.com',
@@ -51,7 +51,7 @@ User.create!(
   zip:        '92023',
   url_slug:   'andrew',
   roles:      [ 'admin' ],
-  smarteru_employee_id: '5')
+  smarteru_employee_id: '1189420431')
 
 User.create!(
   email:      'matthew.williams@eyecuelab.com',
@@ -76,7 +76,7 @@ User.create!(
   zip:        '92023',
   url_slug:   'sasha',
   roles:      [ 'admin' ],
-  smarteru_employee_id: '7')
+  smarteru_employee_id: '8368311896')
 
 User.create!(
   email:      'robert@powur.com',
@@ -90,7 +90,7 @@ User.create!(
   url_slug:   'robert',
   roles:      [ 'admin' ],
   sponsor_id: jon.id,
-  smarteru_employee_id: '8')
+  smarteru_employee_id: '1960272324')
 
 User.create!(
   email:      'andrea@powur.com',
@@ -103,7 +103,8 @@ User.create!(
   zip:        '92023',
   url_slug:   'andrea',
   roles:      [ 'admin' ],
-  sponsor_id: jon.id)
+  sponsor_id: jon.id,
+  smarteru_employee_id: '5935525236')
 
 User.create!(
   email:      'demo@powur.com',
@@ -116,7 +117,8 @@ User.create!(
   zip:        '92023',
   url_slug:   'demo',
   roles:      [ ],
-  sponsor_id: jon.id)
+  sponsor_id: jon.id,
+  smarteru_employee_id: '4902452075')
 
 User.create!(
   email:      'demoadmin@powur.com',
@@ -128,7 +130,8 @@ User.create!(
   phone:      '777.777.1212',
   zip:        '92023',
   url_slug:   'demo',
-  roles:      [ 'admin' ])
+  roles:      [ 'admin' ],
+  smarteru_employee_id: '6384698312')
 
 puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all
