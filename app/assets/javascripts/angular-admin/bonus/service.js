@@ -30,7 +30,8 @@ function AdminBonus($http, $q) {
 
       $http({
         method: 'GET',
-        url: '/a/bonuses/' + id + '.json'
+        url: '/a/bonuses/' + id + '.json',
+        type: 'application/json'
       }).success(function(res) {
         dfr.resolve(res);
       }).error(function(err) {
