@@ -279,33 +279,33 @@ sunstandApp.config(
 
     $routeProvider.
     when('/home', {
-      templateUrl: '<%=asset_path("angular/landing/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular/landing/templates/index.html") %>',
       controller: 'LandingCtrl'
     }).
     when('/sign-in', {
-      templateUrl: '<%=asset_path("angular/landing/templates/sign-in.html")%>',
+      templateUrl: '<%= asset_path("angular/landing/templates/sign-in.html") %>',
       controller: 'LandingCtrl'
     }).
     when('/sign-up/:inviteCode?', {
-      templateUrl: '<%=asset_path("angular/landing/templates/sign-up.html")%>',
+      templateUrl: '<%= asset_path("angular/landing/templates/sign-up.html") %>',
       controller: 'LandingCtrl'
     }).
     when('/reset-password', {
-      templateUrl: '<%=asset_path("angular/landing/templates/reset-password.html")%>',
+      templateUrl: '<%= asset_path("angular/landing/templates/reset-password.html") %>',
       controller: 'LandingCtrl'
     }).
     when('/edit-password/:resetPasswordToken', {
-      templateUrl: '<%=asset_path("angular/landing/templates/edit-password.html")%>',
+      templateUrl: '<%= asset_path("angular/landing/templates/edit-password.html") %>',
       controller: 'LandingCtrl'
     }).
 
     // FAQ
     when('/customer-faq', {
-      templateUrl: '<%=asset_path("angular/landing/templates/customer-faq.html")%>',
+      templateUrl: '<%= asset_path("angular/landing/templates/customer-faq.html") %>',
       controller: 'LandingCtrl'
     }).
     when('/advocate-faq', {
-      templateUrl: '<%=asset_path("angular/landing/templates/advocate-faq.html")%>',
+      templateUrl: '<%= asset_path("angular/landing/templates/advocate-faq.html") %>',
       controller: 'LandingCtrl'
     }).
 

@@ -36,9 +36,9 @@ Rails.application.configure do
   config.assets.version = '1.2'
   config.action_controller.asset_host = Proc.new { |source|
     if source.ends_with?('.html') || source.ends_with?('.woff') || source.ends_with?('.ttf')
-      ''
+      nil
     else
-      ENV['ASSETS_HOST'] || 'http://powur.eyecuelab.com'
+      ENV['ASSETS_HOST']
     end
   }
 
