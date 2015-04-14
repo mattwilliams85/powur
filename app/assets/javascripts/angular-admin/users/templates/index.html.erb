@@ -32,18 +32,18 @@
       <table width="100%">
         <thead>
           <tr>
-            <th width="40">ID</th>
+            <th class="hide-for-small" width="40">ID</th>
             <th>Name</th>
             <th width="150">Email</th>
-            <th width="150">Phone</th>
+            <th class="hide-for-small" width="150">Phone</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="user in users">
-            <td>{{user.properties.id}}</td>
-            <td>{{user.properties.first_name}} {{user.properties.last_name}}</td>
-            <td>{{user.properties.email}}</td>
-            <td>{{user.properties.phone}}</td>
+            <td class="hide-for-small">{{user.properties.id}}</td>
+            <td><a ng-href="/admin/#/users/{{user.properties.id}}">{{user.properties.first_name}} {{user.properties.last_name}}</a></td>
+            <td><a href="mailto:{{user.properties.email}}">{{user.properties.email}}</a></td>
+            <td class="hide-for-small">{{user.properties.phone}}</td>
           </tr>
         </tbody>
       </table>
