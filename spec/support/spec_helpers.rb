@@ -99,6 +99,10 @@ module SpecHelpers
     { 'HTTP_AUTHORIZATION' => "Bearer #{token_value}" }
   end
 
+  def login_api_app
+    @token = create(:app_token)
+  end
+
   def api_header
     login_api_user unless @token
     bearer_header(@token.access_token)

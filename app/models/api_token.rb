@@ -5,7 +5,7 @@ class ApiToken < ActiveRecord::Base
              inverse_of:  :tokens
   belongs_to :user
 
-  validates_presence_of :access_token, :client_id, :user_id, :expires_at
+  validates_presence_of :access_token, :client_id, :expires_at
 
   SECONDS_TILL_EXPIRATION = (60 * 60 * 24) # 1 day
 

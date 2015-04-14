@@ -6,5 +6,9 @@ FactoryGirl.define do
     factory :expired_token do
       expires_at DateTime.current - 1.second
     end
+
+    factory :app_token do
+      user nil
+    end
   end
 end

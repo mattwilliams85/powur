@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe '/api/data/leads', type: :request do
   before :each do
-    login_api_user
+    login_api_app
   end
 
   let(:quote) { create(:quote) }

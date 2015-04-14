@@ -75,7 +75,7 @@ CREATE TABLE api_tokens (
     id character varying NOT NULL,
     access_token character varying NOT NULL,
     client_id character varying NOT NULL,
-    user_id integer NOT NULL,
+    user_id integer,
     expires_at timestamp without time zone NOT NULL
 );
 
@@ -2249,4 +2249,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150311194138');
 INSERT INTO schema_migrations (version) VALUES ('20150330202824');
 
 INSERT INTO schema_migrations (version) VALUES ('20150414031954');
+
+INSERT INTO schema_migrations (version) VALUES ('20150414230447');
 
