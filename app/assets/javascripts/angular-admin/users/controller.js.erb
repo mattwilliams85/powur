@@ -4,13 +4,49 @@ function AdminUsersCtrl($scope, $rootScope, $location, $routeParams, $anchorScro
   $scope.redirectUnlessSignedIn();
 
   // Utility Functions
-  $scope.getAction = function (actions, name) {
+  $scope.getAction = function(actions, name) {
     for (var i in actions) {
       if (actions[i].name === name) {
         return actions[i];
       }
     }
     return;
+  };
+
+  $scope.setFormValues = function(formAction) {
+    var formValues = {};
+    for (var i in formAction.fields) {
+      var key = formAction.fields[i].name;
+      var value = formAction.fields[i].value;
+      formValues[key] = (value);
+    }
+    return formValues;
+  };
+
+  $scope.cancel = function() {
+    $location.path('/users/' + $scope.user.properties.id);
+  };
+
+  // Update Action
+  $scope.update = function() {
+    if ($scope.formValues) {
+      AdminUser.execute($scope.formAction, $scope.formValues).then(actionCallback($scope.formAction));
+    }
+  };
+
+  var actionCallback = function(action) {
+    var destination = '/users/' + $scope.user.properties.id,
+        modalMessage = '';
+    if (action.name === 'update') {
+      destination = ('/users/' + $scope.user.properties.id);
+      modalMessage = ('You\'ve successfully updated this user.');
+    }
+    return AdminUser.get($routeParams.userId).then(function(item) {
+      $location.path(destination);
+      $scope.user = item;
+      $(document).foundation();
+      $scope.showModal(modalMessage);
+    });
   };
 
   // Search for Users
@@ -49,21 +85,24 @@ AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeP
 
   } else if ($scope.mode === 'show') {
     AdminUser.get($routeParams.userId).then(function(item) {
-      $scope.user = item.properties;
+      $scope.user = item;
 
       // Breadcrumbs: Users / User Name
       $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/#/users'});
-      $rootScope.breadcrumbs.push({title: $scope.user.full_name});
+      $rootScope.breadcrumbs.push({title: $scope.user.properties.first_name + ' ' + $scope.user.properties.last_name});
 
     });
 
   } else if ($scope.mode === 'edit') {
+    $scope.formValues = {};
     AdminUser.get($routeParams.userId).then(function(item) {
-      $scope.user = item.properties;
+      $scope.user = item;
+      $scope.formAction = $scope.getAction(item.actions, 'update');
+      $scope.formValues = $scope.setFormValues($scope.formAction);
 
       // Breadcrumbs: Users / Update User
       $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/#/users'});
-      $rootScope.breadcrumbs.push({title: $scope.user.full_name, href: '/admin/#/users/' + $scope.user.id});
+      $rootScope.breadcrumbs.push({title: ($scope.user.properties.first_name + ' ' + $scope.user.properties.last_name), href: '/admin/#/users/' + $scope.user.properties.id});
       $rootScope.breadcrumbs.push({title: 'Update User'});
 
     });

@@ -1,5 +1,42 @@
 <main class="sun-admin-users">
 
-<h1>User Show</h1>
+  <div class="row">
+    <div class="large-6 columns">
+      <h2>{{user.properties.first_name}} {{user.properties.last_name}}</h2>
+    </div>
+    <div class="large-6 columns">
+      <a class="button right" ng-href="/admin/#/users/{{user.properties.id}}/edit">Edit User</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="panel">
+        <div class="row">
+          <!-- Avatar -->
+          <div class="large-2 columns right hide-for-small">
+            <img class="user-avatar right" src="{{user.properties.avatar}}"></img>
+          </div>
+          <!-- Info -->
+          <div class="large-10 columns" ng-show="!editMode">
+            <h3>Overview</h3>
+            <div class="panel">
+              <h4 ng-show="!user.properties.address || !user.properties.city || !user.properties.state || !user.properties.zip"><i class="fa fa-home"></i> <small>No Address Data</small></h4>
+              <span ng-show="user.properties.address && user.properties.city && user.properties.state && user.properties.zip">
+                <h4><i class="fa fa-home"></i> {{user.properties.address}}<h4>
+                  <h5>{{user.properties.city}}, {{user.properties.state}} {{user.properties.zip}}</h5>
+                </span>
+            </div>
+            <div class="panel">
+              <h4><i class="fa fa-phone"></i> {{user.properties.phone}}</h4>
+            </div>
+            <div class="panel">
+              <h4><i class="fa fa-envelope"></i> {{user.properties.email}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </main>
