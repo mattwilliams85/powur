@@ -39,7 +39,7 @@ class ApiController < ApplicationController
   def require_input(*args)
     missing = args.select { |arg| !params[arg].present? }
     return params.permit(*args) if missing.empty?
-    api_error!(:invalid_request, params: missing.join(','))
+    api_error!(:invalid_request, :missing_params, params: missing.join(','))
   end
 
   private

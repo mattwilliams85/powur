@@ -273,6 +273,12 @@ Rails.application.routes.draw do
         end
       end
       resources :quotes, only: [ :index, :create, :show ]
+
+      namespace :data do
+        resources :leads, only: [ :create ] do
+          post :batch, on: :collection
+        end
+      end
     end
   end
 

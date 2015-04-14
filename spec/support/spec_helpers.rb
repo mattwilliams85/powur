@@ -100,12 +100,16 @@ module SpecHelpers
   end
 
   def api_header
-    login_api_user
+    login_api_user unless @token
     bearer_header(@token.access_token)
   end
 
   def token_param
     login_api_user unless @token
     { access_token: @token.access_token }
+  end
+
+  def json_fixture(filename)
+    File.read(File.join(fixture_path, "#{filename}.json"))
   end
 end

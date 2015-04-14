@@ -1,0 +1,27 @@
+{
+  "uid": "test.powur.com:42",
+  "providerUid": "00Q18000001P1xuEAC",
+  "status": "existingActive",
+  "contact": {
+    "firstName": "Truman",
+    "lastName": "Burbank",
+    "city": "Seahaven",
+    "street": "42 Cherry Hill",
+    "postcalCode": "90210",
+    "phone": "310.555.1212",
+    "email": "truman@pleasantinsurance.com"
+  },
+  "keyDates": {
+    "consultation": "2015-03-14T04:42:51+00:00",
+    "contract": "2015-04-12T04:42:51+00:00",
+    "installation": "2015-04-12T04:42:51+00:00"
+  },
+  "order": {
+    "status": {
+      "permit": "received",
+      "installation": "underway",
+      "inspection": "passed",
+      "utility": "ready"
+    }
+  }
+}

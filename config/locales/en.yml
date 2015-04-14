@@ -66,7 +66,9 @@ en:
       invalid_client: invalid client credentials
       unsupported_grant_type: "invalid grant_type value of: '%{grant_type}'"
       invalid_request:
-        params: "missing the following required params: '%{params}'"
+        missing_params: "missing the following required parameters: '%{params}'"
+        environment_mismatch: "invalid environment value of '%{env}' found"
+        invalid_params: "the following parameters are invalid: '%{params}'"
       invalid_scope: "unsupported api version %{v}"
     messages:
       exceeded_max_invites: You have exceeded the max number of invites allowed

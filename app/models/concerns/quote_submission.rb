@@ -9,6 +9,17 @@ module QuoteSubmission
     touch(:submitted_at)
   end
 
+  class << self
+    def id_prefix
+      sub = ENV['DATA_INTERCHANGE_ENV'] || Rails.env
+      "#{sub}.powur.com"
+    end
+
+    def id_to_external(id)
+      "#{id_prefix}:#{id}"
+    end
+  end
+
   class SolarCityForm
     attr_reader :quote, :response, :parsed_response
 
@@ -74,7 +85,7 @@ module QuoteSubmission
     end
 
     def post_body
-      { 'External_ID__c'           => "#{id_prefix}#{quote.id}",
+      { 'External_ID__c'           => QuoteSubmission.id_to_external(quote.id),
         'Lead_Generator__c'        => quote.user_id,
         'FirstName'                => customer.first_name,
         'LastName'                 => customer.last_name,
@@ -83,7 +94,6 @@ module QuoteSubmission
         'PostalCode'               => customer.zip,
         'Phone'                    => customer.phone,
         'Email'                    => customer.email,
-        'submit'                   => 'Submit',
         'Monthly_Electric_Bill__c' => quote.data['average_bill'] }
     end
   end

@@ -386,6 +386,43 @@ CREATE TABLE invites (
 
 
 --
+-- Name: lead_updates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE lead_updates (
+    id integer NOT NULL,
+    quote_id integer NOT NULL,
+    provider_uid character varying NOT NULL,
+    status character varying NOT NULL,
+    contact hstore DEFAULT ''::hstore,
+    order_status hstore DEFAULT ''::hstore,
+    consultation timestamp without time zone,
+    contract timestamp without time zone,
+    installation timestamp without time zone,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: lead_updates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE lead_updates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lead_updates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE lead_updates_id_seq OWNED BY lead_updates.id;
+
+
+--
 -- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1137,6 +1174,13 @@ ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distribution
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY lead_updates ALTER COLUMN id SET DEFAULT nextval('lead_updates_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
 
 
@@ -1353,6 +1397,14 @@ ALTER TABLE ONLY distributions
 
 ALTER TABLE ONLY invites
     ADD CONSTRAINT invites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lead_updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY lead_updates
+    ADD CONSTRAINT lead_updates_pkey PRIMARY KEY (id);
 
 
 --
@@ -1857,6 +1909,14 @@ ALTER TABLE ONLY invites
 
 
 --
+-- Name: lead_updates_quote_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY lead_updates
+    ADD CONSTRAINT lead_updates_quote_id_fk FOREIGN KEY (quote_id) REFERENCES quotes(id);
+
+
+--
 -- Name: order_totals_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2187,4 +2247,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150309071743');
 INSERT INTO schema_migrations (version) VALUES ('20150311194138');
 
 INSERT INTO schema_migrations (version) VALUES ('20150330202824');
+
+INSERT INTO schema_migrations (version) VALUES ('20150414031954');
 

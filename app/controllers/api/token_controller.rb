@@ -36,7 +36,7 @@ module Api
     end
 
     def invalid_request
-      api_error!(:invalid_request, params: 'grant_type')
+      api_error!(:invalid_request, :missing_params, params: 'grant_type')
     end
 
     private
