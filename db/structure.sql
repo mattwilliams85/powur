@@ -1773,387 +1773,371 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: api_tokens_client_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_02b555fb4d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY api_tokens
-    ADD CONSTRAINT api_tokens_client_id_fk FOREIGN KEY (client_id) REFERENCES api_clients(id);
-
-
---
--- Name: api_tokens_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY api_tokens
-    ADD CONSTRAINT api_tokens_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY quotes
+    ADD CONSTRAINT fk_rails_02b555fb4d FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
--- Name: bonus_amounts_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_amounts
-    ADD CONSTRAINT bonus_amounts_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
-
-
---
--- Name: bonus_amounts_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_amounts
-    ADD CONSTRAINT bonus_amounts_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
-
-
---
--- Name: bonus_payment_orders_bonus_payment_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payment_orders
-    ADD CONSTRAINT bonus_payment_orders_bonus_payment_id_fk FOREIGN KEY (bonus_payment_id) REFERENCES bonus_payments(id);
-
-
---
--- Name: bonus_payment_orders_order_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payment_orders
-    ADD CONSTRAINT bonus_payment_orders_order_id_fk FOREIGN KEY (order_id) REFERENCES orders(id);
-
-
---
--- Name: bonus_payments_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_03632e5c21; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bonus_payments
-    ADD CONSTRAINT bonus_payments_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+    ADD CONSTRAINT fk_rails_03632e5c21 FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
 
 
 --
--- Name: bonus_payments_pay_as_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payments
-    ADD CONSTRAINT bonus_payments_pay_as_rank_fk FOREIGN KEY (pay_as_rank) REFERENCES ranks(id);
-
-
---
--- Name: bonus_payments_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payments
-    ADD CONSTRAINT bonus_payments_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
-
-
---
--- Name: bonus_payments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payments
-    ADD CONSTRAINT bonus_payments_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: bonuses_bonus_plan_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonuses
-    ADD CONSTRAINT bonuses_bonus_plan_id_fk FOREIGN KEY (bonus_plan_id) REFERENCES bonus_plans(id);
-
-
---
--- Name: bonuses_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonuses
-    ADD CONSTRAINT bonuses_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: customer_notes_author_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY customer_notes
-    ADD CONSTRAINT customer_notes_author_id_fk FOREIGN KEY (author_id) REFERENCES users(id);
-
-
---
--- Name: distributions_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY distributions
-    ADD CONSTRAINT distributions_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
-
-
---
--- Name: distributions_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY distributions
-    ADD CONSTRAINT distributions_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: invites_sponsor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY invites
-    ADD CONSTRAINT invites_sponsor_id_fk FOREIGN KEY (sponsor_id) REFERENCES users(id);
-
-
---
--- Name: invites_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY invites
-    ADD CONSTRAINT invites_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: lead_updates_quote_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY lead_updates
-    ADD CONSTRAINT lead_updates_quote_id_fk FOREIGN KEY (quote_id) REFERENCES quotes(id);
-
-
---
--- Name: order_totals_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY order_totals
-    ADD CONSTRAINT order_totals_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
-
-
---
--- Name: order_totals_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY order_totals
-    ADD CONSTRAINT order_totals_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: order_totals_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY order_totals
-    ADD CONSTRAINT order_totals_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: orders_customer_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customers(id);
-
-
---
--- Name: orders_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: orders_quote_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_quote_id_fk FOREIGN KEY (quote_id) REFERENCES quotes(id);
-
-
---
--- Name: orders_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: product_receipts_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_receipts
-    ADD CONSTRAINT product_receipts_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: product_receipts_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_receipts
-    ADD CONSTRAINT product_receipts_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: qualifications_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY qualifications
-    ADD CONSTRAINT qualifications_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: qualifications_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY qualifications
-    ADD CONSTRAINT qualifications_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
-
-
---
--- Name: qualifications_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY qualifications
-    ADD CONSTRAINT qualifications_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
-
-
---
--- Name: quote_field_lookups_quote_field_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_0383942516; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY quote_field_lookups
-    ADD CONSTRAINT quote_field_lookups_quote_field_id_fk FOREIGN KEY (quote_field_id) REFERENCES quote_fields(id);
+    ADD CONSTRAINT fk_rails_0383942516 FOREIGN KEY (quote_field_id) REFERENCES quote_fields(id);
 
 
 --
--- Name: quote_fields_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_0a1404ebe0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_group_requirements
+    ADD CONSTRAINT fk_rails_0a1404ebe0 FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
+
+
+--
+-- Name: fk_rails_0ac5f355df; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY distributions
+    ADD CONSTRAINT fk_rails_0ac5f355df FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: fk_rails_0be6ab5d96; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_0be6ab5d96 FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
+-- Name: fk_rails_0d33b17199; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT fk_rails_0d33b17199 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_12dec8bf06; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY quotes
+    ADD CONSTRAINT fk_rails_12dec8bf06 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_17101d1bf2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT fk_rails_17101d1bf2 FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
+-- Name: fk_rails_1ac6520b51; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT fk_rails_1ac6520b51 FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: fk_rails_27f9662e04; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_27f9662e04 FOREIGN KEY (quote_id) REFERENCES quotes(id);
+
+
+--
+-- Name: fk_rails_2df50738a4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT fk_rails_2df50738a4 FOREIGN KEY (pay_as_rank) REFERENCES ranks(id);
+
+
+--
+-- Name: fk_rails_3437827c68; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT fk_rails_3437827c68 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_35f0faa1fa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_amounts
+    ADD CONSTRAINT fk_rails_35f0faa1fa FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
+-- Name: fk_rails_3dad120da9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_3dad120da9 FOREIGN KEY (customer_id) REFERENCES customers(id);
+
+
+--
+-- Name: fk_rails_3f4c8aa477; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payment_orders
+    ADD CONSTRAINT fk_rails_3f4c8aa477 FOREIGN KEY (bonus_payment_id) REFERENCES bonus_payments(id);
+
+
+--
+-- Name: fk_rails_47ad3f1496; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_group_requirements
+    ADD CONSTRAINT fk_rails_47ad3f1496 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_4d65aace9f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY quote_fields
-    ADD CONSTRAINT quote_fields_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+    ADD CONSTRAINT fk_rails_4d65aace9f FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
--- Name: quotes_customer_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_67cab9fdb2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT fk_rails_67cab9fdb2 FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: fk_rails_68b7bf654f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT fk_rails_68b7bf654f FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: fk_rails_69318c246b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_receipts
+    ADD CONSTRAINT fk_rails_69318c246b FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_69ef330963; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY customer_notes
+    ADD CONSTRAINT fk_rails_69ef330963 FOREIGN KEY (author_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_70967dd465; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT fk_rails_70967dd465 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_81b70497bd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY distributions
+    ADD CONSTRAINT fk_rails_81b70497bd FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_86cf0924a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_user_groups
+    ADD CONSTRAINT fk_rails_86cf0924a6 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_8f72336587; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_receipts
+    ADD CONSTRAINT fk_rails_8f72336587 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_94f655be82; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_94f655be82 FOREIGN KEY (sponsor_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_9b304eaecd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT fk_rails_9b304eaecd FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_a1ab65f1f7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY quotes
-    ADD CONSTRAINT quotes_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customers(id);
+    ADD CONSTRAINT fk_rails_a1ab65f1f7 FOREIGN KEY (customer_id) REFERENCES customers(id);
 
 
 --
--- Name: quotes_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b080b36796; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY quotes
-    ADD CONSTRAINT quotes_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: quotes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY quotes
-    ADD CONSTRAINT quotes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT fk_rails_b080b36796 FOREIGN KEY (bonus_plan_id) REFERENCES bonus_plans(id);
 
 
 --
--- Name: rank_achievements_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b152dd356e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rank_achievements
-    ADD CONSTRAINT rank_achievements_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
-
-
---
--- Name: rank_achievements_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rank_achievements
-    ADD CONSTRAINT rank_achievements_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
+ALTER TABLE ONLY bonus_amounts
+    ADD CONSTRAINT fk_rails_b152dd356e FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
 
 
 --
--- Name: rank_achievements_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_c2e3e2bfb1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rank_achievements
-    ADD CONSTRAINT rank_achievements_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
-
-
---
--- Name: rank_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rank_achievements
-    ADD CONSTRAINT rank_achievements_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_c2e3e2bfb1 FOREIGN KEY (organic_rank) REFERENCES ranks(id);
 
 
 --
--- Name: user_group_requirements_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_c41dc2a789; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY user_group_requirements
-    ADD CONSTRAINT user_group_requirements_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: user_group_requirements_user_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_group_requirements
-    ADD CONSTRAINT user_group_requirements_user_group_id_fk FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT fk_rails_c41dc2a789 FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
 
 
 --
--- Name: user_overrides_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_cb98ac3193; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT fk_rails_cb98ac3193 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_ccd9c98a42; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT fk_rails_ccd9c98a42 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_cd92ab11e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY lead_updates
+    ADD CONSTRAINT fk_rails_cd92ab11e9 FOREIGN KEY (quote_id) REFERENCES quotes(id);
+
+
+--
+-- Name: fk_rails_d44438dd14; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT fk_rails_d44438dd14 FOREIGN KEY (client_id) REFERENCES api_clients(id);
+
+
+--
+-- Name: fk_rails_dfb33b2de0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_dfb33b2de0 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_e1fa9da540; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payment_orders
+    ADD CONSTRAINT fk_rails_e1fa9da540 FOREIGN KEY (order_id) REFERENCES orders(id);
+
+
+--
+-- Name: fk_rails_e59aa7c1c9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT fk_rails_e59aa7c1c9 FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: fk_rails_ed1f417296; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_user_groups
+    ADD CONSTRAINT fk_rails_ed1f417296 FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
+
+
+--
+-- Name: fk_rails_eddfc85f73; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT fk_rails_eddfc85f73 FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
+-- Name: fk_rails_f16b5e0447; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT fk_rails_f16b5e0447 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_fc7e11f976; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_overrides
-    ADD CONSTRAINT user_overrides_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_rails_fc7e11f976 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
--- Name: user_user_groups_user_group_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_ff69dbb2ac; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY user_user_groups
-    ADD CONSTRAINT user_user_groups_user_group_id_fk FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
-
-
---
--- Name: user_user_groups_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY user_user_groups
-    ADD CONSTRAINT user_user_groups_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: users_lifetime_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_lifetime_rank_fk FOREIGN KEY (lifetime_rank) REFERENCES ranks(id);
-
-
---
--- Name: users_organic_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_organic_rank_fk FOREIGN KEY (organic_rank) REFERENCES ranks(id);
-
-
---
--- Name: users_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
-
-
---
--- Name: users_sponsor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_sponsor_id_fk FOREIGN KEY (sponsor_id) REFERENCES users(id);
+ALTER TABLE ONLY invites
+    ADD CONSTRAINT fk_rails_ff69dbb2ac FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --

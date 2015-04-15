@@ -31,6 +31,13 @@ module Api
       api_error!(:invalid_grant, :refresh_token)
     end
 
+    def client_credentials
+      @token = @client.tokens.valid.where(user_id: nil).first ||
+        @client.tokens.create!
+
+      render 'show', locals: { refresh: false }
+    end
+
     def unsupported_grant_type
       api_error!(:unsupported_grant_type, grant_type: params[:grant_type])
     end

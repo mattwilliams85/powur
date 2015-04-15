@@ -44,13 +44,6 @@ GIT
       xmlhasher (~> 0.0.6)
 
 GIT
-  remote: git://github.com/matthuhiggins/foreigner.git
-  revision: d1cdc84e23bb761f7f735a769c639e9f33a440de
-  specs:
-    foreigner (1.7.1)
-      activerecord (>= 3.0.0)
-
-GIT
   remote: git://github.com/oelmekki/activerecord_any_of.git
   revision: f4df4ea1bfccee95f6df57d473d92fb9b3bdec0f
   specs:
@@ -329,7 +322,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.4.3)
     mini_portile (0.6.2)
-    minitest (5.5.1)
+    minitest (5.6.0)
     money (6.5.0)
       i18n (>= 0.6.4, <= 0.7.0)
     multi_json (1.11.0)
@@ -524,7 +517,6 @@ DEPENDENCIES
   factory_girl_rails
   faker
   faraday
-  foreigner!
   foreman
   gibbon
   has_scope

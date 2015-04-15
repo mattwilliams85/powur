@@ -7,6 +7,8 @@ class ApiToken < ActiveRecord::Base
 
   validates_presence_of :access_token, :client_id, :expires_at
 
+  scope :valid, ->() { where('expires_at > ?', (DateTime.current + 1.minute)) }
+
   SECONDS_TILL_EXPIRATION = (60 * 60 * 24) # 1 day
 
   before_validation do
@@ -33,6 +35,10 @@ class ApiToken < ActiveRecord::Base
 
   def refresh!
     client.tokens.create(user: user)
+  end
+
+  def app_token?
+    user_id.nil?
   end
 
   private

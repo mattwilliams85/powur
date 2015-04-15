@@ -257,6 +257,8 @@ Rails.application.routes.draw do
         constraints: param_values?(grant_type: 'password')
       post 'token' => 'token#refresh_token',
         constraints: param_values?(grant_type: 'refresh_token')
+      post 'token' => 'token#client_credentials',
+        constraints: param_values?(grant_type: 'client_credentials')
       post 'token' => 'token#unsupported_grant_type',
         constraints: params?(:grant_type)
       post 'token' => 'token#invalid_request'
