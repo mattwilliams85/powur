@@ -1,14 +1,11 @@
 require 'spec_helper'
 
 describe '/a/ranks/:id/qualifications' do
-
   before do
-    DatabaseCleaner.clean
     login_user
   end
 
   describe '#index' do
-
     it 'renders the list of active qualifications' do
       create(:sales_qualification)
       create(:group_sales_qualification)
@@ -19,11 +16,9 @@ describe '/a/ranks/:id/qualifications' do
       expect_classes 'qualifications', 'list'
       expect_entities_count(2)
     end
-
   end
 
   describe '#create' do
-
     it 'creates an active qualification' do
       product = create(:product)
       rank_path = create(:rank_path)
@@ -37,11 +32,9 @@ describe '/a/ranks/:id/qualifications' do
 
       expect_classes 'qualification'
     end
-
   end
 
   describe '#update' do
-
     it 'updates a qualification' do
       qualification = create(:group_sales_qualification)
 
@@ -53,11 +46,9 @@ describe '/a/ranks/:id/qualifications' do
 
       expect(max_leg_percent).to eq(12)
     end
-
   end
 
   describe '#destroy' do
-
     it 'deletes a qualification' do
       qualification = create(:sales_qualification)
 
@@ -67,5 +58,4 @@ describe '/a/ranks/:id/qualifications' do
       expect_entities_count(0)
     end
   end
-
 end

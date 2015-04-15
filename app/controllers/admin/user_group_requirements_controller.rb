@@ -6,19 +6,19 @@ module Admin
       @user_group = UserGroup.find(params[:user_group_id])
       @user_group.requirements.create!(input)
 
-      head 200
+      render 'show'
     end
 
     def update
       @requirement.update_attributes!(input)
 
-      head 200
+      render 'show'
     end
 
     def destroy
       @requirement.destroy
 
-      head 200
+      render 'show'
     end
 
     private

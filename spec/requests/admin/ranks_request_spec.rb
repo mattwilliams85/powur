@@ -3,8 +3,7 @@ require 'spec_helper'
 describe '/a/ranks' do
 
   before do
-    DatabaseCleaner.clean
-    login_real_user
+    login_user
   end
 
   describe 'GET /' do
@@ -24,12 +23,12 @@ describe '/a/ranks' do
       get ranks_path, format: :json
 
       expect_classes 'ranks'
-      expect_entities_count(4)
+      expect_entities_count(3)
 
-      action = find_action(3, 'delete')
+      action = find_action(1, 'delete')
       expect(action).to be_nil
 
-      action = find_action(4, 'delete')
+      action = find_action(2, 'delete')
       expect(action).to_not be_nil
 
       rank = json_body['entities'].find do |e|
@@ -55,7 +54,7 @@ describe '/a/ranks' do
     def create_action_result
       create_list(:rank, 2)
       get ranks_path, format: :json
-      qual_list_action(3, 'create')
+      qual_list_action(1, 'create')
     end
 
     it 'does not render create quals without a rank_path' do
@@ -113,9 +112,8 @@ describe '/a/ranks' do
     it 'deletes the last rank' do
       create_list(:qualified_rank, 2)
 
-      count = Rank.last.id
-      delete rank_path(count), format: :json
-      expect_entities_count(count - 1)
+      delete rank_path(Rank.last), format: :json
+      expect_entities_count(Rank.count)
     end
 
   end

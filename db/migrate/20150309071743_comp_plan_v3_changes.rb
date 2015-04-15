@@ -13,10 +13,12 @@ class CompPlanV3Changes < ActiveRecord::Migration
       t.foreign_key :rank_paths
     end
 
-    remove_column :bonuses, :use_rank_at, :integer
-    remove_column :bonuses, :achieved_rank_id, :integer
-    remove_column :bonuses, :max_user_rank_id, :integer
-    remove_column :bonuses, :min_upline_rank_id, :integer
+    if column_exists?(:bonuses, :use_rank_at)
+      remove_column :bonuses, :use_rank_at, :integer
+      remove_column :bonuses, :achieved_rank_id, :integer
+      remove_column :bonuses, :max_user_rank_id, :integer
+      remove_column :bonuses, :min_upline_rank_id, :integer
+    end
 
     add_column :bonuses, :product_id, :integer
     add_foreign_key :bonuses, :products

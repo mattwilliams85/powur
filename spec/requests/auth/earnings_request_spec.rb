@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe 'earnings', type: :request do
   before :each do
-    DatabaseCleaner.clean
-    login_real_user
+    login_user(auth: true)
   end
 
   let(:pp1) do
@@ -34,6 +33,7 @@ describe 'earnings', type: :request do
 
   describe '/u/earnings/summary' do
     it 'returns a list of earnings for the user, grouped by pay_period' do
+      create(:rank)
       create(:bonus_payment, pay_period: pp1, user_id: @user.id)
       create(:bonus_payment, pay_period: pp2, user_id: @user.id)
       create(:bonus_payment, pay_period: pp2, user_id: @user.id)
@@ -47,6 +47,7 @@ describe 'earnings', type: :request do
 
   describe '/u/earnings/detail' do
     it 'returns the earning details for a user\s bonus payment' do
+      create(:rank)
       pp = create(:weekly_pay_period, start_date: DateTime.current - 1.week)
       create(:bonus_payment, pay_period: pp, user_id: @user.id)
       create(:bonus_payment, pay_period: pp, user_id: @user.id)

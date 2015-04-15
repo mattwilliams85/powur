@@ -3,7 +3,6 @@ require 'spec_helper'
 describe '/a/products' do
 
   before do
-    DatabaseCleaner.clean
     login_user
   end
 

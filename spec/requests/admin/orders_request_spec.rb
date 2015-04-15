@@ -80,6 +80,7 @@ describe 'order endpoints' do
 
   describe 'GET /a/orders/:id' do
     it 'includes the related entities' do
+      create(:rank)
       order = create(:order)
       create(:bonus_payment_order, order: order)
 

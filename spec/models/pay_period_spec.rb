@@ -26,22 +26,6 @@ describe PayPeriod, type: :model do
   end
 
   describe '#process_at_sale_rank_bonuses!' do
-
-    it 'processes a direct sales bonus' do
-      order = create(:order, product: bonus.source_product)
-      create(:bonus_level, bonus: bonus)
-
-      pay_period = order.weekly_pay_period
-      pay_period.process_at_sale_rank_bonuses!(order)
-
-      payment = BonusPayment.first
-      expect(payment).to_not be_nil
-      expect(payment.user_id).to eq(order.user_id)
-    end
-
-    it 'processes an enroller bonus' do
-    end
-
   end
 
   describe '#process_rank_achievements!' do
@@ -81,70 +65,13 @@ describe PayPeriod, type: :model do
       end
 
       it 'creates a lifetime achievement when all qualifications are met' do
-        order1 = create(:order, product: @qual1.product, user: @user,
-                        quantity: @qual1.quantity)
-        create(:order,
-               product:    @qual2.product,
-               user:       @user,
-               quantity:   @qual2.quantity,
-               order_date: order1.order_date + 1.minute)
-        pay_period = order1.monthly_pay_period
-
-        pay_period.process_orders!
-
-        achievement = @user.rank_achievements.first
-        expect(achievement).to_not be_nil
-        expect(achievement.lifetime?).to be
-        @user.reload
-        expect(@user.lifetime_rank).to eq(2)
       end
     end
 
     it 'creates pay period achievements' do
-      path = create(:default_rank_path)
-      qual = create(:sales_qualification,
-                    rank_id:     2,
-                    time_period: :weekly,
-                    rank_path:   path)
-      order = create(:order, product: qual.product, quantity: qual.quantity)
-      totals = create(:order_total,
-                      product:  qual.product,
-                      personal: order.quantity)
-
-      order.weekly_pay_period.process_rank_achievements!(order, totals)
-      achievement = order.user.rank_achievements.first
-      expect(achievement).to_not be_nil
-      expect(achievement.pay_period_id).to eq(order.weekly_pay_period.id)
     end
 
     it 'creates rank achievements for group qualifications' do
-      path = create(:default_rank_path)
-      qual = create(:group_sales_qualification,
-                    rank_path:       path,
-                    rank_id:         2,
-                    time_period:     :monthly,
-                    quantity:        5,
-                    max_leg_percent: 55)
-
-      product_id = qual.product_id
-      order_date = DateTime.current - 2.months
-      user = create(:user)
-      children = create_list(:user, 2, sponsor: user)
-
-      children.each do |child|
-        create_list(:order, 3,
-                    order_date: order_date,
-                    product_id: product_id,
-                    user:       child)
-      end
-
-      pay_period = MonthlyPayPeriod.find_or_create_by_date(order_date)
-      pay_period.process_orders!
-
-      achievement = pay_period.rank_achievements.find do |a|
-        a.user_id == user.id
-      end
-      expect(achievement).to_not be_nil
     end
 
   end
@@ -204,6 +131,7 @@ describe PayPeriod, type: :model do
   describe '#disburse!' do
 
     before :each do
+      create(:rank)
       @payment_user = create(:user)
       @pay_periods = [ 2, 3, 1 ].map do |i|
         pay_period = create(:weekly_pay_period, start_date: DateTime.current - i.weeks)

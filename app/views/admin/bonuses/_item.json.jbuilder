@@ -14,8 +14,6 @@ json.properties do
   end
 end
 
-bonus_json.item_entities(bonus)
-
 update = bonus_json.action(:update, :patch, bonus_path(bonus))
          .field(:name, :text, value: bonus.name)
          .field(:schedule, :select,

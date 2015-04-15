@@ -46,17 +46,8 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
     default_level.max
   end
 
-  def all_paths_level?
-    level = bonus_amounts.entries.first
-    !level.nil? && level.all_paths?
-  end
-
-  def can_add_amounts?(path_count = nil)
-    return false if !product_id || all_paths_level?
-
-    path_count ||= RankPath.count
-    level_count = bonus_amounts.entries.size
-    (path_count.zero? && level_count.zero?) || path_count > level_count
+  def can_add_amounts?
+    highest_bonus_level.zero?
   end
 
   def enabled?

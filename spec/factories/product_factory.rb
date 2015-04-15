@@ -25,31 +25,14 @@ FactoryGirl.define do
       image_original_path 'http://lorempixel.com/400/400/abstract'
     end
 
-    factory :sunrun_product do
-      name 'SunRun Solar Item'
-
+    factory(:solar_product) do
+      name 'Solar Item'
       after(:create) do |product, _|
         create(:quote_field,
                product:   product,
                name:      'average_bill',
                required:  true,
                data_type: :number)
-        { square_feet:            :number,
-          credit_score_qualified: :boolean,
-          roof_type:              :lookup,
-          roof_age:               :lookup }.each do |name, data_type|
-          if data_type == :lookup
-            create(:lookup_field, name: name.to_s, product: product)
-          else
-            create(:quote_field,
-                   product:   product,
-                   name:      name,
-                   data_type: data_type)
-          end
-        end
-        create(:lookup_field, name: 'utility', product: product, group: true)
-
-        SystemSettings.default_product_id = product.id
       end
     end
   end

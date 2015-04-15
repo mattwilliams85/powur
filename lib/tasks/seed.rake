@@ -20,17 +20,12 @@ namespace :sunstand do
     task sunrun_product: :environment do
       existing = Product.find_by_id(SOLAR_ITEM_ID)
       existing.destroy if existing
-      fields = { utility:                :lookup,
-                 average_bill:           :number,
-                 square_feet:            :number,
-                 credit_score_qualified: :boolean,
-                 roof_type:              :lookup,
-                 roof_age:               :lookup }
+      fields = { average_bill: :number }
 
       Product.create!(
         id:                    SOLAR_ITEM_ID,
         name:                  'SunRun Solar Item',
-        bonus_volume:          500,
+        bonus_volume:          1000,
         commission_percentage: 80)
 
       fields.each do |name, data_type|
@@ -290,7 +285,6 @@ namespace :sunstand do
         bonus_plan_id:      1,
         name:               'Promote-Out',
         schedule:           :monthly,
-        achieved_rank_id:   2,
         min_upline_rank_id: 2,
         flat_amount:        150)
     end

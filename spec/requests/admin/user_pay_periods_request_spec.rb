@@ -3,7 +3,6 @@ require 'spec_helper'
 describe '/u/users/:admin_user_id/pay_periods' do
 
   before do
-    DatabaseCleaner.clean
     login_user
   end
 
@@ -22,16 +21,12 @@ describe '/u/users/:admin_user_id/pay_periods' do
   describe 'GET /:id' do
 
     it 'includes the bonus totals by bonus type' do
+      create(:rank)
       user = create(:user)
       pay_period = create(:monthly_pay_period)
       create(:order_total, pay_period: pay_period, user: user)
-      bonus = create(:enroller_bonus)
-      create_list(:bonus_payment, 2,
-                  user:       user,
-                  bonus:      bonus,
-                  pay_period: pay_period)
-      bonus = create(:unilevel_bonus)
-      create_list(:bonus_payment, 3,
+      bonus = create(:seller_bonus)
+      create_list(:bonus_payment, 5,
                   user:       user,
                   bonus:      bonus,
                   pay_period: pay_period)

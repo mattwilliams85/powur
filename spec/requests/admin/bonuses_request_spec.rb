@@ -47,53 +47,6 @@ describe '/a/bonuses' do
 
     it 'includes matching bonus details' do
     end
-
-    describe 'bonus_amounts action' do
-
-      def create_action
-        levels = json_body['entities'].find do |e|
-          e['class'].include?('bonus_levels')
-        end
-        levels['actions'] &&
-          levels['actions'].find { |a| a['name'] == 'create' }
-      end
-
-      def rank_path_field
-        action = create_action
-        action['fields'].find { |f| f['name'] == 'rank_path_id' }
-      end
-
-      def expect_rank_path_field(options_count, required)
-        field = rank_path_field
-
-        expect(field).to be
-        expect(field['options'].size).to eq(options_count)
-      end
-
-      it 'always includes the rank_path field' do
-        create_list(:rank, 2)
-        get bonus_path(bonus), format: :json
-
-        expect(rank_path_field).to be
-      end
-
-      it 'when null rank_path level defined, no create action' do
-        create_list(:rank, 2)
-        create_list(:rank_path, 2)
-        create(:bonus_level, bonus: bonus, rank_path: nil)
-        get bonus_path(bonus), format: :json
-
-        expect(create_action).to_not be
-      end
-
-      it 'includes the rank_path field with 2 paths' do
-        create_list(:rank, 2)
-        create_list(:rank_path, 2)
-        get bonus_path(bonus), format: :json
-
-        expect_rank_path_field(2, false)
-      end
-    end
   end
 
   describe '#create' do
@@ -137,15 +90,6 @@ describe '/a/bonuses' do
       patch bonus_path(bonus), name: 'foo', format: :json
 
       expect(json_body['properties']['name']).to eq('foo')
-    end
-
-    it 'updates the compress flag' do
-      bonus = create(:generational_bonus)
-
-      compress = bonus.compress
-      patch bonus_path(bonus), compress: !compress, format: :json
-
-      expect(json_body['properties']['compress']).to eq(!compress)
     end
 
   end

@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe User, type: :model do
 
-  before do
-    DatabaseCleaner.clean
-  end
-
   describe '@authenticate' do
     let(:password) { 'password123' }
 

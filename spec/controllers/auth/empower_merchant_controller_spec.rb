@@ -7,7 +7,7 @@ RSpec.describe Auth::EmpowerMerchantController, type: :controller do
   describe 'GET sandbox' do
     it 'renders the Empower Merchant Sandbox HTML page' do
       # user_activity login event is created during authentication
-      login_real_user
+      login_user(auth: true)
       get :sandbox, format: :html
       expect(response.status).to eq(200)
     end

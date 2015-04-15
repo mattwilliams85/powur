@@ -17,10 +17,13 @@ describe '/api/token', type: :request do
       post api_token_path, params, authorize_header(@client)
     end
 
-    def expect_token
-      %w(access_token token_type expires_in refresh_token).each do |key|
+    EXPECTED_PARAMS = %w(access_token token_type expires_in)
+    def expect_token(refresh = true)
+      expected = refresh ? EXPECTED_PARAMS + %w(refresh_token) : EXPECTED_PARAMS
+      expected.each do |key|
         expect(json_body[key]).to be
       end
+      expect(json_body['refresh_token']).to_not be unless refresh
 
       expect(json_body['expires_in']).to be > 0
     end
@@ -89,7 +92,6 @@ describe '/api/token', type: :request do
     end
 
     describe '#refresh_token' do
-
       it 'requires a refresh_token parameter' do
         post_token grant_type: 'refresh_token'
         expect_api_error
@@ -105,8 +107,31 @@ describe '/api/token', type: :request do
         post_token grant_type: 'refresh_token', refresh_token: token.id
         expect_token
       end
-
     end
 
+    describe '#client_credentials' do
+      it 'returns an app token' do
+        post_token grant_type: 'client_credentials'
+        expect_token(false)
+      end
+
+      it 'returns an existing valid token' do
+        token = create(:app_token, client: @client)
+        post_token grant_type: 'client_credentials'
+
+        expect_token(false)
+        expect(json_body['access_token']).to eq(token.access_token)
+      end
+
+      it 'does not return an existing expired token' do
+        token = create(:app_token,
+                       client:     @client,
+                       expires_at: DateTime.current - 1.second)
+        post_token grant_type: 'client_credentials'
+
+        expect_token(false)
+        expect(json_body['access_token']).to_not eq(token.access_token)
+      end
+    end
   end
 end

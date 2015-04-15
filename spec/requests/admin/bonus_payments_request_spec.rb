@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'bonus payments', type: :request do
 
   before do
-    DatabaseCleaner.clean
+    create(:rank)
     login_user
   end
 
@@ -26,8 +26,8 @@ describe 'bonus payments', type: :request do
 
     it 'filters by bonus' do
       pay_period = create(:monthly_pay_period)
-      bonus1 = create(:enroller_bonus)
-      bonus2 = create(:unilevel_bonus)
+      bonus1 = create(:bonus)
+      bonus2 = create(:bonus)
       create(:bonus_payment, pay_period: pay_period, bonus: bonus1)
       create(:bonus_payment, pay_period: pay_period, bonus: bonus2)
 
@@ -83,7 +83,7 @@ describe 'bonus payments', type: :request do
       pay_period = create(:weekly_pay_period, start_date: DateTime.current - 1.month)
       order = create(:order)
 
-      [ :direct_sales_bonus, :enroller_bonus ].each do |bonus_type|
+      [ :bonus, :bonus ].each do |bonus_type|
         bonus_payment = create(:bonus_payment,
                                bonus:      create(bonus_type),
                                pay_period: pay_period)
@@ -91,7 +91,7 @@ describe 'bonus payments', type: :request do
                order:         order,
                bonus_payment: bonus_payment)
       end
-      bonus = create(:unilevel_bonus)
+      bonus = create(:bonus)
       create_list(:bonus_payment, 3,
                   bonus:      bonus,
                   pay_period: pay_period).each do |bp|

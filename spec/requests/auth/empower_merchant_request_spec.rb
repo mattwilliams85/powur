@@ -3,7 +3,7 @@ require 'spec_helper'
 describe '/u/empower_merchant' do
 
   before do
-    login_real_user
+    login_user(auth: true)
   end
 
   describe '#sandbox' do

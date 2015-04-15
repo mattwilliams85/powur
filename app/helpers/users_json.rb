@@ -32,15 +32,18 @@ class UsersJson < JsonDecorator
     json.entities list, partial: partial_path, as: :user
   end
 
+  def rank_title(rank_id)
+    rank = all_ranks[rank_id || 0]
+    rank ? rank.title : nil
+  end
+
   def detail_properties(user = @item) # rubocop:disable Metrics/AbcSize
     list_item_properties
 
     json.properties do
       json.call(user, :address, :city, :state, :zip, :avatar, :avatar_file_name)
-      rank = all_ranks.find { |p| p.id == user.organic_rank }
-      json.organic_rank rank.title
-      rank = all_ranks.find { |p| p.id == user.lifetime_rank }
-      json.lifetime_rank rank.title
+      json.organic_rank rank_title(user.organic_rank)
+      json.lifetime_rank rank_title(user.lifetime_rank)
       if user.rank_path_id
         json.rank_path all_paths.find { |p| p.id == user.rank_path_id }.name
       end

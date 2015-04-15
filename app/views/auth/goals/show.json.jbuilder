@@ -5,7 +5,7 @@ klass :goals
 json.properties do
   json.pay_as_rank @pay_as_rank
   json.organic_rank @organic_rank
-  json.next_rank @organic_rank + 1
+  json.next_rank @organic_rank ? @organic_rank + 1 : 1
   json.lifetime_rank @lifetime_rank
 end
 

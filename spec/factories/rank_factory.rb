@@ -8,6 +8,5 @@ FactoryGirl.define do
         create(:group_sales_qualification, rank: rank)
       end
     end
-
   end
 end

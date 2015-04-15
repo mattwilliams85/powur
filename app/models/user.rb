@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   # validates_presence_of :address, :city, :state, allow_nil: true
   validates :tos,
-    presence: { message: "You didn't agree to the terms and privacy policy"},
+    presence:   { message: "You didn't agree to the terms and privacy policy" },
     acceptance: { accept: true },
     on: :create
 
@@ -55,15 +55,6 @@ class User < ActiveRecord::Base
   attr_reader :password
   attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count,
                 :tos, :password_confirmation
-
-  before_validation do
-    self.lifetime_rank ||= Rank.find_or_create_by_id(1).id
-    self.organic_rank ||= 1
-    if rank_path_id.nil?
-      default = RankPath.where(precedence: 1).first
-      self.rank_path_id = default.id if default
-    end
-  end
 
   def full_name
     "#{first_name} #{last_name}"

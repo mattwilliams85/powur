@@ -3,7 +3,7 @@ require 'spec_helper'
 describe '/a/users' do
 
   before :each do
-    login_real_user
+    login_user(auth: true)
   end
 
   describe '#index' do

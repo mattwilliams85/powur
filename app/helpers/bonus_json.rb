@@ -5,17 +5,17 @@ class BonusJson < JsonDecorator
     list_entities(partial_path)
   end
 
-  def item_entities(bonus = @item)
+  def detail_entities(bonus = @item)
     entities entity('bonus_amounts', 'bonus-bonus_amounts', bonus: bonus)
   end
 
   def can_add_level?(bonus)
-    !all_ranks.empty? && bonus.can_add_amounts?(all_paths.count)
+    !all_ranks.empty? && bonus.can_add_amounts?
   end
 
   def create_amount_action(bonus)
     create_action = action(:create, :post, bonus_amounts_path(bonus))
-    rank_path_field(create_action, bonus)
+    # rank_path_field(create_action, bonus)
     amount_field(create_action, bonus.remaining_amount)
     create_action
   end

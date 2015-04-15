@@ -4,7 +4,7 @@ describe Auth::InvitesController do
   render_views
 
   before :each do
-    login_real_user
+    login_user(auth: true)
   end
 
   describe '#index' do

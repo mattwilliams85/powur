@@ -3,7 +3,6 @@ require 'spec_helper'
 describe '/a/pay_periods' do
 
   before do
-    DatabaseCleaner.clean
     login_user
   end
 
@@ -33,6 +32,7 @@ describe '/a/pay_periods' do
   describe 'GET /:id' do
 
     it 'returns the details of the pay period' do
+      create(:rank)
       order = create(:order, order_date: Date.current - 1.month)
       order.monthly_pay_period.touch :calculated_at
       pay_period = order.monthly_pay_period

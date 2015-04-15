@@ -3,8 +3,7 @@ require 'spec_helper'
 describe '/a/quotes' do
 
   before do
-    DatabaseCleaner.clean
-    login_real_user
+    login_user(auth: true)
   end
 
   describe '/' do
@@ -89,8 +88,6 @@ describe '/a/quotes' do
   end
 
   describe '/:id/subject' do
-    let(:provider_uid) { '00Q18000001OtnbEAC' }
-
     def submit_and_assert_success(cassette)
       quote = create(:complete_quote)
 
@@ -99,15 +96,15 @@ describe '/a/quotes' do
       end
 
       expect_200
-      expect(json_body['properties']['provider_uid']).to eq(provider_uid)
+      expect(json_body['properties']['provider_uid']).to be
     end
 
     it 'submits a quote to the solar provider' do
-      submit_and_assert_success('quotes/submit')
+      submit_and_assert_success('quotes/success')
     end
 
     it 'handles a quote submitted twice but not recorded' do
-      submit_and_assert_success('quotes/submit_exists')
+      submit_and_assert_success('quotes/exists')
     end
   end
 end
