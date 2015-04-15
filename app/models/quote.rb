@@ -27,7 +27,6 @@ class Quote < ActiveRecord::Base
     value << 'phone' if customer.phone
     value << 'email' if customer.email
     value << 'address' if customer.address_complete?
-    value << 'utility' if data['utility']
     value
   end
 
@@ -37,6 +36,10 @@ class Quote < ActiveRecord::Base
 
   def submitted?
     !provider_uid.nil?
+  end
+
+  def ready_to_submit?
+    !submitted? && customer.phone && customer.address_complete?
   end
 
   private

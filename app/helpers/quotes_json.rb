@@ -47,6 +47,29 @@ class QuotesJson < JsonDecorator
     entities(*list)
   end
 
+  def admin_actions(quote)
+    list = []
+    unless quote.order?
+      list << action(:create_order, :post, admin_orders_path)
+        .field(:quote_id, :number, value: quote.id)
+        .field(:order_date, :datetime, value: DateTime.current, required: false)
+    end
+    if quote.ready_to_submit?
+      list << submit_action(submit_admin_quote_path(quote))
+    end
+    list
+  end
+
+  def auth_actions(quote)
+    list = [
+      update_action(user_quote_path(quote)),
+      resend_action(resend_user_quote_path(quote)) ]
+    if quote.ready_to_submit?
+      list << submit_action(submit_user_quote_path(quote))
+    end
+    list
+  end
+
   def create_action(path)
     action(:create, :post, path)
       .field(:first_name, :text)
@@ -94,6 +117,10 @@ class QuotesJson < JsonDecorator
 
   def resend_action(path)
     action(:resend, :post, path)
+  end
+
+  def submit_action(path)
+    action(:submit, :post, path)
   end
 
   private

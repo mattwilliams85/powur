@@ -87,6 +87,7 @@ Rails.application.routes.draw do
                        as:   :user_quotes do
       member do
         post :resend
+        post :submit
       end
     end
 
