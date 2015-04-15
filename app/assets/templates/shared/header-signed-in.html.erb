@@ -7,7 +7,7 @@
         <li class="right username"><a ng-href="/u/profile">{{currentUser.first_name}}</a></li>
 
         <li class="logo"><a ng-href="/">&nbsp;</a></li>
-        <li class="menu-item"><a ng-href="/u/dashboard">Dashboard</a></li>
+        <li class="menu-item"><a ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="#/dashboard">Dashboard</a></li>
         <li class="menu-item"><a ng-href="/u/earnings">Earnings</a></li>
         <li class="menu-item"><a ng-class="{'active': isMenuLinkActive('/university')}" ng-href="#/university">Powur U</a></li>
         <li class="menu-item"><a>Marketing</a></li>

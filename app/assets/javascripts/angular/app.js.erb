@@ -25,13 +25,13 @@ var sunstandApp = angular.module('sunstandApp', [
 
     $rootScope.redirectToDashboardIfSignedIn = function() {
       if ($rootScope.isSignedIn) {
-        window.location = '/u/dashboard';
+        $location.path('/dashboard');
       }
     };
 
     $rootScope.redirectUnlessSignedIn = function() {
       if (!$rootScope.isSignedIn) {
-        window.location = '#/sign-in';
+        $location.path('/sign-in');
       }
     };
 
@@ -281,6 +281,10 @@ sunstandApp.config(
     when('/home', {
       templateUrl: '<%= asset_path("angular/landing/templates/index.html") %>',
       controller: 'LandingCtrl'
+    }).
+    when('/dashboard', {
+      templateUrl: '<%= asset_path("angular/dashboard/templates/index.html") %>',
+      controller: 'DashboardCtrl'
     }).
     when('/sign-in', {
       templateUrl: '<%= asset_path("angular/landing/templates/sign-in.html") %>',

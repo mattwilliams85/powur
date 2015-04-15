@@ -1,0 +1,8 @@
+'use strict';
+
+function DashboardCtrl($scope, $location) {
+  $scope.redirectUnlessSignedIn();
+}
+
+DashboardCtrl.$inject = ['$scope', '$location'];
+sunstandControllers.controller('DashboardCtrl', DashboardCtrl);
