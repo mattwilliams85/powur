@@ -1,4 +1,4 @@
-namespace :sunstand do
+namespace :powur do
   namespace :simulate do
 
     def generate_user(attrs = {})

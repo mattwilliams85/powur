@@ -1,4 +1,4 @@
-namespace :sunstand do
+namespace :powur do
   namespace :import do
 
     def push_lookups(path)

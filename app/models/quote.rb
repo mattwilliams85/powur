@@ -91,7 +91,7 @@ class Quote < ActiveRecord::Base
           fields.push(quote.id)
 
           user = quote.user
-          user_fields = [ user.first_name, user.last_name, user.id, 'Sunstand' ]
+          user_fields = [ user.first_name, user.last_name, user.id, 'Powur' ]
           fields.push(*user_fields)
 
           csv << fields
