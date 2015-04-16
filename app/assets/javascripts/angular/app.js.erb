@@ -23,6 +23,11 @@ var sunstandApp = angular.module('sunstandApp', [
       }
     });
 
+    // Initialize Foundation JS on page load
+    $timeout(function() {
+      $(document).foundation();
+    }, 500);
+
     $rootScope.redirectToDashboardIfSignedIn = function() {
       if ($rootScope.isSignedIn) {
         $location.path('/dashboard');
@@ -47,10 +52,6 @@ var sunstandApp = angular.module('sunstandApp', [
       $rootScope.$on('$locationChangeStart', function() {
         $timeout.cancel(pilerTimer);
       });
-    };
-
-    $rootScope.readyAdminHeader = function() {
-      $(document).foundation();
     };
 
     $rootScope.removePiler = function(){
