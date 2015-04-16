@@ -25,7 +25,7 @@ rake db:seed
 The database must not have any Quotes or Orders in order for this to work.
 
 ```bash
-rake sunstand:seed:bonus_plan
+rake powur:seed:bonus_plan
 ```
 
 Two products are created. One Solar Item product as well as the Consultant Certification product.
@@ -35,7 +35,7 @@ Two products are created. One Solar Item product as well as the Consultant Certi
 This task happens as part of the task to create the bonus_plan, but you can use it to update or delete values
 
 ```bash
-rake sunstand:import:quote_field_lookups
+rake powur:import:quote_field_lookups
 ```
 
 # Simulation
@@ -43,31 +43,31 @@ rake sunstand:import:quote_field_lookups
 ## Simulate User Genealogy
 
 ```bash
-rake sunstand:simulate:users
+rake powur:simulate:users
 ```
 
 There are options that can be used on this command in the form
 
 ```bash
-rake sunstand:simulate:users[1000,20,3]
+rake powur:simulate:users[1000,20,3]
 ```
 
 The first argument is the approximate total # of users. The second is the max # of users in one users particular downline. The third argument is the max of levels to generate for the root users' downline. Note that there must be no spaces in the list of arguments between the brackets. The arguments in the example are the defaults.
 
-## Simulate Orders
+## Simulate Quotes
 
 ```bash
-rake sunstand:simulate:orders
+rake powur:simulate:quotes
 ```
 
 
 Arguments can be used for this command as well
 
 ```bash
-rake sunstand:simulate:orders[20,4]
+rake powur:simulate:quotes[20,4]
 ```
 
-The first argument is the average # of orders per user. A random amount is selected between 0 and twice the #. Orders are generated for approximately 85% of the users for the Solar Item product. One order is created for approximately 75% of the users for the Consultant Certification product. The second argument is how many months back in which to generate orders. A random date is selected between the first of that month and now. The amounts in the example are the defaults.
+The first argument is the average # of quotes per user. A random amount is selected between 0 and twice the #. Quotes are generated for approximately 80% of the users for the Solar Item product. 
 
 ## 3rd Party (Mobile) API
 
@@ -77,7 +77,7 @@ The API uses the OAuth 2 protocol for access: http://tools.ietf.org/html/rfc6749
 
 The current iPhone client credentials are:
 ```
-id: ios.sunstand.com
+id: ios.powur.com
 secret: ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e56ae7ecd4bd2915d56720871907e33b191db11a0d4603c33892a
 ```
 
@@ -268,13 +268,13 @@ The user should be logged out of the application in this case and the token data
 
 api root
 ```bash
-curl -u "ios.sunstand.com:ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e56ae7ecd4bd2915d56720871907e33b191db11a0d4603c33892a" -X POST -d "grant_type=password&username=jon@sunstand.com&password=solarpower" "http://sunstand-staging.eyecuelab.com/api/v1/token"
+curl -u "ios.powur.com:ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e56ae7ecd4bd2915d56720871907e33b191db11a0d4603c33892a" -X POST -d "grant_type=password&username=jon@powur.com&password=solarpower" "http://sandbox.eyecuelab.com/api/v1/token"
 ```
 response: https://gist.github.com/paulwalker/bf0ff2c05b50a0bcc97f
 
 token
 ```bash
-curl -u "ios.sunstand.com:ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e56ae7ecd4bd2915d56720871907e33b191db11a0d4603c33892a" -X POST -d "grant_type=password&username=jon@sunstand.com&password=solarpower" "http://sunstand-staging.eyecuelab.com/api/v1/token"
+curl -u "ios.powur.com:ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e56ae7ecd4bd2915d56720871907e33b191db11a0d4603c33892a" -X POST -d "grant_type=password&username=jon@powur.com&password=solarpower" "http://sandbox.eyecuelab.com/api/v1/token"
 ```
 response: https://gist.github.com/paulwalker/5898adbd4a0d5978c375
 
@@ -282,13 +282,13 @@ take the access_token from the response you get and use as the parameter in subs
 
 session
 ```bash
-curl "http://sunstand-staging.eyecuelab.com/api/v1/session?access_token=accd89aa0a2b2b55789df28f98ba82b63a1dab38188db488cb45853d73a144289c5f7e14feadf5f580c4b685b921fc2f5caecbe14a82ecc38b27342bd32f4796"
+curl "http://sandbox.eyecuelab.com/api/v1/session?access_token=accd89aa0a2b2b55789df28f98ba82b63a1dab38188db488cb45853d73a144289c5f7e14feadf5f580c4b685b921fc2f5caecbe14a82ecc38b27342bd32f4796"
 ```
 response: https://gist.github.com/paulwalker/302bd4cfe9d76a5bce8a
 
 users
 ```bash
-curl "http://sunstand-staging.eyecuelab.com/api/v1/users?access_token=accd89aa0a2b2b55789df28f98ba82b63a1dab38188db488cb45853d73a144289c5f7e14feadf5f580c4b685b921fc2f5caecbe14a82ecc38b27342bd32f4796"
+curl "http://sandbox.eyecuelab.com/api/v1/users?access_token=accd89aa0a2b2b55789df28f98ba82b63a1dab38188db488cb45853d73a144289c5f7e14feadf5f580c4b685b921fc2f5caecbe14a82ecc38b27342bd32f4796"
 ```
 
 # Heroku Deployment

@@ -81,7 +81,8 @@ module QuoteSubmission
     # private
 
     def id_prefix
-      "#{Rails.env}.powur.com:"
+      sub = ENV['DATA_API_ENV'] || Rails.env
+      "#{sub}.powur.com:"
     end
 
     def post_body
