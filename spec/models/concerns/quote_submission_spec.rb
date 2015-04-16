@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe QuoteSubmission, type: :model do
+  before :all do
+    ENV['SOLAR_CITY_LEAD_URL'] = 'https://sctyleads-test.cloudhub.io/powur'
+  end
+
   def assert_submit(quote, cassette)
     VCR.use_cassette("quotes/#{cassette}") { quote.submit! }
     expect(quote.submitted_at).to be
