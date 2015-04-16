@@ -3,17 +3,17 @@ namespace :powur do
 
     def generate_user(attrs = {})
       attrs = {
-        password:      'solarpower',
+        password:              'solarpower',
         password_confirmation: 'solarpower',
-        tos:           true,
-        email:         Faker::Internet.email,
-        first_name:    Faker::Name.first_name,
-        last_name:     Faker::Name.last_name,
-        phone:         Faker::PhoneNumber.phone_number,
-        zip:           Faker::Address.zip,
-        address:       Faker::Address.street_address,
-        city:          Faker::Address.city,
-        state:         Faker::Address.state,
+        tos:                   true,
+        email:                 Faker::Internet.email,
+        first_name:            Faker::Name.first_name,
+        last_name:             Faker::Name.last_name,
+        phone:                 Faker::PhoneNumber.phone_number,
+        zip:                   Faker::Address.zip,
+        address:               Faker::Address.street_address,
+        city:                  Faker::Address.city,
+        state:                 Faker::Address.state,
         lifetime_rank: 1 }.merge(attrs)
 
       User.create!(attrs)
@@ -86,39 +86,24 @@ namespace :powur do
       DateTime.current.to_i % n == 0
     end
 
-    task :orders, [ :per_user, :months_back ] => :environment do |_t, args|
-      Order.destroy_all
+    task :quotes, [ :per_user, :months_back ] => :environment do |_t, args|
       Quote.destroy_all
       Customer.destroy_all
 
       user_count = User.count
-      args.with_defaults(per_user: 10, months_back: 2)
+      args.with_defaults(per_user: 5, months_back: 2)
 
       start_date = (DateTime.current - args[:months_back].to_i.months).beginning_of_month
       end_date = DateTime.current
       days_from_start = end_date.mjd - start_date.mjd
 
-      users = get_random_percentage_of_users(90)
+      users = get_random_percentage_of_users(80)
       puts "Creating #{users.size} purchases of the Cert Product out of #{user_count} users"
 
-      users.each do |user|
-        order_date =  random_order_date(start_date, 30)
-        Order.create!(user:       user,
-                      product_id: CERT_ITEM_ID,
-                      order_date: order_date,
-                      customer:   user.make_customer!)
-      end
-
-      puts "Creating an average of #{args[:per_user]} orders per user between dates #{start_date} and #{end_date}"
-
-      utilities = QuoteField.find_by(name: 'utility').lookups.map(&:id)
-      roof_ages = QuoteField.find_by(name: 'roof_age').lookups.map(&:id)
-      roof_types = QuoteField.find_by(name: 'roof_type').lookups.map(&:id)
-
       User.all.each do |user|
-        order_amount = rand(0...args[:per_user].to_i * 3)
-        puts "Creating #{order_amount} Solar Item order(s) for user #{user.full_name}"
-        0.upto(order_amount) do |_i|
+        count = rand(0...args[:per_user].to_i * 3)
+        puts "Creating #{count} Solar Item quotes(s) for user #{user.full_name}"
+        0.upto(count) do |_i|
           customer = Customer.create!(
             email:      Faker::Internet.email,
             first_name: Faker::Name.first_name,
@@ -129,18 +114,9 @@ namespace :powur do
             state:      Faker::Address.state,
             zip:        Faker::Address.zip)
 
-          data = {
-            'credit_score_qualified' => true,
-            'average_bill'           => rand(100) + 100 }
-
-          data['square_feet'] = rand(1000) + 1000
-          data['utility'] = utilities[rand(utilities.size)]
-          data['roof_age'] = roof_ages[rand(roof_ages.size)]
-          data['roof_type'] = roof_types[rand(roof_types.size)]
+          data = { 'average_bill' => rand(100) + 100 }
 
           quote = Quote.create!(product_id: SOLAR_ITEM_ID, user: user, customer: customer, data: data)
-          order_date =  random_order_date(start_date, days_from_start)
-          Order.create!(user: user, product_id: SOLAR_ITEM_ID, order_date: order_date, customer: customer, quote: quote)
         end
       end
 
