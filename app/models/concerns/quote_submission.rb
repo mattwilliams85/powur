@@ -31,7 +31,6 @@ module QuoteSubmission
       quote.customer
     end
 
-    # POST_URL = 'https://sctyleads-test.cloudhub.io/powur'
     def post
       url = ENV['SOLAR_CITY_LEAD_URL'] || fail('Missing SOLAR_CITY_LEAD_URL env var')
       @response = RestClient.post(url, post_body)
