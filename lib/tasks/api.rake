@@ -17,7 +17,7 @@ namespace :powur do
 
       attrs = {
         client_id:  client.id,
-        expires_at: args[:expires_at] && args[:expires_at].to_i }
+        expires_at: args[:expires_at] && Time.at(args[:expires_at].to_i).to_datetime }
       token = ApiToken.create!(attrs)
 
       puts "Generated app token for client #{client.id} with value of #{token.access_token}"

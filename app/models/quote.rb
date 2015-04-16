@@ -7,6 +7,9 @@ class Quote < ActiveRecord::Base
 
   add_search :user, :customer, [ :user, :customer ]
 
+  scope :not_submitted, ->() { where('submitted_at IS NULL') }
+  scope :submitted, ->() { where('submitted_at IS NOT NULL') }
+
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
   validate :product_data
 

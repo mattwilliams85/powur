@@ -98,7 +98,6 @@ namespace :powur do
       days_from_start = end_date.mjd - start_date.mjd
 
       users = get_random_percentage_of_users(80)
-      puts "Creating #{users.size} purchases of the Cert Product out of #{user_count} users"
 
       User.all.each do |user|
         count = rand(0...args[:per_user].to_i * 3)

@@ -15,7 +15,7 @@ class Customer < ActiveRecord::Base
   end
 
   def address_complete?
-    address && city && state && zip
+    !address.nil? && !city.nil? && !state.nil? && !zip.nil?
   end
 
   def full_name

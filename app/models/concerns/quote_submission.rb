@@ -11,7 +11,7 @@ module QuoteSubmission
 
   class << self
     def id_prefix
-      sub = ENV['DATA_INTERCHANGE_ENV'] || Rails.env
+      sub = ENV['DATA_API_ENV'] || Rails.env
       "#{sub}.powur.com"
     end
 
@@ -31,9 +31,10 @@ module QuoteSubmission
       quote.customer
     end
 
-    POST_URL = 'https://sctyleads-test.cloudhub.io/powur'
+    # POST_URL = 'https://sctyleads-test.cloudhub.io/powur'
     def post
-      @response = RestClient.post(POST_URL, post_body)
+      url = ENV['SOLAR_CITY_LEAD_URL'] || fail('Missing SOLAR_CITY_LEAD_URL env var')
+      @response = RestClient.post(url, post_body)
     rescue RestClient::InternalServerError => e
       @error = e
       @response = e.inspect
@@ -77,12 +78,6 @@ module QuoteSubmission
 
     def dupe_id
       dupe_match[:id]
-    end
-    # private
-
-    def id_prefix
-      sub = ENV['DATA_API_ENV'] || Rails.env
-      "#{sub}.powur.com:"
     end
 
     def post_body
