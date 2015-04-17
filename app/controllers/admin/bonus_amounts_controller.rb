@@ -5,9 +5,16 @@ module Admin
 
     def create
       error!(:cannot_add_amounts) unless @bonus.can_add_amounts?
-
-      @bonus_amount = @bonus.bonus_amounts.create!(
+      @bonus_amount = @bonus.bonus_amounts.build(
         input.merge(level: @bonus.next_bonus_level))
+
+      if @bonus_amount.exceeds_available?
+        error!(:amount_exceeds_max, :amounts,
+               amount: @bonus_amount.max,
+               max:    @bonus.remaining_amount)
+      end
+
+      @bonus_amount.save!
 
       render 'show'
     end

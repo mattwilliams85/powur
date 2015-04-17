@@ -55,7 +55,8 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def amount_used
-    bonus_amounts.empty? ? 0.0 : bonus_amounts.first.max
+    amounts = bonus_amounts.select(&:persisted?)
+    amounts.empty? ? 0.0 : amounts.first.max
   end
 
   def remaining_amount

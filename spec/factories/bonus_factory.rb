@@ -7,6 +7,7 @@ FactoryGirl.define do
   factory :bonus do
     bonus_plan
     name { Faker::Commerce.product_name }
+    product
 
     factory :seller_bonus, class: SellerBonus do
       meta_data do

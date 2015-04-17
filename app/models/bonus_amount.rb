@@ -13,16 +13,12 @@ class BonusAmount < ActiveRecord::Base
       .to_a.fill(BigDecimal('0'), (amounts.size...total))[0...total]
   end
 
+  def exceeds_available?
+    max > bonus.remaining_amount
+  end
+
   def filled_amounts(size)
     amounts.map.to_a.fill(BigDecimal('0'), (amounts.size...size))
-  end
-
-  def remaining_percentages(max_rank = nil)
-    bonus.remaining_percentages_for_level(id, max_rank)
-  end
-
-  def all_paths?
-    rank_path_id.nil?
   end
 
   def max(opts = {})
