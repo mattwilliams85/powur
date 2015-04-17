@@ -15,8 +15,7 @@ class BonusJson < JsonDecorator
 
   def create_amount_action(bonus)
     create_action = action(:create, :post, bonus_amounts_path(bonus))
-    # rank_path_field(create_action, bonus)
-    amount_field(create_action, bonus.remaining_amount)
+    amount_field(create_action, bonus.remaining_amount, [])
     create_action
   end
 
@@ -44,7 +43,7 @@ class BonusJson < JsonDecorator
 
   def amount_field(action, max, value = nil)
     attrs = {
-      value_type: :decimal,
+      value_type: :money,
       size:       all_ranks.last.id,
       max:        max }
     attrs[:value] = value

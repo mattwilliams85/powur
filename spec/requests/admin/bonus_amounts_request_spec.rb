@@ -3,7 +3,7 @@ require 'spec_helper'
 describe '/a/bonuses/:admin_bonus_id/bonus_amounts' do
   before do
     login_user
-    create_list(:rank, 4)
+    create_list(:rank, 3)
     @path = create(:rank_path)
   end
 
@@ -16,13 +16,11 @@ describe '/a/bonuses/:admin_bonus_id/bonus_amounts' do
   end
 
   describe 'POST /' do
+    let(:bonus) { create(:seller_bonus) }
 
     it 'adds a bonus level to to a bonus' do
-      bonus = create(:seller_bonus)
       post bonus_amounts_path(bonus),
-           rank_path_id: @path.id,
-           amounts:      [ 0.1, 0.4, 0.125 ],
-           format:       :json
+           amounts:      [ 240.00, 120.00, '75.00' ]
 
       expect_classes 'bonus'
 
@@ -31,11 +29,16 @@ describe '/a/bonuses/:admin_bonus_id/bonus_amounts' do
       end
 
       expect(amounts['entities'].size).to eq(1)
-
       level = amounts['entities'].first
+      amounts = level['properties']['amounts']
+      expect(amounts).to eq([ '240.0', '120.0', '75.0' ])
+    end
 
-      padded_value = level['properties']['amounts'].last
-      expect(padded_value).to eq('0.0')
+    it 'does not allow posting amounts greater than what is available' do
+      post bonus_amounts_path(bonus),
+           amounts:      [ '1010.00', 120.00, '75.00' ]
+
+      expect_input_error('amounts')
     end
   end
 end

@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :product do
     name { Faker::Commerce.product_name }
-    bonus_volume 500
+    bonus_volume 1000
     commission_percentage 100
 
     factory :product_with_quote_fields do
