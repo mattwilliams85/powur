@@ -1,8 +1,53 @@
 'use strict';
 
-function DashboardCtrl($scope, $location) {
+function DashboardCtrl($scope, $location, CurrentUser) {
   $scope.redirectUnlessSignedIn();
-}
 
-DashboardCtrl.$inject = ['$scope', '$location'];
+  CurrentUser.get().then(function(user) {
+    $scope.currentUser = user;
+    $scope.goals = { personalPercent: 100, groupPercent: 20, badge: '<%= image_path("badges/rank0.png") %>' };
+    $scope.news = [ {text: 'Solar Power is the energy of the future.', date: '3/18/2015'},
+                    {text: 'Did you know that in one single day, the sun sends 15,000 times as much energy to the Earth as we consume worldwide on a daily basis?', date: '3/15/2015'},
+                    {text: 'The solar revolution is upon us.', date: '3/12/2015'},
+                    {text: 'The future of the planet is in our hands.', date: '3/9/2015'}];
+    $scope.moreNewsItems = true;
+  });
+}
+// Development Tool to Fill Progress Bars
+var fillProgressBars = function(){
+  $(function () {
+    $('.progress-bar').each(function () {
+      var t = $(this);
+      var barPercentage = t.data('percentage');
+
+          // add a div for the label text
+          t.children('.label').append("<div class='label-text'></div>");
+
+          // add some "gimme" percentage when data-percentage is <2
+          if (parseInt((t.data('percentage')), 10) < 2) barPercentage = 2;
+
+          // set up the left/right label flipping
+          if (barPercentage > 50) {
+            t.children('.label').css('right', (100 - barPercentage) + '%');
+            t.children('.label').css('margin-right', '-10px');
+          }
+          if (barPercentage < 51) {
+            t.children('.label').css('left', barPercentage + '%');
+            t.children('.label').css('margin-left', '-20px');
+          }
+
+          // fill in bars and labels
+          t.find('.label-text').text(t.attr('data-percentage') + ' Rooftops');
+          t.children('.bar').animate({
+            width: barPercentage + '%'
+          }, 1000);
+          t.children('.label').animate({
+            opacity: 1
+          }, 1000);
+        });
+  });
+  return 'yeah!';
+};
+
+DashboardCtrl.$inject = ['$scope', '$location', 'CurrentUser'];
 sunstandControllers.controller('DashboardCtrl', DashboardCtrl);

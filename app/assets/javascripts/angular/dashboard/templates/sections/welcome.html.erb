@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="large-8 medium-8 columns">
+
+    <!-- Row: Name and Welcome Quote -->
+    <div class="welcome-message row">
+      <!-- Photo -->
+      <div class="large-2 large-offset-1 medium-3 small-4 small-offset-1 columns">
+        <img class="avatar" src="{{currentUser.avatar.large}}">
+      </div>
+      <!-- Name and Welcome Quote -->
+      <div class="large-9 medium-8 small-7 columns">
+        <h2>Welcome, {{currentUser.first_name}}</h2>
+        <h5>The world needs you.</h5>
+      </div>
+    </div>
+
+    <!-- Row: Pay Period Goals -->
+    <div class="pay-period-goals row">
+      <div class="large-10 large-offset-1 medium-10 small-12 columns">
+        <!-- Label -->
+        <h5>Your Pay Period Goals</h5>
+        <!-- Top Progress Bar -->
+        <div class="progress-bar above" data-percentage="{{goals.personalPercent}}">
+          <div class="label above"></div>
+          <div class="orange bar label-is-above"><span></span></div>
+        </div>
+        <!-- Badge (floats to the right) -->
+        <div class="badge show-for-medium-up">
+          <img class="badge" src="{{goals.badge}}">
+        </div>
+        <!-- Bottom Progress Bar -->
+        <div class="progress-bar below" data-percentage="{{goals.groupPercent}}">
+          <div class="green bar label-is-below"><span></span></div>
+          <div class="label below"></div>
+        </div>
+        <!-- Legend -->
+        <div class="legend">
+          <span class="personal"></span>
+          <span>Personal Rooftops</span>
+          <br>
+          <br>
+          <span class="group"></span>
+          <span>Group Rooftops</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="large-4 medium-4 columns">
+
+    <!-- News Section -->
+    <div class="news row">
+      <div class="large-11 large-offset-1 medium-11 medium-offset-1 columns">
+        <span class="latest-news-label">Latest News</span>
+        <div class="notifications">
+          <div class="notification" ng-repeat="notification in news">
+            <p class="text">{{notification.text}}</p>
+            <span class="date">{{notification.date}}</span>
+          </div>
+          <a ng-if="moreNewsItems" class="load-more">Load More</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
