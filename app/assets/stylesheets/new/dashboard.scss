@@ -7,10 +7,125 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 .powur-dashboard {
   padding-bottom: 210px;
 
+
+  /*
+  SHARED STYLES
+  */
+
   // Typography
   h1, h2, h3, h4, h5, h6, p, span {
     font-family: $dashboard-font-family;
   }
+
+  // Selects
+  select.sort {
+    height: 62px;
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    border-radius: 0;
+    padding: 8px 16px;
+
+    background-color: #fff;
+    background-image: image-url('select_arrow.svg') ;
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+
+    font-family: $dashboard-font-family;
+    font-size: 10pt;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #aaa;
+
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    &:hover {
+      border-color: #ccc;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
+  // Inputs
+  input[type=search] {
+    height: 62px;
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    border-radius: 0;
+    padding: 8px 16px;
+    padding-left: 30px;
+
+    font-family: $dashboard-font-family;
+    font-size: 10pt;
+    line-height: 16px;
+    text-transform: uppercase;
+
+    background-color: #fff;
+    background-image: image-url('search.svg');
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+  }
+
+  // Search Field "Go" Button
+  .search {
+    &.button {
+      height: 62px;
+
+      border: 1px solid #e5e5e5;
+      background-color: #efefef;
+
+      font-family: $dashboard-font-family;
+      font-size: 10pt;
+      line-height: 62px;
+      color: #aaa;
+      text-transform: uppercase;
+      &:hover {
+        background-color: #e5e5e5;
+      }
+    }
+  }
+
+  // Section Labels
+  .section-label {
+    height: 62px;
+    width: 100%;
+    background: #fff;
+    margin: 0 0 1em 0;
+
+    div.tag {
+      background:$sun-color-blue;
+      width: 62px;
+      height: 62px;
+      float: left;
+
+      img {
+        padding: 25% 25%;
+      }
+
+    }
+
+    div.text{
+      border: 1px solid #e5e5e5;
+      height: 62px;
+      overflow: hidden;
+      padding-left: 10px;
+
+      font-family: $dashboard-font-family;
+      color: #333;
+      font-size: 10pt;
+      line-height: 62px;
+      text-transform: uppercase;
+    }
+  }
+
 
   /*
   WELCOME SECTION
@@ -282,7 +397,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   */
   .social-media-section {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
     background-color: #333;
 
     &.bg {
@@ -315,12 +430,20 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       line-height: 20pt;
     }
   }
+  // Responsive Styles for Social Media Section:
+
+  // Gray background sometimes shows below the .bg div when quote is two lines long; this prevents that:
+  @media #{$medium} {
+    .social-media-section {
+      background-color: initial;
+    }
+  }
 
   /*
   KPI SECTION
   */
   .kpi-section {
-
+    padding-top: 20px;
   }
 
   /*

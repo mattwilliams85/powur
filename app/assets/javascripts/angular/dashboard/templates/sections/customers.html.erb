@@ -1,5 +1,43 @@
 <div class="row">
   <div class="large-12 columns">
-    <h1>Customers</h1>
+
+    <!-- Row: Label / Sort / Search -->
+    <div class="row">
+
+      <div class="large-3 medium-4 columns">
+      <!-- Section Label -->
+        <div class="section-label">
+          <div class="tag"><img src="<%=asset_path('dashboard/customers_icon.png')%>"></div>
+          <div class="text">My Customers</div>
+        </div>
+      </div>
+
+      <div class="large-3 medium-3 columns">
+      <!-- Sort -->
+        <select class="sort">
+          <option>Order by Date</option>
+          <option>Order by Name</option>
+        </select>
+      </div>
+
+      <div class="large-3 medium-5 columns right">
+      <!-- Search -->
+        <div class="row collapse">
+          <div class="large-9 medium-9 small-10 columns">
+            <input type="search" placeholder="Search Customers">
+          </div>
+          <div class="large-3 medium-3 small-2 columns">
+            <a href="#" class="search button postfix">Go</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row: Customers Carousel -->
+    <div class="row">
+
+    </div>
+
   </div>
 </div>

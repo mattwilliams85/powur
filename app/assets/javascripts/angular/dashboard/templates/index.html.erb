@@ -34,21 +34,21 @@
   <!-- KPI Section -->
   <div class="row">
     <div class="kpi-section large-12 columns">
-      <ng-include src="'<%=asset_path("angular/dashboard/templates/sections/kpi.html.erb") %>'"></ng-include>
+      <ng-include ng-controller="DashboardKPICtrl" src="'<%=asset_path("angular/dashboard/templates/sections/kpi.html.erb") %>'"></ng-include>
     </div>
   </div>
 
-  <!-- My Customers Queue Section -->
+  <!-- My Customers Section -->
   <div class="row">
     <div class="customers-section large-12 columns">
-      <ng-include src="'<%=asset_path("angular/dashboard/templates/sections/customers.html.erb") %>'"></ng-include>
+      <ng-include ng-controller="DashboardCustomersCtrl" src="'<%=asset_path("angular/dashboard/templates/sections/customers.html.erb") %>'"></ng-include>
     </div>
   </div>
 
   <!-- My Team Section -->
   <div class="row">
     <div class="team-section large-12 columns">
-      <ng-include src="'<%=asset_path("angular/dashboard/templates/sections/team.html.erb") %>'"></ng-include>
+      <ng-include ng-controller="DashboardTeamCtrl" src="'<%=asset_path("angular/dashboard/templates/sections/team.html.erb") %>'"></ng-include>
     </div>
   </div>
 
