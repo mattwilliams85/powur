@@ -87,6 +87,10 @@ AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeP
     AdminUser.get($routeParams.userId).then(function(item) {
       $scope.user = item;
 
+      // Build Genealogy Tree
+      $scope.tree = {}; // awaiting function to populate object with users grid
+      $(function () { $('#jstree_demo_div').jstree($scope.tree); });
+
       // Breadcrumbs: Users / User Name
       $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/#/users'});
       $rootScope.breadcrumbs.push({title: $scope.user.properties.first_name + ' ' + $scope.user.properties.last_name});

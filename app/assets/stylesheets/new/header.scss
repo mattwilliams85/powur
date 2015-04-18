@@ -90,110 +90,23 @@
 /*
  * HEADER for signed in user
 */
-#sun_header {
-  background: $sun-color-blue;
-  font-family: "Varela Round", sans-serif;
-  left: 0;
-  top: 0;
-  position: fixed;
-  text-transform: uppercase;
-  height: 100px;
-  width: 100%;
-  z-index: 2;
+.powur-header {
 
-  .sun-header {
-    list-style-position: outside;
-    margin-top: 30px;
+  li {
+    font-family: "Varela Round", "Open Sans", sans-serif;
+    text-transform: uppercase;
+  }
 
-    li {
-      display: block;
-      float: left;
-      margin-right: 50px;
-    }
+  .main-logo {
 
-    .logo {
-      float: none;
-      margin-right: 60px;
-      margin-bottom: 20px;
-
-      a {
-        background-image: image-url('powur-white-logo.png');
-        background-size: 100% auto;
-        background-repeat: no-repeat;
-        background-position: 0 3px;
-        display: block;
-        margin-top: -15px;
-        width: 150px;
-        height: 70px;
-      }
-
-      @media #{$small} {
-        float: left;
-        margin-bottom: 0;
-      }
-    }
-
-    .menu-item {
-      a {
-        line-height: 37px;
-        font-size: 1em;
-      }
-    }
-
-    .sign-out {
-      margin-right: 0;
-
-      // a {
-      //   background: none;
-      //   display: inline-block;
-      //   line-height: 33px;
-      //   padding: 0 1em;
-      //   border: 2px solid #fff;
-      //   font-size: .8em;
-      // }
-    }
-
-    .avatar {
-      top: -12px;
-      position: relative;
-      margin-right: 20px;
-
-      a {
-        float: right;
-
-        img {
-          width: 64px;
-          border-radius: 50px;
-        }
-      }
-    }
-
-    .username {
-      a {
-        display: none;
-        float: right;
-        margin: 0 20px 0 0;
-        line-height: 37px;
-        font-size: 1em;
-
-        i {
-          font-style: normal;
-          color: #4a4747;
-        }
-
-        @media #{$small} {
-          display: block;
-        }
-      }
+    .logo-img {
+      margin-top: -20px;
+      width: 150px;
     }
   }
 
-  a {
-    color: #0a7fa1;
-
-    &.active, &:hover {
-      color: #fff;
-    }
+  .active {
+    color: #fff;
   }
 }
 

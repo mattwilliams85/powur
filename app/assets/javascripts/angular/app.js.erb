@@ -23,15 +23,20 @@ var sunstandApp = angular.module('sunstandApp', [
       }
     });
 
+    // Initialize Foundation JS on page load
+    $timeout(function() {
+      $(document).foundation();
+    }, 500);
+
     $rootScope.redirectToDashboardIfSignedIn = function() {
       if ($rootScope.isSignedIn) {
-        window.location = '/u/dashboard';
+        $location.path('/dashboard');
       }
     };
 
     $rootScope.redirectUnlessSignedIn = function() {
       if (!$rootScope.isSignedIn) {
-        window.location = '#/sign-in';
+        $location.path('/sign-in');
       }
     };
 
@@ -47,10 +52,6 @@ var sunstandApp = angular.module('sunstandApp', [
       $rootScope.$on('$locationChangeStart', function() {
         $timeout.cancel(pilerTimer);
       });
-    };
-
-    $rootScope.readyAdminHeader = function() {
-      $(document).foundation();
     };
 
     $rootScope.removePiler = function(){
@@ -281,6 +282,10 @@ sunstandApp.config(
     when('/home', {
       templateUrl: '<%= asset_path("angular/landing/templates/index.html") %>',
       controller: 'LandingCtrl'
+    }).
+    when('/dashboard', {
+      templateUrl: '<%= asset_path("angular/dashboard/templates/index.html") %>',
+      controller: 'DashboardCtrl'
     }).
     when('/sign-in', {
       templateUrl: '<%= asset_path("angular/landing/templates/sign-in.html") %>',

@@ -1,19 +1,49 @@
-<header id="sun_header">
-  <div class="row">
-    <div class="large-12 columns">
-      <ul class="sun-header">
-        <li class="right menu-item sign-out"><a ng-click="signOut()">Sign Out</a></li>
-        <!-- <li class="right username"><a ng-href="/u/profile">{{currentUser.first_name}} <i>{{currentUser.last_name}}</i></a></li> -->
-        <li class="right username"><a ng-href="/u/profile">{{currentUser.first_name}}</a></li>
+<!-- Dashboard Header -->
+<nav class="powur-header top-bar" data-options="is_hover:false">
 
-        <li class="logo"><a ng-href="/">&nbsp;</a></li>
-        <li class="menu-item"><a ng-href="/u/dashboard">Dashboard</a></li>
-        <li class="menu-item"><a ng-href="/u/earnings">Earnings</a></li>
-        <li class="menu-item"><a ng-class="{'active': isMenuLinkActive('/university')}" ng-href="#/university">Powur U</a></li>
-        <li class="menu-item"><a>Marketing</a></li>
-        <li class="menu-item"><a ng-class="{'active': isMenuLinkActive('/library')}" ng-href="#/library">Library</a></li>
-      </ul>
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</header>
+  <ul class="title-area">
+  <!-- Title Area -->
+    <li class="name main-logo">
+      <h1><a href="/"><img src="<%=asset_path('powur-white-logo.png')%>" class="logo-img" /></a></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/dashboard')}" ng-href="#/dashboard">Dashboard</a></li>
+      <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/earnings')}"ng-href="/u/earnings">Earnings</a></li>
+      <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/university')}" ng-href="#/university">Powur U</a></li>
+      <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/marketing')}">Marketing</a></li>
+      <li><a class="show-for-large-up" ng-class="{'active': isMenuLinkActive('/library')}" ng-href="#/library">Library</a></li>
+    </ul>
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <!-- Account Menu -->
+      <li class="hide-for-medium-down has-dropdown"><a>{{currentUser.first_name}}</a>
+        <ul class="dropdown">
+          <li><label>Account</label></li>
+          <li><a>Profile</a></li>
+          <li><a ng-href="/admin/#/">Administration</a></li>
+          <li class="divider"></li>
+          <li><a ng-click="signOut()">Sign Out</a></li>
+        </ul>
+      </li>
+
+      <!-- For Small Screens, show all menu items in one list for Hamburger Menu -->
+      <li class="hide-for-large-up"><label>Powur</label></li>
+      <li class="hide-for-large-up"><a ng-href="#/dashboard">Dashboard</a></li>
+      <li class="hide-for-large-up"><a ng-href="/u/earnings">Earnings</a></li>
+      <li class="hide-for-large-up"><a ng-href="#/university">Powur U</a></li>
+      <li class="hide-for-large-up"><a>Marketing</a></li>
+      <li class="hide-for-large-up"><a ng-href="#/library">Library</a></li>
+      <li class="hide-for-large-up" class="divider"></li>
+      <li class="hide-for-large-up"><label>Account</label></li>
+      <li class="hide-for-large-up"><a>{{currentUser.first_name}}'s Profile</a></li>
+      <li class="hide-for-large-up"><a ng-href="/admin/#/">Administration</a></li>
+      <li class="hide-for-large-up" class="divider"></li>
+      <li class="hide-for-large-up"><a ng-click="signOut()">Sign Out</a></li>
+    </ul>
+  </section>
+</nav>
