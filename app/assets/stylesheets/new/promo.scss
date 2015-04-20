@@ -582,9 +582,9 @@ $xl-screen: em-calc(1500);
       line-height:15pt;
     }
     h2 {
-      font-size:35pt;
+      font-size:40pt;
       @media #{$small} { 
-        font-size:45pt
+        font-size:40pt
       }
     }
     h5 {

@@ -129,10 +129,10 @@ var sunstandApp = angular.module('sunstandApp', [
               $('.sun-header-guest').toggleClass("invert").show().velocity({ opacity: 1 }, 200);
             }) }
             if(nextIndex > 1 && !$('.sun-header-guest').hasClass("invert")) { $('.sun-header-guest').toggleClass("invert").velocity("transition.slideDownBigIn");}
-            if(nextIndex === 2) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
-            if(nextIndex === 3) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
-            if(nextIndex === 4) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
-            if(nextIndex === 5) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
+            if(nextIndex === 3) { $rootScope.gif1Src = "<%= asset_path('landing/globe.gif') %>" }
+            if(nextIndex === 4) { $rootScope.gif2Src = "<%= asset_path('landing/scales-grey.gif') %>" }
+            if(nextIndex === 5) { $rootScope.gif3Src = "<%= asset_path('landing/hauzz.gif') %>" }
+            if(nextIndex === 6) { $rootScope.gif4Src = "<%= asset_path('landing/flame-grey.gif') %>" }
             $rootScope.$apply();
             $('.gif'+index).removeClass('hidden')
           },650)
