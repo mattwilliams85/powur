@@ -1,15 +1,15 @@
 <table class="_table _spreadSheet">
     <tr>
-        <th colspan="5">Quotes Info</th>
-        <th>Action</th>
+      <th colspan="5">Proposals Info</th>
+      <th>Action</th>
     </tr>
     {{#each this.entities}}
     <tr data-quote-id="{{this.properties.id}}">
         <td>
-            <div class="innerCell" style="width:20%;">
-                <span class="label" style="text-transform:capitalize;">Timestamp</span>
-                {{localtime this.properties.created_at}}
-            </div>
+          <div class="innerCell" style="width:20%;">
+              <span class="label" style="text-transform:capitalize;">Timestamp</span>
+              {{localtime this.properties.created_at}}
+          </div>
         </td>
         <td>
             <div class="innerCell" >
@@ -21,19 +21,19 @@
             <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Customer</span>
                 {{this.properties.customer}}
-             </div>           
+             </div>
         </td>
         <td>
             <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Product</span>
                 {{this.properties.product}}
-            </div>           
+            </div>
         </td>
         <td style="text-transform:capitalize;">
             <div class="innerCell">
                 <span class="label" style="text-transform:capitalize;">Captured Info.</span>
                 {{this.properties._dataStatusDisplay}}
-            </div>           
+            </div>
         </td>
         <td><a href="#" class="js-convert_quote_to_order js-action">View Details</a></td>
     </tr>
@@ -57,4 +57,3 @@
     </tr>
     {{/if}}
 </table>
-

@@ -24,9 +24,8 @@ AdminQuotesCtrl.prototype.fetch = function($scope, $rootScope, $location, $route
     AdminQuote.list().then(function(items) {
       $scope.users = items.entities;
 
-      // Breadcrumbs: Quotes
-      $rootScope.breadcrumbs.push({title: 'Quotes'});
-
+      // Breadcrumbs: Proposals
+      $rootScope.breadcrumbs.push({title: 'Proposals'});
     });
 
   } else if ($scope.mode === 'new') {
@@ -35,8 +34,8 @@ AdminQuotesCtrl.prototype.fetch = function($scope, $rootScope, $location, $route
     AdminQuote.get($routeParams.quoteId).then(function(item) {
       $scope.user = item.properties;
 
-      // Breadcrumbs: Quotes / View Quote
-      $rootScope.breadcrumbs.push({title: 'Quotes', href: '/admin/#/quotes'});
+      // Breadcrumbs: Proposals / View Quote
+      $rootScope.breadcrumbs.push({title: 'Proposals', href: '/admin/#/quotes'});
       $rootScope.breadcrumbs.push({title: 'View Quote'});
 
     });
@@ -45,8 +44,8 @@ AdminQuotesCtrl.prototype.fetch = function($scope, $rootScope, $location, $route
     AdminQuote.get($routeParams.quoteId).then(function(item) {
       $scope.user = item.properties;
 
-      // Breadcrumbs: Quotes / Update Quote
-      $rootScope.breadcrumbs.push({title: 'Quotes', href: '/admin/#/quotes'});
+      // Breadcrumbs: Proposals / Update Quote
+      $rootScope.breadcrumbs.push({title: 'Proposals', href: '/admin/#/quotes'});
       $rootScope.breadcrumbs.push({title: 'Update Quote'});
 
     });
