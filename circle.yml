@@ -2,4 +2,4 @@ deployment:
   staging:
     branch: develop
     heroku:
-      appname: sunstand-staging
+      appname: powur-staging
