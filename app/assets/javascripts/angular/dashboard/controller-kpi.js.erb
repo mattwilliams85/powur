@@ -1,0 +1,9 @@
+'use strict';
+
+function DashboardKPICtrl($scope, $location) {
+  $scope.redirectUnlessSignedIn();
+
+}
+
+DashboardKPICtrl.$inject = ['$scope', '$location', 'CurrentUser'];
+sunstandControllers.controller('DashboardKPICtrl', DashboardKPICtrl);

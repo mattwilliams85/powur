@@ -8,6 +8,14 @@
   // position:absolute;
   bottom:0;
 
+  // No Select
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
   .footer-content {
     margin: 1.2em;
     font-size: 12px;
@@ -80,6 +88,14 @@
   text-align: center;
   color: white;
   text-align: left;
+
+  // No Select
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 
   h3 {
     text-transform: uppercase;

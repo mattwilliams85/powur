@@ -11,29 +11,57 @@
 
   <div class="row">
     <div class="large-12 columns">
-      <div class="panel">
         <div class="row">
-          <!-- Avatar -->
-          <div class="large-2 columns right hide-for-small">
-            <img class="user-avatar right" src="{{user.properties.avatar}}"></img>
-          </div>
-          <!-- Info -->
-          <div class="large-10 columns" ng-show="!editMode">
-            <h3>Overview</h3>
-            <div class="panel">
-              <h4 ng-show="!user.properties.address || !user.properties.city || !user.properties.state || !user.properties.zip"><i class="fa fa-home"></i> <small>No Address Data</small></h4>
-              <span ng-show="user.properties.address && user.properties.city && user.properties.state && user.properties.zip">
-                <h4><i class="fa fa-home"></i> {{user.properties.address}}<h4>
-                  <h5>{{user.properties.city}}, {{user.properties.state}} {{user.properties.zip}}</h5>
-                </span>
+
+        <div class="section-container auto" data-section>
+          <section class="active">
+            <p class="title" data-section-title><a>Overview</a></p>
+            <div class="content" data-section-content>
+              <!-- Info -->
+              <div class="row">
+                <div class="large-4 columns">
+                  <div class="panel">
+                    <h4 ng-show="!user.properties.address || !user.properties.city || !user.properties.state || !user.properties.zip"><small>No Address Data</small></h4>
+                    <span ng-show="user.properties.address && user.properties.city && user.properties.state && user.properties.zip">
+                      <h4>{{user.properties.address}}<h4>
+                      <h5>{{user.properties.city}}, {{user.properties.state}} {{user.properties.zip}}</h5>
+                    </span>
+                  </div>
+                </div>
+                <div class="large-4 columns">
+                  <div class="panel">
+                    <h4>{{user.properties.phone}}</h4>
+                    <p>{{user.properties.email}}</p>
+                  </div>
+                </div>
+                <div class="large-4 columns">
+                  <div class="panel">
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="panel">
-              <h4><i class="fa fa-phone"></i> {{user.properties.phone}}</h4>
+          </section>
+          <section>
+            <p class="title" data-section-title><a>Genealogy</a></p>
+            <div class="content" data-section-content>
+              <p>Upline/Downline/Placing Users</p>
+              <div class="panel">
+                <!-- jstree div goes here -->
+              </div>
             </div>
-            <div class="panel">
-              <h4><i class="fa fa-envelope"></i> {{user.properties.email}}</h4>
+          </section>
+          <section>
+            <p class="title" data-section-title><a>Orders</a></p>
+            <div class="content" data-section-content>
+              <p>Orders/Order Totals</p>
             </div>
-          </div>
+          </section>
+          <section>
+            <p class="title" data-section-title><a>Pay</a></p>
+            <div class="content" data-section-content>
+              <p>Bonus Payments/Pay Periods/Overrides</p>
+            </div>
+          </section>
         </div>
       </div>
     </div>
