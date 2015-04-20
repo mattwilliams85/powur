@@ -46,6 +46,7 @@ gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
 gem 'newrelic_rpm'
 gem 'aasm'
 gem 'smarteru', github: 'eyecuelab/smarteru'
+gem 'figaro'
 
 group :development do
   gem 'spring-commands-rspec'
