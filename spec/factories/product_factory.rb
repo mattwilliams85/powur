@@ -36,4 +36,9 @@ FactoryGirl.define do
       end
     end
   end
+
+  factory :product_enrollment do
+    product_id 1
+    user_id 1
+  end
 end

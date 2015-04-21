@@ -149,4 +149,37 @@ describe UserSmarteru do
       it { is_expected.to eq('http://redirecturl') }
     end
   end
+
+  describe '#require_class_completion?' do
+    subject { user.require_class_completion? }
+    let!(:product) { create(:product) }
+    let(:user) { create(:user) }
+    before do
+      allow_any_instance_of(ProductEnrollment).to receive(:start_learner_report_polling).and_return(true)
+    end
+
+    context 'required class does not exist' do
+      it { is_expected.to eq(false) }
+    end
+
+    context 'required class exists' do
+      let!(:product) { create(:product, is_required_class: true) }
+
+      it { is_expected.to eq(true) }
+
+      context 'user enrolled in a required class' do
+        let!(:product_enrollment) { create(:product_enrollment, user_id: user.id, product_id: product.id) }
+
+        it { is_expected.to eq(true) }
+
+        context 'user completed a required class' do
+          before do
+            product_enrollment.complete!
+          end
+
+          it { is_expected.to eq(false) }
+        end
+      end
+    end
+  end
 end

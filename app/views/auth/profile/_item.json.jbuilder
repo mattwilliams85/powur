@@ -13,7 +13,7 @@ json.properties do
     end
   end if @user.avatar?
 
-  json.require_enrollment !user.fit_class_enrollment.try(:complete?)
+  json.require_enrollment user.require_class_completion?
 end
 
 # entities entity('auth/users/item', ' profile-user', user: user)

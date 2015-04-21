@@ -629,7 +629,9 @@ CREATE TABLE products (
     description text,
     certifiable boolean DEFAULT false,
     image_original_path character varying,
-    smarteru_module_id character varying(50)
+    smarteru_module_id character varying(50),
+    is_required_class boolean DEFAULT false,
+    "position" integer
 );
 
 
@@ -2238,3 +2240,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150414230447');
 
 INSERT INTO schema_migrations (version) VALUES ('20150415072216');
 
+INSERT INTO schema_migrations (version) VALUES ('20150421165254');
+
+INSERT INTO schema_migrations (version) VALUES ('20150421171527');

@@ -57,7 +57,8 @@ namespace :powur do
         distributor_only:    true,
         certifiable:         true,
         image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certification.jpg',
-        smarteru_module_id:  '8342')
+        smarteru_module_id:  '8342',
+        position:            2)
 
       Product.create!(
         id:                  CERT2_ITEM_ID,
@@ -67,7 +68,8 @@ namespace :powur do
         distributor_only:    true,
         certifiable:         true,
         image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/shine.jpg',
-        smarteru_module_id:  '8362')
+        smarteru_module_id:  '8362',
+        position:            3)
 
       Product.create!(
         id:                  CERT3_ITEM_ID,
@@ -77,7 +79,9 @@ namespace :powur do
         distributor_only:    true,
         certifiable:         true,
         image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/fit.jpg',
-        smarteru_module_id:  '8319')
+        smarteru_module_id:  '8319',
+        is_required_class:   true,
+        position:            1)
 
       puts 'Created Products for solar item and consultant certification'
     end
