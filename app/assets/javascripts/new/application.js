@@ -12,6 +12,7 @@
 //= require_tree ../angular/library
 //= require_tree ../angular/promo
 //= require_tree ../angular/university
+//= require_tree ../angular/user-static-content
 
 //= require_tree ../angular/modules/file-s3-uploader
 

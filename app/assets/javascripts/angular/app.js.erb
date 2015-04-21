@@ -39,12 +39,14 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     // Block clicks to paths that require FIT class completion
-    var preEnrollmentPaths = /\/(university)/;
+    // This is just a usability feature to detect before changing location
+    // another check happens on controller load
+    var enrollmentPaths = /\/(dashboard|library)/;
     $rootScope.$on('$locationChangeStart', function(event, newPath, oldPath) {
       if ($rootScope.isSignedIn
           && $rootScope.isEnrollmentRequired()
-          && !preEnrollmentPaths.test(newPath)
-          && preEnrollmentPaths.test(oldPath)) {
+          && enrollmentPaths.test(newPath)
+          && !enrollmentPaths.test(oldPath)) {
         event.preventDefault();
       }
     });
@@ -362,6 +364,20 @@ sunstandApp.config(
     when('/library', {
       templateUrl: '<%=asset_path("angular/library/templates/index.html")%>',
       controller: 'LibraryCtrl'
+    }).
+
+    // Signed In User's static content pages
+    when('/terms-of-service', {
+      templateUrl: '<%=asset_path("angular/user-static-content/templates/terms-of-service.html")%>',
+      controller: 'UserStaticContentCtrl'
+    }).
+    when('/privacy-policy', {
+      templateUrl: '<%=asset_path("angular/user-static-content/templates/privacy-policy.html")%>',
+      controller: 'UserStaticContentCtrl'
+    }).
+    when('/disclaimer', {
+      templateUrl: '<%=asset_path("angular/user-static-content/templates/disclaimer.html")%>',
+      controller: 'UserStaticContentCtrl'
     }).
 
     otherwise({
