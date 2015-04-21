@@ -12,14 +12,35 @@ var sunstandApp = angular.module('sunstandApp', [
   function ($rootScope, $location, $document, $http, $window, $timeout, CurrentUser) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
+
     /*
      * Fill in User object with data if user is signed in but object is empty
-    */
-    $rootScope.$on('$includeContentLoaded', function(event, next, current) {
-      if ($rootScope.isSignedIn) {
-        CurrentUser.get().then(function(data) {
-          $rootScope.currentUser = data;
-        });
+     */
+    // $rootScope.$on('$includeContentLoaded', function(event, next, current) {
+    if ($rootScope.isSignedIn) {
+      CurrentUser.get().then(function(data) {
+        $rootScope.currentUser = data;
+      });
+    }
+
+    // Check if User hasn't complete required FIT class
+    $rootScope.isEnrollmentRequired = function() {
+      $rootScope.currentUser && $rootScope.currentUser.require_enrollment
+    }
+
+    // Redirect if User hasn't complete required FIT class
+    $rootScope.requireEnrollmentValidation = function() {
+      if ($rootScope.isEnrollmentRequired) {
+        $location.path('/university');
+        $rootScope.showModal('Unlock your Powur dashboard by passing the F.I.T test in Powur U.');
+      }
+    };
+
+    // Block clicks to paths that require FIT class completion
+    var preEnrollmentPaths = /\/(university)/;
+    $rootScope.$on('$locationChangeStart', function(event, newPath, oldPath) {
+      if ($rootScope.isSignedIn && !preEnrollmentPaths.test(newPath) && preEnrollmentPaths.test(oldPath)) {
+        event.preventDefault();
       }
     });
 
@@ -158,35 +179,6 @@ var sunstandApp = angular.module('sunstandApp', [
       $('<div class=\'reveal-modal ' + modalClass + '\' data-reveal><h3>' + text + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
     };
 
-    // TODO: move header functionality into its own directive
-    // $rootScope.invertHeaderColor = function() {
-    //   var docEl = document.documentElement,
-    //   header,
-    //   height = $(window).height() - 20;
-    //   window.onscroll = function headerScrollInvert() {
-    //     var sTop = (this.pageYOffset || docEl.scrollTop) - (docEl.clientTop || 0);
-    //     header = document.getElementById('sun_header_guest');
-
-    //     if (!header) return;
-
-    //     if (sTop > height) {
-    //       if (header.className !== 'sun-header-guest invert') {
-    //         header.setAttribute('class', 'sun-header-guest hidden');
-    //         setTimeout(function invertHeader() {
-    //           header.setAttribute('class', 'sun-header-guest invert');
-    //         }, 200);
-    //       }
-    //     } else {
-    //       if (header.className !== '') {
-    //         header.setAttribute('class', 'sun-header-guest hidden');
-    //         setTimeout(function invertHeader() {
-    //           header.setAttribute('class', 'sun-header-guest');
-    //         }, 200);
-    //       }
-    //     }
-    //   };
-    // };
-
     $rootScope.setupInvertHeader = function() {
       angular.element($window).bind("scroll", function() {
         var header = document.getElementById('sun_header_guest');
@@ -220,7 +212,6 @@ var sunstandApp = angular.module('sunstandApp', [
       return false;
     }
 
-    // TODO: move header functionality into its own directive
     $rootScope.signOut = function() {
       var cb = function() {
         $rootScope.isSignedIn = false;
@@ -257,7 +248,7 @@ var sunstandApp = angular.module('sunstandApp', [
               $rootScope.enableScrollDetect();;
             }
           }
-        },700)
+        }, 700);
       });
     };
   }

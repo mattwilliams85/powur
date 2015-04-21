@@ -4,7 +4,7 @@ module UserSmarteru
   extend ActiveSupport::Concern
 
   def smarteru_client
-    RestClient.proxy = ENV["QUOTAGUARDSTATIC_URL"] if Rails.env.production?
+    RestClient.proxy = ENV['QUOTAGUARDSTATIC_URL'] if Rails.env.production?
     @smarteru_client ||= Smarteru::Client.new(
       account_api_key: Rails.application.secrets.smarteru_account_api_key,
       user_api_key: Rails.application.secrets.smarteru_user_api_key
@@ -147,5 +147,9 @@ module UserSmarteru
       return false
     end
     response.result[:learner_report][:learner].to_a # Calling .to_a to standardize because if only one report returned, it would have it as an object
+  end
+
+  def fit_class_enrollment
+    product_enrollments.joins(:product).where(products: {smarteru_module_id: '8319'}).first
   end
 end

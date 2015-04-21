@@ -2,6 +2,11 @@
 
 function LibraryCtrl($scope, $location, Resource) {
   $scope.redirectUnlessSignedIn();
+
+  $scope.$watch('currentUser', function(data) {
+    $scope.requireEnrollmentValidation();
+  });
+
   $scope.items = [];
   $scope.itemsPaging = {
     current_page: 1
