@@ -25,12 +25,12 @@ var sunstandApp = angular.module('sunstandApp', [
 
     // Check if User hasn't complete required FIT class
     $rootScope.isEnrollmentRequired = function() {
-      $rootScope.currentUser && $rootScope.currentUser.require_enrollment
+      return $rootScope.currentUser && $rootScope.currentUser.require_enrollment;
     }
 
     // Redirect if User hasn't complete required FIT class
     $rootScope.requireEnrollmentValidation = function() {
-      if ($rootScope.isEnrollmentRequired) {
+      if ($rootScope.isEnrollmentRequired()) {
         $location.path('/university');
         $rootScope.showModal('Unlock your Powur dashboard by passing the F.I.T test in Powur U.');
       }
@@ -39,7 +39,10 @@ var sunstandApp = angular.module('sunstandApp', [
     // Block clicks to paths that require FIT class completion
     var preEnrollmentPaths = /\/(university)/;
     $rootScope.$on('$locationChangeStart', function(event, newPath, oldPath) {
-      if ($rootScope.isSignedIn && !preEnrollmentPaths.test(newPath) && preEnrollmentPaths.test(oldPath)) {
+      if ($rootScope.isSignedIn
+          && $rootScope.isEnrollmentRequired()
+          && !preEnrollmentPaths.test(newPath)
+          && preEnrollmentPaths.test(oldPath)) {
         event.preventDefault();
       }
     });
