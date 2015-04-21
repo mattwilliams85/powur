@@ -8,8 +8,8 @@ var sunstandApp = angular.module('sunstandApp', [
 
   // Directives
   'sunstandApp.fileS3Uploader'
-]).run(['$rootScope', '$location', '$document', '$http', '$window', '$timeout', 'CurrentUser',
-  function ($rootScope, $location, $document, $http, $window, $timeout, CurrentUser) {
+]).run(['$rootScope', '$location', '$document', '$http', '$window', '$timeout', 'UserProfile',
+  function ($rootScope, $location, $document, $http, $window, $timeout, UserProfile) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
@@ -18,7 +18,7 @@ var sunstandApp = angular.module('sunstandApp', [
      */
     // $rootScope.$on('$includeContentLoaded', function(event, next, current) {
     $rootScope.updateCurrentUser = function() {
-      CurrentUser.get().then(function(data) {
+      UserProfile.get().then(function(data) {
         $rootScope.currentUser = data;
       });
     };
@@ -379,6 +379,12 @@ sunstandApp.config(
     when('/disclaimer', {
       templateUrl: '<%=asset_path("angular/user-static-content/templates/disclaimer.html")%>',
       controller: 'UserStaticContentCtrl'
+    }).
+
+    // User's Profile page
+    when('/profile', {
+      templateUrl: '<%=asset_path("angular/profile/templates/edit.html")%>',
+      controller: 'ProfileCtrl'
     }).
 
     otherwise({

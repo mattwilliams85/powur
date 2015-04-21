@@ -1,6 +1,6 @@
 siren json
 
-json.partial! 'item', user: @user, detail: false
+json.partial! 'auth/profile/item', user: @user, detail: false
 
 # profile_json.list_entities(profile_path, @profile)
 

@@ -1,13 +1,13 @@
 'use strict';
 
-function DashboardCtrl($scope, $location, CurrentUser) {
+function DashboardCtrl($scope, $location, UserProfile) {
   $scope.redirectUnlessSignedIn();
 
   $scope.$watch('currentUser', function(data) {
     $scope.requireEnrollmentValidation();
   });
 
-  CurrentUser.get().then(function(user) {
+  UserProfile.get().then(function(user) {
     $scope.currentUser = user;
     $scope.goals = { personalPercent: 100, groupPercent: 20, badge: '<%= image_path("badges/rank0.png") %>' };
     $scope.news = [ {text: 'Solar Power is the energy of the future.', date: '3/18/2015'},
@@ -53,5 +53,5 @@ var fillProgressBars = function(){
   return 'yeah!';
 };
 
-DashboardCtrl.$inject = ['$scope', '$location', 'CurrentUser'];
+DashboardCtrl.$inject = ['$scope', '$location', 'UserProfile'];
 sunstandControllers.controller('DashboardCtrl', DashboardCtrl);

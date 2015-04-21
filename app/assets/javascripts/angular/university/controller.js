@@ -1,6 +1,6 @@
 'use strict';
 
-function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams, UniversityClass, CurrentUser, Geo) {
+function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams, UniversityClass, UserProfile, Geo) {
   $scope.redirectUnlessSignedIn();
 
   function getAction(actions, name) {
@@ -54,7 +54,7 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams,
   };
 
   this.init($scope, $location);
-  this.fetch($scope, $routeParams, $location, UniversityClass, CurrentUser, Geo);
+  this.fetch($scope, $routeParams, $location, UniversityClass, UserProfile, Geo);
 }
 
 
@@ -65,7 +65,7 @@ UniversityCtrl.prototype.init = function($scope, $location) {
 };
 
 
-UniversityCtrl.prototype.fetch = function($scope, $routeParams, $location, UniversityClass, CurrentUser, Geo) {
+UniversityCtrl.prototype.fetch = function($scope, $routeParams, $location, UniversityClass, UserProfile, Geo) {
   if ($scope.mode === 'index') {
     return UniversityClass.list().then(function(items) {
       $scope.universityClasses = items;
@@ -91,5 +91,5 @@ UniversityCtrl.prototype.fetch = function($scope, $routeParams, $location, Unive
 };
 
 
-UniversityCtrl.$inject = ['$scope', '$location', '$window', '$anchorScroll', '$routeParams', 'UniversityClass', 'CurrentUser', 'Geo'];
+UniversityCtrl.$inject = ['$scope', '$location', '$window', '$anchorScroll', '$routeParams', 'UniversityClass', 'UserProfile', 'Geo'];
 sunstandControllers.controller('UniversityCtrl', UniversityCtrl);
