@@ -32,6 +32,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
           $(document).foundation();
         } else {
           $rootScope.isSignedIn = true;
+          $rootScope.updateCurrentUser();
           $scope.redirectToDashboardIfSignedIn();
         }
       }).
@@ -151,7 +152,7 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
   };
 
   // $scope.landingPageDelay = function(){
-  
+
   //   $rootScope.animateArrow(1,6500)
   //   $scope.$on('$locationChangeStart', function(){
   //     $timeout.cancel(landingTimer);

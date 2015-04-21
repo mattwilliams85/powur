@@ -17,11 +17,13 @@ var sunstandApp = angular.module('sunstandApp', [
      * Fill in User object with data if user is signed in but object is empty
      */
     // $rootScope.$on('$includeContentLoaded', function(event, next, current) {
-    if ($rootScope.isSignedIn) {
+    $rootScope.updateCurrentUser = function() {
       CurrentUser.get().then(function(data) {
         $rootScope.currentUser = data;
       });
-    }
+    };
+
+    if ($rootScope.isSignedIn) $rootScope.updateCurrentUser();
 
     // Check if User hasn't complete required FIT class
     $rootScope.isEnrollmentRequired = function() {
