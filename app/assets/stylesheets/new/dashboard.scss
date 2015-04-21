@@ -125,6 +125,41 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       text-transform: uppercase;
     }
   }
+  // Carousels
+  .carousel {
+    border: 1px solid #e5e5e5;
+    border-left: 0;
+    height: 220px;
+
+    .carousel-item {
+      height: 220px;
+      border-left: 1px solid #e5e5e5;
+    }
+
+    // Slick Arrow Overrides
+    .slick-prev, .slick-next {
+      height: 16px;
+      width: 16px;
+    }
+    .slick-prev {
+      left: 5px;
+    }
+    .slick-next {
+      right: 5px;
+    }
+    .slick-prev:before, .slick-next:before {
+      color: #aaa;
+      font-family: "FontAwesome";
+      font-size: 16px;
+      text-align: center;
+    }
+    .slick-prev:before {
+      content: "\f053"; // Unicode for fa-chevron-left
+    }
+    .slick-next:before {
+      content: "\f054"; // Unicode for fa-chevron-right
+    }
+  }
 
 
   /*
@@ -450,7 +485,33 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   CUSTOMERS SECTION
   */
   .customers-section {
+    .new-proposal {
+      height: 100px;
+      border: 1px solid #e5e5e5;
+      border-right: 0;
 
+      .info {
+        position: relative;
+        top: 60%;
+        text-align: center;
+      }
+    }
+    // Responsive Styles for New Proposal Button:
+
+    // Make New Proposal button the same height as carousel on medium screens up
+    @media #{$medium} {
+      .new-proposal {
+        height: 220px;
+      }
+    }
+
+    .proposal {
+      .info {
+        position: relative;
+        top: 60%;
+        text-align: center;
+      }
+    }
   }
 
   /*
