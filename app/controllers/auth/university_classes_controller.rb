@@ -6,7 +6,7 @@ module Auth
     before_filter :validate_class_availability, only: [:enroll]
 
     def index
-      @university_classes = apply_list_query_options(Product.certifiable)
+      @university_classes = apply_list_query_options(Product.certifiable.sorted)
     end
 
     def purchase

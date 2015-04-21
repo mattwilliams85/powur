@@ -14,6 +14,7 @@ class Product < ActiveRecord::Base
 
   scope :with_bonuses, -> { includes(bonuses: [ :bonus_levels ]) }
   scope :certifiable, -> { where(certifiable: true) }
+  scope :sorted, -> { order('position ASC') }
 
   def sale_bonuses
     @sale_bonuses ||= bonuses.select { |b| b.sale? && b.enabled? }
