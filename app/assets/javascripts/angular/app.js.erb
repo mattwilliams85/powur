@@ -41,15 +41,15 @@ var sunstandApp = angular.module('sunstandApp', [
     // Block clicks to paths that require FIT class completion
     // This is just a usability feature to detect before changing location
     // another check happens on controller load
-    var enrollmentPaths = /\/(dashboard|library)/;
-    $rootScope.$on('$locationChangeStart', function(event, newPath, oldPath) {
-      if ($rootScope.isSignedIn
-          && $rootScope.isEnrollmentRequired()
-          && enrollmentPaths.test(newPath)
-          && !enrollmentPaths.test(oldPath)) {
-        event.preventDefault();
-      }
-    });
+    // var enrollmentPaths = /\/(dashboard|library)/;
+    // $rootScope.$on('$locationChangeStart', function(event, newPath, oldPath) {
+    //   if ($rootScope.isSignedIn
+    //       && $rootScope.isEnrollmentRequired()
+    //       && enrollmentPaths.test(newPath)
+    //       && !enrollmentPaths.test(oldPath)) {
+    //     event.preventDefault();
+    //   }
+    // });
 
     // Initialize Foundation JS on page load
     $timeout(function() {
