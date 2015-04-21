@@ -124,6 +124,7 @@ var sunstandApp = angular.module('sunstandApp', [
         onLeave: function(index, nextIndex, direction) {
           changeNavColor()
           $rootScope.animateArrow(nextIndex,1800);
+          $rootScope.nextIndex = nextIndex;
           setTimeout(function(){
             if(nextIndex === 1) { $('.sun-header-guest').velocity("transition.slideUpBigOut", function(){
               $('.sun-header-guest').toggleClass("invert").show().velocity({ opacity: 1 }, 200);

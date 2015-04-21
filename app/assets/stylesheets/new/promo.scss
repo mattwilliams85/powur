@@ -260,12 +260,15 @@ $xl-screen: em-calc(1500);
       /////
 
       &.active {
-        left: 0
+        left: 0;
+        @media #{$medium} { 
+          left:12%;
+        }
       }
 
       .image {
         margin-right: 15px;
-        width: 150px;
+        width: 200px;
       }
 
       p {
@@ -629,15 +632,15 @@ $xl-screen: em-calc(1500);
     .fa-chevron-left,  .fa-chevron-right {
       color:#eee;
       position:absolute;
-      bottom:-70px;
+      bottom:-100px;
     }
 
     .fa-chevron-left {
-      left:-50px;
+      left:50px;
     }
 
     .fa-chevron-right {
-      left:510px;
+      left:770px;
     }
 
     .slide-show-dots {
@@ -810,14 +813,18 @@ $xl-screen: em-calc(1500);
   .sun-promo-energy-slide-6 {
     padding-bottom:20px !important;
     .sun-promo-content {
+      .text-column {
+        padding:0 25px;
+      }
       h3 {
         font-size:35pt;
         margin-bottom:40px;
         text-align:center;
         @media #{$small} { 
           text-align:left;
-          font-size:22pt;
-          margin-bottom:10px;
+          font-size:27pt;
+          line-height:35pt;
+          margin-bottom:20px;
         }
       }
     }
@@ -827,11 +834,11 @@ $xl-screen: em-calc(1500);
       text-align:center;
       @media #{$small} {
         text-align:left;
-        line-height:16pt;
+        line-height:20pt;
       }
     }
     .row {
-      width:90%;
+      width:100%;
       @media #{$large} {
         width:95%
       }
@@ -904,12 +911,8 @@ $xl-screen: em-calc(1500);
   }
 
   .sunrun-icon-wrapper {
-    @include landing-sprite(sunrun-icon);
     margin:auto;
-
-    @media #{$large} {
-      margin:0 0 2em 0;
-    }
+    margin:0 0 2em 0;
   }
 
   .decentralize-icon-wrapper {
@@ -923,11 +926,8 @@ $xl-screen: em-calc(1500);
 
   .pocket-wallet-icon-wrapper {
     @include landing-sprite(pocket-wallet-icon);
-    margin-bottom: 20px;
-    padding-top:20px;
-    @media #{$small} { 
-      padding-top:0px;
-    }
+    position:absolute;
+    top:15pt;
   }
 
   .pollution-icon-wrapper {
@@ -1417,14 +1417,13 @@ $xl-screen: em-calc(1500);
       }
       h3 {
         width:600px;
-        margin-top:30px;
+        margin:30px auto;
         @media #{$small} {
           width:600px;
-          margin-top:30px;
         }
         @media #{$large} {
           width:800px;
-          margin-top:50px;
+          margin:50px auto;
         }
       }
       .fa-chevron-left {
@@ -1664,6 +1663,15 @@ $xl-screen: em-calc(1500);
           height:700px;
         }
         background-color:#f4f6f7;
+        .light-img {
+          background:image-url('promo/light-bulb.png');
+          background-repeat: no-repeat;
+          position: absolute;
+          height: 200px;
+          width: 200px;
+          top: 20%;
+          left: 25%;
+        }
         h2 {
           font-size:40pt;
           font-weight:800pt;
@@ -1823,7 +1831,7 @@ $xl-screen: em-calc(1500);
         max-width:800px;
         @media #{$small} { 
           font-size:13pt;
-          max-width:500px;
+          max-width:600px;
           text-align:left;
         }
       }
@@ -1950,7 +1958,7 @@ $xl-screen: em-calc(1500);
       height: 150px;
       margin-left:45%;
       @media #{$small} {
-        margin-left:35%;
+        margin-left:0;
       }
     }
 

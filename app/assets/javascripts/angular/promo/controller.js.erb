@@ -53,32 +53,24 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
   $scope.energyPromoSlides = [
     {
       images: [
-        'http://lorempixel.com/200/200/nature/1/',
-        'http://lorempixel.com/200/200/nature/2/',
-        '<%=asset_url("promo/slide-show-item.jpg") %>'
-      ],
-      text: 'Save money on your current electric bill, starting TODAY.  Sometimes up to 30%.'
-    },
-    {
-      images: [
-        'http://lorempixel.com/200/200/nature/3/',
-        'http://lorempixel.com/200/200/nature/4/',
+        '<%=asset_url("assets/promo/slide-energy-item-04.png") %>',
+        '<%=asset_url("assets/promo/slide-energy-item-03.png") %>',
         '<%=asset_url("promo/slide-show-item.jpg") %>'
       ],
       text: 'Lock in a lower rate on your electricity for the next 20 years, guaranteeing no more price increases or energy inflation!'
     },
     {
       images: [
-        'http://lorempixel.com/200/200/nature/5/',
-        'http://lorempixel.com/200/200/nature/6/',
+        '<%=asset_url("assets/promo/slide-energy-item-05.png") %>',
+        '<%=asset_url("assets/promo/slide-energy-item-06.png") %>',
         '<%=asset_url("promo/slide-show-item.jpg") %>'
       ],
-      text: 'We handle EVERYTHING from financing, to installation, to maintenance, to insurance and warranties... you have no worries.'
+      text: 'SolarCity handles EVERYTHING from financing, to installation, to maintenance, to insurance and warranties... you have no worries.'
     },
     {
       images: [
-       'http://lorempixel.com/200/200/nature/3/',
-        'http://lorempixel.com/200/200/nature/4/',
+        '<%=asset_url("assets/promo/slide-energy-item-08.png") %>',
+        '<%=asset_url("assets/promo/slide-energy-item-07.png") %>',
         '<%=asset_url("promo/slide-show-item.jpg") %>'
       ],
       text: 'Get peace of mind that your energy bills are protected, and you save money from this point forward.'
@@ -229,17 +221,23 @@ PromoCtrl.prototype.fetch = function($scope, $rootScope,  $interval, $timeout, $
   } else if ($scope.mode === 'why-you') {
     $scope.readyPiler();
 
-    $scope.currentSlide = 0;
-    $timeout(function() {
-      $scope.currentSlide += 1;
-      $scope.sliderStop = $interval(function() {
-        if ($scope.currentSlide >= 4) {
-          $scope.currentSlide = 0;
-        } else {
-          $scope.currentSlide += 1;
-        }
-      }, 5000);
-    }, 500);
+    $scope.$watch("nextIndex", function() {
+       if ($scope.nextIndex > 1) {
+         $scope.currentSlide = -1;
+         $timeout(function() {
+           $scope.currentSlide += 1;
+           $scope.sliderStop = $interval(function() {
+             if ($scope.currentSlide >= 4) {
+               $scope.currentSlide = 0;
+             } else {
+               $scope.currentSlide += 1;
+             }
+           }, 8000);
+         }, 500);
+       }
+     });
+
+
   } else if ($scope.mode === 'why-direct-selling') {
     $scope.readyPiler();
     $scope.setupPromoSlider($scope.directSalePromoSlides);
