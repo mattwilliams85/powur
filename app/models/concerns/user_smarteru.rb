@@ -6,9 +6,8 @@ module UserSmarteru
   def smarteru_client
     RestClient.proxy = ENV['QUOTAGUARDSTATIC_URL'] if Rails.env.production?
     @smarteru_client ||= Smarteru::Client.new(
-      account_api_key: Rails.application.secrets.smarteru_account_api_key,
-      user_api_key: Rails.application.secrets.smarteru_user_api_key
-    )
+      account_api_key: ENV['SMARTERU_ACCOUNT_API_KEY'],
+      user_api_key:    ENV['SMARTERU_USER_API_KEY'])
   end
 
   def has_smarteru_account?
@@ -40,11 +39,11 @@ module UserSmarteru
           send_email_to: 'Self',
         },
         profile: {
-          home_group: Rails.application.secrets.smarteru_group_name
+          home_group: ENV['SMARTERU_GROUP_NAME']
         },
         groups: {
           group: {
-            group_name: Rails.application.secrets.smarteru_group_name,
+            group_name: ENV['SMARTERU_GROUP_NAME'],
             group_permissions: ''
           }
         }
@@ -76,7 +75,7 @@ module UserSmarteru
           user: {
             employee_i_d: smarteru_employee_id
           },
-          group_name: Rails.application.secrets.smarteru_group_name,
+          group_name: ENV['SMARTERU_GROUP_NAME'],
           learning_module_i_d: product.smarteru_module_id
         }
       }
@@ -121,7 +120,7 @@ module UserSmarteru
         filters: {
           groups: {
             group_names: {
-              group_name: Rails.application.secrets.smarteru_group_name
+              group_name: ENV['SMARTERU_GROUP_NAME']
             }
           },
           learning_modules: {},

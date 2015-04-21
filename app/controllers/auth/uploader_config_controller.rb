@@ -7,11 +7,11 @@ module Auth
       @uploader.success_action_status = '201'
 
       data = {
-        "key" => @uploader.key.gsub(/\${filename}/, ''),
-        "AWSAccessKeyId" => Rails.application.secrets.aws_access_key_id,
-        "s3Policy" => @uploader.policy,
-        "s3Signature" => @uploader.signature,
-        "bucket" => Rails.application.secrets.aws_bucket
+        'key'            => @uploader.key.gsub(/\${filename}/, ''),
+        'AWSAccessKeyId' => ENV['AWS_ACCESS_KEY_ID'],
+        's3Policy'       => @uploader.policy,
+        's3Signature'    => @uploader.signature,
+        'bucket'         => ENV['AWS_BUCKET']
       }
       render json: data
     end

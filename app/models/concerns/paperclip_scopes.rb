@@ -2,9 +2,9 @@ module PaperclipScopes
   extend ActiveSupport::Concern
 
   included do
-    aws_bucket = Rails.application.secrets.aws_bucket
-    aws_access_key_id = Rails.application.secrets.aws_access_key_id
-    aws_secret_key = Rails.application.secrets.aws_secret_access_key
+    aws_bucket = ENV['AWS_BUCKET']
+    aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
+    aws_secret_key = ENV['AWS_SECRET_ACCESS_KEY']
     has_attached_file :avatar,
       path:            '/avatars/:id/:basename_:style.:extension',
       url:             ':s3_domain_url',

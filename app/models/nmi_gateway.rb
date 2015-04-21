@@ -7,9 +7,8 @@ class NmiGateway
 
   def initialize params
     @login = {
-      username: Rails.application.secrets[:nmi_username],
-      password: Rails.application.secrets[:nmi_password]
-    }
+      username: ENV['NMI_USERNAME'],
+      password: ENV['NMI_PASSWORD'] }
     @params = params
   end
 

@@ -88,10 +88,6 @@ describe '/a/quotes' do
   end
 
   describe '/:id/subject' do
-    before :all do
-      ENV['SOLAR_CITY_LEAD_URL'] = 'https://sctyleads-test.cloudhub.io/powur'
-    end
-
     def submit_and_assert_success(cassette)
       quote = create(:complete_quote)
 

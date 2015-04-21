@@ -82,7 +82,7 @@ module EwalletDSL
     if result[:ProcessorTransactionRefNumber]
       ref = result[:ProcessorTransactionRefNumber]
     end
-    Rails.application.secrets.ipayout_auto_login_endpoint + ref
+    ENV['IPAYOUT_AUTO_LOGIN_ENDPOINT'] + ref
   end
 
   def get_ewallet_customer_details(user)

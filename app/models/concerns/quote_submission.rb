@@ -32,7 +32,7 @@ module QuoteSubmission
     end
 
     def post
-      url = ENV['SOLAR_CITY_LEAD_URL'] || fail('Missing SOLAR_CITY_LEAD_URL env var')
+      url = ENV['SOLAR_CITY_LEAD_URL']
       @response = RestClient.post(url, post_body)
     rescue RestClient::InternalServerError => e
       @error = e

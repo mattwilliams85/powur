@@ -48,11 +48,11 @@ describe UserSmarteru do
               send_email_to: 'Self',
             },
             profile: {
-              home_group: Rails.application.secrets.smarteru_group_name
+              home_group: ENV['SMARTERU_GROUP_NAME']
             },
             groups: {
               group: {
-                group_name: Rails.application.secrets.smarteru_group_name,
+                group_name: ENV['SMARTERU_GROUP_NAME'],
                 group_permissions: ''
               }
             }
@@ -89,7 +89,7 @@ describe UserSmarteru do
             user: {
               employee_i_d: user.smarteru_employee_id
             },
-            group_name: Rails.application.secrets.smarteru_group_name,
+            group_name: ENV['SMARTERU_GROUP_NAME'],
             learning_module_i_d: product.smarteru_module_id
           }
         }

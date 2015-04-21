@@ -26,9 +26,9 @@ module Sunstand
     config.paperclip_defaults = {
       storage:        :s3,
       s3_credentials: {
-        bucket:            Rails.application.secrets.aws_bucket,
-        access_key_id:     Rails.application.secrets.aws_access_key_id,
-        secret_access_key: Rails.application.secrets.aws_secret_access_key } }
+        bucket:            ENV['AWS_BUCKET'],
+        access_key_id:     ENV['AWS_ACCESS_KEY_ID'],
+        secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'] } }
 
     config.active_record.schema_format = :sql
     config.active_record.raise_in_transactional_callbacks = true
@@ -36,5 +36,6 @@ module Sunstand
     config.middleware.delete Rack::ETag
 
     config.assets.paths << "#{Rails.root}/app/assets/templates"
+    config.secret_key_base = ENV['SECRET_KEY_BASE']
   end
 end
