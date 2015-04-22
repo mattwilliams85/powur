@@ -1,9 +1,10 @@
 'use strict';
 
-function LibraryCtrl($scope, $location, Resource) {
+function LibraryCtrl($scope, $location, Resource, UserProfile) {
   $scope.redirectUnlessSignedIn();
 
-  $scope.$watch('currentUser', function(data) {
+  UserProfile.get().then(function(user) {
+    $scope.currentUser = user;
     $scope.requireEnrollmentValidation();
   });
 
@@ -60,5 +61,5 @@ function LibraryCtrl($scope, $location, Resource) {
 
 }
 
-LibraryCtrl.$inject = ['$scope', '$location', 'Resource'];
+LibraryCtrl.$inject = ['$scope', '$location', 'Resource', 'UserProfile'];
 sunstandControllers.controller('LibraryCtrl', LibraryCtrl);

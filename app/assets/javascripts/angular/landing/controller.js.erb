@@ -1,7 +1,7 @@
 'use strict';
 
 function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Invite, Geo, UserProfile) {
-  $scope.redirectToDashboardIfSignedIn();
+  $scope.redirectIfSignedIn();
   $scope.removePiler();
 
   $scope.showValidationMessages = false;
@@ -29,8 +29,8 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
           $(document).foundation();
         } else {
           $rootScope.isSignedIn = true;
-          $rootScope.updateCurrentUser();
-          $scope.redirectToDashboardIfSignedIn();
+          $rootScope.currentUser = data;
+          $scope.redirectIfSignedIn();
         }
       });
     } else {

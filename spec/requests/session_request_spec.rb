@@ -18,7 +18,7 @@ describe '/login' do
       @user = create(:user)
       post login_path, email: @user.email, password: 'password', format: :json
 
-      expect_classes('session', 'user')
+      expect_classes('user')
     end
   end
 end

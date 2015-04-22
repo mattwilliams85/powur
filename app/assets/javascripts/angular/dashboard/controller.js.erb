@@ -3,12 +3,9 @@
 function DashboardCtrl($scope, $location, UserProfile) {
   $scope.redirectUnlessSignedIn();
 
-  $scope.$watch('currentUser', function(data) {
-    $scope.requireEnrollmentValidation();
-  });
-
   UserProfile.get().then(function(user) {
     $scope.currentUser = user;
+    $scope.requireEnrollmentValidation();
     $scope.goals = { personalPercent: 100, groupPercent: 20, badge: '<%= image_path("badges/rank0.png") %>' };
     $scope.news = [ {text: 'Solar Power is the energy of the future.', date: '3/18/2015'},
                     {text: 'Did you know that in one single day, the sun sends 15,000 times as much energy to the Earth as we consume worldwide on a daily basis?', date: '3/15/2015'},
