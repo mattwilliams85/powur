@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/eyecuelab/sunstand.png?style=badge&circle-token=184c29660ce8e18b159cdf7b7a4dd36222abc97a)](https://circleci.com/gh/eyecuelab/sunstand)
+[![Circle CI](https://circleci.com/gh/eyecuelab/powur.svg?style=svg&circle-token=184c29660ce8e18b159cdf7b7a4dd36222abc97a)](https://circleci.com/gh/eyecuelab/powur)
 
 ## Setting up Postgres
 
