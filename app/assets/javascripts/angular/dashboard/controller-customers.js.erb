@@ -1,9 +1,15 @@
 'use strict';
 
-function DashboardCustomersCtrl($scope, $location) {
+function DashboardCustomersCtrl($scope, $location, Geo) {
   $scope.redirectUnlessSignedIn();
+
+  $scope.states = Geo.states();
+
+  $('.carousel').on('afterChange', function(event, slick, currentSlide, nextSlide){
+    console.log(nextSlide);
+  });
 
 }
 
-DashboardCustomersCtrl.$inject = ['$scope', '$location'];
+DashboardCustomersCtrl.$inject = ['$scope', '$location', 'Geo'];
 sunstandControllers.controller('DashboardCustomersCtrl', DashboardCustomersCtrl);

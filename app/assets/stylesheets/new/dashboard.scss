@@ -53,6 +53,128 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     display: none;
   }
 
+  // Drilldowns
+  .drilldown {
+    position: relative;
+    background-color: #444;
+    padding: 0.9375em 0;
+
+    .summary {
+      padding: 0 15px;
+      height: 95%;
+      text-align: left;
+      border-bottom: 1px solid #9b9b9b;
+      border-right: 0;
+      color: #9b9b9b;
+
+      h1 {
+        font-size: 16pt;
+        color: #fff;
+      }
+    }
+
+    .form {
+
+      form {
+        fieldset {
+          border: 0;
+          .row {
+            .columns {
+              padding: 0 4px;
+            }
+          }
+          legend {
+            background-color: initial;
+            color: #fff;
+            font-family: $dashboard-font-family;
+            font-size: 16pt;
+          }
+        }
+        input {
+          background-color: rgba(0,0,0,0.06);
+          border: 1px solid rgba(0,0,0,0.2);
+          color: white;
+          outline: none;
+          border-radius: 4px;
+          padding: 24px 10px 8px;
+          height: 60px;
+          font-family: $dashboard-font-family;
+          font-size: 16pt;
+          &:focus {
+            background-color: rgba(0,0,0,0.2);
+            border: 1px solid rgba(0,0,0,0.2);
+          }
+        }
+        select {
+          background-color: rgba(0,0,0,0.06);
+          border: 1px solid rgba(0,0,0,0.2);
+          border-radius: 4px;
+          height: 60px;
+          padding: 24px 10px 8px;
+          outline: none;
+
+          background-image: image-url('select_arrow.svg') ;
+          background-position: right center;
+          background-repeat: no-repeat;
+          background-size: 40px 40px;
+
+          color: white;
+          font-family: $dashboard-font-family;
+          font-size: 16pt;
+          line-height: 18pt;
+
+          -moz-appearance: none;
+          -webkit-appearance: none;
+
+          &:focus {
+            background-color: rgba(0,0,0,0.2);
+            border: 1px solid rgba(0,0,0,0.2);
+          }
+        }
+        label {
+          position: absolute;
+          top: 8px;
+          left: 14px;
+          color: #9b9b9b;
+          font-family: $dashboard-font-family;
+          text-transform: uppercase;
+          font-size: 10pt;
+        }
+      }
+
+      .button {
+        border-radius: 4px;
+        border: 1px solid rgba(0,0,0,0.2);
+        background-color: $sun-color-blue;
+        font-family: $dashboard-font-family;
+        text-transform: uppercase;
+        &:hover {
+          background-color: lighten($sun-color-blue, 10%);
+        }
+        &.secondary {
+          color: #9b9b9b;
+          background-color: rgba(0,0,0,0.08);
+          border: 1px solid rgba(0,0,0,0.2);
+          &:hover {
+            background-color: rgba(0,0,0,0.2);
+          }
+        }
+      }
+    }
+  }
+
+  // Responsive Styles for Drilldown
+  @media #{$small} {
+    .drilldown {
+      .summary {
+        position: absolute;
+        border-right: 1px solid #9b9b9b;
+        border-bottom: 0;
+        text-align: center;
+      }
+    }
+  }
+
   // Inputs
   input[type=search] {
     height: 62px;
@@ -125,6 +247,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       text-transform: uppercase;
     }
   }
+
   // Carousels
   .carousel {
     border: 1px solid #e5e5e5;
@@ -485,11 +608,19 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   CUSTOMERS SECTION
   */
   .customers-section {
+    padding-bottom: 20px;
 
     .new-proposal, .proposal {
-      .info-text {
+      color: #555;
+      .icon {
+        top: 25%;
         position: relative;
-        top: 60%;
+        text-align: center;
+      }
+      .info-text {
+        font-family: $dashboard-font-family;
+        position: relative;
+        top: 35%;
         text-align: center;
         line-height: 18pt;
         font-size: 16pt;
@@ -497,132 +628,18 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     }
 
     .new-proposal {
-      // has different behavior on M/L/XL screens; see Responsive Styles section below
-      height: 100px;
+      height: 220px;
       border: 1px solid #e5e5e5;
-      border-bottom: 0;
+      border-right: 0;
     }
 
     .proposal {
 
     }
 
-    .proposal-drilldown {
-      position: relative;
-      background-color: #444;
-      padding: 0.9375em 0;
-
-      .summary {
-        padding: 0 15px;
-        height: 95%;
-        text-align: center;
-        color: #9b9b9b;
-
-        h1 {
-          font-size: 16pt;
-          color: #fff;
-        }
-      }
-
-      .form {
-
-        form {
-          fieldset {
-            border: 0;
-            .row {
-              .columns {
-                padding: 0 4px;
-              }
-            }
-            legend {
-              background-color: initial;
-              color: #fff;
-              font-family: $dashboard-font-family;
-              font-size: 16pt;
-            }
-          }
-          input {
-            background-color: rgba(0,0,0,0.06);
-            border: 1px solid rgba(0,0,0,0.2);
-            color: white;
-            outline: none;
-            border-radius: 4px;
-            padding: 24px 10px 8px;
-            height: 60px;
-            font-family: $dashboard-font-family;
-            font-size: 16pt;
-            &:focus {
-              background-color: rgba(0,0,0,0.2);
-              border: 1px solid rgba(0,0,0,0.2);
-            }
-          }
-          select {
-            background-color: rgba(0,0,0,0.06);
-            border: 1px solid rgba(0,0,0,0.2);
-            border-radius: 4px;
-            height: 60px;
-            padding: 24px 10px 8px;
-            outline: none;
-
-            background-image: image-url('select_arrow.svg') ;
-            background-position: right center;
-            background-repeat: no-repeat;
-            background-size: 40px 40px;
-
-            color: white;
-            font-family: $dashboard-font-family;
-            font-size: 16pt;
-            line-height: 18pt;
-
-            -moz-appearance: none;
-            -webkit-appearance: none;
-
-            &:focus {
-              background-color: rgba(0,0,0,0.2);
-              border: 1px solid rgba(0,0,0,0.2);
-            }
-          }
-          label {
-            position: absolute;
-            top: 8px;
-            left: 14px;
-            color: #9b9b9b;
-            font-family: $dashboard-font-family;
-            text-transform: uppercase;
-            font-size: 10pt;
-          }
-        }
-
-        .button {
-          border-radius: 4px;
-          background-color: $sun-color-blue;
-          font-family: $dashboard-font-family;
-          text-transform: uppercase;
-        }
-      }
-
-    }
-
     // Fix: initializing carousel adds 30px bottom margin to its div
     .slick-slider {
       margin-bottom: 1px;
-    }
-
-    // Responsive Styles for Customers Section:
-
-    // Make New Proposal button same height as carousel when it renders inline
-    @media #{$small} {
-      .new-proposal {
-        height: 220px;
-        border: 1px solid #e5e5e5;
-        border-right: 0;
-      }
-      .proposal-drilldown {
-        .summary {
-          position: absolute;
-          border-right: 1px solid #9b9b9b;
-        }
-      }
     }
   }
 

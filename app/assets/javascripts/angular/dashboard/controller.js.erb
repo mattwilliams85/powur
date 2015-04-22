@@ -57,6 +57,7 @@ var fillProgressBars = function(){
 // Development Tool to make Slick carousels
 var slick = function(elementToSlick) {
   $(elementToSlick).slick({
+    swipe: false,
     dots: false,
     infinite: true,
     speed: 300,
@@ -79,13 +80,6 @@ var slick = function(elementToSlick) {
           slidesToScroll: 2
         }
       }
-      // {
-      //   breakpoint: 480,
-      //   settings: {
-      //     slidesToShow: 1,
-      //     slidesToScroll: 1,
-      //   }
-      // }
     ]
   });
 };
