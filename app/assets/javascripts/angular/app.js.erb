@@ -12,43 +12,7 @@ var sunstandApp = angular.module('sunstandApp', [
   function ($rootScope, $location, $document, $http, $window, $timeout, UserProfile) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
-
-    /*
-     * Fill in User object with data if user is signed in but object is empty
-     */
-    // $rootScope.$on('$includeContentLoaded', function(event, next, current) {
-    if ($rootScope.isSignedIn) {
-      UserProfile.get().then(function(data) {
-        $rootScope.currentUser = data;
-      });
-    }
-
-    // Check if User hasn't complete required FIT class
-    $rootScope.isEnrollmentRequired = function() {
-      return $rootScope.currentUser && $rootScope.currentUser.require_enrollment;
-    }
-
-    // Redirect if User hasn't complete required FIT class
-    var enrollmentRequirementMessage = 'Unlock your Powur dashboard by passing the F.I.T test in Powur U.';
-    $rootScope.requireEnrollmentValidation = function() {
-      if ($rootScope.isEnrollmentRequired()) {
-        $location.path('/university');
-        $rootScope.showModal(enrollmentRequirementMessage);
-      }
-    };
-
-    // Block clicks to paths that require FIT class completion
-    // This is just a usability feature to detect before changing location
-    // another check happens on controller load
-    // var enrollmentPaths = /\/(dashboard|library)/;
-    // $rootScope.$on('$locationChangeStart', function(event, newPath, oldPath) {
-    //   if ($rootScope.isSignedIn
-    //       && $rootScope.isEnrollmentRequired()
-    //       && enrollmentPaths.test(newPath)
-    //       && !enrollmentPaths.test(oldPath)) {
-    //     event.preventDefault();
-    //   }
-    // });
+    $rootScope.enrollmentRequirementMessage = 'Unlock your Powur dashboard by passing the F.I.T test in Powur U.';
 
     // Initialize Foundation JS on page load
     $timeout(function() {
@@ -57,9 +21,9 @@ var sunstandApp = angular.module('sunstandApp', [
 
     $rootScope.redirectIfSignedIn = function() {
       if ($rootScope.isSignedIn) {
-        if ($rootScope.isEnrollmentRequired()) {
+        if ($rootScope.currentUser && $rootScope.currentUser.require_enrollment) {
           $location.path('/university');
-          $rootScope.showModal(enrollmentRequirementMessage);
+          $rootScope.showModal($rootScope.enrollmentRequirementMessage);
         } else {
           $location.path('/dashboard');
         }

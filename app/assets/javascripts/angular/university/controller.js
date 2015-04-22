@@ -3,6 +3,10 @@
 function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams, UniversityClass, UserProfile, Geo) {
   $scope.redirectUnlessSignedIn();
 
+  UserProfile.get().then(function(user) {
+    $scope.currentUser = user;
+  });
+
   function getAction(actions, name) {
     for (var i in actions) {
       if (actions[i].name === name) {

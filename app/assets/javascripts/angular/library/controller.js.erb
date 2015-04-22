@@ -5,7 +5,11 @@ function LibraryCtrl($scope, $location, Resource, UserProfile) {
 
   UserProfile.get().then(function(user) {
     $scope.currentUser = user;
-    $scope.requireEnrollmentValidation();
+    if (user.require_enrollment) {
+      $location.path('/university');
+      $scope.showModal($scope.enrollmentRequirementMessage);
+      return;
+    }
   });
 
   $scope.items = [];
