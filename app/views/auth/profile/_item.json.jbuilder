@@ -13,7 +13,9 @@ json.properties do
     end
   end if @user.avatar?
 
-  json.require_enrollment user.require_class_completion?
+  # Uncomment this to have front-end FIT class completion validation
+  # json.require_enrollment user.require_class_completion?
+  json.require_enrollment false
 end
 
 # entities entity('auth/users/item', ' profile-user', user: user)
