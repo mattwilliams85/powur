@@ -53,25 +53,25 @@ function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, 
   $scope.energyPromoSlides = [
     {
       images: [
-        '<%=asset_url("assets/promo/slide-energy-item-04.png") %>',
-        '<%=asset_url("assets/promo/slide-energy-item-03.png") %>',
-        '<%=asset_url("promo/slide-show-item.jpg") %>'
+        '<%= asset_url("assets/promo/slide-energy-item-04.png") %>',
+        '<%= asset_url("assets/promo/slide-energy-item-03.png") %>',
+        '<%= asset_url("promo/slide-show-item.jpg") %>'
       ],
       text: 'Lock in a lower rate on your electricity for the next 20 years, guaranteeing no more price increases or energy inflation!'
     },
     {
       images: [
-        '<%=asset_url("assets/promo/slide-energy-item-05.png") %>',
-        '<%=asset_url("assets/promo/slide-energy-item-06.png") %>',
-        '<%=asset_url("promo/slide-show-item.jpg") %>'
+        '<%= asset_url("assets/promo/slide-energy-item-05.png") %>',
+        '<%= asset_url("assets/promo/slide-energy-item-06.png") %>',
+        '<%= asset_url("promo/slide-show-item.jpg") %>'
       ],
       text: 'SolarCity handles EVERYTHING from financing, to installation, to maintenance, to insurance and warranties... you have no worries.'
     },
     {
       images: [
-        '<%=asset_url("assets/promo/slide-energy-item-08.png") %>',
-        '<%=asset_url("assets/promo/slide-energy-item-07.png") %>',
-        '<%=asset_url("promo/slide-show-item.jpg") %>'
+        '<%= asset_url("assets/promo/slide-energy-item-08.png") %>',
+        '<%= asset_url("assets/promo/slide-energy-item-07.png") %>',
+        '<%= asset_url("promo/slide-show-item.jpg") %>'
       ],
       text: 'Get peace of mind that your energy bills are protected, and you save money from this point forward.'
     }
@@ -251,42 +251,42 @@ PromoCtrl.prototype.fetch = function($scope, $rootScope,  $interval, $timeout, $
       {
         name: 'Jonathan Budd',
         title: 'Founder/CEO',
-        image: "<%=asset_path('promo/people/jb.jpg') %>",
+        image: "<%= asset_path('promo/people/jb.jpg') %>",
         details: '  Jonathan heads up day-to-day operations and strategy that allow Powur’s entrepreneurs to succeed at their finest.  From forming key strategic partnerships, attracting the best talent, and innovating how solar is sold... Jonathan has his hands in everything Powur.  Prior to Powur, he built one of the largest online training and education companies in direct selling with more than 100,000 customers.  In 2010, he shifted his entrepreneurial pursuits toward projects focused on game-changing global impact.  He founded MyStand in 2011, which developed a first-of-its-kind gaming app to engage users in positive global change.  He is also Founder and Executive Director of The Global Transformation Council, Inc., a 501c3 organization that’s donated close to $1,000,000 to local and global initiatives for change.',
         showDetails: false
       },
       {
         name: 'Robert Styler',
         title: 'Co-Founder and President',
-        image: "<%=asset_path('promo/people/2.jpg') %>",
+        image: "<%= asset_path('promo/people/2.jpg') %>",
         details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Powur’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
         showDetails: false
       },
       {
         name: 'Tyler Jensen',
         title: 'Interim CFO',
-        image: "<%=asset_path('promo/people/3.jpg') %>",
+        image: "<%= asset_path('promo/people/3.jpg') %>",
         details: '  Tyler has 20+ years of experience in successful entrepreneurship and expanding business ventures, having launched and helped launch more than 100 companies and helping to raise more than $200 million for startup companies.  He plays a key role in a broad range of Powur’s operational and strategic areas, including business development, financial and growth strategies, budget forecasting, funding activities, among others.  He is the founder of The Startup Garage, a consulting firm specializing in helping entrepreneurs and business owners achieve success.  He also founded VAVi, a sport and social club which he grew to more than 25,000 members in six years and in 2008, sold for over 150 times the capital investment. ',
         showDetails: false
       },
       {
         name: 'Craig Jorgensen',
         title: 'Chief Designer',
-        image: "<%=asset_path('promo/people/7.jpg') %>",
+        image: "<%= asset_path('promo/people/7.jpg') %>",
         details: '  Craig has led UI/UX on multiple direct selling company launches, including one of the fastest growing direct sales start-ups in history, reaching 1,000,000+ users in 78 days during its 2013 pre-launch. He has a foundation in traditional print and advertising coupled with digital applications know-how, which makes him an unstoppable force in Powur.',
         showDetails: false
       },
       {
         name: 'Rick Hou',
         title: 'Chief Technology Officer',
-        image: "<%=asset_path('promo/people/rh.jpg') %>",
+        image: "<%= asset_path('promo/people/rh.jpg') %>",
         details: '  Rick oversees all development of Powur’s proprietary software platform, and leads the execution of the Company’s technology vision and strategy.  He is the founder of EyeCue Lab, a professional services incubator focused on providing technical and business expertise to startups, and has been the key architect in a wide array of technology projects including enterprise level applications, social networks, games, and SaaS e-commerce platforms. Rick thrives on rapid prototyping and bringing a concept to MVP and has put his love for all aspects of product development to good use for such companies as ESPN, Toyota, Disney Roambi, and Shazam.',
         showDetails: false
       },
       {
         name: 'Andrea Budd',
         title: 'Chief Operating Officer',
-        image: "<%=asset_path('promo/people/9.jpg') %>",
+        image: "<%= asset_path('promo/people/9.jpg') %>",
         details: '  With nearly three decades of leadership experience at industrial, non-profit, financial services and training firms in both traditional and new economy businesses, Andrea’s focus is on developing and executing operational best practices across Powur’s financial, human resources, customer service, legal, and regulatory compliance activities.  She left the corporate world in 2009 to join Empowered Entrepreneurs, an educational and training company founded by Jonathan Budd, and shepherded its operational and financial stability during its period of rapid-fire growth. Previously, she was President of the philanthropic foundation for a 125-year old financial services firm.  Prior to that, she played a key communications role in the company’s demutualization and $854 million Initial Public Offering.',
         showDetails: false
       }

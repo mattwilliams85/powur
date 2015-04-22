@@ -1,7 +1,7 @@
-<ng-include src="'<%=asset_path("shared/left-menu.html") %>'"></ng-include>
+<ng-include src="'<%= asset_path("shared/left-menu.html") %>'"></ng-include>
 
 <div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
-  <ng-include src="'<%=asset_path("shared/header-signed-out.html") %>'"></ng-include>
+  <ng-include src="'<%= asset_path("shared/header-signed-out.html") %>'"></ng-include>
 
   <main class="sun-promo sun-create-wealth-page">
 
@@ -34,8 +34,8 @@
 
           <div class="slider-inner">
             <slider floor="0" ceiling="50" step="1" precision="0" ng-model="slider" translate="sliderOnChange"></slider>
-            <img class="image-1" src="<%=asset_path('promo/slider-item-1.png')%>" />
-            <img class="image-2" src="<%=asset_path('promo/slider-item-2-hidden.png')%>" />
+            <img class="image-1" src="<%= asset_path('promo/slider-item-1.png') %>" />
+            <img class="image-2" src="<%= asset_path('promo/slider-item-2-hidden.png') %>" />
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
     <div class="sun-scrolling-bg sun-bg-3" id="on_slider_move">
       <div class="row sun-promo-content sun-promo-slide-3">
         <div class="large-4 small-12 columns">
-          <img class="optional" src="<%=asset_path("promo/image-placeholder.jpg")%>" />
+          <img class="optional" src="<%= asset_path("promo/image-placeholder.jpg") %>" />
           <div class="clock">
             {{solarTimerHours}}:{{solarTimerMinutes}}<div class="highlighted">:{{solarTimerSeconds}}</div>
           </div>
@@ -66,7 +66,7 @@
     <div class="sun-bg-4">
       <div class="row sun-promo-content sun-promo-slide-4">
         <div class="large-6 columns">
-          <img src="<%=asset_path("promo/browser-and-phone.png")%>" />
+          <img src="<%= asset_path("promo/browser-and-phone.png") %>" />
         </div>
 
         <div class="large-6 columns">
@@ -121,7 +121,7 @@
 
     <div class="sun-bg-6">
       <div class="row sun-promo-content sun-promo-slide-6">
-        <img class="screen-with-zoom optional" src="<%=asset_path("promo/screen-with-zoom.png")%>" />
+        <img class="screen-with-zoom optional" src="<%= asset_path("promo/screen-with-zoom.png") %>" />
         <div class="large-3 small-12 columns">
           &nbsp;
         </div>
@@ -136,6 +136,6 @@
         </div>
       </div>
     </div>
-    <ng-include src="'<%=asset_path("shared/footer.html") %>'"></ng-include>
+    <ng-include src="'<%= asset_path("shared/footer.html") %>'"></ng-include>
   </main>
 </div>

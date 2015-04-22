@@ -134,193 +134,193 @@ sunstandAdminApp.config(
 
     $routeProvider.
     when('/', {
-      templateUrl: '<%=asset_path("angular-admin/landing/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/landing/templates/index.html") %>',
       controller: 'LandingCtrl'
     }).
     // Library
     when('/resources', {
-      templateUrl: '<%=asset_path("angular-admin/resources/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/resources/templates/index.html") %>',
       controller: 'AdminResourcesCtrl'
     }).
     when('/resources/new/:resourceType?', {
-      templateUrl: '<%=asset_path("angular-admin/resources/templates/new.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/resources/templates/new.html") %>',
       controller: 'AdminResourcesCtrl'
     }).
     when('/resources/:resourceId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/resources/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/resources/templates/edit.html") %>',
       controller: 'AdminResourcesCtrl'
     }).
     // User Groups
     when('/user-groups', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/index.html") %>',
       controller: 'AdminUserGroupsCtrl'
     }).
     when('/user-groups/new', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/new.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/new.html") %>',
       controller: 'AdminUserGroupsCtrl'
     }).
     when('/user-groups/:userGroupId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/edit.html") %>',
       controller: 'AdminUserGroupsCtrl'
     }).
     when('/user-groups/:userGroupId', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/show.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/show.html") %>',
       controller: 'AdminUserGroupsCtrl'
     }).
     // User Groups / Users
     when('/user-groups/:userGroupId/users', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/users/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/users/index.html") %>',
       controller: 'AdminUserGroupUsersCtrl'
     }).
     // User Groups / Requirements
     when('/user-groups/:userGroupId/requirements', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/requirements/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/requirements/index.html") %>',
       controller: 'AdminUserGroupRequirementsCtrl'
     }).
     when('/user-groups/:userGroupId/requirements/new', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/requirements/new.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/requirements/new.html") %>',
       controller: 'AdminUserGroupRequirementsCtrl'
     }).
     when('/user-groups/:userGroupId/requirements/:requirementId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/requirements/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/requirements/edit.html") %>',
       controller: 'AdminUserGroupRequirementsCtrl'
     }).
     // User Groups / Bonuses
     when('/user-groups/:userGroupId/bonuses', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/bonuses/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/bonuses/index.html") %>',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
     when('/user-groups/:userGroupId/bonuses/new', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/bonuses/new.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/bonuses/new.html") %>',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
     when('/user-groups/:userGroupId/bonuses/:requirementId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/user-groups/templates/bonuses/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/user-groups/templates/bonuses/edit.html") %>',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
     // Bonus Plans
     when('/bonus-plans', {
-      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/bonus-plans/templates/index.html") %>',
       controller: 'AdminBonusPlansCtrl'
     }).
     when('/bonus-plans/new', {
-      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/new.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/bonus-plans/templates/new.html") %>',
       controller: 'AdminBonusPlansCtrl'
     }).
     when('/bonus-plans/:bonusPlanId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/bonus-plans/templates/edit.html") %>',
       controller: 'AdminBonusPlansCtrl'
     }).
     when('/bonus-plans/:bonusPlanId', {
-      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/show.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/bonus-plans/templates/show.html") %>',
       controller: 'AdminBonusPlansCtrl'
     }).
     // Bonus Plan Bonuses
     when('/bonus-plans/:bonusPlanId/bonuses', {
-      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/bonuses/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/bonus-plans/templates/bonuses/index.html") %>',
       controller: 'AdminBonusesCtrl'
     }).
     when('/bonus-plans/:bonusPlanId/bonuses/new', {
-      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/bonuses/new.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/bonus-plans/templates/bonuses/new.html") %>',
       controller: 'AdminBonusesCtrl'
     }).
     when('/bonus-plans/:bonusPlanId/bonuses/:bonusId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/bonus-plans/templates/bonuses/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/bonus-plans/templates/bonuses/edit.html") %>',
       controller: 'AdminBonusesCtrl'
     }).
     // Products
     when('/products', {
-      templateUrl: '<%=asset_path("angular-admin/products/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/products/templates/index.html") %>',
       controller: 'AdminProductsCtrl'
     }).
     when('/products/new', {
-      templateUrl: '<%=asset_path("angular-admin/products/templates/new.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/products/templates/new.html") %>',
       controller: 'AdminProductsCtrl'
     }).
     when('/products/:productId', {
-      templateUrl: '<%=asset_path("angular-admin/products/templates/show.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/products/templates/show.html") %>',
       controller: 'AdminProductsCtrl'
     }).
     when('/products/:productId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/products/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/products/templates/edit.html") %>',
       controller: 'AdminProductsCtrl'
     }).
     // Users
     when('/users', {
-      templateUrl: '<%=asset_path("angular-admin/users/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/users/templates/index.html") %>',
       controller: 'AdminUsersCtrl'
     }).
     when('/users/:userId', {
-      templateUrl: '<%=asset_path("angular-admin/users/templates/show.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/users/templates/show.html") %>',
       controller: 'AdminUsersCtrl'
     }).
     when('/users/:userId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/users/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/users/templates/edit.html") %>',
       controller: 'AdminUsersCtrl'
     }).
     // Quotes
     when('/quotes', {
-      templateUrl: '<%=asset_path("angular-admin/quotes/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/quotes/templates/index.html") %>',
       controller: 'AdminQuotesCtrl'
     }).
     when('/quotes/:quoteId', {
-      templateUrl: '<%=asset_path("angular-admin/quotes/templates/show.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/quotes/templates/show.html") %>',
       controller: 'AdminQuotesCtrl'
     }).
     when('/quotes/:quoteId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/quotes/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/quotes/templates/edit.html") %>',
       controller: 'AdminQuotesCtrl'
     }).
     // Orders
     when('/orders', {
-      templateUrl: '<%=asset_path("angular-admin/orders/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/orders/templates/index.html") %>',
       controller: 'AdminOrdersCtrl'
     }).
     when('/orders/:orderId', {
-      templateUrl: '<%=asset_path("angular-admin/orders/templates/show.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/orders/templates/show.html") %>',
       controller: 'AdminOrdersCtrl'
     }).
     when('/orders/:orderId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/orders/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/orders/templates/edit.html") %>',
       controller: 'AdminOrdersCtrl'
     }).
     // Pay Periods
     when('/pay-periods', {
-      templateUrl: '<%=asset_path("angular-admin/pay-periods/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/pay-periods/templates/index.html") %>',
       controller: 'AdminPayPeriodsCtrl'
     }).
     when('/pay-periods/:payPeriodId', {
-      templateUrl: '<%=asset_path("angular-admin/pay-periods/templates/show.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/pay-periods/templates/show.html") %>',
       controller: 'AdminPayPeriodsCtrl'
     }).
     when('/pay-periods/:payPeriodId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/pay-periods/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/pay-periods/templates/edit.html") %>',
       controller: 'AdminPayPeriodsCtrl'
     }).
     // Dashboard Notifications
     when('/notifications', {
-      templateUrl: '<%=asset_path("angular-admin/notifications/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/notifications/templates/index.html") %>',
       controller: 'AdminNotificationsCtrl'
     }).
     when('/notifications/new', {
-      templateUrl: '<%=asset_path("angular-admin/notifications/templates/new.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/notifications/templates/new.html") %>',
       controller: 'AdminNotificationsCtrl'
     }).
     when('/notifications/:notificationId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/notifications/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/notifications/templates/edit.html") %>',
       controller: 'AdminNotificationsCtrl'
     }).
     // Social Media Sharing
     when('/social-media', {
-      templateUrl: '<%=asset_path("angular-admin/social-media/templates/index.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/social-media/templates/index.html") %>',
       controller: 'AdminSocialMediaCtrl'
     }).
     when('/social-media/:socialMediaPostId', {
-      templateUrl: '<%=asset_path("angular-admin/social-media/templates/show.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/social-media/templates/show.html") %>',
       controller: 'AdminSocialMediaCtrl'
     }).
     when('/social-media/:socialMediaPostId/edit', {
-      templateUrl: '<%=asset_path("angular-admin/social-media/templates/edit.html")%>',
+      templateUrl: '<%= asset_path("angular-admin/social-media/templates/edit.html") %>',
       controller: 'AdminSocialMediaCtrl'
     }).
 

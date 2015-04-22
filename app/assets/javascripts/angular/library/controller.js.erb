@@ -39,7 +39,7 @@ function LibraryCtrl($scope, $location, Resource, UserProfile) {
   $scope.itemThumbnail = function(item) {
     var imgPath = item.properties.image_original_path;
     if (imgPath) return imgPath;
-    return item.properties.file_type === 'video/mp4' ? '<%=asset_path("library/video.png")%>' : '<%=asset_path("library/pdf.png")%>';
+    return item.properties.file_type === 'video/mp4' ? '<%= asset_path("library/video.png") %>' : '<%= asset_path("library/pdf.png") %>';
   };
 
   $scope.search = function() {
