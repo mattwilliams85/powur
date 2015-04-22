@@ -629,6 +629,59 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   */
   .kpi-section {
     padding-top: 20px;
+    .kpi-drilldown {
+      .kpi-detail {
+        color:#fff;
+        line-height:15pt;
+        display:block;
+        &.invert {
+          color:#333;
+        }
+        &.link {
+          color: $sun-color-blue;
+        }
+      }
+      .fa {
+        color:#fff;
+      }
+      .columns {
+        background-color:#444;
+      }
+      //TEMP
+      h2 {
+        color:#fff;
+      }
+      //
+      .user-column {
+        background-color:#333;
+        text-align:center;
+        position:relative;
+        .avatar-medium {
+          background-image:url(http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578);
+          width:60px; height:60px;
+          border-radius:50%;
+          background-size: contain;
+        }
+        .conversion-row {
+          padding:10px 0px;
+        }
+        .performer-row {
+          background-color:#eee;
+          padding:7px 0px;
+        }
+        .current-user-row {
+          background-color:#555;
+          padding-top:10px;
+        }
+        .user-nav {
+          position:absolute;
+          bottom:0;
+          left:0;
+          right:0;
+          margin:0 auto;
+        }
+      }
+    }
   }
 
   /*
