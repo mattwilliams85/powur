@@ -1,4 +1,4 @@
-require "carrierwave_direct"
+require 'carrierwave_direct'
 
 class ResourceAttachmentDirectUploader < CarrierWave::Uploader::Base
   include CarrierWaveDirect::Uploader

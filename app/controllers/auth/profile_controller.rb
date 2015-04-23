@@ -20,7 +20,9 @@ module Auth
     def update
       user_params['email'].downcase! if user_params['email']
 
-      @user.update_attributes(user_params)
+      if @user.update_attributes(user_params)
+        User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
+      end
 
       render 'show'
     end
@@ -57,7 +59,7 @@ module Auth
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email,
                                    :phone, :address, :city, :state,
-                                   :zip, :bio, :avatar_file_name, :avatar)
+                                   :zip, :bio, :image_original_path, :avatar)
     end
 
     # def avatar_params

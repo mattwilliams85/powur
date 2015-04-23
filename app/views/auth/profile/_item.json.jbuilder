@@ -8,7 +8,7 @@ json.properties do
             :bio, :twitter_url, :linkedin_url, :lifetime_rank, :organic_rank)
 
   json.avatar do
-    [ :thumb, :medium, :large ].each do |key|
+    [ :thumb, :preview, :large ].each do |key|
       json.set! key, user.avatar.url(key)
     end
   end if @user.avatar?
