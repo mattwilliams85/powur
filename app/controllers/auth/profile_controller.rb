@@ -57,7 +57,7 @@ module Auth
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email,
                                    :phone, :address, :city, :state,
-                                   :zip, :bio, :avatar_file_name, :avatar)
+                                   :zip, :bio, :image_original_path, :avatar)
     end
 
     # def avatar_params

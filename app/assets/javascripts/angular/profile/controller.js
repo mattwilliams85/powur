@@ -28,6 +28,14 @@ function ProfileCtrl($scope, UserProfile) {
       });
     }
   };
+
+  $scope.$watch('userOriginalImage', function(data) {
+    if (/http/g.test(data)) {
+      UserProfile.update({user: {image_original_path: data}}).then(function() {
+        $scope.userProfile.image_original_path = data;
+      });
+    }
+  });
 }
 
 ProfileCtrl.$inject = ['$scope', 'UserProfile'];

@@ -26,6 +26,8 @@ module Auth
         ResourceAttachment.new.attachment_direct
       when "resource_image"
         ResourceImage.new.image_direct
+      when "user_image"
+        UserImage.new.image_direct
       end
     end
   end

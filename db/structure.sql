@@ -1093,7 +1093,8 @@ CREATE TABLE users (
     remember_created_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
     smarteru_employee_id character varying,
-    moved boolean
+    moved boolean,
+    image_original_path character varying
 );
 
 
@@ -2243,3 +2244,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150415072216');
 INSERT INTO schema_migrations (version) VALUES ('20150421165254');
 
 INSERT INTO schema_migrations (version) VALUES ('20150421171527');
+
+INSERT INTO schema_migrations (version) VALUES ('20150423170131');
+
