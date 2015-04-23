@@ -1,15 +1,159 @@
 'use strict';
 
-function DashboardCustomersCtrl($scope, $location, Geo) {
+function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
   $scope.redirectUnlessSignedIn();
+  $scope.proposalForm = false;
 
   $scope.states = Geo.states();
 
-  $('.carousel').on('afterChange', function(event, slick, currentSlide, nextSlide){
-    console.log(nextSlide);
+  // Utility Functions
+  $scope.getAction = function(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
+  };
+
+  $scope.setFormValues = function(formAction) {
+    var formValues = {};
+    for (var i in formAction.fields) {
+      var key = formAction.fields[i].name;
+      var value = formAction.fields[i].value;
+      formValues[key] = (value);
+    }
+    return formValues;
+  };
+
+  // Show Proposal
+
+  $scope.showProposal = function(proposalId) {
+    if ($scope.showForm === true && (proposalId === $scope.currentProposal.id)) {
+      $scope.closeForm();
+    } else {
+      $scope.proposal = {};
+      $scope.currentProposal = {};
+
+      Customer.get(proposalId).then(function(item){
+        if ($scope.getAction(item.actions, 'update')) {
+          $scope.formAction = $scope.getAction(item.actions, 'update');
+          $scope.proposal = $scope.setFormValues($scope.formAction);
+          $scope.currentProposal = item.properties;
+          $scope.mode = 'incomplete';
+          $scope.showForm = true;
+        } else {
+          $scope.proposal = item.properties;
+          $scope.currentProposal = item.properties;
+          $scope.mode = 'submitted';
+          $scope.showForm = true;
+        }
+      });
+    }
+  };
+
+  // New Proposal
+
+  $scope.newProposal = function() {
+    if ($scope.showForm === true && $scope.mode === 'new') {
+      $scope.closeForm();
+    } else {
+      $scope.proposal = {};
+      $scope.currentProposal = {};
+
+      Customer.list().then(function(items){
+        $scope.formAction = $scope.getAction(items.actions, 'create');
+        $scope.mode = 'new';
+        $scope.showForm = true;
+      });
+    }
+  };
+
+  // Create / Update Actions
+
+  $scope.create = function() {
+    if ($scope.proposal) {
+      Customer.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
+    }
+  };
+
+  $scope.update = function() {
+    if ($scope.proposal) {
+      Customer.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
+    }
+  };
+
+  var actionCallback = function(action) {
+    if (action.name === 'create') {
+      Customer.list().then(function(items) {
+        $scope.proposals = items.entities;
+        $scope.closeForm();
+        $('.carousel').slick('unslick');
+        $timeout(function() {
+          $('.carousel').slick('unslick');
+          $scope.slick('.carousel');
+          $scope.$apply();
+        }, 200);
+      });
+    }
+    if (action.name === 'update') {
+      Customer.list().then(function(items) {
+        $scope.proposals = items.entities;
+        $scope.closeForm();
+        $timeout(function() {
+          $('.carousel').slick('unslick');
+          $scope.slick('.carousel');
+          $scope.$apply();
+        }, 200);
+      });
+    }
+  };
+
+
+  $scope.closeForm = function() {
+    $scope.showForm = false;
+    $scope.mode = '';
+    $scope.currentProposal = {};
+  };
+
+  $scope.slick = function(elementToSlick) {
+    $(elementToSlick).slick({
+      swipe: false,
+      dots: false,
+      infinite: true,
+      speed: 300,
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      prevArrow: '<a class="slick-prev"><i class="fa fa-chevron-left"></i></a>',
+      nextArrow: '<a class="slick-next"><i class="fa fa-chevron-right"></i></a>',
+      responsive: [
+        {
+          breakpoint: 1024,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        }
+      ]
+    });
+  };
+
+  $scope.$on('$routeChangeSuccess', function () {
+    // carousel stuff
+  });
+
+  return Customer.list().then(function(items) {
+    $scope.proposals = items.entities;
   });
 
 }
 
-DashboardCustomersCtrl.$inject = ['$scope', '$location', 'Geo'];
+DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', 'Geo', 'Customer'];
 sunstandControllers.controller('DashboardCustomersCtrl', DashboardCustomersCtrl);
