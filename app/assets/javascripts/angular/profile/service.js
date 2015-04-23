@@ -69,14 +69,22 @@ function UserProfile($http, $q, $cacheFactory) {
     update: function(data) {
       var dfr = $q.defer();
 
-      // $http.put('/users/' + data.id + '.json', data).success(function(res) {
-      //   dfr.resolve(res);
-      // }).error(function(err) {
-      //   console.log('エラー', err);
-      //   dfr.reject(err);
-      // });
+      $http.put('/u/profile.json', data, {
+        xsrfHeaderName: 'X-CSRF-Token'
+      }).success(function(res) {
+        dfr.resolve(res);
+      }).error(function(err) {
+        console.log('エラー', err);
+        dfr.reject(err);
+      });
 
-      $http.put(path, data, {
+      return dfr.promise;
+    },
+
+    updatePassword: function(data) {
+      var dfr = $q.defer();
+
+      $http.put('/u/profile/update_password.json', data, {
         xsrfHeaderName: 'X-CSRF-Token'
       }).success(function(res) {
         dfr.resolve(res);

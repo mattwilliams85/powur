@@ -1,178 +1,186 @@
 <% content_for :javascript_includes do %>
-	<% javascript_include_tag "profile.js" %>
+  <% javascript_include_tag "profile.js" %>
 <% end %>
 
 <%= stylesheet_link_tag "profile", media: "all", "data-turbolinks-track" => true %>
 
 <section class="dashboard_section" >
 
-	<div class="section_body">
-		<div class="section_content">
+  <div class="section_body">
+    <div class="section_content">
 
 
-			<div class="summary" id="sidebar">
-				<section>
-					<div id="avatar-container" class="form_element half">
-					<!--<h4>File Name:<%= @user.avatar_file_name %></h4>-->
+      <div class="summary" id="sidebar">
+        <section>
+          <div id="avatar-container" class="form_element half">
+          <!--<h4>File Name:<%= @user.avatar_file_name %></h4>-->
 
-						<% if @user.avatar_file_name %>
-							<img src="<%= @user.avatar.url(:thumb) %>" id="user_profile">
-						<%else%>
-							<img src="/temp_dev_images/Tim.jpg" id="user_profile">
-						<% end %>
-						<%= form_for @user, remote:true, :url => update_avatar_profile_path, :html => { :multipart => true, :'data-type' => 'json' } do |form| %>
-						  <% @user.errors.full_messages.each do |msg| %>
-				   		 <li><%= msg %></li>
-				  <% end %>
-						<%= token_tag %>
+            <% if @user.avatar_file_name %>
+              <img src="<%= @user.avatar.url(:thumb) %>" id="user_profile">
+            <%else%>
+              <img src="/temp_dev_images/Tim.jpg" id="user_profile">
+            <% end %>
+            <%= form_for @user, remote:true, :url => update_avatar_profile_path, :html => { :multipart => true, :'data-type' => 'json' } do |form| %>
+              <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+          <% end %>
+            <%= token_tag %>
 
-						  <%= form.file_field :avatar %>
-						  <%= form.hidden_field :avatar_file_name %>
-						  <%= form.hidden_field :avatar_content_type %>
-						  <%= form.hidden_field :avatar_file_size %>
-						  <%= form.hidden_field :avatar_updated_at %>
-						  <%= form.submit "Upload Photo" ,id: "submit-photo" %>
-						<% end %>
-					</div>
-				</section>
-			</div>
-
-
-			<div class="data_content">
-
-				<section class="basic_info" style="padding-bottom:30px;">
-					<div class="header">Personal Info</div>
-					<div class="content">
-							<br>
-							<h3>Contact info</h3>
-
-							<%= form_for @user, remote: true, :url => url_for(:controller => 'profile', :action => 'update'), :html => { :'data-type' => 'json'} do |f| %>
-						<section>
-						    <div class='form_element half'>
-						    		<label for="user_first_name">First Name</label>
-						    		<%= f.text_field :first_name %>
-						    </div>
-				  			<div class='form_element end'>
-				  				<label for="user_last_name">Last Name</label>
-				  				<%= f.text_field :last_name %>
-				  			</div>
-				  			<div class='form_element half'>
-				  				<label for="user_email">Email</label>
-				  				<%= f.email_field :email %>
-				  			</div>
-				  			<div class='form_element end'>
-				  				<label for="user_phone">Phone</label>
-				  				<%= f.text_field :phone %>
-				  			</div>
-						</section>
-
-						<br>
-						<section>
-							<h3>Address</h3>
-							<br style="clear:both;">
-						    <div class='form_element half'>
-						    		<label for="user_address">Address</label>
-						    		<%= f.text_field :address %>
-						    </div>
-				  			<div class='form_element end'>
-				  				<label for="user_city">City</label>
-				  				<%= f.text_field :city %>
-				  			</div>
-				  			<div class='form_element half'>
-				  				<label for="user_state">State</label>
-				  				<%= f.text_field :state %>
-				  			</div>
-				  			<div class='form_element end'>
-				  				<label for="user_zip">Zip</label>
-				  				<%= f.text_field :zip %>
-				  			</div>
-
-						</section>
-						<br>
-						<section>
-							<h3>More about you</h3>
-							<br>
-							<span style="font-size:12px;float:left;margin-top:-15px;">Information in this section will be used for your public pages</span>
-						    <div class='form_element full'>
-						    		<label for="user_first_name">Bio/Experience</label>
-						    		<%= f.text_area :bio %>
-						    </div>
-				  			<div class='user_field'>
-				  					<%= f.submit "Update Personal Info", id: "submit-update-bio" %>
-				  			</div>
-
-						</section>
-							<% end %>
-
-					</div>
-
-				</section><!--end basic info -->
+              <%= form.file_field :avatar %>
+              <%= form.hidden_field :avatar_file_name %>
+              <%= form.hidden_field :avatar_content_type %>
+              <%= form.hidden_field :avatar_file_size %>
+              <%= form.hidden_field :avatar_updated_at %>
+              <%= form.submit "Upload Photo" ,id: "submit-photo" %>
+            <% end %>
+          </div>
+        </section>
+      </div>
 
 
-				<br><br>
+      <div class="data_content">
 
-				<section class="password" style="padding-bottom:30px;">
-					<div class="header">Update Password</div>
-					<div class="content">
-						<br>
-						<%= form_tag update_password_profile_path, remote: true do %>
-						<div class="form_element half">
-							<label for="current_password" style="top:0;">Current Password</label>
-							<%= password_field_tag :current_password %>
-						</div>
-						<div class="form_element half end">
-							<label for="new_password" style="top:0;">New Password</label>
-							<%= password_field_tag :new_password %>
-						</div>
-						<div class="form_element half"> &nbsp;
-						</div>
-						<div class="form_element half end">
-							<label for="new_password_confirm" style="top:0;">Confirm New Password</label>
-							<%= password_field_tag :new_password_confirm %>
-						</div>
-						<div class="form_element full">
-						<%= submit_tag "Update Password", id: "submit-update-password" %>
-						</div>
-					<% end %>
-					</div>
-				</section><!-- end password -->
-				<br/>
-				<section style="padding-bottom:30px;">
-					<div class="header">iPayout Account</div>
-					<div class="content" style="margin-top:10px">
-						<!-- ewallet stuff -->
-						<div class="form_element half end">
-							<span style="top:0;color:rgb(53,53,53)">Username: </span>
-						<% if !@ewallet_details.value?("error") %>
-							<p><%= @ewallet_details.Email %></p>
-						</div>
-						<div class="form_element half end">
-							<span style="top:0;color:rgb(53,53,53)">Verified: </span>
-							<p><%= @ewallet_details.IsInfoVerified %></p>
-						</div>
-						<% else %>
-						<div class="form_element half end">
-							<span style="top:0;rgb(53,53,53)">Account Details: </span>
-							<p>Error fetching eWallet account details.</p>
-						</div>
-						<% end %>
+        <section class="basic_info" style="padding-bottom:30px;">
+          <div class="header">Personal Info</div>
+          <div class="content">
+              <br>
+              <h3>Contact info</h3>
 
-						<% if @auto_login_url %>
-							<div class="form_element full">
-								<span style="top:0;color:rgb(53,53,53)">eWallet URL: </span><br/>
-								<span style="font-size:0.8em;"><%= @auto_login_url %></span>
-							</div>
-							<div class="form_element half" style="width:100%">
-									<button class="button" style="margin-top:25px;float:left" onclick="window.open('<%= @auto_login_url %>','_blank');">Go to my eWallet</button>
-							</div>
-						<% end %>
+              <%= form_for @user, remote: true, :url => url_for(:controller => 'profile', :action => 'update'), :html => { :'data-type' => 'json'} do |f| %>
+            <section>
+                <div class='form_element half'>
+                    <label for="user_first_name">First Name</label>
+                    <%= f.text_field :first_name %>
+                </div>
+                <div class='form_element end'>
+                  <label for="user_last_name">Last Name</label>
+                  <%= f.text_field :last_name %>
+                </div>
+                <div class='form_element half'>
+                  <label for="user_email">Email</label>
+                  <%= f.email_field :email %>
+                </div>
+                <div class='form_element end'>
+                  <label for="user_phone">Phone</label>
+                  <%= f.text_field :phone %>
+                </div>
+            </section>
 
-					</div>
-				</section>
-			</div><!-- end data content -->
-		</div><!--end section_content -->
-	</div> <!-- end setction_body -->
+            <br>
+            <section>
+              <h3>Address</h3>
+              <br style="clear:both;">
+                <div class='form_element half'>
+                    <label for="user_address">Address</label>
+                    <%= f.text_field :address %>
+                </div>
+                <div class='form_element end'>
+                  <label for="user_city">City</label>
+                  <%= f.text_field :city %>
+                </div>
+                <div class='form_element half'>
+                  <label for="user_state">State</label>
+                  <%= f.text_field :state %>
+                </div>
+                <div class='form_element end'>
+                  <label for="user_zip">Zip</label>
+                  <%= f.text_field :zip %>
+                </div>
+
+            </section>
+            <br>
+            <section>
+              <h3>More about you</h3>
+              <br>
+              <span style="font-size:12px;float:left;margin-top:-15px;">Information in this section will be used for your public pages</span>
+                <div class='form_element full'>
+                    <label for="user_first_name">Bio/Experience</label>
+                    <%= f.text_area :bio %>
+                </div>
+                <div class='user_field'>
+                    <%= f.submit "Update Personal Info", id: "submit-update-bio" %>
+                </div>
+
+            </section>
+              <% end %>
+
+          </div>
+
+        </section><!--end basic info -->
+
+
+        <br><br>
+
+        <section class="password" style="padding-bottom:30px;">
+          <div class="header">Update Password</div>
+          <div class="content">
+            <br>
+            <%= form_tag update_password_profile_path, remote: true do %>
+            <div class="form_element half">
+              <label for="current_password" style="top:0;">Current Password</label>
+              <%= password_field_tag :current_password %>
+            </div>
+            <div class="form_element half end">
+              <label for="new_password" style="top:0;">New Password</label>
+              <%= password_field_tag :new_password %>
+            </div>
+            <div class="form_element half"> &nbsp;
+            </div>
+            <div class="form_element half end">
+              <label for="new_password_confirm" style="top:0;">Confirm New Password</label>
+              <%= password_field_tag :new_password_confirm %>
+            </div>
+            <div class="form_element full">
+            <%= submit_tag "Update Password", id: "submit-update-password" %>
+            </div>
+          <% end %>
+          </div>
+        </section><!-- end password -->
+        <br/>
+        <section style="padding-bottom:30px;">
+          <div class="header">iPayout Account</div>
+          <div class="content" style="margin-top:10px">
+            <!-- ewallet stuff -->
+            <div class="form_element half end">
+              <span style="top:0;color:rgb(53,53,53)">Username: </span>
+            <% if !@ewallet_details.value?("error") %>
+              <p><%= @ewallet_details.Email %></p>
+            </div>
+            <div class="form_element half end">
+              <span style="top:0;color:rgb(53,53,53)">Verified: </span>
+              <p><%= @ewallet_details.IsInfoVerified %></p>
+            </div>
+            <% else %>
+            <div class="form_element half end">
+              <span style="top:0;rgb(53,53,53)">Account Details: </span>
+              <p>Error fetching eWallet account details.</p>
+            </div>
+            <% end %>
+
+            <% if @auto_login_url %>
+              <div class="form_element full">
+                <span style="top:0;color:rgb(53,53,53)">eWallet URL: </span><br/>
+                <span style="font-size:0.8em;"><%= @auto_login_url %></span>
+              </div>
+              <div class="form_element half" style="width:100%">
+                  <button class="button" style="margin-top:25px;float:left" onclick="window.open('<%= @auto_login_url %>','_blank');">Go to my eWallet</button>
+              </div>
+            <% end %>
+
+          </div>
+        </section>
+      </div><!-- end data content -->
+
+
+
+
+
+
+
+
+
+
+    </div><!--end section_content -->
+  </div> <!-- end setction_body -->
 
 </section><!--end dashboard_section -->
-
-

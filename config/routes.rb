@@ -52,7 +52,7 @@ Rails.application.routes.draw do
     resource :profile,
              only:       [ :show, :update, :password_reset ],
              controller: :profile do
-      post 'update_password', to: 'profile#update_password'
+      put 'update_password', to: 'profile#update_password'
       patch 'update_avatar', to: 'profile#update_avatar'
     end
 
@@ -192,7 +192,7 @@ Rails.application.routes.draw do
       member do
         post :submit
       end
-      
+
       collection do
         get '' => 'quotes#search', constraints: params?(:search)
       end
@@ -234,7 +234,7 @@ Rails.application.routes.draw do
     resources :user_group_requirements,
               only:       [ :destroy, :update ],
               controller: :user_group_requirements
-    
+
 
     resources :resources, as: :admin_resources
   end
