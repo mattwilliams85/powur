@@ -148,7 +148,7 @@ class QuotesJson < JsonDecorator
   def action_quote_fields(quote_action)
     product = Product.default || return
     product.quote_fields.each do |field|
-      opts = { required: field.required }
+      opts = { required: field.required, product_field: true }
       if field.lookup?
         lookups = field.lookups.sort_by { |i| [ i.group, i.value ] }
         next if lookups.empty?

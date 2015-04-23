@@ -9,7 +9,7 @@ class Rank < ActiveRecord::Base
   validates_presence_of :title
 
   before_create do
-    self.id ||= Rank.count
+    self.id ||= Rank.count + SystemSettings.min_rank
   end
 
   def first?
