@@ -89,7 +89,7 @@ CREATE TABLE bonus_amounts (
     bonus_id integer NOT NULL,
     level integer DEFAULT 0 NOT NULL,
     rank_path_id integer,
-    amounts numeric(10,2)[] DEFAULT '{}'::numeric[] NOT NULL
+    amounts numeric(5,2)[] DEFAULT '{}'::numeric[] NOT NULL
 );
 
 
