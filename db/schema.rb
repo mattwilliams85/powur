@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150415072216) do
+ActiveRecord::Schema.define(version: 20150423170131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150415072216) do
     t.integer  "bonus_id",                                           null: false
     t.integer  "user_id",                                            null: false
     t.decimal  "amount",        precision: 10, scale: 2,             null: false
-    t.integer  "status",                                 default: 1, null: false
+    t.integer  "status",                                             null: false
     t.integer  "pay_as_rank",                            default: 0, null: false
     t.datetime "created_at",                                         null: false
   end
@@ -223,6 +223,8 @@ ActiveRecord::Schema.define(version: 20150415072216) do
     t.boolean  "certifiable",                      default: false
     t.string   "image_original_path"
     t.string   "smarteru_module_id",    limit: 50
+    t.boolean  "is_required_class",                default: false
+    t.integer  "position"
   end
 
   add_index "products", ["certifiable"], name: "index_products_on_certifiable", using: :btree
@@ -382,6 +384,7 @@ ActiveRecord::Schema.define(version: 20150415072216) do
     t.datetime "last_sign_in_at"
     t.string   "smarteru_employee_id"
     t.boolean  "moved"
+    t.string   "image_original_path"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

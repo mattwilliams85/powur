@@ -8,12 +8,12 @@ describe '/a/ranks' do
 
   describe 'GET /' do
 
-    def find_rank(rank_id)
-      json_body['entities'].find { |r| r['properties']['id'] == rank_id }
+    def find_rank(index)
+      json_body['entities'][index]
     end
 
-    def find_action(rank_id, name)
-      rank = find_rank(rank_id)
+    def find_action(index, name)
+      rank = find_rank(index)
       rank['actions'] && rank['actions'].find { |a| a['name'] == name }
     end
 
@@ -25,7 +25,7 @@ describe '/a/ranks' do
       expect_classes 'ranks'
       expect_entities_count(3)
 
-      action = find_action(1, 'delete')
+      action = find_action(0, 'delete')
       expect(action).to be_nil
 
       action = find_action(2, 'delete')
