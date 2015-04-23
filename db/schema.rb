@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20150423170131) do
     t.integer  "bonus_id",                                           null: false
     t.integer  "user_id",                                            null: false
     t.decimal  "amount",        precision: 10, scale: 2,             null: false
-    t.integer  "status",                                             null: false
-    t.integer  "pay_as_rank",                            default: 0, null: false
+    t.integer  "status",                                 default: 1, null: false
+    t.integer  "pay_as_rank",                                        null: false
     t.datetime "created_at",                                         null: false
   end
 

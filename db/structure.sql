@@ -132,8 +132,8 @@ CREATE TABLE bonus_payments (
     bonus_id integer NOT NULL,
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
-    status integer NOT NULL,
-    pay_as_rank integer DEFAULT 0 NOT NULL,
+    status integer DEFAULT 1 NOT NULL,
+    pay_as_rank integer NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
 
