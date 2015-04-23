@@ -58,11 +58,6 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     }
   };
 
-  $rootScope.gif1Src = "<%= asset_path('blank_gif.png') %>"
-  $rootScope.gif2Src = "<%= asset_path('blank_gif.png') %>"
-  $rootScope.gif3Src = "<%= asset_path('blank_gif.png') %>"
-  $rootScope.gif4Src = "<%= asset_path('blank_gif.png') %>"
-
   var signUpCallback = function(data) {
     $scope.formErrorMessages = {};
     if (data.errors) {

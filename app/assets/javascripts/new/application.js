@@ -5,6 +5,7 @@
 //= require foundation
 
 //= require ../angular/app.js
+//= require ../angular/routes.js
 //= require_tree ../angular/dashboard
 //= require_tree ../angular/geo
 //= require_tree ../angular/invite
