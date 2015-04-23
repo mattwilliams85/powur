@@ -43,9 +43,5 @@ module PaperclipScopes
       instance.avatar_remote_url = instance.image_original_path
       instance.save!
     end
-
-    def delete_avatar
-      self.avatar = nil
-    end
   end
 end
