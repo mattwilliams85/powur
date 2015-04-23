@@ -8,7 +8,7 @@
       <section>
         <div class="avatar-container" class="form-element">
 
-          <img ng-src="{{userProfile.image_original_path || '/temp_dev_images/Tim.jpg'}}" class="user-image" />
+          <img ng-src="{{userProfile.avatar.preview || '/temp_dev_images/Tim.jpg'}}" class="user-image" />
 
           <input ng-model="userOriginalImage" type="hidden" ng-required="true" />
           <file-s3-uploader data="userOriginalImage" mode="user_image" show-progress="1" auto-upload="1" />

@@ -20,13 +20,13 @@ module Auth
 
     def set_uploader
       @uploader = case params[:mode]
-      when "resource_attachment"
-        valid_mime_types = [ 'video/mp4', 'application/pdf']
+      when 'resource_attachment'
+        valid_mime_types = ['video/mp4', 'application/pdf']
         head :unprocessable_entity unless valid_mime_types.include?(params[:mimetype])
         ResourceAttachment.new.attachment_direct
-      when "resource_image"
+      when 'resource_image'
         ResourceImage.new.image_direct
-      when "user_image"
+      when 'user_image'
         UserImage.new.image_direct
       end
     end

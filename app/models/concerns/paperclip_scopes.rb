@@ -25,18 +25,27 @@ module PaperclipScopes
     retina:  '-set colorspace sRGB -strip -sharpen 0x0.5' }
 
     # Validate content type
-    validates_attachment_content_type :avatar, content_type: /\Aimage/
+    # validates_attachment_content_type :avatar, content_type: /\Aimage/
     # Validate filename
     validates_attachment_file_name :avatar, matches: [/png\Z/, /jpe?g\Z/, /gif\Z/]
     # Explicitly do not validate
     do_not_validate_attachment_file_type :avatar
   end
 
-  module ClassMethods
-
-  def delete_avatar
-    self.avatar = nil
+  def avatar_remote_url=(url_value)
+    self.avatar = URI.parse(URI.encode(url_value))
+    @avatar_remote_url = url_value
   end
 
+  module ClassMethods
+    def process_image_original_path!(id)
+      instance = find(id)
+      instance.avatar_remote_url = instance.image_original_path
+      instance.save!
+    end
+
+    def delete_avatar
+      self.avatar = nil
+    end
   end
 end
