@@ -14,7 +14,7 @@
       width: 100%;
 
       .image-wrapper {
-        height: 330px;
+        // min-height: 230px;
         overflow: hidden;
 
         img {
@@ -73,15 +73,18 @@
         color: #a4a4a4;
         display: inline-block;
         font-size: .8em;
-        height: 100px;
+        height: 200px;
         overflow: hidden;
         padding: 0 20px;
+        line-height: 1.4em;
       }
 
       .button {
         display: block;
         margin: 0 20px;
         background: #59a2e7;
+        line-height: 2em;
+        text-transform: uppercase;
 
         &.purchase {
           background: #42bc1d;

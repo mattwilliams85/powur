@@ -51,34 +51,34 @@ namespace :powur do
 
       Product.create!(
         id:                  CERT_ITEM_ID,
-        name:                'Certified -- Grow your Grid',
-        description:         'Powur Certification gives you all the tools you need to build a high performing team and share in the rewards of their success. If you are going to mentor others, you need training. This is your first step. Now you have the power.',
+        name:                'Powur Consultant',
+        description:         'The powur energy-consultant certification makes you an unparalleled leader in the direct selling energy space.  This proprietary certification gives you advanced insights into solar, the energy markets at large, how to sell,  how to build an effective sales organization, and the fastest way to reach your goals. Certification is required to earn commissions from the grid you build.',
         bonus_volume:        14900,
         distributor_only:    true,
         certifiable:         true,
-        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certification.jpg',
+        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certification-2.jpg',
         smarteru_module_id:  '8342',
         position:            2)
 
-      Product.create!(
-        id:                  CERT2_ITEM_ID,
-        name:                'Shine',
-        description:         'Taking a bold step into a new industry requires new skills and an entrepreneurial spirit. From the basics of the solar energy industry to transforming yourself into a business leader, Shine gives you the tools you need to hit the ground running.',
-        bonus_volume:        0,
-        distributor_only:    true,
-        certifiable:         true,
-        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/shine.jpg',
-        smarteru_module_id:  '8362',
-        position:            3)
+      # Product.create!(
+      #   id:                  CERT2_ITEM_ID,
+      #   name:                'Shine',
+      #   description:         'Taking a bold step into a new industry requires new skills and an entrepreneurial spirit. From the basics of the solar energy industry to transforming yourself into a business leader, Shine gives you the tools you need to hit the ground running.',
+      #   bonus_volume:        0,
+      #   distributor_only:    true,
+      #   certifiable:         true,
+      #   image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/shine.jpg',
+      #   smarteru_module_id:  '8362',
+      #   position:            3)
 
       Product.create!(
         id:                  CERT3_ITEM_ID,
         name:                'Fast Impact Training (FIT)',
-        description:         'Fast Impact Training',
+        description:         'The “Fast Impact Training” (FIT) is a quick introduction to succeeding as a Powur advocate.  Learn the basics of Solar, and what rules you need to follow to prosper with Powur. This training is required before you can begin enrolling customers or new team mates in Powur.',
         bonus_volume:        0,
         distributor_only:    true,
         certifiable:         true,
-        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/fit.jpg',
+        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/fit-2.jpg',
         smarteru_module_id:  '8319',
         is_required_class:   true,
         position:            1)
