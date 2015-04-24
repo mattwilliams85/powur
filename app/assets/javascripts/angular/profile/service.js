@@ -16,7 +16,7 @@ function UserProfile($http, $q, $cacheFactory) {
         xsrfHeaderName: 'X-CSRF-Token'
       }).success(function(res) {
         cache.put('data', res.properties);
-        dfr.resolve(cache.get('data'));
+        dfr.resolve(cache.get('data') || res);
       }).error(function(err) {
         console.log('エラー', err);
         dfr.reject(err);

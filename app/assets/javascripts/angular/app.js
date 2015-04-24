@@ -19,7 +19,7 @@ var sunstandApp = angular.module('sunstandApp', [
     // Initialize Foundation JS on page load
     $timeout(function() {
       $(document).foundation();
-    }, 500);
+    }, 1000);
 
     $rootScope.redirectIfSignedIn = function() {
       if (!$rootScope.isSignedIn) return;

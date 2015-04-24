@@ -30,7 +30,6 @@ function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams,
   $scope.takeClass = function(classItem) {
     $anchorScroll();
     $scope.showModal('Enrolling ...', 'sun-modal');
-    $(document).foundation();
 
     var action = getAction(classItem.actions, 'enroll');
     return UniversityClass.execute(action).then(function(data) {

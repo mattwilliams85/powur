@@ -26,7 +26,6 @@ function LibraryCtrl($scope, $location, Resource, UserProfile) {
     }
     var html = $('#item_' + item.properties.id).html();
     $('<div class=\'reveal-modal library-modal\' data-reveal>' + html + '<a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
-    $(document).foundation();
   };
 
   $scope.resourceTypeChange = function() {

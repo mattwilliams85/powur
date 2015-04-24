@@ -26,7 +26,6 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       }).then(function(data) {
         if (data.error) {
           $scope.showModal('Oops, wrong email or password');
-          $(document).foundation();
         } else {
           $rootScope.isSignedIn = true;
           $rootScope.currentUser = data;
@@ -71,7 +70,6 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
     } else {
       $location.path('/sign-in');
       $scope.showModal('You\'ve successfully Signed Up. Now you may Sign In.');
-      $(document).foundation();
     }
     $scope.isSubmitDisabled = false;
   };
@@ -103,7 +101,6 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       success(function() {
         $location.path('/sign-in');
         $scope.showModal('We received your request. You\'ll get an email if we have an account associated with it.');
-        $(document).foundation();
       }).
       error(function() {
         console.log('Reset Password Error');
@@ -125,11 +122,9 @@ function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeou
       success(function(data) {
         if (data.error) {
           $scope.showModal(data.error.message);
-          $(document).foundation();
         } else {
           $location.path('/sign-in');
           $scope.showModal(data.properties._message.confirm);
-          $(document).foundation();
         }
       }).
       error(function() {
