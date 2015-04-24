@@ -38,7 +38,7 @@ var sunstandApp = angular.module('sunstandApp', [
       }
     };
 
-    $rootScope.animateArrow = function(id, time){
+    $rootScope.animateArrow = function(id, time) {
       $timeout.cancel(pilerTimer);
       var element = $('.arrow-box')[id-1];
       var pilerTimer = $timeout(function() {
@@ -194,7 +194,7 @@ var sunstandApp = angular.module('sunstandApp', [
     };
 
     $rootScope.isMenuLinkActive = function(path) {
-      if(path === $location.path()) return true;
+      if (path === $location.path()) return true;
       return false;
     };
 
@@ -214,17 +214,17 @@ var sunstandApp = angular.module('sunstandApp', [
       var duration = 500;
       var offset = 0; // pixels; adjust for floating menu, context etc
       // Scroll to #some-id with N px 'padding'
-      $('.sun-bg-1').animate({opacity: '0'}, 700 ,function(){
+      $('.sun-bg-1').animate({ opacity: '0' }, 700, function() {
         var someElement = angular.element(document.getElementById(id));
         $document.scrollToElement(someElement, offset, duration);
         setTimeout(function(){
           $('body').css('background','transparent');
           //prevents users from getting stuck on second slide
-          if(id === 'dim_the_lights') {
+          if (id === 'dim_the_lights') {
             $('.sun-bg-1').hide();
             $('body').scrollTop(0);
           }
-          if(id === 'on_slider_move') {
+          if (id === 'on_slider_move') {
             // $('body').css('background','transparent')
             $('.sun-bg-1').css('opacity','1').show();
             $(window).scrollTop($('.sun-promo-slide-3').offset().top);

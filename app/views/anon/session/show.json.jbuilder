@@ -31,7 +31,7 @@ entities(*entity_list)
 
 actions action(:logout, :delete, login_path)
 
-link_list = [ 
+link_list = [
   link(:self, root_path),
   link(:index, dashboard_path),
   link(:profile, profile_path) ]
