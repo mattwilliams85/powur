@@ -63,17 +63,22 @@ class Product < ActiveRecord::Base
     nmi_gateway = NmiGateway.new(form)
     response = nmi_gateway.do_post
 
-    if response['response_code'].first == '100'
-      return product_receipts.create(
-        user_id:        user.id,
-        amount:         form[:amount]*100,
-        transaction_id: response['transactionid'].first,
-        auth_code:      response['authcode'].first,
-        order_id:       response['orderid'].first
-      )
-    else
-      return false
-    end
+    return false if response['response_code'].first != '100'
+
+    user.address = form[:address1] unless user.address
+    user.city = form[:city] unless user.city
+    user.state = form[:state] unless user.state
+    user.zip = form[:zip] unless user.zip
+    user.phone = form[:phone] unless user.phone
+    user.save
+
+    product_receipts.create(
+      user_id:        user.id,
+      amount:         form[:amount] * 100,
+      transaction_id: response['transactionid'].first,
+      auth_code:      response['authcode'].first,
+      order_id:       response['orderid'].first
+    )
   end
 
   class << self
