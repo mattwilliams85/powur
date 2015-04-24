@@ -3,7 +3,7 @@ class ProductEnrollment < ActiveRecord::Base
   belongs_to :user
 
   validates :product_id,
-    presence: true,
+    presence:   true,
     uniqueness: { scope: :user_id }
   validates :user_id, presence: true
 

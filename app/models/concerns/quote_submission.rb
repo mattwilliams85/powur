@@ -33,10 +33,16 @@ module QuoteSubmission
 
     def post
       url = ENV['SOLAR_CITY_LEAD_URL']
-      @response = RestClient.post(url, post_body)
+      @response = RestClient::Request.execute(
+        method:       :post,
+        url:          url,
+        timeout:      10,
+        open_timeout: 10)
     rescue RestClient::InternalServerError => e
       @error = e
       @response = e.inspect
+    rescue RestClient::RequestTimeout
+      @error = 'Request to submit timed out'
     end
 
     def provider_uid
