@@ -108,7 +108,7 @@ function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
   // Submit Proposal to SolarCity Action
   $scope.submit = function() {
     $scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit');
-    Customer.execute($scope.submitAction).then(actionCallback($scope.submitAction());
+    Customer.execute($scope.submitAction).then(actionCallback($scope.submitAction()));
   };
 
   // Close Form
