@@ -52,7 +52,7 @@
       </div>
       <div class="large-9 medium-9 small-10 columns">
         <!-- Proposals Carousel -->
-        <div class="proposals carousel">
+        <slick init-onload="true" data="proposals" dots="false" responsive="slickResponsive" prevarrow="slickPrevArrow" nextarrow="slickNextArrow" infinite="true" swipe="false" slides-to-show="4" slides-to-scroll="4" speed="500" on-before-change="closeForm()" class="proposals carousel">
           <a ng-repeat="proposal in proposals" ng-click="showProposal(proposal.properties.id)">
             <div class="proposal carousel-item" ng-class="{active: currentProposal.id === proposal.properties.id}">
               <div class="icon">
@@ -64,7 +64,7 @@
               </div>
             </div>
           </a>
-        </div>
+        </slick>
       </div>
     </div>
 

@@ -7,6 +7,7 @@ var sunstandApp = angular.module('sunstandApp', [
   'sunstandServices',
 
   // Directives
+  'slick',
   'sunstandApp.fileS3Uploader'
 ]).run(['$rootScope', '$location', '$document', '$http', '$window', '$timeout',
   function ($rootScope, $location, $document, $http, $window, $timeout) {

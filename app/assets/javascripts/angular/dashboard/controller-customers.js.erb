@@ -38,6 +38,7 @@ function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
       Customer.get(proposalId).then(function(item){
         if ($scope.getAction(item.actions, 'update')) {
           $scope.formAction = $scope.getAction(item.actions, 'update');
+          $scope.proposalItem = item;
           $scope.proposal = $scope.setFormValues($scope.formAction);
           $scope.currentProposal = item.properties;
           $scope.mode = 'incomplete';
@@ -69,42 +70,34 @@ function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
     }
   };
 
-  // Create / Update Actions
+  // Submit Action
 
-  $scope.create = function() {
+  $scope.submit = function() {
     if ($scope.proposal) {
-      Customer.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
+      Customer.execute($scope.formAction, $scope.proposal).then(function(data) {
+        actionCallback($scope.formAction, data);
+      });
     }
   };
 
-  $scope.update = function() {
-    if ($scope.proposal) {
-      Customer.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
-    }
-  };
-
-  var actionCallback = function(action) {
+  var actionCallback = function(action, data) {
     if (action.name === 'create') {
       Customer.list().then(function(items) {
-        $scope.proposals = items.entities;
         $scope.closeForm();
-        $('.carousel').slick('unslick');
-        $timeout(function() {
-          $('.carousel').slick('unslick');
-          $scope.slick('.carousel');
-          $scope.$apply();
-        }, 200);
       });
     }
     if (action.name === 'update') {
       Customer.list().then(function(items) {
-        $scope.proposals = items.entities;
+        for (var i in $scope.proposals) {
+          if ($scope.proposals[i].properties.id === $scope.proposalItem.properties.id) {
+            for (var j in items.entities) {
+              if (items.entities[j].properties.id === $scope.proposalItem.properties.id) {
+                $scope.proposals[i].properties = items.entities[j].properties;
+              }
+            }
+          }
+        }
         $scope.closeForm();
-        $timeout(function() {
-          $('.carousel').slick('unslick');
-          $scope.slick('.carousel');
-          $scope.$apply();
-        }, 200);
       });
     }
   };
@@ -114,19 +107,12 @@ function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
     $scope.showForm = false;
     $scope.mode = '';
     $scope.currentProposal = {};
+    $scope.$apply();
   };
 
-  $scope.slick = function(elementToSlick) {
-    $(elementToSlick).slick({
-      swipe: false,
-      dots: false,
-      infinite: true,
-      speed: 300,
-      slidesToShow: 4,
-      slidesToScroll: 4,
-      prevArrow: '<a class="slick-prev"><i class="fa fa-chevron-left"></i></a>',
-      nextArrow: '<a class="slick-next"><i class="fa fa-chevron-right"></i></a>',
-      responsive: [
+  $scope.slickPrevArrow = '<a class="slick-prev"><i class="fa fa-chevron-left"></i></a>';
+  $scope.slickNextArrow = '<a class="slick-prev"><i class="fa fa-chevron-right"></i></a>';
+  $scope.slickResponsive = [
         {
           breakpoint: 1024,
           settings: {
@@ -141,13 +127,10 @@ function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
             slidesToScroll: 2
           }
         }
-      ]
-    });
+      ];
+  $scope.slickOnAfterChange = function() {
+    $scope.closeForm();
   };
-
-  $scope.$on('$routeChangeSuccess', function () {
-    // carousel stuff
-  });
 
   return Customer.list().then(function(items) {
     $scope.proposals = items.entities;
