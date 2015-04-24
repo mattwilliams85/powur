@@ -39,6 +39,7 @@ angular.module('slick', []).directive('slick', [
         pauseOnDotsHover: '@',
         responsive: '=',
         rtl: '@',
+        slickApply: '=',  // To reinitialize slider after new data is added
         slide: '@',
         slidesToShow: '@',
         slidesToScroll: '@',
@@ -55,6 +56,12 @@ angular.module('slick', []).directive('slick', [
       },
       link: function (scope, element, attrs) {
         var destroySlick, initializeSlick, isInitialized;
+        var slider;
+
+        // Custom function to Reinitialize Slider (use as $scope.slickApply(functionOfNewObjects) )
+        scope.slickApply = scope.slickApply || {};
+        // end custom function
+
         destroySlick = function () {
           return $timeout(function () {
             var slider;
@@ -77,6 +84,14 @@ angular.module('slick', []).directive('slick', [
                 index: index
               });
             };
+            // US
+            scope.slickApply.apply = function(){
+              if (isInitialized) {
+                slider.slick('unslick');
+              }
+              initializeSlick();
+            };
+            // THEM
             slider.slick({
               accessibility: scope.accessibility !== 'false',
               adaptiveHeight: scope.adaptiveHeight === 'true',

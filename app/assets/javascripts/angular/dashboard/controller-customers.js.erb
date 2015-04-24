@@ -2,11 +2,10 @@
 
 function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
   $scope.redirectUnlessSignedIn();
-  $scope.proposalForm = false;
-
   $scope.states = Geo.states();
+  $scope.slickApply = {};
 
-  // Utility Functions
+  // Utility Functions:
   $scope.getAction = function(actions, name) {
     for (var i in actions) {
       if (actions[i].name === name) {
@@ -27,13 +26,14 @@ function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
   };
 
   // Show Proposal
-
-  $scope.showProposal = function(proposalId) {
+  $scope.showProposal = function(proposalIndex) {
+    var proposalId = $scope.proposals[proposalIndex].properties.id;
     if ($scope.showForm === true && (proposalId === $scope.currentProposal.id)) {
       $scope.closeForm();
     } else {
       $scope.proposal = {};
       $scope.currentProposal = {};
+      $scope.currentProposalIndex = proposalIndex;
 
       Customer.get(proposalId).then(function(item){
         if ($scope.getAction(item.actions, 'update')) {
@@ -54,7 +54,6 @@ function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
   };
 
   // New Proposal
-
   $scope.newProposal = function() {
     if ($scope.showForm === true && $scope.mode === 'new') {
       $scope.closeForm();
@@ -70,46 +69,59 @@ function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
     }
   };
 
-  // Submit Action
-
-  $scope.submit = function() {
+  // Save/Update Action
+  $scope.saveProposal = function() {
     if ($scope.proposal) {
-      Customer.execute($scope.formAction, $scope.proposal).then(function(data) {
-        actionCallback($scope.formAction, data);
-      });
+      Customer.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
     }
   };
 
-  var actionCallback = function(action, data) {
+  function updateSlickCarousel(data, index) {
+    // If index, set newValues to the properties of this proposal; otherwise {}
+    var newValues = index ? $scope.proposals[index].properties : {};
+    newValues.customer = data.first_name + ' ' + data.last_name;
+    if (index) {
+      $scope.proposals[index].properties = newValues;
+    } else {
+      $scope.proposals.push({
+        properties: newValues
+      });
+    }
+  }
+
+  var actionCallback = function(action) {
     if (action.name === 'create') {
-      Customer.list().then(function(items) {
-        $scope.closeForm();
-      });
-    }
-    if (action.name === 'update') {
-      Customer.list().then(function(items) {
-        for (var i in $scope.proposals) {
-          if ($scope.proposals[i].properties.id === $scope.proposalItem.properties.id) {
-            for (var j in items.entities) {
-              if (items.entities[j].properties.id === $scope.proposalItem.properties.id) {
-                $scope.proposals[i].properties = items.entities[j].properties;
-              }
-            }
-          }
-        }
-        $scope.closeForm();
-      });
+      updateSlickCarousel($scope.proposal);
+      $scope.slickApply.apply();
+      $scope.closeForm();
+    } else if (action.name === 'update') {
+      updateSlickCarousel($scope.proposal, $scope.currentProposalIndex);
+      $scope.slickApply.apply();
+      $scope.closeForm();
+    } else if (action.name === 'submit') {
+      console.log('submitted proposal!');
+      $scope.slickApply.apply();
+      $scope.closeForm();
     }
   };
 
+  // Submit Proposal to SolarCity Action
+  $scope.submit = function() {
+    $scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit');
+    Customer.execute($scope.submitAction).then(actionCallback($scope.submitAction());
+  };
 
+  // Close Form
   $scope.closeForm = function() {
     $scope.showForm = false;
     $scope.mode = '';
     $scope.currentProposal = {};
-    $scope.$apply();
+    // $scope.$apply();
   };
 
+  // Slick-Specific things:
+
+  // Slick Parameters for <slick> tag
   $scope.slickPrevArrow = '<a class="slick-prev"><i class="fa fa-chevron-left"></i></a>';
   $scope.slickNextArrow = '<a class="slick-prev"><i class="fa fa-chevron-right"></i></a>';
   $scope.slickResponsive = [
@@ -128,6 +140,8 @@ function DashboardCustomersCtrl($scope, $location, $timeout, Geo, Customer) {
           }
         }
       ];
+
+  // Function to call after Slick changes (aka move carousel)
   $scope.slickOnAfterChange = function() {
     $scope.closeForm();
   };
