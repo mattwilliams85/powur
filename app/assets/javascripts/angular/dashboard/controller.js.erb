@@ -5,7 +5,7 @@ function DashboardCtrl($scope, $location, UserProfile) {
 
   UserProfile.get().then(function(user) {
     $scope.currentUser = user;
-    if (user.require_enrollment) {
+    if (user && user.require_enrollment) {
       $location.path('/university');
       $scope.showModal($scope.enrollmentRequirementMessage);
       return;
