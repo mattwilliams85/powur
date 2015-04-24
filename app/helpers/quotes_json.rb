@@ -62,7 +62,10 @@ class QuotesJson < JsonDecorator
 
   def auth_actions(quote)
     list = [ resend_action(resend_user_quote_path(quote)) ]
-    list << update_action(user_quote_path(quote)) unless quote.submitted?
+    unless quote.submitted?
+      list << update_action(user_quote_path(quote))
+      list << action(:delete, :delete, user_quote_path(quote))
+    end
     if quote.ready_to_submit?
       list << submit_action(submit_user_quote_path(quote))
     end

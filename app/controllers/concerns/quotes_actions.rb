@@ -58,6 +58,8 @@ module QuotesActions
 
 
   def destroy
+    error!(:delete_quote) if @quote.submitted?
+
     @quote.destroy
 
     confirm :delete, entity: @quote.customer.full_name
