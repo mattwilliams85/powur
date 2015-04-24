@@ -52,8 +52,8 @@
       </div>
       <div class="large-9 medium-9 small-10 columns">
         <!-- Proposals Carousel -->
-        <slick init-onload="true" data="proposals" dots="false" responsive="slickResponsive" prevarrow="slickPrevArrow" nextarrow="slickNextArrow" infinite="true" swipe="false" slides-to-show="4" slides-to-scroll="4" speed="500" on-before-change="closeForm()" class="proposals carousel">
-          <a ng-repeat="proposal in proposals" ng-click="showProposal(proposal.properties.id)">
+        <slick init-onload="true" data="proposals" slick-apply="slickApply" dots="false" responsive="slickResponsive" prevarrow="slickPrevArrow" nextarrow="slickNextArrow" infinite="true" swipe="false" slides-to-show="4" slides-to-scroll="4" speed="500" on-before-change="closeForm()" class="proposals carousel">
+          <a ng-repeat="proposal in proposals" ng-click="showProposal($index)">
             <div class="proposal carousel-item" ng-class="{active: currentProposal.id === proposal.properties.id}">
               <div class="icon">
                 <span ng-show="proposal.properties.submitted_at"><i class="fa fa-star-half-o fa-4x"></i></span>
@@ -93,7 +93,7 @@
         <button class="button expand right" ng-show="mode === 'submitted'" disabled><i class="fa fa-check"></i> Submitted</button>
       </div>
 
-      <div class="form large-9 medium-9 columns">
+      <div ng-show="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
         <!-- Form -->
         <ng-include src="'<%= asset_path("angular/dashboard/templates/sections/customers-form.html") %>'"></ng-include>
       </div>
