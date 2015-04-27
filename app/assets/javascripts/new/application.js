@@ -1,8 +1,28 @@
-// Landing page js files manifest
+// App JS files
 
-//= require vendor/custom.modernizr
+// Bower components
+//
+//= require jquery/dist/jquery.js
+//= require jquery-ui/ui/jquery-ui.js
+//= require Chart.js/Chart.min.js
+//= require angular/angular.js
+//= require angular-route/angular-route.js
+//= require angular-resource/angular-resource.js
+//= require angular-scroll/angular-scroll.js
+//= require angular-ui-slider/src/slider.js
+//= require slick-carousel/slick/slick.js
+//= require velocity/velocity.js
+
+// TODO: this block of js libraries is still in the repo,
+// need to either remove or request from bower
+//
+// require utility
+//= require jquery.pagepiling.js
 //= require foundation
+//= require angular-slider.min.js
 
+// Powur js resources
+//
 //= require ../angular/app.js
 //= require ../angular/routes.js
 //= require_tree ../angular/dashboard
@@ -16,7 +36,5 @@
 //= require_tree ../angular/user-static-content
 
 //= require_tree ../angular/modules/file-s3-uploader
-
-//= require_tree ../angular/vendor
 
 $(document).foundation();

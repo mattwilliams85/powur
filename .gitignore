@@ -26,3 +26,4 @@ npm-debug.log
 /config/application.yml
 
 node_modules
+vendor/assets/bower_components

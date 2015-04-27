@@ -36,6 +36,7 @@ module Sunstand
     config.middleware.delete Rack::ETag
 
     config.assets.paths << "#{Rails.root}/app/assets/templates"
+    config.assets.paths << "#{Rails.root}/vendor/assets/bower_components"
     config.secret_key_base = ENV['SECRET_KEY_BASE']
   end
 end

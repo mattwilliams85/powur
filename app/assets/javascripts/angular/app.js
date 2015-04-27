@@ -243,6 +243,7 @@ var sunstandControllers = angular.module(
   'sunstandControllers',
   []
 );
+
 var sunstandServices = angular.module(
   'sunstandServices',
   ['ngResource', 'uiSlider', 'duScroll']
