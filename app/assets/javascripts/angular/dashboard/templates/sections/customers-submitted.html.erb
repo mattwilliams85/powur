@@ -8,11 +8,11 @@
         <div class="row">
           <div class="large-6 medium-6 columns">
             <label>First Name</label>
-            <input ng-model="proposal.first_name" type="text">
+            <input ng-model="proposal.first_name" ng-disabled="mode === 'submitted'" type="text">
           </div>
           <div class="large-6 medium-6 columns">
             <label>Last Name</label>
-            <input ng-model="proposal.last_name" type="text">
+            <input ng-model="proposal.last_name" ng-disabled="mode === 'submitted'" type="text">
           </div>
         </div>
 
@@ -20,7 +20,7 @@
         <div class="row">
           <div class="large-12 medium-12 columns">
             <label>Email</label>
-            <input ng-model="proposal.email" type="text">
+            <input ng-model="proposal.email" ng-disabled="mode === 'submitted'" type="text">
           </div>
         </div>
 
@@ -28,7 +28,7 @@
         <div class="row">
           <div class="large-12 medium-12 columns">
             <label>Phone</label>
-            <input ng-model="proposal.phone" type="text">
+            <input ng-model="proposal.phone" ng-disabled="mode === 'submitted'" type="text">
           </div>
         </div>
 
@@ -36,7 +36,7 @@
         <div class="row">
           <div class="large-12 medium-12 columns">
             <label>Address</label>
-            <input ng-model="proposal.address" type="text">
+            <input ng-model="proposal.address" ng-disabled="mode === 'submitted'" type="text">
           </div>
         </div>
 
@@ -44,18 +44,18 @@
         <div class="row">
           <div class="large-5 medium-5 columns">
             <label>City</label>
-            <input ng-model="proposal.city" type="text">
+            <input ng-model="proposal.city" ng-disabled="mode === 'submitted'" type="text">
           </div>
           <div class="large-3 medium-3 small-6 columns">
             <label>State</label>
-            <select ng-model="proposal.state">
+            <select ng-model="proposal.state" ng-disabled="mode === 'submitted'">
               <option disabled selected value=""></option>
               <option ng-repeat="state in states" value="{{state.name}}" ng-selected="state.name === proposal.state">{{state.abbr}}</option>
             </select>
           </div>
           <div class="large-4 medium-4 small-6 columns">
             <label>ZIP</label>
-            <input ng-model="proposal.zip" type="text">
+            <input ng-model="proposal.zip" ng-disabled="mode === 'submitted'" type="text">
           </div>
         </div>
 

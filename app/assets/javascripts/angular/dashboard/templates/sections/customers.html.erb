@@ -93,9 +93,13 @@
         <button class="button expand right" ng-show="mode === 'submitted'" disabled><i class="fa fa-check"></i> Submitted</button>
       </div>
 
-      <div ng-show="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
-        <!-- Form -->
+      <!-- Form if New or Incomplete Proposal-->
+      <div ng-if="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
         <ng-include src="'<%= asset_path("angular/dashboard/templates/sections/customers-form.html") %>'"></ng-include>
+      </div>
+      <!-- Summary if Submitted Proposal -->
+      <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
+        <ng-include src="'<%= asset_path("angular/dashboard/templates/sections/customers-submitted.html") %>'"></ng-include>
       </div>
     </div>
 
