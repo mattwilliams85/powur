@@ -1,7 +1,5 @@
 @import "foundation_and_overrides";
 
-@import "slick";
-@import "slick-theme";
 @import "angular-slider.min";
 
 @import "compass/utilities/sprites";
@@ -19,3 +17,6 @@
 @import "new/promo";
 @import "new/university";
 @import "new/user-static-content";
+
+@import "new/vendor/slick";
+@import "new/vendor/slick-theme";
