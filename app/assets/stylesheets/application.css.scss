@@ -1,56 +1,26 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
- * require font-awesome
- *= require_self
- */
+@import "foundation_and_overrides";
 
-// Reset the field
-@import "reset";
+@import "angular-slider.min";
 
-// Make mixins and variables available
-@import "_mixins";
-@import "iconsweet";
+html.piling-on {
+  @import "pagepiling.js/jquery.pagepiling";
+}
 
-// SMACCS CSS architecture (kinda)
+@import "new/vendor/slick";
+@import "new/vendor/slick-theme";
 
-// Set base styles (element tags only)
-@import "_base";
+@import "compass/utilities/sprites";
+@import "sun-sprites/*.png";
 
-// Define our layouts
-@import "_layouts";
-
-// Define our modules
-
-@import "_modules";
-
-// Define our states
-
-@import "_state";
-
-// Contextual exceptions to above styles
-// @import "index";
-// @import "user";
-// @import "promoter";
-// @import "customer";
-@import "dashboard";
-@import "dashboard-topper";
-// @import "foundation_and_overrides";
-@import "training";
-@import "upgrade";
-@import "earnings";
-@import "kpi";
-
-// Development & temporary styles
-@import "development";
-
-// Font Icons
-// @import "font-awesome-sprockets";
-// @import "font-awesome";
+@import "new/dashboard";
+@import "new/faq";
+@import "new/footer";
+@import "new/header";
+@import "new/landing";
+@import "new/library";
+@import "new/main";
+@import "new/menu";
+@import "new/profile";
+@import "new/promo";
+@import "new/university";
+@import "new/user-static-content";
