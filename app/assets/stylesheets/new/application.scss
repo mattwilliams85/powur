@@ -1,6 +1,9 @@
 @import "foundation_and_overrides";
 
 @import "angular-slider.min";
+@import "jquery.pagepiling";
+@import "new/vendor/slick";
+@import "new/vendor/slick-theme";
 
 @import "compass/utilities/sprites";
 @import "sun-sprites/*.png";
@@ -17,6 +20,3 @@
 @import "new/promo";
 @import "new/university";
 @import "new/user-static-content";
-
-@import "new/vendor/slick";
-@import "new/vendor/slick-theme";

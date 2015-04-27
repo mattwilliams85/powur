@@ -1,23 +1,27 @@
-<!DOCTYPE html>
-<html ng-app="sunstandApp">
+<!doctype html>
+<html ng-app='sunstandApp'>
 <head>
+  <meta charset='utf-8'>
+  <meta http-equiv='x-ua-compatible' content='ie=edge'>
   <title>Welcome to Powur</title>
-  <%= javascript_include_tag 'modernizr/modernizr.js' %>
-  <%= javascript_include_tag 'new/application' %>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
   <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round' rel='stylesheet' type='text/css'>
+  <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag 'new/application', media: 'all' %>
-  <%= stylesheet_link_tag 'jquery.pagepiling', media: 'all' %>
   <%= csrf_meta_tags %>
-  <%= render :partial => "shared/head" %>
+  <%= javascript_include_tag 'modernizr/modernizr.js' %>
 </head>
 <body>
 
-  <ng-view autoscroll="true"></ng-view>
+  <ng-view autoscroll='true'></ng-view>
 
-  <script type="text/javascript">
+  <!-- TODO: DELETEME -->
+  <script type='text/javascript'>
     SignedIn = <%= current_user ? 'true' : 'false' %>;
   </script>
+
+  <%= javascript_include_tag 'new/application' %>
 
 </body>
 </html>
