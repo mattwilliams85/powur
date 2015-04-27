@@ -1,7 +1,6 @@
 // Landing page js files manifest
 
 //= require vendor/custom.modernizr
-//= require slick
 //= require foundation
 
 //= require ../angular/app.js

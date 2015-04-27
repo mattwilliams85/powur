@@ -442,8 +442,6 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    slick_rails (1.5.0)
-      railties (>= 3.1)
     slop (3.6.0)
     spring (1.2.0)
     spring-commands-rspec (1.0.4)
@@ -546,7 +544,6 @@ DEPENDENCIES
   same_time!
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
-  slick_rails
   smarteru!
   spring-commands-rspec
   thin
