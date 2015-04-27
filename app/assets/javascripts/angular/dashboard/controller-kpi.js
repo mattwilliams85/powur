@@ -126,7 +126,7 @@ function DashboardKPICtrl($scope, $location, UserProfile) {
   $scope.populateContributors = function() {
     UserProfile.get().then(function(data){
       $scope.user = data;
-      UserProfile.getTeam(3).then(function(data){
+      UserProfile.getTeam(data.id).then(function(data){
         $scope.team = data.entities;
         console.log($scope.team)
       });
@@ -147,7 +147,7 @@ function DashboardKPICtrl($scope, $location, UserProfile) {
       $(this).velocity({
         translateY: $scope.position + "px"
       }, {
-        duration: 100,
+        duration: 50,
         easing: "easeOutQuint"
       });
     })
