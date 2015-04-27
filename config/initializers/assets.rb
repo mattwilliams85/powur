@@ -1,7 +1,8 @@
 # Javascripts
 Rails.application.config.assets.precompile += [
   'new/application.js',
-  'new/admin.js'
+  'new/admin.js',
+  'modernizr/modernizr.js'
 ]
 
 # Stylesheets
