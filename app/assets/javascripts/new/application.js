@@ -5,6 +5,7 @@
 //= require jquery/dist/jquery.js
 //= require jquery-ui/ui/jquery-ui.js
 //= require Chart.js/Chart.min.js
+//= require pagepiling.js/jquery.pagepiling.min.js
 //= require angular/angular.js
 //= require angular-route/angular-route.js
 //= require angular-resource/angular-resource.js
@@ -17,7 +18,6 @@
 // need to either remove or request from bower
 //
 // require utility
-//= require jquery.pagepiling.js
 //= require foundation
 //= require angular-slider.min.js
 
