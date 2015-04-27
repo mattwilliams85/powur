@@ -129,6 +129,16 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     } else if (action.name === 'submit') {
       console.log('submitted proposal!');
       $scope.closeForm();
+    } else if (action.name === 'delete') {
+      $route.reload();
+      slick('.carousel');
+      $scope.showModal('The proposal you selected was successfully deleted.');
+    } else if (action.name === 'resend') {
+      $route.reload();
+      $scope.showModal('This proposal email was successfully resent to ' +
+        $scope.proposal.first_name + ' ' +
+        $scope.proposal.last_name + ' at ' +
+        $scope.proposal.email + '.');
     }
   };
 
@@ -136,6 +146,30 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
   $scope.submit = function() {
     $scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit');
     Customer.execute($scope.submitAction).then(actionCallback($scope.submitAction()));
+  };
+
+  // Delete Proposal Action
+  $scope.delete = function() {
+    if (confirm('Are you sure you want to delete this proposal?')) {
+      var deleteAction = $scope.getAction($scope.proposalItem.actions, 'delete');
+      if (deleteAction) {
+        Customer.execute(deleteAction).then(actionCallback(deleteAction));
+      } else {
+        alert("This proposal can't be deleted.");
+      }
+    }
+  };
+
+  // Resend Email Action
+  $scope.resend = function() {
+    if (confirm('Are you sure you want to resend the proposal email to this customer?')) {
+      var resendAction = $scope.getAction($scope.proposalItem.actions, 'resend');
+      if (resendAction) {
+        Customer.execute(resendAction).then(actionCallback(resendAction));
+      } else {
+        alert("This proposal can't be resent.");
+      }
+    }
   };
 
   // Close Form
