@@ -135,7 +135,7 @@ function DashboardKPICtrl($scope, $location, UserProfile) {
 
   $scope.changePage = function(direction) {
     if (direction === 'next') {
-      if ($scope.team.length / $scope.page < 4) return;
+      if ($scope.team.length / $scope.page <= 4) return;
       $scope.page += 1;
       $scope.position -= 276;
     } else {
@@ -143,6 +143,7 @@ function DashboardKPICtrl($scope, $location, UserProfile) {
       $scope.page -= 1;
       $scope.position += 276;
     };
+    //Animate contributors bar
     $('.contributor').each(function() {
       $(this).velocity({
         translateY: $scope.position + "px"
