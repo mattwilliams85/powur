@@ -47,7 +47,6 @@ gem 'newrelic_rpm'
 gem 'aasm'
 gem 'smarteru', github: 'eyecuelab/smarteru'
 gem 'figaro'
-gem 'slick_rails'
 
 group :development do
   gem 'spring-commands-rspec'

@@ -1,7 +1,5 @@
 module Anon
   class PasswordsController < AnonController
-    layout 'user'
-
     def show
     end
 

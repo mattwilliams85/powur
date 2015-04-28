@@ -1,6 +1,4 @@
 class IndexController < AnonController
-  layout 'ng_app'
-
   def index
     respond_to do |format|
       format.html

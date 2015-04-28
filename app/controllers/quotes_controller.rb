@@ -1,6 +1,4 @@
 class QuotesController < AnonController
-  layout 'user'
-
   before_action :fetch_sponsor, only: [ :new, :show, :create, :update ]
 
   def new

@@ -1,6 +1,6 @@
 module Admin
   class RootController < AdminController
-    layout 'ng_admin_app'
+    layout 'admin'
     def index
     end
   end

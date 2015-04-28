@@ -1,24 +1,25 @@
 <!doctype html>
 <html ng-app="powurApp">
-<head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Powur</title>
+  <title>Welcome to Powur</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- <link rel="apple-touch-icon" href="apple-touch-icon.png"> -->
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <%= csrf_meta_tags %>
   <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
   <link href="//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round" rel="stylesheet">
-  <%= stylesheet_link_tag 'new/application' %>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= yield :header_includes %>
-  <%= javascript_include_tag 'vendor/custom.modernizr' %>
+  <%= javascript_include_tag 'modernizr/modernizr' %>
 </head>
 <body>
+  <ng-view autoscroll='true'></ng-view>
 
-<%= yield %>
-
-<%= javascript_include_tag 'application' %>
-<%= yield :bottom_includes %>
+  <!-- TODO: deprecate -->
+  <script type='text/javascript'>
+    SignedIn = <%= current_user ? 'true' : 'false' %>;
+  </script>
+  <%= javascript_include_tag 'application' %>
+  <%= yield :bottom_includes %>
 </body>
 </html>
