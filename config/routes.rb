@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   def params?(*args)
     ->(r) { args.none? { |a| r.params[a].blank? } }
   end
@@ -7,6 +6,25 @@ Rails.application.routes.draw do
   def param_values?(args)
     ->(r) { args.all? { |k, v| r.params[k] == v } }
   end
+
+  def json?
+    ->(r) { r.params[:format] == 'json' }
+  end
+
+  def html?
+    ->(r) { r.params[:format].blank? || r.params[:format] == 'html' }
+  end
+
+  root 'index#index'
+
+  # Index json request
+  get 'index', to: 'index#index', constraints: json?
+
+  # Any admin html request
+  get 'admin(/*any)', to: 'admin/root#index', constraints: html?
+
+  # Any other html request
+  get '*anyhtml', to: 'index#index', constraints: html?
 
   resource :session, only: [ :show ]
 
@@ -288,8 +306,4 @@ Rails.application.routes.draw do
   end
 
   resource :promoter, only: [ :new, :show ]
-
-  root 'index#index'
-
-  get '/admin' => 'admin/root#index'
 end

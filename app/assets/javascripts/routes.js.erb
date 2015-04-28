@@ -1,5 +1,6 @@
 sunstandApp.config(
-  ['$routeProvider', '$sceProvider', '$httpProvider', function($routeProvider, $sceProvider, $httpProvider) {
+  ['$routeProvider', '$locationProvider', '$sceProvider', '$httpProvider', function($routeProvider, $locationProvider, $sceProvider, $httpProvider) {
+    $locationProvider.html5Mode(true);
     $sceProvider.enabled(false);
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
 

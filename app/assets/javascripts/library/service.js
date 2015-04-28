@@ -12,7 +12,7 @@ function Resource($http, $q) {
 
       $http({
         method: 'GET',
-        url: '/u/resources',
+        url: '/u/resources.json',
         params: data
       }).success(function(res) {
         dfr.resolve(res);

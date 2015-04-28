@@ -1,6 +1,6 @@
 'use strict';
 
-function UserStaticContentCtrl($scope) {
+function UserStaticContentCtrl($scope, UserProfile) {
   $scope.redirectUnlessSignedIn();
 
   UserProfile.get().then(function(user) {
@@ -8,5 +8,5 @@ function UserStaticContentCtrl($scope) {
   });
 }
 
-UserStaticContentCtrl.$inject = ['$scope'];
+UserStaticContentCtrl.$inject = ['$scope', 'UserProfile'];
 sunstandControllers.controller('UserStaticContentCtrl', UserStaticContentCtrl);

@@ -12,7 +12,7 @@ function UniversityClass($http, $q) {
 
       $http({
         method: 'GET',
-        url: '/u/university_classes',
+        url: '/u/university_classes.json',
         params: data
       }).success(function(res) {
         dfr.resolve(res);
@@ -55,7 +55,7 @@ function UniversityClass($http, $q) {
 
       $http({
         method: 'GET',
-        url: '/u/university_classes/' + id
+        url: '/u/university_classes/' + id + '.json'
       }).success(function(res) {
         dfr.resolve(res);
       }).error(function(err) {
