@@ -207,7 +207,7 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     $scope.proposals = items.entities;
     $timeout(function(){
       slick('.carousel');
-    });
+    }, 1000);
   });
 
 }

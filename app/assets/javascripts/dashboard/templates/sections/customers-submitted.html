@@ -4,15 +4,11 @@
       <fieldset>
         <legend><i class="fa fa-envelope"></i> Contact Information</legend>
 
-        <!-- First/Last Name -->
+        <!-- Customer Name -->
         <div class="row">
-          <div class="large-6 medium-6 columns">
-            <label>First Name</label>
-            <input ng-model="proposal.first_name" ng-disabled="mode === 'submitted'" type="text">
-          </div>
-          <div class="large-6 medium-6 columns">
-            <label>Last Name</label>
-            <input ng-model="proposal.last_name" ng-disabled="mode === 'submitted'" type="text">
+          <div class="large-12 medium-12 columns">
+            <label>Customer</label>
+            <input ng-model="proposal.customer" ng-disabled="mode === 'submitted'" type="text">
           </div>
         </div>
 
