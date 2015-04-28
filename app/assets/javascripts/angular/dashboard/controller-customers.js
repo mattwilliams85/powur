@@ -144,8 +144,13 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
 
   // Submit Proposal to SolarCity Action
   $scope.submit = function() {
-    $scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit');
-    Customer.execute($scope.submitAction).then(actionCallback($scope.submitAction()));
+    if (confirm('Please confirm that all fields in the customer\'s contact information are correct before proceeding. \n' +
+        'Are you sure you want to submit this proposal to SolarCity?')) {
+      $scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit');
+      Customer.execute($scope.submitAction).then(actionCallback($scope.submitAction()));
+    } else {
+      alert('This proposal can\'t be submitted to SolarCity.');
+    }
   };
 
   // Delete Proposal Action
