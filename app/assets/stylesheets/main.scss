@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  font-family: Montserrat, 'Open Sans'
 }
 
 .highlighted {
@@ -13,6 +14,22 @@ slider {
     height:7px;
     margin:25px 5px;
   }
+}
+
+//Pagepiling css overrides
+#pp-nav {
+  li {
+    margin: 20px !important;
+  }
+  span {
+    border-width: 3px !important;
+    height: 12px !important; 
+    width: 12px !important;
+  }
+}
+
+.no-scroll {
+  overflow: hidden;
 }
 
 

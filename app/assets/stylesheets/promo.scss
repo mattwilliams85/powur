@@ -261,9 +261,6 @@ $xl-screen: em-calc(1500);
 
       &.active {
         left: 0;
-        @media #{$medium} { 
-          left:12%;
-        }
       }
 
       .image {
@@ -636,11 +633,11 @@ $xl-screen: em-calc(1500);
     }
 
     .fa-chevron-left {
-      left:50px;
+      left:-50px;
     }
 
     .fa-chevron-right {
-      left:770px;
+      left:660px;
     }
 
     .slide-show-dots {
@@ -961,6 +958,10 @@ $xl-screen: em-calc(1500);
         line-height:25pt;
       }
     }
+    .sun-landing-footer {
+      position: relative;
+    }
+
     .sun-promo-intro {
       h1 {
         text-shadow: -1px 2px 2px rgba(150, 150, 150, 0.68);
@@ -1446,6 +1447,10 @@ $xl-screen: em-calc(1500);
        }
     }
 
+    .sun-landing-footer {
+      position: relative;
+    }
+
     .sun-origin-story-bg {
       background-image: image-url("promo/rainforest.jpg");
       background-repeat: no-repeat;
@@ -1519,6 +1524,11 @@ $xl-screen: em-calc(1500);
     @media #{$small} { 
       font-size: 1em;
     }
+
+    .sun-landing-footer {
+      position: relative;
+    }
+
     .sun-our-team-bg {
       background-image: image-url("promo/brown-grass.jpg");
       background-repeat: no-repeat;
@@ -1603,6 +1613,11 @@ $xl-screen: em-calc(1500);
     .row {
       width:90%;
     }
+
+    .sun-landing-footer {
+      position: relative;
+    }
+
     .dna-slide-1 {
       font-size:2em;
       .sun-promo-intro {
@@ -1724,7 +1739,7 @@ $xl-screen: em-calc(1500);
     }
 
     .dna-slide-7 {
-      height:85vh;
+      height:600px;
       h5 {
         font-size:3em;
         @media #{$small} { 

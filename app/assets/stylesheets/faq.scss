@@ -1,7 +1,7 @@
 .sun-header-faq {
   background: $sun-color-blue;
   text-align: center;
-  position: static;
+  // position: static;
 
   h1 {
     color: #fff;
@@ -18,8 +18,15 @@
 }
 
 .sun-faq {
-  padding-top: 50px;
   background:#fff;
+
+  .sun-header-guest, .sun-landing-footer {
+    position:relative;
+  }
+
+  .sun-fixed-bg {
+    padding-top:100px;
+  }
 
   .row {
     width: 90%;

@@ -1,6 +1,8 @@
 // Bower components
+
 //= require jquery/dist/jquery
 //= require jquery-ui/ui/jquery-ui
+//= require foundation/js/foundation
 //= require Chart.js/Chart.min
 //= require pagepiling.js/jquery.pagepiling.min
 //= require angular/angular
@@ -10,6 +12,7 @@
 //= require angular-ui-slider/src/slider
 //= require slick-carousel/slick/slick
 //= require velocity/velocity
+//= require velocity/velocity.ui.min
 
 // TODO: this block of js libraries is still in the repo,
 // need to either remove or request from bower

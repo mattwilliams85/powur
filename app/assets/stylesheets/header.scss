@@ -108,6 +108,16 @@
   .active {
     color: #fff;
   }
+
+  .dropdown {
+    label {
+      font-size: 9pt;
+    }
+    a {
+      line-height: 30pt !important;
+      text-transform: uppercase !important;
+    }
+  }
 }
 
 // Make the header buttons thumb-sized on mobile

@@ -54,7 +54,7 @@ var powurApp = angular.module('powurApp', [
     $rootScope.removePiler = function(){
       $('html').removeClass('piling-on');
       $('body').removeClass('no-scroll');
-      $('#pp-nav').hide();
+      $('#pp-nav').remove();
     };
 
     $rootScope.readyPiler = function(){
@@ -66,6 +66,12 @@ var powurApp = angular.module('powurApp', [
 
     $rootScope.pagePiler = function() {
       if($('#pagepiling').length === 0) return;
+
+      $('.fa-chevron-down, .bulb-btn, .watch').click(function(e){
+           e.preventDefault();
+           $.fn.pagepiling.moveSectionDown();
+           e.stopPropagation();         
+       });
 
       $('#pagepiling').pagepiling({
         menu: null,
@@ -102,6 +108,7 @@ var powurApp = angular.module('powurApp', [
               });
             }
             if (nextIndex > 1 && !$('.sun-header-guest').hasClass('invert')) { $('.sun-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');}
+            //Loads gif on slide entrance
             if (nextIndex === 3) { $rootScope.gif1Src = angular.element(document.querySelector('#gif_1_src')).attr('data-tempsrc'); }
             if (nextIndex === 4) { $rootScope.gif2Src = angular.element(document.querySelector('#gif_2_src')).attr('data-tempsrc'); }
             if (nextIndex === 5) { $rootScope.gif3Src = angular.element(document.querySelector('#gif_3_src')).attr('data-tempsrc'); }
@@ -111,8 +118,10 @@ var powurApp = angular.module('powurApp', [
           }, 650);
         },
         afterLoad: function() {
-          // Removing tooltips (conflicts with foundation tooltips)
+          // Removes tooltips (conflicts with foundation tooltips)
           $('#pp-nav li').removeAttr('data-tooltip');
+          // Removes page anchors
+          $('#pp-nav a').removeAttr('href');
           $(document).off('mouseenter', '#pp-nav li');
 
           animateActiveNav();
@@ -135,11 +144,9 @@ var powurApp = angular.module('powurApp', [
         if($('.pp-section.active').hasClass('inverted')){
           $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
           $('a.active').find('span').animate({backgroundColor:'#fff'},100);
-          $.fn.pagepiling.updateColor('#fff');
         } else {
           $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
           $('a.active').find('span').animate({backgroundColor:'#555'},100);
-          $.fn.pagepiling.updateColor('#555');
         }
       }
 
