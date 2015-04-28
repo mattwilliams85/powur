@@ -63,13 +63,13 @@
     </div>
     <div class="large-6 columns">
       <fieldset>
-        <legend><i class="fa fa-bolt"></i> House and Utility Information</legend>
+        <legend ng-if="proposal.productFields"><i class="fa fa-bolt"></i> House and Utility Information</legend>
 
-        <!-- Average Bill -->
-        <div class="row">
+        <!-- Custom Product Fields -->
+        <div ng-repeat="productField in proposal.productFields" class="row">
           <div class="large-12 medium-12 columns">
-            <label>Average Bill</label>
-            <input ng-model="proposal.average_bill" type="text">
+            <label>{{sanitizeLabel(productField.name)}}</label>
+            <input ng-model="proposal[productField.name]" type="{{productField.type}}">
           </div>
         </div>
 

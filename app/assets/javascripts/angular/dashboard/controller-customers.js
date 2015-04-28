@@ -20,9 +20,24 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     for (var i in formAction.fields) {
       var key = formAction.fields[i].name;
       var value = formAction.fields[i].value;
-      formValues[key] = (value);
+      formValues[key] = (value) || '';
     }
     return formValues;
+  };
+
+  $scope.setProductFields = function(formAction) {
+    var productFields = [];
+    for (var i in formAction.fields) {
+      if (formAction.fields[i].product_field) {
+        productFields.push(formAction.fields[i]);
+      }
+    }
+    return productFields;
+  };
+
+  $scope.sanitizeLabel = function(fieldNameString) {
+    var sanitizedString = fieldNameString.replace(/_/g, " ");
+    return sanitizedString;
   };
 
   var slick = function(elementToSlick) {
@@ -69,6 +84,7 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
           $scope.formAction = $scope.getAction(item.actions, 'update');
           $scope.proposalItem = item;
           $scope.proposal = $scope.setFormValues($scope.formAction);
+          $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
           $scope.currentProposal = item.properties;
           $scope.mode = 'incomplete';
           $scope.showForm = true;
@@ -92,6 +108,7 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
 
       Customer.list().then(function(items){
         $scope.formAction = $scope.getAction(items.actions, 'create');
+        $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
         $scope.mode = 'new';
         $scope.showForm = true;
       });
