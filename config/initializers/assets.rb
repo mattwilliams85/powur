@@ -1,10 +1,10 @@
 # Javascripts
 Rails.application.config.assets.precompile += [
-  'new/admin.js',
+  'admin.js',
   'modernizr/modernizr.js'
 ]
 
 # Stylesheets
 Rails.application.config.assets.precompile += [
-  'new/admin.css'
+  'admin.css'
 ]

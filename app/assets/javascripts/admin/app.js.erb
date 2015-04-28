@@ -1,0 +1,331 @@
+'use strict';
+
+var sunstandAdminApp = angular.module('sunstandAdminApp', [
+  'ngRoute',
+
+  'sunstandControllers',
+  'sunstandServices',
+
+  // Directives
+  'sunstandApp.fileS3Uploader'
+]).run(['$rootScope', '$location', '$document', '$http', '$window', '$timeout', 'CurrentUser',
+  function ($rootScope, $location, $document, $http, $window, $timeout, CurrentUser) {
+    $rootScope.currentUser = {};
+    $rootScope.isSignedIn = !!SignedIn;
+    /*
+     * Fill in User object with data if user is signed in but object is empty
+    */
+    $rootScope.$on('$includeContentLoaded', function(event, next, current) {
+      if ($rootScope.isSignedIn) {
+        CurrentUser.get().then(function(data) {
+          $rootScope.currentUser = data;
+        });
+      }
+    });
+
+    $rootScope.redirectToDashboardIfSignedIn = function() {
+      if ($rootScope.isSignedIn) {
+        window.location = '/u/dashboard';
+      }
+    };
+
+    $rootScope.redirectUnlessSignedIn = function() {
+      if (!$rootScope.isSignedIn) {
+        window.location = '#/sign-in';
+      }
+    };
+
+    $rootScope.foundation = function() {
+      $(document).foundation();
+    };
+
+    $rootScope.states = {
+        'Alabama': 'Alabama',
+        'Alaska': 'Alaska',
+        'Arizona': 'Arizona',
+        'Arkansas': 'Arkansas',
+        'California': 'California',
+        'Colorado': 'Colorado',
+        'Connecticut': 'Connecticut',
+        'Delaware': 'Delaware',
+        'Florida': 'Florida',
+        'Georgia': 'Georgia',
+        'Hawaii': 'Hawaii',
+        'Idaho': 'Idaho',
+        'Illinois': 'Illinois',
+        'Indiana': 'Indiana',
+        'Iowa': 'Iowa',
+        'Kansas': 'Kansas',
+        'Kentucky': 'Kentucky',
+        'Louisiana': 'Louisiana',
+        'Maine': 'Maine',
+        'Maryland': 'Maryland',
+        'Massachusetts': 'Massachusetts',
+        'Michigan': 'Michigan',
+        'Minnesota': 'Minnesota',
+        'Mississippi': 'Mississippi',
+        'Missouri': 'Missouri',
+        'Montana': 'Montana',
+        'Nebraska': 'Nebraska',
+        'Nevada': 'Nevada',
+        'New Hampshire': 'New Hampshire',
+        'New Jersey': 'New Jersey',
+        'New Mexico': 'New Mexico',
+        'New York': 'New York',
+        'North Carolina': 'North Carolina',
+        'North Dakota': 'North Dakota',
+        'Ohio': 'Ohio',
+        'Oklahoma': 'Oklahoma',
+        'Oregon': 'Oregon',
+        'Pennsylvania': 'Pennsylvania',
+        'Rhode Island': 'Rhode Island',
+        'South Carolina': 'South Carolina',
+        'South Dakota': 'South Dakota',
+        'Tennessee': 'Tennessee',
+        'Texas': 'Texas',
+        'Utah': 'Utah',
+        'Vermont': 'Vermont',
+        'Virginia': 'Virginia',
+        'Washington': 'Washington',
+        'West Virginia': 'West Virginia',
+        'Wisconsin': 'Wisconsin',
+        'Wyoming': 'Wyoming'
+    };
+
+    // Breadcrumbs for navigation
+    $rootScope.$on('$locationChangeStart', function() {
+      $rootScope.breadcrumbs = [{title: 'Administration', href: '/admin/#'}];
+    });
+
+    $rootScope.showModal = function(text, modalClass) {
+      modalClass = modalClass || '';
+      $('<div class=\'reveal-modal ' + modalClass + '\' data-reveal><h3>' + text + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+    };
+
+    // TODO: move header functionality into its own directive
+    $rootScope.signOut = function() {
+      var cb = function() {
+        $rootScope.isSignedIn = false;
+        window.location = '/#/sign-in';
+        // $location.path('/sign-in');
+      };
+      $http.delete('/login.json', {
+        xsrfHeaderName: 'X-CSRF-Token'
+      }).success(cb).error(cb);
+    };
+  }
+]);
+
+var sunstandControllers = angular.module(
+  'sunstandControllers',
+  []
+);
+var sunstandServices = angular.module(
+  'sunstandServices',
+  ['ngResource', 'duScroll']
+);
+
+
+sunstandAdminApp.config(
+  ['$routeProvider', '$sceProvider', '$httpProvider', function($routeProvider, $sceProvider, $httpProvider) {
+    $sceProvider.enabled(false);
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+
+    $routeProvider.
+    when('/', {
+      templateUrl: '<%= asset_path("admin/landing/templates/index.html") %>',
+      controller: 'LandingCtrl'
+    }).
+    // Library
+    when('/resources', {
+      templateUrl: '<%= asset_path("admin/resources/templates/index.html") %>',
+      controller: 'AdminResourcesCtrl'
+    }).
+    when('/resources/new/:resourceType?', {
+      templateUrl: '<%= asset_path("admin/resources/templates/new.html") %>',
+      controller: 'AdminResourcesCtrl'
+    }).
+    when('/resources/:resourceId/edit', {
+      templateUrl: '<%= asset_path("admin/resources/templates/edit.html") %>',
+      controller: 'AdminResourcesCtrl'
+    }).
+    // User Groups
+    when('/user-groups', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/index.html") %>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    when('/user-groups/new', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/new.html") %>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    when('/user-groups/:userGroupId/edit', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/edit.html") %>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    when('/user-groups/:userGroupId', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/show.html") %>',
+      controller: 'AdminUserGroupsCtrl'
+    }).
+    // User Groups / Users
+    when('/user-groups/:userGroupId/users', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/users/index.html") %>',
+      controller: 'AdminUserGroupUsersCtrl'
+    }).
+    // User Groups / Requirements
+    when('/user-groups/:userGroupId/requirements', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/requirements/index.html") %>',
+      controller: 'AdminUserGroupRequirementsCtrl'
+    }).
+    when('/user-groups/:userGroupId/requirements/new', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/requirements/new.html") %>',
+      controller: 'AdminUserGroupRequirementsCtrl'
+    }).
+    when('/user-groups/:userGroupId/requirements/:requirementId/edit', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/requirements/edit.html") %>',
+      controller: 'AdminUserGroupRequirementsCtrl'
+    }).
+    // User Groups / Bonuses
+    when('/user-groups/:userGroupId/bonuses', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/bonuses/index.html") %>',
+      controller: 'AdminUserGroupBonusesCtrl'
+    }).
+    when('/user-groups/:userGroupId/bonuses/new', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/bonuses/new.html") %>',
+      controller: 'AdminUserGroupBonusesCtrl'
+    }).
+    when('/user-groups/:userGroupId/bonuses/:requirementId/edit', {
+      templateUrl: '<%= asset_path("admin/user-groups/templates/bonuses/edit.html") %>',
+      controller: 'AdminUserGroupBonusesCtrl'
+    }).
+    // Bonus Plans
+    when('/bonus-plans', {
+      templateUrl: '<%= asset_path("admin/bonus-plans/templates/index.html") %>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/bonus-plans/new', {
+      templateUrl: '<%= asset_path("admin/bonus-plans/templates/new.html") %>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/bonus-plans/:bonusPlanId/edit', {
+      templateUrl: '<%= asset_path("admin/bonus-plans/templates/edit.html") %>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/bonus-plans/:bonusPlanId', {
+      templateUrl: '<%= asset_path("admin/bonus-plans/templates/show.html") %>',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    // Bonus Plan Bonuses
+    when('/bonus-plans/:bonusPlanId/bonuses', {
+      templateUrl: '<%= asset_path("admin/bonus-plans/templates/bonuses/index.html") %>',
+      controller: 'AdminBonusesCtrl'
+    }).
+    when('/bonus-plans/:bonusPlanId/bonuses/new', {
+      templateUrl: '<%= asset_path("admin/bonus-plans/templates/bonuses/new.html") %>',
+      controller: 'AdminBonusesCtrl'
+    }).
+    when('/bonus-plans/:bonusPlanId/bonuses/:bonusId/edit', {
+      templateUrl: '<%= asset_path("admin/bonus-plans/templates/bonuses/edit.html") %>',
+      controller: 'AdminBonusesCtrl'
+    }).
+    // Products
+    when('/products', {
+      templateUrl: '<%= asset_path("admin/products/templates/index.html") %>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/products/new', {
+      templateUrl: '<%= asset_path("admin/products/templates/new.html") %>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/products/:productId', {
+      templateUrl: '<%= asset_path("admin/products/templates/show.html") %>',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/products/:productId/edit', {
+      templateUrl: '<%= asset_path("admin/products/templates/edit.html") %>',
+      controller: 'AdminProductsCtrl'
+    }).
+    // Users
+    when('/users', {
+      templateUrl: '<%= asset_path("admin/users/templates/index.html") %>',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/users/:userId', {
+      templateUrl: '<%= asset_path("admin/users/templates/show.html") %>',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/users/:userId/edit', {
+      templateUrl: '<%= asset_path("admin/users/templates/edit.html") %>',
+      controller: 'AdminUsersCtrl'
+    }).
+    // Quotes
+    when('/quotes', {
+      templateUrl: '<%= asset_path("admin/quotes/templates/index.html") %>',
+      controller: 'AdminQuotesCtrl'
+    }).
+    when('/quotes/:quoteId', {
+      templateUrl: '<%= asset_path("admin/quotes/templates/show.html") %>',
+      controller: 'AdminQuotesCtrl'
+    }).
+    when('/quotes/:quoteId/edit', {
+      templateUrl: '<%= asset_path("admin/quotes/templates/edit.html") %>',
+      controller: 'AdminQuotesCtrl'
+    }).
+    // Orders
+    when('/orders', {
+      templateUrl: '<%= asset_path("admin/orders/templates/index.html") %>',
+      controller: 'AdminOrdersCtrl'
+    }).
+    when('/orders/:orderId', {
+      templateUrl: '<%= asset_path("admin/orders/templates/show.html") %>',
+      controller: 'AdminOrdersCtrl'
+    }).
+    when('/orders/:orderId/edit', {
+      templateUrl: '<%= asset_path("admin/orders/templates/edit.html") %>',
+      controller: 'AdminOrdersCtrl'
+    }).
+    // Pay Periods
+    when('/pay-periods', {
+      templateUrl: '<%= asset_path("admin/pay-periods/templates/index.html") %>',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
+    when('/pay-periods/:payPeriodId', {
+      templateUrl: '<%= asset_path("admin/pay-periods/templates/show.html") %>',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
+    when('/pay-periods/:payPeriodId/edit', {
+      templateUrl: '<%= asset_path("admin/pay-periods/templates/edit.html") %>',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
+    // Dashboard Notifications
+    when('/notifications', {
+      templateUrl: '<%= asset_path("admin/notifications/templates/index.html") %>',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/notifications/new', {
+      templateUrl: '<%= asset_path("admin/notifications/templates/new.html") %>',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/notifications/:notificationId/edit', {
+      templateUrl: '<%= asset_path("admin/notifications/templates/edit.html") %>',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    // Social Media Sharing
+    when('/social-media', {
+      templateUrl: '<%= asset_path("admin/social-media/templates/index.html") %>',
+      controller: 'AdminSocialMediaCtrl'
+    }).
+    when('/social-media/:socialMediaPostId', {
+      templateUrl: '<%= asset_path("admin/social-media/templates/show.html") %>',
+      controller: 'AdminSocialMediaCtrl'
+    }).
+    when('/social-media/:socialMediaPostId/edit', {
+      templateUrl: '<%= asset_path("admin/social-media/templates/edit.html") %>',
+      controller: 'AdminSocialMediaCtrl'
+    }).
+
+    otherwise({
+      redirectTo: '/'
+    });
+  }]
+);

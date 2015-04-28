@@ -1,82 +1,37 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html ng-app='sunstandAdminApp'>
 <head>
-  <title>Powur</title>
-  <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "Chart", "data-turbolinks-track" => true %>
-  <%= yield :javascript_includes %>
+  <meta charset='utf-8'>
+  <meta http-equiv='x-ua-compatible' content='ie=edge'>
+  <title>Powur Administration</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round' rel='stylesheet' type='text/css'>
+  <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag 'admin', media: 'all' %>
   <%= csrf_meta_tags %>
-  <%= render :partial => "shared/head" %>
-
+  <%= javascript_include_tag 'modernizr/modernizr.js' %>
 </head>
-<body id="application">
-  <header>
-    <div id="header_container" style="position:absolute;width:100%">
-      <nav>
-        <ul>
-          <li class="main_logo">
-            <a href="/">
-              <%=image_tag('powur-white-logo.png', class: 'logo-img') %>
-            </a>
-          </li>
-        </ul>
+<body>
 
-        <ul id="user_nav">
-          <li>
-            <a href="/settings" class="username js-user_first_name"></a>
-          </li>
-          <li>
-            <%= link_to 'Sign out', login_path, method: "delete" %>
-          </li>
-        </ul>
-      </nav>
-      <!-- Admin Dropdown Menu -->
-      <div class="admin-dropdown">
-          <input type="checkbox">
-          <label>Administration Menu</label>
-          <ul>
-            <li>
-              <a href="#admin-users" class="admin_top_level_nav">Users</a>
-            </li>
-            <li>
-              <a href="#admin-plans" class="admin_top_level_nav">Plans</a>
-            </li>
-            <li>
-              <a href="#admin-quotes" class="admin_top_level_nav">Proposals & Orders</a>
-            </li>
-            <li>
-              <a href="#admin-notifications" class="admin_top_level_nav">Notifications</a>
-            </li>
-            <li>
-              <a class="admin_top_level_nav" href="/admin/#/resources">Library</a>
-            </li>
-            <li>
-              <a class="admin_top_level_nav" href="/admin/#/user-groups">User Groups</a>
-            </li>
-            <li>
-              <a class="admin_top_level_nav" href="/admin/#/products">Products</a>
-            </li>
-            <li>
-              <a class="admin_top_level_nav" href="/admin/#/bonus-plans">Bonus Plans</a>
-            </li>
-            <li>
-              <a class="admin_top_level_nav" href="/admin/#">New Admin Home</a>
-            </li>
-          </ul>
-      </div>
-      <section id="subheader_bar" style="">
-          <div class="js-dashboard_section_indicator top_level"></div>
-      </section>
+  <!-- Admin Header -->
+  <ng-include src="'<%=asset_path("shared/admin/header.html") %>'"></ng-include>
+  <!-- Bread Crumbs -->
+  <ng-include src="'<%=asset_path("shared/admin/breadcrumbs.html") %>'"></ng-include>
+  <!-- Page Content -->
+  <div class="row">
+    <div class="small-12 columns">
+      <!-- Main -->
+      <ng-view onload="foundation();" autoscroll="true"></ng-view>
     </div>
-    <%#= render :partial => "shared/our_goal" %>
+  </div>
 
-  </header>
+  <!-- TODO: DELETEME -->
+  <script type='text/javascript'>
+    SignedIn = <%= current_user ? 'true' : 'false' %>;
+  </script>
 
-  <%= yield %>
+  <%= javascript_include_tag 'admin' %>
 
-  <%= render :partial => "shared/admin_toolbar" %>
-  <div id="js-screen_mask"></div>
 </body>
 </html>

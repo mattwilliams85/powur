@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="large-6 medium-6 columns">
+  <!-- Section Label -->
+    <div class="section-label">
+      <div class="tag"><img src="<%= asset_path('dashboard/kpi_icon.png') %>"></div>
+      <div class="text">Key Performance Indicators</div>
+    </div>
+  </div>
+</div>
+
+<!-- Row: KPI Drilldowns -->
+<div class="kpi-drilldown">
+  <ng-include onload="kpiInit()" src="'<%= asset_path("dashboard/templates/sections/kpi/metrics/conversion.html") %>'"></ng-include>
+</div>

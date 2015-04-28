@@ -6,21 +6,21 @@ html.piling-on {
   @import "pagepiling.js/jquery.pagepiling";
 }
 
-@import "new/vendor/slick";
-@import "new/vendor/slick-theme";
+@import "vendor/slick";
+@import "vendor/slick-theme";
 
 @import "compass/utilities/sprites";
 @import "sun-sprites/*.png";
 
-@import "new/dashboard";
-@import "new/faq";
-@import "new/footer";
-@import "new/header";
-@import "new/landing";
-@import "new/library";
-@import "new/main";
-@import "new/menu";
-@import "new/profile";
-@import "new/promo";
-@import "new/university";
-@import "new/user-static-content";
+@import "dashboard";
+@import "faq";
+@import "footer";
+@import "header";
+@import "landing";
+@import "library";
+@import "main";
+@import "menu";
+@import "profile";
+@import "promo";
+@import "university";
+@import "user-static-content";

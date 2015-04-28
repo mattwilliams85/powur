@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="large-12 columns">
+
+    <!-- Row: Label / Sort / Search -->
+    <div class="row">
+
+      <div class="large-3 medium-4 columns">
+      <!-- Section Label -->
+        <div class="section-label">
+          <div class="tag"><img src="<%= asset_path('dashboard/customers_icon.png') %>"></div>
+          <div class="text">My Customers</div>
+        </div>
+      </div>
+
+      <div class="large-3 medium-3 columns">
+      <!-- Sort -->
+        <select class="sort">
+          <option>Order by Date</option>
+          <option>Order by Name</option>
+        </select>
+      </div>
+
+      <div class="large-3 medium-5 columns right">
+      <!-- Search -->
+        <div class="row collapse">
+          <div class="large-9 medium-9 small-10 columns">
+            <input type="search" placeholder="Search Customers">
+          </div>
+          <div class="large-3 medium-3 small-2 columns">
+            <a href="#" class="search button postfix">Go</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row: Customers Carousel -->
+    <div class="row collapse">
+      <div class="large-3 medium-3 small-2 columns">
+        <!-- New Proposal Button -->
+        <a ng-click="newProposal()">
+          <div class="new-proposal" ng-class="{active: mode === 'new'}">
+            <div class="icon">
+              <span><i class="fa fa-plus fa-4x"></i></span>
+            </div>
+            <div class="info-text">
+              <span class="show-for-medium-up">New Proposal</span>
+              <span class="show-for-small">New</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="large-9 medium-9 small-10 columns">
+        <!-- Proposals Carousel -->
+        <div class="proposals carousel">
+          <a ng-repeat="proposal in proposals" ng-click="showProposal($index)">
+            <div class="proposal carousel-item" ng-class="{active: currentProposal.id === proposal.properties.id}">
+              <div class="icon">
+                <span ng-show="proposal.properties.submitted_at"><i class="fa fa-star-half-o fa-4x"></i></span>
+                <span ng-show="!proposal.properties.submitted_at"><i class="fa fa-star-o fa-4x"></i></span>
+              </div>
+              <div class="info-text">
+                <span>{{proposal.properties.customer}}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row: Proposal Form -->
+    <div ng-show="showForm" class="drilldown animate-show row collapse">
+      <div class="summary large-3 medium-3 columns">
+
+        <!-- New Proposal Summary Text -->
+        <h1 ng-show="mode === 'new'">New Proposal</h1>
+        <p ng-show="mode === 'new'">Enter customer information to create a new proposal.</p>
+        <p ng-show="mode === 'new'">This customer information can be updated before the proposal is submitted to SolarCity.</p>
+
+        <!-- Incomplete Proposal Summary Text -->
+        <h1 ng-show="mode === 'incomplete'">Incomplete Proposal</h1>
+        <p ng-show="mode === 'incomplete'">Enter additional customer information to complete this proposal.</p>
+        <p ng-show="mode === 'incomplete'">Ensure the customer information is correct before submitting the proposal to SolarCity.</p>
+        <!-- Incomplete Proposal Buttons -->
+        <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="delete()">Delete Proposal</button>
+        <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="resend()">Resend Email</button>
+        <button class="button expand solarcity" ng-show="mode === 'incomplete'" ng-click="submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
+
+        <!-- Submitted Proposal Summary Text -->
+        <h1 ng-show="mode === 'submitted'">Submitted Proposal</h1>
+        <p ng-show="mode === 'submitted'">This proposal has been submitted to SolarCity.</p>
+        <!-- Submitted Proposal Buttons -->
+        <button class="button expand right" ng-show="mode === 'submitted'" disabled><i class="fa fa-check"></i> Submitted</button>
+      </div>
+
+      <!-- Form if New or Incomplete Proposal-->
+      <div ng-if="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
+        <ng-include src="'<%= asset_path("dashboard/templates/sections/customers-form.html") %>'"></ng-include>
+      </div>
+      <!-- Summary if Submitted Proposal -->
+      <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
+        <ng-include src="'<%= asset_path("dashboard/templates/sections/customers-submitted.html") %>'"></ng-include>
+      </div>
+    </div>
+
+  </div>
+</div>
