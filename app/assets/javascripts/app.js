@@ -1,6 +1,6 @@
 'use strict';
 
-var sunstandApp = angular.module('sunstandApp', [
+var powurApp = angular.module('powurApp', [
   'ngRoute',
 
   'sunstandControllers',
