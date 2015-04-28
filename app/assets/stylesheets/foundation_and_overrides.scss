@@ -127,12 +127,11 @@ $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
   }
 }
 
+@import "foundation/scss/foundation";
+
 /* Sprites */
 @mixin landing-sprite($name) {
   @include sun-sprites-sprite($name);
   height: sun-sprites-sprite-height($name);
   width: sun-sprites-sprite-width($name);
 }
-
-@import 'foundation';
-
