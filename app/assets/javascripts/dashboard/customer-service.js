@@ -9,8 +9,9 @@ function Customer($http, $q, $cacheFactory) {
     /*
      * List Proposals 
      */
-    list: function() {
+    list: function(params) {
       var dfr = $q.defer();
+      params = params || {};
 
       if (isProcessingRequest) {
         dfr.resolve({});
@@ -18,7 +19,8 @@ function Customer($http, $q, $cacheFactory) {
         isProcessingRequest = true;
         $http({
           method: 'GET',
-          url: '/u/quotes.json'
+          url: '/u/quotes.json',
+          params: params
         }).success(function(res) {
           cache.put('data', res);
           isProcessingRequest = false;

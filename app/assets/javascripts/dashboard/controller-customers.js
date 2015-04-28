@@ -3,9 +3,10 @@
 function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Customer) {
   $scope.redirectUnlessSignedIn();
   $scope.states = Geo.states();
-  $scope.slickApply = {};
 
   // Utility Functions:
+
+  // Get an action with a given name
   $scope.getAction = function(actions, name) {
     for (var i in actions) {
       if (actions[i].name === name) {
@@ -15,6 +16,7 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     return;
   };
 
+  // Set values from action's fields' values
   $scope.setFormValues = function(formAction) {
     var formValues = {};
     for (var i in formAction.fields) {
@@ -25,6 +27,7 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     return formValues;
   };
 
+  // Determine which fields from action's fields are dynamic "product fields"
   $scope.setProductFields = function(formAction) {
     var productFields = [];
     for (var i in formAction.fields) {
@@ -35,12 +38,14 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     return productFields;
   };
 
+  // Translate "product field" names into label-friendly strings
   $scope.sanitizeLabel = function(fieldNameString) {
     var sanitizedString = fieldNameString.replace(/_/g, " ");
     return sanitizedString;
   };
 
-  var slick = function(elementToSlick) {
+  // Initialize slick carousel
+  function slick(elementToSlick) {
     $(elementToSlick).slick({
       swipe: false,
       dots: false,
@@ -61,16 +66,19 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
         {
           breakpoint: 768,
           settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            swipe: true
           }
         }
       ]
     });
-  };
+  }
+
+  // Controller Actions:
 
   // Show Proposal
-  $scope.showProposal = function(proposalIndex) {
+  $scope.customerSection.showProposal = function(proposalIndex) {
     var proposalId = $scope.proposals[proposalIndex].properties.id;
     if ($scope.showForm === true && (proposalId === $scope.currentProposal.id)) {
       $scope.closeForm();
@@ -98,8 +106,8 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     }
   };
 
-  // New Proposal
-  $scope.newProposal = function() {
+  // New Proposal Action
+  $scope.customerSection.newProposal = function() {
     if ($scope.showForm === true && $scope.mode === 'new') {
       $scope.closeForm();
     } else {
@@ -115,8 +123,8 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     }
   };
 
-  // Save/Update Action
-  $scope.saveProposal = function() {
+  // Save/Update Proposal Action
+  $scope.customerSection.saveProposal = function() {
     if ($scope.proposal) {
       Customer.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
     }
@@ -136,7 +144,7 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     }
   }
 
-  var actionCallback = function(action) {
+  function actionCallback(action) {
     if (action.name === 'create') {
       updateSlickCarousel($scope.proposal);
       $scope.closeForm();
@@ -157,10 +165,10 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
         $scope.proposal.last_name + ' at ' +
         $scope.proposal.email + '.');
     }
-  };
+  }
 
   // Submit Proposal to SolarCity Action
-  $scope.submit = function() {
+  $scope.customerSection.submit = function() {
     if (confirm('Please confirm that all fields in the customer\'s contact information are correct before proceeding. \n' +
         'Are you sure you want to submit this proposal to SolarCity?')) {
       if ($scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit')) {
@@ -172,7 +180,7 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
   };
 
   // Delete Proposal Action
-  $scope.delete = function() {
+  $scope.customerSection.delete = function() {
     if (confirm('Are you sure you want to delete this proposal?')) {
       var deleteAction = $scope.getAction($scope.proposalItem.actions, 'delete');
       if (deleteAction) {
@@ -184,13 +192,13 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
   };
 
   // Resend Email Action
-  $scope.resend = function() {
+  $scope.customerSection.resend = function() {
     if (confirm('Are you sure you want to resend the proposal email to this customer?')) {
       var resendAction = $scope.getAction($scope.proposalItem.actions, 'resend');
       if (resendAction) {
         Customer.execute(resendAction).then(actionCallback(resendAction));
       } else {
-        alert("This proposal can't be resent.");
+        alert("This proposal can't be re-sent.");
       }
     }
   };
@@ -200,7 +208,28 @@ function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Custom
     $scope.showForm = false;
     $scope.mode = '';
     $scope.currentProposal = {};
-    // $scope.$apply();
+  };
+
+
+  // Search Action
+  $scope.customerSection.proposalSearch = '';
+  $scope.customerSection.search = function() {
+    var searchQuery = {search: $scope.customerSection.proposalSearch};
+    Customer.list(searchQuery).then(function(items) {
+      $scope.proposals = items.entities;
+    });
+  };
+
+  // Sort Action
+  $scope.customerSection.proposalSort = 'created';
+  $scope.customerSection.sort = function() {
+    var sortQuery = {sort: $scope.customerSection.proposalSort};
+    Customer.list(sortQuery).then(function(items) {
+      $scope.proposals = items.entities;
+      $timeout(function() {
+        slick('.carousel');
+      }, 2000);
+    });
   };
 
   return Customer.list().then(function(items) {
