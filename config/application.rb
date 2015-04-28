@@ -35,7 +35,8 @@ module Sunstand
     ActiveSupport::Notifications.unsubscribe 'render_partial.action_view'
     config.middleware.delete Rack::ETag
 
-    config.assets.paths << "#{Rails.root}/app/assets/templates"
+    config.assets.paths << Rails.root.join('app', 'assets', 'templates')
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
     config.secret_key_base = ENV['SECRET_KEY_BASE']
   end
 end

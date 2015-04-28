@@ -1,0 +1,29 @@
+{
+  "name": "powur",
+  "version": "0.0.1",
+  "homepage": "https://github.com/eyecuelab/powur",
+  "authors": [
+    "Paul Walker <github@paulwalker.tv>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/assets/components",
+    "test",
+    "tests",
+    "spec"
+  ],
+  "dependencies": {
+    "angular": "1.4.x",
+    "angular-route": "1.4.x",
+    "angular-resource": "1.4.x",
+    "angular-animate": "1.4.x",
+    "angular-mocks": "1.4.x",
+    "components-font-awesome": "4.x.x",
+    "pagepiling.js": "~1.5.1",
+    "Chart.js": "~1.0.2",
+    "velocity": "~1.2.2"
+  }
+}

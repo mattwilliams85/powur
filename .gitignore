@@ -8,6 +8,7 @@
 .me
 /.bundle
 public/assets/**
+vendor/assets/components
 
 irb_scratch.rb
 EXAMPLES.json

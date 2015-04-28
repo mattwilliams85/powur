@@ -23,6 +23,7 @@ Rails.application.config.assets.precompile += [
 
 # Vendor Javascripts
 Rails.application.config.assets.precompile += %w( Chart.js )
+Rails.application.config.assets.precompile += %w( vendor/modernizr.js )
 
 # Stylesheets
 Rails.application.config.assets.precompile += [
@@ -42,3 +43,4 @@ Rails.application.config.assets.precompile += [
   'new/application.css',
   'new/admin.css'
 ]
+

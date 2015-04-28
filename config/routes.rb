@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     ->(r) { args.all? { |k, v| r.params[k] == v } }
   end
 
+  resource :session, only: [ :show ]
+
   # anonymous routes
   scope module: :anon do
     resource :login, controller: :session, only: [ :show, :create, :destroy ]
