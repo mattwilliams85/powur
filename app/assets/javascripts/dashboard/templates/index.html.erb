@@ -40,8 +40,8 @@
 
   <!-- My Customers Section -->
   <div class="row">
-    <div class="customers-section large-12 columns">
-      <ng-include ng-controller="DashboardCustomersCtrl" src="'<%= asset_path("dashboard/templates/sections/customers.html") %>'"></ng-include>
+    <div class="customers-section large-12 columns" ng-controller="DashboardCustomersCtrl">
+      <ng-include  src="'<%= asset_path("dashboard/templates/sections/customers.html") %>'"></ng-include>
     </div>
   </div>
 

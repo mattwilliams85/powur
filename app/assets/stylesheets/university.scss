@@ -1,6 +1,7 @@
 .sun-university {
   margin-top: 0;
   padding-top: 210px;
+  padding-bottom: 50px;
 
   @media #{$small} {
     padding-top: 140px;
@@ -81,7 +82,7 @@
 
       .button {
         display: block;
-        margin: 0 20px;
+        margin: 20px 20px;
         background: #59a2e7;
         line-height: 2em;
         text-transform: uppercase;

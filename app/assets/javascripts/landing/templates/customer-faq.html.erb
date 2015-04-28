@@ -1,9 +1,9 @@
 <ng-include src="'<%= asset_path("shared/left-menu.html") %>'"></ng-include>
 
 <div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
-  <ng-include src="'<%= asset_path("shared/header-faq.html") %>'"></ng-include>
 
   <main class="sun-faq">
+  <ng-include src="'<%= asset_path("shared/header-faq.html") %>'"></ng-include>
 
     <div class="sun-fixed-bg sun-bg-1" id="anchor_1">
       <div id="slide0"  class="sun-home-intro slide" ng-class="{'active': currentHomeSlide === 0, 'inactive': currentHomeSlide > 0}">

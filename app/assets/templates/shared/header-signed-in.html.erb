@@ -1,5 +1,5 @@
 <!-- Dashboard Header -->
-<nav class="powur-header top-bar" data-options="is_hover:false">
+<nav class="powur-header top-bar" data-topbar role="navigation" data-options="is_hover:false">
 
   <ul class="title-area">
   <!-- Title Area -->
@@ -21,7 +21,7 @@
     <!-- Right Nav Section -->
     <ul class="right">
       <!-- Account Menu -->
-      <li class="hide-for-medium-down has-dropdown"><a>{{currentUser.first_name}}</a>
+      <li class="hide-for-medium-down has-dropdown"><a href>{{currentUser.first_name}}</a>
         <ul class="dropdown">
           <li><label>Account</label></li>
           <li><a ng-href="/profile">Profile</a></li>

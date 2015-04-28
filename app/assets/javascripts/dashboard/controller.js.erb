@@ -3,6 +3,10 @@
 function DashboardCtrl($scope, $location, UserProfile) {
   $scope.redirectUnlessSignedIn();
 
+  // Fix for scope inheritance issues (relating to Proposals search/sort):
+  $scope.customerSection = {};
+  // http://stackoverflow.com/questions/11412410/angularjs-losing-scope-when-using-ng-include
+
   UserProfile.get().then(function(user) {
     $scope.currentUser = user;
     if (user && user.require_enrollment) {
