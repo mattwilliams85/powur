@@ -33,8 +33,6 @@ class User < ActiveRecord::Base
   validates :encrypted_password, presence: true, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :phone, presence: true
-  validates :zip, presence: true
   validates :password,
     presence: true,
     length: { minimum: 8, maximum: 40, message: 'Password not less than 8 symbols' },

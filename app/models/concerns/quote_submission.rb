@@ -1,6 +1,14 @@
 module QuoteSubmission
   extend ActiveSupport::Concern
 
+  def submitted?
+    !provider_uid.nil?
+  end
+
+  def ready_to_submit?
+    !submitted? && customer.phone && customer.address_complete?
+  end
+
   def submit!
     form = SolarCityForm.new(self)
     form.post

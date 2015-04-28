@@ -37,14 +37,6 @@ class Quote < ActiveRecord::Base
     !order.nil?
   end
 
-  def submitted?
-    !provider_uid.nil?
-  end
-
-  def ready_to_submit?
-    !submitted? && customer.phone && customer.address_complete?
-  end
-
   private
 
   def product_data
