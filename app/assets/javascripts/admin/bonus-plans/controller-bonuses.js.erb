@@ -91,8 +91,8 @@ AdminBonusesCtrl.prototype.fetch = function($scope, $rootScope, $location, $rout
       $scope.bonuses = items.entities;
 
       // Breadcrumbs: Bonus Plans / Bonus Plan Name / Update Bonus Plan
-      $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/#/bonus-plans'});
-      $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id});
+      $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/bonus-plans'});
+      $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/bonus-plans/' + $scope.bonusPlan.id});
       $rootScope.breadcrumbs.push({title: 'Bonuses'});
     });
 
@@ -108,9 +108,9 @@ AdminBonusesCtrl.prototype.fetch = function($scope, $rootScope, $location, $rout
       $scope.formAction = $scope.getAction(item.actions, 'create');
 
       // Breadcrumbs: Bonus Plans / Bonus Plan Name / Update Bonus Plan
-      $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/#/bonus-plans'});
-      $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id});
-      $rootScope.breadcrumbs.push({title: 'Bonuses', href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id + '/bonuses'});
+      $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/bonus-plans'});
+      $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/bonus-plans/' + $scope.bonusPlan.id});
+      $rootScope.breadcrumbs.push({title: 'Bonuses', href: '/admin/bonus-plans/' + $scope.bonusPlan.id + '/bonuses'});
       $rootScope.breadcrumbs.push({title: 'New Bonus'});
     });
 
@@ -130,9 +130,9 @@ AdminBonusesCtrl.prototype.fetch = function($scope, $rootScope, $location, $rout
       }
 
       // Breadcrumbs: Bonus Plans / Bonus Plan Name / Update Bonus Plan
-      $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/#/bonus-plans'});
-      $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id});
-      $rootScope.breadcrumbs.push({title: 'Bonuses', href: '/admin/#/bonus-plans/' + $scope.bonusPlan.id + '/bonuses'});
+      $rootScope.breadcrumbs.push({title: 'Bonus Plans', href:'/admin/bonus-plans'});
+      $rootScope.breadcrumbs.push({title: $scope.bonusPlan.name, href: '/admin/bonus-plans/' + $scope.bonusPlan.id});
+      $rootScope.breadcrumbs.push({title: 'Bonuses', href: '/admin/bonus-plans/' + $scope.bonusPlan.id + '/bonuses'});
       $rootScope.breadcrumbs.push({title: 'Update Bonus'});
     });
   }

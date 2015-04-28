@@ -124,7 +124,7 @@ AdminNotificationsCtrl.prototype.fetch = function($scope, $rootScope, $location,
     });
 
     // Breadcrumbs: Notifications / View Notification
-    $rootScope.breadcrumbs.push({title: 'Dashboard Notifications', href: '/admin/#/notifications'});
+    $rootScope.breadcrumbs.push({title: 'Dashboard Notifications', href: '/admin/notifications'});
     $rootScope.breadcrumbs.push({title: 'New Notification'});
 
   } else if ($scope.mode === 'edit') {
@@ -133,7 +133,7 @@ AdminNotificationsCtrl.prototype.fetch = function($scope, $rootScope, $location,
       $scope.formAction = $scope.getAction(item.actions, 'update');
 
       // Breadcrumbs: Notifications / Update Notification
-      $rootScope.breadcrumbs.push({title: 'Dashboard Notifications', href: '/admin/#/notifications'});
+      $rootScope.breadcrumbs.push({title: 'Dashboard Notifications', href: '/admin/notifications'});
       $rootScope.breadcrumbs.push({title: 'Update Notification'});
 
     });

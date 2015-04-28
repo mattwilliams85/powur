@@ -123,7 +123,7 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
     $scope.disableIdEdit = false;
 
     // Breadcrumbs: User Groups / New User Group
-    $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
+    $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/user-groups'});
     $rootScope.breadcrumbs.push({title: 'New User Group'});
 
   } else if ($scope.mode === 'show') {
@@ -139,7 +139,7 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       $scope.bonuses = [];
 
       // Breadcrumbs: User Groups / User Group Name
-      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
+      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/user-groups'});
       $rootScope.breadcrumbs.push({title: $scope.userGroup.title});
 
     });
@@ -152,8 +152,8 @@ AdminUserGroupsCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       $scope.disableIdEdit = true;
 
       // Breadcrumbs: User Groups / User Group Name / Update User Group
-      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
-      $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
+      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/user-groups'});
+      $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/user-groups/' + $scope.userGroup.id});
       $rootScope.breadcrumbs.push({title: 'Update User Group'});
 
     });

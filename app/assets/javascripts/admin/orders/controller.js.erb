@@ -4,7 +4,7 @@ function AdminOrdersCtrl($scope, $rootScope, $location, $routeParams, $anchorScr
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
-    $location.path('/admin/#/orders/');
+    $location.path('/admin/orders/');
   };
 
   this.init($scope, $location);
@@ -35,7 +35,7 @@ AdminOrdersCtrl.prototype.fetch = function($scope, $rootScope, $location, $route
       $scope.user = item.properties;
 
       // Breadcrumbs: Orders / View Order
-      $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/#/orders'});
+      $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/orders'});
       $rootScope.breadcrumbs.push({title: 'View Order'});
 
     });
@@ -45,7 +45,7 @@ AdminOrdersCtrl.prototype.fetch = function($scope, $rootScope, $location, $route
       $scope.user = item.properties;
 
       // Breadcrumbs: Orders / Update Order
-      $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/#/orders'});
+      $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/orders'});
       $rootScope.breadcrumbs.push({title: 'Update Order'});
 
     });

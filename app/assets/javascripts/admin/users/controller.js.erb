@@ -92,7 +92,7 @@ AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeP
       $(function () { $('#jstree_demo_div').jstree($scope.tree); });
 
       // Breadcrumbs: Users / User Name
-      $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/#/users'});
+      $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
       $rootScope.breadcrumbs.push({title: $scope.user.properties.first_name + ' ' + $scope.user.properties.last_name});
 
     });
@@ -105,8 +105,8 @@ AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeP
       $scope.formValues = $scope.setFormValues($scope.formAction);
 
       // Breadcrumbs: Users / Update User
-      $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/#/users'});
-      $rootScope.breadcrumbs.push({title: ($scope.user.properties.first_name + ' ' + $scope.user.properties.last_name), href: '/admin/#/users/' + $scope.user.properties.id});
+      $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
+      $rootScope.breadcrumbs.push({title: ($scope.user.properties.first_name + ' ' + $scope.user.properties.last_name), href: '/admin/users/' + $scope.user.properties.id});
       $rootScope.breadcrumbs.push({title: 'Update User'});
 
     });

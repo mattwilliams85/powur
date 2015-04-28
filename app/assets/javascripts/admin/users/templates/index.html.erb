@@ -41,7 +41,7 @@
         <tbody>
           <tr ng-repeat="user in users">
             <td class="hide-for-small">{{user.properties.id}}</td>
-            <td><a ng-href="/admin/#/users/{{user.properties.id}}">{{user.properties.first_name}} {{user.properties.last_name}}</a></td>
+            <td><a ng-href="/admin/users/{{user.properties.id}}">{{user.properties.first_name}} {{user.properties.last_name}}</a></td>
             <td><a href="mailto:{{user.properties.email}}">{{user.properties.email}}</a></td>
             <td class="hide-for-small">{{user.properties.phone}}</td>
           </tr>

@@ -100,8 +100,8 @@ AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $rootScope, $l
       $scope.requirements = item.entities[1].entities;
 
       // Breadcrumbs: User Groups / User Group Name / Requirements
-      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
-      $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
+      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/user-groups'});
+      $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/user-groups/' + $scope.userGroup.id});
       $rootScope.breadcrumbs.push({title: 'Requirements'});
 
     });
@@ -113,9 +113,9 @@ AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $rootScope, $l
       $scope.formAction = $scope.getAction(item.entities[1].actions, 'create');
 
       // Breadcrumbs: User Groups / User Group Name / Requirements / New Requirement
-      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
-      $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
-      $rootScope.breadcrumbs.push({title: 'Requirements', href: '/admin/#/user-groups/' + $scope.userGroup.id + '/requirements'});
+      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/user-groups'});
+      $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/user-groups/' + $scope.userGroup.id});
+      $rootScope.breadcrumbs.push({title: 'Requirements', href: '/admin/user-groups/' + $scope.userGroup.id + '/requirements'});
       $rootScope.breadcrumbs.push({title: 'New Requirement'});
 
     });
@@ -133,9 +133,9 @@ AdminUserGroupRequirementsCtrl.prototype.fetch = function($scope, $rootScope, $l
       }
 
       // Breadcrumbs: User Groups / User Group Name / Requirements / Update Requirement
-      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
-      $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
-      $rootScope.breadcrumbs.push({title: 'Requirements', href: '/admin/#/user-groups/' + $scope.userGroup.id + '/requirements'});
+      $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/user-groups'});
+      $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/user-groups/' + $scope.userGroup.id});
+      $rootScope.breadcrumbs.push({title: 'Requirements', href: '/admin/user-groups/' + $scope.userGroup.id + '/requirements'});
       $rootScope.breadcrumbs.push({title: 'Update Requirement'});
 
     });

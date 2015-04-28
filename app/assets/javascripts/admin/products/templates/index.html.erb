@@ -6,7 +6,7 @@
       <h2>Products</h2>
     </div>
     <div class="large-6 columns">
-      <a ng-href="/admin/#/products/new" class="button right">Add Product</a>
+      <a ng-href="/admin/products/new" class="button right">Add Product</a>
     </div>
   </div>
   <!-- List of Products -->
@@ -15,7 +15,7 @@
       <div ng-repeat="product in products" class="admin-products-list-item">
         <div class="row">
           <div class="large-12 columns">
-            <h3><a ng-href="/admin/#/products/{{product.properties.id}}">{{product.properties.name}}</a></h3>
+            <h3><a ng-href="/admin/products/{{product.properties.id}}">{{product.properties.name}}</a></h3>
             <span class="product-id">ID: {{product.properties.id}}</span>
           </div>
         </div>

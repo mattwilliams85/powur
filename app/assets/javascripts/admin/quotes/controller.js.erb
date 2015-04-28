@@ -4,7 +4,7 @@ function AdminQuotesCtrl($scope, $rootScope, $location, $routeParams, $anchorScr
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
-    $location.path('/admin/#/quotes/');
+    $location.path('/admin/quotes/');
   };
 
   this.init($scope, $location);
@@ -35,7 +35,7 @@ AdminQuotesCtrl.prototype.fetch = function($scope, $rootScope, $location, $route
       $scope.user = item.properties;
 
       // Breadcrumbs: Proposals / View Quote
-      $rootScope.breadcrumbs.push({title: 'Proposals', href: '/admin/#/quotes'});
+      $rootScope.breadcrumbs.push({title: 'Proposals', href: '/admin/quotes'});
       $rootScope.breadcrumbs.push({title: 'View Quote'});
 
     });
@@ -45,7 +45,7 @@ AdminQuotesCtrl.prototype.fetch = function($scope, $rootScope, $location, $route
       $scope.user = item.properties;
 
       // Breadcrumbs: Proposals / Update Quote
-      $rootScope.breadcrumbs.push({title: 'Proposals', href: '/admin/#/quotes'});
+      $rootScope.breadcrumbs.push({title: 'Proposals', href: '/admin/quotes'});
       $rootScope.breadcrumbs.push({title: 'Update Quote'});
 
     });

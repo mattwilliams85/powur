@@ -4,7 +4,7 @@ function AdminPayPeriodsCtrl($scope, $rootScope, $location, $routeParams, $ancho
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
-    $location.path('/admin/#/payPeriods/');
+    $location.path('/admin/payPeriods/');
   };
 
   this.init($scope, $location);
@@ -36,7 +36,7 @@ AdminPayPeriodsCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       $scope.payPeriod = item.properties;
 
       // Breadcrumbs: Pay Periods / Pay Period ID
-      $rootScope.breadcrumbs.push({title: 'Pay Periods', href: '/admin/#/pay-periods'});
+      $rootScope.breadcrumbs.push({title: 'Pay Periods', href: '/admin/pay-periods'});
       $rootScope.breadcrumbs.push({title: $scope.payPeriod.id});
 
     });
@@ -46,8 +46,8 @@ AdminPayPeriodsCtrl.prototype.fetch = function($scope, $rootScope, $location, $r
       $scope.payPeriod = item.properties;
 
       // Breadcrumbs: Pay Periods / Pay Period ID / Update Pay Period
-      $rootScope.breadcrumbs.push({title: 'Pay Periods', href: '/admin/#/pay-periods'});
-      $rootScope.breadcrumbs.push({title: $scope.payPeriod.id, href: '/admin/#/pay-periods/' + $scope.payPeriod.id});
+      $rootScope.breadcrumbs.push({title: 'Pay Periods', href: '/admin/pay-periods'});
+      $rootScope.breadcrumbs.push({title: $scope.payPeriod.id, href: '/admin/pay-periods/' + $scope.payPeriod.id});
       $rootScope.breadcrumbs.push({title: 'Update Pay Period'});
 
     });

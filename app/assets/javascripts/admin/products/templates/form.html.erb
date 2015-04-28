@@ -23,7 +23,7 @@
     <div class="row">
       <div class="large-12 columns">
         <a ng-if="mode === 'new'" ng-click="cancel()" class="button secondary">Cancel</a>
-        <a ng-if="mode === 'edit'" ng-href="/admin/#/products/{{product.id}}" class="button secondary">Cancel</a>
+        <a ng-if="mode === 'edit'" ng-href="/admin/products/{{product.id}}" class="button secondary">Cancel</a>
         <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Product" />
         <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Product" />
       </div>

@@ -4,7 +4,7 @@ function AdminSocialMediaCtrl($scope, $rootScope, $location, $routeParams, $anch
   $scope.redirectUnlessSignedIn();
 
   $scope.backToIndex = function() {
-    $location.path('/admin/#/social-media/');
+    $location.path('/admin/social-media/');
   };
 
   this.init($scope, $location);
@@ -36,7 +36,7 @@ AdminSocialMediaCtrl.prototype.fetch = function($scope, $rootScope, $location, $
       $scope.socialMediaPost = item.properties;
 
       // Breadcrumbs: Social Media Sharing / View Post
-      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/#/social-media'});
+      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/social-media'});
       $rootScope.breadcrumbs.push({title: 'View Post'});
 
     });
@@ -46,7 +46,7 @@ AdminSocialMediaCtrl.prototype.fetch = function($scope, $rootScope, $location, $
       $scope.socialMediaPost = item.properties;
 
       // Breadcrumbs: Social Media Sharing / Update Post
-      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/#/social-media'});
+      $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/social-media'});
       $rootScope.breadcrumbs.push({title: 'Update Post'});
 
     });

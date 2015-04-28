@@ -7,7 +7,7 @@ function AdminUserGroupBonusesCtrl($scope, $rootScope, $location, $routeParams, 
   // TODO check if user is an admin
 
   $scope.cancel = function() {
-    $location.path('/admin/#/user-groups/'+ $scope.userGroup.id + '/bonuses');
+    $location.path('/admin/user-groups/'+ $scope.userGroup.id + '/bonuses');
   };
 
 
@@ -16,8 +16,8 @@ function AdminUserGroupBonusesCtrl($scope, $rootScope, $location, $routeParams, 
     $scope.bonuses = [];
 
     // Breadcrumbs: User Groups / User Group Name / Bonuses
-    $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/#/user-groups'});
-    $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/#/user-groups/' + $scope.userGroup.id});
+    $rootScope.breadcrumbs.push({title: 'User Groups', href: '/admin/user-groups'});
+    $rootScope.breadcrumbs.push({title: $scope.userGroup.title, href: '/admin/user-groups/' + $scope.userGroup.id});
     $rootScope.breadcrumbs.push({title: 'Bonuses'});
 
   });

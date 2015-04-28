@@ -148,7 +148,7 @@ AdminResourcesCtrl.prototype.fetch = function($scope, $rootScope, $location, $ro
     };
 
     // Breadcrumbs: Library / New (Resource Type)
-    $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/#/resources'});
+    $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/resources'});
     $rootScope.breadcrumbs.push({title: 'New ' + $scope.resourceType});
 
   } else if ($scope.mode === 'edit') {
@@ -157,7 +157,7 @@ AdminResourcesCtrl.prototype.fetch = function($scope, $rootScope, $location, $ro
       $scope.resourceType = $scope.resource.file_type === 'video/mp4' ? 'video' : 'document';
 
       // Breadcrumbs: Library / Update (Resource Type)
-      $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/#/resources'});
+      $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/resources'});
       $rootScope.breadcrumbs.push({title: 'Update ' + $scope.resourceType});
 
     });

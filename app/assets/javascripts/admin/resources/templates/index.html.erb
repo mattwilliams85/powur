@@ -6,8 +6,8 @@
     </div>
     <div class="large-6 columns">
       <!-- Add Files -->
-      <a ng-href="/admin/#/resources/new/video" class="right button">Add Video</a>
-      <a ng-href="/admin/#/resources/new/document" class="right button">Add PDF</a>
+      <a ng-href="/admin/resources/new/video" class="right button">Add Video</a>
+      <a ng-href="/admin/resources/new/document" class="right button">Add PDF</a>
       <!-- Search -->
       <a data-dropdown="searchDrop" class="right button secondary">Search</a>
       <div id="searchDrop" class="f-dropdown content" data-dropdown-content>
@@ -27,7 +27,7 @@
           <span class="info">posted: {{formattedTime(item.properties.created_at)}}</span>
           <span class="info">by: {{item.properties.user_name}}</span>
           <a ng-click="confirm('Are you sure you want to delete this file?', 'delete', item)" class="manage-link">delete</a>
-          <a ng-href="/admin/#/resources/{{item.properties.id}}/edit" class="manage-link">edit</a>
+          <a ng-href="/admin/resources/{{item.properties.id}}/edit" class="manage-link">edit</a>
           <div class="clearfix"></div>
         </div>
         <div class="row">
