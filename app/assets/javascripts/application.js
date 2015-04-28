@@ -1,5 +1,6 @@
-// Bower components
-
+/*
+ * Bower components
+ */
 //= require jquery/dist/jquery
 //= require jquery-ui/ui/jquery-ui
 //= require foundation/js/foundation
@@ -14,15 +15,19 @@
 //= require velocity/velocity
 //= require velocity/velocity.ui.min
 
-// TODO: this block of js libraries is still in the repo,
-// need to either remove or request from bower
-//
+/*
+ * TODO: this block of js libraries is still in the repo,
+ * need to either remove or request from bower
+ */
 //= require foundation
 //= require angular-slider.min
 
-// App js resources
+/*
+ * App js resources
+ */
+//= require legacy
 //= require app
-//= require routes
+//= require app.routes
 //= require_tree ./dashboard
 //= require_tree ./geo
 //= require_tree ./invite
@@ -32,12 +37,6 @@
 //= require_tree ./promo
 //= require_tree ./university
 //= require_tree ./user-static-content
-//= require_tree ./modules/file-s3-uploader
+//= require_tree ./file-s3-uploader
 
 $(function(){ $(document).foundation(); });
-/*
-//= require app.module
-//= require app.routes
-//= require sessions/session.service
-//= require anonymous/home.controller
-*/

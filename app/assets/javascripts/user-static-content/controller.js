@@ -1,12 +1,15 @@
-'use strict';
+;(function() {
+  'use strict';
 
-function UserStaticContentCtrl($scope, UserProfile) {
-  $scope.redirectUnlessSignedIn();
+  function UserStaticContentCtrl($scope, UserProfile) {
+    $scope.redirectUnlessSignedIn();
 
-  UserProfile.get().then(function(user) {
-    $scope.currentUser = user;
-  });
-}
+    UserProfile.get().then(function(user) {
+      $scope.currentUser = user;
+    });
+  }
 
-UserStaticContentCtrl.$inject = ['$scope', 'UserProfile'];
-sunstandControllers.controller('UserStaticContentCtrl', UserStaticContentCtrl);
+  UserStaticContentCtrl.$inject = ['$scope', 'UserProfile'];
+  angular.module('powurApp').controller('UserStaticContentCtrl', UserStaticContentCtrl);
+
+})();

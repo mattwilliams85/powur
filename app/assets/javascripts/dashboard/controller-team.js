@@ -1,9 +1,11 @@
-'use strict';
+;(function() {
+  'use strict';
 
-function DashboardTeamCtrl($scope, $location) {
-  $scope.redirectUnlessSignedIn();
+  function DashboardTeamCtrl($scope) {
+    $scope.redirectUnlessSignedIn();
+  }
 
-}
+  DashboardTeamCtrl.$inject = ['$scope', '$location'];
+  angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl);
 
-DashboardTeamCtrl.$inject = ['$scope', '$location'];
-sunstandControllers.controller('DashboardTeamCtrl', DashboardTeamCtrl);
+})();

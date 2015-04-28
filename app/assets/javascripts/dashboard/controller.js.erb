@@ -1,62 +1,30 @@
-'use strict';
+;(function() {
+  'use strict';
 
-function DashboardCtrl($scope, $location, UserProfile) {
-  $scope.redirectUnlessSignedIn();
+  function DashboardCtrl($scope, $location, UserProfile) {
+    $scope.redirectUnlessSignedIn();
 
-  // Fix for scope inheritance issues (relating to Proposals search/sort):
-  $scope.customerSection = {};
-  // http://stackoverflow.com/questions/11412410/angularjs-losing-scope-when-using-ng-include
+    // Fix for scope inheritance issues (relating to Proposals search/sort):
+    $scope.customerSection = {};
+    // http://stackoverflow.com/questions/11412410/angularjs-losing-scope-when-using-ng-include
 
-  UserProfile.get().then(function(user) {
-    $scope.currentUser = user;
-    if (user && user.require_enrollment) {
-      $location.path('/university');
-      $scope.showModal($scope.enrollmentRequirementMessage);
-      return;
-    }
-    $scope.goals = { personalPercent: 100, groupPercent: 20, badge: '<%= image_path("badges/rank0.png") %>' };
-    $scope.news = [ {text: 'Solar Power is the energy of the future.', date: '3/18/2015'},
-                    {text: 'Did you know that in one single day, the sun sends 15,000 times as much energy to the Earth as we consume worldwide on a daily basis?', date: '3/15/2015'},
-                    {text: 'The solar revolution is upon us.', date: '3/12/2015'},
-                    {text: 'The future of the planet is in our hands.', date: '3/9/2015'}];
-    $scope.moreNewsItems = true;
-  });
-}
-// Development Tool to Fill Progress Bars
-var fillProgressBars = function(){
-  $(function () {
-    $('.progress-bar').each(function () {
-      var t = $(this);
-      var barPercentage = t.data('percentage');
+    UserProfile.get().then(function(user) {
+      $scope.currentUser = user;
+      if (user && user.require_enrollment) {
+        $location.path('/university');
+        $scope.showModal($scope.enrollmentRequirementMessage);
+        return;
+      }
+      $scope.goals = { personalPercent: 100, groupPercent: 20, badge: '<%= image_path("badges/rank0.png") %>' };
+      $scope.news = [ {text: 'Solar Power is the energy of the future.', date: '3/18/2015'},
+                      {text: 'Did you know that in one single day, the sun sends 15,000 times as much energy to the Earth as we consume worldwide on a daily basis?', date: '3/15/2015'},
+                      {text: 'The solar revolution is upon us.', date: '3/12/2015'},
+                      {text: 'The future of the planet is in our hands.', date: '3/9/2015'}];
+      $scope.moreNewsItems = true;
+    });
+  }
 
-          // add a div for the label text
-          t.children('.label').append("<div class='label-text'></div>");
+  DashboardCtrl.$inject = ['$scope', '$location', 'UserProfile'];
+  angular.module('powurApp').controller('DashboardCtrl', DashboardCtrl);
 
-          // add some "gimme" percentage when data-percentage is <2
-          if (parseInt((t.data('percentage')), 10) < 2) barPercentage = 2;
-
-          // set up the left/right label flipping
-          if (barPercentage > 50) {
-            t.children('.label').css('right', (100 - barPercentage) + '%');
-            t.children('.label').css('margin-right', '-10px');
-          }
-          if (barPercentage < 51) {
-            t.children('.label').css('left', barPercentage + '%');
-            t.children('.label').css('margin-left', '-20px');
-          }
-
-          // fill in bars and labels
-          t.find('.label-text').text(t.attr('data-percentage') + ' Rooftops');
-          t.children('.bar').animate({
-            width: barPercentage + '%'
-          }, 1000);
-          t.children('.label').animate({
-            opacity: 1
-          }, 1000);
-        });
-  });
-  return 'yeah!';
-};
-
-DashboardCtrl.$inject = ['$scope', '$location', 'UserProfile'];
-sunstandControllers.controller('DashboardCtrl', DashboardCtrl);
+})();
