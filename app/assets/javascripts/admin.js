@@ -31,6 +31,6 @@
 //= require_tree ./admin/social-media
 //= require_tree ./admin/users
 //= require_tree ./admin/user-groups
-//= require_tree ./modules/file-s3-uploader
+//= require_tree ./file-s3-uploader
 
 $(document).foundation();
