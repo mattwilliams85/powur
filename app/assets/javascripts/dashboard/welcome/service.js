@@ -1,6 +1,6 @@
 'use strict';
 
-function Welcome($http, $q) {
+function Notification($http, $q) {
   var isProcessingRequest;
 
   var service = {
@@ -8,7 +8,7 @@ function Welcome($http, $q) {
     /*
      * List Notifications 
      */
-    listNotifications: function(params) {
+    list: function(params) {
       var dfr = $q.defer();
       params = params || {};
 
@@ -36,5 +36,5 @@ function Welcome($http, $q) {
   return service;
 }
 
-Welcome.$inject = ['$http', '$q'];
-angular.module('powurApp').factory('Welcome', Welcome);
+Notification.$inject = ['$http', '$q'];
+angular.module('powurApp').factory('Notification', Notification);

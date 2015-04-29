@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardCtrl($scope, $location, UserProfile, Welcome) {
+  function DashboardCtrl($scope, $location, UserProfile, Notification) {
     $scope.redirectUnlessSignedIn();
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):
@@ -10,7 +10,7 @@
 
     $scope.loadMoreNews = function() {
       var nextPage = $scope.currentNewsPage + 1;
-      Welcome.listNotifications({page: nextPage}).then(function(notifications) {
+      Notification.list({page: nextPage}).then(function(notifications) {
         for (var i in notifications.entities) {
           $scope.news.push(notifications.entities[i]);
         }
@@ -23,7 +23,7 @@
       });
     };
 
-    Welcome.listNotifications().then(function(notifications) {
+    Notification.list().then(function(notifications) {
       $scope.news = notifications.entities;
       $scope.currentNewsPage = notifications.properties.paging.current_page;
       if (notifications.properties.paging.page_count > notifications.properties.paging.current_page) {
@@ -44,7 +44,7 @@
     });
   }
 
-  DashboardCtrl.$inject = ['$scope', '$location', 'UserProfile', 'Welcome'];
+  DashboardCtrl.$inject = ['$scope', '$location', 'UserProfile', 'Notification'];
   angular.module('powurApp').controller('DashboardCtrl', DashboardCtrl);
 
 })();
