@@ -19,7 +19,7 @@ describe '/a/bonuses/:admin_bonus_id/bonus_amounts' do
     let(:bonus) { create(:seller_bonus) }
 
     it 'adds a bonus level to to a bonus' do
-      post bonus_amounts_path(bonus),
+      post bonus_amounts_path(bonus, format: :json),
            amounts:      [ 240.00, 120.00, '75.00' ]
 
       expect_classes 'bonus'
@@ -35,7 +35,7 @@ describe '/a/bonuses/:admin_bonus_id/bonus_amounts' do
     end
 
     it 'does not allow posting amounts greater than what is available' do
-      post bonus_amounts_path(bonus),
+      post bonus_amounts_path(bonus, format: :json),
            amounts:      [ '1010.00', 120.00, '75.00' ]
 
       expect_input_error('amounts')

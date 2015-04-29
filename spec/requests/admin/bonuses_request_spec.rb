@@ -52,7 +52,7 @@ describe '/a/bonuses' do
   describe '#create' do
 
     it 'creates a seller bonus' do
-      post bonus_plan_bonuses_path(bonus_plan),
+      post bonus_plan_bonuses_path(bonus_plan, format: :json),
            type: 'SellerBonus', name: 'foo'
 
       expect_classes 'bonus'
