@@ -58,12 +58,16 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     position: relative;
     background-color: #444;
     color: #F9F2E8;
-    padding: 0.9375em 0;
-    -webkit-transition: all linear 2s;
-    transition: all linear 2s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    -o-transition: all .3s;
+    -ms-transition: all .3s;
+    transition: all .3s;
+    background-color: #444;
+    height: 0px;
 
     .summary {
-      padding: 0 15px;
+      padding: 0.9375em 15px;
       height: 95%;
       text-align: left;
       border-bottom: 1px solid #9b9b9b;
@@ -633,18 +637,53 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     margin-bottom:50px;
 
     * {
-        color:#F9F2E8;
+      color:#F9F2E8;
+    }
+
+    .tab-header-row {
+      text-align: center;
+      border: 1px solid #ccc;
+      &:last-child {
+        border-right: 0px;
       }
 
+      .kpi-tab {
+        height: 220px; width: 20%;
+        float: left;
+        cursor: pointer;
+        display: inline-block;
+        border-right: 1px solid #ccc;
+
+        .kpi-info-box {
+          margin-top: 25%;
+
+          .kpi-count {
+            display: block;
+            color: #888;
+            line-height:60pt;
+
+          }
+          .kpi-header {
+            color: #888;
+            font-size: 16pt;
+          }
+        }
+      }
+    }
+
+
     .kpi-drilldown {
-      height: 650px;
+      clear: both;
       -webkit-user-select: none; /* webkit (safari, chrome) browsers */
       -moz-user-select: none; /* mozilla browsers */
       -khtml-user-select: none; /* webkit (konqueror) browsers */
       -ms-user-select: none; /* IE10+ */
       user-select: none;
-      @media #{$small} { 
-        height: 525px;
+      &.active {
+        height: 650px;
+        @media #{$small} { 
+          height: 525px;
+        }
       }
 
       .kpi-detail {
@@ -657,6 +696,19 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         &.link {
           cursor: pointer;
           color: $sun-color-blue;
+        }
+      }
+
+      .fade-in-section {
+        opacity: 0;
+        display: block !important;
+        -webkit-transition: all .2s;
+        -moz-transition: all .2s;
+        -o-transition: all .2s;
+        -ms-transition: all .2s;
+        transition: all .2s;
+        &.active {
+          opacity: 1;
         }
       }
 

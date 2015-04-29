@@ -1,12 +1,12 @@
 ;(function() {
   'use strict';
 
-  function DashboardKPICtrl($scope, $location, UserProfile) {
+  function DashboardKPICtrl($scope, $location, $timeout, UserProfile) {
     $scope.tabData = {
       enviroment: [],
       conversion: {
         settings: [{
-          labels: ["January", "February", "March", "April", "May", "June", "July"],
+          labels: [],
           datasets: [{
             fillColor: "rgba(32, 194, 241,.85)",
             highlightFill: "#5bd7f7",
@@ -37,27 +37,101 @@
           }
         }]
       },
-      genealogy: [],
-      earnings: [],
+      genealogy: {
+        settings: [{
+          labels: [],
+          datasets: [{
+            label: "My First dataset",
+            fillColor: "rgba(32, 194, 241,.9)",
+            highlightFill: "#5bd7f7",
+            strokeColor: "rgba(32, 194, 241,.9)",
+            data: []
+          }]
+        },{
+          options: {
+            scaleGridLineColor: "rgba(255,255,255,.15)",
+            scaleLineColor: "rgba(255,255,255,.15)",
+            scaleFontColor: "#fff",
+            bezierCurveTension: .3,
+            pointDotRadius: 4,
+            scaleFontSize: 13,
+            scaleOverride: true,
+            // ** Required if scaleOverride is true **
+            scaleSteps: 12,
+            scaleStepWidth: 12,
+            scaleStartValue: 0,
+            barValueSpacing: 3,
+          }
+        }]
+      },
+      earnings: {
+        settings: [{
+          labels: [],
+          datasets: [{
+            label: "My dataset",
+            fillColor: "rgba(220,220,0,0)",
+            strokeColor: "rgba(32,194,241,1)",
+            pointColor: "rgba(32,194,241,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: []
+          }]
+        },{
+          options: {
+           scaleGridLineColor: "rgba(255,255,255,.15)",
+           scaleLineColor: "rgba(255,255,255,.15)",
+           scaleFontColor: "#fff",
+           barShowStroke: true,
+           bezierCurveTension: .2,
+           barStrokeWidth: 2,
+           barValueSpacing: 20,
+           barDatasetSpacing: 1,
+           scaleFontSize: 13,
+           scaleOverride: true,
+           // ** Required if scaleOverride is true **
+           scaleSteps: 12,
+           scaleStepWidth: 12,
+           scaleStartValue: 0,
+          }
+        }]
+      },
       rank: []
     };
 
     $scope.scale = 'week';
     $scope.current = new Date();
     $scope.date = 'week ' + $scope.current.getWeek();
-    $scope.tabKey = 'conversion';
-    $scope.settings = $scope.tabData[$scope.tabKey].settings;
+    // $scope.tabKey = 'conversion';
+    // $scope.settings = $scope.tabData[$scope.tabKey].settings;
     $scope.page = 1;
     $scope.position = 0;
 
-    // $scope.changeTab = function(section) {
-    //   if(section === 'conversion') {
-    //   }
-    // }
+
+    $scope.changeTab = function(section) {
+      // angular.element('.kpi-drilldown').css('height','0')
+      if ($scope.section === section) return;
+      $scope.section = section;
+      $scope.tabKey = '';
+      $timeout( function(){ 
+        $scope.tabKey = section
+        $scope.settings = $scope.tabData[$scope.tabKey].settings;
+      }, 300);
+
+    }
 
     // $scope.createTabUrl = function(section) {
     //   return "dashboard/templates/sections/kpi/metrics/" + section + ".html";
     // };
+
+    //FOR GENE
+    // function randomizeData(length) {
+    //   metricsData.datasets[0].data = []
+    //   total = 10;
+    //   for (i = 0; i <= length; i++) {
+    //     metricsData.datasets[0].data.push(total += Math.floor(Math.random() * 2));
+    //   }
+    // }
 
     $scope.kpiInit = function() {
       $scope.randomizeData();
@@ -73,6 +147,10 @@
         $scope.ctx.canvas.width = 650;
       }
       $scope.kpiChart = new Chart($scope.ctx).Line($scope.settings[0], $scope.settings[1].options);
+    }
+
+    $scope.scaleFontSize = function(string) {
+      return Math.ceil(1000 / (Math.pow(string.length + 10, 1.2))) + 'pt';
     }
 
     $scope.rebuildChart = function() {
@@ -222,7 +300,21 @@
     $scope.redirectUnlessSignedIn();
   }
 
-  DashboardKPICtrl.$inject = ['$scope', '$location', 'UserProfile'];
-  angular.module('powurApp').controller('DashboardKPICtrl', DashboardKPICtrl);
+  DashboardKPICtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile'];
+  sunstandControllers.controller('DashboardKPICtrl', DashboardKPICtrl)
+  // RESIZE DETECTION
+  // .directive('resizable', function($window) {
+  //   return function($scope) {
+  //     $scope.initializeWindowSize = function() {
+  //       return $scope.windowWidth = $window.innerWidth;
+  //     };
+  //     $scope.initializeWindowSize();
+  //     return angular.element($window).bind('resize', function() {
+  //       $scope.initializeWindowSize();
+  //       if($scope.windowWidth < 800) $scope.resizeChart()
+  //       return $scope.$apply();
+  //     });
+  //   };
+  // });
 
-})();
+});

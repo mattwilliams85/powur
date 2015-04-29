@@ -8,7 +8,42 @@
   </div>
 </div>
 
+<div class="large-12 columns">
+  <div class="row tab-header-row">
+    <div class="kpi-tab" ng-click="changeTab('enviroment')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('721.34') }">721.34</span>
+        <span class="kpi-header uppercase">C02 tons saved</span>
+      </div>
+    </div>
+    <div class="kpi-tab" ng-click="changeTab('conversion')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('84') }">84</span>
+        <span class="kpi-header uppercase">orders</span>
+      </div>
+    </div>
+    <div class="kpi-tab" ng-click="changeTab('genealogy')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('4') }">4</span>
+        <span class="kpi-header uppercase">in your grid</span>
+      </div>
+    </div>
+    <div class="kpi-tab" ng-click="changeTab('earnings')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('$2,182.67') }">$2,182.67</span>
+        <span class="kpi-header uppercase">total earnings</span>
+      </div>
+    </div>
+    <div class="kpi-tab" ng-click="changeTab('rank')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('2') }">2</span>
+        <span class="kpi-header uppercase">current rank</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Row: KPI Drilldowns -->
-<div class="kpi-drilldown">
-  <ng-include onload="kpiInit()" src="'<%= asset_path("dashboard/templates/sections/kpi/metrics/conversion.html") %>'"></ng-include>
+<div class="kpi-drilldown drilldown" ng-class="{'active': section === 'conversion'}">
+  <ng-include src="'<%= asset_path("dashboard/templates/sections/kpi/metrics/conversion.html") %>'"></ng-include>
 </div>
