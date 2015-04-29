@@ -5,6 +5,7 @@
     $locationProvider.html5Mode(true);
     $sceProvider.enabled(false);
     $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
     $routeProvider.
     when('/home', {

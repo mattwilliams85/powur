@@ -19,7 +19,6 @@
  * TODO: this block of js libraries is still in the repo,
  * need to either remove or request from bower
  */
-//= require foundation
 //= require angular-slider.min
 
 /*

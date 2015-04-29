@@ -1,5 +1,6 @@
 <!doctype html>
 <html ng-app="powurApp">
+<head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Welcome to Powur</title>
@@ -9,11 +10,6 @@
   <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= csrf_meta_tags %>
-  <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-  <link href="//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round" rel="stylesheet">
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= yield :header_includes %>
   <%= javascript_include_tag 'modernizr/modernizr' %>
 </head>
 <body>
@@ -24,6 +20,5 @@
     SignedIn = <%= current_user ? 'true' : 'false' %>;
   </script>
   <%= javascript_include_tag 'application' %>
-  <%= yield :bottom_includes %>
 </body>
 </html>

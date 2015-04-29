@@ -1,20 +1,18 @@
 <!doctype html>
-<html ng-app='sunstandAdminApp'>
+<html ng-app="powurApp">
 <head>
-  <meta charset='utf-8'>
-  <meta http-equiv='x-ua-compatible' content='ie=edge'>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Powur Administration</title>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
   <base href="/">
   <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
   <link href='//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round' rel='stylesheet' type='text/css'>
   <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag 'admin', media: 'all' %>
   <%= csrf_meta_tags %>
-  <%= javascript_include_tag 'modernizr/modernizr.js' %>
+  <%= javascript_include_tag 'modernizr/modernizr' %>
 </head>
 <body>
-
   <!-- Admin Header -->
   <ng-include src="'<%=asset_path("shared/admin/header.html") %>'"></ng-include>
   <!-- Bread Crumbs -->
@@ -27,12 +25,11 @@
     </div>
   </div>
 
-  <!-- TODO: DELETEME -->
+  <!-- TODO: deprecate -->
   <script type='text/javascript'>
     SignedIn = <%= current_user ? 'true' : 'false' %>;
   </script>
 
   <%= javascript_include_tag 'admin' %>
-
 </body>
 </html>

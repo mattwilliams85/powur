@@ -1,56 +1,59 @@
-'use strict';
+;(function() {
+  'use strict';
 
-function AdminOrdersCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminOrder) {
-  $scope.redirectUnlessSignedIn();
+  function AdminOrdersCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminOrder) {
+    $scope.redirectUnlessSignedIn();
 
-  $scope.backToIndex = function() {
-    $location.path('/admin/orders/');
+    $scope.backToIndex = function() {
+      $location.path('/admin/orders/');
+    };
+
+    this.init($scope, $location);
+    this.fetch($scope, $rootScope, $location, $routeParams, AdminOrder);
+  }
+
+  AdminOrdersCtrl.prototype.init = function($scope, $location) {
+    // Setting mode based on the url
+    $scope.mode = 'show';
+    if (/\/orders$/.test($location.path())) return $scope.mode = 'index';
+    if (/\/new$/.test($location.path())) return $scope.mode = 'new';
+    if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
   };
 
-  this.init($scope, $location);
-  this.fetch($scope, $rootScope, $location, $routeParams, AdminOrder);
-}
+  AdminOrdersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminOrder) {
+    if ($scope.mode === 'index') {
+      AdminOrder.list().then(function(items) {
+        $scope.orders = items.entities;
 
-AdminOrdersCtrl.prototype.init = function($scope, $location) {
-  // Setting mode based on the url
-  $scope.mode = 'show';
-  if (/\/orders$/.test($location.path())) return $scope.mode = 'index';
-  if (/\/new$/.test($location.path())) return $scope.mode = 'new';
-  if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
-};
+        // Breadcrumbs: Orders
+        $rootScope.breadcrumbs.push({title: 'Orders'});
 
-AdminOrdersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminOrder) {
-  if ($scope.mode === 'index') {
-    AdminOrder.list().then(function(items) {
-      $scope.orders = items.entities;
+      });
+    } else if ($scope.mode === 'new') {
 
-      // Breadcrumbs: Orders
-      $rootScope.breadcrumbs.push({title: 'Orders'});
+    } else if ($scope.mode === 'show') {
+      AdminOrder.get($routeParams.userId).then(function(item) {
+        $scope.user = item.properties;
 
-    });
-  } else if ($scope.mode === 'new') {
+        // Breadcrumbs: Orders / View Order
+        $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/orders'});
+        $rootScope.breadcrumbs.push({title: 'View Order'});
 
-  } else if ($scope.mode === 'show') {
-    AdminOrder.get($routeParams.userId).then(function(item) {
-      $scope.user = item.properties;
+      });
 
-      // Breadcrumbs: Orders / View Order
-      $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/orders'});
-      $rootScope.breadcrumbs.push({title: 'View Order'});
+    } else if ($scope.mode === 'edit') {
+      AdminOrder.get($routeParams.userId).then(function(item) {
+        $scope.user = item.properties;
 
-    });
+        // Breadcrumbs: Orders / Update Order
+        $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/orders'});
+        $rootScope.breadcrumbs.push({title: 'Update Order'});
 
-  } else if ($scope.mode === 'edit') {
-    AdminOrder.get($routeParams.userId).then(function(item) {
-      $scope.user = item.properties;
+      });
+    }
+  };
 
-      // Breadcrumbs: Orders / Update Order
-      $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/orders'});
-      $rootScope.breadcrumbs.push({title: 'Update Order'});
+  AdminOrdersCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminOrder'];
+  angular.module('powurApp').controller('AdminOrdersCtrl', AdminOrdersCtrl);
 
-    });
-  }
-};
-
-AdminOrdersCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminOrder'];
-sunstandControllers.controller('AdminOrdersCtrl', AdminOrdersCtrl);
+})();
