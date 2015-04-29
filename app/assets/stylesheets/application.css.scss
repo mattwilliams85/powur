@@ -1,17 +1,19 @@
+// Foundation
 @import "foundation_and_overrides";
 
+// Bower components
 @import "angular-slider.min";
-
 html.piling-on {
   @import "pagepiling.js/jquery.pagepiling";
 }
+@import "slick-carousel/slick/slick.scss";
+@import "slick-carousel/slick/slick-theme.scss";
 
-@import "vendor/slick";
-@import "vendor/slick-theme";
-
+// Sprites
 @import "compass/utilities/sprites";
 @import "sun-sprites/*.png";
 
+// App
 @import "dashboard";
 @import "faq";
 @import "footer";
