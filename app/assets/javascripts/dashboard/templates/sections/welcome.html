@@ -55,10 +55,10 @@
         <span class="latest-news-label">Latest News</span>
         <div class="notifications">
           <div class="notification" ng-repeat="notification in news">
-            <p class="text">{{notification.text}}</p>
-            <span class="date">{{notification.date}}</span>
+            <p ng-bind-html="notification.properties.content" class="text">{{notification.properties.content}}</p>
+            <span class="date">{{dateToLocalTime(notification.properties.created_at)}}</span>
           </div>
-          <a ng-if="moreNewsItems" class="load-more">Load More</a>
+          <a class="load-more" ng-if="moreNews" ng-click="loadMoreNews()">Load More</a>
         </div>
       </div>
     </div>

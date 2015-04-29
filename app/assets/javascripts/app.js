@@ -235,6 +235,11 @@
         }, 700);
       });
     };
+
+    $rootScope.dateToLocalTime = function(createdAt) {
+      var date = new Date(Date.parse(createdAt)).toLocaleDateString();
+      return date;
+    };
   }
 
   init.$inject = [
