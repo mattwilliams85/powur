@@ -160,13 +160,22 @@ namespace :powur do
       end
     end
 
+    def configure_vcr
+      VCR.configure do |c|
+        c.cassette_library_dir = 'spec/cassettes'
+        c.hook_into :webmock
+      end
+    end
+
     task submit: :environment do
+      configure_vcr
       ENV['DATA_API_ENV'] = 'production'
       ENV['SOLAR_CITY_LEAD_URL'] = 'https://sctypowur.cloudhub.io/powur'
       LEADS.each do |lead|
         quote = Quote.find(lead[:id])
-        quote.submit!
-        # puts quote.ready_to_submit?
+        VCR.use_cassette("leads/#{quote.id}") do
+          quote.submit!
+        end
       end
     end
   end

@@ -8,7 +8,6 @@ gem 'pg'
 
 gem 'sass-rails'
 gem 'uglifier'
-# gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'jbuilder'
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
@@ -58,12 +57,12 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'awesome_print'
   gem 'byebug'
+  gem 'vcr'
 end
 
 group :test do
   gem 'database_cleaner'
   gem 'webmock', require: 'webmock/rspec'
-  gem 'vcr'
   gem 'db-query-matchers'
   gem 'capybara'
   gem 'capybara-firebug'
