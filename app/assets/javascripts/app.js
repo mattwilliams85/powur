@@ -1,15 +1,7 @@
-'use strict';
+;(function() {
+  'use strict';
 
-var powurApp = angular.module('powurApp', [
-  'ngRoute',
-
-  'sunstandControllers',
-  'sunstandServices',
-
-  // Directives
-  'sunstandApp.fileS3Uploader'
-]).run(['$rootScope', '$location', '$document', '$http', '$window', '$timeout',
-  function ($rootScope, $location, $document, $http, $window, $timeout) {
+  function init($rootScope, $location, $document, $http, $window, $timeout) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
     $rootScope.enrollmentRequirementMessage =
@@ -65,7 +57,7 @@ var powurApp = angular.module('powurApp', [
     };
 
     $rootScope.pagePiler = function() {
-      if($('#pagepiling').length === 0) return;
+      if ($('#pagepiling').length === 0) return;
 
       $('.fa-chevron-down, .bulb-btn, .watch').click(function(e){
            e.preventDefault();
@@ -141,7 +133,7 @@ var powurApp = angular.module('powurApp', [
       }
 
       function animateActiveNav(){
-        if($('.pp-section.active').hasClass('inverted')){
+        if ($('.pp-section.active').hasClass('inverted')){
           $('#pp-nav').find('span').animate({backgroundColor:'transparent'},200);
           $('a.active').find('span').animate({backgroundColor:'#fff'},100);
         } else {
@@ -151,7 +143,7 @@ var powurApp = angular.module('powurApp', [
       }
 
       function changeNavColor() {
-        if($('.pp-section.active').hasClass('inverted')){
+        if ($('.pp-section.active').hasClass('inverted')){
           $('#pp-nav').find('span').animate({borderColor:'#fff'},200);
           $('a.active').find('span').css('background','#fff');
         } else {
@@ -187,13 +179,13 @@ var powurApp = angular.module('powurApp', [
       $(window).scroll(function () {
         var screenHeight = $(window).height() - ($(window).height() / 1.4);
         var scrollPos = $(window).scrollTop();
-        if($('.sun-header-guest').hasClass('velocity-animating')) return;
-        if(scrollPos < screenHeight && $('.sun-header-guest').hasClass('invert')) {
+        if ($('.sun-header-guest').hasClass('velocity-animating')) return;
+        if (scrollPos < screenHeight && $('.sun-header-guest').hasClass('invert')) {
           $('.sun-header-guest').velocity('transition.slideUpBigOut', function() {
             $('.sun-header-guest').toggleClass('invert').show().velocity({ opacity: 1 }, 200);
           });
         }
-        if(scrollPos > screenHeight && !$('.sun-header-guest').hasClass('invert')) {
+        if (scrollPos > screenHeight && !$('.sun-header-guest').hasClass('invert')) {
           $('.sun-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');
         }
       });
@@ -216,7 +208,7 @@ var powurApp = angular.module('powurApp', [
     };
 
     $rootScope.gotoAnchor = function(id) {
-      if(id === 'dim_the_lights') $('body').css('background','#111');
+      if (id === 'dim_the_lights') $('body').css('background','#111');
       var duration = 500;
       var offset = 0; // pixels; adjust for floating menu, context etc
       // Scroll to #some-id with N px 'padding'
@@ -234,7 +226,7 @@ var powurApp = angular.module('powurApp', [
             // $('body').css('background','transparent')
             $('.sun-bg-1').css('opacity','1').show();
             $(window).scrollTop($('.sun-promo-slide-3').offset().top);
-            if($('body').css('overflow') !== 'visible') {
+            if ($('body').css('overflow') !== 'visible') {
               $('body').css('overflow','visible');
               $('.sun-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');
               $rootScope.enableScrollDetect();
@@ -244,14 +236,21 @@ var powurApp = angular.module('powurApp', [
       });
     };
   }
-]);
 
-var sunstandControllers = angular.module(
-  'sunstandControllers',
-  []
-);
+  init.$inject = [
+    '$rootScope',
+    '$location',
+    '$document',
+    '$http',
+    '$window',
+    '$timeout'];
 
-var sunstandServices = angular.module(
-  'sunstandServices',
-  ['ngResource', 'uiSlider', 'duScroll']
-);
+  angular.module('powurApp', [
+    'ngRoute',
+    'ngResource',
+    'uiSlider',
+    'duScroll',
+    'fileS3Uploader'
+  ]).run(init);
+
+})();

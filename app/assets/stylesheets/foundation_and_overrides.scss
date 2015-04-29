@@ -3,7 +3,7 @@
 $row-width: em-calc(1280);
 
 $body-font-family: "Montserrat", "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$header-font-family: $body-font-family;
+$header-font-family: "Muli", "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 300;
 $header-font-color: #383838;
 
@@ -59,7 +59,9 @@ $topbar-link-color: $sun-menu-link-color;
 $topbar-link-color-hover: #fff;
 $topbar-link-color-active: #fff;
 $topbar-link-weight: bold;
+$topbar-link-font-family: $header-font-family;
 $topbar-link-font-size: em-calc(16);
+$topbar-link-text-transform: uppercase;
 $topbar-link-hover-lightness: 0%; /* No Change on Hover */
 $topbar-link-bg-hover: darken($topbar-bg, 0%); /* No Change on Hover */
 $topbar-link-bg-active: darken($topbar-bg, 3%);
