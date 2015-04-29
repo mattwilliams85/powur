@@ -144,7 +144,7 @@ Rails.application.routes.draw do
   end
 
   # logged in admin routes
-  scope :a, module: :admin, defaults: { format: :json } do
+  scope :a, module: :admin do
 
     get '' => 'root#index', as: :admin_root
 
@@ -264,7 +264,7 @@ Rails.application.routes.draw do
     post 'ipayout/notify_merchant', to: 'ipayout#notify_merchant'
   end
 
-  namespace :api, defaults: { format: 'json' } do
+  namespace :api do
     # backwards compat. example
     # namespace :v1 do
     #   resource :session, only: [ :show ]

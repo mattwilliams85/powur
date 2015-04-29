@@ -88,9 +88,7 @@ describe '/a/invite' do
         "password" => ["Password is required", "Password not less than 8 symbols"],
         "password_confirmation" => ["Password confirmation is required"],
         "email" => ["Incorrect email address", "Please input an email address"],
-        "phone" => ["Phone is required"],
-        "tos" => ["You didn't agree to the terms and privacy policy"],
-        "zip" => ["Zip is required"]
+        "tos" => ["You didn't agree to the terms and privacy policy"]
       })
     end
 

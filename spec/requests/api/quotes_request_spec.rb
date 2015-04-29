@@ -9,7 +9,7 @@ describe '/api/quotes', type: :request do
     it 'returns the list of quotes for a user' do
       create_list(:quote, 3, user: @user)
 
-      get api_quotes_path, token_param
+      get api_quotes_path(format: :json), token_param
 
       expect_entities_count(3)
 
@@ -24,7 +24,7 @@ describe '/api/quotes', type: :request do
     it 'returns the quote detail' do
       quote = create(:quote, user: @user)
 
-      get api_quote_path(id: quote), token_param
+      get api_quote_path(id: quote, format: :json), token_param
 
       expect_classes 'quote'
     end

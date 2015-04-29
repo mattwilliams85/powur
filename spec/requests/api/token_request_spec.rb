@@ -1,20 +1,19 @@
 require 'spec_helper'
 
 describe '/api/token', type: :request do
-
   before :each do
     @client = create(:api_client)
   end
 
   it 'requires a valid client' do
-    post api_token_path
+    post api_token_path(format: :json)
 
     expect_api_error(:invalid_client)
   end
 
   describe 'valid client' do
     def post_token(params)
-      post api_token_path, params, authorize_header(@client)
+      post api_token_path(format: :json), params, authorize_header(@client)
     end
 
     EXPECTED_PARAMS = %w(access_token token_type expires_in)
