@@ -13,7 +13,8 @@
   <%= javascript_include_tag "modernizr/modernizr" %>
 </head>
 <body>
-  <ng-view autoscroll="true"></ng-view>
+
+  <%= yield %>
 
   <!-- TODO: deprecate -->
   <script type="text/javascript">
