@@ -251,7 +251,8 @@
     'uiSlider',
     'duScroll',
     'fileS3Uploader',
-    'powurFoundation'
+    'powurFoundation',
+    'templates'
   ]).run(init);
 
 })();

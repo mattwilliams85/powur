@@ -1,0 +1,139 @@
+<ng-include src="'shared/left-menu.html'"></ng-include>
+
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
+
+  <ng-include src="'shared/header-signed-out.html'"></ng-include>
+
+  <main class="sun-promo sun-why-you-page" id="pagepiling">
+
+    <div class="sun-scrolling-bg sun-bg-12 section inverted">
+      <div class="sun-promo-intro">
+        <div class="row">
+          <div class="large-5 columns">
+            <h1>Why <div class="highlight-2">You?</div></h1>
+          </div>
+
+          <div class="large-7 columns">
+            <h2 class="uppercase">If you really think about it… <br />there has NEVER been a better time to become a <div class="highlight-2">solar entrepreneur.</div></h2>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-box inverted tuck"  id="arrow_1">
+        <span>LEARN WHY</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-3 sun-slider section">
+     <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
+     <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
+      <div id="slide0" class="sun-promo-content slide" ng-class="{'active': currentSlide === 0, 'inactive': currentSlide > 0}">
+        <div class="row">
+          <div class="huge-purpose-image-wrapper">
+            <div class="purpose-img-5"></div>
+          </div>
+          <h2>Live your dream!</h2>
+          <h3>You can actually get rich, live your dream life, and be a world changing hero at the same time.</h3>
+        </div>
+      </div>
+
+      <div id="slide1" class="sun-promo-content slide" ng-class="{'active': currentSlide === 1, 'inactive': currentSlide > 1}">
+        <div class="row">
+          <div class="huge-purpose-image-wrapper">
+            <div class="purpose-img-4"></div>
+          </div>
+          <h2>No risk</h2>
+          <h3>There’s no up front costs, or fees, of ANY kind to get started. Yup, read that again.</h3>
+        </div>
+      </div>
+
+      <div id="slide2" class="sun-promo-content slide" ng-class="{'active': currentSlide === 2, 'inactive': currentSlide > 2}">
+        <div class="row">
+          <div class="huge-purpose-image-wrapper">
+            <div class="purpose-img-3"></div>
+          </div>
+          <h2>Huge timing</h2>
+          <h3>Jobs in solar are growing 10x the national average rate… and we are the FIRST entrepreneurial platform that empowers the people to start a home business in solar from the palm of their hand.</h3>
+        </div>
+      </div>
+
+      <div id="slide3" class="sun-promo-content slide" ng-class="{'active': currentSlide === 3, 'inactive': currentSlide > 3}">
+        <div class="row">
+          <div class="huge-purpose-image-wrapper">
+            <div class="purpose-img-2"></div>
+          </div>
+          <h2>Huge trend</h2>
+          <h3>There is less than 1% of the market installed and 99% upside on the $120 billion dollar residential energy industry.</h3>
+        </div>
+      </div>
+
+      <div id="slide4" class="sun-promo-content slide" ng-class="{'active': currentSlide === 4}">
+        <div class="row">
+          <div class="huge-purpose-image-wrapper">
+            <div class="purpose-img-1"></div>
+          </div>
+          <h2>Huge purpose</h2>
+          <h3>We might destroy the planet if you don't.</h3>
+        </div>
+      </div>
+     <!--  <div class="slide-show-dots">
+        <a ng-class="{'active': currentSlide === 0}" ng-click="stopSlideShowOn(0)"></a>
+        <a ng-class="{'active': currentSlide === 1}" ng-click="stopSlideShowOn(1)"></a>
+        <a ng-class="{'active': currentSlide === 2}" ng-click="stopSlideShowOn(2)"></a>
+        <a ng-class="{'active': currentSlide === 3}" ng-click="stopSlideShowOn(3)"></a>
+        <a ng-class="{'active': currentSlide === 4}" ng-click="stopSlideShowOn(4)"></a>
+      </div> -->
+      <div class="arrow-box dark hidden"  id="arrow_2">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-5 section you-solar-3">
+      <div class="row sun-promo-content">
+        <div class="large-6 columns">
+          <h3 class="highlight-2 uppercase">Tens of billions of dollars and more than 40 years have been invested to get solar where it is today.</h3>
+        </div>
+
+        <div class="large-6 columns part-2">
+          <p class="uppercase"><b>a mainstream, economically viable alternative to dirty fossil fuels.</b></p>
+          <p>The race is now on to grab the rooftop real estate, and that’s why we need YOU.  You now hold the key to getting the word out about solar, and helping us to turn the tide from dirty energy to CLEAN renewables all in the next decade.</p>
+          <p>We believe solar is not only one of the greatest financial opportunities you might see in a lifetime, but also an incredible opportunity to shift the scales of power on planet earth for the betterment of us all.  For the last 150 years, a very small group of companies has controlled the “power”, meaning the energy markets, almost exclusively.</p>
+        </div>
+      </div>
+      <div class="arrow-box dark">
+        <span>LEARN MORE</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-13 section you-solar-4 inverted">
+      <div class="row sun-promo-content">
+        <div class="large-6 columns">
+          <h2><div class="highlight-2">Solar</div> <br />represents the decentralization of that power.</h2>
+        </div>
+
+        <div class="large-6 columns">
+          <p>Instead of the wealth of energy only flowing to oil or coal companies… the wealth from the energy industry can now flow through the hands of people just like you.  By sharing solar person to person, we return power back to the people both financially (by getting paid), and literally, by powering our homes from our own rooftops.  This is “power to the people” in its truest sense.</p>
+          <p>The time has never been better to join the cause, and live a meaningful, rewarding life… while building a high income business making a difference.  Your great grand-children will thank you one day for taking your stand, and the wealth they may inherit!</p>
+        </div>
+      </div>
+      <div class="arrow-box inverted">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-3 section">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <h5>Select how you want to participate in the revolution.</h5>
+          <div class="sun-buttons-wrapper">
+            <a class="button sun-button-transparent" ng-href="/create-energy">ENERGY</a>
+            <a class="button sun-button-solid" ng-href="/create-wealth">WEALTH</a>
+          </div>
+        </div>
+      </div>
+      <ng-include src="'shared/footer.html'"></ng-include>
+    </div>
+
+  </main>
+</div>

@@ -116,6 +116,7 @@
     'ngRoute',
     'ngResource',
     'fileS3Uploader',
-    'powurFoundation'
+    'powurFoundation',
+    'templates'
   ]).run(init);
 })();

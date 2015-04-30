@@ -112,6 +112,10 @@ GEM
     airbrake (4.1.0)
       builder
       multi_json
+    angular-rails-templates (0.2.0)
+      railties (>= 3.1)
+      sprockets (~> 2)
+      tilt
     arel (6.0.0)
     ast (2.0.0)
     astrolabe (1.3.0)
@@ -532,6 +536,7 @@ DEPENDENCIES
   active_hash
   activerecord_any_of!
   airbrake
+  angular-rails-templates
   attr_extras
   awesome_print
   aws-sdk

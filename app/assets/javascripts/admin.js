@@ -11,10 +11,16 @@
 //= require angular-resource/angular-resource
 //= require angular-scroll/angular-scroll
 
-// TODO: this block of js libraries is still in the repo,
+// TODO: this lib is still in the repo,
 // need to either remove or request from bower
 //
 //= require admin/vendor/Autolinker.min
+
+/*
+ * Templates
+ */
+//= require angular-rails-templates
+//= require_tree ../templates
 
 /*
  * App js resources
@@ -37,5 +43,3 @@
 //= require_tree ./profile
 //= require_tree ./file-s3-uploader
 //= require_tree ./powur-foundation
-
-// $(document).foundation();

@@ -96,11 +96,11 @@
 
         <!-- Form if New or Incomplete Proposal-->
         <div ng-if="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
-          <ng-include src="'<%= asset_path("dashboard/templates/sections/customers-form.html") %>'"></ng-include>
+          <ng-include src="'dashboard/templates/sections/customers-form.html'"></ng-include>
         </div>
         <!-- Summary if Submitted Proposal -->
         <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
-          <ng-include src="'<%= asset_path("dashboard/templates/sections/customers-submitted.html") %>'"></ng-include>
+          <ng-include src="'dashboard/templates/sections/customers-submitted.html'"></ng-include>
         </div>
       </div>
     </div>

@@ -1,0 +1,129 @@
+<ng-include src="'shared/left-menu.html'"></ng-include>
+
+<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
+  <ng-include src="'shared/header-signed-out.html'"></ng-include>
+
+  <main class="sun-promo sun-why-solar-page" id="pagepiling">
+
+    <div class="sun-scrolling-bg sun-bg-10 solar-slide-1 section inverted">
+      <div class="sun-promo-intro">
+        <div class="row">
+          <h1 class="narrow"><div class="highlight-2">Solar</div>: The direct sales opportunity of this decade</h1>
+          <p class="narrow">Solar energy isn’t just the #1 solution to dirty coal powered electricity… it could also be the greatest financial opportunity you might see in your lifetime.</p>
+        </div>
+      </div>
+      <div class="arrow-box inverted tuck"  id="arrow_1">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-3 section solar-slide-2">
+      <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
+      <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
+      <div class="row sun-promo-content">
+        <div class="large-12 columns">
+          <h2 class="narrow">The facts are clear.<br /><div class="highlighted">Solar is exploding</div><br />Across America.</h2>
+        </div>
+
+        <div class="large-12 columns slide-show-wrapper">
+          <div ng-repeat="slide in slides" class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
+            <div class="small-4 columns" ng-repeat="slideItem in slide">
+              <div class="slide-2-slider-item">
+                <div class="slide-2-ico-wrapper"><div ng-class="slideItem.className"></div></div>
+                <p>{{slideItem.text}}</p>
+              </div>
+            </div>
+          </div>
+          <div ng-repeat="slide in slides" class="slide-show-inner include-medium" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
+            <!-- <div class="small-4 columns" ng-repeat="slideItem in slide"> -->
+              <div class="slide-2-slider-item">
+                <div class="slide-2-ico-wrapper"><div ng-class="slide.className"></div></div>
+                <p>{{slide.text}}</p>
+              </div>
+            <!-- </div> -->
+          </div>
+          <!-- <div class="slide-show-dots on-white">
+            <a ng-repeat="slide in slides" ng-class="{'active': currentSlide === slides.indexOf(slide)}" ng-click="stopSlideShowOn(slide)"></a>
+          </div> -->
+        </div>
+          <div class="arrow-box dark">
+            <span>FIND OUT MORE</span>
+            <i class="fa fa-chevron-down fa-3x"></i>
+          </div>
+      </div>
+
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-5 section">
+      <div class="row sun-promo-content">
+        <div class="large-12 columns">
+          <div class="icon-placeholder text-center"><div class="stand-and-sun-icon-wrapper"></div></div>
+          <h3 class="narrow text-center">Currently, less than 1% of of U.S. homes have solar installed.  That’s an opportunity estimated to be as large as 48 million homes, and north of $100,000,000,000+ annually.</h3>
+          <br>
+        </div>
+
+        <div class="large-6 columns">
+          <span>What’s astounding, is that this is just the beginning.  Every year, the cost of solar gets lower and the cost of traditional electricity goes up.  Yet the vast majority of Americans are currently unaware that they can power their lives with clean, renewable solar energy more cost effectively than traditional utilities.</span>
+        </div>
+
+        <div class="large-6 columns">
+          <span>There’s no doubt that we are at the beginning of the shift from dirty to clean energy… and likely one of the most meaningful wealth transfers in history.  Many billions of dollars will change hands as the “power” shifts from fossil fuels to clean, renewable technology.  These are exciting times.</span>
+        </div>
+      </div>
+      <div class="arrow-box dark">
+        <span>FIND OUT MORE</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-11 solar-slide-4 section inverted">
+      <div class="row">
+        <div class="large-6 columns">
+          <h1 class="uppercase highlight-2">Countless pioneers have laid the groundwork for this revolution.</h1>
+          <br>
+        </div>
+
+        <div class="large-6 columns part-2">
+          <p>The solar industry has gone through massive change in the last decade as companies have innovated the financial models, the manufacturing, the design systems, the ease of permitting, the installer networks, and the list goes on.</p>
+          <p>Solar is now in a position where after 40 years of innovation, it is finally ready to scale across the country.  What the industry needs now… is distribution.  That’s where you, and direct selling, enters the picture.  The greatest opportunity existing in solar is to acquire new customers, and put more panels on more rooftops.</p>
+          <h5>This presents aN enormous business opportunity.</h5>
+        </div>
+      </div>
+      <div class="arrow-box inverted">
+        <span>FIND OUT MORE</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg sun-bg-5 section">
+      <div class="row sun-promo-content">
+        <div class="large-6 columns">
+          <h3 class="highlight-2 uppercase">Powur is the first 100% solar energy platform for direct sellers, allowing you to easily, simply, and quickly engage in the distribution opportunity to spread solar.</h3>
+        </div>
+
+        <div class="large-6 columns part-2">
+          <p><b>Not only is this one of the most meaningful careers you could have… it could be one of the most LUCRATIVE.</b></p>
+          <p>Some of the greatest wealth on planet earth is created by spotting trends of this magnitude, and positioning yourself at the forefront.  As solar energy matures, it is no understatement to say that millions of people could create lucrative careers and businesses playing a role in solar’s inevitable rise as our predominant form of clean, renewable energy.</p>
+          <p>As a POWUR advocate, you are uniquely positioned to capitalize on the convergence of all these trends in a way that simply has not been done before.</p>
+        </div>
+      </div>
+      <div class="arrow-box dark">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="sun-scrolling-bg section">
+      <div class="row">
+        <div class="large-12 columns sun-home-content">
+          <h5>Select how you want to participate in the revolution.</h5>
+          <div class="sun-buttons-wrapper">
+            <a class="button sun-button-transparent" ng-href="/create-energy">ENERGY</a>
+            <a class="button sun-button-solid" ng-href="/create-wealth">WEALTH</a>
+          </div>
+        </div>
+      </div>
+      <ng-include src="'shared/footer.html'"></ng-include>
+    </div>
+
+  </main>
+</div>

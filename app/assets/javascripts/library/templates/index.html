@@ -1,0 +1,75 @@
+<ng-include src="'shared/header-signed-in.html'"></ng-include>
+
+<main class="powur-library">
+
+<!-- Header Label/Dropdown Resource Type Picker -->
+  <div class="row bump">
+    <div class="large-4 medium-4 small-4 columns">
+      <div class="media-select">
+        <div class="tag"></div>
+        <select class="powur-select" ng-options="type as type.name for type in resourceTypes" ng-model="resourceType" ng-change="resourceTypeChange();" ng-selected="resourceTypes[0]"></select>
+      </div>
+    </div>
+
+    <div class="large-4 medium-4 small-6 columns">
+      <form name="searchForm" ng-submit="search()" novalidate>
+        <input ng-model="searchText" type="search"></input>
+      </form>
+    </div>
+  </div>
+
+  <!-- Library Resources Grid -->
+  <div class="row">
+    <ul class="large-block-grid-5 medium-block-grid-3 small-block-grid-2">
+      <li ng-repeat="item in items" class="resource" ng-click="showResource(item)">
+        <!-- Thumbnails or Media icons -->
+        <div class="media-info">
+          <div class="media-thumbnail">
+            <img class="thumbnail-image"  ng-src="{{itemThumbnail(item)}}">
+          </div>
+          <!-- Media Title -->
+          <div class="text">{{ item.properties.title }}</div>
+        </div>
+        <!-- Modal for Showing a Library Resource -->
+        <div class="hidden" id="item_{{item.properties.id}}">
+          <div class="row">
+            <div class="large-12 columns">
+              <h1>{{item.properties.title}}</h1>
+            </div>
+          </div>
+          <!-- Modal Content: If PDF Document -->
+          <div class="row" ng-if="item.properties.file_type === 'application/pdf'">
+            <div class="large-6 columns">
+              <div class="pdf-preview">
+                <img ng-src="{{itemThumbnail(item)}}">
+              </div>
+              <div class="pdf-download">
+                <a class="button expand radius success" href="{{item.properties.file_original_path}}">Download this PDF</a>
+              </div>
+            </div>
+            <div class="large-6 columns">
+              <p>{{item.properties.description}}</p>
+            </div>
+          </div>
+          <!-- Modal Content: If Video -->
+          <div class="row" ng-if="item.properties.file_type === 'video/mp4'">
+            <div class="large-8 columns">
+              <video width="100%" controls></video>
+            </div>
+            <div class="large-4 columns">
+              <p>{{item.properties.description}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- /Modal -->
+      </li>
+    </ul>
+  </div>
+  <div class="row" ng-if="(pages.page_count >= 2)">
+    <div class="load-more" ng-if="(pages.current_page !== pages.page_count)">
+      <a class="button" ng-click="pagination(1)">Load More</a>
+    </div>
+  </div>
+</main>
+
+<ng-include src="'shared/footer-signed-in.html'"></ng-include>
