@@ -21,6 +21,7 @@
     "powurApp",
     "sunstandControllers",
     "sunstandServices",
-    "SignedIn"
+    "SignedIn",
+    "Autolinker"
   ]
 }

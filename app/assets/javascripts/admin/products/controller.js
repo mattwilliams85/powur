@@ -40,11 +40,9 @@
       if (window.confirm('Are you sure you want to delete ' + productName + '?')) {
         return AdminProduct.execute(action).then(function() {
           $scope.showModal(productName + ' has been removed from the system.');
-          $(document).foundation();
           $location.path('/products');
         }, function() {
           $scope.showModal('There was an error deleting this product.');
-          $(document).foundation();
         });
       }
     };
@@ -60,7 +58,6 @@
         return AdminProduct.get($routeParams.productId).then(function(item) {
           $location.path(destination);
           $scope.product = item.properties;
-          $(document).foundation();
           $scope.showModal(modalMessage);
         });
 
@@ -76,7 +73,6 @@
       return AdminProduct.list().then(function(items) {
         $location.path(destination);
         $scope.products = items.entities;
-        $(document).foundation();
         $scope.showModal(modalMessage);
       });
 

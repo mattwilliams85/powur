@@ -5,20 +5,20 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Welcome to Powur</title>
   <base href="/">
-  <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-  <link href='//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round' rel='stylesheet' type='text/css'>
-  <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <%= stylesheet_link_tag "application", media: "all" %>
   <%= csrf_meta_tags %>
-  <%= javascript_include_tag 'modernizr/modernizr' %>
+  <%= javascript_include_tag "modernizr/modernizr" %>
 </head>
 <body>
-  <ng-view autoscroll='true'></ng-view>
+  <ng-view onload="foundation();" autoscroll="true"></ng-view>
 
   <!-- TODO: deprecate -->
-  <script type='text/javascript'>
+  <script type="text/javascript">
     SignedIn = <%= current_user ? 'true' : 'false' %>;
   </script>
-  <%= javascript_include_tag 'application' %>
+  <%= javascript_include_tag "application" %>
 </body>
 </html>

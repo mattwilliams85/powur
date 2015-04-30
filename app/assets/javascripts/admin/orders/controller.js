@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function AdminOrdersCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminOrder) {
+  function AdminOrdersCtrl($scope, $rootScope, $location, $routeParams, Order) {
     $scope.redirectUnlessSignedIn();
 
     $scope.backToIndex = function() {
@@ -9,7 +9,7 @@
     };
 
     this.init($scope, $location);
-    this.fetch($scope, $rootScope, $location, $routeParams, AdminOrder);
+    this.fetch($scope, $rootScope, $location, $routeParams, Order);
   }
 
   AdminOrdersCtrl.prototype.init = function($scope, $location) {
@@ -20,40 +20,36 @@
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
   };
 
-  AdminOrdersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminOrder) {
+  AdminOrdersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, Order) {
     if ($scope.mode === 'index') {
-      AdminOrder.list().then(function(items) {
+      Order.list().then(function(items) {
         $scope.orders = items.entities;
 
         // Breadcrumbs: Orders
         $rootScope.breadcrumbs.push({title: 'Orders'});
-
       });
     } else if ($scope.mode === 'new') {
 
     } else if ($scope.mode === 'show') {
-      AdminOrder.get($routeParams.userId).then(function(item) {
+      Order.get($routeParams.userId).then(function(item) {
         $scope.user = item.properties;
 
         // Breadcrumbs: Orders / View Order
         $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/orders'});
         $rootScope.breadcrumbs.push({title: 'View Order'});
-
       });
-
     } else if ($scope.mode === 'edit') {
-      AdminOrder.get($routeParams.userId).then(function(item) {
+      Order.get($routeParams.userId).then(function(item) {
         $scope.user = item.properties;
 
         // Breadcrumbs: Orders / Update Order
         $rootScope.breadcrumbs.push({title: 'Orders', href: '/admin/orders'});
         $rootScope.breadcrumbs.push({title: 'Update Order'});
-
       });
     }
   };
 
-  AdminOrdersCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminOrder'];
+  AdminOrdersCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', 'Order'];
   angular.module('powurApp').controller('AdminOrdersCtrl', AdminOrdersCtrl);
 
 })();

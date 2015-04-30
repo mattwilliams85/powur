@@ -1,12 +1,8 @@
 ;(function() {
   'use strict';
 
-  function AdminOrder($http, $q) {
+  function Order($http, $q) {
     var service = {
-
-      /*
-       * Get an order
-      */
       get: function(id) {
         var dfr = $q.defer();
 
@@ -23,9 +19,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Get list of orders
-      */
       list: function() {
         var dfr = $q.defer();
 
@@ -42,9 +35,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Create an order
-      */
       create: function(data) {
         var dfr = $q.defer();
         data = data || {};
@@ -63,9 +53,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Update an order
-      */
       update: function(data) {
         var dfr = $q.defer();
         data = data || {};
@@ -84,9 +71,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Execute an action
-      */
       execute: function(action, data) {
         var dfr = $q.defer();
         data = data || {};
@@ -109,7 +93,7 @@
     return service;
   }
 
-  AdminOrder.$inject = ['$http', '$q'];
-  angular.module('powurApp').factory('AdminOrder', AdminOrder);
+  Order.$inject = ['$http', '$q'];
+  angular.module('powurApp').factory('Order', Order);
 
 })();

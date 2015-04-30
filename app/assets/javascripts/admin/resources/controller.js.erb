@@ -42,10 +42,8 @@
         $scope.showModal('This resource has been deleted.');
         $location.path('/resources');
         $scope.pagination(0);
-        $(document).foundation();
       }, function() {
         $scope.showModal('Oops error deleting the resource');
-        $(document).foundation();
       });
     };
 
@@ -60,7 +58,6 @@
     var createCallback = function() {
       $location.path('/resources');
       $scope.showModal('You\'ve successfully added a ' + $scope.resourceType + ' to the library.');
-      $(document).foundation();
       $scope.isSubmitDisabled = false;
     };
 
@@ -89,7 +86,6 @@
     var updateCallback = function() {
       $location.path('/resources');
       $scope.showModal('You\'ve successfully updated this ' + $scope.resourceType + '.');
-      $(document).foundation();
       $scope.isSubmitDisabled = false;
     };
 

@@ -1,12 +1,9 @@
 ;(function() {
   'use strict';
 
-  function AdminNotification($http, $q) {
+  function Notification($http, $q) {
     var service = {
 
-      /*
-       * Get a notification
-      */
       get: function(id) {
         var dfr = $q.defer();
 
@@ -23,9 +20,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Get list of notifications
-      */
       list: function(page) {
         page = page || 1;
         var dfr = $q.defer();
@@ -43,9 +37,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Create a notification
-      */
       create: function(data) {
         var dfr = $q.defer();
         data = data || {};
@@ -64,9 +55,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Update a notification
-      */
       update: function(data) {
         var dfr = $q.defer();
         data = data || {};
@@ -85,9 +73,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Execute an action
-      */
       execute: function(action, data) {
         var dfr = $q.defer();
         data = data || {};
@@ -110,7 +95,6 @@
     return service;
   }
 
-  AdminNotification.$inject = ['$http', '$q'];
-  angular.module('powurApp').factory('AdminNotification', AdminNotification);
-
+  Notification.$inject = ['$http', '$q'];
+  angular.module('powurApp').factory('Notification', Notification);
 })();

@@ -92,15 +92,15 @@
     }).
     // Bonus Plan Bonuses
     when('/admin/bonus-plans/:bonusPlanId/bonuses', {
-      templateUrl: '<%= asset_path("admin/bonus-plans/templates/bonuses/index.html") %>',
+      templateUrl: '<%= asset_path("admin/bonuses/templates/index.html") %>',
       controller: 'AdminBonusesCtrl'
     }).
     when('/admin/bonus-plans/:bonusPlanId/bonuses/new', {
-      templateUrl: '<%= asset_path("admin/bonus-plans/templates/bonuses/new.html") %>',
+      templateUrl: '<%= asset_path("admin/bonuses/templates/new.html") %>',
       controller: 'AdminBonusesCtrl'
     }).
     when('/admin/bonus-plans/:bonusPlanId/bonuses/:bonusId/edit', {
-      templateUrl: '<%= asset_path("admin/bonus-plans/templates/bonuses/edit.html") %>',
+      templateUrl: '<%= asset_path("admin/bonuses/templates/edit.html") %>',
       controller: 'AdminBonusesCtrl'
     }).
     // Products

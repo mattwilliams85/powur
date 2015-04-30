@@ -33,7 +33,6 @@
     var createCallback = function() {
       $location.path('/user-groups');
       $scope.showModal('You\'ve successfully added a new user group.');
-      $(document).foundation();
       $scope.isSubmitDisabled = false;
     };
 
@@ -62,7 +61,6 @@
     var updateCallback = function() {
       $location.path('/user-groups/' + $scope.userGroup.id);
       $scope.showModal('You\'ve successfully updated this user group.');
-      $(document).foundation();
       $scope.isSubmitDisabled = false;
     };
 
@@ -73,11 +71,9 @@
       if (window.confirm("Are you sure you want to delete the ‘" + groupName + "’ user group?")) {
         return AdminUserGroup.execute(action).then(function() {
           $scope.showModal("The ‘" + groupName + "’ user group has been deleted.");
-          $(document).foundation();
           $location.path('/user-groups');
         }, function() {
           $scope.showModal('There was an error deleting this user group.');
-          $(document).foundation();
         });
       }
     };

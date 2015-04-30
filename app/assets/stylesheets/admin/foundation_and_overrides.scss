@@ -29,90 +29,90 @@ $topbar-margin-bottom: em-calc(30);
 $topbar-title-weight: bold;
 $topbar-title-font-size: em-calc(17);
 
-// /* Style the top bar dropdown elements */
-// $topbar-dropdown-bg: $sun-color-blue;
-// $topbar-dropdown-link-color: #fff;
-// $topbar-dropdown-link-bg: lighten($topbar-bg, 5%);
-// $topbar-dropdown-toggle-size: 5px;
-// $topbar-dropdown-toggle-color: #fff;
-// $topbar-dropdown-toggle-alpha: 0.5;
-//
-// /* Set the link colors and styles for top-level nav */
-// $topbar-link-color: $sun-menu-link-color;
-// $topbar-link-color-hover: #fff;
-// $topbar-link-color-active: #fff;
-// $topbar-link-weight: bold;
-// $topbar-link-font-size: em-calc(16);
-// $topbar-link-hover-lightness: 0%; /* No Change on Hover */
-// $topbar-link-bg-hover: darken($topbar-bg, 0%); /* No Change on Hover */
-// $topbar-link-bg-active: darken($topbar-bg, 3%);
-//
-// $topbar-dropdown-label-color: #555;
-// $topbar-dropdown-label-bg: lighten($topbar-bg, 5%);
-// $topbar-dropdown-label-text-transform: uppercase;
-// $topbar-dropdown-label-font-weight: bold;
-// $topbar-dropdown-label-font-size: em-calc(10);
-//
-// /* Top menu icon styles */
-// $topbar-menu-link-transform: uppercase;
-// $topbar-menu-link-font-size: em-calc(13);
-// $topbar-menu-link-weight: bold;
-// $topbar-menu-link-color: #0a7fa1;
-// $topbar-menu-icon-color: #0a7fa1;
-// $topbar-menu-link-color-toggled: #fff;
-// $topbar-menu-icon-color-toggled: #fff;
-//
-// /* Transitions and breakpoint styles */
-// $topbar-transition-speed: 300ms;
-// $topbar-breakpoint: em-calc(1024); /* Change to 9999px for always mobile layout */
-// $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
-//
-// /* Divider Styles */
-// $topbar-divider-border-bottom: solid 1px lighten($topbar-bg, 10%);
-// $topbar-divider-border-top: solid 1px darken($topbar-bg, 10%);
-//
-// /* Sticky Class */
-// $topbar-sticky-class: ".sticky";
-// $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
-//
-// /* Header Labels and Dropdown Links */
-// $medium-and-down: "only screen and (max-width:"#{$medium-screen}")";
-//
-// @media #{$small} {
-//   .powur-header {
-//     .top-bar-section ul li > a {
-//       padding: 3px 0 3px 30px;
-//     }
-//
-//     label {
-//       margin-left: 10px;
-//     }
-//   }
-// }
-//
-// /* Powur Typography */
-// $header-font-family: "Varela Round", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-// $paragraph-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-//
-// button, .button, .panel {
-//   border-radius: 5px;
-// }
-//
-// // .understated class used for Delete buttons on forms
-// .understated {
-//   background-color: #fff !important;
-//   border-color: #555 !important;
-//   color: #000 !important;
-//
-//   &:hover {
-//     background-color: #c60f13 !important;
-//     border-color: #970b0e;
-//     color: #fff !important;
-//   }
-// }
-//
-// .callout {
-//   color: #fff;
-// }
+/* Style the top bar dropdown elements */
+$topbar-dropdown-bg: $sun-color-blue;
+$topbar-dropdown-link-color: #fff;
+$topbar-dropdown-link-bg: lighten($topbar-bg, 5%);
+$topbar-dropdown-toggle-size: 5px;
+$topbar-dropdown-toggle-color: #fff;
+$topbar-dropdown-toggle-alpha: 0.5;
+
+/* Set the link colors and styles for top-level nav */
+$topbar-link-color: $sun-menu-link-color;
+$topbar-link-color-hover: #fff;
+$topbar-link-color-active: #fff;
+$topbar-link-weight: bold;
+$topbar-link-font-size: em-calc(16);
+$topbar-link-hover-lightness: 0%; /* No Change on Hover */
+$topbar-link-bg-hover: darken($topbar-bg, 0%); /* No Change on Hover */
+$topbar-link-bg-active: darken($topbar-bg, 3%);
+
+$topbar-dropdown-label-color: #555;
+$topbar-dropdown-label-bg: lighten($topbar-bg, 5%);
+$topbar-dropdown-label-text-transform: uppercase;
+$topbar-dropdown-label-font-weight: bold;
+$topbar-dropdown-label-font-size: em-calc(10);
+
+/* Top menu icon styles */
+$topbar-menu-link-transform: uppercase;
+$topbar-menu-link-font-size: em-calc(13);
+$topbar-menu-link-weight: bold;
+$topbar-menu-link-color: #0a7fa1;
+$topbar-menu-icon-color: #0a7fa1;
+$topbar-menu-link-color-toggled: #fff;
+$topbar-menu-icon-color-toggled: #fff;
+
+/* Transitions and breakpoint styles */
+$topbar-transition-speed: 300ms;
+$topbar-breakpoint: em-calc(1024); /* Change to 9999px for always mobile layout */
+$topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
+
+/* Divider Styles */
+$topbar-divider-border-bottom: solid 1px lighten($topbar-bg, 10%);
+$topbar-divider-border-top: solid 1px darken($topbar-bg, 10%);
+
+/* Sticky Class */
+$topbar-sticky-class: ".sticky";
+$topbar-arrows: true; //Set false to remove the triangle icon from the menu item
+
+/* Header Labels and Dropdown Links */
+$medium-and-down: "only screen and (max-width:"#{$medium-screen}")";
+
+@media #{$small} {
+  .powur-header {
+    .top-bar-section ul li > a {
+      padding: 3px 0 3px 30px;
+    }
+
+    label {
+      margin-left: 10px;
+    }
+  }
+}
+
+/* Powur Typography */
+$header-font-family: "Varela Round", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$paragraph-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+
+button, .button, .panel {
+  border-radius: 5px;
+}
+
+// .understated class used for Delete buttons on forms
+.understated {
+  background-color: #fff !important;
+  border-color: #555 !important;
+  color: #000 !important;
+
+  &:hover {
+    background-color: #c60f13 !important;
+    border-color: #970b0e;
+    color: #fff !important;
+  }
+}
+
+.callout {
+  color: #fff;
+}
 
 @import "foundation/scss/foundation";

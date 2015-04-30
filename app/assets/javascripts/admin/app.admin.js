@@ -1,9 +1,19 @@
 ;(function() {
   'use strict';
 
-  function init($rootScope, $location, $document, $http, UserProfile) {
+  function init($rootScope, $location, $document, $http, $timeout, UserProfile) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
+
+    // Initialize Foundation JS on page load
+    $timeout(function() {
+      $rootScope.foundation();
+    }, 1000);
+
+    $rootScope.foundation = function() {
+      $(document).foundation();
+    };
+
     /*
      * Fill in User object with data if user is signed in but object is empty
     */
@@ -25,10 +35,6 @@
       if (!$rootScope.isSignedIn) {
         window.location = '/sign-in';
       }
-    };
-
-    $rootScope.foundation = function() {
-      $(document).foundation();
     };
 
     $rootScope.states = {
@@ -112,6 +118,7 @@
     '$location',
     '$document',
     '$http',
+    '$timeout',
     'UserProfile'];
 
   angular.module('powurApp', [

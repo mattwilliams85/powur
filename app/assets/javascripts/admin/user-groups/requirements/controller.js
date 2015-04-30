@@ -78,7 +78,6 @@
       return AdminUserGroup.get($routeParams.userGroupId).then(function(item) {
         $location.path(destination);
         $scope.requirements = item.entities[1].entities;
-        $(document).foundation();
         $scope.showModal(modalMessage);
       });
     };

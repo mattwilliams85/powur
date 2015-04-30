@@ -45,7 +45,6 @@
       return AdminUser.get($routeParams.userId).then(function(item) {
         $location.path(destination);
         $scope.user = item;
-        $(document).foundation();
         $scope.showModal(modalMessage);
       });
     };

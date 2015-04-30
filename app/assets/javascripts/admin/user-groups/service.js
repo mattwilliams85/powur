@@ -3,10 +3,6 @@
 
   function AdminUserGroup($http, $q) {
     var service = {
-
-      /*
-       * Get an item
-      */
       get: function(id) {
         var dfr = $q.defer();
 
@@ -23,9 +19,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Get list of items
-      */
       list: function() {
         var dfr = $q.defer();
 
@@ -42,9 +35,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Create an item
-      */
       create: function(data) {
         var dfr = $q.defer();
         data = data || {};
@@ -63,9 +53,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Update an item
-      */
       update: function(data) {
         var dfr = $q.defer();
         data = data || {};
@@ -84,9 +71,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Execute an action
-      */
       execute: function(action, data) {
         var dfr = $q.defer();
         data = data || {};
@@ -111,5 +95,4 @@
 
   AdminUserGroup.$inject = ['$http', '$q'];
   angular.module('powurApp').factory('AdminUserGroup', AdminUserGroup);
-
 })();

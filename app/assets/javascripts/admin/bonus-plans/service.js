@@ -1,12 +1,8 @@
 ;(function() {
   'use strict';
 
-  function AdminBonusPlan($http, $q) {
+  function BonusPlan($http, $q) {
     var service = {
-
-      /*
-      * Get list of Bonus Plans
-      */
       list: function() {
         var dfr = $q.defer();
 
@@ -23,9 +19,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Get a Bonus Plan
-      */
       get: function(id) {
         var dfr = $q.defer();
 
@@ -42,9 +35,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Execute an action
-      */
       execute: function(action, data) {
         var dfr = $q.defer();
         data = data || {};
@@ -67,7 +57,6 @@
     return service;
   }
 
-  AdminBonusPlan.$inject = ['$http', '$q'];
-  angular.module('powurApp').factory('AdminBonusPlan', AdminBonusPlan);
-
+  BonusPlan.$inject = ['$http', '$q'];
+  angular.module('powurApp').factory('BonusPlan', BonusPlan);
 })();

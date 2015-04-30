@@ -9,8 +9,12 @@
 
     // Initialize Foundation JS on page load
     $timeout(function() {
-      $(document).foundation();
+      $rootScope.foundation();
     }, 1000);
+
+    $rootScope.foundation = function() {
+      $(document).foundation();
+    };
 
     $rootScope.redirectIfSignedIn = function() {
       if (!$rootScope.isSignedIn) return;
@@ -62,7 +66,7 @@
       $('.fa-chevron-down, .bulb-btn, .watch').click(function(e){
            e.preventDefault();
            $.fn.pagepiling.moveSectionDown();
-           e.stopPropagation();         
+           e.stopPropagation();
        });
 
       $('#pagepiling').pagepiling({

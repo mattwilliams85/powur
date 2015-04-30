@@ -21,7 +21,7 @@
  */
 //= require ./admin/app.admin
 //= require ./admin/app.admin.routes
-//= require_tree ./admin/bonus
+//= require_tree ./admin/bonuses
 //= require_tree ./admin/bonus-plans
 //= require_tree ./admin/landing
 //= require_tree ./admin/notifications
@@ -37,4 +37,4 @@
 //= require_tree ./profile
 //= require_tree ./file-s3-uploader
 
-$(document).foundation();
+// $(document).foundation();

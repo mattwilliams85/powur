@@ -3,10 +3,6 @@
 
   function AdminUser($http, $q) {
     var service = {
-
-      /*
-       * Get a user
-      */
       get: function(id) {
         var dfr = $q.defer();
 
@@ -23,9 +19,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Get list of users
-      */
       list: function() {
         var dfr = $q.defer();
 
@@ -42,9 +35,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Create a user
-      */
       create: function(data) {
         var dfr = $q.defer();
         data = data || {};
@@ -63,9 +53,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Update a user
-      */
       update: function(data) {
         var dfr = $q.defer();
         data = data || {};
@@ -101,9 +88,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Execute an action
-      */
       execute: function(action, data) {
         var dfr = $q.defer();
         data = data || {};

@@ -38,4 +38,4 @@
 //= require_tree ./user-static-content
 //= require_tree ./file-s3-uploader
 
-$(function(){ $(document).foundation(); });
+// $(function(){ $(document).foundation(); });

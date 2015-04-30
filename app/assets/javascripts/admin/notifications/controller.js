@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function AdminNotificationsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminNotification) {
+  function AdminNotificationsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, Notification) {
     $scope.redirectUnlessSignedIn();
 
     // Utility Functions
@@ -30,7 +30,7 @@
     $scope.loadMore = function() {
       var nextPage = ($scope.currentPage) + 1;
 
-      AdminNotification.list(nextPage).then(function(items) {
+      Notification.list(nextPage).then(function(items) {
         for (var i in items.entities) {
           $scope.notifications.push(items.entities[i]);
         }
@@ -45,7 +45,7 @@
         $scope.isSubmitDisabled = true;
         // User Autolinker.js to turn links into hyperlinks
         $scope.notification.content = Autolinker.link($scope.notification.content);
-        AdminNotification.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
+        Notification.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
       }
     };
 
@@ -55,7 +55,7 @@
         $scope.isSubmitDisabled = true;
         // User Autolinker.js to turn links into hyperlinks
         $scope.notification.content = Autolinker.link($scope.notification.content);
-        AdminNotification.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
+        Notification.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
       }
     };
 
@@ -65,11 +65,11 @@
         $scope.notification = notification;
         $location.path('/notifications/' + $scope.notification.properties.id + '/edit');
       } else if (action.name === 'delete') {
-        if (window.confirm("Are you sure you want to delete this notification?")) {
-          AdminNotification.execute(action, notification).then(actionCallback(action));
+        if (window.confirm('Are you sure you want to delete this notification?')) {
+          Notification.execute(action, notification).then(actionCallback(action));
         }
       } else {
-        AdminNotification.execute(action, notification).then(actionCallback(action));
+        Notification.execute(action, notification).then(actionCallback(action));
       }
     };
 
@@ -84,18 +84,17 @@
       } else if (action.name === 'delete') {
         modalMessage = ('You\'ve successfully deleted this notification.');
       }
-      return AdminNotification.list().then(function(items) {
+      return Notification.list().then(function(items) {
         $location.path(destination);
         $scope.notifications = items.entities;
         $scope.currentPage = items.properties.paging.current_page;
         $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
-        $(document).foundation();
         $scope.showModal(modalMessage);
       });
     };
 
     this.init($scope, $location);
-    this.fetch($scope, $rootScope, $location, $routeParams, AdminNotification);
+    this.fetch($scope, $rootScope, $location, $routeParams, Notification);
   }
 
   AdminNotificationsCtrl.prototype.init = function($scope, $location) {
@@ -106,20 +105,19 @@
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
   };
 
-  AdminNotificationsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminNotification) {
+  AdminNotificationsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, Notification) {
     if ($scope.mode === 'index') {
-      AdminNotification.list().then(function(items) {
+      Notification.list().then(function(items) {
         $scope.notifications = items.entities;
         $scope.currentPage = items.properties.paging.current_page;
         $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
 
         // Breadcrumbs: Notifications
         $rootScope.breadcrumbs.push({title: 'Dashboard Notifications'});
-
       });
 
     } else if ($scope.mode === 'new') {
-      AdminNotification.list().then(function(items) {
+      Notification.list().then(function(items) {
         $scope.formAction = $scope.getAction(items.actions, 'create');
         $scope.notification = {};
       });
@@ -129,19 +127,17 @@
       $rootScope.breadcrumbs.push({title: 'New Notification'});
 
     } else if ($scope.mode === 'edit') {
-      AdminNotification.get($routeParams.notificationId).then(function(item) {
+      Notification.get($routeParams.notificationId).then(function(item) {
         $scope.notification = item.properties;
         $scope.formAction = $scope.getAction(item.actions, 'update');
 
         // Breadcrumbs: Notifications / Update Notification
         $rootScope.breadcrumbs.push({title: 'Dashboard Notifications', href: '/admin/notifications'});
         $rootScope.breadcrumbs.push({title: 'Update Notification'});
-
       });
     }
   };
 
-  AdminNotificationsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminNotification'];
+  AdminNotificationsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'Notification'];
   angular.module('powurApp').controller('AdminNotificationsCtrl', AdminNotificationsCtrl);
-
 })();
