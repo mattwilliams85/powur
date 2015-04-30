@@ -1036,6 +1036,36 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   */
   .team-section {
 
+    .new-team-member, .team-member {
+      color: #555;
+      &:hover {
+
+      }
+      &.active {
+        background-color: #444;
+        color: #fff;
+        border-bottom: 0;
+      }
+      .icon {
+        top: 25%;
+        position: relative;
+        text-align: center;
+      }
+      .info-text {
+        font-family: $dashboard-font-family;
+        position: relative;
+        top: 35%;
+        text-align: center;
+        line-height: 18pt;
+        font-size: 16pt;
+      }
+    }
+
+    .new-team-member {
+      height: 220px;
+      border: 1px solid #e5e5e5;
+      border-right: 0;
+    }
   }
 
 }

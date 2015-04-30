@@ -44,8 +44,42 @@
     </div>
 
     <!-- Row: Team Carousel -->
-    <div class="row">
-
+    <div class="row collapse">
+      <div class="large-3 medium-3 small-2 columns">
+        <!-- Invite New Team Member Button -->
+        <a ng-click="teamSection.newInvite()">
+          <div class="new-team-member" ng-class="{active: mode === 'new'}">
+            <div class="icon">
+              <span><i class="fa fa-user-plus fa-4x"></i></span>
+            </div>
+            <div class="info-text">
+              <span class="show-for-medium-up">Invite Team Member</span>
+              <span class="show-for-small">Invite</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="large-9 medium-9 small-10 columns">
+        <!-- Team Members Carousel -->
+        <div ng-if="!teamMembers" class="team carousel">
+          <!-- If No Team Members -->
+          <div class="">
+            <span class="info-text">You don't have any team members yet. Invite a Team Member to grow your grid!</span>
+          </div>
+        </div>
+        <div ng-if="teamMembers" class="team carousel">
+          <a ng-repeat="teamMember in teamMembers" ng-click="teamSection.showTeamMember($index)">
+            <div class="team-member carousel-item" ng-class="{active: currentTeamMember.id === teamMember.properties.id}">
+              <div class="icon">
+                <span><i class="fa fa-user fa-4x"></i></span>
+              </div>
+              <div class="info-text">
+                <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
 
   </div>
