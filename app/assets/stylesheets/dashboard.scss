@@ -71,22 +71,17 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     position: relative;
     background-color: #444;
     color: #F9F2E8;
-    -webkit-transition: all .3s;
-    -moz-transition: all .3s;
-    -o-transition: all .3s;
-    -ms-transition: all .3s;
-    transition: all .3s;
+    overflow: hidden;
     background-color: #444;
-    height: 0px;
+    max-height:0px;
 
     .summary {
-      padding: 0.9375em 15px;
-      height: 95%;
       text-align: left;
+      min-height: 465px;
+      padding: 0.9375em 15px;
       border-bottom: 1px solid #9b9b9b;
       border-right: 0;
       color: #9b9b9b;
-      background-color: #444;
 
       h1 {
         font-size: 16pt;
@@ -95,7 +90,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     }
 
     .form {
-
       form {
         fieldset {
           border: 0;
@@ -175,7 +169,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   @media #{$small} {
     .drilldown {
       .summary {
-        position: absolute;
+        // position: absolute;
         border-right: 1px solid #555;
         border-bottom: 0;
         text-align: center;
@@ -719,11 +713,13 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       -khtml-user-select: none; /* webkit (konqueror) browsers */
       -ms-user-select: none; /* IE10+ */
       user-select: none;
+      -webkit-transition: max-height .3s;
+      -moz-transition: max-height .3s;
+      -o-transition: max-height .3s;
+      -ms-transition: max-height .3s;
+      transition: max-height .3s;
       &.active {
-        height: 650px;
-        @media #{$small} { 
-          height: 525px;
-        }
+        max-height: 625px;
       }
 
       .kpi-detail {
@@ -1008,8 +1004,17 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     padding-bottom: 20px;
 
     .customer-drilldown {
+      -webkit-transition: max-height .4s;
+      -moz-transition: max-height .4s;
+      -o-transition: max-height .4s;
+      -ms-transition: max-height .4s;
+      transition: max-height .4s;
       &.active {
-        height: 100%;
+        background-color: #444;
+        max-height: 2000px;
+        @media #{$small} { 
+          max-height:1000px;
+        }
       }
     }
 
