@@ -11,5 +11,4 @@
 
   UserStaticContentCtrl.$inject = ['$scope', 'UserProfile'];
   angular.module('powurApp').controller('UserStaticContentCtrl', UserStaticContentCtrl);
-
 })();

@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams, UniversityClass, UserProfile, Geo) {
+  function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams, UniversityClass, UserProfile, Geo, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
@@ -33,7 +33,7 @@
       $scope.showModal('Enrolling ...', 'sun-modal');
 
       var action = getAction(classItem.actions, 'enroll');
-      return UniversityClass.execute(action).then(function(data) {
+      return CommonService.execute(action).then(function(data) {
         $window.location.href = data.redirect_to;
       }, function() {
         $('body').trigger('click'); // close old modal
@@ -45,7 +45,7 @@
       $scope.isPurchaseDisabled = true;
       $scope.errorMessage = null;
       var action = getAction(classItem.actions, 'purchase');
-      return UniversityClass.execute(action, {card: $scope.card}).then(function(data) {
+      return CommonService.execute(action, {card: $scope.card}).then(function() {
         $scope.purchaseComplete = true;
       }, function errorCallback(data) {
         $scope.isPurchaseDisabled = false;
@@ -75,7 +75,6 @@
         $scope.universityClasses = items;
       });
     } else if ($scope.mode === 'purchase') {
-      $scope.errorMessage;
       $scope.card = {};
       $scope.$watch('currentUser', function(data) {
         if (data && data.first_name) {
@@ -94,8 +93,6 @@
     }
   };
 
-
-  UniversityCtrl.$inject = ['$scope', '$location', '$window', '$anchorScroll', '$routeParams', 'UniversityClass', 'UserProfile', 'Geo'];
+  UniversityCtrl.$inject = ['$scope', '$location', '$window', '$anchorScroll', '$routeParams', 'UniversityClass', 'UserProfile', 'Geo', 'CommonService'];
   angular.module('powurApp').controller('UniversityCtrl', UniversityCtrl);
-
 })();

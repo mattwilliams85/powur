@@ -1,15 +1,11 @@
 ;(function() {
   'use strict';
 
-  function Customer($http, $q, $cacheFactory) {
-    var cache = $cacheFactory('Customer');
+  function Proposal($http, $q, $cacheFactory) {
+    var cache = $cacheFactory('Proposal');
     var isProcessingRequest;
 
     var service = {
-
-      /*
-       * List Proposals
-       */
       list: function(params) {
         var dfr = $q.defer();
         params = params || {};
@@ -35,9 +31,6 @@
         return dfr.promise;
       },
 
-      /*
-       * Get a Proposal
-       */
       get: function(proposalId) {
         var dfr = $q.defer();
 
@@ -60,34 +53,13 @@
         }
 
         return dfr.promise;
-      },
-
-      /*
-       * Execute an action
-      */
-      execute: function(action, data) {
-        var dfr = $q.defer();
-        data = data || {};
-        $http({
-          method: action.method,
-          url: action.href,
-          data: data,
-          type: action.type
-        }).success(function(res) {
-          dfr.resolve(res);
-        }).error(function(err) {
-          console.log('エラー', err);
-          dfr.reject(err);
-        });
-
-        return dfr.promise;
       }
     };
 
     return service;
   }
 
-  Customer.$inject = ['$http', '$q', '$cacheFactory'];
-  angular.module('powurApp').factory('Customer', Customer);
+  Proposal.$inject = ['$http', '$q', '$cacheFactory'];
+  angular.module('powurApp').factory('Proposal', Proposal);
 
 })();

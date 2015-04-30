@@ -97,6 +97,12 @@
       controller: 'LibraryCtrl'
     }).
 
+    // Earnings
+    when('/earnings', {
+      templateUrl: 'earnings/templates/index.html',
+      controller: 'EarningsCtrl'
+    }).
+
     // Signed In User's static content pages
     when('/terms-of-service', {
       templateUrl: 'user-static-content/templates/terms-of-service.html',

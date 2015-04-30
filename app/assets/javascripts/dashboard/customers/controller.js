@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Customer) {
+  function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Proposal, CommonService) {
     $scope.redirectUnlessSignedIn();
     $scope.states = Geo.states();
 
@@ -97,7 +97,7 @@
         $scope.currentProposal = {};
         $scope.currentProposalIndex = proposalIndex;
 
-        Customer.get(proposalId).then(function(item){
+        Proposal.get(proposalId).then(function(item){
           if ($scope.getAction(item.actions, 'update')) {
             $scope.formAction = $scope.getAction(item.actions, 'update');
             $scope.proposalItem = item;
@@ -124,8 +124,8 @@
         $scope.proposal = {};
         $scope.currentProposal = {};
 
-        Customer.list().then(function(items){
-          $timeout( function(){ 
+        Proposal.list().then(function(items){
+          $timeout( function(){
             $scope.showForm = true;
           }, 400);
           $scope.formAction = $scope.getAction(items.actions, 'create');
@@ -139,7 +139,7 @@
     // Save/Update Proposal Action
     $scope.customerSection.saveProposal = function() {
       if ($scope.proposal) {
-        Customer.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
+        CommonService.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
       }
     };
 
@@ -185,7 +185,7 @@
       if (confirm('Please confirm that all fields in the customer\'s contact information are correct before proceeding. \n' +
           'Are you sure you want to submit this proposal to SolarCity?')) {
         if ($scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit')) {
-          Customer.execute($scope.submitAction).then(actionCallback($scope.submitAction()));
+          CommonService.execute($scope.submitAction).then(actionCallback($scope.submitAction()));
         } else {
           alert('This proposal can\'t be submitted to SolarCity.');
         }
@@ -197,7 +197,7 @@
       if (confirm('Are you sure you want to delete this proposal?')) {
         var deleteAction = $scope.getAction($scope.proposalItem.actions, 'delete');
         if (deleteAction) {
-          Customer.execute(deleteAction).then(actionCallback(deleteAction));
+          CommonService.execute(deleteAction).then(actionCallback(deleteAction));
         } else {
           alert("This proposal can't be deleted.");
         }
@@ -209,7 +209,7 @@
       if (confirm('Are you sure you want to resend the proposal email to this customer?')) {
         var resendAction = $scope.getAction($scope.proposalItem.actions, 'resend');
         if (resendAction) {
-          Customer.execute(resendAction).then(actionCallback(resendAction));
+          CommonService.execute(resendAction).then(actionCallback(resendAction));
         } else {
           alert("This proposal can't be re-sent.");
         }
@@ -219,7 +219,7 @@
     $scope.animateDrilldown = function () {
       $scope.drilldownActive = false;
       $scope.drilldownActive = true;
-      $timeout( function(){ 
+      $timeout( function(){
         $scope.showForm = true;
       }, 300);
     }
@@ -231,12 +231,11 @@
       $scope.currentProposal = {};
     };
 
-
     // Search Action
     $scope.customerSection.proposalSearch = '';
     $scope.customerSection.search = function() {
       var searchQuery = {search: $scope.customerSection.proposalSearch};
-      Customer.list(searchQuery).then(function(items) {
+      Proposal.list(searchQuery).then(function(items) {
         $scope.proposals = items.entities;
       });
     };
@@ -245,7 +244,7 @@
     $scope.customerSection.proposalSort = 'created';
     $scope.customerSection.sort = function() {
       var sortQuery = {sort: $scope.customerSection.proposalSort};
-      Customer.list(sortQuery).then(function(items) {
+      Proposal.list(sortQuery).then(function(items) {
         $scope.proposals = items.entities;
         $timeout(function() {
           slick('.proposals');
@@ -253,7 +252,7 @@
       });
     };
 
-    return Customer.list().then(function(items) {
+    return Proposal.list().then(function(items) {
       $scope.proposals = items.entities;
       $timeout(function(){
         slick('.proposals');
@@ -262,8 +261,6 @@
 
   }
 
-
-  DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', '$route', 'Geo', 'Customer'];
+  DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', '$route', 'Geo', 'Proposal', 'CommonService'];
   angular.module('powurApp').controller('DashboardCustomersCtrl', DashboardCustomersCtrl);
-
 })();

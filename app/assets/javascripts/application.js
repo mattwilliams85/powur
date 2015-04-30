@@ -35,6 +35,7 @@
 //= require app.routes
 //= require app.common.service
 //= require_tree ./dashboard
+//= require_tree ./earnings
 //= require_tree ./geo
 //= require_tree ./invite
 //= require_tree ./landing
@@ -42,6 +43,7 @@
 //= require_tree ./notifications
 //= require_tree ./profile
 //= require_tree ./promo
+//= require_tree ./proposals
 //= require_tree ./university
 //= require_tree ./user-static-content
 //= require_tree ./users
