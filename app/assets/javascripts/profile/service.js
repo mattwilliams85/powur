@@ -101,7 +101,7 @@
         var dfr = $q.defer();
         $http({
           method: 'GET',
-          url: 'u/users/' + id + '/downline.json'
+          url: '/u/users/' + id + '/downline.json'
         }).success(function(res) {
           dfr.resolve(res);
         }).error(function(err) {

@@ -33,15 +33,18 @@
 //= require legacy
 //= require app
 //= require app.routes
+//= require app.common.service
 //= require_tree ./dashboard
 //= require_tree ./geo
 //= require_tree ./invite
 //= require_tree ./landing
 //= require_tree ./library
+//= require_tree ./notifications
 //= require_tree ./profile
 //= require_tree ./promo
 //= require_tree ./university
 //= require_tree ./user-static-content
+//= require_tree ./users
 //
 //= require_tree ./file-s3-uploader
 //= require_tree ./powur-foundation
