@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardTeamCtrl($scope, $timeout, Team) {
+  function DashboardTeamCtrl($scope, $timeout, User) {
     $scope.redirectUnlessSignedIn();
 
     // Initialize slick carousel
@@ -70,8 +70,7 @@
       $scope.showInvitesCarousel = false;
     };
 
-
-    return Team.list().then(function(items) {
+    return User.list().then(function(items) {
       $scope.teamMembers = items.entities;
       $timeout(function(){
         slick('.team');
@@ -80,7 +79,7 @@
     });
   }
 
-  DashboardTeamCtrl.$inject = ['$scope', '$timeout', 'Team'];
+  DashboardTeamCtrl.$inject = ['$scope', '$timeout', 'User'];
   angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl);
 
 })();
