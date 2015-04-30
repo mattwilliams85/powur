@@ -5,15 +5,6 @@
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
-    // Initialize Foundation JS on page load
-    $timeout(function() {
-      $rootScope.foundation();
-    }, 1000);
-
-    $rootScope.foundation = function() {
-      $(document).foundation();
-    };
-
     /*
      * Fill in User object with data if user is signed in but object is empty
     */
@@ -124,6 +115,7 @@
   angular.module('powurApp', [
     'ngRoute',
     'ngResource',
-    'fileS3Uploader'
+    'fileS3Uploader',
+    'powurFoundation'
   ]).run(init);
 })();

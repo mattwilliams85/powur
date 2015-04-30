@@ -36,5 +36,6 @@
 //
 //= require_tree ./profile
 //= require_tree ./file-s3-uploader
+//= require_tree ./powur-foundation
 
 // $(document).foundation();

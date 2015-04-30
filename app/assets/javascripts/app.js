@@ -7,15 +7,6 @@
     $rootScope.enrollmentRequirementMessage =
       'Unlock your Powur dashboard by passing the F.I.T test in Powur U.';
 
-    // Initialize Foundation JS on page load
-    $timeout(function() {
-      $rootScope.foundation();
-    }, 1000);
-
-    $rootScope.foundation = function() {
-      $(document).foundation();
-    };
-
     $rootScope.redirectIfSignedIn = function() {
       if (!$rootScope.isSignedIn) return;
 
@@ -259,7 +250,8 @@
     'ngResource',
     'uiSlider',
     'duScroll',
-    'fileS3Uploader'
+    'fileS3Uploader',
+    'powurFoundation'
   ]).run(init);
 
 })();

@@ -36,6 +36,8 @@
 //= require_tree ./promo
 //= require_tree ./university
 //= require_tree ./user-static-content
+//
 //= require_tree ./file-s3-uploader
+//= require_tree ./powur-foundation
 
 // $(function(){ $(document).foundation(); });
