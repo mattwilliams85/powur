@@ -1085,7 +1085,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   */
   .team-section {
 
-    .new-team-member, .team-member {
+    .new-team-member, .team-member, .invite {
       background-color: #fff;
       color: #555;
       &:hover {
@@ -1109,12 +1109,36 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         line-height: 18pt;
         font-size: 16pt;
       }
+      .status-text {
+        font-family: $dashboard-font-family;
+        position: relative;
+        top: 35%;
+        text-align: center;
+        line-height: 10pt;
+        font-size: 8pt;
+        text-transform: uppercase;
+        color: #9b9b9b;
+      }
     }
 
     .new-team-member {
       height: 220px;
       border: 1px solid #e5e5e5;
       border-right: 0;
+    }
+
+    .invites {
+      margin-top: 0px;
+
+      .invite {
+        background-color: #444;
+        color: #fff;
+      }
+    }
+
+    // Fix: initializing carousel adds 30px bottom margin to its div
+    .slick-slider {
+      margin-bottom: 0px;
     }
   }
 

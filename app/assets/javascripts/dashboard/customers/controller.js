@@ -152,7 +152,7 @@
       } else {
         // Workaround for carousel not taking new values...
         $route.reload();
-        slick('.carousel');
+        slick('.proposals');
         $scope.showModal('Your new proposal was successfully created!');
       }
     }
@@ -169,7 +169,7 @@
         $scope.closeForm();
       } else if (action.name === 'delete') {
         $route.reload();
-        slick('.carousel');
+        slick('.proposals');
         $scope.showModal('The proposal you selected was successfully deleted.');
       } else if (action.name === 'resend') {
         $route.reload();
@@ -248,7 +248,7 @@
       Customer.list(sortQuery).then(function(items) {
         $scope.proposals = items.entities;
         $timeout(function() {
-          slick('.carousel');
+          slick('.proposals');
         }, 2000);
       });
     };
@@ -256,7 +256,7 @@
     return Customer.list().then(function(items) {
       $scope.proposals = items.entities;
       $timeout(function(){
-        slick('.carousel');
+        slick('.proposals');
       }, 1000);
     });
 

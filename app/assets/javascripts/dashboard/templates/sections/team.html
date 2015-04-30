@@ -47,7 +47,7 @@
     <div class="row collapse">
       <div class="w20percent small-2 columns">
         <!-- Invite New Team Member Button -->
-        <a ng-click="teamSection.newInvite()">
+        <a ng-click="teamSection.showInvites()">
           <div class="new-team-member" ng-class="{active: mode === 'new'}">
             <div class="icon">
               <span><i class="fa fa-user-plus fa-4x"></i></span>
@@ -82,5 +82,48 @@
       </div>
     </div>
 
+    <!-- Row: Invites Carousel -->
+    <div class="drilldown row collapse invites-drilldown" ng-class="{'active': drilldownActive == true}">
+      <div ng-hide="!showInvitesCarousel" class="large-12 columns">
+        <div class="invites carousel">
+          <a ng-repeat="invite in invites" ng-click="teamSection.newInvite()">
+            <div class="invite carousel-item">
+              <div class="icon">
+                <span><i class="fa fa-user fa-4x"></i></span>
+              </div>
+              <div class="info-text">
+                <span>Empty</span>
+              </div>
+              <div class="status-text">
+                <span>Invite Someone</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row: Invite Team Member Form -->
+    <div class="drilldown row collapse team-drilldown" ng-class="{'active': drilldownActive == true}">
+      <div ng-hide="!showForm" class="fade-in-section" ng-class="{'active': showForm == true}">
+        <!-- New Invite Summary Text -->
+        <div class="summary large-3 medium-3 columns">
+
+          <h1>New Invite</h1>
+          <p>Enter team member information to create a new invite.</p>
+          <p>Invites expire after 24 hours. You can renew or release invites after they have expired.</p>
+
+        </div>
+
+        <!-- Form if New Invite -->
+        <div ng-if="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
+          <ng-include src="'dashboard/templates/sections/team-invite-form.html'"></ng-include>
+        </div>
+        <!-- Summary if Existing Invite -->
+        <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
+          <ng-include src="'dashboard/templates/sections/customers-submitted.html'"></ng-include>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
