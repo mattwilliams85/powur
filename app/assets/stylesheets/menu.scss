@@ -3,7 +3,7 @@
  *
 */
 
-.sun-landing-wrapper {
+.pow-landing-wrapper {
   position: relative;
   z-index: 5;
   top: 0;
@@ -19,13 +19,13 @@
   &.active {
     left: 300px;
 
-    .sun-header-guest {
+    .pow-header-guest {
       left: 300px;
     }
   }
 }
 
-.sun-left-menu {
+.pow-left-menu {
   position: fixed;
   z-index: 10;
   background-color: #383838;
@@ -167,7 +167,7 @@ and (max-device-width : 960px) {
     overflow: auto;
   }
 
-  .sun-left-menu {
+  .pow-left-menu {
     display: none;
 
     &.active {

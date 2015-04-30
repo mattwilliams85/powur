@@ -30,7 +30,7 @@
 
     $scope.takeClass = function(classItem) {
       $anchorScroll();
-      $scope.showModal('Enrolling ...', 'sun-modal');
+      $scope.showModal('Enrolling ...', 'pow-modal');
 
       var action = getAction(classItem.actions, 'enroll');
       return CommonService.execute(action).then(function(data) {

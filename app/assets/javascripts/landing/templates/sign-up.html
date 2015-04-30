@@ -1,12 +1,12 @@
 <ng-include src="'shared/left-menu.html'"></ng-include>
 
-<div class="sun-landing-wrapper" ng-class="{'active': isMenuActive}">
+<div class="pow-landing-wrapper" ng-class="{'active': isMenuActive}">
   <ng-include src="'shared/header-signed-out.html'"></ng-include>
 
-  <main class="sun-landing sun-sign-up-page">
+  <main class="pow-landing pow-sign-up-page">
 
-    <div class="sun-fixed-bg sun-bg-6 inverted">
-      <!-- <div class="sun-home-intro"> -->
+    <div class="pow-fixed-bg pow-bg-6 inverted">
+      <!-- <div class="pow-home-intro"> -->
         <div class="row">
           <h1>Let's Go!</h1>
           <p>Complete your FREE registration by filling in the form below. See you inside.</p>
@@ -14,7 +14,7 @@
       <!-- </div> -->
     </div>
 
-    <div class="sun-scrolling-bg">
+    <div class="pow-scrolling-bg">
       <div class="row">
         <div class="large-6 medium-6 columns">
           <form name="validateInviteForm" ng-submit="validateInvite()" class="invite-form" ng-class="{'inactive': invite.properties}" novalidate>
@@ -33,8 +33,8 @@
               </div>
             </div>
             <span ng-if="!invite.error && !invite.properties" class="small">No invite code? Please contact the person who told you about Powur.</span>
-            <span ng-if="invite.error" class="small sun-error">{{invite.error.message}}</span>
-            <span ng-if="invite.properties" class="small sun-success">SUCCESS! <a ng-click="clearInviteValidationForm()">Click here</a> to enter a different invite code</span>
+            <span ng-if="invite.error" class="small pow-error">{{invite.error.message}}</span>
+            <span ng-if="invite.properties" class="small pow-success">SUCCESS! <a ng-click="clearInviteValidationForm()">Click here</a> to enter a different invite code</span>
 
             <div class="invite-sponsor-info" ng-if="invite.properties">
               <img ng-src="{{invite.properties.sponsor_avatar}}" />

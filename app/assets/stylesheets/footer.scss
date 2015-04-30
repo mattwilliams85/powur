@@ -1,7 +1,7 @@
 /*
  * FOOTER for guest user
 */
-.sun-landing-footer {
+.pow-landing-footer {
   background: #383838;
   width:100%;
   z-index:1;
@@ -56,16 +56,16 @@
       margin-left: 20px;
 
       &.facebook {
-        @include sun-sprites-sprite(facebook-icon);
-        height: sun-sprites-sprite-height(facebook-icon);
+        @include pow-sprites-sprite(facebook-icon);
+        height: pow-sprites-sprite-height(facebook-icon);
       }
       &.twitter {
-        @include sun-sprites-sprite(twitter-icon);
-        height: sun-sprites-sprite-height(twitter-icon);
+        @include pow-sprites-sprite(twitter-icon);
+        height: pow-sprites-sprite-height(twitter-icon);
       }
       &.youtube {
-        @include sun-sprites-sprite(youtube-icon);
-        height: sun-sprites-sprite-height(youtube-icon);
+        @include pow-sprites-sprite(youtube-icon);
+        height: pow-sprites-sprite-height(youtube-icon);
       }
     }
   }

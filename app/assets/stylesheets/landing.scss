@@ -1,4 +1,4 @@
-.sun-landing {
+.pow-landing {
   height: 100%;
   position: relative;
   z-index: 1;
@@ -22,7 +22,7 @@
     margin-right: auto;
   }
 
-  .sun-home-intro {
+  .pow-home-intro {
     bottom: auto;
     right: auto;
 
@@ -51,7 +51,7 @@
     }
   }
 
-  .sun-home-content {
+  .pow-home-content {
     h4 {
       line-height:40pt;
       @media #{$small} {
@@ -99,19 +99,19 @@
     margin: 0 auto;
   }
 
-  .sun-bg-1 {
+  .pow-bg-1 {
      background-image: image-url("landing/bg-1.jpg");
    }
 
-   .sun-bg-2 {
+   .pow-bg-2 {
      background: #fff;
    }
 
-   .sun-bg-3 {
+   .pow-bg-3 {
      background: #f4f6f7;
    }
 
-   .sun-bg-4 {
+   .pow-bg-4 {
      background-image: image-url("landing/bg-3.jpg");
      h1 {
       width:60%;
@@ -126,7 +126,7 @@
      }
    }
 
-   .sun-bg-5 {
+   .pow-bg-5 {
      background-image: image-url("landing/bg-5.jpg");
      padding-top:70px;
      h1 {
@@ -168,7 +168,7 @@
      }
    }
 
-   .sun-bg-6 {
+   .pow-bg-6 {
      background-image: image-url("landing/bg-4.jpg");
      background-repeat: no-repeat;
      background-size: cover;
@@ -190,7 +190,7 @@
      }
    }
 
-   .sun-bg-7 {
+   .pow-bg-7 {
     background-image: image-url("landing/bg-6.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -215,7 +215,7 @@
         line-height:25pt;
         color:white;
         .highlight {
-          color: $sun-color-blue;
+          color: $pow-color-blue;
         }
       }
     
@@ -224,12 +224,12 @@
       width:686px;
       margin-left: -350px;
       span{ 
-        color: $sun-color-blue;
+        color: $pow-color-blue;
       }
     }
    }
 
-  .sun-sign-in-wrapper {
+  .pow-sign-in-wrapper {
     padding-top: 200px;
 
     h1 {
@@ -293,14 +293,14 @@
   }
 }
 
-.sun-sign-up-page {
+.pow-sign-up-page {
   height: auto;
 
-  .sun-fixed-bg {
+  .pow-fixed-bg {
     height: 40%
   }
 
-  .sun-scrolling-bg {
+  .pow-scrolling-bg {
     margin-top: 100px;
   }
 
@@ -316,7 +316,7 @@
     font-weight: bold;
 
     span {
-      color: $sun-color-blue;
+      color: $pow-color-blue;
     }
   }
 
@@ -341,12 +341,12 @@
       color: #afb4b9;
       font-size: .8em;
 
-      &.sun-error {
+      &.pow-error {
         color: red;
       }
 
-      &.sun-success {
-        color: $sun-color-green;
+      &.pow-success {
+        color: $pow-color-green;
       }
     }
   }
@@ -380,9 +380,9 @@
     }
 
     .lock-icon {
-      @include sun-sprites-sprite(lock-icon);
-      height: sun-sprites-sprite-height(lock-icon);
-      width: sun-sprites-sprite-width(lock-icon);
+      @include pow-sprites-sprite(lock-icon);
+      height: pow-sprites-sprite-height(lock-icon);
+      width: pow-sprites-sprite-width(lock-icon);
     }
 
     h6 {
@@ -403,7 +403,7 @@
 
   .button {
     text-transform: uppercase;
-    background-color: $sun-color-green;
+    background-color: $pow-color-green;
   }
 
   label {
@@ -430,7 +430,7 @@
 
 
 // Page slider
-.sun-slider {
+.pow-slider {
   overflow: hidden;
   position: relative;
   z-index:3;

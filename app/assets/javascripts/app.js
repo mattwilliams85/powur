@@ -90,11 +90,11 @@
           $rootScope.nextIndex = nextIndex;
           $timeout(function() {
             if (nextIndex === 1) {
-              $('.sun-header-guest').velocity('transition.slideUpBigOut', function() {
-                $('.sun-header-guest').toggleClass('invert').show().velocity({ opacity: 1 }, 200);
+              $('.pow-header-guest').velocity('transition.slideUpBigOut', function() {
+                $('.pow-header-guest').toggleClass('invert').show().velocity({ opacity: 1 }, 200);
               });
             }
-            if (nextIndex > 1 && !$('.sun-header-guest').hasClass('invert')) { $('.sun-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');}
+            if (nextIndex > 1 && !$('.pow-header-guest').hasClass('invert')) { $('.pow-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');}
             //Loads gif on slide entrance
             if (nextIndex === 3) { $rootScope.gif1Src = angular.element(document.querySelector('#gif_1_src')).attr('data-tempsrc'); }
             if (nextIndex === 4) { $rootScope.gif2Src = angular.element(document.querySelector('#gif_2_src')).attr('data-tempsrc'); }
@@ -161,10 +161,10 @@
     $rootScope.setupInvertHeader = function() {
       angular.element($window).bind('scroll', function() {
         var header = document.getElementById('sun_header_guest');
-        if (header && header.className !== 'sun-header-guest invert') {
-          header.setAttribute('class', 'sun-header-guest hidden');
+        if (header && header.className !== 'pow-header-guest invert') {
+          header.setAttribute('class', 'pow-header-guest hidden');
           setTimeout(function invertHeader() {
-            header.setAttribute('class', 'sun-header-guest invert');
+            header.setAttribute('class', 'pow-header-guest invert');
           }, 200);
         }
       });
@@ -174,14 +174,14 @@
       $(window).scroll(function () {
         var screenHeight = $(window).height() - ($(window).height() / 1.4);
         var scrollPos = $(window).scrollTop();
-        if ($('.sun-header-guest').hasClass('velocity-animating')) return;
-        if (scrollPos < screenHeight && $('.sun-header-guest').hasClass('invert')) {
-          $('.sun-header-guest').velocity('transition.slideUpBigOut', function() {
-            $('.sun-header-guest').toggleClass('invert').show().velocity({ opacity: 1 }, 200);
+        if ($('.pow-header-guest').hasClass('velocity-animating')) return;
+        if (scrollPos < screenHeight && $('.pow-header-guest').hasClass('invert')) {
+          $('.pow-header-guest').velocity('transition.slideUpBigOut', function() {
+            $('.pow-header-guest').toggleClass('invert').show().velocity({ opacity: 1 }, 200);
           });
         }
-        if (scrollPos > screenHeight && !$('.sun-header-guest').hasClass('invert')) {
-          $('.sun-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');
+        if (scrollPos > screenHeight && !$('.pow-header-guest').hasClass('invert')) {
+          $('.pow-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');
         }
       });
     };
@@ -207,23 +207,23 @@
       var duration = 500;
       var offset = 0; // pixels; adjust for floating menu, context etc
       // Scroll to #some-id with N px 'padding'
-      $('.sun-bg-1').animate({ opacity: '0' }, 700, function() {
+      $('.pow-bg-1').animate({ opacity: '0' }, 700, function() {
         var someElement = angular.element(document.getElementById(id));
         $document.scrollToElement(someElement, offset, duration);
         setTimeout(function(){
           $('body').css('background','transparent');
           //prevents users from getting stuck on second slide
           if (id === 'dim_the_lights') {
-            $('.sun-bg-1').hide();
+            $('.pow-bg-1').hide();
             $('body').scrollTop(0);
           }
           if (id === 'on_slider_move') {
             // $('body').css('background','transparent')
-            $('.sun-bg-1').css('opacity','1').show();
-            $(window).scrollTop($('.sun-promo-slide-3').offset().top);
+            $('.pow-bg-1').css('opacity','1').show();
+            $(window).scrollTop($('.pow-promo-slide-3').offset().top);
             if ($('body').css('overflow') !== 'visible') {
               $('body').css('overflow','visible');
-              $('.sun-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');
+              $('.pow-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');
               $rootScope.enableScrollDetect();
             }
           }

@@ -1,4 +1,4 @@
-.sun-profile {
+.pow-profile {
   background: #f8f8f8;
   padding: 50px 0;
 
@@ -149,8 +149,8 @@
       &::before {
         content: 'UPLOAD PHOTO';
         display: inline-block;
-        background: $sun-color-blue;
-        border: 1px solid $sun-color-blue;
+        background: $pow-color-blue;
+        border: 1px solid $pow-color-blue;
         border-radius: 3px;
         padding: 5px 8px;
         outline: none;
@@ -165,7 +165,7 @@
       }
 
       &:active::before {
-        background: $sun-color-blue;
+        background: $pow-color-blue;
       }
     }
   }

@@ -1,5 +1,5 @@
-.sun-header-faq {
-  background: $sun-color-blue;
+.pow-header-faq {
+  background: $pow-color-blue;
   text-align: center;
   // position: static;
 
@@ -17,14 +17,14 @@
   }
 }
 
-.sun-faq {
+.pow-faq {
   background:#fff;
 
-  .sun-header-guest, .sun-landing-footer {
+  .pow-header-guest, .pow-landing-footer {
     position:relative;
   }
 
-  .sun-fixed-bg {
+  .pow-fixed-bg {
     padding-top:100px;
   }
 
@@ -41,7 +41,7 @@
     bottom:0;
   }
 
-  .sun-accordion {
+  .pow-accordion {
     list-style-position: outside;
     margin-bottom:200px;
 

@@ -180,7 +180,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   .button {
     border-radius: 4px;
     border: 1px solid rgba(0,0,0,0.2);
-    background-color: $sun-color-blue;
+    background-color: $pow-color-blue;
     font-family: $dashboard-font-family;
     text-transform: uppercase;
     &:disabled {
@@ -190,10 +190,10 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       }
     }
     &:hover {
-      background-color: lighten($sun-color-blue, 20%);
+      background-color: lighten($pow-color-blue, 20%);
     }
     &.solarcity:hover {
-      background-color: $sun-color-green;
+      background-color: $pow-color-green;
     }
     &.secondary {
       color: #9b9b9b;
@@ -253,7 +253,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     margin: 0 0 1em 0;
 
     div.tag {
-      background:$sun-color-blue;
+      background:$pow-color-blue;
       width: 62px;
       height: 62px;
       float: left;
@@ -408,10 +408,10 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       }
 
       .bar.green {
-        background: $sun-color-green;
+        background: $pow-color-green;
       }
       .bar.orange {
-        background: $sun-color-orange;
+        background: $pow-color-orange;
       }
 
       .bar {
@@ -490,13 +490,13 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
           margin-right: 15px;
 
           &.personal {
-            background-color: $sun-color-orange;
+            background-color: $pow-color-orange;
             height: 20px;
             width: 20px;
             margin-right: 10px;
           }
           &.grid {
-            background-color: $sun-color-green;
+            background-color: $pow-color-green;
             height: 20px;
             width: 20px;
             margin-right: 10px;
@@ -733,7 +733,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         }
         &.link {
           cursor: pointer;
-          color: $sun-color-blue;
+          color: $pow-color-blue;
         }
       }
 
@@ -873,11 +873,11 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
             height: 20px; width: 25px;
             margin-right: 7px;
             &.primary {
-              background-color: $sun-color-blue;
+              background-color: $pow-color-blue;
             }
             &.secondary {
               margin-left: 20px;
-              background-color: $sun-color-orange;
+              background-color: $pow-color-orange;
             }
           }
 

@@ -4,10 +4,10 @@
 $row-width: em-calc(1024);
 
 /* Colors */
-$sun-color-blue: #20c2f1;
-$sun-color-orange: #f4c751;
-$sun-color-green: #2ecc71;
-$sun-menu-link-color: #0a7fa1;
+$pow-color-blue: #20c2f1;
+$pow-color-orange: #f4c751;
+$pow-color-green: #2ecc71;
+$pow-menu-link-color: #0a7fa1;
 
 /* Break Points for Screen Sizes */
 $small-screen: em-calc(768);
@@ -16,7 +16,7 @@ $large-screen: em-calc(1440);
 
 /* Top Bar (Admin Header) */
 /* Background color for the top bar */
-$topbar-bg: $sun-color-blue;
+$topbar-bg: $pow-color-blue;
 
 /* Height and margin */
 // $topbar-height: 100px;
@@ -30,7 +30,7 @@ $topbar-title-weight: bold;
 $topbar-title-font-size: em-calc(17);
 
 /* Style the top bar dropdown elements */
-$topbar-dropdown-bg: $sun-color-blue;
+$topbar-dropdown-bg: $pow-color-blue;
 $topbar-dropdown-link-color: #fff;
 $topbar-dropdown-link-bg: lighten($topbar-bg, 5%);
 $topbar-dropdown-toggle-size: 5px;
@@ -38,7 +38,7 @@ $topbar-dropdown-toggle-color: #fff;
 $topbar-dropdown-toggle-alpha: 0.5;
 
 /* Set the link colors and styles for top-level nav */
-$topbar-link-color: $sun-menu-link-color;
+$topbar-link-color: $pow-menu-link-color;
 $topbar-link-color-hover: #fff;
 $topbar-link-color-active: #fff;
 $topbar-link-weight: bold;

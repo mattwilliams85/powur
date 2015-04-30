@@ -13,14 +13,14 @@ $dev_dark_gray: #e5e5e5;
 
 
 /* Colors */
-$sun-color-blue: #20c2f1;
-$sun-color-orange: #FFC003;
-$sun-color-green: #2ecc71;
-$sun-menu-link-color: #0a7fa1;
+$pow-color-blue: #20c2f1;
+$pow-color-orange: #FFC003;
+$pow-color-green: #2ecc71;
+$pow-menu-link-color: #0a7fa1;
 
 /* Top Bar (Admin Header) */
 /* Background color for the top bar */
-$topbar-bg: $sun-color-blue;
+$topbar-bg: $pow-color-blue;
 
 /* Height and margin */
 $topbar-height: em-calc(100);
@@ -34,7 +34,7 @@ $topbar-title-weight: bold;
 $topbar-title-font-size: em-calc(17);
 
 /* Style the top bar dropdown elements */
-$topbar-dropdown-bg: $sun-color-blue;
+$topbar-dropdown-bg: $pow-color-blue;
 $topbar-dropdown-link-color: #fff;
 $topbar-dropdown-link-bg: lighten($topbar-bg, 5%);
 $topbar-dropdown-toggle-size: 5px;
@@ -43,7 +43,7 @@ $topbar-dropdown-toggle-color: #fff;
 $topbar-dropdown-toggle-alpha: 0.5;
 
 /* Set the link colors and styles for top-level nav */
-$topbar-link-color: $sun-menu-link-color;
+$topbar-link-color: $pow-menu-link-color;
 $topbar-link-color-hover: #fff;
 $topbar-link-color-active: #fff;
 $topbar-link-weight: bold;
@@ -88,7 +88,7 @@ $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
 
 /* Sprites */
 @mixin landing-sprite($name) {
-  @include sun-sprites-sprite($name);
-  height: sun-sprites-sprite-height($name);
-  width: sun-sprites-sprite-width($name);
+  @include pow-sprites-sprite($name);
+  height: pow-sprites-sprite-height($name);
+  width: pow-sprites-sprite-width($name);
 }

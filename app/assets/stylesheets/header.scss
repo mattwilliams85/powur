@@ -1,7 +1,7 @@
 /*
  * HEADER for a guest user
 */
-.sun-header-guest {
+.pow-header-guest {
   left: 0;
   top: 0;
   padding: 1em 0;
@@ -19,9 +19,9 @@
   }
 
   // .header-nav-link {
-  //   @include sun-sprites-sprite(header-menu-icon);
-  //   height: sun-sprites-sprite-height(header-menu-icon);
-  //   width: sun-sprites-sprite-width(header-menu-icon);
+  //   @include pow-sprites-sprite(header-menu-icon);
+  //   height: pow-sprites-sprite-height(header-menu-icon);
+  //   width: pow-sprites-sprite-width(header-menu-icon);
   //   float: left;
   //   margin-top: 8px;
   // }
@@ -69,11 +69,11 @@
     border-bottom: 1px solid #ccc;
 
     a {
-      color: $sun-color-blue;
+      color: $pow-color-blue;
     }
 
     .header-nav-link {
-      @include sun-sprites-sprite(header-menu-icon-inverted);
+      @include pow-sprites-sprite(header-menu-icon-inverted);
     }
 
     .logo {
@@ -81,7 +81,7 @@
     }
 
     .sign-in {
-      border-color: $sun-color-blue;
+      border-color: $pow-color-blue;
     }
   }
 }

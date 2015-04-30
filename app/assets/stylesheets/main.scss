@@ -4,7 +4,7 @@ html, body {
 }
 
 .highlighted {
-  color: $sun-color-orange;
+  color: $pow-color-orange;
 }
 
 slider {
@@ -35,7 +35,7 @@ slider {
 
 .arrow-box {
   bottom: -200px;
-  color: $sun-color-blue;
+  color: $pow-color-blue;
   display: none;
   left: 50%;
   margin-left: -115px;
@@ -85,7 +85,7 @@ slider {
  * Misc / Utility
  *
 */
-.sun-fixed-bg {
+.pow-fixed-bg {
   position: relative;
   height: 100%;
   background-size: cover;
@@ -99,7 +99,7 @@ slider {
   }
 }
 
-.sun-scrolling-bg {
+.pow-scrolling-bg {
   z-index: 2;
   height: 100%;
   width:100%;
@@ -109,7 +109,7 @@ slider {
   background-position: center center;
   overflow:hidden;
 
-  .sun-home-content {
+  .pow-home-content {
     text-align: center;
     margin-top:-40px;
 
@@ -126,14 +126,14 @@ slider {
     }
   }
 
-  .sun-buttons-wrapper {
+  .pow-buttons-wrapper {
     margin-top: 5em;
     @media #{$small} {
       margin-top: 3em;
     }
 
     .button {
-      background: $sun-color-green;
+      background: $pow-color-green;
       text-transform: uppercase;
       margin-right: .5em;
       font-size:4em;
@@ -142,11 +142,11 @@ slider {
         margin-right: 1em;
       }
 
-      &.sun-button-solid:hover{
+      &.pow-button-solid:hover{
         background:#20B552;
       }
 
-      &.sun-button-transparent:hover{
+      &.pow-button-transparent:hover{
         background:#eee;
       }
     }
@@ -164,7 +164,7 @@ slider {
       vertical-align: middle;
     }
 
-    .sun-button-transparent {
+    .pow-button-transparent {
       border: 2px solid $header-font-color;
       background: none;
       color: $header-font-color;
@@ -184,7 +184,7 @@ input {
   position: fixed;
 }
 
-.sun-modal {
+.pow-modal {
   background-image: image-url('powur-white-logo.png');
   background-color: #f4c751;
   background-repeat: no-repeat;
