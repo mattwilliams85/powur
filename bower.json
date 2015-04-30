@@ -28,7 +28,8 @@
     "Chart.js": "~1.0.2",
     "velocity": "~1.2.2",
     "slick-carousel": "~1.4.1",
-    "components-font-awesome": "4.x.x"
+    "components-font-awesome": "4.x.x",
+    "angular-new-router": "~0.5.3"
   },
   "resolutions": {
     "angular": "~1.4.0"
