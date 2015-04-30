@@ -6,7 +6,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
 .powur-dashboard {
   padding-bottom: 210px;
-
+  background-color: #f8f8f8;
 
   /*
   SHARED STYLES
@@ -21,7 +21,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   select.sort {
     height: 62px;
     width: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid #e5e5e5;
     border-radius: 0;
     padding: 8px 16px;
 
@@ -41,7 +41,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     -webkit-appearance: none;
 
     &:hover {
-      border-color: #ccc;
+      border-color: #e5e5e5;
     }
 
     &:focus {
@@ -216,7 +216,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   input[type=search] {
     height: 62px;
     width: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid #e5e5e5;
     border-radius: 0;
     padding: 8px 16px;
     padding-left: 30px;
@@ -237,8 +237,8 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   .search {
     &.button {
       height: 62px;
-
-      border: 1px solid #ccc;
+      border-radius: 0px;
+      border: 1px solid #e5e5e5;
       background-color: #efefef;
 
       font-family: $dashboard-font-family;
@@ -272,7 +272,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     }
 
     div.text{
-      border: 1px solid #ccc;
+      border: 1px solid #e5e5e5;
       height: 62px;
       overflow: hidden;
       padding-left: 10px;
@@ -287,28 +287,30 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
   // Carousels
   .carousel {
-    border: 1px solid #ccc;
+    border: 1px solid #e5e5e5;
     border-left: 0;
     height: 220px;
     overflow: hidden;
+    background-color: #fff;
 
     .carousel-item {
       height: 220px;
-      border-left: 1px solid #ccc;
+      border-left: 1px solid #e5e5e5;
+      background-color: #fff;
     }
 
     a {
       &:last-of-type {
         .carousel-item {
-          border-right: 1px solid #ccc;
+          border-right: 1px solid #e5e5e5;
         }
       }
     }
 
     // Slick Arrow Overrides
     .slick-prev, .slick-next {
-      height: 16px;
-      width: 16px;
+      height: 24px;
+      width: 24px;
     }
     .slick-prev {
       left: 5px;
@@ -319,7 +321,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     .slick-prev:before, .slick-next:before {
       color: #aaa;
       font-family: "FontAwesome";
-      font-size: 16px;
+      font-size: 24px;
       text-align: center;
     }
     .slick-prev:before {
@@ -330,6 +332,29 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     }
   }
 
+  // Special Width Classes for Carousel Sections
+  .w20percent {
+    width: 20%;
+  }
+  .w80percent {
+    width: 80%;
+  }
+
+  // Horizontal Lines / Spacing Between Sections
+  .kpi-section:before,
+  .customers-section:before,
+  .team-section:before {
+    content: '';
+    display: block;
+    margin: auto;
+    height: 1px;
+    width: inherit;
+    margin: 30px 0 70px 0;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.1), rgba(0,0,0,0));
+    background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.1), rgba(0,0,0,0));
+    background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.1), rgba(0,0,0,0));
+    background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.1), rgba(0,0,0,0));
+  }
 
   /*
   WELCOME SECTION
@@ -465,7 +490,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
           float: left;
           display: block;
           text-align: center;
-          line-height: 14pt;
+          line-height: 16pt;
           font-size: 10pt;
           text-transform: uppercase;
           vertical-align: middle;
@@ -477,7 +502,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
             width: 20px;
             margin-right: 10px;
           }
-          &.group {
+          &.grid {
             background-color: $sun-color-green;
             height: 20px;
             width: 20px;
@@ -656,17 +681,18 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
     .tab-header-row {
       text-align: center;
-      border: 1px solid #ccc;
+      border: 1px solid #e5e5e5;
       &:last-child {
         border-right: 0px;
       }
 
       .kpi-tab {
+        background-color: #fff;
         height: 220px; width: 20%;
         float: left;
         cursor: pointer;
         display: inline-block;
-        border-right: 1px solid #ccc;
+        border-right: 1px solid #e5e5e5;
 
         .kpi-info-box {
           margin-top: 25%;
@@ -893,14 +919,14 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
             .scale-detail {
               background: none;
-              color: #ccc;
+              color: #e5e5e5;
               transition: all .5s;
-              border: 1px solid #ccc;
+              border: 1px solid #e5e5e5;
               padding: 10px 15px;
               font-size:10pt;
               cursor: pointer;
               &.active {
-                background-color: #ccc;
+                background-color: #e5e5e5;
                 color:#444;
               }
             }
@@ -935,7 +961,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
               background-color: #444;
             }
             .stats-detail {
-              color: #ccc;
+              color: #e5e5e5;
               display: block;
               font-size: 12pt;
               line-height: 13pt;
@@ -983,14 +1009,12 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
     .customer-drilldown {
       &.active {
-        height: 1100px;
-        @media #{$small} { 
-          height: 500px;
-        }
+        height: 100%;
       }
     }
 
     .new-proposal, .proposal {
+      background-color: #fff;
       color: #555;
       &:hover {
 
@@ -1013,11 +1037,21 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         line-height: 18pt;
         font-size: 16pt;
       }
+      .status-text {
+        font-family: $dashboard-font-family;
+        position: relative;
+        top: 35%;
+        text-align: center;
+        line-height: 10pt;
+        font-size: 8pt;
+        text-transform: uppercase;
+        color: #9b9b9b;
+      }
     }
 
     .new-proposal {
       height: 220px;
-      border: 1px solid #ccc;
+      border: 1px solid #e5e5e5;
       border-right: 0;
     }
 
@@ -1037,6 +1071,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   .team-section {
 
     .new-team-member, .team-member {
+      background-color: #fff;
       color: #555;
       &:hover {
 

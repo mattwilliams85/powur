@@ -4,7 +4,7 @@
     <!-- Row: Label / Sort / Search -->
     <div class="row">
 
-      <div class="large-3 medium-4 columns">
+      <div class="large-3 medium-6 columns">
       <!-- Section Label -->
         <div class="section-label">
           <div class="tag"><img src="<%= asset_path('dashboard/customers_icon.png') %>"></div>
@@ -12,7 +12,7 @@
         </div>
       </div>
 
-      <div class="large-3 medium-3 hide-for-small columns">
+      <div class="large-3 hide-for-medium-down columns">
       <!-- Sort -->
         <select class="sort" ng-model="customerSection.proposalSort" ng-change="customerSection.sort()">
           <option value="created">Order by Date</option>
@@ -20,7 +20,7 @@
         </select>
       </div>
 
-      <div class="large-3 medium-5 columns right">
+      <div class="large-3 medium-6 columns right">
       <!-- Search -->
         <div class="row collapse">
           <div class="large-9 medium-9 small-10 columns">
@@ -36,7 +36,7 @@
 
     <!-- Row: Customers Carousel -->
     <div class="row collapse">
-      <div class="large-3 medium-3 small-2 columns">
+      <div class="w20percent columns">
         <!-- New Proposal Button -->
         <a ng-click="customerSection.newProposal()">
           <div class="new-proposal" ng-class="{active: mode === 'new'}">
@@ -50,7 +50,7 @@
           </div>
         </a>
       </div>
-      <div class="large-9 medium-9 small-10 columns">
+      <div class="w80percent columns">
         <!-- Proposals Carousel -->
         <div class="proposals carousel">
           <a ng-repeat="proposal in proposals" ng-click="customerSection.showProposal($index)">
@@ -61,6 +61,9 @@
               </div>
               <div class="info-text">
                 <span>{{proposal.properties.customer}}</span>
+              </div>
+              <div class="status-text">
+                <span>{{proposal.properties.status}}(status)</span>
               </div>
             </div>
           </a>

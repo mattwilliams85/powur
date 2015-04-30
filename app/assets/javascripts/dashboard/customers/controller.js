@@ -57,8 +57,6 @@
         speed: 300,
         slidesToShow: 4,
         slidesToScroll: 4,
-        prevArrow: '<a class="slick-prev"><i class="fa fa-chevron-left"></i></a>',
-        nextArrow: '<a class="slick-next"><i class="fa fa-chevron-right"></i></a>',
         responsive: [
           {
             breakpoint: 1024,
@@ -70,9 +68,15 @@
           {
             breakpoint: 768,
             settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2
+            }
+          },
+          {
+            breakpoint: 640,
+            settings: {
               slidesToShow: 1,
-              slidesToScroll: 1,
-              swipe: true
+              slidesToScroll: 1
             }
           }
         ]
