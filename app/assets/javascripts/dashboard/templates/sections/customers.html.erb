@@ -69,39 +69,40 @@
     </div>
 
     <!-- Row: Proposal Form -->
-    <div ng-show="showForm" class="drilldown animate-show row collapse">
-      <div class="summary large-3 medium-3 columns">
+    <div class="drilldown row collapse customer-drilldown" ng-class="{'active': drilldownActive == true}">
+      <div ng-hide="!showForm" class="fade-in-section" ng-class="{'active': showForm == true}">
+        <div class="summary large-3 medium-3 columns">
 
-        <!-- New Proposal Summary Text -->
-        <h1 ng-show="mode === 'new'">New Proposal</h1>
-        <p ng-show="mode === 'new'">Enter customer information to create a new proposal.</p>
-        <p ng-show="mode === 'new'">This customer information can be updated before the proposal is submitted to SolarCity.</p>
+          <!-- New Proposal Summary Text -->
+          <h1 ng-show="mode === 'new'">New Proposal</h1>
+          <p ng-show="mode === 'new'">Enter customer information to create a new proposal.</p>
+          <p ng-show="mode === 'new'">This customer information can be updated before the proposal is submitted to SolarCity.</p>
 
-        <!-- Incomplete Proposal Summary Text -->
-        <h1 ng-show="mode === 'incomplete'">Incomplete Proposal</h1>
-        <p ng-show="mode === 'incomplete'">Enter additional customer information to complete this proposal.</p>
-        <p ng-show="mode === 'incomplete'">Ensure the customer information is correct before submitting the proposal to SolarCity.</p>
-        <!-- Incomplete Proposal Buttons -->
-        <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.delete()">Delete Proposal</button>
-        <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.resend()">Resend Email</button>
-        <button class="button expand solarcity" ng-show="mode === 'incomplete'" ng-click="customerSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
+          <!-- Incomplete Proposal Summary Text -->
+          <h1 ng-show="mode === 'incomplete'">Incomplete Proposal</h1>
+          <p ng-show="mode === 'incomplete'">Enter additional customer information to complete this proposal.</p>
+          <p ng-show="mode === 'incomplete'">Ensure the customer information is correct before submitting the proposal to SolarCity.</p>
+          <!-- Incomplete Proposal Buttons -->
+          <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.delete()">Delete Proposal</button>
+          <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.resend()">Resend Email</button>
+          <button class="button expand solarcity" ng-show="mode === 'incomplete'" ng-click="customerSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
 
-        <!-- Submitted Proposal Summary Text -->
-        <h1 ng-show="mode === 'submitted'">Submitted Proposal</h1>
-        <p ng-show="mode === 'submitted'">This proposal has been submitted to SolarCity.</p>
-        <!-- Submitted Proposal Buttons -->
-        <button class="button expand right" ng-show="mode === 'submitted'" disabled><i class="fa fa-check"></i> Submitted</button>
-      </div>
+          <!-- Submitted Proposal Summary Text -->
+          <h1 ng-show="mode === 'submitted'">Submitted Proposal</h1>
+          <p ng-show="mode === 'submitted'">This proposal has been submitted to SolarCity.</p>
+          <!-- Submitted Proposal Buttons -->
+          <button class="button expand right" ng-show="mode === 'submitted'" disabled><i class="fa fa-check"></i> Submitted</button>
+        </div>
 
-      <!-- Form if New or Incomplete Proposal-->
-      <div ng-if="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
-        <ng-include src="'<%= asset_path("dashboard/templates/sections/customers-form.html") %>'"></ng-include>
-      </div>
-      <!-- Summary if Submitted Proposal -->
-      <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
-        <ng-include src="'<%= asset_path("dashboard/templates/sections/customers-submitted.html") %>'"></ng-include>
+        <!-- Form if New or Incomplete Proposal-->
+        <div ng-if="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
+          <ng-include src="'<%= asset_path("dashboard/templates/sections/customers-form.html") %>'"></ng-include>
+        </div>
+        <!-- Summary if Submitted Proposal -->
+        <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
+          <ng-include src="'<%= asset_path("dashboard/templates/sections/customers-submitted.html") %>'"></ng-include>
+        </div>
       </div>
     </div>
-
   </div>
 </div>

@@ -21,7 +21,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   select.sort {
     height: 62px;
     width: 100%;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #ccc;
     border-radius: 0;
     padding: 8px 16px;
 
@@ -54,6 +54,19 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   }
 
   // Drilldowns
+  .fade-in-section {
+    opacity: 0;
+    display: block !important;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    -ms-transition: all .2s;
+    transition: all .2s;
+    &.active {
+      opacity: 1;
+    }
+  }
+
   .drilldown {
     position: relative;
     background-color: #444;
@@ -73,6 +86,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       border-bottom: 1px solid #9b9b9b;
       border-right: 0;
       color: #9b9b9b;
+      background-color: #444;
 
       h1 {
         font-size: 16pt;
@@ -162,7 +176,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     .drilldown {
       .summary {
         position: absolute;
-        border-right: 1px solid #9b9b9b;
+        border-right: 1px solid #555;
         border-bottom: 0;
         text-align: center;
       }
@@ -202,7 +216,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   input[type=search] {
     height: 62px;
     width: 100%;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #ccc;
     border-radius: 0;
     padding: 8px 16px;
     padding-left: 30px;
@@ -224,7 +238,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     &.button {
       height: 62px;
 
-      border: 1px solid #e5e5e5;
+      border: 1px solid #ccc;
       background-color: #efefef;
 
       font-family: $dashboard-font-family;
@@ -258,7 +272,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     }
 
     div.text{
-      border: 1px solid #e5e5e5;
+      border: 1px solid #ccc;
       height: 62px;
       overflow: hidden;
       padding-left: 10px;
@@ -273,20 +287,20 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
   // Carousels
   .carousel {
-    border: 1px solid #e5e5e5;
+    border: 1px solid #ccc;
     border-left: 0;
     height: 220px;
     overflow: hidden;
 
     .carousel-item {
       height: 220px;
-      border-left: 1px solid #e5e5e5;
+      border-left: 1px solid #ccc;
     }
 
     a {
       &:last-of-type {
         .carousel-item {
-          border-right: 1px solid #e5e5e5;
+          border-right: 1px solid #ccc;
         }
       }
     }
@@ -699,19 +713,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         }
       }
 
-      .fade-in-section {
-        opacity: 0;
-        display: block !important;
-        -webkit-transition: all .2s;
-        -moz-transition: all .2s;
-        -o-transition: all .2s;
-        -ms-transition: all .2s;
-        transition: all .2s;
-        &.active {
-          opacity: 1;
-        }
-      }
-
       /* 
       CONVERSION SECTION
       */ 
@@ -980,6 +981,15 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   .customers-section {
     padding-bottom: 20px;
 
+    .customer-drilldown {
+      &.active {
+        height: 1100px;
+        @media #{$small} { 
+          height: 500px;
+        }
+      }
+    }
+
     .new-proposal, .proposal {
       color: #555;
       &:hover {
@@ -1007,7 +1017,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
     .new-proposal {
       height: 220px;
-      border: 1px solid #e5e5e5;
+      border: 1px solid #ccc;
       border-right: 0;
     }
 
@@ -1017,7 +1027,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
     // Fix: initializing carousel adds 30px bottom margin to its div
     .slick-slider {
-      margin-bottom: 1px;
+      margin-bottom: 0px;
     }
   }
 

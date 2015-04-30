@@ -110,14 +110,19 @@
 
     $scope.changeTab = function(section) {
       // angular.element('.kpi-drilldown').css('height','0')
-      if ($scope.section === section) return;
+      if ($scope.section === section) return $scope.closeTab();
       $scope.section = section;
       $scope.tabKey = '';
       $timeout( function(){ 
         $scope.tabKey = section
         $scope.settings = $scope.tabData[$scope.tabKey].settings;
+        $scope.kpiInit();
       }, 300);
+    }
 
+    $scope.closeTab = function(section) {
+      $scope.section = '';
+      $scope.tabKey = '';
     }
 
     // $scope.createTabUrl = function(section) {
@@ -134,6 +139,7 @@
     // }
 
     $scope.kpiInit = function() {
+      if($scope.kpiChart) $scope.kpiChart.destroy();
       $scope.randomizeData();
       $scope.setScale();
       $scope.populateContributors();
@@ -301,7 +307,7 @@
   }
 
   DashboardKPICtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile'];
-  sunstandControllers.controller('DashboardKPICtrl', DashboardKPICtrl)
+  angular.module('powurApp').controller('DashboardKPICtrl', DashboardKPICtrl)
   // RESIZE DETECTION
   // .directive('resizable', function($window) {
   //   return function($scope) {
@@ -317,4 +323,4 @@
   //   };
   // });
 
-});
+})();

@@ -47,6 +47,9 @@
 
     // Initialize slick carousel
     function slick(elementToSlick) {
+      $(elementToSlick).on('init', function(event, slick) {
+        slick.refresh = slick.unfilterSlides;
+      });
       $(elementToSlick).slick({
         swipe: false,
         dots: false,
@@ -83,12 +86,17 @@
       var proposalId = $scope.proposals[proposalIndex].properties.id;
       if ($scope.showForm === true && (proposalId === $scope.currentProposal.id)) {
         $scope.closeForm();
+        return;
       } else {
+        $scope.animateDrilldown();
         $scope.proposal = {};
         $scope.currentProposal = {};
         $scope.currentProposalIndex = proposalIndex;
 
         Customer.get(proposalId).then(function(item){
+          $timeout( function(){ 
+            $scope.showForm = true;
+          }, 400);
           if ($scope.getAction(item.actions, 'update')) {
             $scope.formAction = $scope.getAction(item.actions, 'update');
             $scope.proposalItem = item;
@@ -96,12 +104,10 @@
             $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
             $scope.currentProposal = item.properties;
             $scope.mode = 'incomplete';
-            $scope.showForm = true;
           } else {
             $scope.proposal = item.properties;
             $scope.currentProposal = item.properties;
             $scope.mode = 'submitted';
-            $scope.showForm = true;
           }
         });
       }
@@ -111,11 +117,16 @@
     $scope.customerSection.newProposal = function() {
       if ($scope.showForm === true && $scope.mode === 'new') {
         $scope.closeForm();
+        return;
       } else {
+        $scope.animateDrilldown();
         $scope.proposal = {};
         $scope.currentProposal = {};
 
         Customer.list().then(function(items){
+          $timeout( function(){ 
+            $scope.showForm = true;
+          }, 400);
           $scope.formAction = $scope.getAction(items.actions, 'create');
           $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
           $scope.mode = 'new';
@@ -204,9 +215,18 @@
       }
     };
 
+    $scope.animateDrilldown = function () {
+      $scope.drilldownActive = false;
+      $scope.showForm = false;
+      $timeout( function(){ 
+        $scope.drilldownActive = true;
+      }, 300);
+    }
+
     // Close Form
     $scope.closeForm = function() {
       $scope.showForm = false;
+      $scope.drilldownActive = false;
       $scope.mode = '';
       $scope.currentProposal = {};
     };
