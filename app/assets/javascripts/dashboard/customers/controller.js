@@ -98,9 +98,6 @@
         $scope.currentProposalIndex = proposalIndex;
 
         Customer.get(proposalId).then(function(item){
-          $timeout( function(){ 
-            $scope.showForm = true;
-          }, 400);
           if ($scope.getAction(item.actions, 'update')) {
             $scope.formAction = $scope.getAction(item.actions, 'update');
             $scope.proposalItem = item;
@@ -221,17 +218,16 @@
 
     $scope.animateDrilldown = function () {
       $scope.drilldownActive = false;
-      $scope.showForm = false;
+      $scope.drilldownActive = true;
       $timeout( function(){ 
-        $scope.drilldownActive = true;
+        $scope.showForm = true;
       }, 300);
     }
 
     // Close Form
     $scope.closeForm = function() {
-      $scope.showForm = false;
       $scope.drilldownActive = false;
-      $scope.mode = '';
+      $scope.showForm = false;
       $scope.currentProposal = {};
     };
 

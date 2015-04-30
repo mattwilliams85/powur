@@ -52,7 +52,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   select::-ms-expand {
     display: none;
   }
-
   // Drilldowns
   .fade-in-section {
     opacity: 0;
@@ -1004,11 +1003,11 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     padding-bottom: 20px;
 
     .customer-drilldown {
-      -webkit-transition: max-height .4s;
-      -moz-transition: max-height .4s;
-      -o-transition: max-height .4s;
-      -ms-transition: max-height .4s;
-      transition: max-height .4s;
+      -webkit-transition: max-height .5s;
+      -moz-transition: max-height .5s;
+      -o-transition: max-height .5s;
+      -ms-transition: max-height .5s;
+      transition: max-height .5s;
       &.active {
         background-color: #444;
         max-height: 2000px;
@@ -1021,6 +1020,11 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     .new-proposal, .proposal {
       background-color: #fff;
       color: #555;
+      -webkit-transition: background-color .1s;
+      -moz-transition: background-color .1s;
+      -o-transition: background-color .1s;
+      -ms-transition: background-color .1s;
+      transition: background-color .1s;
       &:hover {
 
       }
