@@ -10,7 +10,7 @@ html, body {
 slider {
   height:25px;
   margin:30px 5px 40px 5px;
-  @media #{$small} { 
+  @media #{$small} {
     height:7px;
     margin:25px 5px;
   }
@@ -23,7 +23,7 @@ slider {
   }
   span {
     border-width: 3px !important;
-    height: 12px !important; 
+    height: 12px !important;
     width: 12px !important;
   }
 }

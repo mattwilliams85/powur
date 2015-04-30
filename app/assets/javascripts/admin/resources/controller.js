@@ -5,6 +5,7 @@
     $scope.redirectUnlessSignedIn();
 
     // TODO check if user is an admin
+    // (backend validation is in place, this is just usability optimization)
 
     // Form Validation
     $scope.formErrorMessages = {};
@@ -33,7 +34,7 @@
     $scope.itemThumbnail = function(item) {
       var imgPath = item.properties.image_original_path;
       if (imgPath) return imgPath;
-      return item.properties.file_type === 'video/mp4' ? '<%= asset_path("library/video.png") %>' : '<%= asset_path("library/pdf.png") %>';
+      return item.properties.file_type === 'video/mp4' ? legacyImagePaths.libraryResources[0] : legacyImagePaths.libraryResources[1];
     };
 
     $scope.delete = function(item) {

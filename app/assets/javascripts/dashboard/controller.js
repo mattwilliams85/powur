@@ -7,7 +7,10 @@
     // Fix for scope inheritance issues (relating to Proposals search/sort):
     $scope.customerSection = {};
     $scope.teamSection = {};
-    // http://stackoverflow.com/questions/11412410/angularjs-losing-scope-when-using-ng-include
+
+    $scope.dashboardTeamIcon = legacyImagePaths.dashboardTeamIcon;
+    $scope.dashboardCustomersIcon = legacyImagePaths.dashboardCustomersIcon;
+    $scope.dashboardKPIIcon = legacyImagePaths.dashboardKPIIcon;
 
     $scope.loadMoreNews = function() {
       var nextPage = $scope.currentNewsPage + 1;
@@ -41,11 +44,10 @@
         $scope.showModal($scope.enrollmentRequirementMessage);
         return;
       }
-      $scope.goals = { personalPercent: 100, groupPercent: 20, badge: '<%= image_path("badges/rank0.png") %>' };
+      $scope.goals = { personalPercent: 100, groupPercent: 20, badge: legacyImagePaths.goalsBadge };
     });
   }
 
   DashboardCtrl.$inject = ['$scope', '$location', 'UserProfile', 'Notification'];
   angular.module('powurApp').controller('DashboardCtrl', DashboardCtrl);
-
 })();

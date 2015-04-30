@@ -39,7 +39,7 @@
     $scope.itemThumbnail = function(item) {
       var imgPath = item.properties.image_original_path;
       if (imgPath) return imgPath;
-      return item.properties.file_type === 'video/mp4' ? '<%= asset_path("library/video.png") %>' : '<%= asset_path("library/pdf.png") %>';
+      return item.properties.file_type === 'video/mp4' ? legacyImagePaths.libraryResources[0] : legacyImagePaths.libraryResources[1];
     };
 
     $scope.search = function() {
@@ -62,10 +62,8 @@
       $scope.items = items.entities;
       $scope.pages = items.properties.paging;
     });
-
   }
 
   LibraryCtrl.$inject = ['$scope', '$location', 'Resource', 'UserProfile'];
   angular.module('powurApp').controller('LibraryCtrl', LibraryCtrl);
-
 })();
