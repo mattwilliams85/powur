@@ -5,8 +5,7 @@
     var cache = $cacheFactory('UserProfile');
     var isProcessingRequest;
 
-    var service = {
-
+    return {
       /*
        * Sign In
        */
@@ -111,13 +110,9 @@
 
         return dfr.promise;
       }
-
     };
-
-    return service;
   }
 
   UserProfile.$inject = ['$http', '$q', '$cacheFactory'];
   angular.module('powurApp').factory('UserProfile', UserProfile);
-
 })();

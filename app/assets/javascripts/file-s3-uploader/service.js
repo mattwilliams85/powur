@@ -2,8 +2,7 @@
   'use strict';
 
   function S3UploaderService($http, $q) {
-    var service = {
-
+    return {
       /*
        * Get S3 Upload Credientials
        */
@@ -26,13 +25,9 @@
 
         return dfr.promise;
       }
-
     };
-
-    return service;
   }
 
   S3UploaderService.$inject = ['$http', '$q'];
   angular.module('powurApp').factory('S3UploaderService', S3UploaderService);
-
 })();

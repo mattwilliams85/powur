@@ -2,9 +2,7 @@
   'use strict';
 
   function Invite($http, $q) {
-
-    var service = {
-
+    return {
       /*
        * Validate invite code
       */
@@ -43,13 +41,9 @@
 
         return dfr.promise;
       }
-
     };
-
-    return service;
   }
 
   Invite.$inject = ['$http', '$q'];
   angular.module('powurApp').factory('Invite', Invite);
-
 })();

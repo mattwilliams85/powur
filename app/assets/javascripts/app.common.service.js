@@ -2,7 +2,7 @@
   'use strict';
 
   function CommonService($http, $q) {
-    var service = {
+    return {
       execute: function(action, data) {
         var dfr = $q.defer();
         data = data || {};
@@ -22,8 +22,6 @@
         return dfr.promise;
       }
     };
-
-    return service;
   }
 
   CommonService.$inject = ['$http', '$q'];

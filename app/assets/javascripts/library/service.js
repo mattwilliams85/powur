@@ -2,11 +2,7 @@
   'use strict';
 
   function Resource($http, $q) {
-    var service = {
-
-      /*
-       * Get list of items
-      */
+    return {
       list: function(data) {
         data = data || {};
         var dfr = $q.defer();
@@ -24,13 +20,9 @@
 
         return dfr.promise;
       }
-
     };
-
-    return service;
   }
 
   Resource.$inject = ['$http', '$q'];
   angular.module('powurApp').factory('Resource', Resource);
-
 })();

@@ -2,7 +2,7 @@
   'use strict';
 
   function UniversityClass($http, $q) {
-    var service = {
+    return {
       list: function(data) {
         data = data || {};
         var dfr = $q.defer();
@@ -37,8 +37,6 @@
         return dfr.promise;
       }
     };
-
-    return service;
   }
 
   UniversityClass.$inject = ['$http', '$q'];

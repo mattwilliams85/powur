@@ -5,7 +5,7 @@
     var cache = $cacheFactory('Proposal');
     var isProcessingRequest;
 
-    var service = {
+    return {
       list: function(params) {
         var dfr = $q.defer();
         params = params || {};
@@ -55,11 +55,8 @@
         return dfr.promise;
       }
     };
-
-    return service;
   }
 
   Proposal.$inject = ['$http', '$q', '$cacheFactory'];
   angular.module('powurApp').factory('Proposal', Proposal);
-
 })();

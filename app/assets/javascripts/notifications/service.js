@@ -2,7 +2,7 @@
   'use strict';
 
   function Notification($http, $q) {
-    var service = {
+    return {
       list: function(params) {
         var dfr = $q.defer();
         params = params || {};
@@ -21,8 +21,6 @@
         return dfr.promise;
       }
     };
-
-    return service;
   }
 
   Notification.$inject = ['$http', '$q'];

@@ -2,7 +2,6 @@
   'use strict';
 
   function Geo() {
-
     var states = [
       {'name': 'Alabama', 'abbr': 'AL'},
       {'name': 'Alaska', 'abbr': 'AK'},
@@ -69,8 +68,7 @@
       {'name': 'United States', 'abbr': 'US'}
     ];
 
-    var service = {
-
+    return {
       /*
       * List of countries
       */
@@ -84,13 +82,9 @@
       states: function() {
         return states;
       }
-
     };
-
-    return service;
   }
 
   Geo.$inject = [];
   angular.module('powurApp').factory('Geo', Geo);
-
 })();

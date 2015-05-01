@@ -2,7 +2,7 @@
   'use strict';
 
   function User($http, $q) {
-    var service = {
+    return {
       list: function(params) {
         var dfr = $q.defer();
         params = params || {};
@@ -37,8 +37,6 @@
         return dfr.promise;
       }
     };
-
-    return service;
   }
 
   User.$inject = ['$http', '$q'];
