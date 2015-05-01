@@ -6,7 +6,6 @@
   "camelcase": true,
   "eqeqeq": true,
   "indent": 2,
-  "latedef": true,
   "maxlen": 80,
   "newcap": true,
   "quotmark": "single",
