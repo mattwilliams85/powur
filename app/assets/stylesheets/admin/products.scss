@@ -12,4 +12,10 @@
   .fixed-height {
     height: 8rem;
   }
+
+  fieldset {
+    label {
+      text-transform: capitalize;
+    }
+  }
 }

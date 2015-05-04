@@ -14,6 +14,9 @@
           <input ng-model="product[field.name]" ng-if="field.type === 'text'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
           <!-- Number Inputs -->
           <input ng-model="product[field.name]" ng-if="field.type === 'number'" type="number" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+          <!-- Boolean -->
+          <input ng-model="product[field.name]" ng-if="field.type === 'boolean'" type="checkbox" name="{{field.name}}" id="{{field.name}}">
+          <label ng-if="field.type === 'boolean'">Certifiable</label>
         </div>
       </div>
     </div>
