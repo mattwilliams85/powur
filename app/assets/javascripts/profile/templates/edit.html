@@ -4,11 +4,12 @@
 
   <div class="row">
 
-    <div class="large-2 columns summary">
+    <div class="large-3 columns summary">
       <section>
         <div class="avatar-container" class="form-element">
 
           <img ng-src="{{userProfile.avatar.preview || '/temp_dev_images/Tim.jpg'}}" class="user-image" />
+          <div ng-if="!userProfile.require_enrollment" class="ribbon"></div>
 
           <input ng-model="userOriginalImage" type="hidden" ng-required="true" />
           <file-s3-uploader data="userOriginalImage" mode="user_image" show-progress="1" auto-upload="1" />
@@ -35,7 +36,7 @@
       </section>
     </div>
 
-    <div class="large-10 columns data-content">
+    <div class="large-9 columns data-content">
       <section>
         <div class="header">Personal Info</div>
         <div class="content">

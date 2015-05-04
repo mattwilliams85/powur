@@ -2,13 +2,20 @@
   background: #f8f8f8;
   padding: 50px 0;
 
+  .ribbon {
+    height: 36px;
+    background-image: image-url('badges/ribbon.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    top: -40px;
+    position: relative;
+  }
+
   .summary {
     min-height:300px;
   }
 
   .data-content {
-    // border-left:1px solid #ccc;
-
     &>section{
       background:#fff;
       border:1px solid #ccc;
@@ -36,7 +43,7 @@
         font-size: 12px;
       }
 
-      .content{
+      .content {
         color: #ccc;
         padding: 5px 30px 5px 30px;
         text-align: left;
