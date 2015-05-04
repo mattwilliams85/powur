@@ -50,3 +50,4 @@
 //
 //= require_tree ./file-s3-uploader
 //= require_tree ./powur-foundation
+//= require_tree ./filters

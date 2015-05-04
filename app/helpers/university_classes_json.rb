@@ -16,6 +16,7 @@ class UniversityClassesJson < JsonDecorator
       json.id university_class.id
       json.name university_class.name
       json.description university_class.description
+      json.long_description university_class.long_description
       json.image_url university_class.image_original_path
       json.price university_class.bonus_volume
       json.purchased university_class.purchased_by?(current_user.id)

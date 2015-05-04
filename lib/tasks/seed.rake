@@ -51,8 +51,9 @@ namespace :powur do
 
       Product.create!(
         id:                  CERT_ITEM_ID,
-        name:                'Powur Consultant',
+        name:                'Powur Energy-Consultant Certification',
         description:         'The powur energy-consultant certification makes you an unparalleled leader in the direct selling energy space.  This proprietary certification gives you advanced insights into solar, the energy markets at large, how to sell,  how to build an effective sales organization, and the fastest way to reach your goals. Certification is required to earn commissions from the grid you build.',
+        long_description:    'The Powur Energy-Consultant Certification gives you the knowledge, skills, and tools you need to succeed wildly in the solar revolution. As a certified Powur Consultant you\'ll have...<br /><ul><li>Access to insider solar industry training to boost the number of homeowners you refer.</li><li>State-of-the-art techniques to grow a team that gives you levereged, "royalty" like income.</li><li>Detailed training to help you maximize the Powur compensation plan, making sure you get the most out of your referrals.</li><li>Plus crucual success tips you must know to capitalize the enormous trends of solar energy, and turn your Powur business into an asset that pays income for decades as we shift from dirty to clean energy.</li></ul>Complete your Powur Energy-Consultant registration below to get certified.',
         bonus_volume:        14900,
         distributor_only:    true,
         certifiable:         true,

@@ -3,9 +3,9 @@ module Forms
     include ActiveModel::Validations
 
     attr_accessor :amount, :number, :expiration, :cvv, :name,
-                  :address, :address2, :city, :state, :zip, :phone,
+                  :address, :address2, :city, :state, :zip, :phone, :email,
                   :product_id,
-                  :email
+                  :terms
 
     validates :number,
               format: {
@@ -51,6 +51,9 @@ module Forms
               presence: true
 
     validates :product_id, presence: true
+
+    validates :terms,
+              inclusion: { in: [true], message: 'Terms must be accepted' }
 
     def initialize(opts)
       opts ||= {}

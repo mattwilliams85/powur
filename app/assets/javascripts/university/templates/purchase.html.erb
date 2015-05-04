@@ -12,8 +12,8 @@
     </div>
 
     <div class="large-8 medium-8 small-6 columns">
-      <span class="description">{{classItem.properties.description}}</span>
-      <span class="price-wrapper">Total: ${{classItem.properties.price/100}}</span>
+      <span class="description" ng-bind-html="classItem.properties.long_description | rawHtml"></span>
+      <span class="price-wrapper">{{classItem.properties.name}} purchase price: ${{classItem.properties.price/100}}</span>
     </div>
 
     <div class="large-12 columns">
@@ -28,43 +28,43 @@
               <h4>Your Billing Information</h4>
             </div>
 
-            <div class="large-2 columns">
+            <div class="large-2 columns text-right">
               <label>Name:</label>
             </div>
 
-            <div class="large-4 columns">
+            <div class="large-2 columns">
               <input ng-model="card.name" name="card_name" type="text" />
             </div>
 
-            <div class="large-2 columns">
-              &nbsp;
+            <div class="large-2 columns text-right">
+              <label>Email:</label>
             </div>
 
-            <div class="large-4 columns">
-              &nbsp;
+            <div class="large-2 columns">
+              <input ng-model="card.email" name="card_email" type="text" />
+            </div>
+
+            <div class="large-2 columns text-right">
+              <label>Phone:</label>
+            </div>
+
+            <div class="large-2 columns">
+              <input ng-model="card.phone" name="card_phone" type="text" />
             </div>
 
             <div class="clearfix"></div>
 
-            <div class="large-2 columns">
-              <label>Address line:</label>
+            <div class="large-2 columns text-right">
+              <label>Billing Address:</label>
             </div>
 
             <div class="large-10 columns">
               <input ng-model="card.address" name="card_address" type="text" />
             </div>
 
-            <!-- <div class="large-2 columns">
-              <label>Address line 2:</label>
-            </div>
-
-            <div class="large-10 columns">
-              <input ng-model="card.address2" name="card_address2" type="text" />
-            </div> -->
-
             <div class="clearfix"></div>
 
-            <div class="large-2 columns">
+            <div class="large-2 columns text-right">
               <label>City:</label>
             </div>
 
@@ -72,8 +72,8 @@
               <input ng-model="card.city" name="card_city" type="text" />
             </div>
 
-            <div class="large-2 columns">
-              <label>State/Province:</label>
+            <div class="large-2 columns text-right">
+              <label>State:</label>
             </div>
 
             <div class="large-2 columns">
@@ -82,7 +82,7 @@
               </select>
             </div>
 
-            <div class="large-2 columns">
+            <div class="large-2 columns text-right">
               <label>Zip/Postal Code:</label>
             </div>
 
@@ -95,7 +95,7 @@
               <img src="<%= asset_path('credit-cards.jpg') %>" class="credit-cards" />
             </div>
 
-            <div class="large-2 columns">
+            <div class="large-2 columns text-right">
               <label>Card Number:</label>
             </div>
 
@@ -103,7 +103,7 @@
               <input ng-model="card.number" name="card_number" type="text" />
             </div>
 
-            <div class="large-2 columns">
+            <div class="large-2 columns text-right">
               <label>Security Code:</label>
             </div>
 
@@ -123,7 +123,7 @@
 
             <div class="clearfix"></div>
 
-            <div class="large-2 columns">
+            <div class="large-2 columns text-right">
               <label>Expiration:</label>
             </div>
 
@@ -139,6 +139,18 @@
               &nbsp;
             </div>
 
+            <div class="clearfix"></div>
+
+            <div class="large-12 columns">
+              <input ng-model="card.terms" id="card_terms" type="checkbox">
+              <label for="card_terms">I have read and agree to the terms of service, privacy policy and disclaimer</label>
+            </div>
+
+            <div class="large-12 columns text-right">
+              <span>Your Order</span><br>
+              <span>{{classItem.properties.name}}: ${{classItem.properties.price/100}}</span>
+            </div>
+
             <div class="large-12 columns">
               <div class="error-message-wrapper">{{errorMessage}}&nbsp;</div>
             </div>
@@ -150,6 +162,12 @@
 
             <div class="large-2 columns">
               <input class="button right" type="submit" ng-disabled="isPurchaseDisabled" value="Purchase" />
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="large-12 columns text-right">
+              <small>Charges on your credit card statement will appear as Powur PBC</small>
             </div>
           </div>
         </form>
