@@ -52,21 +52,23 @@
       </div>
       <div class="w80percent columns">
         <!-- Proposals Carousel -->
-        <div class="proposals carousel">
-          <a ng-repeat="proposal in proposals" ng-click="customerSection.showProposal($index)">
-            <div class="proposal carousel-item" ng-class="{active: currentProposal.id === proposal.properties.id}">
-              <div class="icon">
-                <span ng-show="proposal.properties.submitted_at"><i class="fa fa-star-half-o fa-4x"></i></span>
-                <span ng-show="!proposal.properties.submitted_at"><i class="fa fa-star-o fa-4x"></i></span>
+        <div class="carousel">
+          <div class="proposals owl-carousel">
+            <a ng-repeat="proposal in proposals" ng-click="customerSection.showProposal($index)">
+              <div class="proposal carousel-item" ng-class="{active: currentProposal.id === proposal.properties.id}">
+                <div class="icon">
+                  <span ng-show="proposal.properties.submitted_at"><i class="fa fa-star-half-o fa-4x"></i></span>
+                  <span ng-show="!proposal.properties.submitted_at"><i class="fa fa-star-o fa-4x"></i></span>
+                </div>
+                <div class="info-text">
+                  <span>{{proposal.properties.customer}}</span>
+                </div>
+                <div class="status-text">
+                  <span>{{proposal.properties.status}}(status)</span>
+                </div>
               </div>
-              <div class="info-text">
-                <span>{{proposal.properties.customer}}</span>
-              </div>
-              <div class="status-text">
-                <span>{{proposal.properties.status}}(status)</span>
-              </div>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
       </div>
     </div>

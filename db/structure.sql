@@ -89,7 +89,7 @@ CREATE TABLE bonus_amounts (
     bonus_id integer NOT NULL,
     level integer DEFAULT 0 NOT NULL,
     rank_path_id integer,
-    amounts numeric(10,2)[] DEFAULT '{}'::numeric[] NOT NULL
+    amounts numeric(5,2)[] DEFAULT '{}'::numeric[] NOT NULL
 );
 
 
@@ -133,7 +133,7 @@ CREATE TABLE bonus_payments (
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
     status integer DEFAULT 1 NOT NULL,
-    pay_as_rank integer NOT NULL,
+    pay_as_rank integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
 

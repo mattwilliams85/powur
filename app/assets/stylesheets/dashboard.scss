@@ -292,35 +292,45 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       background-color: #fff;
     }
 
-    a {
+    .owl-item {
       &:last-of-type {
-        .carousel-item {
-          border-right: 1px solid #e5e5e5;
-        }
+        border-right: 1px solid #e5e5e5;
       }
     }
 
-    // Slick Arrow Overrides
-    .slick-prev, .slick-next {
+    // Owl Carousel Arrow Overrides
+    .owl-theme .owl-controls .owl-buttons div {
+      position: absolute;
+      background: none;
+      border-radius: 0;
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      opacity: 1;
+      margin: 0;
+      padding: 0;
+    }
+    .owl-prev, .owl-next {
       height: 24px;
       width: 24px;
     }
-    .slick-prev {
+    .owl-prev {
       left: 5px;
+      top: 30%;
     }
-    .slick-next {
+    .owl-next {
       right: 5px;
+      top: 30%;
     }
-    .slick-prev:before, .slick-next:before {
+    .owl-prev:before, .owl-next:before {
       color: #aaa;
       font-family: "FontAwesome";
       font-size: 24px;
       text-align: center;
     }
-    .slick-prev:before {
+    .owl-prev:before {
       content: "\f053"; // Unicode for fa-chevron-left
     }
-    .slick-next:before {
+    .owl-next:before {
       content: "\f054"; // Unicode for fa-chevron-right
     }
   }
@@ -1076,11 +1086,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     .proposal {
 
     }
-
-    // Fix: initializing carousel adds 30px bottom margin to its div
-    .slick-slider {
-      margin-bottom: 0px;
-    }
   }
 
   /*
@@ -1137,11 +1142,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         background-color: #444;
         color: #fff;
       }
-    }
-
-    // Fix: initializing carousel adds 30px bottom margin to its div
-    .slick-slider {
-      margin-bottom: 0px;
     }
   }
 

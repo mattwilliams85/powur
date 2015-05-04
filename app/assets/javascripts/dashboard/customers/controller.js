@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardCustomersCtrl($scope, $location, $timeout, $route, Geo, Proposal, CommonService) {
+  function DashboardCustomersCtrl($scope, $location, $timeout, $route, $anchorScroll, Geo, Proposal, CommonService) {
     $scope.redirectUnlessSignedIn();
     $scope.states = Geo.states();
 
@@ -45,43 +45,38 @@
       return sanitizedString;
     };
 
-    // Initialize slick carousel
-    function slick(elementToSlick) {
-      $(elementToSlick).on('init', function(event, slick) {
-        slick.refresh = slick.unfilterSlides;
+    // Initialize Carousel
+    var initCarousel = function(carouselElement) {
+      $(carouselElement).owlCarousel({
+        items: 4,
+        itemsCustom: false,
+        itemsDesktop: [1199,4],
+        itemsDesktopSmall : [1024,3],
+        itemsTablet: [768,2],
+        itemsTabletSmall: false,
+        itemsMobile: [640,1],
+        navigation: true,
+        navigationText: false,
+        rewindNav: false,
+        scrollPerPage: true,
+        mouseDrag: false,
+        touchDrag: true,
+        beforeMove: closeForm
       });
-      $(elementToSlick).slick({
-        swipe: false,
-        dots: false,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3,
-            }
-          },
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
-            }
-          },
-          {
-            breakpoint: 640,
-            settings: {
-              slidesToShow: 1,
-              slidesToScroll: 1
-            }
-          }
-        ]
+
+    };
+
+    // Close Form when Moving Carousel
+    var closeForm = function(event) {
+      $timeout(function() {
+        $scope.closeForm();
       });
-    }
+    };
+
+    // Destroy Carousel
+    var destroyCarousel = function(carouselElement) {
+      $(carouselElement).data('owlCarousel').destroy();
+    };
 
     // Controller Actions:
 
@@ -143,37 +138,29 @@
       }
     };
 
-    function updateSlickCarousel(data, index) {
-      // If index, set newValues to the properties of this proposal; otherwise {}
-      var newValues = (index >= 0) ? $scope.proposals[index].properties : {};
-      newValues.customer = data.first_name + ' ' + data.last_name;
-      if (index >= 0) {
-        $scope.proposals[index].properties = newValues;
-      } else {
-        // Workaround for carousel not taking new values...
-        $route.reload();
-        slick('.proposals');
-        $scope.showModal('Your new proposal was successfully created!');
-      }
-    }
-
     function actionCallback(action) {
-      if (action.name === 'create') {
-        updateSlickCarousel($scope.proposal);
-        $scope.closeForm();
-      } else if (action.name === 'update') {
-        updateSlickCarousel($scope.proposal, $scope.currentProposalIndex);
-        $scope.closeForm();
+      if (action.name === 'create' || 
+          action.name === 'update' || 
+          action.name === 'delete') {
+        Proposal.list().then(function(items) {
+          $scope.closeForm();
+          destroyCarousel('.proposals');
+          $scope.proposals = items.entities;
+          $timeout(function() {
+            initCarousel('.proposals');
+          });
+        });
+
       } else if (action.name === 'submit') {
         console.log('submitted proposal!');
         $scope.closeForm();
-      } else if (action.name === 'delete') {
-        $route.reload();
-        slick('.proposals');
-        $scope.showModal('The proposal you selected was successfully deleted.');
+        $anchorScroll();
+        $scope.showModal('This proposal was submitted to SolarCity!');
+
       } else if (action.name === 'resend') {
-        $route.reload();
-        $scope.showModal('This proposal email was successfully resent to ' +
+        $scope.closeForm();
+        $anchorScroll();
+        $scope.showModal('This proposal email was successfully re-sent to ' +
           $scope.proposal.first_name + ' ' +
           $scope.proposal.last_name + ' at ' +
           $scope.proposal.email + '.');
@@ -184,8 +171,9 @@
     $scope.customerSection.submit = function() {
       if (confirm('Please confirm that all fields in the customer\'s contact information are correct before proceeding. \n' +
           'Are you sure you want to submit this proposal to SolarCity?')) {
-        if ($scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit')) {
-          CommonService.execute($scope.submitAction).then(actionCallback($scope.submitAction()));
+        $scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit');
+        if ($scope.submitAction) {
+          CommonService.execute($scope.submitAction).then(actionCallback($scope.submitAction));
         } else {
           alert('This proposal can\'t be submitted to SolarCity.');
         }
@@ -222,7 +210,7 @@
       $timeout( function(){
         $scope.showForm = true;
       }, 300);
-    }
+    };
 
     // Close Form
     $scope.closeForm = function() {
@@ -235,33 +223,38 @@
     // Search Action
     $scope.customerSection.proposalSearch = '';
     $scope.customerSection.search = function() {
+      destroyCarousel('.proposals');
       var searchQuery = {search: $scope.customerSection.proposalSearch};
       Proposal.list(searchQuery).then(function(items) {
         $scope.proposals = items.entities;
+        $timeout(function() {
+          initCarousel('.proposals');
+        });
       });
     };
 
     // Sort Action
     $scope.customerSection.proposalSort = 'created';
     $scope.customerSection.sort = function() {
+      destroyCarousel('.proposals');
       var sortQuery = {sort: $scope.customerSection.proposalSort};
       Proposal.list(sortQuery).then(function(items) {
         $scope.proposals = items.entities;
         $timeout(function() {
-          slick('.proposals');
-        }, 2000);
+          initCarousel('.proposals');
+        });
       });
     };
 
     return Proposal.list().then(function(items) {
       $scope.proposals = items.entities;
       $timeout(function(){
-        slick('.proposals');
-      }, 1000);
+        initCarousel('.proposals');
+      });
     });
 
   }
 
-  DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', '$route', 'Geo', 'Proposal', 'CommonService'];
+  DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', '$route', '$anchorScroll', 'Geo', 'Proposal', 'CommonService'];
   angular.module('powurApp').controller('DashboardCustomersCtrl', DashboardCustomersCtrl);
 })();

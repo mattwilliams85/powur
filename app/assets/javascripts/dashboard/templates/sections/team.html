@@ -67,24 +67,26 @@
             <span class="info-text">You don't have any team members yet. Invite a Team Member to grow your grid!</span>
           </div>
         </div>
-        <div ng-if="teamMembers" class="team carousel">
-          <a ng-repeat="teamMember in teamMembers" ng-click="teamSection.showTeamMember($index)">
-            <div class="team-member carousel-item" ng-class="{active: currentTeamMember.id === teamMember.properties.id}">
-              <div class="icon">
-                <span><i class="fa fa-user fa-4x"></i></span>
+        <div ng-if="teamMembers" class="carousel">
+          <div class="team owl-carousel">
+            <a ng-repeat="teamMember in teamMembers" ng-click="teamSection.showTeamMember($index)">
+              <div class="team-member carousel-item" ng-class="{active: currentTeamMember.id === teamMember.properties.id}">
+                <div class="icon">
+                  <span><i class="fa fa-user fa-4x"></i></span>
+                </div>
+                <div class="info-text">
+                  <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
+                </div>
               </div>
-              <div class="info-text">
-                <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
-              </div>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Row: Invites Carousel -->
     <div class="drilldown row collapse invites-drilldown" ng-class="{'active': drilldownActive == true}">
-      <div ng-hide="!showInvitesCarousel" class="large-12 columns">
+      <div ng-show="showInvitesCarousel" class="large-12 columns">
         <div class="invites carousel">
           <a ng-repeat="invite in invites" ng-click="teamSection.newInvite()">
             <div class="invite carousel-item">

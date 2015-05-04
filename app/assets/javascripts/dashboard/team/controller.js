@@ -4,44 +4,38 @@
   function DashboardTeamCtrl($scope, $timeout, User) {
     $scope.redirectUnlessSignedIn();
 
-    // Initialize slick carousel
-    function slick(elementToSlick) {
-      console.log("slicking " + elementToSlick)
-      $(elementToSlick).on('init', function(event, slick) {
-        slick.refresh = slick.unfilterSlides;
+    // Initialize Carousel
+    var initCarousel = function(carouselElement) {
+      $(carouselElement).owlCarousel({
+        items: 4,
+        itemsCustom: false,
+        itemsDesktop: [1199,4],
+        itemsDesktopSmall : [1024,3],
+        itemsTablet: [768,2],
+        itemsTabletSmall: false,
+        itemsMobile: [640,1],
+        navigation: true,
+        navigationText: false,
+        rewindNav: false,
+        scrollPerPage: true,
+        mouseDrag: false,
+        touchDrag: true,
+        beforeMove: closeForm
       });
-      $(elementToSlick).slick({
-        swipe: true,
-        dots: false,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 5,
-        slidesToScroll: 5,
-        responsive: [
-          {
-            breakpoint: 1024,
-            settings: {
-              slidesToShow: 4,
-              slidesToScroll: 4,
-            }
-          },
-          {
-            breakpoint: 768,
-            settings: {
-              slidesToShow: 3,
-              slidesToScroll: 3
-            }
-          },
-          {
-            breakpoint: 640,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2
-            }
-          }
-        ]
+
+    };
+
+    // Close Form when Moving Carousel
+    var closeForm = function(event) {
+      $timeout(function() {
+        $scope.closeForm();
       });
-    }
+    };
+
+    // Destroy Carousel
+    var destroyCarousel = function(carouselElement) {
+      $(carouselElement).data('owlCarousel').destroy();
+    };
 
     // Show Team Member
     $scope.teamSection.showTeamMember = function(userId) {
@@ -61,7 +55,7 @@
       } else {
         $scope.invites = [{type: 'empty'},{type: 'empty'},{type: 'empty'},{type: 'empty'},{type: 'empty'}];
         $scope.showInvitesCarousel = true;
-        slick('.invites');
+        // slick('.invites');
       }
     };
 
@@ -73,9 +67,8 @@
     return User.list().then(function(items) {
       $scope.teamMembers = items.entities;
       $timeout(function(){
-        slick('.team');
-        slick('.invites');
-      }, 1000);
+        initCarousel('.team');
+      });
     });
   }
 
