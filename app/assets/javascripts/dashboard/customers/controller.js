@@ -229,6 +229,7 @@
       $scope.drilldownActive = false;
       $scope.showForm = false;
       $scope.currentProposal = {};
+      $scope.mode = '';
     };
 
     // Search Action

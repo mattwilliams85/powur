@@ -1014,6 +1014,10 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       -o-transition: max-height .5s;
       -ms-transition: max-height .5s;
       transition: max-height .5s;
+
+      border-left: 1px solid #e5e5e5;
+      border-right: 1px solid #e5e5e5;
+
       &.active {
         background-color: #444;
         max-height: 2000px;
@@ -1037,7 +1041,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       &.active {
         background-color: #444;
         color: #fff;
-        border-bottom: 0;
       }
       .icon {
         top: 25%;
