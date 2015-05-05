@@ -53,6 +53,7 @@ $kpi-text-color: #888;
   select::-ms-expand {
     display: none;
   }
+
   // Drilldowns
   .fade-in-section {
     opacity: 0;
@@ -74,6 +75,23 @@ $kpi-text-color: #888;
     overflow: hidden;
     background-color: #444;
     max-height:0px;
+
+    -webkit-transition: max-height .5s;
+    -moz-transition: max-height .5s;
+    -o-transition: max-height .5s;
+    -ms-transition: max-height .5s;
+    transition: max-height .5s;
+
+    border-left: 1px solid #e5e5e5;
+    border-right: 1px solid #e5e5e5;
+
+    &.active {
+      background-color: #444;
+      max-height: 2000px;
+      @media #{$small} {
+        max-height:1000px;
+      }
+    }
 
     .summary {
       text-align: left;
@@ -280,59 +298,120 @@ $kpi-text-color: #888;
   }
 
   // Carousels
-  .carousel {
+  .carousel-container {
+    position: relative;
+    height: 220px;
     border: 1px solid #e5e5e5;
     border-left: 0;
-    height: 220px;
-    overflow: hidden;
     background-color: #fff;
+    overflow: hidden;
 
-    .carousel-item {
-      height: 220px;
-      border-left: 1px solid #e5e5e5;
-      background-color: #fff;
-    }
+    .owl-carousel {
 
-    .owl-item {
-      &:last-of-type {
-        border-right: 1px solid #e5e5e5;
+      .owl-item {
+        height: 220px;
+        border-left: 1px solid #e5e5e5;
+        background-color: #fff;
+        &:last-of-type {
+          border-right: 1px solid #e5e5e5;
+        }
+      }
+
+      &.empty {
+        display: block;
+      }
+
+      .empty-state {
+        position: relative;
+        text-align: center;
+        height: 100%;
+        padding: 100px 0;
+        border-left: 1px solid #e5e5e5;
       }
     }
+  }
 
-    // Owl Carousel Arrow Overrides
-    .owl-theme .owl-controls .owl-buttons div {
-      position: absolute;
-      background: none;
-      border-radius: 0;
-      -webkit-border-radius: 0;
-      -moz-border-radius: 0;
-      opacity: 1;
-      margin: 0;
-      padding: 0;
+
+  // Owl Carousel Arrow Overrides
+  .owl-theme .owl-controls .owl-buttons div {
+    position: absolute;
+    background: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    opacity: 1;
+    margin: 0;
+    padding: 0;
+  }
+  .owl-prev, .owl-next {
+    height: 24px;
+    width: 24px;
+  }
+  .owl-prev {
+    left: 5px;
+    top: 30%;
+  }
+  .owl-next {
+    right: 5px;
+    top: 30%;
+  }
+  .owl-prev:before, .owl-next:before {
+    color: #aaa;
+    font-family: "FontAwesome";
+    font-size: 24px;
+    text-align: center;
+  }
+  .owl-prev:before {
+    content: "\f053"; // Unicode for fa-chevron-left
+  }
+  .owl-next:before {
+    content: "\f054"; // Unicode for fa-chevron-right
+  }
+
+
+  // Shared Carousel Item Styles
+  .new-proposal, .proposal,
+  .new-team-member, .team-member,
+  .new-invite, .invite {
+    background-color: #fff;
+    color: #555;
+    height: 220px;
+
+    -webkit-transition: background-color .1s;
+    -moz-transition: background-color .1s;
+    -o-transition: background-color .1s;
+    -ms-transition: background-color .1s;
+    transition: background-color .1s;
+
+    &:hover {
+
     }
-    .owl-prev, .owl-next {
-      height: 24px;
-      width: 24px;
+    &.active {
+      background-color: #444;
+      color: #fff;
     }
-    .owl-prev {
-      left: 5px;
-      top: 30%;
-    }
-    .owl-next {
-      right: 5px;
-      top: 30%;
-    }
-    .owl-prev:before, .owl-next:before {
-      color: #aaa;
-      font-family: "FontAwesome";
-      font-size: 24px;
+    .icon {
+      top: 25%;
+      position: relative;
       text-align: center;
     }
-    .owl-prev:before {
-      content: "\f053"; // Unicode for fa-chevron-left
+    .info-text {
+      font-family: $dashboard-font-family;
+      position: relative;
+      top: 35%;
+      text-align: center;
+      line-height: 18pt;
+      font-size: 16pt;
     }
-    .owl-next:before {
-      content: "\f054"; // Unicode for fa-chevron-right
+    .status-text {
+      font-family: $dashboard-font-family;
+      position: relative;
+      top: 35%;
+      text-align: center;
+      line-height: 10pt;
+      font-size: 8pt;
+      text-transform: uppercase;
+      color: #9b9b9b;
     }
   }
 
@@ -463,26 +542,26 @@ $kpi-text-color: #888;
       // Arrows
       .bar {
         span:after {
-        transition : all .5s linear;
-        position: absolute;
-        display: block;
-        content:"";
-        width: 10px;
-        height: 10px;
-        transform: rotate(45deg);
-        background: rgba(0, 0, 0, 1);
-        right: 0%;
+          transition : all .5s linear;
+          position: absolute;
+          display: block;
+          content:"";
+          width: 10px;
+          height: 10px;
+          transform: rotate(45deg);
+          background: rgba(0, 0, 0, 1);
+          right: 0%;
         }
 
         &.label-is-below {
-          span:after{
+          span:after {
             top: 25px;
           }
         }
 
         &.label-is-above {
           span:after {
-          bottom: 25px;
+            bottom: 25px;
           }
         }
       }
@@ -1031,73 +1110,9 @@ $kpi-text-color: #888;
   .customers-section {
     padding-bottom: 20px;
 
-    .customer-drilldown {
-      -webkit-transition: max-height .5s;
-      -moz-transition: max-height .5s;
-      -o-transition: max-height .5s;
-      -ms-transition: max-height .5s;
-      transition: max-height .5s;
-
-      border-left: 1px solid #e5e5e5;
-      border-right: 1px solid #e5e5e5;
-
-      &.active {
-        background-color: #444;
-        max-height: 2000px;
-        @media #{$small} {
-          max-height:1000px;
-        }
-      }
-    }
-
-    .new-proposal, .proposal {
-      background-color: #fff;
-      color: #555;
-      -webkit-transition: background-color .1s;
-      -moz-transition: background-color .1s;
-      -o-transition: background-color .1s;
-      -ms-transition: background-color .1s;
-      transition: background-color .1s;
-      &:hover {
-
-      }
-      &.active {
-        background-color: #444;
-        color: #fff;
-      }
-      .icon {
-        top: 25%;
-        position: relative;
-        text-align: center;
-      }
-      .info-text {
-        font-family: $dashboard-font-family;
-        position: relative;
-        top: 35%;
-        text-align: center;
-        line-height: 18pt;
-        font-size: 16pt;
-      }
-      .status-text {
-        font-family: $dashboard-font-family;
-        position: relative;
-        top: 35%;
-        text-align: center;
-        line-height: 10pt;
-        font-size: 8pt;
-        text-transform: uppercase;
-        color: #9b9b9b;
-      }
-    }
-
     .new-proposal {
-      height: 220px;
       border: 1px solid #e5e5e5;
       border-right: 0;
-    }
-
-    .proposal {
-
     }
   }
 
@@ -1106,44 +1121,7 @@ $kpi-text-color: #888;
   */
   .team-section {
 
-    .new-team-member, .team-member, .invite {
-      background-color: #fff;
-      color: #555;
-      &:hover {
-
-      }
-      &.active {
-        background-color: #444;
-        color: #fff;
-        border-bottom: 0;
-      }
-      .icon {
-        top: 25%;
-        position: relative;
-        text-align: center;
-      }
-      .info-text {
-        font-family: $dashboard-font-family;
-        position: relative;
-        top: 35%;
-        text-align: center;
-        line-height: 18pt;
-        font-size: 16pt;
-      }
-      .status-text {
-        font-family: $dashboard-font-family;
-        position: relative;
-        top: 35%;
-        text-align: center;
-        line-height: 10pt;
-        font-size: 8pt;
-        text-transform: uppercase;
-        color: #9b9b9b;
-      }
-    }
-
     .new-team-member {
-      height: 220px;
       border: 1px solid #e5e5e5;
       border-right: 0;
     }
@@ -1155,6 +1133,35 @@ $kpi-text-color: #888;
         background-color: #444;
         color: #fff;
       }
+    }
+
+    .invites-summary {
+      background-color: #444;
+      height: 220px;
+      .number {
+        font-family: $dashboard-font-family;
+        position: relative;
+        top: 35%;
+        text-align: center;
+        line-height: 40pt;
+        font-size: 36pt;
+        color: #fff;
+      }
+      .info-text {
+        font-family: $dashboard-font-family;
+        position: relative;
+        top: 35%;
+        text-align: center;
+        line-height: 14pt;
+        font-size: 12pt;
+        text-transform: uppercase;
+        color: #fff;
+      }
+    }
+
+    // White Carousel Arrows on Dark Background
+    .owl-prev, .owl-next {
+      color: #fff;
     }
   }
 

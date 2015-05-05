@@ -50,31 +50,39 @@
           </div>
         </a>
       </div>
-      <div class="w80percent columns">
+      <div class="carousel-container w80percent columns">
         <!-- Proposals Carousel -->
-        <div class="carousel">
-          <div class="proposals owl-carousel">
-            <a ng-repeat="proposal in proposals" ng-click="customerSection.showProposal($index)">
-              <div class="proposal carousel-item" ng-class="{active: currentProposal.id === proposal.properties.id}">
-                <div class="icon">
-                  <span ng-show="proposal.properties.submitted_at"><i class="fa fa-star-half-o fa-4x"></i></span>
-                  <span ng-show="!proposal.properties.submitted_at"><i class="fa fa-star-o fa-4x"></i></span>
-                </div>
-                <div class="info-text">
-                  <span>{{proposal.properties.customer}}</span>
-                </div>
-                <div class="status-text">
-                  <span>{{proposal.properties.status}}(status)</span>
-                </div>
-              </div>
-            </a>
+
+        <!-- If No Proposals -->
+        <div ng-if="!proposals" class="empty owl-carousel">
+          <div class="empty-state">
+            <p class="info-text">You don't have any proposals yet. Create a new proposal to get started!</p>
           </div>
         </div>
+
+        <!-- If Proposals -->
+        <div ng-if="proposals" class="proposals owl-carousel">
+          <a ng-repeat="proposal in proposals" ng-click="customerSection.showProposal($index)">
+            <div class="proposal" ng-class="{active: currentProposal.id === proposal.properties.id}">
+              <div class="icon">
+                <span ng-show="proposal.properties.submitted_at"><i class="fa fa-star-half-o fa-4x"></i></span>
+                <span ng-show="!proposal.properties.submitted_at"><i class="fa fa-star-o fa-4x"></i></span>
+              </div>
+              <div class="info-text">
+                <span>{{proposal.properties.customer}}</span>
+              </div>
+              <div class="status-text">
+                <span>{{proposal.properties.status}}(status)</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
       </div>
     </div>
 
     <!-- Row: Proposal Form -->
-    <div class="drilldown customer-drilldown" ng-class="{'active': drilldownActive == true}">
+    <div class="drilldown" ng-class="{'active': drilldownActive == true}">
       <div ng-hide="!showForm" class="fade-in-section" ng-class="{'active': showForm == true}">
         <div class="summary large-3 medium-3 columns">
 

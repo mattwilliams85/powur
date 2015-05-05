@@ -45,8 +45,9 @@
 
     <!-- Row: Team Carousel -->
     <div class="row collapse">
+
+      <!-- Invite New Team Member Button -->
       <div class="w20percent small-2 columns">
-        <!-- Invite New Team Member Button -->
         <a ng-click="teamSection.showInvites()">
           <div class="new-team-member" ng-class="{active: mode === 'new'}">
             <div class="icon">
@@ -59,50 +60,61 @@
           </div>
         </a>
       </div>
-      <div class="w80percent small-10 columns">
-        <!-- Team Members Carousel -->
-        <div ng-if="!teamMembers" class="team carousel">
-          <!-- If No Team Members -->
-          <div class="">
-            <span class="info-text">You don't have any team members yet. Invite a Team Member to grow your grid!</span>
-          </div>
-        </div>
-        <div ng-if="teamMembers" class="carousel">
-          <div class="team owl-carousel">
-            <a ng-repeat="teamMember in teamMembers" ng-click="teamSection.showTeamMember($index)">
-              <div class="team-member carousel-item" ng-class="{active: currentTeamMember.id === teamMember.properties.id}">
-                <div class="icon">
-                  <span><i class="fa fa-user fa-4x"></i></span>
-                </div>
-                <div class="info-text">
-                  <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <!-- Row: Invites Carousel -->
-    <div class="drilldown row collapse invites-drilldown" ng-class="{'active': drilldownActive == true}">
-      <div ng-show="showInvitesCarousel" class="large-12 columns">
-        <div class="invites carousel">
-          <a ng-repeat="invite in invites" ng-click="teamSection.newInvite()">
-            <div class="invite carousel-item">
+      <!-- Team Members Carousel -->
+      <div class="carousel-container w80percent small-10 columns">
+
+        <!-- If No Team Members -->
+        <div ng-if="!teamMembers" class="empty owl-carousel">
+          <div class="empty-state">
+            <p class="info-text">You don't have any team members yet. Invite a team member to grow your grid!</p>
+          </div>
+        </div>
+
+        <!-- If Team Members -->
+        <div ng-if="teamMembers" class="team owl-carousel">
+          <a ng-repeat="teamMember in teamMembers" ng-click="teamSection.showTeamMember($index)">
+            <div class="team-member" ng-class="{active: currentTeamMember.id === teamMember.properties.id}">
               <div class="icon">
                 <span><i class="fa fa-user fa-4x"></i></span>
               </div>
               <div class="info-text">
-                <span>Empty</span>
-              </div>
-              <div class="status-text">
-                <span>Invite Someone</span>
+                <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
               </div>
             </div>
           </a>
         </div>
+
       </div>
+
+    </div>
+
+    <!-- Row: Invites Carousel -->
+    <div ng-show="showInvitesCarousel" class="row collapse">
+
+      <!-- Invites Available -->
+      <div class="w20percent small-2 columns">
+        <div class="invites-summary">
+          <div class="number">
+            <span>5</span>
+          </div>
+          <div class="info-text">
+            <span>Invites Available</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Invites Carousel -->
+      <div class="w80percent small-10 columns">
+        <div class="owl-carousel">
+          <!-- <div class="invites owl-carousel"> -->
+            <div ng-repeat="invite in invites" class="">
+              <p>This is an invite</p>
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
     </div>
 
     <!-- Row: Invite Team Member Form -->
