@@ -415,12 +415,15 @@ $kpi-text-color: #888;
     }
   }
 
-  // Special Width Classes for Carousel Sections
+  // Special Auxiliary Classes for Carousel Sections
   .w20percent {
     width: 20%;
   }
   .w80percent {
     width: 80%;
+  }
+  .no-border {
+    border: 0;
   }
 
   // Horizontal Lines / Spacing Between Sections
@@ -1127,35 +1130,33 @@ $kpi-text-color: #888;
     }
 
     .invites {
-      margin-top: 0px;
+      border: 0;
+    }
 
-      .invite {
-        background-color: #444;
-        color: #fff;
-      }
+    .invite {
+      background-color: #444;
+      color: #fff;
     }
 
     .invites-summary {
       background-color: #444;
       height: 220px;
+      color: #fff;
+      font-family: $dashboard-font-family;
+      text-align: center;
+
       .number {
-        font-family: $dashboard-font-family;
         position: relative;
         top: 35%;
-        text-align: center;
         line-height: 40pt;
         font-size: 36pt;
-        color: #fff;
       }
       .info-text {
-        font-family: $dashboard-font-family;
         position: relative;
         top: 35%;
-        text-align: center;
         line-height: 14pt;
         font-size: 12pt;
         text-transform: uppercase;
-        color: #fff;
       }
     }
 

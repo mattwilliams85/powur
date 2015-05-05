@@ -96,7 +96,7 @@
       <div class="w20percent small-2 columns">
         <div class="invites-summary">
           <div class="number">
-            <span>5</span>
+            <span>{{invitesAvailable}}</span>
           </div>
           <div class="info-text">
             <span>Invites Available</span>
@@ -105,13 +105,36 @@
       </div>
 
       <!-- Invites Carousel -->
-      <div class="w80percent small-10 columns">
-        <div class="owl-carousel">
-          <!-- <div class="invites owl-carousel"> -->
-            <div ng-repeat="invite in invites" class="">
-              <p>This is an invite</p>
+      <div class="carousel-container no-border w80percent small-10 columns">
+        <div class="invites owl-carousel">
+          <div ng-repeat="invite in invites">
+
+            <!-- Existing Invites -->
+            <div ng-if="invite.type !== 'empty'" class="invite">
+              <div class="icon">
+                <span><i class="fa fa-user fa-4x"></i></span>
+              </div>
+              <div class="info-text">
+                <span>{{invite.properties.first_name}} {{invite.properties.last_name}}</span>
+              </div>
+              <div class="status-text">
+                <span>Expires {{dateToLocalTime(invite.properties.expires)}}</span>
+              </div>
             </div>
-          <!-- </div> -->
+
+            <!-- Empty Invites -->
+            <div ng-if="invite.type === 'empty'" class="invite">
+              <div class="icon">
+                <span><i class="fa fa-circle-thin fa-4x"></i></span>
+              </div>
+              <div class="info-text">
+                <span>Empty</span>
+              </div>
+              <div class="status-text">
+                <span>Invite Someone</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

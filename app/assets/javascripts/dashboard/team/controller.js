@@ -1,8 +1,9 @@
 ;(function() {
   'use strict';
 
-  function DashboardTeamCtrl($scope, $timeout, User) {
+  function DashboardTeamCtrl($scope, $timeout, User, Invite) {
     $scope.redirectUnlessSignedIn();
+    $scope.showInvitesCarousel = false;
 
     // Initialize Carousel
     var initCarousel = function(carouselElement) {
@@ -20,15 +21,7 @@
         scrollPerPage: true,
         mouseDrag: false,
         touchDrag: true,
-        beforeMove: closeForm
-      });
-
-    };
-
-    // Close Form when Moving Carousel
-    var closeForm = function(event) {
-      $timeout(function() {
-        $scope.closeForm();
+        beforeMove: false
       });
     };
 
@@ -47,32 +40,54 @@
 
     };
 
-    // Show Invites Carousel
+    // Show Invites
     $scope.teamSection.showInvites = function() {
       if ($scope.showInvitesCarousel === true) {
         $scope.closeCarousel();
         return;
       } else {
-        $scope.invites = [{type: 'empty'},{type: 'empty'},{type: 'empty'},{type: 'empty'},{type: 'empty'}];
         $scope.showInvitesCarousel = true;
-        // slick('.invites');
+        // $scope.animateDrilldown();
+
+        Invite.list().then(function(items){
+          $scope.invites = items.entities;
+          $scope.invitesAvailable = items.properties.remaining;
+
+          for (var i = 0; i < $scope.invitesAvailable; i++) {
+            $scope.invites.push({type: 'empty'});
+          }
+
+          $timeout(function() {
+            initCarousel('.invites');
+          });
+        });
       }
     };
 
+    // $scope.animateDrilldown = function () {
+    //   $scope.drilldownActive = false;
+    //   $scope.drilldownActive = true;
+    //   $timeout( function(){
+    //     $scope.showInvitesCarousel = true;
+    //   }, 300);
+    // };
+
     // Close Form
     $scope.closeCarousel = function() {
+      // $scope.drilldownActive = false;
       $scope.showInvitesCarousel = false;
+      destroyCarousel('.invites');
     };
 
     return User.list().then(function(items) {
       $scope.teamMembers = items.entities;
-      $timeout(function(){
+      $timeout(function() {
         initCarousel('.team');
       });
     });
   }
 
-  DashboardTeamCtrl.$inject = ['$scope', '$timeout', 'User'];
+  DashboardTeamCtrl.$inject = ['$scope', '$timeout', 'User', 'Invite'];
   angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl);
 
 })();
