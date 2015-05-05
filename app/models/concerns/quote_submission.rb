@@ -6,7 +6,7 @@ module QuoteSubmission
   end
 
   def ready_to_submit?
-    !submitted? && customer.phone && customer.address_complete?
+    !submitted? && customer.phone && customer.email && customer.first_name && customer.last_name?
   end
 
   def submit!

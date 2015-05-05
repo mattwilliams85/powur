@@ -65,14 +65,15 @@
           <a ng-repeat="proposal in proposals" ng-click="customerSection.showProposal($index)">
             <div class="proposal" ng-class="{active: currentProposal.id === proposal.properties.id}">
               <div class="icon">
-                <span ng-show="proposal.properties.submitted_at"><i class="fa fa-star-half-o fa-4x"></i></span>
-                <span ng-show="!proposal.properties.submitted_at"><i class="fa fa-star-o fa-4x"></i></span>
+                <span ng-show="proposal.properties.data_status === 'submitted'"><i class="fa fa-star fa-4x"></i></span>
+                <span ng-show="proposal.properties.data_status === 'complete'"><i class="fa fa-star-half-o fa-4x"></i></span>
+                <span ng-show="proposal.properties.data_status === 'incomplete'"><i class="fa fa-star-o fa-4x"></i></span>
               </div>
               <div class="info-text">
                 <span>{{proposal.properties.customer}}</span>
               </div>
               <div class="status-text">
-                <span>{{proposal.properties.status}}(status)</span>
+                <span>{{proposal.properties.data_status}}</span>
               </div>
             </div>
           </a>
@@ -94,11 +95,19 @@
           <!-- Incomplete Proposal Summary Text -->
           <h1 ng-show="mode === 'incomplete'">Incomplete Proposal</h1>
           <p ng-show="mode === 'incomplete'">Enter additional customer information to complete this proposal.</p>
-          <p ng-show="mode === 'incomplete'">Ensure the customer information is correct before submitting the proposal to SolarCity.</p>
+          <p ng-show="mode === 'incomplete'">SolarCity requires the customer's name, phone number, and email address.</p>
           <!-- Incomplete Proposal Buttons -->
           <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.delete()">Delete Proposal</button>
           <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.resend()">Resend Email</button>
-          <button class="button expand solarcity" ng-show="mode === 'incomplete'" ng-click="customerSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
+
+          <!-- Completed Proposal Summary Text -->
+          <h1 ng-show="mode === 'complete'">Completed Proposal</h1>
+          <p ng-show="mode === 'complete'">Great! This proposal has everything it needs.</p>
+          <p ng-show="mode === 'complete'">Ensure the customer information is correct before submitting the proposal to SolarCity.</p>
+          <!-- Completed Proposal Buttons -->
+          <button class="button secondary expand" ng-show="mode === 'complete'" ng-click="customerSection.delete()">Delete Proposal</button>
+          <button class="button secondary expand" ng-show="mode === 'complete'" ng-click="customerSection.resend()">Resend Email</button>
+          <button class="button solarcity expand" ng-show="mode === 'complete'" ng-click="customerSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
 
           <!-- Submitted Proposal Summary Text -->
           <h1 ng-show="mode === 'submitted'">Submitted Proposal</h1>
@@ -108,7 +117,7 @@
         </div>
 
         <!-- Form if New or Incomplete Proposal-->
-        <div ng-if="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
+        <div ng-if="mode === 'incomplete' || mode === 'new' || mode === 'complete'" class="form large-9 medium-9 columns">
           <ng-include src="'dashboard/templates/sections/customers-form.html'"></ng-include>
         </div>
         <!-- Summary if Submitted Proposal -->

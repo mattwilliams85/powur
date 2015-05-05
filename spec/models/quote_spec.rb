@@ -23,4 +23,32 @@ describe Quote, type: :model do
     expect(results.size).to eq(1)
     expect(results.first.customer.id).to eq(customer.id)
   end
+
+  describe '#data_status' do
+    subject { quote.data_status }
+    let(:customer) { create(:customer) }
+    let!(:quote) { create(:quote, customer: customer) }
+
+    context 'quote submitted' do
+      before { allow(quote).to receive(:submitted?).and_return(true) }
+      it { is_expected.to eq 'submitted' }
+    end
+
+    context 'quote complete' do
+      before do
+        allow(quote).to receive(:ready_to_submit?).and_return(true)
+        allow(quote).to receive(:submitted?).and_return(false)
+      end
+      it { is_expected.to eq 'complete' }
+    end
+
+    context 'quote incomplete' do
+      before do
+        allow(quote).to receive(:ready_to_submit?).and_return(false)
+        allow(quote).to receive(:submitted?).and_return(false)
+      end
+      it { is_expected.to eq 'incomplete' }
+    end
+  end
+
 end

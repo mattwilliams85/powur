@@ -93,17 +93,17 @@
         $scope.currentProposalIndex = proposalIndex;
 
         Proposal.get(proposalId).then(function(item){
-          if ($scope.getAction(item.actions, 'update')) {
+          if (item.properties.data_status === 'submitted') {
+            $scope.proposal = item.properties;
+            $scope.currentProposal = item.properties;
+            $scope.mode = item.properties.data_status;
+          } else {
             $scope.formAction = $scope.getAction(item.actions, 'update');
             $scope.proposalItem = item;
             $scope.proposal = $scope.setFormValues($scope.formAction);
             $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
             $scope.currentProposal = item.properties;
-            $scope.mode = 'incomplete';
-          } else {
-            $scope.proposal = item.properties;
-            $scope.currentProposal = item.properties;
-            $scope.mode = 'submitted';
+            $scope.mode = item.properties.data_status;
           }
         });
       }

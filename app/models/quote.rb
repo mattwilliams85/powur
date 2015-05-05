@@ -26,11 +26,8 @@ class Quote < ActiveRecord::Base
   end
 
   def data_status
-    value = []
-    value << 'phone' if customer.phone
-    value << 'email' if customer.email
-    value << 'address' if customer.address_complete?
-    value
+    return 'submitted' if submitted?
+    ready_to_submit? ? 'complete' : 'incomplete'
   end
 
   def order?
