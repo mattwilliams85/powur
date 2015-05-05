@@ -25,7 +25,7 @@
     };
 
     $scope.cancel = function() {
-      $location.path('/users/' + $scope.user.properties.id);
+      $location.path('/admin/users/' + $scope.user.properties.id);
     };
 
     // Update Action
@@ -36,10 +36,10 @@
     };
 
     var actionCallback = function(action) {
-      var destination = '/users/' + $scope.user.properties.id,
+      var destination = '/admin/users/' + $scope.user.properties.id,
           modalMessage = '';
       if (action.name === 'update') {
-        destination = ('/users/' + $scope.user.properties.id);
+        destination = ('/admin/users/' + $scope.user.properties.id);
         modalMessage = ('You\'ve successfully updated this user.');
       }
       return AdminUser.get($routeParams.userId).then(function(item) {
@@ -78,9 +78,7 @@
         $scope.userSearch = {};
         // Breadcrumbs: Users
         $rootScope.breadcrumbs.push({title: 'Users'});
-
       });
-
     } else if ($scope.mode === 'new') {
 
     } else if ($scope.mode === 'show') {
@@ -89,7 +87,7 @@
 
         // Build Genealogy Tree
         $scope.tree = {}; // awaiting function to populate object with users grid
-        $(function () { $('#jstree_demo_div').jstree($scope.tree); });
+        // $(function () { $('#jstree_demo_div').jstree($scope.tree); });
 
         // Breadcrumbs: Users / User Name
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});

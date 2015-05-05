@@ -78,18 +78,6 @@ $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
 /* Header Labels and Dropdown Links */
 $medium-and-down: "only screen and (max-width:"#{$medium-screen}")";
 
-@media #{$small} {
-  .powur-header {
-    .top-bar-section ul li > a {
-      padding: 3px 0 3px 30px;
-    }
-
-    label {
-      margin-left: 10px;
-    }
-  }
-}
-
 /* Powur Typography */
 $header-font-family: "Varela Round", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $paragraph-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
