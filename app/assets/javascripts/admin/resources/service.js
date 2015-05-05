@@ -13,7 +13,7 @@
 
         $http({
           method: 'GET',
-          url: '/a/resources',
+          url: '/a/resources.json',
           params: data
         }).success(function(res) {
           dfr.resolve(res);
@@ -34,7 +34,7 @@
 
         $http({
           method: 'POST',
-          url: '/a/resources',
+          url: '/a/resources.json',
           data: data
         }).success(function(res) {
           dfr.resolve(res);
@@ -54,7 +54,7 @@
 
         $http({
           method: 'GET',
-          url: '/a/resources/' + id
+          url: '/a/resources/' + id + '.json'
         }).success(function(res) {
           dfr.resolve(res);
         }).error(function(err) {
@@ -74,7 +74,7 @@
 
         $http({
           method: 'PUT',
-          url: '/a/resources/' + data.id,
+          url: '/a/resources/' + data.id + '.json',
           data: data
         }).success(function(res) {
           dfr.resolve(res);

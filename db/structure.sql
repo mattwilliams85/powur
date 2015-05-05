@@ -879,7 +879,8 @@ CREATE TABLE resources (
     image_original_path character varying,
     is_public boolean,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    youtube_id character varying
 );
 
 
@@ -2250,3 +2251,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150423170131');
 
 INSERT INTO schema_migrations (version) VALUES ('20150504180127');
 
+INSERT INTO schema_migrations (version) VALUES ('20150504234010');

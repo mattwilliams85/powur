@@ -12,7 +12,7 @@ class Resource < ActiveRecord::Base
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 100 }
   validates :description, presence: true
-  validates :file_original_path, presence: true
+  validates :file_original_path, presence: true, if: 'youtube_id.blank?'
   validates :file_type,
     presence: true,
     inclusion: {
@@ -30,7 +30,13 @@ class Resource < ActiveRecord::Base
   private
 
   def set_file_type
+    if youtube_id.present?
+      self.file_type = RESOURCE_FILE_TYPES[:video]
+      return
+    end
+
     return unless file_original_path.present?
+
     ext = file_original_path[/\.(\w*)$/, 1]
     self.file_type = case ext
     when 'mp4'

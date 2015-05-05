@@ -20,6 +20,12 @@
         <file-s3-uploader data="resource.file_original_path" mode="resource_attachment" show-progress="1" />
       </div>
     </div>
+    <div class="row" ng-if="resourceType === 'video'">
+      <div class="large-12 columns">
+        <label for="resource_youtube_id">Youtube link alternative:</label><br>
+        https://www.youtube.com/watch?v=<input ng-model="resource.youtube_id" name="youtube_id" id="resource_youtube_id" type="text" class="text-inline-field" />
+      </div>
+    </div>
     <!-- Document File Upload Field -->
     <div class="row" ng-if="resourceType === 'document'">
       <div class="large-12 columns">

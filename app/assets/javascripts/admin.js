@@ -25,6 +25,7 @@
 /*
  * App js resources
  */
+//= require legacy
 //= require ./admin/app.admin
 //= require ./admin/app.admin.routes
 //= require_tree ./admin/bonuses

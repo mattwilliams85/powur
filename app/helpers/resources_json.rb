@@ -19,6 +19,7 @@ class ResourcesJson < JsonDecorator
       json.description resource.description
       json.file_original_path resource.file_original_path
       json.file_type resource.file_type
+      json.youtube_id resource.youtube_id
       json.image_original_path resource.image_original_path
       json.is_public !!resource.is_public
       json.user_name resource.user.full_name

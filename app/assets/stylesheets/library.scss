@@ -96,22 +96,21 @@
     bottom: 0;
   }
 
-}
+  .pdf-preview {
+    display: flex;
+    justify-content: center;
+    top: 0;
+    padding-bottom: 20px;
 
-.pdf-preview {
-  display: flex;
-  justify-content: center;
-  top: 0;
-  padding-bottom: 20px;
-
-  img {
-    width: auto;
-    height: auto;
+    img {
+      width: auto;
+      height: auto;
+    }
   }
-}
 
-.load-more {
-  width: 100%;
-  text-align: center;
-  margin-top: 2em;
+  .load-more {
+    width: 100%;
+    text-align: center;
+    margin-top: 2em;
+  }
 }

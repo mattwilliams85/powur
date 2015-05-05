@@ -123,7 +123,6 @@
     this.fetch($scope, $rootScope, $location, $routeParams, AdminResource);
   }
 
-
   AdminResourcesCtrl.prototype.init = function($scope, $location) {
     // Setting mode based on the url
     $scope.mode = 'index';
@@ -131,33 +130,26 @@
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
   };
 
-
   AdminResourcesCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminResource) {
     if ($scope.mode === 'index') {
       $scope.pagination(0);
-
       // Breadcrumbs: Library
       $rootScope.breadcrumbs.push({title: 'Library'});
-
     } else if ($scope.mode === 'new') {
       $scope.resourceType = $routeParams.resourceType === 'video' ? 'video' : 'document';
       $scope.resource = {
         is_public: true
       };
-
       // Breadcrumbs: Library / New (Resource Type)
       $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/resources'});
       $rootScope.breadcrumbs.push({title: 'New ' + $scope.resourceType});
-
     } else if ($scope.mode === 'edit') {
       AdminResource.get($routeParams.resourceId).then(function(item) {
         $scope.resource = item.properties;
         $scope.resourceType = $scope.resource.file_type === 'video/mp4' ? 'video' : 'document';
-
         // Breadcrumbs: Library / Update (Resource Type)
         $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/resources'});
         $rootScope.breadcrumbs.push({title: 'Update ' + $scope.resourceType});
-
       });
 
     }
