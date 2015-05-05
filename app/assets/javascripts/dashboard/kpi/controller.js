@@ -99,6 +99,9 @@
       rank: []
     };
 
+    ///// EMPTYING tabData
+    $scope.tabData = [];
+
     $scope.scale = 'week';
     $scope.current = new Date();
     $scope.date = 'week ' + $scope.current.getWeek();
@@ -113,7 +116,7 @@
       if ($scope.section === section) return $scope.closeTab();
       $scope.section = section;
       $scope.tabKey = '';
-      $timeout( function(){ 
+      $timeout( function(){
         $scope.tabKey = section
         $scope.settings = $scope.tabData[$scope.tabKey].settings;
         $scope.kpiInit();

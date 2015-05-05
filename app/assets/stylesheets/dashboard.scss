@@ -1,4 +1,5 @@
 $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans-serif;
+$kpi-text-color: #888;
 
 // div {
 //   border: 1px solid red;
@@ -176,7 +177,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     }
   }
 
-  // Buttons 
+  // Buttons
   .button {
     border-radius: 4px;
     border: 1px solid rgba(0,0,0,0.2);
@@ -702,18 +703,30 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
           .kpi-count {
             display: block;
-            color: #888;
+            color: $kpi-text-color;
             line-height:60pt;
-
           }
+
           .kpi-header {
-            color: #888;
+            color: $kpi-text-color;
             font-size: 16pt;
+          }
+
+          .empty-info {
+            display: block;
+            color: $kpi-text-color;
+            font-size: 1em;
+            line-height: 1.2em;
+            padding: 0 1em;
+            text-align: left;
+
+            a {
+              color: #20c2f1;
+            }
           }
         }
       }
     }
-
 
     .kpi-drilldown {
       clear: both;
@@ -729,7 +742,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       transition: max-height .3s;
       &.active {
         max-height: 690px;
-        @media #{$small} { 
+        @media #{$small} {
           max-height: 625px;
         }
       }
@@ -747,9 +760,9 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         }
       }
 
-      /* 
+      /*
       CONVERSION SECTION
-      */ 
+      */
       .conversion-section {
         height:100%;
 
@@ -762,7 +775,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
           background-color: #444;
           &.full-column {
             height: 690px;
-            @media #{$small} { 
+            @media #{$small} {
               height:525px;
             }
           }
@@ -785,20 +798,20 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
           .avatar-medium {
             background-image:url(http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578);
-            height: 60px; width: 60px; 
+            height: 60px; width: 60px;
             border-radius: 50%;
             background-size: contain;
           }
           .avatar-small {
-            height: 35px; width: 35px; 
+            height: 35px; width: 35px;
             display: none;
             margin-left: 7px;
             border-radius: 50%;
             @media only screen and (min-width : 850px) {
               display: block;
             }
-            @media #{$medium} { 
-              height: 40px; width: 40px; 
+            @media #{$medium} {
+              height: 40px; width: 40px;
             }
           }
 
@@ -837,7 +850,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
               font-size: 9pt;
               cursor: pointer;
               transition: .3s linear;
-              @media #{$medium} { 
+              @media #{$medium} {
                 padding: 13px;
                 font-size:11pt;
               }
@@ -848,7 +861,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
               .info-box {
                 text-align: left;
                 margin-left: 5px;
-                @media #{$small} { 
+                @media #{$small} {
                   margin-left: 10px;
                 }
               }
@@ -875,7 +888,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         }
         .chart-column {
           padding: 25px 30px 20px 30px;
-          @media #{$small} { 
+          @media #{$small} {
             padding: 25px 30px 0px 35px;
           }
 
@@ -896,7 +909,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
             width:105%;
             margin-left:-10px;
             padding: 0 15px;
-            @media #{$small} { 
+            @media #{$small} {
               padding: 0 5px;
               margin-left:0px;
               width:100%;
@@ -921,12 +934,12 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
             position:relative;
             display:block;
             margin-top:45px;
-            @media #{$small} { 
+            @media #{$small} {
               margin-top:0;
               position: absolute;
               right: 20px;
             }
-            
+
 
             .scale-detail {
               background: none;
@@ -949,7 +962,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
           padding-bottom: 25px;
           // margin-top: 20px;
           text-align: center;
-          @media #{$small} { 
+          @media #{$small} {
             padding-bottom: 0px;
             // margin-top: 0px;
             text-align: left;
@@ -968,7 +981,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
           .stats-box {
             margin-top: 20px;
             background-color: #333;
-            @media #{$small} { 
+            @media #{$small} {
               background-color: #444;
             }
             .stats-detail {
@@ -976,17 +989,17 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
               display: block;
               font-size: 12pt;
               line-height: 13pt;
-              @media #{$small} { 
+              @media #{$small} {
                 font-size: 11pt;
                 line-height: 15pt;
               }
-              @media #{$medium} { 
+              @media #{$medium} {
                 font-size: 13pt;
                 line-height: 20pt;
               }
             }
           }
-          
+
         }
       }
 
@@ -1031,7 +1044,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       &.active {
         background-color: #444;
         max-height: 2000px;
-        @media #{$small} { 
+        @media #{$small} {
           max-height:1000px;
         }
       }

@@ -9,7 +9,7 @@
 </div>
 
 <div class="large-12 columns">
-  <div class="row tab-header-row">
+  <div class="row tab-header-row" ng-if="tabData.length">
     <div class="kpi-tab" ng-click="changeTab('enviroment')">
       <div class="kpi-info-box">
         <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('721.34') }">721.34</span>
@@ -38,6 +38,34 @@
       <div class="kpi-info-box">
         <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('2') }">2</span>
         <span class="kpi-header uppercase">current rank</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row tab-header-row" ng-if="!tabData.length">
+    <div class="kpi-tab">
+      <div class="kpi-info-box">
+        <span class="empty-info">Powur is all about making a difference. To start measuring your impact, go add proposals & invite entrepreneurs to join your team.</span>
+      </div>
+    </div>
+    <div class="kpi-tab">
+      <div class="kpi-info-box">
+        <span class="empty-info">Here's where you'll see stats on proposals & customers. You don't have any proposals yet, click 'here' to get started.</span>
+      </div>
+    </div>
+    <div class="kpi-tab">
+      <div class="kpi-info-box">
+        <span class="empty-info">Here's where you'll see stats on your team. Click here to invite others to your team.</span>
+      </div>
+    </div>
+    <div class="kpi-tab">
+      <div class="kpi-info-box">
+        <span class="empty-info">Here's where you'll see your solar earnings. Add proposals & team mates to get your earnings started.</span>
+      </div>
+    </div>
+    <div class="kpi-tab">
+      <div class="kpi-info-box">
+        <span class="empty-info">Certified Advocates can 'Rank Up' and earn bonuses based on the performance of their team.<br><a ng-href="/university">Click here to learn more!</a></span>
       </div>
     </div>
   </div>
