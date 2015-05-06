@@ -5,6 +5,8 @@
     $scope.redirectUnlessSignedIn();
     $scope.showInvitesCarousel = false;
 
+    $scope.legacyImagePaths = legacyImagePaths;
+
     // Initialize Carousel
     var initCarousel = function(carouselElement) {
       $(carouselElement).owlCarousel({
