@@ -3,7 +3,8 @@
 <div class="pow-landing-wrapper" ng-class="{'active': isMenuActive}">
 
   <main class="pow-faq">
-  <ng-include src="'shared/header-faq.html'"></ng-include>
+    <ng-include ng-if="!isSignedIn" src="'shared/header-faq.html'"></ng-include>
+    <ng-include ng-if="isSignedIn" src="'shared/header-signed-in.html'"></ng-include>
 
     <div class="pow-fixed-bg pow-bg-1" id="anchor_1">
       <div id="slide0"  class="pow-home-intro slide" ng-class="{'active': currentHomeSlide === 0, 'inactive': currentHomeSlide > 0}">

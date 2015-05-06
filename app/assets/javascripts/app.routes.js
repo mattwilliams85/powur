@@ -35,12 +35,12 @@
 
     // FAQ
     when('/customer-faq', {
-      templateUrl: 'landing/templates/customer-faq.html',
-      controller: 'LandingCtrl'
+      templateUrl: 'user-static-content/templates/customer-faq.html',
+      controller: 'UserStaticContentCtrl'
     }).
     when('/advocate-faq', {
-      templateUrl: 'landing/templates/advocate-faq.html',
-      controller: 'LandingCtrl'
+      templateUrl: 'user-static-content/templates/advocate-faq.html',
+      controller: 'UserStaticContentCtrl'
     }).
 
     // Promo
