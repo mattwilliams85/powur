@@ -78,13 +78,14 @@
         overflow: hidden;
         padding: 0 20px;
         line-height: 1.4em;
+        margin: 0;
       }
 
       .button {
         display: block;
-        margin: 20px 20px;
+        margin: 10px 20px;
         background: #59a2e7;
-        line-height: 2em;
+        line-height: 1.2em;
         text-transform: uppercase;
 
         &.purchase {
