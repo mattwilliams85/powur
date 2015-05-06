@@ -12,11 +12,26 @@
       signIn: function(data) {
         var dfr = $q.defer();
 
-        $http.post('/login.json', data, {
-          xsrfHeaderName: 'X-CSRF-Token'
-        }).success(function(res) {
+        $http.post('/login.json', data).success(function(res) {
           cache.put('data', res.properties);
           dfr.resolve(cache.get('data') || res);
+        }).error(function(err) {
+          console.log('エラー', err);
+          dfr.reject(err);
+        });
+
+        return dfr.promise;
+      },
+
+      /*
+       * Sign Out
+       */
+      signOut: function(data) {
+        var dfr = $q.defer();
+
+        $http.delete('/login.json', data).success(function() {
+          cache.put('data', null);
+          dfr.resolve();
         }).error(function(err) {
           console.log('エラー', err);
           dfr.reject(err);
@@ -59,7 +74,7 @@
        * Clear cached profile
        */
       clear: function() {
-        $cacheFactory('UserProfile').put('data', {});
+        cache.put('data', null);
         return true;
       },
 

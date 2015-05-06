@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function init($rootScope, $location, $document, $http, $window, $timeout) {
+  function init($rootScope, $location, $document, $http, $window, $timeout, UserProfile) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
     $rootScope.enrollmentRequirementMessage =
@@ -193,13 +193,13 @@
 
     $rootScope.signOut = function() {
       var cb = function() {
+        SignedIn = false;
         $rootScope.isSignedIn = false;
+        $rootScope.currentUser = {};
         // window.location = '#/sign-in';
         $location.path('/sign-in');
       };
-      $http.delete('/login.json', {
-        xsrfHeaderName: 'X-CSRF-Token'
-      }).success(cb).error(cb);
+      UserProfile.signOut().then(cb, cb);
     };
 
     $rootScope.gotoAnchor = function(id) {
@@ -243,7 +243,8 @@
     '$document',
     '$http',
     '$window',
-    '$timeout'];
+    '$timeout',
+    'UserProfile'];
 
   angular.module('powurApp', [
     'ngRoute',
