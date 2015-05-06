@@ -319,14 +319,20 @@ $kpi-text-color: #888;
 
       &.empty {
         display: block;
+        height: 100%;
       }
 
       .empty-state {
         position: relative;
         text-align: center;
         height: 100%;
-        padding: 100px 0;
         border-left: 1px solid #e5e5e5;
+
+        .empty-text {
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+        }
       }
     }
   }
