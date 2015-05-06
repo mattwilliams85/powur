@@ -11,7 +11,7 @@
 
         $http({
           method: 'GET',
-          url: '/u/uploader_config',
+          url: '/u/uploader_config.json',
           params: {
             mimetype: mimetype,
             mode: mode

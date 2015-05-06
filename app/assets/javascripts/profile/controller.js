@@ -33,7 +33,10 @@
     $scope.$watch('userOriginalImage', function(data) {
       if (/http/g.test(data)) {
         UserProfile.update({user: {image_original_path: data}}).then(function() {
-          $scope.userProfile.avatar.preview = data;
+          $scope.userProfile.avatar = {
+            preview: data
+          };
+          UserProfile.clear();
         });
       }
     });
@@ -41,5 +44,4 @@
 
   ProfileCtrl.$inject = ['$scope', 'UserProfile'];
   angular.module('powurApp').controller('ProfileCtrl', ProfileCtrl);
-
 })();
