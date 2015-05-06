@@ -13,6 +13,7 @@ json.properties do
       json.set! key, user.avatar.url(key)
     end
   end if @user.avatar?
+  json.is_admin user.role?(:admin)
 
   # Uncomment this to have front-end FIT class completion validation
   # json.require_enrollment user.require_class_completion?
