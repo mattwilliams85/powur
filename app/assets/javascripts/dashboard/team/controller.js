@@ -32,7 +32,16 @@
 
     // Show Team Member
     $scope.teamSection.showTeamMember = function(userId) {
-
+      if ($scope.showingTeamMember === true && $scope.currentTeamMember.id === userId) {
+        $scope.showingTeamMember = false;
+        $scope.currentTeamMember = {};
+        return;
+      } else {
+        User.get(userId).then(function(item){
+          $scope.currentTeamMember = item.properties;
+          $scope.showingTeamMember = true;
+        });
+      }
     };
 
     // Show New Invite Form
