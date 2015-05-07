@@ -1147,7 +1147,8 @@ $kpi-text-color: #888;
       border-right: 0;
 
       &.beta {
-        background: image-url('dashboard/invite-team-member-beta.png') center center no-repeat;
+        background: #f8f8f8;
+        color: #c7c7c7;
       }
     }
 
