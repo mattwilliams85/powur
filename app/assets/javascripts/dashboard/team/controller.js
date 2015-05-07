@@ -25,8 +25,22 @@
         slideSpeed: 500,
         mouseDrag: false,
         touchDrag: true,
-        beforeMove: false
+        beforeMove: closeForm
       });
+    };
+
+    // Close Team Member Show when Moving Carousel
+    var closeForm = function(event) {
+      if ($scope.updatingProposal !== true) {
+        $timeout(function() {
+          $scope.closeForm();
+        });
+      }
+    };
+    // Close Team Member
+    $scope.closeForm = function() {
+      $scope.showingTeamMember = false;
+      $scope.currentTeamMember = {};
     };
 
     // Destroy Carousel
@@ -37,8 +51,7 @@
     // Show Team Member
     $scope.teamSection.showTeamMember = function(userId) {
       if ($scope.showingTeamMember === true && $scope.currentTeamMember.id === userId) {
-        $scope.showingTeamMember = false;
-        $scope.currentTeamMember = {};
+        $scope.closeForm();
         return;
       } else {
         User.get(userId).then(function(item){
