@@ -9,69 +9,45 @@
 </div>
 
 <div class="large-12 columns">
-  <div class="row tab-header-row" ng-if="tabData.length">
-    <div class="kpi-tab" ng-click="changeTab('enviroment')">
+  <div class="row tab-header-row">
+    <div class="kpi-tab" ng-click="changeTab('environment')">
       <div class="kpi-info-box">
-        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('721.34') }">721.34</span>
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
         <span class="kpi-header uppercase">C02 tons saved</span>
       </div>
     </div>
     <div class="kpi-tab" ng-click="changeTab('conversion')">
       <div class="kpi-info-box">
-        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('84') }">84</span>
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
         <span class="kpi-header uppercase">orders</span>
       </div>
     </div>
     <div class="kpi-tab" ng-click="changeTab('genealogy')">
       <div class="kpi-info-box">
-        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('4') }">4</span>
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
         <span class="kpi-header uppercase">in your grid</span>
       </div>
     </div>
     <div class="kpi-tab" ng-click="changeTab('earnings')">
       <div class="kpi-info-box">
-        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('$2,182.67') }">$2,182.67</span>
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('$0') }">$0</span>
         <span class="kpi-header uppercase">total earnings</span>
       </div>
     </div>
     <div class="kpi-tab" ng-click="changeTab('rank')">
       <div class="kpi-info-box">
-        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('2') }">2</span>
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
         <span class="kpi-header uppercase">current rank</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="row tab-header-row" ng-if="!tabData.length">
-    <div class="kpi-tab">
-      <div class="kpi-info-box">
-        <span class="empty-info">Powur is all about making a difference. To start measuring your impact, go add proposals & invite entrepreneurs to join your team.</span>
-      </div>
-    </div>
-    <div class="kpi-tab">
-      <div class="kpi-info-box">
-        <span class="empty-info">Here's where you'll see stats on proposals & customers. You don't have any proposals yet, click 'here' to get started.</span>
-      </div>
-    </div>
-    <div class="kpi-tab">
-      <div class="kpi-info-box">
-        <span class="empty-info">Here's where you'll see stats on your team. Click here to invite others to your team.</span>
-      </div>
-    </div>
-    <div class="kpi-tab">
-      <div class="kpi-info-box">
-        <span class="empty-info">Here's where you'll see your solar earnings. Add proposals & team mates to get your earnings started.</span>
-      </div>
-    </div>
-    <div class="kpi-tab">
-      <div class="kpi-info-box">
-        <span class="empty-info">Certified Advocates can 'Rank Up' and earn bonuses based on the performance of their team.<br><a ng-href="/university">Click here to learn more!</a></span>
       </div>
     </div>
   </div>
 </div>
 
 <!-- Row: KPI Drilldowns -->
-<div class="kpi-drilldown drilldown" ng-class="{'active': section === 'conversion'}">
-  <ng-include src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include>
+<div class="kpi-drilldown drilldown" ng-class="{'active': section}">
+  <ng-include ng-if="section === 'environment'" src="'dashboard/templates/sections/kpi/metrics/environment.html'"></ng-include>
+  <ng-include ng-if="section === 'conversion'" src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include>
+  <ng-include ng-if="section === 'genealogy'" src="'dashboard/templates/sections/kpi/metrics/genealogy.html'"></ng-include>
+  <ng-include ng-if="section === 'earnings'" src="'dashboard/templates/sections/kpi/metrics/earnings.html'"></ng-include>
+  <ng-include ng-if="section === 'rank'" src="'dashboard/templates/sections/kpi/metrics/rank.html'"></ng-include>
 </div>
