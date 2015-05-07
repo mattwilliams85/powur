@@ -57,8 +57,10 @@
         itemsMobile: [640,1],
         navigation: true,
         navigationText: false,
-        rewindNav: false,
+        rewindNav: true,
+        rewindSpeed: 200,
         scrollPerPage: true,
+        slideSpeed: 500,
         mouseDrag: false,
         touchDrag: true,
         beforeMove: closeForm
