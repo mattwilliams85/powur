@@ -34,6 +34,7 @@ module Auth
       redirect_url = current_user.smarteru_sign_in
       if redirect_url
         render json: { redirect_to: redirect_url }
+        return
       else
         head :unauthorized
       end
