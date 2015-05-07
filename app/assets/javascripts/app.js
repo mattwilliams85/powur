@@ -253,6 +253,7 @@
     'duScroll',
     'fileS3Uploader',
     'powurFoundation',
+    'powurLeftMenu',
     'templates'
   ]).run(init);
 

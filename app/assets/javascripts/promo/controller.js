@@ -6,13 +6,7 @@
     $scope.removePiler();
     $scope.inviteCode = null;
 
-    $scope.isMenuActive = false;
-    $scope.hideMenuClick = function() {
-      $scope.isMenuActive = false;
-    };
-    $scope.showMenuClick = function() {
-      $scope.isMenuActive = true;
-    };
+    $scope.leftMenu = {};
 
     $scope.setupPromoSlider = function(slides) {
       $scope.slides = slides;

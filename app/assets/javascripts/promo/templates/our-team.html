@@ -1,6 +1,6 @@
-<ng-include src="'shared/left-menu.html'"></ng-include>
+<powur-left-menu control="leftMenu"></powur-left-menu>
 
-<div class="pow-landing-wrapper" ng-class="{'active': isMenuActive}">
+<div class="pow-landing-wrapper" ng-class="{'active': leftMenu.isActive}">
   <ng-include src="'shared/header-signed-out.html'"></ng-include>
 
   <main class="pow-promo pow-our-team-page">

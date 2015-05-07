@@ -1,6 +1,6 @@
-<ng-include src="'shared/left-menu.html'"></ng-include>
+<powur-left-menu control="leftMenu"></powur-left-menu>
 
-<div class="pow-landing-wrapper" ng-class="{'active': isMenuActive}">
+<div class="pow-landing-wrapper" ng-class="{'active': leftMenu.isActive}">
 
   <main class="pow-faq">
     <ng-include ng-if="!isSignedIn" src="'shared/header-faq.html'"></ng-include>

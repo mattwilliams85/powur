@@ -8,15 +8,7 @@
     $scope.showValidationMessages = false;
     $scope.isSubmitDisabled = false;
 
-    $scope.isMenuActive = false;
-    $scope.hideMenuClick = function() {
-      $scope.isMenuActive = false;
-      $('#pp-nav').fadeIn();
-    };
-    $scope.showMenuClick = function() {
-      $scope.isMenuActive = true;
-      $('#pp-nav').fadeOut();
-    };
+    $scope.leftMenu = {};
 
     $scope.signIn = function() {
       if ($scope.user && $scope.user.email && $scope.user.password) {
