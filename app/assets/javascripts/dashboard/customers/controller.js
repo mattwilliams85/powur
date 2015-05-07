@@ -70,9 +70,11 @@
 
     // Close Form when Moving Carousel
     var closeForm = function(event) {
-      $timeout(function() {
-        $scope.closeForm();
-      });
+      if ($scope.updatingProposal !== true) {
+        $timeout(function() {
+          $scope.closeForm();
+        });
+      }
     };
 
     // Destroy Carousel
@@ -85,6 +87,8 @@
     // Show Proposal
     $scope.customerSection.showProposal = function(proposalIndex) {
       var proposalId = $scope.proposals[proposalIndex].properties.id;
+      $scope.proposalIndex = proposalIndex;
+      $scope.updatingProposal = false;
       if ($scope.showForm === true && (proposalId === $scope.currentProposal.id)) {
         $scope.closeForm();
         return;
@@ -142,7 +146,6 @@
 
     function actionCallback(action) {
       if (action.name === 'create' || 
-          action.name === 'update' || 
           action.name === 'delete') {
         Proposal.list().then(function(items) {
           $scope.closeForm();
@@ -152,7 +155,20 @@
             initCarousel('.proposals');
           });
         });
-
+      } else if (action.name === 'update') {
+        Proposal.list().then(function(items) {
+          $scope.updatingProposal = true;
+          $scope.closeForm();
+          destroyCarousel('.proposals');
+          $scope.proposals = items.entities;
+          $timeout(function() {
+            initCarousel('.proposals');
+            $timeout(function() {
+              $('.proposals').data('owlCarousel').goTo($scope.proposalIndex);
+              $scope.customerSection.showProposal($scope.proposalIndex);
+            });
+          });
+        });
       } else if (action.name === 'submit') {
         console.log('submitted proposal!');
         $scope.closeForm();
