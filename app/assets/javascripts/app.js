@@ -4,18 +4,10 @@
   function init($rootScope, $location, $document, $http, $window, $timeout, UserProfile) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
-    $rootScope.enrollmentRequirementMessage =
-      'Unlock your Powur dashboard by passing the F.I.T test in Powur U.';
 
     $rootScope.redirectIfSignedIn = function() {
       if (!$rootScope.isSignedIn) return;
-
-      if ($rootScope.currentUser && $rootScope.currentUser.require_enrollment) {
-        $location.path('/university');
-        $rootScope.showModal($rootScope.enrollmentRequirementMessage);
-      } else {
-        $location.path('/dashboard');
-      }
+      $location.path('/dashboard');
     };
 
     $rootScope.redirectUnlessSignedIn = function() {

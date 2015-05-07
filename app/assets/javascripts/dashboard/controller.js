@@ -39,11 +39,6 @@
 
     UserProfile.get().then(function(user) {
       $scope.currentUser = user;
-      if (user && user.require_enrollment) {
-        $location.path('/university');
-        $scope.showModal($scope.enrollmentRequirementMessage);
-        return;
-      }
       $scope.goals = { personalPercent: 100, groupPercent: 20, badge: legacyImagePaths.goalsBadge };
     });
   }

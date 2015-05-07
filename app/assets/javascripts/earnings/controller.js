@@ -20,12 +20,6 @@
         $scope.currentMonthTotalEarnings = 0;
         $scope.accumulatedTotal = parseFloat(data.properties.accumulated_total);
       });
-
-      if (user.require_enrollment) {
-        $location.path('/university');
-        $scope.showModal($scope.enrollmentRequirementMessage);
-        return;
-      }
     });
 
     $scope.years = getPastYearsRange(3);
