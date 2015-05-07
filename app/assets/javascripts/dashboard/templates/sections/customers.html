@@ -23,12 +23,14 @@
       <div class="large-3 medium-6 columns right">
       <!-- Search -->
         <div class="row collapse">
-          <div class="large-9 medium-9 small-10 columns">
-            <input ng-model="customerSection.proposalSearch" type="search" placeholder="Search Customers">
-          </div>
-          <div class="large-3 medium-3 small-2 columns">
-            <a class="search button postfix" ng-click="customerSection.search()">Go</a>
-          </div>
+          <form>
+            <div class="no-padding large-9 medium-9 small-10 columns">
+              <input ng-model="customerSection.proposalSearch" type="search" placeholder="Search">
+            </div>
+            <div class="no-padding large-3 medium-3 small-2 columns">
+              <button class="search button postfix" ng-click="customerSection.search()">Go</button>
+            </div>
+          </form>
         </div>
       </div>
 
