@@ -302,7 +302,6 @@ $kpi-text-color: #888;
   .carousel-container {
     position: relative;
     height: 220px;
-    border: 1px solid #e5e5e5;
     border-left: 0;
     background-color: #fff;
     overflow: hidden;
@@ -348,19 +347,30 @@ $kpi-text-color: #888;
     -moz-border-radius: 0;
     opacity: 1;
     margin: 0;
-    padding: 0;
   }
   .owl-prev, .owl-next {
     height: 24px;
     width: 24px;
+    top: 0;
+    transition: all .1s linear;
+    &:hover {
+      // OVERRIDE OWL-THEME
+      background-color: #555 !important;
+      color: #fff !important;
+      // 
+    }
   }
   .owl-prev {
-    left: 5px;
-    top: 30%;
+    left: -2px;
+    // OVERRIDE OWL-THEME
+    padding: 92px 24px 128px 8px !important;
+    //
   }
   .owl-next {
-    right: 5px;
-    top: 30%;
+    right: 0;
+   // OVERRIDE OWL-THEME
+   padding: 92px 23px 128px 6px !important;
+   //
   }
   .owl-prev:before, .owl-next:before {
     color: #aaa;
@@ -1166,8 +1176,13 @@ $kpi-text-color: #888;
   .customers-section {
     padding-bottom: 20px;
 
-    .new-proposal {
+    .carousel-box {
       border: 1px solid #e5e5e5;
+      margin-bottom: -1px;
+    }
+
+    .new-proposal {
+      // border: 1px solid #e5e5e5;
       border-right: 0;
     }
   }
@@ -1177,8 +1192,13 @@ $kpi-text-color: #888;
   */
   .team-section {
 
-    .new-team-member {
+    .carousel-box {
       border: 1px solid #e5e5e5;
+      margin-bottom: -1px;
+    }
+
+    .new-team-member {
+      // border: 1px solid #e5e5e5;
       border-right: 0;
 
       &.beta {
