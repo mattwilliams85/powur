@@ -78,8 +78,8 @@
                 <span>{{proposal.properties.data_status}}</span>
               </div>
               <div class="status-text">
-                <span ng-if="!proposal.properties.submitted_at">{{dateToLocalTime(proposal.properties.created_at)}}</span>
-                <span ng-if="proposal.properties.submitted_at"> on {{dateToLocalTime(proposal.properties.submitted_at)}}</span>
+                <span ng-if="!proposal.properties.submitted_at">{{dateToLocalDate(proposal.properties.created_at)}}</span>
+                <span ng-if="proposal.properties.submitted_at"> on {{dateToLocalDate(proposal.properties.submitted_at)}}</span>
               </div>
             </div>
           </a>
@@ -120,6 +120,7 @@
           <p ng-show="mode === 'submitted'">This proposal has been submitted to SolarCity.</p>
           <!-- Submitted Proposal Buttons -->
           <button class="button expand right" ng-show="mode === 'submitted'" disabled><i class="fa fa-check"></i> Submitted</button>
+          <p ng-show="mode === 'submitted'">This proposal was submitted to SolarCity at {{timeToLocalTime(currentProposal.submitted_at)}} on {{dateToLocalDate(currentProposal.submitted_at)}}.</p>
         </div>
 
         <!-- Form if New or Incomplete Proposal-->

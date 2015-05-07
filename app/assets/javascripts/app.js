@@ -231,9 +231,14 @@
       });
     };
 
-    $rootScope.dateToLocalTime = function(createdAt) {
+    $rootScope.dateToLocalDate = function(createdAt) {
       var date = new Date(Date.parse(createdAt)).toLocaleDateString();
       return date;
+    };
+
+    $rootScope.timeToLocalTime = function(createdAt) {
+      var time = new Date(Date.parse(createdAt)).toLocaleTimeString();
+      return time;
     };
   }
 
