@@ -92,9 +92,9 @@
     <!-- Row: Team Member Details -->
     <div ng-show="showingTeamMember" class="row collapse">
       <!-- Large -->
-      <div class="large-12 hide-for-medium-down columns">
+      <div class="large-12 show-for-large columns">
         <!-- Generation -->
-        <div class="w20percent team-member-info">
+        <div class="w20percent team-member-info-large">
           <div class="top-label">
             <span>Generation</span>
           </div>
@@ -103,7 +103,7 @@
           </div>
         </div>
         <!-- Avatar -->
-        <div class="w20percent team-member-info">
+        <div class="w20percent team-member-info-large">
           <div class="avatar">
             <img ng-src="{{currentTeamMember.avatar}}">
           </div>
@@ -112,7 +112,7 @@
           </div>
         </div>
         <!-- Phone -->
-        <div class="w20percent team-member-info">
+        <div class="w20percent team-member-info-large">
           <div class="icon">
             <img ng-src="{{legacyImagePaths.teamPhoneIcon}}">
           </div>
@@ -124,7 +124,7 @@
           </div>
         </div>
         <!-- Email -->
-        <div class="w20percent team-member-info">
+        <div class="w20percent team-member-info-large">
           <div class="icon">
             <img ng-src="{{legacyImagePaths.teamEmailIcon}}">
           </div>
@@ -136,7 +136,7 @@
           </div>
         </div>
         <!-- Social -->
-        <div class="w20percent team-member-info">
+        <div class="w20percent team-member-info-large">
           <div class="icon">
             <img ng-src="{{legacyImagePaths.teamSocialIcon}}">
           </div>
@@ -148,9 +148,51 @@
           </div>
         </div>
       </div>
+
       <!-- Medium/Small -->
       <div ng-show="showingTeamMember" class="medium-12 show-for-medium-down columns">
-        <span>WIP: The "Show Team Member" view for medium/small screens is incomplete. Stretch out the browser window to see this information.</span>
+
+        <div class="team-member-info-medium row collapse">
+
+          <!-- Left: Avatar -->
+          <div class="left-side medium-4 columns">
+
+            <div class="avatar">
+              <img ng-src="{{currentTeamMember.avatar}}">
+            </div>
+
+          </div>
+
+          <!-- Right: Text Info -->
+          <div class="right-side medium-8 columns">
+
+            <!-- Name -->
+            <div class="row">
+              <span class="name">{{currentTeamMember.first_name}} {{currentTeamMember.last_name}}</span>
+            </div>
+
+            <!-- Generation -->
+            <div class="row">
+              <span class="generation">Generation {{currentTeamMember.level}}</span>
+            </div>
+
+            <!-- Email -->
+            <div class="row">
+              <span class="email"><i class="fa fa-envelope"></i> <a href="mailto:{{currentTeamMember.email}}">{{currentTeamMember.email}}</a></span>
+            </div>
+
+            <!-- Phone -->
+            <div class="row">
+              <span class="phone"><i class="fa fa-phone"></i> {{currentTeamMember.phone}}</span>
+            </div>
+
+            <!-- Social Media -->
+            <div class="row">
+              <span class="social-media"><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i></span>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
 
