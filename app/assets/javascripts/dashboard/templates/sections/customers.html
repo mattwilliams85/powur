@@ -78,7 +78,8 @@
                 <span>{{proposal.properties.data_status}}</span>
               </div>
               <div class="status-text">
-                <span>{{dateToLocalTime(proposal.properties.created_at)}}</span>
+                <span ng-if="!proposal.properties.submitted_at">{{dateToLocalTime(proposal.properties.created_at)}}</span>
+                <span ng-if="proposal.properties.submitted_at"> on {{dateToLocalTime(proposal.properties.submitted_at)}}</span>
               </div>
             </div>
           </a>
