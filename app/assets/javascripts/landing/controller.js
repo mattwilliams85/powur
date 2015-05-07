@@ -58,7 +58,7 @@
       }
     };
 
-    var signUpCallback = function(data) {
+    function signUpCallback(data) {
       $scope.formErrorMessages = {};
       if (data.errors) {
         $.each(data.errors, function(key, errors) {
@@ -73,7 +73,8 @@
         $scope.showModal('You\'ve successfully Signed Up. Now you may Sign In.');
       }
       $scope.isSubmitDisabled = false;
-    };
+    }
+
     $scope.signUp = function() {
       if ($scope.user) {
         $scope.isSubmitDisabled = true;

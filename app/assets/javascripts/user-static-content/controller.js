@@ -8,6 +8,18 @@
       $scope.currentUser = user;
     });
 
+    $scope.removePiler();
+
+    $scope.isMenuActive = false;
+    $scope.hideMenuClick = function() {
+      $scope.isMenuActive = false;
+      $('#pp-nav').fadeIn();
+    };
+    $scope.showMenuClick = function() {
+      $scope.isMenuActive = true;
+      $('#pp-nav').fadeOut();
+    };
+
     this.init($scope, $location);
     this.fetch($scope);
   }
