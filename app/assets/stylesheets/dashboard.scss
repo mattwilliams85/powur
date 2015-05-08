@@ -752,25 +752,35 @@ $kpi-text-color: #888;
     background-color: #333;
 
     &.bg {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 180px;
-    background-color: #333;
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 180px;
+      background-color: #333;
     }
 
     .share-this {
       padding-top: 20px;
-      span {
+
+      .title {
         text-align: left;
         text-transform: uppercase;
         font-size: 10pt;
         color: #fff;
-        vertical-align: middle;
+        display: block;
+        float: left;
+        margin-right: 10px;
+        line-height: 15pt;
       }
-      a {
-        color: #20c2f1;
-        vertical-align: -5px;
+
+      .twitter-share-button, .fb-share-button {
+        display: block;
+        float: left;
+        margin-right: 10px;
+
+        span {
+          vertical-align: top !important;
+        }
       }
     }
 
@@ -810,7 +820,8 @@ $kpi-text-color: #888;
 
       .kpi-tab {
         background-color: #fff;
-        height: 220px; width: 20%;
+        height: 220px;
+        width: 20%;
         float: left;
         cursor: pointer;
         display: inline-block;

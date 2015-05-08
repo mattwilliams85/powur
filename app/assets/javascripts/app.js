@@ -251,6 +251,7 @@
     'fileS3Uploader',
     'powurFoundation',
     'powurLeftMenu',
+    'powurShare',
     'templates'
   ]).run(init);
 
