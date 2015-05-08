@@ -102,7 +102,7 @@
 
     <!-- Row: Team Member Details -->
     <div ng-show="showingTeamMember" class="row collapse">
-      <!-- Large -->
+      <!-- Large Screens -->
       <div class="large-12 show-for-large-up columns">
         <!-- Generation -->
         <div class="w20percent team-member-info-large">
@@ -130,7 +130,7 @@
           <div class="info-text">
             <span>{{currentTeamMember.phone}}</span>
           </div>
-          <div class="status-text">
+          <div class="info-label">
             <span>Phone</span>
           </div>
         </div>
@@ -142,7 +142,7 @@
           <div class="info-text">
             <span class="email"><a href="mailto:{{currentTeamMember.email}}">{{currentTeamMember.email}}</a></span>
           </div>
-          <div class="status-text">
+          <div class="info-label">
             <span>Email</span>
           </div>
         </div>
@@ -154,13 +154,13 @@
           <div class="info-text">
             <span class="social-media"><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i></span>
           </div>
-          <div class="status-text">
+          <div class="info-label">
             <span>Social Media</span>
           </div>
         </div>
       </div>
 
-      <!-- Medium/Small -->
+      <!-- Medium/Small Screens -->
       <div ng-show="showingTeamMember" class="medium-12 show-for-medium-down columns">
 
         <div class="team-member-info-medium row collapse">

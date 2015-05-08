@@ -1250,6 +1250,17 @@ $kpi-text-color: #888;
           }
         }
       }
+
+      .info-label {
+        font-family: $dashboard-font-family;
+        position: relative;
+        top: 36%;
+        text-align: center;
+        line-height: 10pt;
+        font-size: 8pt;
+        text-transform: uppercase;
+        color: #9b9b9b;
+      }
     }
 
     // "Team Member Show" Styles for Medium/Small Screens
