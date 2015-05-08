@@ -410,10 +410,34 @@ $kpi-text-color: #888;
       line-height: 18pt;
       font-size: 16pt;
     }
+    // For Proposal Items
+    .status-icon {
+      top: 18%;
+      position: relative;
+      text-align: center;
+    }
     .status-text {
       font-family: $dashboard-font-family;
       position: relative;
-      top: 35%;
+      top: 22%;
+      text-align: center;
+      line-height: 10pt;
+      font-size: 8pt;
+      text-transform: uppercase;
+      color: #9b9b9b;
+    }
+    .customer-name {
+      font-family: $dashboard-font-family;
+      position: relative;
+      top: 25%;
+      text-align: center;
+      line-height: 18pt;
+      font-size: 16pt;
+    }
+    .date-text {
+      font-family: $dashboard-font-family;
+      position: relative;
+      top: 25%;
       text-align: center;
       line-height: 10pt;
       font-size: 8pt;

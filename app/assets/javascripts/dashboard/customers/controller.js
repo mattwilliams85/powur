@@ -5,6 +5,8 @@
     $scope.redirectUnlessSignedIn();
     $scope.states = Geo.states();
 
+    $scope.legacyImagePaths = legacyImagePaths;
+
     // Utility Functions:
 
     // Get an action with a given name
