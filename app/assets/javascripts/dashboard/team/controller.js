@@ -105,6 +105,19 @@
       destroyCarousel('.invites');
     };
 
+    // Search Action
+    $scope.teamSection.teamSearch = '';
+    $scope.teamSection.search = function() {
+      destroyCarousel('.team');
+      var searchQuery = {search: $scope.teamSection.teamSearch};
+      User.list(searchQuery).then(function(items) {
+        $scope.teamMembers = items.entities;
+        $timeout(function() {
+          initCarousel('.team');
+        });
+      });
+    };
+
     return User.list().then(function(items) {
       $scope.teamMembers = items.entities;
       $timeout(function() {
