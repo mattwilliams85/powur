@@ -78,6 +78,12 @@
       $scope.card = {};
       $scope.$watch('currentUser', function(data) {
         if (data && data.first_name) {
+          $scope.card.email = data.email;
+          $scope.card.address = data.address;
+          $scope.card.zip = data.zip;
+          $scope.card.city = data.city;
+          $scope.card.state = data.state;
+          $scope.card.phone = data.phone;
           $scope.card.name = data.first_name + ' ' + data.last_name;
           $scope.card.zip = data.zip;
         }
