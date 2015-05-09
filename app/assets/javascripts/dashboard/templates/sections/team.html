@@ -13,19 +13,10 @@
 
       <div class="large-3 medium-6 hide-for-medium-down columns">
       <!-- Sort -->
-        <select class="sort">
-          <option>Order by Quote</option>
-          <option>Order by Personal Sales</option>
-          <option>Order by Group Sales</option>
-        </select>
-      </div>
-
-      <div class="large-3 medium-3 hide-for-medium-down columns">
-      <!-- Sort -->
-        <select class="sort">
-          <option>In Lifetime</option>
-          <option>In Current Monthly Pay Period</option>
-          <option>In Current Weekly Pay Period</option>
+        <select class="sort" ng-model="teamSection.teamSort" ng-change="teamSection.sort()">
+          <option value="name">Order by Name</option>
+          <option value="newest">Order by Newest</option>
+          <!-- <option value="quotes">Order by Number of Quotes</option> -->
         </select>
       </div>
 

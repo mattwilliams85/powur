@@ -118,6 +118,19 @@
       });
     };
 
+    // Sort Action
+    $scope.teamSection.teamSort = 'name';
+    $scope.teamSection.sort = function() {
+      destroyCarousel('.team');
+      var sortQuery = {sort: $scope.teamSection.teamSort};
+      User.list(sortQuery).then(function(items) {
+        $scope.teamMembers = items.entities;
+        $timeout(function() {
+          initCarousel('.team');
+        });
+      });
+    };
+
     return User.list().then(function(items) {
       $scope.teamMembers = items.entities;
       $timeout(function() {
