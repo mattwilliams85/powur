@@ -17,6 +17,7 @@ class UsersJson < JsonDecorator
     json.properties do
       json.call(user, :id, :first_name, :last_name, :email, :phone, :level,
                 :moved)
+      json.downline_count user.downline_users_count(user.id)
       LIST_PROPS.each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]
       end
@@ -39,11 +40,11 @@ class UsersJson < JsonDecorator
 
   def detail_properties(user = @item) # rubocop:disable Metrics/AbcSize
     list_item_properties
-
     json.properties do
       json.call(user, :address, :city, :state, :zip, :profile, :avatar, :avatar_file_name)
       json.organic_rank rank_title(user.organic_rank)
       json.lifetime_rank rank_title(user.lifetime_rank)
+      json.downline_count user.downline_users_count(user.id)
       if user.rank_path_id
         json.rank_path all_paths.find { |p| p.id == user.rank_path_id }.name
       end

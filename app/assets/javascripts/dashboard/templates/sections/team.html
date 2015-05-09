@@ -65,20 +65,54 @@
 
       </div>
 
-      <!-- Team Members Carousel -->
       <div class="carousel-container w80percent small-10 columns">
 
         <!-- If No Team Members -->
-        <div ng-if="!teamMembers" class="empty owl-carousel">
+        <div ng-if="!downline[0]" class="empty owl-carousel">
           <div class="empty-state">
             <p class="empty-text">The team section helps you grow, manage, and support your team.  Invite others to join, get detailed metrics on their results, and track your teammates' progress. </p>
           </div>
         </div>
 
         <!-- If Team Members -->
-        <div ng-if="teamMembers" class="team owl-carousel">
-          <a ng-repeat="teamMember in teamMembers" ng-click="teamSection.showTeamMember(teamMember.properties.id)">
-            <div class="team-member" ng-class="{active: currentTeamMember.id === teamMember.properties.id}">
+        <div ng-if="downline[0]" class="team owl-carousel">
+          <a ng-repeat="teamMember in downline[0]">
+
+            <div 
+              class="team-member" 
+              ng-class="{active: memberActive(teamMember)}" 
+              ng-mouseenter="hover = true"
+              ng-mouseleave="hover = false">
+              <div class="team-tabs">
+                <div 
+                  class="team-tab downline" 
+                  ng-class="{ 'raise': hover || ( activeTab === 'team' && memberActive(teamMember) ) }"
+                  ng-if="teamMember.properties.downline_count > 0"
+                  id="js-downline-tab" 
+                  ng-click="changeTab(teamMember, 'team');">
+                  TEAM
+                </div>
+                <div 
+                  class="team-tab impact" 
+                  ng-class="{ 'raise': hover || ( activeTab === 'impact' && memberActive(teamMember) ), 'half': teamMember.properties.downline_count === 0 }" 
+                  id="js-impact-tab" 
+                  ng-click="changeTab(teamMember, 'impact');">
+                  KPI
+                </div>
+                <div 
+                  class="team-tab info" 
+                  ng-class="{ 
+                    'raise': hover || ( activeTab === 'info' && memberActive(teamMember)), 
+                    'half': teamMember.properties.downline_count === 0, 
+                    'active-tab': ( activeTab === 'info' && memberActive(teamMember)),
+                    'even': teamMember.properties.level % 2 === 0,
+                    'odd': teamMember.properties.level % 2 !== 0  
+                  }" 
+                  id="js-info-tab" 
+                  ng-click="changeTab(teamMember, 'info');">
+                  INFO
+                </div>
+              </div>
               <div class="icon">
                 <span><i class="fa fa-user fa-4x"></i></span>
               </div>
@@ -93,6 +127,65 @@
 
     </div>
 
+    <!-- Team Members Carousel -->
+    <div ng-repeat="generation in downline track by $index">
+      <div class="row collapse carousel-box" ng-if="$index !== 0">
+
+        <div class="carousel-container w80percent small-10 columns">
+
+          <!-- If Team Members -->
+          <div class="team owl-carousel" id="{{'carousel-' + $index}}">
+            <a ng-repeat="teamMember in downline[$parent.$index]" repeat-end="onEnd()">
+              <div 
+                class="team-member" 
+                ng-class="{active: memberActive(teamMember)}" 
+                ng-mouseenter="hover = true"
+                ng-mouseleave="hover = false">
+                <div class="team-tabs">
+                  <div 
+                    class="team-tab downline" 
+                    ng-class="{ 'raise': hover || ( activeTab === 'team' && memberActive(teamMember) ) }"
+                    ng-if="teamMember.properties.downline_count > 0"
+                    id="js-downline-tab" 
+                    ng-click="changeTab(teamMember, 'team');">
+                    TEAM
+                  </div>
+                  <div 
+                    class="team-tab impact" 
+                    ng-class="{ 'raise': hover || ( activeTab === 'impact' && memberActive(teamMember) ), 'half': teamMember.properties.downline_count === 0 }" 
+                    id="js-impact-tab" 
+                    ng-click="changeTab(teamMember, 'impact');">
+                    KPI
+                  </div>
+                  <div 
+                    class="team-tab info" 
+                    ng-class="{ 
+                      'raise': hover || ( activeTab === 'info' && memberActive(teamMember)), 
+                      'half': teamMember.properties.downline_count === 0, 
+                      'active-tab': ( activeTab === 'info' && memberActive(teamMember)),
+                      'even': teamMember.properties.level % 2 === 0,
+                      'odd': teamMember.properties.level % 2 !== 0  
+                    }" 
+                    id="js-info-tab" 
+                    ng-click="changeTab(teamMember, 'info');">
+                    INFO
+                  </div>
+                </div>
+                <div class="icon">
+                  <span><i class="fa fa-user fa-4x"></i></span>
+                </div>
+                <div class="info-text">
+                  <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
     <!-- Row: Team Member Details -->
     <div ng-show="showingTeamMember" class="row collapse">
       <!-- Large Screens -->
@@ -103,7 +196,7 @@
             <span>Generation</span>
           </div>
           <div class="generation">
-            <span>{{currentTeamMember.level}}</span>
+            <span>{{currentTeamMember.level - 1}}</span>
           </div>
         </div>
         <!-- Avatar -->

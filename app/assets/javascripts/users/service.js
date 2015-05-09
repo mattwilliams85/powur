@@ -35,6 +35,22 @@
         });
 
         return dfr.promise;
+      },
+
+      downline: function(userId) {
+        var dfr = $q.defer();
+
+        $http({
+          method: 'GET',
+          url: '/u/users/' + userId + '/downline.json'
+        }).success(function(res) {
+          dfr.resolve(res);
+        }).error(function(err) {
+          console.log('エラー', err);
+          dfr.reject(err);
+        });
+
+        return dfr.promise;
       }
     };
   }

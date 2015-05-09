@@ -6,6 +6,8 @@
     $scope.showInvitesCarousel = false;
 
     $scope.legacyImagePaths = legacyImagePaths;
+    $scope.downline = [];
+    $scope.currentTeamMember = {};
 
     // Initialize Carousel
     var initCarousel = function(carouselElement) {
@@ -48,16 +50,34 @@
       $(carouselElement).data('owlCarousel').destroy();
     };
 
+    $scope.memberActive = function(teamMember) {
+      return $scope.currentTeamMember.id === teamMember.properties.id;
+    };
+
     // Show Team Member
-    $scope.teamSection.showTeamMember = function(userId) {
-      if ($scope.showingTeamMember === true && $scope.currentTeamMember.id === userId) {
+    $scope.changeTab = function(teamMember, tab) {
+      console.log(tab)
+      if ($scope.showingTeamMember && $scope.currentTeamMember.id === teamMember.properties.id) {
         $scope.closeForm();
         return;
       } else {
-        User.get(userId).then(function(item){
-          $scope.currentTeamMember = item.properties;
-          $scope.showingTeamMember = true;
-        });
+        $scope.activeTab = tab;
+        if (tab === 'info') {
+          User.get(teamMember.properties.id).then(function(item){
+            $scope.currentTeamMember = item.properties;
+            $scope.showingTeamMember = true;
+          });
+        } else if (tab === 'team') {
+          // debugger
+          $scope.downline = $scope.downline.slice(0, teamMember.properties.level - 1);
+          console.log($scope.downline)
+          User.downline(teamMember.properties.id).then(function(item){
+          
+            $scope.downline.push(item.entities);
+          });
+        } else {
+          console.log('you clicked KPI');
+        }
       }
     };
 
@@ -90,6 +110,17 @@
       }
     };
 
+    // //Animations
+    // $scope.animateTabsUp = function() {
+    //   $(this).find('.tam_tab')
+    //     .velocity({translateY: '-35px'},{queue: false}, 200);
+    // };
+
+    // $scope.animateTabsDown = function() {
+    //   $(this).find('.team_tab').not('.active_tab')
+    //     .velocity({translateY: '0px'},{queue: false}, 200);
+    // };
+
     // $scope.animateDrilldown = function () {
     //   $scope.drilldownActive = false;
     //   $scope.drilldownActive = true;
@@ -97,6 +128,10 @@
     //     $scope.showInvitesCarousel = true;
     //   }, 300);
     // };
+
+    $scope.onEnd = function(){
+      initCarousel($('#carousel-' + ($scope.downline.length - 1)));
+    };
 
     // Close Form
     $scope.closeCarousel = function() {
@@ -132,7 +167,7 @@
     };
 
     return User.list().then(function(items) {
-      $scope.teamMembers = items.entities;
+      $scope.downline.push(items.entities);
       $timeout(function() {
         initCarousel('.team');
       });
@@ -140,6 +175,16 @@
   }
 
   DashboardTeamCtrl.$inject = ['$scope', '$timeout', 'User', 'Invite'];
-  angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl);
+  angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl)
+  angular.module('powurApp').directive("repeatEnd", function(){
+  return {
+    restrict: "A",
+      link: function (scope, element, attrs) {
+        if (scope.$last) {
+          scope.$eval(attrs.repeatEnd);
+        }
+      }
+    };
+  });
 
 })();

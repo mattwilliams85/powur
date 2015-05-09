@@ -74,12 +74,12 @@ class User < ActiveRecord::Base
     upline.size
   end
 
-  def downline_users
+  def downline_users(id)
     User.with_downline_counts.with_parent(id)
   end
 
-  def downline_users_count
-    downline_users.count
+  def downline_users_count(id)
+    User.with_parent(id).count
   end
 
   def role?(role)
