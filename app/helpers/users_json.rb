@@ -41,7 +41,7 @@ class UsersJson < JsonDecorator
     list_item_properties
 
     json.properties do
-      json.call(user, :address, :city, :state, :zip, :avatar, :avatar_file_name)
+      json.call(user, :address, :city, :state, :zip, :profile, :avatar, :avatar_file_name)
       json.organic_rank rank_title(user.organic_rank)
       json.lifetime_rank rank_title(user.lifetime_rank)
       if user.rank_path_id

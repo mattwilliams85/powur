@@ -145,7 +145,17 @@
             <img ng-src="{{legacyImagePaths.teamSocialIcon}}">
           </div>
           <div class="info-text">
-            <span class="social-media"><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i></span>
+            <span class="social-media">
+              <!-- If Facebook -->
+              <a ng-if="currentTeamMember.profile.facebook_url" href="{{currentTeamMember.profile.facebook_url}}"><i class="fa fa-facebook"></i></a>
+              <!-- If No Facebook -->
+              <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook disabled"></i></a>
+
+              <!-- If Twitter -->
+              <a ng-if="currentTeamMember.profile.twitter_url"><i class="fa fa-twitter"></i></a>
+              <!-- If No Twitter -->
+              <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter disabled"></i></a>
+            </span>
           </div>
           <div class="info-label">
             <span>Social Media</span>
@@ -192,7 +202,17 @@
 
             <!-- Social Media -->
             <div class="row">
-              <span class="social-media"><i class="fa fa-facebook"></i> <i class="fa fa-twitter"></i></span>
+              <span class="social-media">
+                <!-- If Facebook -->
+                <a ng-if="currentTeamMember.profile.facebook_url" href="{{currentTeamMember.profile.facebook_url}}"><i class="fa fa-facebook"></i></a>
+                <!-- If No Facebook -->
+                <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook disabled"></i></a>
+
+                <!-- If Twitter -->
+                <a ng-if="currentTeamMember.profile.twitter_url"><i class="fa fa-twitter"></i></a>
+                <!-- If No Twitter -->
+                <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter disabled"></i></a>
+              </span>
             </div>
 
           </div>

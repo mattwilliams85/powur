@@ -1244,6 +1244,9 @@ $kpi-text-color: #888;
         }
 
         .social-media {
+          a {
+            color: #fff;
+          }
           i {
             width: 30px;
             height: 30px;
@@ -1254,6 +1257,15 @@ $kpi-text-color: #888;
             }
             &.fa-twitter {
               background-color: #50acee;
+            }
+            &.disabled {
+              background-color: #555;
+              color: #444;
+              &:hover {
+                cursor: default;
+                background-color: #555;
+                color: #444;
+              }
             }
             &:hover {
               background-color: #000;
@@ -1331,6 +1343,9 @@ $kpi-text-color: #888;
         .social-media {
           text-align: center;
           line-height: 30pt;
+          a {
+            color: #fff;
+          }
           i {
             width: 30px;
             height: 30px;
@@ -1341,6 +1356,15 @@ $kpi-text-color: #888;
             }
             &.fa-twitter {
               background-color: #50acee;
+            }
+            &.disabled {
+              background-color: #555;
+              color: #444;
+              &:hover {
+                cursor: default;
+                background-color: #555;
+                color: #444;
+              }
             }
             &:hover {
               background-color: #000;
