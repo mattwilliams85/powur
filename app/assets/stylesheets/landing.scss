@@ -201,7 +201,7 @@
         }
       }
 
-    h1 { 
+    h1 {
       margin:30pt 0;
       font-size:5rem;
       line-height:50pt;
@@ -209,7 +209,7 @@
         font-size:4.5rem;
       }
     }
-    
+
       span {
         font-size:17pt;
         line-height:25pt;
@@ -218,12 +218,12 @@
           color: $pow-color-blue;
         }
       }
-    
-    
+
+
     .arrow-box {
       width:686px;
       margin-left: -350px;
-      span{ 
+      span{
         color: $pow-color-blue;
       }
     }
@@ -275,6 +275,7 @@
       font-size: 1.3em;
     }
   }
+
   h1 {
     font-size:30pt;
     line-height:30pt;
@@ -284,13 +285,14 @@
     }
   }
 
-  span {
-    line-height:20pt;
-    @media #{$small}{
-      font-size:15pt;
-      line-height:30pt;
-    }
-  }
+  // TODO: This is too ambiguous, put a class on it
+  // span {
+  //   line-height:20pt;
+  //   @media #{$small}{
+  //     font-size:15pt;
+  //     line-height:30pt;
+  //   }
+  // }
 }
 
 .pow-sign-up-page {
