@@ -3,7 +3,6 @@
 
   function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Invite, Geo, UserProfile) {
     $scope.redirectIfSignedIn();
-    $scope.removePiler();
 
     $scope.showValidationMessages = false;
     $scope.isSubmitDisabled = false;
@@ -129,14 +128,6 @@
       }
     };
 
-    // $scope.landingPageDelay = function(){
-
-    //   $rootScope.animateArrow(1,6500)
-    //   $scope.$on('$locationChangeStart', function(){
-    //     $timeout.cancel(landingTimer);
-    //   });
-    // }
-
     this.init($scope, $location, $timeout);
     this.fetch($scope, $rootScope, $interval, $routeParams, $timeout, Geo);
   }
@@ -153,29 +144,9 @@
 
 
   LandingCtrl.prototype.fetch = function($scope, $rootScope, $interval, $routeParams, $timeout, Geo) {
-    // Cancels if user leaves page
-
-    if ($scope.mode === 'home') {
-      $scope.readyPiler();
-      // $scope.landingPageDelay();
-      // $scope.currentHomeSlide = 0;
-
-      // $timeout(function() {
-      //   $scope.currentHomeSlide +=1;
-      //   var sliderStop = $interval(function() {
-      //     $scope.currentHomeSlide += 1;
-      //     // Set number of slide transitions
-      //     if ($scope.currentHomeSlide >= 2) {
-      //       $interval.cancel(sliderStop);
-      //       sliderStop = undefined;
-      //     }
-      //   // Slide transition speed
-      //   }, 5000);
-      // }, 500);
-    } else if ($scope.mode === 'sign-in') {
+    if ($scope.mode === 'sign-in') {
       $scope.signInPage = true;
     } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
-      // $rootScope.enableScrollDetect();
       $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
         'Powur Customer FAQ' :
         'Powur Advocate FAQ';

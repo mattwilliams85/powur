@@ -2,8 +2,6 @@
   'use strict';
 
   function UserStaticContentCtrl($scope, $location, UserProfile) {
-    $scope.removePiler();
-
     $scope.leftMenu = {};
 
     UserProfile.get().then(function(user) {

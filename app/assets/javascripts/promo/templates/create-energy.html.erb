@@ -3,7 +3,7 @@
 <div class="pow-landing-wrapper" ng-class="{'active': leftMenu.isActive}" >
   <ng-include src="'shared/header-signed-out.html'"></ng-include>
 
-  <main class="pow-promo" id="pagepiling">
+  <main class="pow-promo" id="pagepiling" powur-page-piler control="pagePiler">
 
     <div class="pow-scrolling-bg pow-fixed-bg pow-bg-7 section inverted pow-promo-energy-slide-1" id="anchor_1">
       <div class="pow-promo-intro">
@@ -97,7 +97,7 @@
           </div>
 
           <div class="large-8 columns slide-show-wrapper right-part optional">
-            
+
             <div class="right-bg"></div>
             <div class="inner-content">
               <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
