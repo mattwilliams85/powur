@@ -8,9 +8,7 @@
     $scope.customerSection = {};
     $scope.teamSection = {};
 
-    $scope.dashboardTeamIcon = legacyImagePaths.dashboardTeamIcon;
-    $scope.dashboardCustomersIcon = legacyImagePaths.dashboardCustomersIcon;
-    $scope.dashboardKPIIcon = legacyImagePaths.dashboardKPIIcon;
+    $scope.legacyImagePaths = legacyImagePaths;
 
     $scope.loadMoreNews = function() {
       var nextPage = $scope.currentNewsPage + 1;
