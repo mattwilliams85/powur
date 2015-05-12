@@ -518,7 +518,8 @@ $kpi-text-color: #888;
       background-repeat: no-repeat;
       background-size: cover;
       position: absolute;
-      background-position: center 25%;
+      // background-position: center 25%; (height for when progress bars are included in Welcome Section)
+      background-position: center 45%; // FOR BETA
       left: 0;
       right: 0;
     }
