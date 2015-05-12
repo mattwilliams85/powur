@@ -853,7 +853,6 @@ $kpi-text-color: #888;
 
     //TEMPORARY
     .beta-filler {
-      padding: 15px;
       background: #444;
       color: #fff;
       &.even {
@@ -1294,7 +1293,7 @@ $kpi-text-color: #888;
           color: #eee;
           padding: 5px 0px;
           cursor: pointer;
-          transition: position 0.4s ease;
+          transition: transform 0.4s ease;
 
           &.raise {
             -ms-transform: translate(0 , -30px); /* IE 9 */
