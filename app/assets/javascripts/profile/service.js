@@ -70,6 +70,22 @@
         return dfr.promise;
       },
 
+      getEwalletDetails: function() {
+        var dfr = $q.defer();
+
+        $http({
+          method: 'GET',
+          url: '/u/profile/ewallet_details.json'
+        }).success(function(res) {
+          dfr.resolve(res);
+        }).error(function(err) {
+          console.log('エラー', err);
+          dfr.reject(err);
+        });
+
+        return dfr.promise;
+      },
+
       /*
        * Clear cached profile
        */

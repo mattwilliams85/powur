@@ -9,6 +9,10 @@
       $scope.userProfile = user;
     });
 
+    UserProfile.getEwalletDetails().then(function(ewalletDetails) {
+      $scope.ewalletDetails = ewalletDetails.properties;
+    });
+
     $scope.updateProfile = function() {
       if ($scope.userProfile) {
         UserProfile.update({user: $scope.userProfile}).then(function() {

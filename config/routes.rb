@@ -67,13 +67,16 @@ Rails.application.routes.draw do
     resource :ewallet, only:       [ :index, :account_details ],
                        controller: :ewallet do
       get 'account_details', to: 'ewallet#account_details'
-
     end
+
     resource :profile,
-             only:       [ :show, :update, :password_reset ],
+             only:       [ :show, :update, :password_reset, :ewallet_details ],
              controller: :profile do
       put 'update_password', to: 'profile#update_password'
       patch 'update_avatar', to: 'profile#update_avatar'
+      member do
+        get :ewallet_details
+      end
     end
 
     resources :invites, only: [ :index, :create, :destroy ] do

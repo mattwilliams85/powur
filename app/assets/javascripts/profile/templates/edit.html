@@ -7,31 +7,10 @@
     <div class="large-3 columns summary">
       <section>
         <div class="avatar-container" class="form-element">
-
           <img ng-src="{{userProfile.avatar.preview || '/temp_dev_images/Tim.jpg'}}" class="user-image" />
           <div ng-if="!userProfile.require_enrollment" class="ribbon"></div>
-
           <input ng-model="userOriginalImage" type="hidden" ng-required="true" />
           <file-s3-uploader data="userOriginalImage" mode="user_image" show-progress="1" auto-upload="1" />
-
-          <!-- <h4>File Name:<%#= @user.avatar_file_name %></h4> -->
-          <%# if @user.avatar_file_name %>
-            <!-- <img src="<%#= @user.avatar.url(:thumb) %>" id="user_profile"> -->
-          <%#else%>
-            <!-- <img src="/temp_dev_images/Tim.jpg" id="user_profile"> -->
-          <%# end %>
-          <%#= form_for @user, remote:true, :url => update_avatar_profile_path, :html => { :multipart => true, :'data-type' => 'json' } do |form| %>
-            <%# @user.errors.full_messages.each do |msg| %>
-              <!-- <li><%#= msg %></li> -->
-            <%# end %>
-            <%#= token_tag %>
-            <%#= form.file_field :avatar %>
-            <%#= form.hidden_field :avatar_file_name %>
-            <%#= form.hidden_field :avatar_content_type %>
-            <%#= form.hidden_field :avatar_file_size %>
-            <%#= form.hidden_field :avatar_updated_at %>
-            <%#= form.submit "Upload Photo", id: "submit-photo" %>
-          <%# end %>
         </div>
       </section>
     </div>
@@ -131,8 +110,8 @@
         </div>
       </section>
 
-      <br />
-      <br />
+      <br>
+      <br>
 
       <section>
         <div class="header">Update Password</div>
@@ -168,33 +147,34 @@
         </div>
       </section>
 
-      <!-- <br />
-      <br />
+      <br>
+      <br>
 
       <section>
         <div class="header">iPayout Account</div>
         <div class="content">
-          <br />
+          <br>
           <div class="row">
             <div class="large-6 columns">
               <span style="top:0;color:rgb(53,53,53)">Username: </span>
-              <p><%#= @ewallet_details.Email %></p>
+              <p>{{ewalletDetails.email}}</p>
             </div>
 
             <div class="large-6 columns">
               <span style="top:0;color:rgb(53,53,53)">Verified: </span>
-              <p><%#= @ewallet_details.IsInfoVerified %></p>
+              <p>{{ewalletDetails.isVerified}}</p>
             </div>
 
             <div class="large-12 columns">
               <span style="top:0;color:rgb(53,53,53)">eWallet URL: </span><br/>
-              <span style="font-size:0.8em;"><%#= @auto_login_url %></span>
-              <br />
-              <button class="button" style="margin-top:25px;float:left" onclick="window.open('<%#= @auto_login_url %>','_blank');">Go to my eWallet</button>
+              <span style="font-size:0.8em;">{{ewalletDetails.auto_login_url}}</span>
+              <br>
+              <a ng-if="ewalletDetails.auto_login_url" href="{{ewalletDetails.auto_login_url}}" target="_blank" class="large button" style="margin-top:25px;float:left">Go to my eWallet</a>
+              <!-- <button class="button" style="margin-top:25px;float:left" onclick="window.open('<%#= @auto_login_url %>','_blank');">Go to my eWallet</button> -->
             </div>
           </div>
         </div>
-      </section> -->
+      </section>
     </div>
 
 
