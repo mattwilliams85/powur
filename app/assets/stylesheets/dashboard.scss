@@ -509,7 +509,8 @@ $kpi-text-color: #888;
   WELCOME SECTION
   */
   .welcome-section {
-    min-height: 600px;
+    // min-height: 600px; (height for when progress bars are included in Welcome Section)
+    min-height: 400px; // FOR BETA
 
     // Background
     &.bg {
@@ -535,6 +536,13 @@ $kpi-text-color: #888;
         width:128px;
         height: auto;
         border-radius: 50%;
+      }
+    }
+
+    // FOR BETA
+    @media #{$medium} {
+      .welcome-message {
+        padding-top: 150px;
       }
     }
 
@@ -697,7 +705,8 @@ $kpi-text-color: #888;
 
       .notifications {
         padding-top: 20px;
-        height: 450px;
+        // height: 450px; (height for when progress bars are included in Welcome Section)
+        height: 230px; // FOR BETA
         width: 100%;
         overflow-y: auto;
         overflow-x: hidden;
