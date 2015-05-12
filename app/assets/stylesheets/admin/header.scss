@@ -1,14 +1,4 @@
 .powur-header {
-  @media #{$small} {
-    .top-bar-section ul li > a {
-      padding: 3px 0 3px 30px;
-      font-weight: normal;
-    }
-
-    label {
-      margin-left: 10px;
-    }
-  }
 
   li {
     font-family: "Varela Round", "Open Sans", sans-serif;
@@ -16,9 +6,24 @@
   }
 
   .main-logo {
+
     .logo-img {
       margin-top: -20px;
       width: 150px;
+    }
+  }
+
+  .active {
+    color: #fff;
+  }
+
+  .dropdown {
+    label {
+      font-size: 9pt;
+    }
+    a {
+      line-height: 30pt !important;
+      text-transform: uppercase !important;
     }
   }
 

@@ -1,26 +1,23 @@
 @import "foundation/scss/foundation/components/global";
 
+$header-font-family: "Muli", "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+
 /* Row Width Change */
 $row-width: em-calc(1024);
 
 /* Colors */
 $pow-color-blue: #20c2f1;
-$pow-color-orange: #f4c751;
+$pow-color-orange: #FFC003;
 $pow-color-green: #2ecc71;
 $pow-menu-link-color: #0a7fa1;
-
-/* Break Points for Screen Sizes */
-$small-screen: em-calc(768);
-$medium-screen: em-calc(1024);
-$large-screen: em-calc(1440);
 
 /* Top Bar (Admin Header) */
 /* Background color for the top bar */
 $topbar-bg: $pow-color-blue;
 
 /* Height and margin */
-// $topbar-height: 100px;
-$topbar-margin-bottom: em-calc(30);
+$topbar-height: em-calc(100);
+$topbar-margin-bottom: em-calc(20);
 
 /* Control Input height for top bar */
 // $topbar-input-height: 2.45em;
@@ -34,6 +31,7 @@ $topbar-dropdown-bg: $pow-color-blue;
 $topbar-dropdown-link-color: #fff;
 $topbar-dropdown-link-bg: lighten($topbar-bg, 5%);
 $topbar-dropdown-toggle-size: 5px;
+
 $topbar-dropdown-toggle-color: #fff;
 $topbar-dropdown-toggle-alpha: 0.5;
 
@@ -42,10 +40,13 @@ $topbar-link-color: $pow-menu-link-color;
 $topbar-link-color-hover: #fff;
 $topbar-link-color-active: #fff;
 $topbar-link-weight: bold;
+$topbar-link-font-family: $header-font-family;
 $topbar-link-font-size: em-calc(16);
+$topbar-link-text-transform: uppercase;
 $topbar-link-hover-lightness: 0%; /* No Change on Hover */
 $topbar-link-bg-hover: darken($topbar-bg, 0%); /* No Change on Hover */
 $topbar-link-bg-active: darken($topbar-bg, 3%);
+$topbar-link-padding: 1rem;
 
 $topbar-dropdown-label-color: #555;
 $topbar-dropdown-label-bg: lighten($topbar-bg, 5%);
@@ -64,7 +65,7 @@ $topbar-menu-icon-color-toggled: #fff;
 
 /* Transitions and breakpoint styles */
 $topbar-transition-speed: 300ms;
-$topbar-breakpoint: em-calc(1024); /* Change to 9999px for always mobile layout */
+$topbar-breakpoint: 1026px; /* Change to 9999px for always mobile layout */
 $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
 
 /* Divider Styles */
@@ -75,8 +76,6 @@ $topbar-divider-border-top: solid 1px darken($topbar-bg, 10%);
 $topbar-sticky-class: ".sticky";
 $topbar-arrows: true; //Set false to remove the triangle icon from the menu item
 
-/* Header Labels and Dropdown Links */
-$medium-and-down: "only screen and (max-width:"#{$medium-screen}")";
 
 /* Powur Typography */
 $header-font-family: "Varela Round", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
