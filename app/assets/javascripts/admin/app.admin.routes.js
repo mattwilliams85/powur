@@ -134,17 +134,17 @@
       controller: 'AdminUsersCtrl'
     }).
     // Quotes
-    when('/admin/quotes', {
-      templateUrl: 'admin/quotes/templates/index.html',
-      controller: 'AdminQuotesCtrl'
+    when('/admin/proposals', {
+      templateUrl: 'admin/proposals/templates/index.html',
+      controller: 'AdminProposalsCtrl'
     }).
-    when('/admin/quotes/:quoteId', {
-      templateUrl: 'admin/quotes/templates/show.html',
-      controller: 'AdminQuotesCtrl'
+    when('/admin/proposals/:proposalId', {
+      templateUrl: 'admin/proposals/templates/show.html',
+      controller: 'AdminProposalsCtrl'
     }).
-    when('/admin/quotes/:quoteId/edit', {
-      templateUrl: 'admin/quotes/templates/edit.html',
-      controller: 'AdminQuotesCtrl'
+    when('/admin/proposals/:proposalId/edit', {
+      templateUrl: 'admin/proposals/templates/edit.html',
+      controller: 'AdminProposalsCtrl'
     }).
     // Orders
     when('/admin/orders', {

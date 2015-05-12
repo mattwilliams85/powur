@@ -35,7 +35,7 @@
 //= require_tree ./admin/orders
 //= require_tree ./admin/pay-periods
 //= require_tree ./admin/products
-//= require_tree ./admin/quotes
+//= require_tree ./admin/proposals
 //= require_tree ./admin/resources
 //= require_tree ./admin/social-media
 //= require_tree ./admin/user-groups

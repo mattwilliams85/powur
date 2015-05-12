@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function AdminQuote($http, $q) {
+  function AdminProposal($http, $q) {
     var service = {
 
       /*
@@ -109,7 +109,7 @@
     return service;
   }
 
-  AdminQuote.$inject = ['$http', '$q'];
-  angular.module('powurApp').factory('AdminQuote', AdminQuote);
+  AdminProposal.$inject = ['$http', '$q'];
+  angular.module('powurApp').factory('AdminProposal', AdminProposal);
 
 })();
