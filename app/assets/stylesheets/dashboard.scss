@@ -335,9 +335,6 @@ $kpi-text-color: #888;
           transform: translateY(-50%);
         }
       }
-      &.even {
-        background-color: #333;
-      }
 
       &.downline {
         .owl-item {
@@ -478,6 +475,12 @@ $kpi-text-color: #888;
     width: 20%;
     float: left;
   }
+
+  .w25percent {
+    width: 33%;
+    float: left;
+  }
+
   .w80percent {
     width: 80%;
     float: left;
@@ -846,16 +849,6 @@ $kpi-text-color: #888;
 
     * {
       color:#F9F2E8;
-    }
-
-    //TEMPORARY 
-    .beta-filler {
-      padding: 15px;
-      background: #444;
-      color: #fff;
-      &.even {
-        background: #333;
-      }
     }
 
     .tab-header-row {
@@ -1231,9 +1224,35 @@ $kpi-text-color: #888;
 
     .kpi-section {
       padding-top: 0px;
+      margin-bottom: 0px;
       &:before {
         margin: 0px;
         padding: 0px;
+      }
+
+      //TEMPORARY 
+      .beta-filler {
+        text-align: center;
+        margin-bottom: 0px;
+        background: #444;
+        color: #fff;
+        font-size:16pt;
+        line-height: 200px;
+        &.even {
+          background: #333;
+        }
+      }
+    }
+
+    .info-row {
+      text-align: center;
+      background-image: url("/assets/city-dark.jpg");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+
+      .icon-container {
+        margin: 10px;
       }
     }
 
@@ -1243,12 +1262,13 @@ $kpi-text-color: #888;
 
       .team-tabs {
         position: absolute;
+        width: 90%;
         bottom: -45px;
-        left: 12px;
+        left: 5%;
         z-index: 5;
 
         .team-tab {
-          width: 70px;
+          width: 32%;
           height: 50px;
           padding-top: 10px;
           text-align: center;
@@ -1296,25 +1316,43 @@ $kpi-text-color: #888;
           }
 
           &.half {
-            width: 110px;
+            width: 48%;
           }
         }
       }
 
-      &.downline {
-        background-color: #444;
-        border-top: 0px;
-        overflow: hidden;
-        transition: height .1s linear;
-        height: 0px;
+      &.even {
+        .downline {
+          .owl-item {
+            border-left: 1px solid #444 !important;
+            background-color: #333;
 
-        &.expand {
-          height: 220px;
+            &:last-of-type {
+              border-right: 1px solid #444 !important;
+            }
+          }
         }
+      }
+    }
 
-        &.even {
-          background-color: #333;
+    .downline-row {
+      background-color: #444;
+      width: 100%;
+      border-top: 0px;
+      overflow: hidden;
+      transition: height .1s linear;
+      height: 0px;
+
+      &.expand {
+        height: 220px;
+
+        &.info-row {
+          height: 250px;
         }
+      }
+
+      &.even {
+        background-color: #333;
       }
     }
 
@@ -1330,13 +1368,16 @@ $kpi-text-color: #888;
 
     .invite,
     .team-member-info-large {
-      background-color: #444;
+      background-color: transparent;
       color: #fff;
 
-      border-left: 1px solid #555;
-      &:first-of-type {
-        border: 0;
-      }
+      // border-left: 1px solid #555;
+      // &:first-of-type {
+      //   border: 0;
+      // }
+      // &.even {
+      //   border-left: 1px solid #444;
+      // }
     }
 
     // "Team Member Show" Styles for Large Screens
@@ -1375,8 +1416,14 @@ $kpi-text-color: #888;
 
       .info-text {
         line-height: 32px;
+
+        &.email-text {
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
         .email {
-          font-size: 8pt;
+          font-size: 12pt;
           text-transform: uppercase;
           a {
             color: #fff;
@@ -1386,34 +1433,51 @@ $kpi-text-color: #888;
           }
         }
 
-        .social-media {
-          a {
-            color: #fff;
+        .disabled {
+          color: #888;
+        }
+      }
+
+      .social-media {
+        padding: 0 20%;
+        a {
+          color: #fff;
+        }
+        i {
+          border-radius: 15px;
+          line-height: 32px;
+          &.fa-facebook {
+            background-color: #3b5998;
           }
-          i {
-            width: 30px;
-            height: 30px;
-            border-radius: 15px;
-            line-height: 32px;
-            &.fa-facebook {
-              background-color: #3b5998;
-            }
-            &.fa-twitter {
-              background-color: #50acee;
-            }
-            &.disabled {
+          &.fa-twitter {
+            background-color: #50acee;
+          }
+          &.alternate {
+            color: #fff;
+            border-radius: 50%;
+            font-size: 30pt;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            margin-bottom: -4px;
+          }
+          &.disabled {
+            background-color: #555;
+            color: #444;
+            &:hover {
+              cursor: default;
               background-color: #555;
               color: #444;
-              &:hover {
-                cursor: default;
-                background-color: #555;
-                color: #444;
-              }
-            }
-            &:hover {
-              background-color: #000;
             }
           }
+          &:hover {
+            background-color: #000;
+          }
+        }
+
+        .info-text {
+          display: block;
+          padding-top: 20px;
         }
       }
 
@@ -1538,6 +1602,7 @@ $kpi-text-color: #888;
         line-height: 14pt;
         font-size: 12pt;
         text-transform: uppercase;
+
       }
     }
 

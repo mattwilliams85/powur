@@ -64,7 +64,7 @@
         </div>
 
         <!-- If Team Members -->
-        <div ng-if="downline[0]" class="team owl-carousel">
+        <div ng-if="downline[0]" class="team owl-carousel" data-row="0">
           <a ng-repeat="teamMember in downline[0]">
 
             <div 
@@ -77,7 +77,7 @@
                   class="team-tab downline" 
                   ng-class="{ 
                     'raise': hover || ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= teamMember.properties.level),
-                    'active-tab': ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= teamMember.properties.lev),
+                    'active-tab': ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= teamMember.properties.level),
                     'even': teamMember.properties.level % 2 === 0,
                     'odd': teamMember.properties.level % 2 !== 0  
                   }"
@@ -89,8 +89,8 @@
                 <div 
                   class="team-tab impact" 
                   ng-class="{ 
-                    'raise': hover || ( downline[0].tab === 'impact' && downline[0].selected === teamMember.properties.id ),
-                    'active-tab': ( downline[0].tab === 'impact' && downline[0].selected === teamMember.properties.id ),
+                    'raise': hover || ( downline[0].tab === 'impact' && downline[0].selected === teamMember.properties.id && activeTab === 'impact' ),
+                    'active-tab': ( downline[0].tab === 'impact' && downline[0].selected === teamMember.properties.id && activeTab === 'impact' ),
                     'half': teamMember.properties.downline_count === 0,
                     'even': teamMember.properties.level % 2 === 0,
                     'odd': teamMember.properties.level % 2 !== 0  
@@ -102,8 +102,8 @@
                 <div 
                   class="team-tab info" 
                   ng-class="{ 
-                    'raise': hover || ( downline[0].tab === 'info' && downline[0].selected === teamMember.properties.id ),
-                    'active-tab': ( downline[0].tab === 'info' && downline[0].selected === teamMember.properties.id ),
+                    'raise': hover || ( downline[0].tab === 'info' && downline[0].selected === teamMember.properties.id && activeTab === 'info'),
+                    'active-tab': ( downline[0].tab === 'info' && downline[0].selected === teamMember.properties.id && activeTab === 'info'),
                     'half': teamMember.properties.downline_count === 0, 
                     'even': teamMember.properties.level % 2 === 0,
                     'odd': teamMember.properties.level % 2 !== 0  
@@ -127,9 +127,9 @@
 
     </div>
 
-    <!-- Team Members Carousel -->
+    <!-- Team Members Downline Carousel -->
     <div ng-repeat="generation in downline track by $index">
-      <div class="row collapse carousel-box downline" ng-class="{ 'even': $index % 2 === 0, 'expand': downline.length >= ($index - 1) }" ng-if="$index !== 0">
+      <div class="row collapse carousel-box downline-row" ng-class="{ 'even': $index % 2 === 0, 'expand': downline.length >= ($index - 1) }" ng-if="$index !== 0">
 
         <!-- <div class="gen-count team-member-info-large downline w20percent small-2 columns">
           <div class="text-uppercase top-label">generation</div>
@@ -146,7 +146,7 @@
         <div class="carousel-container  w80percent small-10 columns">
 
           <!-- If Team Members -->
-          <div class="team owl-carousel downline" id="{{'carousel-' + $index}}">
+          <div class="team owl-carousel downline" id="{{'carousel-' + $index}}" data-row="{{$index}}">
             <a ng-repeat="teamMember in downline[$parent.$index]" repeat-end="onEnd()">
               <div 
                 class="team-member downline" 
@@ -173,8 +173,8 @@
                   <div 
                     class="team-tab impact" 
                     ng-class="{ 
-                      'raise': hover || ( generation.tab === 'impact' && generation.selected === teamMember.properties.id ),
-                      'active-tab': ( generation.tab === 'impact' && generation.selected === teamMember.properties.id ),
+                      'raise': hover || ( generation.tab === 'impact' && generation.selected === teamMember.properties.id && activeTab === 'impact' ),
+                      'active-tab': ( generation.tab === 'impact' && generation.selected === teamMember.properties.id && activeTab === 'impact' ),
                       'half': teamMember.properties.downline_count === 0,
                       'even': teamMember.properties.level % 2 === 0,
                       'odd': teamMember.properties.level % 2 !== 0  
@@ -186,14 +186,14 @@
                   <div 
                     class="team-tab info" 
                     ng-class="{ 
-                      'raise': hover || ( generation.tab === 'info' && generation.selected === teamMember.properties.id ),
-                      'active-tab': ( generation.tab === 'info' && generation.selected === teamMember.properties.id ),
+                      'raise': hover || ( generation.tab === 'info' && generation.selected === teamMember.properties.id && activeTab === 'info' ),
+                      'active-tab': ( generation.tab === 'info' && generation.selected === teamMember.properties.id && activeTab === 'info' ),
                       'half': teamMember.properties.downline_count === 0, 
                       'even': teamMember.properties.level % 2 === 0,
                       'odd': teamMember.properties.level % 2 !== 0  
                     }" 
                     id="js-info-tab" 
-                    ng-click="changeTab(teamMember, 'info', tab); generation.selected = teamMember.properties.id; generation.tab = 'info'">
+                    ng-click="changeTab(teamMember, 'info'); generation.selected = teamMember.properties.id; generation.tab = 'info'">
                     INFO
                   </div>
                 </div>
@@ -213,80 +213,66 @@
     </div>
 
     <!-- Row: Team Member KPI -->
-    <div ng-show="activeTab === 'impact'" class="kpi-section">
-        <div class="beta-filler" ng-class="{ 'even': downline.length % 2 === 0 }">
+    <div class="kpi-section">
+        <div class="beta-filler downline-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'impact'}">
           <span> Key Performance Indicators coming soon to a browser near you!</span>
         </div>
     </div>
 
     <!-- Row: Team Member Info -->
-    <div ng-show="activeTab === 'info'" class="row collapse downline" ng-class="{ 'even': downline.length % 2 === 0, 'expand': showInvitesCarousel }">
+    <!-- <div class="row collapse downline-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info' }"> -->
+    <div class="row collapse downline-row info-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info' }">
       <!-- Large -->
-      <div class="large-12 show-for-large-up columns">
+      <div ng-hide="activeTab !== 'info'" class="large-12 show-for-large-up columns">
         <!-- Generation -->
-        <div class="w20percent team-member-info-large" ng-class="{ 'even': downline.length % 2 === 0 }">
-          <div class="top-label">
-            <span>Generation</span>
-          </div>
-          <div class="generation">
-            <span>{{currentTeamMember.level - 1}}</span>
-          </div>
-        </div>
-        <!-- Avatar -->
-        <div class="w20percent team-member-info-large" ng-class="{ 'even':  downline.length % 2 === 0 }">
-          <div class="avatar">
-            <img ng-src="{{currentTeamMember.avatar}}">
-          </div>
-          <div class="team-member-name">
-            <span>{{currentTeamMember.first_name}} {{currentTeamMember.last_name}}</span>
-          </div>
-        </div>
-        <!-- Phone -->
-        <div class="w20percent team-member-info-large" ng-class="{ 'even': downline.length % 2 === 0 }">
-          <div class="icon">
-            <img ng-src="{{legacyImagePaths.teamPhoneIcon}}">
-          </div>
-          <div class="info-text">
-            <span>{{currentTeamMember.phone}}</span>
-          </div>
-          <div class="info-label">
-            <span>Phone</span>
-          </div>
-        </div>
-        <!-- Email -->
-        <div class="w20percent team-member-info-large" ng-class="{ 'even': downline.length % 2 === 0 }">
-          <div class="icon">
-            <img ng-src="{{legacyImagePaths.teamEmailIcon}}">
-          </div>
-          <div class="info-text">
-            <span class="email"><a href="mailto:{{currentTeamMember.email}}">{{currentTeamMember.email}}</a></span>
-          </div>
-          <div class="info-label">
-            <span>Email</span>
-          </div>
-        </div>
-        <!-- Social -->
-        <div class="w20percent team-member-info-large" ng-class="{ 'even':  downline.length % 2 === 0 }">
-          <div class="icon">
-            <img ng-src="{{legacyImagePaths.teamSocialIcon}}">
-          </div>
-          <div class="info-text">
-            <span class="social-media">
-              <!-- If Facebook -->
-              <a ng-if="currentTeamMember.profile.facebook_url" href="{{currentTeamMember.profile.facebook_url}}"><i class="fa fa-facebook"></i></a>
-              <!-- If No Facebook -->
-              <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook disabled"></i></a>
 
-              <!-- If Twitter -->
-              <a ng-if="currentTeamMember.profile.twitter_url"><i class="fa fa-twitter"></i></a>
-              <!-- If No Twitter -->
-              <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter disabled"></i></a>
-            </span>
+        <div class="icon-container">
+
+          <div class="w25percent team-member-info-large" ng-class="{ 'even': downline.length % 2 === 0 }">
+            <div class="icon">
+              <img ng-src="{{legacyImagePaths.teamPhoneIcon}}">
+            </div>
+            <div class="info-text">
+              <span>{{currentTeamMember.phone}}</span>
+            </div>
           </div>
-          <div class="info-label">
-            <span>Social Media</span>
+
+          <div class="w25percent team-member-info-large" ng-class="{ 'even': downline.length % 2 === 0 }">
+            <div class="icon social-media">
+              <img ng-src="{{legacyImagePaths.teamEmailIcon}}">
+            </div>
+            <div class="info-text email-text">
+              <span class="email"><a href="mailto:{{currentTeamMember.email}}">{{currentTeamMember.email}}</a></span>
+            </div>
           </div>
         </div>
+
+        <div class="w25percent team-member-info-large" ng-class="{ 'even':  downline.length % 2 === 0 }">
+          <div class="icon social-media">
+          <div class="small-6 columns">
+            <!-- If Facebook -->
+            <a ng-if="currentTeamMember.profile.facebook_url" href="{{currentTeamMember.profile.facebook_url}}"><i class="fa fa-facebook alternate"></i></a>
+            <!-- If No Facebook -->
+            <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook  alternate"></i></a>
+          <div class="info-text">
+             <span ng-class="{ '': !currentTeamMember.profile.facebook_url }">Facebook</span>
+      
+           </div>
+          </div>
+           <div class="small-6 columns">
+           
+             <!-- If Twitter -->
+             <a ng-if="currentTeamMember.profile.twitter_url"><i class="fa fa-twitter alternate"></i></a>
+             <!-- If No Twitter -->
+             <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter  alternate"></i></a>
+           <div class="info-text">
+              <span ng-class="{ '': !currentTeamMember.profile.twitter_url }">Twitter</span>
+            </div>
+            </div>
+           </div>
+        </div>
+
+
       </div>
 
       <!-- Medium/Small Screens -->
@@ -332,12 +318,12 @@
                 <!-- If Facebook -->
                 <a ng-if="currentTeamMember.profile.facebook_url" href="{{currentTeamMember.profile.facebook_url}}"><i class="fa fa-facebook"></i></a>
                 <!-- If No Facebook -->
-                <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook disabled"></i></a>
+                <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook "></i></a>
 
                 <!-- If Twitter -->
                 <a ng-if="currentTeamMember.profile.twitter_url"><i class="fa fa-twitter"></i></a>
                 <!-- If No Twitter -->
-                <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter disabled"></i></a>
+                <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter "></i></a>
               </span>
             </div>
 

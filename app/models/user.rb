@@ -74,8 +74,8 @@ class User < ActiveRecord::Base
     upline.size
   end
 
-  def downline_users(id)
-    User.with_downline_counts.with_parent(id)
+  def downline_users
+    User.with_parent(self.id)
   end
 
   def downline_users_count(id)

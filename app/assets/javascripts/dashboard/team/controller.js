@@ -27,27 +27,30 @@
         slideSpeed: 500,
         mouseDrag: false,
         touchDrag: true,
-        beforeMove: closeCarousel()
+        beforeMove: closeForm(carouselElement)
       });
     };
 
     // Close Team Member Show when Moving Carousel
-    var closeCarousel= function() {
-      console.log('closeCarousel')
-      if ($scope.updatingProposal !== true) {
-        $timeout(function() {
-          $scope.closeForm();
-        });
-      }
+    var closeForm = function(element) {
+      return function() {
+        if ($scope.updatingProposal !== true) {
+          $timeout(function() {
+            $scope.closeForm(null, element);
+          });
+        }
+      };
     };
     // Close Team Member
-    $scope.closeForm = function(teamMember) {
-      console.log('closeCarousel')
+    $scope.closeForm = function(teamMember, element) {
       if(teamMember) {
         $scope.downline = $scope.downline.slice(0, teamMember.properties.level - 1);
       }
+      if(element) {
+        $scope.downline = $scope.downline.slice(0, parseInt(element.attr('data-row')) + 1);
+      }
       $scope.activeTab = null;
-      $scope.currentTeamMember = {};
+      
     };
 
     // Destroy Carousel
@@ -57,24 +60,30 @@
 
     // Show Team Member
     $scope.changeTab = function(teamMember, tab) {
-      if ($scope.currentTeamMember.id === teamMember.properties.id && $scope.activeTab === tab || $scope.downline.length >= teamMember.properties.level) {
+      $scope.activeTab = ''
+      if ($scope.currentTeamMember.id === teamMember.properties.id && $scope.activeTab === tab || $scope.downline.length > teamMember.properties.level) {
         $scope.closeForm(teamMember);
       } else {
-        $scope.activeTab = tab;
         $scope.currentTeamMember = teamMember.properties;
         $scope.downline = $scope.downline.slice(0, teamMember.properties.level - 1);
 
         if (tab === 'info') {
-          User.get(teamMember.properties.id).then(function(item){
-            $scope.currentTeamMember = item.properties;
-          });
+          $timeout(function(){
+            $scope.showInfo = true; 
+            User.get(teamMember.properties.id).then(function(item){
+              $scope.activeTab = tab;
+              $scope.currentTeamMember = item.properties;
+            });
+          }, 100)
         } else if (tab === 'team') {
           User.downline(teamMember.properties.id).then(function(item){
-          
+            $scope.activeTab = tab;
             $scope.downline.push(item.entities);
           });
         } else {
-          console.log('you clicked KPI');
+          $timeout(function(){
+            $scope.activeTab = tab;
+          }, 300)
         }
       }
     };
@@ -122,7 +131,7 @@
       User.list(searchQuery).then(function(items) {
         $scope.teamMembers = items.entities;
         $timeout(function() {
-          initCarousel('.team');
+          initCarousel($('.team'));
         });
       });
     };
@@ -135,7 +144,7 @@
       User.list(sortQuery).then(function(items) {
         $scope.teamMembers = items.entities;
         $timeout(function() {
-          initCarousel('.team');
+          initCarousel($('.team'));
         });
       });
     };
@@ -143,7 +152,7 @@
     return User.list().then(function(items) {
       $scope.downline.push(items.entities);
       $timeout(function() {
-        initCarousel('.team');
+        initCarousel($('.team'));
       });
     });
   }
