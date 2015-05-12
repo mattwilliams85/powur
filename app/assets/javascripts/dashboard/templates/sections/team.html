@@ -105,8 +105,7 @@
                     'raise': hover || ( downline[0].tab === 'info' && downline[0].selected === teamMember.properties.id && activeTab === 'info'),
                     'active-tab': ( downline[0].tab === 'info' && downline[0].selected === teamMember.properties.id && activeTab === 'info'),
                     'half': teamMember.properties.downline_count === 0, 
-                    'even': teamMember.properties.level % 2 === 0,
-                    'odd': teamMember.properties.level % 2 !== 0  
+                  
                   }" 
                   id="js-info-tab" 
                   ng-click="changeTab(teamMember, 'info'); downline[0].selected = teamMember.properties.id; downline[0].tab = 'info'">
@@ -189,8 +188,7 @@
                       'raise': hover || ( generation.tab === 'info' && generation.selected === teamMember.properties.id && activeTab === 'info' ),
                       'active-tab': ( generation.tab === 'info' && generation.selected === teamMember.properties.id && activeTab === 'info' ),
                       'half': teamMember.properties.downline_count === 0, 
-                      'even': teamMember.properties.level % 2 === 0,
-                      'odd': teamMember.properties.level % 2 !== 0  
+                      
                     }" 
                     id="js-info-tab" 
                     ng-click="changeTab(teamMember, 'info'); generation.selected = teamMember.properties.id; generation.tab = 'info'">
@@ -228,7 +226,7 @@
 
         <div class="icon-container">
 
-          <div class="w25percent team-member-info-large" ng-class="{ 'even': downline.length % 2 === 0 }">
+          <div class="w25percent team-member-info-large">
             <div class="icon">
               <img ng-src="{{legacyImagePaths.teamPhoneIcon}}">
             </div>
@@ -237,7 +235,7 @@
             </div>
           </div>
 
-          <div class="w25percent team-member-info-large" ng-class="{ 'even': downline.length % 2 === 0 }">
+          <div class="w25percent team-member-info-large">
             <div class="icon social-media">
               <img ng-src="{{legacyImagePaths.teamEmailIcon}}">
             </div>
@@ -247,7 +245,7 @@
           </div>
         </div>
 
-        <div class="w25percent team-member-info-large" ng-class="{ 'even':  downline.length % 2 === 0 }">
+        <div class="w25percent team-member-info-large">
           <div class="icon social-media">
           <div class="small-6 columns">
             <!-- If Facebook -->

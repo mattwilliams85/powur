@@ -1263,7 +1263,7 @@ $kpi-text-color: #888;
     .info-row {
       text-align: center;
       background-image: url("/assets/city-dark.jpg");
-      background-position: center center;
+      background-position: center -70px;
       background-repeat: no-repeat;
       background-size: cover;
 
@@ -1274,7 +1274,7 @@ $kpi-text-color: #888;
 
     .carousel-box {
       border: 1px solid #e5e5e5;
-      margin-bottom: -2px;
+      margin-bottom: -3px;
 
       .team-tabs {
         position: absolute;
@@ -1294,7 +1294,7 @@ $kpi-text-color: #888;
           color: #eee;
           padding: 5px 0px;
           cursor: pointer;
-          transition: all 0.4s ease;
+          transition: position 0.4s ease;
 
           &.raise {
             -ms-transform: translate(0 , -30px); /* IE 9 */
@@ -1329,6 +1329,12 @@ $kpi-text-color: #888;
             &.even {
                 background: #444 !important;
             }
+          }
+
+          &.active-tab.info {
+            background-image: url("/assets/city-dark.jpg") !important;
+            background-position: top right;
+            background-repeat: no-repeat;
           }
 
           &.half {
