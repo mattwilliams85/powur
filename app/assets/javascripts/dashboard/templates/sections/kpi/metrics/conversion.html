@@ -1,10 +1,6 @@
 <section ng-class="{'active': tabKey === 'conversion'}" class="conversion-section fade-in-section">
-  <div ng-if="!tabData.length" class="small-12 columns user-column empty-column show-for-medium-up">
-    <span>Here's where you'll see stats on proposals & customers. You don't have any proposals yet, click 'here' to get started.</span>
-  </div>
-
   <!-- USER SECTION -->
-  <div ng-if="tabData.length" class="small-3 columns user-column full-column show-for-medium-up">
+  <div class="small-3 columns user-column full-column show-for-medium-up">
     <div class="row header-row">
       <span class="uppercase kpi-detail" ng-show="!activeUser" >my conversion</span>
       <span class="uppercase kpi-detail link" ng-show="activeUser" ng-click="changeUser();"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp; return to team graph</span>
@@ -42,7 +38,7 @@
     </div>
   </div>
 
-  <div ng-if="tabData.length" class="small-12 medium-9 columns full-column right-part">
+  <div class="small-12 medium-9 columns full-column right-part">
     <!-- STATS SECTION -->
     <div class="small-12 medium-3 columns stats-column hide-for-medium-up">
       <div class="row">

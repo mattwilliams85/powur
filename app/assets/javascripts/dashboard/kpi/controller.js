@@ -83,7 +83,7 @@
            scaleLineColor: 'rgba(255,255,255,.15)',
            scaleFontColor: '#fff',
            barShowStroke: true,
-           bezierCurveTension: .2,
+           bezierCurveTension: 0.2,
            barStrokeWidth: 2,
            barValueSpacing: 20,
            barDatasetSpacing: 1,

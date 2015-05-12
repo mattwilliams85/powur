@@ -45,9 +45,14 @@
 
 <!-- Row: KPI Drilldowns -->
 <div class="kpi-drilldown drilldown" ng-class="{'active': section}">
-  <ng-include ng-if="section === 'environment'" src="'dashboard/templates/sections/kpi/metrics/environment.html'"></ng-include>
-  <ng-include ng-if="section === 'conversion'" src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include>
-  <ng-include ng-if="section === 'genealogy'" src="'dashboard/templates/sections/kpi/metrics/genealogy.html'"></ng-include>
-  <ng-include ng-if="section === 'earnings'" src="'dashboard/templates/sections/kpi/metrics/earnings.html'"></ng-include>
-  <ng-include ng-if="section === 'rank'" src="'dashboard/templates/sections/kpi/metrics/rank.html'"></ng-include>
+  <ng-include ng-if="section === 'environment' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/environment.html'"></ng-include>
+  <ng-include ng-if="section === 'environment' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/environment-beta.html'"></ng-include>
+  <ng-include ng-if="section === 'conversion' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include>
+  <ng-include ng-if="section === 'conversion' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/conversion-beta.html'"></ng-include>
+  <ng-include ng-if="section === 'genealogy' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/genealogy.html'"></ng-include>
+  <ng-include ng-if="section === 'genealogy' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/genealogy-beta.html'"></ng-include>
+  <ng-include ng-if="section === 'earnings' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/earnings.html'"></ng-include>
+  <ng-include ng-if="section === 'earnings' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/earnings-beta.html'"></ng-include>
+  <ng-include ng-if="section === 'rank' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/rank.html'"></ng-include>
+  <ng-include ng-if="section === 'rank' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/rank-beta.html'"></ng-include>
 </div>
