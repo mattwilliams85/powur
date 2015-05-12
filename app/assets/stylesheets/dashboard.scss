@@ -305,7 +305,6 @@ $kpi-text-color: #888;
     position: relative;
     height: 220px;
     border-left: 0;
-    background-color: #fff;
     overflow: hidden;
 
     .owl-carousel {
@@ -334,6 +333,20 @@ $kpi-text-color: #888;
           position: relative;
           top: 50%;
           transform: translateY(-50%);
+        }
+      }
+      &.even {
+        background-color: #333;
+      }
+
+      &.downline {
+        .owl-item {
+          border-left: 1px solid #555 !important;
+          background-color: #444;
+
+          &:last-of-type {
+            border-right: 1px solid #555 !important;
+          }
         }
       }
     }
@@ -402,13 +415,15 @@ $kpi-text-color: #888;
     -ms-transition: background-color .1s;
     transition: background-color .1s;
 
-    &:hover {
+    &.downline {
+      background: #444;
+      color: #fff;
+    }
 
+    &.even {
+      background: #333 !important;
     }
-    &.active {
-      // background-color: #444;
-      // color: #fff;
-    }
+
     .icon {
       top: 25%;
       position: relative;
@@ -823,6 +838,16 @@ $kpi-text-color: #888;
       color:#F9F2E8;
     }
 
+    //TEMPORARY 
+    .beta-filler {
+      padding: 15px;
+      background: #444;
+      color: #fff;
+      &.even {
+        background: #333;
+      }
+    }
+
     .tab-header-row {
       text-align: center;
       border: 1px solid #e5e5e5;
@@ -1194,9 +1219,17 @@ $kpi-text-color: #888;
   */
   .team-section {
 
+    .kpi-section {
+      padding-top: 0px;
+      &:before {
+        margin: 0px;
+        padding: 0px;
+      }
+    }
+
     .carousel-box {
       border: 1px solid #e5e5e5;
-      margin-bottom: -1px;
+      margin-bottom: -2px;
 
       .team-tabs {
         position: absolute;
@@ -1257,6 +1290,22 @@ $kpi-text-color: #888;
           }
         }
       }
+
+      &.downline {
+        background-color: #444;
+        border-top: 0px;
+        overflow: hidden;
+        transition: height .1s linear;
+        height: 0px;
+
+        &.expand {
+          height: 220px;
+        }
+
+        &.even {
+          background-color: #333;
+        }
+      }
     }
 
     .new-team-member {
@@ -1288,12 +1337,14 @@ $kpi-text-color: #888;
         text-transform: uppercase;
         top: 15%;
         position: relative;
+        display:block;
       }
 
       .generation {
         position: relative;
         top: 10%;
         font-size: 80pt;
+        font-weight: 200;
       }
 
       .avatar {

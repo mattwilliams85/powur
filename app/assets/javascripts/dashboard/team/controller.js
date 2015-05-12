@@ -27,12 +27,13 @@
         slideSpeed: 500,
         mouseDrag: false,
         touchDrag: true,
-        beforeMove: closeForm
+        beforeMove: closeCarousel()
       });
     };
 
     // Close Team Member Show when Moving Carousel
-    var closeForm = function(event) {
+    var closeCarousel= function() {
+      console.log('closeCarousel')
       if ($scope.updatingProposal !== true) {
         $timeout(function() {
           $scope.closeForm();
@@ -40,8 +41,12 @@
       }
     };
     // Close Team Member
-    $scope.closeForm = function() {
-      $scope.showingTeamMember = false;
+    $scope.closeForm = function(teamMember) {
+      console.log('closeCarousel')
+      if(teamMember) {
+        $scope.downline = $scope.downline.slice(0, teamMember.properties.level - 1);
+      }
+      $scope.activeTab = null;
       $scope.currentTeamMember = {};
     };
 
@@ -50,27 +55,20 @@
       $(carouselElement).data('owlCarousel').destroy();
     };
 
-    $scope.memberActive = function(teamMember) {
-      return $scope.currentTeamMember.id === teamMember.properties.id;
-    };
-
     // Show Team Member
     $scope.changeTab = function(teamMember, tab) {
-      console.log(tab)
-      if ($scope.showingTeamMember && $scope.currentTeamMember.id === teamMember.properties.id) {
-        $scope.closeForm();
-        return;
+      if ($scope.currentTeamMember.id === teamMember.properties.id && $scope.activeTab === tab || $scope.downline.length >= teamMember.properties.level) {
+        $scope.closeForm(teamMember);
       } else {
         $scope.activeTab = tab;
+        $scope.currentTeamMember = teamMember.properties;
+        $scope.downline = $scope.downline.slice(0, teamMember.properties.level - 1);
+
         if (tab === 'info') {
           User.get(teamMember.properties.id).then(function(item){
             $scope.currentTeamMember = item.properties;
-            $scope.showingTeamMember = true;
           });
         } else if (tab === 'team') {
-          // debugger
-          $scope.downline = $scope.downline.slice(0, teamMember.properties.level - 1);
-          console.log($scope.downline)
           User.downline(teamMember.properties.id).then(function(item){
           
             $scope.downline.push(item.entities);
@@ -79,11 +77,6 @@
           console.log('you clicked KPI');
         }
       }
-    };
-
-    // Show New Invite Form
-    $scope.teamSection.newInvite = function() {
-
     };
 
     // Show Invites
@@ -109,25 +102,6 @@
         });
       }
     };
-
-    // //Animations
-    // $scope.animateTabsUp = function() {
-    //   $(this).find('.tam_tab')
-    //     .velocity({translateY: '-35px'},{queue: false}, 200);
-    // };
-
-    // $scope.animateTabsDown = function() {
-    //   $(this).find('.team_tab').not('.active_tab')
-    //     .velocity({translateY: '0px'},{queue: false}, 200);
-    // };
-
-    // $scope.animateDrilldown = function () {
-    //   $scope.drilldownActive = false;
-    //   $scope.drilldownActive = true;
-    //   $timeout( function(){
-    //     $scope.showInvitesCarousel = true;
-    //   }, 300);
-    // };
 
     $scope.onEnd = function(){
       initCarousel($('#carousel-' + ($scope.downline.length - 1)));
@@ -175,10 +149,10 @@
   }
 
   DashboardTeamCtrl.$inject = ['$scope', '$timeout', 'User', 'Invite'];
-  angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl)
-  angular.module('powurApp').directive("repeatEnd", function(){
+  angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl);
+  angular.module('powurApp').directive('repeatEnd', function(){
   return {
-    restrict: "A",
+    restrict: 'A',
       link: function (scope, element, attrs) {
         if (scope.$last) {
           scope.$eval(attrs.repeatEnd);
