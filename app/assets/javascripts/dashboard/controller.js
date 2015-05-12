@@ -40,7 +40,7 @@
       $scope.goals = { personalPercent: 100, groupPercent: 20, badge: legacyImagePaths.goalsBadge };
     });
 
-    $scope.socialQuote = 'Turn a sunny day into a sustainable future. Join Powur and start taking back the future of energy! It\'s your time to lead the solar revolution!';
+    $scope.socialQuote = 'Turn a sunny day into a sustainable future. Join Powur and start taking back the future of energy!';
   }
 
   DashboardCtrl.$inject = ['$scope', '$location', 'UserProfile', 'Notification'];
