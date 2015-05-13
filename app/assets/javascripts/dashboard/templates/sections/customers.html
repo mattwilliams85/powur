@@ -107,8 +107,8 @@
 
           <!-- Completed Proposal Summary Text -->
           <h1 ng-show="mode === 'ready to submit'">Completed Proposal</h1>
-          <p ng-show="mode === 'ready to submit'">Great! This proposal has everything it needs.</p>
-          <p ng-show="mode === 'ready to submit'">Ensure the customer information is correct before submitting the proposal to SolarCity.</p>
+          <p ng-show="mode === 'ready to submit'">Great! This proposal is ready to be submitted to SolarCity.</p>
+          <p ng-show="mode === 'ready to submit'">Ensure the customer information is correct before using the Submit button below.</p>
           <!-- Completed Proposal Buttons -->
           <button class="button secondary expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.delete()">Delete Proposal</button>
           <button class="button secondary expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.resend()">Resend Email</button>
@@ -123,7 +123,7 @@
         </div>
 
         <!-- Form if New or Incomplete Proposal-->
-        <div ng-if="mode === 'incomplete' || mode === 'new' || mode === 'complete'" class="form large-9 medium-9 columns">
+        <div ng-if="mode === 'incomplete' || mode === 'new' || mode === 'ready to submit'" class="form large-9 medium-9 columns">
           <ng-include src="'dashboard/templates/sections/customers-form.html'"></ng-include>
         </div>
         <!-- Summary if Submitted Proposal -->
