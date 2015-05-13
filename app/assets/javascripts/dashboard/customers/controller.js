@@ -141,7 +141,7 @@
 
     // Save/Update Proposal Action
     $scope.customerSection.saveProposal = function() {
-      if ($scope.proposal) {
+      if ($scope.proposal && $('#customers-form')[0].checkValidity()) {
         CommonService.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
       }
     };
