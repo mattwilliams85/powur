@@ -29,7 +29,7 @@ class QuotesJson < JsonDecorator
 
     json.properties do
       json.call(quote.customer, :email, :phone, :address, :city, :state, :zip)
-      quote.data.each { |key, value| json.set! key, value }
+      json.product_fields quote.data.each { |key, value| json.set! key, value }
     end
   end
 
