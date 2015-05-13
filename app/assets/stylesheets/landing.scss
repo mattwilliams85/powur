@@ -249,30 +249,24 @@
       font-size: 1.3em;
     }
 
-    .checkbox {
-      display: inline;
-      font-size: 1em;
+    // Remember Me Switch: Override "Switched" Color
+    .switch input:checked + label {
+      background-color: #000;
     }
 
-    button, .button {
-      display: block;
-      background: #2ecc71;
-      border: none;
-      color: #fff;
-      display: inline-block;
-      font-size: 1.3em;
-      font-weight: normal;
-      padding: .5em 1em;
-      text-transform: uppercase;
-      margin-right: 1em;
-    }
-
-    .forgot-password {
-      color: #fff;
-    }
-
+    // Larger Input Boxes
     input[type=text], input[type=password], input[type=email] {
       font-size: 1.3em;
+      padding: 30px 15px;
+    }
+
+    // "Forgot Password" / "Back To Sign In" Button Styling
+    .secondary {
+      background-color: transparent;
+      color: #fff;
+      &:hover {
+        background-color: rgba(50,50,50,.5);
+      }
     }
   }
 
