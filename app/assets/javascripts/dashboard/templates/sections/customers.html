@@ -106,13 +106,13 @@
           <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.resend()">Resend Email</button>
 
           <!-- Completed Proposal Summary Text -->
-          <h1 ng-show="mode === 'complete'">Completed Proposal</h1>
-          <p ng-show="mode === 'complete'">Great! This proposal has everything it needs.</p>
-          <p ng-show="mode === 'complete'">Ensure the customer information is correct before submitting the proposal to SolarCity.</p>
+          <h1 ng-show="mode === 'ready to submit'">Completed Proposal</h1>
+          <p ng-show="mode === 'ready to submit'">Great! This proposal has everything it needs.</p>
+          <p ng-show="mode === 'ready to submit'">Ensure the customer information is correct before submitting the proposal to SolarCity.</p>
           <!-- Completed Proposal Buttons -->
-          <button class="button secondary expand" ng-show="mode === 'complete'" ng-click="customerSection.delete()">Delete Proposal</button>
-          <button class="button secondary expand" ng-show="mode === 'complete'" ng-click="customerSection.resend()">Resend Email</button>
-          <button class="button solarcity expand" ng-show="mode === 'complete'" ng-click="customerSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
+          <button class="button secondary expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.delete()">Delete Proposal</button>
+          <button class="button secondary expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.resend()">Resend Email</button>
+          <button class="button solarcity expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
 
           <!-- Submitted Proposal Summary Text -->
           <h1 ng-show="mode === 'submitted'">Submitted Proposal</h1>
