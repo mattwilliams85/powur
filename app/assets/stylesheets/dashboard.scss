@@ -887,7 +887,10 @@ $kpi-text-color: #888;
 
           .kpi-header {
             color: $kpi-text-color;
-            font-size: 16pt;
+            font-size: 12pt;
+            @media #{$medium} { 
+              font-size: 16pt;
+            }
           }
 
           .empty-info {
@@ -1262,7 +1265,7 @@ $kpi-text-color: #888;
     .info-row {
       text-align: center;
       background-image: url("/assets/city-dark.jpg");
-      background-position: center -70px;
+      background-position: center 0;
       background-repeat: no-repeat;
       background-size: cover;
 
@@ -1275,15 +1278,30 @@ $kpi-text-color: #888;
       border: 1px solid #e5e5e5;
       margin-bottom: -3px;
 
+      .avatar {
+        position: relative;
+        top: 12%;
+        text-align: center;
+        img {
+          width: 100px;
+          margin: 0 auto;
+          border-radius: 55px;
+        }
+      }
+
+      .info-text.user-text {
+        top: 19%;
+      }
+
       .team-tabs {
         position: absolute;
-        width: 90%;
+        width: 92%;
         bottom: -45px;
-        left: 5%;
+        left: 4%;
         z-index: 5;
 
         .team-tab {
-          width: 32%;
+          width: 31%;
           height: 50px;
           padding-top: 10px;
           text-align: center;
@@ -1293,7 +1311,7 @@ $kpi-text-color: #888;
           color: #eee;
           padding: 5px 0px;
           cursor: pointer;
-          transition: transform 0.4s ease;
+          transition: transform 0.4s ease, background-color 0.4s ease;
 
           &.raise {
             -ms-transform: translate(0 , -30px); /* IE 9 */
@@ -1419,15 +1437,6 @@ $kpi-text-color: #888;
         font-weight: 200;
       }
 
-      .avatar {
-        position: relative;
-        top: 15%;
-        img {
-          width: 110px;
-          border-radius: 55px;
-        }
-      }
-
       .team-member-name {
         position: relative;
         top: 25%;
@@ -1461,6 +1470,13 @@ $kpi-text-color: #888;
 
       .social-media {
         padding: 0 20%;
+
+        .bottom-part {
+          margin-top: 20px;
+          @media #{$medium} { 
+            margin-top: 0px;
+          }
+        }
         a {
           color: #fff;
         }
@@ -1488,7 +1504,7 @@ $kpi-text-color: #888;
             &:hover {
               cursor: default;
               background-color: #555;
-              color: #444;
+              color: #ddd;
             }
           }
           &:hover {

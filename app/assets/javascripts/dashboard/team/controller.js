@@ -8,6 +8,7 @@
     $scope.legacyImagePaths = legacyImagePaths;
     $scope.downline = [];
     $scope.currentTeamMember = {};
+    $scope.teamSection.teamSort = 'name';
 
     // Initialize Carousel
     var initCarousel = function(carouselElement) {
@@ -60,30 +61,28 @@
 
     // Show Team Member
     $scope.changeTab = function(teamMember, tab) {
-      $scope.activeTab = ''
-      if ($scope.currentTeamMember.id === teamMember.properties.id && $scope.activeTab === tab || $scope.downline.length > teamMember.properties.level) {
+      if ($scope.currentTeamMember.id === teamMember.properties.id && $scope.activeTab === tab || $scope.activeTab === 'team' && $scope.downline.length > teamMember.properties.level) {
         $scope.closeForm(teamMember);
       } else {
+        $scope.activeTab = ''
         $scope.currentTeamMember = teamMember.properties;
         $scope.downline = $scope.downline.slice(0, teamMember.properties.level - 1);
 
         if (tab === 'info') {
           $timeout(function(){
             $scope.showInfo = true; 
-            User.get(teamMember.properties.id).then(function(item){
-              $scope.activeTab = tab;
-              $scope.currentTeamMember = item.properties;
-            });
-          }, 100)
+            $scope.activeTab = tab;
+            $scope.currentTeamMember = teamMember.properties;
+          }, 100);
         } else if (tab === 'team') {
-          User.downline(teamMember.properties.id).then(function(item){
+          User.downline(teamMember.properties.id, {sort: $scope.teamSection.teamSearch}).then(function(item){
             $scope.activeTab = tab;
             $scope.downline.push(item.entities);
           });
         } else {
           $timeout(function(){
             $scope.activeTab = tab;
-          }, 300)
+          }, 300);
         }
       }
     };
@@ -126,33 +125,45 @@
     // Search Action
     $scope.teamSection.teamSearch = '';
     $scope.teamSection.search = function() {
-      destroyCarousel('.team');
+      for (var i = 0; i < $scope.downline.length; i++){
+        destroyCarousel('#carousel-'+ i);
+      }
       var searchQuery = {search: $scope.teamSection.teamSearch};
       User.list(searchQuery).then(function(items) {
-        $scope.teamMembers = items.entities;
+        $scope.downline = [items.entities];
         $timeout(function() {
-          initCarousel($('.team'));
+          initCarousel($('#carousel-0'));
         });
       });
+    };
+
+    $scope.isMobile = function() {
+      if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+       return true;
+      }
     };
 
     // Sort Action
-    $scope.teamSection.teamSort = 'name';
     $scope.teamSection.sort = function() {
-      destroyCarousel('.team');
+      $scope.closeForm(null, $('#carousel-0'));
       var sortQuery = {sort: $scope.teamSection.teamSort};
+      for (var i = 0; i < $scope.downline.length; i++){
+        destroyCarousel('#carousel-'+ i);
+      }
+      
       User.list(sortQuery).then(function(items) {
-        $scope.teamMembers = items.entities;
+        $scope.downline = [items.entities];
         $timeout(function() {
-          initCarousel($('.team'));
+          initCarousel($('#carousel-0'));
         });
       });
     };
 
-    return User.list().then(function(items) {
+    return User.list({sort: $scope.teamSection.teamSort}).then(function(items) {
       $scope.downline.push(items.entities);
+      console.log($scope.downline)
       $timeout(function() {
-        initCarousel($('.team'));
+        initCarousel($('#carousel-0'));
       });
     });
   }

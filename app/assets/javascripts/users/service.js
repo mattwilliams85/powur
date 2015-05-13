@@ -37,12 +37,14 @@
         return dfr.promise;
       },
 
-      downline: function(userId) {
+      downline: function(userId, params) {
         var dfr = $q.defer();
+        params = params || {};
 
         $http({
           method: 'GET',
-          url: '/u/users/' + userId + '/downline.json'
+          url: '/u/users/' + userId + '/downline.json',
+          params: params
         }).success(function(res) {
           dfr.resolve(res);
         }).error(function(err) {
