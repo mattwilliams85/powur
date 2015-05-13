@@ -34,12 +34,12 @@ describe Quote, type: :model do
       it { is_expected.to eq 'submitted' }
     end
 
-    context 'quote complete' do
+    context 'quote ready to submit' do
       before do
         allow(quote).to receive(:ready_to_submit?).and_return(true)
         allow(quote).to receive(:submitted?).and_return(false)
       end
-      it { is_expected.to eq 'complete' }
+      it { is_expected.to eq 'ready to submit' }
     end
 
     context 'quote incomplete' do
