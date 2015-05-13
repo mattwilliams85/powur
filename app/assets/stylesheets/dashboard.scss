@@ -1483,11 +1483,18 @@ $kpi-text-color: #888;
         i {
           border-radius: 15px;
           line-height: 32px;
+          transition: background-color .3s linear;
           &.fa-facebook {
             background-color: #3b5998;
+            &:hover {
+              background-color: #4264AB;
+            }
           }
           &.fa-twitter {
             background-color: #50acee;
+            &:hover {
+              background-color: #6FBDFB;
+            }
           }
           &.alternate {
             color: #fff;

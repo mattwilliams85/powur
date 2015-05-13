@@ -13,7 +13,7 @@ gem 'jbuilder'
 gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
 gem 'angular-rails-templates'
 
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
 gem 'carrierwave'
 gem 'carrierwave_direct'

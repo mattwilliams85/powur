@@ -16,7 +16,7 @@ class UsersJson < JsonDecorator
   def list_item_properties(user = @item) # rubocop:disable Metrics/AbcSize
     json.properties do
       json.call(user, :id, :first_name, :last_name, :email, :phone, :level,
-                :moved, :image_original_path)
+                :moved, :profile)
       json.downline_count user.downline_users_count(user.id)
       LIST_PROPS.each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]

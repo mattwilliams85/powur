@@ -113,8 +113,8 @@
                 </div>
               </div>
               <div class="avatar">
-                <img ng-if="teamMember.properties.image_original_path" ng-src="{{teamMember.properties.image_original_path}}">
-                <img ng-if="!teamMember.properties.image_original_path" src="/assets/dashboard/default-avatar.jpg">
+                <img ng-if="teamMember.properties.avatar" ng-src="{{teamMember.properties.avatar.thumb}}">
+                <img ng-if="!teamMember.properties.avatar" src="/assets/dashboard/default-avatar-thumb.png">
               </div>
               <div class="info-text user-text">
                 <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
@@ -197,8 +197,8 @@
                   </div>
                 </div>
                 <div class="avatar">
-                  <img ng-if="teamMember.properties.image_original_path" ng-src="{{teamMember.properties.image_original_path}}">
-                  <img ng-if="!teamMember.properties.image_original_path" src="/assets/dashboard/default-avatar.jpg">
+                  <img ng-if="teamMember.properties.avatar" ng-src="{{teamMember.properties.avatar.thumb}}">
+                  <img ng-if="!teamMember.properties.avatar" src="/assets/dashboard/default-avatar-thumb.png">
                 </div>
                 <div class="info-text user-text">
                   <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
@@ -261,7 +261,7 @@
           </div>
           <div class="small-12 medium-6 columns bottom-part">
              <!-- If Twitter -->
-             <a ng-if="currentTeamMember.profile.twitter_url"><i class="fa fa-twitter alternate"></i></a>
+             <a ng-if="currentTeamMember.profile.twitter_url" href="{{currentTeamMember.profile.twitter_url}}"><i class="fa fa-twitter alternate"></i></a>
              <!-- If No Twitter -->
              <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter  alternate disabled"></i></a>
             <div class="info-text show-for-large-up">

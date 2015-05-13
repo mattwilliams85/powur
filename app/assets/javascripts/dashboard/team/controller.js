@@ -75,7 +75,7 @@
             $scope.currentTeamMember = teamMember.properties;
           }, 100);
         } else if (tab === 'team') {
-          User.downline(teamMember.properties.id, {sort: $scope.teamSection.teamSearch}).then(function(item){
+          User.downline(teamMember.properties.id, {sort: $scope.teamSection.teamSort}).then(function(item){
             $scope.activeTab = tab;
             $scope.downline.push(item.entities);
           });
