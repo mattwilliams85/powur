@@ -27,7 +27,7 @@ class Quote < ActiveRecord::Base
 
   def data_status
     return 'submitted' if submitted?
-    ready_to_submit? ? 'complete' : 'incomplete'
+    ready_to_submit? ? 'ready to submit' : 'incomplete'
   end
 
   def order?

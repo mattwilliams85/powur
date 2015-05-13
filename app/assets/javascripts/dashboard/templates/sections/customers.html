@@ -68,7 +68,7 @@
             <div class="proposal" ng-class="{active: currentProposal.id === proposal.properties.id}">
               <div class="status-icon">
                 <img ng-show="proposal.properties.data_status === 'submitted'" ng-src="{{legacyImagePaths.proposalSubmitted}}">
-                <img ng-show="proposal.properties.data_status === 'complete'" ng-src="{{legacyImagePaths.proposalComplete}}">
+                <img ng-show="proposal.properties.data_status === 'ready to submit'" ng-src="{{legacyImagePaths.proposalReadyToSubmit}}">
                 <img ng-show="proposal.properties.data_status === 'incomplete'" ng-src="{{legacyImagePaths.proposalIncomplete}}">
               </div>
               <div class="status-text">
