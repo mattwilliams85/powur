@@ -251,9 +251,9 @@
             <!-- If Facebook -->
             <a ng-if="currentTeamMember.profile.facebook_url" href="{{currentTeamMember.profile.facebook_url}}"><i class="fa fa-facebook alternate"></i></a>
             <!-- If No Facebook -->
-            <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook  alternate"></i></a>
+            <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook  alternate disabled"></i></a>
           <div class="info-text">
-             <span ng-class="{ '': !currentTeamMember.profile.facebook_url }">Facebook</span>
+             <span ng-class="{ 'disabled': !currentTeamMember.profile.facebook_url }">Facebook</span>
       
            </div>
           </div>
@@ -262,9 +262,9 @@
              <!-- If Twitter -->
              <a ng-if="currentTeamMember.profile.twitter_url"><i class="fa fa-twitter alternate"></i></a>
              <!-- If No Twitter -->
-             <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter  alternate"></i></a>
+             <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter  alternate disabled"></i></a>
            <div class="info-text">
-              <span ng-class="{ '': !currentTeamMember.profile.twitter_url }">Twitter</span>
+              <span ng-class="{ 'disabled': !currentTeamMember.profile.twitter_url }">Twitter</span>
             </div>
             </div>
            </div>
