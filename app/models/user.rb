@@ -26,9 +26,10 @@ class User < ActiveRecord::Base
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications
 
+  # No extra email validation needed,
+  # email validation and confirmation happens with Invite
   validates :email,
     uniqueness: { message: 'This email is taken', case_sensitive: false },
-    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, message: 'Incorrect email address' },
     presence: true
   validates :encrypted_password, presence: true, on: :create
   validates :first_name, presence: true

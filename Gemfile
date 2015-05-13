@@ -26,7 +26,7 @@ gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
 gem 'rails-settings-cached'
 gem 'gibbon'
-gem 'valid_email', require: 'valid_email/email_validator'
+gem 'valid_email', require: false
 gem 'faker'
 gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of'
 gem 'money'

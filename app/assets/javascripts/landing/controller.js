@@ -43,7 +43,6 @@
             $scope.invite.code = code;
             $scope.user.first_name = data.properties.first_name;
             $scope.user.last_name = data.properties.last_name;
-            $scope.user.email = data.properties.email;
           }
         });
       }

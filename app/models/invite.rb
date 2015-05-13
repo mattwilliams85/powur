@@ -1,11 +1,22 @@
+require 'valid_email'
+
 class Invite < ActiveRecord::Base
   include NameEmailSearch
 
   belongs_to :user, class_name: 'User'
   belongs_to :sponsor, class_name: 'User'
 
-  validates :email, uniqueness: true
-  validates :email, :first_name, :last_name, presence: true
+  # Validates with https://github.com/hallelujah/valid_email
+  validates :email,
+    uniqueness: true,
+    presence: true,
+    email: {
+      message: 'Incorrect email address'
+    },
+    mx: {
+      message: 'Email record not found'
+    }
+  validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
   validate :max_invites, on: :create
 
@@ -24,6 +35,7 @@ class Invite < ActiveRecord::Base
 
   def accept(params)
     params[:sponsor_id] = sponsor_id
+    params[:email] = email
 
     user = User.create(params)
     Invite.where(email: email).update_all(user_id: user.id)
