@@ -87,7 +87,7 @@ namespace :powur do
       puts 'Created Products for solar item and consultant certification'
     end
 
-    task qualifications: [ :ranks, :products, :notifications ] do
+    task qualifications: [ :ranks, :products, :notifications, :zipcodes ] do
       Qualification.destroy_all
 
       # active qualifications
@@ -295,7 +295,7 @@ namespace :powur do
       Notification.create!(
         content: 'These messages are part of the Powur notification system. Administrators can use the Administrator dashboard to add and remove notifications.')
       Notification.create!(
-        content: 'The future of the planet is in our hands. <a href="http://powur.com">')
+        content: 'The future of the planet is in our hands. <a href="http://powur.com">powur.com</a>')
       Notification.create!(
         content: 'Did you know that on one single day, the sun sends 15,000 times as much energy to the Earth as we consume worldwide on a daily basis?')
       Notification.create!(
@@ -303,5 +303,19 @@ namespace :powur do
 
       puts 'Seeded Sample Dashboard Notifications'
     end
+
+    task zipcodes: :environment do
+      puts 'Seeding SolarCity ZIP Codes...'
+      Zipcode.destroy_all
+
+      arr_of_arrs = CSV.read("lib/assets/solarcity_zip_codes.csv")
+
+      arr_of_arrs.each do |zip|
+        Zipcode.create({zip: zip.first})
+      end
+
+      puts 'Seeded SolarCity ZIP Codes'
+    end
+
   end
 end
