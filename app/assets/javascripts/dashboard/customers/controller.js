@@ -88,30 +88,36 @@
 
     // Show Proposal
     $scope.customerSection.showProposal = function(proposalIndex) {
+      $scope.updatingProposal = false;
       var proposalId = $scope.proposals[proposalIndex].properties.id;
       $scope.proposalIndex = proposalIndex;
-      $scope.updatingProposal = false;
       if ($scope.showForm === true && (proposalId === $scope.currentProposal.id)) {
         $scope.closeForm();
         return;
       } else {
-        $scope.animateDrilldown();
-        $scope.proposal = {};
-        $scope.currentProposal = {};
+        $scope.showForm = false;
+        $scope.drilldownActive = false;
+        // $scope.proposal = {};
+        // $scope.currentProposal = {};
         $scope.currentProposalIndex = proposalIndex;
 
         Proposal.get(proposalId).then(function(item){
+          $scope.animateDrilldown();
           if (item.properties.data_status === 'submitted') {
-            $scope.proposal = item.properties;
-            $scope.currentProposal = item.properties;
-            $scope.mode = item.properties.data_status;
+            $timeout( function(){
+              $scope.proposal = item.properties;
+              $scope.currentProposal = item.properties;
+              $scope.mode = item.properties.data_status;
+            }, 300);
           } else {
-            $scope.formAction = $scope.getAction(item.actions, 'update');
-            $scope.proposalItem = item;
-            $scope.proposal = $scope.setFormValues($scope.formAction);
-            $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
-            $scope.currentProposal = item.properties;
-            $scope.mode = item.properties.data_status;
+            $timeout( function(){
+              $scope.formAction = $scope.getAction(item.actions, 'update');
+              $scope.proposalItem = item;
+              $scope.proposal = $scope.setFormValues($scope.formAction);
+              $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
+              $scope.currentProposal = item.properties;
+              $scope.mode = item.properties.data_status;
+            }, 300);
           }
         });
       }
@@ -123,18 +129,21 @@
         $scope.closeForm();
         return;
       } else {
+        $scope.showForm = false;
+        $scope.drilldownActive = false;
         $scope.animateDrilldown();
         $scope.proposal = {};
         $scope.currentProposal = {};
 
         Proposal.list().then(function(items){
+          $scope.animateDrilldown();
+          
           $timeout( function(){
-            $scope.showForm = true;
-          }, 400);
-          $scope.formAction = $scope.getAction(items.actions, 'create');
-          $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
-          $scope.mode = 'new';
-          $scope.showForm = true;
+            $scope.mode = 'new';
+            $scope.formAction = $scope.getAction(items.actions, 'create');
+            $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
+            
+          }, 200);
         });
       }
     };
@@ -225,7 +234,6 @@
     };
 
     $scope.animateDrilldown = function () {
-      $scope.drilldownActive = false;
       $scope.drilldownActive = true;
       $timeout( function(){
         $scope.showForm = true;

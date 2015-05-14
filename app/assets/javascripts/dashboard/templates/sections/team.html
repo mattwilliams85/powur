@@ -23,7 +23,7 @@
       <div class="large-3 medium-6 columns right">
       <!-- Search -->
         <div class="row collapse">
-          <form>
+          <form class="search-form" ng-class="{ 'fade': downline.length > 1}">
             <div class="no-padding large-9 medium-9 small-10 columns">
               <input type="search" ng-model="teamSection.teamSearch"  placeholder="Search">
             </div>
