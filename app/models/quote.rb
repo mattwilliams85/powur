@@ -18,7 +18,7 @@ class Quote < ActiveRecord::Base
   end
 
   def can_email?
-    customer.email && user_id && user.url_slug
+    customer.email && user_id && user.url_slug && zip_code_valid?
   end
 
   def email_customer
@@ -27,6 +27,7 @@ class Quote < ActiveRecord::Base
 
   def data_status
     return 'submitted' if submitted?
+    return 'ineligible location' if !zip_code_valid?
     ready_to_submit? ? 'ready to submit' : 'incomplete'
   end
 

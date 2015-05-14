@@ -9,6 +9,14 @@ module QuoteSubmission
     !submitted? && customer.phone && customer.email && customer.first_name && customer.last_name?
   end
 
+  def zip_code_valid?
+    if Zipcode.where(zip: customer.zip).exists? || customer.zip.blank?
+      return true
+    else
+      return false
+    end
+  end
+
   def submit!
     form = SolarCityForm.new(self)
     form.post

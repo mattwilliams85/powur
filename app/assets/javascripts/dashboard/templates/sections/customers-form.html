@@ -80,8 +80,8 @@
             <button class="button right" ng-show="mode === 'new'">Save</button>
             <button class="button secondary left" ng-show="mode === 'new'" ng-click="closeForm()">Cancel</button>
             <!-- Incomplete Proposal Form Buttons -->
-            <button class="button secondary right" ng-show="mode === 'incomplete' || mode === 'ready to submit'">Update</button>
-            <button class="button secondary left" ng-show="mode === 'incomplete' || mode === 'ready to submit'" ng-click="closeForm()">Cancel</button>
+            <button class="button secondary right" ng-show="mode !== 'submitted' && mode !== 'new'">Update</button>
+            <button class="button secondary left" ng-show="mode !== 'submitted' && mode !== 'new'" ng-click="closeForm()">Cancel</button>
           </div>
         </div>
 
