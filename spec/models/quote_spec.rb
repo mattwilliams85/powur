@@ -29,22 +29,33 @@ describe Quote, type: :model do
     let(:customer) { create(:customer) }
     let!(:quote) { create(:quote, customer: customer) }
 
-    context 'quote submitted' do
+    context 'proposal submitted' do
       before { allow(quote).to receive(:submitted?).and_return(true) }
       it { is_expected.to eq 'submitted' }
     end
 
-    context 'quote ready to submit' do
+    context 'proposal ready to submit' do
       before do
         allow(quote).to receive(:ready_to_submit?).and_return(true)
+        allow(quote).to receive(:zip_code_valid?).and_return(true)
         allow(quote).to receive(:submitted?).and_return(false)
       end
       it { is_expected.to eq 'ready to submit' }
     end
 
-    context 'quote incomplete' do
+    context 'proposal has ineligible location' do
+      before do
+        allow(quote).to receive(:ready_to_submit?).and_return(true)
+        allow(quote).to receive(:zip_code_valid?).and_return(false)
+        allow(quote).to receive(:submitted?).and_return(false)
+      end
+      it { is_expected.to eq 'ineligible location' }
+    end
+
+    context 'proposal incomplete' do
       before do
         allow(quote).to receive(:ready_to_submit?).and_return(false)
+        allow(quote).to receive(:zip_code_valid?).and_return(true)
         allow(quote).to receive(:submitted?).and_return(false)
       end
       it { is_expected.to eq 'incomplete' }
