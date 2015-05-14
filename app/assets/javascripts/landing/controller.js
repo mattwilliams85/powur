@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Invite, Geo, UserProfile) {
+  function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Geo, UserProfile, CommonService) {
     $scope.redirectIfSignedIn();
 
     $scope.showValidationMessages = false;
@@ -32,7 +32,12 @@
     $scope.validateInvite = function() {
       var code;
       if ($scope.invite && $scope.invite.code) {
-        Invite.validate($scope.invite.code).then(function(data) {
+        CommonService.execute({
+          method: 'POST',
+          href: '/invite/validate.json'
+        }, {
+          code: $scope.invite.code
+        }).then(function(data) {
           if (data.error) {
             $scope.invite = {};
             $scope.user = {};
@@ -68,13 +73,14 @@
     $scope.signUp = function() {
       if ($scope.user) {
         $scope.isSubmitDisabled = true;
-        var path;
+        var action;
         for (var i in $scope.invite.actions) {
           if ($scope.invite.actions[i].name === 'create_account') {
-            path = $scope.invite.actions[i].href;
+            action = $scope.invite.actions[i];
           }
         }
-        Invite.signUp($scope.invite.properties.id, $scope.user, path).then(signUpCallback);
+        $scope.user.code = $scope.invite.properties.id;
+        CommonService.execute(action, $scope.user).then(signUpCallback);
       }
     };
 
@@ -160,7 +166,7 @@
   };
 
 
-  LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'Invite', 'Geo', 'UserProfile'];
+  LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'Geo', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('LandingCtrl', LandingCtrl);
 
 })();

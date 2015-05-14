@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardTeamCtrl($scope, $timeout, User, Invite) {
+  function DashboardTeamCtrl($scope, $timeout, User, CommonService) {
     $scope.redirectUnlessSignedIn();
     $scope.showInvitesCarousel = false;
 
@@ -11,7 +11,7 @@
     $scope.teamSection.teamSort = 'name';
 
     // Initialize Carousel
-    var initCarousel = function(carouselElement) {
+    function initCarousel(carouselElement) {
       $(carouselElement).owlCarousel({
         items: 4,
         itemsCustom: false,
@@ -30,10 +30,10 @@
         touchDrag: true,
         beforeMove: closeForm(carouselElement)
       });
-    };
+    }
 
     // Close Team Member Show when Moving Carousel
-    var closeForm = function(element) {
+    function closeForm(element) {
       return function() {
         if ($scope.updatingProposal !== true) {
           $timeout(function() {
@@ -41,7 +41,8 @@
           });
         }
       };
-    };
+    }
+
     // Close Team Member
     $scope.closeForm = function(teamMember, element) {
       if(teamMember) {
@@ -54,10 +55,9 @@
       $scope.currentTeamMember = {};
     };
 
-    // Destroy Carousel
-    var destroyCarousel = function(carouselElement) {
+    function destroyCarousel(carouselElement) {
       $(carouselElement).data('owlCarousel').destroy();
-    };
+    }
 
     // Show Team Member
     $scope.changeTab = function(teamMember, tab) {
@@ -70,7 +70,7 @@
 
         if (tab === 'info') {
           $timeout(function(){
-            $scope.showInfo = true; 
+            $scope.showInfo = true;
             $scope.activeTab = tab;
             $scope.currentTeamMember = teamMember.properties;
           }, 100);
@@ -96,7 +96,9 @@
         $scope.showInvitesCarousel = true;
         // $scope.animateDrilldown();
 
-        Invite.list().then(function(items){
+        CommonService.execute({
+          href: '/u/invites.json'
+        }).then(function(items){
           $scope.invites = items.entities;
           $scope.invitesAvailable = items.properties.remaining;
 
@@ -153,7 +155,7 @@
       for (var i = 0; i < $scope.downline.length; i++){
         destroyCarousel('#carousel-'+ i);
       }
-      
+
       User.list(sortQuery).then(function(items) {
         $scope.downline = [items.entities];
         $timeout(function() {
@@ -164,24 +166,23 @@
 
     return User.list({sort: $scope.teamSection.teamSort}).then(function(items) {
       $scope.downline.push(items.entities);
-      console.log($scope.downline)
       $timeout(function() {
         initCarousel($('#carousel-0'));
       });
     });
   }
 
-  DashboardTeamCtrl.$inject = ['$scope', '$timeout', 'User', 'Invite'];
-  angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl);
-  angular.module('powurApp').directive('repeatEnd', function(){
-  return {
-    restrict: 'A',
-      link: function (scope, element, attrs) {
-        if (scope.$last) {
-          scope.$eval(attrs.repeatEnd);
+  DashboardTeamCtrl.$inject = ['$scope', '$timeout', 'User', 'CommonService'];
+  angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl)
+  .directive('repeatEnd', function(){
+    return {
+      restrict: 'A',
+        link: function (scope, element, attrs) {
+          if (scope.$last) {
+            scope.$eval(attrs.repeatEnd);
+          }
         }
-      }
-    };
+      };
   });
 
 })();

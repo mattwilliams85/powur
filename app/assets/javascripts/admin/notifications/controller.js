@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function AdminNotificationsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, Notification) {
+  function AdminNotificationsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     // Utility Functions
@@ -30,7 +30,9 @@
     $scope.loadMore = function() {
       var nextPage = ($scope.currentPage) + 1;
 
-      Notification.list(nextPage).then(function(items) {
+      CommonService.execute({
+        href: '/a/notifications.json?page=' + nextPage
+      }).then(function(items) {
         for (var i in items.entities) {
           $scope.notifications.push(items.entities[i]);
         }
@@ -39,41 +41,38 @@
       });
     };
 
-    // Create Notification Action
     $scope.create = function() {
       if ($scope.notification) {
         $scope.isSubmitDisabled = true;
         // User Autolinker.js to turn links into hyperlinks
         $scope.notification.content = Autolinker.link($scope.notification.content);
-        Notification.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
+        CommonService.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
       }
     };
 
-    // Create Notification Action
     $scope.update = function() {
       if ($scope.notification) {
         $scope.isSubmitDisabled = true;
         // User Autolinker.js to turn links into hyperlinks
         $scope.notification.content = Autolinker.link($scope.notification.content);
-        Notification.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
+        CommonService.execute($scope.formAction, $scope.notification).then(actionCallback($scope.formAction));
       }
     };
 
-    // Generic Notification execute() Function & Related Callback
     $scope.execute = function (action, notification) {
       if (action.name === 'update') {
         $scope.notification = notification;
         $location.path('/notifications/' + $scope.notification.properties.id + '/edit');
       } else if (action.name === 'delete') {
         if (window.confirm('Are you sure you want to delete this notification?')) {
-          Notification.execute(action, notification).then(actionCallback(action));
+          CommonService.execute(action, notification).then(actionCallback(action));
         }
       } else {
-        Notification.execute(action, notification).then(actionCallback(action));
+        CommonService.execute(action, notification).then(actionCallback(action));
       }
     };
 
-    var actionCallback = function(action) {
+    function actionCallback(action) {
       var destination = '/notifications',
           modalMessage = '';
       if (action.name === 'create') {
@@ -84,17 +83,20 @@
       } else if (action.name === 'delete') {
         modalMessage = ('You\'ve successfully deleted this notification.');
       }
-      return Notification.list().then(function(items) {
+
+      return CommonService.execute({
+        href: '/a/notifications.json'
+      }).then(function(items) {
         $location.path(destination);
         $scope.notifications = items.entities;
         $scope.currentPage = items.properties.paging.current_page;
         $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
         $scope.showModal(modalMessage);
       });
-    };
+    }
 
     this.init($scope, $location);
-    this.fetch($scope, $rootScope, $location, $routeParams, Notification);
+    this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
   }
 
   AdminNotificationsCtrl.prototype.init = function($scope, $location) {
@@ -105,9 +107,11 @@
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
   };
 
-  AdminNotificationsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, Notification) {
+  AdminNotificationsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
     if ($scope.mode === 'index') {
-      Notification.list().then(function(items) {
+      CommonService.execute({
+        href: '/a/notifications.json'
+      }).then(function(items) {
         $scope.notifications = items.entities;
         $scope.currentPage = items.properties.paging.current_page;
         $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
@@ -117,7 +121,9 @@
       });
 
     } else if ($scope.mode === 'new') {
-      Notification.list().then(function(items) {
+      CommonService.execute({
+        href: '/a/notifications.json'
+      }).then(function(items) {
         $scope.formAction = $scope.getAction(items.actions, 'create');
         $scope.notification = {};
       });
@@ -127,7 +133,9 @@
       $rootScope.breadcrumbs.push({title: 'New Notification'});
 
     } else if ($scope.mode === 'edit') {
-      Notification.get($routeParams.notificationId).then(function(item) {
+      CommonService.execute({
+        href: '/a/notifications/' + $routeParams.notificationId + '.json'
+      }).then(function(item) {
         $scope.notification = item.properties;
         $scope.formAction = $scope.getAction(item.actions, 'update');
 
@@ -138,6 +146,6 @@
     }
   };
 
-  AdminNotificationsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'Notification'];
+  AdminNotificationsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'CommonService'];
   angular.module('powurApp').controller('AdminNotificationsCtrl', AdminNotificationsCtrl);
 })();
