@@ -1382,6 +1382,7 @@ $kpi-text-color: #888;
       overflow: hidden;
       transition: height .1s linear;
       height: 0px;
+      float: left;
 
       &.expand {
         height: 220px;
