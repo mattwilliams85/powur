@@ -57,7 +57,7 @@ namespace :powur do
         bonus_volume:        14900,
         distributor_only:    true,
         certifiable:         true,
-        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certification-2.jpg',
+        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/certification-3.jpg',
         smarteru_module_id:  '8342',
         position:            2)
 
@@ -79,7 +79,7 @@ namespace :powur do
         bonus_volume:        0,
         distributor_only:    true,
         certifiable:         true,
-        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/fit-2.jpg',
+        image_original_path: 'https://s3.amazonaws.com/sunstand-dev/products/fit-3.jpg',
         smarteru_module_id:  '8319',
         is_required_class:   true,
         position:            1)

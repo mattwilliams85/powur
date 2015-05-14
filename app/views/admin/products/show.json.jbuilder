@@ -12,5 +12,6 @@ actions \
   .field(:certifiable, :boolean, value: @product.certifiable)
   .field(:commission_percentage, :number,
          value:    @product.commission_percentage,
-         required: false),
+         required: false)
+  .field(:image_original_path, :text, value: @product.image_original_path),
   action(:delete, :delete, product_path(@product))

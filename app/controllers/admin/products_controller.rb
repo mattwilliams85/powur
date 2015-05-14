@@ -40,7 +40,7 @@ module Admin
     private
 
     def input
-      allow_input(:name, :bonus_volume, :commission_percentage, :certifiable, :description, :long_description)
+      allow_input(:name, :bonus_volume, :commission_percentage, :certifiable, :description, :long_description, :image_original_path)
     end
 
     def fetch_product

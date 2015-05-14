@@ -1,21 +1,39 @@
 .pow-university {
   margin-top: 0;
-  padding-top: 100px;
   padding-bottom: 50px;
 
-  @media #{$small} {
-    padding-top: 50px;
+  .sub-header {
+    background-image: image-url('university/top-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center;
+    margin-bottom: 70px;
+
+    .inner {
+      height: 400px;
+    }
+
+    h1 {
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 3em;
+      margin-top: 160px;
+
+      @media #{$small} {
+        margin-top: 180px;
+      }
+    }
   }
 
   .university-class-item-wrapper {
     .class-item {
       border: 1px solid #ececec;
-      height: 590px;
+      height: 660px;
       margin: 0 20px 50px 0;
       width: 100%;
 
       .image-wrapper {
-        // min-height: 230px;
         overflow: hidden;
 
         img {
@@ -74,11 +92,16 @@
         color: #a4a4a4;
         display: inline-block;
         font-size: .8em;
-        height: 200px;
+        height: 120px;
         overflow: hidden;
         padding: 0 20px;
         line-height: 1.4em;
         margin: 0;
+
+
+        @media #{$small} {
+          height: 200px;
+        }
       }
 
       .button {
