@@ -8,7 +8,7 @@
         data = data || {};
 
         $http({
-          method: action.method,
+          method: action.method || 'GET',
           url: action.href,
           data: data,
           type: action.type
