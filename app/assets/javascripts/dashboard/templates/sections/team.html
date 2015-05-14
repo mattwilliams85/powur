@@ -114,7 +114,7 @@
               </div>
               <div class="avatar">
                 <img ng-if="teamMember.properties.avatar" ng-src="{{teamMember.properties.avatar.thumb}}">
-                <img ng-if="!teamMember.properties.avatar" src="/assets/dashboard/default-avatar-thumb.png">
+                <img ng-if="!teamMember.properties.avatar" ng-src="{{legacyImagePaths.defaultAvatarThumb}}">
               </div>
               <div class="info-text user-text">
                 <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
@@ -198,7 +198,7 @@
                 </div>
                 <div class="avatar">
                   <img ng-if="teamMember.properties.avatar" ng-src="{{teamMember.properties.avatar.thumb}}">
-                  <img ng-if="!teamMember.properties.avatar" src="/assets/dashboard/default-avatar-thumb.png">
+                  <img ng-if="!teamMember.properties.avatar" ng-src="{{legacyImagePaths.defaultAvatarThumb}}">
                 </div>
                 <div class="info-text user-text">
                   <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>

@@ -204,13 +204,8 @@ $xl-screen: em-calc(1500);
   }
 
   .pow-promo-dim {
-    padding-top:150px;
-    @media #{$small} {
-      padding-top:90px;
-    }
-    @media #{$large} {
-      padding-top:150px;
-    }
+    padding-top: 22vh;
+  
     p {
       color: #fff;
       margin: 80px 0;
@@ -409,7 +404,7 @@ $xl-screen: em-calc(1500);
       @media #{$large} { 
         font-size: 2.2em;
       }
-      margin: 2em 0;
+      margin: 1.5em 0;
     }
 
     h4 {
@@ -455,21 +450,12 @@ $xl-screen: em-calc(1500);
       }
     }
 
-    span.big {
-      font-size: 1.2em;
-      font-weight: bold;
-    }
-
     .selections-wrapper {
       margin-top: 100px;
       text-align: left;
 
       h5 {
         font-size: 1.7em;
-      }
-
-      span {
-        font-size: 1em;
       }
 
       .selection-1 {
@@ -892,7 +878,7 @@ $xl-screen: em-calc(1500);
           top: 6px;
           @media #{$small} { 
             font-size: 1.2rem;
-            left: 9px;
+            left: 8px;
             top: 4px;
           }
           line-height: 1em;
@@ -958,6 +944,11 @@ $xl-screen: em-calc(1500);
         line-height:25pt;
       }
     }
+
+    h2 {
+      margin-bottom: 0;
+    }
+
     .pow-landing-footer {
       position: relative;
     }
@@ -984,7 +975,11 @@ $xl-screen: em-calc(1500);
         width:90%;
       }
       height:100vh;
-      min-height:100vh;
+      min-height: 800px;
+
+      .pow-promo-slider-wrapper {
+        margin: 0;
+      }
 
       h2 {
         color:#fff;
@@ -995,7 +990,7 @@ $xl-screen: em-calc(1500);
         // }
         @media #{$small} {
           text-align:right;
-          font-size: 2.9em;
+          font-size: 2em;
         }
         @media #{$large} {
           font-size: 3.3em;
@@ -1005,7 +1000,7 @@ $xl-screen: em-calc(1500);
       p {
         margin: 2% 5%;
         font-size:17pt;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1em;
         }
       }
@@ -1082,6 +1077,9 @@ $xl-screen: em-calc(1500);
         @media #{$small} { 
           font-size:1em;
           margin-top:0px;
+        }
+        &.big {
+          font-size: 16pt;
         }
       }
     }
@@ -1650,30 +1648,21 @@ $xl-screen: em-calc(1500);
         }
       }
       .left-side {
+        padding-top: 300px;
         height:600px;
         @media #{$small} { 
           height:700px;
         }
         background-color:$pow-color-blue;
         h2 {
-          margin-left:0;
           text-align:center;
-          font-size:5em;
-          margin-top:30%;
-          @media #{$small} { 
-            text-align:left;
-            font-size:3.5em;
-            margin-left:20%;
-            margin-top:59%;
-          }
-          @media #{$large} { 
-            margin-left:30%;
-          }
+          font-size:35pt;
           color:#fff;
         }
       }
       .right-side {
         height:600px;
+        padding: 105px;
         @media #{$small} { 
           height:700px;
         }
@@ -1681,17 +1670,14 @@ $xl-screen: em-calc(1500);
         .light-img {
           background:image-url('promo/light-bulb.png');
           background-repeat: no-repeat;
-          position: absolute;
           height: 200px;
           width: 200px;
-          top: 20%;
-          left: 25%;
+          margin-left: 200px;
+          display: block;
         }
         h2 {
-          font-size:40pt;
+          font-size:35pt;
           font-weight:800pt;
-          margin-top:29%;
-          margin-left:5%;
         }
       }
     }
@@ -1789,6 +1775,7 @@ $xl-screen: em-calc(1500);
     @for $i from 1 through 20 {
       .dna-ico-#{$i} {
         @include landing-sprite(our-dna-ico-#{$i});
+        background-position: ($i - 1) 0;
         display: inline-block;
       }
     }
@@ -1953,10 +1940,9 @@ $xl-screen: em-calc(1500);
       border-color: $pow-color-blue;
       border-width: 2px;
       width: 40%;
-      margin:0 30%;
+      margin: 0 0 15px 0;
       @media #{$small} { 
         width: 40px;
-        margin:0;
       }
     }
   }

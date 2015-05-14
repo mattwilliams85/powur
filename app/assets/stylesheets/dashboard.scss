@@ -1264,7 +1264,7 @@ $kpi-text-color: #888;
 
     .info-row {
       text-align: center;
-      background-image: url("/assets/city-dark.jpg");
+      background-image:  image-url("city-dark.jpg");
       background-position: center 0;
       background-repeat: no-repeat;
       background-size: cover;
@@ -1312,6 +1312,7 @@ $kpi-text-color: #888;
           padding: 5px 0px;
           cursor: pointer;
           transition: transform 0.4s ease, background-color 0.4s ease;
+          -webkit-transition: -webkit-transform 0.4s ease, background-color 0.4s ease;
 
           &.raise {
             -ms-transform: translate(0 , -30px); /* IE 9 */
@@ -1349,7 +1350,7 @@ $kpi-text-color: #888;
           }
 
           &.active-tab.info {
-            background-image: url("/assets/city-dark.jpg") !important;
+            background-image:  image-url("city-dark.jpg") !important;
             background-position: top right;
             background-repeat: no-repeat;
           }
