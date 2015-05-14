@@ -10,7 +10,7 @@ module QuoteSubmission
   end
 
   def zip_code_valid?
-    if Zipcode.where(zip: customer.zip).exists? || customer.zip.blank?
+    if customer.zip.blank? || Zipcode.where(zip: (customer.zip[0,5])).exists?
       return true
     else
       return false
