@@ -50,8 +50,8 @@
       if(element) {
         $scope.downline = $scope.downline.slice(0, parseInt(element.attr('data-row')) + 1);
       }
-      $scope.activeTab = null;
-      
+      $scope.activeTab = '';
+      $scope.currentTeamMember = {};
     };
 
     // Destroy Carousel
@@ -111,10 +111,6 @@
       }
     };
 
-    $scope.onEnd = function(){
-      initCarousel($('#carousel-' + ($scope.downline.length - 1)));
-    };
-
     // Close Form
     $scope.closeCarousel = function() {
       // $scope.drilldownActive = false;
@@ -122,9 +118,15 @@
       destroyCarousel('.invites');
     };
 
+    //On ng-repeat load
+    $scope.onEnd = function(){
+      initCarousel($('#carousel-' + ($scope.downline.length - 1)));
+    };
+
     // Search Action
     $scope.teamSection.teamSearch = '';
     $scope.teamSection.search = function() {
+
       for (var i = 0; i < $scope.downline.length; i++){
         destroyCarousel('#carousel-'+ i);
       }
@@ -133,6 +135,7 @@
         $scope.downline = [items.entities];
         $timeout(function() {
           initCarousel($('#carousel-0'));
+          $scope.closeForm(null, $('#carousel-0'));
         });
       });
     };
