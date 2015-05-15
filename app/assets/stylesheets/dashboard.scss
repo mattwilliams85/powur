@@ -404,6 +404,11 @@ $kpi-text-color: #888;
     -ms-transition: background-color .1s;
     transition: background-color .1s;
 
+    &.active {
+      background-color: #444;
+      color: #fff;
+    }
+
     &.downline {
       background: #444;
       color: #fff;
