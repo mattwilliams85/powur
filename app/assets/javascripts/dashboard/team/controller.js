@@ -9,7 +9,6 @@
     $scope.downline = [];
     $scope.currentTeamMember = {};
     $scope.teamSection.teamSort = 'name';
-
     // Initialize Carousel
     function initCarousel(carouselElement) {
       $(carouselElement).owlCarousel({
@@ -47,7 +46,7 @@
     // Close Team Member
     $scope.closeForm = function(teamMember, element) {
       if(teamMember) {
-        $scope.downline = $scope.downline.slice(0, teamMember.properties.level - 1);
+        $scope.downline = $scope.downline.slice(0, teamMember.properties.level - $scope.level);
       }
       if(element) {
         $scope.downline = $scope.downline.slice(0, parseInt(element.attr('data-row')) + 1);
@@ -67,7 +66,7 @@
       } else {
         $scope.activeTab = ''
         $scope.currentTeamMember = teamMember.properties;
-        $scope.downline = $scope.downline.slice(0, teamMember.properties.level - 1);
+        $scope.downline = $scope.downline.slice(0, teamMember.properties.level - $scope.level);
 
         if (tab === 'info') {
           $timeout(function(){
@@ -87,6 +86,10 @@
         }
       }
     };
+
+    $scope.levelGap = function(teamMember) {
+      return teamMember.properties.level - $scope.level;
+    }
 
     // Show Invites
     $scope.teamSection.showInvites = function() {
@@ -169,6 +172,7 @@
       $scope.downline.push(items.entities);
       $timeout(function() {
         initCarousel($('#carousel-0'));
+        $scope.level = $scope.currentUser.level;
       });
     });
   }

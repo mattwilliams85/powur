@@ -18,8 +18,8 @@
     </div>
 
     <div class="pow-scrolling-bg pow-bg-3 section solar-slide-2">
-      <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
-      <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
+      <i ng-hide="currentSlide === 0" class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
+      <i ng-hide="currentSlide === slides.length - 1" class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
       <div class="row pow-promo-content">
         <div class="large-12 columns">
           <h2 class="narrow">The facts are clear.<br /><div class="highlighted">Solar is exploding</div><br />Across America.</h2>

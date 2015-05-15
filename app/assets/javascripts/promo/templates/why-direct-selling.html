@@ -44,8 +44,8 @@
             <h2>Enter <br /><div class="highlight-2">direct sales</div></h2>
           </div>
           <div class="outer-wrapper">
-            <i class="fa fa-chevron-left fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
-            <i class="fa fa-chevron-right fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
+            <i ng-hide="currentSlide === 0" class="fa fa-chevron-left fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
+            <i ng-hide="currentSlide === slides.length - 1" class="fa fa-chevron-right fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
             <div class="large-7 small-12 columns slide-show-wrapper">
               <div ng-repeat="slide in slides">
                 <div class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">

@@ -89,9 +89,9 @@
       },
       {
         images: [
-          legacyImagePaths.energyPromo[6],
-          legacyImagePaths.energyPromo[7],
-          legacyImagePaths.energyPromo[8]
+          legacyImagePaths.energyPromo[0],
+          legacyImagePaths.energyPromo[1],
+          legacyImagePaths.energyPromo[2]
         ],
         text: 'Referral marketing is the #1 source of new solar customers, and with Powur, we take the power of referral marketing to new heights. If you’ve ever wanted to own your own business, have an unlimited income potential, and do something that leaves a lasting impact on our world for Centuries to come... you could not be in a better place at a better time.'
       }

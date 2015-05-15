@@ -231,7 +231,6 @@ $kpi-text-color: #888;
     font-family: $dashboard-font-family;
     font-size: 10pt;
     line-height: 16px;
-    text-transform: uppercase;
 
     background-color: #fff;
     background-image: image-url('search.svg');
@@ -497,7 +496,7 @@ $kpi-text-color: #888;
     content: '';
     display: block;
     margin: auto;
-    height: 1px;
+    height: 0px;
     width: inherit;
     margin: 30px 0 70px 0;
     background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.1), rgba(0,0,0,0));
@@ -1302,7 +1301,7 @@ $kpi-text-color: #888;
 
     .carousel-box {
       border: 1px solid #e5e5e5;
-      margin-bottom: -3px;
+      margin-bottom: -1px;
 
       .avatar {
         position: relative;
@@ -1330,8 +1329,9 @@ $kpi-text-color: #888;
           width: 31%;
           height: 50px;
           padding-top: 10px;
+          margin-right: 1.75%;
           text-align: center;
-          display: inline-block;
+          float: left;
           text-transform: uppercase;
           font-size: 12pt;
           color: #eee;
@@ -1404,11 +1404,12 @@ $kpi-text-color: #888;
     .downline-row {
       background-color: #444;
       width: 100%;
-      border-top: 0px;
       overflow: hidden;
       transition: height .1s linear;
       height: 0px;
       float: left;
+      border: 0px;
+      margin-bottom: 0px;
 
       &.expand {
         height: 220px;

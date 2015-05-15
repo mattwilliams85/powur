@@ -25,8 +25,8 @@
     </div>
 
     <div class="pow-scrolling-bg pow-bg-3 pow-slider section">
-     <i class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
-     <i class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
+     <i ng-hide="currentSlide === 0" class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
+     <i ng-hide="currentSlide >= 4" class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
       <div id="slide0" class="pow-promo-content slide" ng-class="{'active': currentSlide === 0, 'inactive': currentSlide > 0}">
         <div class="row">
           <div class="huge-purpose-image-wrapper">
