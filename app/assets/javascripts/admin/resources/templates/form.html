@@ -6,7 +6,7 @@
     <div class="row">
       <div class="large-12 columns">
         <label for="resource_title">Title</label>
-        <span ng-show="resourceForm.title.$dirty && errorMessage('title')" class="radius alert label">{{errorMessage('title')}}</span>
+        <span ng-show="errorMessage('title')" class="radius alert label">{{errorMessage('title')}}</span>
         <input ng-model="resource.title" name="title" id="resource_title" type="text" />
       </div>
     </div>
@@ -15,7 +15,7 @@
       <div class="large-12 columns">
         <label>Choose a Video File</label><br />
         <small>Files must be .mp4 format</small>
-        <span ng-show="resourceForm.file_original_path.$dirty && errorMessage('file_original_path')" class="radius alert label">{{errorMessage('file_original_path')}}</span>
+        <span ng-show="errorMessage('file_original_path')" class="radius alert label">{{errorMessage('file_original_path')}}</span>
         <input ng-model="resource.file_original_path" name="file_original_path" id="resource_file_original_path" type="text" ng-required="true" />
         <file-s3-uploader data="resource.file_original_path" mode="resource_attachment" show-progress="1" />
       </div>
@@ -30,7 +30,7 @@
     <div class="row" ng-if="resourceType === 'document'">
       <div class="large-12 columns">
         <label>Choose a PDF File</label>
-        <span ng-show="resourceForm.file_original_path.$dirty && errorMessage('file_original_path')" class="radius alert label">{{errorMessage('file_original_path')}}</span>
+        <span ng-show="errorMessage('file_original_path')" class="radius alert label">{{errorMessage('file_original_path')}}</span>
         <input ng-model="resource.file_original_path" name="file_original_path" id="resource_file_original_path" type="text" ng-required="true" />
         <file-s3-uploader data="resource.file_original_path" mode="resource_attachment" show-progress="1" />
       </div>
@@ -39,7 +39,6 @@
     <div class="row">
       <div class="large-12 columns">
         <label>Choose a thumbnail</label><br />
-        <small>Recommended size is (TODO Ask Chan)</small>
         <input ng-model="resource.image_original_path" name="image_original_path" id="resource_image_original_path" type="text" />
         <file-s3-uploader data="resource.image_original_path" mode="resource_image" show-progress="1" />
       </div>
@@ -48,7 +47,7 @@
     <div class="row">
       <div class="large-12 columns">
         <label for="resource_description">Description</label>
-        <span ng-show="resourceForm.description.$dirty && errorMessage('description')" class="radius alert label">{{errorMessage('description')}}</span>
+        <span ng-show="errorMessage('description')" class="radius alert label">{{errorMessage('description')}}</span>
         <textarea ng-model="resource.description" name="description" id="resource_description"></textarea>
       </div>
     </div>

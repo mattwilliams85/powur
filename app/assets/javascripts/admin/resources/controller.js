@@ -67,10 +67,8 @@
       if (data.errors['file_type']) data.errors['file_original_path'] = data.errors['file_type'];
       var keys = ['title', 'description', 'file_original_path'];
       for(var i in keys) {
-        $scope.resourceForm[keys[i]].$dirty = false;
         var errorMessage = data.errors[keys[i]];
         if (errorMessage) {
-          $scope.resourceForm[keys[i]].$dirty = true;
           $scope.formErrorMessages[keys[i]] = errorMessage[0];
         }
       }
