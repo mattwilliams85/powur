@@ -41,7 +41,7 @@
     };
 
     $rootScope.enableScrollDetect = function() {
-      $(window).scroll(function () {
+      $(window).on('scroll', function () {
         var screenHeight = $(window).height() - ($(window).height() / 1.4);
         var scrollPos = $(window).scrollTop();
         if ($('.pow-header-guest').hasClass('velocity-animating')) return;
