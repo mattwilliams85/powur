@@ -29,7 +29,8 @@
     "velocity": "~1.2.2",
     "owlcarousel": "~1.3.2",
     "components-font-awesome": "4.x.x",
-    "angular-new-router": "~0.5.3"
+    "angular-ui-router": "git@github.com:angular-ui/ui-router.git"
+
   },
   "resolutions": {
     "angular": "~1.4.0"

@@ -73,7 +73,7 @@ module UserScopes
 
     scope :performance, lambda { |metric, period|
       case metric
-      when 'quotes'
+      when 'quote_count'
         if period == 'lifetime'
           query = with_quote_counts
         else
@@ -81,8 +81,8 @@ module UserScopes
           query = pay_period_quote_counts(klass.current)
         end
         query.order('quote_count desc')
-      when 'personal', 'group'
-        order_by = "order_totals.#{metric}"
+      when 'personal_sales', 'group_sales'
+        order_by = "order_totals.#{metric.split('_').first}"
         order_by += '_lifetime' if period == 'lifetime'
         with_order_totals(period).order("#{order_by} desc")
       else
