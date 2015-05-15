@@ -9,11 +9,11 @@ module Anon
 
       login_user(@user, params[:remember_me] == true)
 
-      render 'show'
-      # respond_to do |format|
-      #   format.html { render text: '' }
-      #   format.json { render 'auth/profile/show' }
-      # end
+      # render 'show'
+      respond_to do |format|
+        format.html { render 'index/index' }
+        format.json { render 'auth/profile/show' }
+      end
     end
 
     def destroy
