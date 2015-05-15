@@ -126,7 +126,9 @@
 
     //On ng-repeat load
     $scope.onEnd = function(){
-      initCarousel($('#carousel-' + ($scope.downline.length - 1)));
+      $timeout(function(){
+        initCarousel($('#carousel-' + ($scope.downline.length - 1)));
+      });
     };
 
     // Search Action

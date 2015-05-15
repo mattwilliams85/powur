@@ -76,8 +76,8 @@
                 <div 
                   class="team-tab downline" 
                   ng-class="{ 
-                    'raise': hover || isMobile() || ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
-                    'active-tab': ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
+                    'raise': hover || isMobile() || ( downline.length > (levelGap(teamMember))),
+                    'active-tab': ( downline.length > levelGap(teamMember)),
                     'even': levelGap(teamMember) % 2 !== 0,
                     'odd': levelGap(teamMember) % 2 === 0
                   }"
@@ -160,8 +160,8 @@
                   <div 
                     class="team-tab downline" 
                     ng-class="{ 
-                      'raise': hover || isMobile() || ( generation.tab === 'team' && generation.selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
-                      'active-tab': ( generation.tab === 'team' && generation.selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
+                     'raise': hover || isMobile() || ( downline.length > (levelGap(teamMember))),
+                      'active-tab': ( downline.length > levelGap(teamMember)),
                       'even': levelGap(teamMember) % 2 !== 0,
                       'odd': levelGap(teamMember) % 2 === 0
                     }"
@@ -197,8 +197,8 @@
                   </div>
                 </div>
                 <div class="avatar">
-                  <img ng-if="teamMember.properties.avatar" ng-src="{{teamMember.properties.avatar.thumb}}">
-                  <img ng-if="!teamMember.properties.avatar" ng-src="{{legacyImagePaths.defaultAvatarThumb}}">
+                  <img ng-if="teamMember.properties.avatar" class="lazyOwl" data-src="{{teamMember.properties.avatar.thumb}}">
+                  <img ng-if="!teamMember.properties.avatar" class="lazyOwl" data-src="{{legacyImagePaths.defaultAvatarThumb}}">
                 </div>
                 <div class="info-text user-text">
                   <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
