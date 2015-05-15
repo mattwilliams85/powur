@@ -156,45 +156,47 @@
     };
 
     function actionCallback(action) {
-      if (action.name === 'create' || 
-          action.name === 'delete') {
-        Proposal.list().then(function(items) {
-          $scope.closeForm();
-          destroyCarousel('.proposals');
-          $timeout(function() {
+      return function(data) {
+        if (action.name === 'create' ||
+            action.name === 'delete') {
+          Proposal.list().then(function(items) {
+            $scope.closeForm();
+            destroyCarousel('.proposals');
+            $timeout(function() {
+              $scope.proposals = items.entities;
+              $timeout(function() {
+                initCarousel('.proposals');
+              });
+            });
+          });
+        } else if (action.name === 'update') {
+          Proposal.list().then(function(items) {
+            $scope.updatingProposal = true;
+            $scope.closeForm();
+            destroyCarousel('.proposals');
             $scope.proposals = items.entities;
             $timeout(function() {
               initCarousel('.proposals');
+              $timeout(function() {
+                $('.proposals').data('owlCarousel').goTo($scope.proposalIndex);
+                $scope.customerSection.showProposal($scope.proposalIndex);
+              });
             });
           });
-        });
-      } else if (action.name === 'update') {
-        Proposal.list().then(function(items) {
-          $scope.updatingProposal = true;
+        } else if (action.name === 'submit') {
+          console.log('submitted proposal!');
           $scope.closeForm();
-          destroyCarousel('.proposals');
-          $scope.proposals = items.entities;
-          $timeout(function() {
-            initCarousel('.proposals');
-            $timeout(function() {
-              $('.proposals').data('owlCarousel').goTo($scope.proposalIndex);
-              $scope.customerSection.showProposal($scope.proposalIndex);
-            });
-          });
-        });
-      } else if (action.name === 'submit') {
-        console.log('submitted proposal!');
-        $scope.closeForm();
-        $anchorScroll();
-        $scope.showModal('This proposal was submitted to SolarCity!');
+          $anchorScroll();
+          $scope.showModal('This proposal was submitted to SolarCity!');
 
-      } else if (action.name === 'resend') {
-        $scope.closeForm();
-        $anchorScroll();
-        $scope.showModal('This proposal email was successfully re-sent to ' +
-          $scope.proposal.first_name + ' ' +
-          $scope.proposal.last_name + ' at ' +
-          $scope.proposal.email + '.');
+        } else if (action.name === 'resend') {
+          $scope.closeForm();
+          $anchorScroll();
+          $scope.showModal('This proposal email was successfully re-sent to ' +
+            $scope.proposal.first_name + ' ' +
+            $scope.proposal.last_name + ' at ' +
+            $scope.proposal.email + '.');
+        }
       }
     }
 
