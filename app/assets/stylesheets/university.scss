@@ -19,6 +19,7 @@
       font-weight: bold;
       font-size: 3em;
       margin-top: 160px;
+      font-family: $body-font-family;
 
       @media #{$small} {
         margin-top: 180px;
@@ -29,7 +30,7 @@
   .university-class-item-wrapper {
     .class-item {
       border: 1px solid #ececec;
-      height: 660px;
+      height: 100%;
       margin: 0 20px 50px 0;
       width: 100%;
 
@@ -110,6 +111,10 @@
         background: #59a2e7;
         line-height: 1.2em;
         text-transform: uppercase;
+        position: absolute;
+        bottom: 20px;
+        left: 10%;
+        width: 70%;
 
         &.purchase {
           background: #42bc1d;

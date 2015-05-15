@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=production.powur.com%3A149&Lead_Generator__c=70&FirstName=Diego&LastName=Aldrete&Street=2958%20Plaza%20Carlos&City=Bonita&PostalCode=91902&Phone=619%20773%206789&Email=aldrete_diego%40hotmail.com&Monthly_Electric_Bill__c=95.00
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '241'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Mon, 11 May 2015 21:36:58 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@4dc9425f"
+      Server:
+      - nginx
+      Content-Length:
+      - '124'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q1400001PkLFUEA3","Message":"Lead successfully
+        created","YourId":"production.powur.com:149"}'
+    http_version: 
+  recorded_at: Mon, 11 May 2015 21:36:58 GMT
+recorded_with: VCR 2.9.3

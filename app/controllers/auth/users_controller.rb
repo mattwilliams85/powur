@@ -3,18 +3,14 @@ module Auth
     include UsersActions
 
     sort newest: { created_at: :desc },
-            name: 'users.last_name asc, users.first_name asc'
+         name: 'users.last_name asc, users.first_name asc'
           # quotes: 'users.quote_count asc'
           # # .with_quote_counts
 
     filter :performance,
-           fields:     { metric: { options: { quotes:   'Quote Count',
-                                              personal: 'Personal Sales',
-                                              group:    'Group Sales' },
+           fields:     { metric: { options: [ :quote_count, :personal_sales, :group_sales ],
                                    heading: :order_by },
-                         period: { options: { lifetime: 'Lifetime',
-                                              monthly:  'Monthly',
-                                              weekly:   'Weekly' },
+                         period: { options: [ :lifetime, :monthly, :weekly ],
                                    heading: :for_period } },
            scope_opts: { type: :hash, using: [ :metric, :period ] }
 

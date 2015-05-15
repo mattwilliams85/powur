@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=production.powur.com%3A156&Lead_Generator__c=57&FirstName=Andrew&LastName=Hautzinger&Street=16%20Blackberry%20Lane&City=Los%20Lunas&PostalCode=87031&Phone=5058502167&Email=hautzinger%40msn.com&Monthly_Electric_Bill__c=200
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '236'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Wed, 13 May 2015 20:44:31 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@179f9416"
+      Server:
+      - nginx
+      Content-Length:
+      - '124'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q1400001PluBFEAZ","Message":"Lead successfully
+        created","YourId":"production.powur.com:156"}'
+    http_version: 
+  recorded_at: Wed, 13 May 2015 20:44:32 GMT
+recorded_with: VCR 2.9.3

@@ -36,7 +36,9 @@ module Sunstand
     config.middleware.delete Rack::ETag
 
     config.assets.paths << Rails.root.join('app', 'assets', 'templates')
+    # config.assets.paths << Rails.root.join('app', 'assets', 'components')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+    # config.angular_templates.inside_paths = [ Rails.root.join('app', 'assets', 'javascripts') ]
     config.secret_key_base = ENV['SECRET_KEY_BASE']
   end
 end

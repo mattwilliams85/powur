@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   def html?
-    ->(r) { r.params[:format].blank? || r.params[:format] == 'html' }
+    ->(r) { !r.xhr? && r.format.html? }
   end
 
   root 'index#index'

@@ -76,8 +76,8 @@
                 <div 
                   class="team-tab downline" 
                   ng-class="{ 
-                    'raise': hover || isMobile() || ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
-                    'active-tab': ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
+                    'raise': hover || isMobile() || ( downline.length > (levelGap(teamMember))) && downline[0].selected === teamMember.properties.id,
+                    'active-tab': ( downline.length > levelGap(teamMember)) && downline[0].selected === teamMember.properties.id,
                     'even': levelGap(teamMember) % 2 !== 0,
                     'odd': levelGap(teamMember) % 2 === 0
                   }"
@@ -129,7 +129,7 @@
 
     <!-- Team Members Downline Carousel -->
     <div ng-repeat="generation in downline track by $index">
-      <div class="row collapse carousel-box downline-row" ng-class="{ 'even': $index % 2 === 0, 'expand': downline.length >= ($index - 1) }" ng-if="$index !== 0">
+      <div class="row collapse carousel-box downline-row" ng-class="{ 'even': $index % 2 === 0, 'expand': downline.length >= ($index) }" ng-if="$index !== 0">
 
         <!-- <div class="gen-count team-member-info-large downline w20percent small-2 columns">
           <div class="text-uppercase top-label">generation</div>
@@ -160,8 +160,8 @@
                   <div 
                     class="team-tab downline" 
                     ng-class="{ 
-                      'raise': hover || isMobile() || ( generation.tab === 'team' && generation.selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
-                      'active-tab': ( generation.tab === 'team' && generation.selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
+                      'raise': hover || isMobile() || ( downline.length > (levelGap(teamMember))) && generation.selected === teamMember.properties.id,
+                      'active-tab': ( downline.length > levelGap(teamMember)) && generation.selected === teamMember.properties.id,
                       'even': levelGap(teamMember) % 2 !== 0,
                       'odd': levelGap(teamMember) % 2 === 0
                     }"
@@ -197,8 +197,8 @@
                   </div>
                 </div>
                 <div class="avatar">
-                  <img ng-if="teamMember.properties.avatar" ng-src="{{teamMember.properties.avatar.thumb}}">
-                  <img ng-if="!teamMember.properties.avatar" ng-src="{{legacyImagePaths.defaultAvatarThumb}}">
+                  <img ng-if="teamMember.properties.avatar" class="lazyOwl" data-src="{{teamMember.properties.avatar.thumb}}">
+                  <img ng-if="!teamMember.properties.avatar" class="lazyOwl" data-src="{{legacyImagePaths.defaultAvatarThumb}}">
                 </div>
                 <div class="info-text user-text">
                   <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
@@ -213,7 +213,7 @@
     </div>
 
     <!-- Row: Team Member KPI -->
-    <div ng-show="activeTab === 'impact'" class="kpi-section">
+    <div class="kpi-section">
         <div class="beta-filler downline-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'impact'}">
           <span> Key Performance Indicators coming soon to a browser near you!</span>
         </div>

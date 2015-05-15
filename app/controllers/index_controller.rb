@@ -1,7 +1,7 @@
 class IndexController < AnonController
   def index
     respond_to do |format|
-      format.html { render html_template }
+      format.html
       format.json { render "anon/session/#{json_template}" }
     end
   end
@@ -14,10 +14,6 @@ class IndexController < AnonController
       session[:code] = nil unless @invite
     end
     !!@invite
-  end
-
-  def html_template
-    logged_in? ? 'authenticated' : 'anonymous'
   end
 
   def json_template

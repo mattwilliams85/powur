@@ -84,6 +84,8 @@ en:
   totals:
     product_orders: "Order Totals : %{product}"
     bonus: Bonus Total
+  labels:
+    newest: Newest
   headings:
     lifetime: Lifetime
     bonus: Bonus

@@ -387,6 +387,11 @@ $kpi-text-color: #888;
   .owl-next:before {
     content: "\f054"; // Unicode for fa-chevron-right
   }
+  // OVERRIDE OWL-THEME
+  .owl-item.loading{
+    min-height: 150px;
+    background: image-url('dashboard/AjaxLoader.gif') no-repeat center center
+  }
 
 
   // Shared Carousel Item Styles
@@ -755,7 +760,7 @@ $kpi-text-color: #888;
       }
 
       .notifications::-webkit-scrollbar-thumb {
-        background: rgba(0,0,0,1);
+        background: rgba(0,0,0,0.4);
       }
     }
 
@@ -844,10 +849,6 @@ $kpi-text-color: #888;
     padding-top: 20px;
     margin-bottom:50px;
 
-    * {
-      color:#F9F2E8;
-    }
-
     //TEMPORARY
     .beta-filler {
       background: #444;
@@ -860,30 +861,44 @@ $kpi-text-color: #888;
     .tab-header-row {
       text-align: center;
       border: 1px solid #e5e5e5;
+      border-bottom: 0;
       &:last-child {
         border-right: 0px;
       }
 
       .kpi-tab {
         background-color: #fff;
-        height: 220px;
+        height: 160px;
+        @media #{$small} {
+          height: 220px;
+        }
         width: 20%;
         float: left;
         cursor: pointer;
         display: inline-block;
         border-right: 1px solid #e5e5e5;
+        border-bottom: 1px solid #e5e5e5;
+        color: $kpi-text-color;
+
+        &.active {
+          background-color: #444;
+          color: #fff;
+          border-bottom: 1px solid #555;
+        }
 
         .kpi-info-box {
           margin-top: 25%;
 
           .kpi-count {
             display: block;
-            color: $kpi-text-color;
             line-height:60pt;
+            .unit {
+              line-height: 12pt;
+              font-size: 12pt;
+            }
           }
 
           .kpi-header {
-            color: $kpi-text-color;
             font-size: 12pt;
             @media #{$medium} { 
               font-size: 16pt;
@@ -892,7 +907,6 @@ $kpi-text-color: #888;
 
           .empty-info {
             display: block;
-            color: $kpi-text-color;
             font-size: 1em;
             line-height: 1.2em;
             padding: 0 1em;
@@ -924,6 +938,10 @@ $kpi-text-color: #888;
         @media #{$small} {
           height: 525px;
         }
+      }
+
+      * {
+        color:#F9F2E8;
       }
 
       .squeezed-center {
@@ -1243,7 +1261,7 @@ $kpi-text-color: #888;
 
     .carousel-box {
       border: 1px solid #e5e5e5;
-      margin-bottom: -1px;
+      margin-bottom: -2px;
     }
 
     .new-proposal {
@@ -1290,7 +1308,7 @@ $kpi-text-color: #888;
     .info-row {
       text-align: center;
       background-image:  image-url("city-dark.jpg");
-      background-position: center 0;
+      background-position: left 0;
       background-repeat: no-repeat;
       background-size: cover;
 
@@ -1402,11 +1420,15 @@ $kpi-text-color: #888;
     }
 
     .downline-row {
+      height: 0px;
       background-color: #444;
       width: 100%;
       overflow: hidden;
-      transition: height .1s linear;
-      height: 0px;
+      -webkit-transition: height .2s;
+      -moz-transition: height .2s;
+      -o-transition: height .2s;
+      -ms-transition: height .2s;
+      transition: height .2s;
       float: left;
       border: 0px;
       margin-bottom: 0px;
@@ -1416,9 +1438,6 @@ $kpi-text-color: #888;
 
         &.info-row {
           height: 230px;
-          &.expand {
-            height: 230px;
-          }
         }
       }
 

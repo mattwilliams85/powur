@@ -3,7 +3,6 @@ require 'spec_helper'
 describe 'order endpoints' do
 
   before do
-    DatabaseCleaner.clean
     login_user
   end
 

@@ -1,0 +1,27 @@
+
+
+<form ng-submit="action.submit()">
+  <div ng-repeat="field in action.fields" class="row">
+    <div class="small-6 columns">
+      <label ng-class="{ error: field.error }">{{ field.label || field.name }}
+        <div ng-switch on="field.type">
+          <input ng-switch-when="email" type="email" name="{{ field.name }}" ng-model="field.value" ng-class="{ error: field.error }">
+          <input ng-switch-when="password" type="password" name="{{ field.name }}" ng-model="field.value" ng-class="{ error: field.error }">
+          <input ng-switch-when="text" type="text" name="{{ field.name }}" ng-model="field.value" ng-class="{ error: field.error }">
+          <input ng-switch-when="search" type="search" name="{{ field.name }}" ng-model="field.value" ng-class="{ error: field.error }">
+          <select ng-switch-when="select" name="{{ field.name }}" ng-model="field.value" ng-class="{ error: field.error }" ng-options="k as v for (k, v) in field.options"></select>
+        </div>
+      </label>
+      <small class="error" ng-show="field.error">{{ field.error }}</small>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 columns">
+      <input type="submit" value="Submit" class="button tiny">
+    </div>
+  </div>
+</form>
+<small>{{ action }}</small>
+
+
+

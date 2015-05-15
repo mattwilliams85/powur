@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=production.powur.com%3A171&Lead_Generator__c=61&FirstName=saun&LastName=kelly&Street=56%20azalea%20la&City=levittown&PostalCode=19055&Phone=215%20946%208612&Email=sekel56%40yahoo.com&Monthly_Electric_Bill__c=
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '223'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Wed, 13 May 2015 20:45:30 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@427cff12"
+      Server:
+      - nginx
+      Content-Length:
+      - '124'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q1400001PluDaEAJ","Message":"Lead successfully
+        created","YourId":"production.powur.com:171"}'
+    http_version: 
+  recorded_at: Wed, 13 May 2015 20:45:30 GMT
+recorded_with: VCR 2.9.3

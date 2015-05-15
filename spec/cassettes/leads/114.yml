@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=production.powur.com%3A114&Lead_Generator__c=67&FirstName=John&LastName=White&Street=10645%20SW%20135th&City=Beaverton&PostalCode=97008&Phone=5035775885&Email=john%40jwfin.com&Monthly_Electric_Bill__c=120.00
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '222'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Mon, 11 May 2015 21:37:29 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@48150e"
+      Server:
+      - nginx
+      Content-Length:
+      - '124'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q1400001PkLJvEAN","Message":"Lead successfully
+        created","YourId":"production.powur.com:114"}'
+    http_version: 
+  recorded_at: Mon, 11 May 2015 21:37:29 GMT
+recorded_with: VCR 2.9.3

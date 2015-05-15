@@ -43,7 +43,7 @@
 
           <div class="slider-inner">
             <slider floor="0" ceiling="50" step="1" precision="0" ng-model="slider" translate="sliderOnChange"></slider>
-            <img class="image-1" src="<%= asset_path('promo/slider-item-1.1.png') %>" />
+            <img class="image-1" ng-src="<%= asset_path('promo/slider-item-1.1.png') %>" />
             <img class="image-2" src="<%= asset_path('promo/slider-item-2.1-hidden.png') %>" />
           </div>
 
@@ -102,9 +102,9 @@
             <div class="inner-content">
               <i ng-hide="currentSlide === 0" class="fa fa-chevron-left fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
               <i ng-hide="currentSlide === slides.length - 1" class="fa fa-chevron-right fa-1x" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
-              <div ng-repeat="slide in slides">
+              <div ng-repeat="slide in energyPromoSlides">
                 <div class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
-                  <img ng-repeat="img in slide.images" class="image" ng-src="{{img}}" />
+                  <img ng-repeat="img in slide.images" class="image image_{{$index}}" ng-src="{{img}}" />
                   <div class="clearfix"></div>
                   <p>{{slide.text}}</p>
                 </div>

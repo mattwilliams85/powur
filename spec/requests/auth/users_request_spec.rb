@@ -32,7 +32,7 @@ describe '/u/users' do
       totals.sort_by(&:group).reverse.map(&:user_id)
 
       get users_path,
-          'performance[metric]' => 'group',
+          'performance[metric]' => 'group_sales',
           'performance[period]' => 'monthly',
           format:                  :json
 
@@ -49,7 +49,7 @@ describe '/u/users' do
       end
 
       get users_path,
-          'performance[metric]' => 'quotes',
+          'performance[metric]' => 'quote_count',
           'performance[period]' => 'lifetime',
           format: :json
 
@@ -109,7 +109,6 @@ describe '/u/users' do
       found_child = json_body['entities']
                     .find { |e| e['properties']['id'] == child.id }
       expect(found_child).to_not be_nil
-      # expect(found_child['properties']['downline_count']).to eq(2)
     end
   end
 

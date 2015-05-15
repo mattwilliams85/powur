@@ -133,8 +133,9 @@ module SirenJson
                    max:   pager[:page_count], required: false)
     end
     if sorting? && sorter[:sorts].size > 1
+      sort_options = keys_to_options(sorter[:sorts])
       action.field(:sort, :select,
-                   options:  sorter[:sorts],
+                   options:  Hash[sort_options],
                    value:    sorter[:current_sort],
                    required: !sorter[:required].nil?)
     end
@@ -158,20 +159,30 @@ module SirenJson
   def filter_field(action, scope, opts)
     field_opts = { value: params[scope], required: !!opts[:required] }
     if opts[:options]
-      field_opts[:options] = if opts[:options].is_a?(Hash)
-                               opts[:options]
-                             else
-                               instance_exec(&opts[:options])
+      options = if opts[:options].is_a?(Array)
+        keys_to_options(opts[:options])
+      elsif opts[:options].is_a?(Hash)
+        opts[:options]
+      else
+        instance_exec(&opts[:options])
       end
+      field_opts[:options] = options
     else
       reference = { url:     instance_exec(&opts[:url]),
                     value:   opts[:id],
                     display: opts[:name] }
       field_opts[:reference] = reference
     end
-    field_opts[:heading] = t("headings.#{opts[:heading]}") if opts[:heading]
+    if opts[:heading]
+      field_opts[:label] = t("labels.#{opts[:heading]}", 
+                             default: opts[:heading].to_s.titleize)
+    end
 
     action.field(scope, :select, field_opts)
+  end
+
+  def keys_to_options(keys)
+    Hash[keys.map { |k| [ k, t("labels.#{k}", default: k.to_s.titleize) ] }]
   end
 
   def render_totals(json)

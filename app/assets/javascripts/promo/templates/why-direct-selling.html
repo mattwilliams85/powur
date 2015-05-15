@@ -47,7 +47,7 @@
             <i ng-hide="currentSlide === 0" class="fa fa-chevron-left fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'left')"></i>
             <i ng-hide="currentSlide === slides.length - 1" class="fa fa-chevron-right fa-1x optional" ng-class="{{slideToggleClass}}" ng-click="navigateSlideShow(currentSlide, 'right')"></i>
             <div class="large-7 small-12 columns slide-show-wrapper">
-              <div ng-repeat="slide in slides">
+              <div ng-repeat="slide in directSalePromoSlides">
                 <div class="slide-show-inner" ng-class="{'active': currentSlide === slides.indexOf(slide)}">
                   <img ng-repeat="img in slide.images" class="image image_{{$index}}" ng-src="{{img}}" />
                   <div class="clearfix"></div>

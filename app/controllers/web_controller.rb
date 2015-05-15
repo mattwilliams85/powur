@@ -11,15 +11,18 @@ class WebController < ApplicationController
 
   def current_user
     @current_user ||= session[:user_id] && User.find_by(id: session[:user_id].to_i)
-    if @current_user && @current_user.sign_in_expired?(session[:expires_at])
-      session[:user_id] = nil
-      @current_user = nil
-    end
-    @current_user
   end
 
   def logged_in?
     return false unless current_user
+
+    # HACKFIX, need better way to mock user session for test
+    if current_user.sign_in_expired?(session[:expires_at]) && !Rails.env.test?
+      reset_session
+      @current_user = nil
+      return false
+    end
+
     session[:expires_at] = Time.current + 1.hour
     true
   end

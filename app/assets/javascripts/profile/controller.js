@@ -9,6 +9,8 @@
       $scope.userProfile = user;
     });
 
+    $scope.legacyImagePaths = legacyImagePaths;
+
     UserProfile.getEwalletDetails().then(function(ewalletDetails) {
       $scope.ewalletDetails = ewalletDetails.properties;
     });

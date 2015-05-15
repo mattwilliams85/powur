@@ -1,0 +1,26 @@
+id,sponsor_id,placement_id,first_name,last_name,phone,email,street,city,state,zip
+42,,,Powur,PBC,,powur@powur.com,,,,
+50,42,,Aaron,Fortner,,info@aaronfortner.com,,,,
+51,50,,Gregory,Mascari,360-229-8433,gmascari@me.com,259 Evening Star Lane,Bozeman,MT,59715
+52,51,,Haydon,Cameron,561-966-8993,haydoncameron@gmail.com,605 Atlantis Estates Way,Atlantis ,FL,33462
+53,52,,Bob,Doran,610-283-6113,bob@bobdoran.com,1001 Michael Lane,Eagleville,PA,19403
+60,42,,Jake,Ducey,760-703-9681,jake@jakeducey.com,2581 Meadowmist Lane,Encinitas,CA,92024
+54,51,,John  ,Tasa ,916-541-4969,jtasa88@gmail.com,628 Myrtle Ave,West Sacramento,CA,95605
+55,42,,Kary,Rogney,541-301-3865,karyrogney@yahoo.com,952 Westrop Drive,Central Point,OR,97502
+56,42,,Jenn,Beninger ,408-667-0620,Jenn@jennben.com,231 Vickery Lane ,Gilroy ,CA ,95020
+57,42,,Michael,Mattern,720-351-7777,Medbowmike@yahoo.com,950 S Ames st,Lakewood,CO,80226
+58,42,,Joshua,May,617-320-9712,Jmayday71@gmail.com ,20 Church St,West Roxbury ,MA,02132
+59,42,,Diane,Hochman,860 218-9912,dianehochman@sbcglobal.net,42 Woodhaven Rd,Bristol,CT,06010
+61,53,,John,Gruber,215-778-2637,bathliner@aol.com,815 St. Davids Ave,Warminster,PA,18974
+62,53,,Lucy,Bove,610-716-8317,Lucybove@verizon.net,1002 Michael Lane,Eagleville,PA,19402
+63,53,,Phyllis,Gambone,610-505-9124,phyllisgambone@yahoo.com,172 Providence Forge Road,Royersford,PA,19468
+64,42,,Bob,Richards,949-278-8710,rlrichards11@gmail.com,5702 Baskerville Drive,Richardson,TX,75082
+65,42,64,Kendrick,Coulter,206 519 2078,kendrickcoulter@gmail.com,7611 Easy Street,Everett,WA,98203
+66,53,,Harold,Scott,518-268-8101,hjscott100@gmail.com,546 3rd Ave,Troy,NY,12182
+67,42,,Larry,Pollock,928-274-0210,larry@larrypollock.com,110 Stone Creek Cir,Sedona,AZ,86351
+68,42,,GroundSwell Sales,LLC,203-444-1651,samcustodio@gmail.com,"848 N. Rainbow Blvd, Suite 5187",Las Vegas,NV,89107
+69,42,,Sheila,Maillet,217-512-2373,gosolar2015@gmail.com,707 Timothy Circle,Charleston,Il,61920
+70,60,,Daniel,Eisenman,404-538-3156,TENALLIN@gmail.com,1182 Oak Ridge Ct,Bishop,GA,30621
+71,56,,Scott,Ewart,650-248-7096,sewart9254@gmail.com,444 Elkin Station Rd.,Winchester,KY,40391
+72,42,60,Patrick,Combs,619-368-5900,patrick@thinkgreat.com,2240 Encinitas Blvd D-140,Encinitas,CA,92024
+73,42,,Pachamama,Alliance,,brtwist@gmail.com,,,,
