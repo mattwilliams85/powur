@@ -849,10 +849,6 @@ $kpi-text-color: #888;
     padding-top: 20px;
     margin-bottom:50px;
 
-    * {
-      color:#F9F2E8;
-    }
-
     //TEMPORARY
     .beta-filler {
       background: #444;
@@ -865,6 +861,7 @@ $kpi-text-color: #888;
     .tab-header-row {
       text-align: center;
       border: 1px solid #e5e5e5;
+      border-bottom: 0;
       &:last-child {
         border-right: 0px;
       }
@@ -877,18 +874,26 @@ $kpi-text-color: #888;
         cursor: pointer;
         display: inline-block;
         border-right: 1px solid #e5e5e5;
+        border-bottom: 1px solid #e5e5e5;
+        color: $kpi-text-color;
+
+        &.active {
+          background-color: #444;
+          color: #fff;
+          border-bottom: 1px solid #555;
+        }
 
         .kpi-info-box {
           margin-top: 25%;
 
           .kpi-count {
             display: block;
-            color: $kpi-text-color;
+            // color: $kpi-text-color;
             line-height:60pt;
           }
 
           .kpi-header {
-            color: $kpi-text-color;
+            // color: $kpi-text-color;
             font-size: 12pt;
             @media #{$medium} { 
               font-size: 16pt;
@@ -897,7 +902,7 @@ $kpi-text-color: #888;
 
           .empty-info {
             display: block;
-            color: $kpi-text-color;
+            // color: $kpi-text-color;
             font-size: 1em;
             line-height: 1.2em;
             padding: 0 1em;
@@ -929,6 +934,10 @@ $kpi-text-color: #888;
         @media #{$small} {
           height: 525px;
         }
+      }
+
+      * {
+        color:#F9F2E8;
       }
 
       .squeezed-center {
