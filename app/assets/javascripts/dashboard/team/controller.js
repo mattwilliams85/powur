@@ -28,6 +28,7 @@
         slideSpeed: 500,
         mouseDrag: false,
         touchDrag: true,
+        lazyLoad: true,
         beforeMove: closeForm(carouselElement)
       });
     }
