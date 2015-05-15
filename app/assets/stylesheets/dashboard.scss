@@ -387,6 +387,11 @@ $kpi-text-color: #888;
   .owl-next:before {
     content: "\f054"; // Unicode for fa-chevron-right
   }
+  // OVERRIDE OWL-THEME
+  .owl-item.loading{
+    min-height: 150px;
+    background: image-url('dashboard/AjaxLoader.gif') no-repeat center center
+  }
 
 
   // Shared Carousel Item Styles
