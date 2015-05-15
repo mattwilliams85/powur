@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:email) { |n| "email_#{n}@example.org" }
+    sequence(:email) { |n| "test+#{n}@test.com" }
     first_name { Faker::Name.first_name }
     last_name  { Faker::Name.last_name }
     contact('phone' => '858.555.1212', 'zip' => '92127')
@@ -8,7 +8,6 @@ FactoryGirl.define do
     password_confirmation 'password'
     sequence(:url_slug) { |n| "#{first_name.downcase}_#{n}" }
     roles [ 'admin' ]
-    lifetime_rank { Rank.find_or_create_by_id(1) }
     avatar_file_name 'avatar.png'
     last_sign_in_at Time.now.utc
     tos true

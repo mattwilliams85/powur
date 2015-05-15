@@ -1,5 +1,5 @@
 
-namespace :sunstand do
+namespace :powur do
   namespace :db do
 
     def execute(query)
@@ -36,5 +36,5 @@ namespace :sunstand do
 end
 
 Rake::Task['db:schema:load'].enhance do
-  ::Rake::Task['sunstand:db:after_schema_load'].invoke
+  ::Rake::Task['powur:db:after_schema_load'].invoke
 end

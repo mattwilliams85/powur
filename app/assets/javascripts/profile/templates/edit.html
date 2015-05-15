@@ -1,0 +1,184 @@
+<ng-include src="'shared/header-signed-in.html'"></ng-include>
+
+<main class="pow-profile">
+
+  <div class="row">
+
+    <div class="large-3 columns summary">
+      <section>
+        <div class="avatar-container" class="form-element">
+          <img ng-src="{{userProfile.avatar.preview || '/temp_dev_images/Tim.jpg'}}" class="user-image" />
+          <div ng-if="!userProfile.require_enrollment" class="ribbon"></div>
+          <input ng-model="userOriginalImage" type="hidden" ng-required="true" />
+          <file-s3-uploader data="userOriginalImage" mode="user_image" show-progress="1" auto-upload="1" />
+        </div>
+      </section>
+    </div>
+
+    <div class="large-9 columns data-content">
+      <section>
+        <div class="header">Personal Info</div>
+        <div class="content">
+          <form name="profileUpdateForm" ng-submit="updateProfile()" novalidate>
+            <br />
+            <h3>Contact info</h3>
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="large-6 columns">
+                <div class='form-element'>
+                  <label for="user_first_name">First Name</label>
+                  <input ng-model="userProfile.first_name" name="user_first_name" type="text" class="text-field" />
+                </div>
+              </div>
+              <div class="large-6 columns">
+                <div class='form-element'>
+                  <label for="user_last_name">Last Name</label>
+                  <input ng-model="userProfile.last_name" name="user_last_name" type="text" class="text-field" />
+                </div>
+              </div>
+              <div class="large-6 columns">
+                <div class='form-element'>
+                  <label for="user_email">Email</label>
+                  <input ng-model="userProfile.email" name="user_email" type="text" class="text-field" />
+                </div>
+              </div>
+              <div class="large-6 columns">
+                <div class='form-element'>
+                  <label for="user_phone">Phone</label>
+                  <input ng-model="userProfile.phone" name="user_phone" type="text" class="text-field" />
+                </div>
+              </div>
+            </div>
+
+            <br>
+
+            <h3>Address</h3>
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="large-6 columns">
+                <div class='form-element'>
+                  <label for="user_address">Address</label>
+                  <input ng-model="userProfile.address" name="user_address" type="text" class="text-field" />
+                </div>
+              </div>
+              <div class="large-6 columns">
+                <div class='form-element'>
+                  <label for="user_city">City</label>
+                  <input ng-model="userProfile.city" name="user_city" type="text" class="text-field" />
+                </div>
+              </div>
+              <div class="large-6 columns">
+                <div class='form-element'>
+                  <label for="user_state">State</label>
+                  <input ng-model="userProfile.state" name="user_state" type="text" class="text-field" />
+                </div>
+              </div>
+              <div class="large-6 columns">
+                <div class='form-element'>
+                  <label for="user_zip">Zip</label>
+                  <input ng-model="userProfile.zip" name="user_zip" type="text" class="text-field" />
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <h3>More about you</h3>
+            <div class="clearfix"></div>
+            <span class="subtitle">Information in this section will be used for your public pages</span>
+            <div class="clearfix"></div>
+
+            <div class='form-element'>
+              <label for="user_first_name">Bio/Experience</label>
+              <textarea ng-model="userProfile.bio" name="user_bio"></textarea>
+            </div>
+
+            <div class='form-element'>
+              <label for="user_twitter_url">Twitter URL</label>
+              <input ng-model="userProfile.twitter_url" name="user_twitter_url" type="text" class="text-field" />
+            </div>
+
+            <div class='form-element'>
+              <label for="user_facebook_url">Facebook URL</label>
+              <input ng-model="userProfile.facebook_url" name="user_facebook_url" type="text" class="text-field" />
+            </div>
+
+            <input class="large button" type="submit" value="Update Personal Info" />
+          </form>
+        </div>
+      </section>
+
+      <br>
+      <br>
+
+      <section>
+        <div class="header">Update Password</div>
+
+        <div class="content">
+          <br />
+          <form name="passwordUpdateForm" ng-submit="updatePassword()" novalidate>
+            <div class="row">
+              <div class="large-6 columns">
+                <div class="form-element">
+                  <label for="current_password" style="top:0;">Current Password</label>
+                  <input ng-model="password.current_password" name="user_current_password" type="password" class="text-field" ng-required='true' />
+                </div>
+              </div>
+
+              <div class="large-6 columns">
+                <div class="form-element">
+                  <label for="new_password" style="top:0;">New Password</label>
+                  <input ng-model="password.new_password" name="user_new_password" type="password" class="text-field" ng-required='true' />
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="form-element">
+                  <label for="new_password_confirm" style="top:0;">Confirm New Password</label>
+                  <input ng-model="password.new_password_confirm" name="user_new_password_confirm" type="password" class="text-field" ng-required='true' />
+                </div>
+              </div>
+            </div>
+
+            <input class="large button" type="submit" value="Update Personal Info" />
+          </form>
+        </div>
+      </section>
+
+      <br>
+      <br>
+
+      <section>
+        <div class="header">iPayout Account</div>
+        <div class="content">
+          <br>
+          <div class="row">
+            <div class="large-6 columns">
+              <span style="top:0;color:rgb(53,53,53)">Username: </span>
+              <p>{{ewalletDetails.email}}</p>
+            </div>
+
+            <div class="large-6 columns">
+              <span style="top:0;color:rgb(53,53,53)">Verified: </span>
+              <p>{{ewalletDetails.isVerified}}</p>
+            </div>
+
+            <div class="large-12 columns">
+              <span style="top:0;color:rgb(53,53,53)">eWallet URL: </span><br/>
+              <span style="font-size:0.8em;">{{ewalletDetails.auto_login_url}}</span>
+              <br>
+              <a ng-if="ewalletDetails.auto_login_url" href="{{ewalletDetails.auto_login_url}}" target="_blank" class="large button" style="margin-top:25px;float:left">Go to my eWallet</a>
+              <!-- <button class="button" style="margin-top:25px;float:left" onclick="window.open('<%#= @auto_login_url %>','_blank');">Go to my eWallet</button> -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+  </div>
+</main>
+
+<ng-include src="'shared/footer-signed-in.html'"></ng-include>

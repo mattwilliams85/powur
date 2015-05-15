@@ -1,0 +1,33 @@
+<main class="pow-admin-user-groups">
+  <!-- Users Index -->
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Users <small>in {{userGroup.title}}</small></h2>
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- Notice If No Users in Group -->
+          <p ng-if="!users.length">
+            There are no users in the '{{userGroup.title}}' group.
+          </p>
+          <!-- Table If Users in Group -->
+          <table ng-if="users.length">
+            <thead>
+              <tr>
+                <th>User Name</th>
+                <th>ID</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in users">
+                <td>{{user.properties.name}}</td>
+                <td>{{user.properties.id}}</td>
+                <td>{{user.properties.email}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

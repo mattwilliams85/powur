@@ -12,6 +12,6 @@ class RankAchievement < ActiveRecord::Base
   end
 
   def path
-    rank_path.name
+    rank_path && rank_path.name
   end
 end

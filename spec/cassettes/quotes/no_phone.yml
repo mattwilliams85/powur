@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctyleads-test.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=test.powur.com%3A212&Lead_Generator__c=1&FirstName=Louie&LastName=Pfannerstill&Street=191%20Aliza%20Trail&City=North%20Eddie&PostalCode=12361&Phone=&Email=customer.email_3%40example.org&submit=Submit&Monthly_Electric_Bill__c=
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '240'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Tue, 07 Apr 2015 18:52:29 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@c23104f"
+      Server:
+      - nginx
+      Content-Length:
+      - '118'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q18000001P20yEAC","Message":"Lead successfully
+        created","YourId":"test.powur.com:212"}'
+    http_version: 
+  recorded_at: Tue, 07 Apr 2015 18:52:29 GMT
+recorded_with: VCR 2.9.3

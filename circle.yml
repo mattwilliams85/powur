@@ -1,5 +1,17 @@
+machine:
+  environment:
+    SECRET_KEY_BASE: abc
+    AWS_BUCKET: abc
+    AWS_ACCESS_KEY_ID: abc
+    AWS_SECRET_ACCESS_KEY: abc
+    SMARTERU_GROUP_NAME: PowerU
+    IPAYOUT_API_ENDPOINT: 'https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx'
+    IPAYOUT_AUTO_LOGIN_ENDPOINT: "https://sunstand.testewallet.com/MemberLogin.aspx?secKey="
+    IPAYOUT_MERCHANT_GUID: abc
+    IPAYOUT_MERCHANT_PASSWORD: abc
+    SOLAR_CITY_LEAD_URL: 'https://sctyleads-test.cloudhub.io/powur'
 deployment:
   staging:
     branch: develop
     heroku:
-      appname: sunstand-staging
+      appname: powur-staging

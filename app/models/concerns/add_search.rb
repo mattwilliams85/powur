@@ -9,7 +9,7 @@ module AddSearch
   included do
   end
 
-  module ClassMethods
+  class_methods do
     def add_search(*relations)
       relations.each do |relation|
         if relation.respond_to?(:each)

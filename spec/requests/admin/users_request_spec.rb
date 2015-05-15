@@ -3,7 +3,7 @@ require 'spec_helper'
 describe '/a/users' do
 
   before :each do
-    login_real_user
+    login_user(auth: true)
   end
 
   describe '#index' do
@@ -43,6 +43,15 @@ describe '/a/users' do
       get admin_users_path, format: :json
 
       expect(json_body.keys).to include('redirect')
+    end
+
+    it 'filters by group' do
+      group = create(:user_group)
+      create_list(:user_user_group, 3, user_group: group)
+
+      get admin_users_path, group: group.id, format: :json
+
+      expect_entities_count(3)
     end
 
   end

@@ -15,28 +15,24 @@ describe '/api/users', type: :request do
   end
 
   describe 'GET /' do
-
     it 'returns the immediate downline users for the current user' do
       children  = create_list(:user, 3, sponsor: @user)
       create_list(:user, 2)
 
-      get api_users_path, token_param
+      get api_users_path(format: :json), token_param
 
       expect_children(children)
     end
-
   end
 
   describe 'GET /:id/downline' do
-
     it 'returns the immediate downline of a user in the downline' do
       user = create(:user, sponsor: @user)
       children = create_list(:user, 2, sponsor: user)
 
-      get downline_api_user_path(id: user), token_param
+      get downline_api_user_path(id: user, format: :json), token_param
 
       expect(children)
     end
-
   end
 end

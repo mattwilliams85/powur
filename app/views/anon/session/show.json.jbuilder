@@ -15,6 +15,7 @@ entity_list = [
 
 if current_user.role?(:admin)
   entity_list << entity(%w(list users), 'admin-users', admin_users_path)
+  entity_list << entity(%w(list user_groups), 'admin-user_groups', user_groups_path)
   entity_list << entity(%w(system), 'admin-system', system_path)
   entity_list << entity(%w(list ranks), 'admin-ranks', ranks_path)
   entity_list << entity(%w(list products), 'admin-products', products_path)
@@ -30,7 +31,7 @@ entities(*entity_list)
 
 actions action(:logout, :delete, login_path)
 
-link_list = [ 
+link_list = [
   link(:self, root_path),
   link(:index, dashboard_path),
   link(:profile, profile_path) ]

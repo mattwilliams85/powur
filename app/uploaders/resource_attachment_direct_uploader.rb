@@ -1,4 +1,4 @@
-require "carrierwave_direct"
+require 'carrierwave_direct'
 
 class ResourceAttachmentDirectUploader < CarrierWave::Uploader::Base
   include CarrierWaveDirect::Uploader
@@ -6,7 +6,7 @@ class ResourceAttachmentDirectUploader < CarrierWave::Uploader::Base
   self.max_file_size = 200.megabytes
 
   def fog_directory
-    Rails.application.secrets.aws_bucket
+    ENV['AWS_BUCKET']
   end
 
   def store_dir

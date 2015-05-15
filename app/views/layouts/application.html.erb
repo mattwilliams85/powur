@@ -1,69 +1,26 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html ng-app="powurApp">
 <head>
-  <title>Powur</title>
-  <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "Chart", "data-turbolinks-track" => true %>
-  <%= yield :javascript_includes %>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=1000">
+  <title>Welcome to Powur</title>
+  <base href="/">
+  <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link href="//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <%= stylesheet_link_tag "application", media: "all" %>
   <%= csrf_meta_tags %>
-
-  <%= render :partial => "shared/head" %>
-
+  <%= javascript_include_tag "modernizr/modernizr" %>
 </head>
-<body id="application">
-  <header>
-    <div id="header_container">
-      <nav>
-        <ul>
-          <li class="main_logo">
-            <a href="/u/dashboard">
-              <%=image_tag('powur-white-logo.png', class: 'logo-img') %>
-              <%#= render :partial => "shared/sunstand_logo_svg" %>
-            </a>
-          </li>
-          <li>
-            <%= link_to_unless_current 'Dashboard', "/u/dashboard" %>
-          </li>
-          <li>
-            <%= link_to_unless_current 'Earnings', "/u/earnings" %>
-          </li>
-          <li>
-            <%= link_to_unless_current 'Powur U', "/#/university" %>
-          </li>
-          <li>
-            <%= link_to_unless_current 'Marketing', "#" %>
-          </li>
-          <li>
-            <%= link_to_unless_current 'Library', "/#/library" %>
-          </li>
-
-
-        </ul>
-
-        <ul id="user_nav">
-          <li>
-            <a href="/u/profile" class="username js-user_first_name" style="inline-block;"></a>
-          </li>
-          <li>
-            <%= link_to 'Sign out', login_path, method: "delete" %>
-          </li>
-        </ul>
-      </nav>
-    </div>
-
-    <%#= render :partial => "shared/our_goal" %>
-
-  </header>
+<body>
 
   <%= yield %>
 
-  <%#= render :partial => "shared/warp_nav" %>
-  <%= render :partial => "shared/footer" %>
-  <%= render :partial => "shared/dash_toolbar" %>
-
-
-
+  <!-- TODO: deprecate -->
+  <script type="text/javascript">
+    SignedIn = <%= current_user ? 'true' : 'false' %>;
+  </script>
+  <%= javascript_include_tag "application" %>
 </body>
 </html>

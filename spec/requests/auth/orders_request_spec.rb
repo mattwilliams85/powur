@@ -3,7 +3,7 @@ require 'spec_helper'
 describe '/u/users/:id/orders' do
 
   before do
-    login_real_user
+    login_user(auth: true)
   end
 
   describe 'GET /' do

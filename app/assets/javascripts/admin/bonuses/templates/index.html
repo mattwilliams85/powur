@@ -1,0 +1,41 @@
+<main class="pow-admin-bonus-plans">
+  <!-- Bonuses Index -->
+  <div class="row">
+    <div class="large-6 columns">
+      <h2>Bonuses <small>for {{bonusPlan.name}}</small></h2>
+    </div>
+    <div class="large-6 columns">
+      <!-- New Bonus Button -->
+      <a ng-href="/admin/bonus-plans/{{bonusPlan.id}}/bonuses/new" class="button right">Add a Bonus</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <!-- Notice If No Bonuses for Bonus Plan -->
+      <p ng-if="bonuses.length === 0">
+        The '{{bonusPlan.name}}' bonus plan has no bonuses.
+      </p>
+      <!-- Table If Bonuses for Bonus Plan -->
+      <table ng-if="bonuses.length !== 0" width="100%">
+        <thead>
+          <tr>
+            <th ng-repeat="(property, value) in bonuses[0].properties">{{property}}</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="bonus in bonuses">
+            <td ng-repeat="(property, value) in bonus.properties">{{value}}</td>
+            <!-- Actions -->
+            <td>
+              <a data-dropdown="dropdown-{{bonus.properties.id}}" class="small secondary dropdown button expand">Actions</a><br>
+              <ul id="dropdown-{{bonus.properties.id}}" class="f-dropdown">
+                <li ng-repeat="action in bonus.actions"><a ng-click="execute(action, bonus)">{{action.name}}</a></li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

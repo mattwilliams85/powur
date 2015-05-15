@@ -58,7 +58,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: api_clients; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: api_clients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE api_clients (
@@ -68,36 +68,36 @@ CREATE TABLE api_clients (
 
 
 --
--- Name: api_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: api_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE api_tokens (
     id character varying NOT NULL,
     access_token character varying NOT NULL,
     client_id character varying NOT NULL,
-    user_id integer NOT NULL,
+    user_id integer,
     expires_at timestamp without time zone NOT NULL
 );
 
 
 --
--- Name: bonus_levels; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: bonus_amounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE bonus_levels (
+CREATE TABLE bonus_amounts (
     id integer NOT NULL,
     bonus_id integer NOT NULL,
     level integer DEFAULT 0 NOT NULL,
     rank_path_id integer,
-    amounts numeric(5,5)[] DEFAULT '{}'::numeric[] NOT NULL
+    amounts numeric(10,2)[] DEFAULT '{}'::numeric[] NOT NULL
 );
 
 
 --
--- Name: bonus_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: bonus_amounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE bonus_levels_id_seq
+CREATE SEQUENCE bonus_amounts_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -106,14 +106,14 @@ CREATE SEQUENCE bonus_levels_id_seq
 
 
 --
--- Name: bonus_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: bonus_amounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE bonus_levels_id_seq OWNED BY bonus_levels.id;
+ALTER SEQUENCE bonus_amounts_id_seq OWNED BY bonus_amounts.id;
 
 
 --
--- Name: bonus_payment_orders; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: bonus_payment_orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE bonus_payment_orders (
@@ -123,7 +123,7 @@ CREATE TABLE bonus_payment_orders (
 
 
 --
--- Name: bonus_payments; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: bonus_payments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE bonus_payments (
@@ -133,7 +133,7 @@ CREATE TABLE bonus_payments (
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
     status integer DEFAULT 1 NOT NULL,
-    pay_as_rank integer DEFAULT 1 NOT NULL,
+    pay_as_rank integer NOT NULL,
     created_at timestamp without time zone NOT NULL
 );
 
@@ -158,7 +158,7 @@ ALTER SEQUENCE bonus_payments_id_seq OWNED BY bonus_payments.id;
 
 
 --
--- Name: bonus_plans; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: bonus_plans; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE bonus_plans (
@@ -189,36 +189,21 @@ ALTER SEQUENCE bonus_plans_id_seq OWNED BY bonus_plans.id;
 
 
 --
--- Name: bonus_sales_requirements; Type: TABLE; Schema: public; Owner: -; Tablespace:
---
-
-CREATE TABLE bonus_sales_requirements (
-    bonus_id integer NOT NULL,
-    product_id integer NOT NULL,
-    quantity integer DEFAULT 1 NOT NULL,
-    source boolean DEFAULT true NOT NULL
-);
-
-
---
--- Name: bonuses; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: bonuses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE bonuses (
     id integer NOT NULL,
     bonus_plan_id integer NOT NULL,
-    type character varying NOT NULL,
+    type character varying DEFAULT 'Bonus'::character varying NOT NULL,
     name character varying NOT NULL,
     schedule integer DEFAULT 2 NOT NULL,
-    use_rank_at integer DEFAULT 2 NOT NULL,
-    achieved_rank_id integer,
-    max_user_rank_id integer,
-    min_upline_rank_id integer,
     meta_data hstore DEFAULT ''::hstore,
     compress boolean DEFAULT false NOT NULL,
     flat_amount numeric(10,2) DEFAULT 0.0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    product_id integer
 );
 
 
@@ -242,7 +227,7 @@ ALTER SEQUENCE bonuses_id_seq OWNED BY bonuses.id;
 
 
 --
--- Name: customer_notes; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: customer_notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE customer_notes (
@@ -275,7 +260,7 @@ ALTER SEQUENCE customer_notes_id_seq OWNED BY customer_notes.id;
 
 
 --
--- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE customers (
@@ -313,7 +298,7 @@ ALTER SEQUENCE customers_id_seq OWNED BY customers.id;
 
 
 --
--- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE delayed_jobs (
@@ -352,7 +337,7 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 
 --
--- Name: distributions; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: distributions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE distributions (
@@ -383,7 +368,7 @@ ALTER SEQUENCE distributions_id_seq OWNED BY distributions.id;
 
 
 --
--- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE invites (
@@ -401,7 +386,44 @@ CREATE TABLE invites (
 
 
 --
--- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: lead_updates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE lead_updates (
+    id integer NOT NULL,
+    quote_id integer NOT NULL,
+    provider_uid character varying NOT NULL,
+    status character varying NOT NULL,
+    contact hstore DEFAULT ''::hstore,
+    order_status hstore DEFAULT ''::hstore,
+    consultation timestamp without time zone,
+    contract timestamp without time zone,
+    installation timestamp without time zone,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: lead_updates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE lead_updates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lead_updates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE lead_updates_id_seq OWNED BY lead_updates.id;
+
+
+--
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE notifications (
@@ -432,7 +454,7 @@ ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
 
 
 --
--- Name: order_totals; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: order_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE order_totals (
@@ -467,7 +489,7 @@ ALTER SEQUENCE order_totals_id_seq OWNED BY order_totals.id;
 
 
 --
--- Name: orders; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE orders (
@@ -504,7 +526,7 @@ ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
 
 
 --
--- Name: pay_periods; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: pay_periods; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE pay_periods (
@@ -525,7 +547,7 @@ CREATE TABLE pay_periods (
 
 
 --
--- Name: product_enrollments; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: product_enrollments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE product_enrollments (
@@ -558,7 +580,7 @@ ALTER SEQUENCE product_enrollments_id_seq OWNED BY product_enrollments.id;
 
 
 --
--- Name: product_receipts; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: product_receipts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE product_receipts (
@@ -592,7 +614,7 @@ ALTER SEQUENCE product_receipts_id_seq OWNED BY product_receipts.id;
 
 
 --
--- Name: products; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: products; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE products (
@@ -607,7 +629,10 @@ CREATE TABLE products (
     description text,
     certifiable boolean DEFAULT false,
     image_original_path character varying,
-    smarteru_module_id character varying(50)
+    smarteru_module_id character varying(50),
+    is_required_class boolean DEFAULT false,
+    "position" integer,
+    long_description text
 );
 
 
@@ -631,7 +656,7 @@ ALTER SEQUENCE products_id_seq OWNED BY products.id;
 
 
 --
--- Name: qualifications; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: qualifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE qualifications (
@@ -666,7 +691,7 @@ ALTER SEQUENCE qualifications_id_seq OWNED BY qualifications.id;
 
 
 --
--- Name: quote_field_lookups; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: quote_field_lookups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE quote_field_lookups (
@@ -698,7 +723,7 @@ ALTER SEQUENCE quote_field_lookups_id_seq OWNED BY quote_field_lookups.id;
 
 
 --
--- Name: quote_fields; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: quote_fields; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE quote_fields (
@@ -730,7 +755,7 @@ ALTER SEQUENCE quote_fields_id_seq OWNED BY quote_fields.id;
 
 
 --
--- Name: quotes; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: quotes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE quotes (
@@ -741,7 +766,9 @@ CREATE TABLE quotes (
     product_id integer NOT NULL,
     user_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    submitted_at timestamp without time zone,
+    provider_uid character varying
 );
 
 
@@ -765,7 +792,7 @@ ALTER SEQUENCE quotes_id_seq OWNED BY quotes.id;
 
 
 --
--- Name: rank_achievements; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: rank_achievements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE rank_achievements (
@@ -773,7 +800,7 @@ CREATE TABLE rank_achievements (
     pay_period_id character varying,
     user_id integer NOT NULL,
     rank_id integer NOT NULL,
-    rank_path_id integer NOT NULL,
+    rank_path_id integer,
     achieved_at timestamp without time zone NOT NULL
 );
 
@@ -798,7 +825,7 @@ ALTER SEQUENCE rank_achievements_id_seq OWNED BY rank_achievements.id;
 
 
 --
--- Name: rank_paths; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: rank_paths; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE rank_paths (
@@ -829,7 +856,7 @@ ALTER SEQUENCE rank_paths_id_seq OWNED BY rank_paths.id;
 
 
 --
--- Name: ranks; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: ranks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE ranks (
@@ -839,7 +866,7 @@ CREATE TABLE ranks (
 
 
 --
--- Name: resources; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: resources; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE resources (
@@ -852,7 +879,8 @@ CREATE TABLE resources (
     image_original_path character varying,
     is_public boolean,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    youtube_id character varying
 );
 
 
@@ -876,7 +904,7 @@ ALTER SEQUENCE resources_id_seq OWNED BY resources.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE schema_migrations (
@@ -885,7 +913,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: settings; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: settings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE settings (
@@ -919,7 +947,7 @@ ALTER SEQUENCE settings_id_seq OWNED BY settings.id;
 
 
 --
--- Name: user_activities; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: user_activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE user_activities (
@@ -952,7 +980,50 @@ ALTER SEQUENCE user_activities_id_seq OWNED BY user_activities.id;
 
 
 --
--- Name: user_overrides; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: user_group_requirements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_group_requirements (
+    id integer NOT NULL,
+    user_group_id character varying NOT NULL,
+    product_id integer NOT NULL,
+    event_type integer NOT NULL,
+    quantity integer DEFAULT 1 NOT NULL
+);
+
+
+--
+-- Name: user_group_requirements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE user_group_requirements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_group_requirements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE user_group_requirements_id_seq OWNED BY user_group_requirements.id;
+
+
+--
+-- Name: user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_groups (
+    id character varying NOT NULL,
+    title character varying NOT NULL,
+    description character varying
+);
+
+
+--
+-- Name: user_overrides; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE user_overrides (
@@ -985,7 +1056,17 @@ ALTER SEQUENCE user_overrides_id_seq OWNED BY user_overrides.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: user_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_user_groups (
+    user_id integer NOT NULL,
+    user_group_id character varying NOT NULL
+);
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE users (
@@ -1014,7 +1095,8 @@ CREATE TABLE users (
     remember_created_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
     smarteru_employee_id character varying,
-    moved boolean
+    moved boolean,
+    image_original_path character varying
 );
 
 
@@ -1038,10 +1120,39 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: zipcodes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE zipcodes (
+    id integer NOT NULL,
+    zip character varying
+);
+
+
+--
+-- Name: zipcodes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE zipcodes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: zipcodes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE zipcodes_id_seq OWNED BY zipcodes.id;
+
+
+--
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY bonus_levels ALTER COLUMN id SET DEFAULT nextval('bonus_levels_id_seq'::regclass);
+ALTER TABLE ONLY bonus_amounts ALTER COLUMN id SET DEFAULT nextval('bonus_amounts_id_seq'::regclass);
 
 
 --
@@ -1091,6 +1202,13 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 --
 
 ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distributions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY lead_updates ALTER COLUMN id SET DEFAULT nextval('lead_updates_id_seq'::regclass);
 
 
 --
@@ -1202,6 +1320,13 @@ ALTER TABLE ONLY user_activities ALTER COLUMN id SET DEFAULT nextval('user_activ
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY user_group_requirements ALTER COLUMN id SET DEFAULT nextval('user_group_requirements_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY user_overrides ALTER COLUMN id SET DEFAULT nextval('user_overrides_id_seq'::regclass);
 
 
@@ -1213,7 +1338,14 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Name: api_clients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY zipcodes ALTER COLUMN id SET DEFAULT nextval('zipcodes_id_seq'::regclass);
+
+
+--
+-- Name: api_clients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY api_clients
@@ -1221,7 +1353,7 @@ ALTER TABLE ONLY api_clients
 
 
 --
--- Name: api_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: api_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY api_tokens
@@ -1229,15 +1361,15 @@ ALTER TABLE ONLY api_tokens
 
 
 --
--- Name: bonus_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: bonus_amounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY bonus_levels
-    ADD CONSTRAINT bonus_levels_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY bonus_amounts
+    ADD CONSTRAINT bonus_amounts_pkey PRIMARY KEY (id);
 
 
 --
--- Name: bonus_payment_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: bonus_payment_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY bonus_payment_orders
@@ -1245,7 +1377,7 @@ ALTER TABLE ONLY bonus_payment_orders
 
 
 --
--- Name: bonus_payments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: bonus_payments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY bonus_payments
@@ -1253,7 +1385,7 @@ ALTER TABLE ONLY bonus_payments
 
 
 --
--- Name: bonus_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: bonus_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY bonus_plans
@@ -1261,15 +1393,7 @@ ALTER TABLE ONLY bonus_plans
 
 
 --
--- Name: bonus_sales_requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
---
-
-ALTER TABLE ONLY bonus_sales_requirements
-    ADD CONSTRAINT bonus_sales_requirements_pkey PRIMARY KEY (bonus_id, product_id);
-
-
---
--- Name: bonuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: bonuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY bonuses
@@ -1277,7 +1401,7 @@ ALTER TABLE ONLY bonuses
 
 
 --
--- Name: customer_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: customer_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY customer_notes
@@ -1285,7 +1409,7 @@ ALTER TABLE ONLY customer_notes
 
 
 --
--- Name: customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY customers
@@ -1293,7 +1417,7 @@ ALTER TABLE ONLY customers
 
 
 --
--- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY delayed_jobs
@@ -1301,7 +1425,7 @@ ALTER TABLE ONLY delayed_jobs
 
 
 --
--- Name: distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY distributions
@@ -1309,7 +1433,7 @@ ALTER TABLE ONLY distributions
 
 
 --
--- Name: invites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: invites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY invites
@@ -1317,7 +1441,15 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: lead_updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY lead_updates
+    ADD CONSTRAINT lead_updates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY notifications
@@ -1325,7 +1457,7 @@ ALTER TABLE ONLY notifications
 
 
 --
--- Name: order_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: order_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY order_totals
@@ -1333,7 +1465,7 @@ ALTER TABLE ONLY order_totals
 
 
 --
--- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY orders
@@ -1341,7 +1473,7 @@ ALTER TABLE ONLY orders
 
 
 --
--- Name: pay_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: pay_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY pay_periods
@@ -1349,7 +1481,7 @@ ALTER TABLE ONLY pay_periods
 
 
 --
--- Name: product_enrollments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: product_enrollments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY product_enrollments
@@ -1357,7 +1489,7 @@ ALTER TABLE ONLY product_enrollments
 
 
 --
--- Name: product_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: product_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY product_receipts
@@ -1365,7 +1497,7 @@ ALTER TABLE ONLY product_receipts
 
 
 --
--- Name: products_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: products_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY products
@@ -1373,7 +1505,7 @@ ALTER TABLE ONLY products
 
 
 --
--- Name: qualifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: qualifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY qualifications
@@ -1381,7 +1513,7 @@ ALTER TABLE ONLY qualifications
 
 
 --
--- Name: quote_field_lookups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: quote_field_lookups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY quote_field_lookups
@@ -1389,7 +1521,7 @@ ALTER TABLE ONLY quote_field_lookups
 
 
 --
--- Name: quote_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: quote_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY quote_fields
@@ -1397,7 +1529,7 @@ ALTER TABLE ONLY quote_fields
 
 
 --
--- Name: quotes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: quotes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY quotes
@@ -1405,7 +1537,7 @@ ALTER TABLE ONLY quotes
 
 
 --
--- Name: rank_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: rank_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY rank_achievements
@@ -1413,7 +1545,7 @@ ALTER TABLE ONLY rank_achievements
 
 
 --
--- Name: rank_paths_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: rank_paths_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY rank_paths
@@ -1421,7 +1553,7 @@ ALTER TABLE ONLY rank_paths
 
 
 --
--- Name: ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY ranks
@@ -1429,7 +1561,7 @@ ALTER TABLE ONLY ranks
 
 
 --
--- Name: resources_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: resources_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY resources
@@ -1437,7 +1569,7 @@ ALTER TABLE ONLY resources
 
 
 --
--- Name: settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY settings
@@ -1445,7 +1577,7 @@ ALTER TABLE ONLY settings
 
 
 --
--- Name: user_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: user_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY user_activities
@@ -1453,7 +1585,23 @@ ALTER TABLE ONLY user_activities
 
 
 --
--- Name: user_overrides_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: user_group_requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_group_requirements
+    ADD CONSTRAINT user_group_requirements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_groups
+    ADD CONSTRAINT user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_overrides_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY user_overrides
@@ -1461,7 +1609,15 @@ ALTER TABLE ONLY user_overrides
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: user_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_user_groups
+    ADD CONSTRAINT user_user_groups_pkey PRIMARY KEY (user_id, user_group_id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -1469,582 +1625,568 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: bonus_levels_comp_key_with_rp; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: zipcodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE UNIQUE INDEX bonus_levels_comp_key_with_rp ON bonus_levels USING btree (bonus_id, level, rank_path_id) WHERE (rank_path_id IS NOT NULL);
-
-
---
--- Name: bonus_levels_comp_key_without_rp; Type: INDEX; Schema: public; Owner: -; Tablespace:
---
-
-CREATE UNIQUE INDEX bonus_levels_comp_key_without_rp ON bonus_levels USING btree (bonus_id, level, rank_path_id) WHERE (rank_path_id IS NULL);
+ALTER TABLE ONLY zipcodes
+    ADD CONSTRAINT zipcodes_pkey PRIMARY KEY (id);
 
 
 --
--- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
 
 
 --
--- Name: idx_order_totals_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: idx_order_totals_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX idx_order_totals_composite_key ON order_totals USING btree (pay_period_id, user_id, product_id);
 
 
 --
--- Name: index_api_tokens_on_access_token; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_api_tokens_on_access_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_api_tokens_on_access_token ON api_tokens USING btree (access_token);
 
 
 --
--- Name: index_bonus_levels_on_bonus_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_bonus_amounts_on_bonus_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_bonus_levels_on_bonus_id ON bonus_levels USING btree (bonus_id);
+CREATE INDEX index_bonus_amounts_on_bonus_id ON bonus_amounts USING btree (bonus_id);
 
 
 --
--- Name: index_bonus_plans_on_start_year_and_start_month; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_bonus_plans_on_start_year_and_start_month; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_plans USING btree (start_year, start_month);
 
 
 --
--- Name: index_distributions_on_pay_period_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_distributions_on_pay_period_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
 
 
 --
--- Name: index_orders_on_quote_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_orders_on_quote_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
 
 
 --
--- Name: index_product_enrollments_on_user_id_and_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_product_enrollments_on_user_id_and_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_product_enrollments_on_user_id_and_product_id ON product_enrollments USING btree (user_id, product_id);
 
 
 --
--- Name: index_products_on_certifiable; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_products_on_certifiable; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_products_on_certifiable ON products USING btree (certifiable);
 
 
 --
--- Name: index_qualifications_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_qualifications_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_qualifications_on_product_id ON qualifications USING btree (product_id);
 
 
 --
--- Name: index_qualifications_on_rank_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_qualifications_on_rank_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_qualifications_on_rank_id ON qualifications USING btree (rank_id);
 
 
 --
--- Name: index_quote_field_lookups_on_quote_field_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_quote_field_lookups_on_quote_field_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_quote_field_lookups_on_quote_field_id ON quote_field_lookups USING btree (quote_field_id);
 
 
 --
--- Name: index_quote_fields_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_quote_fields_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_quote_fields_on_product_id ON quote_fields USING btree (product_id);
 
 
 --
--- Name: index_quotes_on_customer_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_quotes_on_customer_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_quotes_on_customer_id ON quotes USING btree (customer_id);
 
 
 --
--- Name: index_quotes_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_quotes_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_quotes_on_product_id ON quotes USING btree (product_id);
 
 
 --
--- Name: index_quotes_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_quotes_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_quotes_on_url_slug ON quotes USING btree (url_slug);
 
 
 --
--- Name: index_quotes_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_quotes_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_quotes_on_user_id ON quotes USING btree (user_id);
 
 
 --
--- Name: index_rank_paths_on_precedence; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_rank_paths_on_precedence; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_rank_paths_on_precedence ON rank_paths USING btree (precedence);
 
 
 --
--- Name: index_resources_on_file_type_and_is_public; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_resources_on_file_type_and_is_public; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_resources_on_file_type_and_is_public ON resources USING btree (file_type, is_public);
 
 
 --
--- Name: index_settings_on_thing_type_and_thing_id_and_var; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_settings_on_thing_type_and_thing_id_and_var; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_settings_on_thing_type_and_thing_id_and_var ON settings USING btree (thing_type, thing_id, var);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_sponsor_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_users_on_sponsor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_users_on_sponsor_id ON users USING btree (sponsor_id);
 
 
 --
--- Name: index_users_on_upline; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_users_on_upline; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_users_on_upline ON users USING gin (upline);
 
 
 --
--- Name: index_users_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_users_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_users_on_url_slug ON users USING btree (url_slug);
 
 
 --
--- Name: rank_achievements_comp_key_with_pp; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: rank_achievements_comp_key_with_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX rank_achievements_comp_key_with_pp ON rank_achievements USING btree (pay_period_id, user_id, rank_id, rank_path_id) WHERE (pay_period_id IS NOT NULL);
 
 
 --
--- Name: rank_achievements_comp_key_without_pp; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: rank_achievements_comp_key_without_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX rank_achievements_comp_key_without_pp ON rank_achievements USING btree (user_id DESC, rank_id, rank_path_id) WHERE (pay_period_id IS NULL);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
--- Name: api_tokens_client_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_02b555fb4d; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY api_tokens
-    ADD CONSTRAINT api_tokens_client_id_fk FOREIGN KEY (client_id) REFERENCES api_clients(id);
-
-
---
--- Name: api_tokens_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY api_tokens
-    ADD CONSTRAINT api_tokens_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY quotes
+    ADD CONSTRAINT fk_rails_02b555fb4d FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
--- Name: bonus_levels_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_levels
-    ADD CONSTRAINT bonus_levels_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
-
-
---
--- Name: bonus_levels_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_levels
-    ADD CONSTRAINT bonus_levels_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
-
-
---
--- Name: bonus_payment_orders_bonus_payment_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payment_orders
-    ADD CONSTRAINT bonus_payment_orders_bonus_payment_id_fk FOREIGN KEY (bonus_payment_id) REFERENCES bonus_payments(id);
-
-
---
--- Name: bonus_payment_orders_order_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payment_orders
-    ADD CONSTRAINT bonus_payment_orders_order_id_fk FOREIGN KEY (order_id) REFERENCES orders(id);
-
-
---
--- Name: bonus_payments_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_03632e5c21; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY bonus_payments
-    ADD CONSTRAINT bonus_payments_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+    ADD CONSTRAINT fk_rails_03632e5c21 FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
 
 
 --
--- Name: bonus_payments_pay_as_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payments
-    ADD CONSTRAINT bonus_payments_pay_as_rank_fk FOREIGN KEY (pay_as_rank) REFERENCES ranks(id);
-
-
---
--- Name: bonus_payments_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payments
-    ADD CONSTRAINT bonus_payments_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
-
-
---
--- Name: bonus_payments_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payments
-    ADD CONSTRAINT bonus_payments_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: bonus_sales_requirements_bonus_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_sales_requirements
-    ADD CONSTRAINT bonus_sales_requirements_bonus_id_fk FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
-
-
---
--- Name: bonus_sales_requirements_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_sales_requirements
-    ADD CONSTRAINT bonus_sales_requirements_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: bonuses_achieved_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonuses
-    ADD CONSTRAINT bonuses_achieved_rank_id_fk FOREIGN KEY (achieved_rank_id) REFERENCES ranks(id);
-
-
---
--- Name: bonuses_bonus_plan_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonuses
-    ADD CONSTRAINT bonuses_bonus_plan_id_fk FOREIGN KEY (bonus_plan_id) REFERENCES bonus_plans(id);
-
-
---
--- Name: bonuses_max_user_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonuses
-    ADD CONSTRAINT bonuses_max_user_rank_id_fk FOREIGN KEY (max_user_rank_id) REFERENCES ranks(id);
-
-
---
--- Name: bonuses_min_upline_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonuses
-    ADD CONSTRAINT bonuses_min_upline_rank_id_fk FOREIGN KEY (min_upline_rank_id) REFERENCES ranks(id);
-
-
---
--- Name: customer_notes_author_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY customer_notes
-    ADD CONSTRAINT customer_notes_author_id_fk FOREIGN KEY (author_id) REFERENCES users(id);
-
-
---
--- Name: distributions_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY distributions
-    ADD CONSTRAINT distributions_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
-
-
---
--- Name: distributions_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY distributions
-    ADD CONSTRAINT distributions_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: invites_sponsor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY invites
-    ADD CONSTRAINT invites_sponsor_id_fk FOREIGN KEY (sponsor_id) REFERENCES users(id);
-
-
---
--- Name: invites_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY invites
-    ADD CONSTRAINT invites_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: order_totals_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY order_totals
-    ADD CONSTRAINT order_totals_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
-
-
---
--- Name: order_totals_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY order_totals
-    ADD CONSTRAINT order_totals_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: order_totals_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY order_totals
-    ADD CONSTRAINT order_totals_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: orders_customer_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customers(id);
-
-
---
--- Name: orders_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: orders_quote_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_quote_id_fk FOREIGN KEY (quote_id) REFERENCES quotes(id);
-
-
---
--- Name: orders_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT orders_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: product_receipts_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_receipts
-    ADD CONSTRAINT product_receipts_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: product_receipts_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY product_receipts
-    ADD CONSTRAINT product_receipts_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: qualifications_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY qualifications
-    ADD CONSTRAINT qualifications_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: qualifications_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY qualifications
-    ADD CONSTRAINT qualifications_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
-
-
---
--- Name: qualifications_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY qualifications
-    ADD CONSTRAINT qualifications_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
-
-
---
--- Name: quote_field_lookups_quote_field_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_0383942516; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY quote_field_lookups
-    ADD CONSTRAINT quote_field_lookups_quote_field_id_fk FOREIGN KEY (quote_field_id) REFERENCES quote_fields(id);
+    ADD CONSTRAINT fk_rails_0383942516 FOREIGN KEY (quote_field_id) REFERENCES quote_fields(id);
 
 
 --
--- Name: quote_fields_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_0a1404ebe0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_group_requirements
+    ADD CONSTRAINT fk_rails_0a1404ebe0 FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
+
+
+--
+-- Name: fk_rails_0ac5f355df; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY distributions
+    ADD CONSTRAINT fk_rails_0ac5f355df FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: fk_rails_0be6ab5d96; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_0be6ab5d96 FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
+-- Name: fk_rails_0d33b17199; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT fk_rails_0d33b17199 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_12dec8bf06; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY quotes
+    ADD CONSTRAINT fk_rails_12dec8bf06 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_17101d1bf2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT fk_rails_17101d1bf2 FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
+-- Name: fk_rails_1ac6520b51; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT fk_rails_1ac6520b51 FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: fk_rails_27f9662e04; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_27f9662e04 FOREIGN KEY (quote_id) REFERENCES quotes(id);
+
+
+--
+-- Name: fk_rails_2df50738a4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT fk_rails_2df50738a4 FOREIGN KEY (pay_as_rank) REFERENCES ranks(id);
+
+
+--
+-- Name: fk_rails_3437827c68; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT fk_rails_3437827c68 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_35f0faa1fa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_amounts
+    ADD CONSTRAINT fk_rails_35f0faa1fa FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
+-- Name: fk_rails_3dad120da9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_3dad120da9 FOREIGN KEY (customer_id) REFERENCES customers(id);
+
+
+--
+-- Name: fk_rails_3f4c8aa477; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payment_orders
+    ADD CONSTRAINT fk_rails_3f4c8aa477 FOREIGN KEY (bonus_payment_id) REFERENCES bonus_payments(id);
+
+
+--
+-- Name: fk_rails_47ad3f1496; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_group_requirements
+    ADD CONSTRAINT fk_rails_47ad3f1496 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_4d65aace9f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY quote_fields
-    ADD CONSTRAINT quote_fields_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
+    ADD CONSTRAINT fk_rails_4d65aace9f FOREIGN KEY (product_id) REFERENCES products(id);
 
 
 --
--- Name: quotes_customer_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_67cab9fdb2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT fk_rails_67cab9fdb2 FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: fk_rails_68b7bf654f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT fk_rails_68b7bf654f FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
+-- Name: fk_rails_69318c246b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_receipts
+    ADD CONSTRAINT fk_rails_69318c246b FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_69ef330963; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY customer_notes
+    ADD CONSTRAINT fk_rails_69ef330963 FOREIGN KEY (author_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_70967dd465; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_achievements
+    ADD CONSTRAINT fk_rails_70967dd465 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_81b70497bd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY distributions
+    ADD CONSTRAINT fk_rails_81b70497bd FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_86cf0924a6; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_user_groups
+    ADD CONSTRAINT fk_rails_86cf0924a6 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_8f72336587; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY product_receipts
+    ADD CONSTRAINT fk_rails_8f72336587 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_94f655be82; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_94f655be82 FOREIGN KEY (sponsor_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_9b304eaecd; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT fk_rails_9b304eaecd FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_a1ab65f1f7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY quotes
-    ADD CONSTRAINT quotes_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customers(id);
+    ADD CONSTRAINT fk_rails_a1ab65f1f7 FOREIGN KEY (customer_id) REFERENCES customers(id);
 
 
 --
--- Name: quotes_product_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b080b36796; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY quotes
-    ADD CONSTRAINT quotes_product_id_fk FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: quotes_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY quotes
-    ADD CONSTRAINT quotes_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT fk_rails_b080b36796 FOREIGN KEY (bonus_plan_id) REFERENCES bonus_plans(id);
 
 
 --
--- Name: rank_achievements_pay_period_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b152dd356e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rank_achievements
-    ADD CONSTRAINT rank_achievements_pay_period_id_fk FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
-
-
---
--- Name: rank_achievements_rank_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rank_achievements
-    ADD CONSTRAINT rank_achievements_rank_id_fk FOREIGN KEY (rank_id) REFERENCES ranks(id);
+ALTER TABLE ONLY bonus_amounts
+    ADD CONSTRAINT fk_rails_b152dd356e FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
 
 
 --
--- Name: rank_achievements_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_c2e3e2bfb1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rank_achievements
-    ADD CONSTRAINT rank_achievements_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
-
-
---
--- Name: rank_achievements_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rank_achievements
-    ADD CONSTRAINT rank_achievements_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY users
+    ADD CONSTRAINT fk_rails_c2e3e2bfb1 FOREIGN KEY (organic_rank) REFERENCES ranks(id);
 
 
 --
--- Name: user_overrides_user_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_c41dc2a789; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT fk_rails_c41dc2a789 FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
+
+
+--
+-- Name: fk_rails_cb98ac3193; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY order_totals
+    ADD CONSTRAINT fk_rails_cb98ac3193 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_ccd9c98a42; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT fk_rails_ccd9c98a42 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_cd92ab11e9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY lead_updates
+    ADD CONSTRAINT fk_rails_cd92ab11e9 FOREIGN KEY (quote_id) REFERENCES quotes(id);
+
+
+--
+-- Name: fk_rails_d44438dd14; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT fk_rails_d44438dd14 FOREIGN KEY (client_id) REFERENCES api_clients(id);
+
+
+--
+-- Name: fk_rails_dfb33b2de0; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_dfb33b2de0 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_e1fa9da540; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payment_orders
+    ADD CONSTRAINT fk_rails_e1fa9da540 FOREIGN KEY (order_id) REFERENCES orders(id);
+
+
+--
+-- Name: fk_rails_e59aa7c1c9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY qualifications
+    ADD CONSTRAINT fk_rails_e59aa7c1c9 FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: fk_rails_ed1f417296; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_user_groups
+    ADD CONSTRAINT fk_rails_ed1f417296 FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
+
+
+--
+-- Name: fk_rails_eddfc85f73; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payments
+    ADD CONSTRAINT fk_rails_eddfc85f73 FOREIGN KEY (bonus_id) REFERENCES bonuses(id);
+
+
+--
+-- Name: fk_rails_f16b5e0447; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY api_tokens
+    ADD CONSTRAINT fk_rails_f16b5e0447 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_fc7e11f976; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY user_overrides
-    ADD CONSTRAINT user_overrides_user_id_fk FOREIGN KEY (user_id) REFERENCES users(id);
+    ADD CONSTRAINT fk_rails_fc7e11f976 FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
--- Name: users_lifetime_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_ff69dbb2ac; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_lifetime_rank_fk FOREIGN KEY (lifetime_rank) REFERENCES ranks(id);
-
-
---
--- Name: users_organic_rank_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_organic_rank_fk FOREIGN KEY (organic_rank) REFERENCES ranks(id);
-
-
---
--- Name: users_rank_path_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_rank_path_id_fk FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
-
-
---
--- Name: users_sponsor_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY users
-    ADD CONSTRAINT users_sponsor_id_fk FOREIGN KEY (sponsor_id) REFERENCES users(id);
+ALTER TABLE ONLY invites
+    ADD CONSTRAINT fk_rails_ff69dbb2ac FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -2132,3 +2274,28 @@ INSERT INTO schema_migrations (version) VALUES ('20150209200417');
 INSERT INTO schema_migrations (version) VALUES ('20150225110000');
 
 INSERT INTO schema_migrations (version) VALUES ('20150303172651');
+
+INSERT INTO schema_migrations (version) VALUES ('20150309071743');
+
+INSERT INTO schema_migrations (version) VALUES ('20150311194138');
+
+INSERT INTO schema_migrations (version) VALUES ('20150330202824');
+
+INSERT INTO schema_migrations (version) VALUES ('20150414031954');
+
+INSERT INTO schema_migrations (version) VALUES ('20150414230447');
+
+INSERT INTO schema_migrations (version) VALUES ('20150415072216');
+
+INSERT INTO schema_migrations (version) VALUES ('20150421165254');
+
+INSERT INTO schema_migrations (version) VALUES ('20150421171527');
+
+INSERT INTO schema_migrations (version) VALUES ('20150423170131');
+
+INSERT INTO schema_migrations (version) VALUES ('20150504180127');
+
+INSERT INTO schema_migrations (version) VALUES ('20150504234010');
+
+INSERT INTO schema_migrations (version) VALUES ('20150514171532');
+

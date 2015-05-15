@@ -7,6 +7,10 @@ module Admin
         format.html
         format.json do
           @users = User.at_level(1).order(last_name: :desc, first_name: :desc)
+          if params[:group]
+            group_ids = params[:group].split(',')
+            @users = @users.in_groups(*group_ids)
+          end
         end
       end
     end

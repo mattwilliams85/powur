@@ -1,0 +1,224 @@
+.pow-profile {
+  background: #f8f8f8;
+  padding: 50px 0;
+
+  .ribbon {
+    height: 36px;
+    background-image: image-url('badges/ribbon.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    top: -40px;
+    position: relative;
+  }
+
+  .summary {
+    min-height:300px;
+  }
+
+  .data-content {
+    &>section{
+      background:#fff;
+      border:1px solid #ccc;
+    }
+
+    section {
+      padding-bottom: 20px;
+
+      .header{
+        width:inherit;
+        background: #333;
+        color:#eee;
+        text-transform: capitalize;
+        text-align: left;
+        padding:5px 0px 5px 30px;
+        line-height: 36px;
+        font-size:18px;
+      }
+
+      form {
+        margin: 0;
+      }
+
+      .subtitle {
+        font-size: 12px;
+      }
+
+      .content {
+        color: #ccc;
+        padding: 5px 30px 5px 30px;
+        text-align: left;
+
+        label {
+          font-size: 12px;
+          text-transform: uppercase;
+          color: #999999;
+          float:left;
+          display:block;
+          margin:7px;
+          text-align:left;
+          width:auto;
+          position:absolute;
+          left:0px;
+        }
+
+        input, textarea {
+          padding-top:18px;
+          padding-left:6px;
+          border-radius: 0px;
+          height:50px;
+          display:block;
+          font-size:16px;
+          color:#333;
+        }
+
+        textarea {
+          padding:30px 5px 5px 5px;
+          font-family: Muli, sans-serif;
+          font-size: 20px;
+          background-color: rgba(0, 0, 0, 0.0784314);
+          resize: none;
+          outline: none;
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          min-height: 200px;
+        }
+
+        textarea:focus, input:focus {
+          background:#d6d6d6;
+          border:#b3b3b3;
+        }
+
+        .form-element {
+          position: relative;
+        }
+
+        .button {
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          padding: 8px 16px;
+          font-size: 14px;
+          line-height: 30px;
+          text-transform: uppercase;
+          font-family: "Varela Round", sans-serif;
+          display: block;
+          width: 100%;
+          vertical-align: baseline;
+          -webkit-border-top-left-radius: 4px;
+          -moz-border-radius-topleft: 4px;
+          border-top-left-radius: 4px;
+          -webkit-border-top-right-radius: 4px;
+          -moz-border-radius-topright: 4px;
+          border-top-right-radius: 4px;
+          -webkit-border-bottom-left-radius: 4px;
+          -moz-border-radius-bottomleft: 4px;
+          border-bottom-left-radius: 4px;
+          -webkit-border-bottom-right-radius: 4px;
+          -moz-border-radius-bottomright: 4px;
+          border-bottom-right-radius: 4px;
+          clear: both;
+          margin:auto;
+          margin-top: 8px;
+          float: none;
+          clear: none;
+          height:50px;
+          background: #20c2f1;
+          border: 1px solid #16bff0;
+          color: white;
+          text-align: center;
+          white-space: nowrap;
+          cursor: pointer;
+          transition: all .25s ease-in-out;
+        }
+      }
+    }
+  }
+
+  .avatar-container {
+    text-align:center;
+
+    .user-image {
+      width:150px;
+      margin: 0 0 20px 0;
+      border: 1px solid #fff;
+      border-radius: 200pt;
+    }
+
+    .file-s3-uploader-input {
+      margin: 0;
+      padding: 0;
+      height: 50px;
+      overflow: hidden;
+
+      &::-webkit-file-upload-button {
+        visibility: hidden;
+      }
+
+      &::before {
+        content: 'UPLOAD PHOTO';
+        display: inline-block;
+        background: $pow-color-blue;
+        border: 1px solid $pow-color-blue;
+        border-radius: 3px;
+        padding: 5px 8px;
+        outline: none;
+        white-space: nowrap;
+        -webkit-user-select: none;
+        color: #fff;
+        cursor: pointer;
+        font-size: 1.2em;
+        line-height: 37px;
+        width: 100%;
+        text-align: center;
+      }
+
+      &:active::before {
+        background: $pow-color-blue;
+      }
+    }
+  }
+
+  .section_content {
+    overflow:inherit;
+
+    label {
+      margin:0;
+      padding:0;
+    }
+  }
+
+  h3 {
+    font-size:12pt;
+    text-transform:uppercase;
+    float:left;
+  }
+
+  .text-field {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 25.6px 16px 8px;
+    -webkit-border-top-left-radius: 4px;
+    -moz-border-radius-topleft: 4px;
+    border-top-left-radius: 4px;
+    -webkit-border-top-right-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    border-top-right-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    border-bottom-left-radius: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    border-bottom-right-radius: 4px;
+    display: block;
+    width: 100%;
+    vertical-align: baseline;
+    font-family: "Muli", sans-serif;
+    font-size: 20px;
+    line-height: 20px;
+    -webkit-font-smoothing: subpixel-antialiased;
+    margin-bottom: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background-color: rgba(0, 0, 0, 0.08);
+    color: white;
+  }
+}

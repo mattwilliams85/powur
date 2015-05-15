@@ -17,7 +17,7 @@ describe Invite do
     user = create(:user)
     create(:invite, sponsor: user, first_name: 'Garry')
     create(:invite, sponsor: user, last_name: 'Gareys')
-    create(:invite, sponsor: user, email: 'gary@example.org')
+    create(:invite, sponsor: user, email: 'test+gary@test.com')
 
     results = Invite.search('gary')
     expect(results.size).to eq(3)

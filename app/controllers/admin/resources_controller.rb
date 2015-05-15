@@ -42,7 +42,10 @@ module Admin
     private
 
     def input
-      allow_input(:title, :description, :is_public, :file_original_path, :image_original_path)
+      allow_input(
+        :title, :description, :is_public,
+        :file_original_path, :image_original_path, :youtube_id
+      )
     end
 
     def find_resource

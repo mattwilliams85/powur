@@ -1,30 +1,9 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   email_subjects:
     new-team-member: You just got a new teammate
     invite: An Invitation to Join Powur
     reset-password: Password Reset Request
-    customer-onboard: Congratulations, your free solar quote is on the way.
+    customer-onboard: Congratulations, your free solar proposal is on the way.
     welcome-new-user: Welcome to Powur
     team-leader-downline-certification-purchase: One of your team members is about to upgrade their skills by going Certified
     certification-purchase-processed: Your Powur Certification
@@ -49,13 +28,16 @@ en:
     password_update: You have entered an incorrect current password.
     password_confirm: The confirm password does not match
     update_avatar: You must submit an image to change your avatar
+    delete_quote: You cannot delete a quote that has been submitted
     delete_rank: You can only delete the last rank
     delete_product: You cannot delete a product with existing quotes/orders
-    duplicate_bonus_plan_start: "The bonus plan %{plan} already has this start date"
+    duplicate_bonus_plan_start: "The bonus plan '%{plan}' already has this start date"
     duplicate_order: The quote already has a related order
     period_not_calculable: This pay period is not eligible for calculation
     period_not_disbursable: This pay period is not eligible for distribution
     cannot_add_amounts: Bonus amounts cannot be added to this bonus
+    cannot_submit_quote: Quote has already been submitted
+    amount_exceeds_max: "Amount %{amount} exceeds max available value of %{max}" 
     api:
       invalid_grant:
         refresh_token: invalid refresh_token
@@ -65,7 +47,9 @@ en:
       invalid_client: invalid client credentials
       unsupported_grant_type: "invalid grant_type value of: '%{grant_type}'"
       invalid_request:
-        params: "missing the following required params: '%{params}'"
+        missing_params: "missing the following required parameters: '%{params}'"
+        environment_mismatch: "invalid environment value of '%{env}' found"
+        invalid_params: "the following parameters are invalid: '%{params}'"
       invalid_scope: "unsupported api version %{v}"
     messages:
       exceeded_max_invites: You have exceeded the max number of invites allowed

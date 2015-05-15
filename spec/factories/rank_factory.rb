@@ -9,5 +9,8 @@ FactoryGirl.define do
       end
     end
 
+    factory :rank1 do
+      
+    end
   end
 end

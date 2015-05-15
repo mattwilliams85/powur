@@ -11,12 +11,15 @@ module Admin
     end
 
     def show
+      render 'show'
     end
 
     def create
       @bonus_plan = BonusPlan.create!(input)
 
-      render 'show'
+      show
+    rescue ActiveRecord::RecordNotUnique
+      duplicate_start_error!
     end
 
     def update
@@ -30,7 +33,7 @@ module Admin
     def destroy
       @bonus_plan.destroy
 
-      render 'index'
+      head 200
     end
 
     private
@@ -48,7 +51,7 @@ module Admin
         start_year:  input['start_year'].to_i,
         start_month: input['start_month'].to_i).first
 
-      error! t(:duplicate_bonus_plan_start, plan: plan.name)
+      error!(:duplicate_bonus_plan_start, plan: plan.name)
     end
   end
 end

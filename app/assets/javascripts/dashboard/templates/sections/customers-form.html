@@ -1,0 +1,91 @@
+<form ng-submit="customerSection.saveProposal()" id="customers-form">
+  <div class="row">
+    <div class="large-6 columns">
+      <fieldset>
+        <legend><i class="fa fa-envelope"></i> Contact Information</legend>
+
+        <!-- First/Last Name -->
+        <div class="row">
+          <div class="large-6 medium-6 columns">
+            <label>First Name</label>
+            <input ng-model="proposal.first_name" type="text">
+          </div>
+          <div class="large-6 medium-6 columns">
+            <label>Last Name</label>
+            <input ng-model="proposal.last_name" type="text">
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Email</label>
+            <input ng-model="proposal.email" type="email">
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Phone</label>
+            <input ng-model="proposal.phone" type="text">
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Address</label>
+            <input ng-model="proposal.address" type="text">
+          </div>
+        </div>
+
+        <!-- City/State/ZIP -->
+        <div class="row">
+          <div class="large-5 medium-5 columns">
+            <label>City</label>
+            <input ng-model="proposal.city" type="text">
+          </div>
+          <div class="large-3 medium-3 small-6 columns">
+            <label>State</label>
+            <select ng-model="proposal.state">
+              <option disabled selected value=""></option>
+              <option ng-repeat="state in states" value="{{state.name}}" ng-selected="state.name === proposal.state">{{state.abbr}}</option>
+            </select>
+          </div>
+          <div class="large-4 medium-4 small-6 columns">
+            <label>ZIP</label>
+            <input ng-model="proposal.zip" type="text">
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
+    <div class="large-6 columns">
+      <fieldset>
+        <legend ng-if="proposal.productFields"><i class="fa fa-bolt"></i> House and Utility Information</legend>
+
+        <!-- Custom Product Fields -->
+        <div ng-repeat="productField in proposal.productFields" class="row">
+          <div class="large-12 medium-12 columns">
+            <label>{{sanitizeLabel(productField.name)}}</label>
+            <input ng-model="proposal[productField.name]" type="{{productField.type}}">
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="row">
+          <div class="large-12 columns">
+            <!-- New Proposal Form Buttons -->
+            <button class="button right" ng-show="mode === 'new'">Save</button>
+            <button class="button secondary left" ng-show="mode === 'new'" ng-click="closeForm()">Cancel</button>
+            <!-- Incomplete Proposal Form Buttons -->
+            <button class="button secondary right" ng-show="mode !== 'submitted' && mode !== 'new'">Update</button>
+            <button class="button secondary left" ng-show="mode !== 'submitted' && mode !== 'new'" ng-click="closeForm()">Cancel</button>
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
+  </div>
+</form>

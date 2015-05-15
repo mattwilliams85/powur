@@ -1,0 +1,100 @@
+<powur-left-menu control="leftMenu"></powur-left-menu>
+
+<div class="pow-landing-wrapper" ng-class="{'active': leftMenu.isActive}">
+
+  <ng-include src="'shared/header-signed-out.html'"></ng-include>
+
+  <main class="pow-promo pow-why-powur-page" id="pagepiling" powur-page-piler control="pagePiler">
+
+    <div class="pow-scrolling-bg pow-bg-16 section inverted">
+      <div class="pow-promo-intro">
+        <div class="row">
+          <div class="large-6 columns">
+            <h1>Why <div class="highlight-2">Powur?</div></h1>
+          </div>
+
+          <div class="large-6 columns">
+            <br>
+            <p>We are the first public benefit corporation (B-corp) to exist in the direct sales industry.  As such, our overarching purpose is to contribute to society & our environment in a way that enriches life on this planet for all future generations.</p>
+            <p>We’re accomplishing this goal by creating the first entrepreneurial platform for solar energy.  Our platform empowers individuals to step up, and create their own business in  solar from the palm of their hand.</p>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-box inverted">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-3 section">
+      <div class="row pow-promo-content trim-small">
+        <div class="large-12 columns">
+          <h3><b>We've got a vision to put <div class="highlight-2">solar panels on 2,000,000 homes by 2025,</div> and with our model... it's more than possible, it's probable.</b></h3>
+        </div>
+
+        <div class="large-3 columns">
+          <img src="<%= asset_path('promo/a-bird-on-da-house.jpg') %>" />
+        </div>
+
+        <div class="large-9 columns">
+          <hr />
+          <p class="font-1"><b>This would effectively eliminate 18,242,000 TONS of carbon dioxide emissions per year. That’s over 36 billions pounds of C02.</b></p>
+          <p>This is a real achievable goal that will have lasting impact for centuries to come.</p>
+        </div>
+      </div>
+      <div class="arrow-box dark">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-17 powur-slide-3 section inverted">
+      <div class="row pow-promo-content trim-small">
+        <div class="large-6 columns">
+          <h2><div class="highlight-2">POWUR is a platform for doing good in the world, while at the same time doing good for yourself.</div></h2>
+        </div>
+
+        <div class="large-6 columns">
+          <p>The average career today lasts less than 3 years.  There is an enormous growing body of data showing frustration, and lack of fulfilment from many of the traditional career paths.</p>
+          <p>On the flip side, entrepreneurship is rising.  The IDC estimates by 2020 over 60% of the global work force could be considered “independents”.  In today’s world… everyone knows having your own business is the most proven way to create real financial freedom, time freedom, and a lifestyle where you can fulfill your personal dreams.</p>
+          <p>Powur combines our desire for meaningful careers and work, with the power to build a highly lucrative part time or full time business in the solar industry.  You get to choose your hours.  You choose how big you want your impact & income to be.</p>
+        </div>
+      </div>
+      <div class="arrow-box inverted">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-18 section inverted">
+      <div class="row pow-promo-content trim-small">
+
+        <div class="large-6 columns">
+         <h2><div class="highlight-2">POWUR was founded by entrepreneurs with a deep history in direct sales, technology, and giving back.</div></h2>
+        </div>
+
+        <div class="large-6 columns">
+          <p>Combine Jonathan’s vision with the extraordinary  <a class="highlight" ng-href="/our-team">Powur team</a>, and we are uniquely positioned to be the leader in direct sales & solar energy, two trends that have the power to change millions of lives.</p>
+          <br />
+          <p>Jonathan created his first non profit organization called the Global Transformation Council, and has given close to $1,000,000 of his personal income to new technologies, organizations, and movements dedicated to lasting global change.</p>
+          <br />
+          <p>Our CEO Jonathan Budd earned his first $1,000,000 at age 24 through the direct selling model.  He then started one of the most successful technology training companies in the industry, coaching over 100,000 people.</p>
+        </div>
+      </div>
+      <div class="arrow-box inverted">
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-3 section">
+      <div class="row">
+        <div class="large-12 columns pow-home-content">
+          <h5>Select how you want to participate in the revolution.</h5>
+          <div class="pow-buttons-wrapper">
+            <a class="button pow-button-transparent" ng-href="/create-energy">ENERGY</a>
+            <a class="button pow-button-solid" ng-href="/create-wealth">WEALTH</a>
+          </div>
+        </div>
+      </div>
+      <ng-include src="'shared/footer.html'"></ng-include>
+    </div>
+
+  </main>
+</div>

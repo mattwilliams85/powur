@@ -1,0 +1,87 @@
+<form>
+  <div class="row">
+    <div class="large-6 columns">
+      <fieldset>
+        <legend><i class="fa fa-envelope"></i> Contact Information</legend>
+
+        <!-- Customer Name -->
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Customer</label>
+            <input ng-model="proposal.customer" ng-disabled="mode === 'submitted'" type="text">
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Email</label>
+            <input ng-model="proposal.email" ng-disabled="mode === 'submitted'" type="text">
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Phone</label>
+            <input ng-model="proposal.phone" ng-disabled="mode === 'submitted'" type="text">
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="row">
+          <div class="large-12 medium-12 columns">
+            <label>Address</label>
+            <input ng-model="proposal.address" ng-disabled="mode === 'submitted'" type="text">
+          </div>
+        </div>
+
+        <!-- City/State/ZIP -->
+        <div class="row">
+          <div class="large-5 medium-5 columns">
+            <label>City</label>
+            <input ng-model="proposal.city" ng-disabled="mode === 'submitted'" type="text">
+          </div>
+          <div class="large-3 medium-3 small-6 columns">
+            <label>State</label>
+            <select ng-model="proposal.state" ng-disabled="mode === 'submitted'">
+              <option disabled selected value=""></option>
+              <option ng-repeat="state in states" value="{{state.name}}" ng-selected="state.name === proposal.state">{{state.abbr}}</option>
+            </select>
+          </div>
+          <div class="large-4 medium-4 small-6 columns">
+            <label>ZIP</label>
+            <input ng-model="proposal.zip" ng-disabled="mode === 'submitted'" type="text">
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
+    <div class="large-6 columns">
+      <fieldset>
+        <legend ng-if="proposal.product_fields"><i class="fa fa-bolt"></i> House and Utility Information</legend>
+
+        <!-- Custom Product Fields -->
+        <div ng-repeat="(key, value) in proposal.product_fields" class="row">
+          <div class="large-12 medium-12 columns">
+            <label>{{sanitizeLabel(key)}}</label>
+            <input ng-model="proposal.product_fields[key]" ng-disabled="mode === 'submitted'" type="text">
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="row">
+          <div class="large-12 columns">
+            <!-- New Proposal Form Buttons -->
+            <button class="button secondary" ng-show="mode === 'new'" ng-click="closeForm()">Cancel</button>
+            <button class="button right" ng-show="mode === 'new'" ng-click="saveProposal()">Save</button>
+            <!-- Incomplete Proposal Form Buttons -->
+            <button class="button secondary" ng-show="mode === 'incomplete'" ng-click="closeForm()">Cancel</button>
+            <button class="button secondary right" ng-show="mode === 'incomplete'" ng-click="saveProposal()">Update</button>
+          </div>
+        </div>
+
+      </fieldset>
+    </div>
+  </div>
+</form>

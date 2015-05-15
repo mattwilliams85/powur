@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   def params?(*args)
     ->(r) { args.none? { |a| r.params[a].blank? } }
   end
@@ -7,6 +6,27 @@ Rails.application.routes.draw do
   def param_values?(args)
     ->(r) { args.all? { |k, v| r.params[k] == v } }
   end
+
+  def json?
+    ->(r) { r.params[:format] == 'json' }
+  end
+
+  def html?
+    ->(r) { r.params[:format].blank? || r.params[:format] == 'html' }
+  end
+
+  root 'index#index'
+
+  # Index json request
+  get 'index', to: 'index#index', constraints: json?
+
+  # Any admin html request
+  get 'admin(/*any)', to: 'admin/root#index', constraints: html?
+
+  # Any other html request
+  get '*anyhtml', to: 'index#index', constraints: html?
+
+  resource :session, only: [ :show ]
 
   # anonymous routes
   scope module: :anon do
@@ -47,13 +67,16 @@ Rails.application.routes.draw do
     resource :ewallet, only:       [ :index, :account_details ],
                        controller: :ewallet do
       get 'account_details', to: 'ewallet#account_details'
-
     end
+
     resource :profile,
-             only:       [ :show, :update, :password_reset ],
+             only:       [ :show, :update, :password_reset, :ewallet_details ],
              controller: :profile do
-      post 'update_password', to: 'profile#update_password'
+      put 'update_password', to: 'profile#update_password'
       patch 'update_avatar', to: 'profile#update_avatar'
+      member do
+        get :ewallet_details
+      end
     end
 
     resources :invites, only: [ :index, :create, :destroy ] do
@@ -87,6 +110,7 @@ Rails.application.routes.draw do
                        as:   :user_quotes do
       member do
         post :resend
+        post :submit
       end
     end
 
@@ -183,12 +207,15 @@ Rails.application.routes.draw do
     end
 
     resources :bonuses, only: [ :index, :destroy, :update, :show ] do
-      resources :requirements, only: [ :create, :update, :destroy ]
-      resources :bonus_levels, only: [ :create ], as: :levels
+      resources :bonus_amounts, only: [ :create ], as: :amounts, path: :amounts
     end
-    resources :bonus_levels, only: [ :update, :destroy ], as: :bonus_levels
+    resources :bonus_amounts, only: [ :update, :destroy ], as: :bonus_amounts
 
     resources :quotes, only: [ :index, :show ], as: :admin_quotes do
+      member do
+        post :submit
+      end
+
       collection do
         get '' => 'quotes#search', constraints: params?(:search)
       end
@@ -224,6 +251,14 @@ Rails.application.routes.draw do
                 only: [ :index, :create, :destroy, :show, :update ],
                 as:   :admin_notifications
 
+    resources :user_groups, only: [ :index, :show, :create, :update, :destroy ] do
+      resources :requirements, only: [ :create ], controller: :user_group_requirements
+    end
+    resources :user_group_requirements,
+              only:       [ :destroy, :update ],
+              controller: :user_group_requirements
+
+
     resources :resources, as: :admin_resources
   end
 
@@ -232,7 +267,7 @@ Rails.application.routes.draw do
     post 'ipayout/notify_merchant', to: 'ipayout#notify_merchant'
   end
 
-  namespace :api, defaults: { format: 'json' } do
+  namespace :api do
     # backwards compat. example
     # namespace :v1 do
     #   resource :session, only: [ :show ]
@@ -246,6 +281,8 @@ Rails.application.routes.draw do
         constraints: param_values?(grant_type: 'password')
       post 'token' => 'token#refresh_token',
         constraints: param_values?(grant_type: 'refresh_token')
+      post 'token' => 'token#client_credentials',
+        constraints: param_values?(grant_type: 'client_credentials')
       post 'token' => 'token#unsupported_grant_type',
         constraints: params?(:grant_type)
       post 'token' => 'token#invalid_request'
@@ -262,10 +299,14 @@ Rails.application.routes.draw do
         end
       end
       resources :quotes, only: [ :index, :create, :show ]
+
+      namespace :data do
+        resources :leads, only: [ :create ] do
+          post :batch, on: :collection
+        end
+      end
     end
   end
 
   resource :promoter, only: [ :new, :show ]
-
-  root 'index#index'
 end

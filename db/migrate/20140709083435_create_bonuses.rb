@@ -13,19 +13,12 @@ class CreateBonuses < ActiveRecord::Migration
       t.string      :type, null: false
       t.string      :name, null: false
       t.integer     :schedule, null: false, default: 2      # [ :weekly, :monthly ]
-      t.integer     :use_rank_at, null: false, default: 2   # [ :sale, :pay_period_end ]
-      t.references  :achieved_rank
-      t.references  :max_user_rank
-      t.references  :min_upline_rank
       t.hstore      :meta_data, default: ''
       t.boolean     :compress,  null: false, default: false
       t.decimal     :flat_amount, null: false, precision: 10, scale: 2, default: 0.0
       t.timestamps  null: false
 
       t.foreign_key :bonus_plans
-      t.foreign_key :ranks, column: :achieved_rank_id, primary_key: :id
-      t.foreign_key :ranks, column: :max_user_rank_id, primary_key: :id
-      t.foreign_key :ranks, column: :min_upline_rank_id, primary_key: :id
     end
 
     create_table :bonus_sales_requirements, id: false do |t|
@@ -44,7 +37,6 @@ class CreateBonuses < ActiveRecord::Migration
       t.integer :level, null: false, default: 0
       t.references :rank_path, null: false
       t.decimal :amounts, null: false, array: true, precision: 5, scale: 5, default: []
-      t.references :rank_path
 
       t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
       t.foreign_key :rank_paths

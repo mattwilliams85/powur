@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="large-12 columns">
+
+    <!-- Row: Label / Sort / Search -->
+    <div class="row">
+
+      <div class="large-3 medium-6 columns">
+      <!-- Section Label -->
+        <div class="section-label">
+          <div class="tag"><img ng-src="{{legacyImagePaths.dashboardCustomersIcon}}"></div>
+          <div class="text">My Customers</div>
+        </div>
+      </div>
+
+      <div class="large-3 hide-for-medium-down columns">
+      <!-- Sort -->
+        <select class="sort" ng-model="customerSection.proposalSort" ng-change="customerSection.sort()">
+          <option value="created">Order by Date</option>
+          <option value="customer">Order by Name</option>
+        </select>
+      </div>
+
+      <div class="large-3 medium-6 columns right">
+      <!-- Search -->
+        <div class="row collapse">
+          <form>
+            <div class="no-padding large-9 medium-9 small-10 columns">
+              <input ng-model="customerSection.proposalSearch" type="search" placeholder="SEARCH">
+            </div>
+            <div class="no-padding large-3 medium-3 small-2 columns">
+              <button class="search button postfix" ng-click="customerSection.search()">Go</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row: Customers Carousel -->
+    <div class="row collapse carousel-box">
+      <div class="w20percent columns">
+        <!-- New Proposal Button -->
+        <a ng-click="customerSection.newProposal()">
+          <div class="new-proposal" ng-class="{active: mode === 'new'}">
+            <div class="icon">
+              <span><i class="fa fa-plus fa-4x"></i></span>
+            </div>
+            <div class="info-text">
+              <span class="show-for-medium-up">New Proposal</span>
+              <span class="show-for-small">New</span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="carousel-container w80percent columns">
+        <!-- Proposals Carousel -->
+
+        <!-- If No Proposals -->
+        <div ng-if="!proposals" class="empty owl-carousel">
+          <div class="empty-state">
+            <p class="empty-text">This is where you manage your proposals and customers.  Add a proposal, submit it to SolarCity, and track the progress.  We'll notify you when your proposals turn into customers.</p>
+          </div>
+        </div>
+
+        <!-- If Proposals -->
+        <div ng-if="proposals" class="proposals owl-carousel">
+          <a ng-repeat="proposal in proposals" ng-click="customerSection.showProposal($index)">
+            <div class="proposal" ng-class="{active: currentProposal.id === proposal.properties.id}">
+              <div class="status-icon">
+                <img ng-show="proposal.properties.data_status === 'submitted'" ng-src="{{legacyImagePaths.proposalSubmitted}}">
+                <img ng-show="proposal.properties.data_status === 'ready to submit'" ng-src="{{legacyImagePaths.proposalReadyToSubmit}}">
+                <img ng-show="proposal.properties.data_status === 'ineligible location'" ng-src="{{legacyImagePaths.proposalIncomplete}}">
+                <img ng-show="proposal.properties.data_status === 'incomplete'" ng-src="{{legacyImagePaths.proposalIncomplete}}">
+              </div>
+              <div class="status-text">
+                <span>{{proposal.properties.data_status}}</span>
+              </div>
+              <div class="customer-name">
+                <span>{{proposal.properties.customer}}</span>
+              </div>
+              <div class="date-text">
+                <span>Created {{dateToLocalDate(proposal.properties.created_at)}}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Row: Proposal Form -->
+    <div class="drilldown" ng-class="{'active': drilldownActive == true}">
+      <div ng-hide="!showForm" class="fade-in-section" ng-class="{'active': showForm == true}">
+        <div class="summary large-3 medium-3 columns">
+
+          <!-- New Proposal Summary Text -->
+          <h1 ng-show="mode === 'new'">New Proposal</h1>
+          <p ng-show="mode === 'new'">Enter customer information to create a new proposal.</p>
+          <p ng-show="mode === 'new'">This customer information can be updated before the proposal is submitted to SolarCity.</p>
+
+          <!-- Incomplete Proposal Summary Text -->
+          <h1 ng-show="mode === 'incomplete'">Incomplete Proposal</h1>
+          <p ng-show="mode === 'incomplete'">Enter additional customer information to complete this proposal.</p>
+          <p ng-show="mode === 'incomplete'">SolarCity requires the customer's name, phone number, and email address.</p>
+          <!-- Incomplete Proposal Buttons -->
+          <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.delete()">Delete Proposal</button>
+          <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.resend()">Resend Email</button>
+
+          <!-- Ineligible Location Proposal Summary Text -->
+          <h1 ng-show="mode === 'ineligible location'">Ineligible Proposal</h1>
+          <p ng-show="mode === 'ineligible location'">This proposal looks ineligible based on the customer's location.</p>
+          <p ng-show="mode === 'ineligible location'">When SolarCity is available in the customer's location, this proposal's status will be updated and you'll be able to continue where you left off.</p>
+          <!-- Ineligible Location Proposal Buttons -->
+          <button class="button secondary expand" ng-show="mode === 'ineligible location'" ng-click="customerSection.delete()">Delete Proposal</button>
+
+          <!-- Completed Proposal Summary Text -->
+          <h1 ng-show="mode === 'ready to submit'">Completed Proposal</h1>
+          <p ng-show="mode === 'ready to submit'">Great! This proposal is ready to be submitted to SolarCity.</p>
+          <p ng-show="mode === 'ready to submit'">Ensure the customer information is correct before using the Submit button below.</p>
+          <!-- Completed Proposal Buttons -->
+          <button class="button secondary expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.delete()">Delete Proposal</button>
+          <button class="button secondary expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.resend()">Resend Email</button>
+          <button class="button solarcity expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
+
+          <!-- Submitted Proposal Summary Text -->
+          <h1 ng-show="mode === 'submitted'">Submitted Proposal</h1>
+          <p ng-show="mode === 'submitted'">This proposal has been submitted to SolarCity.</p>
+          <!-- Submitted Proposal Buttons -->
+          <button class="button expand right" ng-show="mode === 'submitted'" disabled><i class="fa fa-check"></i> Submitted</button>
+          <p ng-show="mode === 'submitted'">This proposal was submitted to SolarCity at {{timeToLocalTime(currentProposal.submitted_at)}} on {{dateToLocalDate(currentProposal.submitted_at)}}.</p>
+        </div>
+
+        <!-- Form if New, Ineligible, or Incomplete Proposal-->
+        <div ng-if="mode !== 'submitted'" class="form large-9 medium-9 columns">
+          <ng-include src="'dashboard/templates/sections/customers-form.html'"></ng-include>
+        </div>
+        <!-- Summary if Submitted Proposal -->
+        <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
+          <ng-include src="'dashboard/templates/sections/customers-submitted.html'"></ng-include>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

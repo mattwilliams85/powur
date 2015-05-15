@@ -3,9 +3,8 @@ require 'spec_helper'
 describe '/quote' do
 
   before do
-    DatabaseCleaner.clean
     @user = create(:user, url_slug: 'dude')
-    @product = create(:sunrun_product)
+    @product = create(:product_with_quote_fields)
   end
 
   let(:params) do

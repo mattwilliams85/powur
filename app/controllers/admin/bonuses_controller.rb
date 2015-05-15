@@ -15,16 +15,17 @@ module Admin
 
       @bonus = bonus_klass.create!(input.merge(bonus_plan_id: @bonus_plan.id))
 
-      render 'show'
+      show
     end
 
     def show
+      render 'show'
     end
 
     def update
       @bonus.update_attributes!(input)
 
-      render 'show'
+      show
     end
 
     def destroy
@@ -38,12 +39,11 @@ module Admin
 
     def input
       allow_input(
-        :name, :schedule, :use_rank_at, :achieved_rank_id, :max_user_rank_id,
-        :min_upline_rank_id, :compress, :flat_amount, :time_period, :time_amount)
+        :name, :schedule, :compress, :time_period, :time_amount)
     end
 
     def bonus_klass
-      Bonus.symbol_to_type(params[:type])
+      params[:type].constantize
     end
 
     def fetch_bonus_plan

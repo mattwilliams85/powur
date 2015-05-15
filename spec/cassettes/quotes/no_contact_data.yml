@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctyleads-test.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=test.powur.com%3A220&Lead_Generator__c=1&FirstName=Eldred&LastName=O'Conner&Street=&City=&PostalCode=&Phone=&Email=&submit=Submit&Monthly_Electric_Bill__c=
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '170'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Tue, 07 Apr 2015 18:52:24 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@3de3afff"
+      Server:
+      - nginx
+      Content-Length:
+      - '118'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q18000001P20tEAC","Message":"Lead successfully
+        created","YourId":"test.powur.com:220"}'
+    http_version: 
+  recorded_at: Tue, 07 Apr 2015 18:52:24 GMT
+recorded_with: VCR 2.9.3

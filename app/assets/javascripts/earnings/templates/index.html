@@ -1,0 +1,80 @@
+<ng-include src="'shared/header-signed-in.html'"></ng-include>
+
+<main class="pow-earnings">
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="section_header">
+        <div class="section-header-content">
+          <table class="stats-header">
+            <tr>
+              <td>
+                <h3>CURRENT WEEK</h3>
+                <h1><span>${{currentWeekTotalEarnings}}</span></h1>
+              </td>
+              <td>
+                <h3>CURRENT MONTH</h3>
+                <h1><span>${{currentMonthTotalEarnings}}</span></h1>
+              </td>
+              <td>
+                <h3>ACCUMULATED TOTAL</h3>
+                <h1><span>${{accumulatedTotal}}</span></h1>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="date-dropdown">
+          <div class="section_label">
+            <div class="tag"><img src="/images/dashboard/customers_icon.png"></div>
+          </div>
+          <select ng-model="search.startMonth" ng-options="month for month in months" class="dropdown"></select>
+          <select ng-model="search.startYear" ng-options="year for year in years" class="dropdown"></select>
+          <select ng-model="search.endMonth" ng-options="month for month in months" class="dropdown"></select>
+          <select ng-model="search.endYear" ng-options="year for year in years" class="dropdown"></select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="warning"></div>
+
+      <div class="earnings-list">
+        <div class="section-content">
+          <div class="table-header">
+            <span>{{search.startMonth}} - </span>
+            <span>{{search.startYear}}</span>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <td>Pay Period</td>
+            <td>Dates</td>
+            <td>Amount</td>
+            <td class="text-right">Details</td>
+          </thead>
+          <tr ng-repeat="earning in earnings" class="summary-row">
+            <td ng-if="earning.properties.pay_period_type === 'Monthly'" class="details-cell">Monthly</td>
+            <td ng-if="earning.properties.pay_period_type !== 'Monthly'" class="details-cell">Weekly</td>
+
+            <td class="details-cell">{{earning.properties.pay_period_date_range || '-'}}</td>
+
+            <td ng-if="earning.properties.total_earnings" class="details-cell">${{earning.properties.total_earnings}}</td>
+            <td ng-if="earning.properties.total_earnings && earning.properties.pay_period_type === 'Monthly'" class="details-cell right-aligned"><a class="dropToggle monthly">View Details  <i class="fa fa-chevron-down"></i></a></td>
+            <td ng-if="earning.properties.total_earnings && earning.properties.pay_period_type !== 'Monthly'" class="details-cell right-aligned"><a class="dropToggle weekly">View Details  <i class="fa fa-chevron-down"></i></a></td>
+
+            <td ng-if="!earning.properties.total_earnings" class="details-cell">$0</td>
+            <td ng-if="!earning.properties.total_earnings" class="details-cell right-aligned" style="color:#ccc">View Details <i class="fa fa-chevron-down"></i> </td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<ng-include src="'shared/footer-signed-in.html'"></ng-include>

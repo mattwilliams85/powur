@@ -1,0 +1,70 @@
+<main class="pow-admin-users">
+
+  <div class="row">
+    <div class="large-6 columns">
+      <h2>{{user.properties.first_name}} {{user.properties.last_name}}</h2>
+    </div>
+    <div class="large-6 columns">
+      <a class="button right" ng-href="/admin/users/{{user.properties.id}}/edit">Edit User</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+        <div class="row">
+
+        <div class="section-container auto" data-section>
+          <section class="active">
+            <p class="title" data-section-title><a>Overview</a></p>
+            <div class="content" data-section-content>
+              <!-- Info -->
+              <div class="row">
+                <div class="large-4 columns">
+                  <div class="panel">
+                    <h4 ng-show="!user.properties.address || !user.properties.city || !user.properties.state || !user.properties.zip"><small>No Address Data</small></h4>
+                    <span ng-show="user.properties.address && user.properties.city && user.properties.state && user.properties.zip">
+                      <h4>{{user.properties.address}}<h4>
+                      <h5>{{user.properties.city}}, {{user.properties.state}} {{user.properties.zip}}</h5>
+                    </span>
+                  </div>
+                </div>
+                <div class="large-4 columns">
+                  <div class="panel">
+                    <h4>{{user.properties.phone}}</h4>
+                    <p>{{user.properties.email}}</p>
+                  </div>
+                </div>
+                <div class="large-4 columns">
+                  <div class="panel">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <p class="title" data-section-title><a>Genealogy</a></p>
+            <div class="content" data-section-content>
+              <p>Upline/Downline/Placing Users</p>
+              <div class="panel">
+                <!-- jstree div goes here -->
+              </div>
+            </div>
+          </section>
+          <section>
+            <p class="title" data-section-title><a>Orders</a></p>
+            <div class="content" data-section-content>
+              <p>Orders/Order Totals</p>
+            </div>
+          </section>
+          <section>
+            <p class="title" data-section-title><a>Pay</a></p>
+            <div class="content" data-section-content>
+              <p>Bonus Payments/Pay Periods/Overrides</p>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>

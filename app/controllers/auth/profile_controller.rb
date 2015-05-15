@@ -7,20 +7,19 @@ module Auth
     def show
       @user = current_user
       @profile = @user.profile
+    end
 
-      respond_to do |format|
-        format.json {}
-        format.html {
-          @auto_login_url = build_auto_login_url(@user)
-          @ewallet_details = get_ewallet_customer_details(@user)
-        }
-      end
+    def ewallet_details
+      @auto_login_url = build_auto_login_url(current_user)
+      @ewallet_details = get_ewallet_customer_details(current_user)
     end
 
     def update
       user_params['email'].downcase! if user_params['email']
 
-      @user.update_attributes(user_params)
+      if @user.update_attributes(user_params)
+        User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
+      end
 
       render 'show'
     end
@@ -56,8 +55,9 @@ module Auth
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email,
-                                   :phone, :address, :city, :state,
-                                   :zip, :bio, :avatar_file_name, :avatar)
+                                   :phone, :address, :city, :state, :zip,
+                                   :bio, :twitter_url, :facebook_url,
+                                   :image_original_path, :avatar)
     end
 
     # def avatar_params

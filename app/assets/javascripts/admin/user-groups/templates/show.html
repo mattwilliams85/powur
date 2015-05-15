@@ -1,0 +1,44 @@
+<main class="pow-admin-user-groups">
+  <div class="row">
+    <div class="large-12 columns">
+      <a ng-href="/admin/user-groups/{{userGroup.id}}/edit" class="button right">Edit Group</a>
+      <h2 class="clearfix">{{userGroup.title}}</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="large-block-grid-3 small-block-grid-2">
+        <!-- Users in Group -->
+        <li>
+          <a ng-href="/admin/user-groups/{{userGroup.id}}/users">
+            <div class="panel callout fixed-height">
+              <h2>{{users.length}}</h2>
+              <h4>Users</h4>
+            </div>
+          </a>
+        </li>
+        <!-- Requirements for Group -->
+        <li>
+          <a ng-href="/admin/user-groups/{{userGroup.id}}/requirements">
+            <div class="panel callout fixed-height">
+              <h2>{{requirements.length}}</h2>
+              <h4>Requirements</h4>
+            </div>
+          </a>
+        </li>
+        <!-- Bonuses for Group -->
+        <li>
+          <a ng-href="/admin/user-groups/{{userGroup.id}}/bonuses">
+            <div class="panel callout fixed-height">
+              <h2>{{bonuses.length}}</h2>
+              <h4>Bonuses</h4>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+</main>

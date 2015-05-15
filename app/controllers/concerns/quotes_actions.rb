@@ -2,7 +2,7 @@ module QuotesActions
   extend ActiveSupport::Concern
 
   included do
-    before_action :fetch_quote, only: [ :show, :update, :destroy, :resend ]
+    before_action :fetch_quote, only: [ :show, :update, :destroy, :resend, :submit ]
 
     page
     sort created:  { created_at: :desc },
@@ -48,7 +48,18 @@ module QuotesActions
     show
   end
 
+  def submit
+    error!(:cannot_submit_quote) if @quote.submitted?
+
+    @quote.submit!
+
+    show
+  end
+
+
   def destroy
+    error!(:delete_quote) if @quote.submitted?
+
     @quote.destroy
 
     confirm :delete, entity: @quote.customer.full_name

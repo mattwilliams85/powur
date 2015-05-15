@@ -2,7 +2,7 @@ siren json
 
 json.partial! 'item', bonus: @bonus, detail: true
 
-json.partial! @bonus.type_string, bonus: @bonus
+bonus_json.detail_entities(@bonus)
 
 links \
   link(:self, bonus_path(@bonus)),

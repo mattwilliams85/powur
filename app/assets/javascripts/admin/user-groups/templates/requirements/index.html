@@ -1,0 +1,41 @@
+<main class="pow-admin-user-groups">
+  <!-- Requirements Index -->
+  <div class="row">
+    <div class="large-6 columns">
+      <h2>Requirements <small>for {{userGroup.title}}</small></h2>
+    </div>
+    <div class="large-6 columns">
+      <!-- New Requirement Button -->
+      <a ng-href="/admin/user-groups/{{userGroup.id}}/requirements/new" class="button right">Add a Requirement</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <!-- Notice If No Requirements for Group -->
+      <p ng-if="requirements.length === 0">
+        The '{{userGroup.title}}' group has no requirements.
+      </p>
+      <!-- Table If Requirements for Group -->
+      <table ng-if="requirements.length !== 0" width="100%">
+        <thead>
+          <tr>
+            <th ng-repeat="(property, value) in requirements[0].properties">{{property}}</th>
+            <th>Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="requirement in requirements">
+            <td ng-repeat="(property, value) in requirement.properties">{{value}}</td>
+            <!-- Actions -->
+            <td>
+              <a data-dropdown="dropdown-{{requirement.properties.id}}" class="small secondary dropdown button expand">Actions</a><br>
+              <ul id="dropdown-{{requirement.properties.id}}" class="f-dropdown">
+                <li ng-repeat="action in requirement.actions"><a ng-click="execute(action, requirement)">{{action.name}}</a></li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>

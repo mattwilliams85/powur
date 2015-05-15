@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctyleads-test.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=test.powur.com%3A43&Lead_Generator__c=1&FirstName=Bartholome&LastName=Williamson&Street=6870%20Rex%20Plains&City=Smithamfort&PostalCode=50808-4270&Phone=333-933-4372&Email=customer.email_1%40example.org&submit=Submit&Monthly_Electric_Bill__c=230
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '260'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Tue, 07 Apr 2015 18:28:51 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@71fb749f"
+      Server:
+      - nginx
+      Content-Length:
+      - '161'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"ERROR","LeadId":"","Message":"duplicate value found: External_ID__c
+        duplicates value on record with id: 00Q18000001P1xu","YourId":"test.powur.com:43"}'
+    http_version: 
+  recorded_at: Tue, 07 Apr 2015 18:28:51 GMT
+recorded_with: VCR 2.9.3

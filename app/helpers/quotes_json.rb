@@ -13,7 +13,7 @@ class QuotesJson < JsonDecorator
 
   def list_item_properties(quote = @item)
     json.properties do
-      json.call(quote, :id, :data_status, :created_at)
+      json.call(quote, :id, :data_status, :submitted_at, :provider_uid, :created_at)
       json.user quote.user.full_name
       json.customer quote.customer.full_name
       json.product quote.product.name
@@ -29,7 +29,7 @@ class QuotesJson < JsonDecorator
 
     json.properties do
       json.call(quote.customer, :email, :phone, :address, :city, :state, :zip)
-      quote.data.each { |key, value| json.set! key, value }
+      json.product_fields quote.data.each { |key, value| json.set! key, value }
     end
   end
 
@@ -45,6 +45,32 @@ class QuotesJson < JsonDecorator
     list << order_entity('admin', quote) if quote.order?
 
     entities(*list)
+  end
+
+  def admin_actions(quote)
+    list = []
+    unless quote.order?
+      list << action(:create_order, :post, admin_orders_path)
+        .field(:quote_id, :number, value: quote.id)
+        .field(:order_date, :datetime, value: DateTime.current, required: false)
+    end
+    if quote.ready_to_submit?
+      list << submit_action(submit_admin_quote_path(quote))
+    end
+    list
+  end
+
+  def auth_actions(quote)
+    list = [ resend_action(resend_user_quote_path(quote)) ]
+    unless quote.submitted?
+      list << update_action(user_quote_path(quote))
+      list << action(:delete, :delete, user_quote_path(quote))
+    end
+    if quote.ready_to_submit?
+      list << submit_action(submit_user_quote_path(quote))
+    end
+
+    list
   end
 
   def create_action(path)
@@ -96,6 +122,10 @@ class QuotesJson < JsonDecorator
     action(:resend, :post, path)
   end
 
+  def submit_action(path)
+    action(:submit, :post, path)
+  end
+
   private
 
   def product_entity(context, quote)
@@ -121,7 +151,7 @@ class QuotesJson < JsonDecorator
   def action_quote_fields(quote_action)
     product = Product.default || return
     product.quote_fields.each do |field|
-      opts = { required: field.required }
+      opts = { required: field.required, product_field: true }
       if field.lookup?
         lookups = field.lookups.sort_by { |i| [ i.group, i.value ] }
         next if lookups.empty?

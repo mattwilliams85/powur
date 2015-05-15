@@ -1,0 +1,244 @@
+.pow-university {
+  margin-top: 0;
+  padding-bottom: 50px;
+
+  .sub-header {
+    background-image: image-url('university/top-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom center;
+    margin-bottom: 70px;
+
+    .inner {
+      height: 400px;
+    }
+
+    h1 {
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 3em;
+      margin-top: 160px;
+
+      @media #{$small} {
+        margin-top: 180px;
+      }
+    }
+  }
+
+  .university-class-item-wrapper {
+    .class-item {
+      border: 1px solid #ececec;
+      height: 660px;
+      margin: 0 20px 50px 0;
+      width: 100%;
+
+      .image-wrapper {
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      h6 {
+        display: inline-block;
+        width: 80%;
+        overflow: hidden;
+        line-height: 1.7em;
+        height: 1.7em;
+      }
+
+      h5 {
+        display: inline-block;
+        float: right;
+        width: 18%;
+        text-align: right;
+      }
+
+      .class-info {
+        padding: 10px;
+      }
+
+      .class-progress {
+        height: 15px;
+        margin: 15px 30px 0 30px;
+
+        .progress-inner {
+          height: 100%;
+          line-height: 100%;
+        }
+
+        &.started {
+          background-color: #d4d5d5;
+
+          .progress-inner {
+            background-color: #42bc1d;
+            width: 50%;
+          }
+        }
+
+        &.completed {
+          background-color: #d4d5d5;
+
+          .progress-inner {
+            background-color: #42bc1d;
+            width: 100%;
+          }
+        }
+      }
+
+      .description {
+        color: #a4a4a4;
+        display: inline-block;
+        font-size: .8em;
+        height: 120px;
+        overflow: hidden;
+        padding: 0 20px;
+        line-height: 1.4em;
+        margin: 0;
+
+
+        @media #{$small} {
+          height: 200px;
+        }
+      }
+
+      .button {
+        display: block;
+        margin: 10px 20px;
+        background: #59a2e7;
+        line-height: 1.2em;
+        text-transform: uppercase;
+
+        &.purchase {
+          background: #42bc1d;
+        }
+      }
+    }
+  }
+
+  &.class-purchase-page {
+    h1 {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .description {
+      display: block;
+      height: 330px;
+      overflow: hidden;
+    }
+
+    .price-wrapper {
+      display: block;
+      font-size: 1.5em;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .image-wrapper {
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .purchase-form-wrapper {
+      background-color: #f4f6f7;
+      margin-top: 2em;
+
+      .form-header {
+        background-color: #959595;
+        color: #fff;
+        padding: .3em 1em;
+        text-transform: uppercase;
+        font-size: 1.4em;
+        font-weight: bold;
+        margin-top: 0;
+      }
+
+      form {
+        margin: 1.5em;
+      }
+
+      h4 {
+        text-transform: uppercase;
+        color: $pow-color-orange;
+        font-size: 1.2em;
+        margin-bottom: 1em;
+      }
+
+      label {
+        text-transform: uppercase;
+        color: #000;
+        line-height: 2em;
+        font-weight: bold;
+      }
+
+      .credit-cards {
+        margin-bottom: 1.5em;
+      }
+
+      .lock-icon {
+        @include landing-sprite(lock2-icon);
+        margin-top: 7px;
+      }
+
+      .secure-server {
+        line-height: 3em;
+        padding: 0 1em;
+      }
+
+      .cvv-info-wrapper {
+        position: relative;
+
+        .cvv-info {
+          border-bottom: none;
+          position: relative;
+          display: inline-block;
+          @include landing-sprite(question-circle);
+          margin-top: 2px;
+        }
+      }
+    }
+
+    .error-message-wrapper {
+      text-align: right;
+      color: #ff3a3a;
+      padding: 15px 0;
+    }
+
+    .button {
+      background: $pow-color-green;
+      text-transform: uppercase;
+    }
+  }
+
+  .purchase-complete-page {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 100px;
+
+    .purchase-complete-inner {
+      background-image: image-url('university/purchase-complete-bg.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      height: 437px;
+      padding-top: 150px;
+      margin-bottom: 20px;
+
+      h1 {
+        color: #fff;
+        font-size: 4em;
+        text-transform: uppercase;
+        margin: 0;
+      }
+
+      span {
+        color: #fff;
+      }
+    }
+  }
+}

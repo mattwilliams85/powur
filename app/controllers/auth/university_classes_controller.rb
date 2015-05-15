@@ -6,7 +6,7 @@ module Auth
     before_filter :validate_class_availability, only: [:enroll]
 
     def index
-      @university_classes = apply_list_query_options(Product.certifiable)
+      @university_classes = apply_list_query_options(Product.certifiable.sorted)
     end
 
     def purchase
@@ -34,6 +34,7 @@ module Auth
       redirect_url = current_user.smarteru_sign_in
       if redirect_url
         render json: { redirect_to: redirect_url }
+        return
       else
         head :unauthorized
       end

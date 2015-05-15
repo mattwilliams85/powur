@@ -14,21 +14,22 @@ module Admin
     def create
       require_input :name
       @product = Product.create!(input)
-      render 'show'
+
+      show
     end
 
     def update
       @product.update_attributes!(input)
 
-      render 'show'
+      show
     end
 
     def show
+      render 'show'
     end
 
     def destroy
       @product.destroy
-
       @products = Product.order(:name)
 
       render 'index'
@@ -39,7 +40,7 @@ module Admin
     private
 
     def input
-      allow_input(:name, :bonus_volume, :commission_percentage)
+      allow_input(:name, :bonus_volume, :commission_percentage, :certifiable, :description, :long_description, :image_original_path)
     end
 
     def fetch_product

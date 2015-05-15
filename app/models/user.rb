@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
   has_many :product_enrollments, dependent: :destroy
+  has_many :user_user_groups, dependent: :destroy
+  has_many :user_groups, through: :user_user_groups
 
   store_accessor :contact,
                  :address, :city, :state, :country, :zip, :phone
@@ -24,15 +26,14 @@ class User < ActiveRecord::Base
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications
 
+  # No extra email validation needed,
+  # email validation and confirmation happens with Invite
   validates :email,
     uniqueness: { message: 'This email is taken', case_sensitive: false },
-    format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, message: 'Incorrect email address' },
     presence: true
   validates :encrypted_password, presence: true, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :phone, presence: true
-  validates :zip, presence: true
   validates :password,
     presence: true,
     length: { minimum: 8, maximum: 40, message: 'Password not less than 8 symbols' },
@@ -42,7 +43,7 @@ class User < ActiveRecord::Base
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   # validates_presence_of :address, :city, :state, allow_nil: true
   validates :tos,
-    presence: { message: "You didn't agree to the terms and privacy policy"},
+    presence:   { message: "You didn't agree to the terms and privacy policy" },
     acceptance: { accept: true },
     on: :create
 
@@ -53,15 +54,6 @@ class User < ActiveRecord::Base
   attr_reader :password
   attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count,
                 :tos, :password_confirmation
-
-  before_validation do
-    self.lifetime_rank ||= Rank.find_or_create_by_id(1).id
-    self.organic_rank ||= 1
-    if rank_path_id.nil?
-      default = RankPath.where(precedence: 1).first
-      self.rank_path_id = default.id if default
-    end
-  end
 
   def full_name
     "#{first_name} #{last_name}"
@@ -84,11 +76,11 @@ class User < ActiveRecord::Base
   end
 
   def downline_users
-    User.with_downline_counts.with_parent(id)
+    User.with_parent(self.id)
   end
 
-  def downline_users_count
-    downline_users.count
+  def downline_users_count(id)
+    User.with_parent(id).count
   end
 
   def role?(role)
@@ -134,6 +126,10 @@ class User < ActiveRecord::Base
     if params != 'admin'
       self.update(moved: true)
     end
+  end
+
+  def group?(group_id)
+    user_user_groups.exists?(group_id.to_s)
   end
 
   private

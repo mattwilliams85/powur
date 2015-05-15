@@ -1,30 +1,17 @@
 # helper methods for spec tests
 module SpecHelpers
-  def mocked_user
-    user = double('signed_in_user', id: 1, email: 'user1@example.com', first_name: 'Bob', last_name: 'Smith', roles: ['admin'])
-    allow(user).to receive(:role?).with(:admin).and_return(true)
-    user
-  end
-
-  def login_user
-    @user = mocked_user
-    if defined?(session)
-      session[:user_id] = @user.id
-      session[:expires_at] = Time.current + 1.hour
-    else
-      allow_any_instance_of(WebController).to receive(:current_user).and_return(@user)
-    end
-    @user
-  end
-
-  def login_real_user(attrs = {})
+  def login_user(attrs = {})
+    auth = attrs.delete(:auth)
     @user = create(:user, attrs)
     if defined?(session)
       session[:user_id] = @user.id
       session[:expires_at] = Time.current + 1.hour
-    else
+    elsif auth
       post login_path, email: @user.email, password: 'password'
+    else
+      allow_any_instance_of(WebController).to receive(:current_user).and_return(@user)
     end
+    @user
   end
 
   def login_api_user
@@ -99,13 +86,21 @@ module SpecHelpers
     { 'HTTP_AUTHORIZATION' => "Bearer #{token_value}" }
   end
 
+  def login_api_app
+    @token = create(:app_token)
+  end
+
   def api_header
-    login_api_user
+    login_api_user unless @token
     bearer_header(@token.access_token)
   end
 
   def token_param
     login_api_user unless @token
     { access_token: @token.access_token }
+  end
+
+  def json_fixture(filename)
+    File.read(File.join(fixture_path, "#{filename}.json"))
   end
 end

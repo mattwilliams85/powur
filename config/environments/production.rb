@@ -20,7 +20,7 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_files = false
+  config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -33,12 +33,12 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Version of your assets, change this if you want to expire all your assets.
-  config.assets.version = '1.2'
+  config.assets.version = '1.5'
   config.action_controller.asset_host = Proc.new { |source|
     if source.ends_with?('.html') || source.ends_with?('.woff') || source.ends_with?('.ttf')
-      ''
+      nil
     else
-      ENV['ASSETS_HOST'] || 'http://powur.eyecuelab.com'
+      ENV['ASSETS_HOST']
     end
   }
 

@@ -5,6 +5,7 @@ describe BonusPaymentOrder, type: :model do
   describe '::for_pay_period' do
 
     it 'selects by pay period' do
+      create(:rank)
       pp1 = create(:weekly_pay_period, at: DateTime.current - 3.months)
       pp2 = create(:weekly_pay_period, at: DateTime.current - 1.month)
       payment = create(:bonus_payment, pay_period: pp1)

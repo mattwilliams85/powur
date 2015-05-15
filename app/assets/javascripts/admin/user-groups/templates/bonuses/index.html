@@ -1,0 +1,29 @@
+<main class="pow-admin-user-groups">
+  <!-- Bonuses Index -->
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Bonuses <small>for {{userGroup.title}}</small></h2>
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- Notice If No Bonuses in Group -->
+          <p ng-if="!bonuses.length">
+            There are no bonuses for the '{{userGroup.title}}' group.
+          </p>
+          <!-- Table If Users in Group -->
+          <table ng-if="bonuses.length">
+            <thead>
+              <tr>
+                <th>Bonus Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="bonus in bonuses">
+                <td>{{bonus.properties.name}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

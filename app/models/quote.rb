@@ -1,10 +1,14 @@
 class Quote < ActiveRecord::Base
+  include QuoteSubmission
   belongs_to :product
   belongs_to :customer
   belongs_to :user
   has_one :order
 
   add_search :user, :customer, [ :user, :customer ]
+
+  scope :not_submitted, ->() { where('submitted_at IS NULL') }
+  scope :submitted, ->() { where('submitted_at IS NOT NULL') }
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
   validate :product_data
@@ -14,7 +18,7 @@ class Quote < ActiveRecord::Base
   end
 
   def can_email?
-    customer.email && user_id && user.url_slug
+    customer.email && user_id && user.url_slug && zip_code_valid?
   end
 
   def email_customer
@@ -22,12 +26,9 @@ class Quote < ActiveRecord::Base
   end
 
   def data_status
-    value = []
-    value << 'phone' if customer.phone
-    value << 'email' if customer.email
-    value << 'address' if customer.address_complete?
-    value << 'utility' if data['utility']
-    value
+    return 'submitted' if submitted?
+    return 'ineligible location' if !zip_code_valid?
+    ready_to_submit? ? 'ready to submit' : 'incomplete'
   end
 
   def order?
@@ -83,7 +84,7 @@ class Quote < ActiveRecord::Base
           fields.push(quote.id)
 
           user = quote.user
-          user_fields = [ user.first_name, user.last_name, user.id, 'Sunstand' ]
+          user_fields = [ user.first_name, user.last_name, user.id, 'Powur' ]
           fields.push(*user_fields)
 
           csv << fields

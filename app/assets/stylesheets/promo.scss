@@ -1,0 +1,2210 @@
+$medium-screen: em-calc(1200);
+$large-screen: em-calc(1400);
+$xl-screen: em-calc(1500);
+
+.pow-promo {
+  height: 100%;
+  position: relative;
+  z-index: 1;
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    margin-bottom: 0.5em;
+    @media #{$large} {
+      margin-bottom: 1em;
+    }
+
+    .highlight-1, &.highlight-1 {
+      color: $pow-color-blue;
+      display:inline;
+    }
+
+    .highlight-2, &.highlight-2 {
+      display:inline;
+      color: $pow-color-orange;
+    }
+  }
+
+  h1 {
+    font-size:50pt;
+    line-height:50pt;
+    @media #{$small}{
+      font-size:60pt;
+      line-height:50pt;
+    }
+  }
+  h2 {
+    font-size:25pt;
+    line-height:25pt;
+    @media #{$small}{
+      font-size:40pt;
+      line-height:50pt;
+    }
+  }
+  h4 {
+    font-size:20pt;
+    line-height:26pt;
+    @media #{$small}{
+      font-size:30pt;
+      line-height:36pt;
+    }
+  }
+  span {
+    font-size:13pt;
+    line-height:20pt;
+    @media #{$small}{
+      font-size:15pt;
+      line-height:15pt;
+    }
+  }
+
+  .pow-promo-intro {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    text-align: left;
+    width:85%;
+    @media #{$small} {
+      max-width:750px;
+    }
+
+    h1 {
+      color: #fff;
+      font-size:4.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+
+      .highlight-1, &.highlight-1 {
+        color: $pow-color-blue;
+        display:inline;
+      }
+
+      .highlight-2, &.highlight-2 {
+        color: $pow-color-orange;
+        display:inline;
+      }
+      @media #{$small} {
+        font-size: 45pt;
+        width:100%;
+      }
+      @media #{$large} {
+        font-size: 50pt;
+        width:100%;
+      }
+      
+    }
+
+    p {
+      font-size: 1.2em;
+    }
+
+    .button {
+      font-size: .8em;
+      line-height: 50px;
+      padding: 30px 5px 0 5px;
+
+      &.dim {
+        background-image: image-url("promo/on-button.png");
+        font-size: 1.3em;
+        @media #{$small} { 
+          font-size: 1em;
+        } 
+        background-position: 20px center;
+        line-height: 70px;
+        padding: 0 20px 0 70px;
+        background-repeat: no-repeat;
+        background-color: #0b0b0b;
+      }
+
+      &.watch {
+        background-image: none;
+        background-repeat: no-repeat;
+        background-color: $pow-color-blue;
+        font-size: 3em;
+        padding: 20px 50px;
+         @media #{$small} {
+          background-image: image-url("promo/play-icon.png");
+           font-size: 1em;
+           padding: 0 20px 0 70px;
+         }
+        background-position: 20px center;
+        line-height: 70px;
+
+      }
+    }
+  }
+
+  .pow-promo-content {
+    padding-top: 150px;
+    padding-bottom: 0px;
+    line-height: 1.6em;
+    @media #{$small} {
+      padding-bottom: 100px;
+    }
+
+    h1, h2 {
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: 1em;
+
+      .highlighted {
+        color: $pow-color-orange;
+        display:inline;
+      }
+    }
+
+    .alt-large-4 {
+      width:30%;
+      float:left;
+      padding-left:4%;
+      @media #{$large} {
+        padding:0 3%;
+      }
+      h3 {
+        font-size:1.4em;
+        line-height:1em;
+        @media #{$large} {
+          font-size:1.8em;
+          line-height:1.4em;
+        }
+      }
+      span {
+        line-height:0.9em;
+        @media #{$large} {
+          line-height:1.6em;
+        }
+      }
+    }
+
+    .alt-large-9 {
+      padding:0 10%;
+      @media #{$large} {
+        padding:0 2%;
+      }
+    }
+
+    .alt-large-8 {
+      width:60%;
+      float:left;
+      padding-left:4%;
+      @media #{$large} {
+        padding:0 3%;
+      }
+    }
+
+    b {
+      font-size: 1.1em;
+    }
+  }
+
+  .pow-promo-dim {
+    padding-top: 22vh;
+  
+    p {
+      color: #fff;
+      margin: 80px 0;
+    }
+
+    .video-player-wrapper {
+      width: 610px;
+      height: 380px;
+      margin:0 15%;
+      background-image: image-url("promo/video-placeholder.jpg");
+      background-repeat: no-repeat;
+      background-position: center center;
+      @media #{$small} {
+        width:100%;
+        margin:0 auto;
+        height:250px;
+        margin:0px;
+      }
+      @media #{$medium} {
+        width:80%;
+      }
+    }
+  }
+
+
+  /*
+   * Promo Page Slide Show
+  */
+  .slide-show-wrapper {
+    height:400px;
+    @media #{$large} {
+      height:500px;
+    }
+    overflow: hidden;
+
+    .slide-show-inner {
+      margin-bottom: 50px;
+      ///// for the transition
+      left: -1000px;
+      position: absolute;
+      -webkit-transition: all 0.3s;
+      -moz-transition: all 0.3s;
+      -ms-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      z-index: 0;
+      /////
+
+      &.active {
+        left: 0;
+      }
+
+      .image {
+        margin-right: 15px;
+        width: 200px;
+      }
+
+      p {
+        font-size: 1em;
+        @media #{$large} {
+          font-size: 1.2em;
+        }
+        line-height: 1.5em;
+        margin-top: 50px;
+        max-width: 500px;
+      }
+    }
+
+    .slide-show-dots {
+      position:absolute;
+      color:#ccc;
+
+      a {
+        display: inline-block;
+        margin-right: 10px;
+        @include landing-sprite(slide-show-dot);
+
+        &.active {
+          @include landing-sprite(slide-show-dot-active);
+        }
+      }
+
+      &.on-white {
+        a {
+          border-color: #555;
+          border-radius: 10px;
+          border: 1px solid #555;
+          background: none;
+
+          &.active {
+            background: #555;
+          }
+        }
+      }
+    }
+  }
+  /* end slide show */
+
+  .fa-chevron-left, .fa-chevron-right {
+    margin:0 10px 0 0px;
+    cursor:pointer;
+    color:#333;
+    z-index:999;
+  }
+
+  .pow-promo-slide-3 {
+    padding-top:80px;
+    text-align:center;
+    @media #{$small} {
+      text-align:left;
+      padding-top:150px;
+    }
+
+    h2, h5 {
+      font-weight: bold;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    h5 {
+      color: $pow-color-orange;
+      font-size: 2em;
+      margin-bottom: 1em;
+      @media #{$large} { 
+        margin-bottom: 2em; 
+      }
+    }
+
+    h2 {
+      font-size:2em;
+      margin: .5em 0 .7em 0;
+      @media #{$small} {
+        font-size: 4em;
+      }
+    }
+
+    hr {
+      border-top: 2px solid $pow-color-blue;
+      width: 50px;
+    }
+
+    i {
+      font-style: initial;
+    }
+    span {
+      font-size: 1.1em;
+    }
+    span.small {
+      font-size: 1em;
+    }
+    span.big {
+      font-size: 1.3em;
+    }
+
+    .clock {
+      background-image: image-url("promo/clock-icon.png");
+      background-repeat: no-repeat;
+      background-position: left center;
+      line-height: 32px;
+      padding-left: 40px;
+      font-size: 44px;
+      font-weight: bold;
+      text-align:center;
+      margin:0.2em auto;
+      width:240px;
+
+      @media #{$small} {
+        font-size: 32px;
+        text-align:left;
+        margin: 2em 0 .5em 0;
+      }
+    }
+
+    .highlighted {
+      color: $pow-color-blue;
+      font-size: inherit;
+      display:inline;
+    }
+  }
+
+  .pow-promo-slide-4 {
+    span:first-of-type {
+      font-size:1.2em;
+      color: #444;
+    }
+    h4, h5 {
+      color: #fff;
+      font-weight: bold;
+      line-height: 1em;
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    h5 {
+      font-size: 2em;
+      @media #{$large} { 
+        font-size: 2.2em;
+      }
+      margin: 1.5em 0;
+    }
+
+    h4 {
+      font-size: 3em;
+      color: #fff;
+      margin: .2em 0;
+    }
+
+    .slide-4-extra {
+      text-align: center;
+      margin-top: 3em;
+      font-size: 1em;
+      color: #444;
+      span {
+        font-size:1em;
+      }
+    }
+  }
+
+  .pow-promo-slide-5 {
+    text-align: center;
+
+    h4, h5 { 
+      line-height: 1em;
+      text-transform: uppercase;
+    }
+
+    h4 {
+      color: $pow-color-orange;
+      font-weight: bold;
+      margin-bottom: 2em;
+      font-size: 2em;
+    }
+
+    h5 {
+      color: #383838;
+      display: inline;
+      font-weight: normal;
+      margin-bottom: .5em;
+
+      b {
+        font-weight: bold;
+      }
+    }
+
+    .selections-wrapper {
+      margin-top: 100px;
+      text-align: left;
+
+      h5 {
+        font-size: 1.7em;
+      }
+
+      .selection-1 {
+        background: image-url("promo/pencil-icon.png") no-repeat 20px center;
+        padding: 20px 0 50px 100px;
+      }
+
+      .selection-2 {
+        background: image-url("promo/share-icon.png") no-repeat 20px center;
+        padding: 20px 0 50px 120px;
+      }
+
+      .selection-3 {
+        background: image-url("promo/make-it-rain-icon.png") no-repeat 20px center;
+        padding: 20px 0 50px 120px;
+      }
+    }
+  }
+
+  .pow-promo-slide-6 {
+    .row{
+      width:66%;
+    }
+
+    .slide-6-extra {
+      text-align:center;
+      width:90%;
+      margin-right:5%;
+      @media #{$small} {
+        width:66%;
+         margin-right:0;
+        text-align:left;
+      }
+      h4, span {
+        text-align:left;
+      }
+
+      span {
+        font-size:16pt;
+        @media #{$small} { 
+          font-size:13pt;
+        }
+      }
+
+      .button {
+        background: $pow-color-green;
+        font-size:3em;
+        padding:20px 60px;
+        text-transform: uppercase;
+        margin-right: 1em;
+        @media #{$small} { 
+          font-size:1.3em;
+          padding:20px 60px;
+        }
+      }
+
+      @media #{$large} {
+        margin-top: 0;
+      }
+    }
+
+    .screen-with-zoom {
+      width:33%;
+      max-width:400px;
+      position: absolute;
+      left: 0;
+    }
+
+    h4 {
+      color: $pow-color-orange;
+      font-size: 2em;
+      line-height: 1em;
+      text-transform: uppercase;
+      margin-bottom: 2em;
+    }
+
+    span {
+      color: #fff;
+      display: block;
+      line-height: 1.5em;
+      margin: 20px 0 100px 0;
+
+      &.small {
+        color: #bbb;
+        font-size: .9em;
+      }
+    }
+  }
+  .pow-promo-energy-slide-1 {
+    h1 {
+      line-height:42pt;
+      font-size:45pt;
+    }
+    p {
+      font-size:20pt;
+      @media #{$small} { 
+        font-size:14pt;
+      }
+    }
+  }
+
+  .pow-promo-energy-slide-3 {
+    .row {
+      padding-top:100px;
+      width:90%;
+    }
+
+    span, b {
+      font-size:12pt;
+      line-height:15pt;
+    }
+    h2 {
+      font-size:40pt;
+      @media #{$small} { 
+        font-size:40pt
+      }
+    }
+    h5 {
+      font-size:12pt;
+      line-height:15pt;
+      @media #{$large} {
+        font-size:15pt;
+        line-height:30pt;
+      }
+    }
+
+    .slider-inner { 
+      margin-top:15px !important;
+      @media #{$medium} {
+        margin-top:25px;
+      }
+    }
+
+    .pow-promo-slider-wrapper { 
+      margin-top:60px;
+      @media #{$small} {
+        margin-top:25px;
+      }
+    }
+  }
+
+  .pow-promo-energy-slide-4 {
+    height: 100%;
+    padding: 0;
+    margin-top:5%;
+    font-size:1.3em;
+    p {
+      font-size:2em;
+      @media #{$small} { 
+        font-size:1em
+      }
+    }
+      
+    .arrow-box {
+      z-index:1;
+    }
+    .fa-chevron-left,  .fa-chevron-right {
+      color:#eee;
+      position:absolute;
+      bottom:-100px;
+    }
+
+    .fa-chevron-left {
+      left:-50px;
+    }
+
+    .fa-chevron-right {
+      left:660px;
+    }
+
+    .slide-show-dots {
+      bottom:-350px;
+    }
+
+    .row {
+      height: 100%;
+    }
+
+    .left-part {
+      color: #383838;
+      height: 100%;
+      z-index: 1;
+
+      .left-bg {
+        background: $pow-color-blue;
+        height: 110%;
+        position: absolute;
+        margin-left:100px;
+        right: 0;
+        width: 2000px;
+      }
+
+      .inner-content {
+        margin-left:50px;
+        width:90%;
+        padding-top:150px;
+        @media #{$small} {
+          padding-top:100px;
+          width:85%;
+        }
+        h1 {
+          font-size:70pt;
+          text-align:center;
+          @media #{$small} { 
+            font-size:35pt;
+            text-align:left;
+          }
+        }
+        p {
+          font-size:30pt;
+          @media #{$small} { 
+            font-size:13pt;
+          }
+        }
+      }
+    }
+
+    .right-part {
+      color: #fff;
+      // display: none;
+      height: 100%;
+      overflow: initial;
+
+      .right-bg {
+        background: image-url('promo/semitrgrid.png');
+        height: 100%;
+        position: absolute;
+        left: -1px;
+        width: 2000px;
+      }
+    }
+
+    .inner-content {
+      padding-top: 150px;
+      position: relative;
+      margin-left:50px;
+    }
+
+    h1 {
+      color: #fff;
+    }
+  }
+
+
+  .pow-promo-energy-slide-5 {
+    padding-bottom:50px !important;
+    padding-top:150px;
+    text-align:center;
+    @media #{$small} { 
+      padding-top:100px;
+      text-align:left;
+    }
+    @media #{$large} { 
+      padding-top:150px;
+    }
+  
+    h2, .highlight-1 {
+      font-size:2em;
+
+      text-transform:none;
+      @media #{$small} {
+        font-size:2em;
+      }
+      @media #{$large} {
+        font-size:2.8em;
+      }
+    }
+    h4 {
+      font-size: 2.2em;
+      font-weight: bold;
+    }
+
+    h3 {
+      font-size:1.5em;
+      @media #{$small} {
+        line-height:20pt;
+        font-size:20px;
+      }
+    }
+
+    h3.highlight-1 {
+      font-size:40pt;
+      @media #{$small} { 
+        font-size:27pt;
+      }
+    }
+
+    h5 {
+      color: $pow-color-blue;
+      font-size: 2em;
+      font-weight: bold;
+      margin: .7em 0 2em 0;
+      text-transform: uppercase;
+    }
+
+    h6 {
+      font-size: 1.5em;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    hr {
+      border-top: 2px solid $pow-color-blue;
+      width: 50px;
+    }
+
+    p {
+      font-size:1em;
+      @media #{$small} { 
+        font-size:1em;
+      }
+    }
+
+    .large-8 {
+      // width:95%;
+      width:90%;
+      margin-right:-2%;
+      @media #{$small} {
+        width:60%;
+        margin-right:2%;
+      }
+    }
+
+    .stock-photo {
+      margin-left:10%;
+      max-width:350px;
+    }
+
+    .row {
+      width:85%;
+      @media #{$small} { 
+        width:90%;
+      }
+    }
+
+  }
+
+  .pow-promo-energy-slide-6 {
+    padding-bottom:20px !important;
+    .pow-promo-content {
+      .text-column {
+        padding:0 25px;
+      }
+      h3 {
+        font-size:35pt;
+        margin-bottom:40px;
+        text-align:center;
+        @media #{$small} { 
+          text-align:left;
+          font-size:27pt;
+          line-height:35pt;
+          margin-bottom:20px;
+        }
+      }
+    }
+    
+    span {
+      line-height:10pt;
+      text-align:center;
+      @media #{$small} {
+        text-align:left;
+        line-height:20pt;
+      }
+    }
+    .row {
+      width:100%;
+      @media #{$large} {
+        width:95%
+      }
+    }
+    .arrow-box {
+      width:290px;
+      left:45%;
+    }
+  }
+
+  .pow-promo-slider-wrapper {
+    margin-top: 3em;
+    text-align: center;
+
+    h5 {
+      font-size: 1.5em;
+      text-transform: uppercase;
+      @media #{$large} {
+        font-size: 1.2em;
+        width:100%;
+      }
+    }
+
+    span {
+      color: #a8a8a8;
+    }
+
+    .slider-inner {
+      margin: 30px auto 40px auto;
+      position: relative;
+      text-align: left;
+      width: 300px;
+
+      span.pointer {
+        background-color: $pow-color-blue;
+        height: 50px;
+        width: 50px;
+        border-radius:100%;
+        border-width:0px;
+        top: -11px;
+        @media #{$small} { 
+          border-width:1px;
+          height: 30px;
+          width: 30px;
+          top: -11px;
+        }
+
+        &:after {
+          background-color: $pow-color-blue;
+          color: #000;
+          content: '$';
+          font-size: 2.2rem;
+          left: 14px;
+          top: 6px;
+          @media #{$small} { 
+            font-size: 1.2rem;
+            left: 8px;
+            top: 4px;
+          }
+          line-height: 1em;
+        }
+      }
+
+      .image-2 {
+        opacity:0.3;
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+
+  .sunrun-icon-wrapper {
+    margin:auto;
+    margin:0 0 2em 0;
+  }
+
+  .decentralize-icon-wrapper {
+    @include landing-sprite(decentralize-icon);
+    margin-bottom: 20px;
+    padding-top:20px;
+    @media #{$small} { 
+      padding-top:0px;
+    }
+  }
+
+  .pocket-wallet-icon-wrapper {
+    @include landing-sprite(pocket-wallet-icon);
+    position:absolute;
+    top:15pt;
+  }
+
+  .pollution-icon-wrapper {
+    @include landing-sprite(pollution-icon);
+    margin-bottom: 20px;
+    padding-top:20px;
+    @media #{$small} { 
+      padding-top:0px;
+    }
+  }
+
+  .pow-logo-wrapper {
+    margin:0 0 20px 40px;
+    width:250px;
+  }
+
+  .stand-and-sun-icon-wrapper {
+    @include landing-sprite(stand-and-sun-icon);
+    display: inline-block;
+    @media #{$large} {
+      margin-bottom: 40px;
+    }
+  }
+
+  &.pow-create-wealth-page {
+    p, span {
+      font-size:25pt;
+      line-height:20pt;
+      @media #{$small} {
+        font-size:1.2em;
+        line-height:25pt;
+      }
+    }
+
+    h2 {
+      margin-bottom: 0;
+    }
+
+    .pow-landing-footer {
+      position: relative;
+    }
+
+    .pow-promo-intro {
+      h1 {
+        text-shadow: -1px 2px 2px rgba(150, 150, 150, 0.68);
+        margin-bottom:20px;
+        @media #{$medium} {
+          font-size:45pt;
+          line-height:40pt;
+        }
+      }
+
+      p {
+        font-size:2em;
+        @media #{$small} { 
+          font-size:1em;
+        }
+      }
+    }
+    .scroll-slide-2 {
+      .row {
+        width:90%;
+      }
+      height:100vh;
+      min-height: 800px;
+
+      .pow-promo-slider-wrapper {
+        margin: 0;
+      }
+
+      h2 {
+        color:#fff;
+        font-size:2.5em;
+        text-align:center;
+        // @media #{$small} {
+        //   font-size: 2.3em;
+        // }
+        @media #{$small} {
+          text-align:right;
+          font-size: 2em;
+        }
+        @media #{$large} {
+          font-size: 3.3em;
+        }
+      }
+
+      p {
+        margin: 2% 5%;
+        font-size:17pt;
+        @media #{$small} {
+          font-size:1em;
+        }
+      }
+
+      p .highlighted {
+        font-size:17pt;
+        @media #{$small} { 
+          font-size:1em;
+        }
+      }
+
+      h5 {
+        color:$pow-color-orange;
+      }
+    }
+
+    .pow-promo-slide-3 {
+      padding-top:200px;
+      @media #{$small} {
+        padding-top:150px;
+        padding-bottom:20px;
+      }
+      h2 {
+        font-size:4em;
+        @media #{$small} {
+          font-size:3em;
+        }
+        @media #{$large} {
+          font-size:4em;
+        }
+      }
+      span {
+        font-size:1.5em;
+        @media #{$small} { 
+          font-size:1em;
+        }
+      }
+      h5 {
+        font-size:3em;
+        @media #{$small} {
+          font-size:2em;
+        }
+      }
+    }
+
+    .pow-promo-slide-4 {
+      text-align:center;
+      width:90%;
+      padding-bottom:150px;
+      margin-top:100px;
+      @media #{$medium} {
+        text-align:left;
+      }
+      @media #{$large} {
+        margin-top:0px;
+      }
+    }
+
+    .pow-promo-slide-5 {
+      width:90%;
+      padding-top:100px;
+      @media #{$small} {
+        padding-top:150px;
+      }
+      h5 {
+        font-size:2.5em;
+        @media #{$small} { 
+          font-size:1.7em;
+        }
+      }
+      span {
+        font-size:1.5em;
+        margin-top:50px;
+        @media #{$small} { 
+          font-size:1em;
+          margin-top:0px;
+        }
+        &.big {
+          font-size: 16pt;
+        }
+      }
+    }
+
+    .alt-large-6 {
+      width:40%;
+      margin:0 5%;
+      @media #{$large} {
+        width:50%;
+        margin:0;
+      }
+      h2 {
+        text-align:left;
+      }
+    }
+
+    .alt-large-12 {
+      margin:0 0;
+      @media #{$large} {
+       margin:5% 0;
+      }
+    }
+
+    .alt-large-4 {
+      margin:0 0;
+      width:25%;
+      @media #{$large} {
+       margin:5% 0;
+       width:33.33%;
+      }
+    }
+
+    .alt-large-8 {
+      width:50%;
+      @media #{$large} {
+       width:66.66%;
+      }
+    }
+
+    .scroll-slide-3 {
+      height:1050px;
+      @media #{$small} {
+        height:900px;
+      }
+      position:relative !important;
+    }
+
+
+    .btn-green:hover {
+      background:#20B552 !important;
+    }
+
+    .scroll-down {
+      padding-top:100px;
+      color:#bbb;
+      margin:auto;
+      width:500px;
+    }
+  }
+
+  &.pow-why-solar-page {
+    .part-2 {
+      margin-top:20px;
+      @media #{$small} { 
+        margin-top:0px;
+      }
+    }
+
+    .solar-slide-1 {
+      p {
+        font-size:2em;
+        @media #{$small} { 
+          font-size:1.2em;
+        }
+      }
+    }
+
+    h1.highlight-2 {
+        font-size:20pt;
+        line-height:15pt;
+      @media #{$small} {
+        font-size: 40pt;
+        line-height:30pt;
+      }
+      @media #{$large} {
+        font-size: 50pt;
+        line-height:40pt;
+      }
+    }
+
+    .pow-bg-3, .pow-bg-5, .pow-bg-11  {
+      .row {
+        width:90%;
+        padding-bottom:100px;
+        padding-top:100px;
+      }
+    }
+    .pow-bg-3 {
+      padding-bottom:0px;
+      .pow-promo-content {
+        padding-bottom:0px;
+      }
+      .fa-chevron-left, .fa-chevron-right {
+        position:absolute;
+        top:50%;
+        margin-top: -45px;
+        @media screen and (min-width: $large-screen) {
+          margin-top: 0px;
+        }
+        color:#333;
+      }
+
+      .fa-chevron-left {
+        left:11%;
+        @media #{$small} { 
+          left:13%;
+        }
+      }
+
+      .fa-chevron-right {
+        left:88%;
+        @media #{$small} { 
+          left:86%;
+        }
+      }
+    }
+
+    .solar-slide-2 {
+      h2 { 
+        font-size: 30pt;
+        @media screen and (min-width: $medium-screen) {
+          font-size: 35pt;
+        }
+        @media screen and (min-width: $large-screen) {
+          font-size: 50pt;
+        }
+      }
+      p {
+        margin-top: 0px;
+        font-size:13pt;
+        @media screen and (min-width: $large-screen) {
+          font-size: 15pt;
+        }
+      }
+    }
+
+    .solar-slide-4 {
+      h1 {
+        font-size:40pt;
+        line-height:1em;
+      }
+      
+    }
+
+    //why solar
+    .pow-bg-5 {
+      .icon-placeholder {
+        margin-left:0px;
+      }
+      .narrow {
+        margin-left: 0%;
+        margin-right: 0%;
+        @media #{$small} {
+         margin-left: 10%;
+         margin-right: 10%;
+        }
+      }
+      h3 {
+        font-size:1.4em;
+        @media #{$small} {
+          font-size:1.8em;
+        }
+      }
+      span {
+        font-size:12pt;
+        line-height:12pt;
+        @media screen and (min-width: $large-screen) {
+          font-size:15pt;
+          line-height:20pt;
+        }
+      }
+      .arrow-box span {
+        line-height:16pt;
+      }
+    }
+
+    .slide-show-dots {
+      bottom:80px;
+      left:48%;
+    }
+
+    .slide-show-inner {
+      width: 100%;
+      left: -100%;
+    }
+
+    .slide-2-ico-wrapper {
+      height: 50px;
+      margin-top: 30px;
+      @media #{$large}{
+        margin-top: 40px;
+        height: 100px;
+      }
+      text-align: center;
+
+      @for $i from 1 through 6 {
+        .ico-#{$i} {
+         background: image-url("pow-sprites/why-solar-ico-#{$i}.png");
+         background-repeat: no-repeat;
+         height: 90px;
+         width: 90px;
+         margin-top: -5px;
+         display: inline-block;
+       }
+      }
+    }
+  }
+
+  &.pow-why-powur-page {
+    .trim-small {
+      padding-top:50px;
+      @media #{$small} {
+        padding-top:150px;
+      }
+    }
+    .pow-promo-intro {
+      width:90%;
+      max-width:none;
+    }
+    h2 {
+        margin-top:0px;
+    }
+
+    .row {
+      width:90%;
+    }
+
+    .font-1 {
+      font-size:17pt;
+      @media #{$small} { 
+        font-size:15pt;
+      }
+    }
+
+    .pow-bg-17, .pow-bg-18 {
+      h2 {
+        text-align:left;
+      }
+      .highlight-2 {
+        font-size:18pt;
+        line-height:5pt;
+        @media #{$medium} {
+          font-size:30pt;
+          line-height:30pt;
+        }
+        @media #{$large} {
+          font-size:35pt;
+          line-height:35pt;
+        }
+      }
+    }
+
+    .powur-slide-3 {
+      h2 {
+        font-size:40pt;
+        @media #{$small} { 
+          font-size:40pt;
+        }
+      }
+    }
+
+  }
+
+  &.pow-why-you-page {
+    .pow-promo-intro {
+      max-width:none;
+      width:85%;
+      @media #{$small}{
+        width:90%;
+        h2 { 
+          line-height:35pt;
+        }
+      }
+    }
+    .huge-purpose-image-wrapper {
+      height: 200px;
+      text-align: center;
+
+      @for $i from 1 through 5 {
+        .purpose-img-#{$i} {
+          @include landing-sprite(why-you-ico-#{$i});
+          display: inline-block;
+        }
+      }
+    }
+
+    .you-solar-3 {
+      h3 {
+        font-size:35pt;
+        line-height:37pt;
+      }
+      b {
+        font-size:1.5em;
+        @media #{$small} { 
+          font-size:1.3em;
+          padding-top:0px;
+        } 
+      }
+      .part-2 {
+        p {
+          margin-top:20px;
+          @media #{$small} { 
+            margin-top:0px;
+          }
+        }
+      }
+    }
+
+    .you-solar-4 {
+      h2 {
+        font-size:30pt;
+        @media #{$small} { 
+          font-size:35pt;
+        } 
+      }
+    }
+
+    .pow-bg-5, .pow-bg-13 {
+      .row {
+        width:90%;
+      }
+      h2 {
+        text-align:left;
+      }
+    }
+
+    .slide-show-dots {
+      position:absolute;
+      bottom:80px;
+    }
+
+    .pow-slider {
+      h2 {
+        display:inline;
+        height:200px;
+      }
+      h3 {
+        width:600px;
+        margin:30px auto;
+        @media #{$small} {
+          width:600px;
+        }
+        @media #{$large} {
+          width:800px;
+          margin:50px auto;
+        }
+      }
+      .fa-chevron-left {
+        position:absolute;
+        left:25%;
+      }
+      .fa-chevron-right {
+        position:absolute;
+        left:75%;
+      }
+
+    }
+  }
+
+  &.pow-our-origin-page {
+    .row {
+      width:90%;
+      @media #{$small} { 
+        width: 100%;
+       }
+    }
+
+    .pow-landing-footer {
+      position: relative;
+    }
+
+    .pow-origin-story-bg {
+      background-image: image-url("promo/rainforest.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 325px;
+      padding-top: 150px;
+
+      h1 {
+        color: #fff;
+        text-transform: uppercase;
+      }
+    }
+
+    .origin-people {
+      margin: 125px 0 70px 0;
+      width: 100%;
+    }
+
+    .our-origin-ico {
+      margin: 40px 0;
+      width: 100%;
+      // display: none;
+
+      // @media #{$small} {
+      //   display: block;
+      // }
+    }
+
+    blockquote {
+      border: none;
+      color: #000;
+      font-size: 2em;
+      font-weight: bold;
+      padding: 1em 0;
+      quotes: "\201C""\201D""\2018""\2019";
+
+      &:before {
+        color: $pow-color-orange;
+        content: open-quote;
+        font-size: 3rem;
+        line-height: 1rem;
+        margin-right: .4em;
+      }
+      &:after {
+        color: $pow-color-orange;
+        content: close-quote;
+        font-size: 3rem;
+        line-height: 1rem;
+        margin-left: .4em;
+      }
+    }
+
+    .signature {
+      h3 {
+        font-weight: bold;
+        margin-top: 70px;
+      }
+
+      img {
+        margin: 0 0 20px 0;
+      }
+
+      p {
+        margin-bottom: 100px;
+      }
+    }
+  }
+
+  &.pow-our-team-page {
+    font-size:2em;
+    @media #{$small} { 
+      font-size: 1em;
+    }
+
+    .pow-landing-footer {
+      position: relative;
+    }
+
+    .pow-our-team-bg {
+      background-image: image-url("promo/brown-grass.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 325px;
+      padding-top: 150px;
+
+      h1 {
+        color: #fff;
+        text-transform: uppercase;
+      }
+    }
+
+    .faces-wrapper {
+      margin-top: 40px;
+      margin-bottom: 40px;
+    }
+
+    .face-wrapper {
+      height: 1000px;
+      @media #{$small} { 
+        height:500px;
+      }
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+
+      .face {
+        width: 100%;
+      }
+
+      .face-mask {
+        width: 100%;
+        height: 1000px;
+        @media #{$small} { 
+          height:500px;
+        }
+        position: absolute;
+        text-align: center;
+        line-height: 2em;
+
+        .name {
+          color: #fff;
+          display: inline-block;
+          font-size: 2em;
+          margin-top: 90%;
+        }
+        .title {
+          color: $pow-color-orange;
+          font-size: 1.1em;
+        }
+        .more-details {
+          color: #fff;
+          display: none;
+          margin: 20px;
+          
+          font-size: .9em;
+          text-align:left;
+          line-height: 1.5em;
+          font-weight: normal;
+        }
+      }
+      &:hover {
+        .face-mask {
+          background: rgba(0, 0, 0, 0.5);
+        }
+        .name {
+          display: none;
+        }
+        .title {
+          display: none;
+        }
+        .more-details {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  &.pow-our-dna-page {
+    background-color:$pow-color-blue;
+    .row {
+      width:90%;
+    }
+
+    .pow-landing-footer {
+      position: relative;
+    }
+
+    .dna-slide-1 {
+      font-size:2em;
+      .pow-promo-intro {
+        width:90%;
+        max-width:none;
+      }
+      h1 { 
+        text-align:center;
+        @media #{$small} { 
+          text-align:left;
+        }
+      }
+    }
+
+    .dna-slide-2 {
+      .row {
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: initial;
+      }
+       background-color:$pow-color-blue;
+      .pow-promo-content {
+        font-size:1.5rem;
+        @media #{$medium}{
+          font-size:1.5rem;
+        }
+        @media #{$large}{
+          font-size:1.5rem;
+        }
+      }
+      .left-side {
+        padding-top: 300px;
+        height:600px;
+        @media #{$small} { 
+          height:700px;
+        }
+        background-color:$pow-color-blue;
+        h2 {
+          text-align:center;
+          font-size:35pt;
+          color:#fff;
+        }
+      }
+      .right-side {
+        height:600px;
+        padding: 105px;
+        @media #{$small} { 
+          height:700px;
+        }
+        background-color:#f4f6f7;
+        .light-img {
+          background:image-url('promo/light-bulb.png');
+          background-repeat: no-repeat;
+          height: 200px;
+          width: 200px;
+          margin-left: 200px;
+          display: block;
+        }
+        h2 {
+          font-size:35pt;
+          font-weight:800pt;
+        }
+      }
+    }
+
+    .dna-slide-3 {
+      h2 {
+        font-size:50pt; 
+        text-align:center;
+        @media #{$small} {
+          text-align:left;
+        }
+      }
+      p {
+        font-size:20pt; 
+        text-align:center;
+        @media #{$small} {
+          font-size:13pt; 
+          text-align:left;
+        }
+      }
+      
+    }
+
+    .dna-slide-4 {
+      h4 {
+        width:90%;
+        font-size:30pt; 
+        text-align:center;
+      }
+      p {
+        font-size:1.7em;
+        @media #{$small} { 
+          font-size:1em;
+        }
+      }
+    }
+
+    .dna-slide-5 {
+      p {
+        font-size:2em;
+        @media #{$small} { 
+          font-size:1.2em;
+        }
+      }
+    }
+
+    .dna-slide-7 {
+      height:600px;
+      h5 {
+        font-size:3em;
+        @media #{$small} { 
+          font-size:2em;
+        }
+      }
+    }
+
+    .normal-case {
+      float:left;
+    }
+
+    .pow-promo-content {
+      padding-top: 300px;
+      padding-bottom: 250px;
+    }
+
+    .dna-wrapper {
+      height: 270px;
+      margin-bottom:20px;
+    }
+
+    .dna-wrapper-2 {
+      height: inherit;
+      overflow: hidden;
+      margin-bottom:30px;
+
+      @media #{$medium} {
+        margin-bottom:0px;
+        height: 444px;
+      }
+
+      p {
+        font-size:0.9em;
+        @media #{$large} {
+          font-size:1em;
+        }
+      }
+    }
+
+    .dna-ico-wrapper {
+      height: 170px;
+      text-align: center;
+      padding-top: 70px;
+    }
+
+    @for $i from 1 through 20 {
+      .dna-ico-#{$i} {
+        background: image-url("pow-sprites/our-dna-ico-#{$i}.png");
+        background-repeat: no-repeat;
+        height: 90px;
+        width: 90px;
+        display: inline-block;
+      }
+    }
+  }
+
+  &.pow-why-direct-page {
+    .direct-slide-2 {
+      padding:0 7%;
+      p {
+        line-height:15pt;
+        @media #{$small} {
+          line-height:20pt;
+        }
+      }
+      .pow-promo-content {
+        padding-top:50px;
+      }
+    }
+    .large-6 {
+      padding-right:5%;
+    }
+
+    .direct-slide-4, .direct-slide-2 {
+      h3 {
+        font-size:25pt;
+        line-height:30pt;
+      }
+      h5 {
+        font-size:20pt;
+      }
+    }
+    
+    //why direct
+    .pow-bg-5 {
+      h3 {
+        margin-bottom: .5em;
+      }
+      .row {
+        width:90%;
+      }
+    }
+
+    .direct-slide-3 {
+      h2 {
+        font-size:40pt;
+        text-align:center;
+        @media #{$small} { 
+          font-size:30pt;
+          text-align:left;
+        }
+      }
+      p {
+        font-size:20pt;
+        text-align:center;
+        max-width:800px;
+        @media #{$small} { 
+          font-size:13pt;
+          max-width:600px;
+          text-align:left;
+        }
+      }
+      .image {
+        display:none;
+        @media #{$small} { 
+          display:inline-block;
+        }
+      }
+    }
+    // .image {
+    //   display:none !important;
+    //   @media #{$small} {
+    //     display:inline-block !important;
+    //   }
+    // }
+    // .image_1, .image_2 {
+    //   @media #{$small} {
+    //     display:inline-block !important;
+    //   }
+    // }
+    // .image_0 {
+    //   display:none !important;
+    //   margin-left:33%;
+    //   @media #{$small} {
+    //     margin-left:0%;
+    //     display:inline-block !important;
+    //   }
+    // }
+    .slide-show-dots {
+      left:40%;
+      @media #{$small} {
+        left:0;
+      }
+    }
+
+    .outer-wrapper {
+      position:relative;
+    }
+
+    .fa-chevron-left, .fa-chevron-right {
+      top:150px;
+      @media #{$small} {
+        top:50px;
+      }
+    }
+    .fa-chevron-left {
+      left:21%;
+      @media #{$small} {
+        left:38%;
+      }
+    }
+    .fa-chevron-right {
+      left:70%;
+      @media #{$small} {
+        left:85%;
+      }
+      @media #{$large} {
+        left:82%;
+      }
+    }
+  }
+
+  .pow-bg-1 {
+    background-image: image-url("promo/bg-1.jpg");
+  }
+
+  .pow-bg-2 {
+    background-image: image-url("promo/bg-2.jpg");
+
+    h2 {
+      color: #fff;
+    }
+
+    .pow-promo-slider-wrapper {
+      margin:0;
+      @media #{$large} {
+        margin:3% 3%;
+      }
+      h5 {
+        color: $pow-color-orange;
+      }
+    }
+  }
+
+  .pow-bg-3 {
+    background-color: #fff;
+
+    h2 {
+      color: #383838;
+    }
+
+    h4 {
+      text-transform: uppercase;
+    }
+
+    .pow-promo-slider-wrapper {
+      h5 {
+        color: $pow-color-blue;
+      }
+    }
+
+    hr.shorty {
+      border-color: $pow-color-blue;
+      border-width: 2px;
+      width: 40%;
+      margin: 0 0 15px 0;
+      @media #{$small} { 
+        width: 40px;
+      }
+    }
+  }
+
+  .pow-bg-5 {
+    background-color: #f4f6f7;
+    .pow-promo-content {
+      padding-top:90px;
+      @media #{$small} {
+        padding-top:120px;
+      }
+    }
+    .icon-placeholder {
+      height: 150px;
+      margin-left:45%;
+      @media #{$small} {
+        margin-left:0;
+      }
+    }
+
+    h3 {
+      font-size: 3.5em;
+      font-weight: bold;
+      margin-bottom:1.5em;
+      @media #{$small} {
+        font-size: 1.4em;
+        margin-bottom:0;
+      }
+      @media #{$large} {
+        font-size: 1.8em;
+      }
+    }
+    span {
+      font-size: 1.5em;
+      @media #{$small} {
+        font-size: 1em;
+      }
+    }
+  }
+
+  .pow-bg-4 {
+    background-color: $pow-color-orange;
+  }
+
+  .pow-bg-6 {
+    background-image: image-url("promo/bg-2.jpg");
+  }
+
+  .pow-bg-7 {
+    background-image: image-url("promo/bg-7.jpg");
+    background-color: #fff;
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .pow-bg-8 {
+    background-image: image-url("promo/bg-8.jpg");
+
+    .pow-promo-intro {
+      max-width:none;
+      @media #{$small} { 
+        max-width:800px;
+      }
+    }
+
+    h5 {
+      color: $pow-color-orange;
+      font-size: 2.5em;
+      @media #{$small} { 
+        font-size:1.5em;
+      }
+    }
+
+    p {
+      font-size:1.5em;
+      line-height:1em;
+      color: #fff;
+      @media #{$small} { 
+        font-size:1em;
+        line-height:1.5em;
+      }
+    }
+  }
+
+  .pow-bg-9 {
+    background-image: image-url("promo/bg-9.jpg");
+    height: 100%;
+    overflow: hidden;
+    background-size:cover;
+  }
+
+  .pow-bg-10 {
+    background-image: image-url("promo/bg-10.jpg");
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .pow-bg-11 {
+    background-image: image-url("promo/bg-11.jpg");
+
+    h5 {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 2em;
+    }
+
+    .highlight-2 {
+      font-weight:600;
+    }
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .pow-bg-12 {
+    background-image: image-url("promo/bg-12.jpg");
+
+    h2 {
+      color: #fff;
+      font-size: 2.1em;
+    }
+  }
+
+  .pow-bg-13 {
+    background-image: image-url("promo/bg-13.jpg");
+
+    h2 {
+      color: #fff;
+    }
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .pow-bg-14 {
+    background-image: image-url("promo/bg-14.jpg");
+
+    h4 {
+      text-transform: uppercase;
+    }
+  }
+
+  .pow-bg-15 {
+    background-image: image-url("promo/bg-15.jpg");
+    .row {
+      width:85%;
+      @media #{$medium} {
+        width:90%;
+      }
+    }
+    .slide-show-dots {
+      bottom:0px;
+    }
+
+    .fa-chevron-left, .fa-chevron-right {
+      position:absolute;
+      bottom:-70px;
+      color:#ccc;
+    }
+
+    .fa-chevron-left {
+      left:39%;
+    }
+
+    .fa-chevron-right {
+      left:100%;
+      @media screen and (min-width: $large-screen) {
+        left: 93%;
+      }
+    }
+
+    h2 {
+      color: #fff;
+    }
+
+    .slide-show-inner {
+      p {
+        color: #fff;
+      }
+    }
+  }
+
+  .pow-bg-16 {
+    background-image: image-url("promo/bg-16.jpg");
+
+    p {
+      color: #fff;
+    }
+
+    h1 {
+      display: inline;
+      line-height: 1.5em;
+    }
+  }
+
+  .pow-bg-17 {
+    background-image: image-url("promo/bg-17.jpg");
+
+    p {
+      color: #fff;
+    }
+  }
+
+  .pow-bg-18 {
+    background-image: image-url("promo/bg-18.jpg");
+    text-align: center;
+
+    p {
+      color: #fff;
+      text-align: left;
+    }
+  }
+
+  .pow-bg-19 {
+    background-image: image-url("promo/bg-19.jpg");
+    background-color: #fff;
+
+    h1 {
+      text-align:center;
+      margin-left:0px;
+      @media #{$small} {
+        font-size:50pt;
+        text-align:left;
+        margin-left:100px;
+      }
+      @media #{$large} {
+        margin-left:50px;
+      }
+      width:100%;
+    }
+
+    .pow-promo-intro {
+      width:100%;
+    }
+  }
+
+  .pow-bg-20 {
+    background-image: image-url("promo/bg-20.jpg");
+
+    p {
+      color: #fff;
+    }
+  }
+}

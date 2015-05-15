@@ -18,7 +18,7 @@ describe '/u/profile' do
   # describe '/update_password' do
   #   it 'Updates the current user password' do
   #     @user.password = "huntingKnife"
-  #     post update_password_profile_path,
+  #     put update_password_profile_path,
   #          current_password: @user.password,
   #          new_password:         'dragonsAwake!',
   #          new_password_confirm: 'dragonsAwake!',

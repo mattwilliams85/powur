@@ -6,10 +6,9 @@ FactoryGirl.define do
     user
 
     factory :complete_quote do
+      association :product, factory: :solar_product
       data do
-        { 'utility'      => 1,
-          'average_bill' => 230,
-          'square_feet'  => 2000 }
+        { 'average_bill' => 230 }
       end
     end
   end

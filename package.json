@@ -1,0 +1,23 @@
+{
+  "name": "Powur",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Powur Web App",
+  "author": "Eyecuelab <sasha.shamne@eyecuelab.com>",
+  "keywords": [],
+  "engines": {
+    "node": "0.12.x",
+    "npm": "2.7.x"
+  },
+  "dependencies": {
+    "bower": "1.3.x"
+  },
+  "scripts": {
+    "postinstall": "bash prepare_bower.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/eyecuelab/powur.git"
+  },
+  "license": ""
+}

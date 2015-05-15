@@ -1,0 +1,39 @@
+<main class="pow-admin-bonus-plans">
+  <div class="row">
+    <div class="large-12 columns">
+      <a ng-href="/admin/bonus-plans/{{bonusPlan.id}}/edit" class="button right">Edit Bonus Plan</a>
+      <h2>{{bonusPlan.name}}</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="large-block-grid-3 small-block-grid-2">
+        <!-- Plan Bonuses -->
+        <li>
+          <a ng-href="/admin/bonus-plans/{{bonusPlan.id}}/bonuses">
+            <div class="panel callout fixed-height">
+              <h2>{{bonuses.length}}</h2>
+              <h4>Bonuses</h4>
+            </div>
+          </a>
+        </li>
+        <!-- Plan Start Date -->
+        <li>
+          <div class="panel fixed-height">
+            <h2>{{bonusPlan.start_month}}/{{bonusPlan.start_year}}</h2>
+            <h4>Start Date</h4>
+          </div>
+        </li>
+        <!-- Plan Active/Inactive -->
+        <li>
+          <div class="panel fixed-height">
+            <h2 ng-if="bonusPlan.active === true">Active</h2>
+            <h2 ng-if="bonusPlan.active === false">Not Active</h2>
+            <h4>Plan Status</h4>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</main>

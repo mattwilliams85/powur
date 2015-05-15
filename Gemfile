@@ -1,22 +1,19 @@
-ruby '2.2.0'
+ruby '2.2.2'
 source 'https://rubygems.org'
 
 gem 'dotenv-rails', groups: [:development, :test]
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.1'
 gem 'pg'
 
-gem 'sass-rails', '~> 4.0.3'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'sass-rails'
+gem 'uglifier'
 gem 'jquery-rails'
-gem 'jquery-turbolinks'
-gem 'turbolinks'
 gem 'jbuilder'
-gem 'zurb-foundation', '~> 4.3'
-gem 'compass-rails'
+gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
+gem 'angular-rails-templates'
 
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
 gem 'carrierwave'
 gem 'carrierwave_direct'
@@ -29,8 +26,7 @@ gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
 gem 'rails-settings-cached'
 gem 'gibbon'
-gem 'valid_email', require: 'valid_email/email_validator'
-gem 'foreigner', github: 'matthuhiggins/foreigner'
+gem 'valid_email', require: false
 gem 'faker'
 gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of'
 gem 'money'
@@ -47,6 +43,7 @@ gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
 gem 'newrelic_rpm'
 gem 'aasm'
 gem 'smarteru', github: 'eyecuelab/smarteru'
+gem 'figaro'
 
 group :development do
   gem 'spring-commands-rspec'
@@ -61,12 +58,12 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'awesome_print'
   gem 'byebug'
+  gem 'vcr'
 end
 
 group :test do
   gem 'database_cleaner'
   gem 'webmock', require: 'webmock/rspec'
-  gem 'vcr'
   gem 'db-query-matchers'
   gem 'capybara'
   gem 'capybara-firebug'

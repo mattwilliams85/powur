@@ -1,63 +1,35 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html ng-app="powurApp">
 <head>
-  <title>Powur</title>
-  <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "Chart", "data-turbolinks-track" => true %>
-  <%= yield :javascript_includes %>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Powur Administration</title>
+  <base href="/">
+  <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400italic|Architects+Daughter|Muli|Open+Sans|Varela+Round" rel="stylesheet" type="text/css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <%= stylesheet_link_tag "admin", media: "all" %>
   <%= csrf_meta_tags %>
-  <%= render :partial => "shared/head" %>
-
+  <%= javascript_include_tag "modernizr/modernizr" %>
 </head>
-<body id="application">
-  <header>
-    <div id="header_container" style="position:absolute;width:100%">
-      <nav>
-        <ul>
-          <li class="main_logo">
-            <a href="/">
-              <%=image_tag('powur-white-logo.png', class: 'logo-img') %>
-            </a>
-          </li>
-          <li>
-            <a href="#admin-users" class="admin_top_level_nav">Users</a>
-          </li>
-          <li>
-            <a href="#admin-plans" class="admin_top_level_nav">Plans</a>
-          </li>
-          <li>
-            <a href="#admin-quotes" class="admin_top_level_nav">Quotes & Orders</a>
-          </li>
-          <li>
-            <a href="#admin-notifications" class="admin_top_level_nav">Notifications</a>
-          </li>
-          <li>
-            <a href="/#/admin/resources" class="admin_top_level_nav">Library</a>
-          </li>
-        </ul>
-
-        <ul id="user_nav">
-          <li>
-            <a href="/settings" class="username js-user_first_name"></a>
-          </li>
-          <li>
-            <%= link_to 'Sign out', login_path, method: "delete" %>
-          </li>
-        </ul>
-      </nav>
-      <section id="subheader_bar" style="">
-          <div class="js-dashboard_section_indicator top_level"></div>
-      </section>
+<body>
+  <!-- Admin Header -->
+  <ng-include src="'shared/admin/header.html'"></ng-include>
+  <!-- Bread Crumbs -->
+  <ng-include src="'shared/admin/breadcrumbs.html'"></ng-include>
+  <!-- Page Content -->
+  <div class="row">
+    <div class="small-12 columns">
+      <!-- Main -->
+      <ng-view autoscroll="true"></ng-view>
     </div>
-    <%#= render :partial => "shared/our_goal" %>
+  </div>
 
-  </header>
+  <!-- TODO: deprecate -->
+  <script type="text/javascript">
+    SignedIn = <%= current_user ? 'true' : 'false' %>;
+  </script>
 
-  <%= yield %>
-
-  <%= render :partial => "shared/admin_toolbar" %>
-  <div id="js-screen_mask"></div>
+  <%= javascript_include_tag "admin" %>
 </body>
 </html>

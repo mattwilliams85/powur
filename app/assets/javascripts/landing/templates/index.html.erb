@@ -1,0 +1,120 @@
+<powur-left-menu control="leftMenu"></powur-left-menu>
+
+<div class="pow-landing-wrapper" ng-class="{'active': leftMenu.isActive}" >
+  <ng-include src="'shared/header-signed-out.html'"></ng-include>
+
+  <main class="pow-landing" id="pagepiling" powur-page-piler control="pagePiler">
+
+    <div class="pow-scrolling-bg pow-bg-5 section pow-home-intro inverted">
+      <div class="row">
+        <div class="large-12 columns pow-home-content">
+          <h1>We're putting solar panels on 2 million homes by 2025.</h1>
+          <h3>And we'll pay you $1,000,000,000 to help us do it</br></br><div class="button bulb-btn"><div class="bulb"></div>Learn More</div></h3>
+
+        </div>
+      </div>
+      <div class="arrow-box inverted">
+      </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-7 section inverted">
+      <div class="row">
+        <div class="large-10 columns pow-home-intro">
+          <h1>OUR MISSION IS <br>TWO-FOLD</h1>
+        </div>
+        <div class="large-10 columns pow-home-intro">
+          <br>
+          <span><span class="highlight">1.<span> Put solar panels on over 2,000,000 homes by 2025 thereby making a significant contribution towards reducing global climate change.</span>
+          <br><br>
+          <span><span class="highlight">2.<span> Create a platform that allows individuals to participate in one of the most meaningful wealth transfers in the history of humanity, the shift from dirty to clean energy.</span>
+        </div>
+        <div class="large-2 columns"></div>
+      </div>
+      <div class="arrow-box">
+        <span>WE ARE STARTING A CHAIN REACTION BY</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-2 section">
+      <div class="row">
+        <div class="large-12 columns pow-home-content">
+          <img ng-src="{{gif1Src}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/globe.gif') %>" class="gif1" id="gif_1_src" />
+          <h4>Building the world's largest network of peer to peer solar advocates.</h4>
+        </div>
+      </div>
+      <div class="arrow-box" id="arrow_2">
+        <span>SO THAT WE</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-3 section">
+      <div class="row">
+        <div class="large-12 columns pow-home-content">
+          <img ng-src="{{gif2Src}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/scales-grey.gif') %>" class="gif2" id="gif_2_src" />
+          <h4>Facilitate the largest transfer of wealth in history through the decentralization of energy production.</h4>
+        </div>
+      </div>
+      <div class="arrow-box" id="arrow_3">
+        <span>WHICH WILL</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-2 section">
+      <div class="row">
+        <div class="large-12 columns pow-home-content">
+          <img ng-src="{{gif3Src}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/hauzz.gif') %>" class="gif3" id="gif_3_src" />
+          <h4>Reverse climate change by turning millions of American homes clean, carbon-neutral, and energy independent.</h4>
+        </div>
+      </div>
+      <div class="arrow-box" id="arrow_4">
+        <span>SO WE</span>
+        <i class="fa fa-chevron-down fa-3x"></i>
+      </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-3 section">
+      <div class="row">
+        <div class="large-12 columns pow-home-content">
+          <img ng-src="{{gif4Src}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/flame-grey.gif') %>" class="gif4" id="gif_4_src" />
+          <h4>Create a sustainable, renewable and clean energy solution for all future generations.</h4>
+        </div>
+      </div>
+     <div class="arrow-box" id="arrow_5">
+       <i class="fa fa-chevron-down fa-3x"></i>
+     </div>
+    </div>
+
+    <div class="pow-scrolling-bg  pow-bg-4 section inverted">
+      <div class="pow-home-intro">
+        <div class="row">
+          <h1>The solar revolution is here.</h1>
+        </div>
+      </div>
+     <div class="arrow-box inverted" id="arrow_6">
+       <span>IT WILL BE DISRUPTIVE</span>
+       <i class="fa fa-chevron-down fa-3x"></i>
+     </div>
+    </div>
+
+    <div class="pow-scrolling-bg pow-bg-2 section landing-slide-8">
+      <div class="row">
+        <div class="large-12 columns pow-home-content">
+          <h5>Select how you want to participate in the revolution.</h5>
+          <div class="pow-buttons-wrapper">
+            <a class="button pow-button-transparent" ng-href="/create-energy">ENERGY</a>
+            <a class="button pow-button-solid" ng-href="/create-wealth">WEALTH</a>
+          </div>
+        </div>
+      </div>
+      <ng-include src="'shared/footer.html'"></ng-include>
+    </div>
+  </main>
+
+<!--   <div class="slide-guide">
+    <div ng-repeat="dot in dots" class="slide-dot" ng-class="{'active': dot.active}" id='slide-dot1' ng-click="clickSlideDot(dots.indexOf(dot))"></div>
+  </div> -->
+
+</div>

@@ -21,7 +21,8 @@ class PromoterMailer < ActionMailer::Base
     quote_url = customer_quote_url(quote.user.url_slug, quote.url_slug)
     merge_vars = {
       promoter_name: quote.user.full_name,
-      quote_url:     quote_url }
+      quote_url:     quote_url,
+      solar_guide_url: "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-home-solar-guide.pdf" }
 
     mail_chimp to, 'customer-onboard', merge_vars
   end
@@ -66,8 +67,7 @@ class PromoterMailer < ActionMailer::Base
   private
 
   def mail_chimp(to, template, merge_vars = {})
-    merge_vars[:logo_url] = \
-      ActionController::Base.helpers.image_url('emails/logo.png')
+    merge_vars[:logo_url] = "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-blue-logo.png"
     headers['X-MC-Template'] = template
     headers['X-MC-MergeVars'] = merge_vars.to_json
 

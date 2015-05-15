@@ -1,0 +1,108 @@
+'use strict';
+
+var legacyImagePaths = {
+  energyPromo: [
+    '<%= asset_url('assets/promo/slide-energy-item-04.png') %>',
+    '<%= asset_url('assets/promo/slide-energy-item-03.png') %>',
+    '<%= asset_url('promo/slide-show-item.jpg') %>',
+    '<%= asset_url('assets/promo/slide-energy-item-05.png') %>',
+    '<%= asset_url('assets/promo/slide-energy-item-06.png') %>',
+    '<%= asset_url('promo/slide-show-item.jpg') %>',
+    '<%= asset_url('assets/promo/slide-energy-item-08.png') %>',
+    '<%= asset_url('assets/promo/slide-energy-item-07.png') %>',
+    '<%= asset_url('promo/slide-show-item.jpg') %>'
+  ],
+  teamFaces: [
+    '<%= asset_path('promo/people/jb.jpg') %>',
+    '<%= asset_path('promo/people/2.jpg') %>',
+    '<%= asset_path('promo/people/3.jpg') %>',
+    '<%= asset_path('promo/people/7.jpg') %>',
+    '<%= asset_path('promo/people/rh.jpg') %>',
+    '<%= asset_path('promo/people/9.jpg') %>'
+  ],
+  libraryResources: [
+    '<%= asset_path("library/video.png") %>',
+    '<%= asset_path("library/pdf.png") %>'
+  ],
+  goalsBadge: '<%= image_path("badges/rank0.png") %>',
+  dashboardTeamIcon: '<%= asset_path('dashboard/team_icon.png') %>',
+  dashboardCustomersIcon: '<%= asset_path('dashboard/customers_icon.png') %>',
+  dashboardKPIIcon: '<%= asset_path('dashboard/kpi_icon.png') %>',
+
+  teamPhoneIcon: '<%= asset_path("dashboard/team-phone.png") %>',
+  teamEmailIcon: '<%= asset_path("dashboard/team-email.png") %>',
+  teamSocialIcon: '<%= asset_path("dashboard/team-social.png") %>',
+
+  proposalIncomplete: '<%= asset_path("dashboard/proposal-statuses/incomplete.png") %>',
+  proposalReadyToSubmit: '<%= asset_path("dashboard/proposal-statuses/complete.png") %>',
+  proposalSubmitted: '<%= asset_path("dashboard/proposal-statuses/submitted.png") %>',
+  proposalWon: '<%= asset_path("dashboard/proposal-statuses/won.png") %>',
+  proposalLost: '<%= asset_path("dashboard/proposal-statuses/lost.png") %>',
+  proposalDuplicate: '<%= asset_path("dashboard/proposal-statuses/duplicate.png") %>',
+  proposalError: '<%= asset_path("dashboard/proposal-statuses/error.png") %>',
+
+  defaultAvatar: '<%= asset_path("dashboard/default-avatar.jpg") %>',
+  defaultAvatarThumb: '<%= asset_path("dashboard/default-avatar-thumb.png") %>'
+};
+
+// Development Tool to Fill Progress Bars
+var fillProgressBars = function(){
+  $(function () {
+    $('.progress-bar').each(function () {
+      var t = $(this);
+      var barPercentage = t.data('percentage');
+
+          // add a div for the label text
+          t.children('.label').append('<div class=\'label-text\'></div>');
+
+          // add some 'gimme' percentage when data-percentage is <2
+          if (parseInt((t.data('percentage')), 10) < 2) barPercentage = 2;
+
+          // set up the left/right label flipping
+          if (barPercentage > 50) {
+            t.children('.label').css('right', (100 - barPercentage) + '%');
+            t.children('.label').css('margin-right', '-10px');
+          }
+          if (barPercentage < 51) {
+            t.children('.label').css('left', barPercentage + '%');
+            t.children('.label').css('margin-left', '-20px');
+          }
+
+          // fill in bars and labels
+          t.find('.label-text').text(t.attr('data-percentage') + ' Rooftops');
+          t.children('.bar').animate({
+            width: barPercentage + '%'
+          }, 1000);
+          t.children('.label').animate({
+            opacity: 1
+          }, 1000);
+        });
+  });
+  return 'yeah!';
+};
+
+
+//JAVASCRIPT CLASS FUNCTIONS
+//Returns week number from formated Date
+Date.prototype.getWeek = function(){
+  var d = new Date(+this);
+  d.setHours(0,0,0);
+  d.setDate(d.getDate()+4-(d.getDay()||7));
+  return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+};
+
+//Add # of days to current date
+Date.prototype.addDays = function(days)
+{
+  var d = new Date(this.valueOf());
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+//Week equivelent of getMonth()
+Date.prototype.getWeekYear = function ()
+{
+  var target  = new Date(this.valueOf());
+  target.setDate(target.getDate() - ((this.getDay() + 6) % 7) + 3);
+  return target.getFullYear();
+}

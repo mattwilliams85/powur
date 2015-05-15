@@ -1,11 +1,5 @@
 class Rank < ActiveRecord::Base
   has_many :qualifications, dependent: :destroy
-  has_many :achieved_rank_bonuses, class_name: 'Bonus',
-    foreign_key: :achieved_rank_id, dependent: :nullify
-  has_many :max_user_rank_bonuses, class_name: 'Bonus',
-    foreign_key: :max_user_rank_id, dependent: :nullify
-  has_many :min_upline_rank_bonuses, class_name: 'Bonus',
-    foreign_key: :min_upline_rank_id, dependent: :nullify
 
   default_scope -> { order(:id) }
   scope :with_qualifications, lambda {
@@ -15,16 +9,15 @@ class Rank < ActiveRecord::Base
   validates_presence_of :title
 
   before_create do
-    self.id ||= Rank.count + 1
+    self.id ||= Rank.count + SystemSettings.min_rank
   end
 
   def first?
-    id == 1
+    @first.nil? ? (@first = (id == Rank.minimum(:id))) : @first
   end
 
-  # TODO: ineffecient, deprecate
   def last?
-    @last_rank ||= Rank.count == id
+    @last.nil? ? (@last = (id == Rank.maximum(:id))) : @last
   end
 
   def lifetime_path?(path_id)

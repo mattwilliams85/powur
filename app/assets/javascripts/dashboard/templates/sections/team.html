@@ -1,0 +1,351 @@
+<div class="row">
+  <div class="large-12 columns">
+    <!-- Row: Label / Sort / Search -->
+    <div class="row">
+
+      <div class="large-3 medium-6 columns">
+      <!-- Section Label -->
+        <div class="section-label">
+          <div class="tag"><img ng-src="{{legacyImagePaths.dashboardTeamIcon}}"></div>
+          <div class="text">My Team</div>
+        </div>
+      </div>
+
+      <div class="large-3 medium-6 hide-for-medium-down columns">
+      <!-- Sort -->
+        <select class="sort" ng-model="teamSection.teamSort" ng-change="teamSection.sort()">
+          <option value="name">Order by Name</option>
+          <option value="newest">Order by Newest</option>
+          <!-- <option value="quotes">Order by Number of Quotes</option> -->
+        </select>
+      </div>
+
+      <div class="large-3 medium-6 columns right">
+      <!-- Search -->
+        <div class="row collapse">
+          <form class="search-form" ng-class="{ 'fade': downline.length > 1}">
+            <div class="no-padding large-9 medium-9 small-10 columns">
+              <input type="search" ng-model="teamSection.teamSearch"  placeholder="SEARCH">
+            </div>
+            <div class="no-padding large-3 medium-3 small-2 columns">
+              <button class="search button postfix" ng-click="teamSection.search()">Go</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row: Team Carousel -->
+    <div class="row collapse carousel-box">
+
+      <!-- Invite New Team Member Button -->
+      <div class="w20percent small-2 columns">
+
+        <div class="new-team-member beta">
+          <div class="icon">
+            <span><i class="fa fa-user-plus fa-4x"></i></span>
+          </div>
+          <div class="info-text">
+            <span class="show-for-medium-up">Closed For Beta</span>
+            <span class="show-for-small">Closed for Beta</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="carousel-container w80percent small-10 columns">
+
+        <!-- If No Team Members -->
+        <div ng-if="!downline[0]" class="empty owl-carousel">
+          <div class="empty-state">
+            <p class="empty-text">The team section helps you grow, manage, and support your team.  Invite others to join, get detailed metrics on their results, and track your teammates' progress. </p>
+          </div>
+        </div>
+
+        <!-- If Team Members -->
+        <div ng-if="downline[0]" class="team owl-carousel" id="carousel-0" data-row="0">
+          <a ng-repeat="teamMember in downline[0]">
+
+            <div 
+              class="team-member" 
+              ng-class="{active: memberActive(teamMember)}" 
+              ng-mouseenter="hover = true"
+              ng-mouseleave="hover = false">
+              <div class="team-tabs">
+                <div 
+                  class="team-tab downline" 
+                  ng-class="{ 
+                    'raise': hover || isMobile() || ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
+                    'active-tab': ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
+                    'even': levelGap(teamMember) % 2 !== 0,
+                    'odd': levelGap(teamMember) % 2 === 0
+                  }"
+                  ng-if="teamMember.properties.downline_count > 0"
+                  id="js-downline-tab" 
+                  ng-click="changeTab(teamMember, 'team'); downline[0].selected = teamMember.properties.id; downline[0].tab = 'team'">
+                  TEAM
+                </div>
+                <div 
+                  class="team-tab impact" 
+                  ng-class="{ 
+                    'raise': hover || isMobile() || ( downline[0].tab === 'impact' && downline[0].selected === teamMember.properties.id && activeTab === 'impact' ),
+                    'active-tab': ( downline[0].tab === 'impact' && downline[0].selected === teamMember.properties.id && activeTab === 'impact' ),
+                    'half': teamMember.properties.downline_count === 0,
+                    'even': levelGap(teamMember) % 2 !== 0,
+                    'odd': levelGap(teamMember) % 2 === 0
+                  }" 
+                  id="js-impact-tab" 
+                  ng-click="changeTab(teamMember, 'impact'); downline[0].selected = teamMember.properties.id; downline[0].tab = 'impact'">
+                  KPI
+                </div>
+                <div 
+                  class="team-tab info" 
+                  ng-class="{ 
+                    'raise': hover || isMobile() || ( downline[0].tab === 'info' && downline[0].selected === teamMember.properties.id && activeTab === 'info'),
+                    'active-tab': ( downline[0].tab === 'info' && downline[0].selected === teamMember.properties.id && activeTab === 'info'),
+                    'half': teamMember.properties.downline_count === 0, 
+                  
+                  }" 
+                  id="js-info-tab" 
+                  ng-click="changeTab(teamMember, 'info'); downline[0].selected = teamMember.properties.id; downline[0].tab = 'info'">
+                  INFO
+                </div>
+              </div>
+              <div class="avatar">
+                <img ng-if="teamMember.properties.avatar" class="lazyOwl" data-src="{{teamMember.properties.avatar.thumb}}">
+                <img ng-if="!teamMember.properties.avatar" class="lazyOwl" data-src="{{legacyImagePaths.defaultAvatarThumb}}">
+              </div>
+              <div class="info-text user-text">
+                <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Team Members Downline Carousel -->
+    <div ng-repeat="generation in downline track by $index">
+      <div class="row collapse carousel-box downline-row" ng-class="{ 'even': $index % 2 === 0, 'expand': downline.length >= ($index - 1) }" ng-if="$index !== 0">
+
+        <!-- <div class="gen-count team-member-info-large downline w20percent small-2 columns">
+          <div class="text-uppercase top-label">generation</div>
+          <div class="generation">{{$index + 1}}</div>
+        </div> -->
+        <div class="w20percent team-member-info-large" ng-class="{ 'even': $index % 2 === 0 }">
+          <div class="top-label">
+            <span>Generation</span>
+          </div>
+          <div class="generation">
+            <span>{{$index + 1}}</span>
+          </div>
+        </div>
+        <div class="carousel-container  w80percent small-10 columns">
+
+          <!-- If Team Members -->
+          <div class="team owl-carousel downline" id="{{'carousel-' + $index}}" data-row="{{$index}}">
+            <a ng-repeat="teamMember in downline[$parent.$index]" repeat-end="onEnd()">
+              <div 
+                class="team-member downline" 
+                ng-class="{ 
+                  active: memberActive(teamMember), 
+                  'even': levelGap(teamMember) % 2 !== 0  
+                }" 
+                ng-mouseenter="hover = true"
+                ng-mouseleave="hover = false">
+                <div class="team-tabs">
+                  <div 
+                    class="team-tab downline" 
+                    ng-class="{ 
+                      'raise': hover || isMobile() || ( generation.tab === 'team' && generation.selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
+                      'active-tab': ( generation.tab === 'team' && generation.selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
+                      'even': levelGap(teamMember) % 2 !== 0,
+                      'odd': levelGap(teamMember) % 2 === 0
+                    }"
+                    ng-if="teamMember.properties.downline_count > 0"
+                    id="js-downline-tab" 
+                    ng-click="changeTab(teamMember, 'team'); generation.selected = teamMember.properties.id; generation.tab = 'team'">
+                    TEAM
+                  </div>
+                  <div 
+                    class="team-tab impact" 
+                    ng-class="{ 
+                      'raise': hover || isMobile() || ( generation.tab === 'impact' && generation.selected === teamMember.properties.id && activeTab === 'impact' ),
+                      'active-tab': ( generation.tab === 'impact' && generation.selected === teamMember.properties.id && activeTab === 'impact' ),
+                      'half': teamMember.properties.downline_count === 0,
+                      'even': levelGap(teamMember) % 2 !== 0,
+                      'odd': levelGap(teamMember) % 2 === 0
+                    }" 
+                    id="js-impact-tab" 
+                    ng-click="changeTab(teamMember, 'impact'); generation.selected = teamMember.properties.id; generation.tab = 'impact'">
+                    KPI
+                  </div>
+                  <div 
+                    class="team-tab info" 
+                    ng-class="{ 
+                      'raise': hover || isMobile() || ( generation.tab === 'info' && generation.selected === teamMember.properties.id && activeTab === 'info' ),
+                      'active-tab': ( generation.tab === 'info' && generation.selected === teamMember.properties.id && activeTab === 'info' ),
+                      'half': teamMember.properties.downline_count === 0, 
+                      
+                    }" 
+                    id="js-info-tab" 
+                    ng-click="changeTab(teamMember, 'info'); generation.selected = teamMember.properties.id; generation.tab = 'info'">
+                    INFO
+                  </div>
+                </div>
+                <div class="avatar">
+                  <img ng-if="teamMember.properties.avatar" ng-src="{{teamMember.properties.avatar.thumb}}">
+                  <img ng-if="!teamMember.properties.avatar" ng-src="{{legacyImagePaths.defaultAvatarThumb}}">
+                </div>
+                <div class="info-text user-text">
+                  <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Row: Team Member KPI -->
+    <div ng-show="activeTab === 'impact'" class="kpi-section">
+        <div class="beta-filler downline-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'impact'}">
+          <span> Key Performance Indicators coming soon to a browser near you!</span>
+        </div>
+    </div>
+
+    <!-- Row: Team Member Info -->
+    <!-- <div class="row collapse downline-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info' }"> -->
+    <div class="row collapse downline-row info-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info' }">
+      <!-- Large -->
+      <div ng-hide="activeTab !== 'info'" class="large-12 columns">
+        <!-- Generation -->
+
+        <div class="icon-container">
+
+          <div class="w25percent team-member-info-large">
+            <div class="icon">
+              <img ng-src="{{legacyImagePaths.teamPhoneIcon}}">
+            </div>
+            <div class="info-text">
+              <span>{{currentTeamMember.phone}}</span>
+            </div>
+          </div>
+
+          <div class="w25percent team-member-info-large">
+            <div class="icon social-media">
+              <img ng-src="{{legacyImagePaths.teamEmailIcon}}">
+            </div>
+            <div class="info-text email-text">
+              <span class="email"><a href="mailto:{{currentTeamMember.email}}">{{currentTeamMember.email}}</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="w25percent team-member-info-large">
+          <div class="icon social-media">
+            <div class="small-12 medium-6 columns">
+              <!-- If Facebook -->
+              <a ng-if="currentTeamMember.profile.facebook_url" href="{{currentTeamMember.profile.facebook_url}}"><i class="fa fa-facebook alternate"></i></a>
+              <!-- If No Facebook -->
+              <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook  alternate disabled"></i></a>
+            <div class="info-text show-for-large-up">
+              <span class="show-for-xlarge-up" ng-class="{ 'disabled': !currentTeamMember.profile.facebook_url }">Facebook</span>
+              <span class="hide-for-xlarge-up" ng-class="{ 'disabled': !currentTeamMember.profile.facebook_url }">FB</span>
+            </div>
+          </div>
+          <div class="small-12 medium-6 columns bottom-part">
+             <!-- If Twitter -->
+             <a ng-if="currentTeamMember.profile.twitter_url" href="{{currentTeamMember.profile.twitter_url}}"><i class="fa fa-twitter alternate"></i></a>
+             <!-- If No Twitter -->
+             <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter  alternate disabled"></i></a>
+            <div class="info-text show-for-large-up">
+              <span ng-class="{ 'disabled': !currentTeamMember.profile.twitter_url }">Twitter</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- Row: Invites Carousel -->
+    <div ng-show="showInvitesCarousel" class="row collapse">
+
+      <!-- Invites Available -->
+      <div class="w20percent small-2 columns">
+        <div class="invites-summary">
+          <div class="number">
+            <span>{{invitesAvailable}}</span>
+          </div>
+          <div class="info-text">
+            <span>Invites Available</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Invites Carousel -->
+      <div class="carousel-container no-border w80percent small-10 columns">
+        <div class="invites no-border owl-carousel">
+          <div ng-repeat="invite in invites">
+
+            <!-- Existing Invites -->
+            <div ng-if="invite.type !== 'empty'" class="invite">
+              <div class="icon">
+                <span><i class="fa fa-user fa-4x"></i></span>
+              </div>
+              <div class="info-text">
+                <span>{{invite.properties.first_name}} {{invite.properties.last_name}}</span>
+              </div>
+              <div class="status-text">
+                <span>Expires {{dateToLocalDate(invite.properties.expires)}} {{timeToLocalTime(invite.properties.expires)}}</span>
+              </div>
+            </div>
+
+            <!-- Empty Invites -->
+            <div ng-if="invite.type === 'empty'" class="invite">
+              <div class="icon">
+                <span><i class="fa fa-circle-thin fa-4x"></i></span>
+              </div>
+              <div class="info-text">
+                <span>Empty</span>
+              </div>
+              <div class="status-text">
+                <span>Invite Someone</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Row: Invite Team Member Form -->
+    <div class="drilldown row collapse team-drilldown" ng-class="{'active': drilldownActive == true}">
+      <div ng-hide="!showForm" class="fade-in-section" ng-class="{'active': showForm == true}">
+        <!-- New Invite Summary Text -->
+        <div class="summary large-3 medium-3 columns">
+
+          <h1>New Invite</h1>
+          <p>Enter team member information to create a new invite.</p>
+          <p>Invites expire after 24 hours. You can renew or release invites after they have expired.</p>
+
+        </div>
+
+        <!-- Form if New Invite -->
+        <div ng-if="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
+          <ng-include src="'dashboard/templates/sections/team-invite-form.html'"></ng-include>
+        </div>
+        <!-- Summary if Existing Invite -->
+        <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
+          <ng-include src="'dashboard/templates/sections/team-invite-existing.html'"></ng-include>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

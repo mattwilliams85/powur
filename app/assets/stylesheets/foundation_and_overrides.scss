@@ -1,38 +1,94 @@
-@import "foundation/variables";
+@import "foundation/scss/foundation/components/global";
+
 $row-width: em-calc(1280);
 
 $body-font-family: "Montserrat", "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-$header-font-family: $body-font-family;
+$header-font-family: "Muli", "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 $header-font-weight: 300;
 $header-font-color: #383838;
 
-$sun-color-blue: #20c2f1;
-$sun-color-orange: #f4c751;
-$sun-color-green: #2ecc71;
-
 $input-border-radius: 3px;
-
 
 $dev_dark_gray: #e5e5e5;
 
-$small-screen: 745pt;
 
-@import "foundation";
-@import "foundation/components/grid-5";
-@import "foundation/components/tooltips";
+/* Colors */
+$pow-color-blue: #20c2f1;
+$pow-color-orange: #FFC003;
+$pow-color-green: #2ecc71;
+$pow-menu-link-color: #0a7fa1;
 
-.clearfix {
-  @include clearfix;
-}
+/* Top Bar (Admin Header) */
+/* Background color for the top bar */
+$topbar-bg: $pow-color-blue;
 
-button, .button {
-  border: none;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
+/* Height and margin */
+$topbar-height: em-calc(100);
+$topbar-margin-bottom: em-calc(0);
 
+/* Control Input height for top bar */
+// $topbar-input-height: 2.45em;
+
+/* Controlling the styles for the title in the top bar */
+$topbar-title-weight: bold;
+$topbar-title-font-size: em-calc(17);
+
+/* Style the top bar dropdown elements */
+$topbar-dropdown-bg: $pow-color-blue;
+$topbar-dropdown-link-color: #fff;
+$topbar-dropdown-link-bg: lighten($topbar-bg, 5%);
+$topbar-dropdown-toggle-size: 5px;
+
+$topbar-dropdown-toggle-color: #fff;
+$topbar-dropdown-toggle-alpha: 0.5;
+
+/* Set the link colors and styles for top-level nav */
+$topbar-link-color: $pow-menu-link-color;
+$topbar-link-color-hover: #fff;
+$topbar-link-color-active: #fff;
+$topbar-link-weight: bold;
+$topbar-link-font-family: $header-font-family;
+$topbar-link-font-size: em-calc(16);
+$topbar-link-text-transform: uppercase;
+$topbar-link-hover-lightness: 0%; /* No Change on Hover */
+$topbar-link-bg-hover: darken($topbar-bg, 0%); /* No Change on Hover */
+$topbar-link-bg-active: darken($topbar-bg, 3%);
+$topbar-link-padding: 1rem;
+
+$topbar-dropdown-label-color: #555;
+$topbar-dropdown-label-bg: lighten($topbar-bg, 5%);
+$topbar-dropdown-label-text-transform: uppercase;
+$topbar-dropdown-label-font-weight: bold;
+$topbar-dropdown-label-font-size: em-calc(10);
+
+/* Top menu icon styles */
+$topbar-menu-link-transform: uppercase;
+$topbar-menu-link-font-size: em-calc(13);
+$topbar-menu-link-weight: bold;
+$topbar-menu-link-color: #0a7fa1;
+$topbar-menu-icon-color: #0a7fa1;
+$topbar-menu-link-color-toggled: #fff;
+$topbar-menu-icon-color-toggled: #fff;
+
+/* Transitions and breakpoint styles */
+$topbar-transition-speed: 300ms;
+$topbar-breakpoint: 1026px; /* Change to 9999px for always mobile layout */
+$topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
+
+/* Divider Styles */
+$topbar-divider-border-bottom: solid 1px lighten($topbar-bg, 10%);
+$topbar-divider-border-top: solid 1px darken($topbar-bg, 10%);
+
+/* Sticky Class */
+$topbar-sticky-class: ".sticky";
+$topbar-arrows: true; //Set false to remove the triangle icon from the menu item
+
+
+@import "foundation/scss/foundation";
+
+/* Sprites */
 @mixin landing-sprite($name) {
-  @include sun-sprites-sprite($name);
-  height: sun-sprites-sprite-height($name);
-  width: sun-sprites-sprite-width($name);
+  @include pow-sprites-sprite($name);
+  height: pow-sprites-sprite-height($name);
+  width: pow-sprites-sprite-width($name);
 }

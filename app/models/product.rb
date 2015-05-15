@@ -2,18 +2,19 @@ class Product < ActiveRecord::Base
   after_create :assign_sku
 
   has_many :qualifications, dependent: :destroy
-  has_many :bonus_sales_requirements, dependent: :destroy
-  has_many :bonuses, through: :bonus_sales_requirements
+  has_many :bonuses
   has_many :quote_fields, dependent: :destroy
   has_many :quote_field_lookups, through: :quote_fields
   has_many :product_receipts
   has_many :product_enrollments, dependent: :destroy
+  has_many :user_group_requirements, dependent: :destroy
 
   validates_presence_of :name, :bonus_volume, :commission_percentage
   validates :commission_percentage, numericality: { less_than_or_equal_to: 100 }
 
   scope :with_bonuses, -> { includes(bonuses: [ :bonus_levels ]) }
   scope :certifiable, -> { where(certifiable: true) }
+  scope :sorted, -> { order('position ASC') }
 
   def sale_bonuses
     @sale_bonuses ||= bonuses.select { |b| b.sale? && b.enabled? }
@@ -29,6 +30,16 @@ class Product < ActiveRecord::Base
 
   def commission_amount
     bonus_volume * (0.01 * commission_percentage)
+  end
+
+  def commission_used
+    @commission_used ||= bonuses.map(&:amount_used).inject(:+)
+  end
+
+  def commission_remaining(bonus = nil)
+    value = commission_amount - commission_used
+    value += bonus.amount_used if bonus
+    value
   end
 
   def quote_field_keys
@@ -52,17 +63,22 @@ class Product < ActiveRecord::Base
     nmi_gateway = NmiGateway.new(form)
     response = nmi_gateway.do_post
 
-    if response['response_code'].first == '100'
-      return product_receipts.create(
-        user_id:        user.id,
-        amount:         form[:amount]*100,
-        transaction_id: response['transactionid'].first,
-        auth_code:      response['authcode'].first,
-        order_id:       response['orderid'].first
-      )
-    else
-      return false
-    end
+    return false if response['response_code'].first != '100'
+
+    user.address = form[:address1] unless user.address
+    user.city = form[:city] unless user.city
+    user.state = form[:state] unless user.state
+    user.zip = form[:zip] unless user.zip
+    user.phone = form[:phone] unless user.phone
+    user.save
+
+    product_receipts.create(
+      user_id:        user.id,
+      amount:         form[:amount] * 100,
+      transaction_id: response['transactionid'].first,
+      auth_code:      response['authcode'].first,
+      order_id:       response['orderid'].first
+    )
   end
 
   class << self

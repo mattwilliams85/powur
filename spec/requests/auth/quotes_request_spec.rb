@@ -3,9 +3,8 @@ require 'spec_helper'
 describe '/u/quotes', type: :request do
 
   before do
-    DatabaseCleaner.clean
-    login_real_user
-    @product = create(:sunrun_product)
+    login_user
+    @product = create(:product_with_quote_fields)
   end
 
   describe '#index' do
@@ -20,15 +19,10 @@ describe '/u/quotes', type: :request do
       create_action = json_body['actions'].find { |a| a['name'] == 'create' }
       expect(create_action).to be
 
-      %w(credit_score_qualified roof_age).each do |name|
-        field = create_action['fields'].find { |f| f['name'] == name }
+      @product.quote_fields.each do |field|
+        result = create_action['fields'].find { |f| f['name'] == field.name }
         expect(field).to be
       end
-
-      field = create_action['fields'].find { |f| f['name'] == 'utility' }
-      expect(field).to be
-      option = field['options'].first
-      expect(option['group']).to be
     end
 
   end
@@ -93,16 +87,23 @@ describe '/u/quotes', type: :request do
       expect_alert_error
     end
 
+    let(:data) do
+      map = @product.quote_fields.map do |field|
+        [ field.name, Faker::Lorem.word ]
+      end
+      Hash[ map ]
+    end
+
     it 'returns a quote detail' do
       quote = create(
         :quote,
         product: @product,
         user:    @user,
-        data:    { 'square_feet' => 1200, utility: 2, roof_age: 1 })
+        data:    data)
 
       get user_quote_path(quote), format: :json
       expect_classes 'quote'
-      expect(json_body['properties'].keys).to include('square_feet')
+      expect(json_body['properties'].keys).to include(*@product.quote_fields.map(&:name))
     end
 
   end

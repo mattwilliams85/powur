@@ -7,7 +7,8 @@ json.properties do
 end
 
 actions \
-  action(:update, :patch, admin_notifications_path)
-  .field(:content, :text, value: notification.content)
+  action(:update, :patch, admin_notification_path(notification))
+  .field(:content, :text, value: notification.content),
+  action(:delete, :delete, admin_notification_path(notification))
 
 links link(:self, admin_notification_path(notification))

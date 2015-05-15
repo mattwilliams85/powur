@@ -61,7 +61,6 @@ describe '/a/invite' do
       @invite = create(:invite)
       @user_params = {
         code:       @invite.id,
-        email:      @invite.email,
         first_name: @invite.first_name,
         last_name:  @invite.last_name,
         phone:      '8585551212',
@@ -87,10 +86,7 @@ describe '/a/invite' do
         "encrypted_password" => ["Encrypted password is required"],
         "password" => ["Password is required", "Password not less than 8 symbols"],
         "password_confirmation" => ["Password confirmation is required"],
-        "email" => ["Incorrect email address", "Please input an email address"],
-        "phone" => ["Phone is required"],
-        "tos" => ["You didn't agree to the terms and privacy policy"],
-        "zip" => ["Zip is required"]
+        "tos" => ["You didn't agree to the terms and privacy policy"]
       })
     end
 

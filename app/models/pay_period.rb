@@ -232,6 +232,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     @products ||= Product.with_bonuses.entries
   end
 
+  # TODO: broken, deprecate
   def bonuses_for(product_id, use_rank_at)
     product = products.find { |p| p.id == product_id }
     product.bonuses.select do |b|

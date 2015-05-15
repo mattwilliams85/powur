@@ -4,7 +4,7 @@ class CreateApiTokens < ActiveRecord::Migration
       t.string :id, null: false
       t.string :access_token, null: false
       t.string :client_id, null: false
-      t.references :user, null: false
+      t.references :user
       t.datetime :expires_at, null: false
 
       t.foreign_key :api_clients, column: :client_id, primary_key: :id

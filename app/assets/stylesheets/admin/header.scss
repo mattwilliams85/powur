@@ -1,0 +1,30 @@
+.powur-header {
+
+  li {
+    font-family: "Varela Round", "Open Sans", sans-serif;
+    text-transform: uppercase;
+  }
+
+  .main-logo {
+
+    .logo-img {
+      margin-top: -20px;
+      width: 150px;
+    }
+  }
+
+  .active {
+    color: #fff;
+  }
+
+  .dropdown {
+    label {
+      font-size: 9pt;
+    }
+    a {
+      line-height: 30pt !important;
+      text-transform: uppercase !important;
+    }
+  }
+
+}

@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="large-6 medium-6 columns">
+  <!-- Section Label -->
+    <div class="section-label">
+      <div class="tag"><img ng-src="{{legacyImagePaths.dashboardKPIIcon}}"></div>
+      <div class="text">Key Performance Indicators</div>
+    </div>
+  </div>
+</div>
+
+<div class="large-12 columns">
+  <div class="row tab-header-row">
+    <div class="kpi-tab" ng-click="changeTab('environment')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
+        <span class="kpi-header uppercase">C02 tons saved</span>
+      </div>
+    </div>
+    <div class="kpi-tab" ng-click="changeTab('conversion')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
+        <span class="kpi-header uppercase">orders</span>
+      </div>
+    </div>
+    <div class="kpi-tab" ng-click="changeTab('genealogy')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
+        <span class="kpi-header uppercase">in your grid</span>
+      </div>
+    </div>
+    <div class="kpi-tab" ng-click="changeTab('earnings')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('$0') }">$0</span>
+        <span class="kpi-header uppercase">total earnings</span>
+      </div>
+    </div>
+    <div class="kpi-tab" ng-click="changeTab('rank')">
+      <div class="kpi-info-box">
+        <span class="kpi-count" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
+        <span class="kpi-header uppercase">current rank</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Row: KPI Drilldowns -->
+<div class="kpi-drilldown drilldown" ng-class="{'active': section}">
+  <ng-include ng-if="section === 'environment' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/environment.html'"></ng-include>
+  <ng-include ng-if="section === 'environment' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/environment-beta.html'"></ng-include>
+  <ng-include ng-if="section === 'conversion' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include>
+  <ng-include ng-if="section === 'conversion' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/conversion-beta.html'"></ng-include>
+  <ng-include ng-if="section === 'genealogy' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/genealogy.html'"></ng-include>
+  <ng-include ng-if="section === 'genealogy' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/genealogy-beta.html'"></ng-include>
+  <ng-include ng-if="section === 'earnings' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/earnings.html'"></ng-include>
+  <ng-include ng-if="section === 'earnings' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/earnings-beta.html'"></ng-include>
+  <ng-include ng-if="section === 'rank' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/rank.html'"></ng-include>
+  <ng-include ng-if="section === 'rank' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/rank-beta.html'"></ng-include>
+</div>

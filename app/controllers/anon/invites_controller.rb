@@ -15,7 +15,6 @@ module Anon
     def update
       input = params.permit(:first_name,
                             :last_name,
-                            :email,
                             :password,
                             :password_confirmation,
                             :address,
@@ -26,8 +25,6 @@ module Anon
                             :country,
                             :tos,
                             :communications)
-
-      input['email'].downcase! if input['email']
 
       user = @invite.accept(input)
 

@@ -7,53 +7,20 @@ FactoryGirl.define do
   factory :bonus do
     bonus_plan
     name { Faker::Commerce.product_name }
-    use_rank_at :pay_period_end
-
-    factory :direct_sales_bonus, class: DirectSalesBonus do
-      schedule :weekly
-      use_rank_at :sale
-    end
-
-    factory :enroller_bonus, class: EnrollerBonus do
-      schedule :monthly
-      # association :max_user_rank, factory: :rank
-      # association :min_upline_rank, factory: :rank
-      compress true
-    end
-
-    factory :unilevel_bonus, class: UnilevelBonus do
-      schedule :monthly
-      compress true
-    end
-
-    factory :fast_start_bonus, class: FastStartBonus do
-      time_period 'months'
-      time_amount 2
-    end
-
-    factory :promote_out_bonus, class: PromoteOutBonus do
-      schedule :monthly
-      association :achieved_rank, factory: :rank
-      association :min_upline_rank, factory: :rank
-      compress true
-    end
-
-    factory :differential_bonus, class: DifferentialBonus do
-      schedule :monthly
-
-      association :max_user_rank, factory: :rank
-      association :min_upline_rank, factory: :rank
-    end
-  end
-
-  factory :bonus_requirement, class: BonusSalesRequirement do
-    association :bonus, factory: :direct_sales_bonus
     product
-    source true
+
+    factory :seller_bonus, class: SellerBonus do
+      meta_data do
+        { first_n: 4, first_n_amount: 200.00 }
+      end
+    end
+
+    factory :ca_bonus, class: CABonus do
+    end
   end
 
-  factory :bonus_level do
-    association :bonus, factory: :direct_sales_bonus
+  factory :bonus_amount do
+    bonus
     level 0
     amounts [ 0.1, 0.2, 0.3, 0.4, 0.5 ]
   end

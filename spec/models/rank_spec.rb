@@ -2,19 +2,6 @@ require 'spec_helper'
 
 describe Rank, type: :model do
 
-  it 'nullifies associated bonus field values' do
-    rank = create(:rank)
-    bonus = create(:differential_bonus,
-                   max_user_rank:   rank,
-                   min_upline_rank: rank)
-
-    rank.destroy
-
-    bonus.reload
-    expect(bonus.max_user_rank_id).to_not be
-    expect(bonus.min_upline_rank_id).to_not be
-  end
-
   it 'groups qualifications by rank path' do
     rank = create(:rank)
 

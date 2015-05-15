@@ -1,0 +1,93 @@
+.pow-header-faq {
+  background: $pow-color-blue;
+  text-align: center;
+  // position: static;
+
+  h1 {
+    color: #fff;
+    font-size: 2em;
+    font-weight: bold;
+    margin: 2em 0;
+    margin: 1.5em 0;
+    text-transform: uppercase;
+
+    @media #{$large} {
+      font-size: 3em;
+    }
+  }
+}
+
+.pow-faq {
+  background:#fff;
+
+  .pow-header-guest, .pow-landing-footer {
+    position: relative;
+    left: 0 !important;
+  }
+
+  .pow-fixed-bg {
+    padding-top:100px;
+  }
+
+  .row {
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  footer {
+    position:fixed;
+    bottom:0;
+  }
+
+  .pow-accordion {
+    list-style-position: outside;
+    margin-bottom:200px;
+
+    .accordion-item {
+      display: block;
+
+      .accordion-content {
+        display: none;
+      }
+
+      &.active {
+        .accordion-content {
+          display: block;
+        }
+
+        .accordion-button {
+          background-image: image-url("landing/arrow-faq-icon-active.png");
+        }
+      }
+
+      &:nth-child(odd) {
+        .accordion-button {
+          background-color: #07d3ff;
+        }
+      }
+    }
+
+    .accordion-button {
+      background-color: #0fb9eb;
+      background-image: image-url("landing/arrow-faq-icon.png");
+      background-repeat: no-repeat;
+      background-position: right 20px center;
+      color: #fff;
+      padding: 15px 50px;
+      display: block;
+
+      b {
+        color: #000;
+      }
+    }
+
+    .accordion-content {
+      background: #eeefef;
+      display: none;
+      padding: 20px 30px;
+    }
+  }
+}

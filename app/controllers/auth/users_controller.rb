@@ -2,7 +2,11 @@ module Auth
   class UsersController < AuthController
     include UsersActions
 
-    sort user: 'users.last_name asc, users.first_name asc'
+    sort newest: { created_at: :desc },
+            name: 'users.last_name asc, users.first_name asc'
+          # quotes: 'users.quote_count asc'
+          # # .with_quote_counts
+
     filter :performance,
            fields:     { metric: { options: { quotes:   'Quote Count',
                                               personal: 'Personal Sales',

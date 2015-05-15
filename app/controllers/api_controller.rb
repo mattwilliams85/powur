@@ -12,18 +12,12 @@ class ApiController < ApplicationController
 
   def api_error!(error, *args)
     opts = args.last.is_a?(Hash) ? args.pop : {}
-    msg = if args.last.is_a?(String)
-      args.pop
-    else
-      t(args.unshift('errors.api', error).join('.'), opts)
-    end
+
+    msg = args.pop if args.last.is_a?(String)
+    msg ||= t(args.unshift('errors.api', error).join('.'), opts)
 
     fail Errors::ApiError.new(error), msg
   end
-
-  # def error!(error, msg)
-  #   fail Errors::ApiError.new(error), msg
-  # end
 
   def error!(msg, field = nil, opts = {})
     opts = field if field.is_a?(Hash)
@@ -39,7 +33,7 @@ class ApiController < ApplicationController
   def require_input(*args)
     missing = args.select { |arg| !params[arg].present? }
     return params.permit(*args) if missing.empty?
-    api_error!(:invalid_request, params: missing.join(','))
+    api_error!(:invalid_request, :missing_params, params: missing.join(','))
   end
 
   private

@@ -1,0 +1,297 @@
+html, body {
+  height: 100%;
+  font-family: Montserrat, 'Open Sans'
+}
+
+.highlighted {
+  color: $pow-color-orange;
+}
+
+slider {
+  height:25px;
+  margin:30px 5px 40px 5px;
+  @media #{$small} {
+    height:7px;
+    margin:25px 5px;
+  }
+}
+
+//Pagepiling css overrides
+#pp-nav {
+  li {
+    margin: 20px !important;
+  }
+  span {
+    border-width: 3px !important;
+    height: 12px !important;
+    width: 12px !important;
+  }
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+
+.arrow-box {
+  bottom: -200px;
+  color: $pow-color-blue;
+  display: none;
+  left: 50%;
+  margin-left: -115px;
+  position: absolute;
+  text-align: center;
+  width: 215px;
+  cursor:pointer;
+
+  &.tuck {
+    bottom: -5em;
+  }
+
+  &.inverted {
+    color: #fff;
+  }
+
+  &.dark {
+    color: #444;
+  }
+
+  &.inactive {
+    display: none;
+  }
+
+  .fa-chevron-down {
+    display:block;
+    font-size:3em;
+    @media #{$small} {
+      font-size: 2em;
+    }
+    @media #{$large} {
+      font-size: 2.3em;
+    }
+  }
+
+  span {
+    font-size:23pt!important;
+    font-weight:800;
+    @media #{$small} {
+      font-size: 1.5rem !important;
+    }
+  }
+}
+
+
+/*
+ * Misc / Utility
+ *
+*/
+.pow-fixed-bg {
+  position: relative;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 1;
+  background-attachment: scroll;
+
+  @media #{$small} {
+    background-attachment: fixed;
+  }
+}
+
+.pow-scrolling-bg {
+  z-index: 2;
+  height: 100%;
+  width:100%;
+  padding-bottom:40px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  overflow:hidden;
+
+  .pow-home-content {
+    text-align: center;
+    margin-top:-40px;
+
+    h4, h5 {
+      margin-top: 1.5em;
+    }
+    h4 {
+      font-size: 2.5em;
+      margin-top:-10px;
+    }
+    h5 {
+      font-size: 1.8em;
+      text-align: center;
+    }
+  }
+
+  .pow-buttons-wrapper {
+    margin-top: 5em;
+    @media #{$small} {
+      margin-top: 3em;
+    }
+
+    .button {
+      background: $pow-color-green;
+      text-transform: uppercase;
+      margin-right: .5em;
+      font-size:4em;
+      @media #{$small} {
+        font-size:2em;
+        margin-right: 1em;
+      }
+
+      &.pow-button-solid:hover{
+        background:#20B552;
+      }
+
+      &.pow-button-transparent:hover{
+        background:#eee;
+      }
+    }
+
+    .buttons {
+      display: table;
+      height: 100%;
+      width: 100%;
+    }
+
+    .container {
+      display: table-cell;
+      padding: 1em;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .pow-button-transparent {
+      border: 2px solid $header-font-color;
+      background: none;
+      color: $header-font-color;
+    }
+
+  }
+}
+
+input {
+  &.radius {
+    @include radius($input-border-radius);
+  }
+}
+
+// to prevent modals from loading out of view when the user scrolls:
+.library-modal {
+  position: fixed;
+}
+
+.pow-modal {
+  background-image: image-url('powur-white-logo.png');
+  background-color: #f4c751;
+  background-repeat: no-repeat;
+  background-position: 50% 4em;
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 10em;
+}
+
+.narrow {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.narrow-small {
+  margin-left: 10%;
+  margin-right: 10%;
+  @media #{$small} {
+   margin-left: 0%;
+   margin-right: 0%;
+  }
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+.normal-case {
+  text-transform: none !important;
+}
+
+.optional {
+  display:none !important;
+  visibility:hidden !important;
+  @media #{$medium} {
+    display:block !important;
+    visibility:visible !important;
+  }
+}
+
+.optional-small {
+  display:none !important;
+  visibility:hidden !important;
+  @media #{$small} {
+    display:block !important;
+    visibility:visible !important;
+  }
+}
+
+.include-medium{
+  display:block !important;
+  visibility:visible !important;
+  @media #{$medium} {
+    display:none !important;
+    visibility:hidden !important;
+  }
+}
+
+.include-small{
+  display:block !important;
+  visibility:visible !important;
+  @media #{$small} {
+    display:none !important;
+    visibility:hidden !important;
+  }
+}
+
+select.powur-select {
+  // Mixins
+  display: block;
+  vertical-align: baseline;
+  font-size: 12pt;
+  line-height: 32px / 2;
+  text-transform: uppercase;
+  font-family: 'Varela Round', sans-serif;
+  border-radius: 0;
+
+  // Box properties
+  margin:0 4px 0 0;
+  margin-bottom: 8px;
+  padding-right: 56px;
+  padding-left: 10px;
+  width: auto;
+  float: left;
+
+  // Background & borders
+  background-image: image-url('select_arrow.svg') ;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+  background-origin: padding-box;
+  background-color: rgba(0,0,0,.08);
+  border: 1px solid rgba(0,0,0,.08);
+
+  // Typography
+  color: lighten(#444, 34%);
+  text-indent: 0.01px;
+  text-overflow: "";
+
+  // Other
+  -moz-appearance: none;
+  -webkit-appearance: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+select::-ms-expand {
+    display: none;
+}

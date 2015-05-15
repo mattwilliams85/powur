@@ -137,9 +137,9 @@ puts 'Seeding Bonus Plan'
 BonusPlan.destroy_all
 BonusPlan.create!(
   id:          1,
-  name:        'SunStand Compensation Plan',
-  start_year:  2014,
-  start_month: 5)
+  name:        'Powur Compensation Plan',
+  start_year:  2015,
+  start_month: 2)
 
 puts 'Seeding Resources'
 Resource.destroy_all
@@ -163,5 +163,5 @@ Resource.create!(
 puts 'Seeding Api Client Credentials'
 ApiClient.destroy_all
 ApiClient.create!(
-  id:     'ios.sunstand.com',
+  id:     'ios.powur.com',
   secret: 'ecef509dcfe10f9920469d0b99dd853ff2a2021122ea41e98ae2c64050643f20462cba8e56ae7ecd4bd2915d56720871907e33b191db11a0d4603c33892a')

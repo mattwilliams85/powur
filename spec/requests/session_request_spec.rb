@@ -18,7 +18,7 @@ describe '/login' do
       @user = create(:user)
       post login_path, email: @user.email, password: 'password', format: :json
 
-      expect_classes('session', 'user')
+      expect_classes('user')
     end
   end
 end
@@ -26,15 +26,25 @@ end
 describe 'authenticate!' do
   context 'signed out' do
     it 'returns a 401 for XHR' do
-      xhr :get, dashboard_path
+      xhr :get, resources_path(format: :json)
 
       expect(response.status).to eq(401)
     end
 
-    it 'redirects to sign-in on request' do
-      get dashboard_path
+    it 'responds with same standard html layout on any html request' do
+      get(resources_path)
+      resources_body = response.body
+      get(root_path)
+      root_body = response.body
 
-      expect(response.status).to eq(302)
+      expect(resources_body).to eq(root_body)
+    end
+
+    it 'redirects to sign-in on json request' do
+      get resources_path(format: :json)
+
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)).to eq('redirect' => '/')
     end
   end
 end
