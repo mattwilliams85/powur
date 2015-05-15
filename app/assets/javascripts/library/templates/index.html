@@ -18,10 +18,9 @@
     </div>
   </div>
 
-  <!-- Library Resources Grid -->
   <div class="row">
-    <ul class="large-block-grid-5 medium-block-grid-3 small-block-grid-2">
-      <li ng-repeat="item in items" class="resource" ng-click="showResource(item)">
+    <div ng-repeat="item in items" class="large-3 medium-4 small-6 columns left" ng-click="showResource(item)">
+      <div class="resource">
         <!-- Thumbnails or Media icons -->
         <div class="media-info">
           <div class="media-thumbnail">
@@ -62,9 +61,10 @@
           </div>
         </div>
         <!-- /Modal -->
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
+
   <div class="row" ng-if="(pages.page_count >= 2)">
     <div class="load-more" ng-if="(pages.current_page !== pages.page_count)">
       <a class="button" ng-click="pagination(1)">Load More</a>
