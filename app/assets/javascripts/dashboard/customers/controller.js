@@ -161,9 +161,11 @@
         Proposal.list().then(function(items) {
           $scope.closeForm();
           destroyCarousel('.proposals');
-          $scope.proposals = items.entities;
           $timeout(function() {
-            initCarousel('.proposals');
+            $scope.proposals = items.entities;
+            $timeout(function() {
+              initCarousel('.proposals');
+            });
           });
         });
       } else if (action.name === 'update') {
