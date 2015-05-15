@@ -79,7 +79,7 @@
                     'raise': hover || isMobile() || ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
                     'active-tab': ( downline[0].tab === 'team' && downline[0].selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
                     'even': levelGap(teamMember) % 2 !== 0,
-                    'odd': levelGap(teamMember) % 2 === 0  
+                    'odd': levelGap(teamMember) % 2 === 0
                   }"
                   ng-if="teamMember.properties.downline_count > 0"
                   id="js-downline-tab" 
@@ -93,7 +93,7 @@
                     'active-tab': ( downline[0].tab === 'impact' && downline[0].selected === teamMember.properties.id && activeTab === 'impact' ),
                     'half': teamMember.properties.downline_count === 0,
                     'even': levelGap(teamMember) % 2 !== 0,
-                    'odd': levelGap(teamMember) % 2 === 0  
+                    'odd': levelGap(teamMember) % 2 === 0
                   }" 
                   id="js-impact-tab" 
                   ng-click="changeTab(teamMember, 'impact'); downline[0].selected = teamMember.properties.id; downline[0].tab = 'impact'">
@@ -163,7 +163,7 @@
                       'raise': hover || isMobile() || ( generation.tab === 'team' && generation.selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
                       'active-tab': ( generation.tab === 'team' && generation.selected === teamMember.properties.id && downline.length >= levelGap(teamMember)),
                       'even': levelGap(teamMember) % 2 !== 0,
-                      'odd': levelGap(teamMember) % 2 === 0  
+                      'odd': levelGap(teamMember) % 2 === 0
                     }"
                     ng-if="teamMember.properties.downline_count > 0"
                     id="js-downline-tab" 
@@ -177,7 +177,7 @@
                       'active-tab': ( generation.tab === 'impact' && generation.selected === teamMember.properties.id && activeTab === 'impact' ),
                       'half': teamMember.properties.downline_count === 0,
                       'even': levelGap(teamMember) % 2 !== 0,
-                      'odd': levelGap(teamMember) % 2 === 0  
+                      'odd': levelGap(teamMember) % 2 === 0
                     }" 
                     id="js-impact-tab" 
                     ng-click="changeTab(teamMember, 'impact'); generation.selected = teamMember.properties.id; generation.tab = 'impact'">
