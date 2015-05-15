@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=production.powur.com%3A108&Lead_Generator__c=57&FirstName=Michael&LastName=Mattern&Street=950%20S%20Ames%20st&City=Lakewood&PostalCode=80226&Phone=7203517777&Email=medbowmike%40yahoo.com&Monthly_Electric_Bill__c=74.00
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '232'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Mon, 11 May 2015 21:37:36 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@7de7d8bb"
+      Server:
+      - nginx
+      Content-Length:
+      - '124'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q1400001PkLKAEA3","Message":"Lead successfully
+        created","YourId":"production.powur.com:108"}'
+    http_version: 
+  recorded_at: Mon, 11 May 2015 21:37:36 GMT
+recorded_with: VCR 2.9.3
