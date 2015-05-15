@@ -7,7 +7,7 @@
     <div class="large-3 columns summary">
       <section>
         <div class="avatar-container" class="form-element">
-          <img ng-src="{{userProfile.avatar.preview || '/temp_dev_images/Tim.jpg'}}" class="user-image" />
+          <img ng-src="{{userProfile.avatar.preview || legacyImagePaths.defaultAvatar}}" class="user-image" />
           <div ng-if="!userProfile.require_enrollment" class="ribbon"></div>
           <input ng-model="userOriginalImage" type="hidden" ng-required="true" />
           <file-s3-uploader data="userOriginalImage" mode="user_image" show-progress="1" auto-upload="1" />
