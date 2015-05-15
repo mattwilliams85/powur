@@ -11,10 +11,10 @@
   </div>
 
   <div class="row">
-    <div class="large-3 medium-6 columns left university-class-item-wrapper" ng-repeat="classItem in universityClasses.entities">
+    <div class="large-4 medium-6 columns left university-class-item-wrapper" ng-repeat="classItem in universityClasses.entities">
       <div class="class-item">
         <div class="image-wrapper"><img ng-src="{{classItem.properties.image_url}}" /></div>
-
+        <div class="price-box"></div>
         <div class="class-progress" ng-class="{'started': classItem.properties.state === 'started', 'completed': classItem.properties.state === 'completed'}"><div class="progress-inner">&nbsp;</div></div>
 
         <div class="class-info">
