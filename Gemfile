@@ -11,7 +11,7 @@ gem 'uglifier'
 gem 'jquery-rails'
 gem 'jbuilder'
 gem 'compass-rails', github: 'Compass/compass-rails', branch: 'master'
-# gem 'angular-rails-templates'
+gem 'angular-rails-templates'
 
 gem 'aws-sdk', '< 2.0'
 gem 'paperclip'

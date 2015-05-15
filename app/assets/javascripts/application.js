@@ -31,7 +31,7 @@
  * App js resources
  */
 //= require legacy
-//= require app.module.js
+//= require app
 //= require app.routes
 //= require app.common.service
 //= require_tree ./dashboard

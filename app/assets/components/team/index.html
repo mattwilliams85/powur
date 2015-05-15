@@ -1,0 +1,13 @@
+
+
+
+
+<ng-include src="'./assets/common/form.html'" onload="action = team.action"></ng-include>
+
+<small>{{ team.users }}</small>
+
+<ul>
+  <li ng-repeat="user in team.users.entities">
+    {{ user.properties.first_name }}
+  </li>
+</ul>
