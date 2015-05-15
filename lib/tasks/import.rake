@@ -25,5 +25,17 @@ namespace :powur do
       end
     end
 
+    task zipcodes: :environment do
+      puts 'Seeding SolarCity ZIP Codes...'
+      Zipcode.destroy_all
+
+      arr_of_arrs = CSV.read("lib/assets/solarcity_zip_codes.csv")
+
+      arr_of_arrs.each do |zip|
+        Zipcode.create({zip: zip.first})
+      end
+
+      puts 'Finished Seeding SolarCity ZIP Codes'
+    end
   end
 end
