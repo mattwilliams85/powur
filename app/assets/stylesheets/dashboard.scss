@@ -888,12 +888,13 @@ $kpi-text-color: #888;
 
           .kpi-count {
             display: block;
-            // color: $kpi-text-color;
             line-height:60pt;
+            .unit {
+              font-size: 12pt;
+            }
           }
 
           .kpi-header {
-            // color: $kpi-text-color;
             font-size: 12pt;
             @media #{$medium} { 
               font-size: 16pt;
@@ -902,7 +903,6 @@ $kpi-text-color: #888;
 
           .empty-info {
             display: block;
-            // color: $kpi-text-color;
             font-size: 1em;
             line-height: 1.2em;
             padding: 0 1em;
