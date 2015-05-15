@@ -19,6 +19,7 @@
       font-weight: bold;
       font-size: 3em;
       margin-top: 160px;
+      font-family: $body-font-family;
 
       @media #{$small} {
         margin-top: 180px;
