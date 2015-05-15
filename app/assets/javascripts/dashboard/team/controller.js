@@ -61,6 +61,8 @@
 
     // Show Team Member
     $scope.changeTab = function(teamMember, tab) {
+      var delay = 300;
+      if ($scope.activeTab == false) delay = 0;
       if ($scope.currentTeamMember.id === teamMember.properties.id && $scope.activeTab === tab || $scope.activeTab === 'team' && $scope.downline.length > teamMember.properties.level) {
         $scope.closeForm(teamMember);
       } else {
@@ -73,16 +75,18 @@
             $scope.showInfo = true;
             $scope.activeTab = tab;
             $scope.currentTeamMember = teamMember.properties;
-          }, 100);
+          }, delay);
         } else if (tab === 'team') {
-          User.downline(teamMember.properties.id, {sort: $scope.teamSection.teamSort}).then(function(item){
-            $scope.activeTab = tab;
-            $scope.downline.push(item.entities);
-          });
+            User.downline(teamMember.properties.id, {sort: $scope.teamSection.teamSort}).then(function(item){
+              $timeout(function(){
+                $scope.activeTab = tab;
+                $scope.downline.push(item.entities);
+              }, delay);
+            });
         } else {
           $timeout(function(){
             $scope.activeTab = tab;
-          }, 300);
+          }, delay);
         }
       }
     };

@@ -760,7 +760,7 @@ $kpi-text-color: #888;
       }
 
       .notifications::-webkit-scrollbar-thumb {
-        background: rgba(0,0,0,1);
+        background: rgba(0,0,0,0.4);
       }
     }
 
@@ -868,7 +868,10 @@ $kpi-text-color: #888;
 
       .kpi-tab {
         background-color: #fff;
-        height: 220px;
+        height: 160px;
+        @media #{$small} {
+          height: 220px;
+        }
         width: 20%;
         float: left;
         cursor: pointer;
@@ -1305,7 +1308,7 @@ $kpi-text-color: #888;
     .info-row {
       text-align: center;
       background-image:  image-url("city-dark.jpg");
-      background-position: center center;
+      background-position: left 0;
       background-repeat: no-repeat;
       background-size: cover;
 
@@ -1417,11 +1420,15 @@ $kpi-text-color: #888;
     }
 
     .downline-row {
+      height: 0px;
       background-color: #444;
       width: 100%;
       overflow: hidden;
-      transition: height .1s linear;
-      height: 0px;
+      -webkit-transition: height .2s;
+      -moz-transition: height .2s;
+      -o-transition: height .2s;
+      -ms-transition: height .2s;
+      transition: height .2s;
       float: left;
       border: 0px;
       margin-bottom: 0px;
@@ -1431,9 +1438,6 @@ $kpi-text-color: #888;
 
         &.info-row {
           height: 230px;
-          &.expand {
-            height: 230px;
-          }
         }
       }
 
