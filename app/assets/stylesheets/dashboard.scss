@@ -407,6 +407,7 @@ $kpi-text-color: #888;
     &.active {
       background-color: #444;
       color: #fff;
+      border-bottom: 1px solid #555;
     }
 
     &.downline {
