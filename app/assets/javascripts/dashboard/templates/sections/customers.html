@@ -119,7 +119,6 @@
           <p ng-show="mode === 'ready to submit'">Ensure the customer information is correct before using the Submit button below.</p>
           <!-- Completed Proposal Buttons -->
           <button class="button secondary expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.delete()">Delete Proposal</button>
-          <button class="button secondary expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.resend()">Resend Email</button>
           <button class="button solarcity expand" ng-show="mode === 'ready to submit'" ng-click="customerSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
 
           <!-- Submitted Proposal Summary Text -->
@@ -128,6 +127,7 @@
           <!-- Submitted Proposal Buttons -->
           <button class="button expand right" ng-show="mode === 'submitted'" disabled><i class="fa fa-check"></i> Submitted</button>
           <p ng-show="mode === 'submitted'">This proposal was submitted to SolarCity at {{timeToLocalTime(currentProposal.submitted_at)}} on {{dateToLocalDate(currentProposal.submitted_at)}}.</p>
+          <button class="button secondary expand" ng-show="mode === 'submitted'" ng-click="customerSection.resend()">Resend Email</button>
         </div>
 
         <!-- Form if New, Ineligible, or Incomplete Proposal-->
