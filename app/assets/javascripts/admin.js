@@ -10,11 +10,7 @@
 //= require angular-route/angular-route
 //= require angular-resource/angular-resource
 //= require angular-scroll/angular-scroll
-
-// TODO: this lib is still in the repo,
-// need to either remove or request from bower
-//
-//= require admin/vendor/Autolinker.min
+//= require Autolinker.js/dist/Autolinker.min
 
 /*
  * Templates
@@ -28,6 +24,7 @@
 //= require legacy
 //= require ./admin/app.admin
 //= require ./admin/app.admin.routes
+//= require app.common.service
 //= require_tree ./admin/bonuses
 //= require_tree ./admin/bonus-plans
 //= require_tree ./admin/landing
