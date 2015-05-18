@@ -20,7 +20,6 @@ module QuoteSubmission
 
   def submit!(force = false)
     if !can_submit? && !force
-      binding.pry
       fail 'Lead is not ready for submission or has already been submitted'
     end
 
