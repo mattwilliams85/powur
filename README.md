@@ -28,6 +28,7 @@ rake powur:seed:leads
 rake powur:seed:submitted_leads
 ```
 
+the submitted_leads task replays the submission requests via VCR cassettes.
 
 
 ## Below Deprecated For Now
