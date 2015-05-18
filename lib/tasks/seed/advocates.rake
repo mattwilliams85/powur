@@ -17,7 +17,9 @@ namespace :powur do
     end
 
     task advocates: :environment do
+      User.update_all(sponsor_id: nil)
       User.destroy_all
+
       with_csv('advocates') do |row|
         attrs = {
           id:         row[0].to_i,
