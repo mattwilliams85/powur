@@ -39,7 +39,7 @@ namespace :powur do
           next
         end
 
-        mid = attrs[:first_name].split(' ').first.downcase
+        first = attrs[:first_name].split(' ').first.downcase
         last = attrs[:id].to_s
         password = [ first, last ].join('!')
         attrs.merge!(

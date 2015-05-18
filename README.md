@@ -8,8 +8,13 @@ https://devcenter.heroku.com/articles/heroku-postgresql#local-setup
 
 ## Resetting the DB
 
+
 ```bash
-rake db:drop db:create db:migrate
+# locally
+rake db:drop db:create db:migrate 
+
+# production
+heroku pg:reset HEROKU_POSTGRESQL_AMBER_URL --confirm powur
 ```
 
 ## Seeding Production DB (can be used for development as well)
@@ -296,13 +301,13 @@ run on staging.
 
 ```bash
 # reset the database
-heroku pg:reset HEROKU_POSTGRESQL_AMBER_URL --confirm sunstand
+heroku pg:reset HEROKU_POSTGRESQL_AMBER_URL --confirm powur
 
 # migrate the data
-heroku run rake db:migrate --app sunstand
+heroku run rake db:migrate --app powur
 
 # add the admin users
-heroku run rake db:seed --app sunstand
+heroku run rake db:seed --app powur
 
 # populate the bonus_plans, geaneology, and orders
 heroku run rake sunstand:seed:bonus_plan sunstand:simulate:users sunstand:simulate:orders --app sunstand
