@@ -156,6 +156,7 @@ describe UserSmarteru do
     let(:user) { create(:user) }
     before do
       allow_any_instance_of(ProductEnrollment).to receive(:start_learner_report_polling).and_return(true)
+      allow_any_instance_of(ProductEnrollment).to receive(:find_or_create_ipayout_account).and_return(true)
     end
 
     context 'required class does not exist' do
