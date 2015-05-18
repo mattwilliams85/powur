@@ -44,8 +44,6 @@ gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
 gem 'aasm'
 gem 'smarteru', github: 'eyecuelab/smarteru'
 gem 'figaro'
-gem 'vcr'
-gem 'webmock', require: 'webmock/rspec'
 
 group :development do
   gem 'spring-commands-rspec'
@@ -60,6 +58,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'awesome_print'
   gem 'byebug'
+  gem 'webmock', require: 'webmock/rspec'
+  gem 'vcr'
 end
 
 group :test do
