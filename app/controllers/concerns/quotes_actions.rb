@@ -28,7 +28,6 @@ module QuotesActions
       user:       current_user,
       data:       quote_input)
 
-    @quote.email_customer if @quote.can_email?
     show
   end
 
@@ -52,6 +51,7 @@ module QuotesActions
     error!(:cannot_submit_quote) unless @quote.can_submit?
 
     @quote.submit!
+    @quote.email_customer if @quote.can_email?
 
     show
   end
