@@ -12,62 +12,20 @@ https://devcenter.heroku.com/articles/heroku-postgresql#local-setup
 rake db:drop db:create db:migrate
 ```
 
-## Seed the DB with admin users
-
-Do not simply append this task to the above command, as there is a current rails bug with postgres that makes it fail
+## Seeding Production DB (can be used for development as well)
 
 ```bash
-rake db:seed
-```
-
-## Seed the DB with the default Products, Bonus Plan, Ranks and Qualifications
-
-The database must not have any Quotes or Orders in order for this to work.
-
-```bash
-rake powur:seed:bonus_plan
-```
-
-Two products are created. One Solar Item product as well as the Consultant Certification product.
-
-## Create quote field lookup values for rate schedule, roof ages, roof types and utility companies
-
-This task happens as part of the task to create the bonus_plan, but you can use it to update or delete values
-
-```bash
-rake powur:import:quote_field_lookups
-```
-
-# Simulation
-
-## Simulate User Genealogy
-
-```bash
-rake powur:simulate:users
-```
-
-There are options that can be used on this command in the form
-
-```bash
-rake powur:simulate:users[1000,20,3]
-```
-
-The first argument is the approximate total # of users. The second is the max # of users in one users particular downline. The third argument is the max of levels to generate for the root users' downline. Note that there must be no spaces in the list of arguments between the brackets. The arguments in the example are the defaults.
-
-## Simulate Quotes
-
-```bash
-rake powur:simulate:quotes
+rake powur:seed:products
+rake powur:seed:zip_codes
+rake powur:seed:notifications
+rake powur:seed:advocates
+rake powur:seed:leads
+rake powur:seed:submitted_leads
 ```
 
 
-Arguments can be used for this command as well
 
-```bash
-rake powur:simulate:quotes[20,4]
-```
-
-The first argument is the average # of quotes per user. A random amount is selected between 0 and twice the #. Quotes are generated for approximately 80% of the users for the Solar Item product. 
+## Below Deprecated For Now
 
 ## 3rd Party (Mobile) API
 

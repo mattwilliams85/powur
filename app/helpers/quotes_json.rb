@@ -54,7 +54,7 @@ class QuotesJson < JsonDecorator
         .field(:quote_id, :number, value: quote.id)
         .field(:order_date, :datetime, value: DateTime.current, required: false)
     end
-    if quote.ready_to_submit?
+    if quote.can_submit?
       list << submit_action(submit_admin_quote_path(quote))
     end
     list
@@ -66,7 +66,7 @@ class QuotesJson < JsonDecorator
       list << update_action(user_quote_path(quote))
       list << action(:delete, :delete, user_quote_path(quote))
     end
-    if quote.ready_to_submit?
+    if quote.can_submit?
       list << submit_action(submit_user_quote_path(quote))
     end
 
@@ -112,7 +112,9 @@ class QuotesJson < JsonDecorator
              .field(:zip, :text, required: false, value: @item.customer.zip)
 
     action_quote_fields(action) do |field, opts|
-      opts[:value] = field.normalize(@item.data[field.name])
+      opts.merge!(
+        value: field.normalize(@item.data[field.name]),
+        product_field: true)
     end
 
     action

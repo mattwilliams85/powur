@@ -49,7 +49,7 @@ module QuotesActions
   end
 
   def submit
-    error!(:cannot_submit_quote) if @quote.submitted?
+    error!(:cannot_submit_quote) unless @quote.can_submit?
 
     @quote.submit!
 

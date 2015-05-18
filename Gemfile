@@ -67,6 +67,7 @@ group :test do
   gem 'db-query-matchers'
   gem 'capybara'
   gem 'capybara-firebug'
+  gem 'minitest-spec-rails'
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc

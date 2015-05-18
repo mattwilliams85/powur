@@ -38,4 +38,6 @@ Rails.application.configure do
   config.active_support.deprecation = :stderr
 
   Delayed::Worker.delay_jobs = false
+
+  config.active_support.test_order = :random
 end

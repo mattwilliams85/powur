@@ -35,12 +35,6 @@ describe User, type: :model do
     end
   end
 
-  describe 'contact field' do
-    it 'allows properties to be set directly on the model' do
-      create(:user, phone: '8585551212')
-    end
-  end
-
   describe '#create' do
 
     it 'destroys the invite used to create the user' do
