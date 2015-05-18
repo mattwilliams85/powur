@@ -34,13 +34,13 @@ Rails.application.configure do
 
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.5'
-  config.action_controller.asset_host = Proc.new { |source|
-    if source.ends_with?('.html') || source.ends_with?('.woff') || source.ends_with?('.ttf')
-      nil
-    else
-      ENV['ASSETS_HOST']
-    end
-  }
+  # config.action_controller.asset_host = Proc.new { |source|
+  #   if source.ends_with?('.html') || source.ends_with?('.woff') || source.ends_with?('.ttf')
+  #     nil
+  #   else
+  #     ENV['ASSETS_HOST']
+  #   end
+  # }
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
