@@ -17,15 +17,17 @@ namespace :powur do
     end
 
     def attrs_from_csv_row(row)
-      { id:         row[0].to_i,
-        first_name: row[3].strip,
-        last_name:  row[4].strip,
-        phone:      row[5] && row[5].strip,
-        email:      row[6].strip,
-        address:    row[7] && row[7].strip,
-        city:       row[8] && row[8].strip,
-        state:      row[9] && row[9].strip,
-        zip:        row[10] && row[10].strip }
+      attrs = { id:         row[0].to_i,
+                first_name: row[3].strip,
+                last_name:  row[4].strip,
+                phone:      row[5] && row[5].strip,
+                email:      row[6].strip,
+                address:    row[7] && row[7].strip,
+                city:       row[8] && row[8].strip,
+                state:      row[9] && row[9].strip,
+                zip:        row[10] && row[10].strip }
+      attrs[:sponsor_id] = row[1].to_i if row[1]
+      attrs
     end
 
     task advocates: :environment do
