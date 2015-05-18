@@ -41,7 +41,7 @@ namespace :powur do
 
         first = attrs[:first_name].split(' ').first.downcase
         last = attrs[:id].to_s
-        password = [ first, last ].join('!')
+        password = [ 'solar', first, last ].join('!')
         attrs.merge!(
           password:              password,
           password_confirmation: password,
