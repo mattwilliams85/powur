@@ -28,7 +28,7 @@ class Quote < ActiveRecord::Base
   def data_status
     return 'submitted' if submitted?
     return 'ineligible location' if !zip_code_valid?
-    ready_to_submit? ? 'ready to submit' : 'incomplete'
+    can_submit? ? 'ready to submit' : 'incomplete'
   end
 
   def order?

@@ -31,22 +31,24 @@ describe QuoteSubmission, type: :model do
     end
   end
 
-  describe 'missing data' do
+  describe 'INVALID missing data' do
+    it 'fails without an email' do
+      customer = create(:customer, email: nil)
+      quote = create(:quote, id: 211, customer: customer)
+      expect { quote.submit! }.to raise_error(RuntimeError)
+    end
+
+    it 'fails without a phone' do
+      customer = create(:customer, phone: nil)
+      quote = create(:quote, id: 212, customer: customer)
+      expect { quote.submit! }.to raise_error(RuntimeError)
+    end
+  end
+
+  describe 'OK missing data' do
     it 'submits without an electric bill' do
       quote = create(:quote, id: 210)
       assert_submit(quote, 'no_electric_bill')
-    end
-
-    it 'submits without an email' do
-      customer = create(:customer, email: nil)
-      quote = create(:quote, id: 211, customer: customer)
-      assert_submit(quote, 'no_email')
-    end
-
-    it 'submits without a phone' do
-      customer = create(:customer, phone: nil)
-      quote = create(:quote, id: 212, customer: customer)
-      assert_submit(quote, 'no_phone')
     end
 
     it 'submits without a postal code' do
@@ -65,17 +67,6 @@ describe QuoteSubmission, type: :model do
       customer = create(:customer, address: nil)
       quote = create(:quote, id: 215, customer: customer)
       assert_submit(quote, 'no_street')
-    end
-
-    it 'submits without anything but name' do
-      customer = create(:customer, 
-                        address: nil,
-                        city:    nil,
-                        zip:     nil,
-                        phone:   nil,
-                        email:   nil)
-      quote = create(:quote, id: 220, customer: customer)
-      assert_submit(quote, 'no_contact_data')
     end
   end
 end

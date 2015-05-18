@@ -36,7 +36,7 @@ describe Quote, type: :model do
 
     context 'proposal ready to submit' do
       before do
-        allow(quote).to receive(:ready_to_submit?).and_return(true)
+        allow(quote).to receive(:can_submit?).and_return(true)
         allow(quote).to receive(:zip_code_valid?).and_return(true)
         allow(quote).to receive(:submitted?).and_return(false)
       end
@@ -45,7 +45,7 @@ describe Quote, type: :model do
 
     context 'proposal has ineligible location' do
       before do
-        allow(quote).to receive(:ready_to_submit?).and_return(true)
+        allow(quote).to receive(:can_submit?).and_return(true)
         allow(quote).to receive(:zip_code_valid?).and_return(false)
         allow(quote).to receive(:submitted?).and_return(false)
       end
@@ -54,7 +54,7 @@ describe Quote, type: :model do
 
     context 'proposal incomplete' do
       before do
-        allow(quote).to receive(:ready_to_submit?).and_return(false)
+        allow(quote).to receive(:can_submit?).and_return(false)
         allow(quote).to receive(:zip_code_valid?).and_return(true)
         allow(quote).to receive(:submitted?).and_return(false)
       end

@@ -368,35 +368,6 @@ ALTER SEQUENCE distributions_id_seq OWNED BY distributions.id;
 
 
 --
--- Name: foos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE foos (
-    id integer NOT NULL,
-    data hstore DEFAULT ''::hstore
-);
-
-
---
--- Name: foos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE foos_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: foos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE foos_id_seq OWNED BY foos.id;
-
-
---
 -- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1237,13 +1208,6 @@ ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distribution
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY foos ALTER COLUMN id SET DEFAULT nextval('foos_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY lead_updates ALTER COLUMN id SET DEFAULT nextval('lead_updates_id_seq'::regclass);
 
 
@@ -1466,14 +1430,6 @@ ALTER TABLE ONLY delayed_jobs
 
 ALTER TABLE ONLY distributions
     ADD CONSTRAINT distributions_pkey PRIMARY KEY (id);
-
-
---
--- Name: foos_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY foos
-    ADD CONSTRAINT foos_pkey PRIMARY KEY (id);
 
 
 --

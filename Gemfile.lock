@@ -353,6 +353,9 @@ GEM
     mime-types (2.5)
     mini_portile (0.6.2)
     minitest (5.6.1)
+    minitest-spec-rails (5.2.0)
+      minitest (~> 5.0)
+      rails (~> 4.1)
     money (6.5.1)
       i18n (>= 0.6.4, <= 0.7.0)
     multi_json (1.11.0)
@@ -559,6 +562,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   meta_request
+  minitest-spec-rails
   money
   paperclip
   pg

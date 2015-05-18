@@ -5,19 +5,24 @@ module QuoteSubmission
     !provider_uid.nil?
   end
 
-  def ready_to_submit?
-    !submitted? && customer.phone && customer.email && customer.first_name && customer.last_name?
+  def zip_code_valid?
+    customer.zip.blank? || Zipcode.exists?(zip: (customer.zip[0,5]))
   end
 
-  def zip_code_valid?
-    if customer.zip.blank? || Zipcode.where(zip: (customer.zip[0,5])).exists?
-      return true
-    else
-      return false
-    end
+  def submit_data_valid?
+    customer.phone? && customer.email? &&
+      customer.first_name? && customer.last_name? && zip_code_valid?
+  end
+
+  def can_submit?
+    !submitted? && submit_data_valid?
   end
 
   def submit!
+    unless can_submit?
+      fail 'Lead is not ready for submission or has already been submitted'
+    end
+
     form = SolarCityForm.new(self)
     form.post
     fail(form.error) if form.error? && !form.dupe?
