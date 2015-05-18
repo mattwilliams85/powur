@@ -15,6 +15,7 @@ rake db:drop db:create db:migrate
 
 # production
 heroku pg:reset HEROKU_POSTGRESQL_AMBER_URL --confirm powur
+heroku run rake db:migrate --app powur
 ```
 
 ## Seeding Production DB (can be used for development as well)
@@ -22,7 +23,6 @@ heroku pg:reset HEROKU_POSTGRESQL_AMBER_URL --confirm powur
 ```bash
 rake powur:seed:products
 rake powur:seed:zip_codes
-rake powur:seed:notifications
 rake powur:seed:advocates
 rake powur:seed:leads
 rake powur:seed:submitted_leads
