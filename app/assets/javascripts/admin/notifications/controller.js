@@ -15,7 +15,7 @@
     };
 
     $scope.cancel = function() {
-      $location.path('/notifications');
+      $location.path('/admin/notifications');
     };
 
     $scope.formattedTime = function(timestamp) {
@@ -62,7 +62,7 @@
     $scope.execute = function (action, notification) {
       if (action.name === 'update') {
         $scope.notification = notification;
-        $location.path('/notifications/' + $scope.notification.properties.id + '/edit');
+        $location.path('/admin/notifications/' + $scope.notification.properties.id + '/edit');
       } else if (action.name === 'delete') {
         if (window.confirm('Are you sure you want to delete this notification?')) {
           CommonService.execute(action, notification).then(actionCallback(action));
@@ -73,7 +73,7 @@
     };
 
     function actionCallback(action) {
-      var destination = '/notifications',
+      var destination = '/admin/notifications',
           modalMessage = '';
       if (action.name === 'create') {
         modalMessage = ('You\'ve successfully added a new notification.');
