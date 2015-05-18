@@ -73,7 +73,7 @@ namespace :powur do
       end
 
       VCR.use_cassette("leads/#{lead.id}") do
-        lead.submit!
+        lead.submit!(true)
       end
       puts "Submitted quote: #{lead.id} : #{lead.provider_uid}"
     end

@@ -18,8 +18,9 @@ module QuoteSubmission
     !submitted? && submit_data_valid?
   end
 
-  def submit!
-    unless can_submit?
+  def submit!(force = false)
+    if !can_submit? && !force
+      binding.pry
       fail 'Lead is not ready for submission or has already been submitted'
     end
 
