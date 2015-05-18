@@ -1,4 +1,6 @@
 class ProductEnrollment < ActiveRecord::Base
+  include EwalletDSL
+
   belongs_to :product
   belongs_to :user
 
@@ -26,7 +28,8 @@ class ProductEnrollment < ActiveRecord::Base
     event :complete do
       transitions from: [:enrolled, :started], to: :completed
       after do
-        
+        # Create IPayout account if user passed required class (FIT)
+        find_or_create_ipayout_account(user) if product.is_required_class
       end
     end
 

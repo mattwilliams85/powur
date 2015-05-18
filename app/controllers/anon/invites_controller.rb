@@ -1,6 +1,5 @@
 module Anon
   class InvitesController < AnonController
-    include EwalletDSL
     before_action :fetch_invite, only: [ :create, :update, :validate ]
 
     def create
@@ -29,7 +28,6 @@ module Anon
       user = @invite.accept(input)
 
       if user.errors.empty?
-        find_or_create_ipayout_account(user)
         PromoterMailer.notify_upline(user).deliver_later
         PromoterMailer.welcome_new_user(user).deliver_later
 
