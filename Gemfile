@@ -45,6 +45,7 @@ gem 'aasm'
 gem 'smarteru', github: 'eyecuelab/smarteru'
 gem 'figaro'
 gem 'vcr'
+gem 'webmock', require: 'webmock/rspec'
 
 group :development do
   gem 'spring-commands-rspec'
@@ -63,7 +64,6 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'webmock', require: 'webmock/rspec'
   gem 'db-query-matchers'
   gem 'capybara'
   gem 'capybara-firebug'
