@@ -21,7 +21,7 @@ namespace :powur do
                 first_name: row[3].strip,
                 last_name:  row[4].strip,
                 phone:      row[5] && row[5].strip,
-                email:      row[6].strip,
+                email:      row[6].strip.downcase,
                 address:    row[7] && row[7].strip,
                 city:       row[8] && row[8].strip,
                 state:      row[9] && row[9].strip,
@@ -30,6 +30,8 @@ namespace :powur do
       attrs
     end
 
+
+    ADMIN_IDS = [ 42 ]
     task advocates: :environment do
       User.update_all(sponsor_id: nil)
       User.destroy_all
@@ -58,7 +60,7 @@ namespace :powur do
         move_user(user, row[2].to_i) if row[2] && row[2] != row[1]
       end
 
-      User.where(id: 42).update_all(roles: [ 'admin' ])
+      User.where(id: ADMIN_IDS).update_all(roles: [ 'admin' ])
     end
 
     task nmi: :environment do
