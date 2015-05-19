@@ -2,8 +2,11 @@
   'use strict';
 
   var references = [
-      'widgets.powurLeftMenu'
-  // include references used by widgets here
+    'widgets.fileS3Uploader',
+    'widgets.powurFoundation',
+    'widgets.powurLeftMenu',
+    'widgets.powurPagePiler',
+    'widgets.powurShare'
   ];
 
   angular

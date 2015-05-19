@@ -5,7 +5,7 @@
   // TODO: refactor this directive to get rid of $rootScope and $location
   //
 
-  angular.module('powurPagePiler', []).directive('powurPagePiler', ['$rootScope', '$timeout', '$location', function($rootScope, $timeout, $location) {
+  angular.module('widgets.powurPagePiler', []).directive('powurPagePiler', ['$rootScope', '$timeout', '$location', function($rootScope, $timeout, $location) {
     return {
       restrict: 'A',
       scope: {

@@ -22,9 +22,10 @@
  * App js resources
  */
 //= require legacy
-//= require ./admin/app.admin
-//= require ./admin/app.admin.routes
+//= require admin/app.admin
+//= require admin/app.admin.routes
 //= require app.common.service
+//= require admin/app.admin.widgets
 //= require_tree ./admin/bonuses
 //= require_tree ./admin/bonus-plans
 //= require_tree ./admin/landing
@@ -39,5 +40,8 @@
 //= require_tree ./admin/users
 //
 //= require_tree ./profile
-//= require_tree ./file-s3-uploader
-//= require_tree ./powur-foundation
+
+//= require widgets/file-s3-uploader.directive
+//= require widgets/file-s3-uploader.controller
+//= require widgets/file-s3-uploader.service
+//= require widgets/powur-foundation.directive

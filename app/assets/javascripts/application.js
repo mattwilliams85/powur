@@ -36,6 +36,8 @@
 //= require app.common.service
 //= require blocks/blocks.filters
 //= require widgets/app.widgets
+//= require_tree ./widgets
+//= require_tree ./filters
 //= require_tree ./dashboard
 //= require_tree ./earnings
 //= require_tree ./geo
@@ -47,10 +49,3 @@
 //= require_tree ./university
 //= require_tree ./user-static-content
 //= require_tree ./users
-//
-//= require_tree ./file-s3-uploader
-//= require_tree ./powur-foundation
-//= require_tree ./widgets
-//= require_tree ./powur-page-piler
-//= require_tree ./powur-share
-//= require_tree ./filters

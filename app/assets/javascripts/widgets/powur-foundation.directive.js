@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  angular.module('powurFoundation', [])
+  angular.module('widgets.powurFoundation', [])
   .directive('powurFoundation', function() {
     return {
       restrict: 'A',

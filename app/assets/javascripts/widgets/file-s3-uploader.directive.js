@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  angular.module('fileS3Uploader', [])
+  angular.module('widgets.fileS3Uploader', [])
   .directive('fileS3Uploader', function() {
     return {
       restrict: 'AE',

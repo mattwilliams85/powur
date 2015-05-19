@@ -128,10 +128,6 @@
     'duScroll',
     'blocks.filters',
     'app.widgets',
-    'fileS3Uploader',
-    'powurFoundation',
-    'powurPagePiler',
-    'powurShare',
     'templates'
   ]).run(init);
 

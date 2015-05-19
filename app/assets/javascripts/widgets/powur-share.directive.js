@@ -1,14 +1,14 @@
 ;(function() {
   'use strict';
 
-  angular.module('powurShare', []).directive('powurShare', ['$timeout', function($timeout) {
+  angular.module('widgets.powurShare', []).directive('powurShare', ['$timeout', function($timeout) {
     return {
       restrict: 'E',
       scope: {
         text: '@',
         url: '@'
       },
-      templateUrl: 'powur-share/templates/index.html',
+      templateUrl: 'widgets/powur-share.html',
       link: function (scope, element, attrs) {
 
         function removeTwitter() {
