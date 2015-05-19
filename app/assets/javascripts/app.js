@@ -128,7 +128,7 @@
     'duScroll',
     'fileS3Uploader',
     'powurFoundation',
-    'powurLeftMenu',
+    'app.widgets',
     'powurPagePiler',
     'powurShare',
     'templates'

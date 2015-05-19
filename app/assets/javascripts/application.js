@@ -48,7 +48,7 @@
 //
 //= require_tree ./file-s3-uploader
 //= require_tree ./powur-foundation
-//= require_tree ./powur-left-menu
+//= require_tree ./widgets
 //= require_tree ./powur-page-piler
 //= require_tree ./powur-share
 //= require_tree ./filters
