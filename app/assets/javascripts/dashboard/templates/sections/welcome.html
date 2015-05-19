@@ -57,7 +57,7 @@
         <div class="notifications">
           <div class="notification" ng-repeat="notification in news">
             <p ng-bind-html="notification.properties.content" class="text">{{notification.properties.content}}</p>
-            <span class="date">{{dateToLocalDate(notification.properties.created_at)}}</span>
+            <span class="date">{{ notification.properties.created_at | dateToLocalDate }}</span>
           </div>
           <a class="load-more" ng-if="moreNews" ng-click="loadMoreNews()">Load More</a>
         </div>

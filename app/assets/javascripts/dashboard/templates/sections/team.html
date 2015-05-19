@@ -303,7 +303,7 @@
                 <span>{{invite.properties.first_name}} {{invite.properties.last_name}}</span>
               </div>
               <div class="status-text">
-                <span>Expires {{dateToLocalDate(invite.properties.expires)}} {{timeToLocalTime(invite.properties.expires)}}</span>
+                <span>Expires {{ invite.properties.expires | dateToLocalDate }} {{ invite.properties.expires | timeToLocalTime }}</span>
               </div>
             </div>
 

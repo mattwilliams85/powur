@@ -79,7 +79,7 @@
                 <span>{{proposal.properties.customer}}</span>
               </div>
               <div class="date-text">
-                <span>Created {{dateToLocalDate(proposal.properties.created_at)}}</span>
+                <span>Created {{ proposal.properties.created_at | dateToLocalDate }}</span>
               </div>
             </div>
           </a>
@@ -126,7 +126,7 @@
           <p ng-show="mode === 'submitted'">This proposal has been submitted to SolarCity.</p>
           <!-- Submitted Proposal Buttons -->
           <button class="button expand right" ng-show="mode === 'submitted'" disabled><i class="fa fa-check"></i> Submitted</button>
-          <p ng-show="mode === 'submitted'">This proposal was submitted to SolarCity at {{timeToLocalTime(currentProposal.submitted_at)}} on {{dateToLocalDate(currentProposal.submitted_at)}}.</p>
+          <p ng-show="mode === 'submitted'">This proposal was submitted to SolarCity at {{ currentProposal.submitted_at | timeToLocalTime }} on {{ currentProposal.submitted_at | dateToLocalDate }}.</p>
           <button class="button secondary expand" ng-show="mode === 'submitted'" ng-click="customerSection.resend()">Resend Email</button>
         </div>
 
