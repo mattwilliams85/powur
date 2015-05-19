@@ -3,7 +3,7 @@ module Anon
     def create
       require_input :email, :password
 
-      @user = User.authenticate(params[:email].downcase, params[:password])
+      @user = User.authenticate(params[:email], params[:password])
       
       error!(:credentials, :email) unless @user
 
