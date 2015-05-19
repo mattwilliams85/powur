@@ -34,6 +34,7 @@
 //= require app
 //= require app.routes
 //= require app.common.service
+//= require blocks/app.filters
 //= require_tree ./dashboard
 //= require_tree ./earnings
 //= require_tree ./geo

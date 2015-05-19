@@ -126,9 +126,10 @@
     'ngResource',
     'uiSlider',
     'duScroll',
+    'blocks.filters',
+    'app.widgets',
     'fileS3Uploader',
     'powurFoundation',
-    'app.widgets',
     'powurPagePiler',
     'powurShare',
     'templates'
