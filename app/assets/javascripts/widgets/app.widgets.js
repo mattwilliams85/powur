@@ -2,8 +2,7 @@
   'use strict';
 
   var references = [
-      'powurLeftMenu'
-
+      'widgets.powurLeftMenu'
   // include references used by widgets here
   ];
 
