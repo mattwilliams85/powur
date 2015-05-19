@@ -115,8 +115,8 @@
   angular.module('powurApp', [
     'ngRoute',
     'ngResource',
-    'fileS3Uploader',
-    'powurFoundation',
+    'angularS3FileUpload',
+    'app.admin.widgets',
     'templates'
   ]).run(init);
 })();

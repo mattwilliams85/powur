@@ -10,7 +10,7 @@
           <img ng-src="{{userProfile.avatar.preview || legacyImagePaths.defaultAvatar}}" class="user-image" />
           <div ng-if="!userProfile.require_enrollment" class="ribbon"></div>
           <input ng-model="userOriginalImage" type="hidden" ng-required="true" />
-          <file-s3-uploader data="userOriginalImage" mode="user_image" show-progress="1" auto-upload="1" />
+          <ng-s3-file-upload data="userOriginalImage" config="/u/uploader_config.json?mode=user_image" show-progress="1" auto-upload="1"></ng-s3-file-upload>
         </div>
       </section>
     </div>

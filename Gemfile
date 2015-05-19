@@ -15,9 +15,6 @@ gem 'angular-rails-templates'
 
 gem 'aws-sdk', '< 2.0'
 gem 'paperclip'
-gem 'carrierwave'
-gem 'carrierwave_direct'
-gem 's3_direct_upload'
 
 gem 'postgres_ext', github: 'dockyard/postgres_ext'
 gem 'composite_primary_keys', github: 'composite-primary-keys/composite_primary_keys', branch: 'ar_4.2.x'

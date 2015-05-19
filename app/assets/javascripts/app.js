@@ -117,6 +117,7 @@
     'ngResource',
     'uiSlider',
     'duScroll',
+    'angularS3FileUpload',
     'blocks.filters',
     'app.widgets',
     'templates'

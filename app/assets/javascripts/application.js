@@ -11,6 +11,7 @@
 //= require angular-resource/angular-resource
 //= require angular-scroll/angular-scroll
 //= require angular-ui-slider/src/slider
+//= require angular-s3-file-upload/angular-s3-file-upload
 //= require owlcarousel/owl-carousel/owl.carousel
 //= require velocity/velocity
 //= require velocity/velocity.ui.min

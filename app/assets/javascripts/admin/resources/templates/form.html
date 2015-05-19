@@ -17,7 +17,7 @@
         <small>Files must be .mp4 format</small>
         <span ng-show="errorMessage('file_original_path')" class="radius alert label">{{errorMessage('file_original_path')}}</span>
         <input ng-model="resource.file_original_path" name="file_original_path" id="resource_file_original_path" type="text" ng-required="true" />
-        <file-s3-uploader data="resource.file_original_path" mode="resource_attachment" show-progress="1" />
+        <ng-s3-file-upload data="resource.file_original_path" config="/u/uploader_config.json?mode=resource_attachment" show-progress="1" auto-upload="1"></ng-s3-file-upload>
       </div>
     </div>
     <div class="row" ng-if="resourceType === 'video'">
@@ -32,7 +32,7 @@
         <label>Choose a PDF File</label>
         <span ng-show="errorMessage('file_original_path')" class="radius alert label">{{errorMessage('file_original_path')}}</span>
         <input ng-model="resource.file_original_path" name="file_original_path" id="resource_file_original_path" type="text" ng-required="true" />
-        <file-s3-uploader data="resource.file_original_path" mode="resource_attachment" show-progress="1" />
+        <ng-s3-file-upload data="resource.file_original_path" config="/u/uploader_config.json?mode=resource_attachment" show-progress="1" auto-upload="1"></ng-s3-file-upload>
       </div>
     </div>
     <!-- Thumbnail File Upload Field -->
@@ -40,7 +40,7 @@
       <div class="large-12 columns">
         <label>Choose a thumbnail</label><br />
         <input ng-model="resource.image_original_path" name="image_original_path" id="resource_image_original_path" type="text" />
-        <file-s3-uploader data="resource.image_original_path" mode="resource_image" show-progress="1" />
+        <ng-s3-file-upload data="resource.image_original_path" config="/u/uploader_config.json?mode=resource_image" show-progress="1" auto-upload="1"></ng-s3-file-upload>
       </div>
     </div>
     <!-- Description Text Area -->

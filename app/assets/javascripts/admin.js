@@ -10,6 +10,7 @@
 //= require angular-route/angular-route
 //= require angular-resource/angular-resource
 //= require angular-scroll/angular-scroll
+//= require angular-s3-file-upload/angular-s3-file-upload
 //= require Autolinker.js/dist/Autolinker.min
 
 /*
@@ -41,7 +42,4 @@
 //
 //= require_tree ./profile
 
-//= require widgets/file-s3-uploader.directive
-//= require widgets/file-s3-uploader.controller
-//= require widgets/file-s3-uploader.service
 //= require widgets/powur-foundation.directive
