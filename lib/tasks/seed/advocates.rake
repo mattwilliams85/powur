@@ -27,11 +27,10 @@ namespace :powur do
                 state:      row[9] && row[9].strip,
                 zip:        row[10] && row[10].strip }
       attrs[:sponsor_id] = row[1].to_i if row[1]
+      attrs[:roles] = ['admin'] if row[11] == 'admin'
       attrs
     end
 
-
-    ADMIN_IDS = [ 42 ]
     task advocates: :environment do
       User.update_all(sponsor_id: nil)
       User.destroy_all
@@ -60,7 +59,6 @@ namespace :powur do
         move_user(user, row[2].to_i) if row[2] && row[2] != row[1]
       end
 
-      User.where(id: ADMIN_IDS).update_all(roles: [ 'admin' ])
     end
 
     task nmi: :environment do
