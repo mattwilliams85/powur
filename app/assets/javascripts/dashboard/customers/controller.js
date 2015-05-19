@@ -166,6 +166,10 @@
               $scope.proposals = items.entities;
               $timeout(function() {
                 initCarousel('.proposals');
+                $timeout(function() {
+                  $('.proposals').data('owlCarousel').goTo(0);
+                  $scope.customerSection.showProposal(0);
+                });
               });
             });
           });
