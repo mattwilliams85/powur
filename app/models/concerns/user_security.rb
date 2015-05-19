@@ -5,7 +5,11 @@ module UserSecurity
 
   module ClassMethods
     def authenticate(email, password)
-      user = find_by(email: email)
+      user = if SystemSettings.case_sensitive_auth
+        find_by(email: email)
+      else
+        where('lower(email) = ?', email.downcase).first
+      end
       user && user.password_match?(password) ? user : nil
     end
 
