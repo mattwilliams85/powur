@@ -29,7 +29,22 @@ rake powur:seed:submitted_leads
 rake powur:import:lead_updates DATA_API_ENV=production
 ```
 
+## submitted leads
+
 the submitted_leads task replays the submission requests via VCR cassettes.
+
+to run it on production it needs to be run from the local terminal (right now because of the need for VCR gem which is not in prod gemset)
+
+in my ~/.profile i have
+```
+export POWUR_PROD_URL="postgres://u6ec4mothqlbie:pdau1r43s56hjp5rh1teqohj539@ec2-184-73-226-129.compute-1.amazonaws.com:5432/d4p1bmcltevo0o"
+```
+then i can run:
+```
+DATABASE_URL=$POWUR_PROD_URL rake powur:seed:submitted_leads DATA_API_ENV=production
+```
+
+note: this is not required and should not be run after data is "locked" in prod and we are no longer doing a full reset.
 
 
 ## Below Deprecated For Now

@@ -1,8 +1,10 @@
 FactoryGirl.define do
-  factory :lead_udpate do
-    quote
+  factory :lead_update do
+    association :quote, factory: :complete_quote
     provider_uid { Faker::Code.isbn }
-    status 'existing_active'
-    opportunity_status 'closed_won'
+    status 'working_lead'
+    data do
+      { 'LeadStatus' => 'Called 3x', "Days Elapsed" => '3' }
+    end
   end
 end

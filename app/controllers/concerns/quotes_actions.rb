@@ -7,6 +7,9 @@ module QuotesActions
     page
     sort created:  { created_at: :desc },
          customer: 'customers.last_name asc, customers.first_name asc'
+    filter :status,
+           options: Quote.statuses.keys,
+           required: false
   end
 
   def index
