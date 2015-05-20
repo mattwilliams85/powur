@@ -81,7 +81,7 @@
 
     if (actions && actions.length) {
       angular.forEach(actions, function(value) {
-        data.actions[value['name']] = decorateAction(value);
+        data.actions[value.name] = decorateAction(value);
       });
     }
 
@@ -97,7 +97,7 @@
     var $http = injector.get('$http');
 
     return $http.get(this.href);
-  }
+  };
 
   function decorateEntity(entity) {
     return entity.href ? angular.extend(entity, EntityRef.prototype) : decorate(entity);
@@ -117,7 +117,7 @@
   }
 
   function decorateEntityList(data) {
-    for (var i = 0, j = data.entities.length; i != j; i++) {
+    for (var i = 0, j = data.entities.length; i !== j; i++) {
       data.entities[i] = decorateEntity(data.entities[i]);
     }
 
@@ -127,7 +127,7 @@
   function decorate(data) {
     data.hasClass = function(name) {
       return this['class'].indexOf(name) !== -1;
-    }
+    };
     decorateActions(data);
     return data.hasClass('list') ? decorateEntityList(data) : decorateEntities(data);
   }
@@ -151,6 +151,6 @@
 
   angular
     .module('blocks.siren', [])
-    .constant('siren', siren)
+    .constant('siren', siren);
 
 })();
