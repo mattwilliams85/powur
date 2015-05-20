@@ -26,12 +26,16 @@ module Api
 
       private
 
-      def validate_prefix(prefix)
-        return if prefix == QuoteSubmission.id_prefix
-
-        api_error!(:invalid_request,
-                   :environment_mismatch,
-                   env: prefix.split('.').first)
+      def fetch_quote(external_id)
+        quote = Quote.find_by_external_id(external_id)
+        unless quote
+          api_error!(:invalid_request,
+                     :environment_mismatch,
+                     env: external_id.split(':').first.split('.'))
+        end
+        return quote
+      rescue ActiveRecord::RecordNotFound
+        invalid_quote_id_error!
       end
 
       def date_from_string(value)
@@ -45,14 +49,13 @@ module Api
           api_error!(:invalid_request, :missing_params, params: missing.join(','))
         end
 
-        prefix, quote_id = record[:uid].split(':')
-        validate_prefix(prefix)
+        quote = fetch_quote(record[:uid])
 
         key_dates = record[:keyDates]
         order_status = (record[:order] || {})[:status]
 
         opp = record[:opportunity] || {}
-        { quote_id:           quote_id.to_i,
+        { quote_id:           quote.id,
           provider_uid:       record[:providerUid],
           status:             record[:status],
           contact:            record[:contact],
@@ -66,6 +69,10 @@ module Api
         LeadUpdate.create!(attrs)
 
       rescue ActiveRecord::InvalidForeignKey => e
+        invalid_quote_id_error!
+      end
+
+      def invalid_quote_id_error!
         api_error!(:invalid_request, :invalid_params, params: 'uid')
       end
     end

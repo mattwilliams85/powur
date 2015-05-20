@@ -13,7 +13,7 @@ class QuotesJson < JsonDecorator
 
   def list_item_properties(quote = @item)
     json.properties do
-      json.call(quote, :id, :data_status, :submitted_at, :provider_uid, :created_at)
+      json.call(quote, :id, :status, :data_status, :submitted_at, :provider_uid, :created_at)
       json.user quote.user.full_name
       json.customer quote.customer.full_name
       json.product quote.product.name

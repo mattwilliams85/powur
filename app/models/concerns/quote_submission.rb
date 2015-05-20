@@ -1,10 +1,6 @@
 module QuoteSubmission
   extend ActiveSupport::Concern
 
-  def submitted?
-    !provider_uid.nil?
-  end
-
   def zip_code_valid?
     customer.zip.blank? || Zipcode.exists?(zip: (customer.zip[0,5]))
   end
@@ -26,8 +22,9 @@ module QuoteSubmission
     form = SolarCityForm.new(self)
     form.post
     fail(form.error) if form.error? && !form.dupe?
-    update(provider_uid: form.provider_uid)
-    touch(:submitted_at)
+    update(
+      provider_uid: form.provider_uid,
+      submitted_at: DateTime.parse(form.response.headers[:date]))
   end
 
   class << self

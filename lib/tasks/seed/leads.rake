@@ -35,6 +35,7 @@ namespace :powur do
           customer = Customer.create!(attrs)
           puts "Created customer #{customer.id} : #{customer.full_name}"
         end
+
         attrs = {
           id:         row[11].to_i,
           product_id: 1,
@@ -43,10 +44,19 @@ namespace :powur do
           created_at: DateTime.strptime(row[0], '%m/%d/%Y %H:%M:%S') }
         attrs[:data] = { average_bill: row[10].strip } if row[10].presence
 
+        if row[12].presence
+          attrs[:provider_uid] = row[12].presence
+          attrs[:submitted_at] = DateTime.parse(row[13]) if row[13]
+        end
+
         quote = Quote.find_by(id: attrs[:id])
         if quote
-          quote.update_attributes!(attrs) unless quote.submitted?
-          puts "Updated lead #{quote.id}"
+          if quote.submitted?
+            puts "Skipping already submitted lead #{quote.id}"
+          else
+            quote.update_attributes!(attrs)
+            puts "Updated lead #{quote.id}"
+          end
         else
           quote = Quote.create!(attrs)
           puts "Created lead #{quote.id}"

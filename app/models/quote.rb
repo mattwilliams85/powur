@@ -3,18 +3,22 @@ class Quote < ActiveRecord::Base
   belongs_to :product
   belongs_to :customer
   belongs_to :user
+  has_many :lead_updates
   has_one :order
+
+  enum status: [ 
+    :incomplete, :ready_to_submit, :ineligible_location, :submitted ]
 
   add_search :user, :customer, [ :user, :customer ]
 
-  scope :not_submitted, ->() { where('submitted_at IS NULL') }
-  scope :submitted, ->() { where('submitted_at IS NOT NULL') }
+  scope :not_submitted, ->() { where.not(status: statuses[:submitted]) }
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
   validate :product_data
 
   before_validation do
     self.url_slug ||= SecureRandom.hex(8)
+    self.status = calculate_status
   end
 
   def can_email?
@@ -35,7 +39,21 @@ class Quote < ActiveRecord::Base
     !order.nil?
   end
 
+  def submitted?
+    !provider_uid.nil?
+  end
+
+  def last_update
+    @last_update ||= lead_updates.order(updated_at: :desc).first
+  end
+
   private
+
+  def calculate_status
+    return :submitted if submitted?
+    return :ineligible_location if !zip_code_valid?
+    can_submit? ? :ready_to_submit : :incomplete
+  end
 
   def product_data
     invalid_keys = data.keys.select do |key|
@@ -56,6 +74,12 @@ class Quote < ActiveRecord::Base
     utility average_bill roof_type roof_age credit_score_qualified square_feet)
 
   class << self
+    def find_by_external_id(external_id)
+      prefix, quote_id = external_id.split(':')
+      return nil unless prefix == QuoteSubmission.id_prefix
+      Quote.find(quote_id.to_i)
+    end
+
     def to_csv(query) # rubocop:disable Metrics/AbcSize
       query = query.includes(:user, :customer).references(:user, :customer)
       quote_fields = Product.default.quote_fields

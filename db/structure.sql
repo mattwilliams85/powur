@@ -399,7 +399,9 @@ CREATE TABLE lead_updates (
     consultation timestamp without time zone,
     contract timestamp without time zone,
     installation timestamp without time zone,
-    created_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    data hstore DEFAULT ''::hstore,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -768,7 +770,8 @@ CREATE TABLE quotes (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     submitted_at timestamp without time zone,
-    provider_uid character varying
+    provider_uid character varying,
+    status integer DEFAULT 0 NOT NULL
 );
 
 
@@ -2298,4 +2301,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150504180127');
 INSERT INTO schema_migrations (version) VALUES ('20150504234010');
 
 INSERT INTO schema_migrations (version) VALUES ('20150514171532');
+
+INSERT INTO schema_migrations (version) VALUES ('20150519215441');
 

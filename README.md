@@ -26,6 +26,7 @@ rake powur:seed:zip_codes
 rake powur:seed:advocates
 rake powur:seed:leads
 rake powur:seed:submitted_leads
+rake powur:import:lead_updates DATA_API_ENV=production
 ```
 
 the submitted_leads task replays the submission requests via VCR cassettes.
