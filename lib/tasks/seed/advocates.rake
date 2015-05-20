@@ -27,7 +27,7 @@ namespace :powur do
                 state:      row[9] && row[9].strip,
                 zip:        row[10] && row[10].strip }
       attrs[:sponsor_id] = row[1].to_i if row[1]
-      attrs[:roles] = ['admin'] if row[11] == 'admin'
+      attrs[:roles] = [ 'admin' ] if row[11] == 'admin'
       attrs
     end
 
