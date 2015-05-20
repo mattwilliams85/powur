@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function LibraryCtrl($scope, $location, Resource, UserProfile) {
+  function LibraryCtrl($scope, $location, CommonService, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
@@ -31,7 +31,9 @@
     };
 
     $scope.resourceTypeChange = function() {
-      return Resource.list({type: $scope.resourceType.type }).then(function(items) {
+      return CommonService.execute({
+        href: '/u/resources.json?type=' + $scope.resourceType.type
+      }).then(function(items) {
         $scope.items = items.entities;
         $scope.pages = items.properties.paging;
       });
@@ -53,18 +55,22 @@
 
     $scope.pagination = function(direction) {
       var page = $scope.itemsPaging.current_page + direction;
-      return Resource.list({page: page, search: $scope.searchText}).then(function(items) {
+      return CommonService.execute({
+        href: '/u/resources.json?page=' + page + '&search=' + $scope.searchText
+      }).then(function(items) {
         $scope.items = $scope.items.concat(items.entities);
         $scope.pages = items.properties.paging;
       });
     };
 
-    return Resource.list().then(function(items) {
+    return CommonService.execute({
+      href: '/u/resources.json'
+    }).then(function(items) {
       $scope.items = items.entities;
       $scope.pages = items.properties.paging;
     });
   }
 
-  LibraryCtrl.$inject = ['$scope', '$location', 'Resource', 'UserProfile'];
+  LibraryCtrl.$inject = ['$scope', '$location', 'CommonService', 'UserProfile'];
   angular.module('powurApp').controller('LibraryCtrl', LibraryCtrl);
 })();

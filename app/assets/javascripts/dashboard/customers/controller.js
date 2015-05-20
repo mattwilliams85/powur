@@ -1,13 +1,18 @@
 ;(function() {
   'use strict';
 
-  function DashboardCustomersCtrl($scope, $location, $timeout, $route, $anchorScroll, Geo, Proposal, CommonService) {
+  function DashboardCustomersCtrl($scope, $location, $timeout, $route, $anchorScroll, Geo, CommonService) {
     $scope.redirectUnlessSignedIn();
     $scope.states = Geo.states();
 
     $scope.legacyImagePaths = legacyImagePaths;
 
     // Utility Functions:
+    function getQuotes(cb) {
+      CommonService.execute({
+        href: '/u/quotes.json'
+      }).then(cb);
+    }
 
     // Get an action with a given name
     $scope.getAction = function(actions, name) {
@@ -101,7 +106,9 @@
         // $scope.currentProposal = {};
         $scope.currentProposalIndex = proposalIndex;
 
-        Proposal.get(proposalId).then(function(item){
+        CommonService.execute({
+          href: '/u/quotes/' + proposalId + '.json'
+        }).then(function(item){
           $scope.animateDrilldown();
           if (item.properties.data_status === 'submitted') {
             $timeout( function(){
@@ -135,14 +142,14 @@
         $scope.proposal = {};
         $scope.currentProposal = {};
 
-        Proposal.list().then(function(items){
+        getQuotes(function(items){
           $scope.animateDrilldown();
-          
+
           $timeout( function(){
             $scope.mode = 'new';
             $scope.formAction = $scope.getAction(items.actions, 'create');
             $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
-            
+
           }, 200);
         });
       }
@@ -156,10 +163,9 @@
     };
 
     function actionCallback(action) {
-      return function(data) {
-        if (action.name === 'create' ||
-            action.name === 'delete') {
-          Proposal.list().then(function(items) {
+      return function() {
+        if (action.name === 'create' || action.name === 'delete') {
+          getQuotes(function(items) {
             $scope.closeForm();
             destroyCarousel('.proposals');
             $timeout(function() {
@@ -174,7 +180,7 @@
             });
           });
         } else if (action.name === 'update') {
-          Proposal.list().then(function(items) {
+          getQuotes(function(items) {
             $scope.updatingProposal = true;
             $scope.closeForm();
             destroyCarousel('.proposals');
@@ -260,8 +266,9 @@
     $scope.customerSection.proposalSearch = '';
     $scope.customerSection.search = function() {
       destroyCarousel('.proposals');
-      var searchQuery = {search: $scope.customerSection.proposalSearch};
-      Proposal.list(searchQuery).then(function(items) {
+      CommonService.execute({
+        href: '/u/quotes.json?search=' + $scope.customerSection.proposalSearch
+      }).then(function(items) {
         $scope.proposals = items.entities;
         $timeout(function() {
           initCarousel('.proposals');
@@ -273,8 +280,9 @@
     $scope.customerSection.proposalSort = 'created';
     $scope.customerSection.sort = function() {
       destroyCarousel('.proposals');
-      var sortQuery = {sort: $scope.customerSection.proposalSort};
-      Proposal.list(sortQuery).then(function(items) {
+      CommonService.execute({
+        href: '/u/quotes.json?sort=' + $scope.customerSection.proposalSort
+      }).then(function(items) {
         $scope.proposals = items.entities;
         $timeout(function() {
           initCarousel('.proposals');
@@ -282,15 +290,16 @@
       });
     };
 
-    return Proposal.list().then(function(items) {
+    return getQuotes(function(items) {
       $scope.proposals = items.entities;
       $timeout(function(){
         initCarousel('.proposals');
       });
     });
-
   }
 
-  DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', '$route', '$anchorScroll', 'Geo', 'Proposal', 'CommonService'];
-  angular.module('powurApp').controller('DashboardCustomersCtrl', DashboardCustomersCtrl);
+  DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', '$route', '$anchorScroll', 'Geo', 'CommonService'];
+  angular
+    .module('powurApp')
+    .controller('DashboardCustomersCtrl', DashboardCustomersCtrl);
 })();

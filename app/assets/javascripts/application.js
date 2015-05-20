@@ -46,7 +46,6 @@
 //= require_tree ./library
 //= require_tree ./profile
 //= require_tree ./promo
-//= require_tree ./proposals
 //= require_tree ./university
 //= require_tree ./user-static-content
 //= require_tree ./users
