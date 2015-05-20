@@ -11,7 +11,7 @@ https://devcenter.heroku.com/articles/heroku-postgresql#local-setup
 
 ```bash
 # locally
-rake db:drop db:create db:migrate 
+rake db:drop db:create db:migrate
 
 # production
 heroku pg:reset HEROKU_POSTGRESQL_AMBER_URL --confirm powur

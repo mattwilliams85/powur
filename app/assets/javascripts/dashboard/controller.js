@@ -49,4 +49,5 @@
 
   DashboardCtrl.$inject = ['$scope', '$location', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('DashboardCtrl', DashboardCtrl);
+
 })();

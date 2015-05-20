@@ -10,10 +10,7 @@
     "npm": "2.7.x"
   },
   "dependencies": {
-    "bower": "1.3.x"
-  },
-  "scripts": {
-    "postinstall": "bash prepare_bower.sh"
+    "bower": "latest"
   },
   "repository": {
     "type": "git",
