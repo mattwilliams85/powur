@@ -10,5 +10,10 @@ FactoryGirl.define do
         { 'average_bill' => 230 }
       end
     end
+
+    factory :submitted_quote do
+      provider_uid { Faker::Code.isbn }
+      submitted_at { DateTime.current }
+    end
   end
 end

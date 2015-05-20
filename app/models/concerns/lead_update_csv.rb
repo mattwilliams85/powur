@@ -19,6 +19,7 @@ module LeadUpdateCSV
       attrs_from_csv_row(row_to_hash(row, headers))
     end
     records = create!(record_attrs)
+    puts "Created #{records.size} lead update records"
   end
 
   private

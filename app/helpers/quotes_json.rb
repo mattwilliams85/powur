@@ -34,7 +34,8 @@ class QuotesJson < JsonDecorator
   end
 
   def user_entities(quote = @item)
-    entities(order_entity('auth', quote)) if quote.order?
+    entities(lead_update_entity(quote)) if quote.last_update
+    # entities(order_entity('auth', quote)) if quote.order?
   end
 
   def admin_entities(quote = @item)
@@ -143,6 +144,11 @@ class QuotesJson < JsonDecorator
   def user_entity(context, quote)
     entity("#{context}/users/item", 'quote-user',
            user: quote.user)
+  end
+
+  def lead_update_entity(quote)
+    entity('auth/lead_updates/item', 'quote-update',
+           lead_update: quote.last_update)
   end
 
   def order_entity(context, quote)

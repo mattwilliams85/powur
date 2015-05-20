@@ -12,6 +12,7 @@ class Quote < ActiveRecord::Base
   add_search :user, :customer, [ :user, :customer ]
 
   scope :not_submitted, ->() { where.not(status: statuses[:submitted]) }
+  scope :status, ->(value) { where(status: statuses[value]) }
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
   validate :product_data

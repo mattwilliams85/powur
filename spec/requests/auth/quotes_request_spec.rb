@@ -23,6 +23,10 @@ describe '/u/quotes', type: :request do
         result = create_action['fields'].find { |f| f['name'] == field.name }
         expect(field).to be
       end
+
+      q = create(:submitted_quote, user: @user, product: @product)
+      get user_quotes_path, status: :submitted, format: :json
+      expect_entities_count(1)
     end
 
   end
@@ -96,12 +100,14 @@ describe '/u/quotes', type: :request do
 
     it 'returns a quote detail' do
       quote = create(
-        :quote,
+        :complete_quote,
         product: @product,
         user:    @user,
         data:    data)
+      lead_update = create(:lead_update, quote: quote)
 
       get user_quote_path(quote), format: :json
+
       expect_classes 'quote'
       expect(json_body['properties'].keys).to include(*@product.quote_fields.map(&:name))
     end
