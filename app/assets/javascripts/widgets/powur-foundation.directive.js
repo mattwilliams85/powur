@@ -1,15 +1,19 @@
 ;(function() {
   'use strict';
 
-  angular.module('widgets.powurFoundation', [])
-  .directive('powurFoundation', function() {
+  function powurFoundation() {
+    function link() {
+      $(document).foundation();
+    }
+
     return {
       restrict: 'A',
-      link: function(scope, element, attrs) {
-        // $compile($(document).foundation())(scope);
-        $(document).foundation();
-      }
+      link: link
     };
-  });
+  }
+
+  angular
+    .module('widgets.powurFoundation', [])
+    .directive('powurFoundation', powurFoundation);
 
 })();
