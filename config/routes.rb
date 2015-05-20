@@ -112,6 +112,8 @@ Rails.application.routes.draw do
         post :resend
         post :submit
       end
+
+      # resource :lead_update, only: [ :show ]
     end
 
     resources :earnings, only:       [ :index, :show, :summary, :detail, :bonus, :bonus_detail ],
