@@ -1,7 +1,6 @@
 class CompPlanV3Changes < ActiveRecord::Migration
   def change
     drop_table :bonus_levels, {}
-    drop_table :bonus_sales_requirements, {}
 
     create_table :bonus_amounts do |t|
       t.references :bonus, null: false, index: true

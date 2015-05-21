@@ -21,17 +21,6 @@ class CreateBonuses < ActiveRecord::Migration
       t.foreign_key :bonus_plans
     end
 
-    create_table :bonus_sales_requirements, id: false do |t|
-      t.references  :bonus,     null: false
-      t.references  :product,   null: false
-      t.integer     :quantity,  null: false, default: 1
-      t.boolean     :source,    null: false, default: true
-
-      t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
-      t.foreign_key :products, column: :product_id, primary_key: :id
-    end
-    execute 'alter table bonus_sales_requirements add primary key (bonus_id, product_id);'
-
     create_table :bonus_levels do |t|
       t.references :bonus, null: false, index: true
       t.integer :level, null: false, default: 0
