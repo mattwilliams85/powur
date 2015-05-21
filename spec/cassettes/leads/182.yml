@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=production.powur.com%3A182&Lead_Generator__c=70&FirstName=Vixie%20&LastName=Javier&Street=134%20Irene%20lane&City=Mount%20Shasta&PostalCode=96067&Phone=6502191425&Email=Vixielife%40gmail.com&Monthly_Electric_Bill__c=100
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '234'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Thu, 21 May 2015 21:45:27 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@6f770b1e"
+      Server:
+      - nginx
+      Content-Length:
+      - '124'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q1400001PqKSHEA3","Message":"Lead successfully
+        created","YourId":"production.powur.com:182"}'
+    http_version: 
+  recorded_at: Thu, 21 May 2015 21:45:27 GMT
+recorded_with: VCR 2.9.3

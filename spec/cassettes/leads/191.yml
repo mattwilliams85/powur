@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=production.powur.com%3A191&Lead_Generator__c=56&FirstName=R.%20Pepper&LastName=Hughes&Street=855%20Paullus%20Dr.&City=Hollister&PostalCode=95023&Phone=408-500-8683&Email=rpepperhughes%40gmail.com&Monthly_Electric_Bill__c=250
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '239'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Thu, 21 May 2015 21:45:50 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@73e5716e"
+      Server:
+      - nginx
+      Content-Length:
+      - '124'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q1400001PqKWOEA3","Message":"Lead successfully
+        created","YourId":"production.powur.com:191"}'
+    http_version: 
+  recorded_at: Thu, 21 May 2015 21:45:50 GMT
+recorded_with: VCR 2.9.3

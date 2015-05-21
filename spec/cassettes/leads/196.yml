@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=production.powur.com%3A196&Lead_Generator__c=64&FirstName=Jarrett&LastName=Ellena&Street=700-105%20Four%20Oaks%20Road&City=Susanville&PostalCode=96130&Phone=530-249-1671&Email=jarrettellena%40hotmail.com&Monthly_Electric_Bill__c=160
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '247'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Thu, 21 May 2015 21:46:09 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@32e0cc9e"
+      Server:
+      - nginx
+      Content-Length:
+      - '124'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q1400001PqKaBEAV","Message":"Lead successfully
+        created","YourId":"production.powur.com:196"}'
+    http_version: 
+  recorded_at: Thu, 21 May 2015 21:46:09 GMT
+recorded_with: VCR 2.9.3

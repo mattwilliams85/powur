@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://sctypowur.cloudhub.io/powur
+    body:
+      encoding: US-ASCII
+      string: External_ID__c=production.powur.com%3A173&Lead_Generator__c=56&FirstName=Matt&LastName=Beninger&Street=231%20Vickery%20Lane&City=Gilroy&PostalCode=95020&Phone=408-455-3337&Email=jenn%40beningerinc.com&Monthly_Electric_Bill__c=250
+    headers:
+      Accept:
+      - "*/*; q=0.5, application/xml"
+      Accept-Encoding:
+      - gzip, deflate
+      Content-Length:
+      - '229'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - text/plain
+      Date:
+      - Thu, 21 May 2015 21:45:07 GMT
+      Local-Certificates:
+      - "[Ljava.security.cert.X509Certificate;@407a8c06"
+      Server:
+      - nginx
+      Content-Length:
+      - '124'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"Status":"SUCCESS","LeadId":"00Q1400001PqKRnEAN","Message":"Lead successfully
+        created","YourId":"production.powur.com:173"}'
+    http_version: 
+  recorded_at: Thu, 21 May 2015 21:45:08 GMT
+recorded_with: VCR 2.9.3
