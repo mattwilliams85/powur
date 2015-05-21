@@ -1,0 +1,3 @@
+id,user_id,title,description,file_original_path,is_public
+1,1,Powur PBC Advocate Application and Agreement,Application and Agreement document,https://s3.amazonaws.com/sunstand-dev/seed_data/library/powur-pbc-advocate-application-and-agreement.pdf,1
+2,1,Powur PBC Advocate Policies and Procedures,Policies and Procedures document,https://s3.amazonaws.com/sunstand-dev/seed_data/library/powur-pbc-advocate-policies-and-procedures.pdf,1
