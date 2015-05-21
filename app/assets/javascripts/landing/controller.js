@@ -12,7 +12,6 @@
     $scope.legacyImagePaths = legacyImagePaths;
 
     $scope.signIn = function() {
-      debugger
       if ($scope.user && $scope.user.email && $scope.user.password) {
         UserProfile.signIn({
           email: $scope.user.email,
