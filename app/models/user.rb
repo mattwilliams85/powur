@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   # validates_presence_of :address, :city, :state, allow_nil: true
   validates :tos,
-    presence:   { message: "You didn't agree to the terms and privacy policy" },
+    presence:   { message: "Please read and agree to the terms and conditions in the Application and Agreement" },
     acceptance: { accept: true },
     on: :create
 

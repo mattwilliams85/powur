@@ -289,138 +289,268 @@
   // }
 }
 
+/*
+Styles for Sign-Up Page
+*/
 .pow-sign-up-page {
+  font-family: $dashboard-font-family;
   height: auto;
 
+  // Header Styles
   .pow-fixed-bg {
     height: 40%
   }
-
   .pow-scrolling-bg {
     margin-top: 100px;
   }
 
-  .sign-up-forms-wrapper {
-    margin-top: 100px;
-  }
-
-  h2 {
+  // "Enter Your Invite Code" / "Register" Text
+  .column-heading {
+    padding-top: 15px;
     width: initial;
     margin: 0 0 1em 0;
-    text-transform: uppercase;
     font-size: 1.8em;
     font-weight: bold;
+  }
 
-    span {
-      color: $pow-color-blue;
+  // Override Default <small> Style
+  small {
+    font-size: .8em;
+  }
+
+  // Form Styles
+  form{
+    fieldset {
+      border: 0;
+      .row {
+        .columns {
+          padding: 0 4px;
+        }
+      }
+      legend {
+        background-color: initial;
+        color: #fff;
+        font-family: $dashboard-font-family;
+        font-size: 16pt;
+      }
+    }
+    input {
+      background-color: rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.2);
+      color: #fff;
+      outline: none;
+      border-radius: 4px;
+      padding: 24px 10px 8px;
+      height: 60px;
+      font-family: $dashboard-font-family;
+      font-size: 16pt;
+      &:focus {
+        background-color: rgba(0,0,0,0.2);
+        border: 1px solid rgba(0,0,0,0.2);
+      }
+      &:disabled {
+        background-color: rgba(0,0,0,0.1);
+        color: #666
+      }
+    }
+
+    label {
+      position: absolute;
+      top: 8px;
+      left: 14px;
+      color: #9b9b9b;
+      font-family: $dashboard-font-family;
+      text-transform: uppercase;
+      font-size: 10pt;
+    }
+
+    // Error State for Application and Agreement Switch
+    .switch {
+      input + label {
+        background: rgba(0,0,0,0.2);
+      }
+      input:checked + label {
+        background: $pow-color-green;
+      }
+
+      input:checked + label.error {
+        background: $pow-color-green;
+      }
+      input + label.error {
+        background: #f04124;
+      }
+    }
+
+    // Buttons
+    .button {
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.2);
+      background-color: $pow-color-green;
+      font-family: $dashboard-font-family;
+      text-transform: uppercase;
+      &:hover {
+        background-color: darken($pow-color-green, 10%);
+      }
+      &:disabled {
+        background-color: rgba(0,0,0,0.08);
+        &:hover {
+          background-color: rgba(0,0,0,0.08);
+        }
+      }
     }
   }
 
-  h6 {
-    font-size: 1.2em;
-    width: initial;
-    margin: .8em 0 1em 0;
-  }
 
-  .invite-form {
+  // Styles for Invite Code Section (Left Side)
+  .invite-code-form {
+    input {
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      color: #666;
+      background-color: #fff;
+      &:disabled {
+        background-color: #ddd;
+      }
+    }
     input, .button {
       font-size: 1.4em;
     }
 
+    // "Submit Invite Code" Button
     .button {
-      background-image: image-url("landing/arrow-right-icon.png");
-      background-repeat: no-repeat;
-      background-position: center center;
-    }
-
-    .small {
-      color: #afb4b9;
-      font-size: .8em;
-
-      &.pow-error {
-        color: red;
-      }
-
-      &.pow-success {
-        color: $pow-color-green;
-      }
-    }
-  }
-
-  .invite-sponsor-info {
-    margin-top: 30px;
-
-    img {
-      border-radius: 30px;
-      float: left;
-      margin: 0 20px 20px 0;
-      width: 60px;
-    }
-
-    span {
-      font-size: .9em;
-      line-height: 1.8em;
-
-      &.big {
-        font-size: 1.2em;
-        font-weight: bold;
-      }
-    }
-  }
-
-  .referral-info {
-    margin: 100px 0;
-
-    @media #{$small} {
-      margin: 200px 0;
-    }
-
-    .lock-icon {
-      @include pow-sprites-sprite(lock-icon);
-      height: pow-sprites-sprite-height(lock-icon);
-      width: pow-sprites-sprite-width(lock-icon);
-    }
-
-    h6 {
-      padding-left: 10px;
-    }
-
-    span {
-      width: 80%;
-      display: inline-block;
-      padding-left: 10px;
-
-      &.small {
-        color: $header-font-color;
-        line-height: 1.8em;
-      }
-    }
-  }
-
-  .button {
-    text-transform: uppercase;
-    background-color: $pow-color-green;
-  }
-
-  label {
-    display: inline-block;
-    color: #afb4b9;
-    font-size: .8em;
-  }
-
-  input[type="checkbox"] {
-    margin: 0 10px 30px 0;
-  }
-
-  form {
-    &.inactive {
-      h2 {
-        color: #969797;
-        span {
-          color: #8adcf4;
+      &.invite-code {
+        background-image: image-url("landing/arrow-right-icon.png");
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        background-color: $pow-color-green;
+        height: 60px;
+        &:disabled {
+          background-color: #444;
+          &:hover {
+            background-color: #444;
+          }
         }
       }
     }
+
+    // "Invalid Invite Code" Error Text
+    .pow-error {
+      color: #f04124;
+    }
+
+    // Valid Invite Code Info Section (gray box under code input)
+    .sponsor-info-section {
+      position: relative;
+      width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #eee;
+      padding-top: 15px;
+
+      // Avatar
+      .sponsor-avatar {
+        img {
+          margin-top: 40px;
+          border-radius: 30px;
+          margin-left: 10px;
+          float: left;
+          width: 60px;
+        }
+      }
+
+      // Text
+      .sponsor-info {
+        padding-left: 80px;
+
+        // "Great, this invite code is valid!" Text
+        .valid-code {
+          color: $pow-color-green;
+          font-size: 1.2em;
+          margin-bottom: 15px;
+        }
+        // "You were referred to Powur by" Text
+        .sponsor-label {
+
+        }
+        // Sponsor Name
+        .sponsor-name {
+          font-size: 1.5em;
+          font-weight: bold;
+        }
+        // "Click here to enter a different invite code" Text
+        .enter-new-code {
+          margin-top: 15px;
+          padding-bottom: 10px;
+        }
+      }
+    }
+
+    // "Powur is a referral only, private network" Section
+    .referral-info {
+      position: relative;
+      width: 100%;
+      height: 160px;
+      padding-top: 50px;
+
+      .lock-icon {
+        @include pow-sprites-sprite(lock-icon);
+        height: pow-sprites-sprite-height(lock-icon);
+        width: pow-sprites-sprite-width(lock-icon);
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+      }
+
+      .referral-only {
+        margin-left: 60px;
+        h1 {
+          font-size: 1.2em;
+          line-height: 1.2em;
+        }
+        h2 {
+          font-size: 0.8em;
+        }
+      }
+
+    }
+  }
+
+
+  // Register Form (Right Side)
+  .sign-up-form {
+
+    // Inactive Styles
+    &.inactive {
+      .column-heading {
+        color: #ccc;
+      }
+      background-color: #fff;
+      fieldset {
+        opacity: 0.25;
+        legend {
+          color: #ccc;
+        }
+        input {
+          background-color: rgba(0,0,0,0.06);
+          border: 1px solid rgba(0,0,0,0.2);
+        }
+      }
+    }
+
+    // Active Styles
+    background-color: #444;
+    padding: 10px;
+    padding-top: 0px;
+    border-radius: 6px;
+    color: #fff;
+
+    .column-heading {
+      color: #fff;
+    }
+
   }
 }
 

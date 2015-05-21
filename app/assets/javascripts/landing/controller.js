@@ -9,7 +9,10 @@
 
     $scope.leftMenu = {};
 
+    $scope.legacyImagePaths = legacyImagePaths;
+
     $scope.signIn = function() {
+      debugger
       if ($scope.user && $scope.user.email && $scope.user.password) {
         UserProfile.signIn({
           email: $scope.user.email,
@@ -45,9 +48,11 @@
           } else {
             code = $scope.invite.code;
             $scope.invite = data;
+            console.log($scope.invite);
             $scope.invite.code = code;
             $scope.user.first_name = data.properties.first_name;
             $scope.user.last_name = data.properties.last_name;
+            $scope.user.email = data.properties.email;
           }
         });
       }
@@ -65,7 +70,7 @@
         });
       } else {
         $location.path('/sign-in');
-        $scope.showModal('You\'ve successfully Signed Up. Now you may Sign In.');
+        $scope.showModal('Congratulations! You\'ve successfully signed up for Powur.<br>You may now sign in with your email and password.');
       }
       $scope.isSubmitDisabled = false;
     }
@@ -87,6 +92,7 @@
     $scope.clearInviteValidationForm = function() {
       $scope.invite = {};
       $scope.user = {};
+      $scope.invite.er
     };
 
     $scope.resetPassword = function() {
