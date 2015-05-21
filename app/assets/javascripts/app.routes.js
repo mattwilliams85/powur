@@ -108,6 +108,10 @@
       templateUrl: 'user-static-content/templates/terms-of-service.html',
       controller: 'UserStaticContentCtrl'
     }).
+    when('/terms-of-purchase', {
+      templateUrl: 'user-static-content/templates/terms-of-purchase.html',
+      controller: 'UserStaticContentCtrl'
+    }).
     when('/privacy-policy', {
       templateUrl: 'user-static-content/templates/privacy-policy.html',
       controller: 'UserStaticContentCtrl'
