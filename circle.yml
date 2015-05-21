@@ -10,6 +10,11 @@ machine:
     IPAYOUT_MERCHANT_GUID: abc
     IPAYOUT_MERCHANT_PASSWORD: abc
     SOLAR_CITY_LEAD_URL: 'https://sctyleads-test.cloudhub.io/powur'
+dependencies:
+  override:
+    - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
+    - npm install
+    - bower install --config.directory=./vendor/assets/bower_components
 deployment:
   staging:
     branch: develop
