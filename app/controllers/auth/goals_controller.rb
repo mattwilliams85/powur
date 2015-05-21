@@ -3,6 +3,8 @@ module Auth
 
     def show
       @user = fetch_downline_user(params[:user_id].to_i)
+
+
       pay_period = MonthlyPayPeriod.current
       @pay_as_rank = pay_period.find_pay_as_rank(@user)
       @organic_rank = @user.organic_rank

@@ -13,6 +13,11 @@ FactoryGirl.define do
   factory :user_group_requirement do
     user_group
     product
-    event_type :enrollment
+    event_type 1
+  end
+
+  factory :rank_user_group do
+    rank
+    user_group
   end
 end

@@ -45,7 +45,7 @@ describe '/a/user_groups' do
 
       post user_group_requirements_path(group.id),
            product_id: product.id,
-           event_type: :purchase,
+           event_type: :course_completion,
            quantity:   2,
            format:     :json
 
@@ -61,12 +61,12 @@ describe '/a/user_groups' do
 
     it 'updates a requirement' do
       patch user_group_requirement_path(req.id),
-            event_type: :sale,
+            event_type: :personal_sales,
             quantity:   6,
             format:     :json
 
       req_item = req_list['entities'].first
-      expect(req_item['properties']['event_type']).to eq('sale')
+      expect(req_item['properties']['event_type']).to eq('personal_sales')
       expect(req_item['properties']['quantity']).to eq(6)
     end
 
