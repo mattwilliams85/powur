@@ -869,6 +869,34 @@ CREATE TABLE ranks (
 
 
 --
+-- Name: requirements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE requirements (
+    id integer NOT NULL
+);
+
+
+--
+-- Name: requirements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE requirements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: requirements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE requirements_id_seq OWNED BY requirements.id;
+
+
+--
 -- Name: resources; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1302,6 +1330,13 @@ ALTER TABLE ONLY rank_paths ALTER COLUMN id SET DEFAULT nextval('rank_paths_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY requirements ALTER COLUMN id SET DEFAULT nextval('requirements_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY resources ALTER COLUMN id SET DEFAULT nextval('resources_id_seq'::regclass);
 
 
@@ -1561,6 +1596,14 @@ ALTER TABLE ONLY rank_paths
 
 ALTER TABLE ONLY ranks
     ADD CONSTRAINT ranks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY requirements
+    ADD CONSTRAINT requirements_pkey PRIMARY KEY (id);
 
 
 --
@@ -2303,4 +2346,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150504234010');
 INSERT INTO schema_migrations (version) VALUES ('20150514171532');
 
 INSERT INTO schema_migrations (version) VALUES ('20150519215441');
+
+INSERT INTO schema_migrations (version) VALUES ('20150521031938');
 

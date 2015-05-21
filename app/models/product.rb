@@ -12,7 +12,7 @@ class Product < ActiveRecord::Base
   validates_presence_of :name, :bonus_volume, :commission_percentage
   validates :commission_percentage, numericality: { less_than_or_equal_to: 100 }
 
-  scope :with_bonuses, -> { includes(bonuses: [ :bonus_levels ]) }
+  scope :with_bonuses, -> { includes(bonuses: [ :bonus_amounts ]) }
   scope :certifiable, -> { where(certifiable: true) }
   scope :sorted, -> { order('position ASC') }
 

@@ -20,26 +20,6 @@ class CreateBonuses < ActiveRecord::Migration
 
       t.foreign_key :bonus_plans
     end
-
-    create_table :bonus_levels do |t|
-      t.references :bonus, null: false, index: true
-      t.integer :level, null: false, default: 0
-      t.references :rank_path, null: false
-      t.decimal :amounts, null: false, array: true, precision: 5, scale: 5, default: []
-
-      t.foreign_key :bonuses, column: :bonus_id, primary_key: :id
-      t.foreign_key :rank_paths
-    end
-    add_index :bonus_levels,
-              [ :bonus_id, :level, :rank_path_id ],
-              unique: true,
-              where:  'rank_path_id is not null',
-              name:   'bonus_levels_comp_key_with_rp'
-    add_index :bonus_levels,
-              [ :bonus_id, :level, :rank_path_id ],
-              unique: true,
-              where:  'rank_path_id is null',
-              name:   'bonus_levels_comp_key_without_rp'
   end
 
 end
