@@ -24,39 +24,45 @@ describe Quote, type: :model do
     expect(results.first.customer.id).to eq(customer.id)
   end
 
-  describe '#data_status' do
-    subject { quote.data_status }
+  describe '#calculate_status' do
+    subject { quote.status }
     let(:customer) { create(:customer) }
-    let!(:quote) { create(:quote, customer: customer) }
+    let(:quote) { create(:quote, customer: customer) }
 
     context 'proposal submitted' do
-      before { allow(quote).to receive(:submitted?).and_return(true) }
+      before do
+        allow_any_instance_of(Quote).to receive(:submitted?).and_return(true)
+        quote
+      end
       it { is_expected.to eq 'submitted' }
     end
 
     context 'proposal ready to submit' do
       before do
-        allow(quote).to receive(:can_submit?).and_return(true)
-        allow(quote).to receive(:zip_code_valid?).and_return(true)
-        allow(quote).to receive(:submitted?).and_return(false)
+        allow_any_instance_of(Quote).to receive(:can_submit?).and_return(true)
+        allow_any_instance_of(Quote).to receive(:zip_code_valid?).and_return(true)
+        allow_any_instance_of(Quote).to receive(:submitted?).and_return(false)
+        quote
       end
-      it { is_expected.to eq 'ready to submit' }
+      it { is_expected.to eq 'ready_to_submit' }
     end
 
     context 'proposal has ineligible location' do
       before do
-        allow(quote).to receive(:can_submit?).and_return(true)
-        allow(quote).to receive(:zip_code_valid?).and_return(false)
-        allow(quote).to receive(:submitted?).and_return(false)
+        allow_any_instance_of(Quote).to receive(:can_submit?).and_return(true)
+        allow_any_instance_of(Quote).to receive(:zip_code_valid?).and_return(false)
+        allow_any_instance_of(Quote).to receive(:submitted?).and_return(false)
+        quote
       end
-      it { is_expected.to eq 'ineligible location' }
+      it { is_expected.to eq 'ineligible_location' }
     end
 
     context 'proposal incomplete' do
       before do
-        allow(quote).to receive(:can_submit?).and_return(false)
-        allow(quote).to receive(:zip_code_valid?).and_return(true)
-        allow(quote).to receive(:submitted?).and_return(false)
+        allow_any_instance_of(Quote).to receive(:can_submit?).and_return(false)
+        allow_any_instance_of(Quote).to receive(:zip_code_valid?).and_return(true)
+        allow_any_instance_of(Quote).to receive(:submitted?).and_return(false)
+        quote
       end
       it { is_expected.to eq 'incomplete' }
     end

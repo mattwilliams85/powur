@@ -30,12 +30,6 @@ class Quote < ActiveRecord::Base
     PromoterMailer.new_quote(self).deliver_later if can_email?
   end
 
-  def data_status
-    return 'submitted' if submitted?
-    return 'ineligible location' if !zip_code_valid?
-    can_submit? ? 'ready to submit' : 'incomplete'
-  end
-
   def order?
     !order.nil?
   end

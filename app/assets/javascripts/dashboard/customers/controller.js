@@ -1,9 +1,8 @@
 ;(function() {
   'use strict';
 
-  function DashboardCustomersCtrl($scope, $location, $timeout, $route, $anchorScroll, Geo, CommonService) {
+  function DashboardCustomersCtrl($scope, $location, $timeout, $route, $anchorScroll, CommonService) {
     $scope.redirectUnlessSignedIn();
-    $scope.states = Geo.states();
 
     $scope.legacyImagePaths = legacyImagePaths;
 
@@ -102,19 +101,17 @@
       } else {
         $scope.showForm = false;
         $scope.drilldownActive = false;
-        // $scope.proposal = {};
-        // $scope.currentProposal = {};
         $scope.currentProposalIndex = proposalIndex;
 
         CommonService.execute({
           href: '/u/quotes/' + proposalId + '.json'
         }).then(function(item){
           $scope.animateDrilldown();
-          if (item.properties.data_status === 'submitted') {
+          if (item.properties.status === 'submitted') {
             $timeout( function(){
               $scope.proposal = item.properties;
               $scope.currentProposal = item.properties;
-              $scope.mode = item.properties.data_status;
+              $scope.mode = item.properties.status;
             }, 300);
           } else {
             $timeout( function(){
@@ -123,7 +120,7 @@
               $scope.proposal = $scope.setFormValues($scope.formAction);
               $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
               $scope.currentProposal = item.properties;
-              $scope.mode = item.properties.data_status;
+              $scope.mode = item.properties.status;
             }, 300);
           }
         });
@@ -298,7 +295,7 @@
     });
   }
 
-  DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', '$route', '$anchorScroll', 'Geo', 'CommonService'];
+  DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', '$route', '$anchorScroll', 'CommonService'];
   angular
     .module('powurApp')
     .controller('DashboardCustomersCtrl', DashboardCustomersCtrl);

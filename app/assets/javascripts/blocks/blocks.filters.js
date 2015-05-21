@@ -16,9 +16,16 @@
     };
   };
 
+  var cleanStatusLabel = function() {
+    return function(status) {
+      return status.split('_').join(' ');
+    };
+  };
+
   angular
     .module('blocks.filters', [])
     .filter('dateToLocalDate', dateToLocalDate)
-    .filter('timeToLocalTime', timeToLocalTime);
+    .filter('timeToLocalTime', timeToLocalTime)
+    .filter('cleanStatusLabel', cleanStatusLabel);
 
 })();
