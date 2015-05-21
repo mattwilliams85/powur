@@ -78,5 +78,22 @@ namespace :powur do
       puts 'Created NMI user account'
     end
 
+    task ipayout: :environment do
+      User.where(id: 25).destroy_all
+
+      password = 'sunlight'
+      attrs = {
+        id:                    26,
+        first_name:            'iPayout',
+        last_name:             'User',
+        email:                 'ipayout@powur.com',
+        tos:                   true,
+        password:              password,
+        password_confirmation: password }
+      User.create!(attrs)
+
+      puts 'Created iPayout user account'
+    end
+
   end
 end
