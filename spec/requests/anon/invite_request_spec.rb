@@ -86,7 +86,7 @@ describe '/a/invite' do
         "encrypted_password" => ["Encrypted password is required"],
         "password" => ["Password is required", "Password not less than 8 symbols"],
         "password_confirmation" => ["Password confirmation is required"],
-        "tos" => ["You didn't agree to the terms and privacy policy"]
+        "tos" => ["Please read and agree to the terms and conditions in the Application and Agreement"]
       })
     end
 
