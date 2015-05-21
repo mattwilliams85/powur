@@ -5,10 +5,6 @@ AWS_SECRET_ACCESS_KEY:
 SMARTERU_ACCOUNT_API_KEY:
 SMARTERU_USER_API_KEY:
 SMARTERU_GROUP_NAME: PowerU
-NMI_API_KEY:
-NMI_DEBUG: 'false'
-NMI_MODE: sandbox
-NMI_MERCHANT_ID: sunstand
 NMI_USERNAME: demo
 NMI_PASSWORD: password
 IPAYOUT_API_ENDPOINT: 'https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx'
@@ -16,6 +12,7 @@ IPAYOUT_AUTO_LOGIN_ENDPOINT: "https://sunstand.testewallet.com/MemberLogin.aspx?
 IPAYOUT_MERCHANT_GUID:
 IPAYOUT_MERCHANT_PASSWORD:
 SOLAR_CITY_LEAD_URL: 'https://sctyleads-test.cloudhub.io/powur'
+QUOTAGUARDSTATIC_URL:
 
 production:
   AWS_BUCKET: ~
@@ -23,9 +20,7 @@ production:
   AWS_SECRET_ACCESS_KEY: ~
   SMARTERU_ACCOUNT_API_KEY: ~
   SMARTERU_USER_API_KEY: ~
-  NMI_API_KEY: ~
-  NMI_MODE: ~
-  NMI_MERCHANT_ID: ~
+  SMARTERU_GROUP_NAME: ~
   NMI_USERNAME: ~
   NMI_PASSWORD: ~
   SECRET_KEY_BASE: ~
