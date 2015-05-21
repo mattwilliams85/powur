@@ -5,7 +5,7 @@ klass :invite
 json.properties do
   json.id @invite.id
   json.sponsor_name @invite.sponsor.full_name
-  json.sponsor_avatar @invite.sponsor.avatar.url(:thumb)
+  json.sponsor_avatar asset_path(@invite.sponsor.avatar.url(:thumb))
   json.first_name @invite.first_name
   json.last_name @invite.last_name
   json.email @invite.email

@@ -23,7 +23,7 @@ class UsersJson < JsonDecorator
       end
       json.avatar do
         [ :thumb, :medium, :large ].each do |key|
-          json.set! key, user.avatar.url(key)
+          json.set! key, asset_path(user.avatar.url(key))
         end
       end if user.avatar?
     end

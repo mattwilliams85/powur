@@ -10,7 +10,7 @@ json.properties do
 
   json.avatar do
     [ :thumb, :preview, :large ].each do |key|
-      json.set! key, user.avatar.url(key)
+      json.set! key, asset_path(user.avatar.url(key))
     end
   end if @user.avatar?
   json.is_admin user.role?(:admin)
