@@ -7,6 +7,7 @@ module Auth
     def show
       @user = current_user
       @profile = @user.profile
+      @data = { proposal: @user.proposal_count }
     end
 
     def ewallet_details

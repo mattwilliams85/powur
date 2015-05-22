@@ -13,13 +13,17 @@
             strokeColor: 'rgba(253, 180, 92, 1)',
             pointColor: '#444',
             pointStrokeColor: 'rgba(253, 180, 92, 1)',
+            pointHighlightFill: "#444",
+            pointHighlightStroke: "rgba(253, 180, 92, 1)",
             data: []
           },{
             fillColor: 'rgba(108, 207, 255, 0.15)',
             highlightFill: '#5bd7f7',
-            strokeColor: 'rgba(108, 207, 255, 1)',
+            strokeColor: '#20c2f1',
             pointColor: '#444',
-            pointStrokeColor: 'rgba(108, 207, 255, 1)',
+            pointStrokeColor: '#20c2f1',
+            pointHighlightFill: "#444",
+            pointHighlightStroke: "20c2f1",
             data: []
           }]
         },{
@@ -30,10 +34,11 @@
             scaleShowVerticalLines: false,
             scaleFontSize: 13,
             bezierCurve: false,
-            scaleBeginAtZero: true,
             scaleOverride: true,
+            // ** Required if scaleOverride is true **
             scaleSteps: 6,
             scaleStepWidth: 12,
+            // 
             scaleLabel : function (label) {
                 if (label.value === '0') return '';
                 return label.value;
@@ -59,12 +64,12 @@
             bezierCurveTension: 0.3,
             pointDotRadius: 4,
             scaleFontSize: 13,
+            barValueSpacing: 3,
+            scaleStartValue: 0,
             scaleOverride: true,
             // ** Required if scaleOverride is true **
             scaleSteps: 12,
             scaleStepWidth: 12,
-            scaleStartValue: 0,
-            barValueSpacing: 3,
           }
         }]
       },
@@ -103,140 +108,92 @@
       rank: []
     };
 
-    ///// EMPTYING tabData
-    // $scope.tabData = [];
-
-    $scope.scale = 'week';
+    $scope.scale = 6;
     $scope.current = new Date();
-    $scope.date = 'week ' + $scope.current.getWeek();
-    $scope.tabKey = '';
     $scope.section = '';
-    // $scope.tabKey = 'conversion';
-    // $scope.settings = $scope.tabData[$scope.tabKey].settings;
-    $scope.page = 1;
-    $scope.position = 0;
+    $scope.legacyImagePaths = legacyImagePaths;
 
     $scope.changeTab = function(section) {
       // RETURN UNLESS CONVERSION
       if(section !== 'conversion') return;
       //
-      if ($scope.section === section) return $scope.closeTab();
+      if ($scope.section === section) return $scope.section = '';
       $scope.section = section;
-      $scope.tabKey = '';
+      // Timeout for animation
       $timeout(function() {
-        $scope.tabKey = section;
-        if ($scope.tabData[$scope.tabKey]) $scope.settings = $scope.tabData[$scope.tabKey].settings;
+        $scope.section = section;
+        if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
         $scope.kpiInit();
       }, 300);
     };
 
-    $scope.closeTab = function() {
-      $scope.section = '';
-      $scope.tabKey = '';
-    };
-
-    // $scope.createTabUrl = function(section) {
-    //   return 'dashboard/templates/sections/kpi/metrics/' + section + '.html';
-    // };
-
-    //FOR GENE
-    // function randomizeData(length) {
-    //   metricsData.datasets[0].data = []
-    //   total = 10;
-    //   for (i = 0; i <= length; i++) {
-    //     metricsData.datasets[0].data.push(total += Math.floor(Math.random() * 2));
-    //   }
-    // }
-
     $scope.kpiInit = function() {
-      // if (!$scope.tabData.length) return;
-
-      if ($scope.kpiChart) $scope.kpiChart.destroy();
-      // $scope.randomizeData();
       $scope.populateContributors();
-      $scope.ctx = document.getElementById('metricsChart').getContext('2d');
-      if (window.innerWidth < 500) {
-        $scope.ctx.canvas.width = 300;
-        $scope.ctx.canvas.height = 300;
-      } else {
-        $scope.ctx.canvas.height = 400;
-        $scope.ctx.canvas.width = 900;
-      }
-      $scope.kpiChart = new Chart($scope.ctx).Line($scope.settings[0], $scope.settings[1].options);
     };
 
     $scope.scaleFontSize = function(string) {
       return Math.ceil(1000 / (Math.pow(string.length + 10, 1.2))) + 'pt';
     };
 
-    $scope.rebuildChart = function() {
-      $scope.kpiChart.destroy();
+    $scope.buildChart = function() {
+      if ($scope.kpiChart) $scope.kpiChart.destroy();
       $scope.populateData();
+      $scope.generateLabels();
       $scope.setScale();
-      //TEMP - Change this to be dynamic based on container width!
-      // debugger
-      $scope.ctx.canvas.height = 420;
-      $scope.ctx.canvas.width = 900;
-      //
+
+      $scope.ctx = document.getElementById('metricsChart').getContext('2d');
+      $scope.ctx.canvas.height = $('.chart-box').height();
+      $scope.ctx.canvas.width = $('.chart-box').width();
+    
       $scope.kpiChart = new Chart($scope.ctx).Line($scope.settings[0], $scope.settings[1].options);
     };
 
     $scope.setScale = function() {
-      var _labels = [];
-      var current = $scope.current.subDays(6);
-      var max = Math.max.apply(Math, $scope.settings[0].datasets[0].data);
-      if (max < Math.max.apply(Math, $scope.settings[0].datasets[1].data)) max = Math.max.apply(Math, $scope.settings[0].datasets[1].data)
+      //Find largest data point
+      var max = Math.max.apply(Math, $scope.settings[0].datasets[0].data.concat($scope.settings[0].datasets[1].data));
 
-      if ($scope.scale === 'week') {
-        for (var i = 0; i <= 6; i++) {
-          _labels.push($.datepicker.formatDate('M', current.addDays(i)) + ' ' + (current.addDays(i).getDate()));
-        }
-      } else {
-        current = $scope.current.subDays(29);
-
-        for (var i = 0; i <= 29; i++) {
-          _labels.push(current.addDays(i).getMonth() + 1 + '/' + current.addDays(i).getDate());
-        }
-      }
-
-      if (!$scope.settings[0].datasets[0].data.length || max === 0) {
+      if (!max) {
         $scope.settings[1].options.scaleStepWidth = 1; 
       } else {
         $scope.settings[1].options.scaleStepWidth = Math.ceil((max * 1.2) / 12);
         $scope.settings[1].options.scaleSteps = (max + (max / 2)) / $scope.settings[1].options.scaleStepWidth;   
       }
-      $scope.settings[0].labels = _labels;
     };
 
-    $scope.changeScale = function(scale) {
-      $scope.scale = scale
-      if (scale === 'week') {
-        $scope.date = 'week ' + $scope.current.getWeek();
-      } else {
-        $scope.date = $.datepicker.formatDate('MM', $scope.current) + ' ' + $scope.current.getFullYear();
+    $scope.generateLabels = function() {
+      var _labels = [];
+      var current = $scope.current.subDays($scope.scale);
+
+      for (var i = 0; i <= $scope.scale; i++) {
+        if ($scope.scale === 6) {
+          _labels.push($.datepicker.formatDate('M', current.addDays(i)) + ' ' + (current.addDays(i).getDate()));
+        } else {
+          _labels.push(current.addDays(i).getMonth() + 1 + '/' + current.addDays(i).getDate());
+        }
       }
-      $scope.rebuildChart();
+      $scope.settings[0].labels = _labels;
+    }
+
+    $scope.changeScale = function(scale) {
+      $scope.scale = scale;
+      $scope.buildChart();
     };
 
     $scope.changeUser = function(user) {
-      if ($scope.activeUser == user) return;
-      if (user) {
-        CommonService.execute({href: '/u/kpi_metrics/'+ user.id +'/proposals_show.json'}).then(function(data){
-          $scope.activeUser = data.properties;
-        });
-      } else {
-        $scope.activeUser = false;
-      }
-      $scope.rebuildChart();
+      if ($scope.activeUser === user) return;
+      CommonService.execute({href: '/u/kpi_metrics/'+ user.id +'/proposals_show.json'}).then(function(data){
+        $scope.activeUser = data.properties;
+      });
+      $scope.buildChart();
     };
 
     $scope.populateContributors = function() {
       CommonService.execute({href: '/u/kpi_metrics/'+ $scope.currentUser.id +'/proposals_show.json'}).then(function(data){
         $scope.user = data.properties;
-        //Make Current User Default User
+        //Defaults to Current User
         $scope.activeUser = $scope.user;
         //
-        $scope.rebuildChart();
+        $scope.buildChart();
         CommonService.execute({href: '/u/kpi_metrics/' +data.properties.id+ '/proposals_index.json'}).then(function(data){
           $scope.team = data.entities;
         });
@@ -244,34 +201,27 @@
     };
 
     $scope.populateData = function() {
-      $scope.settings[0].datasets[0].data = [];
-      var scale = 6;
-      if ($scope.scale === 'month') scale = 29;
-      for (var i = 0; i <= scale; i++) {
+      //For each data set
+      for (var j = 0; j <= Object.keys($scope.activeUser.metrics_data).length - 1; j++) {
+        $scope.settings[0].datasets[j].data = [];
 
-        var count1 = 0;
-        var count2 = 0;
-        $.each($scope.activeUser.metrics_data.sales, function(key, value){
-          value = value.created_at;
-          if ( new Date(value).getMonth() === $scope.current.subDays(scale - i).getMonth() &&
-              new Date(value).getDate() === $scope.current.subDays(scale - i).getDate()
-            ) {
-            count1 += 1;
-          }
-        });
-        $.each($scope.activeUser.metrics_data.proposals, function(key, value){
-          value = value.created_at;
-          if ( new Date(value).getMonth() === $scope.current.subDays(scale - i).getMonth() &&
-              new Date(value).getDate() === $scope.current.subDays(scale - i).getDate()
-            ) {
-            count2 += 1;
-          }
-        });
-        $scope.settings[0].datasets[0].data.push(count1);
-        $scope.settings[0].datasets[1].data.push(count2);
+        //For each data point
+        for (var i = 0; i <= $scope.scale; i++) {
+          var count = 0;
+          $.each($scope.activeUser.metrics_data['data'+j], function(key, value){
+            if ( new Date(value.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
+                new Date(value.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
+              ) {
+              count += 1;
+            }
+          });
+          $scope.settings[0].datasets[j].data.push(count);
+        }
       }
     };
 
+    $scope.page = 1;
+    $scope.position = 0;
 
     $scope.changePage = function(direction) {
       if (direction === 'next') {
@@ -302,7 +252,7 @@
     };
 
     $scope.setCalendar = function() {
-      if ($scope.scale === 'week') {
+      if ($scope.scale === 6) {
         var daysFromSun = $scope.current.getDay();
         return new Date($scope.current.setDate($scope.current.getDate() - daysFromSun));
       } else {
@@ -311,7 +261,7 @@
     };
 
     $scope.calendarBack = function() {
-      if ($scope.scale === 'week') {
+      if ($scope.scale === 6) {
         $scope.current = new Date($scope.current.setDate($scope.current.getDate() - 7));
       } else {
         $scope.current = new Date($scope.current.setMonth($scope.current.getMonth() - 1));
@@ -320,7 +270,7 @@
     };
 
     $scope.calendarForward = function() {
-      if ($scope.scale === 'week') {
+      if ($scope.scale === 6) {
         $scope.current = new Date($scope.current.setDate($scope.current.getDate() + 7));
       } else {
         $scope.current = new Date($scope.current.setMonth($scope.current.getMonth() + 1));
@@ -329,33 +279,14 @@
     };
 
     $scope.setCalendar = function() {
-      if($scope.scale === 'week') {
+      if($scope.scale === 6) {
         var daysFromSun = $scope.current.getDay();
         return new Date($scope.current.setDate($scope.current.getDate() - daysFromSun));
       } else {
         return $scope.current.setDate(1);
       }
     };
-    //*END TIME FUNCTIONS
-
-    //TEMP
-    // $scope.randomizeData = function() {
-    //   var length = 30;
-    //   if($scope.scale == 'week') length = 6;
-
-    //   $scope.settings[0].datasets[0].data = [];
-    //   if ($scope.settings[0].datasets.length < 2) {
-    //     for (var i = 0; i <= length; i++) {
-    //       $scope.settings[0].datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
-    //     }
-    //   } else {
-    //     $scope.settings[0].datasets[1].data = [];
-    //     for (var i = 0; i <= length; i++) {
-    //       $scope.settings[0].datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
-    //       $scope.settings[0].datasets[1].data.push(Math.floor(Math.random() * 20 + 15));
-    //     }
-    //   }
-    // };
+    //
 
     $scope.redirectUnlessSignedIn();
   }

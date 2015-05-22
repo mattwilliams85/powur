@@ -1,4 +1,4 @@
-<section ng-class="{'active': tabKey === 'conversion'}" class="conversion-section fade-in-section">
+<section ng-class="{'active': section === 'conversion'}" class="conversion-section fade-in-section">
   <!-- USER SECTION -->
   <div class="small-3 columns user-column full-column show-for-medium-up">
     <div class="row header-row">
@@ -8,7 +8,7 @@
     </div>
     <div ng-class="{'active': activeUser.id === user.id}" class="user-contributor row" ng-click="changeUser(user)">
       <div class="row current-user-row">
-        <img ng-if="!teamMember.properties.avatar" class="avatar-medium" src="/assets/dashboard/default-avatar-thumb.png">
+        <img ng-if="!teamMember.properties.avatar" class="avatar-medium" src="{{legacyImagePaths.defaultAvatarThumb}}">
         <img ng-if="teamMember.properties.avatar" class="avatar-medium" ng-src="{{member.properties.avatar.small}}">
       </div>
       <div class="row current-user-row details">
@@ -25,7 +25,7 @@
         <div ng-repeat="member in team">
           <div ng-class="{'active': activeUser.id === member.properties.id}" class="contributor" ng-click="changeUser(member.properties)">
             <!-- <img ng-src="{{members.properties.avatar || 'http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578'}}" class="avatar-small left"/> -->
-            <img ng-if="!teamMember.properties.avatar" class="avatar-small left" src="/assets/dashboard/default-avatar-thumb.png">
+            <img ng-if="!teamMember.properties.avatar" class="avatar-small left" ng-src="{{legacyImagePaths.defaultAvatarThumb}}">
             <img ng-if="teamMember.properties.avatar" class="avatar-medium" ng-src="{{member.properties.avatar.thumb}}">
             <div class="info-box left">
               <span class="kpi-detail link">{{member.properties.first_name}} {{member.properties.last_name}}</span>
@@ -74,7 +74,7 @@
         <div class="legend primary left"></div><span class="kpi-detail left">Proposals</span>
         <div class="legend secondary left"></div><span class="kpi-detail left">Sales</span>
         <div class="time-scale">
-          <span ng-class="{'active': scale === 'week' }" class="scale-detail uppercase" ng-click="changeScale('week')">1 Week</span><span ng-class="{'active': scale === 'month' }" class="scale-detail uppercase" ng-click="changeScale('month')">1 Month</span>
+          <span ng-class="{'active': scale === 6 }" class="scale-detail uppercase" ng-click="changeScale(6)">1 Week</span><span ng-class="{'active': scale === 29 }" class="scale-detail uppercase" ng-click="changeScale(29)">1 Month</span>
         </div>
       </div>
       <div class="chart-box">

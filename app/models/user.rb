@@ -121,22 +121,22 @@ class User < ActiveRecord::Base
     pay_period_rank || organic_rank
   end
 
+  # KPI METHODS
   def proposal_count
     self.quotes.status(:submitted).count
   end
 
   def fetch_proposal_metrics(start_date, end_date)
     { 
-      proposals: complete_quotes.within_date_range(start_date, end_date).status(:submitted),
-      sales: self.orders.within_date_range(start_date, end_date)
+      data0: self.orders.within_date_range(start_date, end_date),
+      data1: complete_quotes.within_date_range(start_date, end_date).status(:submitted)
     }
-    # self.quotes.within_date_range(start_date, end_date).status(:submitted)
-   
   end
 
   def complete_quotes 
     self.quotes.where.not(id: self.orders.select('quote_id').map {|i| i}) 
   end
+  ##
 
   def assign_parent(parent, params)
     self.class.move_user(self, parent)

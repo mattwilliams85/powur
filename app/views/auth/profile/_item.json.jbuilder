@@ -15,6 +15,8 @@ json.properties do
   end if @user.avatar?
   json.is_admin user.role?(:admin)
 
+  json.metrics @data
+
   json.require_enrollment user.require_class_completion?
 end
 
