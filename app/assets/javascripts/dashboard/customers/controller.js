@@ -264,6 +264,11 @@
       $scope.customerSection.proposalSort = 'created';
       $scope.customerSection.proposalStatus = '';
       $scope.customerSection.applyIndexActions();
+      if ($scope.customerSection.proposalSearch === '') {
+        $scope.customerSection.searching = false;
+      } else {
+        $scope.customerSection.searching = true;
+      }
     };
 
     $scope.customerSection.applyIndexActions = function() {
