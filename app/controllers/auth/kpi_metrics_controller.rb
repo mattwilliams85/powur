@@ -12,6 +12,19 @@ module Auth
       generate_periods
     end
 
+    def proposals_show
+      @user = User.find(params[:id])
+
+      render "auth/kpi_metrics/proposals/show"
+    end
+
+    def proposals_index
+      @user = User.find(params[:id])
+      @users = @user.downline_users
+
+      render "auth/kpi_metrics/proposals/index"
+    end
+
     def generate_periods
       @periods = []
       (Time.now.strftime('%U').to_i).times do |i|

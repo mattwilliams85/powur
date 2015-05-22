@@ -2,30 +2,34 @@
   <!-- USER SECTION -->
   <div class="small-3 columns user-column full-column show-for-medium-up">
     <div class="row header-row">
-      <span class="uppercase kpi-detail" ng-show="!activeUser" >my conversion</span>
-      <span class="uppercase kpi-detail link" ng-show="activeUser" ng-click="changeUser();"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp; return to team graph</span>
+    <span class="uppercase kpi-detail">my conversion</span>
+<!--       <span class="uppercase kpi-detail" ng-show="!activeUser" >my conversion</span>
+      <span class="uppercase kpi-detail link" ng-show="activeUser" ng-click="changeUser();"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp; return to team graph</span> -->
     </div>
     <div ng-class="{'active': activeUser.id === user.id}" class="user-contributor row" ng-click="changeUser(user)">
       <div class="row current-user-row">
-        <img class="avatar-medium"/>
+        <img ng-if="!teamMember.properties.avatar" class="avatar-medium" src="/assets/dashboard/default-avatar-thumb.png">
+        <img ng-if="teamMember.properties.avatar" class="avatar-medium" ng-src="{{member.properties.avatar.small}}">
       </div>
       <div class="row current-user-row details">
         <a href=""><span class="kpi-detail link" data-id="user.id">{{user.first_name}} {{user.last_name}}</span></a>
-        <span class="kpi-detail">87 Proposals, 95 Orders</span>
+        <span class="kpi-detail">{{user.proposal_count}}  Proposals</span>
         <br>
       </div>
     </div>
     <div class="row performer-row">
-      <span class="kpi-detail invert uppercase">top performers</span>
+      <span class="kpi-detail invert uppercase">Team Members</span>
     </div>
     <div class="row">
       <div class="contributors-box">
         <div ng-repeat="member in team">
           <div ng-class="{'active': activeUser.id === member.properties.id}" class="contributor" ng-click="changeUser(member.properties)">
-            <img ng-src="{{members.properties.avatar || 'http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578'}}" class="avatar-small left"/>
+            <!-- <img ng-src="{{members.properties.avatar || 'http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578'}}" class="avatar-small left"/> -->
+            <img ng-if="!teamMember.properties.avatar" class="avatar-small left" src="/assets/dashboard/default-avatar-thumb.png">
+            <img ng-if="teamMember.properties.avatar" class="avatar-medium" ng-src="{{member.properties.avatar.thumb}}">
             <div class="info-box left">
               <span class="kpi-detail link">{{member.properties.first_name}} {{member.properties.last_name}}</span>
-              <span class="kpi-detail">32 Proposals, 25 Sales</span>
+              <span class="kpi-detail">{{member.properties.proposal_count}} Proposals</span>
             </div>
           </div>
         </div>
@@ -40,7 +44,7 @@
 
   <div class="small-12 medium-9 columns full-column right-part">
     <!-- STATS SECTION -->
-    <div class="small-12 medium-3 columns stats-column hide-for-medium-up">
+   <!--  <div class="small-12 medium-3 columns stats-column hide-for-medium-up">
       <div class="row">
         <span class="uppercase stats-title">team stats</span>
       </div>
@@ -59,35 +63,35 @@
         <span class="stats-detail">Proposals: 3</detail>
         <span class="stats-detail">Sales: 9</detail>
       </div>
-    </div>
+    </div> -->
     <!-- CHART SECTION -->
-    <div class="small-12 medium-9 columns chart-column">
+    <div class="small-12 medium-11 columns chart-column">
       <div class="row">
-        <h4 ng-show="!activeUser">Full Conversion History</h4>
-        <h4 ng-show="activeUser">{{activeUser.first_name}}'s Conversion History</h4>
+        <h4 ng-show="!activeUser">Full Proposal History</h4>
+        <h4 ng-show="activeUser">{{activeUser.first_name}}'s Proposal History</h4>
       </div>
       <div class="row">
-        <div class="legend primary left"></div><span class="kpi-detail left">Proposal</span>
+        <div class="legend primary left"></div><span class="kpi-detail left">Proposals</span>
         <div class="legend secondary left"></div><span class="kpi-detail left">Sales</span>
         <div class="time-scale">
-          <span ng-class="{'active': scale === 'week' }" class="scale-detail uppercase" ng-click="changeScale('week')">Week</span><span ng-class="{'active': scale === 'month' }" class="scale-detail uppercase" ng-click="changeScale('month')">Month</span>
+          <span ng-class="{'active': scale === 'week' }" class="scale-detail uppercase" ng-click="changeScale('week')">1 Week</span><span ng-class="{'active': scale === 'month' }" class="scale-detail uppercase" ng-click="changeScale('month')">1 Month</span>
         </div>
       </div>
       <div class="chart-box">
         <div class="row">
-          <span class="kpi-detail uppercase text-center" ng-model="date">{{date}}</span>
+          <!-- <span class="kpi-detail uppercase text-center" ng-model="date">{{date}}</span> -->
           <!-- <span class="kpi-detail uppercase text-center" ng-show="date === april">{{date}}</span> -->
           <canvas id="metricsChart" width="670" height="330"></canvas>
         </div>
       </div>
-      <div class="time-nav">
+     <!--  <div class="time-nav">
         <i class="fa fa-caret-left back" ng-click="calendarBack();"></i>
         <span class="current">TODAY</span>
         <i class="fa fa-caret-right forward" ng-click="calendarForward();"></i>
-      </div>
+      </div> -->
     </div>
     <!-- STATS SECTION -->
-    <div class="small-12 medium-3 columns stats-column show-for-medium-up">
+   <!--  <div class="small-12 medium-3 columns stats-column show-for-medium-up">
       <div class="row">
         <span class="uppercase stats-title ">team stats</span>
       </div>
@@ -107,7 +111,7 @@
         <span class="stats-detail">Sales: 9</detail>
       </div>
     </div>
-  </div>
+  </div> -->
 </section>
 <!-- MOBILE -->
 <!-- <div class="large-12 columns mobile-users-row show-for-small">

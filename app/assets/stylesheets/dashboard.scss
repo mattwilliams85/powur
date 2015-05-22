@@ -880,6 +880,11 @@ $kpi-text-color: #888;
         border-bottom: 1px solid #e5e5e5;
         color: $kpi-text-color;
 
+        //TEMP
+        &.inactive {
+          color: #c5c5c5;
+        }
+
         &.active {
           background-color: #444;
           color: #fff;
@@ -1006,10 +1011,9 @@ $kpi-text-color: #888;
           position:relative;
 
           .avatar-medium {
-            background-image:url(http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578);
             height: 60px; width: 60px;
             border-radius: 50%;
-            background-size: contain;
+            margin: 0 auto;
           }
           .avatar-small {
             height: 35px; width: 35px;

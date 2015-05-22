@@ -10,27 +10,27 @@
 
 <div class="large-12 columns">
   <div class="row tab-header-row">
-    <div class="kpi-tab" ng-class="{'active': section === 'environment'}" ng-click="changeTab('environment')">
+    <div class="kpi-tab inactive" ng-class="{'active': section === 'rank'}" ng-click="changeTab('rank')">
       <div class="kpi-info-box">
-        <!-- Small Screens: Globe Icon / Impact -->
-        <span class="kpi-count show-for-small"><i class="fa fa-globe fa-3x"></i></span>
-        <span class="kpi-header uppercase show-for-small">Impact</span>
-        <!-- Medium/Large Screens: CO2 pounds saved -->
-        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0<span class="unit">lbs</span></span>
-        <span class="kpi-header uppercase show-for-medium-up">CO<sub>2</sub> saved</span>
+        <!-- Small Screens: Badge Icon / Rank -->
+        <span class="kpi-count show-for-small"><i class="fa fa-certificate fa-3x"></i></span>
+        <span class="kpi-header uppercase show-for-small">Rank</span>
+        <!-- Medium/Large Screens: Total Earnings -->
+        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
+        <span class="kpi-header uppercase show-for-medium-up">current rank</span>
       </div>
     </div>
     <div class="kpi-tab" ng-class="{'active': section === 'conversion'}" ng-click="changeTab('conversion')">
       <div class="kpi-info-box">
         <!-- Small Screens: Checkmark Icon / Orders -->
         <span class="kpi-count show-for-small"><i class="fa fa-check-square-o fa-3x"></i></span>
-        <span class="kpi-header uppercase show-for-small">Orders</span>
+        <span class="kpi-header uppercase show-for-small">Proposals</span>
         <!-- Medium/Large Screens: Orders -->
         <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
-        <span class="kpi-header uppercase show-for-medium-up">orders</span>
+        <span class="kpi-header uppercase show-for-medium-up">Proposals</span>
       </div>
     </div>
-    <div class="kpi-tab" ng-class="{'active': section === 'genealogy'}" ng-click="changeTab('genealogy')">
+    <div class="kpi-tab inactive" ng-class="{'active': section === 'genealogy'}" ng-click="changeTab('genealogy')">
       <div class="kpi-info-box">
         <!-- Small Screens: Grid Icon / Grid -->
         <span class="kpi-count show-for-small"><i class="fa fa-th-large fa-3x"></i></span>
@@ -40,7 +40,7 @@
         <span class="kpi-header uppercase show-for-medium-up">in your grid</span>
       </div>
     </div>
-    <div class="kpi-tab" ng-class="{'active': section === 'earnings'}" ng-click="changeTab('earnings')">
+    <div class="kpi-tab inactive" ng-class="{'active': section === 'earnings'}" ng-click="changeTab('earnings')">
       <div class="kpi-info-box">
         <!-- Small Screens: Dollars Icon / Earnings -->
         <span class="kpi-count show-for-small"><i class="fa fa-dollar fa-3x"></i></span>
@@ -50,14 +50,14 @@
         <span class="kpi-header uppercase show-for-medium-up">total earnings</span>
       </div>
     </div>
-    <div class="kpi-tab" ng-class="{'active': section === 'rank'}" ng-click="changeTab('rank')">
+    <div class="kpi-tab inactive" ng-class="{'active': section === 'environment'}" ng-click="changeTab('environment')">
       <div class="kpi-info-box">
-        <!-- Small Screens: Badge Icon / Rank -->
-        <span class="kpi-count show-for-small"><i class="fa fa-certificate fa-3x"></i></span>
-        <span class="kpi-header uppercase show-for-small">Rank</span>
-        <!-- Medium/Large Screens: Total Earnings -->
-        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
-        <span class="kpi-header uppercase show-for-medium-up">current rank</span>
+        <!-- Small Screens: Globe Icon / Impact -->
+        <span class="kpi-count show-for-small"><i class="fa fa-globe fa-3x"></i></span>
+        <span class="kpi-header uppercase show-for-small">Impact</span>
+        <!-- Medium/Large Screens: CO2 pounds saved -->
+        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0<span class="unit">lbs</span></span>
+        <span class="kpi-header uppercase show-for-medium-up">CO<sub>2</sub> saved</span>
       </div>
     </div>
   </div>
@@ -68,7 +68,7 @@
   <ng-include ng-if="section === 'environment' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/environment.html'"></ng-include>
   <ng-include ng-if="section === 'environment' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/environment-beta.html'"></ng-include>
   <ng-include ng-if="section === 'conversion' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include>
-  <ng-include ng-if="section === 'conversion' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/conversion-beta.html'"></ng-include>
+  <ng-include ng-if="section === 'conversion' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include>
   <ng-include ng-if="section === 'genealogy' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/genealogy.html'"></ng-include>
   <ng-include ng-if="section === 'genealogy' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/genealogy-beta.html'"></ng-include>
   <ng-include ng-if="section === 'earnings' && tabData.length" src="'dashboard/templates/sections/kpi/metrics/earnings.html'"></ng-include>

@@ -1,23 +1,25 @@
 ;(function() {
   'use strict';
 
-  function DashboardKPICtrl($scope, $location, $timeout, UserProfile) {
+  function DashboardKPICtrl($scope, $location, $timeout, UserProfile, CommonService) {
     $scope.tabData = {
       enviroment: [],
       conversion: {
         settings: [{
           labels: [],
           datasets: [{
-            fillColor: 'rgba(32, 194, 241,.85)',
-            highlightFill: '#5bd7f7',
-            strokeColor: 'rgba(220,220,220,1)',
-            pointColor: 'rgba(32, 194, 241,.9)',
+            fillColor: 'rgba(255, 186, 120, 0.2)',
+            highlightFill: '#FFC870',
+            strokeColor: 'rgba(253, 180, 92, 1)',
+            pointColor: '#444',
+            pointStrokeColor: 'rgba(253, 180, 92, 1)',
             data: []
           },{
-            fillColor: 'rgba(253, 180, 92, .85)',
-            highlightFill: '#FFC870',
-            strokeColor: 'rgba(220,220,220,1)',
-            pointColor: 'rgba(253, 180, 92, .9)',
+            fillColor: 'rgba(108, 207, 255, 0.15)',
+            highlightFill: '#5bd7f7',
+            strokeColor: 'rgba(108, 207, 255, 1)',
+            pointColor: '#444',
+            pointStrokeColor: 'rgba(108, 207, 255, 1)',
             data: []
           }]
         },{
@@ -25,15 +27,17 @@
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
             scaleFontColor: '#fff',
-            barShowStroke: true,
-            barStrokeWidth: 2,
-            barValueSpacing: 20,
-            barDatasetSpacing: 1,
+            scaleShowVerticalLines: false,
             scaleFontSize: 13,
+            bezierCurve: false,
+            scaleBeginAtZero: true,
             scaleOverride: true,
-            scaleSteps: 12,
+            scaleSteps: 6,
             scaleStepWidth: 12,
-            scaleStartValue: 0
+            scaleLabel : function (label) {
+                if (label.value === '0') return '';
+                return label.value;
+            }
           }
         }]
       },
@@ -100,7 +104,7 @@
     };
 
     ///// EMPTYING tabData
-    $scope.tabData = [];
+    // $scope.tabData = [];
 
     $scope.scale = 'week';
     $scope.current = new Date();
@@ -113,7 +117,9 @@
     $scope.position = 0;
 
     $scope.changeTab = function(section) {
-      // angular.element('.kpi-drilldown').css('height','0')
+      // RETURN UNLESS CONVERSION
+      if(section !== 'conversion') return;
+      //
       if ($scope.section === section) return $scope.closeTab();
       $scope.section = section;
       $scope.tabKey = '';
@@ -143,20 +149,18 @@
     // }
 
     $scope.kpiInit = function() {
-      if (!$scope.tabData.length) return;
+      // if (!$scope.tabData.length) return;
 
       if ($scope.kpiChart) $scope.kpiChart.destroy();
-      $scope.randomizeData();
-      $scope.setScale();
+      // $scope.randomizeData();
       $scope.populateContributors();
-      $scope.setCalendar();
       $scope.ctx = document.getElementById('metricsChart').getContext('2d');
       if (window.innerWidth < 500) {
         $scope.ctx.canvas.width = 300;
         $scope.ctx.canvas.height = 300;
       } else {
-        $scope.ctx.canvas.height = 330;
-        $scope.ctx.canvas.width = 650;
+        $scope.ctx.canvas.height = 400;
+        $scope.ctx.canvas.width = 900;
       }
       $scope.kpiChart = new Chart($scope.ctx).Line($scope.settings[0], $scope.settings[1].options);
     };
@@ -167,37 +171,47 @@
 
     $scope.rebuildChart = function() {
       $scope.kpiChart.destroy();
-      $scope.randomizeData();
+      $scope.populateData();
       $scope.setScale();
       //TEMP - Change this to be dynamic based on container width!
       // debugger
-      $scope.ctx.canvas.height = 330;
-      $scope.ctx.canvas.width = 650;
+      $scope.ctx.canvas.height = 420;
+      $scope.ctx.canvas.width = 900;
       //
       $scope.kpiChart = new Chart($scope.ctx).Line($scope.settings[0], $scope.settings[1].options);
     };
 
     $scope.setScale = function() {
       var _labels = [];
+      var current = $scope.current.subDays(6);
+      var max = Math.max.apply(Math, $scope.settings[0].datasets[0].data);
+      if (max < Math.max.apply(Math, $scope.settings[0].datasets[1].data)) max = Math.max.apply(Math, $scope.settings[0].datasets[1].data)
 
       if ($scope.scale === 'week') {
         for (var i = 0; i <= 6; i++) {
-          _labels.push($scope.current.addDays(i).getMonth() + 1 + '/' + ($scope.current.addDays(i).getDate()));
+          _labels.push($.datepicker.formatDate('M', current.addDays(i)) + ' ' + (current.addDays(i).getDate()));
         }
       } else {
-        $scope.current.setDate(1);
-        for (var i = 0; i <= $scope.daysInMonth() - 1; i++) {
-          _labels.push($scope.current.addDays(i).getMonth() + 1 + '/' + ($scope.current.getDate() + i));
+        current = $scope.current.subDays(29);
+
+        for (var i = 0; i <= 29; i++) {
+          _labels.push(current.addDays(i).getMonth() + 1 + '/' + current.addDays(i).getDate());
         }
       }
-      $scope.settings[1].options.scaleStepWidth = Math.ceil((Math.max.apply(Math, $scope.settings[0].datasets[0].data) * 1.2) / 12);
+
+      if (!$scope.settings[0].datasets[0].data.length || max === 0) {
+        $scope.settings[1].options.scaleStepWidth = 1; 
+      } else {
+        $scope.settings[1].options.scaleStepWidth = Math.ceil((max * 1.2) / 12);
+        $scope.settings[1].options.scaleSteps = (max + (max / 2)) / $scope.settings[1].options.scaleStepWidth;   
+      }
       $scope.settings[0].labels = _labels;
     };
 
     $scope.changeScale = function(scale) {
       $scope.scale = scale
       if (scale === 'week') {
-        $scope.date = 'week ' + $scope.current.getWeek()
+        $scope.date = 'week ' + $scope.current.getWeek();
       } else {
         $scope.date = $.datepicker.formatDate('MM', $scope.current) + ' ' + $scope.current.getFullYear();
       }
@@ -207,7 +221,9 @@
     $scope.changeUser = function(user) {
       if ($scope.activeUser == user) return;
       if (user) {
-        $scope.activeUser = user;
+        CommonService.execute({href: '/u/kpi_metrics/'+ user.id +'/proposals_show.json'}).then(function(data){
+          $scope.activeUser = data.properties;
+        });
       } else {
         $scope.activeUser = false;
       }
@@ -215,14 +231,47 @@
     };
 
     $scope.populateContributors = function() {
-      UserProfile.get().then(function(data){
-        $scope.user = data;
-        UserProfile.getTeam(data.id).then(function(data){
+      CommonService.execute({href: '/u/kpi_metrics/'+ $scope.currentUser.id +'/proposals_show.json'}).then(function(data){
+        $scope.user = data.properties;
+        //Make Current User Default User
+        $scope.activeUser = $scope.user;
+        //
+        $scope.rebuildChart();
+        CommonService.execute({href: '/u/kpi_metrics/' +data.properties.id+ '/proposals_index.json'}).then(function(data){
           $scope.team = data.entities;
-          console.log($scope.team);
         });
       });
     };
+
+    $scope.populateData = function() {
+      $scope.settings[0].datasets[0].data = [];
+      var scale = 6;
+      if ($scope.scale === 'month') scale = 29;
+      for (var i = 0; i <= scale; i++) {
+
+        var count1 = 0;
+        var count2 = 0;
+        $.each($scope.activeUser.metrics_data.sales, function(key, value){
+          value = value.created_at;
+          if ( new Date(value).getMonth() === $scope.current.subDays(scale - i).getMonth() &&
+              new Date(value).getDate() === $scope.current.subDays(scale - i).getDate()
+            ) {
+            count1 += 1;
+          }
+        });
+        $.each($scope.activeUser.metrics_data.proposals, function(key, value){
+          value = value.created_at;
+          if ( new Date(value).getMonth() === $scope.current.subDays(scale - i).getMonth() &&
+              new Date(value).getDate() === $scope.current.subDays(scale - i).getDate()
+            ) {
+            count2 += 1;
+          }
+        });
+        $scope.settings[0].datasets[0].data.push(count1);
+        $scope.settings[0].datasets[1].data.push(count2);
+      }
+    };
+
 
     $scope.changePage = function(direction) {
       if (direction === 'next') {
@@ -290,28 +339,28 @@
     //*END TIME FUNCTIONS
 
     //TEMP
-    $scope.randomizeData = function() {
-      var length = 30;
-      if($scope.scale == 'week') length = 6;
+    // $scope.randomizeData = function() {
+    //   var length = 30;
+    //   if($scope.scale == 'week') length = 6;
 
-      $scope.settings[0].datasets[0].data = [];
-      if ($scope.settings[0].datasets.length < 2) {
-        for (var i = 0; i <= length; i++) {
-          $scope.settings[0].datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
-        }
-      } else {
-        $scope.settings[0].datasets[1].data = [];
-        for (var i = 0; i <= length; i++) {
-          $scope.settings[0].datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
-          $scope.settings[0].datasets[1].data.push(Math.floor(Math.random() * 20 + 15));
-        }
-      }
-    };
+    //   $scope.settings[0].datasets[0].data = [];
+    //   if ($scope.settings[0].datasets.length < 2) {
+    //     for (var i = 0; i <= length; i++) {
+    //       $scope.settings[0].datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
+    //     }
+    //   } else {
+    //     $scope.settings[0].datasets[1].data = [];
+    //     for (var i = 0; i <= length; i++) {
+    //       $scope.settings[0].datasets[0].data.push(Math.floor(Math.random() * 30 + 20));
+    //       $scope.settings[0].datasets[1].data.push(Math.floor(Math.random() * 20 + 15));
+    //     }
+    //   }
+    // };
 
     $scope.redirectUnlessSignedIn();
   }
 
-  DashboardKPICtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile'];
+  DashboardKPICtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('DashboardKPICtrl', DashboardKPICtrl)
   // RESIZE DETECTION
   // .directive('resizable', function($window) {

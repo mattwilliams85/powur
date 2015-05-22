@@ -17,6 +17,9 @@ class Order < ActiveRecord::Base
     select('user_id, product_id, sum(quantity) quantity')
       .group('user_id').group('product_id').order(:user_id)
   }
+  scope :within_date_range, ->(begin_date , end_date) {
+      where("created_at between ? and ?", begin_date, end_date)
+    }
   scope :status, ->(value) { where(status: value) }
 
   scope :personal_totals,

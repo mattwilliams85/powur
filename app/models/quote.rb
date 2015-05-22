@@ -12,7 +12,11 @@ class Quote < ActiveRecord::Base
   add_search :user, :customer, [ :user, :customer ]
 
   scope :not_submitted, ->() { where.not(status: statuses[:submitted]) }
+  # scope :complete, ->(id) { where.not(id: User.find(id).orders.select('quote_id').map {|i| i}) } 
   scope :status, ->(value) { where(status: statuses[value]) }
+  scope :within_date_range, ->(begin_date , end_date) {
+      where("created_at between ? and ?", begin_date, end_date)
+    }
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
   validate :product_data
