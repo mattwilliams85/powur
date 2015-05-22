@@ -24,6 +24,7 @@ heroku run rake db:migrate --app powur
 rake powur:seed:products
 rake powur:seed:zip_codes
 rake powur:seed:advocates
+rake powur:seed:library
 rake powur:seed:leads
 rake powur:seed:submitted_leads
 rake powur:import:lead_updates DATA_API_ENV=production

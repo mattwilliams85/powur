@@ -519,7 +519,7 @@ $kpi-text-color: #888;
 
     // Background
     &.bg {
-      background-image: url(image_path('dandelions.png'));
+      background-image: image-url('dandelions.jpg');
       background-repeat: no-repeat;
       background-size: cover;
       position: absolute;
@@ -900,7 +900,7 @@ $kpi-text-color: #888;
 
           .kpi-header {
             font-size: 12pt;
-            @media #{$medium} { 
+            @media #{$medium} {
               font-size: 16pt;
             }
           }
@@ -1249,13 +1249,13 @@ $kpi-text-color: #888;
       transition: max-height .4s, opacity .2s;
       &.active {
         max-height: 2000px;
-        @media #{$small} { 
+        @media #{$small} {
           max-height: 900px;
         }
-        @media #{$large} { 
+        @media #{$large} {
           max-height: 700px;
         }
-        
+
       }
     }
 
@@ -1524,7 +1524,7 @@ $kpi-text-color: #888;
 
         .bottom-part {
           margin-top: 20px;
-          @media #{$medium} { 
+          @media #{$medium} {
             margin-top: 0px;
           }
         }

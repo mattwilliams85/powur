@@ -45,12 +45,6 @@
       return productFields;
     };
 
-    // Translate "product field" names into label-friendly strings
-    $scope.sanitizeLabel = function(fieldNameString) {
-      var sanitizedString = fieldNameString.replace(/_/g, " ");
-      return sanitizedString;
-    };
-
     // Initialize Carousel
     var initCarousel = function(carouselElement) {
       $(carouselElement).owlCarousel({
@@ -259,26 +253,26 @@
       $scope.mode = '';
     };
 
-    // Search Action
+    // Index Actions
+
+    // Defaults
+    $scope.customerSection.proposalSort = 'created';
+    $scope.customerSection.proposalStatus = '';
     $scope.customerSection.proposalSearch = '';
-    $scope.customerSection.search = function() {
-      destroyCarousel('.proposals');
-      CommonService.execute({
-        href: '/u/quotes.json?search=' + $scope.customerSection.proposalSearch
-      }).then(function(items) {
-        $scope.proposals = items.entities;
-        $timeout(function() {
-          initCarousel('.proposals');
-        });
-      });
+
+    $scope.customerSection.search = function () {
+      $scope.customerSection.proposalSort = 'created';
+      $scope.customerSection.proposalStatus = '';
+      $scope.customerSection.applyIndexActions();
     };
 
-    // Sort Action
-    $scope.customerSection.proposalSort = 'created';
-    $scope.customerSection.sort = function() {
+    $scope.customerSection.applyIndexActions = function() {
       destroyCarousel('.proposals');
       CommonService.execute({
-        href: '/u/quotes.json?sort=' + $scope.customerSection.proposalSort
+        href: '/u/quotes.json?' +
+        'sort=' + $scope.customerSection.proposalSort + '&' +
+        'status=' + $scope.customerSection.proposalStatus + '&' +
+        'search=' + $scope.customerSection.proposalSearch
       }).then(function(items) {
         $scope.proposals = items.entities;
         $timeout(function() {
