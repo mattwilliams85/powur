@@ -9,7 +9,7 @@ json.properties do
   json.metrics_data @user.fetch_proposal_metrics(Date.today - 30, Date.today)
   json.avatar do
     [ :thumb, :medium, :large ].each do |key|
-      json.set! key, @user.avatar.url(key)
+      json.set! key, asset_path(@user.avatar.url(key))
     end
   end if @user.avatar?
   json.proposal_count @user.proposal_count

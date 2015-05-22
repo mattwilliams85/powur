@@ -6,7 +6,7 @@ json.properties do
   json.last_name user.last_name
   json.avatar do
     [ :thumb, :medium, :large ].each do |key|
-      json.set! key, user.avatar.url(key)
+      json.set! key, asset_path(user.avatar.url(key))
     end
   end if user.avatar?
   json.proposal_count user.proposal_count
