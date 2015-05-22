@@ -11,28 +11,39 @@
           <div class="text">My Customers</div>
         </div>
       </div>
+      <div class="large-3 medium-6 columns">
+      <!-- Search -->
+        <div class="row collapse">
+          <form ng-submit="customerSection.search()">
+            <div class="no-padding large-12 medium-12 small-12 columns">
+              <input ng-model="customerSection.proposalSearch" type="search" placeholder="SEARCH">
+            </div>
+            <!-- <div class="no-padding large-3 medium-3 small-2 columns">
+              <button class="search button postfix" ng-click="customerSection.search()">Go</button>
+            </div> -->
+          </form>
+        </div>
+      </div>
 
       <div class="large-3 hide-for-medium-down columns">
       <!-- Sort -->
-        <select class="sort" ng-model="customerSection.proposalSort" ng-change="customerSection.sort()">
+        <select class="sort" ng-model="customerSection.proposalSort" ng-change="customerSection.applyIndexActions()">
           <option value="created">Order by Date</option>
           <option value="customer">Order by Name</option>
         </select>
       </div>
 
-      <div class="large-3 medium-6 columns right">
-      <!-- Search -->
-        <div class="row collapse">
-          <form>
-            <div class="no-padding large-9 medium-9 small-10 columns">
-              <input ng-model="customerSection.proposalSearch" type="search" placeholder="SEARCH">
-            </div>
-            <div class="no-padding large-3 medium-3 small-2 columns">
-              <button class="search button postfix" ng-click="customerSection.search()">Go</button>
-            </div>
-          </form>
-        </div>
+      <div class="large-3 hide-for-medium-down columns">
+      <!-- Filter: Status -->
+        <select class="sort" ng-model="customerSection.proposalStatus" ng-change="customerSection.applyIndexActions()">
+          <option value="">Show All</option>
+          <option value="incomplete">Show Incomplete</option>
+          <option value="ready_to_submit">Show Ready To Submit</option>
+          <option value="submitted">Show Submitted</option>
+          <option value="ineligible_location">Show Ineligible Location</option>
+        </select>
       </div>
+
 
     </div>
 
@@ -73,7 +84,7 @@
                 <img ng-show="proposal.properties.status === 'incomplete'" ng-src="{{legacyImagePaths.proposalIncomplete}}">
               </div>
               <div class="status-text">
-                <span>{{ proposal.properties.status | cleanStatusLabel }}</span>
+                <span>{{ proposal.properties.status | cleanLabel }}</span>
               </div>
               <div class="customer-name">
                 <span>{{proposal.properties.customer}}</span>

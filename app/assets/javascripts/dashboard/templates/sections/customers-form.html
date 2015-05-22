@@ -65,7 +65,7 @@
         <!-- Custom Product Fields -->
         <div ng-repeat="productField in proposal.productFields" class="row">
           <div class="large-12 medium-12 columns">
-            <label>{{sanitizeLabel(productField.name)}}</label>
+            <label>{{ productField.name | cleanLabel }}</label>
             <input ng-model="proposal[productField.name]" type="{{productField.type}}">
           </div>
         </div>

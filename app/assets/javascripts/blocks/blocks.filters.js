@@ -16,9 +16,9 @@
     };
   };
 
-  var cleanStatusLabel = function() {
-    return function(status) {
-      return status.split('_').join(' ');
+  var cleanLabel = function() {
+    return function(label) {
+      return label.split('_').join(' ');
     };
   };
 
@@ -26,6 +26,6 @@
     .module('blocks.filters', [])
     .filter('dateToLocalDate', dateToLocalDate)
     .filter('timeToLocalTime', timeToLocalTime)
-    .filter('cleanStatusLabel', cleanStatusLabel);
+    .filter('cleanLabel', cleanLabel);
 
 })();

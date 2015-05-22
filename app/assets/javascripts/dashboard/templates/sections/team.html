@@ -11,27 +11,28 @@
         </div>
       </div>
 
-      <div class="large-3 medium-6 hide-for-medium-down columns">
+      <div class="large-3 medium-6 columns">
+      <!-- Search -->
+        <div class="row collapse">
+          <form ng-submit="teamSection.search()" class="search-form" ng-class="{ 'fade': downline.length > 1}">
+            <div class="no-padding large-12 medium-12 small-12 columns">
+              <input type="search" ng-model="teamSection.teamSearch"  placeholder="SEARCH">
+            </div>
+<!--             <div class="no-padding large-3 medium-3 small-2 columns">
+              <button class="search button postfix" ng-click="teamSection.search()">Go</button>
+            </div> -->
+          </form>
+        </div>
+      </div>
+
+
+      <div class="large-3 medium-6 hide-for-medium-down columns end">
       <!-- Sort -->
         <select class="sort" ng-model="teamSection.teamSort" ng-change="teamSection.sort()">
           <option value="name">Order by Name</option>
           <option value="newest">Order by Newest</option>
           <!-- <option value="quotes">Order by Number of Quotes</option> -->
         </select>
-      </div>
-
-      <div class="large-3 medium-6 columns right">
-      <!-- Search -->
-        <div class="row collapse">
-          <form class="search-form" ng-class="{ 'fade': downline.length > 1}">
-            <div class="no-padding large-9 medium-9 small-10 columns">
-              <input type="search" ng-model="teamSection.teamSearch"  placeholder="SEARCH">
-            </div>
-            <div class="no-padding large-3 medium-3 small-2 columns">
-              <button class="search button postfix" ng-click="teamSection.search()">Go</button>
-            </div>
-          </form>
-        </div>
       </div>
 
     </div>
