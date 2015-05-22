@@ -38,14 +38,13 @@ module EwalletDSL
 
   def register_new_ipayout_user(user)
     request_params = prepare_register_request(user)
-
     result = ewallet_request(:register_user, request_params)
 
     if result[:m_Text] == 'OK'
       result[:status] = 'success'
     else
       message = 'Unsuccessful Registration Request'
-      result = { status: 'error', message: message }
+      result = { status: 'error', message: message, result_data: result }
     end
     result
   end
