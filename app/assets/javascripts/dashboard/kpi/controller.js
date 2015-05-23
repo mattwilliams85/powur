@@ -186,8 +186,8 @@
       if ($scope.activeUser === user) return;
       CommonService.execute({href: '/u/kpi_metrics/'+ user.id +'/proposals_show.json'}).then(function(data){
         $scope.activeUser = data.properties;
+        $scope.buildChart();
       });
-      $scope.buildChart();
     };
 
     $scope.populateContributors = function() {
