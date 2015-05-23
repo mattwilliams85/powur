@@ -1,0 +1,26 @@
+<form>
+  <fieldset>
+    <legend ng-if="mode === 'new'">New Item</legend>
+    <legend ng-if="mode === 'edit'">Update Item</legend>
+    <!-- Add Item Form -->
+      <div class="row">
+        <div class="large-12 columns">
+          <label for="content">News Item Content</label>
+          <textarea ng-model="latestNewsItem['content']" name="content" id="content" value="{{latestNewsItem['content']}}">{{latestNewsItem.content}}</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <!-- Submit/Cancel Buttons -->
+    <div class="row">
+        <div class="large-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Item" />
+        <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Item" />
+      </div>
+    </div>
+
+  </fieldset>
+</form>

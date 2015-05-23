@@ -15,6 +15,7 @@
 # gem 'pg'
 #
 default: &default
+  database: powur_development
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see rails configuration guide

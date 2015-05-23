@@ -172,18 +172,18 @@
       templateUrl: 'admin/pay-periods/templates/edit.html',
       controller: 'AdminPayPeriodsCtrl'
     }).
-    // Dashboard Notifications
-    when('/admin/notifications', {
-      templateUrl: 'admin/notifications/templates/index.html',
-      controller: 'AdminNotificationsCtrl'
+    // Latest News
+    when('/admin/latest-news', {
+      templateUrl: 'admin/latest-news/templates/index.html',
+      controller: 'AdminLatestNewsCtrl'
     }).
-    when('/admin/notifications/new', {
-      templateUrl: 'admin/notifications/templates/new.html',
-      controller: 'AdminNotificationsCtrl'
+    when('/admin/latest-news/new', {
+      templateUrl: 'admin/latest-news/templates/new.html',
+      controller: 'AdminLatestNewsCtrl'
     }).
-    when('/admin/notifications/:notificationId/edit', {
-      templateUrl: 'admin/notifications/templates/edit.html',
-      controller: 'AdminNotificationsCtrl'
+    when('/admin/latest-news/:notificationId/edit', {
+      templateUrl: 'admin/latest-news/templates/edit.html',
+      controller: 'AdminLatestNewsCtrl'
     }).
     // Social Media Sharing
     when('/admin/social-media', {

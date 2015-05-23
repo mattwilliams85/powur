@@ -15,9 +15,12 @@
       <!-- Search -->
         <div class="row collapse">
           <form ng-submit="customerSection.search()">
+            <!-- If Search "Go" Button -->
+            <!-- <div class="no-padding large-9 medium-9 small-10 columns"> -->
             <div class="no-padding large-12 medium-12 small-12 columns">
               <input ng-model="customerSection.proposalSearch" type="search" placeholder="SEARCH">
             </div>
+            <!-- Search "Go" Button -->
             <!-- <div class="no-padding large-3 medium-3 small-2 columns">
               <button class="search button postfix" ng-click="customerSection.search()">Go</button>
             </div> -->
@@ -67,9 +70,16 @@
         <!-- Proposals Carousel -->
 
         <!-- If No Proposals -->
-        <div ng-if="!proposals" class="empty owl-carousel">
+        <div ng-if="proposals.length === 0 && !customerSection.searching" class="empty owl-carousel">
           <div class="empty-state">
             <p class="empty-text">This is where you manage your proposals and customers.  Add a proposal, submit it to SolarCity, and track the progress.  We'll notify you when your proposals turn into customers.</p>
+          </div>
+        </div>
+
+        <!-- If Empty Result for Proposals -->
+        <div ng-if="proposals.length === 0 && customerSection.searching" class="empty owl-carousel">
+          <div class="empty-state">
+            <p class="empty-text">No proposals matched the search query and filters you provided above.</p>
           </div>
         </div>
 

@@ -61,7 +61,7 @@
         <!-- Custom Product Fields -->
         <div ng-repeat="(key, value) in proposal.product_fields" class="row">
           <div class="large-12 medium-12 columns">
-            <label>{{sanitizeLabel(key)}}</label>
+            <label>{{key | cleanLabel }}</label>
             <input ng-model="proposal.product_fields[key]" ng-disabled="mode === 'submitted'" type="text">
           </div>
         </div>

@@ -50,7 +50,10 @@ Rails.application.routes.draw do
 
   # logged in user routes
   scope :u, module: :auth do
-    resource :kpi_metrics, only: [ :show ]
+    resource :kpi_metrics, only: [ :show ] do
+      get '/:id/proposals_index', to: 'kpi_metrics#proposals_index'
+      get '/:id/proposals_show', to: 'kpi_metrics#proposals_show'
+    end
 
     resource :dashboard, only: [ :show ], controller: :dashboard
 

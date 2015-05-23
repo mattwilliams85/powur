@@ -101,6 +101,13 @@ Date.prototype.addDays = function(days)
   return d;
 }
 
+Date.prototype.subDays = function(days)
+{
+  var d = new Date(this.valueOf());
+  d.setDate(d.getDate() - days);
+  return d;
+}
+
 //Week equivelent of getMonth()
 Date.prototype.getWeekYear = function ()
 {
