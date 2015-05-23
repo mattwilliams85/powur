@@ -37,8 +37,8 @@
             scaleOverride: true,
             pointDotStrokeWidth : 2,
             // ** Required if scaleOverride is true **
-            scaleSteps: 6,
-            scaleStepWidth: 12,
+            scaleSteps: 5,
+            scaleStepWidth: 5,
             // 
             scaleLabel : function (label) {
                 if (label.value === '0') return '';
