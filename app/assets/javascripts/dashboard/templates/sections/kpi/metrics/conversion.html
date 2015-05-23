@@ -8,7 +8,7 @@
     </div>
     <div ng-class="{'active': activeUser.id === user.id}" class="user-contributor row" ng-click="changeUser(user)">
       <div class="row current-user-row">
-        <img ng-if="!teamMember.properties.avatar" class="avatar-medium" src="{{legacyImagePaths.defaultAvatarThumb}}">
+        <img ng-if="!teamMember.properties.avatar" class="avatar-medium" ng-src="{{legacyImagePaths.defaultAvatarThumb}}"> 
         <img ng-if="teamMember.properties.avatar" class="avatar-medium" ng-src="{{member.properties.avatar.small}}">
       </div>
       <div class="row current-user-row details">

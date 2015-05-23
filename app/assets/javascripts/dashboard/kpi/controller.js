@@ -11,19 +11,19 @@
             fillColor: 'rgba(255, 186, 120, 0.2)',
             highlightFill: '#FFC870',
             strokeColor: 'rgba(253, 180, 92, 1)',
-            pointColor: '#444',
-            pointStrokeColor: 'rgba(253, 180, 92, 1)',
-            pointHighlightFill: "#444",
-            pointHighlightStroke: "rgba(253, 180, 92, 1)",
+            pointColor: 'rgba(253, 180, 92, 1)',
+            pointStrokeColor: 'rgb(68, 68, 68)',
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "#444",
             data: []
           },{
             fillColor: 'rgba(108, 207, 255, 0.15)',
             highlightFill: '#5bd7f7',
             strokeColor: '#20c2f1',
-            pointColor: '#444',
-            pointStrokeColor: '#20c2f1',
-            pointHighlightFill: "#444",
-            pointHighlightStroke: "20c2f1",
+            pointColor: '#20c2f1',
+            pointStrokeColor: 'rgb(68, 68, 68)',
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "#444",
             data: []
           }]
         },{
@@ -35,6 +35,7 @@
             scaleFontSize: 13,
             bezierCurve: false,
             scaleOverride: true,
+            pointDotStrokeWidth : 2,
             // ** Required if scaleOverride is true **
             scaleSteps: 6,
             scaleStepWidth: 12,
@@ -157,6 +158,7 @@
       } else {
         $scope.settings[1].options.scaleStepWidth = Math.ceil((max * 1.2) / 12);
         $scope.settings[1].options.scaleSteps = (max + (max / 2)) / $scope.settings[1].options.scaleStepWidth;   
+        if($scope.settings[1].options.scaleSteps < 5) $scope.settings[1].options.scaleSteps = 5;
       }
     };
 
