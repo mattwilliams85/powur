@@ -155,6 +155,7 @@
 
       if (!max) {
         $scope.settings[1].options.scaleStepWidth = 1; 
+        $scope.settings[1].options.scaleSteps = 5;
       } else {
         $scope.settings[1].options.scaleStepWidth = Math.ceil((max * 1.2) / 12);
         $scope.settings[1].options.scaleSteps = (max + (max / 2)) / $scope.settings[1].options.scaleStepWidth;   
