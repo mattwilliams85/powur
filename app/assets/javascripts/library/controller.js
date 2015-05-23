@@ -23,7 +23,7 @@
           $('#item_' + item.properties.id + ' video').html('<source src=\'' + item.properties.file_original_path + '\' type=\'video/mp4\'>').show();
         } else if (item.properties.youtube_id) {
           $('#item_' + item.properties.id + ' video').hide();
-          $('#video_content_wrapper').prepend('<iframe type=\'text/html\' width=\'100%\' height=\'380px\' src=\'http://www.youtube.com/embed/' + item.properties.youtube_id + '\' frameborder=\'0\' modestbranding=\'1\' autohide=\'1\' showinfo=\'1\' controls=\'1\';></iframe>');
+          $('#video_content_wrapper').prepend('<iframe type=\'text/html\' width=\'100%\' height=\'380px\' src=\'https://www.youtube.com/embed/' + item.properties.youtube_id + '\' frameborder=\'0\' modestbranding=\'1\' autohide=\'1\' showinfo=\'1\' controls=\'1\';></iframe>');
         }
       }
       var html = $('#item_' + item.properties.id).html();
