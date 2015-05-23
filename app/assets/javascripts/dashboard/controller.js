@@ -44,7 +44,7 @@
       $scope.goals = { personalPercent: 100, groupPercent: 20, badge: legacyImagePaths.goalsBadge };
     });
 
-    $scope.socialQuote = 'Turn a sunny day into a sustainable future. Join Powur and start taking back the future of energy!';
+    $scope.socialQuote = '"Don\'t try to fight the existing reality, build a new model that makes the old model obsolete" - Buckminster Fuller';
   }
 
   DashboardCtrl.$inject = ['$scope', '$location', 'UserProfile', 'CommonService'];
