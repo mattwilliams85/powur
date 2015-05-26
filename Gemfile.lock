@@ -34,7 +34,7 @@ GIT
 
 GIT
   remote: git://github.com/eyecuelab/ipayout.git
-  revision: 345f8c9c22965378245bee7b76dc054ceea55a5e
+  revision: 7181f53e9602e2ac3035a46af717c3121bf4f015
   specs:
     ipayout (0.0.1)
       extlib
