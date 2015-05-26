@@ -10,32 +10,36 @@
           datasets: [{
             fillColor: 'rgba(255, 186, 120, 0.2)',
             highlightFill: '#FFC870',
-            strokeColor: 'rgba(253, 180, 92, 1)',
             pointColor: 'rgba(253, 180, 92, 1)',
             pointStrokeColor: 'rgb(68, 68, 68)',
             pointHighlightFill: "#fff",
             pointHighlightStroke: "#444",
+            strokeColor: 'rgba(253, 180, 92, 1)',
             data: []
           },{
             fillColor: 'rgba(108, 207, 255, 0.15)',
             highlightFill: '#5bd7f7',
-            strokeColor: '#20c2f1',
             pointColor: '#20c2f1',
             pointStrokeColor: 'rgb(68, 68, 68)',
             pointHighlightFill: "#fff",
             pointHighlightStroke: "#444",
+            strokeColor: '#20c2f1',
             data: []
           }]
         },{
           options: {
+            bezierCurve: false,
+            maintainAspectRatio: false,
+            pointDotStrokeWidth : 2,
+            pointHitDetectionRadius : 10,
+            responsive: true,
+            scaleFontColor: '#fff',
+            scaleFontFamily: "'Open Sans', 'Helvetica', 'Helvetica', 'Arial', 'sans-serif'",
+            scaleFontSize: 13,
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
-            scaleFontColor: '#fff',
             scaleShowVerticalLines: false,
-            scaleFontSize: 13,
-            bezierCurve: false,
             scaleOverride: true,
-            pointDotStrokeWidth : 2,
             // ** Required if scaleOverride is true **
             scaleSteps: 5,
             scaleStepWidth: 5,
@@ -141,12 +145,12 @@
       $scope.populateData();
       $scope.generateLabels();
       $scope.setScale();
-
-      $scope.ctx = document.getElementById('metricsChart').getContext('2d');
-      $scope.ctx.canvas.height = $('.chart-box').height();
-      $scope.ctx.canvas.width = $('.chart-box').width();
+      var ctx = document.getElementById('metricsChart').getContext('2d');
+      ctx.canvas.style.height = $('.chart-box').height();
+      ctx.canvas.style.width = $('.chart-box').width();
+      
     
-      $scope.kpiChart = new Chart($scope.ctx).Line($scope.settings[0], $scope.settings[1].options);
+      $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
     };
 
     $scope.setScale = function() {
@@ -247,7 +251,7 @@
       });
     };
 
-    //TIME FUNCTIONS
+    //CALENDAR FUNCTIONS
     $scope.daysInMonth = function() {
       var days = new Date($scope.current);
       days = new Date(days.setMonth($scope.current.getMonth() + 1));
@@ -296,19 +300,4 @@
 
   DashboardKPICtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('DashboardKPICtrl', DashboardKPICtrl)
-  // RESIZE DETECTION
-  // .directive('resizable', function($window) {
-  //   return function($scope) {
-  //     $scope.initializeWindowSize = function() {
-  //       return $scope.windowWidth = $window.innerWidth;
-  //     };
-  //     $scope.initializeWindowSize();
-  //     return angular.element($window).bind('resize', function() {
-  //       $scope.initializeWindowSize();
-  //       if($scope.windowWidth < 800) $scope.resizeChart()
-  //       return $scope.$apply();
-  //     });
-  //   };
-  // });
-
 })();
