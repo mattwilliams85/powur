@@ -10,8 +10,10 @@
           <select ng-model="product[field.name]" ng-if="field.type === 'select'" name="{{field.name}}" id="{{field.name}}">
             <option ng-repeat="(key, name) in field.options" value="{{key}}">{{name}}</option>
           </select>
-          <!-- Text Inputs -->
-          <input ng-model="product[field.name]" ng-if="field.type === 'text'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+          <!-- String Inputs -->
+          <input ng-model="product[field.name]" ng-if="field.type === 'string'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+          <!-- Text area Inputs -->
+          <textarea ng-model="product[field.name]" ng-if="field.type === 'text'" name="{{field.name}}" id="{{field.name}}">{{field.value}}</textarea>
           <!-- Number Inputs -->
           <input ng-model="product[field.name]" ng-if="field.type === 'number'" type="number" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
           <!-- Boolean -->
@@ -25,8 +27,7 @@
     <!-- Submit/Cancel Buttons -->
     <div class="row">
       <div class="large-12 columns">
-        <a ng-if="mode === 'new'" ng-click="cancel()" class="button secondary">Cancel</a>
-        <a ng-if="mode === 'edit'" ng-href="/admin/products/{{product.id}}" class="button secondary">Cancel</a>
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
         <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Product" />
         <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Product" />
       </div>

@@ -1,26 +1,31 @@
 <main class="pow-admin-products">
-
-  <!-- Header -->
   <div class="row">
-    <div class="large-6 columns">
+    <div class="large-12 columns">
       <h2>Products</h2>
     </div>
     <div class="large-6 columns">
       <a ng-href="/admin/products/new" class="button right">Add Product</a>
     </div>
   </div>
-  <!-- List of Products -->
+
   <div class="row">
     <div class="large-12 columns">
-      <div ng-repeat="product in products" class="admin-products-list-item">
-        <div class="row">
-          <div class="large-12 columns">
-            <h3><a ng-href="/admin/products/{{product.properties.id}}">{{product.properties.name}}</a></h3>
-            <span class="product-id">ID: {{product.properties.id}}</span>
-          </div>
-        </div>
-      </div>
+      <table width="100%">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th width="150">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in items">
+            <td>{{item.properties.id}}</td>
+            <td><a ng-href="/admin/products/{{item.properties.id}}/edit">{{item.properties.name}}</a></td>
+            <td><a ng-href="/admin/products/{{item.properties.id}}/edit">edit</a></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-
 </main>
