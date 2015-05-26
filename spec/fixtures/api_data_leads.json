@@ -2,6 +2,7 @@
   "uid": "test.powur.com:42",
   "providerUid": "00Q18000001P1xuEAC",
   "status": "existingActive",
+  "updated": "2015-04-12T04:42:51+00:00",
   "contact": {
     "firstName": "Truman",
     "lastName": "Burbank",
