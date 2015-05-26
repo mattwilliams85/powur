@@ -40,6 +40,7 @@ namespace :powur do
       Rank.destroy_all
       RANKS.each do |id, attrs|
         Rank.create!(attrs.merge(id: id))
+        puts "Created rank #{id}"
       end
     end
 
@@ -49,16 +50,22 @@ namespace :powur do
         rank_id = attrs.delete(:rank_id)
         group = UserGroup.create!(attrs.merge(id: group_id(rank_id)))
         group.ranks_user_groups.create!(rank_id: rank_id)
+        puts "Created group #{group.id}"
       end
     end
 
     task requirements: :environment do
       UserGroupRequirement.destroy_all
       REQUIREMENTS.each do |id, attr_list|
+        user_group_id = group_id(id)
         attr_list.each do |attrs|
-          UserGroupRequirement.create!(attrs.merge(user_group_id: group_id(id)))
+          UserGroupRequirement.create!(attrs.merge(user_group_id: user_group_id))
         end
+        puts "Created requirements for #{user_group_id}"
       end
+    end
+
+    task plan: [ :ranks, :user_groups, :requirements ] do
     end
 
   end
