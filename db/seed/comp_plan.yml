@@ -1,0 +1,120 @@
+ranks:
+  - id: 1
+    title: Direct Seller
+  - id: 2
+    title: Local Grid
+  - id: 3
+    title: Community Grid
+  - id: 4
+    title: City Grid
+  - id: 5
+    title: Regional Grid
+  - id: 6
+    title: State Grid Leader
+  - id: 7
+    title: National Grid
+  - id: 8
+    title: Game Changer
+groups:
+  - id: rank_1_users
+    title: Direct Sellers
+    description: You have taken the FIT training.
+    rank_id: 1
+    requirements:
+      - event_type: :course_completion
+        product_id: 2
+  - id: rank_2_users
+    title: Certified Local Grid Advocates
+    description: Advocates that have been certified.
+    rank_id: 2
+    requirements:
+      - event_type: :course_completion
+        product_id: 3
+      - event_type: :personal_sales
+        product_id: 1
+        quantity: 3
+        time_span: :lifetime
+  - id: rank_3_users
+    title: Community Grid Advocates
+    description: Advocates that have met the requirements for the Community Grid rank.
+    rank_id: 3
+    requirements:
+      - event_type: :personal_sales
+        product_id: 1
+        quantity: 5
+        time_span: :lifetime
+      - event_type: :group_sales
+        product_id: 1
+        quantity: 25
+        time_span: :monthly
+        max_leg: 50
+  - id: rank_4_users
+    title: City Grid Advocates
+    description: Advocates that have met the requirements for the City Grid rank.
+    rank_id: 4
+    requirements:
+      - event_type: :personal_sales
+        product_id: 1
+        quantity: 7
+        time_span: :lifetime
+      - event_type: :group_sales
+        product_id: 1
+        quantity: 10
+        time_span: :monthly
+        max_leg: 50
+  - id: rank_5_users
+    title: Regional Grid Advocates
+    description: Advocates that have met the requirements for the Regional Grid rank.
+    rank_id: 5
+    requirements:
+      - event_type: :personal_sales
+        product_id: 1
+        quantity: 9
+        time_span: :lifetime
+      - event_type: :group_sales
+        product_id: 1
+        quantity: 50
+        time_span: :monthly
+        max_leg: 50
+  - id: rank_6_users
+    title: State Grid Advocates
+    description: Advocates that have met the requirements for the State Grid rank.
+    rank_id: 6
+    requirements:
+      - event_type: :personal_sales
+        product_id: 1
+        quantity: 12
+        time_span: :lifetime
+      - event_type: :group_sales
+        product_id: 1
+        quantity: 100
+        time_span: :monthly
+        max_leg: 50
+  - id: rank_7_users
+    title: National Grid Advocates
+    description: Advocates that have met the requirements for the National Grid rank.
+    rank_id: 7
+    requirements:
+      - event_type: :personal_sales
+        product_id: 1
+        quantity: 15
+        time_span: :lifetime
+      - event_type: :group_sales
+        product_id: 1
+        quantity: 250
+        time_span: :monthly
+        max_leg: 50
+  - id: rank_8_users
+    title: Game Changers
+    description: Advocates that have met the requirements for the Game Changer rank.
+    rank_id: 8
+    requirements:
+      - event_type: :personal_sales
+        product_id: 1
+        quantity: 15
+        time_span: :lifetime
+      - event_type: :group_sales
+        product_id: 1
+        quantity: 500
+        time_span: :monthly
+        max_leg: 50
