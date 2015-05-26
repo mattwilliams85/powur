@@ -20,6 +20,11 @@ class Jobs::UserSmarteruLearnerReportJob < Struct.new(:user_id, :previous_checks
     end
   end
 
+  # Delayed::Job max_attempts config override, don't confuse with our MAX_ATTEMPTS
+  def max_attempts
+    2
+  end
+
   def find_matching_report(reports, course_name)
     reports.find { |report| report[:course_name] == course_name }
   end
