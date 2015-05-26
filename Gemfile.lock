@@ -61,6 +61,15 @@ GIT
       activerecord (>= 3.2.13, < 5)
 
 GIT
+  remote: git://github.com/paulwalker/factory_girl_rails.git
+  revision: 2543e4df04f1b63102668b6484271a52d6136bfe
+  branch: allow_file_path_def
+  specs:
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
+
+GIT
   remote: git://github.com/paulwalker/same_time.git
   revision: 6ea4a4a2540ccd14fb8d972f2872ce3f20106acf
   specs:
@@ -115,6 +124,7 @@ GEM
       railties (>= 3.1)
       sprockets (~> 2)
       tilt
+    ansi (1.5.0)
     arel (6.0.0)
     ast (2.0.0)
     astrolabe (1.3.0)
@@ -150,6 +160,7 @@ GEM
     cocaine (0.5.7)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
+    color_pound_spec_reporter (0.0.4)
     columnize (0.9.0)
     compass (1.0.3)
       chunky_png (~> 1.2)
@@ -185,9 +196,6 @@ GEM
     extlib (0.9.16)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.5.0)
-      factory_girl (~> 4.5.0)
-      railties (>= 3.0.0)
     faker (1.4.3)
       i18n (~> 0.5)
     faraday (0.9.1)
@@ -237,6 +245,11 @@ GEM
     mime-types (2.5)
     mini_portile (0.6.2)
     minitest (5.6.1)
+    minitest-reporters (1.0.16)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     minitest-spec-rails (5.2.0)
       minitest (~> 5.0)
       rails (~> 4.1)
@@ -416,6 +429,7 @@ DEPENDENCIES
   byebug
   capybara
   capybara-firebug
+  color_pound_spec_reporter
   compass-rails!
   composite_primary_keys!
   database_cleaner
@@ -423,18 +437,20 @@ DEPENDENCIES
   delayed_job_active_record
   dotenv-rails
   eventmachine!
-  factory_girl_rails
+  factory_girl_rails!
   faker
   faraday
   figaro
   foreman
   gibbon
   has_scope
+  hashie
   httparty
   ipayout!
   jbuilder
   jquery-rails
   meta_request
+  minitest-reporters
   minitest-spec-rails
   money
   paperclip
@@ -450,6 +466,7 @@ DEPENDENCIES
   sass-rails
   sdoc (~> 0.4.0)
   smarteru!
+  spring
   spring-commands-rspec
   thin
   uglifier

@@ -1,0 +1,13 @@
+DEFAULTS: &DEFAULTS
+  first_name: Dirk
+  last_name: Diggler
+  email: $LABEL@eyecuelab.com
+  encrypted_password: <%= default_password_digest %>
+
+advocate:
+  <<: *DEFAULTS
+
+admin:
+  <<: *DEFAULTS
+  roles:
+    - admin

@@ -1,0 +1,16 @@
+rank1:
+  product: solar
+  user_group: rank1
+  event_type: 1
+course:
+  product: potpourri
+  user_group: potpourri
+  event_type: 1
+personal_sales:
+  product: potpourri
+  user_group: potpourri
+  event_type: 2
+group_sales:
+  product: potpourri
+  user_group: potpourri
+  event_type: 3

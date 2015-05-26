@@ -10,7 +10,7 @@ class WebController < ApplicationController
   end
 
   def current_user
-    @current_user ||= session[:user_id] && User.find_by(id: session[:user_id].to_i)
+    @current_user ||= user_from_session
   end
 
   def logged_in?
@@ -25,6 +25,10 @@ class WebController < ApplicationController
 
     session[:expires_at] = Time.current + 1.hour
     true
+  end
+
+  def admin?
+    current_user.role?(:admin)
   end
 
   def login_user(user, remember_me = nil)
@@ -43,5 +47,10 @@ class WebController < ApplicationController
       end
       format.all { super }
     end
+  end
+
+  def user_from_session
+    return session[:user] if session[:user]
+    session[:user_id] && User.find_by(id: session[:user_id].to_i)
   end
 end

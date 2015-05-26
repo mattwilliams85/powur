@@ -50,11 +50,22 @@ Rails.application.routes.draw do
 
   # logged in user routes
   scope :u, module: :auth do
+
     resource :kpi_metrics, only: [ :show ] do
       get '/:id/proposals_index', to: 'kpi_metrics#proposals_index'
       get '/:id/proposals_show', to: 'kpi_metrics#proposals_show'
     end
 
+    resources :ranks, only: [ :index, :create, :destroy, :show, :update ] do
+      resources :groups, only: [ :index ], controller: :user_groups
+      post 'groups' => 'user_groups#add_to_rank'
+    end
+    resources :user_groups, only: [ :index, :show, :create, :update, :destroy ] do
+        resources :requirements, only: [ :index, :create ]
+    end
+    resources :requirements,
+              only:       [ :destroy, :update, :show ]
+    
     resource :dashboard, only: [ :show ], controller: :dashboard
 
     resource :empower_merchant,
@@ -95,7 +106,7 @@ Rails.application.routes.draw do
 
       resource :goals, only: [ :show ]
       resources :orders, only: [ :index, :show ], controller: :user_orders
-      resources :order_totals, only: [ :index ], controller: :user_order_totals
+      resources :order_totals, only: [ :index ]#, controller: :user_order_totals
       resources :user_activities, only:       [ :index, :show ],
                                   controller: :user_activities
       member do
@@ -105,8 +116,8 @@ Rails.application.routes.draw do
         get :eligible_parents
       end
 
-      resources :rank_achievements, only:       [ :index ],
-                                    controller: :user_rank_achievements
+      # resources :rank_achievements, only:       [ :index ],
+      #                               controller: :user_rank_achievements
     end
 
     resources :quotes, only: [ :index, :create, :destroy, :update, :show ],
@@ -179,10 +190,10 @@ Rails.application.routes.draw do
                               controller: :user_pay_periods
 
       resources :orders, only: [ :index ], controller: :user_orders
-      resources :order_totals, only: [ :index ], controller: :user_order_totals
-      resources :rank_achievements,
-                only:       [ :index ],
-                controller: :user_rank_achievements
+      # resources :order_totals, only: [ :index ], controller: :user_order_totals
+      # resources :rank_achievements,
+      #           only:       [ :index ],
+      #           controller: :user_rank_achievements
       resources :bonus_payments,
                 only:       [ :index ],
                 controller: :user_bonus_payments
@@ -195,16 +206,6 @@ Rails.application.routes.draw do
     end
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
-
-    resources :ranks, only: [ :index, :create, :update, :destroy, :show ] do
-      resources :qualifications,
-                only:       [ :create, :update, :destroy ],
-                controller: :rank_qualifications
-    end
-
-    resources :rank_paths, only: [ :index, :create, :update, :destroy ]
-
-    resources :qualifications, only: [ :index, :create, :update, :destroy ]
 
     resources :bonus_plans,
               only: [ :index, :create, :destroy, :update, :show ] do
@@ -239,12 +240,12 @@ Rails.application.routes.draw do
         post :disburse
       end
       resources :orders, only: [ :index ], controller: :pay_period_orders
-      resources :order_totals,
-                only:       [ :index ],
-                controller: :pay_period_order_totals
-      resources :rank_achievements,
-                only:       [ :index ],
-                controller: :pay_period_rank_achievements
+      # resources :order_totals,
+      #           only:       [ :index ],
+      #           controller: :pay_period_order_totals
+      # resources :rank_achievements,
+      #           only:       [ :index ],
+      #           controller: :pay_period_rank_achievements
       resources :bonus_payments,
                 only:       [ :index ],
                 controller: :pay_period_bonus_payments
@@ -255,14 +256,6 @@ Rails.application.routes.draw do
     resources :notifications,
                 only: [ :index, :create, :destroy, :show, :update ],
                 as:   :admin_notifications
-
-    resources :user_groups, only: [ :index, :show, :create, :update, :destroy ] do
-      resources :requirements, only: [ :create ], controller: :user_group_requirements
-    end
-    resources :user_group_requirements,
-              only:       [ :destroy, :update ],
-              controller: :user_group_requirements
-
 
     resources :resources, as: :admin_resources
   end

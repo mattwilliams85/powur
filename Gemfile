@@ -41,8 +41,10 @@ gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
 gem 'aasm'
 gem 'smarteru', github: 'eyecuelab/smarteru'
 gem 'figaro'
+gem 'hashie'
 
 group :development do
+  gem 'spring'
   gem 'spring-commands-rspec'
   gem 'thin'
   gem 'rubocop', require: false
@@ -52,7 +54,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', github: 'paulwalker/factory_girl_rails', branch: 'allow_file_path_def'
   gem 'awesome_print'
   gem 'byebug'
   gem 'webmock', require: 'webmock/rspec'
@@ -65,6 +67,8 @@ group :test do
   gem 'capybara'
   gem 'capybara-firebug'
   gem 'minitest-spec-rails'
+  gem 'minitest-reporters'
+  gem 'color_pound_spec_reporter'
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc

@@ -40,4 +40,5 @@ Rails.application.configure do
   Delayed::Worker.delay_jobs = false
 
   config.active_support.test_order = :random
+  FactoryGirl.definition_file_paths = %w(test/factories) if ENV['MINITEST']
 end

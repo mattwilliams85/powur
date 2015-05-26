@@ -1,4 +1,4 @@
-class RankUserGroup < ActiveRecord::Base
+class RanksUserGroup < ActiveRecord::Base
   self.primary_keys = :rank_id, :user_group_id
 
   belongs_to :user

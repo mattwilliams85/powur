@@ -368,6 +368,35 @@ ALTER SEQUENCE distributions_id_seq OWNED BY distributions.id;
 
 
 --
+-- Name: foos; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE foos (
+    id integer NOT NULL,
+    data hstore DEFAULT ''::hstore
+);
+
+
+--
+-- Name: foos_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE foos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: foos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE foos_id_seq OWNED BY foos.id;
+
+
+--
 -- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -465,9 +494,9 @@ CREATE TABLE order_totals (
     user_id integer NOT NULL,
     product_id integer NOT NULL,
     personal integer DEFAULT 0 NOT NULL,
-    "group" integer NOT NULL,
+    "group" integer DEFAULT 0 NOT NULL,
     personal_lifetime integer DEFAULT 0 NOT NULL,
-    group_lifetime integer NOT NULL
+    group_lifetime integer DEFAULT 0 NOT NULL
 );
 
 
@@ -622,7 +651,7 @@ ALTER SEQUENCE product_receipts_id_seq OWNED BY product_receipts.id;
 CREATE TABLE products (
     id integer NOT NULL,
     name character varying NOT NULL,
-    bonus_volume integer NOT NULL,
+    bonus_volume integer,
     commission_percentage integer DEFAULT 100 NOT NULL,
     distributor_only boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -859,22 +888,22 @@ ALTER SEQUENCE rank_paths_id_seq OWNED BY rank_paths.id;
 
 
 --
--- Name: rank_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE rank_user_groups (
-    rank_id integer NOT NULL,
-    user_group_id character varying NOT NULL
-);
-
-
---
 -- Name: ranks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE ranks (
     id integer NOT NULL,
     title character varying NOT NULL
+);
+
+
+--
+-- Name: ranks_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ranks_user_groups (
+    rank_id integer NOT NULL,
+    user_group_id character varying NOT NULL
 );
 
 
@@ -1223,6 +1252,13 @@ ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distribution
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY foos ALTER COLUMN id SET DEFAULT nextval('foos_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY lead_updates ALTER COLUMN id SET DEFAULT nextval('lead_updates_id_seq'::regclass);
 
 
@@ -1445,6 +1481,14 @@ ALTER TABLE ONLY delayed_jobs
 
 ALTER TABLE ONLY distributions
     ADD CONSTRAINT distributions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: foos_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY foos
+    ADD CONSTRAINT foos_pkey PRIMARY KEY (id);
 
 
 --
@@ -1984,7 +2028,7 @@ ALTER TABLE ONLY quote_fields
 -- Name: fk_rails_54f92f658f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rank_user_groups
+ALTER TABLE ONLY ranks_user_groups
     ADD CONSTRAINT fk_rails_54f92f658f FOREIGN KEY (rank_id) REFERENCES ranks(id);
 
 
@@ -1992,7 +2036,7 @@ ALTER TABLE ONLY rank_user_groups
 -- Name: fk_rails_61e62e2a41; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rank_user_groups
+ALTER TABLE ONLY ranks_user_groups
     ADD CONSTRAINT fk_rails_61e62e2a41 FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
 
 
@@ -2335,4 +2379,10 @@ INSERT INTO schema_migrations (version) VALUES ('20150519215441');
 INSERT INTO schema_migrations (version) VALUES ('20150521051136');
 
 INSERT INTO schema_migrations (version) VALUES ('20150521071301');
+
+INSERT INTO schema_migrations (version) VALUES ('20150523153423');
+
+INSERT INTO schema_migrations (version) VALUES ('20150525043450');
+
+INSERT INTO schema_migrations (version) VALUES ('20150526030947');
 
