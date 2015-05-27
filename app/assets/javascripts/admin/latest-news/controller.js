@@ -4,18 +4,27 @@
   function AdminLatestNewsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, CommonService) {
     $scope.redirectUnlessSignedIn();
 
-    // Utility Functions
-    $scope.getAction = function (actions, name) {
-      for (var i in actions) {
-        if (actions[i].name === name) {
-          return actions[i];
-        }
-      }
-      return;
-    };
-
     $scope.cancel = function() {
       $location.path('/admin/latest-news');
+    };
+
+    $scope.confirm = function(msg, clickAction, arg) {
+      if (window.confirm(msg)) {
+        return $scope.$eval(clickAction)(arg);
+      }
+    };
+
+    $scope.delete = function(item) {
+      var action = getAction(item.actions, 'delete');
+      return CommonService.execute(action).then(function() {
+        $scope.showModal('This resource has been deleted.');
+        $location.path('/admin/latest-news');
+        $scope.currentPage = 0;
+        $scope.items = [];
+        $scope.loadMore();
+      }, function() {
+        $scope.showModal('Oops, error while deleting');
+      });
     };
 
     $scope.formattedTime = function(timestamp) {
@@ -28,13 +37,13 @@
     };
 
     $scope.loadMore = function() {
-      var nextPage = ($scope.currentPage) + 1;
+      var nextPage = $scope.currentPage + 1;
 
       CommonService.execute({
         href: '/a/notifications.json?page=' + nextPage
       }).then(function(items) {
         for (var i in items.entities) {
-          $scope.latestNews.push(items.entities[i]);
+          $scope.items.push(items.entities[i]);
         }
         $scope.currentPage = items.properties.paging.current_page;
         $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
@@ -88,7 +97,7 @@
         href: '/a/notifications.json'
       }).then(function(items) {
         $location.path(destination);
-        $scope.latestNews = items.entities;
+        $scope.items = items.entities;
         $scope.currentPage = items.properties.paging.current_page;
         $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
         $scope.showModal(modalMessage);
@@ -112,7 +121,7 @@
       CommonService.execute({
         href: '/a/notifications.json'
       }).then(function(items) {
-        $scope.latestNews = items.entities;
+        $scope.items = items.entities;
         $scope.currentPage = items.properties.paging.current_page;
         $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
 
@@ -124,7 +133,7 @@
       CommonService.execute({
         href: '/a/notifications.json'
       }).then(function(items) {
-        $scope.formAction = $scope.getAction(items.actions, 'create');
+        $scope.formAction = getAction(items.actions, 'create');
         $scope.latestNewsItem = {};
       });
 
@@ -137,7 +146,7 @@
         href: '/a/notifications/' + $routeParams.notificationId + '.json'
       }).then(function(item) {
         $scope.latestNewsItem = item.properties;
-        $scope.formAction = $scope.getAction(item.actions, 'update');
+        $scope.formAction = getAction(item.actions, 'update');
 
         // Breadcrumbs: Latest News / Update Item
         $rootScope.breadcrumbs.push({title: 'Latest News', href: '/admin/latest-news'});
@@ -145,6 +154,16 @@
       });
     }
   };
+
+  // Utility Functions
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
+  }
 
   AdminLatestNewsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'CommonService'];
   angular.module('powurApp').controller('AdminLatestNewsCtrl', AdminLatestNewsCtrl);
