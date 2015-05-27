@@ -9,7 +9,10 @@ class ProductEnrollment < ActiveRecord::Base
     uniqueness: { scope: :user_id }
   validates :user_id, presence: true
 
-  scope :incomplete, -> { where(state: ['enrolled', 'started']) }
+  scope :incomplete, -> { where(state: [ 'enrolled', 'started' ]) }
+  scope :user_product, ->(user_id, product_id) {
+    where(user_id: user_id, product_id: product_id)
+  }
 
   after_create :start_learner_report_polling
 

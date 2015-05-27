@@ -66,6 +66,10 @@ module TestResponse
       entity?(rel).must_equal true, "Expected entity '#{rel}' in #{self}"
     end
 
+    def must_have_entities(*rels)
+      rels.each { |rel| must_have_entity(rel) }
+    end
+
     def props_must_equal(key_values)
       key_values.each do |key, value|
         self.properties[key]

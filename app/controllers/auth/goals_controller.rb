@@ -21,13 +21,22 @@ module Auth
     def show
       next_rank_id = @user.organic_rank ? @user.organic_rank + 1 : 1
       @next_rank = Rank.find(next_rank_id)
+      return unless @next_rank
+
       @requirements = @next_rank.user_groups.map(&:requirements).flatten
+      course_product_ids = select_course_products(@requirements)
+      @enrollments = ProductEnrollment.user_product(@user.id, course_product_ids)
     end
 
     private
 
     def fetch_user
       @user = fetch_downline_user(params[:user_id].to_i)
+    end
+
+    def select_course_products(requirements)
+      course_requirements = requirements.select(&:course_completion?)
+      course_requirements.map(&:product_id).uniq
     end
   end
 end
