@@ -26,7 +26,7 @@
       scope.internalControl.pagePiler = function() {
         if ($('#pagepiling').length === 0) return;
 
-        $('.fa-chevron-down, .bulb-btn, .watch').click(function(e) {
+        $('.fa-chevron-down, .bulb-btn').click(function(e) {
           e.preventDefault();
           $.fn.pagepiling.moveSectionDown();
           e.stopPropagation();

@@ -85,6 +85,15 @@ slider {
  * Misc / Utility
  *
 */
+.energy-modal {
+  background: #000;
+  border-width: 0;
+  padding: 0;
+  .close-reveal-modal {
+    color: #fff;
+  }
+}
+
 .pow-fixed-bg {
   position: relative;
   height: 100%;

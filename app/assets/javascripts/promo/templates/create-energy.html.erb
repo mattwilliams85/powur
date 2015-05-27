@@ -5,12 +5,20 @@
 
   <main class="pow-promo" id="pagepiling" powur-page-piler control="pagePiler">
 
+    <div id="vid-modal" class="reveal-modal energy-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <video width="100%" height="100%" id="energy-vid">
+        <source ng-src="{{energyVideo}}" type="video/mp4">
+      Your browser does not support the video tag.
+      </video>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
     <div class="pow-scrolling-bg pow-fixed-bg pow-bg-7 section inverted pow-promo-energy-slide-1" id="anchor_1">
       <div class="pow-promo-intro">
         <div class="row">
           <h1>For <div class="highlight-1">$0 UPFRONT</div>, you can generate your own electricity from solar.</h1>
           <p>Not only will it lower your electricity bill, it is 100% clean and renewable energy your grandkids will thank you for.</p>
-          <a class="button watch" ng-click="gotoAnchor('anchor_2')">Watch how</a>
+          <a class="button watch" ng-click="vidModal()">Watch how</a>
         </div>
       </div>
       <div class="arrow-box inverted tuck" id="arrow_1">
