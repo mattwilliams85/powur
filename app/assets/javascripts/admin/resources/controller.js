@@ -41,7 +41,7 @@
       var action = getAction(item.actions, 'destroy');
       return AdminResource.execute(action).then(function() {
         $scope.showModal('This resource has been deleted.');
-        $location.path('/resources');
+        $location.path('/admin/resources');
         $scope.pagination(0);
       }, function() {
         $scope.showModal('Oops error deleting the resource');
@@ -49,22 +49,17 @@
     };
 
     $scope.cancel = function() {
-      $location.path('/resources');
+      $location.path('/admin/resources');
     };
 
     $scope.errorMessage = function(name) {
       return $scope.formErrorMessages[name];
     };
 
-    var createCallback = function() {
-      $location.path('/resources');
-      $scope.showModal('You\'ve successfully added a ' + $scope.resourceType + ' to the library.');
+    function errorCallback(data) {
       $scope.isSubmitDisabled = false;
-    };
-
-    var createErrorCallback = function(data) {
       $scope.formErrorMessages = {};
-      if (data.errors['file_type']) data.errors['file_original_path'] = data.errors['file_type'];
+      if (data.errors.file_type) data.errors.file_original_path = data.errors.file_type;
       var keys = ['title', 'description', 'file_original_path'];
       for(var i in keys) {
         var errorMessage = data.errors[keys[i]];
@@ -72,26 +67,27 @@
           $scope.formErrorMessages[keys[i]] = errorMessage[0];
         }
       }
-      $scope.isSubmitDisabled = false;
-    };
+    }
 
     $scope.create = function() {
       if ($scope.resource) {
         $scope.isSubmitDisabled = true;
-        AdminResource.create($scope.resource).then(createCallback, createErrorCallback);
+        AdminResource.create($scope.resource).then(function success() {
+          $scope.isSubmitDisabled = false;
+          $location.path('/admin/resources');
+          $scope.showModal('You\'ve successfully added a ' + $scope.resourceType + ' to the library.');
+        }, errorCallback);
       }
-    };
-
-    var updateCallback = function() {
-      $location.path('/resources');
-      $scope.showModal('You\'ve successfully updated this ' + $scope.resourceType + '.');
-      $scope.isSubmitDisabled = false;
     };
 
     $scope.update = function() {
       if ($scope.resource) {
         $scope.isSubmitDisabled = true;
-        AdminResource.update($scope.resource).then(updateCallback, createErrorCallback);
+        AdminResource.update($scope.resource).then(function success() {
+          $scope.isSubmitDisabled = false;
+          $location.path('/admin/resources');
+          $scope.showModal('You\'ve successfully updated this ' + $scope.resourceType + '.');
+        }, errorCallback);
       }
     };
 
@@ -104,7 +100,7 @@
     $scope.pagination = function(direction) {
       var page = $scope.itemsPaging.current_page + direction;
       return AdminResource.list({page: page, search: $scope.searchText}).then(function(items) {
-        $scope.resources = items.entities;
+        $scope.items = items.entities;
         $scope.itemsPaging = items.properties.paging;
         $anchorScroll();
       });
@@ -149,7 +145,6 @@
         $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/resources'});
         $rootScope.breadcrumbs.push({title: 'Update ' + $scope.resourceType});
       });
-
     }
   };
 
