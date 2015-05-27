@@ -1,13 +1,6 @@
 require 'spec_helper'
 
 describe '/u/university_classes', type: :request do
-  context 'not signed in' do
-    it 'should redirect' do
-      get university_classes_path, format: :json
-      expect(JSON.parse(response.body)['redirect']).to eql('/')
-    end
-  end
-
   context 'signed in' do
     let(:product_enrollment) { double('enrollment') }
     let(:current_user) { login_user }

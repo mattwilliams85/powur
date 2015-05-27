@@ -1,6 +1,7 @@
 module Auth
   class UserRankAchievementsController < RankAchievementsController
     before_action :fetch_user
+    before_action :fetch_rank_achievements
 
     page
     sort achieved_at: { achieved_at: :asc }
@@ -12,12 +13,9 @@ module Auth
 
     private
 
-    def fetch_user
-      user = User.find_by(id: params[:user_id].to_i) ||
-             not_found!(:user, params[:user_id])
-
-      @rank_achievements = user.rank_achievements
-      @rank_achievements_path = user_rank_achievements_path(user)
+    def fetch_rank_achievements
+      @rank_achievements = @user.rank_achievements
+      @rank_achievements_path = user_rank_achievements_path(@user)
     end
   end
 end

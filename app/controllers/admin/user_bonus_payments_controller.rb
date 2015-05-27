@@ -1,6 +1,7 @@
 module Admin
   class UserBonusPaymentsController < BonusPaymentsController
     before_action :fetch_user
+    before_action :fetch_bonus_payments
 
     page
     sort created_at: 'bonus_payments.created_at asc'
@@ -15,10 +16,9 @@ module Admin
 
     private
 
-    def fetch_user
-      user = User.find(params[:admin_user_id].to_i)
-      @bonus_payments = user.bonus_payments
-      @bonus_payments_path = admin_user_bonus_payments_path(user)
+    def fetch_bonus_payments
+      @bonus_payments = @user.bonus_payments
+      @bonus_payments_path = admin_user_bonus_payments_path(@user)
     end
   end
 end

@@ -50,9 +50,12 @@ module Auth
       #   .where(id: current_user.id).first
       # not_found!(:user, current_user.id) if parent.nil?
 
-      
-
       render 'show'
+    end
+
+    def fetch_user
+      params[:user_id] = params[:id]
+      super
     end
   end
 end

@@ -17,11 +17,5 @@ module Admin
       @bonus_payments = @user.bonus_payments
                         .where(pay_period_id: @pay_period.id).bonus_sums
     end
-
-    private
-
-    def fetch_user
-      @user = User.find(params[:admin_user_id].to_i)
-    end
   end
 end

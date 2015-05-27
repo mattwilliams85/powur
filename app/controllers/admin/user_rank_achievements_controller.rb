@@ -1,6 +1,7 @@
 module Admin
   class UserRankAchievementsController < RankAchievementsController
     before_action :fetch_user
+    before_action :fetch_rank_achievements
 
     page
     sort achieved_at: { achieved_at: :asc }
@@ -11,14 +12,12 @@ module Admin
 
     private
 
-    def fetch_user
-      user = User.find(params[:admin_user_id].to_i)
-
-      @rank_achievements = user.rank_achievements
+    def fetch_rank_achievements
+      @rank_achievements = @user.rank_achievements
       if params[:pay_period].nil?
         @rank_achievements = @rank_achievements.lifetime
       end
-      @rank_achievements_path = admin_user_rank_achievements_path(user)
+      @rank_achievements_path = admin_user_rank_achievements_path(@user)
     end
   end
 end

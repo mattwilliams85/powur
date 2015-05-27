@@ -40,10 +40,6 @@ module Admin
       attrs
     end
 
-    def fetch_user
-      @user = User.find(params[:admin_user_id].to_i) if params[:admin_user_id]
-    end
-
     def fetch_pay_period
       @pay_period = PayPeriod.find(params[:start_date]) if params[:start_date]
     end

@@ -85,10 +85,6 @@ module Auth
       PayPeriod.within_date_range(range_start, range_end)
     end
 
-    def fetch_user
-      User.find(params[:user_id])
-    end
-
     def fetch_earnings(user_id, pay_periods)
       BonusPayment.user_bonus_summary(user_id, pay_periods)
     end

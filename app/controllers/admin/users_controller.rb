@@ -64,10 +64,11 @@ module Admin
       render 'show'
     end
 
-    private
+    protected
 
     def fetch_user
-      @user = User.find(params[:id])
+      params[:user_id] = params[:id]
+      super
     end
   end
 end

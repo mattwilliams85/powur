@@ -37,12 +37,4 @@ module UsersActions
   def list_query
     @list_query ||= User.with_parent(current_user.id)
   end
-
-  def fetch_user
-    if current_user.role?(:admin)
-      @user = User.find_by(id: params[:id].to_i) || not_found!(:user, params[:id])
-    else
-      @user = fetch_downline_user(params[:id].to_i)
-    end
-  end
 end

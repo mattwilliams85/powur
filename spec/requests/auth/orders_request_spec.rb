@@ -24,6 +24,7 @@ describe '/u/users/:id/orders' do
 
     it 'does not allow a request for orders not in the users downline' do
       user = create(:user)
+      @user.update_attributes!(roles: [])
 
       get user_orders_path(user), format: :json
 

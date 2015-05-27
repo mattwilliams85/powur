@@ -1,6 +1,7 @@
 module Auth
   class UserActivitiesController < AuthController
     before_action :fetch_user
+    before_action :fetch_activities
 
     page
     sort pay_period: { pay_period_id: :desc },
@@ -8,9 +9,8 @@ module Auth
 
     private
 
-    def fetch_user
-      user = User.find(params[:user_id].to_i)
-      @user_activities = user.user_activities
+    def fetch_activities
+      @user_activities = @user.user_activities
     end
   end
 end

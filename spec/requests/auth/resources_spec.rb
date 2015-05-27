@@ -30,9 +30,7 @@ describe 'GET /u/resources' do
     it 'returns a redirect url' do
       get resources_path, format: :json
 
-      expect(JSON.parse(response.body)).to eq({
-        'redirect' => '/'
-      })
+      expect(json_body.keys).to include('redirect')
     end
   end
 end
