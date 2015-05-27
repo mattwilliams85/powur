@@ -65,9 +65,12 @@
       text-align: center;
 
       .media-thumbnail {
-        margin: 2em auto;
+        margin: 2em auto 1em auto;
         overflow: hidden;
-        height: 125px;
+        height: 160px;
+        background-position: center center;
+        background-size: contain;
+        background-repeat: no-repeat;
       }
 
       .text {

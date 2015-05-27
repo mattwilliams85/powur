@@ -42,7 +42,11 @@
 
     $scope.itemThumbnail = function(item) {
       var imgPath = item.properties.image_original_path;
-      if (imgPath) return imgPath;
+      if (imgPath) {
+        return imgPath;
+      } else if (item.properties.youtube_id) {
+        return 'http://img.youtube.com/vi/' + item.properties.youtube_id + '/hqdefault.jpg';
+      }
       return item.properties.file_type === 'video/mp4' ? legacyImagePaths.libraryResources[0] : legacyImagePaths.libraryResources[1];
     };
 

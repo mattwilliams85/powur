@@ -23,9 +23,7 @@
       <div class="resource">
         <!-- Thumbnails or Media icons -->
         <div class="media-info">
-          <div class="media-thumbnail">
-            <img class="thumbnail-image" ng-src="{{itemThumbnail(item)}}">
-          </div>
+          <div class="media-thumbnail" style="background-image: url({{itemThumbnail(item)}});"></div>
           <!-- Media Title -->
           <div class="text">{{ item.properties.title }}</div>
         </div>
