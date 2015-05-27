@@ -17,6 +17,7 @@ namespace :powur do
         return
       end
 
+      puts "Importing lead update file #{path}"
       data = CSV.read(path)
       LeadUpdate.create_from_csv(data)
     end
