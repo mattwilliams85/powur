@@ -18,12 +18,13 @@
     $scope.showResource = function(item) {
       // adding source on click to avoid preloading all videos on init page show
       if (item.properties.file_type === 'video/mp4') {
+        $('#item_' + item.properties.id + ' video').hide();
+        $('#item_' + item.properties.id + ' iframe').remove();
+
         if (item.properties.file_original_path) {
-          $('#video_content_wrapper iframe').remove();
           $('#item_' + item.properties.id + ' video').html('<source src=\'' + item.properties.file_original_path + '\' type=\'video/mp4\'>').show();
         } else if (item.properties.youtube_id) {
-          $('#item_' + item.properties.id + ' video').hide();
-          $('#video_content_wrapper').prepend('<iframe type=\'text/html\' width=\'100%\' height=\'380px\' src=\'https://www.youtube.com/embed/' + item.properties.youtube_id + '\' frameborder=\'0\' modestbranding=\'1\' autohide=\'1\' showinfo=\'1\' controls=\'1\';></iframe>');
+          $('#item_' + item.properties.id + ' .video-content-wrapper').prepend('<iframe type=\'text/html\' width=\'100%\' height=\'380px\' src=\'https://www.youtube.com/embed/' + item.properties.youtube_id + '\' frameborder=\'0\' modestbranding=\'1\' autohide=\'1\' showinfo=\'1\' controls=\'1\';></iframe>');
         }
       }
       var html = $('#item_' + item.properties.id).html();
