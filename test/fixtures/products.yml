@@ -1,0 +1,14 @@
+solar:
+  name: Solar Item
+  bonus_volume: 1000
+fit:
+  name: Fit Training
+  distributor_only: true
+  is_required_class: true
+cert:
+  name: Cert Training
+  distributor_only: true
+  is_required_class: true
+potpourri:
+  name: Requirements Basket
+  

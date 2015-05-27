@@ -2,18 +2,18 @@ module LeadUpdateCSV
   CSV_FIELDS = [
     'ExternalId', 'Status', 'LeadId', 'LeadStatus', 'LeadCreatedDate',
     'Days Elapsed', 'OpportunityId', 'OpportunityStage', 'ConsultationDate',
-    'SolarworksStatus', 'SolarworksSubStatus', 'ContractSignedDate',
-    'InstallationDate', 'LastModified' ]
+    'SolarworksStatus', 'SolarworksSubStatus', 'ContractSignedDate', 
+    'JobCreatedDate', 'InstallationDate', 'LastModified' ]
   META_DATA_FIELDS = [
     'LeadStatus', 'Days Elapsed', 'OpportunityStage',
-    'SolarworksStatus', 'SolarworksSubStatus', 'OpportunityId' ]
+    'SolarworksStatus', 'SolarworksSubStatus', 'OpportunityId',
+    'LeadOwner', 'OpportunityOwner' ]
   DATE_FIELDS = {
-    contract:     'ContractSignedDate',
+    contract:     'JobCreatedDate',
     consultation: 'ConsultationDate',
     installation: 'InstallationDate' }
 
   def create_from_csv(data)
-    # indexes = header_indexes(data.shift)
     headers = data.shift
     record_attrs = data.map do |row|
       attrs_from_csv_row(row_to_hash(row, headers))

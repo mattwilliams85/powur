@@ -11,12 +11,12 @@ entity_list = [
 
 if @pay_period.calculated?
   entity_list += [
-    entity(%w(list order_totals),
-           'pay_period-order_totals',
-           pay_period_order_totals_path(@pay_period)),
-    entity(%w(list rank_achievements),
-           'pay_period-rank_achievements',
-           pay_period_rank_achievements_path(@pay_period)),
+    # entity(%w(list order_totals),
+    #        'pay_period-order_totals',
+    #        pay_period_order_totals_path(@pay_period)),
+    # entity(%w(list rank_achievements),
+    #        'pay_period-rank_achievements',
+    #        pay_period_rank_achievements_path(@pay_period)),
     entity(%w(list bonus_payments),
            'pay_period-bonus_payments',
            pay_period_bonus_payments_path(@pay_period)) ]

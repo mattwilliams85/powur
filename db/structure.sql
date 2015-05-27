@@ -465,9 +465,9 @@ CREATE TABLE order_totals (
     user_id integer NOT NULL,
     product_id integer NOT NULL,
     personal integer DEFAULT 0 NOT NULL,
-    "group" integer NOT NULL,
+    "group" integer DEFAULT 0 NOT NULL,
     personal_lifetime integer DEFAULT 0 NOT NULL,
-    group_lifetime integer NOT NULL
+    group_lifetime integer DEFAULT 0 NOT NULL
 );
 
 
@@ -622,7 +622,7 @@ ALTER SEQUENCE product_receipts_id_seq OWNED BY product_receipts.id;
 CREATE TABLE products (
     id integer NOT NULL,
     name character varying NOT NULL,
-    bonus_volume integer NOT NULL,
+    bonus_volume integer,
     commission_percentage integer DEFAULT 100 NOT NULL,
     distributor_only boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -859,22 +859,22 @@ ALTER SEQUENCE rank_paths_id_seq OWNED BY rank_paths.id;
 
 
 --
--- Name: rank_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE rank_user_groups (
-    rank_id integer NOT NULL,
-    user_group_id character varying NOT NULL
-);
-
-
---
 -- Name: ranks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE ranks (
     id integer NOT NULL,
     title character varying NOT NULL
+);
+
+
+--
+-- Name: ranks_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ranks_user_groups (
+    rank_id integer NOT NULL,
+    user_group_id character varying NOT NULL
 );
 
 
@@ -1984,7 +1984,7 @@ ALTER TABLE ONLY quote_fields
 -- Name: fk_rails_54f92f658f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rank_user_groups
+ALTER TABLE ONLY ranks_user_groups
     ADD CONSTRAINT fk_rails_54f92f658f FOREIGN KEY (rank_id) REFERENCES ranks(id);
 
 
@@ -1992,7 +1992,7 @@ ALTER TABLE ONLY rank_user_groups
 -- Name: fk_rails_61e62e2a41; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rank_user_groups
+ALTER TABLE ONLY ranks_user_groups
     ADD CONSTRAINT fk_rails_61e62e2a41 FOREIGN KEY (user_group_id) REFERENCES user_groups(id);
 
 
@@ -2335,4 +2335,10 @@ INSERT INTO schema_migrations (version) VALUES ('20150519215441');
 INSERT INTO schema_migrations (version) VALUES ('20150521051136');
 
 INSERT INTO schema_migrations (version) VALUES ('20150521071301');
+
+INSERT INTO schema_migrations (version) VALUES ('20150523153423');
+
+INSERT INTO schema_migrations (version) VALUES ('20150525043450');
+
+INSERT INTO schema_migrations (version) VALUES ('20150526030947');
 

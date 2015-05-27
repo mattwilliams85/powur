@@ -1,7 +1,7 @@
 class Rank < ActiveRecord::Base
   has_many :qualifications, dependent: :destroy
-  has_many :rank_user_groups
-  has_many :user_groups, through: :rank_user_groups
+  has_many :ranks_user_groups
+  has_many :user_groups, through: :ranks_user_groups, dependent: :destroy
 
   default_scope -> { order(:id) }
   scope :with_qualifications, lambda {

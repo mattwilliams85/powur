@@ -1,0 +1,7 @@
+george:
+  email: $LABEL@eyecuelab.com
+  first_name: George
+  last_name: Constanza
+  phone: 310.555.1212
+  sponsor: advocate
+  expires: <%= 1.day.from_now %>

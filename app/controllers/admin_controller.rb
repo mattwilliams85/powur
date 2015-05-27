@@ -12,10 +12,4 @@ class AdminController < AuthController
         value: pt.personal }
     end
   end
-
-  private
-
-  def verify_admin
-    redirect_to(dashboard_url) unless current_user.role?(:admin)
-  end
 end

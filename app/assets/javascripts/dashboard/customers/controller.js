@@ -164,8 +164,10 @@
               $timeout(function() {
                 initCarousel('.proposals');
                 $timeout(function() {
-                  $('.proposals').data('owlCarousel').goTo(0);
-                  $scope.customerSection.showProposal(0);
+                  if (action.name === 'create') {
+                    $('.proposals').data('owlCarousel').goTo(0);
+                    $scope.customerSection.showProposal(0);
+                  }
                 });
               });
             });

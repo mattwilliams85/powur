@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   include SirenDSL
   include ListQuery
-  helper SirenJson
+  # helper SirenJson
 
-  helper_method :current_user, :all_ranks, :all_paths, :all_products
+  helper_method :current_user, :all_ranks, :all_paths, :all_products, :admin?
 
   protected
 
