@@ -25,7 +25,11 @@ rake powur:import:lead_updates DATA_API_ENV=production
 rake powur:seed:plan
 ```
 
+## Restoring from a heroku dump
 
+```
+pg_restore --clean --no-acl --no-owner -d powur_development ~/Downloads/{dump file name}
+```
 
 ## Below Deprecated For Now
 
