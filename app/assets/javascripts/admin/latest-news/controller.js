@@ -4,27 +4,88 @@
   function AdminLatestNewsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, CommonService) {
     $scope.redirectUnlessSignedIn();
 
-    $scope.cancel = function() {
-      $location.path('/admin/latest-news');
-    };
-
-    $scope.confirm = function(msg, clickAction, arg) {
-      if (window.confirm(msg)) {
-        return $scope.$eval(clickAction)(arg);
+    $scope.templateData = {
+      index: {
+        title: 'Latest News',
+        links: [
+          {href: '/admin/latest-news/new', text: 'Add'}
+        ],
+        tablePath: 'admin/latest-news/templates/table.html'
+      },
+      new: {
+        title: 'Add a News Item',
+        formPath: 'admin/latest-news/templates/form.html'
+      },
+      edit: {
+        title: 'Update a News Item',
+        formPath: 'admin/latest-news/templates/form.html'
       }
     };
+
+    // Form Validation
+    $scope.formErrorMessages = {};
 
     $scope.delete = function(item) {
       var action = getAction(item.actions, 'delete');
       return CommonService.execute(action).then(function() {
-        $scope.showModal('This resource has been deleted.');
+        $scope.showModal('This item has been deleted.');
         $location.path('/admin/latest-news');
-        $scope.currentPage = 0;
-        $scope.items = [];
-        $scope.loadMore();
+        $scope.pagination(0);
       }, function() {
         $scope.showModal('Oops, error while deleting');
       });
+    };
+
+    $scope.pagination = function(direction) {
+      var page = 1;
+      if ($scope.data) {
+        page = $scope.data.properties.paging.current_page;
+      }
+      page += direction;
+      return CommonService.execute({
+        href: '/a/notifications.json?page=' + page
+      }).then(function(data) {
+        $scope.data = data;
+        $anchorScroll();
+      });
+    };
+
+    function formErrorCallback(data) {
+      $scope.isSubmitDisabled = false;
+      $scope.formErrorMessages = {};
+      var keys = ['content'];
+      for(var i in keys) {
+        var errorMessage = data.errors[keys[i]];
+        if (errorMessage) {
+          $scope.formErrorMessages[keys[i]] = errorMessage[0];
+        }
+      }
+    }
+
+    $scope.create = function() {
+      if ($scope.item) {
+        $scope.isSubmitDisabled = true;
+        // User Autolinker.js to turn links into hyperlinks
+        $scope.item.content = Autolinker.link($scope.item.content);
+        CommonService.execute($scope.formAction, $scope.item).then(function success() {
+          $scope.isSubmitDisabled = false;
+          $location.path('/admin/latest-news');
+          $scope.showModal('Data successfully saved');
+        }, formErrorCallback);
+      }
+    };
+
+    $scope.update = function() {
+      if ($scope.item) {
+        $scope.isSubmitDisabled = true;
+        // User Autolinker.js to turn links into hyperlinks
+        $scope.item.content = Autolinker.link($scope.item.content);
+        CommonService.execute($scope.formAction, $scope.item).then(function success() {
+          $scope.isSubmitDisabled = false;
+          $location.path('/admin/latest-news');
+          $scope.showModal('Data successfully saved');
+        }, formErrorCallback);
+      }
     };
 
     $scope.formattedTime = function(timestamp) {
@@ -36,73 +97,15 @@
       return month + '/' + day + '/' + year + ' ' + time;
     };
 
-    $scope.loadMore = function() {
-      var nextPage = $scope.currentPage + 1;
-
-      CommonService.execute({
-        href: '/a/notifications.json?page=' + nextPage
-      }).then(function(items) {
-        for (var i in items.entities) {
-          $scope.items.push(items.entities[i]);
-        }
-        $scope.currentPage = items.properties.paging.current_page;
-        $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
-      });
+    $scope.cancel = function() {
+      $location.path('/admin/latest-news');
     };
 
-    $scope.create = function() {
-      if ($scope.latestNewsItem) {
-        $scope.isSubmitDisabled = true;
-        // User Autolinker.js to turn links into hyperlinks
-        $scope.latestNewsItem.content = Autolinker.link($scope.latestNewsItem.content);
-        CommonService.execute($scope.formAction, $scope.latestNewsItem).then(actionCallback($scope.formAction));
+    $scope.confirm = function(msg, clickAction, arg) {
+      if (window.confirm(msg)) {
+        return $scope.$eval(clickAction)(arg);
       }
     };
-
-    $scope.update = function() {
-      if ($scope.latestNewsItem) {
-        $scope.isSubmitDisabled = true;
-        // User Autolinker.js to turn links into hyperlinks
-        $scope.latestNewsItem.content = Autolinker.link($scope.latestNewsItem.content);
-        CommonService.execute($scope.formAction, $scope.latestNewsItem).then(actionCallback($scope.formAction));
-      }
-    };
-
-    $scope.execute = function (action, notification) {
-      if (action.name === 'update') {
-        $scope.latestNewsItem = notification;
-        $location.path('/admin/latest-news/' + $scope.latestNewsItem.properties.id + '/edit');
-      } else if (action.name === 'delete') {
-        if (window.confirm('Are you sure you want to delete this Latest News item?')) {
-          CommonService.execute(action, notification).then(actionCallback(action));
-        }
-      } else {
-        CommonService.execute(action, notification).then(actionCallback(action));
-      }
-    };
-
-    function actionCallback(action) {
-      var destination = '/admin/latest-news',
-          modalMessage = '';
-      if (action.name === 'create') {
-        modalMessage = ('You\'ve successfully added a new item.');
-        $scope.isSubmitDisabled = false;
-      } else if (action.name === 'update') {
-        modalMessage = ('You\'ve successfully updated this item.');
-      } else if (action.name === 'delete') {
-        modalMessage = ('You\'ve successfully deleted this item.');
-      }
-
-      return CommonService.execute({
-        href: '/a/notifications.json'
-      }).then(function(items) {
-        $location.path(destination);
-        $scope.items = items.entities;
-        $scope.currentPage = items.properties.paging.current_page;
-        $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
-        $scope.showModal(modalMessage);
-      });
-    }
 
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
@@ -111,30 +114,20 @@
   AdminLatestNewsCtrl.prototype.init = function($scope, $location) {
     // Setting mode based on the url
     $scope.mode = 'index';
-    if (/\/latest-news$/.test($location.path())) return $scope.mode = 'index';
     if (/\/new$/.test($location.path())) return $scope.mode = 'new';
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
   };
 
   AdminLatestNewsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
     if ($scope.mode === 'index') {
-      CommonService.execute({
-        href: '/a/notifications.json'
-      }).then(function(items) {
-        $scope.items = items.entities;
-        $scope.currentPage = items.properties.paging.current_page;
-        $scope.morePages = (items.properties.paging.page_count >= $scope.currentPage) ? true : false;
-
-        // Breadcrumbs: Latest News
-        $rootScope.breadcrumbs.push({title: 'Latest News'});
-      });
-
+      $rootScope.breadcrumbs.push({title: 'Latest News'});
+      $scope.pagination(0);
     } else if ($scope.mode === 'new') {
       CommonService.execute({
         href: '/a/notifications.json'
       }).then(function(items) {
         $scope.formAction = getAction(items.actions, 'create');
-        $scope.latestNewsItem = {};
+        $scope.item = {};
       });
 
       // Breadcrumbs: Latest News / View Item
@@ -145,7 +138,7 @@
       CommonService.execute({
         href: '/a/notifications/' + $routeParams.notificationId + '.json'
       }).then(function(item) {
-        $scope.latestNewsItem = item.properties;
+        $scope.item = item.properties;
         $scope.formAction = getAction(item.actions, 'update');
 
         // Breadcrumbs: Latest News / Update Item

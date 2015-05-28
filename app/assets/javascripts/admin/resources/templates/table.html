@@ -1,0 +1,22 @@
+<table width="100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Status</th>
+      <th width="150">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in data.entities">
+      <td>{{item.properties.id}}</td>
+      <td><a ng-href="/admin/resources/{{item.properties.id}}/edit">{{item.properties.title}}</a></td>
+      <td>{{item.properties.is_public ? 'active' : 'hidden'}}</td>
+      <td>
+        <a ng-href="/admin/resources/{{item.properties.id}}/edit">edit</a>
+        &nbsp;|&nbsp;
+        <a ng-click="confirm('Are you sure you want to delete this file?', 'delete', item)" class="manage-link">delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,8 +1,10 @@
 <div class="row">
-  <ul class="breadcrumbs">
-    <li ng-repeat="breadcrumb in breadcrumbs" ng-class="{'current': !breadcrumb.href}">
-      <a ng-if="breadcrumb.href" ng-href="{{breadcrumb.href}}">{{breadcrumb.title}}</a>
-      <a ng-if="!breadcrumb.href">{{breadcrumb.title}}</a>
-    </li>
-  </ul>
+  <div class="large-12 columns">
+    <ul class="breadcrumbs">
+      <li ng-repeat="breadcrumb in breadcrumbs" ng-class="{'current': !breadcrumb.href}">
+        <a ng-if="breadcrumb.href" ng-href="{{breadcrumb.href}}">{{breadcrumb.title}}</a>
+        <a ng-if="!breadcrumb.href">{{breadcrumb.title}}</a>
+      </li>
+    </ul>
+  </div>
 </div>

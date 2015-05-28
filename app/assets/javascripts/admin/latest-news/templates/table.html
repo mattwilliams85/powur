@@ -1,0 +1,22 @@
+<table width="100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Content</th>
+      <th>Posted at</th>
+      <th width="150">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in data.entities">
+      <td>{{item.properties.id}}</td>
+      <td>{{item.properties.content}}</td>
+      <td>{{formattedTime(item.properties.created_at)}}</td>
+      <td>
+        <a ng-href="/admin/latest-news/{{item.properties.id}}/edit">edit</a>
+        &nbsp;|&nbsp;
+        <a ng-click="confirm('Are you sure you want to delete this item?', 'delete', item)" class="manage-link">delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

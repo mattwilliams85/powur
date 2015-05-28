@@ -14,15 +14,15 @@
     }).
     // Library
     when('/admin/resources', {
-      templateUrl: 'admin/resources/templates/index.html',
+      templateUrl: 'shared/admin/rest/index.html',
       controller: 'AdminResourcesCtrl'
     }).
     when('/admin/resources/new/:resourceType?', {
-      templateUrl: 'admin/resources/templates/new.html',
+      templateUrl: 'shared/admin/rest/new.html',
       controller: 'AdminResourcesCtrl'
     }).
     when('/admin/resources/:resourceId/edit', {
-      templateUrl: 'admin/resources/templates/edit.html',
+      templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminResourcesCtrl'
     }).
     // User Groups
@@ -105,19 +105,15 @@
     }).
     // Products
     when('/admin/products', {
-      templateUrl: 'admin/products/templates/index.html',
+      templateUrl: 'shared/admin/rest/index.html',
       controller: 'AdminProductsCtrl'
     }).
     when('/admin/products/new', {
-      templateUrl: 'admin/products/templates/new.html',
-      controller: 'AdminProductsCtrl'
-    }).
-    when('/admin/products/:productId', {
-      templateUrl: 'admin/products/templates/show.html',
+      templateUrl: 'shared/admin/rest/new.html',
       controller: 'AdminProductsCtrl'
     }).
     when('/admin/products/:productId/edit', {
-      templateUrl: 'admin/products/templates/edit.html',
+      templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminProductsCtrl'
     }).
     // Users
@@ -174,15 +170,15 @@
     }).
     // Latest News
     when('/admin/latest-news', {
-      templateUrl: 'admin/latest-news/templates/index.html',
+      templateUrl: 'shared/admin/rest/index.html',
       controller: 'AdminLatestNewsCtrl'
     }).
     when('/admin/latest-news/new', {
-      templateUrl: 'admin/latest-news/templates/new.html',
+      templateUrl: 'shared/admin/rest/new.html',
       controller: 'AdminLatestNewsCtrl'
     }).
     when('/admin/latest-news/:notificationId/edit', {
-      templateUrl: 'admin/latest-news/templates/edit.html',
+      templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminLatestNewsCtrl'
     }).
     // Social Media Sharing

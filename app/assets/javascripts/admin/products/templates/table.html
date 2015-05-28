@@ -1,0 +1,18 @@
+<table width="100%">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th width="150">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in data.entities">
+      <td>{{item.properties.id}}</td>
+      <td><a ng-href="/admin/products/{{item.properties.id}}/edit">{{item.properties.name}}</a></td>
+      <td>{{item.properties.bonus_volume/100}}</td>
+      <td><a ng-href="/admin/products/{{item.properties.id}}/edit">edit</a></td>
+    </tr>
+  </tbody>
+</table>
