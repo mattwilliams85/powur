@@ -25,7 +25,7 @@ gem 'rails-settings-cached'
 gem 'gibbon'
 gem 'valid_email', require: false
 gem 'faker'
-gem 'activerecord_any_of', '1.2' #github: 'oelmekki/activerecord_any_of'
+gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of'
 gem 'money'
 gem 'has_scope'
 gem 'attr_extras'
