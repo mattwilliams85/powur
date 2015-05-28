@@ -7,23 +7,27 @@ class Quote < ActiveRecord::Base
   has_one :order
 
   enum status: [ 
-    :incomplete, :ready_to_submit, :ineligible_location, :submitted ]
+    :incomplete, :ready_to_submit, :ineligible_location,
+    :submitted, :open, :closed_won, :closed_lost, :existing ]
 
   add_search :user, :customer, [ :user, :customer ]
 
   scope :not_submitted, ->() { where.not(status: statuses[:submitted]) }
-  # scope :complete, ->(id) { where.not(id: User.find(id).orders.select('quote_id').map {|i| i}) } 
   scope :status, ->(value) { where(status: statuses[value]) }
+  scope :won, ->() { status(:closed_won) }
   scope :within_date_range, ->(begin_date , end_date) {
-      where("created_at between ? and ?", begin_date, end_date)
-    }
+    where("created_at between ? and ?", begin_date, end_date)
+  }
+  scope :user_product, ->(user_id, product_id) {
+    where(user_id: user.id, product_id: product_id)
+  }
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
   validate :product_data
 
   before_validation do
     self.url_slug ||= SecureRandom.hex(8)
-    self.status = calculate_status
+    calculate_status
   end
 
   def can_email?
@@ -46,13 +50,17 @@ class Quote < ActiveRecord::Base
     @last_update ||= lead_updates.order(updated_at: :desc).first
   end
 
-  private
-
-  def calculate_status
+  def calculated_status
     return :submitted if submitted?
     return :ineligible_location if !zip_code_valid?
     can_submit? ? :ready_to_submit : :incomplete
   end
+
+  def calculate_status
+    self.status = calculated_status
+  end
+
+  private
 
   def product_data
     invalid_keys = data.keys.select do |key|
@@ -61,18 +69,23 @@ class Quote < ActiveRecord::Base
     errors.add(:data, :invalid_keys) if invalid_keys.size > 0
   end
 
-  CSV_HEADERS = %w(
-    customer_first_name customer_last_name customer_email
-    customer_phone customer_address_1 customer_city customer_state
-    customer_zip customer_utility customer_average_bill
-    customer_roof_type customer_roof_age credit_score_qualified
-    customer_square_ft quote_id distributor_first_name
-    distributor_last_name distributor_id distribor_org)
-
-  QUOTE_FIELDS = %w(
-    utility average_bill roof_type roof_age credit_score_qualified square_feet)
-
   class << self
+    def won_totals(user, product, pay_period)
+      personal_lifetime = won.user_product(user.id, product.id).count
+      
+    end
+
+    CSV_HEADERS = %w(
+      customer_first_name customer_last_name customer_email
+      customer_phone customer_address_1 customer_city customer_state
+      customer_zip customer_utility customer_average_bill
+      customer_roof_type customer_roof_age credit_score_qualified
+      customer_square_ft quote_id distributor_first_name
+      distributor_last_name distributor_id distribor_org)
+
+    QUOTE_FIELDS = %w(
+      utility average_bill roof_type roof_age credit_score_qualified square_feet)
+
     def find_by_external_id(external_id)
       prefix, quote_id = external_id.split(':')
       return nil unless prefix == QuoteSubmission.id_prefix

@@ -38,20 +38,6 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
-
-
---
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -415,7 +401,9 @@ CREATE TABLE lead_updates (
     installation timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     data hstore DEFAULT ''::hstore,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    lead_status character varying,
+    opportunity_stage character varying
 );
 
 
@@ -2355,4 +2343,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150523153423');
 INSERT INTO schema_migrations (version) VALUES ('20150525043450');
 
 INSERT INTO schema_migrations (version) VALUES ('20150526030947');
+
+INSERT INTO schema_migrations (version) VALUES ('20150528032314');
 

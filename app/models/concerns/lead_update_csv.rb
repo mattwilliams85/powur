@@ -5,9 +5,8 @@ module LeadUpdateCSV
     'SolarworksStatus', 'SolarworksSubStatus', 'ContractSignedDate', 
     'JobCreatedDate', 'InstallationDate', 'LastModified' ]
   META_DATA_FIELDS = [
-    'LeadStatus', 'Days Elapsed', 'OpportunityStage',
-    'SolarworksStatus', 'SolarworksSubStatus', 'OpportunityId',
-    'LeadOwner', 'OpportunityOwner' ]
+    'Days Elapsed', 'SolarworksStatus', 'SolarworksSubStatus',
+    'OpportunityId', 'LeadOwner', 'OpportunityOwner' ]
   DATE_FIELDS = {
     contract:     'JobCreatedDate',
     consultation: 'ConsultationDate',
@@ -64,11 +63,13 @@ module LeadUpdateCSV
     dates = parse_dates(row_hash)
     
     attrs = {
-      quote_id:     quote.id,
-      provider_uid: row_hash['LeadId'],
-      status:       row_hash['Status'],
-      updated_at:   row_hash['LastModified'],
-      data:         {} }.merge(dates)
+      quote_id:          quote.id,
+      provider_uid:      row_hash['LeadId'],
+      status:            row_hash['Status'],
+      lead_status:       row_hash['LeadStatus'],
+      opportunity_stage: row_hash['OpportunityStage'],
+      updated_at:        row_hash['LastModified'],
+      data:              {} }.merge(dates)
     
     META_DATA_FIELDS.each do |key|
       value = row_hash[key]

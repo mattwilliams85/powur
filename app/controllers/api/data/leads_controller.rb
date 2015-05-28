@@ -58,6 +58,8 @@ module Api
         { quote_id:           quote.id,
           provider_uid:       record[:providerUid],
           status:             record[:status],
+          lead_status:        record[:leadStatus],
+          opportunity_stage:  record[:opportunityStage],
           contact:            record[:contact],
           order_status:       order_status,
           updated_at:         date_from_string(record[:updated]),
