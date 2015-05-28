@@ -8,7 +8,7 @@ class Quote < ActiveRecord::Base
 
   enum status: [ 
     :incomplete, :ready_to_submit, :ineligible_location,
-    :submitted, :open, :closed_won, :lost, :existing ]
+    :submitted, :in_progress, :closed_won, :lost, :on_hold ]
 
   add_search :user, :customer, [ :user, :customer ]
 

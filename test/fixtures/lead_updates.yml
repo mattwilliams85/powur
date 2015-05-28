@@ -7,7 +7,7 @@ closed_won:
   status: contract_signed
   opportunity_stage: Closed Won
   contract: <%= 1.day.ago %>
-open:
+in_progress:
   <<: *DEFAULTS
   status: working_lead
   lead_status: Called 3x
@@ -16,3 +16,7 @@ lost:
   status: closed_lost
   lead_status: Contacted
   opportunity_stage: Unqualified
+on_hold:
+  <<: *DEFAULTS
+  status: duplicate
+  lead_status: Existing Active Opportunity

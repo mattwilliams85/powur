@@ -12,10 +12,10 @@ class LeadUpdate < ActiveRecord::Base
   end
 
   def quote_status
-    return :existing if DUPE_STATUS.include?(status)
+    return :on_hold if DUPE_STATUS.include?(status)
     return :closed_won if contract? &&
       OPPORTUNITY_WON_STAGES.include?(opportunity_stage)
     return :lost if LOST_STATUS.include?(status)
-    :open
+    :in_progress
   end
 end

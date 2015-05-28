@@ -8,9 +8,11 @@ DEFAULTS: &DEFAULTS
 
 submitted:
   <<: *DEFAULTS
-open:
+in_progress:
   <<: *DEFAULTS
 closed_won:
   <<: *DEFAULTS
 lost:
+  <<: *DEFAULTS
+on_hold:
   <<: *DEFAULTS
