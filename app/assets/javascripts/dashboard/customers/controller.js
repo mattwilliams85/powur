@@ -101,7 +101,11 @@
           href: '/u/quotes/' + proposalId + '.json'
         }).then(function(item){
           $scope.animateDrilldown();
-          if (item.properties.status === 'submitted') {
+          if  (item.properties.status === 'submitted' ||
+              item.properties.status === 'in_progress' ||
+              item.properties.status === 'closed_won' ||
+              item.properties.status === 'lost' ||
+              item.properties.status === 'on_hold'){
             $timeout( function(){
               $scope.proposal = item.properties;
               $scope.proposalItem = item;
