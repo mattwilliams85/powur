@@ -1,43 +1,43 @@
-module Admin
-  class UserGroupsController < AdminController
-    before_action :fetch_group, only: [ :show, :update, :destroy ]
+# module Admin
+#   class UserGroupsController < AdminController
+#     before_action :fetch_group, only: [ :show, :update, :destroy ]
 
-    def index
-      @groups = UserGroup.order(:id)
+#     def index
+#       @groups = UserGroup.order(:id)
 
-      render 'index'
-    end
+#       render 'index'
+#     end
 
-    def show
-      render 'show'
-    end
+#     def show
+#       render 'show'
+#     end
 
-    def create
-      @user_group = UserGroup.create!(input.merge(id: params[:id]))
+#     def create
+#       @user_group = UserGroup.create!(input.merge(id: params[:id]))
 
-      show
-    end
+#       show
+#     end
 
-    def update
-      @user_group.update_attributes!(input)
+#     def update
+#       @user_group.update_attributes!(input)
 
-      show
-    end
+#       show
+#     end
 
-    def destroy
-      @user_group.destroy
+#     def destroy
+#       @user_group.destroy
 
-      index
-    end
+#       index
+#     end
 
-    private
+#     private
 
-    def fetch_group
-      @user_group = UserGroup.find(params[:id])
-    end
+#     def fetch_group
+#       @user_group = UserGroup.find(params[:id])
+#     end
 
-    def input
-      allow_input(:title, :description)
-    end
-  end
-end
+#     def input
+#       allow_input(:title, :description)
+#     end
+#   end
+# end

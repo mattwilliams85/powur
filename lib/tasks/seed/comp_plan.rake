@@ -21,6 +21,7 @@ namespace :powur do
         rank_id = attrs.delete('rank_id')
         requirements = attrs.delete('requirements')
         group = UserGroup.create!(attrs)
+        group.ranks_user_groups.create!(rank_id: rank_id)
         requirements.each do |attrs|
           group.requirements.create!(attrs)
         end

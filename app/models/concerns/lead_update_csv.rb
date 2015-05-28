@@ -16,8 +16,12 @@ module LeadUpdateCSV
   def create_from_csv(data)
     headers = data.shift
     record_attrs = data.map do |row|
-      attrs_from_csv_row(row_to_hash(row, headers))
-    end
+      begin
+        attrs_from_csv_row(row_to_hash(row, headers))  
+      rescue ActiveRecord::RecordNotFound
+        nil
+      end
+    end.compact
     records = create!(record_attrs)
     puts "Created #{records.size} lead update records"
   end
