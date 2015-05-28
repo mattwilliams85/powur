@@ -15,10 +15,9 @@ vendor/eyecue_ipayout/.gitignore
 vendor/eyecue_ipayout/reload.sh
 config/rails_best_practices.yml
 node_modules
-npm-debug.log
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+**/*.log
 /tmp
 .DS_Store
 
@@ -27,3 +26,4 @@ npm-debug.log
 
 node_modules
 vendor/assets/bower_components
+vendor/bundler_gems
