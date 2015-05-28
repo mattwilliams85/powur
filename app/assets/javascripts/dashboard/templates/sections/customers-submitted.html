@@ -2,67 +2,56 @@
   <div class="row">
     <div class="large-6 columns">
       <fieldset>
-        <legend><i class="fa fa-envelope"></i> Contact Information</legend>
+        <legend><i class="fa fa-envelope"></i> Customer Information</legend>
 
-        <!-- Customer Name -->
-        <div class="row">
-          <div class="large-12 medium-12 columns">
-            <label>Customer</label>
-            <input ng-model="proposal.customer" ng-disabled="mode === 'submitted'" type="text">
+        <div class="submitted-proposal panel">
+          <label>Contact Information</label>
+          <div class="customer-info">
+          <!-- Customer Name -->
+          <p class="name">{{proposal.customer}}</p>
+          <!-- Address -->
+          <div ng-if="proposal.address && proposal.city && proposal.state && proposal.zip">
+            <p class="address">{{proposal.address}}</p>
+            <!-- City/State/ZIP -->
+            <p class="city-state-zip">
+              {{proposal.city}}, {{proposal.state}} {{proposal.zip}}
+            </p>
+          </div>
+          <!-- Email -->
+          <p class="email"><a href="mailto:{{proposal.email}}">{{proposal.email}}</a></p>
+          <!-- Phone -->
+          <p class="phone">{{proposal.phone}}</p>
           </div>
         </div>
 
-        <!-- Email -->
-        <div class="row">
-          <div class="large-12 medium-12 columns">
-            <label>Email</label>
-            <input ng-model="proposal.email" ng-disabled="mode === 'submitted'" type="text">
-          </div>
-        </div>
-
-        <!-- Phone -->
-        <div class="row">
-          <div class="large-12 medium-12 columns">
-            <label>Phone</label>
-            <input ng-model="proposal.phone" ng-disabled="mode === 'submitted'" type="text">
-          </div>
-        </div>
-
-        <!-- Address -->
-        <div class="row">
-          <div class="large-12 medium-12 columns">
-            <label>Address</label>
-            <input ng-model="proposal.address" ng-disabled="mode === 'submitted'" type="text">
-          </div>
-        </div>
-
-        <!-- City/State/ZIP -->
-        <div class="row">
-          <div class="large-5 medium-5 columns">
-            <label>City</label>
-            <input ng-model="proposal.city" ng-disabled="mode === 'submitted'" type="text">
-          </div>
-          <div class="large-3 medium-3 small-6 columns">
-            <label>State</label>
-            <input ng-model="proposal.state" ng-disabled="mode === 'submitted'" type="text">
-          </div>
-          <div class="large-4 medium-4 small-6 columns">
-            <label>ZIP</label>
-            <input ng-model="proposal.zip" ng-disabled="mode === 'submitted'" type="text">
+        <!-- Custom Product Fields -->
+        <div ng-if="proposal.product_fields">
+          <div class="submitted-proposal panel">
+            <label>House and Utility Information</label>
+            <div class="proposal-product-field" ng-repeat="(key, value) in proposal.product_fields">
+              <p class="label">{{key | cleanLabel }}</p>
+              <p class="value">{{value}}</p>
+            </div>
           </div>
         </div>
 
       </fieldset>
     </div>
+    <!-- Lead Updates -->
     <div class="large-6 columns">
       <fieldset>
-        <legend ng-if="proposal.product_fields"><i class="fa fa-bolt"></i> House and Utility Information</legend>
+        <legend ng-if="proposalItem.entities"><i class="fa fa-exchange"></i> Updates</legend>
 
-        <!-- Custom Product Fields -->
-        <div ng-repeat="(key, value) in proposal.product_fields" class="row">
-          <div class="large-12 medium-12 columns">
-            <label>{{key | cleanLabel }}</label>
-            <input ng-model="proposal.product_fields[key]" ng-disabled="mode === 'submitted'" type="text">
+        <!-- Lead Updates -->
+        <div ng-repeat="lead_update in proposalItem.entities" class="lead-update panel">
+          <label>{{lead_update.properties.updated_at | dateToLocalDate }} at {{lead_update.properties.updated_at | timeToLocalTime }}</label>
+          <div class="status">
+            <label>Status</label>
+            <p>{{lead_update.properties.status | cleanLabel }}</p>
+          </div>
+          <div class="details">
+            <label>Details</label>
+            <p ng-repeat="(key, value) in lead_update.properties.data">{{key}}: {{value}}</p>
           </div>
         </div>
 

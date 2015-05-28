@@ -104,6 +104,7 @@
           if (item.properties.status === 'submitted') {
             $timeout( function(){
               $scope.proposal = item.properties;
+              $scope.proposalItem = item;
               $scope.currentProposal = item.properties;
               $scope.mode = item.properties.status;
             }, 300);
