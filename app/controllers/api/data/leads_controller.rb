@@ -42,7 +42,7 @@ module Api
         DateTime.parse(value)
       end
 
-      REQUIRED_PARAMS = [ :uid, :providerUid, :status, :updated ]
+      REQUIRED_PARAMS = [ :uid, :providerUid, :status, :lastUpdated ]
       def record_to_lead_attrs(record)
         missing = REQUIRED_PARAMS.select { |p| record[p].nil? }
         unless missing.empty?
@@ -62,7 +62,7 @@ module Api
           opportunity_stage:  record[:opportunityStage],
           contact:            record[:contact],
           order_status:       order_status,
-          updated_at:         date_from_string(record[:updated]),
+          updated_at:         date_from_string(record[:lastUpdated]),
           consultation:       date_from_string(key_dates[:consultation]),
           contract:           date_from_string(key_dates[:contract]),
           installation:       date_from_string(key_dates[:installation]) }

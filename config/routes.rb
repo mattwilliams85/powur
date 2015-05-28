@@ -61,10 +61,9 @@ Rails.application.routes.draw do
       post 'groups' => 'user_groups#add_to_rank'
     end
     resources :user_groups, only: [ :index, :show, :create, :update, :destroy ] do
-        resources :requirements, only: [ :index, :create ]
+      resources :requirements, only: [ :index, :create ]
     end
-    resources :requirements,
-              only:       [ :destroy, :update, :show ]
+    resources :requirements, only: [ :destroy, :update, :show ]
     
     resource :dashboard, only: [ :show ], controller: :dashboard
 
@@ -197,12 +196,6 @@ Rails.application.routes.draw do
       resources :bonus_payments,
                 only:       [ :index ],
                 controller: :user_bonus_payments
-    end
-
-    resource :system, only: [ :index, :show ] do
-      collection do
-        get :quotes
-      end
     end
 
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
