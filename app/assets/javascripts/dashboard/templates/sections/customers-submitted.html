@@ -25,7 +25,7 @@
         </div>
 
         <!-- Custom Product Fields -->
-        <div ng-if="proposal.product_fields">
+        <div ng-if="showProductFields">
           <div class="submitted-proposal panel">
             <label>House and Utility Information</label>
             <div class="proposal-product-field" ng-repeat="(key, value) in proposal.product_fields">
