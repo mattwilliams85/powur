@@ -6,7 +6,6 @@ DEFAULTS: &DEFAULTS
 
 advocate:
   <<: *DEFAULTS
-
 admin:
   <<: *DEFAULTS
   roles:

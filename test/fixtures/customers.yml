@@ -1,0 +1,9 @@
+bob:
+  first_name: Bob
+  last_name: Sanford
+  email: bob.sanford@eyecuelab.com
+  phone: 310.555.1212
+  address: 42 Cherry Lane
+  city: Shellnob
+  state: MO
+  zip: 90210

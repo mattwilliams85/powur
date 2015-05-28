@@ -1,0 +1,16 @@
+DEFAULTS: &DEFAULTS
+  user: advocate
+  product: solar
+  customer: bob
+  submitted_at: <%= 1.day.ago %>
+  url_slug: $LABEL_slug
+  provider_uid: $LABEL_uid
+
+submitted:
+  <<: *DEFAULTS
+open:
+  <<: *DEFAULTS
+closed_won:
+  <<: *DEFAULTS
+lost:
+  <<: *DEFAULTS

@@ -8,7 +8,7 @@ class Quote < ActiveRecord::Base
 
   enum status: [ 
     :incomplete, :ready_to_submit, :ineligible_location,
-    :submitted, :open, :closed_won, :closed_lost, :existing ]
+    :submitted, :open, :closed_won, :lost, :existing ]
 
   add_search :user, :customer, [ :user, :customer ]
 
@@ -51,7 +51,9 @@ class Quote < ActiveRecord::Base
   end
 
   def calculated_status
-    return :submitted if submitted?
+    if submitted?
+      return last_update ? last_update.quote_status : :submitted
+    end
     return :ineligible_location if !zip_code_valid?
     can_submit? ? :ready_to_submit : :incomplete
   end

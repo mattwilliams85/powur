@@ -1,0 +1,18 @@
+DEFAULTS: &DEFAULTS
+  quote: $LABEL
+  provider_uid: $LABEL_uid
+
+closed_won:
+  <<: *DEFAULTS
+  status: contract_signed
+  opportunity_stage: Closed Won
+  contract: <%= 1.day.ago %>
+open:
+  <<: *DEFAULTS
+  status: working_lead
+  lead_status: Called 3x
+lost:
+  <<: *DEFAULTS
+  status: closed_lost
+  lead_status: Contacted
+  opportunity_stage: Unqualified

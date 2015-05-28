@@ -1,18 +1,18 @@
 ranks:
   - id: 1
-    title: Direct Seller
+    title: Advocate
   - id: 2
-    title: Local Grid
+    title: Local Grid Leader
   - id: 3
-    title: Community Grid
+    title: Community Grid Leader
   - id: 4
-    title: City Grid
+    title: City Grid Leader
   - id: 5
-    title: Regional Grid
+    title: Regional Grid Leader
   - id: 6
     title: State Grid Leader
   - id: 7
-    title: National Grid
+    title: National Grid Leader
   - id: 8
     title: Game Changer
 groups:
