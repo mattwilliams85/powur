@@ -17,34 +17,67 @@
     <!-- Below: Removed for Beta -->
 
     <!-- Row: Pay Period Goals -->
-    <!-- <div class="pay-period-goals row"> -->
-      <!-- <div class="large-10 large-offset-1 medium-10 small-12 columns"> -->
+    <div class="pay-period-goals row">
+      <div class="large-10 large-offset-1 medium-10 small-12 columns">
         <!-- Label -->
-        <!-- <h5>Your Pay Period Goals</h5> -->
-        <!-- Top Progress Bar -->
-        <!-- <div class="progress-bar above" data-percentage="{{goals.personalPercent}}"> -->
-          <!-- <div class="label above"></div> -->
-          <!-- <div class="orange bar label-is-above"><span></span></div> -->
-        <!-- </div> -->
-        <!-- Badge (floats to the right) -->
-        <!-- <div class="badge show-for-medium-up"> -->
-          <!-- <img class="badge" src="{{goals.badge}}"> -->
-        <!-- </div> -->
-        <!-- Bottom Progress Bar -->
-        <!-- <div class="progress-bar below" data-percentage="{{goals.groupPercent}}"> -->
-          <!-- <div class="green bar label-is-below"><span></span></div> -->
-          <!-- <div class="label below"></div> -->
-        <!-- </div> -->
+        <h5>Your Pay Period Goals</h5>
         <!-- Legend -->
-        <!-- <div class="legend"> -->
-          <!-- <span class="personal"></span> -->
-          <!-- <span>Personal Rooftops</span> -->
-          <!-- <br> -->
-          <!-- <span class="grid"></span> -->
-          <!-- <span>Grid Rooftops</span> -->
-        <!-- </div> -->
-      <!-- </div> -->
-    <!-- </div> -->
+        <div class="legend">
+          <div ng-repeat="requirement in goals.requirements">
+            <div class="legend-item" ng-if="requirement.properties.event_type === 'personal_sales'">
+              <div class="legend-key personal"></div>
+              <span>Personal Rooftops</span>
+            </div>
+             <div class="legend-item" ng-if="requirement.properties.event_type === 'group_sales'">
+              <div class="legend-key group"></div>
+              <span>Grid Rooftops</span>
+            </div>
+            <div class="legend-item" ng-if="requirement.properties.event_type === 'course_completion'">
+              <div class="legend-key course"></div>
+              <span>{{requirement.properties.product}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-bar-box" ng-class="{ large : goals.requirements.length === 3 }">
+          <!-- Badge -->
+          <div class="badge show-for-medium-up">
+            <img class="badge" ng-class="{ half: goals.requirements.length == 2, full: goals.requirements.length === 1 }" src="{{goals.badge}}">
+          </div>
+          <div ng-repeat="requirement in goals.requirements" repeat-end="onEnd()">
+            <div 
+              class="progress-bar personal" 
+              ng-if="requirement.properties.event_type === 'personal_sales'"
+              data-percentage="{{goals.personalPercent}}"
+              ng-class="{ half: goals.requirements.length == 2,
+                          full: goals.requirements.length === 1 }">
+              <!-- <div class="label above"></div> -->
+              <span class="progress-text"></span>
+              <div class="blue bar label-is-above"></div>
+            </div>
+            <div 
+              class="progress-bar group" 
+              ng-if="requirement.properties.event_type === 'group_sales'"
+              data-percentage="{{goals.personalPercent}}"
+              ng-class="{ half: goals.requirements.length === 2,
+                          full: goals.requirements.length === 1 }">
+              <span class="progress-text"></span>
+              <div class="orange bar label-is-below"></div>
+              <!-- <div class="label below"></div> -->
+            </div>
+            <div 
+              class="progress-bar enrollment" 
+              ng-if="requirement.properties.event_type === 'course_completion'"
+              ng-class="{ half: goals.requirements.length === 2,
+                          full: goals.requirements.length === 1 }">
+              <span class="progress-text">{{goals.course}}</span>
+              <a ng-if="courseLinking" ng-href="/university"><div class="progress-text">click here to start</div></a>
+              <div class="green bar hold label-is-below"  style="width : {{calculateProgress(requirement)}}"></div>
+              <!-- <div class="label below"></div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </div>
 

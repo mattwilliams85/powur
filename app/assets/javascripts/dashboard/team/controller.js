@@ -52,6 +52,12 @@
       }
     };
 
+    $scope.isActiveTab = function(teamMember, gen, tab) {
+     if (tab) return gen.tab === tab && gen.selected === teamMember.properties.id && $scope.activeTab === tab;
+     return ($scope.downline.length > ($scope.levelGap(teamMember))) && gen.selected === teamMember.properties.id;
+
+    };
+
     // Close Team Member
     $scope.closeForm = function(element) {
       if(element) {
@@ -66,7 +72,10 @@
     }
 
     // Show Team Member
-    $scope.changeTab = function(teamMember, tab) {
+    $scope.changeTab = function(teamMember, gen, tab) {
+      // Set active tab for generation
+      gen.selected = teamMember.id; 
+      gen.tab = tab;
       // Delay for transition between multiple animations
       var delay = 300;
       if (!$scope.activeTab) delay = 0;

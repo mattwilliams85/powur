@@ -3,7 +3,7 @@ klass :requirement
 entity_rel(local_assigns[:rel]) if local_assigns[:rel]
 
 json.properties do
-  json.call(requirement, :id, :user_group_id, :event_type)
+  json.call(requirement, :id, :user_group_id, :event_type, :product_id)
   json.product requirement.product.name
   unless requirement.course_completion?
     json.quantity requirement.quantity

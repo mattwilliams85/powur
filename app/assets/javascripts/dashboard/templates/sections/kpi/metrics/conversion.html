@@ -72,7 +72,7 @@
       </div>
       <div class="row">
         <div class="legend primary left"></div><span class="kpi-detail left">Proposals</span>
-        <div class="legend secondary left"></div><span class="kpi-detail left">Sales</span>
+        <div class="legend secondary left"></div><span class="kpi-detail left">Rooftops</span>
         <div class="time-scale">
           <span ng-class="{'active': scale === 6 }" class="scale-detail uppercase" ng-click="changeScale(6)">1 Week</span><span ng-class="{'active': scale === 29 }" class="scale-detail uppercase" ng-click="changeScale(29)">1 Month</span>
         </div>
@@ -81,7 +81,7 @@
         <div class="row">
           <!-- <span class="kpi-detail uppercase text-center" ng-model="date">{{date}}</span> -->
           <!-- <span class="kpi-detail uppercase text-center" ng-show="date === april">{{date}}</span> -->
-          <canvas id="metricsChart"></canvas>
+          <canvas id="metricsChart" width="670" height="330"></canvas>
         </div>
       </div>
      <!--  <div class="time-nav">

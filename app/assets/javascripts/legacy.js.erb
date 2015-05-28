@@ -24,7 +24,15 @@ var legacyImagePaths = {
     '<%= asset_path("library/video.png") %>',
     '<%= asset_path("library/pdf.png") %>'
   ],
-  goalsBadge: '<%= image_path("badges/rank0.png") %>',
+  goalsBadges: [
+   '<%= image_path("badges/rank0.png") %>',
+   '<%= image_path("badges/rank1.png") %>',
+   '<%= image_path("badges/rank2.png") %>',
+   '<%= image_path("badges/rank3.png") %>',
+   '<%= image_path("badges/rank4.png") %>',
+   '<%= image_path("badges/rank5.png") %>',
+   '<%= image_path("badges/rank6.png") %>'
+  ],
   dashboardTeamIcon: '<%= asset_path('dashboard/team_icon.png') %>',
   dashboardCustomersIcon: '<%= asset_path('dashboard/customers_icon.png') %>',
   dashboardKPIIcon: '<%= asset_path('dashboard/kpi_icon.png') %>',
@@ -49,43 +57,6 @@ var legacyImagePaths = {
 
   energyVideo: 'https://s3.amazonaws.com/sunstand-dev/static/whysolar.mp4'
 };
-
-// Development Tool to Fill Progress Bars
-var fillProgressBars = function(){
-  $(function () {
-    $('.progress-bar').each(function () {
-      var t = $(this);
-      var barPercentage = t.data('percentage');
-
-          // add a div for the label text
-          t.children('.label').append('<div class=\'label-text\'></div>');
-
-          // add some 'gimme' percentage when data-percentage is <2
-          if (parseInt((t.data('percentage')), 10) < 2) barPercentage = 2;
-
-          // set up the left/right label flipping
-          if (barPercentage > 50) {
-            t.children('.label').css('right', (100 - barPercentage) + '%');
-            t.children('.label').css('margin-right', '-10px');
-          }
-          if (barPercentage < 51) {
-            t.children('.label').css('left', barPercentage + '%');
-            t.children('.label').css('margin-left', '-20px');
-          }
-
-          // fill in bars and labels
-          t.find('.label-text').text(t.attr('data-percentage') + ' Rooftops');
-          t.children('.bar').animate({
-            width: barPercentage + '%'
-          }, 1000);
-          t.children('.label').animate({
-            opacity: 1
-          }, 1000);
-        });
-  });
-  return 'yeah!';
-};
-
 
 //JAVASCRIPT CLASS FUNCTIONS
 //Returns week number from formated Date

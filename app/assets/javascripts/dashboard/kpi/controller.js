@@ -34,7 +34,6 @@
             pointHitDetectionRadius : 10,
             responsive: true,
             scaleFontColor: '#fff',
-            scaleFontFamily: "'Open Sans', 'Helvetica', 'Helvetica', 'Arial', 'sans-serif'",
             scaleFontSize: 13,
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
@@ -119,17 +118,18 @@
     $scope.legacyImagePaths = legacyImagePaths;
 
     $scope.changeTab = function(section) {
-      // RETURN UNLESS CONVERSION
-      if(section !== 'conversion') return;
-      //
-      if ($scope.section === section) return $scope.section = '';
-      $scope.section = section;
-      // Timeout for animation
-      $timeout(function() {
+      if ($scope.section === section) {
+        return $scope.section = '';
+      } else if (section === 'rank') {
         $scope.section = section;
-        if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
-        $scope.kpiInit();
-      }, 300);
+      } else {
+        $scope.section = section;
+        // Timeout for animation
+        $timeout(function() {
+          if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
+          $scope.kpiInit();
+        }, 300);
+      }
     };
 
     $scope.kpiInit = function() {
@@ -146,10 +146,7 @@
       $scope.generateLabels();
       $scope.setScale();
       var ctx = document.getElementById('metricsChart').getContext('2d');
-      ctx.canvas.style.height = $('.chart-box').height();
-      ctx.canvas.style.width = $('.chart-box').width();
       
-    
       $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
     };
 

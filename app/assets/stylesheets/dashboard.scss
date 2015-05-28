@@ -516,7 +516,7 @@ $kpi-text-color: #888;
   */
   .welcome-section {
     // min-height: 600px; (height for when progress bars are included in Welcome Section)
-    min-height: 400px; // FOR BETA
+    min-height: 550px; // FOR BETA
 
     // Background
     &.bg {
@@ -549,74 +549,110 @@ $kpi-text-color: #888;
     // FOR BETA
     @media #{$medium} {
       .welcome-message {
-        padding-top: 150px;
+        padding-top: 100px;
       }
     }
 
     .pay-period-goals {
-      padding-top: 40px;
+      margin-top: 40px; 
+      padding-right: 20px;
 
       // Progress Bars
       // (from http://blog.eyecuelab.com/2015/03/18/progress-bars-with-css-tooltips/)
-      .progress-bar {
+      .progress-bar-box {
         position: relative;
-        display: block;
-        width: 100%;
-        height: 20px;
-        border-radius: 3px;
-        margin: 60px auto;
-        background: #E6E7E8;
+        margin: 40px 0 0 8px;
 
-        &.above {
-          margin-top: 60px;
-          margin-bottom: 5px;
+        &.large {
+          margin: 60px 0 0 8px;
         }
 
-        &.below {
-          margin-top: 5px;
-          margin-bottom: 60px;
+        .progress-bar {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 15px;
+          // border-radius: 3px;
+          margin-bottom: 3px;
+          background: #d0d0d0;
+          font-size: 10pt;
+          line-height: 11pt;
+
+          // &.above {
+          //   margin: 50px 0px 5px 8px;
+          // }
+
+          // &.below {
+          //   margin: 5px 0px 30px 8px;
+          // }
+          &.half {
+            height: 20px;
+            margin-bottom: 7px;
+            font-size: 11pt;
+            line-height: 14pt;
+          }
+          &.full {
+            height: 25px;
+            top: 3px;
+            font-size: 14pt;
+            line-height: 18pt;
+          }
+
+          .progress-text {
+            position: absolute;
+            text-transform: uppercase;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 99;
+            display: none;
+          }
         }
-      }
 
-      .bar.green {
-        background: $pow-color-green;
-      }
-      .bar.orange {
-        background: $pow-color-orange;
-      }
-
-      .bar {
-        position: absolute;
-        display: block;
-        height: 100%;
-        background: #FCB31C;
-        border-radius: 3px;
-        width: 0%;
-      }
-
-      .label {
-        position: absolute;
-        display: block;
-        padding: 5px 10px;
-        height: 40px;
-        line-height: 30px;
-        top: 30px;
-        background: #111;
-        font-size: 12pt;
-        font-family: $dashboard-font-family;
-        text-align: center;
-        color: #fff;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 6px;
-        white-space: nowrap;
-        opacity: 0;
-
-        &.above {
-          top: -50px;
+        .bar.green {
+          background: $pow-color-green;
+        }
+        .bar.orange {
+          background: $pow-color-orange;
         }
 
-        &.below {
+        .bar {
+          position: absolute;
+          display: block;
+          height: 100%;
+          background: #FCB31C;
+          border-radius: 3px;
+          transition: all .3s ease-in;
+          -webkit-transition:  all .3s ease-in;
+          &.hold {
+            width: 0% !important;
+          }
+        }
+
+        .label {
+          position: absolute;
+          display: block;
+          padding: 5px 10px;
+          height: 40px;
+          line-height: 30px;
           top: 30px;
+          background: #111;
+          font-size: 12pt;
+          font-family: $dashboard-font-family;
+          text-align: center;
+          color: #fff;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          border-radius: 6px;
+          white-space: nowrap;
+          opacity: 0;
+
+          // &.above {
+          //   top: -50px;
+          // }
+
+          // &.below {
+          //   top: 30px;
+          // }
         }
       }
 
@@ -625,7 +661,7 @@ $kpi-text-color: #888;
         span:after {
           transition : all .5s linear;
           position: absolute;
-          display: block;
+          display: none;
           content:"";
           width: 10px;
           height: 10px;
@@ -636,41 +672,48 @@ $kpi-text-color: #888;
 
         &.label-is-below {
           span:after {
-            top: 25px;
+            top: 15px;
           }
         }
 
         &.label-is-above {
           span:after {
-            bottom: 25px;
+            bottom: 15px;
           }
         }
       }
 
       .legend {
-        padding: 8px;
+        padding: 8px 0;
 
-        span {
-          float: left;
+        .legend-item {
+          margin: 0 0 5px 10px;
           display: block;
-          text-align: center;
-          line-height: 16pt;
-          font-size: 10pt;
-          text-transform: uppercase;
-          vertical-align: middle;
-          margin-right: 15px;
+          float: left;
 
-          &.personal {
-            background-color: $pow-color-orange;
-            height: 20px;
-            width: 20px;
-            margin-right: 10px;
+          span {
+            line-height: 16pt;
+            font-size: 10pt;
+            text-transform: uppercase;
           }
-          &.grid {
-            background-color: $pow-color-green;
+
+          .legend-key {
             height: 20px;
             width: 20px;
-            margin-right: 10px;
+            margin: 3px 10px 0 0;
+            float: left;
+
+            &.personal {
+              background-color: $pow-color-orange;
+            }
+
+            &.group {
+              background-color: $pow-color-blue;
+            }
+
+            &.course {
+              background-color: $pow-color-green;
+            }
           }
         }
       }
@@ -682,23 +725,19 @@ $kpi-text-color: #888;
       }
 
       img.badge {
-        display: float;
-        float: right;
         z-index: 50;
-        vertical-align: middle;
         position: absolute;
         right: -80px;
-        bottom: -40px;
-        width: 88px;
-        height: 82px;
-      }
+        bottom: -80px;
+        width: 118px;
+        height: 109px;
 
-      @media #{$medium} {
-        img.badge {
-          right: -110px;
-          bottom: -50px;
-          width: 118px;
-          height: 109px;
+        &.half {
+          bottom: -75px;
+        }
+
+        &.full {
+          bottom: -70px;
         }
       }
     }
@@ -711,7 +750,7 @@ $kpi-text-color: #888;
       }
 
       .notifications {
-        padding-top: 20px;
+        margin-top: 20px;
         // height: 450px; (height for when progress bars are included in Welcome Section)
         height: 230px; // FOR BETA
         width: 100%;
@@ -778,7 +817,7 @@ $kpi-text-color: #888;
     @media #{$small} {
       .news {
         margin-top: 0;
-        padding-top: 100px;
+        padding: 125px 60px;
         background-color: initial;
       }
     }
@@ -970,6 +1009,16 @@ $kpi-text-color: #888;
       }
 
       /*
+      RANK SECTION
+      */
+      .rank-section {
+        .header-row {
+          padding: 20px 20px;
+          background-color: #333;
+        }
+      }
+
+      /*
       CONVERSION SECTION
       */
       .conversion-section {
@@ -977,6 +1026,7 @@ $kpi-text-color: #888;
 
         canvas{
             width: 100% !important;
+            min-height:378px;
             max-height:378px;
         }
 
