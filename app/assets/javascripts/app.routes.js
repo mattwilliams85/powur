@@ -103,7 +103,6 @@
       controller: 'EarningsCtrl'
     }).
 
-    // Signed In User's static content pages
     when('/terms-of-service', {
       templateUrl: 'user-static-content/templates/terms-of-service.html',
       controller: 'UserStaticContentCtrl'
@@ -118,6 +117,10 @@
     }).
     when('/disclaimer', {
       templateUrl: 'user-static-content/templates/disclaimer.html',
+      controller: 'UserStaticContentCtrl'
+    }).
+    when('/contact', {
+      templateUrl: 'user-static-content/templates/contact.html',
       controller: 'UserStaticContentCtrl'
     }).
 

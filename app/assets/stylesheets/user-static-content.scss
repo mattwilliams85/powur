@@ -2,4 +2,43 @@
   margin-top: 0;
   padding-top: 50px;
   padding-bottom: 50px;
+
+  &.pow-contact {
+    background: #fff;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+
+    .top-wrapper {
+      background: image-url('user-static-content/contact-bg.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      padding: 70pt 0;
+      margin-bottom: 100px;
+
+      h4, h1 {
+        color: #fff;
+        font-family: 'Montserrat';
+      }
+
+      h4 {
+        font-size: 2em;
+      }
+
+      h1 {
+        font-size: 4em;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+    }
+
+    p {
+      font-size: 2rem;
+      margin: 3rem 0;
+    }
+
+    .pow-landing-footer {
+      position: relative;
+    }
+  }
 }

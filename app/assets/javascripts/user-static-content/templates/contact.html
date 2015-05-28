@@ -1,0 +1,38 @@
+<powur-left-menu control="leftMenu"></powur-left-menu>
+
+<div class="pow-landing-wrapper" ng-class="{'active': leftMenu.isActive}">
+
+  <main class="pow-user-static-content pow-contact">
+    <ng-include ng-if="!isSignedIn" src="'shared/header-signed-out.html'"></ng-include>
+    <ng-include ng-if="isSignedIn" src="'shared/header-signed-in.html'"></ng-include>
+
+    <div class="top-wrapper">
+      <div class="row">
+        <div class="large-12 columns">
+          <h4>How to Contact Us.</h4>
+          <h1>We are here to<br>help!</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <div class="large-12 columns contact-info">
+        <div class="clearfix"></div>
+        <p>If you have any questions or concerns, the be way to reach us is through our online Support Suite 24 hours a day, 7 days a week at:</p>
+        <p><a href="https://support.powur.com/" target="_blank">support.powur.com</a></p>
+        <p>You can also call us during business hours of 9 a.m. to 5 p.m. PDT at:</p>
+        <p>480.626.7056</p>
+        <br>
+        <br>
+        <br>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <ng-include src="'shared/footer.html'"></ng-include>
+  </main>
+</div>
