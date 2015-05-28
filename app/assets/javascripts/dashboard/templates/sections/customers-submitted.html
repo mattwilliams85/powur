@@ -40,7 +40,12 @@
     <!-- Lead Updates -->
     <div class="large-6 columns">
       <fieldset>
-        <legend ng-if="proposalItem.entities"><i class="fa fa-exchange"></i> Updates</legend>
+        <legend><i class="fa fa-exchange"></i> Updates</legend>
+
+        <!-- If No Updates -->
+        <div ng-if="!proposalItem.entities" class="lead-update panel">
+          <p>No Data Available</p>
+        </div>
 
         <!-- Lead Updates -->
         <div ng-repeat="lead_update in proposalItem.entities" class="lead-update panel">
