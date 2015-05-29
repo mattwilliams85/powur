@@ -4,7 +4,7 @@ module Auth
 
     def show
       next_rank_id = @user.organic_rank ? @user.organic_rank + 1 : 1
-      @next_rank = Rank.find(next_rank_id)
+      @next_rank = Rank.find_by(id: next_rank_id)
       return unless @next_rank
 
       @requirements = @next_rank.user_groups.map(&:requirements).flatten
