@@ -1,7 +1,7 @@
-<table width="100%">
+<table class="index-table">
   <thead>
     <tr>
-      <th>ID</th>
+      <th width="20">ID</th>
       <th>Content</th>
       <th>Posted at</th>
       <th width="150">Action</th>
@@ -11,7 +11,7 @@
     <tr ng-repeat="item in data.entities">
       <td>{{item.properties.id}}</td>
       <td>{{item.properties.content}}</td>
-      <td>{{formattedTime(item.properties.created_at)}}</td>
+      <td>{{item.properties.created_at | date:'MM/dd/yyyy @ h:mma'}}</td>
       <td>
         <a ng-href="/admin/latest-news/{{item.properties.id}}/edit">edit</a>
         &nbsp;|&nbsp;
