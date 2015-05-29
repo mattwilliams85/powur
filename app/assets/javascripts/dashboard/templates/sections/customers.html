@@ -144,6 +144,8 @@
           <!-- Incomplete Proposal Buttons -->
           <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.delete()">Delete Proposal</button>
           <button class="button secondary expand" ng-show="mode === 'incomplete'" ng-click="customerSection.resend()">Resend Email</button>
+          <!-- Incomplete Proposal ID -->
+          <p ng-show="mode === 'incomplete'">Proposal ID: {{currentProposal.id}}</p>
 
           <!-- Ready To Submit Proposal Summary Text -->
           <h1 ng-show="mode === 'ready_to_submit'">Completed Proposal</h1>
@@ -152,6 +154,8 @@
           <!-- Ready To Submit Proposal Buttons -->
           <button class="button secondary expand" ng-show="mode === 'ready_to_submit'" ng-click="customerSection.delete()">Delete Proposal</button>
           <button class="button solarcity expand" ng-show="mode === 'ready_to_submit'" ng-click="customerSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
+          <!-- Ready To Submit Proposal ID -->
+          <p ng-show="mode === 'ready_to_submit'">Proposal ID: {{currentProposal.id}}</p>
 
           <!-- Ineligible Location Proposal Summary Text -->
           <h1 ng-show="mode === 'ineligible_location'">Ineligible Proposal</h1>
@@ -159,6 +163,8 @@
           <p ng-show="mode === 'ineligible_location'">When SolarCity is available in the customer's location, this proposal's status will be updated and you'll be able to continue where you left off.</p>
           <!-- Ineligible Location Proposal Buttons -->
           <button class="button secondary expand" ng-show="mode === 'ineligible_location'" ng-click="customerSection.delete()">Delete Proposal</button>
+          <!-- Ineligible Location Proposal ID -->
+          <p ng-show="mode === 'ineligible_location'">Proposal ID: {{currentProposal.id}}</p>
 
 
 
@@ -169,6 +175,8 @@
           <button class="button expand right" ng-show="mode === 'submitted' || mode === 'in_progress' || mode === 'closed_won' || mode === 'lost' || mode === 'on_hold'" disabled><i class="fa fa-check"></i> Submitted</button>
           <p ng-show="mode === 'submitted' || mode === 'in_progress' || mode === 'closed_won' || mode === 'lost' || mode === 'on_hold'">This proposal was submitted to SolarCity at {{ currentProposal.submitted_at | timeToLocalTime }} on {{ currentProposal.submitted_at | dateToLocalDate }}.</p>
           <button class="button secondary expand" ng-show="mode === 'submitted' || mode === 'in_progress' || mode === 'closed_won' || mode === 'lost' || mode === 'on_hold'" ng-click="customerSection.resend()">Resend Email</button>
+          <!-- Submitted Proposal ID -->
+          <p ng-show="mode === 'submitted' || mode === 'in_progress' || mode === 'closed_won' || mode === 'lost' || mode === 'on_hold'">Proposal ID: {{currentProposal.id}}</p>
 
         </div>
 
