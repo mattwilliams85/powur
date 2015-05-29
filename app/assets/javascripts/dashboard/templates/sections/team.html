@@ -131,7 +131,7 @@
     </div>
 
     <!-- Team Members Downline Carousel -->
-    <div ng-repeat="generation in downline track by $index">
+    <div ng-repeat="generation in downline track by $index" ng-init="outerIndex=$index">
       <div class="row collapse carousel-box downline-row" ng-class="{ 'even': $index % 2 === 0, 'expand': downline.length >= ($index) }" ng-if="$index !== 0">
 
         <!-- <div class="gen-count team-member-info-large downline w20percent small-2 columns">
@@ -150,7 +150,7 @@
 
           <!-- If Team Members -->
           <div class="team owl-carousel downline" id="{{'carousel-' + $index}}" data-row="{{$index}}">
-            <a ng-repeat="teamMember in downline[$parent.$index]" repeat-end="onEnd()">
+            <a ng-repeat="teamMember in downline[outerIndex]" repeat-end="onEnd()">
               <div 
                 class="team-member downline" 
                 ng-class="{ 
@@ -163,8 +163,8 @@
                   <div 
                     class="team-tab downline" 
                     ng-class="{ 
-                      'raise': hover || isMobile() || isActiveTeamTab(teamMember, generation),
-                      'active-tab': isActiveTeamTab(teamMember, generation),
+                      'raise': hover || isMobile() || isActiveTab(teamMember, generation),
+                      'active-tab': isActiveTab(teamMember, generation),
                       'even': levelGap(teamMember) % 2 !== 0,
                       'odd': levelGap(teamMember) % 2 === 0
                     }"

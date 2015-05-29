@@ -80,7 +80,7 @@
           legacyImagePaths.energyPromo[7],
           legacyImagePaths.energyPromo[8]
         ],
-        text: 'There is no industry as good at spreading products via word of mouth as ours.  Despite the often misunderstood nature of direct sales, the numbers don’t lie.  Direct sales has the potential to create millions of solar customers over the next decade… and generate BILLIONS in wealth for those who do.'
+        text: 'There is no industry as good at spreading products via word of mouth as ours.  Despite the often misunderstood nature of peer to peer, the numbers don’t lie.  Direct marketing has the potential to create millions of solar customers over the next decade… and generate BILLIONS in wealth for those who do.'
       },
       {
         images: [
@@ -167,7 +167,7 @@
     if (/\/why-solar$/.test($location.path())) return $scope.mode = 'why-solar';
     if (/\/why-you$/.test($location.path())) return $scope.mode = 'why-you';
     if (/\/why-powur$/.test($location.path())) return $scope.mode = 'why-powur';
-    if (/\/why-direct-selling$/.test($location.path())) return $scope.mode = 'why-direct-selling';
+    if (/\/why-direct-marketing$/.test($location.path())) return $scope.mode = 'why-direct-marketing';
     if (/\/our-origin$/.test($location.path())) return $scope.mode = 'our-origin';
     if (/\/our-team$/.test($location.path())) return $scope.mode = 'our-team';
     if (/\/our-dna$/.test($location.path())) return $scope.mode = 'our-dna';
@@ -239,7 +239,7 @@
          }
        });
 
-    } else if ($scope.mode === 'why-direct-selling') {
+    } else if ($scope.mode === 'why-direct-marketing') {
       $scope.setupPromoSlider($scope.directSalePromoSlides);
     } else if ($scope.mode === 'our-origin') {
       $rootScope.enableScrollDetect();
@@ -252,14 +252,14 @@
           name: 'Jonathan Budd',
           title: 'Founder/CEO',
           image: legacyImagePaths.teamFaces[0],
-          details: '  Jonathan heads up day-to-day operations and strategy that allow Powur’s entrepreneurs to succeed at their finest.  From forming key strategic partnerships, attracting the best talent, and innovating how solar is sold... Jonathan has his hands in everything Powur.  Prior to Powur, he built one of the largest online training and education companies in direct selling with more than 100,000 customers.  In 2010, he shifted his entrepreneurial pursuits toward projects focused on game-changing global impact.  He founded MyStand in 2011, which developed a first-of-its-kind gaming app to engage users in positive global change.  He is also Founder and Executive Director of The Global Transformation Council, Inc., a 501c3 organization that’s donated close to $1,000,000 to local and global initiatives for change.',
+          details: '  Jonathan heads up day-to-day operations and strategy that allow Powur’s entrepreneurs to succeed at their finest.  From forming key strategic partnerships, attracting the best talent, and innovating how solar is sold... Jonathan has his hands in everything Powur.  Prior to Powur, he built one of the largest online training and education companies in direct marketing with more than 100,000 customers.  In 2010, he shifted his entrepreneurial pursuits toward projects focused on game-changing global impact.  He founded MyStand in 2011, which developed a first-of-its-kind gaming app to engage users in positive global change.  He is also Founder and Executive Director of The Global Transformation Council, Inc., a 501c3 organization that’s donated close to $1,000,000 to local and global initiatives for change.',
           showDetails: false
         },
         {
           name: 'Robert Styler',
           title: 'Co-Founder and President',
           image: legacyImagePaths.teamFaces[1],
-          details: 'Robert has 25 years of success experience in direct sales, solar and senior management.  He is uniquely qualified to lead Powur’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct selling companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
+          details: 'Robert has 25 years of success experience in direct marketing, solar and senior management.  He is uniquely qualified to lead Powur’s sales Division as the company sets course to bring solar energy to the masses.  He earned “top 10” status in a number of direct marketing companies over the years, including INC, Magazine’s 1996 “fastest growing company in the U.S.”  He also served as president of the marketing division for Incomnet Communications where he engineered a two-year turnaround strategy that resulted in the company’s shift from losing 30,000 customers a month to gaining 5,000 a month. From 2006-2010, Robert was president of the marketing division of Citizenre where he built a sales division comprising many talented leaders and broke records in the renewable energy space, signing more than 38,000 customer contracts.',
           showDetails: false
         },
         {
@@ -273,7 +273,7 @@
           name: 'Craig Jorgensen',
           title: 'Chief Designer',
           image: legacyImagePaths.teamFaces[3],
-          details: '  Craig has led UI/UX on multiple direct selling company launches, including one of the fastest growing direct sales start-ups in history, reaching 1,000,000+ users in 78 days during its 2013 pre-launch. He has a foundation in traditional print and advertising coupled with digital applications know-how, which makes him an unstoppable force in Powur.',
+          details: '  Craig has led UI/UX on multiple direct marketing company launches, including one of the fastest growing direct marketing start-ups in history, reaching 1,000,000+ users in 78 days during its 2013 pre-launch. He has a foundation in traditional print and advertising coupled with digital applications know-how, which makes him an unstoppable force in Powur.',
           showDetails: false
         },
         {

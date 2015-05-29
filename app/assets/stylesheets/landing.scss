@@ -9,6 +9,10 @@
   -ms-user-select: none;
   user-select: none;
 
+  &.fixed-footer {
+    min-height: 800px;
+  }
+
   .row {
     max-width:1280px;
   }

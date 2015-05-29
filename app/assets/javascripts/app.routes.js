@@ -60,8 +60,8 @@
       templateUrl: 'promo/templates/why-you.html',
       controller: 'PromoCtrl'
     }).
-    when('/why-direct-selling', {
-      templateUrl: 'promo/templates/why-direct-selling.html',
+    when('/why-direct-marketing', {
+      templateUrl: 'promo/templates/why-direct-marketing.html',
       controller: 'PromoCtrl'
     }).
     when('/why-powur', {
