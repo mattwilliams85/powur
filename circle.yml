@@ -12,8 +12,6 @@ machine:
     SOLAR_CITY_LEAD_URL: 'https://sctyleads-test.cloudhub.io/powur'
 dependencies:
   override:
-    - gem update --system 2.4.5
-    - gem --version
     - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
     - npm install
     - bower install --config.directory=./vendor/assets/bower_components
