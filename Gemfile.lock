@@ -475,3 +475,6 @@ DEPENDENCIES
   vcr
   webmock
   week_of_month
+
+BUNDLED WITH
+   1.10.1

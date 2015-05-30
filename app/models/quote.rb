@@ -12,7 +12,8 @@ class Quote < ActiveRecord::Base
 
   add_search :user, :customer, [ :user, :customer ]
 
-  scope :not_submitted, ->() { where.not(status: statuses[:submitted]) }
+  scope :submitted, ->() { where('provider_uid is not null') }
+  scope :not_submitted, ->() { where('provider_uid is null') }
   scope :status, ->(value) { where(status: statuses[value]) }
   scope :won, ->() { status(:closed_won) }
   scope :within_date_range, ->(begin_date , end_date) {

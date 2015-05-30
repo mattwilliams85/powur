@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
 
   # KPI METHODS
   def proposal_count
-    self.quotes.status(:submitted).count
+    quotes.submitted.count
   end
 
   def fetch_proposal_metrics(start_date, end_date)
