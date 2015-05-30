@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :invite do
-    sequence(:email) { |n| "test+#{n}@test.com" }
+    sequence(:email) { |n| "testfoo+#{n}@test.com" }
     first_name 'Abe'
     last_name 'Lincoln'
     phone '3105551212'

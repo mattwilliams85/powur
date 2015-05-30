@@ -95,5 +95,13 @@ module TestResponse
     def must_have_field(name)
       must_have_fields(name)
     end
+
+    def link(rel)
+      links && (l = links.find { |l| l.rel == rel.to_s }) && l.href
+    end
+
+    def self_link
+      link(:self)
+    end
   end
 end

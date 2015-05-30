@@ -98,6 +98,10 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :pay_periods, only: [] do
+      resources :order_totals, only: [ :index ]
+    end
+
     resources :users, only: [ :index, :show ] do
       collection do
         get '' => 'users#search', constraints: params?(:search)
