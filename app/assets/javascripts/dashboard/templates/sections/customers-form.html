@@ -74,11 +74,15 @@
         <div class="row">
           <div class="large-12 columns">
             <!-- New Proposal Form Buttons -->
-            <button class="button right" ng-show="mode === 'new'">Save</button>
-            <button class="button secondary left" ng-show="mode === 'new'" ng-click="closeForm()">Cancel</button>
+            <div ng-show="mode === 'new'">
+              <button class="button right" >Save</button>
+              <button class="button secondary left" ng-click="closeForm()">Cancel</button>
+            </div>
             <!-- Incomplete Proposal Form Buttons -->
-            <button class="button secondary right" ng-show="mode === 'incomplete' || mode === 'ineligible_location' || mode === 'ready_to_submit'">Update</button>
-            <button class="button secondary left" ng-show="mode === 'incomplete' || mode === 'ineligible_location' || mode === 'ready_to_submit'" ng-click="closeForm()">Cancel</button>
+            <div ng-show="mode === 'incomplete' || mode === 'ineligible_location' || mode === 'ready_to_submit'">
+              <button class="button secondary right">Update</button>
+              <button class="button secondary left" ng-click="closeForm()">Cancel</button>
+            </div>
           </div>
         </div>
 

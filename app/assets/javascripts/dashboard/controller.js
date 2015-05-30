@@ -50,11 +50,23 @@
     //Fetch goals
     $scope.fetchGoals = function() {
       CommonService.execute({
-        href: '/u/users/' + $scope.currentUser.id + '/goals.json'
+        href: '/u/users/' + $scope.currentUser.id + '/goals'
       }).then(function(data) {
-        $scope.goals = data;
-        $scope.goals.badge = $scope.legacyImagePaths.goalsBadges[data.properties.next_rank];
-        $scope.goals.requirements = data.entities[1].entities;
+        if (data != 0) {
+          $scope.goals = data;
+          $scope.goals.badge = $scope.legacyImagePaths.goalsBadges[data.properties.next_rank];
+          $scope.goals.requirements = data.entities[1].entities;
+        }
+       
+        // if ($scope.currentUser.organicRank > 0) {
+        //   CommonService.execute({
+        //     href: '/u/ranks/' + $scope.currentUser.organicRank + '.json'
+        //   }).then(function(data) {
+        //     $scope.currentUser.organicRank = data.properties.title;
+        //   });
+        // } else {
+        //   $scope.currentUser.organicRank = 'advocate';
+        // }
       });
     };
 
@@ -84,13 +96,13 @@
           if (courses[i].properties.product_id === requirement.properties.product_id) {
 
             if (courses[i].properties.state === 'enrolled') {
-              percentage = 25;
+              percentage = 33;
               $scope.goals.course = 'enrolled';
             } else if (courses[i].properties.state === 'started') {
-              percentage = 50;
+              percentage = 66;
               $scope.goals.course = 'started';
             } else if (courses[i].properties.state === 'completed') {
-              percentage = 75;
+              percentage = 100;
               $scope.goals.course = 'completed';
             } else {
               percentage = 1;

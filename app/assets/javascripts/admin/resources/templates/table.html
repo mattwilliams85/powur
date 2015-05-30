@@ -1,17 +1,24 @@
-<table width="100%">
+<table class="index-table">
   <thead>
     <tr>
-      <th>ID</th>
+      <th width="20">ID</th>
+      <th width="130">Image</th>
       <th>Title</th>
       <th>Status</th>
+      <th>Posted</th>
       <th width="150">Action</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="item in data.entities">
       <td>{{item.properties.id}}</td>
+      <td><img ng-src="{{itemThumbnail(item)}}" class="table-image"></td>
       <td><a ng-href="/admin/resources/{{item.properties.id}}/edit">{{item.properties.title}}</a></td>
       <td>{{item.properties.is_public ? 'active' : 'hidden'}}</td>
+      <td>
+        {{item.properties.user_name}}<br>
+        {{item.properties.created_at | date:'MM/dd/yyyy @ h:mma'}}
+      </td>
       <td>
         <a ng-href="/admin/resources/{{item.properties.id}}/edit">edit</a>
         &nbsp;|&nbsp;
