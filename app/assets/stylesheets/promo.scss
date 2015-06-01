@@ -98,7 +98,7 @@ $xl-screen: em-calc(1500);
         font-size: 50pt;
         width:100%;
       }
-      
+
     }
 
     p {
@@ -113,9 +113,9 @@ $xl-screen: em-calc(1500);
       &.dim {
         background-image: image-url("promo/on-button.png");
         font-size: 1.3em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size: 1em;
-        } 
+        }
         background-position: 20px center;
         line-height: 70px;
         padding: 0 20px 0 70px;
@@ -206,19 +206,22 @@ $xl-screen: em-calc(1500);
 
   .pow-promo-dim {
     padding-top: 22vh;
-  
+
     p {
       color: #fff;
       margin: 80px 0;
     }
 
     .video-player-wrapper {
+      display: block;
       width: 610px;
       height: 380px;
       margin:0 15%;
-      background-image: image-url("promo/video-placeholder.jpg");
+      background-image: image-url("promo/wealth-video.jpg");
       background-repeat: no-repeat;
       background-position: center center;
+      background-size: cover;
+
       @media #{$small} {
         width:100%;
         margin:0 auto;
@@ -330,8 +333,8 @@ $xl-screen: em-calc(1500);
       color: $pow-color-orange;
       font-size: 2em;
       margin-bottom: 1em;
-      @media #{$large} { 
-        margin-bottom: 2em; 
+      @media #{$large} {
+        margin-bottom: 2em;
       }
     }
 
@@ -402,7 +405,7 @@ $xl-screen: em-calc(1500);
 
     h5 {
       font-size: 2em;
-      @media #{$large} { 
+      @media #{$large} {
         font-size: 2.2em;
       }
       margin: 1.5em 0;
@@ -428,7 +431,7 @@ $xl-screen: em-calc(1500);
   .pow-promo-slide-5 {
     text-align: center;
 
-    h4, h5 { 
+    h4, h5 {
       line-height: 1em;
       text-transform: uppercase;
     }
@@ -496,7 +499,7 @@ $xl-screen: em-calc(1500);
 
       span {
         font-size:16pt;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:13pt;
         }
       }
@@ -507,7 +510,7 @@ $xl-screen: em-calc(1500);
         padding:20px 60px;
         text-transform: uppercase;
         margin-right: 1em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1.3em;
           padding:20px 60px;
         }
@@ -552,7 +555,7 @@ $xl-screen: em-calc(1500);
     }
     p {
       font-size:20pt;
-      @media #{$small} { 
+      @media #{$small} {
         font-size:14pt;
       }
     }
@@ -570,7 +573,7 @@ $xl-screen: em-calc(1500);
     }
     h2 {
       font-size:40pt;
-      @media #{$small} { 
+      @media #{$small} {
         font-size:40pt
       }
     }
@@ -583,14 +586,14 @@ $xl-screen: em-calc(1500);
       }
     }
 
-    .slider-inner { 
+    .slider-inner {
       margin-top:15px !important;
       @media #{$medium} {
         margin-top:25px;
       }
     }
 
-    .pow-promo-slider-wrapper { 
+    .pow-promo-slider-wrapper {
       margin-top:60px;
       @media #{$small} {
         margin-top:25px;
@@ -605,11 +608,11 @@ $xl-screen: em-calc(1500);
     font-size:1.3em;
     p {
       font-size:2em;
-      @media #{$small} { 
+      @media #{$small} {
         font-size:1em
       }
     }
-      
+
     .arrow-box {
       z-index:1;
     }
@@ -660,14 +663,14 @@ $xl-screen: em-calc(1500);
         h1 {
           font-size:70pt;
           text-align:center;
-          @media #{$small} { 
+          @media #{$small} {
             font-size:35pt;
             text-align:left;
           }
         }
         p {
           font-size:30pt;
-          @media #{$small} { 
+          @media #{$small} {
             font-size:13pt;
           }
         }
@@ -705,14 +708,14 @@ $xl-screen: em-calc(1500);
     padding-bottom:50px !important;
     padding-top:150px;
     text-align:center;
-    @media #{$small} { 
+    @media #{$small} {
       padding-top:100px;
       text-align:left;
     }
-    @media #{$large} { 
+    @media #{$large} {
       padding-top:150px;
     }
-  
+
     h2, .highlight-1 {
       font-size:2em;
 
@@ -739,7 +742,7 @@ $xl-screen: em-calc(1500);
 
     h3.highlight-1 {
       font-size:40pt;
-      @media #{$small} { 
+      @media #{$small} {
         font-size:27pt;
       }
     }
@@ -765,7 +768,7 @@ $xl-screen: em-calc(1500);
 
     p {
       font-size:1em;
-      @media #{$small} { 
+      @media #{$small} {
         font-size:1em;
       }
     }
@@ -787,7 +790,7 @@ $xl-screen: em-calc(1500);
 
     .row {
       width:85%;
-      @media #{$small} { 
+      @media #{$small} {
         width:90%;
       }
     }
@@ -804,7 +807,7 @@ $xl-screen: em-calc(1500);
         font-size:35pt;
         margin-bottom:40px;
         text-align:center;
-        @media #{$small} { 
+        @media #{$small} {
           text-align:left;
           font-size:27pt;
           line-height:35pt;
@@ -812,7 +815,7 @@ $xl-screen: em-calc(1500);
         }
       }
     }
-    
+
     span {
       line-height:10pt;
       text-align:center;
@@ -863,7 +866,7 @@ $xl-screen: em-calc(1500);
         border-radius:100%;
         border-width:0px;
         top: -11px;
-        @media #{$small} { 
+        @media #{$small} {
           border-width:1px;
           height: 30px;
           width: 30px;
@@ -877,7 +880,7 @@ $xl-screen: em-calc(1500);
           font-size: 2.2rem;
           left: 14px;
           top: 6px;
-          @media #{$small} { 
+          @media #{$small} {
             font-size: 1.2rem;
             left: 8px;
             top: 4px;
@@ -903,7 +906,7 @@ $xl-screen: em-calc(1500);
     @include landing-sprite(decentralize-icon);
     margin-bottom: 20px;
     padding-top:20px;
-    @media #{$small} { 
+    @media #{$small} {
       padding-top:0px;
     }
   }
@@ -918,7 +921,7 @@ $xl-screen: em-calc(1500);
     @include landing-sprite(pollution-icon);
     margin-bottom: 20px;
     padding-top:20px;
-    @media #{$small} { 
+    @media #{$small} {
       padding-top:0px;
     }
   }
@@ -967,7 +970,7 @@ $xl-screen: em-calc(1500);
 
       p {
         font-size:2em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1em;
         }
       }
@@ -1009,7 +1012,7 @@ $xl-screen: em-calc(1500);
 
       p .highlighted {
         font-size:17pt;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1em;
         }
       }
@@ -1036,7 +1039,7 @@ $xl-screen: em-calc(1500);
       }
       span {
         font-size:1.5em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1em;
         }
       }
@@ -1069,14 +1072,14 @@ $xl-screen: em-calc(1500);
       }
       h5 {
         font-size:2.5em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1.7em;
         }
       }
       span {
         font-size:1.5em;
         margin-top:50px;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1em;
           margin-top:0px;
         }
@@ -1145,7 +1148,7 @@ $xl-screen: em-calc(1500);
   &.pow-why-solar-page {
     .part-2 {
       margin-top:20px;
-      @media #{$small} { 
+      @media #{$small} {
         margin-top:0px;
       }
     }
@@ -1153,7 +1156,7 @@ $xl-screen: em-calc(1500);
     .solar-slide-1 {
       p {
         font-size:2em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1.2em;
         }
       }
@@ -1196,21 +1199,21 @@ $xl-screen: em-calc(1500);
 
       .fa-chevron-left {
         left:11%;
-        @media #{$small} { 
+        @media #{$small} {
           left:13%;
         }
       }
 
       .fa-chevron-right {
         left:88%;
-        @media #{$small} { 
+        @media #{$small} {
           left:86%;
         }
       }
     }
 
     .solar-slide-2 {
-      h2 { 
+      h2 {
         font-size: 30pt;
         @media screen and (min-width: $medium-screen) {
           font-size: 35pt;
@@ -1233,7 +1236,7 @@ $xl-screen: em-calc(1500);
         font-size:40pt;
         line-height:1em;
       }
-      
+
     }
 
     //why solar
@@ -1321,7 +1324,7 @@ $xl-screen: em-calc(1500);
 
     .font-1 {
       font-size:17pt;
-      @media #{$small} { 
+      @media #{$small} {
         font-size:15pt;
       }
     }
@@ -1347,7 +1350,7 @@ $xl-screen: em-calc(1500);
     .powur-slide-3 {
       h2 {
         font-size:40pt;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:40pt;
         }
       }
@@ -1361,7 +1364,7 @@ $xl-screen: em-calc(1500);
       width:85%;
       @media #{$small}{
         width:90%;
-        h2 { 
+        h2 {
           line-height:35pt;
         }
       }
@@ -1385,15 +1388,15 @@ $xl-screen: em-calc(1500);
       }
       b {
         font-size:1.5em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1.3em;
           padding-top:0px;
-        } 
+        }
       }
       .part-2 {
         p {
           margin-top:20px;
-          @media #{$small} { 
+          @media #{$small} {
             margin-top:0px;
           }
         }
@@ -1403,9 +1406,9 @@ $xl-screen: em-calc(1500);
     .you-solar-4 {
       h2 {
         font-size:30pt;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:35pt;
-        } 
+        }
       }
     }
 
@@ -1454,7 +1457,7 @@ $xl-screen: em-calc(1500);
   &.pow-our-origin-page {
     .row {
       width:90%;
-      @media #{$small} { 
+      @media #{$small} {
         width: 100%;
        }
     }
@@ -1533,7 +1536,7 @@ $xl-screen: em-calc(1500);
 
   &.pow-our-team-page {
     font-size:2em;
-    @media #{$small} { 
+    @media #{$small} {
       font-size: 1em;
     }
 
@@ -1561,7 +1564,7 @@ $xl-screen: em-calc(1500);
 
     .face-wrapper {
       height: 1000px;
-      @media #{$small} { 
+      @media #{$small} {
         height:500px;
       }
       position: relative;
@@ -1575,7 +1578,7 @@ $xl-screen: em-calc(1500);
       .face-mask {
         width: 100%;
         height: 1000px;
-        @media #{$small} { 
+        @media #{$small} {
           height:500px;
         }
         position: absolute;
@@ -1596,7 +1599,7 @@ $xl-screen: em-calc(1500);
           color: #fff;
           display: none;
           margin: 20px;
-          
+
           font-size: .9em;
           text-align:left;
           line-height: 1.5em;
@@ -1636,9 +1639,9 @@ $xl-screen: em-calc(1500);
         width:90%;
         max-width:none;
       }
-      h1 { 
+      h1 {
         text-align:center;
-        @media #{$small} { 
+        @media #{$small} {
           text-align:left;
         }
       }
@@ -1664,7 +1667,7 @@ $xl-screen: em-calc(1500);
       .left-side {
         padding-top: 300px;
         height:600px;
-        @media #{$small} { 
+        @media #{$small} {
           height:700px;
         }
         background-color:$pow-color-blue;
@@ -1677,7 +1680,7 @@ $xl-screen: em-calc(1500);
       .right-side {
         height:600px;
         padding: 105px;
-        @media #{$small} { 
+        @media #{$small} {
           height:700px;
         }
         background-color:#f4f6f7;
@@ -1698,32 +1701,32 @@ $xl-screen: em-calc(1500);
 
     .dna-slide-3 {
       h2 {
-        font-size:50pt; 
+        font-size:50pt;
         text-align:center;
         @media #{$small} {
           text-align:left;
         }
       }
       p {
-        font-size:20pt; 
+        font-size:20pt;
         text-align:center;
         @media #{$small} {
-          font-size:13pt; 
+          font-size:13pt;
           text-align:left;
         }
       }
-      
+
     }
 
     .dna-slide-4 {
       h4 {
         width:90%;
-        font-size:30pt; 
+        font-size:30pt;
         text-align:center;
       }
       p {
         font-size:1.7em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1em;
         }
       }
@@ -1732,7 +1735,7 @@ $xl-screen: em-calc(1500);
     .dna-slide-5 {
       p {
         font-size:2em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:1.2em;
         }
       }
@@ -1742,7 +1745,7 @@ $xl-screen: em-calc(1500);
       height:600px;
       h5 {
         font-size:3em;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:2em;
         }
       }
@@ -1823,7 +1826,7 @@ $xl-screen: em-calc(1500);
         font-size:20pt;
       }
     }
-    
+
     //why direct
     .pow-bg-5 {
       h3 {
@@ -1838,7 +1841,7 @@ $xl-screen: em-calc(1500);
       h2 {
         font-size:40pt;
         text-align:center;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:30pt;
           text-align:left;
         }
@@ -1847,7 +1850,7 @@ $xl-screen: em-calc(1500);
         font-size:20pt;
         text-align:center;
         max-width:800px;
-        @media #{$small} { 
+        @media #{$small} {
           font-size:13pt;
           max-width:600px;
           text-align:left;
@@ -1855,7 +1858,7 @@ $xl-screen: em-calc(1500);
       }
       .image {
         display:none;
-        @media #{$small} { 
+        @media #{$small} {
           display:inline-block;
         }
       }
@@ -1957,7 +1960,7 @@ $xl-screen: em-calc(1500);
       border-width: 2px;
       width: 40%;
       margin: 0 0 15px 0;
-      @media #{$small} { 
+      @media #{$small} {
         width: 40px;
       }
     }
@@ -2021,7 +2024,7 @@ $xl-screen: em-calc(1500);
 
     .pow-promo-intro {
       max-width:none;
-      @media #{$small} { 
+      @media #{$small} {
         max-width:800px;
       }
     }
@@ -2029,7 +2032,7 @@ $xl-screen: em-calc(1500);
     h5 {
       color: $pow-color-orange;
       font-size: 2.5em;
-      @media #{$small} { 
+      @media #{$small} {
         font-size:1.5em;
       }
     }
@@ -2038,7 +2041,7 @@ $xl-screen: em-calc(1500);
       font-size:1.5em;
       line-height:1em;
       color: #fff;
-      @media #{$small} { 
+      @media #{$small} {
         font-size:1em;
         line-height:1.5em;
       }
