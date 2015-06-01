@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
 
   def fetch_proposal_metrics(start_date, end_date)
     { 
-      data0: self.orders.within_date_range(start_date, end_date),
+      data0: orders.within_date_range(start_date, end_date),
       data1: complete_quotes.within_date_range(start_date, end_date).status(:submitted)
     }
   end
