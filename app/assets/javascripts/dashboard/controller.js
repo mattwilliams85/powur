@@ -97,7 +97,7 @@
         } else {
           userTotal = orderTotals.group;
         }
-        $scope.goals.personal = userTotal + " / " + requirement.properties.quantity;
+        $scope.goals.group = userTotal + " / " + requirement.properties.quantity;
         percentage = userTotal / requirement.properties.quantity * 100
       }
       else {
