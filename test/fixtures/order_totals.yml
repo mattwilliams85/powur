@@ -13,4 +13,3 @@ current:
 admin:
   <<: *DEFAULTS
   user: admin
-

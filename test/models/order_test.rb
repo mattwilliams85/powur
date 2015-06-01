@@ -1,5 +1,5 @@
 require 'test_helper'
- 
+
 class OrderTest < ActiveSupport::TestCase
   def assert_search_result(result)
     expected = [ orders(:search_hit1).id, orders(:search_hit2).id ].sort
@@ -16,5 +16,4 @@ class OrderTest < ActiveSupport::TestCase
     assert_search_result(result)
   end
 
-  
 end

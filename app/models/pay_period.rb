@@ -74,7 +74,6 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def calculate_order_totals(user_id, product_id)
-    
   end
 
 

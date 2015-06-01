@@ -88,7 +88,7 @@ class Quote < ActiveRecord::Base
     end
 
     # event :lead_updated do
-    #   transitions from: 
+    #   transitions from:
     # end
   end
 
