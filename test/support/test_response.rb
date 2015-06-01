@@ -2,7 +2,7 @@ module TestResponse
   def json
     response[:json] ||= begin
       type = response.content_type
-      type.must_match /json/, "Expected json response, got '#{type}'"
+      type.must_match(/json/, "Expected json response, got '#{type}'")
       MultiJson.load(response.body)
     end
   end
@@ -98,8 +98,12 @@ module TestResponse
       must_have_fields(name)
     end
 
+    def must_be_error
+      error.wont_be_nil
+    end
+
     def link(rel)
-      links && (l = links.find { |l| l.rel == rel.to_s }) && l.href
+      links && (link = links.find { |l| l.rel == rel.to_s }) && link.href
     end
 
     def self_link

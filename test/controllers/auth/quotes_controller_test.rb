@@ -8,6 +8,7 @@ module Auth
       siren.must_be_class(:quotes)
       expected = Quote.where(user_id: users(:advocate).id).count
       siren.must_have_entity_size(expected)
+      siren.must_have_action(:create)
     end
 
     test 'index with paging' do
@@ -33,6 +34,12 @@ module Auth
       siren.props_must_equal(id: quotes(:in_progress).id)
       lead_update = siren.entity('quote-update')
       lead_update.props_must_equal(status: 'working_lead')
+    end
+
+    test 'show a quote not owned by user' do
+      get :show, id: quotes(:on_hold)
+
+      siren.must_be_error
     end
 
     let(:input) do
