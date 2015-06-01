@@ -29,7 +29,7 @@
           <div class="submitted-proposal panel">
             <label>House and Utility Information</label>
             <div class="proposal-product-field" ng-repeat="(key, value) in proposal.product_fields">
-              <p class="label">{{key | cleanLabel }}</p>
+              <p class="label">{{ key | cleanLabel }}</p>
               <p class="value">{{value}}</p>
             </div>
           </div>
@@ -49,10 +49,10 @@
 
         <!-- Lead Updates -->
         <div ng-repeat="lead_update in proposalItem.entities" class="lead-update panel">
-          <label>{{lead_update.properties.updated_at | dateToLocalDate }} at {{lead_update.properties.updated_at | timeToLocalTime }}</label>
+          <label>{{ lead_update.properties.updated_at | dateToLocalDate }} at {{ lead_update.properties.updated_at | timeToLocalTime }}</label>
           <div class="status">
             <label>Status</label>
-            <p>{{lead_update.properties.status | cleanLabel }}</p>
+            <p>{{ lead_update.properties.status | cleanLabel }}</p>
           </div>
           <div class="details">
             <label>Details</label>
