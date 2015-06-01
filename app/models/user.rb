@@ -43,9 +43,14 @@ class User < ActiveRecord::Base
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   # validates_presence_of :address, :city, :state, allow_nil: true
   validates :tos,
-    presence:   { message: "Please read and agree to the terms and conditions in the Application and Agreement" },
-    acceptance: { accept: true },
-    on: :create
+            presence: { message: 'Please read and agree to the terms and conditions in the Application and Agreement' }
+  validate :latest_agreement_version, on: :create
+  def latest_agreement_version
+    latest_agreement = ApplicationAgreement.current
+    if latest_agreement && latest_agreement.version != tos
+      errors.add(:tos, 'Outdated terms and conditions')
+    end
+  end
 
   before_create :set_url_slug
   before_create :destroy_used_invite
@@ -53,7 +58,7 @@ class User < ActiveRecord::Base
 
   attr_reader :password
   attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count,
-                :tos, :password_confirmation
+                :password_confirmation
 
   def full_name
     "#{first_name} #{last_name}"
@@ -127,14 +132,14 @@ class User < ActiveRecord::Base
   end
 
   def fetch_proposal_metrics(start_date, end_date)
-    { 
+    {
       data0: orders.within_date_range(start_date, end_date),
       data1: complete_quotes.within_date_range(start_date, end_date).status(:submitted)
     }
   end
 
-  def complete_quotes 
-    self.quotes.where.not(id: self.orders.select('quote_id').map {|i| i}) 
+  def complete_quotes
+    quotes.where.not(id: self.orders.select('quote_id').map {|i| i})
   end
   ##
 
@@ -147,6 +152,14 @@ class User < ActiveRecord::Base
 
   def group?(group_id)
     user_user_groups.exists?(group_id.to_s)
+  end
+
+  def accepted_latest_terms?
+    # TODO: cache current application agreement version
+    # so we don't have to make a request
+    return true if role?(:admin)
+    current_version = ApplicationAgreement.current.try(:version)
+    current_version.nil? || current_version == tos
   end
 
   private
