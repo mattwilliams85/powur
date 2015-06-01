@@ -1,4 +1,5 @@
 class Quote < ActiveRecord::Base
+  include AASM
   include QuoteSubmission
   belongs_to :product
   belongs_to :customer
@@ -6,7 +7,7 @@ class Quote < ActiveRecord::Base
   has_many :lead_updates
   has_one :order
 
-  enum status: [ 
+  enum status: [
     :incomplete, :ready_to_submit, :ineligible_location,
     :submitted, :in_progress, :closed_won, :lost, :on_hold ]
 
@@ -16,11 +17,11 @@ class Quote < ActiveRecord::Base
   scope :not_submitted, ->() { where('provider_uid is null') }
   scope :status, ->(value) { where(status: statuses[value]) }
   scope :won, ->() { status(:closed_won) }
-  scope :within_date_range, ->(begin_date , end_date) {
-    where("created_at between ? and ?", begin_date, end_date)
+  scope :within_date_range, ->(begin_date, end_date) {
+    where('created_at between ? and ?', begin_date, end_date)
   }
   scope :user_product, ->(user_id, product_id) {
-    where(user_id: user.id, product_id: product_id)
+    where(user_id: user_id, product_id: product_id)
   }
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
@@ -28,7 +29,6 @@ class Quote < ActiveRecord::Base
 
   before_validation do
     self.url_slug ||= SecureRandom.hex(8)
-    calculate_status
   end
 
   def can_email?
@@ -52,15 +52,44 @@ class Quote < ActiveRecord::Base
   end
 
   def calculated_status
-    if submitted?
-      return last_update ? last_update.quote_status : :submitted
-    end
-    return :ineligible_location if !zip_code_valid?
+    return (last_update ? last_update.quote_status : :submitted) if submitted?
+    return :ineligible_location unless zip_code_valid?
     can_submit? ? :ready_to_submit : :incomplete
   end
 
   def calculate_status
     self.status = calculated_status
+  end
+
+  aasm column: :status, enum: true, whiny_transitions: false do
+    state :incomplete, initial: true
+    state :ready_to_submit
+    state :ineligible_location
+    state :submitted
+    state :in_progress
+    state :closed_won
+    state :lost
+    state :on_hold
+
+    event :input do
+      transitions from:   [ :incomplete, :ready_to_submit ],
+                  to:     :ineligible_location,
+                  unless: :zip_code_valid?
+      transitions from:   [ :ready_to_submit ],
+                  to:     :incomplete,
+                  unless: :can_submit?
+      transitions from: [ :incomplete, :ineligible_location ],
+                  to:   :ready_to_submit,
+                  if:   :can_submit?
+    end
+
+    event :submitted do
+      transitions from: :ready_to_submit, to: :submitted
+    end
+
+    # event :lead_updated do
+    #   transitions from: 
+    # end
   end
 
   private
@@ -73,9 +102,9 @@ class Quote < ActiveRecord::Base
   end
 
   class << self
-    def won_totals(user, product, pay_period)
-      personal_lifetime = won.user_product(user.id, product.id).count
-    end
+    # def won_totals(user, product, pay_period)
+    #   personal_lifetime = won.user_product(user.id, product.id).count
+    # end
 
     def find_by_external_id(external_id)
       prefix, quote_id = external_id.split(':')

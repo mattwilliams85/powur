@@ -15,6 +15,7 @@ class QuotesJson < JsonDecorator
     json.properties do
       json.call(quote, :id, :status, :submitted_at, :provider_uid, :created_at)
       json.user quote.user.full_name
+      json.customer_id quote.customer.id
       json.customer quote.customer.full_name
       json.product quote.product.name
     end
@@ -128,8 +129,6 @@ class QuotesJson < JsonDecorator
   def submit_action(path)
     action(:submit, :post, path)
   end
-
-  private
 
   def product_entity(context, quote)
     entity("#{context}/products/item", 'quote-product',

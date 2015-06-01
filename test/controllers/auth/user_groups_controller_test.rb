@@ -5,7 +5,8 @@ class Auth::UserGroupsControllerTest < ActionController::TestCase
   test 'index' do
     get :index
 
-    siren.must_have_entity_size(2)
+    expected = UserGroup.count
+    siren.must_have_entity_size(expected)
     siren.wont_have_action(:create)
   end
 
@@ -78,5 +79,4 @@ class Auth::UserGroupsControllerTest < ActionController::TestCase
       siren.must_have_entity_size(2)
     end
   end
-
 end

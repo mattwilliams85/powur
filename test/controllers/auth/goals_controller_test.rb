@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Auth::GoalsControllerTest < ActionController::TestCase
-
   test 'show' do
     get :show, user_id: users(:advocate).id
 
@@ -14,5 +13,4 @@ class Auth::GoalsControllerTest < ActionController::TestCase
     enrollments = siren.entity('goals-enrollments')
     enrollments.must_have_entity_size(1)
   end
-
 end

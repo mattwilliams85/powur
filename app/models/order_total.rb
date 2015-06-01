@@ -14,14 +14,16 @@ class OrderTotal < ActiveRecord::Base
     select(PRODUCT_TOTALS_SELECT).joins(:product).group(:product_id, :name)
   }
 
+  def calculate
+    Order.personal_totals(start_date).entries
+  end
+
   class << self
     def user_current(user, product)
       pay_period_id = MonthlyPayPeriod.current.id
       existing = user_product(user.id, product.id)
         .where(pay_period_id: pay_period_id).first
       return existing if existing
-
-      
     end
   end
 end

@@ -1,0 +1,17 @@
+DEFAULTS: &DEFAULTS
+  product: solar
+  order_date: <%= 1.day.ago %>
+  quote: $LABEL
+
+search_hit1:
+  <<: *DEFAULTS
+  user: garry
+  customer: garry
+search_hit2:
+  <<: *DEFAULTS
+  user: garey
+  customer: garey
+search_miss:
+  <<: *DEFAULTS
+  user: advocate
+  customer: bob

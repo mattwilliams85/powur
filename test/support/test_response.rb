@@ -59,7 +59,9 @@ module TestResponse
     end
 
     def must_have_entity_size(size)
-      entities.wont_be_nil && entities.size.must_equal(size)
+      entities.wont_be_nil "Expected #{self} to include entities"
+      entities.size.must_equal(
+        size, "Expected entities size #{size}, got: #{entities.size}")
     end
 
     def must_have_entity(rel)
@@ -72,7 +74,7 @@ module TestResponse
 
     def props_must_equal(key_values)
       key_values.each do |key, value|
-        self.properties[key]
+        self.properties[key.to_s]
           .must_equal(value, "Expected property #{key} to equal #{value}")
       end
     end
