@@ -33,6 +33,12 @@
       controller: 'LandingCtrl'
     }).
 
+    // Latest Terms of Service
+    when('/latest-terms', {
+      templateUrl: 'latest-terms/templates/index.html',
+      controller: 'LatestTermsCtrl'
+    }).
+
     // FAQ
     when('/customer-faq', {
       templateUrl: 'user-static-content/templates/customer-faq.html',
