@@ -79,37 +79,52 @@
 
 
     $scope.calculateProgress = function(requirement) {
-      var percentage;
+      var percentage = 2;
+      var userTotal;
+      var orderTotals = $scope.goals.entities[3].entities[0].properties;
+      
       if (requirement.properties.event_type === 'personal_sales') { 
-
+        if (requirement.properties.time_span === 'Lifetime') { 
+          userTotal = orderTotals.personal_lifetime;
+        } else {
+          userTotal = orderTotals.personal;
+        }
+        $scope.goals.personal = userTotal + " / " + requirement.properties.quantity;
+        percentage = userTotal / requirement.properties.quantity  * 100
       } else if (requirement.properties.event_type === 'group_sales') {
-
+        if (requirement.properties.time_span === 'Lifetime') { 
+          userTotal = orderTotals.group_lifetime;
+        } else {
+          userTotal = orderTotals.group;
+        }
+        $scope.goals.personal = userTotal + " / " + requirement.properties.quantity;
+        percentage = userTotal / requirement.properties.quantity * 100
       }
       else {
         // Match Course
         var courses = $scope.goals.entities[2].entities;
         if (!courses.length) {
-          percentage = 1;
           $scope.courseLinking = true;
-        }
-        for (var i = 0; i < courses.length; i++) {
-          if (courses[i].properties.product_id === requirement.properties.product_id) {
-
-            if (courses[i].properties.state === 'enrolled') {
-              percentage = 33;
-              $scope.goals.course = 'enrolled';
-            } else if (courses[i].properties.state === 'started') {
-              percentage = 66;
-              $scope.goals.course = 'started';
-            } else if (courses[i].properties.state === 'completed') {
-              percentage = 100;
-              $scope.goals.course = 'completed';
-            } else {
-              percentage = 1;
+          $scope.goals.courseState = 'not enrolled';
+          $scope.goals.courseId = requirement.properties.product_id;
+        } else {
+          for (var i = 0; i < courses.length; i++) {
+            if (courses[i].properties.product_id === requirement.properties.product_id) {
+              if (courses[i].properties.state === 'enrolled') {
+                percentage = 33;
+                $scope.goals.courseState = 'enrolled';
+              } else if (courses[i].properties.state === 'started') {
+                percentage = 66;
+                $scope.goals.courseState = 'started';
+              } else if (courses[i].properties.state === 'completed') {
+                percentage = 100;
+                $scope.goals.courseState = 'completed';
+              }
             }
           }
-        };
+        }
       }
+      if(percentage === 0) percentage = 2;
       return percentage + '%';
     };
 

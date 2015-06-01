@@ -24,6 +24,11 @@
         <!-- Legend -->
         <div class="legend">
           <div ng-repeat="requirement in goals.requirements">
+            <div class="legend-item" ng-if="requirement.properties.event_type === 'course_completion'">
+              <div class="legend-key course"></div>
+              <span>{{requirement.properties.product}}</span>
+            </div>
+            <div class="clearfix"></div>
             <div class="legend-item" ng-if="requirement.properties.event_type === 'personal_sales'">
               <div class="legend-key personal"></div>
               <span>Personal Rooftops</span>
@@ -32,18 +37,23 @@
               <div class="legend-key group"></div>
               <span>Grid Rooftops</span>
             </div>
-            <div class="legend-item" ng-if="requirement.properties.event_type === 'course_completion'">
-              <div class="legend-key course"></div>
-              <span>{{requirement.properties.product}}</span>
-            </div>
           </div>
         </div>
-        <div class="progress-bar-box" ng-class="{ large : goals.requirements.length === 3 }">
+        <div class="progress-bar-box" ng-class="{ large : goals.requirements.length > 1 }">
           <!-- Badge -->
           <div class="badge show-for-medium-up">
             <img class="badge" ng-class="{ half: goals.requirements.length == 2, full: goals.requirements.length === 1 }" src="{{goals.badge}}">
           </div>
           <div ng-repeat="requirement in goals.requirements" repeat-end="onEnd()">
+            <div 
+              class="progress-bar enrollment" 
+              ng-if="requirement.properties.event_type === 'course_completion'"
+              ng-class="{ half: goals.requirements.length === 2,
+                          full: goals.requirements.length === 1 }">
+              <span class="progress-text">{{goals.courseState}}</span>
+              <div class="green bar hold"  style="width : {{calculateProgress(requirement)}}"></div>
+              <!-- <div class="label below"></div> -->
+            </div>
             <div 
               class="progress-bar personal" 
               ng-if="requirement.properties.event_type === 'personal_sales'"
@@ -51,8 +61,8 @@
               ng-class="{ half: goals.requirements.length == 2,
                           full: goals.requirements.length === 1 }">
               <!-- <div class="label above"></div> -->
-              <span class="progress-text"></span>
-              <div class="blue bar label-is-above"></div>
+              <span class="progress-text">{{goals.personal}}</span>
+              <div class="orange bar hold" style="width : {{calculateProgress(requirement)}}"></div>
             </div>
             <div 
               class="progress-bar group" 
@@ -60,22 +70,13 @@
               data-percentage="{{goals.personalPercent}}"
               ng-class="{ half: goals.requirements.length === 2,
                           full: goals.requirements.length === 1 }">
-              <span class="progress-text"></span>
-              <div class="orange bar label-is-below"></div>
-              <!-- <div class="label below"></div> -->
-            </div>
-            <div 
-              class="progress-bar enrollment" 
-              ng-if="requirement.properties.event_type === 'course_completion'"
-              ng-class="{ half: goals.requirements.length === 2,
-                          full: goals.requirements.length === 1 }">
-              <span class="progress-text">{{goals.course}}</span>
-              <a ng-if="courseLinking" ng-href="/university"><div class="progress-text">click here to start</div></a>
-              <div class="green bar hold label-is-below"  style="width : {{calculateProgress(requirement)}}"></div>
+              <span class="progress-text">{{goals.group}}</span>
+              <div class="blue bar hold" style="width : {{calculateProgress(requirement)}}"></div>
               <!-- <div class="label below"></div> -->
             </div>
           </div>
-        </div>
+         <a ng-if="courseLinking" ng-href="/university/classes/{{goals.courseId}}/purchase"><div class="progress-text">Need to enroll? Click here.</div></a>
+        </div><!-- end progress-bar-box -->
       </div>
     </div>
 
