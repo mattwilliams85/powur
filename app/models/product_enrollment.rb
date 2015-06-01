@@ -43,6 +43,9 @@ class ProductEnrollment < ActiveRecord::Base
 
   def start_learner_report_polling(previous_checks=0)
     new_job = Jobs::UserSmarteruLearnerReportJob.new(user_id, previous_checks)
-    Delayed::Job.enqueue(new_job, run_at: 24.hours.from_now)
+    Delayed::Job.enqueue(
+      new_job,
+      run_at: Jobs::UserSmarteruLearnerReportJob::POLLING_INTERVAL.from_now
+    )
   end
 end
