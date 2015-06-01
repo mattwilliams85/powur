@@ -34,6 +34,14 @@ module Auth
       siren.props_must_equal(id: quotes(:in_progress).id)
       lead_update = siren.entity('quote-update')
       lead_update.props_must_equal(status: 'working_lead')
+
+      siren.must_have_action(:delete)
+    end
+
+    test 'showing a submitted quote' do
+      get :show, id: quotes(:submitted).id
+
+      siren.wont_have_action(:delete)
     end
 
     test 'show a quote not owned by user' do
