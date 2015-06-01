@@ -85,14 +85,6 @@ slider {
  * Misc / Utility
  *
 */
-.energy-modal {
-  background: #000;
-  border-width: 0;
-  padding: 0;
-  .close-reveal-modal {
-    color: #fff;
-  }
-}
 
 .pow-fixed-bg {
   position: relative;
@@ -188,6 +180,9 @@ input {
   }
 }
 
+/*
+ * Modals
+ */
 // to prevent modals from loading out of view when the user scrolls:
 .library-modal {
   position: fixed;
@@ -202,6 +197,25 @@ input {
   text-transform: uppercase;
   padding-top: 10em;
 }
+
+.energy-modal {
+  background: #000;
+  border-width: 0;
+  padding: 0;
+  .close-reveal-modal {
+    color: #fff;
+  }
+}
+
+.wealth-modal {
+  background: #000;
+  border-width: 0;
+  padding: 0;
+  .close-reveal-modal {
+    color: #fff;
+  }
+}
+
 
 .narrow {
   margin-left: 10%;

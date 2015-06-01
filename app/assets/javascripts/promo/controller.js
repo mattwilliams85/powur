@@ -41,9 +41,9 @@
       }
     };
 
-    $scope.vidModal = function() {
-      $('#vid-modal').foundation('reveal', 'open');
-      $('#energy-vid').get(0).play();
+    $scope.videoModal = function(name) {
+      $('#video-modal').foundation('reveal', 'open');
+      $('#' + name + '-video').get(0).play();
     };
 
     $scope.energyPromoSlides = [
@@ -132,6 +132,7 @@
     ];
 
     $scope.energyVideo = legacyImagePaths.energyVideo;
+    $scope.wealthVideo = legacyImagePaths.wealthVideo;
 
     $scope.whySolarPromoSlidesSmall = $scope.whySolarPromoSlides;
     $scope.whySolarPromoSlidesSmall = [].concat.apply([],$scope.whySolarPromoSlidesSmall);
@@ -205,13 +206,17 @@
         }
       }, 1000);
       $scope.inviteCode = $routeParams.inviteCode;
-    } else if ($scope.mode === 'create-energy') {
-      //Goes to next slide on video close
-      $('#vid-modal').bind('closed', function() {
+      // Goes to next slide on video close
+      $('#video-modal').bind('closed', function() {
           $rootScope.animateArrow(1,0);
-          $('#energy-vid').get(0).currentTime = 0;
+          $('#wealth-video').get(0).currentTime = 0;
       });
-      //
+    } else if ($scope.mode === 'create-energy') {
+      // Goes to next slide on video close
+      $('#video-modal').bind('closed', function() {
+          $rootScope.animateArrow(1,0);
+          $('#energy-video').get(0).currentTime = 0;
+      });
       $scope.setupPromoSlider($scope.energyPromoSlides);
       $scope.currentSlide = 0;
     } else if ($scope.mode === 'why-solar') {
