@@ -26,16 +26,22 @@ module Auth
       last.properties.customer_id.must_equal customers(:garry).id
     end
 
-    test 'show' do
-      get :show, id: quotes(:in_progress)
+    test 'show incomplete lead' do
+      quote = quotes(:incomplete)
+      get :show, id: quote.id
 
       siren.must_be_class(:quote)
-      siren.props_must_equal(id: quotes(:in_progress).id)
+      siren.props_must_equal(id: quote.id)
+      siren.must_have_actions(:update, :delete, :resend)
+      siren.wont_have_actions(:submit)
+    end
+
+    test 'show submitted lead' do
+      get :show, id: quotes(:in_progress).id
+
+      siren.wont_have_actions(:update, :delete, :submit, :resend)
       lead_update = siren.entity('quote-update')
       lead_update.props_must_equal(status: 'working_lead')
-<<<<<<< HEAD
-
-      siren.must_have_action(:delete)
     end
 
     test 'showing a submitted quote' do
@@ -48,8 +54,6 @@ module Auth
       get :show, id: quotes(:on_hold)
 
       siren.must_be_error
-=======
->>>>>>> consolidated quotes functionality. using state machine for quote status enum
     end
 
     let(:input) do
@@ -84,6 +88,13 @@ module Auth
       siren.must_be_class(:quotes)
       result = siren.entities.find { |e| e.properties.id == quote.id }
       result.must_be_nil
+    end
+
+    test 'destroy quote not belonging to user' do
+      delete :destroy, id: quotes(:unowned).id
+
+      siren.must_be_error
+      response.status.must_equal 404
     end
 
     test 'submit' do
@@ -131,6 +142,12 @@ module Auth
         expected = [ quotes(:search_hit1).id, quotes(:search_hit2).id ].sort
         siren.must_have_entity_size(expected.size)
         siren.entities.map { |e| e.properties.id }.sort.must_equal expected
+      end
+
+      test 'deleting previously submitted' do
+        delete :destroy, id: quotes(:on_hold).id
+
+        siren.must_be_error
       end
     end
   end

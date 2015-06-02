@@ -51,7 +51,7 @@ namespace :powur do
 
         quote = Quote.find_by(id: attrs[:id])
         if quote
-          if quote.submitted?
+          if quote.submitted_at?
             puts "Skipping already submitted lead #{quote.id}"
           else
             quote.update_attributes!(attrs)

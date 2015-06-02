@@ -43,7 +43,7 @@ module Auth
     end
 
     def destroy
-      error!(:delete_quote) if @quote.submitted?
+      error!(:delete_quote) if @quote.submitted_at?
 
       @quote.destroy
 

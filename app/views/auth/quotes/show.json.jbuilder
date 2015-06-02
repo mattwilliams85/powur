@@ -12,7 +12,7 @@ if @quote.last_update
                   lead_update: @quote.last_update)
 end
 
-unless @quote.submitted?
+unless @quote.submitted_at?
   path = quote_path(@quote)
 
   update = action(:update, :patch, path)

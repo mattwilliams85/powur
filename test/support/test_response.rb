@@ -54,8 +54,16 @@ module TestResponse
       action?(name).must_equal true, "Expected action '#{name}' in #{self}"
     end
 
+    def must_have_actions(*names)
+      names.each { |name| must_have_action(name) }
+    end
+
     def wont_have_action(name)
       action?(name).must_equal false, "#{self} should not have action '#{name}'"
+    end
+
+    def wont_have_actions(*names)
+      names.each { |name| wont_have_action(name) }
     end
 
     def must_have_entity_size(size)

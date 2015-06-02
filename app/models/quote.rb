@@ -43,16 +43,12 @@ class Quote < ActiveRecord::Base
     !order.nil?
   end
 
-  def submitted?
-    !provider_uid.nil?
-  end
-
   def last_update
     @last_update ||= lead_updates.order(updated_at: :desc).first
   end
 
   def calculated_status
-    return (last_update ? last_update.quote_status : :submitted) if submitted?
+    return (last_update ? last_update.quote_status : :submitted) if submitted_at?
     return :ineligible_location unless zip_code_valid?
     can_submit? ? :ready_to_submit : :incomplete
   end
@@ -86,7 +82,6 @@ class Quote < ActiveRecord::Base
     event :submitted do
       transitions from: :ready_to_submit, to: :submitted
     end
-
     # event :lead_updated do
     #   transitions from:
     # end

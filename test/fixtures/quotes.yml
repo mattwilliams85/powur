@@ -6,6 +6,11 @@ DEFAULTS: &DEFAULTS
   url_slug: $LABEL_slug
   provider_uid: $LABEL_uid
 
+unowned:
+  <<: *DEFAULTS
+  user: admin
+  submitted_at:
+  provider_uid:
 incomplete:
   <<: *DEFAULTS
   customer: no_phone

@@ -11,7 +11,7 @@ module QuoteSubmission
   end
 
   def can_submit?
-    !submitted? && submit_data_valid?
+    submitted_at.nil? && submit_data_valid?
   end
 
   def submit!(force = false)
