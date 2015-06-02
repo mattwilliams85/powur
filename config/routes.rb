@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   root 'index#index'
 
-  get 'demo', to: redirect('https://www.surveygizmo.com/s3/2168411/Beta-Application')
+  get 'beta', to: redirect('https://www.surveygizmo.com/s3/2168411/Beta-Application')
 
   # Index json request
   get 'index', to: 'index#index', constraints: json?
