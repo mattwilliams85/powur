@@ -29,6 +29,10 @@ module Auth
       when 'user_image'
         @key_prefix = 'user_original_images'
         @max_content_length = 5.megabytes
+      when 'application_agreement'
+        head :unprocessable_entity unless params[:mimetype] == 'application/pdf'
+        @key_prefix = 'application_agreements'
+        @max_content_length = 10.megabytes
       end
     end
 

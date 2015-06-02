@@ -1,0 +1,21 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th width="20">ID</th>
+      <th>Version</th>
+      <th>Document path</th>
+      <th width="150">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in data.entities">
+      <td>{{item.properties.id}}</td>
+      <td>{{item.properties.version}}</td>
+      <td><a ng-href="{{item.properties.document_path}}">{{item.properties.document_path}}</a></td>
+      <td>
+        <a ng-if="!item.properties.published_at" ng-click="publish(item)">publish</a>
+        <a ng-if="item.properties.published_at" ng-click="unpublish(item)">unpublish</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

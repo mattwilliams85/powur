@@ -1,6 +1,9 @@
 module Auth
   class ProfileController < AuthController
     include EwalletDSL
+
+    skip_before_action :verify_terms_acceptance, only: [:show, :update]
+
     before_action :fetch_user, only: [ :show, :update, :update_avatar,
                                        :update_password ]
 

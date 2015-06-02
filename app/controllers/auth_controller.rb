@@ -1,5 +1,6 @@
 class AuthController < WebController
   before_action :authenticate!
+  before_action :verify_terms_acceptance
 
   protected
 
@@ -11,6 +12,11 @@ class AuthController < WebController
   def verify_admin
     return true if admin?
     unauthorized!(dashboard_url)
+  end
+
+  def verify_terms_acceptance
+    return true if current_user.accepted_latest_terms?
+    head(:unauthorized)
   end
 
   def fetch_user

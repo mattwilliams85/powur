@@ -257,6 +257,11 @@ Rails.application.routes.draw do
                 as:   :admin_notifications
 
     resources :resources, as: :admin_resources
+    resources :application_agreements, as: :admin_application_agreements do
+      member do
+        patch :publish, :unpublish
+      end
+    end
   end
 
   scope :gateway, module: :gateway do

@@ -25,6 +25,15 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminResourcesCtrl'
     }).
+    // Application and Agreements
+    when('/admin/application-agreements', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminApplicationAgreementsCtrl'
+    }).
+    when('/admin/application-agreements/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminApplicationAgreementsCtrl'
+    }).
     // User Groups
     when('/admin/user-groups', {
       templateUrl: 'admin/user-groups/templates/index.html',
