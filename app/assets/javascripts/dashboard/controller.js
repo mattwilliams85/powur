@@ -34,6 +34,12 @@
       });
     };
 
+    //Create Badge URL
+    $scope.badgePath = function(rank) {
+      rank = rank || 1;
+      return $scope.legacyImagePaths.goalsBadges[rank];
+    }
+
     //Fetch Notifications
     CommonService.execute({
       href: '/u/notifications.json'
@@ -55,8 +61,8 @@
       }).then(function(data) {
         if (data != 0) {
           $scope.goals = data;
-          $scope.goals.badge = $scope.legacyImagePaths.goalsBadges[data.properties.next_rank];
           $scope.goals.requirements = data.entities[1].entities;
+          $scope.goals.badge = $scope.badgePath(data.properties.next_rank)
         }
        
         // if ($scope.currentUser.organicRank > 0) {

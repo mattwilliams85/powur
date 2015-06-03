@@ -140,6 +140,20 @@ class User < ActiveRecord::Base
 
   def complete_quotes
     quotes.where.not(id: self.orders.select('quote_id').map {|i| i})
+
+  def full_downline_count
+    @count = 0
+    count_children(self.id)
+  end
+
+  def count_children(parent_id)
+    downline = User.with_parent(parent_id).pluck(:id)
+    return if !downline.length
+    @count += downline.length
+    downline.each do |user_id|
+      count_children(user_id)
+    end
+    @count
   end
   ##
 

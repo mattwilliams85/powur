@@ -137,7 +137,10 @@
     };
 
     $scope.scaleFontSize = function(string) {
-      return Math.ceil(1000 / (Math.pow(string.length + 10, 1.2))) + 'pt';
+      if (string) {
+        string = string.toString();
+        return Math.ceil(1000 / (Math.pow(string.length + 10, 1.2))) + 'pt';
+      }
     };
 
     $scope.buildChart = function() {

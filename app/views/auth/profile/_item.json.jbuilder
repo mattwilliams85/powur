@@ -20,6 +20,7 @@ json.properties do
 
   json.metrics do
     json.proposal @user.proposal_count
+    json.team @user.full_downline_count
   end
 
   json.require_enrollment user.require_class_completion?

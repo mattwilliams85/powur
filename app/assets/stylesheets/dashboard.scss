@@ -912,6 +912,12 @@ $kpi-text-color: #888;
     padding-top: 20px;
     margin-bottom:50px;
 
+    .badge {
+      z-index: 99;
+      height: 100px;
+      margin: -30px auto 10px auto;
+    }
+
     //TEMPORARY
     .beta-filler {
       background: #444;
@@ -932,6 +938,7 @@ $kpi-text-color: #888;
       .kpi-tab {
         background-color: #fff;
         height: 160px;
+        position: relative;
         @media #{$small} {
           height: 220px;
         }
@@ -967,7 +974,36 @@ $kpi-text-color: #888;
             }
           }
 
+          //TEMP
+          .temp-box {
+            margin: 0 auto;
+            width: 80%;
+            margin-top: 90px;
+
+            img {
+              float: left;
+              margin-right: 10px;
+              margin-top: -5px;
+              display: none;
+              @media screen and (min-width: 1213px) {
+                display: block;
+              }
+            }
+
+            span {
+              float: none;
+              @media screen and (min-width: 1213px) {
+                float: left;
+              }
+            }
+          }
+          //
+
           .kpi-header {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 45px;
             font-size: 12pt;
             @media #{$medium} {
               font-size: 16pt;
