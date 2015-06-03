@@ -214,22 +214,16 @@ $xl-screen: em-calc(1500);
 
     .video-player-wrapper {
       display: block;
-      width: 610px;
-      height: 380px;
-      margin:0 15%;
+      height: 250px;
+      max-width: 500px;
+      margin: 15px;
       background-image: image-url("promo/wealth-video.jpg");
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
 
       @media #{$small} {
-        width:100%;
-        margin:0 auto;
-        height:250px;
-        margin:0px;
-      }
-      @media #{$medium} {
-        width:80%;
+        margin: 10px auto;
       }
     }
   }
@@ -994,10 +988,11 @@ $xl-screen: em-calc(1500);
         //   font-size: 2.3em;
         // }
         @media #{$small} {
-          text-align:right;
           font-size: 2em;
+          margin-bottom: 10px;
         }
         @media #{$large} {
+          text-align:right;
           font-size: 3.3em;
         }
       }
