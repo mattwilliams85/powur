@@ -139,7 +139,7 @@
     };
 
     this.init($scope, $location, $timeout);
-    this.fetch($scope, $rootScope, $http, $location, $interval, $routeParams, $timeout, Geo);
+    this.fetch($scope, $rootScope, $http, $location, $interval, $routeParams, $timeout);
   }
 
   LandingCtrl.prototype.init = function($scope, $location, $timeout) {
