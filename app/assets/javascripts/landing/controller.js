@@ -181,7 +181,7 @@
   };
 
 
-  LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'Geo', 'UserProfile', 'CommonService'];
+  LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('LandingCtrl', LandingCtrl);
 
 })();
