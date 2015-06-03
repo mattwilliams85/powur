@@ -2,6 +2,8 @@ module Auth
   class UploaderConfigController < AuthController
     before_filter :validate_content_type
 
+    attr_reader :content_type
+
     def show
       data = {
         'key'            => key + '${filename}',
@@ -11,6 +13,7 @@ module Auth
         's3Signature'    => signature,
         's3Bucket'       => ENV['AWS_BUCKET']
       }
+      data['contentType'] = content_type if content_type
       render json: { config: data }
     end
 
@@ -33,6 +36,7 @@ module Auth
         head :unprocessable_entity unless params[:mimetype] == 'application/pdf'
         @key_prefix = 'application_agreements'
         @max_content_length = 10.megabytes
+        @content_type = params[:mimetype]
       end
     end
 
@@ -61,7 +65,7 @@ module Auth
     end
 
     def policy_data
-      {
+      data = {
         expiration: policy_expiration,
         conditions: [
           [ 'starts-with', '$key', key ],
@@ -71,6 +75,8 @@ module Auth
           [ 'content-length-range', 1, max_content_length ]
         ]
       }
+      data[:conditions] << [ 'starts-with', '$Content-Type', content_type] if content_type
+      data
     end
 
     def signature
