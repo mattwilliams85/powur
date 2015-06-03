@@ -140,6 +140,7 @@ class User < ActiveRecord::Base
 
   def complete_quotes
     quotes.where.not(id: self.orders.select('quote_id').map {|i| i})
+  end
 
   def full_downline_count
     @count = 0

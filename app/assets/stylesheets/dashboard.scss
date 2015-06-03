@@ -915,7 +915,10 @@ $kpi-text-color: #888;
     .badge {
       z-index: 99;
       height: 100px;
-      margin: -30px auto 10px auto;
+      margin: -15px auto 10px auto;
+      @media #{$large} {
+        margin: -30px auto 10px auto;
+      }
     }
 
     //TEMPORARY
@@ -948,7 +951,7 @@ $kpi-text-color: #888;
         display: inline-block;
         border-right: 1px solid #e5e5e5;
         border-bottom: 1px solid #e5e5e5;
-        color: $kpi-text-color;
+        color: #555;
 
         //TEMP
         &.inactive {
