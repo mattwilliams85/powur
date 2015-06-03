@@ -37,7 +37,7 @@ module Admin
     private
 
     def input
-      allow_input(:version, :document_path)
+      allow_input(:version, :document_path, :message)
     end
 
     def fetch_agreement

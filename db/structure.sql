@@ -90,7 +90,8 @@ CREATE TABLE application_agreements (
     document_path character varying,
     published_at timestamp without time zone,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    message text
 );
 
 
@@ -2399,3 +2400,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150601202227');
 
 INSERT INTO schema_migrations (version) VALUES ('20150601211613');
 
+INSERT INTO schema_migrations (version) VALUES ('20150603213402');

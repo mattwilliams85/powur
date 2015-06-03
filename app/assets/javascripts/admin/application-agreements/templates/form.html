@@ -10,6 +10,12 @@
     </div>
     <div class="row">
       <div class="large-12 columns">
+        <label for="message">Message</label>
+        <input ng-model="item.message" name="message" id="message" type="text" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
         <label>Choose a PDF File</label>
         <span ng-show="errorMessage('document_path')" class="radius alert label">{{errorMessage('document_path')}}</span>
         <input ng-model="item.document_path" name="document_path" id="document_path" type="text" ng-required="true" />

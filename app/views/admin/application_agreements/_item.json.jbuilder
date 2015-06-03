@@ -1,7 +1,7 @@
 klass :agreement
 
 json.properties do
-  json.call(agreement, :id, :version, :document_path, :published_at)
+  json.call(agreement, :id, :version, :document_path, :published_at, :message)
 end
 
 actions \

@@ -9,6 +9,7 @@ json.properties do
   json.first_name @invite.first_name
   json.last_name @invite.last_name
   json.email @invite.email
+  json.latest_terms ApplicationAgreement.current
 end
 
 actions \

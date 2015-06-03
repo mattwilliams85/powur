@@ -13,7 +13,8 @@ class ApplicationAgreement < ActiveRecord::Base
   def as_json(*)
     {
       version: version,
-      document_path: document_path
+      document_path: document_path,
+      message: message
     }
   end
 end
