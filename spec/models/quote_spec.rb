@@ -31,7 +31,7 @@ describe Quote, type: :model do
 
     context 'proposal submitted' do
       before do
-        allow_any_instance_of(Quote).to receive(:submitted?).and_return(true)
+        allow_any_instance_of(Quote).to receive(:submitted_at?).and_return(true)
         quote
       end
       it { is_expected.to eq 'submitted' }

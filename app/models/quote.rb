@@ -48,11 +48,11 @@ class Quote < ActiveRecord::Base
   end
 
   def last_update
-    @last_update ||= lead_updates.order(updated_at: :desc).first
+    @last_update ||= lead_updates.order(updated_at: :desc, id: :desc).first
   end
 
   def calculated_status
-    if submitted?
+    if submitted_at?
       return last_update ? last_update.quote_status : :submitted
     end
     return :ineligible_location if !zip_code_valid?
@@ -61,6 +61,12 @@ class Quote < ActiveRecord::Base
 
   def calculate_status
     self.status = calculated_status
+  end
+
+  def calculate_status!
+    calculate_status
+    puts "quote tainted? : #{tainted?}"
+    save!
   end
 
   private

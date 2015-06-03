@@ -58,7 +58,7 @@ describe '/a/invite' do
 
   describe 'PATCH' do
     before(:each) do
-      @invite = create(:invite)
+      @invite = create(:invite, email: 'newinvite@test.com')
       @user_params = {
         code:       @invite.id,
         first_name: @invite.first_name,
