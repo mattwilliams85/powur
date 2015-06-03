@@ -175,7 +175,7 @@
       }).
       error(function(data){
         $location.path('/sign-in');
-        $scope.showModal("Your Password Reset Link was invalid or has already been used. Please sign in.")
+        $scope.showModal("Your Password Reset Link is invalid or has already been used.")
       });
     }
   };
