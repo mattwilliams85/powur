@@ -24,12 +24,12 @@
       templateUrl: 'landing/templates/sign-up.html',
       controller: 'LandingCtrl'
     }).
-    when('/reset-password', {
-      templateUrl: 'landing/templates/reset-password.html',
+    when('/forgot-password', {
+      templateUrl: 'landing/templates/forgot-password.html',
       controller: 'LandingCtrl'
     }).
-    when('/edit-password/:resetPasswordToken', {
-      templateUrl: 'landing/templates/edit-password.html',
+    when('/reset-password/:resetPasswordToken', {
+      templateUrl: 'landing/templates/reset-password.html',
       controller: 'LandingCtrl'
     }).
 

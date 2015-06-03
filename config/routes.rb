@@ -35,7 +35,10 @@ Rails.application.routes.draw do
     resource :login, controller: :session, only: [ :show, :create, :destroy ]
 
     resource :password, only: [ :show, :create, :new ] do
-      put :update, on: :member
+      member do
+        put :update
+        post :validate_reset_token
+      end
     end
 
     resource :invite, only: [ :create, :update, :destroy ] do
