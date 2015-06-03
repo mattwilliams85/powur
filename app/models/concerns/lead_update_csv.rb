@@ -6,9 +6,8 @@ module LeadUpdateCSV
     'JobCreatedDate', 'InstallationDate', 'LastModified' ]
   META_DATA_FIELDS = [
     'Days Elapsed', 'SolarworksStatus', 'SolarworksSubStatus',
-    'OpportunityId', 'LeadOwner', 'OpportunityOwner' ]
+    'OpportunityId', 'LeadOwner', 'OpportunityOwner', 'JobCreatedDate' ]
   DATE_FIELDS = {
-    contract:     'JobCreatedDate',
     consultation: 'ConsultationDate',
     installation: 'InstallationDate' }
 
