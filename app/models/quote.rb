@@ -44,7 +44,7 @@ class Quote < ActiveRecord::Base
   end
 
   def last_update
-    @last_update ||= lead_updates.order(updated_at: :desc).first
+    @last_update ||= lead_updates.order(updated_at: :desc, id: :desc).first
   end
 
   def calculated_status
@@ -82,9 +82,12 @@ class Quote < ActiveRecord::Base
     event :submitted do
       transitions from: :ready_to_submit, to: :submitted
     end
-    # event :lead_updated do
-    #   transitions from:
-    # end
+  end
+
+  def calculate_status!
+    calculate_status
+    puts "quote tainted? : #{tainted?}"
+    save!
   end
 
   private

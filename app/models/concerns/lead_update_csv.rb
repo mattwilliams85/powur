@@ -6,9 +6,8 @@ module LeadUpdateCSV
     'JobCreatedDate', 'InstallationDate', 'LastModified' ]
   META_DATA_FIELDS = [
     'Days Elapsed', 'SolarworksStatus', 'SolarworksSubStatus',
-    'OpportunityId', 'LeadOwner', 'OpportunityOwner' ]
+    'OpportunityId', 'LeadOwner', 'OpportunityOwner', 'JobCreatedDate' ]
   DATE_FIELDS = {
-    contract:     'JobCreatedDate',
     consultation: 'ConsultationDate',
     installation: 'InstallationDate' }
 
@@ -16,12 +15,13 @@ module LeadUpdateCSV
     headers = data.shift
     record_attrs = data.map do |row|
       begin
-        attrs_from_csv_row(row_to_hash(row, headers))  
+        attrs_from_csv_row(row_to_hash(row, headers))
       rescue ActiveRecord::RecordNotFound
         nil
       end
     end.compact
     records = create!(record_attrs)
+    records.each { |lu| lu.quote.calculate_status! }
     puts "Created #{records.size} lead update records"
   end
 
