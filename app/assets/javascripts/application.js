@@ -13,6 +13,7 @@
 //= require angular-ui-slider/src/slider
 //= require angular-s3-file-upload/angular-s3-file-upload
 //= require owlcarousel/owl-carousel/owl.carousel
+//= require pdfobject/pdfobject
 //= require velocity/velocity
 //= require velocity/velocity.ui.min
 

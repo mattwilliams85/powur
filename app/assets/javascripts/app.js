@@ -6,15 +6,33 @@
     $rootScope.isSignedIn = !!SignedIn;
 
     $rootScope.redirectIfSignedIn = function() {
-      if (!$rootScope.isSignedIn) return;
-      $location.path('/dashboard');
+      if ($rootScope.isSignedIn) {
+        if ($rootScope.currentUser.latest_terms) {
+          $location.path('/latest-terms');
+        } else {
+          $location.path('/dashboard');
+        }
+      }
+      return;
     };
 
     $rootScope.redirectUnlessSignedIn = function() {
       if (!$rootScope.isSignedIn) {
         $location.path('/sign-in');
+      } else {
+        if ($rootScope.currentUser.latest_terms) {
+          $location.path('/latest-terms');
+        }
       }
     };
+
+    // Redirect to '/latest-terms' if currentUser object contains latest_terms property
+    $rootScope.$watch('currentUser', function(data) {
+      if ($rootScope.currentUser.latest_terms) {
+        $location.path('/latest-terms');
+      }
+    });
+
 
     $rootScope.animateArrow = function(id, time) {
       $timeout.cancel(pilerTimer);

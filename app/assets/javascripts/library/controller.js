@@ -1,11 +1,11 @@
 ;(function() {
   'use strict';
 
-  function LibraryCtrl($scope, $location, CommonService, UserProfile) {
+  function LibraryCtrl($scope, $rootScope, $location, CommonService, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
-      $scope.currentUser = user;
+      $rootScope.currentUser = user;
     });
 
     $scope.items = [];
@@ -76,6 +76,6 @@
     });
   }
 
-  LibraryCtrl.$inject = ['$scope', '$location', 'CommonService', 'UserProfile'];
+  LibraryCtrl.$inject = ['$scope', '$rootScope', '$location', 'CommonService', 'UserProfile'];
   angular.module('powurApp').controller('LibraryCtrl', LibraryCtrl);
 })();

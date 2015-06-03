@@ -2,11 +2,11 @@
 ;(function() {
   'use strict';
 
-  function EarningsCtrl($scope, $location, $http, UserProfile) {
+  function EarningsCtrl($scope, $rootScope, $location, $http, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
-      $scope.currentUser = user;
+      $rootScope.currentUser = user;
 
       requestEarnings(function successCallback(data) {
         $scope.earningsData = data;
@@ -56,6 +56,6 @@
     }
   }
 
-  EarningsCtrl.$inject = ['$scope', '$location', '$http', 'UserProfile'];
+  EarningsCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', 'UserProfile'];
   angular.module('powurApp').controller('EarningsCtrl', EarningsCtrl);
 })();

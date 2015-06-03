@@ -60,7 +60,7 @@ module Auth
       params.require(:user).permit(:first_name, :last_name, :email,
                                    :phone, :address, :city, :state, :zip,
                                    :bio, :twitter_url, :facebook_url,
-                                   :image_original_path, :avatar)
+                                   :image_original_path, :avatar, :tos)
     end
 
     # def avatar_params

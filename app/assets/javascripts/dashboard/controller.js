@@ -1,8 +1,14 @@
 ;(function() {
   'use strict';
 
-  function DashboardCtrl($scope, $location, $timeout, UserProfile, CommonService) {
+  function DashboardCtrl($scope, $rootScope, $location, $timeout, UserProfile, CommonService) {
     $scope.redirectUnlessSignedIn();
+
+    //Fetch Profile
+    UserProfile.get().then(function(user) {
+      $rootScope.currentUser = user;
+      $scope.fetchGoals();
+    });
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):
     $scope.customerSection = {};
@@ -41,11 +47,6 @@
       }
     });
 
-    //Fetch Profile
-    UserProfile.get().then(function(user) {
-      $scope.currentUser = user;
-      $scope.fetchGoals();
-    });
 
     //Fetch goals
     $scope.fetchGoals = function() {
@@ -132,7 +133,7 @@
     $scope.socialQuote = '"Don\'t try to fight the existing reality, build a new model that makes the old model obsolete" - Buckminster Fuller';
   }
 
-  DashboardCtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile', 'CommonService'];
+  DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('DashboardCtrl', DashboardCtrl)
   .directive('repeatEnd', function(){
     return {

@@ -11,13 +11,16 @@
     .pdf {
       background-color: #fff;
       border: 0;
-      height: 400px;
+      max-height: 400px;
+      min-height: 50px;
     }
   }
 
   .footer {
     background-color: #333;
     height: 100px;
+    border: 0;
+    margin-bottom: 150px;
   }
 
   .dark-bg {
