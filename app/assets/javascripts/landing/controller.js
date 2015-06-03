@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Geo, UserProfile, CommonService) {
+  function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, UserProfile, CommonService) {
     $scope.redirectIfSignedIn();
 
     $scope.showValidationMessages = false;
@@ -154,7 +154,7 @@
   };
 
 
-  LandingCtrl.prototype.fetch = function($scope, $rootScope, $http, $location, $interval, $routeParams, $timeout, Geo) {
+  LandingCtrl.prototype.fetch = function($scope, $rootScope, $http, $location, $interval, $routeParams, $timeout) {
     if ($scope.mode === 'sign-in') {
       $scope.signInPage = true;
     } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
@@ -164,8 +164,6 @@
     } else if ($scope.mode === 'sign-up') {
       $scope.invite = {};
       $scope.user = {};
-      $scope.countries = Geo.countries();
-      $scope.states = Geo.states();
       $scope.invite.code = $routeParams.inviteCode;
       if ($scope.invite.code) $scope.validateInvite();
     } else if ($scope.mode === 'reset-password') {
