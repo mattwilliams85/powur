@@ -47,8 +47,7 @@ module Auth
 
       @quote.destroy
 
-      fetch_quotes
-      index
+      head 200
     end
 
     def resend
