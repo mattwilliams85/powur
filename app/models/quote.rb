@@ -86,7 +86,6 @@ class Quote < ActiveRecord::Base
 
   def calculate_status!
     calculate_status
-    puts "quote tainted? : #{tainted?}"
     save!
   end
 

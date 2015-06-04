@@ -28,7 +28,9 @@ rake powur:seed:plan
 ## Restoring from a heroku dump
 
 ```
-pg_restore --clean --no-acl --no-owner -d powur_development ~/Downloads/{dump file name}
+curl -o ~/Downloads/latest.dump `heroku pg:backups public-url -a powur`
+pg_restore --verbose --clean --no-acl --no-owner -h localhost -d powur_development ~/Downloads/latest.dump
+
 ```
 
 ## Below Deprecated For Now
