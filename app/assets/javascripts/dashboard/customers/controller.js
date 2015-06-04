@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardCustomersCtrl($scope, $rootScope, $location, $timeout, $route, $anchorScroll, CommonService) {
+  function DashboardCustomersCtrl($scope, $rootScope, $location, $http, $timeout, $route, $anchorScroll, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     $scope.legacyImagePaths = legacyImagePaths;
@@ -280,13 +280,21 @@
     };
 
     $scope.customerSection.applyIndexActions = function() {
+      var data = {
+        sort: $scope.customerSection.proposalSort,
+        status: $scope.customerSection.proposalStatus
+      };
+      if ($scope.customerSection.proposalSearch) {
+        data.search = $scope.customerSection.proposalSearch;
+      }
+      var href = '/u/users/' + $rootScope.currentUser.id + '/quotes'
       destroyCarousel('.proposals');
-      CommonService.execute({
-        href: '/u/users/' + $rootScope.currentUser.id + '/quotes.json?' +
-        'sort=' + $scope.customerSection.proposalSort + '&' +
-        'status=' + $scope.customerSection.proposalStatus + '&' +
-        'search=' + $scope.customerSection.proposalSearch
-      }).then(function(items) {
+
+      $http({
+        method: 'GET',
+        url: href,
+        params: data,
+      }).success(function(items) {
         $scope.proposals = items.entities;
         $timeout(function() {
           initCarousel('.proposals');
@@ -305,7 +313,7 @@
     });
   }
 
-  DashboardCustomersCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', '$route', '$anchorScroll', 'CommonService'];
+  DashboardCustomersCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$timeout', '$route', '$anchorScroll', 'CommonService'];
   angular
     .module('powurApp')
     .controller('DashboardCustomersCtrl', DashboardCustomersCtrl);
