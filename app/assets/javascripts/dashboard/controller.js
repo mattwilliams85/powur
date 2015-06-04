@@ -86,6 +86,7 @@
 
 
     $scope.calculateProgress = function(requirement) {
+      if (!requirement) return;
       var percentage = 2;
       var userTotal;
       var orderTotals = $scope.goals.entities[3].entities[0].properties;
