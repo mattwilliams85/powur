@@ -1006,7 +1006,7 @@ $kpi-text-color: #888;
             position: absolute;
             left: 0;
             right: 0;
-            bottom: 45px;
+            top: 65%;
             font-size: 12pt;
             @media #{$medium} {
               font-size: 16pt;
