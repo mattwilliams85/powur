@@ -81,7 +81,7 @@
       var userTotal;
       var orderTotals;
       //If no order totals
-      if ($scope.goals.entities[3].entities[0].length) {
+      if ($scope.goals.entities[3].entities.length) {
         orderTotals = $scope.goals.entities[3].entities[0].properties;
       } else {
         orderTotals = {
