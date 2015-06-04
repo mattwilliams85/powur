@@ -295,7 +295,7 @@
     };
 
     $rootScope.$watch('currentUser', function(data) {
-      if (!data) return;
+      if (!Object.keys(data).length) return;
       getQuotes(function(items) {
         $scope.proposals = items.entities;
         $timeout(function(){
