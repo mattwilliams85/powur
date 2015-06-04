@@ -64,16 +64,6 @@
           $scope.goals.requirements = data.entities[1].entities;
           $scope.goals.badge = $scope.badgePath(data.properties.next_rank)
         }
-       
-        // if ($scope.currentUser.organicRank > 0) {
-        //   CommonService.execute({
-        //     href: '/u/ranks/' + $scope.currentUser.organicRank + '.json'
-        //   }).then(function(data) {
-        //     $scope.currentUser.organicRank = data.properties.title;
-        //   });
-        // } else {
-        //   $scope.currentUser.organicRank = 'advocate';
-        // }
       });
     };
 
@@ -89,7 +79,18 @@
       if (!requirement) return;
       var percentage = 2;
       var userTotal;
-      var orderTotals = $scope.goals.entities[3].entities[0].properties;
+      var orderTotals;
+      //If no order totals
+      if ($scope.goals.entities[3].entities[0].length) {
+        orderTotals = $scope.goals.entities[3].entities[0].properties;
+      } else {
+        orderTotals = {
+          personal: 0,
+          personal_lifetime: 0,
+          group: 0,
+          group_lifetime: 0,
+        }
+      }
       
       if (requirement.properties.event_type === 'personal_sales') { 
         if (requirement.properties.time_span === 'Lifetime') { 
