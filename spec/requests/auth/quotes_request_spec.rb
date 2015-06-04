@@ -8,11 +8,10 @@ describe '/u/quotes', type: :request do
   end
 
   describe '#index' do
-
     it 'returns the list of quotes for a user' do
       create_list(:quote, 7, user: @user, product: @product)
 
-      get user_quotes_path, format: :json
+      get quotes_path, format: :json
       expect_classes('list', 'quotes')
       expect_actions('create')
 
@@ -21,18 +20,17 @@ describe '/u/quotes', type: :request do
 
       @product.quote_fields.each do |field|
         result = create_action['fields'].find { |f| f['name'] == field.name }
-        expect(field).to be
+        expect(result).to be
       end
 
       q = create(:submitted_quote, user: @user, product: @product)
-      get user_quotes_path, status: :submitted, format: :json
+      get quotes_path, status: :submitted, format: :json
+
       expect_entities_count(1)
     end
-
   end
 
   describe '#search' do
-
     it 'returns a list of quotes for a user matching a search term' do
       create(:quote,
              user:     @user,
@@ -45,15 +43,13 @@ describe '/u/quotes', type: :request do
              customer: create(:customer, email: 'gary@example.org'))
       create_list(:quote, 2, user: @user)
 
-      get user_quotes_path, search: 'Gary', format: :json
+      get quotes_path, search: 'Gary', format: :json
 
       expect(json_body['entities'].size).to eq(3)
     end
-
   end
 
   describe '#create' do
-
     let(:input_params) do
       { email:      'newcustomer@example.org',
         first_name: 'Big',
@@ -67,7 +63,7 @@ describe '/u/quotes', type: :request do
     end
 
     it 'creates a new quote' do
-      post user_quotes_path, input_params
+      post quotes_path, input_params
 
       expect_200
 
@@ -75,18 +71,16 @@ describe '/u/quotes', type: :request do
     end
 
     it 'nils out parameters with zero length strings' do
-      post user_quotes_path, input_params.merge(city: '', roof_age: '')
+      post quotes_path, input_params.merge(city: '', roof_age: '')
 
       expect_200
       expect_classes 'quote'
     end
-
   end
 
   describe '#show' do
-
     it 'returns not found with an invalid user id' do
-      get user_quote_path(42), format: :json
+      get quote_path(42), format: :json
 
       expect_alert_error
     end
@@ -104,39 +98,35 @@ describe '/u/quotes', type: :request do
         product: @product,
         user:    @user,
         data:    data)
-      lead_update = create(:lead_update, quote: quote)
+      create(:lead_update, quote: quote)
 
-      get user_quote_path(quote), format: :json
+      get quote_path(quote), format: :json
 
       expect_classes 'quote'
-      expect(json_body['properties'].keys).to include(*@product.quote_fields.map(&:name))
+      expect(json_body['properties'].keys).to(
+        include(*@product.quote_fields.map(&:name)))
     end
-
   end
 
   describe '#update' do
-
     it 'updates an existing quote' do
       quote = create(:quote, user: @user)
 
-      patch user_quote_path(quote.id, first_name: 'Bob'), format: :json
+      patch quote_path(quote.id, first_name: 'Bob'), format: :json
       quote.reload
 
-      expect_confirm
       expect(json_body['properties']['customer'])
         .to eq(quote.customer.full_name)
     end
-
   end
 
   describe '#destroy' do
-
     it 'deletes a quote' do
       quote = create(:quote, user: @user)
 
-      delete user_quote_path(quote.id), format: :json
+      delete quote_path(quote.id), format: :json
 
-      expect_confirm
+      expect_200
     end
   end
 end

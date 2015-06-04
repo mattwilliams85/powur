@@ -18,6 +18,9 @@ entities(entity('user_groups',
                 requirements: @requirements),
          entity('enrollments',
                 'goals-enrollments',
-                requirements: @entrollments))
+                requirements: @entrollments),
+         entity('order_totals',
+                'goals-order_totals',
+                order_totals: @order_totals))
 
 self_link user_goals_path(@user)

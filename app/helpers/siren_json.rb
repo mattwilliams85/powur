@@ -93,6 +93,7 @@ module SirenJson
   end
 
   def actions(*action_list)
+    action_list.flatten!
     json.actions action_list do |action|
       json.call(action, :name)
       json.method action.method.to_s.upcase

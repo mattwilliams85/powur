@@ -47,7 +47,7 @@ group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'thin'
-  gem 'rubocop', require: false
+  gem 'rubocop', require: false, github: 'bbatsov/rubocop'
   gem 'meta_request'
   gem 'foreman'
 end

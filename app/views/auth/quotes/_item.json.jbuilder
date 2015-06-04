@@ -1,7 +1,13 @@
-quotes_json.item_init(local_assigns[:rel] || 'item')
+klass :quote
 
-quotes_json.list_item_properties(quote)
+entity_rel(local_assigns[:rel] || 'item')
 
-quotes_json.user_entities(quote)
+json.properties do
+  json.call(quote, :id, :status, :submitted_at, :provider_uid, :created_at)
+  json.user quote.user.full_name
+  json.customer_id quote.customer.id
+  json.customer quote.customer.full_name
+  json.product quote.product.name
+end
 
-self_link user_quote_path(quote)
+self_link quote_path(quote)

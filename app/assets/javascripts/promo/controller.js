@@ -2,10 +2,10 @@
   'use strict';
 
   function PromoCtrl($scope, $rootScope, $location, $timeout, $interval, $window, $anchorScroll, $routeParams) {
-    $scope.redirectIfSignedIn();
     $scope.inviteCode = null;
 
     $scope.leftMenu = {};
+    $scope.slider = 0;
 
     $scope.setupPromoSlider = function(slides) {
       $scope.slides = slides;
@@ -176,6 +176,8 @@
 
 
   PromoCtrl.prototype.fetch = function($scope, $rootScope,  $interval, $timeout, $anchorScroll, $location, $routeParams) {
+    // Redirect curious signed in users back to the dashboard
+    if ($scope.mode !== 'our-team') $scope.redirectIfSignedIn();
     //Default arrow animation
     if ($scope.mode !== 'create-energy') $rootScope.animateArrow(1,3000);
     //

@@ -35,7 +35,10 @@ Rails.application.routes.draw do
     resource :login, controller: :session, only: [ :show, :create, :destroy ]
 
     resource :password, only: [ :show, :create, :new ] do
-      put :update, on: :member
+      member do
+        put :update
+        post :validate_reset_token
+      end
     end
 
     resource :invite, only: [ :create, :update, :destroy ] do
@@ -44,11 +47,11 @@ Rails.application.routes.draw do
   end
 
   # quote routes
-  resource :quote, only: [ :show, :create, :update ] do
-    post :resend
-    get ':sponsor' => 'quotes#new', as: :sponsor
-    get ':sponsor/:quote' => 'quotes#show', as: :customer
-  end
+  # resource :quote, only: [ :show, :create, :update ] do
+  #   post :resend
+  #   get ':sponsor' => 'quotes#new', as: :sponsor
+  #   get ':sponsor/:quote' => 'quotes#show', as: :customer
+  # end
 
   # logged in user routes
   scope :u, module: :auth do
@@ -58,13 +61,23 @@ Rails.application.routes.draw do
       get '/:id/proposals_show', to: 'kpi_metrics#proposals_show'
     end
 
+    resources :quotes, only: [ :index, :create, :destroy, :update, :show ] do
+      member do
+        post :resend
+        post :submit
+      end
+    end
+
     resources :ranks, only: [ :index, :create, :destroy, :show, :update ] do
       resources :groups, only: [ :index ], controller: :user_groups
       post 'groups' => 'user_groups#add_to_rank'
     end
-    resources :user_groups, only: [ :index, :show, :create, :update, :destroy ] do
+
+    resources :user_groups,
+              only: [ :index, :show, :create, :update, :destroy ] do
       resources :requirements, only: [ :index, :create ]
     end
+
     resources :requirements, only: [ :destroy, :update, :show ]
 
     resource :dashboard, only: [ :show ], controller: :dashboard
@@ -100,11 +113,16 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :pay_periods, only: [] do
+      resources :order_totals, only: [ :index ]
+    end
+
     resources :users, only: [ :index, :show ] do
       collection do
         get '' => 'users#search', constraints: params?(:search)
       end
 
+      resources :quotes, only: [ :index ]
       resource :goals, only: [ :show ]
       resources :orders, only: [ :index, :show ], controller: :user_orders
       resources :order_totals, only: [ :index ]#, controller: :user_order_totals
@@ -119,16 +137,6 @@ Rails.application.routes.draw do
 
       # resources :rank_achievements, only:       [ :index ],
       #                               controller: :user_rank_achievements
-    end
-
-    resources :quotes, only: [ :index, :create, :destroy, :update, :show ],
-                       as:   :user_quotes do
-      member do
-        post :resend
-        post :submit
-      end
-
-      # resource :lead_update, only: [ :show ]
     end
 
     resources :earnings, only:       [ :index, :show, :summary, :detail, :bonus, :bonus_detail ],
@@ -212,15 +220,15 @@ Rails.application.routes.draw do
     end
     resources :bonus_amounts, only: [ :update, :destroy ], as: :bonus_amounts
 
-    resources :quotes, only: [ :index, :show ], as: :admin_quotes do
-      member do
-        post :submit
-      end
+    # resources :quotes, only: [ :index, :show ], as: :admin_quotes do
+    #   member do
+    #     post :submit
+    #   end
 
-      collection do
-        get '' => 'quotes#search', constraints: params?(:search)
-      end
-    end
+    #   collection do
+    #     get '' => 'quotes#search', constraints: params?(:search)
+    #   end
+    # end
 
     resources :orders, only: [ :index, :create, :show ], as: :admin_orders do
       resources :bonus_payments,
@@ -253,6 +261,11 @@ Rails.application.routes.draw do
                 as:   :admin_notifications
 
     resources :resources, as: :admin_resources
+    resources :application_agreements, as: :admin_application_agreements do
+      member do
+        patch :publish, :unpublish
+      end
+    end
   end
 
   scope :gateway, module: :gateway do
@@ -291,7 +304,7 @@ Rails.application.routes.draw do
           post :resend
         end
       end
-      resources :quotes, only: [ :index, :create, :show ]
+      # resources :quotes, only: [ :index, :create, :show ]
 
       namespace :data do
         resources :leads, only: [ :create ] do

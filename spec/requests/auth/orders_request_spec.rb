@@ -1,19 +1,11 @@
 require 'spec_helper'
 
 describe '/u/users/:id/orders' do
-
   before do
     login_user(auth: true)
   end
 
   describe 'GET /' do
-
-    it 'returns not found with an invalid user id' do
-      get user_quote_path(42), format: :json
-
-      expect_alert_error
-    end
-
     it 'renders orders for a user' do
       create_list(:order, 3, user: @user)
       create(:order)

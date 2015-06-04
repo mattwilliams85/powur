@@ -1,11 +1,11 @@
 ;(function() {
   'use strict';
 
-  function ProfileCtrl($scope, UserProfile) {
+  function ProfileCtrl($scope, $rootScope, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
-      $scope.currentUser = user;
+      $rootScope.currentUser = user;
       $scope.userProfile = user;
     });
 
@@ -48,6 +48,6 @@
     });
   }
 
-  ProfileCtrl.$inject = ['$scope', 'UserProfile'];
+  ProfileCtrl.$inject = ['$scope', '$rootScope', 'UserProfile'];
   angular.module('powurApp').controller('ProfileCtrl', ProfileCtrl);
 })();

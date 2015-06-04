@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Quote, type: :model do
   it 'does not allow data not defined for the product' do
-    product = create(:product_with_quote_fields)
+    create(:product_with_quote_fields)
     data = { 'foo' => 'joy', 'bar' => 'galore' }
     expect { create(:quote, data: data) }
       .to raise_error(ActiveRecord::RecordInvalid)
@@ -25,7 +25,7 @@ describe Quote, type: :model do
   end
 
   describe '#calculate_status' do
-    subject { quote.status }
+    subject { quote.calculated_status }
     let(:customer) { create(:customer) }
     let(:quote) { create(:quote, customer: customer) }
 
@@ -34,7 +34,9 @@ describe Quote, type: :model do
         allow_any_instance_of(Quote).to receive(:submitted_at?).and_return(true)
         quote
       end
-      it { is_expected.to eq 'submitted' }
+      it do
+        is_expected.to eq :submitted
+      end
     end
 
     context 'proposal ready to submit' do
@@ -44,7 +46,7 @@ describe Quote, type: :model do
         allow_any_instance_of(Quote).to receive(:submitted?).and_return(false)
         quote
       end
-      it { is_expected.to eq 'ready_to_submit' }
+      it { is_expected.to eq :ready_to_submit }
     end
 
     context 'proposal has ineligible location' do
@@ -54,7 +56,7 @@ describe Quote, type: :model do
         allow_any_instance_of(Quote).to receive(:submitted?).and_return(false)
         quote
       end
-      it { is_expected.to eq 'ineligible_location' }
+      it { is_expected.to eq :ineligible_location }
     end
 
     context 'proposal incomplete' do
@@ -64,8 +66,7 @@ describe Quote, type: :model do
         allow_any_instance_of(Quote).to receive(:submitted?).and_return(false)
         quote
       end
-      it { is_expected.to eq 'incomplete' }
+      it { is_expected.to eq :incomplete }
     end
   end
-
 end

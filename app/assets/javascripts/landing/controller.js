@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, Geo, UserProfile, CommonService) {
+  function LandingCtrl($scope, $rootScope, $http, $location, $routeParams, $timeout, $interval, UserProfile, CommonService) {
     $scope.redirectIfSignedIn();
 
     $scope.showValidationMessages = false;
@@ -139,7 +139,7 @@
     };
 
     this.init($scope, $location, $timeout);
-    this.fetch($scope, $rootScope, $interval, $routeParams, $timeout, Geo);
+    this.fetch($scope, $rootScope, $http, $location, $interval, $routeParams, $timeout);
   }
 
   LandingCtrl.prototype.init = function($scope, $location, $timeout) {
@@ -150,10 +150,11 @@
     if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
     if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
     if (/\/sign-up/.test($location.path())) return $scope.mode = 'sign-up';
+    if (/\/reset-password/.test($location.path())) return $scope.mode = 'reset-password';
   };
 
 
-  LandingCtrl.prototype.fetch = function($scope, $rootScope, $interval, $routeParams, $timeout, Geo) {
+  LandingCtrl.prototype.fetch = function($scope, $rootScope, $http, $location, $interval, $routeParams, $timeout) {
     if ($scope.mode === 'sign-in') {
       $scope.signInPage = true;
     } else if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
@@ -163,15 +164,24 @@
     } else if ($scope.mode === 'sign-up') {
       $scope.invite = {};
       $scope.user = {};
-      $scope.countries = Geo.countries();
-      $scope.states = Geo.states();
       $scope.invite.code = $routeParams.inviteCode;
       if ($scope.invite.code) $scope.validateInvite();
+    } else if ($scope.mode === 'reset-password') {
+      $http.post('/password/validate_reset_token.json', {
+        token: $routeParams.resetPasswordToken
+      }).
+      success(function(data){
+        $scope.validResetToken = true;
+      }).
+      error(function(data){
+        $location.path('/sign-in');
+        $scope.showModal("Your Password Reset Link is invalid or has already been used.")
+      });
     }
   };
 
 
-  LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'Geo', 'UserProfile', 'CommonService'];
+  LandingCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', '$timeout', '$interval', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('LandingCtrl', LandingCtrl);
 
 })();

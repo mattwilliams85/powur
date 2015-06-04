@@ -1,0 +1,32 @@
+<!-- Dashboard Header -->
+<nav powur-foundation class="powur-header top-bar" data-topbar role="navigation" data-options="is_hover:false">
+
+  <ul class="title-area">
+  <!-- Title Area -->
+    <li class="name main-logo">
+      <h1><a href="/"><img src="<%=asset_path('powur-white-logo.png')%>" class="logo-img" /></a></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <!-- Account Menu -->
+      <li class="hide-for-medium-down has-dropdown"><a href>{{currentUser.first_name}}</a>
+        <ul class="dropdown">
+          <li><label>Account</label></li>
+          <li ng-show="currentUser.is_admin"><a href="/admin" target="_self">Administration</a></li>
+          <li class="divider"></li>
+          <li><a ng-click="signOut()">Sign Out</a></li>
+        </ul>
+      </li>
+
+      <!-- For Small Screens, show all menu items in one list for Hamburger Menu -->
+      <li class="hide-for-large-up"><label>Account</label></li>
+      <li ng-show="currentUser.is_admin" class="hide-for-large-up"><a href="/admin" target="_self">Administration</a></li>
+      <li class="hide-for-large-up" class="divider"></li>
+      <li class="hide-for-large-up"><a ng-click="signOut()">Sign Out</a></li>
+    </ul>
+  </section>
+</nav>

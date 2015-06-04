@@ -567,16 +567,21 @@ $kpi-text-color: #888;
           margin: 60px 0 0 8px;
         }
 
+        a div {
+          margin-top: 10px;
+        }
+
         .progress-bar {
           position: relative;
           display: block;
           width: 100%;
           height: 15px;
-          // border-radius: 3px;
-          margin-bottom: 3px;
-          background: #d0d0d0;
+          margin-bottom: 2px;
+          background: #ccc;
           font-size: 10pt;
           line-height: 11pt;
+          border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 
           // &.above {
           //   margin: 50px 0px 5px 8px;
@@ -609,23 +614,41 @@ $kpi-text-color: #888;
           }
         }
 
-        .bar.green {
-          background: $pow-color-green;
-        }
-        .bar.orange {
-          background: $pow-color-orange;
-        }
-
         .bar {
           position: absolute;
           display: block;
           height: 100%;
-          background: #FCB31C;
           border-radius: 3px;
           transition: all .3s ease-in;
           -webkit-transition:  all .3s ease-in;
+          -webkit-box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.08);
+          box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.08);
           &.hold {
             width: 0% !important;
+          }
+          &.green {
+            background: rgb(0,204,84); /* Old browsers */
+            background: -moz-linear-gradient(left,  rgba(0,204,84,1) 0%, rgba(104,204,144,1) 100%, rgba(85,204,133,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,204,84,1)), color-stop(100%,rgba(104,204,144,1)), color-stop(100%,rgba(85,204,133,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left,  rgba(0,204,84,1) 0%,rgba(104,204,144,1) 100%,rgba(85,204,133,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left,  rgba(0,204,84,1) 0%,rgba(104,204,144,1) 100%,rgba(85,204,133,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left,  rgba(0,204,84,1) 0%,rgba(104,204,144,1) 100%,rgba(85,204,133,1) 100%); /* IE10+ */
+            background: linear-gradient(to right,  rgba(0,204,84,1) 0%,rgba(104,204,144,1) 100%,rgba(85,204,133,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cc54', endColorstr='#55cc85',GradientType=1 ); /* IE6-9 */
+          }
+          &.orange {
+           background: rgb(255,191,0); /* Old browsers */
+           background: -moz-linear-gradient(left,  rgba(255,191,0,1) 0%, rgba(255,207,86,1) 100%); /* FF3.6+ */
+           background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,191,0,1)), color-stop(100%,rgba(255,207,86,1))); /* Chrome,Safari4+ */
+           background: -webkit-linear-gradient(left,  rgba(255,191,0,1) 0%,rgba(255,207,86,1) 100%); /* Chrome10+,Safari5.1+ */
+           background: -o-linear-gradient(left,  rgba(255,191,0,1) 0%,rgba(255,207,86,1) 100%); /* Opera 11.10+ */
+           background: -ms-linear-gradient(left,  rgba(255,191,0,1) 0%,rgba(255,207,86,1) 100%); /* IE10+ */
+           background: linear-gradient(to right,  rgba(255,191,0,1) 0%,rgba(255,207,86,1) 100%); /* W3C */
+           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffbf00', endColorstr='#ffcf56',GradientType=1 ); /* IE6-9 */
+
+          }
+          &.blue {
+            background: $pow-color-blue;
           }
         }
 
@@ -889,6 +912,15 @@ $kpi-text-color: #888;
     padding-top: 20px;
     margin-bottom:50px;
 
+    .badge {
+      z-index: 99;
+      height: 100px;
+      margin: -15px auto 10px auto;
+      @media #{$large} {
+        margin: -30px auto 10px auto;
+      }
+    }
+
     //TEMPORARY
     .beta-filler {
       background: #444;
@@ -909,6 +941,7 @@ $kpi-text-color: #888;
       .kpi-tab {
         background-color: #fff;
         height: 160px;
+        position: relative;
         @media #{$small} {
           height: 220px;
         }
@@ -918,7 +951,7 @@ $kpi-text-color: #888;
         display: inline-block;
         border-right: 1px solid #e5e5e5;
         border-bottom: 1px solid #e5e5e5;
-        color: $kpi-text-color;
+        color: #555;
 
         //TEMP
         &.inactive {
@@ -944,7 +977,36 @@ $kpi-text-color: #888;
             }
           }
 
+          //TEMP
+          .temp-box {
+            margin: 0 auto;
+            width: 80%;
+            margin-top: 90px;
+
+            img {
+              float: left;
+              margin-right: 10px;
+              margin-top: -5px;
+              display: none;
+              @media screen and (min-width: 1213px) {
+                display: block;
+              }
+            }
+
+            span {
+              float: none;
+              @media screen and (min-width: 1213px) {
+                float: left;
+              }
+            }
+          }
+          //
+
           .kpi-header {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 45px;
             font-size: 12pt;
             @media #{$medium} {
               font-size: 16pt;

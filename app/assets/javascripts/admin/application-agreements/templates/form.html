@@ -1,0 +1,32 @@
+<form>
+  <fieldset>
+    <legend>Add PDF</legend>
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="version">Version <small>(Example: 1 or 1.1)</small></label>
+        <span ng-show="errorMessage('version')" class="radius alert label">{{errorMessage('version')}}</span>
+        <input ng-model="item.version" name="version" id="version" type="text" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="message">Message</label>
+        <input ng-model="item.message" name="message" id="message" type="text" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <label>Choose a PDF File</label>
+        <span ng-show="errorMessage('document_path')" class="radius alert label">{{errorMessage('document_path')}}</span>
+        <input ng-model="item.document_path" name="document_path" id="document_path" type="text" ng-required="true" />
+        <ng-s3-file-upload data="item.document_path" config="/u/uploader_config.json?mode=application_agreement" show-progress="1" auto-upload="1"></ng-s3-file-upload>
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <a ng-click="cancel()" class="button secondary left">Cancel</a>
+        <input class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add" />
+      </div>
+    </div>
+  </fieldset>
+</form>

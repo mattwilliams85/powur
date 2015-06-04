@@ -38,6 +38,20 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -78,6 +92,40 @@ CREATE TABLE api_tokens (
     user_id integer,
     expires_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: application_agreements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE application_agreements (
+    id integer NOT NULL,
+    version character varying,
+    document_path character varying,
+    published_at timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    message text
+);
+
+
+--
+-- Name: application_agreements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE application_agreements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: application_agreements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE application_agreements_id_seq OWNED BY application_agreements.id;
 
 
 --
@@ -1113,7 +1161,8 @@ CREATE TABLE users (
     last_sign_in_at timestamp without time zone,
     smarteru_employee_id character varying,
     moved boolean,
-    image_original_path character varying
+    image_original_path character varying,
+    tos character varying(5)
 );
 
 
@@ -1163,6 +1212,13 @@ CREATE SEQUENCE zipcodes_id_seq
 --
 
 ALTER SEQUENCE zipcodes_id_seq OWNED BY zipcodes.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY application_agreements ALTER COLUMN id SET DEFAULT nextval('application_agreements_id_seq'::regclass);
 
 
 --
@@ -1375,6 +1431,14 @@ ALTER TABLE ONLY api_clients
 
 ALTER TABLE ONLY api_tokens
     ADD CONSTRAINT api_tokens_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: application_agreements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY application_agreements
+    ADD CONSTRAINT application_agreements_pkey PRIMARY KEY (id);
 
 
 --
@@ -2345,4 +2409,10 @@ INSERT INTO schema_migrations (version) VALUES ('20150525043450');
 INSERT INTO schema_migrations (version) VALUES ('20150526030947');
 
 INSERT INTO schema_migrations (version) VALUES ('20150528032314');
+
+INSERT INTO schema_migrations (version) VALUES ('20150601202227');
+
+INSERT INTO schema_migrations (version) VALUES ('20150601211613');
+
+INSERT INTO schema_migrations (version) VALUES ('20150603213402');
 

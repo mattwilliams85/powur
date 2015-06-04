@@ -500,9 +500,10 @@ Styles for Sign-Up Page
       padding-top: 50px;
 
       .lock-icon {
-        @include pow-sprites-sprite(lock-icon);
-        height: pow-sprites-sprite-height(lock-icon);
-        width: pow-sprites-sprite-width(lock-icon);
+        background-image: image-url("landing/beta-icon.png");
+        background-size: cover;
+        height: 70px;
+        width: 70px;
         margin-top: 10px;
         margin-left: 10px;
         float: left;

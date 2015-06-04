@@ -1,5 +1,7 @@
 class Jobs::UserSmarteruLearnerReportJob < Struct.new(:user_id, :previous_checks)
-  MAX_ATTEMPTS = 100
+  # TODO class due date field, we'll use it for polling instead of MAX_ATTEMPTS
+  MAX_ATTEMPTS = 1000
+  POLLING_INTERVAL = 30.minutes
 
   def perform
     self.previous_checks ||= 0

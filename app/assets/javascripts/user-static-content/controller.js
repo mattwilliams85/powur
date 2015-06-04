@@ -1,11 +1,11 @@
 ;(function() {
   'use strict';
 
-  function UserStaticContentCtrl($scope, $location, UserProfile) {
+  function UserStaticContentCtrl($scope, $rootScope, $location, UserProfile) {
     $scope.leftMenu = {};
 
     UserProfile.get().then(function(user) {
-      $scope.currentUser = user;
+      $rootScope.currentUser = user;
     });
 
     this.init($scope, $location);
@@ -27,6 +27,6 @@
     }
   };
 
-  UserStaticContentCtrl.$inject = ['$scope', '$location', 'UserProfile'];
+  UserStaticContentCtrl.$inject = ['$scope', '$rootScope', '$location', 'UserProfile'];
   angular.module('powurApp').controller('UserStaticContentCtrl', UserStaticContentCtrl);
 })();

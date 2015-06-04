@@ -1,11 +1,11 @@
 ;(function() {
   'use strict';
 
-  function UniversityCtrl($scope, $location, $window, $anchorScroll, $routeParams, UniversityClass, UserProfile, Geo, CommonService) {
+  function UniversityCtrl($scope, $rootScope, $location, $window, $anchorScroll, $routeParams, UniversityClass, UserProfile, Geo, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
-      $scope.currentUser = user;
+      $rootScope.currentUser = user;
     });
 
     function getAction(actions, name) {
@@ -99,6 +99,6 @@
     }
   };
 
-  UniversityCtrl.$inject = ['$scope', '$location', '$window', '$anchorScroll', '$routeParams', 'UniversityClass', 'UserProfile', 'Geo', 'CommonService'];
+  UniversityCtrl.$inject = ['$scope', '$rootScope', '$location', '$window', '$anchorScroll', '$routeParams', 'UniversityClass', 'UserProfile', 'Geo', 'CommonService'];
   angular.module('powurApp').controller('UniversityCtrl', UniversityCtrl);
 })();

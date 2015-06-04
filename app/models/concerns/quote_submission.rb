@@ -11,7 +11,7 @@ module QuoteSubmission
   end
 
   def can_submit?
-    !submitted? && submit_data_valid?
+    submitted_at.nil? && submit_data_valid?
   end
 
   def submit!(force = false)
@@ -25,6 +25,7 @@ module QuoteSubmission
     update(
       provider_uid: form.provider_uid,
       submitted_at: DateTime.parse(form.response.headers[:date]))
+    submitted!
   end
 
   class << self

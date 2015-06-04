@@ -214,22 +214,16 @@ $xl-screen: em-calc(1500);
 
     .video-player-wrapper {
       display: block;
-      width: 610px;
-      height: 380px;
-      margin:0 15%;
+      height: 250px;
+      max-width: 500px;
+      margin: 15px;
       background-image: image-url("promo/wealth-video.jpg");
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
 
       @media #{$small} {
-        width:100%;
-        margin:0 auto;
-        height:250px;
-        margin:0px;
-      }
-      @media #{$medium} {
-        width:80%;
+        margin: 10px auto;
       }
     }
   }
@@ -859,6 +853,35 @@ $xl-screen: em-calc(1500);
       text-align: left;
       width: 300px;
 
+      input[type=range] {
+          -webkit-appearance: none;
+          outline: none;
+          width: 300px;
+          border-radius: 8px;
+          height: 7px;
+          border: 1px solid #bdc3c7;
+          background-color: #ccc; 
+          margin: 0 0 25px 10px;
+      }
+
+      input[type='range']::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        background-color: $pow-color-blue;
+        border: 1px solid $pow-color-blue;
+        width: 30px;
+        height: 30px;
+        border-radius: 20px;
+        cursor: pointer;
+        &:after {
+          content: '$';
+          font-size: 16pt;
+          width: 30px;
+          height: 30px;
+          padding: 7px;
+          color: #000;
+        }
+      }
+
       span.pointer {
         background-color: $pow-color-blue;
         height: 50px;
@@ -994,10 +1017,11 @@ $xl-screen: em-calc(1500);
         //   font-size: 2.3em;
         // }
         @media #{$small} {
-          text-align:right;
           font-size: 2em;
+          margin-bottom: 10px;
         }
         @media #{$large} {
+          text-align:right;
           font-size: 3.3em;
         }
       }

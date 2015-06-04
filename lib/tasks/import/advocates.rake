@@ -1,7 +1,7 @@
 namespace :powur do
   namespace :import do
 
-    def last_file
+    def last_advocate_file
       Dir[Rails.root.join('db', 'import', '*.csv')].last
     end
 
@@ -14,13 +14,14 @@ namespace :powur do
 
     def attrs_from_row(row)
       attrs = {
-        id:         row[0].to_i,
-        first_name: row[3].strip,
-        last_name:  row[4].strip,
-        phone:      row[5].presence && row[5].strip,
-        email:      row[6].strip,
-        password:   row[12].strip }
+        first_name:            row[3].strip,
+        last_name:             row[4].strip,
+        phone:                 row[5].presence && row[5].strip,
+        email:                 row[6].strip,
+        password:              row[12].strip,
+        password_confirmation: row[12].strip }
       merge_address(attrs, row)
+      attrs
     end
 
     def create_user(row)
@@ -34,16 +35,23 @@ namespace :powur do
       placement = sponsor_id == placement_id ? sponsor : User.find(placement_id)
 
       attrs = attrs_from_row(row)
-      user = User.create!(user.merge(id: id, sponsor_id: sponsor_id))
+      attrs.merge!(
+        id:         id,
+        sponsor_id: sponsor_id,
+        tos:        true)
+      user = User.create!(attrs)
       puts "Created user #{user.full_name} : #{user.id}"
 
       return if placement_id == sponsor_id
       User.move_user(user, placement)
       puts "Placed user to #{placement.full_name} : #{placement.id}"
+    rescue => e
+      binding.pry
+      fail e
     end
 
     task advocates: :environment do
-      path = last_file
+      path = last_advocate_file
       if path.nil?
         puts 'No file found to import'
         return

@@ -2,7 +2,7 @@ module TestResponse
   def json
     response[:json] ||= begin
       type = response.content_type
-      type.must_match /json/, "Expected json response, got '#{type}'"
+      type.must_match(/json/, "Expected json response, got '#{type}'")
       MultiJson.load(response.body)
     end
   end
@@ -54,12 +54,22 @@ module TestResponse
       action?(name).must_equal true, "Expected action '#{name}' in #{self}"
     end
 
+    def must_have_actions(*names)
+      names.each { |name| must_have_action(name) }
+    end
+
     def wont_have_action(name)
       action?(name).must_equal false, "#{self} should not have action '#{name}'"
     end
 
+    def wont_have_actions(*names)
+      names.each { |name| wont_have_action(name) }
+    end
+
     def must_have_entity_size(size)
-      entities.wont_be_nil && entities.size.must_equal(size)
+      entities.wont_be_nil "Expected #{self} to include entities"
+      entities.size.must_equal(
+        size, "Expected entities size #{size}, got: #{entities.size}")
     end
 
     def must_have_entity(rel)
@@ -72,7 +82,7 @@ module TestResponse
 
     def props_must_equal(key_values)
       key_values.each do |key, value|
-        self.properties[key]
+        self.properties[key.to_s]
           .must_equal(value, "Expected property #{key} to equal #{value}")
       end
     end
@@ -94,6 +104,18 @@ module TestResponse
 
     def must_have_field(name)
       must_have_fields(name)
+    end
+
+    def must_be_error
+      error.wont_be_nil
+    end
+
+    def link(rel)
+      links && (link = links.find { |l| l.rel == rel.to_s }) && link.href
+    end
+
+    def self_link
+      link(:self)
     end
   end
 end

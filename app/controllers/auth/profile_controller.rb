@@ -1,6 +1,9 @@
 module Auth
   class ProfileController < AuthController
     include EwalletDSL
+
+    skip_before_action :verify_terms_acceptance, only: [:show, :update]
+
     before_action :fetch_user, only: [ :show, :update, :update_avatar,
                                        :update_password ]
 
@@ -57,7 +60,7 @@ module Auth
       params.require(:user).permit(:first_name, :last_name, :email,
                                    :phone, :address, :city, :state, :zip,
                                    :bio, :twitter_url, :facebook_url,
-                                   :image_original_path, :avatar)
+                                   :image_original_path, :avatar, :tos)
     end
 
     # def avatar_params

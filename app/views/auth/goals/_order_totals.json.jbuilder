@@ -1,5 +1,5 @@
 klass :order_totals, :list
 
-entity_rel(local_assigns[:rel])
+entity_rel(rel)
 
-totals_json.list_entities('auth/order_totals/item', @order_totals)
+json.entities @order_totals, partial: 'auth/order_totals/item', as: :order_total

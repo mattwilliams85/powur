@@ -6,6 +6,8 @@ describe '/a/invite' do
   end
 
   describe 'POST' do
+    let(:agreement) { double(dwight: 'schrute') }
+
     it 'renders an error with an invalid code' do
       post invite_path, code: 'nope', format: :json
 
@@ -35,11 +37,13 @@ describe '/a/invite' do
 
     it 'returns an invite when the user has inputted a code' do
       invite = create(:invite)
+      allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       post invite_path, code: invite.id, format: :json
 
       expect_200
       expect_classes('invite')
       expect_actions('create')
+      expect_props latest_terms: agreement.as_json
 
       get root_url, format: :json
 

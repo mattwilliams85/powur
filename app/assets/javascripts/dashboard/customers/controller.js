@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardCustomersCtrl($scope, $location, $timeout, $route, $anchorScroll, CommonService) {
+  function DashboardCustomersCtrl($scope, $rootScope, $location, $timeout, $route, $anchorScroll, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     $scope.legacyImagePaths = legacyImagePaths;
@@ -9,7 +9,7 @@
     // Utility Functions:
     function getQuotes(cb) {
       CommonService.execute({
-        href: '/u/quotes.json'
+        href: '/u/users/' + $rootScope.currentUser.id + '/quotes.json'
       }).then(cb);
     }
 
@@ -282,7 +282,7 @@
     $scope.customerSection.applyIndexActions = function() {
       destroyCarousel('.proposals');
       CommonService.execute({
-        href: '/u/quotes.json?' +
+        href: '/u/users/' + $rootScope.currentUser.id + '/quotes.json?' +
         'sort=' + $scope.customerSection.proposalSort + '&' +
         'status=' + $scope.customerSection.proposalStatus + '&' +
         'search=' + $scope.customerSection.proposalSearch
@@ -294,15 +294,18 @@
       });
     };
 
-    return getQuotes(function(items) {
-      $scope.proposals = items.entities;
-      $timeout(function(){
-        initCarousel('.proposals');
+    $rootScope.$watch('currentUser', function(data) {
+      if (!Object.keys(data).length) return;
+      getQuotes(function(items) {
+        $scope.proposals = items.entities;
+        $timeout(function(){
+          initCarousel('.proposals');
+        });
       });
     });
   }
 
-  DashboardCustomersCtrl.$inject = ['$scope', '$location', '$timeout', '$route', '$anchorScroll', 'CommonService'];
+  DashboardCustomersCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', '$route', '$anchorScroll', 'CommonService'];
   angular
     .module('powurApp')
     .controller('DashboardCustomersCtrl', DashboardCustomersCtrl);

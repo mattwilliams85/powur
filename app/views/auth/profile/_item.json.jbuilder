@@ -1,3 +1,6 @@
+# Deprecated in favor of sessions/show.json
+# TODO: reorganize this file, will only be used to return data for the profile page
+
 klass :user
 
 json.rel [ :item ] unless local_assigns[:detail]
@@ -15,11 +18,16 @@ json.properties do
   end if @user.avatar?
   json.is_admin user.role?(:admin)
 
-  json.metrics do 
+  json.metrics do
     json.proposal @user.proposal_count
+    json.team @user.full_downline_count
   end
 
   json.require_enrollment user.require_class_completion?
+
+  unless current_user.accepted_latest_terms?
+    json.latest_terms ApplicationAgreement.current
+  end
 end
 
 # entities entity('auth/users/item', ' profile-user', user: user)

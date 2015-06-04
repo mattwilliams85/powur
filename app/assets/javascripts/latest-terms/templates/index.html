@@ -1,0 +1,29 @@
+<!-- Header -->
+<ng-include src="'shared/header-locked.html'"></ng-include>
+
+<main class="powur-latest-terms">
+  <div class="row">
+    <div class="small-12 medium-12 large-8 medium-centered large-centered columns">
+      <div class="terms panel">
+        <div class="row">
+          <div class="small-12 columns">
+            <h2>{{termsHeader}}</h2>
+            <p>{{termsMessage1}}</p>
+            <p>{{termsMessage2}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div id="pdf-div" class="pdf panel">
+            <a href="{{currentUser.latest_terms.document_path}}" target="_blank">Click here to view the document</a>
+          </div>
+        </div>
+      </div>
+      <div class="panel footer">
+        <button class="right success" ng-click="acceptTerms()">Agree & Continue</button>
+        <a class="button left" href="{{currentUser.latest_terms.document_path}}" target="_blank">Download as PDF</a>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- Footer -->
+<ng-include src="'shared/footer-signed-in.html'"></ng-include>

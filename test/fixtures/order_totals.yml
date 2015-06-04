@@ -1,6 +1,15 @@
-current:
-  pay_period: current
-  user: advocate
+DEFAULTS: &DEFAULTS
+  pay_period: monthly
   product: solar
   personal: 1
   personal_lifetime: 1
+  group: 1
+  group_lifetime: 1
+
+current:
+  <<: *DEFAULTS
+  user: advocate
+
+admin:
+  <<: *DEFAULTS
+  user: admin

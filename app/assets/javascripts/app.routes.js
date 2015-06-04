@@ -24,13 +24,19 @@
       templateUrl: 'landing/templates/sign-up.html',
       controller: 'LandingCtrl'
     }).
-    when('/reset-password', {
+    when('/forgot-password', {
+      templateUrl: 'landing/templates/forgot-password.html',
+      controller: 'LandingCtrl'
+    }).
+    when('/reset-password/:resetPasswordToken', {
       templateUrl: 'landing/templates/reset-password.html',
       controller: 'LandingCtrl'
     }).
-    when('/edit-password/:resetPasswordToken', {
-      templateUrl: 'landing/templates/edit-password.html',
-      controller: 'LandingCtrl'
+
+    // Latest Terms of Service
+    when('/latest-terms', {
+      templateUrl: 'latest-terms/templates/index.html',
+      controller: 'LatestTermsCtrl'
     }).
 
     // FAQ

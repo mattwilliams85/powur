@@ -1,4 +1,4 @@
-bob:
+DEFAULTS: &DEFAULTS
   first_name: Bob
   last_name: Sanford
   email: bob.sanford@eyecuelab.com
@@ -7,3 +7,17 @@ bob:
   city: Shellnob
   state: MO
   zip: 90210
+
+bob:
+  <<: *DEFAULTS
+garey:
+  <<: *DEFAULTS
+  first_name: Garey
+  last_name: Aaaa
+garry:
+  <<: *DEFAULTS
+  first_name: Garry
+  last_name: Zzzz
+no_phone:
+  <<: *DEFAULTS
+  phone:

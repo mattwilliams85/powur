@@ -57,7 +57,8 @@
               <div class="lock-icon"></div>
               <div class="referral-only">
                 <h1>Powur is a referral only, private network.</h1>
-                <h2>New members require an invite code from an existing Powur Advocate in order to join the network.</h2>
+                <!-- <h2>New members require an invite code from an existing Powur Advocate in order to join the network.</h2> -->
+                <h2>Powur is currently in Beta and is not issuing invitation codes. Please apply to join Beta by getting back in touch with the person who told you about this site.</h2>
               </div>
             </div>
 
@@ -94,6 +95,15 @@
                   <label for="user_email" ng-class="{ 'error' : formErrorMessages['email'] }">Email</label>
                   <input ng-model="user.email" name="user_email" type="text" disabled>
                   <small ng-if="user.email">This is the email you'll use to sign into Powur.</small>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="row">
+                <div class="large-12 columns">
+                  <label for="user_phone" ng-class="{ 'error' : formErrorMessages['phone'] }">Phone</label>
+                  <input ng-model="user.phone" name="user_phone" type="text" ng-class="{ 'error' : formErrorMessages['phone'] }">
+                  <small ng-class="{ 'error' : formErrorMessages['phone'] }">{{formErrorMessages['phone']}}</small>
                 </div>
               </div>
             </fieldset>
@@ -153,15 +163,6 @@
                   <label for="user_zip" ng-class="{ 'error' : formErrorMessages['zip'] }">ZIP Code</label>
                   <input ng-model="user.zip" name="user_zip" type="text" ng-class="{ 'error' : formErrorMessages['zip'] }">
                   <small ng-class="{ 'error' : formErrorMessages['zip'] }">{{formErrorMessages['zip']}}</small>
-                </div>
-              </div>
-
-              <!-- Phone -->
-              <div class="row">
-                <div class="large-12 columns">
-                  <label for="user_phone" ng-class="{ 'error' : formErrorMessages['phone'] }">Phone</label>
-                  <input ng-model="user.phone" name="user_phone" type="text" ng-class="{ 'error' : formErrorMessages['phone'] }">
-                  <small ng-class="{ 'error' : formErrorMessages['phone'] }">{{formErrorMessages['phone']}}</small>
                 </div>
               </div>
             </fieldset>

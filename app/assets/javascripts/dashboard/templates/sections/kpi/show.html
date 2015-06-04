@@ -14,10 +14,10 @@
       <div class="kpi-info-box">
         <!-- Small Screens: Badge Icon / Rank -->
         <span class="kpi-count show-for-small"><i class="fa fa-certificate fa-3x"></i></span>
-        <span class="kpi-header uppercase show-for-small">Rank</span>
+        <span class="kpi-header uppercase hide-for-large-up">Rank</span>
         <!-- Medium/Large Screens: Total Earnings -->
-        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
-        <span class="kpi-header uppercase show-for-medium-up">current rank</span>
+        <img class="badge show-for-medium-up" ng-src="{{badgePath(goals.properties.next_rank - 1)}}"></img>
+        <span class="kpi-header uppercase show-for-large-up">current rank</span>
       </div>
     </div>
     <div class="kpi-tab" ng-class="{'active': section === 'conversion'}" ng-click="changeTab('conversion')">
@@ -26,7 +26,7 @@
         <span class="kpi-count show-for-small"><i class="fa fa-check-square-o fa-3x"></i></span>
         <span class="kpi-header uppercase show-for-small">Proposals</span>
         <!-- Medium/Large Screens: Orders -->
-        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">{{currentUser.metrics.proposal}}</span>
+        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize(currentUser.metrics.proposal) }">{{currentUser.metrics.proposal}}</span>
         <span class="kpi-header uppercase show-for-medium-up">Proposals</span>
       </div>
     </div>
@@ -37,7 +37,7 @@
         <span class="kpi-count show-for-small"><i class="fa fa-th-large fa-3x"></i></span>
         <span class="kpi-header uppercase show-for-small">Grid</span>
         <!-- Medium/Large Screens: In Your Grid -->
-        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0</span>
+        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize(currentUser.metrics.team) }">{{currentUser.metrics.team}}</span>
         <span class="kpi-header uppercase show-for-medium-up">in your grid</span>
       </div>
     </div>
@@ -46,10 +46,14 @@
       <div class="kpi-info-box">
         <!-- Small Screens: Dollars Icon / Earnings -->
         <span class="kpi-count show-for-small"><i class="fa fa-dollar fa-3x"></i></span>
-        <span class="kpi-header uppercase show-for-small">Earnings</span>
+        <span class="kpi-header uppercase hide-for-large-up">Earnings</span>
         <!-- Medium/Large Screens: Total Earnings -->
-        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('$0') }">$0</span>
-        <span class="kpi-header uppercase show-for-medium-up">total earnings</span>
+        <div class="temp-box">
+          <img ng-src="{{legacyImagePaths.dashboardRedLogo}}"/ >
+          <span class="show-for-medium-up" style="color:#f00">COMING SOON!</span>
+        </div>
+        <!-- <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('$0') }">$0</span> -->
+        <span class="kpi-header uppercase show-for-large-up">total earnings</span>
       </div>
     </div>
     <div class="kpi-tab inactive" ng-class="{'active': section === 'environment'}">
@@ -59,7 +63,11 @@
         <span class="kpi-count show-for-small"><i class="fa fa-globe fa-3x"></i></span>
         <span class="kpi-header uppercase show-for-small">Impact</span>
         <!-- Medium/Large Screens: CO2 pounds saved -->
-        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0<span class="unit">lbs</span></span>
+        <div class="temp-box">
+          <img ng-src="{{legacyImagePaths.dashboardRedLogo}}"/ >
+          <span class="show-for-medium-up" style="color:#f00">COMING SOON!</span>
+        </div>
+        <!-- <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0<span class="unit">lbs</span></span> -->
         <span class="kpi-header uppercase show-for-medium-up">CO<sub>2</sub> saved</span>
       </div>
     </div>

@@ -30,5 +30,13 @@ module Anon
 
       render 'anon/session/anonymous'
     end
+
+    def validate_reset_token
+      if User.find_by_reset_token(params[:token])
+        head 200
+      else
+        head :unauthorized
+      end
+    end
   end
 end

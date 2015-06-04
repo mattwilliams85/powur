@@ -27,6 +27,7 @@
 //= require admin/app.admin.routes
 //= require app.common.service
 //= require admin/app.admin.widgets
+//= require_tree ./admin/application-agreements
 //= require_tree ./admin/bonuses
 //= require_tree ./admin/bonus-plans
 //= require_tree ./admin/landing

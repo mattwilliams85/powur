@@ -73,6 +73,19 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     delay.calculate!
   end
 
+  def calculate_order_totals(user_id, product_id)
+  end
+
+
+
+
+
+
+
+
+
+
+
   def calculate!
     result = self.class
              .where(id: id)

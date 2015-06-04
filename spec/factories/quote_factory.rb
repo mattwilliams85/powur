@@ -14,6 +14,7 @@ FactoryGirl.define do
     factory :submitted_quote do
       provider_uid { Faker::Code.isbn }
       submitted_at { DateTime.current }
+      status :submitted
     end
   end
 end

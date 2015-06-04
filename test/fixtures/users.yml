@@ -10,3 +10,9 @@ admin:
   <<: *DEFAULTS
   roles:
     - admin
+garey:
+  <<: *DEFAULTS
+  first_name: Garey
+garry:
+  <<: *DEFAULTS
+  first_name: Garry
