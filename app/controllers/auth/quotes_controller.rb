@@ -48,6 +48,8 @@ module Auth
       @quote.destroy
 
       fetch_quotes
+      @quotes = apply_list_query_options(@quotes)
+
       index
     end
 
