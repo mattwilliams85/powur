@@ -122,7 +122,7 @@ Rails.application.routes.draw do
         get '' => 'users#search', constraints: params?(:search)
       end
 
-      resources :quotes, only: [ :index ]
+      resources :quotes, only: [ :index, :create ]
       resource :goals, only: [ :show ]
       resources :orders, only: [ :index, :show ], controller: :user_orders
       resources :order_totals, only: [ :index ]#, controller: :user_order_totals
