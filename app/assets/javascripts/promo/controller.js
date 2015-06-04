@@ -5,6 +5,7 @@
     $scope.inviteCode = null;
 
     $scope.leftMenu = {};
+    $scope.slider = 0;
 
     $scope.setupPromoSlider = function(slides) {
       $scope.slides = slides;

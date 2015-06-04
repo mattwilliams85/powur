@@ -43,10 +43,11 @@
           <h5>Drag the $ across to ‘You’ to continue:</h5>
 
           <div class="slider-inner">
-            <slider floor="0" ceiling="50" step="1" precision="0" ng-model="slider" translate="sliderOnChange"></slider>
+            <input type="range" min="0" max="50" step="1" defaultValue="0" ng-model="slider"></input>
             <img class="image-1" src="<%= asset_path('promo/slider-item-1.png') %>" />
             <img class="image-2" src="<%= asset_path('promo/slider-item-2-hidden.png') %>" />
           </div>
+          <span class="optional">If you’re having problems, <a ng-click="gotoAnchor('on_slider_move');">click here to continue</a>.</span>
         </div>
       </div>
     </div>
