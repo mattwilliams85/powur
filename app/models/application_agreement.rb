@@ -1,5 +1,9 @@
 class ApplicationAgreement < ActiveRecord::Base
-  validates_presence_of :version, :document_path
+  validates :version,
+    uniqueness: { message: 'This version is taken' },
+    presence: true
+  validates :document_path,
+    presence: true
 
   scope :published, -> { where('published_at is not null') }
   scope :sorted, -> { order('id desc') }
