@@ -162,22 +162,15 @@
     function actionCallback(action) {
       return function() {
         if (action.name === 'create' || action.name === 'delete') {
-          getQuotes(function(items) {
-            $scope.closeForm();
-            destroyCarousel('.proposals');
+          refreshProposalsCarousel(function() {
             $timeout(function() {
-              $scope.proposals = items.entities;
-              $timeout(function() {
-                initCarousel('.proposals');
-                $timeout(function() {
-                  if (action.name === 'create') {
-                    $('.proposals').data('owlCarousel').goTo(0);
-                    $scope.customerSection.showProposal(0);
-                  }
-                });
-              });
+              if (action.name === 'create') {
+                $('.proposals').data('owlCarousel').goTo(0);
+                $scope.customerSection.showProposal(0);
+              }
             });
           });
+
         } else if (action.name === 'update') {
           getQuotes(function(items) {
             $scope.updatingProposal = true;
@@ -197,6 +190,7 @@
           $scope.closeForm();
           $anchorScroll();
           $scope.showModal('This proposal was submitted to SolarCity!');
+          refreshProposalsCarousel();
 
         } else if (action.name === 'resend') {
           $scope.closeForm();
@@ -206,7 +200,22 @@
             $scope.proposal.last_name + ' at ' +
             $scope.proposal.email + '.');
         }
-      }
+      };
+    }
+
+    function refreshProposalsCarousel(cb) {
+      getQuotes(function(items) {
+        $scope.closeForm();
+        destroyCarousel('.proposals');
+        $timeout(function() {
+          $scope.proposals = items.entities;
+          $timeout(function() {
+            initCarousel('.proposals');
+            if (cb) return cb();
+            return;
+          });
+        });
+      });
     }
 
     // Submit Proposal to SolarCity Action
