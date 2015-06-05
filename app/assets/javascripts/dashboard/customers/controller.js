@@ -196,8 +196,7 @@
           $scope.closeForm();
           $anchorScroll();
           $scope.showModal('This proposal email was successfully re-sent to ' +
-            $scope.proposal.first_name + ' ' +
-            $scope.proposal.last_name + ' at ' +
+            $scope.proposal.customer + ' at ' +
             $scope.proposal.email + '.');
         }
       };
