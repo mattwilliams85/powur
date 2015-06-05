@@ -7,13 +7,16 @@
     UserProfile.get().then(function(user) {
       $rootScope.currentUser = user;
       $scope.userProfile = user;
+
+      if (!user.require_enrollment) {
+        // Only request ewallet data if the required class complete
+        UserProfile.getEwalletDetails().then(function(ewalletDetails) {
+          $scope.ewalletDetails = ewalletDetails.properties;
+        });
+      }
     });
 
     $scope.legacyImagePaths = legacyImagePaths;
-
-    UserProfile.getEwalletDetails().then(function(ewalletDetails) {
-      $scope.ewalletDetails = ewalletDetails.properties;
-    });
 
     $scope.updateProfile = function() {
       if ($scope.userProfile) {
