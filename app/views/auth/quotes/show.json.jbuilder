@@ -53,5 +53,5 @@ else
     list << action(:submit, :post, submit_quote_path(@quote))
   end
 
-  actions(list)
+  actions(*list)
 end
