@@ -29,7 +29,10 @@ else
     .field(:zip, :text, required: false, value: @quote.customer.zip)
 
   @quote.product.quote_fields.each do |field|
-    opts = { required: field.required, product_field: true }
+    opts = {
+      required:      field.required,
+      product_field: true,
+      value:         field.normalize(@quote.data[field.name]) }
 
     if field.lookup?
       lookups = field.lookups.sort_by { |i| [ i.group, i.value ] }
@@ -40,10 +43,6 @@ else
         attrs
       end
     end
-
-    opts.merge!(
-      value:         field.normalize(@quote.data[field.name]),
-      product_field: true)
 
     update.field(field.name, field.view_type, opts)
   end

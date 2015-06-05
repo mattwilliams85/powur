@@ -16,6 +16,7 @@ product = Product.default
 if product
   product.quote_fields.each do |field|
     opts = { required: field.required, product_field: true }
+
     if field.lookup?
       lookups = field.lookups.sort_by { |i| [ i.group, i.value ] }
       next if lookups.empty?
@@ -25,6 +26,7 @@ if product
         attrs
       end
     end
+
     create.field(field.name, field.view_type, opts)
   end
 end
