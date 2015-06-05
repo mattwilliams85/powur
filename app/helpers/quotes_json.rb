@@ -57,19 +57,19 @@ class QuotesJson < JsonDecorator
         .field(:order_date, :datetime, value: DateTime.current, required: false)
     end
     if quote.can_submit?
-      list << submit_action(submit_admin_quote_path(quote))
+      list << submit_action(submit_quote_path(quote))
     end
     list
   end
 
   def auth_actions(quote)
-    list = [ resend_action(resend_user_quote_path(quote)) ]
+    list = [ resend_action(resend_quote_path(quote)) ]
     unless quote.submitted_at?
-      list << update_action(user_quote_path(quote))
-      list << action(:delete, :delete, user_quote_path(quote))
+      list << update_action(quote_path(quote))
+      list << action(:delete, :delete, quote_path(quote))
     end
     if quote.can_submit?
-      list << submit_action(submit_user_quote_path(quote))
+      list << submit_action(submit_quote_path(quote))
     end
 
     list
