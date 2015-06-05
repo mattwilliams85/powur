@@ -23,6 +23,15 @@
       return;
     };
 
+    $scope.hasAction = function(actionName) {
+      if ($scope.proposal) {
+        var action = $scope.getAction($scope.proposalItem.actions, actionName);
+        if (action) return true;
+        else return false;
+      }
+      return;
+    };
+
     // Set values from action's fields' values
     $scope.setFormValues = function(formAction) {
       var formValues = {};
