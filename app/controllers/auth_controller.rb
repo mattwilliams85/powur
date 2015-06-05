@@ -20,8 +20,8 @@ class AuthController < WebController
   end
 
   def fetch_user
-    user_id = (params[:user_id] || params[:admin_user_id]).to_i
-    return nil unless user_id > 0
+    return nil unless user_id_param?
+    not_found!(:user, user_id) if user_id == 0
     @user = admin? ? User.find(user_id) : fetch_downline_user(user_id)
   end
 
@@ -40,5 +40,13 @@ class AuthController < WebController
     return current_user if user_id == current_user.id
     User.with_ancestor(current_user.id)
         .where(id: user_id.to_i).first || not_found!(:user, user_id)
+  end
+
+  def user_id_param?
+    params.keys.include?('user_id') || params.keys.include?('admin_user_id')
+  end
+
+  def user_id
+    (params[:user_id] || params[:admin_user_id]).to_i
   end
 end

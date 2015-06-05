@@ -13,4 +13,10 @@ class Auth::GoalsControllerTest < ActionController::TestCase
     enrollments = siren.entity('goals-enrollments')
     enrollments.must_have_entity_size(1)
   end
+
+  test 'show with invalid user_id' do
+    get :show, user_id: 'invalid'
+
+    response.status.must_equal 404
+  end
 end

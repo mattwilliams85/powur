@@ -85,9 +85,7 @@ module Auth
       quote = quotes(:incomplete)
       delete :destroy, id: quote.id
 
-      siren.must_be_class(:quotes)
-      result = siren.entities.find { |e| e.properties.id == quote.id }
-      result.must_be_nil
+      response.status.must_equal 204
     end
 
     test 'destroy quote not belonging to user' do

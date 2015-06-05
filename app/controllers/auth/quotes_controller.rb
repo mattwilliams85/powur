@@ -47,7 +47,7 @@ module Auth
 
       @quote.destroy
 
-      head 200
+      head :no_content
     end
 
     def resend
@@ -99,3 +99,4 @@ module Auth
     end
   end
 end
+
