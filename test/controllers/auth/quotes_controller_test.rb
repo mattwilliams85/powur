@@ -36,10 +36,16 @@ module Auth
       siren.wont_have_actions(:submit)
     end
 
+    test 'show ready_to_submit lead' do
+      get:show, id: quotes(:ready_to_submit).id
+
+      siren.must_have_action(:submit)
+    end
+
     test 'show submitted lead' do
       get :show, id: quotes(:in_progress).id
 
-      siren.wont_have_actions(:update, :delete, :submit, :resend)
+      siren.wont_have_actions(:update, :delete, :submit)
       lead_update = siren.entity('quote-update')
       lead_update.props_must_equal(status: 'working_lead')
     end

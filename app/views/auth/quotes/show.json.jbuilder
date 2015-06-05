@@ -12,13 +12,12 @@ if @quote.last_update
                   lead_update: @quote.last_update)
 end
 
+path = quote_path(@quote)
+resend = action(:resend, :post, path)
+
 if @quote.submitted_at?
-
-  actions(quotes_json.auth_actions(@quote))
-
+  actions(resend)
 else
-  path = quote_path(@quote)
-
   update = action(:update, :patch, path)
     .field(:first_name, :text, value: @quote.customer.first_name)
     .field(:last_name, :text, value: @quote.customer.last_name)
@@ -29,12 +28,30 @@ else
     .field(:state, :text, required: false, value: @quote.customer.state)
     .field(:zip, :text, required: false, value: @quote.customer.zip)
 
-  quotes_json.action_quote_fields(update) do |field, opts|
+  @quote.product.quote_fields.each do |field|
+    opts = { required: field.required, product_field: true }
+
+    if field.lookup?
+      lookups = field.lookups.sort_by { |i| [ i.group, i.value ] }
+      next if lookups.empty?
+      opts[:options] = lookups.map do |lookup|
+        attrs = { display: lookup.value }
+        attrs[:group] = lookup.group if lookup.group
+        attrs
+      end
+    end
+
     opts.merge!(
       value:         field.normalize(@quote.data[field.name]),
       product_field: true)
+
+    update.field(field.name, field.view_type, opts)
   end
 
-  actions(quotes_json.auth_actions(@quote))
+  list = [ resend, update, action(:delete, :delete, path) ]
+  if @quote.can_submit?
+    list << action(:submit, :post, submit_quote_path(@quote))
+  end
 
+  actions(list)
 end
