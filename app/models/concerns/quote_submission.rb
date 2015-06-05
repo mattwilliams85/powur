@@ -19,7 +19,7 @@ module QuoteSubmission
       fail 'Lead is not ready for submission or has already been submitted'
     end
 
-    ENV['SIMULATE_LEAD_SUBMIT'] ? submit_to_provider : submit_to_provider
+    ENV['SIMULATE_LEAD_SUBMIT'] ? simulate_submit : submit_to_provider
     submitted!
   end
 
