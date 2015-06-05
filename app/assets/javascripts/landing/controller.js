@@ -52,6 +52,8 @@
             $scope.user.first_name = data.properties.first_name;
             $scope.user.last_name = data.properties.last_name;
             $scope.user.email = data.properties.email;
+            $scope.applicationAndAgreementLink = data.properties.latest_terms.document_path;
+            $scope.applicationAndAgreementVersion = data.properties.latest_terms.version;
           }
         });
       }
@@ -75,6 +77,8 @@
     }
 
     $scope.signUp = function() {
+      $scope.user.termsAccepted === false;
+      $scope.user.tos = '';
       if ($scope.user) {
         $scope.isSubmitDisabled = true;
         var action;
@@ -84,6 +88,10 @@
           }
         }
         $scope.user.code = $scope.invite.properties.id;
+
+        if ($scope.user.termsAccepted === true) {
+          $scope.user.tos = $scope.applicationAndAgreementVersion;
+        }
         CommonService.execute(action, $scope.user).then(signUpCallback);
       }
     };
@@ -91,7 +99,6 @@
     $scope.clearInviteValidationForm = function() {
       $scope.invite = {};
       $scope.user = {};
-      $scope.invite.er
     };
 
     $scope.resetPassword = function() {
