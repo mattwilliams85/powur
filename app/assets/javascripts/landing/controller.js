@@ -77,7 +77,6 @@
     }
 
     $scope.signUp = function() {
-      $scope.user.termsAccepted === false;
       $scope.user.tos = '';
       if ($scope.user) {
         $scope.isSubmitDisabled = true;
