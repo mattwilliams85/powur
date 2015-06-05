@@ -42,15 +42,15 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true, on: :create
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   # validates_presence_of :address, :city, :state, allow_nil: true
-  validates :tos,
-            presence: { message: 'Please read and agree to the terms and conditions in the Application and Agreement' }
-  validate :latest_agreement_version, on: :create
-  def latest_agreement_version
-    latest_agreement = ApplicationAgreement.current
-    if latest_agreement && latest_agreement.version != tos
-      errors.add(:tos, 'Outdated terms and conditions')
-    end
-  end
+  # validates :tos,
+  #           presence: { message: 'Please read and agree to the terms and conditions in the Application and Agreement' }
+  # validate :latest_agreement_version, on: :create
+  # def latest_agreement_version
+  #   latest_agreement = ApplicationAgreement.current
+  #   if latest_agreement && latest_agreement.version != tos
+  #     errors.add(:tos, 'Outdated terms and conditions')
+  #   end
+  # end
 
   before_create :set_url_slug
   before_create :destroy_used_invite

@@ -37,8 +37,7 @@ namespace :powur do
       attrs = attrs_from_row(row)
       attrs.merge!(
         id:         id,
-        sponsor_id: sponsor_id,
-        tos:        true)
+        sponsor_id: sponsor_id)
       user = User.create!(attrs)
       puts "Created user #{user.full_name} : #{user.id}"
 
@@ -62,6 +61,7 @@ namespace :powur do
         return
       end
 
+      puts "importing advocates from file #{path}"
       data = CSV.read(path)
       data.shift
 
