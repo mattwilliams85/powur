@@ -8,6 +8,8 @@
       $rootScope.currentUser = user;
     });
 
+    $scope.videoIconImagePath = legacyImagePaths.videoIconImagePath;
+
     $scope.items = [];
     $scope.itemsPaging = {
       current_page: 1
