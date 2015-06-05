@@ -12,7 +12,11 @@ if @quote.last_update
                   lead_update: @quote.last_update)
 end
 
-unless @quote.submitted_at?
+if @quote.submitted_at?
+
+  actions(quotes_json.auth_actions(@quote))
+
+else
   path = quote_path(@quote)
 
   update = action(:update, :patch, path)
@@ -31,10 +35,6 @@ unless @quote.submitted_at?
       product_field: true)
   end
 
-  list = [
-    update,
-    action(:delete, :delete, path),
-    action(:resend, :post, path) ]
+  actions(quotes_json.auth_actions(@quote))
 
-  actions(list)
 end

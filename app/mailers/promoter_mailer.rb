@@ -20,10 +20,8 @@ class PromoterMailer < ActionMailer::Base
 
   def new_quote(quote)
     to = "#{quote.customer.full_name} <#{quote.customer.email}>"
-    quote_url = customer_quote_url(quote.user.url_slug, quote.url_slug)
     merge_vars = {
       promoter_name: quote.user.full_name,
-      quote_url:     quote_url,
       solar_guide_url: "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-home-solar-guide.pdf" }
 
     mail_chimp to, 'customer-onboard', merge_vars
