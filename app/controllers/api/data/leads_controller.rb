@@ -51,7 +51,7 @@ module Api
 
         quote = fetch_quote(record[:uid])
 
-        key_dates = record[:keyDates]
+        key_dates = record[:keyDates].select { |_k, v| !v.nil? }
         order_status = (record[:order] || {})[:status]
 
         opp = record[:opportunity] || {}
