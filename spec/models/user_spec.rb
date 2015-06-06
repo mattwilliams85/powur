@@ -42,44 +42,6 @@ describe User, type: :model do
     it 'destroys the invite used to create the user' do
       expect(Invite.find_by(email: "#{user.email}")).to be_nil
     end
-
-    describe 'validates latest application and agreement version' do
-      subject { user.errors.messages }
-
-      context 'current agreement does not exist' do
-        before do
-          allow(ApplicationAgreement).to receive(:current).and_return(nil)
-        end
-
-        it 'passes validation' do
-          expect { user }.not_to raise_error
-        end
-      end
-
-      context 'current agreement version does not match tos' do
-        let(:user_params) { { tos: '1.1' } }
-
-        before do
-          allow(ApplicationAgreement).to receive(:current).and_return(double(:agreement, {version: '1.2'}))
-        end
-
-        it 'raises error' do
-          expect { user }.to raise_error(ActiveRecord::RecordInvalid, 'Outdated terms and conditions')
-        end
-      end
-
-      context 'agreement version and tos match' do
-        let(:user_params) { { tos: '1.2' } }
-
-        before do
-          allow(ApplicationAgreement).to receive(:current).and_return(double(:agreement, {version: '1.2'}))
-        end
-
-        it 'passes validation' do
-          expect { user }.not_to raise_error
-        end
-      end
-    end
   end
 
   describe '#upline' do
