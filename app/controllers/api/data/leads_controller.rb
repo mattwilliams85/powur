@@ -67,7 +67,7 @@ module Api
           if !value.nil? && KEY_DATES.include?(key.to_s)
             attrs[key] = date_from_string(value)
           end
-        end
+        end if record[:keyDates]
 
         attrs
       end
