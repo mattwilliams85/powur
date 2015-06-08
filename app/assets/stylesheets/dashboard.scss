@@ -1447,7 +1447,9 @@ $kpi-text-color: #888;
         color: #ccc;
       }
 
-      div.status, div.details {
+      div.status,
+      div.details,
+      div.solarcity-status {
         font-size: 18pt;
         line-height: 20pt;
         padding: 10px;
