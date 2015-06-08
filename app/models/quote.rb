@@ -82,6 +82,19 @@ class Quote < ActiveRecord::Base
     event :submitted do
       transitions from: :ready_to_submit, to: :submitted
     end
+
+    event :update_received do
+      transitions from: [ :submitted, :in_progress ],
+                  to:   :closed_won,
+                  if:   ->{ last_update.closed_won? }
+      transitions from: [ :submitted, :in_progress ],
+                  to:   :on_hold,
+                  if:   ->{ last_update.on_hold? }
+      transitions from: [ :submitted, :in_progress ],
+                  to:   :lost,
+                  if:   ->{ last_update.lost? }
+      transitions from: :submitted, to: :in_progress
+    end
   end
 
   def calculate_status!

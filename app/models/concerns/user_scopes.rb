@@ -94,6 +94,18 @@ module UserScopes
       joins(:user_user_groups)
         .where(user_user_groups: { user_group_id: ids })
     }
+
+    scope :ranked_up, ->{ where.not(organic_rank: nil) }
+    scope :needs_lifetime_rank_up, ->{
+      ranked_up.where('lifetime_rank is null or organic_rank > lifetime_rank')
+    }
+
+    scope :needs_organic_rank_up, ->{
+      joins_sql = UserUserGroup.highest_ranks.to_sql
+      select('hr.highest_rank, users.id')
+        .joins("join (#{joins_sql}) hr on hr.user_id = users.id")
+        .where('organic_rank is null or organic_rank < hr.highest_rank')
+    }
   end
 
   module ClassMethods

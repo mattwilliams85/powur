@@ -27,4 +27,27 @@ class UserTest < ActiveSupport::TestCase
     quote.input!.must_equal true
     quote.status.must_equal 'incomplete'
   end
+
+  test 'update received' do
+    quote = quotes(:submitted_new_update)
+    last_update = quote.last_update
+
+    quote.update_received.must_equal true
+    quote.status.must_equal 'in_progress'
+
+    last_update.status = 'closed_lost'
+    quote.update_received.must_equal true
+    quote.status.must_equal 'lost'
+
+    quote.status = 'in_progress'
+    last_update.status = 'duplicate'
+    quote.update_received.must_equal true
+    quote.status.must_equal 'on_hold'
+
+    quote.status = 'in_progress'
+    last_update.status = 'in_progress'
+    last_update.contract = 1.day.ago
+    quote.update_received.must_equal true
+    quote.status.must_equal 'closed_won'
+  end
 end

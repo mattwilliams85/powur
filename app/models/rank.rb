@@ -2,6 +2,7 @@ class Rank < ActiveRecord::Base
   has_many :qualifications, dependent: :destroy
   has_many :ranks_user_groups
   has_many :user_groups, through: :ranks_user_groups, dependent: :destroy
+  has_many :requirements, class_name: 'UserGroupRequirement', through: :user_groups
 
   default_scope -> { order(:id) }
   scope :with_qualifications, lambda {
@@ -22,49 +23,49 @@ class Rank < ActiveRecord::Base
     @last.nil? ? (@last = (id == Rank.maximum(:id))) : @last
   end
 
-  def lifetime_path?(path_id)
-    list = qualifiers(path_id)
-    !list.empty? && list.all?(&:lifetime?)
-  end
+  # def lifetime_path?(path_id)
+  #   list = qualifiers(path_id)
+  #   !list.empty? && list.all?(&:lifetime?)
+  # end
 
-  def monthly_path?(path_id)
-    list = qualifiers(path_id)
-    !list.empty? && list.any?(&:monthly?)
-  end
+  # def monthly_path?(path_id)
+  #   list = qualifiers(path_id)
+  #   !list.empty? && list.any?(&:monthly?)
+  # end
 
-  def weekly_path?(path_id)
-    list = qualifiers(path_id)
-    !list.empty? && list.any?(&:weekly?)
-  end
+  # def weekly_path?(path_id)
+  #   list = qualifiers(path_id)
+  #   !list.empty? && list.any?(&:weekly?)
+  # end
 
-  def grouped_qualifiers
-    @grouped_qualifiers ||= qualifications.group_by(&:rank_path_id)
-  end
+  # def grouped_qualifiers
+  #   @grouped_qualifiers ||= qualifications.group_by(&:rank_path_id)
+  # end
 
-  def qualifiers(path_id)
-    @qualifiers ||= {}
-    @qualifiers[path_id] ||= (grouped_qualifiers[path_id] || []) +
-                             (grouped_qualifiers[nil] || [])
-  end
+  # def qualifiers(path_id)
+  #   @qualifiers ||= {}
+  #   @qualifiers[path_id] ||= (grouped_qualifiers[path_id] || []) +
+  #                            (grouped_qualifiers[nil] || [])
+  # end
 
-  def qualified_path?(path_id, order_totals)
-    !qualifiers(path_id).empty? && qualifiers(path_id).all? do |qualifier|
-      if order_totals.product_id == qualifier.product_id
-        totals = order_totals
-      else
-        totals = order_totals.pay_period.find_order_total!(
-          order_totals.user_id, qualifier.product_id)
-      end
-      qualifier.met?(totals)
-    end
-  end
+  # def qualified_path?(path_id, order_totals)
+  #   !qualifiers(path_id).empty? && qualifiers(path_id).all? do |qualifier|
+  #     if order_totals.product_id == qualifier.product_id
+  #       totals = order_totals
+  #     else
+  #       totals = order_totals.pay_period.find_order_total!(
+  #         order_totals.user_id, qualifier.product_id)
+  #     end
+  #     qualifier.met?(totals)
+  #   end
+  # end
 
-  private
+  # private
 
-  def _time_period_path?(period, path_id)
-    list = qualifiers(path_id)
-    !list.nil? && list.all?(&period)
-  end
+  # def _time_period_path?(period, path_id)
+  #   list = qualifiers(path_id)
+  #   !list.nil? && list.all?(&period)
+  # end
 
   class << self
     def rank_range

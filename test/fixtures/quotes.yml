@@ -24,6 +24,9 @@ ready_to_submit:
 submitted:
   <<: *DEFAULTS
   status: <%= Quote.statuses['submitted'] %>
+submitted_new_update:
+  <<: *DEFAULTS
+  status: <%= Quote.statuses['submitted'] %>
 in_progress:
   <<: *DEFAULTS
   status: <%= Quote.statuses['in_progress'] %>

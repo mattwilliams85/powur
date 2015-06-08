@@ -12,16 +12,6 @@ describe Invite do
     expect(invite.expires).to be > (DateTime.current + 23.hours)
   end
 
-  it 'searches on invites' do
-    user = create(:user)
-    create(:invite, sponsor: user, first_name: 'Garry')
-    create(:invite, sponsor: user, last_name: 'Gareys')
-    create(:invite, sponsor: user, email: 'test+gary@test.com')
-
-    results = Invite.search('gary')
-    expect(results.size).to eq(3)
-  end
-
   it 'does not allow an empty string on phone' do
     expect { create(:invite, phone: '') }
       .to raise_error(ActiveRecord::RecordInvalid)

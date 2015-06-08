@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
     @lifetime_achievements ||= rank_achievements
                                .where('pay_period_id is not null')
                                .order(rank_id: :desc, path: :asc).entries
-  end
+  end  
 
   def make_customer!
     Customer.create!(first_name: first_name, last_name: last_name, email: email)
@@ -194,24 +194,36 @@ class User < ActiveRecord::Base
   end
 
   class << self
-    UPDATE_LIFETIME_RANKS = "
-        UPDATE users
-        SET lifetime_rank = ra.rank_id
-        FROM (
-          SELECT user_id, max(rank_id) rank_id
-          FROM rank_achievements
-          WHERE pay_period_id = ?
-          GROUP BY user_id) ra
-        WHERE users.id = ra.user_id AND
-          (ra.rank_id > users.lifetime_rank OR users.lifetime_rank IS NULL)"
+    # UPDATE_LIFETIME_RANKS = "
+    #     UPDATE users
+    #     SET lifetime_rank = ra.rank_id
+    #     FROM (
+    #       SELECT user_id, max(rank_id) rank_id
+    #       FROM rank_achievements
+    #       WHERE pay_period_id = ?
+    #       GROUP BY user_id) ra
+    #     WHERE users.id = ra.user_id AND
+    #       (ra.rank_id > users.lifetime_rank OR users.lifetime_rank IS NULL)"
+    # def update_lifetime_ranks(pay_period_id)
+    #   sql = sanitize_sql([ UPDATE_LIFETIME_RANKS, pay_period_id ])
+    #   connection.execute(sql)
+    # end
 
-    def update_lifetime_ranks(pay_period_id)
-      sql = sanitize_sql([ UPDATE_LIFETIME_RANKS, pay_period_id ])
+    def update_organic_ranks
+      joins_sql = needs_organic_rank_up.to_sql
+      sql = "
+        update users u
+        set organic_rank = r.highest_rank
+        from (#{joins_sql}) r
+        where r.id = u.id;"
       connection.execute(sql)
     end
 
-    UPDATE_PARENT = "upline = ARRAY[%s] || upline[%s:array_length(upline,1)]"
+    def update_lifetime_ranks
+      needs_lifetime_rank_up.update_all('lifetime_rank = organic_rank')
+    end
 
+    UPDATE_PARENT = "upline = ARRAY[%s] || upline[%s:array_length(upline,1)]"
     def move_user(user, parent)
       if user.id == parent.id
         fail ArgumentError, 'A user cannot be their own parent'
