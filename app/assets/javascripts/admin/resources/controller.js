@@ -56,24 +56,22 @@
     $scope.create = function() {
       if ($scope.resource) {
         $scope.isSubmitDisabled = true;
+        $scope.resource.youtube_id = validateYoutubeId($scope.resource.youtube_id);
         CommonService.execute({
           method: 'POST',
           href: '/a/resources.json'
-        }, $scope.resource).then(function success(data) {
+        }, $scope.resource).then(function success() {
           $scope.isSubmitDisabled = false;
-          if (data.error) {
-            $scope.showModal('Error, while saving data, please check input');
-            return;
-          }
           $location.path('/admin/resources');
           $scope.showModal('You\'ve successfully added a new resource.');
-        });
+        }, formErrorCallback);
       }
     };
 
     $scope.update = function() {
       if ($scope.resource) {
         $scope.isSubmitDisabled = true;
+        $scope.resource.youtube_id = validateYoutubeId($scope.resource.youtube_id);
         CommonService.execute({
           method: 'PUT',
           href: '/a/resources/' + $scope.resource.id + '.json'
@@ -126,6 +124,24 @@
         return $scope.$eval(clickAction)(arg);
       }
     };
+
+    function validateYoutubeId(youtubeId) {
+      if (typeof youtubeId === 'undefined') return;
+
+      var re, str;
+
+      // Test for regular full youtube url
+      re = /v\=(.+)$/i;
+      str = youtubeId.match(re);
+      if (str && str.length) return str[1];
+
+      // Test for embed youtube url
+      re = /be\/(.+)$/i;
+      str = youtubeId.match(re);
+      if (str && str.length) return str[1];
+
+      return youtubeId;
+    }
 
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
