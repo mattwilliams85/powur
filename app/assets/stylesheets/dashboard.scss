@@ -516,7 +516,7 @@ $kpi-text-color: #888;
   */
   .welcome-section {
     // min-height: 600px; (height for when progress bars are included in Welcome Section)
-    min-height: 550px; // FOR BETA
+    min-height: 580px; // FOR BETA
 
     // Background
     &.bg {
@@ -554,7 +554,7 @@ $kpi-text-color: #888;
     }
 
     .pay-period-goals {
-      margin-top: 40px; 
+      margin-top: 40px;
       padding-right: 20px;
 
       // Progress Bars
@@ -762,6 +762,11 @@ $kpi-text-color: #888;
         &.full {
           bottom: -70px;
         }
+      }
+
+      .course-requirement-message {
+        display: block;
+        margin-top: 20px;
       }
     }
 

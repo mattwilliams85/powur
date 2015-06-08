@@ -69,7 +69,7 @@
 
     $scope.onEnd = function(){
       $timeout(function(){
-        $('.bar').removeClass('hold')
+        $('.bar').removeClass('hold');
         $('.progress-text').fadeIn('slow');
       }, 1000);
     };
@@ -89,29 +89,37 @@
           personal_lifetime: 0,
           group: 0,
           group_lifetime: 0,
-        }
+        };
       }
-      
-      if (requirement.properties.event_type === 'personal_sales') { 
-        if (requirement.properties.time_span === 'Lifetime') { 
+
+      if (requirement.properties.event_type === 'personal_sales') {
+        if (requirement.properties.time_span === 'Lifetime') {
           userTotal = orderTotals.personal_lifetime;
         } else {
           userTotal = orderTotals.personal;
         }
-        $scope.goals.personal = userTotal + " / " + requirement.properties.quantity;
-        percentage = userTotal / requirement.properties.quantity  * 100
+        $scope.goals.personal = userTotal + ' / ' + requirement.properties.quantity;
+        percentage = userTotal / requirement.properties.quantity  * 100;
       } else if (requirement.properties.event_type === 'group_sales') {
-        if (requirement.properties.time_span === 'Lifetime') { 
+        if (requirement.properties.time_span === 'Lifetime') {
           userTotal = orderTotals.group_lifetime;
         } else {
           userTotal = orderTotals.group;
         }
-        $scope.goals.group = userTotal + " / " + requirement.properties.quantity;
+        $scope.goals.group = userTotal + ' / ' + requirement.properties.quantity;
         percentage = userTotal / requirement.properties.quantity * 100
       }
       else {
         // Match Course
         var courses = $scope.goals.entities[2].entities;
+
+        // TODO: FIT course requirement message would be coming from the goal requirement
+        if (!courses[0] || courses[0].properties.state !== 'completed') {
+          $scope.courseRequirementMessage = 'Welcome to Powur. First step, unlock your Dasboard by passing the F.I.T test. (Fast Impact Training)';
+        }
+
+        // TODO: compare current enrollments and requirements,
+        // not just enrolled courses length
         if (!courses.length) {
           $scope.courseLinking = true;
           $scope.goals.courseState = 'not enrolled';
@@ -137,8 +145,7 @@
       return percentage + '%';
     };
 
-
-    $scope.socialQuote = '"Don\'t try to fight the existing reality, build a new model that makes the old model obsolete" - Buckminster Fuller';
+    $scope.socialQuote = 'Don\'t try to fight the existing reality, build a new model that makes the old model obsolete\' - Buckminster Fuller';
   }
 
   DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService'];
