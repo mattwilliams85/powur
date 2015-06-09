@@ -1,5 +1,6 @@
 module Auth
   class QuotesController < AuthController
+    before_action :verify_fit_completion, except: [:index]
     before_action :fetch_user!
     before_action :fetch_quotes, only: [ :index ]
     before_action :fetch_quote,
@@ -99,4 +100,3 @@ module Auth
     end
   end
 end
-

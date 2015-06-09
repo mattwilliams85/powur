@@ -1,5 +1,7 @@
 module Auth
   class KpiMetricsController < AuthController
+    before_action :verify_fit_completion, only: [:proposals_show, :proposals_index]
+
     helper_method :users_for_period
     helper_method :orders_for_user
 

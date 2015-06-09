@@ -1,5 +1,7 @@
 module Auth
   class UsersController < AuthController
+    before_action :verify_fit_completion, except: [:index]
+
     include UsersActions
 
     sort newest: { created_at: :desc },
@@ -26,7 +28,7 @@ module Auth
 
     def move
       # require_input :parent_id
-      
+
       # child = User.find(params[:child_id])
       # parent = User.find(params[:parent_id])
       # child.assign_parent(parent)
@@ -37,7 +39,7 @@ module Auth
 
       require_input :parent_id
 
-     
+
 
       parent = User.find(params[:parent_id])
       if parent.ancestor?(current_user.id) && @user.ancestor?(current_user.id)

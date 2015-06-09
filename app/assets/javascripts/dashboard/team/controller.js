@@ -73,8 +73,10 @@
 
     // Show Team Member
     $scope.changeTab = function(teamMember, gen, tab) {
+      if (!$scope.isTabClickable) return;
+
       // Set active tab for generation
-      gen.selected = teamMember.id; 
+      gen.selected = teamMember.id;
       gen.tab = tab;
       // Delay for transition between multiple animations
       var delay = 300;
@@ -84,7 +86,7 @@
       } else {
         $scope.closeForm();
         $scope.currentTeamMember = teamMember;
-          
+
         if (tab === 'team') {
           User.downline(teamMember.id, {sort: $scope.teamSection.teamSort}).then(function(item) {
             $timeout(function(){

@@ -19,6 +19,11 @@ class AuthController < WebController
     head(:unauthorized)
   end
 
+  def verify_fit_completion
+    return true unless current_user.require_class_completion?
+    head(:unauthorized)
+  end
+
   def fetch_user
     return nil unless user_id_param?
     not_found!(:user, user_id) if user_id == 0

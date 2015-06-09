@@ -25,7 +25,7 @@
 
     // Check if action exists (used in front-end for action buttons)
     $scope.hasAction = function(actionName) {
-      if ($scope.proposal) {
+      if (Object.keys($scope.proposal).length) {
         var action = $scope.getAction($scope.proposalItem.actions, actionName);
         if (action) return true;
         else return false;
@@ -56,7 +56,7 @@
     };
 
     // Initialize Carousel
-    var initCarousel = function(carouselElement) {
+    function initCarousel(carouselElement) {
       $(carouselElement).owlCarousel({
         items: 4,
         itemsCustom: false,
@@ -75,22 +75,21 @@
         touchDrag: true,
         beforeMove: closeForm
       });
-
-    };
+    }
 
     // Close Form when Moving Carousel
-    var closeForm = function(event) {
+    function closeForm(event) {
       if ($scope.updatingProposal !== true) {
         $timeout(function() {
           $scope.closeForm();
         });
       }
-    };
+    }
 
     // Destroy Carousel
-    var destroyCarousel = function(carouselElement) {
+    function destroyCarousel(carouselElement) {
       $(carouselElement).data('owlCarousel').destroy();
-    };
+    }
 
     // Refresh Carousel
     function refreshCarousel(cb) {
@@ -112,6 +111,8 @@
 
     // Show Proposal
     $scope.customerSection.showProposal = function(proposalIndex) {
+      if (!$scope.isTabClickable) return;
+
       $scope.updatingProposal = false;
       var proposalId = $scope.proposals[proposalIndex].properties.id;
       $scope.proposalIndex = proposalIndex;
@@ -155,6 +156,8 @@
 
     // New Proposal Action
     $scope.customerSection.newProposal = function() {
+      if (!$scope.isTabClickable) return;
+
       if ($scope.showForm === true && $scope.mode === 'new') {
         $scope.closeForm();
         return;
@@ -332,6 +335,7 @@
     */
     $rootScope.$watch('currentUser', function(data) {
       if (!Object.keys(data).length) return;
+
       getQuotes(function(items) {
         $scope.proposals = items.entities;
         $timeout(function(){
@@ -339,7 +343,6 @@
         });
       });
     });
-
   }
 
   DashboardCustomersCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$timeout', '$route', '$anchorScroll', 'CommonService'];

@@ -118,6 +118,8 @@
     $scope.legacyImagePaths = legacyImagePaths;
 
     $scope.changeTab = function(section) {
+      if (!$scope.isTabClickable) return;
+
       if ($scope.section === section) {
         return $scope.section = '';
       } else if (section === 'rank') {

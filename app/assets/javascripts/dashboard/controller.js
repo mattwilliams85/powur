@@ -4,10 +4,15 @@
   function DashboardCtrl($scope, $rootScope, $location, $timeout, UserProfile, CommonService) {
     $scope.redirectUnlessSignedIn();
 
+    $rootScope.isTabClickable = false;
+
     //Fetch Profile
     UserProfile.get().then(function(user) {
       $rootScope.currentUser = user;
       $scope.fetchGoals();
+      if (!user.require_enrollment) {
+        $rootScope.isTabClickable = true;
+      }
     });
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):
