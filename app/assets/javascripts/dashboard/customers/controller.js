@@ -23,6 +23,16 @@
       return;
     };
 
+    // Check if action exists (used in front-end for action buttons)
+    $scope.hasAction = function(actionName) {
+      if ($scope.proposal) {
+        var action = $scope.getAction($scope.proposalItem.actions, actionName);
+        if (action) return true;
+        else return false;
+      }
+      return;
+    };
+
     // Set values from action's fields' values
     $scope.setFormValues = function(formAction) {
       var formValues = {};
@@ -81,6 +91,22 @@
     var destroyCarousel = function(carouselElement) {
       $(carouselElement).data('owlCarousel').destroy();
     };
+
+    // Refresh Carousel
+    function refreshCarousel(cb) {
+      getQuotes(function(items) {
+        $scope.closeForm();
+        destroyCarousel('.proposals');
+        $timeout(function() {
+          $scope.proposals = items.entities;
+          $timeout(function() {
+            initCarousel('.proposals');
+            if (cb) return cb();
+            return;
+          });
+        });
+      });
+    }
 
     // Controller Actions:
 
@@ -162,7 +188,7 @@
     function actionCallback(action) {
       return function() {
         if (action.name === 'create' || action.name === 'delete') {
-          refreshProposalsCarousel(function() {
+          refreshCarousel(function() {
             $timeout(function() {
               if (action.name === 'create') {
                 $('.proposals').data('owlCarousel').goTo(0);
@@ -190,32 +216,16 @@
           $scope.closeForm();
           $anchorScroll();
           $scope.showModal('This proposal was submitted to SolarCity!');
-          refreshProposalsCarousel();
+          refreshCarousel();
 
         } else if (action.name === 'resend') {
           $scope.closeForm();
           $anchorScroll();
           $scope.showModal('This proposal email was successfully re-sent to ' +
-            $scope.proposal.first_name + ' ' +
-            $scope.proposal.last_name + ' at ' +
+            $scope.proposal.customer + ' at ' +
             $scope.proposal.email + '.');
         }
       };
-    }
-
-    function refreshProposalsCarousel(cb) {
-      getQuotes(function(items) {
-        $scope.closeForm();
-        destroyCarousel('.proposals');
-        $timeout(function() {
-          $scope.proposals = items.entities;
-          $timeout(function() {
-            initCarousel('.proposals');
-            if (cb) return cb();
-            return;
-          });
-        });
-      });
     }
 
     // Submit Proposal to SolarCity Action
@@ -255,6 +265,7 @@
       }
     };
 
+    // Animate Form Opening/Closing
     $scope.animateDrilldown = function () {
       $scope.drilldownActive = true;
       $timeout( function(){
@@ -277,6 +288,7 @@
     $scope.customerSection.proposalStatus = '';
     $scope.customerSection.proposalSearch = '';
 
+    // Apply Search
     $scope.customerSection.search = function () {
       $scope.customerSection.proposalSort = 'created';
       $scope.customerSection.proposalStatus = '';
@@ -288,6 +300,7 @@
       }
     };
 
+    // Apply Sort/Status
     $scope.customerSection.applyIndexActions = function() {
       var data = {
         sort: $scope.customerSection.proposalSort,
@@ -311,6 +324,12 @@
       });
     };
 
+
+    // getQuotes Main Function
+    /*
+    * The carousel needs $rootScope.currentUser.id when it calls the endpoint (/u/users/:userId/quotes.json)
+    * This watches $rootScope.currentUser then calls getQuotes() when it has an object
+    */
     $rootScope.$watch('currentUser', function(data) {
       if (!Object.keys(data).length) return;
       getQuotes(function(items) {
@@ -320,6 +339,7 @@
         });
       });
     });
+
   }
 
   DashboardCustomersCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$timeout', '$route', '$anchorScroll', 'CommonService'];

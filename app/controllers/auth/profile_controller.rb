@@ -15,6 +15,8 @@ module Auth
     def ewallet_details
       @auto_login_url = build_auto_login_url(current_user)
       @ewallet_details = get_ewallet_customer_details(current_user)
+      # User has to finish required class to have an iPayout account
+      head :precondition_failed if @ewallet_details[:status] == 'error'
     end
 
     def update

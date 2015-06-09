@@ -36,10 +36,16 @@ module Auth
       siren.wont_have_actions(:submit)
     end
 
+    test 'show ready_to_submit lead' do
+      get:show, id: quotes(:ready_to_submit).id
+
+      siren.must_have_action(:submit)
+    end
+
     test 'show submitted lead' do
       get :show, id: quotes(:in_progress).id
 
-      siren.wont_have_actions(:update, :delete, :submit, :resend)
+      siren.wont_have_actions(:update, :delete, :submit)
       lead_update = siren.entity('quote-update')
       lead_update.props_must_equal(status: 'working_lead')
     end
@@ -85,9 +91,7 @@ module Auth
       quote = quotes(:incomplete)
       delete :destroy, id: quote.id
 
-      siren.must_be_class(:quotes)
-      result = siren.entities.find { |e| e.properties.id == quote.id }
-      result.must_be_nil
+      response.status.must_equal 204
     end
 
     test 'destroy quote not belonging to user' do

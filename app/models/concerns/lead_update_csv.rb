@@ -8,6 +8,7 @@ module LeadUpdateCSV
     'Days Elapsed', 'SolarworksStatus', 'SolarworksSubStatus',
     'OpportunityId', 'LeadOwner', 'OpportunityOwner', 'JobCreatedDate' ]
   DATE_FIELDS = {
+    contract:     'FinalContractDate',
     consultation: 'ConsultationDate',
     installation: 'InstallationDate' }
 

@@ -16,6 +16,7 @@
         $location.path('/dashboard');
       } else {
         $scope.currentUser = user;
+        $scope.termsMessage = user.latest_terms.message;
         $timeout(function() {
           new PDFObject({
             url: user.latest_terms.document_path,

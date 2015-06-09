@@ -89,12 +89,12 @@
                 </div>
               </div>
 
+              <small ng-if="user.email">This is the email you'll use to sign into Powur.</small>
               <!-- Email -->
               <div class="row">
                 <div class="large-12 columns">
                   <label for="user_email" ng-class="{ 'error' : formErrorMessages['email'] }">Email</label>
                   <input ng-model="user.email" name="user_email" type="text" disabled>
-                  <small ng-if="user.email">This is the email you'll use to sign into Powur.</small>
                 </div>
               </div>
 
@@ -177,13 +177,13 @@
                 <!-- Checkbox -->
                 <div class="small-3 columns">
                   <div class="switch">
-                    <input ng-model="user.tos" name="user_tos" id="user_tos" type="checkbox">
-                    <label for="user_tos" ng-class="{ 'error' : formErrorMessages['tos'] }"></label>
+                    <input ng-model="user.termsAccepted" name="user_terms_accepted" id="user_terms_accepted" type="checkbox">
+                    <label for="user_terms_accepted" ng-class="{ 'error' : formErrorMessages['tos'] }"></label>
                   </div>
                 </div>
                 <!-- Label -->
                 <div class="small-9 columns">
-                  <span>I agree to the terms and conditions set forth in the <a href="{{legacyImagePaths.applicationAndAgreementLink}}" target="_blank">Application and Agreement</a>.</span>
+                  <span>I agree to the terms and conditions set forth in the <a href="{{applicationAndAgreementLink}}" target="_blank">Application and Agreement</a>.</span>
                 </div>
               </div>
             </fieldset>

@@ -11,6 +11,18 @@ class LeadUpdate < ActiveRecord::Base
     { leadUpdateId: id, providerUid: provider_uid }
   end
 
+  def on_hold?
+    DUPE_STATUS.include?(status)
+  end
+
+  def closed_won?
+    contract?
+  end
+
+  def lost?
+    LOST_STATUS.include?(status)
+  end
+
   def quote_status
     return :on_hold if DUPE_STATUS.include?(status)
     return :closed_won if contract?

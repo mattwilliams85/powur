@@ -19,13 +19,23 @@ module QuoteSubmission
       fail 'Lead is not ready for submission or has already been submitted'
     end
 
+    ENV['SIMULATE_LEAD_SUBMIT'] ? simulate_submit : submit_to_provider
+    submitted!
+  end
+
+  def submit_to_provider
     form = SolarCityForm.new(self)
     form.post
     fail(form.error) if form.error? && !form.dupe?
     update(
       provider_uid: form.provider_uid,
       submitted_at: DateTime.parse(form.response.headers[:date]))
-    submitted!
+  end
+
+  def simulate_submit
+    update(
+      provider_uid: "simulated:#{SecureRandom.hex(2)}",
+      submitted_at: DateTime.current)
   end
 
   class << self

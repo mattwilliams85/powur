@@ -43,6 +43,7 @@ module Api
       end
 
       REQUIRED_PARAMS = [ :uid, :providerUid, :status, :lastUpdated ]
+      KEY_DATES = %w(consultation contract installation)
       def record_to_lead_attrs(record)
         missing = REQUIRED_PARAMS.select { |p| record[p].nil? }
         unless missing.empty?
@@ -50,22 +51,25 @@ module Api
         end
 
         quote = fetch_quote(record[:uid])
-
-        key_dates = record[:keyDates]
         order_status = (record[:order] || {})[:status]
 
         opp = record[:opportunity] || {}
-        { quote_id:           quote.id,
+        attrs = { 
+          quote_id:           quote.id,
           provider_uid:       record[:providerUid],
           status:             record[:status],
           lead_status:        record[:leadStatus],
           opportunity_stage:  record[:opportunityStage],
           contact:            record[:contact],
           order_status:       order_status,
-          updated_at:         date_from_string(record[:lastUpdated]),
-          consultation:       date_from_string(key_dates[:consultation]),
-          contract:           date_from_string(key_dates[:contract]),
-          installation:       date_from_string(key_dates[:installation]) }
+          updated_at:         date_from_string(record[:lastUpdated]) }
+        record[:keyDates].each do |key, value|
+          if !value.nil? && KEY_DATES.include?(key.to_s)
+            attrs[key] = date_from_string(value)
+          end
+        end if record[:keyDates]
+
+        attrs
       end
 
       def create_lead_update(attrs)

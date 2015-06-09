@@ -3,6 +3,7 @@ DEFAULTS: &DEFAULTS
   last_name: Diggler
   email: $LABEL@eyecuelab.com
   encrypted_password: <%= default_password_digest %>
+  tos: true
 
 advocate:
   <<: *DEFAULTS

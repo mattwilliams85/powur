@@ -36,16 +36,18 @@
     };
 
     $scope.create = function() {
+      $scope.formErrorMessages = {};
+      $scope.errorMessage = {};
       if ($scope.item) {
         $scope.isSubmitDisabled = true;
         CommonService.execute($scope.formAction, $scope.item).then(function success(data) {
           $scope.isSubmitDisabled = false;
           if (data.error) {
-            $scope.showModal('Error, while saving data, please check input');
+            $scope.errorMessage[data.error.input] = data.error.message;
             return;
           }
           $location.path('/admin/application-agreements');
-          $scope.showModal('You\'ve successfully added a new application agreement.');
+          $scope.showModal('You\'ve successfully added a new Application Agreement.');
         });
       }
     };
@@ -55,11 +57,11 @@
       CommonService.execute(action, $scope.item).then(function success(data) {
         $scope.isSubmitDisabled = false;
         if (data.error) {
-          $scope.showModal('Error, while published');
+          $scope.showModal('Error: This Application Agreement couldn\'t be published.');
           return;
         }
         item.properties = data.properties;
-        $scope.showModal('You\'ve successfully published agreement.');
+        $scope.showModal('You\'ve successfully published a new Application Agreement.');
       });
     };
 
@@ -68,11 +70,11 @@
       CommonService.execute(action, $scope.item).then(function success(data) {
         $scope.isSubmitDisabled = false;
         if (data.error) {
-          $scope.showModal('Error, while un-published');
+          $scope.showModal('Error: This Application Agreement couldn\'t be unpublished.');
           return;
         }
         item.properties = data.properties;
-        $scope.showModal('You\'ve successfully un-published agreement.');
+        $scope.showModal('You\'ve successfully un-published this Application Agreement.');
       });
     };
 

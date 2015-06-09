@@ -37,8 +37,18 @@ class Invite < ActiveRecord::Base
     params[:sponsor_id] = sponsor_id
     params[:email] = email
 
-    user = User.create(params)
-    Invite.where(email: email).update_all(user_id: user.id)
+    user = User.new(params)
+
+    latest_agreement = ApplicationAgreement.current
+    if latest_agreement && latest_agreement.version != params[:tos]
+      user.errors.add(:tos, 'Please read and agree to the latest terms and conditions in the Application and Agreement')
+      return user
+    end
+
+    if user.save
+      Invite.where(email: email).update_all(user_id: user.id)
+    end
+
     user
   end
 

@@ -13,7 +13,7 @@
     <!-- Video File Upload Field -->
     <div class="row" ng-if="resourceType === 'video'">
       <div class="large-12 columns">
-        <label>Choose a Video File</label><br />
+        <label>Choose a Video File</label>
         <small>Files must be .mp4 format</small>
         <span ng-show="errorMessage('file_original_path')" class="radius alert label">{{errorMessage('file_original_path')}}</span>
         <input ng-model="resource.file_original_path" name="file_original_path" id="resource_file_original_path" type="text" ng-required="true" />
@@ -22,8 +22,8 @@
     </div>
     <div class="row" ng-if="resourceType === 'video'">
       <div class="large-12 columns">
-        <label for="resource_youtube_id">Youtube link alternative:</label><br>
-        https://www.youtube.com/watch?v=<input ng-model="resource.youtube_id" name="youtube_id" id="resource_youtube_id" type="text" class="text-inline-field" />
+        <label for="resource_youtube_id">Youtube link alternative:</label>
+        <input ng-model="resource.youtube_id" name="youtube_id" id="resource_youtube_id" type="text" class="text-inline-field" />
       </div>
     </div>
     <!-- Document File Upload Field -->
@@ -38,7 +38,7 @@
     <!-- Thumbnail File Upload Field -->
     <div class="row">
       <div class="large-12 columns">
-        <label>Choose a thumbnail</label><br />
+        <label>Choose a thumbnail</label>
         <input ng-model="resource.image_original_path" name="image_original_path" id="resource_image_original_path" type="text" />
         <ng-s3-file-upload data="resource.image_original_path" config="/u/uploader_config.json?mode=resource_image" show-progress="1" auto-upload="1"></ng-s3-file-upload>
       </div>

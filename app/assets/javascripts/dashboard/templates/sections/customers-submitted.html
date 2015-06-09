@@ -54,11 +54,38 @@
             <label>Status</label>
             <p>{{ lead_update.properties.status | cleanLabel }}</p>
           </div>
-          <div class="details">
-            <label>Status Details from SolarCity</label>
+          <!-- Lead Status -->
+          <div ng-if="lead_update.properties.lead_status" class="status">
+            <label>Lead Status</label>
+            <p>{{ lead_update.properties.lead_status | cleanLabel }}</p>
+          </div>
+          <!-- Opportunity Stage -->
+          <div ng-if="lead_update.properties.opportunity_stage" class="status">
+            <label>Opportunity Stage</label>
+            <p>{{ lead_update.properties.opportunity_stage | cleanLabel }}</p>
+          </div>
+          <!-- Consultation Date -->
+          <div ng-if="lead_update.properties.consultation" class="status">
+            <label>Consulation Date</label>
+            <p>{{ lead_update.properties.consultation | dateToLocalDate }}</p>
+          </div>
+          <!-- Contract Signed Date -->
+          <div ng-if="lead_update.properties.contract" class="status">
+            <label>Contract Signed Date</label>
+            <p>{{ lead_update.properties.contract | dateToLocalDate }}</p>
+          </div>
+          <!-- Installation Date -->
+          <div ng-if="lead_update.properties.installation" class="status">
+            <label>Installation Date</label>
+            <p>{{ lead_update.properties.installation | dateToLocalDate }}</p>
+          </div>
+          <!-- Raw Status Details from Solar City -->
+          <div class="solarcity-status">
+            <label>More Details from SolarCity</label>
             <p ng-repeat="(key, value) in lead_update.properties.data">{{key}}: {{value}}</p>
           </div>
         </div>
+
 
       </fieldset>
     </div>

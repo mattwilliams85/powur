@@ -21,6 +21,7 @@
   <div class="row">
     <div ng-repeat="item in items" class="large-3 medium-4 small-6 columns left" ng-click="showResource(item)">
       <div class="resource">
+        <img class="video-icon" ng-src="{{videoIconImagePath}}" ng-if="item.properties.file_type === 'video/mp4'">
         <!-- Thumbnails or Media icons -->
         <div class="media-info">
           <div class="media-thumbnail" style="background-image: url('{{itemThumbnail(item)}}');"></div>

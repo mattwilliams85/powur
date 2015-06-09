@@ -29,8 +29,8 @@ module Auth
         customer:   customer,
         user:       current_user,
         data:       quote_input)
-
       @quote.input!
+
       show
     end
 
@@ -47,7 +47,7 @@ module Auth
 
       @quote.destroy
 
-      head 200
+      head :no_content
     end
 
     def resend
@@ -78,7 +78,7 @@ module Auth
     def fetch_quote
       @quote =
         if admin?
-          Quote.find_by(id: params[:id].to_i) || not_found!(:quote)
+          Quote.find_by(id: params[:id].to_i)
         else
           Quote.where(user_id: @user.id, id: params[:id].to_i).first
         end
@@ -99,3 +99,4 @@ module Auth
     end
   end
 end
+
