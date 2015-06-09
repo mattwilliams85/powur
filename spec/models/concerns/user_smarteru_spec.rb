@@ -110,6 +110,7 @@ describe UserSmarteru do
       before do
         expect(enrollments).to receive(:find_or_create_by).with(product_id: product.id).and_return(enrollment)
         expect(user).to receive(:product_enrollments).and_return(enrollments)
+        allow(enrollment).to receive(:removed?).and_return(false)
       end
       it { is_expected.to eq(enrollment) }
     end
@@ -119,8 +120,22 @@ describe UserSmarteru do
       before do
         expect(enrollments).to receive(:find_or_create_by).with(product_id: product.id).and_return(enrollment)
         expect(user).to receive(:product_enrollments).and_return(enrollments)
+        allow(enrollment).to receive(:removed?).and_return(false)
       end
-      it { is_expected.to eq(enrollment) }
+
+      it do
+        expect(enrollment).not_to receive(:reenroll!)
+        is_expected.to eq(enrollment)
+      end
+
+      context 're-enroll if enrollment was removed' do
+        before do
+          allow(enrollment).to receive(:removed?).and_return(true)
+          expect(enrollment).to receive(:reenroll!).and_return(true)
+        end
+
+        it { is_expected.to eq(enrollment) }
+      end
     end
   end
 
