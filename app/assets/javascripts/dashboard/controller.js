@@ -161,7 +161,7 @@
 
     $scope.showBetaDashboardVideoLink = true;
 
-    $scope.socialQuote = 'Don\'t try to fight the existing reality, build a new model that makes the old model obsolete\' - Buckminster Fuller';
+    $scope.socialQuote = '"Don\'t try to fight the existing reality, build a new model that makes the old model obsolete." - Buckminster Fuller';
   }
 
   DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService'];
