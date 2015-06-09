@@ -8,6 +8,16 @@
     UserProfile.get().then(function(user) {
       $rootScope.currentUser = user;
       $scope.fetchGoals();
+
+      // Logic for showing Powur Beta Dashboard Overview Video
+      if (user.watched_intro === false) {
+        $scope.showVideoModal($scope.legacyImagePaths.betaDashboardVideo);
+        UserProfile.update({user: {watched_intro: true}});
+      }
+
+      // Logic for showing link to Powur Beta Dashboard Overview Video
+      $scope.showBetaDashboardVideoLink = true;
+
     });
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):
@@ -157,9 +167,6 @@
         '</div>';
       $(domElement).foundation('reveal', 'open');
     };
-    // $scope.showVideoModal($scope.legacyImagePaths.betaDashboardVideo);
-
-    $scope.showBetaDashboardVideoLink = true;
 
     $scope.socialQuote = '"Don\'t try to fight the existing reality, build a new model that makes the old model obsolete." - Buckminster Fuller';
   }

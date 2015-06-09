@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
                  :address, :city, :state, :country, :zip, :phone
   store_accessor :profile,
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
-                 :communications
+                 :communications, :watched_intro
 
   # No extra email validation needed,
   # email validation and confirmation happens with Invite

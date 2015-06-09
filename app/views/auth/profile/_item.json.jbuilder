@@ -28,6 +28,9 @@ json.properties do
   unless current_user.accepted_latest_terms?
     json.latest_terms ApplicationAgreement.current
   end
+
+  # Hstore stores booleans as strings; below converts back to boolean
+  json.watched_intro current_user.watched_intro == 'true'
 end
 
 links link(:self, user_path(user))
