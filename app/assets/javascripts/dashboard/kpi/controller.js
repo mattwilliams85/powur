@@ -42,7 +42,7 @@
             // ** Required if scaleOverride is true **
             scaleSteps: 5,
             scaleStepWidth: 5,
-            // 
+            //
             scaleLabel : function (label) {
                 if (label.value === '0') return '';
                 return label.value;
@@ -137,7 +137,7 @@
     };
 
     $scope.scaleFontSize = function(string) {
-      if (string) {
+      if (!isNaN(string)) {
         string = string.toString();
         return Math.ceil(1000 / (Math.pow(string.length + 10, 1.2))) + 'pt';
       }
@@ -149,7 +149,7 @@
       $scope.generateLabels();
       $scope.setScale();
       var ctx = document.getElementById('metricsChart').getContext('2d');
-      
+
       $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
     };
 
@@ -158,11 +158,11 @@
       var max = Math.max.apply(Math, $scope.settings[0].datasets[0].data.concat($scope.settings[0].datasets[1].data));
 
       if (!max) {
-        $scope.settings[1].options.scaleStepWidth = 1; 
+        $scope.settings[1].options.scaleStepWidth = 1;
         $scope.settings[1].options.scaleSteps = 5;
       } else {
         $scope.settings[1].options.scaleStepWidth = Math.ceil((max * 1.2) / 12);
-        $scope.settings[1].options.scaleSteps = (max + (max / 2)) / $scope.settings[1].options.scaleStepWidth;   
+        $scope.settings[1].options.scaleSteps = (max + (max / 2)) / $scope.settings[1].options.scaleStepWidth;
         if($scope.settings[1].options.scaleSteps < 5) $scope.settings[1].options.scaleSteps = 5;
       }
     };
