@@ -83,7 +83,9 @@ module UserSmarteru
     response = smarteru_client.request('enrollLearningModules', payload)
     # Success, either enroll or  already enrolled
     if response.result.present? || (response.error && response.error[:error][:error_id] == 'ELM:19')
-      return self.product_enrollments.find_or_create_by(product_id: product.id)
+      enrollment = product_enrollments.find_or_create_by(product_id: product.id)
+      enrollment.reenroll! if enrollment.removed?
+      return enrollment
     end
     Airbrake.notify(response.error.to_s)
     false
