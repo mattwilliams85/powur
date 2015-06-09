@@ -515,8 +515,7 @@ $kpi-text-color: #888;
   WELCOME SECTION
   */
   .welcome-section {
-    // min-height: 600px; (height for when progress bars are included in Welcome Section)
-    min-height: 580px; // FOR BETA
+    min-height: 600px;
 
     // Background
     &.bg {
@@ -524,8 +523,7 @@ $kpi-text-color: #888;
       background-repeat: no-repeat;
       background-size: cover;
       position: absolute;
-      // background-position: center 25%; (height for when progress bars are included in Welcome Section)
-      background-position: center 45%; // FOR BETA
+      background-position: center 25%;
       left: 0;
       right: 0;
     }
@@ -543,13 +541,6 @@ $kpi-text-color: #888;
         width:128px;
         height: auto;
         border-radius: 50%;
-      }
-    }
-
-    // FOR BETA
-    @media #{$medium} {
-      .welcome-message {
-        padding-top: 100px;
       }
     }
 
@@ -779,8 +770,7 @@ $kpi-text-color: #888;
 
       .notifications {
         margin-top: 20px;
-        // height: 450px; (height for when progress bars are included in Welcome Section)
-        height: 230px; // FOR BETA
+        height: 400px;
         width: 100%;
         overflow-y: auto;
         overflow-x: hidden;
@@ -845,7 +835,7 @@ $kpi-text-color: #888;
     @media #{$small} {
       .news {
         margin-top: 0;
-        padding: 125px 60px;
+        padding: 125px 5px 0 0;
         background-color: initial;
       }
     }
