@@ -54,6 +54,16 @@
             <label>Status</label>
             <p>{{ lead_update.properties.status | cleanLabel }}</p>
           </div>
+          <!-- Lead Status -->
+          <div ng-if="lead_update.properties.lead_status" class="status">
+            <label>Lead Status</label>
+            <p>{{ lead_update.properties.lead_status | cleanLabel }}</p>
+          </div>
+          <!-- Opportunity Stage -->
+          <div ng-if="lead_update.properties.opportunity_stage" class="status">
+            <label>Opportunity Stage</label>
+            <p>{{ lead_update.properties.opportunity_stage | cleanLabel }}</p>
+          </div>
           <!-- Consultation Date -->
           <div ng-if="lead_update.properties.consultation" class="status">
             <label>Consulation Date</label>
