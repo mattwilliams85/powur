@@ -131,7 +131,7 @@
 
         // TODO: FIT course requirement message would be coming from the goal requirement
         if (!courses[0] || courses[0].properties.state !== 'completed') {
-          $scope.courseRequirementMessage = 'Welcome to Powur. First step, unlock your Dasboard by passing the F.I.T test. (Fast Impact Training)';
+          $scope.courseRequirementMessage = 'Welcome to Powur. First step, unlock your Dashboard by passing the F.I.T test. (Fast Impact Training)';
         }
 
         // TODO: compare current enrollments and requirements,
