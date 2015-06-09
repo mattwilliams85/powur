@@ -14,8 +14,6 @@
       </div>
     </div>
 
-    <!-- Below: Removed for Beta -->
-
     <!-- Row: Pay Period Goals -->
     <div ng-show="goals" class="pay-period-goals row">
       <div class="large-10 large-offset-1 medium-10 small-12 columns">
@@ -76,6 +74,7 @@
             </div>
           </div>
           <a ng-if="courseLinking" ng-href="/university/classes/{{goals.courseId}}/purchase"><div class="progress-text">Need to enroll? Click here.</div></a>
+          <a ng-if="showBetaDashboardVideoLink" ng-click="showVideoModal(legacyImagePaths.betaDashboardVideo)"><div class="progress-text"><i class="fa fa-play"></i> Play Powur Beta Dashboard Overview Video</div></a>
         </div><!-- end progress-bar-box -->
 
         <span ng-if="courseRequirementMessage" class="course-requirement-message">{{courseRequirementMessage}}</span>

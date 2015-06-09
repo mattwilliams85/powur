@@ -149,7 +149,7 @@
     $scope.showVideoModal = function(videoUrl) {
       var domElement =
         '<div class=\'reveal-modal\' data-options="close_on_background_click:false" data-reveal>' +
-        '<h3>' + 'Powur Beta Dashboard Introduction Video' + '</h3>' +
+        '<h3>' + 'Powur Beta Dashboard Overview' + '</h3>' +
         '<video width="100%" autoplay controls>' +
         '<source src="' + videoUrl + '" type="video/mp4">' +
         '</video>' +
@@ -158,6 +158,8 @@
       $(domElement).foundation('reveal', 'open');
     };
     // $scope.showVideoModal($scope.legacyImagePaths.betaDashboardVideo);
+
+    $scope.showBetaDashboardVideoLink = true;
 
     $scope.socialQuote = 'Don\'t try to fight the existing reality, build a new model that makes the old model obsolete\' - Buckminster Fuller';
   }
