@@ -3,7 +3,7 @@
 
 ## Seeding your DB (not to be done in production)
 
-```bash
+```
 rake powur:seed:products
 rake powur:seed:zip_codes
 rake powur:seed:library
@@ -14,18 +14,38 @@ rake powur:import:lead_updates DATA_API_ENV=production
 rake powur:seed:plan
 ```
 
-## Downloading/restoring a production snapshot
+
+## Working with Production DB backup
+
+### Download Production snapshot from heroku
+
+```
+curl -o ~/Downloads/latest.dump `heroku pg:backups public-url -a powur`
+```
+
+### Restore local DB from a snapshot
 
 ```
 rake db:drop db:create
-curl -o ~/Downloads/latest.dump `heroku pg:backups public-url -a powur`
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -d powur_development ~/Downloads/latest.dump
 ```
 
-## Prepare sensitive data for testing (ONLY for local or staging environment)
+### Prepare sensitive data for testing (ONLY for local or staging environment)
 
 This will add testing users, modify user passwords and emails (to prevent accidental emails going out from staging or localhost) etc...
 
-```bash
+```
 rake powur:prepare_data_for_testing
+```
+
+### Get latest Production backup url
+
+```
+heroku pg:backups public-url -a powur
+```
+
+### Restore Staging DB from Production backup
+
+```
+heroku pg:backups restore [backup url] DATABASE_URL -a powur-staging
 ```
