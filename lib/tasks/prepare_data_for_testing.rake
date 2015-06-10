@@ -30,7 +30,7 @@ namespace :powur do
     end
 
     # Create testing accounts
-    with_csv('eyecue-users') do |row|
+    with_csv('eyecue_users') do |row|
       attrs = attrs_from_csv_row(row)
 
       next if User.find_by(email: attrs[:email])
