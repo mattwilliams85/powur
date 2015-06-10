@@ -26,6 +26,10 @@ class User < ActiveRecord::Base
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications, :watched_intro
 
+  scope :within_date_range, ->(begin_date, end_date) {
+    where('created_at between ? and ?', begin_date, end_date)
+  }
+
   # No extra email validation needed,
   # email validation and confirmation happens with Invite
   validates :email,
@@ -131,15 +135,39 @@ class User < ActiveRecord::Base
     quotes.submitted.count
   end
 
+  def weekly_growth
+    User.with_parent(self.id).within_date_range(Date.today - 7, Date.today).count
+  end
+
   def fetch_proposal_metrics(start_date, end_date)
     {
       data0: orders.within_date_range(start_date, end_date),
       data1: complete_quotes.within_date_range(start_date, end_date).status(:submitted)
     }
   end
+  ##
 
-  def complete_quotes
-    quotes.where.not(id: self.orders.select('quote_id').map {|i| i})
+  def create_downline_tree
+    tree = {
+      self.id => {
+        user: self,
+        children: {}
+      }
+    }
+    populate_downline_tree(tree)
+  end
+
+  def populate_downline_tree(tree)
+    tree.keys.each do |key|
+      User.with_parent(key).each do |child|
+        tree[key][:children][child.id] = { 
+                                           user: child,
+                                           children: {} 
+                                         }
+      end
+      populate_downline_tree(tree[key][:children])
+    end
+    tree
   end
 
   def full_downline_count
@@ -156,7 +184,25 @@ class User < ActiveRecord::Base
     end
     @count
   end
-  ##
+
+  def fetch_full_downline
+    @downline = [];
+    fetch_children(self.id)
+  end
+
+  def fetch_children(parent_id)
+    team = User.with_parent(parent_id)
+    return if !team.length
+    @downline = @downline.concat(team)
+    team.each do |user_id|
+      fetch_children(user_id)
+    end
+    @downline
+  end
+
+  def complete_quotes
+    quotes.where.not(id: self.orders.select('quote_id').map {|i| i})
+  end
 
   def assign_parent(parent, params)
     self.class.move_user(self, parent)

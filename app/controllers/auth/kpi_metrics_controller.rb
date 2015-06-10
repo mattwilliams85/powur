@@ -25,6 +25,25 @@ module Auth
       render "auth/kpi_metrics/proposals/index"
     end
 
+    def genealogy_show
+      @user = User.find(params[:id])
+
+      render "auth/kpi_metrics/genealogy/show"
+    end
+
+    def genealogy_index
+      @user = User.find(params[:id])
+      @users = @user.downline_users
+
+      render "auth/kpi_metrics/genealogy/index"
+    end
+
+    def user_tree
+      @user = User.find(params[:id])
+
+      render "auth/kpi_metrics/tree/show"
+    end
+
     def generate_periods
       @periods = []
       (Time.now.strftime('%U').to_i).times do |i|

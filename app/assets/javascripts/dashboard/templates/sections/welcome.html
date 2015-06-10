@@ -48,7 +48,7 @@
               ng-if="requirement.properties.event_type === 'course_completion'"
               ng-class="{ half: goals.requirements.length === 2,
                           full: goals.requirements.length === 1 }">
-              <span class="progress-text">{{goals.courseState}}</span>
+              <span class="progress-text">{{courseState || 'not enrolled'}}</span>
               <div class="green bar hold"  style="width : {{calculateProgress(requirement)}}"></div>
               <!-- <div class="label below"></div> -->
             </div>
@@ -59,7 +59,7 @@
               ng-class="{ half: goals.requirements.length == 2,
                           full: goals.requirements.length === 1 }">
               <!-- <div class="label above"></div> -->
-              <span class="progress-text">{{goals.personal}}</span>
+              <span class="progress-text">{{goals.personal_sales}}</span>
               <div class="orange bar hold" style="width : {{calculateProgress(requirement)}}"></div>
             </div>
             <div
@@ -68,13 +68,16 @@
               data-percentage="{{goals.personalPercent}}"
               ng-class="{ half: goals.requirements.length === 2,
                           full: goals.requirements.length === 1 }">
-              <span class="progress-text">{{goals.group}}</span>
+              <span class="progress-text">{{goals.group_sales}}</span>
               <div class="blue bar hold" style="width : {{calculateProgress(requirement)}}"></div>
               <!-- <div class="label below"></div> -->
             </div>
           </div>
-          <a ng-if="courseLinking" ng-href="/university/classes/{{goals.courseId}}/purchase"><div class="progress-text">Need to enroll? Click here.</div></a>
-          <a ng-if="showBetaDashboardVideoLink" ng-click="showVideoModal(legacyImagePaths.betaDashboardVideo)"><div class="progress-text"><i class="fa fa-play"></i> Play Powur Beta Dashboard Overview Video</div></a>
+
+         <a ng-if="!courseState && !showBetaDashboardVideoLink" ng-href="/university/classes/{{goals.courseId}}/purchase"><div class="progress-text">Need to enroll?</div></a>
+         <br>
+         <a ng-if="showBetaDashboardVideoLink" ng-click="showVideoModal(legacyImagePaths.betaDashboardVideo)"><div class="progress-text"><i class="fa fa-play"></i> Play Powur Beta Dashboard Overview Video</div></a>
+
         </div><!-- end progress-bar-box -->
 
         <span ng-if="courseRequirementMessage" class="course-requirement-message">{{courseRequirementMessage}}</span>
