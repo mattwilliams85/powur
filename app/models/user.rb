@@ -165,10 +165,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def group?(group_id)
-    user_user_groups.exists?(group_id.to_s)
-  end
-
   def accepted_latest_terms?
     # TODO: cache current application agreement version
     # so we don't have to make a request
@@ -177,10 +173,34 @@ class User < ActiveRecord::Base
     current_version.nil? || current_version == tos
   end
 
+  def group?(group_id)
+    user_user_groups.exists?(group_id.to_s)
+  end
+
+  def highest_rank
+    @highest_rank ||= begin
+      result = UserUserGroup.highest_ranks(id).entries.first
+      result && result.attributes['highest_rank']
+    end
+  end
+
+  def needs_rank_up?
+    return false unless highest_rank
+    organic_rank.nil? || organic_rank < highest_rank ||
+      lifetime_rank.nil? || lifetime_rank < highest_rank
+  end
+
+  def rank_up!
+    self.organic_rank = highest_rank
+    self.lifetime_rank = highest_rank
+    self.save!
+  end
+
   private
 
   def destroy_used_invite
-    Invite.find_by(email: '#{email}').destroy! if Invite.find_by(email: '#{email}')
+    invite = Invite.find_by(email: "'#{email}'")
+    invite && invite.destroy!
   end
 
   def set_url_slug

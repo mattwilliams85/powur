@@ -2,6 +2,7 @@ module TestResponse
   def json
     response[:json] ||= begin
       type = response.content_type
+      binding.pry if !type.include?('json')
       type.must_match(/json/, "Expected json response, got '#{type}'")
       MultiJson.load(response.body)
     end
