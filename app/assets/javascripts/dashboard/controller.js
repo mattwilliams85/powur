@@ -11,7 +11,7 @@
       $rootScope.currentUser = user;
       $scope.fetchGoals();
 
-      if (!user.require_enrollment) {
+      if (user.organic_rank) {
         $rootScope.isTabClickable = true;
       }
 
@@ -98,17 +98,17 @@
       var quantity = Utility.searchObjVal(requirement, "quantity")
       $scope.courseState = Utility.searchObjVal($scope.goals, "state")
 
-      
+
       var salesTypes = {
         personal_sales: function() {
-          if (time_span === 'Lifetime') { 
+          if (time_span === 'Lifetime') {
             return Utility.searchObjVal($scope.goals, "personal_lifetime");
           } else {
             return Utility.searchObjVal($scope.goals, "personal");
           }
-        }, 
+        },
         group_sales: function() {
-          if (time_span === 'Lifetime') { 
+          if (time_span === 'Lifetime') {
             return Utility.searchObjVal($scope.goals, "group_lifetime")
           } else {
             return Utility.searchObjVal($scope.goals, "group")
@@ -127,9 +127,9 @@
             return 100;
           }
         },
-        default: function() { return } 
+        default: function() { return }
       };
-      
+
       var setRequirement = salesTypes[event_type] || salesTypes['default'];
       var result = setRequirement();
 
@@ -149,7 +149,7 @@
         '</div>';
       $(domElement).foundation('reveal', 'open');
     };
-   
+
     $scope.socialQuote = '"Don\'t try to fight the existing reality, build a new model that makes the old model obsolete" - Buckminster Fuller';
   }
 

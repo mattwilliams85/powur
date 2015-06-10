@@ -23,8 +23,6 @@ json.properties do
     json.team @user.full_downline_count
   end
 
-  json.require_enrollment user.require_class_completion?
-
   unless current_user.accepted_latest_terms?
     json.latest_terms ApplicationAgreement.current
   end

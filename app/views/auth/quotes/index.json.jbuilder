@@ -4,7 +4,7 @@ klass :quotes, :list
 
 json.entities @quotes, partial: 'item', as: :quote
 
-unless current_user.require_class_completion?
+if current_user.organic_rank
   create = action(:create, :post, request.path)
     .field(:first_name, :text)
     .field(:last_name, :text)
@@ -36,7 +36,7 @@ end
 actions_list = [
   index_action(request.path, true)
 ]
-actions_list << create unless current_user.require_class_completion?
+actions_list << create if current_user.organic_rank
 actions(*actions_list)
 
 self_link request.path

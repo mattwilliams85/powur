@@ -149,10 +149,4 @@ module UserSmarteru
     end
     response.result[:learner_report][:learner].to_a # Calling .to_a to standardize because if only one report returned, it would have it as an object
   end
-
-  def require_class_completion?
-    required_class = Product.where(is_required_class: true).first
-    return false unless required_class
-    !product_enrollments.find_by(product_id: required_class.id).try(:completed?)
-  end
 end

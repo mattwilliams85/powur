@@ -19,8 +19,9 @@ class AuthController < WebController
     head(:unauthorized)
   end
 
-  def verify_fit_completion
-    return true unless current_user.require_class_completion?
+  def verify_rank
+    # User ranks up after completing a class
+    return true if current_user.organic_rank
     head(:unauthorized)
   end
 

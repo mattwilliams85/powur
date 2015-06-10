@@ -1,6 +1,6 @@
 module Auth
   class UsersController < AuthController
-    before_action :verify_fit_completion, except: [:index]
+    before_action :verify_rank, except: [:index]
 
     include UsersActions
 
