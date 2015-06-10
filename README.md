@@ -21,3 +21,11 @@ rake db:drop db:create
 curl -o ~/Downloads/latest.dump `heroku pg:backups public-url -a powur`
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -d powur_development ~/Downloads/latest.dump
 ```
+
+## Prepare sensitive data for testing (ONLY for local or staging environment)
+
+This will add testing users, modify user passwords and emails (to prevent accidental emails going out from staging or localhost) etc...
+
+```bash
+rake powur:prepare_data_for_testing
+```
