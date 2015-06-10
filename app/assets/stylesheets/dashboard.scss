@@ -842,6 +842,26 @@ $kpi-text-color: #888;
 
   }
 
+  // FOR BETA
+  /*
+  Powur Beta Dashboard Overview Video
+  */
+
+  .dashboard-video-link-section {
+    height: 0;
+    position: relative;
+    top: -40px;
+    left: 20px;
+
+    // Tooltip Overrides
+    span {
+      border-bottom: none;
+      a {
+        color: #fff;
+      }
+    }
+  }
+
 
   /*
   SOCIAL MEDIA SECTION
