@@ -30,7 +30,7 @@
         }
       }
       var html = $('#item_' + item.properties.id).html();
-      $('<div class=\'reveal-modal library-modal\' data-reveal>' + html + '<a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+      $('<div class=\'reveal-modal\' data-reveal>' + html + '<a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
     };
 
     $scope.resourceTypeChange = function() {
