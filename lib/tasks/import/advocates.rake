@@ -2,7 +2,7 @@ namespace :powur do
   namespace :import do
 
     def last_advocate_file
-      Dir[Rails.root.join('db', 'import', '*.csv')].last
+      Dir[Rails.root.join('db', 'import', '*.csv')].sort.last
     end
 
     def merge_address(attrs, row)
