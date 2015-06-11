@@ -18,9 +18,10 @@ json.properties do
   end if @user.avatar?
   json.is_admin user.role?(:admin)
 
+  downline_ids = User.with_ancestor(@user.id).pluck(:id)
   json.metrics do
-    json.proposal @user.proposal_count
-    json.team @user.full_downline_count
+    json.proposal Quote.where(user_id: downline_ids).submitted.count
+    json.team downline_ids.count
   end
 
   unless current_user.accepted_latest_terms?

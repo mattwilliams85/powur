@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
     @lifetime_achievements ||= rank_achievements
                                .where('pay_period_id is not null')
                                .order(rank_id: :desc, path: :asc).entries
-  end  
+  end
 
   def make_customer!
     Customer.create!(first_name: first_name, last_name: last_name, email: email)
@@ -133,6 +133,11 @@ class User < ActiveRecord::Base
   # KPI METHODS
   def proposal_count
     quotes.submitted.count
+  end
+
+  def team_proposal_count
+    downline_ids = User.with_ancestor(id).pluck(:id)
+    Quote.where(user_id: downline_ids).submitted.count
   end
 
   def weekly_growth
@@ -160,29 +165,14 @@ class User < ActiveRecord::Base
   def populate_downline_tree(tree)
     tree.keys.each do |key|
       User.with_parent(key).each do |child|
-        tree[key][:children][child.id] = { 
+        tree[key][:children][child.id] = {
                                            user: child,
-                                           children: {} 
+                                           children: {}
                                          }
       end
       populate_downline_tree(tree[key][:children])
     end
     tree
-  end
-
-  def full_downline_count
-    @count = 0
-    count_children(self.id)
-  end
-
-  def count_children(parent_id)
-    downline = User.with_parent(parent_id).pluck(:id)
-    return if !downline.length
-    @count += downline.length
-    downline.each do |user_id|
-      count_children(user_id)
-    end
-    @count
   end
 
   def fetch_full_downline
