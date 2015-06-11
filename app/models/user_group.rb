@@ -47,7 +47,7 @@ class UserGroup < ActiveRecord::Base
     !requirements.entries.empty?
   end
 
-  def has_prouduct_requirement?(product_id)
+  def has_product_requirement?(product_id)
     needs_qualification? &&
       requirements.entries.any? { |req| req.product_id == product_id }
   end

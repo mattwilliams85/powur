@@ -279,6 +279,11 @@ class User < ActiveRecord::Base
       needs_lifetime_rank_up.update_all('lifetime_rank = organic_rank')
     end
 
+    def rank_up
+      update_organic_ranks
+      update_lifetime_ranks
+    end
+
     UPDATE_PARENT = "upline = ARRAY[%s] || upline[%s:array_length(upline,1)]"
     def move_user(user, parent)
       if user.id == parent.id
