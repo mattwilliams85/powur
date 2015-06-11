@@ -15,35 +15,30 @@
       <!-- Search -->
         <div class="row collapse">
           <form ng-submit="customerSection.search()">
-            <!-- If Search "Go" Button -->
-            <!-- <div class="no-padding large-9 medium-9 small-10 columns"> -->
             <div class="no-padding large-12 medium-12 small-12 columns">
               <input ng-model="customerSection.proposalSearch" type="search" placeholder="SEARCH">
             </div>
-            <!-- Search "Go" Button -->
-            <!-- <div class="no-padding large-3 medium-3 small-2 columns">
-              <button class="search button postfix" ng-click="customerSection.search()">Go</button>
-            </div> -->
           </form>
         </div>
       </div>
 
       <div class="large-3 hide-for-medium-down columns">
       <!-- Sort -->
-        <select class="sort" ng-model="customerSection.proposalSort" ng-change="customerSection.applyIndexActions()">
-          <option value="created">Order by Date</option>
-          <option value="customer">Order by Name</option>
+        <select class="sort"
+                ng-model="customerSection.proposalSort"
+                ng-change="customerSection.applyIndexActions()">
+          <option disabled value="">Sort By</option>
+          <option ng-repeat="(value, label) in customerSection.proposalSortOptions" ng-value="value">{{label}}</option>
         </select>
       </div>
 
       <div class="large-3 hide-for-medium-down columns">
       <!-- Filter: Status -->
-        <select class="sort" ng-model="customerSection.proposalStatus" ng-change="customerSection.applyIndexActions()">
+        <select class="sort"
+                ng-model="customerSection.proposalStatus"
+                ng-change="customerSection.applyIndexActions()">
           <option value="">Show All</option>
-          <option value="incomplete">Show Incomplete</option>
-          <option value="ready_to_submit">Show Ready To Submit</option>
-          <option value="submitted">Show Submitted</option>
-          <option value="ineligible_location">Show Ineligible Location</option>
+          <option ng-repeat="(value, label) in customerSection.proposalStatusOptions" ng-value="value">{{label}}</option>
         </select>
       </div>
 
@@ -115,7 +110,6 @@
 
     <!-- Row: Proposal Form -->
     <div class="drilldown" ng-class="{'active': drilldownActive == true}">
-      <div ng-hide="!showForm" class="fade-in-section" ng-class="{'active': showForm == true}">
       <div ng-hide="!showForm" class="fade-in-section" ng-class="{'opaque': showForm == true}">
         <div class="summary large-3 medium-3 columns">
 

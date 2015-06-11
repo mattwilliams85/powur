@@ -287,13 +287,34 @@
     // Index Actions
 
     // Defaults
-    $scope.customerSection.proposalSort = 'created';
+    $scope.customerSection.proposalSort = '';
     $scope.customerSection.proposalStatus = '';
     $scope.customerSection.proposalSearch = '';
+    $scope.customerSection.indexAction = {};
+
+    // Get Options from Index Action Fields for Sort and Status
+    $scope.customerSection.getOptions = function(indexAction, fieldName) {
+      for (var i in indexAction.fields) {
+        if (indexAction.fields[i].name === fieldName) {
+          return indexAction.fields[i].options;
+        }
+      }
+    };
+
+    // Set Options for Index Action Fields for Sort and Status
+    /*
+    * This function requires the initial getQuotes() request to run (see "getQuotes Main Function" below)
+    * $scope.customerSection.indexAction is set within the getQuotes() callback
+    */
+    $scope.$watch('customerSection.indexAction', function(data) {
+      if (!Object.keys(data).length) return;
+      $scope.customerSection.proposalSortOptions = $scope.customerSection.getOptions($scope.customerSection.indexAction, 'sort');
+      $scope.customerSection.proposalStatusOptions = $scope.customerSection.getOptions($scope.customerSection.indexAction, 'status');
+    });
 
     // Apply Search
     $scope.customerSection.search = function () {
-      $scope.customerSection.proposalSort = 'created';
+      $scope.customerSection.proposalSort = '';
       $scope.customerSection.proposalStatus = '';
       $scope.customerSection.applyIndexActions();
       if ($scope.customerSection.proposalSearch === '') {
@@ -312,7 +333,12 @@
       if ($scope.customerSection.proposalSearch) {
         data.search = $scope.customerSection.proposalSearch;
       }
+      if ($scope.customerSection.proposalStatus !== '') {
+        $scope.customerSection.searching = true;
+      }
+
       var href = '/u/users/' + $rootScope.currentUser.id + '/quotes'
+      $scope.closeForm();
       destroyCarousel('.proposals');
 
       $http({
@@ -337,7 +363,11 @@
       if (!Object.keys(data).length) return;
 
       getQuotes(function(items) {
+        // Set Proposals
         $scope.proposals = items.entities;
+        // Set Index Action
+        $scope.customerSection.indexAction = $scope.getAction(items.actions, 'index');
+        // Initialize Proposals Carousel
         $timeout(function(){
           initCarousel('.proposals');
         });
