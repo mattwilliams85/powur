@@ -900,7 +900,8 @@ ALTER SEQUENCE rank_paths_id_seq OWNED BY rank_paths.id;
 
 CREATE TABLE ranks (
     id integer NOT NULL,
-    title character varying NOT NULL
+    title character varying NOT NULL,
+    welcome_message text
 );
 
 
@@ -2402,3 +2403,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150601211613');
 
 INSERT INTO schema_migrations (version) VALUES ('20150603213402');
 
+INSERT INTO schema_migrations (version) VALUES ('20150611215105');

@@ -1,10 +1,13 @@
 ranks:
   - id: 1
     title: Advocate
+    welcome_message: Welcome to Powur. First step, unlock your dashboard by passing the F.I.T test. (Fast Impact Training)
   - id: 2
     title: Local Grid Leader
+    welcome_message: Congratulations on passing the FIT test. To go big in this business, you'll need a team behind you.  Powur Certification will give you the tools you need to make a huge impact!
   - id: 3
     title: Community Grid Leader
+    welcome_message: Certificaiton Rocks! You are on your way to building an awesome Solar business.  Submit some proposals to earn Team invites.
   - id: 4
     title: City Grid Leader
   - id: 5
