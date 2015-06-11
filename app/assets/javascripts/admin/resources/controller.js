@@ -126,7 +126,7 @@
     };
 
     function validateYoutubeId(youtubeId) {
-      if (typeof youtubeId === 'undefined') return;
+      if (!youtubeId || typeof youtubeId === 'undefined') return;
 
       var re, str;
 
@@ -161,9 +161,9 @@
       $scope.pagination(0);
     } else if ($scope.mode === 'new') {
       // Breadcrumbs: Library / New (Resource Type)
+      $scope.resourceType = $routeParams.resourceType === 'video' ? 'video' : 'document';
       $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/resources'});
       $rootScope.breadcrumbs.push({title: 'New ' + $scope.resourceType});
-      $scope.resourceType = $routeParams.resourceType === 'video' ? 'video' : 'document';
       $scope.resource = {
         is_public: true
       };
@@ -172,10 +172,10 @@
         href: '/a/resources/' + $routeParams.resourceId + '.json'
       }).then(function(item) {
         // Breadcrumbs: Library / Update (Resource Type)
+        $scope.resource = item.properties;
+        $scope.resourceType = item.properties.file_type === 'video/mp4' ? 'video' : 'document';
         $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/resources'});
         $rootScope.breadcrumbs.push({title: 'Update ' + $scope.resourceType});
-        $scope.resource = item.properties;
-        $scope.resourceType = $scope.resource.file_type === 'video/mp4' ? 'video' : 'document';
       });
     }
   };
