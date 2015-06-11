@@ -1084,6 +1084,10 @@ $kpi-text-color: #888;
         color: #F9F2E8;
         line-height: 15pt;
         display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+
         &.invert {
           color: #333;
         }
@@ -1210,6 +1214,7 @@ $kpi-text-color: #888;
               .info-box {
                 text-align: left;
                 margin-left: 5px;
+                max-width: 80%;
                 @media #{$small} {
                   margin-left: 10px;
                 }
@@ -1569,6 +1574,11 @@ $kpi-text-color: #888;
 
       .info-text.user-text {
         top: 25%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 85%;
+        margin: 0 auto;
       }
 
       .team-tabs {
