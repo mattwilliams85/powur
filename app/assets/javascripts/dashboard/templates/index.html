@@ -39,26 +39,30 @@
     </div>
   </div>
 
-  <!-- Below: Removed for Beta -->
-  <!-- KPI Section -->
-  <div class="row">
-    <div class="kpi-section large-12 columns">
-      <ng-include ng-controller="DashboardKPICtrl" src="'dashboard/templates/sections/kpi/show.html'"></ng-include>
-    </div>
-  </div>
+  <!-- Overlay to Lock Dashboard if FIT isn't complete -->
+  <div ng-class="{ 'locked': !isTabClickable }">
 
-  <!-- My Customers Section -->
-  <div class="row">
-    <div class="customers-section large-12 columns" ng-controller="DashboardCustomersCtrl">
-      <ng-include  src="'dashboard/templates/sections/customers.html'"></ng-include>
+    <!-- KPI Section -->
+    <div class="row">
+      <div class="kpi-section large-12 columns">
+        <ng-include ng-controller="DashboardKPICtrl" src="'dashboard/templates/sections/kpi/show.html'"></ng-include>
+      </div>
     </div>
-  </div>
 
-  <!-- My Team Section -->
-  <div class="row">
-    <div class="team-section large-12 columns">
-      <ng-include ng-controller="DashboardTeamCtrl" src="'dashboard/templates/sections/team.html'"></ng-include>
+    <!-- My Customers Section -->
+    <div class="row">
+      <div class="customers-section large-12 columns" ng-controller="DashboardCustomersCtrl">
+        <ng-include  src="'dashboard/templates/sections/customers.html'"></ng-include>
+      </div>
     </div>
+
+    <!-- My Team Section -->
+    <div class="row">
+      <div class="team-section large-12 columns">
+        <ng-include ng-controller="DashboardTeamCtrl" src="'dashboard/templates/sections/team.html'"></ng-include>
+      </div>
+    </div>
+
   </div>
 
 </main>

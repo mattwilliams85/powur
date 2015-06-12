@@ -11,6 +11,32 @@ $kpi-text-color: #888;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  // Locked Section
+
+  /*
+  A note on z-indexes for social media quote / locked dashboard overlay:
+  .locked (z=99)
+  .social-media-section .bg (z=100)
+  .social-media-section.quote (z=101)
+  */
+
+  .locked {
+    z-index: 99;
+    position: relative;
+  }
+
+  .locked:after {
+    z-index: 99;
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-bottom: -210px;
+    background: rgba(0,0,0,0.5);
+  }
+
   /*
   SHARED STYLES
   */
@@ -868,48 +894,53 @@ $kpi-text-color: #888;
   */
   .social-media-section {
     padding-top: 50px;
-    padding-bottom: 40px;
+    padding-bottom: 30px;
     background-color: #333;
 
     &.bg {
+      z-index: 100; // (added to put text/gray bg on top of .locked overlays)
       position: absolute;
       left: 0;
       right: 0;
       height: 180px;
       background-color: #333;
     }
+    .quote {
+      z-index: 101; // (added to put text/gray bg on top of .locked overlays)
 
-    .share-this {
-      padding-top: 20px;
+      .share-this {
+        padding-top: 20px;
 
-      .title {
-        text-align: left;
-        text-transform: uppercase;
-        font-size: 10pt;
-        color: #fff;
-        display: block;
-        float: left;
-        margin-right: 10px;
-        line-height: 15pt;
-      }
+        .title {
+          text-align: left;
+          text-transform: uppercase;
+          font-size: 10pt;
+          color: #fff;
+          display: block;
+          float: left;
+          margin-right: 10px;
+          line-height: 15pt;
+        }
 
-      .twitter-share-button, .fb-share-button {
-        display: block;
-        float: left;
-        margin-right: 10px;
+        .twitter-share-button, .fb-share-button {
+          display: block;
+          float: left;
+          margin-right: 10px;
 
-        span {
-          vertical-align: top !important;
+          span {
+            vertical-align: top !important;
+          }
         }
       }
+
+      .quote-text {
+        text-align: left;
+        color: #fff;
+        font-size: 16pt;
+        line-height: 20pt;
+      }
     }
 
-    .quote-text {
-      text-align: left;
-      color: #fff;
-      font-size: 16pt;
-      line-height: 20pt;
-    }
   }
   // Responsive Styles for Social Media Section:
 
