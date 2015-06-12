@@ -6,6 +6,7 @@ class AuthController < WebController
 
   def authenticate!
     return true if logged_in?
+    binding.pry
     unauthorized!(root_url)
   end
 
@@ -16,13 +17,13 @@ class AuthController < WebController
 
   def verify_terms_acceptance
     return true if current_user.accepted_latest_terms?
-    head(:unauthorized)
+    binding.pry
+    unauthorized!(dashboard_url)
   end
 
   def verify_rank
-    # User ranks up after completing a class
-    return true if current_user.organic_rank
-    head(:unauthorized)
+    return true if current_user.organic_rank?
+    unauthorized!(dashboard_url)
   end
 
   def fetch_user

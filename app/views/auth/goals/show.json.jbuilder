@@ -4,23 +4,23 @@ klass :goals
 
 self_link user_goals_path(@user)
 
-return unless @next_rank
-
 json.properties do
-  json.next_rank @next_rank.id
+  json.next_rank @next_rank && @next_rank.id
 end
 
-entities(entity('user_groups',
-                'goals-user_groups',
-                groups: @next_rank.user_groups),
-         entity('requirements',
-                'goals-requirements',
-                requirements: @requirements),
-         entity('enrollments',
-                'goals-enrollments',
-                requirements: @entrollments),
-         entity('order_totals',
-                'goals-order_totals',
-                order_totals: @order_totals))
+if @next_rank
+    entities(entity('user_groups',
+                    'goals-user_groups',
+                    groups: @next_rank.user_groups),
+             entity('requirements',
+                    'goals-requirements',
+                    requirements: @requirements),
+             entity('enrollments',
+                    'goals-enrollments',
+                    requirements: @entrollments),
+             entity('order_totals',
+                    'goals-order_totals',
+                    order_totals: @order_totals))
+end
 
 self_link user_goals_path(@user)

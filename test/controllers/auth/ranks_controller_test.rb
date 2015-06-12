@@ -22,8 +22,6 @@ module Auth
       end
 
       test 'index' do
-        create(:rank)
-
         get :index
 
         siren.must_have_action(:create)
@@ -39,7 +37,7 @@ module Auth
         post :create, title: 'foo'
 
         siren.must_be_class(:rank)
-        siren.props_must_equal(title: 'foo', id: 2)
+        siren.props_must_equal(title: 'foo', id: Rank.count)
       end
 
       test 'update' do
@@ -51,11 +49,12 @@ module Auth
 
       test 'delete' do
         rank = create(:rank)
+        expected = Rank.count - 1
 
         delete :destroy, id: rank.id
 
         siren.must_be_class(:ranks)
-        siren.must_have_entity_size(1)
+        siren.must_have_entity_size(expected)
       end
     end
   end

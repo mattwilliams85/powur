@@ -2,3 +2,7 @@ fit:
   user: advocate
   product: fit
   state: started
+cert:
+  user: advocate
+  product: cert
+  state: completed

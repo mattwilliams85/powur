@@ -4,6 +4,7 @@ DEFAULTS: &DEFAULTS
   email: $LABEL@eyecuelab.com
   encrypted_password: <%= default_password_digest %>
   tos: true
+  organic_rank: 1
 
 advocate:
   <<: *DEFAULTS

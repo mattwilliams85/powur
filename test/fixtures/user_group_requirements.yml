@@ -2,6 +2,10 @@ rank1:
   product: fit
   user_group: rank1
   event_type: 1
+rank2_cert:
+  product: cert
+  user_group: rank2
+  event_type: 1
 course:
   product: potpourri
   user_group: potpourri
