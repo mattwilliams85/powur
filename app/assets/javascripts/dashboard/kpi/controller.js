@@ -257,38 +257,39 @@
       }
     }
 
-    var genealogyTree = function() {
+    function genealogyTree() {
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/user_tree.json'}).then(function(data){
         $scope.tree = data.tree;
         $scope.buildChart();
       });
     }
 
-    var countChildren = function(obj, count, i) {
+    function countChildren(obj, i) {
       obj = obj['children']
-
       for(var key in obj) {
         if(obj.hasOwnProperty(key)){
             if ( new Date(obj[key].user.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
                 new Date(obj[key].user.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
                ) {
-            count += 1;
-            countChildren(obj[key], count);
+            tCount += 1;
           }
+          countChildren(obj[key], i);
         }
       }
-      return count;
     }
+    
+    var tCount;
 
-    var genealogyCount = function(j) {
+    function genealogyCount(j) {
       if (!$scope.tree) return;
-      // debugger
+
       var branch = searchObjBranch($scope.tree[$scope.currentUser.id], $scope.activeUser.id)
+
+      tCount = 0;
       //For each data point
-      var count = 0;
       for (var i = 0; i <= $scope.scale; i++) {
-        count = countChildren(branch, count, i)
-        $scope.settings[0].datasets[j].data.push(count);
+        countChildren(branch, i);
+        $scope.settings[0].datasets[j].data.push(tCount);
       }
     }
 

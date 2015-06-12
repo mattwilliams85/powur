@@ -26,10 +26,6 @@ class User < ActiveRecord::Base
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications, :watched_intro
 
-  scope :within_date_range, ->(begin_date, end_date) {
-    where('created_at between ? and ?', begin_date, end_date)
-  }
-
   # No extra email validation needed,
   # email validation and confirmation happens with Invite
   validates :email,
@@ -141,7 +137,7 @@ class User < ActiveRecord::Base
   end
 
   def weekly_growth
-    User.with_parent(self.id).within_date_range(Date.today - 7, Date.today).count
+    User.with_ancestor(self.id).within_date_range(Date.today - 7, Date.today).count
   end
 
   def fetch_proposal_metrics(start_date, end_date)
@@ -153,6 +149,8 @@ class User < ActiveRecord::Base
   ##
 
   def create_downline_tree
+    @downline = fetch_full_downline
+
     tree = {
       self.id => {
         user: self,
@@ -164,11 +162,13 @@ class User < ActiveRecord::Base
 
   def populate_downline_tree(tree)
     tree.keys.each do |key|
-      User.with_parent(key).each do |child|
-        tree[key][:children][child.id] = {
-                                           user: child,
-                                           children: {}
-                                         }
+      @downline.each do |user|
+        if user.sponsor_id == key
+          tree[key][:children][user.id] = {
+                                             user: user,
+                                             children: {}
+                                           }
+        end
       end
       populate_downline_tree(tree[key][:children])
     end
@@ -176,18 +176,7 @@ class User < ActiveRecord::Base
   end
 
   def fetch_full_downline
-    @downline = [];
-    fetch_children(self.id)
-  end
-
-  def fetch_children(parent_id)
-    team = User.with_parent(parent_id)
-    return if !team.length
-    @downline = @downline.concat(team)
-    team.each do |user_id|
-      fetch_children(user_id)
-    end
-    @downline
+    User.with_ancestor(self.id)
   end
 
   def complete_quotes
