@@ -6,7 +6,6 @@ class AuthController < WebController
 
   def authenticate!
     return true if logged_in?
-    binding.pry
     unauthorized!(root_url)
   end
 
@@ -17,7 +16,6 @@ class AuthController < WebController
 
   def verify_terms_acceptance
     return true if current_user.accepted_latest_terms?
-    binding.pry
     unauthorized!(dashboard_url)
   end
 

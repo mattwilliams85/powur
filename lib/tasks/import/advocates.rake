@@ -44,9 +44,6 @@ namespace :powur do
       return if placement_id == sponsor_id
       User.move_user(user, placement)
       puts "Placed user to #{placement.full_name} : #{placement.id}"
-    rescue => e
-      binding.pry
-      fail e
     end
 
     task advocates: :environment do
