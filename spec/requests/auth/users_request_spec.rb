@@ -58,14 +58,6 @@ describe '/u/users' do
   end
 
   describe '#search' do
-    context 'did not rank up yet' do
-      it 'returns 401 unauthorized' do
-        get user_path(1), format: :json
-
-        expect(response.code).to eq('401')
-      end
-    end
-
     context 'ranked up' do
       before do
         allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
@@ -89,14 +81,6 @@ describe '/u/users' do
   end
 
   describe '/:id' do
-    context 'did not rank up yet' do
-      it 'returns 401 unauthorized' do
-        get user_path(1), format: :json
-
-        expect(response.code).to eq('401')
-      end
-    end
-
     context 'ranked up' do
       before do
         allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
@@ -118,14 +102,6 @@ describe '/u/users' do
   end
 
   describe '/u/users/:id/downline' do
-    context 'did not rank up yet' do
-      it 'returns 401 unauthorized' do
-        get downline_user_path(1), format: :json
-
-        expect(response.code).to eq('401')
-      end
-    end
-
     context 'ranked up' do
       before do
         allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
@@ -148,14 +124,6 @@ describe '/u/users' do
   end
 
   describe '/u/users/:id/upline' do
-    context 'did not rank up yet' do
-      it 'returns 401 unauthorized' do
-        get upline_user_path(1), format: :json
-
-        expect(response.code).to eq('401')
-      end
-    end
-
     context 'ranked up' do
       before do
         allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
@@ -187,14 +155,6 @@ describe '/u/users' do
 
     def user_exists?(id)
       json_body['entities'].any? { |e| e['properties']['id'] == id }
-    end
-
-    context 'did not rank up yet' do
-      it 'returns 401 unauthorized' do
-        get eligible_parents_user_path(1), format: :json
-
-        expect(response.code).to eq('401')
-      end
     end
 
     context 'ranked up' do

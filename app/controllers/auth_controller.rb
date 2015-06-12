@@ -36,7 +36,7 @@ class AuthController < WebController
   end
 
   def unauthorized!(url)
-    request.xhr? ? head(:unauthorized) : redirect_to(url)
+    request.xhr? || request.format.json? ? head(:unauthorized) : redirect_to(url)
   end
 
   private
