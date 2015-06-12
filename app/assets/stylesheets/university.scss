@@ -75,7 +75,6 @@
         padding: 10px;
 
         .name {
-          display: inline-block;
           width: 80%;
           overflow: hidden;
           line-height: 1.7em;
@@ -83,14 +82,12 @@
         }
 
         .price {
-          display: inline-block;
           float: right;
           width: 18%;
           text-align: right;
         }
 
         .description {
-          display: inline-block;
           height: 120px;
           margin-bottom: 20px;
           overflow-y: auto;
