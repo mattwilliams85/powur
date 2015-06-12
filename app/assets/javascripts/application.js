@@ -46,6 +46,7 @@
 //= require_tree ./landing
 //= require_tree ./latest-terms
 //= require_tree ./library
+//= require_tree ./memberships
 //= require_tree ./profile
 //= require_tree ./promo
 //= require_tree ./university
