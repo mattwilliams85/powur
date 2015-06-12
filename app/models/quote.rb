@@ -71,7 +71,7 @@ class Quote < ActiveRecord::Base
       transitions from:   [ :incomplete, :ready_to_submit ],
                   to:     :ineligible_location,
                   unless: :zip_code_valid?
-      transitions from:   [ :ready_to_submit ],
+      transitions from:   [ :ready_to_submit, :ineligible_location ],
                   to:     :incomplete,
                   unless: :can_submit?
       transitions from: [ :incomplete, :ineligible_location ],
