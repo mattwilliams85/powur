@@ -68,22 +68,6 @@ describe User, type: :model do
       users = @parent.downline_users
       expect(users.map(&:id).sort).to eq(@children.map(&:id).sort)
     end
-
-  end
-
-  describe '#kpi_metrics' do
-
-    before :each do
-      @root = create(:user)
-      @parent = create(:user, sponsor: @root)
-      @children = create_list(:user, 2, sponsor: @parent)
-      @grandChildren = create_list(:user, 2, sponsor: @children[0])
-    end
-
-    it 'returns the correct full grid count from a user' do
-      expect(@root.full_downline_count).to eq(5)
-    end
-
   end
 
   describe '#make_customer!' do

@@ -1,13 +1,29 @@
 ;(function() {
   'use strict';
 
-  function DashboardCtrl($scope, $rootScope, $location, $timeout, UserProfile, CommonService) {
+  function DashboardCtrl($scope, $rootScope, $location, $timeout, UserProfile, CommonService, Utility) {
     $scope.redirectUnlessSignedIn();
+
+    $rootScope.isTabClickable = false;
 
     //Fetch Profile
     UserProfile.get().then(function(user) {
       $rootScope.currentUser = user;
       $scope.fetchGoals();
+
+      if (user.organic_rank) {
+        $rootScope.isTabClickable = true;
+      }
+
+      // Logic for showing Powur Beta Dashboard Overview Video
+      if (user.watched_intro === false) {
+        $scope.showVideoModal($scope.legacyImagePaths.betaDashboardVideo);
+        UserProfile.update({user: {watched_intro: true}});
+      }
+
+      // Logic for showing link to Powur Beta Dashboard Overview Video
+      $scope.showBetaDashboardVideoLink = true;
+
     });
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):
@@ -74,81 +90,70 @@
       }, 1000);
     };
 
-
     $scope.calculateProgress = function(requirement) {
       if (!requirement) return;
-      var percentage = 2;
-      var userTotal;
-      var orderTotals;
-      //If no order totals
-      if ($scope.goals.entities[3].entities.length) {
-        orderTotals = $scope.goals.entities[3].entities[0].properties;
-      } else {
-        orderTotals = {
-          personal: 0,
-          personal_lifetime: 0,
-          group: 0,
-          group_lifetime: 0,
-        };
-      }
 
-      if (requirement.properties.event_type === 'personal_sales') {
-        if (requirement.properties.time_span === 'Lifetime') {
-          userTotal = orderTotals.personal_lifetime;
-        } else {
-          userTotal = orderTotals.personal;
-        }
-        $scope.goals.personal = userTotal + ' / ' + requirement.properties.quantity;
-        percentage = userTotal / requirement.properties.quantity  * 100;
-      } else if (requirement.properties.event_type === 'group_sales') {
-        if (requirement.properties.time_span === 'Lifetime') {
-          userTotal = orderTotals.group_lifetime;
-        } else {
-          userTotal = orderTotals.group;
-        }
-        $scope.goals.group = userTotal + ' / ' + requirement.properties.quantity;
-        percentage = userTotal / requirement.properties.quantity * 100
-      }
-      else {
-        // Match Course
-        var courses = $scope.goals.entities[2].entities;
+      var event_type = Utility.searchObjVal(requirement, "event_type")
+      var time_span = Utility.searchObjVal(requirement, "time_span")
+      var quantity = Utility.searchObjVal(requirement, "quantity")
+      $scope.courseState = Utility.searchObjVal($scope.goals, "state")
 
-        // TODO: FIT course requirement message would be coming from the goal requirement
-        if (!courses[0] || courses[0].properties.state !== 'completed') {
-          $scope.courseRequirementMessage = 'Welcome to Powur. First step, unlock your Dasboard by passing the F.I.T test. (Fast Impact Training)';
-        }
 
-        // TODO: compare current enrollments and requirements,
-        // not just enrolled courses length
-        if (!courses.length) {
-          $scope.courseLinking = true;
-          $scope.goals.courseState = 'not enrolled';
-          $scope.goals.courseId = requirement.properties.product_id;
-        } else {
-          for (var i = 0; i < courses.length; i++) {
-            if (courses[i].properties.product_id === requirement.properties.product_id) {
-              if (courses[i].properties.state === 'enrolled') {
-                percentage = 33;
-                $scope.goals.courseState = 'enrolled';
-              } else if (courses[i].properties.state === 'started') {
-                percentage = 66;
-                $scope.goals.courseState = 'started';
-              } else if (courses[i].properties.state === 'completed') {
-                percentage = 100;
-                $scope.goals.courseState = 'completed';
-              }
-            }
+      var salesTypes = {
+        personal_sales: function() {
+          if (time_span === 'Lifetime') {
+            return Utility.searchObjVal($scope.goals, "personal_lifetime");
+          } else {
+            return Utility.searchObjVal($scope.goals, "personal");
           }
-        }
-      }
-      if(percentage === 0) percentage = 2;
-      return percentage + '%';
+        },
+        group_sales: function() {
+          if (time_span === 'Lifetime') {
+            return Utility.searchObjVal($scope.goals, "group_lifetime")
+          } else {
+            return Utility.searchObjVal($scope.goals, "group")
+          }
+        },
+        course_completion: function() {
+          quantity = 100;
+          $scope.goals.courseId = Utility.searchObjVal(requirement, "product_id")
+          if (!$scope.courseState) return 0;
+
+          if ($scope.courseState === 'enrolled') {
+            return 33;
+          } else if ($scope.courseState === 'started') {
+            return 66;
+          } else {
+            return 100;
+          }
+        },
+        default: function() { return }
+      };
+
+      var setRequirement = salesTypes[event_type] || salesTypes['default'];
+      var result = setRequirement();
+
+      $scope.goals[event_type] = result + " / " + quantity;
+      if (!result || !quantity) return '2%';
+      return (result / quantity  * 100) + '%';
     };
 
-    $scope.socialQuote = 'Don\'t try to fight the existing reality, build a new model that makes the old model obsolete\' - Buckminster Fuller';
+    $scope.showVideoModal = function(videoUrl) {
+      var domElement =
+        '<div class=\'reveal-modal\' data-options="close_on_background_click:false" data-reveal>' +
+        '<h3>' + 'Powur Beta Dashboard Overview' + '</h3>' +
+        '<video width="100%" autoplay controls>' +
+        '<source src="' + videoUrl + '" type="video/mp4">' +
+        '</video>' +
+        '<a class=\'close-reveal-modal\'>&#215;</a>' +
+        '</div>';
+      $(domElement).foundation('reveal', 'open');
+    };
+
+    $scope.socialQuote = '"Don\'t try to fight the existing reality, build a new model that makes the old model obsolete" - Buckminster Fuller';
   }
 
-  DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService'];
+  DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService', 'Utility'];
   angular.module('powurApp').controller('DashboardCtrl', DashboardCtrl)
   .directive('repeatEnd', function(){
     return {

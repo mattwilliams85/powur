@@ -4,13 +4,15 @@ klass :quotes, :list
 
 json.entities @quotes, partial: 'item', as: :quote
 
-create = action(:create, :post, request.path)
-  .field(:first_name, :text)
-  .field(:last_name, :text)
-  .field(:address, :text, required: false)
-  .field(:city, :text, required: false)
-  .field(:state, :text, required: false)
-  .field(:zip, :text, required: false)
+if current_user.organic_rank
+  create = action(:create, :post, request.path)
+    .field(:first_name, :text)
+    .field(:last_name, :text)
+    .field(:address, :text, required: false)
+    .field(:city, :text, required: false)
+    .field(:state, :text, required: false)
+    .field(:zip, :text, required: false)
+end
 
 product = Product.default
 if product
@@ -27,10 +29,14 @@ if product
       end
     end
 
-    create.field(field.name, field.view_type, opts)
+    create.field(field.name, field.view_type, opts) if create
   end
 end
 
-actions(index_action(request.path, true), create)
+actions_list = [
+  index_action(request.path, true)
+]
+actions_list << create if current_user.organic_rank
+actions(*actions_list)
 
 self_link request.path

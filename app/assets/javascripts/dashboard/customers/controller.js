@@ -25,7 +25,7 @@
 
     // Check if action exists (used in front-end for action buttons)
     $scope.hasAction = function(actionName) {
-      if ($scope.proposal) {
+      if ($scope.proposal && Object.keys($scope.proposal).length) {
         var action = $scope.getAction($scope.proposalItem.actions, actionName);
         if (action) return true;
         else return false;
@@ -56,7 +56,7 @@
     };
 
     // Initialize Carousel
-    var initCarousel = function(carouselElement) {
+    function initCarousel(carouselElement) {
       $(carouselElement).owlCarousel({
         items: 4,
         itemsCustom: false,
@@ -75,22 +75,21 @@
         touchDrag: true,
         beforeMove: closeForm
       });
-
-    };
+    }
 
     // Close Form when Moving Carousel
-    var closeForm = function(event) {
+    function closeForm(event) {
       if ($scope.updatingProposal !== true) {
         $timeout(function() {
           $scope.closeForm();
         });
       }
-    };
+    }
 
     // Destroy Carousel
-    var destroyCarousel = function(carouselElement) {
+    function destroyCarousel(carouselElement) {
       $(carouselElement).data('owlCarousel').destroy();
-    };
+    }
 
     // Refresh Carousel
     function refreshCarousel(cb) {
@@ -112,6 +111,8 @@
 
     // Show Proposal
     $scope.customerSection.showProposal = function(proposalIndex) {
+      if (!$scope.isTabClickable) return;
+
       $scope.updatingProposal = false;
       var proposalId = $scope.proposals[proposalIndex].properties.id;
       $scope.proposalIndex = proposalIndex;
@@ -155,6 +156,8 @@
 
     // New Proposal Action
     $scope.customerSection.newProposal = function() {
+      if (!$scope.isTabClickable) return;
+
       if ($scope.showForm === true && $scope.mode === 'new') {
         $scope.closeForm();
         return;
@@ -284,13 +287,34 @@
     // Index Actions
 
     // Defaults
-    $scope.customerSection.proposalSort = 'created';
+    $scope.customerSection.proposalSort = '';
     $scope.customerSection.proposalStatus = '';
     $scope.customerSection.proposalSearch = '';
+    $scope.customerSection.indexAction = {};
+
+    // Get Options from Index Action Fields for Sort and Status
+    $scope.customerSection.getOptions = function(indexAction, fieldName) {
+      for (var i in indexAction.fields) {
+        if (indexAction.fields[i].name === fieldName) {
+          return indexAction.fields[i].options;
+        }
+      }
+    };
+
+    // Set Options for Index Action Fields for Sort and Status
+    /*
+    * This function requires the initial getQuotes() request to run (see "getQuotes Main Function" below)
+    * $scope.customerSection.indexAction is set within the getQuotes() callback
+    */
+    $scope.$watch('customerSection.indexAction', function(data) {
+      if (!Object.keys(data).length) return;
+      $scope.customerSection.proposalSortOptions = $scope.customerSection.getOptions($scope.customerSection.indexAction, 'sort');
+      $scope.customerSection.proposalStatusOptions = $scope.customerSection.getOptions($scope.customerSection.indexAction, 'status');
+    });
 
     // Apply Search
     $scope.customerSection.search = function () {
-      $scope.customerSection.proposalSort = 'created';
+      $scope.customerSection.proposalSort = '';
       $scope.customerSection.proposalStatus = '';
       $scope.customerSection.applyIndexActions();
       if ($scope.customerSection.proposalSearch === '') {
@@ -309,7 +333,12 @@
       if ($scope.customerSection.proposalSearch) {
         data.search = $scope.customerSection.proposalSearch;
       }
+      if ($scope.customerSection.proposalStatus !== '') {
+        $scope.customerSection.searching = true;
+      }
+
       var href = '/u/users/' + $rootScope.currentUser.id + '/quotes'
+      $scope.closeForm();
       destroyCarousel('.proposals');
 
       $http({
@@ -332,14 +361,18 @@
     */
     $rootScope.$watch('currentUser', function(data) {
       if (!Object.keys(data).length) return;
+
       getQuotes(function(items) {
+        // Set Proposals
         $scope.proposals = items.entities;
+        // Set Index Action
+        $scope.customerSection.indexAction = $scope.getAction(items.actions, 'index');
+        // Initialize Proposals Carousel
         $timeout(function(){
           initCarousel('.proposals');
         });
       });
     });
-
   }
 
   DashboardCustomersCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$timeout', '$route', '$anchorScroll', 'CommonService'];

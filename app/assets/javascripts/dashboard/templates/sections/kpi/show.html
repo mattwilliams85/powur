@@ -20,7 +20,7 @@
         <span class="kpi-header uppercase show-for-large-up">current rank</span>
       </div>
     </div>
-    <div class="kpi-tab" ng-class="{'active': section === 'conversion'}" ng-click="changeTab('conversion')">
+    <div class="kpi-tab" ng-class="{'active': section === 'proposals'}" ng-click="changeTab('proposals')">
       <div class="kpi-info-box">
         <!-- Small Screens: Checkmark Icon / Orders -->
         <span class="kpi-count show-for-small"><i class="fa fa-check-square-o fa-3x"></i></span>
@@ -30,7 +30,7 @@
         <span class="kpi-header uppercase show-for-medium-up">Proposals</span>
       </div>
     </div>
-    <div class="kpi-tab inactive" ng-class="{'active': section === 'genealogy'}">
+    <div class="kpi-tab" ng-class="{'active': section === 'genealogy'}" ng-click="changeTab('genealogy')">
     <!-- <div class="kpi-tab inactive" ng-class="{'active': section === 'genealogy'}" ng-click="changeTab('genealogy')"> -->
       <div class="kpi-info-box">
         <!-- Small Screens: Grid Icon / Grid -->
@@ -78,7 +78,7 @@
 <div class="kpi-drilldown drilldown" ng-class="{'active': section}">
   <ng-include ng-if="section === 'environment'" src="'dashboard/templates/sections/kpi/metrics/environment.html'"></ng-include>
 <!--   <ng-include ng-if="section === 'environment' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/environment-beta.html'"></ng-include> -->
-  <ng-include ng-if="section === 'conversion'" src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include>
+  <ng-include ng-if="section === 'proposals'" src="'dashboard/templates/sections/kpi/metrics/proposals.html'"></ng-include>
   <!-- <ng-include ng-if="section === 'conversion' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include> -->
   <ng-include ng-if="section === 'genealogy'" src="'dashboard/templates/sections/kpi/metrics/genealogy.html'"></ng-include>
   <!-- <ng-include ng-if="section === 'genealogy' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/genealogy-beta.html'"></ng-include> -->

@@ -1,11 +1,12 @@
 ;(function() {
   'use strict';
 
-  function DashboardKPICtrl($scope, $location, $timeout, UserProfile, CommonService) {
+  function DashboardKPICtrl($scope, $location, $timeout, UserProfile, CommonService, Utility) {
     $scope.tabData = {
       enviroment: [],
-      conversion: {
+      proposals: {
         settings: [{
+          type: 'line',
           labels: [],
           datasets: [{
             fillColor: 'rgba(255, 186, 120, 0.2)',
@@ -52,6 +53,7 @@
       },
       genealogy: {
         settings: [{
+          type: 'bar',
           labels: [],
           datasets: [{
             label: 'My First dataset',
@@ -65,8 +67,7 @@
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
             scaleFontColor: '#fff',
-            bezierCurveTension: 0.3,
-            pointDotRadius: 4,
+            scaleShowVerticalLines: false,
             scaleFontSize: 13,
             barValueSpacing: 3,
             scaleStartValue: 0,
@@ -112,27 +113,18 @@
       rank: []
     };
 
-    $scope.scale = 6;
+    $scope.scale = 29;
     $scope.current = new Date();
     $scope.section = '';
     $scope.legacyImagePaths = legacyImagePaths;
-
+    
     $scope.changeTab = function(section) {
-      if ($scope.section === section) {
-        return $scope.section = '';
-      } else if (section === 'rank') {
-        $scope.section = section;
-      } else {
-        $scope.section = section;
-        // Timeout for animation
-        $timeout(function() {
-          if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
-          $scope.kpiInit();
-        }, 300);
-      }
-    };
+      if (!$scope.isTabClickable || $scope.section === section) return;
 
-    $scope.kpiInit = function() {
+      $scope.active = false
+
+      $scope.section = section;
+      if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
       $scope.populateContributors();
     };
 
@@ -145,18 +137,30 @@
 
     $scope.buildChart = function() {
       if ($scope.kpiChart) $scope.kpiChart.destroy();
+
       $scope.populateData();
       $scope.generateLabels();
       $scope.setScale();
       var ctx = document.getElementById('metricsChart').getContext('2d');
 
-      $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
+      var type = $scope.settings[0].type;
+      
+      if (type === 'line') {
+        $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
+      } else {
+        $scope.kpiChart = new Chart(ctx).Bar($scope.settings[0], $scope.settings[1].options);
+      }
     };
 
     $scope.setScale = function() {
       //Find largest data point
-      var max = Math.max.apply(Math, $scope.settings[0].datasets[0].data.concat($scope.settings[0].datasets[1].data));
+      var bigData = []; 
+      for (var i = 0; i < $scope.settings[0].datasets.length; i ++) {
+        bigData = bigData.concat($scope.settings[0].datasets[i].data);
+      } 
+      var max = Math.max.apply(Math, bigData);
 
+      //Set Scale
       if (!max) {
         $scope.settings[1].options.scaleStepWidth = 1;
         $scope.settings[1].options.scaleSteps = 5;
@@ -188,41 +192,113 @@
 
     $scope.changeUser = function(user) {
       if ($scope.activeUser === user) return;
-      CommonService.execute({href: '/u/kpi_metrics/'+ user.id +'/proposals_show.json'}).then(function(data){
+      if ($scope.section === 'genealogy') {
+        $scope.activeUser = user;
+        return $scope.buildChart();
+      }
+      CommonService.execute({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json'}).then(function(data){
         $scope.activeUser = data.properties;
         $scope.buildChart();
       });
     };
 
     $scope.populateContributors = function() {
-      CommonService.execute({href: '/u/kpi_metrics/'+ $scope.currentUser.id +'/proposals_show.json'}).then(function(data){
-        $scope.user = data.properties;
-        //Defaults to Current User
-        $scope.activeUser = $scope.user;
-        //
+      //Defaults to Current User
+      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json'}).then(function(data){
+        $scope.activeUser = data.properties;
+        $scope.user = $scope.activeUser;
+        if ($scope.section === 'genealogy' && !$scope.tree) return genealogyTree();
         $scope.buildChart();
-        CommonService.execute({href: '/u/kpi_metrics/' +data.properties.id+ '/proposals_index.json'}).then(function(data){
-          $scope.team = data.entities;
-        });
+      });
+      //Populates Team List
+      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_index.json'}).then(function(data){
+        $scope.team = data.entities;
+        $scope.active = true;
       });
     };
 
+    var searchObjBranch = function(obj, user_id) {
+      // debugger
+      if (obj.id === user_id) { return obj; }
+      obj = obj['children']
+      for(var i in obj) {
+        if(obj.hasOwnProperty(i)){
+          var returnVal = searchObjBranch(obj[i], user_id);
+          if(returnVal) { return returnVal; }
+        }
+      }
+      return null;
+    }
+
+    var proposalCount = function(j) {
+      if (!$scope.activeUser.metrics_data) return;
+      //For each data point
+      for (var i = 0; i <= $scope.scale; i++) {
+        var count = 0;
+        $.each($scope.activeUser.metrics_data['data'+j], function(key, value){
+          if ( new Date(value.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
+              new Date(value.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
+            ) {
+            count += 1;
+          }
+        });
+        $scope.settings[0].datasets[j].data.push(count);
+      }
+    }
+
+    function genealogyTree() {
+      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/user_tree.json'}).then(function(data){
+        // debugger
+        $scope.tree = data;
+        $scope.buildChart();
+      });
+    }
+
+    function countChildren(obj, i) {
+      obj = obj['children']
+      for(var key in obj) {
+        if(obj.hasOwnProperty(key)){
+          
+           // if($scope.activeUser.id == 59 && key ) debugger
+
+            // if($scope.activeUser.id == 59) console.log(key)
+            if ( new Date(obj[key].created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
+                new Date(obj[key].created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
+               ) {
+              // if($scope.activeUser.id == 59) console.log(key)
+            tCount += 1;
+          }
+          countChildren(obj[key], i);
+        }
+      }
+    }
+    
+    var tCount;
+
+    function genealogyCount(j) {
+      if (!$scope.tree) return;
+
+      var branch = searchObjBranch($scope.tree[$scope.currentUser.id], $scope.activeUser.id)
+
+      tCount = 0;
+      //For each data point
+      for (var i = -1; i <= $scope.scale - 1; i++) {
+        countChildren(branch, i);
+        $scope.settings[0].datasets[j].data.push(tCount);
+      }
+    }
+
     $scope.populateData = function() {
       //For each data set
-      for (var j = 0; j <= Object.keys($scope.activeUser.metrics_data).length - 1; j++) {
+      for (var j = 0; j < $scope.settings[0].datasets.length; j++) {
         $scope.settings[0].datasets[j].data = [];
 
-        //For each data point
-        for (var i = 0; i <= $scope.scale; i++) {
-          var count = 0;
-          $.each($scope.activeUser.metrics_data['data'+j], function(key, value){
-            if ( new Date(value.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
-                new Date(value.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
-              ) {
-              count += 1;
-            }
-          });
-          $scope.settings[0].datasets[j].data.push(count);
+        if ($scope.section === "proposals") {
+          proposalCount(j)
+        } else if ($scope.section === "genealogy") {
+          genealogyCount(j)
+        } else {
+          //
         }
       }
     };
@@ -298,6 +374,6 @@
     $scope.redirectUnlessSignedIn();
   }
 
-  DashboardKPICtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile', 'CommonService'];
+  DashboardKPICtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile', 'CommonService', 'Utility'];
   angular.module('powurApp').controller('DashboardKPICtrl', DashboardKPICtrl)
 })();

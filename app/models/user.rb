@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
                  :address, :city, :state, :country, :zip, :phone
   store_accessor :profile,
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
-                 :communications
+                 :communications, :watched_intro
 
   # No extra email validation needed,
   # email validation and confirmation happens with Invite
@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
     @lifetime_achievements ||= rank_achievements
                                .where('pay_period_id is not null')
                                .order(rank_id: :desc, path: :asc).entries
-  end  
+  end
 
   def make_customer!
     Customer.create!(first_name: first_name, last_name: last_name, email: email)
@@ -131,42 +131,36 @@ class User < ActiveRecord::Base
     quotes.submitted.count
   end
 
+  def team_proposal_count
+    downline_ids = User.with_ancestor(id).pluck(:id)
+    Quote.where(user_id: downline_ids).submitted.count
+  end
+
+  def weekly_growth
+    User.with_ancestor(self.id).within_date_range(Date.today - 7, Date.today).count
+  end
+
   def fetch_proposal_metrics(start_date, end_date)
     {
       data0: orders.within_date_range(start_date, end_date),
-      data1: complete_quotes.within_date_range(start_date, end_date).status(:submitted)
+      data1: complete_quotes.within_date_range(start_date, end_date).submitted
     }
+  end
+  ##
+
+  def fetch_full_downline
+    User.with_ancestor(self.id)
   end
 
   def complete_quotes
     quotes.where.not(id: self.orders.select('quote_id').map {|i| i})
   end
 
-  def full_downline_count
-    @count = 0
-    count_children(self.id)
-  end
-
-  def count_children(parent_id)
-    downline = User.with_parent(parent_id).pluck(:id)
-    return if !downline.length
-    @count += downline.length
-    downline.each do |user_id|
-      count_children(user_id)
-    end
-    @count
-  end
-  ##
-
   def assign_parent(parent, params)
     self.class.move_user(self, parent)
     if params != 'admin'
       self.update(moved: true)
     end
-  end
-
-  def group?(group_id)
-    user_user_groups.exists?(group_id.to_s)
   end
 
   def accepted_latest_terms?
@@ -177,10 +171,34 @@ class User < ActiveRecord::Base
     current_version.nil? || current_version == tos
   end
 
+  def group?(group_id)
+    user_user_groups.exists?(group_id.to_s)
+  end
+
+  def highest_rank
+    @highest_rank ||= begin
+      result = UserUserGroup.highest_ranks(id).entries.first
+      result && result.attributes['highest_rank']
+    end
+  end
+
+  def needs_rank_up?
+    return false unless highest_rank
+    organic_rank.nil? || organic_rank < highest_rank ||
+      lifetime_rank.nil? || lifetime_rank < highest_rank
+  end
+
+  def rank_up!
+    self.organic_rank = highest_rank
+    self.lifetime_rank = highest_rank
+    self.save!
+  end
+
   private
 
   def destroy_used_invite
-    Invite.find_by(email: '#{email}').destroy! if Invite.find_by(email: '#{email}')
+    invite = Invite.find_by(email: "'#{email}'")
+    invite && invite.destroy!
   end
 
   def set_url_slug
@@ -221,6 +239,11 @@ class User < ActiveRecord::Base
 
     def update_lifetime_ranks
       needs_lifetime_rank_up.update_all('lifetime_rank = organic_rank')
+    end
+
+    def rank_up
+      update_organic_ranks
+      update_lifetime_ranks
     end
 
     UPDATE_PARENT = "upline = ARRAY[%s] || upline[%s:array_length(upline,1)]"

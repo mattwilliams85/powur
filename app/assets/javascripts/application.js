@@ -51,3 +51,4 @@
 //= require_tree ./university
 //= require_tree ./user-static-content
 //= require_tree ./users
+//= require_tree ./utility

@@ -2,7 +2,7 @@ namespace :powur do
   namespace :import do
 
     def last_advocate_file
-      Dir[Rails.root.join('db', 'import', '*.csv')].last
+      Dir[Rails.root.join('db', 'import', '*.csv')].sort.last
     end
 
     def merge_address(attrs, row)
@@ -44,9 +44,6 @@ namespace :powur do
       return if placement_id == sponsor_id
       User.move_user(user, placement)
       puts "Placed user to #{placement.full_name} : #{placement.id}"
-    rescue => e
-      binding.pry
-      fail e
     end
 
     task advocates: :environment do

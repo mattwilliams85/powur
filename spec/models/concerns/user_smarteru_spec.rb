@@ -110,6 +110,7 @@ describe UserSmarteru do
       before do
         expect(enrollments).to receive(:find_or_create_by).with(product_id: product.id).and_return(enrollment)
         expect(user).to receive(:product_enrollments).and_return(enrollments)
+        allow(enrollment).to receive(:removed?).and_return(false)
       end
       it { is_expected.to eq(enrollment) }
     end
@@ -119,8 +120,22 @@ describe UserSmarteru do
       before do
         expect(enrollments).to receive(:find_or_create_by).with(product_id: product.id).and_return(enrollment)
         expect(user).to receive(:product_enrollments).and_return(enrollments)
+        allow(enrollment).to receive(:removed?).and_return(false)
       end
-      it { is_expected.to eq(enrollment) }
+
+      it do
+        expect(enrollment).not_to receive(:reenroll!)
+        is_expected.to eq(enrollment)
+      end
+
+      context 're-enroll if enrollment was removed' do
+        before do
+          allow(enrollment).to receive(:removed?).and_return(true)
+          expect(enrollment).to receive(:reenroll!).and_return(true)
+        end
+
+        it { is_expected.to eq(enrollment) }
+      end
     end
   end
 
@@ -147,40 +162,6 @@ describe UserSmarteru do
     context 'api success' do
       let(:api_response) { double('api_response', success?: true, result: {redirect_path: 'http://redirecturl'}) }
       it { is_expected.to eq('http://redirecturl') }
-    end
-  end
-
-  describe '#require_class_completion?' do
-    subject { user.require_class_completion? }
-    let!(:product) { create(:product) }
-    let(:user) { create(:user) }
-    before do
-      allow_any_instance_of(ProductEnrollment).to receive(:start_learner_report_polling).and_return(true)
-      allow_any_instance_of(ProductEnrollment).to receive(:find_or_create_ipayout_account).and_return(true)
-    end
-
-    context 'required class does not exist' do
-      it { is_expected.to eq(false) }
-    end
-
-    context 'required class exists' do
-      let!(:product) { create(:product, is_required_class: true) }
-
-      it { is_expected.to eq(true) }
-
-      context 'user enrolled in a required class' do
-        let!(:product_enrollment) { create(:product_enrollment, user_id: user.id, product_id: product.id) }
-
-        it { is_expected.to eq(true) }
-
-        context 'user completed a required class' do
-          before do
-            product_enrollment.complete!
-          end
-
-          it { is_expected.to eq(false) }
-        end
-      end
     end
   end
 end

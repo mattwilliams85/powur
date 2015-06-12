@@ -1,5 +1,4 @@
 .pow-university {
-  margin-top: 50px;
   padding-bottom: 50px;
 
   .sub-header {
@@ -7,7 +6,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom center;
-    margin-bottom: 70px;
 
     .inner {
       height: 400px;
@@ -28,10 +26,10 @@
   }
 
   .university-class-item-wrapper {
+
     .class-item {
       border: 1px solid #ececec;
-      height: 100%;
-      margin: 0 20px 50px 0;
+      margin: 80px 20px 5px 0;
       width: 100%;
 
       .image-wrapper {
@@ -42,25 +40,8 @@
         }
       }
 
-      h6 {
-        display: inline-block;
-        width: 80%;
-        overflow: hidden;
-        line-height: 1.7em;
-        height: 1.7em;
-      }
 
-      h5 {
-        display: inline-block;
-        float: right;
-        width: 18%;
-        text-align: right;
-      }
-
-      .class-info {
-        padding: 10px;
-      }
-
+      // Progress Bar
       .class-progress {
         height: 15px;
         margin: 15px 30px 0 30px;
@@ -89,32 +70,51 @@
         }
       }
 
-      .description {
-        color: #a4a4a4;
-        display: inline-block;
-        font-size: .8em;
-        height: 120px;
-        overflow: hidden;
-        padding: 0 20px;
-        line-height: 1.4em;
-        margin: 0;
+      // Name, Price, Description and Take Class/Purchase Buttons
+      .class-info {
+        padding: 10px;
 
-
-        @media #{$small} {
-          height: 200px;
+        .name {
+          width: 80%;
+          overflow: hidden;
+          line-height: 1.7em;
+          height: 1.7em;
         }
+
+        .price {
+          float: right;
+          width: 18%;
+          text-align: right;
+        }
+
+        .description {
+          height: 120px;
+          margin-bottom: 20px;
+          overflow-y: auto;
+          padding: 0 20px;
+          color: #a4a4a4;
+          font-size: .8em;
+          line-height: 1.4em;
+
+        }
+
       }
+    }
+
+    // Buttons
+    .class-buttons {
+      position: relative;
+      left: 15%;
+      bottom: 25px;
+      margin-bottom: 50px;
 
       .button {
         display: block;
-        margin: 10px 20px;
+        position: absolute;
+        width: 70%;
         background: #59a2e7;
         line-height: 1.2em;
         text-transform: uppercase;
-        position: absolute;
-        bottom: 20px;
-        left: 10%;
-        width: 70%;
 
         &.purchase {
           background: #42bc1d;

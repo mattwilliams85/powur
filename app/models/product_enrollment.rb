@@ -24,6 +24,14 @@ class ProductEnrollment < ActiveRecord::Base
     state :completed
     state :removed
 
+    event :reenroll do
+      transitions from: [:removed], to: :enrolled
+      after do
+        # start polling again
+        start_learner_report_polling
+      end
+    end
+
     event :start do
       transitions from: [:enrolled], to: :started
     end
@@ -33,6 +41,8 @@ class ProductEnrollment < ActiveRecord::Base
       after do
         # Create IPayout account if user passed required class (FIT)
         find_or_create_ipayout_account(user) if product.is_required_class
+        UserUserGroup.populate_for_user_product(user_id, product_id)
+        user.rank_up! if user.needs_rank_up?
       end
     end
 
@@ -45,7 +55,7 @@ class ProductEnrollment < ActiveRecord::Base
     new_job = Jobs::UserSmarteruLearnerReportJob.new(user_id, previous_checks)
     Delayed::Job.enqueue(
       new_job,
-      run_at: Jobs::UserSmarteruLearnerReportJob::POLLING_INTERVAL.from_now
+      run_at: 30.minutes.from_now
     )
   end
 end

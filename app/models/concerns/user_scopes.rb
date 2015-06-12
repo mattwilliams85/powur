@@ -21,6 +21,10 @@ module UserScopes
       select(:id, :upline, :lifetime_rank, :organic_rank, :rank_path_id)
     }
 
+    scope :within_date_range, ->(begin_date, end_date) {
+      where('created_at between ? and ?', begin_date, end_date)
+    }
+
     DOWN_COUNTS_SELECT = \
       'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
     scope :downline_counts, lambda {

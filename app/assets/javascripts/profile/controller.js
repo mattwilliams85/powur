@@ -8,7 +8,7 @@
       $rootScope.currentUser = user;
       $scope.userProfile = user;
 
-      if (!user.require_enrollment) {
+      if (user.organic_rank) {
         // Only request ewallet data if the required class complete
         UserProfile.getEwalletDetails().then(function(ewalletDetails) {
           $scope.ewalletDetails = ewalletDetails.properties;

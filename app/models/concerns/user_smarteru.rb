@@ -83,7 +83,9 @@ module UserSmarteru
     response = smarteru_client.request('enrollLearningModules', payload)
     # Success, either enroll or  already enrolled
     if response.result.present? || (response.error && response.error[:error][:error_id] == 'ELM:19')
-      return self.product_enrollments.find_or_create_by(product_id: product.id)
+      enrollment = product_enrollments.find_or_create_by(product_id: product.id)
+      enrollment.reenroll! if enrollment.removed?
+      return enrollment
     end
     Airbrake.notify(response.error.to_s)
     false
@@ -146,11 +148,5 @@ module UserSmarteru
       return false
     end
     response.result[:learner_report][:learner].to_a # Calling .to_a to standardize because if only one report returned, it would have it as an object
-  end
-
-  def require_class_completion?
-    required_class = Product.where(is_required_class: true).first
-    return false unless required_class
-    !product_enrollments.find_by(product_id: required_class.id).try(:completed?)
   end
 end

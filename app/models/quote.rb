@@ -13,8 +13,8 @@ class Quote < ActiveRecord::Base
 
   add_search :user, :customer, [ :user, :customer ]
 
-  scope :submitted, ->() { where('provider_uid is not null') }
-  scope :not_submitted, ->() { where('provider_uid is null') }
+  scope :submitted, ->() { where('status >= ?', statuses['submitted']) }
+  scope :not_submitted, ->() { where('status < ?', statuses['submitted']) }
   scope :status, ->(value) { where(status: statuses[value]) }
   scope :won, ->() { status(:closed_won) }
   scope :within_date_range, ->(begin_date, end_date) {
@@ -71,7 +71,7 @@ class Quote < ActiveRecord::Base
       transitions from:   [ :incomplete, :ready_to_submit ],
                   to:     :ineligible_location,
                   unless: :zip_code_valid?
-      transitions from:   [ :ready_to_submit ],
+      transitions from:   [ :ready_to_submit, :ineligible_location ],
                   to:     :incomplete,
                   unless: :can_submit?
       transitions from: [ :incomplete, :ineligible_location ],

@@ -1,10 +1,7 @@
 require 'spec_helper'
 
 describe '/u/users' do
-
-  before :each do
-    login_user(auth: true, roles: [])
-  end
+  let!(:current_user) { login_user(auth: true, roles: []) }
 
   describe '#index' do
 
@@ -61,76 +58,96 @@ describe '/u/users' do
   end
 
   describe '#search' do
+    context 'ranked up' do
+      before do
+        allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
+      end
 
-    it 'searches a list of users belong to the current user' do
-      user1 = create(:user, sponsor: @user, first_name: 'davey')
-      user2 = create(:user, sponsor: @user, last_name: 'david')
-      user3 = create(:user, sponsor: @user, email: 'redave@example.org')
-      create_list(:user, 2, sponsor: @user, first_name: 'Mary',
-                  last_name: 'Jones')
+      it 'searches a list of users belong to the current user' do
+        user1 = create(:user, sponsor: @user, first_name: 'davey')
+        user2 = create(:user, sponsor: @user, last_name: 'david')
+        user3 = create(:user, sponsor: @user, email: 'redave@example.org')
+        create_list(:user, 2, sponsor: @user, first_name: 'Mary',
+                    last_name: 'Jones')
 
-      get users_path, search: 'dave', format: :json
+        get users_path, search: 'dave', format: :json
 
-      expect(json_body['entities'].size).to eq(3)
-      result_ids = json_body['entities'].map { |u| u['properties']['id'] }
+        expect(json_body['entities'].size).to eq(3)
+        result_ids = json_body['entities'].map { |u| u['properties']['id'] }
 
-      expect(result_ids).to include(user1.id, user2.id, user3.id)
+        expect(result_ids).to include(user1.id, user2.id, user3.id)
+      end
     end
-
   end
 
   describe '/:id' do
+    context 'ranked up' do
+      before do
+        allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
+      end
 
-    it 'returns not found with an invalid user id' do
-      get user_path(42), format: :json
+      it 'returns not found with an invalid user id' do
+        get user_path(42), format: :json
 
-      expect_alert_error
+        expect_alert_error
+      end
+
+      it 'returns the user detail' do
+        user = create(:user, sponsor: @user)
+        get user_path(user), format: :json
+
+        expect_200
+      end
     end
-
-    it 'returns the user detail' do
-      user = create(:user, sponsor: @user)
-      get user_path(user), format: :json
-
-      expect_200
-    end
-
   end
 
   describe '/u/users/:id/downline' do
-    it 'returns the downline users' do
-      child = create_list(:user, 3, sponsor: @user).first
+    context 'ranked up' do
+      before do
+        allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
+      end
 
-      create_list(:user, 2, sponsor: child)
+      it 'returns the downline users' do
+        child = create_list(:user, 3, sponsor: @user).first
 
-      get downline_user_path(@user), format: :json
+        create_list(:user, 2, sponsor: child)
 
-      expect_200
+        get downline_user_path(@user), format: :json
 
-      found_child = json_body['entities']
-                    .find { |e| e['properties']['id'] == child.id }
-      expect(found_child).to_not be_nil
+        expect_200
+
+        found_child = json_body['entities']
+                      .find { |e| e['properties']['id'] == child.id }
+        expect(found_child).to_not be_nil
+      end
     end
   end
 
   describe '/u/users/:id/upline' do
-    it 'returns the upline users' do
-      grand_parent = create(:user, sponsor: @user, first_name: 'Pappy')
-      parent = create(:user, sponsor: grand_parent, first_name: 'Parent')
-      child = create(:user, sponsor: parent, first_name: 'Child')
-
-      get upline_user_path(child), format: :json
-
-      expect_200
-
-      found_parent = json_body['entities'].find do |e|
-        e['properties']['id'] == parent.id
+    context 'ranked up' do
+      before do
+        allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
       end
-      found_grand_parent = json_body['entities'].find do |e|
-        e['properties']['id'] == grand_parent.id
+
+      it 'returns the upline users' do
+        grand_parent = create(:user, sponsor: @user, first_name: 'Pappy')
+        parent = create(:user, sponsor: grand_parent, first_name: 'Parent')
+        child = create(:user, sponsor: parent, first_name: 'Child')
+
+        get upline_user_path(child), format: :json
+
+        expect_200
+
+        found_parent = json_body['entities'].find do |e|
+          e['properties']['id'] == parent.id
+        end
+        found_grand_parent = json_body['entities'].find do |e|
+          e['properties']['id'] == grand_parent.id
+        end
+        expect(found_parent).to_not be_nil
+        expect(found_grand_parent).to_not be_nil
+        expect(json_body['entities'].count).to eq(3)
       end
-      expect(found_parent).to_not be_nil
-      expect(found_grand_parent).to_not be_nil
-      expect(json_body['entities'].count).to eq(3)
     end
   end
 
@@ -140,55 +157,75 @@ describe '/u/users' do
       json_body['entities'].any? { |e| e['properties']['id'] == id }
     end
 
-    it 'returns the correct parents with the correct order' do
-      mover = create(:user, sponsor: @user)
-      ineligible = create(:user, sponsor: mover)
-      parent1 = create(:user, sponsor: @user)
-      parent2 = create(:user, sponsor: @user)
-      child1 = create(:user, sponsor: parent1)
-      child2 = create(:user, sponsor: parent2)
-      grand_child = create(:user, sponsor: child1)
+    context 'ranked up' do
+      before do
+        allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
+      end
 
-      get eligible_parents_user_path(mover), format: :json
+      it 'returns the correct parents with the correct order' do
+        mover = create(:user, sponsor: @user)
+        ineligible = create(:user, sponsor: mover)
+        parent1 = create(:user, sponsor: @user)
+        parent2 = create(:user, sponsor: @user)
+        child1 = create(:user, sponsor: parent1)
+        child2 = create(:user, sponsor: parent2)
+        grand_child = create(:user, sponsor: child1)
 
-      expect(user_exists?(ineligible.id)).to_not be
-      [ parent1, parent2, child1, child2, grand_child ].each do |user|
-        expect(user_exists?(user.id)).to be
+        get eligible_parents_user_path(mover), format: :json
+
+        expect(user_exists?(ineligible.id)).to_not be
+        [ parent1, parent2, child1, child2, grand_child ].each do |user|
+          expect(user_exists?(user.id)).to be
+        end
       end
     end
   end
 
   describe '/u/users/:id/move' do
-    it 'moves a user in the genealogy' do
-      parent1 = create(:user, sponsor: @user)
-      parent2 = create(:user, sponsor: @user)
-      child = create(:user, sponsor: parent1)
-      
-      post move_user_path(parent1, parent_id: parent2.id), format: :json
+    context 'did not rank up yet' do
+      it 'returns 401 unauthorized' do
+        post move_user_path(1, parent_id: 2), format: :json
 
-      parent1.reload
-      child.reload
-      expect(parent1.parent_id).to eq(parent2.id)
-      expect(child.ancestor?(parent2.id)).to be
+        expect(response.code).to eq('401')
+      end
     end
 
-    it 'does not allow moving a user not in the downline' do
-      @user.update_column(:roles, [])
-      parent = create(:user, sponsor: @user)
-      other_user = create(:user)
+    context 'ranked up' do
+      before do
+        allow_any_instance_of(AuthController).to receive(:verify_rank).and_return(true)
+      end
 
-      post move_user_path(other_user, parent_id: parent.id), format: :json
+      it 'moves a user in the genealogy' do
+        parent1 = create(:user, sponsor: @user)
+        parent2 = create(:user, sponsor: @user)
+        child = create(:user, sponsor: parent1)
 
-      expect_alert_error
-    end
+        post move_user_path(parent1, parent_id: parent2.id), format: :json
 
-    it 'does not allow moving to a user not in the downline' do
-      other_user = create(:user)
-      child = create(:user, sponsor: @user)
+        parent1.reload
+        child.reload
+        expect(parent1.parent_id).to eq(parent2.id)
+        expect(child.ancestor?(parent2.id)).to be
+      end
 
-      post move_user_path(child, parent_id: other_user.id), format: :json
+      it 'does not allow moving a user not in the downline' do
+        @user.update_column(:roles, [])
+        parent = create(:user, sponsor: @user)
+        other_user = create(:user)
 
-      expect_alert_error
+        post move_user_path(other_user, parent_id: parent.id), format: :json
+
+        expect_alert_error
+      end
+
+      it 'does not allow moving to a user not in the downline' do
+        other_user = create(:user)
+        child = create(:user, sponsor: @user)
+
+        post move_user_path(child, parent_id: other_user.id), format: :json
+
+        expect_alert_error
+      end
     end
   end
 

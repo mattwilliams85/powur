@@ -55,7 +55,7 @@ module Api
 
         opp = record[:opportunity] || {}
         attrs = { 
-          quote_id:           quote.id,
+          quote:              quote,
           provider_uid:       record[:providerUid],
           status:             record[:status],
           lead_status:        record[:leadStatus],
@@ -73,8 +73,9 @@ module Api
       end
 
       def create_lead_update(attrs)
-        LeadUpdate.create!(attrs)
-
+        lead_update = LeadUpdate.create!(attrs)
+        lead_update.quote.update_received!
+        lead_update
       rescue ActiveRecord::InvalidForeignKey => e
         invalid_quote_id_error!
       end

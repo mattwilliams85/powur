@@ -16,7 +16,12 @@ class AuthController < WebController
 
   def verify_terms_acceptance
     return true if current_user.accepted_latest_terms?
-    head(:unauthorized)
+    unauthorized!(dashboard_url)
+  end
+
+  def verify_rank
+    return true if current_user.organic_rank?
+    unauthorized!(dashboard_url)
   end
 
   def fetch_user
@@ -31,7 +36,7 @@ class AuthController < WebController
   end
 
   def unauthorized!(url)
-    request.xhr? ? head(:unauthorized) : redirect_to(url)
+    request.xhr? || request.format.json? ? head(:unauthorized) : redirect_to(url)
   end
 
   private
