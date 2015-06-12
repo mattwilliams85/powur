@@ -27,10 +27,10 @@ describe 'GET /u/resources' do
   end
 
   context 'when signed out' do
-    it 'returns a redirect url' do
+    it 'returns a 401' do
       get resources_path, format: :json
 
-      expect(json_body.keys).to include('redirect')
+      expect(response.status).to eq(401)
     end
   end
 end

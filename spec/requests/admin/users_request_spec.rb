@@ -42,7 +42,7 @@ describe '/a/users' do
 
       get admin_users_path, format: :json
 
-      expect(json_body.keys).to include('redirect')
+      expect(response.status).to eq(401)
     end
 
     it 'filters by group' do

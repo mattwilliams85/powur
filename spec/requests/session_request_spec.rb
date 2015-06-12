@@ -25,9 +25,11 @@ end
 
 describe 'authenticate!' do
   context 'signed out' do
-    it 'returns a 401 for XHR' do
+    it 'returns a 401 for XHR or json' do
       xhr :get, resources_path(format: :json)
+      expect(response.status).to eq(401)
 
+      get resources_path(format: :json)
       expect(response.status).to eq(401)
     end
 
@@ -38,13 +40,6 @@ describe 'authenticate!' do
       root_body = response.body
 
       expect(resources_body).to eq(root_body)
-    end
-
-    it 'redirects to sign-in on json request' do
-      get resources_path(format: :json)
-
-      expect(response.status).to eq(200)
-      expect(json_body.keys).to include('redirect')
     end
   end
 end

@@ -31,12 +31,10 @@ describe 'GET /a/resources' do
       allow(user).to receive(:role?).with(:admin).and_return(false)
     end
 
-    it 'returns a redirect url' do
+    it 'returns a 401' do
       get admin_resources_path, format: :json
 
-      expect(JSON.parse(response.body)).to eq({
-        'redirect' => 'http://www.example.com/u/dashboard'
-      })
+      expect(response.status).to eq(401)
     end
   end
 end
