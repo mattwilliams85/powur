@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function LibraryCtrl($scope, $rootScope, $location, CommonService, UserProfile) {
+  function LibraryCtrl($scope, $rootScope, $location, $anchorScroll, CommonService, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
@@ -31,6 +31,7 @@
       }
       var html = $('#item_' + item.properties.id).html();
       $('<div class=\'reveal-modal\' data-reveal>' + html + '<a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+      $anchorScroll();
     };
 
     $scope.resourceTypeChange = function() {
@@ -78,6 +79,6 @@
     });
   }
 
-  LibraryCtrl.$inject = ['$scope', '$rootScope', '$location', 'CommonService', 'UserProfile'];
+  LibraryCtrl.$inject = ['$scope', '$rootScope', '$location', '$anchorScroll', 'CommonService', 'UserProfile'];
   angular.module('powurApp').controller('LibraryCtrl', LibraryCtrl);
 })();
