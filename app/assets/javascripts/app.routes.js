@@ -97,6 +97,12 @@
       controller: 'UniversityCtrl'
     }).
 
+    // Memberships
+    when('/memberships', {
+      templateUrl: 'memberships/templates/index.html',
+      controller: 'MembershipsCtrl'
+    }).
+
     // Library
     when('/library', {
       templateUrl: 'library/templates/index.html',

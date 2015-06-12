@@ -1,0 +1,35 @@
+.pow-memberships {
+  .memberships-top-bg {
+    background-color: #fff;
+    background-image: image-url("memberships/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+    padding: 60pt 0;
+
+    h1 {
+      color: #fff;
+      font-weight: bold;
+      font-size: 2em;
+      text-transform: uppercase;
+    }
+
+    .user-info {
+      font-size: 1.2em;
+
+      img {
+        width: 100px;
+        margin: 0 15pt 30pt 0;
+        border-radius: 100pt;
+      }
+    }
+  }
+
+  .memberships-list-wrapper {
+    text-align: center;
+
+    h5 {
+      color: #fff;
+    }
+  }
+}

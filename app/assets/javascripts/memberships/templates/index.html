@@ -1,0 +1,33 @@
+<!--
+<a class="button small expand purchase" ng-href="/university/classes/{{classItem.properties.id}}/purchase" ng-if="canPurchaseClass(classItem)">Learn more</a>
+-->
+
+<ng-include src="'shared/header-signed-in.html'"></ng-include>
+
+<main class="pow-memberships">
+
+  <div class="memberships-top-bg">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="user-info">
+          <img ng-src="{{currentUser.avatar.preview}}">
+          <span>Hi {{currentUser.first_name}},</span>
+        </div>
+        <h1>Your Membership level with powur determines your ability to earn, learn and succeed.</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <div class="memberships-list-wrapper">
+        <h5>Choose the one most closely aligned with your goals</h5>
+
+        <h2>We've made it easy to see all the features at a glance.</h2>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<ng-include src="'shared/footer-signed-in.html'"></ng-include>
