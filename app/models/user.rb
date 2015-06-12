@@ -143,37 +143,10 @@ class User < ActiveRecord::Base
   def fetch_proposal_metrics(start_date, end_date)
     {
       data0: orders.within_date_range(start_date, end_date),
-      data1: complete_quotes.within_date_range(start_date, end_date).status(:submitted)
+      data1: complete_quotes.within_date_range(start_date, end_date).submitted
     }
   end
   ##
-
-  def create_downline_tree
-    @downline = fetch_full_downline
-
-    tree = {
-      self.id => {
-        user: self,
-        children: {}
-      }
-    }
-    populate_downline_tree(tree)
-  end
-
-  def populate_downline_tree(tree)
-    tree.keys.each do |key|
-      @downline.each do |user|
-        if user.sponsor_id == key
-          tree[key][:children][user.id] = {
-                                             user: user,
-                                             children: {}
-                                           }
-        end
-      end
-      populate_downline_tree(tree[key][:children])
-    end
-    tree
-  end
 
   def fetch_full_downline
     User.with_ancestor(self.id)

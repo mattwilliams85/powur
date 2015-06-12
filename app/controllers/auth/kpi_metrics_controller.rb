@@ -42,6 +42,7 @@ module Auth
 
     def user_tree
       @user = User.find(params[:id])
+      @downline = @user.fetch_full_downline.to_a
 
       render "auth/kpi_metrics/tree/show"
     end

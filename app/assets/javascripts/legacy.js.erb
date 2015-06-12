@@ -94,3 +94,11 @@ Date.prototype.getWeekYear = function ()
   target.setDate(target.getDate() - ((this.getDay() + 6) % 7) + 3);
   return target.getFullYear();
 }
+
+Date.prototype.isSameDateAs = function(pDate) {
+  return (
+    this.getFullYear() === pDate.getFullYear() &&
+    this.getMonth() === pDate.getMonth() &&
+    this.getDate() === pDate.getDate()
+  );
+}

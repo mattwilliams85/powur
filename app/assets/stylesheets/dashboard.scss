@@ -784,6 +784,8 @@ $kpi-text-color: #888;
       .course-requirement-message {
         display: block;
         margin-top: 20px;
+        max-width: 93%;
+        margin-left: 8px;
       }
     }
 

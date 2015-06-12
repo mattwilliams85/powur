@@ -113,30 +113,18 @@
       rank: []
     };
 
-    $scope.scale = 6;
+    $scope.scale = 29;
     $scope.current = new Date();
     $scope.section = '';
     $scope.legacyImagePaths = legacyImagePaths;
     
     $scope.changeTab = function(section) {
-      if (!$scope.isTabClickable) return;
+      if (!$scope.isTabClickable || $scope.section === section) return;
 
       $scope.active = false
 
-      if ($scope.section === section) {
-        return  $scope.section = '';
-      } else if (section === 'genealogy') {
-        $scope.section = section;
-        if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
-        $scope.kpiInit();
-      } else {
-        $scope.section = section;
-        if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
-        $scope.kpiInit();
-      }
-    };
-
-    $scope.kpiInit = function() {
+      $scope.section = section;
+      if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
       $scope.populateContributors();
     };
 
@@ -148,8 +136,8 @@
     };
 
     $scope.buildChart = function() {
-
       if ($scope.kpiChart) $scope.kpiChart.destroy();
+
       $scope.populateData();
       $scope.generateLabels();
       $scope.setScale();
@@ -217,8 +205,8 @@
     $scope.populateContributors = function() {
       //Defaults to Current User
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json'}).then(function(data){
-        $scope.user = data.properties;
-        $scope.activeUser = $scope.user;
+        $scope.activeUser = data.properties;
+        $scope.user = $scope.activeUser;
         if ($scope.section === 'genealogy' && !$scope.tree) return genealogyTree();
         $scope.buildChart();
       });
@@ -230,7 +218,8 @@
     };
 
     var searchObjBranch = function(obj, user_id) {
-      if (obj.user.id === user_id) { return obj; }
+      // debugger
+      if (obj.id === user_id) { return obj; }
       obj = obj['children']
       for(var i in obj) {
         if(obj.hasOwnProperty(i)){
@@ -259,7 +248,8 @@
 
     function genealogyTree() {
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/user_tree.json'}).then(function(data){
-        $scope.tree = data.tree;
+        // debugger
+        $scope.tree = data;
         $scope.buildChart();
       });
     }
@@ -268,9 +258,14 @@
       obj = obj['children']
       for(var key in obj) {
         if(obj.hasOwnProperty(key)){
-            if ( new Date(obj[key].user.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
-                new Date(obj[key].user.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
+          
+           // if($scope.activeUser.id == 59 && key ) debugger
+
+            // if($scope.activeUser.id == 59) console.log(key)
+            if ( new Date(obj[key].created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
+                new Date(obj[key].created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
                ) {
+              // if($scope.activeUser.id == 59) console.log(key)
             tCount += 1;
           }
           countChildren(obj[key], i);
@@ -287,7 +282,7 @@
 
       tCount = 0;
       //For each data point
-      for (var i = 0; i <= $scope.scale; i++) {
+      for (var i = -1; i <= $scope.scale - 1; i++) {
         countChildren(branch, i);
         $scope.settings[0].datasets[j].data.push(tCount);
       }
@@ -303,7 +298,7 @@
         } else if ($scope.section === "genealogy") {
           genealogyCount(j)
         } else {
-
+          //
         }
       }
     };
@@ -331,14 +326,6 @@
         });
       });
     };
-
-    // $scope.weeklyGrowth = function(member) {
-    //   if (!member) return
-    //   if (!member.weekly_growth) return 0;
-    //   var growth = member.weekly_growth / member.full_downline_count
-    //   if (growth % 1 === 0) return growth;
-    //   return growth.toFixed(1);
-    // }
 
     //CALENDAR FUNCTIONS
     $scope.daysInMonth = function() {
