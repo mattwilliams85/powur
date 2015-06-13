@@ -1,8 +1,7 @@
 ruby '2.2.2'
 source 'https://rubygems.org'
 
-gem 'dotenv-rails', groups: [:development, :test]
-
+gem 'dotenv-rails', :groups => [ :development, :test ]
 gem 'rails', '4.2.1'
 gem 'pg'
 
@@ -57,7 +56,7 @@ group :development, :test do
   gem 'factory_girl_rails', github: 'paulwalker/factory_girl_rails', branch: 'allow_file_path_def'
   gem 'awesome_print'
   gem 'byebug'
-  gem 'webmock', require: 'webmock/rspec'
+  # gem 'webmock', require: 'webmock/rspec'
   gem 'vcr'
 end
 
@@ -69,6 +68,7 @@ group :test do
   gem 'minitest-spec-rails'
   gem 'minitest-reporters'
   gem 'color_pound_spec_reporter'
+  gem 'webmock', require: 'webmock/rspec'
 end
 
 gem 'sdoc', '~> 0.4.0', group: :doc
