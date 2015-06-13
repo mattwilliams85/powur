@@ -16,7 +16,9 @@ module Auth
 
     def proposals_show
       @user = User.find(params[:id])
-
+      scale = params[:scale].to_i + 1
+      @proposals = @user.fetch_proposal_metrics(Date.today - scale, Date.today)
+      
       render "auth/kpi_metrics/proposals/show"
     end
 
@@ -29,6 +31,11 @@ module Auth
 
     def genealogy_show
       @user = User.find(params[:id])
+      scale = params[:scale].to_i + 1
+      @downline = @user
+                    .fetch_full_downline
+                    .select("users.id, users.created_at, users.first_name, users.last_name")
+                    .within_date_range(Date.today - scale, Date.today)
 
       render "auth/kpi_metrics/genealogy/show"
     end
@@ -38,13 +45,6 @@ module Auth
       @users = @user.downline_users
 
       render "auth/kpi_metrics/genealogy/index"
-    end
-
-    def user_tree
-      @user = User.find(params[:id])
-      @downline = @user.fetch_full_downline.to_a
-
-      render "auth/kpi_metrics/tree/show"
     end
 
     def generate_periods
