@@ -187,16 +187,18 @@
 
     $scope.changeScale = function(scale) {
       $scope.scale = scale;
-      $scope.buildChart();
+
+      CommonService.execute({href: '/u/kpi_metrics/' + $scope.activeUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
+        $scope.activeUser = data.properties;
+        $scope.buildChart();
+      });
+      
     };
 
     $scope.changeUser = function(user) {
       if ($scope.activeUser === user) return;
-      if ($scope.section === 'genealogy') {
-        $scope.activeUser = user;
-        return $scope.buildChart();
-      }
-      CommonService.execute({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json'}).then(function(data){
+
+      CommonService.execute({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
         $scope.activeUser = data.properties;
         $scope.buildChart();
       });
@@ -204,10 +206,10 @@
 
     $scope.populateContributors = function() {
       //Defaults to Current User
-      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json'}).then(function(data){
+      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
         $scope.activeUser = data.properties;
         $scope.user = $scope.activeUser;
-        if ($scope.section === 'genealogy' && !$scope.tree) return genealogyTree();
+        // if ($scope.section === 'genealogy' && !$scope.tree) return genealogyTree();
         $scope.buildChart();
       });
       //Populates Team List
@@ -255,35 +257,30 @@
     }
 
     function countChildren(obj, i) {
-      obj = obj['children']
-      for(var key in obj) {
-        if(obj.hasOwnProperty(key)){
-          
-           // if($scope.activeUser.id == 59 && key ) debugger
-
-            // if($scope.activeUser.id == 59) console.log(key)
-            if ( new Date(obj[key].created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
-                new Date(obj[key].created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
-               ) {
-              // if($scope.activeUser.id == 59) console.log(key)
-            tCount += 1;
-          }
-          countChildren(obj[key], i);
+      // var length = obj.length;
+      for (var n = 0; n < obj.length; n++) {
+        // debugger
+        if ( new Date(obj[n].created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
+            new Date(obj[n].created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
+        ) {
+          downline.splice(downline.indexOf(obj[n]), 1);
+          n--; //decrement
+          tCount += 1;
         }
       }
     }
     
     var tCount;
+    var downline
 
     function genealogyCount(j) {
-      if (!$scope.tree) return;
-
-      var branch = searchObjBranch($scope.tree[$scope.currentUser.id], $scope.activeUser.id)
-
+ 
       tCount = 0;
+      downline = angular.copy($scope.activeUser.downline);
+
       //For each data point
       for (var i = -1; i <= $scope.scale - 1; i++) {
-        countChildren(branch, i);
+        countChildren(downline, i);
         $scope.settings[0].datasets[j].data.push(tCount);
       }
     }
