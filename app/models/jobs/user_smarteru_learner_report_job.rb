@@ -27,7 +27,11 @@ class Jobs::UserSmarteruLearnerReportJob < Struct.new(:user_id, :previous_checks
   end
 
   def find_matching_report(reports, course_name)
-    reports.find { |report| report[:course_name] == course_name }
+    reports.select do |report|
+      report[:course_name] == course_name
+    end.sort_by do |report|
+      report[:completed_date] ? 0 : (report[:started_date] ? 1 : 2)
+    end.first
   end
 
   def process_enrollment(report, enrollment)
