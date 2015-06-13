@@ -10,11 +10,6 @@ class Jobs::UserSmarteruLearnerReportJob < Struct.new(:user_id, :previous_checks
     return if enrollments.empty?
 
     reports = user.smarteru_learner_reports
-    unless reports
-      enrollments.first.start_learner_report_polling(previous_checks) # enqueue new job
-      raise "SmarterU API request error, user_id: #{user_id}"
-    end
-
     enrollments.each do |enrollment|
       report = find_matching_report(reports, enrollment.product.name)
       process_enrollment(report, enrollment)
@@ -32,6 +27,9 @@ class Jobs::UserSmarteruLearnerReportJob < Struct.new(:user_id, :previous_checks
     end.sort_by do |report|
       report[:completed_date] ? 0 : (report[:started_date] ? 1 : 2)
     end.first
+  rescue => e
+    binding.pry
+    fail e
   end
 
   def process_enrollment(report, enrollment)
