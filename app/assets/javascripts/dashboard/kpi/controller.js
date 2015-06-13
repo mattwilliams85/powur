@@ -121,12 +121,19 @@
     $scope.changeTab = function(section) {
       if (!$scope.isTabClickable || $scope.section === section) return;
 
-      $scope.active = false
+      $scope.active = false;
 
       $scope.section = section;
       if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
+      $scope.clearData();
       $scope.populateContributors();
     };
+
+    $scope.clearData = function() {
+      for (var i = 0; i < $scope.settings[0].datasets.length; i++) {
+        $scope.settings[0].datasets[i].data = [];
+      }
+    }
 
     $scope.scaleFontSize = function(string) {
       if (!isNaN(string)) {
@@ -219,8 +226,12 @@
       });
     };
 
-    var searchObjBranch = function(obj, user_id) {
-      // debugger
+    function sameDayAs(item, i) {
+      return new Date(item.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
+             new Date(item.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
+    } 
+
+    function searchObjBranch(obj, user_id) {
       if (obj.id === user_id) { return obj; }
       obj = obj['children']
       for(var i in obj) {
@@ -234,53 +245,38 @@
 
     var proposalCount = function(j) {
       if (!$scope.activeUser.metrics_data) return;
+
+      var data = angular.copy($scope.activeUser.metrics_data['data'+j]);
+
       //For each data point
       for (var i = 0; i <= $scope.scale; i++) {
         var count = 0;
-        $.each($scope.activeUser.metrics_data['data'+j], function(key, value){
-          if ( new Date(value.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
-              new Date(value.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
-            ) {
+        //For every downline user
+        for (var n = 0; n < data.length; n++) {
+          if (sameDayAs(data[n], i)) {
+            data.splice(data.indexOf(data[n]), 1);
+            n--; //decrement
             count += 1;
           }
-        });
+        };
         $scope.settings[0].datasets[j].data.push(count);
       }
     }
 
-    function genealogyTree() {
-      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/user_tree.json'}).then(function(data){
-        // debugger
-        $scope.tree = data;
-        $scope.buildChart();
-      });
-    }
-
-    function countChildren(obj, i) {
-      // var length = obj.length;
-      for (var n = 0; n < obj.length; n++) {
-        // debugger
-        if ( new Date(obj[n].created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
-            new Date(obj[n].created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
-        ) {
-          downline.splice(downline.indexOf(obj[n]), 1);
-          n--; //decrement
-          tCount += 1;
-        }
-      }
-    }
-    
-    var tCount;
-    var downline
-
     function genealogyCount(j) {
- 
-      tCount = 0;
-      downline = angular.copy($scope.activeUser.downline);
+      var tCount = 0;
+      var downline = angular.copy($scope.activeUser.downline);
 
       //For each data point
       for (var i = -1; i <= $scope.scale - 1; i++) {
-        countChildren(downline, i);
+        //For every downline user
+        for (var n = 0; n < downline.length; n++) {
+          if (sameDayAs(downline[n], i)) {
+            downline.splice(downline.indexOf(downline[n]), 1);
+            n--; //decrement
+            tCount += 1;
+          }
+        }
         $scope.settings[0].datasets[j].data.push(tCount);
       }
     }
