@@ -69,6 +69,8 @@ module UserSmarteru
   # user.smarteru_enroll(product)
   # => true/false
   def smarteru_enroll(product)
+    return true if smarteru_learner_reports.find { |report| report[:course_name] == product.name }
+
     payload = {
       learning_module_enrollment: {
         enrollment: {
