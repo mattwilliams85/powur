@@ -110,13 +110,7 @@ module UserSmarteru
     response.result[:redirect_path]
   end
 
-  # Get User's learner reports from SmarterU
-  # Using user's employee_id
-  # Returns array of reports for each class
-  #
-  # ==== Example
-  # user.smarteru_learner_reports
-  def smarteru_learner_reports
+  def get_learner_report
     payload = {
       report: {
         filters: {
@@ -142,11 +136,22 @@ module UserSmarteru
         custom_fields: {}
       }
     }
-    response = smarteru_client.request('getLearnerReport', payload)
-    unless response.success?
-      Airbrake.notify(response.error.to_s)
-      return false
-    end
-    response.result[:learner_report][:learner].to_a # Calling .to_a to standardize because if only one report returned, it would have it as an object
+    smarteru_client.request('getLearnerReport', payload)
+  end
+
+  # Get User's learner reports from SmarterU
+  # Using user's employee_id
+  # Returns array of reports for each class
+  #
+  # ==== Example
+  # user.smarteru_learner_reports
+  def smarteru_learner_reports
+    response = get_learner_report
+    fail(response.error.to_s) unless response.success?
+    #   Airbrake.notify(response.error.to_s)
+    #   return false
+    # end
+    result = response.result[:learner_report][:learner]
+    [ result ].flatten # normalize as single entry returns object
   end
 end

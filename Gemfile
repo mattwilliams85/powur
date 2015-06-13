@@ -1,7 +1,7 @@
 ruby '2.2.2'
 source 'https://rubygems.org'
 
-gem 'dotenv-rails', :groups => [ :development, :test ]
+gem 'dotenv-rails', :groups => [ :development, :test ], :require => 'dotenv/rails-now'
 gem 'rails', '4.2.1'
 gem 'pg'
 
