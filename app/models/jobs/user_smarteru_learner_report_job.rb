@@ -24,6 +24,9 @@ class Jobs::UserSmarteruLearnerReportJob < Struct.new(:user_id, :previous_checks
     end.sort_by do |report|
       report[:completed_date] ? 0 : (report[:started_date] ? 1 : 2)
     end.first
+  rescue => e
+    binding.pry
+    fail e
   end
 
   def process_enrollment(report, enrollment)
