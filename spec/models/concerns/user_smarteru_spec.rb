@@ -96,7 +96,7 @@ describe UserSmarteru do
       }
     end
     before do
-      allow(smarteru_client).to receive(:getLearnerReport).and_return(true)
+      allow(user).to receive(:smarteru_learner_reports).and_return([])
       expect(smarteru_client).to receive(:request).with('enrollLearningModules', payload).and_return(api_response)
       allow(user).to receive(:smarteru_client).and_return(smarteru_client)
     end
