@@ -154,6 +154,6 @@ module UserSmarteru
     #   return false
     # end
     result = response.result[:learner_report][:learner]
-    [ result ].flatten # normalize as single entry returns object
+    [ result ].flatten.compact # normalize as single entry returns object
   end
 end
