@@ -52,7 +52,7 @@ class SmarteruClient
   end
 
   def normalize_employee_id!
-    return unless employee_id || employee_id == normalized_employee_id
+    return if employee_id.nil? || employee_id == normalized_employee_id
     response = client.users.update(user.email, normalized_employee_id)
     update_employee_id(response.result[:employee_id])
   end
