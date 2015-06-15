@@ -58,10 +58,6 @@ class UserGroup < ActiveRecord::Base
   end
 
   class << self
-    def with_requirements
-      includes(:requirements).select(&:needs_qualification?)
-    end
-
     def with_product_requirements(product_id)
       with_requirements.select do |group|
         group.has_prouduct_requirement?(product_id)
