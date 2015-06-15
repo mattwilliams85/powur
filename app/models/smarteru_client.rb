@@ -48,13 +48,26 @@ class SmarteruClient
   end
 
   def learner_report
-    client.users.learner_report(employee_id, group)
+    @learner_report ||= client.users.learner_report(employee_id, group)
   end
 
   def normalize_employee_id!
     return unless employee_id || employee_id == normalized_employee_id
     response = client.users.update(user.email, normalized_employee_id)
     update_employee_id(response.result[:employee_id])
+  end
+
+  def enrollment(product)
+    enrollments = learner_report.select do |entry|
+      entry[:course_name] == product.name
+    end
+    enrollments.sort_by do |e|
+      e[:completed_date] ? 0 : (e[:started_date] ? 1 : 2)
+    end.first
+  end
+
+  def enrolled?(product)
+    !enrollment(product).nil?
   end
 
   private
