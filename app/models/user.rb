@@ -194,6 +194,10 @@ class User < ActiveRecord::Base
     self.save!
   end
 
+  def smarteru
+    @smarteru ||= SmarteruClient.new(self)
+  end
+
   private
 
   def destroy_used_invite
