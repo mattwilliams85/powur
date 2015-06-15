@@ -51,4 +51,21 @@ class UserGroup < ActiveRecord::Base
     needs_qualification? &&
       requirements.entries.any? { |req| req.product_id == product_id }
   end
+
+  def has_prouduct_requirement?(product_id)
+    needs_qualification? &&
+      requirements.entries.any? { |req| req.product_id == product_id }
+  end
+
+  class << self
+    def with_requirements
+      includes(:requirements).select(&:needs_qualification?)
+    end
+
+    def with_product_requirements(product_id)
+      with_requirements.select do |group|
+        group.has_prouduct_requirement?(product_id)
+      end
+    end
+  end
 end
