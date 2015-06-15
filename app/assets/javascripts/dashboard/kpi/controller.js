@@ -298,7 +298,7 @@
 
     $scope.changePage = function(direction) {
       if (direction === 'next') {
-        if ($scope.team.length / $scope.page <= 4) return;
+        if ($scope.page === $scope.max_page) return;
         $scope.page += 1;
         $scope.populateTeamList();
         $scope.position -= 276;
@@ -311,13 +311,14 @@
      $('.animate-box').velocity({
         translateY: $scope.position + 'px',
       }, {
-        duration: 300,
-        easing: 'easeOutQuint'
+        duration: 750,
+        easing: 'easeOutExpo'
       });
     };
 
     $scope.populateTeamList = function(){
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_index.json?page=' + $scope.page}).then(function(data){
+        $scope.max_page = data.max_page;
         if($scope.team) return $scope.team = $scope.team.concat(data.entities);
         $scope.team = data.entities;
         $scope.active = true;

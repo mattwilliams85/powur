@@ -36,7 +36,8 @@
     </div>
     <div class="row">
       <div class="user-nav">
-        <i ng-class="{'active': page > 1}" class="fa fa-caret-up" ng-click="changePage('prev')"></i><i ng-class="{'active': team.length / page > 4}" class="fa fa-caret-down" ng-click="changePage('next')"></i>
+        <i ng-class="{'active': page > 1}" class="fa fa-caret-up" ng-click="changePage('prev')"></i>
+        <i ng-class="{'active': page !== max_page}" class="fa fa-caret-down" ng-click="changePage('next')"></i>
       </div>
     </div>
   </div>
