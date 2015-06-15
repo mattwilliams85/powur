@@ -1,3 +1,3 @@
-first_name,last_name,email (login),roles
-Keith,Burgess,keith.burgess@eyecuelab.com,
-Keith,Burgess,keith.burgess+1@eyecuelab.com,admin
+first_name,last_name,email (login),roles,smarteru_employee_id
+Keith,Burgess,keith.burgess@eyecuelab.com,,2383504602
+Keith,Burgess,keith.burgess+1@eyecuelab.com,admin,2383504602

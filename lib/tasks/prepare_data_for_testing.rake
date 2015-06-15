@@ -12,8 +12,9 @@ namespace :powur do
     def attrs_from_csv_row(row)
       attrs = { first_name: row[0].strip,
                 last_name:  row[1].strip,
-                email:      row[2].strip.downcase}
-      attrs[:roles] = [ 'admin' ] if row[3] == 'admin'
+                email:      row[2].strip.downcase,
+                smarteru_employee_id: row[3]}
+      attrs[:roles] = [ 'admin' ] if row[4] == 'admin'
       attrs
     end
 
