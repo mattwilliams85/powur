@@ -25,14 +25,14 @@ class SmarteruClient
   def create_account(opts = {})
     opts.reverse_merge!(
       email:        user.email,
-      employee_i_d: "#{env}.powur.com:#{user.id}",
+      employee_i_d: normalized_employee_id,
       given_name:   user.first_name,
       surname:      user.last_name,
       password:     SecureRandom.urlsafe_base64(8),
       group:        group)
 
     response = client.users.create(opts)
-    user.update_column(:smarteru_employee_id, response.result[:employee_id])
+    update_employee_id(response.result[:employee_id])
   end
 
   def signin
@@ -51,9 +51,23 @@ class SmarteruClient
     client.users.learner_report(employee_id, group)
   end
 
+  def normalize_employee_id!
+    return unless employee_id || employee_id == normalized_employee_id
+    response = client.users.update(user.email, normalized_employee_id)
+    update_employee_id(response.result[:employee_id])
+  end
+
   private
 
   def env
     ENV['SMARTERU_ENV'] || Rails.env
+  end
+
+  def normalized_employee_id
+    "#{env}.powur.com:#{user.id}"
+  end
+
+  def update_employee_id(value)
+    user.update_column(:smarteru_employee_id, value)
   end
 end
