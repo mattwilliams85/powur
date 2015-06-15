@@ -128,15 +128,6 @@ describe UserSmarteru do
         expect(enrollment).not_to receive(:reenroll!)
         is_expected.to eq(enrollment)
       end
-
-      context 're-enroll if enrollment was removed' do
-        before do
-          allow(enrollment).to receive(:removed?).and_return(true)
-          expect(enrollment).to receive(:reenroll!).and_return(true)
-        end
-
-        it { is_expected.to eq(enrollment) }
-      end
     end
   end
 
