@@ -14,23 +14,12 @@ class ProductEnrollment < ActiveRecord::Base
     where(user_id: user_id, product_id: product_id)
   }
 
-  after_create :start_learner_report_polling
-
   include AASM
 
   aasm(column: :state) do
     state :enrolled, initial: true
     state :started
     state :completed
-    state :removed
-
-    event :reenroll do
-      transitions from: [:removed], to: :enrolled
-      after do
-        # start polling again
-        start_learner_report_polling
-      end
-    end
 
     event :start do
       transitions from: [:enrolled], to: :started
@@ -45,17 +34,5 @@ class ProductEnrollment < ActiveRecord::Base
         user.rank_up! if user.needs_rank_up?
       end
     end
-
-    event :remove do
-      transitions from: [:enrolled, :started], to: :removed
-    end
-  end
-
-  def start_learner_report_polling
-    new_job = Jobs::UserSmarteruLearnerReportJob.new(user_id, 0)
-    Delayed::Job.enqueue(
-      new_job,
-      run_at: 30.minutes.from_now
-    )
   end
 end
