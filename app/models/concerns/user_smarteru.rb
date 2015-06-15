@@ -56,8 +56,9 @@ module UserSmarteru
       Airbrake.notify(response.error.to_s)
       return false
     end
+    self.smarteru_employee_id = employee_i_d
     update_column(:smarteru_employee_id, employee_i_d)
-    return true
+    true
   end
 
   # Enroll user in a SmarterU class
@@ -75,13 +76,14 @@ module UserSmarteru
       learning_module_enrollment: {
         enrollment: {
           user: {
-            employee_i_d: smarteru_employee_id
+            employee_i_d: self.smarteru_employee_id
           },
           group_name: ENV['SMARTERU_GROUP_NAME'],
           learning_module_i_d: product.smarteru_module_id
         }
       }
     }
+
     response = smarteru_client.request('enrollLearningModules', payload)
     # Success, either enroll or  already enrolled
     if response.result.present? || (response.error && response.error[:error][:error_id] == 'ELM:19')
