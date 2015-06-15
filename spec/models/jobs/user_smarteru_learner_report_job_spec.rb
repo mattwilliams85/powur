@@ -15,9 +15,10 @@ describe Jobs::UserSmarteruLearnerReportJob, type: :model do
   context 'smarterU enrollment doesn\'t exist' do
     let(:smarteru_learner_reports) { [] }
 
-    it 'should mark enrollment as removed' do
+    it 'should enqueue another job' do
+      expect_any_instance_of(ProductEnrollment).to receive(:start_learner_report_polling).once.and_return(true)
       job.perform
-      expect(ProductEnrollment.find(product_enrollment.id).state).to eq('removed')
+      expect(ProductEnrollment.find(product_enrollment.id).state).to eq('enrolled')
     end
   end
 

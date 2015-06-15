@@ -1,11 +1,8 @@
 class Jobs::UserSmarteruLearnerReportJob < Struct.new(:user_id, :previous_checks)
-  # TODO class due date field, we'll use it for polling instead of MAX_ATTEMPTS
-  MAX_ATTEMPTS = 1000
-
   def perform
-    self.previous_checks ||= 0
     user = User.find(user_id)
-    enrollments = user.product_enrollments.joins(:product).incomplete.to_a
+    # Get incomplete enrollments for the user since 30 days ago
+    enrollments = user.product_enrollments.joins(:product).incomplete.where('product_enrollments.created_at >=  ?', 30.days.ago).to_a
 
     return if enrollments.empty?
 
@@ -16,7 +13,6 @@ class Jobs::UserSmarteruLearnerReportJob < Struct.new(:user_id, :previous_checks
     end
   end
 
-  # Delayed::Job max_attempts config override, don't confuse with our MAX_ATTEMPTS
   def max_attempts
     2
   end
@@ -31,17 +27,12 @@ class Jobs::UserSmarteruLearnerReportJob < Struct.new(:user_id, :previous_checks
   end
 
   def process_enrollment(report, enrollment)
-    return enrollment.remove! if report.nil?
-
-    if report[:completed_date]
+    if report && report[:completed_date]
       enrollment.complete!
-    elsif report[:started_date] && enrollment.enrolled?
+    elsif report && report[:started_date] && enrollment.enrolled?
       enrollment.start!
     else
-      self.previous_checks += 1
-      if previous_checks < MAX_ATTEMPTS
-        enrollment.start_learner_report_polling(previous_checks) # enqueue new job
-      end
+      enrollment.start_learner_report_polling # enqueue new job
     end
   end
 end

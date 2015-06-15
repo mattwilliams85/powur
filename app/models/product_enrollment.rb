@@ -9,7 +9,7 @@ class ProductEnrollment < ActiveRecord::Base
     uniqueness: { scope: :user_id }
   validates :user_id, presence: true
 
-  scope :incomplete, -> { where(state: [ 'enrolled', 'started' ]) }
+  scope :incomplete, -> { where("state != 'completed'") }
   scope :user_product, ->(user_id, product_id) {
     where(user_id: user_id, product_id: product_id)
   }
@@ -51,8 +51,8 @@ class ProductEnrollment < ActiveRecord::Base
     end
   end
 
-  def start_learner_report_polling(previous_checks=0)
-    new_job = Jobs::UserSmarteruLearnerReportJob.new(user_id, previous_checks)
+  def start_learner_report_polling
+    new_job = Jobs::UserSmarteruLearnerReportJob.new(user_id, 0)
     Delayed::Job.enqueue(
       new_job,
       run_at: 30.minutes.from_now
