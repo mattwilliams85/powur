@@ -115,26 +115,29 @@
 
     $scope.scale = 29;
     $scope.current = new Date();
-    $scope.section = '';
     $scope.legacyImagePaths = legacyImagePaths;
     
     $scope.changeTab = function(section) {
-      if (!$scope.isTabClickable || $scope.section === section) return;
+      if (!$scope.isTabClickable || $scope.section === section) return $scope.section = false;
 
       $scope.active = false;
-
       $scope.section = section;
-      if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
+      $scope.settings = $scope.tabData[$scope.section].settings;
+      
       $scope.clearData();
       $scope.populateContributors();
     };
 
     $scope.clearData = function() {
+      $scope.team = null;
+      $scope.page = 1;
+      $scope.position = 0;
       for (var i = 0; i < $scope.settings[0].datasets.length; i++) {
         $scope.settings[0].datasets[i].data = [];
       }
     }
 
+    //Scale font size for KPI headers
     $scope.scaleFontSize = function(string) {
       if (!isNaN(string)) {
         string = string.toString();
@@ -148,8 +151,8 @@
       $scope.populateData();
       $scope.generateLabels();
       $scope.setScale();
-      var ctx = document.getElementById('metricsChart').getContext('2d');
 
+      var ctx = document.getElementById('metricsChart').getContext('2d');
       var type = $scope.settings[0].type;
       
       if (type === 'line') {
@@ -161,11 +164,11 @@
 
     $scope.setScale = function() {
       //Find largest data point
-      var bigData = []; 
+      var allData = []; 
       for (var i = 0; i < $scope.settings[0].datasets.length; i ++) {
-        bigData = bigData.concat($scope.settings[0].datasets[i].data);
+        allData = allData.concat($scope.settings[0].datasets[i].data);
       } 
-      var max = Math.max.apply(Math, bigData);
+      var max = Math.max.apply(Math, allData);
 
       //Set Scale
       if (!max) {
@@ -216,14 +219,9 @@
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
         $scope.activeUser = data.properties;
         $scope.user = $scope.activeUser;
-        // if ($scope.section === 'genealogy' && !$scope.tree) return genealogyTree();
         $scope.buildChart();
       });
-      //Populates Team List
-      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_index.json'}).then(function(data){
-        $scope.team = data.entities;
-        $scope.active = true;
-      });
+      $scope.populateTeamList();
     };
 
     function sameDayAs(item, i) {
@@ -303,22 +301,30 @@
       if (direction === 'next') {
         if ($scope.team.length / $scope.page <= 4) return;
         $scope.page += 1;
+        $scope.populateTeamList();
         $scope.position -= 276;
       } else {
         if ($scope.page === 1) return;
         $scope.page -= 1;
+        // $scope.populateTeamList();
         $scope.position += 276;
       }
       //Animate contributors bar
-      $('.contributor').each(function() {
-        $(this).velocity({
-          translateY: $scope.position + 'px'
-        }, {
-          duration: 50,
-          easing: 'easeOutQuint'
-        });
+     $('.animate-box').velocity({
+        translateY: $scope.position + 'px',
+      }, {
+        duration: 250,
+        easing: 'easeOutQuint'
       });
     };
+
+    $scope.populateTeamList = function(){
+      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_index.json?page=' + $scope.page}).then(function(data){
+        if($scope.team) return $scope.team = $scope.team.concat(data.entities);
+        $scope.team = data.entities;
+        $scope.active = true;
+      });
+    }
 
     //CALENDAR FUNCTIONS
     $scope.daysInMonth = function() {

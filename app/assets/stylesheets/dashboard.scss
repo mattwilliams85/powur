@@ -600,13 +600,6 @@ $kpi-text-color: #888;
           border-radius: 2px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 
-          // &.above {
-          //   margin: 50px 0px 5px 8px;
-          // }
-
-          // &.below {
-          //   margin: 5px 0px 30px 8px;
-          // }
           &.half {
             height: 20px;
             margin-bottom: 7px;
@@ -685,14 +678,6 @@ $kpi-text-color: #888;
           border-radius: 6px;
           white-space: nowrap;
           opacity: 0;
-
-          // &.above {
-          //   top: -50px;
-          // }
-
-          // &.below {
-          //   top: 30px;
-          // }
         }
       }
 
@@ -1235,7 +1220,6 @@ $kpi-text-color: #888;
               padding: 13px 13px 13px 5px;
               font-size: 9pt;
               cursor: pointer;
-              transition: .3s linear;
               @media #{$medium} {
                 padding: 13px;
                 font-size:11pt;

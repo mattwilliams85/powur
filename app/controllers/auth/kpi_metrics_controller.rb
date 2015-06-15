@@ -5,6 +5,8 @@ module Auth
     helper_method :users_for_period
     helper_method :orders_for_user
 
+    page max_limit: 8
+
     def index
     end
 
@@ -24,7 +26,7 @@ module Auth
 
     def proposals_index
       @user = User.find(params[:id])
-      @users = @user.downline_users
+      @users = apply_list_query_options(@user.downline_users).order('last_name DESC')
 
       render "auth/kpi_metrics/proposals/index"
     end
@@ -42,7 +44,7 @@ module Auth
 
     def genealogy_index
       @user = User.find(params[:id])
-      @users = @user.downline_users
+      @users = @user.downline_users.order('last_name DESC')
 
       render "auth/kpi_metrics/genealogy/index"
     end

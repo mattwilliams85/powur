@@ -2,7 +2,7 @@
   <!-- USER SECTION -->
   <div class="small-3 columns user-column full-column show-for-medium-up">
     <div class="row header-row">
-    <span class="uppercase kpi-detail">my conversion</span>
+      <span class="uppercase kpi-detail">my conversion</span>
 <!--       <span class="uppercase kpi-detail" ng-show="!activeUser" >my conversion</span>
       <span class="uppercase kpi-detail link" ng-show="activeUser" ng-click="changeUser();"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp; return to team graph</span> -->
     </div>
@@ -22,14 +22,16 @@
     </div>
     <div class="row">
       <div class="contributors-box">
-        <div ng-repeat="member in team">
-          <div ng-class="{'active': activeUser.id === member.properties.id}" class="contributor" ng-click="changeUser(member.properties)">
-            <!-- <img ng-src="{{members.properties.avatar || 'http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578'}}" class="avatar-small left"/> -->
-            <img ng-if="!teamMember.properties.avatar" class="avatar-small left" ng-src="{{legacyImagePaths.defaultAvatarThumb}}">
-            <img ng-if="teamMember.properties.avatar" class="avatar-medium" ng-src="{{member.properties.avatar.thumb}}">
-            <div class="info-box left">
-              <span class="kpi-detail link">{{member.properties.first_name}} {{member.properties.last_name}}</span>
-              <span class="kpi-detail">{{member.properties.proposal_count}} Proposals</span>
+        <div class="animate-box">
+          <div ng-repeat="member in team track by $index">
+            <div ng-class="{'active': activeUser.id === member.properties.id}" class="contributor" ng-click="changeUser(member.properties)">
+              <!-- <img ng-src="{{members.properties.avatar || 'http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578'}}" class="avatar-small left"/> -->
+              <img ng-if="!teamMember.properties.avatar" class="avatar-small left" ng-src="{{legacyImagePaths.defaultAvatarThumb}}">
+              <img ng-if="teamMember.properties.avatar" class="avatar-medium" ng-src="{{member.properties.avatar.thumb}}">
+              <div class="info-box left">
+                <span class="kpi-detail link">{{member.properties.first_name}} {{member.properties.last_name}}</span>
+                <span class="kpi-detail">{{member.properties.proposal_count}} Proposals</span>
+              </div>
             </div>
           </div>
         </div>
@@ -90,6 +92,7 @@
         <i class="fa fa-caret-right forward" ng-click="calendarForward();"></i>
       </div> -->
     </div>
+  </div>
     <!-- STATS SECTION -->
    <!--  <div class="small-12 medium-3 columns stats-column show-for-medium-up">
       <div class="row">
