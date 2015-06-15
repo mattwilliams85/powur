@@ -5,6 +5,9 @@
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
+    //Temp fix for sizzle selector bug
+    Object.getPrototypeOf(document.createComment('')).getAttribute = function() {}
+
     $rootScope.redirectIfSignedIn = function() {
       if ($rootScope.isSignedIn) {
         if ($rootScope.currentUser.latest_terms) {
