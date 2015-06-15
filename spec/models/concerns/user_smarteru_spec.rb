@@ -96,7 +96,7 @@ describe UserSmarteru do
       }
     end
     before do
-      allow(user).to receive(:smarteru_learner_reports).and_return([])
+      allow(smarteru_client).to receive(:getLearnerReport).and_return(true)
       expect(smarteru_client).to receive(:request).with('enrollLearningModules', payload).and_return(api_response)
       allow(user).to receive(:smarteru_client).and_return(smarteru_client)
     end
@@ -127,6 +127,15 @@ describe UserSmarteru do
       it do
         expect(enrollment).not_to receive(:reenroll!)
         is_expected.to eq(enrollment)
+      end
+
+      context 're-enroll if enrollment was removed' do
+        before do
+          allow(enrollment).to receive(:removed?).and_return(true)
+          expect(enrollment).to receive(:reenroll!).and_return(true)
+        end
+
+        it { is_expected.to eq(enrollment) }
       end
     end
   end
