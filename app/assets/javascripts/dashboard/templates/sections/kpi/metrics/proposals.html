@@ -3,8 +3,6 @@
   <div class="small-3 columns user-column full-column show-for-medium-up">
     <div class="row header-row">
       <span class="uppercase kpi-detail">my conversion</span>
-<!--       <span class="uppercase kpi-detail" ng-show="!activeUser" >my conversion</span>
-      <span class="uppercase kpi-detail link" ng-show="activeUser" ng-click="changeUser();"><i class="fa fa-bar-chart"></i>&nbsp;&nbsp; return to team graph</span> -->
     </div>
     <div ng-class="{'active': activeUser.id === user.id}" class="user-contributor row" ng-click="changeUser(user)">
       <div class="row current-user-row">
@@ -25,7 +23,6 @@
         <div class="animate-box">
           <div ng-repeat="member in team track by $index">
             <div ng-class="{'active': activeUser.id === member.properties.id}" class="contributor" ng-click="changeUser(member.properties)">
-              <!-- <img ng-src="{{members.properties.avatar || 'http://www.insidersabroad.com/images/default_avatar_large.gif?1414172578'}}" class="avatar-small left"/> -->
               <img ng-if="!teamMember.properties.avatar" class="avatar-small left" ng-src="{{legacyImagePaths.defaultAvatarThumb}}">
               <img ng-if="teamMember.properties.avatar" class="avatar-medium" ng-src="{{member.properties.avatar.thumb}}">
               <div class="info-box left">
@@ -45,27 +42,6 @@
   </div>
 
   <div class="small-12 medium-9 columns full-column right-part">
-    <!-- STATS SECTION -->
-   <!--  <div class="small-12 medium-3 columns stats-column hide-for-medium-up">
-      <div class="row">
-        <span class="uppercase stats-title">team stats</span>
-      </div>
-      <div class="stats-box small-4 medium-12 columns">
-        <span class="kpi-detail">Today</span>
-        <span class="stats-detail">Proposals: 3</detail>
-        <span class="stats-detail">Sales: 9</detail>
-      </div>
-      <div class="stats-box small-4 medium-12 columns">
-        <span class="kpi-detail">This Week</span>
-        <span class="stats-detail">Proposals: 3</detail>
-        <span class="stats-detail">Sales: 9</detail>
-      </div>
-      <div class="stats-box small-4 medium-12 columns">
-        <span class="kpi-detail">Total Active</span>
-        <span class="stats-detail">Proposals: 3</detail>
-        <span class="stats-detail">Sales: 9</detail>
-      </div>
-    </div> -->
     <!-- CHART SECTION -->
     <div class="small-12 medium-11 columns chart-column">
       <div class="row">
@@ -93,31 +69,4 @@
       </div> -->
     </div>
   </div>
-    <!-- STATS SECTION -->
-   <!--  <div class="small-12 medium-3 columns stats-column show-for-medium-up">
-      <div class="row">
-        <span class="uppercase stats-title ">team stats</span>
-      </div>
-      <div class="stats-box small-4 medium-12 columns">
-        <span class="kpi-detail">Today</span>
-        <span class="stats-detail">Proposals: 3</detail>
-        <span class="stats-detail">Sales: 9</detail>
-      </div>
-      <div class="stats-box small-4 medium-12 columns">
-        <span class="kpi-detail">This Week</span>
-        <span class="stats-detail">Proposals: 3</detail>
-        <span class="stats-detail">Sales: 9</detail>
-      </div>
-      <div class="stats-box small-4 medium-12 columns">
-        <span class="kpi-detail">Total Active</span>
-        <span class="stats-detail">Proposals: 3</detail>
-        <span class="stats-detail">Sales: 9</detail>
-      </div>
-    </div>
-  </div> -->
 </section>
-<!-- MOBILE -->
-<!-- <div class="large-12 columns mobile-users-row show-for-small">
-  <i class="fa fa-caret-left"></i>
-  <i class="fa fa-caret-right"></i>
-</div> -->

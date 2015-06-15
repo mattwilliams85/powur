@@ -9,6 +9,5 @@ json.properties do
       json.set! key, asset_path(user.avatar.url(key))
     end
   end if user.avatar?
-  # json.full_downline_count user.full_downline_count
   json.weekly_growth user.weekly_growth
 end

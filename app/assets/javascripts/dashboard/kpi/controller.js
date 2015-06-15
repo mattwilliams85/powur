@@ -137,7 +137,6 @@
       }
     }
 
-    //Scale font size for KPI headers
     $scope.scaleFontSize = function(string) {
       if (!isNaN(string)) {
         string = string.toString();
@@ -289,7 +288,7 @@
         } else if ($scope.section === "genealogy") {
           genealogyCount(j)
         } else {
-          //
+          //future sections
         }
       }
     };
@@ -306,14 +305,13 @@
       } else {
         if ($scope.page === 1) return;
         $scope.page -= 1;
-        // $scope.populateTeamList();
         $scope.position += 276;
       }
-      //Animate contributors bar
+      //Animate contributors side-bar
      $('.animate-box').velocity({
         translateY: $scope.position + 'px',
       }, {
-        duration: 250,
+        duration: 300,
         easing: 'easeOutQuint'
       });
     };
@@ -358,15 +356,6 @@
         $scope.current = new Date($scope.current.setMonth($scope.current.getMonth() + 1));
       }
       $scope.changeScale($scope.scale);
-    };
-
-    $scope.setCalendar = function() {
-      if($scope.scale === 6) {
-        var daysFromSun = $scope.current.getDay();
-        return new Date($scope.current.setDate($scope.current.getDate() - daysFromSun));
-      } else {
-        return $scope.current.setDate(1);
-      }
     };
     //
 

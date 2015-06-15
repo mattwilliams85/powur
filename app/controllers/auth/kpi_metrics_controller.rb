@@ -44,7 +44,7 @@ module Auth
 
     def genealogy_index
       @user = User.find(params[:id])
-      @users = @user.downline_users.order('last_name DESC')
+      @users = apply_list_query_options(@user.downline_users).order('last_name DESC')
 
       render "auth/kpi_metrics/genealogy/index"
     end

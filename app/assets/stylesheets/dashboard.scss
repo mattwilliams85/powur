@@ -1,9 +1,11 @@
 $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans-serif;
 $kpi-text-color: #888;
 
-// div {
-//   border: 1px solid red;
-// }
+//DO NOT REMOVE (dev tool)
+  // div {
+  //   border: 1px solid red;
+  // }
+//
 
 .powur-dashboard {
   padding-bottom: 210px;
@@ -106,14 +108,6 @@ $kpi-text-color: #888;
     border-left: 1px solid #e5e5e5;
     border-right: 1px solid #e5e5e5;
 
-    // &.active {
-    //   background-color: #444;
-    //   height: 2000px;
-    //   @media #{$small} {
-    //     height:1000px;
-    //   }
-    // }
-
     .summary {
       text-align: left;
       min-height: 465px;
@@ -209,7 +203,6 @@ $kpi-text-color: #888;
   @media #{$small} {
     .drilldown {
       .summary {
-        // position: absolute;
         border-right: 1px solid #555;
         border-bottom: 0;
         text-align: center;
@@ -1332,11 +1325,9 @@ $kpi-text-color: #888;
         .stats-column {
           background-color: #333;
           padding-bottom: 25px;
-          // margin-top: 20px;
           text-align: center;
           @media #{$small} {
             padding-bottom: 0px;
-            // margin-top: 0px;
             text-align: left;
             background-color: #444;
           }
@@ -1538,7 +1529,6 @@ $kpi-text-color: #888;
     }
 
     .new-proposal {
-      // border: 1px solid #e5e5e5;
       border-right: 0;
     }
   }
@@ -1725,7 +1715,6 @@ $kpi-text-color: #888;
     }
 
     .new-team-member {
-      // border: 1px solid #e5e5e5;
       border-right: 0;
 
       &.beta {
@@ -1738,14 +1727,6 @@ $kpi-text-color: #888;
     .team-member-info-large {
       background-color: transparent;
       color: #fff;
-
-      // border-left: 1px solid #555;
-      // &:first-of-type {
-      //   border: 0;
-      // }
-      // &.even {
-      //   border-left: 1px solid #444;
-      // }
     }
 
     // "Team Member Show" Styles for Large Screens
