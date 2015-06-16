@@ -35,6 +35,10 @@ class SmarteruClient
     update_employee_id(response.result[:employee_id])
   end
 
+  def ensure_account
+    create_account unless account?
+  end
+
   def signin
     response = client.users.signin(employee_id)
     response.result[:redirect_path]
@@ -44,10 +48,16 @@ class SmarteruClient
     existing_enrollment = enrollment(product)
     return existing_enrollment if existing_enrollment
 
-    client.users.enroll(
+    response = client.users.enroll(
       employee_id,
       group,
       product.smarteru_module_id)
+
+    if !response.success? && resposne.response.error[:error][:error_id] == 'ELM:19'
+      fail(response.error)
+    end
+
+    user.product_enrollments.find_or_create_by(product_id: product.id)
   end
 
   def learner_report
