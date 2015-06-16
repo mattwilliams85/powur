@@ -40,12 +40,12 @@ module Auth
     private
 
     def find_university_class
-      @university_class = Product.certifiable.find(params[:id])
+      @university_class = Product.certifiable.find(params[:id].to_i)
     end
 
     def validate_class_availability
-      head :unauthorized if @university_class.product_enrollments.find_by(user_id: current_user.id).try(:completed?)
-      head :unauthorized unless @university_class.is_free? || @university_class.purchased_by?(current_user.id)
+      not_found!(:product) if @university_class.is_free?
+      error!(:already_completed) if @university_class.completed_by?(current_user.id)
     end
   end
 end

@@ -57,7 +57,7 @@ GIT
 
 GIT
   remote: git://github.com/eyecuelab/smarteru.git
-  revision: 077274ee339df53317b420c446c54e0835676cfe
+  revision: a17470bc4aa748b0a249b7ff02de7c13d1cb8f47
   specs:
     smarteru (0.0.2)
       libxml-ruby

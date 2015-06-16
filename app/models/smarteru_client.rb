@@ -48,16 +48,18 @@ class SmarteruClient
     existing_enrollment = enrollment(product)
     return existing_enrollment if existing_enrollment
 
-    response = client.users.enroll(
-      employee_id,
-      group,
-      product.smarteru_module_id)
-
-    if !response.success? && resposne.response.error[:error][:error_id] == 'ELM:19'
-      fail(response.error)
+    begin
+      response = client.users.enroll(
+        employee_id,
+        group,
+        product.smarteru_module_id)
+    rescue Smarteru::Error => e
+      fail(e) unless e.code == 'ELM:19'
     end
 
-    user.product_enrollments.find_or_create_by(product_id: product.id)
+    user
+      .product_enrollments
+      .find_or_create_by(product_id: product.id)
   end
 
   def learner_report
