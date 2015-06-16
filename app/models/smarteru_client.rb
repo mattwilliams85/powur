@@ -54,14 +54,15 @@ class SmarteruClient
     existing_enrollment = enrollment(product)
     return existing_enrollment if existing_enrollment
 
-    client.users.enroll(
-      employee_id,
-      group,
-      product.smarteru_module_id
-    )
-    # rescue Smarteru::Error => e
-    #   fail(e) unless e.code == 'ELM:19'
-    # end
+    begin
+      client.users.enroll(
+        employee_id,
+        group,
+        product.smarteru_module_id
+      )
+    rescue Smarteru::Error => e
+      fail(e) unless e.code == 'ELM:19'
+    end
 
     user
       .product_enrollments
