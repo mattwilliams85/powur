@@ -19,7 +19,8 @@ module Auth
     def proposals_show
       @user = User.find(params[:id])
       scale = params[:scale].to_i + 1
-      @proposals = @user.fetch_proposal_metrics(Date.today - scale, Date.today)
+      @orders = @user.fetch_total_orders(Date.today - scale, Date.today)
+      @proposals = @user.fetch_total_proposals(Date.today - scale, Date.today)
       
       render "auth/kpi_metrics/proposals/show"
     end
