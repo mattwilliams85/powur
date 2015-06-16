@@ -1,0 +1,33 @@
+<form>
+  <fieldset>
+    <legend ng-if="mode === 'new'">New Social Media Post</legend>
+    <legend ng-if="mode === 'edit'">Edit Social Media Post</legend>
+    <!-- New Social Media Form -->
+    <div ng-repeat="field in formAction.fields" class="row">
+      <div class="large-12 columns">
+        <label for="{{field.name}}">{{field.name}}</label>
+        <!-- String Inputs -->
+        <input ng-model="socialMediaPost[field.name]" ng-if="field.type === 'string'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+        <!-- Text Area Inputs -->
+        <textarea ng-model="socialMediaPost[field.name]" ng-if="field.type === 'text'" name="{{field.name}}" id="{{field.name}}" maxlength="117">{{field.value}}</textarea>
+        <!-- Character Counter -->
+        <!-- (117 character limit for a tweet with a link) -->
+        <p ng-if="field.type === 'text'" class="remaining-characters">{{117 - socialMediaPost[field.name].length}} characters remaining</p>
+        <!-- Boolean -->
+        <input ng-model="socialMediaPost[field.name]" ng-if="field.type === 'boolean'" type="checkbox" name="{{field.name}}" id="{{field.name}}">
+        <label ng-if="field.type === 'boolean'" for="{{field.name}}">Publish Now</label>
+      </div>
+    </div>
+    <!-- Delete Button -->
+    <input ng-if="mode === 'edit'" class="tiny button understated right" ng-disabled="isSubmitDisabled" type="submit" ng-click="delete(socialMediaPostObj)" value="Delete Social Media Post" />
+    <!-- Submit/Cancel Buttons -->
+    <div class="row">
+      <div class="large-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Add Post" />
+        <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update Post" />
+      </div>
+    </div>
+  </fieldset>
+</form>
+
