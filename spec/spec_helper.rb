@@ -1,6 +1,9 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
+unless ActiveRecord::Base.connection_config[:database] =~ /test/
+  fail 'Test database name must have word test in it'
+end
 require 'rspec/rails'
 require 'webmock/rspec'
 require 'capybara/rspec'
