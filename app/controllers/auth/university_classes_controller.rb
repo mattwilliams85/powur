@@ -2,8 +2,9 @@ module Auth
   class UniversityClassesController < AuthController
     page
 
-    before_filter :find_university_class, only: [:show, :enroll, :purchase]
-    before_filter :validate_class_availability, only: [:enroll]
+    before_filter :find_university_class, only: [ :show, :enroll, :purchase ]
+    before_filter :validate_class_availability, only: [ :enroll ]
+    before_filter 
 
     def index
       @university_classes = apply_list_query_options(Product.certifiable.sorted)
@@ -29,15 +30,11 @@ module Auth
     end
 
     def enroll
-      head :unprocessable_entity unless current_user.smarteru.create_account
-      head :unprocessable_entity unless current_user.smarteru.enroll(@university_class)
+      current_user.smarteru.ensure_account
+      current_user.smarteru.enroll(@university_class)
+
       redirect_url = current_user.smarteru.signin
-      if redirect_url
-        render json: { redirect_to: redirect_url }
-        return
-      else
-        head :unauthorized
-      end
+      render json: { redirect_to: redirect_url }
     end
 
     private
