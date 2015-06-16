@@ -73,12 +73,15 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
     end
 
     context 'with no enrollment restrictions' do
-      let(:product_enrollment) { double('enrollment', completed?: false) }
       before do
-        allow(current_user).to receive(:smarteru_sign_in).and_return("/redirectpath")
-        allow(current_user).to receive(:create_smarteru_account).and_return(true)
-        allow(current_user).to receive(:smarteru_enroll).with(certifiable_product).and_return(true)
+        allow(smarteru).to receive(:signin).and_return('/redirectpath')
+        allow(smarteru).to receive(:create_account).and_return(true)
+        allow(smarteru).to receive(:enroll).with(certifiable_product).and_return(true)
+        allow(current_user).to receive(:smarteru).and_return(smarteru)
       end
+
+      let(:product_enrollment) { double('enrollment', completed?: false) }
+      let(:smarteru) { double(:smarteru, enrollment: nil) }
 
       it 'enrolls user' do
         post enroll_university_class_path(certifiable_product), format: :json
