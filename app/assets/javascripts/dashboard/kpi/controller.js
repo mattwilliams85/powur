@@ -9,6 +9,7 @@
           type: 'line',
           labels: [],
           datasets: [{
+            label: "Rooftop",
             fillColor: 'rgba(255, 186, 120, 0.2)',
             highlightFill: '#FFC870',
             pointColor: 'rgba(253, 180, 92, 1)',
@@ -18,14 +19,15 @@
             strokeColor: 'rgba(253, 180, 92, 1)',
             data: []
           },{
-            fillColor: 'rgba(108, 207, 255, 0.15)',
-            highlightFill: '#5bd7f7',
-            pointColor: '#20c2f1',
-            pointStrokeColor: 'rgb(68, 68, 68)',
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "#444",
-            strokeColor: '#20c2f1',
-            data: []
+           label: "Proposal",
+           fillColor: 'rgba(108, 207, 255, 0.15)',
+           highlightFill: '#5bd7f7',
+           pointColor: '#20c2f1',
+           pointStrokeColor: 'rgb(68, 68, 68)',
+           pointHighlightFill: "#fff",
+           pointHighlightStroke: "#444",
+           strokeColor: '#20c2f1',
+           data: []
           }]
         },{
           options: {
@@ -39,6 +41,9 @@
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
             scaleShowVerticalLines: false,
+            multiTooltipTemplate: function(valuesObject){
+              return formatLabel(valuesObject);
+            },
             scaleOverride: true,
             // ** Required if scaleOverride is true **
             scaleSteps: 5,
@@ -56,7 +61,7 @@
           type: 'bar',
           labels: [],
           datasets: [{
-            label: 'My First dataset',
+            label: 'Advocate',
             fillColor: 'rgba(32, 194, 241,.9)',
             highlightFill: '#5bd7f7',
             strokeColor: 'rgba(32, 194, 241,.9)',
@@ -71,6 +76,9 @@
             scaleFontSize: 13,
             barValueSpacing: 3,
             scaleStartValue: 0,
+            tooltipTemplate: function(valuesObject){
+              return formatLabel(valuesObject);
+            },
             scaleOverride: true,
             // ** Required if scaleOverride is true **
             scaleSteps: 12,
@@ -116,6 +124,29 @@
     $scope.scale = 29;
     $scope.current = new Date();
     $scope.legacyImagePaths = legacyImagePaths;
+
+    function formatLabel(l) {
+      var months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      var slash = l.label.indexOf('/');
+      var date = formatDate(l, slash);
+
+      if(parseInt(l.label) > 0) l.label = months[l.label.substring(0, slash)] + ' ' + date
+      if (l.value === 1) return l.value + ' ' + l.datasetLabel;
+      return l.value + ' ' + l.datasetLabel + 's';
+    }
+
+    function formatDate(l, slash) {
+      var str = l.label.substring(slash + 1, l.label.length);
+      if (str.slice(-1) == 1) {
+        return str += 'st';
+      } else if (str.slice(-1) == 2) {
+        return str += 'nd'
+      } else if (str.slice(-1) == 3) {
+        return str += 'rd'
+      } else {
+        return str += 'th'
+      }
+    }
     
     $scope.changeTab = function(section) {
       if (!$scope.isTabClickable || $scope.section === section) return $scope.section = false;
@@ -240,56 +271,32 @@
       return null;
     }
 
-    var proposalCount = function(j) {
-      if (!$scope.activeUser.metrics_data) return;
+    function dataCount(j) {
+      var data = angular.copy($scope.activeUser.metrics['data'+j]);
+      var count = 0;
 
-      var data = angular.copy($scope.activeUser.metrics_data['data'+j]);
-
-      //For each data point
+      //For each date
       for (var i = 0; i <= $scope.scale; i++) {
-        var count = 0;
-        //For every downline user
+        if($scope.section !== "genealogy") count = 0; //Non-incremental
+        //For each data item
         for (var n = 0; n < data.length; n++) {
           if (sameDayAs(data[n], i)) {
             data.splice(data.indexOf(data[n]), 1);
             n--; //decrement
             count += 1;
           }
-        };
+        }
         $scope.settings[0].datasets[j].data.push(count);
       }
     }
 
-    function genealogyCount(j) {
-      var tCount = 0;
-      var downline = angular.copy($scope.activeUser.downline);
-
-      //For each data point
-      for (var i = -1; i <= $scope.scale - 1; i++) {
-        //For every downline user
-        for (var n = 0; n < downline.length; n++) {
-          if (sameDayAs(downline[n], i)) {
-            downline.splice(downline.indexOf(downline[n]), 1);
-            n--; //decrement
-            tCount += 1;
-          }
-        }
-        $scope.settings[0].datasets[j].data.push(tCount);
-      }
-    }
-
     $scope.populateData = function() {
+      if (!$scope.activeUser.metrics) return;
       //For each data set
       for (var j = 0; j < $scope.settings[0].datasets.length; j++) {
         $scope.settings[0].datasets[j].data = [];
 
-        if ($scope.section === "proposals") {
-          proposalCount(j)
-        } else if ($scope.section === "genealogy") {
-          genealogyCount(j)
-        } else {
-          //future sections
-        }
+        dataCount(j);
       }
     };
 
