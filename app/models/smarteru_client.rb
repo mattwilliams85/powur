@@ -1,6 +1,8 @@
 class SmarteruClient
   attr_reader :user, :client
 
+  INACCESSABLE_ERROR = 'GU:04'
+
   def initialize(user)
     @user = user
     @client = Smarteru::Client.new
@@ -20,6 +22,10 @@ class SmarteruClient
 
   def account?
     !account.nil?
+  end
+
+  def email_account?
+    !client.users.get(user.email).nil?
   end
 
   def create_account(opts = {})
@@ -67,14 +73,14 @@ class SmarteruClient
   end
 
   def normalize_employee_id!
-    return if employee_id == normalized_employee_id
-    return unless client.users.get(user.email)
+    return if employee_id == normalized_employee_id || !email_account?
+
     response = client.users.update_employee_id(user.email, normalized_employee_id)
-    if response.success?
-      update_employee_id(response.result[:employee_id])
-    else
-      fail response.error[:error][:error_message]
-    end
+    update_employee_id(response.result[:employee_id])
+  rescue Smarteru::Error => e
+    fail(e) unless e.code == INACCESSABLE_ERROR
+    @inaccessable_account = true
+    update_employee_id(user.email)
   end
 
   def enrollment(product)

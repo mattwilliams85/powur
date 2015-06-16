@@ -1,5 +1,7 @@
 module Auth
   class UniversityClassesController < AuthController
+    rescue_from Smarteru::Error, with: :smarteru_error
+
     page
 
     before_filter :find_university_class, only: [ :show, :enroll, :purchase ]
@@ -45,6 +47,11 @@ module Auth
     def validate_class_availability
       not_found!(:product) unless @university_class.is_free? || @university_class.purchased_by?(current_user)
       error!(:already_completed) if @university_class.completed_by?(current_user)
+    end
+
+    def smarteru_error(e)
+      error!(:smarteru_user) if SmarteruClient::INACCESSABLE_ERROR == e.code
+      fail e
     end
   end
 end
