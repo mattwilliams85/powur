@@ -55,9 +55,14 @@ class SmarteruClient
   end
 
   def normalize_employee_id!
-    return if employee_id.nil? || employee_id == normalized_employee_id
-    response = client.users.update(user.email, normalized_employee_id)
-    update_employee_id(response.result[:employee_id])
+    return if employee_id == normalized_employee_id
+    return unless client.users.get(user.email)
+    response = client.users.update_employee_id(user.email, normalized_employee_id)
+    if response.success?
+      update_employee_id(response.result[:employee_id])
+    else
+      fail response.error[:error][:error_message]
+    end
   end
 
   def enrollment(product)
@@ -75,12 +80,8 @@ class SmarteruClient
 
   private
 
-  def env
-    ENV['SMARTERU_ENV'] || Rails.env
-  end
-
   def normalized_employee_id
-    "#{env}.powur.com:#{user.id}"
+    "powur:#{user.id}"
   end
 
   def update_employee_id(value)
