@@ -41,6 +41,9 @@ class SmarteruClient
   end
 
   def enroll(product)
+    existing_enrollment = enrollment(product)
+    return existing_enrollment if existing_enrollment
+
     client.users.enroll(
       employee_id,
       group,

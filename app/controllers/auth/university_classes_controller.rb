@@ -29,9 +29,9 @@ module Auth
     end
 
     def enroll
-      head :unprocessable_entity unless current_user.create_smarteru_account
-      head :unprocessable_entity unless current_user.smarteru_enroll(@university_class)
-      redirect_url = current_user.smarteru_sign_in
+      head :unprocessable_entity unless current_user.smarteru.create_account
+      head :unprocessable_entity unless current_user.smarteru.enroll(@university_class)
+      redirect_url = current_user.smarteru.signin
       if redirect_url
         render json: { redirect_to: redirect_url }
         return
