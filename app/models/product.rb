@@ -52,12 +52,12 @@ class Product < ActiveRecord::Base
     save!
   end
 
-  def purchased_by?(user_id)
-    product_receipts.where(user_id: user_id).exists?
+  def purchased_by?(user)
+    product_receipts.where(user_id: (user.try(:id) || user)).exists?
   end
 
-  def completed_by?(user_id)
-    product_enrollments.where(user_id: user_id).completed.exists?
+  def completed_by?(user)
+    product_enrollments.where(user_id: (user.try(:id) || user)).completed.exists?
   end
 
   def is_free?

@@ -43,8 +43,8 @@ module Auth
     end
 
     def validate_class_availability
-      not_found!(:product) if @university_class.is_free?
-      error!(:already_completed) if @university_class.completed_by?(current_user.id)
+      not_found!(:product) unless @university_class.is_free? || @university_class.purchased_by?(current_user)
+      error!(:already_completed) if @university_class.completed_by?(current_user)
     end
   end
 end

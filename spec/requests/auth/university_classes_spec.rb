@@ -67,21 +67,13 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
   context 'signed in' do
     let!(:current_user) { login_user }
     let!(:certifiable_product) { create(:certifiable_product, bonus_volume: 0) }
-
-    before do
-      allow_any_instance_of(Product).to receive_message_chain(:product_enrollments, :find_by).and_return(product_enrollment)
-    end
+    let(:smarteru) { double(:smarteru, enrollment: nil, signin: '/redirectpath', ensure_account: true) }
 
     context 'with no enrollment restrictions' do
       before do
-        allow(smarteru).to receive(:signin).and_return('/redirectpath')
-        allow(smarteru).to receive(:create_account).and_return(true)
         allow(smarteru).to receive(:enroll).with(certifiable_product).and_return(true)
         allow(current_user).to receive(:smarteru).and_return(smarteru)
       end
-
-      let(:product_enrollment) { double('enrollment', completed?: false) }
-      let(:smarteru) { double(:smarteru, enrollment: nil) }
 
       it 'enrolls user' do
         post enroll_university_class_path(certifiable_product), format: :json
@@ -92,25 +84,29 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
     end
 
     context 'class was already completed by current user' do
-      let(:product_enrollment) { double('enrollment', completed?: true) }
+      before do
+        product_enrollment.complete!
+        allow(current_user).to receive(:smarteru).and_return(smarteru)
+      end
 
-      it 'returns unauthorized' do
+      let(:product_enrollment) { create(:product_enrollment, user_id: current_user.id, product_id: certifiable_product.id) }
+
+      it 'returns class completion alert' do
         post enroll_university_class_path(certifiable_product), format: :json
-
-        expect(response.code).to eql('401')
+        expect(response.code).to eql('200')
+        expect(JSON.parse(response.body)).to eql({"error" => {"type"=>"alert", "message"=>"You have already completed this course"}})
       end
     end
 
     context 'class is NOT free and was NOT purchased by current user' do
-      let(:product_enrollment) { double('enrollment', completed?: false) }
       before do
         allow_any_instance_of(Product).to receive(:bonus_volume).and_return(1)
       end
 
       it 'returns unauthorized' do
         post enroll_university_class_path(certifiable_product), format: :json
-
-        expect(response.code).to eql('401')
+        expect(response.code).to eql('404')
+        expect(JSON.parse(response.body)).to eql({"error"=>{"type"=>"alert", "message"=>"product not found with id #{certifiable_product.id}"}})
       end
     end
   end
