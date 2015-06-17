@@ -39,6 +39,7 @@ gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
 # gem 'newrelic_rpm'
 gem 'aasm'
 gem 'smarteru', github: 'eyecuelab/smarteru'
+# gem 'smarteru', path: '/Users/paul/Projects/eyecue/smarteru'
 gem 'figaro'
 gem 'hashie'
 

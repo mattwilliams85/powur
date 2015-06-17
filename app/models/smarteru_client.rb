@@ -17,7 +17,13 @@ class SmarteruClient
   end
 
   def account
-    @account ||= client.users.get(employee_id)
+    @account ||= begin
+      response = client.users.get(employee_id || user.email)
+      if response[:employee_id] != employee_id
+        update_employee_id(response[:employee_id])
+      end
+      response
+    end
   end
 
   def account?
