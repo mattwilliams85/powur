@@ -9,7 +9,7 @@ json.properties do
   json.call(@user, :id, :first_name, :last_name, :email,
             :phone, :address, :city, :state, :zip,
             :bio, :twitter_url, :facebook_url, :linkedin_url,
-            :lifetime_rank, :organic_rank, :level)
+            :lifetime_rank, :organic_rank, :level, :is_certified)
 
   json.avatar do
     [ :thumb, :preview, :large ].each do |key|

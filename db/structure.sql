@@ -679,7 +679,7 @@ CREATE TABLE products (
     updated_at timestamp without time zone NOT NULL,
     sku character varying,
     description text,
-    certifiable boolean DEFAULT false,
+    is_university_class boolean DEFAULT false,
     image_original_path character varying,
     smarteru_module_id character varying(50),
     is_required_class boolean DEFAULT false,
@@ -1818,10 +1818,10 @@ CREATE INDEX index_product_enrollments_on_user_id_and_product_id ON product_enro
 
 
 --
--- Name: index_products_on_certifiable; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_products_on_is_university_class; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE INDEX index_products_on_certifiable ON products USING btree (certifiable);
+CREATE INDEX index_products_on_is_university_class ON products USING btree (is_university_class);
 
 
 --
@@ -2467,3 +2467,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150603213402');
 INSERT INTO schema_migrations (version) VALUES ('20150611215105');
 
 INSERT INTO schema_migrations (version) VALUES ('20150615190918');
+
+INSERT INTO schema_migrations (version) VALUES ('20150617172905');
+

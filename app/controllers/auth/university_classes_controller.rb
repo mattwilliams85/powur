@@ -8,7 +8,7 @@ module Auth
     before_filter :validate_class_availability, only: [ :enroll ]
 
     def index
-      @university_classes = apply_list_query_options(Product.certifiable.sorted)
+      @university_classes = apply_list_query_options(Product.university_classes.sorted)
     end
 
     def purchase
@@ -41,7 +41,7 @@ module Auth
     private
 
     def find_university_class
-      @university_class = Product.certifiable.find(params[:id].to_i)
+      @university_class = Product.university_classes.find(params[:id].to_i)
     end
 
     def validate_class_availability

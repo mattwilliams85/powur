@@ -198,6 +198,10 @@ class User < ActiveRecord::Base
     @smarteru ||= SmarteruClient.new(self)
   end
 
+  def is_certified
+    product_enrollments.completed.joins(:product).where("products.is_university_class = true and products.is_required_class != true").count > 0
+  end
+
   private
 
   def destroy_used_invite

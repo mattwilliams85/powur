@@ -8,7 +8,7 @@ actions \
   .field(:description, :text, value: @product.description)
   .field(:long_description, :text, value: @product.long_description)
   .field(:bonus_volume, :number, value: @product.bonus_volume)
-  .field(:certifiable, :boolean, value: @product.certifiable)
+  .field(:is_university_class, :boolean, value: @product.is_university_class)
   .field(:commission_percentage, :number,
          value:    @product.commission_percentage,
          required: false)
