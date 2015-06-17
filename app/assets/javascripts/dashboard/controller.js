@@ -30,7 +30,11 @@
     CommonService.execute({
       href: 'u/social_media_posts.json'
     }).then(function(item) {
-      $scope.socialQuote = item.entities[0].properties.content;
+      if (item.entities.length) {
+        $scope.socialQuote = item.entities[0].properties.content;
+      } else {
+        return;
+      }
     });
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):
