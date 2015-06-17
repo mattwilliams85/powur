@@ -34,7 +34,7 @@
 
       var action = getAction(classItem.actions, 'enroll');
       return CommonService.execute(action).then(function(data) {
-        $window.location.href = data.redirect_to;
+        $('<a href="' + data.redirect_to + '" target="_blank"></a>')[0].click();
       }, function() {
         $('body').trigger('click'); // close old modal
         $scope.showModal('Oops error, we can\'t enroll you at the moment');
