@@ -17,7 +17,7 @@ class SmarteruClient
   end
 
   def account
-    @account ||= client.users.get(employee_id)
+    @account ||= employee_id && client.users.get(employee_id)
   end
 
   def account?
@@ -37,6 +37,7 @@ class SmarteruClient
       password:     SecureRandom.urlsafe_base64(8),
       group:        group)
 
+    binding.pry
     response = client.users.create(opts)
     update_employee_id(response.result[:employee_id])
   end
