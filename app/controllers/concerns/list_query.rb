@@ -125,7 +125,7 @@ module ListQuery
     end
 
     def item_count
-      @item_count ||= query.except(:offset, :limit, :order).count
+      @item_count ||= query.except(:offset, :limit, :order).length
     end
 
     def page_count

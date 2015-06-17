@@ -27,7 +27,8 @@ module Auth
 
     def proposals_index
       @user = User.find(params[:id])
-      @users = apply_list_query_options(@user.downline_users).order('last_name DESC')
+      @users = apply_list_query_options(User.quote_performance(@user.id))
+
       @max_page = (pager.meta[:item_count]/4.to_f).ceil
 
       render "auth/kpi_metrics/proposals/index"
@@ -46,7 +47,7 @@ module Auth
 
     def genealogy_index
       @user = User.find(params[:id])
-      @users = apply_list_query_options(@user.downline_users).order('last_name DESC')
+      @users = apply_list_query_options(User.growth_performance(@user.id))
       @max_page = (pager.meta[:item_count]/4.to_f).ceil
 
       render "auth/kpi_metrics/genealogy/index"

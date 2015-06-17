@@ -130,13 +130,8 @@ class User < ActiveRecord::Base
     quotes.submitted.count
   end
 
-  def team_proposal_count
-    downline_ids = User.with_ancestor(id).pluck(:id)
-    Quote.where(user_id: downline_ids).submitted.count
-  end
-
   def weekly_growth
-    User.with_ancestor(self.id).within_date_range(Date.today - 7, Date.today).count
+    User.with_ancestor(self.id).within_date_range(Date.today - 6, Date.today).count
   end
 
   def fetch_total_orders(start_date, end_date)

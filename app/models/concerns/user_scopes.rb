@@ -25,6 +25,32 @@ module UserScopes
       where('created_at between ? and ?', begin_date, end_date)
     }
 
+    scope :quote_performance, lambda { |user_id|
+      with_quote_counts
+      .where("quotes.status > ? or quotes.status IS NULL", 2)
+      .with_parent(user_id)
+      .order("quote_count desc")
+    }
+
+    scope :growth_performance, lambda { |user_id|
+      with_weekly_downline_counts
+      .with_parent(user_id)
+      .order("dc.downline_count desc nulls last")
+    }
+
+    WEEKLY_DOWN_COUNTS_SELECT = \
+      'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
+    scope :weekly_downline_counts, lambda {
+      select(WEEKLY_DOWN_COUNTS_SELECT).group('parent_id')
+      .where('created_at > ?', 7.days.ago.to_s(:db))
+    }
+
+    scope :with_weekly_downline_counts, lambda {
+      joins_sql = "left outer join (#{weekly_downline_counts.to_sql}) dc
+        ON users.id = dc.parent_id"
+      select('users.*, dc.downline_count').joins(joins_sql)
+    }
+
     DOWN_COUNTS_SELECT = \
       'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
     scope :downline_counts, lambda {
@@ -35,6 +61,13 @@ module UserScopes
       joins_sql = "INNER JOIN (#{downline_counts.to_sql}) dc
         ON users.id = dc.parent_id"
       select('users.*, dc.downline_count').joins(joins_sql)
+    }
+
+
+    scope :with_quote_counts, lambda {
+      select('users.*, count(quotes.id) quote_count')
+        .joins('left outer join quotes on users.id = quotes.user_id')
+        .group('users.id')
     }
 
     scope :with_parent, lambda { |*user_ids|
@@ -61,12 +94,6 @@ module UserScopes
       where_sql = { order_totals: where_sql }
 
       select(ORDER_TOTALS_SELECT).joins(ORDER_TOTALS_JOIN).where(where_sql)
-    }
-
-    scope :with_quote_counts, lambda {
-      select('users.*, count(quotes.id) quote_count')
-        .joins('left outer join quotes on users.id = quotes.user_id')
-        .group('users.id')
     }
 
     scope :pay_period_quote_counts, lambda { |pay_period|
