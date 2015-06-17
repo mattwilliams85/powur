@@ -26,6 +26,13 @@
 
     });
 
+    // Populate Social Media Quote
+    CommonService.execute({
+      href: 'u/social_media_posts.json'
+    }).then(function(item) {
+      $scope.socialQuote = item.entities[0].properties.content;
+    });
+
     // Fix for scope inheritance issues (relating to Proposals search/sort):
     $scope.customerSection = {};
     $scope.teamSection = {};
@@ -150,7 +157,6 @@
       $(domElement).foundation('reveal', 'open');
     };
 
-    $scope.socialQuote = '"Don\'t try to fight the existing reality, build a new model that makes the old model obsolete" - Buckminster Fuller';
   }
 
   DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService', 'Utility'];

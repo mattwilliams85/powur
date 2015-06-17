@@ -1011,6 +1011,38 @@ ALTER SEQUENCE settings_id_seq OWNED BY settings.id;
 
 
 --
+-- Name: social_media_posts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE social_media_posts (
+    id integer NOT NULL,
+    content character varying,
+    publish boolean,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: social_media_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE social_media_posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: social_media_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE social_media_posts_id_seq OWNED BY social_media_posts.id;
+
+
+--
 -- Name: user_activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1387,6 +1419,13 @@ ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY social_media_posts ALTER COLUMN id SET DEFAULT nextval('social_media_posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY user_activities ALTER COLUMN id SET DEFAULT nextval('user_activities_id_seq'::regclass);
 
 
@@ -1656,6 +1695,14 @@ ALTER TABLE ONLY resources
 
 ALTER TABLE ONLY settings
     ADD CONSTRAINT settings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_media_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY social_media_posts
+    ADD CONSTRAINT social_media_posts_pkey PRIMARY KEY (id);
 
 
 --
@@ -2419,3 +2466,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150603213402');
 
 INSERT INTO schema_migrations (version) VALUES ('20150611215105');
 
+INSERT INTO schema_migrations (version) VALUES ('20150615190918');

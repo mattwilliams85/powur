@@ -62,4 +62,12 @@ module ApplicationHelper
       @notification
     )
   end
+
+  def social_media_posts_json
+    @social_media_posts_json ||= SocialMediaPostsJson.new(
+      self,
+      @social_media_posts,
+      @social_media_posts
+    )
+  end
 end
