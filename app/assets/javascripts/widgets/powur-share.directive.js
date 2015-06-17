@@ -27,7 +27,7 @@
       }
 
       initTwitter();
-      initFacebook();
+      // initFacebook();
     }
 
     return {

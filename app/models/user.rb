@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   include NameEmailSearch
   include UserScopes
   include PaperclipScopes
-  include UserSmarteru
 
   belongs_to :rank_path
 
@@ -140,11 +139,12 @@ class User < ActiveRecord::Base
     User.with_ancestor(self.id).within_date_range(Date.today - 7, Date.today).count
   end
 
-  def fetch_proposal_metrics(start_date, end_date)
-    {
-      data0: orders.within_date_range(start_date, end_date),
-      data1: complete_quotes.within_date_range(start_date, end_date).submitted
-    }
+  def fetch_total_orders(start_date, end_date)
+    orders.within_date_range(start_date, end_date)
+  end
+
+  def fetch_total_proposals(start_date, end_date)
+    complete_quotes.within_date_range(start_date, end_date).submitted
   end
   ##
 
@@ -192,6 +192,10 @@ class User < ActiveRecord::Base
     self.organic_rank = highest_rank
     self.lifetime_rank = highest_rank
     self.save!
+  end
+
+  def smarteru
+    @smarteru ||= SmarteruClient.new(self)
   end
 
   private

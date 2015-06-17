@@ -38,6 +38,8 @@ en:
     cannot_add_amounts: Bonus amounts cannot be added to this bonus
     cannot_submit_quote: Quote has already been submitted
     amount_exceeds_max: "Amount %{amount} exceeds max available value of %{max}" 
+    already_completed: You have already completed this course
+    smarteru_user: Your account is inaccessible via the SmarterU API
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

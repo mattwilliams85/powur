@@ -62,8 +62,6 @@ Rails.application.routes.draw do
 
       get '/:id/genealogy_index', to: 'kpi_metrics#genealogy_index'
       get '/:id/genealogy_show', to: 'kpi_metrics#genealogy_show'
-
-      get '/:id/user_tree', to: 'kpi_metrics#user_tree'
     end
 
     resources :quotes, only: [ :index, :create, :destroy, :update, :show ] do

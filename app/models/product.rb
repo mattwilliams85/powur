@@ -14,6 +14,7 @@ class Product < ActiveRecord::Base
 
   scope :with_bonuses, -> { includes(bonuses: [ :bonus_amounts ]) }
   scope :certifiable, -> { where(certifiable: true) }
+  scope :free, -> { where(bonus_volume: 0) }
   scope :sorted, -> { order('position ASC') }
 
   def sale_bonuses
@@ -51,8 +52,12 @@ class Product < ActiveRecord::Base
     save!
   end
 
-  def purchased_by?(user_id)
-    product_receipts.where(user_id: user_id).count > 0
+  def purchased_by?(user)
+    product_receipts.where(user_id: (user.try(:id) || user)).exists?
+  end
+
+  def completed_by?(user)
+    product_enrollments.where(user_id: (user.try(:id) || user)).completed.exists?
   end
 
   def is_free?

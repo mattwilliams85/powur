@@ -6,13 +6,10 @@ json.properties do
   json.id @user.id
   json.first_name @user.first_name
   json.last_name @user.last_name
-  # json.avatar do
-  #   [ :thumb, :medium, :large ].each do |key|
-  #     json.set! key, asset_path(@user.avatar.url(key))
-  #   end
-  # end if @user.avatar?
-  json.downline @downline
-  json.weekly_growth @user.weekly_growth
+  json.metrics do
+    json.data0 @downline
+  end
+  json.weekly_growth @user.weekly_growth if @user.id == current_user.id
 end
 
 

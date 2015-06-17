@@ -5,6 +5,8 @@ module Auth
     helper_method :users_for_period
     helper_method :orders_for_user
 
+    page max_limit: 8
+
     def index
     end
 
@@ -17,14 +19,16 @@ module Auth
     def proposals_show
       @user = User.find(params[:id])
       scale = params[:scale].to_i + 1
-      @proposals = @user.fetch_proposal_metrics(Date.today - scale, Date.today)
+      @orders = @user.fetch_total_orders(Date.today - scale, Date.today)
+      @proposals = @user.fetch_total_proposals(Date.today - scale, Date.today)
       
       render "auth/kpi_metrics/proposals/show"
     end
 
     def proposals_index
       @user = User.find(params[:id])
-      @users = @user.downline_users
+      @users = apply_list_query_options(@user.downline_users).order('last_name DESC')
+      @max_page = (pager.meta[:item_count]/4.to_f).ceil
 
       render "auth/kpi_metrics/proposals/index"
     end
@@ -42,7 +46,8 @@ module Auth
 
     def genealogy_index
       @user = User.find(params[:id])
-      @users = @user.downline_users
+      @users = apply_list_query_options(@user.downline_users).order('last_name DESC')
+      @max_page = (pager.meta[:item_count]/4.to_f).ceil
 
       render "auth/kpi_metrics/genealogy/index"
     end

@@ -57,12 +57,12 @@ GIT
 
 GIT
   remote: git://github.com/eyecuelab/smarteru.git
-  revision: 3b54c3be1b288b641e2205c5a110ff8c7c289b53
+  revision: a17470bc4aa748b0a249b7ff02de7c13d1cb8f47
   specs:
-    smarteru (0.0.1)
-      libxml-ruby (~> 2.8)
-      rest-client (~> 1.7)
-      xmlhasher (~> 0.0.6)
+    smarteru (0.0.2)
+      libxml-ruby
+      rest-client
+      xmlhasher
 
 GIT
   remote: git://github.com/oelmekki/activerecord_any_of.git
@@ -253,7 +253,7 @@ GEM
       rack-contrib (~> 1.1)
       railties (>= 3.0.0, < 5.0.0)
     method_source (0.8.2)
-    mime-types (2.5)
+    mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.6.1)
     minitest-reporters (1.0.16)

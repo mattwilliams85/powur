@@ -1,9 +1,11 @@
 module Auth
   class UniversityClassesController < AuthController
+    rescue_from Smarteru::Error, with: :smarteru_error
+
     page
 
-    before_filter :find_university_class, only: [:show, :enroll, :purchase]
-    before_filter :validate_class_availability, only: [:enroll]
+    before_filter :find_university_class, only: [ :show, :enroll, :purchase ]
+    before_filter :validate_class_availability, only: [ :enroll ]
 
     def index
       @university_classes = apply_list_query_options(Product.certifiable.sorted)
@@ -29,26 +31,27 @@ module Auth
     end
 
     def enroll
-      head :unprocessable_entity unless current_user.create_smarteru_account
-      head :unprocessable_entity unless current_user.smarteru_enroll(@university_class)
-      redirect_url = current_user.smarteru_sign_in
-      if redirect_url
-        render json: { redirect_to: redirect_url }
-        return
-      else
-        head :unauthorized
-      end
+      current_user.smarteru.ensure_account
+      current_user.smarteru.enroll(@university_class)
+
+      redirect_url = current_user.smarteru.signin
+      render json: { redirect_to: redirect_url }
     end
 
     private
 
     def find_university_class
-      @university_class = Product.certifiable.find(params[:id])
+      @university_class = Product.certifiable.find(params[:id].to_i)
     end
 
     def validate_class_availability
-      head :unauthorized if @university_class.product_enrollments.find_by(user_id: current_user.id).try(:completed?)
-      head :unauthorized unless @university_class.is_free? || @university_class.purchased_by?(current_user.id)
+      not_found!(:product) unless @university_class.is_free? || @university_class.purchased_by?(current_user)
+      error!(:already_completed) if @university_class.completed_by?(current_user)
+    end
+
+    def smarteru_error(e)
+      error!(:smarteru_user) if SmarteruClient::INACCESSABLE_ERROR == e.code
+      fail e
     end
   end
 end

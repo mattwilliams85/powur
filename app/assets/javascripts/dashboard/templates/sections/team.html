@@ -15,15 +15,9 @@
       <!-- Search -->
         <div class="row collapse">
           <form ng-submit="teamSection.search()" class="search-form" ng-class="{ 'fade': downline.length > 1}">
-            <!-- If Search "Go" Button -->
-            <!-- <div class="no-padding large-9 medium-9 small-10 columns"> -->
             <div class="no-padding large-12 medium-12 small-12 columns">
               <input type="search" ng-model="teamSection.teamSearch"  placeholder="SEARCH">
             </div>
-            <!-- Search "Go" Button -->
-            <!-- <div class="no-padding large-3 medium-3 small-2 columns">
-              <button class="search button postfix" ng-click="teamSection.search()">Go</button>
-            </div> -->
           </form>
         </div>
       </div>
@@ -133,11 +127,6 @@
     <!-- Team Members Downline Carousel -->
     <div ng-repeat="generation in downline track by $index" ng-init="outerIndex=$index">
       <div class="row collapse carousel-box downline-row" ng-class="{ 'even': $index % 2 === 0, 'expand': downline.length >= ($index) }" ng-if="$index !== 0">
-
-        <!-- <div class="gen-count team-member-info-large downline w20percent small-2 columns">
-          <div class="text-uppercase top-label">generation</div>
-          <div class="generation">{{$index + 1}}</div>
-        </div> -->
         <div class="w20percent team-member-info-large" ng-class="{ 'even': $index % 2 === 0 }">
           <div class="top-label">
             <span>Generation</span>
@@ -223,7 +212,6 @@
     </div>
 
     <!-- Row: Team Member Info -->
-    <!-- <div class="row collapse downline-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info' }"> -->
     <div class="row collapse downline-row info-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info' }">
       <!-- Large -->
       <div ng-hide="activeTab !== 'info'" class="large-12 columns">

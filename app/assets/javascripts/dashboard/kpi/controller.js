@@ -9,6 +9,7 @@
           type: 'line',
           labels: [],
           datasets: [{
+            label: "Rooftop",
             fillColor: 'rgba(255, 186, 120, 0.2)',
             highlightFill: '#FFC870',
             pointColor: 'rgba(253, 180, 92, 1)',
@@ -18,14 +19,15 @@
             strokeColor: 'rgba(253, 180, 92, 1)',
             data: []
           },{
-            fillColor: 'rgba(108, 207, 255, 0.15)',
-            highlightFill: '#5bd7f7',
-            pointColor: '#20c2f1',
-            pointStrokeColor: 'rgb(68, 68, 68)',
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "#444",
-            strokeColor: '#20c2f1',
-            data: []
+           label: "Proposal",
+           fillColor: 'rgba(108, 207, 255, 0.15)',
+           highlightFill: '#5bd7f7',
+           pointColor: '#20c2f1',
+           pointStrokeColor: 'rgb(68, 68, 68)',
+           pointHighlightFill: "#fff",
+           pointHighlightStroke: "#444",
+           strokeColor: '#20c2f1',
+           data: []
           }]
         },{
           options: {
@@ -39,6 +41,9 @@
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
             scaleShowVerticalLines: false,
+            multiTooltipTemplate: function(valuesObject){
+              return formatLabel(valuesObject);
+            },
             scaleOverride: true,
             // ** Required if scaleOverride is true **
             scaleSteps: 5,
@@ -56,7 +61,7 @@
           type: 'bar',
           labels: [],
           datasets: [{
-            label: 'My First dataset',
+            label: 'Advocate',
             fillColor: 'rgba(32, 194, 241,.9)',
             highlightFill: '#5bd7f7',
             strokeColor: 'rgba(32, 194, 241,.9)',
@@ -71,6 +76,9 @@
             scaleFontSize: 13,
             barValueSpacing: 3,
             scaleStartValue: 0,
+            tooltipTemplate: function(valuesObject){
+              return formatLabel(valuesObject);
+            },
             scaleOverride: true,
             // ** Required if scaleOverride is true **
             scaleSteps: 12,
@@ -115,18 +123,50 @@
 
     $scope.scale = 29;
     $scope.current = new Date();
-    $scope.section = '';
     $scope.legacyImagePaths = legacyImagePaths;
+
+    function formatLabel(l) {
+      var months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      var slash = l.label.indexOf('/');
+      var date = formatDate(l, slash);
+
+      if(parseInt(l.label) > 0) l.label = months[l.label.substring(0, slash)] + ' ' + date
+      if (l.value === 1) return l.value + ' ' + l.datasetLabel;
+      return l.value + ' ' + l.datasetLabel + 's';
+    }
+
+    function formatDate(l, slash) {
+      var str = l.label.substring(slash + 1, l.label.length);
+      if (str.slice(-1) == 1) {
+        return str += 'st';
+      } else if (str.slice(-1) == 2) {
+        return str += 'nd'
+      } else if (str.slice(-1) == 3) {
+        return str += 'rd'
+      } else {
+        return str += 'th'
+      }
+    }
     
     $scope.changeTab = function(section) {
-      if (!$scope.isTabClickable || $scope.section === section) return;
+      if (!$scope.isTabClickable || $scope.section === section) return $scope.section = false;
 
-      $scope.active = false
-
+      $scope.active = false;
       $scope.section = section;
-      if ($scope.tabData[$scope.section]) $scope.settings = $scope.tabData[$scope.section].settings;
+      $scope.settings = $scope.tabData[$scope.section].settings;
+      
+      $scope.clearData();
       $scope.populateContributors();
     };
+
+    $scope.clearData = function() {
+      $scope.team = null;
+      $scope.page = 1;
+      $scope.position = 0;
+      for (var i = 0; i < $scope.settings[0].datasets.length; i++) {
+        $scope.settings[0].datasets[i].data = [];
+      }
+    }
 
     $scope.scaleFontSize = function(string) {
       if (!isNaN(string)) {
@@ -141,8 +181,8 @@
       $scope.populateData();
       $scope.generateLabels();
       $scope.setScale();
-      var ctx = document.getElementById('metricsChart').getContext('2d');
 
+      var ctx = document.getElementById('metricsChart').getContext('2d');
       var type = $scope.settings[0].type;
       
       if (type === 'line') {
@@ -154,11 +194,11 @@
 
     $scope.setScale = function() {
       //Find largest data point
-      var bigData = []; 
+      var allData = []; 
       for (var i = 0; i < $scope.settings[0].datasets.length; i ++) {
-        bigData = bigData.concat($scope.settings[0].datasets[i].data);
+        allData = allData.concat($scope.settings[0].datasets[i].data);
       } 
-      var max = Math.max.apply(Math, bigData);
+      var max = Math.max.apply(Math, allData);
 
       //Set Scale
       if (!max) {
@@ -209,18 +249,17 @@
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
         $scope.activeUser = data.properties;
         $scope.user = $scope.activeUser;
-        // if ($scope.section === 'genealogy' && !$scope.tree) return genealogyTree();
         $scope.buildChart();
       });
-      //Populates Team List
-      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_index.json'}).then(function(data){
-        $scope.team = data.entities;
-        $scope.active = true;
-      });
+      $scope.populateTeamList();
     };
 
-    var searchObjBranch = function(obj, user_id) {
-      // debugger
+    function sameDayAs(item, i) {
+      return new Date(item.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
+             new Date(item.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
+    } 
+
+    function searchObjBranch(obj, user_id) {
       if (obj.id === user_id) { return obj; }
       obj = obj['children']
       for(var i in obj) {
@@ -232,71 +271,32 @@
       return null;
     }
 
-    var proposalCount = function(j) {
-      if (!$scope.activeUser.metrics_data) return;
-      //For each data point
+    function dataCount(j) {
+      var data = angular.copy($scope.activeUser.metrics['data'+j]);
+      var count = 0;
+
+      //For each date
       for (var i = 0; i <= $scope.scale; i++) {
-        var count = 0;
-        $.each($scope.activeUser.metrics_data['data'+j], function(key, value){
-          if ( new Date(value.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
-              new Date(value.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
-            ) {
+        if($scope.section !== "genealogy") count = 0; //Non-incremental
+        //For each data item
+        for (var n = 0; n < data.length; n++) {
+          if (sameDayAs(data[n], i)) {
+            data.splice(data.indexOf(data[n]), 1);
+            n--; //decrement
             count += 1;
           }
-        });
+        }
         $scope.settings[0].datasets[j].data.push(count);
       }
     }
 
-    function genealogyTree() {
-      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/user_tree.json'}).then(function(data){
-        // debugger
-        $scope.tree = data;
-        $scope.buildChart();
-      });
-    }
-
-    function countChildren(obj, i) {
-      // var length = obj.length;
-      for (var n = 0; n < obj.length; n++) {
-        // debugger
-        if ( new Date(obj[n].created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
-            new Date(obj[n].created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
-        ) {
-          downline.splice(downline.indexOf(obj[n]), 1);
-          n--; //decrement
-          tCount += 1;
-        }
-      }
-    }
-    
-    var tCount;
-    var downline
-
-    function genealogyCount(j) {
- 
-      tCount = 0;
-      downline = angular.copy($scope.activeUser.downline);
-
-      //For each data point
-      for (var i = -1; i <= $scope.scale - 1; i++) {
-        countChildren(downline, i);
-        $scope.settings[0].datasets[j].data.push(tCount);
-      }
-    }
-
     $scope.populateData = function() {
+      if (!$scope.activeUser.metrics) return;
       //For each data set
       for (var j = 0; j < $scope.settings[0].datasets.length; j++) {
         $scope.settings[0].datasets[j].data = [];
 
-        if ($scope.section === "proposals") {
-          proposalCount(j)
-        } else if ($scope.section === "genealogy") {
-          genealogyCount(j)
-        } else {
-          //
-        }
+        dataCount(j);
       }
     };
 
@@ -305,24 +305,32 @@
 
     $scope.changePage = function(direction) {
       if (direction === 'next') {
-        if ($scope.team.length / $scope.page <= 4) return;
+        if ($scope.page === $scope.max_page) return;
         $scope.page += 1;
+        $scope.populateTeamList();
         $scope.position -= 276;
       } else {
         if ($scope.page === 1) return;
         $scope.page -= 1;
         $scope.position += 276;
       }
-      //Animate contributors bar
-      $('.contributor').each(function() {
-        $(this).velocity({
-          translateY: $scope.position + 'px'
-        }, {
-          duration: 50,
-          easing: 'easeOutQuint'
-        });
+      //Animate contributors side-bar
+     $('.animate-box').velocity({
+        translateY: $scope.position + 'px',
+      }, {
+        duration: 750,
+        easing: 'easeOutExpo'
       });
     };
+
+    $scope.populateTeamList = function(){
+      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_index.json?page=' + $scope.page}).then(function(data){
+        $scope.max_page = data.max_page;
+        if($scope.team) return $scope.team = $scope.team.concat(data.entities);
+        $scope.team = data.entities;
+        $scope.active = true;
+      });
+    }
 
     //CALENDAR FUNCTIONS
     $scope.daysInMonth = function() {
@@ -356,15 +364,6 @@
         $scope.current = new Date($scope.current.setMonth($scope.current.getMonth() + 1));
       }
       $scope.changeScale($scope.scale);
-    };
-
-    $scope.setCalendar = function() {
-      if($scope.scale === 6) {
-        var daysFromSun = $scope.current.getDay();
-        return new Date($scope.current.setDate($scope.current.getDate() - daysFromSun));
-      } else {
-        return $scope.current.setDate(1);
-      }
     };
     //
 

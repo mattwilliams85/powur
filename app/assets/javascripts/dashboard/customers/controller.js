@@ -25,7 +25,7 @@
 
     // Check if action exists (used in front-end for action buttons)
     $scope.hasAction = function(actionName) {
-      if ($scope.proposal && Object.keys($scope.proposal).length) {
+      if ($scope.proposalItem && Object.keys($scope.proposal).length) {
         var action = $scope.getAction($scope.proposalItem.actions, actionName);
         if (action) return true;
         else return false;
