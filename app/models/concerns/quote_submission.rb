@@ -125,7 +125,8 @@ module QuoteSubmission
         'PostalCode'               => customer.zip,
         'Phone'                    => customer.phone,
         'Email'                    => customer.email,
-        'Monthly_Electric_Bill__c' => quote.data['average_bill'] }
+        'Monthly_Electric_Bill__c' => quote.data['average_bill'],
+        'Notes_Description__c'     => customer.notes }
     end
   end
 end

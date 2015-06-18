@@ -6,7 +6,6 @@ class Customer < ActiveRecord::Base
                         allow_nil: true
 
   has_many :quotes
-  has_many :notes
 
   def complete?
     %w(first_name last_name email phone address city state zip).all? do |f|

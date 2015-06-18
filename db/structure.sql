@@ -38,20 +38,6 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
-
-
---
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -275,39 +261,6 @@ ALTER SEQUENCE bonuses_id_seq OWNED BY bonuses.id;
 
 
 --
--- Name: customer_notes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE customer_notes (
-    id integer NOT NULL,
-    customer_id integer NOT NULL,
-    author_id integer NOT NULL,
-    note character varying(1000),
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: customer_notes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE customer_notes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: customer_notes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE customer_notes_id_seq OWNED BY customer_notes.id;
-
-
---
 -- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -322,7 +275,8 @@ CREATE TABLE customers (
     state character varying,
     zip character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    notes character varying
 );
 
 
@@ -1286,13 +1240,6 @@ ALTER TABLE ONLY bonuses ALTER COLUMN id SET DEFAULT nextval('bonuses_id_seq'::r
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY customer_notes ALTER COLUMN id SET DEFAULT nextval('customer_notes_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY customers ALTER COLUMN id SET DEFAULT nextval('customers_id_seq'::regclass);
 
 
@@ -1519,14 +1466,6 @@ ALTER TABLE ONLY bonus_plans
 
 ALTER TABLE ONLY bonuses
     ADD CONSTRAINT bonuses_pkey PRIMARY KEY (id);
-
-
---
--- Name: customer_notes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY customer_notes
-    ADD CONSTRAINT customer_notes_pkey PRIMARY KEY (id);
 
 
 --
@@ -2135,14 +2074,6 @@ ALTER TABLE ONLY product_receipts
 
 
 --
--- Name: fk_rails_69ef330963; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY customer_notes
-    ADD CONSTRAINT fk_rails_69ef330963 FOREIGN KEY (author_id) REFERENCES users(id);
-
-
---
 -- Name: fk_rails_70967dd465; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2469,4 +2400,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150611215105');
 INSERT INTO schema_migrations (version) VALUES ('20150615190918');
 
 INSERT INTO schema_migrations (version) VALUES ('20150617172905');
+
+INSERT INTO schema_migrations (version) VALUES ('20150618213922');
 

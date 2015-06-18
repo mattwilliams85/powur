@@ -87,8 +87,8 @@ module Auth
     end
 
     def customer_input
-      allow_input(
-        :first_name, :last_name, :email, :phone, :address, :city, :state, :zip)
+      allow_input(:first_name, :last_name, :email,
+                  :phone, :address, :city, :state, :zip, :notes)
     end
 
     def product

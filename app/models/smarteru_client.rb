@@ -35,13 +35,7 @@ class SmarteruClient
   end
 
   def create_account(opts = {})
-    opts.reverse_merge!(
-      email:        user.email,
-      employee_i_d: normalized_employee_id,
-      given_name:   user.first_name,
-      surname:      user.last_name,
-      password:     SecureRandom.urlsafe_base64(8),
-      group:        group)
+    opts = new_account_opts(opts)
 
     response = client.users.create(opts)
     update_employee_id(response.result[:employee_id])
@@ -67,12 +61,10 @@ class SmarteruClient
         product.smarteru_module_id
       )
     rescue Smarteru::Error => e
-      fail(e) unless e.code == 'ELM:19'
+      raise(e) unless e.code == 'ELM:19'
     end
 
-    user
-      .product_enrollments
-      .find_or_create_by(product_id: product.id)
+    user.product_enrollments.find_or_create_by(product_id: product.id)
   end
 
   def learner_report
@@ -82,10 +74,12 @@ class SmarteruClient
   def normalize_employee_id!
     return if employee_id == normalized_employee_id || !email_account?
 
-    response = client.users.update_employee_id(user.email, normalized_employee_id)
+    response = client.users.update_employee_id(
+      user.email,
+      normalized_employee_id)
     update_employee_id(response.result[:employee_id])
   rescue Smarteru::Error => e
-    fail(e) unless e.code == INACCESSABLE_ERROR
+    raise(e) unless e.code == INACCESSABLE_ERROR
     @inaccessable_account = true
     update_employee_id(user.email)
   end
@@ -95,7 +89,13 @@ class SmarteruClient
       entry[:course_name] == product.name
     end
     enrollments.sort_by do |e|
-      e[:completed_date] ? 0 : (e[:started_date] ? 1 : 2)
+      if e[:completed_date]
+        0
+      elsif e[:started_date]
+        1
+      else
+        2
+      end
     end.first
   end
 
@@ -104,6 +104,15 @@ class SmarteruClient
   end
 
   private
+
+  def new_account_opts(opts = {})
+    { email:        user.email,
+      employee_i_d: normalized_employee_id,
+      given_name:   user.first_name,
+      surname:      user.last_name,
+      password:     SecureRandom.urlsafe_base64(8),
+      group:        group }.merge(opts)
+  end
 
   def normalized_employee_id
     "powur:#{user.id}"
