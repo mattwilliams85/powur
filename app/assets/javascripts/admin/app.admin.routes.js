@@ -140,7 +140,7 @@
     }).
     // Users
     when('/admin/users', {
-      templateUrl: 'admin/users/templates/index.html',
+      templateUrl: 'shared/admin/rest/index.html',
       controller: 'AdminUsersCtrl'
     }).
     when('/admin/users/:userId', {

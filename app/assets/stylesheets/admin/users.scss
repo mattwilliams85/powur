@@ -25,4 +25,9 @@
     font-size: 0.875em;
     vertical-align: top;
   }
+
+  .tab-title.active a {
+    border: 1px solid #ddd;
+    border-bottom: 0;
+  }
 }

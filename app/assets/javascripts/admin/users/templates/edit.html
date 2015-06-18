@@ -2,8 +2,8 @@
 
   <div class="row">
     <div class="large-12 columns">
-      <h2>Update a User</h2>
-      <ng-include src="'admin/users/templates/form.html'"></ng-include>
+      <h2>{{templateData.edit.title}}</h2>
+      <ng-include src="templateData.edit.formPath"></ng-include>
     </div>
   </div>
 

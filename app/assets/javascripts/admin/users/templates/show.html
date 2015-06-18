@@ -1,5 +1,6 @@
 <main class="pow-admin-users">
 
+  <!-- User Name Header and Action Buttons -->
   <div class="row">
     <div class="large-6 columns">
       <h2>{{user.properties.first_name}} {{user.properties.last_name}}</h2>
@@ -9,59 +10,45 @@
     </div>
   </div>
 
+  <!-- Tabs Section -->
   <div class="row">
     <div class="large-12 columns">
-        <div class="row">
-
-        <div class="section-container auto" data-section>
-          <section class="active">
-            <p class="title" data-section-title><a>Overview</a></p>
-            <div class="content" data-section-content>
-              <!-- Info -->
-              <div class="row">
-                <div class="large-4 columns">
-                  <div class="panel">
-                    <h4 ng-show="!user.properties.address || !user.properties.city || !user.properties.state || !user.properties.zip"><small>No Address Data</small></h4>
-                    <span ng-show="user.properties.address && user.properties.city && user.properties.state && user.properties.zip">
-                      <h4>{{user.properties.address}}<h4>
-                      <h5>{{user.properties.city}}, {{user.properties.state}} {{user.properties.zip}}</h5>
-                    </span>
-                  </div>
-                </div>
-                <div class="large-4 columns">
-                  <div class="panel">
-                    <h4>{{user.properties.phone}}</h4>
-                    <p>{{user.properties.email}}</p>
-                  </div>
-                </div>
-                <div class="large-4 columns">
-                  <div class="panel">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-          <section>
-            <p class="title" data-section-title><a>Genealogy</a></p>
-            <div class="content" data-section-content>
-              <p>Upline/Downline/Placing Users</p>
-              <div class="panel">
-                <!-- jstree div goes here -->
-              </div>
-            </div>
-          </section>
-          <section>
-            <p class="title" data-section-title><a>Orders</a></p>
-            <div class="content" data-section-content>
-              <p>Orders/Order Totals</p>
-            </div>
-          </section>
-          <section>
-            <p class="title" data-section-title><a>Pay</a></p>
-            <div class="content" data-section-content>
-              <p>Bonus Payments/Pay Periods/Overrides</p>
-            </div>
-          </section>
+      <ul class="tabs" ng-model="tab" data-tab>
+        <li class="tab-title" ng-class="{'active': tab === 'contact-info'}"><a ng-click="tab = 'contact-info'">Contact Info</a></li>
+        <li class="tab-title" ng-class="{'active': tab === 'team'}"><a ng-click="tab = 'team'">Team</a></li>
+        <li class="tab-title" ng-class="{'active': tab === 'invites'}"><a ng-click="tab = 'invites'">Invites</a></li>
+        <li class="tab-title" ng-class="{'active': tab === 'proposals'}"><a ng-click="tab = 'proposals'">Proposals</a></li>
+      </ul>
+      <div class="tabs-content">
+        <!-- Contact Info Content -->
+        <div class="content" ng-class="{'active': tab === 'contact-info'}" ng-init="tab = 'contact-info'">
+          <h3>Contact Info</h3>
+          <label>Name</label>
+          <h3>{{user.properties.first_name}} {{user.properties.last_name}}</h3>
+          <label>Contact Info</label>
+          <p>
+            {{user.properties.email}}
+            <br>
+            {{user.properties.phone}}
+          </p>
+          <label>Address</label>
+          <p>
+            {{user.properties.address}}
+            <br>
+            {{user.properties.city}} {{user.properties.state}} {{user.properties.zip}}
+          </p>
+        </div>
+        <!-- Team Content -->
+        <div class="content" ng-class="{'active': tab === 'team'}">
+          <h3>Team</h3>
+        </div>
+        <!-- Invites Content -->
+        <div class="content" ng-class="{'active': tab === 'invites'}">
+          <h3>Invites</h3>
+        </div>
+        <!-- Proposals Content -->
+        <div class="content" ng-class="{'active': tab === 'proposals'}">
+          <h3>Proposals</h3>
         </div>
       </div>
     </div>

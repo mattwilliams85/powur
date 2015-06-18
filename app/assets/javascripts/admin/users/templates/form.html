@@ -1,71 +1,28 @@
 <form>
   <fieldset>
-    <legend>Edit User</legend>
-
-    <!-- First/Last Name -->
-    <div class="row">
+    <legend ng-if="mode === 'edit'">Edit User</legend>
+    <!-- User Form -->
+    <div ng-repeat="field in formAction.fields" class="row">
       <div class="large-12 columns">
-        <label for="first_name">First Name</label>
-        <input ng-model="formValues.first_name" type="text" ng-value="{{formValues.first_name}}"></input>
+        <label for="{{field.name}}">{{field.name}}</label>
+        <!-- String Inputs -->
+        <input ng-model="user[field.name]" ng-if="field.type === 'text'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+        <!-- Email Inputs -->
+        <input ng-model="user[field.name]" ng-if="field.type === 'email'" type="email" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
+        <!-- Text Area Inputs -->
+        <!-- <textarea ng-model="user[field.name]" ng-if="field.type === 'text'" name="{{field.name}}" id="{{field.name}}">{{field.value}}</textarea> -->
+        <!-- Boolean -->
+        <input ng-model="user[field.name]" ng-if="field.type === 'boolean'" type="checkbox" name="{{field.name}}" id="{{field.name}}">
+        <label ng-if="field.type === 'boolean'" for="{{field.name}}">Publish Now</label>
       </div>
     </div>
-
+    <!-- Delete Button -->
+<!--     <input ng-if="mode === 'edit'" class="tiny button understated right" ng-disabled="isSubmitDisabled" type="submit" ng-click="delete(userObj)" value="Delete User" /> -->
+    <!-- Submit/Cancel Buttons -->
     <div class="row">
       <div class="large-12 columns">
-        <label for="last_name">Last Name</label>
-        <input ng-model="formValues.last_name" type="text" value="{{formValues.last_name}}"></input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="large-12 columns">
-        <label for="address">Street Address and Unit Number</label>
-        <input ng-model="formValues.address" type="text" value="{{formValues.address}}"></input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="large-12 columns">
-        <label for="city">City</label>
-        <input ng-model="formValues.city" type="text" ng-value="{{formValues.city}}"></input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="large-12 columns">
-        <label for="state">State</label>
-        <select ng-model="formValues.state">
-          <option disabled>Select a State</option>
-          <option ng-repeat="(key, value) in states" value="{{value}}" ng-selected="value === formValues.state">{{key}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="large-12 columns">
-        <label for="zip">ZIP Code</label>
-        <input ng-model="formValues.zip" type="text" ng-value="{{formValues.zip}}"></input>
-      </div>
-    </div>
-
-    <div class="row collapse">
-      <div class="large-6 columns">
-        <label for="phone">Phone</label>
-        <input ng-model="formValues.phone" type="text" ng-value="{{formValues.phone}}"></input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="large-12 columns">
-        <label for="email">Email</label>
-        <input ng-model="formValues.email" type="text" ng-value="{{formValues.email}}"></input>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="large-12 columns">
-        <a class="button secondary" ng-click="cancel()">Cancel</a>
-        <a class="button" ng-click="update()">Update User</a>
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update User" />
       </div>
     </div>
   </fieldset>
