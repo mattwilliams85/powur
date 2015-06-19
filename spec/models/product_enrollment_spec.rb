@@ -15,14 +15,6 @@ describe ProductEnrollment do
       allow(user).to receive(:rank_up!)
     end
 
-    context 'required class (FIT)' do
-      it 'should try to create ipayout account' do
-        allow(product).to receive(:is_required_class).and_return(true)
-        expect(enrollment).to receive(:find_or_create_ipayout_account).with(user)
-        enrollment.complete!
-      end
-    end
-
     context 'non-required class' do
       it 'should NOT try to create ipayout account' do
         allow(product).to receive(:is_required_class).and_return(false)
