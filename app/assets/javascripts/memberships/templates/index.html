@@ -10,23 +10,191 @@
     <div class="row">
       <div class="large-12 columns">
         <div class="user-info">
-          <img ng-src="{{currentUser.avatar.preview}}">
+          <img ng-if="currentUser.avatar" ng-src="{{currentUser.avatar.large}}">
           <span>Hi {{currentUser.first_name}},</span>
         </div>
-        <h1>Your Membership level with powur determines your ability to earn, learn and succeed.</h1>
+        <h1>Your Membership level with powur determines your<br>ability to earn, learn and succeed.</h1>
+
+        <div class="text-center">
+          <h5>Choose the one most closely aligned with your goals:</h5>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="memberships-list-wrapper">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="row">
+          <div class="large-3 medium-6 small-12 columns">
+            <div class="list-item">
+              <div class="description">
+                <h3>Advocate</h3>
+                <span>As an advocate you can earn off your own efforts and be part of the solar revolution.</span>
+              </div>
+
+              <span class="line">
+                FREE
+              </span>
+
+              <div class="inner-bottom">
+                <div class="extra">
+                  <span><b>Additional benefits:</b></span>
+                  <ul>
+                    <li>Powur Platform</li>
+                    <li>Proposal Tool</li>
+                    <li>Team Invite Tool</li>
+                    <li>F.I.T. (Fast Impact Training)</li>
+                    <li>Powur Library</li>
+                    <li>I-payout Commission Center</li>
+                    <li>Commissions on Personal Sales</li>
+                  </ul>
+                </div>
+
+                <a class="button select-certification free">Select</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="large-3 medium-6 small-12 columns">
+            <div class="list-item certified">
+              <div class="description">
+                <h3>Certified</h3>
+                <span>As an advocate you can earn off your own efforts and be part of the solar revolution.</span>
+              </div>
+
+              <span class="line">
+                $199 <small>one-time</small>
+              </span>
+
+              <div class="inner-bottom">
+                <div class="extra">
+                  <span><b>Additional benefits:</b></span>
+                  <ul>
+                    <li>Powur Consultant Certification</li>
+                    <li>Certified Consultant Status</li>
+                    <li>Earn Unlimited Commissions</li>
+                  </ul>
+                </div>
+
+                <a class="button select-certification">Select</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="large-3 medium-6 small-12 columns">
+            <div class="list-item pro">
+              <div class="description">
+                <h3>Pro</h3>
+                <span>As an advocate you can earn off your own efforts and be part of the solar revolution.</span>
+              </div>
+
+              <span class="line">
+                $39 <small>monthly</small>
+              </span>
+
+              <div class="inner-bottom">
+                <div class="extra">
+                  <span><b>Additional benefits:</b></span>
+                  <ul>
+                    <li>Personal branded Powur site</li>
+                    <li>Access elite marketing tools</li>
+                    <li>Exclusive "pro" only training</li>
+                    <li>20% off all powur events</li>
+                  </ul>
+                </div>
+
+                <a class="button select-certification">Select</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="large-3 medium-6 small-12 columns">
+            <div class="list-item powur-pro">
+              <div class="description">
+                <h3>Powur Pro</h3>
+                <span>As an advocate you can earn off your own efforts and be part of the solar revolution.</span>
+              </div>
+
+              <span class="line">
+                $29 <small>monthly</small> + $199 <small>one-time</small>
+              </span>
+
+              <div class="inner-bottom">
+                <div class="extra">
+                  <span><b>Additional benefits:</b></span>
+                  <h3>$10</h3>
+                  <span>monthly discount on your Pro Subscription</span>
+                  <h3 class="highlighted">+</h3>
+                  <span>Get your first month</span>
+                  <h3>FREE</h3>
+                </div>
+
+                <a class="button select-certification best">Select</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row text-center">
     <div class="large-12 columns">
-      <div class="memberships-list-wrapper">
-        <h5>Choose the one most closely aligned with your goals</h5>
+      <div class="memberships-chart-icon"></div>
+      <h2>We've made it easy to see all the features at a glance.</h2>
+      <h5>View our handy <a href="#memberships-table-wrapper">Comparison Table</a></h5>
+    </div>
+  </div>
 
-        <h2>We've made it easy to see all the features at a glance.</h2>
+
+  <div id="memberships-table-wrapper" class="memberships-table-wrapper">
+    <div class="row">
+      <div class="large-12 columns">
+
+        <table class="memberships-table">
+          <thead>
+            <tr>
+              <th>Compare memberships</th>
+              <th>Advocate</th>
+              <th>Certified</th>
+              <th>Pro</th>
+              <th>Powur Pro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td>FREE</td>
+              <td>$199 one-time</td>
+              <td>$39 monthly</td>
+              <td>$29 <small>monthly</small><br>+ $199 <small>one-time</small></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><a class="button small free">EXISTING</a></td>
+              <td><a class="button small">SELECT</a></td>
+              <td><a class="button small">SELECT</a></td>
+              <td><a class="button small best">SELECT</a></td>
+            </tr>
+            <tr class="separator">
+              <td colspan="5">Advocate Benefits</td>
+            </tr>
+            <tr class="options">
+              <td>Powur Platform</td>
+              <td class="free"></td>
+              <td class="cert"></td>
+              <td class="cert"></td>
+              <td class="best"></td>
+            </tr>
+          </tbody>
+        </table>
+
       </div>
     </div>
   </div>
+
 
 </main>
 
