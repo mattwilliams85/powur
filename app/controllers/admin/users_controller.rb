@@ -18,13 +18,13 @@ module Admin
     end
 
     def downline
-      @users = @user.downline_users
+      @users = apply_list_query_options(@user.downline_users)
 
       render 'team'
     end
 
     def upline
-      @users = @user.upline_users
+      @users = apply_list_query_options(@user.upline_users)
 
       render 'index'
     end

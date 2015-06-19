@@ -8,7 +8,7 @@ describe '/a/users' do
 
   describe '#index' do
 
-    it 'returns level 1 users' do
+    it 'returns all users' do
       create_list(:user, 3)
       create_list(:user, 2, sponsor: @user)
 
@@ -17,7 +17,7 @@ describe '/a/users' do
       expect_200
 
       expect_classes('users', 'list')
-      expect(json_body['entities'].size).to eq(User.at_level(1).count)
+      expect(json_body['entities'].size).to eq(User.all.count)
     end
 
     it 'returns the downline users' do
