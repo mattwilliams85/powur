@@ -46,7 +46,8 @@
         $scope.isSubmitDisabled = true;
         CommonService.execute($scope.formAction, $scope.socialMediaPost).then(function success(data) {
           if (data.error) {
-            $scope.showModal('There was an error while saving this post.');
+            $scope.showModal('There was an error while saving this post.' + '<br>' + data.error.message);
+            $scope.isSubmitDisabled = false;
             return;
           }
           $location.path('admin/social-media')
@@ -60,7 +61,7 @@
         CommonService.execute($scope.formAction, $scope.socialMediaPost).then(function success(data) {
           $scope.isSubmitDisabled = true;
           if (data.error) {
-            $scope.showModal('There was an error while updating this post.');
+            $scope.showModal('There was an error while updating this post.' + '<br>' + data.error.message);
             return;
           }
           $location.path('/admin/social-media');

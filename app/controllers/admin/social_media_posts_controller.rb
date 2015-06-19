@@ -13,7 +13,7 @@ module Admin
     end
 
     def create
-      @social_media_post = SocialMediaPost.create(input)
+      @social_media_post = SocialMediaPost.create!(input)
 
       # unpublish all other posts if publish=true
       if input["publish"]
