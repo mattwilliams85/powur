@@ -1,35 +1,219 @@
+$free-color: #000;
+$cert-color: #20c2f1;
+$best-color: #ff5349;
+
 .pow-memberships {
+  background-color: #f4f6f7;
+
   .memberships-top-bg {
     background-color: #fff;
     background-image: image-url("memberships/bg.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    color: #fff;
-    padding: 60pt 0;
+    padding: 50pt 0 200pt 0;
 
     h1 {
       color: #fff;
       font-weight: bold;
-      font-size: 2em;
+      font-size: 2.1em;
       text-transform: uppercase;
+      margin-bottom: 2.3em;
+    }
+
+    h5 {
+      color: #fff;
     }
 
     .user-info {
+      color: #fff;
       font-size: 1.2em;
+      margin-bottom: 30pt;
 
       img {
         width: 100px;
-        margin: 0 15pt 30pt 0;
+        margin-right: 15pt;
         border-radius: 100pt;
       }
     }
   }
 
   .memberships-list-wrapper {
-    text-align: center;
+    top: -230px;
+    position: relative;
 
-    h5 {
-      color: #fff;
+    .list-item {
+      background-color: #fff;
+      border-radius: 5pt;
+      text-align: center;
+      padding-top: 10px;
+      margin-bottom: 10px;
+
+      h3 {
+        font-size: 2em;
+        font-weight: bold;
+      }
+
+      &.certified {
+        background-color: #20c2f1;
+
+        h3 {
+          color: #fff;
+        }
+      }
+
+      &.pro {
+        background-color: #20c2f1;
+
+        h3 {
+          color: #fff;
+        }
+      }
+
+      &.powur-pro {
+        background-color: #f4c751;
+
+        h3 {
+          color: #fff;
+        }
+      }
+
+      .description {
+        margin: 0 20px;
+        height: 172px;
+      }
+
+      .line {
+        background: rgba(0,0,0,0.1);
+        display: block;
+        height: 45px;
+        line-height: 45px;
+      }
+
+      .inner-bottom {
+        background-color: #fff;
+        border-bottom-left-radius: 5pt;
+        border-bottom-right-radius: 5pt;
+        border-bottom: 1px solid #e4e6e7;
+        height: 360px;
+
+        .button {
+          text-transform: uppercase;
+        }
+      }
+
+      .extra {
+        height: 280px;
+        text-align: left;
+        margin: 0 20px;
+        padding-top: 20px;
+        overflow: hidden;
+
+        ul {
+          list-style: none;
+          margin: 0;
+
+          li {
+            text-indent: 5px;
+
+            &:before {
+              content: "-";
+              position: relative;
+              left: -5px;
+            }
+          }
+        }
+
+        h3 {
+          color: #000;
+          margin: 0;
+
+          .highlighted {
+            color: #f4c751;
+          }
+        }
+      }
+
+      .select-certification {
+        background: none;
+        border: 3px solid #20c2f1;
+        color: #20c2f1;
+        display: block;
+        margin: 0 20px;
+
+        &.free {
+          border-color: #000;
+          color: #000;
+        }
+
+        &.best {
+          border-color: $best-color;
+          color: $best-color;
+        }
+      }
+    }
+  }
+
+  .memberships-chart-icon {
+    background-image: image-url("memberships/chart-icon.png");
+  }
+
+  .memberships-table-wrapper {
+    margin-top: 200px;
+  }
+
+  .memberships-table {
+    border: none;
+    border-spacing: 0;
+    width: 100%;
+
+    td, th {
+      background: #fff;
+      text-align: center;
+
+      &:first-child {
+        text-align: left;
+      }
+    }
+
+    .separator {
+      td {
+        background: #f4f6f7;
+      }
+    }
+
+    .options {
+      td {
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+
+      .free {
+        background-image: image-url("memberships/free-mark.png");
+      }
+      .cert {
+        background-image: image-url("memberships/cert-mark.png");
+      }
+      .best {
+        background-image: image-url("memberships/best-mark.png");
+      }
+    }
+
+    .button {
+      background: none;
+      border: 2px solid #20c2f1;
+      color: #20c2f1;
+      line-height: 1.5em;
+      padding: .2em 1em;
+
+      &.free {
+        border-color: #c3c3c3;
+        color: #c3c3c3;
+      }
+
+      &.best {
+        border-color: $best-color;
+        color: $best-color;
+      }
     }
   }
 }
