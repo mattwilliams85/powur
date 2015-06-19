@@ -32,7 +32,7 @@
               <p class="label">{{ key | cleanLabel }}</p>
               <p class="value">{{value}}</p>
             </div>
-            <div class="proposal-product-field notes">
+            <div ng-if="showNotes" class="proposal-product-field notes">
               <p class="label">Notes</p>
               <p class="value">{{proposal.notes}}</p>
             </div>
