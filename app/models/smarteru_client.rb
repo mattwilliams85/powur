@@ -58,8 +58,7 @@ class SmarteruClient
       client.users.enroll(
         employee_id,
         group,
-        product.smarteru_module_id
-      )
+        product.smarteru_module_id)
     rescue Smarteru::Error => e
       raise(e) unless e.code == 'ELM:19'
     end
