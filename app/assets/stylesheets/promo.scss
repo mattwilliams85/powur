@@ -438,7 +438,7 @@ $xl-screen: em-calc(1500);
     }
 
     h5 {
-      color: #383838;
+      color: $header-font-color;
       display: inline;
       font-weight: normal;
       margin-bottom: .5em;
@@ -633,7 +633,7 @@ $xl-screen: em-calc(1500);
     }
 
     .left-part {
-      color: #383838;
+      color: $header-font-color;
       height: 100%;
       z-index: 1;
 
@@ -860,7 +860,7 @@ $xl-screen: em-calc(1500);
           border-radius: 8px;
           height: 7px;
           border: 1px solid #bdc3c7;
-          background-color: #ccc; 
+          background-color: #ccc;
           margin: 0 0 25px 10px;
       }
 
@@ -1966,7 +1966,7 @@ $xl-screen: em-calc(1500);
     background-color: #fff;
 
     h2 {
-      color: #383838;
+      color: $header-font-color;
     }
 
     h4 {
