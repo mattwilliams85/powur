@@ -137,6 +137,7 @@
               $scope.proposal = item.properties;
               $scope.proposalItem = item;
               $scope.showProductFields = !!Object.keys(item.properties.product_fields).length;
+              $scope.showNotes = !!item.properties.notes;
               $scope.currentProposal = item.properties;
               $scope.mode = item.properties.status;
             }, 300);

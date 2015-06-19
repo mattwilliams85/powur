@@ -25,12 +25,16 @@
         </div>
 
         <!-- Custom Product Fields -->
-        <div ng-if="showProductFields">
+        <div ng-if="showProductFields || showNotes">
           <div class="submitted-proposal panel">
-            <label>House and Utility Information</label>
+            <label>Other Information</label>
             <div class="proposal-product-field" ng-repeat="(key, value) in proposal.product_fields">
               <p class="label">{{ key | cleanLabel }}</p>
               <p class="value">{{value}}</p>
+            </div>
+            <div class="proposal-product-field notes">
+              <p class="label">Notes</p>
+              <p class="value">{{proposal.notes}}</p>
             </div>
           </div>
         </div>
