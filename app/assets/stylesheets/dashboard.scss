@@ -138,14 +138,13 @@ $kpi-text-color: #888;
             font-size: 16pt;
           }
         }
-        input {
+        input, textarea {
           background-color: rgba(0,0,0,0.06);
           border: 1px solid rgba(0,0,0,0.2);
           color: white;
           outline: none;
           border-radius: 4px;
           padding: 24px 10px 8px;
-          height: 60px;
           font-family: $dashboard-font-family;
           font-size: 16pt;
           &:focus {
@@ -155,6 +154,13 @@ $kpi-text-color: #888;
           &:disabled {
             color: #666
           }
+        }
+        input {
+          height: 60px;
+        }
+        textarea {
+          height: 136px;
+          resize: none;
         }
         select {
           background-color: rgba(0,0,0,0.06);
@@ -214,6 +220,7 @@ $kpi-text-color: #888;
   .button {
     border-radius: 4px;
     border: 1px solid rgba(0,0,0,0.2);
+    height: 60px;
     background-color: $pow-color-blue;
     font-family: $dashboard-font-family;
     text-transform: uppercase;
@@ -1457,6 +1464,7 @@ $kpi-text-color: #888;
       div.proposal-product-field {
         position: relative;
         width: 100%;
+        padding-top: 10px;
 
         .label {
           color: #ccc;
@@ -1511,15 +1519,18 @@ $kpi-text-color: #888;
       }
     }
     // Scroll Bars for Lead Updates Panel
-    .lead-update::-webkit-scrollbar {
+    .lead-update::-webkit-scrollbar,
+    .notes::-webkit-scrollbar {
       width: 8px;
     }
 
-    .lead-update::-webkit-scrollbar-track {
+    .lead-update::-webkit-scrollbar-track,
+    .notes::-webkit-scrollbar-track {
       background: rgba(0,0,0,0.2);
     }
 
-    .lead-update::-webkit-scrollbar-thumb {
+    .lead-update::-webkit-scrollbar-thumb,
+    .notes::-webkit-scrollbar-thumb {
       background: rgba(0,0,0,0.4);
     }
     // /Scroll Bars

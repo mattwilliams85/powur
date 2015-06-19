@@ -60,13 +60,21 @@
     </div>
     <div class="large-6 columns">
       <fieldset>
-        <legend ng-if="proposal.productFields"><i class="fa fa-bolt"></i> House and Utility Information</legend>
+        <legend ng-if="proposal.productFields"><i class="fa fa-info-circle"></i> Other Information</legend>
 
         <!-- Custom Product Fields -->
         <div ng-repeat="productField in proposal.productFields" class="row">
           <div class="large-12 medium-12 columns">
             <label>{{ productField.name | cleanLabel }}</label>
             <input ng-model="proposal[productField.name]" type="{{productField.type}}">
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="row">
+          <div class="large-12 columns">
+            <label>Notes</label>
+            <textarea ng-model="proposal.notes" class="notes"></textarea>
           </div>
         </div>
 
