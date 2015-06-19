@@ -17,15 +17,10 @@ rake powur:seed:plan
 
 ## Working with Production DB backup
 
-### Download Production snapshot from heroku
-
-```
-curl -o ~/Downloads/latest.dump `heroku pg:backups public-url -a powur`
-```
-
 ### Restore local DB from a snapshot
 
 ```
+curl -o ~/Downloads/latest.dump `heroku pg:backups public-url -a powur`
 rake db:drop db:create
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -d powur_development ~/Downloads/latest.dump
 ```
