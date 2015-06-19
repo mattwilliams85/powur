@@ -43,40 +43,44 @@ module Api
       end
 
       REQUIRED_PARAMS = [ :uid, :providerUid, :status, :lastUpdated ]
-      KEY_DATES = %w(consultation contract installation)
+      KEY_DATES = %w(converted consultation contract installation)
       def record_to_lead_attrs(record)
         missing = REQUIRED_PARAMS.select { |p| record[p].nil? }
         unless missing.empty?
-          api_error!(:invalid_request, :missing_params, params: missing.join(','))
+          api_error!(:invalid_request,
+                     :missing_params,
+                     params: missing.join(','))
         end
 
         quote = fetch_quote(record[:uid])
         order_status = (record[:order] || {})[:status]
 
-        opp = record[:opportunity] || {}
-        attrs = { 
-          quote:              quote,
-          provider_uid:       record[:providerUid],
-          status:             record[:status],
-          lead_status:        record[:leadStatus],
-          opportunity_stage:  record[:opportunityStage],
-          contact:            record[:contact],
-          order_status:       order_status,
-          updated_at:         date_from_string(record[:lastUpdated]) }
-        record[:keyDates].each do |key, value|
-          if !value.nil? && KEY_DATES.include?(key.to_s)
-            attrs[key] = date_from_string(value)
-          end
-        end if record[:keyDates]
+        attrs = {
+          quote:             quote,
+          provider_uid:      record[:providerUid],
+          status:            record[:status],
+          lead_status:       record[:leadStatus],
+          opportunity_stage: record[:opportunityStage],
+          contact:           record[:contact],
+          order_status:      order_status,
+          updated_at:        date_from_string(record[:lastUpdated]) }
+        attrs.merge!(key_date_attrs(record[:keyDates])) if record[:keyDates]
 
         attrs
+      end
+
+      def key_date_attrs(key_dates)
+        attrs = key_dates
+          .select { |k, v| !v.nil? && KEY_DATES.include?(k.to_s) }
+          .map { |k, v| [ k, date_from_string(v) ] }
+        Hash[ attrs ]
       end
 
       def create_lead_update(attrs)
         lead_update = LeadUpdate.create!(attrs)
         lead_update.quote.update_received!
         lead_update
-      rescue ActiveRecord::InvalidForeignKey => e
+      rescue ActiveRecord::InvalidForeignKey
         invalid_quote_id_error!
       end
 

@@ -419,7 +419,8 @@ CREATE TABLE lead_updates (
     data hstore DEFAULT ''::hstore,
     updated_at timestamp without time zone NOT NULL,
     lead_status character varying,
-    opportunity_stage character varying
+    opportunity_stage character varying,
+    converted timestamp without time zone
 );
 
 
@@ -2416,4 +2417,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150615190918');
 INSERT INTO schema_migrations (version) VALUES ('20150617172905');
 
 INSERT INTO schema_migrations (version) VALUES ('20150618213922');
+
+INSERT INTO schema_migrations (version) VALUES ('20150619194058');
 
