@@ -1,6 +1,7 @@
 $free-color: #000;
 $cert-color: #20c2f1;
 $best-color: #ff5349;
+$pro-color: #f4c751;
 
 .pow-memberships {
   background-color: #f4f6f7;
@@ -54,7 +55,7 @@ $best-color: #ff5349;
       }
 
       &.certified {
-        background-color: #20c2f1;
+        background-color: $cert-color;
 
         h3 {
           color: #fff;
@@ -62,7 +63,7 @@ $best-color: #ff5349;
       }
 
       &.pro {
-        background-color: #20c2f1;
+        background-color: $cert-color;
 
         h3 {
           color: #fff;
@@ -70,7 +71,7 @@ $best-color: #ff5349;
       }
 
       &.powur-pro {
-        background-color: #f4c751;
+        background-color: $pro-color;
 
         h3 {
           color: #fff;
@@ -128,21 +129,21 @@ $best-color: #ff5349;
           margin: 0;
 
           .highlighted {
-            color: #f4c751;
+            color: $pro-color;
           }
         }
       }
 
       .select-certification {
         background: none;
-        border: 3px solid #20c2f1;
-        color: #20c2f1;
+        border: 3px solid $cert-color;
+        color: $cert-color;
         display: block;
         margin: 0 20px;
 
         &.free {
-          border-color: #000;
-          color: #000;
+          border-color: $free-color;
+          color: $free-color;
         }
 
         &.best {
@@ -155,64 +156,129 @@ $best-color: #ff5349;
 
   .memberships-chart-icon {
     background-image: image-url("memberships/chart-icon.png");
+    background-repeat: no-repeat;
+    background-position: center top;
+    height: 100px;
   }
 
   .memberships-table-wrapper {
-    margin-top: 200px;
-  }
+    background-color: $header-font-color;
+    margin-top: 500px;
 
-  .memberships-table {
-    border: none;
-    border-spacing: 0;
-    width: 100%;
+    .memberships-table {
+      border: none;
+      border-spacing: 0;
+      width: 100%;
+      position: relative;
+      top: -291px;
 
-    td, th {
-      background: #fff;
-      text-align: center;
+      td, th {
+        background: #fff;
+        padding: 1rem;
+        text-align: center;
 
-      &:first-child {
-        text-align: left;
+        &:first-child {
+          text-align: left;
+        }
+
+        &.semipro-bg {
+          background-color: #fefbf3;
+        }
+
+        &.pro {
+          background-color: $pro-color;
+        }
+      }
+
+      th {
+        background-color: #383838;
+        color: #fff;
+        font-size: 1.2em;
+        font-weight: normal;
+        height: 150px;
+        vertical-align: bottom;
+        min-width: 170px;
+
+        &.cert {
+          background-color: $cert-color;
+        }
+
+        &.pro {
+          background-color: $pro-color;
+        }
+      }
+
+      .large-font {
+        td {
+          font-size: 1.2em;
+        }
+      }
+
+      .separator {
+        td {
+          background: #f4f6f7;
+          color: #969797;
+        }
+      }
+
+      .options {
+        td {
+          background-repeat: no-repeat;
+          background-position: center center;
+
+          &.free {
+            background-image: image-url("memberships/free-mark.png");
+          }
+          &.cert {
+            background-image: image-url("memberships/cert-mark.png");
+          }
+          &.best {
+            background-image: image-url("memberships/best-mark.png");
+          }
+        }
+
+        &.highlighted {
+          td {
+            color: $best-color;
+          }
+        }
+      }
+
+      .button {
+        background: none;
+        border: 2px solid $cert-color;
+        color: $cert-color;
+        line-height: 2em;
+        padding: .2em 1.5em;
+        margin: 0;
+        white-space: nowrap;
+
+        &.free {
+          border-color: #c3c3c3;
+          color: #c3c3c3;
+        }
+
+        &.best {
+          border-color: $best-color;
+          color: $best-color;
+        }
+
+        &.pro {
+          border-color: #fff;
+          color: #fff;
+        }
       }
     }
 
-    .separator {
-      td {
-        background: #f4f6f7;
-      }
-    }
+    .payment-info-wrapper {
+      padding-bottom: 100px;
 
-    .options {
-      td {
+      .payment-icons {
+        background-image: image-url("memberships/payment-icons.png");
         background-repeat: no-repeat;
-        background-position: center center;
-      }
-
-      .free {
-        background-image: image-url("memberships/free-mark.png");
-      }
-      .cert {
-        background-image: image-url("memberships/cert-mark.png");
-      }
-      .best {
-        background-image: image-url("memberships/best-mark.png");
-      }
-    }
-
-    .button {
-      background: none;
-      border: 2px solid #20c2f1;
-      color: #20c2f1;
-      line-height: 1.5em;
-      padding: .2em 1em;
-
-      &.free {
-        border-color: #c3c3c3;
-        color: #c3c3c3;
-      }
-
-      &.best {
-        border-color: $best-color;
-        color: $best-color;
+        background-position: center 0;
+        color: #888;
+        padding-top: 60px;
       }
     }
   }

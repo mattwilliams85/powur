@@ -28,7 +28,7 @@
 .pow-left-menu {
   position: fixed;
   z-index: 10;
-  background-color: #383838;
+  background-color: $header-font-color;
   overflow: hidden;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
@@ -207,9 +207,9 @@ and (max-device-width : 960px) {
 
     .first-menu {
       padding-top:0px;
-      @media #{$small} { 
+      @media #{$small} {
         padding-top:40px;
-      } 
+      }
 
       ul {
         list-style-type: none;
@@ -230,7 +230,7 @@ and (max-device-width : 960px) {
     .second-menu {
       a {
         padding: .3em 0 .3em 40px;
-        @media #{$small} { 
+        @media #{$small} {
           padding: 1.1em 0 1.1em 40px;
         }
       }
