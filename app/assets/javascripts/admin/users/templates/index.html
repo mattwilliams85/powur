@@ -1,52 +1,30 @@
-<main class="pow-admin-users">
-
+<main class="pow-admin-index">
   <div class="row">
-    <div class="large-8 columns">
-      <h2>Users</h2>
+    <div class="large-6 columns">
+      <h2>{{templateData.index.title}}</h2>
     </div>
-    <div class="large-4 columns">
-      <!-- Search -->
-      <form>
-        <div class="row collapse">
-          <div class="large-9 columns">
-            <input ng-model="userSearch.search" name="search" type="search" placeholder="Search for User">
-          </div>
-          <div class="large-3 columns">
-            <button class="postfix radius button" ng-click="search()">Go</button>
-          </div>
-        </div>
-      </form>
+    <div class="large-6 columns">
+      <a ng-repeat="link in templateData.index.links" ng-href="{{link.href}}" class="button right">{{link.text}}</a>
     </div>
   </div>
-  <!-- Info Panel -->
+
+  <!-- Search -->
   <div class="row">
-    <div class="large-12 columns">
-      <div class="panel">
-      <p>Use the search tool to find users.</p>
+    <div class="medium-4 columns right">
+      <div class="row collapse">
+        <form ng-submit="search()">
+          <div class="small-12 columns">
+            <input type="search" ng-model="usersSearch" placeholder="Search">
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <!-- Users Content -->
+
   <div class="row">
     <div class="large-12 columns">
-      <table width="100%">
-        <thead>
-          <tr>
-            <th class="hide-for-small" width="40">ID</th>
-            <th>Name</th>
-            <th width="150">Email</th>
-            <th class="hide-for-small" width="150">Phone</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="user in users">
-            <td class="hide-for-small">{{user.properties.id}}</td>
-            <td><a ng-href="/admin/users/{{user.properties.id}}">{{user.properties.first_name}} {{user.properties.last_name}}</a></td>
-            <td><a href="mailto:{{user.properties.email}}">{{user.properties.email}}</a></td>
-            <td class="hide-for-small">{{user.properties.phone}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <ng-include src="templateData.index.tablePath"></ng-include>
+      <ng-include src="'shared/admin/pagination.html'"></ng-include>
     </div>
   </div>
 </main>

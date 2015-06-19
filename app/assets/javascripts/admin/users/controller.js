@@ -71,6 +71,28 @@
       }
     };
 
+    // Search Action
+    $scope.search = function() {
+      var data = {};
+      if ($scope.usersSearch) {
+        data.search = $scope.usersSearch;
+      }
+      if ($scope.usersSearch !== '') {
+        $scope.searching = true;
+      } else if ($scope.usersSearch === '') {
+        $scope.searching = false;
+      }
+
+      $http({
+        method: 'GET',
+        url: '/a/users.json',
+        params: data,
+      }).success(function(data) {
+        $scope.data = data;
+        $anchorScroll;
+      });
+    };
+
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
   }
