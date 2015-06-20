@@ -76,7 +76,9 @@ class UsersJson < JsonDecorator
       entity(%w(list overrides), 'user-overrides',
              admin_user_overrides_path(user)),
       entity(%w(list pay_periods), 'user-pay_periods',
-             admin_user_pay_periods_path(user))
+             admin_user_pay_periods_path(user)),
+      entity(%w(list invites), 'user-invites',
+             admin_user_invites_path(user))
   end
 
   def user_entities(user = @item)
