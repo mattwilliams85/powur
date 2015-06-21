@@ -10,8 +10,15 @@ class ProductEnrollment < ActiveRecord::Base
   validates :user_id, presence: true
 
   scope :incomplete, -> { where("state != 'completed'") }
-  scope :user_product, -> (user_id, product_id) {
+  scope :user_product, lambda { |user_id, product_id|
     where(user_id: user_id, product_id: product_id)
+  }
+  scope :created_after, lambda { |from|
+    where('product_enrollments.created_at >=  ?', from)
+  }
+  scope :need_status_refresh, lambda {
+    includes(:product, :user).joins(:product, :user)
+      .created_after(30.days.ago).incomplete
   }
 
   include AASM
@@ -34,6 +41,17 @@ class ProductEnrollment < ActiveRecord::Base
         UserUserGroup.populate_for_user_product(user_id, product_id)
         user.rank_up! if user.needs_rank_up?
       end
+    end
+  end
+
+  def refresh_enrollment_status
+    report = user.smarteru.enrollment(product)
+    return unless report
+
+    if report[:completed_date]
+      complete! unless completed?
+    elsif report[:started_date]
+      start? unless started?
     end
   end
 end
