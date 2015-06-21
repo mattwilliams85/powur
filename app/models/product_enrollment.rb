@@ -51,7 +51,7 @@ class ProductEnrollment < ActiveRecord::Base
     if report[:completed_date]
       complete! unless completed?
     elsif report[:started_date]
-      start? unless started?
+      start! unless started?
     end
   end
 end
