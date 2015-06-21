@@ -13,10 +13,11 @@ class Quote < ActiveRecord::Base
 
   add_search :user, :customer, [ :user, :customer ]
 
-  scope :submitted, ->() { where('status >= ?', statuses['submitted']) }
-  scope :not_submitted, ->() { where('status < ?', statuses['submitted']) }
-  scope :status, ->(value) { where(status: statuses[value]) }
-  scope :won, ->() { status(:closed_won) }
+  scope :submitted, -> { where('submitted_at is not null') }
+  scope :not_submitted, -> { where('submitted_at is null') }
+  scope :status, ->(*args) { where(status: args.map { |a| statuses[a] }) }
+  scope :won, -> { status(:closed_won) }
+
   scope :within_date_range, ->(begin_date, end_date) {
     where('created_at between ? and ?', begin_date, end_date)
   }
