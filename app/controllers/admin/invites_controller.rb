@@ -7,7 +7,7 @@ module Admin
       respond_to do |format|
         format.html
         format.json do
-          @invites = apply_list_query_options(Invite)
+          @invites = apply_list_query_options(@user.invites)
         end
       end
     end
