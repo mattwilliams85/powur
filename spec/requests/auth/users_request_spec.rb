@@ -151,14 +151,6 @@ describe '/u/users' do
   end
 
   describe '/u/users/:id/move' do
-    context 'did not rank up yet' do
-      it 'returns 401 unauthorized' do
-        post move_user_path(1, parent_id: 2), format: :json
-
-        expect(response.code).to eq('401')
-      end
-    end
-
     it 'moves a user in the genealogy' do
       parent1 = create(:user, sponsor: @user)
       parent2 = create(:user, sponsor: @user)
