@@ -78,10 +78,10 @@
     // Show Team Member
     $scope.changeTab = function(teamMember, gen, tab) {
       if ($scope.disable) return;
+
       // Set active tab for generation
       gen.selected = teamMember.id;
       gen.tab = tab;
-      
 
       // Delay for transition between multiple animations
       var delay = 300;
@@ -169,6 +169,10 @@
         });
       });
     };
+
+    function randomThumb() {
+      return legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
+    }
 
     // Fetch User's Immediate downline
     return User.list({sort: $scope.teamSection.teamSort}).then(function(items) {
