@@ -83,7 +83,6 @@
                   ng-click="changeTab(teamMember.properties, downline[0], 'impact');">
                   <img ng-hide="isActiveTab(teamMember, downline[0], 'impact')" ng-src="{{legacyImagePaths.teamSection.kpiIconInvert}}">
                   <img ng-show="isActiveTab(teamMember, downline[0], 'impact')" ng-src="{{legacyImagePaths.teamSection.kpiIcon}}">
-
                 </div>
                 <div 
                   class="team-tab downline" 
@@ -226,15 +225,15 @@
 
     <!-- Row: Team Member KPI -->
     <div class="kpi-section">
-        <div class="beta-filler downline-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'impact'}">
-          <span> Individual Stats and Contact Info Will Display Here</span>
+        <div class="beta-filler downline-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info'}">
+          <span> Information on Proposals Will Display Here</span>
         </div>
     </div>
 
     <!-- Row: Team Member Info -->
-    <div class="row collapse downline-row info-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info' }">
+    <div class="row collapse downline-row info-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'impact' }">
       <!-- Large -->
-      <div ng-hide="activeTab !== 'info'" class="large-12 columns">
+      <div ng-hide="activeTab !== 'impact'" class="large-12 columns">
         <!-- Generation -->
 
         <div class="icon-container">
