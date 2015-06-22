@@ -76,6 +76,10 @@ var legacyImagePaths = {
   }
 };
 
+function randomThumb() {
+  return legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
+}
+
 //JAVASCRIPT CLASS FUNCTIONS
 //Returns week number from formated Date
 Date.prototype.getWeek = function(){

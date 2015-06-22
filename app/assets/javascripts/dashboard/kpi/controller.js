@@ -238,17 +238,18 @@
     $scope.changeUser = function(user) {
       if ($scope.activeUser === user) return;
 
-      CommonService.execute({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
+      CommonService.execu
+te({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
         $scope.activeUser = data.properties;
         $scope.buildChart();
       });
     };
-
     $scope.populateContributors = function() {
       //Defaults to Current User
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
         $scope.activeUser = data.properties;
         $scope.user = $scope.activeUser;
+        $scope.user.defaultAvatarThumb = randomThumb();
         $scope.buildChart();
       });
       $scope.populateTeamList();
@@ -326,6 +327,9 @@
     $scope.populateTeamList = function(){
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_index.json?page=' + $scope.page}).then(function(data){
         $scope.max_page = data.max_page;
+        for (var i = 0; i < data.entities.length; i++){
+          data.entities[i].properties.defaultAvatarThumb = randomThumb();
+        }
         if($scope.team) return $scope.team = $scope.team.concat(data.entities);
         $scope.team = data.entities;
         $scope.active = true;

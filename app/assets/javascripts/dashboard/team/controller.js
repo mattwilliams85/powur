@@ -170,10 +170,6 @@
       });
     };
 
-    function randomThumb() {
-      return legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
-    }
-
     // Fetch User's Immediate downline
     return User.list({sort: $scope.teamSection.teamSort}).then(function(items) {
       for (var i = 0; i < items.entities.length; i++){
