@@ -1,7 +1,5 @@
 module Auth
   class UsersController < AuthController
-    before_action :verify_rank, except: [ :index, :show ]
-
     include UsersActions
 
     sort newest: { created_at: :desc },

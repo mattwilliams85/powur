@@ -147,14 +147,14 @@
         return str += 'th'
       }
     }
-    
+
     $scope.changeTab = function(section) {
-      if (!$scope.isTabClickable || $scope.section === section) return $scope.section = false;
+      if ($scope.section === section) return $scope.section = false;
 
       $scope.active = false;
       $scope.section = section;
       $scope.settings = $scope.tabData[$scope.section].settings;
-      
+
       $scope.clearData();
       $scope.populateContributors();
     };
@@ -184,7 +184,7 @@
 
       var ctx = document.getElementById('metricsChart').getContext('2d');
       var type = $scope.settings[0].type;
-      
+
       if (type === 'line') {
         $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
       } else {
@@ -194,10 +194,10 @@
 
     $scope.setScale = function() {
       //Find largest data point
-      var allData = []; 
+      var allData = [];
       for (var i = 0; i < $scope.settings[0].datasets.length; i ++) {
         allData = allData.concat($scope.settings[0].datasets[i].data);
-      } 
+      }
       var max = Math.max.apply(Math, allData);
 
       //Set Scale
@@ -232,7 +232,7 @@
         $scope.activeUser = data.properties;
         $scope.buildChart();
       });
-      
+
     };
 
     $scope.changeUser = function(user) {
@@ -257,7 +257,7 @@
     function sameDayAs(item, i) {
       return new Date(item.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
              new Date(item.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
-    } 
+    }
 
     function searchObjBranch(obj, user_id) {
       if (obj.id === user_id) { return obj; }

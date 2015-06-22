@@ -4,16 +4,10 @@
   function DashboardCtrl($scope, $rootScope, $location, $timeout, UserProfile, CommonService, Utility) {
     $scope.redirectUnlessSignedIn();
 
-    $rootScope.isTabClickable = false;
-
     //Fetch Profile
     UserProfile.get().then(function(user) {
       $rootScope.currentUser = user;
       $scope.fetchGoals();
-
-      if (user.organic_rank) {
-        $rootScope.isTabClickable = true;
-      }
 
       // Logic for showing Powur Beta Dashboard Overview Video
       if (user.watched_intro === false) {

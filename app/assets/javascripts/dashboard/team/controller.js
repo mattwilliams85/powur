@@ -73,8 +73,6 @@
 
     // Show Team Member
     $scope.changeTab = function(teamMember, gen, tab) {
-      if (!$scope.isTabClickable) return;
-
       // Set active tab for generation
       gen.selected = teamMember.id;
       gen.tab = tab;
