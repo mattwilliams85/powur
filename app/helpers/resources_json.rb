@@ -24,6 +24,8 @@ class ResourcesJson < JsonDecorator
       json.is_public !!resource.is_public
       json.user_name resource.user.full_name
       json.created_at resource.created_at.to_f * 1000
+      json.position resource.position
+      json.topic_id resource.topic_id
     end
   end
 

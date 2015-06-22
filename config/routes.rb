@@ -55,7 +55,6 @@ Rails.application.routes.draw do
 
   # logged in user routes
   scope :u, module: :auth do
-
     resource :kpi_metrics, only: [ :show ] do
       get '/:id/proposals_index', to: 'kpi_metrics#proposals_index'
       get '/:id/proposals_show', to: 'kpi_metrics#proposals_show'
@@ -128,7 +127,7 @@ Rails.application.routes.draw do
       resources :quotes, only: [ :index, :create ]
       resource :goals, only: [ :show ]
       resources :orders, only: [ :index, :show ], controller: :user_orders
-      resources :order_totals, only: [ :index ]#, controller: :user_order_totals
+      resources :order_totals, only: [ :index ]
       resources :user_activities, only:       [ :index, :show ],
                                   controller: :user_activities
       member do
@@ -166,12 +165,12 @@ Rails.application.routes.draw do
     end
 
     resources :notifications,
-                only:       [ :index, :show ],
-                as:         :user_notifications
+              only:       [ :index, :show ],
+              as:         :user_notifications
 
     resources :social_media_posts,
-                only: [ :index, :show ],
-                as:   :user_social_media_posts
+              only: [ :index, :show ],
+              as:   :user_social_media_posts
 
     resources :resources, only: [:index, :show]
 
@@ -180,7 +179,6 @@ Rails.application.routes.draw do
 
   # logged in admin routes
   scope :a, module: :admin do
-
     get '' => 'root#index', as: :admin_root
 
     resources :users, only: [ :index, :show, :update ], as: :admin_users do
@@ -264,14 +262,16 @@ Rails.application.routes.draw do
     resources :overrides, only: [ :index, :update, :destroy ]
 
     resources :notifications,
-                only: [ :index, :create, :destroy, :show, :update ],
-                as:   :admin_notifications
+              only: [ :index, :create, :destroy, :show, :update ],
+              as:   :admin_notifications
 
     resources :social_media_posts,
-                only: [ :index, :create, :destroy, :show, :update ],
-                as:   :admin_social_media_posts
+              only: [ :index, :create, :destroy, :show, :update ],
+              as:   :admin_social_media_posts
 
     resources :resources, as: :admin_resources
+    resources :resource_topics, as: :admin_resource_topics
+
     resources :application_agreements, as: :admin_application_agreements do
       member do
         patch :publish, :unpublish

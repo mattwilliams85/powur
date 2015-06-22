@@ -167,6 +167,7 @@
       $scope.resource = {
         is_public: true
       };
+      getTopics();
     } else if ($scope.mode === 'edit') {
       CommonService.execute({
         href: '/a/resources/' + $routeParams.resourceId + '.json'
@@ -174,8 +175,17 @@
         // Breadcrumbs: Library / Update (Resource Type)
         $scope.resource = item.properties;
         $scope.resourceType = item.properties.file_type === 'video/mp4' ? 'video' : 'document';
+        getTopics();
         $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/resources'});
         $rootScope.breadcrumbs.push({title: 'Update ' + $scope.resourceType});
+      });
+    }
+
+    function getTopics() {
+      CommonService.execute({
+        href: '/a/resource_topics.json'
+      }).then(function(data) {
+        $scope.topics = data.entities;
       });
     }
   };

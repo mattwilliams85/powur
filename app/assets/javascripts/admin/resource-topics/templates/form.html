@@ -1,0 +1,25 @@
+<form name="resourceTopicForm" novalidate>
+  <fieldset>
+    <legend>Add Resource Topic</legend>
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="resource_topic_title">Title</label>
+        <span ng-show="errorMessage('title')" class="radius alert label">{{errorMessage('title')}}</span>
+        <input ng-model="resourceTopic.title" name="title" id="resource_topic_title" type="text" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="resource_topic_position">Position</label>
+        <input ng-model="resourceTopic.position" name="position" id="resource_topic_position" type="text" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input ng-if="mode === 'new'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Create" />
+        <input ng-if="mode === 'edit'" class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update" />
+      </div>
+    </div>
+  </fieldset>
+</form>

@@ -4,6 +4,7 @@
       <th width="20">ID</th>
       <th width="130">Image</th>
       <th>Title</th>
+      <th>Position</th>
       <th>Status</th>
       <th>Posted</th>
       <th width="150">Action</th>
@@ -14,6 +15,7 @@
       <td>{{item.properties.id}}</td>
       <td><img ng-src="{{itemThumbnail(item)}}" class="table-image"></td>
       <td><a ng-href="/admin/resources/{{item.properties.id}}/edit">{{item.properties.title}}</a></td>
+      <td>{{item.properties.position}}</td>
       <td>{{item.properties.is_public ? 'active' : 'hidden'}}</td>
       <td>
         {{item.properties.user_name}}<br>

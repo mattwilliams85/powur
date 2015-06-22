@@ -973,6 +973,38 @@ CREATE TABLE ranks_user_groups (
 
 
 --
+-- Name: resource_topics; Type: TABLE; Schema: public; Owner: -; Tablespace:
+--
+
+CREATE TABLE resource_topics (
+    id integer NOT NULL,
+    title character varying,
+    "position" integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: resource_topics_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE resource_topics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: resource_topics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE resource_topics_id_seq OWNED BY resource_topics.id;
+
+
+--
 -- Name: resources; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -987,7 +1019,9 @@ CREATE TABLE resources (
     is_public boolean,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    youtube_id character varying
+    youtube_id character varying,
+    "position" integer,
+    topic_id integer
 );
 
 
@@ -1455,6 +1489,13 @@ ALTER TABLE ONLY rank_paths ALTER COLUMN id SET DEFAULT nextval('rank_paths_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY resource_topics ALTER COLUMN id SET DEFAULT nextval('resource_topics_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY resources ALTER COLUMN id SET DEFAULT nextval('resources_id_seq'::regclass);
 
 
@@ -1740,6 +1781,14 @@ ALTER TABLE ONLY ranks
 
 
 --
+-- Name: resource_topics_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+--
+
+ALTER TABLE ONLY resource_topics
+    ADD CONSTRAINT resource_topics_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: resources_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1971,6 +2020,13 @@ CREATE UNIQUE INDEX index_rank_paths_on_precedence ON rank_paths USING btree (pr
 --
 
 CREATE INDEX index_resources_on_file_type_and_is_public ON resources USING btree (file_type, is_public);
+
+
+--
+-- Name: index_resources_on_position; Type: INDEX; Schema: public; Owner: -; Tablespace:
+--
+
+CREATE INDEX index_resources_on_position ON resources USING btree ("position");
 
 
 --
@@ -2549,3 +2605,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150619204956');
 
 INSERT INTO schema_migrations (version) VALUES ('20150620150406');
 
+INSERT INTO schema_migrations (version) VALUES ('20150622190320');
+
+INSERT INTO schema_migrations (version) VALUES ('20150622190536');

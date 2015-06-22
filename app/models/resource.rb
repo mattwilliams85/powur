@@ -8,6 +8,7 @@ class Resource < ActiveRecord::Base
   SEARCH = ':q % title or :q % description'
 
   belongs_to :user
+  belongs_to :topic, class_name: 'ResourceTopic'
 
   validates :user_id, presence: true
   validates :title, presence: true, length: { maximum: 100 }
@@ -24,6 +25,8 @@ class Resource < ActiveRecord::Base
   scope :videos, -> { where(file_type: RESOURCE_FILE_TYPES[:video]) }
   scope :documents, -> { where(file_type: RESOURCE_FILE_TYPES[:document]) }
   scope :search, ->(q) { where(SEARCH, q: "#{q}") }
+  scope :sorted, -> { order('resources.position asc, resources.id desc') }
+  scope :with_topics, -> { joins(:topic).includes(:topic) }
 
   before_validation :set_file_type
 

@@ -6,7 +6,7 @@ module Auth
     before_filter :find_resource, only: [:show]
 
     def index
-      scope = Resource.published
+      scope = Resource.published.sorted.with_topics
       scope = scope.search(params[:search]) if params[:search].present?
       scope = scope.videos if params[:type] == 'videos'
       scope = scope.documents if params[:type] == 'documents'
