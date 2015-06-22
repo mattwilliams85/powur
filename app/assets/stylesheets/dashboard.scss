@@ -14,32 +14,6 @@ $kpi-text-color: #888;
   -moz-osx-font-smoothing: grayscale;
   font-family: $dashboard-font-family;
 
-  // Locked Section
-
-  /*
-  A note on z-indexes for social media quote / locked dashboard overlay:
-  .locked (z=99)
-  .social-media-section .bg (z=100)
-  .social-media-section.quote (z=101)
-  */
-
-  .locked {
-    z-index: 99;
-    position: relative;
-  }
-
-  .locked:after {
-    z-index: 99;
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin-bottom: -210px;
-    background: rgba(0,0,0,0.5);
-  }
-
   /*
   SHARED STYLES
   */

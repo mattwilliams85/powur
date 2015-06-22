@@ -77,7 +77,11 @@
 
     // Show Team Member
     $scope.changeTab = function(teamMember, gen, tab) {
-      if (!$scope.isTabClickable || $scope.disable) return;
+      if ($scope.disable) return;
+
+      // Set active tab for generation
+      gen.selected = teamMember.id;
+      gen.tab = tab;
 
       // Delay for transition between multiple animations
       var delay = 300;

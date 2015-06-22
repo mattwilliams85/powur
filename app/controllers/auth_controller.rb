@@ -19,11 +19,6 @@ class AuthController < WebController
     unauthorized!(dashboard_url)
   end
 
-  def verify_rank
-    return true if current_user.organic_rank?
-    unauthorized!(dashboard_url)
-  end
-
   def fetch_user
     return nil unless user_id_param?
     not_found!(:user, user_id) if user_id == 0
