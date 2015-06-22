@@ -13,12 +13,10 @@ class ProductEnrollment < ActiveRecord::Base
   scope :user_product, lambda { |user_id, product_id|
     where(user_id: user_id, product_id: product_id)
   }
-  scope :created_after, lambda { |from|
-    where('product_enrollments.created_at >=  ?', from)
-  }
+  # TODO: use max class due date to figure out the cut off date,
+  # so we don't keep polling abandoned enrollments forever
   scope :need_status_refresh, lambda {
-    includes(:product, :user).joins(:product, :user)
-      .created_after(30.days.ago).incomplete
+    includes(:product, :user).joins(:product, :user).incomplete
   }
 
   include AASM
