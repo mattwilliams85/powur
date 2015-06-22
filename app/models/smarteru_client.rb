@@ -52,7 +52,10 @@ class SmarteruClient
 
   def enroll(product)
     existing_enrollment = enrollment(product)
-    return existing_enrollment if existing_enrollment
+    if existing_enrollment
+      ensure_powur_enrollment(product)
+      return existing_enrollment
+    end
 
     begin
       client.users.enroll(
@@ -63,6 +66,10 @@ class SmarteruClient
       raise(e) unless e.code == 'ELM:19'
     end
 
+    ensure_powur_enrollment(product)
+  end
+
+  def ensure_powur_enrollment(product)
     user.product_enrollments.find_or_create_by(product_id: product.id)
   end
 
