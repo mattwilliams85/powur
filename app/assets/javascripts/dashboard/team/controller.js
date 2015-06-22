@@ -82,6 +82,7 @@
       gen.selected = teamMember.id;
       gen.tab = tab;
       
+
       // Delay for transition between multiple animations
       var delay = 300;
       if (!$scope.activeTab) delay = 0;
