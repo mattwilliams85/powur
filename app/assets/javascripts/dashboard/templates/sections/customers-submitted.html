@@ -25,12 +25,16 @@
         </div>
 
         <!-- Custom Product Fields -->
-        <div ng-if="showProductFields">
+        <div ng-if="showProductFields || showNotes">
           <div class="submitted-proposal panel">
-            <label>House and Utility Information</label>
+            <label>Other Information</label>
             <div class="proposal-product-field" ng-repeat="(key, value) in proposal.product_fields">
               <p class="label">{{ key | cleanLabel }}</p>
               <p class="value">{{value}}</p>
+            </div>
+            <div ng-if="showNotes" class="proposal-product-field notes">
+              <p class="label">Notes</p>
+              <p class="value">{{proposal.notes}}</p>
             </div>
           </div>
         </div>
@@ -66,7 +70,7 @@
           </div>
           <!-- Consultation Date -->
           <div ng-if="lead_update.properties.consultation" class="status">
-            <label>Consulation Date</label>
+            <label>Consultation Date</label>
             <p>{{ lead_update.properties.consultation | dateToLocalDate }}</p>
           </div>
           <!-- Contract Signed Date -->

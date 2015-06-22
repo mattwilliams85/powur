@@ -13,10 +13,11 @@ class Quote < ActiveRecord::Base
 
   add_search :user, :customer, [ :user, :customer ]
 
-  scope :submitted, ->() { where('status >= ?', statuses['submitted']) }
-  scope :not_submitted, ->() { where('status < ?', statuses['submitted']) }
-  scope :status, ->(value) { where(status: statuses[value]) }
-  scope :won, ->() { status(:closed_won) }
+  scope :submitted, -> { where('submitted_at is not null') }
+  scope :not_submitted, -> { where('submitted_at is null') }
+  scope :status, ->(*args) { where(status: args.map { |a| statuses[a] }) }
+  scope :won, -> { status(:closed_won) }
+
   scope :within_date_range, ->(begin_date, end_date) {
     where('created_at between ? and ?', begin_date, end_date)
   }
@@ -48,7 +49,9 @@ class Quote < ActiveRecord::Base
   end
 
   def calculated_status
-    return (last_update ? last_update.quote_status : :submitted) if submitted_at?
+    if submitted_at?
+      return (last_update ? last_update.quote_status : :submitted)
+    end
     return :ineligible_location unless zip_code_valid?
     can_submit? ? :ready_to_submit : :incomplete
   end
@@ -86,13 +89,13 @@ class Quote < ActiveRecord::Base
     event :update_received do
       transitions from: [ :submitted, :in_progress ],
                   to:   :closed_won,
-                  if:   ->{ last_update.closed_won? }
+                  if:   -> { last_update.closed_won? }
       transitions from: [ :submitted, :in_progress ],
                   to:   :on_hold,
-                  if:   ->{ last_update.on_hold? }
+                  if:   -> { last_update.on_hold? }
       transitions from: [ :submitted, :in_progress ],
                   to:   :lost,
-                  if:   ->{ last_update.lost? }
+                  if:   -> { last_update.lost? }
       transitions from: :submitted, to: :in_progress
     end
   end

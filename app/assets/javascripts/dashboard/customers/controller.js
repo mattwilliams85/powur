@@ -111,8 +111,6 @@
 
     // Show Proposal
     $scope.customerSection.showProposal = function(proposalIndex) {
-      if (!$scope.isTabClickable) return;
-
       $scope.updatingProposal = false;
       var proposalId = $scope.proposals[proposalIndex].properties.id;
       $scope.proposalIndex = proposalIndex;
@@ -137,6 +135,7 @@
               $scope.proposal = item.properties;
               $scope.proposalItem = item;
               $scope.showProductFields = !!Object.keys(item.properties.product_fields).length;
+              $scope.showNotes = !!item.properties.notes;
               $scope.currentProposal = item.properties;
               $scope.mode = item.properties.status;
             }, 300);
@@ -156,8 +155,6 @@
 
     // New Proposal Action
     $scope.customerSection.newProposal = function() {
-      if (!$scope.isTabClickable) return;
-
       if ($scope.showForm === true && $scope.mode === 'new') {
         $scope.closeForm();
         return;

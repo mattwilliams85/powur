@@ -130,13 +130,8 @@ class User < ActiveRecord::Base
     quotes.submitted.count
   end
 
-  def team_proposal_count
-    downline_ids = User.with_ancestor(id).pluck(:id)
-    Quote.where(user_id: downline_ids).submitted.count
-  end
-
   def weekly_growth
-    User.with_ancestor(self.id).within_date_range(Date.today - 7, Date.today).count
+    User.with_ancestor(self.id).within_date_range(Date.today - 6, Date.today).count
   end
 
   def fetch_total_orders(start_date, end_date)
@@ -196,6 +191,10 @@ class User < ActiveRecord::Base
 
   def smarteru
     @smarteru ||= SmarteruClient.new(self)
+  end
+
+  def is_certified
+    product_enrollments.completed.joins(:product).where("products.is_university_class = true and products.is_required_class != true").count > 0
   end
 
   private

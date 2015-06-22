@@ -4,16 +4,10 @@
   function DashboardCtrl($scope, $rootScope, $location, $timeout, UserProfile, CommonService, Utility) {
     $scope.redirectUnlessSignedIn();
 
-    $rootScope.isTabClickable = false;
-
     //Fetch Profile
     UserProfile.get().then(function(user) {
       $rootScope.currentUser = user;
       $scope.fetchGoals();
-
-      if (user.organic_rank) {
-        $rootScope.isTabClickable = true;
-      }
 
       // Logic for showing Powur Beta Dashboard Overview Video
       if (user.watched_intro === false) {
@@ -24,6 +18,17 @@
       // Logic for showing link to Powur Beta Dashboard Overview Video
       $scope.showBetaDashboardVideoLink = true;
 
+    });
+
+    // Populate Social Media Quote
+    CommonService.execute({
+      href: 'u/social_media_posts.json'
+    }).then(function(item) {
+      if (item.entities.length) {
+        $scope.socialQuote = item.entities[0].properties.content;
+      } else {
+        return;
+      }
     });
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):
@@ -150,7 +155,6 @@
       $(domElement).foundation('reveal', 'open');
     };
 
-    $scope.socialQuote = '"Don\'t try to fight the existing reality, build a new model that makes the old model obsolete" - Buckminster Fuller';
   }
 
   DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService', 'Utility'];

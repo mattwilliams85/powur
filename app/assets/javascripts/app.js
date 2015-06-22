@@ -112,7 +112,7 @@
           //prevents users from getting stuck on second slide
           if (id === 'dim_the_lights') {
             $('.pow-bg-1').hide();
-            $('body').scrollTop(0);
+            $('body,html').scrollTop(0);
           }
           if (id === 'on_slider_move') {
             // $('body').css('background','transparent')

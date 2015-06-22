@@ -1,0 +1,18 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th width="20">ID</th>
+      <th>Content</th>
+      <th>Published</th>
+      <th width="150">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in data.entities">
+      <td>{{item.properties.id}}</td>
+      <td>{{item.properties.content}}</td>
+      <td>{{item.properties.publish}}</td>
+      <td><a ng-href="/admin/social-media/{{item.properties.id}}/edit">edit</a></td>
+    </tr>
+  </tbody>
+</table>

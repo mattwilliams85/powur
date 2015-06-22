@@ -12,6 +12,7 @@ if current_user.organic_rank
     .field(:city, :text, required: false)
     .field(:state, :text, required: false)
     .field(:zip, :text, required: false)
+    .field(:notes, :text, required: false)
 end
 
 product = Product.default

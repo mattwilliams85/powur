@@ -1,7 +1,5 @@
 module Auth
   class KpiMetricsController < AuthController
-    before_action :verify_rank, only: [:proposals_show, :proposals_index]
-
     helper_method :users_for_period
     helper_method :orders_for_user
 
@@ -21,13 +19,14 @@ module Auth
       scale = params[:scale].to_i + 1
       @orders = @user.fetch_total_orders(Date.today - scale, Date.today)
       @proposals = @user.fetch_total_proposals(Date.today - scale, Date.today)
-      
+
       render "auth/kpi_metrics/proposals/show"
     end
 
     def proposals_index
       @user = User.find(params[:id])
-      @users = apply_list_query_options(@user.downline_users).order('last_name DESC')
+      @users = apply_list_query_options(User.quote_performance(@user.id))
+
       @max_page = (pager.meta[:item_count]/4.to_f).ceil
 
       render "auth/kpi_metrics/proposals/index"
@@ -46,7 +45,7 @@ module Auth
 
     def genealogy_index
       @user = User.find(params[:id])
-      @users = apply_list_query_options(@user.downline_users).order('last_name DESC')
+      @users = apply_list_query_options(User.growth_performance(@user.id))
       @max_page = (pager.meta[:item_count]/4.to_f).ceil
 
       render "auth/kpi_metrics/genealogy/index"

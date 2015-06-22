@@ -12,32 +12,7 @@ $kpi-text-color: #888;
   background-color: #f8f8f8;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  // Locked Section
-
-  /*
-  A note on z-indexes for social media quote / locked dashboard overlay:
-  .locked (z=99)
-  .social-media-section .bg (z=100)
-  .social-media-section.quote (z=101)
-  */
-
-  .locked {
-    z-index: 99;
-    position: relative;
-  }
-
-  .locked:after {
-    z-index: 99;
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin-bottom: -210px;
-    background: rgba(0,0,0,0.5);
-  }
+  font-family: $dashboard-font-family;
 
   /*
   SHARED STYLES
@@ -134,11 +109,11 @@ $kpi-text-color: #888;
           legend {
             background-color: initial;
             color: #fff;
-            font-family: $dashboard-font-family;
+
             font-size: 16pt;
           }
         }
-        input {
+        input, textarea {
           background-color: rgba(0,0,0,0.06);
           border: 1px solid rgba(0,0,0,0.2);
           color: white;
@@ -146,7 +121,6 @@ $kpi-text-color: #888;
           border-radius: 4px;
           padding: 24px 10px 8px;
           height: 60px;
-          font-family: $dashboard-font-family;
           font-size: 16pt;
           &:focus {
             background-color: rgba(0,0,0,0.2);
@@ -155,6 +129,13 @@ $kpi-text-color: #888;
           &:disabled {
             color: #666
           }
+        }
+        input {
+          height: 60px;
+        }
+        textarea {
+          height: 136px;
+          resize: none;
         }
         select {
           background-color: rgba(0,0,0,0.06);
@@ -170,7 +151,6 @@ $kpi-text-color: #888;
           background-size: 40px 40px;
 
           color: white;
-          font-family: $dashboard-font-family;
           font-size: 16pt;
           line-height: 18pt;
 
@@ -190,7 +170,6 @@ $kpi-text-color: #888;
           top: 8px;
           left: 14px;
           color: #9b9b9b;
-          font-family: $dashboard-font-family;
           text-transform: uppercase;
           font-size: 10pt;
           cursor: default;
@@ -214,6 +193,7 @@ $kpi-text-color: #888;
   .button {
     border-radius: 4px;
     border: 1px solid rgba(0,0,0,0.2);
+    height: 60px;
     background-color: $pow-color-blue;
     font-family: $dashboard-font-family;
     text-transform: uppercase;
@@ -315,6 +295,8 @@ $kpi-text-color: #888;
   .carousel-container {
     position: relative;
     height: 220px;
+    transition: height 0.4s ease;
+    -webkit-transition: -webkit-height 0.4s ease;
     border-left: 0;
     overflow: hidden;
 
@@ -358,6 +340,21 @@ $kpi-text-color: #888;
         }
       }
     }
+
+    &.accordion {
+      height: 100px;
+
+      .owl-item {
+        height: 100px;
+      }
+
+      .owl-prev {
+        padding: 40px 24px 128px 8px !important;
+      }
+      .owl-next {
+        padding: 40px 23px 128px 6px !important;
+      }
+    }
   }
 
 
@@ -376,12 +373,15 @@ $kpi-text-color: #888;
     width: 24px;
     top: 0;
     transition: all .1s linear;
+    // OVERRIDE OWL-THEME
     &:hover {
-      // OVERRIDE OWL-THEME
       background-color: #555 !important;
       color: #fff !important;
-      //
     }
+    &:before {
+      font-size: 11pt !important
+    }
+    //
   }
   .owl-prev {
     left: -2px;
@@ -422,11 +422,11 @@ $kpi-text-color: #888;
     color: #555;
     height: 220px;
 
-    -webkit-transition: background-color .1s;
-    -moz-transition: background-color .1s;
-    -o-transition: background-color .1s;
-    -ms-transition: background-color .1s;
-    transition: background-color .1s;
+    -webkit-transition: background-color .1s  height 0.4s ease;
+    -moz-transition: background-color .1s  height 0.4s ease;
+    -o-transition: background-color .1s  height 0.4s ease;
+    -ms-transition: background-color .1s  height 0.4s ease;
+    transition: background-color .1s  height 0.4s ease;
 
     &.active {
       background-color: #444;
@@ -437,6 +437,19 @@ $kpi-text-color: #888;
     &.downline {
       background: #444;
       color: #fff;
+      height: 220px;
+    }
+
+    &.accordion {
+      height: 100px;
+
+      .fa-user-plus {
+        font-size: 3em;
+      }
+
+      .level {
+        
+      }
     }
 
     &.even {
@@ -664,7 +677,6 @@ $kpi-text-color: #888;
           top: 30px;
           background: #111;
           font-size: 12pt;
-          font-family: $dashboard-font-family;
           text-align: center;
           color: #fff;
           border: 1px solid rgba(0, 0, 0, 0.2);
@@ -873,6 +885,7 @@ $kpi-text-color: #888;
   SOCIAL MEDIA SECTION
   */
   .social-media-section {
+    min-height: 180px;
     padding-top: 50px;
     padding-bottom: 30px;
     background-color: #333;
@@ -935,7 +948,7 @@ $kpi-text-color: #888;
   KPI SECTION
   */
   .kpi-section {
-    padding-top: 20px;
+    padding-top: 50px;
     margin-bottom:50px;
 
     .sk-spinner-three-bounce.sk-spinner {
@@ -1456,10 +1469,10 @@ $kpi-text-color: #888;
       div.proposal-product-field {
         position: relative;
         width: 100%;
+        padding-top: 10px;
 
         .label {
           color: #ccc;
-          font-family: $dashboard-font-family;
           text-transform: uppercase;
           font-size: 10pt;
           background-color: initial;
@@ -1510,15 +1523,18 @@ $kpi-text-color: #888;
       }
     }
     // Scroll Bars for Lead Updates Panel
-    .lead-update::-webkit-scrollbar {
+    .lead-update::-webkit-scrollbar,
+    .notes::-webkit-scrollbar {
       width: 8px;
     }
 
-    .lead-update::-webkit-scrollbar-track {
+    .lead-update::-webkit-scrollbar-track,
+    .notes::-webkit-scrollbar-track {
       background: rgba(0,0,0,0.2);
     }
 
-    .lead-update::-webkit-scrollbar-thumb {
+    .lead-update::-webkit-scrollbar-thumb,
+    .notes::-webkit-scrollbar-thumb {
       background: rgba(0,0,0,0.4);
     }
     // /Scroll Bars
@@ -1537,6 +1553,27 @@ $kpi-text-color: #888;
   TEAM SECTION
   */
   .team-section {
+
+    .info-box {
+      transition: transform 0.4s ease, background-color 0.4s ease;
+      -webkit-transition: -webkit-transform 0.4s ease, background-color 0.4s ease;
+      margin-top: 50px;
+
+      &.accordion {
+        margin-top: 45px;
+        transition: none !important;
+        -webkit-transition: none !important;
+        .avatar {
+          display: none;
+        }
+      }
+
+      &.raise {
+        -ms-transform: translate(0 , -25px); /* IE 9 */
+        -webkit-transform: translate(0 , -25px); /* Safari */
+        transform: translate(0 , -25px);
+      }
+    }
 
     .kpi-section {
       padding-top: 0px;
@@ -1570,7 +1607,7 @@ $kpi-text-color: #888;
 
     .info-row {
       text-align: center;
-      background-image:  image-url("city-dark.jpg");
+      // background-image:  image-url("city-dark.jpg");
       background-position: left 0;
       background-repeat: no-repeat;
       background-size: cover;
@@ -1586,12 +1623,26 @@ $kpi-text-color: #888;
 
       .avatar {
         position: relative;
-        top: 20%;
         text-align: center;
+        top: 20%;
+        margin-top: -5px;
+        margin-bottom: 10px;
+
         img {
           width: 80px;
           margin: 0 auto;
           border-radius: 55px;
+        }
+
+        .mini-rank {
+          background: #fff;
+          border-radius: 50%;
+          width: 25px;
+          height: 25px;
+          color: #326C7F;
+          position: absolute;
+          left: 58%;
+          top: 70%;
         }
       }
 
@@ -1602,6 +1653,13 @@ $kpi-text-color: #888;
         white-space: nowrap;
         max-width: 85%;
         margin: 0 auto;
+
+        .info-detail {
+          font-size: 8pt;
+          line-height: 10pt;
+          color: #9b9b9b;
+          display: block;
+        }
       }
 
       .team-tabs {
@@ -1619,35 +1677,43 @@ $kpi-text-color: #888;
           text-align: center;
           float: left;
           text-transform: uppercase;
-          font-size: 12pt;
-          color: #eee;
+          font-size: 13pt;
+          color: #fff;
           padding: 5px 0px;
           cursor: pointer;
           transition: transform 0.4s ease, background-color 0.4s ease;
           -webkit-transition: -webkit-transform 0.4s ease, background-color 0.4s ease;
 
+          .invert {
+            color: #4f4f4f;
+          }
+
+          .dc-count {
+            color: #444;
+          }
+
           &.raise {
-            -ms-transform: translate(0 , -30px); /* IE 9 */
-            -webkit-transform: translate(0 , -30px); /* Safari */
-            transform: translate(0 , -30px);
+            -ms-transform: translate(0 , -35px); /* IE 9 */
+            -webkit-transform: translate(0 , -35px); /* Safari */
+            transform: translate(0 , -35px);
           }
 
           &.downline {
-            background-color: #1F434F;
+            // background-color: #1F434F;
             &:hover {
-              background-color: #062730
+              // background-color: #062730
             }
           }
           &.impact {
-            background-color: #326C7F;
+            // background-color: #326C7F;
             &:hover {
-              background-color: #275563;
+              // background-color: #275563;
             }
           }
           &.info {
-            background-color: #4BA1BF;
+            // background-color: #4BA1BF;
             &:hover {
-              background-color: #408AA3;
+              // background-color: #408AA3;
             }
           }
 
@@ -1659,16 +1725,23 @@ $kpi-text-color: #888;
             &.even {
                 background: #444 !important;
             }
-          }
 
-          &.active-tab.info {
-            background-image:  image-url("city-dark.jpg") !important;
-            background-position: top right;
-            background-repeat: no-repeat;
+            .fa-info-circle {
+              color: #fff;
+            }
+
+            .dc-count {
+              color: #fff;
+            }
           }
 
           &.half {
             width: 48%;
+          }
+
+          img {
+            margin-bottom: 3px;
+            width: 17px;
           }
         }
       }
@@ -1712,6 +1785,10 @@ $kpi-text-color: #888;
       &.even {
         background-color: #333;
       }
+
+      &.accordion {
+        height: 100px;
+      }
     }
 
     .new-team-member {
@@ -1745,6 +1822,10 @@ $kpi-text-color: #888;
         top: 10%;
         font-size: 80pt;
         font-weight: 200;
+
+        &.accordion {
+          font-size: 35pt;
+        }
       }
 
       .team-member-name {
@@ -1860,6 +1941,7 @@ $kpi-text-color: #888;
         .avatar {
           position: relative;
           top: 15%;
+          
           img {
             height: 150px;
             width: auto;

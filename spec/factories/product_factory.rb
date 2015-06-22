@@ -21,7 +21,8 @@ FactoryGirl.define do
     end
 
     factory :certifiable_product do
-      certifiable true
+      is_university_class true
+      is_required_class false
       image_original_path 'http://lorempixel.com/400/400/abstract'
     end
 

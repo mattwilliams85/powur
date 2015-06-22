@@ -13,7 +13,8 @@ class Product < ActiveRecord::Base
   validates :commission_percentage, numericality: { less_than_or_equal_to: 100 }
 
   scope :with_bonuses, -> { includes(bonuses: [ :bonus_amounts ]) }
-  scope :certifiable, -> { where(certifiable: true) }
+  scope :university_classes, -> { where(is_university_class: true) }
+  scope :certifiable, -> { university_classes.where('is_required_class != true') }
   scope :free, -> { where(bonus_volume: 0) }
   scope :sorted, -> { order('position ASC') }
 

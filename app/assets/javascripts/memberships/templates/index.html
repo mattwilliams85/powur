@@ -1,0 +1,380 @@
+<ng-include src="'shared/header-signed-in.html'"></ng-include>
+
+<main class="pow-memberships">
+
+  <div class="memberships-top-bg">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="user-info">
+          <img ng-if="currentUser.avatar" ng-src="{{currentUser.avatar.large}}">
+          <span>Hi {{currentUser.first_name}},</span>
+        </div>
+        <h1>Your Membership level with powur determines your<br>ability to earn, learn and succeed.</h1>
+
+        <div class="text-center">
+          <h5>Choose the one most closely aligned with your goals:</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="memberships-list-wrapper">
+    <div class="row">
+      <div class="large-12 columns">
+        <div class="row">
+          <div class="large-3 medium-6 small-12 columns">
+            <div class="list-item">
+              <div class="description">
+                <h3>Advocate</h3>
+                <span>As an advocate you can earn off your own efforts and be part of the solar revolution.</span>
+              </div>
+
+              <span class="line">
+                FREE
+              </span>
+
+              <div class="inner-bottom">
+                <div class="extra">
+                  <span><b>Additional benefits:</b></span>
+                  <ul>
+                    <li>Powur Platform</li>
+                    <li>Proposal Tool</li>
+                    <li>Team Invite Tool</li>
+                    <li>F.I.T. (Fast Impact Training)</li>
+                    <li>Powur Library</li>
+                    <li>I-payout Commission Center</li>
+                    <li>Commissions on Personal Sales</li>
+                  </ul>
+                </div>
+
+                <!-- <a class="button select-certification free">Select</a> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="large-3 medium-6 small-12 columns">
+            <div class="list-item certified">
+              <div class="description">
+                <h3>Certified</h3>
+                <span>As an advocate you can earn off your own efforts and be part of the solar revolution.</span>
+              </div>
+
+              <span class="line">
+                $299 <small>one-time</small>
+              </span>
+
+              <div class="inner-bottom">
+                <div class="extra">
+                  <span><b>Additional benefits:</b></span>
+                  <ul>
+                    <li>Powur Consultant Certification</li>
+                    <li>Certified Consultant Status</li>
+                    <li>Earn Unlimited Commissions</li>
+                  </ul>
+                </div>
+
+                <a class="button select-certification" ng-click="selectMembership()">Select</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="large-3 medium-6 small-12 columns">
+            <div class="list-item pro">
+              <div class="description">
+                <h3>Pro</h3>
+                <span>As an advocate you can earn off your own efforts and be part of the solar revolution.</span>
+              </div>
+
+              <span class="line">
+                $39 <small>monthly</small>
+              </span>
+
+              <div class="inner-bottom">
+                <div class="extra">
+                  <span><b>Additional benefits:</b></span>
+                  <ul>
+                    <li>Personal branded Powur site</li>
+                    <li>Access elite marketing tools</li>
+                    <li>Exclusive "pro" only training</li>
+                    <li>20% off all powur events</li>
+                  </ul>
+                </div>
+
+                <a class="button select-certification">Coming soon</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="large-3 medium-6 small-12 columns">
+            <div class="list-item powur-pro">
+              <div class="description">
+                <h3>Powur Pro</h3>
+                <span>As an advocate you can earn off your own efforts and be part of the solar revolution.</span>
+              </div>
+
+              <span class="line">
+                $29 <small>monthly</small> + $299 <small>one-time</small>
+              </span>
+
+              <div class="inner-bottom">
+                <div class="extra">
+                  <span><b>Additional benefits:</b></span>
+                  <h3>$10</h3>
+                  <span>monthly discount on your Pro Subscription</span>
+                  <h3 class="highlighted">+</h3>
+                  <span>Get your first month</span>
+                  <h3>FREE</h3>
+                </div>
+
+                <a class="button select-certification best">Coming soon</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row text-center">
+    <div class="large-12 columns">
+      <div class="memberships-chart-icon"></div>
+      <h2>We've made it easy to see all the features at a glance.</h2>
+      <h5>View our handy <a ng-click="scrollTo('memberships-table')">Comparison Table</a></h5>
+    </div>
+  </div>
+
+
+  <div class="memberships-table-wrapper">
+    <div class="row">
+      <div class="large-12 columns">
+
+        <table id="memberships-table" class="memberships-table">
+          <thead>
+            <tr>
+              <th>Compare memberships</th>
+              <th>Advocate</th>
+              <th class="cert">Certified</th>
+              <th class="cert">Pro</th>
+              <th class="pro">Powur Pro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="large-font">
+              <td></td>
+              <td>FREE</td>
+              <td>$299 <small>one-time</small></td>
+              <td>$39 <small>monthly</small></td>
+              <td class="semipro-bg">$29 <small>monthly</small><br>+ $299 <small>one-time</small></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><!--a class="button small free">EXISTING</a--></td>
+              <td><a class="button small" ng-click="selectMembership()">SELECT</a></td>
+              <td><a class="button small">COMING SOON</a></td>
+              <td class="semipro-bg"><a class="button small best">COMING SOON</a></td>
+            </tr>
+            <tr class="separator">
+              <td colspan="5">Advocate Benefits</td>
+            </tr>
+            <tr class="options">
+              <td><b>Powur Platform</b><br>Customer tracking, team tracking & detailed KPI's (Key Performance Indicators)</td>
+              <td class="free"></td>
+              <td class="cert"></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td><b>Proposal Tool</b><br>Send Solar prospects directly to SolarCity</td>
+              <td class="free"></td>
+              <td class="cert"></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td><b>Team Invite Tool</b><br>Grow & build a team (no commissions until certified)</td>
+              <td class="free"></td>
+              <td class="cert"></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td><b>FIT (Fast Impact Training)</b><br>Introductory Powur training course</td>
+              <td class="free"></td>
+              <td class="cert"></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td><b>Powur Library</b><br>Archived powur documents</td>
+              <td class="free"></td>
+              <td class="cert"></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td><b>I-payout Commission Center</b><br>Flexible commission management from one central place</td>
+              <td class="free"></td>
+              <td class="cert"></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td><b>Commissions on Personal Sales</b><br>Earn $200 on every homeowner you refer.</td>
+              <td class="free"></td>
+              <td class="cert"></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="separator">
+              <td colspan="5">Certified Benefits</td>
+            </tr>
+            <tr class="options">
+              <td>
+                <b>Powur Consultant Certification</b><br>
+                - The industries first direct selling solar certification.<br>
+                - Customized training to rapidly expand your Powur business.<br>
+                - Over 5 hours of content from SolarCity, top industry   publications, & more.<br>
+                - Proven training path to be part of the shift from “Dirty” to Clean  Energy.
+              </td>
+              <td></td>
+              <td class="cert"></td>
+              <td></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td><b>Certified Consultant Status</b><br>- Receive certified Powur Consultant emblem for your website &  business cards</td>
+              <td></td>
+              <td class="cert"></td>
+              <td></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td>
+                <b>Earn Unlimited Commissions</b><br>
+                - Earn up to $300 on every homeowner you refer<br>
+                - Unlimited ability to earn from your team<br>
+                - Full participation in the Powur Commission plan
+              </td>
+              <td></td>
+              <td class="cert"></td>
+              <td></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="separator">
+              <td colspan="5">Pro Benefits</td>
+            </tr>
+            <tr class="options">
+              <td>
+                <b>Personal Branded Powur Site</b><br>
+                Your own custom Powur website for generating new customers& teammates.
+              </td>
+              <td></td>
+              <td></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td>
+                <b>Marketing Center</b><br>
+                New marketing tools, traffic & conversion data, and extra Powur landing pages.
+              </td>
+              <td></td>
+              <td></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td>
+                <b>Swipe Center</b><br>
+                Personalized enrollment scripts for emails, mobile, & social media.
+              </td>
+              <td></td>
+              <td></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td>
+                <b>Special "Pro Only" Training</b><br>
+                Weekly pro only training to keep you moving forward
+              </td>
+              <td></td>
+              <td></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td>
+                <b>Event Discounts</b><br>
+                Get 20% off Powur live events.
+              </td>
+              <td></td>
+              <td></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options">
+              <td>
+                <b>Active Status</b><br>
+                Waive your personal qualifiers for active status each month you are Powur PRO.
+              </td>
+              <td></td>
+              <td></td>
+              <td class="cert"></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="separator">
+              <td colspan="5">Powur Pro Bundle Benefits</td>
+            </tr>
+            <tr class="options highlighted">
+              <td>
+                <b>$10 MONTHLY DISCOUNT</b><br>
+                Get Certified and go Pro at in one upgrade, and we’ll knock $10 a month off your Pro subscription for life.
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="options highlighted">
+              <td>
+                <b>GET YOUR FIRST MONTH FREE</b><br>
+                Your $29 monthly membership doesn't start until 30 days after you become Powur Pro.
+              </td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="best semipro-bg"></td>
+            </tr>
+            <tr class="separator">
+              <td colspan="5">Select Memberships</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><!--a class="button small free">EXISTING</a--></td>
+              <td><a class="button small" ng-click="selectMembership()">SELECT</a></td>
+              <td><a class="button small">COMING SOON</a></td>
+              <td class="pro"><a class="button small pro">COMING SOON</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+
+        <div class="payment-info-wrapper">
+          <div class="row text-center">
+            <div class="large-12 columns">
+              <div class="payment-icons">
+                <span>Shop with peace of mind. Our payment gateway experience is safe, private and secure.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<ng-include src="'shared/footer-signed-in.html'"></ng-include>

@@ -55,13 +55,17 @@
     $scope.isActiveTab = function(teamMember, gen, tab) {
      if (tab) return gen.tab === tab && gen.selected === teamMember.properties.id && $scope.activeTab === tab;
      return ($scope.downline.length > ($scope.levelGap(teamMember))) && gen.selected === teamMember.properties.id;
-
     };
+
+    $scope.isActiveMember = function(teamMember, gen) {
+      return gen.selected === teamMember.properties.id;
+    }
 
     // Close Team Member
     $scope.closeForm = function(element) {
       if(element) {
         $scope.downline = $scope.downline.slice(0, parseInt(element.attr('data-row')) + 1);
+        $scope.downline[$scope.downline.length - 1].selected = "";
       }
       $scope.currentTeamMember = {};
       $scope.activeTab = '';
@@ -73,25 +77,41 @@
 
     // Show Team Member
     $scope.changeTab = function(teamMember, gen, tab) {
-      if (!$scope.isTabClickable) return;
+      if ($scope.disable) return;
 
       // Set active tab for generation
       gen.selected = teamMember.id;
       gen.tab = tab;
+
       // Delay for transition between multiple animations
       var delay = 300;
       if (!$scope.activeTab) delay = 0;
       if($scope.currentTeamMember.id === teamMember.id && $scope.activeTab === tab) {
+
+        // Remove active tab for generation
+        gen.selected = null;
+        gen.tab = null;
+
         $scope.closeForm();
+        $scope.downline[$scope.downline.length - 1].selected = "";
       } else {
         $scope.closeForm();
         $scope.currentTeamMember = teamMember;
 
+        // Set active tab for generation
+        gen.selected = teamMember.id;
+        gen.tab = tab;
+
         if (tab === 'team') {
-          User.downline(teamMember.id, {sort: $scope.teamSection.teamSort}).then(function(item) {
+          $scope.disable = true;
+          User.downline(teamMember.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
             $timeout(function(){
               $scope.activeTab = tab;
-              $scope.downline.push(item.entities);
+              for (var i = 0; i < items.entities.length; i++){
+                items.entities[i].properties.defaultAvatarThumb = randomThumb();
+              }
+              $scope.downline.push(items.entities);
+              $scope.disable = false;
             }, delay);
           });
         } else {
@@ -150,8 +170,16 @@
       });
     };
 
+    function randomThumb() {
+      return legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
+    }
+
     // Fetch User's Immediate downline
     return User.list({sort: $scope.teamSection.teamSort}).then(function(items) {
+      for (var i = 0; i < items.entities.length; i++){
+        items.entities[i].properties.defaultAvatarThumb = randomThumb();
+      }
+
       $scope.downline.push(items.entities);
       $timeout(function() {
         initCarousel($('#carousel-0'));

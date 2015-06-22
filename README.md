@@ -17,22 +17,17 @@ rake powur:seed:plan
 
 ## Working with Production DB backup
 
-### Download Production snapshot from heroku
-
-```
-curl -o ~/Downloads/latest.dump `heroku pg:backups public-url -a powur`
-```
-
 ### Restore local DB from a snapshot
 
 ```
+curl -o ~/Downloads/latest.dump `heroku pg:backups public-url -a powur`
 rake db:drop db:create
 pg_restore --verbose --clean --no-acl --no-owner -h localhost -d powur_development ~/Downloads/latest.dump
 ```
 
 ### Prepare sensitive data for testing (ONLY for local or staging environment)
 
-This will add testing users, modify user passwords and emails (to prevent accidental emails going out from staging or localhost) etc...
+This will add test users, reset user passwords to 'solarpower' and emails to 'development+[user_id]@eyecuelab.com' etc...
 
 ```
 rake powur:prepare_data_for_testing

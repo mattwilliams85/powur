@@ -1,6 +1,5 @@
 module Auth
   class QuotesController < AuthController
-    before_action :verify_rank, except: [ :index, :show ]
     before_action :fetch_user!
     before_action :fetch_quotes, only: [ :index ]
     before_action :fetch_quote,
@@ -87,8 +86,8 @@ module Auth
     end
 
     def customer_input
-      allow_input(
-        :first_name, :last_name, :email, :phone, :address, :city, :state, :zip)
+      allow_input(:first_name, :last_name, :email,
+                  :phone, :address, :city, :state, :zip, :notes)
     end
 
     def product

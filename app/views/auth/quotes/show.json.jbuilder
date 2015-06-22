@@ -3,7 +3,8 @@ siren json
 json.partial! 'item', quote: @quote
 
 json.properties do
-  json.call(@quote.customer, :email, :phone, :address, :city, :state, :zip)
+  json.call(@quote.customer, :email, :phone,
+            :address, :city, :state, :zip, :notes)
   json.product_fields @quote.data.each { |key, value| json.set! key, value }
 end
 
@@ -27,6 +28,7 @@ else
     .field(:city, :text, required: false, value: @quote.customer.city)
     .field(:state, :text, required: false, value: @quote.customer.state)
     .field(:zip, :text, required: false, value: @quote.customer.zip)
+    .field(:notes, :text, required: false, value: @quote.customer.notes)
 
   @quote.product.quote_fields.each do |field|
     opts = {

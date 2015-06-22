@@ -17,4 +17,5 @@
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular 'bonus', 'bonuses'
+  # inflect.irregular 'notes', 'notes'
 end

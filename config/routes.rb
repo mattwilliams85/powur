@@ -169,6 +169,10 @@ Rails.application.routes.draw do
                 only:       [ :index, :show ],
                 as:         :user_notifications
 
+    resources :social_media_posts,
+                only: [ :index, :show ],
+                as:   :user_social_media_posts
+
     resources :resources, only: [:index, :show]
 
     get 'uploader_config', to: 'uploader_config#show'
@@ -262,6 +266,10 @@ Rails.application.routes.draw do
     resources :notifications,
                 only: [ :index, :create, :destroy, :show, :update ],
                 as:   :admin_notifications
+
+    resources :social_media_posts,
+                only: [ :index, :create, :destroy, :show, :update ],
+                as:   :admin_social_media_posts
 
     resources :resources, as: :admin_resources
     resources :application_agreements, as: :admin_application_agreements do

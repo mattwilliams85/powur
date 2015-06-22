@@ -18,14 +18,27 @@ describe SmarteruClient, type: :model do
   describe '#account' do
     subject { client.account }
     before do
-      expect(client.client.users).to receive(:get).once.with(user.smarteru_employee_id).and_return('banana')
+      expect(client.client.users).to receive(:get).once.with(user.smarteru_employee_id).and_return(api_response)
     end
 
-    it { is_expected.to eq('banana') }
+    context 'employee ids match' do
+      let(:api_response) { {employee_id: user.smarteru_employee_id} }
 
-    it 'should store data in the instance variable to prevent multiple api calls' do
-      client.account
-      client.account
+      it { is_expected.to eq(api_response) }
+
+      it 'should store data in the instance variable to prevent multiple api calls' do
+        client.account
+        client.account
+      end
+    end
+
+    context 'employee ids do not match' do
+      let(:api_response) { {employee_id: 'something else'} }
+      before do
+        expect(client).to receive(:update_employee_id).once.with(api_response[:employee_id])
+      end
+
+      it { is_expected.to eq(api_response) }
     end
   end
 

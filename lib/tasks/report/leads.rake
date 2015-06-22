@@ -1,12 +1,25 @@
 namespace :powur do
   namespace :report do
 
+    def quotes
+      @quotes ||= begin
+        query = Quote
+        if ENV['FROM_DATE']
+          from_date = DateTime.parse(ENV['FROM_DATE'])
+          query = query
+            .where('submitted_at is not null')
+            .where('submitted_at >= ?', from_date)
+        end
+        query
+      end
+    end
+
     def user_totals
-      @user_totals ||= Quote.group(:user_id).order('count_all desc').count
+      @user_totals ||= quotes.group(:user_id).order('count_all desc').count
     end
 
     def users_status_totals
-      @users_status_totals ||= Quote.group(:user_id, :status).count
+      @users_status_totals ||= quotes.group(:user_id, :status).count
     end
 
     def user_status_totals(user_id)
