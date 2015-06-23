@@ -8,12 +8,8 @@
       $rootScope.currentUser = user;
     });
 
-    $scope.videoIconImagePath = legacyImagePaths.videoIconImagePath;
+    $scope.legacyImagePaths = legacyImagePaths;
 
-    $scope.items = [];
-    $scope.itemsPaging = {
-      current_page: 1
-    };
     $scope.resourceTypes = [{name: 'All Media'}, {name: 'Videos', type: 'videos'}, {name: 'Documents', type: 'documents'}];
     $scope.resourceType = $scope.resourceTypes[0];
 
@@ -34,15 +30,6 @@
       $anchorScroll();
     };
 
-    $scope.resourceTypeChange = function() {
-      return CommonService.execute({
-        href: '/u/resources.json?type=' + $scope.resourceType.type
-      }).then(function(items) {
-        $scope.items = items.entities;
-        $scope.pages = items.properties.paging;
-      });
-    };
-
     $scope.itemThumbnail = function(item) {
       var imgPath = item.properties.image_original_path;
       if (imgPath) {
@@ -53,30 +40,28 @@
       return item.properties.file_type === 'video/mp4' ? legacyImagePaths.libraryResources[0] : legacyImagePaths.libraryResources[1];
     };
 
-    $scope.search = function() {
-      $scope.itemsPaging = {
-        current_page: 1
-      };
-      $scope.items = [];
-      $scope.pagination(0);
-    };
-
-    $scope.pagination = function(direction) {
-      var page = $scope.itemsPaging.current_page + direction;
+    $scope.getResources = function() {
+      var href = '/u/resources.json';
+      if ($scope.searchText) href += '?search=' + $scope.searchText;
       return CommonService.execute({
-        href: '/u/resources.json?page=' + page + '&search=' + $scope.searchText
+        href: href
       }).then(function(items) {
-        $scope.items = $scope.items.concat(items.entities);
-        $scope.pages = items.properties.paging;
+        var topics = items.properties.topics,
+            topicId,
+            resources = {},
+            i;
+        // Prepare resources for the UI
+        for (i in items.entities) {
+          topicId = items.entities[i].properties.topic_id;
+          if (!resources[topicId]) resources[topicId] = [];
+          resources[topicId].push(items.entities[i]);
+        }
+        $scope.topics = topics;
+        $scope.resources = resources;
       });
     };
 
-    return CommonService.execute({
-      href: '/u/resources.json'
-    }).then(function(items) {
-      $scope.items = items.entities;
-      $scope.pages = items.properties.paging;
-    });
+    return $scope.getResources();
   }
 
   LibraryCtrl.$inject = ['$scope', '$rootScope', '$location', '$anchorScroll', 'CommonService', 'UserProfile'];

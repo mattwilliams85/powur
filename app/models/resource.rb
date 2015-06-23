@@ -1,11 +1,10 @@
 class Resource < ActiveRecord::Base
-
   RESOURCE_FILE_TYPES = {
-    video: 'video/mp4',
+    video:    'video/mp4',
     document: 'application/pdf'
   }
 
-  SEARCH = ':q % title or :q % description'
+  SEARCH = ':q % resources.title or :q % resources.description'
 
   belongs_to :user
   belongs_to :topic, class_name: 'ResourceTopic'
@@ -15,11 +14,11 @@ class Resource < ActiveRecord::Base
   validates :description, presence: true
   validates :file_original_path, presence: true, if: 'youtube_id.blank?'
   validates :file_type,
-    presence: true,
-    inclusion: {
-      in: RESOURCE_FILE_TYPES.values,
-      message: "File type can't be accepted"
-    }
+            presence:  true,
+            inclusion: {
+              in:      RESOURCE_FILE_TYPES.values,
+              message: "File type can't be accepted"
+            }
 
   scope :published, -> { where(is_public: true) }
   scope :videos, -> { where(file_type: RESOURCE_FILE_TYPES[:video]) }
@@ -42,12 +41,12 @@ class Resource < ActiveRecord::Base
 
     ext = file_original_path[/\.(\w*)$/, 1]
     self.file_type = case ext
-    when 'mp4'
-      RESOURCE_FILE_TYPES[:video]
-    when 'pdf'
-      RESOURCE_FILE_TYPES[:document]
-    else
-      ext
-    end
+                     when 'mp4'
+                       RESOURCE_FILE_TYPES[:video]
+                     when 'pdf'
+                       RESOURCE_FILE_TYPES[:document]
+                     else
+                       ext
+                     end
   end
 end

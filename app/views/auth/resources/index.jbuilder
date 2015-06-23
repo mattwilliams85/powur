@@ -1,9 +1,13 @@
 siren json
 
-resources_json.list_init
+klass :resources, :list
+
+json.entities @resources, partial: 'item', as: :resource
 
 json.properties do
-  json.topics @resources.map(&:topic).compact.uniq
+  json.topics do
+    json.entities @topics
+  end
 end
 
 self_link resources_path
