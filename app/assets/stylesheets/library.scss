@@ -92,11 +92,11 @@
   .resource {
     margin-bottom: 30px;
 
-    .video-icon {
+    .resource-type-icon {
       position: absolute;
-      right: 22px;
-      width: 25pt;
-      top: 5px;
+      left: 255px;
+      width: 20px;
+      top: 10px;
     }
 
     .media-info {
@@ -110,12 +110,20 @@
         background-repeat: no-repeat;
       }
 
-      .text {
+      .title {
         color: #fff;
         font-size: 1.2em;
         text-transform: uppercase;
         line-height: 1.2em;
         margin: 35px 60px 0 30px;
+        text-align: left;
+      }
+
+      .description {
+        color: #fff;
+        font-size: .8em;
+        line-height: 1em;
+        margin: 10px 60px 0 30px;
         text-align: left;
       }
     }
@@ -130,21 +138,21 @@
     bottom: 0;
   }
 
-  .pdf-preview {
-    display: flex;
-    justify-content: center;
-    top: 0;
-    padding-bottom: 20px;
-
-    img {
-      width: auto;
-      height: auto;
-    }
-  }
-
   .load-more {
     width: 100%;
     text-align: center;
     margin-top: 2em;
+  }
+}
+
+.library-pdf-preview {
+  display: flex;
+  justify-content: center;
+  top: 0;
+  padding-bottom: 20px;
+
+  .thumb {
+    width: 100%;
+    height: auto;
   }
 }
