@@ -973,7 +973,7 @@ CREATE TABLE ranks_user_groups (
 
 
 --
--- Name: resource_topics; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: resource_topics; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE resource_topics (
@@ -1781,7 +1781,7 @@ ALTER TABLE ONLY ranks
 
 
 --
--- Name: resource_topics_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: resource_topics_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY resource_topics
@@ -2023,7 +2023,7 @@ CREATE INDEX index_resources_on_file_type_and_is_public ON resources USING btree
 
 
 --
--- Name: index_resources_on_position; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_resources_on_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_resources_on_position ON resources USING btree ("position");
@@ -2608,3 +2608,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150620150406');
 INSERT INTO schema_migrations (version) VALUES ('20150622190320');
 
 INSERT INTO schema_migrations (version) VALUES ('20150622190536');
+
