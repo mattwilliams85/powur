@@ -2,8 +2,7 @@
   <thead>
     <tr>
       <th width="20">ID</th>
-      <th width="130">Image</th>
-      <th>Title</th>
+      <th>Thumbnail</th>
       <th>Position</th>
       <th>Status</th>
       <th>Posted</th>
@@ -13,8 +12,11 @@
   <tbody>
     <tr ng-repeat="item in data.entities">
       <td>{{item.properties.id}}</td>
-      <td><img ng-src="{{itemThumbnail(item)}}" class="table-image"></td>
-      <td><a ng-href="/admin/resources/{{item.properties.id}}/edit">{{item.properties.title}}</a></td>
+      <td>
+        <div class="position-relative">
+          <ng-include src="'library/resource-item.html'"></ng-include>
+        </div>
+      </td>
       <td>{{item.properties.position}}</td>
       <td>{{item.properties.is_public ? 'active' : 'hidden'}}</td>
       <td>

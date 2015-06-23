@@ -22,50 +22,8 @@
     </div>
 
     <div class="row">
-      <div ng-repeat="item in resources[topic.id]" class="large-3 medium-4 small-6 columns left" ng-click="showResource(item)">
-        <div class="resource">
-          <img class="resource-type-icon" ng-src="{{item.properties.file_type === 'video/mp4' ? legacyImagePaths.videoIconImagePath : legacyImagePaths.pdfIconImagePath}}">
-
-          <!-- Thumbnails or Media icons -->
-          <div class="media-info">
-            <div class="media-thumbnail" style="background-image: url('{{itemThumbnail(item)}}');">
-              <div class="title">{{ item.properties.title }}</div>
-              <div class="description">{{ item.properties.description }}</div>
-            </div>
-          </div>
-          <!-- Modal for Showing a Library Resource -->
-          <div class="hidden" id="item_{{item.properties.id}}">
-            <div class="row">
-              <div class="large-12 columns">
-                <h1>{{item.properties.title}}</h1>
-              </div>
-            </div>
-            <!-- Modal Content: If PDF Document -->
-            <div class="row" ng-if="item.properties.file_type === 'application/pdf'">
-              <div class="large-6 columns">
-                <div class="library-pdf-preview">
-                  <img class="thumb" ng-src="{{itemThumbnail(item)}}">
-                </div>
-                <div class="pdf-download">
-                  <a class="button expand radius success" href="{{item.properties.file_original_path}}">Download this PDF</a>
-                </div>
-              </div>
-              <div class="large-6 columns">
-                <p>{{item.properties.description}}</p>
-              </div>
-            </div>
-            <!-- Modal Content: If Video -->
-            <div class="row" ng-if="item.properties.file_type === 'video/mp4'">
-              <div class="large-8 columns video-content-wrapper">
-                <video width="100%" controls></video>
-              </div>
-              <div class="large-4 columns">
-                <p>{{item.properties.description}}</p>
-              </div>
-            </div>
-          </div>
-          <!-- /Modal -->
-        </div>
+      <div ng-repeat="item in resources[topic.id]" class="large-3 medium-6 small-12 columns left" ng-click="showResource(item)">
+        <ng-include src="'library/resource-item.html'"></ng-include>
       </div>
     </div>
   </div>

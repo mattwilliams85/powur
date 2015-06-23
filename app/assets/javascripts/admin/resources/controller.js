@@ -23,6 +23,8 @@
       }
     };
 
+    $scope.legacyImagePaths = legacyImagePaths;
+
     // TODO check if user is an admin
     // (backend validation is in place, this is just usability optimization)
 

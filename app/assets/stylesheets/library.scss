@@ -89,46 +89,6 @@
     margin-bottom: 50px;
   }
 
-  .resource {
-    margin-bottom: 30px;
-
-    .resource-type-icon {
-      position: absolute;
-      left: 255px;
-      width: 20px;
-      top: 10px;
-    }
-
-    .media-info {
-      text-align: center;
-
-      .media-thumbnail {
-        overflow: hidden;
-        height: 180px;
-        background-position: left center;
-        background-size: contain;
-        background-repeat: no-repeat;
-      }
-
-      .title {
-        color: #fff;
-        font-size: 1.2em;
-        text-transform: uppercase;
-        line-height: 1.2em;
-        margin: 35px 60px 0 30px;
-        text-align: left;
-      }
-
-      .description {
-        color: #fff;
-        font-size: .8em;
-        line-height: 1em;
-        margin: 10px 60px 0 30px;
-        text-align: left;
-      }
-    }
-  }
-
   .resource:hover {
     cursor: pointer;
   }
@@ -145,6 +105,7 @@
   }
 }
 
+// Used in library modal
 .library-pdf-preview {
   display: flex;
   justify-content: center;
@@ -154,5 +115,48 @@
   .thumb {
     width: 100%;
     height: auto;
+  }
+}
+
+// Used in Library and Admin for preview
+.library-resource-item {
+  font-family: "Montserrat", "Open Sans";
+  margin-bottom: 30px;
+  position: relative;
+
+  .resource-type-icon {
+    position: absolute;
+    left: 240px;
+    width: 20px;
+    top: 10px;
+  }
+
+  .media-info {
+    width: 290px;
+
+    .media-thumbnail {
+      overflow: hidden;
+      height: 180px;
+      background-position: left center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    .title {
+      color: #fff;
+      font-size: 17px;
+      text-transform: uppercase;
+      line-height: 20px;
+      margin: 35px 60px 0 30px;
+      text-align: left;
+    }
+
+    .description {
+      color: #fff;
+      font-size: 12px;
+      line-height: 14px;
+      margin: 10px 60px 0 30px;
+      text-align: left;
+    }
   }
 }
