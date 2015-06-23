@@ -18,11 +18,6 @@ json.properties do
   end if @user.avatar?
   json.is_admin user.role?(:admin)
 
-  json.metrics do
-    json.proposal @proposal_count
-    json.team @team_count
-  end
-
   unless current_user.accepted_latest_terms?
     json.latest_terms ApplicationAgreement.current
   end

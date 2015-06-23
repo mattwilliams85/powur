@@ -31,6 +31,13 @@
       }
     });
 
+    // Populate KPI Headers
+    CommonService.execute({
+      href: 'u/kpi_metrics.json'
+    }).then(function(data) {
+      $rootScope.currentUser.metrics = data;
+    });
+
     // Fix for scope inheritance issues (relating to Proposals search/sort):
     $scope.customerSection = {};
     $scope.teamSection = {};

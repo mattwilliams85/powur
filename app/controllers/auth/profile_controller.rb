@@ -8,11 +8,7 @@ module Auth
                                        :update_password ]
 
     def show
-      @user = current_user
       @profile = @user.profile
-      downline_ids = User.with_ancestor(@user.id).pluck(:id) 
-      @proposal_count = Quote.where(user_id: downline_ids).submitted.count + @user.quotes.submitted.count
-      @team_count = User.with_ancestor(@user.id).count
     end
 
     def ewallet_details
