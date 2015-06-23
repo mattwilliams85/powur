@@ -1,0 +1,24 @@
+<h3>Invites</h3>
+
+<table class="invites-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Created</th>
+      <th>Expires</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="invite in user_invites.entities">
+      <td>{{invite.properties.id}}</td>
+      <td>{{invite.properties.first_name}} {{invite.properties.last_name}}</td>
+      <td>{{invite.properties.email}}</td>
+      <td>{{invite.properties.created_at | dateToLocalDate}} {{invite.properties.created_at | timeToLocalTime}}</td>
+      <td>{{invite.properties.expires | dateToLocalDate}} {{invite.properties.expires | timeToLocalTime}}</td>
+      <td><span ng-repeat="action in invite.actions"><a ng-click="executeInviteAction(action)">{{action.name}}</a> </span></td>
+    </tr>
+  </tbody>
+</table>

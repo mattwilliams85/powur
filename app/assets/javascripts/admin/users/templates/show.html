@@ -22,33 +22,22 @@
       <div class="tabs-content">
         <!-- Contact Info Content -->
         <div class="content" ng-class="{'active': tab === 'contact-info'}" ng-init="tab = 'contact-info'">
-          <h3>Contact Info</h3>
-          <label>Name</label>
-          <h3>{{user.properties.first_name}} {{user.properties.last_name}}</h3>
-          <label>Contact Info</label>
-          <p>
-            {{user.properties.email}}
-            <br>
-            {{user.properties.phone}}
-          </p>
-          <label>Address</label>
-          <p>
-            {{user.properties.address}}
-            <br>
-            {{user.properties.city}} {{user.properties.state}} {{user.properties.zip}}
-          </p>
+          <ng-include src="'admin/users/templates/tabs/contact-info.html'"></ng-include>
         </div>
+
         <!-- Team Content -->
         <div class="content" ng-class="{'active': tab === 'team'}">
-          <h3>Team</h3>
+          <ng-include src="'admin/users/templates/tabs/team.html'"></ng-include>
         </div>
+
         <!-- Invites Content -->
         <div class="content" ng-class="{'active': tab === 'invites'}">
-          <h3>Invites</h3>
+          <ng-include src="'admin/users/templates/tabs/invites.html'"></ng-include>
         </div>
+
         <!-- Proposals Content -->
         <div class="content" ng-class="{'active': tab === 'proposals'}">
-          <h3>Proposals</h3>
+          <ng-include src="'admin/users/templates/tabs/proposals.html'"></ng-include>
         </div>
       </div>
     </div>

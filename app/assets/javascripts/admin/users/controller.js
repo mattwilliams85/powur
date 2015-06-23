@@ -53,6 +53,23 @@
       return formValues;
     };
 
+    $scope.getEntityData = function(entities, entityRel) {
+      var entity;
+      for (var i = 0; i < entities.length; i++) {
+        entities[i].rel[0] === entityRel ? (entity = entities[i]) : false;
+      }
+      if (entity) {
+        CommonService.execute({
+          href: entity.href
+        }).then(function(item) {
+          $scope[entityRel] = item;
+          console.log($scope[entityRel]);
+          return $scope[entityRel];
+        });
+      }
+
+    };
+
     // Update Action
     $scope.update = function() {
       if ($scope.formValues) {
@@ -93,6 +110,25 @@
       });
     };
 
+    // Invites Actions
+    // Execute Invite Action
+
+    $scope.executeInviteAction = function(action) {
+      if (confirm('Are you sure you want to ' + action.name + ' this invite?')) {
+        CommonService.execute({
+          href: action.href,
+          method: action.method
+        }).then(function(item) {
+          if (action.name === 'resend') {
+            $scope.showModal('This invite has been resent successfully.');
+          } else if (action.name === 'delete') {
+            $scope.showModal('This invite has been deleted successfully.');
+          }
+          $scope.user_invites = item;
+        })
+      }
+    }
+
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
   }
@@ -116,6 +152,9 @@
         href: '/a/users/' + $routeParams.userId + '.json'
       }).then(function(item) {
         $scope.user = item;
+
+        // Get Data for Invites
+        $scope.getEntityData(item.entities, 'user_invites');
 
         // Breadcrumbs: Users / User Name
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
