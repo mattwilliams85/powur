@@ -1022,7 +1022,8 @@ CREATE TABLE resources (
     updated_at timestamp without time zone,
     youtube_id character varying,
     "position" integer,
-    topic_id integer
+    topic_id integer,
+    tag_line character varying
 );
 
 
@@ -2611,4 +2612,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150622190320');
 INSERT INTO schema_migrations (version) VALUES ('20150622190536');
 
 INSERT INTO schema_migrations (version) VALUES ('20150624004258');
+
+INSERT INTO schema_migrations (version) VALUES ('20150624162828');
 

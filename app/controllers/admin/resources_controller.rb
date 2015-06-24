@@ -44,7 +44,7 @@ module Admin
 
     def input
       allow_input(
-        :title, :description, :is_public, :topic_id, :position,
+        :title, :description, :tag_line, :is_public, :topic_id, :position,
         :file_original_path, :image_original_path, :youtube_id
       )
     end

@@ -1,6 +1,7 @@
 <form name="resourceTopicForm" novalidate>
   <fieldset>
-    <legend>Add Resource Topic</legend>
+    <legend ng-if="mode === 'new'">New Topic</legend>
+    <legend ng-if="mode === 'edit'">Update Topic</legend>
     <div class="row">
       <div class="large-12 columns">
         <label for="resource_topic_title">Title</label>
