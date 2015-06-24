@@ -8,12 +8,22 @@
         <input ng-model="resourceTopic.title" name="title" id="resource_topic_title" type="text" />
       </div>
     </div>
+
     <div class="row">
       <div class="large-12 columns">
         <label for="resource_topic_position">Position</label>
         <input ng-model="resourceTopic.position" name="position" id="resource_topic_position" type="text" />
       </div>
     </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <label>Icon</label>
+        <input ng-model="resourceTopic.image_original_path" name="image_original_path" id="resource_topic_image_original_path" type="text" />
+        <ng-s3-file-upload data="resourceTopic.image_original_path" config="/u/uploader_config.json?mode=resource_topic_image" show-progress="1" auto-upload="1"></ng-s3-file-upload>
+      </div>
+    </div>
+
     <div class="row">
       <div class="large-12 columns">
         <a ng-click="cancel()" class="button secondary">Cancel</a>

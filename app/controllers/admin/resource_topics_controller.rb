@@ -37,7 +37,7 @@ module Admin
     private
 
     def input
-      allow_input(:title, :position)
+      allow_input(:title, :position, :image_original_path)
     end
 
     def find_resource_topic

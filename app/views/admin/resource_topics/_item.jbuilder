@@ -1,7 +1,7 @@
 klass :resource_topic
 
 json.properties do
-  json.call(resource_topic, :id, :title, :position)
+  json.call(resource_topic, :id, :title, :position, :image_original_path)
 end
 
 actions \

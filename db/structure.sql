@@ -981,7 +981,8 @@ CREATE TABLE resource_topics (
     title character varying,
     "position" integer,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    image_original_path character varying
 );
 
 
@@ -2608,4 +2609,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150620150406');
 INSERT INTO schema_migrations (version) VALUES ('20150622190320');
 
 INSERT INTO schema_migrations (version) VALUES ('20150622190536');
+
+INSERT INTO schema_migrations (version) VALUES ('20150624004258');
 

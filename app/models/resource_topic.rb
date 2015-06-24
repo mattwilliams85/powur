@@ -5,9 +5,10 @@ class ResourceTopic < ActiveRecord::Base
 
   def as_json(*)
     {
-      id:       id,
-      title:    title,
-      position: position
+      id:                  id,
+      title:               title,
+      position:            position,
+      image_original_path: image_original_path
     }
   end
 end
