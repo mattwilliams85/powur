@@ -4,7 +4,7 @@ describe Auth::InvitesController do
   render_views
 
   before :each do
-    login_user(auth: true)
+    @user = login_user(auth: true, profile: {"awarded_invites": "10"})
   end
 
   describe '#index' do
@@ -38,7 +38,7 @@ describe Auth::InvitesController do
     end
 
     it 'does not allow the user to exceed the max # of invites' do
-      create_list(:invite, SystemSettings.max_invites, sponsor: @user)
+      create_list(:invite, @user.available_invites, sponsor: @user)
 
       post :create, invite_params
 
