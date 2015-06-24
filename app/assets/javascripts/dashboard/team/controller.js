@@ -30,16 +30,16 @@
         mouseDrag: false,
         touchDrag: true,
         lazyLoad: true,
-        beforeMove: closeForm(carouselElement)
+        beforeMove: owlCloseForm(carouselElement)
       });
     }
 
     // Close Team Member Show when Moving Carousel
-    function closeForm(element) {
+    function owlCloseForm(element) {
       return function() {
         if ($scope.updatingProposal !== true) {
           $timeout(function() {
-            $scope.closeForm(element);
+            closeForm(element);
           });
         }
       };
@@ -62,7 +62,7 @@
     }
 
     // Close Team Member
-    $scope.closeForm = function(element) {
+    function closeForm(element) {
       if(element) {
         $scope.downline = $scope.downline.slice(0, parseInt(element.attr('data-row')) + 1);
         $scope.downline[$scope.downline.length - 1].selected = "";
@@ -75,45 +75,46 @@
       $(carouselElement).data('owlCarousel').destroy();
     }
 
+    function setAvatar(items) {
+      for (var i = 0; i < items.entities.length; i++){
+        items.entities[i].properties.defaultAvatarThumb = legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
+      }
+      return items;
+    }
+
+    function teamTab(teamMember, delay) {
+      $scope.disable = true;
+      User.downline(teamMember.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
+        items = setAvatar(items);
+        $timeout(function(){
+          $scope.downline.push(items.entities);
+          $scope.disable = false;
+          $scope.activeTab = 'team';
+        }, delay);
+      });
+    }
+
     // Show Team Member
     $scope.changeTab = function(teamMember, gen, tab) {
       if ($scope.disable) return;
 
-      // Set active tab for generation
-      gen.selected = teamMember.id;
-      gen.tab = tab;
-
       // Delay for transition between multiple animations
       var delay = 300;
       if (!$scope.activeTab) delay = 0;
-      if($scope.currentTeamMember.id === teamMember.id && $scope.activeTab === tab) {
 
-        // Remove active tab for generation
+      if($scope.currentTeamMember.id === teamMember.id && $scope.activeTab === tab) {
         gen.selected = null;
         gen.tab = null;
-
-        $scope.closeForm();
-        $scope.downline[$scope.downline.length - 1].selected = "";
+        closeForm();
       } else {
-        $scope.closeForm();
-        $scope.currentTeamMember = teamMember;
-
-        // Set active tab for generation
         gen.selected = teamMember.id;
         gen.tab = tab;
+        closeForm();
+
+        $scope.currentTeamMember = teamMember;
 
         if (tab === 'team') {
-          $scope.disable = true;
-          User.downline(teamMember.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
-            $timeout(function(){
-              $scope.activeTab = tab;
-              for (var i = 0; i < items.entities.length; i++){
-                items.entities[i].properties.defaultAvatarThumb = randomThumb();
-              }
-              $scope.downline.push(items.entities);
-              $scope.disable = false;
-            }, delay);
-          });
+          teamTab(teamMember, delay);
         } else {
           $timeout(function(){
             $scope.activeTab = tab;
@@ -122,6 +123,13 @@
       }
       $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
     };
+
+    $scope.inviteTab = function() {
+      $scope.activeTab = 'invites';
+      CommonService.execute({href: '/u/invites.json'}).then(function(data){
+        debugger
+      });
+    }
 
     $scope.levelGap = function(teamMember) {
       if(teamMember.properties) return teamMember.properties.level - level;
@@ -147,7 +155,7 @@
         $scope.downline = [items.entities];
         $timeout(function() {
           initCarousel($('#carousel-0'));
-          $scope.closeForm($('#carousel-0'));
+          closeForm($('#carousel-0'));
         });
       });
     };
@@ -156,7 +164,7 @@
     $scope.teamSection.teamSort = 'name';
 
     $scope.teamSection.sort = function() {
-      $scope.closeForm($('#carousel-0'));
+      closeForm($('#carousel-0'));
       var sortQuery = {sort: $scope.teamSection.teamSort};
       for (var i = 0; i < $scope.downline.length; i++){
         destroyCarousel('#carousel-'+ i);
@@ -170,9 +178,6 @@
       });
     };
 
-    function randomThumb() {
-      return legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
-    }
 
     // Fetch User's Immediate downline
     return User.list({sort: $scope.teamSection.teamSort}).then(function(items) {

@@ -237,8 +237,7 @@
     $scope.changeUser = function(user) {
       if ($scope.activeUser === user) return;
 
-      CommonService.execu
-te({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
+      CommonService.execute({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
         $scope.activeUser = data.properties;
         $scope.buildChart();
       });
