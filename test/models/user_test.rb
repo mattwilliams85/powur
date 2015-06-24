@@ -2,7 +2,7 @@ require 'test_helper'
  
 class UserTest < ActiveSupport::TestCase
   def setup
-    @user = users(:advocate) 
+    @user = users(:advocate)
   end
 
   it 'authenticates' do
@@ -24,9 +24,9 @@ class UserTest < ActiveSupport::TestCase
     result.must_equal @user
   end
 
-  it 'returns the correct number of remaining invites' do
+  it 'returns the correct number of available invites' do
     invite = invites(:george)
-    expected = SystemSettings.max_invites - 1
-    invite.sponsor.remaining_invites.must_equal expected
+    expected = invite.sponsor.awarded_invites - 1
+    invite.sponsor.available_invites.must_equal expected
   end
 end

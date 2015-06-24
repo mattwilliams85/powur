@@ -63,7 +63,7 @@ class Invite < ActiveRecord::Base
   end
 
   def max_invites
-    return if sponsor.remaining_invites > 0
+    return if sponsor.available_invites > 0
     errors.add(:sponsor, :exceeded_max_invites)
   end
 end

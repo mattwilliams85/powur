@@ -54,7 +54,7 @@ module Auth
     end
 
     def list_criteria
-      current_user.active_invites.order(created_at: :desc)
+      current_user.open_invites.order(created_at: :desc)
     end
 
     def fetch_invite

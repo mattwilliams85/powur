@@ -3,7 +3,7 @@ siren json
 klass :invites, :list
 
 json.properties do
-  json.remaining current_user.remaining_invites
+  json.available current_user.available_invites
 end
 
 json.entities @invites, partial: 'item', as: :invite
