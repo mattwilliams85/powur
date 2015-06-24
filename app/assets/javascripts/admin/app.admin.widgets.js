@@ -2,7 +2,8 @@
   'use strict';
 
   var references = [
-    'widgets.powurFoundation'
+    'widgets.powurFoundation',
+    'widgets.powurSorter'
   ];
 
   angular

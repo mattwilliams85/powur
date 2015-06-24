@@ -45,3 +45,4 @@
 //= require_tree ./profile
 
 //= require widgets/powur-foundation.directive
+//= require widgets/powur-sorter.directive

@@ -1,16 +1,27 @@
 <table class="index-table">
   <thead>
     <tr>
-      <th width="20">ID</th>
+      <th>
+        <powur-sorter control="indexData" field="id_asc"></powur-sorter>
+        ID
+        <powur-sorter control="indexData" field="id_desc"></powur-sorter>
+      </th>
       <th>Thumbnail</th>
-      <th>Position</th>
+      <th>
+        <powur-sorter control="indexData" field="position_asc"></powur-sorter>
+        Position
+      </th>
       <th>Status</th>
-      <th>Posted</th>
+      <th>
+        <powur-sorter control="indexData" field="id_asc"></powur-sorter>
+        Posted
+        <powur-sorter control="indexData" field="id_desc"></powur-sorter>
+      </th>
       <th width="150">Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in data.entities">
+    <tr ng-repeat="item in indexData.entities">
       <td>{{item.properties.id}}</td>
       <td>
         <div class="position-relative">
