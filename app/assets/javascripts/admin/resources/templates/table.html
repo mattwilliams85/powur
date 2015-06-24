@@ -8,6 +8,10 @@
       </th>
       <th>Thumbnail</th>
       <th>
+        <powur-sorter control="indexData" field="topic_id_asc"></powur-sorter>
+        Topic
+      </th>
+      <th>
         <powur-sorter control="indexData" field="position_asc"></powur-sorter>
         Position
       </th>
@@ -28,6 +32,7 @@
           <ng-include src="'library/resource-item.html'"></ng-include>
         </div>
       </td>
+      <td>{{item.properties.topic.title}}</td>
       <td>{{item.properties.position}}</td>
       <td>{{item.properties.is_public ? 'active' : 'hidden'}}</td>
       <td>

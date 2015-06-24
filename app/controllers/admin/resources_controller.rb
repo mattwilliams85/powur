@@ -2,6 +2,7 @@ module Admin
   class ResourcesController < AdminController
     page
     sort position_asc:  { position: :asc },
+         topic_id_asc:  { topic_id: :asc },
          id_asc:        { id: :asc },
          id_desc:       { id: :desc }
 

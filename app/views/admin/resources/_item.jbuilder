@@ -13,6 +13,7 @@ json.properties do
   json.created_at resource.created_at.to_f * 1000
   json.position resource.position
   json.topic_id resource.topic_id
+  json.topic resource.topic
 end
 
 actions \
