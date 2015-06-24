@@ -124,10 +124,10 @@
       $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
     };
 
-    $scope.inviteTab = function() {
+    $scope.invitesTab = function() {
+      if ($scope.activeTab === 'invites') return closeForm();
       $scope.activeTab = 'invites';
       CommonService.execute({href: '/u/invites.json'}).then(function(data){
-        debugger
       });
     }
 
