@@ -72,6 +72,7 @@
     };
 
     function destroyCarousel(carouselElement) {
+      if ( !$(carouselElement).data('owlCarousel') ) return;
       $(carouselElement).data('owlCarousel').destroy();
     }
 
@@ -82,15 +83,16 @@
       return items;
     }
 
-    function teamTab(teamMember, delay) {
+    function teamTab(teamMember) {
       $scope.disable = true;
       User.downline(teamMember.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
         items = setAvatar(items);
         $timeout(function(){
+          $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
           $scope.downline.push(items.entities);
+          destroyCarousel('#carousel-' + ($scope.downline.length - 1))
           $scope.disable = false;
-          $scope.activeTab = 'team';
-        }, delay);
+        }, 200);
       });
     }
 
@@ -114,14 +116,14 @@
         $scope.currentTeamMember = teamMember;
 
         if (tab === 'team') {
-          teamTab(teamMember, delay);
+          teamTab(teamMember);
         } else {
           $timeout(function(){
+            $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
             $scope.activeTab = tab;
           }, delay);
         }
       }
-      $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
     };
 
     $scope.invitesTab = function() {
