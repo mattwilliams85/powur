@@ -16,5 +16,10 @@ FactoryGirl.define do
       first_name 'xxx'
       last_name 'xxx'
     end
+
+    factory :certified_user do
+      profile { {'awarded_invites': '10'} }
+    end
+
   end
 end

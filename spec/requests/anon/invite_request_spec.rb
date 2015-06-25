@@ -7,6 +7,9 @@ describe '/a/invite' do
 
   describe 'POST' do
     let(:agreement) { double(dwight: 'schrute') }
+    let(:sponsor) { create(:certified_user) }
+    let(:user) { create(:user) }
+    let(:invite) { create(:invite, user: user, sponsor: sponsor) }
 
     it 'renders an error with an invalid code' do
       post invite_path, code: 'nope', format: :json
@@ -16,17 +19,13 @@ describe '/a/invite' do
     end
 
     it 'renders an error if an invite that already has been accepted' do
-      user = create(:user)
-      invite = create(:invite, user: user)
-
       post invite_path, code: invite.id, format: :json
 
       expect_input_error(:code)
     end
 
     it 'marks an invite for an existing user with same email address' do
-      user = create(:user)
-      invite = create(:invite, sponsor: user, email: user.email)
+      invite = create(:invite, sponsor: sponsor, email: user.email)
 
       post invite_path, code: invite.id, format: :json
 
@@ -36,8 +35,8 @@ describe '/a/invite' do
     end
 
     it 'returns an invite when the user has inputted a code' do
-      invite = create(:invite)
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
+      invite = create(:invite, sponsor: sponsor)
       post invite_path, code: invite.id, format: :json
 
       expect_200
@@ -51,7 +50,6 @@ describe '/a/invite' do
     end
 
     it 'clears a code from session' do
-      invite = create(:invite)
       post invite_path, code: invite.id, format: :json
 
       delete invite_path, format: :json
@@ -61,18 +59,19 @@ describe '/a/invite' do
   end
 
   describe 'PATCH' do
-    before(:each) do
-      @invite = create(:invite, email: 'newinvite@test.com')
+    let(:sponsor) { create(:certified_user) }
+    before do
+      @invite = create(:invite, sponsor: sponsor, email: 'newinvite@test.com')
       @user_params = {
-        code:       @invite.id,
-        first_name: @invite.first_name,
-        last_name:  @invite.last_name,
-        phone:      '8585551212',
-        zip:        '92127',
-        password:   'password',
-        password_confirmation:   'password',
-        tos: true,
-        format:     :json }
+        code:                  @invite.id,
+        first_name:            @invite.first_name,
+        last_name:             @invite.last_name,
+        phone:                 '8585551212',
+        zip:                   '92127',
+        password:              'password',
+        password_confirmation: 'password',
+        tos:                   true,
+        format:                :json }
     end
 
     it 'requires a valid invite code' do

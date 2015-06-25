@@ -21,7 +21,8 @@ describe 'index' do
   end
 
   it 'returns registration when the user has inputted a code' do
-    invite = create(:invite)
+    sponsor = create(:certified_user)
+    invite = create(:invite, sponsor: sponsor)
     post invite_path, code: invite.id, format: :json
 
     get root_path, format: :json

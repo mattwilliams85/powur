@@ -1,25 +1,25 @@
 require 'spec_helper'
 
 describe Invite do
+  let(:sponsor) { create(:certified_user) }
+  let(:invite) { create(:invite, sponsor: sponsor) }
+
   it 'autogenerates an id' do
-    invite = create(:invite)
     expect(invite.id).to_not be_nil
   end
 
   it 'autogenerates an expires' do
-    invite = create(:invite)
 
     expect(invite.expires).to be > (DateTime.current + 23.hours)
   end
 
   it 'does not allow an empty string on phone' do
-    expect { create(:invite, phone: '') }
+    expect { create(:invite, sponsor: sponsor, phone: '') }
       .to raise_error(ActiveRecord::RecordInvalid)
   end
 
   describe '#accept' do
     let(:user) { invite.accept(params) }
-    let(:invite) { create(:invite) }
     let(:params) do
       {
         first_name: 'Donald',
