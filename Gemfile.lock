@@ -128,7 +128,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.8)
-    airbrake (4.2.1)
+    airbrake (4.1.0)
       builder
       multi_json
     angular-rails-templates (0.2.0)
@@ -425,7 +425,7 @@ DEPENDENCIES
   aasm
   active_hash
   activerecord_any_of!
-  airbrake
+  airbrake (= 4.1.0)
   angular-rails-templates
   attr_extras
   awesome_print
