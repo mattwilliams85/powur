@@ -52,7 +52,6 @@ class User < ActiveRecord::Base
   # end
 
   before_create :set_url_slug
-  before_create :destroy_used_invite
   after_create :hydrate_upline
 
   attr_reader :password
@@ -199,11 +198,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
-  def destroy_used_invite
-    invite = Invite.find_by(email: "'#{email}'")
-    invite && invite.destroy!
-  end
 
   def set_url_slug
     self.url_slug = "#{first_name}-#{last_name}-#{SecureRandom.random_number(1000)}"
