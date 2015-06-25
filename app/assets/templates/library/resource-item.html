@@ -1,5 +1,5 @@
 <div class="library-resource-item">
-  <img class="resource-type-icon" ng-src="{{item.properties.file_type === 'video/mp4' ? legacyImagePaths.videoIconImagePath : legacyImagePaths.pdfIconImagePath}}">
+  <img class="resource-type-icon" ng-src="{{isVideo(item) ? legacyImagePaths.videoIconImagePath : legacyImagePaths.pdfIconImagePath}}">
 
   <!-- Thumbnails or Media icons -->
   <div class="media-info">
@@ -8,34 +8,35 @@
       <div class="description">{{ item.properties.tag_line }}</div>
     </div>
   </div>
+
   <!-- Modal for Showing a Library Resource -->
   <div class="hidden" style="display:none;" id="item_{{item.properties.id}}">
-    <div class="row">
-      <div class="large-12 columns">
-        <h1>{{item.properties.title}}</h1>
-      </div>
-    </div>
-    <!-- Modal Content: If PDF Document -->
-    <div class="row" ng-if="item.properties.file_type === 'application/pdf'">
-      <div class="large-6 columns">
-        <div class="library-pdf-preview">
-          <img class="thumb" ng-src="{{itemThumbnail(item)}}">
+    <div class='reveal-modal reveal-modal-library' style="display: none;" data-reveal>
+      <a ng-if="!item.videoPlayer" class='close-reveal-modal'>&#215;</a>
+      <div class="media-info-large">
+        <!-- Video player wrapper -->
+        <div class="video-content-wrapper" ng-bind-html="item.videoPlayer">
+          {{ item.videoPlayer }}
+          <!-- <video width="100%" controls></video> -->
         </div>
-        <div class="pdf-download">
-          <a class="button expand radius success" href="{{item.properties.file_original_path}}">Download this PDF</a>
+
+        <div ng-if="!item.videoPlayer">
+          <span class="title">{{ item.properties.title }}</span>
+          <br>
+          <span class="description">{{ item.properties.tag_line }}</span>
         </div>
       </div>
-      <div class="large-6 columns">
-        <p>{{item.properties.description}}</p>
-      </div>
-    </div>
-    <!-- Modal Content: If Video -->
-    <div class="row" ng-if="item.properties.file_type === 'video/mp4'">
-      <div class="large-8 columns video-content-wrapper">
-        <video width="100%" controls></video>
-      </div>
-      <div class="large-4 columns">
-        <p>{{item.properties.description}}</p>
+
+      <div class="media-info-controls">
+        <div class="row">
+          <div class="large-6 columns">
+            <p>{{ item.properties.description }}</p>
+          </div>
+          <div class="large-6 columns">
+            <a ng-if="isVideo(item) && !item.videoPlayer" ng-click="showPlayer(item)" class="button right">WATCH VIDEO</a>
+            <a ng-if="!isVideo(item)" href="{{item.properties.file_original_path}}" class="button right">DOWNLOAD PDF</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>

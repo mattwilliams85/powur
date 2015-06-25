@@ -14,20 +14,18 @@
     $scope.resourceType = $scope.resourceTypes[0];
 
     $scope.showResource = function(item) {
-      // adding source on click to avoid preloading all videos on init page show
-      if (item.properties.file_type === 'video/mp4') {
-        $('#item_' + item.properties.id + ' video').hide();
-        $('#item_' + item.properties.id + ' iframe').remove();
-
-        if (item.properties.file_original_path) {
-          $('#item_' + item.properties.id + ' video').html('<source src=\'' + item.properties.file_original_path + '\' type=\'video/mp4\'>').show();
-        } else if (item.properties.youtube_id) {
-          $('#item_' + item.properties.id + ' .video-content-wrapper').prepend('<iframe type=\'text/html\' width=\'100%\' height=\'380px\' src=\'https://www.youtube.com/embed/' + item.properties.youtube_id + '\' frameborder=\'0\' modestbranding=\'1\' autohide=\'1\' showinfo=\'1\' controls=\'1\';></iframe>');
-        }
-      }
-      var html = $('#item_' + item.properties.id).html();
-      $('<div class=\'reveal-modal\' data-reveal>' + html + '<a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
+      item.videoPlayer = null;
+      $('#item_' + item.properties.id + ' .reveal-modal').foundation('reveal', 'open');
       $anchorScroll();
+    };
+
+    $scope.showPlayer = function(item) {
+      item.videoPlayer = true;
+      if (item.properties.file_original_path) {
+        item.videoPlayer = "<video width='100%' controls><source src='" + item.properties.file_original_path + "' type='video/mp4'></video>";
+      } else if (item.properties.youtube_id) {
+        item.videoPlayer = "<iframe type='text/html' width='100%' src='https://www.youtube.com/embed/" + item.properties.youtube_id + "' frameborder='0' modestbranding='1' autohide='1' showinfo='1' controls='1';></iframe>";
+      }
     };
 
     $scope.itemThumbnail = function(item) {
@@ -38,6 +36,10 @@
         return 'http://img.youtube.com/vi/' + item.properties.youtube_id + '/hqdefault.jpg';
       }
       return item.properties.file_type === 'video/mp4' ? legacyImagePaths.libraryResources[0] : legacyImagePaths.libraryResources[1];
+    };
+
+    $scope.isVideo = function(item) {
+      return item.properties.file_type === 'video/mp4';
     };
 
     $scope.getResources = function() {

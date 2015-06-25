@@ -120,6 +120,7 @@
   font-family: "Montserrat", "Open Sans";
   margin-bottom: 30px;
   position: relative;
+  cursor: pointer;
 
   .resource-type-icon {
     position: absolute;
@@ -154,6 +155,65 @@
       line-height: 14px;
       margin: 10px 60px 0 30px;
       text-align: left;
+    }
+  }
+}
+
+.reveal-modal-library {
+  padding: 0;
+  width: 100%;
+  max-width: 100rem;
+
+  @media #{$small} {
+    width: 60%;
+    max-width: 60rem;
+  }
+
+  .media-info-large {
+    background-image: image-url('library/media-thumbnail-large.jpg');
+    height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .close-reveal-modal {
+    color: #fff;
+  }
+
+  .button {
+    background-color: #169e1f;
+  }
+
+  .title {
+    color: #fff;
+    display: inline-block;
+    font-size: 40px;
+    text-transform: uppercase;
+    line-height: 45px;
+    margin: 150px 0 0 90px;
+    text-align: left;
+  }
+
+  .description {
+    color: #fff;
+    display: inline-block;
+    font-size: 18px;
+    line-height: 25px;
+    margin: 20px 0 0 90px;
+    text-align: left;
+  }
+
+  .media-info-controls {
+    background-color: #343434;
+    color: #fff;
+    padding: 40px;
+  }
+
+  .video-content-wrapper {
+    background-color: #000;
+
+    video, iframe {
+      height: 500px;
     }
   }
 }
