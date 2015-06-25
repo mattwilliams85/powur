@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function LibraryCtrl($scope, $rootScope, $location, $anchorScroll, CommonService, UserProfile) {
+  function LibraryCtrl($scope, $rootScope, $location, CommonService, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
@@ -16,7 +16,6 @@
     $scope.showResource = function(item) {
       item.videoPlayer = null;
       $('#item_' + item.properties.id + ' .reveal-modal').foundation('reveal', 'open');
-      $anchorScroll();
     };
 
     $scope.showPlayer = function(item) {
@@ -66,6 +65,6 @@
     return $scope.getResources();
   }
 
-  LibraryCtrl.$inject = ['$scope', '$rootScope', '$location', '$anchorScroll', 'CommonService', 'UserProfile'];
+  LibraryCtrl.$inject = ['$scope', '$rootScope', '$location', 'CommonService', 'UserProfile'];
   angular.module('powurApp').controller('LibraryCtrl', LibraryCtrl);
 })();
