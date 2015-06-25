@@ -4,6 +4,10 @@
 
 <!-- Header Label/Dropdown Resource Type Picker -->
   <div class="row bump">
+    <div ng-if="showSearchMessage" class="large-6 medium-6 small-6 columns">
+      <span>Search for '{{ searchText }}' returned {{ resourceCount }} results:</span>
+    </div>
+
     <div class="large-4 medium-4 small-6 columns last right">
       <form name="searchForm" ng-submit="getResources()" novalidate>
         <input ng-model="searchText" type="search"></input>

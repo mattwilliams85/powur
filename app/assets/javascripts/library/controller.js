@@ -43,7 +43,13 @@
 
     $scope.getResources = function() {
       var href = '/u/resources.json';
-      if ($scope.searchText) href += '?search=' + $scope.searchText;
+      if ($scope.searchText) {
+        href += '?search=' + $scope.searchText;
+        $scope.showSearchMessage = true;
+      } else {
+        $scope.showSearchMessage = false;
+      }
+
       return CommonService.execute({
         href: href
       }).then(function(items) {
@@ -59,6 +65,7 @@
         }
         $scope.topics = topics;
         $scope.resources = resources;
+        $scope.resourceCount = items.entities.length;
       });
     };
 
