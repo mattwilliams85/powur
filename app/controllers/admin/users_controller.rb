@@ -4,7 +4,7 @@ module Admin
     page max_limit: 25
     sort id_asc:        { id: :asc },
          id_desc:       { id: :desc }
-    filter :has_rank, scope_opts: { type: :boolean }, required: false
+    filter :has_rank, url: -> { admin_users_path }, scope_opts: { type: :boolean }, required: false
 
     def index
       respond_to do |format|

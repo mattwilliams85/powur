@@ -216,6 +216,11 @@
       templateUrl: 'shared/admin/rest/new.html',
       controller: 'AdminSocialMediaCtrl'
     }).
+    // Invites
+    when('/admin/invites', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminInvitesCtrl'
+    }).
 
     otherwise({
       redirectTo: '/admin'

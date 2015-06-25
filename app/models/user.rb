@@ -197,6 +197,10 @@ class User < ActiveRecord::Base
       .merge(Product.certifiable).count > 0
   end
 
+  def submitted_proposals_count
+    quotes.submitted.length
+  end
+
   private
 
   def set_url_slug
