@@ -2,7 +2,9 @@ module Admin
   class UsersController < AdminController
     before_action :fetch_user, only: [ :downline, :upline, :show, :update, :eligible_parents, :move ]
     page max_limit: 25
-    sort id: { id: :asc }
+    sort id_asc:        { id: :asc },
+         id_desc:       { id: :desc }
+    filter :has_rank, scope_opts: { type: :boolean }, required: false
 
     def index
       respond_to do |format|
