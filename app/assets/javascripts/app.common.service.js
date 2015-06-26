@@ -11,6 +11,7 @@
           method: action.method || 'GET',
           url: action.href,
           data: data,
+          params: action.params,
           type: action.type
         }).success(function(res) {
           dfr.resolve(res);

@@ -12,6 +12,7 @@
 
     $scope.resourceTypes = [{name: 'All Media'}, {name: 'Videos', type: 'videos'}, {name: 'Documents', type: 'documents'}];
     $scope.resourceType = $scope.resourceTypes[0];
+    $scope.allActiveTopics = [];
 
     $scope.showResource = function(item) {
       item.videoPlayer = null;
@@ -42,16 +43,21 @@
     };
 
     $scope.getResources = function() {
-      var href = '/u/resources.json';
+      var params = {};
+
+      if ($scope.filterTopic) params.by_topic = $scope.filterTopic;
+
       if ($scope.searchText) {
-        href += '?search=' + $scope.searchText;
+        params.search = $scope.searchText;
+        $scope.filterTopic = null;
         $scope.showSearchMessage = true;
       } else {
         $scope.showSearchMessage = false;
       }
 
       return CommonService.execute({
-        href: href
+        href: '/u/resources.json',
+        params: params
       }).then(function(items) {
         var topics = items.properties.topics,
             topicId,
@@ -63,6 +69,7 @@
           if (!resources[topicId]) resources[topicId] = [];
           resources[topicId].push(items.entities[i]);
         }
+        if (!$scope.allActiveTopics.length) $scope.allActiveTopics = topics.entities;
         $scope.topics = topics;
         $scope.resources = resources;
         $scope.resourceCount = items.entities.length;

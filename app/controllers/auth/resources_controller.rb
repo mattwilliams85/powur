@@ -2,12 +2,13 @@ module Auth
   class ResourcesController < AuthController
     page
     sort id:  { id: :desc }
+    filter :by_topic
+    filter :search
 
     before_filter :find_resource, only: [:show]
 
     def index
       scope = Resource.published.sorted.with_topics
-      scope = scope.search(params[:search]) if params[:search].present?
       scope = scope.videos if params[:type] == 'videos'
       scope = scope.documents if params[:type] == 'documents'
       @resources = apply_list_query_options(scope)

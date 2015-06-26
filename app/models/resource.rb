@@ -26,6 +26,7 @@ class Resource < ActiveRecord::Base
   scope :search, ->(q) { where(SEARCH, q: "#{q}") }
   scope :sorted, -> { order('resources.position asc, resources.id desc') }
   scope :with_topics, -> { joins(:topic).includes(:topic) }
+  scope :by_topic, ->(topic_id) { where(topic_id: topic_id) }
 
   before_validation :set_file_type
 
