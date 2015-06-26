@@ -10,8 +10,8 @@
       <th>Email</th>
       <th>Rank</th>
       <th>Submitted Proposals</th>
-      <th>Awarded Invites</th>
-      <th>Award Invites</th>
+      <th>Invites</th>
+      <th>Available Invites</th>
     </tr>
   </thead>
   <tbody>
@@ -21,17 +21,21 @@
       <td>{{item.properties.email}}</td>
       <td>{{item.properties.lifetime_rank}}</td>
       <td>{{item.properties.submitted_proposals_count}}</td>
-      <td>{{item.properties.awarded_invites}}</td>
+      <td>
+        <strong>{{item.properties.lifetime_invites_count}} Lifetime</strong><br>
+        {{item.properties.open_invites_count}} Open<br>
+        {{item.properties.redeemed_invites_count}} Redeemed
+      </td>
       <td>
         <form>
           <div class="row">
             <div class="large-12 columns">
               <div class="row collapse">
-                <div class="small-10 columns">
-                  <input ng-model="awardInvites[item.properties.id]" type="number" placeholder="Award Invites">
+                <div class="small-8 columns">
+                  <input ng-model="item.properties.available_invites" type="number">
                 </div>
-                <div class="small-2 columns">
-                  <a href="#" class="button postfix">+</a>
+                <div class="small-4 columns">
+                  <a ng-click="updateAvailableInvites(item)" class="button postfix">Update</a>
                 </div>
               </div>
             </div>

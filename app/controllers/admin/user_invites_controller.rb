@@ -5,10 +5,11 @@ module Admin
 
     sort created_at: { created_at: :asc }
 
-    # Update action is used for awarding invites to user
-    def update
-      @user.profile['awarded_invites'] += params[:invites]
+    def award
+      @user.available_invites = award_params
       @user.save!
+
+      render 'award'
     end
 
     def resend
@@ -32,6 +33,10 @@ module Admin
 
     def fetch_invite
       @invite = Invite.find(params[:id])
+    end
+
+    def award_params
+      params.require(:invites)
     end
   end
 end

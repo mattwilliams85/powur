@@ -259,11 +259,13 @@ Rails.application.routes.draw do
                 controller: :user_bonus_payments
 
       # Users / Invites
-      resources :invites, only: [ :index, :create, :update, :show, :destroy ], controller: :user_invites do
+      resources :invites, only: [ :index, :create, :show, :destroy ], controller: :user_invites do
         member do
           post :resend
         end
       end
+
+      patch 'invites', to: 'user_invites#award'
 
       # Users / Orders
       resources :orders, only: [ :index ], controller: :user_orders

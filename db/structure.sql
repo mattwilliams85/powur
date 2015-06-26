@@ -1274,7 +1274,8 @@ CREATE TABLE users (
     smarteru_employee_id character varying,
     moved boolean,
     image_original_path character varying,
-    tos character varying(5)
+    tos character varying(5),
+    available_invites integer DEFAULT 0
 );
 
 
@@ -2614,4 +2615,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150622190536');
 INSERT INTO schema_migrations (version) VALUES ('20150624004258');
 
 INSERT INTO schema_migrations (version) VALUES ('20150624162828');
+
+INSERT INTO schema_migrations (version) VALUES ('20150626223201');
 

@@ -10,7 +10,7 @@ class InvitesJson < JsonDecorator
   end
 
   def item_init(rel = nil)
-    klass :user
+    klass :invite
 
     entity_rel(rel) if rel
   end

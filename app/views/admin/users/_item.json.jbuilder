@@ -3,7 +3,12 @@ users_json.item_init(local_assigns[:rel] || 'item')
 users_json.list_item_properties(user)
 
 json.properties do
-  json.call(user, :awarded_invites, :submitted_proposals_count)
+  json.call(user,
+            :available_invites,
+            :lifetime_invites_count,
+            :open_invites_count,
+            :redeemed_invites_count,
+            :submitted_proposals_count)
 end
 
 actions \

@@ -7,22 +7,20 @@ module UserInvites
     has_many :distributors, class_name: 'User', foreign_key: 'sponsor_id'
   end
 
-  # All invites ever awarded (data in user.profile["awarded_invites"]); returns an integer
-  def awarded_invites
-    if profile && profile["awarded_invites"]
-      profile["awarded_invites"].to_i
-    else
-      0
-    end
+  def lifetime_invites_count
+    self.available_invites + invites.count
   end
 
-  # Awarded minus open; returns an integer
-  def available_invites
-    if awarded_invites
-      awarded_invites - open_invites.length
-    else
-      0
-    end
+  def open_invites_count
+    invites.where('user_id is null').count
+  end
+
+  def redeemed_invites_count
+    invites.where('user_id is not null').count
+  end
+
+  def expired_invites_count
+    invites.where(["expires < ?", Time.now]).count
   end
 
   # Active, non-redeemed invites
@@ -35,6 +33,10 @@ module UserInvites
     invites.where(["expires < ?", Time.now])
   end
 
+  # Redeemed invites
+  def redeemed_invites
+    invites.where("user_id is not null")
+  end
 
   # Create/Send Methods
   def create_invite(params)

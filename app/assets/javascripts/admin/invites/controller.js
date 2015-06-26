@@ -25,12 +25,21 @@
       });
     };
 
+    $scope.updateAvailableInvites = function(item) {
+      var data = {invites: item.properties.available_invites};
+      CommonService.execute({
+        href: '/a/users/' + item.properties.id + '/invites.json',
+        method: 'PATCH',
+      }, data).then(function(data) {
+        item.properties.lifetime_invites_count = data.properties.lifetime_invites_count;
+      });
+    };
+
     this.init($scope);
     this.fetch($scope, $rootScope);
   }
 
   AdminInvitesCtrl.prototype.init = function($scope) {
-    $scope.awardInvites = {};
     $scope.mode = 'index';
   };
 
