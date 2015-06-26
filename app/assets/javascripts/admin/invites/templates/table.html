@@ -22,7 +22,22 @@
       <td>{{item.properties.lifetime_rank}}</td>
       <td>{{item.properties.submitted_proposals_count}}</td>
       <td>{{item.properties.awarded_invites}}</td>
-      <td></td>
+      <td>
+        <form>
+          <div class="row">
+            <div class="large-12 columns">
+              <div class="row collapse">
+                <div class="small-10 columns">
+                  <input ng-model="awardInvites[item.properties.id]" type="number" placeholder="Award Invites">
+                </div>
+                <div class="small-2 columns">
+                  <a href="#" class="button postfix">+</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </td>
     </tr>
   </tbody>
 </table>

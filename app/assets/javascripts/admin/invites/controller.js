@@ -30,6 +30,7 @@
   }
 
   AdminInvitesCtrl.prototype.init = function($scope) {
+    $scope.awardInvites = {};
     $scope.mode = 'index';
   };
 

@@ -8,6 +8,7 @@
       <th>Email</th>
       <th>Created</th>
       <th>Expires</th>
+      <th>User ID</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
       <td>{{invite.properties.email}}</td>
       <td>{{invite.properties.created_at | dateToLocalDate}} {{invite.properties.created_at | timeToLocalTime}}</td>
       <td>{{invite.properties.expires | dateToLocalDate}} {{invite.properties.expires | timeToLocalTime}}</td>
+      <td>{{invite.properties.user_id}}</td>
       <td><span ng-repeat="action in invite.actions"><a ng-click="executeInviteAction(action)">{{action.name}}</a> </span></td>
     </tr>
   </tbody>
