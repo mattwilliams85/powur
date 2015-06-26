@@ -24,6 +24,15 @@ module Auth
       render 'select_index'
     end
 
+    def downline
+      scope = User
+      scope = User.search(params[:search]) if params[:search]
+      scope = scope.with_parent(@user.id)
+      @users = apply_list_query_options(scope)
+
+      render 'team'
+    end
+
     def move
       # require_input :parent_id
 

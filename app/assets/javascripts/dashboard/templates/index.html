@@ -46,19 +46,19 @@
     </div>
   </div>
 
-  <!-- My Customers Section -->
-  <div class="row">
-    <div class="customers-section large-12 columns" ng-controller="DashboardCustomersCtrl">
-      <ng-include  src="'dashboard/templates/sections/customers.html'"></ng-include>
+    <!-- My Customers Section -->
+    <div class="row">
+      <div class="customers-section large-12 columns">
+        <ng-include ng-controller="DashboardCustomersCtrl" src="'dashboard/templates/sections/customers.html'"></ng-include>
+      </div>
     </div>
-  </div>
 
-  <!-- My Team Section -->
-  <div class="row">
-    <div class="team-section large-12 columns">
-      <ng-include ng-controller="DashboardTeamCtrl" src="'dashboard/templates/sections/team.html'"></ng-include>
+    <!-- My Team Section -->
+    <div class="row">
+      <div class="team-section large-12 columns">
+        <ng-include ng-controller="DashboardTeamCtrl" src="'dashboard/templates/sections/team.html'"></ng-include>
+      </div>
     </div>
-  </div>
 
 </main>
 

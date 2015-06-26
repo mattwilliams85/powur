@@ -17,7 +17,7 @@ class UsersJson < JsonDecorator
     json.properties do
       json.call(user, :id, :first_name, :last_name, :email, :phone, :level,
                 :moved, :profile, :lifetime_rank)
-      json.downline_count user.downline_users_count(user.id)
+     
       LIST_PROPS.each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]
       end

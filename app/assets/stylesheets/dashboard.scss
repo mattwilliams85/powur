@@ -432,6 +432,11 @@ $kpi-text-color: #888;
       background-color: #444;
       color: #fff;
       border-bottom: 1px solid #555;
+
+      &.team-proposal {
+        background-color: #2f2f2f !important;
+        border-bottom-width: 0px;
+      }
     }
 
     &.downline {
@@ -454,6 +459,10 @@ $kpi-text-color: #888;
 
     &.even {
       background: #333 !important;
+    }
+
+    &.odd {
+      background: #444 !important;
     }
 
     .icon {
@@ -1427,134 +1436,142 @@ $kpi-text-color: #888;
 
       }
     }
+    
+  }
 
-    // Customer Information on Submitted Proposals
-    .submitted-proposal {
-      position: relative;
-      border-radius: 4px;
-      color: #fff;
-      background-color: rgba(0,0,0,0.08);
-      border: 1px solid #333;
-      padding-top: 32px;
+  // Customer Information on Submitted Proposals
+  .submitted-proposal {
+    position: relative;
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgba(0,0,0,0.08);
+    border: 1px solid #333;
+    padding-top: 32px;
 
-      p {
-        color: #ccc;
-        margin-bottom: 0px;
+    p {
+      color: #ccc;
+      margin-bottom: 0px;
+    }
+
+    div.customer-info {
+      .name {
+        font-size: 24pt;
+        line-height: 36pt;
       }
-
-      div.customer-info {
-        .name {
-          font-size: 24pt;
-          line-height: 36pt;
-        }
-        .email {
-          font-size: 12pt;
-          line-height: 24pt;
-          a {
-            color: #12C2FD;
-            &:hover {
-              color: #fff;
-            }
+      .email {
+        font-size: 12pt;
+        line-height: 24pt;
+        a {
+          color: #12C2FD;
+          &:hover {
+            color: #fff;
           }
         }
-        .phone {
-          font-size: 12pt;
-          line-height: 12pt;
-        }
-        .address,
-        .city-state-zip {
-          font-size: 14pt;
-          line-height: 18pt;
-        }
       }
-
-      div.proposal-product-field {
-        position: relative;
-        width: 100%;
-        padding-top: 10px;
-
-        .label {
-          color: #ccc;
-          text-transform: uppercase;
-          font-size: 10pt;
-          background-color: initial;
-          padding: 0;
-        }
-
-        .value {
-          font-size: 14pt;
-          line-height: 18pt;
-        }
-
+      .phone {
+        font-size: 12pt;
+        line-height: 12pt;
+      }
+      .address,
+      .city-state-zip {
+        font-size: 14pt;
+        line-height: 18pt;
       }
     }
-    .lead-update {
-      background-color: rgba(0,0,0,0.08);
+
+    div.proposal-product-field {
+      position: relative;
+      width: 100%;
+      padding-top: 10px;
+
+      .label {
+        color: #ccc;
+        text-transform: uppercase;
+        font-size: 10pt;
+        background-color: initial;
+        padding: 0;
+      }
+
+      .value {
+        font-size: 14pt;
+        line-height: 18pt;
+      }
+
+    }
+  }
+  .lead-update {
+    background-color: rgba(0,0,0,0.08);
+    border-radius: 4px;
+    border: 1px solid #333;
+    position: relative;
+    overflow-y: auto;
+    max-height: 340px;
+
+    p {
+      color: #ccc;
+    }
+
+    div.status,
+    div.details,
+    div.solarcity-status {
+      font-size: 18pt;
+      line-height: 20pt;
+      padding: 10px;
       border-radius: 4px;
       border: 1px solid #333;
+      margin-top: 15px;
       position: relative;
-      overflow-y: auto;
-      max-height: 340px;
 
       p {
         color: #ccc;
+        font-size: 12pt;
+        line-height: 18pt;
+        margin-bottom: 0;
       }
 
-      div.status,
-      div.details,
-      div.solarcity-status {
-        font-size: 18pt;
-        line-height: 20pt;
-        padding: 10px;
-        border-radius: 4px;
-        border: 1px solid #333;
-        margin-top: 15px;
-        position: relative;
-
-        p {
-          color: #ccc;
-          font-size: 12pt;
-          line-height: 18pt;
-          margin-bottom: 0;
-        }
-
-        p:first-of-type {
-          margin-top: 20px;
-        }
-
+      p:first-of-type {
+        margin-top: 20px;
       }
-    }
-    // Scroll Bars for Lead Updates Panel
-    .lead-update::-webkit-scrollbar,
-    .notes::-webkit-scrollbar {
-      width: 8px;
-    }
 
-    .lead-update::-webkit-scrollbar-track,
-    .notes::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.2);
     }
+  }
+  // Scroll Bars for Lead Updates Panel
+  .lead-update::-webkit-scrollbar,
+  .notes::-webkit-scrollbar {
+    width: 8px;
+  }
 
-    .lead-update::-webkit-scrollbar-thumb,
-    .notes::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.4);
-    }
-    // /Scroll Bars
+  .lead-update::-webkit-scrollbar-track,
+  .notes::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+  }
 
-    .carousel-box {
-      border: 1px solid #e5e5e5;
-      margin-bottom: -2px;
-    }
+  .lead-update::-webkit-scrollbar-thumb,
+  .notes::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.4);
+  }
+  // /Scroll Bars
 
-    .new-proposal {
-      border-right: 0;
-    }
+  .carousel-box {
+    border: 1px solid #e5e5e5;
+    margin-bottom: -2px;
+  }
+
+  .new-proposal {
+    border-right: 0;
   }
 
   /*
   TEAM SECTION
   */
   .team-section {
+
+    .divider {
+      border: 1px solid #555;
+      border-bottom: 0px;
+      width: 30%;
+      margin: 20px auto;;
+    }
 
     .info-box {
       transition: transform 0.4s ease, background-color 0.4s ease;
@@ -1577,7 +1594,27 @@ $kpi-text-color: #888;
       }
     }
 
-    .kpi-section {
+    .proposal-row {
+      background-color: #2f2f2f !important;
+      &.expand {
+        height: 450px !important;
+      }
+
+      .right-side {
+       padding-top: 20px; 
+        .right-summary {
+          border-left: 1px solid #555;
+          min-height: 400px;
+        }
+      }
+
+      .summary {
+        padding-top: 30px;
+        border-right: 0px;
+      }
+    }
+
+    .proposal-section {
       padding-top: 0px;
       margin-bottom: 0px;
       &:before {
@@ -1592,7 +1629,6 @@ $kpi-text-color: #888;
         background: #444;
         color: #fff;
         font-size:16pt;
-        line-height: 200px;
         &.even {
           background: #333;
         }
@@ -1786,11 +1822,43 @@ $kpi-text-color: #888;
 
       &.even {
         background-color: #333;
+
+        .sort-box{
+          .sort {
+            background-color: #252525;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+          }
+        }
       }
 
       &.accordion {
         height: 100px;
       }
+
+      .customer-name, .info-text, .empty-text {
+        color: #fff;
+      }
+
+      .empty-state {
+        border-left: 1px solid #555;
+      }
+
+      .inactive-icon {
+        opacity: 0.25;
+      }
+
+      .sort-box {
+        margin: 15px;
+        .sort {
+          height: 55px;
+          background-color: #333;
+          border: 1px solid rgba(0, 0, 0, 0.3);
+          width: 95%;
+          margin-bottom: 10px;
+          color: rgba(255, 255, 255, 0.75);
+        }
+      }
+
     }
 
     .new-team-member {

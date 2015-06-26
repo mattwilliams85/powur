@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardTeamCtrl($scope, $timeout, User, CommonService) {
+  function DashboardTeamCtrl($rootScope, $scope, $timeout, $http, User, CommonService) {
     $scope.redirectUnlessSignedIn();
     $scope.showInvitesCarousel = false;
 
@@ -37,11 +37,9 @@
     // Close Team Member Show when Moving Carousel
     function owlCloseForm(element) {
       return function() {
-        if ($scope.updatingProposal !== true) {
-          $timeout(function() {
-            closeForm(element);
-          });
-        }
+        $timeout(function() {
+          closeForm(element);
+        });
       };
     }
 
@@ -58,17 +56,28 @@
     };
 
     $scope.isActiveMember = function(teamMember, gen) {
-      return gen.selected === teamMember.properties.id;
+      return (gen.selected === teamMember.properties.id);
+    }
+
+    $scope.toggleProposal = function(proposal) {
+      if (!proposal || $scope.proposalId === proposal.properties.id) {
+        $scope.proposalId = '';
+        return $scope.showProposal = false;
+      }
+      $scope.showProposal = true;
+      $scope.proposalId = proposal.properties.id;
     }
 
     // Close Team Member
     function closeForm(element) {
-      if(element) {
+      if(element && element.attr('data-row')) {
         $scope.downline = $scope.downline.slice(0, parseInt(element.attr('data-row')) + 1);
         $scope.downline[$scope.downline.length - 1].selected = "";
+        $scope.activeTab = '';
       }
+      $scope.proposalId = '';
+      $scope.showProposal = false;
       $scope.currentTeamMember = {};
-      $scope.activeTab = '';
     };
 
     function destroyCarousel(carouselElement) {
@@ -78,7 +87,9 @@
 
     function setAvatar(items) {
       for (var i = 0; i < items.entities.length; i++){
-        items.entities[i].properties.defaultAvatarThumb = legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
+        if (items.entities[i].properties.avatar) continue;
+        items.entities[i].properties.avatar = [];
+        items.entities[i].properties.avatar.thumb = legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
       }
       return items;
     }
@@ -87,12 +98,15 @@
       $scope.disable = true;
       User.downline(teamMember.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
         items = setAvatar(items);
+
         $timeout(function(){
+          $scope.activeTab = 'team'
           $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
           $scope.downline.push(items.entities);
           destroyCarousel('#carousel-' + ($scope.downline.length - 1))
           $scope.disable = false;
-        }, 200);
+
+        });
       });
     }
 
@@ -107,9 +121,12 @@
       if($scope.currentTeamMember.id === teamMember.id && $scope.activeTab === tab) {
         gen.selected = null;
         gen.tab = null;
+        $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
         closeForm();
+        return $scope.activeTab = '';
       } else {
         gen.selected = teamMember.id;
+        console.log(gen.selected)
         gen.tab = tab;
         closeForm();
 
@@ -118,9 +135,9 @@
         if (tab === 'team') {
           teamTab(teamMember);
         } else {
+          $scope.activeTab = tab;
           $timeout(function(){
             $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
-            $scope.activeTab = tab;
           }, delay);
         }
       }
@@ -153,7 +170,8 @@
         destroyCarousel('#carousel-'+ i);
       }
       var searchQuery = {search: $scope.teamSection.teamSearch};
-      User.list(searchQuery).then(function(items) {
+      User.downline($rootScope.currentUser.id, searchQuery).then(function(items) {
+        setAvatar(items);
         $scope.downline = [items.entities];
         $timeout(function() {
           initCarousel($('#carousel-0'));
@@ -172,7 +190,8 @@
         destroyCarousel('#carousel-'+ i);
       }
 
-      User.list(sortQuery).then(function(items) {
+      User.downline($rootScope.currentUser.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
+        setAvatar(items);
         $scope.downline = [items.entities];
         $timeout(function() {
           initCarousel($('#carousel-0'));
@@ -180,22 +199,91 @@
       });
     };
 
+    // Apply Search
+    $scope.teamSection.searchProposals = function () {
+      $scope.teamSection.proposalSort = '';
+      $scope.teamSection.proposalStatus = '';
+      $scope.teamSection.applyIndexActions();
+      if ($scope.teamSection.proposalSearch === '') {
+        $scope.teamSection.searching = false;
+      } else {
+        $scope.teamSection.searching = true;
+      }
+    };
 
-    // Fetch User's Immediate downline
-    return User.list({sort: $scope.teamSection.teamSort}).then(function(items) {
-      for (var i = 0; i < items.entities.length; i++){
-        items.entities[i].properties.defaultAvatarThumb = randomThumb();
+    $scope.teamSection.applyIndexActions = function() {
+      var data = {
+        sort: $scope.teamSection.proposalSort,
+        status: $scope.teamSection.proposalStatus
+      };
+      if ($scope.teamSection.proposalSearch) {
+        data.search = $scope.teamSection.proposalSearch;
+      }
+      if ($scope.teamSection.proposalStatus !== '') {
+        $scope.teamSection.searching = true;
       }
 
-      $scope.downline.push(items.entities);
-      $timeout(function() {
-        initCarousel($('#carousel-0'));
-        level = $scope.currentUser.level;
+      var href = '/u/users/' + $scope.teamId + '/quotes'
+      closeForm();
+      destroyCarousel('#teamProposals');
+
+      $http({
+        method: 'GET',
+        url: href,
+        params: data,
+      }).success(function(items) {
+        $scope.teamProposals = items.entities;
+        $timeout(function() {
+          initCarousel($('#teamProposals'));
+        });
+      });
+    };
+
+    $scope.teamSection.fetchProposals = function(teamMember) {
+      $scope.teamId = teamMember.properties.id
+      CommonService.execute({
+        href: '/u/users/' + teamMember.properties.id + '/quotes.json'
+      }).then(function(items){
+        // Set Proposals
+        $scope.teamProposals = items.entities;
+        // Set Index Action
+        // $scope.customerSection.indexAction = $scope.getAction(items.actions, 'index');
+        // Initialize Proposals Carousel
+        destroyCarousel('#teamProposals');
+        $timeout(function(){
+          initCarousel($('#teamProposals'));
+        });
+      })
+    }
+
+    // Show Proposal
+    $scope.teamSection.showProposal = function(proposal) {
+      CommonService.execute({
+        href: '/u/quotes/' + proposal.properties.id + '.json'
+      }).then(function(item){
+        $scope.updates = item.entities;
+        $scope.activeProposal = item.properties;
+      });
+    };
+
+
+    // Fetch User's Immediate downline
+    $rootScope.$watch('currentUser', function(data) {
+      if (!data || !data.id) return;
+      return User.downline(data.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
+        items = setAvatar(items);
+
+        $scope.downline.push(items.entities);
+        $timeout(function() {
+          initCarousel($('#carousel-0'));
+          level = $scope.currentUser.level;
+        });
       });
     });
+
   }
 
-  DashboardTeamCtrl.$inject = ['$scope', '$timeout', 'User', 'CommonService'];
+  DashboardTeamCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$http', 'User', 'CommonService'];
   angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl)
   .directive('repeatEnd', function(){
     return {

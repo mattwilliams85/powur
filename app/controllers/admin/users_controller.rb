@@ -18,7 +18,7 @@ module Admin
     def downline
       @users = @user.downline_users
 
-      render 'index'
+      render 'team'
     end
 
     def upline
