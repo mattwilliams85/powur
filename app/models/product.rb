@@ -14,9 +14,9 @@ class Product < ActiveRecord::Base
 
   scope :with_bonuses, -> { includes(bonuses: [ :bonus_amounts ]) }
   scope :university_classes, -> { where(is_university_class: true) }
-  scope :certifiable, -> { university_classes.where('is_required_class != true') }
+  scope :certifiable, -> { university_classes.where(is_required_class: false) }
   scope :free, -> { where(bonus_volume: 0) }
-  scope :sorted, -> { order('position ASC') }
+  scope :sorted, -> { order(position: :asc) }
 
   def sale_bonuses
     @sale_bonuses ||= bonuses.select { |b| b.sale? && b.enabled? }
@@ -58,7 +58,8 @@ class Product < ActiveRecord::Base
   end
 
   def completed_by?(user)
-    product_enrollments.where(user_id: (user.try(:id) || user)).completed.exists?
+    product_enrollments
+      .where(user_id: (user.try(:id) || user)).completed.exists?
   end
 
   def is_free?
