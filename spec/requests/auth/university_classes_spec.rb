@@ -68,7 +68,7 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
     let!(:current_user) { login_user }
     let!(:certifiable_product) { create(:certifiable_product, bonus_volume: 111) }
 
-    it 'enrolls user' do
+    it 'returns incomplete form error messages' do
       post(purchase_university_class_path(certifiable_product), {
         card:   { name: 'Bob' },
         format: :json
