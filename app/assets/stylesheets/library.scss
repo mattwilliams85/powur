@@ -99,7 +99,8 @@
     font-size: 10pt;
     line-height: 16px;
     text-transform: uppercase;
-    color: #aaa;
+    color: rgba(0,0,0,0);
+    text-shadow: 0 0 0 #aaa;
 
     -moz-appearance: none;
     -webkit-appearance: none;
