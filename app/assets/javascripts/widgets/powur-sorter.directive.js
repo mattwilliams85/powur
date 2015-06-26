@@ -3,29 +3,27 @@
 
   function powurSorter($http) {
     function link(scope, element, attrs) {
-      scope.sort = function() {
-        if (!this.control || !this.control.links) return;
+      scope.currentSort = true;
 
-        var self = this,
-            link = getLink(this.control.links);
+      scope.sort = function() {
+        if (!scope.control || !scope.control.links) return;
+
+        var link = getLink(scope.control.links);
 
         $http({
           method: 'GET',
           url: link.href,
           params: {
-            sort: this.field
+            sort: scope.currentSort ? scope.field + '_asc' : scope.field + '_desc'
           },
           type: 'application/json'
         }).success(function(data) {
-          self.control = data;
+          scope.control = data;
+          scope.currentSort = !scope.currentSort;
         }).error(function(err) {
           console.log('Sort request error', err);
         });
       };
-
-      scope.iconCSSClass = scope.field.match(/\_desc/i) ?
-        'fa-sort-desc' :
-        'fa-sort-asc';
     }
 
     var directive = {
@@ -44,7 +42,8 @@
   function powurSorterTemplate($templateCache) {
     $templateCache.put(
       'templates/widgets/powur-sorter.html',
-      '<a ng-click="sort()"><i class="fa {{iconCSSClass}}"></i></a>'
+      '<a ng-if="currentSort" ng-click="sort()"><i class="fa fa-sort-desc"></i></a>' +
+      '<a ng-if="!currentSort" ng-click="sort()"><i class="fa fa-sort-asc"></i></a>'
     );
   }
 
