@@ -26,7 +26,7 @@ class UserTest < ActiveSupport::TestCase
 
   it 'returns the correct number of available invites' do
     invite = invites(:george)
-    expected = invite.sponsor.awarded_invites - 1
+    expected = invite.sponsor.available_invites - 1
     invite.sponsor.available_invites.must_equal expected
   end
 end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe '/api/invites', type: :request do
   before :each do
     login_api_user
-    @user.profile = {"awarded_invites": 10}
+    @user.available_invites = 3
     @user.save
   end
 

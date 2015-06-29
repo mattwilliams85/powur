@@ -28,7 +28,7 @@ describe User, type: :model do
 
   describe '#available_invites' do
     it 'returns the correct number of available invites' do
-      user = create(:user, profile: {"awarded_invites": 10})
+      user = create(:user, available_invites: 10)
       create_list(:invite, 3, sponsor: user)
 
       expect(user.available_invites).to eq(7)

@@ -4,7 +4,7 @@ describe Auth::InvitesController do
   render_views
 
   before :each do
-    @user = login_user(auth: true, profile: {"awarded_invites": "10"})
+    @user = login_user(auth: true, available_invites: 3)
   end
 
   describe '#index' do

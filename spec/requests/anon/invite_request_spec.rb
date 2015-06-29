@@ -7,7 +7,7 @@ describe '/a/invite' do
 
   describe 'POST' do
     let(:agreement) { double(dwight: 'schrute') }
-    let(:sponsor) { create(:certified_user) }
+    let(:sponsor) { create(:certified_user, available_invites: 3) }
     let(:user) { create(:user) }
     let(:invite) { create(:invite, user: user, sponsor: sponsor) }
 
@@ -59,7 +59,7 @@ describe '/a/invite' do
   end
 
   describe 'PATCH' do
-    let(:sponsor) { create(:certified_user) }
+    let(:sponsor) { create(:certified_user, available_invites: 3) }
     before do
       @invite = create(:invite, sponsor: sponsor, email: 'newinvite@test.com')
       @user_params = {
