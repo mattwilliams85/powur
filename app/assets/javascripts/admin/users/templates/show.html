@@ -6,7 +6,6 @@
       <h2>{{user.properties.first_name}} {{user.properties.last_name}}</h2>
     </div>
     <div class="large-6 columns">
-      <a class="button right" ng-href="/admin/users/{{user.properties.id}}/edit">Edit User</a>
     </div>
   </div>
 
@@ -14,15 +13,15 @@
   <div class="row">
     <div class="large-12 columns">
       <ul class="tabs" ng-model="tab" data-tab>
-        <li class="tab-title" ng-class="{'active': tab === 'contact-info'}"><a ng-click="tab = 'contact-info'">Contact Info</a></li>
+        <li class="tab-title" ng-class="{'active': tab === 'user-info'}"><a ng-click="tab = 'user-info'">User Info</a></li>
         <li class="tab-title" ng-class="{'active': tab === 'team'}"><a ng-click="tab = 'team'">Team</a></li>
         <li class="tab-title" ng-class="{'active': tab === 'invites'}"><a ng-click="tab = 'invites'">Invites</a></li>
         <li class="tab-title" ng-class="{'active': tab === 'proposals'}"><a ng-click="tab = 'proposals'">Proposals</a></li>
       </ul>
       <div class="tabs-content">
-        <!-- Contact Info Content -->
-        <div class="content" ng-class="{'active': tab === 'contact-info'}" ng-init="tab = 'contact-info'">
-          <ng-include src="'admin/users/templates/tabs/contact-info.html'"></ng-include>
+        <!-- User Info Content -->
+        <div class="content" ng-class="{'active': tab === 'user-info'}" ng-init="tab = 'user-info'">
+          <ng-include src="'admin/users/templates/tabs/user-info.html'"></ng-include>
         </div>
 
         <!-- Team Content -->

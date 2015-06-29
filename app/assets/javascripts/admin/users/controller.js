@@ -8,10 +8,6 @@
       index: {
         title: 'Users',
         tablePath: 'admin/users/templates/table.html'
-      },
-      edit: {
-        title: 'Edit User',
-        formPath: 'admin/users/templates/form.html'
       }
     };
 
@@ -75,14 +71,16 @@
       if ($scope.formValues) {
         CommonService.execute({
           href: '/a/users/' + $routeParams.userId + '.json',
-          data: $scope.formValue
-        }).then(function success(data) {
+          method: 'PATCH',
+        }, $scope.formValues).then(function success(data) {
           $scope.isSubmitDisabled = true;
           if (data.error) {
             $scope.showModal('There was an error while updating this user.');
             return;
           }
-          $location.path('/admin/users');
+          $anchorScroll();
+          $location.path('/admin/users/' + $routeParams.userId);
+          $scope.isSubmitDisabled = false;
           $scope.showModal('You\'ve successfully updated this user!');
         });
       }
@@ -152,6 +150,8 @@
         href: '/a/users/' + $routeParams.userId + '.json'
       }).then(function(item) {
         $scope.user = item;
+        $scope.formAction = $scope.getAction(item.actions, 'update');
+        $scope.formValues = $scope.setFormValues($scope.formAction);
 
         // Get Data for Invites
         $scope.getEntityData(item.entities, 'user_invites');
@@ -168,7 +168,7 @@
       }).then(function(item) {
         $scope.user = item;
         $scope.formAction = $scope.getAction(item.actions, 'update');
-        // $scope.formValues = $scope.setFormValues($scope.formAction);
+        $scope.formValues = $scope.setFormValues($scope.formAction);
 
         // Breadcrumbs: Users / Edit User
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});

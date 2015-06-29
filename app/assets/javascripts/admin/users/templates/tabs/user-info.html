@@ -1,0 +1,23 @@
+<h3>User Info</h3>
+
+<form>
+  <fieldset>
+    <legend>Edit User</legend>
+    <!-- User Form -->
+    <div ng-repeat="field in formAction.fields" class="row">
+      <div class="large-12 columns">
+        <label for="{{field.name}}">{{field.name}}</label>
+        <!-- String Inputs -->
+        <input ng-model="formValues[field.name]" ng-if="field.type === 'text'" type="text" name="{{field.name}}" id="{{field.name}}">
+        <!-- Email Inputs -->
+        <input ng-model="formValues[field.name]" ng-if="field.type === 'email'" type="email" name="{{field.name}}" id="{{field.name}}">
+      </div>
+    </div>
+    <div class="row">
+      <div class="large-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update User" />
+      </div>
+    </div>
+  </fieldset>
+</form>
