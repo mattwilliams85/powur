@@ -448,12 +448,17 @@ $kpi-text-color: #888;
     &.accordion {
       height: 100px;
 
-      .fa-user-plus {
-        font-size: 3em;
-      }
-
-      .level {
-        
+      .invites-summary {
+        .number {
+          top: 7%;
+          font-size: 20pt;
+          width: 40px;
+        }
+      
+        .info-text {
+          top: 10%;
+          font-size: 14pt;
+        }
       }
     }
 
@@ -469,6 +474,11 @@ $kpi-text-color: #888;
       top: 25%;
       position: relative;
       text-align: center;
+      &.invite-icon {
+        cursor: pointer;
+        padding: 5px;
+        top: 20%;
+      }
     }
     .info-text {
       font-family: $dashboard-font-family;
@@ -1620,6 +1630,13 @@ $kpi-text-color: #888;
       }
     }
 
+    .invite-row {
+      background-color: #333 !important;
+      &.expand {
+        height: 400px !important;
+      }
+    }
+
     .proposal-section {
       padding-top: 0px;
       margin-bottom: 0px;
@@ -1815,7 +1832,8 @@ $kpi-text-color: #888;
       -ms-transition: height .2s;
       transition: height .2s;
       float: left;
-      border: 0px;
+      border-top: 0px;
+      border-bottom: 0px;
       margin-bottom: 0px;
 
       &.expand {
@@ -1869,10 +1887,19 @@ $kpi-text-color: #888;
 
     .new-team-member {
       border-right: 0;
+      background-color: #fff;
+      color: #555;
+      cursor: pointer;
 
-      &.beta {
-        background: #f8f8f8;
-        color: #c7c7c7;
+      &.invert {
+        background: #444;
+        border-bottom: 1px solid #555;
+        .invites-summary {
+          color: #f8f8f8;
+          .number {
+            border: 1px dashed #f8f8f8;
+          }
+        }
       }
     }
 
@@ -1880,6 +1907,16 @@ $kpi-text-color: #888;
     .team-member-info-large {
       background-color: transparent;
       color: #fff;
+      cursor:pointer; 
+
+      &.invert {
+        background-color: #333;
+      }
+
+      &.active {
+        background-color: #333 !important;
+        border-bottom: 0px;
+      }
     }
 
     // "Team Member Show" Styles for Large Screens
@@ -2096,25 +2133,26 @@ $kpi-text-color: #888;
     // Invites
 
     .invites-summary {
-      background-color: #444;
       height: 220px;
-      color: #fff;
+      color: #555;
       font-family: $dashboard-font-family;
       text-align: center;
 
       .number {
         position: relative;
-        top: 35%;
-        line-height: 40pt;
-        font-size: 36pt;
+        top: 25%;
+        font-size: 40pt;
+        border: 1px dashed #555;
+        border-radius: 50%;
+        width: 80px;
+        height: auto;
+        margin: 0 auto;
       }
       .info-text {
         position: relative;
         top: 35%;
         line-height: 14pt;
-        font-size: 12pt;
-        text-transform: uppercase;
-
+        font-size: 16pt;
       }
     }
 

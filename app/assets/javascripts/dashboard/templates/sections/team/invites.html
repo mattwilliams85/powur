@@ -1,48 +1,42 @@
 <!-- Row: Invites Carousel -->
-<div class="downline-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'invites'}">
-  <div class="team-invites">
-    <!-- Invites Available -->
-    <div class="w20percent small-2 columns">
-      <div class="invites-summary">
-        <div class="number">
-          <span>{{invitesAvailable}}</span>
-        </div>
-        <div class="info-text">
-          <span>Available Invites Will Display Here</span>
-          <!-- <span>Invites Available</span> -->
-        </div>
-      </div>
+<div class="row collapse carousel-box downline-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'invites'}">
+  <!-- Invites Available -->
+  <div class="w20percent team-member-info-large small-2 columns" ng-click="newInvite()" ng-class="{'invert': showNew}">
+    <div class="icon invite-icon">
+      <span><i class="fa fa-user-plus fa-4x"></i></span>
+    </div>
+    <div class="info-text user-text">
+      <span>New Invite</span>
     </div>
   </div>
 
+
   <!-- Invites Carousel -->
-  <div class="carousel-container no-border w80percent small-10 columns">
-    <div class="invites no-border owl-carousel">
-      <div ng-repeat="invite in invites">
+  <div class="carousel-container w80percent small-10 columns">
+    <div class="invites owl-carousel downline" id="invites">
+      <div ng-repeat="invite in invites track by $index">
 
         <!-- Existing Invites -->
-        <div ng-if="invite.type !== 'empty'" class="invite">
-          <div class="icon">
-            <span><i class="fa fa-user fa-4x"></i></span>
+        <div ng-if="invite" class="invite" ng-click="showInvite(invite);" ng-class="{'active': invite.properties.id === activeInvite.id}">
+          <div class="icon invite-icon">
+            <span><i class="fa fa-envelope fa-4x"></i></span>
           </div>
-          <div class="info-text">
+          <div class="info-text user-text">
             <span>{{invite.properties.first_name}} {{invite.properties.last_name}}</span>
+            <span class="info-detail">Expires {{ invite.properties.expires | dateToLocalDate }} {{ invite.properties.expires | timeToLocalTime }}</span>
           </div>
-          <div class="status-text">
-            <span>Expires {{ invite.properties.expires | dateToLocalDate }} {{ invite.properties.expires | timeToLocalTime }}</span>
-          </div>
+
         </div>
 
-        <!-- Empty Invites -->
-        <div ng-if="invite.type === 'empty'" class="invite">
-          <div class="icon">
-            <span><i class="fa fa-circle-thin fa-4x"></i></span>
+          <!-- Empty Invites -->
+
+        <div ng-if="!invite" class="invite">
+          <div class="icon invite-icon">
+            <span><i class="fa fa-plus-circle fa-4x"></i></span>
           </div>
-          <div class="info-text">
+          <div class="info-text user-text">
             <span>Empty</span>
-          </div>
-          <div class="status-text">
-            <span>Invite Someone</span>
+            <span class="info-detail">Invite Someone</span>
           </div>
         </div>
       </div>
@@ -50,25 +44,17 @@
   </div>
 </div>
 
-<!-- Row: Invite Team Member Form -->
-<!-- <div class="drilldown row collapse team-drilldown" ng-class="{'active': drilldownActive == true}">
-  <div ng-hide="!showForm" class="fade-in-section" ng-class="{'active': showForm == true}"> -->
-    <!-- New Invite Summary Text -->
-   <!--  <div class="summary large-3 medium-3 columns"> -->
-
-    <!--   <h1>New Invite</h1>
-      <p>Enter team member information to create a new invite.</p>
-      <p>Invites expire after 24 hours. You can renew or release invites after they have expired.</p>
-
-    </div> -->
-
-    <!-- Form if New Invite -->
-   <!--  <div ng-if="mode === 'incomplete' || mode === 'new'" class="form large-9 medium-9 columns">
-      <ng-include src="'dashboard/templates/sections/team-invite-form.html'"></ng-include>
-    </div> -->
-    <!-- Summary if Existing Invite -->
-   <!--  <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
-      <ng-include src="'dashboard/templates/sections/team-invite-existing.html'"></ng-include>
-    </div>
+<div class="row collapse downline-row drilldown invite-row" ng-class="{ 'expand': showNew }">
+  <!-- Large -->
+  <div ng-hide="!showNew" class="large-12 columns form">
+    !invite goes here!
   </div>
-</div> -->
+</div>
+
+<div class="row collapse downline-row drilldown invite-row" ng-class="{ 'expand': activeInvite }">
+  <!-- Large -->
+  <div ng-hide="!activeInvite" class="large-12 columns form">
+    !invite goes here!
+  </div>
+</div>
+

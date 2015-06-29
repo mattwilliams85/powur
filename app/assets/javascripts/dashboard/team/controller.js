@@ -8,6 +8,7 @@
     $scope.img = legacyImagePaths;
     $scope.downline = [];
     $scope.currentTeamMember = {};
+    $scope.showNew = false;
 
     var level;
 
@@ -77,6 +78,8 @@
       }
       $scope.proposalId = '';
       $scope.showProposal = false;
+      $scope.showNew = false;
+      $scope.activeInvite = '';
       $scope.currentTeamMember = {};
     };
 
@@ -143,10 +146,14 @@
     };
 
     $scope.invitesTab = function() {
-      if ($scope.activeTab === 'invites') return closeForm();
+      $scope.downline = $scope.downline.slice(0, 1);
+      if ($scope.downline[0]) $scope.downline[0].tab = null;
+      if ($scope.downline[0]) $scope.downline[0].selected = null;
+      if ($scope.activeTab === 'invites') {
+        $scope.activeTab = '';
+        return closeForm();
+      }
       $scope.activeTab = 'invites';
-      CommonService.execute({href: '/u/invites.json'}).then(function(data){
-      });
     }
 
     $scope.levelGap = function(teamMember) {
@@ -243,11 +250,7 @@
       CommonService.execute({
         href: '/u/users/' + teamMember.properties.id + '/quotes.json'
       }).then(function(items){
-        // Set Proposals
         $scope.teamProposals = items.entities;
-        // Set Index Action
-        // $scope.customerSection.indexAction = $scope.getAction(items.actions, 'index');
-        // Initialize Proposals Carousel
         destroyCarousel('#teamProposals');
         $timeout(function(){
           initCarousel($('#teamProposals'));
@@ -265,6 +268,19 @@
       });
     };
 
+    // Show Inviite
+    $scope.showInvite = function(invite) {
+      if ($scope.activeInvite === invite.properties) return closeForm();
+      closeForm();
+      $scope.activeInvite = invite.properties;
+    }
+
+    $scope.newInvite = function() {
+      if ($scope.showNew) return closeForm();
+      closeForm();
+      $scope.showNew = true;
+    }
+
 
     // Fetch User's Immediate downline
     $rootScope.$watch('currentUser', function(data) {
@@ -276,6 +292,18 @@
         $timeout(function() {
           initCarousel($('#carousel-0'));
           level = $scope.currentUser.level;
+        });
+      });
+    });
+
+    //Fetch Invites
+    $timeout(function() {
+      CommonService.execute({href: '/u/invites.json'}).then(function(data){
+        $scope.invites = data.entities;
+        $scope.invites.available = data.properties.available;
+        destroyCarousel('#invites');
+        $timeout(function(){
+          initCarousel($('#invites'));
         });
       });
     });

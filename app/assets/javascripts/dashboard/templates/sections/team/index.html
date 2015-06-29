@@ -40,15 +40,18 @@
       <div class="w20percent small-2 columns">
 
         <!-- UNCOMMENT LINE BELOW FOR INVITES DROPDOWN !! -->
-        <!-- <div class="new-team-member beta" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals'}" ng-click="invitesTab()"> -->
-        <div class="new-team-member beta" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals'}">
-          <div class="icon">
-            <span><i class="fa fa-user-plus fa-4x"></i></span>
+        <div class="new-team-member" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals', 'invert': activeTab === 'invites'}" ng-click="invitesTab()">
+        <!-- <div class="new-team-member beta" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals'}"> -->
+        <!-- ng-hide="downline.length > 1 || activeTab === 'proposals'" -->
+          <div class="invites-summary">
+            <div class="number">
+              <span>{{invites.available}}</span>
+            </div>
+            <div class="info-text">
+              <span>Invites Available</span>
+            </div>
           </div>
-          <div class="info-text">
-            <span ng-hide="downline.length > 1 || activeTab === 'proposals'" class="show-for-medium-up">Closed For Beta</span>
-            <span class="show-for-small">Closed for Beta</span>
-          </div>
+         
         </div>
 
       </div>

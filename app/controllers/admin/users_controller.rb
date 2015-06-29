@@ -22,7 +22,7 @@ module Admin
     def downline
       @users = apply_list_query_options(@user.downline_users)
 
-      render 'team'
+      render 'index'
     end
 
     def upline
