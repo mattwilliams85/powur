@@ -434,7 +434,7 @@ $kpi-text-color: #888;
       border-bottom: 1px solid #555;
 
       &.team-proposal {
-        background-color: #2f2f2f !important;
+        background-color: #292929 !important;
         border-bottom-width: 0px;
       }
     }
@@ -821,6 +821,12 @@ $kpi-text-color: #888;
             color: #aaa;
             text-align: left;
             margin-top: 0px;
+          }
+          a {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+            overflow: hidden;
           }
         }
 
@@ -1595,7 +1601,7 @@ $kpi-text-color: #888;
     }
 
     .proposal-row {
-      background-color: #2f2f2f !important;
+      background-color: #292929 !important;
       &.expand {
         height: 450px !important;
       }

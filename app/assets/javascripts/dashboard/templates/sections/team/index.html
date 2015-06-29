@@ -1,0 +1,157 @@
+<div class="row">
+  <div class="large-12 columns">
+    <!-- Row: Label / Sort / Search -->
+    <div class="row">
+
+      <div class="large-3 medium-6 columns">
+      <!-- Section Label -->
+        <div class="section-label">
+          <div class="tag"><img ng-src="{{img.dashboardTeamIcon}}"></div>
+          <div class="text">My Grid</div>
+        </div>
+      </div>
+
+      <div class="large-3 medium-6 columns">
+      <!-- Search -->
+        <div class="row collapse">
+          <form ng-submit="teamSection.search()" class="search-form" ng-class="{ 'fade': downline.length > 1}">
+            <div class="no-padding large-12 medium-12 small-12 columns">
+              <input type="search" ng-model="teamSection.teamSearch"  placeholder="SEARCH">
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <div class="large-3 medium-6 hide-for-medium-down columns end">
+      <!-- Sort -->
+        <select class="sort" ng-model="teamSection.teamSort" ng-change="teamSection.sort(); closeForm();">
+          <option value="name">Order by Name</option>
+          <option value="newest">Order by Newest</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- Row: Team Carousel -->
+    <div class="row collapse carousel-box">
+
+      <!-- Invite New Team Member Button -->
+      <div class="w20percent small-2 columns">
+
+        <!-- UNCOMMENT LINE BELOW FOR INVITES DROPDOWN !! -->
+        <!-- <div class="new-team-member beta" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals'}" ng-click="invitesTab()"> -->
+        <div class="new-team-member beta" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals'}">
+          <div class="icon">
+            <span><i class="fa fa-user-plus fa-4x"></i></span>
+          </div>
+          <div class="info-text">
+            <span ng-hide="downline.length > 1 || activeTab === 'proposals'" class="show-for-medium-up">Closed For Beta</span>
+            <span class="show-for-small">Closed for Beta</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="carousel-container w80percent small-10 columns" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals'}">
+
+        <!-- If No Team Members -->
+        <div ng-if="!downline[0]" class="empty owl-carousel">
+          <div class="empty-state">
+            <p class="empty-text">The team section helps you grow, manage, and support your team.  Invite others to join, get detailed metrics on their results, and track your teammates' progress. </p>
+          </div>
+        </div>
+
+        <!-- If Team Members -->
+        <div ng-if="downline[0]" class="team owl-carousel" id="carousel-0" data-row="0">
+          <a ng-repeat="teamMember in downline[0]">
+
+            <div 
+              class="team-member" 
+              ng-class="{active: memberActive(teamMember), 'accordion': downline.length > 1 || activeTab === 'proposals'}" 
+              ng-mouseenter="hover = true"
+              ng-mouseleave="hover = false">
+              <div class="team-tabs">
+                <div 
+                  class="team-tab downline" 
+                  ng-if="teamMember.properties.downline_count"
+                  ng-class="{ 
+                    'raise': hover || isMobile() || isActiveMember(teamMember, downline[0]),
+                    'active-tab':  downline[0].tab === 'team' && isActiveMember(teamMember, downline[0]),
+                    'even': levelGap(teamMember) % 2 !== 0,
+                    'odd': levelGap(teamMember) % 2 === 0
+                  }"
+                  id="js-downline-tab" 
+                  ng-click="changeTab(teamMember.properties, downline[0], 'team');">
+                  <!--  ng-if="teamMember.properties.downline_count > 0" -->
+                  <img ng-hide="isActiveTab(teamMember, downline[0])" ng-src="{{img.teamSection.teamIconInvert}}">
+                  <img ng-show="isActiveTab(teamMember, downline[0])" ng-src="{{img.teamSection.teamIcon}}">
+                </div>
+                <div class="team-tab info" ng-if="!teamMember.properties.downline_count" ng-class="{ 'raise': hover || isActiveMember(teamMember, downline[0]) }">
+                  <img ng-src="{{img.teamSection.teamIconInactive}}">
+                </div>
+                <div 
+                  class="team-tab impact" 
+                  ng-class="{ 
+                    'raise': hover || isMobile() || isActiveMember(teamMember, downline[0]),
+                    'active-tab': isActiveTab(teamMember, downline[0], 'impact'),
+                    
+                    'even': levelGap(teamMember) % 2 !== 0,
+                    'odd': levelGap(teamMember) % 2 === 0
+                  }" 
+                  id="js-impact-tab" 
+                  ng-click="changeTab(teamMember.properties, downline[0], 'impact');">
+                  <img ng-hide="isActiveTab(teamMember, downline[0], 'impact')" ng-src="{{img.teamSection.kpiIconInvert}}">
+                  <img ng-show="isActiveTab(teamMember, downline[0], 'impact')" ng-src="{{img.teamSection.kpiIcon}}">
+                </div>
+                <div 
+                  class="team-tab info" 
+                  ng-if="teamMember.properties.proposal_count"
+                  ng-class="{ 
+                    'raise': hover || isActiveMember(teamMember, downline[0]),
+                    'active-tab': isActiveTab(teamMember, downline[0], 'proposals'),
+                     
+                    'even': levelGap(teamMember) % 2 !== 0,
+                    'odd': levelGap(teamMember) % 2 === 0
+                  }" 
+                  id="js-info-tab" 
+                  ng-click="changeTab(teamMember.properties, downline[0], 'proposals'); teamSection.fetchProposals(teamMember);">
+                 <!--  <i class="fa fa-info-circle invert"></i> -->
+                  <img ng-hide="isActiveTab(teamMember, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIconInvert}}">
+                  <img ng-show="isActiveTab(teamMember, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIcon}}">
+                </div>
+                <div class="team-tab info" ng-if="!teamMember.properties.proposal_count" ng-class="{ 'raise': hover || isActiveMember(teamMember, downline[0]) }">
+                  <img ng-src="{{img.teamSection.customerIconInactive}}">
+                </div>
+              </div>
+              <div class="info-box" ng-class="{ 
+                    'raise': hover || isMobile() || downline.length > 1 || isActiveMember(teamMember, downline[0]) || activeTab === 'proposals',
+                    'accordion': downline.length > 1 || activeTab === 'proposals'}"
+                    ng-click="changeTab(teamMember.properties, downline[0], 'impact');">
+                <div class="avatar" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals'}">
+                  <img class="lazyOwl" data-src="{{teamMember.properties.avatar.thumb}}">
+                </div>
+                <div class="info-text user-text">
+                  <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
+                  <span ng-hide="isActiveMember(teamMember, downline[0]) && downline[0].tab !== 'impact'" class="info-detail">TEAM {{teamMember.properties.downline_count}}, PROPOSALS {{teamMember.properties.proposal_count || 0}}</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Downline Drilldown -->
+    <ng-include src="'dashboard/templates/sections/team/downline.html'"></ng-include>
+    <!-- Proposals Drilldown -->
+    <ng-include src="'dashboard/templates/sections/team/proposals.html'"></ng-include>
+    <!-- Info Drilldown -->
+    <ng-include src="'dashboard/templates/sections/team/info.html'"></ng-include>
+    <!-- Proposal Info Drilldown -->
+    <ng-include src="'dashboard/templates/sections/team/proposal.html'"></ng-include>
+    <!-- Proposal Invites Drilldown -->
+    <ng-include src="'dashboard/templates/sections/team/invites.html'"></ng-include>
+
+  </div>
+</div>

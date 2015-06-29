@@ -5,7 +5,7 @@
     $scope.redirectUnlessSignedIn();
     $scope.showInvitesCarousel = false;
 
-    $scope.legacyImagePaths = legacyImagePaths;
+    $scope.img = legacyImagePaths;
     $scope.downline = [];
     $scope.currentTeamMember = {};
 
@@ -126,7 +126,6 @@
         return $scope.activeTab = '';
       } else {
         gen.selected = teamMember.id;
-        console.log(gen.selected)
         gen.tab = tab;
         closeForm();
 
@@ -135,8 +134,8 @@
         if (tab === 'team') {
           teamTab(teamMember);
         } else {
-          $scope.activeTab = tab;
           $timeout(function(){
+            $scope.activeTab = tab;
             $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
           }, delay);
         }
