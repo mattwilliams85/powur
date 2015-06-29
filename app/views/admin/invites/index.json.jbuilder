@@ -2,6 +2,10 @@ siren json
 
 invites_json.list_init
 
+json.properties do
+  json.call(@user, :available_invites, :id)
+end
+
 actions \
   index_action(admin_user_invites_path, true),
   action(:create, :post, admin_user_invites_path)

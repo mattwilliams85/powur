@@ -59,7 +59,6 @@
           href: entity.href
         }).then(function(item) {
           $scope[entityRel] = item;
-          console.log($scope[entityRel]);
           return $scope[entityRel];
         });
       }
@@ -126,6 +125,21 @@
         })
       }
     }
+    // Update Available Invites Action
+    $scope.updateAvailableInvites = function(item) {
+      var data = {invites: item.properties.available_invites};
+      CommonService.execute({
+        href: '/a/users/' + item.properties.id + '/invites.json',
+        method: 'PATCH',
+      }, data).then(function success(data) {
+        if (data.error) {
+          $scope.showModal('There was an error while updating this user.');
+          return;
+        }
+        $scope.showModal('You\'ve successfully updated this user\'s available invites count!');
+        $anchorScroll;
+      });
+    };
 
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);

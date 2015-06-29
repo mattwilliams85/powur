@@ -1,5 +1,20 @@
 <h3>Invites</h3>
-
+<h5>Available Invites</h5>
+<form>
+  <div class="row">
+    <div class="large-6 columns">
+      <div class="row collapse">
+        <div class="small-6 columns">
+          <input ng-model="user_invites.properties.available_invites" type="number">
+        </div>
+        <div class="small-6 columns">
+          <a ng-click="updateAvailableInvites(user_invites)" class="button postfix">Update Available Invites</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<h5>Pending/Redeemed Invites</h5>
 <table class="invites-table">
   <thead>
     <tr>
@@ -13,6 +28,9 @@
     </tr>
   </thead>
   <tbody>
+    <tr ng-if="user_invites.entities.length === 0">
+      <td>This user has no open or redeemed invites</td>
+    </tr>
     <tr ng-repeat="invite in user_invites.entities">
       <td>{{invite.properties.id}}</td>
       <td>{{invite.properties.first_name}} {{invite.properties.last_name}}</td>
