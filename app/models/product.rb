@@ -72,11 +72,7 @@ class Product < ActiveRecord::Base
 
     return false if response['response_code'].first != '100'
 
-    user.address = form[:address1] unless user.address
-    user.city = form[:city] unless user.city
-    user.state = form[:state] unless user.state
     user.zip = form[:zip] unless user.zip
-    user.phone = form[:phone] unless user.phone
     user.save
 
     product_receipts.create(
