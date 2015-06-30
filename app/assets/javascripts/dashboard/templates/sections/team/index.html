@@ -38,14 +38,10 @@
 
       <!-- Invite New Team Member Button -->
       <div class="w20percent small-2 columns">
-
-        <!-- UNCOMMENT LINE BELOW FOR INVITES DROPDOWN !! -->
         <div class="new-team-member" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals', 'invert': activeTab === 'invites'}" ng-click="invitesTab()">
-        <!-- <div class="new-team-member beta" ng-class="{'accordion': downline.length > 1 || activeTab === 'proposals'}"> -->
-        <!-- ng-hide="downline.length > 1 || activeTab === 'proposals'" -->
           <div class="invites-summary">
             <div class="number">
-              <span>{{invites.available}}</span>
+              <span>{{invites.available || 0}}</span>
             </div>
             <div class="info-text">
               <span>Invites Available</span>

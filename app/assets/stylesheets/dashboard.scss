@@ -1,12 +1,6 @@
 $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans-serif;
 $kpi-text-color: #888;
 
-//DO NOT REMOVE (dev tool)
-  // div {
-  //   border: 1px solid red;
-  // }
-//
-
 .powur-dashboard {
   padding-bottom: 210px;
   background-color: #f8f8f8;
@@ -2166,6 +2160,12 @@ $kpi-text-color: #888;
       color: #fff;
     }
   }
+}
+
+//Remove dashed border from focus in mozilla
+select:-moz-focusring {
+  color: transparent !important;
+  text-shadow: 0 0 0 #dedede !important;
 }
 
 .sk-spinner-three-bounce.sk-spinner {
