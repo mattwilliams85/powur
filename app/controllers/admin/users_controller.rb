@@ -19,6 +19,10 @@ module Admin
       end
     end
 
+    def invites
+      @users = apply_list_query_options(User)
+    end
+
     def downline
       @users = apply_list_query_options(@user.downline_users)
 

@@ -246,6 +246,7 @@ Rails.application.routes.draw do
     resources :users, only: [ :index, :show, :update ], as: :admin_users do
       collection do
         get '' => 'users#search', constraints: params?(:search)
+        get :invites
       end
       member do
         get :downline

@@ -18,7 +18,7 @@
       }
       page += direction;
       return CommonService.execute({
-        href: '/a/users.json?with_purchases=true&page=' + page
+        href: '/a/users/invites.json?with_purchases=true&page=' + page
       }).then(function(data) {
         $scope.indexData = data;
         $anchorScroll();
