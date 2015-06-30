@@ -40,34 +40,22 @@ module ApplicationHelper
   end
 
   def university_classes_json
-    @university_classes_json ||= UniversityClassesJson.new(
-      self,
-      @university_classes,
-      @university_class
-    )
+    @university_classes_json ||= UniversityClassesJson.new(self, @university_classes, @university_class)
   end
 
   def resources_json
-    @resources_json ||= ResourcesJson.new(
-      self,
-      @resources,
-      @resource
-    )
+    @resources_json ||= ResourcesJson.new(self, @resources, @resource)
   end
 
   def notifications_json
-    @notifications_json ||= NotificationsJson.new(
-      self,
-      @notifications,
-      @notification
-    )
+    @notifications_json ||= NotificationsJson.new(self, @notifications, @notification)
   end
 
   def social_media_posts_json
-    @social_media_posts_json ||= SocialMediaPostsJson.new(
-      self,
-      @social_media_posts,
-      @social_media_posts
-    )
+    @social_media_posts_json ||= SocialMediaPostsJson.new(self, @social_media_posts, @social_media_posts)
+  end
+
+  def invites_json
+    @invites_json ||= InvitesJson.new(self, @invites, @invite)
   end
 end

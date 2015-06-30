@@ -5,6 +5,7 @@ DEFAULTS: &DEFAULTS
   encrypted_password: <%= default_password_digest %>
   tos: true
   organic_rank: 1
+  available_invites: 3
 
 advocate:
   <<: *DEFAULTS

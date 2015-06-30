@@ -20,6 +20,10 @@ class Invite < ActiveRecord::Base
   validates :phone, presence: true, allow_nil: true
   validate :max_invites, on: :create
 
+  after_create :subtract_from_available_invites
+
+  after_destroy :increment_available_invites
+
   before_validation do
     self.id ||= Invite.generate_code
     self.expires ||= expires_timespan
@@ -63,7 +67,15 @@ class Invite < ActiveRecord::Base
   end
 
   def max_invites
-    return if sponsor.remaining_invites > 0
+    return if sponsor.available_invites > 0
     errors.add(:sponsor, :exceeded_max_invites)
+  end
+
+  def subtract_from_available_invites
+    sponsor.update_column(:available_invites, sponsor.available_invites - 1)
+  end
+
+  def increment_available_invites
+    sponsor.update_column(:available_invites, sponsor.available_invites + 1)
   end
 end

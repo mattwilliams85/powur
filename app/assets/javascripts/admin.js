@@ -26,10 +26,12 @@
 //= require admin/app.admin
 //= require admin/app.admin.routes
 //= require app.common.service
+//= require blocks/blocks.filters
 //= require admin/app.admin.widgets
 //= require_tree ./admin/application-agreements
 //= require_tree ./admin/bonuses
 //= require_tree ./admin/bonus-plans
+//= require_tree ./admin/invites
 //= require_tree ./admin/landing
 //= require_tree ./admin/latest-news
 //= require_tree ./admin/orders

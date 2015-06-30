@@ -1,12 +1,16 @@
 module Admin
   class UsersController < AdminController
     before_action :fetch_user, only: [ :downline, :upline, :show, :update, :eligible_parents, :move ]
+    page max_limit: 25
+    sort id_asc:        { id: :asc },
+         id_desc:       { id: :desc }
+    filter :has_rank, url: -> { admin_users_path }, scope_opts: { type: :boolean }, required: false
 
     def index
       respond_to do |format|
         format.html
         format.json do
-          @users = User.at_level(1).order(last_name: :desc, first_name: :desc)
+          @users = apply_list_query_options(User)
           if params[:group]
             group_ids = params[:group].split(',')
             @users = @users.in_groups(*group_ids)
@@ -16,19 +20,19 @@ module Admin
     end
 
     def downline
-      @users = @user.downline_users
+      @users = apply_list_query_options(@user.downline_users)
 
       render 'index'
     end
 
     def upline
-      @users = @user.upline_users
+      @users = apply_list_query_options(@user.upline_users)
 
       render 'index'
     end
 
     def search
-      @users = User.search(params[:search])
+      @users = apply_list_query_options(User.search(params[:search]))
 
       render 'index'
     end

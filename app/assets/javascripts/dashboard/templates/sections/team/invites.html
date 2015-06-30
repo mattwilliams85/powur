@@ -1,0 +1,131 @@
+<!-- Row: Invites Carousel -->
+<div class="row collapse carousel-box downline-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'invites'}">
+  <!-- New Invite Button -->
+  <div class="w20percent team-member-info-large small-2 columns" ng-click="newInvite()" ng-class="{'invert': showNew, 'disabled': noInvitesAvailable}">
+    <div class="icon invite-icon">
+      <span><i class="fa fa-user-plus fa-4x"></i></span>
+    </div>
+    <div class="info-text user-text" ng-class="{'disabled': noInvitesAvailable}">
+      <span>New Invite</span>
+    </div>
+  </div>
+
+
+  <!-- Invites Carousel -->
+  <div class="carousel-container w80percent small-10 columns">
+    <div class="invites owl-carousel downline" id="invites">
+      <div ng-repeat="invite in invites">
+
+        <!-- Existing Invites -->
+        <div ng-if="invite" class="invite" ng-click="showInvite(invite);" ng-class="{'active': invite.properties.id === activeInvite.properties.id}">
+          <div class="icon invite-icon">
+            <span><i class="fa fa-envelope fa-4x"></i></span>
+          </div>
+          <div class="info-text user-text">
+            <span>{{invite.properties.first_name}} {{invite.properties.last_name}}</span>
+            <span class="info-detail">Expires {{ invite.properties.expires | dateToLocalDate }} {{ invite.properties.expires | timeToLocalTime }}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row collapse downline-row drilldown invite-row" ng-class="{ 'expand': showNew }">
+  <!-- Large -->
+  <div ng-hide="!showNew" class="large-12 columns form">
+    <div class="summary large-3 medium-3 columns">
+      <h1>New Invite</h1>
+      <p>Enter a name and email address to send an invitation to join Powur.</p>
+      <p>Invites expire after 24 hours. You can renew an invite after it expires. You can also cancel the invitation.</p>
+      <p>Users who accept your invitation will be placed on your team when they sign up.</p>
+    </div>
+    <div class="form large-9 medium-9 columns">
+      <form ng-submit="sendNewInvite()" id="customers-form">
+        <div class="row">
+          <div class="large-12 columns">
+            <fieldset>
+              <legend><i class="fa fa-envelope"></i> Contact Information</legend>
+
+              <!-- First/Last Name -->
+              <div class="row">
+                <div class="large-6 medium-6 columns">
+                  <label>First Name</label>
+                  <input ng-model="newInviteFields.first_name" type="text">
+                </div>
+                <div class="large-6 medium-6 columns">
+                  <label>Last Name</label>
+                  <input ng-model="newInviteFields.last_name" type="text">
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="row">
+                <div class="large-12 medium-12 columns">
+                  <label>Email</label>
+                  <input ng-model="newInviteFields.email" type="email">
+                </div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="row">
+                <div class="large-12 columns">
+                  <button class="button right">Send Invite</button>
+                </div>
+              </div>
+
+            </fieldset>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="row collapse downline-row drilldown invite-row" ng-class="{ 'expand': activeInvite }">
+  <!-- Large -->
+  <div ng-hide="!activeInvite" class="large-12 columns form">
+    <div class="summary large-3 medium-3 columns">
+      <h1>Open Invite</h1>
+      <p>This invite has been sent to <br>
+      {{activeInvite.properties.first_name}} {{activeInvite.properties.last_name}}.</p>
+      <p>You can cancel or resend this invite using the buttons below. Resending will reset the expiration date of this invite.</p>
+      <button class="button secondary expand" ng-click="deleteInvite(activeInvite)">Cancel Invite</button>
+      <button class="button expand" ng-click="resendInvite(activeInvite)">Resend Invite</button>
+    </div>
+
+    <div class="form large-9 medium-9 columns">
+      <form>
+        <div class="row">
+          <div class="large-6 columns">
+            <fieldset>
+              <legend><i class="fa fa-envelope"></i> Invite Information</legend>
+              <div class="submitted-proposal panel">
+                <label>Contact Information</label>
+                <div class="customer-info">
+                  <p class="name">{{activeInvite.properties.first_name}} {{activeInvite.properties.last_name}}</p>
+                  <p class="email">{{activeInvite.properties.email}}</p>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="large-6 columns">
+            <fieldset>
+              <legend><i class="fa fa-info-circle"></i> Other Details</legend>
+              <div class="submitted-proposal panel">
+                <label>Invite Code</label>
+                <p class="name">{{activeInvite.properties.id}}</p>
+              </div>
+              <div class="submitted-proposal panel">
+                <label>Expiration</label>
+                <p class="name">{{activeInvite.properties.expires | dateToLocalDate}} {{activeInvite.properties.expires | timeToLocalTime}}</p>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

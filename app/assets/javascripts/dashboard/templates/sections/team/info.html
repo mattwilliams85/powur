@@ -1,0 +1,52 @@
+<!-- Row: Team Member Info -->
+    <div class="row collapse downline-row info-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'impact' }">
+      <!-- Large -->
+      <div ng-hide="activeTab !== 'impact'" class="large-12 columns fade-in-section" ng-class="{'opaque': activeTab === 'impact'}">
+        <!-- Generation -->
+
+        <div class="icon-container">
+
+          <div class="w25percent team-member-info-large">
+            <div class="icon">
+              <img ng-src="{{img.teamPhoneIcon}}">
+            </div>
+            <div class="info-text">
+              <span>{{currentTeamMember.phone || 'xxx-xxx-xxxx'}}</span>
+            </div>
+          </div>
+
+          <div class="w25percent team-member-info-large">
+            <div class="icon social-media">
+              <img ng-src="{{img.teamEmailIcon}}">
+            </div>
+            <div class="info-text email-text">
+              <span class="email"><a href="mailto:{{currentTeamMember.email}}">{{currentTeamMember.email}}</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="w25percent team-member-info-large">
+          <div class="icon social-media">
+            <div class="small-12 medium-6 columns">
+              <!-- If Facebook -->
+              <a ng-if="currentTeamMember.profile.facebook_url" href="{{currentTeamMember.profile.facebook_url}}"><i class="fa fa-facebook alternate"></i></a>
+              <!-- If No Facebook -->
+              <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook  alternate disabled"></i></a>
+            <div class="info-text show-for-large-up">
+              <span class="show-for-xlarge-up" ng-class="{ 'disabled': !currentTeamMember.profile.facebook_url }">Facebook</span>
+              <span class="hide-for-xlarge-up" ng-class="{ 'disabled': !currentTeamMember.profile.facebook_url }">FB</span>
+            </div>
+          </div>
+          <div class="small-12 medium-6 columns bottom-part">
+             <!-- If Twitter -->
+             <a ng-if="currentTeamMember.profile.twitter_url" href="{{currentTeamMember.profile.twitter_url}}"><i class="fa fa-twitter alternate"></i></a>
+             <!-- If No Twitter -->
+             <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter  alternate disabled"></i></a>
+            <div class="info-text show-for-large-up">
+              <span ng-class="{ 'disabled': !currentTeamMember.profile.twitter_url }">Twitter</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
