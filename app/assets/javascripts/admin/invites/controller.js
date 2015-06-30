@@ -31,6 +31,9 @@
         href: '/a/users/' + item.properties.id + '/invites.json',
         method: 'PATCH',
       }, data).then(function(data) {
+        if (data.error) {
+          $scope.showModal('There was an error updating this user\'s available invites.');
+        }
         item.properties.lifetime_invites_count = data.properties.lifetime_invites_count;
       });
     };
