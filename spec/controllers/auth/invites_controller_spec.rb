@@ -67,11 +67,11 @@ describe Auth::InvitesController do
     end
   end
 
-  describe '#destroy' do
+  describe '#delete' do
     it 'deletes an invite' do
       invite = create(:invite, sponsor: @user)
 
-      delete :destroy, id: invite.id
+      delete :delete, id: invite.id
 
       expect_200
       expect(Invite.find_by_id(invite.id)).to be_nil
