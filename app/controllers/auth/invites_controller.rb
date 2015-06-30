@@ -1,6 +1,6 @@
 module Auth
   class InvitesController < AuthController
-    before_action :fetch_invite, only: [ :show, :resend, :destroy ]
+    before_action :fetch_invite, only: [ :show, :resend, :delete ]
     skip_before_action :authenticate!, only: [ :show ]
 
     def index
@@ -30,7 +30,7 @@ module Auth
       render 'show'
     end
 
-    def destroy
+    def delete
       @invite.destroy!
 
       index

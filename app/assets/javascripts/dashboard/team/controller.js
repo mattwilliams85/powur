@@ -280,16 +280,18 @@
       });
     };
 
-    // Show Inviite
+    // Show Invite
     $scope.showInvite = function(invite) {
-      if ($scope.activeInvite === invite.properties) return closeForm();
+      if ($scope.activeInvite === invite) return closeForm();
       closeForm();
-      $scope.activeInvite = invite.properties;
+      $scope.activeInvite = invite;
+
     }
 
     $scope.newInvite = function() {
       if ($scope.showNew) return closeForm();
       closeForm();
+      if ($scope.noInvitesAvailable) return;
       $scope.showNew = true;
       $scope.newInviteFields = {}
     }
@@ -297,17 +299,42 @@
     $scope.sendNewInvite = function() {
       if ($scope.newInviteFields) {
         CommonService.execute($scope.inviteFormAction, $scope.newInviteFields).then(function success(data){
+          if (data.error) {
+            fetchInvites();
+            closeForm();
+            return;
+          }
           $scope.invites.unshift(data);
           destroyCarousel('#invites');
           $timeout(function(){
             initCarousel($('#invites'));
           });
           $scope.invites.available -= 1;
+          if ($scope.invites.available === 0) {
+            $scope.noInvitesAvailable = true
+          }
           closeForm();
         })
       }
     }
 
+    $scope.resendInvite = function(invite) {
+      var resendAction = getAction(invite.actions, 'resend');
+      CommonService.execute(resendAction).then(function(data) {
+        fetchInvites();
+        closeForm();
+      })
+    }
+
+    $scope.deleteInvite = function(invite) {
+      var deleteAction = getAction(invite.actions, 'delete');
+      if (confirm('Are you sure you want to cancel ' + invite.properties.first_name + ' ' + invite.properties.last_name + '\'s invite?')) {
+        CommonService.execute(deleteAction).then(function() {
+          fetchInvites();
+          closeForm();
+        })
+      }
+    }
 
     // Fetch User's Immediate downline
     $rootScope.$watch('currentUser', function(data) {
@@ -324,16 +351,26 @@
     });
 
     //Fetch Invites
-    $timeout(function() {
+
+    var fetchInvites = function() {
       CommonService.execute({href: '/u/invites.json'}).then(function(data){
         $scope.invites = data.entities;
         $scope.invites.available = data.properties.available;
         $scope.inviteFormAction = getAction(data.actions, 'create');
+        $scope.noInvitesAvailable = false;
+        if (!$scope.invites.available) {
+          $scope.noInvitesAvailable = true;
+        }
         destroyCarousel('#invites');
         $timeout(function(){
           initCarousel($('#invites'));
         });
       });
+    }
+
+    
+    $timeout(function() {
+      fetchInvites();
     });
 
   }

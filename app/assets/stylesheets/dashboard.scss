@@ -475,7 +475,6 @@ $kpi-text-color: #888;
       position: relative;
       text-align: center;
       &.invite-icon {
-        cursor: pointer;
         padding: 5px;
         top: 20%;
       }
@@ -1859,7 +1858,7 @@ $kpi-text-color: #888;
         height: 100px;
       }
 
-      .customer-name, .info-text, .empty-text {
+      .customer-name, .empty-text {
         color: #fff;
       }
 
@@ -1916,6 +1915,12 @@ $kpi-text-color: #888;
       &.active {
         background-color: #333 !important;
         border-bottom: 0px;
+      }
+      &.disabled {
+        color: #555;
+        &:hover {
+          cursor: default;
+        }
       }
     }
 

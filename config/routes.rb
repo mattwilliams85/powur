@@ -109,8 +109,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :invites, only: [ :index, :create, :destroy ] do
+    resources :invites, only: [ :index, :create ] do
       member do
+        delete :delete
         post :resend
       end
     end
