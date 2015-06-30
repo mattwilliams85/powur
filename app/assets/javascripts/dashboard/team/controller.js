@@ -165,6 +165,7 @@
         $scope.activeTab = '';
         return closeForm();
       }
+      closeForm();
       $scope.activeTab = 'invites';
     }
 
