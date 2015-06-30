@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   belongs_to :rank_path
 
+  validates :available_invites, :numericality => { :greater_than_or_equal_to => 0 }
   has_many :quotes
   has_many :customers, through: :quotes
   has_many :orders
