@@ -122,6 +122,7 @@
             $scope.showModal('This invite has been deleted successfully.');
           }
           $scope.user_invites = item;
+          $scope.user_invites.properties.available_invites = item.properties.available_invites;
         })
       }
     }

@@ -44,6 +44,18 @@
       };
     }
 
+    // Utility Functions
+
+    // Get an action with a given name
+    var getAction = function(actions, name) {
+      for (var i in actions) {
+        if (actions[i].name === name) {
+          return actions[i];
+        }
+      }
+      return;
+    };
+
     // Device Detection
     $scope.isMobile = function() {
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
@@ -279,6 +291,21 @@
       if ($scope.showNew) return closeForm();
       closeForm();
       $scope.showNew = true;
+      $scope.newInviteFields = {}
+    }
+
+    $scope.sendNewInvite = function() {
+      if ($scope.newInviteFields) {
+        CommonService.execute($scope.inviteFormAction, $scope.newInviteFields).then(function success(data){
+          $scope.invites.unshift(data);
+          destroyCarousel('#invites');
+          $timeout(function(){
+            initCarousel($('#invites'));
+          });
+          $scope.invites.available -= 1;
+          closeForm();
+        })
+      }
     }
 
 
@@ -301,6 +328,7 @@
       CommonService.execute({href: '/u/invites.json'}).then(function(data){
         $scope.invites = data.entities;
         $scope.invites.available = data.properties.available;
+        $scope.inviteFormAction = getAction(data.actions, 'create');
         destroyCarousel('#invites');
         $timeout(function(){
           initCarousel($('#invites'));

@@ -47,14 +47,95 @@
 <div class="row collapse downline-row drilldown invite-row" ng-class="{ 'expand': showNew }">
   <!-- Large -->
   <div ng-hide="!showNew" class="large-12 columns form">
-    !invite goes here!
+    <div class="summary large-3 medium-3 columns">
+      <h1>New Invite</h1>
+      <p>Enter a name and email address to send an invitation to join Powur.</p>
+      <p>Invites expire after 24 hours. You can renew an invite after it expires, or you can release it to cancel the invitation.</p>
+      <p>Users who accept your invitation will be placed on your team when they sign up.</p>
+    </div>
+    <div class="form large-9 medium-9 columns">
+      <form ng-submit="sendNewInvite()" id="customers-form">
+        <div class="row">
+          <div class="large-12 columns">
+            <fieldset>
+              <legend><i class="fa fa-envelope"></i> Contact Information</legend>
+
+              <!-- First/Last Name -->
+              <div class="row">
+                <div class="large-6 medium-6 columns">
+                  <label>First Name</label>
+                  <input ng-model="newInviteFields.first_name" type="text">
+                </div>
+                <div class="large-6 medium-6 columns">
+                  <label>Last Name</label>
+                  <input ng-model="newInviteFields.last_name" type="text">
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div class="row">
+                <div class="large-12 medium-12 columns">
+                  <label>Email</label>
+                  <input ng-model="newInviteFields.email" type="email">
+                </div>
+              </div>
+
+              <!-- Buttons -->
+              <div class="row">
+                <div class="large-12 columns">
+                  <button class="button right">Send Invite</button>
+                </div>
+              </div>
+
+            </fieldset>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
 <div class="row collapse downline-row drilldown invite-row" ng-class="{ 'expand': activeInvite }">
   <!-- Large -->
   <div ng-hide="!activeInvite" class="large-12 columns form">
-    !invite goes here!
+    <div class="summary large-3 medium-3 columns">
+      <h1>Open Invitation</h1>
+      <p>Pending Invitation.</p>
+      <p>Copy goes here.</p>
+      <button class="button secondary expand" ng-click="">Release Invite</button>
+      <button class="button secondary expand" ng-click="">Resend Invite</button>
+    </div>
+    <div class="form large-9 medium-9 columns">
+      <form>
+        <div class="row">
+          <div class="large-6 columns">
+            <fieldset>
+              <legend><i class="fa fa-envelope"></i> Invite Information</legend>
+              <div class="submitted-proposal panel">
+                <label>Contact Information</label>
+                <div class="customer-info">
+                  <p class="name">{{activeInvite.first_name}} {{activeInvite.last_name}}</p>
+                  <p class="email">{{activeInvite.email}}</p>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="large-6 columns">
+            <fieldset>
+              <legend><i class="fa fa-info-circle"></i> Other Details</legend>
+              <div class="submitted-proposal panel">
+                <label>Invite Code</label>
+                <p class="name">{{activeInvite.id}}</p>
+              </div>
+              <div class="submitted-proposal panel">
+                <label>Expiration</label>
+                <p class="name">{{activeInvite.expires | dateToLocalDate}} {{activeInvite.expires | timeToLocalTime}}</p>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
