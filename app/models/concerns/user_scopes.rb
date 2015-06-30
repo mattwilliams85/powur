@@ -139,6 +139,8 @@ module UserScopes
     }
 
     scope :has_rank, -> { where('lifetime_rank is not null or lifetime_rank != 0') }
+
+    scope :with_purchases, -> { joins(:product_receipts) }
   end
 
   module ClassMethods

@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
+  has_many :product_receipts
   has_many :product_enrollments, dependent: :destroy
   has_many :user_user_groups, dependent: :destroy
   has_many :user_groups, through: :user_user_groups
