@@ -17,14 +17,20 @@
     $scope.showResource = function(item) {
       item.videoPlayer = null;
       $('#item_' + item.properties.id + ' .reveal-modal').foundation('reveal', 'open');
+      $(document).on('closed.fndtn.reveal', '[data-reveal]', function() {
+        // Remove iframe on modal close
+        $('#item_' + item.properties.id + ' .reveal-modal iframe').remove();
+      });
     };
 
     $scope.showPlayer = function(item) {
       item.videoPlayer = true;
       if (item.properties.file_original_path) {
-        item.videoPlayer = "<video width='100%' controls><source src='" + item.properties.file_original_path + "' type='video/mp4'></video>";
+        item.videoPlayer = "<video width='100%' controls autoplay><source src='" +
+          item.properties.file_original_path + "' type='video/mp4'></video>";
       } else if (item.properties.youtube_id) {
-        item.videoPlayer = "<iframe type='text/html' width='100%' src='https://www.youtube.com/embed/" + item.properties.youtube_id + "' frameborder='0' modestbranding='1' autohide='1' showinfo='1' controls='1';></iframe>";
+        item.videoPlayer = "<iframe type='text/html' width='100%' src='https://www.youtube.com/embed/" +
+          item.properties.youtube_id + "?autoplay=1' frameborder='0' modestbranding='1' autohide='1' showinfo='1' controls='1';></iframe>";
       }
     };
 
