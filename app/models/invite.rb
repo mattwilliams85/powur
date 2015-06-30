@@ -11,10 +11,7 @@ class Invite < ActiveRecord::Base
     uniqueness: true,
     presence: true,
     email: {
-      message: 'Incorrect email address'
-    },
-    mx: {
-      message: 'Email record not found'
+      message: 'This isn\'t a valid email address'
     }
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true

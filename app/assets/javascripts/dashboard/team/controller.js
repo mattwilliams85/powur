@@ -294,15 +294,15 @@
       closeForm();
       if ($scope.noInvitesAvailable) return;
       $scope.showNew = true;
-      $scope.newInviteFields = {}
+      $scope.newInviteFields = {};
+      $scope.error = {};
     }
 
     $scope.sendNewInvite = function() {
       if ($scope.newInviteFields) {
         CommonService.execute($scope.inviteFormAction, $scope.newInviteFields).then(function success(data){
           if (data.error) {
-            fetchInvites();
-            closeForm();
+            $scope.error = data.error;
             return;
           }
           $scope.invites.unshift(data);
