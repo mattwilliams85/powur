@@ -28,7 +28,7 @@
       <!-- Buttons -->
       <div class="class-buttons">
         <a class="button small expand" ng-click="takeClass(classItem)" ng-if="canTakeClass(classItem)">Take Class</a>
-        <a class="button small expand purchase" ng-href="/university/classes/{{classItem.properties.id}}/purchase" ng-if="canPurchaseClass(classItem)">Purchase</a>
+        <a class="button small expand purchase" ng-href="/upsell" ng-if="canPurchaseClass(classItem)">Learn More</a>
       </div>
     </div>
   </div>

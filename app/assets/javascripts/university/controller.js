@@ -57,47 +57,10 @@
       });
     };
 
-    this.init($scope, $location);
-    this.fetch($scope, $routeParams, $location, UniversityClass, UserProfile, Geo);
+    return UniversityClass.list().then(function(items) {
+      $scope.universityClasses = items;
+    });
   }
-
-
-  UniversityCtrl.prototype.init = function($scope, $location) {
-    // Setting mode based on the url
-    $scope.mode = 'index';
-    if (/\/purchase$/.test($location.path())) return $scope.mode = 'purchase';
-  };
-
-
-  UniversityCtrl.prototype.fetch = function($scope, $routeParams, $location, UniversityClass, UserProfile, Geo) {
-    if ($scope.mode === 'index') {
-      return UniversityClass.list().then(function(items) {
-        $scope.universityClasses = items;
-      });
-    } else if ($scope.mode === 'purchase') {
-      $scope.card = {};
-      $scope.$watch('currentUser', function(data) {
-        if (data && data.first_name) {
-          $scope.card.email = data.email;
-          $scope.card.address = data.address;
-          $scope.card.zip = data.zip;
-          $scope.card.city = data.city;
-          $scope.card.state = data.state;
-          $scope.card.phone = data.phone;
-          $scope.card.name = data.first_name + ' ' + data.last_name;
-          $scope.card.zip = data.zip;
-        }
-      });
-      $scope.states = Geo.states();
-
-      return UniversityClass.get($routeParams.classId).then(function(data) {
-        $scope.classItem = data;
-        if ($scope.classItem.properties.purchased || $scope.classItem.properties.price === 0) {
-          $location.path('/university');
-        }
-      });
-    }
-  };
 
   UniversityCtrl.$inject = ['$scope', '$rootScope', '$location', '$window', '$anchorScroll', '$routeParams', 'UniversityClass', 'UserProfile', 'Geo', 'CommonService'];
   angular.module('powurApp').controller('UniversityCtrl', UniversityCtrl);

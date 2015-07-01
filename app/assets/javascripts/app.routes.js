@@ -92,10 +92,6 @@
       templateUrl: 'university/templates/index.html',
       controller: 'UniversityCtrl'
     }).
-    when('/university/classes/:classId/purchase', {
-      templateUrl: 'university/templates/purchase.html',
-      controller: 'UniversityCtrl'
-    }).
 
     // Memberships
     when('/upsell', {
