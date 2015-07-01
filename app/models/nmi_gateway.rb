@@ -25,13 +25,7 @@ class NmiGateway
 
     query += '&firstname=' + URI.escape(params[:firstname])
     query += '&lastname=' + URI.escape(params[:lastname])
-    query += '&phone=' + URI.escape(params[:phone].to_s)
-    query += '&address1=' + URI.escape(params[:address1].to_s)
-    query += '&address2=' + URI.escape(params[:address2].to_s)
-    query += '&city=' + URI.escape(params[:city].to_s)
-    query += '&state=' + params[:state].to_s
     query += '&zip=' + params[:zip].to_s
-    query += '&email=' + URI.escape(params[:email].to_s)
   end
 
   def do_post

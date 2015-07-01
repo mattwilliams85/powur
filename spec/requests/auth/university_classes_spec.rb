@@ -73,7 +73,7 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
         card:   { name: 'Bob' },
         format: :json
       })
-      expect_input_errors(:number, :cvv, :address)
+      expect_input_errors(:number, :cvv)
     end
   end
 end

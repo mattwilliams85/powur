@@ -23,6 +23,7 @@ class UniversityClassesJson < JsonDecorator
       json.enrollable !!university_class.smarteru_module_id
       json.state current_user.product_enrollments.find_by(product_id: university_class.id).try(:state)
       json.is_required_class university_class.is_required_class
+      json.slug university_class.slug
     end
   end
 

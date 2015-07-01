@@ -60,7 +60,7 @@
               </div>
 
               <span class="line">
-                $299 <small>one-time</small>
+                ${{ membershipPrice('certified') }} <small>one-time</small>
               </span>
 
               <div class="inner-bottom">
@@ -73,7 +73,7 @@
                   </ul>
                 </div>
 
-                <a class="button select-certification" ng-click="selectMembership()">Select</a>
+                <a ng-if="isPurchasable('certified')" ng-click="selectMembership('certified')" class="button select-certification">Select</a>
               </div>
             </div>
           </div>
@@ -163,14 +163,14 @@
             <tr class="large-font">
               <td></td>
               <td>FREE</td>
-              <td>$299 <small>one-time</small></td>
+              <td>${{ membershipPrice('certified') }} <small>one-time</small></td>
               <td>$39 <small>monthly</small></td>
               <td class="semipro-bg">$29 <small>monthly</small><br>+ $299 <small>one-time</small></td>
             </tr>
             <tr>
               <td></td>
               <td><!--a class="button small free">EXISTING</a--></td>
-              <td><a class="button small" ng-click="selectMembership()">SELECT</a></td>
+              <td><a class="button small" ng-if="isPurchasable('certified')" ng-click="selectMembership('certified')">SELECT</a></td>
               <td><a class="button small">COMING SOON</a></td>
               <td class="semipro-bg"><a class="button small best">COMING SOON</a></td>
             </tr>
@@ -353,7 +353,7 @@
             <tr>
               <td></td>
               <td><!--a class="button small free">EXISTING</a--></td>
-              <td><a class="button small" ng-click="selectMembership()">SELECT</a></td>
+              <td><a class="button small" ng-if="isPurchasable('certified')" ng-click="selectMembership('certified')">SELECT</a></td>
               <td><a class="button small">COMING SOON</a></td>
               <td class="pro"><a class="button small pro">COMING SOON</a></td>
             </tr>
@@ -374,6 +374,8 @@
       </div>
     </div>
   </div>
+
+  <ng-include src="'memberships/templates/purchase-modal.html'"></ng-include>
 
 </main>
 
