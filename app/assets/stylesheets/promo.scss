@@ -2,13 +2,20 @@ $medium-screen: em-calc(1200);
 $large-screen: em-calc(1400);
 $xl-screen: em-calc(1500);
 
+.pow-promo * {
+;
+}
+
 .pow-promo {
   height: 100%;
   position: relative;
   z-index: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
+    font-family: montserrat;
     margin-bottom: 0.5em;
     @media #{$large} {
       margin-bottom: 1em;

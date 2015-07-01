@@ -8,6 +8,8 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   &.fixed-footer {
     min-height: 800px;
@@ -19,6 +21,7 @@
 
   h1, h2, h3, h4, h5 {
     font-weight: normal;
+    font-family: montserrat !important;
     display: block;
     text-align: left;
     width: 85%;
