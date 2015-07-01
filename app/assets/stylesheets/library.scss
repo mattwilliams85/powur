@@ -156,20 +156,22 @@
 
   .resource-type-icon {
     position: absolute;
-    left: 240px;
+    right: 7px;
     width: 20px;
-    top: 10px;
+    top: 12px;
   }
 
   .media-info {
     width: 290px;
 
     .media-thumbnail {
-      overflow: hidden;
-      height: 180px;
       background-position: left center;
       background-size: contain;
       background-repeat: no-repeat;
+      overflow: hidden;
+      height: 180px;
+      width: 250px;
+      position: relative;
     }
 
     .title {
@@ -203,9 +205,9 @@
 
   .media-info-large {
     background-image: image-url('library/media-thumbnail-large.jpg');
-    height: 500px;
     background-repeat: no-repeat;
     background-size: cover;
+    height: 500px;
   }
 
   .close-reveal-modal {

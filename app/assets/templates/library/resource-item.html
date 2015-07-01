@@ -1,9 +1,8 @@
 <div class="library-resource-item">
-  <img class="resource-type-icon" ng-src="{{isVideo(item) ? legacyImagePaths.videoIconImagePath : legacyImagePaths.pdfIconImagePath}}">
-
   <!-- Thumbnails or Media icons -->
   <div class="media-info">
     <div class="media-thumbnail" style="background-image: url('{{itemThumbnail(item)}}');">
+      <img class="resource-type-icon" ng-src="{{isVideo(item) ? legacyImagePaths.videoIconImagePath : legacyImagePaths.pdfIconImagePath}}">
       <div class="title">{{ item.properties.title }}</div>
       <div class="description">{{ item.properties.tag_line }}</div>
     </div>

@@ -2,13 +2,13 @@
 
 <main class="powur-library">
   <div class="row bump">
-    <div class="large-3 medium-4 small-6 columns">
+    <div class="large-3 medium-4 small-12 columns">
       <form name="searchForm" ng-submit="getResources()" novalidate>
         <input ng-model="searchText" type="search" class="search-field"></input>
       </form>
     </div>
 
-    <div class="large-3 medium-4 small-6 columns last right">
+    <div class="large-3 medium-4 small-12 columns last right">
       <select ng-model="filterTopic" ng-options="topic.id as topic.title for topic in allActiveTopics" ng-change="getResources()" class="filter">
         <option value="">All topics</option>
       </select>
