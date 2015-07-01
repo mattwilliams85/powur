@@ -211,6 +211,15 @@
       });
     };
 
+    $scope.inviteExpired = function(invite) {
+      var now = new Date();
+      var expiration = new Date(Date.parse(invite.properties.expires));
+      if (expiration <= now) {
+        return true;
+      }
+      return false;
+    };
+
     // Show Invite
     $scope.showInvite = function(invite) {
       if ($scope.activeInvite === invite) return closeForm();
@@ -303,7 +312,7 @@
           initCarousel($('#invites'));
         });
       });
-    }
+    };
 
     // Close Team Member
     function closeForm(element) {
