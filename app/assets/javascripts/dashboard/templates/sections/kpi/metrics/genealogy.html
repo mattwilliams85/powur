@@ -7,7 +7,7 @@
     <div ng-class="{'active': activeUser.id === user.id}" class="user-contributor row" ng-click="changeUser(user)">
       <div class="row current-user-row">
         <img ng-if="!user.avatar" class="avatar-medium" ng-src="{{user.defaultAvatarThumb}}"> 
-        <img ng-if="user.avatar" class="avatar-medium" ng-src="{{user.avatar.small}}">
+        <img ng-if="user.avatar" class="avatar-medium" ng-src="{{user.avatar.thumb}}">
       </div>
       <div class="row current-user-row details">
         <a href=""><span class="kpi-detail link" data-id="user.id">{{user.first_name}} {{user.last_name}}</span></a>
@@ -23,8 +23,8 @@
         <div class="animate-box">
           <div ng-repeat="member in team track by $index">
             <div ng-class="{'active': activeUser.id === member.properties.id}" class="contributor" ng-click="changeUser(member.properties)">
-              <img ng-if="!teamMember.properties.avatar" class="avatar-small left" ng-src="{{member.properties.defaultAvatarThumb}}">
-              <img ng-if="teamMember.properties.avatar" class="avatar-medium" ng-src="{{member.properties.avatar.thumb}}">
+              <img ng-if="!member.properties.avatar" class="avatar-small left" ng-src="{{member.properties.defaultAvatarThumb}}">
+              <img ng-if="member.properties.avatar" class="avatar-small left" ng-src="{{member.properties.avatar.thumb}}">
               <div class="info-box left">
                 <span class="kpi-detail link">{{member.properties.first_name}} {{member.properties.last_name}}</span>
                 <span class="kpi-detail">{{member.properties.weekly_growth}} Weekly Growth</span>
