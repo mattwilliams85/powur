@@ -216,6 +216,7 @@ Rails.application.routes.draw do
 
     # Library
     resources :resources, as: :admin_resources
+    resources :resource_topics, as: :admin_resource_topics
 
     # Orders
     resources :orders, only: [ :index, :create, :show ], as: :admin_orders do
