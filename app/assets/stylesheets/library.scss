@@ -154,11 +154,16 @@
   position: relative;
   cursor: pointer;
 
-  .resource-type-icon {
+  .resource-type-wrapper {
+    background-color: #515151;
+    height: 100%;
     position: absolute;
-    right: 7px;
-    width: 20px;
-    top: 12px;
+    right: 0;
+    padding: 10px;
+
+    .resource-type-icon {
+      width: 20px;
+    }
   }
 
   .media-info {
@@ -166,7 +171,7 @@
 
     .media-thumbnail {
       background-position: left center;
-      background-size: contain;
+      background-size: cover;
       background-repeat: no-repeat;
       overflow: hidden;
       height: 180px;
@@ -174,12 +179,17 @@
       position: relative;
     }
 
+    .powur-logo {
+      margin: 20px 0 0 20px;
+      width: 50px;
+    }
+
     .title {
       color: #fff;
       font-size: 17px;
       text-transform: uppercase;
       line-height: 20px;
-      margin: 35px 60px 0 30px;
+      margin: 10px 60px 0 30px;
       text-align: left;
     }
 
@@ -204,7 +214,6 @@
   }
 
   .media-info-large {
-    background-image: image-url('library/media-thumbnail-large.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     height: 500px;

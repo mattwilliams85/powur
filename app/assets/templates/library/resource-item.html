@@ -2,7 +2,10 @@
   <!-- Thumbnails or Media icons -->
   <div class="media-info">
     <div class="media-thumbnail" style="background-image: url('{{itemThumbnail(item)}}');">
-      <img class="resource-type-icon" ng-src="{{isVideo(item) ? legacyImagePaths.videoIconImagePath : legacyImagePaths.pdfIconImagePath}}">
+      <div class="resource-type-wrapper">
+        <img class="resource-type-icon" ng-src="{{isVideo(item) ? legacyImagePaths.videoIconImagePath : legacyImagePaths.pdfIconImagePath}}">
+      </div>
+      <img class="powur-logo" ng-src="{{ legacyImagePaths.powurLogo }}">
       <div class="title">{{ item.properties.title }}</div>
       <div class="description">{{ item.properties.tag_line }}</div>
     </div>
@@ -12,7 +15,7 @@
   <div class="hidden" style="display:none;" id="item_{{item.properties.id}}">
     <div class='reveal-modal reveal-modal-library' style="display: none;" data-reveal>
       <a ng-if="!item.videoPlayer" class='close-reveal-modal'>&#215;</a>
-      <div class="media-info-large">
+      <div class="media-info-large" style="background-image: url('{{itemThumbnail(item)}}');">
         <!-- Video player wrapper -->
         <div class="video-content-wrapper" ng-bind-html="item.videoPlayer">
           {{ item.videoPlayer }}
