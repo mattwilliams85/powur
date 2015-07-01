@@ -81,7 +81,7 @@
     };
 
     $scope.invitesTab = function() {
-      if ($scope.noInvitesAvailable) return $location.path('/upsell');
+      if ($scope.noInvitesAvailable && !$scope.invites) return $location.path('/upsell');
       $scope.downline = $scope.downline.slice(0, 1);
       if ($scope.downline[0]) $scope.downline[0].tab = null;
       if ($scope.downline[0]) $scope.downline[0].selected = null;
