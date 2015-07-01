@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function MembershipsCtrl($scope, $location, $anchorScroll, UserProfile, CommonService) {
+  function MembershipsCtrl($scope, $location, $anchorScroll, $window, $timeout, UserProfile, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
@@ -44,9 +44,26 @@
       });
     };
 
-    $scope.closeModalAndGoTo = function(path) {
-      closeModals();
-      $location.path(path);
+    $scope.takeAClass = function() {
+      if (!$scope.selectedMembership) return;
+
+      var action = getAction($scope.selectedMembership.actions, 'enroll');
+
+      function errorCallback(data) {
+        var message = data.error.message || 'Oops error, we can\'t enroll you at the moment';
+
+        closeModals();
+        $timeout(function() {
+          $location.path('/university');
+          $scope.showModal(message);
+        });
+      }
+
+      return CommonService.execute(action).then(function(data) {
+        if (data.error) return errorCallback(data);
+
+        $window.location.href = data.redirect_to;
+      }, errorCallback);
     };
 
     $scope.scrollTo = function(domId) {
@@ -91,6 +108,6 @@
     }
   }
 
-  MembershipsCtrl.$inject = ['$scope', '$location', '$anchorScroll', 'UserProfile', 'CommonService'];
+  MembershipsCtrl.$inject = ['$scope', '$location', '$anchorScroll', '$window', '$timeout', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('MembershipsCtrl', MembershipsCtrl);
 })();
