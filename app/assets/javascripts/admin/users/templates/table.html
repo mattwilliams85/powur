@@ -1,0 +1,18 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in indexData.entities">
+      <td>{{item.properties.id}}</td>
+      <td><a ng-href="/admin/users/{{item.properties.id}}">{{item.properties.first_name}} {{item.properties.last_name}}</a></td>
+      <td>{{item.properties.email}}</td>
+      <td>{{item.properties.level}}</td>
+    </tr>
+  </tbody>
+</table>

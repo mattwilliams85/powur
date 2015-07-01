@@ -137,6 +137,10 @@ module UserScopes
         .joins("join (#{joins_sql}) hr on hr.user_id = users.id")
         .where('organic_rank is null or organic_rank < hr.highest_rank')
     }
+
+    scope :has_rank, -> { where('lifetime_rank is not null or lifetime_rank != 0') }
+
+    scope :with_purchases, -> { joins(:product_receipts) }
   end
 
   module ClassMethods

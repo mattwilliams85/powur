@@ -5,13 +5,14 @@ module Auth
 
     page max_limit: 8
 
-    def index
-    end
-
     def show
-      @contributor = current_user
-      @user_orders = []
-      generate_periods
+      # @contributor = current_user
+      # @user_orders = []
+      # generate_periods
+      @user = current_user
+      downline_ids = User.with_ancestor(@user.id).pluck(:id) 
+      @proposal_count = Quote.where(user_id: downline_ids).submitted.count + @user.quotes.submitted.count
+      @team_count = User.with_ancestor(@user.id).count
     end
 
     def proposals_show

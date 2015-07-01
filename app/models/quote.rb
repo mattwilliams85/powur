@@ -17,11 +17,10 @@ class Quote < ActiveRecord::Base
   scope :not_submitted, -> { where('submitted_at is null') }
   scope :status, ->(*args) { where(status: args.map { |a| statuses[a] }) }
   scope :won, -> { status(:closed_won) }
-
-  scope :within_date_range, ->(begin_date, end_date) {
+  scope :within_date_range, lambda { |begin_date, end_date|
     where('created_at between ? and ?', begin_date, end_date)
   }
-  scope :user_product, ->(user_id, product_id) {
+  scope :user_product, lambda { |user_id, product_id|
     where(user_id: user_id, product_id: product_id)
   }
 
@@ -115,10 +114,6 @@ class Quote < ActiveRecord::Base
   end
 
   class << self
-    # def won_totals(user, product, pay_period)
-    #   personal_lifetime = won.user_product(user.id, product.id).count
-    # end
-
     def find_by_external_id(external_id)
       prefix, quote_id = external_id.split(':')
       return nil unless prefix == QuoteSubmission.id_prefix

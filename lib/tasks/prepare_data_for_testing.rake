@@ -13,8 +13,8 @@ namespace :powur do
       attrs = { first_name: row[0].strip,
                 last_name:  row[1].strip,
                 email:      row[2].strip.downcase,
-                smarteru_employee_id: row[3]}
-      attrs[:roles] = [ 'admin' ] if row[4] == 'admin'
+                smarteru_employee_id: row[4]}
+      attrs[:roles] = [ 'admin' ] if row[3] == 'admin'
       attrs
     end
 

@@ -10,7 +10,7 @@
       $scope.fetchGoals();
 
       // Logic for showing Powur Beta Dashboard Overview Video
-      if (user.watched_intro === false) {
+      if (user.watched_intro === false && !user.latest_terms) {
         $scope.showVideoModal($scope.legacyImagePaths.betaDashboardVideo);
         UserProfile.update({user: {watched_intro: true}});
       }
@@ -29,6 +29,13 @@
       } else {
         return;
       }
+    });
+
+    // Populate KPI Headers
+    CommonService.execute({
+      href: 'u/kpi_metrics.json'
+    }).then(function(data) {
+      $rootScope.currentUser.metrics = data;
     });
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):

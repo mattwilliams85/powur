@@ -3,12 +3,13 @@ require 'spec_helper'
 describe 'GET /u/resources' do
   context 'when signed in' do
     let!(:user) { login_user }
+    let(:topic) { create(:resource_topic) }
 
     before do
       allow(user).to receive(:full_name).and_return('Bob')
       allow_any_instance_of(Resource).to receive(:user).and_return(user)
-      create_list(:resource, 2)
-      create(:resource, is_public: false)
+      create_list(:resource, 2, topic_id: topic.id)
+      create(:resource, topic_id: topic.id, is_public: false)
     end
 
     it 'returns json data' do
@@ -37,9 +38,10 @@ end
 
 describe 'get filtered resources' do
   let!(:user) { login_user }
-  let!(:video_resource) { create(:resource, file_original_path: 'file.mp4') }
-  let!(:document_resource) { create(:resource, file_original_path: 'file.pdf') }
-  let!(:unpublished_resource) { create(:resource, is_public: false) }
+  let(:topic) { create(:resource_topic) }
+  let!(:video_resource) { create(:resource, topic_id: topic.id, file_original_path: 'file.mp4') }
+  let!(:document_resource) { create(:resource, topic_id: topic.id, file_original_path: 'file.pdf') }
+  let!(:unpublished_resource) { create(:resource, topic_id: topic.id, is_public: false) }
 
   before do
     allow(user).to receive(:full_name).and_return('Bob')

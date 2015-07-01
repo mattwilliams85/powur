@@ -10,6 +10,27 @@
         <input ng-model="resource.title" name="title" id="resource_title" type="text" />
       </div>
     </div>
+    <!-- Tag Line Field -->
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="resource_tag_line">Tag Line</label>
+        <input ng-model="resource.tag_line" name="tag_line" id="resource_tag_line" type="text" />
+      </div>
+    </div>
+    <!-- Position Field -->
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="resource_position">Position</label>
+        <input ng-model="resource.position" name="position" id="resource_position" type="text" />
+      </div>
+    </div>
+    <!-- Topic Field -->
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="resource_topic_id">Topic</label>
+        <select ng-model="resource.topic_id" ng-options="topic.properties.id as topic.properties.title for topic in topics"></select>
+      </div>
+    </div>
     <!-- Video File Upload Field -->
     <div class="row" ng-if="resourceType === 'video'">
       <div class="large-12 columns">

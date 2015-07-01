@@ -39,6 +39,16 @@ module SpecHelpers
     expect(json_body['error']['input']).to eq(input.to_s)
   end
 
+  def expect_input_errors(*keys)
+    expect(json_body['error']).to_not(
+      be_nil,
+      "expected error json, got json keys: [#{json_body.keys.join(',')}]")
+
+    keys.map(&:to_s).each do |k|
+      expect(json_body['error']['input']).to include(k)
+    end
+  end
+
   def expect_alert_error
     expect(json_body['error']['type']).to eq('alert')
   end

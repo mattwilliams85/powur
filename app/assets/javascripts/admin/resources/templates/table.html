@@ -1,19 +1,25 @@
 <table class="index-table">
   <thead>
     <tr>
-      <th width="20">ID</th>
-      <th width="130">Image</th>
-      <th>Title</th>
-      <th>Status</th>
-      <th>Posted</th>
+      <th>ID <powur-sorter control="indexData" field="id"></powur-sorter></th>
+      <th>Thumbnail</th>
+      <th>Topic <powur-sorter control="indexData" field="topic_id"></powur-sorter></th>
+      <th>Position <powur-sorter control="indexData" field="position"></powur-sorter></th>
+      <th>Status <powur-sorter control="indexData" field="is_public"></powur-sorter></th>
+      <th>Posted <powur-sorter control="indexData" field="id"></powur-sorter></th>
       <th width="150">Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in data.entities">
+    <tr ng-repeat="item in indexData.entities">
       <td>{{item.properties.id}}</td>
-      <td><img ng-src="{{itemThumbnail(item)}}" class="table-image"></td>
-      <td><a ng-href="/admin/resources/{{item.properties.id}}/edit">{{item.properties.title}}</a></td>
+      <td>
+        <div class="position-relative">
+          <ng-include src="'library/resource-item.html'"></ng-include>
+        </div>
+      </td>
+      <td>{{item.properties.topic.title}}</td>
+      <td>{{item.properties.position}}</td>
       <td>{{item.properties.is_public ? 'active' : 'hidden'}}</td>
       <td>
         {{item.properties.user_name}}<br>

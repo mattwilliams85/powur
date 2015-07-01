@@ -26,10 +26,12 @@
 //= require admin/app.admin
 //= require admin/app.admin.routes
 //= require app.common.service
+//= require blocks/blocks.filters
 //= require admin/app.admin.widgets
 //= require_tree ./admin/application-agreements
 //= require_tree ./admin/bonuses
 //= require_tree ./admin/bonus-plans
+//= require_tree ./admin/invites
 //= require_tree ./admin/landing
 //= require_tree ./admin/latest-news
 //= require_tree ./admin/orders
@@ -37,6 +39,7 @@
 //= require_tree ./admin/products
 //= require_tree ./admin/proposals
 //= require_tree ./admin/resources
+//= require_tree ./admin/resource-topics
 //= require_tree ./admin/social-media
 //= require_tree ./admin/user-groups
 //= require_tree ./admin/users
@@ -44,3 +47,4 @@
 //= require_tree ./profile
 
 //= require widgets/powur-foundation.directive
+//= require widgets/powur-sorter.directive

@@ -45,14 +45,14 @@
       $scope.isPurchaseDisabled = true;
       $scope.errorMessage = null;
       var action = getAction(classItem.actions, 'purchase');
-      return CommonService.execute(action, {card: $scope.card}).then(function() {
-        $scope.purchaseComplete = true;
-      }, function errorCallback(data) {
+      return CommonService.execute(action, {card: $scope.card}).then(function(data) {
         $scope.isPurchaseDisabled = false;
-        if (data.errors) {
-          for (var property in data.errors) {
-            return $scope.errorMessage = data.errors[property][0];
+        if (data.error) {
+          for (var property in data.error.input) {
+            return $scope.errorMessage = data.error.input[property][0];
           }
+        } else {
+          $scope.purchaseComplete = true;
         }
       });
     };

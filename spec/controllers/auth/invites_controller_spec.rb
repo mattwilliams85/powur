@@ -4,7 +4,7 @@ describe Auth::InvitesController do
   render_views
 
   before :each do
-    login_user(auth: true)
+    @user = login_user(auth: true, available_invites: 3)
   end
 
   describe '#index' do
@@ -38,7 +38,7 @@ describe Auth::InvitesController do
     end
 
     it 'does not allow the user to exceed the max # of invites' do
-      create_list(:invite, SystemSettings.max_invites, sponsor: @user)
+      create_list(:invite, @user.available_invites, sponsor: @user)
 
       post :create, invite_params
 
@@ -67,11 +67,11 @@ describe Auth::InvitesController do
     end
   end
 
-  describe '#destroy' do
+  describe '#delete' do
     it 'deletes an invite' do
       invite = create(:invite, sponsor: @user)
 
-      delete :destroy, id: invite.id
+      delete :delete, id: invite.id
 
       expect_200
       expect(Invite.find_by_id(invite.id)).to be_nil

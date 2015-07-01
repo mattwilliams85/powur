@@ -9,7 +9,7 @@ json.properties do
   json.call(@user, :id, :first_name, :last_name, :email,
             :phone, :address, :city, :state, :zip,
             :bio, :twitter_url, :facebook_url, :linkedin_url,
-            :lifetime_rank, :organic_rank, :level, :is_certified)
+            :lifetime_rank, :organic_rank, :level, :certified?)
 
   json.avatar do
     [ :thumb, :preview, :large ].each do |key|
@@ -17,11 +17,6 @@ json.properties do
     end
   end if @user.avatar?
   json.is_admin user.role?(:admin)
-
-  json.metrics do
-    json.proposal @proposal_count
-    json.team @team_count
-  end
 
   unless current_user.accepted_latest_terms?
     json.latest_terms ApplicationAgreement.current

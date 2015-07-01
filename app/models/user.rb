@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   belongs_to :rank_path
 
+  validates :available_invites, :numericality => { :greater_than_or_equal_to => 0 }
   has_many :quotes
   has_many :customers, through: :quotes
   has_many :orders
@@ -15,6 +16,7 @@ class User < ActiveRecord::Base
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
+  has_many :product_receipts
   has_many :product_enrollments, dependent: :destroy
   has_many :user_user_groups, dependent: :destroy
   has_many :user_groups, through: :user_user_groups
@@ -52,7 +54,6 @@ class User < ActiveRecord::Base
   # end
 
   before_create :set_url_slug
-  before_create :destroy_used_invite
   after_create :hydrate_upline
 
   attr_reader :password
@@ -193,16 +194,16 @@ class User < ActiveRecord::Base
     @smarteru ||= SmarteruClient.new(self)
   end
 
-  def is_certified
-    product_enrollments.completed.joins(:product).where("products.is_university_class = true and products.is_required_class != true").count > 0
+  def certified?
+    product_enrollments.completed.joins(:product)
+      .merge(Product.certifiable).count > 0
+  end
+
+  def submitted_proposals_count
+    quotes.submitted.length
   end
 
   private
-
-  def destroy_used_invite
-    invite = Invite.find_by(email: "'#{email}'")
-    invite && invite.destroy!
-  end
 
   def set_url_slug
     self.url_slug = "#{first_name}-#{last_name}-#{SecureRandom.random_number(1000)}"

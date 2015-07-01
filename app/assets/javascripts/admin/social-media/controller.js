@@ -25,14 +25,14 @@
 
     $scope.pagination = function(direction) {
       var page = 1;
-      if ($scope.data) {
-        page = $scope.data.properties.paging.current_page;
+      if ($scope.indexData) {
+        page = $scope.indexData.properties.paging.current_page;
       }
       page += direction;
       return CommonService.execute({
         href: '/a/social_media_posts.json?page=' + page
       }).then(function(data) {
-        $scope.data = data;
+        $scope.indexData = data;
         $anchorScroll();
       });
     };

@@ -1,0 +1,22 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th width="20">ID</th>
+      <th>Title</th>
+      <th>Position</th>
+      <th width="150">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in indexData.entities">
+      <td>{{item.properties.id}}</td>
+      <td><a ng-href="/admin/resource-topics/{{item.properties.id}}/edit">{{item.properties.title}}</a></td>
+      <td>{{item.properties.position}}</td>
+      <td>
+        <a ng-href="/admin/resource-topics/{{item.properties.id}}/edit">edit</a>
+        &nbsp;|&nbsp;
+        <a ng-click="confirm('Are you sure you want to delete this topic?', 'delete', item)" class="manage-link">delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

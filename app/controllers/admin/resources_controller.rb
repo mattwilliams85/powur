@@ -1,7 +1,14 @@
 module Admin
   class ResourcesController < AdminController
     page
-    sort id:  { id: :desc }
+    sort position_asc:   { position: :asc },
+         position_desc:  { position: :desc },
+         topic_id_asc:   { topic_id: :asc },
+         topic_id_desc:  { topic_id: :desc },
+         id_asc:         { id: :asc },
+         id_desc:        { id: :desc },
+         is_public_asc:  { is_public: :asc },
+         is_public_desc: { is_public: :desc }
 
     before_action :find_resource, only: [ :show, :destroy, :update ]
 
@@ -43,7 +50,7 @@ module Admin
 
     def input
       allow_input(
-        :title, :description, :is_public,
+        :title, :description, :tag_line, :is_public, :topic_id, :position,
         :file_original_path, :image_original_path, :youtube_id
       )
     end

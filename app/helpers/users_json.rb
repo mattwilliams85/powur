@@ -17,7 +17,7 @@ class UsersJson < JsonDecorator
     json.properties do
       json.call(user, :id, :first_name, :last_name, :email, :phone, :level,
                 :moved, :profile, :lifetime_rank)
-      json.downline_count user.downline_users_count(user.id)
+     
       LIST_PROPS.each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]
       end
@@ -76,7 +76,9 @@ class UsersJson < JsonDecorator
       entity(%w(list overrides), 'user-overrides',
              admin_user_overrides_path(user)),
       entity(%w(list pay_periods), 'user-pay_periods',
-             admin_user_pay_periods_path(user))
+             admin_user_pay_periods_path(user)),
+      entity(%w(list invites), 'user_invites',
+             admin_user_invites_path(user))
   end
 
   def user_entities(user = @item)

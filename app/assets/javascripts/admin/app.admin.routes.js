@@ -25,6 +25,19 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminResourcesCtrl'
     }).
+    // Library Topics
+    when('/admin/resource-topics', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminResourceTopicsCtrl'
+    }).
+    when('/admin/resource-topics/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminResourceTopicsCtrl'
+    }).
+    when('/admin/resource-topics/:topicId/edit', {
+      templateUrl: 'shared/admin/rest/edit.html',
+      controller: 'AdminResourceTopicsCtrl'
+    }).
     // Application and Agreements
     when('/admin/application-agreements', {
       templateUrl: 'shared/admin/rest/index.html',
@@ -202,6 +215,11 @@
     when('/admin/social-media/new', {
       templateUrl: 'shared/admin/rest/new.html',
       controller: 'AdminSocialMediaCtrl'
+    }).
+    // Invites
+    when('/admin/invites', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminInvitesCtrl'
     }).
 
     otherwise({

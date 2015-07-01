@@ -116,6 +116,7 @@
     'ngRoute',
     'ngResource',
     'angularS3FileUpload',
+    'blocks.filters',
     'app.admin.widgets',
     'templates'
   ]).run(init);

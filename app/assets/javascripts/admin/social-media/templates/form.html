@@ -9,10 +9,10 @@
         <!-- String Inputs -->
         <input ng-model="socialMediaPost[field.name]" ng-if="field.type === 'string'" type="text" name="{{field.name}}" id="{{field.name}}" value="{{field.value}}">
         <!-- Text Area Inputs -->
-        <textarea ng-model="socialMediaPost[field.name]" ng-if="field.type === 'text'" name="{{field.name}}" id="{{field.name}}" maxlength="117">{{field.value}}</textarea>
+        <textarea ng-model="socialMediaPost[field.name]" ng-if="field.type === 'text'" name="{{field.name}}" id="{{field.name}}" maxlength="116">{{field.value}}</textarea>
         <!-- Character Counter -->
-        <!-- (117 character limit for a tweet with a link) -->
-        <p ng-if="field.type === 'text'" class="remaining-characters">{{117 - socialMediaPost[field.name].length}} characters remaining</p>
+        <!-- (116 character limit for a tweet with a link) -->
+        <p ng-if="field.type === 'text'" class="remaining-characters">{{116 - socialMediaPost[field.name].length}} characters remaining</p>
         <!-- Boolean -->
         <input ng-model="socialMediaPost[field.name]" ng-if="field.type === 'boolean'" type="checkbox" name="{{field.name}}" id="{{field.name}}">
         <label ng-if="field.type === 'boolean'" for="{{field.name}}">Publish Now</label>

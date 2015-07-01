@@ -169,10 +169,9 @@
     }
 
     $scope.scaleFontSize = function(string) {
-      if (!isNaN(string)) {
-        string = string.toString();
-        return Math.ceil(1000 / (Math.pow(string.length + 10, 1.2))) + 'pt';
-      }
+      if (typeof string !== "string" && typeof string !== "number") return;
+      string = string.toString();
+      return Math.ceil(1000 / (Math.pow(string.length + 10, 1.2))) + 'pt';
     };
 
     $scope.buildChart = function() {
@@ -238,8 +237,7 @@
     $scope.changeUser = function(user) {
       if ($scope.activeUser === user) return;
 
-      CommonService.execu
-te({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
+      CommonService.execute({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
         $scope.activeUser = data.properties;
         $scope.buildChart();
       });

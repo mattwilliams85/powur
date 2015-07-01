@@ -26,12 +26,12 @@ describe User, type: :model do
     end
   end
 
-  describe '#remaining_invites' do
-    it 'returns the correct number of remaining invites' do
-      user = create(:user)
+  describe '#available_invites' do
+    it 'returns the correct number of available invites' do
+      user = create(:user, available_invites: 10)
       create_list(:invite, 3, sponsor: user)
 
-      expect(user.remaining_invites).to eq(2)
+      expect(user.available_invites).to eq(7)
     end
   end
 

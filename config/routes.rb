@@ -55,7 +55,6 @@ Rails.application.routes.draw do
 
   # logged in user routes
   scope :u, module: :auth do
-
     resource :kpi_metrics, only: [ :show ] do
       get '/:id/proposals_index', to: 'kpi_metrics#proposals_index'
       get '/:id/proposals_show', to: 'kpi_metrics#proposals_show'
@@ -110,8 +109,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :invites, only: [ :index, :create, :destroy ] do
+    resources :invites, only: [ :index, :create ] do
       member do
+        delete :delete
         post :resend
       end
     end
@@ -128,7 +128,7 @@ Rails.application.routes.draw do
       resources :quotes, only: [ :index, :create ]
       resource :goals, only: [ :show ]
       resources :orders, only: [ :index, :show ], controller: :user_orders
-      resources :order_totals, only: [ :index ]#, controller: :user_order_totals
+      resources :order_totals, only: [ :index ]
       resources :user_activities, only:       [ :index, :show ],
                                   controller: :user_activities
       member do
@@ -166,67 +166,72 @@ Rails.application.routes.draw do
     end
 
     resources :notifications,
-                only:       [ :index, :show ],
-                as:         :user_notifications
+              only:       [ :index, :show ],
+              as:         :user_notifications
 
     resources :social_media_posts,
-                only: [ :index, :show ],
-                as:   :user_social_media_posts
+              only: [ :index, :show ],
+              as:   :user_social_media_posts
 
     resources :resources, only: [:index, :show]
 
     get 'uploader_config', to: 'uploader_config#show'
   end
 
-  # logged in admin routes
-  scope :a, module: :admin do
+  #
+  # LOGGED IN ADMIN ROUTES
+  #
+  # Alphabetized by Feature Name
+  #
 
+  scope :a, module: :admin do
+    # Root
     get '' => 'root#index', as: :admin_root
 
-    resources :users, only: [ :index, :show, :update ], as: :admin_users do
-      collection do
-        get '' => 'users#search', constraints: params?(:search)
-      end
+    # Application Agreements
+    resources :application_agreements, as: :admin_application_agreements do
       member do
-        get :downline
-        get :upline
-        post :move
-        get :eligible_parents
+        patch :publish, :unpublish
       end
-      resources :overrides, only: [ :index, :create ]
-
-      resources :ewallet_sandbox, only:       [ :index, :call ],
-                                  controller: :ewallet_sandbox do
-        collection do
-          post 'call' => 'ewallet_sandbox', as: :call
-        end
-      end
-
-      resources :pay_periods, only:       [ :index, :show ],
-                              controller: :user_pay_periods
-
-      resources :orders, only: [ :index ], controller: :user_orders
-      # resources :order_totals, only: [ :index ], controller: :user_order_totals
-      # resources :rank_achievements,
-      #           only:       [ :index ],
-      #           controller: :user_rank_achievements
-      resources :bonus_payments,
-                only:       [ :index ],
-                controller: :user_bonus_payments
     end
 
-    resources :products, only: [ :index, :create, :update, :show, :destroy ]
+    # Bonuses
+    resources :bonuses, only: [ :index, :destroy, :update, :show ] do
+      resources :bonus_amounts, only: [ :create ], as: :amounts, path: :amounts
+    end
 
+    # Bonus Amounts
+    resources :bonus_amounts, only: [ :update, :destroy ], as: :bonus_amounts
+
+    # Bonus Plans
     resources :bonus_plans,
               only: [ :index, :create, :destroy, :update, :show ] do
       resources :bonuses, only: [ :index, :create ], as: :bonuses
     end
 
-    resources :bonuses, only: [ :index, :destroy, :update, :show ] do
-      resources :bonus_amounts, only: [ :create ], as: :amounts, path: :amounts
-    end
-    resources :bonus_amounts, only: [ :update, :destroy ], as: :bonus_amounts
+    # Latest News
+    resources :notifications,
+              only: [ :index, :create, :destroy, :show, :update ],
+              as:   :admin_notifications
 
+    # Library
+    resources :resources, as: :admin_resources
+
+    # Orders
+    resources :orders, only: [ :index, :create, :show ], as: :admin_orders do
+      # Orders / Bonus Payments
+      resources :bonus_payments,
+                only:       [ :index ],
+                controller: :order_bonus_payments
+    end
+
+    # Overrides
+    resources :overrides, only: [ :index, :update, :destroy ]
+
+    # Products
+    resources :products, only: [ :index, :create, :update, :show, :destroy ]
+
+    # # Quotes
     # resources :quotes, only: [ :index, :show ], as: :admin_quotes do
     #   member do
     #     post :submit
@@ -237,47 +242,78 @@ Rails.application.routes.draw do
     #   end
     # end
 
-    resources :orders, only: [ :index, :create, :show ], as: :admin_orders do
+    # Users
+    resources :users, only: [ :index, :show, :update ], as: :admin_users do
+      collection do
+        get '' => 'users#search', constraints: params?(:search)
+        get :invites
+      end
+      member do
+        get :downline
+        get :upline
+        post :move
+        get :eligible_parents
+      end
+
+      # Users / Bonus Payments
       resources :bonus_payments,
                 only:       [ :index ],
-                controller: :order_bonus_payments
+                controller: :user_bonus_payments
+
+      # Users / Invites
+      resources :invites, only: [ :index, :create, :show, :destroy ], controller: :user_invites do
+        member do
+          post :resend
+        end
+      end
+
+      patch 'invites', to: 'user_invites#award'
+
+      # Users / Orders
+      resources :orders, only: [ :index ], controller: :user_orders
+
+      # # Users / Order Totals
+      # resources :order_totals, only: [ :index ], controller: :user_order_totals
+
+      # Users / Overrides
+      resources :overrides, only: [ :index, :create ]
+
+      # Users / Pay Periods
+      resources :pay_periods, only:       [ :index, :show ],
+                              controller: :user_pay_periods
+
+      # # Users / Rank Achievements
+      # resources :rank_achievements,
+      #           only:       [ :index ],
+      #           controller: :user_rank_achievements
     end
 
+    # Pay Periods
     resources :pay_periods, only: [ :index, :show ] do
       member do
         post :calculate
         post :recalculate
         post :disburse
       end
+
+      # Pay Periods / Orders
       resources :orders, only: [ :index ], controller: :pay_period_orders
-      # resources :order_totals,
-      #           only:       [ :index ],
-      #           controller: :pay_period_order_totals
-      # resources :rank_achievements,
-      #           only:       [ :index ],
-      #           controller: :pay_period_rank_achievements
+
+      # Pay Periods / Bonus Payments
       resources :bonus_payments,
                 only:       [ :index ],
                 controller: :pay_period_bonus_payments
     end
 
-    resources :overrides, only: [ :index, :update, :destroy ]
-
-    resources :notifications,
-                only: [ :index, :create, :destroy, :show, :update ],
-                as:   :admin_notifications
-
+    # Social Media Sharing
     resources :social_media_posts,
-                only: [ :index, :create, :destroy, :show, :update ],
-                as:   :admin_social_media_posts
-
-    resources :resources, as: :admin_resources
-    resources :application_agreements, as: :admin_application_agreements do
-      member do
-        patch :publish, :unpublish
-      end
-    end
+              only: [ :index, :create, :destroy, :show, :update ],
+              as:   :admin_social_media_posts
   end
+
+  #
+  # GATEWAYS
+  #
 
   scope :gateway, module: :gateway do
     get 'ipayout/verify_user', to: 'ipayout#verify_user'

@@ -23,6 +23,8 @@
       }
     };
 
+    $scope.legacyImagePaths = legacyImagePaths;
+
     // TODO check if user is an admin
     // (backend validation is in place, this is just usability optimization)
 
@@ -85,14 +87,14 @@
 
     $scope.pagination = function(direction) {
       var page = 1;
-      if ($scope.data) {
-        page = $scope.data.properties.paging.current_page;
+      if ($scope.indexData) {
+        page = $scope.indexData.properties.paging.current_page;
       }
       page += direction;
       return CommonService.execute({
         href: '/a/resources.json?page=' + page
       }).then(function(data) {
-        $scope.data = data;
+        $scope.indexData = data;
         $anchorScroll();
       });
     };
@@ -167,6 +169,7 @@
       $scope.resource = {
         is_public: true
       };
+      getTopics();
     } else if ($scope.mode === 'edit') {
       CommonService.execute({
         href: '/a/resources/' + $routeParams.resourceId + '.json'
@@ -174,8 +177,17 @@
         // Breadcrumbs: Library / Update (Resource Type)
         $scope.resource = item.properties;
         $scope.resourceType = item.properties.file_type === 'video/mp4' ? 'video' : 'document';
+        getTopics();
         $rootScope.breadcrumbs.push({title: 'Library', href:'/admin/resources'});
         $rootScope.breadcrumbs.push({title: 'Update ' + $scope.resourceType});
+      });
+    }
+
+    function getTopics() {
+      CommonService.execute({
+        href: '/a/resource_topics.json'
+      }).then(function(data) {
+        $scope.topics = data.entities;
       });
     }
   };
