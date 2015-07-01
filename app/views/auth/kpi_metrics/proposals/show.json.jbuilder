@@ -17,8 +17,3 @@ json.properties do
   end if @user.avatar?
   json.proposal_count @user.proposal_count
 end
-
-
-
-
-
