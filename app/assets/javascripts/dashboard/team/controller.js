@@ -8,7 +8,21 @@
     $scope.img = legacyImagePaths;
     $scope.downline = [];
     $scope.currentTeamMember = {};
-    $scope.showNew = false;
+
+    $scope.is = {
+      even: function(i) {
+        return $scope.levelGap(i) % 2 !== 0
+      },
+      odd: function(i) {
+        return $scope.levelGap(i) % 2 === 0
+      },
+      expanded: function(i) {
+        return $scope.downline.length >= (i)
+      },
+      accordion: function(i) {
+        return $scope.downline.length > (i + 1) || $scope.activeTab === 'proposals'
+      }
+    }
 
     var level;
 
@@ -64,24 +78,14 @@
     };
 
     $scope.isActiveTab = function(teamMember, gen, tab) {
-     if (tab) return gen.tab === tab && gen.selected === teamMember.properties.id && $scope.activeTab === tab;
-     return ($scope.downline.length > ($scope.levelGap(teamMember))) && gen.selected === teamMember.properties.id;
+      return gen.tab === tab && gen.selected === teamMember.properties.id;
     };
 
     $scope.isActiveMember = function(teamMember, gen) {
       return (gen.selected === teamMember.properties.id);
     }
 
-    $scope.toggleProposal = function(proposal) {
-      if (!proposal || $scope.proposalId === proposal.properties.id) {
-        $scope.proposalId = '';
-        return $scope.showProposal = false;
-      }
-      $scope.showProposal = true;
-      $scope.proposalId = proposal.properties.id;
-    }
-
-    // Close Team Member
+    // Close Open Tabs
     function closeForm(element) {
       if(element && element.attr('data-row')) {
         $scope.downline = $scope.downline.slice(0, parseInt(element.attr('data-row')) + 1);
@@ -96,7 +100,7 @@
     };
 
     function destroyCarousel(carouselElement) {
-      if ( !$(carouselElement).data('owlCarousel') ) return;
+      if (!$(carouselElement).data('owlCarousel')) return;
       $(carouselElement).data('owlCarousel').destroy();
     }
 
@@ -111,6 +115,7 @@
 
     function teamTab(teamMember) {
       $scope.disable = true;
+
       User.downline(teamMember.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
         items = setAvatar(items);
 
@@ -120,7 +125,6 @@
           $scope.downline.push(items.entities);
           destroyCarousel('#carousel-' + ($scope.downline.length - 1))
           $scope.disable = false;
-
         });
       });
     }
@@ -273,6 +277,13 @@
 
     // Show Proposal
     $scope.teamSection.showProposal = function(proposal) {
+      if (!proposal || $scope.proposalId === proposal.properties.id) {
+        $scope.proposalId = '';
+        return $scope.showProposal = false;
+      }
+      $scope.showProposal = true;
+      $scope.proposalId = proposal.properties.id;
+
       CommonService.execute({
         href: '/u/quotes/' + proposal.properties.id + '.json'
       }).then(function(item){

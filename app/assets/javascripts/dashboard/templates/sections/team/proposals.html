@@ -6,20 +6,20 @@
         <!-- New Proposal Button -->
         <div class="new-proposal" ng-class="{active: mode === 'new', 'even': downline.length % 2 === 0, 'odd': downline.length % 2 !== 0 }">
           <div class="sort-box">
-            <form ng-submit="teamSection.searchProposals(); toggleProposal();">
+            <form ng-submit="teamSection.searchProposals(); showProposal();">
               <div class="no-padding large-12 medium-12 small-12 columns">
                 <input ng-model="teamSection.proposalSearch" type="search" placeholder="SEARCH" class="sort">
               </div>
             </form>
             <select class="sort"
                     ng-model="teamSection.proposalSort"
-                    ng-change="teamSection.applyIndexActions(); toggleProposal();">
+                    ng-change="teamSection.applyIndexActions(); showProposal();">
               <option disabled value="">Sort By</option>
               <option ng-repeat="(value, label) in customerSection.proposalSortOptions" ng-value="value">{{label}}</option>
             </select>
             <select class="sort"
                     ng-model="teamSection.proposalStatus"
-                    ng-change="teamSection.applyIndexActions(); toggleProposal();">
+                    ng-change="teamSection.applyIndexActions(); showProposal();">
               <option value="">Show All</option>
               <option ng-repeat="(value, label) in customerSection.proposalStatusOptions" ng-value="value">{{label}}</option>
             </select>
