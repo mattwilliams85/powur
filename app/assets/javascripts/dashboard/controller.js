@@ -126,7 +126,7 @@
             return Utility.searchObjVal($scope.goals, "group")
           }
         },
-        course_completion: function() {
+        course_enrollment: function() {
           quantity = 100;
           $scope.goals.courseId = Utility.searchObjVal(requirement, "product_id")
           if (!$scope.courseState) return 0;
