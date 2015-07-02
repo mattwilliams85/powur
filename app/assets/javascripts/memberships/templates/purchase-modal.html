@@ -14,7 +14,7 @@
       <div class="row">
         <form name="purchaseForm" ng-submit="purchase(selectedMembership)" novalidate>
           <div class="large-12 columns">
-            <p class="form-info">You're purchasing <b>{{ selectedMembership.properties.name }}</b><br>for <b>{{ selectedMembership.properties.price }}</b></p>
+            <p class="form-info">You're purchasing <b>{{ selectedMembership.properties.name }}</b><br>for <b>${{ selectedMembership.properties.price | formattedPrice }}</b></p>
           </div>
 
           <div class="large-7 columns">
@@ -52,7 +52,7 @@
           </div>
 
           <div class="large-12 columns">
-            <input class="button" type="submit" ng-disabled="isPurchaseDisabled" value="Pay ${{ selectedMembership.properties.price/100 }}" />
+            <input class="button" type="submit" ng-disabled="isPurchaseDisabled" value="Pay ${{ selectedMembership.properties.price | formattedPrice }}" />
           </div>
 
           <div class="large-12 columns text-center">
@@ -65,7 +65,8 @@
     <div class="bottom-wrapper">
       <div class="row">
         <div class="large-6 medium-6 small-12 columns">
-          <span class="secure">Secure Connection</span>
+          <!-- <span class="secure">Secure Connection</span> -->
+          <img ng-src="{{ legacyImagePaths.rapidSslIcon }}">
         </div>
 
         <div class="large-6 medium-6 small-12 columns text-right">

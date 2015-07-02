@@ -8,6 +8,7 @@
       $scope.currentUser = user;
     });
 
+    $scope.legacyImagePaths = legacyImagePaths;
     $scope.memberships = {};
     $scope.selectedMembership = null;
     $scope.card = {};
