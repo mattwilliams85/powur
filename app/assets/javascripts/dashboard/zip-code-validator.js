@@ -11,7 +11,7 @@
           method: 'GET',
           url: 'https://api.solarcity.com/solarbid/api/warehouses/zip/' + zipCode,
         }).success(function(res) {
-          dfr.resolve(res.IsInTerritory);
+          dfr.resolve(res);
         }).error(function(err) {
           console.log('エラー', err);
           dfr.reject(err);
