@@ -58,7 +58,7 @@
               </div>
 
               <span class="line">
-                ${{ membershipPrice('certified') }} <small>one-time</small>
+                ${{ membershipPrice('partner') }} <small>one-time</small>
               </span>
 
               <div class="inner-bottom">
@@ -72,7 +72,7 @@
                   </ul>
                 </div>
 
-                <a ng-if="isPurchasable('certified')" ng-click="selectMembership('certified')" class="button select-certification">Select</a>
+                <a ng-if="isPurchasable('partner')" ng-click="selectMembership('partner')" class="button select-certification">Select</a>
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@
   <div class="row text-center">
     <div class="large-12 columns">
       <div class="memberships-chart-icon"></div>
-      <h2>We've made it easy to see all the features at a glance.</h2>
+      <h3>We've made it easy to see all the features at a glance.</h3>
       <h5>View our handy <a ng-click="scrollTo('memberships-table')">Comparison Table</a></h5>
     </div>
   </div>
@@ -164,14 +164,14 @@
             <tr class="large-font">
               <td></td>
               <td>FREE</td>
-              <td>${{ membershipPrice('certified') }} <small>one-time</small></td>
+              <td>${{ membershipPrice('partner') }} <small>one-time</small></td>
               <td>$39 <small>monthly</small></td>
               <td class="semipro-bg">$29 <small>monthly</small><br>+ $199 <small>one-time</small></td>
             </tr>
             <tr>
               <td></td>
               <td><!--a class="button small free">EXISTING</a--></td>
-              <td><a class="button small" ng-if="isPurchasable('certified')" ng-click="selectMembership('certified')">SELECT</a></td>
+              <td><a class="button small" ng-if="isPurchasable('partner')" ng-click="selectMembership('partner')">SELECT</a></td>
               <td><a class="button small">COMING SOON</a></td>
               <td class="semipro-bg"><a class="button small best">COMING SOON</a></td>
             </tr>
@@ -368,7 +368,7 @@
             <tr>
               <td></td>
               <td><!--a class="button small free">EXISTING</a--></td>
-              <td><a class="button small" ng-if="isPurchasable('certified')" ng-click="selectMembership('certified')">SELECT</a></td>
+              <td><a class="button small" ng-if="isPurchasable('partner')" ng-click="selectMembership('partner')">SELECT</a></td>
               <td><a class="button small">COMING SOON</a></td>
               <td class="pro"><a class="button small pro">COMING SOON</a></td>
             </tr>

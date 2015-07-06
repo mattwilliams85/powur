@@ -402,40 +402,6 @@ CREATE TABLE invites (
 
 
 --
--- Name: lead_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE lead_totals (
-    id integer NOT NULL,
-    user_id integer NOT NULL,
-    product_id integer NOT NULL,
-    pay_period_id character varying,
-    status integer NOT NULL,
-    personal integer DEFAULT 0 NOT NULL,
-    team integer DEFAULT 0 NOT NULL
-);
-
-
---
--- Name: lead_totals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE lead_totals_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: lead_totals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE lead_totals_id_seq OWNED BY lead_totals.id;
-
-
---
 -- Name: lead_updates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -475,46 +441,6 @@ CREATE SEQUENCE lead_updates_id_seq
 --
 
 ALTER SEQUENCE lead_updates_id_seq OWNED BY lead_updates.id;
-
-
---
--- Name: leads; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE leads (
-    id integer NOT NULL,
-    user_id integer NOT NULL,
-    product_id integer NOT NULL,
-    customer_id integer NOT NULL,
-    data hstore DEFAULT ''::hstore NOT NULL,
-    status integer DEFAULT 0 NOT NULL,
-    submitted_at timestamp without time zone,
-    provider_uid character varying,
-    qualified_at timestamp without time zone,
-    contract_at timestamp without time zone,
-    install_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: leads_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE leads_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: leads_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE leads_id_seq OWNED BY leads.id;
 
 
 --
@@ -1359,21 +1285,7 @@ ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distribution
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY lead_totals ALTER COLUMN id SET DEFAULT nextval('lead_totals_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY lead_updates ALTER COLUMN id SET DEFAULT nextval('lead_updates_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY leads ALTER COLUMN id SET DEFAULT nextval('leads_id_seq'::regclass);
 
 
 --
@@ -1613,27 +1525,11 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: lead_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY lead_totals
-    ADD CONSTRAINT lead_totals_pkey PRIMARY KEY (id);
-
-
---
 -- Name: lead_updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY lead_updates
     ADD CONSTRAINT lead_updates_pkey PRIMARY KEY (id);
-
-
---
--- Name: leads_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY leads
-    ADD CONSTRAINT leads_pkey PRIMARY KEY (id);
 
 
 --
@@ -1836,20 +1732,6 @@ CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at
 
 
 --
--- Name: idx_lead_totals_not_null_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX idx_lead_totals_not_null_pp ON lead_totals USING btree (user_id, product_id, pay_period_id, status) WHERE (pay_period_id IS NOT NULL);
-
-
---
--- Name: idx_lead_totals_null_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX idx_lead_totals_null_pp ON lead_totals USING btree (user_id, product_id, status) WHERE (pay_period_id IS NULL);
-
-
---
 -- Name: idx_order_totals_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1882,13 +1764,6 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 --
 
 CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
-
-
---
--- Name: index_leads_on_user_id_and_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_leads_on_user_id_and_status ON leads USING btree (user_id, status);
 
 
 --
@@ -2560,10 +2435,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150617172905');
 INSERT INTO schema_migrations (version) VALUES ('20150618213922');
 
 INSERT INTO schema_migrations (version) VALUES ('20150619194058');
-
-INSERT INTO schema_migrations (version) VALUES ('20150619204956');
-
-INSERT INTO schema_migrations (version) VALUES ('20150620150406');
 
 INSERT INTO schema_migrations (version) VALUES ('20150622190320');
 
