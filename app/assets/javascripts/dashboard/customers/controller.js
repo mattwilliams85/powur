@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardCustomersCtrl($scope, $rootScope, $location, $http, $timeout, $route, $anchorScroll, CommonService, ZipCodeValidator) {
+  function DashboardCustomersCtrl($scope, $rootScope, $location, $http, $timeout, $route, $anchorScroll, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     $scope.legacyImagePaths = legacyImagePaths;
@@ -181,9 +181,6 @@
     // Save/Update Proposal Action
     $scope.customerSection.saveProposal = function() {
       if ($scope.proposal && $('#customers-form')[0].checkValidity()) {
-        // ZipCodeValidator.check($scope.proposal.zip).then(function(data) {
-
-        // });
         CommonService.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
       }
     };
@@ -375,7 +372,7 @@
     });
   }
 
-  DashboardCustomersCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$timeout', '$route', '$anchorScroll', 'CommonService', 'ZipCodeValidator'];
+  DashboardCustomersCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$timeout', '$route', '$anchorScroll', 'CommonService'];
   angular
     .module('powurApp')
     .controller('DashboardCustomersCtrl', DashboardCustomersCtrl);
