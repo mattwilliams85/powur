@@ -1300,35 +1300,6 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: zipcodes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE zipcodes (
-    id integer NOT NULL,
-    zip character varying
-);
-
-
---
--- Name: zipcodes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE zipcodes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: zipcodes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE zipcodes_id_seq OWNED BY zipcodes.id;
-
-
---
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1543,13 +1514,6 @@ ALTER TABLE ONLY user_overrides ALTER COLUMN id SET DEFAULT nextval('user_overri
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY zipcodes ALTER COLUMN id SET DEFAULT nextval('zipcodes_id_seq'::regclass);
 
 
 --
@@ -1862,14 +1826,6 @@ ALTER TABLE ONLY user_user_groups
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: zipcodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY zipcodes
-    ADD CONSTRAINT zipcodes_pkey PRIMARY KEY (id);
 
 
 --
@@ -2620,4 +2576,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150624162828');
 INSERT INTO schema_migrations (version) VALUES ('20150626223201');
 
 INSERT INTO schema_migrations (version) VALUES ('20150629175330');
+
+INSERT INTO schema_migrations (version) VALUES ('20150706185018');
 
