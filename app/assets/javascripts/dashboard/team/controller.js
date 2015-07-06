@@ -39,15 +39,6 @@
       return (gen.selected === teamMember.properties.id);
     };
 
-    $scope.toggleProposal = function(proposal) {
-      if (!proposal || $scope.proposalId === proposal.properties.id) {
-        $scope.proposalId = '';
-        return $scope.showProposal = false;
-      }
-      $scope.showProposal = true;
-      $scope.proposalId = proposal.properties.id;
-    };
-
     // Show Team Member
     $scope.changeTab = function(teamMember, gen, tab) {
       if ($scope.disable) return;

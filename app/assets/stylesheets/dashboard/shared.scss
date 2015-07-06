@@ -293,7 +293,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   // Carousels
   .carousel-box {
     border: 1px solid #e5e5e5;
-    margin-bottom: -1px;
 
     .carousel-container {
       position: relative;
@@ -358,6 +357,10 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
           padding: 40px 23px 128px 6px !important;
         }
       }
+    }
+
+    &.collapse {
+      margin: 0 0 -1px 0;
     }
   }
 
