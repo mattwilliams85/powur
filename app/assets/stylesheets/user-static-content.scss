@@ -3,18 +3,18 @@
   padding-top: 50px;
   padding-bottom: 50px;
 
-  @media #{$small} {
-    .squeeze {
-      padding: 0 0 0 120px;
-    }
-  }
-
   &.pow-contact {
-    background: #fff;
+    background: #f3f7f8;
     min-height: 100%;
     margin: 0;
     padding: 0;
 
+    // Header Font
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat';
+    }
+
+    // "We're Here To Help" Section
     .top-wrapper {
       background: image-url('user-static-content/contact-bg.jpg');
       background-repeat: no-repeat;
@@ -22,25 +22,89 @@
       padding: 70pt 0;
       margin-bottom: 15px;
 
-      h4, h1 {
-        color: #fff;
-        font-family: 'Montserrat';
-      }
-
-      h4 {
-        font-size: 2em;
-      }
-
       h1 {
+        color: #fff;
         font-size: 4em;
         text-transform: uppercase;
         font-weight: bold;
       }
     }
 
-    p {
-      font-size: 2rem;
-      margin: 3rem 0;
+    // Margins on Rows
+    .lead-text,
+    .panels,
+    .faq,
+    .leadership {
+      margin-top: 2rem;
+    }
+    .faq {
+      margin-bottom: 4rem;
+    }
+    .no-margin {
+      margin: 0;
+    }
+
+    // Color Font Awesome Icons
+    .fa {
+      color: #F1C550;
+    }
+
+    // Yellow Labels/Headings
+    .subheading {
+      color: #F1C550;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    // Leadership/Corporate Panels
+    .contact-panel {
+      background-color: #fff;
+      border: 1px solid #eee;
+      @media #{$large} {
+        min-height: 540px;
+      }
+
+      h1, h2 {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      h1 {
+        font-size: 1.25rem;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+
+      a {
+        color: #000;
+        font-weight: bold;
+
+        &.support-link {
+          font-size: 1.25rem;
+          color: #3DC1EA;
+        }
+      }
+
+      img {
+        border-radius: 32px;
+        height: auto;
+        width: 64px;
+      }
+    }
+
+    // Green FAQ Panel at bottom
+    .faq-panel {
+      background-color: #37CA74;
+      border: 0;
+      a, p {
+        color: #fff;
+      }
+      a {
+        text-decoration: underline;
+        font-weight: bold;
+      }
     }
 
     .pow-landing-footer {
