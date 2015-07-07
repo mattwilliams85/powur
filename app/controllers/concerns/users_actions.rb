@@ -2,7 +2,13 @@ module UsersActions
   extend ActiveSupport::Concern
 
   included do
-    before_action :fetch_user, only: [ :show, :downline, :upline, :move, :eligible_parents ]
+    before_action :fetch_user,
+                  only: [ :show,
+                          :downline,
+                          :upline,
+                          :sponsors,
+                          :move,
+                          :eligible_parents ]
   end
 
   def index
@@ -21,6 +27,12 @@ module UsersActions
     @list_query = @user.upline_users
 
     index
+  end
+
+  def sponsors
+    @users = [ @user.sponsor, @user.sponsor.sponsor]
+
+    render 'sponsors'
   end
 
   def search
