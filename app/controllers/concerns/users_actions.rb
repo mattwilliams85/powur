@@ -30,7 +30,13 @@ module UsersActions
   end
 
   def sponsors
-    @users = [ @user.sponsor, @user.sponsor.sponsor]
+    if @user.sponsor && @user.sponsor.sponsor
+      @users = [ @user.sponsor, @user.sponsor.sponsor ]
+    elsif @user.sponsor && !@user.sponsor.sponsor
+      @users = [ @user.sponsor ]
+    else
+      @users = []
+    end
 
     render 'sponsors'
   end

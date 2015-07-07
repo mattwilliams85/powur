@@ -36,34 +36,34 @@
                 <li>Clarifications on submitting proposals, SolarCity, getting started, etc.</li>
               </ul>
               <!-- Coach -->
-              <div class="row leadership">
+              <div ng-if="coach" class="row leadership">
                 <div class="small-2 columns">
                   <p class="text-right">
-                    <img src="https://pbs.twimg.com/profile_images/450534293031235585/nGzrwsue_400x400.jpeg">
+                    <img ng-src="{{coach.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
                   </p>
                 </div>
                 <div class="small-10 columns">
                   <h2 class="subheading">Your Coach</h2>
                   <ul class="no-bullet">
-                    <li>Jonathan Budd</li>
-                    <li><i class="fa fa-phone"></i> 456-789-1234</li>
-                    <li><i class="fa fa-envelope"></i> jonathan@powur.com</li>
+                    <li>{{coach.properties.first_name}} {{coach.properties.last_name}}</li>
+                    <li><i class="fa fa-phone"></i> {{coach.properties.phone}}</li>
+                    <li><i class="fa fa-envelope"></i> <a ng-href="mailto:{{coach.properties.email}}">{{coach.properties.email}}</a></li>
                   </ul>
                 </div>
               </div>
               <!-- Team Leader -->
-              <div class="row leadership">
+              <div ng-if="teamLeader" class="row leadership">
                 <div class="small-2 columns">
                   <p class="text-right">
-                    <img src="https://pbs.twimg.com/profile_images/450534293031235585/nGzrwsue_400x400.jpeg">
+                    <img ng-src="{{teamLeader.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
                   </p>
                 </div>
                 <div class="small-10 columns">
                   <h2 class="subheading">Your Team Leader</h2>
                   <ul class="no-bullet">
-                    <li>Jonathan Budd</li>
-                    <li><i class="fa fa-phone"></i> 456-789-1234</li>
-                    <li><i class="fa fa-envelope"></i> jonathan@powur.com</li>
+                    <li>{{teamLeader.properties.first_name}} {{teamLeader.properties.last_name}}</li>
+                    <li><i class="fa fa-phone"></i> {{teamLeader.properties.phone}}</li>
+                    <li><i class="fa fa-envelope"></i> <a ng-href="mailto:{{teamLeader.properties.email}}">{{teamLeader.properties.email}}</a></li>
                   </ul>
                 </div>
               </div>
