@@ -173,6 +173,7 @@ $pro-color: #f4c751;
       width: 100%;
       position: relative;
       top: -291px;
+      margin-bottom: -250px;
 
       td, th {
         background: #fff;
@@ -273,7 +274,7 @@ $pro-color: #f4c751;
     }
 
     .payment-info-wrapper {
-      padding-bottom: 100px;
+      padding-top: 20px;
 
       .payment-icons {
         background-image: image-url("memberships/payment-icons.png");
