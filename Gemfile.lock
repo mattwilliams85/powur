@@ -242,6 +242,7 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.2)
+    jwt (1.5.1)
     kgio (2.9.3)
     libxml-ruby (2.8.0)
     loofah (2.0.1)
@@ -391,6 +392,10 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
+    twilio-ruby (4.2.1)
+      builder (>= 2.1.2)
+      jwt (~> 1.0)
+      multi_json (>= 1.3.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -474,6 +479,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   thin
+  twilio-ruby
   uglifier
   unicorn
   valid_email
