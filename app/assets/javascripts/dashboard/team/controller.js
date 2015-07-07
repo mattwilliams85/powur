@@ -72,7 +72,7 @@
     };
 
     $scope.invitesTab = function() {
-      if ($scope.noInvitesAvailable && !$scope.invites.length) return $location.path('/upsell');
+      if ($scope.noInvitesAvailable && !$scope.invites.length && !$scope.invites.redeemed) return $location.path('/upsell');
       $scope.downline = $scope.downline.slice(0, 1);
       if ($scope.downline[0]) $scope.downline[0].tab = null;
       if ($scope.downline[0]) $scope.downline[0].selected = null;
@@ -295,6 +295,7 @@
       CommonService.execute({href: '/u/invites.json'}).then(function(data){
         $scope.invites = data.entities;
         $scope.invites.available = data.properties.available;
+        $scope.invites.redeemed = data.properties.redeemed.length;
         $scope.inviteFormAction = getAction(data.actions, 'create');
         $scope.noInvitesAvailable = false;
         if (!$scope.invites.available) {
