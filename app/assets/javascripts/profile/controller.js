@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function ProfileCtrl($scope, $rootScope, UserProfile) {
+  function ProfileCtrl($scope, $rootScope, $anchorScroll, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
     UserProfile.get().then(function(user) {
@@ -21,6 +21,7 @@
     $scope.updateProfile = function() {
       if ($scope.userProfile) {
         UserProfile.update({user: $scope.userProfile}).then(function() {
+          $anchorScroll();
           $scope.showModal('Personal information successfully updated');
         });
       }
@@ -51,6 +52,6 @@
     });
   }
 
-  ProfileCtrl.$inject = ['$scope', '$rootScope', 'UserProfile'];
+  ProfileCtrl.$inject = ['$scope', '$rootScope', '$anchorScroll', 'UserProfile'];
   angular.module('powurApp').controller('ProfileCtrl', ProfileCtrl);
 })();
