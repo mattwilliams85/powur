@@ -136,6 +136,7 @@ Rails.application.routes.draw do
         get :upline
         post :move
         get :eligible_parents
+        get :sponsors
       end
 
       # resources :rank_achievements, only:       [ :index ],

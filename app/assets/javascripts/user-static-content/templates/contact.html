@@ -8,25 +8,105 @@
 
     <div class="top-wrapper">
       <div class="row">
-        <div class="large-12 columns squeeze">
-          <h4>How to Contact Us.</h4>
-          <h1>We are here to<br>help!</h1>
+        <div class="large-12 columns">
+          <h1 class="text-center">We're here to help</h1>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="large-12 columns contact-info squeeze">
-        <p>If you have any questions or concerns, the best way to reach us is through our online Support Suite 24 hours a day, 7 days a week at:</p>
-        <p><a href="https://support.powur.com/" target="_blank">support.powur.com</a></p>
-        <p>You can also call us during business hours of 9 a.m. to 5 p.m. PDT at:</p>
-        <p>480.626.7056</p>
-        <br>
-        <br>
-        <br>
+      <div class="large-12 columns">
+        <!-- Lead Text -->
+        <div class="row lead-text">
+          <div class="large-12 columns">
+            <h5 class="subheading text-center">Know Who to Contact</h5>
+            <h1 class="text-center">Leader Support vs Corporate Support</h1>
+            <p class="text-center">Your success is important to everyone at Powur. We encourage you to leverage your leadership team, as well as corporate to get answers to your questions. Don't know who to contact? Use the tips below to get pointed in the right direction.</p>
+          </div>
+        </div>
+        <!-- Panels -->
+        <div class="row panels">
+          <div class="large-6 columns">
+            <!-- Leadership Panel -->
+            <div class="panel contact-panel">
+              <h1>Contact Leadership Team on Topics Like:</h1>
+              <ul>
+                <li>How the Powur rewards plan works</li>
+                <li>How you advance to the next level</li>
+                <li>Where to find our next live event, or an event happening in your market</li>
+                <li>Clarifications on submitting proposals, SolarCity, getting started, etc.</li>
+              </ul>
+              <!-- Coach -->
+              <div ng-if="coach" class="row leadership">
+                <div class="small-2 columns">
+                  <p class="text-right">
+                    <img ng-src="{{coach.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
+                  </p>
+                </div>
+                <div class="small-10 columns">
+                  <h2 class="subheading">Your Coach</h2>
+                  <ul class="no-bullet">
+                    <li>{{coach.properties.first_name}} {{coach.properties.last_name}}</li>
+                    <li><i class="fa fa-phone"></i> {{coach.properties.phone}}</li>
+                    <li><i class="fa fa-envelope"></i> <a ng-href="mailto:{{coach.properties.email}}">{{coach.properties.email}}</a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Team Leader -->
+              <div ng-if="teamLeader" class="row leadership">
+                <div class="small-2 columns">
+                  <p class="text-right">
+                    <img ng-src="{{teamLeader.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
+                  </p>
+                </div>
+                <div class="small-10 columns">
+                  <h2 class="subheading">Your Team Leader</h2>
+                  <ul class="no-bullet">
+                    <li>{{teamLeader.properties.first_name}} {{teamLeader.properties.last_name}}</li>
+                    <li><i class="fa fa-phone"></i> {{teamLeader.properties.phone}}</li>
+                    <li><i class="fa fa-envelope"></i> <a ng-href="mailto:{{teamLeader.properties.email}}">{{teamLeader.properties.email}}</a></li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div class="large-6 columns">
+            <!-- Corporate Panel -->
+            <div class="panel contact-panel">
+              <h1>Contact Corporate Support on Topics Like:</h1>
+              <ul>
+                <li>Issues with billing</li>
+                <li>Website or other technical support questions</li>
+                <li>Glitches or bugs</li>
+              </ul>
+              <br>
+              <h2 class="subheading">24 Hours a Day, 7 Days a Week</h2>
+              <p><a target="_blank" class="support-link" href="https://support.powur.com/">https://support.powur.com/</a></p>
+              <br>
+              <p class="no-margin">You can also call us during business hours of 9 a.m. to 5 p.m. PDT at:</p>
+              <h5><i class="fa fa-phone"></i> 480.626.7056</h5>
+              <br>
+              <p class="no-margin">Or visit us on social media:</p>
+              <ul class="no-bullet">
+                <li><i class="fa fa-facebook"></i> <a target="_blank" href="https://facebook.com/powurhq" >facebook.com/PowurHQ</a></li>
+                <li><i class="fa fa-twitter"></i> <a target="_blank" href="https://twitter.com/powurpbc">twitter.com/PowurPBC</a></li>
+                <li><i class="fa fa-youtube"></i> <a target="_blank" href="https://www.youtube.com/channel/UCalOAs-N4ODV-a_iclS6htA">PowurPBC on YouTube</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- Green FAQ Row at Bottom -->
+        <div class="row faq">
+          <div class="large-12 columns">
+            <div class="panel faq-panel">
+              <p class="text-center">In addition, answers to various questions can be found in the <a ng-href="/advocate-faq">Powur FAQ documents</a></p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-
-    <ng-include src="'shared/footer.html'"></ng-include>
+    <ng-include ng-if="!isSignedIn" src="'shared/footer.html'"></ng-include>
+    <ng-include ng-if="isSignedIn" src="'shared/footer-signed-in.html'"></ng-include>
   </main>
 </div>
