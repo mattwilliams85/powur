@@ -72,7 +72,7 @@
     };
 
     $scope.invitesTab = function() {
-      if ($scope.noInvitesAvailable && !$scope.invites.length && !$scope.invites.redeemed) return $location.path('/upsell');
+      if ($scope.noInvitesAvailable && !$scope.invites.length && !$scope.invites.redeemed) return $location.path('/upgrade');
       $scope.downline = $scope.downline.slice(0, 1);
       if ($scope.downline[0]) $scope.downline[0].tab = null;
       if ($scope.downline[0]) $scope.downline[0].selected = null;
