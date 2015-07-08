@@ -30,6 +30,7 @@
     $scope.updatePassword = function() {
       if ($scope.password) {
         UserProfile.updatePassword($scope.password).then(function(data) {
+          $anchorScroll();
           if (data.error) {
             $scope.showModal(data.error.message);
           } else {
