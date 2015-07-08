@@ -45,7 +45,7 @@
 
         <!-- If Proposals -->
         <div class="proposals owl-carousel downline" id="teamProposals">
-          <a ng-repeat="proposal in teamProposals" ng-click="teamSection.showProposal(proposal); toggleProposal(proposal);">
+          <a ng-repeat="proposal in teamProposals" ng-click="teamSection.showProposal(proposal);">
             <div class="proposal team-proposal" ng-class="{active: proposalId === proposal.properties.id, 'even': downline.length % 2 === 0, 'odd': downline.length % 2 !== 0 }">
               <div class="status-icon">
                 <img ng-show="proposal.properties.status === 'closed_won'" ng-src="{{img.proposalClosedWon}}">

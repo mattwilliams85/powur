@@ -16,9 +16,9 @@ $pro-color: #f4c751;
     h1 {
       color: #fff;
       font-weight: bold;
-      font-size: 2.1em;
+      font-size: 2em;
       text-transform: uppercase;
-      margin-bottom: 2.3em;
+      margin-bottom: 2em;
     }
 
     h5 {
@@ -39,8 +39,9 @@ $pro-color: #f4c751;
   }
 
   .memberships-list-wrapper {
-    top: -230px;
+    top: -221px;
     position: relative;
+    margin-bottom: -220px;
 
     .list-item {
       background-color: #fff;
@@ -80,7 +81,7 @@ $pro-color: #f4c751;
 
       .description {
         margin: 0 20px;
-        height: 172px;
+        height: 162px;
       }
 
       .line {
@@ -95,7 +96,7 @@ $pro-color: #f4c751;
         border-bottom-left-radius: 5pt;
         border-bottom-right-radius: 5pt;
         border-bottom: 1px solid #e4e6e7;
-        height: 360px;
+        height: 335px;
 
         .button {
           text-transform: uppercase;
@@ -103,7 +104,7 @@ $pro-color: #f4c751;
       }
 
       .extra {
-        height: 280px;
+        height: 260px;
         text-align: left;
         margin: 0 20px;
         padding-top: 20px;
@@ -158,12 +159,13 @@ $pro-color: #f4c751;
     background-image: image-url("memberships/chart-icon.png");
     background-repeat: no-repeat;
     background-position: center top;
-    height: 100px;
+    background-size: contain;
+    height: 50px;
   }
 
   .memberships-table-wrapper {
     background-color: $header-font-color;
-    margin-top: 500px;
+    margin-top: 330px;
 
     .memberships-table {
       border: none;
@@ -171,6 +173,7 @@ $pro-color: #f4c751;
       width: 100%;
       position: relative;
       top: -291px;
+      margin-bottom: -250px;
 
       td, th {
         background: #fff;
@@ -271,7 +274,7 @@ $pro-color: #f4c751;
     }
 
     .payment-info-wrapper {
-      padding-bottom: 100px;
+      padding-top: 20px;
 
       .payment-icons {
         background-image: image-url("memberships/payment-icons.png");
@@ -280,6 +283,93 @@ $pro-color: #f4c751;
         color: #888;
         padding-top: 60px;
       }
+    }
+  }
+}
+
+
+.reveal-modal-purchase-membership {
+  padding: 0;
+  width: 100%;
+  max-width: 100rem;
+
+  @media #{$small} {
+    width: 50%;
+    max-width: 50rem;
+  }
+
+  .title-wrapper, .content-wrapper, .bottom-wrapper {
+    padding: 0 10px;
+  }
+
+  .title-wrapper {
+    background: #5ebe76;
+    text-transform: uppercase;
+
+    h3 {
+      margin-top: 2em;
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+
+  small {
+    font-size: .8em;
+    color: #989a9b;
+  }
+
+  input[type="text"] {
+    border-radius: 5px;
+  }
+
+  .form-info {
+    font-size: 1.4em;
+    margin: 1.5em 0;
+  }
+
+  .success-info {
+    margin-bottom: 50px;
+    display: inline-block;
+  }
+
+  .card-icons {
+    background-image: image-url("memberships/purchase-icons.png");
+    background-repeat: no-repeat;
+    background-position: right 0;
+    height: 26px;
+    margin-bottom: 10px;
+  }
+
+  .error-message-wrapper {
+    height: 2em;
+    overflow: hidden;
+
+    .error-message {
+      color: red;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+  }
+
+  .close-reveal-modal {
+    color: #fff;
+    z-index: 9;
+  }
+
+  button, .button {
+    background: #3b86c4;
+    display: block;
+    width: 100%;
+  }
+
+  .bottom-wrapper {
+    background: #f4f6f7;
+    font-size: .8em;
+    padding: 20px 0;
+    margin-top: 20px;
+
+    .secure {
+      color: #b89a40;
     }
   }
 }

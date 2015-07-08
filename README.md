@@ -5,7 +5,6 @@
 
 ```
 rake powur:seed:products
-rake powur:seed:zip_codes
 rake powur:seed:library
 rake powur:seed:advocates
 rake powur:seed:leads

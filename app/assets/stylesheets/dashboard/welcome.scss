@@ -1,0 +1,343 @@
+.powur-dashboard {
+  .welcome-section {
+    min-height: 600px;
+
+    // Background
+    &.bg {
+      background-image: image-url('dandelions.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: absolute;
+      background-position: center 25%;
+      left: 0;
+      right: 0;
+    }
+
+    // Typography
+    h1, h2, h3, h4, h5, h6, p, span {
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .welcome-message {
+      padding-top: 100px;
+
+      .avatar {
+        width:128px;
+        height: auto;
+        border-radius: 50%;
+      }
+    }
+
+    .pay-period-goals {
+      margin-top: 40px;
+      padding-right: 20px;
+
+      // Progress Bars
+      // (from http://blog.eyecuelab.com/2015/03/18/progress-bars-with-css-tooltips/)
+      .progress-bar-box {
+        position: relative;
+        margin: 40px 0 0 8px;
+
+        &.large {
+          margin: 60px 0 0 8px;
+        }
+
+        a div {
+          margin-top: 10px;
+        }
+
+        .progress-bar {
+          position: relative;
+          display: block;
+          width: 100%;
+          height: 15px;
+          margin-bottom: 2px;
+          background: #ccc;
+          font-size: 10pt;
+          line-height: 11pt;
+          border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+
+          &.half {
+            height: 20px;
+            margin-bottom: 7px;
+            font-size: 11pt;
+            line-height: 14pt;
+          }
+          &.full {
+            height: 25px;
+            top: 3px;
+            font-size: 14pt;
+            line-height: 18pt;
+          }
+
+          .progress-text {
+            position: absolute;
+            text-transform: uppercase;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            z-index: 99;
+            display: none;
+          }
+        }
+
+        .bar {
+          position: absolute;
+          display: block;
+          height: 100%;
+          border-radius: 3px;
+          transition: all .3s ease-in;
+          -webkit-transition:  all .3s ease-in;
+          -webkit-box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.08);
+          box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.08);
+          &.hold {
+            width: 0% !important;
+          }
+          &.green {
+            background: rgb(0,204,84); /* Old browsers */
+            background: -moz-linear-gradient(left,  rgba(0,204,84,1) 0%, rgba(104,204,144,1) 100%, rgba(85,204,133,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,204,84,1)), color-stop(100%,rgba(104,204,144,1)), color-stop(100%,rgba(85,204,133,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left,  rgba(0,204,84,1) 0%,rgba(104,204,144,1) 100%,rgba(85,204,133,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left,  rgba(0,204,84,1) 0%,rgba(104,204,144,1) 100%,rgba(85,204,133,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left,  rgba(0,204,84,1) 0%,rgba(104,204,144,1) 100%,rgba(85,204,133,1) 100%); /* IE10+ */
+            background: linear-gradient(to right,  rgba(0,204,84,1) 0%,rgba(104,204,144,1) 100%,rgba(85,204,133,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cc54', endColorstr='#55cc85',GradientType=1 ); /* IE6-9 */
+          }
+          &.orange {
+           background: rgb(255,191,0); /* Old browsers */
+           background: -moz-linear-gradient(left,  rgba(255,191,0,1) 0%, rgba(255,207,86,1) 100%); /* FF3.6+ */
+           background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,191,0,1)), color-stop(100%,rgba(255,207,86,1))); /* Chrome,Safari4+ */
+           background: -webkit-linear-gradient(left,  rgba(255,191,0,1) 0%,rgba(255,207,86,1) 100%); /* Chrome10+,Safari5.1+ */
+           background: -o-linear-gradient(left,  rgba(255,191,0,1) 0%,rgba(255,207,86,1) 100%); /* Opera 11.10+ */
+           background: -ms-linear-gradient(left,  rgba(255,191,0,1) 0%,rgba(255,207,86,1) 100%); /* IE10+ */
+           background: linear-gradient(to right,  rgba(255,191,0,1) 0%,rgba(255,207,86,1) 100%); /* W3C */
+           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffbf00', endColorstr='#ffcf56',GradientType=1 ); /* IE6-9 */
+
+          }
+          &.blue {
+            background: $pow-color-blue;
+          }
+        }
+
+        .label {
+          position: absolute;
+          display: block;
+          padding: 5px 10px;
+          height: 40px;
+          line-height: 30px;
+          top: 30px;
+          background: #111;
+          font-size: 12pt;
+          text-align: center;
+          color: #fff;
+          border: 1px solid rgba(0, 0, 0, 0.2);
+          border-radius: 6px;
+          white-space: nowrap;
+          opacity: 0;
+        }
+      }
+
+      // Arrows
+      .bar {
+        span:after {
+          transition : all .5s linear;
+          position: absolute;
+          display: none;
+          content:"";
+          width: 10px;
+          height: 10px;
+          transform: rotate(45deg);
+          background: rgba(0, 0, 0, 1);
+          right: 0%;
+        }
+
+        &.label-is-below {
+          span:after {
+            top: 15px;
+          }
+        }
+
+        &.label-is-above {
+          span:after {
+            bottom: 15px;
+          }
+        }
+      }
+
+      .legend {
+        padding: 8px 0;
+
+        .legend-item {
+          margin: 0 0 5px 10px;
+          display: block;
+          float: left;
+
+          span {
+            line-height: 16pt;
+            font-size: 10pt;
+            text-transform: uppercase;
+          }
+
+          .legend-key {
+            height: 20px;
+            width: 20px;
+            margin: 3px 10px 0 0;
+            float: left;
+
+            &.personal {
+              background-color: $pow-color-orange;
+            }
+
+            &.group {
+              background-color: $pow-color-blue;
+            }
+
+            &.course {
+              background-color: $pow-color-green;
+            }
+          }
+        }
+      }
+
+      div.badge {
+        width: 100%;
+        height: 0;
+        position: relative;
+      }
+
+      img.badge {
+        z-index: 50;
+        position: absolute;
+        right: -80px;
+        bottom: -80px;
+        width: 118px;
+        height: 109px;
+
+        &.half {
+          bottom: -75px;
+        }
+
+        &.full {
+          bottom: -70px;
+        }
+      }
+
+      .course-requirement-message {
+        display: block;
+        margin-top: 20px;
+        max-width: 93%;
+        margin-left: 8px;
+      }
+    }
+
+    .news {
+
+      span.latest-news-label {
+        font-size: 14pt;
+        color: #fff;
+      }
+
+      .notifications {
+          margin-top: 10px;
+          height: 380px;
+          width: 100%;
+          overflow-y: auto;
+          overflow-x: hidden;
+          background: rgba(0,0,0,0.3);
+          padding: 10px 5px 15px 15px;
+          border-radius: 3px;
+
+
+        .notification {
+          padding-top: 10px;
+          margin: 5px;
+          p.text {
+            color: #fff;
+            font-size: 12pt;
+            text-align: left;
+            line-height: 15pt;
+            margin: 10px 20px 0 0;
+          }
+          span.date {
+            font-size: 10pt;
+            color: #aaa;
+            text-align: left;
+            margin-top: 0px;
+          }
+          a {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            display: block;
+            overflow: hidden;
+          }
+        }
+
+        .load-more {
+          position: relative;
+          width: 120px;
+          margin: 20px auto 0 auto;
+          display: block;
+          font-size: 10pt;
+          height: 30px;
+          background: rgba(0,0,0,0.5);
+          text-align: center;
+          line-height: 30px;
+          color: #fff;
+        }
+
+      }
+      .notifications::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .notifications::-webkit-scrollbar-track {
+        background: rgba(0,0,0,0.2);
+      }
+
+      .notifications::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.4);
+      }
+    }
+
+    // Responsive Styles For News Section:
+
+    // (Styles when news renders below Welcome Section on small screens)
+    .news {
+      margin-top: 50px;
+      padding-top: 30px;
+      background-color: #222;
+    }
+
+    // (Styles when news renders within Welcome Section on medium/large screens)
+    @media #{$small} {
+      .news {
+        margin-top: 0;
+        padding: 90px 5px 0 0;
+        background-color: initial;
+      }
+    }
+
+  }
+
+  // FOR BETA
+  /*
+  Powur Beta Dashboard Overview Video
+  */
+
+  .dashboard-video-link-section {
+    height: 0;
+    position: relative;
+    top: -40px;
+    left: 20px;
+
+    // Tooltip Overrides
+    span {
+      border-bottom: none;
+      a {
+        color: #fff;
+      }
+    }
+  }
+}

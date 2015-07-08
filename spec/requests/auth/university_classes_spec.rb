@@ -73,8 +73,23 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
         card:   { name: 'Bob' },
         format: :json
       })
-      expect_input_errors(:number, :cvv, :address)
+      expect_input_errors(:number, :cvv)
     end
+
+    it 'increases the user\'s available invites by 5' do
+      allow_any_instance_of(Auth::UniversityClassesController).to receive(:process_purchase).and_return(true)
+      allow_any_instance_of(Auth::UniversityClassesController).to receive(:send_purchased_notifications).and_return(true)
+
+      expect(current_user.available_invites).to eq(0)
+
+      post(purchase_university_class_path(certifiable_product), {
+        card: {},
+        format: :json
+      })
+
+      expect(current_user.available_invites).to eq(5)
+    end
+
   end
 end
 
@@ -109,7 +124,7 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
       it 'returns class completion alert' do
         post enroll_university_class_path(certifiable_product), format: :json
         expect(response.code).to eql('200')
-        expect(JSON.parse(response.body)).to eql({"error" => {"type"=>"alert", "message"=>"You have already completed this course"}})
+        expect_alert_error
       end
     end
 
@@ -121,8 +136,62 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
       it 'returns unauthorized' do
         post enroll_university_class_path(certifiable_product), format: :json
         expect(response.code).to eql('404')
-        expect(JSON.parse(response.body)).to eql({"error"=>{"type"=>"alert", "message"=>"product not found with id #{certifiable_product.id}"}})
+        expect_alert_error
       end
+    end
+  end
+end
+
+describe 'POST /u/university_classes/:id/check_enrollment', type: :request do
+  let!(:current_user) { login_user }
+  let(:product) { create(:certifiable_product, name: 'someproduct') }
+  let(:smarteru) { double(:smarteru, enrollment: smarteru_learner_report) }
+  let!(:product_enrollment) do
+    ProductEnrollment.create(user_id: current_user.id, product_id: product.id)
+  end
+  let(:smarteru_learner_report) {}
+
+  before do
+    allow(current_user).to receive(:smarteru).and_return(smarteru)
+  end
+
+  context 'enrollment started' do
+    let(:smarteru_learner_report) do
+      {
+        course_name:    'someproduct',
+        started_date: '2015-02-09 17:37:20.41'
+      }
+    end
+
+    it 'should update enrollment state' do
+      get check_enrollment_university_class_path(product), format: :json
+
+      expect_props(id: product.id, state: 'started')
+      expect(product_enrollment.reload.state).to eq('started')
+    end
+  end
+
+  context 'enrollment completed' do
+    let(:smarteru_learner_report) do
+      {
+        course_name:    'someproduct',
+        completed_date: '2015-02-09 17:37:20.41'
+      }
+    end
+
+    it 'should update enrollment state' do
+      get check_enrollment_university_class_path(product), format: :json
+
+      expect_props(id: product.id, state: 'completed')
+      expect(product_enrollment.reload.state).to eq('completed')
+    end
+  end
+
+  context 'enrollment not found' do
+    it 'should update enrollment state' do
+      get check_enrollment_university_class_path(create(:certifiable_product)), format: :json
+
+      expect_alert_error
     end
   end
 end

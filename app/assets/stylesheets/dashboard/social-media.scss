@@ -1,0 +1,61 @@
+.powur-dashboard {
+  .social-media-section {
+    min-height: 180px;
+    padding-top: 50px;
+    padding-bottom: 30px;
+    background-color: #333;
+
+    &.bg {
+      z-index: 100; // (added to put text/gray bg on top of .locked overlays)
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 180px;
+      background-color: #333;
+    }
+    .quote {
+      z-index: 101; // (added to put text/gray bg on top of .locked overlays)
+
+      .share-this {
+        padding-top: 20px;
+
+        .title {
+          text-align: left;
+          text-transform: uppercase;
+          font-size: 10pt;
+          color: #fff;
+          display: block;
+          float: left;
+          margin-right: 10px;
+          line-height: 15pt;
+        }
+
+        .twitter-share-button, .fb-share-button {
+          display: block;
+          float: left;
+          margin-right: 10px;
+
+          span {
+            vertical-align: top !important;
+          }
+        }
+      }
+
+      .quote-text {
+        text-align: left;
+        color: #fff;
+        font-size: 16pt;
+        line-height: 20pt;
+      }
+    }
+
+  }
+  // Responsive Styles for Social Media Section:
+
+  // Gray background sometimes shows below the .bg div when quote is two lines long; this prevents that:
+  @media #{$medium} {
+    .social-media-section {
+      background-color: initial;
+    }
+  }
+}

@@ -19,11 +19,13 @@
         <!-- Existing Invites -->
         <div ng-if="invite" class="invite" ng-click="showInvite(invite);" ng-class="{'active': invite.properties.id === activeInvite.properties.id}">
           <div class="icon invite-icon">
-            <span><i class="fa fa-envelope fa-4x"></i></span>
+            <span ng-if="!inviteExpired(invite)"><i class="fa fa-envelope fa-4x"></i></span>
+            <span ng-if="inviteExpired(invite)"><i class="fa fa-exclamation-circle fa-4x"></i></span>
           </div>
           <div class="info-text user-text">
             <span>{{invite.properties.first_name}} {{invite.properties.last_name}}</span>
-            <span class="info-detail">Expires {{ invite.properties.expires | dateToLocalDate }} {{ invite.properties.expires | timeToLocalTime }}</span>
+            <span ng-if="!inviteExpired(invite)" class="info-detail">Expires {{ invite.properties.expires | dateToLocalDate }} {{ invite.properties.expires | timeToLocalTime }}</span>
+            <span ng-if="inviteExpired(invite)" class="info-detail">Expired Invite</span>
           </div>
         </div>
 
@@ -90,10 +92,24 @@
   <!-- Large -->
   <div ng-hide="!activeInvite" class="large-12 columns form">
     <div class="summary large-3 medium-3 columns">
-      <h1>Open Invite</h1>
-      <p>This invite has been sent to <br>
-      {{activeInvite.properties.first_name}} {{activeInvite.properties.last_name}}.</p>
-      <p>You can cancel or resend this invite using the buttons below. Resending will reset the expiration date of this invite.</p>
+
+      <!-- Open Invitation Summary Text -->
+      <div ng-if="!inviteExpired(activeInvite)">
+        <h1>Open Invite</h1>
+        <p>This invite was sent to <br>
+        {{activeInvite.properties.first_name}} {{activeInvite.properties.last_name}}.</p>
+        <p>You can cancel or resend this invite using the buttons below. Resending will reset the expiration date of this invite.</p>
+      </div>
+
+      <!-- Expired Invitation Summary Text -->
+      <div ng-if="inviteExpired(activeInvite)">
+        <h1>Expired Invite</h1>
+        <p>This invite was sent to<br>
+        {{activeInvite.properties.first_name}} {{activeInvite.properties.last_name}}.</p>
+        <p>This invite is expired. You can resend and renew it using the button below.</p>
+      </div>
+
+      <!-- Buttons -->
       <button class="button secondary expand" ng-click="deleteInvite(activeInvite)">Cancel Invite</button>
       <button class="button expand" ng-click="resendInvite(activeInvite)">Resend Invite</button>
     </div>

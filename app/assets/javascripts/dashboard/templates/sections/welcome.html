@@ -22,7 +22,7 @@
         <!-- Legend -->
         <div class="legend">
           <div ng-repeat="requirement in goals.requirements">
-            <div class="legend-item" ng-if="requirement.properties.event_type === 'course_completion'">
+            <div class="legend-item" ng-if="requirement.properties.event_type === 'course_enrollment'">
               <div class="legend-key course"></div>
               <span>{{requirement.properties.product}}</span>
             </div>
@@ -45,7 +45,7 @@
           <div ng-repeat="requirement in goals.requirements" repeat-end="onEnd()">
             <div
               class="progress-bar enrollment"
-              ng-if="requirement.properties.event_type === 'course_completion'"
+              ng-if="requirement.properties.event_type === 'course_enrollment'"
               ng-class="{ half: goals.requirements.length === 2,
                           full: goals.requirements.length === 1 }">
               <span class="progress-text">{{courseState || 'not enrolled'}}</span>
@@ -73,8 +73,6 @@
               <!-- <div class="label below"></div> -->
             </div>
           </div>
-
- <!--         <a ng-if="!courseState && !showBetaDashboardVideoLink" ng-href="/university/classes/{{goals.courseId}}/purchase"><div class="progress-text">Need to enroll?</div></a> -->
         </div><!-- end progress-bar-box -->
 
         <span ng-if="!currentUser.organic_rank" class="course-requirement-message">Welcome to Powur. First step, unlock your Dashboard by passing the F.I.T test. (Fast Impact Training)</span>

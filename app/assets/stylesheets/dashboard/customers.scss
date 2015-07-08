@@ -1,0 +1,145 @@
+.powur-dashboard {
+  .customers-section {
+    padding-bottom: 20px;
+
+    .drilldown {
+      max-height: 0px;
+      -webkit-transition: max-height .4s, opacity .2s;
+      -moz-transition: max-height .4s, opacity .2s;
+      -o-transition: max-height .4s, opacity .2s;
+      -ms-transition: max-height .4s, opacity .2s;
+      transition: max-height .4s, opacity .2s;
+      &.active {
+        max-height: 2000px;
+        @media #{$small} {
+          max-height: 900px;
+        }
+        @media #{$large} {
+          max-height: 700px;
+        }
+      }
+    }
+  }
+
+  // Customer Information on Submitted Proposals
+  .submitted-proposal {
+    position: relative;
+    border-radius: 4px;
+    color: #fff;
+    background-color: rgba(0,0,0,0.08);
+    border: 1px solid #333;
+    padding-top: 32px;
+
+    p {
+      color: #ccc;
+      margin-bottom: 0px;
+    }
+
+    div.customer-info {
+      .name {
+        font-size: 24pt;
+        line-height: 36pt;
+      }
+      .email {
+        font-size: 12pt;
+        line-height: 24pt;
+        a {
+          color: #12C2FD;
+          &:hover {
+            color: #fff;
+          }
+        }
+      }
+      .phone {
+        font-size: 12pt;
+        line-height: 12pt;
+      }
+      .address,
+      .city-state-zip {
+        font-size: 14pt;
+        line-height: 18pt;
+      }
+    }
+
+    div.proposal-product-field {
+      position: relative;
+      width: 100%;
+      padding-top: 10px;
+
+      .label {
+        color: #ccc;
+        text-transform: uppercase;
+        font-size: 10pt;
+        background-color: initial;
+        padding: 0;
+      }
+
+      .value {
+        font-size: 14pt;
+        line-height: 18pt;
+      }
+
+    }
+  }
+  .lead-update {
+    background-color: rgba(0,0,0,0.08);
+    border-radius: 4px;
+    border: 1px solid #333;
+    position: relative;
+    overflow-y: auto;
+    max-height: 340px;
+
+    p {
+      color: #ccc;
+    }
+
+    div.status,
+    div.details,
+    div.solarcity-status {
+      font-size: 18pt;
+      line-height: 20pt;
+      padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #333;
+      margin-top: 15px;
+      position: relative;
+
+      p {
+        color: #ccc;
+        font-size: 12pt;
+        line-height: 18pt;
+        margin-bottom: 0;
+      }
+
+      p:first-of-type {
+        margin-top: 20px;
+      }
+
+    }
+  }
+  // Scroll Bars for Lead Updates Panel
+  .lead-update::-webkit-scrollbar,
+  .notes::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .lead-update::-webkit-scrollbar-track,
+  .notes::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+  }
+
+  .lead-update::-webkit-scrollbar-thumb,
+  .notes::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.4);
+  }
+  // /Scroll Bars
+
+  // .carousel-box {
+  //   border: 1px solid #e5e5e5;
+  //   margin-bottom: -2px;
+  // }
+
+  .new-proposal {
+    border-right: 0;
+  }
+}

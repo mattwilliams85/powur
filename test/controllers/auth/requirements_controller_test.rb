@@ -41,11 +41,11 @@ class Auth::RequirementsControllerTest < ActionController::TestCase
       post :create,
            product_id:    products(:solar).id,
            user_group_id: user_groups(:rank1).id,
-           event_type:    'course_completion'
+           event_type:    'course_enrollment'
     end
 
     test 'update' do
-      patch :update, id: user_group_requirements(:personal_sales).id,
+      patch :update, id:        user_group_requirements(:personal_sales).id,
                      quantity:  10,
                      time_span: 'monthly'
 

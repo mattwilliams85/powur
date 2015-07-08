@@ -1,0 +1,108 @@
+<div class='reveal-modal reveal-modal-purchase-membership' style="display: none;" data-reveal>
+  <a class='close-reveal-modal'>&#215;</a>
+
+  <div ng-if="!purchaseComplete">
+    <div class="title-wrapper">
+      <div class="row">
+        <div class="large-12 columns">
+          <h3>Confirm Purchase</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="row">
+        <form name="purchaseForm" ng-submit="purchase(selectedMembership)" novalidate>
+          <div class="large-12 columns">
+            <p class="form-info">You're purchasing <b>{{ selectedMembership.properties.name }}</b><br>for <b>${{ selectedMembership.properties.price | formattedPrice }}</b></p>
+          </div>
+
+          <div class="large-7 columns">
+            <span>Enter your payment info to proceed:</span>
+          </div>
+
+          <div class="large-5 columns">
+            <div class="card-icons"></div>
+          </div>
+
+          <div class="large-12 columns">
+            <input ng-model="card.name" name="card_name" placeholder="Name on card" type="text" />
+          </div>
+
+          <div class="large-12 columns">
+            <input ng-model="card.number" name="card_number" placeholder="Card number" type="text" />
+          </div>
+
+          <div class="large-4 columns">
+            <input ng-model="card.expiration" name="card_expiration" placeholder="MMYY" type="text" />
+          </div>
+
+          <div class="large-4 columns">
+            <input ng-model="card.cvv" name="card_cvv" placeholder="CVC" type="text" />
+          </div>
+
+          <div class="large-4 columns">
+            <input ng-model="card.zip" name="card_zip" placeholder="Zip" type="text" />
+          </div>
+
+          <div class="large-12 columns">
+            <div class="error-message-wrapper">
+              <span ng-if="errorMessage" class="error-message">* {{ errorMessage }}</span>
+            </div>
+          </div>
+
+          <div class="large-12 columns">
+            <input class="button" type="submit" ng-disabled="isPurchaseDisabled" value="Pay ${{ selectedMembership.properties.price | formattedPrice }}" />
+          </div>
+
+          <div class="large-12 columns text-center">
+            <small>By clicking on the 'Pay' button you agree to these <a ng-href="/terms-of-purchase" target="_blank">Terms of Service</a></small>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="bottom-wrapper">
+      <div class="row">
+        <div class="large-6 medium-6 small-12 columns">
+          <!-- <span class="secure">Secure Connection</span> -->
+          <img ng-src="{{ legacyImagePaths.rapidSslIcon }}">
+        </div>
+
+        <div class="large-6 medium-6 small-12 columns text-right">
+          <small>Charges on your credit card statement will appear as Powur PBC</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div ng-if="purchaseComplete">
+    <div class="title-wrapper">
+      <div class="row">
+        <div class="large-12 columns">
+          <h3>Success!</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="large-12 columns">
+          <p class="form-info">Congratulations, your membership level has been upgraded.</p>
+          <span class="success-info">Now you're probably wondering how to take advantage of your new status. Follow the link below to gain access to the partner certification course. Remember... the more you learn the more you earn!</span>
+          <button ng-click="takeAClass()">Go To Certification</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-wrapper">
+      <div class="row">
+        <div class="large-12 columns">
+          <small>Warning: You may experience drastic changes in your success, happiness and impact from this day forward.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

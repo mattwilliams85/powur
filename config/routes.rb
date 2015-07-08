@@ -136,6 +136,7 @@ Rails.application.routes.draw do
         get :upline
         post :move
         get :eligible_parents
+        get :sponsors
       end
 
       # resources :rank_achievements, only:       [ :index ],
@@ -162,6 +163,7 @@ Rails.application.routes.draw do
     resources :university_classes, only: [:index, :show] do
       member do
         post :enroll, :purchase
+        get :check_enrollment
       end
     end
 
