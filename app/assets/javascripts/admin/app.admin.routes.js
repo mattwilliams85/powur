@@ -38,6 +38,19 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminResourceTopicsCtrl'
     }).
+    // Notifications
+    when('/admin/notifications', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/admin/notifications/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/admin/notifications/:notificationId/edit', {
+      templateUrl: 'shared/admin/rest/edit.html',
+      controller: 'AdminNotificationsCtrl'
+    }).
     // Application and Agreements
     when('/admin/application-agreements', {
       templateUrl: 'shared/admin/rest/index.html',
