@@ -30,13 +30,7 @@ module UsersActions
   end
 
   def sponsors
-    if @user.sponsor && @user.sponsor.sponsor
-      @users = [ @user.sponsor, @user.sponsor.sponsor ]
-    elsif @user.sponsor && !@user.sponsor.sponsor
-      @users = [ @user.sponsor ]
-    else
-      @users = []
-    end
+    @users = [ @user.sponsor, @user.sponsor.try(:sponsor) ].compact
 
     render 'sponsors'
   end
