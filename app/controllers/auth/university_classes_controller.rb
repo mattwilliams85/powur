@@ -15,6 +15,7 @@ module Auth
     def purchase
       process_purchase
       send_purchased_notifications
+      increase_available_invites
 
       head :ok
     end
@@ -68,6 +69,10 @@ module Auth
           .team_leader_downline_certification_purchase(current_user)
         mailer.deliver_now!
       end
+    end
+
+    def increase_available_invites
+      current_user.update_column(:available_invites, current_user.available_invites + 5)
     end
 
     def validate_class_enrollable

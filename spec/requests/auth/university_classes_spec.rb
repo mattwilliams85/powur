@@ -75,6 +75,21 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
       })
       expect_input_errors(:number, :cvv)
     end
+
+    it 'increases the user\'s available invites by 5' do
+      allow_any_instance_of(Auth::UniversityClassesController).to receive(:process_purchase).and_return(true)
+      allow_any_instance_of(Auth::UniversityClassesController).to receive(:send_purchased_notifications).and_return(true)
+
+      expect(current_user.available_invites).to eq(0)
+
+      post(purchase_university_class_path(certifiable_product), {
+        card: {},
+        format: :json
+      })
+
+      expect(current_user.available_invites).to eq(5)
+    end
+
   end
 end
 
