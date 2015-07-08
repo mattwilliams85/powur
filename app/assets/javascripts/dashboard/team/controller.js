@@ -9,6 +9,7 @@
     $scope.downline = [];
     $scope.currentTeamMember = {};
 
+    //Conditional Ref Object
     $scope.is = {
       even: function(i) {
         return $scope.levelGap(i) % 2 !== 0
@@ -31,41 +32,41 @@
       }
     };
 
-    $scope.isActiveTab = function(teamMember, gen, tab) {
-      return gen.tab === tab && gen.selected === teamMember.properties.id;
+    $scope.isActiveTab = function(member, gen, tab) {
+      return gen.tab === tab && gen.selected === member.id;
     };
 
-    $scope.isActiveMember = function(teamMember, gen) {
-      return (gen.selected === teamMember.properties.id);
+    $scope.isActiveMember = function(member, gen) {
+      return (gen.selected === member.id);
     };
 
     // Show Team Member
-    $scope.changeTab = function(teamMember, gen, tab) {
+    $scope.changeTab = function(member, gen, tab) {
       if ($scope.disable) return;
 
       // Delay for transition between multiple animations
       var delay = 300;
       if (!$scope.activeTab) delay = 0;
 
-      if($scope.currentTeamMember.id === teamMember.id && $scope.activeTab === tab) {
+      if($scope.currentTeamMember.id === member.id && $scope.activeTab === tab) {
         gen.selected = null;
         gen.tab = null;
-        $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
+        $scope.downline = $scope.downline.slice(0, $scope.levelGap(member));
         closeForm();
         return $scope.activeTab = '';
       } else {
-        gen.selected = teamMember.id;
+        gen.selected = member.id;
         gen.tab = tab;
         closeForm();
 
-        $scope.currentTeamMember = teamMember;
+        $scope.currentTeamMember = member;
 
         if (tab === 'team') {
-          teamTab(teamMember);
+          teamTab(member);
         } else {
           $timeout(function(){
             $scope.activeTab = tab;
-            $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
+            $scope.downline = $scope.downline.slice(0, $scope.levelGap(member));
           }, delay);
         }
       }
@@ -84,9 +85,9 @@
       $scope.activeTab = 'invites';
     };
 
-    $scope.levelGap = function(teamMember) {
-      if(teamMember.properties) return teamMember.properties.level - level;
-      return teamMember.level - level;
+    $scope.levelGap = function(member) {
+      if(member) return member.level - level;
+      return member.level - level;
     };
 
     //On ng-repeat load
@@ -105,7 +106,7 @@
       }
       var searchQuery = {search: $scope.teamSection.teamSearch};
       User.downline($rootScope.currentUser.id, searchQuery).then(function(items) {
-        setAvatar(items);
+        initDownline(items);
         $scope.downline = [items.entities];
         $timeout(function() {
           initCarousel($('#carousel-0'));
@@ -124,7 +125,7 @@
       }
 
       User.downline($rootScope.currentUser.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
-        setAvatar(items);
+        initDownline(items);
         $scope.downline = [items.entities];
         $timeout(function() {
           initCarousel($('#carousel-0'));
@@ -172,10 +173,10 @@
       });
     };
 
-    $scope.teamSection.fetchProposals = function(teamMember) {
-      $scope.teamId = teamMember.properties.id;
+    $scope.teamSection.fetchProposals = function(member) {
+      $scope.teamId = member.id;
       CommonService.execute({
-        href: '/u/users/' + teamMember.properties.id + '/quotes.json'
+        href: '/u/users/' + member.id + '/quotes.json'
       }).then(function(items){
         $scope.teamProposals = items.entities;
         destroyCarousel('#teamProposals');
@@ -273,7 +274,7 @@
     $rootScope.$watch('currentUser', function(data) {
       if (!data || !data.id) return;
       return User.downline(data.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
-        items = setAvatar(items);
+        items = initDownline(items);
 
         $scope.downline.push(items.entities);
         $timeout(function() {
@@ -360,24 +361,25 @@
       $(carouselElement).data('owlCarousel').destroy();
     }
 
-    function setAvatar(items) {
+    function initDownline(items) {
       for (var i = 0; i < items.entities.length; i++){
         if (items.entities[i].properties.avatar) continue;
-        items.entities[i].properties.avatar = [];
-        items.entities[i].properties.avatar.thumb = legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
+        items.entities[i] = items.entities[i].properties;
+        items.entities[i].avatar = [];
+        items.entities[i].avatar.thumb = legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
       }
       return items;
     }
 
-    function teamTab(teamMember) {
+    function teamTab(member) {
       $scope.disable = true;
 
-      User.downline(teamMember.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
-        items = setAvatar(items);
+      User.downline(member.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
+        items = initDownline(items);
 
         $timeout(function(){
           $scope.activeTab = 'team'
-          $scope.downline = $scope.downline.slice(0, $scope.levelGap(teamMember));
+          $scope.downline = $scope.downline.slice(0, $scope.levelGap(member));
           $scope.downline.push(items.entities);
           destroyCarousel('#carousel-' + ($scope.downline.length - 1))
           $scope.disable = false;
