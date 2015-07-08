@@ -5,7 +5,7 @@ module Auth
     page
 
     before_filter :find_university_class, only: [ :show, :enroll, :purchase ]
-    before_filter :find_enrollment, only: [ :check_enrollment ]
+    before_filter :find_enrollment, only: [ :check_enrollment, :smarteru_signin ]
 
     def index
       @university_classes = apply_list_query_options(
@@ -29,8 +29,14 @@ module Auth
       render json: { redirect_to: redirect_url }
     end
 
+    def smarteru_signin
+      current_user.smarteru.ensure_account
+      error!(:smarteru_incomplete_enrollment) unless @enrollment.completed?
+
+      render json: { redirect_to: current_user.smarteru.signin }
+    end
+
     def check_enrollment
-      error!("Error, couldn't find enrollment") unless @enrollment
       @enrollment.refresh_enrollment_status
     end
 
@@ -43,6 +49,7 @@ module Auth
     def find_enrollment
       @enrollment = current_user.product_enrollments.find_by(
         product_id: params[:id].to_i)
+      error!("Error, couldn't find enrollment") unless @enrollment
     end
 
     def puchase_form

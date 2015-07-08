@@ -142,12 +142,35 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
   end
 end
 
+describe 'POST /u/university_classes/:id/smarteru_signin', type: :request do
+  context 'signed in' do
+    let(:current_user) { login_user }
+    let(:product) { create(:certifiable_product, bonus_volume: 0) }
+    let(:smarteru) { double(:smarteru, signin: '/redirectpath', ensure_account: true) }
+    let!(:product_enrollment) do
+      create(:product_enrollment, user_id: current_user.id, product_id: product.id)
+    end
+
+    before do
+      product_enrollment.update_column(:state, 'completed')
+      allow(current_user).to receive(:smarteru).and_return(smarteru)
+    end
+
+    it 'returns a redirect path' do
+      post smarteru_signin_university_class_path(product), format: :json
+
+      expect(response.code).to eql('200')
+      expect(JSON.parse(response.body)['redirect_to']).to eql('/redirectpath')
+    end
+  end
+end
+
 describe 'POST /u/university_classes/:id/check_enrollment', type: :request do
   let!(:current_user) { login_user }
   let(:product) { create(:certifiable_product, name: 'someproduct') }
   let(:smarteru) { double(:smarteru, enrollment: smarteru_learner_report) }
   let!(:product_enrollment) do
-    ProductEnrollment.create(user_id: current_user.id, product_id: product.id)
+    create(:product_enrollment, user_id: current_user.id, product_id: product.id)
   end
   let(:smarteru_learner_report) {}
 

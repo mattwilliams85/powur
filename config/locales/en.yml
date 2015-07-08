@@ -37,9 +37,10 @@ en:
     period_not_disbursable: This pay period is not eligible for distribution
     cannot_add_amounts: Bonus amounts cannot be added to this bonus
     cannot_submit_quote: Quote has already been submitted
-    amount_exceeds_max: "Amount %{amount} exceeds max available value of %{max}" 
+    amount_exceeds_max: "Amount %{amount} exceeds max available value of %{max}"
     already_completed: You have already completed this course
     smarteru_user: Your account is inaccessible via the SmarterU API
+    smarteru_incomplete_enrollment: Your class enrollment is not complete
     api:
       invalid_grant:
         refresh_token: invalid refresh_token
@@ -103,7 +104,7 @@ en:
       messages:
         record_invalid: "%{errors}"
         inclusion: "'%{value}' is not a valid value for %{attribute}"
-        greater_than: "%{attribute} must be greater than %{count}" 
+        greater_than: "%{attribute} must be greater than %{count}"
 
 # activerecord.errors.models.user.attributes.name.blank
 # activerecord.errors.models.user.blank

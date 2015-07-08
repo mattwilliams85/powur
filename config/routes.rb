@@ -162,7 +162,7 @@ Rails.application.routes.draw do
 
     resources :university_classes, only: [:index, :show] do
       member do
-        post :enroll, :purchase
+        post :enroll, :purchase, :smarteru_signin
         get :check_enrollment
       end
     end
