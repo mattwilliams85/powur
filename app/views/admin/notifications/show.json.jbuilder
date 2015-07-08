@@ -1,3 +1,3 @@
 siren json
 
-json.partial! 'admin/notifications/item', notification: @notification
+json.partial! 'admin/news_posts/item', news_post: @news_post

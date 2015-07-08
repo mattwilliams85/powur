@@ -1,12 +1,9 @@
-siren json
+klass :news_posts, :list
 
-notifications_json.list_init
-
-json.entities @notifications, partial: 'item', as: :notification
+json.entities @news_posts, partial: 'item', as: :news_post
 
 actions \
-  action(:create, :post, admin_notifications_path)
+  action(:create, :post, admin_news_posts_path)
   .field(:content, :text)
-# index_action(admin_notifications_path, true)
 
-self_link admin_notifications_path
+self_link admin_news_posts_path

@@ -167,9 +167,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :notifications,
-              only:       [ :index, :show ],
-              as:         :user_notifications
+    resources :news_posts,
+              only: [ :index, :show ],
+              as:   :user_news_posts
 
     resources :social_media_posts,
               only: [ :index, :show ],
@@ -212,9 +212,9 @@ Rails.application.routes.draw do
     end
 
     # Latest News
-    resources :notifications,
+    resources :news_posts,
               only: [ :index, :create, :destroy, :show, :update ],
-              as:   :admin_notifications
+              as:   :admin_news_posts
 
     # Library
     resources :resources, as: :admin_resources

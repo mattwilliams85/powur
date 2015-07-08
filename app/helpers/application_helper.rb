@@ -47,10 +47,6 @@ module ApplicationHelper
     @resources_json ||= ResourcesJson.new(self, @resources, @resource)
   end
 
-  def notifications_json
-    @notifications_json ||= NotificationsJson.new(self, @notifications, @notification)
-  end
-
   def social_media_posts_json
     @social_media_posts_json ||= SocialMediaPostsJson.new(self, @social_media_posts, @social_media_posts)
   end

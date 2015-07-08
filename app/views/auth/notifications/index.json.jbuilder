@@ -1,9 +1,7 @@
-siren json
+klass :news_posts, :list
 
-notifications_json.list_init
+json.entities @news_posts, partial: 'item', as: :news_post
 
-json.entities @notifications, partial: 'item', as: :notification
+actions index_action(user_news_posts_path, true)
 
-actions index_action(user_notifications_path, true)
-
-self_link user_notifications_path
+self_link user_news_posts_path

@@ -212,7 +212,7 @@
       templateUrl: 'shared/admin/rest/new.html',
       controller: 'AdminLatestNewsCtrl'
     }).
-    when('/admin/latest-news/:notificationId/edit', {
+    when('/admin/latest-news/:newsPostId/edit', {
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminLatestNewsCtrl'
     }).
