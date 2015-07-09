@@ -10,6 +10,8 @@ machine:
     IPAYOUT_MERCHANT_GUID: abc
     IPAYOUT_MERCHANT_PASSWORD: abc
     SOLAR_CITY_LEAD_URL: 'https://sctyleads-test.cloudhub.io/powur'
+    TWILIO_ACCOUNT_SID: AC0837ab1675f39523e085037acc3cbc43
+    TWILIO_AUTH_TOKEN: 4262f007c3c0bd8d5fe7f6e831b8f898
 dependencies:
   override:
     - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
