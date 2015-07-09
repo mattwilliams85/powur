@@ -1,124 +1,157 @@
 <div class="pow-landing-wrapper" ng-class="{'active': leftMenu.isActive}">
   <main class="pow-qualify">
     <div class="row">
-      <div class="zip-code-form large-6 large-centered columns">
-        <!-- ZIP Form -->
-        <form name="validateZip" ng-submit="validateInvite()" novalidate>
-          <h2 class="column-heading">Check Eligibility</h2>
-          <div class="row collapse">
-            <!-- Input -->
-            <div class="small-8 columns">
-              <label for="zip">ZIP Code</label>
-              <input ng-model="zip" name="zip" type="text" ng-required='true'>
+      <div class="large-6 large-centered columns">
+
+      <div class="row">
+        <div class="zip-code-entry">
+          <!-- ZIP Entry -->
+          <form ng-submit="validateZip()" novalidate>
+            <h2 class="column-heading">Check Eligibility</h2>
+            <div class="row collapse">
+              <!-- Input -->
+              <div class="small-8 columns">
+                <label for="zip">ZIP Code</label>
+                <input ng-model="zip" name="zip" type="text" ng-required='true'>
+              </div>
+              <!-- Button -->
+              <div class="small-4 columns">
+                <button class="zip-code button postfix" type="submit"></button>
+              </div>
             </div>
-            <!-- Button -->
-            <div class="small-4 columns">
-              <button id="validate_zip" class="zip-code button postfix" type="submit"></button>
-            </div>
-          </div>
-        </form>
-        <form ng-submit="customerSection.saveProposal()" id="customers-form">
-          <div class="row">
-            <div class="large-12 columns">
-              <fieldset>
-                <legend><i class="fa fa-envelope"></i> Contact Information</legend>
+          </form>
+        </div>
+      </div>
 
-                <!-- First/Last Name -->
-                <div class="row">
-                  <div class="large-6 medium-6 columns">
-                    <label>First Name</label>
-                    <input ng-model="proposal.first_name" type="text">
-                  </div>
-                  <div class="large-6 medium-6 columns">
-                    <label>Last Name</label>
-                    <input ng-model="proposal.last_name" type="text">
-                  </div>
-                </div>
+      <div class="row">
+        <div class="panel">
+          <!-- If Not In Territory -->
+          <h4>Whoops!</h4>
+          <p>This ZIP Code isn't in the SolarCity territory.</p>
+          <a ng-click="clearZip()" class="button expand">Enter a different ZIP Code</a>
+        </div>
+        <div class="panel">
+          <!-- If In Territory -->
+          <h4>Great!</h4>
+          <p>This ZIP Code is in the SolarCity territory!</p>
 
-                <!-- Email -->
-                <div class="row">
-                  <div class="large-12 medium-12 columns">
-                    <label>Email</label>
-                    <input ng-model="proposal.email" type="email">
-                  </div>
-                </div>
+          <!-- If Not Signed In -->
+          <p>Sign in to create a proposal for this customer.</p>
+          <a ng-href="/sign-in" class="button expand">Sign In</a>
 
-                <!-- Phone -->
-                <div class="row">
-                  <div class="large-12 medium-12 columns">
-                    <label>Phone</label>
-                    <input ng-model="proposal.phone" type="text">
-                  </div>
-                </div>
+          <!-- If Signed In -->
+          <p>Use the form below to create a proposal for this customer.</p>
+        </div>
+      </div>
 
-                <!-- Address -->
-                <div class="row">
-                  <div class="large-12 medium-12 columns">
-                    <label>Address</label>
-                    <input ng-model="proposal.address" type="text">
-                  </div>
-                </div>
+      <!-- If Signed In -->
+      <div class="row">
+        <div class="panel">
+          <!-- Proposal Form -->
+          <form ng-submit="saveProposal()">
+            <div class="row">
+              <div class="large-12 columns">
+                <h4>New Proposal</h4>
+                <fieldset>
+                  <legend><i class="fa fa-envelope"></i> Contact Information</legend>
 
-                <!-- City/State/ZIP -->
-                <div class="row">
-                  <div class="large-5 medium-5 columns">
-                    <label>City</label>
-                    <input ng-model="proposal.city" type="text">
-                  </div>
-                  <div class="large-3 medium-3 small-6 columns">
-                    <label>State</label>
-                    <input ng-model="proposal.state" type="text">
-                  </div>
-                  <div class="large-4 medium-4 small-6 columns">
-                    <label>ZIP</label>
-                    <input ng-model="proposal.zip" type="text">
-                  </div>
-                </div>
-
-              </fieldset>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-12 columns">
-              <fieldset>
-                <legend ng-if="proposal.productFields"><i class="fa fa-info-circle"></i> Other Information</legend>
-
-                <!-- Custom Product Fields -->
-                <div ng-repeat="productField in proposal.productFields" class="row">
-                  <div class="large-12 medium-12 columns">
-                    <label>{{ productField.name | cleanLabel }}</label>
-                    <input ng-model="proposal[productField.name]" type="{{productField.type}}">
-                  </div>
-                </div>
-
-                <!-- Notes -->
-                <div class="row">
-                  <div class="large-12 columns">
-                    <label>Notes</label>
-                    <textarea ng-model="proposal.notes" class="notes"></textarea>
-                  </div>
-                </div>
-
-                <!-- Buttons -->
-                <div class="row">
-                  <div class="large-12 columns">
-                    <!-- New Proposal Form Buttons -->
-                    <div ng-show="mode === 'new'">
-                      <button class="button right" >Save</button>
-                      <button class="button secondary left" ng-click="closeForm()">Cancel</button>
+                  <!-- First/Last Name -->
+                  <div class="row">
+                    <div class="large-6 medium-6 columns">
+                      <label>First Name</label>
+                      <input ng-model="proposal.first_name" type="text">
                     </div>
-                    <!-- Incomplete Proposal Form Buttons -->
-                    <div ng-show="mode === 'incomplete' || mode === 'ineligible_location' || mode === 'ready_to_submit'">
-                      <button class="button secondary right">Update</button>
-                      <button class="button secondary left" ng-click="closeForm()">Cancel</button>
+                    <div class="large-6 medium-6 columns">
+                      <label>Last Name</label>
+                      <input ng-model="proposal.last_name" type="text">
                     </div>
                   </div>
-                </div>
 
-              </fieldset>
+                  <!-- Email -->
+                  <div class="row">
+                    <div class="large-12 medium-12 columns">
+                      <label>Email</label>
+                      <input ng-model="proposal.email" type="email">
+                    </div>
+                  </div>
+
+                  <!-- Phone -->
+                  <div class="row">
+                    <div class="large-12 medium-12 columns">
+                      <label>Phone</label>
+                      <input ng-model="proposal.phone" type="text">
+                    </div>
+                  </div>
+
+                  <!-- Address -->
+                  <div class="row">
+                    <div class="large-12 medium-12 columns">
+                      <label>Address</label>
+                      <input ng-model="proposal.address" type="text">
+                    </div>
+                  </div>
+
+                  <!-- City/State/ZIP -->
+                  <div class="row">
+                    <div class="large-5 medium-5 columns">
+                      <label>City</label>
+                      <input ng-model="proposal.city" type="text">
+                    </div>
+                    <div class="large-3 medium-3 small-6 columns">
+                      <label>State</label>
+                      <input ng-model="proposal.state" type="text">
+                    </div>
+                    <div class="large-4 medium-4 small-6 columns">
+                      <label>ZIP</label>
+                      <input ng-model="proposal.zip" type="text">
+                    </div>
+                  </div>
+
+                </fieldset>
+              </div>
             </div>
-          </div>
-        </form>
+            <div class="row">
+              <div class="large-12 columns">
+                <fieldset>
+                  <legend><i class="fa fa-info-circle"></i> Other Information</legend>
+
+                  <!-- Custom Product Fields -->
+                  <div ng-repeat="productField in proposal.productFields" class="row">
+                    <div class="large-12 medium-12 columns">
+                      <label>{{ productField.name | cleanLabel }}</label>
+                      <input ng-model="proposal[productField.name]" type="{{productField.type}}">
+                    </div>
+                  </div>
+
+                  <!-- Notes -->
+                  <div class="row">
+                    <div class="large-12 columns">
+                      <label>Notes</label>
+                      <textarea ng-model="proposal.notes" class="notes"></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Buttons -->
+                  <div class="row">
+                    <div class="large-12 columns">
+                      <!-- Save Button -->
+                      <button class="button expand" >Save</button>
+                    </div>
+                  </div>
+
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- If Proposal Saved -->
+        <div class="panel">
+          <h4>Great!</h4>
+          <p>This proposal was saved successfully!</p>
+          <a ng-click="reset()" class="button expand">Start Over</a>
+          <a ng-href="/dashboard" class="button secondary expand">Go to Dashboard</a>
+        </div>
       </div>
     </div>
   </main>

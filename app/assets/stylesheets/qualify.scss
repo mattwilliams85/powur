@@ -1,5 +1,40 @@
 .pow-qualify {
 
+  // Buttons
+  .button {
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.2);
+    height: 60px;
+    background-color: $pow-color-blue;
+    font-family: $dashboard-font-family;
+    text-transform: uppercase;
+    &:disabled {
+      background-color: rgba(0,0,0,0.08);
+      &:hover {
+        background-color: rgba(0,0,0,0.08);
+      }
+    }
+    &:hover {
+      background-color: lighten($pow-color-blue, 20%);
+    }
+    &.secondary {
+      color: #9b9b9b;
+      background-color: rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.2);
+      &:hover {
+        background-color: rgba(0,0,0,0.2);
+      }
+    }
+  }
+
+  .panel {
+    background-color: #444;
+    border-radius: 4px;
+    h1, h2, h3, h4, h5, h6, p {
+      color: #fff;
+    }
+  }
+
   // Form Styles
   form {
     fieldset {
@@ -16,7 +51,8 @@
         font-size: 16pt;
       }
     }
-    input {
+    input,
+    textarea {
       background-color: rgba(0,0,0,0.06);
       border: 1px solid rgba(0,0,0,0.2);
       color: #fff;
@@ -35,6 +71,9 @@
         color: #666
       }
     }
+    textarea {
+      height: 100px;
+    }
 
     label {
       position: absolute;
@@ -47,7 +86,8 @@
     }
   }
 
-  .zip-code-form {
+  // ZIP Code Entry Area
+  .zip-code-entry {
     input {
       border-top-right-radius: 0px;
       border-bottom-right-radius: 0px;
@@ -61,7 +101,6 @@
       font-size: 1.4em;
     }
 
-    // "Submit Invite Code" Button
     .button {
       &.zip-code {
         background-image: image-url("landing/arrow-right-icon.png");
@@ -69,6 +108,9 @@
         background-position: center center;
         border-top-left-radius: 0px;
         border-bottom-left-radius: 0px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border: 0;
         background-color: $pow-color-green;
         height: 60px;
         &:disabled {
