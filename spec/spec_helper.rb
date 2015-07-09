@@ -35,6 +35,9 @@ RSpec.configure do |config|
       request.accept = 'application/json'
       request.env['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
     end
+    # Twilio does not allow phone validation in test mode,
+    # and we don't want to put vcr all over the spec files
+    allow_any_instance_of(Invite).to receive(:valid_phone?).and_return(true)
     DatabaseCleaner.start
   end
 

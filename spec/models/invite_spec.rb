@@ -5,10 +5,6 @@ describe Invite do
   let(:invite) { create(:invite, sponsor: sponsor) }
 
   context 'with valid phone number' do
-    before do
-      allow_any_instance_of(Invite).to receive(:valid_phone?).and_return(true)
-    end
-
     it 'autogenerates an id' do
       expect(invite.id).to_not be_nil
     end
@@ -77,6 +73,9 @@ describe Invite do
 
   context 'invalid phone number' do
     let(:invite) { create(:invite, phone: '1111111111', sponsor: sponsor) }
+    before do
+      allow_any_instance_of(Invite).to receive(:valid_phone?).and_call_original
+    end
 
     it 'raises an error' do
       # Phone validation twilio resource is NOT available in test mode,
