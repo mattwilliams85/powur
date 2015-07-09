@@ -71,7 +71,7 @@ module Auth
     def send_purchased_notifications
       mailer = PromoterMailer.certification_purchase_processed(current_user)
       mailer.deliver_now!
-      if @current_user.upline.length > 1
+      if current_user.upline.length > 1
         mailer = PromoterMailer
           .team_leader_downline_certification_purchase(current_user)
         mailer.deliver_now!

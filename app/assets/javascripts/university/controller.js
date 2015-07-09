@@ -58,6 +58,17 @@
       });
     };
 
+    $scope.checkEnrollment = function(classItem) {
+      $anchorScroll();
+      $scope.showModal('Checking enrollment status ...', 'pow-modal');
+
+      var action = getAction(classItem.actions, 'check_enrollment');
+      return CommonService.execute(action).then(function(data) {
+        classItem.properties = data.properties;
+        $('.close-reveal-modal').trigger('click');
+      });
+    };
+
     $scope.purchase = function(classItem) {
       $scope.isPurchaseDisabled = true;
       $scope.errorMessage = null;
