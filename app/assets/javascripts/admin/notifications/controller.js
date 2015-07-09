@@ -51,6 +51,50 @@
       }).success(cb);
     };
 
+    $scope.create = function() {
+      if ($scope.notification) {
+        $scope.isSubmitDisabled = true;
+        $http({
+          method: 'POST',
+          url: '/a/notifications',
+          data: $scope.notification
+        }).success(function() {
+          $scope.isSubmitDisabled = false;
+          $location.path('/admin/notifications');
+          $scope.showModal('Data successfully saved');
+        }).error(formErrorCallback);
+      }
+    };
+
+    $scope.update = function() {
+      if ($scope.notification) {
+        $scope.isSubmitDisabled = true;
+        $http({
+          method: $scope.formAction.method,
+          url: $scope.formAction.href,
+          data: $scope.notification
+        }).success(function() {
+          $scope.isSubmitDisabled = false;
+          $location.path('/admin/notifications');
+          $scope.showModal('Data successfully saved');
+        }).error(formErrorCallback);
+      }
+    };
+
+    $scope.delete = function(item) {
+      var action = getAction(item.actions, 'delete');
+      return $http({
+        method: action.method,
+        url: action.href
+      }).success(function() {
+        $scope.showModal('This item has been deleted.');
+        $location.path('/admin/notifications');
+        $scope.pagination(0);
+      }).error(function() {
+        $scope.showModal('Oops, error while deleting');
+      });
+    };
+
     $scope.cancel = function() {
       $location.path('/admin/notifications');
     };
@@ -65,13 +109,25 @@
       }
     };
 
+    function formErrorCallback(data) {
+      $scope.isSubmitDisabled = false;
+      $scope.formErrorMessages = {};
+      var keys = ['content'];
+      for(var i in keys) {
+        var errorMessage = data.errors[keys[i]];
+        if (errorMessage) {
+          $scope.formErrorMessages[keys[i]] = errorMessage[0];
+        }
+      }
+    }
+
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams);
   }
 
   AdminNotificationsCtrl.prototype.init = function($scope, $location) {
     $scope.mode = 'index';
-    if (/\/new\//.test($location.path())) return $scope.mode = 'new';
+    if (/\/new/.test($location.path())) return $scope.mode = 'new';
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
   };
 
@@ -82,9 +138,11 @@
     } else if ($scope.mode === 'new') {
       $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
       $rootScope.breadcrumbs.push({title: 'New notification'});
+      $scope.notification = {};
     } else if ($scope.mode === 'edit') {
-      $scope.withNotification($routeParams.resourceId, function(item) {
+      $scope.withNotification($routeParams.notificationId, function(item) {
         $scope.notification = item.properties;
+        $scope.formAction = getAction(item.actions, 'update');
         $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
         $rootScope.breadcrumbs.push({title: 'Update notification'});
       });

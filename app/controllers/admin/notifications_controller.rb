@@ -12,13 +12,15 @@ module Admin
     end
 
     def create
-      @notification = Notification.create(input)
+      @notification = Notification.new(input)
+      @notification.user_id = current_user.id
+      @notification.save!
       index
     end
 
     def destroy
       @notification.destroy!
-      index
+      head :ok
     end
 
     def show
