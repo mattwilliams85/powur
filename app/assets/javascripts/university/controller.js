@@ -32,6 +32,12 @@
              !universityClass.properties.purchased);
     };
 
+    $scope.showCheckStatusButton = function(universityClass) {
+      var state = universityClass.properties.state;
+      return state === 'enrolled' ||
+             state === 'started';
+    };
+
     $scope.takeClass = function(classItem) {
       $anchorScroll();
       $scope.showModal('Enrolling ...', 'pow-modal');

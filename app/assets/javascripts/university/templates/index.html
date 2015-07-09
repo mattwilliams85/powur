@@ -15,7 +15,7 @@
       <div class="class-item">
 
         <div class="image-wrapper">
-          <a class="button expand refresh-button radius" ng-click="checkEnrollment(classItem)" ng-if="classItem.properties.state === 'enrolled'">Check Status</a>
+          <a class="button expand refresh-button radius" ng-click="checkEnrollment(classItem)" ng-if="showCheckStatusButton(classItem)">Check Status</a>
           <img ng-src="{{classItem.properties.image_url}}">
         </div>
         <div class="class-progress" ng-class="{'started': classItem.properties.state === 'started', 'completed': classItem.properties.state === 'completed'}">
