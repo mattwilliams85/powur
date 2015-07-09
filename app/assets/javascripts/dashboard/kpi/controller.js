@@ -6,42 +6,37 @@
       enviroment: [],
       proposals: {
         settings: [{
-          type: 'line',
+          type: 'bar',
           labels: [],
           datasets: [{
-            label: "Rooftop",
-            fillColor: 'rgba(255, 186, 120, 0.2)',
-            highlightFill: '#FFC870',
-            pointColor: 'rgba(253, 180, 92, 1)',
-            pointStrokeColor: 'rgb(68, 68, 68)',
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "#444",
-            strokeColor: 'rgba(253, 180, 92, 1)',
+            label: "Proposal",
+            fillColor: 'rgba(32, 194, 241,.9)',
+            highlightFill: '#5bd7f7',
+            strokeColor: 'rgba(32, 194, 241,.9)',
             data: []
           },{
-           label: "Proposal",
-           fillColor: 'rgba(108, 207, 255, 0.15)',
-           highlightFill: '#5bd7f7',
-           pointColor: '#20c2f1',
-           pointStrokeColor: 'rgb(68, 68, 68)',
-           pointHighlightFill: "#fff",
-           pointHighlightStroke: "#444",
-           strokeColor: '#20c2f1',
-           data: []
+            label: "Rooftop",
+            fillColor: '#FFC870',
+            highlightFill: '#FFC870',
+            strokeColor: 'rgba(253, 180, 92, 1)',
+            data: []
           }]
         },{
           options: {
-            bezierCurve: false,
-            maintainAspectRatio: false,
-            pointDotStrokeWidth : 2,
-            pointHitDetectionRadius : 10,
-            responsive: true,
-            scaleFontColor: '#fff',
-            scaleFontSize: 13,
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
+            scaleFontColor: '#fff',
             scaleShowVerticalLines: false,
+            scaleFontSize: 14,
+            barValueSpacing: 3,
+            barStrokeWidth : 2,
+            barDatasetSpacing: 0,
+            scaleStartValue: 0,
+            // 
+            
+            showXLabels: 7,
             multiTooltipTemplate: function(valuesObject){
+              if ($scope.scale > 30) return formatGroupLabel(valuesObject);
               return formatLabel(valuesObject);
             },
             scaleOverride: true,
@@ -58,25 +53,33 @@
       },
       genealogy: {
         settings: [{
-          type: 'bar',
+          type: 'line',
           labels: [],
           datasets: [{
             label: 'Advocate',
-            fillColor: 'rgba(32, 194, 241,.9)',
+            fillColor: 'rgba(108, 207, 255, 0.15)',
             highlightFill: '#5bd7f7',
-            strokeColor: 'rgba(32, 194, 241,.9)',
+            pointColor: '#20c2f1',
+            pointStrokeColor: 'rgb(68, 68, 68)',
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "#444",
+            strokeColor: '#20c2f1',
             data: []
           }]
         },{
           options: {
+            bezierCurve: false,
+            maintainAspectRatio: false,
+            pointDotStrokeWidth : 2,
+            pointHitDetectionRadius : 1,
+            responsive: true,
+            scaleFontColor: '#fff',
+            scaleFontSize: 13,
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
-            scaleFontColor: '#fff',
             scaleShowVerticalLines: false,
-            scaleFontSize: 13,
-            barValueSpacing: 3,
-            scaleStartValue: 0,
             tooltipTemplate: function(valuesObject){
+              if ($scope.scale > 30) return formatGroupLabel(valuesObject);
               return formatLabel(valuesObject);
             },
             scaleOverride: true,
@@ -121,6 +124,17 @@
       rank: []
     };
 
+    $scope.scaleOptions = [{
+        value: 6, label: 'Last Week'
+    }, {
+        value: 29, label: 'Last Month'
+    }, {
+        value: 83, label: 'Last 3 Months'
+    }, {
+        value: 162, label: 'Last 6 Months'
+    }];  
+
+
     $scope.scale = 29;
     $scope.current = new Date();
     $scope.legacyImagePaths = legacyImagePaths;
@@ -129,8 +143,16 @@
       var months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
       var slash = l.label.indexOf('/');
       var date = formatDate(l, slash);
-
       if(parseInt(l.label) > 0) l.label = months[l.label.substring(0, slash)] + ' ' + date
+      // if (l.value === 1) return l.value + ' ' + l.datasetLabel;
+      return l.value + ' ' + l.datasetLabel + 's';
+    }
+
+    function formatGroupLabel(l) {
+      if (l.label.length < 7) {
+        var date = new Date(l.label + ' ' + $scope.current.getFullYear())
+        l.label = l.label + ' - ' + $.datepicker.formatDate('M', date.addDays(14)) + ' ' + date.addDays(14).getDate();
+      }
       if (l.value === 1) return l.value + ' ' + l.datasetLabel;
       return l.value + ' ' + l.datasetLabel + 's';
     }
@@ -151,6 +173,7 @@
     $scope.changeTab = function(section) {
       if ($scope.section === section) return $scope.section = false;
 
+      $scope.scale = 29;
       $scope.active = false;
       $scope.section = section;
       $scope.settings = $scope.tabData[$scope.section].settings;
@@ -184,6 +207,9 @@
       var ctx = document.getElementById('metricsChart').getContext('2d');
       var type = $scope.settings[0].type;
 
+      $scope.settings[1].options.showXLabels = 15;
+      if ($scope.scale === 83) $scope.settings[1].options.showXLabels = 6;
+
       if (type === 'line') {
         $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
       } else {
@@ -214,11 +240,11 @@
       var _labels = [];
       var current = $scope.current.subDays($scope.scale);
 
-      for (var i = 0; i <= $scope.scale; i++) {
-        if ($scope.scale === 6) {
-          _labels.push($.datepicker.formatDate('M', current.addDays(i)) + ' ' + (current.addDays(i).getDate()));
+      for (var i = 0; i < $scope.settings[0].datasets[0].data.length; i++) {
+        if ($scope.scale >= 83) {
+          _labels.push($.datepicker.formatDate('M', current.addDays(i*7)) + ' ' + (current.addDays(i*7).getDate()));
         } else {
-          _labels.push(current.addDays(i).getMonth() + 1 + '/' + current.addDays(i).getDate());
+          _labels.push($.datepicker.formatDate('M', current.addDays(i)) + ' ' + (current.addDays(i).getDate()));
         }
       }
       $scope.settings[0].labels = _labels;
@@ -242,6 +268,7 @@
         $scope.buildChart();
       });
     };
+
     $scope.populateContributors = function() {
       //Defaults to Current User
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
@@ -296,8 +323,24 @@
         $scope.settings[0].datasets[j].data = [];
 
         dataCount(j);
+        if ($scope.scale > 29) clumpData(j);
       }
     };
+
+    function clumpData(j){
+      var newData = [];
+      var data = $scope.settings[0].datasets[j].data;
+
+      for(var i = 0; i < data.length; i+=7) {
+        newData[i/7] = 0;
+        for(var n = 0; n < 7; n++) {
+          newData[i/7] += (data[i + n] || 0)
+        }
+        if($scope.section === "genealogy") newData[i/7] = data[i];
+      }
+     $scope.settings[0].datasets[j].data = newData;
+     console.log(newData.length)
+    }
 
     $scope.page = 1;
     $scope.position = 0;

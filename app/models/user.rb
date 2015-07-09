@@ -136,11 +136,11 @@ class User < ActiveRecord::Base
   end
 
   def fetch_total_orders(start_date, end_date)
-    orders.within_date_range(start_date, end_date)
+    complete_quotes.within_date_range(start_date, end_date).won
   end
 
   def fetch_total_proposals(start_date, end_date)
-    complete_quotes.within_date_range(start_date, end_date).submitted
+    complete_quotes.within_date_range(start_date, end_date).submitted.not_closed
   end
   ##
 

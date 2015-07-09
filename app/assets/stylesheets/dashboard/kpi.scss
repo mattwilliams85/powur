@@ -4,6 +4,19 @@
     padding-top: 50px;
     margin-bottom:50px;
 
+    .sort {
+      height: 45px;
+      background-color: #333;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      width: 170px;
+      margin-bottom: 0px;
+      position: absolute;
+      right: 20px;
+      z-index: 5;
+      color: rgba(255, 255, 255, 0.75);
+      margin-top: 10px;
+    }
+
     .sk-spinner-three-bounce.sk-spinner {
       position: absolute;
       right: 45%;
@@ -328,7 +341,7 @@
 
           .chart-box {
             height: 365px;
-            margin-top: 30px;
+            margin-top: 27px;
             width:105%;
             margin-left:-10px;
             padding: 0 15px;
@@ -372,6 +385,7 @@
               padding: 10px 15px;
               font-size:10pt;
               cursor: pointer;
+              float: left;
               &.active {
                 background-color: #e5e5e5;
                 color:#444;

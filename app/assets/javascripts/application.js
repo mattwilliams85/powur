@@ -4,7 +4,7 @@
 //= require jquery/dist/jquery
 //= require jquery-ui/ui/jquery-ui
 //= require foundation/js/foundation
-//= require Chart.js/Chart.min
+//= require eyecue-chartjs/Chart
 //= require pagepiling.js/jquery.pagepiling.min
 //= require angular/angular
 //= require angular-route/angular-route

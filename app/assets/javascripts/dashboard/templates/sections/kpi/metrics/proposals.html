@@ -46,14 +46,18 @@
     <!-- CHART SECTION -->
     <div class="small-12 medium-11 columns chart-column">
       <div class="row">
-        <h4 ng-show="!activeUser">Full Proposal History</h4>
-        <h4 ng-show="activeUser">{{activeUser.first_name}}'s Proposal History</h4>
+        <div class="small-9 columns">
+          <h4 ng-show="!activeUser">Full Proposal History</h4>
+          <h4 ng-show="activeUser">{{activeUser.first_name}}'s Proposal History</h4>
+        </div>
+        <div class="right">
+          <select class="sort" ng-model="scale" ng-change="changeScale(scale)" ng-options="scale.value as scale.label for scale in scaleOptions" convert-to-number></select>
+        </div>
       </div>
       <div class="row">
-        <div class="legend primary left"></div><span class="kpi-detail left">Proposals</span>
-        <div class="legend secondary left"></div><span class="kpi-detail left">Rooftops</span>
-        <div class="time-scale">
-          <span ng-class="{'active': scale === 6 }" class="scale-detail uppercase" ng-click="changeScale(6)">1 Week</span><span ng-class="{'active': scale === 29 }" class="scale-detail uppercase" ng-click="changeScale(29)">1 Month</span>
+        <div class="small-12 columns">
+          <div class="legend primary left"></div><span class="kpi-detail left">Proposals</span>
+          <div class="legend secondary left"></div><span class="kpi-detail left">Rooftops</span>
         </div>
       </div>
       <div class="chart-box">
