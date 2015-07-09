@@ -50,6 +50,7 @@
 //= require_tree ./memberships
 //= require_tree ./profile
 //= require_tree ./promo
+//= require_tree ./qualify
 //= require_tree ./university
 //= require_tree ./user-static-content
 //= require_tree ./users
