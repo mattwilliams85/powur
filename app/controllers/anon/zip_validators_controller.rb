@@ -9,7 +9,7 @@ module Anon
 
     rescue => e
       Airbrake.notify(e)
-      return true   # Fallback to true and notify with Airbrake
+      render json: { zip: params[:zip], valid: true }
     end
   end
 end

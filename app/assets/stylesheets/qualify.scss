@@ -33,6 +33,56 @@
     h1, h2, h3, h4, h5, h6, p {
       color: #fff;
     }
+    p {
+      font-weight: normal;
+    }
+
+    // Customer Information on Saved Proposals
+    .submitted-proposal {
+      position: relative;
+      border-radius: 4px;
+      color: #fff;
+      background-color: rgba(0,0,0,0.08);
+      border: 1px solid #333;
+      padding-top: 32px;
+
+      p {
+        color: #fff;
+        margin-bottom: 0px;
+      }
+
+      div.customer-info {
+        .name {
+          font-size: 24pt;
+          line-height: 36pt;
+        }
+        .email {
+          font-size: 12pt;
+          line-height: 24pt;
+          a {
+            color: #12C2FD;
+            &:hover {
+              color: #fff;
+            }
+          }
+        }
+        .phone {
+          font-size: 12pt;
+          line-height: 12pt;
+        }
+        .id{
+          font-size: 10pt;
+          margin-top: 10px;
+          color: #888;
+        }
+        .address,
+        .city-state-zip {
+          font-size: 14pt;
+          line-height: 18pt;
+        }
+      }
+    }
+
   }
 
   // Form Styles
