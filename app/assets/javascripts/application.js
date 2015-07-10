@@ -33,6 +33,7 @@
  * App js resources
  */
 //= require legacy
+//= require chart.config
 //= require app
 //= require app.routes
 //= require app.common.service
