@@ -73,7 +73,7 @@ function chartConfig(scale){
             pointHitDetectionRadius : 1,
             responsive: true,
             scaleFontColor: '#fff',
-            scaleFontSize: 13,
+            scaleFontSize: 14,
             tooltipXPadding: 12,
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
@@ -117,7 +117,7 @@ function chartConfig(scale){
            barStrokeWidth: 2,
            barValueSpacing: 20,
            barDatasetSpacing: 1,
-           scaleFontSize: 13,
+           scaleFontSize: 14,
            scaleOverride: true,
            // ** Required if scaleOverride is true **
            scaleSteps: 12,

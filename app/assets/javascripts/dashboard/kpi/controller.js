@@ -53,7 +53,7 @@
       var type = $scope.settings[0].type;
 
       $scope.settings[1].options.showXLabels = 15;
-      if ($scope.scale === 89) $scope.settings[1].options.showXLabels = 8;
+      if ($scope.scale > 7) $scope.settings[1].options.showXLabels = 8;
 
       if (type === 'line') {
         $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
@@ -178,13 +178,13 @@
     function clumpData(j){
       var newData = [];
       var data = $scope.settings[0].datasets[j].data;
-
       for(var i = 0; i < data.length; i+=7) {
         newData[i/7] = 0;
+        if($scope.section === "genealogy") newData[i/7] = data[i];
+
         for(var n = 0; n < 7; n++) {
           newData[i/7] += (data[i + n] || 0)
         }
-        if($scope.section === "genealogy") newData[i/7] = data[i];
       }
      $scope.settings[0].datasets[j].data = newData;
     }
