@@ -13,7 +13,12 @@
   <div class="row">
     <div class="large-4 medium-6 columns left university-class-item-wrapper" ng-repeat="classItem in universityClasses.entities">
       <div class="class-item">
-        <div class="image-wrapper"><img ng-src="{{classItem.properties.image_url}}" /></div>
+
+        <div class="image-wrapper">
+          <a class="button expand refresh-button radius" ng-click="checkEnrollment(classItem)" ng-if="showCheckStatusButton(classItem)">Check Status</a>
+          <img ng-src="{{classItem.properties.image_url}}">
+          <div ng-if="showCheckStatusButton(classItem)" class="mask"></div>
+        </div>
         <div class="class-progress" ng-class="{'started': classItem.properties.state === 'started', 'completed': classItem.properties.state === 'completed'}">
           <div class="progress-inner">&nbsp;</div>
         </div>
@@ -27,8 +32,9 @@
 
       <!-- Buttons -->
       <div class="class-buttons">
+        <a class="button small expand" ng-click="reviewClass(classItem)" ng-if="canReviewClass(classItem)">Review</a>
         <a class="button small expand" ng-click="takeClass(classItem)" ng-if="canTakeClass(classItem)">Take Class</a>
-        <a class="button small expand purchase" ng-href="/upsell" ng-if="canPurchaseClass(classItem)">Learn More</a>
+        <a class="button small expand purchase" ng-href="/upgrade" ng-if="canPurchaseClass(classItem)">Learn More</a>
       </div>
     </div>
   </div>

@@ -94,7 +94,7 @@
     }).
 
     // Memberships
-    when('/upsell', {
+    when('/upgrade', {
       templateUrl: 'memberships/templates/index.html',
       controller: 'MembershipsCtrl'
     }).

@@ -63,71 +63,71 @@
 
         <!-- If Team Members -->
         <div ng-if="downline[0]" class="team owl-carousel" id="carousel-0" data-row="0">
-          <a ng-repeat="teamMember in downline[0]">
+          <a ng-repeat="member in downline[0]">
 
             <div 
               class="team-member" 
-              ng-class="{active: memberActive(teamMember), 'accordion': is.accordion(0) }" 
+              ng-class="{ active: memberActive(member), 'accordion': is.accordion(0) }" 
               ng-mouseenter="hover = true"
               ng-mouseleave="hover = false">
               <div class="team-tabs">
                 <div 
                   class="team-tab downline" 
-                  ng-if="teamMember.properties.downline_count"
+                  ng-if="member.downline_count"
                   ng-class="{ 
-                    'raise': hover || isMobile() || isActiveMember(teamMember, downline[0]),
-                    'active-tab':  isActiveTab(teamMember, downline[0], 'team'),
-                    'even': is.even(teamMember),
+                    'raise': hover || isMobile() || isActiveMember(member, downline[0]),
+                    'active-tab':  isActiveTab(member, downline[0], 'team'),
+                    'even': is.even(member),
                   }"
                   id="js-downline-tab" 
-                  ng-click="changeTab(teamMember.properties, downline[0], 'team');">
-                  <!--  ng-if="teamMember.properties.downline_count > 0" -->
-                  <img ng-hide="isActiveTab(teamMember, downline[0], 'team')" ng-src="{{img.teamSection.teamIconInvert}}">
-                  <img ng-show="isActiveTab(teamMember, downline[0], 'team')" ng-src="{{img.teamSection.teamIcon}}">
+                  ng-click="changeTab(member, downline[0], 'team');">
+                  <!--  ng-if="member.downline_count > 0" -->
+                  <img ng-hide="isActiveTab(member, downline[0], 'team')" ng-src="{{img.teamSection.teamIconInvert}}">
+                  <img ng-show="isActiveTab(member, downline[0], 'team')" ng-src="{{img.teamSection.teamIcon}}">
                 </div>
-                <div class="team-tab info" ng-if="!teamMember.properties.downline_count" ng-class="{ 'raise': hover || isActiveMember(teamMember, downline[0]) }">
+                <div class="team-tab info" ng-if="!member.downline_count" ng-class="{ 'raise': hover || isActiveMember(member, downline[0]) }">
                   <img ng-src="{{img.teamSection.teamIconInactive}}">
                 </div>
                 <div 
                   class="team-tab impact" 
                   ng-class="{ 
-                    'raise': hover || isMobile() || isActiveMember(teamMember, downline[0]),
-                    'active-tab': isActiveTab(teamMember, downline[0], 'impact'),
-                    'even': is.even(teamMember),
+                    'raise': hover || isMobile() || isActiveMember(member, downline[0]),
+                    'active-tab': isActiveTab(member, downline[0], 'impact'),
+                    'even': is.even(member),
                   }" 
                   id="js-impact-tab" 
-                  ng-click="changeTab(teamMember.properties, downline[0], 'impact');">
-                  <img ng-hide="isActiveTab(teamMember, downline[0], 'impact')" ng-src="{{img.teamSection.kpiIconInvert}}">
-                  <img ng-show="isActiveTab(teamMember, downline[0], 'impact')" ng-src="{{img.teamSection.kpiIcon}}">
+                  ng-click="changeTab(member, downline[0], 'impact');">
+                  <img ng-hide="isActiveTab(member, downline[0], 'impact')" ng-src="{{img.teamSection.kpiIconInvert}}">
+                  <img ng-show="isActiveTab(member, downline[0], 'impact')" ng-src="{{img.teamSection.kpiIcon}}">
                 </div>
                 <div 
                   class="team-tab info" 
-                  ng-if="teamMember.properties.proposal_count"
+                  ng-if="member.proposal_count"
                   ng-class="{ 
-                    'raise': hover || isActiveMember(teamMember, downline[0]),
-                    'active-tab': isActiveTab(teamMember, downline[0], 'proposals'),
-                    'even': is.even(teamMember),
+                    'raise': hover || isActiveMember(member, downline[0]),
+                    'active-tab': isActiveTab(member, downline[0], 'proposals'),
+                    'even': is.even(member),
                   }" 
                   id="js-info-tab" 
-                  ng-click="changeTab(teamMember.properties, downline[0], 'proposals'); teamSection.fetchProposals(teamMember);">
+                  ng-click="changeTab(member, downline[0], 'proposals'); teamSection.fetchProposals(member);">
                  <!--  <i class="fa fa-info-circle invert"></i> -->
-                  <img ng-hide="isActiveTab(teamMember, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIconInvert}}">
-                  <img ng-show="isActiveTab(teamMember, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIcon}}">
+                  <img ng-hide="isActiveTab(member, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIconInvert}}">
+                  <img ng-show="isActiveTab(member, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIcon}}">
                 </div>
-                <div class="team-tab info" ng-if="!teamMember.properties.proposal_count" ng-class="{ 'raise': hover || isActiveMember(teamMember, downline[0]) }">
+                <div class="team-tab info" ng-if="!member.proposal_count" ng-class="{ 'raise': hover || isActiveMember(member, downline[0]) }">
                   <img ng-src="{{img.teamSection.customerIconInactive}}">
                 </div>
               </div>
               <div class="info-box" ng-class="{ 
-                    'raise': hover || isMobile() || downline.length > 1 || isActiveMember(teamMember, downline[0]) || activeTab === 'proposals',
+                    'raise': hover || isMobile() || downline.length > 1 || isActiveMember(member, downline[0]) || activeTab === 'proposals',
                     'accordion': is.accordion(0) }"
-                    ng-click="changeTab(teamMember.properties, downline[0], 'impact');">
+                    ng-click="changeTab(member, downline[0], 'impact');">
                 <div class="avatar" ng-class="{'accordion': is.accordion(0) }">
-                  <img class="lazyOwl" data-src="{{teamMember.properties.avatar.thumb}}">
+                  <img class="lazyOwl" data-src="{{member.avatar.thumb}}">
                 </div>
                 <div class="info-text user-text">
-                  <span>{{teamMember.properties.first_name}} {{teamMember.properties.last_name}}</span>
-                  <span ng-hide="isActiveMember(teamMember, downline[0]) && downline[0].tab !== 'impact'" class="info-detail">TEAM {{teamMember.properties.downline_count}}, PROPOSALS {{teamMember.properties.proposal_count || 0}}</span>
+                  <span>{{member.first_name}} {{member.last_name}}</span>
+                  <span ng-hide="isActiveMember(member, downline[0]) && downline[0].tab !== 'impact'" class="info-detail">TEAM {{member.downline_count}}, PROPOSALS {{member.proposal_count || 0}}</span>
                 </div>
               </div>
             </div>

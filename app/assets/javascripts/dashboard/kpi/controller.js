@@ -2,158 +2,26 @@
   'use strict';
 
   function DashboardKPICtrl($scope, $location, $timeout, UserProfile, CommonService, Utility) {
-    $scope.tabData = {
-      enviroment: [],
-      proposals: {
-        settings: [{
-          type: 'line',
-          labels: [],
-          datasets: [{
-            label: "Rooftop",
-            fillColor: 'rgba(255, 186, 120, 0.2)',
-            highlightFill: '#FFC870',
-            pointColor: 'rgba(253, 180, 92, 1)',
-            pointStrokeColor: 'rgb(68, 68, 68)',
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "#444",
-            strokeColor: 'rgba(253, 180, 92, 1)',
-            data: []
-          },{
-           label: "Proposal",
-           fillColor: 'rgba(108, 207, 255, 0.15)',
-           highlightFill: '#5bd7f7',
-           pointColor: '#20c2f1',
-           pointStrokeColor: 'rgb(68, 68, 68)',
-           pointHighlightFill: "#fff",
-           pointHighlightStroke: "#444",
-           strokeColor: '#20c2f1',
-           data: []
-          }]
-        },{
-          options: {
-            bezierCurve: false,
-            maintainAspectRatio: false,
-            pointDotStrokeWidth : 2,
-            pointHitDetectionRadius : 10,
-            responsive: true,
-            scaleFontColor: '#fff',
-            scaleFontSize: 13,
-            scaleGridLineColor: 'rgba(255,255,255,.15)',
-            scaleLineColor: 'rgba(255,255,255,.15)',
-            scaleShowVerticalLines: false,
-            multiTooltipTemplate: function(valuesObject){
-              return formatLabel(valuesObject);
-            },
-            scaleOverride: true,
-            // ** Required if scaleOverride is true **
-            scaleSteps: 5,
-            scaleStepWidth: 5,
-            //
-            scaleLabel : function (label) {
-                if (label.value === '0') return '';
-                return label.value;
-            }
-          }
-        }]
-      },
-      genealogy: {
-        settings: [{
-          type: 'bar',
-          labels: [],
-          datasets: [{
-            label: 'Advocate',
-            fillColor: 'rgba(32, 194, 241,.9)',
-            highlightFill: '#5bd7f7',
-            strokeColor: 'rgba(32, 194, 241,.9)',
-            data: []
-          }]
-        },{
-          options: {
-            scaleGridLineColor: 'rgba(255,255,255,.15)',
-            scaleLineColor: 'rgba(255,255,255,.15)',
-            scaleFontColor: '#fff',
-            scaleShowVerticalLines: false,
-            scaleFontSize: 13,
-            barValueSpacing: 3,
-            scaleStartValue: 0,
-            tooltipTemplate: function(valuesObject){
-              return formatLabel(valuesObject);
-            },
-            scaleOverride: true,
-            // ** Required if scaleOverride is true **
-            scaleSteps: 12,
-            scaleStepWidth: 12,
-          }
-        }]
-      },
-      earnings: {
-        settings: [{
-          labels: [],
-          datasets: [{
-            label: 'My dataset',
-            fillColor: 'rgba(220,220,0,0)',
-            strokeColor: 'rgba(32,194,241,1)',
-            pointColor: 'rgba(32,194,241,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(220,220,220,1)',
-            data: []
-          }]
-        },{
-          options: {
-           scaleGridLineColor: 'rgba(255,255,255,.15)',
-           scaleLineColor: 'rgba(255,255,255,.15)',
-           scaleFontColor: '#fff',
-           barShowStroke: true,
-           bezierCurveTension: 0.2,
-           barStrokeWidth: 2,
-           barValueSpacing: 20,
-           barDatasetSpacing: 1,
-           scaleFontSize: 13,
-           scaleOverride: true,
-           // ** Required if scaleOverride is true **
-           scaleSteps: 12,
-           scaleStepWidth: 12,
-           scaleStartValue: 0,
-          }
-        }]
-      },
-      rank: []
-    };
+    $scope.scaleOptions = [
+      { value: 6, label: 'Last Week' }, 
+      { value: 29, label: 'Last Month' }, 
+      { value: 89, label: 'Last 3 Months' }, 
+      { value: 179, label: 'Last 6 Months' }
+    ];  
 
     $scope.scale = 29;
     $scope.current = new Date();
     $scope.legacyImagePaths = legacyImagePaths;
 
-    function formatLabel(l) {
-      var months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      var slash = l.label.indexOf('/');
-      var date = formatDate(l, slash);
-
-      if(parseInt(l.label) > 0) l.label = months[l.label.substring(0, slash)] + ' ' + date
-      if (l.value === 1) return l.value + ' ' + l.datasetLabel;
-      return l.value + ' ' + l.datasetLabel + 's';
-    }
-
-    function formatDate(l, slash) {
-      var str = l.label.substring(slash + 1, l.label.length);
-      if (str.slice(-1) == 1) {
-        return str += 'st';
-      } else if (str.slice(-1) == 2) {
-        return str += 'nd'
-      } else if (str.slice(-1) == 3) {
-        return str += 'rd'
-      } else {
-        return str += 'th'
-      }
-    }
 
     $scope.changeTab = function(section) {
       if ($scope.section === section) return $scope.section = false;
 
+      $scope.scale = 29;
       $scope.active = false;
       $scope.section = section;
-      $scope.settings = $scope.tabData[$scope.section].settings;
+      // Refer to chart.config.js for settings/options
+      $scope.settings = chartConfig()[$scope.section].settings;
 
       $scope.clearData();
       $scope.populateContributors();
@@ -183,6 +51,9 @@
 
       var ctx = document.getElementById('metricsChart').getContext('2d');
       var type = $scope.settings[0].type;
+
+      $scope.settings[1].options.showXLabels = 15;
+      if ($scope.scale > 7) $scope.settings[1].options.showXLabels = 8;
 
       if (type === 'line') {
         $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
@@ -214,11 +85,11 @@
       var _labels = [];
       var current = $scope.current.subDays($scope.scale);
 
-      for (var i = 0; i <= $scope.scale; i++) {
-        if ($scope.scale === 6) {
-          _labels.push($.datepicker.formatDate('M', current.addDays(i)) + ' ' + (current.addDays(i).getDate()));
+      for (var i = 0; i < $scope.settings[0].datasets[0].data.length; i++) {
+        if ($scope.scale >= 83) {
+          _labels.push($.datepicker.formatDate('M', current.addDays(i*7)) + ' ' + (current.addDays(i*7).getDate()));
         } else {
-          _labels.push(current.addDays(i).getMonth() + 1 + '/' + current.addDays(i).getDate());
+          _labels.push($.datepicker.formatDate('M', current.addDays(i)) + ' ' + (current.addDays(i).getDate()));
         }
       }
       $scope.settings[0].labels = _labels;
@@ -226,6 +97,7 @@
 
     $scope.changeScale = function(scale) {
       $scope.scale = scale;
+      $scope.settings = chartConfig(scale)[$scope.section].settings;
 
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.activeUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
         $scope.activeUser = data.properties;
@@ -242,6 +114,7 @@
         $scope.buildChart();
       });
     };
+
     $scope.populateContributors = function() {
       //Defaults to Current User
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
@@ -254,8 +127,10 @@
     };
 
     function sameDayAs(item, i) {
-      return new Date(item.created_at).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
-             new Date(item.created_at).getDate() === $scope.current.subDays($scope.scale - i).getDate()
+      var attr = 'created_at'
+      if (item.contract) attr = 'contract'
+      return new Date(item[attr]).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
+             new Date(item[attr]).getDate() === $scope.current.subDays($scope.scale - i).getDate()
     }
 
     function searchObjBranch(obj, user_id) {
@@ -296,8 +171,30 @@
         $scope.settings[0].datasets[j].data = [];
 
         dataCount(j);
+        if ($scope.scale > 29) clumpData(j);
       }
     };
+
+    function clumpData(j){
+      var newData = [];
+      var data = $scope.settings[0].datasets[j].data;
+      for(var i = 0; i < data.length; i+=7) {
+        if($scope.section === "genealogy") {
+          newData[i/7] = data[i - 1] || 0;
+
+          for(var n = 0; n < 7; n++) {
+            if(data[i + n] > newData[i/7]) newData[i/7] = data[i + n]
+          }
+        } else {
+          newData[i/7] = 0;
+
+          for(var n = 0; n < 7; n++) {
+            newData[i/7] += (data[i + n] || 0)
+          }
+        }
+      }
+     $scope.settings[0].datasets[j].data = newData;
+    }
 
     $scope.page = 1;
     $scope.position = 0;

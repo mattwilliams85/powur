@@ -22,10 +22,20 @@
       return enrollable && (universityClass.properties.purchased || universityClass.properties.price === 0);
     };
 
+    $scope.canReviewClass = function(universityClass) {
+      return universityClass.properties.enrollable && universityClass.properties.state === 'completed';
+    };
+
     $scope.canPurchaseClass = function(universityClass) {
       return(universityClass.properties.enrollable &&
              universityClass.properties.price > 0 &&
              !universityClass.properties.purchased);
+    };
+
+    $scope.showCheckStatusButton = function(universityClass) {
+      var state = universityClass.properties.state;
+      return state === 'enrolled' ||
+             state === 'started';
     };
 
     $scope.takeClass = function(classItem) {
@@ -38,6 +48,30 @@
       }, function() {
         $('body').trigger('click'); // close old modal
         $scope.showModal('Oops error, we can\'t enroll you at the moment');
+      });
+    };
+
+    $scope.reviewClass = function(classItem) {
+      $anchorScroll();
+      $scope.showModal('Redirecting ...', 'pow-modal');
+
+      var action = getAction(classItem.actions, 'smarteru_signin');
+      return CommonService.execute(action).then(function(data) {
+        $window.location.href = data.redirect_to;
+      }, function() {
+        $('body').trigger('click'); // close old modal
+        $scope.showModal('Oops error, we can\'t redirect you to smarteru at the moment');
+      });
+    };
+
+    $scope.checkEnrollment = function(classItem) {
+      $anchorScroll();
+      $scope.showModal('Checking enrollment status ...', 'pow-modal');
+
+      var action = getAction(classItem.actions, 'check_enrollment');
+      return CommonService.execute(action).then(function(data) {
+        classItem.properties = data.properties;
+        $('.close-reveal-modal').trigger('click');
       });
     };
 

@@ -3,7 +3,9 @@ university_classes_json.list_item_properties(university_class)
 
 actions \
   action(:enroll, :post, enroll_university_class_path(university_class)),
-  action(:purchase, :post, purchase_university_class_path(university_class))
+  action(:smarteru_signin, :post, smarteru_signin_university_class_path(university_class)),
+  action(:purchase, :post, purchase_university_class_path(university_class)),
+  action(:check_enrollment, :get, check_enrollment_university_class_path(university_class))
 
 links \
   link(:self, university_class_path(university_class))

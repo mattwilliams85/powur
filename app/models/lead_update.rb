@@ -3,6 +3,17 @@ class LeadUpdate < ActiveRecord::Base
 
   belongs_to :quote
 
+  scope :sales, lambda { |user_id| 
+    joins(:quote)
+    .where(quotes: {user_id: user_id})
+    .where('lead_updates.contract IS NOT NULL')
+    .select('DISTINCT ON (lead_updates.quote_id) *')
+  }
+  scope :within_date_range, lambda { |begin_date, end_date|
+    where('quotes.created_at between ? and ?', begin_date, end_date)
+  }
+
+
   DUPE_STATUS = %w(duplicate)
   OPPORTUNITY_WON_STAGES = [ 'Closed Won' ]
   LOST_STATUS = %w(closed_lost disqualified out_of_service_area)
