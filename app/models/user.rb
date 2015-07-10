@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
   end
 
   def weekly_growth
-    User.with_ancestor(self.id).within_date_range(Date.today - 6, Date.today).count
+    User.with_ancestor(self.id).within_date_range(Time.now - 6.days, Time.now).count
   end
 
   def fetch_total_orders(start_date, end_date)

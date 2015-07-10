@@ -15,8 +15,8 @@ module Auth
     def proposals_show
       @user = User.find(params[:id])
       scale = params[:scale].to_i + 1
-      @orders = @user.fetch_total_orders(Date.today - scale, Date.today)
-      @proposals = @user.fetch_total_proposals(Date.today - scale, Date.today)
+      @orders = @user.fetch_total_orders(Time.now - scale.days, Time.now)
+      @proposals = @user.fetch_total_proposals(Time.now - scale.days, Time.now)
 
       render "auth/kpi_metrics/proposals/show"
     end
@@ -36,7 +36,7 @@ module Auth
       @downline = @user
                     .fetch_full_downline
                     .select("users.id, users.created_at, users.first_name, users.last_name")
-                    .within_date_range(Date.today - scale, Date.today)
+                    .within_date_range(Time.now - scale.days, Time.now)
 
       render "auth/kpi_metrics/genealogy/show"
     end
