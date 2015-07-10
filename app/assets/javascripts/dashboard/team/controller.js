@@ -363,8 +363,8 @@
 
     function initDownline(items) {
       for (var i = 0; i < items.entities.length; i++){
-        if (items.entities[i].properties.avatar) continue;
         items.entities[i] = items.entities[i].properties;
+        if (items.entities[i].avatar) continue;
         items.entities[i].avatar = [];
         items.entities[i].avatar.thumb = legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
       }
