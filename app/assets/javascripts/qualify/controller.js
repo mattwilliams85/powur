@@ -3,9 +3,10 @@
 
   function QualifyCtrl($scope, $rootScope, $http, $location, $routeParams, UserProfile, SolarCityZipValidator, CommonService) {
     $scope.zip = {};
-    $rootScope.isSignedIn = !!SignedIn;
 
+    //
     // Utility Functions
+    //
     function getAction(actions, name) {
       for (var i in actions) {
         if (actions[i].name === name) {
@@ -26,21 +27,9 @@
       return productFields;
     }
 
-    // Get Current User
-    UserProfile.get().then(function(user) {
-      $rootScope.currentUser = user;
-
-      // Get 'Create Proposal' Action
-      $http({
-        method: 'GET',
-        url: '/u/users/' + user.id + '/quotes',
-      }).success(function(data) {
-        $scope.createProposalAction = getAction(data.actions, 'create');
-        $scope.productFields = setProductFields($scope.createProposalAction)
-      });
-
-    });
-
+    //
+    // Controller Functions
+    //
     $scope.validateZip = function() {
       $scope.disableZipInput = true;
       SolarCityZipValidator.check({
@@ -60,7 +49,13 @@
     $scope.clearZip = function() {
       $scope.zip = {};
       $scope.disableZipInput = false;
+    };
 
+    $scope.sendToSignIn = function() {
+      $rootScope.redirectAfterSignIn = {};
+      $rootScope.redirectAfterSignIn.destination = '/qualify';
+      $rootScope.redirectAfterSignIn.properties = {zip: $scope.zip.code};
+      $location.path('/sign-in');
     };
 
     $scope.saveProposal = function() {
@@ -84,6 +79,31 @@
       $scope.proposalSaved = false;
     };
 
+    //
+    // Initialization Functions
+    //
+
+    // Handle Redirects from Sign-In Page
+    if ($rootScope.redirectAfterSignIn && $rootScope.redirectAfterSignIn.destination === '/qualify') {
+      $scope.zip.code = $rootScope.redirectAfterSignIn.properties.zip;
+      $scope.redirectAfterSignIn = null;
+      $scope.validateZip();
+    }
+
+    // Get Current User
+    UserProfile.get().then(function(user) {
+      $rootScope.currentUser = user;
+
+      // Get 'Create Proposal' Action
+      $http({
+        method: 'GET',
+        url: '/u/users/' + user.id + '/quotes',
+      }).success(function(data) {
+        $scope.createProposalAction = getAction(data.actions, 'create');
+        $scope.productFields = setProductFields($scope.createProposalAction)
+      });
+
+    });
   }
 
   QualifyCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'SolarCityZipValidator', 'CommonService'];

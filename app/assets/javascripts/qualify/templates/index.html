@@ -39,6 +39,7 @@
           <p>This ZIP Code isn't in the SolarCity territory.</p>
           <a ng-click="clearZip()" class="button expand">Enter a different ZIP Code</a>
         </div>
+
         <div ng-show="zip.inTerritory === true && !proposalSaved" class="panel">
           <!-- If In Territory -->
           <h4>Great!</h4>
@@ -47,7 +48,7 @@
           <!-- If Not Signed In -->
           <div ng-show="!isSignedIn">
             <p>Sign in to create a proposal for this customer.</p>
-            <a ng-href="/sign-in" class="button expand">Sign In</a>
+            <a ng-click="sendToSignIn()" class="button expand">Sign In</a>
           </div>
 
           <!-- If Signed In -->

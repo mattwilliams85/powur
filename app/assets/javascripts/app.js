@@ -10,7 +10,9 @@
 
     $rootScope.redirectIfSignedIn = function() {
       if ($rootScope.isSignedIn) {
-        if ($rootScope.currentUser.latest_terms) {
+        if ($rootScope.redirectAfterSignIn) {
+          $location.path($rootScope.redirectAfterSignIn.destination);
+        } else if ($rootScope.currentUser.latest_terms) {
           $location.path('/latest-terms');
         } else {
           $location.path('/dashboard');
