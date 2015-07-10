@@ -36,9 +36,19 @@ $button-color: #59a2e7;
       .image-wrapper {
         overflow: hidden;
         position: relative;
+        height: 410px;
+
+        .mask {
+          height: 100%;
+          background: rgba(0, 0, 0, .2);
+          position: relative;
+          z-index: 2;
+        }
 
         img {
           width: 100%;
+          position: absolute;
+          z-index: 1;
         }
 
         .refresh-button {
@@ -55,6 +65,7 @@ $button-color: #59a2e7;
           text-transform: uppercase;
           padding: 1.5rem;
           width: 70%;
+          z-index: 3;
         }
       }
 
