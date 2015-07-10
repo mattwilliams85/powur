@@ -13,13 +13,13 @@ module Phone
     response = twilio_lookups_client.phone_numbers.get(phone)
     return response.phone_number
   rescue => e
-    return false if e.code == 20_404
+    return false if e.code == 20_404 # Resource not found Twilio error code
     raise e
   end
 
-  def send_sms(from, to, body)
+  def send_sms(to, body)
     twilio_client.messages.create(
-      from: from,
+      from: ENV['TWILIO_PHONE_NUMBER'],
       to:   to,
       body: body
     )

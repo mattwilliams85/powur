@@ -4,7 +4,8 @@ module Admin
     sort id_desc: { id: :desc },
          id_asc:  { id: :asc }
 
-    before_filter :fetch_notification, only: [:show, :update, :destroy ]
+    before_filter :fetch_notification,
+                  only: [:show, :update, :destroy, :send_out ]
 
     def index
       @notifications = apply_list_query_options(Notification)
@@ -29,6 +30,17 @@ module Admin
     def update
       @notification.update_attributes!(input)
       index
+    end
+
+    def send_out
+      params.require(:recipient)
+      @notification.update_attributes!(
+        sender_id: current_user.id,
+        sent_at:   Time.zone.now,
+        recipient: params[:recipient])
+      @notification.delay.send_out
+
+      head :ok
     end
 
     private

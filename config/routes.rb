@@ -245,7 +245,11 @@ Rails.application.routes.draw do
     #   end
     # end
 
-    resources :notifications, as: :admin_notifications
+    resources :notifications, as: :admin_notifications do
+      member do
+        post :send_out
+      end
+    end
 
     # Users
     resources :users, only: [ :index, :show, :update ], as: :admin_users do

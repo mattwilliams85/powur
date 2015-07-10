@@ -95,6 +95,22 @@
       });
     };
 
+    $scope.sendToRecipient = function(notification, recipient) {
+      var message = 'This will send SMS message to all ' + recipient + '. Are you sure?';
+      if (window.confirm(message)) {
+        var action = getAction(notification.actions, 'send_out');
+        $http({
+          method: action.method,
+          url: action.href,
+          params: {recipient: recipient}
+        }).success(function(data) {
+
+        }).error(function() {
+          $scope.showModal("Oops, error couldn't send notification");
+        });
+      }
+    };
+
     $scope.cancel = function() {
       $location.path('/admin/notifications');
     };

@@ -483,7 +483,11 @@ CREATE TABLE notifications (
     user_id integer,
     content character varying,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    sender_id integer,
+    sent_at timestamp without time zone,
+    finished_at timestamp without time zone,
+    recipient character varying
 );
 
 
@@ -2500,3 +2504,5 @@ INSERT INTO schema_migrations (version) VALUES ('20150706185018');
 INSERT INTO schema_migrations (version) VALUES ('20150708221726');
 
 INSERT INTO schema_migrations (version) VALUES ('20150708230822');
+
+INSERT INTO schema_migrations (version) VALUES ('20150709214735');
