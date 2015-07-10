@@ -39,6 +39,12 @@
       controller: 'LatestTermsCtrl'
     }).
 
+    // Mobile Proposal Entry
+    when('/qualify', {
+      templateUrl: 'qualify/templates/index.html',
+      controller: 'QualifyCtrl'
+    }).
+
     // FAQ
     when('/customer-faq', {
       templateUrl: 'user-static-content/templates/customer-faq.html',

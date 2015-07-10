@@ -1,0 +1,175 @@
+.pow-qualify {
+
+  // Buttons
+  .button {
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.2);
+    height: 60px;
+    background-color: $pow-color-blue;
+    font-family: $dashboard-font-family;
+    text-transform: uppercase;
+    &:disabled {
+      background-color: rgba(0,0,0,0.08);
+      &:hover {
+        background-color: rgba(0,0,0,0.08);
+      }
+    }
+    &:hover {
+      background-color: lighten($pow-color-blue, 20%);
+    }
+    &.secondary {
+      color: #9b9b9b;
+      background-color: rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.2);
+      &:hover {
+        background-color: rgba(0,0,0,0.2);
+      }
+    }
+  }
+
+  .panel {
+    background-color: #444;
+    border-radius: 4px;
+    h1, h2, h3, h4, h5, h6, p {
+      color: #fff;
+    }
+    p {
+      font-weight: normal;
+    }
+
+    // Customer Information on Saved Proposals
+    .submitted-proposal {
+      position: relative;
+      border-radius: 4px;
+      color: #fff;
+      background-color: rgba(0,0,0,0.08);
+      border: 1px solid #333;
+      padding-top: 32px;
+
+      p {
+        color: #fff;
+        margin-bottom: 0px;
+      }
+
+      div.customer-info {
+        .name {
+          font-size: 24pt;
+          line-height: 36pt;
+        }
+        .email {
+          font-size: 12pt;
+          line-height: 24pt;
+          a {
+            color: #12C2FD;
+            &:hover {
+              color: #fff;
+            }
+          }
+        }
+        .phone {
+          font-size: 12pt;
+          line-height: 12pt;
+        }
+        .id{
+          font-size: 10pt;
+          margin-top: 10px;
+          color: #888;
+        }
+        .address,
+        .city-state-zip {
+          font-size: 14pt;
+          line-height: 18pt;
+        }
+      }
+    }
+
+  }
+
+  // Form Styles
+  form {
+    fieldset {
+      border: 0;
+      .row {
+        .columns {
+          padding: 0 4px;
+        }
+      }
+      legend {
+        background-color: initial;
+        color: #fff;
+        font-family: $dashboard-font-family;
+        font-size: 16pt;
+      }
+    }
+    input,
+    textarea {
+      background-color: rgba(0,0,0,0.06);
+      border: 1px solid rgba(0,0,0,0.2);
+      color: #fff;
+      outline: none;
+      border-radius: 4px;
+      padding: 24px 10px 8px;
+      height: 60px;
+      font-family: $dashboard-font-family;
+      font-size: 16pt;
+      &:focus {
+        background-color: rgba(0,0,0,0.2);
+        border: 1px solid rgba(0,0,0,0.2);
+      }
+      &:disabled {
+        background-color: rgba(0,0,0,0.1);
+        color: #666
+      }
+    }
+    textarea {
+      height: 100px;
+    }
+
+    label {
+      position: absolute;
+      top: 8px;
+      left: 14px;
+      color: #9b9b9b;
+      font-family: $dashboard-font-family;
+      text-transform: uppercase;
+      font-size: 10pt;
+    }
+  }
+
+  // ZIP Code Entry Area
+  .zip-code-entry {
+    input {
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      color: #666;
+      background-color: #fff;
+      &:disabled {
+        background-color: #ddd;
+      }
+    }
+    input, .button {
+      font-size: 1.4em;
+    }
+
+    .button {
+      &.zip-code {
+        background-image: image-url("landing/arrow-right-icon.png");
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border: 0;
+        background-color: $pow-color-green;
+        height: 60px;
+        &:disabled {
+          background-color: #444;
+          &:hover {
+            background-color: #444;
+          }
+        }
+      }
+    }
+  }
+}
