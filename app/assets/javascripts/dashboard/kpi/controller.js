@@ -7,9 +7,9 @@
     }, {
         value: 29, label: 'Last Month'
     }, {
-        value: 83, label: 'Last 3 Months'
+        value: 89, label: 'Last 3 Months'
     }, {
-        value: 162, label: 'Last 6 Months'
+        value: 179, label: 'Last 6 Months'
     }];  
 
     $scope.scale = 29;
@@ -55,7 +55,7 @@
       var type = $scope.settings[0].type;
 
       $scope.settings[1].options.showXLabels = 15;
-      if ($scope.scale === 83) $scope.settings[1].options.showXLabels = 6;
+      if ($scope.scale === 89) $scope.settings[1].options.showXLabels = 8;
 
       if (type === 'line') {
         $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
