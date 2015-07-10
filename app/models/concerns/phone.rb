@@ -10,6 +10,7 @@ module Phone
   end
 
   def valid_phone?(phone)
+    return false unless phone
     response = twilio_lookups_client.phone_numbers.get(phone)
     return response.phone_number
   rescue => e
