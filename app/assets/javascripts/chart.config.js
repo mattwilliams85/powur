@@ -130,11 +130,11 @@ function chartConfig(scale){
     };
 
     function formatLabel(l) {
-      var months = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      var slash = l.label.indexOf('/');
-      var date = formatDate(l, slash);
-      if(parseInt(l.label) > 0) l.label = months[l.label.substring(0, slash)] + ' ' + date
-      // if (l.value === 1) return l.value + ' ' + l.datasetLabel;
+      var slash = l.label.indexOf(' ');
+      var label = formatDate(l, slash);
+
+      if(parseInt(l.label) > 0) l.label = label
+      if (l.value === 1) return l.value + ' ' + l.datasetLabel;
       return l.value + ' ' + l.datasetLabel + 's';
     }
 
@@ -148,15 +148,18 @@ function chartConfig(scale){
     }
 
     function formatDate(l, slash) {
-      var str = l.label.substring(slash + 1, l.label.length);
-      if (str.slice(-1) == 1) {
-        return str += 'st';
-      } else if (str.slice(-1) == 2) {
-        return str += 'nd'
-      } else if (str.slice(-1) == 3) {
-        return str += 'rd'
+      var date = l.label.substring(slash + 1, l.label.length);
+      if (date.length > 2) return;
+      if (date.slice(-2) > 9 && date.slice(-2) < 21) {
+        return l.label += 'th'
+      } else if (date.slice(-1) == 1) {
+        return l.label += 'st';
+      } else if (date.slice(-1) == 2) {
+        return l.label += 'nd'
+      } else if (date.slice(-1) == 3) {
+        return l.label += 'rd'
       } else {
-        return str += 'th'
+        return l.label += 'th'
       }
     }
     return tabData;
