@@ -33,22 +33,20 @@ function chartConfig(scale){
             barStrokeWidth : 2,
             barDatasetSpacing: 0,
             scaleStartValue: 0,
-            // 
-            
+            tooltipXPadding: 12,
             showXLabels: 7,
             multiTooltipTemplate: function(valuesObject){
               if (scale > 30) return formatGroupLabel(valuesObject);
               return formatLabel(valuesObject);
             },
+            scaleLabel : function (label) {
+                if (label.value === '0') return '';
+                return ' ' + label.value;
+            },
             scaleOverride: true,
             // ** Required if scaleOverride is true **
             scaleSteps: 5,
-            scaleStepWidth: 5,
-            //
-            scaleLabel : function (label) {
-                if (label.value === '0') return '';
-                return label.value;
-            }
+            scaleStepWidth: 5
           }
         }]
       },
@@ -76,6 +74,7 @@ function chartConfig(scale){
             responsive: true,
             scaleFontColor: '#fff',
             scaleFontSize: 13,
+            tooltipXPadding: 12,
             scaleGridLineColor: 'rgba(255,255,255,.15)',
             scaleLineColor: 'rgba(255,255,255,.15)',
             scaleShowVerticalLines: false,
@@ -83,10 +82,15 @@ function chartConfig(scale){
               if (scale > 30) return formatGroupLabel(valuesObject);
               return formatLabel(valuesObject);
             },
+            scaleLabel : function (label) {
+                if (label.value === '0') return '';
+                return ' ' + label.value;
+            },
             scaleOverride: true,
             // ** Required if scaleOverride is true **
             scaleSteps: 12,
             scaleStepWidth: 12,
+
           }
         }]
       },

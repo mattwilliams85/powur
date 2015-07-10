@@ -2,15 +2,12 @@
   'use strict';
 
   function DashboardKPICtrl($scope, $location, $timeout, UserProfile, CommonService, Utility) {
-    $scope.scaleOptions = [{
-        value: 6, label: 'Last Week'
-    }, {
-        value: 29, label: 'Last Month'
-    }, {
-        value: 89, label: 'Last 3 Months'
-    }, {
-        value: 179, label: 'Last 6 Months'
-    }];  
+    $scope.scaleOptions = [
+      { value: 6, label: 'Last Week' }, 
+      { value: 29, label: 'Last Month' }, 
+      { value: 89, label: 'Last 3 Months' }, 
+      { value: 179, label: 'Last 6 Months' }
+    ];  
 
     $scope.scale = 29;
     $scope.current = new Date();
@@ -23,6 +20,7 @@
       $scope.scale = 29;
       $scope.active = false;
       $scope.section = section;
+      // Refer to chart.config.js for settings/options
       $scope.settings = chartConfig()[$scope.section].settings;
 
       $scope.clearData();
