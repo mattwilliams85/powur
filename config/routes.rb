@@ -44,6 +44,10 @@ Rails.application.routes.draw do
     resource :invite, only: [ :create, :update, :destroy ] do
       post :validate
     end
+
+    resource :zip_validator , only: [] do
+      post :validate
+    end
   end
 
   # quote routes

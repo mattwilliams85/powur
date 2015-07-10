@@ -55,3 +55,4 @@
 //= require_tree ./user-static-content
 //= require_tree ./users
 //= require_tree ./utility
+//= require_tree ./zip-validator

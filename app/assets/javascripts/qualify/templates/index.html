@@ -12,7 +12,7 @@
               <!-- Input -->
               <div class="small-8 columns">
                 <label for="zip">ZIP Code</label>
-                <input ng-model="zip" name="zip" type="text" ng-required='true'>
+                <input ng-model="zip.code" name="zip" type="text" ng-required='true'>
               </div>
               <!-- Button -->
               <div class="small-4 columns">
@@ -24,29 +24,33 @@
       </div>
 
       <div class="row">
-        <div class="panel">
+        <div ng-show="zip.inTerritory === false" class="panel">
           <!-- If Not In Territory -->
           <h4>Whoops!</h4>
           <p>This ZIP Code isn't in the SolarCity territory.</p>
           <a ng-click="clearZip()" class="button expand">Enter a different ZIP Code</a>
         </div>
-        <div class="panel">
+        <div ng-show="zip.inTerritory === true" class="panel">
           <!-- If In Territory -->
           <h4>Great!</h4>
           <p>This ZIP Code is in the SolarCity territory!</p>
 
           <!-- If Not Signed In -->
-          <p>Sign in to create a proposal for this customer.</p>
-          <a ng-href="/sign-in" class="button expand">Sign In</a>
+          <div ng-show="!isSignedIn">
+            <p>Sign in to create a proposal for this customer.</p>
+            <a ng-href="/sign-in" class="button expand">Sign In</a>
+          </div>
 
           <!-- If Signed In -->
-          <p>Use the form below to create a proposal for this customer.</p>
+          <div ng-show="isSignedIn">
+            <p>Use the form below to create a proposal for this customer.</p>
+          </div>
         </div>
       </div>
 
       <!-- If Signed In -->
       <div class="row">
-        <div class="panel">
+        <div ng-show="zip.inTerritory === true && isSignedIn" class="panel">
           <!-- Proposal Form -->
           <form ng-submit="saveProposal()">
             <div class="row">
@@ -146,7 +150,7 @@
         </div>
 
         <!-- If Proposal Saved -->
-        <div class="panel">
+        <div ng-show="proposalSaved" class="panel">
           <h4>Great!</h4>
           <p>This proposal was saved successfully!</p>
           <a ng-click="reset()" class="button expand">Start Over</a>
