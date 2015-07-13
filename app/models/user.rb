@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
   end
 
   def eligible_parent?(parent_id, user = nil)
-    eligible_parents.where(id: parent_id).exists?
+    eligible_parents(user).where(id: parent_id).exists?
   end
 
   def lifetime_achievements

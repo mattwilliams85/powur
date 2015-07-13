@@ -43,7 +43,7 @@ module Auth
 
       parent = User.find(params[:parent_id].to_i)
       unless @user.eligible_parent?(parent.id, current_user)
-        not_found!(:user, current_user.id)
+        not_found!(:user, parent.id)
       end
 
       User.move_user(@user, parent)
