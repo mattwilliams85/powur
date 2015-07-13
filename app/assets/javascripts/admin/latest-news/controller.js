@@ -43,7 +43,7 @@
       }
       page += direction;
       return CommonService.execute({
-        href: '/a/notifications.json?page=' + page
+        href: '/a/news_posts.json?page=' + page
       }).then(function(data) {
         $scope.indexData = data;
         $anchorScroll();
@@ -115,7 +115,7 @@
       $scope.pagination(0);
     } else if ($scope.mode === 'new') {
       CommonService.execute({
-        href: '/a/notifications.json'
+        href: '/a/news_posts.json'
       }).then(function(items) {
         $scope.formAction = getAction(items.actions, 'create');
         $scope.item = {};
@@ -127,7 +127,7 @@
 
     } else if ($scope.mode === 'edit') {
       CommonService.execute({
-        href: '/a/notifications/' + $routeParams.notificationId + '.json'
+        href: '/a/news_posts/' + $routeParams.newsPostId + '.json'
       }).then(function(item) {
         $scope.item = item.properties;
         $scope.formAction = getAction(item.actions, 'update');

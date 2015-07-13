@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://AC0837ab1675f39523e085037acc3cbc43:4262f007c3c0bd8d5fe7f6e831b8f898@lookups.twilio.com/v1/PhoneNumbers/1111111111
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Accept-Charset:
+      - utf-8
+      User-Agent:
+      - twilio-ruby/4.2.1 (ruby/x86_64-darwin14 2.2.2-p95)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 403
+      message: FORBIDDEN
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Wed, 08 Jul 2015 20:06:10 GMT
+      X-Powered-By:
+      - AT-5000
+      X-Shenanigans:
+      - none
+      Content-Length:
+      - '155'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: '{"code": 20008, "message": "Resource not accessible with Test Account
+        Credentials", "more_info": "https://www.twilio.com/docs/errors/20008", "status":
+        403}'
+    http_version:
+  recorded_at: Wed, 08 Jul 2015 20:06:10 GMT
+recorded_with: VCR 2.9.3

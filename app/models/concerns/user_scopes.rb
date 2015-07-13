@@ -141,6 +141,16 @@ module UserScopes
     scope :has_rank, -> { where('lifetime_rank is not null or lifetime_rank != 0') }
 
     scope :with_purchases, -> { joins(:product_receipts) }
+
+    scope :advocates, lambda {
+      where.not(id: partners.select('users.id'))
+    }
+
+    scope :partners, lambda {
+      joins(product_enrollments: :product)
+        .where(product_enrollments: { state: 'completed' },
+               products:            { slug: 'partner' })
+    }
   end
 
   module ClassMethods

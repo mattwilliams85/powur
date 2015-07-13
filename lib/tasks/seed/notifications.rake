@@ -1,13 +1,13 @@
 namespace :powur do
   namespace :seed do
 
-    task notifications: :environment do
-      Notification.destroy_all
+    task news_posts: :environment do
+      NewsPost.destroy_all
 
-      path = Rails.root.join('db', 'seed', 'notifications.txt')
+      path = Rails.root.join('db', 'seed', 'news_posts.txt')
       File.open(path, 'r').each_line do |line|
-        note = Notification.create!(content: line.strip)
-        puts "Created notification: #{note.id} : #{note.content[0..50]}"
+        note = NewsPost.create!(content: line.strip)
+        puts "Created news_post: #{note.id} : #{note.content[0..50]}"
       end
     end
 

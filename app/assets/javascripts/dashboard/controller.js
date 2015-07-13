@@ -51,13 +51,13 @@
     $scope.loadMoreNews = function() {
       var nextPage = $scope.currentNewsPage + 1;
       CommonService.execute({
-        href: '/u/notifications.json?page=' + nextPage
-      }).then(function(notifications) {
-        for (var i in notifications.entities) {
-          $scope.news.push(notifications.entities[i]);
+        href: '/u/news_posts.json?page=' + nextPage
+      }).then(function(news_posts) {
+        for (var i in news_posts.entities) {
+          $scope.news.push(news_posts.entities[i]);
         }
-        $scope.currentNewsPage = notifications.properties.paging.current_page;
-        if (notifications.properties.paging.page_count > notifications.properties.paging.current_page) {
+        $scope.currentNewsPage = news_posts.properties.paging.current_page;
+        if (news_posts.properties.paging.page_count > news_posts.properties.paging.current_page) {
           $scope.moreNews = true;
         } else {
           $scope.moreNews = false;
@@ -71,13 +71,13 @@
       return $scope.legacyImagePaths.goalsBadges[rank];
     }
 
-    //Fetch Notifications
+    //Fetch News Posts
     CommonService.execute({
-      href: '/u/notifications.json'
-    }).then(function(notifications) {
-      $scope.news = notifications.entities;
-      $scope.currentNewsPage = notifications.properties.paging.current_page;
-      if (notifications.properties.paging.page_count > notifications.properties.paging.current_page) {
+      href: '/u/news_posts.json'
+    }).then(function(news_posts) {
+      $scope.news = news_posts.entities;
+      $scope.currentNewsPage = news_posts.properties.paging.current_page;
+      if (news_posts.properties.paging.page_count > news_posts.properties.paging.current_page) {
         $scope.moreNews = true;
       } else {
         $scope.moreNews = false;

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   include NameEmailSearch
   include UserScopes
   include PaperclipScopes
+  include Phone
 
   belongs_to :rank_path
 

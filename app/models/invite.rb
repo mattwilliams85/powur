@@ -2,6 +2,7 @@ require 'valid_email'
 
 class Invite < ActiveRecord::Base
   include NameEmailSearch
+  include Phone
 
   belongs_to :user, class_name: 'User'
   belongs_to :sponsor, class_name: 'User'
@@ -16,6 +17,7 @@ class Invite < ActiveRecord::Base
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
   validate :max_invites, on: :create
+  # validates_with ::Phone::Validator, fields: [:phone]
 
   after_create :subtract_from_available_invites
 

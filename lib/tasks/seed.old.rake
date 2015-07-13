@@ -288,20 +288,5 @@
 #         min_upline_rank_id: 2,
 #         flat_amount:        150)
 #     end
-
-#     task notifications: :environment do
-#       Notification.destroy_all
-
-#       Notification.create!(
-#         content: 'These messages are part of the Powur notification system. Administrators can use the Administrator dashboard to add and remove notifications.')
-#       Notification.create!(
-#         content: 'The future of the planet is in our hands. <a href="http://powur.com">')
-#       Notification.create!(
-#         content: 'Did you know that on one single day, the sun sends 15,000 times as much energy to the Earth as we consume worldwide on a daily basis?')
-#       Notification.create!(
-#         content: 'Solar power is the energy of the future — safe, clean, and 100% environmentally compatible.')
-
-#       puts 'Seeded Sample Dashboard Notifications'
-#     end
 #   end
 # end
