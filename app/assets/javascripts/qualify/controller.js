@@ -4,6 +4,16 @@
   function QualifyCtrl($scope, $rootScope, $http, $location, $routeParams, UserProfile, SolarCityZipValidator, CommonService) {
     $scope.zip = {};
 
+    $scope.proposalStatus = '';
+    /*
+    Proposal Statuses:
+    - invalidZip : ZIP was entered; SC API returned "out of territory"
+    - new : ZIP was entered; SC API returned "in territory"
+    - saved : Proposal was saved successfully
+    - edit : Advocate clicked "edit" on "saved" screen
+    - submitted : Advocate clicked "submit" on "saved" screen
+    */
+
     //
     // Utility Functions
     //
@@ -27,28 +37,50 @@
       return productFields;
     }
 
+    // Set values from action's fields' values
+    function setFormValues(formAction) {
+      var formValues = {};
+      for (var i in formAction.fields) {
+        var key = formAction.fields[i].name;
+        var value = formAction.fields[i].value;
+        formValues[key] = (value) || '';
+      }
+      return formValues;
+    }
+
     //
     // Controller Functions
     //
     $scope.validateZip = function() {
       $scope.disableZipInput = true;
-      SolarCityZipValidator.check({
-        zip: $scope.zip.code
-      }).then(function(data){
-        if (data.valid) {
-          $scope.zip.inTerritory = true;
-          $scope.proposal = {};
-          $scope.proposal.zip = $scope.zip.code;
-          $scope.disableProposalForm = false;
-        } else {
-          $scope.zip.inTerritory = false;
-        }
-      });
+      $scope.zipErrorMessages = {};
+
+      var zipRegEx = /^[0-9]{5}$/;
+      if (zipRegEx.test($scope.zip.code)) {
+        SolarCityZipValidator.check({
+          zip: $scope.zip.code
+        }).then(function(data){
+          if (data.valid) {
+            $scope.proposalStatus = 'new';
+            $scope.proposal = {};
+            $scope.proposal.zip = $scope.zip.code;
+            $scope.disableProposalForm = false;
+          } else {
+            $scope.proposalStatus = 'invalidZip';
+          }
+        });
+      } else {
+        $scope.zipErrorMessages = {
+          zip: 'Please enter a valid 5-digit ZIP code.'
+        };
+        $scope.disableZipInput = false;
+      }
     };
 
     $scope.clearZip = function() {
       $scope.zip = {};
       $scope.disableZipInput = false;
+      $scope.proposalStatus = '';
     };
 
     $scope.sendToSignIn = function() {
@@ -61,22 +93,56 @@
     $scope.saveProposal = function() {
       $scope.formErrorMessages = {};
       $scope.disableProposalForm = true;
-      if ($scope.proposal && $('#proposal-form')[0].checkValidity()) {
-        CommonService.execute($scope.createProposalAction, $scope.proposal).then(function(data) {
-          $scope.savedProposalData = data.properties;
-          if (data.error) {
-            $scope.formErrorMessages[data.error.input] = data.error.message;
-            return;
-          }
-          $scope.proposalSaved = true;
+
+      var actionCallback = function(data) {
+        $scope.savedProposalData = data.properties;
+
+        // Get 'Submit Proposal' Action
+        $scope.submitProposalAction = getAction(data.actions, 'submit');
+
+        // Get 'Update Proposal' Action (for Edit)
+        $scope.updateProposalAction = getAction(data.actions, 'update');
+
+        if (data.error) {
+          $scope.formErrorMessages[data.error.input] = data.error.message;
+          $scope.disableProposalForm = false;
+          return;
+        }
+        $scope.proposalStatus = 'saved';
+      };
+
+      // Execute create/update action
+      if ($scope.proposal) {
+        if ($scope.proposalStatus === 'new') {
+          CommonService.execute($scope.createProposalAction, $scope.proposal).then(function(data) {
+            actionCallback(data);
+          });
+        } else if ($scope.proposalStatus === 'edit') {
+          CommonService.execute($scope.updateProposalAction, $scope.proposal).then(function(data) {
+            actionCallback(data);
+          });
+        }
+      }
+    };
+
+    $scope.submitProposal = function() {
+      if ($scope.submitProposalAction) {
+        CommonService.execute($scope.submitProposalAction).then(function(data) {
+          $scope.proposalStatus = 'submitted';
         });
       }
+    };
+
+    $scope.editProposal = function() {
+      $scope.proposal = setFormValues($scope.updateProposalAction);
+      $scope.proposalStatus = 'edit';
+      $scope.disableProposalForm = false;
     };
 
     $scope.reset = function() {
       $scope.proposal = {};
       $scope.clearZip();
-      $scope.proposalSaved = false;
+      $scope.proposalStatus = '';
     };
 
     //
@@ -91,19 +157,21 @@
     }
 
     // Get Current User
-    UserProfile.get().then(function(user) {
-      $rootScope.currentUser = user;
+    if ($rootScope.isSignedIn) {
+      UserProfile.get().then(function(user) {
+        $rootScope.currentUser = user;
 
-      // Get 'Create Proposal' Action
-      $http({
-        method: 'GET',
-        url: '/u/users/' + user.id + '/quotes',
-      }).success(function(data) {
-        $scope.createProposalAction = getAction(data.actions, 'create');
-        $scope.productFields = setProductFields($scope.createProposalAction)
+        // Get 'Create Proposal' Action
+        $http({
+          method: 'GET',
+          url: '/u/users/' + user.id + '/quotes',
+        }).success(function(data) {
+          $scope.createProposalAction = getAction(data.actions, 'create');
+          $scope.productFields = setProductFields($scope.createProposalAction);
+        });
+
       });
-
-    });
+    }
   }
 
   QualifyCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'UserProfile', 'SolarCityZipValidator', 'CommonService'];
