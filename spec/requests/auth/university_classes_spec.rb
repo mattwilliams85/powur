@@ -70,7 +70,7 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
 
     it 'returns incomplete form error messages' do
       post(purchase_university_class_path(certifiable_product), {
-        card:   { name: 'Bob' },
+        card:   { firstname: 'Bob' },
         format: :json
       })
       expect_input_errors(:number, :cvv)
