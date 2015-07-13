@@ -5,6 +5,7 @@ module UserScopes
     scope :with_upline_at, lambda { |id, level|
       where('upline[?] = ?', level, id).where('id != ?', id)
     }
+
     scope :at_level, ->(rank) { where('array_length(upline, 1) = ?', rank) }
 
     scope :for_bonuses, lambda {
@@ -143,6 +144,7 @@ module UserScopes
       joins(product_enrollments: :product)
         .where(product_enrollments: { state: 'completed' },
                products:            { slug: 'partner' })
+    }
 
     scope :has_rank, lambda {
       where('lifetime_rank is not null or lifetime_rank != 0')
