@@ -2,7 +2,8 @@ module Forms
   class PurchaseUniversityClass
     include ActiveModel::Validations
 
-    attr_accessor :amount, :number, :expiration, :cvv, :name, :zip, :product_id
+    attr_accessor :amount, :number, :expiration, :cvv,
+                  :firstname, :lastname, :zip, :product_id
 
     validates :number,
               format: {
@@ -25,7 +26,8 @@ module Forms
               },
               presence: true
 
-    validates :name, presence: true
+    validates :firstname, presence: true
+    validates :lastname, presence: true
 
     validates :zip,
               format: {
@@ -57,8 +59,8 @@ module Forms
         security_code: cvv,
         exp_date:      expiration,
         product_id:    product_id,
-        firstname:     name.split(' ')[0],
-        lastname:      name.split(' ')[1],
+        firstname:     firstname,
+        lastname:      lastname,
         zip:           zip
       }
     end
