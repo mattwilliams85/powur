@@ -11,13 +11,12 @@ class UsersJson < JsonDecorator
     entity_rel(rel) if rel
   end
 
-  LIST_PROPS = %w(downline_count personal personal_lifetime group 
+  LIST_PROPS = %w(downline_count personal personal_lifetime group
                   group_lifetime)
   def list_item_properties(user = @item) # rubocop:disable Metrics/AbcSize
     json.properties do
       json.call(user, :id, :first_name, :last_name, :email, :phone, :level,
                 :moved, :profile, :lifetime_rank)
-     
       LIST_PROPS.each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]
       end
@@ -41,10 +40,10 @@ class UsersJson < JsonDecorator
   def detail_properties(user = @item) # rubocop:disable Metrics/AbcSize
     list_item_properties
     json.properties do
-      json.call(user, :address, :city, :state, :zip, :profile, :avatar, :avatar_file_name)
+      json.call(user, :address, :city, :state, :zip,
+                :profile, :avatar, :avatar_file_name)
       json.organic_rank rank_title(user.organic_rank)
       json.lifetime_rank rank_title(user.lifetime_rank)
-      json.downline_count user.downline_users_count(user.id)
       if user.rank_path_id
         json.rank_path all_paths.find { |p| p.id == user.rank_path_id }.name
       end
@@ -52,13 +51,12 @@ class UsersJson < JsonDecorator
   end
 
   def item_actions(user)
-    if user.placeable?(current_user)
-      json.actions do
-        json.name "place"
-        json.method "UPDATE"
-        json.href "/u/users/"+user.id.to_s+"?sponsor_id="
-        json.type "application/json"
-      end
+    return unless user.moveable_by?(current_user)
+    json.actions do
+      json.name "place"
+      json.method "UPDATE"
+      json.href "/u/users/"+user.id.to_s+"?sponsor_id="
+      json.type "application/json"
     end
   end
 

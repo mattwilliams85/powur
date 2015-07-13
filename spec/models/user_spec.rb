@@ -95,27 +95,4 @@ describe User, type: :model do
     end
   end
 
-  describe '#assign_parent' do
-    it 'moves a user and their downline in the geneaology' do
-      root = create(:user)
-      parent1 = create(:user, sponsor: root)
-      parent2 = create(:user, sponsor: root)
-      child = create(:user, sponsor: parent1)
-
-      parent1.assign_parent(parent2, '')
-      expect(parent1.upline).to eq(parent2.upline + [ parent1.id ])
-      child.reload
-      expect(child.upline).to eq(parent2.upline + [ parent1.id, child.id ])
-    end
-
-    it 'does not allow moving a user to a child' do
-      root = create(:user)
-      parent1 = create(:user, sponsor: root)
-      child = create(:user, sponsor: parent1)
-
-      expect { parent1.assign_parent(child) }
-        .to raise_error(ArgumentError)
-    end
-  end
-
 end

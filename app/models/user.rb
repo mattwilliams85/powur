@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
 
   belongs_to :rank_path
 
-  validates :available_invites, :numericality => { :greater_than_or_equal_to => 0 }
   has_many :quotes
   has_many :customers, through: :quotes
   has_many :orders
@@ -30,6 +29,7 @@ class User < ActiveRecord::Base
 
   # No extra email validation needed,
   # email validation and confirmation happens with Invite
+  # PW: update happens in profile edit correct?
   validates :email,
     uniqueness: { message: 'This email is taken', case_sensitive: false },
     presence: true
@@ -43,16 +43,7 @@ class User < ActiveRecord::Base
     on: :create
   validates :password_confirmation, presence: true, on: :create
   validates_presence_of :url_slug, :reset_token, allow_nil: true
-  # validates_presence_of :address, :city, :state, allow_nil: true
-  # validates :tos,
-  #           presence: { message: 'Please read and agree to the terms and conditions in the Application and Agreement' }
-  # validate :latest_agreement_version, on: :create
-  # def latest_agreement_version
-  #   latest_agreement = ApplicationAgreement.current
-  #   if latest_agreement && latest_agreement.version != tos
-  #     errors.add(:tos, 'Outdated terms and conditions')
-  #   end
-  # end
+  validates :available_invites, :numericality => { :greater_than_or_equal_to => 0 }
 
   before_create :set_url_slug
   after_create :hydrate_upline
@@ -82,11 +73,11 @@ class User < ActiveRecord::Base
   end
 
   def downline_users
-    User.with_parent(self.id)
+    User.with_parent(id)
   end
 
-  def downline_users_count(id)
-    User.with_parent(id).count
+  def downline_users_count
+    downline_users.count
   end
 
   def role?(role)
@@ -109,14 +100,25 @@ class User < ActiveRecord::Base
     upline[0..-2]
   end
 
-  def placeable?(current_user)
-    ((Time.now - created_at) / 86400) <= 60 && sponsor_id == current_user.id
+  def moveable_by?(user)
+    return true if user.role?(:admin)
+    sponsor_id == user.id && DateTime.current <= created_at + 60.days
+  end
+
+  def eligible_parents(user = nil)
+    query = User.eligible_parents(self).order(:upline)
+    query = query.with_ancestor(user.id) if user && !user.role?(:admin)
+    query
+  end
+
+  def eligible_parent?(parent_id, user = nil)
+    eligible_parents.where(id: parent_id).exists?
   end
 
   def lifetime_achievements
     @lifetime_achievements ||= rank_achievements
-                               .where('pay_period_id is not null')
-                               .order(rank_id: :desc, path: :asc).entries
+      .where('pay_period_id is not null')
+      .order(rank_id: :desc, path: :asc).entries
   end
 
   def make_customer!
@@ -146,18 +148,11 @@ class User < ActiveRecord::Base
   ##
 
   def fetch_full_downline
-    User.with_ancestor(self.id)
+    User.with_ancestor(id)
   end
 
   def complete_quotes
-    quotes.where.not(id: self.orders.select('quote_id').map {|i| i})
-  end
-
-  def assign_parent(parent, params)
-    self.class.move_user(self, parent)
-    if params != 'admin'
-      self.update(moved: true)
-    end
+    quotes.where.not(id: self.orders.select('quote_id').map { |i| i })
   end
 
   def accepted_latest_terms?
@@ -217,21 +212,6 @@ class User < ActiveRecord::Base
   end
 
   class << self
-    # UPDATE_LIFETIME_RANKS = "
-    #     UPDATE users
-    #     SET lifetime_rank = ra.rank_id
-    #     FROM (
-    #       SELECT user_id, max(rank_id) rank_id
-    #       FROM rank_achievements
-    #       WHERE pay_period_id = ?
-    #       GROUP BY user_id) ra
-    #     WHERE users.id = ra.user_id AND
-    #       (ra.rank_id > users.lifetime_rank OR users.lifetime_rank IS NULL)"
-    # def update_lifetime_ranks(pay_period_id)
-    #   sql = sanitize_sql([ UPDATE_LIFETIME_RANKS, pay_period_id ])
-    #   connection.execute(sql)
-    # end
-
     def update_organic_ranks
       joins_sql = needs_organic_rank_up.to_sql
       sql = "
@@ -251,16 +231,19 @@ class User < ActiveRecord::Base
       update_lifetime_ranks
     end
 
-    UPDATE_PARENT = "upline = ARRAY[%s] || upline[%s:array_length(upline,1)]"
-    def move_user(user, parent)
+    UPDATE_PARENT_SQL = \
+      'upline = ARRAY[%s] || upline[%s:array_length(upline,1)]'
+    def move_user(user, parent) # rubocop:disable Metrics/AbcSize
       if user.id == parent.id
         fail ArgumentError, 'A user cannot be their own parent'
       end
       if parent.ancestor?(user.id)
         fail ArgumentError, 'A parent cannot be moved to a child'
       end
-      sql = UPDATE_PARENT % [ parent.upline.join(','), user.level ]
-      where("upline && ARRAY[?]", user.id).update_all(sql)
+
+      sql = format(UPDATE_PARENT_SQL, parent.upline.join(','), user.level)
+      where('upline && ARRAY[?]', user.id).update_all(sql)
+      user.update!(moved: true)
       user.upline = parent.upline + [ user.id ]
     end
   end

@@ -7,42 +7,32 @@ module UserScopes
     }
     scope :at_level, ->(rank) { where('array_length(upline, 1) = ?', rank) }
 
-    # CHILD_COUNT_LIST = "
-    #   SELECT u.*, child_count - 1 downline_count
-    #   FROM (
-    #     SELECT unnest(upline) parent_id, count(id) child_count
-    #     FROM users
-    #     GROUP BY parent_id) c INNER JOIN users u ON c.parent_id = u.id
-    #   WHERE u.upline[?] = ? AND array_length(u.upline, 1) = ?
-    #   ORDER BY u.last_name, u.first_name, u.id;"
-    # find_by_sql([ CHILD_COUNT_LIST, user.level, user.id, user.level + 1 ])
-
     scope :for_bonuses, lambda {
       select(:id, :upline, :lifetime_rank, :organic_rank, :rank_path_id)
     }
 
-    scope :within_date_range, ->(begin_date, end_date) {
+    scope :within_date_range, lambda { |begin_date, end_date|
       where('created_at between ? and ?', begin_date, end_date)
     }
 
     scope :quote_performance, lambda { |user_id|
       with_quote_counts
-      .where("quotes.status > ? or quotes.status IS NULL", 2)
-      .with_parent(user_id)
-      .order("quote_count desc")
+        .where('quotes.status > ? or quotes.status IS NULL', 2)
+        .with_parent(user_id)
+        .order('quote_count desc')
     }
 
     scope :growth_performance, lambda { |user_id|
       with_weekly_downline_counts
-      .with_parent(user_id)
-      .order("dc.downline_count desc nulls last")
+        .with_parent(user_id)
+        .order('dc.downline_count desc nulls last')
     }
 
     WEEKLY_DOWN_COUNTS_SELECT = \
       'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
     scope :weekly_downline_counts, lambda {
       select(WEEKLY_DOWN_COUNTS_SELECT).group('parent_id')
-      .where('created_at > ?', 7.days.ago.to_s(:db))
+        .where('created_at > ?', 7.days.ago.to_s(:db))
     }
 
     scope :with_weekly_downline_counts, lambda {
@@ -51,18 +41,21 @@ module UserScopes
       select('users.*, dc.downline_count').joins(joins_sql)
     }
 
-    DOWN_COUNTS_SELECT = \
-      'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
-    scope :downline_counts, lambda {
-      select(DOWN_COUNTS_SELECT).group('parent_id')
+    TEAM_COUNT_SELECT = \
+      'unnest(users.upline) parent_id, count(users.id) - 1 team_count'
+    scope :team_count, lambda { |ids: nil|
+      sub_query = select(TEAM_COUNT_SELECT).group(:parent_id).to_sql
+      query = select('tc.parent_id id, tc.team_count')
+        .joins("inner join (#{sub_query}) tc on users.id = tc.parent_id")
+      query = query.where(id: ids) if ids
+      query
     }
 
-    scope :with_downline_counts, lambda {
-      joins_sql = "INNER JOIN (#{downline_counts.to_sql}) dc
-        ON users.id = dc.parent_id"
-      select('users.*, dc.downline_count').joins(joins_sql)
+    scope :quote_count, lambda { |ids: nil|
+      sub_query = Quote.user_count(ids: ids).to_sql
+      select('users.id, qc.quote_count')
+        .joins("inner join (#{sub_query}) qc on users.id = qc.user_id")
     }
-
 
     scope :with_quote_counts, lambda {
       select('users.*, count(quotes.id) quote_count')
@@ -71,12 +64,13 @@ module UserScopes
     }
 
     scope :with_parent, lambda { |*user_ids|
-      where('users.upline[array_length(users.upline, 1) - 1] IN (?)', user_ids.flatten)
+      where('users.upline[array_length(users.upline, 1) - 1] IN (?)',
+            user_ids.flatten)
     }
 
     scope :with_ancestor, lambda { |user_id|
-      where('? = ANY (upline)', user_id)
-        .where('upline[array_length(upline, 1)] NOT IN (?)', user_id)
+      where('? = ANY (upline)', user_id).where('id <> ?', user_id)
+        # .where('upline[array_length(upline, 1)] NOT IN (?)', user_id)
     }
 
     OT_SELECT_FIELDS = %w(personal group personal_lifetime group_lifetime)
@@ -126,19 +120,18 @@ module UserScopes
         .where(user_user_groups: { user_group_id: ids })
     }
 
-    scope :ranked_up, ->{ where.not(organic_rank: nil) }
-    scope :needs_lifetime_rank_up, ->{
+    scope :ranked_up, -> { where.not(organic_rank: nil) }
+
+    scope :needs_lifetime_rank_up, lambda {
       ranked_up.where('lifetime_rank is null or organic_rank > lifetime_rank')
     }
 
-    scope :needs_organic_rank_up, ->{
+    scope :needs_organic_rank_up, lambda {
       joins_sql = UserUserGroup.highest_ranks.to_sql
       select('hr.highest_rank, users.id')
         .joins("join (#{joins_sql}) hr on hr.user_id = users.id")
         .where('organic_rank is null or organic_rank < hr.highest_rank')
     }
-
-    scope :has_rank, -> { where('lifetime_rank is not null or lifetime_rank != 0') }
 
     scope :with_purchases, -> { joins(:product_receipts) }
 
@@ -150,6 +143,14 @@ module UserScopes
       joins(product_enrollments: :product)
         .where(product_enrollments: { state: 'completed' },
                products:            { slug: 'partner' })
+
+    scope :has_rank, lambda {
+      where('lifetime_rank is not null or lifetime_rank != 0')
+    }
+
+    scope :eligible_parents, lambda { |user|
+      where('NOT (? = ANY (upline))', user.id)
+        .where('id <> ?', user.parent_id)
     }
   end
 

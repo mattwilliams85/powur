@@ -1,6 +1,9 @@
 module Admin
   class UsersController < AdminController
-    before_action :fetch_user, only: [ :downline, :upline, :show, :update, :eligible_parents, :move ]
+    before_action :fetch_user,
+                  only: [ :downline, :upline, :show, :update,
+                          :eligible_parents, :move ]
+
     page max_limit: 25
     sort id_asc:          { id: :asc },
          id_desc:         { id: :desc },
@@ -9,7 +12,7 @@ module Admin
     filter :with_purchases,
            url:        -> { admin_users_path },
            scope_opts: { type: :boolean },
-           required: false
+           required:   false
 
     def index
       respond_to do |format|
@@ -65,16 +68,6 @@ module Admin
         .order(:upline)
 
       render 'auth/users/select_index'
-    end
-
-    def move
-      require_input :parent_id
-
-      parent = User.find(params[:parent_id].to_i)
-
-      @user.assign_parent(parent, 'admin')
-
-      render 'show'
     end
 
     protected

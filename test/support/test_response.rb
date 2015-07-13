@@ -46,6 +46,10 @@ module TestResponse
       !entity(rel).nil?
     end
 
+    def entity_ids
+      entities && entities.map { |e| e.properties.id }
+    end
+
     def must_be_class(name)
       klass?(name).must_equal true, "Expected #{self} to include '#{name}'"
     end

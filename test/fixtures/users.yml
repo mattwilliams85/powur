@@ -1,14 +1,15 @@
 DEFAULTS: &DEFAULTS
-  first_name: Dirk
-  last_name: Diggler
+  first_name: <%= Faker::Name.first_name %>
+  last_name: <%= Faker::Name.last_name %>
   email: $LABEL@eyecuelab.com
   encrypted_password: <%= default_password_digest %>
   tos: true
   organic_rank: 1
   available_invites: 3
-
 advocate:
   <<: *DEFAULTS
+  first_name: Dirk
+  last_name: Diggler
 admin:
   <<: *DEFAULTS
   roles:
@@ -16,6 +17,22 @@ admin:
 garey:
   <<: *DEFAULTS
   first_name: Garey
+  upline: <%=  [ ActiveRecord::FixtureSet.identify(:advocate), ActiveRecord::FixtureSet.identify(:garey) ] %>
+  sponsor: advocate
 garry:
   <<: *DEFAULTS
   first_name: Garry
+  upline: <%=  [ ActiveRecord::FixtureSet.identify(:advocate), ActiveRecord::FixtureSet.identify(:garry) ] %>
+  sponsor: advocate
+child:
+  <<: *DEFAULTS
+  upline: <%=  [ ActiveRecord::FixtureSet.identify(:advocate), ActiveRecord::FixtureSet.identify(:child) ] %>
+  sponsor: advocate
+child2:
+  <<: *DEFAULTS
+  upline: <%=  [ ActiveRecord::FixtureSet.identify(:advocate), ActiveRecord::FixtureSet.identify(:child2) ] %>
+  sponsor: advocate
+grandchild:
+  <<: *DEFAULTS
+  upline: <%=  [ ActiveRecord::FixtureSet.identify(:advocate), ActiveRecord::FixtureSet.identify(:child), ActiveRecord::FixtureSet.identify(:grandchild) ] %>
+  sponsor: child

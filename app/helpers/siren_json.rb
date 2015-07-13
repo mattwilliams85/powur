@@ -70,6 +70,14 @@ module SirenJson
     end
   end
 
+  def item_props(id = nil)
+    json.properties do
+      yield if block_given?
+
+      render_item_totals(id) if id && params[:item_totals]
+    end
+  end
+
   def entity_rel(value = nil)
     json.rel [ value || :item ]
   end
@@ -157,6 +165,14 @@ module SirenJson
 
   private
 
+  def render_item_totals(id)
+    json.totals do
+      aggregator.selected.each do |key|
+        json.set! key, item_totals[key][id] || 0
+      end
+    end
+  end
+
   def filter_field(action, scope, opts)
     field_opts = { value: params[scope], required: !!opts[:required] }
     if opts[:options]
@@ -175,7 +191,7 @@ module SirenJson
       field_opts[:reference] = reference
     end
     if opts[:heading]
-      field_opts[:label] = t("labels.#{opts[:heading]}", 
+      field_opts[:label] = t("labels.#{opts[:heading]}",
                              default: opts[:heading].to_s.titleize)
     end
 

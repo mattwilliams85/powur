@@ -25,6 +25,13 @@ class Quote < ActiveRecord::Base
   scope :user_product, lambda { |user_id, product_id|
     where(user_id: user_id, product_id: product_id)
   }
+  scope :user_count, lambda { |ids: nil|
+    query = Quote
+      .select('user_id, count(id) quote_count')
+      .group(:user_id)
+    query = query.where(user_id: ids) unless ids.empty?
+    query
+  }
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
   validate :product_data

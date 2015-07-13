@@ -1,70 +1,79 @@
 module Auth
   class UsersController < AuthController
-    include UsersActions
+    before_action :fetch_users, only: [ :index ]
+    before_action :fetch_user,
+                  only: [ :show, :downline, :upline, :move, :eligible_parents ]
 
+    page
     sort newest: { created_at: :desc },
-         name: 'users.last_name asc, users.first_name asc'
-          # quotes: 'users.quote_count asc'
-          # # .with_quote_counts
+         name:   'users.last_name asc, users.first_name asc'
+    item_totals :leads_count, :team_count
 
-    filter :performance,
-           fields:     { metric: { options: [ :quote_count, :personal_sales, :group_sales ],
-                                   heading: :order_by },
-                         period: { options: [ :lifetime, :monthly, :weekly ],
-                                   heading: :for_period } },
-           scope_opts: { type: :hash, using: [ :metric, :period ] }
+    def index
+      @users = @users.search(params[:search]) if params[:search].present?
+      @users = apply_list_query_options(@users)
 
-    def eligible_parents
-      @users = User
-        .with_ancestor(current_user.id)
-        .where('NOT (? = ANY (upline))', @user.id)
-        .where('id <> ?', @user.parent_id)
-        .order(:upline)
-
-      render 'select_index'
+      render 'index'
     end
 
     def downline
-      scope = User
-      scope = User.search(params[:search]) if params[:search]
-      scope = scope.with_parent(@user.id)
-      @users = apply_list_query_options(scope)
+      @users = User.with_parent(@user.id)
 
-      render 'team'
+      index
+    end
+
+    def upline
+      @users = @user.upline_users
+
+      index
+    end
+
+    def eligible_parents
+      @users = @user.eligible_parents(current_user)
+
+      index
+    end
+
+    def show
+      render 'show'
     end
 
     def move
-      # require_input :parent_id
-
-      # child = User.find(params[:child_id])
-      # parent = User.find(params[:parent_id])
-      # child.assign_parent(parent)
-
-      # @user = User.find(current_user.id)
-
-      # render 'show'
-
       require_input :parent_id
 
-
-
-      parent = User.find(params[:parent_id])
-      if parent.ancestor?(current_user.id) && @user.ancestor?(current_user.id)
-        @user.assign_parent(parent, 'user')
-      else
+      parent = User.find(params[:parent_id].to_i)
+      unless @user.eligible_parent?(parent.id, current_user)
         not_found!(:user, current_user.id)
       end
 
-      # parent = User.with_parent(parent.id)
-      #   .where(id: current_user.id).first
-      # not_found!(:user, current_user.id) if parent.nil?
+      User.move_user(@user, parent)
 
-      render 'show'
+      show
+    end
+
+    private
+
+    def fetch_users
+      @users = admin? ? User.all : User.with_ancestor(current_user.id)
     end
 
     def fetch_user
       params[:user_id] = params[:id]
       super
+    end
+
+    def leads_count(query)
+      ids = query.entries.map(&:id)
+      totals = User.quote_count(ids: ids)
+
+      Hash[ totals.map { |t| [ t.id, t.attributes['quote_count'] ] } ]
+    end
+
+    def team_count(query)
+      ids = query.entries.map(&:id)
+      totals = User.team_count(ids: ids)
+
+      Hash[ totals.map { |t| [ t.id, t.attributes['team_count'] ] } ]
     end
   end
 end
