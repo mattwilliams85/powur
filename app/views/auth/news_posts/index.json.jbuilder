@@ -1,3 +1,5 @@
+siren json
+
 klass :news_posts, :list
 
 json.entities @news_posts, partial: 'item', as: :news_post
