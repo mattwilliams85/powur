@@ -1,17 +1,17 @@
 <table class="index-table">
   <thead>
     <tr>
-      <th>ID <powur-sorter control="indexData" field="id"></powur-sorter></th>
+      <th>ID <powur-sorter control="index" field="id"></powur-sorter></th>
       <th>Thumbnail</th>
-      <th>Topic <powur-sorter control="indexData" field="topic_id"></powur-sorter></th>
-      <th>Position <powur-sorter control="indexData" field="position"></powur-sorter></th>
-      <th>Status <powur-sorter control="indexData" field="is_public"></powur-sorter></th>
-      <th>Posted <powur-sorter control="indexData" field="id"></powur-sorter></th>
+      <th>Topic <powur-sorter control="index" field="topic_id"></powur-sorter></th>
+      <th>Position <powur-sorter control="index" field="position"></powur-sorter></th>
+      <th>Status <powur-sorter control="index" field="is_public"></powur-sorter></th>
+      <th>Posted <powur-sorter control="index" field="id"></powur-sorter></th>
       <th width="150">Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in indexData.entities">
+    <tr ng-repeat="item in index.data.entities">
       <td>{{item.properties.id}}</td>
       <td>
         <div class="position-relative">

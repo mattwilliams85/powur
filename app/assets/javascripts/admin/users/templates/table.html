@@ -1,14 +1,14 @@
 <table class="index-table">
   <thead>
     <tr>
-      <th>ID <powur-sorter control="indexData" field="id"></powur-sorter></th>
-      <th>Name <powur-sorter control="indexData" field="first_name"></powur-sorter></th>
+      <th>ID <powur-sorter control="index" field="id"></powur-sorter></th>
+      <th>Name <powur-sorter control="index" field="first_name"></powur-sorter></th>
       <th>Email</th>
       <th>Level</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in indexData.entities">
+    <tr ng-repeat="item in index.data.entities">
       <td>{{item.properties.id}}</td>
       <td><a ng-href="/admin/users/{{item.properties.id}}">{{item.properties.first_name}} {{item.properties.last_name}}</a></td>
       <td>{{item.properties.email}}</td>

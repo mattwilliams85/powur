@@ -6,9 +6,9 @@
       scope.currentSort = true;
 
       scope.sort = function() {
-        if (!scope.control || !scope.control.links) return;
+        if (!scope.control.data || !scope.control.data.links) return;
 
-        var link = getLink(scope.control.links);
+        var link = getLink(scope.control.data.links);
 
         $http({
           method: 'GET',
@@ -18,7 +18,7 @@
           },
           type: 'application/json'
         }).success(function(data) {
-          scope.control = data;
+          scope.control.data = data;
           scope.currentSort = !scope.currentSort;
         }).error(function(err) {
           console.log('Sort request error', err);

@@ -1,7 +1,7 @@
 <table class="index-table">
   <thead>
     <tr>
-      <th>ID <powur-sorter control="indexData" field="id"></powur-sorter></th>
+      <th>ID <powur-sorter control="index" field="id"></powur-sorter></th>
       <th>Content</th>
       <th>Author</th>
       <th>Created At</th>
@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in indexData.entities">
+    <tr ng-repeat="item in index.data.entities">
       <td>{{ item.properties.id }}</td>
       <td>{{ item.properties.content }}</td>
       <td>{{ item.properties.user.full_name }}</td>

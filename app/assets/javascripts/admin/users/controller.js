@@ -12,15 +12,21 @@
     };
 
     $scope.pagination = function(direction) {
-      var page = 1;
-      if ($scope.indexData) {
-        page = $scope.indexData.properties.paging.current_page;
+      var page = 1,
+          sort;
+      if ($scope.index.data) {
+        page = $scope.index.data.properties.paging.current_page;
+        sort = $scope.index.data.properties.sorting.current_sort;
       }
       page += direction;
       return CommonService.execute({
-        href: '/a/users.json?page=' + page
+        href: '/a/users',
+        params: {
+          page: page,
+          sort: sort
+        }
       }).then(function(data) {
-        $scope.indexData = data;
+        $scope.index.data = data;
         $anchorScroll();
       });
     };
@@ -99,10 +105,10 @@
 
       $http({
         method: 'GET',
-        url: '/a/users.json',
+        url: '/a/users',
         params: data,
       }).success(function(data) {
-        $scope.indexData = data;
+        $scope.index.data = data;
         $anchorScroll;
       });
     };
@@ -158,6 +164,7 @@
     if ($scope.mode === 'index') {
       // Breadcrumbs: Users
       $rootScope.breadcrumbs.push({title: 'Users'});
+      $scope.index = {};
       $scope.pagination(0);
 
     } else if ($scope.mode === 'show') {

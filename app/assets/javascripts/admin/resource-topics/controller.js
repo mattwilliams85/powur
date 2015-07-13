@@ -73,15 +73,21 @@
     };
 
     $scope.pagination = function(direction) {
-      var page = 1;
-      if ($scope.indexData) {
-        page = $scope.indexData.properties.paging.current_page;
+      var page = 1,
+          sort;
+      if ($scope.index.data) {
+        page = $scope.index.data.properties.paging.current_page;
+        sort = $scope.index.data.properties.sorting.current_sort;
       }
       page += direction;
       return CommonService.execute({
-        href: '/a/resource_topics.json?page=' + page
+        href: '/a/resource_topics',
+        params: {
+          page: page,
+          sort: sort
+        }
       }).then(function(data) {
-        $scope.indexData = data;
+        $scope.index.data = data;
         $anchorScroll();
       });
     };
@@ -113,6 +119,7 @@
   AdminResourceTopicsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
     if ($scope.mode === 'index') {
       $rootScope.breadcrumbs.push({title: 'Library Topics'});
+      $scope.index = {};
       $scope.pagination(0);
     } else if ($scope.mode === 'new') {
       $rootScope.breadcrumbs.push({title: 'Library Topics', href:'/admin/resource-topics'});

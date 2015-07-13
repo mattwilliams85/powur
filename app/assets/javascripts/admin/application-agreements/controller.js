@@ -21,16 +21,23 @@
       }
     };
 
+    // TODO: Have one 'pagination' function instead of defining it in every controller
     $scope.pagination = function(direction) {
-      var page = 1;
-      if ($scope.indexData) {
-        page = $scope.indexData.properties.paging.current_page;
+      var page = 1,
+          sort;
+      if ($scope.index.data) {
+        page = $scope.index.data.properties.paging.current_page;
+        sort = $scope.index.data.properties.sorting.current_sort;
       }
       page += direction;
       return CommonService.execute({
-        href: '/a/application_agreements.json?page=' + page
+        href: '/a/application_agreements',
+        params: {
+          page: page,
+          sort: sort
+        }
       }).then(function(data) {
-        $scope.indexData = data;
+        $scope.index.data = data;
         $anchorScroll();
       });
     };
@@ -107,6 +114,7 @@
   AdminApplicationAgreementsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
     if ($scope.mode === 'index') {
       $rootScope.breadcrumbs.push({title: 'Application Agreements'});
+      $scope.index = {};
       $scope.pagination(0);
     } else if ($scope.mode === 'new') {
       CommonService.execute({
