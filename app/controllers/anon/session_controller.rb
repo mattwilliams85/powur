@@ -11,10 +11,9 @@ module Anon
 
       login_user(@user, params[:remember_me] == true)
 
-      # render 'show'
       respond_to do |format|
         format.html { render 'index/index' }
-        format.json { render 'auth/profile/show' }
+        format.json { render 'show' }
       end
     end
 

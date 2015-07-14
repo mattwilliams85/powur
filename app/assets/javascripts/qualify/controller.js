@@ -154,13 +154,13 @@
 
     // Get Current User
     if ($rootScope.isSignedIn) {
-      UserProfile.get().then(function(user) {
-        $rootScope.currentUser = user;
+      UserProfile.get().then(function(data) {
+        $rootScope.currentUser = data.properties;
 
         // Get 'Create Proposal' Action
         $http({
           method: 'GET',
-          url: '/u/users/' + user.id + '/quotes',
+          url: '/u/users/' + data.properties.id + '/quotes',
         }).success(function(data) {
           $scope.createProposalAction = getAction(data.actions, 'create');
           $scope.productFields = setProductFields($scope.createProposalAction);

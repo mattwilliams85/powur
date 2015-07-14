@@ -5,11 +5,10 @@
     $scope.redirectUnlessSignedIn();
 
     //Fetch Profile
-    UserProfile.get().then(function(user) {
-      $rootScope.currentUser = user;
+    UserProfile.get().then(function(data) {
+      $rootScope.currentUser = data.properties;
       $scope.fetchGoals();
       kpiHeaders();
-
     });
 
     // Populate Social Media Quote

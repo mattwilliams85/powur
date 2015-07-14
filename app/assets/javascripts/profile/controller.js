@@ -4,11 +4,11 @@
   function ProfileCtrl($scope, $rootScope, $anchorScroll, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
-    UserProfile.get().then(function(user) {
-      $rootScope.currentUser = user;
-      $scope.userProfile = user;
+    UserProfile.get().then(function(data) {
+      $rootScope.currentUser = data.properties;
+      $scope.userProfile = data.properties;
 
-      if (user.organic_rank) {
+      if (data.properties.organic_rank) {
         // Only request ewallet data if the required class complete
         UserProfile.getEwalletDetails().then(function(ewalletDetails) {
           $scope.ewalletDetails = ewalletDetails.properties;
