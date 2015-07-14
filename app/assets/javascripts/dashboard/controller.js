@@ -10,15 +10,6 @@
       $scope.fetchGoals();
       kpiHeaders();
 
-      // Logic for showing Powur Beta Dashboard Overview Video
-      if (user.watched_intro === false && !user.latest_terms) {
-        $scope.showVideoModal($scope.legacyImagePaths.betaDashboardVideo);
-        UserProfile.update({user: {watched_intro: true}});
-      }
-
-      // Logic for showing link to Powur Beta Dashboard Overview Video
-      $scope.showBetaDashboardVideoLink = true;
-
     });
 
     // Populate Social Media Quote
@@ -151,18 +142,6 @@
       $scope.goals[event_type] = result + " / " + quantity;
       if (!result || !quantity) return '2%';
       return (result / quantity  * 100) + '%';
-    };
-
-    $scope.showVideoModal = function(videoUrl) {
-      var domElement =
-        '<div class=\'reveal-modal\' data-options="close_on_background_click:false" data-reveal>' +
-        '<h3>' + 'Powur Beta Dashboard Overview' + '</h3>' +
-        '<video width="100%" autoplay controls>' +
-        '<source src="' + videoUrl + '" type="video/mp4">' +
-        '</video>' +
-        '<a class=\'close-reveal-modal\'>&#215;</a>' +
-        '</div>';
-      $(domElement).foundation('reveal', 'open');
     };
 
   }
