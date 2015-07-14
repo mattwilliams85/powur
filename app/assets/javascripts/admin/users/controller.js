@@ -4,12 +4,22 @@
   function AdminUsersCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, CommonService) {
     $scope.redirectUnlessSignedIn();
 
+    $scope.legacyImagePaths = legacyImagePaths;
+
+    // Sections
+    $scope.invites = {};
+    $scope.overview = {};
+
     $scope.templateData = {
       index: {
         title: 'Users',
         tablePath: 'admin/users/templates/table.html'
       }
     };
+
+    //
+    // Utility Functions
+    //
 
     $scope.pagination = function(direction) {
       var page = 1,
@@ -35,7 +45,6 @@
       $location.path('/admin/users');
     };
 
-    // Utility Functions
     $scope.getAction = function(actions, name) {
       for (var i in actions) {
         if (actions[i].name === name) {
@@ -71,7 +80,11 @@
 
     };
 
-    // Update Action
+    //
+    // User Actions
+    //
+
+    // Update
     $scope.update = function() {
       if ($scope.formValues) {
         CommonService.execute({
@@ -91,7 +104,7 @@
       }
     };
 
-    // Search Action
+    // Search
     $scope.search = function() {
       var data = {};
       if ($scope.usersSearch) {
@@ -113,10 +126,12 @@
       });
     };
 
-    // Invites Actions
-    // Execute Invite Action
+    //
+    // Invite Actions
+    //
 
-    $scope.executeInviteAction = function(action) {
+    // Execute Invite Action
+    $scope.invites.executeInviteAction = function(action) {
       if (confirm('Are you sure you want to ' + action.name + ' this invite?')) {
         CommonService.execute({
           href: action.href,
@@ -129,11 +144,12 @@
           }
           $scope.user_invites = item;
           $scope.user_invites.properties.available_invites = item.properties.available_invites;
-        })
+        });
       }
-    }
+    };
+
     // Update Available Invites Action
-    $scope.updateAvailableInvites = function(item) {
+    $scope.invites.updateAvailableInvites = function(item) {
       var data = {invites: item.properties.available_invites};
       CommonService.execute({
         href: '/a/users/' + item.properties.id + '/invites.json',
@@ -145,6 +161,23 @@
         }
         $scope.showModal('You\'ve successfully updated this user\'s available invites count!');
         $anchorScroll;
+      });
+    };
+
+    //
+    // Overview Actions
+    //
+
+    // Get Sponsor/Coach for User
+    $scope.overview.getSponsors = function(userItem) {
+      $http({
+        method: 'GET',
+        url: '/a/users/' + userItem.properties.id + '/sponsors.json',
+      }).success(function(res) {
+        $scope.overview.teamLeader = res.entities[0];
+        $scope.overview.coach = res.entities[1];
+      }).error(function(err) {
+        console.log('エラー', err);
       });
     };
 
@@ -174,6 +207,9 @@
         $scope.user = item;
         $scope.formAction = $scope.getAction(item.actions, 'update');
         $scope.formValues = $scope.setFormValues($scope.formAction);
+
+        // Get Data for Sponsors
+        $scope.overview.getSponsors(item);
 
         // Get Data for Invites
         $scope.getEntityData(item.entities, 'user_invites');

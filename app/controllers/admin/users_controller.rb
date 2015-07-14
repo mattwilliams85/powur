@@ -1,8 +1,7 @@
 module Admin
   class UsersController < AdminController
-    before_action :fetch_user,
-                  only: [ :downline, :upline, :show, :update,
-                          :eligible_parents, :move ]
+    
+    before_action :fetch_user, only: [ :downline, :upline, :show, :update, :sponsors, :eligible_parents, :move ]
 
     page max_limit: 25
     sort id_asc:          { id: :asc },
@@ -70,6 +69,22 @@ module Admin
         .order(:upline)
 
       render 'auth/users/select_index'
+    end
+
+    def sponsors
+      @users = [ @user.sponsor, @user.sponsor.try(:sponsor) ].compact
+
+      render 'sponsors'
+    end
+
+    def move
+      require_input :parent_id
+
+      parent = User.find(params[:parent_id].to_i)
+
+      @user.assign_parent(parent, 'admin')
+
+      render 'show'
     end
 
     protected

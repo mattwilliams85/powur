@@ -8,7 +8,7 @@
           <input ng-model="user_invites.properties.available_invites" type="number">
         </div>
         <div class="small-6 columns">
-          <a ng-click="updateAvailableInvites(user_invites)" class="button postfix">Update Available Invites</a>
+          <a ng-click="invites.updateAvailableInvites(user_invites)" class="button postfix">Update Available Invites</a>
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@
       <td>{{invite.properties.created_at | dateToLocalDate}} {{invite.properties.created_at | timeToLocalTime}}</td>
       <td>{{invite.properties.expires | dateToLocalDate}} {{invite.properties.expires | timeToLocalTime}}</td>
       <td>{{invite.properties.user_id}}</td>
-      <td><span ng-repeat="action in invite.actions"><a ng-click="executeInviteAction(action)">{{action.name}}</a> </span></td>
+      <td><span ng-repeat="action in invite.actions"><a ng-click="invites.executeInviteAction(action)">{{action.name}}</a> </span></td>
     </tr>
   </tbody>
 </table>

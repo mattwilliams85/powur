@@ -13,14 +13,21 @@
   <div class="row">
     <div class="large-12 columns">
       <ul class="tabs" ng-model="tab" data-tab>
+        <li class="tab-title" ng-class="{'active': tab === 'overview'}"><a ng-click="tab = 'overview'">Overview</a></li>
         <li class="tab-title" ng-class="{'active': tab === 'user-info'}"><a ng-click="tab = 'user-info'">User Info</a></li>
         <!-- <li class="tab-title" ng-class="{'active': tab === 'team'}"><a ng-click="tab = 'team'">Team</a></li> -->
         <li class="tab-title" ng-class="{'active': tab === 'invites'}"><a ng-click="tab = 'invites'">Invites</a></li>
         <!-- <li class="tab-title" ng-class="{'active': tab === 'proposals'}"><a ng-click="tab = 'proposals'">Proposals</a></li> -->
       </ul>
       <div class="tabs-content">
+
+        <!-- Overview Content -->
+        <div class="content" ng-class="{'active': tab === 'overview'}" ng-init="tab = 'overview'">
+          <ng-include src="'admin/users/templates/tabs/overview.html'"></ng-include>
+        </div>
+
         <!-- User Info Content -->
-        <div class="content" ng-class="{'active': tab === 'user-info'}" ng-init="tab = 'user-info'">
+        <div class="content" ng-class="{'active': tab === 'user-info'}">
           <ng-include src="'admin/users/templates/tabs/user-info.html'"></ng-include>
         </div>
 
