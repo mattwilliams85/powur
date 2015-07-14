@@ -267,6 +267,7 @@ Rails.application.routes.draw do
         get :upline
         post :move
         get :eligible_parents
+        get :sponsors
       end
 
       # Users / Bonus Payments
