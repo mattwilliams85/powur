@@ -114,13 +114,9 @@
       // Execute create/update action
       if ($scope.proposal) {
         if ($scope.proposalStatus === 'new') {
-          CommonService.execute($scope.createProposalAction, $scope.proposal).then(function(data) {
-            actionCallback(data);
-          });
+          CommonService.execute($scope.createProposalAction, $scope.proposal).then(actionCallback);
         } else if ($scope.proposalStatus === 'edit') {
-          CommonService.execute($scope.updateProposalAction, $scope.proposal).then(function(data) {
-            actionCallback(data);
-          });
+          CommonService.execute($scope.updateProposalAction, $scope.proposal).then(actionCallback);
         }
       }
     };
