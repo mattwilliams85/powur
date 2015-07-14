@@ -19,8 +19,6 @@ module Auth
     end
 
     def update
-      user_params['email'].downcase! if user_params['email']
-
       if @user.update_attributes(user_params)
         User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
       end
