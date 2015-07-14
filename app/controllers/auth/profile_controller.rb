@@ -60,7 +60,9 @@ module Auth
                                    :phone, :address, :city, :state, :zip,
                                    :bio, :twitter_url, :facebook_url,
                                    :image_original_path, :avatar, :tos,
-                                   :watched_intro)
+                                   :watched_intro,
+                                   :allow_sms, :allow_system_emails,
+                                   :allow_corp_emails)
     end
 
     # def avatar_params
