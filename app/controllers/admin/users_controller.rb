@@ -50,8 +50,10 @@ module Admin
     end
 
     def update
-      input = allow_input(:first_name, :last_name, :email, :phone,
-                          :address, :city, :state, :zip)
+      input = params.permit(:first_name, :last_name, :email, :phone,
+                            :address, :city, :state, :zip,
+                            :allow_sms, :allow_system_emails,
+                            :allow_corp_emails)
 
       @user.update_attributes!(input)
 
