@@ -296,6 +296,9 @@ Rails.application.routes.draw do
       # Users / Pay Periods
       resources :pay_periods, only:       [ :index, :show ],
                               controller: :user_pay_periods
+      # Users / Purchases
+      resources :purchases, only: [ :index ],
+                            controller: :user_purchases
 
       # # Users / Rank Achievements
       # resources :rank_achievements,

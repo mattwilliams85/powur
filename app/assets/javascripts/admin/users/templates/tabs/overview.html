@@ -1,7 +1,7 @@
 <h3>Overview</h3>
+
 <h5>Sponsors</h5>
 <p ng-show="!overview.teamLeader">This user has no sponsors.</p>
-
 <div class="row">
   <!-- Team Leader -->
   <div ng-show="overview.teamLeader" class="large-6 columns">
@@ -26,23 +26,26 @@
   </div>
   <!-- Coach -->
   <div ng-show="overview.coach" class="large-6 columns">
-      <div class="panel">
-        <div class="row">
-          <div class="small-2 columns">
-            <p class="text-right">
-              <img class="user-avatar" ng-src="{{overview.coach.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
-            </p>
-          </div>
-          <div class="small-10 columns">
-            <h5 class="subheader">Coach</h5>
-            <ul class="no-bullet">
-              <li><a ng-href="/admin/users/{{overview.coach.properties.id}}">{{overview.coach.properties.first_name}} {{overview.coach.properties.last_name}}</a></li>
-              <li>ID: {{overview.coach.properties.id}}</li>
-              <li><i class="fa fa-phone"></i> {{overview.coach.properties.phone || '(no phone number)'}}</li>
-              <li><i class="fa fa-envelope"></i> {{overview.coach.properties.email}}</li>
-            </ul>
-          </div>
+    <div class="panel">
+      <div class="row">
+        <div class="small-2 columns">
+          <p class="text-right">
+            <img class="user-avatar" ng-src="{{overview.coach.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
+          </p>
+        </div>
+        <div class="small-10 columns">
+          <h5 class="subheader">Coach</h5>
+          <ul class="no-bullet">
+            <li><a ng-href="/admin/users/{{overview.coach.properties.id}}">{{overview.coach.properties.first_name}} {{overview.coach.properties.last_name}}</a></li>
+            <li>ID: {{overview.coach.properties.id}}</li>
+            <li><i class="fa fa-phone"></i> {{overview.coach.properties.phone || '(no phone number)'}}</li>
+            <li><i class="fa fa-envelope"></i> {{overview.coach.properties.email}}</li>
+          </ul>
         </div>
       </div>
     </div>
+  </div>
 </div>
+
+<h5>Certification</h5>
+
