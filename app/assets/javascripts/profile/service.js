@@ -2,7 +2,7 @@
   'use strict';
 
   function UserProfile($http, $q, $cacheFactory) {
-    var cache = $cacheFactory('UserProfile');
+    var cache = $cacheFactory('UserSession');
     var isProcessingRequest;
 
     return {
@@ -13,7 +13,7 @@
         var dfr = $q.defer();
 
         $http.post('/login.json', data).success(function(res) {
-          cache.put('data', res.properties);
+          cache.put('data', res);
           dfr.resolve(cache.get('data') || res);
         }).error(function(err) {
           console.log('エラー', err);
@@ -49,15 +49,15 @@
 
         if (isProcessingRequest) {
           dfr.resolve({});
-        } else if (userData && userData.email) {
+        } else if (userData && userData.properties) {
           dfr.resolve(userData);
         } else {
           isProcessingRequest = true;
           $http({
             method: 'GET',
-            url: '/u/profile.json'
+            url: '/login'
           }).success(function(res) {
-            cache.put('data', res.properties);
+            cache.put('data', res);
             isProcessingRequest = false;
             dfr.resolve(cache.get('data'));
           }).error(function(err) {

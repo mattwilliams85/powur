@@ -6,8 +6,8 @@
 
     $scope.legacyImagePaths = legacyImagePaths;
 
-    UserProfile.get().then(function(user) {
-      $rootScope.currentUser = user;
+    UserProfile.get().then(function(data) {
+      $rootScope.currentUser = data.properties;
     });
 
     // getSponsors is used on /contact page to retrieve Team Leader and Coach users

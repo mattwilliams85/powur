@@ -4,8 +4,8 @@
   function LibraryCtrl($scope, $rootScope, $location, CommonService, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
-    UserProfile.get().then(function(user) {
-      $rootScope.currentUser = user;
+    UserProfile.get().then(function(data) {
+      $rootScope.currentUser = data.properties;
     });
 
     $scope.legacyImagePaths = legacyImagePaths;

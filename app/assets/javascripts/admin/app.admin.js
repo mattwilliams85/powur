@@ -11,7 +11,7 @@
     $rootScope.$on('$includeContentLoaded', function() {
       if ($rootScope.isSignedIn) {
         UserProfile.get().then(function(data) {
-          $rootScope.currentUser = data;
+          $rootScope.currentUser = data.properties;
         });
       }
     });

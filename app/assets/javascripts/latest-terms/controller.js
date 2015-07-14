@@ -11,15 +11,15 @@
     $scope.termsMessage2 = 'Please review the agreement and click "Agree & Continue" to continue to the Dashboard.';
 
     //Fetch Profile
-    UserProfile.get().then(function(user) {
-      if (!user.latest_terms){
+    UserProfile.get().then(function(data) {
+      if (!data.properties.latest_terms){
         $location.path('/dashboard');
       } else {
-        $scope.currentUser = user;
-        $scope.termsMessage = user.latest_terms.message;
+        $scope.currentUser = data.properties;
+        $scope.termsMessage = data.properties.latest_terms.message;
         $timeout(function() {
           new PDFObject({
-            url: user.latest_terms.document_path,
+            url: data.properties.latest_terms.document_path,
             height: '400px'
           }).embed('pdf-div');
         });
