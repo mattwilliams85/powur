@@ -47,6 +47,9 @@ class UsersJson < JsonDecorator
       if user.rank_path_id
         json.rank_path all_paths.find { |p| p.id == user.rank_path_id }.name
       end
+      json.allow_sms user.allow_sms != 'false'
+      json.allow_system_emails user.allow_system_emails != 'false'
+      json.allow_corp_emails user.allow_corp_emails != 'false'
     end
   end
 
@@ -100,5 +103,8 @@ class UsersJson < JsonDecorator
       .field(:city, :text, value: user.city)
       .field(:state, :text, value: user.state)
       .field(:zip, :text, value: user.zip)
+      .field(:allow_sms, :boolean, value: user.allow_sms != 'false')
+      .field(:allow_system_emails, :boolean, value: user.allow_system_emails != 'false')
+      .field(:allow_corp_emails, :boolean, value: user.allow_corp_emails != 'false')
   end
 end
