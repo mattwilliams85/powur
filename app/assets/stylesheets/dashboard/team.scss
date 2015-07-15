@@ -1,6 +1,28 @@
 .powur-dashboard {
   .team-section {
 
+    .suggestion-box {
+      list-style: none;
+      background-color: #fff;
+      padding: 5px 0;
+      margin-top: -20px;
+      margin-left: 0;
+      border: 1px solid #ccc;
+      position: absolute;
+      width: 100%;
+      z-index: 9;
+
+      li {
+        cursor: pointer;
+        padding: 0 10px;
+        
+        &:hover {
+          background-color: #4575ED;
+          color: #fff;
+        }
+      }
+    }
+
     .divider {
       border: 1px solid #555;
       border-bottom: 0px;
