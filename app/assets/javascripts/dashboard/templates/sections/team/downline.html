@@ -27,7 +27,7 @@
            id="{{'carousel-' + $index}}" 
            data-row="{{$index}}" 
            ng-class="{'accordion': is.accordion($index)}">
-        <a ng-repeat="member in downline[outerIndex]" repeat-end="onEnd()">
+        <a ng-repeat="member in downline[outerIndex]" repeat-end="onEnd($parent.$index)">
           <!-- Team Member -->
           <div 
             class="team-member downline" 
@@ -44,8 +44,8 @@
                 class="team-tab downline" 
                 ng-if="member.downline_count"
                 ng-class="{ 
-                  'raise': hover || isMobile() || isActiveMember(member, gen),
-                  'active-tab': isActiveTab(member, gen, 'team'),
+                  'raise': hover || isMobile() || is.activeMember(member, gen),
+                  'active-tab': is.activeTab(member, gen, 'team'),
                   'even': is.even(member),
                   'odd': is.odd(member)
                 }"
@@ -54,15 +54,15 @@
                 <img ng-src="{{img.teamSection.teamIcon}}">
               </div>
               <!-- If No Team Tab -->
-              <div class="team-tab info" ng-if="!member.downline_count" ng-class="{ 'raise': hover || isActiveMember(member, gen) }">
+              <div class="team-tab info" ng-if="!member.downline_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
                 <img class="inactive-icon" ng-src="{{img.teamSection.teamIconInactive}}">
               </div>
               <!-- Info Tab -->
               <div 
                 class="team-tab impact" 
                 ng-class="{ 
-                  'raise': hover || isMobile() || isActiveMember(member, gen),
-                  'active-tab': isActiveTab(member, gen, 'impact'),
+                  'raise': hover || isMobile() || is.activeMember(member, gen),
+                  'active-tab': is.activeTab(member, gen, 'impact'),
                   'even': is.even(member),
                   'odd': is.odd(member)
                 }" 
@@ -75,8 +75,8 @@
                 class="team-tab info" 
                 ng-if="member.proposal_count"
                 ng-class="{ 
-                  'raise': hover || isMobile() || isActiveMember(member, gen),
-                  'active-tab': isActiveTab(member, gen, 'proposals'),
+                  'raise': hover || isMobile() || is.activeMember(member, gen),
+                  'active-tab': is.activeTab(member, gen, 'proposals'),
                   'even': is.even(member),
                   'odd': is.odd(member)
                 }" 
@@ -85,13 +85,13 @@
                 <img ng-src="{{img.teamSection.customerIcon}}">
               </div>
               <!-- If No Proposal Tab -->
-              <div class="team-tab info" ng-if="!member.proposal_count" ng-class="{ 'raise': hover || isActiveMember(member, gen) }">
+              <div class="team-tab info" ng-if="!member.proposal_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
                 <img class="inactive-icon" ng-src="{{img.teamSection.customerIconInactive}}">
               </div>
             </div>
             <!-- Member Info -->
             <div class="info-box" ng-class="{ 
-                  'raise': hover || isMobile() || is.accordion($parent.$index) || isActiveMember(member, gen),
+                  'raise': hover || isMobile() || is.accordion($parent.$index) || is.activeMember(member, gen),
                   'accordion': is.accordion($parent.$index)}"
                   ng-click="changeTab(member, gen, 'impact');">
               <div class="avatar">
@@ -99,7 +99,7 @@
               </div>
               <div class="info-text user-text">
                 <span>{{member.first_name}} {{member.last_name}}</span>
-                <span ng-hide="isActiveMember(member, gen) && gen.tab !== 'impact'" class="info-detail">TEAM {{member.downline_count}}, PROPOSALS {{member.proposal_count || 0}}</span>
+                <span ng-hide="is.activeMember(member, gen) && gen.tab !== 'impact'" class="info-detail">TEAM {{member.downline_count}}, PROPOSALS {{member.proposal_count || 0}}</span>
               </div>
             </div>
           </div>
