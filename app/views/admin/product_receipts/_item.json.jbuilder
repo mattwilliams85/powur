@@ -11,5 +11,5 @@ json.properties do
             :auth_code,
             :created_at,
             :updated_at)
-  json.product_name Product.find(product_receipt.product_id).name
+  json.product Product.find(product_receipt.product_id)
 end
