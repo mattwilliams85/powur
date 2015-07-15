@@ -9,7 +9,7 @@
     $scope.downline = [];
     $scope.currentTeamMember = {};
     $scope.nameQuery = [];
-    $scope.teamSearch = '';
+    $scope.teamSearch = {};
 
     //Conditional Ref Object
     $scope.is = {
@@ -89,11 +89,18 @@
         $scope.downline[$scope.downline.length - 1].selected = "";
         $scope.activeTab = '';
       }
-      $('#team-search').val('');
       $scope.showProposal = false;
       $scope.showNew = false;
       $scope.activeInvite = '';
       $scope.currentTeamMember = {};
+    }
+
+    function closeAllTabs() {
+      $scope.downline = [$scope.downline[0]];
+      $scope.downline[0].selected = null;
+      $scope.downline[0].tab = null;
+      $scope.activeTab = '';
+      closeTabs();
     }
 
     $scope.changeTab = function(member, gen, tab) {
@@ -153,9 +160,7 @@
 
     $scope.invitesTab = function() {
       if ($scope.noInvitesAvailable && !$scope.invites.length && !$scope.invites.redeemed) return $location.path('/upgrade');
-      $scope.downline = $scope.downline.slice(0, 1);
-      if ($scope.downline[0]) $scope.downline[0].tab = null;
-      if ($scope.downline[0]) $scope.downline[0].selected = null;
+      closeAllTabs();
       if ($scope.activeTab === 'invites') {
         $scope.activeTab = '';
         return closeTabs();
@@ -196,6 +201,7 @@
     }
 
     $scope.fetchNames = function(string){
+      if (!string) return $scope.nameQuery = [];
       CommonService.execute({
         href: '/u/users/' + $rootScope.currentUser.id + '/full_downline.json',
         params: {search: string}
@@ -208,19 +214,17 @@
     var dQueue;
 
     $scope.teamSection.search = function(user) {
-      closeTabs();
+      closeAllTabs();
+      if (!$scope.nameQuery.length && !user) return;
       
       if (!$scope.nameQuery.length) {
-        $scope.downline = [$scope.downline[0]];
-        $scope.downline[0].selected = null;
-        $scope.downline[0].tab = null;
-        $scope.activeTab = '';
         return $scope.nameQuery = [];
       }
       if(typeof(user) != 'object') {
         user = $scope.nameQuery[0];
       }
-      
+
+      $('#team-search').val(user.first_name + ' ' + user.last_name);
       $scope.downline = [$scope.downline[0]];
       dCount = 0;
       dQueue = [];
