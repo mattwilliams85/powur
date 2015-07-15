@@ -82,8 +82,10 @@ class UsersJson < JsonDecorator
              admin_user_pay_periods_path(user)),
       entity(%w(list invites), 'user_invites',
              admin_user_invites_path(user))
-      entity(%w(list purchases), 'user_purchases',
-             admin_user_purchases_path(user))
+      entity(%w(list purchases), 'user_product_enrollments',
+             admin_user_product_enrollments_path(user))
+      entity(%w(list purchases), 'user_product_receipts',
+             admin_user_product_receipts_path(user))
   end
 
   def user_entities(user = @item)
