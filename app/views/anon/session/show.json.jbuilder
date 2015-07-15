@@ -25,10 +25,13 @@ json.properties do
 
   # Hstore stores booleans as strings; below converts back to boolean
   json.watched_intro current_user.watched_intro == 'true'
+
+  json.notification current_user.unread_notifications.last
 end
 
 actions_list = [
-  action(:logout, :delete, login_path)
+  action(:logout, :delete, login_path),
+  action(:update_profile, :patch, profile_path)
 ]
 entity_list = []
 link_list = [

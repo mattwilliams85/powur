@@ -26,7 +26,8 @@ class User < ActiveRecord::Base
   store_accessor :profile,
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications, :watched_intro,
-                 :allow_sms, :allow_system_emails, :allow_corp_emails
+                 :allow_sms, :allow_system_emails, :allow_corp_emails,
+                 :notifications_read_at
 
   # No extra email validation needed,
   # email validation and confirmation happens with Invite
@@ -199,6 +200,22 @@ class User < ActiveRecord::Base
 
   def submitted_proposals_count
     quotes.submitted.length
+  end
+
+  def mark_notifications_as_read=(*)
+    self.notifications_read_at = Time.zone.now.to_s(:db)
+  end
+
+  def unread_notifications
+    notifications = Notification.published.sorted
+    if partner?
+      notifications = notifications.for_partners
+    else
+      notifications = notifications.for_advocates
+    end
+    notifications = notifications
+      .where('created_at > ?', notifications_read_at) if notifications_read_at
+    notifications
   end
 
   private

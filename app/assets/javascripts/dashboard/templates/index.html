@@ -3,6 +3,11 @@
 
 <main class="powur-dashboard">
 
+  <div ng-if="currentUser.notification" class="notification-wrapper">
+    <a class="close-icon" ng-click="closeNotification()">×</a>
+    <span>{{ currentUser.notification.content }}</span>
+  </div>
+
   <!-- Welcome Section -->
 
   <!-- QUIRK: Dandelion background extends to 100% width on large screens-->

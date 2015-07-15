@@ -5,6 +5,7 @@ json.properties do
             :id,
             :user_id,
             :content,
+            :is_public,
             :recipient,
             :sent_at,
             :created_at,

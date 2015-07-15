@@ -62,7 +62,8 @@ module Auth
                                    :image_original_path, :avatar, :tos,
                                    :watched_intro,
                                    :allow_sms, :allow_system_emails,
-                                   :allow_corp_emails)
+                                   :allow_corp_emails,
+                                   :mark_notifications_as_read)
     end
 
     # def avatar_params

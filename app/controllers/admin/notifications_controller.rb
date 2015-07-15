@@ -40,7 +40,7 @@ module Admin
         recipient: params[:recipient])
       @notification.delay.send_out
 
-      head :ok
+      render :show
     end
 
     private
@@ -50,7 +50,7 @@ module Admin
     end
 
     def input
-      allow_input(:content)
+      allow_input(:content, :is_public)
     end
   end
 end

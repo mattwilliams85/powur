@@ -72,7 +72,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: api_clients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: api_clients; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE api_clients (
@@ -82,7 +82,7 @@ CREATE TABLE api_clients (
 
 
 --
--- Name: api_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: api_tokens; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE api_tokens (
@@ -95,7 +95,7 @@ CREATE TABLE api_tokens (
 
 
 --
--- Name: application_agreements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: application_agreements; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE application_agreements (
@@ -129,7 +129,7 @@ ALTER SEQUENCE application_agreements_id_seq OWNED BY application_agreements.id;
 
 
 --
--- Name: bonus_amounts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_amounts; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE bonus_amounts (
@@ -161,7 +161,7 @@ ALTER SEQUENCE bonus_amounts_id_seq OWNED BY bonus_amounts.id;
 
 
 --
--- Name: bonus_payment_orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_payment_orders; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE bonus_payment_orders (
@@ -171,7 +171,7 @@ CREATE TABLE bonus_payment_orders (
 
 
 --
--- Name: bonus_payments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_payments; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE bonus_payments (
@@ -206,7 +206,7 @@ ALTER SEQUENCE bonus_payments_id_seq OWNED BY bonus_payments.id;
 
 
 --
--- Name: bonus_plans; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_plans; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE bonus_plans (
@@ -237,7 +237,7 @@ ALTER SEQUENCE bonus_plans_id_seq OWNED BY bonus_plans.id;
 
 
 --
--- Name: bonuses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bonuses; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE bonuses (
@@ -275,7 +275,7 @@ ALTER SEQUENCE bonuses_id_seq OWNED BY bonuses.id;
 
 
 --
--- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: customers; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE customers (
@@ -314,7 +314,7 @@ ALTER SEQUENCE customers_id_seq OWNED BY customers.id;
 
 
 --
--- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: delayed_jobs; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE delayed_jobs (
@@ -353,7 +353,7 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 
 --
--- Name: distributions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: distributions; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE distributions (
@@ -384,7 +384,7 @@ ALTER SEQUENCE distributions_id_seq OWNED BY distributions.id;
 
 
 --
--- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: invites; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE invites (
@@ -402,7 +402,7 @@ CREATE TABLE invites (
 
 
 --
--- Name: lead_updates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: lead_updates; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE lead_updates (
@@ -444,7 +444,7 @@ ALTER SEQUENCE lead_updates_id_seq OWNED BY lead_updates.id;
 
 
 --
--- Name: news_posts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: news_posts; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE news_posts (
@@ -475,7 +475,7 @@ ALTER SEQUENCE news_posts_id_seq OWNED BY news_posts.id;
 
 
 --
--- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE notifications (
@@ -487,7 +487,8 @@ CREATE TABLE notifications (
     sender_id integer,
     sent_at timestamp without time zone,
     finished_at timestamp without time zone,
-    recipient character varying
+    recipient character varying,
+    is_public boolean
 );
 
 
@@ -511,7 +512,7 @@ ALTER SEQUENCE notifications_id_seq OWNED BY notifications.id;
 
 
 --
--- Name: order_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: order_totals; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE order_totals (
@@ -546,7 +547,7 @@ ALTER SEQUENCE order_totals_id_seq OWNED BY order_totals.id;
 
 
 --
--- Name: orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: orders; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE orders (
@@ -583,7 +584,7 @@ ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
 
 
 --
--- Name: pay_periods; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: pay_periods; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE pay_periods (
@@ -604,7 +605,7 @@ CREATE TABLE pay_periods (
 
 
 --
--- Name: product_enrollments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: product_enrollments; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE product_enrollments (
@@ -637,7 +638,7 @@ ALTER SEQUENCE product_enrollments_id_seq OWNED BY product_enrollments.id;
 
 
 --
--- Name: product_receipts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: product_receipts; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE product_receipts (
@@ -673,7 +674,7 @@ ALTER SEQUENCE product_receipts_id_seq OWNED BY product_receipts.id;
 
 
 --
--- Name: products; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: products; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE products (
@@ -716,7 +717,7 @@ ALTER SEQUENCE products_id_seq OWNED BY products.id;
 
 
 --
--- Name: qualifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: qualifications; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE qualifications (
@@ -751,7 +752,7 @@ ALTER SEQUENCE qualifications_id_seq OWNED BY qualifications.id;
 
 
 --
--- Name: quote_field_lookups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: quote_field_lookups; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE quote_field_lookups (
@@ -783,7 +784,7 @@ ALTER SEQUENCE quote_field_lookups_id_seq OWNED BY quote_field_lookups.id;
 
 
 --
--- Name: quote_fields; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: quote_fields; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE quote_fields (
@@ -815,7 +816,7 @@ ALTER SEQUENCE quote_fields_id_seq OWNED BY quote_fields.id;
 
 
 --
--- Name: quotes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: quotes; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE quotes (
@@ -853,7 +854,7 @@ ALTER SEQUENCE quotes_id_seq OWNED BY quotes.id;
 
 
 --
--- Name: rank_achievements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: rank_achievements; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE rank_achievements (
@@ -886,7 +887,7 @@ ALTER SEQUENCE rank_achievements_id_seq OWNED BY rank_achievements.id;
 
 
 --
--- Name: rank_paths; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: rank_paths; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE rank_paths (
@@ -917,7 +918,7 @@ ALTER SEQUENCE rank_paths_id_seq OWNED BY rank_paths.id;
 
 
 --
--- Name: ranks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: ranks; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE ranks (
@@ -928,7 +929,7 @@ CREATE TABLE ranks (
 
 
 --
--- Name: ranks_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: ranks_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE ranks_user_groups (
@@ -938,7 +939,7 @@ CREATE TABLE ranks_user_groups (
 
 
 --
--- Name: resource_topics; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: resource_topics; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE resource_topics (
@@ -971,7 +972,7 @@ ALTER SEQUENCE resource_topics_id_seq OWNED BY resource_topics.id;
 
 
 --
--- Name: resources; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: resources; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE resources (
@@ -1012,7 +1013,7 @@ ALTER SEQUENCE resources_id_seq OWNED BY resources.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE schema_migrations (
@@ -1021,7 +1022,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: settings; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: settings; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE settings (
@@ -1055,7 +1056,7 @@ ALTER SEQUENCE settings_id_seq OWNED BY settings.id;
 
 
 --
--- Name: social_media_posts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: social_media_posts; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE social_media_posts (
@@ -1087,7 +1088,7 @@ ALTER SEQUENCE social_media_posts_id_seq OWNED BY social_media_posts.id;
 
 
 --
--- Name: user_activities; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_activities; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE user_activities (
@@ -1120,7 +1121,7 @@ ALTER SEQUENCE user_activities_id_seq OWNED BY user_activities.id;
 
 
 --
--- Name: user_group_requirements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_group_requirements; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE user_group_requirements (
@@ -1154,7 +1155,7 @@ ALTER SEQUENCE user_group_requirements_id_seq OWNED BY user_group_requirements.i
 
 
 --
--- Name: user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE user_groups (
@@ -1165,7 +1166,7 @@ CREATE TABLE user_groups (
 
 
 --
--- Name: user_overrides; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_overrides; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE user_overrides (
@@ -1198,7 +1199,7 @@ ALTER SEQUENCE user_overrides_id_seq OWNED BY user_overrides.id;
 
 
 --
--- Name: user_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: user_user_groups; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE user_user_groups (
@@ -1208,7 +1209,7 @@ CREATE TABLE user_user_groups (
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE TABLE users (
@@ -1474,7 +1475,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regcl
 
 
 --
--- Name: api_clients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: api_clients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY api_clients
@@ -1482,7 +1483,7 @@ ALTER TABLE ONLY api_clients
 
 
 --
--- Name: api_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: api_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY api_tokens
@@ -1490,7 +1491,7 @@ ALTER TABLE ONLY api_tokens
 
 
 --
--- Name: application_agreements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: application_agreements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY application_agreements
@@ -1498,7 +1499,7 @@ ALTER TABLE ONLY application_agreements
 
 
 --
--- Name: bonus_amounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_amounts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY bonus_amounts
@@ -1506,7 +1507,7 @@ ALTER TABLE ONLY bonus_amounts
 
 
 --
--- Name: bonus_payment_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_payment_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY bonus_payment_orders
@@ -1514,7 +1515,7 @@ ALTER TABLE ONLY bonus_payment_orders
 
 
 --
--- Name: bonus_payments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_payments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY bonus_payments
@@ -1522,7 +1523,7 @@ ALTER TABLE ONLY bonus_payments
 
 
 --
--- Name: bonus_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY bonus_plans
@@ -1530,7 +1531,7 @@ ALTER TABLE ONLY bonus_plans
 
 
 --
--- Name: bonuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bonuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY bonuses
@@ -1538,7 +1539,7 @@ ALTER TABLE ONLY bonuses
 
 
 --
--- Name: customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY customers
@@ -1546,7 +1547,7 @@ ALTER TABLE ONLY customers
 
 
 --
--- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: delayed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY delayed_jobs
@@ -1554,7 +1555,7 @@ ALTER TABLE ONLY delayed_jobs
 
 
 --
--- Name: distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY distributions
@@ -1562,7 +1563,7 @@ ALTER TABLE ONLY distributions
 
 
 --
--- Name: invites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: invites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY invites
@@ -1570,7 +1571,7 @@ ALTER TABLE ONLY invites
 
 
 --
--- Name: lead_updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: lead_updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY lead_updates
@@ -1578,7 +1579,7 @@ ALTER TABLE ONLY lead_updates
 
 
 --
--- Name: news_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: news_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY news_posts
@@ -1586,7 +1587,7 @@ ALTER TABLE ONLY news_posts
 
 
 --
--- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY notifications
@@ -1594,7 +1595,7 @@ ALTER TABLE ONLY notifications
 
 
 --
--- Name: order_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: order_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY order_totals
@@ -1602,7 +1603,7 @@ ALTER TABLE ONLY order_totals
 
 
 --
--- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY orders
@@ -1610,7 +1611,7 @@ ALTER TABLE ONLY orders
 
 
 --
--- Name: pay_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: pay_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY pay_periods
@@ -1618,7 +1619,7 @@ ALTER TABLE ONLY pay_periods
 
 
 --
--- Name: product_enrollments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: product_enrollments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY product_enrollments
@@ -1626,7 +1627,7 @@ ALTER TABLE ONLY product_enrollments
 
 
 --
--- Name: product_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: product_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY product_receipts
@@ -1634,7 +1635,7 @@ ALTER TABLE ONLY product_receipts
 
 
 --
--- Name: products_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: products_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY products
@@ -1642,7 +1643,7 @@ ALTER TABLE ONLY products
 
 
 --
--- Name: qualifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: qualifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY qualifications
@@ -1650,7 +1651,7 @@ ALTER TABLE ONLY qualifications
 
 
 --
--- Name: quote_field_lookups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: quote_field_lookups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY quote_field_lookups
@@ -1658,7 +1659,7 @@ ALTER TABLE ONLY quote_field_lookups
 
 
 --
--- Name: quote_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: quote_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY quote_fields
@@ -1666,7 +1667,7 @@ ALTER TABLE ONLY quote_fields
 
 
 --
--- Name: quotes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: quotes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY quotes
@@ -1674,7 +1675,7 @@ ALTER TABLE ONLY quotes
 
 
 --
--- Name: rank_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: rank_achievements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY rank_achievements
@@ -1682,7 +1683,7 @@ ALTER TABLE ONLY rank_achievements
 
 
 --
--- Name: rank_paths_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: rank_paths_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY rank_paths
@@ -1690,7 +1691,7 @@ ALTER TABLE ONLY rank_paths
 
 
 --
--- Name: ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY ranks
@@ -1698,7 +1699,7 @@ ALTER TABLE ONLY ranks
 
 
 --
--- Name: resource_topics_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: resource_topics_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY resource_topics
@@ -1706,7 +1707,7 @@ ALTER TABLE ONLY resource_topics
 
 
 --
--- Name: resources_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: resources_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY resources
@@ -1714,7 +1715,7 @@ ALTER TABLE ONLY resources
 
 
 --
--- Name: settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY settings
@@ -1722,7 +1723,7 @@ ALTER TABLE ONLY settings
 
 
 --
--- Name: social_media_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: social_media_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY social_media_posts
@@ -1730,7 +1731,7 @@ ALTER TABLE ONLY social_media_posts
 
 
 --
--- Name: user_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY user_activities
@@ -1738,7 +1739,7 @@ ALTER TABLE ONLY user_activities
 
 
 --
--- Name: user_group_requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_group_requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY user_group_requirements
@@ -1746,7 +1747,7 @@ ALTER TABLE ONLY user_group_requirements
 
 
 --
--- Name: user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY user_groups
@@ -1754,7 +1755,7 @@ ALTER TABLE ONLY user_groups
 
 
 --
--- Name: user_overrides_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_overrides_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY user_overrides
@@ -1762,7 +1763,7 @@ ALTER TABLE ONLY user_overrides
 
 
 --
--- Name: user_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: user_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY user_user_groups
@@ -1770,7 +1771,7 @@ ALTER TABLE ONLY user_user_groups
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
 --
 
 ALTER TABLE ONLY users
@@ -1778,196 +1779,203 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: delayed_jobs_priority; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at);
 
 
 --
--- Name: idx_order_totals_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: idx_order_totals_composite_key; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX idx_order_totals_composite_key ON order_totals USING btree (pay_period_id, user_id, product_id);
 
 
 --
--- Name: index_api_tokens_on_access_token; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_api_tokens_on_access_token; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_api_tokens_on_access_token ON api_tokens USING btree (access_token);
 
 
 --
--- Name: index_bonus_amounts_on_bonus_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_bonus_amounts_on_bonus_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_bonus_amounts_on_bonus_id ON bonus_amounts USING btree (bonus_id);
 
 
 --
--- Name: index_bonus_plans_on_start_year_and_start_month; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_bonus_plans_on_start_year_and_start_month; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_plans USING btree (start_year, start_month);
 
 
 --
--- Name: index_distributions_on_pay_period_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_distributions_on_pay_period_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
 
 
 --
--- Name: index_orders_on_quote_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_notifications_on_is_public; Type: INDEX; Schema: public; Owner: -; Tablespace:
+--
+
+CREATE INDEX index_notifications_on_is_public ON notifications USING btree (is_public);
+
+
+--
+-- Name: index_orders_on_quote_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
 
 
 --
--- Name: index_product_enrollments_on_user_id_and_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_product_enrollments_on_user_id_and_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_product_enrollments_on_user_id_and_product_id ON product_enrollments USING btree (user_id, product_id);
 
 
 --
--- Name: index_products_on_is_university_class; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_products_on_is_university_class; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_products_on_is_university_class ON products USING btree (is_university_class);
 
 
 --
--- Name: index_qualifications_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_qualifications_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_qualifications_on_product_id ON qualifications USING btree (product_id);
 
 
 --
--- Name: index_qualifications_on_rank_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_qualifications_on_rank_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_qualifications_on_rank_id ON qualifications USING btree (rank_id);
 
 
 --
--- Name: index_quote_field_lookups_on_quote_field_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_quote_field_lookups_on_quote_field_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_quote_field_lookups_on_quote_field_id ON quote_field_lookups USING btree (quote_field_id);
 
 
 --
--- Name: index_quote_fields_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_quote_fields_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_quote_fields_on_product_id ON quote_fields USING btree (product_id);
 
 
 --
--- Name: index_quotes_on_customer_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_quotes_on_customer_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_quotes_on_customer_id ON quotes USING btree (customer_id);
 
 
 --
--- Name: index_quotes_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_quotes_on_product_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_quotes_on_product_id ON quotes USING btree (product_id);
 
 
 --
--- Name: index_quotes_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_quotes_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_quotes_on_url_slug ON quotes USING btree (url_slug);
 
 
 --
--- Name: index_quotes_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_quotes_on_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_quotes_on_user_id ON quotes USING btree (user_id);
 
 
 --
--- Name: index_rank_paths_on_precedence; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_rank_paths_on_precedence; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_rank_paths_on_precedence ON rank_paths USING btree (precedence);
 
 
 --
--- Name: index_resources_on_file_type_and_is_public; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_resources_on_file_type_and_is_public; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_resources_on_file_type_and_is_public ON resources USING btree (file_type, is_public);
 
 
 --
--- Name: index_resources_on_position; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_resources_on_position; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_resources_on_position ON resources USING btree ("position");
 
 
 --
--- Name: index_settings_on_thing_type_and_thing_id_and_var; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_settings_on_thing_type_and_thing_id_and_var; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_settings_on_thing_type_and_thing_id_and_var ON settings USING btree (thing_type, thing_id, var);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_sponsor_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_sponsor_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_users_on_sponsor_id ON users USING btree (sponsor_id);
 
 
 --
--- Name: index_users_on_upline; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_upline; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE INDEX index_users_on_upline ON users USING gin (upline);
 
 
 --
--- Name: index_users_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: index_users_on_url_slug; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX index_users_on_url_slug ON users USING btree (url_slug);
 
 
 --
--- Name: rank_achievements_comp_key_with_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: rank_achievements_comp_key_with_pp; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX rank_achievements_comp_key_with_pp ON rank_achievements USING btree (pay_period_id, user_id, rank_id, rank_path_id) WHERE (pay_period_id IS NOT NULL);
 
 
 --
--- Name: rank_achievements_comp_key_without_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: rank_achievements_comp_key_without_pp; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX rank_achievements_comp_key_without_pp ON rank_achievements USING btree (user_id DESC, rank_id, rank_path_id) WHERE (pay_period_id IS NULL);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace:
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
@@ -2509,7 +2517,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150708230822');
 
 INSERT INTO schema_migrations (version) VALUES ('20150709214735');
 
-INSERT INTO schema_migrations (version) VALUES ('20150715005704');
-
-INSERT INTO schema_migrations (version) VALUES ('20150715234501');
-
+INSERT INTO schema_migrations (version) VALUES ('20150715205200');
