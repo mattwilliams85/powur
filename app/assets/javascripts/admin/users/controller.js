@@ -214,6 +214,12 @@
         // Get Data for Invites
         $scope.getEntityData(item.entities, 'user_invites');
 
+        // Get Data for Product Enrollments
+        $scope.getEntityData(item.entities, 'user_product_enrollments');
+
+        // Get Data for Product Receipts
+        $scope.getEntityData(item.entities, 'user_product_receipts');
+
         // Breadcrumbs: Users / User Name
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
         $rootScope.breadcrumbs.push({title: $scope.user.properties.first_name + ' ' + $scope.user.properties.last_name});

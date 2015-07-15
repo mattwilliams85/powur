@@ -81,10 +81,10 @@ class UsersJson < JsonDecorator
       entity(%w(list pay_periods), 'user-pay_periods',
              admin_user_pay_periods_path(user)),
       entity(%w(list invites), 'user_invites',
-             admin_user_invites_path(user))
-      entity(%w(list purchases), 'user_product_enrollments',
-             admin_user_product_enrollments_path(user))
-      entity(%w(list purchases), 'user_product_receipts',
+             admin_user_invites_path(user)),
+      entity(%w(list product_enrollments), 'user_product_enrollments',
+             admin_user_product_enrollments_path(user)),
+      entity(%w(list product_receipts), 'user_product_receipts',
              admin_user_product_receipts_path(user))
   end
 

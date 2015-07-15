@@ -47,5 +47,52 @@
   </div>
 </div>
 
-<h5>Certification</h5>
+<div class="row">
+  <div class="large-6 columns">
+    <h5>Product Receipts</h5>
+    <p ng-show="!user_product_receipts.entities[0]">This user has no product receipts.</p>
+    <table ng-show="user_product_receipts.entities[0]" class="index-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in user_product_receipts.entities">
+          <td>{{item.properties.id}}</td>
+          <td>{{item.properties.product.name}}</td>
+          <td>${{item.properties.amount | formattedPrice }}</td>
+          <td>{{item.properties.updated_at}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="large-6 columns">
+    <h5>Product Enrollments</h5>
+    <p ng-show="!user_product_enrollments.entities[0]">This user has no product enrollments.</p>
+    <table ng-show="user_product_enrollments.entities[0]" class="index-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>State</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in user_product_enrollments.entities">
+          <td>{{item.properties.id}}</td>
+          <td>{{item.properties.product.name}}</td>
+          <td>{{item.properties.state}}</td>
+          <td>{{item.properties.updated_at | dateToLocalDate}} {{item.properties.updated_at | timeToLocalTime}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
