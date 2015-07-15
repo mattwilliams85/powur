@@ -7,6 +7,7 @@
     //Fetch Profile
     UserProfile.get().then(function(data) {
       $rootScope.currentUser = data.properties;
+      $scope.actions = data.actions;
       $scope.fetchGoals();
       kpiHeaders();
     });
@@ -37,6 +38,13 @@
     $scope.progress = {};
 
     $scope.legacyImagePaths = legacyImagePaths;
+
+    $scope.closeNotification = function() {
+      if (!$scope.currentUser.notification) return;
+      var action = getAction($scope.actions, 'update_profile');
+      CommonService.execute(action, {user: {mark_notifications_as_read: '1'}});
+      $scope.currentUser.notification = null;
+    };
 
     $scope.loadMoreNews = function() {
       var nextPage = $scope.currentNewsPage + 1;
@@ -157,5 +165,17 @@
         }
       };
   });
+
+  /**
+   * Utility functions
+   */
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
+  }
 
 })();

@@ -2,10 +2,17 @@
   <fieldset>
     <legend ng-if="mode === 'new'">New Notification</legend>
     <legend ng-if="mode === 'edit'">Update Notification</legend>
+
     <div class="row">
       <div class="large-12 columns">
         <label for="notification_content">Content</label>
         <input ng-model="notification.content" name="content" id="notification_content" type="text">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <input type="checkbox" name="is_public" id="notification_is_public" ng-model="notification.is_public"> <label for="notification_is_public">Publish</label>
       </div>
     </div>
 
