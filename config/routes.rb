@@ -137,6 +137,7 @@ Rails.application.routes.draw do
                                   controller: :user_activities
       member do
         get :downline
+        get :full_downline
         get :upline
         post :move
         get :eligible_parents
