@@ -89,7 +89,6 @@
         $scope.downline[$scope.downline.length - 1].selected = "";
         $scope.activeTab = '';
       }
-      $scope.nameQuery = [];
       $('#team-search').val('');
       $scope.showProposal = false;
       $scope.showNew = false;
@@ -209,12 +208,13 @@
     var dQueue;
 
     $scope.teamSection.search = function(user) {
+      closeTabs();
       if (!$scope.nameQuery.length) {
         $scope.downline = [$scope.downline[0]];
         $scope.downline[0].selected = null;
         $scope.downline[0].tab = null;
         $scope.activeTab = '';
-        return closeTabs();
+        return $scope.nameQuery = [];
       }
       if(typeof(user) != 'object') {
         user = $scope.nameQuery[0];
