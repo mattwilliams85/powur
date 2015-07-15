@@ -239,6 +239,12 @@ Rails.application.routes.draw do
     # Products
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
 
+    # Product Enrollments
+    resources :product_enrollments,  only: [ :index ]
+
+    # Product Receipts
+    resources :product_receipts,  only: [ :index ]
+
     # # Quotes
     # resources :quotes, only: [ :index, :show ], as: :admin_quotes do
     #   member do
@@ -267,6 +273,7 @@ Rails.application.routes.draw do
         get :upline
         post :move
         get :eligible_parents
+        get :sponsors
       end
 
       # Users / Bonus Payments
@@ -295,6 +302,12 @@ Rails.application.routes.draw do
       # Users / Pay Periods
       resources :pay_periods, only:       [ :index, :show ],
                               controller: :user_pay_periods
+
+      # Users / Product Enrollments
+      resources :product_enrollments, only: [ :index ]
+
+      # Users / Product Receipts
+      resources :product_receipts,  only: [ :index ]
 
       # # Users / Rank Achievements
       # resources :rank_achievements,

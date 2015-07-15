@@ -41,7 +41,7 @@ class UsersJson < JsonDecorator
   def detail_properties(user = @item) # rubocop:disable Metrics/AbcSize
     list_item_properties
     json.properties do
-      json.call(user, :address, :city, :state, :zip, :profile, :avatar, :avatar_file_name)
+      json.call(user, :address, :city, :state, :zip, :profile, :avatar, :avatar_file_name, :last_sign_in_at)
       json.organic_rank rank_title(user.organic_rank)
       json.lifetime_rank rank_title(user.lifetime_rank)
       json.downline_count user.downline_users_count(user.id)
@@ -81,7 +81,11 @@ class UsersJson < JsonDecorator
       entity(%w(list pay_periods), 'user-pay_periods',
              admin_user_pay_periods_path(user)),
       entity(%w(list invites), 'user_invites',
-             admin_user_invites_path(user))
+             admin_user_invites_path(user)),
+      entity(%w(list product_enrollments), 'user_product_enrollments',
+             admin_user_product_enrollments_path(user)),
+      entity(%w(list product_receipts), 'user_product_receipts',
+             admin_user_product_receipts_path(user))
   end
 
   def user_entities(user = @item)
