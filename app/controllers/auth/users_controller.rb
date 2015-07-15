@@ -25,12 +25,6 @@ module Auth
       index
     end
 
-    def upline
-      @users = @user.upline_users
-
-      index
-    end
-
     def full_downline
       scope = User.with_ancestor(params['id'])
       @users = scope.search(params[:search]).limit(5) if params[:search]
