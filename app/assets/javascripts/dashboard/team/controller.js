@@ -209,6 +209,7 @@
 
     $scope.teamSection.search = function(user) {
       closeTabs();
+      
       if (!$scope.nameQuery.length) {
         $scope.downline = [$scope.downline[0]];
         $scope.downline[0].selected = null;
