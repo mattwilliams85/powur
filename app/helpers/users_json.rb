@@ -40,8 +40,7 @@ class UsersJson < JsonDecorator
   def detail_properties(user = @item) # rubocop:disable Metrics/AbcSize
     list_item_properties
     json.properties do
-      json.call(user, :address, :city, :state, :zip,
-                :profile, :avatar, :avatar_file_name)
+      json.call(user, :address, :city, :state, :zip, :profile, :avatar, :avatar_file_name, :last_sign_in_at)
       json.organic_rank rank_title(user.organic_rank)
       json.lifetime_rank rank_title(user.lifetime_rank)
       if user.rank_path_id

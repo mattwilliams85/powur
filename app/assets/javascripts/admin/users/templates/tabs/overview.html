@@ -1,5 +1,13 @@
 <h3>Overview</h3>
 
+<div class="row">
+  <div class="large-12 columns">
+    <h5>Last Login</h5>
+    <p ng-show="user.properties.last_sign_in_at">{{user.properties.last_sign_in_at | dateToLocalDate}} {{user.properties.last_sign_in_at | timeToLocalTime}}</p>
+    <p ng-show="!user.properties.last_sign_in_at">No Data</p>
+  </div>
+</div>
+
 <h5>Sponsors</h5>
 <p ng-show="!overview.teamLeader">This user has no sponsors.</p>
 <div class="row">
