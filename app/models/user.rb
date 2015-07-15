@@ -196,7 +196,7 @@ class User < ActiveRecord::Base
     @smarteru ||= SmarteruClient.new(self)
   end
 
-  def certified?
+  def partner?
     product_receipts
       .joins(:product)
       .where(products: { slug: 'partner' }).count > 0

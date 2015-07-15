@@ -6,7 +6,7 @@ json.properties do
   json.call(current_user, :id, :first_name, :last_name, :email,
             :phone, :address, :city, :state, :zip,
             :bio, :twitter_url, :facebook_url, :linkedin_url,
-            :lifetime_rank, :organic_rank, :level, :certified?)
+            :lifetime_rank, :organic_rank, :level, :partner?)
 
   json.avatar do
     [ :thumb, :preview, :large ].each do |key|
