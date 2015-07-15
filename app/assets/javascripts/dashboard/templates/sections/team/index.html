@@ -16,9 +16,9 @@
         <div class="row collapse">
           <form ng-submit="teamSection.search()" class="search-form">
             <div class="no-padding large-12 medium-12 small-12 columns">
-              <input id="team-search" type="search" ng-model="teamSearch"  placeholder="SEARCH" ng-change="fetchNames(teamSearch)" ng-blur="clearNames()">
+              <input id="team-search" type="search" ng-model="teamSearch.string"  placeholder="SEARCH" ng-change="fetchNames(teamSearch)" ng-blur="clearNames()">
               <ul ng-show="nameQuery.length" class="suggestion-box">
-                <li ng-repeat="user in nameQuery" ng-click="teamSection.search(user)">{{user.first_name + ' ' + user.last_name}}</li>
+                <li ng-repeat="user in nameQuery" ng-click="teamSection.search(user, teamSearch)">{{user.first_name + ' ' + user.last_name}}</li>
               </ul>
             </div>
           </form>
