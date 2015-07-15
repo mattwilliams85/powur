@@ -8,6 +8,8 @@ json.properties do
             :amount,
             :transaction_id,
             :order_id,
-            :auth_code)
+            :auth_code,
+            :created_at,
+            :updated_at)
   json.product_name Product.find(product_receipt.product_id).name
 end
