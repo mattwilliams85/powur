@@ -197,25 +197,6 @@
             transform: translate(0 , -35px);
           }
 
-          &.downline {
-            // background-color: #1F434F;
-            &:hover {
-              // background-color: #062730
-            }
-          }
-          &.impact {
-            // background-color: #326C7F;
-            &:hover {
-              // background-color: #275563;
-            }
-          }
-          &.info {
-            // background-color: #4BA1BF;
-            &:hover {
-              // background-color: #408AA3;
-            }
-          }
-
           &.active-tab {
             &.odd {
                 background: #333 !important;

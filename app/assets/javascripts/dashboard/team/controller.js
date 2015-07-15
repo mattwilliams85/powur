@@ -219,7 +219,7 @@
       if(typeof(user) != 'object') {
         user = $scope.nameQuery[0];
       }
-      if (levelGap(user) === 1) return jumpTo(user.id, 0);
+      
       $scope.downline = [$scope.downline[0]];
       dCount = 0;
       dQueue = [];
@@ -228,7 +228,7 @@
 
     function fetchDownline(user) {
       $scope.jumping = true;
-      jumpTo(user.upline[1], 0);
+      jumpTo(user.upline[1], 0)
 
       if (dCount + 2 === user.upline.length) return populateDownline(user);
 
@@ -247,10 +247,10 @@
         $scope.downline[i].selected = user.upline[i+1];
         $scope.downline[i].tab = 'team';
       }
-      //Sets the last user's tab to impact
+      //Sets the last user's tab to info
       $scope.downline[$scope.downline.length - 1].selected = user.upline[user.upline.length - 1]
-      $scope.activeTab = 'impact';
-      $scope.downline[dCount].tab = 'impact';
+      $scope.activeTab = 'info';
+      $scope.downline[dCount].tab = 'info';
       $('html, body').animate({
           scrollTop: $(".info-row").offset().top - 300
       }, 10);
