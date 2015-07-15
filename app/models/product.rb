@@ -14,7 +14,7 @@ class Product < ActiveRecord::Base
 
   scope :with_bonuses, -> { includes(bonuses: [ :bonus_amounts ]) }
   scope :university_classes, -> { where(is_university_class: true) }
-  scope :certifiable, -> { university_classes.where(is_required_class: false) }
+  # scope :certifiable, -> { university_classes.where(is_required_class: false) }
   scope :free, -> { where(bonus_volume: 0) }
   scope :sorted, -> { order(position: :asc) }
 
