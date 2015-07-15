@@ -147,9 +147,7 @@ module UserScopes
     }
 
     scope :partners, lambda {
-      joins(product_enrollments: :product)
-        .where(product_enrollments: { state: 'completed' },
-               products:            { slug: 'partner' })
+      joins(product_receipts: :product).where(products: { slug: 'partner' })
     }
   end
 

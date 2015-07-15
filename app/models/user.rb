@@ -197,8 +197,9 @@ class User < ActiveRecord::Base
   end
 
   def certified?
-    product_enrollments.completed.joins(:product)
-      .merge(Product.certifiable).count > 0
+    product_receipts
+      .joins(:product)
+      .where(products: { slug: 'partner' }).count > 0
   end
 
   def submitted_proposals_count
