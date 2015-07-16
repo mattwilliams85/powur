@@ -1,6 +1,10 @@
 module Phone
   extend ActiveSupport::Concern
 
+  def twilio_enabled
+    ENV['TWILIO_ENABLED'] == '1'
+  end
+
   def twilio_client
     @twilio_client ||= Twilio::REST::Client.new
   end
@@ -19,6 +23,7 @@ module Phone
   end
 
   def send_sms(to, body)
+    return unless twilio_enabled && to.present? && try(:allow_sms) != 'false'
     twilio_client.messages.create(
       from: ENV['TWILIO_PHONE_NUMBER'],
       to:   to,
