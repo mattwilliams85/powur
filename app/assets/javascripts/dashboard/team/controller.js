@@ -200,11 +200,11 @@
       },100)
     }
 
-    $scope.fetchNames = function(string){
-      if (!string) return $scope.nameQuery = [];
+    $scope.fetchNames = function(){
+      if (!$scope.teamSearch.string) return $scope.nameQuery = [];
       CommonService.execute({
         href: '/u/users/' + $rootScope.currentUser.id + '/full_downline.json',
-        params: {search: string}
+        params: {search: $scope.teamSearch.string}
       }).then(function(items){
         $scope.nameQuery = initDownline(items).entities;
       });
@@ -224,7 +224,7 @@
         user = $scope.nameQuery[0];
       }
 
-      $('#team-search').val(user.first_name + ' ' + user.last_name);
+      $('#team-search').val(user.first_name + ' ' + user.last_name).blur();
       $scope.downline = [$scope.downline[0]];
       dCount = 0;
       dQueue = [];

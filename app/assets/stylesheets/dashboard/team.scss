@@ -15,6 +15,18 @@
       li {
         cursor: pointer;
         padding: 0 10px;
+        overflow: hidden;
+        .right-label {
+          color: #ccc;
+          float: right;
+        }
+        .left-label {
+          float: left;
+          white-space: nowrap;
+          width: 72%;
+          overflow: hidden;
+          text-overflow: '';
+        }
         
         &:hover {
           background-color: #4575ED;
