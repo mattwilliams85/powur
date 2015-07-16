@@ -9,6 +9,7 @@
     $scope.downline = [];
     $scope.currentTeamMember = {};
     $scope.nameQuery = [];
+    $scope.dQueue = [];
     $scope.teamSearch = {};
 
     //Conditional Ref Object
