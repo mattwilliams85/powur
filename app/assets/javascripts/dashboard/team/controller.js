@@ -24,7 +24,9 @@
         return $scope.downline.length >= (i)
       },
       accordion: function(i) {
-        return $scope.downline.length > (i + 1) || $scope.activeTab === 'proposals'
+        var gap = 2
+        if ($scope.activeTab === 'proposals' || $scope.activeTab === 'info') gap = 1
+        return $scope.downline.length > (i + gap)
       },
       activeTab: function(member, gen, tab) {
         return gen.tab === tab && gen.selected === member.id;
@@ -233,6 +235,7 @@
     }
 
     function fetchDownline(user) {
+      $scope.currentTeamMember = user;
       $scope.jumping = true;
       $scope.downline[0].selected = user.upline[1];
 
