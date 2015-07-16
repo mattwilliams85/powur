@@ -73,7 +73,7 @@
           <td>{{item.properties.id}}</td>
           <td>{{item.properties.product.name}}</td>
           <td>${{item.properties.amount | formattedPrice }}</td>
-          <td>{{item.properties.updated_at}}</td>
+          <td>{{item.properties.updated_at | dateToLocalDate}} {{item.properties.updated_at | timeToLocalTime}}</td>
         </tr>
       </tbody>
     </table>
