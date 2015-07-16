@@ -99,7 +99,7 @@
               </div>
               <div class="info-text user-text">
                 <span>{{member.first_name}} {{member.last_name}}</span>
-                <span ng-hide="is.activeMember(member, gen) && gen.tab !== 'info'" class="info-detail">TEAM {{member.downline_count}}, PROPOSALS {{member.proposal_count || 0}}</span>
+                <span ng-hide="is.activeMember(member, gen) && is.accordion($parent.$index)" class="info-detail">TEAM {{member.downline_count}}, PROPOSALS {{member.proposal_count || 0}}</span>
               </div>
             </div>
           </div>

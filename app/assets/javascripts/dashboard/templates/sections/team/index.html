@@ -125,7 +125,7 @@
                 </div>
               </div>
               <div class="info-box" ng-class="{ 
-                    'raise': hover || isMobile() || downline.length > 1 || is.activeMember(member, downline[0]) || activeTab === 'proposals',
+                    'raise': hover || isMobile() || is.accordion(0) || is.activeMember(member, downline[0]),
                     'accordion': is.accordion(0) }"
                     ng-click="changeTab(member, downline[0], 'info');">
                 <div class="avatar" ng-class="{'accordion': is.accordion(0) }">
@@ -133,7 +133,7 @@
                 </div>
                 <div class="info-text user-text">
                   <span>{{member.first_name}} {{member.last_name}}</span>
-                  <span ng-hide="is.activeMember(member, downline[0]) && downline[0].tab !== 'info'" class="info-detail">TEAM {{member.downline_count}}, PROPOSALS {{member.proposal_count || 0}}</span>
+                  <span ng-hide="is.activeMember(member, downline[0]) && is.accordion(0)" class="info-detail">TEAM {{member.downline_count}}, PROPOSALS {{member.proposal_count || 0}}</span>
                 </div>
               </div>
             </div>
