@@ -177,7 +177,7 @@
         if ($scope.downline[index].selected) {
           jumpTo($scope.downline[index].selected, index);
         }
-        if (index + 1 === $scope.downline.length) {
+        if (index + 1 === $scope.dQueue.length || !$scope.dQueue.length) {
           $timeout(function(){
             $scope.jumping = false;
           }, 10);
@@ -212,7 +212,6 @@
     }
 
     var dCount;
-    var dQueue;
 
     $scope.teamSection.search = function(user) {
       closeAllTabs();
@@ -228,7 +227,7 @@
       $('#team-search').val(user.first_name + ' ' + user.last_name).blur();
       $scope.downline = [$scope.downline[0]];
       dCount = 0;
-      dQueue = [];
+      $scope.dQueue = [];
       fetchDownline(user)
     }
 
@@ -242,14 +241,14 @@
         dCount += 1;
         items = initDownline(items);
         $scope.activeTab = 'team'
-        dQueue.push(items.entities);
+        $scope.dQueue.push(items.entities);
         fetchDownline(user)
       });
     }
 
     function populateDownline(user) {
-      for(var i = 0; i < dQueue.length; i++) {
-        $scope.downline.push(dQueue[i])
+      for(var i = 0; i < $scope.dQueue.length; i++) {
+        $scope.downline.push($scope.dQueue[i])
         $scope.downline[i].selected = user.upline[i+1];
         $scope.downline[i].tab = 'team';
       }
