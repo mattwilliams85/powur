@@ -12,4 +12,5 @@ json.properties do
             :created_at,
             :updated_at)
   json.product Product.find(product_receipt.product_id)
+  json.user User.find(product_receipt.user_id)
 end

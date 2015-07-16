@@ -240,10 +240,10 @@ Rails.application.routes.draw do
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
 
     # Product Enrollments
-    resources :product_enrollments,  only: [ :index ]
+    resources :product_enrollments,  only: [ :index ], as: :admin_product_enrollments
 
     # Product Receipts
-    resources :product_receipts,  only: [ :index ]
+    resources :product_receipts,  only: [ :index ], as: :admin_product_receipts
 
     # # Quotes
     # resources :quotes, only: [ :index, :show ], as: :admin_quotes do
