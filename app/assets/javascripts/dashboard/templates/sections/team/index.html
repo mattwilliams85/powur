@@ -17,6 +17,12 @@
           <form ng-submit="teamSection.search()" class="search-form">
             <div class="no-padding large-12 medium-12 small-12 columns">
               <input id="team-search" type="search" ng-model="teamSearch.string"  placeholder="SEARCH" ng-change="fetchNames(teamSearch)" ng-blur="clearNames()">
+              <!-- Loading Animation -->
+              <div ng-show="jumping" class="sk-spinner sk-spinner-three-bounce">
+                <div class="sk-bounce1"></div>
+                <div class="sk-bounce2"></div>
+                <div class="sk-bounce3"></div>
+              </div>
               <ul ng-show="nameQuery.length" class="suggestion-box">
                 <li ng-repeat="user in nameQuery" ng-click="teamSection.search(user)"><span class="left-label">{{user.first_name + ' ' + user.last_name}}</span><span class="right-label">#{{user.id}}</span></li>
               </ul>
