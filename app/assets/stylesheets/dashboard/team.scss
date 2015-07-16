@@ -1,6 +1,17 @@
 .powur-dashboard {
   .team-section {
 
+    .sk-spinner {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+
+      div {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
     .suggestion-box {
       list-style: none;
       background-color: #fff;
