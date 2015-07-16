@@ -233,7 +233,7 @@
 
     function fetchDownline(user) {
       $scope.jumping = true;
-      jumpTo(user.upline[1], 0)
+      $scope.downline[0].selected = user.upline[1];
 
       if (dCount + 2 === user.upline.length) return populateDownline(user);
 
@@ -253,6 +253,7 @@
         $scope.downline[i].tab = 'team';
       }
       //Sets the last user's tab to info
+      $scope.onEnd(0);
       $scope.downline[$scope.downline.length - 1].selected = user.upline[user.upline.length - 1]
       $scope.activeTab = 'info';
       $scope.downline[dCount].tab = 'info';
