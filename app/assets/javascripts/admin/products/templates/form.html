@@ -25,6 +25,15 @@
           <ng-s3-file-upload ng-if="field.name === 'image_original_path'" data="product.image_original_path" config="/u/uploader_config.json?mode=product_image" show-progress="1" auto-upload="1"></ng-s3-file-upload>
         </div>
       </div>
+
+      <div class="row">
+        <div class="large-12 columns">
+          <label for="product_prerequisite_id">Prerequisite</label>
+          <select ng-model="product.prerequisite_id" ng-options="prerequisite.properties.id as prerequisite.properties.name for prerequisite in universityClasses">
+            <option value=""></option>
+          </select>
+        </div>
+      </div>
     </div>
     <!-- Delete Button -->
     <input ng-if="mode === 'edit'" class="tiny button understated right" ng-disabled="isSubmitDisabled" type="submit" ng-click="delete(productObj)" value="Delete Product" />

@@ -24,6 +24,12 @@ class UniversityClassesJson < JsonDecorator
       json.state current_user.product_enrollments.find_by(product_id: university_class.id).try(:state)
       json.is_required_class university_class.is_required_class
       json.slug university_class.slug
+      if university_class.prerequisite &&
+          !university_class.prerequisites_taken?(current_user)
+        json.prerequisite(
+          id:   university_class.prerequisite.id,
+          name: university_class.prerequisite.name)
+      end
     end
   end
 
