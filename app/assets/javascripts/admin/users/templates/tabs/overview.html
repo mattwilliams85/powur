@@ -3,7 +3,7 @@
 <div class="row">
   <div class="large-12 columns">
     <h5>Last Login</h5>
-    <p ng-show="user.properties.last_sign_in_at">{{user.properties.last_sign_in_at | dateToLocalDate}} {{user.properties.last_sign_in_at | timeToLocalTime}}</p>
+    <p ng-show="user.properties.last_sign_in_at">{{user.properties.last_sign_in_at | dateTimeToLocal}}</p>
     <p ng-show="!user.properties.last_sign_in_at">No Data</p>
   </div>
 </div>
@@ -73,7 +73,7 @@
           <td>{{item.properties.id}}</td>
           <td>{{item.properties.product.name}}</td>
           <td>${{item.properties.amount | formattedPrice }}</td>
-          <td>{{item.properties.updated_at | dateToLocalDate}} {{item.properties.updated_at | timeToLocalTime}}</td>
+          <td>{{item.properties.updated_at | dateTimeToLocal}}</td>
         </tr>
       </tbody>
     </table>
@@ -96,7 +96,7 @@
           <td>{{item.properties.id}}</td>
           <td>{{item.properties.product.name}}</td>
           <td>{{item.properties.state}}</td>
-          <td>{{item.properties.updated_at | dateToLocalDate}} {{item.properties.updated_at | timeToLocalTime}}</td>
+          <td>{{item.properties.updated_at | dateTimeToLocal}}</td>
         </tr>
       </tbody>
     </table>
