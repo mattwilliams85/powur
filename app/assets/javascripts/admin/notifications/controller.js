@@ -109,7 +109,8 @@
           url: action.href,
           params: {recipient: recipient}
         }).success(function(data) {
-
+          notification.properties = data.properties;
+          notification.links = data.links;
         }).error(function() {
           $scope.showModal("Oops, error couldn't send notification");
         });

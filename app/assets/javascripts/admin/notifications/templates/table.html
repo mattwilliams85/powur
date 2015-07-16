@@ -25,12 +25,12 @@
           by: <b>{{ item.properties.sender.full_name }}</b><br>
           at: <b>{{ item.properties.sent_at | date:'MM/dd/yyyy @ h:mma' }}</b><br>
           <span ng-if="!item.properties.finished_at" class="success label">
-            SMS distribution is in progress ...
+            distribution is in progress ...
           </span>
         </span>
       </td>
       <td>
-        <div ng-if="!item.properties.sent_at && item.properties.is_public" ng-repeat="link in item.links">
+        <div ng-repeat="link in item.links">
           <a ng-click="sendToRecipient(item, link.href)">{{ link.rel }}</a>
           <br>
         </div>
