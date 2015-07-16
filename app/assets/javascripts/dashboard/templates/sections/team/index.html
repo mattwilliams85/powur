@@ -16,7 +16,7 @@
         <div class="row collapse">
           <form ng-submit="teamSection.search()" class="search-form">
             <div class="no-padding large-12 medium-12 small-12 columns">
-              <input id="team-search" type="search" ng-model="teamSearch.string"  placeholder="SEARCH" ng-change="fetchNames(teamSearch)" ng-blur="clearNames()">
+              <input id="team-search" type="search" ng-model="teamSearch.string"  placeholder="SEARCH" ng-change="fetchNames()" ng-blur="clearNames()">
               <!-- Loading Animation -->
               <div ng-show="jumping" class="sk-spinner sk-spinner-three-bounce">
                 <div class="sk-bounce1"></div>

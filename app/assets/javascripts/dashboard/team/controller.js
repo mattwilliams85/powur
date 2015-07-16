@@ -89,6 +89,7 @@
         $scope.downline[$scope.downline.length - 1].selected = "";
         $scope.activeTab = '';
       }
+      $scope.proposalId = null;
       $scope.showProposal = false;
       $scope.showNew = false;
       $scope.activeInvite = '';
