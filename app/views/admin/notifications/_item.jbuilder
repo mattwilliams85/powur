@@ -25,7 +25,9 @@ actions \
   action(:send_out, :post, send_out_admin_notification_path(notification))
 
 link_list = []
-Notification::RECIPIENTS.each do |recipient|
-  link_list << link("send to #{recipient}", recipient)
+if notification.is_public && !notification.sent_at
+  Notification::RECIPIENTS.each do |recipient|
+    link_list << link("send to #{recipient}", recipient)
+  end
 end
 links(*link_list)
