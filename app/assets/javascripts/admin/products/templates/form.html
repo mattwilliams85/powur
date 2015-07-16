@@ -19,6 +19,10 @@
           <!-- Boolean -->
           <input ng-model="product[field.name]" ng-if="field.type === 'boolean'" type="checkbox" name="{{field.name}}" id="{{field.name}}">
           <label ng-if="field.type === 'boolean'">University Class</label>
+
+          <!-- File -->
+          <input ng-model="product.image_original_path" ng-if="field.name === 'image_original_path'" name="image_original_path" type="text" />
+          <ng-s3-file-upload ng-if="field.name === 'image_original_path'" data="product.image_original_path" config="/u/uploader_config.json?mode=product_image" show-progress="1" auto-upload="1"></ng-s3-file-upload>
         </div>
       </div>
     </div>
