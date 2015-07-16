@@ -693,7 +693,8 @@ CREATE TABLE products (
     is_required_class boolean DEFAULT false,
     "position" integer,
     long_description text,
-    slug character varying
+    slug character varying,
+    prerequisite_id integer
 );
 
 
@@ -2525,4 +2526,7 @@ INSERT INTO schema_migrations (version) VALUES ('20150715234501');
 
 INSERT INTO schema_migrations (version) VALUES ('20150716175804');
 
+INSERT INTO schema_migrations (version) VALUES ('20150716200159');
+
 INSERT INTO schema_migrations (version) VALUES ('20150716204546');
+

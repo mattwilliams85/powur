@@ -26,7 +26,11 @@
         <div class="class-info">
           <h5 class="price" ng-if="classItem.properties.price > 0">${{classItem.properties.price/100}}</h5>
           <h6 class="name">{{classItem.properties.name}}</h6>
-          <p class="description">{{classItem.properties.description}}</p>
+          <p class="description">
+            {{classItem.properties.description}}
+            <br>
+            <b ng-if="classItem.properties.prerequisite">Complete {{classItem.properties.prerequisite.name}} to Unlock</b>
+          </p>
         </div>
       </div>
 

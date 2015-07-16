@@ -141,8 +141,17 @@
         for (var i in fields) {
           $scope.product[fields[i].name] = fields[i].value;
         }
+        getUniversityClasses();
         $rootScope.breadcrumbs.push({title: 'Products', href: '/admin/products'});
         $rootScope.breadcrumbs.push({title: 'Update Product'});
+      });
+    }
+
+    function getUniversityClasses() {
+      CommonService.execute({
+        href: '/a/products?university_classes=true'
+      }).then(function(data) {
+        $scope.universityClasses = data.entities;
       });
     }
   };

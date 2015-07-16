@@ -113,6 +113,19 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
       end
     end
 
+    context 'class has an unfinished prerequisite' do
+      before do
+        allow_any_instance_of(Product)
+          .to receive(:prerequisites_taken?).with(current_user).and_return(false)
+      end
+
+      it 'returns unauthorized' do
+        post enroll_university_class_path(certifiable_product), format: :json
+        expect(response.code).to eql('404')
+        expect_alert_error
+      end
+    end
+
     context 'class was already completed by current user' do
       before do
         product_enrollment.complete!

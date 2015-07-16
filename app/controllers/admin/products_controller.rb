@@ -2,13 +2,16 @@ module Admin
   class ProductsController < AdminController
     before_action :fetch_product, only: [ :show, :destroy, :update ]
 
+    page
+    filter :university_classes,
+           url:        -> { products_path },
+           scope_opts: { type: :boolean },
+           required:   false
+
     def index
-      respond_to do |format|
-        format.html
-        format.json do
-          @products = Product.order(:name)
-        end
-      end
+      @products = apply_list_query_options(Product)
+
+      render 'index'
     end
 
     def create
@@ -32,7 +35,7 @@ module Admin
       @product.destroy
       @products = Product.order(:name)
 
-      render 'index'
+      index
     rescue ActiveRecord::InvalidForeignKey
       error!(:delete_product)
     end
@@ -40,7 +43,10 @@ module Admin
     private
 
     def input
-      allow_input(:name, :bonus_volume, :commission_percentage, :is_university_class, :description, :long_description, :image_original_path)
+      allow_input(
+        :name, :bonus_volume, :commission_percentage,
+        :is_university_class, :description, :long_description,
+        :image_original_path, :prerequisite_id)
     end
 
     def fetch_product
