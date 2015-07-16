@@ -1,6 +1,14 @@
 module Admin
   class ProductEnrollmentsController < AdminController
     page
+    sort date_desc: { updated_at: :desc },
+         date_asc:  { updated_at: :asc },
+         product_id_asc:   { product_id: :asc },
+         product_id_desc:  { product_id: :desc },
+         id_asc:         { id: :asc },
+         id_desc:        { id: :desc },
+         state_asc: { state: :asc },
+         state_desc: { state: :desc }
 
     before_filter :fetch_user, only: [ :index ]
 

@@ -151,6 +151,16 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminProductsCtrl'
     }).
+    // Product Enrollments
+    when('/admin/product_enrollments', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminProductEnrollmentsCtrl'
+    }).
+    // Product Receipts
+    when('/admin/product_receipts', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminProductReceiptsCtrl'
+    }).
     // Users
     when('/admin/users', {
       templateUrl: 'admin/users/templates/index.html',
