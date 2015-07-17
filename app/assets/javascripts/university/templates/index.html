@@ -28,9 +28,8 @@
           <h6 class="name">{{classItem.properties.name}}</h6>
           <p class="description">
             {{classItem.properties.description}}
-            <br>
-            <b ng-if="classItem.properties.prerequisite">Complete {{classItem.properties.prerequisite.name}} to Unlock</b>
           </p>
+          <span ng-if="classItem.properties.prerequisite" class="prerequisite-message">Complete {{classItem.properties.prerequisite.name}} to Unlock</span>
         </div>
       </div>
 
