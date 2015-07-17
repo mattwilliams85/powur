@@ -202,14 +202,14 @@
     }
 
 //SEARCH
-    $scope.key = function(event){
-      if (Number.isInteger(event)) return $scope.queryIndex = event;
+    $scope.key = function(key){
+      if (key === parseInt(key, 10)) return $scope.queryIndex = key;
       if (!$scope.nameQuery.length) return;
 
-      if (event.keyCode == 38) {
+      if (key.keyCode == 38) {
         if ($scope.queryIndex < 1) return;
         $scope.queryIndex -= 1;
-      } else if (event.keyCode == 40) {
+      } else if (key.keyCode == 40) {
         if( $scope.queryIndex + 1 === $scope.nameQuery.length) return;
         $scope.queryIndex += 1;
       }
@@ -220,7 +220,7 @@
       $timeout(function() {
         $scope.queryIndex = 0;
         if(i) $scope.focused = false;
-      }, 100)    
+      }, 150)    
     }
 
     $scope.fetchNames = function(){
