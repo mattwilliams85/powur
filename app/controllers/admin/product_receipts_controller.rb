@@ -11,7 +11,7 @@ module Admin
          amount_desc: { amount: :desc }
 
 
-    before_filter :fetch_user, only: [ :index ]
+    before_filter :fetch_user, only: [ :index, :create ]
 
     def index
       scope = ProductReceipt
@@ -19,6 +19,16 @@ module Admin
       scope = scope.search(params[:search]) if params[:search].present?
       @receipts = apply_list_query_options(scope)
       render 'index'
+    end
+
+    def create
+      ProductReceipt.create(user_id: @user.id,
+                            product_id: params[:id],
+                            amount: params[:bonus_volume],
+                            transaction_id: 'Complimentary',
+                            order_id: 'Complimentary',
+                            auth_code: 'Complimentary')
+      head 200
     end
 
     private

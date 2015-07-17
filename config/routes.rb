@@ -307,7 +307,7 @@ Rails.application.routes.draw do
       resources :product_enrollments, only: [ :index ]
 
       # Users / Product Receipts
-      resources :product_receipts,  only: [ :index ]
+      resources :product_receipts,  only: [ :index, :create ]
 
       # # Users / Rank Achievements
       # resources :rank_achievements,

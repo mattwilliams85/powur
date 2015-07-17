@@ -72,6 +72,7 @@
             <th>ID</th>
             <th>Product Name</th>
             <th>Amount</th>
+            <th>Transaction ID</th>
             <th>Date</th>
           </tr>
         </thead>
@@ -80,6 +81,7 @@
             <td>{{item.properties.id}}</td>
             <td>{{item.properties.product.name}}</td>
             <td>${{item.properties.amount | formattedPrice }}</td>
+            <td>{{item.properties.transaction_id}}</td>
             <td>{{item.properties.updated_at | dateTimeToLocal}}</td>
           </tr>
         </tbody>
@@ -94,14 +96,14 @@
       <div class="row">
         <form>
           <div class="small-8 columns">
-            <select disabled ng-model="overview.complimentaryCourse">
-              <option ng-if="user_product_receipts.actions[0].fields[0].options[0]" selected disabled>Select Course</option>
+            <select ng-model="overview.complimentaryCourse">
+              <!-- <option ng-if="user_product_receipts.actions[0].fields[0].options[0]" selected disabled>Select Course</option> -->
               <option ng-if="!user_product_receipts.actions[0].fields[0].options[0]" selected disabled>No courses available</option>
               <option ng-repeat="option in user_product_receipts.actions[0].fields[0].options" value="{{option}}">{{option.name}} (${{option.bonus_volume | formattedPrice}})</option>
             </select>
           </div>
           <div class="small-4 columns">
-            <button disabled ng-click="overview.giveComplimentaryCourse()" class="button postfix">Give</a>
+            <button ng-disabled="!overview.complimentaryCourse" ng-click="overview.giveComplimentaryCourse()" class="button postfix">Give</a>
           </div>
         </form>
       </div>
