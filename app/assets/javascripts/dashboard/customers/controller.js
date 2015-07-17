@@ -314,7 +314,7 @@
       if (!$scope.nameQuery.length) return;
 
       if(typeof(user) != 'object') {
-        user = $scope.nameQuery[0];
+        user = $scope.nameQuery[$scope.queryIndex];
         $scope.nameQuery = [];
       }
       for (var i=0; i < $scope.proposals.length; i++) {
@@ -334,16 +334,35 @@
     };
 
     $scope.customerSearch = {};
+    $scope.nameQuery = []
+    $scope.queryIndex = 0;
+
+    $scope.key = function(event){
+      if (Number.isInteger(event)) return $scope.queryIndex = event;
+      if (!$scope.nameQuery.length) return;
+
+      if (event.keyCode == 38) {
+        if ($scope.queryIndex < 1) return;
+        $scope.queryIndex -= 1;
+      } else if (event.keyCode == 40) {
+        if( $scope.queryIndex + 1 === $scope.nameQuery.length) return;
+        $scope.queryIndex += 1;
+      }
+    }
 
     $scope.clearQuery = function(i) {
       $scope.focused = true;
       $timeout(function() {
         if(i) $scope.focused = false;
+        $scope.queryIndex = 0;
       }, 100)    
     }
 
     $scope.fetchNames = function(){
-      if (!$scope.customerSearch.string) return $scope.nameQuery = [];
+      if (!$scope.customerSearch.string) {
+        $scope.queryIndex = 0;
+        return $scope.nameQuery = [];
+      }
       CommonService.execute({
         href: '/u/users/' + $rootScope.currentUser.id + '/quotes.json',
         params: {search: $scope.customerSearch.string, limit: 7}

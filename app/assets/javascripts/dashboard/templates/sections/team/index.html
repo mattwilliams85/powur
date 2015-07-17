@@ -23,7 +23,8 @@
                 placeholder="SEARCH" 
                 ng-change="fetchNames()" 
                 ng-blur="clearQuery(true)" 
-                ng-focus="clearQuery(false)">
+                ng-focus="clearQuery(false)"
+                ng-keydown="key($event)">
               <!-- Loading Animation -->
               <div ng-show="jumping" class="sk-spinner sk-spinner-three-bounce">
                 <div class="sk-bounce1"></div>
@@ -31,7 +32,7 @@
                 <div class="sk-bounce3"></div>
               </div>
               <ul ng-show="nameQuery.length && focused && teamSearch.string.length" class="suggestion-box">
-                <li ng-repeat="user in nameQuery" ng-click="teamSection.search(user)"><span class="left-label">{{user.first_name + ' ' + user.last_name}}</span><span class="right-label">#{{user.id}}</span></li>
+                <li ng-class="{'selected': queryIndex === $index}" ng-repeat="user in nameQuery" ng-click="teamSection.search(user)" ng-mouseover="key($index)"><span class="left-label">{{user.first_name + ' ' + user.last_name}}</span><span class="right-label">#{{user.id}}</span></li>
               </ul>
             </div>
           </form>
