@@ -91,6 +91,15 @@ class Product < ActiveRecord::Base
     )
   end
 
+  def complimentary_purchase(price, user)
+    product_receipts.create(
+      user_id: user.id,
+      amount: price,
+      transaction_id: 'Complimentary',
+      order_id: 'Complimentary',
+      auth_code: 'Complimentary')
+  end
+
   class << self
     def default_id
       SystemSettings.default_product_id
