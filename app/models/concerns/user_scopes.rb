@@ -29,6 +29,12 @@ module UserScopes
         .order('dc.downline_count desc nulls last')
     }
 
+    scope :team_size, lambda { |user_id|
+      with_downline_counts
+      .with_parent(user_id)
+      .order("dc.downline_count desc nulls last")
+    }
+
     WEEKLY_DOWN_COUNTS_SELECT = \
       'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
     scope :weekly_downline_counts, lambda {

@@ -17,10 +17,17 @@ module Auth
     end
 
     def downline
-      scope = User
-      scope = scope.with_parent(@user.id)
-      scope = User.search(params[:search]) if params[:search]
-      @users = apply_list_query_options(scope)
+      scope = User.with_parent(@user.id)
+
+      if params[:search]
+        @users = User.search(params[:search]) 
+      elsif params[:sort] == 'proposals'
+        @users = scope.quote_performance(@user.id)
+      elsif params[:sort] == 'team'
+        @users = User.team_size(@user.id)
+      else
+        @users = apply_list_query_options(scope)
+      end
 
       index
     end
