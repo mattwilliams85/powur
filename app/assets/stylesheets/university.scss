@@ -55,7 +55,7 @@ $button-color: #59a2e7;
           background-image: image-url('university/refresh.png');
           background-color: $button-color;
           background-repeat: no-repeat;
-          background-position: 1.5rem center;
+          background-position: 1rem center;
           position: absolute;
           left: 0;
           right: 0;
@@ -101,6 +101,7 @@ $button-color: #59a2e7;
       // Name, Price, Description and Take Class/Purchase Buttons
       .class-info {
         padding: 10px;
+        position: relative;
 
         .name {
           width: 80%;
@@ -123,6 +124,17 @@ $button-color: #59a2e7;
           color: #a4a4a4;
           font-size: .8em;
           line-height: 1.4em;
+        }
+
+        .prerequisite-message {
+          bottom: 10px;
+          display: block;
+          font-size: .8em;
+          font-weight: bold;
+          left: -10px;
+          position: absolute;
+          text-align: center;
+          width: 100%;
         }
       }
     }
