@@ -84,8 +84,8 @@
           </tr>
         </tbody>
       </table>
+
       <!-- Complimentary Courses -->
- <!--
       <div class="row">
         <div class="small-12 columns">
           <h6>Give Complimentary Powur U Course</h6>
@@ -94,20 +94,20 @@
       <div class="row">
         <form>
           <div class="small-8 columns">
-            <select ng-model="overview.complimentaryCourse">
+            <select disabled ng-model="overview.complimentaryCourse">
               <option ng-if="user_product_receipts.actions[0].fields[0].options[0]" selected disabled>Select Course</option>
               <option ng-if="!user_product_receipts.actions[0].fields[0].options[0]" selected disabled>No courses available</option>
               <option ng-repeat="option in user_product_receipts.actions[0].fields[0].options" value="{{option}}">{{option.name}} (${{option.bonus_volume | formattedPrice}})</option>
             </select>
           </div>
           <div class="small-4 columns">
-            <button ng-click="overview.giveComplimentaryCourse()" class="button postfix">Give</a>
+            <button disabled ng-click="overview.giveComplimentaryCourse()" class="button postfix">Give</a>
           </div>
         </form>
       </div>
--->
     </div>
   </div>
+
   <!-- Product Enrollments -->
   <div class="large-6 columns">
     <div class="panel">
