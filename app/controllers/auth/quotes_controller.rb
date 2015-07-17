@@ -68,11 +68,16 @@ module Auth
     private
 
     def fetch_quotes
-      @quotes = Quote
+      scope = Quote
         .includes(:customer, :user, :product)
         .references(:customer, :user, :product)
-      @quotes = @quotes.where(user_id: @user.id) if @user
-      @quotes = @quotes.customer_search(params[:search]) if params[:search]
+      scope = scope.where(user_id: @user.id) if @user
+      if params[:search]
+        scope = scope
+        .joins(:customer).where("lower(customers.first_name || ' ' || customers.last_name) LIKE ?", "%#{params[:search].downcase}%")
+        .order('customers.first_name asc')
+      end
+      @quotes = scope
     end
 
     def fetch_quote
