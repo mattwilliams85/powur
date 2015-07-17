@@ -2,53 +2,57 @@
 
 <div class="row">
   <div class="large-12 columns">
-    <h5>Last Login</h5>
-    <p ng-show="user.properties.last_sign_in_at">{{user.properties.last_sign_in_at | dateTimeToLocal}}</p>
-    <p ng-show="!user.properties.last_sign_in_at">No Data</p>
+    <div class="panel">
+      <h4>Last Login</h4>
+      <p ng-show="user.properties.last_sign_in_at">{{user.properties.last_sign_in_at | dateTimeToLocal}}</p>
+      <p ng-show="!user.properties.last_sign_in_at">No Data</p>
+    </div>
   </div>
 </div>
 
-<h5>Sponsors</h5>
-<p ng-show="!overview.teamLeader">This user has no sponsors.</p>
-<div class="row">
-  <!-- Team Leader -->
-  <div ng-show="overview.teamLeader" class="large-6 columns">
-    <div class="panel">
-      <div class="row">
-        <div class="small-2 columns">
-          <p class="text-right">
-            <img class="user-avatar" ng-src="{{overview.teamLeader.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
-          </p>
-        </div>
-        <div class="small-10 columns">
-          <h5 class="subheader">Team Leader</h5>
-          <ul class="no-bullet">
-            <li><a ng-href="/admin/users/{{overview.teamLeader.properties.id}}">{{overview.teamLeader.properties.first_name}} {{overview.teamLeader.properties.last_name}}</a></li>
-            <li>ID: {{overview.teamLeader.properties.id}}</li>
-            <li><i class="fa fa-phone"></i> {{overview.teamLeader.properties.phone || '(no phone number)'}}</li>
-            <li><i class="fa fa-envelope"></i> {{overview.teamLeader.properties.email}}</li>
-          </ul>
+<div class="panel">
+  <h4>Sponsors</h4>
+  <p ng-show="!overview.teamLeader">This user has no sponsors.</p>
+  <div class="row">
+    <!-- Team Leader -->
+    <div ng-show="overview.teamLeader" class="large-6 columns">
+      <div class="panel">
+        <div class="row">
+          <div class="small-2 columns">
+            <p class="text-right">
+              <img class="user-avatar" ng-src="{{overview.teamLeader.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
+            </p>
+          </div>
+          <div class="small-10 columns">
+            <h4 class="subheader">Team Leader</h4>
+            <ul class="no-bullet">
+              <li><a ng-href="/admin/users/{{overview.teamLeader.properties.id}}">{{overview.teamLeader.properties.first_name}} {{overview.teamLeader.properties.last_name}}</a></li>
+              <li>ID: {{overview.teamLeader.properties.id}}</li>
+              <li><i class="fa fa-phone"></i> {{overview.teamLeader.properties.phone || '(no phone number)'}}</li>
+              <li><i class="fa fa-envelope"></i> {{overview.teamLeader.properties.email}}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Coach -->
-  <div ng-show="overview.coach" class="large-6 columns">
-    <div class="panel">
-      <div class="row">
-        <div class="small-2 columns">
-          <p class="text-right">
-            <img class="user-avatar" ng-src="{{overview.coach.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
-          </p>
-        </div>
-        <div class="small-10 columns">
-          <h5 class="subheader">Coach</h5>
-          <ul class="no-bullet">
-            <li><a ng-href="/admin/users/{{overview.coach.properties.id}}">{{overview.coach.properties.first_name}} {{overview.coach.properties.last_name}}</a></li>
-            <li>ID: {{overview.coach.properties.id}}</li>
-            <li><i class="fa fa-phone"></i> {{overview.coach.properties.phone || '(no phone number)'}}</li>
-            <li><i class="fa fa-envelope"></i> {{overview.coach.properties.email}}</li>
-          </ul>
+    <!-- Coach -->
+    <div ng-show="overview.coach" class="large-6 columns">
+      <div class="panel">
+        <div class="row">
+          <div class="small-2 columns">
+            <p class="text-right">
+              <img class="user-avatar" ng-src="{{overview.coach.properties.avatar.thumb || legacyImagePaths.defaultAvatar}}">
+            </p>
+          </div>
+          <div class="small-10 columns">
+            <h4 class="subheader">Coach</h4>
+            <ul class="no-bullet">
+              <li><a ng-href="/admin/users/{{overview.coach.properties.id}}">{{overview.coach.properties.first_name}} {{overview.coach.properties.last_name}}</a></li>
+              <li>ID: {{overview.coach.properties.id}}</li>
+              <li><i class="fa fa-phone"></i> {{overview.coach.properties.phone || '(no phone number)'}}</li>
+              <li><i class="fa fa-envelope"></i> {{overview.coach.properties.email}}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -57,49 +61,70 @@
 
 <div class="row">
   <div class="large-6 columns">
-    <h5>Product Receipts</h5>
-    <p ng-show="!user_product_receipts.entities[0]">This user has no product receipts.</p>
-    <table ng-show="user_product_receipts.entities[0]" class="index-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Product Name</th>
-          <th>Amount</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="item in user_product_receipts.entities">
-          <td>{{item.properties.id}}</td>
-          <td>{{item.properties.product.name}}</td>
-          <td>${{item.properties.amount | formattedPrice }}</td>
-          <td>{{item.properties.updated_at | dateTimeToLocal}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="panel">
+      <h4>Product Receipts</h4>
+      <p ng-show="!user_product_receipts.entities[0]">This user has no product receipts.</p>
+      <table ng-show="user_product_receipts.entities[0]" class="index-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in user_product_receipts.entities">
+            <td>{{item.properties.id}}</td>
+            <td>{{item.properties.product.name}}</td>
+            <td>${{item.properties.amount | formattedPrice }}</td>
+            <td>{{item.properties.updated_at | dateTimeToLocal}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="small-12 columns">
+          <h6>Give Complimentary Powur U Course</h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="small-8 columns">
+          <select>
+            <option ng-if="user_product_receipts.actions[0].fields[0].options[0]" selected disabled>Select Course</option>
+            <option ng-if="!user_product_receipts.actions[0].fields[0].options[0]" selected disabled>No courses available</option>
+            <option ng-repeat="option in user_product_receipts.actions[0].fields[0].options">{{option.name}} (${{option.bonus_volume | formattedPrice}})</option>
+          </select>
+        </div>
+        <div class="small-4 columns">
+          <a class="button postfix">Give</a>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="large-6 columns">
-    <h5>Product Enrollments</h5>
-    <p ng-show="!user_product_enrollments.entities[0]">This user has no product enrollments.</p>
-    <table ng-show="user_product_enrollments.entities[0]" class="index-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Product Name</th>
-          <th>State</th>
-          <th>Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="item in user_product_enrollments.entities">
-          <td>{{item.properties.id}}</td>
-          <td>{{item.properties.product.name}}</td>
-          <td>{{item.properties.state}}</td>
-          <td>{{item.properties.updated_at | dateTimeToLocal}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="panel">
+      <h4>Product Enrollments</h4>
+      <p ng-show="!user_product_enrollments.entities[0]">This user has no product enrollments.</p>
+      <table ng-show="user_product_enrollments.entities[0]" class="index-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>State</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in user_product_enrollments.entities">
+            <td>{{item.properties.id}}</td>
+            <td>{{item.properties.product.name}}</td>
+            <td>{{item.properties.state}}</td>
+            <td>{{item.properties.updated_at | dateTimeToLocal}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
