@@ -212,6 +212,12 @@
       });
     };
 
+    $scope.clearQuery = function(i) {
+      $scope.focused = true;
+      $timeout(function() {
+        if(i) $scope.focused = false;
+      }, 100)    
+    }
 
     $scope.fetchNames = function(){
       if (!$scope.teamSearch.string) return $scope.nameQuery = [];
