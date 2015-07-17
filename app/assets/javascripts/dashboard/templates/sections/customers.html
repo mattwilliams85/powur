@@ -24,10 +24,11 @@
                 placeholder="SEARCH" 
                 ng-change="fetchNames()" 
                 ng-blur="clearQuery(true)" 
-                ng-focus="clearQuery(false)">
+                ng-focus="clearQuery(false)"
+                ng-keydown="key($event)">
               <!-- Loading Animation -->
               <ul ng-show="nameQuery.length && focused && customerSearch.string.length" class="suggestion-box">
-                <li ng-repeat="user in nameQuery" ng-click="customerSection.search(user)"><span class="left-label">{{user.properties.customer}}</span></li>
+                <li ng-class="{'selected': queryIndex === $index}" ng-repeat="user in nameQuery" ng-click="customerSection.search(user)" ng-mouseover="key($index)"><span class="left-label">{{user.properties.customer}}</span></li>
               </ul>
             </div>
           </form>
