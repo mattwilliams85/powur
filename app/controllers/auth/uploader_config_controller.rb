@@ -29,6 +29,9 @@ module Auth
       when 'resource_image'
         @key_prefix = 'resource_original_images'
         @max_content_length = 1.megabyte
+      when 'product_image'
+        @key_prefix = 'product_original_images'
+        @max_content_length = 1.megabyte
       when 'resource_topic_image'
         @key_prefix = 'resource_topic_original_images'
         @max_content_length = 100.kilobytes

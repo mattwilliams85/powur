@@ -24,15 +24,21 @@
     };
 
     $scope.pagination = function(direction) {
-      var page = 1;
-      if ($scope.indexData) {
-        page = $scope.indexData.properties.paging.current_page;
+      var page = 1,
+          sort;
+      if ($scope.index.data) {
+        page = $scope.index.data.properties.paging.current_page;
+        sort = $scope.index.data.properties.sorting.current_sort;
       }
       page += direction;
       return CommonService.execute({
-        href: '/a/social_media_posts.json?page=' + page
+        href: '/a/social_media_posts',
+        params: {
+          page: page,
+          sort: sort
+        }
       }).then(function(data) {
-        $scope.indexData = data;
+        $scope.index.data = data;
         $anchorScroll();
       });
     };
@@ -108,8 +114,8 @@
     if ($scope.mode === 'index') {
       // Breadcrumbs: Social Media Sharing
       $rootScope.breadcrumbs.push({title: 'Social Media Sharing'});
+      $scope.index = {};
       $scope.pagination(0);
-
     } else if ($scope.mode === 'new') {
       // Breadcrumbs: Social Media Sharing / New Social Media Post
       $rootScope.breadcrumbs.push({title: 'Social Media Sharing', href: '/admin/social-media'});

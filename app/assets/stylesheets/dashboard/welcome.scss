@@ -1,4 +1,24 @@
 .powur-dashboard {
+  .notification-wrapper {
+    background-color: #0d91b7;
+    background-image: image-url('dashboard/notification-bell.png');
+    background-position: 20px center;
+    background-repeat: no-repeat;
+    color: #fff;
+    text-align: center;
+    padding: 10px 20px;
+    line-height: 40px;
+
+    .close-icon {
+      color: #70c0d9;
+      font-size: 2.5rem;
+      font-weight: bold;
+      line-height: 2rem;
+      position: absolute;
+      right: 20px;
+    }
+  }
+
   .welcome-section {
     min-height: 600px;
 

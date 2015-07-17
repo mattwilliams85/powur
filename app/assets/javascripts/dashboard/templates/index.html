@@ -3,6 +3,11 @@
 
 <main class="powur-dashboard">
 
+  <div ng-if="currentUser.notification" class="notification-wrapper">
+    <a class="close-icon" ng-click="closeNotification()">×</a>
+    <span>{{ currentUser.notification.content }}</span>
+  </div>
+
   <!-- Welcome Section -->
 
   <!-- QUIRK: Dandelion background extends to 100% width on large screens-->
@@ -17,16 +22,7 @@
     </div>
   </div>
 
-  <!-- FOR BETA -->
-  <!-- Powur Beta Dashboard Overview Video Link -->
-  <div class="dashboard-video-link-section show-for-medium-up">
-    <span data-tooltip class="has-tip tip-top" title="Click here to play the Powur Beta Dashboard Overview Video">
-    <a ng-if="showBetaDashboardVideoLink" ng-click="showVideoModal(legacyImagePaths.betaDashboardVideo)"><i class="fa fa-play"></i></a>
-    </span>
-  </div>
-
   <!-- Social Media Share Quote Section -->
-
   <!-- QUIRK: Gray background extends to 100% width on large screens -->
   <div class="row">
     <div class="bg social-media-section large-12 columns show-for-medium-up"></div>

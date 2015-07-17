@@ -1,6 +1,8 @@
 class Product < ActiveRecord::Base
   after_create :assign_sku
 
+  belongs_to :prerequisite, class_name: 'Product'
+
   has_many :qualifications, dependent: :destroy
   has_many :bonuses
   has_many :quote_fields, dependent: :destroy
@@ -14,7 +16,6 @@ class Product < ActiveRecord::Base
 
   scope :with_bonuses, -> { includes(bonuses: [ :bonus_amounts ]) }
   scope :university_classes, -> { where(is_university_class: true) }
-  scope :certifiable, -> { university_classes.where(is_required_class: false) }
   scope :free, -> { where(bonus_volume: 0) }
   scope :sorted, -> { order(position: :asc) }
 
@@ -64,6 +65,12 @@ class Product < ActiveRecord::Base
 
   def is_free?
     bonus_volume == 0
+  end
+
+  def prerequisites_taken?(user)
+    prerequisite.nil? ||
+    !!user.product_enrollments
+      .where(product_id: prerequisite_id).first.try(:completed?)
   end
 
   def purchase(form, user)

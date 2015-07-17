@@ -26,11 +26,30 @@ module Auth
 
     def downline
       scope = User
-      scope = User.search(params[:search]) if params[:search]
       scope = scope.with_parent(@user.id)
+      scope = User.search(params[:search]) if params[:search]
       @users = apply_list_query_options(scope)
 
       render 'team'
+    end
+
+    def full_downline
+      scope = User.with_ancestor(params['id'])
+
+      query_users(scope) if params[:search]
+
+      render 'team'
+    end
+
+    def query_users(scope)
+      if params[:search].to_i > 0
+        @users = scope.where(id: params[:search].to_i)
+      else 
+        @users = scope
+        .where("lower(first_name || ' ' || last_name) LIKE ?", "%#{params[:search].downcase}%")
+        .limit(7)
+        .order(:first_name)
+      end
     end
 
     def move

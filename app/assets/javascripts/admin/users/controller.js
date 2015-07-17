@@ -4,6 +4,12 @@
   function AdminUsersCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, CommonService) {
     $scope.redirectUnlessSignedIn();
 
+    $scope.legacyImagePaths = legacyImagePaths;
+
+    // Sections
+    $scope.invites = {};
+    $scope.overview = {};
+
     $scope.templateData = {
       index: {
         title: 'Users',
@@ -11,16 +17,26 @@
       }
     };
 
+    //
+    // Utility Functions
+    //
+
     $scope.pagination = function(direction) {
-      var page = 1;
-      if ($scope.indexData) {
-        page = $scope.indexData.properties.paging.current_page;
+      var page = 1,
+          sort;
+      if ($scope.index.data) {
+        page = $scope.index.data.properties.paging.current_page;
+        sort = $scope.index.data.properties.sorting.current_sort;
       }
       page += direction;
       return CommonService.execute({
-        href: '/a/users.json?page=' + page
+        href: '/a/users',
+        params: {
+          page: page,
+          sort: sort
+        }
       }).then(function(data) {
-        $scope.indexData = data;
+        $scope.index.data = data;
         $anchorScroll();
       });
     };
@@ -29,7 +45,6 @@
       $location.path('/admin/users');
     };
 
-    // Utility Functions
     $scope.getAction = function(actions, name) {
       for (var i in actions) {
         if (actions[i].name === name) {
@@ -65,7 +80,11 @@
 
     };
 
-    // Update Action
+    //
+    // User Actions
+    //
+
+    // Update
     $scope.update = function() {
       if ($scope.formValues) {
         CommonService.execute({
@@ -85,7 +104,7 @@
       }
     };
 
-    // Search Action
+    // Search
     $scope.search = function() {
       var data = {};
       if ($scope.usersSearch) {
@@ -99,18 +118,20 @@
 
       $http({
         method: 'GET',
-        url: '/a/users.json',
+        url: '/a/users',
         params: data,
       }).success(function(data) {
-        $scope.indexData = data;
+        $scope.index.data = data;
         $anchorScroll;
       });
     };
 
-    // Invites Actions
-    // Execute Invite Action
+    //
+    // Invite Actions
+    //
 
-    $scope.executeInviteAction = function(action) {
+    // Execute Invite Action
+    $scope.invites.executeInviteAction = function(action) {
       if (confirm('Are you sure you want to ' + action.name + ' this invite?')) {
         CommonService.execute({
           href: action.href,
@@ -123,11 +144,12 @@
           }
           $scope.user_invites = item;
           $scope.user_invites.properties.available_invites = item.properties.available_invites;
-        })
+        });
       }
-    }
+    };
+
     // Update Available Invites Action
-    $scope.updateAvailableInvites = function(item) {
+    $scope.invites.updateAvailableInvites = function(item) {
       var data = {invites: item.properties.available_invites};
       CommonService.execute({
         href: '/a/users/' + item.properties.id + '/invites.json',
@@ -141,6 +163,37 @@
         $anchorScroll;
       });
     };
+
+    //
+    // Overview Actions
+    //
+
+    // Get Sponsor/Coach for User
+    $scope.overview.getSponsors = function(userItem) {
+      $http({
+        method: 'GET',
+        url: '/a/users/' + userItem.properties.id + '/sponsors.json',
+      }).success(function(res) {
+        $scope.overview.teamLeader = res.entities[0];
+        $scope.overview.coach = res.entities[1];
+      }).error(function(err) {
+        console.log('エラー', err);
+      });
+    };
+
+    // Give Complimentary Course
+    $scope.overview.giveComplimentaryCourse = function() {
+      var confirmMessage = "This will give " + $scope.user.properties.first_name + " " + $scope.user.properties.last_name + " free access to this course in Powur U. Are you sure?";
+
+      // Get Product Receipt Create Action
+      $scope.giveComplimentaryCourseAction = $scope.getAction($scope.user_product_receipts.actions, 'create');
+
+      if ($scope.overview.complimentaryCourse && confirm(confirmMessage)) {
+        CommonService.execute($scope.giveComplimentaryCourseAction, $scope.overview.complimentaryCourse).then(function(data){
+          $scope.getEntityData($scope.user.entities, 'user_product_receipts');
+        })
+      }
+    }
 
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
@@ -158,6 +211,7 @@
     if ($scope.mode === 'index') {
       // Breadcrumbs: Users
       $rootScope.breadcrumbs.push({title: 'Users'});
+      $scope.index = {};
       $scope.pagination(0);
 
     } else if ($scope.mode === 'show') {
@@ -168,8 +222,17 @@
         $scope.formAction = $scope.getAction(item.actions, 'update');
         $scope.formValues = $scope.setFormValues($scope.formAction);
 
+        // Get Data for Sponsors
+        $scope.overview.getSponsors(item);
+
         // Get Data for Invites
         $scope.getEntityData(item.entities, 'user_invites');
+
+        // Get Data for Product Enrollments
+        $scope.getEntityData(item.entities, 'user_product_enrollments');
+
+        // Get Data for Product Receipts
+        $scope.getEntityData(item.entities, 'user_product_receipts');
 
         // Breadcrumbs: Users / User Name
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});

@@ -1,46 +1,56 @@
 module Admin
   class NotificationsController < AdminController
-    page max_limit: 3
-    sort id:  { id: :desc }
+    page
+    sort id_desc: { id: :desc },
+         id_asc:  { id: :asc }
+
+    before_filter :fetch_notification,
+                  only: [:show, :update, :destroy, :send_out ]
 
     def index
-      respond_to do |format|
-        format.html
-        format.json do
-          @notifications = apply_list_query_options(Notification)
-        end
-      end
+      @notifications = apply_list_query_options(Notification)
+      render :index
     end
 
     def create
-      @notification = Notification.create(input)
-      render 'index'
+      @notification = Notification.new(input)
+      @notification.user_id = current_user.id
+      @notification.save!
+      index
     end
 
     def destroy
-      @notification = Notification.find(params[:id])
-
       @notification.destroy!
-      @notifications = Notification.all.order(id: :desc)
-
-      render 'index'
+      head :ok
     end
 
     def show
-      @notification = Notification.find(params[:id])
     end
 
     def update
-      @notification = Notification.find(params[:id])
       @notification.update_attributes!(input)
+      index
+    end
 
-      render 'index'
+    def send_out
+      params.require(:recipient)
+      @notification.update_attributes!(
+        sender_id: current_user.id,
+        sent_at:   Time.zone.now,
+        recipient: params[:recipient])
+      @notification.delay.send_out
+
+      render :show
     end
 
     private
 
+    def fetch_notification
+      @notification = Notification.find(params[:id])
+    end
+
     def input
-      allow_input(:content)
+      allow_input(:content, :is_public)
     end
   end
 end

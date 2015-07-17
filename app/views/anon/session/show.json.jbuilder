@@ -3,14 +3,35 @@ siren json
 klass :session, :user
 
 json.properties do
-  json.call(current_user, :id, :first_name, :last_name)
+  json.call(current_user, :id, :first_name, :last_name, :email,
+            :phone, :address, :city, :state, :zip,
+            :bio, :twitter_url, :facebook_url, :linkedin_url,
+            :lifetime_rank, :organic_rank, :level, :partner?)
+
+  json.avatar do
+    [ :thumb, :preview, :large ].each do |key|
+      json.set! key, asset_path(current_user.avatar.url(key))
+    end
+  end if current_user.avatar?
+  json.is_admin current_user.role?(:admin)
+
+  json.allow_sms current_user.allow_sms != 'false'
+  json.allow_system_emails current_user.allow_system_emails != 'false'
+  json.allow_corp_emails current_user.allow_corp_emails != 'false'
+
   unless current_user.accepted_latest_terms?
     json.latest_terms ApplicationAgreement.current
   end
+
+  # Hstore stores booleans as strings; below converts back to boolean
+  json.watched_intro current_user.watched_intro == 'true'
+
+  json.notification current_user.unread_notifications.last
 end
 
 actions_list = [
-  action(:logout, :delete, login_path)
+  action(:logout, :delete, login_path),
+  action(:update_profile, :patch, profile_path)
 ]
 entity_list = []
 link_list = [
@@ -25,7 +46,6 @@ if current_user.accepted_latest_terms?
   entity_list << entity(%w(goals), 'user-goals', user_goals_path(current_user))
 
   link_list << link(:index, dashboard_path)
-  link_list << link(:profile, profile_path)
 end
 
 if current_user.role?(:admin)

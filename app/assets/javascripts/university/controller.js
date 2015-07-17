@@ -4,8 +4,8 @@
   function UniversityCtrl($scope, $rootScope, $location, $window, $anchorScroll, $routeParams, UniversityClass, UserProfile, Geo, CommonService) {
     $scope.redirectUnlessSignedIn();
 
-    UserProfile.get().then(function(user) {
-      $rootScope.currentUser = user;
+    UserProfile.get().then(function(data) {
+      $rootScope.currentUser = data.properties;
     });
 
     function getAction(actions, name) {
@@ -19,7 +19,9 @@
 
     $scope.canTakeClass = function(universityClass) {
       var enrollable = universityClass.properties.enrollable && universityClass.properties.state !== 'completed';
-      return enrollable && (universityClass.properties.purchased || universityClass.properties.price === 0);
+      return !universityClass.properties.prerequisite &&
+             enrollable &&
+             (universityClass.properties.purchased || universityClass.properties.price === 0);
     };
 
     $scope.canReviewClass = function(universityClass) {

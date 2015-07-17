@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="item in indexData.entities">
+    <tr ng-repeat="item in index.data.entities">
       <td>{{item.properties.id}}</td>
       <td><a ng-href="/admin/products/{{item.properties.id}}/edit">{{item.properties.name}}</a></td>
       <td>{{item.properties.bonus_volume/100}}</td>

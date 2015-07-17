@@ -11,13 +11,13 @@ class UsersJson < JsonDecorator
     entity_rel(rel) if rel
   end
 
-  LIST_PROPS = %w(downline_count personal personal_lifetime group 
+  LIST_PROPS = %w(downline_count personal personal_lifetime group
                   group_lifetime)
   def list_item_properties(user = @item) # rubocop:disable Metrics/AbcSize
     json.properties do
       json.call(user, :id, :first_name, :last_name, :email, :phone, :level,
                 :moved, :profile, :lifetime_rank)
-     
+
       LIST_PROPS.each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]
       end
@@ -41,13 +41,16 @@ class UsersJson < JsonDecorator
   def detail_properties(user = @item) # rubocop:disable Metrics/AbcSize
     list_item_properties
     json.properties do
-      json.call(user, :address, :city, :state, :zip, :profile, :avatar, :avatar_file_name)
+      json.call(user, :address, :city, :state, :zip, :profile, :avatar, :avatar_file_name, :last_sign_in_at)
       json.organic_rank rank_title(user.organic_rank)
       json.lifetime_rank rank_title(user.lifetime_rank)
       json.downline_count user.downline_users_count(user.id)
       if user.rank_path_id
         json.rank_path all_paths.find { |p| p.id == user.rank_path_id }.name
       end
+      json.allow_sms user.allow_sms != 'false'
+      json.allow_system_emails user.allow_system_emails != 'false'
+      json.allow_corp_emails user.allow_corp_emails != 'false'
     end
   end
 
@@ -78,7 +81,11 @@ class UsersJson < JsonDecorator
       entity(%w(list pay_periods), 'user-pay_periods',
              admin_user_pay_periods_path(user)),
       entity(%w(list invites), 'user_invites',
-             admin_user_invites_path(user))
+             admin_user_invites_path(user)),
+      entity(%w(list product_enrollments), 'user_product_enrollments',
+             admin_user_product_enrollments_path(user)),
+      entity(%w(list product_receipts), 'user_product_receipts',
+             admin_user_product_receipts_path(user))
   end
 
   def user_entities(user = @item)
@@ -102,5 +109,8 @@ class UsersJson < JsonDecorator
       .field(:city, :text, value: user.city)
       .field(:state, :text, value: user.state)
       .field(:zip, :text, value: user.zip)
+      .field(:allow_sms, :boolean, value: user.allow_sms != 'false')
+      .field(:allow_system_emails, :boolean, value: user.allow_system_emails != 'false')
+      .field(:allow_corp_emails, :boolean, value: user.allow_corp_emails != 'false')
   end
 end

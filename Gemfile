@@ -42,6 +42,7 @@ gem 'smarteru', github: 'eyecuelab/smarteru'
 # gem 'smarteru', path: '/Users/paul/Projects/eyecue/smarteru'
 gem 'figaro'
 gem 'hashie'
+gem 'twilio-ruby'
 
 group :development do
   gem 'spring'

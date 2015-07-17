@@ -45,6 +45,8 @@ module Auth
     def validate_input
       require_input :email
 
+      input['email'].downcase! unless SystemSettings.case_sensitive_auth
+
       error!(:you_exist, :email) if input['email'] == current_user.email
 
       existing = User.find_by_email(input['email'])

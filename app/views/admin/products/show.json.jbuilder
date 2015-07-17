@@ -12,5 +12,5 @@ actions \
   .field(:commission_percentage, :number,
          value:    @product.commission_percentage,
          required: false)
-  .field(:image_original_path, :string, value: @product.image_original_path),
+  .field(:image_original_path, :file, value: @product.image_original_path),
   action(:delete, :delete, product_path(@product))

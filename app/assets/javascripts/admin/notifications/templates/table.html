@@ -1,0 +1,43 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>ID <powur-sorter control="index" field="id"></powur-sorter></th>
+      <th>Content</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Sent</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in index.data.entities">
+      <td>{{ item.properties.id }}</td>
+      <td>{{ item.properties.content }}</td>
+      <td>{{ item.properties.is_public ? 'active' : 'hidden' }}</td>
+      <td>
+        {{ item.properties.user.full_name }}
+        <br>
+        {{ item.properties.created_at | date:'MM/dd/yyyy @ h:mma' }}
+      </td>
+      <td>
+        <span ng-if="item.properties.sent_at">
+          to: <b>{{ item.properties.recipient }}</b><br>
+          by: <b>{{ item.properties.sender.full_name }}</b><br>
+          at: <b>{{ item.properties.sent_at | date:'MM/dd/yyyy @ h:mma' }}</b><br>
+          <span ng-if="!item.properties.finished_at" class="success label">
+            distribution is in progress ...
+          </span>
+        </span>
+      </td>
+      <td>
+        <div ng-repeat="link in item.links">
+          <a ng-click="sendToRecipient(item, link.href)">{{ link.rel }}</a>
+          <br>
+        </div>
+        <a ng-href="/admin/notifications/{{ item.properties.id }}/edit">edit</a>
+        <br>
+        <a ng-click="confirm('Are you sure you want to delete this item?', 'delete', item)" class="manage-link">delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

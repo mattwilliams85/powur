@@ -5,6 +5,8 @@ users_json.list_item_properties(user)
 json.properties do 
   json.downline_count User.with_ancestor(user.id).count
   json.proposal_count user.quotes.count
+  json.upline user.upline
+  json.certified user.partner?
 end
 
 self_link user_path(user)

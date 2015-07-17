@@ -44,6 +44,10 @@ Rails.application.routes.draw do
     resource :invite, only: [ :create, :update, :destroy ] do
       post :validate
     end
+
+    resource :zip_validator , only: [] do
+      post :validate
+    end
   end
 
   # quote routes
@@ -133,6 +137,7 @@ Rails.application.routes.draw do
                                   controller: :user_activities
       member do
         get :downline
+        get :full_downline
         get :upline
         post :move
         get :eligible_parents
@@ -167,9 +172,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :notifications,
-              only:       [ :index, :show ],
-              as:         :user_notifications
+    resources :news_posts,
+              only: [ :index, :show ],
+              as:   :user_news_posts
 
     resources :social_media_posts,
               only: [ :index, :show ],
@@ -212,9 +217,9 @@ Rails.application.routes.draw do
     end
 
     # Latest News
-    resources :notifications,
+    resources :news_posts,
               only: [ :index, :create, :destroy, :show, :update ],
-              as:   :admin_notifications
+              as:   :admin_news_posts
 
     # Library
     resources :resources, as: :admin_resources
@@ -234,6 +239,12 @@ Rails.application.routes.draw do
     # Products
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
 
+    # Product Enrollments
+    resources :product_enrollments,  only: [ :index ], as: :admin_product_enrollments
+
+    # Product Receipts
+    resources :product_receipts,  only: [ :index ], as: :admin_product_receipts
+
     # # Quotes
     # resources :quotes, only: [ :index, :show ], as: :admin_quotes do
     #   member do
@@ -244,6 +255,12 @@ Rails.application.routes.draw do
     #     get '' => 'quotes#search', constraints: params?(:search)
     #   end
     # end
+
+    resources :notifications, as: :admin_notifications do
+      member do
+        post :send_out
+      end
+    end
 
     # Users
     resources :users, only: [ :index, :show, :update ], as: :admin_users do
@@ -256,6 +273,7 @@ Rails.application.routes.draw do
         get :upline
         post :move
         get :eligible_parents
+        get :sponsors
       end
 
       # Users / Bonus Payments
@@ -284,6 +302,12 @@ Rails.application.routes.draw do
       # Users / Pay Periods
       resources :pay_periods, only:       [ :index, :show ],
                               controller: :user_pay_periods
+
+      # Users / Product Enrollments
+      resources :product_enrollments, only: [ :index ]
+
+      # Users / Product Receipts
+      resources :product_receipts,  only: [ :index, :create ]
 
       # # Users / Rank Achievements
       # resources :rank_achievements,

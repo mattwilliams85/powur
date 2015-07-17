@@ -19,8 +19,6 @@ module Auth
     end
 
     def update
-      user_params['email'].downcase! if user_params['email']
-
       if @user.update_attributes(user_params)
         User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
       end
@@ -62,7 +60,10 @@ module Auth
                                    :phone, :address, :city, :state, :zip,
                                    :bio, :twitter_url, :facebook_url,
                                    :image_original_path, :avatar, :tos,
-                                   :watched_intro)
+                                   :watched_intro,
+                                   :allow_sms, :allow_system_emails,
+                                   :allow_corp_emails,
+                                   :mark_notifications_as_read)
     end
 
     # def avatar_params

@@ -1,0 +1,26 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th width="30">ID <powur-sorter control="index" field="id"></powur-sorter></th>
+      <th>Product Name <powur-sorter control="index" field="product_id"></powur-sorter></th>
+      <th width="30">User ID</th>
+      <th>User</th>
+      <th>Transaction ID</th>
+      <th>Authorization Code</th>
+      <th>Amount <powur-sorter control="index" field="amount"></powur-sorter></th>
+      <th>Date <powur-sorter control="index" field="date"></powur-sorter></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in index.data.entities">
+      <td>{{item.properties.id}}</td>
+      <td>{{item.properties.product.name}}</td>
+      <td>{{item.properties.user.id}}</td>
+      <td><a ng-href="/admin/users/{{item.properties.user.id}}">{{item.properties.user.first_name}} {{item.properties.user.last_name}}</a></td>
+      <td>{{item.properties.transaction_id}}</td>
+      <td>{{item.properties.auth_code}}</td>
+      <td>${{item.properties.amount | formattedPrice }}</td>
+      <td>{{item.properties.updated_at | dateTimeToLocal}}</td>
+    </tr>
+  </tbody>
+</table>

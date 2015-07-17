@@ -23,15 +23,21 @@
     };
 
     $scope.pagination = function(direction) {
-      var page = 1;
-      if ($scope.indexData) {
-        page = $scope.indexData.properties.paging.current_page;
+      var page = 1,
+          sort;
+      if ($scope.index.data) {
+        page = $scope.index.data.properties.paging.current_page;
+        sort = $scope.index.data.properties.sorting.current_sort;
       }
       page += direction;
       return CommonService.execute({
-        href: '/a/products.json?page=' + page
+        href: '/a/products',
+        params: {
+          page: page,
+          sort: sort
+        }
       }).then(function(data) {
-        $scope.indexData = data;
+        $scope.index.data = data;
         $anchorScroll();
       });
     };
@@ -108,6 +114,7 @@
   AdminProductsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
     if ($scope.mode === 'index') {
       $rootScope.breadcrumbs.push({title: 'Products'});
+      $scope.index = {};
       $scope.pagination(0);
     } else if ($scope.mode === 'new') {
       CommonService.execute({
@@ -134,8 +141,17 @@
         for (var i in fields) {
           $scope.product[fields[i].name] = fields[i].value;
         }
+        getUniversityClasses();
         $rootScope.breadcrumbs.push({title: 'Products', href: '/admin/products'});
         $rootScope.breadcrumbs.push({title: 'Update Product'});
+      });
+    }
+
+    function getUniversityClasses() {
+      CommonService.execute({
+        href: '/a/products?university_classes=true'
+      }).then(function(data) {
+        $scope.universityClasses = data.entities;
       });
     }
   };

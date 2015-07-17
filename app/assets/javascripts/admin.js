@@ -34,9 +34,12 @@
 //= require_tree ./admin/invites
 //= require_tree ./admin/landing
 //= require_tree ./admin/latest-news
+//= require_tree ./admin/notifications
 //= require_tree ./admin/orders
 //= require_tree ./admin/pay-periods
 //= require_tree ./admin/products
+//= require_tree ./admin/product-enrollments
+//= require_tree ./admin/product-receipts
 //= require_tree ./admin/proposals
 //= require_tree ./admin/resources
 //= require_tree ./admin/resource-topics

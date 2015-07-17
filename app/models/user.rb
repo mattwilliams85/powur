@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   include NameEmailSearch
   include UserScopes
   include PaperclipScopes
+  include Phone
 
   belongs_to :rank_path
 
@@ -25,7 +26,9 @@ class User < ActiveRecord::Base
                  :address, :city, :state, :country, :zip, :phone
   store_accessor :profile,
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
-                 :communications, :watched_intro
+                 :communications, :watched_intro,
+                 :allow_sms, :allow_system_emails, :allow_corp_emails,
+                 :notifications_read_at
 
   # No extra email validation needed,
   # email validation and confirmation happens with Invite
@@ -194,13 +197,30 @@ class User < ActiveRecord::Base
     @smarteru ||= SmarteruClient.new(self)
   end
 
-  def certified?
-    product_enrollments.completed.joins(:product)
-      .merge(Product.certifiable).count > 0
+  def partner?
+    product_receipts
+      .joins(:product)
+      .where(products: { slug: 'partner' }).count > 0
   end
 
   def submitted_proposals_count
     quotes.submitted.length
+  end
+
+  def mark_notifications_as_read=(*)
+    self.notifications_read_at = Time.zone.now.to_s(:db)
+  end
+
+  def unread_notifications
+    notifications = Notification.published.sorted
+    if partner?
+      notifications = notifications.for_partners
+    else
+      notifications = notifications.for_advocates
+    end
+    notifications = notifications
+      .where('created_at > ?', notifications_read_at) if notifications_read_at
+    notifications
   end
 
   private

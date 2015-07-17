@@ -1,6 +1,6 @@
 module Admin
   class UsersController < AdminController
-    before_action :fetch_user, only: [ :downline, :upline, :show, :update, :eligible_parents, :move ]
+    before_action :fetch_user, only: [ :downline, :upline, :show, :update, :sponsors, :eligible_parents, :move ]
     page max_limit: 25
     sort id_asc:          { id: :asc },
          id_desc:         { id: :desc },
@@ -50,8 +50,10 @@ module Admin
     end
 
     def update
-      input = allow_input(:first_name, :last_name, :email, :phone,
-                          :address, :city, :state, :zip)
+      input = params.permit(:first_name, :last_name, :email, :phone,
+                            :address, :city, :state, :zip,
+                            :allow_sms, :allow_system_emails,
+                            :allow_corp_emails)
 
       @user.update_attributes!(input)
 
@@ -65,6 +67,12 @@ module Admin
         .order(:upline)
 
       render 'auth/users/select_index'
+    end
+
+    def sponsors
+      @users = [ @user.sponsor, @user.sponsor.try(:sponsor) ].compact
+
+      render 'sponsors'
     end
 
     def move

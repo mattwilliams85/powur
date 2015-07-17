@@ -5,7 +5,13 @@ module Anon
 
     def create
       require_input :email
-      user = User.find_by_email(params[:email])
+
+      user = if SystemSettings.case_sensitive_auth
+        User.find_by(email: params[:email])
+      else
+        User.where('lower(email) = ?', params[:email].downcase).first
+      end
+
       user.send_reset_password if user
 
       head 200

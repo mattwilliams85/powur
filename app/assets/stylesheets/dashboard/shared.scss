@@ -73,6 +73,47 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
      opacity: 1;
   }
 
+  .suggestion-box {
+    list-style: none;
+    background-color: #fff;
+    padding: 5px 0;
+    margin-top: -20px;
+    margin-left: 0;
+    border: 1px solid #ccc;
+    position: absolute;
+    width: 100%;
+    z-index: 9;
+
+    li {
+      cursor: pointer;
+      padding: 0 10px;
+      overflow: hidden;
+      .right-label {
+        color: #ccc;
+        float: right;
+      }
+      .left-label {
+        float: left;
+        white-space: nowrap;
+        width: 72%;
+        overflow: hidden;
+        text-overflow: '';
+        color: #333;
+        
+        .highlight {
+          color: #169AC0;
+        }
+      }
+      
+      &:hover {
+        background-color: #4575ED;
+        span {
+          color: #fff !important;
+        }
+      }
+    }
+  }
+
   .drilldown {
     position: relative;
     background-color: #444;

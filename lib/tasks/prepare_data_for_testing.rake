@@ -26,6 +26,7 @@ namespace :powur do
 
       user.update_attributes(
         email: "development+#{user.id}@eyecuelab.com",
+        phone: '+15005550006',
         password: new_password,
         password_confirmation: new_password)
     end

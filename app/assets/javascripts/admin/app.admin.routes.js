@@ -38,6 +38,19 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminResourceTopicsCtrl'
     }).
+    // Notifications
+    when('/admin/notifications', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/admin/notifications/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/admin/notifications/:notificationId/edit', {
+      templateUrl: 'shared/admin/rest/edit.html',
+      controller: 'AdminNotificationsCtrl'
+    }).
     // Application and Agreements
     when('/admin/application-agreements', {
       templateUrl: 'shared/admin/rest/index.html',
@@ -138,6 +151,16 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminProductsCtrl'
     }).
+    // Product Enrollments
+    when('/admin/product_enrollments', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminProductEnrollmentsCtrl'
+    }).
+    // Product Receipts
+    when('/admin/product_receipts', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminProductReceiptsCtrl'
+    }).
     // Users
     when('/admin/users', {
       templateUrl: 'admin/users/templates/index.html',
@@ -199,7 +222,7 @@
       templateUrl: 'shared/admin/rest/new.html',
       controller: 'AdminLatestNewsCtrl'
     }).
-    when('/admin/latest-news/:notificationId/edit', {
+    when('/admin/latest-news/:newsPostId/edit', {
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminLatestNewsCtrl'
     }).

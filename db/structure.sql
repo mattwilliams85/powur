@@ -444,14 +444,51 @@ ALTER SEQUENCE lead_updates_id_seq OWNED BY lead_updates.id;
 
 
 --
+-- Name: news_posts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE news_posts (
+    id integer NOT NULL,
+    content text,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: news_posts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE news_posts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: news_posts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE news_posts_id_seq OWNED BY news_posts.id;
+
+
+--
 -- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE notifications (
     id integer NOT NULL,
-    content text,
+    user_id integer,
+    content character varying,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    sender_id integer,
+    sent_at timestamp without time zone,
+    finished_at timestamp without time zone,
+    recipient character varying,
+    is_public boolean
 );
 
 
@@ -611,7 +648,9 @@ CREATE TABLE product_receipts (
     amount numeric(10,2) NOT NULL,
     transaction_id character varying NOT NULL,
     order_id character varying NOT NULL,
-    auth_code character varying
+    auth_code character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
 );
 
 
@@ -654,7 +693,8 @@ CREATE TABLE products (
     is_required_class boolean DEFAULT false,
     "position" integer,
     long_description text,
-    slug character varying
+    slug character varying,
+    prerequisite_id integer
 );
 
 
@@ -1292,6 +1332,13 @@ ALTER TABLE ONLY lead_updates ALTER COLUMN id SET DEFAULT nextval('lead_updates_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY news_posts ALTER COLUMN id SET DEFAULT nextval('news_posts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
 
 
@@ -1533,6 +1580,14 @@ ALTER TABLE ONLY lead_updates
 
 
 --
+-- Name: news_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY news_posts
+    ADD CONSTRAINT news_posts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1764,6 +1819,13 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 --
 
 CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
+
+
+--
+-- Name: index_notifications_on_is_public; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_notifications_on_is_public ON notifications USING btree (is_public);
 
 
 --
@@ -2449,4 +2511,22 @@ INSERT INTO schema_migrations (version) VALUES ('20150626223201');
 INSERT INTO schema_migrations (version) VALUES ('20150629175330');
 
 INSERT INTO schema_migrations (version) VALUES ('20150706185018');
+
+INSERT INTO schema_migrations (version) VALUES ('20150708221726');
+
+INSERT INTO schema_migrations (version) VALUES ('20150708230822');
+
+INSERT INTO schema_migrations (version) VALUES ('20150709214735');
+
+INSERT INTO schema_migrations (version) VALUES ('20150715005704');
+
+INSERT INTO schema_migrations (version) VALUES ('20150715205200');
+
+INSERT INTO schema_migrations (version) VALUES ('20150715234501');
+
+INSERT INTO schema_migrations (version) VALUES ('20150716175804');
+
+INSERT INTO schema_migrations (version) VALUES ('20150716200159');
+
+INSERT INTO schema_migrations (version) VALUES ('20150716204546');
 

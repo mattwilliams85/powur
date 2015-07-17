@@ -40,4 +40,32 @@ describe Product, type: :model do
       expect(product.commission_remaining(bonus2)).to eq(240.00)
     end
   end
+
+  describe '#prerequisites_taken?' do
+    let(:user) { create(:user) }
+    subject { product.prerequisites_taken?(user) }
+
+    context 'no prerequisite required' do
+      let(:product) { create(:product) }
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'prerequisite not taken' do
+      let(:product) { create(:product, prerequisite: create(:product)) }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'prerequisite taken' do
+      let(:prerequisite) { create(:product) }
+      let(:product) { create(:product, prerequisite: prerequisite) }
+      let(:product_enrollment) { create(:product_enrollment, user: user, product: prerequisite) }
+      before do
+        product_enrollment.complete!
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
 end

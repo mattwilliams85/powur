@@ -4,8 +4,8 @@
   function MembershipsCtrl($scope, $location, $anchorScroll, $window, $timeout, UserProfile, CommonService) {
     $scope.redirectUnlessSignedIn();
 
-    UserProfile.get().then(function(user) {
-      $scope.currentUser = user;
+    UserProfile.get().then(function(data) {
+      $scope.currentUser = data.properties;
     });
 
     $scope.legacyImagePaths = legacyImagePaths;

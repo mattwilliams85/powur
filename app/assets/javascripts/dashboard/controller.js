@@ -5,20 +5,11 @@
     $scope.redirectUnlessSignedIn();
 
     //Fetch Profile
-    UserProfile.get().then(function(user) {
-      $rootScope.currentUser = user;
+    UserProfile.get().then(function(data) {
+      $rootScope.currentUser = data.properties;
+      $scope.actions = data.actions;
       $scope.fetchGoals();
       kpiHeaders();
-
-      // Logic for showing Powur Beta Dashboard Overview Video
-      if (user.watched_intro === false && !user.latest_terms) {
-        $scope.showVideoModal($scope.legacyImagePaths.betaDashboardVideo);
-        UserProfile.update({user: {watched_intro: true}});
-      }
-
-      // Logic for showing link to Powur Beta Dashboard Overview Video
-      $scope.showBetaDashboardVideoLink = true;
-
     });
 
     // Populate Social Media Quote
@@ -48,16 +39,23 @@
 
     $scope.legacyImagePaths = legacyImagePaths;
 
+    $scope.closeNotification = function() {
+      if (!$scope.currentUser.notification) return;
+      var action = getAction($scope.actions, 'update_profile');
+      CommonService.execute(action, {user: {mark_notifications_as_read: '1'}});
+      $scope.currentUser.notification = null;
+    };
+
     $scope.loadMoreNews = function() {
       var nextPage = $scope.currentNewsPage + 1;
       CommonService.execute({
-        href: '/u/notifications.json?page=' + nextPage
-      }).then(function(notifications) {
-        for (var i in notifications.entities) {
-          $scope.news.push(notifications.entities[i]);
+        href: '/u/news_posts.json?page=' + nextPage
+      }).then(function(news_posts) {
+        for (var i in news_posts.entities) {
+          $scope.news.push(news_posts.entities[i]);
         }
-        $scope.currentNewsPage = notifications.properties.paging.current_page;
-        if (notifications.properties.paging.page_count > notifications.properties.paging.current_page) {
+        $scope.currentNewsPage = news_posts.properties.paging.current_page;
+        if (news_posts.properties.paging.page_count > news_posts.properties.paging.current_page) {
           $scope.moreNews = true;
         } else {
           $scope.moreNews = false;
@@ -71,13 +69,13 @@
       return $scope.legacyImagePaths.goalsBadges[rank];
     }
 
-    //Fetch Notifications
+    //Fetch News Posts
     CommonService.execute({
-      href: '/u/notifications.json'
-    }).then(function(notifications) {
-      $scope.news = notifications.entities;
-      $scope.currentNewsPage = notifications.properties.paging.current_page;
-      if (notifications.properties.paging.page_count > notifications.properties.paging.current_page) {
+      href: '/u/news_posts.json'
+    }).then(function(news_posts) {
+      $scope.news = news_posts.entities;
+      $scope.currentNewsPage = news_posts.properties.paging.current_page;
+      if (news_posts.properties.paging.page_count > news_posts.properties.paging.current_page) {
         $scope.moreNews = true;
       } else {
         $scope.moreNews = false;
@@ -153,18 +151,6 @@
       return (result / quantity  * 100) + '%';
     };
 
-    $scope.showVideoModal = function(videoUrl) {
-      var domElement =
-        '<div class=\'reveal-modal\' data-options="close_on_background_click:false" data-reveal>' +
-        '<h3>' + 'Powur Beta Dashboard Overview' + '</h3>' +
-        '<video width="100%" autoplay controls>' +
-        '<source src="' + videoUrl + '" type="video/mp4">' +
-        '</video>' +
-        '<a class=\'close-reveal-modal\'>&#215;</a>' +
-        '</div>';
-      $(domElement).foundation('reveal', 'open');
-    };
-
   }
 
   DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService', 'Utility'];
@@ -179,5 +165,17 @@
         }
       };
   });
+
+  /**
+   * Utility functions
+   */
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
+  }
 
 })();

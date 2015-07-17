@@ -5,8 +5,8 @@
   function EarningsCtrl($scope, $rootScope, $location, $http, UserProfile) {
     $scope.redirectUnlessSignedIn();
 
-    UserProfile.get().then(function(user) {
-      $rootScope.currentUser = user;
+    UserProfile.get().then(function(data) {
+      $rootScope.currentUser = data.properties;
 
       requestEarnings(function successCallback(data) {
         $scope.earningsData = data;
