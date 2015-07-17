@@ -45,11 +45,10 @@ module Auth
       if params[:search].to_i > 0
         @users = scope.where(id: params[:search].to_i)
       else 
-        @users = scope.where('
-          lower(first_name) LIKE :search 
-          OR lower(last_name) LIKE :search', 
-          search: "%#{params[:search].downcase}%")
-          .limit(5)
+        @users = scope
+        .where("lower(first_name || ' ' || last_name) LIKE ?", "%#{params[:search].downcase}%")
+        .limit(7)
+        .order(:first_name)
       end
     end
 
