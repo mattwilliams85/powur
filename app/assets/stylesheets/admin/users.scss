@@ -15,20 +15,8 @@
     background: inherit;
   }
 
-  select {
-    display: block;
-    position: relative;
-    top: 0;
-    height: 2.3125em;
-    margin-bottom: 1.25em;
-    margin-top: 0px;
-    padding: 0px;
+  table {
     width: 100%;
-    background: white;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    font-size: 0.875em;
-    vertical-align: top;
   }
 
   .tab-title.active a {
