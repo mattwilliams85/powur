@@ -310,16 +310,55 @@
     });
 
     // Apply Search
-    $scope.customerSection.search = function () {
-      $scope.customerSection.proposalSort = '';
-      $scope.customerSection.proposalStatus = '';
-      $scope.customerSection.applyIndexActions();
-      if ($scope.customerSection.proposalSearch === '') {
-        $scope.customerSection.searching = false;
-      } else {
-        $scope.customerSection.searching = true;
+    $scope.customerSection.search = function (user) {
+      if (!$scope.nameQuery.length) return;
+
+      if(typeof(user) != 'object') {
+        user = $scope.nameQuery[0];
+        $scope.nameQuery = [];
       }
+      for (var i=0; i < $scope.proposals.length; i++) {
+        if($scope.proposals[i].properties.id === user.properties.id) {
+          $('.owl-carousel').trigger('owl.jumpTo', i);
+          $scope.customerSection.showProposal(i);
+        }
+      }
+      // $scope.customerSection.proposalSort = '';
+      // $scope.customerSection.proposalStatus = '';
+      // $scope.customerSection.applyIndexActions();
+      // if ($scope.customerSection.proposalSearch === '') {
+      //   $scope.customerSection.searching = false;
+      // } else {
+      //   $scope.customerSection.searching = true;
+      // }
     };
+
+    $scope.customerSearch = {};
+
+    $scope.clearQuery = function(i) {
+      $scope.focused = true;
+      $timeout(function() {
+        if(i) $scope.focused = false;
+      }, 100)    
+    }
+
+    $scope.fetchNames = function(){
+      if (!$scope.customerSearch.string) return $scope.nameQuery = [];
+      CommonService.execute({
+        href: '/u/users/' + $rootScope.currentUser.id + '/quotes.json',
+        params: {search: $scope.customerSearch.string, limit: 7}
+      }).then(function(items){
+        // debugger
+        $scope.nameQuery = items.entities;
+        $timeout(function() {
+          $('.left-label').wrapInTag({
+            tag: 'span class="highlight"',
+            words: [$scope.customerSearch.string]
+          });
+        })
+       
+      });
+    }
 
     // Apply Sort/Status
     $scope.customerSection.applyIndexActions = function() {

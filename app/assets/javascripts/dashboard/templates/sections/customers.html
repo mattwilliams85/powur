@@ -16,7 +16,19 @@
         <div class="row collapse">
           <form ng-submit="customerSection.search()">
             <div class="no-padding large-12 medium-12 small-12 columns">
-              <input ng-model="customerSection.proposalSearch" type="search" placeholder="SEARCH">
+              <!-- <input ng-model="customerSection.proposalSearch" type="search" placeholder="SEARCH"> -->
+              <input 
+                id="customer-search" 
+                type="search" 
+                ng-model="customerSearch.string"  
+                placeholder="SEARCH" 
+                ng-change="fetchNames()" 
+                ng-blur="clearQuery(true)" 
+                ng-focus="clearQuery(false)">
+              <!-- Loading Animation -->
+              <ul ng-show="nameQuery.length && focused && customerSearch.string.length" class="suggestion-box">
+                <li ng-repeat="user in nameQuery" ng-click="customerSection.search(user)"><span class="left-label">{{user.properties.customer}}</span></li>
+              </ul>
             </div>
           </form>
         </div>
