@@ -183,6 +183,9 @@
         if (index + 1 === $scope.dQueue.length || !$scope.dQueue.length) {
           $timeout(function(){
             $scope.jumping = false;
+            $('html, body').animate({
+                scrollTop: $("#carousel-" + index).offset().top - 300
+            }, 10);
           }, 10);
         }
       });
@@ -192,17 +195,23 @@
     function jumpTo(id, index){
       for (var i=0; i < $scope.downline[index].length; i++) {
         if ($scope.downline[index][i].id === id) { 
-          $('#carousel-' + (index)).trigger('owl.jumpTo', i)
+          $('#carousel-' + index).trigger('owl.jumpTo', i)
         }
       }
     }
 
 //SEARCH
-    $scope.clearNames = function(){
-      $timeout(function(){
-        $scope.nameQuery = [];
-      },100)
-    }
+    $.fn.wrapInTag = function(opts) {
+      var tag = opts.tag || 'strong'
+        , words = opts.words || []
+        , regex = RegExp(words.join('|'), 'gi') // case insensitive
+        , replacement = '<'+ tag +'>$&</'+ tag +'>';
+
+      return this.html(function() {
+        return $(this).text().replace(regex, replacement);
+      });
+    };
+
 
     $scope.fetchNames = function(){
       if (!$scope.teamSearch.string) return $scope.nameQuery = [];
@@ -211,6 +220,13 @@
         params: {search: $scope.teamSearch.string}
       }).then(function(items){
         $scope.nameQuery = initDownline(items).entities;
+        $timeout(function() {
+          $('.left-label').wrapInTag({
+            tag: 'span class="highlight"',
+            words: [$scope.teamSearch.string]
+          });
+        })
+       
       });
     }
 
@@ -261,9 +277,6 @@
       $scope.downline[$scope.downline.length - 1].selected = user.upline[user.upline.length - 1]
       $scope.activeTab = 'info';
       $scope.downline[dCount].tab = 'info';
-      $('html, body').animate({
-          scrollTop: $(".info-row").offset().top - 300
-      }, 10);
       return;
     }
 

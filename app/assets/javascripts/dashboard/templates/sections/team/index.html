@@ -16,14 +16,14 @@
         <div class="row collapse">
           <form ng-submit="teamSection.search()" class="search-form">
             <div class="no-padding large-12 medium-12 small-12 columns">
-              <input id="team-search" type="search" ng-model="teamSearch.string"  placeholder="SEARCH" ng-change="fetchNames()" ng-blur="clearNames()">
+              <input id="team-search" type="search" ng-model="teamSearch.string"  placeholder="SEARCH" ng-change="fetchNames()" ng-blur="focused = false" ng-focus="focused = true">
               <!-- Loading Animation -->
               <div ng-show="jumping" class="sk-spinner sk-spinner-three-bounce">
                 <div class="sk-bounce1"></div>
                 <div class="sk-bounce2"></div>
                 <div class="sk-bounce3"></div>
               </div>
-              <ul ng-show="nameQuery.length" class="suggestion-box">
+              <ul ng-show="nameQuery.length && focused && teamSearch.string.length" class="suggestion-box">
                 <li ng-repeat="user in nameQuery" ng-click="teamSection.search(user)"><span class="left-label">{{user.first_name + ' ' + user.last_name}}</span><span class="right-label">#{{user.id}}</span></li>
               </ul>
             </div>
@@ -128,8 +128,11 @@
                     'raise': hover || isMobile() || is.accordion(0) || is.activeMember(member, downline[0]),
                     'accordion': is.accordion(0) }"
                     ng-click="changeTab(member, downline[0], 'info');">
-                <div class="avatar" ng-class="{'accordion': is.accordion(0) }">
-                  <img class="lazyOwl" data-src="{{member.avatar.thumb}}">
+                <div class="avatar" ng-class="{'accordion': is.accordion(0)}">
+                  <div class="tooltips cert-badge" ng-show="member.certified" >
+                    <span>Certified!</span>
+                  </div>
+                  <img class="lazyOwl" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified}"> 
                 </div>
                 <div class="info-text user-text">
                   <span>{{member.first_name}} {{member.last_name}}</span>
