@@ -55,7 +55,13 @@ module Admin
       input = params.permit(:first_name, :last_name, :email, :phone,
                             :address, :city, :state, :zip,
                             :allow_sms, :allow_system_emails,
-                            :allow_corp_emails)
+                            :allow_corp_emails,
+                            :password, :password_confirm)
+
+      if input[:password] && input[:password] != input[:password_confirm]
+        error!(:password_confirm, :password_confirm)
+      end
+      input.delete(:password_confirm)
 
       @user.update_attributes!(input)
 

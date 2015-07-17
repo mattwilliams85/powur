@@ -269,11 +269,8 @@ Rails.application.routes.draw do
         get :invites
       end
       member do
-        get :downline
-        get :upline
+        get :downline, :upline, :eligible_parents, :sponsors
         post :move
-        get :eligible_parents
-        get :sponsors
       end
 
       # Users / Bonus Payments

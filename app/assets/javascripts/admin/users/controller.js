@@ -17,10 +17,6 @@
       }
     };
 
-    //
-    // Utility Functions
-    //
-
     $scope.pagination = function(direction) {
       var page = 1,
           sort;
@@ -45,23 +41,10 @@
       $location.path('/admin/users');
     };
 
-    $scope.getAction = function(actions, name) {
-      for (var i in actions) {
-        if (actions[i].name === name) {
-          return actions[i];
-        }
+    $scope.confirm = function(msg, clickAction, arg) {
+      if (window.confirm(msg)) {
+        return $scope.$eval(clickAction)(arg);
       }
-      return;
-    };
-
-    $scope.setFormValues = function(formAction) {
-      var formValues = {};
-      for (var i in formAction.fields) {
-        var key = formAction.fields[i].name;
-        var value = formAction.fields[i].value;
-        formValues[key] = (value);
-      }
-      return formValues;
     };
 
     $scope.getEntityData = function(entities, entityRel) {
@@ -77,7 +60,6 @@
           return $scope[entityRel];
         });
       }
-
     };
 
     //
@@ -87,13 +69,14 @@
     // Update
     $scope.update = function() {
       if ($scope.formValues) {
+        $scope.isSubmitDisabled = true;
         CommonService.execute({
           href: '/a/users/' + $routeParams.userId + '.json',
           method: 'PATCH',
         }, $scope.formValues).then(function success(data) {
-          $scope.isSubmitDisabled = true;
           if (data.error) {
             $scope.showModal('There was an error while updating this user.');
+            $scope.isSubmitDisabled = false;
             return;
           }
           $anchorScroll();
@@ -205,6 +188,7 @@
     if (/\/users$/.test($location.path())) return $scope.mode = 'index';
     if (/\/new$/.test($location.path())) return $scope.mode = 'new';
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
+    if (/\/edit_password$/.test($location.path())) return $scope.mode = 'edit_password';
   };
 
   AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
@@ -219,8 +203,8 @@
         href: '/a/users/' + $routeParams.userId + '.json'
       }).then(function(item) {
         $scope.user = item;
-        $scope.formAction = $scope.getAction(item.actions, 'update');
-        $scope.formValues = $scope.setFormValues($scope.formAction);
+        $scope.formAction = getAction(item.actions, 'update');
+        $scope.formValues = setFormValues($scope.formAction);
 
         // Get Data for Sponsors
         $scope.overview.getSponsors(item);
@@ -239,22 +223,51 @@
         $rootScope.breadcrumbs.push({title: $scope.user.properties.first_name + ' ' + $scope.user.properties.last_name});
 
       });
-
     } else if ($scope.mode === 'edit') {
       CommonService.execute({
         href: '/a/users/' + $routeParams.userId +'.json'
       }).then(function(item) {
         $scope.user = item;
-        $scope.formAction = $scope.getAction(item.actions, 'update');
-        $scope.formValues = $scope.setFormValues($scope.formAction);
+        $scope.formAction = getAction(item.actions, 'update');
+        $scope.formValues = setFormValues($scope.formAction);
 
         // Breadcrumbs: Users / Edit User
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
         $rootScope.breadcrumbs.push({title: ($scope.user.properties.first_name + ' ' + $scope.user.properties.last_name), href: '/admin/users/' + $scope.user.properties.id});
         $rootScope.breadcrumbs.push({title: 'Edit User'});
       });
+    } else if ($scope.mode === 'edit_password') {
+      CommonService.execute({
+        href: '/a/users/' + $routeParams.userId +'.json'
+      }).then(function(item) {
+        $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
+        $rootScope.breadcrumbs.push({title: (item.properties.first_name + ' ' + item.properties.last_name), href: '/admin/users/' + item.properties.id});
+        $rootScope.breadcrumbs.push({title: 'Edit Password'});
+      });
     }
   };
+
+  //
+  // Utility Functions
+  //
+
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+  }
+
+  function setFormValues(formAction) {
+    var formValues = {};
+    for (var i in formAction.fields) {
+      var key = formAction.fields[i].name;
+      var value = formAction.fields[i].value;
+      formValues[key] = (value);
+    }
+    return formValues;
+  }
 
   AdminUsersCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'CommonService'];
   angular.module('powurApp').controller('AdminUsersCtrl', AdminUsersCtrl);

@@ -174,6 +174,10 @@
       templateUrl: 'admin/users/templates/edit.html',
       controller: 'AdminUsersCtrl'
     }).
+    when('/admin/users/:userId/edit_password', {
+      templateUrl: 'admin/users/templates/edit_password.html',
+      controller: 'AdminUsersCtrl'
+    }).
     // Quotes
     when('/admin/proposals', {
       templateUrl: 'admin/proposals/templates/index.html',
