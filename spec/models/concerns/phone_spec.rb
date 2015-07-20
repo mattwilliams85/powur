@@ -10,7 +10,7 @@ describe Phone, type: :model do
 
     context 'when twilio is enabled' do
       before do
-        allow(user).to receive(:twilio_enabled).and_return(true)
+        allow(user).to receive(:twilio_enabled?).and_return(true)
       end
 
       it 'should trigger sms creation' do
@@ -31,7 +31,7 @@ describe Phone, type: :model do
 
     context 'when twilio disabled' do
       before do
-        allow(user).to receive(:twilio_enabled).and_return(false)
+        allow(user).to receive(:twilio_enabled?).and_return(false)
       end
 
       it 'does not send sms' do
