@@ -4,8 +4,8 @@ module Admin
     before_action :fetch_user, only: [ :downline, :upline, :show, :update, :sponsors, :eligible_parents, :move ]
 
     page max_limit: 25
-    sort id_asc:          { id: :asc },
-         id_desc:         { id: :desc },
+    sort id_desc:         { id: :desc },
+         id_asc:          { id: :asc },
          first_name_asc:  { first_name: :asc },
          first_name_desc: { first_name: :desc }
     filter :with_purchases,
@@ -14,15 +14,10 @@ module Admin
            required:   false
 
     def index
-      respond_to do |format|
-        format.html
-        format.json do
-          @users = apply_list_query_options(User)
-          if params[:group]
-            group_ids = params[:group].split(',')
-            @users = @users.in_groups(*group_ids)
-          end
-        end
+      @users = apply_list_query_options(User)
+      if params[:group]
+        group_ids = params[:group].split(',')
+        @users = @users.in_groups(*group_ids)
       end
     end
 
