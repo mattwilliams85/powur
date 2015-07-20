@@ -21,6 +21,32 @@
     }
   }
 
+  .sk-spinner {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    background-color: #fff;
+    left: 0;
+
+    div {
+      width: 10px;
+      height: 10px;
+    }
+
+    &.big {
+      top: 40%;
+      right: 0;
+      background-color: transparent;
+      width: 100%;
+      height: 100%;
+
+      div {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
   // Customer Information on Submitted Proposals
   .submitted-proposal {
     position: relative;

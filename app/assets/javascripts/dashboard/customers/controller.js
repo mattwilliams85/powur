@@ -319,7 +319,7 @@
       }
       for (var i=0; i < $scope.proposals.length; i++) {
         if($scope.proposals[i].properties.id === user.properties.id) {
-          $('.owl-carousel').trigger('owl.jumpTo', i);
+          $('#customers-carousel').trigger('owl.jumpTo', i);
           $scope.customerSection.showProposal(i);
         }
       }
