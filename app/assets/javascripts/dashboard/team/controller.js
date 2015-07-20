@@ -299,6 +299,7 @@
 
     $scope.teamSection.sort = function() {
       closeTabs($('#carousel-0'));
+      $scope.downline = [];
       for (var i = 0; i < $scope.downline.length; i++){
         destroyCarousel('#carousel-'+ i);
       }
