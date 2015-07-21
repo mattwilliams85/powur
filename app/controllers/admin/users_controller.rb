@@ -21,7 +21,9 @@ module Admin
     end
 
     def invites
-      @users = apply_list_query_options(User)
+      scope = User
+      scope = scope.search(params[:search]) if params[:search]
+      @users = apply_list_query_options(scope)
     end
 
     def downline
