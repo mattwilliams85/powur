@@ -56,8 +56,8 @@
     }).
 
     //Webinar
-    when('/exclusive', {
-      templateUrl: 'user-static-content/templates/exclusive.html',
+    when('/preview', {
+      templateUrl: 'user-static-content/templates/preview.html',
       controller: 'UserStaticContentCtrl'
     }).
 
