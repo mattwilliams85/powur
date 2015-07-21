@@ -29,7 +29,7 @@ module Auth
         @users = apply_list_query_options(scope)
       end
 
-      index
+      render 'team'
     end
 
     def full_downline
