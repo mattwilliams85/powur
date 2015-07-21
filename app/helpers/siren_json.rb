@@ -107,12 +107,7 @@ module SirenJson
       json.method action.method.to_s.upcase
       json.call(action, :href)
       json.type 'application/json'
-      json.fields action.fields do |field|
-        json.call(field, :name, :type)
-        field.attributes.each do |key, value|
-          json.set! key, value
-        end if field.attributes
-      end unless action.fields.empty?
+      render_fields(action.fields)
     end
   end
 
@@ -165,6 +160,16 @@ module SirenJson
 
   private
 
+  def render_fields(fields)
+    return if fields.empty?
+    json.fields fields do |field|
+      json.call(field, :name, :type)
+      field.attributes.each do |key, value|
+        json.set! key, value
+      end if field.attributes
+    end
+  end
+
   def render_item_totals(id)
     json.totals do
       aggregator.selected.each do |key|
@@ -211,4 +216,5 @@ module SirenJson
     end
     json.totals @totals
   end
+
 end

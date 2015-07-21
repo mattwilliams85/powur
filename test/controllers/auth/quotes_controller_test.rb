@@ -68,7 +68,6 @@ module Auth
         last_name:  'Money',
         city:       'SunnyVille',
         state:      'FL',
-        zip:        zipcodes(:eligible).zip,
         phone:      '310.555.1212' }
     end
 

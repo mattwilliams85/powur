@@ -17,46 +17,19 @@ module Auth
     end
 
     def downline
-      scope = User.with_parent(@user.id)
+      @users = User.with_parent(@user.id)
 
-      if params[:search]
-        @users = User.search(params[:search]) 
-      elsif params[:sort] == 'proposals'
-        @users = scope.quote_performance(@user.id)
-      elsif params[:sort] == 'team'
-        @users = User.team_size(@user.id)
-      else
-        @users = apply_list_query_options(scope)
-      end
-
-      render 'team'
+      index
     end
 
-    def full_downline
-      scope = User.with_ancestor(params['id'])
+    def upline
+      @users = @user.upline_users
 
-      query_users(scope) if params[:search]
-
-      render 'team'
+      index
     end
 
-    def query_users(scope)
-      if params[:search].to_i > 0
-        @users = scope.where(id: params[:search].to_i)
-      else 
-        @users = scope
-        .where("lower(first_name || ' ' || last_name) LIKE ?", "%#{params[:search].downcase}%")
-        .limit(7)
-        .order(:first_name)
-      end
-    end
-
-    def move
-      # require_input :parent_id
-
-      # child = User.find(params[:child_id])
-      # parent = User.find(params[:parent_id])
-      # child.assign_parent(parent)
+    def eligible_parents
+      @users = @user.eligible_parents(current_user)
 
       index
     end
