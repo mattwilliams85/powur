@@ -55,20 +55,16 @@
     }
 
     function vidTimer(){
+      var seconds = 9;
       var timer = $interval(function(){
-        var date = new Date;
-        var seconds = 59 - date.getSeconds();
-        var minutes = 59 - date.getMinutes();
+        seconds -= 1;
 
-        if (minutes == 0 && seconds == 0) {
+        if (seconds == 0) {
           $interval.cancel(timer);
           $('#video-1').get(0).play();
         }
-
-        if (seconds < 10) seconds = '0' + seconds;
-        if (minutes < 10) minutes = '0' + minutes;
-
-        $scope.timer = minutes + ':' + seconds;
+        
+        $scope.timer = '00:0' + seconds;
       }, 1000)
     }
 
