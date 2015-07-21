@@ -1,0 +1,25 @@
+<powur-left-menu control="leftMenu"></powur-left-menu>
+
+<div class="pow-user-static-content exclusive" ng-class="{'active': leftMenu.isActive}" >
+  <ng-include src="'shared/header-signed-out.html'"></ng-include>
+  <div class="exclusive-webinar">
+    <div class="timer-box video-box" ng-show="timer == '00:00'">
+      <video class="video" id="video-1" ng-src="{{legacyImagePaths.betaVideo}}" preload>
+        Your browser does not support the <code>video</code> element.
+      </video>
+    </div>
+    <div class="timer-box" ng-hide="timer == '00:00'">
+      <span class="header">
+        <span class="beta">beta</span>
+        powur preview
+      </span>
+      <span class="detail">presentation starts in</span>
+      <span class="timer">{{timer}}</span>
+    </div>
+    <div class="bottom-text-box">
+      <span class="header">PLEASE <span class="highlight">DON'T SHARE</span> THIS VIDEO.</span>
+      <span class="header">THIS IS A <span class="highlight">PRIVATE PREVIEW</span> OF POWUR'S BETA PROGRAM</span>
+      <span class="detail">Get back to the person who told you about Powur to learn more.</span>
+    </div>
+  </div>
+</div>
