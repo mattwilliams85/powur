@@ -91,16 +91,10 @@
       $('<div class=\'reveal-modal ' + modalClass + '\' data-reveal><h3>' + text + '</h3><a class=\'close-reveal-modal\'>&#215;</a></div>').foundation('reveal', 'open');
     };
 
-    // TODO: move header functionality into its own directive
     $rootScope.signOut = function() {
-      var cb = function() {
-        $rootScope.isSignedIn = false;
+      $http.delete('/login.json').success(function() {
         window.location = '/sign-in';
-        // $location.path('/sign-in');
-      };
-      $http.delete('/login.json', {
-        xsrfHeaderName: 'X-CSRF-Token'
-      }).success(cb).error(cb);
+      });
     };
   }
 
