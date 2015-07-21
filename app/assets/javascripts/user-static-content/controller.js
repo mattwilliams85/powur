@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function UserStaticContentCtrl($scope, $rootScope, $location, $http, UserProfile, CommonService) {
+  function UserStaticContentCtrl($scope, $rootScope, $location, $http, $interval, $timeout, UserProfile, CommonService) {
     $scope.leftMenu = {};
 
     $scope.legacyImagePaths = legacyImagePaths;
@@ -24,7 +24,7 @@
     };
 
     this.init($scope, $location);
-    this.fetch($scope, $rootScope);
+    this.fetch($scope, $rootScope, $interval, $timeout);
   }
 
   UserStaticContentCtrl.prototype.init = function($scope, $location) {
@@ -33,9 +33,10 @@
     if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
     if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
     if (/\/contact$/.test($location.path())) return $scope.mode = 'contact';
+    if (/\/exclusive$/.test($location.path())) return $scope.mode = 'exclusive';
   };
 
-  UserStaticContentCtrl.prototype.fetch = function($scope, $rootScope) {
+  UserStaticContentCtrl.prototype.fetch = function($scope, $rootScope, $interval, $timeout) {
     if ($scope.mode === 'customer-faq' || $scope.mode === 'advocate-faq') {
       $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
         'Powur Customer FAQ' :
@@ -44,9 +45,33 @@
       $rootScope.$watch('currentUser', function(data) {
         if (data.id) $scope.getSponsors();
       });
+    } else if ($scope.mode === 'exclusive') {
+      vidTimer();
+      $timeout(function(){
+        $('#sun_header_guest').addClass('invert');
+      })
     }
+
+    function vidTimer(){
+      var timer = $interval(function(){
+        var date = new Date;
+        var seconds = 59 - date.getSeconds();
+        var minutes = 59 - date.getMinutes();
+
+        if (minutes == 0 && seconds == 0) {
+          $interval.cancel(timer);
+          $('#video-1').get(0).play();
+        }
+
+        if (seconds < 10) seconds = '0' + seconds;
+        if (minutes < 10) minutes = '0' + minutes;
+        
+        $scope.timer = minutes + ':' + seconds;
+      }, 1000)
+    }
+
   };
 
-  UserStaticContentCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', 'UserProfile', 'CommonService'];
+  UserStaticContentCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$interval', '$timeout', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('UserStaticContentCtrl', UserStaticContentCtrl);
 })();

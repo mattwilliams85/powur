@@ -111,4 +111,101 @@
       position: relative;
     }
   }
+
+  //Webinar Page
+  &.exclusive {
+    background: image-url('user-static-content/exclusive-bg.jpg');
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+    left: 0;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -ms-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+
+    &.active {
+      left: 300px;
+      position: relative;
+
+      .pow-header-guest {
+        left: 300px;
+      }
+    }
+
+    .exclusive-webinar {
+      margin-top: 80px;
+    }
+
+    .timer-box {
+      background: image-url('user-static-content/clouds.jpg');
+      background-size: cover;
+      width: 1000px;
+      height: 562px;
+      text-align: center;
+      margin: 5vh auto 15px auto;
+      padding: 100px;
+      position: relative;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+
+      &.video-box {
+        background: rba(0,0,0,0.8);
+        padding: 0px;
+
+        .video {
+          width: 100%;
+          height: 100%;
+          background: #000;
+        }
+      }
+
+      .header {
+        font-size: 32pt;
+        text-transform: uppercase;
+        display: block;
+        position: relative;
+
+        .beta {
+          position: absolute;
+          font-size: 11pt;
+          top: -5px;
+        }
+      }
+
+      .detail {
+        margin-top: 60px;
+        display: block;
+        text-transform: uppercase;
+        font-weight: 300;
+      }
+
+      .timer {
+        font-size: 85pt;
+        line-height: 80pt;
+      }
+    }
+
+    .bottom-text-box {
+      text-align: center;
+      width: 800px;
+      margin: 0 auto;
+
+      .header {
+        font-size: 18pt;
+        display: block;
+
+        .highlight {
+          color: $pow-color-orange;
+        }
+      }
+
+      .detail {
+        margin-top: 20px;
+        display: block;
+      }
+    }
+  }
 }
