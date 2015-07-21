@@ -6,9 +6,11 @@
 
     $scope.legacyImagePaths = legacyImagePaths;
 
-    UserProfile.get().then(function(data) {
-      $rootScope.currentUser = data.properties;
-    });
+    if ($rootScope.isSignedIn) {
+      UserProfile.get().then(function(data) {
+        $rootScope.currentUser = data.properties;
+      });
+    }
 
     // getSponsors is used on /contact page to retrieve Team Leader and Coach users
     $scope.getSponsors = function() {
@@ -65,7 +67,7 @@
 
         if (seconds < 10) seconds = '0' + seconds;
         if (minutes < 10) minutes = '0' + minutes;
-        
+
         $scope.timer = minutes + ':' + seconds;
       }, 1000)
     }
