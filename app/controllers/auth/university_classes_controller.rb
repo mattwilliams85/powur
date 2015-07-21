@@ -80,7 +80,7 @@ module Auth
     end
 
     def subscribe_to_mailchimp_list
-      mailchimp_subscribe_to('partners')
+      current_user.mailchimp_subscribe_to('partners')
     rescue => e
       Airbrake.notify(e)
     end
