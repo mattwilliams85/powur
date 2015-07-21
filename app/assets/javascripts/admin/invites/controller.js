@@ -24,12 +24,18 @@
         href: '/a/users/invites?with_purchases=true',
         params: {
           page: page,
-          sort: sort
+          sort: sort,
+          search: $scope.searchQuote
         }
       }).then(function(data) {
         $scope.index.data = data;
         $anchorScroll();
       });
+    };
+
+    $scope.search = function() {
+      $scope.index = {};
+      $scope.pagination(0);
     };
 
     $scope.updateAvailableInvites = function(item) {

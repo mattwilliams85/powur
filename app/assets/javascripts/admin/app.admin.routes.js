@@ -245,7 +245,7 @@
     }).
     // Invites
     when('/admin/invites', {
-      templateUrl: 'shared/admin/rest/index.html',
+      templateUrl: 'admin/invites/templates/index.html',
       controller: 'AdminInvitesCtrl'
     }).
 
