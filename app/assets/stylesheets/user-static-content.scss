@@ -185,6 +185,12 @@
       .timer {
         font-size: 85pt;
         line-height: 80pt;
+        width: 335px;
+        margin: 0 auto;
+
+        span {
+          float: left;
+        }
       }
     }
 

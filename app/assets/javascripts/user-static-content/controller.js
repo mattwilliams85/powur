@@ -33,7 +33,7 @@
     if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
     if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
     if (/\/contact$/.test($location.path())) return $scope.mode = 'contact';
-    if (/\/exclusive$/.test($location.path())) return $scope.mode = 'exclusive';
+    if (/\/preview$/.test($location.path())) return $scope.mode = 'preview';
   };
 
   UserStaticContentCtrl.prototype.fetch = function($scope, $rootScope, $interval, $timeout) {
@@ -45,7 +45,7 @@
       $rootScope.$watch('currentUser', function(data) {
         if (data.id) $scope.getSponsors();
       });
-    } else if ($scope.mode === 'exclusive') {
+    } else if ($scope.mode === 'preview') {
       vidTimer();
       $timeout(function(){
         $('#sun_header_guest').addClass('invert');
