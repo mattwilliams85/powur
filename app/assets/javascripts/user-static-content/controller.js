@@ -48,8 +48,8 @@
         if (data.id) $scope.getSponsors();
       });
     } else if ($scope.mode === 'preview') {
-      vidTimer();
       $timeout(function(){
+        vidTimer();
         $('#sun_header_guest').addClass('invert');
       })
     }
