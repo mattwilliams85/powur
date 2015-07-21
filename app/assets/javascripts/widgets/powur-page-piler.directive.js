@@ -2,10 +2,10 @@
   'use strict';
 
   //
-  // TODO: refactor this directive to get rid of $rootScope and $location
+  // TODO: refactor this directive to get rid of $rootScope
   //
 
-  function powurPagePiler($rootScope, $timeout, $location) {
+  function powurPagePiler($rootScope, $timeout) {
     function link(scope) {
       scope.internalControl = scope.control || {};
 
@@ -61,7 +61,7 @@
           afterRender: pilerAfterRender
         });
 
-        if ($location.path() === '/create-wealth') {
+        if (scope.internalControl.setAllowScrolling === false) {
           $.fn.pagepiling.setAllowScrolling(false);
         } else {
           $.fn.pagepiling.setAllowScrolling(true);
@@ -92,6 +92,10 @@
         }
       }
 
+      function getTempSrc(id) {
+        angular.element(document.querySelector(id)).attr('data-tempsrc');
+      }
+
       function pilerOnLeave(index, nextIndex) {
         changeNavColor();
         $rootScope.animateArrow(nextIndex, 1800);
@@ -99,16 +103,17 @@
         $timeout(function() {
           if (nextIndex === 1) {
             $('.pow-header-guest').velocity('transition.slideUpBigOut', function() {
-              $('.pow-header-guest').toggleClass('invert').show().velocity({ opacity: 1 }, 200);
+              $('.pow-header-guest')
+                .toggleClass('invert').show().velocity({ opacity: 1 }, 200);
             });
           }
           if (nextIndex > 1 && !$('.pow-header-guest').hasClass('invert')) { $('.pow-header-guest').toggleClass('invert').velocity('transition.slideDownBigIn');}
-          //Loads gif on slide entrance
-          if (nextIndex === 3) { $rootScope.gif1Src = angular.element(document.querySelector('#gif_1_src')).attr('data-tempsrc'); }
-          if (nextIndex === 4) { $rootScope.gif2Src = angular.element(document.querySelector('#gif_2_src')).attr('data-tempsrc'); }
-          if (nextIndex === 5) { $rootScope.gif3Src = angular.element(document.querySelector('#gif_3_src')).attr('data-tempsrc'); }
-          if (nextIndex === 6) { $rootScope.gif4Src = angular.element(document.querySelector('#gif_4_src')).attr('data-tempsrc'); }
-          $rootScope.$apply();
+          // Loads gif on slide entrance
+          if (nextIndex === 3) { $rootScope.gif1Src = getTempSrc('#gif_1_src'); }
+          if (nextIndex === 4) { $rootScope.gif2Src = getTempSrc('#gif_2_src'); }
+          if (nextIndex === 5) { $rootScope.gif3Src = getTempSrc('#gif_3_src'); }
+          if (nextIndex === 6) { $rootScope.gif4Src = getTempSrc('#gif_4_src'); }
+          scope.$apply();
           $('.gif'+index).removeClass('hidden');
         }, 650);
       }
@@ -131,7 +136,7 @@
       /*
        * Init
        */
-      $rootScope.$on('$locationChangeStart', function() {
+      scope.$on('$locationChangeStart', function() {
         scope.internalControl.removePiler();
       });
       scope.internalControl.removePiler();
@@ -147,7 +152,7 @@
     };
   }
 
-  powurPagePiler.$inject = ['$rootScope', '$timeout', '$location'];
+  powurPagePiler.$inject = ['$rootScope', '$timeout'];
 
   angular
     .module('widgets.powurPagePiler', [])

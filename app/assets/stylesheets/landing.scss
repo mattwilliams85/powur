@@ -285,15 +285,6 @@
       line-height:50pt;
     }
   }
-
-  // TODO: This is too ambiguous, put a class on it
-  // span {
-  //   line-height:20pt;
-  //   @media #{$small}{
-  //     font-size:15pt;
-  //     line-height:30pt;
-  //   }
-  // }
 }
 
 /*
