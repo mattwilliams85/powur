@@ -4,6 +4,36 @@
     background: image-url("landing/bg-2.jpg") center center no-repeat;
     background-size: cover;
 
+    // Wealth Quote/Paragraph
+    .wealth-text {
+      text-align: right;
+
+      .top-quote {
+        text-transform: uppercase;
+        font-size: 30pt;
+        line-height: 30pt;
+        font-weight: bold;
+      }
+
+      .lower-paragraph {
+        font-size: 12pt;
+      }
+
+      .emphasized {
+        color: #C99021;
+      }
+    }
+
+    // Watch Presentation Player Icon/Link
+    .watch-video {
+      text-align: center;
+      .player-link {
+        margin: auto;
+      }
+      .watch-link {
+      }
+    }
+
     // Fixed Section with wealth quote/paragraph
     .fixed-section {
       position: fixed;
@@ -13,34 +43,6 @@
       overflow: hidden;
       color: #fff;
 
-      // Wealth Quote/Paragraph
-      .wealth-text {
-        text-align: right;
-
-        .top-quote {
-          text-transform: uppercase;
-          font-size: 30pt;
-          line-height: 30pt;
-          font-weight: bold;
-        }
-
-        .lower-paragraph {
-          font-size: 12pt;
-        }
-
-        .emphasized {
-          color: #C99021;
-        }
-      }
-
-      // Watch Presentation Player Icon/Link
-      .watch-video {
-        text-align: center;
-        .player-link {
-        }
-        .watch-link {
-        }
-      }
     }
     // Scrolling section with sign-up form
     .scrolling-section {
@@ -48,6 +50,28 @@
       .sign-up-form {
         min-height: 100vh;
         background-color: #444;
+
+        // (only shows for medium/small screens)
+        .copy-text {
+          padding: 20px; 
+          color: #fff;
+
+          // Wealth Quote/Paragraph
+          .wealth-text {
+            text-align: center;
+          }
+
+          // Watch Presentation Player Icon/Link
+          .watch-video {
+            .player-link {
+              width: 120px;
+              padding-bottom: 10px;
+            }
+            .watch-link {
+              padding-bottom: 20px;
+            }
+          }
+        }
 
         .powur-logo {
           text-align: right;

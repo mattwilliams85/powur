@@ -5,16 +5,16 @@
       <!-- Left Side: Copy Text -->
       <div class="wealth-text">
         <p class="top-quote">The <span class="emphasized">greatest transfer of wealth</span> in human history has begun</p>
-        <p class="lower-paragraph">Solar is a $120 billion dollar market in the U.S. with <span class="emphasized">less than 1% installed.</span> The growth remaining will create unmitigated wealth for people who take action. Powur gives you the tools to do your part in reversing climate change, while building an income that is just as sexy as its impact.</p>
+        <p class="lower-paragraph">Powur is a group of forward thinking, innovative entrepreneurs changing how the world produces and consumes energy.  There is unprecedented opportunity to replace the $6 trillion dirty energy system with a new clean Powur grid.  In conjunction with SolarCity co-founded by visionary Elon Musk, we are rolling out a technology that will shift billions in wealth to the new #Grid Builders.  As our technology is currently in “Stealth” mode, limited invites are available to join the #NewGrid.</p>
       </div>
-      <!-- <div class="watch-video">
+      <div class="watch-video">
         <div class="player-link">
-          <a ng-click="showVideoModal()">
+          <a ng-click="showVideoModal(legacyImagePaths.wealthVideo)">
             <img src="{{legacyImagePaths.signUp.playerIcon}}">
           </a>
         </div>
         <p class="watch-link">Watch Presentation</p>
-      </div> -->
+      </div>
     </div>
 
     <!-- Scrolling Section (form on right side) -->
@@ -30,6 +30,26 @@
                 </a>
               </div>
             </div>
+            <!-- Copy Text (Medium/Small Screens) -->
+            <div class="row show-for-medium-down"
+                 ng-show="!invite.properties">
+              <div class="large-12 columns">
+                <div class="copy-text">
+                  <div class="wealth-text">
+                    <p class="top-quote">The <span class="emphasized">greatest transfer of wealth</span> in human history has begun</p>
+                    <p class="lower-paragraph">Powur is a group of forward thinking, innovative entrepreneurs changing how the world produces and consumes energy.  There is unprecedented opportunity to replace the $6 trillion dirty energy system with a new clean Powur grid.  In conjunction with SolarCity co-founded by visionary Elon Musk, we are rolling out a technology that will shift billions in wealth to the new #Grid Builders.  As our technology is currently in “Stealth” mode, limited invites are available to join the #NewGrid.</p>
+                  </div>
+                  <div class="watch-video">
+                    <div class="player-link">
+                      <a ng-click="showVideoModal(legacyImagePaths.wealthVideo)">
+                        <img class="player-link" src="{{legacyImagePaths.signUp.playerIcon}}">
+                      </a>
+                    </div>
+                    <p class="watch-link">Watch Presentation</p>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- Invite Information -->
             <div class="row">
               <div class="invite-info">
@@ -43,14 +63,14 @@
                 <div class="info-message small-8 columns"
                      ng-show="!invite.properties">
                   <h1>Welcome to Powur!</h1>
-                  <p>Powur is a referral-only, private network. Please enter your invite code to sign up.</p>
+                  <p>Powur is a referral-only, private network. Enter your invite code to continue.</p>
                 </div>
 
                 <!-- If valid invite -->
                 <div class="info-message small-8 columns"
                      ng-show="invite.properties">
                   <h1>Hello {{invite.properties.first_name}},</h1>
-                  <p>This is {{invite.properties.sponsor_first_name}}. Please join me in leading the next revolution in the solar industry!</p>
+                  <p>You’ve been invited to join the new Powur Grid!</p>
                 </div>
               </div>
             </div>
@@ -72,7 +92,7 @@
                 </div>
                 <div class="row">
                   <div class="small-12 columns">
-                    <button class="large button expand" type="submit">Sign Up For Powur</button>
+                    <button class="large button expand" type="submit">Join the Grid</button>
                   </div>
                 </div>
               </fieldset>
