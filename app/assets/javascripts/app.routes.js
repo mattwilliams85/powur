@@ -63,9 +63,9 @@
     }).
 
     // Promo
-    when('/create-wealth/:inviteCode?', {
-      templateUrl: 'promo/templates/create-wealth.html',
-      controller: 'PromoCtrl'
+    when('/create-wealth/:inviteCode', {
+      templateUrl: 'sign-up/templates/index.html',
+      controller: 'SignUpCtrl'
     }).
     when('/create-energy', {
       templateUrl: 'promo/templates/create-energy.html',
