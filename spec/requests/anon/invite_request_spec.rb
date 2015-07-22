@@ -1,57 +1,8 @@
 require 'spec_helper'
 
-describe '/a/invite' do
+describe '/invite' do
   before do
     DatabaseCleaner.clean
-  end
-
-  describe 'POST' do
-    let(:agreement) { double(dwight: 'schrute', version:'1.0') }
-    let(:sponsor) { create(:certified_user, available_invites: 3) }
-    let(:user) { create(:user) }
-    let(:invite) { create(:invite, user: user, sponsor: sponsor) }
-
-    it 'renders an error with an invalid code' do
-      post invite_path, code: 'nope', format: :json
-
-      expect_200
-      expect_input_error(:code)
-    end
-
-    it 'renders an error if an invite that already has been accepted' do
-      post invite_path, code: invite.id, format: :json
-
-      expect_input_error(:code)
-    end
-
-    it 'marks an invite for an existing user with same email address' do
-      invite = create(:invite, sponsor: sponsor, email: user.email)
-
-      post invite_path, code: invite.id, format: :json
-
-      expect_input_error(:code)
-      invite.reload
-      expect(invite.user_id).to eq(user.id)
-    end
-
-    it 'returns an invite when the user has inputted a code' do
-      allow(ApplicationAgreement).to receive(:current).and_return(agreement)
-      invite = create(:invite, sponsor: sponsor)
-      post invite_path, code: invite.id, format: :json
-
-      expect_200
-      expect_classes('invite')
-      expect_actions('accept_invite')
-      expect_props latest_terms: agreement.as_json
-    end
-
-    it 'clears a code from session' do
-      post invite_path, code: invite.id, format: :json
-
-      delete invite_path, format: :json
-      expect_200
-      expect_classes('session', 'anonymous')
-    end
   end
 
   describe 'PATCH' do
@@ -110,5 +61,53 @@ describe '/a/invite' do
       @invite.reload
       expect(@invite.user_id).to eq(user_id)
     end
+  end
+end
+
+describe '/invite/validate' do
+  before do
+    DatabaseCleaner.clean
+  end
+
+  describe 'POST' do
+    let(:agreement) { double(dwight: 'schrute', version:'1.0') }
+    let(:sponsor) { create(:certified_user, available_invites: 3) }
+    let(:user) { create(:user) }
+    let(:invite) { create(:invite, user: user, sponsor: sponsor) }
+
+    it 'renders an error with an invalid code' do
+      post validate_invite_path, code: 'nope', format: :json
+
+      expect_200
+      expect_input_error(:code)
+    end
+
+    it 'renders an error if an invite that already has been accepted' do
+      post validate_invite_path, code: invite.id, format: :json
+
+      expect_input_error(:code)
+    end
+
+    it 'marks an invite for an existing user with same email address' do
+      invite = create(:invite, sponsor: sponsor, email: user.email)
+
+      post validate_invite_path, code: invite.id, format: :json
+
+      expect_input_error(:code)
+      invite.reload
+      expect(invite.user_id).to eq(user.id)
+    end
+
+    it 'returns an invite when the user has inputted a code' do
+      allow(ApplicationAgreement).to receive(:current).and_return(agreement)
+      invite = create(:invite, sponsor: sponsor)
+      post validate_invite_path, code: invite.id, format: :json
+
+      expect_200
+      expect_classes('invite')
+      expect_actions('accept_invite')
+      expect_props latest_terms: agreement.as_json
+    end
+
   end
 end
