@@ -14,7 +14,7 @@ json.properties do
 end
 
 actions \
-  action(:create_account, :patch, invite_path)
+  action(:accept_invite, :patch, invite_path)
   .field(:code, :hidden, value: @invite.id)
   .field(:first_name, :text, value: @invite.first_name)
   .field(:last_name, :text, value: @invite.last_name)

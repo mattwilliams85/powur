@@ -41,7 +41,7 @@ describe '/a/invite' do
 
       expect_200
       expect_classes('invite')
-      expect_actions('create_account')
+      expect_actions('accept_invite')
       expect_props latest_terms: agreement.as_json
     end
 

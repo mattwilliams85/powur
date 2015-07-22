@@ -43,7 +43,7 @@
             $scope.invite.error = data.error;
           } else {
             $scope.invite = data;
-            $scope.signUpAction = getAction($scope.invite.actions, 'create_account');
+            $scope.signUpAction = getAction($scope.invite.actions, 'accept_invite');
             $scope.user = setFieldValuesFromAction($scope.signUpAction)
             $scope.applicationAndAgreementLink = data.properties.latest_terms.document_path;
           }
