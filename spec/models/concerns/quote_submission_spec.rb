@@ -43,30 +43,25 @@ describe QuoteSubmission, type: :model do
       quote = create(:quote, id: 212, customer: customer)
       expect { quote.submit! }.to raise_error(RuntimeError)
     end
-  end
 
-  describe 'OK missing data' do
-    it 'submits without an electric bill' do
-      quote = create(:quote, id: 210)
-      assert_submit(quote, 'no_electric_bill')
-    end
-
-    it 'submits without a postal code' do
-      customer = create(:customer, zip: nil)
+    it 'fails without an address' do
+      customer = create(:customer, address: nil)
       quote = create(:quote, id: 213, customer: customer)
-      assert_submit(quote, 'no_zip')
+      expect { quote.submit! }.to raise_error(RuntimeError)
     end
 
-    it 'submits without a city' do
+    it 'fails without a city' do
       customer = create(:customer, city: nil)
       quote = create(:quote, id: 214, customer: customer)
-      assert_submit(quote, 'no_city')
+      expect { quote.submit! }.to raise_error(RuntimeError)
     end
 
-    it 'submits without an address' do
-      customer = create(:customer, address: nil)
+    it 'fails without a state' do
+      customer = create(:customer, state: nil)
       quote = create(:quote, id: 215, customer: customer)
-      assert_submit(quote, 'no_street')
+      expect { quote.submit! }.to raise_error(RuntimeError)
     end
   end
+
+
 end

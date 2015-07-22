@@ -8,15 +8,7 @@ class IndexController < AnonController
 
   private
 
-  def invite?
-    if session[:code]
-      @invite = Invite.find_by(id: session[:code])
-      session[:code] = nil unless @invite
-    end
-    !!@invite
-  end
-
   def json_template
-    logged_in? ? 'show' : (invite? ? 'registration' : 'anonymous')
+    logged_in? ? 'show' : 'anonymous'
   end
 end
