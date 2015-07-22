@@ -67,6 +67,10 @@
       templateUrl: 'sign-up/templates/index.html',
       controller: 'SignUpCtrl'
     }).
+    when('/create-wealth', {
+      templateUrl: 'promo/templates/create-wealth.html',
+      controller: 'PromoCtrl'
+    }).
     when('/create-energy', {
       templateUrl: 'promo/templates/create-energy.html',
       controller: 'PromoCtrl'
