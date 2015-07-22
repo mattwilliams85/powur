@@ -41,6 +41,7 @@ describe Invite do
         {
           first_name: 'Donald',
           last_name: 'Duck',
+          email: 'donald@duck.com',
           password: 'password',
           password_confirmation: 'password'
         }
