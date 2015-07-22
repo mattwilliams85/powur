@@ -2,7 +2,7 @@ class PromoterMailer < ActionMailer::Base
   def invitation(invite)
     to = "#{invite.full_name} <#{invite.email}>"
     # url = root_url(code: invite.id)
-    url = root_url + "create-wealth/" + invite.id
+    url = root_url + "sign-up/" + invite.id
     merge_vars = { code: invite.id, invite_url: url, sponsor: User.find(invite.sponsor_id).full_name }
 
     mail_chimp to, :invite, merge_vars
@@ -41,7 +41,9 @@ class PromoterMailer < ActionMailer::Base
     # 'welcome' email when a new user redeems his/her invite
     # used when a new user redeems his/her invite (on invites_controller)
     to = "#{user.full_name} <#{user.email}>"
-    merge_vars = {}
+    merge_vars = {
+      powur_path_url: "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-path.pdf"
+    }
 
     mail_chimp to, 'welcome-new-user', merge_vars
   end
