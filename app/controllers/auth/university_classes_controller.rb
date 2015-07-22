@@ -66,7 +66,7 @@ module Auth
       error!(puchase_form.errors.messages) unless puchase_form.valid?
 
       return if @university_class.purchase(puchase_form.as_json, current_user)
-      error!("Error, couldn't process a card", :number)
+      error!(number: ["Error, couldn't process a card"])
     end
 
     def send_purchased_notifications
