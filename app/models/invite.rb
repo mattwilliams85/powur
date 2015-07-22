@@ -38,7 +38,11 @@ class Invite < ActiveRecord::Base
 
   def accept(params)
     params[:sponsor_id] = sponsor_id
-    params[:email] = email
+
+    # grab the invite code from params
+    code = params[:code]
+    # remove :code from params because User#create doesn't want it
+    params.delete(:code)
 
     user = User.new(params)
 
@@ -49,7 +53,8 @@ class Invite < ActiveRecord::Base
     end
 
     if user.save
-      Invite.where(email: email).update_all(user_id: user.id)
+      # here's where the code is used: find the invite by its code and set the user_id
+      Invite.where(id: code).update_all(user_id: user.id)
     end
 
     user
