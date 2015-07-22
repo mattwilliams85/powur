@@ -6,7 +6,7 @@ describe '/a/invite' do
   end
 
   describe 'POST' do
-    let(:agreement) { double(dwight: 'schrute') }
+    let(:agreement) { double(dwight: 'schrute', version:'1.0') }
     let(:sponsor) { create(:certified_user, available_invites: 3) }
     let(:user) { create(:user) }
     let(:invite) { create(:invite, user: user, sponsor: sponsor) }
@@ -41,12 +41,8 @@ describe '/a/invite' do
 
       expect_200
       expect_classes('invite')
-      expect_actions('create')
+      expect_actions('create_account')
       expect_props latest_terms: agreement.as_json
-
-      get root_url, format: :json
-
-      expect_classes('session', 'registration')
     end
 
     it 'clears a code from session' do
@@ -66,6 +62,7 @@ describe '/a/invite' do
         code:                  @invite.id,
         first_name:            @invite.first_name,
         last_name:             @invite.last_name,
+        email:                 @invite.email,
         phone:                 '8585551212',
         zip:                   '92127',
         password:              'password',
@@ -86,8 +83,9 @@ describe '/a/invite' do
       expect(json_body['errors']).to eq({
         "first_name" => ["First name is required"],
         "last_name" => ["Last name is required"],
+        "email" => ["Please input an email address"],
         "encrypted_password" => ["Encrypted password is required"],
-        "password" => ["Password is required", "Password not less than 8 symbols"],
+        "password" => ["Password is required", "Password must be at least 8 characters."],
         "password_confirmation" => ["Password confirmation is required"]
       })
     end

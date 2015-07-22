@@ -20,15 +20,4 @@ describe 'index' do
     expect_actions('logout')
   end
 
-  it 'returns registration when the user has inputted a code' do
-    sponsor = create(:certified_user, available_invites: 1)
-    invite = create(:invite, sponsor: sponsor)
-    post invite_path, code: invite.id, format: :json
-
-    get root_path, format: :json
-
-    expect_200
-    expect_classes('session', 'registration')
-    expect_actions('create')
-  end
 end

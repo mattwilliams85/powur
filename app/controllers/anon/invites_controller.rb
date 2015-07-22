@@ -14,6 +14,8 @@ module Anon
     def update
       input = params.permit(:first_name,
                             :last_name,
+                            :email,
+                            :code,
                             :password,
                             :password_confirmation,
                             :address,
@@ -23,7 +25,14 @@ module Anon
                             :state,
                             :country,
                             :tos,
+                            :tos_version,
                             :communications)
+
+      # for ToS, we store the version number the user last agreed to
+      # so we change the 'true' value to the version of the ToS when they signed up:
+      if input[:tos] == true
+        input[:tos] = input[:tos_version]
+      end
 
       user = @invite.accept(input)
 
