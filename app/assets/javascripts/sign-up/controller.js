@@ -72,15 +72,9 @@
         });
       } else {
         // Sign User In after Signing Up
-        UserProfile.signIn({
-          email: $scope.user.email,
-          password: $scope.user.password,
-          remember_me: true
-        }).then(function(data){
-          $rootScope.isSignedIn = true;
-          $rootScope.currentUser = data;
-          $scope.redirectIfSignedIn();
-        })
+        $rootScope.isSignedIn = true;
+        $rootScope.currentUser = data;
+        $scope.redirectIfSignedIn();
       }
     }
 
