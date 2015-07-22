@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe User, type: :model do
-
   describe '@authenticate' do
     let(:password) { 'password123' }
 
-    before :each do
+    before do
       @user = create(:user, password: password, password_confirmation: password)
     end
 
@@ -36,11 +35,31 @@ describe User, type: :model do
   end
 
   describe '#create' do
-    let(:user_params) { {} }
-    let(:user) { create(:user, user_params) }
+    context 'after create' do
+      let(:mailchimp_list_api) { double(:mailchimp_list_api) }
+      let(:user_data) do
+        {
+          email:      'newuser@example.com',
+          first_name: 'Bob',
+          last_name:  'Smith'
+        }
+      end
+      before do
+        allow_any_instance_of(Gibbon::API)
+          .to receive(:lists).and_return(mailchimp_list_api)
+      end
 
-    it 'destroys the invite used to create the user' do
-      expect(Invite.find_by(email: "#{user.email}")).to be_nil
+      it 'should send api call to subscribe user to mailchimp list' do
+        expect(mailchimp_list_api).to receive(:subscribe).with(
+          id:           User::MAILCHIMP_LISTS[:all],
+          email:        { email: user_data[:email] },
+          merge_vars:   {
+            FNAME: user_data[:first_name],
+            LNAME: user_data[:last_name]
+          },
+          double_optin: false).once
+        create(:user, user_data)
+      end
     end
   end
 

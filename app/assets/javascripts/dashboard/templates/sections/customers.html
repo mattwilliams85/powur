@@ -24,10 +24,11 @@
                 placeholder="SEARCH" 
                 ng-change="fetchNames()" 
                 ng-blur="clearQuery(true)" 
-                ng-focus="clearQuery(false)">
+                ng-focus="clearQuery(false)"
+                ng-keydown="key($event)">
               <!-- Loading Animation -->
               <ul ng-show="nameQuery.length && focused && customerSearch.string.length" class="suggestion-box">
-                <li ng-repeat="user in nameQuery" ng-click="customerSection.search(user)"><span class="left-label">{{user.properties.customer}}</span></li>
+                <li ng-class="{'selected': queryIndex === $index}" ng-repeat="user in nameQuery" ng-click="customerSection.search(user)" ng-mouseover="key($index)"><span class="left-label">{{user.properties.customer}}</span></li>
               </ul>
             </div>
           </form>
@@ -76,10 +77,21 @@
       <div class="carousel-container w80percent columns">
         <!-- Proposals Carousel -->
 
-        <!-- If No Proposals -->
-        <div ng-if="proposals.length === 0 && !customerSection.searching" class="empty owl-carousel">
+         <!-- If No Proposals -->
+        <div ng-if="currentUser.metrics && !currentUser.metrics.proposal" class="empty owl-carousel">
           <div class="empty-state">
             <p class="empty-text">This is where you manage your proposals and customers.  Add a proposal, submit it to SolarCity, and track the progress.  We'll notify you when your proposals turn into customers.</p>
+          </div>
+        </div>
+
+        <!-- If Loading Proposals -->
+        <div ng-show="!proposals && currentUser.metrics.proposal" class="empty owl-carousel">
+          <div class="empty-state">
+            <div class="sk-spinner sk-spinner-three-bounce big">
+              <div class="sk-bounce1"></div>
+              <div class="sk-bounce2"></div>
+              <div class="sk-bounce3"></div>
+            </div>
           </div>
         </div>
 
@@ -91,7 +103,7 @@
         </div>
 
         <!-- If Proposals -->
-        <div ng-if="proposals" class="proposals owl-carousel">
+        <div ng-if="proposals" class="proposals owl-carousel" id="customers-carousel">
           <a ng-repeat="proposal in proposals" ng-click="customerSection.showProposal($index)">
             <div class="proposal" ng-class="{active: currentProposal.id === proposal.properties.id}">
               <div class="status-icon">

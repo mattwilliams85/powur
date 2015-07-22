@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function init($rootScope, $location, $document, $http, $window, $timeout, UserProfile) {
+  function init($rootScope, $location, $document, $http, $window, $timeout) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
@@ -32,12 +32,11 @@
     };
 
     // Redirect to '/latest-terms' if currentUser object contains latest_terms property
-    $rootScope.$watch('currentUser', function(data) {
+    $rootScope.$watch('currentUser', function() {
       if ($rootScope.currentUser.latest_terms) {
         $location.path('/latest-terms');
       }
     });
-
 
     $rootScope.animateArrow = function(id, time) {
       $timeout.cancel(pilerTimer);
@@ -88,17 +87,12 @@
       if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
        return true;
       }
-    }
+    };
 
     $rootScope.signOut = function() {
-      var cb = function() {
-        SignedIn = false;
-        $rootScope.isSignedIn = false;
-        $rootScope.currentUser = {};
-        // window.location = '#/sign-in';
-        $location.path('/sign-in');
-      };
-      UserProfile.signOut().then(cb, cb);
+      $http.delete('/login.json').success(function() {
+        window.location = '/sign-in';
+      });
     };
 
     $rootScope.gotoAnchor = function(id) {
@@ -138,8 +132,7 @@
     '$document',
     '$http',
     '$window',
-    '$timeout',
-    'UserProfile'];
+    '$timeout'];
 
   angular.module('powurApp', [
     'ngRoute',

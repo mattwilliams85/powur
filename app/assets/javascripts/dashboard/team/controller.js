@@ -9,6 +9,7 @@
     $scope.downline = [];
     $scope.currentTeamMember = {};
     $scope.nameQuery = [];
+    $scope.queryIndex = 0;
     $scope.dQueue = [];
     $scope.teamSearch = {};
 
@@ -201,15 +202,32 @@
     }
 
 //SEARCH
+    $scope.key = function(key){
+      if (key === parseInt(key, 10)) return $scope.queryIndex = key;
+      if (!$scope.nameQuery.length) return;
+
+      if (key.keyCode == 38) {
+        if ($scope.queryIndex < 1) return;
+        $scope.queryIndex -= 1;
+      } else if (key.keyCode == 40) {
+        if( $scope.queryIndex + 1 === $scope.nameQuery.length) return;
+        $scope.queryIndex += 1;
+      }
+    }
+
     $scope.clearQuery = function(i) {
       $scope.focused = true;
       $timeout(function() {
+        $scope.queryIndex = 0;
         if(i) $scope.focused = false;
-      }, 100)    
+      }, 150)    
     }
 
     $scope.fetchNames = function(){
-      if (!$scope.teamSearch.string) return $scope.nameQuery = [];
+      if (!$scope.teamSearch.string) {
+        $scope.queryIndex = 0;
+        return $scope.nameQuery = [];
+      }
       CommonService.execute({
         href: '/u/users/' + $rootScope.currentUser.id + '/full_downline.json',
         params: {search: $scope.teamSearch.string}
@@ -235,7 +253,8 @@
         return $scope.nameQuery = [];
       }
       if(typeof(user) != 'object') {
-        user = $scope.nameQuery[0];
+        user = $scope.nameQuery[$scope.queryIndex];
+        $scope.nameQuery = [];
       }
 
       $('#team-search').val(user.first_name + ' ' + user.last_name).blur();
@@ -280,6 +299,7 @@
 
     $scope.teamSection.sort = function() {
       closeTabs($('#carousel-0'));
+      $scope.downline = [];
       for (var i = 0; i < $scope.downline.length; i++){
         destroyCarousel('#carousel-'+ i);
       }

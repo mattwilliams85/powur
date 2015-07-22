@@ -1,9 +1,10 @@
 module Admin
   class UsersController < AdminController
     before_action :fetch_user, only: [ :downline, :upline, :show, :update, :sponsors, :eligible_parents, :move ]
+
     page max_limit: 25
-    sort id_asc:          { id: :asc },
-         id_desc:         { id: :desc },
+    sort id_desc:         { id: :desc },
+         id_asc:          { id: :asc },
          first_name_asc:  { first_name: :asc },
          first_name_desc: { first_name: :desc }
     filter :with_purchases,
@@ -12,20 +13,17 @@ module Admin
            required: false
 
     def index
-      respond_to do |format|
-        format.html
-        format.json do
-          @users = apply_list_query_options(User)
-          if params[:group]
-            group_ids = params[:group].split(',')
-            @users = @users.in_groups(*group_ids)
-          end
-        end
+      @users = apply_list_query_options(User)
+      if params[:group]
+        group_ids = params[:group].split(',')
+        @users = @users.in_groups(*group_ids)
       end
     end
 
     def invites
-      @users = apply_list_query_options(User)
+      scope = User
+      scope = scope.search(params[:search]) if params[:search]
+      @users = apply_list_query_options(scope)
     end
 
     def downline
@@ -53,7 +51,13 @@ module Admin
       input = params.permit(:first_name, :last_name, :email, :phone,
                             :address, :city, :state, :zip,
                             :allow_sms, :allow_system_emails,
-                            :allow_corp_emails)
+                            :allow_corp_emails,
+                            :password, :password_confirm)
+
+      if input[:password] && input[:password] != input[:password_confirm]
+        error!(:password_confirm, :password_confirm)
+      end
+      input.delete(:password_confirm)
 
       @user.update_attributes!(input)
 

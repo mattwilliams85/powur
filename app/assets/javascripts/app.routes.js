@@ -55,6 +55,12 @@
       controller: 'UserStaticContentCtrl'
     }).
 
+    //Webinar
+    when('/preview', {
+      templateUrl: 'user-static-content/templates/preview.html',
+      controller: 'UserStaticContentCtrl'
+    }).
+
     // Promo
     when('/create-wealth/:inviteCode?', {
       templateUrl: 'promo/templates/create-wealth.html',

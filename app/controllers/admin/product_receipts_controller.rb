@@ -22,12 +22,10 @@ module Admin
     end
 
     def create
-      ProductReceipt.create(user_id: @user.id,
-                            product_id: params[:id],
-                            amount: params[:bonus_volume],
-                            transaction_id: 'Complimentary',
-                            order_id: 'Complimentary',
-                            auth_code: 'Complimentary')
+      product = Product.find(params[:id])
+
+      product.complimentary_purchase(params[:bonus_volume], @user)
+
       head 200
     end
 

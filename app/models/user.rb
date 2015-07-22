@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   include UserScopes
   include PaperclipScopes
   include Phone
+  include UserMailchimp
 
   belongs_to :rank_path
 
@@ -57,7 +58,7 @@ class User < ActiveRecord::Base
   # end
 
   before_create :set_url_slug
-  after_create :hydrate_upline
+  after_create :hydrate_upline, :subscribe_to_mailchimp_list
 
   attr_reader :password
   attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count,
@@ -233,6 +234,12 @@ class User < ActiveRecord::Base
     return if upline && !upline.empty?
     self.upline = sponsor ? sponsor.upline + [ id ] : [ id ]
     User.where(id: id).update_all(upline: upline)
+  end
+
+  def subscribe_to_mailchimp_list
+    mailchimp_subscribe_to('all')
+  rescue => e
+    Airbrake.notify(e)
   end
 
   class << self

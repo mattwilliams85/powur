@@ -23,7 +23,8 @@
                 placeholder="SEARCH" 
                 ng-change="fetchNames()" 
                 ng-blur="clearQuery(true)" 
-                ng-focus="clearQuery(false)">
+                ng-focus="clearQuery(false)"
+                ng-keydown="key($event)">
               <!-- Loading Animation -->
               <div ng-show="jumping" class="sk-spinner sk-spinner-three-bounce">
                 <div class="sk-bounce1"></div>
@@ -31,7 +32,7 @@
                 <div class="sk-bounce3"></div>
               </div>
               <ul ng-show="nameQuery.length && focused && teamSearch.string.length" class="suggestion-box">
-                <li ng-repeat="user in nameQuery" ng-click="teamSection.search(user)"><span class="left-label">{{user.first_name + ' ' + user.last_name}}</span><span class="right-label">#{{user.id}}</span></li>
+                <li ng-class="{'selected': queryIndex === $index}" ng-repeat="user in nameQuery" ng-click="teamSection.search(user)" ng-mouseover="key($index)"><span class="left-label">{{user.first_name + ' ' + user.last_name}}</span><span class="right-label">#{{user.id}}</span></li>
               </ul>
             </div>
           </form>
@@ -44,6 +45,8 @@
         <select class="sort" ng-model="teamSection.teamSort" ng-change="teamSection.sort(); closeTabs();">
           <option value="name">Order by Name</option>
           <option value="newest">Order by Newest</option>
+          <option value="proposals">Order by Proposals</option>
+          <option value="team">Order by Team</option>
         </select>
       </div>
 
@@ -71,9 +74,20 @@
       <div class="carousel-container w80percent small-10 columns" ng-class="{'accordion': is.accordion(0) }">
 
         <!-- If No Team Members -->
-        <div ng-if="!downline[0]" class="empty owl-carousel">
+        <div ng-if="currentUser.metrics && !currentUser.metrics.team" class="empty owl-carousel">
           <div class="empty-state">
             <p class="empty-text">The team section helps you grow, manage, and support your team.  Invite others to join, get detailed metrics on their results, and track your teammates' progress. </p>
+          </div>
+        </div>
+
+        <!-- If Loading Team -->
+        <div ng-show="!downline[0].length && currentUser.metrics.team" class="empty owl-carousel">
+          <div class="empty-state">
+            <div class="sk-spinner sk-spinner-three-bounce big">
+              <div class="sk-bounce1"></div>
+              <div class="sk-bounce2"></div>
+              <div class="sk-bounce3"></div>
+            </div>
           </div>
         </div>
 

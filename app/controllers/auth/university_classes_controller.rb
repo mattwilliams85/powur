@@ -16,6 +16,7 @@ module Auth
       process_purchase
       send_purchased_notifications
       increase_available_invites
+      subscribe_to_mailchimp_list
 
       head :ok
     end
@@ -76,6 +77,12 @@ module Auth
           .team_leader_downline_certification_purchase(current_user)
         mailer.deliver_now!
       end
+    end
+
+    def subscribe_to_mailchimp_list
+      current_user.mailchimp_subscribe_to('partners')
+    rescue => e
+      Airbrake.notify(e)
     end
 
     def increase_available_invites

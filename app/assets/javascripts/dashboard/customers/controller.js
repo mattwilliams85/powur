@@ -314,12 +314,12 @@
       if (!$scope.nameQuery.length) return;
 
       if(typeof(user) != 'object') {
-        user = $scope.nameQuery[0];
+        user = $scope.nameQuery[$scope.queryIndex];
         $scope.nameQuery = [];
       }
       for (var i=0; i < $scope.proposals.length; i++) {
         if($scope.proposals[i].properties.id === user.properties.id) {
-          $('.owl-carousel').trigger('owl.jumpTo', i);
+          $('#customers-carousel').trigger('owl.jumpTo', i);
           $scope.customerSection.showProposal(i);
         }
       }
@@ -334,16 +334,35 @@
     };
 
     $scope.customerSearch = {};
+    $scope.nameQuery = []
+    $scope.queryIndex = 0;
+
+    $scope.key = function(key){
+      if ((key === parseInt(key, 10))) return $scope.queryIndex = key;
+      if (!$scope.nameQuery.length) return;
+
+      if (key.keyCode == 38) {
+        if ($scope.queryIndex < 1) return;
+        $scope.queryIndex -= 1;
+      } else if (key.keyCode == 40) {
+        if( $scope.queryIndex + 1 === $scope.nameQuery.length) return;
+        $scope.queryIndex += 1;
+      }
+    }
 
     $scope.clearQuery = function(i) {
       $scope.focused = true;
       $timeout(function() {
         if(i) $scope.focused = false;
-      }, 100)    
+        $scope.queryIndex = 0;
+      }, 150)    
     }
 
     $scope.fetchNames = function(){
-      if (!$scope.customerSearch.string) return $scope.nameQuery = [];
+      if (!$scope.customerSearch.string) {
+        $scope.queryIndex = 0;
+        return $scope.nameQuery = [];
+      }
       CommonService.execute({
         href: '/u/users/' + $rootScope.currentUser.id + '/quotes.json',
         params: {search: $scope.customerSearch.string, limit: 7}
