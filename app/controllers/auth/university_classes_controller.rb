@@ -39,6 +39,9 @@ module Auth
 
     def check_enrollment
       @enrollment.refresh_enrollment_status
+      @university_class = @enrollment.product
+
+      render :show
     end
 
     private
