@@ -3,19 +3,14 @@ module Auth
     before_action :fetch_order, only: [ :show ]
 
     def index(query = Order)
-      respond_to do |format|
-        format.json do
-          if params[:search].present?
-            query = query.customer_search(params[:search])
-          end
-          query = apply_list_query_options(query)
-                  .includes(:user, :customer, :product)
-                  .references(:user, :customer, :product)
-          @orders = query
+      query = query.customer_search(params[:search]) if params[:search].present?
 
-          render 'index'
-        end
-      end
+      query = apply_list_query_options(query)
+        .includes(:user, :customer, :product)
+        .references(:user, :customer, :product)
+      @orders = query
+
+      render 'index'
     end
 
     def create

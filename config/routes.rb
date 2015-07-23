@@ -158,13 +158,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :ewallet_sandbox, only:       [ :index, :call ],
-                                controller: :ewallet_sandbox do
-      collection do
-        post 'call' => 'ewallet_sandbox', as: :call
-      end
-    end
-
     resources :university_classes, only: [:index, :show] do
       member do
         post :enroll, :purchase, :smarteru_signin

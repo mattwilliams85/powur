@@ -7,7 +7,4 @@ json.rel [ :item ] unless local_assigns[:detail]
 json.properties do
   json.call(@ewallet_account_details, :eWalletID, :LastName, :FirstName, :Email,
             :IsActivated, :CustomerGuid)
-
 end
-
-# links link(:self, user_path(user))
