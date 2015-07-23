@@ -1,0 +1,242 @@
+.pow-sign-up-page {
+
+  .sign-up-container {
+    background: image-url("landing/bg-2.jpg") center center no-repeat;
+    background-size: cover;
+
+    // Wealth Quote/Paragraph
+    .wealth-text {
+      text-align: right;
+
+      .top-quote {
+        text-transform: uppercase;
+        font-size: 30pt;
+        line-height: 30pt;
+        font-weight: bold;
+      }
+
+      .lower-paragraph {
+        font-size: 12pt;
+      }
+
+      .emphasized {
+        color: #C99021;
+      }
+    }
+
+    // Watch Presentation Player Icon/Link
+    .watch-video {
+      text-align: center;
+      .player-link {
+        margin: auto;
+      }
+      .watch-link {
+      }
+    }
+
+    // Fixed Section with wealth quote/paragraph
+    .fixed-section {
+      position: fixed;
+      width: 40%;
+      left: 5%;
+      top: 10%;
+      overflow: hidden;
+      color: #fff;
+
+    }
+    // Scrolling section with sign-up form
+    .scrolling-section {
+      min-height: 100%;
+      .sign-up-form {
+        min-height: 100vh;
+        background-color: #444;
+
+        // (only shows for medium/small screens)
+        .copy-text {
+          padding: 20px; 
+          color: #fff;
+
+          // Wealth Quote/Paragraph
+          .wealth-text {
+            text-align: center;
+          }
+
+          // Watch Presentation Player Icon/Link
+          .watch-video {
+            .player-link {
+              width: 120px;
+              padding-bottom: 10px;
+            }
+            .watch-link {
+              padding-bottom: 20px;
+            }
+          }
+        }
+
+        .powur-logo {
+          text-align: right;
+          margin: 20px 50px;
+
+          img {
+            height: 40px;
+          }
+        }
+
+        .invite-info {
+          .sponsor-avatar {
+            left: -30px;
+            img {
+              background-color: #444;
+              border-radius: 50%;
+              border: 10px solid #444;
+              height: auto;
+              width: auto;
+            }
+          }
+          .info-message {
+            border-radius: 4px;
+            background-color: #fff;
+            left: -40px;
+            padding-top: 15px;
+            padding-left: 60px;
+            min-height: 120px;
+
+            // Speech blurb clip path
+            -webkit-clip-path: polygon(40px 0, 40px 40px, 0 60px, 40px 80px, 40px 100%, 100% 100%, 100% 0);
+            clip-path: polygon(40px 0, 40px 40px, 0 60px, 40px 80px, 40px 100%, 100% 100%, 100% 0);
+
+            // Text styles
+            h1 {
+              font-size: 14pt;
+              font-weight: bold;
+            }
+            p {
+              font-size: 12pt;
+            }
+          }
+        }
+
+        // Form styles
+        form {
+
+          // Basic Text Styles
+          color: #fff;
+          a {
+            color: $pow-color-blue;
+          }
+
+          fieldset {
+            border: 0;
+
+            // Overwrite Foundation Row/Column Paddings
+            .row {
+              padding: 0 10px;
+              .columns {
+                padding: 0 6px;
+              }
+            }
+
+            legend {
+              background-color: transparent;
+              color: #E9A433;
+              text-transform: uppercase;
+              font-weight: normal;
+            }
+          }
+          input {
+            background-color: rgba(255,255,255,0.2);
+            border: 1px solid rgba(0,0,0,0.2);
+            color: #fff;
+            outline: none;
+            border-radius: 6px;
+            padding: 24px 10px 8px;
+            height: 72px;
+            font-family: $dashboard-font-family;
+            font-size: 18pt;
+            &:focus {
+              background-color: rgba(255,255,255,0.3);
+              border: 1px solid rgba(0,0,0,0.1);
+            }
+            &:disabled {
+              background-color: rgba(0,0,0,0.1);
+              border: 1px solid rgba(0,0,0,0.1);
+              color: #666
+            }
+            // Error State
+            &.sign-up-error {
+              background-color: rgba(255,0,0,0.3);
+              border: 1px solid rgba(255,0,0,0.5);
+              height: 96px;
+            }
+          }
+
+          label {
+            position: absolute;
+            top: 8px;
+            left: 14px;
+            color: #9b9b9b;
+            font-family: $dashboard-font-family;
+            text-transform: uppercase;
+            font-size: 10pt;
+            cursor: default;
+
+            // ".aside" spans used for sub-labels
+            // (ex. "this is the email you'll use to sign into Powur")
+            span.aside {
+              text-transform: initial;
+              color: #aaa;
+              font-size: 8pt;
+              padding-left: 4px;
+            }
+
+            // Error State
+            &.sign-up-error {
+              position: absolute;
+              top: 72px;
+              text-transform: initial;
+              color: #fff;
+            }
+          }
+
+          // Buttons
+          .button {
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.2);
+            background-color: $pow-color-green;
+            font-family: $dashboard-font-family;
+            text-transform: uppercase;
+            &:hover {
+              background-color: darken($pow-color-green, 10%);
+            }
+            &:disabled {
+              background-color: rgba(0,0,0,0.08);
+              &:hover {
+                background-color: rgba(0,0,0,0.08);
+              }
+            }
+          }
+
+          // Error State for Application and Agreement Switch
+          .switch {
+            input + label {
+              background: rgba(255,255,255,0.2);
+            }
+            input:checked + label {
+              background: $pow-color-green;
+            }
+
+            input:checked + label.sign-up-error {
+              background: $pow-color-green;
+            }
+            input + label.sign-up-error {
+              background: #f04124;
+              top: 8px;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+}

@@ -186,6 +186,9 @@
           $(window).scrollTop(0);
       });
       $('body').addClass('no-scroll');
+      $scope.pagePiler = {
+        setAllowScrolling: false
+      };
       // Clock
       $scope.minTime = new Date(2000, 1, 1, 0, 0, 0, 0).valueOf();
       // Max time is 3 minutes

@@ -1,6 +1,5 @@
 module Admin
   class UsersController < AdminController
-    
     before_action :fetch_user, only: [ :downline, :upline, :show, :update, :sponsors, :eligible_parents, :move ]
 
     page max_limit: 25

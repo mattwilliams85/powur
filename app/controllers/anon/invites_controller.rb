@@ -1,19 +1,12 @@
 module Anon
   class InvitesController < AnonController
-    before_action :fetch_invite, only: [ :create, :update, :validate ]
-
-    def create
-      require_input :code
-
-      session[:code] = @invite.id
-      session[:user_id] = nil
-
-      render 'show'
-    end
+    before_action :fetch_invite, only: [ :update, :validate ]
 
     def update
       input = params.permit(:first_name,
                             :last_name,
+                            :email,
+                            :code,
                             :password,
                             :password_confirmation,
                             :address,
@@ -23,7 +16,14 @@ module Anon
                             :state,
                             :country,
                             :tos,
+                            :tos_version,
                             :communications)
+
+      # for ToS, we store the version number the user last agreed to
+      # so we change the 'true' value to the version of the ToS when they signed up:
+      if input[:tos] == true
+        input[:tos] = input[:tos_version]
+      end
 
       user = @invite.accept(input)
 
@@ -31,7 +31,11 @@ module Anon
         PromoterMailer.notify_upline(user).deliver_later
         PromoterMailer.welcome_new_user(user).deliver_later
 
-        head 200
+        # Sign in new user and return session
+        user = User.authenticate(params[:email], params[:password])
+        login_user(user, params[:remember_me] == true)
+
+        render 'anon/session/show'
       else
         render json: {errors: user.errors.messages}
       end

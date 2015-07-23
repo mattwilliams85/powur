@@ -38,7 +38,8 @@ class Invite < ActiveRecord::Base
 
   def accept(params)
     params[:sponsor_id] = sponsor_id
-    params[:email] = email
+
+    code = params.delete(:code)
 
     user = User.new(params)
 
@@ -49,7 +50,7 @@ class Invite < ActiveRecord::Base
     end
 
     if user.save
-      Invite.where(email: email).update_all(user_id: user.id)
+      Invite.where(id: code).update_all(user_id: user.id)
     end
 
     user

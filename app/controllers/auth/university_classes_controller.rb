@@ -66,7 +66,7 @@ module Auth
       error!(puchase_form.errors.messages) unless puchase_form.valid?
 
       return if @university_class.purchase(puchase_form.as_json, current_user)
-      error!("Error, couldn't process a card", :number)
+      error!(number: ['We are unable to process this card. Please reenter your number and secret code or try a different card.'])
     end
 
     def send_purchased_notifications
@@ -80,7 +80,7 @@ module Auth
     end
 
     def subscribe_to_mailchimp_list
-      mailchimp_subscribe_to('partners')
+      current_user.mailchimp_subscribe_to('partners')
     rescue => e
       Airbrake.notify(e)
     end

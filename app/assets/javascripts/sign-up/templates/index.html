@@ -1,0 +1,275 @@
+<main class="pow-sign-up-page">
+  <div class="sign-up-container">
+    <!-- Fixed Section (does not scroll) -->
+    <div class="fixed-section show-for-large-up">
+      <!-- Left Side: Copy Text -->
+      <div class="wealth-text">
+        <p class="top-quote">The <span class="emphasized">greatest transfer of wealth</span> in human history has begun</p>
+        <p class="lower-paragraph">Powur is a group of forward thinking, innovative entrepreneurs changing how the world produces and consumes energy.  There is unprecedented opportunity to replace the $6 trillion dirty energy system with a new clean Powur grid.  In conjunction with SolarCity co-founded by visionary Elon Musk, we are rolling out a technology that will shift billions in wealth to the new #Grid Builders.  As our technology is currently in “Stealth” mode, limited invites are available to join the #NewGrid.</p>
+      </div>
+      <div class="watch-video">
+        <div class="player-link">
+          <a ng-click="showVideoModal(legacyImagePaths.wealthVideo)">
+            <img src="{{legacyImagePaths.signUp.playerIcon}}">
+          </a>
+        </div>
+        <p class="watch-link">Watch Presentation</p>
+      </div>
+    </div>
+
+    <!-- Scrolling Section (form on right side) -->
+    <div class="scrolling-section">
+      <div class="row">
+        <div class="large-5 large-offset-6 medium-10 medium-offset-1 columns">
+          <div class="sign-up-form">
+            <!-- Powur Logo -->
+            <div class="row">
+              <div class="powur-logo">
+                <a ng-href="/home">
+                  <img src="{{legacyImagePaths.powurLogo}}">
+                </a>
+              </div>
+            </div>
+            <!-- Copy Text (Medium/Small Screens) -->
+            <div class="row show-for-medium-down"
+                 ng-show="!invite.properties">
+              <div class="large-12 columns">
+                <div class="copy-text">
+                  <div class="wealth-text">
+                    <p class="top-quote">The <span class="emphasized">greatest transfer of wealth</span> in human history has begun</p>
+                    <p class="lower-paragraph">Powur is a group of forward thinking, innovative entrepreneurs changing how the world produces and consumes energy.  There is unprecedented opportunity to replace the $6 trillion dirty energy system with a new clean Powur grid.  In conjunction with SolarCity co-founded by visionary Elon Musk, we are rolling out a technology that will shift billions in wealth to the new #Grid Builders.  As our technology is currently in “Stealth” mode, limited invites are available to join the #NewGrid.</p>
+                  </div>
+                  <div class="watch-video">
+                    <div class="player-link">
+                      <a ng-click="showVideoModal(legacyImagePaths.wealthVideo)">
+                        <img class="player-link" src="{{legacyImagePaths.signUp.playerIcon}}">
+                      </a>
+                    </div>
+                    <p class="watch-link">Watch Presentation</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Invite Information -->
+            <div class="row">
+              <div class="invite-info">
+                <!-- Sponsor avatar -->
+                <div class="sponsor-avatar small-4 columns">
+                  <img src="{{invite.properties.sponsor_avatar || legacyImagePaths.defaultAvatar }}">
+                </div>
+                <!-- Info blurb at top of form -->
+
+                <!-- No invite -->
+                <div class="info-message small-8 columns"
+                     ng-show="!invite.properties">
+                  <h1>Welcome to Powur!</h1>
+                  <p>Powur is a referral-only, private network. Enter your invite code to continue.</p>
+                </div>
+
+                <!-- If valid invite -->
+                <div class="info-message small-8 columns"
+                     ng-show="invite.properties">
+                  <h1>Hello {{invite.properties.first_name}},</h1>
+                  <p>You’ve been invited to join the new Powur Grid!</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Invite Code Form -->
+            <form ng-show="!invite.properties"
+                  ng-submit="validateInvite()">
+              <fieldset>
+                <legend>Enter Invite Code</legend>
+                <div class="row">
+                  <div class="small-12 columns">
+                    <label>Invite Code</label>
+                    <input type="text"
+                           ng-model="inviteCode"
+                           ng-class="{ 'sign-up-error' : invite.error }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : invite.error }">{{invite.error.message}}</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="small-12 columns">
+                    <button class="large button expand" type="submit">Join the Grid</button>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form ng-submit="signUp()"
+                  ng-show="invite.properties">
+              <fieldset>
+                <legend>Confirm Contact Info</legend>
+
+                <!-- First/Last Names -->
+                <div class="row">
+
+                  <!-- First Name -->
+                  <div class="small-6 columns">
+                    <label>First Name</label>
+                    <!-- Input with ng-class for errors -->
+                    <input type="text" 
+                           ng-model="user.first_name"
+                           ng-class="{ 'sign-up-error' : formErrorMessages['first_name'] }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : formErrorMessages['first_name'] }">{{formErrorMessages['first_name']}}</label>
+                  </div>
+
+                  <!-- Last Name -->
+                  <div class="small-6 columns">
+                    <label>Last Name</label>
+                    <!-- Input with ng-class for errors -->
+                    <input type="text" 
+                           ng-model="user.last_name"
+                           ng-class="{ 'sign-up-error' : formErrorMessages['last_name'] }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : formErrorMessages['last_name'] }">{{formErrorMessages['last_name']}}</label>
+                  </div>
+
+                </div>
+
+                <!-- Email Address -->
+                <div class="row">
+                  <div class="small-12 columns">
+                    <label>Email <span class="aside">(This is the email you'll use to sign into Powur)</span></label>
+                    <input type="email" 
+                           ng-model="user.email"
+                           ng-class="{ 'sign-up-error' : formErrorMessages['email'] }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : formErrorMessages['email'] }">{{formErrorMessages['email']}}</label>
+                  </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="row">
+                  <div class="small-12 columns">
+                    <label>Phone</label>
+                    <input type="text" 
+                           ng-model="user.phone"
+                           ng-class="{ 'sign-up-error' : formErrorMessages['phone'] }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : formErrorMessages['phone'] }">{{formErrorMessages['phone']}}</label>
+                  </div>
+                </div>
+
+              </fieldset>
+
+              <fieldset>
+                <legend>Setup Password</legend>
+
+                <!-- Password -->
+                <div class="row">
+                  <div class="small-12 columns">
+                    <label>Password</label>
+                    <input type="password" 
+                           ng-model="user.password"
+                           ng-class="{ 'sign-up-error' : formErrorMessages['password'] }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : formErrorMessages['password'] }">{{formErrorMessages['password']}}</label>
+                  </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="row">
+                  <div class="small-12 columns">
+                    <label>Confirm Password</label>
+                    <input type="password" 
+                           ng-model="user.password_confirmation"
+                           ng-class="{ 'sign-up-error' : formErrorMessages['password_confirmation'] }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : formErrorMessages['password_confirmation'] }">{{formErrorMessages['password_confirmation']}}</label>
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset>
+                <legend>Your Location</legend>
+
+                <!-- Address -->
+                <div class="row">
+                  <div class="small-12 columns">
+                    <label>Address</label>
+                    <input type="text"
+                           ng-model="user.address">
+                  </div>
+                </div>
+
+                <!-- City/State/ZIP -->
+                <div class="row">
+                  <div class="small-5 columns">
+                    <label>City</label>
+                    <input type="text" 
+                           ng-model="user.city"
+                           ng-class="{ 'sign-up-error' : formErrorMessages['address'] }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : formErrorMessages['address'] }">{{formErrorMessages['address']}}</label>
+                  </div>
+                  <div class="small-3 columns">
+                    <label>State</label>
+                    <input type="text" 
+                           ng-model="user.state"
+                           ng-class="{ 'sign-up-error' : formErrorMessages['state'] }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : formErrorMessages['state'] }">{{formErrorMessages['state']}}</label>
+                  </div>
+                  <div class="small-4 columns">
+                    <label>ZIP</label>
+                    <input type="text" 
+                           ng-model="user.zip"
+                           ng-class="{ 'sign-up-error' : formErrorMessages['zip'] }">
+                    <!-- Error Message -->
+                    <label ng-class="{ 'sign-up-error' : formErrorMessages['zip'] }">{{formErrorMessages['zip']}}</label>
+                  </div>
+                </div>
+
+              </fieldset>
+
+              <fieldset>
+                <legend>Application & Agreement</legend>
+
+                <!-- Application and Agreement -->
+                <div class="row">
+                  <!-- Switch -->
+                  <div class="small-3 columns">
+                    <div class="switch">
+                      <input id="user_terms_accepted" 
+                             type="checkbox"
+                             ng-model="user.tos">
+                      <label for="user_terms_accepted"
+                             ng-class="{ 'sign-up-error' : formErrorMessages['tos'] }"></label>
+                    </div>
+                  </div>
+
+                  <!-- Text -->
+                  <div class="small-9 columns">
+                    <p class="terms-text">I agree to the terms and conditions set forth in the <a href="{{applicationAndAgreementLink}}" target="_blank">Application and Agreement</a>.</p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <!-- Error Message -->
+                  <span ng-class="{ 'error' : formErrorMessages['tos'] }">{{formErrorMessages['tos']}}</span>
+                </div>
+
+                <!-- Sign into Powur Button -->
+                <div class="row">
+                  <div class="small-12 columns">
+                    <button class="large button expand" 
+                            type="submit"
+                            ng-disabled="disableSubmit">Sign in to Powur</button>
+                  </div>
+                </div>
+
+              </fieldset>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

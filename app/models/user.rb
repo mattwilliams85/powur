@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
                  :address, :city, :state, :country, :zip, :phone
   store_accessor :profile,
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
-                 :communications, :watched_intro,
+                 :communications, :watched_intro, :tos_version,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
                  :notifications_read_at
 
@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
   validates :password,
     presence: true,
-    length: { minimum: 8, maximum: 40, message: 'Password not less than 8 symbols' },
+    length: { minimum: 8, maximum: 40, message: 'Password must be at least 8 characters.' },
     confirmation: true,
     on: :create
   validates :password_confirmation, presence: true, on: :create
@@ -236,6 +236,25 @@ class User < ActiveRecord::Base
   rescue => e
     Airbrake.notify(e)
   end
+<<<<<<< HEAD
+=======
+
+  class << self
+    # UPDATE_LIFETIME_RANKS = "
+    #     UPDATE users
+    #     SET lifetime_rank = ra.rank_id
+    #     FROM (
+    #       SELECT user_id, max(rank_id) rank_id
+    #       FROM rank_achievements
+    #       WHERE pay_period_id = ?
+    #       GROUP BY user_id) ra
+    #     WHERE users.id = ra.user_id AND
+    #       (ra.rank_id > users.lifetime_rank OR users.lifetime_rank IS NULL)"
+    # def update_lifetime_ranks(pay_period_id)
+    #   sql = sanitize_sql([ UPDATE_LIFETIME_RANKS, pay_period_id ])
+    #   connection.execute(sql)
+    # end
+>>>>>>> develop
 
   class << self
     def update_organic_ranks

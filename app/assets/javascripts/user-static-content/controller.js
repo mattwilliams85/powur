@@ -6,9 +6,11 @@
 
     $scope.legacyImagePaths = legacyImagePaths;
 
-    UserProfile.get().then(function(data) {
-      $rootScope.currentUser = data.properties;
-    });
+    if ($rootScope.isSignedIn) {
+      UserProfile.get().then(function(data) {
+        $rootScope.currentUser = data.properties;
+      });
+    }
 
     // getSponsors is used on /contact page to retrieve Team Leader and Coach users
     $scope.getSponsors = function() {
@@ -46,27 +48,23 @@
         if (data.id) $scope.getSponsors();
       });
     } else if ($scope.mode === 'preview') {
-      vidTimer();
       $timeout(function(){
+        vidTimer();
         $('#sun_header_guest').addClass('invert');
       })
     }
 
     function vidTimer(){
+      var seconds = 9;
       var timer = $interval(function(){
-        var date = new Date;
-        var seconds = 59 - date.getSeconds();
-        var minutes = 59 - date.getMinutes();
+        seconds -= 1;
 
-        if (minutes == 0 && seconds == 0) {
+        if (seconds == 0) {
           $interval.cancel(timer);
           $('#video-1').get(0).play();
         }
-
-        if (seconds < 10) seconds = '0' + seconds;
-        if (minutes < 10) minutes = '0' + minutes;
         
-        $scope.timer = minutes + ':' + seconds;
+        $scope.timer = '00:0' + seconds;
       }, 1000)
     }
 

@@ -2,8 +2,6 @@ module QuoteSubmission
   extend ActiveSupport::Concern
 
   def zip_code_valid?
-    return true unless customer.zip   # Blank zip is still considered valid
-
     sc_api_response = Timeout::timeout(3) do
       Net::HTTP.get('api.solarcity.com', '/solarbid/api/warehouses/zip/' + customer.zip[0,5])
     end
@@ -15,9 +13,17 @@ module QuoteSubmission
     return true   # Fallback to true and notify with Airbrake
   end
 
+
   def submit_data_valid?
-    customer.phone? && customer.email? &&
-      customer.first_name? && customer.last_name? && zip_code_valid?
+    customer.phone? &&
+    customer.email? &&
+    customer.first_name? &&
+    customer.last_name? &&
+    customer.address &&
+    customer.city &&
+    customer.state &&
+    customer.zip &&
+    zip_code_valid?
   end
 
   def can_submit?

@@ -165,12 +165,11 @@
 
     $scope.invitesTab = function() {
       if ($scope.noInvitesAvailable && !$scope.invites.length && !$scope.invites.redeemed) return $location.path('/upgrade');
-      closeAllTabs();
       if ($scope.activeTab === 'invites') {
         $scope.activeTab = '';
-        return closeTabs();
+        return closeAllTabs();
       }
-      closeTabs();
+      closeAllTabs();
       $scope.activeTab = 'invites';
     };
 
@@ -234,7 +233,11 @@
       }).then(function(items){
         $scope.nameQuery = initDownline(items).entities;
         $timeout(function() {
+<<<<<<< HEAD
           $('.left-label').wrapInTag({
+=======
+          $('.left-label, .bottom-label').wrapInTag({
+>>>>>>> develop
             tag: 'span class="highlight"',
             words: [$scope.teamSearch.string]
           });

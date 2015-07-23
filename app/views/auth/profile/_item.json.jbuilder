@@ -1,9 +1,4 @@
-# Deprecated in favor of sessions/show.json
-# TODO: reorganize this file, will only be used to return data for the profile page
-
 klass :user
-
-json.rel [ :item ] unless local_assigns[:detail]
 
 json.properties do
   json.call(@user, :id, :first_name, :last_name, :email,
@@ -16,6 +11,7 @@ json.properties do
       json.set! key, asset_path(user.avatar.url(key))
     end
   end if @user.avatar?
+
   json.is_admin user.role?(:admin)
 
   json.allow_sms @user.allow_sms != 'false'
@@ -26,8 +22,9 @@ json.properties do
     json.latest_terms ApplicationAgreement.current
   end
 
-  # Hstore stores booleans as strings; below converts back to boolean
-  json.watched_intro current_user.watched_intro == 'true'
+  json.allow_sms @user.allow_sms != 'false'
+  json.allow_system_emails @user.allow_system_emails != 'false'
+  json.allow_corp_emails @user.allow_corp_emails != 'false'
 end
 
 links link(:self, user_path(user))

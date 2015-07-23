@@ -11,6 +11,8 @@
 
     $scope.legacyImagePaths = legacyImagePaths;
 
+    // Sign In
+
     $scope.signIn = function() {
       if ($scope.user && $scope.user.email && $scope.user.password) {
         UserProfile.signIn({
@@ -31,74 +33,7 @@
       }
     };
 
-    $scope.validateInvite = function() {
-      var code;
-      if ($scope.invite && $scope.invite.code) {
-        CommonService.execute({
-          method: 'POST',
-          href: '/invite/validate.json'
-        }, {
-          code: $scope.invite.code
-        }).then(function(data) {
-          if (data.error) {
-            $scope.invite = {};
-            $scope.user = {};
-            $scope.invite.error = data.error;
-          } else {
-            code = $scope.invite.code;
-            $scope.invite = data;
-            console.log($scope.invite);
-            $scope.invite.code = code;
-            $scope.user.first_name = data.properties.first_name;
-            $scope.user.last_name = data.properties.last_name;
-            $scope.user.email = data.properties.email;
-            $scope.applicationAndAgreementLink = data.properties.latest_terms.document_path;
-            $scope.applicationAndAgreementVersion = data.properties.latest_terms.version;
-          }
-        });
-      }
-    };
-
-    function signUpCallback(data) {
-      $scope.formErrorMessages = {};
-      if (data.errors) {
-        $.each(data.errors, function(key, errors) {
-          // Only take first error message from the array
-          var errorMessage = errors[0];
-          if (errorMessage) {
-            $scope.formErrorMessages[key] = errors[0];
-          }
-        });
-      } else {
-        $location.path('/sign-in');
-        $scope.showModal('Congratulations! You\'ve successfully signed up for Powur.<br>You may now sign in with your email and password.');
-      }
-      $scope.isSubmitDisabled = false;
-    }
-
-    $scope.signUp = function() {
-      $scope.user.tos = '';
-      if ($scope.user) {
-        $scope.isSubmitDisabled = true;
-        var action;
-        for (var i in $scope.invite.actions) {
-          if ($scope.invite.actions[i].name === 'create_account') {
-            action = $scope.invite.actions[i];
-          }
-        }
-        $scope.user.code = $scope.invite.properties.id;
-
-        if ($scope.user.termsAccepted === true) {
-          $scope.user.tos = $scope.applicationAndAgreementVersion;
-        }
-        CommonService.execute(action, $scope.user).then(signUpCallback);
-      }
-    };
-
-    $scope.clearInviteValidationForm = function() {
-      $scope.invite = {};
-      $scope.user = {};
-    };
+    // Reset Password
 
     $scope.resetPassword = function() {
       if ($scope.user && $scope.user.email) {
@@ -155,7 +90,6 @@
     if (/\/sign-in$/.test($location.path())) return $scope.mode = 'sign-in';
     if (/\/customer-faq$/.test($location.path())) return $scope.mode = 'customer-faq';
     if (/\/advocate-faq$/.test($location.path())) return $scope.mode = 'advocate-faq';
-    if (/\/sign-up/.test($location.path())) return $scope.mode = 'sign-up';
     if (/\/reset-password/.test($location.path())) return $scope.mode = 'reset-password';
   };
 
@@ -167,11 +101,7 @@
       $scope.faqHeaderTitle = $scope.mode === 'customer-faq' ?
         'Powur Customer FAQ' :
         'Powur Advocate FAQ';
-    } else if ($scope.mode === 'sign-up') {
-      $scope.invite = {};
-      $scope.user = {};
-      $scope.invite.code = $routeParams.inviteCode;
-      if ($scope.invite.code) $scope.validateInvite();
+
     } else if ($scope.mode === 'reset-password') {
       $http.post('/password/validate_reset_token.json', {
         token: $routeParams.resetPasswordToken

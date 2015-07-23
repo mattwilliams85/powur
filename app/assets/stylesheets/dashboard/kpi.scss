@@ -19,9 +19,17 @@
 
     .sk-spinner-three-bounce.sk-spinner {
       position: absolute;
-      right: 45%;
-      top: 150px;
+      right: -100px;
+      top: 200px;
       z-index: 1;
+      width: 300px;
+      background-color: transparent;
+
+      div {
+        width: 35px;
+        height: 35px;
+        margin: 0 5px;
+      }
     }
 
     .badge {

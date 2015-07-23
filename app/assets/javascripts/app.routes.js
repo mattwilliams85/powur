@@ -20,10 +20,6 @@
       templateUrl: 'landing/templates/sign-in.html',
       controller: 'LandingCtrl'
     }).
-    when('/sign-up/:inviteCode?', {
-      templateUrl: 'landing/templates/sign-up.html',
-      controller: 'LandingCtrl'
-    }).
     when('/forgot-password', {
       templateUrl: 'landing/templates/forgot-password.html',
       controller: 'LandingCtrl'
@@ -31,6 +27,11 @@
     when('/reset-password/:resetPasswordToken', {
       templateUrl: 'landing/templates/reset-password.html',
       controller: 'LandingCtrl'
+    }).
+    // Sign Up
+    when('/sign-up/:inviteCode?', {
+      templateUrl: 'sign-up/templates/index.html',
+      controller: 'SignUpCtrl'
     }).
 
     // Latest Terms of Service
@@ -62,7 +63,11 @@
     }).
 
     // Promo
-    when('/create-wealth/:inviteCode?', {
+    when('/create-wealth/:inviteCode', {
+      templateUrl: 'sign-up/templates/index.html',
+      controller: 'SignUpCtrl'
+    }).
+    when('/create-wealth', {
       templateUrl: 'promo/templates/create-wealth.html',
       controller: 'PromoCtrl'
     }).

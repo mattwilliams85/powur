@@ -26,7 +26,7 @@ json.properties do
   # Hstore stores booleans as strings; below converts back to boolean
   json.watched_intro current_user.watched_intro == 'true'
 
-  json.notification current_user.unread_notifications.last
+  json.notification current_user.unread_notifications.first
 end
 
 actions_list = [

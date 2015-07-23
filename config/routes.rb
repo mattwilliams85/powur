@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :invite, only: [ :create, :update, :destroy ] do
+    resource :invite, only: [ :update ] do
       post :validate
     end
 
