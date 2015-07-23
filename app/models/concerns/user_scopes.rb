@@ -29,18 +29,6 @@ module UserScopes
         .order('dc.downline_count desc nulls last')
     }
 
-    scope :team_size, lambda { |user_id|
-      with_downline_counts
-      .with_parent(user_id)
-      .order("dc.downline_count desc nulls last")
-    }
-
-    scope :team_size, lambda { |user_id|
-      with_downline_counts
-      .with_parent(user_id)
-      .order("dc.downline_count desc nulls last")
-    }
-
     WEEKLY_DOWN_COUNTS_SELECT = \
       'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
     scope :weekly_downline_counts, lambda {
@@ -56,18 +44,16 @@ module UserScopes
 
     TEAM_COUNT_SELECT = \
       'unnest(users.upline) parent_id, count(users.id) - 1 team_count'
-    scope :team_count, lambda { |ids: nil|
-      sub_query = select(TEAM_COUNT_SELECT).group(:parent_id).to_sql
-      query = select('tc.parent_id id, tc.team_count')
-        .joins("inner join (#{sub_query}) tc on users.id = tc.parent_id")
-      query = query.where(id: ids) if ids
-      query
+    scope :team_count, lambda {
+      sub_query = select(TEAM_COUNT_SELECT).group(:parent_id)
+      select('*')
+        .joins("LEFT JOIN (#{sub_query.to_sql}) tc ON users.id = tc.parent_id")
     }
 
-    scope :quote_count, lambda { |ids: nil|
-      sub_query = Quote.user_count(ids: ids).to_sql
-      select('users.id, qc.quote_count')
-        .joins("inner join (#{sub_query}) qc on users.id = qc.user_id")
+    scope :lead_count, lambda {
+      sub_query = Quote.user_count
+      select('*')
+        .joins("LEFT JOIN (#{sub_query.to_sql}) lc ON users.id = lc.user_id")
     }
 
     scope :with_quote_counts, lambda {
@@ -83,7 +69,6 @@ module UserScopes
 
     scope :with_ancestor, lambda { |user_id|
       where('? = ANY (upline)', user_id).where('id <> ?', user_id)
-        # .where('upline[array_length(upline, 1)] NOT IN (?)', user_id)
     }
 
     OT_SELECT_FIELDS = %w(personal group personal_lifetime group_lifetime)

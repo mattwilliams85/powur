@@ -70,11 +70,11 @@ module SirenJson
     end
   end
 
-  def item_props(id = nil)
+  def item_props(entity)
     json.properties do
       yield if block_given?
 
-      render_item_totals(id) if id && params[:item_totals]
+      render_item_totals(entity) if params[:item_totals]
     end
   end
 
@@ -170,10 +170,10 @@ module SirenJson
     end
   end
 
-  def render_item_totals(id)
+  def render_item_totals(entity)
     json.totals do
       aggregator.selected.each do |key|
-        json.set! key, item_totals[key][id] || 0
+        json.set! key, entity.attributes[key.to_s] || 0
       end
     end
   end
@@ -216,5 +216,4 @@ module SirenJson
     end
     json.totals @totals
   end
-
 end

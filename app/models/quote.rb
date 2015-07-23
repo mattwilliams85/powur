@@ -27,9 +27,9 @@ class Quote < ActiveRecord::Base
   }
   scope :user_count, lambda { |ids: nil|
     query = Quote
-      .select('user_id, count(id) quote_count')
+      .select('user_id, count(id) lead_count')
       .group(:user_id)
-    query = query.where(user_id: ids) unless ids.empty?
+    query = query.where(user_id: ids) if ids
     query
   }
 

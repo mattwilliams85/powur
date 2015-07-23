@@ -4,6 +4,12 @@ module NameEmailSearch
   SEARCH = ':q % first_name or :q % last_name or email ilike :like'
 
   included do
-    scope :search, ->(q) { where(SEARCH, q: "#{q}", like: "%#{q}%") }
+    scope :search, lambda { |q|
+      if (qi = q.to_i) && qi.to_s == q
+        where(id: qi)
+      else
+        where(SEARCH, q: "#{q}", like: "%#{q}%")
+      end
+    }
   end
 end

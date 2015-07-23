@@ -92,14 +92,12 @@ module ListQuery
     !@list_query_klass.nil?
   end
 
-  def apply_list_query_options(query)  # rubocop:disable Metrics/AbcSize
+  def apply_list_query_options(query)
     @list_query_klass = true
     query = apply_scopes(query) if filtering?
+    query = aggregator.apply(query) if aggregating?
     query = sorter.apply(query) if sorting?
     query = pager.apply(query) if paging?
-    aggregator.selected.each do |total|
-      item_totals[total] = method(total).call(query)
-    end if aggregating?
     query
   end
 
@@ -208,10 +206,11 @@ module ListQuery
       @available = available
     end
 
-    def fetch(query, item_totals)
-      selected.each do |total|
-        item_totals[total] = method(total).call(query)
+    def apply(query)
+      selected.each do |scope|
+        query = query.merge(query.model.send(scope))
       end
+      query
     end
 
     def selected

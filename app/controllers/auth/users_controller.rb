@@ -6,9 +6,11 @@ module Auth
                           :full_downline, :move, :eligible_parents ]
 
     page
-    sort newest: { created_at: :desc },
-         name:   'users.last_name asc, users.first_name asc'
-    item_totals :leads_count, :team_count
+    sort newest:     { created_at: :desc },
+         name:       'users.last_name asc, users.first_name asc',
+         lead_count: 'lc.lead_count desc',
+         team_count: 'tc.team_count desc'
+    item_totals :lead_count, :team_count
 
     def index
       @users = @users.search(params[:search]) if params[:search].present?
@@ -80,20 +82,6 @@ module Auth
     def fetch_user
       params[:user_id] = params[:id]
       super
-    end
-
-    def leads_count(query)
-      ids = query.entries.map(&:id)
-      totals = User.quote_count(ids: ids)
-
-      Hash[ totals.map { |t| [ t.id, t.attributes['quote_count'] ] } ]
-    end
-
-    def team_count(query)
-      ids = query.entries.map(&:id)
-      totals = User.team_count(ids: ids)
-
-      Hash[ totals.map { |t| [ t.id, t.attributes['team_count'] ] } ]
     end
   end
 end

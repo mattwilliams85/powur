@@ -2,7 +2,7 @@ klass :user
 
 entity_rel(local_assigns[:rel] || 'item')
 
-item_props(user.id) do
+item_props(user) do
   json.call(user, :id, :first_name, :last_name, :full_name, :email,
             :phone, :level, :moved, :profile, :lifetime_rank, :level)
   json.certified user.partner?

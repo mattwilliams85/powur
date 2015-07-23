@@ -63,10 +63,6 @@ class User < ActiveRecord::Base
     customers.create!(params)
   end
 
-  def quote_count_for_pay_period(pay_period)
-    User.pay_period_quote_counts(id, pay_period)
-  end
-
   def upline_users
     User.where(id: upline - [id])
   end

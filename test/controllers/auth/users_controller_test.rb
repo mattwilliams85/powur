@@ -38,11 +38,13 @@ class Auth::UsersControllerTest < ActionController::TestCase
   def test_downline_with_totals
     get :downline,
         id:          users(:advocate).id,
-        item_totals: 'leads_count,team_count'
+        item_totals: 'lead_count,team_count',
+        sort:        'team_count'
 
     result = siren.entities.first
+    result.props_must_equal(id: users(:child).id)
     result.properties.totals.wont_be_nil
-    result.properties.totals.leads_count.wont_be_nil
+    result.properties.totals.lead_count.wont_be_nil
     result.properties.totals.team_count.wont_be_nil
   end
 
