@@ -236,25 +236,6 @@ class User < ActiveRecord::Base
   rescue => e
     Airbrake.notify(e)
   end
-<<<<<<< HEAD
-=======
-
-  class << self
-    # UPDATE_LIFETIME_RANKS = "
-    #     UPDATE users
-    #     SET lifetime_rank = ra.rank_id
-    #     FROM (
-    #       SELECT user_id, max(rank_id) rank_id
-    #       FROM rank_achievements
-    #       WHERE pay_period_id = ?
-    #       GROUP BY user_id) ra
-    #     WHERE users.id = ra.user_id AND
-    #       (ra.rank_id > users.lifetime_rank OR users.lifetime_rank IS NULL)"
-    # def update_lifetime_ranks(pay_period_id)
-    #   sql = sanitize_sql([ UPDATE_LIFETIME_RANKS, pay_period_id ])
-    #   connection.execute(sql)
-    # end
->>>>>>> develop
 
   class << self
     def update_organic_ranks

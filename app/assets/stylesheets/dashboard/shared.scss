@@ -76,10 +76,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   .suggestion-box {
     list-style: none;
     background-color: #fff;
-<<<<<<< HEAD
     padding: 5px 0;
-=======
->>>>>>> develop
     margin-top: -20px;
     margin-left: 0;
     border: 1px solid #ccc;
@@ -89,14 +86,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
     li {
       cursor: pointer;
-<<<<<<< HEAD
-      padding: 0 10px;
-      overflow: hidden;
-      .right-label {
-        color: #ccc;
-        float: right;
-      }
-=======
       padding: 2px 10px 8px 10px;
       overflow: hidden;
       .right-label {
@@ -114,7 +103,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
           color: #169AC0;
         }
       }
->>>>>>> develop
       .left-label {
         float: left;
         white-space: nowrap;

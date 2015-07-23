@@ -4,11 +4,7 @@
   <ng-include src="'shared/header-signed-out.html'"></ng-include>
   <div class="exclusive-webinar">
     <div class="timer-box video-box" ng-show="timer == '00:00'">
-<<<<<<< HEAD
-      <video class="video" id="video-1" ng-src="{{legacyImagePaths.betaVideo}}" preload>
-=======
       <video poster="{{legacyImagePaths.spinner}}" class="video" id="video-1" ng-src="{{legacyImagePaths.betaVideo}}" preload controls>
->>>>>>> develop
         Your browser does not support the <code>video</code> element.
       </video>
     </div>
@@ -19,11 +15,7 @@
       </span>
       <span class="detail">presentation starts in</span>
       <div class="timer">
-<<<<<<< HEAD
-        <span>{{timer}}</span>
-=======
         <span>{{timer || '00:10'}}</span>
->>>>>>> develop
       </div>
     </div>
     <div class="bottom-text-box">
