@@ -233,7 +233,7 @@
       }).then(function(items){
         $scope.nameQuery = initDownline(items).entities;
         $timeout(function() {
-          $('.left-label').wrapInTag({
+          $('.left-label, .bottom-label').wrapInTag({
             tag: 'span class="highlight"',
             words: [$scope.teamSearch.string]
           });

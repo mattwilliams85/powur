@@ -32,7 +32,8 @@
                 <div class="sk-bounce3"></div>
               </div>
               <ul ng-show="nameQuery.length && focused && teamSearch.string.length" class="suggestion-box">
-                <li ng-class="{'selected': queryIndex === $index}" ng-repeat="user in nameQuery" ng-click="teamSection.search(user)" ng-mouseover="key($index)"><span class="left-label">{{user.first_name + ' ' + user.last_name}}</span><span class="right-label">#{{user.id}}</span></li>
+                <li ng-class="{'selected': queryIndex === $index}" ng-repeat="user in nameQuery" ng-click="teamSection.search(user)" ng-mouseover="key($index)"><span class="left-label">{{user.first_name + ' ' + user.last_name}}</span><span class="right-label">({{user.id}})</span>
+               <span class="bottom-label">{{user.email}}</span></li>
               </ul>
             </div>
           </form>
