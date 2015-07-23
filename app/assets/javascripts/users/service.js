@@ -40,6 +40,7 @@
       downline: function(userId, params) {
         var dfr = $q.defer();
         params = params || {};
+        params.item_totals = 'leads_count,team_count';
 
         $http({
           method: 'GET',

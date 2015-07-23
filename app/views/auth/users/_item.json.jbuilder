@@ -5,7 +5,7 @@ entity_rel(local_assigns[:rel] || 'item')
 item_props(user.id) do
   json.call(user, :id, :first_name, :last_name, :full_name, :email,
             :phone, :level, :moved, :profile, :lifetime_rank, :level)
-
+  json.certified user.partner?
   json.avatar do
     [ :thumb, :medium, :large ].each do |key|
       json.set! key, asset_path(user.avatar.url(key))

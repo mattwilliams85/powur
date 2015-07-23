@@ -42,7 +42,7 @@
               <!-- Team Tab -->
               <div 
                 class="team-tab downline" 
-                ng-if="member.downline_count"
+                ng-if="member.totals.team_count"
                 ng-class="{ 
                   'raise': hover || isMobile() || is.activeMember(member, gen),
                   'active-tab': is.activeTab(member, gen, 'team'),
@@ -54,7 +54,7 @@
                 <img ng-src="{{img.teamSection.teamIcon}}">
               </div>
               <!-- If No Team Tab -->
-              <div class="team-tab info" ng-if="!member.downline_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
+              <div class="team-tab info" ng-if="!member.totals.team_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
                 <img class="inactive-icon" ng-src="{{img.teamSection.teamIconInactive}}">
               </div>
               <!-- Info Tab -->
@@ -73,7 +73,7 @@
               <!-- Proposal Tab -->
               <div 
                 class="team-tab info" 
-                ng-if="member.proposal_count"
+                ng-if="member.totals.leads_count"
                 ng-class="{ 
                   'raise': hover || isMobile() || is.activeMember(member, gen),
                   'active-tab': is.activeTab(member, gen, 'proposals'),
@@ -85,7 +85,7 @@
                 <img ng-src="{{img.teamSection.customerIcon}}">
               </div>
               <!-- If No Proposal Tab -->
-              <div class="team-tab info" ng-if="!member.proposal_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
+              <div class="team-tab info" ng-if="!member.totals.leads_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
                 <img class="inactive-icon" ng-src="{{img.teamSection.customerIconInactive}}">
               </div>
             </div>
@@ -102,7 +102,7 @@
               </div>
               <div class="info-text user-text">
                 <span>{{member.first_name}} {{member.last_name}}</span>
-                <span ng-hide="is.activeMember(member, gen) && is.accordion($parent.$index)" class="info-detail">TEAM {{member.downline_count}}, PROPOSALS {{member.proposal_count || 0}}</span>
+                <span ng-hide="is.activeMember(member, gen) && is.accordion($parent.$index)" class="info-detail">TEAM {{member.totals.team_count}}, PROPOSALS {{member.totals.leads_count || 0}}</span>
               </div>
             </div>
           </div>

@@ -2,7 +2,8 @@ module Auth
   class UsersController < AuthController
     before_action :fetch_users, only: [ :index ]
     before_action :fetch_user,
-                  only: [ :show, :downline, :upline, :move, :eligible_parents ]
+                  only: [ :show, :downline, :upline,
+                          :full_downline, :move, :eligible_parents ]
 
     page
     sort newest: { created_at: :desc },
@@ -20,6 +21,14 @@ module Auth
       @users = User.with_parent(@user.id)
 
       index
+    end
+
+    def full_downline
+      scope = User.with_ancestor(params['id'])
+      apply_list_query_options(scope)
+      query_users(scope) if params[:search]
+
+      render 'index'
     end
 
     def upline
@@ -49,6 +58,17 @@ module Auth
       User.move_user(@user, parent)
 
       show
+    end
+
+    def query_users(scope)
+      if params[:search].to_i > 0
+        @users = scope.where(id: params[:search].to_i)
+      else
+        @users = scope
+          .search(params[:search])
+          .limit(7)
+          .order(:first_name)
+      end
     end
 
     private
