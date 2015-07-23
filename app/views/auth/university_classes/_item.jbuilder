@@ -1,7 +1,7 @@
 json.properties do
   json.call(university_class,
             :id, :name, :description, :long_description,
-            :topic, :is_required_class, :slug)
+            :is_required_class, :slug)
 
   json.image_url university_class.image_original_path
   json.price university_class.bonus_volume

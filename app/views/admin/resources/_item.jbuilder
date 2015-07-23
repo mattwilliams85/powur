@@ -2,8 +2,9 @@ json.properties do
   json.call(resource,
             :id, :user_id, :title, :description, :tag_line,
             :file_original_path, :file_type, :youtube_id, :image_original_path,
-            :is_public, :full_name, :position, :topic_id, :topic)
+            :is_public, :position, :topic_id, :topic)
 
+  json.user_name resource.user.full_name
   json.created_at resource.created_at.to_f * 1000
 end
 
