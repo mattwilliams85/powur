@@ -1,7 +1,11 @@
 <main class="pow-admin-index">
   <div class="row">
-    <div class="large-12 columns">
+    <div class="large-9 columns">
       <h2>Admin Dashboard</h2>
+    </div>
+
+    <div class="large-3 columns">
+      <select ng-model="daysAgo" ng-options="item.value as item.label for item in daysAgoOptions" ng-change="getData()" class="dropdown"></select>
     </div>
   </div>
 
@@ -11,13 +15,13 @@
       <table class="index-table">
         <thead>
           <tr>
-            <th colspan="2">Basic stats since midnight</th>
+            <th colspan="2">Basic stats</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="item in index.data.entities">
             <td>{{ item.properties.name }}</td>
-            <td>{{ item.properties.value }}</td>
+            <td width="200">{{ item.properties.value }}</td>
           </tr>
         </tbody>
       </table>

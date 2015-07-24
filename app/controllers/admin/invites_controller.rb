@@ -4,12 +4,7 @@ module Admin
     sort user_id: { id: :asc }
 
     def index
-      respond_to do |format|
-        format.html
-        format.json do
-          @invites = apply_list_query_options(@user.invites)
-        end
-      end
+      @invites = apply_list_query_options(@user.invites)
     end
 
     def show

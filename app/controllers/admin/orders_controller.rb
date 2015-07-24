@@ -8,14 +8,9 @@ module Admin
          user:       'users.last_name asc, users.first_name asc'
 
     def index(query = Order)
-      respond_to do |format|
-        format.html { render 'index' }
-        format.json do
-          @orders = format_index_query(query)
+      @orders = format_index_query(query)
 
-          render 'index'
-        end
-      end
+      render 'index'
     end
 
     def create

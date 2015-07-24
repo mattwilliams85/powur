@@ -34,35 +34,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#create' do
-    context 'after create' do
-      let(:mailchimp_list_api) { double(:mailchimp_list_api) }
-      let(:user_data) do
-        {
-          email:      'newuser@example.com',
-          first_name: 'Bob',
-          last_name:  'Smith'
-        }
-      end
-      before do
-        allow_any_instance_of(Gibbon::API)
-          .to receive(:lists).and_return(mailchimp_list_api)
-      end
-
-      it 'should send api call to subscribe user to mailchimp list' do
-        expect(mailchimp_list_api).to receive(:subscribe).with(
-          id:           User::MAILCHIMP_LISTS[:all],
-          email:        { email: user_data[:email] },
-          merge_vars:   {
-            FNAME: user_data[:first_name],
-            LNAME: user_data[:last_name]
-          },
-          double_optin: false).once
-        create(:user, user_data)
-      end
-    end
-  end
-
   describe '#upline' do
 
     before :each do

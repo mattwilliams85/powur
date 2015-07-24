@@ -11,6 +11,7 @@ module Admin
           since = Time.zone.now.utc
             .in_time_zone('America/Los_Angeles')
             .at_beginning_of_day
+          since -= params[:days_ago].to_i.days if params[:days_ago]
 
           @stats_items = [
             { name: 'Leads', value: submitted_quotes_count(since) },

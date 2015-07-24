@@ -32,6 +32,16 @@ class Invite < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def status
+    if user_id
+      'redeemed'
+    elsif expires < Time.now
+      'expired'
+    else
+      'valid'
+    end
+  end
+
   def renew
     update_attributes(expires: expires_timespan)
   end

@@ -3,17 +3,15 @@ siren json
 users_json.item_init
 
 json.properties do
-  json.id @user.id
-  json.first_name @user.first_name
-  json.last_name @user.last_name
+  json.call(@user, :id, :first_name, :last_name, :proposal_count)
+
   json.metrics do
     json.data0 @proposals
-    json.data1 @orders 
+    json.data1 @orders
   end
   json.avatar do
     [ :thumb, :medium, :large ].each do |key|
       json.set! key, asset_path(@user.avatar.url(key))
     end
   end if @user.avatar?
-  json.proposal_count @user.proposal_count
 end
