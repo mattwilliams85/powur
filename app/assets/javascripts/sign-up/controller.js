@@ -82,7 +82,7 @@
     // Show Wealth Video Modal
     $scope.showVideoModal = function (videoUrl) {
       var domElement =
-        '<div class=\'reveal-modal\' data-options="close_on_background_click:false" data-reveal>' +
+        '<div class=\'reveal-modal\' data-options="close_on_background_click:false" style="border: 0; padding: 0; background-color: #000;" data-reveal>' +
         '<video width="100%" autoplay controls>' +
         '<source src="' + videoUrl + '" type="video/mp4">' +
         '</video>' +
