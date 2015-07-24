@@ -12,6 +12,8 @@ module Auth
          team_count: 'tc.team_count desc'
     item_totals :lead_count, :team_count
 
+    helper_method :user_totals
+
     def index
       @users = @users.search(params[:search]) if params[:search].present?
       @users = apply_list_query_options(@users)
@@ -82,6 +84,32 @@ module Auth
     def fetch_user
       params[:user_id] = params[:id]
       super
+    end
+
+    def user_team_counts
+      { all:       User.with_ancestor(@user.id).count,
+        certified: User.with_ancestor(@user.id).with_purchases.count }
+    end
+
+    def user_lead_counts
+      month_start = Date.today.beginning_of_month
+      submitted_month = @user.quotes
+        .submitted.where('submitted_at >= ?', month_start).count
+      installed_month = @user.quotes
+        .closed_won.where('submitted_at >= ?', month_start).count
+
+      { lifetime: {
+        submitted: @user.quotes.submitted.count,
+        installed: @user.quotes.closed_won.count },
+        month:    {
+          submitted: submitted_month,
+          installed: installed_month } }
+    end
+
+    def user_totals
+      @user_totals ||= begin
+        { team_counts: user_team_counts, lead_counts: user_lead_counts }
+      end
     end
   end
 end

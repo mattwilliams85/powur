@@ -68,7 +68,7 @@ module UserScopes
     }
 
     scope :with_ancestor, lambda { |user_id|
-      where('? = ANY (upline)', user_id).where('id <> ?', user_id)
+      where('? = ANY (upline)', user_id).where('users.id <> ?', user_id)
     }
 
     OT_SELECT_FIELDS = %w(personal group personal_lifetime group_lifetime)

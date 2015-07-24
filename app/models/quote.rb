@@ -16,7 +16,9 @@ class Quote < ActiveRecord::Base
   scope :submitted, -> { where('submitted_at is not null') }
   scope :not_submitted, -> { where('submitted_at is null') }
   scope :not_closed, -> { where('status < 5') }
-  scope :with_contract, -> { joins(:lead_updates).where("lead_updates.contract IS NOT NULL") }
+  scope :with_contract, lambda {
+    joins(:lead_updates).where('lead_updates.contract IS NOT NULL')
+  }
   scope :status, ->(*args) { where(status: args.map { |a| statuses[a] }) }
   scope :won, -> { status(:closed_won) }
   scope :within_date_range, lambda { |begin_date, end_date|

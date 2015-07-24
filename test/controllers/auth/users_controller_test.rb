@@ -61,6 +61,12 @@ class Auth::UsersControllerTest < ActionController::TestCase
     siren.must_have_actions(:move)
   end
 
+  def test_show_child_with_user_totals
+    get :show, id: users(:child).id, user_totals: true
+
+    siren.properties.totals.wont_be_nil
+  end
+
   def test_show_self
     get :show, id: users(:advocate).id
 

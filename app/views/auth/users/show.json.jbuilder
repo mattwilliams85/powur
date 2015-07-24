@@ -14,6 +14,7 @@ json.properties do
             :profile, :avatar, :avatar_file_name)
   json.organic_rank rank_title(@user.organic_rank)
   json.lifetime_rank rank_title(@user.lifetime_rank)
+  json.totals user_totals if params[:user_totals]
 end
 
 entities \
