@@ -78,6 +78,13 @@
                 <h1>Hello {{invite.properties.first_name}},</h1>
                 <p>Your invitation to join Powur has expired. Contact <a href="mailto:{{invite.properties.sponsor_email}}">{{invite.properties.sponsor_first_name}} {{invite.properties.sponsor_last_name}}</a> to renew your invitation.</p>
               </div>
+
+              <!-- If redeemed invite -->
+              <div class="info-message"
+                   ng-show="invite.properties.status === 'redeemed'">
+                <h1>Hello,</h1>
+                <p>This invitation to join Powur has already been redeemed. Please contact the person who told you about Powur to get an invitation.</p>
+              </div>
             </div>
 
           </div>

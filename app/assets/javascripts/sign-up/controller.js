@@ -44,8 +44,8 @@
           } else {
             $scope.invite = data;
 
-            // If invite is expired
-            if (data.properties.status === 'expired') {
+            // If invite is not valid
+            if (data.properties.status !== 'valid') {
               $scope.disableSubmit = true;
               $anchorScroll();
               return;

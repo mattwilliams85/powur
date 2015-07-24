@@ -12,7 +12,7 @@ json.properties do
   json.latest_terms ApplicationAgreement.current
 end
 
-unless @invite.expires < Time.now
+if @invite.status == 'valid'
   actions \
     action(:accept_invite, :patch, invite_path)
     .field(:code, :hidden, value: @invite.id)
