@@ -40,10 +40,6 @@ RSpec.configure do |config|
     # and we don't want to put vcr all over the spec files
     allow_any_instance_of(Invite).to receive(:valid_phone?).and_return(true)
 
-    # Mailchimp will try to subscribe user to the mailing list
-    allow_any_instance_of(User)
-      .to receive(:mailchimp_subscribe_to).and_return(true)
-
     DatabaseCleaner.start
   end
 

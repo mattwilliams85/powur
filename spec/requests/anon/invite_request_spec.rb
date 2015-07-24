@@ -6,8 +6,11 @@ describe '/invite' do
   end
 
   describe 'PATCH' do
+    let(:mailchimp_list_api) { double(:mailchimp_list_api) }
     let(:sponsor) { create(:certified_user, available_invites: 3) }
     before do
+      allow_any_instance_of(Gibbon::API)
+        .to receive(:lists).and_return(mailchimp_list_api)
       @invite = create(:invite, sponsor: sponsor, email: 'newinvite@test.com')
       @user_params = {
         code:                  @invite.id,
@@ -41,25 +44,30 @@ describe '/invite' do
       })
     end
 
-    it 'registers a new promoter' do
-      VCR.use_cassette('ipayout_register') do
-        patch invite_path(format: :json), JSON.dump(@user_params), "CONTENT_TYPE" => "application/json"
+    context 'when successfully creates user' do
+      before do
+        expect(mailchimp_list_api).to receive(:subscribe).with(
+          id:           User::MAILCHIMP_LISTS[:all],
+          email:        { email: @user_params[:email] },
+          merge_vars:   {
+            FNAME: @user_params[:first_name],
+            LNAME: @user_params[:last_name]
+          },
+          double_optin: false).once
       end
 
-      expect_200
+      it 'regesters a user and associates any outstanding invites' do
+        # invite = create(:invite, @user.email)
+        VCR.use_cassette('invite_promoter_association') do
+          patch invite_path(format: :json), JSON.dump(@user_params), "CONTENT_TYPE" => "application/json"
+        end
 
-      @invite.reload
-      expect(@invite.user_id).to_not be_nil
-    end
+        expect_200
 
-    it 'associates any outstanding invites with the new promoter' do
-      # invite = create(:invite, @user.email)
-      VCR.use_cassette('invite_promoter_association') do
-        patch invite_path(format: :json), JSON.dump(@user_params), "CONTENT_TYPE" => "application/json"
+        user_id = User.find_by(email: @invite.email).id
+        @invite.reload
+        expect(@invite.user_id).to eq(user_id)
       end
-      user_id = User.find_by(email: @invite.email).id
-      @invite.reload
-      expect(@invite.user_id).to eq(user_id)
     end
   end
 end
