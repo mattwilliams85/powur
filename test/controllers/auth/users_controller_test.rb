@@ -16,6 +16,12 @@ class Auth::UsersControllerTest < ActionController::TestCase
     result.must_equal result.sort
   end
 
+  def test_index_sorted_by_totals_not_selected
+    get :index, sort: 'team_count'
+
+    siren.must_be_error
+  end
+
   def test_downline
     get :downline, id: users(:advocate).id
 
