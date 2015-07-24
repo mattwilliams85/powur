@@ -45,6 +45,8 @@ describe User, type: :model do
         }
       end
       before do
+        allow_any_instance_of(User)
+          .to receive(:mailchimp_subscribe_to).and_call_original
         allow_any_instance_of(Gibbon::API)
           .to receive(:lists).and_return(mailchimp_list_api)
       end

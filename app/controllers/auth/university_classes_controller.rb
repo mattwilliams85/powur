@@ -75,21 +75,23 @@ module Auth
     def send_purchased_notifications
       mailer = PromoterMailer.certification_purchase_processed(current_user)
       mailer.deliver_now!
-      if current_user.upline.length > 1
-        mailer = PromoterMailer
-          .team_leader_downline_certification_purchase(current_user)
-        mailer.deliver_now!
-      end
+
+      return unless current_user.upline.length > 1
+      mailer = PromoterMailer
+        .team_leader_downline_certification_purchase(current_user)
+      mailer.deliver_now!
     end
 
     def subscribe_to_mailchimp_list
       current_user.mailchimp_subscribe_to('partners')
-    rescue => e
+    rescue Gibbon::MailChimpError => e
       Airbrake.notify(e)
     end
 
     def increase_available_invites
-      current_user.update_column(:available_invites, current_user.available_invites + 5)
+      current_user.update_column(
+        :available_invites,
+        current_user.available_invites + 5)
     end
 
     def validate_class_enrollable

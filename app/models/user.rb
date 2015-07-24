@@ -238,8 +238,6 @@ class User < ActiveRecord::Base
 
   def subscribe_to_mailchimp_list
     mailchimp_subscribe_to('all')
-  rescue => e
-    Airbrake.notify(e)
   end
 
   class << self
