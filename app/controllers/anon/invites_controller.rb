@@ -29,12 +29,6 @@ module Anon
       end
     end
 
-    def destroy
-      reset_session
-
-      render 'anon/session/anonymous'
-    end
-
     def validate
       render 'show'
     end
@@ -47,10 +41,6 @@ module Anon
 
     def fetch_invite
       @invite = Invite.find_by(id: params[:code], user_id: nil) || invalid_code!
-      user = User.find_by_email(@invite.email.downcase)
-      return unless user
-      @invite.update_attribute(:user_id, user.id)
-      invalid_code!
     end
 
     def invite_input

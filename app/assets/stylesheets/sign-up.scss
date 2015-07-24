@@ -111,6 +111,9 @@
             font-size: 12pt;
             font-family: "montserratlight";
           }
+          a {
+            color: $pow-color-blue;
+          }
         }
       }
 
@@ -164,6 +167,11 @@
             color: #000;
             &.sign-up-error {
               color: #fff;
+            }
+            &:disabled {
+              background-color: rgba(0,0,0,0.1);
+              border: 1px solid rgba(0,0,0,0.2);
+              color: #666
             }
           }
           // Error State

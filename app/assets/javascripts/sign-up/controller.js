@@ -43,8 +43,16 @@
             $scope.invite.error = data.error;
           } else {
             $scope.invite = data;
+
+            // If invite is expired
+            if (data.properties.status === 'expired') {
+              $scope.disableSubmit = true;
+              $anchorScroll();
+              return;
+            }
+
             $scope.signUpAction = getAction($scope.invite.actions, 'accept_invite');
-            $scope.user = setFieldValuesFromAction($scope.signUpAction)
+            $scope.user = setFieldValuesFromAction($scope.signUpAction);
             $scope.applicationAndAgreementLink = data.properties.latest_terms.document_path;
             $anchorScroll();
           }

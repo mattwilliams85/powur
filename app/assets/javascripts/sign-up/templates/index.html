@@ -67,15 +67,23 @@
 
               <!-- If valid invite -->
               <div class="info-message"
-                   ng-show="invite.properties">
+                   ng-show="invite.properties.status === 'valid'">
                 <h1>Hello {{invite.properties.first_name}},</h1>
                 <p>You’ve been invited to join the new Powur Grid!</p>
               </div>
+
+              <!-- If expired invite -->
+              <div class="info-message"
+                   ng-show="invite.properties.status === 'expired'">
+                <h1>Hello {{invite.properties.first_name}},</h1>
+                <p>Your invite code to join Powur has expired. Contact <a href="mailto:{{invite.properties.sponsor_email}}">{{invite.properties.sponsor_first_name}} {{invite.properties.sponsor_last_name}}</a> to get a new one.</p>
+              </div>
             </div>
+
           </div>
 
           <!-- Invite Code Form -->
-          <form ng-show="!invite.properties"
+          <form ng-show="!(invite.properties.status === 'valid')"
                 ng-submit="validateInvite()">
             <fieldset>
               <legend>Enter Invite Code</legend>
@@ -85,14 +93,17 @@
                   <input type="text"
                          class="invite-code"
                          ng-model="inviteCode"
-                         ng-class="{ 'sign-up-error' : invite.error }">
+                         ng-class="{ 'sign-up-error' : invite.error }"
+                         ng-disabled="disableSubmit">
                   <!-- Error Message -->
                   <label ng-class="{ 'sign-up-error' : invite.error }">{{invite.error.message}}</label>
                 </div>
               </div>
               <div class="row">
                 <div class="small-12 columns">
-                  <button class="large button expand" type="submit">Join the Grid</button>
+                  <button class="large button expand"
+                          type="submit"
+                          ng-disabled="disableSubmit">Join the Grid</button>
                 </div>
               </div>
             </fieldset>
@@ -100,7 +111,7 @@
 
           <!-- Sign Up Form -->
           <form ng-submit="signUp()"
-                ng-show="invite.properties">
+                ng-show="invite.properties.status === 'valid'">
             <fieldset>
               <legend>Confirm Contact Info</legend>
 
