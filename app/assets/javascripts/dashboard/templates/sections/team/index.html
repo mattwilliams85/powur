@@ -1,5 +1,14 @@
 <div class="row">
   <div class="large-12 columns">
+    <div ng-show="placement.on" class="placement-box" ng-class="{'placing': placement.parent}">
+      <span class="line-1">  You're currently trying to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}.</b></span>
+      <span class="line-2"> Would you like to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}</b> on to <b>{{placement.parent.first_name + ' ' + placement.parent.last_name}}'s</b> team?</span>
+      <div class="button-box">
+        <a class="place-button">Yes</a>
+        <a class="place-button" ng-click="placement.parent = null">No</a>
+      </div>
+      <i class="fa fa-times" ng-click="clearPlacement()"></i>
+    </div>
     <!-- Row: Label / Sort / Search -->
     <div class="row">
 
@@ -94,6 +103,7 @@
 
         <!-- If Team Members -->
         <div ng-if="downline[0]" class="team owl-carousel" id="carousel-0" data-row="0">
+        
           <a ng-repeat="member in downline[0]">
 
             <div 
@@ -150,11 +160,14 @@
                     'raise': hover || isMobile() || is.accordion(0) || is.activeMember(member, downline[0]),
                     'accordion': is.accordion(0) }"
                     ng-click="changeTab(member, downline[0], 'info');">
-                <div class="avatar" ng-class="{'accordion': is.accordion(0)}">
-                  <div class="tooltips cert-badge" ng-show="member.certified" >
+                <div class="avatar" ng-class="{'accordion': is.accordion(0)}" ng-mouseover="addMe=true" ng-mouseleave="addMe=false" ng-click="setParent(member)">
+                  <div class="crop-box">
+                    <img class="plus" ng-src="{{img.teamSection.plusIcon}}" ng-class="{'swing': addMe === true && placement.on}">
+                    <img class="lazyOwl avatar-img" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified, 'swing':  addMe === true && placement.on}">
+                  </div>
+                  <div class="tooltips cert-badge" ng-show="member.certified" ng-class="{'swing': addMe === true && placement.on}">
                     <span>Certified!</span>
                   </div>
-                  <img class="lazyOwl" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified}"> 
                 </div>
                 <div class="info-text user-text">
                   <span>{{member.first_name}} {{member.last_name}}</span>

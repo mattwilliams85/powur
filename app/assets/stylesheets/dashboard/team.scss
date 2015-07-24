@@ -1,6 +1,73 @@
 .powur-dashboard {
   .team-section {
 
+    .placement-box {
+      position: absolute;
+      bottom: -90px;
+      margin: 0 auto;
+      font-size: 14pt;
+      background-color: #20C2F1;
+      color: #fff;
+      padding: 20px;
+      width: 80%;
+      left: 0;
+      right: 0;
+      border-radius: 5px;
+      transition: padding .15s lienar;
+
+      &.placing {
+        padding-bottom: 80px;
+        bottom: -150px;
+
+        .line-1 {
+          display: none;
+        }
+        .line-2,
+        .button-box {
+          display: block;
+        }
+      }
+
+      .line-2 {
+        display: none;
+      }
+      
+      .button-box {
+        display: none;
+        position: absolute;
+        bottom: 25px;
+        left: 20px;
+        margin: 0 auto;
+        right: 0;
+        width: 310px;
+
+        .place-button {
+          padding: 7px 50px;
+          background-color: #fff;
+          border-radius: 3px;
+          margin-left: 15px;
+          text-transform: uppercase;
+          font-weight: bold;
+          color: #20C2F1;
+          transition: all .2s linear;
+
+          &:hover {
+            background: #1996BA;
+            color: #fff;
+          }
+        }
+      }
+
+      .fa-times {
+        float: right;
+        font-size: 20pt;
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+      }
+    }
+
     .tooltips {
       position: relative;
       display: inline;
@@ -166,8 +233,29 @@
         position: relative;
         text-align: center;
         top: 20%;
-        margin-top: -5px;
-        margin-bottom: 10px;
+        width: 85px;
+        margin: 10px auto;
+        z-index: 1;
+
+        .crop-box {
+          height: 100%;
+          width: 100%;
+          border-radius: 50px;
+          position: relative;
+          overflow: hidden;
+          background-color: #aaa;
+          z-index:1;
+        }
+
+        .plus {
+          position: absolute;
+          left: -85px;
+          z-index: 2;
+          transition: transform .15s linear;
+          &.swing {
+            transform: translate(85px, 0);
+          }
+        }
 
         .cert-badge {
           background: image-url("dashboard/cert-badge.png");
@@ -177,10 +265,22 @@
           background-size: cover;
           border-radius: 50%;
           position: absolute;
-          z-index: 2;
+          z-index: 3;
           cursor: help;
           top: 62%;
-          left: 58%;
+          left: 69%;
+
+          &.swing {
+            cursor: pointer;
+            opacity: 0;
+          }
+        }
+
+        .avatar-img {
+          transition: transform .15s linear;
+          &.swing {
+            transform: translate(86px, 0);
+          }
         }
 
         img {

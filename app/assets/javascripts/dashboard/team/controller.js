@@ -12,6 +12,7 @@
     $scope.queryIndex = 0;
     $scope.dQueue = [];
     $scope.teamSearch = {};
+    $scope.placement = {};
 
     //Conditional Ref Object
     $scope.is = {
@@ -109,7 +110,7 @@
     }
 
     $scope.changeTab = function(member, gen, tab) {
-      if ($scope.disable) return;
+      if ($scope.disable || $scope.placement.parent) return;
 
       var delay = 300; // Delay for transition between multiple animations
       if (!$scope.activeTab) delay = 0;
@@ -474,6 +475,32 @@
       }
       return;
     }
+
+//PLACEMENT 
+  $scope.placeMode = function(){
+    if ($scope.placement.on) return;
+    $scope.placement.on = true;
+    $scope.placement.child = $scope.currentTeamMember;
+    $timeout(function(){      
+      $('html, body').animate({
+        scrollTop: $('.placement-box').offset().top - $(window).height() + 100
+      }, 300);
+    });
+  };
+
+  $scope.clearPlacement = function() {
+    $scope.placement = {};
+  };
+
+  $scope.setParent = function(member) {
+    if (!$scope.placement.on) return;
+    $scope.placement.parent = member;
+    $timeout(function(){      
+      $('html, body').animate({
+        scrollTop: $('.placement-box').offset().top - $(window).height() + 170
+      }, 300);
+    });
+  };
 
 //ON PAGE LOAD
     var level;
