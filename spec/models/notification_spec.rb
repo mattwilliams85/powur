@@ -1,20 +1,20 @@
 require 'spec_helper'
 
 describe Notification, type: :model do
-
   context '#send_out' do
     let(:notification) { create(:notification) }
+    let(:twilio_client) { double(:twilio_client) }
     let(:users) { [double(:user1, phone: '123'), double(:user2, phone: '456')] }
 
     before do
+      expect(TwilioClient).to receive(:new).and_return(twilio_client)
       expect(notification).to receive(:fetch_recipients).and_return(users)
     end
 
     it 'should initiate sending an sms and update finished_at attribute' do
-      users.each do |user|
-        expect(user).to receive(:send_sms).with(user.phone, notification.content).once
-      end
       expect(notification.finished_at).to eq(nil)
+      expect(twilio_client)
+        .to receive(:send_sms_in_groups).with(%w(123 456), notification.content)
       notification.send_out
       expect(notification.finished_at).not_to eq(nil)
     end

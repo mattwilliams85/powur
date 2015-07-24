@@ -21,13 +21,10 @@ class Notification < ActiveRecord::Base
   end
 
   def send_out
-    fetch_recipients.each do |user|
-      begin
-        user.send_sms(user.phone, content)
-      rescue => e
-        Airbrake.notify(e)
-      end
-    end
+    twilio_client = TwilioClient.new
+    recipient_numbers = fetch_recipients.map(&:phone).compact
+    twilio_client.send_sms_in_groups(recipient_numbers, content)
+
     update_column(:finished_at, Time.zone.now)
   end
 
