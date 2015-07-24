@@ -8,13 +8,9 @@ module Auth
     filter :status, options: Order.enum_options(:statuses)
 
     def index
-      respond_to do |format|
-        format.json do
-          @orders_path = user_orders_path(@user)
+      @orders_path = user_orders_path(@user)
 
-          super(@user.orders)
-        end
-      end
+      super(@user.orders)
     end
   end
 end

@@ -3,18 +3,6 @@ module Auth
     include EmpowerMerchantRequestHelper
     before_action :fetch_user
 
-    def index
-      respond_to do |format|
-        format.html do
-        end
-        format.json do
-        end
-      end
-    end
-
-    def sandbox
-    end
-
     def confirmation
       # Transaction Complete
     end

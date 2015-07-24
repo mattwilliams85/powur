@@ -58,9 +58,6 @@ module ParamValidation
   end
 
   def render_json_error(e)
-    respond_to do |format|
-      format.html { render text: e.message }
-      format.json { render json: e.as_json }
-    end
+    render json: e.as_json
   end
 end

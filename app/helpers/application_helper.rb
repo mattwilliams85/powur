@@ -23,10 +23,6 @@ module ApplicationHelper
     @totals_json ||= OrderTotalsJson.new(self, @order_totals, nil)
   end
 
-  def profile_json
-    @orders_json ||= ProfileJson.new(self, @profile, @user)
-  end
-
   def pp_json
     @orders_json ||= PayPeriodsJson.new(self, @pay_periods, @pay_period)
   end
@@ -37,14 +33,6 @@ module ApplicationHelper
 
   def earnings_json
     @earnings_json ||= EarningsJson.new(self, @earnings, @earning)
-  end
-
-  def university_classes_json
-    @university_classes_json ||= UniversityClassesJson.new(self, @university_classes, @university_class)
-  end
-
-  def resources_json
-    @resources_json ||= ResourcesJson.new(self, @resources, @resource)
   end
 
   def social_media_posts_json

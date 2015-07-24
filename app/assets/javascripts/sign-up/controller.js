@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function SignUpCtrl($scope, $rootScope, $http, $location, $routeParams, CommonService, UserProfile) {
+  function SignUpCtrl($scope, $rootScope, $http, $location, $anchorScroll, $routeParams, CommonService, UserProfile) {
     $scope.redirectIfSignedIn();
     $scope.legacyImagePaths = legacyImagePaths;
 
@@ -43,13 +43,22 @@
             $scope.invite.error = data.error;
           } else {
             $scope.invite = data;
+
+            // If invite is not valid
+            if (data.properties.status !== 'valid') {
+              $scope.disableSubmit = true;
+              $anchorScroll();
+              return;
+            }
+
             $scope.signUpAction = getAction($scope.invite.actions, 'accept_invite');
-            $scope.user = setFieldValuesFromAction($scope.signUpAction)
+            $scope.user = setFieldValuesFromAction($scope.signUpAction);
             $scope.applicationAndAgreementLink = data.properties.latest_terms.document_path;
+            $anchorScroll();
           }
         });
       }
-    }
+    };
 
     // Sign Up
     $scope.signUp = function() {
@@ -57,7 +66,7 @@
       if ($scope.user) {
         CommonService.execute($scope.signUpAction, $scope.user).then(signUpCallback);
       }
-    }
+    };
 
     // Sign Up callback
     function signUpCallback(data) {
@@ -78,16 +87,27 @@
       }
     }
 
+    // Show Wealth Video Modal
+    $scope.showVideoModal = function (videoUrl) {
+      var domElement =
+        '<div class=\'reveal-modal\' data-options="close_on_background_click:false" style="border: 0; padding: 0; background-color: #000;" data-reveal>' +
+        '<video width="100%" autoplay controls>' +
+        '<source src="' + videoUrl + '" type="video/mp4">' +
+        '</video>' +
+        '<a class=\'close-reveal-modal\'>&#215;</a>' +
+        '</div>';
+      $(domElement).foundation('reveal', 'open');
+    };
+
     this.fetch($scope, $routeParams);
   }
 
   SignUpCtrl.prototype.fetch = function($scope, $routeParams) {
     $scope.invite = {};
     $scope.inviteCode = $routeParams.inviteCode;
-    if ($scope.inviteCode) $scope.validateInvite();
-  }
+  };
 
-  SignUpCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams', 'CommonService', 'UserProfile']
+  SignUpCtrl.$inject = ['$scope', '$rootScope', '$http', '$location', '$anchorScroll', '$routeParams', 'CommonService', 'UserProfile']
   angular.module('powurApp').controller('SignUpCtrl', SignUpCtrl);
 
 

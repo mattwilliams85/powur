@@ -4,12 +4,7 @@ module Admin
     sort publish:  { publish: :asc }
 
     def index
-      respond_to do |format|
-        format.html
-        format.json do
-          @social_media_posts = apply_list_query_options(SocialMediaPost)
-        end
-      end
+      @social_media_posts = apply_list_query_options(SocialMediaPost)
     end
 
     def create

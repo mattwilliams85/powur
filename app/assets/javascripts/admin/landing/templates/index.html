@@ -1,38 +1,31 @@
-<main class="pow-admin-landing">
-  <h1>Administration</h1>
-  <label>People</label>
-  <ul class="small-block-grid-1 large-block-grid-3">
-    <li><a ng-href="/admin/users"><div class="panel"><i class="fa fa-user"></i>&nbsp;Users</div></a></li>
-    <!-- <li><a ng-href="/admin/user-groups"><div class="panel"><i class="fa fa-users"></i>&nbsp;User Groups</div></a></li> -->
-    <li><div class="panel disabled-for-beta"><i class="fa fa-users"></i>&nbsp;User Groups</div></li>
-    <li><a ng-href="/admin/invites"><div class="panel"><i class="fa fa-plus-circle"></i>&nbsp;Invites</div></a></li>
-  </ul>
-  <label>Products</label>
-  <ul class="small-block-grid-1 large-block-grid-3">
-    <li><a ng-href="/admin/products"><div class="panel"><i class="fa fa-sun-o"></i>&nbsp;Products</div></a></li>
-    <!-- <li><a ng-href="/admin/proposals"><div class="panel"><i class="fa fa-star-half-o"></i>&nbsp;Proposals</div></a></li> -->
-    <li><div class="panel disabled-for-beta"><i class="fa fa-star-half-o"></i>&nbsp;Proposals</div></li>
-    <!-- <li><a ng-href="/a/quotes"><div class="panel"><i class="fa fa-star"></i>&nbsp;Orders</div></a></li> -->
-    <li><div class="panel disabled-for-beta"><i class="fa fa-star"></i>&nbsp;Orders</div></li>
-    <li><a ng-href="/admin/product_enrollments"><div class="panel"><i class="fa fa-sun-o"></i>&nbsp;Product Enrollments</div></a></li>
-    <li><a ng-href="/admin/product_receipts"><div class="panel"><i class="fa fa-sun-o"></i>&nbsp;Product Receipts</div></a></li>
-  </ul>
-  <label>Pay</label>
-  <ul class="small-block-grid-1 large-block-grid-3">
-    <!-- <li><a ng-href="/a/quotes"><div class="panel"><i class="fa fa-usd"></i>&nbsp;Pay Periods</div></a></li> -->
-    <li><div class="panel disabled-for-beta"><i class="fa fa-usd"></i>&nbsp;Pay Periods</div></li>
-    <!-- <li><a ng-href="/admin/bonus-plans"><div class="panel"><i class="fa fa-money"></i>&nbsp;Bonus Plans</div></a></li> -->
-    <li><div class="panel disabled-for-beta"><i class="fa fa-money"></i>&nbsp;Bonus Plans</div></li>
-  </ul>
-  <label>Powur</label>
-  <ul class="small-block-grid-1 large-block-grid-3">
-    <li><a ng-href="/admin/resources"><div class="panel"><i class="fa fa-book"></i>&nbsp;Library</div></a></li>
-    <li><a ng-href="/admin/resource-topics"><div class="panel"><i class="fa fa-book"></i>&nbsp;Library Topics</div></a></li>
-    <li><a ng-href="/admin/latest-news"><div class="panel"><i class="fa fa-comment-o"></i>&nbsp;Latest News</div></a></li>
-    <li><a ng-href="/admin/social-media"><div class="panel"><i class="fa fa-share-square"></i>&nbsp;Social Media Sharing</div></a></li>
-    <!-- <li><a ng-href="/admin/marketing"><div class="panel"><i class="fa fa-paper-plane"></i>&nbsp;Marketing Center</div></a></li> -->
-    <li><div class="panel disabled-for-beta"><i class="fa fa-paper-plane"></i>&nbsp;Marketing Center</div></li>
-    <li><a ng-href="/admin/application-agreements"><div class="panel"><i class="fa fa-book"></i>&nbsp;Application Agreements</div></a></li>
-    <li><a ng-href="/admin/notifications"><div class="panel"><i class="fa fa-book"></i>&nbsp;Notifications</div></a></li>
-  </ul>
+<main class="pow-admin-index">
+  <div class="row">
+    <div class="large-9 columns">
+      <h2>Admin Dashboard</h2>
+    </div>
+
+    <div class="large-3 columns">
+      <select ng-model="daysAgo" ng-options="item.value as item.label for item in daysAgoOptions" ng-change="getData()" class="dropdown"></select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th colspan="2">Basic stats</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in index.data.entities">
+            <td>{{ item.properties.name }}</td>
+            <td width="200">{{ item.properties.value }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
 </main>

@@ -10,13 +10,8 @@ module Admin
     filter :disbursed, scope_opts: { type: :boolean }
 
     def index
-      respond_to do |format|
-        format.html { render 'index' }
-        format.json do
-          @pay_periods = apply_list_query_options(fetch_pay_periods)
-          render 'index'
-        end
-      end
+      @pay_periods = apply_list_query_options(fetch_pay_periods)
+      render 'index'
     end
 
     def show

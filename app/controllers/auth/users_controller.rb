@@ -53,9 +53,9 @@ module Auth
         @users = scope.where(id: params[:search].to_i)
       else 
         @users = scope
-        .where("lower(first_name || ' ' || last_name) LIKE ?", "%#{params[:search].downcase}%")
-        .limit(7)
-        .order(:first_name)
+          .search(params[:search])
+          .limit(7)
+          .order(:first_name)
       end
     end
 
@@ -71,8 +71,6 @@ module Auth
       # render 'show'
 
       require_input :parent_id
-
-
 
       parent = User.find(params[:parent_id])
       if parent.ancestor?(current_user.id) && @user.ancestor?(current_user.id)
