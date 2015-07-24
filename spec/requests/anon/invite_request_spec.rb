@@ -88,14 +88,16 @@ describe '/invite/validate' do
       expect_input_error(:code)
     end
 
-    it 'marks an invite for an existing user with same email address' do
-      invite = create(:invite, sponsor: sponsor, email: user.email)
+    it 'returns an invite without an "accept" action if expired' do
+      allow(ApplicationAgreement).to receive(:current).and_return(agreement)
+      invite = create(:invite, sponsor: sponsor)
+      invite.update_attribute(:expires,  (invite.expires -= 2.days))
 
       post validate_invite_path, code: invite.id, format: :json
 
-      expect_input_error(:code)
-      invite.reload
-      expect(invite.user_id).to eq(user.id)
+      expect_200
+      expect_props status: 'expired'
+      expect(json_body['actions']).to be_nil
     end
 
     it 'returns an invite when the user has inputted a code' do
