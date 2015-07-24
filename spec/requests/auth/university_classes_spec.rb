@@ -67,6 +67,12 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
   context 'signed in' do
     let!(:current_user) { login_user }
     let!(:certifiable_product) { create(:certifiable_product, bonus_volume: 111) }
+    let(:mailchimp_list_api) { double(:mailchimp_list_api) }
+
+    before do
+      allow_any_instance_of(Gibbon::API)
+        .to receive(:lists).and_return(mailchimp_list_api)
+    end
 
     it 'returns incomplete form error messages' do
       post(purchase_university_class_path(certifiable_product), {
@@ -81,6 +87,14 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
       allow_any_instance_of(Auth::UniversityClassesController).to receive(:send_purchased_notifications).and_return(true)
 
       expect(current_user.available_invites).to eq(0)
+      expect(mailchimp_list_api).to receive(:subscribe).with(
+        id:           User::MAILCHIMP_LISTS[:partners],
+        email:        { email: current_user[:email] },
+        merge_vars:   {
+          FNAME: current_user[:first_name],
+          LNAME: current_user[:last_name]
+        },
+        double_optin: false).once
 
       post(purchase_university_class_path(certifiable_product), {
         card: {},
