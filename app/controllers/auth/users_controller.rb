@@ -91,19 +91,25 @@ module Auth
         certified: User.with_ancestor(@user.id).with_purchases.count }
     end
 
-    def user_lead_counts
+    def user_lifetime_lead_counts
+      { submitted: @user.quotes.submitted.count,
+        installed: @user.quotes.closed_won.count }
+    end
+
+    def user_month_lead_counts
       month_start = Date.today.beginning_of_month
       submitted_month = @user.quotes
         .submitted.where('submitted_at >= ?', month_start).count
       installed_month = @user.quotes
         .closed_won.where('submitted_at >= ?', month_start).count
 
-      { lifetime: {
-        submitted: @user.quotes.submitted.count,
-        installed: @user.quotes.closed_won.count },
-        month:    {
-          submitted: submitted_month,
-          installed: installed_month } }
+      { submitted: submitted_month,
+        installed: installed_month }
+    end
+
+    def user_lead_counts
+      { lifetime: user_lifetime_lead_counts,
+        month:    user_month_lead_counts }
     end
 
     def user_totals
