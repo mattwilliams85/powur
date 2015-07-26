@@ -90,10 +90,16 @@ describe '/invite/validate' do
       expect_input_error(:code)
     end
 
-    it 'renders an error if an invite that already has been accepted' do
+    it 'returns an invite without an "accept" action if previously redeemed' do
+      allow(ApplicationAgreement).to receive(:current).and_return(agreement)
+      invite = create(:invite, sponsor: sponsor)
+      invite.update_attribute(:user_id,  user.id)
+
       post validate_invite_path, code: invite.id, format: :json
 
-      expect_input_error(:code)
+      expect_200
+      expect_props status: 'redeemed'
+      expect(json_body['actions']).to be_nil
     end
 
     it 'returns an invite without an "accept" action if expired' do

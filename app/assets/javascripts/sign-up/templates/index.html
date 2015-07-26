@@ -53,9 +53,20 @@
           <div class="row">
             <div class="invite-info small-12 columns">
               <!-- Sponsor avatar -->
-              <div class="sponsor-avatar">
-                <img src="{{invite.properties.sponsor_avatar || legacyImagePaths.defaultAvatar }}">
+
+              <!-- Redeemed invite or no invite -->
+              <div class="sponsor-avatar"
+                   ng-show="!invite.properties || invite.properties.status === 'redeemed'">
+                <img src="{{ legacyImagePaths.signUp.starLogo }}">
               </div>
+
+              <!-- Valid invite or expired invite -->
+              <div class="sponsor-avatar"
+                   ng-show="invite.properties.status === 'valid' || invite.properties.status === 'expired'">
+                <img class="white-border" src="{{invite.properties.sponsor_avatar }}">
+              </div>
+
+
               <!-- Info blurb at top of form -->
 
               <!-- No invite -->
@@ -82,7 +93,6 @@
               <!-- If redeemed invite -->
               <div class="info-message"
                    ng-show="invite.properties.status === 'redeemed'">
-                <h1>Hello,</h1>
                 <p>This invitation to join Powur has already been redeemed. Please contact the person who told you about Powur to get an invitation.</p>
               </div>
             </div>
