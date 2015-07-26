@@ -23,10 +23,4 @@ class UserTest < ActiveSupport::TestCase
     result = User.authenticate(@user.email, newpass)
     result.must_equal @user
   end
-
-  it 'returns the correct number of available invites' do
-    invite = invites(:george)
-    expected = invite.sponsor.available_invites - 1
-    invite.sponsor.available_invites.must_equal expected
-  end
 end

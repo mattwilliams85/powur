@@ -72,11 +72,7 @@ module Auth
         .includes(:customer, :user, :product)
         .references(:customer, :user, :product)
       scope = scope.where(user_id: @user.id) if @user
-      if params[:search]
-        scope = scope
-          .joins(:customer).where("lower(customers.first_name || ' ' || customers.last_name) LIKE ?", "%#{params[:search].downcase}%")
-          .order('customers.first_name asc')
-      end
+      scope = scope.merge(Customer.search(params[:search])) if params[:search]
       @quotes = scope
     end
 

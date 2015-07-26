@@ -168,7 +168,6 @@ module ListQuery
     end
 
     def apply(query)
-      validate_sort_field(query)
       query = query.order(sort_order)
       query = query.order(opts[:secondary]) if opts[:secondary]
       query
@@ -185,16 +184,6 @@ module ListQuery
     end
 
     private
-
-    def validate_sort_field(query)
-      return unless sort_order.is_a?(String)
-      table_alias, column = sort_order.split(' ').first.split('.')
-      return if column.nil? || table_alias == query.table.name || params[column]
-      return if params[:item_totals] &&
-          params[:item_totals].split(',').include?(column)
-      fail InvalidRequest,
-           "invalid sort #{params[:sort]}, without item_totals #{column}"
-    end
 
     def keys
       opts[:sorts].keys

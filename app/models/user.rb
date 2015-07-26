@@ -33,20 +33,25 @@ class User < ActiveRecord::Base
   # No extra email validation needed,
   # email validation and confirmation happens with Invite
   # PW: update happens in profile edit correct?
+  EMAIL_UNIQUE = { message: 'This email is taken', case_sensitive: false }
   validates :email,
-    uniqueness: { message: 'This email is taken', case_sensitive: false },
-    presence: true
+            uniqueness: EMAIL_UNIQUE,
+            presence:   true
   validates :encrypted_password, presence: true, on: :create
   validates :first_name, presence: true
   validates :last_name, presence: true
+  PASSWORD_LENGTH = {
+    minimum: 8,
+    maximum: 40,
+    message: 'Password must be at least 8 characters.' }
   validates :password,
-    presence: true,
-    length: { minimum: 8, maximum: 40, message: 'Password must be at least 8 characters.' },
-    confirmation: true,
-    on: :create
+            presence:     true,
+            length:       PASSWORD_LENGTH,
+            confirmation: true,
+            on:           :create
   validates :password_confirmation, presence: true, on: :create
   validates_presence_of :url_slug, :reset_token, allow_nil: true
-  validates :available_invites, :numericality => { :greater_than_or_equal_to => 0 }
+  validates :available_invites, numericality: { greater_than_or_equal_to: 0 }
 
   before_create :set_url_slug
   after_create :hydrate_upline
@@ -134,11 +139,11 @@ class User < ActiveRecord::Base
   end
 
   def weekly_growth
-    User.with_ancestor(self.id).within_date_range(Time.now - 6.days, Time.now).count
+    User.with_ancestor(id).within_date_range(Time.now - 6.days, Time.now).count
   end
 
   def fetch_total_orders(start_date, end_date)
-    LeadUpdate.sales(self.id).within_date_range(start_date, end_date)
+    LeadUpdate.sales(id).within_date_range(start_date, end_date)
   end
 
   def fetch_total_proposals(start_date, end_date)
@@ -151,7 +156,7 @@ class User < ActiveRecord::Base
   end
 
   def complete_quotes
-    quotes.where.not(id: self.orders.select('quote_id').map { |i| i })
+    quotes.where.not(id: orders.select('quote_id').map { |i| i })
   end
 
   def accepted_latest_terms?

@@ -81,12 +81,12 @@ class Quote < ActiveRecord::Base
     state :on_hold
 
     event :input do
+      transitions from:   [ :ready_to_submit, :ineligible_location ],
+                  to:     :incomplete,
+                  unless: :submit_data_present?
       transitions from:   [ :incomplete, :ready_to_submit ],
                   to:     :ineligible_location,
                   unless: :zip_code_valid?
-      transitions from:   [ :ready_to_submit, :ineligible_location ],
-                  to:     :incomplete,
-                  unless: :can_submit?
       transitions from: [ :incomplete, :ineligible_location ],
                   to:   :ready_to_submit,
                   if:   :can_submit?

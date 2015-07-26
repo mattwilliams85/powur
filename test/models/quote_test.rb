@@ -1,25 +1,29 @@
 require 'test_helper'
  
 class UserTest < ActiveSupport::TestCase
-  test 'changing status to ready_to_submit when complete' do
+  def test_ready_to_submit_status
     quote = quotes(:incomplete)
     quote.status.must_equal 'incomplete'
 
     quote.customer.phone = '310.922.2629'
-    quote.input!.must_equal true
+    VCR.use_cassette('zip_validation/valid') do
+      quote.input!.must_equal true
+    end
     quote.status.must_equal 'ready_to_submit'
   end
 
-  test 'changing status to ineligible_location if unknown zip' do
+  def test_bad_zip_ineligible_location
     quote = quotes(:incomplete)
 
     quote.customer.phone = '310.922.2629'
-    quote.customer.zip = '12121'
-    quote.input!.must_equal true
+    quote.customer.zip = '00000'
+    VCR.use_cassette('zip_validation/invalid') do
+      quote.input!.must_equal true
+    end
     quote.status.must_equal 'ineligible_location'
   end
 
-  test 'changing status to incomplete when appropriate' do
+  def test_incomplete_status
     quote = quotes(:ready_to_submit)
     quote.status.must_equal 'ready_to_submit'
 
@@ -28,7 +32,7 @@ class UserTest < ActiveSupport::TestCase
     quote.status.must_equal 'incomplete'
   end
 
-  test 'update received' do
+  def test_update_received
     quote = quotes(:submitted_new_update)
     last_update = quote.last_update
 

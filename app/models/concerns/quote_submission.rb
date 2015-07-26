@@ -2,32 +2,31 @@ module QuoteSubmission
   extend ActiveSupport::Concern
 
   def zip_code_valid?
-    sc_api_response = Timeout::timeout(3) do
-      Net::HTTP.get('api.solarcity.com', '/solarbid/api/warehouses/zip/' + customer.zip[0,5])
-    end
+    return false unless customer.zip?
+    url = URI.join('http://api.solarcity.com',
+                   "solarbid/api/warehouses/zip/#{customer.zip[0, 5]}").to_s
 
-    !!JSON.parse(sc_api_response)['IsInTerritory']
-
-  rescue => e
-    Airbrake.notify(e)
-    return true   # Fallback to true and notify with Airbrake
+    response = RestClient::Request.execute(method: :get, url: url, timeout: 3)
+    MultiJson.load(response)['IsInTerritory']
+  # rescue => e
+  #   Airbrake.notify(e)
+  #   return true   # Fallback to true and notify with Airbrake
   end
 
-
-  def submit_data_valid?
+  # do not validate zip here, just used to check data on our side
+  def submit_data_present?
     customer.phone? &&
-    customer.email? &&
-    customer.first_name? &&
-    customer.last_name? &&
-    customer.address &&
-    customer.city &&
-    customer.state &&
-    customer.zip &&
-    zip_code_valid?
+      customer.email? &&
+      customer.first_name? &&
+      customer.last_name? &&
+      customer.address? &&
+      customer.city? &&
+      customer.state? &&
+      customer.zip?
   end
 
   def can_submit?
-    submitted_at.nil? && submit_data_valid?
+    submitted_at.nil? && submit_data_present?
   end
 
   def submit!(force = false)
