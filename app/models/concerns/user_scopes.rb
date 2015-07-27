@@ -149,6 +149,16 @@ module UserScopes
       where('NOT (? = ANY (upline))', user.id)
         .where('id <> ?', user.parent_id)
     }
+
+    scope :has_phone, lambda {
+      where("exist(contact, 'phone') = true").where("contact->'phone' != ''")
+    }
+    scope :allows_sms, lambda {
+      where([
+        "exist(profile, 'allow_sms') = false OR profile -> 'allow_sms' != ?",
+        'false'])
+    }
+    scope :can_sms, -> { has_phone.allows_sms }
   end
 
   module ClassMethods

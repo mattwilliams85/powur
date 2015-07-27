@@ -1,0 +1,14 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Messages Sent Today</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in index.data.entities">
+      <td>{{ item.properties.phone_number }}</td>
+      <td>{{ item.properties.messages_sent }}</td>
+    </tr>
+  </tbody>
+</table>

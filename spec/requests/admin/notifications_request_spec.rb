@@ -8,7 +8,8 @@ describe '/a/notifications' do
     let(:delay) { double(:notification_delay) }
 
     before do
-      allow(Notification).to receive(:find).with(notification.id.to_s).and_return(notification)
+      allow(Notification).to receive(:find).with(notification.id)
+        .and_return(notification)
     end
 
     it 'should create a delayed job and save attributes' do

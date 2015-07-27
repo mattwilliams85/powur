@@ -46,7 +46,7 @@ module Admin
     private
 
     def fetch_notification
-      @notification = Notification.find(params[:id])
+      @notification = Notification.find(params[:id].to_i)
     end
 
     def input
