@@ -4,7 +4,7 @@
       <span class="line-1">  You're currently trying to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}.</b></span>
       <span class="line-2"> Would you like to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}</b> on to <b>{{placement.parent.first_name + ' ' + placement.parent.last_name}}'s</b> team?</span>
       <div class="button-box">
-        <a class="place-button">Yes</a>
+        <a class="place-button" ng-click="placeUser();">Yes</a>
         <a class="place-button" ng-click="placement.parent = null">No</a>
       </div>
       <i class="fa fa-times" ng-click="clearPlacement()"></i>
@@ -114,7 +114,7 @@
               <div class="team-tabs">
                 <div 
                   class="team-tab downline" 
-                  ng-if="member.totals.team_count"
+                  ng-if="!is.inactiveTeamTab(member)"
                   ng-class="{ 
                     'raise': hover || isMobile() || is.activeMember(member, downline[0]),
                     'active-tab':  is.activeTab(member, downline[0], 'team'),
@@ -125,7 +125,7 @@
                   <img ng-hide="is.activeTab(member, downline[0], 'team')" ng-src="{{img.teamSection.teamIconInvert}}">
                   <img ng-show="is.activeTab(member, downline[0], 'team')" ng-src="{{img.teamSection.teamIcon}}">
                 </div>
-                <div class="team-tab info" ng-if="!member.totals.team_count" ng-class="{ 'raise': hover || is.activeMember(member, downline[0]) }">
+                <div class="team-tab info" ng-if="is.inactiveTeamTab(member)" ng-class="{ 'raise': hover || is.activeMember(member, downline[0]) }">
                   <img ng-src="{{img.teamSection.teamIconInactive}}">
                 </div>
                 <div 
@@ -162,10 +162,10 @@
                     ng-click="changeTab(member, downline[0], 'info');">
                 <div class="avatar" ng-class="{'accordion': is.accordion(0)}" ng-mouseover="addMe=true" ng-mouseleave="addMe=false" ng-click="setParent(member)">
                   <div class="crop-box">
-                    <img class="plus" ng-src="{{img.teamSection.plusIcon}}" ng-class="{'swing': addMe === true && placement.on}">
-                    <img class="lazyOwl avatar-img" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified, 'swing':  addMe === true && placement.on}">
+                    <img class="plus" ng-src="{{img.teamSection.plusIcon}}" ng-class="{'swing': is.unrelated(member, addMe) || placement.parent == member}">
+                    <img class="lazyOwl avatar-img" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified, 'swing':  is.unrelated(member, addMe)}">
                   </div>
-                  <div class="tooltips cert-badge" ng-show="member.certified" ng-class="{'swing': addMe === true && placement.on}">
+                  <div class="tooltips cert-badge" ng-show="member.certified" ng-class="{'swing': is.unrelated(member, addMe) || placement.parent == member}">
                     <span>Certified!</span>
                   </div>
                 </div>

@@ -27,7 +27,7 @@
       },
       accordion: function(i) {
         var gap = 2
-        if ($scope.activeTab === 'proposals' || $scope.activeTab === 'info') gap = 1
+        if ($scope.activeTab === 'proposals' || $scope.activeTab === 'info') gap = 1;
         return $scope.downline.length > (i + gap)
       },
       activeTab: function(member, gen, tab) {
@@ -35,8 +35,24 @@
       },
       activeMember: function(member, gen) {
         return (gen.selected === member.id);
+      },
+      inactiveTeamTab: function(member) {
+        return  !member.totals.team_count || 
+                ($scope.placement.on && 
+                member === $scope.placement.child);
+      },
+      unrelated: function(member, hover) {
+        return hover === true && 
+               $scope.placement.on && 
+               member !== $scope.placement.child;
+      },
+      placeable: function(member) {
+        var startDate = new Date(member.created_at);
+        var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
+        if (startDate < betaStart) startDate = betaStart;
+        return startDate.addDays(60) > new Date();
       }
-    }
+    };
 
     function levelGap(member) {
       if(member) return member.level - level;
@@ -477,10 +493,11 @@
     }
 
 //PLACEMENT 
-  $scope.placeMode = function(){
-    if ($scope.placement.on) return;
-    $scope.placement.on = true;
+  $scope.placeMode = function(member){
+    if ($scope.placement.on) $scope.clearPlacement();
     $scope.placement.child = $scope.currentTeamMember;
+    $scope.placement.on = true;
+    closeAllTabs();
     $timeout(function(){      
       $('html, body').animate({
         scrollTop: $('.placement-box').offset().top - $(window).height() + 100
@@ -502,25 +519,41 @@
     });
   };
 
+  $scope.placeUser = function() {
+    CommonService.execute({
+      method: 'POST',
+      href: '/u/users/' + $scope.placement.child.id + '/move.json?parent_id=' + $scope.placement.parent.id
+    }).then(function(){
+      closeAllTabs();
+      $scope.clearPlacement();
+      immediateDownline();
+    });
+  };
+
 //ON PAGE LOAD
     var level;
     // Fetch User's Immediate downline
     $rootScope.$watch('currentUser', function(data) {
       if (!data || !data.id) return;
-      return User.downline(data.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
-        items = initDownline(items);
-
-        $scope.downline.push(items.entities);
-        $timeout(function() {
-          initCarousel($('#carousel-0'));
-          level = $scope.currentUser.level;
-        });
-      });
+      immediateDownline(data)
     });
 
     $timeout(function() {
       fetchInvites();
     });
+
+    function immediateDownline(data){
+      if (!data) data = $scope.currentUser;
+      return User.downline(data.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
+        items = initDownline(items);
+        destroyCarousel('#carousel-0'); 
+        $scope.downline[0] = items.entities;
+        $timeout(function() {
+          initCarousel($('#carousel-0'));
+          level = $scope.currentUser.level;
+        });
+      });
+    }
   }
 
   DashboardTeamCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$http', '$location', 'User', 'CommonService'];

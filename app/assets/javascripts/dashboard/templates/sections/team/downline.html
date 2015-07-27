@@ -42,7 +42,7 @@
               <!-- Team Tab -->
               <div 
                 class="team-tab downline" 
-                ng-if="member.totals.team_count"
+                ng-if="!is.inactiveTeamTab(member)"
                 ng-class="{ 
                   'raise': hover || isMobile() || is.activeMember(member, gen),
                   'active-tab': is.activeTab(member, gen, 'team'),
@@ -54,7 +54,7 @@
                 <img ng-src="{{img.teamSection.teamIcon}}">
               </div>
               <!-- If No Team Tab -->
-              <div class="team-tab info" ng-if="!member.totals.team_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
+              <div class="team-tab info" ng-if="is.inactiveTeamTab(member)" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
                 <img class="inactive-icon" ng-src="{{img.teamSection.teamIconInactive}}">
               </div>
               <!-- Info Tab -->
@@ -94,12 +94,12 @@
                   'raise': hover || isMobile() || is.accordion($parent.$index) || is.activeMember(member, gen),
                   'accordion': is.accordion($parent.$index)}"
                   ng-click="changeTab(member, gen, 'info');">
-              <div class="avatar" ng-mouseover="addMe=true" ng-mouseleave="addMe=false" ng-click="setParent(member)">
-                  <div class="crop-box">
-                    <img class="plus" ng-src="{{img.teamSection.plusIcon}}" ng-class="{'swing': addMe === true && placement.on}">
-                    <img class="lazyOwl avatar-img" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified, 'swing':  addMe === true && placement.on}">
-                  </div>
-                  <div class="tooltips cert-badge" ng-show="member.certified" ng-class="{'swing': addMe === true && placement.on}">
+              <div class="avatar" ng-class="{'accordion': is.accordion(0)}" ng-mouseover="addMe=true" ng-mouseleave="addMe=false" ng-click="setParent(member)">
+                <div class="crop-box">
+                  <img class="plus" ng-src="{{img.teamSection.plusIcon}}" ng-class="{'swing': is.unrelated(member, addMe) || placement.parent == member}">
+                  <img class="lazyOwl avatar-img" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified, 'swing':  is.unrelated(member, addMe)}">
+                </div>
+                <div class="tooltips cert-badge" ng-show="member.certified" ng-class="{'swing': is.unrelated(member, addMe) || placement.parent == member}">
                     <span>Certified!</span>
                   </div>
                 </div>

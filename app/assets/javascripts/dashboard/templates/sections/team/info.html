@@ -3,7 +3,7 @@
       <!-- Large -->
       <div ng-hide="activeTab !== 'info'" class="large-12 columns fade-in-section" ng-class="{'opaque': activeTab === 'info'}">
         <!-- TEMPORARY CODE -->
-        <div style="position:absolute; color:#fff; top:20px; left:0; right:0; cursor:pointer;background:#9A5CAE; padding:5px" ng-click="placeMode();">PLACE ME</div>
+        <div ng-show="is.placeable(currentTeamMember)" style="position:absolute; color:#fff; top:20px; left:0; right:0; cursor:pointer;background:#9A5CAE; padding:5px" ng-click="placeMode();">PLACE ME</div>
 
         <div class="icon-container">
 
