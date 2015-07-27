@@ -49,3 +49,6 @@ search_hit2:
   customer: garry
 search_miss:
   <<: *DEFAULTS
+child:
+  <<: *DEFAULTS
+  user: child

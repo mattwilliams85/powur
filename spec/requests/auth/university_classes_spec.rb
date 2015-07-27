@@ -83,10 +83,16 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
     end
 
     it 'increases the user\'s available invites by 5' do
-      allow_any_instance_of(Auth::UniversityClassesController).to receive(:process_purchase).and_return(true)
-      allow_any_instance_of(Auth::UniversityClassesController).to receive(:send_purchased_notifications).and_return(true)
+      allow_any_instance_of(Auth::UniversityClassesController)
+        .to receive(:process_purchase).and_return(true)
+      allow_any_instance_of(Auth::UniversityClassesController)
+        .to receive(:send_purchased_notifications).and_return(true)
 
       expect(current_user.available_invites).to eq(0)
+
+      # Th below expectation has nothing to do with the test
+      # remove or move to another test
+
       expect(mailchimp_list_api).to receive(:subscribe).with(
         id:           User::MAILCHIMP_LISTS[:partners],
         email:        { email: current_user[:email] },
@@ -96,10 +102,9 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
         },
         double_optin: false).once
 
-      post(purchase_university_class_path(certifiable_product), {
-        card: {},
-        format: :json
-      })
+      post(purchase_university_class_path(certifiable_product),
+           card:   {},
+           format: :json)
 
       expect(current_user.available_invites).to eq(5)
     end

@@ -10,7 +10,7 @@ module Admin
     filter :with_purchases,
            url:        -> { admin_users_path },
            scope_opts: { type: :boolean },
-           required: false
+           required:   false
 
     def index
       @users = apply_list_query_options(User)

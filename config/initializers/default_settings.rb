@@ -8,5 +8,6 @@ begin
     SystemSettings.save_default(:case_sensitive_auth, false)
 
   end
-rescue Exception
+rescue
+  Rails.logger.info 'failed to set default settings, table not found'
 end

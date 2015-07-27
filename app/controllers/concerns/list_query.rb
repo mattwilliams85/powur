@@ -2,7 +2,8 @@ module ListQuery
   extend ActiveSupport::Concern
 
   included do
-    helper_method :paging?, :pager, :sorting?, :sorter, :filtering?, :filters, :list_query_applied?
+    helper_method :paging?, :pager, :sorting?, :sorter, :filtering?, :filters,
+                  :item_totals, :aggregator, :aggregating?, :list_query_applied?
   end
 
   module ClassMethods
@@ -29,10 +30,16 @@ module ListQuery
       list_query_opts[:filters][scope] = opts
     end
 
+    def item_totals(*args)
+      list_query_opts[:item_totals] = args
+    end
+
     def list_query(query_var)
       list_query_opts[:query_var] = query_var
     end
   end
+
+  class InvalidRequest < StandardError; end
 
   def list_opts
     self.class.list_query_opts
@@ -71,6 +78,18 @@ module ListQuery
     !filters.nil? && !filters.empty?
   end
 
+  def item_totals
+    @item_totals ||= {}
+  end
+
+  def aggregator
+    @aggregator ||= Aggregator.new(params, list_opts[:item_totals])
+  end
+
+  def aggregating?
+    !list_opts[:item_totals].nil? && aggregator.requested?
+  end
+
   def list_query_applied?
     !@list_query_klass.nil?
   end
@@ -78,9 +97,12 @@ module ListQuery
   def apply_list_query_options(query)
     @list_query_klass = true
     query = apply_scopes(query) if filtering?
+    query = aggregator.apply(query) if aggregating?
     query = sorter.apply(query) if sorting?
     query = pager.apply(query) if paging?
     query
+  rescue InvalidRequest => e
+    error!(e.message)
   end
 
   class Pager
@@ -163,18 +185,47 @@ module ListQuery
 
     private
 
+    def keys
+      opts[:sorts].keys
+    end
+
     def sort_key
       @sort_key ||= begin
         key = params[:sort] && params[:sort].to_sym
-        if key.nil? || !opts[:sorts].keys.include?(key)
-          key = opts[:sorts].keys.first
-        end
+        key = keys.first if key.nil? || !keys.include?(key)
         key
       end
     end
 
     def sort_order
       opts[:sorts][sort_key]
+    end
+  end
+
+  class Aggregator
+    attr_reader :params, :available
+
+    def initialize(params, available)
+      @params = params
+      @available = available
+    end
+
+    def apply(query)
+      selected.each do |scope|
+        query = query.merge(query.model.send(scope))
+      end
+      query
+    end
+
+    def selected
+      @selected ||= begin
+        requested = params[:item_totals].split(',').map(&:to_sym)
+        (available || {}).select { |key, _| requested.include?(key) }
+      end
+    end
+
+    def requested?
+      params[:item_totals].present? && selected.size > 0
     end
   end
 end

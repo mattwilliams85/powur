@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Auth
   class QuotesControllerTest < ActionController::TestCase
-    test 'index' do
+    def test_index
       get :index
 
       siren.must_be_class(:quotes)
@@ -10,13 +10,13 @@ module Auth
       siren.must_have_entity_size(expected)
     end
 
-    test 'index with paging' do
+    def test_paging_index
       get :index, limit: 4
 
       siren.must_have_entity_size(4)
     end
 
-    test 'index with sorting' do
+    def test_sorting_index
       get :index, sort: 'customer'
 
       first = siren.entities.first
@@ -26,7 +26,7 @@ module Auth
       last.properties.customer_id.must_equal customers(:garry).id
     end
 
-    test 'show incomplete lead' do
+    def test_incomplete_lead_show
       quote = quotes(:incomplete)
       get :show, id: quote.id
 
@@ -36,13 +36,13 @@ module Auth
       siren.wont_have_actions(:submit)
     end
 
-    test 'show ready_to_submit lead' do
-      get:show, id: quotes(:ready_to_submit).id
+    def test_ready_to_submit_lead_show
+      get :show, id: quotes(:ready_to_submit).id
 
       siren.must_have_action(:submit)
     end
 
-    test 'show submitted lead' do
+    def test_in_progress_lead_show
       get :show, id: quotes(:in_progress).id
 
       siren.wont_have_actions(:update, :delete, :submit)
@@ -50,13 +50,13 @@ module Auth
       lead_update.props_must_equal(status: 'working_lead')
     end
 
-    test 'showing a submitted quote' do
+    def test_submitted_lead_show
       get :show, id: quotes(:submitted).id
 
       siren.wont_have_action(:delete)
     end
 
-    test 'show a quote not owned by user' do
+    def test_quote_not_owned_show
       get :show, id: quotes(:on_hold)
 
       siren.must_be_error
@@ -67,41 +67,46 @@ module Auth
         first_name: 'Big',
         last_name:  'Money',
         city:       'SunnyVille',
+        address:    '1212 Cherry Lane',
         state:      'FL',
-        zip:        zipcodes(:eligible).zip,
-        phone:      '310.555.1212' }
+        phone:      '310.555.1212',
+        zip:        '90210' }
     end
 
-    test 'create' do
-      post :create, input
+    def test_create
+      VCR.use_cassette('zip_validation/valid') do
+        post :create, input
+      end
 
       siren.must_be_class(:quote)
       siren.props_must_equal(status: 'ready_to_submit')
     end
 
-    test 'update' do
+    def test_update
       quote = quotes(:incomplete)
-      patch :update, id: quote.id, phone: input[:phone]
+      VCR.use_cassette('zip_validation/valid') do
+        patch :update, id: quote.id, phone: input[:phone]
+      end
 
       siren.props_must_equal(phone: input[:phone])
       siren.props_must_equal(status: 'ready_to_submit')
     end
 
-    test 'destroy' do
+    def test_delete
       quote = quotes(:incomplete)
       delete :destroy, id: quote.id
 
       response.status.must_equal 204
     end
 
-    test 'destroy quote not belonging to user' do
+    def test_delete_unowned_lead
       delete :destroy, id: quotes(:unowned).id
 
       siren.must_be_error
       response.status.must_equal 404
     end
 
-    test 'submit' do
+    def test_submit_lead
       quote = quotes(:ready_to_submit)
 
       VCR.use_cassette('quotes/success') do
@@ -119,28 +124,28 @@ module Auth
         super(:admin)
       end
 
-      test 'index' do
+      def test_index
         get :index
 
         siren.must_be_class(:quotes)
         siren.must_have_entity_size(Quote.count)
       end
 
-      test 'index for any user' do
+      def test_index_for_any_user
         get :index, user_id: users(:advocate).id
 
         expected = Quote.where(user_id: users(:advocate).id).count
         siren.must_have_entity_size(expected)
       end
 
-      test 'index with status filter' do
+      def test_index_with_status_filter
         get :index, status: 'closed_won'
 
         expected = Quote.closed_won.count
         siren.must_have_entity_size(expected)
       end
 
-      test 'index with search' do
+      def test_index_with_search
         get :index, search: 'gary'
 
         expected = [ quotes(:search_hit1).id, quotes(:search_hit2).id ].sort
@@ -148,7 +153,7 @@ module Auth
         siren.entities.map { |e| e.properties.id }.sort.must_equal expected
       end
 
-      test 'deleting previously submitted' do
+      def test_deleting_already_submitted_lead
         delete :destroy, id: quotes(:on_hold).id
 
         siren.must_be_error

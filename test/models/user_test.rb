@@ -5,17 +5,17 @@ class UserTest < ActiveSupport::TestCase
     @user = users(:advocate)
   end
 
-  it 'authenticates' do
+  def test_authenticate
     result = User.authenticate(@user.email, default_password)
     result.must_equal @user
   end
 
-  it 'does not return the user with an invalid password' do
+  def test_authenticate_bad_password
     result = User.authenticate(@user.email, "#{default_password}x")
     result.must_be_nil
   end
 
-  it 'changes the password' do
+  def test_change_password
     newpass = 'mynewpassword'
     @user.password = newpass
     @user.save!
@@ -24,9 +24,18 @@ class UserTest < ActiveSupport::TestCase
     result.must_equal @user
   end
 
-  it 'returns the correct number of available invites' do
-    invite = invites(:george)
-    expected = invite.sponsor.available_invites - 1
-    invite.sponsor.available_invites.must_equal expected
+  def test_move
+    child = users(:child)
+    parent = users(:child2)
+    User.move_user(child, parent)
+
+    child.ancestor?(parent.id).must_equal true
+    users(:grandchild).ancestor?(parent.id).must_equal true
+    child.parent_id.must_equal parent.id
+  end
+
+  def test_moving_to_ineligible_parent
+    -> { User.move_user(users(:child), users(:grandchild)) }
+      .must_raise ArgumentError
   end
 end

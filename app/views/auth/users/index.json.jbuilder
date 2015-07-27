@@ -1,6 +1,8 @@
 siren json
 
-users_json.list_init
+klass :users, :list
+
+json.entities @users, partial: 'item', as: :user
 
 actions index_action(request.path, true)
 

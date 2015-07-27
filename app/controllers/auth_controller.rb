@@ -25,24 +25,28 @@ class AuthController < WebController
     @user = admin? ? User.find(user_id) : fetch_downline_user(user_id)
   end
 
-  # force selected user to current user if none requested in url and current user is not an admin
+  # force selected user to current user if none requested in url
+  # and current user is not an admin
   def fetch_user!
     fetch_user.nil? && !admin? && (@user = current_user)
   end
 
   def unauthorized!(url)
-    request.xhr? || request.format.json? ? head(:unauthorized) : redirect_to(url)
+    json_request = request.xhr? || request.format.json?
+    json_request ? head(:unauthorized) : redirect_to(url)
   end
 
   private
 
   def fetch_downline_user(user_id)
     return current_user if user_id == current_user.id
-    User.with_ancestor(current_user.id)
-        .where(id: user_id.to_i).first || not_found!(:user, user_id)
+    User
+      .with_ancestor(current_user.id)
+      .where(id: user_id.to_i).first || not_found!(:user, user_id)
   end
-
+  
   def user_id_param?
+    # %w(user_id admin_user_id) & params.keys
     params.keys.include?('user_id') || params.keys.include?('admin_user_id')
   end
 

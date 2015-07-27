@@ -9,25 +9,37 @@ module UsersActions
                           :sponsors,
                           :move,
                           :eligible_parents ]
+    # before_action :fetch_user,
+    #               only: [ :show, :downline, :upline, :move, :eligible_parents ]
+
+    # filter :performance,
+    #        fields:     { metric: { options: [ :quote_count,
+    #                                           :personal_sales,
+    #                                           :group_sales ],
+    #                                heading: :order_by },
+    #                      period: { options: [ :lifetime, :monthly, :weekly ],
+    #                                heading: :for_period } },
+    #        scope_opts: { type: :hash, using: [ :metric, :period ] }
+
   end
 
-  def index
-    @users = apply_list_query_options(list_query)
+  # def index
+  #   @users = apply_list_query_options(list_query)
 
-    render 'index'
-  end
+  #   render 'index'
+  # end
 
-  def downline
-    @list_query = User.with_parent(@user.id)
+  # def downline
+  #   @list_query = User.with_parent(@user.id)
 
-    index
-  end
+  #   index
+  # end
 
-  def upline
-    @list_query = @user.upline_users
+  # def upline
+  #   @list_query = @user.upline_users
 
-    index
-  end
+  #   index
+  # end
 
   def sponsors
     @users = [ @user.sponsor, @user.sponsor.try(:sponsor) ].compact

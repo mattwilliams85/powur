@@ -55,7 +55,9 @@ end
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails', github: 'paulwalker/factory_girl_rails', branch: 'allow_file_path_def'
+  gem 'factory_girl_rails',
+      github: 'paulwalker/factory_girl_rails',
+      branch: 'allow_file_path_def'
   gem 'awesome_print'
   gem 'byebug'
   # gem 'webmock', require: 'webmock/rspec'
@@ -69,6 +71,7 @@ group :test do
   gem 'capybara-firebug'
   gem 'minitest-spec-rails'
   gem 'minitest-reporters'
+  gem 'm'
   gem 'color_pound_spec_reporter'
   gem 'webmock', require: 'webmock/rspec'
 end

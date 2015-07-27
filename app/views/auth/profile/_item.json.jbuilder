@@ -12,6 +12,16 @@ json.properties do
     end
   end if @user.avatar?
 
+  json.is_admin user.role?(:admin)
+
+  json.allow_sms @user.allow_sms != 'false'
+  json.allow_system_emails @user.allow_system_emails != 'false'
+  json.allow_corp_emails @user.allow_corp_emails != 'false'
+
+  unless current_user.accepted_latest_terms?
+    json.latest_terms ApplicationAgreement.current
+  end
+
   json.allow_sms @user.allow_sms != 'false'
   json.allow_system_emails @user.allow_system_emails != 'false'
   json.allow_corp_emails @user.allow_corp_emails != 'false'

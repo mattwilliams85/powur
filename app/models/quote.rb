@@ -16,7 +16,9 @@ class Quote < ActiveRecord::Base
   scope :submitted, -> { where('submitted_at is not null') }
   scope :not_submitted, -> { where('submitted_at is null') }
   scope :not_closed, -> { where('status < 5') }
-  scope :with_contract, -> { joins(:lead_updates).where("lead_updates.contract IS NOT NULL") }
+  scope :with_contract, lambda {
+    joins(:lead_updates).where('lead_updates.contract IS NOT NULL')
+  }
   scope :status, ->(*args) { where(status: args.map { |a| statuses[a] }) }
   scope :won, -> { status(:closed_won) }
   scope :within_date_range, lambda { |begin_date, end_date|
@@ -24,6 +26,13 @@ class Quote < ActiveRecord::Base
   }
   scope :user_product, lambda { |user_id, product_id|
     where(user_id: user_id, product_id: product_id)
+  }
+  scope :user_count, lambda { |ids: nil|
+    query = Quote
+      .select('user_id, count(id) lead_count')
+      .group(:user_id)
+    query = query.where(user_id: ids) if ids
+    query
   }
 
   validates_presence_of :url_slug, :product_id, :customer_id, :user_id
@@ -72,12 +81,12 @@ class Quote < ActiveRecord::Base
     state :on_hold
 
     event :input do
+      transitions from:   [ :ready_to_submit, :ineligible_location ],
+                  to:     :incomplete,
+                  unless: :submit_data_present?
       transitions from:   [ :incomplete, :ready_to_submit ],
                   to:     :ineligible_location,
                   unless: :zip_code_valid?
-      transitions from:   [ :ready_to_submit, :ineligible_location ],
-                  to:     :incomplete,
-                  unless: :can_submit?
       transitions from: [ :incomplete, :ineligible_location ],
                   to:   :ready_to_submit,
                   if:   :can_submit?
