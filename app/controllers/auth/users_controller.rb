@@ -23,6 +23,7 @@ module Auth
 
     def downline
       @users = User.with_parent(@user.id)
+      @users = apply_list_query_options(@users)
 
       index
     end

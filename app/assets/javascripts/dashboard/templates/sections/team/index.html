@@ -55,8 +55,8 @@
         <select class="sort" ng-model="teamSection.teamSort" ng-change="teamSection.sort(); closeTabs();">
           <option value="name">Order by Name</option>
           <option value="newest">Order by Newest</option>
-   <!--        <option value="proposals">Order by Proposals</option>
-          <option value="team">Order by Team</option> -->
+          <option value="lead_count">Order by Proposals</option>
+          <option value="team_count">Order by Team</option>
         </select>
       </div>
 
@@ -121,7 +121,7 @@
                     'even': is.even(member),
                   }"
                   ng-click="changeTab(member, downline[0], 'team');">
-                  <!--  ng-if="member.totals.team_count > 0" -->
+ 
                   <img ng-hide="is.activeTab(member, downline[0], 'team')" ng-src="{{img.teamSection.teamIconInvert}}">
                   <img ng-show="is.activeTab(member, downline[0], 'team')" ng-src="{{img.teamSection.teamIcon}}">
                 </div>
@@ -141,7 +141,7 @@
                 </div>
                 <div 
                   class="team-tab info" 
-                  ng-if="member.totals.leads_count"
+                  ng-if="member.totals.lead_count"
                   ng-class="{ 
                     'raise': hover || is.activeMember(member, downline[0]),
                     'active-tab': is.activeTab(member, downline[0], 'proposals'),
@@ -152,7 +152,7 @@
                   <img ng-hide="is.activeTab(member, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIconInvert}}">
                   <img ng-show="is.activeTab(member, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIcon}}">
                 </div>
-                <div class="team-tab info" ng-if="!member.totals.leads_count" ng-class="{ 'raise': hover || is.activeMember(member, downline[0]) }">
+                <div class="team-tab info" ng-if="!member.totals.lead_count" ng-class="{ 'raise': hover || is.activeMember(member, downline[0]) }">
                   <img ng-src="{{img.teamSection.customerIconInactive}}">
                 </div>
               </div>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="info-text user-text">
                   <span>{{member.first_name}} {{member.last_name}}</span>
-                  <span ng-hide="is.activeMember(member, downline[0]) && is.accordion(0)" class="info-detail">TEAM {{member.totals.team_count}}, PROPOSALS {{member.totals.leads_count || 0}}</span>
+                  <span ng-hide="is.activeMember(member, downline[0]) && is.accordion(0)" class="info-detail">TEAM {{member.totals.team_count}}, PROPOSALS {{member.totals.lead_count || 0}}</span>
                 </div>
               </div>
             </div>

@@ -311,7 +311,7 @@
     }
 
 //SORT
-    $scope.teamSection.teamSort = 'name';
+    $scope.teamSection.teamSort = 'team_count';
 
     $scope.teamSection.sort = function() {
       closeTabs($('#carousel-0'));
