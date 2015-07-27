@@ -17,9 +17,10 @@ class TwilioClient
   # Send sms to provided recepient list
   # equaly distributing with all available purchased phone numbers
   def send_sms_in_groups(recipient_numbers, body)
+    sent_messages = []
     recipient_numbers.in_groups_of(purchased_numbers.length) do |group|
       group.compact.each_index do |i|
-        client.messages.create(
+        sent_messages << client.messages.create(
           to:   group[i],
           from: purchased_numbers[i],
           body: body)
@@ -29,5 +30,6 @@ class TwilioClient
       # one sms per second per phone
       sleep 2
     end
+    sent_messages
   end
 end
