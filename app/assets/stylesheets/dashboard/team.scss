@@ -218,10 +218,101 @@
 
     .info-row {
       text-align: center;
-      // background-image:  image-url("city-dark.jpg");
       background-position: left 0;
       background-repeat: no-repeat;
       background-size: cover;
+
+      // TEMP
+      .dim {
+        color: #666 !important;
+      }
+
+      .info-container {
+        padding: 50px;
+        text-align: left;
+        color: #fff;
+
+        .fa {
+          font-size: 16pt;
+        }
+
+        .row.stats {
+          padding: 30px 0 15px 15px;
+          font-weight: bold;
+        }
+
+        .stats-container {
+          background-color: rgba(0, 0, 0, 0.08);
+          border: 1px solid #333;
+          padding: 10px;
+          margin: 15px;
+          border-radius: 4px;
+        }
+
+        .header {
+          font-size: 16pt;
+          margin-left: -25px;
+          margin: 7px 0;
+          font-weight: bold;
+        }
+
+        .sub-header {
+          font-size: 12pt;
+          color: #9b9b9b;
+          text-transform: uppercase;
+          display: block;
+        }
+
+        .detail {
+          display: block;
+
+          &.lg {
+            font-size: 14pt;
+            margin: 5px 0 5px 15px;
+          }
+        }
+
+        i {
+           border-radius: 15px;
+           line-height: 32px;
+           transition: background-color .3s linear;
+           text-align: center; 
+
+           &.fa-facebook {
+             background-color: #3b5998;
+             &:hover {
+               background-color: #4264AB;
+             }
+           }
+           &.fa-twitter {
+             background-color: #50acee;
+             &:hover {
+               background-color: #6FBDFB;
+             }
+           }
+           &.alternate {
+             color: #fff;
+             border-radius: 50%;
+             font-size: 15pt;
+             width: 30px;
+             height: 30px;
+             line-height: 32px;
+             margin: 10px 0px 15px 15px;
+           }
+           &.disabled {
+             background-color: #555;
+             color: #ddd;
+             &:hover {
+               cursor: default;
+               background-color: #555;
+               color: #ddd;
+             }
+           }
+           &:hover {
+             background-color: #000;
+           }
+         }
+        }
 
       .icon-container {
         margin: 10px;
@@ -417,7 +508,7 @@
         height: 220px;
 
         &.info-row {
-          height: 230px;
+          height: 450px;
         }
       }
 
@@ -567,44 +658,7 @@
         a {
           color: #fff;
         }
-        i {
-          border-radius: 15px;
-          line-height: 32px;
-          transition: background-color .3s linear;
-          &.fa-facebook {
-            background-color: #3b5998;
-            &:hover {
-              background-color: #4264AB;
-            }
-          }
-          &.fa-twitter {
-            background-color: #50acee;
-            &:hover {
-              background-color: #6FBDFB;
-            }
-          }
-          &.alternate {
-            color: #fff;
-            border-radius: 50%;
-            font-size: 30pt;
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
-            margin-bottom: -4px;
-          }
-          &.disabled {
-            background-color: #555;
-            color: #ddd;
-            &:hover {
-              cursor: default;
-              background-color: #555;
-              color: #ddd;
-            }
-          }
-          &:hover {
-            background-color: #000;
-          }
-        }
+
 
         .info-text {
           display: block;
