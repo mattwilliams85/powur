@@ -27,7 +27,8 @@ describe Notification, type: :model do
       let(:notification) { create(:notification, recipient: 'advocates') }
 
       it 'should use user advocates scope' do
-        expect(User).to receive(:advocates).and_return([1, 2])
+        expect(User).to receive(:advocates)
+          .and_return(double(:advocates, can_sms: [1, 2]))
         expect(notification.fetch_recipients).to eq([1, 2])
       end
     end
@@ -36,7 +37,8 @@ describe Notification, type: :model do
       let(:notification) { create(:notification, recipient: 'partners') }
 
       it 'should use user partners scope' do
-        expect(User).to receive(:partners).and_return([3, 4])
+        expect(User).to receive(:partners)
+          .and_return(double(:advocates, can_sms: [3, 4]))
         expect(notification.fetch_recipients).to eq([3, 4])
       end
     end
