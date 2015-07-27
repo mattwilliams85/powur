@@ -169,7 +169,7 @@
       var confirmMessage = "This will give " + $scope.user.properties.first_name + " " + $scope.user.properties.last_name + " free access to this course in Powur U. Are you sure?";
 
       // Get Product Receipt Create Action
-      $scope.giveComplimentaryCourseAction = $scope.getAction($scope.user_product_receipts.actions, 'create');
+      $scope.giveComplimentaryCourseAction = getAction($scope.user_product_receipts.actions, 'create');
 
       if ($scope.overview.complimentaryCourse && confirm(confirmMessage)) {
         CommonService.execute($scope.giveComplimentaryCourseAction, $scope.overview.complimentaryCourse).then(function(data){
