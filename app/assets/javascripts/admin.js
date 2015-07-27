@@ -44,6 +44,7 @@
 //= require_tree ./admin/resources
 //= require_tree ./admin/resource-topics
 //= require_tree ./admin/social-media
+//= require_tree ./admin/twilio-phone-numbers
 //= require_tree ./admin/user-groups
 //= require_tree ./admin/users
 //

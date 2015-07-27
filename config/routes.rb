@@ -326,6 +326,10 @@ Rails.application.routes.draw do
     resources :social_media_posts,
               only: [ :index, :create, :destroy, :show, :update ],
               as:   :admin_social_media_posts
+
+    resources :twilio_phone_numbers,
+              only: [ :index ],
+              as:   :admin_twilio_phone_numbers
   end
 
   #

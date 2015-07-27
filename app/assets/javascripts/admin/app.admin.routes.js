@@ -51,6 +51,11 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminNotificationsCtrl'
     }).
+    // Twilio
+    when('/admin/twilio-phone-numbers', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminTwilioPhoneNumbersCtrl'
+    }).
     // Application and Agreements
     when('/admin/application-agreements', {
       templateUrl: 'shared/admin/rest/index.html',
