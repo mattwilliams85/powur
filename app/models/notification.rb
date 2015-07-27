@@ -38,12 +38,10 @@ class Notification < ActiveRecord::Base
   private
 
   def advocates_recipients
-    # TODO: filter out users without phone number and disabled sms notifications
-    User.advocates
+    User.advocates.can_sms
   end
 
   def partners_recipients
-    # TODO: filter out users without phone number and disabled sms notifications
-    User.partners
+    User.partners.can_sms
   end
 end

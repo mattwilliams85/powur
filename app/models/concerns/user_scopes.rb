@@ -155,6 +155,16 @@ module UserScopes
     scope :partners, lambda {
       joins(product_receipts: :product).where(products: { slug: 'partner' })
     }
+
+    scope :has_phone, lambda {
+      where("exist(contact, 'phone') = true").where("contact->'phone' != ''")
+    }
+    scope :allows_sms, lambda {
+      where([
+        "exist(profile, 'allow_sms') = false OR profile -> 'allow_sms' != ?",
+        'false'])
+    }
+    scope :can_sms, -> { has_phone.allows_sms }
   end
 
   module ClassMethods
