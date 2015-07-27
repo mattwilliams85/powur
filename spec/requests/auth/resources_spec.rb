@@ -19,9 +19,9 @@ describe 'GET /u/resources' do
       expect_props(
         paging: {
           'current_page' => 1,
-          'item_count' => 2,
-          'page_count' => 1,
-          'page_size' => 50
+          'item_count'   => 2,
+          'page_count'   => 1,
+          'page_size'    => 50
         }
       )
     end
@@ -39,9 +39,15 @@ end
 describe 'get filtered resources' do
   let!(:user) { login_user }
   let(:topic) { create(:resource_topic) }
-  let!(:video_resource) { create(:resource, topic_id: topic.id, file_original_path: 'file.mp4') }
-  let!(:document_resource) { create(:resource, topic_id: topic.id, file_original_path: 'file.pdf') }
-  let!(:unpublished_resource) { create(:resource, topic_id: topic.id, is_public: false) }
+  let!(:video_resource) do
+    create(:resource, topic_id: topic.id, file_original_path: 'file.mp4')
+  end
+  let!(:document_resource) do
+    create(:resource, topic_id: topic.id, file_original_path: 'file.pdf')
+  end
+  let!(:unpublished_resource) do
+    create(:resource, topic_id: topic.id, is_public: false)
+  end
 
   before do
     allow(user).to receive(:full_name).and_return('Bob')
@@ -55,12 +61,13 @@ describe 'get filtered resources' do
     expect_props(
       paging: {
         'current_page' => 1,
-        'item_count' => 1,
-        'page_count' => 1,
-        'page_size' => 50
+        'item_count'   => 1,
+        'page_count'   => 1,
+        'page_size'    => 50
       }
     )
-    expect(JSON.parse(response.body)['entities'][0]['properties']['id']).to eq(video_resource.id)
+    expect(JSON.parse(response.body)['entities'][0]['properties']['id'])
+      .to eq(video_resource.id)
   end
 
   it 'returns document resource json data' do
@@ -70,11 +77,12 @@ describe 'get filtered resources' do
     expect_props(
       paging: {
         'current_page' => 1,
-        'item_count' => 1,
-        'page_count' => 1,
-        'page_size' => 50
+        'item_count'   => 1,
+        'page_count'   => 1,
+        'page_size'    => 50
       }
     )
-    expect(JSON.parse(response.body)['entities'][0]['properties']['id']).to eq(document_resource.id)
+    expect(JSON.parse(response.body)['entities'][0]['properties']['id'])
+      .to eq(document_resource.id)
   end
 end
