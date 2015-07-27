@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardTeamCtrl($rootScope, $scope, $timeout, $http, $location, User, CommonService) {
+  function DashboardTeamCtrl($rootScope, $scope, $timeout, $interval, $http, $location, User, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     $scope.showInvitesCarousel = false;
@@ -493,7 +493,7 @@
     }
 
 //PLACEMENT 
-  $scope.placeMode = function(member){
+  $scope.placeMode = function(){
     if ($scope.placement.on) $scope.clearPlacement();
     $scope.placement.child = $scope.currentTeamMember;
     $scope.placement.on = true;
@@ -530,6 +530,14 @@
     });
   };
 
+  $scope.expirationDate = function(member) {
+    var startDate = new Date(member.created_at);
+    var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
+    if (startDate < betaStart) startDate = betaStart;
+    startDate = startDate.addDays(60);
+    return startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear();
+  };
+
 //ON PAGE LOAD
     var level;
     // Fetch User's Immediate downline
@@ -556,7 +564,7 @@
     }
   }
 
-  DashboardTeamCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$http', '$location', 'User', 'CommonService'];
+  DashboardTeamCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$interval', '$http', '$location', 'User', 'CommonService'];
   angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl)
   .directive('repeatEnd', function(){
     return {

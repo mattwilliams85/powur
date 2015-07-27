@@ -172,6 +172,7 @@
                 <div class="info-text user-text">
                   <span>{{member.first_name}} {{member.last_name}}</span>
                   <span ng-hide="is.activeMember(member, downline[0]) && is.accordion(0)" class="info-detail">TEAM {{member.totals.team_count}}, PROPOSALS {{member.totals.lead_count || 0}}</span>
+                  <span ng-show="is.placeable(member)" class="info-detail placeable">placeable</span>
                 </div>
               </div>
             </div>

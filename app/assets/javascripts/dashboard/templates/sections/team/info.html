@@ -6,7 +6,7 @@
       <div class="large-6 columns">
         
         <div class="row">
-        <i class="fa fa-line-chart"></i><span class="header">&nbsp;&nbsp;Stats</span>
+          <i class="fa fa-line-chart"></i><span class="header">&nbsp;&nbsp;Stats</span>
         </div>
         <!-- <div class="stats-container">
           <div class="large-12 columns">
@@ -40,7 +40,19 @@
               <span class="sub-header">Progress</span>
               <span class="detail lg">Lifetime Rank: &nbsp;{{currentTeamMember.lifetime_rank || 0}}</span>
               <!-- <span class="detail lg dim">Team Certified: &nbsp;{{currentTeamMember.certified_count || 0}}/{{currentTeamMember.downline_count || 0}}</span> -->
-
+            </div>
+          </div>
+        </div>
+        <div ng-show="is.placeable(currentTeamMember)">
+          <div class="row">
+            <i class="fa fa-cog"></i><span class="header">&nbsp;&nbsp;Options</span>
+          </div>
+          <div class="stats-container">
+            <div class="row">
+              <div class="large-12 columns">
+                <span class="detail lg place" ng-click="placeMode()">Place Advocate</span>
+                <span class="sub-header place">[Expires: {{expirationDate(currentTeamMember)}}]</span>
+              </div>
             </div>
           </div>
         </div>
