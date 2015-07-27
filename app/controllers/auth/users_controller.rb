@@ -8,8 +8,8 @@ module Auth
     page
     sort newest:     { created_at: :desc },
          name:       'users.last_name asc, users.first_name asc',
-         lead_count: 'lc.lead_count desc',
-         team_count: 'tc.team_count desc'
+         lead_count: 'lc.lead_count desc nulls last',
+         team_count: 'tc.team_count desc nulls last'
     item_totals :lead_count, :team_count
 
     helper_method :user_totals
