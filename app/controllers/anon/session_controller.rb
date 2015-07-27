@@ -17,6 +17,10 @@ module Anon
       end
     end
 
+    def show
+      head(:unauthorized) unless logged_in?
+    end
+
     def destroy
       reset_session
       redirect_to root_url
