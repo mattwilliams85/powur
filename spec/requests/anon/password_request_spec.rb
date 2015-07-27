@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe '/password' do
-
   before do
     User.delete_all
     @user = create(:user,
@@ -14,7 +13,6 @@ describe '/password' do
   end
 
   describe '#create' do
-
     it 'accepts a request to reset the password and sends the email' do
       user = create(:user)
 
@@ -22,7 +20,6 @@ describe '/password' do
 
       expect_200
     end
-
   end
 
   describe '#update' do
