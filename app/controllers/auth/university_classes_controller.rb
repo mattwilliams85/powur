@@ -96,7 +96,7 @@ module Auth
     end
 
     def validate_class_enrollable
-      if (!@university_class.is_free? &&
+      if (!@university_class.free? &&
           !@university_class.purchased_by?(current_user)) ||
           !@university_class.prerequisites_taken?(current_user)
         not_found!(:product)

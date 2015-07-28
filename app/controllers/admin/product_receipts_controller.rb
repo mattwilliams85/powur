@@ -24,7 +24,7 @@ module Admin
     def create
       product = Product.find(params[:id])
 
-      product.complimentary_purchase(params[:bonus_volume], @user)
+      product.complimentary_purchase(@user)
 
       head 200
     end
