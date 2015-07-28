@@ -77,11 +77,12 @@ module Auth
     end
 
     def fetch_quote
+      id = params[:id].to_i
       @quote =
         if admin?
-          Quote.find_by(id: params[:id].to_i)
+          Quote.find_by(id: id)
         else
-          Quote.where(user_id: @user.id, id: params[:id].to_i).first
+          Quote.find_for_downline(id, current_user.id)
         end
       not_found!(:quote) unless @quote
     end

@@ -130,5 +130,11 @@ class Quote < ActiveRecord::Base
       return nil unless prefix == QuoteSubmission.id_prefix
       Quote.find(quote_id.to_i)
     end
+
+    def find_for_downline(id, parent_id)
+      Quote
+        .where(id: id)
+        .joins(:user).merge(User.where('? = ANY (upline)', parent_id)).first
+    end
   end
 end
