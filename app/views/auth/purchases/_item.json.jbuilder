@@ -1,5 +1,5 @@
-klass :enrollment
-json.rel [ 'enrollment' ]
+klass :purchase
+json.rel [ 'purchase' ]
 json.properties do
-  json.call(enrollment, :state, :product_id)
+  json.call(purchase, :product_id)
 end
