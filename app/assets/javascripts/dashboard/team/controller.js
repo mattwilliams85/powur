@@ -281,12 +281,12 @@
     }
 
     function fetchDownline(user) {
+      user.upline = spliceUpline(user);
       $scope.currentTeamMember = user;
       $scope.jumping = true;
       $scope.downline[0].selected = user.upline[1];
 
       if (dCount + 2 === user.upline.length) return populateDownline(user);
-
       User.downline(user.upline[dCount+1], {sort: $scope.teamSection.teamSort}).then(function(items) {
         dCount += 1;
         items = initDownline(items);
@@ -294,6 +294,11 @@
         $scope.dQueue.push(items.entities);
         fetchDownline(user)
       });
+    }
+
+    function spliceUpline(user) {
+      var index = user.upline.indexOf($scope.currentUser.id);
+      return user.upline.slice(index, user.upline.length);
     }
 
     function populateDownline(user) {
