@@ -16,7 +16,8 @@ module Auth
       process_purchase
       send_purchased_notifications
       increase_available_invites
-      subscribe_to_mailchimp_list
+      unsubscribe_from_mailchimp_advocates
+      subscribe_to_mailchimp_partners
 
       head :ok
     end
@@ -83,8 +84,14 @@ module Auth
       mailer.deliver_now!
     end
 
-    def subscribe_to_mailchimp_list
-      current_user.mailchimp_subscribe_to('partners')
+    def unsubscribe_from_mailchimp_advocates
+      current_user.mailchimp_unsubscribe('advocates')
+    rescue Gibbon::MailChimpError => e
+      Airbrake.notify(e)
+    end
+
+    def subscribe_to_mailchimp_partners
+      current_user.mailchimp_subscribe('partners')
     rescue Gibbon::MailChimpError => e
       Airbrake.notify(e)
     end
