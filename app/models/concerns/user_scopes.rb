@@ -19,13 +19,13 @@ module UserScopes
     scope :quote_performance, lambda { |user_id|
       with_quote_counts
         .where('quotes.status > ? or quotes.status IS NULL', 2)
-        .with_parent(user_id)
+        .with_ancestor(user_id)
         .order('quote_count desc')
     }
 
     scope :growth_performance, lambda { |user_id|
       with_weekly_downline_counts
-        .with_parent(user_id)
+        .with_ancestor(user_id)
         .order('dc.downline_count desc nulls last')
     }
 

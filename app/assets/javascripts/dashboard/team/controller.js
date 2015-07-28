@@ -47,6 +47,7 @@
                member !== $scope.placement.child;
       },
       placeable: function(member) {
+        if ($scope.downline.length > 1) return false;
         var startDate = new Date(member.created_at);
         var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
         if (startDate < betaStart) startDate = betaStart;
