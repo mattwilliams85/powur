@@ -29,7 +29,9 @@ describe TwilioClient, type: :model do
 
     it 'should send sms using all avaliable purchased phone numbers' do
       sent_messages = []
-      VCR.use_cassette('twilio_send_group_sms') do
+      VCR.use_cassette(
+        'twilio_send_group_sms',
+        match_requests_on: [ :host, :path ]) do
         sent_messages = client.send_sms_in_groups(recipient_numbers, message)
       end
       expect(sent_messages.length).to eq(3)
