@@ -22,7 +22,7 @@
         <!-- Legend -->
         <div class="legend">
           <div ng-repeat="requirement in goals.requirements">
-            <div class="legend-item" ng-if="requirement.properties.event_type === 'course_enrollment'">
+            <div class="legend-item" ng-if="requirement.properties.event_type === 'purchase'">
               <div class="legend-key course"></div>
               <span>{{requirement.properties.product}}</span>
             </div>
@@ -45,7 +45,7 @@
           <div ng-repeat="requirement in goals.requirements" repeat-end="onEnd()">
             <div
               class="progress-bar enrollment"
-              ng-if="requirement.properties.event_type === 'course_enrollment'"
+              ng-if="requirement.properties.event_type === 'purchase'"
               ng-class="{ half: goals.requirements.length === 2,
                           full: goals.requirements.length === 1 }">
               <span class="progress-text">{{courseState || 'not enrolled'}}</span>
