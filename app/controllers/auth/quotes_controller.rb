@@ -5,7 +5,7 @@ module Auth
     before_action :fetch_quote,
                   only: [ :show, :update, :destroy, :resend, :submit ]
 
-    page
+    page max_limit: 500
     sort created:  { created_at: :desc },
          customer: 'customers.last_name asc, customers.first_name asc'
     filter :status,
