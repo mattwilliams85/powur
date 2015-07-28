@@ -8,14 +8,16 @@ module Auth
 
     private
 
-    def fetch_enrollments(requirements)
-      course_requirements = requirements.select(&:course_enrollment?)
-      product_ids = course_requirements.map(&:product_id).uniq
-      @enrollments = ProductEnrollment.user_product(@user.id, product_ids)
+    def fetch_purchases(requirements)
+      purchase_requirements = requirements.select(&:purchase?)
+      product_ids = purchase_requirements.map(&:product_id).uniq
+      @purchases = ProductReceipt.where(
+        product_id: product_ids,
+        user_id:    @user.id)
     end
 
     def fetch_order_totals(requirements)
-      sales_requirements = requirements.select(&:course_enrollment?)
+      sales_requirements = requirements.reject(&:purchase?)
       product_ids = sales_requirements.map(&:product_id).uniq
 
       @order_totals = OrderTotal.where(
@@ -31,7 +33,7 @@ module Auth
 
       @requirements = @next_rank.user_groups.map(&:requirements).flatten
 
-      fetch_enrollments(@requirements)
+      fetch_purchases(@requirements)
       fetch_order_totals(@requirements)
     end
   end

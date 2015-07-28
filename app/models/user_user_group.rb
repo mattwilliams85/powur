@@ -6,7 +6,7 @@ class UserUserGroup < ActiveRecord::Base
 
   validates_presence_of :user_id, :user_group_id
 
-  scope :highest_ranks, ->(user_id = nil) {
+  scope :highest_ranks, lambda { |user_id = nil|
     query = select('max(rank_id) highest_rank, user_id')
       .joins(user_group: :ranks_user_groups)
       .group('user_user_groups.user_id')
@@ -15,7 +15,7 @@ class UserUserGroup < ActiveRecord::Base
   }
 
   class << self
-    def populate(opts = {})
+    def populate
       UserGroup.with_requirements.each do |group|
         user_ids = group.qualified_user_ids
         user_ids -= where(user_id: user_ids).pluck(:user_id)
