@@ -1,6 +1,5 @@
 namespace :powur do
   namespace :seed do
-
     def plan_data
       @plan_data ||= begin
         YAML.load_file(Rails.root.join('db', 'seed', 'comp_plan.yml'))
@@ -22,15 +21,12 @@ namespace :powur do
         requirements = attrs.delete('requirements')
         group = UserGroup.create!(attrs)
         group.ranks_user_groups.create!(rank_id: rank_id)
-        requirements.each do |attrs|
-          group.requirements.create!(attrs)
-        end
+        requirements.each { |req_attrs| group.requirements.create!(req_attrs) }
         puts "Created group #{group.title} : #{group.id}"
       end
     end
 
     task plan: [ :ranks, :user_groups ] do
     end
-
   end
 end
