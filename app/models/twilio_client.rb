@@ -1,8 +1,10 @@
 class TwilioClient
   attr_reader :client
 
-  def initialize(*args)
-    @client = Twilio::REST::Client.new(*args)
+  def initialize
+    @client = Twilio::REST::Client.new(
+      SystemSettings.get!('twilio_account_sid'),
+      SystemSettings.get!('twilio_auth_token'))
   end
 
   def account

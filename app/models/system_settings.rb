@@ -1,4 +1,7 @@
 class SystemSettings < RailsSettings::CachedSettings
+  scope :editable, -> { where(is_editable: true) }
+  scope :sorted, -> { order(id: :asc) }
+
   class << self
     def default_product
       Product.find(default_product_id)
@@ -8,7 +11,7 @@ class SystemSettings < RailsSettings::CachedSettings
     # forcing database call and cache rewrite
     def get!(key)
       record = object(key)
-      return unless record
+      return nil unless record
       record.rewrite_cache
       record.value
     end

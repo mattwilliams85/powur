@@ -1,0 +1,24 @@
+<form novalidate>
+  <fieldset>
+    <div class="row">
+      <div class="large-12 columns">
+        <label>Name</label>
+        <input ng-model="systemSetting.var" type="text" disabled="disabled">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <label for="system_setting_value">Value</label>
+        <input ng-model="systemSetting.value" name="value" id="system_setting_value" type="text">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="update()" value="Update">
+      </div>
+    </div>
+  </fieldset>
+</form>

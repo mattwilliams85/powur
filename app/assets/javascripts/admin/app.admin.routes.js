@@ -183,6 +183,15 @@
       templateUrl: 'shared/admin/rest/new.html',
       controller: 'AdminSocialMediaCtrl'
     }).
+    // System Settings
+    when('/admin/system-settings', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminSystemSettingsCtrl'
+    }).
+    when('/admin/system-settings/:settingId/edit', {
+      templateUrl: 'shared/admin/rest/edit.html',
+      controller: 'AdminSystemSettingsCtrl'
+    }).
     // Twilio
     when('/admin/twilio-phone-numbers', {
       templateUrl: 'shared/admin/rest/index.html',
