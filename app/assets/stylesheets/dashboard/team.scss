@@ -222,13 +222,8 @@
       background-repeat: no-repeat;
       background-size: cover;
 
-      // TEMP
-      .dim {
-        color: #666 !important;
-      }
-
       .info-container {
-        padding: 50px;
+        padding: 30px 40px;
         text-align: left;
         color: #fff;
 
@@ -525,7 +520,7 @@
         height: 220px;
 
         &.info-row {
-          height: 450px;
+          height: 500px;
         }
       }
 
