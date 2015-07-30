@@ -1,8 +1,8 @@
 <table class="index-table">
   <thead>
     <tr>
-      <th>ID <powur-sorter control="index" field="id"></powur-sorter></th>
-      <th>Name <powur-sorter control="index" field="first_name"></powur-sorter></th>
+      <th>ID</th>
+      <th>Name</th>
       <th>Email</th>
       <th>Level</th>
       <th width="150">Action</th>
@@ -15,11 +15,7 @@
       <td>{{ item.properties.email }}</td>
       <td>{{ item.properties.level }}</td>
       <td>
-        <a ng-href="/admin/users/{{ item.properties.id }}">edit</a>
-        <br>
-        <a ng-href="/admin/users/{{ item.properties.id }}/edit_password">edit password</a>
-        <br>
-        <a ng-href="/admin/users/{{ item.properties.id }}/move">move</a>
+        <a ng-click="confirm('You are about to move ' + fullName(user) + ' and his/her team under a new parent(' + fullName(item) + '). Are you sure?', 'setNewParent', item)">set as a new parent</a>
       </td>
     </tr>
   </tbody>

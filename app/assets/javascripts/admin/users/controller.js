@@ -14,6 +14,10 @@
       index: {
         title: 'Users',
         tablePath: 'admin/users/templates/table.html'
+      },
+      move: {
+        title: 'Move User',
+        tablePath: 'admin/users/templates/move-table.html'
       }
     };
 
@@ -105,7 +109,32 @@
         params: data,
       }).success(function(data) {
         $scope.index.data = data;
-        $anchorScroll;
+        $anchorScroll();
+      });
+    };
+
+    $scope.searchParent = function() {
+      var action = getAction($scope.actions, 'eligible_parents');
+
+      $http({
+        method: action.method,
+        url: action.href,
+        params: { search: $scope.usersSearch },
+      }).success(function(data) {
+        $scope.index.data = data;
+      });
+    };
+
+    $scope.setNewParent = function(newParent) {
+      var action = getAction($scope.actions, 'move');
+
+      $http({
+        method: action.method,
+        url: action.href,
+        params: { parent_id: newParent.properties.id },
+      }).success(function() {
+        $location.path('/admin/users/' + $scope.user.properties.id);
+        $scope.showModal('You\'ve successfully moved user to a new team!');
       });
     };
 
@@ -143,7 +172,7 @@
           return;
         }
         $scope.showModal('You\'ve successfully updated this user\'s available invites count!');
-        $anchorScroll;
+        $anchorScroll();
       });
     };
 
@@ -166,7 +195,7 @@
 
     // Give Complimentary Course
     $scope.overview.giveComplimentaryCourse = function() {
-      var confirmMessage = "This will give " + $scope.user.properties.first_name + " " + $scope.user.properties.last_name + " free access to this course in Powur U. Are you sure?";
+      var confirmMessage = 'This will give ' + $scope.fullName($scope.user) + ' free access to this course in Powur U. Are you sure?';
 
       // Get Product Receipt Create Action
       $scope.giveComplimentaryCourseAction = getAction($scope.user_product_receipts.actions, 'create');
@@ -174,8 +203,12 @@
       if ($scope.overview.complimentaryCourse && confirm(confirmMessage)) {
         CommonService.execute($scope.giveComplimentaryCourseAction, $scope.overview.complimentaryCourse).then(function(data){
           $scope.getEntityData($scope.user.entities, 'user_product_receipts');
-        })
+        });
       }
+    };
+
+    $scope.fullName = function(user) {
+      return user.properties.first_name + ' ' + user.properties.last_name;
     }
 
     this.init($scope, $location);
@@ -189,6 +222,7 @@
     if (/\/new$/.test($location.path())) return $scope.mode = 'new';
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
     if (/\/edit_password$/.test($location.path())) return $scope.mode = 'edit_password';
+    if (/\/move$/.test($location.path())) return $scope.mode = 'move';
   };
 
   AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
@@ -197,11 +231,8 @@
       $rootScope.breadcrumbs.push({title: 'Users'});
       $scope.index = {};
       $scope.pagination(0);
-
     } else if ($scope.mode === 'show') {
-      CommonService.execute({
-        href: '/a/users/' + $routeParams.userId + '.json'
-      }).then(function(item) {
+      getUser($routeParams.userId, function(item) {
         $scope.user = item;
         $scope.formAction = getAction(item.actions, 'update');
         $scope.formValues = setFormValues($scope.formAction);
@@ -220,30 +251,41 @@
 
         // Breadcrumbs: Users / User Name
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
-        $rootScope.breadcrumbs.push({title: $scope.user.properties.first_name + ' ' + $scope.user.properties.last_name});
-
+        $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user)});
       });
     } else if ($scope.mode === 'edit') {
-      CommonService.execute({
-        href: '/a/users/' + $routeParams.userId +'.json'
-      }).then(function(item) {
+      getUser($routeParams.userId, function(item) {
         $scope.user = item;
         $scope.formAction = getAction(item.actions, 'update');
         $scope.formValues = setFormValues($scope.formAction);
 
         // Breadcrumbs: Users / Edit User
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
-        $rootScope.breadcrumbs.push({title: ($scope.user.properties.first_name + ' ' + $scope.user.properties.last_name), href: '/admin/users/' + $scope.user.properties.id});
+        $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + $scope.user.properties.id});
         $rootScope.breadcrumbs.push({title: 'Edit User'});
       });
-    } else if ($scope.mode === 'edit_password') {
-      CommonService.execute({
-        href: '/a/users/' + $routeParams.userId +'.json'
-      }).then(function(item) {
+    } else if ($scope.mode === 'move') {
+      $scope.index = {};
+      getUser($routeParams.userId, function(item) {
+        $scope.user = item;
+        $scope.actions = item.actions;
+
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
-        $rootScope.breadcrumbs.push({title: (item.properties.first_name + ' ' + item.properties.last_name), href: '/admin/users/' + item.properties.id});
+        $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + $scope.user.properties.id});
+        $rootScope.breadcrumbs.push({title: 'Move User'});
+      });
+    } else if ($scope.mode === 'edit_password') {
+      getUser($routeParams.userId, function(item) {
+        $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
+        $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + item.properties.id});
         $rootScope.breadcrumbs.push({title: 'Edit Password'});
       });
+    }
+
+    function getUser(userId, cb) {
+      CommonService.execute({
+        href: '/a/users/' + userId
+      }).then(cb);
     }
   };
 

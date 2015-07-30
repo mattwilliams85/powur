@@ -1,6 +1,8 @@
 module Admin
   class UsersController < AdminController
-    before_action :fetch_user, only: [ :downline, :upline, :show, :update, :sponsors, :eligible_parents, :move ]
+    before_action :fetch_user,
+                  only: [ :downline, :upline, :show, :update,
+                          :sponsors, :eligible_parents, :move ]
 
     page max_limit: 25
     sort id_desc:         { id: :desc },
@@ -14,10 +16,9 @@ module Admin
 
     def index
       @users = apply_list_query_options(User)
-      if params[:group]
-        group_ids = params[:group].split(',')
-        @users = @users.in_groups(*group_ids)
-      end
+      return unless params[:group]
+      group_ids = params[:group].split(',')
+      @users = @users.in_groups(*group_ids)
     end
 
     def invites
@@ -45,6 +46,7 @@ module Admin
     end
 
     def show
+      render 'show'
     end
 
     def update
@@ -61,16 +63,15 @@ module Admin
 
       @user.update_attributes!(input)
 
-      render 'show'
+      show
     end
 
     def eligible_parents
-      @users = User
-        .where('NOT (? = ANY (upline))', @user.id)
-        .where('id <> ?', @user.parent_id)
-        .order(:upline)
+      require_input :search
+      @users = apply_list_query_options(
+        @user.eligible_parents.search(params[:search]))
 
-      render 'auth/users/select_index'
+      render :index
     end
 
     def sponsors
@@ -81,12 +82,10 @@ module Admin
 
     def move
       require_input :parent_id
-
       parent = User.find(params[:parent_id].to_i)
+      User.move_user(@user, parent)
 
-      @user.assign_parent(parent, 'admin')
-
-      render 'show'
+      show
     end
 
     protected

@@ -1,19 +1,18 @@
 <main class="pow-admin-index">
   <div class="row">
-    <div class="large-6 columns">
-      <h2>{{ templateData.index.title }}</h2>
-    </div>
-    <div class="large-6 columns">
-      <a ng-repeat="link in templateData.index.links" ng-href="{{link.href}}" class="button right">{{link.text}}</a>
+    <div class="large-12 columns">
+      <h2>{{templateData.move.title}}</h2>
     </div>
   </div>
 
   <!-- Search -->
   <div class="row">
-    <div class="medium-4 columns right">
-      <div class="row collapse">
-        <form ng-submit="search()">
+    <div class="large-4 columns">
+      <div class="row">
+        <form ng-submit="searchParent()">
           <div class="small-12 columns">
+            <br>
+            <span>Please find a new parent first</span><br>
             <input type="search" ng-model="usersSearch" placeholder="Search">
           </div>
         </form>
@@ -23,7 +22,7 @@
 
   <div class="row">
     <div class="large-12 columns">
-      <ng-include src="templateData.index.tablePath"></ng-include>
+      <ng-include src="templateData.move.tablePath"></ng-include>
       <ng-include src="'shared/admin/pagination.html'"></ng-include>
     </div>
   </div>
