@@ -145,7 +145,7 @@
       margin-top: 50px;
 
       &.accordion {
-        margin-top: 45px;
+        margin-top: 38px;
         transition: none !important;
         -webkit-transition: none !important;
         .avatar {
@@ -226,6 +226,9 @@
         padding: 30px 40px;
         text-align: left;
         color: #fff;
+        opacity: 0;
+        transition: opacity .3s ease-out;
+        -webkit-transition: opacity .3s ease-out;
 
         .fa {
           font-size: 16pt;
@@ -330,17 +333,17 @@
         position: relative;
         text-align: center;
         top: 20%;
-        width: 85px;
+        width: 86px;
         margin: 10px auto;
         z-index: 1;
 
         .crop-box {
-          height: 100%;
-          width: 100%;
+          height: 85px;
+          width: 85px;
           border-radius: 50px;
           position: relative;
           overflow: hidden;
-          background-color: #aaa;
+          background-color: #ccc;
           z-index:1;
         }
 
@@ -349,6 +352,7 @@
           left: -85px;
           z-index: 2;
           transition: transform .15s linear;
+          border-radius: 50%;
           &.swing {
             transform: translate(85px, 0);
           }
@@ -382,8 +386,8 @@
 
         img {
           width: 85px;
+          height: 85px;
           margin: 0 auto;
-          border-radius: 50%;
           position: relative;
           z-index: 1;
         }
