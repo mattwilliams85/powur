@@ -1033,7 +1033,8 @@ CREATE TABLE settings (
     thing_id integer,
     thing_type character varying(30),
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    is_editable boolean
 );
 
 
@@ -2529,4 +2530,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150716175804');
 INSERT INTO schema_migrations (version) VALUES ('20150716200159');
 
 INSERT INTO schema_migrations (version) VALUES ('20150716204546');
+
+INSERT INTO schema_migrations (version) VALUES ('20150729201049');
 

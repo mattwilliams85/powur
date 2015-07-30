@@ -148,8 +148,10 @@ Rails.application.routes.draw do
       #                               controller: :user_rank_achievements
     end
 
-    resources :earnings, only:       [ :index, :show, :summary, :detail, :bonus, :bonus_detail ],
-                         controller: :earnings do
+    resources :earnings,
+              only:       [ :index, :show, :summary,
+                            :detail, :bonus, :bonus_detail ],
+              controller: :earnings do
       collection do
         get :summary
         get :detail
@@ -179,7 +181,7 @@ Rails.application.routes.draw do
   end
 
   #
-  # LOGGED IN ADMIN ROUTES
+  # ADMIN ROUTES
   #
   # Alphabetized by Feature Name
   #
@@ -233,21 +235,18 @@ Rails.application.routes.draw do
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
 
     # Product Enrollments
-    resources :product_enrollments,  only: [ :index ], as: :admin_product_enrollments
+    resources :product_enrollments,
+              only: [ :index ],
+              as:   :admin_product_enrollments
 
     # Product Receipts
-    resources :product_receipts,  only: [ :index ], as: :admin_product_receipts
+    resources :product_receipts,
+              only: [ :index ],
+              as:   :admin_product_receipts
 
-    # # Quotes
-    # resources :quotes, only: [ :index, :show ], as: :admin_quotes do
-    #   member do
-    #     post :submit
-    #   end
-
-    #   collection do
-    #     get '' => 'quotes#search', constraints: params?(:search)
-    #   end
-    # end
+    resources :system_settings,
+              only: [ :index, :show, :update ],
+              as:   :admin_system_settings
 
     resources :notifications, as: :admin_notifications do
       member do
@@ -272,7 +271,9 @@ Rails.application.routes.draw do
                 controller: :user_bonus_payments
 
       # Users / Invites
-      resources :invites, only: [ :index, :create, :show, :destroy ], controller: :user_invites do
+      resources :invites,
+                only:       [ :index, :create, :show, :destroy ],
+                controller: :user_invites do
         member do
           post :resend
         end
@@ -282,9 +283,6 @@ Rails.application.routes.draw do
 
       # Users / Orders
       resources :orders, only: [ :index ], controller: :user_orders
-
-      # # Users / Order Totals
-      # resources :order_totals, only: [ :index ], controller: :user_order_totals
 
       # Users / Overrides
       resources :overrides, only: [ :index, :create ]
@@ -298,11 +296,6 @@ Rails.application.routes.draw do
 
       # Users / Product Receipts
       resources :product_receipts,  only: [ :index, :create ]
-
-      # # Users / Rank Achievements
-      # resources :rank_achievements,
-      #           only:       [ :index ],
-      #           controller: :user_rank_achievements
     end
 
     # Pay Periods

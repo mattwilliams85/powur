@@ -12,6 +12,138 @@
       templateUrl: 'admin/landing/templates/index.html',
       controller: 'LandingCtrl'
     }).
+    // Application and Agreements
+    when('/admin/application-agreements', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminApplicationAgreementsCtrl'
+    }).
+    when('/admin/application-agreements/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminApplicationAgreementsCtrl'
+    }).
+    // Bonus Plans
+    when('/admin/bonus-plans', {
+      templateUrl: 'admin/bonus-plans/templates/index.html',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/admin/bonus-plans/new', {
+      templateUrl: 'admin/bonus-plans/templates/new.html',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/admin/bonus-plans/:bonusPlanId/edit', {
+      templateUrl: 'admin/bonus-plans/templates/edit.html',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    when('/admin/bonus-plans/:bonusPlanId', {
+      templateUrl: 'admin/bonus-plans/templates/show.html',
+      controller: 'AdminBonusPlansCtrl'
+    }).
+    // Bonus Plan Bonuses
+    when('/admin/bonus-plans/:bonusPlanId/bonuses', {
+      templateUrl: 'admin/bonuses/templates/index.html',
+      controller: 'AdminBonusesCtrl'
+    }).
+    when('/admin/bonus-plans/:bonusPlanId/bonuses/new', {
+      templateUrl: 'admin/bonuses/templates/new.html',
+      controller: 'AdminBonusesCtrl'
+    }).
+    when('/admin/bonus-plans/:bonusPlanId/bonuses/:bonusId/edit', {
+      templateUrl: 'admin/bonuses/templates/edit.html',
+      controller: 'AdminBonusesCtrl'
+    }).
+    // Invites
+    when('/admin/invites', {
+      templateUrl: 'admin/invites/templates/index.html',
+      controller: 'AdminInvitesCtrl'
+    }).
+    // Latest News
+    when('/admin/latest-news', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminLatestNewsCtrl'
+    }).
+    when('/admin/latest-news/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminLatestNewsCtrl'
+    }).
+    when('/admin/latest-news/:newsPostId/edit', {
+      templateUrl: 'shared/admin/rest/edit.html',
+      controller: 'AdminLatestNewsCtrl'
+    }).
+    // Notifications
+    when('/admin/notifications', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/admin/notifications/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    when('/admin/notifications/:notificationId/edit', {
+      templateUrl: 'shared/admin/rest/edit.html',
+      controller: 'AdminNotificationsCtrl'
+    }).
+    // Orders
+    when('/admin/orders', {
+      templateUrl: 'admin/orders/templates/index.html',
+      controller: 'AdminOrdersCtrl'
+    }).
+    when('/admin/orders/:orderId', {
+      templateUrl: 'admin/orders/templates/show.html',
+      controller: 'AdminOrdersCtrl'
+    }).
+    when('/admin/orders/:orderId/edit', {
+      templateUrl: 'admin/orders/templates/edit.html',
+      controller: 'AdminOrdersCtrl'
+    }).
+    // Pay Periods
+    when('/admin/pay-periods', {
+      templateUrl: 'admin/pay-periods/templates/index.html',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
+    when('/admin/pay-periods/:payPeriodId', {
+      templateUrl: 'admin/pay-periods/templates/show.html',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
+    when('/admin/pay-periods/:payPeriodId/edit', {
+      templateUrl: 'admin/pay-periods/templates/edit.html',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
+    // Products
+    when('/admin/products', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/admin/products/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminProductsCtrl'
+    }).
+    when('/admin/products/:productId/edit', {
+      templateUrl: 'shared/admin/rest/edit.html',
+      controller: 'AdminProductsCtrl'
+    }).
+    // Product Enrollments
+    when('/admin/product_enrollments', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminProductEnrollmentsCtrl'
+    }).
+    // Product Receipts
+    when('/admin/product_receipts', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminProductReceiptsCtrl'
+    }).
+    // Quotes
+    when('/admin/proposals', {
+      templateUrl: 'admin/proposals/templates/index.html',
+      controller: 'AdminProposalsCtrl'
+    }).
+    when('/admin/proposals/:proposalId', {
+      templateUrl: 'admin/proposals/templates/show.html',
+      controller: 'AdminProposalsCtrl'
+    }).
+    when('/admin/proposals/:proposalId/edit', {
+      templateUrl: 'admin/proposals/templates/edit.html',
+      controller: 'AdminProposalsCtrl'
+    }).
     // Library
     when('/admin/resources', {
       templateUrl: 'shared/admin/rest/index.html',
@@ -38,32 +170,32 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminResourceTopicsCtrl'
     }).
-    // Notifications
-    when('/admin/notifications', {
+    // Social Media Sharing
+    when('/admin/social-media', {
       templateUrl: 'shared/admin/rest/index.html',
-      controller: 'AdminNotificationsCtrl'
+      controller: 'AdminSocialMediaCtrl'
     }).
-    when('/admin/notifications/new', {
-      templateUrl: 'shared/admin/rest/new.html',
-      controller: 'AdminNotificationsCtrl'
-    }).
-    when('/admin/notifications/:notificationId/edit', {
+    when('/admin/social-media/:socialMediaPostId/edit', {
       templateUrl: 'shared/admin/rest/edit.html',
-      controller: 'AdminNotificationsCtrl'
+      controller: 'AdminSocialMediaCtrl'
+    }).
+    when('/admin/social-media/new', {
+      templateUrl: 'shared/admin/rest/new.html',
+      controller: 'AdminSocialMediaCtrl'
+    }).
+    // System Settings
+    when('/admin/system-settings', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminSystemSettingsCtrl'
+    }).
+    when('/admin/system-settings/:settingId/edit', {
+      templateUrl: 'shared/admin/rest/edit.html',
+      controller: 'AdminSystemSettingsCtrl'
     }).
     // Twilio
     when('/admin/twilio-phone-numbers', {
       templateUrl: 'shared/admin/rest/index.html',
       controller: 'AdminTwilioPhoneNumbersCtrl'
-    }).
-    // Application and Agreements
-    when('/admin/application-agreements', {
-      templateUrl: 'shared/admin/rest/index.html',
-      controller: 'AdminApplicationAgreementsCtrl'
-    }).
-    when('/admin/application-agreements/new', {
-      templateUrl: 'shared/admin/rest/new.html',
-      controller: 'AdminApplicationAgreementsCtrl'
     }).
     // User Groups
     when('/admin/user-groups', {
@@ -113,59 +245,6 @@
       templateUrl: 'admin/user-groups/templates/bonuses/edit.html',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
-    // Bonus Plans
-    when('/admin/bonus-plans', {
-      templateUrl: 'admin/bonus-plans/templates/index.html',
-      controller: 'AdminBonusPlansCtrl'
-    }).
-    when('/admin/bonus-plans/new', {
-      templateUrl: 'admin/bonus-plans/templates/new.html',
-      controller: 'AdminBonusPlansCtrl'
-    }).
-    when('/admin/bonus-plans/:bonusPlanId/edit', {
-      templateUrl: 'admin/bonus-plans/templates/edit.html',
-      controller: 'AdminBonusPlansCtrl'
-    }).
-    when('/admin/bonus-plans/:bonusPlanId', {
-      templateUrl: 'admin/bonus-plans/templates/show.html',
-      controller: 'AdminBonusPlansCtrl'
-    }).
-    // Bonus Plan Bonuses
-    when('/admin/bonus-plans/:bonusPlanId/bonuses', {
-      templateUrl: 'admin/bonuses/templates/index.html',
-      controller: 'AdminBonusesCtrl'
-    }).
-    when('/admin/bonus-plans/:bonusPlanId/bonuses/new', {
-      templateUrl: 'admin/bonuses/templates/new.html',
-      controller: 'AdminBonusesCtrl'
-    }).
-    when('/admin/bonus-plans/:bonusPlanId/bonuses/:bonusId/edit', {
-      templateUrl: 'admin/bonuses/templates/edit.html',
-      controller: 'AdminBonusesCtrl'
-    }).
-    // Products
-    when('/admin/products', {
-      templateUrl: 'shared/admin/rest/index.html',
-      controller: 'AdminProductsCtrl'
-    }).
-    when('/admin/products/new', {
-      templateUrl: 'shared/admin/rest/new.html',
-      controller: 'AdminProductsCtrl'
-    }).
-    when('/admin/products/:productId/edit', {
-      templateUrl: 'shared/admin/rest/edit.html',
-      controller: 'AdminProductsCtrl'
-    }).
-    // Product Enrollments
-    when('/admin/product_enrollments', {
-      templateUrl: 'shared/admin/rest/index.html',
-      controller: 'AdminProductEnrollmentsCtrl'
-    }).
-    // Product Receipts
-    when('/admin/product_receipts', {
-      templateUrl: 'shared/admin/rest/index.html',
-      controller: 'AdminProductReceiptsCtrl'
-    }).
     // Users
     when('/admin/users', {
       templateUrl: 'admin/users/templates/index.html',
@@ -182,76 +261,6 @@
     when('/admin/users/:userId/edit_password', {
       templateUrl: 'admin/users/templates/edit_password.html',
       controller: 'AdminUsersCtrl'
-    }).
-    // Quotes
-    when('/admin/proposals', {
-      templateUrl: 'admin/proposals/templates/index.html',
-      controller: 'AdminProposalsCtrl'
-    }).
-    when('/admin/proposals/:proposalId', {
-      templateUrl: 'admin/proposals/templates/show.html',
-      controller: 'AdminProposalsCtrl'
-    }).
-    when('/admin/proposals/:proposalId/edit', {
-      templateUrl: 'admin/proposals/templates/edit.html',
-      controller: 'AdminProposalsCtrl'
-    }).
-    // Orders
-    when('/admin/orders', {
-      templateUrl: 'admin/orders/templates/index.html',
-      controller: 'AdminOrdersCtrl'
-    }).
-    when('/admin/orders/:orderId', {
-      templateUrl: 'admin/orders/templates/show.html',
-      controller: 'AdminOrdersCtrl'
-    }).
-    when('/admin/orders/:orderId/edit', {
-      templateUrl: 'admin/orders/templates/edit.html',
-      controller: 'AdminOrdersCtrl'
-    }).
-    // Pay Periods
-    when('/admin/pay-periods', {
-      templateUrl: 'admin/pay-periods/templates/index.html',
-      controller: 'AdminPayPeriodsCtrl'
-    }).
-    when('/admin/pay-periods/:payPeriodId', {
-      templateUrl: 'admin/pay-periods/templates/show.html',
-      controller: 'AdminPayPeriodsCtrl'
-    }).
-    when('/admin/pay-periods/:payPeriodId/edit', {
-      templateUrl: 'admin/pay-periods/templates/edit.html',
-      controller: 'AdminPayPeriodsCtrl'
-    }).
-    // Latest News
-    when('/admin/latest-news', {
-      templateUrl: 'shared/admin/rest/index.html',
-      controller: 'AdminLatestNewsCtrl'
-    }).
-    when('/admin/latest-news/new', {
-      templateUrl: 'shared/admin/rest/new.html',
-      controller: 'AdminLatestNewsCtrl'
-    }).
-    when('/admin/latest-news/:newsPostId/edit', {
-      templateUrl: 'shared/admin/rest/edit.html',
-      controller: 'AdminLatestNewsCtrl'
-    }).
-    // Social Media Sharing
-    when('/admin/social-media', {
-      templateUrl: 'shared/admin/rest/index.html',
-      controller: 'AdminSocialMediaCtrl'
-    }).
-    when('/admin/social-media/:socialMediaPostId/edit', {
-      templateUrl: 'shared/admin/rest/edit.html',
-      controller: 'AdminSocialMediaCtrl'
-    }).
-    when('/admin/social-media/new', {
-      templateUrl: 'shared/admin/rest/new.html',
-      controller: 'AdminSocialMediaCtrl'
-    }).
-    // Invites
-    when('/admin/invites', {
-      templateUrl: 'admin/invites/templates/index.html',
-      controller: 'AdminInvitesCtrl'
     }).
 
     otherwise({

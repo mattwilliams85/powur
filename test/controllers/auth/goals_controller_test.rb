@@ -8,7 +8,7 @@ class Auth::GoalsControllerTest < ActionController::TestCase
     siren.must_have_entities(
       'goals-user_groups',
       'goals-requirements',
-      'goals-enrollments',
+      'goals-purchases',
       'goals-order_totals')
   end
 

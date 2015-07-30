@@ -9,7 +9,9 @@ describe '/u/university_classes', type: :request do
     let!(:certifiable_product2) { create(:certifiable_product) }
 
     before do
-      allow(current_user).to receive_message_chain(:product_enrollments, :find_by).and_return([product_enrollment])
+      allow(current_user)
+        .to receive_message_chain(:product_enrollments, :find_by)
+        .and_return([product_enrollment])
     end
 
     it 'should return a list of certifiable products' do
@@ -25,10 +27,14 @@ describe '/u/university_classes/:id', type: :request do
   context 'signed in' do
     let(:product_enrollment) { double('enrollment') }
     let(:current_user) { login_user }
-    let!(:certifiable_product) { create(:certifiable_product, bonus_volume: 123) }
+    let!(:certifiable_product) do
+      create(:certifiable_product, bonus_volume: 123)
+    end
 
     before do
-      allow(current_user).to receive_message_chain(:product_enrollments, :find_by).and_return([product_enrollment])
+      allow(current_user)
+        .to receive_message_chain(:product_enrollments, :find_by)
+        .and_return([product_enrollment])
     end
 
     it 'should return a json with a properties' do
@@ -36,18 +42,19 @@ describe '/u/university_classes/:id', type: :request do
 
       expect_classes 'university_class'
       expect_props(
-        id: certifiable_product.id,
-        name: certifiable_product.name,
+        id:          certifiable_product.id,
+        name:        certifiable_product.name,
         description: certifiable_product.description,
-        image_url: certifiable_product.image_original_path,
-        price: certifiable_product.bonus_volume,
-        purchased: false
+        image_url:   certifiable_product.image_original_path,
+        price:       certifiable_product.bonus_volume,
+        purchased:   false
       )
     end
 
     context 'class was purchased by current user' do
       before do
-        allow_any_instance_of(Product).to receive(:purchased_by?).with(current_user.id).and_return(true)
+        allow_any_instance_of(Product).to receive(:purchased_by?)
+          .with(current_user.id).and_return(true)
       end
 
       it 'marks it as purchased' do
@@ -55,7 +62,7 @@ describe '/u/university_classes/:id', type: :request do
 
         expect_classes 'university_class'
         expect_props(
-          id: certifiable_product.id,
+          id:        certifiable_product.id,
           purchased: true
         )
       end
@@ -66,49 +73,69 @@ end
 describe 'POST /u/university_classes/:id/purchase', type: :request do
   context 'signed in' do
     let!(:current_user) { login_user }
-    let!(:certifiable_product) { create(:certifiable_product, bonus_volume: 111) }
-    let(:mailchimp_list_api) { double(:mailchimp_list_api) }
-
-    before do
-      allow_any_instance_of(Gibbon::API)
-        .to receive(:lists).and_return(mailchimp_list_api)
+    let!(:certifiable_product) do
+      create(:certifiable_product, bonus_volume: 111)
     end
 
     it 'returns incomplete form error messages' do
-      post(purchase_university_class_path(certifiable_product), {
-        card:   { firstname: 'Bob' },
-        format: :json
-      })
+      post(purchase_university_class_path(certifiable_product),
+           card:   { firstname: 'Bob' },
+           format: :json)
       expect_input_errors(:number, :cvv)
     end
 
-    it 'increases the user\'s available invites by 5' do
-      allow_any_instance_of(Auth::UniversityClassesController)
-        .to receive(:process_purchase).and_return(true)
-      allow_any_instance_of(Auth::UniversityClassesController)
-        .to receive(:send_purchased_notifications).and_return(true)
+    context 'when successfull purchase' do
+      let(:mailchimp_list_api) { double(:mailchimp_list_api) }
 
-      expect(current_user.available_invites).to eq(0)
+      before do
+        allow_any_instance_of(Gibbon::API)
+          .to receive(:lists).and_return(mailchimp_list_api)
+        allow_any_instance_of(Auth::UniversityClassesController)
+          .to receive(:process_purchase).and_return(true)
+        allow_any_instance_of(Auth::UniversityClassesController)
+          .to receive(:send_purchased_notifications).and_return(true)
+      end
 
-      # Th below expectation has nothing to do with the test
-      # remove or move to another test
+      it 'should increase the user\'s available invites by 5' do
+        allow(mailchimp_list_api).to receive(:subscribe).and_return(true)
+        allow(mailchimp_list_api).to receive(:unsubscribe).and_return(true)
 
-      expect(mailchimp_list_api).to receive(:subscribe).with(
-        id:           User::MAILCHIMP_LISTS[:partners],
-        email:        { email: current_user[:email] },
-        merge_vars:   {
-          FNAME: current_user[:first_name],
-          LNAME: current_user[:last_name]
-        },
-        double_optin: false).once
+        expect(current_user.available_invites).to eq(0)
+        post(purchase_university_class_path(certifiable_product),
+             card:   {},
+             format: :json)
+        expect(current_user.available_invites).to eq(5)
+      end
 
-      post(purchase_university_class_path(certifiable_product),
-           card:   {},
-           format: :json)
+      it 'should unsubscribe user from advocates list' do
+        allow(mailchimp_list_api).to receive(:subscribe).and_return(true)
+        expect(mailchimp_list_api).to receive(:unsubscribe).with(
+          id:            User::MAILCHIMP_LISTS[:advocates],
+          email:         { email: current_user[:email] },
+          delete_member: true,
+          send_notify:   false).once
 
-      expect(current_user.available_invites).to eq(5)
+        post(purchase_university_class_path(certifiable_product),
+             card:   {},
+             format: :json)
+      end
+
+      it 'should subscribe user to partners list' do
+        allow(mailchimp_list_api).to receive(:unsubscribe).and_return(true)
+        expect(mailchimp_list_api).to receive(:subscribe).with(
+          id:           User::MAILCHIMP_LISTS[:partners],
+          email:        { email: current_user[:email] },
+          merge_vars:   {
+            FNAME: current_user[:first_name],
+            LNAME: current_user[:last_name]
+          },
+          double_optin: false).once
+
+        post(purchase_university_class_path(certifiable_product),
+             card:   {},
+             format: :json)
+      end
     end
-
   end
 end
 
@@ -120,7 +147,8 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
 
     context 'with no enrollment restrictions' do
       before do
-        allow(smarteru).to receive(:enroll).with(certifiable_product).and_return(true)
+        allow(smarteru).to receive(:enroll).with(certifiable_product)
+          .and_return(true)
         allow(current_user).to receive(:smarteru).and_return(smarteru)
       end
 
@@ -134,8 +162,8 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
 
     context 'class has an unfinished prerequisite' do
       before do
-        allow_any_instance_of(Product)
-          .to receive(:prerequisites_taken?).with(current_user).and_return(false)
+        allow_any_instance_of(Product).to receive(:prerequisites_taken?)
+          .with(current_user).and_return(false)
       end
 
       it 'returns unauthorized' do
@@ -151,7 +179,11 @@ describe 'POST /u/university_classes/:id/enroll', type: :request do
         allow(current_user).to receive(:smarteru).and_return(smarteru)
       end
 
-      let(:product_enrollment) { create(:product_enrollment, user_id: current_user.id, product_id: certifiable_product.id) }
+      let(:product_enrollment) do
+        create(:product_enrollment,
+               user_id:    current_user.id,
+               product_id: certifiable_product.id)
+      end
 
       it 'returns class completion alert' do
         post enroll_university_class_path(certifiable_product), format: :json
@@ -202,7 +234,9 @@ describe 'POST /u/university_classes/:id/check_enrollment', type: :request do
   let(:product) { create(:certifiable_product, name: 'someproduct') }
   let(:smarteru) { double(:smarteru, enrollment: smarteru_learner_report) }
   let!(:product_enrollment) do
-    create(:product_enrollment, user_id: current_user.id, product_id: product.id)
+    create(:product_enrollment,
+           user_id:    current_user.id,
+           product_id: product.id)
   end
   let(:smarteru_learner_report) {}
 
@@ -212,10 +246,8 @@ describe 'POST /u/university_classes/:id/check_enrollment', type: :request do
 
   context 'enrollment started' do
     let(:smarteru_learner_report) do
-      {
-        course_name:    'someproduct',
-        started_date: '2015-02-09 17:37:20.41'
-      }
+      { course_name:  'someproduct',
+        started_date: '2015-02-09 17:37:20.41' }
     end
 
     it 'should update enrollment state' do
@@ -228,10 +260,8 @@ describe 'POST /u/university_classes/:id/check_enrollment', type: :request do
 
   context 'enrollment completed' do
     let(:smarteru_learner_report) do
-      {
-        course_name:    'someproduct',
-        completed_date: '2015-02-09 17:37:20.41'
-      }
+      { course_name:    'someproduct',
+        completed_date: '2015-02-09 17:37:20.41' }
     end
 
     it 'should update enrollment state' do
@@ -244,7 +274,8 @@ describe 'POST /u/university_classes/:id/check_enrollment', type: :request do
 
   context 'enrollment not found' do
     it 'should update enrollment state' do
-      get check_enrollment_university_class_path(create(:certifiable_product)), format: :json
+      get check_enrollment_university_class_path(
+        create(:certifiable_product)), format: :json
 
       expect_alert_error
     end

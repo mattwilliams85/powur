@@ -2,6 +2,16 @@ require 'spec_helper'
 
 describe TwilioClient, type: :model do
   let(:client) { TwilioClient.new }
+  let!(:twilio_account_sid) do
+    create(:system_setting,
+           var:   'twilio_account_sid',
+           value: ENV['TWILIO_ACCOUNT_SID'])
+  end
+  let!(:twilio_auth_token) do
+    create(:system_setting,
+           var:   'twilio_auth_token',
+           value: ENV['TWILIO_AUTH_TOKEN'])
+  end
 
   describe '#purchased_numbers' do
     let(:twilio_numbers_list_response) do
@@ -29,7 +39,9 @@ describe TwilioClient, type: :model do
 
     it 'should send sms using all avaliable purchased phone numbers' do
       sent_messages = []
-      VCR.use_cassette('twilio_send_group_sms') do
+      VCR.use_cassette(
+        'twilio_send_group_sms',
+        match_requests_on: [ :host, :path ]) do
         sent_messages = client.send_sms_in_groups(recipient_numbers, message)
       end
       expect(sent_messages.length).to eq(3)

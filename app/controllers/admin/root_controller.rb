@@ -31,12 +31,15 @@ module Admin
     end
 
     def quote_contracts_count(since)
-      Quote.joins(:lead_updates)
-        .where(['lead_updates.contract > ?', since.to_s(:db)]).count
+      Quote
+        .joins(:lead_updates)
+        .where(['lead_updates.contract > ?', since.to_s(:db)])
+        .map(&:id).uniq.length
     end
 
     def purchases_count(since)
-      ProductReceipt.where(['created_at > ?', since.to_s(:db)]).count
+      ProductReceipt.where(['created_at > ? AND amount > 0', since.to_s(:db)])
+        .count
     end
 
     def purchases_revenue(since)

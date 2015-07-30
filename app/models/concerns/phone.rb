@@ -2,7 +2,9 @@ module Phone
   extend ActiveSupport::Concern
 
   def twilio_lookups_client
-    @twilio_lookups_client ||= Twilio::REST::LookupsClient.new
+    @twilio_lookups_client ||= Twilio::REST::LookupsClient.new(
+      SystemSettings.get!('twilio_account_sid'),
+      SystemSettings.get!('twilio_auth_token'))
   end
 
   def valid_phone?(phone)

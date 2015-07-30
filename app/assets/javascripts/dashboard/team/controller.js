@@ -1,34 +1,38 @@
 ;(function() {
   'use strict';
 
-  function DashboardTeamCtrl($rootScope, $scope, $timeout, $interval, $http, $location, User, CommonService) {
+  function DashboardTeamCtrl($rootScope, $scope, $timeout, $interval, 
+                             $http, $location, User, CommonService) {
+
     $scope.redirectUnlessSignedIn();
 
     $scope.showInvitesCarousel = false;
     $scope.img = legacyImagePaths;
     $scope.downline = [];
-    $scope.currentTeamMember = {};
+    $scope.activeUser = {};
     $scope.nameQuery = [];
     $scope.queryIndex = 0;
     $scope.dQueue = [];
     $scope.teamSearch = {};
     $scope.placement = {};
+    $scope.sort = {};
 
     //Conditional Ref Object
     $scope.is = {
       even: function(i) {
-        return levelGap(i) % 2 !== 0
+        return levelGap(i) % 2 !== 0;
       },
       odd: function(i) {
-        return levelGap(i) % 2 === 0
+        return levelGap(i) % 2 === 0;
       },
       expanded: function(i) {
-        return $scope.downline.length >= (i)
+        return $scope.downline.length >= (i);
       },
       accordion: function(i) {
-        var gap = 2
-        if ($scope.activeTab === 'proposals' || $scope.activeTab === 'info') gap = 1;
-        return $scope.downline.length > (i + gap)
+        var gap = 2;
+        if ($scope.activeTab === 'proposals' || 
+            $scope.activeTab === 'info') gap = 1;
+        return $scope.downline.length > (i + gap);
       },
       activeTab: function(member, gen, tab) {
         return gen.tab === tab && gen.selected === member.id;
@@ -47,6 +51,7 @@
                member !== $scope.placement.child;
       },
       placeable: function(member) {
+        if (levelGap(member) > 1) return false;
         var startDate = new Date(member.created_at);
         var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
         if (startDate < betaStart) startDate = betaStart;
@@ -56,7 +61,7 @@
 
     function levelGap(member) {
       if(member) return member.level - level;
-    };
+    }
 
     // Device Detection
     $scope.isMobile = function() {
@@ -106,15 +111,16 @@
 //TABS
     function closeTabs(element) {
       if(element && element.attr('data-row')) {
-        $scope.downline = $scope.downline.slice(0, parseInt(element.attr('data-row')) + 1);
-        $scope.downline[$scope.downline.length - 1].selected = "";
+        var row = parseInt(element.attr('data-row'));
+        $scope.downline = $scope.downline.slice(0, row + 1);
+        $scope.downline[$scope.downline.length - 1].selected = '';
         $scope.activeTab = '';
       }
       $scope.proposalId = null;
       $scope.showProposal = false;
       $scope.showNew = false;
       $scope.activeInvite = '';
-      $scope.currentTeamMember = {};
+      $scope.activeUser = {};
     }
 
     function closeAllTabs() {
@@ -131,18 +137,20 @@
       var delay = 300; // Delay for transition between multiple animations
       if (!$scope.activeTab) delay = 0;
 
-      if($scope.currentTeamMember.id === member.id && $scope.activeTab === tab) {
+      if($scope.activeUser.id === member.id && $scope.activeTab === tab) {
         gen.selected = null;
         gen.tab = null;
         $scope.downline = $scope.downline.slice(0, levelGap(member));
         closeTabs();
-        return $scope.activeTab = '';
+        $scope.activeTab = '';
+        return;
       } else {
         gen.selected = member.id;
         gen.tab = tab;
         closeTabs();
 
-        $scope.currentTeamMember = member;
+        $scope.activeUser = member;
+        if (tab === 'info') fetchUser(member);
 
         if (tab === 'team') {
           teamTab(member);
@@ -155,16 +163,26 @@
       }
     };
 
+    function fetchUser(member) {
+      CommonService.execute({
+        href: '/u/users/' + member.id + '.json?user_totals=true',
+        params: {search: $scope.teamSearch.string}
+      }).then(function(items){
+        $scope.activeUser = items.properties;
+        $scope.totals = items.properties.totals;
+      });
+    }
+
     function teamTab(member) {
       $scope.disable = true;
 
-      User.downline(member.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
+      User.downline(member.id, {sort: $scope.sort.type}).then(function(items) {
         items = initDownline(items);
         $timeout(function(){
-          $scope.activeTab = 'team'
+          $scope.activeTab = 'team';
           $scope.downline = $scope.downline.slice(0, levelGap(member));
           $scope.downline.push(items.entities);
-          destroyCarousel('#carousel-' + ($scope.downline.length - 1))
+          destroyCarousel('#carousel-' + ($scope.downline.length - 1));
           $scope.disable = false;
         });
       });
@@ -175,13 +193,16 @@
         items.entities[i] = items.entities[i].properties;
         if (items.entities[i].avatar) continue;
         items.entities[i].avatar = [];
-        items.entities[i].avatar.thumb = legacyImagePaths.defaultAvatarThumb[Math.floor(Math.random() * 3) ];
+        var rand = Math.floor(Math.random() * 3);
+        items.entities[i].avatar.thumb = $scope.img.defaultAvatarThumb[rand];
       }
       return items;
     }
 
     $scope.invitesTab = function() {
-      if ($scope.noInvitesAvailable && !$scope.invites.length && !$scope.invites.redeemed) return $location.path('/upgrade');
+      if ($scope.noInvitesAvailable &&
+          !$scope.invites.length && 
+          !$scope.invites.redeemed) return $location.path('/upgrade');
       if ($scope.activeTab === 'invites') {
         $scope.activeTab = '';
         return closeAllTabs();
@@ -201,7 +222,7 @@
           $timeout(function(){
             $scope.jumping = false;
             $('html, body').animate({
-                scrollTop: $("#carousel-" + index).offset().top - 300
+                scrollTop: $('#carousel-' + index).offset().top - 300
             }, 10);
           }, 10);
         }
@@ -212,37 +233,41 @@
     function jumpTo(id, index){
       for (var i=0; i < $scope.downline[index].length; i++) {
         if ($scope.downline[index][i].id === id) { 
-          $('#carousel-' + index).trigger('owl.jumpTo', i)
+          $('#carousel-' + index).trigger('owl.jumpTo', i);
         }
       }
     }
 
 //SEARCH
     $scope.key = function(key){
-      if (key === parseInt(key, 10)) return $scope.queryIndex = key;
+      if (key === parseInt(key, 10)) {
+        $scope.queryIndex = key;
+        return;
+      }
       if (!$scope.nameQuery.length) return;
 
-      if (key.keyCode == 38) {
+      if (key.keyCode === 38) {
         if ($scope.queryIndex < 1) return;
         $scope.queryIndex -= 1;
-      } else if (key.keyCode == 40) {
+      } else if (key.keyCode === 40) {
         if( $scope.queryIndex + 1 === $scope.nameQuery.length) return;
         $scope.queryIndex += 1;
       }
-    }
+    };
 
     $scope.clearQuery = function(i) {
       $scope.focused = true;
       $timeout(function() {
         $scope.queryIndex = 0;
         if(i) $scope.focused = false;
-      }, 150)    
-    }
+      }, 150);
+    };
 
     $scope.fetchNames = function(){
       if (!$scope.teamSearch.string) {
         $scope.queryIndex = 0;
-        return $scope.nameQuery = [];
+        $scope.nameQuery = [];
+        return;
       }
       CommonService.execute({
         href: '/u/users/' + $rootScope.currentUser.id + '/full_downline.json',
@@ -254,10 +279,10 @@
             tag: 'span class="highlight"',
             words: [$scope.teamSearch.string]
           });
-        })
+        });
        
       });
-    }
+    };
 
     var dCount;
 
@@ -266,9 +291,10 @@
       if (!$scope.nameQuery.length && !user) return;
       
       if (!$scope.nameQuery.length) {
-        return $scope.nameQuery = [];
+        $scope.nameQuery = [];
+        return;
       }
-      if(typeof(user) != 'object') {
+      if(typeof(user) !== 'object') {
         user = $scope.nameQuery[$scope.queryIndex];
         $scope.nameQuery = [];
       }
@@ -277,41 +303,48 @@
       $scope.downline = [$scope.downline[0]];
       dCount = 0;
       $scope.dQueue = [];
-      fetchDownline(user)
-    }
+      fetchDownline(user);
+    };
 
     function fetchDownline(user) {
-      $scope.currentTeamMember = user;
+      user.upline = spliceUpline(user);
+      $scope.activeUser = user;
       $scope.jumping = true;
       $scope.downline[0].selected = user.upline[1];
 
       if (dCount + 2 === user.upline.length) return populateDownline(user);
-
-      User.downline(user.upline[dCount+1], {sort: $scope.teamSection.teamSort}).then(function(items) {
+      User.downline(user.upline[dCount+1], {sort: $scope.sort.type})
+      .then(function(items) {
         dCount += 1;
         items = initDownline(items);
-        $scope.activeTab = 'team'
+        $scope.activeTab = 'team';
         $scope.dQueue.push(items.entities);
-        fetchDownline(user)
+        fetchDownline(user);
       });
+    }
+
+    function spliceUpline(user) {
+      var index = user.upline.indexOf($scope.currentUser.id);
+      return user.upline.slice(index, user.upline.length);
     }
 
     function populateDownline(user) {
       for(var i = 0; i < $scope.dQueue.length; i++) {
-        $scope.downline.push($scope.dQueue[i])
+        $scope.downline.push($scope.dQueue[i]);
         $scope.downline[i].selected = user.upline[i+1];
         $scope.downline[i].tab = 'team';
       }
       //Sets the last user's tab to info
       $scope.onEnd(0);
-      $scope.downline[$scope.downline.length - 1].selected = user.upline[user.upline.length - 1]
+      var length = user.upline[user.upline.length - 1];
+      $scope.downline[$scope.downline.length - 1].selected = length;
       $scope.activeTab = 'info';
       $scope.downline[dCount].tab = 'info';
       return;
     }
 
 //SORT
-    $scope.teamSection.teamSort = 'team_count';
+    $scope.sort.type = 'team_count';
 
     $scope.teamSection.sort = function() {
       closeTabs($('#carousel-0'));
@@ -320,7 +353,8 @@
         destroyCarousel('#carousel-'+ i);
       }
 
-      User.downline($rootScope.currentUser.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
+      User.downline($rootScope.currentUser.id, {sort: $scope.sort.type})
+      .then(function(items) {
         initDownline(items);
         $scope.downline = [items.entities];
         $timeout(function() {
@@ -346,7 +380,8 @@
     $scope.teamSection.showProposal = function(proposal) {
       if (!proposal || $scope.proposalId === proposal.properties.id) {
         $scope.proposalId = '';
-        return $scope.showProposal = false;
+        $scope.showProposal = false;
+        return;
       }
       $scope.showProposal = true;
       $scope.proposalId = proposal.properties.id;
@@ -441,11 +476,12 @@
           initCarousel($('#invites'));
         });
       });
-    };
+    }
 
     $scope.sendNewInvite = function() {
       if ($scope.newInviteFields) {
-        CommonService.execute($scope.inviteFormAction, $scope.newInviteFields).then(function success(data){
+        CommonService.execute($scope.inviteFormAction, $scope.newInviteFields)
+        .then(function success(data){
           if (data.error) {
             $scope.error = data.error;
             return;
@@ -466,15 +502,18 @@
 
     $scope.resendInvite = function(invite) {
       var resendAction = getAction(invite.actions, 'resend');
-      CommonService.execute(resendAction).then(function(data) {
+      CommonService.execute(resendAction).then(function() {
         fetchInvites();
         closeTabs();
       });
     };
 
+    /*global confirm */
     $scope.deleteInvite = function(invite) {
       var deleteAction = getAction(invite.actions, 'delete');
-      if (confirm('Are you sure you want to cancel ' + invite.properties.first_name + ' ' + invite.properties.last_name + '\'s invite?')) {
+      if (confirm('Are you sure you want to cancel ' + 
+                   invite.properties.first_name + ' ' + 
+                   invite.properties.last_name + '\'s invite?')) {
         CommonService.execute(deleteAction).then(function() {
           fetchInvites();
           closeTabs();
@@ -495,7 +534,7 @@
 //PLACEMENT 
   $scope.placeMode = function(){
     if ($scope.placement.on) $scope.clearPlacement();
-    $scope.placement.child = $scope.currentTeamMember;
+    $scope.placement.child = $scope.activeUser;
     $scope.placement.on = true;
     closeAllTabs();
     $timeout(function(){      
@@ -520,9 +559,10 @@
   };
 
   $scope.placeUser = function() {
+    var obj = $scope.placement;
     CommonService.execute({
       method: 'POST',
-      href: '/u/users/' + $scope.placement.child.id + '/move.json?parent_id=' + $scope.placement.parent.id
+      href: '/u/users/' + obj.child.id + '/move.json?parent_id=' + obj.parent.id
     }).then(function(){
       closeAllTabs();
       $scope.clearPlacement();
@@ -535,7 +575,9 @@
     var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
     if (startDate < betaStart) startDate = betaStart;
     startDate = startDate.addDays(60);
-    return startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear();
+    return startDate.getMonth() + '/' + 
+           startDate.getDate() + '/' + 
+           startDate.getFullYear();
   };
 
 //ON PAGE LOAD
@@ -543,7 +585,7 @@
     // Fetch User's Immediate downline
     $rootScope.$watch('currentUser', function(data) {
       if (!data || !data.id) return;
-      immediateDownline(data)
+      immediateDownline(data);
     });
 
     $timeout(function() {
@@ -552,7 +594,8 @@
 
     function immediateDownline(data){
       if (!data) data = $scope.currentUser;
-      return User.downline(data.id, {sort: $scope.teamSection.teamSort}).then(function(items) {
+      return User.downline(data.id, {sort: $scope.sort.type})
+      .then(function(items) {
         items = initDownline(items);
         destroyCarousel('#carousel-0'); 
         $scope.downline[0] = items.entities;
@@ -564,7 +607,8 @@
     }
   }
 
-  DashboardTeamCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$interval', '$http', '$location', 'User', 'CommonService'];
+  DashboardTeamCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$interval', 
+                               '$http', '$location', 'User', 'CommonService'];
   angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl)
   .directive('repeatEnd', function(){
     return {

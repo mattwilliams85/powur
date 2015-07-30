@@ -2,8 +2,8 @@ module UserMailchimp
   extend ActiveSupport::Concern
 
   MAILCHIMP_LISTS = {
-    all:      'c96e3429d7',
-    partners: 'a5d562e9f8'
+    advocates: 'f52819c306',
+    partners:  'a5d562e9f8'
   }
 
   def mailchimp_enabled?
@@ -14,7 +14,7 @@ module UserMailchimp
     @mailchimp_client ||= Gibbon::API.new
   end
 
-  def mailchimp_subscribe_to(list_name)
+  def mailchimp_subscribe(list_name)
     return unless mailchimp_enabled?
 
     mailchimp_client.lists.subscribe(
@@ -25,5 +25,15 @@ module UserMailchimp
         LNAME: last_name
       },
       double_optin: false)
+  end
+
+  def mailchimp_unsubscribe(list_name)
+    return unless mailchimp_enabled?
+
+    mailchimp_client.lists.unsubscribe(
+      id:            MAILCHIMP_LISTS[list_name.to_sym],
+      email:         { email: email },
+      delete_member: true,
+      send_notify:   false)
   end
 end

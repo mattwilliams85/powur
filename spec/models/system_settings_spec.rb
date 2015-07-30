@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe SystemSettings, type: :model do
-
   it 'sets a default value' do
     SystemSettings.defaults[:foo] = 'bar'
 
@@ -28,5 +27,27 @@ describe SystemSettings, type: :model do
     SystemSettings.save_default(:drink, 'milk')
 
     expect(SystemSettings.drink).to eq('ice tea')
+  end
+
+  describe '.get!' do
+    let!(:setting) { create(:system_setting, var: 'pineaple', value: 'old') }
+    before do
+      expect(SystemSettings.pineaple).to eq('old')
+      expect(SystemSettings.get!('pineaple')).to eq('old')
+    end
+
+    it 'should return uncached value from database' do
+      setting.update_column(:value, 'new')
+      expect(SystemSettings.get!('pineaple')).to eq('new')
+    end
+
+    it 'should update cache' do
+      setting.update_column(:value, 'new')
+      # cached setting
+      expect(SystemSettings.pineaple).to eq('old')
+      SystemSettings.get!('pineaple')
+      # cache refreshed
+      expect(SystemSettings.pineaple).to eq('new')
+    end
   end
 end

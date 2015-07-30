@@ -36,7 +36,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 24 Jul 2015 22:49:32 GMT
+      - Wed, 29 Jul 2015 20:52:04 GMT
       Strict-Transport-Security:
       - max-age=15768000
       X-Powered-By:
@@ -49,21 +49,21 @@ http_interactions:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"sid": "SM7a2e139c863e4eac939d52c3ef76a854", "date_created": "Fri,
-        24 Jul 2015 22:49:32 +0000", "date_updated": "Fri, 24 Jul 2015 22:49:32 +0000",
+      string: '{"sid": "SM62f4581c17664fd4a462c9ee2f911dd2", "date_created": "Wed,
+        29 Jul 2015 20:52:04 +0000", "date_updated": "Wed, 29 Jul 2015 20:52:04 +0000",
         "date_sent": null, "account_sid": "AC0837ab1675f39523e085037acc3cbc43", "to":
         "+15005550007", "from": "+15005550006", "body": "Senor Pipito", "status":
         "queued", "num_segments": "1", "num_media": "0", "direction": "outbound-api",
-        "api_version": "2010-04-01", "price": null, "price_unit": "USD", "uri": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SM7a2e139c863e4eac939d52c3ef76a854.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SM7a2e139c863e4eac939d52c3ef76a854/Media.json"}}'
-    http_version:
-  recorded_at: Fri, 24 Jul 2015 22:49:32 GMT
+        "api_version": "2010-04-01", "price": null, "price_unit": "USD", "uri": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SM62f4581c17664fd4a462c9ee2f911dd2.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SM62f4581c17664fd4a462c9ee2f911dd2/Media.json"}}'
+    http_version: 
+  recorded_at: Wed, 29 Jul 2015 20:52:05 GMT
 - request:
     method: post
     uri: https://AC0837ab1675f39523e085037acc3cbc43:4262f007c3c0bd8d5fe7f6e831b8f898@api.twilio.com/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages.json
     body:
       encoding: US-ASCII
-      string: To=%2B15005550005&From=%2B15005550006&Body=Senor+Pipito
+      string: To=%2B15005550005&From=15005550006&Body=Senor+Pipito
     headers:
       Accept:
       - application/json
@@ -94,7 +94,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 24 Jul 2015 22:49:32 GMT
+      - Wed, 29 Jul 2015 20:52:04 GMT
       Strict-Transport-Security:
       - max-age=15768000
       X-Powered-By:
@@ -102,20 +102,20 @@ http_interactions:
       X-Shenanigans:
       - none
       Content-Length:
-      - '702'
+      - '701'
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"sid": "SM1e0262e3cf7d45d8ab77151dc13920c6", "date_created": "Fri,
-        24 Jul 2015 22:49:32 +0000", "date_updated": "Fri, 24 Jul 2015 22:49:32 +0000",
+      string: '{"sid": "SMba562538947e418ebc46aca5c877b845", "date_created": "Wed,
+        29 Jul 2015 20:52:04 +0000", "date_updated": "Wed, 29 Jul 2015 20:52:04 +0000",
         "date_sent": null, "account_sid": "AC0837ab1675f39523e085037acc3cbc43", "to":
-        "+15005550005", "from": "+15005550006", "body": "Senor Pipito", "status":
-        "queued", "num_segments": "1", "num_media": "0", "direction": "outbound-api",
-        "api_version": "2010-04-01", "price": null, "price_unit": "USD", "uri": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SM1e0262e3cf7d45d8ab77151dc13920c6.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SM1e0262e3cf7d45d8ab77151dc13920c6/Media.json"}}'
-    http_version:
-  recorded_at: Fri, 24 Jul 2015 22:49:32 GMT
+        "+15005550005", "from": "15005550006", "body": "Senor Pipito", "status": "queued",
+        "num_segments": "1", "num_media": "0", "direction": "outbound-api", "api_version":
+        "2010-04-01", "price": null, "price_unit": "USD", "uri": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SMba562538947e418ebc46aca5c877b845.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SMba562538947e418ebc46aca5c877b845/Media.json"}}'
+    http_version: 
+  recorded_at: Wed, 29 Jul 2015 20:52:05 GMT
 - request:
     method: post
     uri: https://AC0837ab1675f39523e085037acc3cbc43:4262f007c3c0bd8d5fe7f6e831b8f898@api.twilio.com/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages.json
@@ -152,7 +152,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 24 Jul 2015 22:49:35 GMT
+      - Wed, 29 Jul 2015 20:52:07 GMT
       Strict-Transport-Security:
       - max-age=15768000
       X-Powered-By:
@@ -165,13 +165,13 @@ http_interactions:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"sid": "SMd78ec1ae49b7457bb96e4ce3b229ce78", "date_created": "Fri,
-        24 Jul 2015 22:49:35 +0000", "date_updated": "Fri, 24 Jul 2015 22:49:35 +0000",
+      string: '{"sid": "SM3389864e4c29402680643a9fc3133da7", "date_created": "Wed,
+        29 Jul 2015 20:52:07 +0000", "date_updated": "Wed, 29 Jul 2015 20:52:07 +0000",
         "date_sent": null, "account_sid": "AC0837ab1675f39523e085037acc3cbc43", "to":
         "+15005550007", "from": "+15005550006", "body": "Senor Pipito", "status":
         "queued", "num_segments": "1", "num_media": "0", "direction": "outbound-api",
-        "api_version": "2010-04-01", "price": null, "price_unit": "USD", "uri": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SMd78ec1ae49b7457bb96e4ce3b229ce78.json",
-        "subresource_uris": {"media": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SMd78ec1ae49b7457bb96e4ce3b229ce78/Media.json"}}'
-    http_version:
-  recorded_at: Fri, 24 Jul 2015 22:49:35 GMT
+        "api_version": "2010-04-01", "price": null, "price_unit": "USD", "uri": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SM3389864e4c29402680643a9fc3133da7.json",
+        "subresource_uris": {"media": "/2010-04-01/Accounts/AC0837ab1675f39523e085037acc3cbc43/Messages/SM3389864e4c29402680643a9fc3133da7/Media.json"}}'
+    http_version: 
+  recorded_at: Wed, 29 Jul 2015 20:52:08 GMT
 recorded_with: VCR 2.9.3

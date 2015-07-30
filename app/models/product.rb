@@ -63,7 +63,7 @@ class Product < ActiveRecord::Base
       .where(user_id: (user.try(:id) || user)).completed.exists?
   end
 
-  def is_free?
+  def free?
     bonus_volume == 0
   end
 
@@ -91,13 +91,13 @@ class Product < ActiveRecord::Base
     )
   end
 
-  def complimentary_purchase(price, user)
+  def complimentary_purchase(user)
     product_receipts.create(
-      user_id: user.id,
-      amount: price,
+      user_id:        user.id,
+      amount:         0,
       transaction_id: 'Complimentary',
-      order_id: 'Complimentary',
-      auth_code: 'Complimentary')
+      order_id:       'Complimentary',
+      auth_code:      'Complimentary')
   end
 
   class << self

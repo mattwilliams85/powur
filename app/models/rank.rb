@@ -2,7 +2,17 @@ class Rank < ActiveRecord::Base
   has_many :qualifications, dependent: :destroy
   has_many :ranks_user_groups
   has_many :user_groups, through: :ranks_user_groups, dependent: :destroy
-  has_many :requirements, class_name: 'UserGroupRequirement', through: :user_groups
+  has_many :requirements,
+           class_name: 'UserGroupRequirement',
+           through:    :user_groups
+  has_many :lifetime_rank_users,
+           class_name:  'User',
+           foreign_key: :lifetime_rank,
+           dependent:   :nullify
+  has_many :organic_rank_users,
+           class_name:  'User',
+           foreign_key: :organic_rank,
+           dependent:   :nullify
 
   default_scope -> { order(:id) }
   scope :with_qualifications, lambda {

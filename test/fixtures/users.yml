@@ -10,6 +10,7 @@ advocate:
   <<: *DEFAULTS
   first_name: Dirk
   last_name: Diggler
+  upline: <%= [ ActiveRecord::FixtureSet.identify(:advocate) ] %>
 admin:
   <<: *DEFAULTS
   roles:

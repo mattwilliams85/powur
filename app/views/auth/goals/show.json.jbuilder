@@ -15,9 +15,9 @@ if @next_rank
              entity('requirements',
                     'goals-requirements',
                     requirements: @requirements),
-             entity('enrollments',
-                    'goals-enrollments',
-                    requirements: @entrollments),
+             entity('purchases',
+                    'goals-purchases',
+                    purchases: @purchases),
              entity('order_totals',
                     'goals-order_totals',
                     order_totals: @order_totals))

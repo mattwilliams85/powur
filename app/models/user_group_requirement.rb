@@ -17,7 +17,7 @@ class UserGroupRequirement < ActiveRecord::Base
   end
 
   def user_qualified?(user_id)
-    purchase? ? user_enrolled?(user_id) : user_met_sales?(user_id)
+    purchase? ? user_purchased?(user_id) : user_met_sales?(user_id)
   end
 
   private
