@@ -131,7 +131,7 @@
       templateUrl: 'shared/admin/rest/index.html',
       controller: 'AdminProductReceiptsCtrl'
     }).
-    // Quotes
+    // Propsoals
     when('/admin/proposals', {
       templateUrl: 'admin/proposals/templates/index.html',
       controller: 'AdminProposalsCtrl'

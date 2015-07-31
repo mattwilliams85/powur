@@ -1,20 +1,18 @@
 module Auth
   class LeadUpdatesController < AuthController
-    before_action :fetch_quote, only: [ :show ]
+    before_action :fetch_lead, only: [ :show ]
 
     def show
-      @lead_update = @quote.last_update
+      @lead_update = @lead.last_update
 
       render 'show'
     end
 
     private
 
-    def fetch_quote
-      @quote = Quote.where(
-        id: params[:user_quote_id].to_i,
-        user_id: current_user.id).first
+    # TODO: secure
+    def fetch_lead
+      @lead = Lead.find(params[:user_quote_id].to_i)
     end
-
   end
 end

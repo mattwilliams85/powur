@@ -1,11 +1,11 @@
 DEFAULTS: &DEFAULTS
-  quote: $LABEL
+  lead: $LABEL
   provider_uid: $LABEL_uid
 
 last:
   <<: *DEFAULTS
   status: in_progress
-  quote: submitted_new_update
+  lead: submitted_new_update
 closed_won:
   <<: *DEFAULTS
   status: contract_signed

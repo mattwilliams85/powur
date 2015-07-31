@@ -4,10 +4,7 @@ klass :pay_period, totals: true
 
 json.partial! 'item', pay_period: @pay_period, detail: true
 
-entity_list = [
-  entity(%w(list orders),
-         'pay_period-orders',
-         pay_period_orders_path(@pay_period)) ]
+entity_list = []
 
 if @pay_period.calculated?
   entity_list += [

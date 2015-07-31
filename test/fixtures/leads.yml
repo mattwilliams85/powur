@@ -1,0 +1,40 @@
+DEFAULTS: &DEFAULTS
+  user: advocate
+  product: solar
+  customer: bob
+  data_status: <%= Lead.data_statuses['submitted'] %>
+  submitted_at: <%= 1.day.ago %>
+  provider_uid: $LABEL_uid
+
+unowned:
+  <<: *DEFAULTS
+  user: admin
+  data_status: <%= Lead.data_statuses['ready_to_submit'] %>
+  submitted_at:
+  provider_uid:
+incomplete:
+  <<: *DEFAULTS
+  customer: no_phone
+  data_status: <%= Lead.data_statuses['incomplete'] %>
+  submitted_at:
+  provider_uid:
+ready_to_submit:
+  <<: *DEFAULTS
+  submitted_at:
+  provider_uid:
+  data_status: <%= Lead.data_statuses['ready_to_submit'] %>
+submitted:
+  <<: *DEFAULTS
+submitted_new_update:
+  <<: *DEFAULTS
+search_hit1:
+  <<: *DEFAULTS
+  customer: garey
+search_hit2:
+  <<: *DEFAULTS
+  customer: garry
+search_miss:
+  <<: *DEFAULTS
+child:
+  <<: *DEFAULTS
+  user: child

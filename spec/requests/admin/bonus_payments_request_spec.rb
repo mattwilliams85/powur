@@ -77,32 +77,4 @@ describe 'bonus payments', type: :request do
       expect_entities_count 1
     end
   end
-
-  describe '/a/orders/:admin_order_id/bonus_payments' do
-    it 'returns bonus payments associated with an order' do
-      pay_period = create(:weekly_pay_period, start_date: DateTime.current - 1.month)
-      order = create(:order)
-
-      [ :bonus, :bonus ].each do |bonus_type|
-        bonus_payment = create(:bonus_payment,
-                               bonus:      create(bonus_type),
-                               pay_period: pay_period)
-        create(:bonus_payment_order,
-               order:         order,
-               bonus_payment: bonus_payment)
-      end
-      bonus = create(:bonus)
-      create_list(:bonus_payment, 3,
-                  bonus:      bonus,
-                  pay_period: pay_period).each do |bp|
-        create(:bonus_payment_order,
-               order:         order,
-               bonus_payment: bp)
-      end
-
-      get admin_order_bonus_payments_path(order), format: :json
-
-      expect_entities_count(5)
-    end
-  end
 end

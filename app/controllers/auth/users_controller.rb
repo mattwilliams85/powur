@@ -93,16 +93,16 @@ module Auth
     end
 
     def user_lifetime_lead_counts
-      { submitted: @user.quotes.submitted.count,
-        installed: @user.quotes.closed_won.count }
+      { submitted: @user.leads.submitted.count,
+        installed: @user.leads.installed.count }
     end
 
     def user_month_lead_counts
       month_start = Date.today.beginning_of_month
-      submitted_month = @user.quotes
+      submitted_month = @user.leads
         .submitted.where('submitted_at >= ?', month_start).count
-      installed_month = @user.quotes
-        .closed_won.where('submitted_at >= ?', month_start).count
+      installed_month = @user.leads
+        .installed.where('submitted_at >= ?', month_start).count
 
       { submitted: submitted_month,
         installed: installed_month }

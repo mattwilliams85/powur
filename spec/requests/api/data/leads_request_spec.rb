@@ -5,7 +5,11 @@ describe '/api/data/leads', type: :request do
     login_api_app
   end
 
-  let(:quote) { create(:quote) }
+  let(:lead) do
+    VCR.use_cassette('zip_validation/valid') do
+      create(:submitted_lead)
+    end
+  end
   let(:json) { json_fixture('api_data_leads') }
 
   def lead_update_data(overrides = {})
@@ -23,20 +27,20 @@ describe '/api/data/leads', type: :request do
     end
 
     it 'creates a lead update' do
-      post_lead_update('uid' => "test.powur.com:#{quote.id}")
+      post_lead_update('uid' => "test.powur.com:#{lead.id}")
 
       expect(response.status).to eq(201)
       expect(json_body['leadUpdateId']).to be
     end
 
     it 'invalidates an incorrect uid prefix' do
-      post_lead_update('uid' => "production.powur.com:#{quote.id}")
+      post_lead_update('uid' => "production.powur.com:#{lead.id}")
 
       expect_api_error
     end
 
     it 'invalidates an incorrect uid' do
-      post_lead_update('uid' => "test.powur.com:#{quote.id+1}")
+      post_lead_update('uid' => "test.powur.com:#{lead.id + 1}")
 
       expect_api_error
     end
@@ -52,8 +56,8 @@ describe '/api/data/leads', type: :request do
     let(:quote2) { create(:quote) }
 
     it 'creates a batch of lead updates' do
-      data1 = lead_update_data('uid' => "test.powur.com:#{quote.id}")
-      data2 = lead_update_data('uid' => "production.powur.com:#{quote.id}")
+      data1 = lead_update_data('uid' => "test.powur.com:#{lead.id}")
+      data2 = lead_update_data('uid' => "production.powur.com:#{lead.id}")
 
       post batch_api_data_leads_path,
            MultiJson.encode(batch: [ data1, data2 ]),

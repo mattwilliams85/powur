@@ -41,7 +41,7 @@ link_list = [
 if current_user.accepted_latest_terms?
   entity_list << entity(%w(list invites), 'user-invites', invites_path)
   entity_list << entity(%w(list users), 'user-users', users_path)
-  entity_list << entity(%w(list quotes), 'user-quotes', user_quotes_path(current_user))
+  entity_list << entity(%w(list leads), 'user-leads', leads_path(current_user))
   entity_list << entity(%w(user), 'user-profile', profile_path)
   entity_list << entity(%w(goals), 'user-goals', user_goals_path(current_user))
 
@@ -50,7 +50,9 @@ end
 
 if current_user.role?(:admin)
   entity_list << entity(%w(list users), 'admin-users', admin_users_path)
-  entity_list << entity(%w(list user_groups), 'admin-user_groups', user_groups_path)
+  entity_list << entity(%w(list user_groups),
+                        'admin-user_groups',
+                        user_groups_path)
   entity_list << entity(%w(list ranks), 'ranks', ranks_path)
   entity_list << entity(%w(list products), 'admin-products', products_path)
 

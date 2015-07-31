@@ -7,9 +7,9 @@
     $scope.legacyImagePaths = legacyImagePaths;
 
     // Utility Functions:
-    function getQuotes(cb) {
+    function getLeads(cb) {
       CommonService.execute({
-        href: '/u/users/' + $rootScope.currentUser.id + '/quotes.json'
+        href: '/u/users/' + $rootScope.currentUser.id + '/leads.json'
       }).then(cb);
     }
 
@@ -93,7 +93,7 @@
 
     // Refresh Carousel
     function refreshCarousel(cb) {
-      getQuotes(function(items) {
+      getLeads(function(items) {
         $scope.closeForm();
         destroyCarousel('.proposals');
         $timeout(function() {
@@ -123,7 +123,7 @@
         $scope.currentProposalIndex = proposalIndex;
 
         CommonService.execute({
-          href: '/u/quotes/' + proposalId + '.json'
+          href: '/u/leads/' + proposalId + '.json'
         }).then(function(item){
           $scope.animateDrilldown();
           if  (item.properties.status === 'submitted' ||
@@ -165,7 +165,7 @@
         $scope.proposal = {};
         $scope.currentProposal = {};
 
-        getQuotes(function(items){
+        getLeads(function(items){
           $scope.animateDrilldown();
 
           $timeout( function(){
@@ -198,7 +198,7 @@
           });
 
         } else if (action.name === 'update') {
-          getQuotes(function(items) {
+          getLeads(function(items) {
             $scope.updatingProposal = true;
             $scope.closeForm();
             destroyCarousel('.proposals');
@@ -300,8 +300,8 @@
 
     // Set Options for Index Action Fields for Sort and Status
     /*
-    * This function requires the initial getQuotes() request to run (see "getQuotes Main Function" below)
-    * $scope.customerSection.indexAction is set within the getQuotes() callback
+    * This function requires the initial getLeads() request to run (see "getLeads Main Function" below)
+    * $scope.customerSection.indexAction is set within the getLeads() callback
     */
     $scope.$watch('customerSection.indexAction', function(data) {
       if (!Object.keys(data).length) return;
@@ -364,7 +364,7 @@
         return $scope.nameQuery = [];
       }
       CommonService.execute({
-        href: '/u/users/' + $rootScope.currentUser.id + '/quotes.json',
+        href: '/u/users/' + $rootScope.currentUser.id + '/leads.json',
         params: {search: $scope.customerSearch.string, limit: 7}
       }).then(function(items){
         // debugger
@@ -392,7 +392,7 @@
         $scope.customerSection.searching = true;
       }
 
-      var href = '/u/users/' + $rootScope.currentUser.id + '/quotes'
+      var href = '/u/users/' + $rootScope.currentUser.id + '/leads'
       $scope.closeForm();
       destroyCarousel('.proposals');
 
@@ -409,15 +409,15 @@
     };
 
 
-    // getQuotes Main Function
+    // getLeads Main Function
     /*
-    * The carousel needs $rootScope.currentUser.id when it calls the endpoint (/u/users/:userId/quotes.json)
-    * This watches $rootScope.currentUser then calls getQuotes() when it has an object
+    * The carousel needs $rootScope.currentUser.id when it calls the endpoint (/u/users/:userId/leads.json)
+    * This watches $rootScope.currentUser then calls getLeads() when it has an object
     */
     $rootScope.$watch('currentUser', function(data) {
       if (!Object.keys(data).length) return;
 
-      getQuotes(function(items) {
+      getLeads(function(items) {
         // Set Proposals
         $scope.proposals = items.entities;
         // Set Index Action

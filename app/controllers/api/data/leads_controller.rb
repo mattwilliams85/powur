@@ -26,16 +26,16 @@ module Api
 
       private
 
-      def fetch_quote(external_id)
-        quote = Quote.find_by_external_id(external_id)
-        unless quote
+      def fetch_lead(external_id)
+        lead = Lead.find_by_external_id(external_id)
+        unless lead
           api_error!(:invalid_request,
                      :environment_mismatch,
                      env: external_id.split(':').first.split('.'))
         end
-        return quote
+        return lead
       rescue ActiveRecord::RecordNotFound
-        invalid_quote_id_error!
+        invalid_lead_id_error!
       end
 
       def date_from_string(value)
@@ -52,11 +52,11 @@ module Api
                      params: missing.join(','))
         end
 
-        quote = fetch_quote(record[:uid])
+        lead = fetch_lead(record[:uid])
         order_status = (record[:order] || {})[:status]
 
         attrs = {
-          quote:             quote,
+          lead:              lead,
           provider_uid:      record[:providerUid],
           status:            record[:status],
           lead_status:       record[:leadStatus],
@@ -78,13 +78,13 @@ module Api
 
       def create_lead_update(attrs)
         lead_update = LeadUpdate.create!(attrs)
-        lead_update.quote.update_received!
+        lead_update.lead.update_received
         lead_update
       rescue ActiveRecord::InvalidForeignKey
-        invalid_quote_id_error!
+        invalid_lead_id_error!
       end
 
-      def invalid_quote_id_error!
+      def invalid_lead_id_error!
         api_error!(:invalid_request, :invalid_params, params: 'uid')
       end
     end

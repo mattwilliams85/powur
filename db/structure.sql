@@ -407,7 +407,7 @@ CREATE TABLE invites (
 
 CREATE TABLE lead_updates (
     id integer NOT NULL,
-    quote_id integer NOT NULL,
+    lead_id integer NOT NULL,
     provider_uid character varying NOT NULL,
     status character varying NOT NULL,
     contact hstore DEFAULT ''::hstore,
@@ -420,7 +420,8 @@ CREATE TABLE lead_updates (
     updated_at timestamp without time zone NOT NULL,
     lead_status character varying,
     opportunity_stage character varying,
-    converted timestamp without time zone
+    converted timestamp without time zone,
+    leads_id integer
 );
 
 
@@ -441,6 +442,47 @@ CREATE SEQUENCE lead_updates_id_seq
 --
 
 ALTER SEQUENCE lead_updates_id_seq OWNED BY lead_updates.id;
+
+
+--
+-- Name: leads; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE leads (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    product_id integer NOT NULL,
+    customer_id integer NOT NULL,
+    data hstore DEFAULT ''::hstore NOT NULL,
+    data_status integer DEFAULT 0 NOT NULL,
+    sales_status integer DEFAULT 0 NOT NULL,
+    provider_uid character varying,
+    submitted_at timestamp without time zone,
+    converted_at timestamp without time zone,
+    contract_at timestamp without time zone,
+    install_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: leads_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE leads_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: leads_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE leads_id_seq OWNED BY leads.id;
 
 
 --
@@ -1333,6 +1375,13 @@ ALTER TABLE ONLY lead_updates ALTER COLUMN id SET DEFAULT nextval('lead_updates_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY leads ALTER COLUMN id SET DEFAULT nextval('leads_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY news_posts ALTER COLUMN id SET DEFAULT nextval('news_posts_id_seq'::regclass);
 
 
@@ -1581,6 +1630,14 @@ ALTER TABLE ONLY lead_updates
 
 
 --
+-- Name: leads_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY leads
+    ADD CONSTRAINT leads_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: news_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1820,6 +1877,27 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 --
 
 CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
+
+
+--
+-- Name: index_lead_updates_on_leads_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_lead_updates_on_leads_id ON lead_updates USING btree (leads_id);
+
+
+--
+-- Name: index_leads_on_user_id_and_data_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_leads_on_user_id_and_data_status ON leads USING btree (user_id, data_status);
+
+
+--
+-- Name: index_leads_on_user_id_and_sales_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_leads_on_user_id_and_sales_status ON leads USING btree (user_id, sales_status);
 
 
 --
@@ -2072,6 +2150,14 @@ ALTER TABLE ONLY orders
 
 
 --
+-- Name: fk_rails_2a753fa21b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY lead_updates
+    ADD CONSTRAINT fk_rails_2a753fa21b FOREIGN KEY (lead_id) REFERENCES leads(id);
+
+
+--
 -- Name: fk_rails_2df50738a4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2269,14 +2355,6 @@ ALTER TABLE ONLY order_totals
 
 ALTER TABLE ONLY bonuses
     ADD CONSTRAINT fk_rails_ccd9c98a42 FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
--- Name: fk_rails_cd92ab11e9; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY lead_updates
-    ADD CONSTRAINT fk_rails_cd92ab11e9 FOREIGN KEY (quote_id) REFERENCES quotes(id);
 
 
 --
@@ -2532,4 +2610,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150716200159');
 INSERT INTO schema_migrations (version) VALUES ('20150716204546');
 
 INSERT INTO schema_migrations (version) VALUES ('20150729201049');
+
+INSERT INTO schema_migrations (version) VALUES ('20150730193413');
 

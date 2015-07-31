@@ -27,13 +27,11 @@ module Admin
     private
 
     def submitted_quotes_count(since)
-      Quote.where(['submitted_at > ?', since.to_s(:db)]).count
+      Lead.submitted.where('submitted_at >= ?', since.to_s(:db)).count
     end
 
     def quote_contracts_count(since)
-      Quote
-        .joins(:lead_updates)
-        .where(['lead_updates.contract > ?', since.to_s(:db)])
+      Lead.contracts.where('contract_at >= ?', since.to_s(:db))
         .map(&:id).uniq.length
     end
 
