@@ -104,12 +104,13 @@ Rails.application.routes.draw do
     end
 
     resource :profile,
-             only:       [ :show, :update, :password_reset, :ewallet_details ],
+             only:       [ :show, :update, :password_reset,
+                           :create_ewallet ],
              controller: :profile do
       put 'update_password', to: 'profile#update_password'
       patch 'update_avatar', to: 'profile#update_avatar'
       member do
-        get :ewallet_details
+        post :create_ewallet
       end
     end
 
