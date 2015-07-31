@@ -38,7 +38,7 @@ module Admin
     end
 
     def purchases_count
-      ProductReceipt.where(['created_at > ? AND created_at < ? AND amount > 0',
+      ProductReceipt.where(['created_at > ? AND created_at < ?',
                             @date_since, @date_until])
         .count
     end
