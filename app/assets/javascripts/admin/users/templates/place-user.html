@@ -1,7 +1,7 @@
 <main class="pow-admin-index">
   <div class="row">
     <div class="large-12 columns">
-      <h2>{{templateData.move.title}}</h2>
+      <h2>Place {{ fullName(user) }}</h2>
     </div>
   </div>
 
@@ -22,7 +22,7 @@
 
   <div class="row">
     <div class="large-12 columns">
-      <ng-include src="templateData.move.tablePath"></ng-include>
+      <ng-include src="templateData.placeUser.tablePath"></ng-include>
       <ng-include src="'shared/admin/pagination.html'"></ng-include>
     </div>
   </div>
