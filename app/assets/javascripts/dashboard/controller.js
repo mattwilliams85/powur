@@ -67,7 +67,7 @@
     $scope.badgePath = function(rank) {
       rank = rank || 1;
       return $scope.legacyImagePaths.goalsBadges[rank];
-    }
+    };
 
     //Fetch News Posts
     CommonService.execute({
@@ -82,16 +82,14 @@
       }
     });
 
-
-    //Fetch goals
     $scope.fetchGoals = function() {
       CommonService.execute({
         href: '/u/users/' + $scope.currentUser.id + '/goals'
       }).then(function(data) {
-        if (data != 0) {
+        if (data) {
           $scope.goals = data;
           $scope.goals.requirements = data.entities[1].entities;
-          $scope.goals.badge = $scope.badgePath(data.properties.next_rank)
+          $scope.goals.badge = $scope.badgePath(data.properties.next_rank);
         }
       });
     };
@@ -106,48 +104,44 @@
     $scope.calculateProgress = function(requirement) {
       if (!requirement) return;
 
-      var event_type = Utility.searchObjVal(requirement, "event_type")
-      var time_span = Utility.searchObjVal(requirement, "time_span")
-      var quantity = Utility.searchObjVal(requirement, "quantity")
-      $scope.courseState = Utility.searchObjVal($scope.goals, "state")
+      var event_type = Utility.searchObjVal(requirement, 'event_type');
+      var time_span = Utility.searchObjVal(requirement, 'time_span');
+      var quantity = Utility.searchObjVal(requirement, 'quantity');
 
-
-      var salesTypes = {
+      var goalTypes = {
         personal_sales: function() {
           if (time_span === 'Lifetime') {
-            return Utility.searchObjVal($scope.goals, "personal_lifetime");
+            return Utility.searchObjVal($scope.goals, 'personal_lifetime');
           } else {
-            return Utility.searchObjVal($scope.goals, "personal");
+            return Utility.searchObjVal($scope.goals, 'personal');
           }
         },
         group_sales: function() {
           if (time_span === 'Lifetime') {
-            return Utility.searchObjVal($scope.goals, "group_lifetime")
+            return Utility.searchObjVal($scope.goals, 'group_lifetime');
           } else {
-            return Utility.searchObjVal($scope.goals, "group")
+            return Utility.searchObjVal($scope.goals, 'group');
           }
         },
-        course_enrollment: function() {
-          quantity = 100;
-          $scope.goals.courseId = Utility.searchObjVal(requirement, "product_id")
-          if (!$scope.courseState) return 0;
-
-          if ($scope.courseState === 'enrolled') {
-            return 33;
-          } else if ($scope.courseState === 'started') {
-            return 66;
-          } else {
+        purchase: function() {
+          var course = Utility.findBranch($scope.goals, { event_type: 'purchase' });
+          var courseId = course.product_id;
+          var receipt = Utility.findBranch($scope.goals, { class: 'purchase' });
+          var receiptId = receipt.properties.product_id;
+          if (courseId === receiptId) {
+            $scope.courseProgress = 'purchased';
             return 100;
           }
         },
-        default: function() { return }
+        default: function() { return; }
       };
 
-      var setRequirement = salesTypes[event_type] || salesTypes['default'];
+      var setRequirement = goalTypes[event_type] || goalTypes['default'];
       var result = setRequirement();
 
-      $scope.goals[event_type] = result + " / " + quantity;
-      if (!result || !quantity) return '2%';
+      $scope.goals[event_type] = result + ' / ' + quantity;
+      if (!result) return '2%';
+      if(event_type === 'purchase') return result + '%';
       return (result / quantity  * 100) + '%';
     };
 
