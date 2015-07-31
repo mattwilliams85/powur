@@ -475,6 +475,41 @@ ALTER SEQUENCE news_posts_id_seq OWNED BY news_posts.id;
 
 
 --
+-- Name: notification_releases; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE notification_releases (
+    id integer NOT NULL,
+    user_id integer,
+    notification_id integer,
+    recipient character varying,
+    sent_at timestamp without time zone,
+    finished_at timestamp without time zone,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: notification_releases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE notification_releases_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: notification_releases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE notification_releases_id_seq OWNED BY notification_releases.id;
+
+
+--
 -- Name: notifications; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -483,12 +518,7 @@ CREATE TABLE notifications (
     user_id integer,
     content character varying,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    sender_id integer,
-    sent_at timestamp without time zone,
-    finished_at timestamp without time zone,
-    recipient character varying,
-    is_public boolean
+    updated_at timestamp without time zone
 );
 
 
@@ -1340,6 +1370,13 @@ ALTER TABLE ONLY news_posts ALTER COLUMN id SET DEFAULT nextval('news_posts_id_s
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY notification_releases ALTER COLUMN id SET DEFAULT nextval('notification_releases_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY notifications ALTER COLUMN id SET DEFAULT nextval('notifications_id_seq'::regclass);
 
 
@@ -1589,6 +1626,14 @@ ALTER TABLE ONLY news_posts
 
 
 --
+-- Name: notification_releases_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY notification_releases
+    ADD CONSTRAINT notification_releases_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: notifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1820,13 +1865,6 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 --
 
 CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
-
-
---
--- Name: index_notifications_on_is_public; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_notifications_on_is_public ON notifications USING btree (is_public);
 
 
 --
@@ -2532,4 +2570,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150716200159');
 INSERT INTO schema_migrations (version) VALUES ('20150716204546');
 
 INSERT INTO schema_migrations (version) VALUES ('20150729201049');
+
+INSERT INTO schema_migrations (version) VALUES ('20150731215918');
 

@@ -117,6 +117,15 @@
       }
     };
 
+    $scope.getAvailableRecipients = function() {
+      $http({
+        method: 'GET',
+        url: '/a/notifications/available_recipients'
+      }).success(function(data) {
+        $scope.availableRecipients = data.entities;
+      });
+    };
+
     $scope.cancel = function() {
       $location.path('/admin/notifications');
     };
@@ -162,10 +171,12 @@
       $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
       $rootScope.breadcrumbs.push({title: 'New notification'});
       $scope.notification = {};
+      $scope.getAvailableRecipients();
     } else if ($scope.mode === 'edit') {
       $scope.withNotification($routeParams.notificationId, function(item) {
         $scope.notification = item.properties;
         $scope.formAction = getAction(item.actions, 'update');
+        $scope.getAvailableRecipients();
         $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
         $rootScope.breadcrumbs.push({title: 'Update notification'});
       });
