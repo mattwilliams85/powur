@@ -13,5 +13,6 @@ json.properties do
       json.set! key, asset_path(@user.avatar.url(key))
     end
   end if @user.avatar?
-  json.weekly_growth @user.weekly_growth if @user.id == current_user.id
+  # json.weekly_growth @user.weekly_growth if @user.id == current_user.id
+  json.team_count User.with_ancestor(@user.id).count
 end
