@@ -262,6 +262,10 @@
       templateUrl: 'admin/users/templates/edit_password.html',
       controller: 'AdminUsersCtrl'
     }).
+    when('/admin/users/:userId/move', {
+      templateUrl: 'admin/users/templates/move.html',
+      controller: 'AdminUsersCtrl'
+    }).
 
     otherwise({
       redirectTo: '/admin'

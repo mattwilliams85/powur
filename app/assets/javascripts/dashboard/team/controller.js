@@ -149,8 +149,12 @@
         gen.tab = tab;
         closeTabs();
 
-        $scope.activeUser = member;
-        if (tab === 'info') fetchUser(member);
+        
+        if (tab === 'info') { 
+          fetchUser(member, delay);
+        } else {
+          $scope.activeUser = member;
+        }
 
         if (tab === 'team') {
           teamTab(member);
@@ -163,14 +167,19 @@
       }
     };
 
-    function fetchUser(member) {
-      CommonService.execute({
-        href: '/u/users/' + member.id + '.json?user_totals=true',
-        params: {search: $scope.teamSearch.string}
-      }).then(function(items){
-        $scope.activeUser = items.properties;
-        $scope.totals = items.properties.totals;
-      });
+    function fetchUser(member, delay) {
+      $scope.activeUser.changing = true;
+        CommonService.execute({
+          href: '/u/users/' + member.id + '.json?user_totals=true',
+          params: {search: $scope.teamSearch.string}
+        }).then(function(items){
+          $timeout(function(){
+            $scope.activeUser = items.properties;
+            $scope.activeUser.changing = false;
+            $scope.totals = items.properties.totals;
+            console.log(delay);
+          }, delay);
+        });
     }
 
     function teamTab(member) {

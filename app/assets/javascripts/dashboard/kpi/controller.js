@@ -1,7 +1,9 @@
 ;(function() {
   'use strict';
+  /*global chartConfig, Chart */
 
-  function DashboardKPICtrl($scope, $location, $timeout, UserProfile, CommonService, Utility) {
+  function DashboardKPICtrl($scope, $location, $timeout, 
+                            UserProfile, CommonService) {
     $scope.scaleOptions = [
       { value: 6, label: 'Last Week' }, 
       { value: 29, label: 'Last Month' }, 
@@ -15,12 +17,15 @@
 
 
     $scope.changeTab = function(section) {
-      if ($scope.section === section) return $scope.section = false;
+      if ($scope.section === section) {
+        $scope.section = false;
+        return;
+      }
 
       $scope.scale = 29;
       $scope.active = false;
       $scope.section = section;
-      // Refer to chart.config.js for settings/options
+      //Refer to chart.config.js for settings/options
       $scope.settings = chartConfig()[$scope.section].settings;
 
       $scope.clearData();
@@ -34,10 +39,10 @@
       for (var i = 0; i < $scope.settings[0].datasets.length; i++) {
         $scope.settings[0].datasets[i].data = [];
       }
-    }
+    };
 
     $scope.scaleFontSize = function(string) {
-      if (typeof string !== "string" && typeof string !== "number") return;
+      if (typeof string !== 'string' && typeof string !== 'number') return;
       string = string.toString();
       return Math.ceil(1000 / (Math.pow(string.length + 10, 1.2))) + 'pt';
     };
@@ -56,9 +61,11 @@
       if ($scope.scale > 7) $scope.settings[1].options.showXLabels = 8;
 
       if (type === 'line') {
-        $scope.kpiChart = new Chart(ctx).Line($scope.settings[0], $scope.settings[1].options);
+        $scope.kpiChart = new Chart(ctx)
+          .Line($scope.settings[0], $scope.settings[1].options);
       } else {
-        $scope.kpiChart = new Chart(ctx).Bar($scope.settings[0], $scope.settings[1].options);
+        $scope.kpiChart = new Chart(ctx)
+          .Bar($scope.settings[0], $scope.settings[1].options);
       }
     };
 
@@ -69,15 +76,16 @@
         allData = allData.concat($scope.settings[0].datasets[i].data);
       }
       var max = Math.max.apply(Math, allData);
+      var opt = $scope.settings[1].options;
 
       //Set Scale
       if (!max) {
-        $scope.settings[1].options.scaleStepWidth = 1;
-        $scope.settings[1].options.scaleSteps = 5;
+        opt.scaleStepWidth = 1;
+        opt.scaleSteps = 5;
       } else {
-        $scope.settings[1].options.scaleStepWidth = Math.ceil((max * 1.2) / 12);
-        $scope.settings[1].options.scaleSteps = (max + (max / 2)) / $scope.settings[1].options.scaleStepWidth;
-        if($scope.settings[1].options.scaleSteps < 5) $scope.settings[1].options.scaleSteps = 5;
+        opt.scaleStepWidth = Math.ceil((max * 1.2) / 12);
+        opt.scaleSteps = (max + (max / 2)) / opt.scaleStepWidth;
+        if(opt.scaleSteps < 5) opt.scaleSteps = 5;
       }
     };
 
@@ -93,7 +101,7 @@
         }
       }
       $scope.settings[0].labels = _labels;
-    }
+    };
 
     $scope.changeScale = function(scale) {
       $scope.scale = scale;
@@ -269,6 +277,6 @@
     $scope.redirectUnlessSignedIn();
   }
 
-  DashboardKPICtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile', 'CommonService', 'Utility'];
+  DashboardKPICtrl.$inject = ['$scope', '$location', '$timeout', 'UserProfile', 'CommonService'];
   angular.module('powurApp').controller('DashboardKPICtrl', DashboardKPICtrl)
 })();
