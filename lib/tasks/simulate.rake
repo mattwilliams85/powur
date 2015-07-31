@@ -85,41 +85,5 @@ namespace :powur do
     def mod?(n = 2)
       DateTime.current.to_i % n == 0
     end
-
-    task :quotes, [ :per_user, :months_back ] => :environment do |_t, args|
-      Quote.destroy_all
-      Customer.destroy_all
-
-      user_count = User.count
-      args.with_defaults(per_user: 5, months_back: 2)
-
-      start_date = (DateTime.current - args[:months_back].to_i.months).beginning_of_month
-      end_date = DateTime.current
-      days_from_start = end_date.mjd - start_date.mjd
-
-      users = get_random_percentage_of_users(80)
-
-      User.all.each do |user|
-        count = rand(0...args[:per_user].to_i * 3)
-        puts "Creating #{count} Solar Item quotes(s) for user #{user.full_name}"
-        0.upto(count) do |_i|
-          customer = Customer.create!(
-            email:      Faker::Internet.email,
-            first_name: Faker::Name.first_name,
-            last_name:  Faker::Name.last_name,
-            phone:      Faker::PhoneNumber.phone_number,
-            address:    Faker::Address.street_address,
-            city:       Faker::Address.city,
-            state:      Faker::Address.state,
-            zip:        Faker::Address.zip)
-
-          data = { 'average_bill' => rand(100) + 100 }
-
-          quote = Quote.create!(product_id: SOLAR_ITEM_ID, user: user, customer: customer, data: data)
-        end
-      end
-
-      PayPeriod.generate_missing
-    end
   end
 end

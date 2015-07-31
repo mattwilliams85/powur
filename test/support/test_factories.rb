@@ -3,7 +3,7 @@ FactoryGirl.define do
     title { Faker::Name.title }
   end
 
-  factory :lead, class: Quote do
-    status :submitted
+  factory :lead, class: Lead do
+    data_status :submitted
   end
 end

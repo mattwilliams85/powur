@@ -1,12 +1,12 @@
 class SolarCityForm
-  attr_reader :quote, :response, :parsed_response
+  attr_reader :lead, :response, :parsed_response
 
-  def initialize(quote)
-    @quote = quote
+  def initialize(lead)
+    @lead = lead
   end
 
   def customer
-    quote.customer
+    lead.customer
   end
 
   def post
@@ -65,8 +65,8 @@ class SolarCityForm
   end
 
   def post_body
-    { 'External_ID__c'           => QuoteSubmission.id_to_external(quote.id),
-      'Lead_Generator__c'        => quote.user_id,
+    { 'External_ID__c'           => Lead.id_to_external(lead.id),
+      'Lead_Generator__c'        => lead.user_id,
       'FirstName'                => customer.first_name,
       'LastName'                 => customer.last_name,
       'Street'                   => customer.address,
@@ -74,7 +74,7 @@ class SolarCityForm
       'PostalCode'               => customer.zip,
       'Phone'                    => customer.phone,
       'Email'                    => customer.email,
-      'Monthly_Electric_Bill__c' => quote.data['average_bill'],
+      'Monthly_Electric_Bill__c' => lead.data['average_bill'],
       'Notes_Description__c'     => customer.notes }
   end
 end

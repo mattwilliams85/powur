@@ -7,7 +7,7 @@ class LeadTotals < ActiveRecord::Base
 
   class << self
     def hydrate
-      Quote
+      Lead
         .select('count(id), user_id, product_id')
         .group(:user_id, :product_id)
     end

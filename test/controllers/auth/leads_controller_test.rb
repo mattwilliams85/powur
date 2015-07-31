@@ -50,7 +50,7 @@ module Auth
       lead_update.props_must_equal(status: 'in_progress')
     end
 
-    def test_quote_not_owned_show
+    def test_lead_not_owned_show
       get :show, id: leads(:unowned).id
 
       siren.must_be_error
@@ -150,13 +150,13 @@ module Auth
       def test_index_with_search
         get :index, search: 'gary'
 
-        expected = [ quotes(:search_hit1).id, quotes(:search_hit2).id ].sort
+        expected = [ leads(:search_hit1).id, leads(:search_hit2).id ].sort
         siren.must_have_entity_size(expected.size)
         siren.entities.map { |e| e.properties.id }.sort.must_equal expected
       end
 
       def test_deleting_already_submitted_lead
-        delete :destroy, id: quotes(:on_hold).id
+        delete :destroy, id: leads(:submitted).id
 
         siren.must_be_error
       end
