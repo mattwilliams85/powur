@@ -30,7 +30,7 @@ module Auth
 
     def full_downline
       scope = User.with_ancestor(params['id'])
-      apply_list_query_options(scope)
+      @users = apply_list_query_options(scope)
       query_users(scope) if params[:search]
 
       render 'index'

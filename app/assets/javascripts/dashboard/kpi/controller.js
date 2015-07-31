@@ -1,6 +1,6 @@
 ;(function() {
   'use strict';
-  /*global chartConfig, Chart */
+  /*global chartConfig, Chart, randomThumb */
 
   function DashboardKPICtrl($scope, $location, $timeout, 
                             UserProfile, CommonService) {
@@ -21,7 +21,11 @@
         $scope.section = false;
         return;
       }
-
+      if (section === 'proposals') {
+        $scope.sortType = 'lead_count';
+      } else {
+        $scope.sortType = 'team_count';
+      }
       $scope.scale = 29;
       $scope.active = false;
       $scope.section = section;
@@ -126,6 +130,7 @@
     $scope.populateContributors = function() {
       //Defaults to Current User
       CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
+        
         $scope.activeUser = data.properties;
         $scope.user = $scope.activeUser;
         $scope.user.defaultAvatarThumb = randomThumb();
@@ -135,10 +140,10 @@
     };
 
     function sameDayAs(item, i) {
-      var attr = 'created_at'
-      if (item.contract) attr = 'contract'
+      var attr = 'created_at';
+      if (item.contract) attr = 'contract';
       return new Date(item[attr]).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
-             new Date(item[attr]).getDate() === $scope.current.subDays($scope.scale - i).getDate()
+             new Date(item[attr]).getDate() === $scope.current.subDays($scope.scale - i).getDate();
     }
 
     function searchObjBranch(obj, user_id) {
@@ -228,8 +233,16 @@
     };
 
     $scope.populateTeamList = function(){
-      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_index.json?page=' + $scope.page}).then(function(data){
-        $scope.max_page = data.max_page;
+      CommonService.execute({
+        href: '/u/users/' + $scope.currentUser.id + '/full_downline.json?',
+        params: {
+          sort: $scope.sortType,
+          item_totals: $scope.sortType,
+          page: $scope.page,
+          limit: 8
+        }
+      }).then(function(data){
+        $scope.max_page = Math.ceil(data.properties.paging.item_count / 4);
         for (var i = 0; i < data.entities.length; i++){
           data.entities[i].properties.defaultAvatarThumb = randomThumb();
         }
@@ -237,7 +250,7 @@
         $scope.team = data.entities;
         $scope.active = true;
       });
-    }
+    };
 
     //CALENDAR FUNCTIONS
     $scope.daysInMonth = function() {

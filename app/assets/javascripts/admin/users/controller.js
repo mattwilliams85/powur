@@ -15,9 +15,8 @@
         title: 'Users',
         tablePath: 'admin/users/templates/table.html'
       },
-      move: {
-        title: 'Move User',
-        tablePath: 'admin/users/templates/move-table.html'
+      placeUser: {
+        tablePath: 'admin/users/templates/place-user-table.html'
       }
     };
 
@@ -222,7 +221,7 @@
     if (/\/new$/.test($location.path())) return $scope.mode = 'new';
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
     if (/\/edit_password$/.test($location.path())) return $scope.mode = 'edit_password';
-    if (/\/move$/.test($location.path())) return $scope.mode = 'move';
+    if (/\/place-user$/.test($location.path())) return $scope.mode = 'place-user';
   };
 
   AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
@@ -264,7 +263,7 @@
         $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + $scope.user.properties.id});
         $rootScope.breadcrumbs.push({title: 'Edit User'});
       });
-    } else if ($scope.mode === 'move') {
+    } else if ($scope.mode === 'place-user') {
       $scope.index = {};
       getUser($routeParams.userId, function(item) {
         $scope.user = item;

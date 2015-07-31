@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardTeamCtrl($rootScope, $scope, $timeout, $interval, 
+  function DashboardTeamCtrl($rootScope, $scope, $timeout, $interval,
                              $http, $location, User, CommonService) {
 
     $scope.redirectUnlessSignedIn();
@@ -30,7 +30,7 @@
       },
       accordion: function(i) {
         var gap = 2;
-        if ($scope.activeTab === 'proposals' || 
+        if ($scope.activeTab === 'proposals' ||
             $scope.activeTab === 'info') gap = 1;
         return $scope.downline.length > (i + gap);
       },
@@ -41,13 +41,13 @@
         return (gen.selected === member.id);
       },
       inactiveTeamTab: function(member) {
-        return  !member.totals.team_count || 
-                ($scope.placement.on && 
+        return  !member.totals.team_count ||
+                ($scope.placement.on &&
                 member === $scope.placement.child);
       },
       unrelated: function(member, hover) {
-        return hover === true && 
-               $scope.placement.on && 
+        return hover === true &&
+               $scope.placement.on &&
                member !== $scope.placement.child;
       },
       placeable: function(member) {
@@ -149,8 +149,8 @@
         gen.tab = tab;
         closeTabs();
 
-        
-        if (tab === 'info') { 
+
+        if (tab === 'info') {
           fetchUser(member, delay);
         } else {
           $scope.activeUser = member;
@@ -210,7 +210,7 @@
 
     $scope.invitesTab = function() {
       if ($scope.noInvitesAvailable &&
-          !$scope.invites.length && 
+          !$scope.invites.length &&
           !$scope.invites.redeemed) return $location.path('/upgrade');
       if ($scope.activeTab === 'invites') {
         $scope.activeTab = '';
@@ -241,7 +241,7 @@
     //Jump to active carousel member
     function jumpTo(id, index){
       for (var i=0; i < $scope.downline[index].length; i++) {
-        if ($scope.downline[index][i].id === id) { 
+        if ($scope.downline[index][i].id === id) {
           $('#carousel-' + index).trigger('owl.jumpTo', i);
         }
       }
@@ -289,7 +289,7 @@
             words: [$scope.teamSearch.string]
           });
         });
-       
+
       });
     };
 
@@ -298,7 +298,7 @@
     $scope.teamSection.search = function(user) {
       closeAllTabs();
       if (!$scope.nameQuery.length && !user) return;
-      
+
       if (!$scope.nameQuery.length) {
         $scope.nameQuery = [];
         return;
@@ -520,8 +520,8 @@
     /*global confirm */
     $scope.deleteInvite = function(invite) {
       var deleteAction = getAction(invite.actions, 'delete');
-      if (confirm('Are you sure you want to cancel ' + 
-                   invite.properties.first_name + ' ' + 
+      if (confirm('Are you sure you want to cancel ' +
+                   invite.properties.first_name + ' ' +
                    invite.properties.last_name + '\'s invite?')) {
         CommonService.execute(deleteAction).then(function() {
           fetchInvites();
@@ -540,13 +540,13 @@
       return;
     }
 
-//PLACEMENT 
+//PLACEMENT
   $scope.placeMode = function(){
     if ($scope.placement.on) $scope.clearPlacement();
     $scope.placement.child = $scope.activeUser;
     $scope.placement.on = true;
     closeAllTabs();
-    $timeout(function(){      
+    $timeout(function(){
       $('html, body').animate({
         scrollTop: $('.placement-box').offset().top - $(window).height() + 100
       }, 300);
@@ -560,7 +560,7 @@
   $scope.setParent = function(member) {
     if (!$scope.placement.on) return;
     $scope.placement.parent = member;
-    $timeout(function(){      
+    $timeout(function(){
       $('html, body').animate({
         scrollTop: $('.placement-box').offset().top - $(window).height() + 170
       }, 300);
@@ -571,7 +571,7 @@
     var obj = $scope.placement;
     CommonService.execute({
       method: 'POST',
-      href: '/u/users/' + obj.child.id + '/move.json?parent_id=' + obj.parent.id
+      href: '/u/users/' + obj.child.id + '/place-user.json?parent_id=' + obj.parent.id
     }).then(function(){
       closeAllTabs();
       $scope.clearPlacement();
@@ -584,8 +584,8 @@
     var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
     if (startDate < betaStart) startDate = betaStart;
     startDate = startDate.addDays(60);
-    return startDate.getMonth() + '/' + 
-           startDate.getDate() + '/' + 
+    return startDate.getMonth() + '/' +
+           startDate.getDate() + '/' +
            startDate.getFullYear();
   };
 
@@ -606,7 +606,7 @@
       return User.downline(data.id, {sort: $scope.sort.type})
       .then(function(items) {
         items = initDownline(items);
-        destroyCarousel('#carousel-0'); 
+        destroyCarousel('#carousel-0');
         $scope.downline[0] = items.entities;
         $timeout(function() {
           initCarousel($('#carousel-0'));
@@ -616,7 +616,7 @@
     }
   }
 
-  DashboardTeamCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$interval', 
+  DashboardTeamCtrl.$inject = ['$rootScope', '$scope', '$timeout', '$interval',
                                '$http', '$location', 'User', 'CommonService'];
   angular.module('powurApp').controller('DashboardTeamCtrl', DashboardTeamCtrl)
   .directive('repeatEnd', function(){
