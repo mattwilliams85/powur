@@ -15,10 +15,6 @@ json.properties do
   end if current_user.avatar?
   json.is_admin current_user.role?(:admin)
 
-  json.allow_sms current_user.allow_sms != 'false'
-  json.allow_system_emails current_user.allow_system_emails != 'false'
-  json.allow_corp_emails current_user.allow_corp_emails != 'false'
-
   unless current_user.accepted_latest_terms?
     json.latest_terms ApplicationAgreement.current
   end
