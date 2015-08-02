@@ -10,10 +10,10 @@ class CreateLeads < ActiveRecord::Migration
   def last_update_attrs(quote)
     last_update = quote.last_update
     return {} unless last_update
-    { sales_status: last_update.sales_status,
-      converted_at: last_update.converted,
-      contract_at:  last_update.contract,
-      install_at:   last_update.installation }
+    { sales_status:  last_update.sales_status,
+      converted_at:  last_update.converted,
+      contracted_at: last_update.contract,
+      installed_at:  last_update.installation }
   end
 
   def quote_attrs(quote)
@@ -55,8 +55,8 @@ class CreateLeads < ActiveRecord::Migration
       t.string :provider_uid
       t.datetime :submitted_at
       t.datetime :converted_at
-      t.datetime :contract_at
-      t.datetime :install_at
+      t.datetime :contracted_at
+      t.datetime :installed_at
 
       t.timestamps null: false
     end
@@ -68,11 +68,17 @@ class CreateLeads < ActiveRecord::Migration
       dir.up do
         migrate_quotes
         reset_id_sequence
+
+        remove_foreign_key :lead_updates, :quotes
+        rename_column :lead_updates, :quote_id, :lead_id
+        add_foreign_key :lead_updates, :leads
+      end
+
+      dir.down do
+        remove_foreign_key :lead_updates, :leads
+        rename_column :lead_updates, :lead_id, :quote_id
+        add_foreign_key :lead_updates, :quotes
       end
     end
-
-    remove_foreign_key :lead_updates, :quotes
-    rename_column :lead_updates, :quote_id, :lead_id
-    add_reference :lead_updates, :leads, index: true, foreign_key: true
   end
 end

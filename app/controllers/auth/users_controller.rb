@@ -99,13 +99,9 @@ module Auth
 
     def user_month_lead_counts
       month_start = Date.today.beginning_of_month
-      submitted_month = @user.leads
-        .submitted.where('submitted_at >= ?', month_start).count
-      installed_month = @user.leads
-        .installed.where('submitted_at >= ?', month_start).count
 
-      { submitted: submitted_month,
-        installed: installed_month }
+      { submitted: @user.leads.submitted(from: month_start).count,
+        installed: @user.leads.installed(from: month_start).count }
     end
 
     def user_lead_counts

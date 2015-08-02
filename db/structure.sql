@@ -420,8 +420,7 @@ CREATE TABLE lead_updates (
     updated_at timestamp without time zone NOT NULL,
     lead_status character varying,
     opportunity_stage character varying,
-    converted timestamp without time zone,
-    leads_id integer
+    converted timestamp without time zone
 );
 
 
@@ -459,8 +458,8 @@ CREATE TABLE leads (
     provider_uid character varying,
     submitted_at timestamp without time zone,
     converted_at timestamp without time zone,
-    contract_at timestamp without time zone,
-    install_at timestamp without time zone,
+    contracted_at timestamp without time zone,
+    installed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1877,13 +1876,6 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 --
 
 CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
-
-
---
--- Name: index_lead_updates_on_leads_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_lead_updates_on_leads_id ON lead_updates USING btree (leads_id);
 
 
 --

@@ -44,7 +44,7 @@ module UserScopes
     }
 
     scope :lead_count, lambda {
-      sub_query = Lead.user_count
+      sub_query = Lead.submitted.user_count
       select('*')
         .joins("LEFT JOIN (#{sub_query.to_sql}) lc ON users.id = lc.user_id")
     }
@@ -123,5 +123,13 @@ module UserScopes
   end
 
   module ClassMethods
+    UNNEST_UPLINE = 'unnest(upline) parent_id'
+    def unnested_children(*parent_ids)
+      query = select("users.id, #{UNNEST_UPLINE}")
+      unless parent_ids.empty?
+        query = query.where("ARRAY[#{parent_ids.flatten.join(',')}] && upline")
+      end
+      query.order('parent_id, users.id')
+    end
   end
 end

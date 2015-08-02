@@ -17,15 +17,27 @@ class Lead < ActiveRecord::Base
   scope :submitted_status, -> (status) { send(status) }
   scope :data_status, -> (status) { send(status) }
   scope :sales_status, -> (status) { send(status) }
-  scope :proposals, -> { where('converted_at IS NOT NULL') }
-  scope :contracts, -> { where('contract_at IS NOT NULL') }
-  scope :rooftops, -> { where('install_at IS NOT NULL') }
-  scope :user_count, lambda {
-    Lead
-      .submitted
-      .select('user_id, count(id) lead_count')
-      .group(:user_id)
+  USER_COUNT_SQL = 'user_id, COUNT(leads.id) lead_count'
+  scope :user_count, -> { select(USER_COUNT_SQL).group(:user_id) }
+  scope :pay_period, ->(field, pp_id) { pay_period_query(field, pp_id) }
+  scope :from_date, ->(field, from) { where("#{field} >= ?", from) }
+  scope :to_date, ->(field, to) { where("#{field} < ?", to) }
+  scope :timespan, lambda { |field:, pay_period_id: nil, from: nil, to: nil|
+    query = where("#{field} IS NOT NULL")
+    query = query.pay_period(field, pay_period_id) if pay_period_id
+    query = query.from_date(field, from) if from
+    query = query.to_date(field, to) if to
+    query
   }
+  KEY_DATES = [ :submitted, :contracted, :converted, :installed, :created ]
+  KEY_DATES.each do |key_date|
+    scope key_date, lambda { |pay_period_id: nil, from: nil, to: nil|
+      timespan(field:         "#{key_date}_at",
+               pay_period_id: pay_period_id,
+               from:          from,
+               to:            to)
+    }
+  end
 
   validates_presence_of :product_id, :customer_id, :user_id
 
@@ -48,8 +60,8 @@ class Lead < ActiveRecord::Base
 
   def update_received
     self.converted_at = last_update.converted
-    self.contract_at = last_update.contract
-    self.install_at = last_update.installation
+    self.contracted_at = last_update.contract
+    self.installed_at = last_update.installation
     self.sales_status = last_update.sales_status
     save!
   end
@@ -118,5 +130,26 @@ class Lead < ActiveRecord::Base
       return nil unless prefix == id_prefix
       Lead.find(lead_id.to_i)
     end
+
+    def pay_period_query(field, pp_id)
+      query =
+        if pp_id =~ /W/
+          year, week = pp_id.split('W')
+          where("date_part('week', #{field}) = ?", week)
+        else
+          year, month = pp_id.split('-')
+          where("date_part('month', #{field}) = ?", month)
+        end
+      query.where("date_part('year', #{field}) = ?", year)
+    end
+
+    # def team_counts(user_id:      nil, 
+    #                 data_status:  :submitted,
+    #                 sales_status: nil,
+    #                 year:         nil,
+    #                 month:        nil,
+    #                 start_date:   nil)
+
+    # end
   end
 end

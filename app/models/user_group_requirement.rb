@@ -22,6 +22,14 @@ class UserGroupRequirement < ActiveRecord::Base
 
   private
 
+  def personal?
+    personal_sales? || personal_proposals?
+  end
+
+  def proposals?
+    personal_proposals? || group_proposals?
+  end
+
   def purchases
     ProductReceipt.where(product_id: product_id)
   end
@@ -53,7 +61,25 @@ class UserGroupRequirement < ActiveRecord::Base
     qualified_order_totals.pluck(:user_id)
   end
 
+  def condition_user_query(user_id)
+    if personal?
+      Lead.where(user_id: id)
+    else
+      Lead.joins(:user).merge(User.with_ancestor(user_id))
+    end
+  end
+
+  def condition_met_query(user_id)
+    query = condition_user_query(user_id)
+    query = proposals? ? query.proposals : query.contract
+    if monthly?
+      date_field = proposals? ? 'converted_at' : 'contracted_at'
+      query = query.where("#{date_field} >= ?", Date.today.beginning_of_month)
+    end
+    query
+  end
+
   def user_met_sales?(user_id)
-    qualified_order_totals.where(user_id: user_id).exists?
+    condition_met_query(user_id).count > quantity
   end
 end

@@ -24,12 +24,12 @@ module Admin
 
     private
 
-    def submitted_leads_count(since)
-      Lead.submitted.where('submitted_at >= ?', since.to_s(:db)).count
+    def submitted_leads_count
+      Lead.submitted(from: @date_since, to: @date_until).count
     end
 
-    def contact_leads_count(since)
-      Lead.contracts.where('contract_at >= ?', since.to_s(:db))
+    def contact_leads_count
+      Lead.contracted(from: @date_since, to: @date_until).count
     end
 
     def purchases_count
