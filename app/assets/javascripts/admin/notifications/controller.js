@@ -24,6 +24,8 @@
 
     $scope.legacyImagePaths = legacyImagePaths;
 
+    $scope.selectedRecipients = {};
+
     // Form Validation
     $scope.formErrorMessages = {};
 
@@ -100,21 +102,32 @@
       });
     };
 
-    $scope.sendToRecipient = function(notification, recipient) {
-      var message = 'This will send SMS message to all ' + recipient + '. Are you sure?';
+    $scope.sendToRecipients = function() {
+      var message = 'This will send SMS message to all selected recipients. Are you sure?';
       if (window.confirm(message)) {
-        var action = getAction(notification.actions, 'send_out');
+        $scope.isSubmitDisabled = true;
+        var recipients = Object.keys($scope.selectedRecipients);
         $http({
-          method: action.method,
-          url: action.href,
-          params: {recipient: recipient}
-        }).success(function(data) {
-          notification.properties = data.properties;
-          notification.links = data.links;
+          method: 'POST',
+          url: '/a/notifications/' + $scope.notification.id + '/send_out',
+          data: { recipients: recipients.join() }
+        }).success(function() {
+          $location.path('/admin/notifications');
+          $scope.showModal('Notification is being delivered...');
         }).error(function() {
+          $scope.isSubmitDisabled = false;
           $scope.showModal("Oops, error couldn't send notification");
         });
       }
+    };
+
+    $scope.getAvailableRecipients = function() {
+      $http({
+        method: 'GET',
+        url: '/a/notifications/available_recipients'
+      }).success(function(data) {
+        $scope.availableRecipients = data.entities;
+      });
     };
 
     $scope.cancel = function() {
@@ -162,10 +175,12 @@
       $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
       $rootScope.breadcrumbs.push({title: 'New notification'});
       $scope.notification = {};
+      $scope.getAvailableRecipients();
     } else if ($scope.mode === 'edit') {
       $scope.withNotification($routeParams.notificationId, function(item) {
         $scope.notification = item.properties;
         $scope.formAction = getAction(item.actions, 'update');
+        $scope.getAvailableRecipients();
         $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
         $rootScope.breadcrumbs.push({title: 'Update notification'});
       });
