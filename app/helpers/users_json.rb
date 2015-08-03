@@ -66,11 +66,6 @@ class UsersJson < JsonDecorator
     entities \
       entity(%w(list users), 'user-children', downline_admin_user_path(user)),
       entity(%w(list users), 'user-ancestors', upline_admin_user_path(user)),
-      entity(%w(list orders), 'user-orders', admin_user_orders_path(user)),
-      # entity(%w(list order_totals), 'user-order_totals',
-      #        admin_user_order_totals_path(user)),
-      # entity(%w(list rank_achievements), 'user-rank_achievements',
-      #        admin_user_rank_achievements_path(user)),
       entity(%w(list bonus_payments), 'user-bonus_payments',
              admin_user_bonus_payments_path(user)),
       entity(%w(list overrides), 'user-overrides',
@@ -88,12 +83,7 @@ class UsersJson < JsonDecorator
   def user_entities(user = @item)
     entities \
       entity(%w(list users), 'user-children', downline_user_path(user)),
-      entity(%w(list users), 'user-ancestors', upline_user_path(user)),
-      entity(%w(list orders), 'user-orders', user_orders_path(user))
-      # entity(%w(list order_totals), 'user-order_totals',
-      #        user_order_totals_path(user))
-      # entity(%w(list rank_achievements), 'user-rank_achievements',
-      #        user_rank_achievements_path(user))
+      entity(%w(list users), 'user-ancestors', upline_user_path(user))
   end
 
   def update_action(path, user = @item) # rubocop:disable Metrics/AbcSize
