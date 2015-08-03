@@ -161,7 +161,7 @@
                     'accordion': is.accordion(0) }"
                     ng-click="changeTab(member, downline[0], 'info');">
                 <div class="avatar" ng-class="{'accordion': is.accordion(0)}" ng-mouseover="addMe=true" ng-mouseleave="addMe=false" ng-click="setParent(member)">
-                  <div class="crop-box">
+                  <div class="crop-box" ng-class="{'swing': placement.on && addMe}">
                     <img class="plus" ng-src="{{img.teamSection.plusIcon}}" ng-class="{'swing': is.unrelated(member, addMe) || placement.parent == member}">
                     <img class="lazyOwl avatar-img" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified, 'swing':  is.unrelated(member, addMe)}">
                   </div>

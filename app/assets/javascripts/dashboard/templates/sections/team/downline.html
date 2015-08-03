@@ -95,7 +95,7 @@
                   'accordion': is.accordion($parent.$index)}"
                   ng-click="changeTab(member, gen, 'info');">
               <div class="avatar" ng-class="{'accordion': is.accordion(0)}" ng-mouseover="addMe=true" ng-mouseleave="addMe=false" ng-click="setParent(member)">
-                <div class="crop-box">
+                <div class="crop-box" ng-class="{'swing': placement.on && addMe}">
                   <img class="plus" ng-src="{{img.teamSection.plusIcon}}" ng-class="{'swing': is.unrelated(member, addMe) || placement.parent == member}">
                   <img class="lazyOwl avatar-img" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified, 'swing':  is.unrelated(member, addMe)}">
                 </div>
@@ -106,6 +106,7 @@
               <div class="info-text user-text">
                 <span>{{member.first_name}} {{member.last_name}}</span>
                 <span ng-hide="is.activeMember(member, gen) && is.accordion($parent.$index)" class="info-detail">TEAM {{member.totals.team_count}}, PROPOSALS {{member.totals.lead_count || 0}}</span>
+                <span ng-show="is.placeable(member)" class="info-detail placeable">placeable</span>
               </div>
             </div>
           </div>

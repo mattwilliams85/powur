@@ -333,7 +333,7 @@
         position: relative;
         text-align: center;
         top: 20%;
-        width: 86px;
+        width: 34%;
         margin: 10px auto;
         z-index: 1;
 
@@ -343,8 +343,12 @@
           border-radius: 50px;
           position: relative;
           overflow: hidden;
-          background-color: #ccc;
+          background-color: transparent;
           z-index:1;
+
+          &.swing {
+            background-color: #20C2F1;
+          }
         }
 
         .plus {
@@ -353,6 +357,7 @@
           z-index: 2;
           transition: transform .15s linear;
           border-radius: 50%;
+          background-color: #20C2F1;
           &.swing {
             transform: translate(85px, 0);
           }
@@ -379,6 +384,7 @@
 
         .avatar-img {
           transition: transform .15s linear;
+          border-radius: 50%;
           &.swing {
             transform: translate(86px, 0);
           }
