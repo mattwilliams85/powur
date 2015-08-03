@@ -215,8 +215,10 @@ class User < ActiveRecord::Base
     else
       items = items.for_advocates
     end
-    items = items
-      .where('created_at > ?', notifications_read_at) if notifications_read_at
+    if notifications_read_at
+      items = items
+        .where('notification_releases.created_at > ?', notifications_read_at)
+    end
     items.joins(:notification).includes(:notification).first.try(:notification)
   end
 

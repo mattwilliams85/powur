@@ -10,9 +10,15 @@ json.properties do
   json.user do
     json.full_name notification.user.full_name
   end
-  # json.sender do
-  #   json.full_name notification.sender.full_name
-  # end if notification.sender
+end
+
+json.entities notification.releases do |release|
+  json.properties do
+    json.user_full_name release.user.full_name
+    json.recipient release.recipient
+    json.sent_at release.sent_at ? release.sent_at.to_f * 1000 : nil
+    json.finished_at release.finished_at ? release.finished_at.to_f * 1000 : nil
+  end
 end
 
 actions \
