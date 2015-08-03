@@ -9,6 +9,7 @@
         title: 'Notifications',
         links: [
           { href: '/admin/notifications/new', text: 'Add' },
+          { href: '/admin/twilio-phone-numbers', text: 'Twilio Numbers' }
         ],
         tablePath: 'admin/notifications/templates/table.html'
       },
