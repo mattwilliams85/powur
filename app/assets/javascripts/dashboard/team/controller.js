@@ -51,7 +51,7 @@
                member !== $scope.placement.child;
       },
       placeable: function(member) {
-        if (member.sponsor_id !== $scope.currentUser.id) return;
+        if (member.sponsor_id !== $scope.currentUser.id || member.moved) return;
         var startDate = new Date(member.created_at);
         var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
         if (startDate < betaStart) startDate = betaStart;
@@ -377,7 +377,7 @@
     $scope.teamSection.fetchProposals = function(member) {
       $scope.teamId = member.id;
       CommonService.execute({
-        href: '/u/users/' + member.id + '/quotes.json'
+        href: '/u/users/' + member.id + '/leads.json'
       }).then(function(items){
         $scope.teamProposals = items.entities;
         destroyCarousel('#teamProposals');
@@ -397,7 +397,7 @@
       $scope.proposalId = proposal.properties.id;
 
       CommonService.execute({
-        href: '/u/quotes/' + proposal.properties.id + '.json'
+        href: '/u/leads/' + proposal.properties.id + '.json'
       }).then(function(item){
         $scope.updates = item.entities;
         $scope.activeProposal = item.properties;
@@ -427,7 +427,7 @@
         $scope.teamSection.searching = true;
       }
 
-      var href = '/u/users/' + $scope.teamId + '/quotes';
+      var href = '/u/users/' + $scope.teamId + '/leads';
       closeTabs();
       destroyCarousel('#teamProposals');
 
