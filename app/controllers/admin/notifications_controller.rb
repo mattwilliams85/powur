@@ -50,6 +50,7 @@ module Admin
 
     def fetch_notification
       @notification = Notification.find(params[:id].to_i)
+      error!(:notification_locked) if @notification.releases.any?
     end
 
     def input
