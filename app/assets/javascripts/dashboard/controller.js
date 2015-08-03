@@ -124,10 +124,11 @@
           }
         },
         purchase: function() {
-          var course = Utility.findBranch($scope.goals, { event_type: 'purchase' });
-          var courseId = course.product_id;
-          var receipt = Utility.findBranch($scope.goals, { class: 'purchase' });
-          var receiptId = receipt.properties.product_id;
+          var course, courseId, receipt, receiptId;
+          course = Utility.findBranch($scope.goals, { event_type: 'purchase' });
+          courseId = course.product_id;
+          receipt = Utility.findBranch($scope.goals, { class: 'purchase' });
+          if (receipt) receiptId = receipt.properties.product_id;
           if (courseId === receiptId) {
             $scope.courseProgress = 'purchased';
             return 100;

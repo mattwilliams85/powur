@@ -237,6 +237,9 @@ Rails.application.routes.draw do
       member do
         post :send_out
       end
+      collection do
+        get :available_recipients
+      end
     end
 
     # Users

@@ -520,6 +520,10 @@
       border-bottom: 0px;
       margin-bottom: 0px;
 
+      .empty-state {
+        border-left: 1px solid #555 !important;
+      }
+
       &.expand {
         height: 220px;
 
@@ -545,10 +549,6 @@
 
       .customer-name, .empty-text {
         color: #fff;
-      }
-
-      .empty-state {
-        border-left: 1px solid #555;
       }
 
       .inactive-icon {

@@ -133,6 +133,8 @@
 
     $scope.changeTab = function(member, gen, tab) {
       if ($scope.disable || $scope.placement.parent) return;
+      $scope.teamSection.proposalSort = '';
+      $scope.teamSection.proposalStatus = '';
 
       var delay = 300; // Delay for transition between multiple animations
       if (!$scope.activeTab) delay = 0;
@@ -177,7 +179,6 @@
             $scope.activeUser = items.properties;
             $scope.activeUser.changing = false;
             $scope.totals = items.properties.totals;
-            console.log(delay);
           }, delay);
         });
     }

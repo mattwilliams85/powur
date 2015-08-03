@@ -182,16 +182,18 @@ class User < ActiveRecord::Base
     self.notifications_read_at = Time.zone.now.to_s(:db)
   end
 
-  def unread_notifications
-    notifications = Notification.published.sorted
+  def latest_unread_notification
+    items = NotificationRelease.sorted
     if partner?
-      notifications = notifications.for_partners
+      items = items.for_partners
     else
-      notifications = notifications.for_advocates
+      items = items.for_advocates
     end
-    notifications = notifications
-      .where('created_at > ?', notifications_read_at) if notifications_read_at
-    notifications
+    if notifications_read_at
+      items = items
+        .where('notification_releases.created_at > ?', notifications_read_at)
+    end
+    items.joins(:notification).includes(:notification).first.try(:notification)
   end
 
   def team_lead_count(lead_scope = Lead.submitted)

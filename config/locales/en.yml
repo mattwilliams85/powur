@@ -41,6 +41,7 @@ en:
     already_completed: You have already completed this course
     smarteru_user: Your account is inaccessible via the SmarterU API
     smarteru_incomplete_enrollment: Your class enrollment is not complete
+    notification_locked: This notification is locked. Please create another one
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

@@ -48,7 +48,7 @@
               ng-if="requirement.properties.event_type === 'purchase'"
               ng-class="{ half: goals.requirements.length === 2,
                           full: goals.requirements.length === 1 }">
-              <span class="progress-text">{{courseProgress || 'not purchased'}}</span>
+              <span class="progress-text">{{courseProgress || 'course incomplete'}}</span>
               <div class="green bar hold"  style="width : {{calculateProgress(requirement)}}"></div>
               <!-- <div class="label below"></div> -->
             </div>
