@@ -25,15 +25,19 @@ class TwilioClient
   end
 
   # Send sms to provided recepient list
-  # equaly distributing with all available purchased phone numbers
+  # equaly distributing through all available purchased phone numbers
   def send_sms_in_groups(recipient_numbers, body)
     sent_messages = []
     recipient_numbers.in_groups_of(purchased_numbers.length) do |group|
       group.compact.each_index do |i|
-        sent_messages << send_message(
-          to:   group[i],
-          from: purchased_numbers[i],
-          body: body)
+        begin
+          sent_messages << send_message(
+            to:   group[i],
+            from: purchased_numbers[i],
+            body: body)
+        rescue Twilio::REST::RequestError => e
+          Airbrake.notify(e)
+        end
       end
       # TODO: remove the delay once 'short phone number' is purchased
       # Twilio 'long phone numbers' have a limitation of
