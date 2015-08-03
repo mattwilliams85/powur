@@ -9,9 +9,8 @@ class User < ActiveRecord::Base
 
   belongs_to :rank_path
 
-  has_many :quotes
   has_many :leads
-  has_many :customers, through: :quotes
+  has_many :customers, through: :leads
   has_many :orders
   has_many :order_totals
   has_many :rank_achievements
@@ -179,10 +178,6 @@ class User < ActiveRecord::Base
       .where(products: { slug: 'partner' }).count > 0
   end
 
-  def submitted_proposals_count
-    quotes.submitted.length
-  end
-
   def mark_notifications_as_read=(*)
     self.notifications_read_at = Time.zone.now.to_s(:db)
   end
@@ -197,6 +192,10 @@ class User < ActiveRecord::Base
     notifications = notifications
       .where('created_at > ?', notifications_read_at) if notifications_read_at
     notifications
+  end
+
+  def team_lead_count(lead_scope = Lead.submitted)
+    lead_scope.joins(:user).merge(User.all_team(id)).count
   end
 
   private

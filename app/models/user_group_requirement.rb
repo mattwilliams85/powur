@@ -12,6 +12,10 @@ class UserGroupRequirement < ActiveRecord::Base
 
   validates_presence_of :user_group_id, :product_id, :event_type, :quantity
 
+  def title
+    "#{quantity} #{time_span} #{event_type} for #{product.name}"
+  end
+
   def qualified_user_ids
     purchase? ? purchased_user_ids : sales_met_user_ids
   end
@@ -20,7 +24,30 @@ class UserGroupRequirement < ActiveRecord::Base
     purchase? ? user_purchased?(user_id) : user_met_sales?(user_id)
   end
 
+  def progress_for(user)
+    if purchase?
+      (user_qualified?(user) ? 1 : 0)
+    else
+      sales_progress_for(user)
+    end
+  end
+
   private
+
+  def sales_progress_for(user)
+    query =
+      if personal?
+        Lead.where(user_id: user.id)
+      else
+        Lead.joins(:user).merge(User.all_team(user.id))
+      end
+    opts = { pay_period_id: monthly? ? current_pp_id : nil }
+    (proposals? ? query.converted(opts) : query.contracted(opts)).count
+  end
+
+  def current_pp_id
+    MonthlyPayPeriod.current.id
+  end
 
   def personal?
     personal_sales? || personal_proposals?

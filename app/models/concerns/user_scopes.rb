@@ -43,8 +43,8 @@ module UserScopes
         .joins("LEFT JOIN (#{sub_query.to_sql}) tc ON users.id = tc.parent_id")
     }
 
-    scope :lead_count, lambda {
-      sub_query = Lead.submitted.user_count
+    scope :lead_count, lambda { |lead_scope = :submitted|
+      sub_query = Lead.send(lead_scope).user_count
       select('*')
         .joins("LEFT JOIN (#{sub_query.to_sql}) lc ON users.id = lc.user_id")
     }
@@ -120,16 +120,20 @@ module UserScopes
         'false'])
     }
     scope :can_sms, -> { has_phone.allows_sms }
-  end
 
-  module ClassMethods
-    UNNEST_UPLINE = 'unnest(upline) parent_id'
-    def unnested_children(*parent_ids)
-      query = select("users.id, #{UNNEST_UPLINE}")
+    scope :unnested_children, lambda { |*parent_ids|
+      query = select('users.id, unnest(upline) parent_id')
       unless parent_ids.empty?
         query = query.where("ARRAY[#{parent_ids.flatten.join(',')}] && upline")
       end
-      query.order('parent_id, users.id')
-    end
+      query
+    }
+
+    scope :child_lead_counts, lambda { |parent_ids: nil|
+      select('users.id, unnest(upline) parent_id,
+             coalesce(lc.lead_count, 0) lead_count')
+        .joins("LEFT JOIN (#{Lead.user_count.to_sql})
+                  lc ON lc.user_id = users.id")
+    }
   end
 end
