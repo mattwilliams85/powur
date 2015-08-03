@@ -38,20 +38,6 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
-
-
---
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -1938,13 +1924,6 @@ CREATE INDEX index_leads_on_user_id_and_sales_status ON leads USING btree (user_
 
 
 --
--- Name: index_notifications_on_is_public; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_notifications_on_is_public ON notifications USING btree (is_public);
-
-
---
 -- Name: index_orders_on_quote_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2648,11 +2627,9 @@ INSERT INTO schema_migrations (version) VALUES ('20150716204546');
 
 INSERT INTO schema_migrations (version) VALUES ('20150729201049');
 
-<<<<<<< HEAD
 INSERT INTO schema_migrations (version) VALUES ('20150730193413');
 
-INSERT INTO schema_migrations (version) VALUES ('20150803194350');
-=======
 INSERT INTO schema_migrations (version) VALUES ('20150731215918');
->>>>>>> develop
+
+INSERT INTO schema_migrations (version) VALUES ('20150803194350');
 

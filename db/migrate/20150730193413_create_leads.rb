@@ -2,7 +2,7 @@ class CreateLeads < ActiveRecord::Migration
   def reset_id_sequence
     sql = 'select id from leads order by id desc limit 1;'
     result = execute(sql)
-    next_id = result.first['id'].to_i + 1
+    next_id = result.first ? result.first['id'].to_i + 1 : 1
     sql = "alter sequence leads_id_seq restart with #{next_id}"
     execute(sql)
   end

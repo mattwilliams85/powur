@@ -21,7 +21,10 @@ namespace :powur do
         requirements = attrs.delete('requirements')
         group = UserGroup.create!(attrs)
         group.ranks_user_groups.create!(rank_id: rank_id)
-        requirements.each { |req_attrs| group.requirements.create!(req_attrs) }
+        requirements.each do |req_attrs|
+          next unless Product.find_by(id: req_attrs['product_id'].to_i)
+          group.requirements.create!(req_attrs)
+        end
         puts "Created group #{group.title} : #{group.id}"
       end
     end
