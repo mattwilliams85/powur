@@ -8,7 +8,7 @@ json.properties do
             :lifetime_invites_count,
             :open_invites_count,
             :redeemed_invites_count)
-  json.submitted_proposals_count @user.team_lead_count
+  json.submitted_proposals_count user.team_lead_count
 end
 
 actions \
