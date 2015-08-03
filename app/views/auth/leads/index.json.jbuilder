@@ -4,7 +4,7 @@ klass :leads, :list
 
 json.entities @leads, partial: 'item', as: :lead
 
-create = action(:create, :post, request.path)
+create = action(:create, :post, leads_path)
   .field(:first_name, :text)
   .field(:last_name, :text)
   .field(:address, :text, required: false)
