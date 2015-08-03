@@ -6,7 +6,7 @@ module Auth
       @user = current_user
       user_ids = User.all_team(@user.id).pluck(:id)
       @proposal_count = Lead.where(user_id: user_ids).converted.count
-      @team_count = user_ids - 1
+      @team_count = user_ids.size - 1
     end
 
     def proposals_show
