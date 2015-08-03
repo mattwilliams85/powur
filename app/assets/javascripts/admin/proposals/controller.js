@@ -35,9 +35,9 @@
       AdminProposal.get($routeParams.proposalId).then(function(item) {
         $scope.user = item.properties;
 
-        // Breadcrumbs: Proposals / View Quote
+        // Breadcrumbs: Proposals / View Lead
         $rootScope.breadcrumbs.push({title: 'Proposals', href: '/admin/proposals'});
-        $rootScope.breadcrumbs.push({title: 'View Quote'});
+        $rootScope.breadcrumbs.push({title: 'View Lead'});
 
       });
 
@@ -45,9 +45,9 @@
       AdminProposal.get($routeParams.proposalId).then(function(item) {
         $scope.user = item.properties;
 
-        // Breadcrumbs: Proposals / Update Quote
+        // Breadcrumbs: Proposals / Update Lead
         $rootScope.breadcrumbs.push({title: 'Proposals', href: '/admin/proposals'});
-        $rootScope.breadcrumbs.push({title: 'Update Quote'});
+        $rootScope.breadcrumbs.push({title: 'Update Lead'});
 
       });
     }

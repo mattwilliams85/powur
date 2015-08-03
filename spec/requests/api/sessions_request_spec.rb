@@ -11,7 +11,9 @@ describe '/api/session', type: :request do
     it 'returns an invalid_grant when the access_token is expired' do
       token = create(:expired_token)
 
-      get api_session_path(format: :json), nil, bearer_header(token.access_token)
+      get api_session_path(format: :json),
+          nil,
+          bearer_header(token.access_token)
 
       expect_api_error(:invalid_grant)
     end
@@ -20,7 +22,7 @@ describe '/api/session', type: :request do
       get api_session_path(format: :json), { v: 1 }, api_header
 
       expect_classes 'session'
-      expect_entities 'user-quotes', 'user-invites',
+      expect_entities 'user-leads', 'user-invites',
                       'user-children', 'session-user'
     end
 

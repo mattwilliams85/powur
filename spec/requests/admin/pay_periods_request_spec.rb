@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 describe '/a/pay_periods' do
-
   before do
     login_user
   end
 
   describe 'GET /' do
-
     it 'returns a list of pay periods' do
       create(:order, order_date: Date.current - 1.month)
 
@@ -26,11 +24,9 @@ describe '/a/pay_periods' do
       result = json_body['entities'].first
       expect(result['properties']['id']).to eq(pay_period.id)
     end
-
   end
 
   describe 'GET /:id' do
-
     it 'returns the details of the pay period' do
       create(:rank)
       order = create(:order, order_date: Date.current - 1.month)
@@ -44,11 +40,9 @@ describe '/a/pay_periods' do
       expect(json_body['properties']['totals']).to_not be_nil
       # expect_entities 'pay_period-order_totals'
     end
-
   end
 
   describe 'POST /:id/calculate' do
-
     it 'runs a pay period calculation' do
       create(:order, order_date: Date.current - 1.month)
       PayPeriod.generate_missing
@@ -63,11 +57,9 @@ describe '/a/pay_periods' do
       pay_period = json_body['entities'].last
       expect(pay_period['properties']['calculated']).to be
     end
-
   end
 
   describe 'POST /:id/recalculate' do
-
     it 'recalcs a pay period' do
       order = create(:order, order_date: Date.current - 1.month)
       pay_period = order.weekly_pay_period
@@ -94,5 +86,4 @@ describe '/a/pay_periods' do
   #     expect(pay_period['properties']['distributed']).to be
   #   end
   # end
-
 end

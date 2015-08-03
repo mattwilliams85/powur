@@ -50,13 +50,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # quote routes
-  # resource :quote, only: [ :show, :create, :update ] do
-  #   post :resend
-  #   get ':sponsor' => 'quotes#new', as: :sponsor
-  #   get ':sponsor/:quote' => 'quotes#show', as: :customer
-  # end
-
   # logged in user routes
   scope :u, module: :auth do
     resource :kpi_metrics, only: [ :show ] do
@@ -67,7 +60,7 @@ Rails.application.routes.draw do
       get '/:id/genealogy_show', to: 'kpi_metrics#genealogy_show'
     end
 
-    resources :quotes, only: [ :index, :create, :destroy, :update, :show ] do
+    resources :leads, only: [ :index, :create, :destroy, :update, :show ] do
       member do
         post :resend
         post :submit
@@ -130,9 +123,8 @@ Rails.application.routes.draw do
         get '' => 'users#search', constraints: params?(:search)
       end
 
-      resources :quotes, only: [ :index, :create ]
+      resources :leads, only: [ :index ]
       resource :goals, only: [ :show ]
-      resources :orders, only: [ :index, :show ], controller: :user_orders
       resources :order_totals, only: [ :index ]
       resources :user_activities, only:       [ :index, :show ],
                                   controller: :user_activities
@@ -221,14 +213,6 @@ Rails.application.routes.draw do
     resources :resources, as: :admin_resources
     resources :resource_topics, as: :admin_resource_topics
 
-    # Orders
-    resources :orders, only: [ :index, :create, :show ], as: :admin_orders do
-      # Orders / Bonus Payments
-      resources :bonus_payments,
-                only:       [ :index ],
-                controller: :order_bonus_payments
-    end
-
     # Overrides
     resources :overrides, only: [ :index, :update, :destroy ]
 
@@ -285,9 +269,6 @@ Rails.application.routes.draw do
 
       patch 'invites', to: 'user_invites#award'
 
-      # Users / Orders
-      resources :orders, only: [ :index ], controller: :user_orders
-
       # Users / Overrides
       resources :overrides, only: [ :index, :create ]
 
@@ -309,9 +290,6 @@ Rails.application.routes.draw do
         post :recalculate
         post :disburse
       end
-
-      # Pay Periods / Orders
-      resources :orders, only: [ :index ], controller: :pay_period_orders
 
       # Pay Periods / Bonus Payments
       resources :bonus_payments,
@@ -369,7 +347,6 @@ Rails.application.routes.draw do
           post :resend
         end
       end
-      # resources :quotes, only: [ :index, :create, :show ]
 
       namespace :data do
         resources :leads, only: [ :create ] do

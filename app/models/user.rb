@@ -9,8 +9,8 @@ class User < ActiveRecord::Base
 
   belongs_to :rank_path
 
-  has_many :quotes
-  has_many :customers, through: :quotes
+  has_many :leads
+  has_many :customers, through: :leads
   has_many :orders
   has_many :order_totals
   has_many :rank_achievements
@@ -57,8 +57,7 @@ class User < ActiveRecord::Base
   after_create :hydrate_upline
 
   attr_reader :password
-  attr_accessor :child_order_totals, :pay_period_rank, :pay_period_quote_count,
-                :password_confirmation
+  attr_accessor :child_order_totals, :pay_period_rank, :password_confirmation
 
   def full_name
     "#{first_name} #{last_name}"
@@ -134,29 +133,8 @@ class User < ActiveRecord::Base
   end
 
   # KPI METHODS
-  def proposal_count
-    quotes.submitted.count
-  end
-
   def weekly_growth
     User.with_ancestor(id).within_date_range(Time.now - 6.days, Time.now).count
-  end
-
-  def fetch_total_orders(start_date, end_date)
-    LeadUpdate.sales(id).within_date_range(start_date, end_date)
-  end
-
-  def fetch_total_proposals(start_date, end_date)
-    complete_quotes.within_date_range(start_date, end_date).submitted
-  end
-  ##
-
-  def fetch_full_downline
-    User.with_ancestor(id)
-  end
-
-  def complete_quotes
-    quotes.where.not(id: orders.select('quote_id').map { |i| i })
   end
 
   def accepted_latest_terms?
@@ -200,10 +178,6 @@ class User < ActiveRecord::Base
       .where(products: { slug: 'partner' }).count > 0
   end
 
-  def submitted_proposals_count
-    quotes.submitted.length
-  end
-
   def mark_notifications_as_read=(*)
     self.notifications_read_at = Time.zone.now.to_s(:db)
   end
@@ -220,6 +194,10 @@ class User < ActiveRecord::Base
         .where('notification_releases.created_at > ?', notifications_read_at)
     end
     items.joins(:notification).includes(:notification).first.try(:notification)
+  end
+
+  def team_lead_count(lead_scope = Lead.submitted)
+    lead_scope.joins(:user).merge(User.all_team(id)).count
   end
 
   private

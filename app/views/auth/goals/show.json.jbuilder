@@ -9,18 +9,12 @@ json.properties do
 end
 
 if @next_rank
-    entities(entity('user_groups',
-                    'goals-user_groups',
-                    groups: @next_rank.user_groups),
-             entity('requirements',
-                    'goals-requirements',
-                    requirements: @requirements),
-             entity('purchases',
-                    'goals-purchases',
-                    purchases: @purchases),
-             entity('order_totals',
-                    'goals-order_totals',
-                    order_totals: @order_totals))
+  entities(entity('user_groups',
+                  'goals-user_groups',
+                  groups: @next_rank.user_groups),
+           entity('requirements',
+                  'goals-requirements',
+                  requirements: @requirements))
 end
 
 self_link user_goals_path(@user)

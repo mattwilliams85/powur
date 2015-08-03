@@ -16,13 +16,6 @@ module UserScopes
       where('created_at between ? and ?', begin_date, end_date)
     }
 
-    scope :quote_performance, lambda { |user_id|
-      with_quote_counts
-        .where('quotes.status > ? or quotes.status IS NULL', 2)
-        .with_ancestor(user_id)
-        .order('quote_count desc')
-    }
-
     scope :growth_performance, lambda { |user_id|
       with_weekly_downline_counts
         .with_ancestor(user_id)
@@ -33,7 +26,7 @@ module UserScopes
       'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
     scope :weekly_downline_counts, lambda {
       select(WEEKLY_DOWN_COUNTS_SELECT).group('parent_id')
-        .where('created_at > ?', 7.days.ago.to_s(:db))
+        .where('created_at >= ?', 7.days.ago)
     }
 
     scope :with_weekly_downline_counts, lambda {
@@ -50,16 +43,10 @@ module UserScopes
         .joins("LEFT JOIN (#{sub_query.to_sql}) tc ON users.id = tc.parent_id")
     }
 
-    scope :lead_count, lambda {
-      sub_query = Quote.user_count
+    scope :lead_count, lambda { |lead_scope = :submitted|
+      sub_query = Lead.send(lead_scope).user_count
       select('*')
         .joins("LEFT JOIN (#{sub_query.to_sql}) lc ON users.id = lc.user_id")
-    }
-
-    scope :with_quote_counts, lambda {
-      select('users.*, count(quotes.id) quote_count')
-        .joins('left outer join quotes on users.id = quotes.user_id')
-        .group('users.id')
     }
 
     scope :with_parent, lambda { |*user_ids|
@@ -67,9 +54,8 @@ module UserScopes
             user_ids.flatten)
     }
 
-    scope :with_ancestor, lambda { |user_id|
-      where('? = ANY (upline)', user_id).where('users.id <> ?', user_id)
-    }
+    scope :all_team, ->(id) { where('? = ANY (upline)', id) }
+    scope :with_ancestor, ->(id) { all_team(id).where('users.id <> ?', id) }
 
     OT_SELECT_FIELDS = %w(personal group personal_lifetime group_lifetime)
     ORDER_TOTALS_SELECT = \
@@ -86,31 +72,6 @@ module UserScopes
       where_sql = { order_totals: where_sql }
 
       select(ORDER_TOTALS_SELECT).joins(ORDER_TOTALS_JOIN).where(where_sql)
-    }
-
-    scope :pay_period_quote_counts, lambda { |pay_period|
-      with_quote_counts
-        .where('quotes.created_at > ?', pay_period.start_date)
-        .where('quotes.created_at < ?', pay_period.end_date + 1.day)
-    }
-
-    scope :performance, lambda { |metric, period|
-      case metric
-      when 'quote_count'
-        if period == 'lifetime'
-          query = with_quote_counts
-        else
-          klass = period == 'monthly' ? MonthlyPayPeriod : WeeklyPayPeriod
-          query = pay_period_quote_counts(klass.current)
-        end
-        query.order('quote_count desc')
-      when 'personal_sales', 'group_sales'
-        order_by = "order_totals.#{metric.split('_').first}"
-        order_by += '_lifetime' if period == 'lifetime'
-        with_order_totals(period).order("#{order_by} desc")
-      else
-        fail ArgumentError, "Unsupported metric value: #{metric}"
-      end
     }
 
     scope :in_groups, lambda { |*ids|
@@ -159,8 +120,20 @@ module UserScopes
         'false'])
     }
     scope :can_sms, -> { has_phone.allows_sms }
-  end
 
-  module ClassMethods
+    scope :unnested_children, lambda { |*parent_ids|
+      query = select('users.id, unnest(upline) parent_id')
+      unless parent_ids.empty?
+        query = query.where("ARRAY[#{parent_ids.flatten.join(',')}] && upline")
+      end
+      query
+    }
+
+    scope :child_lead_counts, lambda { |parent_ids: nil|
+      select('users.id, unnest(upline) parent_id,
+             coalesce(lc.lead_count, 0) lead_count')
+        .joins("LEFT JOIN (#{Lead.user_count.to_sql})
+                  lc ON lc.user_id = users.id")
+    }
   end
 end

@@ -1,12 +1,12 @@
 require 'test_helper'
 
 module Auth
-  class QuotesControllerTest < ActionController::TestCase
+  class LeadsControllerTest < ActionController::TestCase
     def test_index
       get :index
 
-      siren.must_be_class(:quotes)
-      expected = Quote.where(user_id: users(:advocate).id).count
+      siren.must_be_class(:leads)
+      expected = Lead.where(user_id: users(:advocate).id).count
       siren.must_have_entity_size(expected)
     end
 
@@ -27,37 +27,31 @@ module Auth
     end
 
     def test_incomplete_lead_show
-      quote = quotes(:incomplete)
-      get :show, id: quote.id
+      lead = leads(:incomplete)
+      get :show, id: lead.id
 
-      siren.must_be_class(:quote)
-      siren.props_must_equal(id: quote.id)
+      siren.must_be_class(:lead)
+      siren.props_must_equal(id: lead.id)
       siren.must_have_actions(:update, :delete, :resend)
       siren.wont_have_actions(:submit)
     end
 
     def test_ready_to_submit_lead_show
-      get :show, id: quotes(:ready_to_submit).id
+      get :show, id: leads(:ready_to_submit).id
 
       siren.must_have_action(:submit)
     end
 
-    def test_in_progress_lead_show
-      get :show, id: quotes(:in_progress).id
+    def test_submitted_lead_show
+      get :show, id: leads(:submitted_new_update).id
 
       siren.wont_have_actions(:update, :delete, :submit)
-      lead_update = siren.entity('quote-update')
-      lead_update.props_must_equal(status: 'working_lead')
+      lead_update = siren.entity('lead-update')
+      lead_update.props_must_equal(status: 'in_progress')
     end
 
-    def test_submitted_lead_show
-      get :show, id: quotes(:submitted).id
-
-      siren.wont_have_action(:delete)
-    end
-
-    def test_quote_not_owned_show
-      get :show, id: quotes(:on_hold)
+    def test_lead_not_owned_show
+      get :show, id: leads(:unowned).id
 
       siren.must_be_error
     end
@@ -78,46 +72,45 @@ module Auth
         post :create, input
       end
 
-      siren.must_be_class(:quote)
-      siren.props_must_equal(status: 'ready_to_submit')
+      siren.must_be_class(:lead)
+      siren.props_must_equal(data_status: 'ready_to_submit')
     end
 
     def test_update
-      quote = quotes(:incomplete)
+      lead = leads(:incomplete)
       VCR.use_cassette('zip_validation/valid') do
-        patch :update, id: quote.id, phone: input[:phone]
+        patch :update, id: lead.id, phone: input[:phone]
       end
 
       siren.props_must_equal(phone: input[:phone])
-      siren.props_must_equal(status: 'ready_to_submit')
+      siren.props_must_equal(data_status: 'ready_to_submit')
     end
 
     def test_delete
-      quote = quotes(:incomplete)
-      delete :destroy, id: quote.id
+      delete :destroy, id: leads(:incomplete).id
 
       response.status.must_equal 204
     end
 
     def test_delete_unowned_lead
-      delete :destroy, id: quotes(:unowned).id
+      delete :destroy, id: leads(:unowned).id
 
       siren.must_be_error
       response.status.must_equal 404
     end
 
     def test_submit_lead
-      quote = quotes(:ready_to_submit)
+      lead = leads(:ready_to_submit)
 
       VCR.use_cassette('quotes/success') do
-        post :submit, id: quote.id
+        post :submit, id: lead.id
       end
 
       siren.properties.provider_uid.wont_be_nil
-      siren.props_must_equal(status: 'submitted')
+      siren.props_must_equal(data_status: 'submitted')
     end
 
-    # TODO: tests for resend and submit
+  #   # TODO: tests for resend and submit
 
     class AdminTest < ActionController::TestCase
       def setup
@@ -127,34 +120,43 @@ module Auth
       def test_index
         get :index
 
-        siren.must_be_class(:quotes)
-        siren.must_have_entity_size(Quote.count)
+        siren.must_be_class(:leads)
+        siren.must_have_entity_size(Lead.count)
       end
 
       def test_index_for_any_user
         get :index, user_id: users(:advocate).id
 
-        expected = Quote.where(user_id: users(:advocate).id).count
+        expected = Lead.where(user_id: users(:advocate).id).count
         siren.must_have_entity_size(expected)
       end
 
       def test_index_with_status_filter
-        get :index, status: 'closed_won'
+        get :index, submitted_status: :submitted
 
-        expected = Quote.closed_won.count
+        expected = Lead.submitted.count
+        siren.must_have_entity_size(expected)
+
+        get :index, submitted_status: :not_submitted
+        expected = Lead.not_submitted.count
+        siren.must_have_entity_size(expected)
+
+        get :index, submitted_status: :not_submitted,
+                    data_status: :ready_to_submit
+        expected = Lead.ready_to_submit.count
         siren.must_have_entity_size(expected)
       end
 
       def test_index_with_search
         get :index, search: 'gary'
 
-        expected = [ quotes(:search_hit1).id, quotes(:search_hit2).id ].sort
+        expected = [ leads(:search_hit1).id, leads(:search_hit2).id ].sort
         siren.must_have_entity_size(expected.size)
         siren.entities.map { |e| e.properties.id }.sort.must_equal expected
       end
 
       def test_deleting_already_submitted_lead
-        delete :destroy, id: quotes(:on_hold).id
+        delete :destroy, id: leads(:submitted).id
 
         siren.must_be_error
       end

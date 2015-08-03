@@ -12,10 +12,10 @@ module Admin
         format.html
         format.json do
           @stats_items = [
-            { name: 'Leads', value: submitted_quotes_count },
+            { name: 'Leads', value: submitted_leads_count },
             { name: 'Certifications', value: purchases_count },
-            { name: 'Certification Revenue', value: '$' + purchases_revenue.to_s },
-            { name: 'Final Contracts', value: quote_contracts_count },
+            { name: 'Certification Revenue', value: "$#{purchases_revenue}" },
+            { name: 'Final Contracts', value: contact_leads_count },
             { name: 'New Advocates', value: users_count }
           ]
         end
@@ -24,17 +24,12 @@ module Admin
 
     private
 
-    def submitted_quotes_count
-      Quote.where(['submitted_at > ? AND submitted_at < ?',
-                   @date_since, @date_until]).count
+    def submitted_leads_count
+      Lead.submitted(from: @date_since, to: @date_until).count
     end
 
-    def quote_contracts_count
-      Quote
-        .joins(:lead_updates)
-        .where(['lead_updates.contract > ? AND lead_updates.contract < ?',
-                @date_since, @date_until])
-        .map(&:id).uniq.length
+    def contact_leads_count
+      Lead.contracted(from: @date_since, to: @date_until).count
     end
 
     def purchases_count
