@@ -125,8 +125,10 @@ module UserScopes
     }
     scope :allows_sms, lambda {
       where([
-        "exist(profile, 'allow_sms') = false OR profile -> 'allow_sms' != ?",
-        'false'])
+        '(profile IS NULL ' \
+        "OR exist(profile, 'allow_sms') = ? " \
+        "OR profile -> 'allow_sms' != ?)",
+        false, 'false'])
     }
     scope :can_sms, -> { has_phone.allows_sms }
 

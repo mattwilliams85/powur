@@ -20,7 +20,7 @@
       <td>
         <span ng-repeat="release in item.entities">
           to: <b>{{ release.properties.recipient }}</b><br>
-          by: <b>{{ release.properties.user.full_name }}</b><br>
+          by: <b>{{ release.properties.user_full_name }}</b><br>
           at: <b>{{ release.properties.sent_at | date:'MM/dd/yyyy @ h:mma' }}</b><br>
           <span ng-if="!release.properties.finished_at" class="success label">
             in progress ...
