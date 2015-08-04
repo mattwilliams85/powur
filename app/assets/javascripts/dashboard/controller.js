@@ -3,7 +3,6 @@
 
   function DashboardCtrl($scope, $rootScope, $location, $timeout, UserProfile, CommonService, Utility) {
     $scope.redirectUnlessSignedIn();
-
     //Fetch Profile
     UserProfile.get().then(function(data) {
       $rootScope.currentUser = data.properties;
@@ -82,6 +81,7 @@
       }
     });
 
+
     $scope.fetchGoals = function() {
       CommonService.execute({
         href: '/u/users/' + $scope.currentUser.id + '/goals'
@@ -90,6 +90,8 @@
           $scope.goals = data;
           $scope.goals.requirements = data.entities[1].entities;
           $scope.goals.badge = $scope.badgePath(data.properties.next_rank);
+          $scope.progress = {};
+          calculateProgress($scope.goals.requirements);
         }
       });
     };
@@ -101,51 +103,32 @@
       }, 1000);
     };
 
-    $scope.calculateProgress = function(requirement) {
-      if (!requirement) return;
+    function calculateProgress(requirements) {
+      for (var i = 0; i < requirements.length; i++) {
+        var event_type = requirements[i].properties.event_type;
+        var goal = Utility.findBranch($scope.goals, { event_type: event_type });
+        goal.quantity = goal.quantity || 1;
+        if (goal.progress > goal.quantity) goal.progress = goal.quantity;
+        goal.percentage = ((goal.progress / goal.quantity) * 100);
+        goal = statusText(i, goal);
 
-      var event_type = Utility.searchObjVal(requirement, 'event_type');
-      var time_span = Utility.searchObjVal(requirement, 'time_span');
-      var quantity = Utility.searchObjVal(requirement, 'quantity');
+        $scope.progress[i] = goal;
+      }
+    }
 
-      var goalTypes = {
-        personal_sales: function() {
-          if (time_span === 'Lifetime') {
-            return Utility.searchObjVal($scope.goals, 'personal_lifetime');
-          } else {
-            return Utility.searchObjVal($scope.goals, 'personal');
-          }
-        },
-        group_sales: function() {
-          if (time_span === 'Lifetime') {
-            return Utility.searchObjVal($scope.goals, 'group_lifetime');
-          } else {
-            return Utility.searchObjVal($scope.goals, 'group');
-          }
-        },
-        purchase: function() {
-          var course, courseId, receipt, receiptId;
-          course = Utility.findBranch($scope.goals, { event_type: 'purchase' });
-          courseId = course.product_id;
-          receipt = Utility.findBranch($scope.goals, { class: 'purchase' });
-          if (receipt) receiptId = receipt.properties.product_id;
-          if (courseId === receiptId) {
-            $scope.courseProgress = 'purchased';
-            return 100;
-          }
-        },
-        default: function() { return; }
-      };
-
-      var setRequirement = goalTypes[event_type] || goalTypes['default'];
-      var result = setRequirement();
-
-      $scope.goals[event_type] = result + ' / ' + quantity;
-      if (!result) return '2%';
-      if(event_type === 'purchase') return result + '%';
-      return (result / quantity  * 100) + '%';
-    };
-
+    function statusText(i, goal) {
+      if (goal.event_type === 'purchase') {
+        if (goal.progress) {
+          goal.status = 'Course Complete';
+        } else {
+          goal.status = 'Course Incomplete';
+        }
+      } else {
+        goal.product = goal.event_type.split('_').join(' ');
+        goal.status = goal.progress + ' / ' + goal.quantity;
+      }
+      return goal;
+    }
   }
 
   DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService', 'Utility'];

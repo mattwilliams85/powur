@@ -35,6 +35,9 @@
 
   function cleanLabel() {
     return function(label) {
+      if (typeof label === 'undefined') {
+        return;
+      }
       return label.split('_').join(' ');
     };
   }
