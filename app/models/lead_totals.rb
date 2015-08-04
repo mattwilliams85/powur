@@ -62,23 +62,29 @@ class LeadTotals < ActiveRecord::Base
       lead_totals = where(pay_period_id: pay_period_id).entries
       highest_ranks = UserUserGroup
         .highest_ranks(pay_period_id: pay_period_id)
+      receipts = ProductReceipt
+        .joins(:product)
+        .where(products: { slug: 'partner' })
         .entries
+
       filename = "/tmp/rank_achievements_#{pay_period_id}.csv"
 
       CSV.open(filename, 'w') do |csv|
         csv << CSV_HEADERS
         users.each do |user|
-          row = [ user.id, user.first_name, user.last_name, user.partner? ]
+          row = [ user.id, user.first_name, user.last_name ]
+          partner = receipts.any? { |r| r.user_id == user.id }
+          row << partner
           [ :converted, :contracted ].each do |status|
             add_totals_to_csv_row(row, user.id, lead_totals, status)
           end
-          highest_rank = highest_ranks.detect do |hr|
-            hr.user_id == user.id
-          end
-          row << (highest_rank.nil? ? 0 : highest_rank.attributes['highest_rank'])
+          rank_achieved = user.pay_as_rank(highest_ranks: highest_ranks)
+          row << rank_achieved
           csv << row
         end
       end
+
+      users.size
     end
 
     def run_all_csvs!(pp_ids = nil)

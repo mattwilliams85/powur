@@ -142,14 +142,5 @@ class Lead < ActiveRecord::Base
         end
       query.where("date_part('year', #{field}) = ?", year)
     end
-
-    # def team_counts(user_id:      nil, 
-    #                 data_status:  :submitted,
-    #                 sales_status: nil,
-    #                 year:         nil,
-    #                 month:        nil,
-    #                 start_date:   nil)
-
-    # end
   end
 end

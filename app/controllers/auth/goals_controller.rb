@@ -9,7 +9,7 @@ module Auth
     private
 
     def fetch_rank
-      next_rank_id = @user.organic_rank ? @user.organic_rank + 1 : 1
+      next_rank_id = @user.pay_as_rank + 1
       @next_rank = Rank.find_by(id: next_rank_id)
       return unless @next_rank
 

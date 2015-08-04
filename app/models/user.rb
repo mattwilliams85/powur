@@ -128,8 +128,23 @@ class User < ActiveRecord::Base
     Customer.create!(first_name: first_name, last_name: last_name, email: email)
   end
 
-  def pay_as_rank
-    pay_period_rank || organic_rank
+  def highest_pay_period_rank(pay_period_id)
+    UserUserGroup
+      .where(user_id: id)
+      .highest_ranks(pay_period_id: pay_period_id)
+      .entries.first
+  end
+
+  def pay_as_rank(pay_period_id: nil, highest_ranks: nil)
+    highest_rank =
+      if highest_ranks
+        highest_ranks.entries.detect { |hr| hr.user_id == id }
+      else
+        pay_period_id ||= MonthlyPayPeriod.current.id
+        highest_pay_period_rank(pay_period_id)
+      end
+    highest_rank &&= highest_rank.attributes['highest_rank']
+    [ highest_rank || 0, organic_rank || 0 ].max
   end
 
   # KPI METHODS
