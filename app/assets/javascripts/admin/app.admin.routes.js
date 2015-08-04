@@ -95,19 +95,6 @@
       templateUrl: 'admin/orders/templates/edit.html',
       controller: 'AdminOrdersCtrl'
     }).
-    // Pay Periods
-    when('/admin/pay-periods', {
-      templateUrl: 'admin/pay-periods/templates/index.html',
-      controller: 'AdminPayPeriodsCtrl'
-    }).
-    when('/admin/pay-periods/:payPeriodId', {
-      templateUrl: 'admin/pay-periods/templates/show.html',
-      controller: 'AdminPayPeriodsCtrl'
-    }).
-    when('/admin/pay-periods/:payPeriodId/edit', {
-      templateUrl: 'admin/pay-periods/templates/edit.html',
-      controller: 'AdminPayPeriodsCtrl'
-    }).
     // Products
     when('/admin/products', {
       templateUrl: 'shared/admin/rest/index.html',

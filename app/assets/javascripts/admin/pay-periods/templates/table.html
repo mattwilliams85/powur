@@ -1,0 +1,14 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in index.data.entities">
+      <td>
+        <a ng-href="/admin/pay-periods/{{ item.properties.id }}">{{ item.properties.title }}</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

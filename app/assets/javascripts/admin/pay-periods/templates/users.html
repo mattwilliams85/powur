@@ -1,0 +1,14 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in index.data.entities">
+      <td>{{ item.properties.id }}</td>
+      <td>{{ item.properties.first_name }} {{ item.properties.last_name }}</td>
+    </tr>
+  </tbody>
+</table>
