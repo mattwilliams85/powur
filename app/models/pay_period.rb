@@ -282,11 +282,11 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     end
 
     def generate_missing
-      first_order = Order.all_time_first
-      return unless first_order
+      first_lead = Lead.converted.order(:converted_at).first
+      return unless first_lead
 
       [ MonthlyPayPeriod, WeeklyPayPeriod ].each do |period_klass|
-        ids = period_klass.ids_from(first_order.order_date)
+        ids = period_klass.ids_from(first_lead.converted_at)
         next if ids.empty?
         existing = period_klass.where(id: ids).pluck(:id)
         ids -= existing

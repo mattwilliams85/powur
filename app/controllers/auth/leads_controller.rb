@@ -9,7 +9,7 @@ module Auth
     sort created:  { created_at: :desc },
          customer: 'customers.last_name asc, customers.first_name asc'
     filter :submitted_status,
-           options:  [ :submitted, :not_submitted ],
+           options:  [ :not_submitted, :submitted ],
            required: false
     filter :data_status,
            options:  Lead.data_statuses.keys,

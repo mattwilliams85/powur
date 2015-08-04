@@ -39,5 +39,11 @@ class MonthlyPayPeriod < PayPeriod
     rescue ActiveRecord::RecordNotUnique
       retry
     end
+
+    def relevant_ids
+      first_lead = Lead.converted.order(:converted_at).first
+      return [] unless first_lead
+      ids_from(first_lead.converted_at)
+    end
   end
 end

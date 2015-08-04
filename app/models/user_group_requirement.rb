@@ -16,8 +16,12 @@ class UserGroupRequirement < ActiveRecord::Base
     "#{quantity} #{time_span} #{event_type} for #{product.name}"
   end
 
-  def qualified_user_ids
-    purchase? ? purchased_user_ids : sales_met_user_ids
+  def smaller_legs_amount_needed
+    ((1 - (max_leg / 100.0)) * quantity).ceil
+  end
+
+  def qualified_user_ids(pay_period_id)
+    purchase? ? purchased_user_ids : sales_met_user_ids(pay_period_id)
   end
 
   def user_qualified?(user_id)
@@ -30,6 +34,12 @@ class UserGroupRequirement < ActiveRecord::Base
     else
       sales_progress_for(user)
     end
+  end
+
+  def lead_totals_quantity_column
+    name = personal_sales? ? 'personal' : 'team'
+    name += '_lifetime' unless monthly?
+    name
   end
 
   private
@@ -61,19 +71,17 @@ class UserGroupRequirement < ActiveRecord::Base
     ProductReceipt.where(product_id: product_id)
   end
 
-  def order_total_quantity_column
-    name = personal_sales? ? 'personal' : 'group'
-    name += '_lifetime' unless monthly?
-    name
-  end
-
-  def qualified_order_totals
-    @order_totals ||= begin
-      period_id = MonthlyPayPeriod.current.id
-      OrderTotal.where(product_id:    product_id,
-                       pay_period_id: period_id)
-        .where("\"#{order_total_quantity_column}\" >= ?", quantity)
+  def qualified_lead_totals(pay_period_id)
+    status = LeadTotals.statuses[proposals? ? :converted : :contracted]
+    lead_totals = LeadTotals
+      .where(pay_period_id: pay_period_id)
+      .where(status: status)
+      .where("\"#{lead_totals_quantity_column}\" >= ?", quantity)
+      .entries
+    if max_leg? && max_leg > 0
+      lead_totals.reject! { |lt| !lt.requirement_met?(req) }
     end
+    lead_totals
   end
 
   def purchased_user_ids
@@ -84,8 +92,8 @@ class UserGroupRequirement < ActiveRecord::Base
     purchases.where(user_id: user_id).exists?
   end
 
-  def sales_met_user_ids
-    qualified_order_totals.pluck(:user_id)
+  def sales_met_user_ids(pay_period_id)
+    qualified_lead_totals(pay_period_id).map(&:user_id)
   end
 
   def condition_user_query(user_id)

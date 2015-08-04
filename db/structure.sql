@@ -402,6 +402,42 @@ CREATE TABLE invites (
 
 
 --
+-- Name: lead_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE lead_totals (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    pay_period_id character varying NOT NULL,
+    status integer NOT NULL,
+    personal integer DEFAULT 0 NOT NULL,
+    team integer DEFAULT 0 NOT NULL,
+    personal_lifetime integer DEFAULT 0 NOT NULL,
+    team_lifetime integer DEFAULT 0 NOT NULL,
+    smaller_legs integer
+);
+
+
+--
+-- Name: lead_totals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE lead_totals_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lead_totals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE lead_totals_id_seq OWNED BY lead_totals.id;
+
+
+--
 -- Name: lead_updates; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1277,7 +1313,8 @@ ALTER SEQUENCE user_overrides_id_seq OWNED BY user_overrides.id;
 
 CREATE TABLE user_user_groups (
     user_id integer NOT NULL,
-    user_group_id character varying NOT NULL
+    user_group_id character varying NOT NULL,
+    pay_period_id character varying
 );
 
 
@@ -1391,6 +1428,13 @@ ALTER TABLE ONLY delayed_jobs ALTER COLUMN id SET DEFAULT nextval('delayed_jobs_
 --
 
 ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distributions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY lead_totals ALTER COLUMN id SET DEFAULT nextval('lead_totals_id_seq'::regclass);
 
 
 --
@@ -1658,6 +1702,14 @@ ALTER TABLE ONLY invites
 
 
 --
+-- Name: lead_totals_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY lead_totals
+    ADD CONSTRAINT lead_totals_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: lead_updates_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1866,14 +1918,6 @@ ALTER TABLE ONLY user_overrides
 
 
 --
--- Name: user_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY user_user_groups
-    ADD CONSTRAINT user_user_groups_pkey PRIMARY KEY (user_id, user_group_id);
-
-
---
 -- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1893,6 +1937,20 @@ CREATE INDEX delayed_jobs_priority ON delayed_jobs USING btree (priority, run_at
 --
 
 CREATE UNIQUE INDEX idx_order_totals_composite_key ON order_totals USING btree (pay_period_id, user_id, product_id);
+
+
+--
+-- Name: idx_user_user_groups_not_null_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX idx_user_user_groups_not_null_pp ON user_user_groups USING btree (user_id, user_group_id, pay_period_id) WHERE (pay_period_id IS NOT NULL);
+
+
+--
+-- Name: idx_user_user_groups_null_pp; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX idx_user_user_groups_null_pp ON user_user_groups USING btree (user_id, user_group_id) WHERE (pay_period_id IS NULL);
 
 
 --
@@ -1921,6 +1979,13 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 --
 
 CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
+
+
+--
+-- Name: index_lead_totals_on_user_id_and_pay_period_id_and_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_lead_totals_on_user_id_and_pay_period_id_and_status ON lead_totals USING btree (user_id, pay_period_id, status);
 
 
 --
@@ -2308,6 +2373,14 @@ ALTER TABLE ONLY user_user_groups
 
 
 --
+-- Name: fk_rails_87318f7421; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_user_groups
+    ADD CONSTRAINT fk_rails_87318f7421 FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
+
+
+--
 -- Name: fk_rails_8f72336587; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2646,4 +2719,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150730193413');
 INSERT INTO schema_migrations (version) VALUES ('20150731215918');
 
 INSERT INTO schema_migrations (version) VALUES ('20150803194350');
+
+INSERT INTO schema_migrations (version) VALUES ('20150803223713');
+
+INSERT INTO schema_migrations (version) VALUES ('20150804154325');
 

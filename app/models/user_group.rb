@@ -34,8 +34,11 @@ class UserGroup < ActiveRecord::Base
     !monthly?
   end
 
-  def qualified_user_ids
-    requirements.map(&:qualified_user_ids).inject(:&) # intersection
+  def qualified_user_ids(pay_period_id)
+    user_ids = requirements.map do |req|
+      req.qualified_user_ids(pay_period_id)
+    end
+    user_ids.inject(:&) # intersection
   end
 
   def user_qualifies?(user_id)

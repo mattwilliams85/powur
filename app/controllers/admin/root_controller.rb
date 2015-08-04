@@ -15,7 +15,7 @@ module Admin
             { name: 'Leads', value: submitted_leads_count },
             { name: 'Certifications', value: purchases_count },
             { name: 'Certification Revenue', value: "$#{purchases_revenue}" },
-            { name: 'Final Contracts', value: contact_leads_count },
+            { name: 'Final Contracts', value: contracted_leads_count },
             { name: 'New Advocates', value: users_count }
           ]
         end
@@ -28,7 +28,7 @@ module Admin
       Lead.submitted(from: @date_since, to: @date_until).count
     end
 
-    def contact_leads_count
+    def contracted_leads_count
       Lead.contracted(from: @date_since, to: @date_until).count
     end
 

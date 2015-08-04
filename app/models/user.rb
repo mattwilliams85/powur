@@ -151,7 +151,7 @@ class User < ActiveRecord::Base
 
   def highest_rank
     @highest_rank ||= begin
-      result = UserUserGroup.highest_ranks(id).entries.first
+      result = UserUserGroup.highest_ranks(user_id: id).entries.first
       result && result.attributes['highest_rank']
     end
   end

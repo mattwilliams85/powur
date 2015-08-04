@@ -43,10 +43,18 @@ module UserScopes
         .joins("LEFT JOIN (#{sub_query.to_sql}) tc ON users.id = tc.parent_id")
     }
 
-    scope :lead_count, lambda { |lead_scope = :submitted|
-      sub_query = Lead.send(lead_scope).user_count
+    scope :lead_count, lambda { |lead_query = Lead.submitted|
+      sub_query = lead_query.user_count
       select('*')
         .joins("LEFT JOIN (#{sub_query.to_sql}) lc ON users.id = lc.user_id")
+    }
+
+    scope :team_lead_count, lambda { |lead_query|
+      sub_sql = lead_query.user_count.to_sql
+      select('unnest(upline) id,
+              CAST(coalesce(sum(lc.lead_count), 0) AS integer) lead_count')
+        .joins("LEFT JOIN (#{sub_sql}) lc ON lc.user_id = users.id")
+        .group('1')
     }
 
     scope :with_parent, lambda { |*user_ids|
@@ -85,8 +93,9 @@ module UserScopes
       ranked_up.where('lifetime_rank is null or organic_rank > lifetime_rank')
     }
 
-    scope :needs_organic_rank_up, lambda {
-      joins_sql = UserUserGroup.highest_ranks.to_sql
+    scope :needs_organic_rank_up, lambda { |pay_period_id: nil|
+      joins_sql = UserUserGroup
+        .highest_ranks(pay_period_id: pay_period_id).to_sql
       select('hr.highest_rank, users.id')
         .joins("join (#{joins_sql}) hr on hr.user_id = users.id")
         .where('organic_rank is null or organic_rank < hr.highest_rank')
