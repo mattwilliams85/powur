@@ -207,8 +207,9 @@
     };
 
     $scope.fullName = function(user) {
+      if (!user) return;
       return user.properties.first_name + ' ' + user.properties.last_name;
-    }
+    };
 
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
@@ -275,6 +276,7 @@
       });
     } else if ($scope.mode === 'edit_password') {
       getUser($routeParams.userId, function(item) {
+        $scope.user = item;
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
         $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + item.properties.id});
         $rootScope.breadcrumbs.push({title: 'Edit Password'});
