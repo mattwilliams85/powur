@@ -21,31 +21,30 @@
         <h5>Your Pay Period Goals</h5>
         <!-- Legend -->
         <div class="legend">
-          <div ng-repeat="requirement in goals.requirements track by $index">
+          <div ng-repeat="goal in progress track by $index">
             <div class="legend-item">
-              <div class="legend-key legend-{{$index}}"></div>
+              <div class="legend-key {{progress[$index].event_type}}"></div>
               <span>{{progress[$index].product}}</span>
             </div>
             <div class="clearfix"></div>
           </div>
         </div>
-        <div class="progress-bar-box" ng-class="{ large : goals.requirements.length > 1 }">
+        <div class="progress-bar-box" ng-class="{ large : requirements.length > 1 }">
           <!-- Badge -->
           <div class="badge show-for-medium-up">
-            <img class="badge" ng-class="{ half: goals.requirements.length == 2, full: goals.requirements.length === 1 }" ng-src="{{badgePath(goals.properties.next_rank)}}">
+            <img class="badge" ng-class="{ half: requirements.length == 2, full: requirements.length === 1 }" ng-src="{{badgePath(properties.next_rank)}}">
           </div>
-          <div ng-repeat="requirement in goals.requirements track by $index" repeat-end="onEnd()">
+          <div ng-repeat="goal in progress track by $index" repeat-end="onEnd()">
             <div
-              class="progress-bar enrollment"
-              ng-class="{ half: goals.requirements.length === 2,
-                          full: goals.requirements.length === 1 }">
+              class="progress-bar"
+              ng-class="{ half: requirements.length === 2,
+                          full: requirements.length === 1 }">
               <span class="progress-text">{{progress[$index].status}}</span>
-              <div class="bar hold {{'bar-'+$index}}"  style="width: {{progress[$index].percentage || 2}}%"></div>
+              <div class="bar hold {{progress[$index].event_type}}"  style="width: {{progress[$index].percentage || 2}}%"></div>
             </div>
           </div>
         </div><!-- end progress-bar-box -->
-
-        <span ng-if="!currentUser.organic_rank" class="course-requirement-message">Welcome to Powur. Review the <a ng-href="/university">Fast Impact Training (FIT)</a> by clicking on PowurU above.</span>
+        <span ng-if="!currentUser.organic_rank" class="course-requirement-message">Welcome to Powur. Review the <a ng-href="/university">Powur Partner Certification</a> by clicking on PowurU above.</span>
       </div>
     </div>
   </div>

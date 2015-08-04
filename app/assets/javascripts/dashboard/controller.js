@@ -88,10 +88,10 @@
       }).then(function(data) {
         if (data) {
           $scope.goals = data;
-          $scope.goals.requirements = data.entities[1].entities;
+          $scope.requirements = data.entities[1].entities;
           $scope.goals.badge = $scope.badgePath(data.properties.next_rank);
           $scope.progress = {};
-          calculateProgress($scope.goals.requirements);
+          calculateProgress($scope.requirements);
         }
       });
     };
