@@ -32,7 +32,7 @@
         <div class="progress-bar-box" ng-class="{ large : requirements.length > 1 }">
           <!-- Badge -->
           <div class="badge show-for-medium-up">
-            <img class="badge" ng-class="{ half: requirements.length == 2, full: requirements.length === 1 }" ng-src="{{badgePath(properties.next_rank)}}">
+            <img class="badge" ng-class="{ half: requirements.length == 2, full: requirements.length === 1 }" ng-src="{{goals.badge}}">
           </div>
           <div ng-repeat="goal in progress track by $index" repeat-end="onEnd()">
             <div
