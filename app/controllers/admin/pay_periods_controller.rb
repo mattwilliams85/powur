@@ -6,6 +6,7 @@ module Admin
 
     helper_method :can_calculate?, :can_disburse?
 
+    filter :time_span, options: [ :monthly, :weekly ]
     filter :calculated, scope_opts: { type: :boolean }
     filter :disbursed, scope_opts: { type: :boolean }
 
