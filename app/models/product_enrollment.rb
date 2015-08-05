@@ -1,6 +1,4 @@
 class ProductEnrollment < ActiveRecord::Base
-  include EwalletDSL
-
   belongs_to :product
   belongs_to :user
 

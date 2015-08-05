@@ -91,11 +91,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :ewallet, only:       [ :index, :account_details ],
-                       controller: :ewallet do
-      get 'account_details', to: 'ewallet#account_details'
-    end
-
     resource :profile,
              only:       [ :show, :update, :password_reset,
                            :create_ewallet ],

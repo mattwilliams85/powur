@@ -2,7 +2,6 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   include Calculator::RankAchievements
   include Calculator::OrderTotals
   include Calculator::Bonuses
-  include EwalletDSL
 
   has_many :order_totals, dependent: :destroy
   has_many :rank_achievements, dependent: :destroy
@@ -52,9 +51,9 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   def disburse!
     payments_per_user = BonusPayment.user_bonus_totals(self)
 
-    query = prepare_load_request(self, payments_per_user)
-
-    ewallet_request(:ewallet_load, query)
+    # query = prepare_load_request(self, payments_per_user)
+    #
+    # ewallet_request(:ewallet_load, query)
   end
 
   def calculated?
