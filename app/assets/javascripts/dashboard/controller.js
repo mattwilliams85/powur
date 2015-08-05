@@ -32,7 +32,7 @@
     }
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):
-    $scope.customerSection = {};
+    $scope.leadPipelineSection = {};
     $scope.teamSection = {};
     $scope.progress = {};
 

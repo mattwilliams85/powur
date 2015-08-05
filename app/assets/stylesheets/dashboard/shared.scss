@@ -474,7 +474,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
 
   // Shared Carousel Item Styles
-  .new-proposal, .proposal,
+  .new-lead, .lead,
   .new-team-member, .team-member, .team-member-info-large,
   .new-invite, .invite {
     background-color: #fff;
@@ -606,7 +606,7 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
 
   // Horizontal Lines / Spacing Between Sections
   .kpi-section:before,
-  .customers-section:before,
+  .leadpipeline-section:before,
   .team-section:before {
     content: '';
     display: block;

@@ -1,4 +1,4 @@
-<form ng-submit="customerSection.saveProposal()" id="customers-form">
+<form ng-submit="leadPipelineSection.saveLead()" id="customers-form">
   <div class="row">
     <div class="large-6 columns">
       <fieldset>
@@ -8,11 +8,11 @@
         <div class="row">
           <div class="large-6 medium-6 columns">
             <label>First Name</label>
-            <input ng-model="proposal.first_name" type="text">
+            <input ng-model="lead.first_name" type="text">
           </div>
           <div class="large-6 medium-6 columns">
             <label>Last Name</label>
-            <input ng-model="proposal.last_name" type="text">
+            <input ng-model="lead.last_name" type="text">
           </div>
         </div>
 
@@ -20,7 +20,7 @@
         <div class="row">
           <div class="large-12 medium-12 columns">
             <label>Email</label>
-            <input ng-model="proposal.email" type="email">
+            <input ng-model="lead.email" type="email">
           </div>
         </div>
 
@@ -28,7 +28,7 @@
         <div class="row">
           <div class="large-12 medium-12 columns">
             <label>Phone</label>
-            <input ng-model="proposal.phone" type="text">
+            <input ng-model="lead.phone" type="text">
           </div>
         </div>
 
@@ -36,7 +36,7 @@
         <div class="row">
           <div class="large-12 medium-12 columns">
             <label>Address</label>
-            <input ng-model="proposal.address" type="text">
+            <input ng-model="lead.address" type="text">
           </div>
         </div>
 
@@ -44,15 +44,15 @@
         <div class="row">
           <div class="large-5 medium-5 columns">
             <label>City</label>
-            <input ng-model="proposal.city" type="text">
+            <input ng-model="lead.city" type="text">
           </div>
           <div class="large-3 medium-3 small-6 columns">
             <label>State</label>
-            <input ng-model="proposal.state" type="text">
+            <input ng-model="lead.state" type="text">
           </div>
           <div class="large-4 medium-4 small-6 columns">
             <label>ZIP</label>
-            <input ng-model="proposal.zip" type="text">
+            <input ng-model="lead.zip" type="text">
           </div>
         </div>
 
@@ -60,13 +60,13 @@
     </div>
     <div class="large-6 columns">
       <fieldset>
-        <legend ng-if="proposal.productFields"><i class="fa fa-info-circle"></i> Other Information</legend>
+        <legend ng-if="lead.productFields"><i class="fa fa-info-circle"></i> Other Information</legend>
 
         <!-- Custom Product Fields -->
-        <div ng-repeat="productField in proposal.productFields" class="row">
+        <div ng-repeat="productField in lead.productFields" class="row">
           <div class="large-12 medium-12 columns">
             <label>{{ productField.name | cleanLabel }}</label>
-            <input ng-model="proposal[productField.name]" type="{{productField.type}}">
+            <input ng-model="lead[productField.name]" type="{{productField.type}}">
           </div>
         </div>
 
@@ -74,19 +74,19 @@
         <div class="row">
           <div class="large-12 columns">
             <label>Notes</label>
-            <textarea ng-model="proposal.notes" class="notes"></textarea>
+            <textarea ng-model="lead.notes" class="notes"></textarea>
           </div>
         </div>
 
         <!-- Buttons -->
         <div class="row">
           <div class="large-12 columns">
-            <!-- New Proposal Form Buttons -->
+            <!-- New Lead Form Buttons -->
             <div ng-show="mode === 'new'">
               <button class="button right" >Save</button>
               <button class="button secondary left" ng-click="closeForm()">Cancel</button>
             </div>
-            <!-- Incomplete Proposal Form Buttons -->
+            <!-- Incomplete Lead Form Buttons -->
             <div ng-show="mode === 'incomplete' || mode === 'ineligible_location' || mode === 'ready_to_submit'">
               <button class="button secondary right">Update</button>
               <button class="button secondary left" ng-click="closeForm()">Cancel</button>

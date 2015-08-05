@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function DashboardCustomersCtrl($scope, $rootScope, $location, $http, $timeout, $route, $anchorScroll, CommonService) {
+  function DashboardLeadPipelineCtrl($scope, $rootScope, $location, $http, $timeout, $route, $anchorScroll, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     $scope.legacyImagePaths = legacyImagePaths;
@@ -25,8 +25,8 @@
 
     // Check if action exists (used in front-end for action buttons)
     $scope.hasAction = function(actionName) {
-      if ($scope.proposalItem && Object.keys($scope.proposal).length) {
-        var action = $scope.getAction($scope.proposalItem.actions, actionName);
+      if ($scope.leadItem && Object.keys($scope.lead).length) {
+        var action = $scope.getAction($scope.leadItem.actions, actionName);
         if (action) return true;
         else return false;
       }
@@ -79,7 +79,7 @@
 
     // Close Form when Moving Carousel
     function closeForm(event) {
-      if ($scope.updatingProposal !== true) {
+      if ($scope.updatingLead !== true) {
         $timeout(function() {
           $scope.closeForm();
         });
@@ -95,11 +95,11 @@
     function refreshCarousel(cb) {
       getLeads(function(items) {
         $scope.closeForm();
-        destroyCarousel('.proposals');
+        destroyCarousel('.leads');
         $timeout(function() {
-          $scope.proposals = items.entities;
+          $scope.leads = items.entities;
           $timeout(function() {
-            initCarousel('.proposals');
+            initCarousel('.leads');
             if (cb) return cb();
             return;
           });
@@ -107,46 +107,53 @@
       });
     }
 
+    // Set Mode for front-end display of leads
+    function setMode(leadItem) {
+
+    }
+
+    // Set correct status icon and 
+
     // Controller Actions:
 
-    // Show Proposal
-    $scope.customerSection.showProposal = function(proposalIndex) {
-      $scope.updatingProposal = false;
-      var proposalId = $scope.proposals[proposalIndex].properties.id;
-      $scope.proposalIndex = proposalIndex;
-      if ($scope.showForm === true && (proposalId === $scope.currentProposal.id)) {
+    // Show Lead
+    $scope.leadPipelineSection.showLead = function(leadIndex) {
+      $scope.updatingLead = false;
+      var leadId = $scope.leads[leadIndex].properties.id;
+      $scope.leadIndex = leadIndex;
+      if ($scope.showForm === true && (leadId === $scope.currentLead.id)) {
         $scope.closeForm();
         return;
       } else {
         $scope.showForm = false;
         $scope.drilldownActive = false;
-        $scope.currentProposalIndex = proposalIndex;
+        $scope.currentLeadIndex = leadIndex;
 
         CommonService.execute({
-          href: '/u/leads/' + proposalId + '.json'
+          href: '/u/leads/' + leadId + '.json'
         }).then(function(item){
           $scope.animateDrilldown();
-          if  (item.properties.status === 'submitted' ||
-              item.properties.status === 'in_progress' ||
-              item.properties.status === 'closed_won' ||
-              item.properties.status === 'lost' ||
-              item.properties.status === 'on_hold'){
+          if (item.properties.data_status === 'submitted' ||
+              item.properties.data_status === 'in_progress' ||
+              item.properties.data_status === 'closed_won' ||
+              item.properties.data_status === 'lost' ||
+              item.properties.data_status === 'on_hold') {
             $timeout( function(){
-              $scope.proposal = item.properties;
-              $scope.proposalItem = item;
+              $scope.lead = item.properties;
+              $scope.leadItem = item;
               $scope.showProductFields = !!Object.keys(item.properties.product_fields).length;
               $scope.showNotes = !!item.properties.notes;
-              $scope.currentProposal = item.properties;
-              $scope.mode = item.properties.status;
+              $scope.currentLead = item.properties;
+              $scope.mode = item.properties.data_status;
             }, 300);
           } else {
             $timeout( function(){
               $scope.formAction = $scope.getAction(item.actions, 'update');
-              $scope.proposalItem = item;
-              $scope.proposal = $scope.setFormValues($scope.formAction);
-              $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
-              $scope.currentProposal = item.properties;
-              $scope.mode = item.properties.status;
+              $scope.leadItem = item;
+              $scope.lead = $scope.setFormValues($scope.formAction);
+              $scope.lead.productFields = $scope.setProductFields($scope.formAction);
+              $scope.currentLead = item.properties;
+              $scope.mode = item.properties.data_status;
             }, 300);
           }
         });
@@ -154,7 +161,7 @@
     };
 
     // New Proposal Action
-    $scope.customerSection.newProposal = function() {
+    $scope.leadPipelineSection.newLead = function() {
       if ($scope.showForm === true && $scope.mode === 'new') {
         $scope.closeForm();
         return;
@@ -162,8 +169,8 @@
         $scope.showForm = false;
         $scope.drilldownActive = false;
         $scope.animateDrilldown();
-        $scope.proposal = {};
-        $scope.currentProposal = {};
+        $scope.lead = {};
+        $scope.currentLead = {};
 
         getLeads(function(items){
           $scope.animateDrilldown();
@@ -171,7 +178,7 @@
           $timeout( function(){
             $scope.mode = 'new';
             $scope.formAction = $scope.getAction(items.actions, 'create');
-            $scope.proposal.productFields = $scope.setProductFields($scope.formAction);
+            $scope.lead.productFields = $scope.setProductFields($scope.formAction);
 
           }, 200);
         });
@@ -179,9 +186,9 @@
     };
 
     // Save/Update Proposal Action
-    $scope.customerSection.saveProposal = function() {
-      if ($scope.proposal && $('#customers-form')[0].checkValidity()) {
-        CommonService.execute($scope.formAction, $scope.proposal).then(actionCallback($scope.formAction));
+    $scope.leadPipelineSection.saveLead = function() {
+      if ($scope.lead && $('#customers-form')[0].checkValidity()) {
+        CommonService.execute($scope.formAction, $scope.lead).then(actionCallback($scope.formAction));
       }
     };
 
@@ -191,23 +198,23 @@
           refreshCarousel(function() {
             $timeout(function() {
               if (action.name === 'create') {
-                $('.proposals').data('owlCarousel').goTo(0);
-                $scope.customerSection.showProposal(0);
+                $('.leads').data('owlCarousel').goTo(0);
+                $scope.leadPipelineSection.showLead(0);
               }
             });
           });
 
         } else if (action.name === 'update') {
           getLeads(function(items) {
-            $scope.updatingProposal = true;
+            $scope.updatingLead = true;
             $scope.closeForm();
-            destroyCarousel('.proposals');
-            $scope.proposals = items.entities;
+            destroyCarousel('.leads');
+            $scope.leads = items.entities;
             $timeout(function() {
-              initCarousel('.proposals');
+              initCarousel('.leads');
               $timeout(function() {
-                $('.proposals').data('owlCarousel').goTo($scope.proposalIndex);
-                $scope.customerSection.showProposal($scope.proposalIndex);
+                $('.leads').data('owlCarousel').goTo($scope.leadIndex);
+                $scope.leadPipelineSection.showLead($scope.leadIndex);
               });
             });
           });
@@ -215,52 +222,52 @@
           console.log('submitted proposal!');
           $scope.closeForm();
           $anchorScroll();
-          $scope.showModal('This proposal was submitted to SolarCity!');
+          $scope.showModal('This lead was submitted to SolarCity!');
           refreshCarousel();
 
         } else if (action.name === 'resend') {
           $scope.closeForm();
           $anchorScroll();
-          $scope.showModal('This proposal email was successfully re-sent to ' +
-            $scope.proposal.customer + ' at ' +
-            $scope.proposal.email + '.');
+          $scope.showModal('This lead email was successfully re-sent to ' +
+            $scope.lead.customer + ' at ' +
+            $scope.lead.email + '.');
         }
       };
     }
 
-    // Submit Proposal to SolarCity Action
-    $scope.customerSection.submit = function() {
+    // Submit Lead to SolarCity Action
+    $scope.leadPipelineSection.submit = function() {
       if (confirm('Please confirm that all fields in the customer\'s contact information are correct before proceeding. \n' +
-          'Are you sure you want to submit this proposal to SolarCity?')) {
-        $scope.submitAction = $scope.getAction($scope.proposalItem.actions, 'submit');
+          'Are you sure you want to submit this lead to SolarCity?')) {
+        $scope.submitAction = $scope.getAction($scope.leadItem.actions, 'submit');
         if ($scope.submitAction) {
           CommonService.execute($scope.submitAction).then(actionCallback($scope.submitAction));
         } else {
-          alert('This proposal can\'t be submitted to SolarCity.');
+          alert('This lead can\'t be submitted to SolarCity.');
         }
       }
     };
 
-    // Delete Proposal Action
-    $scope.customerSection.delete = function() {
-      if (confirm('Are you sure you want to delete this proposal?')) {
-        var deleteAction = $scope.getAction($scope.proposalItem.actions, 'delete');
+    // Delete Lead Action
+    $scope.leadPipelineSection.delete = function() {
+      if (confirm('Are you sure you want to delete this lead?')) {
+        var deleteAction = $scope.getAction($scope.leadItem.actions, 'delete');
         if (deleteAction) {
           CommonService.execute(deleteAction).then(actionCallback(deleteAction));
         } else {
-          alert("This proposal can't be deleted.");
+          alert("This lead can't be deleted.");
         }
       }
     };
 
     // Resend Email Action
-    $scope.customerSection.resend = function() {
-      if (confirm('Are you sure you want to resend the proposal email to this customer?')) {
-        var resendAction = $scope.getAction($scope.proposalItem.actions, 'resend');
+    $scope.leadPipelineSection.resend = function() {
+      if (confirm('Are you sure you want to resend the lead email to this customer?')) {
+        var resendAction = $scope.getAction($scope.leadItem.actions, 'resend');
         if (resendAction) {
           CommonService.execute(resendAction).then(actionCallback(resendAction));
         } else {
-          alert("This proposal can't be re-sent.");
+          alert("This lead can't be re-sent.");
         }
       }
     };
@@ -277,20 +284,20 @@
     $scope.closeForm = function() {
       $scope.drilldownActive = false;
       $scope.showForm = false;
-      $scope.currentProposal = {};
+      $scope.currentLead = {};
       $scope.mode = '';
     };
 
     // Index Actions
 
     // Defaults
-    $scope.customerSection.proposalSort = '';
-    $scope.customerSection.proposalStatus = '';
-    $scope.customerSection.proposalSearch = '';
-    $scope.customerSection.indexAction = {};
+    $scope.leadPipelineSection.proposalSort = '';
+    $scope.leadPipelineSection.proposalStatus = '';
+    $scope.leadPipelineSection.proposalSearch = '';
+    $scope.leadPipelineSection.indexAction = {};
 
     // Get Options from Index Action Fields for Sort and Status
-    $scope.customerSection.getOptions = function(indexAction, fieldName) {
+    $scope.leadPipelineSection.getOptions = function(indexAction, fieldName) {
       for (var i in indexAction.fields) {
         if (indexAction.fields[i].name === fieldName) {
           return indexAction.fields[i].options;
@@ -301,35 +308,35 @@
     // Set Options for Index Action Fields for Sort and Status
     /*
     * This function requires the initial getLeads() request to run (see "getLeads Main Function" below)
-    * $scope.customerSection.indexAction is set within the getLeads() callback
+    * $scope.leadPipelineSection.indexAction is set within the getLeads() callback
     */
-    $scope.$watch('customerSection.indexAction', function(data) {
+    $scope.$watch('leadPipelineSection.indexAction', function(data) {
       if (!Object.keys(data).length) return;
-      $scope.customerSection.proposalSortOptions = $scope.customerSection.getOptions($scope.customerSection.indexAction, 'sort');
-      $scope.customerSection.proposalStatusOptions = $scope.customerSection.getOptions($scope.customerSection.indexAction, 'status');
+      $scope.leadPipelineSection.proposalSortOptions = $scope.leadPipelineSection.getOptions($scope.leadPipelineSection.indexAction, 'sort');
+      $scope.leadPipelineSection.proposalStatusOptions = $scope.leadPipelineSection.getOptions($scope.leadPipelineSection.indexAction, 'status');
     });
 
     // Apply Search
-    $scope.customerSection.search = function (user) {
+    $scope.leadPipelineSection.search = function (user) {
       if (!$scope.nameQuery.length) return;
 
       if(typeof(user) != 'object') {
         user = $scope.nameQuery[$scope.queryIndex];
         $scope.nameQuery = [];
       }
-      for (var i=0; i < $scope.proposals.length; i++) {
-        if($scope.proposals[i].properties.id === user.properties.id) {
+      for (var i=0; i < $scope.leads.length; i++) {
+        if($scope.leads[i].properties.id === user.properties.id) {
           $('#customers-carousel').trigger('owl.jumpTo', i);
-          $scope.customerSection.showProposal(i);
+          $scope.leadPipelineSection.showLead(i);
         }
       }
-      // $scope.customerSection.proposalSort = '';
-      // $scope.customerSection.proposalStatus = '';
-      // $scope.customerSection.applyIndexActions();
-      // if ($scope.customerSection.proposalSearch === '') {
-      //   $scope.customerSection.searching = false;
+      // $scope.leadPipelineSection.proposalSort = '';
+      // $scope.leadPipelineSection.proposalStatus = '';
+      // $scope.leadPipelineSection.applyIndexActions();
+      // if ($scope.leadPipelineSection.proposalSearch === '') {
+      //   $scope.leadPipelineSection.searching = false;
       // } else {
-      //   $scope.customerSection.searching = true;
+      //   $scope.leadPipelineSection.searching = true;
       // }
     };
 
@@ -380,30 +387,30 @@
     }
 
     // Apply Sort/Status
-    $scope.customerSection.applyIndexActions = function() {
+    $scope.leadPipelineSection.applyIndexActions = function() {
       var data = {
-        sort: $scope.customerSection.proposalSort,
-        status: $scope.customerSection.proposalStatus
+        sort: $scope.leadPipelineSection.proposalSort,
+        status: $scope.leadPipelineSection.proposalStatus
       };
-      if ($scope.customerSection.proposalSearch) {
-        data.search = $scope.customerSection.proposalSearch;
+      if ($scope.leadPipelineSection.proposalSearch) {
+        data.search = $scope.leadPipelineSection.proposalSearch;
       }
-      if ($scope.customerSection.proposalStatus !== '') {
-        $scope.customerSection.searching = true;
+      if ($scope.leadPipelineSection.proposalStatus !== '') {
+        $scope.leadPipelineSection.searching = true;
       }
 
       var href = '/u/users/' + $rootScope.currentUser.id + '/leads'
       $scope.closeForm();
-      destroyCarousel('.proposals');
+      destroyCarousel('.leads');
 
       $http({
         method: 'GET',
         url: href,
         params: data,
       }).success(function(items) {
-        $scope.proposals = items.entities;
+        $scope.leads = items.entities;
         $timeout(function() {
-          initCarousel('.proposals');
+          initCarousel('.leads');
         });
       });
     };
@@ -418,20 +425,20 @@
       if (!Object.keys(data).length) return;
 
       getLeads(function(items) {
-        // Set Proposals
-        $scope.proposals = items.entities;
+        // Set Leads
+        $scope.leads = items.entities;
         // Set Index Action
-        $scope.customerSection.indexAction = $scope.getAction(items.actions, 'index');
-        // Initialize Proposals Carousel
+        $scope.leadPipelineSection.indexAction = $scope.getAction(items.actions, 'index');
+        // Initialize Leads Carousel
         $timeout(function(){
-          initCarousel('.proposals');
+          initCarousel('.leads');
         });
       });
     });
   }
 
-  DashboardCustomersCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$timeout', '$route', '$anchorScroll', 'CommonService'];
+  DashboardLeadPipelineCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$timeout', '$route', '$anchorScroll', 'CommonService'];
   angular
     .module('powurApp')
-    .controller('DashboardCustomersCtrl', DashboardCustomersCtrl);
+    .controller('DashboardLeadPipelineCtrl', DashboardLeadPipelineCtrl);
 })();
