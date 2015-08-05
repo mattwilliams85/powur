@@ -14,44 +14,65 @@
       <div class="large-3 medium-6 columns">
       <!-- Search -->
         <div class="row collapse">
-          <form ng-submit="leadPipelineSection.search()">
+          <form>
             <div class="no-padding large-12 medium-12 small-12 columns">
               <!-- <input ng-model="leadPipelineSection.proposalSearch" type="search" placeholder="SEARCH"> -->
               <input 
-                id="customer-search" 
-                type="search" 
-                ng-model="customerSearch.string"  
-                placeholder="SEARCH" 
-                ng-change="fetchNames()" 
-                ng-blur="clearQuery(true)" 
+                id="customer-search"
+                type="search"
+                ng-model="customerSearch.string"
+                placeholder="SEARCH"
+                ng-change="fetchNames()"
+                ng-blur="clearQuery(true)"
                 ng-focus="clearQuery(false)"
                 ng-keydown="key($event)">
               <!-- Loading Animation -->
               <ul ng-show="nameQuery.length && focused && customerSearch.string.length" class="suggestion-box">
-                <li ng-class="{'selected': queryIndex === $index}" ng-repeat="user in nameQuery" ng-click="leadPipelineSection.search(user)" ng-mouseover="key($index)"><span class="left-label">{{user.properties.customer}}</span></li>
+                <li
+                  ng-class="{'selected': queryIndex === $index}"
+                  ng-repeat="user in nameQuery"
+                  ng-click="leadPipelineSection.search(user)"
+                  ng-mouseover="key($index)">
+                  <span class="left-label">{{user.properties.customer}}</span>
+                </li>
               </ul>
             </div>
           </form>
         </div>
       </div>
 
-      <div class="large-3 hide-for-medium-down columns">
+      <div class="large-2 hide-for-medium-down columns">
       <!-- Sort -->
         <select class="sort"
-                ng-model="leadPipelineSection.proposalSort"
+                ng-model="leadPipelineSection.leadSort"
                 ng-change="leadPipelineSection.applyIndexActions()">
           <option disabled value="">Sort By</option>
-          <option ng-repeat="(value, label) in leadPipelineSection.proposalSortOptions" ng-value="value">{{label}}</option>
+          <option ng-repeat="(value, label) in leadPipelineSection.leadSortOptions" ng-value="value">{{label}}</option>
         </select>
       </div>
 
-      <div class="large-3 hide-for-medium-down columns">
-      <!-- Filter: Status -->
+      <div class="large-2 hide-for-medium-down columns">
+      <!-- Filter: Submitted Status -->
         <select class="sort"
-                ng-model="leadPipelineSection.proposalStatus"
+                ng-model="leadPipelineSection.leadSubmittedStatus"
                 ng-change="leadPipelineSection.applyIndexActions()">
           <option value="">Show All</option>
-          <option ng-repeat="(value, label) in leadPipelineSection.proposalStatusOptions" ng-value="value">{{label}}</option>
+          <option ng-repeat="(value, label) in leadPipelineSection.leadSubmittedStatusOptions" ng-value="value">{{label}}</option>
+        </select>
+      </div>
+
+      <div class="large-2 hide-for-medium-down columns">
+      <!-- Filter: Data / Sales Status -->
+        <select class="sort"
+                ng-model="leadPipelineSection.leadDataStatus"
+                ng-change="leadPipelineSection.applyIndexActions()"
+                ng-disabled="!leadPipelineSection.leadSubmittedStatus">
+          <option ng-if="!leadPipelineSection.leadSubmittedStatus"value="">Showing all</option>
+          <option value="">Show All</option>
+          <!-- Use Data Status Options if "Not Submitted" is selected -->
+          <option ng-if="leadPipelineSection.leadSubmittedStatus === 'not_submitted'" ng-repeat="(value, label) in leadPipelineSection.leadDataStatusOptions" ng-value="value">{{label}}</option>
+          <!-- Use Sales Status Options if "Submitted" is selected -->
+          <option ng-if="leadPipelineSection.leadSubmittedStatus === 'submitted'" ng-repeat="(value, label) in leadPipelineSection.leadSalesStatusOptions" ng-value="value">{{label}}</option>
         </select>
       </div>
 
@@ -105,19 +126,12 @@
         <!-- If Leads -->
         <div ng-if="leads" class="leads owl-carousel" id="customers-carousel">
           <a ng-repeat="lead in leads" ng-click="leadPipelineSection.showLead($index)">
-            <div class="lead" ng-class="{active: currentProposal.id === lead.properties.id}">
+            <div class="lead" ng-class="{active: currentLead.id === lead.properties.id}">
               <div class="status-icon">
-                <img ng-show="lead.properties.status === 'closed_won'" ng-src="{{legacyImagePaths.proposalClosedWon}}">
-                <img ng-show="lead.properties.status === 'in_progress'" ng-src="{{legacyImagePaths.proposalInProgress}}">
-                <img ng-show="lead.properties.status === 'incomplete'" ng-src="{{legacyImagePaths.proposalIncomplete}}">
-                <img ng-show="lead.properties.status === 'ineligible_location'" ng-src="{{legacyImagePaths.proposalIneligibleLocation}}">
-                <img ng-show="lead.properties.status === 'lost'" ng-src="{{legacyImagePaths.proposalLost}}">
-                <img ng-show="lead.properties.status === 'on_hold'" ng-src="{{legacyImagePaths.proposalOnHold}}">
-                <img ng-show="lead.properties.status === 'ready_to_submit'" ng-src="{{legacyImagePaths.proposalReadyToSubmit}}">
-                <img ng-show="lead.properties.status === 'submitted'" ng-src="{{legacyImagePaths.proposalSubmitted}}">
+                <img ng-src="{{ statusIcon(lead) }}">
               </div>
               <div class="status-text">
-                <span>{{ lead.properties.status | cleanLabel }}</span>
+                <span>{{ statusText(lead) }}</span>
               </div>
               <div class="customer-name">
                 <span>{{lead.properties.customer}}</span>
@@ -137,18 +151,13 @@
       <div ng-hide="!showForm" class="fade-in-section" ng-class="{'opaque': showForm == true}">
         <div class="summary large-3 medium-3 columns">
 
-        <!-- ng-shows for each Summary Text and Buttons for state of the Proposal form -->
+        <!-- ng-shows for each Summary Text and Buttons for state of the Lead form -->
         <!--
           1. New
           2. Incomplete
           3. Ready To Submit
           4. Ineligible Location
-
           5. Submitted
-          6. In Progress
-          7. Closed Won
-          8. Lost
-          9. On Hold
         -->
 
           <!-- New Lead -->
@@ -160,40 +169,40 @@
 
           <!-- Incomplete -->
           <div ng-show="mode === 'incomplete'">
-            <h1>Incomplete Proposal</h1>
-            <p>Enter additional customer information to complete this proposal.</p>
+            <h1>Incomplete Lead</h1>
+            <p>Enter additional customer information to complete this lead.</p>
             <p>SolarCity requires the customer's name, phone number, and email address.</p>
-            <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Proposal</button>
-            <p>Proposal ID: {{currentProposal.id}}</p>
+            <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
+            <p>Lead ID: {{currentLead.id}}</p>
           </div>
 
           <!-- Ready To Submit-->
           <div ng-show="mode === 'ready_to_submit'">
-            <h1>Completed Proposal</h1>
-            <p>Great! This proposal is ready to be submitted to SolarCity.</p>
+            <h1>Completed Lead</h1>
+            <p>Great! This lead is ready to be submitted to SolarCity.</p>
             <p>Ensure the customer information is correct before using the Submit button below.</p>
-            <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Proposal</button>
+            <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
             <button ng-show="hasAction('submit')" class="button solarcity expand" ng-click="leadPipelineSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
-            <p>Proposal ID: {{currentProposal.id}}</p>
+            <p>Lead ID: {{currentLead.id}}</p>
           </div>
 
           <!-- Ineligible Location -->
           <div ng-show="mode === 'ineligible_location'">
-            <h1>Ineligible Proposal</h1>
-            <p>This proposal looks ineligible based on the customer's location.</p>
-            <p>When SolarCity is available in the customer's location, this proposal's status will be updated and you'll be able to continue where you left off.</p>
-            <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Proposal</button>
-            <p>Proposal ID: {{currentProposal.id}}</p>
+            <h1>Ineligible Lead</h1>
+            <p>This lead looks ineligible based on the customer's location.</p>
+            <p>When SolarCity is available in the customer's location, this lead's status will be updated and you'll be able to continue where you left off.</p>
+            <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
+            <p>Lead ID: {{currentLead.id}}</p>
           </div>
 
           <!-- Submitted -->
-          <div ng-show="mode === 'submitted' || mode === 'in_progress' || mode === 'closed_won' || mode === 'lost' || mode === 'on_hold'">
-            <h1>Submitted Proposal</h1>
-            <p>This proposal has been submitted to SolarCity.</p>
+          <div ng-show="mode === 'submitted'">
+            <h1>Submitted Lead</h1>
+            <p>This lead has been submitted to SolarCity.</p>
             <button disabled class="button expand right"><i class="fa fa-check"></i> Submitted</button>
-            <p>This proposal was submitted to SolarCity at {{ currentProposal.submitted_at | timeToLocalTime }} on {{ currentProposal.submitted_at | dateToLocalDate }}.</p>
+            <p>This lead was submitted to SolarCity at {{ currentLead.submitted_at | timeToLocalTime }} on {{ currentLead.submitted_at | dateToLocalDate }}.</p>
             <button ng-show="hasAction('resend')" class="button secondary expand" ng-click="leadPipelineSection.resend()">Resend Email</button>
-            <p>Proposal ID: {{currentProposal.id}}</p>
+            <p>Lead ID: {{currentLead.id}}</p>
           </div>
 
         </div>
@@ -203,7 +212,7 @@
           <ng-include src="'dashboard/templates/sections/leadpipeline-form.html'"></ng-include>
         </div>
         <!-- Summary if Submitted Proposal -->
-        <div ng-if="mode === 'submitted' || mode === 'in_progress' || mode === 'closed_won' || mode === 'lost' || mode === 'on_hold'" class="form large-9 medium-9 columns">
+        <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
           <ng-include src="'dashboard/templates/sections/leadpipeline-submitted.html'"></ng-include>
         </div>
       </div>

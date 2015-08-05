@@ -14,7 +14,7 @@ if @lead.last_update
 end
 
 path = lead_path(@lead)
-resend = action(:resend, :post, path)
+resend = action(:resend, :post, resend_lead_path(@lead))
 
 if @lead.submitted_at?
   actions(resend)

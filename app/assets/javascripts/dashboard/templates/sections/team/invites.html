@@ -120,7 +120,7 @@
           <div class="large-6 columns">
             <fieldset>
               <legend><i class="fa fa-envelope"></i> Invite Information</legend>
-              <div class="submitted-proposal panel">
+              <div class="submitted-lead panel">
                 <label>Contact Information</label>
                 <div class="customer-info">
                   <p class="name">{{activeInvite.properties.first_name}} {{activeInvite.properties.last_name}}</p>
@@ -132,11 +132,11 @@
           <div class="large-6 columns">
             <fieldset>
               <legend><i class="fa fa-info-circle"></i> Other Details</legend>
-              <div class="submitted-proposal panel">
+              <div class="submitted-lead panel">
                 <label>Invite Code</label>
                 <p class="name">{{activeInvite.properties.id}}</p>
               </div>
-              <div class="submitted-proposal panel">
+              <div class="submitted-lead panel">
                 <label>Expiration</label>
                 <p class="name">{{activeInvite.properties.expires | dateToLocalDate}} {{activeInvite.properties.expires | timeToLocalTime}}</p>
               </div>

@@ -46,6 +46,11 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     &:focus {
       outline: none;
     }
+
+    &:disabled {
+      color: #ddd;
+      background-image: none;
+    }
   }
 
   select::-ms-expand {

@@ -107,12 +107,47 @@
       });
     }
 
-    // Set Mode for front-end display of leads
-    function setMode(leadItem) {
+    // Status label text for a given lead object
+    $scope.statusText = function(leadItem) {
+      if (leadItem.properties.data_status === 'submitted') {
+        // if submitted, return sales_status
+        return leadItem.properties.sales_status.split('_').join(' ');
+      } else {
+        // otherwise return data_status
+        return leadItem.properties.data_status.split('_').join(' ');
+      }
+    };
 
-    }
-
-    // Set correct status icon and 
+    //  Status icon for a given lead object
+    $scope.statusIcon = function(leadItem) {
+      if (leadItem.properties.data_status === 'submitted') {
+        switch (leadItem.properties.sales_status) {
+          case 'in_progress':
+            return legacyImagePaths.leadInProgress;
+          case 'proposal':
+            return legacyImagePaths.leadInProgress;
+          case 'contract':
+            return legacyImagePaths.leadInProgress;
+          case 'installed':
+            return legacyImagePaths.leadClosedWon;
+          case 'duplicate':
+            return legacyImagePaths.leadOnHold;
+          case 'ineligible':
+            return legacyImagePaths.leadLost;
+          case 'closed_lost':
+            return legacyImagePaths.leadLost;
+        }
+      } else {
+        switch (leadItem.properties.data_status) {
+          case 'incomplete':
+            return legacyImagePaths.leadIncomplete;
+          case 'ready_to_submit':
+            return legacyImagePaths.leadReadyToSubmit;
+          case 'ineligible_location':
+            return legacyImagePaths.leadIneligibleLocation;
+        }
+      }
+    };
 
     // Controller Actions:
 
@@ -312,36 +347,39 @@
     */
     $scope.$watch('leadPipelineSection.indexAction', function(data) {
       if (!Object.keys(data).length) return;
-      $scope.leadPipelineSection.proposalSortOptions = $scope.leadPipelineSection.getOptions($scope.leadPipelineSection.indexAction, 'sort');
-      $scope.leadPipelineSection.proposalStatusOptions = $scope.leadPipelineSection.getOptions($scope.leadPipelineSection.indexAction, 'status');
+      $scope.leadPipelineSection.leadSortOptions = $scope.leadPipelineSection.getOptions($scope.leadPipelineSection.indexAction, 'sort');
+      $scope.leadPipelineSection.leadSubmittedStatusOptions = $scope.leadPipelineSection.getOptions($scope.leadPipelineSection.indexAction, 'submitted_status');
+      $scope.leadPipelineSection.leadDataStatusOptions = $scope.leadPipelineSection.getOptions($scope.leadPipelineSection.indexAction, 'data_status');
+      $scope.leadPipelineSection.leadSalesStatusOptions = $scope.leadPipelineSection.getOptions($scope.leadPipelineSection.indexAction, 'sales_status');
     });
 
     // Apply Search
     $scope.leadPipelineSection.search = function (user) {
       if (!$scope.nameQuery.length) return;
 
-      if(typeof(user) != 'object') {
+      // Clear Sort and Filters when Searching
+      $scope.leadPipelineSection.leadSort = '';
+      $scope.leadPipelineSection.leadSubmittedStatus = '';
+      $scope.leadPipelineSection.leadDataStatus = '';
+      $scope.leadPipelineSection.leadSalesStatus = '';
+
+      if(typeof(user) !== 'object') {
         user = $scope.nameQuery[$scope.queryIndex];
         $scope.nameQuery = [];
       }
       for (var i=0; i < $scope.leads.length; i++) {
         if($scope.leads[i].properties.id === user.properties.id) {
+
           $('#customers-carousel').trigger('owl.jumpTo', i);
           $scope.leadPipelineSection.showLead(i);
+          console.log(i);
+
         }
       }
-      // $scope.leadPipelineSection.proposalSort = '';
-      // $scope.leadPipelineSection.proposalStatus = '';
-      // $scope.leadPipelineSection.applyIndexActions();
-      // if ($scope.leadPipelineSection.proposalSearch === '') {
-      //   $scope.leadPipelineSection.searching = false;
-      // } else {
-      //   $scope.leadPipelineSection.searching = true;
-      // }
     };
 
     $scope.customerSearch = {};
-    $scope.nameQuery = []
+    $scope.nameQuery = [];
     $scope.queryIndex = 0;
 
     $scope.key = function(key){
@@ -355,15 +393,15 @@
         if( $scope.queryIndex + 1 === $scope.nameQuery.length) return;
         $scope.queryIndex += 1;
       }
-    }
+    };
 
     $scope.clearQuery = function(i) {
       $scope.focused = true;
       $timeout(function() {
         if(i) $scope.focused = false;
         $scope.queryIndex = 0;
-      }, 150)    
-    }
+      }, 150);
+    };
 
     $scope.fetchNames = function(){
       if (!$scope.customerSearch.string) {
@@ -374,28 +412,27 @@
         href: '/u/users/' + $rootScope.currentUser.id + '/leads.json',
         params: {search: $scope.customerSearch.string, limit: 7}
       }).then(function(items){
-        // debugger
         $scope.nameQuery = items.entities;
         $timeout(function() {
           $('.left-label').wrapInTag({
             tag: 'span class="highlight"',
             words: [$scope.customerSearch.string]
           });
-        })
+        });
        
       });
-    }
+    };
 
     // Apply Sort/Status
     $scope.leadPipelineSection.applyIndexActions = function() {
       var data = {
-        sort: $scope.leadPipelineSection.proposalSort,
-        status: $scope.leadPipelineSection.proposalStatus
+        sort: $scope.leadPipelineSection.leadSort,
+        submitted_status: $scope.leadPipelineSection.leadSubmittedStatus,
+        data_status: $scope.leadPipelineSection.leadDataStatus,
+        sales_status: $scope.leadPipelineSection.leadSalesStatus
       };
-      if ($scope.leadPipelineSection.proposalSearch) {
-        data.search = $scope.leadPipelineSection.proposalSearch;
-      }
-      if ($scope.leadPipelineSection.proposalStatus !== '') {
+
+      if ($scope.leadPipelineSection.leadStatus !== '') {
         $scope.leadPipelineSection.searching = true;
       }
 

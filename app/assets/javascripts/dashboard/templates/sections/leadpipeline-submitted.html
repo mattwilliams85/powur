@@ -4,37 +4,37 @@
       <fieldset>
         <legend><i class="fa fa-envelope"></i> Customer Information</legend>
 
-        <div class="submitted-proposal panel">
+        <div class="submitted-lead panel">
           <label>Contact Information</label>
           <div class="customer-info">
           <!-- Customer Name -->
-          <p class="name">{{proposal.customer}}</p>
+          <p class="name">{{lead.customer}}</p>
           <!-- Address -->
-          <div ng-if="proposal.address && proposal.city && proposal.state && proposal.zip">
-            <p class="address">{{proposal.address}}</p>
+          <div ng-if="lead.address && lead.city && lead.state && lead.zip">
+            <p class="address">{{lead.address}}</p>
             <!-- City/State/ZIP -->
             <p class="city-state-zip">
-              {{proposal.city}}, {{proposal.state}} {{proposal.zip}}
+              {{lead.city}}, {{lead.state}} {{lead.zip}}
             </p>
           </div>
           <!-- Email -->
-          <p class="email"><a href="mailto:{{proposal.email}}">{{proposal.email}}</a></p>
+          <p class="email"><a href="mailto:{{lead.email}}">{{lead.email}}</a></p>
           <!-- Phone -->
-          <p class="phone">{{proposal.phone}}</p>
+          <p class="phone">{{lead.phone}}</p>
           </div>
         </div>
 
         <!-- Custom Product Fields -->
         <div ng-if="showProductFields || showNotes">
-          <div class="submitted-proposal panel">
+          <div class="submitted-lead panel">
             <label>Other Information</label>
-            <div class="proposal-product-field" ng-repeat="(key, value) in proposal.product_fields">
+            <div class="proposal-product-field" ng-repeat="(key, value) in lead.product_fields">
               <p class="label">{{ key | cleanLabel }}</p>
               <p class="value">{{value}}</p>
             </div>
             <div ng-if="showNotes" class="proposal-product-field notes">
               <p class="label">Notes</p>
-              <p class="value">{{proposal.notes}}</p>
+              <p class="value">{{lead.notes}}</p>
             </div>
           </div>
         </div>
@@ -47,12 +47,12 @@
         <legend><i class="fa fa-exchange"></i> Updates</legend>
 
         <!-- If No Updates -->
-        <div ng-if="!proposalItem.entities" class="lead-update panel">
+        <div ng-if="!leadItem.entities" class="lead-update panel">
           <p>No Data Available</p>
         </div>
 
         <!-- Lead Updates -->
-        <div ng-repeat="lead_update in proposalItem.entities" class="lead-update panel">
+        <div ng-repeat="lead_update in leadItem.entities" class="lead-update panel">
           <label>{{ lead_update.properties.updated_at | dateToLocalDate }} at {{ lead_update.properties.updated_at | timeToLocalTime }}</label>
           <div class="status">
             <label>Status</label>
