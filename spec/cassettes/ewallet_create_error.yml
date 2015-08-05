@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx
+    body:
+      encoding: UTF-8
+      string: '{"fn":"eWallet_RegisterUser","endpoint":"https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx","MerchantGUID":"a4739056-7db6-40f3-9618-f2bcccbf70cc","MerchantPassword":"9xXLvA66hi","UserName":null,"FirstName":"Kaylah","LastName":"Reinger","Address1":null,"Address2":null,"City":null,"State":null,"ZipCode":null,"Country2xFormat":"US","PhoneNumber":null,"EmailAddress":null,"SSN":"","DriversLicense":"","DateOfBirth":"1/1/1900","WebsitePassword":null}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=utf-8
+      Server:
+      - Microsoft-IIS/8.0
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 05 Aug 2015 20:37:36 GMT
+      Content-Length:
+      - '201'
+    body:
+      encoding: UTF-8
+      string: '{"response":{"m_Code":-1,"m_Text":"User Name is Required","LogTransactionID":0,"TransactionRefID":0,"ACHTransactionID":0,"ProcessorTransactionRefNumber":"","CustomerFeeAmount":0.0,"CurrencyCode":null}}'
+    http_version:
+  recorded_at: Wed, 05 Aug 2015 20:38:00 GMT
+recorded_with: VCR 2.9.3

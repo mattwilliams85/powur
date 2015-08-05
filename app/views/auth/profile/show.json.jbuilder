@@ -17,7 +17,7 @@ actions_list = [
     .field(:linkedin_url, :text, value: @user.linkedin_url)
     .field(:facebook_url, :text, value: @user.facebook_url)]
 
-unless @ewallet_details[:Email]
+unless @user.ewallet?
   actions_list << action(:create_ewallet, :post, create_ewallet_profile_path)
 end
 

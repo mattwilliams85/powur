@@ -1,0 +1,81 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx
+    body:
+      encoding: UTF-8
+      string: '{"fn":"eWallet_GetCustomerDetails","endpoint":"https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx","MerchantGUID":"a4739056-7db6-40f3-9618-f2bcccbf70cc","MerchantPassword":"9xXLvA66hi","UserName":"ewallet_create_test@example.com"}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=utf-8
+      Server:
+      - Microsoft-IIS/8.0
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 05 Aug 2015 19:41:10 GMT
+      Content-Length:
+      - '782'
+    body:
+      encoding: UTF-8
+      string: '{"response":{"UserName":"ewallet_create_test@example.com","CustomerGuid":"ac861029-60c3-4050-931b-3c0fed1fe10c","IsActivated":false,"Email":"ewallet_create_test@example.com","FirstName":"Eddie","LastName":"Sawayn","CompanyName":"","Phone":"","CellPhoneNumber":"","eWalletID":"Z03-12-6746","Address1":"","Address2":"","State":"AL","City":"","ZipCode":"","Country":"US","DateOfBirth":"1900-01-01T00:00:00","IsSuspended":false,"IsInfoVerified":false,"IsClosed":false,"CreatedDate":"2015-08-05T15:35:12.197","IsAgreedToFees":true,"IsBusiness":false,"IsInvalidEmail":true,"PreferredLanguage":"","SVCShippingAddress":"","m_Code":0,"m_Text":"OK","LogTransactionID":0,"TransactionRefID":0,"ACHTransactionID":0,"ProcessorTransactionRefNumber":"","CustomerFeeAmount":0.0,"CurrencyCode":null}}'
+    http_version:
+  recorded_at: Wed, 05 Aug 2015 19:41:34 GMT
+- request:
+    method: post
+    uri: https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx
+    body:
+      encoding: UTF-8
+      string: '{"fn":"eWallet_GetCustomerDetails","endpoint":"https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx","MerchantGUID":"a4739056-7db6-40f3-9618-f2bcccbf70cc","MerchantPassword":"9xXLvA66hi","UserName":"ewallet_create_test@example.com"}'
+    headers:
+      User-Agent:
+      - Faraday v0.9.1
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - private
+      Content-Type:
+      - text/html; charset=utf-8
+      Server:
+      - Microsoft-IIS/8.0
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 05 Aug 2015 20:23:56 GMT
+      Content-Length:
+      - '782'
+    body:
+      encoding: UTF-8
+      string: '{"response":{"UserName":"ewallet_create_test@example.com","CustomerGuid":"ac861029-60c3-4050-931b-3c0fed1fe10c","IsActivated":false,"Email":"ewallet_create_test@example.com","FirstName":"Eddie","LastName":"Sawayn","CompanyName":"","Phone":"","CellPhoneNumber":"","eWalletID":"Z03-12-6746","Address1":"","Address2":"","State":"AL","City":"","ZipCode":"","Country":"US","DateOfBirth":"1900-01-01T00:00:00","IsSuspended":false,"IsInfoVerified":false,"IsClosed":false,"CreatedDate":"2015-08-05T15:35:12.197","IsAgreedToFees":true,"IsBusiness":false,"IsInvalidEmail":true,"PreferredLanguage":"","SVCShippingAddress":"","m_Code":0,"m_Text":"OK","LogTransactionID":0,"TransactionRefID":0,"ACHTransactionID":0,"ProcessorTransactionRefNumber":"","CustomerFeeAmount":0.0,"CurrencyCode":null}}'
+    http_version:
+  recorded_at: Wed, 05 Aug 2015 20:24:19 GMT
+recorded_with: VCR 2.9.3

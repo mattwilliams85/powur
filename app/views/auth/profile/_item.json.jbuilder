@@ -26,10 +26,10 @@ json.properties do
   json.allow_system_emails @user.allow_system_emails != 'false'
   json.allow_corp_emails @user.allow_corp_emails != 'false'
 
-  if @ewallet_details[:Email]
-    json.ewallet_auto_login_url @auto_login_url
-    json.ewallet_email @ewallet_details[:Email]
-    json.ewallet_is_verified @ewallet_details[:IsInfoVerified]
+  if @user.ewallet? && @user.ewallet
+    json.ewallet_auto_login_url @user.ewallet_auto_login_url
+    json.ewallet_email @user.ewallet[:Email]
+    json.ewallet_is_verified @user.ewallet[:IsInfoVerified]
   end
 end
 

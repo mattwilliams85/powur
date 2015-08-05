@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   include PaperclipScopes
   include Phone
   include UserMailchimp
+  include UserEwallet
 
   belongs_to :rank_path
 
@@ -28,7 +29,8 @@ class User < ActiveRecord::Base
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications, :watched_intro, :tos_version,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
-                 :notifications_read_at
+                 :notifications_read_at,
+                 :ewallet_username
 
   # No extra email validation needed,
   # email validation and confirmation happens with Invite
