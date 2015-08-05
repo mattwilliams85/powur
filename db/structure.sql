@@ -410,10 +410,10 @@ CREATE TABLE lead_totals (
     user_id integer NOT NULL,
     pay_period_id character varying NOT NULL,
     status integer NOT NULL,
-    personal integer DEFAULT 0 NOT NULL,
-    team integer DEFAULT 0 NOT NULL,
-    personal_lifetime integer DEFAULT 0 NOT NULL,
-    team_lifetime integer DEFAULT 0 NOT NULL,
+    personal integer NOT NULL,
+    team integer NOT NULL,
+    personal_lifetime integer NOT NULL,
+    team_lifetime integer NOT NULL,
     smaller_legs integer
 );
 
@@ -2723,4 +2723,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150803194350');
 INSERT INTO schema_migrations (version) VALUES ('20150803223713');
 
 INSERT INTO schema_migrations (version) VALUES ('20150804154325');
+
+INSERT INTO schema_migrations (version) VALUES ('20150805033237');
 

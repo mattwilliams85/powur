@@ -33,27 +33,27 @@ class LeadTest < ActiveSupport::TestCase
     lead = leads(:submitted_new_update)
     last_update = lead.last_update
 
-    lead.update_received.must_equal true
+    lead.update_received
     lead.sales_status.must_equal 'in_progress'
 
     last_update.status = 'closed_lost'
-    lead.update_received.must_equal true
+    lead.update_received
     lead.sales_status.must_equal 'closed_lost'
 
     lead.sales_status = 'in_progress'
     last_update.status = 'duplicate'
-    lead.update_received.must_equal true
+    lead.update_received
     lead.sales_status.must_equal 'duplicate'
 
     lead.sales_status = 'in_progress'
     last_update.status = 'in_progress'
     last_update.contract = 1.day.ago
-    lead.update_received.must_equal true
+    lead.update_received
     lead.sales_status.must_equal 'contract'
 
     lead.sales_status = 'in_progress'
     last_update.installation = 1.day.ago
-    lead.update_received.must_equal true
+    lead.update_received
     lead.sales_status.must_equal 'installed'
   end
 end

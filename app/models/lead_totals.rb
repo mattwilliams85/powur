@@ -5,16 +5,31 @@ class LeadTotals < ActiveRecord::Base
 
   enum status: [ :converted, :contracted ]
 
-  def requirement_met?(req)
-    return false unless quantity_from_req(req) >= req.quantity
-    return true if !req.max_leg? || req.max_leg == 0
-    smaller_legs >= req.smaller_legs_amount_needed
+  def personal_count
+    self.personal ||= lead_query.where(user_id: user_id).count
+  end
+
+  def personal_lifetime_count
+    self.personal_lifetime ||= lifetime_lead_query.where(user_id: user_id).count
+  end
+
+  def team_count
+    self.team ||= lead_query.joins(:user).merge(User.all_team(user_id)).count
+  end
+
+  def team_lifetime_count
+    self.team_lifetime ||= lifetime_lead_query
+      .joins(:user).merge(User.all_team(user_id)).count
   end
 
   private
 
-  def quantity_from_req(requirement)
-    send(requirement.lead_totals_quantity_column)
+  def lead_query
+    Lead.send(status, pay_period_id: pay_period_id)
+  end
+
+  def lifetime_lead_query
+    Lead.send(status, to: pay_period.end_date + 1.day)
   end
 
   class << self

@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
       if highest_ranks
         highest_ranks.entries.detect { |hr| hr.user_id == id }
       else
-        pay_period_id ||= MonthlyPayPeriod.current.id
+        pay_period_id ||= MonthlyPayPeriod.current_id
         highest_pay_period_rank(pay_period_id)
       end
     highest_rank &&= highest_rank.attributes['highest_rank']
@@ -164,22 +164,47 @@ class User < ActiveRecord::Base
     user_user_groups.exists?(group_id.to_s)
   end
 
-  def highest_rank
-    @highest_rank ||= begin
-      result = UserUserGroup.highest_ranks(user_id: id).entries.first
-      result && result.attributes['highest_rank']
+  def highest_lifetime_rank
+    @highest_lifetime_rank ||= begin
+      result = UserUserGroup.lifetime_ranks
+        .highest_ranks(user_id: id).entries.first
+      result ? result.attributes['highest_rank'] : 0
+    end
+  end
+
+  def highest_pay_as_rank
+    @highest_pay_as_rank ||= begin
+      result = UserUserGroup.pay_as_ranks
+        .highest_ranks(user_id: id).entries.first
+      result ? result.attributes['highest_rank'] : 0
+    end
+  end
+
+  def highest_overall_rank
+    [ highest_lifetime_rank, highest_pay_as_rank ].max
+  end
+
+  def group_and_rank!(product_id: nil, include_upline: false)
+    users =
+      if include_upline
+        User.with_ancestor(id).entries.unshift(self)
+      else
+        [ self ]
+      end
+    users.each do |user|
+      UserUserGroup.populate_for(user_id: user.id, product_id: product_id)
+      user.rank_up! if needs_rank_up?
     end
   end
 
   def needs_rank_up?
-    return false unless highest_rank
-    organic_rank.nil? || organic_rank < highest_rank ||
-      lifetime_rank.nil? || lifetime_rank < highest_rank
+    return false if highest_overall_rank.zero?
+    needs_organic_rank_up? || needs_lifetime_rank_up?
   end
 
   def rank_up!
-    self.organic_rank = highest_rank
-    self.lifetime_rank = highest_rank
+    self.organic_rank = highest_lifetime_rank
+    self.lifetime_rank = highest_overall_rank
     self.save!
   end
 
@@ -216,6 +241,16 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  def needs_organic_rank_up?
+    return false if highest_lifetime_rank.zero?
+    organic_rank.nil? || organic_rank < highest_lifetime_rank
+  end
+
+  def needs_lifetime_rank_up?
+    return false if highest_overall_rank.zero?
+    lifetime_rank.nil? || lifetime_rank < highest_overall_rank
+  end
 
   def set_url_slug
     self.url_slug = "#{first_name}-#{last_name}-#{SecureRandom.random_number(1000)}"

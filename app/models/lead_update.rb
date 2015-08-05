@@ -3,11 +3,6 @@ class LeadUpdate < ActiveRecord::Base
 
   belongs_to :lead
 
-  # TODO: deprecate
-  scope :within_date_range, lambda { |begin_date, end_date|
-    where('quotes.created_at between ? and ?', begin_date, end_date)
-  }
-
   DUPE_STATUS = %w(duplicate)
   INELIGIBLE_STATUS = %w(disqualified out_of_service_area)
   LOST_STATUS = %w(closed_lost)

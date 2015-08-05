@@ -18,6 +18,9 @@ class UserUserGroup < ActiveRecord::Base
     query
   }
 
+  scope :lifetime_ranks, -> { where('pay_period_id IS NULL') }
+  scope :pay_as_ranks, -> { where('pay_period_id IS NOT NULL') }
+
   class << self
     def populate(pay_period_id)
       UserGroup.with_requirements.each do |group|
@@ -44,13 +47,17 @@ class UserUserGroup < ActiveRecord::Base
       pp_ids.each { |pp_id| populate(pp_id) }
     end
 
-    def populate_for_user_product(user_id, product_id)
+    def populate_for(user_id:, product_id: nil, pay_period: nil)
+      pay_period ||= MonthlyPayPeriod.current
       groups = UserGroup
-        .non_member(user_id)
+        .non_member(user_id: user_id, pay_period_id: pay_period.id)
         .with_requirements(product_id)
+
       groups.each do |group|
-        next unless group.user_qualifies?(user_id)
-        create!(user_id: user_id, user_group_id: group.id)
+        next unless group.user_qualifies?(user_id, pay_period)
+        attrs = { user_id: user_id, user_group_id: group.id }
+        attrs[:pay_period_id] = pay_period.id if group.monthly?
+        create!(attrs)
       end
     end
   end

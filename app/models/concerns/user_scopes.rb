@@ -45,7 +45,7 @@ module UserScopes
 
     scope :lead_count, lambda { |lead_query = Lead.submitted|
       sub_query = lead_query.user_count
-      select('*')
+      select('coalesce(lc.lead_count, 0) lead_count, users.*')
         .joins("LEFT JOIN (#{sub_query.to_sql}) lc ON users.id = lc.user_id")
     }
 

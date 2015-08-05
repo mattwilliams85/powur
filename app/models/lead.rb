@@ -58,12 +58,17 @@ class Lead < ActiveRecord::Base
     @last_update ||= lead_updates.order(updated_at: :desc, id: :desc).first
   end
 
+  def last_update_has_key_changes?
+    return false if converted_at? && contracted_at?
+    (!converted_at? && last_update.converted) ||
+      (!contracted_at? && last_update.contract)
+  end
+
   def update_received
-    self.converted_at = last_update.converted
-    self.contracted_at = last_update.contract
-    self.installed_at = last_update.installation
-    self.sales_status = last_update.sales_status
-    save!
+    rank_up = last_update_has_key_changes?
+    update_last_update_attributes
+    return unless rank_up
+    user.group_and_rank!(product_id: product_id, include_upline: true)
   end
 
   def can_email?
@@ -108,6 +113,14 @@ class Lead < ActiveRecord::Base
     return :incomplete unless customer.complete?
     return :ineligible_location unless valid_zip?
     :ready_to_submit
+  end
+
+  def update_last_update_attributes
+    self.converted_at = last_update.converted
+    self.contracted_at = last_update.contract
+    self.installed_at = last_update.installation
+    self.sales_status = last_update.sales_status
+    save!
   end
 
   class << self
