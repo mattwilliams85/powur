@@ -13,6 +13,7 @@ module PaperclipScopes
       s3_credentials:  { bucket:            aws_bucket,
                          access_key_id:     aws_access_key_id,
                          secret_access_key: aws_secret_key },
+    s3_protocol: :https,
     styles:          {
       thumb:   [ '128x128#', :jpg, quality: 70 ],
       preview: [ '480x480#', :jpg, quality: 70 ],
