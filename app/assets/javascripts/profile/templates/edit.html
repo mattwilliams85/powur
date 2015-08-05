@@ -179,15 +179,7 @@
               <p>{{ userProfile.ewallet_email }}</p>
             </div>
 
-            <div class="large-6 columns">
-              <span style="top:0;color:rgb(53,53,53)">Verified: </span>
-              <p>{{ userProfile.ewallet_is_verified }}</p>
-            </div>
-
             <div class="large-12 columns">
-              <span style="top:0;color:rgb(53,53,53)">eWallet URL: </span><br/>
-              <span style="font-size:0.8em;">{{ userProfile.ewallet_auto_login_url }}</span>
-              <br>
               <a ng-if="userProfile.ewallet_auto_login_url" href="{{ userProfile.ewallet_auto_login_url }}" target="_blank" class="large button" style="margin-top:25px;float:left">Go to my eWallet</a>
             </div>
           </div>
