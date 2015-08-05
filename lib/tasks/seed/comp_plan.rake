@@ -31,5 +31,14 @@ namespace :powur do
 
     task plan: [ :ranks, :user_groups ] do
     end
+
+    task user_ranks: :environment do
+      puts 'Calculating Lead Totals...'
+      LeadTotals.calculate_all!
+      puts 'Populating User Groups...'
+      UserUserGroup.populate_all!
+      puts 'Updating User Ranks...'
+      User.all.each(&:rank_up!)
+    end
   end
 end

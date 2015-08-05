@@ -414,7 +414,7 @@ CREATE TABLE lead_totals (
     team integer NOT NULL,
     personal_lifetime integer NOT NULL,
     team_lifetime integer NOT NULL,
-    smaller_legs integer
+    smaller_legs integer DEFAULT 0 NOT NULL
 );
 
 
