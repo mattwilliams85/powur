@@ -30,10 +30,6 @@ class ProductEnrollment < ActiveRecord::Base
 
     event :complete do
       transitions from: [:enrolled, :started], to: :completed
-      after do
-        # UserUserGroup.populate_for_user_product(user_id, product_id)
-        # user.rank_up! if user.needs_rank_up?
-      end
     end
   end
 
