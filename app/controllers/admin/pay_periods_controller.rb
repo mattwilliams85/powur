@@ -1,17 +1,23 @@
 module Admin
   class PayPeriodsController < AdminController
-    before_action :fetch_pay_periods, except: [ :index ]
-    before_action :fetch_pay_period, only: [ :show, :calculate,
-                                             :recalculate, :disburse ]
-
-    helper_method :can_calculate?, :can_disburse?
+    page
+    sort start_date_desc: { start_date: :desc },
+         start_date_asc:  { start_date: :asc },
+         end_date_desc:   { end_date: :desc },
+         end_date_asc:    { end_date: :asc }
 
     filter :time_span, options: [ :monthly, :weekly ]
     filter :calculated, scope_opts: { type: :boolean }
     filter :disbursed, scope_opts: { type: :boolean }
 
+    before_action :generate_missing
+    before_action :fetch_pay_period, only: [ :show, :calculate,
+                                             :recalculate, :disburse ]
+
+    helper_method :can_calculate?, :can_disburse?
+
     def index
-      @pay_periods = apply_list_query_options(fetch_pay_periods)
+      @pay_periods = apply_list_query_options(PayPeriod)
       render 'index'
     end
 
@@ -54,20 +60,19 @@ module Admin
 
     private
 
-    def fetch_pay_periods
+    def generate_missing
       PayPeriod.generate_missing
-      @pay_periods = PayPeriod.order(start_date: :desc)
     end
 
     def fetch_pay_period
-      @pay_period = @pay_periods.find { |pp| pp.id == params[:id] }
+      @pay_period = PayPeriod.find { |pp| pp.id == params[:id] }
     end
 
     def can_calculate?(period)
       return false unless period.calculable?
       @calculable_pay_periods ||= begin
         periods = %w(WeeklyPayPeriod MonthlyPayPeriod).map do |type|
-          list = @pay_periods.select do |pp|
+          list = PayPeriod.select do |pp|
             pp.type == type && pp.calculated_at.nil?
           end
           list.last
@@ -82,7 +87,7 @@ module Admin
 
       @disbursable_pay_periods ||= begin
         periods = %w(WeeklyPayPeriod MonthlyPayPeriod).map do |type|
-          list = @pay_periods.select do |pp|
+          list = PayPeriod.select do |pp|
             pp.type == type && pp.disbursed_at.nil?
           end
           list.last

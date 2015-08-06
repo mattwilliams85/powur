@@ -20,8 +20,12 @@
       }
     };
 
+    $scope.payPeriodFilters = [ { value: 'monthly', title: 'Monthly' },
+                                { value: 'weekly', title: 'Weekly' } ];
+
     // TODO: Have one 'pagination' function instead of defining it in every controller
     $scope.pagination = function(direction) {
+      if (typeof direction === 'undefined') direction = 0;
       var page = 1,
           sort;
       if ($scope.index.data) {
@@ -34,7 +38,8 @@
         url: '/a/pay_periods',
         params: {
           page: page,
-          sort: sort
+          sort: sort,
+          time_span: $scope.index.selectedFilter
         }
       }).success(function(data) {
         $scope.index.data = data;
@@ -66,7 +71,7 @@
     if ($scope.mode === 'index') {
       $rootScope.breadcrumbs.push({title: $scope.templateData.index.title});
       $scope.index = {};
-      $scope.pagination(0);
+      $scope.pagination();
     } else if ($scope.mode === 'show') {
       $scope.withPayPeriod($routeParams.payPeriodId, function(item) {
         $scope.payPeriod = item.properties;

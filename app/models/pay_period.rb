@@ -12,7 +12,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   scope :next_to_calculate,
         -> { order(id: :asc).where('calculated_at is null').first }
 
-  scope :dispursed, -> { where('dispursed_at is not null') }
+  scope :disbursed, -> { where('disbursed_at is not null') }
 
   scope :within_date_range, lambda { |range_start, range_end|
     where(end_date: range_start..range_end)
@@ -75,6 +75,19 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def calculate_order_totals(user_id, product_id)
+  end
+
+  def status
+    case self
+    when disbursed?
+      'disbursed'
+    when calculated?
+      'calculated'
+    when calculating?
+      'calculating'
+    when calculate_queued
+      'queued'
+    end
   end
 
 
