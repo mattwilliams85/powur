@@ -41,23 +41,34 @@
         return (gen.selected === member.id);
       },
       inactiveTeamTab: function(member) {
-        return  !member.totals.team_count ||
-                ($scope.placement.on &&
-                member === $scope.placement.child);
+        if ($scope.placement.child) {
+          return !member.totals.team_count ||
+                  member.id === $scope.placement.child.id;
+        }
+        return !member.totals.team_count;
       },
       unrelated: function(member, hover) {
-        return hover === true &&
-               $scope.placement.on &&
-               member !== $scope.placement.child;
+        if ($scope.placement.child) {
+          return hover === true &&
+                 $scope.placement.on &&
+                 member.id !== $scope.placement.child.id &&
+                 member.id !== parentId($scope.placement.child);
+        }
       },
       placeable: function(member) {
-        if (member.sponsor_id !== $scope.currentUser.id || member.moved) return;
+        if (member.sponsor_id !== $scope.currentUser.id || 
+            member.moved) return;
         var startDate = new Date(member.created_at);
         var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
         if (startDate < betaStart) startDate = betaStart;
         return startDate.addDays(60) > new Date();
-      }
+      },
     };
+
+    function parentId(member) {
+      if (!member.upline) return;
+      return member.upline[member.upline.length - 2];
+    }
 
     function levelGap(member) {
       if(member) return member.level - level;
@@ -572,7 +583,7 @@
     var obj = $scope.placement;
     CommonService.execute({
       method: 'POST',
-      href: '/u/users/' + obj.child.id + '/place-user.json?parent_id=' + obj.parent.id
+      href: '/u/users/' + obj.child.id + '/move.json?parent_id=' + obj.parent.id
     }).then(function(){
       closeAllTabs();
       $scope.clearPlacement();

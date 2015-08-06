@@ -84,6 +84,7 @@ module Admin
       require_input :parent_id
       parent = User.find(params[:parent_id].to_i)
       User.move_user(@user, parent)
+      @user.update!(moved: true) unless admin?
 
       show
     end

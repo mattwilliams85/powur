@@ -296,7 +296,6 @@ class User < ActiveRecord::Base
 
       sql = format(UPDATE_PARENT_SQL, parent.upline.join(','), user.level)
       where('upline && ARRAY[?]', user.id).update_all(sql)
-      user.update!(moved: true)
       user.upline = parent.upline + [ user.id ]
     end
   end
