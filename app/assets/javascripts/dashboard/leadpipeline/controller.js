@@ -354,7 +354,7 @@
     });
 
     // Apply Search
-    $scope.leadPipelineSection.search = function (user) {
+    $scope.leadPipelineSection.search = function(user) {
       if (!$scope.nameQuery.length) return;
 
       // Clear Sort and Filters when Searching
@@ -363,19 +363,27 @@
       $scope.leadPipelineSection.leadDataStatus = '';
       $scope.leadPipelineSection.leadSalesStatus = '';
 
-      if(typeof(user) !== 'object') {
-        user = $scope.nameQuery[$scope.queryIndex];
-        $scope.nameQuery = [];
-      }
-      for (var i=0; i < $scope.leads.length; i++) {
-        if($scope.leads[i].properties.id === user.properties.id) {
-
-          $('#customers-carousel').trigger('owl.jumpTo', i);
-          $scope.leadPipelineSection.showLead(i);
+      function jumpToUser() {
+        if(typeof(user) !== 'object') {
+          user = $scope.nameQuery[$scope.queryIndex];
+          $scope.nameQuery = [];
+        }
+        for (var i=0; i < $scope.leads.length; i++) {
+          if($scope.leads[i].properties.id === user.properties.id) {
+            $('#customers-carousel').trigger('owl.jumpTo', i);
+            $scope.leadPipelineSection.showLead(i);
+          }
         }
       }
-    };
 
+      /*
+      Carousel must be refreshed with all leads
+      in order for owl.jumpTo to be able to jump to
+      the index of the user:
+      */
+      refreshCarousel(jumpToUser);
+
+    };
 
     // Functions for dropdown search feature:
     $scope.customerSearch = {};
