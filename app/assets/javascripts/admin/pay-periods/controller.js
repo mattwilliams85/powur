@@ -27,22 +27,26 @@
     $scope.pagination = function(direction) {
       if (typeof direction === 'undefined') direction = 0;
       var page = 1,
-          sort;
+          sort,
+          time_span;
       if ($scope.index.data) {
         page = $scope.index.data.properties.paging.current_page;
         sort = $scope.index.data.properties.sorting.current_sort;
+        time_span = $scope.index.data.selectedFilter;
       }
       page += direction;
+
       return $http({
         method: 'GET',
         url: '/a/pay_periods',
         params: {
           page: page,
           sort: sort,
-          time_span: $scope.index.selectedFilter
+          time_span: time_span
         }
       }).success(function(data) {
         $scope.index.data = data;
+        $scope.index.data.selectedFilter = time_span;
         $anchorScroll();
       });
     };
