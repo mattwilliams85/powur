@@ -14,7 +14,7 @@
       <div class="large-3 medium-6 columns">
       <!-- Search -->
         <div class="row collapse">
-          <form>
+          <form ng-submit="leadPipelineSection.search()">
             <div class="no-padding large-12 medium-12 small-12 columns">
               <!-- <input ng-model="leadPipelineSection.proposalSearch" type="search" placeholder="SEARCH"> -->
               <input 
@@ -61,7 +61,19 @@
         </select>
       </div>
 
-      <div class="large-2 hide-for-medium-down columns">
+      <!-- Sub Filter Dropdown Placeholder -->
+      <div
+        class="large-2 hide-for-medium-down columns"
+        ng-show="!leadPipelineSection.leadSubmittedStatus">
+        <select class="sort" disabled>
+            <option ng-if="!leadPipelineSection.leadSubmittedStatus"value="">Showing all</option>
+        </select>
+      </div>
+
+      <!-- Sub Filter Dropdown for Data Statuses -->
+      <div
+        class="large-2 hide-for-medium-down columns"
+        ng-show="leadPipelineSection.leadSubmittedStatus === 'not_submitted'">
       <!-- Filter: Data / Sales Status -->
         <select class="sort"
                 ng-model="leadPipelineSection.leadDataStatus"
@@ -71,6 +83,20 @@
           <option value="">Show All</option>
           <!-- Use Data Status Options if "Not Submitted" is selected -->
           <option ng-if="leadPipelineSection.leadSubmittedStatus === 'not_submitted'" ng-repeat="(value, label) in leadPipelineSection.leadDataStatusOptions" ng-value="value">{{label}}</option>
+        </select>
+      </div>
+
+      <!-- Sub Filter Dropdown for Sales Statuses -->
+      <div
+        class="large-2 hide-for-medium-down columns"
+        ng-show="leadPipelineSection.leadSubmittedStatus === 'submitted'">
+      <!-- Filter: Data / Sales Status -->
+        <select class="sort"
+                ng-model="leadPipelineSection.leadSalesStatus"
+                ng-change="leadPipelineSection.applyIndexActions()"
+                ng-disabled="!leadPipelineSection.leadSubmittedStatus">
+          <option ng-if="!leadPipelineSection.leadSubmittedStatus"value="">Showing all</option>
+          <option value="">Show All</option>
           <!-- Use Sales Status Options if "Submitted" is selected -->
           <option ng-if="leadPipelineSection.leadSubmittedStatus === 'submitted'" ng-repeat="(value, label) in leadPipelineSection.leadSalesStatusOptions" ng-value="value">{{label}}</option>
         </select>

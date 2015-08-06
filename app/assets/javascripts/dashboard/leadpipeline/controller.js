@@ -122,8 +122,6 @@
     $scope.statusIcon = function(leadItem) {
       if (leadItem.properties.data_status === 'submitted') {
         switch (leadItem.properties.sales_status) {
-          case 'in_progress':
-            return legacyImagePaths.leadInProgress;
           case 'proposal':
             return legacyImagePaths.leadInProgress;
           case 'contract':
@@ -136,6 +134,8 @@
             return legacyImagePaths.leadLost;
           case 'closed_lost':
             return legacyImagePaths.leadLost;
+          default:
+            return legacyImagePaths.leadInProgress;
         }
       } else {
         switch (leadItem.properties.data_status) {
@@ -372,12 +372,12 @@
 
           $('#customers-carousel').trigger('owl.jumpTo', i);
           $scope.leadPipelineSection.showLead(i);
-          console.log(i);
-
         }
       }
     };
 
+
+    // Functions for dropdown search feature:
     $scope.customerSearch = {};
     $scope.nameQuery = [];
     $scope.queryIndex = 0;
@@ -425,6 +425,30 @@
 
     // Apply Sort/Status
     $scope.leadPipelineSection.applyIndexActions = function() {
+      /*
+      leadPipelineSection.searching is used to determine which "empty" state to
+      display on the carousel when no there are no leads.
+      */
+      $scope.leadPipelineSection.searching = true;
+
+      /*
+      Switch statement to clear leadDataStatus or leadSalesStatus
+      from the query when user changes leadSubmittedStatus value:
+      */
+      switch ($scope.leadPipelineSection.leadSubmittedStatus) {
+        case 'not_submitted':
+          $scope.leadPipelineSection.leadSalesStatus = '';
+          break;
+        case 'submitted':
+          $scope.leadPipelineSection.leadDataStatus = '';
+          break;
+        case '':
+          $scope.leadPipelineSection.leadDataStatus = '';
+          $scope.leadPipelineSection.leadSalesStatus = '';
+          break;
+      }
+
+      // Assign filters from select dropdowns
       var data = {
         sort: $scope.leadPipelineSection.leadSort,
         submitted_status: $scope.leadPipelineSection.leadSubmittedStatus,
@@ -432,11 +456,8 @@
         sales_status: $scope.leadPipelineSection.leadSalesStatus
       };
 
-      if ($scope.leadPipelineSection.leadStatus !== '') {
-        $scope.leadPipelineSection.searching = true;
-      }
+      var href = '/u/users/' + $rootScope.currentUser.id + '/leads';
 
-      var href = '/u/users/' + $rootScope.currentUser.id + '/leads'
       $scope.closeForm();
       destroyCarousel('.leads');
 
