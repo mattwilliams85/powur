@@ -326,9 +326,7 @@
     // Index Actions
 
     // Defaults
-    $scope.leadPipelineSection.proposalSort = '';
-    $scope.leadPipelineSection.proposalStatus = '';
-    $scope.leadPipelineSection.proposalSearch = '';
+    $scope.leadPipelineSection.isFiltering = false;
     $scope.leadPipelineSection.indexAction = {};
 
     // Get Options from Index Action Fields for Sort and Status
@@ -362,6 +360,7 @@
       $scope.leadPipelineSection.leadSubmittedStatus = '';
       $scope.leadPipelineSection.leadDataStatus = '';
       $scope.leadPipelineSection.leadSalesStatus = '';
+      $scope.leadPipelineSection.isFiltering = false;
 
       function jumpToUser() {
         if(typeof(user) !== 'object') {
@@ -434,10 +433,10 @@
     // Apply Sort/Status
     $scope.leadPipelineSection.applyIndexActions = function() {
       /*
-      leadPipelineSection.searching is used to determine which "empty" state to
-      display on the carousel when no there are no leads.
+      leadPipelineSection.isFiltering is used to determine which "empty" state
+      to display on the carousel when no there are no leads.
       */
-      $scope.leadPipelineSection.searching = true;
+      $scope.leadPipelineSection.isFiltering = true;
 
       /*
       Switch statement to clear leadDataStatus or leadSalesStatus
