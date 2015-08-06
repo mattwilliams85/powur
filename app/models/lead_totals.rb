@@ -63,15 +63,19 @@ class LeadTotals < ActiveRecord::Base
       end
     end
 
-    CSV_HEADERS = %w(
-      user_id first_name last_name certified
-      personal_converted personal_converted_lifetime
-      team_converted team_converted_lifetime
-      smaller_legs_converted
-      personal_contracted personal_contracted_lifetime
-      team_contracted team_contracted_lifetime
-      smaller_legs_contracted
-      rank_achieved)
+    CSV_HEADERS = [
+      'User ID', 'First Name', 'Last Name', 'Certified',
+      'Personal Proposals (month)',
+      'Personal Proposals (lifetime)',
+      'Team Proposals (month)',
+      'Team Proposals (lifetime)',
+      'Team Proposals (month, minus largest leg)',
+      'Personal Contracted (month)',
+      'Personal Contracted (lifetime)',
+      'Team Contracted (month)',
+      'Team Contracted (lifetime)',
+      'Team Contracted (month, minus largest leg)',
+      'Pay As Rank' ]
     def to_csv(pay_period_id)
       users = User.order(:id).entries
       lead_totals = where(pay_period_id: pay_period_id).entries
@@ -93,8 +97,8 @@ class LeadTotals < ActiveRecord::Base
           [ :converted, :contracted ].each do |status|
             add_totals_to_csv_row(row, user.id, lead_totals, status)
           end
-          rank_achieved = user.pay_as_rank(highest_ranks: highest_ranks)
-          row << rank_achieved
+          pay_as_rank = user.pay_as_rank(highest_ranks: highest_ranks)
+          row << pay_as_rank
           csv << row
         end
       end

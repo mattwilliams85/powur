@@ -30,10 +30,6 @@ groups:
     requirements:
       - event_type: :purchase
         product_id: 3
-      - event_type: :personal_proposals
-        product_id: 1
-        quantity: 3
-        time_span: :lifetime
   - id: rank_2_users
     title: L1 Partners
     description: Level 1 Partners
@@ -41,7 +37,7 @@ groups:
     requirements:
       - event_type: :personal_proposals
         product_id: 1
-        quantity: 5
+        quantity: 3
         time_span: :lifetime
       - event_type: :group_proposals
         product_id: 1
