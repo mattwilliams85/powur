@@ -229,6 +229,11 @@
 
     function actionCallback(action) {
       return function() {
+
+        // Clear filters when performing an action on a lead
+        $scope.leadPipelineSection.clearFilters();
+
+        // Create
         if (action.name === 'create' || action.name === 'delete') {
           refreshCarousel(function() {
             $timeout(function() {
@@ -239,6 +244,7 @@
             });
           });
 
+        // Update
         } else if (action.name === 'update') {
           getLeads(function(items) {
             $scope.updatingLead = true;
@@ -253,6 +259,8 @@
               });
             });
           });
+
+        // Submit
         } else if (action.name === 'submit') {
           console.log('submitted proposal!');
           $scope.closeForm();
@@ -260,6 +268,7 @@
           $scope.showModal('This lead was submitted to SolarCity!');
           refreshCarousel();
 
+        // Resend
         } else if (action.name === 'resend') {
           $scope.closeForm();
           $anchorScroll();
@@ -351,16 +360,22 @@
       $scope.leadPipelineSection.leadSalesStatusOptions = $scope.leadPipelineSection.getOptions($scope.leadPipelineSection.indexAction, 'sales_status');
     });
 
-    // Apply Search
-    $scope.leadPipelineSection.search = function(user) {
-      if (!$scope.nameQuery.length) return;
 
-      // Clear Sort and Filters when Searching
+    // Clear Sort and Filters
+    $scope.leadPipelineSection.clearFilters = function() {
       $scope.leadPipelineSection.leadSort = '';
       $scope.leadPipelineSection.leadSubmittedStatus = '';
       $scope.leadPipelineSection.leadDataStatus = '';
       $scope.leadPipelineSection.leadSalesStatus = '';
       $scope.leadPipelineSection.isFiltering = false;
+    };
+
+    // Apply Search
+    $scope.leadPipelineSection.search = function(user) {
+      if (!$scope.nameQuery.length) return;
+
+      // Clear Sort and Filters when Searching
+      $scope.leadPipelineSection.clearFilters();
 
       function jumpToUser() {
         if(typeof(user) !== 'object') {
