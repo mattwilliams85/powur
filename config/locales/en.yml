@@ -1,10 +1,10 @@
 en:
   email_subjects:
     new-team-member: You just got a new teammate
-    invite: An Invitation to Join Powur
+    invite: "You’ve been invited to join the #NewGrid"
     reset-password: Password Reset Request
     customer-onboard: Congratulations, your free solar proposal is on the way.
-    welcome-new-user: Welcome to Powur
+    welcome-new-user: "Welcome to the new #PowurGrid"
     team-leader-downline-certification-purchase: One of your team members is about to upgrade their skills by going Certified
     certification-purchase-processed: Your Powur Certification
   valid_email:
