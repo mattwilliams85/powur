@@ -64,7 +64,7 @@
 
     //Create Badge URL
     $scope.badgePath = function(rank) {
-      rank = rank || 1;
+      rank = rank || 0;
       return $scope.legacyImagePaths.goalsBadges[rank];
     };
 
