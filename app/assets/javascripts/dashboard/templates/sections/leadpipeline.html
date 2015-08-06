@@ -98,21 +98,21 @@
       <div class="carousel-container w80percent columns">
         <!-- Leads Carousel -->
 
-         <!-- If No Leads -->
-        <div ng-if="currentUser.metrics && !currentUser.metrics.proposal" class="empty owl-carousel">
-          <div class="empty-state">
-            <p class="empty-text">This is where you manage your leads and proposals.  Add a lead, submit it to SolarCity, and track the progress.  We'll notify you when your leads turn into proposals.</p>
-          </div>
-        </div>
-
         <!-- If Loading Leads -->
-        <div ng-show="!leads && currentUser.metrics.proposal" class="empty owl-carousel">
+        <div ng-show="!leads" class="empty owl-carousel">
           <div class="empty-state">
             <div class="sk-spinner sk-spinner-three-bounce big">
               <div class="sk-bounce1"></div>
               <div class="sk-bounce2"></div>
               <div class="sk-bounce3"></div>
             </div>
+          </div>
+        </div>
+
+         <!-- If No Leads -->
+        <div ng-if="leads && leads.length === 0" class="empty owl-carousel">
+          <div class="empty-state">
+            <p class="empty-text">This is where you manage your leads and proposals.  Add a lead, submit it to SolarCity, and track the progress.  We'll notify you when your leads turn into proposals.</p>
           </div>
         </div>
 
