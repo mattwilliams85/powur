@@ -153,6 +153,10 @@
 
     // Show Lead
     $scope.leadPipelineSection.showLead = function(leadIndex) {
+
+      // Reset email validation (see note in saveLead() function)
+      $scope.leadPipelineSection.isEmailInvalid = false;
+
       $scope.updatingLead = false;
       var leadId = $scope.leads[leadIndex].properties.id;
       $scope.leadIndex = leadIndex;
@@ -197,6 +201,10 @@
 
     // New Proposal Action
     $scope.leadPipelineSection.newLead = function() {
+
+      // Reset email validation (see note in saveLead() function)
+      $scope.leadPipelineSection.isEmailInvalid = false;
+
       if ($scope.showForm === true && $scope.mode === 'new') {
         $scope.closeForm();
         return;
@@ -222,8 +230,18 @@
 
     // Save/Update Proposal Action
     $scope.leadPipelineSection.saveLead = function() {
+      // reset email validation
+      $scope.leadPipelineSection.isEmailInvalid = false;
+
+      // check validity and submit if valid:
       if ($scope.lead && $('#customers-form')[0].checkValidity()) {
         CommonService.execute($scope.formAction, $scope.lead).then(actionCallback($scope.formAction));
+      } else {
+        /*
+        The only validation on the form that will fail with checkValidity() is
+        email, so if there are any errors, it's because the email is invalid:
+        */
+        $scope.leadPipelineSection.isEmailInvalid = true;
       }
     };
 

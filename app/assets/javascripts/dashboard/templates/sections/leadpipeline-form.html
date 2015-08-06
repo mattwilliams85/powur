@@ -20,7 +20,13 @@
         <div class="row">
           <div class="large-12 medium-12 columns">
             <label>Email</label>
-            <input ng-model="lead.email" type="email">
+            <input
+              type="email"
+              ng-model="lead.email"
+              ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }">
+            <label
+              ng-show="leadPipelineSection.isEmailInvalid"
+              ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }">This email address is invalid.</label>
           </div>
         </div>
 
