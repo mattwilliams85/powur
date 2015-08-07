@@ -66,10 +66,10 @@
           method: 'POST',
           url: '/a/notifications',
           data: $scope.notification
-        }).success(function() {
+        }).success(function(data) {
           $scope.isSubmitDisabled = false;
-          $location.path('/admin/notifications');
-          $scope.showModal('Data successfully saved');
+          $location.path('/admin/notifications/' + data.properties.id + '/edit');
+          $scope.showModal('Notification successfully created');
         }).error(formErrorCallback);
       }
     };

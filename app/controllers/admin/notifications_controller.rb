@@ -16,7 +16,7 @@ module Admin
       @notification = Notification.new(input)
       @notification.user_id = current_user.id
       @notification.save!
-      index
+      show
     end
 
     def destroy
@@ -25,6 +25,7 @@ module Admin
     end
 
     def show
+      render :show
     end
 
     def update
