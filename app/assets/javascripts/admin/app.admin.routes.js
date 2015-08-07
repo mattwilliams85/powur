@@ -179,11 +179,6 @@
       templateUrl: 'shared/admin/rest/edit.html',
       controller: 'AdminSystemSettingsCtrl'
     }).
-    // Twilio
-    when('/admin/twilio-phone-numbers', {
-      templateUrl: 'shared/admin/rest/index.html',
-      controller: 'AdminTwilioPhoneNumbersCtrl'
-    }).
     // User Groups
     when('/admin/user-groups', {
       templateUrl: 'admin/user-groups/templates/index.html',

@@ -1,23 +1,14 @@
-<span>
-  Avoid having 250 sms sent from any of the long code numbers.<br>
-  According to twilio docs, mobile carriers might block a phone number without any notice to sender or recipient if they suspect a spam.<br>
-</span>
-
-<br><br>
-
 <table class="index-table">
   <thead>
     <tr>
       <th>Number</th>
       <th>Messages Sent Today</th>
-      <th>~ Left</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="item in index.data.entities">
       <td>{{ item.properties.phone_number }}</td>
       <td>{{ item.properties.messages_sent }}</td>
-      <td>{{ 250 - item.properties.messages_sent }}</td>
     </tr>
   </tbody>
 </table>

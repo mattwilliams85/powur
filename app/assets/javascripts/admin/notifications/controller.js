@@ -9,7 +9,7 @@
         title: 'Notifications',
         links: [
           { href: '/admin/notifications/new', text: 'Add' },
-          { href: '/admin/twilio-phone-numbers', text: 'Twilio Numbers' }
+          { href: '/admin/twilio-stats', text: 'Twilio Stats' }
         ],
         tablePath: 'admin/notifications/templates/table.html'
       },
@@ -131,6 +131,24 @@
       });
     };
 
+    $scope.getTwilioStats = function() {
+      $http({
+        method: 'GET',
+        url: '/a/twilio_phone_numbers'
+      }).success(function(data) {
+        var sentToday = 0,
+            max = data.entities.length * 250;
+        for (var i in data.entities) {
+          sentToday += data.entities[i].properties.messages_sent;
+        }
+        $scope.twilioData = {
+          messagesSentToday: sentToday,
+          maxDailyMessages: max,
+          remainingDailyMessages: max - sentToday
+        };
+      });
+    };
+
     $scope.cancel = function() {
       $location.path('/admin/notifications');
     };
@@ -172,6 +190,7 @@
       $rootScope.breadcrumbs.push({title: 'Notifications'});
       $scope.index = {};
       $scope.pagination(0);
+      $scope.getTwilioStats();
     } else if ($scope.mode === 'new') {
       $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
       $rootScope.breadcrumbs.push({title: 'New notification'});
