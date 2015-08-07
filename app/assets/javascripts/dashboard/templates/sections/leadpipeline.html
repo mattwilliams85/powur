@@ -150,10 +150,10 @@
           <a ng-repeat="lead in leads" ng-click="leadPipelineSection.showLead($index)">
             <div class="lead" ng-class="{active: currentLead.id === lead.properties.id}">
               <div class="status-icon">
-                <img ng-src="{{ statusIcon(lead) }}">
+                <img ng-src="{{ leadPipelineSection.statusIcon(lead) }}">
               </div>
               <div class="status-text">
-                <span>{{ statusText(lead) }}</span>
+                <span>{{ leadPipelineSection.properties.statusText(lead) }}</span>
               </div>
               <div class="customer-name">
                 <span>{{lead.properties.customer}}</span>

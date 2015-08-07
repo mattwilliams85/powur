@@ -108,7 +108,8 @@
     }
 
     // Status label text for a given lead object
-    $scope.statusText = function(leadItem) {
+    $scope.leadPipelineSection.statusText = function(leadItem) {
+      if (!leadItem) return;
       if (leadItem.properties.data_status === 'submitted') {
         // if submitted, return sales_status
         return leadItem.properties.sales_status.split('_').join(' ');
@@ -119,7 +120,7 @@
     };
 
     //  Status icon for a given lead object
-    $scope.statusIcon = function(leadItem) {
+    $scope.leadPipelineSection.statusIcon = function(leadItem) {
       if (leadItem.properties.data_status === 'submitted') {
         switch (leadItem.properties.sales_status) {
           case 'proposal':

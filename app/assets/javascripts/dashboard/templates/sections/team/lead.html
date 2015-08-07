@@ -1,0 +1,144 @@
+ <!-- Row: Proposal Info -->
+  <div class="row collapse downline-row drilldown proposal-row" ng-class="{ 'expand': showProposal }">
+    <!-- Large -->
+    <div ng-hide="!showProposal" class="large-12 columns form">
+      <form>
+        <div class="row">
+        <div class="summary small-3 columns">
+          <!-- Incomplete -->
+          <div ng-show="activeLead.properties.data_status === 'incomplete'">
+            <h1>Incomplete Lead</h1>
+            <p>This lead needs more information before being submitted.</p>
+            <hr class="divider">
+            <p>SolarCity requires the customer's name, phone number, and email address.</p>
+            <hr class="divider">
+            <p>Lead ID: {{activeLead.properties.id}}</p>
+          </div>
+
+          <!-- Ready To Submit-->
+          <div ng-show="activeLead.properties.data_status === 'ready_to_submit'">
+            <h1>Completed Lead</h1>
+            <p>Great! This lead is ready to be submitted to SolarCity.</p>
+            <hr class="divider">
+            <p>Lead ID: {{activeLead.properties.id}}</p>
+          </div>
+
+          <!-- Ineligible Location -->
+          <div ng-show="activeLead.properties.data_status === 'ineligible_location'">
+            <h1>Ineligible Lead</h1>
+            <p>This lead looks ineligible based on the customer's location.</p>
+            <hr class="divider">
+            <p>When SolarCity is available in the customer's location, this lead's status will be updated and you'll be able to continue where you left off.</p>
+            <hr class="divider">
+            <p>Lead ID: {{activeLead.properties.id}}</p>
+          </div>
+
+          <!-- Submitted -->
+          <div ng-show="activeLead.properties.data_status === 'submitted'">
+            <h1>Submitted Lead</h1>
+            <p>This lead has been submitted to SolarCity.</p>
+            <hr class="divider">
+            <p>This lead was submitted to SolarCity at {{ activeLead.properties.submitted_at | timeToLocalTime }} on {{ activeLead.properties.submitted_at | dateToLocalDate }}.</p>
+            <hr class="divider">
+            <p>Lead ID: {{activeLead.properties.id}}</p>
+          </div>
+
+        </div>
+          <div class="small-9 columns right-side">
+            <div class="small-6 columns right-summary">
+              <fieldset>
+                <legend><i class="fa fa-envelope"></i> Customer Information</legend>
+
+                <div class="submitted-lead panel">
+                  <label>Contact Information</label>
+                  <div class="customer-info">
+                  <!-- Customer Name -->
+                  <p class="name">{{activeLead.properties.customer}}</p>
+                  <!-- Address -->
+                  <div ng-if="activeLead.properties.address && activeLead.properties.city && activeLead.properties.state && activeLead.properties.zip">
+                    <p class="address">{{activeLead.properties.address}}</p>
+                    <!-- City/State/ZIP -->
+                    <p class="city-state-zip">
+                      {{activeLead.properties.city}}, {{activeLead.properties.state}} {{activeLead.properties.zip}}
+                    </p>
+                  </div>
+                  <!-- Email -->
+                  <p class="email"><a href="mailto:{{activeLead.properties.email}}">{{activeLead.properties.email}}</a></p>
+                  <!-- Phone -->
+                  <p class="phone">{{proposal.phone}}</p>
+                  </div>
+                </div>
+
+                <!-- Custom Product Fields -->
+                <div ng-if="showProductFields || showNotes">
+                  <div class="submitted-lead panel">
+                    <label>Other Information</label>
+                    <div class="proposal-product-field" ng-repeat="(key, value) in proposal.product_fields">
+                      <p class="label">{{ key | cleanLabel }}</p>
+                      <p class="value">{{value}}</p>
+                    </div>
+                    <div ng-if="showNotes" class="proposal-product-field notes">
+                      <p class="label">Notes</p>
+                      <p class="value">{{proposal.notes}}</p>
+                    </div>
+                  </div>
+                </div>
+
+              </fieldset>
+            </div>
+            <!-- Lead Updates -->
+            <div class="small-6 columns">
+              <fieldset>
+                <legend><i class="fa fa-exchange"></i> Updates</legend>
+
+                <!-- If No Updates -->
+                <div ng-if="!updates" class="lead-update panel">
+                  <p>No Data Available</p>
+                </div>
+
+                <!-- Lead Updates -->
+                <div ng-repeat="lead_update in updates" class="lead-update panel">
+                  <label>{{ lead_update.properties.updated_at | dateToLocalDate }} at {{ lead_update.properties.updated_at | timeToLocalTime }}</label>
+                  <div class="status">
+                    <label>Status</label>
+                    <p>{{ lead_update.properties.status | cleanLabel }}</p>
+                  </div>
+                  <!-- Lead Status -->
+                  <div ng-if="lead_update.properties.lead_status" class="status">
+                    <label>Lead Status</label>
+                    <p>{{ lead_update.properties.lead_status | cleanLabel }}</p>
+                  </div>
+                  <!-- Opportunity Stage -->
+                  <div ng-if="lead_update.properties.opportunity_stage" class="status">
+                    <label>Opportunity Stage</label>
+                    <p>{{ lead_update.properties.opportunity_stage | cleanLabel }}</p>
+                  </div>
+                  <!-- Consultation Date -->
+                  <div ng-if="lead_update.properties.consultation" class="status">
+                    <label>Consultation Date</label>
+                    <p>{{ lead_update.properties.consultation | dateToLocalDate }}</p>
+                  </div>
+                  <!-- Contract Signed Date -->
+                  <div ng-if="lead_update.properties.contract" class="status">
+                    <label>Contract Signed Date</label>
+                    <p>{{ lead_update.properties.contract | dateToLocalDate }}</p>
+                  </div>
+                  <!-- Installation Date -->
+                  <div ng-if="lead_update.properties.installation" class="status">
+                    <label>Installation Date</label>
+                    <p>{{ lead_update.properties.installation | dateToLocalDate }}</p>
+                  </div>
+                  <!-- Raw Status Details from Solar City -->
+                  <div class="solarcity-status">
+                    <label>More Details from SolarCity</label>
+                    <p ng-repeat="(key, value) in lead_update.properties.data">{{key}}: {{value}}</p>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -385,15 +385,19 @@
     };
 
 //PROPOSALS
-    $scope.teamSection.fetchProposals = function(member) {
+    $scope.teamSection.fetchLeads = function(member) {
+      // Clear Sort and Filters when Switching Team Member
+      $scope.teamSection.clearFilters();
+      $scope.teamSection.proposalSearch = '';
+
       $scope.teamId = member.id;
       CommonService.execute({
         href: '/u/users/' + member.id + '/leads.json'
       }).then(function(items){
         $scope.teamProposals = items.entities;
-        destroyCarousel('#teamProposals');
+        destroyCarousel('#teamLeads');
         $timeout(function(){
-          initCarousel($('#teamProposals'));
+          initCarousel($('#teamLeads'));
         });
       });
     };
@@ -411,36 +415,58 @@
         href: '/u/leads/' + proposal.properties.id + '.json'
       }).then(function(item){
         $scope.updates = item.entities;
-        $scope.activeProposal = item.properties;
+        $scope.activeLead = item;
       });
     };
 
+    // Search / Filter
+
     $scope.teamSection.searchProposals = function () {
-      $scope.teamSection.proposalSort = '';
-      $scope.teamSection.proposalStatus = '';
+      // Clear Sort and Filters when Searching
+      $scope.teamSection.clearFilters();
+
       $scope.teamSection.applyIndexActions();
-      if ($scope.teamSection.proposalSearch === '') {
-        $scope.teamSection.searching = false;
-      } else {
-        $scope.teamSection.searching = true;
-      }
+    };
+
+    // Clear Sort and Filters
+    $scope.teamSection.clearFilters = function() {
+      $scope.teamSection.leadSubmittedStatus = '';
+      $scope.teamSection.leadDataStatus = '';
+      $scope.teamSection.leadSalesStatus = '';
     };
 
     $scope.teamSection.applyIndexActions = function() {
+
+      /*
+      Switch statement to clear leadDataStatus or leadSalesStatus
+      from the query when user changes leadSubmittedStatus value:
+      */
+      switch ($scope.teamSection.leadSubmittedStatus) {
+        case 'not_submitted':
+          $scope.teamSection.leadSalesStatus = '';
+          break;
+        case 'submitted':
+          $scope.teamSection.leadDataStatus = '';
+          break;
+        case '':
+          $scope.teamSection.leadDataStatus = '';
+          $scope.teamSection.leadSalesStatus = '';
+          break;
+      }
+
       var data = {
-        sort: $scope.teamSection.proposalSort,
-        status: $scope.teamSection.proposalStatus
+        submitted_status: $scope.teamSection.leadSubmittedStatus,
+        data_status: $scope.teamSection.leadDataStatus,
+        sales_status: $scope.teamSection.leadSalesStatus
       };
+
       if ($scope.teamSection.proposalSearch) {
         data.search = $scope.teamSection.proposalSearch;
-      }
-      if ($scope.teamSection.proposalStatus !== '') {
-        $scope.teamSection.searching = true;
       }
 
       var href = '/u/users/' + $scope.teamId + '/leads';
       closeTabs();
-      destroyCarousel('#teamProposals');
+      destroyCarousel('#teamLeads');
 
       $http({
         method: 'GET',
@@ -449,7 +475,7 @@
       }).success(function(items) {
         $scope.teamProposals = items.entities;
         $timeout(function() {
-          initCarousel($('#teamProposals'));
+          initCarousel($('#teamLeads'));
         });
       });
     };

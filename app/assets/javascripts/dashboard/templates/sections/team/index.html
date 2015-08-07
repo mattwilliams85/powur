@@ -148,7 +148,7 @@
                     'active-tab': is.activeTab(member, downline[0], 'proposals'),
                     'even': is.even(member),
                   }" 
-                  ng-click="changeTab(member, downline[0], 'proposals'); teamSection.fetchProposals(member);">
+                  ng-click="changeTab(member, downline[0], 'proposals'); teamSection.fetchLeads(member);">
                  <!--  <i class="fa fa-info-circle invert"></i> -->
                   <img ng-hide="is.activeTab(member, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIconInvert}}">
                   <img ng-show="is.activeTab(member, downline[0], 'proposals')" ng-src="{{img.teamSection.customerIcon}}">
@@ -172,7 +172,7 @@
                 </div>
                 <div class="info-text user-text">
                   <span>{{member.first_name}} {{member.last_name}}</span>
-                  <span ng-hide="is.activeMember(member, downline[0]) && is.accordion(0)" class="info-detail">TEAM {{member.totals.team_count}}, PROPOSALS {{member.totals.lead_count || 0}}</span>
+                  <span ng-hide="is.activeMember(member, downline[0]) && is.accordion(0)" class="info-detail">TEAM {{member.totals.team_count}}, LEADS {{member.totals.lead_count || 0}}</span>
                   <span ng-show="is.placeable(member)" class="info-detail placeable">placeable</span>
                 </div>
               </div>
@@ -185,11 +185,11 @@
     <!-- Downline Drilldown -->
     <ng-include src="'dashboard/templates/sections/team/downline.html'"></ng-include>
     <!-- Proposals Drilldown -->
-    <ng-include src="'dashboard/templates/sections/team/proposals.html'"></ng-include>
+    <ng-include src="'dashboard/templates/sections/team/leads.html'"></ng-include>
     <!-- Info Drilldown -->
     <ng-include src="'dashboard/templates/sections/team/info.html'"></ng-include>
     <!-- Proposal Info Drilldown -->
-    <ng-include src="'dashboard/templates/sections/team/proposal.html'"></ng-include>
+    <ng-include src="'dashboard/templates/sections/team/lead.html'"></ng-include>
     <!-- Proposal Invites Drilldown -->
     <ng-include src="'dashboard/templates/sections/team/invites.html'"></ng-include>
 
