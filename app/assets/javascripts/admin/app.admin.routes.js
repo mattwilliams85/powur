@@ -227,27 +227,6 @@
       templateUrl: 'admin/user-groups/templates/bonuses/edit.html',
       controller: 'AdminUserGroupBonusesCtrl'
     }).
-    // Users
-    when('/admin/users', {
-      templateUrl: 'admin/users/templates/index.html',
-      controller: 'AdminUsersCtrl'
-    }).
-    when('/admin/users/:userId', {
-      templateUrl: 'admin/users/templates/show.html',
-      controller: 'AdminUsersCtrl'
-    }).
-    when('/admin/users/:userId/edit', {
-      templateUrl: 'admin/users/templates/edit.html',
-      controller: 'AdminUsersCtrl'
-    }).
-    when('/admin/users/:userId/edit_password', {
-      templateUrl: 'admin/users/templates/edit_password.html',
-      controller: 'AdminUsersCtrl'
-    }).
-    when('/admin/users/:userId/place-user', {
-      templateUrl: 'admin/users/templates/place-user.html',
-      controller: 'AdminUsersCtrl'
-    }).
 
     otherwise({
       redirectTo: '/admin'

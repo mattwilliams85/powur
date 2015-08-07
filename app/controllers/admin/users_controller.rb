@@ -13,6 +13,14 @@ module Admin
            url:        -> { admin_users_path },
            scope_opts: { type: :boolean },
            required:   false
+    filter :advocates,
+           url:        -> { admin_users_path },
+           scope_opts: { type: :boolean },
+           required:   false
+    filter :partners,
+           url:        -> { admin_users_path },
+           scope_opts: { type: :boolean },
+           required:   false
 
     def index
       @users = apply_list_query_options(User)
