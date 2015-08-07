@@ -41,11 +41,10 @@ module UsersActions
   #   index
   # end
 
-  def sponsors
-    @users = [ @user.sponsor, @user.sponsor.try(:sponsor) ].compact
-
-    render 'sponsors'
-  end
+  # def sponsors
+  #   @users = [ @user.sponsor, @user.sponsor.try(:sponsor) ].compact
+  #   render 'sponsors'
+  # end
 
   def search
     @list_query = list_query.search(params[:search])

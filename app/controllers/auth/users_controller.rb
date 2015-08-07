@@ -3,7 +3,8 @@ module Auth
     before_action :fetch_users, only: [ :index ]
     before_action :fetch_user,
                   only: [ :show, :downline, :upline,
-                          :full_downline, :move, :eligible_parents ]
+                          :full_downline, :move, :eligible_parents,
+                          :sponsors ]
 
     page max_limit: 500
     sort newest:     { created_at: :desc },
@@ -46,6 +47,12 @@ module Auth
       @users = @user.eligible_parents(current_user)
 
       index
+    end
+
+    def sponsors
+      @users = [ @user.sponsor, @user.sponsor.try(:sponsor) ].compact
+
+      render 'sponsors'
     end
 
     def show
