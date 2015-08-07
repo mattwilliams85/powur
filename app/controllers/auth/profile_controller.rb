@@ -1,7 +1,5 @@
 module Auth
   class ProfileController < AuthController
-    include EwalletDSL
-
     skip_before_action :verify_terms_acceptance, only: [:show, :update]
 
     before_action :fetch_user, only: [ :show, :update, :update_avatar,
@@ -9,14 +7,12 @@ module Auth
 
     def show
       @profile = @user.profile
-      @auto_login_url = build_auto_login_url(@user)
-      @ewallet_details = get_ewallet_customer_details(@user)
 
       render :show
     end
 
     def create_ewallet
-      find_or_create_ipayout_account(@user)
+      @user.ewallet!
 
       show
     end

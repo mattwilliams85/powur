@@ -1,46 +1,78 @@
 ranks:
-  - id: 1
+  - id: 0
     title: Advocate
-    welcome_message: Welcome to Powur. First step, unlock your dashboard by passing the F.I.T test. (Fast Impact Training)
-  - id: 2
-    title: Local Grid Leader
+    welcome_message: Welcome to Powur.
+  - id: 1
+    title: Qualified Partner
     welcome_message: Congratulations on passing the FIT test. To go big in this business, you'll need a team behind you.  Powur Certification will give you the tools you need to make a huge impact!
-  - id: 3
-    title: Community Grid Leader
+  - id: 2
+    title: L1 Partner
     welcome_message: Certificaiton Rocks! You are on your way to building an awesome Solar business.  Submit some proposals to earn Team invites.
+  - id: 3
+    title: L2 Partner
   - id: 4
-    title: City Grid Leader
+    title: L3 Partner
   - id: 5
-    title: Regional Grid Leader
-  - id: 6
-    title: State Grid Leader
-  - id: 7
-    title: National Grid Leader
-  - id: 8
     title: Game Changer
+  - id: 6
+    title: L1 Game Changer
+  - id: 7
+    title: L2 Game Changer
+  - id: 8
+    title: L3 Game Changer
+  - id: 9
+    title: Hero
 groups:
   - id: rank_1_users
-    title: Direct Sellers
-    description: You have taken the FIT training.
+    title: Qualified Partners
+    description: You have taken the Certification training.
     rank_id: 1
     requirements:
-      - event_type: :course_completion
-        product_id: 2
+      - event_type: :purchase
+        product_id: 3
   - id: rank_2_users
-    title: Certified Local Grid Advocates
-    description: Advocates that have been certified.
+    title: L1 Partners
+    description: Level 1 Partners
     rank_id: 2
     requirements:
-      - event_type: :course_completion
-        product_id: 3
-      - event_type: :personal_sales
+      - event_type: :personal_proposals
         product_id: 1
         quantity: 3
         time_span: :lifetime
+      - event_type: :group_proposals
+        product_id: 1
+        quantity: 9
+        time_span: :monthly
   - id: rank_3_users
-    title: Community Grid Advocates
-    description: Advocates that have met the requirements for the Community Grid rank.
+    title: L2 Partners
+    description: Level 2 Partners
     rank_id: 3
+    requirements:
+      - event_type: :personal_proposals
+        product_id: 1
+        quantity: 7
+        time_span: :lifetime
+      - event_type: :group_proposals
+        product_id: 1
+        quantity: 25
+        time_span: :monthly
+  - id: rank_4_users
+    title: L3 Partners
+    description: Level 3 Partners
+    rank_id: 4
+    requirements:
+      - event_type: :personal_proposals
+        product_id: 1
+        quantity: 10
+        time_span: :lifetime
+      - event_type: :group_proposals
+        product_id: 1
+        quantity: 75
+        time_span: :monthly
+  - id: rank_5_users
+    title: Game Changers
+    description: Game Changing users
+    rank_id: 5
     requirements:
       - event_type: :personal_sales
         product_id: 1
@@ -48,13 +80,13 @@ groups:
         time_span: :lifetime
       - event_type: :group_sales
         product_id: 1
-        quantity: 25
+        quantity: 75
         time_span: :monthly
         max_leg: 50
-  - id: rank_4_users
-    title: City Grid Advocates
-    description: Advocates that have met the requirements for the City Grid rank.
-    rank_id: 4
+  - id: rank_6_users
+    title: L1 Game Changers
+    description: Level 1 Game Changers
+    rank_id: 6
     requirements:
       - event_type: :personal_sales
         product_id: 1
@@ -62,27 +94,27 @@ groups:
         time_span: :lifetime
       - event_type: :group_sales
         product_id: 1
-        quantity: 10
+        quantity: 200
         time_span: :monthly
         max_leg: 50
-  - id: rank_5_users
-    title: Regional Grid Advocates
-    description: Advocates that have met the requirements for the Regional Grid rank.
-    rank_id: 5
+  - id: rank_7_users
+    title: L2 Game Changers
+    description: Level 2 Game Changers
+    rank_id: 7
     requirements:
       - event_type: :personal_sales
         product_id: 1
-        quantity: 9
+        quantity: 10
         time_span: :lifetime
       - event_type: :group_sales
         product_id: 1
-        quantity: 50
+        quantity: 500
         time_span: :monthly
         max_leg: 50
-  - id: rank_6_users
-    title: State Grid Advocates
-    description: Advocates that have met the requirements for the State Grid rank.
-    rank_id: 6
+  - id: rank_8_users
+    title: L3 Game Changers
+    description: Level 3 Game Changers
+    rank_id: 8
     requirements:
       - event_type: :personal_sales
         product_id: 1
@@ -90,13 +122,13 @@ groups:
         time_span: :lifetime
       - event_type: :group_sales
         product_id: 1
-        quantity: 100
+        quantity: 1000
         time_span: :monthly
         max_leg: 50
-  - id: rank_7_users
-    title: National Grid Advocates
-    description: Advocates that have met the requirements for the National Grid rank.
-    rank_id: 7
+  - id: rank_9_users
+    title: Heroes
+    description: Heroes!
+    rank_id: 9
     requirements:
       - event_type: :personal_sales
         product_id: 1
@@ -104,20 +136,6 @@ groups:
         time_span: :lifetime
       - event_type: :group_sales
         product_id: 1
-        quantity: 250
-        time_span: :monthly
-        max_leg: 50
-  - id: rank_8_users
-    title: Game Changers
-    description: Advocates that have met the requirements for the Game Changer rank.
-    rank_id: 8
-    requirements:
-      - event_type: :personal_sales
-        product_id: 1
-        quantity: 15
-        time_span: :lifetime
-      - event_type: :group_sales
-        product_id: 1
-        quantity: 500
+        quantity: 2000
         time_span: :monthly
         max_leg: 50

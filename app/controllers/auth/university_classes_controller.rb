@@ -16,7 +16,8 @@ module Auth
       process_purchase
       send_purchased_notifications
       increase_available_invites
-      subscribe_to_mailchimp_list
+      unsubscribe_from_mailchimp_advocates
+      subscribe_to_mailchimp_partners
 
       head :ok
     end
@@ -69,7 +70,8 @@ module Auth
       error!(puchase_form.errors.messages) unless puchase_form.valid?
 
       return if @university_class.purchase(puchase_form.as_json, current_user)
-      error!(number: ['We are unable to process this card. Please reenter your number and secret code or try a different card.'])
+      error!(number: ['We are unable to process this card. \
+        Please reenter your number and secret code or try a different card.'])
     end
 
     def send_purchased_notifications
@@ -82,8 +84,14 @@ module Auth
       mailer.deliver_now!
     end
 
-    def subscribe_to_mailchimp_list
-      current_user.mailchimp_subscribe_to('partners')
+    def unsubscribe_from_mailchimp_advocates
+      current_user.mailchimp_unsubscribe('advocates')
+    rescue Gibbon::MailChimpError => e
+      Airbrake.notify(e)
+    end
+
+    def subscribe_to_mailchimp_partners
+      current_user.mailchimp_subscribe('partners')
     rescue Gibbon::MailChimpError => e
       Airbrake.notify(e)
     end
@@ -95,7 +103,7 @@ module Auth
     end
 
     def validate_class_enrollable
-      if (!@university_class.is_free? &&
+      if (!@university_class.free? &&
           !@university_class.purchased_by?(current_user)) ||
           !@university_class.prerequisites_taken?(current_user)
         not_found!(:product)

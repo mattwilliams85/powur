@@ -9,6 +9,7 @@
         title: 'Notifications',
         links: [
           { href: '/admin/notifications/new', text: 'Add' },
+          { href: '/admin/twilio-stats', text: 'Twilio Stats' }
         ],
         tablePath: 'admin/notifications/templates/table.html'
       },
@@ -23,6 +24,8 @@
     };
 
     $scope.legacyImagePaths = legacyImagePaths;
+
+    $scope.selectedRecipients = {};
 
     // Form Validation
     $scope.formErrorMessages = {};
@@ -63,10 +66,10 @@
           method: 'POST',
           url: '/a/notifications',
           data: $scope.notification
-        }).success(function() {
+        }).success(function(data) {
           $scope.isSubmitDisabled = false;
-          $location.path('/admin/notifications');
-          $scope.showModal('Data successfully saved');
+          $location.path('/admin/notifications/' + data.properties.id + '/edit');
+          $scope.showModal('Notification successfully created');
         }).error(formErrorCallback);
       }
     };
@@ -100,21 +103,50 @@
       });
     };
 
-    $scope.sendToRecipient = function(notification, recipient) {
-      var message = 'This will send SMS message to all ' + recipient + '. Are you sure?';
+    $scope.sendToRecipients = function() {
+      var message = 'This will send SMS message to all selected recipients. Are you sure?';
       if (window.confirm(message)) {
-        var action = getAction(notification.actions, 'send_out');
+        $scope.isSubmitDisabled = true;
+        var recipients = Object.keys($scope.selectedRecipients);
         $http({
-          method: action.method,
-          url: action.href,
-          params: {recipient: recipient}
-        }).success(function(data) {
-          notification.properties = data.properties;
-          notification.links = data.links;
+          method: 'POST',
+          url: '/a/notifications/' + $scope.notification.id + '/send_out',
+          data: { recipients: recipients.join() }
+        }).success(function() {
+          $location.path('/admin/notifications');
+          $scope.showModal('Notification is being delivered...');
         }).error(function() {
+          $scope.isSubmitDisabled = false;
           $scope.showModal("Oops, error couldn't send notification");
         });
       }
+    };
+
+    $scope.getAvailableRecipients = function() {
+      $http({
+        method: 'GET',
+        url: '/a/notifications/available_recipients'
+      }).success(function(data) {
+        $scope.availableRecipients = data.entities;
+      });
+    };
+
+    $scope.getTwilioStats = function() {
+      $http({
+        method: 'GET',
+        url: '/a/twilio_phone_numbers'
+      }).success(function(data) {
+        var sentToday = 0,
+            max = data.entities.length * 250;
+        for (var i in data.entities) {
+          sentToday += data.entities[i].properties.messages_sent;
+        }
+        $scope.twilioData = {
+          messagesSentToday: sentToday,
+          maxDailyMessages: max,
+          remainingDailyMessages: max - sentToday
+        };
+      });
     };
 
     $scope.cancel = function() {
@@ -158,14 +190,17 @@
       $rootScope.breadcrumbs.push({title: 'Notifications'});
       $scope.index = {};
       $scope.pagination(0);
+      $scope.getTwilioStats();
     } else if ($scope.mode === 'new') {
       $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
       $rootScope.breadcrumbs.push({title: 'New notification'});
       $scope.notification = {};
+      $scope.getAvailableRecipients();
     } else if ($scope.mode === 'edit') {
       $scope.withNotification($routeParams.notificationId, function(item) {
         $scope.notification = item.properties;
         $scope.formAction = getAction(item.actions, 'update');
+        $scope.getAvailableRecipients();
         $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
         $rootScope.breadcrumbs.push({title: 'Update notification'});
       });

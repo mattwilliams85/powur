@@ -56,7 +56,7 @@ describe '/invite' do
     context 'when successfully creates user' do
       before do
         expect(mailchimp_list_api).to receive(:subscribe).with(
-          id:           User::MAILCHIMP_LISTS[:all],
+          id:           User::MAILCHIMP_LISTS[:advocates],
           email:        { email: user_params[:email] },
           merge_vars:   {
             FNAME: user_params[:first_name],

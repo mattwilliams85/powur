@@ -5,7 +5,7 @@ module Admin
          id_asc:  { id: :asc }
 
     before_filter :fetch_notification,
-                  only: [:show, :update, :destroy, :send_out ]
+                  only: [ :show, :update, :destroy, :send_out ]
 
     def index
       @notifications = apply_list_query_options(Notification)
@@ -16,7 +16,7 @@ module Admin
       @notification = Notification.new(input)
       @notification.user_id = current_user.id
       @notification.save!
-      index
+      show
     end
 
     def destroy
@@ -25,6 +25,7 @@ module Admin
     end
 
     def show
+      render :show
     end
 
     def update
@@ -33,12 +34,15 @@ module Admin
     end
 
     def send_out
-      params.require(:recipient)
-      @notification.update_attributes!(
-        sender_id: current_user.id,
-        sent_at:   Time.zone.now,
-        recipient: params[:recipient])
-      @notification.delay.send_out
+      params.require(:recipients)
+      recipients = params[:recipients].split(',')
+      recipients.each do |recipient|
+        release = @notification.releases.create!(
+          user_id:   current_user.id,
+          sent_at:   Time.zone.now,
+          recipient: recipient)
+        release.delay.send_out
+      end
 
       render :show
     end
@@ -46,7 +50,8 @@ module Admin
     private
 
     def fetch_notification
-      @notification = Notification.find(params[:id])
+      @notification = Notification.find(params[:id].to_i)
+      error!(:notification_locked) if @notification.releases.any?
     end
 
     def input

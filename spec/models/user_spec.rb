@@ -85,29 +85,6 @@ describe User, type: :model do
     end
   end
 
-  describe '#assign_parent' do
-    it 'moves a user and their downline in the geneaology' do
-      root = create(:user)
-      parent1 = create(:user, sponsor: root)
-      parent2 = create(:user, sponsor: root)
-      child = create(:user, sponsor: parent1)
-
-      parent1.assign_parent(parent2, '')
-      expect(parent1.upline).to eq(parent2.upline + [ parent1.id ])
-      child.reload
-      expect(child.upline).to eq(parent2.upline + [ parent1.id, child.id ])
-    end
-
-    it 'does not allow moving a user to a child' do
-      root = create(:user)
-      parent1 = create(:user, sponsor: root)
-      child = create(:user, sponsor: parent1)
-
-      expect { parent1.assign_parent(child) }
-        .to raise_error(ArgumentError)
-    end
-  end
-
   describe '#mark_notifications_as_read=' do
     let(:user) { create(:user) }
 
@@ -119,29 +96,33 @@ describe User, type: :model do
     end
   end
 
-  describe '#unread_notifications' do
+  describe '#latest_unread_notification' do
     let(:user) { create(:user) }
-    let!(:notification_public) { create(:notification, recipient: 'advocates', is_public: true) }
-    let!(:notification_public2) { create(:notification, recipient: 'advocates', is_public: true) }
-    let!(:notification_hidden) { create(:notification, recipient: 'advocates', is_public: false) }
-    let!(:notification_public_partner) { create(:notification, recipient: 'partners', is_public: true) }
+    let!(:notification) { create(:notification) }
+    let!(:notification_advocate) { create(:notification) }
+    let!(:notification_partner) { create(:notification) }
+    before do
+      create(:notification_release, notification: notification, recipient: 'advocates')
+      create(:notification_release, notification: notification, recipient: 'partners')
+      create(:notification_release, notification: notification_advocate, recipient: 'advocates')
+      create(:notification_release, notification: notification_partner, recipient: 'partners')
+    end
 
     context 'when have not read them before' do
-      it 'returns advocate notifications' do
-        expect(user.unread_notifications.to_a)
-          .to eq([notification_public2, notification_public])
+      it 'returns latest advocate notification' do
+        expect(user.latest_unread_notification)
+          .to eq(notification_advocate)
       end
     end
 
     context 'when read something before' do
       before do
-        notification_public.update_attribute(:created_at, Time.zone.now - 2.days)
-        user.update_attribute(:notifications_read_at, Time.zone.now - 1.day)
+        user.update_attribute(:notifications_read_at, Time.zone.now + 1.minute)
       end
 
-      it 'returns all unread notifications' do
-        expect(user.unread_notifications.to_a)
-          .to eq([notification_public2])
+      it 'returns latest unread notification' do
+        expect(user.latest_unread_notification)
+          .to be_nil
       end
     end
 
@@ -150,11 +131,10 @@ describe User, type: :model do
         allow(user).to receive(:partner?).and_return(true)
       end
 
-      it 'returns partner notifications' do
-        expect(user.unread_notifications.to_a)
-          .to eq([notification_public_partner])
+      it 'returns partner notification' do
+        expect(user.latest_unread_notification)
+          .to eq(notification_partner)
       end
     end
   end
-
 end

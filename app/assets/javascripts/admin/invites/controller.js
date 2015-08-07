@@ -25,7 +25,7 @@
         params: {
           page: page,
           sort: sort,
-          search: $scope.searchQuote
+          search: $scope.searchInvites
         }
       }).then(function(data) {
         $scope.index.data = data;

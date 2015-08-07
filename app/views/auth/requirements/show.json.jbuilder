@@ -4,7 +4,7 @@ json.partial! 'item', requirement: @requirement
 
 if admin?
   update = action(:update, :patch, requirement_path(@requirement))
-  unless @requirement.course_enrollment?
+  unless @requirement.purchase?
     update
       .field(:quantity, :integer, required: true, value: @requirement.quantity)
       .field(:time_span, :select,

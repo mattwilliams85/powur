@@ -28,7 +28,7 @@ en:
     password_update: You have entered an incorrect current password.
     password_confirm: The confirm password does not match
     update_avatar: You must submit an image to change your avatar
-    delete_quote: You cannot delete a quote that has been submitted
+    delete_lead: You cannot delete a quote that has been submitted
     delete_rank: You can only delete the last rank
     delete_product: You cannot delete a product with existing quotes/orders
     duplicate_bonus_plan_start: "The bonus plan '%{plan}' already has this start date"
@@ -41,6 +41,7 @@ en:
     already_completed: You have already completed this course
     smarteru_user: Your account is inaccessible via the SmarterU API
     smarteru_incomplete_enrollment: Your class enrollment is not complete
+    notification_locked: This notification is locked. Please create another one
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

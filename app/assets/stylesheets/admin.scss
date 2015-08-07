@@ -1,11 +1,14 @@
 @import "admin/foundation_and_overrides";
 
+// Sprites
 @import "compass/utilities/sprites";
-
 @import "pow-sprites/*.png";
 
-@import "admin/header";
+// Bower components
+@import "jquery-ui/themes/base/jquery-ui";
 
+// Admin
+@import "admin/header";
 @import "admin/main";
 
 @import "admin/bonus-plans";

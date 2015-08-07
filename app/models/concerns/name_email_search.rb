@@ -1,9 +1,18 @@
 module NameEmailSearch
   extend ActiveSupport::Concern
 
-  SEARCH = ':q % first_name or :q % last_name or email ilike :like'
+  # SEARCH = ':q % %{t}.first_name or :q % %{t}.last_name or %{t}.email ilike :like'
 
   included do
-    scope :search, ->(q) { where(SEARCH, q: "#{q}", like: "%#{q}%") }
+    scope :search, lambda { |q|
+      if (qi = q.to_i) && qi.to_s == q
+        where(id: qi)
+      else
+        sql = ":q % #{table_name}.first_name
+          OR :q % #{table_name}.last_name
+          OR #{table_name}.email ILIKE :like"
+        where(sql, q: "#{q}", like: "%#{q}%")
+      end
+    }
   end
 end

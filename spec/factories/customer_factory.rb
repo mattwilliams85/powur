@@ -7,7 +7,7 @@ FactoryGirl.define do
     address           { Faker::Address.street_address }
     city              { Faker::Address.city }
     state             { Faker::Address.state_abbr }
-    zip               '97227'
+    zip               '90210'
 
     factory :search_miss_customer do
       first_name 'xxx'

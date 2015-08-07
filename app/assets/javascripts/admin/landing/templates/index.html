@@ -1,11 +1,20 @@
 <main class="pow-admin-index">
   <div class="row">
-    <div class="large-9 columns">
+    <div class="large-7 columns">
       <h2>Admin Dashboard</h2>
     </div>
 
-    <div class="large-3 columns">
-      <select ng-model="daysAgo" ng-options="item.value as item.label for item in daysAgoOptions" ng-change="getData()" class="dropdown"></select>
+    <div class="large-2 columns">
+      <label for="datepicker_since">Start</label><input type="text" id="datepicker_since" ng-model="dateSince">
+    </div>
+
+    <div class="large-2 columns">
+      <label for="datepicker_until">End</label><input type="text" id="datepicker_until" ng-model="dateUntil">
+    </div>
+
+    <div class="large-1 columns last">
+      <br>
+      <button ng-click="getData()" class="button tiny">Go</button>
     </div>
   </div>
 

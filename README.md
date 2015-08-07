@@ -1,19 +1,5 @@
 [![Circle CI](https://circleci.com/gh/eyecuelab/powur.svg?style=svg&circle-token=184c29660ce8e18b159cdf7b7a4dd36222abc97a)](https://circleci.com/gh/eyecuelab/powur)
 
-
-## Seeding your DB (not to be done in production)
-
-```
-rake powur:seed:products
-rake powur:seed:library
-rake powur:seed:advocates
-rake powur:seed:leads
-rake powur:seed:submitted_leads
-rake powur:import:lead_updates DATA_API_ENV=production
-rake powur:seed:plan
-```
-
-
 ## Working with Production DB backup
 
 ### Restore local DB from a snapshot

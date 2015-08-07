@@ -1,61 +1,117 @@
 ;(function() {
   'use strict';
 
-  function AdminPayPeriodsCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, AdminPayPeriod) {
+  angular.module('powurApp')
+    .controller('AdminPayPeriodsCtrl', controller)
+    .config(routes);
+
+  controller.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http'];
+  function controller($scope, $rootScope, $location, $routeParams, $anchorScroll, $http) {
     $scope.redirectUnlessSignedIn();
 
-    $scope.backToIndex = function() {
-      $location.path('/admin/payPeriods/');
+    $scope.templateData = {
+      index: {
+        title: 'Pay Periods',
+        tablePath: 'admin/pay-periods/templates/table.html'
+      },
+      show: {
+        title: 'Pay Period',
+        tablePath: 'admin/pay-periods/templates/users.html'
+      }
+    };
+
+    $scope.payPeriodFilters = [ { value: 'monthly', title: 'Monthly' },
+                                { value: 'weekly', title: 'Weekly' } ];
+
+    // TODO: Have one 'pagination' function instead of defining it in every controller
+    $scope.pagination = function(direction, path) {
+      if (typeof direction === 'undefined') direction = 0;
+      if (typeof path === 'undefined') path = '/u/pay_periods';
+      var page = 1,
+          sort,
+          time_span;
+      if ($scope.index.data) {
+        page = $scope.index.data.properties.paging.current_page;
+        sort = $scope.index.data.properties.sorting.current_sort;
+        time_span = $scope.index.data.selectedFilter;
+      }
+      page += direction;
+
+      return $http({
+        method: 'GET',
+        url: path,
+        params: {
+          page: page,
+          sort: sort,
+          time_span: time_span
+        }
+      }).success(function(data) {
+        $scope.index.data = data;
+        $scope.index.data.selectedFilter = time_span;
+        $anchorScroll();
+      });
+    };
+
+    $scope.withPayPeriod = function(id, cb) {
+      return $http({
+        method: 'GET',
+        url: '/u/pay_periods/' + id
+      }).success(cb);
+    };
+
+    $scope.cancel = function() {
+      $location.path('/admin/pay-periods');
     };
 
     this.init($scope, $location);
-    this.fetch($scope, $rootScope, $location, $routeParams, AdminPayPeriod);
+    this.fetch($scope, $rootScope, $location, $routeParams);
   }
 
-  AdminPayPeriodsCtrl.prototype.init = function($scope, $location) {
-    // Setting mode based on the url
-    $scope.mode = 'show';
-    if (/\/pay-periods$/.test($location.path())) return $scope.mode = 'index';
-    if (/\/new$/.test($location.path())) return $scope.mode = 'new';
-    if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
+  controller.prototype.init = function($scope, $location) {
+    $scope.mode = 'index';
+    if (/\/pay-periods\//.test($location.path())) return $scope.mode = 'show';
   };
 
-  AdminPayPeriodsCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, AdminPayPeriod) {
+  controller.prototype.fetch = function($scope, $rootScope, $location, $routeParams) {
+    $scope.index = {};
+
     if ($scope.mode === 'index') {
-      AdminPayPeriod.list().then(function(items) {
-        $scope.payPeriods = items.entities;
-
-        // Breadcrumbs: Pay Periods
-        $rootScope.breadcrumbs.push({title: 'Pay Periods'});
-
-      });
-
-    } else if ($scope.mode === 'new') {
-
+      $rootScope.breadcrumbs.push({title: $scope.templateData.index.title});
+      $scope.pagination();
     } else if ($scope.mode === 'show') {
-      AdminPayPeriod.get($routeParams.payPeriodId).then(function(item) {
-        $scope.payPeriod = item.properties;
+      $scope.withPayPeriod($routeParams.payPeriodId, function(data) {
+        $scope.payPeriod = data.properties;
+        $scope.templateData.show.title = data.properties.title;
+        $rootScope.breadcrumbs.push({title: $scope.templateData.index.title, href:'/admin/pay-periods'});
+        $rootScope.breadcrumbs.push({title: data.properties.id});
 
-        // Breadcrumbs: Pay Periods / Pay Period ID
-        $rootScope.breadcrumbs.push({title: 'Pay Periods', href: '/admin/pay-periods'});
-        $rootScope.breadcrumbs.push({title: $scope.payPeriod.id});
-
-      });
-
-    } else if ($scope.mode === 'edit') {
-      AdminPayPeriod.get($routeParams.payPeriodId).then(function(item) {
-        $scope.payPeriod = item.properties;
-
-        // Breadcrumbs: Pay Periods / Pay Period ID / Update Pay Period
-        $rootScope.breadcrumbs.push({title: 'Pay Periods', href: '/admin/pay-periods'});
-        $rootScope.breadcrumbs.push({title: $scope.payPeriod.id, href: '/admin/pay-periods/' + $scope.payPeriod.id});
-        $rootScope.breadcrumbs.push({title: 'Update Pay Period'});
-
+        var entity = findByRel('pay_period-users', data.entities);
+        $scope.pagination(0, entity.href);
       });
     }
   };
 
-  AdminPayPeriodsCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'AdminPayPeriod'];
-  angular.module('powurApp').controller('AdminPayPeriodsCtrl', AdminPayPeriodsCtrl);
+  routes.$inject = ['$routeProvider'];
+  function routes($routeProvider) {
+    $routeProvider.
+    when('/admin/pay-periods', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
+    when('/admin/pay-periods/:payPeriodId?', {
+      templateUrl: 'shared/admin/rest/show.html',
+      controller: 'AdminPayPeriodsCtrl'
+    });
+  }
+
+  function findByRel(rel, items) {
+    for (var i in items) {
+      for (var j in items[i].rel) {
+        if (items[i].rel[j] === rel) {
+          return items[i];
+        }
+      }
+    }
+  }
 
 })();

@@ -1,0 +1,29 @@
+<main class="pow-admin-index">
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Place {{ fullName(user) }}</h2>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="row">
+    <div class="large-4 columns">
+      <div class="row">
+        <form ng-submit="searchParent()">
+          <div class="small-12 columns">
+            <br>
+            <span>Please find a new parent first</span><br>
+            <input type="search" ng-model="usersSearch" placeholder="Search">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <ng-include src="templateData.placeUser.tablePath"></ng-include>
+      <ng-include src="'shared/admin/pagination.html'"></ng-include>
+    </div>
+  </div>
+</main>

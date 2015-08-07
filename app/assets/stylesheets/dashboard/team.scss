@@ -1,6 +1,73 @@
 .powur-dashboard {
   .team-section {
 
+    .placement-box {
+      position: absolute;
+      bottom: -90px;
+      margin: 0 auto;
+      font-size: 14pt;
+      background-color: #20C2F1;
+      color: #fff;
+      padding: 20px;
+      width: 80%;
+      left: 0;
+      right: 0;
+      border-radius: 5px;
+      transition: padding .15s lienar;
+
+      &.placing {
+        padding-bottom: 80px;
+        bottom: -150px;
+
+        .line-1 {
+          display: none;
+        }
+        .line-2,
+        .button-box {
+          display: block;
+        }
+      }
+
+      .line-2 {
+        display: none;
+      }
+      
+      .button-box {
+        display: none;
+        position: absolute;
+        bottom: 25px;
+        left: 20px;
+        margin: 0 auto;
+        right: 0;
+        width: 310px;
+
+        .place-button {
+          padding: 7px 50px;
+          background-color: #fff;
+          border-radius: 3px;
+          margin-left: 15px;
+          text-transform: uppercase;
+          font-weight: bold;
+          color: #20C2F1;
+          transition: all .2s linear;
+
+          &:hover {
+            background: #1996BA;
+            color: #fff;
+          }
+        }
+      }
+
+      .fa-times {
+        float: right;
+        font-size: 20pt;
+        cursor: pointer;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+      }
+    }
+
     .tooltips {
       position: relative;
       display: inline;
@@ -78,7 +145,7 @@
       margin-top: 50px;
 
       &.accordion {
-        margin-top: 45px;
+        margin-top: 38px;
         transition: none !important;
         -webkit-transition: none !important;
         .avatar {
@@ -93,7 +160,7 @@
       }
     }
 
-    .proposal-row {
+    .lead-row {
       background-color: #292929 !important;
       &.expand {
         height: 450px !important;
@@ -120,7 +187,7 @@
       }
     }
 
-    .proposal-section {
+    .lead-section {
       padding-top: 0px;
       margin-bottom: 0px;
       &:before {
@@ -151,10 +218,110 @@
 
     .info-row {
       text-align: center;
-      // background-image:  image-url("city-dark.jpg");
       background-position: left 0;
       background-repeat: no-repeat;
       background-size: cover;
+
+      .info-container {
+        padding: 30px 40px;
+        text-align: left;
+        color: #fff;
+        opacity: 0;
+        transition: opacity .3s ease-out;
+        -webkit-transition: opacity .3s ease-out;
+
+        .fa {
+          font-size: 16pt;
+        }
+
+        .row.stats {
+          padding: 30px 0 15px 15px;
+          font-weight: bold;
+        }
+
+        .stats-container {
+          background-color: rgba(0, 0, 0, 0.08);
+          border: 1px solid #333;
+          padding: 10px;
+          margin: 15px;
+          border-radius: 4px;
+        }
+
+        .header {
+          font-size: 16pt;
+          margin-left: -25px;
+          margin: 7px 0;
+          font-weight: bold;
+        }
+
+        .sub-header {
+          font-size: 12pt;
+          color: #9b9b9b;
+          text-transform: uppercase;
+          display: block;
+          &.place {
+            display: inline;
+            margin-left: 7px;
+            text-transform: none;
+          }
+        }
+
+        .detail {
+          display: block;
+
+          &.lg {
+            font-size: 14pt;
+            margin: 5px 0 5px 15px;
+          }
+          &.place {
+            display: inline;
+            cursor: pointer;
+            color: #008CBA;
+            margin-left: 0;
+          }
+        }
+
+        i {
+           border-radius: 15px;
+           line-height: 32px;
+           transition: background-color .3s linear;
+           text-align: center; 
+
+           &.fa-facebook {
+             background-color: #3b5998;
+             &:hover {
+               background-color: #4264AB;
+             }
+           }
+           &.fa-twitter {
+             background-color: #50acee;
+             &:hover {
+               background-color: #6FBDFB;
+             }
+           }
+           &.alternate {
+             color: #fff;
+             border-radius: 50%;
+             font-size: 15pt;
+             width: 30px;
+             height: 30px;
+             line-height: 32px;
+             margin: 10px 0px 15px 15px;
+           }
+           &.disabled {
+             background-color: #555;
+             color: #ddd;
+             &:hover {
+               cursor: default;
+               background-color: #555;
+               color: #ddd;
+             }
+           }
+           &:hover {
+             background-color: #000;
+           }
+         }
+        }
 
       .icon-container {
         margin: 10px;
@@ -166,27 +333,67 @@
         position: relative;
         text-align: center;
         top: 20%;
-        margin-top: -5px;
-        margin-bottom: 10px;
+        width: 34%;
+        margin: 10px auto;
+        z-index: 1;
+
+        .crop-box {
+          height: 85px;
+          width: 85px;
+          border-radius: 50px;
+          position: relative;
+          overflow: hidden;
+          background-color: transparent;
+          z-index:1;
+
+          &.swing {
+            background-color: #20C2F1;
+          }
+        }
+
+        .plus {
+          position: absolute;
+          left: -86px;
+          z-index: 2;
+          transition: transform .15s linear;
+          border-radius: 50%;
+          background-color: #20C2F1;
+          &.swing {
+            transform: translate(85px, 0);
+          }
+        }
 
         .cert-badge {
-          background: url('https://sunstand-dev.s3.amazonaws.com/resource_topic_original_images/70b9a7bd22dfb5b781ed2fa636f48ab3/03 Powur.png');
+          background: image-url("dashboard/cert-badge.png");
           width: 30px;
           height: 30px;
           background-color: #20C2F1;
           background-size: cover;
           border-radius: 50%;
           position: absolute;
-          z-index: 2;
+          z-index: 3;
           cursor: help;
           top: 62%;
-          left: 58%;
+          left: 69%;
+
+          &.swing {
+            cursor: pointer;
+            opacity: 0;
+          }
+        }
+
+        .avatar-img {
+          transition: transform .15s linear;
+          border-radius: 50%;
+          &.swing {
+            transform: translate(86px, 0);
+          }
         }
 
         img {
           width: 85px;
+          height: 85px;
           margin: 0 auto;
-          border-radius: 50%;
           position: relative;
           z-index: 1;
         }
@@ -216,6 +423,12 @@
           line-height: 10pt;
           color: #9b9b9b;
           display: block;
+
+          &.placeable {
+            text-transform: uppercase;
+            color: #20C2F1;
+            font-weight: bold;
+          }
         }
       }
 
@@ -313,11 +526,15 @@
       border-bottom: 0px;
       margin-bottom: 0px;
 
+      .empty-state {
+        border-left: 1px solid #555 !important;
+      }
+
       &.expand {
         height: 220px;
 
         &.info-row {
-          height: 230px;
+          height: 500px;
         }
       }
 
@@ -338,10 +555,6 @@
 
       .customer-name, .empty-text {
         color: #fff;
-      }
-
-      .empty-state {
-        border-left: 1px solid #555;
       }
 
       .inactive-icon {
@@ -467,44 +680,7 @@
         a {
           color: #fff;
         }
-        i {
-          border-radius: 15px;
-          line-height: 32px;
-          transition: background-color .3s linear;
-          &.fa-facebook {
-            background-color: #3b5998;
-            &:hover {
-              background-color: #4264AB;
-            }
-          }
-          &.fa-twitter {
-            background-color: #50acee;
-            &:hover {
-              background-color: #6FBDFB;
-            }
-          }
-          &.alternate {
-            color: #fff;
-            border-radius: 50%;
-            font-size: 30pt;
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
-            margin-bottom: -4px;
-          }
-          &.disabled {
-            background-color: #555;
-            color: #ddd;
-            &:hover {
-              cursor: default;
-              background-color: #555;
-              color: #ddd;
-            }
-          }
-          &:hover {
-            background-color: #000;
-          }
-        }
+
 
         .info-text {
           display: block;

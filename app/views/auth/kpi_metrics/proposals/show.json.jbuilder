@@ -3,7 +3,8 @@ siren json
 users_json.item_init
 
 json.properties do
-  json.call(@user, :id, :first_name, :last_name, :proposal_count)
+  json.call(@user, :id, :first_name, :last_name)
+  json.proposal_count @user.leads.converted.count
 
   json.metrics do
     json.data0 @proposals

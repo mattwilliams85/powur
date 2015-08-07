@@ -5,7 +5,7 @@
 
   <div ng-if="currentUser.notification" class="notification-wrapper">
     <a class="close-icon" ng-click="closeNotification()">×</a>
-    <span>{{ currentUser.notification.content }}</span>
+    <span>{{ currentUser.notification }}</span>
   </div>
 
   <!-- Welcome Section -->
@@ -42,10 +42,10 @@
     </div>
   </div>
 
-    <!-- My Customers Section -->
+    <!-- Lead Pipeline Section -->
     <div class="row">
-      <div class="customers-section large-12 columns">
-        <ng-include ng-controller="DashboardCustomersCtrl" src="'dashboard/templates/sections/customers.html'"></ng-include>
+      <div class="leadpipeline-section large-12 columns">
+        <ng-include ng-controller="DashboardLeadPipelineCtrl" src="'dashboard/templates/sections/leadpipeline.html'"></ng-include>
       </div>
     </div>
 

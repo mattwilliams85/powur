@@ -8,31 +8,12 @@ module Auth
 
     private
 
-    def fetch_enrollments(requirements)
-      course_requirements = requirements.select(&:course_enrollment?)
-      product_ids = course_requirements.map(&:product_id).uniq
-      @enrollments = ProductEnrollment.user_product(@user.id, product_ids)
-    end
-
-    def fetch_order_totals(requirements)
-      sales_requirements = requirements.select(&:course_enrollment?)
-      product_ids = sales_requirements.map(&:product_id).uniq
-
-      @order_totals = OrderTotal.where(
-        product_id:    product_ids,
-        user_id:       @user.id,
-        pay_period_id: MonthlyPayPeriod.current.id)
-    end
-
     def fetch_rank
-      next_rank_id = @user.organic_rank ? @user.organic_rank + 1 : 1
+      next_rank_id = @user.pay_as_rank + 1
       @next_rank = Rank.find_by(id: next_rank_id)
       return unless @next_rank
 
       @requirements = @next_rank.user_groups.map(&:requirements).flatten
-
-      fetch_enrollments(@requirements)
-      fetch_order_totals(@requirements)
     end
   end
 end

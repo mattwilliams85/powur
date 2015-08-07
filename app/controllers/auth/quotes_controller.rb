@@ -5,7 +5,7 @@ module Auth
     before_action :fetch_quote,
                   only: [ :show, :update, :destroy, :resend, :submit ]
 
-    page
+    page max_limit: 500
     sort created:  { created_at: :desc },
          customer: 'customers.last_name asc, customers.first_name asc'
     filter :status,
@@ -72,20 +72,17 @@ module Auth
         .includes(:customer, :user, :product)
         .references(:customer, :user, :product)
       scope = scope.where(user_id: @user.id) if @user
-      if params[:search]
-        scope = scope
-          .joins(:customer).where("lower(customers.first_name || ' ' || customers.last_name) LIKE ?", "%#{params[:search].downcase}%")
-          .order('customers.first_name asc')
-      end
+      scope = scope.merge(Customer.search(params[:search])) if params[:search]
       @quotes = scope
     end
 
     def fetch_quote
+      id = params[:id].to_i
       @quote =
         if admin?
-          Quote.find_by(id: params[:id].to_i)
+          Quote.find_by(id: id)
         else
-          Quote.where(user_id: @user.id, id: params[:id].to_i).first
+          Quote.find_for_downline(id, current_user.id)
         end
       not_found!(:quote) unless @quote
     end

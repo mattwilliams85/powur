@@ -32,13 +32,13 @@
       <td>This user has no open or redeemed invites</td>
     </tr>
     <tr ng-repeat="invite in user_invites.entities">
-      <td>{{invite.properties.id}}</td>
-      <td>{{invite.properties.first_name}} {{invite.properties.last_name}}</td>
-      <td>{{invite.properties.email}}</td>
-      <td>{{invite.properties.created_at | dateToLocalDate}} {{invite.properties.created_at | timeToLocalTime}}</td>
-      <td>{{invite.properties.expires | dateToLocalDate}} {{invite.properties.expires | timeToLocalTime}}</td>
-      <td>{{invite.properties.user_id}}</td>
-      <td><span ng-repeat="action in invite.actions"><a ng-click="invites.executeInviteAction(action)">{{action.name}}</a> </span></td>
+      <td>{{ invite.properties.id }}</td>
+      <td>{{ fullName(invite) }}</td>
+      <td>{{ invite.properties.email }}</td>
+      <td>{{ invite.properties.created_at | dateToLocalDate }} {{ invite.properties.created_at | timeToLocalTime }}</td>
+      <td>{{ invite.properties.expires | dateToLocalDate }} {{ invite.properties.expires | timeToLocalTime }}</td>
+      <td>{{ invite.properties.user_id }}</td>
+      <td><span ng-repeat="action in invite.actions"><a ng-click="invites.executeInviteAction(action)">{{ action.name }}</a> </span></td>
     </tr>
   </tbody>
 </table>

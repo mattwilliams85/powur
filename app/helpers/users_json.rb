@@ -17,7 +17,6 @@ class UsersJson < JsonDecorator
     json.properties do
       json.call(user, :id, :first_name, :last_name, :email, :phone, :level,
                 :moved, :profile, :lifetime_rank)
-
       LIST_PROPS.each do |field|
         json.set! field, user.attributes[field] if user.attributes[field]
       end
@@ -44,7 +43,6 @@ class UsersJson < JsonDecorator
       json.call(user, :address, :city, :state, :zip, :profile, :avatar, :avatar_file_name, :last_sign_in_at)
       json.organic_rank rank_title(user.organic_rank)
       json.lifetime_rank rank_title(user.lifetime_rank)
-      json.downline_count user.downline_users_count(user.id)
       if user.rank_path_id
         json.rank_path all_paths.find { |p| p.id == user.rank_path_id }.name
       end
@@ -55,13 +53,12 @@ class UsersJson < JsonDecorator
   end
 
   def item_actions(user)
-    if user.placeable?(current_user)
-      json.actions do
-        json.name "place"
-        json.method "UPDATE"
-        json.href "/u/users/"+user.id.to_s+"?sponsor_id="
-        json.type "application/json"
-      end
+    return unless user.moveable_by?(current_user)
+    json.actions do
+      json.name "place"
+      json.method "UPDATE"
+      json.href "/u/users/"+user.id.to_s+"?sponsor_id="
+      json.type "application/json"
     end
   end
 
@@ -69,17 +66,10 @@ class UsersJson < JsonDecorator
     entities \
       entity(%w(list users), 'user-children', downline_admin_user_path(user)),
       entity(%w(list users), 'user-ancestors', upline_admin_user_path(user)),
-      entity(%w(list orders), 'user-orders', admin_user_orders_path(user)),
-      # entity(%w(list order_totals), 'user-order_totals',
-      #        admin_user_order_totals_path(user)),
-      # entity(%w(list rank_achievements), 'user-rank_achievements',
-      #        admin_user_rank_achievements_path(user)),
       entity(%w(list bonus_payments), 'user-bonus_payments',
              admin_user_bonus_payments_path(user)),
       entity(%w(list overrides), 'user-overrides',
              admin_user_overrides_path(user)),
-      entity(%w(list pay_periods), 'user-pay_periods',
-             admin_user_pay_periods_path(user)),
       entity(%w(list invites), 'user_invites',
              admin_user_invites_path(user)),
       entity(%w(list product_enrollments), 'user_product_enrollments',
@@ -91,12 +81,7 @@ class UsersJson < JsonDecorator
   def user_entities(user = @item)
     entities \
       entity(%w(list users), 'user-children', downline_user_path(user)),
-      entity(%w(list users), 'user-ancestors', upline_user_path(user)),
-      entity(%w(list orders), 'user-orders', user_orders_path(user))
-      # entity(%w(list order_totals), 'user-order_totals',
-      #        user_order_totals_path(user))
-      # entity(%w(list rank_achievements), 'user-rank_achievements',
-      #        user_rank_achievements_path(user))
+      entity(%w(list users), 'user-ancestors', upline_user_path(user))
   end
 
   def update_action(path, user = @item) # rubocop:disable Metrics/AbcSize

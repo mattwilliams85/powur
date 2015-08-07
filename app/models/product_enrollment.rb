@@ -1,6 +1,4 @@
 class ProductEnrollment < ActiveRecord::Base
-  include EwalletDSL
-
   belongs_to :product
   belongs_to :user
 
@@ -32,10 +30,6 @@ class ProductEnrollment < ActiveRecord::Base
 
     event :complete do
       transitions from: [:enrolled, :started], to: :completed
-      after do
-        UserUserGroup.populate_for_user_product(user_id, product_id)
-        user.rank_up! if user.needs_rank_up?
-      end
     end
   end
 

@@ -16,7 +16,7 @@ describe 'index' do
 
     expect_200
     expect_classes('session', 'user')
-    expect_entities('user-invites', 'user-quotes', 'user-users')
+    expect_entities('user-invites', 'user-leads', 'user-users')
     expect_actions('logout')
   end
 

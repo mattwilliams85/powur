@@ -2,22 +2,21 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   include Calculator::RankAchievements
   include Calculator::OrderTotals
   include Calculator::Bonuses
-  include EwalletDSL
 
-  has_many :order_totals, dependent: :destroy
-  has_many :rank_achievements, dependent: :destroy
+  has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
-  has_many :bonus_payment_orders, through: :bonus_payments, dependent: :destroy
 
   scope :calculated, -> { where('calculated_at is not null') }
   scope :next_to_calculate,
         -> { order(id: :asc).where('calculated_at is null').first }
 
-  scope :dispursed, -> { where('dispursed_at is not null') }
+  scope :disbursed, -> { where('disbursed_at is not null') }
 
   scope :within_date_range, lambda { |range_start, range_end|
-                              where(end_date: range_start..range_end)
-                            }
+    where(end_date: range_start..range_end)
+  }
+  scope :time_span,
+        ->(span) { where(type: "#{span.to_s.capitalize}PayPeriod") }
 
   before_create do
     self.id ||= self.class.id_from(start_date)
@@ -50,9 +49,9 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   def disburse!
     payments_per_user = BonusPayment.user_bonus_totals(self)
 
-    query = prepare_load_request(self, payments_per_user)
-
-    ewallet_request(:ewallet_load, query)
+    # query = prepare_load_request(self, payments_per_user)
+    #
+    # ewallet_request(:ewallet_load, query)
   end
 
   def calculated?
@@ -74,6 +73,19 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def calculate_order_totals(user_id, product_id)
+  end
+
+  def status
+    case self
+    when disbursed?
+      'disbursed'
+    when calculated?
+      'calculated'
+    when calculating?
+      'calculating'
+    when calculate_queued
+      'queued'
+    end
   end
 
 
@@ -277,16 +289,20 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
       find_or_create_by_date(Date.current)
     end
 
+    def current_id
+      id_from(Date.current)
+    end
+
     def find_or_create_by_date(date)
       find_or_create_by_id(id_from(date.to_date))
     end
 
     def generate_missing
-      first_order = Order.all_time_first
-      return unless first_order
+      first_lead = Lead.converted.order(:converted_at).first
+      return unless first_lead
 
       [ MonthlyPayPeriod, WeeklyPayPeriod ].each do |period_klass|
-        ids = period_klass.ids_from(first_order.order_date)
+        ids = period_klass.ids_from(first_lead.converted_at)
         next if ids.empty?
         existing = period_klass.where(id: ids).pluck(:id)
         ids -= existing

@@ -1,5 +1,25 @@
-monthly:
+april:
+  id: 2015-04
+  start_date: 2015-04-01
+  end_date: 2015-04-30
+  type: MonthlyPayPeriod
+may:
   id: 2015-05
   start_date: 2015-05-01
   end_date: 2015-05-31
   type: MonthlyPayPeriod
+june:
+  id: 2015-06
+  start_date: 2015-06-01
+  end_date: 2015-06-30
+  type: MonthlyPayPeriod
+july:
+  id: 2015-07
+  start_date: 2015-07-01
+  end_date: 2015-07-31
+  type: MonthlyPayPeriod
+weekly:
+  id: 2015W23
+  start_date: 2015-06-01
+  end_date: 2015-06-30
+  type: WeeklyPayPeriod

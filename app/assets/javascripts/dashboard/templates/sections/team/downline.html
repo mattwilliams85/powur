@@ -42,7 +42,7 @@
               <!-- Team Tab -->
               <div 
                 class="team-tab downline" 
-                ng-if="member.downline_count"
+                ng-if="!is.inactiveTeamTab(member)"
                 ng-class="{ 
                   'raise': hover || isMobile() || is.activeMember(member, gen),
                   'active-tab': is.activeTab(member, gen, 'team'),
@@ -54,7 +54,7 @@
                 <img ng-src="{{img.teamSection.teamIcon}}">
               </div>
               <!-- If No Team Tab -->
-              <div class="team-tab info" ng-if="!member.downline_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
+              <div class="team-tab info" ng-if="is.inactiveTeamTab(member)" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
                 <img class="inactive-icon" ng-src="{{img.teamSection.teamIconInactive}}">
               </div>
               <!-- Info Tab -->
@@ -73,7 +73,7 @@
               <!-- Proposal Tab -->
               <div 
                 class="team-tab info" 
-                ng-if="member.proposal_count"
+                ng-if="member.totals.lead_count"
                 ng-class="{ 
                   'raise': hover || isMobile() || is.activeMember(member, gen),
                   'active-tab': is.activeTab(member, gen, 'proposals'),
@@ -81,11 +81,11 @@
                   'odd': is.odd(member)
                 }" 
                 id="js-info-tab" 
-                ng-click="changeTab(member, gen, 'proposals'); teamSection.fetchProposals(member);">
+                ng-click="changeTab(member, gen, 'proposals'); teamSection.fetchLeads(member);">
                 <img ng-src="{{img.teamSection.customerIcon}}">
               </div>
               <!-- If No Proposal Tab -->
-              <div class="team-tab info" ng-if="!member.proposal_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
+              <div class="team-tab info" ng-if="!member.totals.lead_count" ng-class="{ 'raise': hover || is.activeMember(member, gen) }">
                 <img class="inactive-icon" ng-src="{{img.teamSection.customerIconInactive}}">
               </div>
             </div>
@@ -94,15 +94,19 @@
                   'raise': hover || isMobile() || is.accordion($parent.$index) || is.activeMember(member, gen),
                   'accordion': is.accordion($parent.$index)}"
                   ng-click="changeTab(member, gen, 'info');">
-              <div class="avatar">
-                <div class="tooltips cert-badge" ng-show="member.certified" >
-                  <span>Certified!</span>
+              <div class="avatar" ng-class="{'accordion': is.accordion(0)}" ng-mouseover="addMe=true" ng-mouseleave="addMe=false" ng-click="setParent(member)">
+                <div class="crop-box" ng-class="{'swing': is.unrelated(member, addMe)}">
+                  <img class="plus" ng-src="{{img.teamSection.plusIcon}}" ng-class="{'swing': is.unrelated(member, addMe) || placement.parent == member}">
+                  <img class="lazyOwl avatar-img" data-src="{{member.avatar.thumb}}" ng-class="{'certified': member.certified, 'swing':  is.unrelated(member, addMe)}">
                 </div>
-                <img class="lazyOwl" data-src="{{member.avatar.thumb}}">
-              </div>
+                <div class="tooltips cert-badge" ng-show="member.certified" ng-class="{'swing': is.unrelated(member, addMe) || placement.parent == member}">
+                    <span>Certified!</span>
+                  </div>
+                </div>
               <div class="info-text user-text">
                 <span>{{member.first_name}} {{member.last_name}}</span>
-                <span ng-hide="is.activeMember(member, gen) && is.accordion($parent.$index)" class="info-detail">TEAM {{member.downline_count}}, PROPOSALS {{member.proposal_count || 0}}</span>
+                <span ng-hide="is.activeMember(member, gen) && is.accordion($parent.$index)" class="info-detail">TEAM {{member.totals.team_count}}, PROPOSALS {{member.totals.lead_count || 0}}</span>
+                <span ng-show="is.placeable(member)" class="info-detail placeable">placeable</span>
               </div>
             </div>
           </div>

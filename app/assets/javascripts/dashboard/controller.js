@@ -3,7 +3,6 @@
 
   function DashboardCtrl($scope, $rootScope, $location, $timeout, UserProfile, CommonService, Utility) {
     $scope.redirectUnlessSignedIn();
-
     //Fetch Profile
     UserProfile.get().then(function(data) {
       $rootScope.currentUser = data.properties;
@@ -33,7 +32,7 @@
     }
 
     // Fix for scope inheritance issues (relating to Proposals search/sort):
-    $scope.customerSection = {};
+    $scope.leadPipelineSection = {};
     $scope.teamSection = {};
     $scope.progress = {};
 
@@ -65,9 +64,9 @@
 
     //Create Badge URL
     $scope.badgePath = function(rank) {
-      rank = rank || 1;
+      rank = rank || 0;
       return $scope.legacyImagePaths.goalsBadges[rank];
-    }
+    };
 
     //Fetch News Posts
     CommonService.execute({
@@ -83,15 +82,16 @@
     });
 
 
-    //Fetch goals
     $scope.fetchGoals = function() {
       CommonService.execute({
         href: '/u/users/' + $scope.currentUser.id + '/goals'
       }).then(function(data) {
-        if (data != 0) {
+        if (data) {
           $scope.goals = data;
-          $scope.goals.requirements = data.entities[1].entities;
-          $scope.goals.badge = $scope.badgePath(data.properties.next_rank)
+          $scope.requirements = data.entities[1].entities;
+          $scope.goals.badge = $scope.badgePath(data.properties.next_rank);
+          $scope.progress = {};
+          calculateProgress($scope.requirements);
         }
       });
     };
@@ -103,54 +103,32 @@
       }, 1000);
     };
 
-    $scope.calculateProgress = function(requirement) {
-      if (!requirement) return;
+    function calculateProgress(requirements) {
+      for (var i = 0; i < requirements.length; i++) {
+        var event_type = requirements[i].properties.event_type;
+        var goal = Utility.findBranch($scope.goals, { event_type: event_type });
+        goal.quantity = goal.quantity || 1;
+        if (goal.progress > goal.quantity) goal.progress = goal.quantity;
+        goal.percentage = ((goal.progress / goal.quantity) * 100);
+        goal = statusText(i, goal);
 
-      var event_type = Utility.searchObjVal(requirement, "event_type")
-      var time_span = Utility.searchObjVal(requirement, "time_span")
-      var quantity = Utility.searchObjVal(requirement, "quantity")
-      $scope.courseState = Utility.searchObjVal($scope.goals, "state")
+        $scope.progress[i] = goal;
+      }
+    }
 
-
-      var salesTypes = {
-        personal_sales: function() {
-          if (time_span === 'Lifetime') {
-            return Utility.searchObjVal($scope.goals, "personal_lifetime");
-          } else {
-            return Utility.searchObjVal($scope.goals, "personal");
-          }
-        },
-        group_sales: function() {
-          if (time_span === 'Lifetime') {
-            return Utility.searchObjVal($scope.goals, "group_lifetime")
-          } else {
-            return Utility.searchObjVal($scope.goals, "group")
-          }
-        },
-        course_enrollment: function() {
-          quantity = 100;
-          $scope.goals.courseId = Utility.searchObjVal(requirement, "product_id")
-          if (!$scope.courseState) return 0;
-
-          if ($scope.courseState === 'enrolled') {
-            return 33;
-          } else if ($scope.courseState === 'started') {
-            return 66;
-          } else {
-            return 100;
-          }
-        },
-        default: function() { return }
-      };
-
-      var setRequirement = salesTypes[event_type] || salesTypes['default'];
-      var result = setRequirement();
-
-      $scope.goals[event_type] = result + " / " + quantity;
-      if (!result || !quantity) return '2%';
-      return (result / quantity  * 100) + '%';
-    };
-
+    function statusText(i, goal) {
+      if (goal.event_type === 'purchase') {
+        if (goal.progress) {
+          goal.status = 'Course Complete';
+        } else {
+          goal.status = 'Course Incomplete';
+        }
+      } else {
+        goal.product = goal.event_type.split('_').join(' ');
+        goal.status = goal.progress + ' / ' + goal.quantity;
+      }
+      return goal;
+    }
   }
 
   DashboardCtrl.$inject = ['$scope', '$rootScope', '$location', '$timeout', 'UserProfile', 'CommonService', 'Utility'];

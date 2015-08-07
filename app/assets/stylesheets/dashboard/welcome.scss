@@ -115,7 +115,8 @@
           &.hold {
             width: 0% !important;
           }
-          &.green {
+          
+          &.purchase {
             background: rgb(0,204,84); /* Old browsers */
             background: -moz-linear-gradient(left,  rgba(0,204,84,1) 0%, rgba(104,204,144,1) 100%, rgba(85,204,133,1) 100%); /* FF3.6+ */
             background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,204,84,1)), color-stop(100%,rgba(104,204,144,1)), color-stop(100%,rgba(85,204,133,1))); /* Chrome,Safari4+ */
@@ -125,7 +126,8 @@
             background: linear-gradient(to right,  rgba(0,204,84,1) 0%,rgba(104,204,144,1) 100%,rgba(85,204,133,1) 100%); /* W3C */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00cc54', endColorstr='#55cc85',GradientType=1 ); /* IE6-9 */
           }
-          &.orange {
+
+          &.personal_sales, &.personal_proposals {
            background: rgb(255,191,0); /* Old browsers */
            background: -moz-linear-gradient(left,  rgba(255,191,0,1) 0%, rgba(255,207,86,1) 100%); /* FF3.6+ */
            background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,191,0,1)), color-stop(100%,rgba(255,207,86,1))); /* Chrome,Safari4+ */
@@ -136,8 +138,17 @@
            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffbf00', endColorstr='#ffcf56',GradientType=1 ); /* IE6-9 */
 
           }
-          &.blue {
-            background: $pow-color-blue;
+
+          &.group_sales, &.group_proposals {
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#258dc8+0,20c2f1+100 */
+            background: rgb(37,141,200); /* Old browsers */
+            background: -moz-linear-gradient(left,  rgba(37,141,200,1) 0%, rgba(32,194,241,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(37,141,200,1)), color-stop(100%,rgba(32,194,241,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(left,  rgba(37,141,200,1) 0%,rgba(32,194,241,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(left,  rgba(37,141,200,1) 0%,rgba(32,194,241,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(left,  rgba(37,141,200,1) 0%,rgba(32,194,241,1) 100%); /* IE10+ */
+            background: linear-gradient(to right,  rgba(37,141,200,1) 0%,rgba(32,194,241,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#258dc8', endColorstr='#20c2f1',GradientType=1 ); /* IE6-9 */
           }
         }
 
@@ -206,16 +217,16 @@
             margin: 3px 10px 0 0;
             float: left;
 
-            &.personal {
+            &.purchase {
+              background-color: $pow-color-green;
+            }
+
+            &.personal_sales, &.personal_proposals {
               background-color: $pow-color-orange;
             }
 
-            &.group {
+            &.group_sales, &.group_proposals {
               background-color: $pow-color-blue;
-            }
-
-            &.course {
-              background-color: $pow-color-green;
             }
           }
         }
@@ -230,10 +241,9 @@
       img.badge {
         z-index: 50;
         position: absolute;
-        right: -80px;
-        bottom: -80px;
-        width: 118px;
-        height: 109px;
+        right: -90px;
+        width: 130px;
+        top: -40px;
 
         &.half {
           bottom: -75px;

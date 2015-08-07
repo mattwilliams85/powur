@@ -1,7 +1,12 @@
 ;(function() {
   'use strict';
 
-  function AdminUsersCtrl($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, CommonService) {
+  angular.module('powurApp')
+    .controller('AdminUsersCtrl', controller)
+    .config(routes);
+
+  controller.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'CommonService'];
+  function controller($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, CommonService) {
     $scope.redirectUnlessSignedIn();
 
     $scope.legacyImagePaths = legacyImagePaths;
@@ -14,25 +19,45 @@
       index: {
         title: 'Users',
         tablePath: 'admin/users/templates/table.html'
+      },
+      placeUser: {
+        tablePath: 'admin/users/templates/place-user-table.html'
       }
     };
 
-    $scope.pagination = function(direction) {
-      var page = 1,
-          sort;
+    $scope.userFilters = [ { value: 'partners', title: 'Partners' },
+                                { value: 'advocates', title: 'Advocates' } ];
+
+    $scope.pagination = function(direction, path) {
+      if (typeof direction === 'undefined') direction = 0;
+      if (typeof path === 'undefined') path = '/a/users';
+      var params = {
+            page: 1
+          },
+          selectedFilter,
+          searchQuote;
       if ($scope.index.data) {
-        page = $scope.index.data.properties.paging.current_page;
-        sort = $scope.index.data.properties.sorting.current_sort;
-      }
-      page += direction;
-      return CommonService.execute({
-        href: '/a/users',
-        params: {
-          page: page,
-          sort: sort
+        params.page = $scope.index.data.properties.paging.current_page;
+        params.sort = $scope.index.data.properties.sorting.current_sort;
+        if ($scope.index.data.selectedFilter) {
+          selectedFilter = $scope.index.data.selectedFilter;
+          params[$scope.index.data.selectedFilter] = true;
         }
-      }).then(function(data) {
+        if ($scope.index.data.searchQuote) {
+          searchQuote = $scope.index.data.searchQuote;
+          params.search = searchQuote;
+        }
+      }
+      params.page += direction;
+
+      return $http({
+        method: 'GET',
+        url: path,
+        params: params
+      }).success(function(data) {
         $scope.index.data = data;
+        $scope.index.data.selectedFilter = selectedFilter;
+        $scope.index.data.searchQuote = searchQuote;
         $anchorScroll();
       });
     };
@@ -62,10 +87,6 @@
       }
     };
 
-    //
-    // User Actions
-    //
-
     // Update
     $scope.update = function() {
       if ($scope.formValues) {
@@ -89,23 +110,33 @@
 
     // Search
     $scope.search = function() {
-      var data = {};
-      if ($scope.usersSearch) {
-        data.search = $scope.usersSearch;
+      if ($scope.index.data && $scope.index.data.searchQuote) {
+        $scope.pagination();
       }
-      if ($scope.usersSearch !== '') {
-        $scope.searching = true;
-      } else if ($scope.usersSearch === '') {
-        $scope.searching = false;
-      }
+    };
+
+    $scope.searchParent = function() {
+      var action = getAction($scope.actions, 'eligible_parents');
 
       $http({
-        method: 'GET',
-        url: '/a/users',
-        params: data,
+        method: action.method,
+        url: action.href,
+        params: { search: $scope.usersSearch },
       }).success(function(data) {
         $scope.index.data = data;
-        $anchorScroll;
+      });
+    };
+
+    $scope.setNewParent = function(newParent) {
+      var action = getAction($scope.actions, 'move');
+
+      $http({
+        method: action.method,
+        url: action.href,
+        params: { parent_id: newParent.properties.id },
+      }).success(function() {
+        $location.path('/admin/users/' + $scope.user.properties.id);
+        $scope.showModal('You\'ve successfully moved user to a new team!');
       });
     };
 
@@ -143,7 +174,7 @@
           return;
         }
         $scope.showModal('You\'ve successfully updated this user\'s available invites count!');
-        $anchorScroll;
+        $anchorScroll();
       });
     };
 
@@ -166,7 +197,7 @@
 
     // Give Complimentary Course
     $scope.overview.giveComplimentaryCourse = function() {
-      var confirmMessage = "This will give " + $scope.user.properties.first_name + " " + $scope.user.properties.last_name + " free access to this course in Powur U. Are you sure?";
+      var confirmMessage = 'This will give ' + $scope.fullName($scope.user) + ' free access to this course in Powur U. Are you sure?';
 
       // Get Product Receipt Create Action
       $scope.giveComplimentaryCourseAction = getAction($scope.user_product_receipts.actions, 'create');
@@ -174,34 +205,37 @@
       if ($scope.overview.complimentaryCourse && confirm(confirmMessage)) {
         CommonService.execute($scope.giveComplimentaryCourseAction, $scope.overview.complimentaryCourse).then(function(data){
           $scope.getEntityData($scope.user.entities, 'user_product_receipts');
-        })
+        });
       }
-    }
+    };
+
+    $scope.fullName = function(user) {
+      if (!user) return;
+      return user.properties.first_name + ' ' + user.properties.last_name;
+    };
 
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, CommonService);
   }
 
-  AdminUsersCtrl.prototype.init = function($scope, $location) {
+  controller.prototype.init = function($scope, $location) {
     // Setting mode based on the url
     $scope.mode = 'show';
     if (/\/users$/.test($location.path())) return $scope.mode = 'index';
     if (/\/new$/.test($location.path())) return $scope.mode = 'new';
     if (/\/edit$/.test($location.path())) return $scope.mode = 'edit';
     if (/\/edit_password$/.test($location.path())) return $scope.mode = 'edit_password';
+    if (/\/place-user$/.test($location.path())) return $scope.mode = 'place-user';
   };
 
-  AdminUsersCtrl.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
+  controller.prototype.fetch = function($scope, $rootScope, $location, $routeParams, CommonService) {
     if ($scope.mode === 'index') {
       // Breadcrumbs: Users
       $rootScope.breadcrumbs.push({title: 'Users'});
       $scope.index = {};
-      $scope.pagination(0);
-
+      $scope.pagination();
     } else if ($scope.mode === 'show') {
-      CommonService.execute({
-        href: '/a/users/' + $routeParams.userId + '.json'
-      }).then(function(item) {
+      getUser($routeParams.userId, function(item) {
         $scope.user = item;
         $scope.formAction = getAction(item.actions, 'update');
         $scope.formValues = setFormValues($scope.formAction);
@@ -220,37 +254,76 @@
 
         // Breadcrumbs: Users / User Name
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
-        $rootScope.breadcrumbs.push({title: $scope.user.properties.first_name + ' ' + $scope.user.properties.last_name});
-
+        $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user)});
       });
     } else if ($scope.mode === 'edit') {
-      CommonService.execute({
-        href: '/a/users/' + $routeParams.userId +'.json'
-      }).then(function(item) {
+      getUser($routeParams.userId, function(item) {
         $scope.user = item;
         $scope.formAction = getAction(item.actions, 'update');
         $scope.formValues = setFormValues($scope.formAction);
 
         // Breadcrumbs: Users / Edit User
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
-        $rootScope.breadcrumbs.push({title: ($scope.user.properties.first_name + ' ' + $scope.user.properties.last_name), href: '/admin/users/' + $scope.user.properties.id});
+        $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + $scope.user.properties.id});
         $rootScope.breadcrumbs.push({title: 'Edit User'});
       });
-    } else if ($scope.mode === 'edit_password') {
-      CommonService.execute({
-        href: '/a/users/' + $routeParams.userId +'.json'
-      }).then(function(item) {
+    } else if ($scope.mode === 'place-user') {
+      $scope.index = {};
+      getUser($routeParams.userId, function(item) {
+        $scope.user = item;
+        $scope.actions = item.actions;
+
         $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
-        $rootScope.breadcrumbs.push({title: (item.properties.first_name + ' ' + item.properties.last_name), href: '/admin/users/' + item.properties.id});
+        $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + $scope.user.properties.id});
+        $rootScope.breadcrumbs.push({title: 'Move User'});
+      });
+    } else if ($scope.mode === 'edit_password') {
+      getUser($routeParams.userId, function(item) {
+        $scope.user = item;
+        $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
+        $rootScope.breadcrumbs.push({title: $scope.fullName($scope.user), href: '/admin/users/' + item.properties.id});
         $rootScope.breadcrumbs.push({title: 'Edit Password'});
       });
     }
+
+    function getUser(userId, cb) {
+      CommonService.execute({
+        href: '/a/users/' + userId
+      }).then(cb);
+    }
   };
 
-  //
-  // Utility Functions
-  //
+  /*
+   * Routes
+   */
+  routes.$inject = ['$routeProvider'];
+  function routes($routeProvider) {
+    $routeProvider.
+    when('/admin/users', {
+      templateUrl: 'shared/admin/rest/index.html',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/admin/users/:userId', {
+      templateUrl: 'admin/users/templates/show.html',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/admin/users/:userId/edit', {
+      templateUrl: 'admin/users/templates/edit.html',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/admin/users/:userId/edit_password', {
+      templateUrl: 'admin/users/templates/edit_password.html',
+      controller: 'AdminUsersCtrl'
+    }).
+    when('/admin/users/:userId/place-user', {
+      templateUrl: 'admin/users/templates/place-user.html',
+      controller: 'AdminUsersCtrl'
+    });
+  }
 
+  /*
+   * Utility Functions
+   */
   function getAction(actions, name) {
     for (var i in actions) {
       if (actions[i].name === name) {
@@ -268,8 +341,5 @@
     }
     return formValues;
   }
-
-  AdminUsersCtrl.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'CommonService'];
-  angular.module('powurApp').controller('AdminUsersCtrl', AdminUsersCtrl);
 
 })();

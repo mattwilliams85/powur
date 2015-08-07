@@ -70,6 +70,14 @@ module SirenJson
     end
   end
 
+  def item_props(entity)
+    json.properties do
+      yield if block_given?
+
+      render_item_totals(entity) if params[:item_totals]
+    end
+  end
+
   def entity_rel(value = nil)
     json.rel [ value || :item ]
   end
@@ -99,12 +107,7 @@ module SirenJson
       json.method action.method.to_s.upcase
       json.call(action, :href)
       json.type 'application/json'
-      json.fields action.fields do |field|
-        json.call(field, :name, :type)
-        field.attributes.each do |key, value|
-          json.set! key, value
-        end if field.attributes
-      end unless action.fields.empty?
+      render_fields(action.fields)
     end
   end
 
@@ -157,6 +160,24 @@ module SirenJson
 
   private
 
+  def render_fields(fields)
+    return if fields.empty?
+    json.fields fields do |field|
+      json.call(field, :name, :type)
+      field.attributes.each do |key, value|
+        json.set! key, value
+      end if field.attributes
+    end
+  end
+
+  def render_item_totals(entity)
+    json.totals do
+      aggregator.selected.each do |key|
+        json.set! key, entity.attributes[key.to_s] || 0
+      end
+    end
+  end
+
   def filter_field(action, scope, opts)
     field_opts = { value: params[scope], required: !!opts[:required] }
     if opts[:options]
@@ -175,7 +196,7 @@ module SirenJson
       field_opts[:reference] = reference
     end
     if opts[:heading]
-      field_opts[:label] = t("labels.#{opts[:heading]}", 
+      field_opts[:label] = t("labels.#{opts[:heading]}",
                              default: opts[:heading].to_s.titleize)
     end
 

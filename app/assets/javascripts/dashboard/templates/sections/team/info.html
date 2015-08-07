@@ -1,52 +1,81 @@
 <!-- Row: Team Member Info -->
-    <div class="row collapse downline-row info-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info' }">
-      <!-- Large -->
-      <div ng-hide="activeTab !== 'info'" class="large-12 columns fade-in-section" ng-class="{'opaque': activeTab === 'info'}">
-        <!-- Generation -->
-
-        <div class="icon-container">
-
-          <div class="w25percent team-member-info-large">
-            <div class="icon">
-              <img ng-src="{{img.teamPhoneIcon}}">
-            </div>
-            <div class="info-text">
-              <span>{{currentTeamMember.phone || 'xxx-xxx-xxxx'}}</span>
-            </div>
+<div class="row collapse downline-row info-row" id="info-row" ng-class="{ 'even': downline.length % 2 === 0, 'expand': activeTab === 'info' }">
+  <!-- Large -->
+  <div ng-hide="activeTab !== 'info'" class="large-12 columns">
+    <div class="info-container" ng-class="{'opaque': !activeUser.changing}">
+      <div class="large-6 columns">
+        
+        <div class="row">
+          <i class="fa fa-line-chart"></i><span class="header">&nbsp;&nbsp;Stats</span>
+        </div>
+        <div class="stats-container">
+          <div class="large-12 columns">
+            <span class="sub-header">performance</span>
           </div>
-
-          <div class="w25percent team-member-info-large">
-            <div class="icon social-media">
-              <img ng-src="{{img.teamEmailIcon}}">
+          <div class="row stats dim">
+            <div class="large-3 columns">
+              <span class="detail">&nbsp;</span>
+              <span class="detail text-left">Proposals</span>
+              <span class="detail text-left">Rooftops</span>
             </div>
-            <div class="info-text email-text">
-              <span class="email"><a href="mailto:{{currentTeamMember.email}}">{{currentTeamMember.email}}</a></span>
+            <div class="large-4 columns">
+              <span class="detail text-right">This Month</span>
+              <span class="detail text-right">{{totals.lead_counts.month.submitted}}</span>
+              <span class="detail text-right">{{totals.lead_counts.month.installed}}</span>
+            </div>
+            <div class="large-3 columns">
+              <span class="detail text-right">Lifetime</span>
+              <span class="detail text-right">{{totals.lead_counts.lifetime.submitted}}</span>
+              <span class="detail text-right">{{totals.lead_counts.lifetime.installed}}</span>
+            </div>
+            <div class="large-2 columns"></div>
+          </div>
+        </div>
+        <div class="stats-container">
+          <div class="row">
+            <div class="large-12 columns">
+              <span class="sub-header">Progress</span>
+              <span class="detail lg">Lifetime Rank: &nbsp;<span class="uppercase">{{activeUser.lifetime_rank || 0}}</span></span>
+              <span class="detail lg dim">Team Certified: &nbsp;{{totals.team_counts.certified}}/{{totals.team_counts.all}}</span>
             </div>
           </div>
         </div>
-
-        <div class="w25percent team-member-info-large">
-          <div class="icon social-media">
-            <div class="small-12 medium-6 columns">
-              <!-- If Facebook -->
-              <a ng-if="currentTeamMember.profile.facebook_url" href="{{currentTeamMember.profile.facebook_url}}"><i class="fa fa-facebook alternate"></i></a>
-              <!-- If No Facebook -->
-              <a ng-if="!currentTeamMember.profile.facebook_url"><i class="fa fa-facebook  alternate disabled"></i></a>
-            <div class="info-text show-for-large-up">
-              <span class="show-for-xlarge-up" ng-class="{ 'disabled': !currentTeamMember.profile.facebook_url }">Facebook</span>
-              <span class="hide-for-xlarge-up" ng-class="{ 'disabled': !currentTeamMember.profile.facebook_url }">FB</span>
+        <div ng-show="is.placeable(activeUser)">
+          <div class="row">
+            <i class="fa fa-cog"></i><span class="header">&nbsp;&nbsp;Options</span>
+          </div>
+          <div class="stats-container">
+            <div class="row">
+              <div class="large-12 columns">
+                <span class="detail lg place" ng-click="placeMode()">Place Advocate</span>
+                <span class="sub-header place">[Expires: {{expirationDate(activeUser)}}]</span>
+              </div>
             </div>
           </div>
-          <div class="small-12 medium-6 columns bottom-part">
-             <!-- If Twitter -->
-             <a ng-if="currentTeamMember.profile.twitter_url" href="{{currentTeamMember.profile.twitter_url}}"><i class="fa fa-twitter alternate"></i></a>
-             <!-- If No Twitter -->
-             <a ng-if="!currentTeamMember.profile.twitter_url"><i class="fa fa-twitter  alternate disabled"></i></a>
-            <div class="info-text show-for-large-up">
-              <span ng-class="{ 'disabled': !currentTeamMember.profile.twitter_url }">Twitter</span>
+        </div>
+      </div>
+      <div class="large-6 columns">
+        <div class="row">
+          <i class="fa fa-info-circle"></i><span class="header">&nbsp;&nbsp;Info</span>
+        </div>
+        <div class="stats-container">
+          <div class="row">
+            <div class="large-12 columns">
+              <span class="sub-header">contact information</span>
+              <span class="detail lg">Phone: &nbsp;{{activeUser.phone || 'N/A'}}</span>
+              <span ng-hide="activeUser.email" class="detail lg">Email: &nbsp;N/A</span>
+              <span ng-show="activeUser.email"class="detail lg">Email: &nbsp;<a ng-href="{{activeUser.email}}">{{activeUser.email}}</a></span>
+              <span class="sub-header">social media</span>
+              <a ng-if="activeUser.profile.facebook_url" href="{{activeUser.profile.facebook_url}}"><i class="fa fa-facebook alternate"></i></a>
+              <a ng-if="!activeUser.profile.facebook_url"><i class="fa fa-facebook  alternate disabled"></i></a>
+              <a ng-if="activeUser.profile.twitter_url" href="{{activeUser.profile.twitter_url}}"><i class="fa fa-twitter alternate"></i></a>
+              <a ng-if="!activeUser.profile.twitter_url"><i class="fa fa-twitter  alternate disabled"></i></a>
+              <span class="sub-header">other information</span>
+              <span class="detail lg">Advocate ID: &nbsp;{{activeUser.id}}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

@@ -50,13 +50,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # quote routes
-  # resource :quote, only: [ :show, :create, :update ] do
-  #   post :resend
-  #   get ':sponsor' => 'quotes#new', as: :sponsor
-  #   get ':sponsor/:quote' => 'quotes#show', as: :customer
-  # end
-
   # logged in user routes
   scope :u, module: :auth do
     resource :kpi_metrics, only: [ :show ] do
@@ -67,7 +60,7 @@ Rails.application.routes.draw do
       get '/:id/genealogy_show', to: 'kpi_metrics#genealogy_show'
     end
 
-    resources :quotes, only: [ :index, :create, :destroy, :update, :show ] do
+    resources :leads, only: [ :index, :create, :destroy, :update, :show ] do
       member do
         post :resend
         post :submit
@@ -98,11 +91,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :ewallet, only:       [ :index, :account_details ],
-                       controller: :ewallet do
-      get 'account_details', to: 'ewallet#account_details'
-    end
-
     resource :profile,
              only:       [ :show, :update, :password_reset,
                            :create_ewallet ],
@@ -121,8 +109,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :pay_periods, only: [] do
-      resources :order_totals, only: [ :index ]
+    resources :pay_periods, only: [ :index, :show ] do
+      resources :users, only: [ :index, :show ], controller: :pay_period_users
     end
 
     resources :users, only: [ :index, :show ] do
@@ -130,9 +118,8 @@ Rails.application.routes.draw do
         get '' => 'users#search', constraints: params?(:search)
       end
 
-      resources :quotes, only: [ :index, :create ]
+      resources :leads, only: [ :index ]
       resource :goals, only: [ :show ]
-      resources :orders, only: [ :index, :show ], controller: :user_orders
       resources :order_totals, only: [ :index ]
       resources :user_activities, only:       [ :index, :show ],
                                   controller: :user_activities
@@ -149,8 +136,10 @@ Rails.application.routes.draw do
       #                               controller: :user_rank_achievements
     end
 
-    resources :earnings, only:       [ :index, :show, :summary, :detail, :bonus, :bonus_detail ],
-                         controller: :earnings do
+    resources :earnings,
+              only:       [ :index, :show, :summary,
+                            :detail, :bonus, :bonus_detail ],
+              controller: :earnings do
       collection do
         get :summary
         get :detail
@@ -180,7 +169,7 @@ Rails.application.routes.draw do
   end
 
   #
-  # LOGGED IN ADMIN ROUTES
+  # ADMIN ROUTES
   #
   # Alphabetized by Feature Name
   #
@@ -219,14 +208,6 @@ Rails.application.routes.draw do
     resources :resources, as: :admin_resources
     resources :resource_topics, as: :admin_resource_topics
 
-    # Orders
-    resources :orders, only: [ :index, :create, :show ], as: :admin_orders do
-      # Orders / Bonus Payments
-      resources :bonus_payments,
-                only:       [ :index ],
-                controller: :order_bonus_payments
-    end
-
     # Overrides
     resources :overrides, only: [ :index, :update, :destroy ]
 
@@ -234,25 +215,25 @@ Rails.application.routes.draw do
     resources :products, only: [ :index, :create, :update, :show, :destroy ]
 
     # Product Enrollments
-    resources :product_enrollments,  only: [ :index ], as: :admin_product_enrollments
+    resources :product_enrollments,
+              only: [ :index ],
+              as:   :admin_product_enrollments
 
     # Product Receipts
-    resources :product_receipts,  only: [ :index ], as: :admin_product_receipts
+    resources :product_receipts,
+              only: [ :index ],
+              as:   :admin_product_receipts
 
-    # # Quotes
-    # resources :quotes, only: [ :index, :show ], as: :admin_quotes do
-    #   member do
-    #     post :submit
-    #   end
-
-    #   collection do
-    #     get '' => 'quotes#search', constraints: params?(:search)
-    #   end
-    # end
+    resources :system_settings,
+              only: [ :index, :show, :update ],
+              as:   :admin_system_settings
 
     resources :notifications, as: :admin_notifications do
       member do
         post :send_out
+      end
+      collection do
+        get :available_recipients
       end
     end
 
@@ -273,7 +254,9 @@ Rails.application.routes.draw do
                 controller: :user_bonus_payments
 
       # Users / Invites
-      resources :invites, only: [ :index, :create, :show, :destroy ], controller: :user_invites do
+      resources :invites,
+                only:       [ :index, :create, :show, :destroy ],
+                controller: :user_invites do
         member do
           post :resend
         end
@@ -281,52 +264,42 @@ Rails.application.routes.draw do
 
       patch 'invites', to: 'user_invites#award'
 
-      # Users / Orders
-      resources :orders, only: [ :index ], controller: :user_orders
-
-      # # Users / Order Totals
-      # resources :order_totals, only: [ :index ], controller: :user_order_totals
-
       # Users / Overrides
       resources :overrides, only: [ :index, :create ]
 
       # Users / Pay Periods
-      resources :pay_periods, only:       [ :index, :show ],
-                              controller: :user_pay_periods
+      # resources :pay_periods, only:       [ :index, :show ],
+      #                         controller: :user_pay_periods
 
       # Users / Product Enrollments
       resources :product_enrollments, only: [ :index ]
 
       # Users / Product Receipts
       resources :product_receipts,  only: [ :index, :create ]
-
-      # # Users / Rank Achievements
-      # resources :rank_achievements,
-      #           only:       [ :index ],
-      #           controller: :user_rank_achievements
     end
 
     # Pay Periods
-    resources :pay_periods, only: [ :index, :show ] do
-      member do
-        post :calculate
-        post :recalculate
-        post :disburse
-      end
+    # resources :pay_periods, only: [ :index, :show ] do
+    #   member do
+    #     post :calculate
+    #     post :recalculate
+    #     post :disburse
+    #   end
 
-      # Pay Periods / Orders
-      resources :orders, only: [ :index ], controller: :pay_period_orders
-
-      # Pay Periods / Bonus Payments
-      resources :bonus_payments,
-                only:       [ :index ],
-                controller: :pay_period_bonus_payments
-    end
+    #   # Pay Periods / Bonus Payments
+    #   resources :bonus_payments,
+    #             only:       [ :index ],
+    #             controller: :pay_period_bonus_payments
+    # end
 
     # Social Media Sharing
     resources :social_media_posts,
               only: [ :index, :create, :destroy, :show, :update ],
               as:   :admin_social_media_posts
+
+    resources :twilio_phone_numbers,
+              only: [ :index ],
+              as:   :admin_twilio_phone_numbers
   end
 
   #
@@ -369,7 +342,6 @@ Rails.application.routes.draw do
           post :resend
         end
       end
-      # resources :quotes, only: [ :index, :create, :show ]
 
       namespace :data do
         resources :leads, only: [ :create ] do

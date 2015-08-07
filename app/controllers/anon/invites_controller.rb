@@ -48,7 +48,7 @@ module Anon
     end
 
     def subscribe_to_mailchimp_list(user)
-      user.mailchimp_subscribe_to('all')
+      user.mailchimp_subscribe('advocates')
     rescue Gibbon::MailChimpError => e
       Airbrake.notify(e)
     end

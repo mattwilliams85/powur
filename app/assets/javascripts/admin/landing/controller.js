@@ -1,25 +1,18 @@
 ;(function() {
   'use strict';
 
-  function LandingCtrl($scope, $http) {
+  function LandingCtrl($scope, $http, $timeout) {
     $scope.redirectUnlessSignedIn();
 
     $scope.index = {};
-    $scope.daysAgoOptions = [
-      { label: 'Since Midnight', value: 1 },
-      { label: 'Last 7 days', value: 7 },
-      { label: 'Last 10 days', value: 10 },
-      { label: 'Last 30 days', value: 30 }
-    ];
-
-    $scope.daysAgo = 1;
 
     $scope.getData = function() {
       $http({
         method: 'GET',
         url: '/a',
         params: {
-          days_ago: $scope.daysAgo
+          date_since: $scope.dateSince,
+          date_until: $scope.dateUntil
         }
       }).success(function success(data) {
         $scope.index.data = data;
@@ -27,8 +20,24 @@
     };
 
     $scope.getData();
+    $timeout(function() {
+      var format = 'yy-mm-dd';
+      $('#datepicker_since').datepicker({
+        dateFormat: format
+      });
+      $('#datepicker_until').datepicker({
+        dateFormat: format
+      });
+
+      // Set default dates
+      var today = new Date();
+      var month = ('0' + (today.getMonth() + 1)).slice(-2);
+      var todayStr = today.getFullYear() + '-' + month + '-' + today.getDate();
+      $scope.dateSince = todayStr;
+      $scope.dateUntil = todayStr;
+    });
   }
 
-  LandingCtrl.$inject = ['$scope', '$http'];
+  LandingCtrl.$inject = ['$scope', '$http', '$timeout'];
   angular.module('powurApp').controller('LandingCtrl', LandingCtrl);
 })();

@@ -1,0 +1,18 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th width="300">Name</th>
+      <th>Value</th>
+      <th width="150">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in index.data.entities">
+      <td>{{ item.properties.var }}</td>
+      <td>{{ item.properties.value }}</td>
+      <td>
+        <a ng-href="/admin/system-settings/{{ item.properties.id }}/edit">edit</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
