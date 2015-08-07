@@ -68,7 +68,7 @@ module Auth
       end
 
       User.move_user(@user, parent)
-
+      @user.update!(moved: true)
       show
     end
 
