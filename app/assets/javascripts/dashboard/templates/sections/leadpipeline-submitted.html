@@ -28,11 +28,11 @@
         <div ng-if="showProductFields || showNotes">
           <div class="submitted-lead panel">
             <label>Other Information</label>
-            <div class="proposal-product-field" ng-repeat="(key, value) in lead.product_fields">
+            <div class="lead-product-field" ng-repeat="(key, value) in lead.product_fields">
               <p class="label">{{ key | cleanLabel }}</p>
               <p class="value">{{value}}</p>
             </div>
-            <div ng-if="showNotes" class="proposal-product-field notes">
+            <div ng-if="showNotes" class="lead-product-field notes">
               <p class="label">Notes</p>
               <p class="value">{{lead.notes}}</p>
             </div>

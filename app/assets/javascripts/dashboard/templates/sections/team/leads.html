@@ -6,9 +6,9 @@
         <!-- New Proposal Button -->
         <div class="new-proposal" ng-class="{active: mode === 'new', 'even': downline.length % 2 === 0, 'odd': downline.length % 2 !== 0 }">
           <div class="sort-box">
-            <form ng-submit="teamSection.searchProposals();">
+            <form ng-submit="teamSection.searchLeads();">
               <div class="no-padding large-12 medium-12 small-12 columns">
-                <input ng-model="teamSection.proposalSearch" type="search" placeholder="SEARCH" class="sort">
+                <input ng-model="teamSection.leadSearch" type="search" placeholder="SEARCH" class="sort">
               </div>
             </form>
             <!-- Filter: Submitted Status -->
@@ -44,26 +44,26 @@
         </div>
       </div>
       <div class="carousel-container w80percent columns">
-        <!-- Proposals Carousel -->
+        <!-- Leads Carousel -->
 
-        <!-- If No Proposals -->
-        <div ng-if="teamProposals.length === 0 && !teamSection.searching" class="empty owl-carousel">
+        <!-- If No Leads -->
+        <div ng-if="teamLeads.length === 0 && !teamSection.searching" class="empty owl-carousel">
           <div class="empty-state">
-            <p class="empty-text">No Proposals Found.</p>
+            <p class="empty-text">No leads found.</p>
           </div>
         </div>
 
-        <!-- If Empty Result for Proposals -->
-        <div ng-if="teamProposals.length === 0 && teamSection.searching" class="empty owl-carousel">
+        <!-- If Empty Result for Leads -->
+        <div ng-if="teamLeads.length === 0 && teamSection.searching" class="empty owl-carousel">
           <div class="empty-state">
-            <p class="empty-text">No proposals matched the search query and filters you provided above.</p>
+            <p class="empty-text">No leads matched the search query and filters you provided above.</p>
           </div>
         </div>
 
-        <!-- If Proposals -->
+        <!-- If Leads -->
         <div class="leads owl-carousel downline" id="teamLeads">
-          <a ng-repeat="lead in teamProposals" ng-click="teamSection.showProposal(lead);">
-            <div class="lead team-proposal" ng-class="{active: proposalId === lead.properties.id, 'even': downline.length % 2 === 0, 'odd': downline.length % 2 !== 0 }">
+          <a ng-repeat="lead in teamLeads" ng-click="teamSection.showLead(lead);">
+            <div class="lead team-lead" ng-class="{active: proposalId === lead.properties.id, 'even': downline.length % 2 === 0, 'odd': downline.length % 2 !== 0 }">
               <div class="status-icon">
                 <img ng-src="{{ leadPipelineSection.statusIcon(lead) }}">
               </div>

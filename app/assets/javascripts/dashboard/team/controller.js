@@ -127,7 +127,7 @@
         $scope.downline[$scope.downline.length - 1].selected = '';
         $scope.activeTab = '';
       }
-      $scope.proposalId = null;
+      $scope.leadId = null;
       $scope.showProposal = false;
       $scope.showNew = false;
       $scope.activeInvite = '';
@@ -388,13 +388,13 @@
     $scope.teamSection.fetchLeads = function(member) {
       // Clear Sort and Filters when Switching Team Member
       $scope.teamSection.clearFilters();
-      $scope.teamSection.proposalSearch = '';
+      $scope.teamSection.leadSearch = '';
 
       $scope.teamId = member.id;
       CommonService.execute({
         href: '/u/users/' + member.id + '/leads.json'
       }).then(function(items){
-        $scope.teamProposals = items.entities;
+        $scope.teamLeads = items.entities;
         destroyCarousel('#teamLeads');
         $timeout(function(){
           initCarousel($('#teamLeads'));
@@ -402,17 +402,17 @@
       });
     };
 
-    $scope.teamSection.showProposal = function(proposal) {
-      if (!proposal || $scope.proposalId === proposal.properties.id) {
-        $scope.proposalId = '';
+    $scope.teamSection.showLead = function(lead) {
+      if (!lead || $scope.leadId === lead.properties.id) {
+        $scope.leadId = '';
         $scope.showProposal = false;
         return;
       }
       $scope.showProposal = true;
-      $scope.proposalId = proposal.properties.id;
+      $scope.leadId = lead.properties.id;
 
       CommonService.execute({
-        href: '/u/leads/' + proposal.properties.id + '.json'
+        href: '/u/leads/' + lead.properties.id + '.json'
       }).then(function(item){
         $scope.updates = item.entities;
         $scope.activeLead = item;
@@ -421,7 +421,7 @@
 
     // Search / Filter
 
-    $scope.teamSection.searchProposals = function () {
+    $scope.teamSection.searchLeads = function () {
       // Clear Sort and Filters when Searching
       $scope.teamSection.clearFilters();
 
@@ -460,8 +460,8 @@
         sales_status: $scope.teamSection.leadSalesStatus
       };
 
-      if ($scope.teamSection.proposalSearch) {
-        data.search = $scope.teamSection.proposalSearch;
+      if ($scope.teamSection.leadSearch) {
+        data.search = $scope.teamSection.leadSearch;
       }
 
       var href = '/u/users/' + $scope.teamId + '/leads';
@@ -473,7 +473,7 @@
         url: href,
         params: data,
       }).success(function(items) {
-        $scope.teamProposals = items.entities;
+        $scope.teamLeads = items.entities;
         $timeout(function() {
           initCarousel($('#teamLeads'));
         });
