@@ -329,7 +329,7 @@
 
     function fetchDownline(user) {
       user.upline = spliceUpline(user);
-      $scope.activeUser = user;
+      fetchUser(user, 0);
       $scope.jumping = true;
       $scope.downline[0].selected = user.upline[1];
 
