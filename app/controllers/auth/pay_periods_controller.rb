@@ -1,11 +1,18 @@
 module Auth
   class PayPeriodsController < AuthController
-    before_action :fetch_pay_periods, only: [ :index ]
+    page
+    sort id_desc:         { id: :desc },
+         start_date_desc: { start_date: :desc },
+         start_date_asc:  { start_date: :asc },
+         end_date_desc:   { end_date: :desc },
+         end_date_asc:    { end_date: :asc }
+
+    before_action :generate_missing, only: [ :index ]
 
     filter :time_span, options: [ :monthly, :weekly ]
 
     def index
-      @pay_periods = apply_list_query_options(@pay_periods)
+      @pay_periods = apply_list_query_options(PayPeriod)
     end
 
     def show
@@ -14,9 +21,8 @@ module Auth
 
     private
 
-    def fetch_pay_periods
+    def generate_missing
       PayPeriod.generate_missing
-      @pay_periods = PayPeriod.order(id: :desc)
     end
   end
 end

@@ -38,7 +38,7 @@
 
       return $http({
         method: 'GET',
-        url: '/a/pay_periods',
+        url: '/u/pay_periods',
         params: {
           page: page,
           sort: sort,
