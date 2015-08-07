@@ -16,7 +16,7 @@
       }
     };
 
-    $rootScope.breadcrumbs.push({title: 'Notifications'});
+    $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
     $scope.index = {
       data: {entities: [{properties: {phone_number: 'Loading ...'}}]}
     };
