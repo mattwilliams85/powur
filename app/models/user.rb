@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :product_enrollments, dependent: :destroy
   has_many :user_user_groups, dependent: :destroy
   has_many :user_groups, through: :user_user_groups
+  has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
 
   store_accessor :contact,
                  :address, :city, :state, :country, :zip, :phone

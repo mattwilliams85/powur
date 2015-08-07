@@ -51,6 +51,9 @@ if current_user.role?(:admin)
                         user_groups_path)
   entity_list << entity(%w(list ranks), 'ranks', ranks_path)
   entity_list << entity(%w(list products), 'admin-products', products_path)
+  entity_list << entity(%w(list pay_periods),
+                        'admin-pay_periods',
+                        pay_periods_path)
 
   link_list << link(:admin, admin_root_path)
 end

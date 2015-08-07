@@ -109,8 +109,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :pay_periods, only: [] do
-      resources :order_totals, only: [ :index ]
+    resources :pay_periods, only: [ :index, :show ] do
+      resources :users, only: [ :index, :show ], controller: :pay_period_users
     end
 
     resources :users, only: [ :index, :show ] do
@@ -268,8 +268,8 @@ Rails.application.routes.draw do
       resources :overrides, only: [ :index, :create ]
 
       # Users / Pay Periods
-      resources :pay_periods, only:       [ :index, :show ],
-                              controller: :user_pay_periods
+      # resources :pay_periods, only:       [ :index, :show ],
+      #                         controller: :user_pay_periods
 
       # Users / Product Enrollments
       resources :product_enrollments, only: [ :index ]
@@ -279,18 +279,18 @@ Rails.application.routes.draw do
     end
 
     # Pay Periods
-    resources :pay_periods, only: [ :index, :show ] do
-      member do
-        post :calculate
-        post :recalculate
-        post :disburse
-      end
+    # resources :pay_periods, only: [ :index, :show ] do
+    #   member do
+    #     post :calculate
+    #     post :recalculate
+    #     post :disburse
+    #   end
 
-      # Pay Periods / Bonus Payments
-      resources :bonus_payments,
-                only:       [ :index ],
-                controller: :pay_period_bonus_payments
-    end
+    #   # Pay Periods / Bonus Payments
+    #   resources :bonus_payments,
+    #             only:       [ :index ],
+    #             controller: :pay_period_bonus_payments
+    # end
 
     # Social Media Sharing
     resources :social_media_posts,

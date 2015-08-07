@@ -33,7 +33,11 @@ class AuthController < WebController
 
   def unauthorized!(url)
     json_request = request.xhr? || request.format.json?
-    json_request ? head(:unauthorized) : redirect_to(url)
+    if json_request
+      render json: {}, status: :unauthorized
+    else
+      redirect_to(url)
+    end
   end
 
   private
@@ -46,7 +50,6 @@ class AuthController < WebController
   end
   
   def user_id_param?
-    # %w(user_id admin_user_id) & params.keys
     params.keys.include?('user_id') || params.keys.include?('admin_user_id')
   end
 

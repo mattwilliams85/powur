@@ -1,0 +1,9 @@
+june:
+  pay_period_id: '2015-06'
+  user_id: <%= ActiveRecord::FixtureSet.identify(:advocate) %>
+  status: 0
+  personal: 5
+  personal_lifetime: 10
+  team: 5
+  team_lifetime: 10
+  smaller_legs: 3

@@ -3,10 +3,8 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   include Calculator::OrderTotals
   include Calculator::Bonuses
 
-  has_many :order_totals, dependent: :destroy
-  has_many :rank_achievements, dependent: :destroy
+  has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
-  has_many :bonus_payment_orders, through: :bonus_payments, dependent: :destroy
 
   scope :calculated, -> { where('calculated_at is not null') }
   scope :next_to_calculate,
