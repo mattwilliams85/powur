@@ -5,7 +5,7 @@ module Auth
                   only: [ :show, :downline, :upline,
                           :full_downline, :move, :eligible_parents ]
 
-    page
+    page max_limit: 500
     sort newest:     { created_at: :desc },
          name:       'users.last_name asc, users.first_name asc',
          lead_count: 'lc.lead_count desc nulls last',
