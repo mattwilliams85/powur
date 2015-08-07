@@ -2,13 +2,17 @@
   <thead>
     <tr>
       <th>ID</th>
-      <th>User</th>
+      <th>Name</th>
+      <th>Personal Lifetime Sales</th>
+      <th>Team Lifetime Sales</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="item in index.data.entities">
       <td>{{ item.properties.id }}</td>
-      <td>{{ item.properties.first_name }} {{ item.properties.last_name }}</td>
+      <td><a>{{ item.properties.full_name }}</a></td>
+      <td>{{ item.properties.personal_lifetime }}</td>
+      <td>{{ item.properties.team_lifetime }}</td>
     </tr>
   </tbody>
 </table>
