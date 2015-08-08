@@ -47,8 +47,8 @@
     <div class="small-12 medium-11 columns chart-column">
       <div class="row">
         <div class="small-9 columns">
-          <h4 ng-show="!activeUser">Full Proposal History</h4>
-          <h4 ng-show="activeUser">{{activeUser.first_name}}'s Proposal History</h4>
+          <h4 ng-show="!activeUser">Full Pipeline History</h4>
+          <h4 ng-show="activeUser">{{activeUser.first_name}}'s Pipeline History</h4>
         </div>
         <div class="right">
           <select class="sort" ng-model="scale" ng-change="changeScale(scale)" ng-options="scale.value as scale.label for scale in scaleOptions" convert-to-number></select>
@@ -57,7 +57,7 @@
       <div class="row">
         <div class="small-12 columns">
           <div class="legend primary left"></div><span class="kpi-detail left">Proposals</span>
-          <div class="legend secondary left"></div><span class="kpi-detail left">Rooftops</span>
+          <div class="legend secondary left"></div><span class="kpi-detail left">Contracts</span>
         </div>
       </div>
       <div class="chart-box">

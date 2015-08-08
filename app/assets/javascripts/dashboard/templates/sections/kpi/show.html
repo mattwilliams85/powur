@@ -24,10 +24,10 @@
       <div class="kpi-info-box">
         <!-- Small Screens: Checkmark Icon / Orders -->
         <span class="kpi-count show-for-small"><i class="fa fa-check-square-o fa-3x"></i></span>
-        <span class="kpi-header uppercase show-for-small">Proposals</span>
+        <span class="kpi-header uppercase show-for-small">Pipeline</span>
         <!-- Medium/Large Screens: Orders -->
         <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize(currentUser.metrics.proposal) }">{{currentUser.metrics.proposal}}</span>
-        <span class="kpi-header uppercase show-for-medium-up">Proposals</span>
+        <span class="kpi-header uppercase show-for-medium-up">Your Pipeline</span>
       </div>
     </div>
     <div class="kpi-tab" ng-class="{'active': section === 'genealogy'}" ng-click="changeTab('genealogy')">
@@ -84,7 +84,7 @@
   </div>
   <ng-include ng-if="section === 'environment'" src="'dashboard/templates/sections/kpi/metrics/environment.html'"></ng-include>
 <!--   <ng-include ng-if="section === 'environment' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/environment-beta.html'"></ng-include> -->
-  <ng-include ng-if="section === 'proposals'" src="'dashboard/templates/sections/kpi/metrics/proposals.html'"></ng-include>
+  <ng-include ng-if="section === 'proposals'" src="'dashboard/templates/sections/kpi/metrics/pipeline.html'"></ng-include>
   <!-- <ng-include ng-if="section === 'conversion' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/conversion.html'"></ng-include> -->
   <ng-include ng-if="section === 'genealogy'" src="'dashboard/templates/sections/kpi/metrics/genealogy.html'"></ng-include>
   <!-- <ng-include ng-if="section === 'genealogy' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/genealogy-beta.html'"></ng-include> -->
