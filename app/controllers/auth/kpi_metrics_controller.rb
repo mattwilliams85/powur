@@ -4,9 +4,8 @@ module Auth
 
     def show
       @user = current_user
-      user_ids = User.all_team(@user.id).pluck(:id)
-      @proposal_count = Lead.where(user_id: user_ids).converted.count
-      @team_count = user_ids.size - 1
+      @proposal_count = Lead.team_count(user_id: @user.id)
+      @team_count = User.with_ancestor(@user.id).count
     end
 
     def proposals_show

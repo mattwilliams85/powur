@@ -19,6 +19,9 @@ class Lead < ActiveRecord::Base
   scope :sales_status, -> (status) { send(status) }
   USER_COUNT_SQL = 'user_id, COUNT(leads.id) lead_count'
   scope :user_count, -> { select(USER_COUNT_SQL).group(:user_id) }
+  scope :team_count, lambda { |user_id:, query: Lead.unscoped|
+    query.joins(:user).merge(User.all_team(user_id)).count
+  }
   scope :pay_period, ->(field, pp_id) { pay_period_query(field, pp_id) }
   scope :from_date, ->(field, from) { where("#{field} >= ?", from) }
   scope :to_date, ->(field, to) { where("#{field} < ?", to) }
