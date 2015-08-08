@@ -15,7 +15,7 @@ module Forms
     validates :expiration,
               format: {
                 with: /\A[0-9]{4}\Z/i,
-                message: 'Incorrect expiration'
+                message: 'Invalid expiration format (MMYY expected)'
               },
               presence: true
 
