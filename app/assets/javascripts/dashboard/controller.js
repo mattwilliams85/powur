@@ -88,7 +88,7 @@
       }).then(function(data) {
         if (data) {
           $scope.goals = data;
-          $scope.requirements = data.entities[1].entities;
+          $scope.requirements = data.entities[0].entities;
           $scope.goals.badge = $scope.badgePath(data.properties.next_rank);
           $scope.progress = {};
           calculateProgress($scope.requirements);

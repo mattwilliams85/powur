@@ -11,8 +11,8 @@ json.properties do
     json.max_leg(requirement.max_leg) if requirement.group_sales?
   end
   if @user
-    json.progress(requirement.progress_for(@user).id,
-                  MonthlyPayPeriod.current_id)
+    json.progress(requirement.progress_for(@user.id,
+                  MonthlyPayPeriod.current_id))
   end
 end
 
