@@ -10,7 +10,10 @@ json.properties do
     json.time_span requirement.time_span && requirement.time_span.titleize
     json.max_leg(requirement.max_leg) if requirement.group_sales?
   end
-  json.progress(requirement.progress_for(@user).id) if @user
+  if @user
+    json.progress(requirement.progress_for(@user).id,
+                  MonthlyPayPeriod.current_id)
+  end
 end
 
 self_link requirement_path(requirement)
