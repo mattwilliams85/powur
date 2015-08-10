@@ -96,30 +96,30 @@ class LeadTotals < ActiveRecord::Base
       'Team Contracted (month)',
       'Team Contracted (lifetime)',
       'Team Contracted (month, minus largest leg)',
-      'Pay As Rank' ]
+      'Pay As Rank',
+      'Override Rank' ]
     def to_csv(pay_period_id)
+      end_date = MonthlyPayPeriod.end_date_from_id(pay_period_id)
       users = User.order(:id).entries
       lead_totals = where(pay_period_id: pay_period_id).entries
-      highest_ranks = UserUserGroup
-        .highest_ranks(pay_period_id: pay_period_id)
-      receipts = ProductReceipt
-        .joins(:product)
-        .where(products: { slug: 'partner' })
-        .entries
+      receipts = ProductReceipt.partner.entries
 
-      filename = "/tmp/rank_achievements_#{pay_period_id}.csv"
+      filename = "/tmp/pay_period_users_#{pay_period_id}.csv"
 
       CSV.open(filename, 'w') do |csv|
         csv << CSV_HEADERS
         users.each do |user|
           row = [ user.id, user.first_name, user.last_name ]
-          partner = receipts.any? { |r| r.user_id == user.id }
+          partner = receipts.any? do |r|
+            r.user_id == user.id && r.created_at <= end_date
+          end
           row << partner
           [ :converted, :contracted ].each do |status|
             add_totals_to_csv_row(row, user.id, lead_totals, status)
           end
-          pay_as_rank = user.pay_as_rank(highest_ranks: highest_ranks)
-          row << pay_as_rank
+          pay_as_rank = user.pay_as_rank(pay_period_id)
+          override_rank = user.override_rank(pay_period_id)
+          row.push(pay_as_rank, override_rank)
           csv << row
         end
       end

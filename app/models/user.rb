@@ -8,23 +8,22 @@ class User < ActiveRecord::Base
   include UserMailchimp
   include UserEwallet
 
-  # belongs_to :rank_path
-
   has_many :leads
   has_many :customers, through: :leads
-  # has_many :orders
-  # has_many :order_totals
-  # has_many :rank_achievements
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
   has_many :product_receipts
   has_many :product_enrollments, dependent: :destroy
-  # has_many :user_user_groups, dependent: :destroy
-  # has_many :user_groups, through: :user_user_groups
   has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
   has_many :user_ranks, dependent: :destroy
   has_many :ranks, through: :user_ranks
+  has_many :sent_invites, class_name:  'Invite',
+                          foreign_key: :sponsor_id,
+                          dependent:   :destroy
+  has_one :accepted_invite, class_name:  'Invite',
+                            foreign_key: :user_id,
+                            dependent:   :destroy
 
   store_accessor :contact,
                  :address, :city, :state, :country, :zip, :phone
@@ -127,11 +126,17 @@ class User < ActiveRecord::Base
     Customer.create!(first_name: first_name, last_name: last_name, email: email)
   end
 
-  def pay_as_rank(pay_period_id: nil)
+  def pay_as_rank(pay_period_id = nil)
     pay_period_id ||= MonthlyPayPeriod.current_id
-    result = user_ranks.highest_ranks.where(pay_period_id: pay_period_id)
-    highest_rank = result && result.first.attributes['highest_rank']
-    [ highest_rank || 0, organic_rank || 0 ].max
+    result = user_ranks.highest_ranks
+      .where(pay_period_id: pay_period_id).entries.first
+    highest_rank = result && result.attributes['rank_id']
+    highest_rank || 0
+  end
+
+  def override_rank(pay_period_id)
+    result = overrides.pay_as_rank.pay_period(pay_period_id).first
+    result && result.rank.to_i
   end
 
   # KPI METHODS

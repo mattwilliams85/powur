@@ -84,7 +84,7 @@ class UserGroup < ActiveRecord::Base
     def join_qualified(user:, pay_period: nil, product_id: nil)
       pay_period ||= MonthlyPayPeriod.current
 
-      starting_rank = user.pay_as_rank(pay_period_id: pay_period.id)
+      starting_rank = user.pay_as_rank(pay_period.id)
       ranks = Rank.where('id > ?', starting_rank)
         .preload(:user_groups, :requirements)
 
