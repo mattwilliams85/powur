@@ -68,10 +68,7 @@ class Lead < ActiveRecord::Base
   end
 
   def update_received
-    rank_up = last_update_has_key_changes?
     update_last_update_attributes
-    return unless rank_up
-    user.group_and_rank!(product_id: product_id, include_upline: true)
   end
 
   def can_email?

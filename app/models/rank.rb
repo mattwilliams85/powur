@@ -1,10 +1,7 @@
 class Rank < ActiveRecord::Base
-  has_many :qualifications, dependent: :destroy
-  has_many :ranks_user_groups
-  has_many :user_groups, through: :ranks_user_groups, dependent: :destroy
-  has_many :requirements,
-           class_name: 'UserGroupRequirement',
-           through:    :user_groups
+  has_many :requirements, class_name: 'RankRequirement'
+  has_many :user_ranks, dependent: :destroy
+  has_many :users, through: :user_ranks
   has_many :lifetime_rank_users,
            class_name:  'User',
            foreign_key: :lifetime_rank,
@@ -15,11 +12,18 @@ class Rank < ActiveRecord::Base
            dependent:   :nullify
 
   default_scope -> { order(:id) }
-  scope :with_qualifications, lambda {
-    includes(:qualifications).references(:qualifications)
-  }
-
   validates_presence_of :title
+
+  scope :preloaded, -> { preload(:requirements) }
+  scope :lifetime_requirements, lambda {
+    join = RankRequirement.monthly_join.to_sql
+    joins("LEFT JOIN (#{join}) r ON r.rank_id = ranks.id")
+      .where('r.rank_id IS NULL')
+  }
+  scope :monthly_requirements, lambda {
+    join = RankRequirement.monthly_join.to_sql
+    joins("INNER JOIN (#{join}) r ON r.rank_id = ranks.id")
+  }
 
   before_create do
     self.id ||= Rank.count + SystemSettings.min_rank
@@ -33,49 +37,30 @@ class Rank < ActiveRecord::Base
     @last.nil? ? (@last = (id == Rank.maximum(:id))) : @last
   end
 
-  # def lifetime_path?(path_id)
-  #   list = qualifiers(path_id)
-  #   !list.empty? && list.all?(&:lifetime?)
-  # end
+  def newly_qualified_user_ids(pay_period_id)
+    only_users = previous_user_ranks(pay_period_id) if id > 1
+    existing_users = user_ranks.where(pay_period_id: pay_period_id)
 
-  # def monthly_path?(path_id)
-  #   list = qualifiers(path_id)
-  #   !list.empty? && list.any?(&:monthly?)
-  # end
+    requirements.map do |req|
+      req.qualified_user_ids(
+        pay_period_id: pay_period_id,
+        include_users: only_users,
+        exclude_users: existing_users)
+    end.inject(:&)
+  end
 
-  # def weekly_path?(path_id)
-  #   list = qualifiers(path_id)
-  #   !list.empty? && list.any?(&:weekly?)
-  # end
+  def rank_users(pay_period_id)
+    attrs = newly_qualified_user_ids(pay_period_id).map do |user_id|
+      { user_id: user_id, pay_period_id: pay_period_id }
+    end
+    user_ranks.create!(attrs)
+  end
 
-  # def grouped_qualifiers
-  #   @grouped_qualifiers ||= qualifications.group_by(&:rank_path_id)
-  # end
+  private
 
-  # def qualifiers(path_id)
-  #   @qualifiers ||= {}
-  #   @qualifiers[path_id] ||= (grouped_qualifiers[path_id] || []) +
-  #                            (grouped_qualifiers[nil] || [])
-  # end
-
-  # def qualified_path?(path_id, order_totals)
-  #   !qualifiers(path_id).empty? && qualifiers(path_id).all? do |qualifier|
-  #     if order_totals.product_id == qualifier.product_id
-  #       totals = order_totals
-  #     else
-  #       totals = order_totals.pay_period.find_order_total!(
-  #         order_totals.user_id, qualifier.product_id)
-  #     end
-  #     qualifier.met?(totals)
-  #   end
-  # end
-
-  # private
-
-  # def _time_period_path?(period, path_id)
-  #   list = qualifiers(path_id)
-  #   !list.nil? && list.all?(&period)
-  # end
+  def previous_user_ranks(pay_period_id)
+    UserRank.where(rank_id: id - 1, pay_period_id: pay_period_id)
+  end
 
   class << self
     def rank_range
@@ -89,6 +74,19 @@ class Rank < ActiveRecord::Base
       end
     rescue ActiveRecord::RecordNotUnique
       retry
+    end
+
+    def rank_users(*pay_period_ids)
+      if pay_period_ids.empty?
+        pay_period_ids = MonthlyPayPeriod.relevant_ids(current: true)
+      end
+
+      ranks = preloaded.select { |r| !r.requirements.empty? }.entries
+      pay_period_ids.each do |pay_period_id|
+        ranks.each { |rank| rank.rank_users(pay_period_id) }
+      end
+      User.update_organic_ranks
+      User.update_lifetime_ranks
     end
   end
 end

@@ -36,20 +36,31 @@ class UserGroup < ActiveRecord::Base
     !monthly?
   end
 
-  def qualified_user_ids(pay_period_id)
+  def newly_qualified_user_ids(pay_period_id, previous_rank = nil)
+    include_users = previous_rank && previous_rank.member_query(pay_period_id)
+    exclude_users = user_user_groups.where(pay_period_id: pay_period_id)
+
     user_ids = requirements.map do |req|
-      req.qualified_user_ids(pay_period_id)
+      req.qualified_user_ids(
+        pay_period_id: pay_period_id,
+        include_users: include_users,
+        exclude_users: exclude_users)
     end
-    user_ids.inject(:&) # intersection
+
+    user_ids.inject(:&)
+  end
+
+  def join_qualified(pay_period_id, previous_rank = nil)
+    user_ids = newly_qualified_user_ids(pay_period_id, previous_rank)
+    attrs = user_ids.map do |user_id|
+      { user_id: user_id, pay_period_id: pay_period_id }
+    end
+
+    user_user_groups.create!(attrs)
   end
 
   def requirements?
     !requirements.entries.empty?
-  end
-
-  def user_qualifies?(user_id, pay_period = nil)
-    requirements? && requirements.entries
-      .all? { |req| req.user_qualified?(user_id, pay_period) }
   end
 
   def prouduct_requirement?(product_id)
@@ -57,10 +68,33 @@ class UserGroup < ActiveRecord::Base
       requirements.entries.any? { |req| req.product_id == product_id }
   end
 
+  def add_user(user_id, pay_period_id)
+    attrs = { user_id: user_id }
+    attrs[:pay_period_id] = pay_period_id if monthly?
+    user_user_groups.create!(attrs)
+  end
+
   class << self
     def with_product_requirements(product_id)
       with_requirements.select do |group|
         group.prouduct_requirement?(product_id)
+      end
+    end
+
+    def join_qualified(user:, pay_period: nil, product_id: nil)
+      pay_period ||= MonthlyPayPeriod.current
+
+      starting_rank = user.pay_as_rank(pay_period_id: pay_period.id)
+      ranks = Rank.where('id > ?', starting_rank)
+        .preload(:user_groups, :requirements)
+
+      ranks.each do |rank|
+        groups = rank.qualified_groups(
+          user:       user,
+          pay_period: pay_period,
+          product_id: product_id)
+        break if groups.empty?
+        groups.each { |group| group.add_user(user.id, pay_period.id) }
       end
     end
   end

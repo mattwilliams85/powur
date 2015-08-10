@@ -35,10 +35,8 @@ namespace :powur do
     task user_ranks: :environment do
       puts 'Calculating Lead Totals...'
       LeadTotals.calculate_all!
-      puts 'Populating User Groups...'
-      UserUserGroup.populate_all!
-      puts 'Updating User Ranks...'
-      User.all.each(&:rank_up!)
+      puts 'Populating User Ranks...'
+      Rank.rank_users
     end
   end
 end

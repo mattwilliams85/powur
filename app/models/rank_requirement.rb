@@ -1,5 +1,5 @@
-class UserGroupRequirement < ActiveRecord::Base
-  belongs_to :user_group
+class RankRequirement < ActiveRecord::Base
+  belongs_to :rank
   belongs_to :product
 
   enum time_span: { monthly: 1, lifetime: 2 }
@@ -10,7 +10,9 @@ class UserGroupRequirement < ActiveRecord::Base
     personal_proposals: 4,
     group_proposals:    5 }
 
-  validates_presence_of :user_group_id, :product_id, :event_type, :quantity
+  validates_presence_of :rank_id, :product_id, :event_type, :quantity
+
+  scope :monthly_join, -> { monthly.select(:rank_id).distinct(:rank_id) }
 
   def title
     "#{quantity} #{time_span} #{event_type} for #{product.name}"

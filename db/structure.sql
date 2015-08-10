@@ -1026,6 +1026,41 @@ ALTER SEQUENCE rank_paths_id_seq OWNED BY rank_paths.id;
 
 
 --
+-- Name: rank_requirements; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE rank_requirements (
+    id integer NOT NULL,
+    rank_id integer NOT NULL,
+    product_id integer NOT NULL,
+    event_type integer NOT NULL,
+    time_span integer NOT NULL,
+    quantity integer DEFAULT 1 NOT NULL,
+    max_leg integer,
+    type character varying NOT NULL
+);
+
+
+--
+-- Name: rank_requirements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE rank_requirements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rank_requirements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE rank_requirements_id_seq OWNED BY rank_requirements.id;
+
+
+--
 -- Name: ranks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1240,7 +1275,8 @@ CREATE TABLE user_group_requirements (
     event_type integer NOT NULL,
     quantity integer DEFAULT 1 NOT NULL,
     time_span integer,
-    max_leg integer
+    max_leg integer,
+    type character varying
 );
 
 
@@ -1305,6 +1341,17 @@ CREATE SEQUENCE user_overrides_id_seq
 --
 
 ALTER SEQUENCE user_overrides_id_seq OWNED BY user_overrides.id;
+
+
+--
+-- Name: user_ranks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE user_ranks (
+    user_id integer NOT NULL,
+    rank_id integer NOT NULL,
+    pay_period_id character varying NOT NULL
+);
 
 
 --
@@ -1547,6 +1594,13 @@ ALTER TABLE ONLY rank_achievements ALTER COLUMN id SET DEFAULT nextval('rank_ach
 --
 
 ALTER TABLE ONLY rank_paths ALTER COLUMN id SET DEFAULT nextval('rank_paths_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_requirements ALTER COLUMN id SET DEFAULT nextval('rank_requirements_id_seq'::regclass);
 
 
 --
@@ -1846,6 +1900,14 @@ ALTER TABLE ONLY rank_paths
 
 
 --
+-- Name: rank_requirements_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY rank_requirements
+    ADD CONSTRAINT rank_requirements_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1915,6 +1977,14 @@ ALTER TABLE ONLY user_groups
 
 ALTER TABLE ONLY user_overrides
     ADD CONSTRAINT user_overrides_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_ranks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY user_ranks
+    ADD CONSTRAINT user_ranks_pkey PRIMARY KEY (user_id, rank_id, pay_period_id);
 
 
 --
@@ -2253,6 +2323,14 @@ ALTER TABLE ONLY lead_updates
 
 
 --
+-- Name: fk_rails_2bb49ccaa7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_ranks
+    ADD CONSTRAINT fk_rails_2bb49ccaa7 FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
 -- Name: fk_rails_2df50738a4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2317,6 +2395,14 @@ ALTER TABLE ONLY ranks_user_groups
 
 
 --
+-- Name: fk_rails_5bebc7d174; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_ranks
+    ADD CONSTRAINT fk_rails_5bebc7d174 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: fk_rails_61e62e2a41; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2354,6 +2440,14 @@ ALTER TABLE ONLY product_receipts
 
 ALTER TABLE ONLY rank_achievements
     ADD CONSTRAINT fk_rails_70967dd465 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_7b5c8c5a94; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_requirements
+    ADD CONSTRAINT fk_rails_7b5c8c5a94 FOREIGN KEY (rank_id) REFERENCES ranks(id);
 
 
 --
@@ -2413,6 +2507,14 @@ ALTER TABLE ONLY quotes
 
 
 --
+-- Name: fk_rails_a86706fc27; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rank_requirements
+    ADD CONSTRAINT fk_rails_a86706fc27 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
 -- Name: fk_rails_b080b36796; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2466,6 +2568,14 @@ ALTER TABLE ONLY bonuses
 
 ALTER TABLE ONLY api_tokens
     ADD CONSTRAINT fk_rails_d44438dd14 FOREIGN KEY (client_id) REFERENCES api_clients(id);
+
+
+--
+-- Name: fk_rails_d8669e5860; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY user_ranks
+    ADD CONSTRAINT fk_rails_d8669e5860 FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
 
 
 --
@@ -2725,4 +2835,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150803223713');
 INSERT INTO schema_migrations (version) VALUES ('20150804154325');
 
 INSERT INTO schema_migrations (version) VALUES ('20150805033237');
+
+INSERT INTO schema_migrations (version) VALUES ('20150809072630');
+
+INSERT INTO schema_migrations (version) VALUES ('20150809215002');
 

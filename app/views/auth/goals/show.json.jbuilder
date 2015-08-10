@@ -9,10 +9,7 @@ json.properties do
 end
 
 if @next_rank
-  entities(entity('user_groups',
-                  'goals-user_groups',
-                  groups: @next_rank.user_groups),
-           entity('requirements',
+  entities(entity('requirements',
                   'goals-requirements',
                   requirements: @requirements))
 end

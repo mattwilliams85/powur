@@ -1,35 +1,44 @@
 class LeadTotalsCalculator
-  attr_reader :pay_period, :status, :records, :counts
+  attr_reader :pay_period, :status, :records, :user_id
 
   COUNTS_FIELDS = [ :personal, :personal_lifetime, :team, :team_lifetime ]
 
-  def initialize(pay_period, status)
-    @pay_period = pay_period
-    @status = status
+  def initialize(pay_period, user_id: nil)
+    @pay_period =
+      if pay_period.is_a?(String)
+        MonthlyPayPeriod.find_or_create_by_id(pay_period)
+      else
+        pay_period
+      end
+    @user_id = user_id
     init_records
-    @counts = {}
   end
 
-  def calculate
-    COUNTS_FIELDS.each { |field| hydrate_counts(field) }
-    hydrate_smaller_legs
-  end
-
-  def save
-    LeadTotals.create!(record_attrs)
+  def calculate!
+    statuses.each do |status|
+      @status = status
+      COUNTS_FIELDS.each { |field| hydrate_counts(field) }
+      hydrate_smaller_legs
+      LeadTotals.create!(record_attrs)
+    end
   end
 
   private
 
-  def init_records
-    @records = User.select(:id, :upline).map { |u| { user: u } }
+  def statuses
+    LeadTotals.statuses.keys
   end
 
-  def record_attrs
-    records.map do |attrs|
-      attrs.merge(
-        pay_period_id: pay_period.id,
-        status:        status)
+  def user_query
+    user_id ? User.all_team(user_id) : User
+  end
+
+  def init_records
+    users = user_query.select(:id, :upline).order(:id)
+    @records = users.map do |user|
+      attrs = { user: user }
+      statuses.each { |s| attrs[s] = {} }
+      attrs
     end
   end
 
@@ -45,46 +54,51 @@ class LeadTotalsCalculator
     end
   end
 
-  def add_count_field(field)
-    records.each do |record|
-      user = counts[field].detect { |u| u.id == record[:user].id }
-      record[field] = user.attributes['lead_count'] || 0
-    end
-  end
-
   def generate_lead_query(field)
     args = query_args_for_field(field)
-    status == :converted ? Lead.converted(args) : Lead.contracted(args)
+    Lead.send(status, args)
   end
 
   def query_counts(field)
     lead_query = generate_lead_query(field)
     if for_team?(field)
-      User.team_lead_count(lead_query)
+      user_query.team_lead_count(lead_query)
     else
-      User.lead_count(lead_query)
+      user_query.lead_count(lead_query)
     end
   end
 
   def hydrate_counts(field)
-    counts[field] = query_counts(field).entries
-    add_count_field(field)
+    counts = query_counts(field).entries
+    records.each do |record|
+      count = counts.detect { |u| u.id == record[:user].id }
+      record[status][field] = count.attributes['lead_count'] || 0
+    end
   end
 
   def smaller_legs_count(user_id, personal)
     children = records.select { |r| r[:user].parent_id == user_id }
-    return 0 if children.empty?
-    counts = children.map { |c| c[:team] }
+    return personal if children.empty?
+
+    counts = children.map { |c| c[status][:team] }
     # remove highest leg and add personal
-    result = counts.inject(&:+) - counts.max
-    result + personal
+    smaller_legs = counts.inject(&:+) - counts.max
+    smaller_legs + personal
   end
 
   def hydrate_smaller_legs
     records.each do |record|
-      user_id = record[:user].id
-      count = smaller_legs_count(user_id, record[:personal])
-      record[:smaller_legs] = count
+      count = smaller_legs_count(record[:user].id, record[status][:personal])
+      record[status][:smaller_legs] = count
+    end
+  end
+
+  def record_attrs
+    records.map do |record|
+      record[status].merge(
+        pay_period_id: pay_period.id,
+        user_id:       record[:user].id,
+        status:        status)
     end
   end
 end

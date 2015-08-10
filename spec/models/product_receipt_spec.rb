@@ -23,13 +23,5 @@ describe ProductReceipt, type: :model do
         transaction_id: 123)
       expect(product_receipt.errors.messages.length).to eq(0)
     end
-
-    context 'after create' do
-      it 'should call group_and_rank! after create' do
-        allow_any_instance_of(ProductReceipt).to receive(:user).and_return(user)
-        expect(user).to receive(:group_and_rank!).with(product_id: product.id)
-        create(:product_receipt, user_id: user.id, product_id: product.id)
-      end
-    end
   end
 end

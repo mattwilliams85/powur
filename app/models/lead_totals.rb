@@ -5,6 +5,16 @@ class LeadTotals < ActiveRecord::Base
 
   enum status: [ :converted, :contracted ]
 
+  scope :exclude_users, lambda { |query|
+    joins("LEFT JOIN (#{query.to_sql}) eu
+          ON lead_totals.user_id = eu.user_id")
+      .where('eu.user_id IS NULL')
+  }
+  scope :include_users, lambda { |query|
+    joins("INNER JOIN (#{query.to_sql}) iu
+          ON lead_totals.user_id = iu.user_id")
+  }
+
   def personal_count
     self.personal ||= lead_query.where(user_id: user_id).count
   end
@@ -14,12 +24,13 @@ class LeadTotals < ActiveRecord::Base
   end
 
   def team_count
-    self.team ||= lead_query.joins(:user).merge(User.all_team(user_id)).count
+    self.team ||= Lead.team_count(user_id: user_id, query: lead_query)
   end
 
   def team_lifetime_count
-    self.team_lifetime ||= lifetime_lead_query
-      .joins(:user).merge(User.all_team(user_id)).count
+    self.team_lifetime ||= begin
+      Lead.team_count(user_id: user_id, query: lifetime_lead_query)
+    end
   end
 
   private
@@ -34,19 +45,29 @@ class LeadTotals < ActiveRecord::Base
 
   class << self
     def calculate_for_pay_period!(pay_period_id)
-      LeadTotals.where(pay_period_id: pay_period_id).delete_all
-      pp = PayPeriod.find_or_create_by_id(pay_period_id)
-      [ :converted, :contracted ].each do |status|
-        calculator = LeadTotalsCalculator.new(pp, status)
-        calculator.calculate
-        calculator.save
+      transaction do
+        LeadTotals.where(pay_period_id: pay_period_id).delete_all
+        LeadTotalsCalculator.new(pay_period_id).calculate!
       end
     end
 
     def calculate_all!
-      MonthlyPayPeriod.relevant_ids.each do |pp_id|
+      MonthlyPayPeriod.relevant_ids(current: true).each do |pp_id|
         calculate_for_pay_period!(pp_id)
       end
+    end
+
+    def calculate_latest
+      calculate_for_pay_period!(MonthlyPayPeriod.current_id)
+    end
+
+    def find_or_initialize(user_id:, pay_period_id:, status:)
+      attrs = { user_id: user_id, pay_period_id: pay_period_id }
+      result = send(status).where(attrs).first
+      return result if result
+      calc = LeadTotalsCalculator.new(pay_period_id, user_id: user_id)
+      calc.calculate!
+      send(status).where(attrs).first
     end
 
     def add_totals_to_csv_row(row, user_id, lead_totals, status)

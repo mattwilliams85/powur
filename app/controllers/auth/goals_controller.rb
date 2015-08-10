@@ -13,7 +13,7 @@ module Auth
       @next_rank = Rank.find_by(id: next_rank_id)
       return unless @next_rank
 
-      @requirements = @next_rank.user_groups.map(&:requirements).flatten
+      @requirements = @next_rank.requirements
     end
   end
 end

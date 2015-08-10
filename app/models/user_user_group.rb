@@ -11,54 +11,26 @@ class UserUserGroup < ActiveRecord::Base
       .joins(user_group: :ranks_user_groups)
       .group('user_user_groups.user_id')
     query = query.where('user_user_groups.user_id' => user_id) if user_id
-    if pay_period_id
-      condition = 'pay_period_id is null OR pay_period_id = ?'
-      query = query.where(condition, pay_period_id)
-    end
+    query = query.where(pay_period_id: pay_period_id) if pay_period_id
     query
   }
 
-  scope :lifetime_ranks, -> { where('pay_period_id IS NULL') }
-  scope :pay_as_ranks, -> { where('pay_period_id IS NOT NULL') }
-
   class << self
     def populate(pay_period_id)
-      UserGroup.with_requirements.each do |group|
-        user_ids = group.qualified_user_ids(pay_period_id)
+      ranks = Rank.preloaded.select { |r| !r.requirements.empty? }.entries
+      previous_rank = ranks.first
+      results = previous_rank.join_qualified(pay_period_id)
 
-        existing = where(user_id:       user_ids,
-                         user_group_id: group.id)
-        if group.monthly?
-          existing = existing.where(pay_period_id: pay_period_id)
-        end
-        user_ids -= existing.pluck(:user_id)
-
-        attrs = user_ids.map do |user_id|
-          group_attrs = { user_id: user_id, user_group_id: group.id }
-          group_attrs[:pay_period_id] = pay_period_id if group.monthly?
-          group_attrs
-        end
-        create!(attrs)
+      ranks[1..-1].each do |rank|
+        results = rank.join_qualified(rank, previous_rank)
+        # break if results.empty?
+        previous_rank = rank
       end
     end
 
     def populate_all!(pp_ids = nil)
-      pp_ids ||= MonthlyPayPeriod.relevant_ids
+      pp_ids ||= MonthlyPayPeriod.relevant_ids << MonthlyPayPeriod.current_id
       pp_ids.each { |pp_id| populate(pp_id) }
-    end
-
-    def populate_for(user_id:, product_id: nil, pay_period: nil)
-      pay_period ||= MonthlyPayPeriod.current
-      groups = UserGroup
-        .non_member(user_id: user_id, pay_period_id: pay_period.id)
-        .with_requirements(product_id)
-
-      groups.each do |group|
-        next unless group.user_qualifies?(user_id, pay_period)
-        attrs = { user_id: user_id, user_group_id: group.id }
-        attrs[:pay_period_id] = pay_period.id if group.monthly?
-        create!(attrs)
-      end
     end
   end
 end

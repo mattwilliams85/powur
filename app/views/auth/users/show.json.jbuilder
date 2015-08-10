@@ -11,7 +11,7 @@ end
 
 json.properties do
   json.call(@user, :address, :city, :state, :zip,
-            :profile, :avatar, :avatar_file_name, 
+            :profile, :avatar, :avatar_file_name,
             :upline, :created_at)
   json.organic_rank rank_title(@user.organic_rank)
   json.lifetime_rank rank_title(@user.lifetime_rank)
