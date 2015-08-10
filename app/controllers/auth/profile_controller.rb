@@ -19,6 +19,7 @@ module Auth
 
     def update
       if @user.update_attributes(user_params)
+        User.delay.validate_phone_number!(@user.id)
         User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
       end
 

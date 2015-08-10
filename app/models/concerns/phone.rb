@@ -7,13 +7,17 @@ module Phone
       SystemSettings.get!('twilio_auth_token'))
   end
 
-  def valid_phone?(phone)
-    return false unless phone
+  def twilio_valid_phone(phone)
+    return nil unless phone
     response = twilio_lookups_client.phone_numbers.get(phone)
     return response.phone_number
   rescue => e
-    return false if e.code == 20_404 # Resource not found Twilio error code
+    return nil if e.code == 20_404 # Resource not found Twilio error code
     raise e
+  end
+
+  def valid_phone?(phone)
+    !twilio_valid_phone(phone).nil?
   end
 
   class Validator < ActiveModel::Validator

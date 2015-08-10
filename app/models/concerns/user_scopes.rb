@@ -120,7 +120,8 @@ module UserScopes
     }
 
     scope :has_phone, lambda {
-      where("exist(contact, 'phone') = true").where("contact->'phone' != ''")
+      where("exist(contact, 'valid_phone') = true")
+        .where("contact->'valid_phone' != ''")
     }
     scope :allows_sms, lambda {
       where([

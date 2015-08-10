@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
                             dependent:   :destroy
 
   store_accessor :contact,
-                 :address, :city, :state, :country, :zip, :phone
+                 :address, :city, :state, :country, :zip, :phone, :valid_phone
   store_accessor :profile,
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications, :watched_intro, :tos_version,
@@ -184,6 +184,10 @@ class User < ActiveRecord::Base
     lead_scope.joins(:user).merge(User.all_team(id)).count
   end
 
+  def validate_phone_number!
+    update_attribute(:valid_phone, twilio_valid_phone(phone))
+  end
+
   private
 
   def set_url_slug
@@ -196,6 +200,7 @@ class User < ActiveRecord::Base
     self.upline = sponsor ? sponsor.upline + [ id ] : [ id ]
     User.where(id: id).update_all(upline: upline)
   end
+
 
   class << self
     def update_organic_ranks
@@ -238,6 +243,10 @@ class User < ActiveRecord::Base
       sql = format(UPDATE_PARENT_SQL, parent.upline.join(','), user.level)
       where('upline && ARRAY[?]', user.id).update_all(sql)
       user.upline = parent.upline + [ user.id ]
+    end
+
+    def validate_phone_number!(id)
+      find(id).validate_phone_number!
     end
   end
 end
