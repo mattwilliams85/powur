@@ -83,11 +83,6 @@
             <label>Installation Date</label>
             <p>{{ lead_update.properties.installation | dateToLocalDate }}</p>
           </div>
-          <!-- Raw Status Details from Solar City -->
-          <div class="solarcity-status">
-            <label>More Details from SolarCity</label>
-            <p ng-repeat="(key, value) in lead_update.properties.data">{{key}}: {{value}}</p>
-          </div>
         </div>
 
 
