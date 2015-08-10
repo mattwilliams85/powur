@@ -103,7 +103,7 @@
           $anchorScroll();
           $location.path('/admin/users/' + $routeParams.userId);
           $scope.isSubmitDisabled = false;
-          $scope.showModal('You\'ve successfully updated this user!');
+          $scope.showModal('You\'ve successfully updated this user.');
         });
       }
     };
@@ -136,7 +136,7 @@
         params: { parent_id: newParent.properties.id },
       }).success(function() {
         $location.path('/admin/users/' + $scope.user.properties.id);
-        $scope.showModal('You\'ve successfully moved user to a new team!');
+        $scope.showModal('You\'ve successfully moved user to a new team.');
       });
     };
 
@@ -173,7 +173,7 @@
           $scope.showModal('There was an error while updating this user.');
           return;
         }
-        $scope.showModal('You\'ve successfully updated this user\'s available invites count!');
+        $scope.showModal('You\'ve successfully updated this user\'s available invites count.');
         $anchorScroll();
       });
     };

@@ -281,10 +281,9 @@
 
         // Submit
         } else if (action.name === 'submit') {
-          console.log('submitted proposal!');
           $scope.closeForm();
           $anchorScroll();
-          $scope.showModal('This lead was submitted to SolarCity!');
+          $scope.showModal('This lead was submitted to SolarCity.');
           refreshCarousel();
 
         // Resend

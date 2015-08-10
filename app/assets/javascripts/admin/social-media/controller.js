@@ -57,7 +57,7 @@
             return;
           }
           $location.path('admin/social-media')
-          $scope.showModal('You\'ve successfully added a new social media post!');
+          $scope.showModal('You\'ve successfully added a new social media post.');
         });
       }
     };
@@ -71,7 +71,7 @@
             return;
           }
           $location.path('/admin/social-media');
-          $scope.showModal('You\'ve successfully updated this social media post!');
+          $scope.showModal('You\'ve successfully updated this social media post.');
         })
       }
     }
