@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe UserScopes, type: :model do
   describe '.has_phone' do
-    let!(:user_with_phone1) { create(:user, phone: '+1') }
-    let!(:user_with_phone2) { create(:user, phone: '+2') }
+    let!(:user_with_phone1) { create(:user, valid_phone: '+1') }
+    let!(:user_with_phone2) { create(:user, valid_phone: '+2') }
 
     before do
-      create(:user, phone: nil)
-      create(:user, phone: '')
+      create(:user, valid_phone: nil)
+      create(:user, valid_phone: '')
     end
 
     it 'should return users with a phone number' do
