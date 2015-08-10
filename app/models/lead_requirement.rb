@@ -1,7 +1,8 @@
 class LeadRequirement < RankRequirement
-  def progress_for(user)
-    totals = qualified_lead_totals(pay_period_id).where(user_id: user_id).first
-    totals.send(lead_totals_quantity_column)
+  def progress_for(user_id, pay_period_id)
+    totals = qualified_lead_totals(pay_period_id)
+      .where(user_id: user_id).first
+    totals ? totals.send(lead_totals_quantity_column) : 0
   end
 
   def user_qualified?(user_id, pay_period_id)
