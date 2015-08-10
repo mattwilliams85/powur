@@ -38,7 +38,7 @@
           </div>
 
           <div class="large-4 columns">
-            <input ng-model="card.expiration" name="card_expiration" placeholder="MMYY" type="text" />
+            <input ng-model="card.expiration" name="card_expiration" placeholder="MMYY" type="text" maxlength="4" ng-change="expChange()" />
           </div>
 
           <div class="large-4 columns">
