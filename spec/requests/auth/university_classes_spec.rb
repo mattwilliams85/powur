@@ -96,17 +96,6 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
           .to receive(:send_purchased_notifications).and_return(true)
       end
 
-      it 'should increase the user\'s available invites by 5' do
-        allow(mailchimp_list_api).to receive(:subscribe).and_return(true)
-        allow(mailchimp_list_api).to receive(:unsubscribe).and_return(true)
-
-        expect(current_user.available_invites).to eq(0)
-        post(purchase_university_class_path(certifiable_product),
-             card:   {},
-             format: :json)
-        expect(current_user.available_invites).to eq(5)
-      end
-
       it 'should unsubscribe user from advocates list' do
         allow(mailchimp_list_api).to receive(:subscribe).and_return(true)
         expect(mailchimp_list_api).to receive(:unsubscribe).with(
