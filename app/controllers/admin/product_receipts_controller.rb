@@ -25,13 +25,6 @@ module Admin
 
       product.complimentary_purchase(@user)
 
-      # Increase Available Invites if Certification
-      if product.slug = 'partner'
-        @user.update_column(
-        :available_invites,
-        @user.available_invites + 5)
-      end
-
       head 200
     end
 
