@@ -1,4 +1,8 @@
 class MonthlyPayPeriod < PayPeriod
+  def time_span
+    :monthly
+  end
+
   def type_display
     'Monthly'
   end
@@ -7,18 +11,8 @@ class MonthlyPayPeriod < PayPeriod
     self.end_date ||= start_date.end_of_month
   end
 
-  def rank_has_path?(rank, path_id)
-    rank.monthly_path?(path_id)
-  end
-
-  def active_qualifiers
-    @active_qualifiers ||= begin
-      super.select { |q| !q.weekly? }.group_by(&:rank_path_id)
-    end
-  end
-
-  def bonus_available?(bonus)
-    bonus.monthly?
+  def bonuses
+    @bonuses ||= Bonus.monthly
   end
 
   class << self

@@ -1,8 +1,24 @@
 namespace :powur do
   namespace :seed do
+
+    def load_yaml(file_name)
+      YAML.load_file(Rails.root.join('db', 'seed', "#{file_name}.yml"))
+    end
+
     def plan_data
-      @plan_data ||= begin
-        YAML.load_file(Rails.root.join('db', 'seed', 'comp_plan.yml'))
+      @plan_data ||= load_yaml('comp_plan')
+    end
+
+    def bonus_data
+      @bonus_data ||= load_yaml('bonuses')
+    end
+
+    def create_bonus_from_attrs(bonus_attrs)
+      bonus_amounts = bonus_attrs.delete('bonus_amounts')
+      bonus = Bonus.create!(bonus_attrs)
+      return unless bonus_amounts
+      bonus_amounts.each do |attrs|
+        bonus.bonus_amounts.create!(attrs)
       end
     end
 
@@ -26,6 +42,12 @@ namespace :powur do
           group.requirements.create!(req_attrs)
         end
         puts "Created group #{group.title} : #{group.id}"
+      end
+    end
+
+    task bonuses: :environment do
+      bonus_data['bonuses'].each do |bonus_attrs|
+        create_bonus_from_attrs(bonus_attrs)
       end
     end
 

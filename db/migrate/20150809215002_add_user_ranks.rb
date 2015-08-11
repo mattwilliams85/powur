@@ -11,7 +11,8 @@ class AddUserRanks < ActiveRecord::Migration
     end
     reversible do |dir|
       dir.up do
-        execute 'alter table user_ranks add primary key (user_id, rank_id, pay_period_id);'
+        execute 'alter table user_ranks
+                 add primary key (user_id, rank_id, pay_period_id);'
       end
     end
 
@@ -22,7 +23,7 @@ class AddUserRanks < ActiveRecord::Migration
       t.integer :time_span, null: false
       t.integer :quantity, null: false, default: 1
       t.integer :max_leg
-      t.string  :type, null: false
+      t.string :type, null: false
 
       t.foreign_key :ranks
       t.foreign_key :products

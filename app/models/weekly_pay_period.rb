@@ -1,4 +1,8 @@
 class WeeklyPayPeriod < PayPeriod
+  def time_span
+    :weekly
+  end
+
   def type_display
     'Weekly'
   end

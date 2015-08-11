@@ -128,9 +128,14 @@ class User < ActiveRecord::Base
 
   def pay_as_rank(pay_period_id = nil)
     pay_period_id ||= MonthlyPayPeriod.current_id
-    result = user_ranks.highest_ranks
-      .where(pay_period_id: pay_period_id).entries.first
-    highest_rank = result && result.attributes['rank_id']
+    highest_rank =
+      if user_ranks.loaded?
+        user_ranks.entries.select do |user_rank|
+          user_rank.pay_period_id == pay_period_id
+        end.map(&:rank_id).max
+      else
+        query_highest_rank(pay_period_id)
+      end
     highest_rank || 0
   end
 
@@ -201,6 +206,11 @@ class User < ActiveRecord::Base
     User.where(id: id).update_all(upline: upline)
   end
 
+  def query_highest_rank(pay_period_id)
+    result = user_ranks.highest_ranks
+      .where(pay_period_id: pay_period_id).entries.first
+    result && result.attributes['rank_id']
+  end
 
   class << self
     def update_organic_ranks

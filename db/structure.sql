@@ -136,7 +136,6 @@ CREATE TABLE bonus_amounts (
     id integer NOT NULL,
     bonus_id integer NOT NULL,
     level integer DEFAULT 0 NOT NULL,
-    rank_path_id integer,
     amounts numeric(10,2)[] DEFAULT '{}'::numeric[] NOT NULL
 );
 
@@ -161,12 +160,12 @@ ALTER SEQUENCE bonus_amounts_id_seq OWNED BY bonus_amounts.id;
 
 
 --
--- Name: bonus_payment_orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_payment_leads; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE bonus_payment_orders (
+CREATE TABLE bonus_payment_leads (
     bonus_payment_id integer NOT NULL,
-    order_id integer NOT NULL
+    lead_id integer NOT NULL
 );
 
 
@@ -242,16 +241,14 @@ ALTER SEQUENCE bonus_plans_id_seq OWNED BY bonus_plans.id;
 
 CREATE TABLE bonuses (
     id integer NOT NULL,
-    bonus_plan_id integer NOT NULL,
     type character varying DEFAULT 'Bonus'::character varying NOT NULL,
     name character varying NOT NULL,
     schedule integer DEFAULT 2 NOT NULL,
     meta_data hstore DEFAULT ''::hstore,
     compress boolean DEFAULT false NOT NULL,
-    flat_amount numeric(10,2) DEFAULT 0.0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    product_id integer
+    amount numeric(10,2)
 );
 
 
@@ -1693,11 +1690,11 @@ ALTER TABLE ONLY bonus_amounts
 
 
 --
--- Name: bonus_payment_orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: bonus_payment_leads_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY bonus_payment_orders
-    ADD CONSTRAINT bonus_payment_orders_pkey PRIMARY KEY (bonus_payment_id, order_id);
+ALTER TABLE ONLY bonus_payment_leads
+    ADD CONSTRAINT bonus_payment_leads_pkey PRIMARY KEY (bonus_payment_id, lead_id);
 
 
 --
@@ -2348,27 +2345,11 @@ ALTER TABLE ONLY bonus_payments
 
 
 --
--- Name: fk_rails_35f0faa1fa; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_amounts
-    ADD CONSTRAINT fk_rails_35f0faa1fa FOREIGN KEY (rank_path_id) REFERENCES rank_paths(id);
-
-
---
 -- Name: fk_rails_3dad120da9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY orders
     ADD CONSTRAINT fk_rails_3dad120da9 FOREIGN KEY (customer_id) REFERENCES customers(id);
-
-
---
--- Name: fk_rails_3f4c8aa477; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payment_orders
-    ADD CONSTRAINT fk_rails_3f4c8aa477 FOREIGN KEY (bonus_payment_id) REFERENCES bonus_payments(id);
 
 
 --
@@ -2516,14 +2497,6 @@ ALTER TABLE ONLY rank_requirements
 
 
 --
--- Name: fk_rails_b080b36796; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonuses
-    ADD CONSTRAINT fk_rails_b080b36796 FOREIGN KEY (bonus_plan_id) REFERENCES bonus_plans(id);
-
-
---
 -- Name: fk_rails_b152dd356e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2556,14 +2529,6 @@ ALTER TABLE ONLY order_totals
 
 
 --
--- Name: fk_rails_ccd9c98a42; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonuses
-    ADD CONSTRAINT fk_rails_ccd9c98a42 FOREIGN KEY (product_id) REFERENCES products(id);
-
-
---
 -- Name: fk_rails_d44438dd14; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2588,19 +2553,19 @@ ALTER TABLE ONLY orders
 
 
 --
--- Name: fk_rails_e1fa9da540; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY bonus_payment_orders
-    ADD CONSTRAINT fk_rails_e1fa9da540 FOREIGN KEY (order_id) REFERENCES orders(id);
-
-
---
 -- Name: fk_rails_e59aa7c1c9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY qualifications
     ADD CONSTRAINT fk_rails_e59aa7c1c9 FOREIGN KEY (rank_id) REFERENCES ranks(id);
+
+
+--
+-- Name: fk_rails_e9af4a0ca2; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payment_leads
+    ADD CONSTRAINT fk_rails_e9af4a0ca2 FOREIGN KEY (bonus_payment_id) REFERENCES bonus_payments(id);
 
 
 --
@@ -2625,6 +2590,14 @@ ALTER TABLE ONLY bonus_payments
 
 ALTER TABLE ONLY api_tokens
     ADD CONSTRAINT fk_rails_f16b5e0447 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: fk_rails_f2d1d6de30; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonus_payment_leads
+    ADD CONSTRAINT fk_rails_f2d1d6de30 FOREIGN KEY (lead_id) REFERENCES leads(id);
 
 
 --
@@ -2844,3 +2817,5 @@ INSERT INTO schema_migrations (version) VALUES ('20150809215002');
 INSERT INTO schema_migrations (version) VALUES ('20150810023315');
 
 INSERT INTO schema_migrations (version) VALUES ('20150810234151');
+
+INSERT INTO schema_migrations (version) VALUES ('20150810144648');

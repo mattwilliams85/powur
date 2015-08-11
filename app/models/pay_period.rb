@@ -77,6 +77,10 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   def calculate!
   end
 
+  def contains_date?(date)
+    date >= start_date && date < (end_date + 1.day)
+  end
+
   class << self
     def current
       find_or_create_by_date(Date.current)

@@ -1,0 +1,19 @@
+bonuses:
+  -
+    type: SellerBonus
+    name: Seller Bonus
+    schedule: 2
+    bonus_amounts:
+      -
+        amounts:
+          - 250.00
+          - 250.00
+          - 250.00
+          - 250.00
+          - 250.00
+          - 250.00
+          - 250.00
+          - 250.00
+          - 250.00
+          - 250.00
+          - 250.00

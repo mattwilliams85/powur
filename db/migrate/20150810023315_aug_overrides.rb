@@ -4,6 +4,5 @@ class AugOverrides < ActiveRecord::Migration
     Rake::Task['powur:overrides:sponsors'].invoke
     user = User.find_by(id: 1519)
     user && user.destroy!
-    
   end
 end

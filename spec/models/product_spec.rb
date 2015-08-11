@@ -11,35 +11,35 @@ describe Product, type: :model do
     expect(product.sku.size).to eq(7)
   end
 
-  describe '#commission_amount' do
-    it 'calculates the commission amount correctly' do
-      expect(product.commission_amount).to eq(740.00)
-    end
-  end
+  # describe '#commission_amount' do
+  #   it 'calculates the commission amount correctly' do
+  #     expect(product.commission_amount).to eq(740.00)
+  #   end
+  # end
 
-  describe '#commission_used' do
-    it 'calculates the commission used correctly' do
-      create(:bonus_amount, bonus: bonus1, amounts: [ 120.00, 240.00 ])
+  # describe '#commission_used' do
+  #   it 'calculates the commission used correctly' do
+  #     create(:bonus_amount, bonus: bonus1, amounts: [ 120.00, 240.00 ])
 
-      expect(product.commission_used).to eq(240.00)
-    end
-  end
+  #     expect(product.commission_used).to eq(240.00)
+  #   end
+  # end
 
-  describe '#commission_remaining' do
-    it 'calculates the commission remaining correctly' do
-      create(:bonus_amount, bonus: bonus1, amounts: [ 500.00, 240.00 ])
+  # describe '#commission_remaining' do
+  #   it 'calculates the commission remaining correctly' do
+  #     create(:bonus_amount, bonus: bonus1, amounts: [ 500.00, 240.00 ])
 
-      expect(product.commission_remaining).to eq(240.00)
-    end
+  #     expect(product.commission_remaining).to eq(240.00)
+  #   end
 
-    it 'calculates the commission remaining for a bonus correctly' do
-      create(:bonus_amount, bonus: bonus1, amounts: [ 500.00, 240.00 ])
-      create(:bonus_amount, bonus: bonus2, amounts: [ 120.00, 0.00 ])
+  #   it 'calculates the commission remaining for a bonus correctly' do
+  #     create(:bonus_amount, bonus: bonus1, amounts: [ 500.00, 240.00 ])
+  #     create(:bonus_amount, bonus: bonus2, amounts: [ 120.00, 0.00 ])
 
-      expect(product.commission_remaining(bonus1)).to eq(620.00)
-      expect(product.commission_remaining(bonus2)).to eq(240.00)
-    end
-  end
+  #     expect(product.commission_remaining(bonus1)).to eq(620.00)
+  #     expect(product.commission_remaining(bonus2)).to eq(240.00)
+  #   end
+  # end
 
   describe '#prerequisites_taken?' do
     let(:user) { create(:user) }
