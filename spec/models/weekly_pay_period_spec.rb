@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe WeeklyPayPeriod, type: :model do
-
   describe '::ids_from' do
-
     it 'returns an empty array if the date is within the current week' do
       ids = WeeklyPayPeriod.ids_from(Date.current - 1.minute)
       expect(ids).to be_empty
@@ -21,18 +19,16 @@ describe WeeklyPayPeriod, type: :model do
       ids = WeeklyPayPeriod.ids_from(from)
       expect(ids.size).to eq(52)
     end
-
   end
 
   describe '::find_or_create_by_id' do
-
     it 'creates a new pay period from an id value' do
       id = '2014W34'
       pay_period = WeeklyPayPeriod.find_or_create_by_id(id)
 
       expected = Date.parse(id)
       expect(pay_period.start_date).to eq(expected)
-      expect(pay_period.end_date).to eq(expected.end_of_week)
+      expect(pay_period.end_date).to eq(expected.end_of_week + 1.day)
       expect(pay_period.calculated?).to_not be
     end
 
@@ -42,6 +38,5 @@ describe WeeklyPayPeriod, type: :model do
       result = WeeklyPayPeriod.find_or_create_by_id(id)
       expect(result.id).to eq(id)
     end
-
   end
 end
