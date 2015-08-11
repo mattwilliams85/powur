@@ -79,6 +79,12 @@ class Lead < ActiveRecord::Base
     PromoterMailer.new_quote(self).deliver_later if can_email?
   end
 
+  def converted_count_at_time
+    @converted_count_at_time ||= begin
+      Lead.converted(to: converted_at).where(user_id: user_id).count + 1
+    end
+  end
+
   private
 
   def submitted(provider_uid, at)

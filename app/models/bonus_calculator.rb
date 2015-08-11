@@ -8,14 +8,19 @@ class BonusCalculator
     @pay_period = pay_period
   end
 
-  def invoke!
+  def reset
+    pay_period.bonus_payments.destroy_all
+  end
+
+  def invoke
     bonuses.each do |bonus|
       bonus.create_payments!(self)
     end
   end
 
-  def reset
-    pay_period.bonus_payments.destroy_all
+  def invoke!
+    reset
+    invoke
   end
 
   def converted_leads
@@ -33,11 +38,16 @@ class BonusCalculator
       .installed(pay_period_id: pay_period.id).preload(:user)
   end
 
-  private
-
   def bonuses
-    @bonuses ||= Bonus.send(pay_period.time_span).preload(:bonus_amounts)
+    @bonuses ||= begin
+      Bonus
+        .send(pay_period.time_span)
+        .where('start_date IS NULL OR start_date <= ?', pay_period.start_date)
+        .preload(:bonus_amounts)
+    end
   end
+
+  private
 
   class << self
     def run_all

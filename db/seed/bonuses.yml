@@ -3,6 +3,8 @@ bonuses:
     type: SellerBonus
     name: Seller Bonus
     schedule: 2
+    contracted_percent: 0.5
+    installed_percent: 0.5
     bonus_amounts:
       -
         amounts:
@@ -24,3 +26,62 @@ bonuses:
     amount: 50.00
     end_date: 2015-08-11
     criteria: has_converted_lead
+  -
+    type: DifferentialBonus
+    name: PACT
+    schedule: 2
+    amount: 50.00
+    upline: sponsor
+    bonus_amounts:
+      -
+        amounts:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 30.0
+          - 50.0
+          - 60.0
+          - 70.0
+          - 80.0
+          - 90.0
+  -
+    type: DifferentialBonus
+    name: Team PACT
+    schedule: 1
+    amount: 50.00
+    upline: sponsor
+    start_date: 2015-07-01
+    nth_proposal: 3
+    bonus_amounts:
+      -
+        amounts:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 30.0
+          - 50.0
+          - 60.0
+          - 70.0
+          - 80.0
+          - 90.0
+  -
+    type: SellerBonus
+    name: ImPACT
+    schedule: 1
+    start_date: 2015-07-01
+    converted_percent: 1.0
+    bonus_amounts:
+      -
+        amounts:
+          - 0.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0

@@ -144,6 +144,10 @@ class User < ActiveRecord::Base
     result && result.rank.to_i
   end
 
+  def pay_period_rank(pp_id)
+    override_rank(pp_id) || pay_as_rank(pp_id)
+  end
+
   # KPI METHODS
   def weekly_growth
     User.with_ancestor(id).within_date_range(Time.now - 6.days, Time.now).count
@@ -191,6 +195,23 @@ class User < ActiveRecord::Base
 
   def validate_phone_number!
     update_attribute(:valid_phone, twilio_valid_phone(phone))
+  end
+
+  def sponsor_upline
+    @sponsor_upline ||= begin
+      users, user = [], self
+      users.push(user) while (user = user.sponsor)
+      users
+    end
+  end
+
+  def placement_upline
+    @placement_upline ||= begin
+      users = upline_users.entries
+      (upline - [ id ]).reverse.map do |user_id|
+        users.detect { |u| u.id == user_id }
+      end
+    end
   end
 
   private

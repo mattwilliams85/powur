@@ -46,7 +46,7 @@ namespace :powur do
     end
 
     task bonuses: :environment do
-      Bonuses.all.destroy_all
+      Bonus.all.destroy_all
       bonus_data['bonuses'].each do |bonus_attrs|
         create_bonus_from_attrs(bonus_attrs)
       end

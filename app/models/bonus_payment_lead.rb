@@ -4,6 +4,8 @@ class BonusPaymentLead < ActiveRecord::Base
   belongs_to :bonus_payment
   belongs_to :lead
 
+  enum status: { converted: 1, contracted: 2, installed: 3 }
+
   # scope :for_pay_period, lambda { |pay_period_id|
   #   where_arg = { bonus_payments: { pay_period_id: pay_period_id } }
   #   joins(:bonus_payment).where(where_arg)
