@@ -17,6 +17,15 @@
       position: absolute;
       right: 20px;
     }
+    .notification-text {
+      a {
+        color: #fff;
+        text-decoration: underline;
+        &:hover {
+          color: #70c0d9;
+        }
+      }
+    }
   }
 
   .welcome-section {

@@ -5,7 +5,7 @@
 
   <div ng-if="currentUser.notification" class="notification-wrapper">
     <a class="close-icon" ng-click="closeNotification()">×</a>
-    <span>{{ currentUser.notification }}</span>
+    <span class="notification-text" ng-bind-html="currentUser.notification">{{ currentUser.notification }}</span>
   </div>
 
   <!-- Welcome Section -->
