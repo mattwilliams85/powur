@@ -139,7 +139,7 @@
 
           }
 
-          &.group_sales, &.group_proposals {
+          &.grid_sales, &.grid_proposals {
             /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#258dc8+0,20c2f1+100 */
             background: rgb(37,141,200); /* Old browsers */
             background: -moz-linear-gradient(left,  rgba(37,141,200,1) 0%, rgba(32,194,241,1) 100%); /* FF3.6+ */
@@ -225,7 +225,7 @@
               background-color: $pow-color-orange;
             }
 
-            &.group_sales, &.group_proposals {
+            &.grid_sales, &.grid_proposals {
               background-color: $pow-color-blue;
             }
           }
