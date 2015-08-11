@@ -17,3 +17,10 @@ bonuses:
           - 250.00
           - 250.00
           - 250.00
+  -
+    type: OneTimeBonus
+    name: First Time Bonus
+    schedule: 3
+    amount: 50.00
+    end_date: 2015-08-11
+    criteria: has_converted_lead

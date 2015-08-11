@@ -51,6 +51,10 @@ namespace :powur do
       end
     end
 
+    task bonus_payments: :environment do
+      BonusCalculator.run_all
+    end
+
     task plan: [ :ranks, :user_groups ] do
     end
 

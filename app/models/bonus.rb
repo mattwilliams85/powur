@@ -8,7 +8,7 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
   #   weekly:  'Weekly',
   #   monthly: 'Monthly' }
 
-  enum schedule: { weekly: 1, monthly: 2 }
+  enum schedule: { weekly: 1, monthly: 2, one_time: 3 }
 
   # belongs_to :bonus_plan
   # belongs_to :product

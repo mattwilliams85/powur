@@ -180,7 +180,7 @@ CREATE TABLE bonus_payments (
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
     status integer DEFAULT 1 NOT NULL,
-    pay_as_rank integer NOT NULL,
+    pay_as_rank integer,
     created_at timestamp without time zone NOT NULL
 );
 
@@ -2819,4 +2819,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150810023315');
 INSERT INTO schema_migrations (version) VALUES ('20150810144648');
 
 INSERT INTO schema_migrations (version) VALUES ('20150810234151');
+
+INSERT INTO schema_migrations (version) VALUES ('20150811154609');
 
