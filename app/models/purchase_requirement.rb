@@ -24,6 +24,6 @@ class PurchaseRequirement < RankRequirement
 
   def pay_period_purchases(pay_period_id)
     end_date = MonthlyPayPeriod.end_date_from_id(pay_period_id)
-    purchases.where('product_receipts.created_at < ?', end_date + 1.day)
+    purchases.where('product_receipts.purchased_at < ?', end_date + 1.day)
   end
 end

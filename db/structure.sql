@@ -757,7 +757,8 @@ CREATE TABLE product_receipts (
     order_id character varying NOT NULL,
     auth_code character varying,
     created_at timestamp without time zone,
-    updated_at timestamp without time zone
+    updated_at timestamp without time zone,
+    purchased_at timestamp without time zone
 );
 
 
@@ -2842,3 +2843,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150809215002');
 
 INSERT INTO schema_migrations (version) VALUES ('20150810023315');
 
+INSERT INTO schema_migrations (version) VALUES ('20150810234151');

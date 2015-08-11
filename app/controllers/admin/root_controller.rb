@@ -33,7 +33,7 @@ module Admin
     end
 
     def purchases_count
-      ProductReceipt.where(['created_at > ? AND created_at < ?',
+      ProductReceipt.where(['purchased_at > ? AND purchased_at < ?',
                             @date_since, @date_until])
         .count
     end
@@ -41,8 +41,8 @@ module Admin
     def purchases_revenue
       ProductReceipt.connection
         .execute('SELECT SUM(amount) FROM product_receipts WHERE ' \
-          "created_at > '#{@date_since}' AND " \
-          "created_at < '#{@date_until}'")
+          "purchased_at > '#{@date_since}' AND " \
+          "purchased_at < '#{@date_until}'")
         .first['sum'].to_i / 100
     end
 

@@ -4,6 +4,7 @@ class ProductReceipt < ActiveRecord::Base
 
   validates :product_id, presence: true
   validates :user_id, presence: true, uniqueness: { scope: :product_id }
+  validates :purchased_at, presence: true
 
   scope :partner, -> { joins(:product).where(products: { slug: 'partner' }) }
   scope :exclude_users, lambda { |query|
