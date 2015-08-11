@@ -6,9 +6,9 @@ class UserGroupRequirement < ActiveRecord::Base
   enum event_type: {
     purchase:           1,
     personal_sales:     2,
-    group_sales:        3,
+    grid_sales:        3,
     personal_proposals: 4,
-    group_proposals:    5 }
+    grid_proposals:    5 }
 
   validates_presence_of :user_group_id, :product_id, :event_type, :quantity
 

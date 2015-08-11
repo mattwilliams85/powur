@@ -11,7 +11,7 @@ if admin?
              options:  UserGroupRequirement.enum_options(:time_spans),
              required: true,
              value:    @requirement.time_span)
-    if @requirement.group_sales?
+    if @requirement.grid_sales?
       update.field(:max_leg, :integer,
                    required: false,
                    value:    @requirement.value)

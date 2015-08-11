@@ -39,7 +39,7 @@ groups:
         product_id: 1
         quantity: 3
         time_span: :lifetime
-      - event_type: :group_proposals
+      - event_type: :grid_proposals
         product_id: 1
         quantity: 9
         time_span: :monthly
@@ -52,7 +52,7 @@ groups:
         product_id: 1
         quantity: 7
         time_span: :lifetime
-      - event_type: :group_proposals
+      - event_type: :grid_proposals
         product_id: 1
         quantity: 25
         time_span: :monthly
@@ -65,7 +65,7 @@ groups:
         product_id: 1
         quantity: 10
         time_span: :lifetime
-      - event_type: :group_proposals
+      - event_type: :grid_proposals
         product_id: 1
         quantity: 75
         time_span: :monthly
@@ -78,7 +78,7 @@ groups:
         product_id: 1
         quantity: 5
         time_span: :lifetime
-      - event_type: :group_sales
+      - event_type: :grid_sales
         product_id: 1
         quantity: 75
         time_span: :monthly
@@ -92,7 +92,7 @@ groups:
         product_id: 1
         quantity: 7
         time_span: :lifetime
-      - event_type: :group_sales
+      - event_type: :grid_sales
         product_id: 1
         quantity: 200
         time_span: :monthly
@@ -106,7 +106,7 @@ groups:
         product_id: 1
         quantity: 10
         time_span: :lifetime
-      - event_type: :group_sales
+      - event_type: :grid_sales
         product_id: 1
         quantity: 500
         time_span: :monthly
@@ -120,7 +120,7 @@ groups:
         product_id: 1
         quantity: 12
         time_span: :lifetime
-      - event_type: :group_sales
+      - event_type: :grid_sales
         product_id: 1
         quantity: 1000
         time_span: :monthly
@@ -134,7 +134,7 @@ groups:
         product_id: 1
         quantity: 15
         time_span: :lifetime
-      - event_type: :group_sales
+      - event_type: :grid_sales
         product_id: 1
         quantity: 2000
         time_span: :monthly

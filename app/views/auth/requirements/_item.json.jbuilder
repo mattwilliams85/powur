@@ -8,7 +8,7 @@ json.properties do
   unless requirement.purchase?
     json.quantity requirement.quantity
     json.time_span requirement.time_span && requirement.time_span.titleize
-    json.max_leg(requirement.max_leg) if requirement.group_sales?
+    json.max_leg(requirement.max_leg) if requirement.grid_sales?
   end
   if @user
     json.progress(requirement.progress_for(@user.id,

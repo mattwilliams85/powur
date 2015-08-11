@@ -43,7 +43,7 @@ class LeadRequirement < RankRequirement
   end
 
   def proposals?
-    personal_proposals? || group_proposals?
+    personal_proposals? || grid_proposals?
   end
 
   def lead_status

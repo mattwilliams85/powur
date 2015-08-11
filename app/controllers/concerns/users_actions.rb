@@ -15,7 +15,7 @@ module UsersActions
     # filter :performance,
     #        fields:     { metric: { options: [ :quote_count,
     #                                           :personal_sales,
-    #                                           :group_sales ],
+    #                                           :grid_sales ],
     #                                heading: :order_by },
     #                      period: { options: [ :lifetime, :monthly, :weekly ],
     #                                heading: :for_period } },
