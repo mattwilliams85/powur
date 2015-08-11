@@ -155,8 +155,7 @@
     // Show Lead
     $scope.leadPipelineSection.showLead = function(leadIndex) {
 
-      // Reset email validation (see note in saveLead() function)
-      $scope.leadPipelineSection.isEmailInvalid = false;
+      resetFormValidations();
 
       $scope.updatingLead = false;
       var leadId = $scope.leads[leadIndex].properties.id;
@@ -203,8 +202,7 @@
     // New Proposal Action
     $scope.leadPipelineSection.newLead = function() {
 
-      // Reset email validation (see note in saveLead() function)
-      $scope.leadPipelineSection.isEmailInvalid = false;
+      resetFormValidations();
 
       if ($scope.showForm === true && $scope.mode === 'new') {
         $scope.closeForm();
@@ -231,20 +229,37 @@
 
     // Save/Update Proposal Action
     $scope.leadPipelineSection.saveLead = function() {
-      // reset email validation
-      $scope.leadPipelineSection.isEmailInvalid = false;
+
+      resetFormValidations();
 
       // check validity and submit if valid:
       if ($scope.lead && $('#customers-form')[0].checkValidity()) {
         CommonService.execute($scope.formAction, $scope.lead).then(actionCallback($scope.formAction));
       } else {
-        /*
-        The only validation on the form that will fail with checkValidity() is
-        email, so if there are any errors, it's because the email is invalid:
-        */
-        $scope.leadPipelineSection.isEmailInvalid = true;
+        showInvalidFormMessages();
       }
     };
+
+    // Form Validation Methods:
+
+    function resetFormValidations() {
+      $scope.leadPipelineSection.isEmailInvalid = false;
+      $scope.leadPipelineSection.isFirstNameInvalid = false;
+      $scope.leadPipelineSection.isLastNameInvalid = false;
+    }
+
+    function showInvalidFormMessages() {
+      // Front-end validations, mainly for Safari. (Chrome/Firefox use built-in HTML5 validations)
+      if ($('#new_lead_first_name')[0].checkValidity() === false) {
+        $scope.leadPipelineSection.isFirstNameInvalid = true;
+      }
+      if ($('#new_lead_last_name')[0].checkValidity() === false) {
+        $scope.leadPipelineSection.isLastNameInvalid = true;
+      }
+      if ($('#new_lead_email')[0].checkValidity() === false) {
+        $scope.leadPipelineSection.isEmailInvalid = true;
+      }
+    }
 
     function actionCallback(action) {
       return function() {
