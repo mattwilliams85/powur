@@ -17,6 +17,8 @@
     };
 
     $rootScope.breadcrumbs.push({title: 'Notifications', href:'/admin/notifications'});
+    $rootScope.breadcrumbs.push({title: 'Twilio Stats'});
+
     $scope.index = {
       data: {entities: [{properties: {phone_number: 'Loading ...'}}]}
     };
