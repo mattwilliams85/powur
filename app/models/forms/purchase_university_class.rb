@@ -17,8 +17,9 @@ module Forms
       if value.blank? || !value.match(/\A[0-9]{4}\Z/i)
         record.errors.add(attr, 'Invalid expiration format (MMYY expected)')
       else
-        month = value.slice!(0..1)
-        exp = (value + month).to_i
+        month = value[0..1]
+        year = value[2..3]
+        exp = (year + month).to_i
         if exp < Time.zone.now.strftime('%y%m').to_i
           record.errors.add(
             attr,
