@@ -10,6 +10,42 @@ class BonusPayment < ActiveRecord::Base
 
   scope :pay_period, ->(id) { where(pay_period: id) }
 
+  def distribution_data
+    { ref_id:   user.id,
+      username: user.ewallet_username,
+      amount:   amount }
+  end
+
+  def distribute!
+    # TODO: might be helpful to implement a distribute
+    # for an individual user too, something like this:
+    # return false unless user.ewallet_pay(amount)
+    # paid!
+  end
+
+  class << self
+    def distribute!
+      client = EwalletClient.new
+      load_response = client.ewallet_load(
+        batch_id: 'Bonus distribution on ' + Time.zone.now.strftime('%m/%d/%y'),
+        payments: pending_distributions)
+      pending.find_each do |bp|
+        next unless bp.user && bp.user.ewallet_username
+        bp.paid!
+      end
+      load_response
+    end
+
+    def pending_distributions
+      payments = []
+      pending.find_each do |bp|
+        next unless bp.user && bp.user.ewallet_username
+        payments.push(bp.distribution_data)
+      end
+      payments
+    end
+  end
+
   # scope :for_user, ->(id) { where(user_id: id.to_i) }
   # scope :bonus, ->(id) { where(bonus_id: id.to_i) }
   # scope :before, ->(date) { where('created_at < ?', date.to_date) }
