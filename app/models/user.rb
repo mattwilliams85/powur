@@ -126,6 +126,11 @@ class User < ActiveRecord::Base
     Customer.create!(first_name: first_name, last_name: last_name, email: email)
   end
 
+  def rank_title(rank_id)
+    rank = all_ranks[rank_id || 0]
+    rank ? rank.title : nil
+  end
+
   def pay_as_rank(pay_period_id = nil)
     pay_period_id ||= MonthlyPayPeriod.current_id
     highest_rank =

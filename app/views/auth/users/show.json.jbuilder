@@ -4,11 +4,6 @@ klass :user
 
 json.partial! 'item', user: @user
 
-def rank_title(rank_id)
-  rank = all_ranks[rank_id || 0]
-  rank ? rank.title : nil
-end
-
 json.properties do
   json.call(@user, :address, :city, :state, :zip,
             :profile, :avatar, :avatar_file_name,

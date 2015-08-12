@@ -62,6 +62,12 @@
       controller: 'UserStaticContentCtrl'
     }).
 
+    //Leaderboard
+    when('/leaderboard', {
+      templateUrl: 'leaderboard/templates/index.html',
+      controller: 'LeaderboardCtrl'
+    }).
+
     // Promo
     when('/create-wealth/:inviteCode', {
       templateUrl: 'sign-up/templates/index.html',

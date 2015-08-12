@@ -1,0 +1,25 @@
+<div class="pow-leaderboard">
+<span class="header uppercase">Leaderboard</span>
+<span class="date">- {{dateHeader()}} -</span>
+  <table>
+    <thead>
+      <tr>
+        <th width="15">#</th>
+        <th>Advocate</th>
+        <th>Rank</th>
+        <th class="text-right">Proposals</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="leader in leaders track by $index" ng-class="{'top-dog': $index === 0}">
+        <td>{{$index + 1}}</td>
+        <td>
+          <img class="avatar" ng-src="{{leader.avatar.thumb || leader.defaultAvatarThumb}}">
+          <span class="name">{{leader.first_name}} {{leader.last_name}}</span>
+        </td>
+        <td>{{leader.rank_title}}</td>
+        <td class="text-right">{{leader.totals.lead_count}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
