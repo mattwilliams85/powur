@@ -11,11 +11,13 @@ class Distribution < ActiveRecord::Base
     client = EwalletClient.new
 
     payments.each do |payment|
-      load_response = client.ewallet_individual_load(
-        batch_id: title,
-        payment:  payment.distribution_data)
-      if load_response['m_Text'] == 'OK'
+      begin
+        client.ewallet_individual_load(
+          batch_id: title,
+          payment:  payment.distribution_data)
         payment.update_attribute(:status, :paid)
+      rescue Ipayout::Error::EwalletNotFound => e
+        Airbrake.notify(e)
       end
     end
 
