@@ -38,16 +38,10 @@ class OneTimeBonus < Bonus
 
     payments = bonus_payments.pending.with_ewallets.entries
     payment_ids = payments.map(&:id)
-    distribution_data = payments.map(&:distribution_data)
 
     BonusPayment.where(id: payment_ids).update_all(
       distribution_id: distribution.id)
 
-    distribution_response = distribution.distribute!(distribution_data)
-
-    BonusPayment.where(id: payment_ids)
-      .update_all(status: BonusPayment.statuses['paid'])
-
-    distribution_response
+    distribution.distribute!(payments)
   end
 end

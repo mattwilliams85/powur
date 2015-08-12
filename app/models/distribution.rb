@@ -7,21 +7,19 @@ class Distribution < ActiveRecord::Base
 
   after_create :set_title
 
-  # Example:
-  # distribution.distribute!(
-  #   [{ ref_id:   1,
-  #      username: 'ewalletusername',
-  #      amount:   23.4 }]
-  # )
-  def distribute!(payments_list)
+  def distribute!(payments)
     client = EwalletClient.new
-    load_response = client.ewallet_load(
-      batch_id: title,
-      payments: payments_list)
-    if load_response['m_Text'] == 'OK'
-      return update_attributes(distributed_at: Time.zone.now, status: :paid)
+
+    payments.each do |payment|
+      load_response = client.ewallet_individual_load(
+        batch_id: title,
+        payment:  payment.distribution_data)
+      if load_response['m_Text'] == 'OK'
+        payment.update_attribute(:status, :paid)
+      end
     end
-    fail(load_response.to_s)
+
+    update_attributes(distributed_at: Time.zone.now, status: :paid)
   end
 
   def cancel
