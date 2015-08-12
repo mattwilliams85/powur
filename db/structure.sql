@@ -251,8 +251,8 @@ CREATE TABLE bonuses (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     amount numeric(10,2),
-    distribution_id integer,
-    start_date timestamp without time zone
+    start_date timestamp without time zone,
+    distribution_id integer
 );
 
 
