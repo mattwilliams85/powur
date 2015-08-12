@@ -182,7 +182,8 @@ CREATE TABLE bonus_payments (
     amount numeric(10,2) NOT NULL,
     status integer DEFAULT 1 NOT NULL,
     pay_as_rank integer,
-    created_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    distribution_id integer
 );
 
 
@@ -250,6 +251,7 @@ CREATE TABLE bonuses (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     amount numeric(10,2),
+    distribution_id integer,
     start_date timestamp without time zone
 );
 
@@ -357,9 +359,8 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 
 CREATE TABLE distributions (
     id integer NOT NULL,
-    pay_period_id character varying NOT NULL,
-    user_id integer NOT NULL,
-    amount numeric(10,2) NOT NULL
+    status integer DEFAULT 1 NOT NULL,
+    title character varying
 );
 
 
@@ -706,7 +707,8 @@ CREATE TABLE pay_periods (
     disbursed_at timestamp without time zone,
     total_volume numeric(10,2),
     total_bonus numeric(10,2),
-    total_breakage numeric(10,2)
+    total_breakage numeric(10,2),
+    distribution_id integer
 );
 
 
@@ -2045,13 +2047,6 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 
 
 --
--- Name: index_distributions_on_pay_period_id_and_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_distributions_on_pay_period_id_and_user_id ON distributions USING btree (pay_period_id, user_id);
-
-
---
 -- Name: index_lead_totals_on_user_id_and_pay_period_id_and_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2259,14 +2254,6 @@ ALTER TABLE ONLY user_group_requirements
 
 
 --
--- Name: fk_rails_0ac5f355df; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY distributions
-    ADD CONSTRAINT fk_rails_0ac5f355df FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
-
-
---
 -- Name: fk_rails_0be6ab5d96; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2432,14 +2419,6 @@ ALTER TABLE ONLY rank_achievements
 
 ALTER TABLE ONLY rank_requirements
     ADD CONSTRAINT fk_rails_7b5c8c5a94 FOREIGN KEY (rank_id) REFERENCES ranks(id);
-
-
---
--- Name: fk_rails_81b70497bd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY distributions
-    ADD CONSTRAINT fk_rails_81b70497bd FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -2825,4 +2804,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150810234151');
 INSERT INTO schema_migrations (version) VALUES ('20150811154609');
 
 INSERT INTO schema_migrations (version) VALUES ('20150811180552');
+
+INSERT INTO schema_migrations (version) VALUES ('20150811225152');
 

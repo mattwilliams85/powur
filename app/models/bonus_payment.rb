@@ -4,11 +4,23 @@ class BonusPayment < ActiveRecord::Base
   belongs_to :pay_period
   belongs_to :bonus
   belongs_to :user
+  belongs_to :distribution
 
   has_many :bonus_payment_leads, dependent: :destroy
   has_many :leads, through: :bonus_payment_leads
 
   scope :pay_period, ->(id) { where(pay_period: id) }
+  scope :with_ewallets, lambda {
+    joins(:user).includes(:user)
+      .where("exist(users.profile, 'ewallet_username') = true")
+      .where("users.profile->'ewallet_username' != ''")
+  }
+
+  def distribution_data
+    { ref_id:   user.id,
+      username: user.ewallet_username,
+      amount:   amount }
+  end
 
   # scope :for_user, ->(id) { where(user_id: id.to_i) }
   # scope :bonus, ->(id) { where(bonus_id: id.to_i) }

@@ -27,15 +27,17 @@ class EwalletClient
   end
 
   def create(opts)
-    request(
-      :register_user,
-      create_query(opts))
+    request(:register_user, create_query(opts))
   end
 
   def login_url(username)
     request(
       :request_user_auto_login,
       fetch_query('eWallet_RequestUserAutoLogin', username))
+  end
+
+  def ewallet_load(opts)
+    request(:ewallet_load, load_query(opts))
   end
 
   private
@@ -76,5 +78,33 @@ class EwalletClient
       # set unknown date to 1/1/1900, they will set it on first user login
       'DateOfBirth'     => '1/1/1900',
       'WebsitePassword' => nil)
+  end
+
+  # Example:
+  # client.load_query(
+  #   batch_id: 'Bonuses payout on 8/11/2015',
+  #   payments: [{
+  #     ref_id: 12,
+  #     username: 'user@example.com',
+  #     amount: 34
+  #   }]
+  # )
+  def load_query(opts)
+    list = []
+    opts[:payments].each do |data|
+      list.push(
+        'UserName'            => data[:username],
+        'Amount'              => data[:amount],
+        'MerchantReferenceID' => data[:ref_id]
+      )
+    end
+
+    base_options_hash.merge(
+      'fn'              => 'eWallet_Load',
+      'PartnerBatchID'  => opts[:batch_id],
+      'AllowDuplicates' => 'true',
+      'AutoLoad'        => 'false',
+      'CurrencyCode'    => 'USD',
+      'arrAccounts'     => list)
   end
 end
