@@ -18,7 +18,7 @@ class Distribution < ActiveRecord::Base
     load_response = client.ewallet_load(
       batch_id: title,
       payments: payments_list)
-    paid! if load_response['m_Text'] == 'OK'
+    return paid! if load_response['m_Text'] == 'OK'
     fail(load_response.to_s)
   end
 
