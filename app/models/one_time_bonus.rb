@@ -36,11 +36,14 @@ class OneTimeBonus < Bonus
   def distribute!
     distribution ||= create_distribution
 
-    payments = bonus_payments.pending.with_ewallets.all
-    payments.each { |bp| bp.update_column(:distribution_id, distribution.id) }
+    payments = bonus_payments.pending.with_ewallets.entries
     distribution_data = payments.map(&:distribution_data)
     distribution_response = distribution.distribute!(distribution_data)
-    payments.map(&:paid!)
+
+    BonusPayment.where(id: payments.map(&:id)).update_all(
+      distribution_id: distribution.id,
+      status:          :paid)
+
     distribution_response
   end
 end
