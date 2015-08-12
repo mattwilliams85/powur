@@ -8,11 +8,31 @@
         <div class="row">
           <div class="large-6 medium-6 columns">
             <label>First Name</label>
-            <input ng-model="lead.first_name" type="text">
+            <input
+              type="text"
+              id="new_lead_first_name"
+              ng-model="lead.first_name"
+              ng-class="{ 'input-error' : leadPipelineSection.isFirstNameInvalid }"
+              required>
+            <label
+              ng-show="leadPipelineSection.isFirstNameInvalid"
+              ng-class="{ 'input-error' : leadPipelineSection.isFirstNameInvalid }">
+              Please enter a first name.
+            </label>
           </div>
           <div class="large-6 medium-6 columns">
             <label>Last Name</label>
-            <input ng-model="lead.last_name" type="text">
+            <input
+              type="text"
+              id="new_lead_last_name"
+              ng-model="lead.last_name"
+              ng-class="{ 'input-error' : leadPipelineSection.isLastNameInvalid }"
+              required>
+            <label
+              ng-show="leadPipelineSection.isLastNameInvalid"
+              ng-class="{ 'input-error' : leadPipelineSection.isLastNameInvalid }">
+              Please enter a last name.
+            </label>
           </div>
         </div>
 
@@ -22,11 +42,15 @@
             <label>Email</label>
             <input
               type="email"
+              id="new_lead_email"
               ng-model="lead.email"
-              ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }">
+              ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }"
+              required>
             <label
               ng-show="leadPipelineSection.isEmailInvalid"
-              ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }">This email address is invalid.</label>
+              ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }">
+              Please enter a valid email address.
+            </label>
           </div>
         </div>
 

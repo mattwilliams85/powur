@@ -1,0 +1,4 @@
+class MentorBonus < Bonus
+  
+
+end

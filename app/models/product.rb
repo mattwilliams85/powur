@@ -87,7 +87,8 @@ class Product < ActiveRecord::Base
       amount:         form[:amount] * 100,
       transaction_id: response['transactionid'].first,
       auth_code:      response['authcode'].first,
-      order_id:       response['orderid'].first
+      order_id:       response['orderid'].first,
+      purchased_at:   Time.zone.now
     )
   end
 
@@ -97,7 +98,8 @@ class Product < ActiveRecord::Base
       amount:         0,
       transaction_id: 'Complimentary',
       order_id:       'Complimentary',
-      auth_code:      'Complimentary')
+      auth_code:      'Complimentary',
+      purchased_at:   Time.zone.now)
   end
 
   class << self

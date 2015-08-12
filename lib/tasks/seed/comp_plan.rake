@@ -1,8 +1,24 @@
 namespace :powur do
   namespace :seed do
+
+    def load_yaml(file_name)
+      YAML.load_file(Rails.root.join('db', 'seed', "#{file_name}.yml"))
+    end
+
     def plan_data
-      @plan_data ||= begin
-        YAML.load_file(Rails.root.join('db', 'seed', 'comp_plan.yml'))
+      @plan_data ||= load_yaml('comp_plan')
+    end
+
+    def bonus_data
+      @bonus_data ||= load_yaml('bonuses')
+    end
+
+    def create_bonus_from_attrs(bonus_attrs)
+      bonus_amounts = bonus_attrs.delete('bonus_amounts')
+      bonus = Bonus.create!(bonus_attrs)
+      return unless bonus_amounts
+      bonus_amounts.each do |attrs|
+        bonus.bonus_amounts.create!(attrs)
       end
     end
 
@@ -29,16 +45,25 @@ namespace :powur do
       end
     end
 
+    task bonuses: :environment do
+      Bonus.all.destroy_all
+      bonus_data['bonuses'].each do |bonus_attrs|
+        create_bonus_from_attrs(bonus_attrs)
+      end
+    end
+
+    task bonus_payments: :environment do
+      BonusCalculator.run_all
+    end
+
     task plan: [ :ranks, :user_groups ] do
     end
 
     task user_ranks: :environment do
       puts 'Calculating Lead Totals...'
       LeadTotals.calculate_all!
-      puts 'Populating User Groups...'
-      UserUserGroup.populate_all!
-      puts 'Updating User Ranks...'
-      User.all.each(&:rank_up!)
+      puts 'Populating User Ranks...'
+      Rank.rank_users
     end
   end
 end

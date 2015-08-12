@@ -12,6 +12,7 @@ module Anon
       user = @invite.accept(input)
 
       if user.errors.empty?
+        User.delay.validate_phone_number!(user.id)
         PromoterMailer.notify_upline(user).deliver_later
         PromoterMailer.welcome_new_user(user).deliver_later
         subscribe_to_mailchimp_list(user)

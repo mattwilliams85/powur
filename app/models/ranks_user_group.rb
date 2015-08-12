@@ -5,8 +5,4 @@ class RanksUserGroup < ActiveRecord::Base
   belongs_to :user_group
 
   validates_presence_of :rank_id, :user_group_id
-
-  scope :highest_ranks, ->{
-    
-  }
 end

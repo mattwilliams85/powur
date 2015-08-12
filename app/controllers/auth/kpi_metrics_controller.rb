@@ -4,8 +4,8 @@ module Auth
 
     def show
       @user = current_user
-      @proposal_count = Lead.team_count(user_id: @user.id)
-      @team_count = user_ids.size - 1
+      @proposal_count = Lead.team_count(user_id: @user.id, query: Lead.submitted)
+      @team_count = User.with_ancestor(@user.id).count
     end
 
     def proposals_show

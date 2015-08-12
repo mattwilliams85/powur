@@ -4,17 +4,10 @@ klass :user
 
 json.partial! 'item', user: @user
 
-def rank_title(rank_id)
-  rank = all_ranks[rank_id || 0]
-  rank ? rank.title : nil
-end
-
 json.properties do
   json.call(@user, :address, :city, :state, :zip,
-            :profile, :avatar, :avatar_file_name, 
+            :profile, :avatar, :avatar_file_name,
             :upline, :created_at)
-  json.organic_rank rank_title(@user.organic_rank)
-  json.lifetime_rank rank_title(@user.lifetime_rank)
   json.totals user_totals if params[:user_totals]
 end
 

@@ -36,5 +36,21 @@ describe '/password' do
       user = User.authenticate(@user.email, 'new_password')
       expect(user).to_not be_nil
     end
+
+    context 'when reset token expired' do
+      before do
+        @user.update_attribute(:reset_sent_at, DateTime.current - 2.days)
+      end
+
+      it 'returns unauthorized' do
+        put password_path,
+            token:            @user.reset_token,
+            password:         'new_password',
+            password_confirm: 'new_password',
+            format:           :json
+
+        expect(response.code).to eq('401')
+      end
+    end
   end
 end

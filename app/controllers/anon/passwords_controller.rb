@@ -24,7 +24,8 @@ module Anon
         error!(:password_confirm, :password_confirm)
       end
       user = User.find_by_reset_token(params[:token])
-      head :unauthorized if !user || user.reset_token_expired?
+      return render json:   {},
+                    status: :unauthorized if !user || user.reset_token_expired?
 
       reset_session
 

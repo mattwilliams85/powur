@@ -16,7 +16,7 @@
       <!-- Section Label -->
         <div class="section-label">
           <div class="tag"><img ng-src="{{img.dashboardTeamIcon}}"></div>
-          <div class="text">My Team</div>
+          <div class="text">Grid</div>
         </div>
       </div>
 
@@ -172,7 +172,7 @@
                 </div>
                 <div class="info-text user-text">
                   <span>{{member.first_name}} {{member.last_name}}</span>
-                  <span ng-hide="is.activeMember(member, downline[0]) && is.accordion(0)" class="info-detail">TEAM {{member.totals.team_count}}, LEADS {{member.totals.lead_count || 0}}</span>
+                  <span ng-hide="is.activeMember(member, downline[0]) && is.accordion(0)" class="info-detail">GRID: {{member.totals.team_count}}, PIPELINE: {{member.totals.lead_count || 0}}</span>
                   <span ng-show="is.placeable(member)" class="info-detail placeable">placeable</span>
                 </div>
               </div>

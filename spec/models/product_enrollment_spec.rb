@@ -11,8 +11,6 @@ describe ProductEnrollment do
       allow_any_instance_of(ProductEnrollment).to receive(:start_learner_report_polling).and_return(true)
       allow(enrollment).to receive(:product).and_return(product)
       allow(enrollment).to receive(:user).and_return(user)
-      allow(user).to receive(:needs_rank_up?)
-      allow(user).to receive(:rank_up!)
     end
 
     context 'non-required class' do

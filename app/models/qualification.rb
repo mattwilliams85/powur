@@ -11,7 +11,7 @@ class Qualification < ActiveRecord::Base
 
   TYPES =  {
     sales:       'Personal Sales',
-    group_sales: 'Group Sales' }
+    grid_sales: 'Grid Sales' }
 
   def type_string
     self.class.name.underscore.gsub(/_qualification/, '')

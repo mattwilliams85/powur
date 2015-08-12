@@ -1,8 +1,6 @@
 one:
   id: 1
   title: Rank 1
-  user_groups: rank1
 two:
   id: 2
   title: Rank 2
-  user_groups: rank2

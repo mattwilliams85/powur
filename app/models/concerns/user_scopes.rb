@@ -90,15 +90,13 @@ module UserScopes
     scope :ranked_up, -> { where.not(organic_rank: nil) }
 
     scope :needs_lifetime_rank_up, lambda {
-      ranked_up.where('lifetime_rank is null or organic_rank > lifetime_rank')
+      join = UserUserGroup.highest_ranks
+      joins("INNER JOIN (#{join.to_sql}) hr ON users.id = hr.user_id")
+        .where('hr.highest_rank <> users.lifetime_rank')
     }
 
     scope :needs_organic_rank_up, lambda { |pay_period_id: nil|
-      joins_sql = UserUserGroup
-        .highest_ranks(pay_period_id: pay_period_id).to_sql
-      select('hr.highest_rank, users.id')
-        .joins("join (#{joins_sql}) hr on hr.user_id = users.id")
-        .where('organic_rank is null or organic_rank < hr.highest_rank')
+      partners.where('organic_rank <> 1')
     }
 
     scope :with_purchases, -> { joins(:product_receipts) }
@@ -108,7 +106,8 @@ module UserScopes
     }
 
     scope :partners, lambda {
-      joins(product_receipts: :product).where(products: { slug: 'partner' })
+      join = ProductReceipt.partner.select('distinct(user_id) user_id')
+      joins("INNER JOIN (#{join.to_sql}) pr ON pr.user_id = users.id")
     }
 
     scope :has_rank, lambda {
@@ -121,7 +120,8 @@ module UserScopes
     }
 
     scope :has_phone, lambda {
-      where("exist(contact, 'phone') = true").where("contact->'phone' != ''")
+      where("exist(contact, 'valid_phone') = true")
+        .where("contact->'valid_phone' != ''")
     }
     scope :allows_sms, lambda {
       where([

@@ -5,7 +5,7 @@
 
   <div ng-if="currentUser.notification" class="notification-wrapper">
     <a class="close-icon" ng-click="closeNotification()">×</a>
-    <span>{{ currentUser.notification }}</span>
+    <span class="notification-text" ng-bind-html="currentUser.notification">{{ currentUser.notification }}</span>
   </div>
 
   <!-- Welcome Section -->
@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <!-- My Team Section -->
+    <!-- Grid Section -->
     <div class="row">
       <div class="team-section large-12 columns">
         <ng-include ng-controller="DashboardTeamCtrl" src="'dashboard/templates/sections/team/index.html'"></ng-include>

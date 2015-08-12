@@ -7,6 +7,8 @@ item_props(user) do
             :phone, :level, :moved, :profile, :lifetime_rank, :level,
             :upline, :created_at, :sponsor_id)
   json.certified user.partner?
+  lifetime_rank = all_ranks[user.lifetime_rank || 0]
+  json.lifetime_rank_title lifetime_rank && lifetime_rank.title
   json.avatar do
     [ :thumb, :medium, :large ].each do |key|
       json.set! key, asset_path(user.avatar.url(key))

@@ -1,10 +1,14 @@
 class WeeklyPayPeriod < PayPeriod
+  def time_span
+    :weekly
+  end
+
   def type_display
     'Weekly'
   end
 
   before_create do
-    self.end_date ||= start_date.end_of_week
+    self.end_date ||= start_date.end_of_week + 1.day
   end
 
   def rank_has_path?(rank, path_id)

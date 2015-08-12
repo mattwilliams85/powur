@@ -6,6 +6,11 @@
     //Fetch Profile
     UserProfile.get().then(function(data) {
       $rootScope.currentUser = data.properties;
+
+      if ($rootScope.currentUser.notification) {
+        $rootScope.currentUser.notification = Autolinker.link($rootScope.currentUser.notification);
+      }
+
       $scope.actions = data.actions;
       $scope.fetchGoals();
       kpiHeaders();
@@ -88,7 +93,7 @@
       }).then(function(data) {
         if (data) {
           $scope.goals = data;
-          $scope.requirements = data.entities[1].entities;
+          $scope.requirements = Utility.findBranch(data.entities, {'rel': 'goals-requirements'}).entities;
           $scope.goals.badge = $scope.badgePath(data.properties.next_rank);
           $scope.progress = {};
           calculateProgress($scope.requirements);

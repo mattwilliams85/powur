@@ -1,8 +1,0 @@
-rank1:
-  title: <%= Faker::Name.title %>
-rank2:
-  title: <%= Faker::Name.title %>
-orphan:
-  title: <%= Faker::Name.title %>
-potpourri:
-  title: <%= Faker::Name.title %>

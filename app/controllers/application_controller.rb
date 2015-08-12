@@ -11,15 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def all_ranks
-    @all_ranks ||= begin
-      Rank.all
-        .includes(:qualifications)
-        .references(:qualifications)
-    end
-  end
-
-  def all_paths
-    @all_paths ||= RankPath.all.order(:name)
+    @all_ranks ||= Rank.preloaded
   end
 
   def all_products

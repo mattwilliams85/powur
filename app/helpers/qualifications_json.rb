@@ -44,7 +44,7 @@ class QualificationsJson < JsonDecorator
              value:   :monthly)
       .field(:quantity, :number)
       .field(:max_leg_percent, :number,
-             visibility: { control: :type, values: [ :group_sales ] })
+             visibility: { control: :type, values: [ :grid_sales ] })
   end
 
   def rank_create_action(rank)

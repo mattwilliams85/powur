@@ -1,13 +1,11 @@
 
 namespace :powur do
   namespace :db do
-
     def execute(query)
       ActiveRecord::Base.connection.execute(query)
     end
 
     task after_schema_load: :environment do
-
       puts 'Adding primary key for :utilities'
       execute 'alter table utilities add primary key (id);'
 
@@ -20,8 +18,9 @@ namespace :powur do
       puts 'Adding primary key for :pay_periods'
       execute 'alter table pay_periods add primary key (id);'
 
-      puts 'Adding primary key for :bonus_payment_orders'
-      execute 'alter table bonus_payment_orders add primary key (bonus_payment_id, order_id);'
+      puts 'Adding primary key for :bonus_payment_leads'
+      execute 'alter table bonus_payment_leads
+               add primary key (bonus_payment_id, lead_id);'
 
       puts 'Adding primary key for :api_clients'
       execute 'alter table api_tokens add primary key (id);'

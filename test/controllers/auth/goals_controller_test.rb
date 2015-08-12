@@ -5,9 +5,7 @@ class Auth::GoalsControllerTest < ActionController::TestCase
     get :show, user_id: users(:advocate).id
 
     siren.must_have_class(:goals)
-    siren.must_have_entities(
-      'goals-user_groups',
-      'goals-requirements')
+    siren.must_have_entities('goals-requirements')
   end
 
   # test 'show with invalid user_id' do

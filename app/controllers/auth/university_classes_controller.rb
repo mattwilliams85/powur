@@ -15,7 +15,6 @@ module Auth
     def purchase
       process_purchase
       send_purchased_notifications
-      increase_available_invites
       unsubscribe_from_mailchimp_advocates
       subscribe_to_mailchimp_partners
 
@@ -94,12 +93,6 @@ module Auth
       current_user.mailchimp_subscribe('partners')
     rescue Gibbon::MailChimpError => e
       Airbrake.notify(e)
-    end
-
-    def increase_available_invites
-      current_user.update_column(
-        :available_invites,
-        current_user.available_invites + 5)
     end
 
     def validate_class_enrollable

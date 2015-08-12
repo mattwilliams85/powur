@@ -43,5 +43,8 @@ module Sunstand
 
     # For hosted PDFs (Application and Agreement)
     config.assets.paths << Rails.root.join('app', 'assets', 'documents')
+
+    # Disable log lines for rendering views
+    config.action_view.logger = nil
   end
 end

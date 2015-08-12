@@ -78,6 +78,10 @@
       return $scope.memberships[slug] && !$scope.memberships[slug].properties.purchased;
     };
 
+    $scope.expChange = function() {
+      $scope.card.expiration = $scope.card.expiration.replace(/\D/, '');
+    };
+
     // More specific endpoint might be used later, the one that will only provide
     // purchasable membership products for current user
     return CommonService.execute({

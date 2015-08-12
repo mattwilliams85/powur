@@ -5,9 +5,9 @@ FactoryGirl.define do
   end
 
   factory :bonus do
-    bonus_plan
+    # bonus_plan
     name { Faker::Commerce.product_name }
-    product
+    # product
 
     factory :seller_bonus, class: SellerBonus do
       meta_data do
@@ -16,6 +16,9 @@ FactoryGirl.define do
     end
 
     factory :ca_bonus, class: CABonus do
+    end
+
+    factory :one_time_bonus, class: OneTimeBonus do
     end
   end
 

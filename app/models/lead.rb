@@ -68,10 +68,7 @@ class Lead < ActiveRecord::Base
   end
 
   def update_received
-    rank_up = last_update_has_key_changes?
     update_last_update_attributes
-    return unless rank_up
-    user.group_and_rank!(product_id: product_id, include_upline: true)
   end
 
   def can_email?
@@ -80,6 +77,12 @@ class Lead < ActiveRecord::Base
 
   def email_customer
     PromoterMailer.new_quote(self).deliver_later if can_email?
+  end
+
+  def converted_count_at_time
+    @converted_count_at_time ||= begin
+      Lead.converted(to: converted_at).where(user_id: user_id).count + 1
+    end
   end
 
   private

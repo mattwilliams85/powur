@@ -1,0 +1,38 @@
+.pow-leaderboard {
+  text-align: center;
+  padding-top: 50px;
+
+  .header {
+    font-size: 22pt;
+  }
+
+  .date {
+    display: block;
+    text-transform: uppercase;
+    font-size: 16pt;
+    color: #333;
+  }
+
+  table {
+    margin: 20px auto;
+    td {
+      max-width: 500px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .top-dog {
+      background-color: #EDBF07;
+      td {
+        color: #fff;
+      }
+    }
+    .avatar {
+      width: 50px;
+    }
+    .name {
+      margin: 0 10px;
+    }
+  }
+
+}

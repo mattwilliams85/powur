@@ -8,24 +8,25 @@ class User < ActiveRecord::Base
   include UserMailchimp
   include UserEwallet
 
-  belongs_to :rank_path
-
   has_many :leads
   has_many :customers, through: :leads
-  has_many :orders
-  has_many :order_totals
-  has_many :rank_achievements
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities
   has_many :product_receipts
   has_many :product_enrollments, dependent: :destroy
-  has_many :user_user_groups, dependent: :destroy
-  has_many :user_groups, through: :user_user_groups
   has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
+  has_many :user_ranks, dependent: :destroy
+  has_many :ranks, through: :user_ranks
+  has_many :sent_invites, class_name:  'Invite',
+                          foreign_key: :sponsor_id,
+                          dependent:   :destroy
+  has_one :accepted_invite, class_name:  'Invite',
+                            foreign_key: :user_id,
+                            dependent:   :destroy
 
   store_accessor :contact,
-                 :address, :city, :state, :country, :zip, :phone
+                 :address, :city, :state, :country, :zip, :phone, :valid_phone
   store_accessor :profile,
                  :bio, :twitter_url, :linkedin_url, :facebook_url,
                  :communications, :watched_intro, :tos_version,
@@ -121,33 +122,30 @@ class User < ActiveRecord::Base
     eligible_parents(user).where(id: parent_id).exists?
   end
 
-  def lifetime_achievements
-    @lifetime_achievements ||= rank_achievements
-      .where('pay_period_id is not null')
-      .order(rank_id: :desc, path: :asc).entries
-  end
-
   def make_customer!
     Customer.create!(first_name: first_name, last_name: last_name, email: email)
   end
 
-  def highest_pay_period_rank(pay_period_id)
-    UserUserGroup
-      .where(user_id: id)
-      .highest_ranks(pay_period_id: pay_period_id)
-      .entries.first
+  def pay_as_rank(pay_period_id = nil)
+    pay_period_id ||= MonthlyPayPeriod.current_id
+    highest_rank =
+      if user_ranks.loaded?
+        user_ranks.entries.select do |user_rank|
+          user_rank.pay_period_id == pay_period_id
+        end.map(&:rank_id).max
+      else
+        query_highest_rank(pay_period_id)
+      end
+    highest_rank || 0
   end
 
-  def pay_as_rank(pay_period_id: nil, highest_ranks: nil)
-    highest_rank =
-      if highest_ranks
-        highest_ranks.entries.detect { |hr| hr.user_id == id }
-      else
-        pay_period_id ||= MonthlyPayPeriod.current_id
-        highest_pay_period_rank(pay_period_id)
-      end
-    highest_rank &&= highest_rank.attributes['highest_rank']
-    [ highest_rank || 0, organic_rank || 0 ].max
+  def override_rank(pay_period_id)
+    result = overrides.pay_as_rank.pay_period(pay_period_id).first
+    result && result.rank.to_i
+  end
+
+  def pay_period_rank(pp_id)
+    override_rank(pp_id) || pay_as_rank(pp_id)
   end
 
   # KPI METHODS
@@ -167,50 +165,6 @@ class User < ActiveRecord::Base
     user_user_groups.exists?(group_id.to_s)
   end
 
-  def highest_lifetime_rank
-    @highest_lifetime_rank ||= begin
-      result = UserUserGroup.lifetime_ranks
-        .highest_ranks(user_id: id).entries.first
-      result ? result.attributes['highest_rank'] : 0
-    end
-  end
-
-  def highest_pay_as_rank
-    @highest_pay_as_rank ||= begin
-      result = UserUserGroup.pay_as_ranks
-        .highest_ranks(user_id: id).entries.first
-      result ? result.attributes['highest_rank'] : 0
-    end
-  end
-
-  def highest_overall_rank
-    [ highest_lifetime_rank, highest_pay_as_rank ].max
-  end
-
-  def group_and_rank!(product_id: nil, include_upline: false)
-    users =
-      if include_upline
-        User.with_ancestor(id).entries.unshift(self)
-      else
-        [ self ]
-      end
-    users.each do |user|
-      UserUserGroup.populate_for(user_id: user.id, product_id: product_id)
-      user.rank_up! if needs_rank_up?
-    end
-  end
-
-  def needs_rank_up?
-    return false if highest_overall_rank.zero?
-    needs_organic_rank_up? || needs_lifetime_rank_up?
-  end
-
-  def rank_up!
-    self.organic_rank = highest_lifetime_rank
-    self.lifetime_rank = highest_overall_rank
-    self.save!
-  end
-
   def smarteru
     @smarteru ||= SmarteruClient.new(self)
   end
@@ -227,11 +181,7 @@ class User < ActiveRecord::Base
 
   def latest_unread_notification
     items = NotificationRelease.sorted
-    if partner?
-      items = items.for_partners
-    else
-      items = items.for_advocates
-    end
+    items = partner? ? items.for_partners : items.for_advocates
     if notifications_read_at
       items = items
         .where('notification_releases.created_at > ?', notifications_read_at)
@@ -243,20 +193,32 @@ class User < ActiveRecord::Base
     lead_scope.joins(:user).merge(User.all_team(id)).count
   end
 
+  def validate_phone_number!
+    update_attribute(:valid_phone, twilio_valid_phone(phone))
+  end
+
+  def sponsor_upline
+    @sponsor_upline ||= begin
+      users, user = [], self
+      users.push(user) while (user = user.sponsor)
+      users
+    end
+  end
+
+  def placement_upline
+    @placement_upline ||= begin
+      users = upline_users.entries
+      (upline - [ id ]).reverse.map do |user_id|
+        users.detect { |u| u.id == user_id }
+      end
+    end
+  end
+
   private
 
-  def needs_organic_rank_up?
-    return false if highest_lifetime_rank.zero?
-    organic_rank.nil? || organic_rank < highest_lifetime_rank
-  end
-
-  def needs_lifetime_rank_up?
-    return false if highest_overall_rank.zero?
-    lifetime_rank.nil? || lifetime_rank < highest_overall_rank
-  end
-
   def set_url_slug
-    self.url_slug = "#{first_name}-#{last_name}-#{SecureRandom.random_number(1000)}"
+    self.url_slug = \
+      "#{first_name}-#{last_name}-#{SecureRandom.random_number(1000)}"
   end
 
   def hydrate_upline # rubocop:disable Metrics/AbcSize
@@ -265,19 +227,33 @@ class User < ActiveRecord::Base
     User.where(id: id).update_all(upline: upline)
   end
 
+  def query_highest_rank(pay_period_id)
+    result = user_ranks.highest_ranks
+      .where(pay_period_id: pay_period_id).entries.first
+    result && result.attributes['rank_id']
+  end
+
   class << self
     def update_organic_ranks
-      joins_sql = needs_organic_rank_up.to_sql
+      join = UserRank.highest_lifetime_ranks.to_sql
       sql = "
-        update users u
-        set organic_rank = r.highest_rank
-        from (#{joins_sql}) r
-        where r.id = u.id;"
-      connection.execute(sql)
+        UPDATE users u
+        SET organic_rank = hr.rank_id
+        FROM (#{join}) hr
+        WHERE hr.user_id = u.id
+          AND (u.organic_rank IS NULL OR u.organic_rank < hr.rank_id);"
+      connection.execute(sql).cmdtuples
     end
 
     def update_lifetime_ranks
-      needs_lifetime_rank_up.update_all('lifetime_rank = organic_rank')
+      join = UserRank.highest_ranks
+      sql = "
+        UPDATE users u
+        SET lifetime_rank = hr.rank_id
+        FROM (#{join.to_sql}) hr
+        WHERE hr.user_id = u.id
+          AND (u.lifetime_rank IS NULL OR u.lifetime_rank < hr.rank_id);"
+      connection.execute(sql).cmdtuples
     end
 
     def rank_up
@@ -298,6 +274,10 @@ class User < ActiveRecord::Base
       sql = format(UPDATE_PARENT_SQL, parent.upline.join(','), user.level)
       where('upline && ARRAY[?]', user.id).update_all(sql)
       user.upline = parent.upline + [ user.id ]
+    end
+
+    def validate_phone_number!(id)
+      find(id).validate_phone_number!
     end
   end
 end

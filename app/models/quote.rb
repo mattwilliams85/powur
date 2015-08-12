@@ -1,6 +1,6 @@
 class Quote < ActiveRecord::Base
   include AASM
-  include QuoteSubmission
+  # include QuoteSubmission
   belongs_to :product
   belongs_to :customer
   belongs_to :user

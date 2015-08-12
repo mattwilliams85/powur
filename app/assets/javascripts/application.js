@@ -16,6 +16,7 @@
 //= require pdfobject/pdfobject
 //= require velocity/velocity
 //= require velocity/velocity.ui.min
+//= require Autolinker.js/dist/Autolinker.min
 
 /*
  * TODO: this lib is still in the repo,
@@ -47,6 +48,7 @@
 //= require_tree ./landing
 //= require_tree ./latest-terms
 //= require_tree ./library
+//= require_tree ./leaderboard
 //= require_tree ./memberships
 //= require_tree ./profile
 //= require_tree ./promo
