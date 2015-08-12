@@ -114,6 +114,12 @@ module UserScopes
       where('lifetime_rank is not null or lifetime_rank != 0')
     }
 
+    scope :installations, lambda { |id|
+      all_team(id)
+      .joins(:leads)
+      .where.not(leads: { installed_at: nil })
+    }
+
     scope :eligible_parents, lambda { |user|
       where('NOT (? = ANY (upline))', user.id)
         .where('id <> ?', user.parent_id)
