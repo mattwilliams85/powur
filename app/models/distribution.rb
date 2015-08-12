@@ -18,7 +18,9 @@ class Distribution < ActiveRecord::Base
     load_response = client.ewallet_load(
       batch_id: title,
       payments: payments_list)
-    return paid! if load_response['m_Text'] == 'OK'
+    if load_response['m_Text'] == 'OK'
+      return update_attributes(distributed_at: Time.zone.now, status: :paid)
+    end
     fail(load_response.to_s)
   end
 

@@ -360,7 +360,8 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 CREATE TABLE distributions (
     id integer NOT NULL,
     status integer DEFAULT 1 NOT NULL,
-    title character varying
+    title character varying,
+    distributed_at timestamp without time zone
 );
 
 
@@ -2806,4 +2807,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150811154609');
 INSERT INTO schema_migrations (version) VALUES ('20150811180552');
 
 INSERT INTO schema_migrations (version) VALUES ('20150811225152');
+
+INSERT INTO schema_migrations (version) VALUES ('20150812034038');
 

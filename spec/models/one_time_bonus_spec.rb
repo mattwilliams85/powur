@@ -70,6 +70,8 @@ describe OneTimeBonus, type: :model do
         expect(bp.paid?).to eq(true)
       end
       expect(bonus.distribution.paid?).to eq(true)
+      expect(bonus.distribution.distributed_at)
+        .to be_within(1.second).of(Time.zone.now)
     end
 
     it 'should create and set a distribution' do
