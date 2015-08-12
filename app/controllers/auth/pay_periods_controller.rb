@@ -15,8 +15,8 @@ module Auth
       query = PayPeriod.all
       if @user
         from = [
-          user.created_at.beginning_of_week,
-          user.created_at.beginning_of_month ].min
+          @user.created_at.beginning_of_week,
+          @user.created_at.beginning_of_month ].min
         query = query.where('start_date >= ?', from)
       end
       @pay_periods = apply_list_query_options(query)
