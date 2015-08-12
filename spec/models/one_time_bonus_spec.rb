@@ -39,34 +39,47 @@ describe OneTimeBonus, type: :model do
     before do
       expect(bonus)
         .to receive(:create_distribution).and_return(distribution)
-      allow_any_instance_of(EwalletClient)
-        .to receive(:ewallet_individual_load).with(expected_ewallet_query).and_return(
-          'm_Text' => 'OK'
-        )
     end
 
-    it 'should mark statuses as paid' do
-      expect(bonus.distribute!).to eq(true)
-      expect(bonus.bonus_payments.count).to eq(1)
-      bonus.bonus_payments.all.each do |bp|
-        expect(bp.paid?).to eq(true)
+    context 'distribution succeeded' do
+      before do
+        allow_any_instance_of(EwalletClient)
+          .to(receive(:ewallet_individual_load)
+              .with(expected_ewallet_query).and_return(
+                'm_Text' => 'OK'))
       end
-      expect(bonus.distribution.paid?).to eq(true)
-      expect(bonus.distribution.distributed_at)
-        .to be_within(1.second).of(Time.zone.now)
-    end
 
-    it 'should create and set a distribution' do
-      bonus.distribute!
-      expect(bonus.distribution_id).not_to be_nil
+      it 'should mark statuses as paid' do
+        expect(bonus.distribute!).to eq(true)
+        expect(bonus.bonus_payments.count).to eq(1)
+        bonus.bonus_payments.all.each do |bp|
+          expect(bp.paid?).to eq(true)
+        end
+        expect(bonus.distribution.paid?).to eq(true)
+        expect(bonus.distribution.distributed_at)
+          .to be_within(1.second).of(Time.zone.now)
+      end
+
+      it 'should create and set a distribution' do
+        bonus.distribute!
+        expect(bonus.distribution_id).not_to be_nil
+      end
     end
 
     context 'when distribution fails' do
       before do
-        allow_any_instance_of(EwalletClient)
-          .to receive(:ewallet_individual_load).with(expected_ewallet_query).and_return(
-            'm_Text' => 'Error here'
-          )
+        allow_any_instance_of(BonusPayment)
+          .to receive(:distribution_data).and_return(
+            ref_id:   12,
+            username: 'doesnotexist',
+            amount:   34)
+      end
+
+      it 'should unset ewallet_username' do
+        VCR.use_cassette('ewallet_load_not_found') do
+          bonus.distribute!
+          expect(user.reload.ewallet_username).to be_nil
+        end
       end
     end
   end
