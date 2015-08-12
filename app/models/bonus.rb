@@ -18,6 +18,7 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
            foreign_key: :bonus_id,
            dependent:   :destroy
   has_many :bonus_payments
+  belongs_to :distribution
 
   validates_presence_of :name
 

@@ -17,6 +17,9 @@ FactoryGirl.define do
 
     factory :ca_bonus, class: CABonus do
     end
+
+    factory :one_time_bonus, class: OneTimeBonus do
+    end
   end
 
   factory :bonus_amount do

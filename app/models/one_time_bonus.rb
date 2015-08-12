@@ -32,4 +32,17 @@ class OneTimeBonus < Bonus
   def reset
     bonus_payments.destroy_all
   end
+
+  def distribute!
+    distribution ||=
+      create_distribution(
+        title: 'One time bonus on ' + Time.zone.now.strftime('%m/%d/%y'))
+
+    payments = bonus_payments.pending.with_ewallets.all
+    payments.each { |bp| bp.update_column(:distribution_id, distribution.id) }
+    distribution_data = payments.map(&:distribution_data)
+    distribution_response = distribution.distribute!(distribution_data)
+    payments.map(&:paid!)
+    distribution_response
+  end
 end
