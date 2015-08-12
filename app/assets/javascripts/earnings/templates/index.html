@@ -2,6 +2,90 @@
 
 <main class="pow-earnings">
   <div class="row">
+    <div class="main-header">
+      MONTHLY-REWARD SUMMARY
+    </div>
+
+    <div class="date-dropdown">
+      <select ng-model="search.date" ng-options="date.string for date in dateList" class="dropdown"></select>
+    </div>
+
+  </div>
+  <div class="row">
+    <table>
+      <thead>
+        <tr>
+          <th width="200">Monthly Reward Type</th>
+          <th width="150">Units</th>
+          <th>Amount</th>
+          <th width="200" class="text-right">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Reward Type</td>
+          <td>9</td>
+          <td>$125.00</td>
+          <td class="text-right">$1,125.00</td>
+        </tr>
+        <tr class="sub-total">
+          <td>Sub-total</td>
+          <td></td>
+          <td></td>
+          <td class="text-right">$125.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <div class="main-header">
+      WEEKLY-REWARD SUMMARY
+    </div>
+  </div>
+  <div class="row">
+    <table>
+      <thead>
+        <tr>
+          <th width="200">Monthly Reward Type</th>
+          <th width="150">Units</th>
+          <th>Amount</th>
+          <th width="200" class="text-right">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Reward Type</td>
+          <td>9</td>
+          <td>$125.00</td>
+          <td class="text-right">$1,125.00</td>
+        </tr>
+        <tr class="sub-total">
+          <td>Sub-total</td>
+          <td></td>
+          <td></td>
+          <td class="text-right">$125.00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row">
+    <table>
+      <thead>
+        <tr>
+          <th width="200">Total Earnings</th>
+          <th width="200" class="text-right">$1,000,000</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</main>
+
+<ng-include src="'shared/footer-signed-in.html'"></ng-include>
+<!-- 
+<main class="pow-earnings">
+  <div class="row">
     <div class="large-12 columns">
       <div class="section_header">
         <div class="section-header-content">
@@ -75,6 +159,4 @@
     </div>
   </div>
 
-</main>
-
-<ng-include src="'shared/footer-signed-in.html'"></ng-include>
+</main> -->
