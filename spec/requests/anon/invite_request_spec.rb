@@ -56,16 +56,20 @@ describe '/invite' do
     context 'when successfully creates user' do
       before do
         expect(mailchimp_list_api).to receive(:subscribe).with(
-          id:           User::MAILCHIMP_LISTS[:advocates],
+          id:           User::MAILCHIMP_LISTS[:all_users],
           email:        { email: user_params[:email] },
           merge_vars:   {
             FNAME: user_params[:first_name],
-            LNAME: user_params[:last_name]
+            LNAME: user_params[:last_name],
+            groupings: [
+              # subscribe to Advocate group by default
+              { id: User::MAILCHIMP_GROUPINGS['powur_path'], groups: [ "Advocate" ] }
+            ]
           },
           double_optin: false).once
       end
 
-      it 'regesters a user and associates any outstanding invites' do
+      it 'registers a user and associates any outstanding invites' do
         VCR.use_cassette('invite_promoter_association') do
           patch invite_path(format: :json),
                 JSON.dump(user_params),

@@ -96,29 +96,18 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
           .to receive(:send_purchased_notifications).and_return(true)
       end
 
-      it 'should unsubscribe user from advocates list' do
+      it 'should move user to Partner group' do
         allow(mailchimp_list_api).to receive(:subscribe).and_return(true)
-        expect(mailchimp_list_api).to receive(:unsubscribe).with(
-          id:            User::MAILCHIMP_LISTS[:advocates],
+        expect(mailchimp_list_api).to receive(:update_member).with(
+          id:            User::MAILCHIMP_LISTS[:all_users],
           email:         { email: current_user[:email] },
-          delete_member: true,
-          send_notify:   false).once
-
-        post(purchase_university_class_path(certifiable_product),
-             card:   {},
-             format: :json)
-      end
-
-      it 'should subscribe user to partners list' do
-        allow(mailchimp_list_api).to receive(:unsubscribe).and_return(true)
-        expect(mailchimp_list_api).to receive(:subscribe).with(
-          id:           User::MAILCHIMP_LISTS[:partners],
-          email:        { email: current_user[:email] },
-          merge_vars:   {
-            FNAME: current_user[:first_name],
-            LNAME: current_user[:last_name]
-          },
-          double_optin: false).once
+          merge_vars:    {
+                          groupings: [
+                            { id:     User::MAILCHIMP_GROUPINGS[:powur_path],
+                              groups: [ 'Partner' ]
+                            }
+                          ]
+                         }).once
 
         post(purchase_university_class_path(certifiable_product),
              card:   {},
