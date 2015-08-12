@@ -5,7 +5,8 @@ describe OneTimeBonus, type: :model do
   let(:weekly_pay_period) { create(:weekly_pay_period) }
 
   describe '#distribute!' do
-    let(:bonus) { create(:one_time_bonus) }
+    let(:distribution) { create(:distribution) }
+    let(:bonus) { create(:one_time_bonus, distribution_id: distribution.id) }
     let(:user1) { create(:user, ewallet_username: 'one@example.com') }
     let(:user2) { create(:user, ewallet_username: 'two@example.com') }
 
@@ -41,7 +42,7 @@ describe OneTimeBonus, type: :model do
 
     let(:expected_ewallet_query) do
       {
-        batch_id: 'One time bonus on ' + Time.zone.now.strftime('%m/%d/%y'),
+        batch_id: 'powur:' + distribution.id.to_s,
         payments: [
           { ref_id:   user1.id,
             username: user1.ewallet_username,
@@ -54,6 +55,8 @@ describe OneTimeBonus, type: :model do
     end
 
     before do
+      expect(bonus)
+        .to receive(:create_distribution).and_return(distribution)
       allow_any_instance_of(EwalletClient)
         .to receive(:ewallet_load).with(expected_ewallet_query).and_return(
           'm_Text' => 'OK'

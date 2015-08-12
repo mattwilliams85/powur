@@ -5,7 +5,7 @@ class Distribution < ActiveRecord::Base
   has_many :bonuses
   has_many :bonus_payments
 
-  before_save :set_title
+  after_create :set_title
 
   # Example:
   # distribution.distribute!(
@@ -33,6 +33,6 @@ class Distribution < ActiveRecord::Base
 
   def set_title
     # Used as a batch ID for ewallet load
-    self.title ||= 'Distribution on ' + Time.zone.now.strftime('%m/%d/%y')
+    update_attribute(:title, 'powur:' + id.to_s)
   end
 end

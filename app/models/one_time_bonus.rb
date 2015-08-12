@@ -34,9 +34,7 @@ class OneTimeBonus < Bonus
   end
 
   def distribute!
-    distribution ||=
-      create_distribution(
-        title: 'One time bonus on ' + Time.zone.now.strftime('%m/%d/%y'))
+    distribution ||= create_distribution
 
     payments = bonus_payments.pending.with_ewallets.all
     payments.each { |bp| bp.update_column(:distribution_id, distribution.id) }
