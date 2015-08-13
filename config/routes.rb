@@ -116,6 +116,7 @@ Rails.application.routes.draw do
     resources :users, only: [ :index, :show ] do
       collection do
         get '' => 'users#search', constraints: params?(:search)
+        get :leaderboard
       end
 
       resources :leads, only: [ :index ]

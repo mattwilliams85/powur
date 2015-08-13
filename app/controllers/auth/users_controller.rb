@@ -1,6 +1,6 @@
 module Auth
   class UsersController < AuthController
-    before_action :fetch_users, only: [ :index ]
+    before_action :fetch_users, only: [ :index, :leaderboard ]
     before_action :fetch_user,
                   only: [ :show, :downline, :upline,
                           :full_downline, :move, :eligible_parents,
@@ -10,7 +10,8 @@ module Auth
     sort newest:     { created_at: :desc },
          name:       'users.last_name asc, users.first_name asc',
          lead_count: 'lc.lead_count desc nulls last',
-         team_count: 'tc.team_count desc nulls last'
+         team_count: 'tc.team_count desc nulls last',
+         proposals_count: 'proposals_count desc'
     item_totals :lead_count, :team_count
 
     helper_method :user_totals
@@ -33,6 +34,13 @@ module Auth
       scope = User.with_ancestor(params['id'])
       @users = apply_list_query_options(scope)
       query_users(scope) if params[:search]
+
+      render 'index'
+    end
+
+    def leaderboard
+      scope = User.partners.not_admin.monthly_leaders
+      @users = apply_list_query_options(scope)
 
       render 'index'
     end
@@ -108,6 +116,7 @@ module Auth
       month_start = Date.today.beginning_of_month
 
       { submitted: @user.leads.submitted(from: month_start).count,
+        converted: @user.leads.converted(from: month_start).count,
         installed: @user.leads.installed(from: month_start).count }
     end
 
@@ -116,8 +125,9 @@ module Auth
         month:    user_month_lead_counts }
     end
 
-    def user_totals
-      @user_totals ||= begin
+    def user_totals(user)
+      @user = user
+      @user_totals = begin
         { team_counts: user_team_counts, lead_counts: user_lead_counts }
       end
     end

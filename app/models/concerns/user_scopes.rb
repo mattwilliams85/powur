@@ -22,6 +22,18 @@ module UserScopes
         .order('dc.downline_count desc nulls last')
     }
 
+    scope :not_admin, lambda {
+      where.not("'admin' = ANY(roles)")
+    }
+
+    scope :monthly_leaders, lambda {
+        select('users.*, COUNT(ml.converted_at) AS proposals_count')
+        .joins("INNER JOIN (#{Lead.all.converted.to_sql}) ml ON users.id = ml.user_id")
+        .where('ml.converted_at >= ?', Time.zone.today.beginning_of_month)
+        .group('users.id')
+        .order('proposals_count desc')
+    }
+
     WEEKLY_DOWN_COUNTS_SELECT = \
       'unnest(users.upline) parent_id, count(users.id) - 1 downline_count'
     scope :weekly_downline_counts, lambda {

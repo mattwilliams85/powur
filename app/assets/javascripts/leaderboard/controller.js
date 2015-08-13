@@ -6,10 +6,9 @@
 
     //Populate Leaderboard
     CommonService.execute({
-      href: '/u/users.json?',
+      href: '/u/users/leaderboard.json?',
       params: {
-        sort: 'lead_count',
-        item_totals: 'lead_count',
+        sort: 'proposals_count',
         user_totals: 'true',
         limit: 20
       }
@@ -19,7 +18,6 @@
         data.entities[i].defaultAvatarThumb = randomThumb();
       }
       $scope.leaders = data.entities;
-      console.log($scope.leaders)
     });
 
     $scope.dateHeader = function(){
