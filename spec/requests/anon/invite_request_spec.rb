@@ -63,7 +63,7 @@ describe '/invite' do
             LNAME: user_params[:last_name],
             groupings: [
               # subscribe to Advocate group by default
-              { id: User::MAILCHIMP_GROUPINGS['powur_path'], groups: [ "Advocate" ] }
+              { id: User::MAILCHIMP_GROUPINGS[:powur_path], groups: [ "Advocate" ] }
             ]
           },
           double_optin: false).once

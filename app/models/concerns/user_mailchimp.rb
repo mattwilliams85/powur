@@ -28,7 +28,7 @@ module UserMailchimp
         LNAME: last_name,
         groupings: [
           # subscribe to Advocate group by default
-          { id: MAILCHIMP_GROUPINGS['powur_path'], groups: [ "Advocate" ] }
+          { id: MAILCHIMP_GROUPINGS[:powur_path], groups: [ "Advocate" ] }
         ]
       },
       double_optin: false)
