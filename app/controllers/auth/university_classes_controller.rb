@@ -84,6 +84,8 @@ module Auth
 
     def move_to_mailchimp_partners_group
       current_user.mailchimp_move_to_group('Partner')
+    rescue Gibbon::MailChimpError => e
+      Airbrake.notify(e)
     end
 
     def validate_class_enrollable
