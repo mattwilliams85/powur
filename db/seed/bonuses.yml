@@ -48,7 +48,7 @@ bonuses:
   -
     type: DifferentialBonus
     name: Team PACT
-    schedule: 1
+    schedule: 2
     amount: 50.00
     upline: sponsor
     start_date: 2015-07-01
@@ -72,6 +72,26 @@ bonuses:
     schedule: 1
     start_date: 2015-07-01
     converted_percent: 1.0
+    bonus_amounts:
+      -
+        amounts:
+          - 0.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+          - 25.0
+  -
+    type: UplineBonus
+    name: Mentor
+    schedule: 1
+    start_date: 2015-07-01
+    upline: sponsor
+    first_n: 3
     bonus_amounts:
       -
         amounts:
