@@ -288,7 +288,7 @@
 
     function getUser(userId, cb) {
       CommonService.execute({
-        href: '/a/users/' + userId
+        href: '/a/users/' + userId + '?user_totals=1'
       }).then(cb);
     }
   };

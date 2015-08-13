@@ -3,9 +3,12 @@
 <div class="row">
   <div class="large-12 columns">
     <div class="panel">
-      <h4>Last Login</h4>
-      <p ng-show="user.properties.last_sign_in_at">{{user.properties.last_sign_in_at | dateTimeToLocal}}</p>
-      <p ng-show="!user.properties.last_sign_in_at">No Data</p>
+      <h4>Stats</h4>
+      <p ng-show="user.properties.last_sign_in_at">Last login: {{user.properties.last_sign_in_at | dateTimeToLocal}}</p>
+      <p>Proposals: {{ user.properties.totals.lead_counts.month.submitted }}/month {{ user.properties.totals.lead_counts.lifetime.submitted }}/lifetime</p>
+      <p>Rooftops: {{ user.properties.totals.lead_counts.month.installed }}/month {{ user.properties.totals.lead_counts.lifetime.installed }}/lifetime</p>
+      <p>Lifetime Rank: {{ user.properties.lifetime_rank || 0 }}</p>
+      <p>Team Certified: {{ user.properties.totals.team_counts.certified }}/{{ user.properties.totals.team_counts.all }}</p>
     </div>
   </div>
 </div>
