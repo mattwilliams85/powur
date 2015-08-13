@@ -10,15 +10,16 @@ class Distribution < ActiveRecord::Base
   def distribute!(payments)
     client = EwalletClient.new
 
+    batches = prepare_for_distribution(payments)
     successful_payment_ids = []
-    payments.each do |payment|
+    batches.each do |user_id, data|
       begin
         client.ewallet_individual_load(
           batch_id: title,
-          payment:  payment.distribution_data)
-        successful_payment_ids.push(payment.id)
+          payment:  data[:distribution_data])
+        successful_payment_ids.concat(data[:payment_ids])
       rescue Ipayout::Error::EwalletNotFound => e
-        payment.user.update_attribute(:ewallet_username, nil)
+        User.find_by_id(user_id).update_attribute(:ewallet_username, nil)
         Airbrake.notify(e)
       end
     end
@@ -26,6 +27,35 @@ class Distribution < ActiveRecord::Base
       status: BonusPayment.statuses['paid'])
 
     update_attributes(distributed_at: Time.zone.now, status: :paid)
+  end
+
+  # Input: array of BonusPayment instances
+  # Output: {
+  #   1: {
+  #     payment_ids: [1,2,3],
+  #     distribution_data: {
+  #       ref_id:   1,
+  #       username: 'ewalletusername',
+  #       amount:   2.3
+  #     }
+  #   }
+  # }
+  def prepare_for_distribution(payments)
+    batches = {}
+    payments.each do |payment|
+      batch = batches[payment.user_id] || {
+        payment_ids:       [],
+        distribution_data: {
+          ref_id:   payment.user_id,
+          username: payment.user.ewallet_username,
+          amount:   0 }
+      }
+      batch[:payment_ids].push(payment.id)
+      batch[:distribution_data][:amount] += payment.amount
+      batches[payment.user_id] = batch
+    end
+
+    batches
   end
 
   def cancel

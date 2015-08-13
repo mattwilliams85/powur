@@ -16,12 +16,6 @@ class BonusPayment < ActiveRecord::Base
       .where("users.profile->'ewallet_username' != ''")
   }
 
-  def distribution_data
-    { ref_id:   user.id,
-      username: user.ewallet_username,
-      amount:   amount }
-  end
-
   # scope :for_user, ->(id) { where(user_id: id.to_i) }
   # scope :bonus, ->(id) { where(bonus_id: id.to_i) }
   # scope :before, ->(date) { where('created_at < ?', date.to_date) }

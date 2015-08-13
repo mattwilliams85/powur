@@ -1,17 +1,16 @@
 require 'spec_helper'
 
 describe OneTimeBonus, type: :model do
-  let(:rank) { create(:rank) }
   let(:weekly_pay_period) { create(:weekly_pay_period) }
 
   describe '#distribute!' do
     let(:distribution) { create(:distribution) }
     let(:bonus) { create(:one_time_bonus, distribution_id: distribution.id) }
-    let(:user) { create(:user, ewallet_username: 'one@example.com') }
+    let(:user) { create(:user, ewallet_username: 'doesnotexist@example.com') }
 
     let!(:rank_achievement) do
       create(:rank_achievement,
-             rank:       rank,
+             rank:       create(:rank),
              user:       user,
              pay_period: weekly_pay_period)
     end
@@ -63,23 +62,6 @@ describe OneTimeBonus, type: :model do
       it 'should create and set a distribution' do
         bonus.distribute!
         expect(bonus.distribution_id).not_to be_nil
-      end
-    end
-
-    context 'when distribution fails' do
-      before do
-        allow_any_instance_of(BonusPayment)
-          .to receive(:distribution_data).and_return(
-            ref_id:   12,
-            username: 'doesnotexist',
-            amount:   34)
-      end
-
-      it 'should unset ewallet_username' do
-        VCR.use_cassette('ewallet_load_not_found') do
-          bonus.distribute!
-          expect(user.reload.ewallet_username).to be_nil
-        end
       end
     end
   end
