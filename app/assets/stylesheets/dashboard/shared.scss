@@ -185,6 +185,9 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
           &:disabled {
             color: #666
           }
+          &.currency {
+            padding-left: 24px;
+          }
           // Error State
           &.input-error {
             background-color: rgba(255,0,0,0.3);

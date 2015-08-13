@@ -246,6 +246,7 @@
       $scope.leadPipelineSection.isEmailInvalid = false;
       $scope.leadPipelineSection.isFirstNameInvalid = false;
       $scope.leadPipelineSection.isLastNameInvalid = false;
+      $scope.leadPipelineSection.isAverageBillInvalid = false;
     }
 
     function showInvalidFormMessages() {
@@ -258,6 +259,9 @@
       }
       if ($('#new_lead_email')[0].checkValidity() === false) {
         $scope.leadPipelineSection.isEmailInvalid = true;
+      }
+      if ($('#new_lead_average_bill')[0].checkValidity() === false) {
+        $scope.leadPipelineSection.isAverageBillInvalid = true;
       }
     }
 
