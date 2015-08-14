@@ -25,7 +25,7 @@ module Admin
 
       product.complimentary_purchase(@user)
 
-      move_to_mailchimp_partners_group if product.slug = 'partner'
+      update_mailchimp if product.slug = 'partner'
 
       head 200
     end
@@ -36,8 +36,8 @@ module Admin
       @user = User.find_by_id(params[:admin_user_id].to_i)
     end
 
-    def move_to_mailchimp_partners_group
-      @user.mailchimp_move_to_group('Partner')
+    def update_mailchimp
+      @user.mailchimp_update_subscription
     rescue Gibbon::MailChimpError => e
       Airbrake.notify(e)
     end

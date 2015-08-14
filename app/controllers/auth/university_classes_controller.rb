@@ -15,7 +15,7 @@ module Auth
     def purchase
       process_purchase
       send_purchased_notifications
-      move_to_mailchimp_partners_group
+      update_mailchimp
 
       head :ok
     end
@@ -82,8 +82,8 @@ module Auth
       mailer.deliver_now!
     end
 
-    def move_to_mailchimp_partners_group
-      current_user.mailchimp_move_to_group('Partner')
+    def update_mailchimp
+      current_user.mailchimp_update_subscription
     rescue Gibbon::MailChimpError => e
       Airbrake.notify(e)
     end
