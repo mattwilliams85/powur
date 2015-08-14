@@ -1,25 +1,53 @@
 .pow-leaderboard {
   text-align: center;
   padding-top: 50px;
+  background: #f8f8f8;
 
-  .header {
-    font-size: 22pt;
-  }
+  .header-box {
+    width: 400px;
+    margin: 0 auto;
+    padding: 15px;
+    border: 2px solid #ccc;
+    background-color: #fff;
 
-  .date {
-    display: block;
-    text-transform: uppercase;
-    font-size: 16pt;
-    color: #333;
+    .header {
+      font-size: 22pt;
+      color: #20C2F1;
+      font-weight: 300;
+    }
+
+    .date {
+      display: block;
+      text-transform: uppercase;
+      font-size: 16pt;
+      color: #555;
+    }
   }
 
   table {
     margin: 20px auto;
+    border-spacing: 0;
+    width: 400px;
+    thead {
+      background-color: $pow-color-blue;
+      tr {
+        th {
+          color: #fff;
+          padding-top: 15px;
+          padding-bottom: 15px;
+          font-weight: 400;
+          font-size: 13pt;
+        }
+      }
+    }
     td {
       max-width: 500px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      .avatar {
+        border-radius: 50%;
+      }
     }
     .top-dog {
       background-color: #EDBF07;

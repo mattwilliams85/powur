@@ -345,6 +345,8 @@
           overflow: hidden;
           background-color: transparent;
           z-index:1;
+          -webkit-transform: translateZ(0);
+          -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
 
           &.swing {
             background-color: #20C2F1;
@@ -356,10 +358,12 @@
           left: -86px;
           z-index: 2;
           transition: transform .15s linear;
+          -webkit-transition: -webkit-transform .15s linear;
           border-radius: 50%;
           background-color: #20C2F1;
           &.swing {
             transform: translate(85px, 0);
+            -webkit-transform: translate(85px, 0);
           }
         }
 
@@ -384,9 +388,11 @@
 
         .avatar-img {
           transition: transform .15s linear;
+          -webkit-transition: -webkit-transform .15s linear;
           border-radius: 50%;
           &.swing {
             transform: translate(86px, 0);
+            -webkit-transform: translate(86px, 0);
           }
         }
 

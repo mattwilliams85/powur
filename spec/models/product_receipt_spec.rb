@@ -29,7 +29,7 @@ describe ProductReceipt, type: :model do
     end
 
     it 'increases the user\'s available invites by 5 if purchasing certification' do
-      expect(user.available_invites).to eq(0)
+      expect(user.available_invites).to eq(5)
 
       ProductReceipt.create(
         user_id:        user.id,
@@ -39,7 +39,7 @@ describe ProductReceipt, type: :model do
         order_id:       123,
         transaction_id: 123)
 
-      expect(user.reload.available_invites).to eq(5)
+      expect(user.reload.available_invites).to eq(10)
     end
   end
 end

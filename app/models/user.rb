@@ -99,6 +99,10 @@ class User < ActiveRecord::Base
     !parent_id.nil?
   end
 
+  def parent
+    @parent ||= parent_id && User.find(parent_id)
+  end
+
   def ancestor?(user_id)
     upline.include?(user_id)
   end
@@ -128,6 +132,8 @@ class User < ActiveRecord::Base
 
   def pay_as_rank(pay_period_id = nil)
     pay_period_id ||= MonthlyPayPeriod.current_id
+    return organic_rank || 0 if pay_period_id =~ /W/
+
     highest_rank =
       if user_ranks.loaded?
         user_ranks.entries.select do |user_rank|

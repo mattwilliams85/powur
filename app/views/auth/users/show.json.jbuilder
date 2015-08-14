@@ -8,7 +8,6 @@ json.properties do
   json.call(@user, :address, :city, :state, :zip,
             :profile, :avatar, :avatar_file_name,
             :upline, :created_at)
-  json.totals user_totals if params[:user_totals]
 end
 
 entities \

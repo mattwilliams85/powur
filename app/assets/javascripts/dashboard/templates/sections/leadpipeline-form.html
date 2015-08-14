@@ -96,7 +96,23 @@
         <div ng-repeat="productField in lead.productFields" class="row">
           <div class="large-12 medium-12 columns">
             <label>{{ productField.name | cleanLabel }}</label>
-            <input ng-model="lead[productField.name]" type="{{productField.type}}">
+            <!-- Show Dollar Sign if Average Bill Field -->
+            <span
+              ng-show="productField.name === 'average_bill'"
+              class="currency-symbol">
+              $
+            </span>
+            <input
+              id="new_lead_{{productField.name}}"
+              type="{{productField.type}}"
+              ng-class="{ 'input-error' : leadPipelineSection.is{{productField.name | titleCase }}Invalid,
+                          'currency' : productField.name === 'average_bill' }"
+              ng-model="lead[productField.name]">
+            <label
+              ng-show="leadPipelineSection.is{{productField.name | titleCase }}Invalid"
+              ng-class="{ 'input-error' : leadPipelineSection.is{{productField.name | titleCase }}Invalid }">
+              <ng-if="{{productField.name === 'average_bill'}}">Average bill must be a whole dollar amount.</ng-if>
+            </label>
           </div>
         </div>
 

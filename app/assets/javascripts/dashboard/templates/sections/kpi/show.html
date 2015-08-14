@@ -26,7 +26,7 @@
         <span class="kpi-count show-for-small"><i class="fa fa-check-square-o fa-3x"></i></span>
         <span class="kpi-header uppercase show-for-small">Pipeline</span>
         <!-- Medium/Large Screens: Orders -->
-        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize(currentUser.metrics.proposal) }">{{currentUser.metrics.proposal}}</span>
+        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize(currentUser.metrics.proposal) }">{{currentUser.metrics.proposal | number : fractionSize}}</span>
         <span class="kpi-header uppercase show-for-medium-up">Pipeline</span>
       </div>
     </div>
@@ -37,7 +37,7 @@
         <span class="kpi-count show-for-small"><i class="fa fa-th-large fa-3x"></i></span>
         <span class="kpi-header uppercase show-for-small">Grid</span>
         <!-- Medium/Large Screens: In Your Grid -->
-        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize(currentUser.metrics.team) }">{{currentUser.metrics.team}}</span>
+        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize(currentUser.metrics.team) }">{{currentUser.metrics.team | number : fractionSize}}</span>
         <span class="kpi-header uppercase show-for-medium-up">Grid</span>
       </div>
     </div>
@@ -63,12 +63,9 @@
         <span class="kpi-count show-for-small"><i class="fa fa-globe fa-3x"></i></span>
         <span class="kpi-header uppercase show-for-small">Impact</span>
         <!-- Medium/Large Screens: CO2 pounds saved -->
-        <div class="temp-box">
-          <img ng-src="{{legacyImagePaths.dashboardRedLogo}}"/ >
-          <span class="show-for-medium-up" style="color:#f00">COMING SOON!</span>
-        </div>
+        <span class="kpi-count show-for-medium-up"><span ng-style="{ 'font-size': scaleFontSize(currentUser.metrics.co2) }">{{currentUser.metrics.co2 | number : fractionSize}}</span>lbs</span>
         <!-- <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('0') }">0<span class="unit">lbs</span></span> -->
-        <span class="kpi-header uppercase show-for-medium-up">CO<sub>2</sub> saved</span>
+        <span class="kpi-header uppercase show-for-medium-up">CO<sub>2</sub>saved</span>
       </div>
     </div>
   </div>

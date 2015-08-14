@@ -6,14 +6,16 @@ module UserEwallet
   end
 
   def ewallet?
-    !ewallet_username.nil?
+    !ewallet_username.blank?
   end
 
   # Returns ewallet data in a hash format
   def ewallet
     return @ewallet if @ewallet
     result = ewallet_client.fetch(ewallet_username)
-    @ewallet = result[:m_Text] == 'OK' ? result : nil
+    @ewallet = result
+  rescue Ipayout::Error::EwalletNotFound
+    return nil
   end
 
   # Creates ewallet based on user's data

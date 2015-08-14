@@ -40,6 +40,10 @@ class EwalletClient
     request(:ewallet_load, load_query(opts))
   end
 
+  def ewallet_individual_load(opts)
+    request(:ewallet_load, individual_load_query(opts))
+  end
+
   private
 
   def assign_param_values(input_opts, valid_opts)
@@ -82,7 +86,7 @@ class EwalletClient
 
   # Example:
   # client.load_query(
-  #   batch_id: 'Bonuses payout on 8/11/2015',
+  #   batch_id: 'powur:1',
   #   payments: [{
   #     ref_id: 12,
   #     username: 'user@example.com',
@@ -106,5 +110,28 @@ class EwalletClient
       'AutoLoad'        => 'false',
       'CurrencyCode'    => 'USD',
       'arrAccounts'     => list)
+  end
+
+  # Example:
+  # client.individual_load_query(
+  #   batch_id: 'powur:1',
+  #   payment: {
+  #     ref_id: 12,
+  #     username: 'user@example.com',
+  #     amount: 34
+  #   }
+  # )
+  def individual_load_query(opts)
+    base_options_hash.merge(
+      'fn'              => 'eWallet_Load',
+      'PartnerBatchID'  => opts[:batch_id],
+      'AllowDuplicates' => 'true',
+      'AutoLoad'        => 'false',
+      'CurrencyCode'    => 'USD',
+      'arrAccounts'     => [{
+        'UserName'            => opts[:payment][:username],
+        'Amount'              => opts[:payment][:amount],
+        'MerchantReferenceID' => opts[:payment][:ref_id]
+      }])
   end
 end

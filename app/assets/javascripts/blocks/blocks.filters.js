@@ -42,6 +42,21 @@
     };
   }
 
+  function titleCase() {
+    return function(input) {
+      input = ( input === undefined || input === null ) ? '' : input;
+      var words = [];
+      input = input.toString().toLowerCase().split('_');
+
+      for (var i = 0; i < input.length; i++) {
+        words.push(input[i].replace(/\w\S*/g, function(txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }))
+      };
+      return words.join('');
+    };
+  }
+
   function formattedPrice() {
     return function(price) {
       return (price/100).toFixed(2);
@@ -54,6 +69,7 @@
     .filter('timeToLocalTime', timeToLocalTime)
     .filter('dateTimeToLocal', dateTimeToLocal)
     .filter('cleanLabel', cleanLabel)
+    .filter('titleCase', titleCase)
     .filter('formattedPrice', formattedPrice);
 
 })();
