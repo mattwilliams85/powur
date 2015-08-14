@@ -10,16 +10,31 @@ function chartConfig(scale){
           type: 'bar',
           labels: [],
           datasets: [{
-            label: "Proposal",
-            fillColor: 'rgba(32, 194, 241,.9)',
-            highlightFill: '#5bd7f7',
-            strokeColor: 'rgba(32, 194, 241,.9)',
+            label: "Lead",
+            fillColor: '#3fb6e1',
+            highlightFill: '#3fb6e1',
+            strokeColor: '#3fb6e1',
             data: []
           },{
-            label: "Rooftop",
-            fillColor: '#FFC870',
-            highlightFill: '#FFC870',
-            strokeColor: 'rgba(253, 180, 92, 1)',
+            filter: 'submitted_at',
+            label: "Proposal",
+            fillColor: '#fbc217',
+            highlightFill: '#fbc217',
+            strokeColor: '#fbc217',
+            data: []
+          },{
+            filter: 'converted_at',
+            label: "Contract",
+            fillColor: '#b5489b',
+            highlightFill: '#b5489b',
+            strokeColor: '#b5489b',
+            data: []
+          },{
+            filter: 'installed_at',
+            label: "Final Install",
+            fillColor: '#76c153',
+            highlightFill: '#76c153',
+            strokeColor: '#76c153',
             data: []
           }]
         },{

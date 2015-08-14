@@ -56,8 +56,12 @@
       </div>
       <div class="row">
         <div class="small-12 columns">
-          <div class="legend primary left"></div><span class="kpi-detail left">Proposals</span>
-          <div class="legend secondary left"></div><span class="kpi-detail left">Contracts</span>
+          <div class="legend-box" ng-repeat="sets in settings[0].datasets track by $index">
+            <div class="legend left" id="legend-{{$index}}"></div>
+            <span class="kpi-detail left">{{countTotals($index) || 0}} {{settings[0].datasets[$index].label}}s</span>
+          </div>
+<!--           <div class="legend primary left"></div><span class="kpi-detail left">Proposals</span>
+          <div class="legend secondary left"></div><span class="kpi-detail left">Contracts</span> -->
         </div>
       </div>
       <div class="chart-box">
