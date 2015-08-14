@@ -3,17 +3,18 @@
 
     .placement-box {
       position: absolute;
-      bottom: -90px;
+      bottom: -180px;
       margin: 0 auto;
       font-size: 14pt;
       background-color: #20C2F1;
       color: #fff;
-      padding: 20px;
+      padding: 20px 40px 80px 40px;
       width: 80%;
       left: 0;
       right: 0;
       border-radius: 5px;
       transition: padding .15s lienar;
+      text-align: center;
 
       &.placing {
         padding-bottom: 80px;
@@ -40,21 +41,30 @@
         margin: 0 auto;
         right: 0;
         width: 310px;
+      }
 
-        .place-button {
-          padding: 7px 50px;
-          background-color: #fff;
-          border-radius: 3px;
-          margin-left: 15px;
-          text-transform: uppercase;
-          font-weight: bold;
-          color: #20C2F1;
-          transition: all .2s linear;
+      .place-button {
+        padding: 7px 50px;
+        background-color: #fff;
+        border-radius: 3px;
+        margin-left: 15px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: #20C2F1;
+        transition: all .2s linear;
 
-          &:hover {
-            background: #1996BA;
-            color: #fff;
-          }
+        &.clear {
+          position: absolute;
+          bottom: 20px;
+          left: 0;
+          right: 0;
+          width: 200px;
+          margin: 0 auto;
+        }
+
+        &:hover {
+          background: #1996BA;
+          color: #fff;
         }
       }
 
@@ -346,7 +356,6 @@
           background-color: transparent;
           z-index:1;
           -webkit-transform: translateZ(0);
-          -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%);
 
           &.swing {
             background-color: #20C2F1;
