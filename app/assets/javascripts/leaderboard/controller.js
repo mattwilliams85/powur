@@ -10,7 +10,7 @@
       params: {
         sort: 'proposals_count',
         user_totals: 'true',
-        limit: 20
+        limit: 10
       }
     }).then(function(data){
       for (var i = 0; i < data.entities.length; i++){

@@ -27,11 +27,11 @@ module UserScopes
     }
 
     scope :monthly_leaders, lambda {
-        select('users.*, COUNT(ml.converted_at) AS proposals_count')
-        .joins("INNER JOIN (#{Lead.all.converted.to_sql}) ml ON users.id = ml.user_id")
-        .where('ml.converted_at >= ?', Time.zone.today.beginning_of_month)
+        select('users.*, COUNT(ml.submitted_at) AS leader_count')
+        .joins("INNER JOIN (#{Lead.all.submitted.to_sql}) ml ON users.id = ml.user_id")
+        .where('ml.submitted_at >= ?', Time.zone.today.beginning_of_month)
         .group('users.id')
-        .order('proposals_count desc')
+        .order('leader_count desc')
     }
 
     WEEKLY_DOWN_COUNTS_SELECT = \
