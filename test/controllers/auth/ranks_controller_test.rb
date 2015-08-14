@@ -25,7 +25,7 @@ module Auth
         get :index
 
         siren.must_have_action(:create)
-        siren.must_have_entity_size(2)
+        siren.must_have_entity_size(Rank.count)
 
         first_rank = siren.entities.first
         first_rank.wont_have_action(:delete)
@@ -37,7 +37,7 @@ module Auth
         post :create, title: 'foo'
 
         siren.must_be_class(:rank)
-        siren.props_must_equal(title: 'foo', id: Rank.count)
+        siren.props_must_equal(title: 'foo')
       end
 
       test 'update' do

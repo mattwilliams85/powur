@@ -10,4 +10,16 @@ class UserOverride < ActiveRecord::Base
     where('start_date IS NULL OR start_date <= ?', end_date)
       .where('end_date IS NULL OR end_date > ?', end_date)
   }
+
+  def started?(date)
+    start_date.nil? || start_date <= date
+  end
+
+  def ended?(date)
+    end_date? && end_date < date
+  end
+
+  def active?(date)
+    started?(date) && !ended?(date)
+  end
 end

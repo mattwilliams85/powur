@@ -1,5 +1,5 @@
 class UplineBonus < Bonus
-  store_accessor :meta_data, :upline, :first_n, :organic_rank
+  store_accessor :meta_data, :upline, :first_n
 
   def create_payments!(calculator)
     pay_period_id = calculator.pay_period.id

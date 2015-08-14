@@ -15,7 +15,15 @@ namespace :powur do
 
     def create_bonus_from_attrs(bonus_attrs)
       bonus_amounts = bonus_attrs.delete('bonus_amounts')
-      bonus = Bonus.create!(bonus_attrs)
+      id = bonus_attrs['id']
+      if id && (bonus = Bonus.find_by(id: id))
+        bonus_attrs.delete('id')
+        bonus.update_attributes(bonus_attrs)
+        bonus.bonus_amounts.delete_all
+      else
+        bonus = Bonus.create!(bonus_attrs)
+      end
+
       return unless bonus_amounts
       bonus_amounts.each do |attrs|
         bonus.bonus_amounts.create!(attrs)
@@ -46,7 +54,6 @@ namespace :powur do
     end
 
     task bonuses: :environment do
-      Bonus.all.destroy_all
       bonus_data['bonuses'].each do |bonus_attrs|
         create_bonus_from_attrs(bonus_attrs)
       end

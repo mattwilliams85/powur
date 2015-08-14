@@ -47,7 +47,33 @@ class BonusCalculator
     end
   end
 
+  def users
+    @users ||= begin
+      users = lead_users
+      upline_user_ids = users.map(&:upline).flatten.uniq
+      missing_user_ids = upline_user_ids - users.map(&:id).uniq
+      users.push(*User.find(missing_user_ids))
+      Hash[ users.map { |u| [ u.id, u ] } ]
+    end
+  end
+
+  def user_upline(user)
+    user.parent_ids.reverse.map do |user_id|
+      users[user_id] ||= User.find(user_id)
+    end
+  end
+
+  def compressed_user_upline(user)
+    user_upline(user)
+  end
+
   private
+
+  def lead_users
+    [ converted_leads.map(&:user),
+      contracted_leads.map(&:user),
+      installed_leads.map(&:user) ].flatten.uniq
+  end
 
   class << self
     def run_all

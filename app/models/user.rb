@@ -151,7 +151,8 @@ class User < ActiveRecord::Base
   end
 
   def pay_period_rank(pp_id)
-    override_rank(pp_id) || pay_as_rank(pp_id)
+    @pay_period_ranks ||= {}
+    @pay_period_ranks[pp_id] ||= override_rank(pp_id) || pay_as_rank(pp_id)
   end
 
   # KPI METHODS
