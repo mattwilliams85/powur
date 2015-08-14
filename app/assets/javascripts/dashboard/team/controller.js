@@ -596,7 +596,7 @@
   };
 
   $scope.setParent = function(member) {
-    if (!$scope.placement.on) return;
+    if (!$scope.placement.on || !$scope.is.unrelated(member, true)) return;
     $scope.placement.parent = member;
     $timeout(function(){
       $('html, body').animate({

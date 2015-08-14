@@ -5,8 +5,8 @@
   function DashboardKPICtrl($scope, $location, $timeout, 
                             UserProfile, CommonService) {
     $scope.scaleOptions = [
-      { value: 6, label: 'Last Week' }, 
-      { value: 29, label: 'Last Month' }, 
+      { value: 6, label: 'Last 7 Days' }, 
+      { value: 29, label: 'Last 30 Days' }, 
       { value: 89, label: 'Last 3 Months' }, 
       { value: 179, label: 'Last 6 Months' }
     ];  
@@ -179,13 +179,14 @@
 
     $scope.countTotals = function(i) {
       var dataSet = $scope.settings[0].datasets[i].data;
+      var count = 0;
       if ($scope.section === 'genealogy') {
         return dataSet[dataSet.length -1] - dataSet[0];
       }
       for(var d = 0; d < dataSet.length; d++) {
-        if(!dataSet[d]) dataSet.splice(d,1); 
+        count += dataSet[d];
       }
-      return dataSet.length;
+      return count;
     }
 
     $scope.populateData = function() {
