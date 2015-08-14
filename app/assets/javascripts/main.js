@@ -17,5 +17,3 @@
 //= require signin/signin
 //= require dashboard/dashboard
 //= require team/team
-
-
