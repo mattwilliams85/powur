@@ -96,6 +96,7 @@
           $scope.requirements = Utility.findBranch(data.entities, {'rel': 'goals-requirements'}).entities;
           $scope.goals.badge = $scope.badgePath(data.properties.next_rank);
           $scope.progress = {};
+          $scope.rank_list = $scope.goals.properties['rank_list=']
           calculateProgress($scope.requirements);
         }
       });

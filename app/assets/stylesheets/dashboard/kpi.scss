@@ -34,10 +34,10 @@
 
     .badge {
       z-index: 99;
-      height: 100px;
+      width: 130px;
       margin: -15px auto 10px auto;
       @media #{$large} {
-        margin: -30px auto 10px auto;
+        margin: -35px auto 10px auto;
       }
     }
 
@@ -122,6 +122,19 @@
             @media #{$medium} {
               font-size: 16pt;
             }
+          }
+          .badge-title {
+            color: #181818;
+            font-size: 6pt;
+            position: absolute;
+            right: 69px;
+            top: 81px;
+            z-index: 999;
+            transform: rotate(-11deg);
+            width: 93px;
+            text-align: center;
+            font-weight: 700;
+            font-family: 'Muli';
           }
 
           .empty-info {
