@@ -31,8 +31,9 @@
         </div>
         <div class="progress-bar-box" ng-class="{ large : requirements.length > 1 }">
           <!-- Badge -->
-          <div class="badge show-for-medium-up">
-            <img class="badge" ng-class="{ half: requirements.length == 2, full: requirements.length === 1 }" ng-src="{{goals.badge}}">
+          <div class="badge show-for-medium-up" ng-class="{ half: requirements.length == 2, full: requirements.length === 1 }">
+            <img class="badge" ng-src="{{goals.badge}}">
+            <span class="title">{{goals.properties.lifetime_rank_title}}</span>
           </div>
           <div ng-repeat="goal in progress track by $index" repeat-end="onEnd()">
             <div

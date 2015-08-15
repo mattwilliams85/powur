@@ -1,5 +1,6 @@
 bonuses:
   -
+    id: 1
     type: SellerBonus
     name: Seller Bonus
     schedule: 2
@@ -20,13 +21,15 @@ bonuses:
           - 250.00
           - 250.00
   -
+    id: 2
     type: OneTimeBonus
     name: First Time Bonus
     schedule: 3
     amount: 50.00
-    end_date: 2015-08-11
+    end_date: 2015-08-12
     criteria: has_converted_lead
   -
+    id: 3
     type: DifferentialBonus
     name: PACT
     schedule: 2
@@ -45,7 +48,8 @@ bonuses:
           - 70.0
           - 80.0
           - 90.0
-  -
+  - 
+    id: 4
     type: DifferentialBonus
     name: Team PACT
     schedule: 2
@@ -67,6 +71,7 @@ bonuses:
           - 80.0
           - 90.0
   -
+    id: 5
     type: SellerBonus
     name: ImPACT
     schedule: 1
@@ -86,6 +91,7 @@ bonuses:
           - 25.0
           - 25.0
   -
+    id: 6
     type: UplineBonus
     name: Mentor
     schedule: 1
@@ -105,3 +111,97 @@ bonuses:
           - 25.0
           - 25.0
           - 25.0
+  -
+    id: 7
+    type: GenerationalBonus
+    name: Direct Level
+    schedule: 2
+    contracted_percent: 0.5
+    installed_percent: 0.5
+    bonus_amounts:
+      -
+        level: 1
+        amounts:
+          - 0.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+  -
+    id: 8
+    type: GenerationalBonus
+    name: Team Generations
+    schedule: 2
+    contracted_percent: 0.5
+    installed_percent: 0.5
+    bonus_amounts:
+      -
+        level: 1
+        amounts:
+          - 0.0
+          - 0.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+      -
+        level: 2
+        amounts:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+      -
+        level: 3
+        amounts:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+      -
+        level: 4
+        amounts:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 10.0
+          - 10.0
+          - 10.0
+          - 10.0
+          - 10.0
+          - 10.0
+      -
+        level: 5
+        amounts:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
+          - 10.0
+          - 10.0
+          - 10.0
+          - 10.0
+          - 10.0

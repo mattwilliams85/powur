@@ -11,7 +11,7 @@ module Auth
          name:       'users.last_name asc, users.first_name asc',
          lead_count: 'lc.lead_count desc nulls last',
          team_count: 'tc.team_count desc nulls last',
-         proposals_count: 'proposals_count desc'
+         leader_count: 'leader_count desc'
     item_totals :lead_count, :team_count
 
     helper_method :user_totals

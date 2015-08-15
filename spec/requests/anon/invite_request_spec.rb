@@ -61,6 +61,7 @@ describe '/invite' do
           merge_vars:   {
             FNAME: user_params[:first_name],
             LNAME: user_params[:last_name],
+            email: user_params[:email],
             groupings: [
               # subscribe to Advocate group by default
               { id: User::MAILCHIMP_GROUPINGS[:powur_path], groups: [ "Advocate" ] }

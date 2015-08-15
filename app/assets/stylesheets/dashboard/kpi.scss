@@ -333,16 +333,27 @@
           @media #{$small} {
             padding: 25px 30px 0px 35px;
           }
-
-          .legend {
-            height: 20px; width: 25px;
-            margin-right: 7px;
-            &.primary {
-              background-color: $pow-color-blue;
+          .legend-box {
+            .legend {
+              height: 20px; width: 21px;
+              border-radius: 50%;
+              margin-right: 6px;
+              &#legend-0 {
+                background: $pow-color-blue
+              }
+              &#legend-1 {
+                background: $pow-color-orange
+              }
+              &#legend-2 {
+                background: #b64a9a
+              }
+              &#legend-3 {
+                background: #75be56
+              }
             }
-            &.secondary {
-              margin-left: 20px;
-              background-color: $pow-color-orange;
+            .kpi-detail {
+              margin-right: 25px;
+              font-size: 11pt
             }
           }
 

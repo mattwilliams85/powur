@@ -1,13 +1,14 @@
 <div class="row">
   <div class="large-12 columns">
     <div ng-show="placement.on" class="placement-box" ng-class="{'placing': placement.parent}">
-      <span class="line-1">  You're currently trying to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}.</b></span>
-      <span class="line-2"> Would you like to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}</b> on to <b>{{placement.parent.first_name + ' ' + placement.parent.last_name}}'s</b> team?</span>
+      <span class="line-1">Click or tap the image of an advocate to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}</b> on their team. Search or explore your GRID to find the right placement. <a class="place-button clear" ng-click="clearPlacement();">CANCEL</a> </span>
+      <span class="line-2"> 
+        Would you like to place <b>{{placement.child.first_name + ' ' + placement.child.last_name}}</b> on to <b>{{placement.parent.first_name + ' ' + placement.parent.last_name}}'s</b> team? 
+      </span>
       <div class="button-box">
         <a class="place-button" ng-click="placeUser();">Yes</a>
         <a class="place-button" ng-click="placement.parent = null">No</a>
       </div>
-      <i class="fa fa-times" ng-click="clearPlacement()"></i>
     </div>
     <!-- Row: Label / Sort / Search -->
     <div class="row">

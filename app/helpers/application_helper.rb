@@ -7,10 +7,6 @@ module ApplicationHelper
     @users_json ||= UsersJson.new(self, @users, @user)
   end
 
-  def qual_json
-    @qual_json ||= QualificationsJson.new(self, @qualifications, @qualification)
-  end
-
   def orders_json
     @orders_json ||= OrdersJson.new(self, @orders, @order)
   end

@@ -1,4 +1,58 @@
 class GenerationalBonus < Bonus
+  store_accessor :meta_data,
+                 :converted_percent, :contracted_percent, :installed_percent
+
+  def create_payments!(calculator)
+    relevant_lead_statuses.each do |status|
+      calculator.send("#{status}_leads").each do |lead|
+        create_lead_payments(calculator, lead, status)
+      end
+    end
+  end
+
+  private
+
+  def relevant_lead_statuses
+    [ :converted, :contracted, :installed ].select do |status|
+      percent = send("#{status}_percent")
+      percent && percent.to_f > 0
+    end
+  end
+
+  def user_qualified?(user, bonus_level, pay_period_id)
+    user.pay_period_rank(pay_period_id) >= bonus_level.first_rank
+  end
+
+  def find_qualified_user(upline, bonus_level, pay_period_id)
+    user = nil
+    loop do
+      user = upline.shift
+      break if user.nil? || user_qualified?(user, bonus_level, pay_period_id)
+    end
+    user
+  end
+
+  def create_lead_payments(calculator, lead, status)
+    upline = calculator.user_upline(lead.user)
+    bonus_amounts.sort_by(&:level).each do |bonus_level|
+      user = find_qualified_user(upline, bonus_level, calculator.pay_period.id)
+      break unless user
+      pay_as_rank = user.pay_period_rank(calculator.pay_period.id)
+      amount = bonus_level.rank_amount(pay_as_rank) *
+        send("#{status}_percent").to_f
+
+      payment = bonus_payments.create!(
+        pay_period_id: calculator.pay_period.id,
+        user_id:       user.id,
+        pay_as_rank:   pay_as_rank,
+        amount:        amount)
+
+      payment.bonus_payment_leads.create!(
+        lead_id: lead.id,
+        status:  status,
+        level:   bonus_level.level)
+    end
+  end
 
   # def next_bonus_level
   #   (highest_bonus_level || 0) + 1
@@ -21,47 +75,5 @@ class GenerationalBonus < Bonus
   #   end
   # end
 
-  # def create_payments!(order, pay_period)
-  #   return unless order.user.parent?
-  #   upline = pay_period.compressed_upline(order.user)
-  #   return if upline.empty?
-
-  #   bonus_levels.sort_by(&:level).group_by(&:level).each do |level, amounts|
-  #     parent = find_qualified_parent(upline, amounts, pay_period)
-  #     break if parent.nil?
-
-  #     pay_parent(parent, level, pay_period, order)
-  #   end
-  # end
-
-  # private
-
-  # def parent_qualified?(parent, amounts, pay_period)
-  #   pay_level = amounts.find do |level|
-  #     level.rank_path_id.nil? || level.rank_path_id == parent.rank_path_id
-  #   end
-  #   pay_level && pay_period.find_pay_as_rank(parent) >= pay_level.min_rank
-  # end
-
-  # def find_qualified_parent(upline, amounts, pay_period)
-  #   parent = nil
-  #   loop do
-  #     parent = upline.shift
-  #     break if parent.nil? || parent_qualified?(parent, amounts, pay_period)
-  #   end
-  #   parent
-  # end
-
-  # def pay_parent(parent, level, pay_period, order)
-  #   amount = payment_amount(parent.pay_as_rank,
-  #                           parent.rank_path_id,
-  #                           level)
-  #   attrs = { bonus_id:    id,
-  #             user_id:     parent.id,
-  #             amount:      amount,
-  #             pay_as_rank: parent.pay_as_rank }
-  #   payment = pay_period.bonus_payments.create!(attrs)
-  #   payment.bonus_payment_orders.create!(order_id: order.id)
-  # end
 
 end

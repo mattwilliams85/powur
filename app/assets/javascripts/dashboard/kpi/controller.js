@@ -5,8 +5,8 @@
   function DashboardKPICtrl($scope, $location, $timeout, 
                             UserProfile, CommonService) {
     $scope.scaleOptions = [
-      { value: 6, label: 'Last Week' }, 
-      { value: 29, label: 'Last Month' }, 
+      { value: 6, label: 'Last 7 Days' }, 
+      { value: 29, label: 'Last 30 Days' }, 
       { value: 89, label: 'Last 3 Months' }, 
       { value: 179, label: 'Last 6 Months' }
     ];  
@@ -139,9 +139,9 @@
       $scope.populateTeamList();
     };
 
-    function sameDayAs(item, i) {
-      var attr = 'created_at';
-      if (item.contract) attr = 'contract';
+    function sameDayAs(item, i, j) {
+      var attr = $scope.settings[0].datasets[j].filter || 'created_at';
+      
       return new Date(item[attr]).getMonth() === $scope.current.subDays($scope.scale - i).getMonth() &&
              new Date(item[attr]).getDate() === $scope.current.subDays($scope.scale - i).getDate();
     }
@@ -167,7 +167,7 @@
         if($scope.section !== "genealogy") count = 0; //Non-incremental
         //For each data item
         for (var n = 0; n < data.length; n++) {
-          if (sameDayAs(data[n], i)) {
+          if (sameDayAs(data[n], i, j)) {
             data.splice(data.indexOf(data[n]), 1);
             n--; //decrement
             count += 1;
@@ -177,10 +177,23 @@
       }
     }
 
+    $scope.countTotals = function(i) {
+      var dataSet = $scope.settings[0].datasets[i].data;
+      var count = 0;
+      if ($scope.section === 'genealogy') {
+        return dataSet[dataSet.length -1] - dataSet[0];
+      }
+      for(var d = 0; d < dataSet.length; d++) {
+        count += dataSet[d];
+      }
+      return count;
+    }
+
     $scope.populateData = function() {
       if (!$scope.activeUser.metrics) return;
       //For each data set
-      for (var j = 0; j < $scope.settings[0].datasets.length; j++) {
+      var dataLength = Object.keys($scope.activeUser.metrics).length
+      for (var j = 0; j < dataLength; j++) {
         $scope.settings[0].datasets[j].data = [];
 
         dataCount(j);

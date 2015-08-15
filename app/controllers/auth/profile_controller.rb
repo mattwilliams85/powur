@@ -18,9 +18,19 @@ module Auth
     end
 
     def update
+
+      old_email = @user.email
+
       if @user.update_attributes(user_params)
         User.delay.validate_phone_number!(@user.id)
         User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
+
+        # check for changes to first name, last name, or email and update Mailchimp
+        if user_params[:email] != old_email
+          @user.mailchimp_update_subscription(old_email)
+          puts 'updated mailchimp email'
+        end
+
       end
 
       show

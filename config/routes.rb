@@ -45,7 +45,7 @@ Rails.application.routes.draw do
       post :validate
     end
 
-    resource :zip_validator , only: [] do
+    resource :zip_validator, only: [] do
       post :validate
     end
   end
@@ -80,16 +80,6 @@ Rails.application.routes.draw do
     resources :requirements, only: [ :destroy, :update, :show ]
 
     resource :dashboard, only: [ :show ], controller: :dashboard
-
-    resource :empower_merchant,
-             only:       [ :sandbox, :process_card, :confirmation ],
-             controller: :empower_merchant do
-      get 'sandbox', to: 'empower_merchant#sandbox'
-      get 'confirmation', to: 'empower_merchant#confirmation'
-      collection do
-        post 'process_card' => 'empower_merchant', as: :process_card
-      end
-    end
 
     resource :profile,
              only:       [ :show, :update, :password_reset,
@@ -301,15 +291,6 @@ Rails.application.routes.draw do
     resources :twilio_phone_numbers,
               only: [ :index ],
               as:   :admin_twilio_phone_numbers
-  end
-
-  #
-  # GATEWAYS
-  #
-
-  scope :gateway, module: :gateway do
-    get 'ipayout/verify_user', to: 'ipayout#verify_user'
-    post 'ipayout/notify_merchant', to: 'ipayout#notify_merchant'
   end
 
   namespace :api do

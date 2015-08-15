@@ -166,7 +166,8 @@ ALTER SEQUENCE bonus_amounts_id_seq OWNED BY bonus_amounts.id;
 CREATE TABLE bonus_payment_leads (
     bonus_payment_id integer NOT NULL,
     lead_id integer NOT NULL,
-    status integer NOT NULL
+    status integer NOT NULL,
+    level integer
 );
 
 
@@ -2811,4 +2812,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150811225152');
 INSERT INTO schema_migrations (version) VALUES ('20150812034038');
 
 INSERT INTO schema_migrations (version) VALUES ('20150812190857');
+
+INSERT INTO schema_migrations (version) VALUES ('20150813195254');
+
+INSERT INTO schema_migrations (version) VALUES ('20150814045744');
 

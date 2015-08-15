@@ -54,9 +54,9 @@ describe EwalletClient, type: :model do
 
       context 'ewallet does not exist' do
         let(:payment) do
-          { ref_id:   3,
-            username: 'doesnotexist',
-            amount:   4
+          { ref_id:   1,
+            username: 'doesnotexist@example.com',
+            amount:   111
           }
         end
 
@@ -68,7 +68,7 @@ describe EwalletClient, type: :model do
                 payment:  payment)
             end.to raise_error(
               Ipayout::Error::EwalletNotFound,
-              'Customer with user name doesnotexist is not found')
+              'Customer with user name doesnotexist@example.com is not found')
           end
         end
       end

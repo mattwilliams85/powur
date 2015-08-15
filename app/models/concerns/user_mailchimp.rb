@@ -17,38 +17,39 @@ module UserMailchimp
     @mailchimp_client ||= Gibbon::API.new
   end
 
+  def mailchimp_group_name
+    partner? ? ['Partner'] : ['Advocate']
+  end
+
+  def mailchimp_merge_vars
+    { FNAME:     first_name,
+      LNAME:     last_name,
+      email:     email,
+      groupings: [
+        # subscribe to Advocate group by default
+        { id: MAILCHIMP_GROUPINGS[:powur_path], groups: mailchimp_group_name }
+      ]
+    }
+  end
+
   def mailchimp_subscribe
     return unless mailchimp_enabled?
 
     mailchimp_client.lists.subscribe(
       id:           MAILCHIMP_LISTS[:all_users],
       email:        { email: email },
-      merge_vars:   {
-        FNAME: first_name,
-        LNAME: last_name,
-        groupings: [
-          # subscribe to Advocate group by default
-          { id: MAILCHIMP_GROUPINGS[:powur_path], groups: [ "Advocate" ] }
-        ]
-      },
+      merge_vars:   mailchimp_merge_vars,
       double_optin: false)
   end
 
-  def mailchimp_move_to_group(group_name)
+  def mailchimp_update_subscription(old_email = nil)
     return unless mailchimp_enabled?
 
     mailchimp_client.lists.update_member(
-      id:           MAILCHIMP_LISTS[:all_users],
-      email:        { email: email },
-      merge_vars:   {
-        groupings: [
-          { id:     MAILCHIMP_GROUPINGS[:powur_path],
-            groups: [ group_name ] }
-        ]
-      })
+      id:         MAILCHIMP_LISTS[:all_users],
+      email:      { email: old_email || email },
+      merge_vars: mailchimp_merge_vars)
   end
-
-
 
   def mailchimp_unsubscribe(list_name)
     return unless mailchimp_enabled?

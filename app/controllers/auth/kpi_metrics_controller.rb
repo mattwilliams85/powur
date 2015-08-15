@@ -12,8 +12,10 @@ module Auth
     def proposals_show
       @user = User.find(params[:id])
       scale = params[:scale].to_i + 1
-      @orders = @user.leads.contracted(from: scale.days.ago)
+      @leads = @user.leads.submitted(from: scale.days.ago)
       @proposals = @user.leads.converted(from: scale.days.ago)
+      @contracts = @user.leads.contracted(from: scale.days.ago)
+      @installs = @user.leads.installed(from: scale.days.ago)
 
       render 'auth/kpi_metrics/proposals/show'
     end

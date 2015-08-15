@@ -32,7 +32,17 @@ class BonusAmount < ActiveRecord::Base
     level == bonus.highest_bonus_level
   end
 
+  def rank_amount(rank)
+    amounts[rank - min_rank]
+  end
+
+  def first_rank
+    amounts.index { |i| i > 0 } + SystemSettings.min_rank
+  end
+
+  private
+
   def min_rank
-    (amounts.index { |i| i > 0 } || amounts.size) + 1
+    @min_rank ||= SystemSettings.min_rank
   end
 end
