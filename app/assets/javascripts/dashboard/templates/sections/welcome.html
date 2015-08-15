@@ -33,7 +33,7 @@
           <!-- Badge -->
           <div class="badge show-for-medium-up" ng-class="{ half: requirements.length == 2, full: requirements.length === 1 }">
             <img class="badge" ng-src="{{goals.badge}}">
-            <span class="title">{{goals.properties.lifetime_rank_title}}</span>
+            <span class="title">{{rank_list[goals.properties.next_rank].title}}</span>
           </div>
           <div ng-repeat="goal in progress track by $index" repeat-end="onEnd()">
             <div
