@@ -116,5 +116,49 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
       most_recent = calculated.order(start_date: :desc).first
       most_recent && most_recent.id
     end
+
+    def run_csvs
+      pay_period_ids = BonusPayment.select(:pay_period_id)
+        .group(:pay_period_id).map(&:pay_period_id)
+
+      pay_period_ids.each do |pp_id|
+        period = PayPeriod.find(pp_id)
+        period.to_csv
+      end
+    end
+  end
+
+  CSV_HEADERS = [
+    'User ID', 'First Name', 'Last Name', 'Bonus', 'Lead ID',
+    'Lead Owner ID', 'Lead Owner Name', 'Lead Customer',
+    'Lead Payment Status', 'Lead Converted', 'Lead Contracted',
+    'Lead Installed', 'Bonus Data', 'Amount' ]
+  def to_csv
+    payments = bonus_payments
+      .preload(:bonus, :user, :bonus_payment_leads, :leads,
+               leads: [ :user, :customer ])
+      .order(:user_id)
+
+    filename = "/tmp/pay_period_bonuses_#{id}.csv"
+
+    CSV.open(filename, 'w') do |csv|
+      csv << CSV_HEADERS
+      payments.each do |payment|
+        user = payment.user
+        bpl = payment.bonus_payment_leads.first
+        lead = bpl.lead
+        csv << [
+          user.id, user.first_name, user.last_name, payment.bonus.name,
+          bpl.lead_id, lead.user_id,
+          lead.user.full_name, lead.customer.full_name,
+          bpl.status,
+          lead.converted_at && lead.converted_at.strftime('%F'),
+          lead.contracted_at && lead.contracted_at.strftime('%F'),
+          lead.installed_at && lead.installed_at.strftime('%F'),
+          payment.bonus_data, payment.amount.to_f ]
+      end
+    end
+
+    payments.size
   end
 end

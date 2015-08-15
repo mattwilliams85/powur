@@ -85,6 +85,16 @@ class Lead < ActiveRecord::Base
     end
   end
 
+  def status_totals_at_time(status)
+    @status_totals ||= {}
+    @status_totals[status] ||= begin
+      at = send("#{status}_at") ||
+        fail("Invalid request for #{status}_totals " \
+             "for lead with no #{status}_at date")
+      Lead.send(status, to: at).where(user_id: user_id).count + 1
+    end
+  end
+
   private
 
   def submitted(provider_uid, at)

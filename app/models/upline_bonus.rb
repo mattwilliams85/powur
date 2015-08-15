@@ -5,7 +5,7 @@ class UplineBonus < Bonus
     pay_period_id = calculator.pay_period.id
 
     calculator.converted_leads.each do |lead|
-      next if lead.converted_count_at_time > first_n
+      next if lead.status_totals_at_time(:converted) > first_n
       create_lead_payment(lead, pay_period_id)
     end
   end

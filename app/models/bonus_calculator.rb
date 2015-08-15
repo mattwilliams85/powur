@@ -57,14 +57,29 @@ class BonusCalculator
     end
   end
 
-  def user_upline(user)
-    user.parent_ids.reverse.map do |user_id|
-      users[user_id] ||= User.find(user_id)
+  def find_user(user_id)
+    users[user_id] ||= User.find(user_id)
+  end
+
+  def user_upline(user, sponsor = false)
+    if sponsor
+      sponsor_upline(user)
+    else
+      user.parent_ids.reverse.map { |user_id| find_user(user_id) }
     end
   end
 
   def compressed_user_upline(user)
     user_upline(user)
+  end
+
+  def sponsor_upline(user)
+    upline = []
+    while user.sponsor_id
+      user = find_user(user.sponsor_id)
+      upline << user
+    end
+    upline
   end
 
   private

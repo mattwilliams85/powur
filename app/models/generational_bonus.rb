@@ -45,35 +45,12 @@ class GenerationalBonus < Bonus
         pay_period_id: calculator.pay_period.id,
         user_id:       user.id,
         pay_as_rank:   pay_as_rank,
-        amount:        amount)
+        amount:        amount,
+        bonus_data:    { generation: bonus_level.level })
 
       payment.bonus_payment_leads.create!(
         lead_id: lead.id,
-        status:  status,
-        level:   bonus_level.level)
+        status:  status)
     end
   end
-
-  # def next_bonus_level
-  #   (highest_bonus_level || 0) + 1
-  # end
-
-  # def remaining_percentages(max_rank)
-  #   return super if bonus_levels.empty?
-
-  #   [ other_product_percentages(max_rank), percentages_used(max_rank) ]
-  #     .transpose.map { |i| i.reduce(:+) }
-  #     .map { |percent| 1.0 - percent }
-  # end
-
-  # def remaining_percentages_for_level(level, max_rank = nil)
-  #   levels = bonus_levels.select { |l| l.level == level }
-  #   max_amounts = calculate_max_amounts(levels)
-  #   remaining_percentages(max_rank).each_with_index.map do |a, i|
-  #     subtracted = max_amounts[i]
-  #     subtracted ? a + subtracted : a
-  #   end
-  # end
-
-
 end

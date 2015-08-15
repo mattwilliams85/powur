@@ -184,7 +184,8 @@ CREATE TABLE bonus_payments (
     status integer DEFAULT 1 NOT NULL,
     pay_as_rank integer,
     created_at timestamp without time zone NOT NULL,
-    distribution_id integer
+    distribution_id integer,
+    bonus_data hstore DEFAULT ''::hstore
 );
 
 
@@ -2816,4 +2817,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150812190857');
 INSERT INTO schema_migrations (version) VALUES ('20150813195254');
 
 INSERT INTO schema_migrations (version) VALUES ('20150814045744');
+
+INSERT INTO schema_migrations (version) VALUES ('20150815071137');
 
