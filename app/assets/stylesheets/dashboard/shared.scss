@@ -151,6 +151,20 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         font-size: 16pt;
         color: #fff;
       }
+
+      // for left sidebar on submitted leads
+      .homeowner-info {
+        label {
+          color: #9b9b9b;
+          text-transform: uppercase;
+          font-size: 10pt;
+          cursor: default;
+        }
+        p.name {
+
+        }
+      }
+
     }
 
     .form {
@@ -258,6 +272,9 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         border-right: 1px solid #555;
         border-bottom: 0;
         text-align: center;
+        .homeowner-info {
+          text-align: initial;
+        }
       }
     }
   }
@@ -568,39 +585,72 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
       line-height: 18pt;
       font-size: 16pt;
     }
-    // For Proposal Items
-    .status-icon {
-      top: 18%;
-      position: relative;
-      text-align: center;
-    }
-    .status-text {
-      font-family: $dashboard-font-family;
-      position: relative;
-      top: 22%;
-      text-align: center;
-      line-height: 10pt;
-      font-size: 8pt;
-      text-transform: uppercase;
-      color: #9b9b9b;
-    }
-    .customer-name {
-      font-family: $dashboard-font-family;
-      position: relative;
-      top: 25%;
-      text-align: center;
-      line-height: 18pt;
-      font-size: 16pt;
-    }
-    .date-text {
-      font-family: $dashboard-font-family;
-      position: relative;
-      top: 25%;
-      text-align: center;
-      line-height: 10pt;
-      font-size: 8pt;
-      text-transform: uppercase;
-      color: #9b9b9b;
+
+    .lead-details {
+      position: absolute;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      width: 100%;
+
+      .action-required {
+        .flag {
+          position: absolute;
+          width: 0;
+          height: 0;
+          border-top: 40px solid red;
+          border-right: 40px solid transparent;
+
+          .exclamation-point {
+            margin-top: -40px;
+            color: #fff;
+            font-weight: bold;
+            margin-left: 10px;
+          }
+        }
+        .text {
+          position: absolute;
+          margin: 0 auto;
+          left: 0;
+          right: 0;
+          width: 100%;
+
+          text-align: center;
+          color: #f00;
+          text-transform: uppercase;
+          font-size: 10pt;
+          line-height: 20pt;
+        }
+      }
+      .status-icon {
+        margin-top: 40px;
+
+        text-align: center;
+      }
+      .status-text {
+        font-family: $dashboard-font-family;
+        text-align: center;
+        line-height: 16pt;
+        font-size: 8pt;
+        text-transform: uppercase;
+        color: #9b9b9b;
+      }
+      .customer-name {
+        top: 60%;
+
+        font-family: $dashboard-font-family;
+        text-align: center;
+        line-height: 18pt;
+        font-size: 16pt;
+      }
+      .date-text {
+        font-family: $dashboard-font-family;
+        text-align: center;
+        line-height: 10pt;
+        font-size: 8pt;
+        text-transform: uppercase;
+        color: #9b9b9b;
+      }
     }
   }
 
