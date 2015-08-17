@@ -39,7 +39,7 @@
     <div class="pow-scrolling-bg pow-bg-2 section">
       <div class="row">
         <div class="large-12 columns pow-home-content">
-          <img ng-src="{{gif1Src}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/globe.gif') %>" class="gif1" id="gif_1_src" />
+          <img ng-src="{{legacyImagePaths.landing[0]}}" class="gif1" id="gif_1_src" />
           <h4>Building the world's largest network of peer to peer solar advocates.</h4>
         </div>
       </div>
@@ -52,7 +52,7 @@
     <div class="pow-scrolling-bg pow-bg-3 section">
       <div class="row">
         <div class="large-12 columns pow-home-content">
-          <img ng-src="{{gif2Src}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/scales-grey.gif') %>" class="gif2" id="gif_2_src" />
+          <img ng-src="{{legacyImagePaths.landing[1]}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/scales-grey.gif') %>" class="gif2" id="gif_2_src" />
           <h4>Facilitate the largest transfer of wealth in history through the decentralization of energy production.</h4>
         </div>
       </div>
@@ -65,7 +65,7 @@
     <div class="pow-scrolling-bg pow-bg-2 section">
       <div class="row">
         <div class="large-12 columns pow-home-content">
-          <img ng-src="{{gif3Src}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/hauzz.gif') %>" class="gif3" id="gif_3_src" />
+          <img ng-src="{{legacyImagePaths.landing[2]}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/hauzz.gif') %>" class="gif3" id="gif_3_src" />
           <h4>Reverse climate change by turning millions of American homes clean, carbon-neutral, and energy independent.</h4>
         </div>
       </div>
@@ -78,7 +78,7 @@
     <div class="pow-scrolling-bg pow-bg-3 section">
       <div class="row">
         <div class="large-12 columns pow-home-content">
-          <img ng-src="{{gif4Src}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/flame-grey.gif') %>" class="gif4" id="gif_4_src" />
+          <img ng-src="{{legacyImagePaths.landing[3]}}" src="<%= asset_path('blank_gif.png') %>" data-tempsrc="<%= asset_path('landing/flame-grey.gif') %>" class="gif4" id="gif_4_src" />
           <h4>Create a sustainable, renewable and clean energy solution for all future generations.</h4>
         </div>
       </div>
@@ -102,10 +102,9 @@
     <div class="pow-scrolling-bg pow-bg-2 section landing-slide-8">
       <div class="row">
         <div class="large-12 columns pow-home-content">
-          <h5>Select how you want to participate in the revolution.</h5>
+          <h5>Become part of the revolution today.</h5>
           <div class="pow-buttons-wrapper">
-            <a class="button pow-button-transparent" ng-href="/create-energy">ENERGY</a>
-            <a class="button pow-button-solid" ng-href="/create-wealth">WEALTH</a>
+            <a class="button pow-button-solid" ng-href="/sign-up">SIGN UP</a>
           </div>
         </div>
       </div>

@@ -51,7 +51,6 @@
 //= require_tree ./leaderboard
 //= require_tree ./memberships
 //= require_tree ./profile
-//= require_tree ./promo
 //= require_tree ./qualify
 //= require_tree ./sign-up
 //= require_tree ./university
