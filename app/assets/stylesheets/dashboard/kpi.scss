@@ -34,11 +34,12 @@
 
     .badge {
       z-index: 99;
-      width: 130px;
-      margin: -15px auto 10px auto;
-      @media #{$large} {
-        margin: -35px auto 10px auto;
-      }
+      width: 120px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      top: 20px;
     }
 
 
@@ -127,8 +128,10 @@
             color: #181818;
             font-size: 6pt;
             position: absolute;
-            right: 69px;
-            top: 81px;
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+            top: 73px;
             z-index: 999;
             transform: rotate(-11deg);
             width: 93px;
