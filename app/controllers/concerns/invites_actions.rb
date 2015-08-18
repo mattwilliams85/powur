@@ -41,7 +41,7 @@ module InvitesActions
   private
 
   def list_query
-    current_user.open_invites.order(created_at: :desc)
+    current_user.invites.pending.order(created_at: :desc)
   end
 
   def input

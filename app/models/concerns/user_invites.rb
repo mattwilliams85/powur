@@ -8,34 +8,19 @@ module UserInvites
   end
 
   def lifetime_invites_count
-    self.available_invites + invites.count
+    available_invites + invites.count
   end
 
   def open_invites_count
-    invites.where('user_id is null').count
+    invites.pending.count
   end
 
   def redeemed_invites_count
-    invites.where('user_id is not null').count
+    invites.redeemed.count
   end
 
   def expired_invites_count
-    invites.where(["expires < ?", Time.now]).count
-  end
-
-  # Active, non-redeemed invites
-  def open_invites
-    invites.where(user_id: nil)
-  end
-
-  # Expired active, non-redeemed invites
-  def expired_invites
-    invites.where(["expires < ?", Time.now])
-  end
-
-  # Redeemed invites
-  def redeemed_invites
-    invites.where("user_id is not null")
+    invites.expired.count
   end
 
   # Create/Send Methods

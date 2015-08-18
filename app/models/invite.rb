@@ -9,11 +9,11 @@ class Invite < ActiveRecord::Base
 
   # Validates with https://github.com/hallelujah/valid_email
   validates :email,
-    uniqueness: true,
-    presence: true,
-    email: {
-      message: 'This isn\'t a valid email address'
-    }
+            uniqueness: true,
+            presence:   true,
+            email:      {
+              message: "This isn't a valid email address"
+            }
   validates :first_name, :last_name, presence: true
   validates :phone, presence: true, allow_nil: true
   validate :max_invites, on: :create
@@ -27,6 +27,10 @@ class Invite < ActiveRecord::Base
     self.id ||= Invite.generate_code
     self.expires ||= expires_timespan
   end
+
+  scope :pending, -> { where(user_id: nil) }
+  scope :redeemed, -> { where.not(user_id: nil) }
+  scope :expired, -> { where(['expires < ?', Time.zone.now]) }
 
   def full_name
     "#{first_name} #{last_name}"
@@ -55,13 +59,14 @@ class Invite < ActiveRecord::Base
 
     latest_agreement = ApplicationAgreement.current
     if latest_agreement && latest_agreement.version != params[:tos]
-      user.errors.add(:tos, 'Please read and agree to the latest terms and conditions in the Application and Agreement')
+      user.errors.add(
+        :tos,
+        'Please read and agree to the latest terms and conditions in' \
+        'the Application and Agreement')
       return user
     end
 
-    if user.save
-      Invite.where(id: code).update_all(user_id: user.id)
-    end
+    Invite.where(id: code).update_all(user_id: user.id) if user.save
 
     user
   end
