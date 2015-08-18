@@ -4,7 +4,7 @@
     <div class="row header-row">
       <span class="uppercase kpi-detail">my pipeline</span>
     </div>
-    <div ng-class="{'active': activeUser.id === user.id}" class="user-contributor row" ng-click="changeUser(user.id)">
+    <div ng-class="{'active': activeUser.id === user.id}" class="user-contributor row" ng-click="changeUser(user)">
       <div class="row current-user-row">
         <img ng-if="!user.avatar" class="avatar-medium" ng-src="{{user.defaultAvatarThumb}}"> 
         <img ng-if="user.avatar" class="avatar-medium" ng-src="{{user.avatar.thumb}}">
@@ -48,7 +48,7 @@
       <div class="row options-row">
         <div class="small-12 columns">
           <!-- <h4 ng-show="!activeUser">Full Pipeline History</h4> -->
-          <h4 class="user-title" ng-show="activeUser">{{activeUser.first_name}}'s {{userGroup}} Pipeline History</h4>
+          <h4 class="user-title" ng-show="activeUser">{{userGroup}} Pipeline History</h4>
           <div class="right">
             <select class="sort" ng-change="changeGroup(userGroup)" ng-model="userGroup">
               <option>personal</option>
