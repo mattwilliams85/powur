@@ -1,14 +1,12 @@
 module Admin
   class InvitesController < AdminController
-    page max_limit: 25
-    sort user_id: { id: :asc }
+    page
+    sort id_desc: { id: :desc },
+         id_asc:  { id: :asc }
+    filter :pending, scope_opts: { type: :boolean }
 
     def index
-      @invites = apply_list_query_options(@user.invites)
-    end
-
-    def show
-      @invite = Invite.find(params[:id])
+      @invites = apply_list_query_options(Invite)
     end
   end
 end

@@ -1,0 +1,32 @@
+<main class="pow-admin-index">
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Pending Invites</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>ID&nbsp;<powur-sorter control="index" field="id"></powur-sorter></th>
+            <th>Sender</th>
+            <th>Email</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in index.data.entities">
+            <td>{{ item.properties.id }}</td>
+            <td><a ng-href="/admin/users/{{item.properties.id}}">{{ item.properties.first_name }} {{ item.properties.last_name }}</a></td>
+            <td>{{ item.properties.email }}</td>
+            <td>{{ item.properties.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-include src="'shared/admin/pagination.html'"></ng-include>
+    </div>
+  </div>
+</main>

@@ -190,6 +190,8 @@ Rails.application.routes.draw do
       resources :bonuses, only: [ :index, :create ], as: :bonuses
     end
 
+    resources :invites, only: [ :index ], as: :admin_invites
+
     # Latest News
     resources :news_posts,
               only: [ :index, :create, :destroy, :show, :update ],

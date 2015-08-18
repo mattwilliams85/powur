@@ -51,11 +51,6 @@
       templateUrl: 'admin/bonuses/templates/edit.html',
       controller: 'AdminBonusesCtrl'
     }).
-    // Invites
-    when('/admin/invites', {
-      templateUrl: 'admin/invites/templates/index.html',
-      controller: 'AdminInvitesCtrl'
-    }).
     // Latest News
     when('/admin/latest-news', {
       templateUrl: 'shared/admin/rest/index.html',
