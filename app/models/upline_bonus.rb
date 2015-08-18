@@ -29,7 +29,7 @@ class UplineBonus < Bonus
   end
 
   def available_amount
-    BigDecimal.new(meta_data['amount'])
+    BigDecimal.new(meta_data['available_amount'])
   end
 
   def sponsor?
@@ -78,11 +78,16 @@ class UplineBonus < Bonus
 
       next unless amount > 0
 
-      payment = bonus_payments.create!(
+      attrs = {
         pay_period_id: calculator.pay_period.id,
         user_id:       user.id,
         pay_as_rank:   pay_as_rank,
-        amount:        amount)
+        amount:        amount }
+      if first_n || nth_proposal
+        attrs[:bonus_data] = {
+          lead_number: lead.status_count_at_time(status, after_purchase) }
+      end
+      payment = bonus_payments.create!(attrs)
 
       payment.bonus_payment_leads.create!(lead_id: lead.id, status: :converted)
       break

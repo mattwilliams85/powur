@@ -1,5 +1,5 @@
 class BonusPayment < ActiveRecord::Base
-  enum status: { pending: 1, paid: 2, cancelled: 3 }
+  enum status: { pending: 1, paid: 2, cancelled: 3, breakage: 4 }
 
   belongs_to :pay_period
   belongs_to :bonus

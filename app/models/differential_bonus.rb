@@ -2,7 +2,7 @@ class DifferentialBonus < Bonus
   store_accessor :meta_data,
                  :converted_percent, :contracted_percent,
                  :installed_percent, :first_n, :nth_proposal,
-                 :after_purchase, :upline
+                 :after_purchase, :upline, :include_user, :available_amount
 
   def create_payments!(calculator)
     relevant_lead_statuses.each do |status|
@@ -29,11 +29,15 @@ class DifferentialBonus < Bonus
   end
 
   def available_amount
-    BigDecimal.new(meta_data['amount'])
+    BigDecimal.new(meta_data['available_amount'])
   end
 
   def sponsor?
     meta_data['upline'] == 'sponsor'
+  end
+
+  def include_user?
+    [ 'true', true, '1', 1 ].include?(meta_data['include_user'])
   end
 
   private
@@ -77,7 +81,7 @@ class DifferentialBonus < Bonus
 
   def create_lead_payments(calculator, lead, status)
     upline = calculator.user_upline(lead.user, sponsor?)
-    return if upline.empty?
+    upline.unshift(lead.user) if include_user?
 
     percentage_used = 0.0
     while (user = upline.shift)
@@ -86,14 +90,21 @@ class DifferentialBonus < Bonus
       next unless percentage
       amount = available_amount * percentage * percent_allocated(status)
 
-      payment = bonus_payments.create!(
+      attrs = {
         pay_period_id: calculator.pay_period.id,
         user_id:       user.id,
         pay_as_rank:   pay_as_rank,
         amount:        amount,
-        bonus_data:    { percentage: percentage })
+        bonus_data:    { percentage: percentage } }
+      if first_n || nth_proposal
+        lead_number = lead.status_count_at_time(status, after_purchase)
+        attrs[:bonus_data][:lead_number] = lead_number
+      end
+      payment = bonus_payments.create!(attrs)
 
-      payment.bonus_payment_leads.create!(lead_id: lead.id, status: status)
+      payment.bonus_payment_leads.create!(
+        lead_id: lead.id,
+        status:  status)
 
       percentage_used += percentage
     end

@@ -97,12 +97,17 @@ class LeadTotals < ActiveRecord::Base
       'Team Contracted (lifetime)',
       'Team Contracted (month, minus largest leg)',
       'Pay As Rank',
-      'Override Rank' ]
+      'Override Rank',
+      'Bonus Amount' ]
     def to_csv(pay_period_id)
       end_date = MonthlyPayPeriod.end_date_from_id(pay_period_id)
-      users = User.order(:id).entries
+      users = User.order(:id)
+        .preload(:user_ranks, :overrides).entries
       lead_totals = where(pay_period_id: pay_period_id).entries
       receipts = ProductReceipt.partner.entries
+      payment_totals = BonusPayment
+        .where(pay_period_id: pay_period_id)
+        .group(:user_id).sum(:amount)
 
       filename = "/tmp/pay_period_users_#{pay_period_id}.csv"
 
@@ -120,6 +125,7 @@ class LeadTotals < ActiveRecord::Base
           pay_as_rank = user.pay_as_rank(pay_period_id)
           override_rank = user.override_rank(pay_period_id)
           row.push(pay_as_rank, override_rank)
+          row << payment_totals[user.id] || 0.0
           csv << row
         end
       end
@@ -127,7 +133,7 @@ class LeadTotals < ActiveRecord::Base
       users.size
     end
 
-    def run_all_csvs!(pp_ids = nil)
+    def run_csvs(pp_ids = nil)
       pp_ids ||= MonthlyPayPeriod.relevant_ids
       pp_ids.each { |pp_id| to_csv(pp_id) }
     end

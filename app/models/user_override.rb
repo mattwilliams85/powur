@@ -22,4 +22,15 @@ class UserOverride < ActiveRecord::Base
   def active?(date)
     started?(date) && !ended?(date)
   end
+
+  def pay_period?(pay_period_id)
+    date =
+      if pay_period_id =~ /W/
+        Date.parse(pay_period_id)
+      else
+        Date.strptime(pay_period_id, '%Y-%m')
+      end
+
+    active?(date)
+  end
 end

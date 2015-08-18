@@ -25,7 +25,7 @@ bonuses:
     type: OneTimeBonus
     name: First Time Bonus
     schedule: 3
-    amount: 50.00
+    available_amount: 50.00
     end_date: 2015-08-12
     criteria: has_converted_lead
   -
@@ -35,29 +35,31 @@ bonuses:
     schedule: 2
     contracted_percent: 0.5
     installed_percent: 0.5
-    amount: 50.00
+    available_amount: 50.00
     upline: sponsor
+    include_user: true
     bonus_amounts:
       -
         amounts:
           - 0.0
           - 0.0
-          - 0.0
-          - 0.0
           - 0.3
           - 0.5
-          - 0.6
           - 0.7
-          - 0.8
           - 0.9
+          - 1.0
+          - 1.0
+          - 1.0
+          - 1.0
   - 
     id: 4
     type: DifferentialBonus
     name: Team PACT
     schedule: 2
     converted_percent: 1.0
-    amount: 100.00
+    available_amount: 100.00
     upline: sponsor
+    include_user: true
     nth_proposal: 3
     after_purchase: 3
     start_date: 2015-07-01
@@ -66,14 +68,14 @@ bonuses:
         amounts:
           - 0.0
           - 0.0
-          - 0.0
-          - 0.0
           - 0.3
           - 0.5
-          - 0.6
           - 0.7
-          - 0.8
           - 0.9
+          - 1.0
+          - 1.0
+          - 1.0
+          - 1.0
   -
     id: 5
     type: SellerBonus
@@ -120,27 +122,6 @@ bonuses:
           - 25.0
           - 25.0
   -
-    id: 7
-    type: GenerationalBonus
-    name: Direct Level
-    schedule: 2
-    contracted_percent: 0.5
-    installed_percent: 0.5
-    bonus_amounts:
-      -
-        level: 1
-        amounts:
-          - 0.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-  -
     id: 8
     type: GenerationalBonus
     name: Team Generations
@@ -152,21 +133,21 @@ bonuses:
         level: 1
         amounts:
           - 0.0
-          - 0.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
       -
         level: 2
         amounts:
           - 0.0
           - 0.0
-          - 0.0
+          - 20.0
           - 20.0
           - 20.0
           - 20.0
@@ -180,7 +161,7 @@ bonuses:
           - 0.0
           - 0.0
           - 0.0
-          - 0.0
+          - 20.0
           - 20.0
           - 20.0
           - 20.0
@@ -194,6 +175,19 @@ bonuses:
           - 0.0
           - 0.0
           - 0.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+      -
+        level: 5
+        amounts:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
           - 10.0
           - 10.0
           - 10.0
@@ -201,7 +195,7 @@ bonuses:
           - 10.0
           - 10.0
       -
-        level: 5
+        level: 6
         amounts:
           - 0.0
           - 0.0
