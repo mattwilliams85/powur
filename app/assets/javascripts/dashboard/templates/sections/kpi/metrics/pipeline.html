@@ -4,7 +4,7 @@
     <div class="row header-row">
       <span class="uppercase kpi-detail">my pipeline</span>
     </div>
-    <div ng-class="{'active': activeUser.id === user.id}" class="user-contributor row" ng-click="changeUser(user)">
+    <div ng-class="{'active': activeUser.id === user.id}" class="user-contributor row" ng-click="changeUser(user.id)">
       <div class="row current-user-row">
         <img ng-if="!user.avatar" class="avatar-medium" ng-src="{{user.defaultAvatarThumb}}"> 
         <img ng-if="user.avatar" class="avatar-medium" ng-src="{{user.avatar.thumb}}">
@@ -27,7 +27,7 @@
               <img ng-if="member.properties.avatar" class="avatar-small left" ng-src="{{member.properties.avatar.thumb}}">
               <div class="info-box left">
                 <span class="kpi-detail link">{{member.properties.first_name}} {{member.properties.last_name}}</span>
-                <span class="kpi-detail">{{member.properties.totals.lead_count}} Homeowners</span>
+                <span class="kpi-detail">{{member.properties.team_lead_count}} Homeowners</span>
               </div>
             </div>
           </div>
@@ -45,13 +45,17 @@
   <div class="small-12 medium-9 columns full-column right-part">
     <!-- CHART SECTION -->
     <div class="small-12 medium-11 columns chart-column">
-      <div class="row">
-        <div class="small-9 columns">
-          <h4 ng-show="!activeUser">Full Pipeline History</h4>
-          <h4 ng-show="activeUser">{{activeUser.first_name}}'s Pipeline History</h4>
-        </div>
-        <div class="right">
-          <select class="sort" ng-model="scale" ng-change="changeScale(scale)" ng-options="scale.value as scale.label for scale in scaleOptions" convert-to-number></select>
+      <div class="row options-row">
+        <div class="small-12 columns">
+          <!-- <h4 ng-show="!activeUser">Full Pipeline History</h4> -->
+          <h4 class="user-title" ng-show="activeUser">{{activeUser.first_name}}'s {{userGroup}} Pipeline History</h4>
+          <div class="right">
+            <select class="sort" ng-change="changeGroup(userGroup)" ng-model="userGroup">
+              <option>personal</option>
+              <option>grid</option>
+            </select>
+            <select class="sort" ng-model="scale" ng-change="changeScale(scale)" ng-options="scale.value as scale.label for scale in scaleOptions" convert-to-number></select>
+          </div>
         </div>
       </div>
       <div class="row">

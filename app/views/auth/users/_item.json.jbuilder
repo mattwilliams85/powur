@@ -9,6 +9,7 @@ item_props(user) do
   json.certified user.partner?
   lifetime_rank = all_ranks[user.lifetime_rank || 0]
   json.lifetime_rank_title lifetime_rank && lifetime_rank.title
+  json.team_lead_count user.team_lead_count
   json.totals user_totals(user) if params[:user_totals]
   json.avatar do
     [ :thumb, :medium, :large ].each do |key|

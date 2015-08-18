@@ -19,6 +19,9 @@ class Lead < ActiveRecord::Base
   scope :sales_status, -> (status) { send(status) }
   USER_COUNT_SQL = 'user_id, COUNT(leads.id) lead_count'
   scope :user_count, -> { select(USER_COUNT_SQL).group(:user_id) }
+  scope :team_leads, lambda { |user_id:, query: Lead.unscoped|
+    query.joins(:user).merge(User.all_team(user_id))
+  }
   scope :team_count, lambda { |user_id:, query: Lead.unscoped|
     query.joins(:user).merge(User.all_team(user_id)).count
   }
