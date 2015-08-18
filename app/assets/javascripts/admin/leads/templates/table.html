@@ -1,0 +1,22 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Customer</th>
+      <th>Created</th>
+      <th>Submitted</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in index.data.entities">
+      <td>{{ item.properties.id }}</td>
+      <td>{{ item.properties.user }}</td>
+      <td>{{ item.properties.customer }}</td>
+      <td>{{ item.properties.created_at | dateToLocalDate }}</td>
+      <td>{{ item.properties.submitted_at | dateToLocalDate }}</td>
+      <td>{{ item.properties.sales_status }}</td>
+    </tr>
+  </tbody>
+</table>
