@@ -157,6 +157,8 @@
             top: 73px;
             z-index: 999;
             transform: rotate(-11deg);
+            -ms-transform: rotate(-11deg); /* IE 9 */
+            -webkit-transform: rotate(-11deg); /* Safari */
             width: 93px;
             text-align: center;
             font-weight: 700;
