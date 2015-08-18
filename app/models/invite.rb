@@ -61,7 +61,7 @@ class Invite < ActiveRecord::Base
     if latest_agreement && latest_agreement.version != params[:tos]
       user.errors.add(
         :tos,
-        'Please read and agree to the latest terms and conditions in' \
+        'Please read and agree to the latest terms and conditions in ' \
         'the Application and Agreement')
       return user
     end
