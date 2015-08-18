@@ -225,6 +225,10 @@
           cursor: pointer;
           color: $pow-color-blue;
         }
+        &.small {
+          font-size: 10pt;
+          line-height: 11pt;
+        }
       }
 
       /*
