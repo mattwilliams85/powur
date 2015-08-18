@@ -1,6 +1,10 @@
 module NameEmailSearch
   extend ActiveSupport::Concern
 
+  def name_and_email
+    "\"#{full_name}\" <#{email}>"
+  end
+
   # SEARCH = ':q % %{t}.first_name or :q % %{t}.last_name or %{t}.email ilike :like'
 
   included do
