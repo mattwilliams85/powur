@@ -1,7 +1,8 @@
 class DifferentialBonus < Bonus
   store_accessor :meta_data,
                  :converted_percent, :contracted_percent,
-                 :installed_percent, :first_n, :nth_proposal, :upline
+                 :installed_percent, :first_n, :nth_proposal,
+                 :after_purchase, :upline
 
   def create_payments!(calculator)
     relevant_lead_statuses.each do |status|
@@ -15,20 +16,24 @@ class DifferentialBonus < Bonus
     bonus_amounts.entries.first.amounts
   end
 
-  def available_amount
-    BigDecimal.new(meta_data['amount'])
-  end
-
-  def sponsor?
-    meta_data['upline'] == 'sponsor'
-  end
-
   def first_n
     meta_data['first_n'] && meta_data['first_n'].to_i
   end
 
   def nth_proposal
     meta_data['nth_proposal'] && meta_data['nth_proposal'].to_i
+  end
+
+  def after_purchase
+    meta_data['after_purchase'] && meta_data['after_purchase'].to_i
+  end
+
+  def available_amount
+    BigDecimal.new(meta_data['amount'])
+  end
+
+  def sponsor?
+    meta_data['upline'] == 'sponsor'
   end
 
   private
@@ -44,35 +49,25 @@ class DifferentialBonus < Bonus
   end
 
   def apply_lead_filters(leads, status)
-    if first_n
-      leads.select { |l| l.status_totals_at_time(status) <= first_n }
-    elsif nth_proposal
-      leads.select { |l| l.status_totals_at_time(status) == nth_proposal }
-    else
-      leads
+    return leads unless first_n || nth_proposal
+    leads.select do |lead|
+      count = lead.status_count_at_time(status, after_purchase)
+      first_n ? (!count.zero? && count <= first_n) : (count == nth_proposal)
     end
   end
 
   def leads_for_status(calculator, status)
-    leads = calculator.send("#{status}_leads")
-    apply_lead_filters(leads, status)
-  end
-
-  def create_solar_sales_payments(calculator)
-    [ :contracted, :installed ].each do |status|
-      calculator.send("#{status}_leads").each do |lead|
-        create_lead_payments(calculator, lead, status)
+    leads = calculator.status_leads(status)
+    if after_purchase
+      leads = leads.select do |l|
+        purchased_at = l.user.purchased_at(after_purchase)
+        purchased_at && purchased_at <= l.status_date(status)
       end
     end
-  end
 
-  def create_nth_proposal_payments(calculator)
-    leads = calculator.converted_leads.select do |lead|
-      lead.converted_count_at_time == nth_proposal
-    end
-    leads.each { |lead| create_lead_payments(calculator, lead, :converted) }
+    apply_lead_filters(leads, status)
   end
-
+  
   def calculate_payment_percent(pay_as_rank, percentage_used)
     return unless pay_as_rank >= min_rank
     user_percent = payment_amounts[pay_as_rank]

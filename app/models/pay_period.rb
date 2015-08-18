@@ -135,6 +135,8 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     'Lead Installed', 'Bonus Data', 'Amount' ]
   def to_csv
     payments = bonus_payments
+      .joins(:bonus)
+      .where('bonuses.schedule <> 3')
       .preload(:bonus, :user, :bonus_payment_leads, :leads,
                leads: [ :user, :customer ])
       .order(:user_id)

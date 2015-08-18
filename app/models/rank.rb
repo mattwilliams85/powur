@@ -88,5 +88,12 @@ class Rank < ActiveRecord::Base
       User.update_organic_ranks
       User.update_lifetime_ranks
     end
+
+    def rank_users!
+      UserRank.delete_all
+      User.update_all(organic_rank: nil)
+      User.update_all(lifetime_rank: nil)
+      rank_users
+    end
   end
 end

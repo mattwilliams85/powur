@@ -1,21 +1,29 @@
 class GenerationalBonus < Bonus
   store_accessor :meta_data,
-                 :converted_percent, :contracted_percent, :installed_percent
+                 :converted_percent, :contracted_percent, :installed_percent,
+                 :upline
 
   def create_payments!(calculator)
     relevant_lead_statuses.each do |status|
-      calculator.send("#{status}_leads").each do |lead|
+      calculator.status_leads(status).each do |lead|
         create_lead_payments(calculator, lead, status)
       end
     end
   end
 
+  def sponsor?
+    meta_data['upline'] == 'sponsor'
+  end
+
   private
+
+  def percent_allocated(status)
+    meta_data["#{status}_percent"] && meta_data["#{status}_percent"].to_f
+  end
 
   def relevant_lead_statuses
     [ :converted, :contracted, :installed ].select do |status|
-      percent = send("#{status}_percent")
-      percent && percent.to_f > 0
+      percent_allocated(status) && percent_allocated(status) > 0
     end
   end
 
@@ -33,7 +41,7 @@ class GenerationalBonus < Bonus
   end
 
   def create_lead_payments(calculator, lead, status)
-    upline = calculator.user_upline(lead.user)
+    upline = calculator.user_upline(lead.user, sponsor?)
     bonus_amounts.sort_by(&:level).each do |bonus_level|
       user = find_qualified_user(upline, bonus_level, calculator.pay_period.id)
       break unless user

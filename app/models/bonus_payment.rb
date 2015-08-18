@@ -15,6 +15,9 @@ class BonusPayment < ActiveRecord::Base
       .where("exist(users.profile, 'ewallet_username') = true")
       .where("users.profile->'ewallet_username' != ''")
   }
+  scope :for_pay_period, lambda {
+    joins(:bonus).where('bonuses.schedule <> 3')
+  }
 
   # scope :for_user, ->(id) { where(user_id: id.to_i) }
   # scope :bonus, ->(id) { where(bonus_id: id.to_i) }

@@ -85,17 +85,30 @@ class Lead < ActiveRecord::Base
     end
   end
 
-  def status_totals_at_time(status)
+  def status_count_at_time(status, product_id = nil)
     @status_totals ||= {}
-    @status_totals[status] ||= begin
-      at = send("#{status}_at") ||
-        fail("Invalid request for #{status}_totals " \
-             "for lead with no #{status}_at date")
-      Lead.send(status, to: at).where(user_id: user_id).count + 1
-    end
+    key = product_id ? "status#{product_id}" : status
+    @status_totals[key] ||= query_status_count(status, product_id)
+  end
+
+  def status_date(status)
+    send("#{status}_at")
   end
 
   private
+
+  def query_status_count(status, product_id = nil)
+    at = status_date(status)
+    return 0 unless at
+
+    opts = { to: at }
+    if product_id
+      opts[:from] = user.purchased_at(product_id)
+      return 0 if opts[:from].nil? || opts[:from] >= at
+    end
+    
+    Lead.send(status, opts).where(user_id: user_id).count + 1
+  end
 
   def submitted(provider_uid, at)
     update_columns(provider_uid: provider_uid,

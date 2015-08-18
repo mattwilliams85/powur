@@ -9,7 +9,7 @@ class BonusCalculator
   end
 
   def reset
-    pay_period.bonus_payments.destroy_all
+    pay_period.bonus_payments.pending.for_pay_period.destroy_all
   end
 
   def invoke
@@ -23,19 +23,15 @@ class BonusCalculator
     invoke
   end
 
-  def converted_leads
-    @converted_leads ||= Lead
-      .converted(pay_period_id: pay_period.id).preload(:user)
+  def leads
+    @leads ||= {}
   end
 
-  def contracted_leads
-    @contracted_leads ||= Lead
-      .contracted(pay_period_id: pay_period.id).preload(:user)
-  end
-
-  def installed_leads
-    @installed_leads ||= Lead
-      .installed(pay_period_id: pay_period.id).preload(:user)
+  def status_leads(status)
+    leads[status] ||= begin
+      Lead.send(status, pay_period_id: pay_period.id)
+        .preload(:user, user: :product_receipts)
+    end
   end
 
   def bonuses
@@ -85,9 +81,9 @@ class BonusCalculator
   private
 
   def lead_users
-    [ converted_leads.map(&:user),
-      contracted_leads.map(&:user),
-      installed_leads.map(&:user) ].flatten.uniq
+    [ status_leads(:converted).map(&:user),
+      status_leads(:contracted).map(&:user),
+      status_leads(:installed).map(&:user) ].flatten.uniq
   end
 
   class << self

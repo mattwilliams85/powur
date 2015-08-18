@@ -56,9 +56,10 @@ bonuses:
     name: Team PACT
     schedule: 2
     converted_percent: 1.0
-    amount: 50.00
+    amount: 100.00
     upline: sponsor
     nth_proposal: 3
+    after_purchase: 3
     start_date: 2015-07-01
     bonus_amounts:
       -
@@ -78,9 +79,10 @@ bonuses:
     type: SellerBonus
     name: ImPACT
     schedule: 1
-    start_date: 2015-07-01
     converted_percent: 1.0
     first_n: 3
+    after_purchase: 3
+    start_date: 2015-07-01
     bonus_amounts:
       -
         amounts:
@@ -99,9 +101,11 @@ bonuses:
     type: UplineBonus
     name: Mentor
     schedule: 1
-    start_date: 2015-07-01
+    converted_percent: 1.0
     upline: sponsor
     first_n: 3
+    after_purchase: 3
+    start_date: 2015-07-01
     bonus_amounts:
       -
         amounts:

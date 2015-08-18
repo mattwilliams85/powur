@@ -182,6 +182,13 @@ class User < ActiveRecord::Base
       .where(products: { slug: 'partner' }).count > 0
   end
 
+  def purchased_at(product_id)
+    purchase = product_receipts.entries.detect do |pr|
+      pr.product_id == product_id
+    end
+    purchase && purchase.purchased_at
+  end
+
   def mark_notifications_as_read=(*)
     self.notifications_read_at = Time.zone.now.to_s(:db)
   end
