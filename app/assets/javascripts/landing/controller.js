@@ -41,12 +41,14 @@
           email: $scope.user.email
         }, {
           xsrfHeaderName: 'X-CSRF-Token'
-        }).
-        success(function() {
-          $location.path('/sign-in');
-          $scope.showModal('We received your request. You\'ll get an email if we have an account associated with it.');
-        }).
-        error(function() {
+        }).success(function(data) {
+          if (data.error) {
+            $scope.showModal(data.error.message);
+          } else {
+            $location.path('/sign-in');
+            $scope.showModal('We received your request. You\'ll get an email if we have an account associated with it.');
+          }
+        }).error(function() {
           console.log('Reset Password Error');
         });
       } else {
