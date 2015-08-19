@@ -2,6 +2,10 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
 
+  enum status: [
+    :pending, :queued, :calculating,
+    :calculated, :distributing, :distributed ]
+
   scope :calculated, -> { where('calculated_at is not null') }
   scope :next_to_calculate,
         -> { order(id: :asc).where('calculated_at is null').first }
@@ -10,6 +14,10 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
         ->(start_date, end_date) { where(end_date: start_date..end_date) }
   scope :time_span,
         ->(span) { where(type: "#{span.to_s.capitalize}PayPeriod") }
+  scope :calculable, lambda {
+    statuses = [ :pending, :calculated ].map { |s| PayPeriod.statuses[s] }
+    PayPeriod.where(status: statuses)
+  }
 
   before_create do
     self.id ||= self.class.id_from(start_date)
@@ -25,6 +33,10 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     else
       "#{start_date} - #{end_date}"
     end
+  end
+
+  def started?
+    DateTime.current >= start_date
   end
 
   def finished?
@@ -43,40 +55,15 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     # payments_per_user = BonusPayment.user_bonus_totals(self)
   end
 
-  def calculated?
-    !calculated_at.nil?
-  end
-
-  def calculating?
-    !calculate_started.nil? && !calculated?
-  end
-
   def calculable?
-    !disbursed? && DateTime.current > start_date && !calculating?
-  end
-
-  def queue_calculate
-    touch(:calculate_queued)
-    update_attribute(:calculate_started, nil)
-    delay.calculate!
-  end
-
-  def status
-    case self
-    when disbursed?
-      :disbursed
-    when calculated?
-      :calculated
-    when calculating?
-      :calculating
-    when calculate_queued
-      :queued
-    else
-      :pending
-    end
+    started? && (pending? || calculated?)
   end
 
   def calculate!
+    BonusCalculator.new(self).invoke!
+    update_attributes(
+      status:        PayPeriod.statuses[:calculated],
+      calculated_at: DateTime.current)
   end
 
   def contains_date?(date)
@@ -86,6 +73,8 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   def bonus_total
     @payment_sum ||= bonus_payments.sum(:amount)
   end
+
+  private
 
   class << self
     def current
