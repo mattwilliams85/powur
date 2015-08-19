@@ -186,73 +186,16 @@
       </div>
     </div>
 
-    <!-- Row: Proposal Form -->
+    <!-- Row: Lead Drilldown -->
     <div class="drilldown" ng-class="{'active': drilldownActive == true}">
       <div ng-hide="!showForm" class="fade-in-section" ng-class="{'opaque': showForm == true}">
-        <div class="summary large-3 medium-3 columns">
 
-        <!-- ng-shows for each Summary Text and Buttons for state of the Lead form -->
-        <!--
-          1. New
-          2. Incomplete
-          3. Ready To Submit
-          4. Ineligible Location
-          5. Submitted
-        -->
-
-          <!-- New Lead -->
-          <div ng-show="mode === 'new'">
-            <h1>New Homeowner</h1>
-            <p>Enter customer information to create a new lead.</p>
-            <p>This customer information can be updated before the lead is submitted to SolarCity.</p>
-          </div>
-
-          <!-- Incomplete -->
-          <div ng-show="mode === 'incomplete'">
-            <h1>Incomplete Lead</h1>
-            <p>Enter additional customer information to complete this lead.</p>
-            <p>SolarCity requires the customer's name, phone number, and email address.</p>
-            <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
-            <p>Lead ID: {{currentLead.id}}</p>
-          </div>
-
-          <!-- Ready To Submit-->
-          <div ng-show="mode === 'ready_to_submit'">
-            <h1>Completed Lead</h1>
-            <p>Great! This lead is ready to be submitted to SolarCity.</p>
-            <p>Ensure the customer information is correct before using the Submit button below.</p>
-            <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
-            <button ng-show="hasAction('submit')" class="button solarcity expand" ng-click="leadPipelineSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
-            <p>Lead ID: {{currentLead.id}}</p>
-          </div>
-
-          <!-- Ineligible Location -->
-          <div ng-show="mode === 'ineligible_location'">
-            <h1>Ineligible Lead</h1>
-            <p>This lead looks ineligible based on the customer's location.</p>
-            <p>When SolarCity is available in the customer's location, this lead's status will be updated and you'll be able to continue where you left off.</p>
-            <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
-            <p>Lead ID: {{currentLead.id}}</p>
-          </div>
-
-          <!-- Submitted -->
-          <div ng-show="mode === 'submitted'">
-            <h1>Submitted Lead</h1>
-            <p>This lead has been submitted to SolarCity.</p>
-            <button disabled class="button expand right"><i class="fa fa-check"></i> Submitted</button>
-            <p>This lead was submitted to SolarCity at {{ currentLead.submitted_at | timeToLocalTime }} on {{ currentLead.submitted_at | dateToLocalDate }}.</p>
-            <button ng-show="hasAction('resend')" class="button secondary expand" ng-click="leadPipelineSection.resend()">Resend Email</button>
-            <p>Lead ID: {{currentLead.id}}</p>
-          </div>
-
-        </div>
-
-        <!-- Form if New, Ineligible, or Incomplete Proposal-->
-        <div ng-if="mode === 'new' || mode === 'ineligible_location' || mode === 'incomplete' || mode === 'ready_to_submit'" class="form large-9 medium-9 columns">
+        <!-- Form Drilldown if New, Ineligible, or Incomplete Lead -->
+        <div ng-if="mode === 'new' || mode === 'ineligible_location' || mode === 'incomplete' || mode === 'ready_to_submit'">
           <ng-include src="'dashboard/templates/sections/leadpipeline-form.html'"></ng-include>
         </div>
-        <!-- Summary if Submitted Proposal -->
-        <div ng-if="mode === 'submitted'" class="form large-9 medium-9 columns">
+        <!-- Summary Drilldown if Submitted Lead -->
+        <div ng-if="mode === 'submitted'">
           <ng-include src="'dashboard/templates/sections/leadpipeline-submitted.html'"></ng-include>
         </div>
       </div>

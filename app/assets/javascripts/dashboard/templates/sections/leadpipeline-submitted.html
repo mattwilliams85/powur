@@ -1,92 +1,72 @@
-<form>
-  <div class="row">
-    <div class="large-6 columns">
-      <fieldset>
-        <legend><i class="fa fa-envelope"></i> Customer Information</legend>
+<!-- Left Side: Summary Text -->
+<div class="summary homeowner-info large-3 medium-5 columns">
 
-        <div class="submitted-lead panel">
-          <label>Contact Information</label>
-          <div class="customer-info">
-          <!-- Customer Name -->
-          <p class="name">{{lead.customer}}</p>
-          <!-- Address -->
-          <div ng-if="lead.address && lead.city && lead.state && lead.zip">
-            <p class="address">{{lead.address}}</p>
-            <!-- City/State/ZIP -->
-            <p class="city-state-zip">
-              {{lead.city}}, {{lead.state}} {{lead.zip}}
-            </p>
-          </div>
-          <!-- Email -->
-          <p class="email"><a href="mailto:{{lead.email}}">{{lead.email}}</a></p>
-          <!-- Phone -->
-          <p class="phone">{{lead.phone}}</p>
-          </div>
-        </div>
+  <h1><i class="fa fa-home fa-2x"></i> Household Status</h1>
+  <label>Contact Information</label>
+  <p class="name">{{currentLead.customer}}</p>
+  <p class="email"><a href="mailto:{{currentLead.email}}">{{currentLead.email}}</a></p>
+  <p class="phone">{{currentLead.phone}}</p>
+  <label>Lead ID: {{currentLead.id}}</label>
+</div>
 
-        <!-- Custom Product Fields -->
-        <div ng-if="showProductFields || showNotes">
-          <div class="submitted-lead panel">
-            <label>Other Information</label>
-            <div class="lead-product-field" ng-repeat="(key, value) in lead.product_fields">
-              <p class="label">{{ key | cleanLabel }}</p>
-              <p class="value">{{value}}</p>
-            </div>
-            <div ng-if="showNotes" class="lead-product-field notes">
-              <p class="label">Notes</p>
-              <p class="value">{{lead.notes}}</p>
-            </div>
-          </div>
-        </div>
-
-      </fieldset>
+<div class="submitted large-9 medium-7 columns">
+  <!-- Row: Likelihood / Commission / Last Update -->
+  <div class="lead-stats row">
+    <div class="large-4 columns">
+      <label>Likelihood to Convert</label>
+      <p class="likelihood">10<span class="symbol">%</span></p>
     </div>
-    <!-- Lead Updates -->
-    <div class="large-6 columns">
-      <fieldset>
-        <legend><i class="fa fa-exchange"></i> Updates</legend>
-
-        <!-- If No Updates -->
-        <div ng-if="!leadItem.entities" class="lead-update panel">
-          <p>No Data Available</p>
-        </div>
-
-        <!-- Lead Updates -->
-        <div ng-repeat="lead_update in leadItem.entities" class="lead-update panel">
-          <label>{{ lead_update.properties.updated_at | dateToLocalDate }} at {{ lead_update.properties.updated_at | timeToLocalTime }}</label>
-          <div class="status">
-            <label>Status</label>
-            <p>{{ lead_update.properties.status | cleanLabel }}</p>
-          </div>
-          <!-- Lead Status -->
-          <div ng-if="lead_update.properties.lead_status" class="status">
-            <label>Lead Status</label>
-            <p>{{ lead_update.properties.lead_status | cleanLabel }}</p>
-          </div>
-          <!-- Opportunity Stage -->
-          <div ng-if="lead_update.properties.opportunity_stage" class="status">
-            <label>Opportunity Stage</label>
-            <p>{{ lead_update.properties.opportunity_stage | cleanLabel }}</p>
-          </div>
-          <!-- Consultation Date -->
-          <div ng-if="lead_update.properties.consultation" class="status">
-            <label>Consultation Date</label>
-            <p>{{ lead_update.properties.consultation | dateToLocalDate }}</p>
-          </div>
-          <!-- Contract Signed Date -->
-          <div ng-if="lead_update.properties.contract" class="status">
-            <label>Contract Signed Date</label>
-            <p>{{ lead_update.properties.contract | dateToLocalDate }}</p>
-          </div>
-          <!-- Installation Date -->
-          <div ng-if="lead_update.properties.installation" class="status">
-            <label>Installation Date</label>
-            <p>{{ lead_update.properties.installation | dateToLocalDate }}</p>
-          </div>
-        </div>
-
-
-      </fieldset>
+    <div class="large-4 columns">
+      <label>Commission Potential</label>
+      <p class="commission"><span class="symbol">$</span>250</p>
+    </div>
+    <div class="large-4 columns">
+      <label>Last Update</label>
+      <p class="last-update">{{(leadItem.entities[0].properties.updated_at | dateTimeToLocal) || 'No Updates Available'}}</p>
     </div>
   </div>
-</form>
+  <!-- Progress Bar (Large Screens only) -->
+  <div class="lead-progress row show-for-large-up">
+    <div class="large-12 columns">
+      <div class="progress-container">
+        <div class="progress-cell illuminated">Submission</div>
+        <div
+          class="progress-cell"
+          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 2 }">
+          Qualified
+        </div>
+        <div
+          class="progress-cell"
+          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 3 }">
+          Closed Won
+        </div>
+        <div
+          class="progress-cell"
+          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 4 }">
+          Contract
+        </div>
+        <div
+          class="progress-cell"
+          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) = 5 }">
+          Install
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Current Stage (Small and Medium Screens) -->
+  <div class="row show-for-medium-down">
+    <div class="small-12 columns">
+      <label>Current Stage</label>
+      <p>Stage goes here</p>
+    </div>
+  </div>
+  <!-- SolarCity Status Text -->
+  <div class="row">
+    <div class="large-12 columns">
+      <label>SolarCity Status</label>
+      <p class="status">{{leadItem.entities[0].properties.lead_status || 'No Status Available'}}</p>
+      <p class="status-message">{{leadPipelineSection.actionMessage(leadItem)}}</p>
+    </div>
+  </div>
+</div>
