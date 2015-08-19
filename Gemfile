@@ -45,6 +45,7 @@ gem 'smarteru', github: 'eyecuelab/smarteru'
 gem 'figaro'
 gem 'hashie'
 gem 'twilio-ruby'
+gem 'typescript-rails'
 
 group :development do
   gem 'spring'

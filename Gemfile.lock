@@ -399,6 +399,13 @@ GEM
       builder (>= 2.1.2)
       jwt (~> 1.0)
       multi_json (>= 1.3.0)
+    typescript-node (1.4.1)
+      typescript-src (~> 1.4.1)
+    typescript-rails (0.6.1)
+      railties
+      tilt
+      typescript-node (>= 1.4.1)
+    typescript-src (1.4.1.3)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -484,6 +491,7 @@ DEPENDENCIES
   spring-commands-rspec
   thin
   twilio-ruby
+  typescript-rails
   uglifier
   unicorn
   valid_email
@@ -492,4 +500,4 @@ DEPENDENCIES
   week_of_month
 
 BUNDLED WITH
-   1.10.2
+   1.10.6
