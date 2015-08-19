@@ -64,13 +64,15 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   def status
     case self
     when disbursed?
-      'disbursed'
+      :disbursed
     when calculated?
-      'calculated'
+      :calculated
     when calculating?
-      'calculating'
+      :calculating
     when calculate_queued
-      'queued'
+      :queued
+    else
+      :pending
     end
   end
 
@@ -79,6 +81,10 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
 
   def contains_date?(date)
     date >= start_date && date < (end_date + 1.day)
+  end
+
+  def bonus_total
+    @payment_sum ||= bonus_payments.sum(:amount)
   end
 
   class << self

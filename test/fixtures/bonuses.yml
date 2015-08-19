@@ -1,0 +1,4 @@
+seller:
+  type: SellerBonus
+  name: Seller Bonus
+  schedule: 2
