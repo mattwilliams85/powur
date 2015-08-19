@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails', groups:  [ :development, :test ],
                     require: 'dotenv/rails-now'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.3'
 gem 'pg'
 
 gem 'sass-rails'
