@@ -63,6 +63,7 @@
       var ctx = document.getElementById('metricsChart').getContext('2d');
       var type = $scope.settings[0].type;
 
+
       $scope.settings[1].options.showXLabels = 15;
       if ($scope.scale > 7) $scope.settings[1].options.showXLabels = 8;
 
@@ -72,9 +73,23 @@
       } else {
         $scope.kpiChart = new Chart(ctx)
           .Bar($scope.settings[0], $scope.settings[1].options);
+        greyZeroes();
       }
       $scope.chartReloading = false;
     };
+
+    function greyZeroes() {
+      for (var i = 0; i < $scope.kpiChart.datasets.length; i++) {
+        for (var j = 0; j < $scope.kpiChart.datasets[i].bars.length; j++) {
+          if ($scope.kpiChart.datasets[i].bars[j].value === 0) {
+            $scope.kpiChart.datasets[i].bars[j].fillColor = '#aaa';
+            $scope.kpiChart.datasets[i].bars[j].strokeColor = '#aaa';
+            $scope.kpiChart.datasets[i].bars[j].highlightFill = '#aaa';
+          }
+        }
+      }
+      $scope.kpiChart.update();
+    }
 
     $scope.setScale = function() {
       //Find largest data point
