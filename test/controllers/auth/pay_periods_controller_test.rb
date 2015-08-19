@@ -2,11 +2,10 @@ require 'test_helper'
 
 class Auth::PayPeriodsControllerTest < ActionController::TestCase
   def test_index
-    # get :index
+    get :index
 
-    # siren.must_be_class(:pay_periods)
+    siren.must_be_class(:pay_periods)
   end
-
 
   class AdminTest < ActionController::TestCase
     def test_index
@@ -27,6 +26,7 @@ class Auth::PayPeriodsControllerTest < ActionController::TestCase
       get :show, id: pay_periods(:april).id
 
       siren.must_be_class(:pay_period)
+      siren.properties.bonus_total.to_f.must_be :>, 0.0
     end
   end
 end

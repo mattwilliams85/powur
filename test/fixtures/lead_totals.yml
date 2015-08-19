@@ -1,5 +1,5 @@
 june:
-  pay_period_id: '2015-06'
+  pay_period_id: '2015-04'
   user_id: <%= ActiveRecord::FixtureSet.identify(:advocate) %>
   status: 0
   personal: 5

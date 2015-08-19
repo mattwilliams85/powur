@@ -101,7 +101,10 @@ Rails.application.routes.draw do
     end
 
     resources :pay_periods, only: [ :index, :show ] do
-      resources :users, only: [ :index, :show ], controller: :pay_period_users
+      resources :users, only:       [ :index, :show ],
+                        controller: :pay_period_users do
+        resources :bonus_payments, only: [ :index ]
+      end
     end
 
     resources :users, only: [ :index, :show ] do
