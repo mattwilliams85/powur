@@ -15,7 +15,7 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 	// routes
 	$stateProvider.state('home', {
 		url: '/',
-		templateUrl: '/public/partials/home.html',
+		templateUrl: '/partials/home.html',
 		controller: 'HomeController as home',
 		//views: {} // named views
 	})
