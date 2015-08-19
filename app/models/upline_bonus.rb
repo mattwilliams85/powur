@@ -1,56 +1,96 @@
 class UplineBonus < Bonus
-  store_accessor :meta_data, :upline, :first_n
+  store_accessor :meta_data,
+                 :converted_percent, :contracted_percent,
+                 :installed_percent, :first_n, :nth_proposal,
+                 :after_purchase, :upline
 
   def create_payments!(calculator)
-    pay_period_id = calculator.pay_period.id
-
-    calculator.converted_leads.each do |lead|
-      next if lead.converted_count_at_time > first_n
-      create_lead_payment(lead, pay_period_id)
+    relevant_lead_statuses.each do |status|
+      leads_for_status(calculator, status).each do |lead|
+        create_lead_payments(calculator, lead, status)
+      end
     end
-  end
-
-  def sponsor?
-    meta_data['upline'] == 'sponsor'
   end
 
   def payment_amounts
     bonus_amounts.entries.first.amounts
   end
 
-  def calculate_amount(pay_as_rank)
-    payment_amounts[pay_as_rank]
-  end
-
   def first_n
-    meta_data['first_n'].to_i
+    meta_data['first_n'] && meta_data['first_n'].to_i
   end
 
-  def organic_rank
-    meta_data['organic_rank'].to_i
+  def nth_proposal
+    meta_data['nth_proposal'] && meta_data['nth_proposal'].to_i
+  end
+
+  def after_purchase
+    meta_data['after_purchase'] && meta_data['after_purchase'].to_i
+  end
+
+  def available_amount
+    BigDecimal.new(meta_data['available_amount'])
+  end
+
+  def sponsor?
+    meta_data['upline'] == 'sponsor'
   end
 
   private
 
-  def find_upline_user(lead)
-    sponsor? ? lead.user.sponsor : lead.user.parent
+  def percent_allocated(status)
+    meta_data["#{status}_percent"] && meta_data["#{status}_percent"].to_f
   end
 
-  def create_lead_payment(lead, pay_period_id)
-    user = find_upline_user(lead)
-    return unless user
+  def relevant_lead_statuses
+    [ :converted, :contracted, :installed ].select do |status|
+      percent_allocated(status) && percent_allocated(status) > 0
+    end
+  end
 
-    pay_as_rank = user.pay_period_rank(pay_period_id)
-    amount = calculate_amount(pay_as_rank)
+  def apply_lead_filters(leads, status)
+    return leads unless first_n || nth_proposal
+    leads.select do |lead|
+      count = lead.status_count_at_time(status, after_purchase)
+      first_n ? (!count.zero? && count <= first_n) : (count == nth_proposal)
+    end
+  end
 
-    return unless amount > 0
+  def leads_for_status(calculator, status)
+    leads = calculator.status_leads(status)
+    if after_purchase
+      leads = leads.select do |l|
+        purchased_at = l.user.purchased_at(after_purchase)
+        purchased_at && purchased_at <= l.status_date(status)
+      end
+    end
 
-    payment = bonus_payments.create!(
-      pay_period_id: pay_period_id,
-      user_id:       user.id,
-      pay_as_rank:   pay_as_rank,
-      amount:        amount)
+    apply_lead_filters(leads, status)
+  end
 
-    payment.bonus_payment_leads.create!(lead_id: lead.id, status: :converted)
+  def create_lead_payments(calculator, lead, status)
+    upline = calculator.user_upline(lead.user, sponsor?)
+    return if upline.empty?
+
+    while (user = upline.shift)
+      pay_as_rank = user.pay_period_rank(calculator.pay_period.id)
+      amount = payment_amounts[pay_as_rank] * percent_allocated(status)
+
+      next unless amount > 0
+
+      attrs = {
+        pay_period_id: calculator.pay_period.id,
+        user_id:       user.id,
+        pay_as_rank:   pay_as_rank,
+        amount:        amount }
+      if first_n || nth_proposal
+        attrs[:bonus_data] = {
+          lead_number: lead.status_count_at_time(status, after_purchase) }
+      end
+      payment = bonus_payments.create!(attrs)
+
+      payment.bonus_payment_leads.create!(lead_id: lead.id, status: :converted)
+      break
+    end
   end
 end

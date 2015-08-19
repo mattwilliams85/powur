@@ -146,8 +146,10 @@ class User < ActiveRecord::Base
   end
 
   def override_rank(pay_period_id)
-    result = overrides.pay_as_rank.pay_period(pay_period_id).first
-    result && result.rank.to_i
+    override = overrides.entries.detect do |o|
+      o.pay_as_rank? && o.pay_period?(pay_period_id)
+    end
+    override && override.rank.to_i
   end
 
   def pay_period_rank(pp_id)
@@ -182,6 +184,13 @@ class User < ActiveRecord::Base
       .where(products: { slug: 'partner' }).count > 0
   end
 
+  def purchased_at(product_id)
+    purchase = product_receipts.entries.detect do |pr|
+      pr.product_id == product_id
+    end
+    purchase && purchase.purchased_at
+  end
+
   def mark_notifications_as_read=(*)
     self.notifications_read_at = Time.zone.now.to_s(:db)
   end
@@ -204,21 +213,8 @@ class User < ActiveRecord::Base
     update_attribute(:valid_phone, twilio_valid_phone(phone))
   end
 
-  def sponsor_upline
-    @sponsor_upline ||= begin
-      users, user = [], self
-      users.push(user) while (user = user.sponsor)
-      users
-    end
-  end
-
-  def placement_upline
-    @placement_upline ||= begin
-      users = upline_users.entries
-      (upline - [ id ]).reverse.map do |user_id|
-        users.detect { |u| u.id == user_id }
-      end
-    end
+  def breakage_account
+    role?(:breakage_account)
   end
 
   private

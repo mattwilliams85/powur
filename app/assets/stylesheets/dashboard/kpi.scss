@@ -10,19 +10,42 @@
       border: 1px solid rgba(0, 0, 0, 0.3);
       width: 170px;
       margin-bottom: 0px;
-      position: absolute;
-      right: 20px;
+      // position: absolute;
+      // right: 20px;
       z-index: 5;
       color: rgba(255, 255, 255, 0.75);
-      margin-top: 10px;
+      // margin-top: 10px;
+    }
+
+    .options-row {
+      margin-bottom: 15px;
+      margin-top: -5px;
+      .small-12 {
+        padding-right: 0;
+      }
+      .sort {
+        margin-left: 7px;
+      }
+    }
+
+    .spinner-box {
+      position: absolute;
+      right: 0;
+      width: 75%;
+      height: 86%;
+      background: #444;
+      z-index: 1;
+      top: 14%;
     }
 
     .sk-spinner-three-bounce.sk-spinner {
       position: absolute;
-      right: -100px;
+      right: 0;
+      margin: 0;
       top: 200px;
       z-index: 1;
       width: 300px;
+      margin: 0 auto;
       background-color: transparent;
 
       div {
@@ -34,11 +57,12 @@
 
     .badge {
       z-index: 99;
-      width: 130px;
-      margin: -15px auto 10px auto;
-      @media #{$large} {
-        margin: -35px auto 10px auto;
-      }
+      width: 120px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      top: 20px;
     }
 
 
@@ -127,10 +151,14 @@
             color: #181818;
             font-size: 6pt;
             position: absolute;
-            right: 69px;
-            top: 81px;
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+            top: 73px;
             z-index: 999;
             transform: rotate(-11deg);
+            -ms-transform: rotate(-11deg); /* IE 9 */
+            -webkit-transform: rotate(-11deg); /* Safari */
             width: 93px;
             text-align: center;
             font-weight: 700;
@@ -197,6 +225,10 @@
           cursor: pointer;
           color: $pow-color-blue;
         }
+        &.small {
+          font-size: 10pt;
+          line-height: 11pt;
+        }
       }
 
       /*
@@ -215,6 +247,10 @@
       .conversion-section {
         height:100%;
 
+        .user-title {
+          display: inline-block;
+          text-transform: capitalize;
+        }
         canvas{
           width: 100% !important;
           min-height:378px;

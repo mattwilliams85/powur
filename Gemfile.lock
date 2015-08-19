@@ -226,7 +226,7 @@ GEM
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
-    hashie (3.4.1)
+    hashie (3.4.2)
     hike (1.2.3)
     http-cookie (1.0.2)
       domain_name (~> 0.5)

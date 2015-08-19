@@ -10,6 +10,7 @@
       { value: 89, label: 'Last 3 Months' }, 
       { value: 179, label: 'Last 6 Months' }
     ];  
+    $scope.userGroup = 'grid'
 
     $scope.scale = 29;
     $scope.current = new Date();
@@ -29,6 +30,7 @@
       $scope.scale = 29;
       $scope.active = false;
       $scope.section = section;
+      $scope.userGroup = 'grid';
       //Refer to chart.config.js for settings/options
       $scope.settings = chartConfig()[$scope.section].settings;
 
@@ -71,6 +73,7 @@
         $scope.kpiChart = new Chart(ctx)
           .Bar($scope.settings[0], $scope.settings[1].options);
       }
+      $scope.chartReloading = false;
     };
 
     $scope.setScale = function() {
@@ -107,29 +110,43 @@
       $scope.settings[0].labels = _labels;
     };
 
+    $scope.changeUser = function(user) {
+      if ($scope.activeUser === user) return;
+      $scope.activeUser = user;
+      resetChart();
+    };
+
     $scope.changeScale = function(scale) {
       $scope.scale = scale;
       $scope.settings = chartConfig(scale)[$scope.section].settings;
 
-      CommonService.execute({href: '/u/kpi_metrics/' + $scope.activeUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
-        $scope.activeUser = data.properties;
-        $scope.buildChart();
-      });
-
+      resetChart();
     };
 
-    $scope.changeUser = function(user) {
-      if ($scope.activeUser === user) return;
+    $scope.changeGroup = function(group) {
+      $scope.userGroup = group;
+      resetChart();
+    };
 
-      CommonService.execute({href: '/u/kpi_metrics/' + user.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
-        $scope.activeUser = data.properties;
-        $scope.buildChart();
-      });
+    function resetChart() {
+      $scope.chartReloading = true;
+      if ($scope.userGroup === 'personal') {
+        CommonService.execute({href: '/u/kpi_metrics/' + $scope.activeUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
+          $scope.activeUser = data.properties;
+          $scope.buildChart();
+        });
+      } else {
+        CommonService.execute({href: '/u/kpi_metrics/' + $scope.activeUser.id + '/' + $scope.section + '_show_team.json?scale=' + $scope.scale}).then(function(data){
+          $scope.activeUser = data.properties;
+          $scope.buildChart();
+        });
+      }
+
     };
 
     $scope.populateContributors = function() {
       //Defaults to Current User
-      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show.json?scale=' + $scope.scale}).then(function(data){
+      CommonService.execute({href: '/u/kpi_metrics/' + $scope.currentUser.id + '/' + $scope.section + '_show_team.json?scale=' + $scope.scale}).then(function(data){
         
         $scope.activeUser = data.properties;
         $scope.user = $scope.activeUser;
@@ -252,6 +269,7 @@
           sort: $scope.sortType,
           item_totals: $scope.sortType,
           page: $scope.page,
+          user_totals: true,
           limit: 8
         }
       }).then(function(data){

@@ -46,5 +46,7 @@ module Sunstand
 
     # Disable log lines for rendering views
     config.action_view.logger = nil
+
+    config.active_job.queue_adapter = :delayed_job
   end
 end

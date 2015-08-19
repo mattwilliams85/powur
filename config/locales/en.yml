@@ -42,6 +42,7 @@ en:
     smarteru_user: Your account is inaccessible via the SmarterU API
     smarteru_incomplete_enrollment: Your class enrollment is not complete
     notification_locked: This notification is locked. Please create another one
+    forgot_password_email_not_found: Email not found
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

@@ -25,7 +25,7 @@ bonuses:
     type: OneTimeBonus
     name: First Time Bonus
     schedule: 3
-    amount: 50.00
+    available_amount: 50.00
     end_date: 2015-08-12
     criteria: has_converted_lead
   -
@@ -33,50 +33,58 @@ bonuses:
     type: DifferentialBonus
     name: PACT
     schedule: 2
-    amount: 50.00
+    contracted_percent: 0.5
+    installed_percent: 0.5
+    available_amount: 50.00
     upline: sponsor
+    include_user: true
     bonus_amounts:
       -
         amounts:
           - 0.0
           - 0.0
-          - 0.0
-          - 0.0
-          - 30.0
-          - 50.0
-          - 60.0
-          - 70.0
-          - 80.0
-          - 90.0
+          - 0.3
+          - 0.5
+          - 0.7
+          - 0.9
+          - 1.0
+          - 1.0
+          - 1.0
+          - 1.0
   - 
     id: 4
     type: DifferentialBonus
     name: Team PACT
     schedule: 2
-    amount: 50.00
+    converted_percent: 1.0
+    available_amount: 100.00
     upline: sponsor
-    start_date: 2015-07-01
+    include_user: true
     nth_proposal: 3
+    after_purchase: 3
+    start_date: 2015-07-01
     bonus_amounts:
       -
         amounts:
           - 0.0
           - 0.0
-          - 0.0
-          - 0.0
-          - 30.0
-          - 50.0
-          - 60.0
-          - 70.0
-          - 80.0
-          - 90.0
+          - 0.3
+          - 0.5
+          - 0.7
+          - 0.9
+          - 1.0
+          - 1.0
+          - 1.0
+          - 1.0
   -
     id: 5
     type: SellerBonus
     name: ImPACT
     schedule: 1
-    start_date: 2015-07-01
     converted_percent: 1.0
+    first_n: 3
+    after_purchase: 3
+    start_date: 2015-07-01
     bonus_amounts:
       -
         amounts:
@@ -95,9 +103,11 @@ bonuses:
     type: UplineBonus
     name: Mentor
     schedule: 1
-    start_date: 2015-07-01
+    converted_percent: 1.0
     upline: sponsor
     first_n: 3
+    after_purchase: 3
+    start_date: 2015-07-01
     bonus_amounts:
       -
         amounts:
@@ -111,27 +121,6 @@ bonuses:
           - 25.0
           - 25.0
           - 25.0
-  -
-    id: 7
-    type: GenerationalBonus
-    name: Direct Level
-    schedule: 2
-    contracted_percent: 0.5
-    installed_percent: 0.5
-    bonus_amounts:
-      -
-        level: 1
-        amounts:
-          - 0.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
-          - 40.0
   -
     id: 8
     type: GenerationalBonus
@@ -144,21 +133,21 @@ bonuses:
         level: 1
         amounts:
           - 0.0
-          - 0.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
-          - 20.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
+          - 40.0
       -
         level: 2
         amounts:
           - 0.0
           - 0.0
-          - 0.0
+          - 20.0
           - 20.0
           - 20.0
           - 20.0
@@ -172,7 +161,7 @@ bonuses:
           - 0.0
           - 0.0
           - 0.0
-          - 0.0
+          - 20.0
           - 20.0
           - 20.0
           - 20.0
@@ -186,6 +175,19 @@ bonuses:
           - 0.0
           - 0.0
           - 0.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+          - 20.0
+      -
+        level: 5
+        amounts:
+          - 0.0
+          - 0.0
+          - 0.0
+          - 0.0
           - 10.0
           - 10.0
           - 10.0
@@ -193,7 +195,7 @@ bonuses:
           - 10.0
           - 10.0
       -
-        level: 5
+        level: 6
         amounts:
           - 0.0
           - 0.0

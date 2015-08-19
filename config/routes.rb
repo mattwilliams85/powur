@@ -55,9 +55,10 @@ Rails.application.routes.draw do
     resource :kpi_metrics, only: [ :show ] do
       get '/:id/proposals_index', to: 'kpi_metrics#proposals_index'
       get '/:id/proposals_show', to: 'kpi_metrics#proposals_show'
+      get '/:id/proposals_show_team', to: 'kpi_metrics#proposals_show_team'
 
       get '/:id/genealogy_index', to: 'kpi_metrics#genealogy_index'
-      get '/:id/genealogy_show', to: 'kpi_metrics#genealogy_show'
+      get '/:id/genealogy_show_team', to: 'kpi_metrics#genealogy_show_team'
     end
 
     resources :leads, only: [ :index, :create, :destroy, :update, :show ] do
@@ -189,6 +190,8 @@ Rails.application.routes.draw do
               only: [ :index, :create, :destroy, :update, :show ] do
       resources :bonuses, only: [ :index, :create ], as: :bonuses
     end
+
+    resources :invites, only: [ :index ], as: :admin_invites
 
     # Latest News
     resources :news_posts,

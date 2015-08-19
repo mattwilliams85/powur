@@ -39,6 +39,7 @@ namespace :powur do
           rank:       row[1].to_i,
           start_date: Date.strptime(row[2], '%m/%d/%Y'),
           end_date:   Date.strptime(row[3], '%m/%d/%Y') }
+        next unless User.where(id: attrs[:user_id]).exists?
         UserOverride.send(attrs[:kind])
           .where(user_id: attrs[:user_id]).delete_all
         puts "Creating rank override for user #{attrs[:user_id]}"

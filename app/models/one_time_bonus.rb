@@ -1,8 +1,8 @@
 class OneTimeBonus < Bonus
-  store_accessor :meta_data, :amount, :end_date, :criteria
+  store_accessor :meta_data, :available_amount, :end_date, :criteria
 
-  def amount
-    BigDecimal.new(meta_data['amount'])
+  def available_amount
+    BigDecimal.new(meta_data['available_amount'])
   end
 
   def end_date

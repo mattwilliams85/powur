@@ -25,9 +25,9 @@ namespace :powur do
       next if user.email.match(/eyecue/)
 
       user.update_attributes(
-        email: "development+#{user.id}@eyecuelab.com",
-        phone: '+15005550006',
-        password: new_password,
+        email:                 "development+#{user.id}@eyecuelab.com",
+        phone:                 nil,
+        password:              new_password,
         password_confirmation: new_password)
     end
 

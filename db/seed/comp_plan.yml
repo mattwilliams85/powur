@@ -43,6 +43,7 @@ groups:
         product_id: 1
         quantity: 9
         time_span: :monthly
+        max_leg: 50
   - id: rank_3_users
     title: L2 Partners
     description: Level 2 Partners
@@ -56,6 +57,7 @@ groups:
         product_id: 1
         quantity: 25
         time_span: :monthly
+        max_leg: 50
   - id: rank_4_users
     title: L3 Partners
     description: Level 3 Partners
@@ -69,6 +71,7 @@ groups:
         product_id: 1
         quantity: 75
         time_span: :monthly
+        max_leg: 50
   - id: rank_5_users
     title: Game Changers
     description: Game Changing users

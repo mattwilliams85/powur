@@ -17,7 +17,7 @@
         <span class="kpi-header uppercase hide-for-large-up">Rank</span>
         <!-- Medium/Large Screens: Total Earnings -->
         <img class="badge show-for-medium-up" ng-src="{{badgePath(goals.properties.next_rank - 1)}}">
-        <!-- <span class="badge-title show-for-medium-up">{{rank_list[currentUser.lifetime_rank].title}}</span> -->
+        <span class="badge-title show-for-medium-up">{{rank_list[currentUser.lifetime_rank].title}}</span>
         <span class="kpi-header uppercase show-for-large-up">current rank</span>
       </div>
     </div>
@@ -75,10 +75,12 @@
 <!-- Row: KPI Drilldowns -->
 <div class="kpi-drilldown drilldown" ng-class="{'active': section}">
   <!-- loading animation -->
-  <div ng-hide="active" class="sk-spinner sk-spinner-three-bounce">
-    <div class="sk-bounce1"></div>
-    <div class="sk-bounce2"></div>
-    <div class="sk-bounce3"></div>
+  <div ng-class="{ 'spinner-box': chartReloading }">
+    <div ng-hide="active && !chartReloading"  class="sk-spinner sk-spinner-three-bounce">
+      <div class="sk-bounce1"></div>
+      <div class="sk-bounce2"></div>
+      <div class="sk-bounce3"></div>
+    </div>
   </div>
   <ng-include ng-if="section === 'environment'" src="'dashboard/templates/sections/kpi/metrics/environment.html'"></ng-include>
 <!--   <ng-include ng-if="section === 'environment' && !tabData.length" src="'dashboard/templates/sections/kpi/metrics/environment-beta.html'"></ng-include> -->

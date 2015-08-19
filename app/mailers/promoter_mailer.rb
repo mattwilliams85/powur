@@ -1,6 +1,6 @@
 class PromoterMailer < ActionMailer::Base
   def invitation(invite)
-    to = "#{invite.full_name} <#{invite.email}>"
+    to = invite.name_and_email
     # url = root_url(code: invite.id)
     url = root_url + "sign-up/" + invite.id
     merge_vars = { code: invite.id, invite_url: url, sponsor: User.find(invite.sponsor_id).full_name }
@@ -9,7 +9,7 @@ class PromoterMailer < ActionMailer::Base
   end
 
   def reset_password(user)
-    to = "#{user.full_name} <#{user.email}>"
+    to = user.name_and_email
 
     url = root_url + "reset-password/#{user.reset_token}"
 
@@ -19,7 +19,7 @@ class PromoterMailer < ActionMailer::Base
   end
 
   def new_quote(quote)
-    to = "#{quote.customer.full_name} <#{quote.customer.email}>"
+    to = quote.customer.name_and_email
     merge_vars = {
       promoter_name: quote.user.full_name,
       solar_guide_url: "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-home-solar-guide.pdf" }
@@ -31,7 +31,7 @@ class PromoterMailer < ActionMailer::Base
     # notifies an upline user that they have a new downline team member
     # used when a new user redeems his/her invite (on invites_controller)
     sponsor = user.sponsor
-    to = "#{sponsor.full_name} <#{sponsor.email}>"
+    to = sponsor.name_and_email
     merge_vars = { new_team_member: user.full_name }
 
     mail_chimp to, 'new-team-member', merge_vars
@@ -40,7 +40,7 @@ class PromoterMailer < ActionMailer::Base
   def welcome_new_user(user)
     # 'welcome' email when a new user redeems his/her invite
     # used when a new user redeems his/her invite (on invites_controller)
-    to = "#{user.full_name} <#{user.email}>"
+    to = user.name_and_email
     merge_vars = {
       powur_path_url: "https://s3.amazonaws.com/#{ENV["AWS_BUCKET"]}/emails/powur-path.pdf",
       sponsor:        user.sponsor.full_name,
@@ -52,7 +52,7 @@ class PromoterMailer < ActionMailer::Base
 
   def certification_purchase_processed(user)
     # notifies an advocate when their certification purchase has been processed
-    to = "#{user.full_name} <#{user.email}>"
+    to = user.name_and_email
     merge_vars = {}
 
     mail_chimp to, 'certification-purchase-processed', merge_vars
@@ -62,7 +62,7 @@ class PromoterMailer < ActionMailer::Base
     # notifies team leader when downline purchases certification
     team_leader = User.find(user.upline[-2])
 
-    to = "#{team_leader.full_name} <#{team_leader.email}>"
+    to = team_leader.name_and_email
     merge_vars = { team_leader: team_leader.full_name, downline_name: user.full_name }
 
     mail_chimp to, 'team-leader-downline-certification-purchase', merge_vars

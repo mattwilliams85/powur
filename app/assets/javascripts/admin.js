@@ -34,6 +34,7 @@
 //= require_tree ./admin/invites
 //= require_tree ./admin/landing
 //= require_tree ./admin/latest-news
+//= require_tree ./admin/leads
 //= require_tree ./admin/notifications
 //= require_tree ./admin/orders
 //= require_tree ./admin/pay-periods

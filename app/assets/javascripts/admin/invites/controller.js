@@ -1,18 +1,17 @@
 ;(function() {
   'use strict';
 
-  function AdminInvitesCtrl($scope, $rootScope, $anchorScroll, CommonService) {
+  angular.module('powurApp')
+    .controller('AdminInvitesCtrl', controller)
+    .config(routes);
+
+  controller.$inject = ['$scope', '$rootScope', '$location', '$anchorScroll', '$http'];
+  function controller($scope, $rootScope, $location, $anchorScroll, $http) {
     $scope.redirectUnlessSignedIn();
 
-    $scope.templateData = {
-      index: {
-        title: 'Invites',
-        tablePath: 'admin/invites/templates/table.html'
-      }
-    };
-
     // TODO: Have one 'pagination' function instead of defining it in every controller
-    $scope.pagination = function(direction) {
+    $scope.pagination = function(direction, path) {
+      if (typeof direction === 'undefined') direction = 0;
       var page = 1,
           sort;
       if ($scope.index.data) {
@@ -20,14 +19,16 @@
         sort = $scope.index.data.properties.sorting.current_sort;
       }
       page += direction;
-      return CommonService.execute({
-        href: '/a/users/invites?with_purchases=true',
+
+      return $http({
+        method: 'GET',
+        url: path || $scope.listPath,
         params: {
           page: page,
           sort: sort,
           search: $scope.searchInvites
         }
-      }).then(function(data) {
+      }).success(function(data) {
         $scope.index.data = data;
         $anchorScroll();
       });
@@ -35,15 +36,17 @@
 
     $scope.search = function() {
       $scope.index = {};
-      $scope.pagination(0);
+      $scope.pagination();
     };
 
     $scope.updateAvailableInvites = function(item) {
-      var data = {invites: item.properties.available_invites};
-      CommonService.execute({
-        href: '/a/users/' + item.properties.id + '/invites.json',
+      $http({
         method: 'PATCH',
-      }, data).then(function(data) {
+        url: '/a/users/' + item.properties.id + '/invites.json',
+        data: {
+          invites: item.properties.available_invites
+        }
+      }).success(function(data) {
         if (data.error) {
           $scope.showModal('There was an error updating this user\'s available invites.');
         }
@@ -51,32 +54,38 @@
       });
     };
 
-    this.init($scope);
+    this.init($scope, $location);
     this.fetch($scope, $rootScope);
   }
 
-  AdminInvitesCtrl.prototype.init = function($scope) {
-    $scope.mode = 'index';
+  controller.prototype.init = function($scope, $location) {
+    $scope.mode = 'pending';
+    if (/\/available/.test($location.path())) return $scope.mode = 'available';
   };
 
-  AdminInvitesCtrl.prototype.fetch = function($scope, $rootScope) {
-    if ($scope.mode === 'index') {
-      $rootScope.breadcrumbs.push({title: 'Invites'});
+  controller.prototype.fetch = function($scope, $rootScope) {
+    if ($scope.mode === 'pending') {
+      $rootScope.breadcrumbs.push({title: 'Pending Invites'});
       $scope.index = {};
-      $scope.pagination(0);
+      $scope.pagination(0, $scope.listPath = '/a/invites?pending=true');
+    } else if ($scope.mode === 'available') {
+      $rootScope.breadcrumbs.push({title: 'Available Invites'});
+      $scope.index = {};
+      $scope.pagination(0, $scope.listPath = '/a/users/invites?with_purchases=true');
     }
   };
 
-  // Utility Functions
-  function getAction(actions, name) {
-    for (var i in actions) {
-      if (actions[i].name === name) {
-        return actions[i];
-      }
-    }
-    return;
+  routes.$inject = ['$routeProvider'];
+  function routes($routeProvider) {
+    $routeProvider.
+    when('/admin/invites/pending', {
+      templateUrl: 'admin/invites/templates/pending.html',
+      controller: 'AdminInvitesCtrl'
+    }).
+    when('/admin/invites/available', {
+      templateUrl: 'admin/invites/templates/available.html',
+      controller: 'AdminInvitesCtrl'
+    });
   }
 
-  AdminInvitesCtrl.$inject = ['$scope', '$rootScope', '$anchorScroll', 'CommonService'];
-  angular.module('powurApp').controller('AdminInvitesCtrl', AdminInvitesCtrl);
 })();

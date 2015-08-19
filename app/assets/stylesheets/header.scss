@@ -40,13 +40,13 @@
     background-repeat: no-repeat;
     background-position: 0 10px;
     display: block;
-    margin: -45px 0 0 30%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top: -10px;
     line-height: 50px;
     text-align: left;
     width: 120px;
-    @media #{$small} {
-      margin: -45px 0 0 44%;
-    }
   }
 
   .sign-in {

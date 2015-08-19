@@ -20,7 +20,18 @@ module Auth
       render 'auth/kpi_metrics/proposals/show'
     end
 
-    def genealogy_show
+    def proposals_show_team
+      @user = User.find(params[:id])
+      scale = params[:scale].to_i + 1
+      @leads = Lead.team_leads(user_id: @user.id, query: Lead.submitted(from: scale.days.ago))
+      @proposals = Lead.team_leads(user_id: @user.id, query: Lead.converted(from: scale.days.ago))
+      @contracts = Lead.team_leads(user_id: @user.id, query: Lead.contracted(from: scale.days.ago))
+      @installs = Lead.team_leads(user_id: @user.id, query: Lead.installed(from: scale.days.ago))
+
+      render 'auth/kpi_metrics/proposals/show'
+    end
+
+    def genealogy_show_team
       @user = User.find(params[:id])
       scale = params[:scale].to_i + 1
       @downline = User.with_ancestor(@user.id)

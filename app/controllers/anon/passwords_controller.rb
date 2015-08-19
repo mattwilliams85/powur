@@ -12,9 +12,12 @@ module Anon
                User.where('lower(email) = ?', params[:email].downcase).first
              end
 
-      user.send_reset_password if user
-
-      head 200
+      if user
+        user.send_reset_password
+        render json: {}
+      else
+        error!(:forgot_password_email_not_found)
+      end
     end
 
     def update

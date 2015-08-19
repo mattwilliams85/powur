@@ -19,6 +19,9 @@ class Lead < ActiveRecord::Base
   scope :sales_status, -> (status) { send(status) }
   USER_COUNT_SQL = 'user_id, COUNT(leads.id) lead_count'
   scope :user_count, -> { select(USER_COUNT_SQL).group(:user_id) }
+  scope :team_leads, lambda { |user_id:, query: Lead.unscoped|
+    query.joins(:user).merge(User.all_team(user_id))
+  }
   scope :team_count, lambda { |user_id:, query: Lead.unscoped|
     query.joins(:user).merge(User.all_team(user_id)).count
   }
@@ -85,7 +88,30 @@ class Lead < ActiveRecord::Base
     end
   end
 
+  def status_count_at_time(status, product_id = nil)
+    @status_totals ||= {}
+    key = product_id ? "status#{product_id}" : status
+    @status_totals[key] ||= query_status_count(status, product_id)
+  end
+
+  def status_date(status)
+    send("#{status}_at")
+  end
+
   private
+
+  def query_status_count(status, product_id = nil)
+    at = status_date(status)
+    return 0 unless at
+
+    opts = { to: at }
+    if product_id
+      opts[:from] = user.purchased_at(product_id)
+      return 0 if opts[:from].nil? || opts[:from] >= at
+    end
+    
+    Lead.send(status, opts).where(user_id: user_id).count + 1
+  end
 
   def submitted(provider_uid, at)
     update_columns(provider_uid: provider_uid,

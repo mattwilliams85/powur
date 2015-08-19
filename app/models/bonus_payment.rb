@@ -1,5 +1,5 @@
 class BonusPayment < ActiveRecord::Base
-  enum status: { pending: 1, paid: 2, cancelled: 3 }
+  enum status: { pending: 1, paid: 2, cancelled: 3, breakage: 4 }
 
   belongs_to :pay_period
   belongs_to :bonus
@@ -14,6 +14,9 @@ class BonusPayment < ActiveRecord::Base
     joins(:user).includes(:user)
       .where("exist(users.profile, 'ewallet_username') = true")
       .where("users.profile->'ewallet_username' != ''")
+  }
+  scope :for_pay_period, lambda {
+    joins(:bonus).where('bonuses.schedule <> 3')
   }
 
   # scope :for_user, ->(id) { where(user_id: id.to_i) }

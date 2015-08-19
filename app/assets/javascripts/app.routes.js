@@ -68,48 +68,6 @@
       controller: 'LeaderboardCtrl'
     }).
 
-    // Promo
-    when('/create-wealth/:inviteCode', {
-      templateUrl: 'sign-up/templates/index.html',
-      controller: 'SignUpCtrl'
-    }).
-    when('/create-wealth', {
-      templateUrl: 'promo/templates/create-wealth.html',
-      controller: 'PromoCtrl'
-    }).
-    when('/create-energy', {
-      templateUrl: 'promo/templates/create-energy.html',
-      controller: 'PromoCtrl'
-    }).
-    when('/why-solar', {
-      templateUrl: 'promo/templates/why-solar.html',
-      controller: 'PromoCtrl'
-    }).
-    when('/why-you', {
-      templateUrl: 'promo/templates/why-you.html',
-      controller: 'PromoCtrl'
-    }).
-    when('/why-direct-marketing', {
-      templateUrl: 'promo/templates/why-direct-marketing.html',
-      controller: 'PromoCtrl'
-    }).
-    when('/why-powur', {
-      templateUrl: 'promo/templates/why-powur.html',
-      controller: 'PromoCtrl'
-    }).
-    when('/our-origin', {
-      templateUrl: 'promo/templates/our-origin.html',
-      controller: 'PromoCtrl'
-    }).
-    when('/our-team', {
-      templateUrl: 'promo/templates/our-team.html',
-      controller: 'PromoCtrl'
-    }).
-    when('/our-dna', {
-      templateUrl: 'promo/templates/our-dna.html',
-      controller: 'PromoCtrl'
-    }).
-
     // University
     when('/university', {
       templateUrl: 'university/templates/index.html',
