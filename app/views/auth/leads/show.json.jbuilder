@@ -50,7 +50,9 @@ else
   end
 
   list = [ resend, update, action(:delete, :delete, path) ]
-  list << action(:submit, :post, submit_lead_path(@lead)) if @lead.ready_to_submit?
+  if @lead.ready_to_submit?
+    list << action(:submit, :post, submit_lead_path(@lead))
+  end
 
   actions(*list)
 end

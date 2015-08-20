@@ -10,7 +10,7 @@
   <tbody>
     <tr ng-repeat="item in index.data.entities">
       <td>{{ item.properties.id }}</td>
-      <td><a>{{ item.properties.full_name }}</a></td>
+      <td><a ng-href="admin/pay-periods/{{payPeriod.id}}/users/{{item.properties.id}}/bonuses">{{ item.properties.full_name }}</a></td>
       <td>{{ item.properties.personal_lifetime }}</td>
       <td>{{ item.properties.team_lifetime }}</td>
     </tr>

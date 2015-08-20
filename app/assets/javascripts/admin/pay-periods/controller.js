@@ -8,6 +8,7 @@
   controller.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http'];
   function controller($scope, $rootScope, $location, $routeParams, $anchorScroll, $http) {
     $scope.redirectUnlessSignedIn();
+    $scope.sum = 0;
 
     $scope.templateData = {
       index: {
@@ -17,6 +18,10 @@
       show: {
         title: 'Pay Period',
         tablePath: 'admin/pay-periods/templates/users.html'
+      },
+      bonuses: {
+        title: 'Users',
+        tablePath: 'admin/pay-periods/templates/bonuses.html'
       }
     };
 
@@ -59,6 +64,14 @@
       }).success(cb);
     };
 
+    $scope.forUser = function(ppId, userId, cb) {
+      $scope.payPeriod = ppId;
+      return $http({
+        method: 'GET',
+        url: '/u/pay_periods/' + ppId + '/users/' + userId + '.json'
+      }).success(cb);
+    };
+
     $scope.cancel = function() {
       $location.path('/admin/pay-periods');
     };
@@ -69,6 +82,7 @@
 
   controller.prototype.init = function($scope, $location) {
     $scope.mode = 'index';
+    if (/\/bonuses/.test($location.path())) return $scope.mode = 'bonuses';
     if (/\/pay-periods\//.test($location.path())) return $scope.mode = 'show';
   };
 
@@ -88,17 +102,34 @@
         var entity = findByRel('pay_period-users', data.entities);
         $scope.pagination(0, entity.href);
       });
+    } else if ($scope.mode === 'bonuses') {
+      $scope.forUser($routeParams.payPeriodId, $routeParams.userId, function(data) {
+        $rootScope.breadcrumbs.push({title: $scope.templateData.index.title, href:'/admin/pay-periods'});
+        $rootScope.breadcrumbs.push({title: $scope.payPeriod});
+        $rootScope.breadcrumbs.push({title: $scope.templateData.bonuses.title, href:'/admin/pay-periods/'+ $scope.payPeriod});
+        $rootScope.breadcrumbs.push({title: data.properties.id});
+
+        $scope.user = data.properties;
+        $scope.bonuses = data.entities[0].entities;
+        for (var b in $scope.bonuses) {
+          $scope.sum += parseInt($scope.bonuses[b].properties.amount);
+        }
+      });
     }
   };
 
   routes.$inject = ['$routeProvider'];
   function routes($routeProvider) {
     $routeProvider.
+    when('/admin/pay-periods/:payPeriodId/users/:userId/bonuses', {
+      templateUrl: 'admin/pay-periods/templates/bonuses.html',
+      controller: 'AdminPayPeriodsCtrl'
+    }).
     when('/admin/pay-periods', {
       templateUrl: 'shared/admin/rest/index.html',
       controller: 'AdminPayPeriodsCtrl'
     }).
-    when('/admin/pay-periods/:payPeriodId?', {
+    when('/admin/pay-periods/:payPeriodId', {
       templateUrl: 'shared/admin/rest/show.html',
       controller: 'AdminPayPeriodsCtrl'
     });

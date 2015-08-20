@@ -1,0 +1,35 @@
+<main class="pow-admin-show">
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>{{user.full_name}}</h2>
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Bonus Type</th>
+            <th>Pay As Rank</th>
+            <th>Lead ID</th> 
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in bonuses">
+            <td>{{ item.properties.id }}</td>
+            <td>{{ item.properties.amount | currency }}</td>
+            <td>{{ item.properties.bonus }}</td>
+            <td>{{ item.properties.pay_as_rank }}</td>
+            <td><a href="/admin/leads">{{ item.properties.lead.id }}</a></td>
+            <td>{{ item.properties.status }}</td>
+          </tr>
+        </tbody>
+        <tfoot class="sum-row">
+          <tr>
+            <td>Total</td>
+            <td colspan="5">{{sum | currency}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</main>

@@ -8,6 +8,10 @@ class Auth::PayPeriodsControllerTest < ActionController::TestCase
   end
 
   class AdminTest < ActionController::TestCase
+    def setup
+      super(:admin)
+    end
+
     def test_index
       get :index
 
@@ -18,7 +22,7 @@ class Auth::PayPeriodsControllerTest < ActionController::TestCase
       get :index, time_span: :weekly
 
       siren.entities.each do |pp|
-        pp.must_have_props(type: 'Weekly')
+        pp.props_must_equal(type: 'Weekly')
       end
     end
 
@@ -27,6 +31,12 @@ class Auth::PayPeriodsControllerTest < ActionController::TestCase
 
       siren.must_be_class(:pay_period)
       siren.properties.bonus_total.to_f.must_be :>, 0.0
+    end
+
+    def test_calculate
+      post :calculate, id: pay_periods(:april).id
+
+      siren.props_must_equal(status: 'queued')
     end
   end
 end
