@@ -72,6 +72,24 @@
       }).success(cb);
     };
 
+    $scope.calculate = function() {
+      var action = $scope.calcAction;
+
+      return $http({
+        method: action.method,
+        url: action.href,
+      }).success(function(data) {
+        $scope.payPeriod = data.properties;
+        $scope.calcAction = data.actions;
+      });
+    }
+
+    $scope.buttonStatus = function() {
+      if (!$scope.payPeriod) return 'inactive';
+      if ($scope.payPeriod.status === 'calculated') return 'complete';
+      return 'inactive';
+    }
+
     $scope.cancel = function() {
       $location.path('/admin/pay-periods');
     };
@@ -95,6 +113,7 @@
     } else if ($scope.mode === 'show') {
       $scope.withPayPeriod($routeParams.payPeriodId, function(data) {
         $scope.payPeriod = data.properties;
+        $scope.calcAction = getAction(data.actions, 'calculate');
         $scope.templateData.show.title = data.properties.title;
         $rootScope.breadcrumbs.push({title: $scope.templateData.index.title, href:'/admin/pay-periods'});
         $rootScope.breadcrumbs.push({title: data.properties.id});
@@ -135,6 +154,7 @@
     });
   }
 
+  //Utility Functions
   function findByRel(rel, items) {
     for (var i in items) {
       for (var j in items[i].rel) {
@@ -144,5 +164,16 @@
       }
     }
   }
+
+  function getAction(actions, name) {
+    for (var i in actions) {
+      if (actions[i].name === name) {
+        return actions[i];
+      }
+    }
+    return;
+  }
+
+
 
 })();

@@ -1,7 +1,9 @@
 <main class="pow-admin-show">
   <div class="row">
     <div class="large-12 columns">
-      <h2>{{templateData.show.title}}</h2>
+      <h2 class="left">{{templateData.show.title}}</h2>
+      <button ng-show="calcAction.name" class="right capitalize" ng-click="calculate()">calculate</button>
+      <button ng-hide="calcAction.name" class="right capitalize" ng-class="buttonStatus()">{{payPeriod.status}}</button>
       <ng-include src="templateData.show.tablePath"></ng-include>
     </div>
   </div>
