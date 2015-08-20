@@ -14,7 +14,7 @@
   <div class="lead-stats row">
     <div class="large-4 columns">
       <label>Likelihood to Convert</label>
-      <p class="likelihood">10<span class="symbol">%</span></p>
+      <p class="likelihood">{{leadPipelineSection.likelihoodToConvert(leadItem)}}<span class="symbol">%</span></p>
     </div>
     <div class="large-4 columns">
       <label>Commission Potential</label>
@@ -38,17 +38,12 @@
         <div
           class="progress-cell"
           ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 3 }">
-          Closed Won
-        </div>
-        <div
-          class="progress-cell"
-          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 4 }">
           Contract
         </div>
         <div
           class="progress-cell"
-          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) = 5 }">
-          Install
+          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) == 4 }">
+          Installation
         </div>
       </div>
     </div>
@@ -58,7 +53,26 @@
   <div class="row show-for-medium-down">
     <div class="small-12 columns">
       <label>Current Stage</label>
-      <p>Stage goes here</p>
+      <div
+        class="illuminated progress-cell"
+        ng-if="leadPipelineSection.leadStage(leadItem) == 4">
+        Installation
+      </div>
+      <div
+        class="illuminated progress-cell"
+        ng-if="leadPipelineSection.leadStage(leadItem) == 3">
+        Contract
+      </div>
+      <div
+        class="illuminated progress-cell"
+        ng-if="leadPipelineSection.leadStage(leadItem) == 2">
+        Qualified
+      </div>
+      <div
+        class="illuminated progress-cell"
+        ng-if="leadPipelineSection.leadStage(leadItem) == 1">
+        Submission
+      </div>
     </div>
   </div>
   <!-- SolarCity Status Text -->
