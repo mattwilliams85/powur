@@ -22,8 +22,12 @@ if admin? && @pay_period.calculable?
   name = @pay_period.calculated_at? ? :recalculate : :calculate
   action_list << action(name, :post, calculate_pay_period_path(@pay_period))
 end
+if admin? && @pay_period.disbursable?
+  action_list << action(:distribute,
+                        :post,
+                        distribute_pay_period_path(@pay_period))
+end
 
 actions(*action_list)
-
 
 self_link pay_period_path(@pay_period)

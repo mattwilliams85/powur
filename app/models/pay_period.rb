@@ -18,6 +18,9 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     statuses = [ :pending, :calculated ].map { |s| PayPeriod.statuses[s] }
     PayPeriod.where(status: statuses)
   }
+  scope :disbursable, lambda {
+    PayPeriod.calculated.where('end_date < ?', Date.current)
+  }
 
   before_create do
     self.id ||= self.class.id_from(start_date)
@@ -43,16 +46,15 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     Date.current > end_date
   end
 
-  def disbursed?
-    !disbursed_at.nil?
-  end
-
   def disbursable?
-    finished? && calculated? && !disbursed?
+    finished? && calculated?
   end
 
-  def disburse!
-    # payments_per_user = BonusPayment.user_bonus_totals(self)
+  def distribute!
+    # TODO: distribute funds to iPayout
+    update_attributes(
+      status:         PayPeriod.statuses[:distributed],
+      distributed_at: DateTime.current)
   end
 
   def calculable?
