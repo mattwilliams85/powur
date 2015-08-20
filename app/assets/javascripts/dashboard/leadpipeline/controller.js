@@ -6,52 +6,6 @@
 
     $scope.legacyImagePaths = legacyImagePaths;
 
-    // Lead Status Definitions
-    var leadStatusDefinitions = {
-      incomplete: 'The lead you have saved is missing key information required by SolarCity to accept the lead.',
-      ineligible_location: 'The zip code entered for this lead is outside the SolarCity service area.',
-      ready_to_submit: 'Your lead is good to go.',
-      submitted: 'The powur.com platform has submitted your lead.',
-      qualified: 'This customer qualifies for solar. An opportunity or consultation has been scheduled with a SolarCity representative.',
-      called_2x: 'A SolarCity representative called this customer 2 times without getting a hold of them.',
-      called_3x: 'A SolarCity representative called this customer 3 times without getting a hold of them.',
-      called_4x: 'A SolarCity representative called this customer 4 times without getting a hold of them.',
-      no_contact_established: 'No contact was established with this customer after 5 days. (1 call per day)',
-      contacted: 'The customer was reached by phone, but was unavailable.',
-      existing_active_opportunity: 'The customer is already qualified and was submitted to the SolarCity system within the last 45 days.',
-      existing_lead: 'The customer was already submitted to the SolarCity system within the last 45 days.',
-      open: 'SolarCity hasn\'t assigned an advisor to reach out to this customer.',
-      out_of_driving_range: 'The customer is located outside of the SolarCity service territory.',
-      out_of_state: 'The customer\'s state is not serviced by SolarCity.',
-      unqualified: 'The customer does not qualify for solar. (not a homeowner, excessive shading, etc.)',
-      closed_won: 'The customer has signed a contract and has begun working with SolarCity\'s operations team.',
-      contract_out: 'The customer passed the credit check and the SolarCity representative has sent a contract to the customer via DocuSign.',
-      proposal_presented: 'The SolarCity representative has gone over the proposal and savings with the customer.',
-      consultation_scheduled: 'The customer has scheduled a time to meet with the SolarCity sales representative to go over the proposal.',
-      opportunity_identified: 'The customer is gathering their utility bills, usage, and other information before moving forward with SolarCity.',
-      legacy_in_progress: 'The SolarCity sales representative could not get the qualified customer to sign up. The Legacy team will step in to try to close the deal.',
-      closed_lost: 'The customer did not want to go solar.',
-      unqualified: 'The customer did not qualify for solar.'
-    }
-
-    var leadStatusActions = {
-      incomplete: 'Examine the lead information form, make sure alll fields are complete, and save again.',
-      ineligible_location: 'Check the ZIP code and make sure you entered it correctly. All data is verified with the customer and your lead will be disqualified if it is outside of the service area.',
-      ready_to_submit: 'Click the \'Submit to SolarCity\' button to submit your lead.',
-      called_2x: 'Allow SolarCity to get a hold of the customer, but keep an eye on this lead.',
-      called_3x: 'Get a hold of your lead and 3-way call (855) 477-7652 for an advisor. Make the connection, then drop off the line so the customer can share their information with the advisor.',
-      called_4x: 'Get a hold of your lead and 3-way call (855) 477-7652 for an advisor. Make the connection, then drop off the line so the customer can share their information with the advisor.',
-      no_contact_established: 'Get a hold of your lead and 3-way call (855) 477-7652 for an advisor. Make the connection, then drop off the line so the customer can share their information with the advisor.',
-      open: 'If the lead was submitted over 24 hours ago, escalate this lead to support@powur.com.',
-      unqualified: 'Reach out to try to get more business from the customer or sign up more leads. Maintain your relationship with the customer.',
-      closed_won: 'Congratulate your customer for signing up with SolarCity!',
-      contract_out: 'Follow up with the customer and congratulate them on their decision to ',
-      proposal_presented: 'Reach out and ask how the customer\'s proposal went. Encourage them to request a contract.',
-      legacy_in_progress: 'The Legacy team will work to regenerate the customer\'s interest. Reach out to the customer if your personal relationship is strong.',
-      closed_lost: 'Reach out to the customer to try to get more business or sign up more leads. Maintain your relationship with the customer.',
-      unqualified: 'Reach out to the customer to try to get more business or sign up more leads. Maintain your relationship with the customer.',
-    }
-
     // Utility Functions:
     function getLeads(cb) {
       CommonService.execute({
