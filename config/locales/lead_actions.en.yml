@@ -10,7 +10,7 @@ en:
     open: "If the lead was submitted over 24 hours ago, escalate this lead to support@powur.com."
     unqualified: "Reach out to try to get more business from the customer or sign up more leads. Maintain your relationship with the customer."
     closed_won: "Congratulate your customer for signing up with SolarCity!"
-    contract_out: "Follow up with the customer and congratulate them on their decision to "
+    contract_out: "Follow up with the customer and congratulate them on their decision to request a contract."
     proposal_presented: "Reach out and ask how the customer's proposal went. Encourage them to request a contract."
     legacy_in_progress: "The Legacy team will work to regenerate the customer's interest. Reach out to the customer if your personal relationship is strong."
     closed_lost: "Reach out to the customer to try to get more business or sign up more leads. Maintain your relationship with the customer."
