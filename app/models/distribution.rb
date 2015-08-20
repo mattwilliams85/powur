@@ -7,6 +7,16 @@ class Distribution < ActiveRecord::Base
 
   after_create :set_batch_id
 
+  def distribute_pay_period!(pay_period)
+    payments = pay_period.bonus_payments.pending.with_ewallets.entries
+    payment_ids = payments.map(&:id)
+
+    BonusPayment.where(id: payment_ids).update_all(
+      distribution_id: id)
+
+    distribute!(payments)
+  end
+
   def distribute!(payments)
     client = EwalletClient.new
 

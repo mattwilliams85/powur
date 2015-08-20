@@ -1,6 +1,7 @@
 class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
+  belongs_to :distribution
 
   enum status: [
     :pending, :queued, :calculating,
@@ -51,10 +52,13 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def distribute!
-    # TODO: distribute funds to iPayout
+    self.distribution ||= create_distribution
+
     update_attributes(
       status:         PayPeriod.statuses[:distributed],
       distributed_at: DateTime.current)
+
+    distribution.distribute_pay_period!(self)
   end
 
   def calculable?

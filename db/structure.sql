@@ -703,7 +703,7 @@ CREATE TABLE pay_periods (
     start_date date NOT NULL,
     end_date date NOT NULL,
     calculated_at timestamp without time zone,
-    disbursed_at timestamp without time zone,
+    distributed_at timestamp without time zone,
     total_volume numeric(10,2),
     total_bonus numeric(10,2),
     total_breakage numeric(10,2),
@@ -2823,3 +2823,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150819201256');
 
 INSERT INTO schema_migrations (version) VALUES ('20150820203530');
 
+INSERT INTO schema_migrations (version) VALUES ('20150820211644');
