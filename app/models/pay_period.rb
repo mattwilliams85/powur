@@ -52,7 +52,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def distribute!
-    self.distribution ||= create_distribution
+    self.distribution ||= create_distribution(batch_id: id.to_s + ':')
 
     update_attributes(
       status:         PayPeriod.statuses[:distributed],

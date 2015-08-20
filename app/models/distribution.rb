@@ -78,6 +78,6 @@ class Distribution < ActiveRecord::Base
   private
 
   def set_batch_id
-    update_attribute(:batch_id, 'powur:' + id.to_s)
+    update_attribute(:batch_id, 'powur:' + batch_id.to_s + id.to_s)
   end
 end

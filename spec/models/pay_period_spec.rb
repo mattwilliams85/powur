@@ -5,7 +5,6 @@ describe PayPeriod, type: :model do
 
   describe '#distribute!' do
     let(:distribution) { create(:distribution) }
-    # let(:bonus) { create(:one_time_bonus, distribution_id: distribution.id) }
     let(:user) { create(:user, ewallet_username: 'doesnotexist@example.com') }
 
     let!(:rank_achievement) do
@@ -21,7 +20,6 @@ describe PayPeriod, type: :model do
       create(:bonus_payment,
              pay_period: pay_period,
              user:       user,
-            #  bonus:      bonus,
              amount:     amount)
     end
 
@@ -37,7 +35,9 @@ describe PayPeriod, type: :model do
 
     before do
       expect(pay_period)
-        .to receive(:create_distribution).and_return(distribution)
+        .to(receive(:create_distribution)
+            .with(batch_id: pay_period.id.to_s + ':')
+            .and_return(distribution))
     end
 
     context 'distribution succeeded' do
