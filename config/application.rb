@@ -39,6 +39,10 @@ module Sunstand
     # config.assets.paths << Rails.root.join('app', 'assets', 'components')
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
     # config.angular_templates.inside_paths = [ Rails.root.join('app', 'assets', 'javascripts') ]
+
+    locales_path = Rails.root.join('config', 'locales', '**', '*.yml')
+    config.i18n.load_path += Dir[ locales_path ]
+
     config.secret_key_base = ENV['SECRET_KEY_BASE']
 
     # For hosted PDFs (Application and Agreement)
