@@ -5,7 +5,7 @@ class Distribution < ActiveRecord::Base
   has_many :bonuses
   has_many :bonus_payments
 
-  after_create :set_title
+  after_create :set_batch_id
 
   def distribute!(payments)
     client = EwalletClient.new
@@ -15,7 +15,7 @@ class Distribution < ActiveRecord::Base
     batches.each do |user_id, data|
       begin
         client.ewallet_individual_load(
-          batch_id: title,
+          batch_id: batch_id,
           payment:  data[:distribution_data])
         successful_payment_ids.concat(data[:payment_ids])
       rescue Ipayout::Error::EwalletNotFound => e
@@ -67,8 +67,7 @@ class Distribution < ActiveRecord::Base
 
   private
 
-  def set_title
-    # Used as a batch ID for ewallet load
-    update_attribute(:title, 'powur:' + id.to_s)
+  def set_batch_id
+    update_attribute(:batch_id, 'powur:' + id.to_s)
   end
 end
