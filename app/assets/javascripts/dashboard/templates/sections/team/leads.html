@@ -64,17 +64,19 @@
         <div class="leads owl-carousel downline" id="teamLeads">
           <a ng-repeat="lead in teamLeads" ng-click="teamSection.showLead(lead);">
             <div class="lead team-lead" ng-class="{active: proposalId === lead.properties.id, 'even': downline.length % 2 === 0, 'odd': downline.length % 2 !== 0 }">
-              <div class="status-icon">
-                <img ng-src="{{ leadPipelineSection.statusIcon(lead) }}">
-              </div>
-              <div class="status-text">
-                <span>{{ leadPipelineSection.statusText(lead) }}</span>
-              </div>
-              <div class="customer-name">
-                <span>{{lead.properties.customer}}</span>
-              </div>
-              <div class="date-text">
-                <span>Created {{ lead.properties.created_at | dateToLocalDate }}</span>
+              <div class="lead-details">
+                <div class="status-icon">
+                  <img ng-src="{{ leadPipelineSection.statusIcon(lead) }}">
+                </div>
+                <div class="status-text">
+                  <span>{{ leadPipelineSection.statusText(lead) }}</span>
+                </div>
+                <div class="customer-name">
+                  <span>{{lead.properties.customer}}</span>
+                </div>
+                <div class="date-text">
+                  <span>Created {{ lead.properties.created_at | dateToLocalDate }}</span>
+                </div>
               </div>
             </div>
           </a>

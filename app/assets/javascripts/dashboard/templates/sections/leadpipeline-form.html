@@ -1,146 +1,196 @@
-<form ng-submit="leadPipelineSection.saveLead()" id="customers-form">
-  <div class="row">
-    <div class="large-6 columns">
-      <fieldset>
-        <legend><i class="fa fa-envelope"></i> Contact Information</legend>
+<div class="summary large-3 medium-3 columns">
 
-        <!-- First/Last Name -->
-        <div class="row">
-          <div class="large-6 medium-6 columns">
-            <label>First Name</label>
-            <input
-              type="text"
-              id="new_lead_first_name"
-              ng-model="lead.first_name"
-              ng-class="{ 'input-error' : leadPipelineSection.isFirstNameInvalid }"
-              required>
-            <label
-              ng-show="leadPipelineSection.isFirstNameInvalid"
-              ng-class="{ 'input-error' : leadPipelineSection.isFirstNameInvalid }">
-              Please enter a first name.
-            </label>
-          </div>
-          <div class="large-6 medium-6 columns">
-            <label>Last Name</label>
-            <input
-              type="text"
-              id="new_lead_last_name"
-              ng-model="lead.last_name"
-              ng-class="{ 'input-error' : leadPipelineSection.isLastNameInvalid }"
-              required>
-            <label
-              ng-show="leadPipelineSection.isLastNameInvalid"
-              ng-class="{ 'input-error' : leadPipelineSection.isLastNameInvalid }">
-              Please enter a last name.
-            </label>
-          </div>
-        </div>
+<!-- ng-shows for each Summary Text and Buttons for state of the Lead form -->
+<!--
+  1. New
+  2. Incomplete
+  3. Ready To Submit
+  4. Ineligible Location
+  5. Submitted
+-->
 
-        <!-- Email -->
-        <div class="row">
-          <div class="large-12 medium-12 columns">
-            <label>Email</label>
-            <input
-              type="email"
-              id="new_lead_email"
-              ng-model="lead.email"
-              ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }"
-              required>
-            <label
-              ng-show="leadPipelineSection.isEmailInvalid"
-              ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }">
-              Please enter a valid email address.
-            </label>
-          </div>
-        </div>
-
-        <!-- Phone -->
-        <div class="row">
-          <div class="large-12 medium-12 columns">
-            <label>Phone</label>
-            <input ng-model="lead.phone" type="text">
-          </div>
-        </div>
-
-        <!-- Address -->
-        <div class="row">
-          <div class="large-12 medium-12 columns">
-            <label>Address</label>
-            <input ng-model="lead.address" type="text">
-          </div>
-        </div>
-
-        <!-- City/State/ZIP -->
-        <div class="row">
-          <div class="large-5 medium-5 columns">
-            <label>City</label>
-            <input ng-model="lead.city" type="text">
-          </div>
-          <div class="large-3 medium-3 small-6 columns">
-            <label>State</label>
-            <input ng-model="lead.state" type="text">
-          </div>
-          <div class="large-4 medium-4 small-6 columns">
-            <label>ZIP</label>
-            <input ng-model="lead.zip" type="text">
-          </div>
-        </div>
-
-      </fieldset>
-    </div>
-    <div class="large-6 columns">
-      <fieldset>
-        <legend ng-if="lead.productFields"><i class="fa fa-info-circle"></i> Other Information</legend>
-
-        <!-- Custom Product Fields -->
-        <div ng-repeat="productField in lead.productFields" class="row">
-          <div class="large-12 medium-12 columns">
-            <label>{{ productField.name | cleanLabel }}</label>
-            <!-- Show Dollar Sign if Average Bill Field -->
-            <span
-              ng-show="productField.name === 'average_bill'"
-              class="currency-symbol">
-              $
-            </span>
-            <input
-              id="new_lead_{{productField.name}}"
-              type="{{productField.type}}"
-              ng-class="{ 'input-error' : leadPipelineSection.is{{productField.name | titleCase }}Invalid,
-                          'currency' : productField.name === 'average_bill' }"
-              ng-model="lead[productField.name]">
-            <label
-              ng-show="leadPipelineSection.is{{productField.name | titleCase }}Invalid"
-              ng-class="{ 'input-error' : leadPipelineSection.is{{productField.name | titleCase }}Invalid }">
-              <ng-if="{{productField.name === 'average_bill'}}">Average bill must be a whole dollar amount.</ng-if>
-            </label>
-          </div>
-        </div>
-
-        <!-- Notes -->
-        <div class="row">
-          <div class="large-12 columns">
-            <label>Notes</label>
-            <textarea ng-model="lead.notes" class="notes"></textarea>
-          </div>
-        </div>
-
-        <!-- Buttons -->
-        <div class="row">
-          <div class="large-12 columns">
-            <!-- New Lead Form Buttons -->
-            <div ng-show="mode === 'new'">
-              <button class="button right" >Save</button>
-              <button class="button secondary left" ng-click="closeForm()">Cancel</button>
-            </div>
-            <!-- Incomplete Lead Form Buttons -->
-            <div ng-show="mode === 'incomplete' || mode === 'ineligible_location' || mode === 'ready_to_submit'">
-              <button class="button secondary right">Update</button>
-              <button class="button secondary left" ng-click="closeForm()">Cancel</button>
-            </div>
-          </div>
-        </div>
-
-      </fieldset>
-    </div>
+  <!-- New Lead -->
+  <div ng-show="mode === 'new'">
+    <h1>New Homeowner</h1>
+    <p>Enter customer information to create a new lead.</p>
+    <p>This customer information can be updated before the lead is submitted to SolarCity.</p>
   </div>
-</form>
+
+  <!-- Incomplete -->
+  <div ng-show="mode === 'incomplete'">
+    <h1>Incomplete Lead</h1>
+    <p>Enter additional customer information to complete this lead.</p>
+    <p>SolarCity requires the customer's name, phone number, and email address.</p>
+    <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
+    <p>Lead ID: {{currentLead.id}}</p>
+  </div>
+
+  <!-- Ready To Submit-->
+  <div ng-show="mode === 'ready_to_submit'">
+    <h1>Completed Lead</h1>
+    <p>Great! This lead is ready to be submitted to SolarCity.</p>
+    <p>Ensure the customer information is correct before using the Submit button below.</p>
+    <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
+    <button ng-show="hasAction('submit')" class="button solarcity expand" ng-click="leadPipelineSection.submit()"><i class="fa fa-paper-plane"></i> Submit to SolarCity</button>
+    <p>Lead ID: {{currentLead.id}}</p>
+  </div>
+
+  <!-- Ineligible Location -->
+  <div ng-show="mode === 'ineligible_location'">
+    <h1>Ineligible Lead</h1>
+    <p>This lead looks ineligible based on the customer's location.</p>
+    <p>When SolarCity is available in the customer's location, this lead's status will be updated and you'll be able to continue where you left off.</p>
+    <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
+    <p>Lead ID: {{currentLead.id}}</p>
+  </div>
+
+</div>
+
+<div class="form large-9 medium-9 columns">
+  <form ng-submit="leadPipelineSection.saveLead()" id="customers-form">
+    <div class="row">
+      <div class="large-6 columns">
+        <fieldset>
+          <legend><i class="fa fa-envelope"></i> Contact Information</legend>
+
+          <!-- First/Last Name -->
+          <div class="row">
+            <div class="large-6 medium-6 columns">
+              <label>First Name</label>
+              <input
+                type="text"
+                id="new_lead_first_name"
+                ng-model="lead.first_name"
+                ng-class="{ 'input-error' : leadPipelineSection.isFirstNameInvalid }"
+                required>
+              <label
+                ng-show="leadPipelineSection.isFirstNameInvalid"
+                ng-class="{ 'input-error' : leadPipelineSection.isFirstNameInvalid }">
+                Please enter a first name.
+              </label>
+            </div>
+            <div class="large-6 medium-6 columns">
+              <label>Last Name</label>
+              <input
+                type="text"
+                id="new_lead_last_name"
+                ng-model="lead.last_name"
+                ng-class="{ 'input-error' : leadPipelineSection.isLastNameInvalid }"
+                required>
+              <label
+                ng-show="leadPipelineSection.isLastNameInvalid"
+                ng-class="{ 'input-error' : leadPipelineSection.isLastNameInvalid }">
+                Please enter a last name.
+              </label>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="row">
+            <div class="large-12 medium-12 columns">
+              <label>Email</label>
+              <input
+                type="email"
+                id="new_lead_email"
+                ng-model="lead.email"
+                ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }"
+                required>
+              <label
+                ng-show="leadPipelineSection.isEmailInvalid"
+                ng-class="{ 'input-error' : leadPipelineSection.isEmailInvalid }">
+                Please enter a valid email address.
+              </label>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="row">
+            <div class="large-12 medium-12 columns">
+              <label>Phone</label>
+              <input ng-model="lead.phone" type="text">
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div class="row">
+            <div class="large-12 medium-12 columns">
+              <label>Address</label>
+              <input ng-model="lead.address" type="text">
+            </div>
+          </div>
+
+          <!-- City/State/ZIP -->
+          <div class="row">
+            <div class="large-5 medium-5 columns">
+              <label>City</label>
+              <input ng-model="lead.city" type="text">
+            </div>
+            <div class="large-3 medium-3 small-6 columns">
+              <label>State</label>
+              <input ng-model="lead.state" type="text">
+            </div>
+            <div class="large-4 medium-4 small-6 columns">
+              <label>ZIP</label>
+              <input ng-model="lead.zip" type="text">
+            </div>
+          </div>
+
+        </fieldset>
+      </div>
+      <div class="large-6 columns">
+        <fieldset>
+          <legend ng-if="lead.productFields"><i class="fa fa-info-circle"></i> Other Information</legend>
+
+          <!-- Custom Product Fields -->
+          <div ng-repeat="productField in lead.productFields" class="row">
+            <div class="large-12 medium-12 columns">
+              <label>{{ productField.name | cleanLabel }}</label>
+              <!-- Show Dollar Sign if Average Bill Field -->
+              <span
+                ng-show="productField.name === 'average_bill'"
+                class="currency-symbol">
+                $
+              </span>
+              <input
+                id="new_lead_{{productField.name}}"
+                type="{{productField.type}}"
+                ng-class="{ 'input-error' : leadPipelineSection.is{{productField.name | titleCase }}Invalid,
+                            'currency' : productField.name === 'average_bill' }"
+                ng-model="lead[productField.name]">
+              <label
+                ng-show="leadPipelineSection.is{{productField.name | titleCase }}Invalid"
+                ng-class="{ 'input-error' : leadPipelineSection.is{{productField.name | titleCase }}Invalid }">
+                <ng-if="{{productField.name === 'average_bill'}}">Average bill must be a whole dollar amount.</ng-if>
+              </label>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="row">
+            <div class="large-12 columns">
+              <label>Notes</label>
+              <textarea ng-model="lead.notes" class="notes"></textarea>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="row">
+            <div class="large-12 columns">
+              <!-- New Lead Form Buttons -->
+              <div ng-show="mode === 'new'">
+                <button class="button right" >Save</button>
+                <button class="button secondary left" ng-click="closeForm()">Cancel</button>
+              </div>
+              <!-- Incomplete Lead Form Buttons -->
+              <div ng-show="mode === 'incomplete' || mode === 'ineligible_location' || mode === 'ready_to_submit'">
+                <button class="button secondary right">Update</button>
+                <button class="button secondary left" ng-click="closeForm()">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+        </fieldset>
+      </div>
+    </div>
+  </form>
+</div>
