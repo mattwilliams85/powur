@@ -13,6 +13,10 @@
       <th>Name</th>
       <th>Pay As Rank</th>
       <th>Override Rank</th>
+      <th>Personal Sales</th>
+      <th>Team Sales</th>
+      <th>Personal Lifetime Sales</th>
+      <th>Team Lifetime Sales</th>
       <th>Bonus Total</th>
     </tr>
   </thead>
@@ -22,6 +26,10 @@
       <td><a ng-href="admin/pay-periods/{{payPeriod.id}}/users/{{item.properties.id}}/bonuses">{{ item.properties.full_name }}</a></td>
       <td>{{ item.properties.pay_as_rank }}</td>
       <td>{{ item.properties.force_rank }}</td>
+      <td>{{ item.properties.personal }}</td>
+      <td>{{ item.properties.team }}</td>
+      <td>{{ item.properties.personal_lifetime }}</td>
+      <td>{{ item.properties.team_lifetime }}</td>
       <td>{{ item.properties.bonus_total | currency }}</td>
     </tr>
   </tbody>
