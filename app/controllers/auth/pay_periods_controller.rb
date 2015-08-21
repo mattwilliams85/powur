@@ -1,6 +1,6 @@
 module Auth
   class PayPeriodsController < AuthController
-    before_action :verify_admin, only: [ :show, :calculate ]
+    before_action :verify_admin, only: [ :show, :calculate, :distribute ]
 
     page
     sort id_desc:         { id: :desc },
