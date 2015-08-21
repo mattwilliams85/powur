@@ -103,7 +103,7 @@ Rails.application.routes.draw do
     resources :pay_periods, only: [ :index, :show ] do
       member do
         post :calculate
-        post :disribute
+        post :distribute
       end
       resources :users, only:       [ :index, :show ],
                         controller: :pay_period_users do
