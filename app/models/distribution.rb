@@ -12,7 +12,7 @@ class Distribution < ActiveRecord::Base
   end
 
   def distribute_pay_period!(pay_period)
-    payments = pay_period.bonus_payments.pending.entries
+    payments = pay_period.bonus_payments.pending.preload(:user).entries
     payment_ids = payments.map(&:id)
 
     BonusPayment.where(id: payment_ids).update_all(
