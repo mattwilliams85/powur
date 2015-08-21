@@ -5,8 +5,8 @@
     .controller('AdminPayPeriodsCtrl', controller)
     .config(routes);
 
-  controller.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http'];
-  function controller($scope, $rootScope, $location, $routeParams, $anchorScroll, $http) {
+  controller.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'Utility'];
+  function controller($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, Utility) {
     $scope.redirectUnlessSignedIn();
     $scope.sum = 0;
 
@@ -87,7 +87,7 @@
     };
 
     this.init($scope, $location);
-    this.fetch($scope, $rootScope, $location, $routeParams);
+    this.fetch($scope, $rootScope, $location, $routeParams, Utility);
   }
 
   controller.prototype.init = function($scope, $location) {
@@ -96,7 +96,7 @@
     if (/\/pay-periods\//.test($location.path())) return $scope.mode = 'show';
   };
 
-  controller.prototype.fetch = function($scope, $rootScope, $location, $routeParams) {
+  controller.prototype.fetch = function($scope, $rootScope, $location, $routeParams, Utility) {
     $scope.index = {};
 
     if ($scope.mode === 'index') {
@@ -121,7 +121,10 @@
         $rootScope.breadcrumbs.push({title: data.properties.id});
 
         $scope.user = data.properties;
-        $scope.bonuses = data.entities[0].entities;
+        $scope.leadTotals = Utility.findBranch(
+          data.entities, {'rel': 'user-lead_totals'}).entities;
+        $scope.bonuses = Utility.findBranch(
+          data.entities, {'rel': 'user-bonus_payments'}).entities;
         for (var b in $scope.bonuses) {
           $scope.sum += parseInt($scope.bonuses[b].properties.amount);
         }
@@ -146,7 +149,7 @@
     });
   }
 
-  //Utility Functions
+  // Utility Functions
   function findByRel(rel, items) {
     for (var i in items) {
       for (var j in items[i].rel) {
@@ -156,16 +159,5 @@
       }
     }
   }
-
-  function getAction(actions, name) {
-    for (var i in actions) {
-      if (actions[i].name === name) {
-        return actions[i];
-      }
-    }
-    return;
-  }
-
-
 
 })();

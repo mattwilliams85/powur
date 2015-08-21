@@ -21,7 +21,7 @@
       <td><a ng-href="admin/pay-periods/{{payPeriod.id}}/users/{{item.properties.id}}/bonuses">{{ item.properties.full_name }}</a></td>
       <td>{{ item.properties.pay_as_rank }}</td>
       <td>{{ item.properties.force_rank }}</td>
-      <td>{{ item.properties.bonus_total }}</td>
+      <td>{{ item.properties.bonus_total | currency }}</td>
     </tr>
   </tbody>
 </table>

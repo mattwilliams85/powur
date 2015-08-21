@@ -51,6 +51,7 @@
 //= require_tree ./admin/users
 //
 //= require_tree ./profile
+//= require_tree ./utility
 
 //= require widgets/powur-foundation.directive
 //= require widgets/powur-sorter.directive
