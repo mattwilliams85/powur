@@ -217,9 +217,9 @@ GEM
       thor (~> 0.14)
     foreman (0.78.0)
       thor (~> 0.19.1)
-    gibbon (1.2.0)
-      httparty
-      multi_json (>= 1.9.0)
+    gibbon (2.0.0)
+      faraday (>= 0.9.1)
+      multi_json (>= 1.11.0)
     git-version-bump (0.15.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -458,7 +458,7 @@ DEPENDENCIES
   faraday
   figaro
   foreman
-  gibbon (= 1.2.0)
+  gibbon
   has_scope
   hashie
   httparty
