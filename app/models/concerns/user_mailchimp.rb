@@ -14,7 +14,7 @@ module UserMailchimp
   end
 
   def mailchimp_client
-    @mailchimp_client ||= Gibbon::API.new
+    @mailchimp_client ||= Gibbon::Request.new(api_key: ENV['MAILCHIMP_API_KEY'])
   end
 
   def mailchimp_group_name
@@ -34,30 +34,28 @@ module UserMailchimp
 
   def mailchimp_subscribe
     return unless mailchimp_enabled?
-
-    mailchimp_client.lists.subscribe(
-      id:           MAILCHIMP_LISTS[:all_users],
-      email:        { email: email },
-      merge_vars:   mailchimp_merge_vars,
-      double_optin: false)
+    mailchimp_client.lists(MAILCHIMP_LISTS[:all_users]).members.create(
+      body: {
+        email_address: email,
+        merge_vars:    mailchimp_merge_vars })
   end
 
   def mailchimp_update_subscription(old_email = nil)
     return unless mailchimp_enabled?
 
-    mailchimp_client.lists.update_member(
-      id:         MAILCHIMP_LISTS[:all_users],
-      email:      { email: old_email || email },
-      merge_vars: mailchimp_merge_vars)
+    mailchimp_client.lists(MAILCHIMP_LISTS[:all_users]).members.update(
+      body: {
+        email_address: old_email || email,
+        merge_vars:    mailchimp_merge_vars })
   end
 
   def mailchimp_unsubscribe(list_name)
     return unless mailchimp_enabled?
 
-    mailchimp_client.lists.unsubscribe(
-      id:            MAILCHIMP_LISTS[list_name.to_sym],
-      email:         { email: email },
-      delete_member: true,
-      send_notify:   false)
+    mailchimp_client.lists(MAILCHIMP_LISTS[list_name.to_sym]).members.delete(
+      body: {
+        email_address: email,
+        delete_member: true,
+        send_notify:   false })
   end
 end

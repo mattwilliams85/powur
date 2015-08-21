@@ -6,7 +6,7 @@ describe '/invite' do
   end
 
   describe 'PATCH' do
-    let(:mailchimp_list_api) { double(:mailchimp_list_api) }
+    let(:mailchimp_list_api) { double(:mailchimp_list_api, members: {}) }
     let(:sponsor) { create(:certified_user, available_invites: 3) }
     let(:invite) do
       create(:invite, sponsor: sponsor, email: 'newinvite@test.com')
@@ -26,8 +26,10 @@ describe '/invite' do
     end
 
     before do
-      allow_any_instance_of(Gibbon::API)
-        .to receive(:lists).and_return(mailchimp_list_api)
+      allow_any_instance_of(Gibbon::Request)
+        .to(receive(:lists)
+          .with(User::MAILCHIMP_LISTS[:all_users])
+          .and_return(mailchimp_list_api))
     end
 
     it 'requires a valid invite code' do
@@ -55,19 +57,19 @@ describe '/invite' do
 
     context 'when successfully creates user' do
       before do
-        expect(mailchimp_list_api).to receive(:subscribe).with(
-          id:           User::MAILCHIMP_LISTS[:all_users],
-          email:        { email: user_params[:email] },
-          merge_vars:   {
-            FNAME: user_params[:first_name],
-            LNAME: user_params[:last_name],
-            email: user_params[:email],
-            groupings: [
-              # subscribe to Advocate group by default
-              { id: User::MAILCHIMP_GROUPINGS[:powur_path], groups: [ "Advocate" ] }
-            ]
-          },
-          double_optin: false).once
+        expect(mailchimp_list_api.members).to receive(:create).with(
+          body: {
+            email_address: user_params[:email],
+            merge_vars:    {
+              FNAME:     user_params[:first_name],
+              LNAME:     user_params[:last_name],
+              email:     user_params[:email],
+              groupings: [
+                # subscribe to Advocate group by default
+                { id:     User::MAILCHIMP_GROUPINGS[:powur_path],
+                  groups: [ 'Advocate' ] }
+              ] }
+          }).once
       end
 
       it 'registers a user and associates any outstanding invites' do
@@ -108,7 +110,7 @@ describe '/invite/validate' do
     it 'returns an invite without an accept action if previously redeemed' do
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       invite = create(:invite, sponsor: sponsor)
-      invite.update_attribute(:user_id,  user.id)
+      invite.update_attribute(:user_id, user.id)
 
       post validate_invite_path, code: invite.id, format: :json
 
@@ -120,7 +122,7 @@ describe '/invite/validate' do
     it 'returns an invite without an accept action if expired' do
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       invite = create(:invite, sponsor: sponsor)
-      invite.update_attribute(:expires,  (invite.expires -= 2.days))
+      invite.update_attribute(:expires, (invite.expires -= 2.days))
 
       post validate_invite_path, code: invite.id, format: :json
 

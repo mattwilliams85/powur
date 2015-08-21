@@ -85,33 +85,37 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
     end
 
     context 'when successfull purchase' do
-      let(:mailchimp_list_api) { double(:mailchimp_list_api) }
+      let(:mailchimp_list_api) { double(:mailchimp_list_api, members: {}) }
 
       before do
-        allow_any_instance_of(Gibbon::API)
-          .to receive(:lists).and_return(mailchimp_list_api)
+        allow_any_instance_of(Gibbon::Request)
+          .to(receive(:lists)
+            .with(User::MAILCHIMP_LISTS[:all_users])
+            .and_return(mailchimp_list_api))
         allow_any_instance_of(Auth::UniversityClassesController)
           .to receive(:process_purchase).and_return(true)
         allow_any_instance_of(Auth::UniversityClassesController)
           .to receive(:send_purchased_notifications).and_return(true)
-        create(:product_receipt, user: current_user, product: create(:product, slug: 'partner'))
+        create(:product_receipt,
+               user:    current_user,
+               product: create(:product, slug: 'partner'))
       end
 
       it 'should move user to Partner group' do
-        allow(mailchimp_list_api).to receive(:subscribe).and_return(true)
-        expect(mailchimp_list_api).to receive(:update_member).with(
-          id:            User::MAILCHIMP_LISTS[:all_users],
-          email:         { email: current_user[:email] },
-          merge_vars:    {
-            FNAME: current_user[:first_name],
-            LNAME: current_user[:last_name],
-            email: current_user[:email],
-            groupings: [
-              { id:     User::MAILCHIMP_GROUPINGS[:powur_path],
-                groups: [ 'Partner' ]
-              }
-            ]
-                         }).once
+        allow(mailchimp_list_api.members).to receive(:create).and_return(true)
+        expect(mailchimp_list_api.members).to receive(:update).with(
+          body: {
+            email_address: current_user[:email],
+            merge_vars:    {
+              FNAME:     current_user[:first_name],
+              LNAME:     current_user[:last_name],
+              email:     current_user[:email],
+              groupings: [
+                { id:     User::MAILCHIMP_GROUPINGS[:powur_path],
+                  groups: [ 'Partner' ]
+                }
+              ] }
+          }).once
 
         post(purchase_university_class_path(certifiable_product),
              card:   {},
