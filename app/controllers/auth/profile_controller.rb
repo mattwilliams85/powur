@@ -25,12 +25,12 @@ module Auth
         User.delay.validate_phone_number!(@user.id)
         User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
 
-        # check for changes to first name, last name, or email and update Mailchimp
         if user_params[:email] != old_email
-          @user.mailchimp_update_subscription(old_email)
-          puts 'updated mailchimp email'
+          # Mailchimp subscription doesn't allow to change email at the moment
+          # so we remove old subscription and create new one
+          @user.mailchimp_unsubscribe
+          @user.mailchimp_subscribe
         end
-
       end
 
       show
