@@ -1,5 +1,8 @@
+<button ng-repeat="action in buttonActions" class="right capitalize space-left" ng-click="executeAction(action)">{{ action.name }}</button>
 <div class="clearfix"></div>
 
+<h5>Status: {{ payPeriod.status }}</h5>
+<br>
 <h5 ng-if="payPeriod.distribution">Distribution Batch ID: {{ payPeriod.distribution }}</h5>
 
 <table class="index-table">

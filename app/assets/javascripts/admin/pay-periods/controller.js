@@ -72,23 +72,15 @@
       }).success(cb);
     };
 
-    $scope.calculate = function() {
-      var action = $scope.calcAction;
-
+    $scope.executeAction = function(action) {
       return $http({
         method: action.method,
         url: action.href,
       }).success(function(data) {
         $scope.payPeriod = data.properties;
-        $scope.calcAction = data.actions;
+        $scope.buttonActions = data.actions;
       });
-    }
-
-    $scope.buttonStatus = function() {
-      if (!$scope.payPeriod) return 'inactive';
-      if ($scope.payPeriod.status === 'calculated') return 'complete';
-      return 'inactive';
-    }
+    };
 
     $scope.cancel = function() {
       $location.path('/admin/pay-periods');
@@ -113,7 +105,7 @@
     } else if ($scope.mode === 'show') {
       $scope.withPayPeriod($routeParams.payPeriodId, function(data) {
         $scope.payPeriod = data.properties;
-        $scope.calcAction = getAction(data.actions, 'calculate');
+        $scope.buttonActions = data.actions;
         $scope.templateData.show.title = data.properties.title;
         $rootScope.breadcrumbs.push({title: $scope.templateData.index.title, href:'/admin/pay-periods'});
         $rootScope.breadcrumbs.push({title: data.properties.id});

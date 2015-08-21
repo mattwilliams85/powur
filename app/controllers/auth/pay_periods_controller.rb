@@ -10,7 +10,7 @@ module Auth
          end_date_asc:    { end_date: :asc }
 
     before_action :fetch_user!, :generate_missing, only: [ :index ]
-    before_action :fetch_pay_period, only: [ :show, :calculate ]
+    before_action :fetch_pay_period, only: [ :show, :calculate, :distribute ]
 
     filter :time_span, options: [ :monthly, :weekly ]
 

@@ -15,6 +15,7 @@
   .index-buttons {
     margin-left: 10px;
   }
+
 }
 
 .pow-admin-show {
@@ -44,5 +45,9 @@
       background: $pow-color-green;
       cursor: default;
     }
+  }
+
+  .space-left {
+    margin-left: 10px;
   }
 }
