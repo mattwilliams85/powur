@@ -27,6 +27,14 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     self.id ||= self.class.id_from(start_date)
   end
 
+  def monthly?
+    time_span == :monthly
+  end
+
+  def weekly?
+    !monthly?
+  end
+
   def title
     "#{type_display} (#{start_date} - #{end_date})"
   end
