@@ -1,4 +1,4 @@
-class CalculatePayPeriodJob < ActiveJob::Base
+class DistributePayPeriodJob < ActiveJob::Base
   queue_as :default
 
   before_enqueue do |job|

@@ -37,6 +37,15 @@ module Auth
       render 'show'
     end
 
+    def distribute
+      t(:period_not_disbursable) unless @pay_period.disbursable?
+
+      DistributePayPeriodJob.perform_later(@pay_period.id)
+      @pay_period.status = :queued
+
+      render 'show'
+    end
+
     private
 
     def fetch_pay_period
