@@ -12,7 +12,7 @@ class Distribution < ActiveRecord::Base
   end
 
   def distribute_pay_period!(pay_period)
-    payments = pay_period.bonus_payments.pending.with_ewallets.entries
+    payments = pay_period.bonus_payments.pending.entries
     payment_ids = payments.map(&:id)
 
     BonusPayment.where(id: payment_ids).update_all(
@@ -53,19 +53,29 @@ class Distribution < ActiveRecord::Base
         payment.breakage!
         next
       end
-      batch = batches[payment.user_id] || {
-        payment_ids:       [],
-        distribution_data: {
-          ref_id:   payment.user_id,
-          username: payment.user.ewallet_username,
-          amount:   0 }
-      }
+
+      begin
+        payment.user.ewallet! unless payment.user.ewallet?
+      rescue => e
+        Airbrake.notify(e)
+        next # Tear drop. We tried
+      end
+
+      batch = batches[payment.user_id] || batch_for(payment)
       batch[:payment_ids].push(payment.id)
       batch[:distribution_data][:amount] += payment.amount
       batches[payment.user_id] = batch
     end
 
     batches
+  end
+
+  def batch_for(payment)
+    { payment_ids:       [],
+      distribution_data: {
+        ref_id:   payment.user_id,
+        username: payment.user.ewallet_username,
+        amount:   0 } }
   end
 
   def process_payment(user_id, distribution_data)

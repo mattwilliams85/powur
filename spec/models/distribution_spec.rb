@@ -67,5 +67,18 @@ describe Distribution, type: :model do
         end
       end
     end
+
+    context 'when user does not have an ewallet' do
+      it 'should try create an ewallet' do
+        allow(bonus_payment1.user)
+          .to receive(:ewallet?).and_return(false)
+        allow(bonus_payment1.user)
+          .to receive(:ewallet!).and_raise('ewallet creation failed')
+
+        distribution.distribute!([bonus_payment1, bonus_payment2])
+        expect(bonus_payment1.reload.pending?).to eq(true)
+        expect(bonus_payment2.reload.pending?).to eq(true)
+      end
+    end
   end
 end
