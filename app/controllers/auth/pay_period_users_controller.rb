@@ -26,7 +26,7 @@ module Auth
     private
 
     def payments
-      @pay_period.bonus_payments
+      @pay_period.bonus_payments.for_pay_period
     end
 
     def fetch_pay_period
