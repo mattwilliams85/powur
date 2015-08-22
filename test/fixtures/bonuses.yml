@@ -1,0 +1,8 @@
+seller:
+  type: SellerBonus
+  name: Seller Bonus
+  schedule: 2
+impact:
+  type: SellerBonus
+  name: imPACT
+  schedule: 1

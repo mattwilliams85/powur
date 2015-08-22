@@ -362,7 +362,7 @@ ALTER SEQUENCE delayed_jobs_id_seq OWNED BY delayed_jobs.id;
 CREATE TABLE distributions (
     id integer NOT NULL,
     status integer DEFAULT 1 NOT NULL,
-    title character varying,
+    batch_id character varying,
     distributed_at timestamp without time zone
 );
 
@@ -702,16 +702,13 @@ CREATE TABLE pay_periods (
     type character varying NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
-    calculate_queued timestamp without time zone,
-    calculate_started timestamp without time zone,
     calculated_at timestamp without time zone,
-    distribute_queued timestamp without time zone,
-    distribute_started timestamp without time zone,
-    disbursed_at timestamp without time zone,
+    distributed_at timestamp without time zone,
     total_volume numeric(10,2),
     total_bonus numeric(10,2),
     total_breakage numeric(10,2),
-    distribution_id integer
+    distribution_id integer,
+    status integer DEFAULT 0 NOT NULL
 );
 
 
@@ -2821,4 +2818,12 @@ INSERT INTO schema_migrations (version) VALUES ('20150814045744');
 INSERT INTO schema_migrations (version) VALUES ('20150815071137');
 
 INSERT INTO schema_migrations (version) VALUES ('20150815095610');
+
+INSERT INTO schema_migrations (version) VALUES ('20150819201256');
+
+INSERT INTO schema_migrations (version) VALUES ('20150820203530');
+
+INSERT INTO schema_migrations (version) VALUES ('20150820211644');
+
+INSERT INTO schema_migrations (version) VALUES ('20150822044836');
 

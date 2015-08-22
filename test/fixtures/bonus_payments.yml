@@ -1,0 +1,12 @@
+seller:
+  pay_period_id: 2015-04
+  bonus: seller
+  user: advocate
+  amount: 75.00
+  pay_as_rank: 1
+impact:
+  pay_period_id: 2015W23
+  bonus: impact
+  user: advocate
+  amount: 25.00
+  pay_as_rank: 1

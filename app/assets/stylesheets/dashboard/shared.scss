@@ -139,9 +139,10 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     border-left: 1px solid #e5e5e5;
     border-right: 1px solid #e5e5e5;
 
+    // Left Side Summary
     .summary {
       text-align: left;
-      min-height: 465px;
+      min-height: 0;
       padding: 0.9375em 15px;
       border-bottom: 1px solid #9b9b9b;
       border-right: 0;
@@ -151,22 +152,9 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
         font-size: 16pt;
         color: #fff;
       }
-
-      // for left sidebar on submitted leads
-      .homeowner-info {
-        label {
-          color: #9b9b9b;
-          text-transform: uppercase;
-          font-size: 10pt;
-          cursor: default;
-        }
-        p.name {
-
-        }
-      }
-
     }
 
+    // New/Incomplete Lead View
     .form {
       form {
         fieldset {
@@ -266,15 +254,13 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
   }
 
   // Responsive Styles for Drilldown
-  @media #{$small} {
+  @media #{$medium-up} {
     .drilldown {
       .summary {
+        min-height: 465px;
         border-right: 1px solid #555;
         border-bottom: 0;
         text-align: center;
-        .homeowner-info {
-          text-align: initial;
-        }
       }
     }
   }
@@ -659,12 +645,6 @@ $dashboard-font-family: "Muli", "Open Sans", "Helvetica", Helvetica, Arial, sans
     width: 20%;
     float: left;
   }
-
-  .w25percent {
-    width: 33%;
-    float: left;
-  }
-
   .w80percent {
     width: 80%;
     float: left;

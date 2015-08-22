@@ -33,5 +33,5 @@ heroku pg:backups public-url -a powur
 
 ### Restore Staging DB from Production backup
 ```
-heroku pg:backups restore [backup url] DATABASE_URL -a powur-staging
+heroku pg:backups restore `heroku pg:backups public-url -a powur` DATABASE_URL -a powur-staging
 ```

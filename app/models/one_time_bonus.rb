@@ -36,7 +36,7 @@ class OneTimeBonus < Bonus
   def distribute!
     distribution ||= create_distribution
 
-    payments = bonus_payments.pending.with_ewallets.entries
+    payments = bonus_payments.pending.preload(:user).entries
     payment_ids = payments.map(&:id)
 
     BonusPayment.where(id: payment_ids).update_all(

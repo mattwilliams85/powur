@@ -86,7 +86,7 @@ class EwalletClient
 
   # Example:
   # client.load_query(
-  #   batch_id: 'powur:1',
+  #   batch_id: '1',
   #   payments: [{
   #     ref_id: 12,
   #     username: 'user@example.com',
@@ -114,7 +114,7 @@ class EwalletClient
 
   # Example:
   # client.individual_load_query(
-  #   batch_id: 'powur:1',
+  #   batch_id: '1',
   #   payment: {
   #     ref_id: 12,
   #     username: 'user@example.com',

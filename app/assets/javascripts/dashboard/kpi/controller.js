@@ -10,7 +10,7 @@
       { value: 89, label: 'Last 3 Months' }, 
       { value: 179, label: 'Last 6 Months' }
     ];  
-    $scope.userGroup = 'grid'
+    $scope.userGroup = 'grid';
 
     $scope.scale = 29;
     $scope.current = new Date();
@@ -63,6 +63,7 @@
       var ctx = document.getElementById('metricsChart').getContext('2d');
       var type = $scope.settings[0].type;
 
+
       $scope.settings[1].options.showXLabels = 15;
       if ($scope.scale > 7) $scope.settings[1].options.showXLabels = 8;
 
@@ -72,9 +73,23 @@
       } else {
         $scope.kpiChart = new Chart(ctx)
           .Bar($scope.settings[0], $scope.settings[1].options);
+        greyZeroes();
       }
       $scope.chartReloading = false;
     };
+
+    function greyZeroes() {
+      for (var i = 0; i < $scope.kpiChart.datasets.length; i++) {
+        for (var j = 0; j < $scope.kpiChart.datasets[i].bars.length; j++) {
+          if ($scope.kpiChart.datasets[i].bars[j].value === 0) {
+            $scope.kpiChart.datasets[i].bars[j].fillColor = '#aaa';
+            $scope.kpiChart.datasets[i].bars[j].strokeColor = '#aaa';
+            $scope.kpiChart.datasets[i].bars[j].highlightFill = '#aaa';
+          }
+        }
+      }
+      $scope.kpiChart.update();
+    }
 
     $scope.setScale = function() {
       //Find largest data point
@@ -108,13 +123,13 @@
         }
       }
       $scope.settings[0].labels = _labels;
-    };
+    }; 
 
     $scope.changeUser = function(user) {
       if ($scope.activeUser === user) return;
       $scope.activeUser = user;
       resetChart();
-    };
+    }; 
 
     $scope.changeScale = function(scale) {
       $scope.scale = scale;
@@ -141,8 +156,7 @@
           $scope.buildChart();
         });
       }
-
-    };
+    }
 
     $scope.populateContributors = function() {
       //Defaults to Current User
@@ -163,25 +177,13 @@
              new Date(item[attr]).getDate() === $scope.current.subDays($scope.scale - i).getDate();
     }
 
-    function searchObjBranch(obj, user_id) {
-      if (obj.id === user_id) { return obj; }
-      obj = obj['children']
-      for(var i in obj) {
-        if(obj.hasOwnProperty(i)){
-          var returnVal = searchObjBranch(obj[i], user_id);
-          if(returnVal) { return returnVal; }
-        }
-      }
-      return null;
-    }
-
     function dataCount(j) {
       var data = angular.copy($scope.activeUser.metrics['data'+j]);
       var count = 0;
 
       //For each date
       for (var i = 0; i <= $scope.scale; i++) {
-        if($scope.section !== "genealogy") count = 0; //Non-incremental
+        if($scope.section !== 'genealogy') count = 0; //Non-incremental
         //For each data item
         for (var n = 0; n < data.length; n++) {
           if (sameDayAs(data[n], i, j)) {
@@ -222,7 +224,7 @@
       var newData = [];
       var data = $scope.settings[0].datasets[j].data;
       for(var i = 0; i < data.length; i+=7) {
-        if($scope.section === "genealogy") {
+        if($scope.section === 'genealogy') {
           newData[i/7] = data[i - 1] || 0;
 
           for(var n = 0; n < 7; n++) {
@@ -232,7 +234,7 @@
           newData[i/7] = 0;
 
           for(var n = 0; n < 7; n++) {
-            newData[i/7] += (data[i + n] || 0)
+            newData[i/7] += (data[i + n] || 0);
           }
         }
       }

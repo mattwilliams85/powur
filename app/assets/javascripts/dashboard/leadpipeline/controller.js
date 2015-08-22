@@ -150,6 +150,49 @@
       }
     };
 
+    // Determine whether to show Action Required flag on lead or not
+    $scope.leadPipelineSection.actionRequired = function(leadItem) {
+
+    };
+
+    // Return Status Definition from Proposal Status Guide (pdf)
+    $scope.leadPipelineSection.statusDefinition = function(leadItem) {
+
+    };
+
+    // Return Powur Advocate Action from Proposal Status Guide (pdf)
+    $scope.leadPipelineSection.advocateActionMessage = function(leadItem) {
+
+    };
+
+    // Fill status bar to appropriate level
+    $scope.leadPipelineSection.leadStage = function(leadItem) {
+      if (leadItem.properties.installed_at) {
+        return 4;
+      }
+      if (leadItem.properties.contracted_at) {
+        return 3;
+      }
+      if (leadItem.properties.converted_at) {
+        return 2;
+      }
+      return 1
+    };
+
+    // Return "Likelihood to convert" percentage
+    $scope.leadPipelineSection.likelihoodToConvert = function(leadItem) {
+      if (leadItem.properties.installed_at) {
+        return '100';
+      }
+      if (leadItem.properties.contracted_at) {
+        return '90';
+      }
+      if (leadItem.properties.converted_at) {
+        return '25';
+      }
+      return '10';
+    };
+
     // Controller Actions:
 
     // Show Lead
@@ -172,16 +215,10 @@
           href: '/u/leads/' + leadId + '.json'
         }).then(function(item){
           $scope.animateDrilldown();
-          if (item.properties.data_status === 'submitted' ||
-              item.properties.data_status === 'in_progress' ||
-              item.properties.data_status === 'closed_won' ||
-              item.properties.data_status === 'lost' ||
-              item.properties.data_status === 'on_hold') {
+          if (item.properties.data_status === 'submitted') {
             $timeout( function(){
               $scope.lead = item.properties;
               $scope.leadItem = item;
-              $scope.showProductFields = !!Object.keys(item.properties.product_fields).length;
-              $scope.showNotes = !!item.properties.notes;
               $scope.currentLead = item.properties;
               $scope.mode = item.properties.data_status;
             }, 300);

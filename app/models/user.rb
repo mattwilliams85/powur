@@ -213,7 +213,7 @@ class User < ActiveRecord::Base
     update_attribute(:valid_phone, twilio_valid_phone(phone))
   end
 
-  def breakage_account
+  def breakage_account?
     role?(:breakage_account)
   end
 

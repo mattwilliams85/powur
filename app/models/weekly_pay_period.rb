@@ -30,6 +30,10 @@ class WeeklyPayPeriod < PayPeriod
   end
 
   class << self
+    def date_from(id)
+      Date.parse(id)
+    end
+
     def id_from(date)
       date.strftime('%GW%V')
     end
@@ -47,6 +51,10 @@ class WeeklyPayPeriod < PayPeriod
       end
     rescue ActiveRecord::RecordNotUnique
       retry
+    end
+
+    def first_pay_period_id
+      SystemSettings.first_weekly_pay_period
     end
   end
 end

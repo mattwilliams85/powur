@@ -1,5 +1,6 @@
 class PurchaseRequirement < RankRequirement
-  def progress_for(user_id, pay_period_id)
+  def progress_for(user_id, pay_period_id = nil)
+    pay_period_id ||= MonthlyPayPeriod.current_id
     user_qualified?(user_id, pay_period_id) ? 1 : 0
   end
 

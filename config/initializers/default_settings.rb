@@ -6,6 +6,8 @@ begin
     SystemSettings.save_default(:default_product_id, 1)
     SystemSettings.save_default(:min_rank, 0)
     SystemSettings.save_default(:case_sensitive_auth, false)
+    SystemSettings.save_default(:first_monthly_pay_period, '2015-05')
+    SystemSettings.save_default(:first_weekly_pay_period, '2015W28')
 
   end
 rescue

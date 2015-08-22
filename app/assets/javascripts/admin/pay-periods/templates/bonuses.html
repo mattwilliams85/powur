@@ -1,0 +1,65 @@
+<main class="pow-admin-show">
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>{{user.full_name}}</h2>
+
+      <h5>Lead Totals</h5>
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>Individual month</th>
+            <th>Indvidual lifetime</th>
+            <th>Team lifetime</th>
+            <th>Team month</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in leadTotals">
+            <th>{{ item.properties.individual_month }}</th>
+            <th>{{ item.properties.indvidual_lifetime }}</th>
+            <th>{{ item.properties.team_lifetime }}</th>
+            <th>{{ item.properties.team_month }}</th>
+            <th>{{ item.properties.status }}</th>
+          </tr>
+        </tbody>
+      </table>
+
+      <br>
+
+      <h5>Bonus Payments</h5>
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Bonus Type</th>
+            <th>Pay As Rank</th>
+            <th>Lead ID</th>
+            <th>Customer</th>
+            <th>Owner</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in bonuses">
+            <td>{{ item.properties.id }}</td>
+            <td>{{ item.properties.amount | currency }}</td>
+            <td>{{ item.properties.bonus }}</td>
+            <td>{{ item.properties.pay_as_rank }}</td>
+            <td><a href="/admin/leads">{{ item.properties.lead.id }}</a></td>
+            <td>{{ item.properties.lead.customer }}</td>
+            <td>{{ item.properties.lead.owner }}</td>
+            <td>{{ item.properties.status }}</td>
+          </tr>
+        </tbody>
+        <tfoot class="sum-row">
+          <tr>
+            <td>Total</td>
+            <td colspan="7">{{sum | currency}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</main>

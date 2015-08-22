@@ -1,5 +1,7 @@
 module Auth
   class PayPeriodsController < AuthController
+    before_action :verify_admin, only: [ :show, :calculate, :distribute ]
+
     page
     sort id_desc:         { id: :desc },
          start_date_desc: { start_date: :desc },
@@ -7,7 +9,8 @@ module Auth
          end_date_desc:   { end_date: :desc },
          end_date_asc:    { end_date: :asc }
 
-    before_action :fetch_user!, :generate_missing, only: [ :index ]
+    before_action :fetch_user!, only: [ :index ]
+    before_action :fetch_pay_period, only: [ :show, :calculate, :distribute ]
 
     filter :time_span, options: [ :monthly, :weekly ]
 
@@ -23,13 +26,30 @@ module Auth
     end
 
     def show
-      @pay_period = PayPeriod.find(params[:id])
+    end
+
+    def calculate
+      t(:period_not_calculable) unless @pay_period.calculable?
+
+      CalculatePayPeriodJob.perform_later(@pay_period.id)
+      @pay_period.status = :queued
+
+      render 'show'
+    end
+
+    def distribute
+      t(:period_not_disbursable) unless @pay_period.disbursable?
+
+      DistributePayPeriodJob.perform_later(@pay_period.id)
+      @pay_period.status = :queued
+
+      render 'show'
     end
 
     private
 
-    def generate_missing
-      PayPeriod.generate_missing
+    def fetch_pay_period
+      @pay_period = PayPeriod.find(params[:id])
     end
   end
 end

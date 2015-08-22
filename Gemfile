@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 gem 'dotenv-rails', groups:  [ :development, :test ],
                     require: 'dotenv/rails-now'
-gem 'rails', '4.2.1'
+gem 'rails', '4.2.3'
 gem 'pg'
 
 gem 'sass-rails'
@@ -23,7 +23,7 @@ gem 'active_hash'
 gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
 gem 'rails-settings-cached'
-gem 'gibbon'
+gem 'gibbon', '1.2.0'
 gem 'valid_email', require: false
 gem 'faker'
 gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of'
