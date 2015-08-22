@@ -116,8 +116,7 @@
     } else if ($scope.mode === 'bonuses') {
       $scope.forUser($routeParams.payPeriodId, $routeParams.userId, function(data) {
         $rootScope.breadcrumbs.push({title: $scope.templateData.index.title, href:'/admin/pay-periods'});
-        $rootScope.breadcrumbs.push({title: $scope.payPeriod});
-        $rootScope.breadcrumbs.push({title: $scope.templateData.bonuses.title, href:'/admin/pay-periods/'+ $scope.payPeriod});
+        $rootScope.breadcrumbs.push({title: $scope.payPeriod, href:'/admin/pay-periods/'+ $scope.payPeriod});
         $rootScope.breadcrumbs.push({title: data.properties.id});
 
         $scope.user = data.properties;
