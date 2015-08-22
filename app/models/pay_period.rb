@@ -108,7 +108,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
       return unless first_lead
 
       [ MonthlyPayPeriod, WeeklyPayPeriod ].each do |period_klass|
-        ids = period_klass.ids_from(first_lead.converted_at)
+        ids = period_klass.relevant_ids
         next if ids.empty?
         existing = period_klass.where(id: ids).pluck(:id)
         ids -= existing
@@ -124,6 +124,14 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     def last_id
       most_recent = calculated.order(start_date: :desc).first
       most_recent && most_recent.id
+    end
+
+    def relevant_ids(current: false)
+      first_id = first_pay_period_id
+      first_date = first_id ? date_from(first_id) : Date.current
+      result = ids_from(first_date)
+      result << current_id if current && !result.include?(current_id)
+      result
     end
 
     def run_csvs
