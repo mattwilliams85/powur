@@ -1,4 +1,5 @@
 <button ng-repeat="action in buttonActions" class="right capitalize space-left" ng-click="executeAction(action)">{{ action.name }}</button>
+<button ng-if="payPeriod.status === 'queued'" class="right capitalize space-left inactive">Queued</button>
 <div class="clearfix"></div>
 
 <h5>Status: {{ payPeriod.status }}</h5>
