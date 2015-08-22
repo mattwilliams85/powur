@@ -56,7 +56,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   end
 
   def disbursable?
-    finished? && calculated?
+    finished? && calculated? && bonus_payments.count > 0
   end
 
   def distribute!
