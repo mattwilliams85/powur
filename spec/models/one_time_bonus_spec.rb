@@ -27,7 +27,7 @@ describe OneTimeBonus, type: :model do
 
     let(:expected_ewallet_query) do
       {
-        batch_id: 'powur:' + distribution.id.to_s,
+        batch_id: distribution.id.to_s,
         payment:  {
           ref_id:   user.id,
           username: user.ewallet_username,
