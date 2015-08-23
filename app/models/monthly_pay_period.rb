@@ -26,28 +26,24 @@ class MonthlyPayPeriod < PayPeriod
       (0...diff).map { |i| id_from(date + i.months) }
     end
 
-    def start_date_from_id(id)
+    def date_from(id)
       Date.parse("#{id}-01")
     end
 
     def end_date_from_id(id)
-      start_date_from_id(id).end_of_month
+      date_from(id).end_of_month
     end
 
     def find_or_create_by_id(id)
       find_or_create_by(id: id) do |period|
-        period.start_date = start_date_from_id(id)
+        period.start_date = date_from(id)
       end
     rescue ActiveRecord::RecordNotUnique
       retry
     end
 
-    def relevant_ids(current: false)
-      first_lead = Lead.converted.order(:converted_at).first
-      return [] unless first_lead
-      result = ids_from(first_lead.converted_at)
-      result << current_id if current && !result.include?(current_id)
-      result
+    def first_pay_period_id
+      SystemSettings.first_monthly_pay_period
     end
   end
 end

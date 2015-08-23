@@ -15,9 +15,13 @@
   .index-buttons {
     margin-left: 10px;
   }
+
 }
 
 .pow-admin-show {
+  .capitalize {
+    text-transform: capitalize;
+  }
   .index-table {
     width: 100%;
 
@@ -31,5 +35,19 @@
       color: #fff;
       font-weight: 400;
     }
+  }
+  button {
+    &.inactive {
+      background: #ccc;
+      cursor: default;
+    }
+    &.complete {
+      background: $pow-color-green;
+      cursor: default;
+    }
+  }
+
+  .space-left {
+    margin-left: 10px;
   }
 }

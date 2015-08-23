@@ -1,18 +1,28 @@
+<button ng-repeat="action in buttonActions" class="right capitalize space-left" ng-click="executeAction(action)">{{ action.name }}</button>
+<button ng-if="payPeriod.status === 'queued'" class="right capitalize space-left inactive">Queued</button>
+<div class="clearfix"></div>
+
+<h5>Status: {{ payPeriod.status }}</h5>
+<br>
+<h5 ng-if="payPeriod.distribution">Distribution Batch ID: {{ payPeriod.distribution }}</h5>
+
 <table class="index-table">
   <thead>
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Personal Lifetime Sales</th>
-      <th>Team Lifetime Sales</th>
+      <th>Pay As Rank</th>
+      <th>Override Rank</th>
+      <th>Bonus Total</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="item in index.data.entities">
       <td>{{ item.properties.id }}</td>
       <td><a ng-href="admin/pay-periods/{{payPeriod.id}}/users/{{item.properties.id}}/bonuses">{{ item.properties.full_name }}</a></td>
-      <td>{{ item.properties.personal_lifetime }}</td>
-      <td>{{ item.properties.team_lifetime }}</td>
+      <td>{{ item.properties.pay_as_rank }}</td>
+      <td>{{ item.properties.force_rank }}</td>
+      <td>{{ item.properties.bonus_total | currency }}</td>
     </tr>
   </tbody>
 </table>

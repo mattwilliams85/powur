@@ -10,10 +10,11 @@ namespace :powur do
     end
 
     def attrs_from_csv_row(row)
-      attrs = { first_name: row[0].strip,
-                last_name:  row[1].strip,
-                email:      row[2].strip.downcase,
-                smarteru_employee_id: row[4]}
+      attrs = {
+        first_name:           row[0].strip,
+        last_name:            row[1].strip,
+        email:                row[2].strip.downcase,
+        smarteru_employee_id: row[4] }
       attrs[:roles] = [ 'admin' ] if row[3] == 'admin'
       attrs
     end
@@ -25,10 +26,24 @@ namespace :powur do
       next if user.email.match(/eyecue/)
 
       user.update_attributes(
+        first_name:            Faker::Name.first_name,
+        last_name:             Faker::Name.first_name,
         email:                 "development+#{user.id}@eyecuelab.com",
-        phone:                 nil,
+        address:               Faker::Address.street_address,
+        city:                  Faker::Address.city,
+        phone:                 Faker::PhoneNumber.phone_number,
         password:              new_password,
         password_confirmation: new_password)
+    end
+
+    Customer.all.each do |customer|
+      customer.update_attributes(
+        first_name: Faker::Name.first_name,
+        last_name:  Faker::Name.first_name,
+        email:      "customer+#{customer.id}@eyecuelab.com",
+        address:    Faker::Address.street_address,
+        city:       Faker::Address.city,
+        phone:      Faker::PhoneNumber.phone_number)
     end
 
     # Create testing accounts

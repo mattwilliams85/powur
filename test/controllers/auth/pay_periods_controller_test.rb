@@ -18,6 +18,12 @@ class Auth::PayPeriodsControllerTest < ActionController::TestCase
       siren.must_be_class(:pay_periods)
     end
 
+    def test_index_with_weekly
+      get :index, time_span: :weekly
+
+      siren.entities.first.props_must_equal(type: 'Weekly')
+    end
+
     def test_index_weekly_filter
       get :index, time_span: :weekly
 

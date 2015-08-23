@@ -1,24 +1,22 @@
 module Auth
   class PayPeriodUsersController < AuthController
     before_filter :fetch_pay_period
-    before_filter :fetch_lead_totals, only: [ :index ]
+    before_filter :fetch_users, only: :index
 
     page
-    sort personal_monthly: { personal: :desc },
-         team_monthly:     { team: :desc },
-         user:             'users.last_name asc, users.first_name asc'
+    sort bonus_total: 'bp.bonus_total desc',
+         user:        'users.last_name asc, users.first_name asc'
 
     def index
-      @lead_totals = apply_list_query_options(@lead_totals)
-      @bonus_totals = payments.group(:user_id).sum(:amount)
+      @users = apply_list_query_options(@users)
     end
 
     def show
-      @lead_totals = fetch_lead_totals.where(user_id: params[:id].to_i).first
-      @user = @lead_totals.user
-      @bonus_totals = payments
-        .where(user_id: @user.id)
-        .group(:user_id).sum(:amount)
+      @user = User.find(params[:id].to_i)
+      if @pay_period.monthly?
+        @lead_totals = @pay_period.lead_totals.where(user_id: @user.id)
+      end
+      @bonus_total = payments.where(user_id: @user.id).sum(:amount)
       @bonus_payments = payments
         .where(user_id: @user.id)
         .preload(:bonus, :leads, :bonus_payment_leads,
@@ -35,11 +33,13 @@ module Auth
       @pay_period = PayPeriod.find(params[:pay_period_id])
     end
 
-    def fetch_lead_totals
-      @lead_totals = LeadTotals
-        .where(pay_period_id: @pay_period.id)
-        .joins(:user).includes(:user)
-        .preload(user: [ :user_ranks, :overrides ])
+    def fetch_users
+      join = payments
+        .select('sum(amount) bonus_total, user_id')
+        .group(:user_id)
+      @users = User.select('users.*, bp.*')
+        .joins("INNER JOIN (#{join.to_sql}) bp ON bp.user_id = users.id")
+        .preload(:user_ranks, :overrides)
     end
   end
 end

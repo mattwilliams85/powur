@@ -5,7 +5,7 @@ http_interactions:
     uri: https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx
     body:
       encoding: UTF-8
-      string: '{"MerchantGUID":"a4739056-7db6-40f3-9618-f2bcccbf70cc","MerchantPassword":"9xXLvA66hi","endpoint":"https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx","fn":"eWallet_Load","PartnerBatchID":"powur:1","AllowDuplicates":"true","AutoLoad":"false","CurrencyCode":"USD","arrAccounts":[{"UserName":"doesnotexist@example.com","Amount":"111.0","MerchantReferenceID":1}]}'
+      string: '{"MerchantGUID":"a4739056-7db6-40f3-9618-f2bcccbf70cc","MerchantPassword":"9xXLvA66hi","endpoint":"https://testewallet.com/eWalletWS/ws_JsonAdapter.aspx","fn":"eWallet_Load","PartnerBatchID":"1","AllowDuplicates":"true","AutoLoad":"false","CurrencyCode":"USD","arrAccounts":[{"UserName":"doesnotexist@example.com","Amount":"111.0","MerchantReferenceID":1}]}'
     headers:
       User-Agent:
       - Faraday v0.9.1
@@ -38,6 +38,6 @@ http_interactions:
       encoding: UTF-8
       string: '{"response":{"m_Code":-2,"m_Text":"Customer with user name doesnotexist@example.com
         is not found","LogTransactionID":0,"TransactionRefID":0,"ACHTransactionID":0,"ProcessorTransactionRefNumber":"","CustomerFeeAmount":0.0,"CurrencyCode":null}}'
-    http_version: 
+    http_version:
   recorded_at: Thu, 13 Aug 2015 23:09:30 GMT
 recorded_with: VCR 2.9.3

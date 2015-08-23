@@ -33,7 +33,7 @@ describe Distribution, type: :model do
 
     let(:expected_ewallet_query) do
       {
-        batch_id: 'powur:' + distribution.id.to_s,
+        batch_id: distribution.id.to_s,
         payment:  {
           ref_id:   user.id,
           username: user.ewallet_username,
@@ -65,6 +65,19 @@ describe Distribution, type: :model do
           distribution.distribute!([bonus_payment1, bonus_payment2])
           expect(user.reload.ewallet_username).to be_nil
         end
+      end
+    end
+
+    context 'when user does not have an ewallet' do
+      it 'should try create an ewallet' do
+        allow(bonus_payment1.user)
+          .to receive(:ewallet?).and_return(false)
+        allow(bonus_payment1.user)
+          .to receive(:ewallet!).and_raise('ewallet creation failed')
+
+        distribution.distribute!([bonus_payment1, bonus_payment2])
+        expect(bonus_payment1.reload.pending?).to eq(true)
+        expect(bonus_payment2.reload.pending?).to eq(true)
       end
     end
   end

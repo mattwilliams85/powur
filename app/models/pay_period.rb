@@ -1,6 +1,7 @@
 class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   has_many :lead_totals, class_name: 'LeadTotals', dependent: :destroy
   has_many :bonus_payments, dependent: :destroy
+  belongs_to :distribution
 
   enum status: [
     :pending, :queued, :calculating,
@@ -18,9 +19,20 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     statuses = [ :pending, :calculated ].map { |s| PayPeriod.statuses[s] }
     PayPeriod.where(status: statuses)
   }
+  scope :disbursable, lambda {
+    PayPeriod.calculated.where('end_date < ?', Date.current)
+  }
 
   before_create do
     self.id ||= self.class.id_from(start_date)
+  end
+
+  def monthly?
+    time_span == :monthly
+  end
+
+  def weekly?
+    !monthly?
   end
 
   def title
@@ -43,16 +55,18 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     Date.current > end_date
   end
 
-  def disbursed?
-    !disbursed_at.nil?
-  end
-
   def disbursable?
-    finished? && calculated? && !disbursed?
+    finished? && calculated? && bonus_payments.count > 0
   end
 
-  def disburse!
-    # payments_per_user = BonusPayment.user_bonus_totals(self)
+  def distribute!
+    self.distribution ||= create_distribution(batch_id: id.to_s + ':')
+
+    update_attributes(
+      status:         PayPeriod.statuses[:distributed],
+      distributed_at: DateTime.current)
+
+    distribution.distribute_pay_period!(self)
   end
 
   def calculable?
@@ -94,11 +108,13 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
       return unless first_lead
 
       [ MonthlyPayPeriod, WeeklyPayPeriod ].each do |period_klass|
-        ids = period_klass.ids_from(first_lead.converted_at)
+        ids = period_klass.relevant_ids
         next if ids.empty?
-        existing = period_klass.where(id: ids).pluck(:id)
-        ids -= existing
         ids.each { |id| period_klass.find_or_create_by_id(id) }
+
+        first_id = ids.sort.first
+        first_date = PayPeriod.find(first_id).start_date
+        period_klass.where('start_date < ?', first_date).delete_all
       end
     end
 
@@ -110,6 +126,14 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
     def last_id
       most_recent = calculated.order(start_date: :desc).first
       most_recent && most_recent.id
+    end
+
+    def relevant_ids(current: false)
+      first_id = first_pay_period_id
+      first_date = first_id ? date_from(first_id) : Date.current
+      result = ids_from(first_date)
+      result << current_id if current && !result.include?(current_id)
+      result
     end
 
     def run_csvs

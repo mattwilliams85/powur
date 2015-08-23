@@ -1,27 +1,25 @@
 require 'spec_helper'
 
-describe OneTimeBonus, type: :model do
-  let(:weekly_pay_period) { create(:weekly_pay_period) }
+describe PayPeriod, type: :model do
+  let(:pay_period) { create(:weekly_pay_period) }
 
   describe '#distribute!' do
     let(:distribution) { create(:distribution) }
-    let(:bonus) { create(:one_time_bonus, distribution_id: distribution.id) }
     let(:user) { create(:user, ewallet_username: 'doesnotexist@example.com') }
 
     let!(:rank_achievement) do
       create(:rank_achievement,
              rank:       create(:rank),
              user:       user,
-             pay_period: weekly_pay_period)
+             pay_period: pay_period)
     end
 
     let(:amount) { 111 }
 
     let!(:bonus_payment) do
       create(:bonus_payment,
-             pay_period: weekly_pay_period,
+             pay_period: pay_period,
              user:       user,
-             bonus:      bonus,
              amount:     amount)
     end
 
@@ -36,8 +34,10 @@ describe OneTimeBonus, type: :model do
     end
 
     before do
-      expect(bonus)
-        .to receive(:create_distribution).and_return(distribution)
+      expect(pay_period)
+        .to(receive(:create_distribution)
+            .with(batch_id: pay_period.id.to_s + ':')
+            .and_return(distribution))
     end
 
     context 'distribution succeeded' do
@@ -49,19 +49,19 @@ describe OneTimeBonus, type: :model do
       end
 
       it 'should mark statuses as paid' do
-        expect(bonus.distribute!).to eq(true)
-        expect(bonus.bonus_payments.count).to eq(1)
-        bonus.bonus_payments.all.each do |bp|
+        expect(pay_period.distribute!).to eq(true)
+        expect(pay_period.bonus_payments.count).to eq(1)
+        pay_period.bonus_payments.all.each do |bp|
           expect(bp.paid?).to eq(true)
         end
-        expect(bonus.distribution.paid?).to eq(true)
-        expect(bonus.distribution.distributed_at)
+        expect(pay_period.distribution.paid?).to eq(true)
+        expect(pay_period.distribution.distributed_at)
           .to be_within(1.second).of(Time.zone.now)
       end
 
       it 'should create and set a distribution' do
-        bonus.distribute!
-        expect(bonus.distribution_id).not_to be_nil
+        pay_period.distribute!
+        expect(pay_period.reload.distribution_id).not_to be_nil
       end
     end
   end

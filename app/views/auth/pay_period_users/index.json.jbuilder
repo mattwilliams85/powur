@@ -2,6 +2,6 @@ siren json
 
 klass :users, :list
 
-json.entities @lead_totals, partial: 'item', as: :lead_totals
+json.entities @users, partial: 'item', as: :user
 
 self_link request.path

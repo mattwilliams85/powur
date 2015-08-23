@@ -4,7 +4,7 @@
 
   function dateToLocalDate() {
     return function(createdAt) {
-      if (createdAt === null) {
+      if (createdAt === null || typeof createdAt === 'undefined') {
         return 'not available';
       }
       var date = new Date(Date.parse(createdAt)).toLocaleDateString();
@@ -14,7 +14,7 @@
 
   function timeToLocalTime() {
     return function(createdAt) {
-      if (createdAt === null) {
+      if (createdAt === null || typeof createdAt === 'undefined') {
         return 'not available';
       }
       var time = new Date(Date.parse(createdAt)).toLocaleTimeString();
@@ -24,7 +24,7 @@
 
   function dateTimeToLocal() {
     return function(createdAt) {
-      if (createdAt === null) {
+      if (createdAt === null || typeof createdAt === 'undefined') {
         return 'not available';
       }
       var date = new Date(Date.parse(createdAt)).toLocaleDateString();

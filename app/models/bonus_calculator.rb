@@ -88,7 +88,6 @@ class BonusCalculator
 
   class << self
     def run_all
-      PayPeriod.generate_missing
       PayPeriod.all.each do |pp|
         calc = BonusCalculator.new(pp.id)
         calc.reset

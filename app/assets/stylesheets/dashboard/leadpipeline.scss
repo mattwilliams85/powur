@@ -18,8 +18,160 @@
           max-height: 700px;
         }
       }
+
+      .summary {
+        &.homeowner-info {
+          background-color: #396E8E;
+          text-align: initial;
+          padding: 0.9375em 30px;
+
+          label {
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 10pt;
+            cursor: default;
+            margin-bottom: 10px;
+            margin-top: 20px;
+          }
+          a {
+            color: #3DBCEA;
+            &:hover {
+
+            }
+          }
+          p {
+            color: #fff;
+            margin-bottom: 0;
+          }
+          p.name {
+            font-size: 24pt;
+            line-height: 28pt;
+          }
+          p.email {
+            font-size: 12pt;
+          }
+          p.phone {
+            font-size: 12pt;
+          }
+        }
+      }
+      // Submitted Lead View
+      .submitted {
+
+        label {
+          color: #9b9b9b;
+          text-transform: uppercase;
+        }
+        .symbol {
+          font-size: 24pt;
+          position: relative;
+          bottom: 20px;
+        }
+        .lead-stats {
+          margin-top: 20px;
+
+          .likelihood {
+            color: $pow-color-blue;
+            font-size: 48pt;
+            line-height: 48pt;
+            font-family: 'Montserrat', 'Muli', sans-serif;
+            font-weight: bold;
+          }
+          .commission {
+            color: #F2D95F;
+            font-size: 48pt;
+            line-height: 48pt;
+            font-family: 'Montserrat', 'Muli', sans-serif;
+            font-weight: bold;
+          }
+          .last-update {
+            font-size: 18pt;
+            text-transform: uppercase;
+            font-family: 'Montserrat', 'Muli', sans-serif;
+          }
+        }
+
+        .lead-progress {
+          margin-top: 20px;
+          margin-bottom: 20px;
+          .progress-container {
+            height: 30px;
+            .progress-cell {
+              width: 25%;
+            }
+          }
+        }
+      }
+    }
+
+    .progress-cell {
+      background: -webkit-linear-gradient(#eee, #aaa); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(#eee, #aaa); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(#eee, #aaa); /* For Firefox 3.6 to 15 */
+      background: linear-gradient(#eee, #aaa); /* Standard syntax */
+
+      float: left;
+      width: 50%;
+      height: 30px;
+      border: 1px solid #aaa;
+      border-right: 0;
+
+      color: #333;
+      text-transform: uppercase;
+      text-align: center;
+
+      &.illuminated {
+        background: -webkit-linear-gradient(#5AACF9, #00526F); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(#5AACF9, #00526F); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(#5AACF9, #00526F); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(#5AACF9, #00526F);
+
+        border: 0;
+        border-right: 1px solid #333;
+
+        color: #fff;
+      }
+    }
+    .progress-cell:last-of-type {
+      border-right: 1px solid #aaa;
+      &.illuminated {
+        border-right: 1px solid #333;
+      }
+    }
+
+    /*
+    Responsive Styles for Drilldown
+    */
+    @media #{$medium-up} {
+      .drilldown {
+        .summary {
+          .homeowner-info {
+            text-align: initial;
+          }
+        }
+        .submitted {
+          overflow-y: auto;
+          max-height: 465px;
+
+          .lead-stats {
+            margin-top: 60px;
+
+            .likelihood {
+
+            }
+            .commission {
+
+            }
+            .last-update {
+
+            }
+
+          }
+        }
+      }
     }
   }
+
 
   span.currency-symbol {
     position: absolute;
@@ -152,17 +304,17 @@
     }
   }
   // Scroll Bars for Lead Updates Panel
-  .lead-update::-webkit-scrollbar,
+  .submitted::-webkit-scrollbar,
   .notes::-webkit-scrollbar {
     width: 8px;
   }
 
-  .lead-update::-webkit-scrollbar-track,
+  .submitted::-webkit-scrollbar-track,
   .notes::-webkit-scrollbar-track {
     background: rgba(0,0,0,0.2);
   }
 
-  .lead-update::-webkit-scrollbar-thumb,
+  .submitted::-webkit-scrollbar-thumb,
   .notes::-webkit-scrollbar-thumb {
     background: rgba(0,0,0,0.4);
   }
