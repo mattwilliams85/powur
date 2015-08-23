@@ -1,0 +1,12 @@
+.nav-bg {
+    width: 70px;
+    height: 1200px;
+    background: #29a8dd; /* Old browsers */
+    background: -moz-linear-gradient(top, #29a8dd 0%, #509f9a 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#29a8dd), color-stop(100%,#509f9a)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #29a8dd 0%,#509f9a 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
+}

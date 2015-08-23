@@ -1,0 +1,20 @@
+{
+  "name": "powur",
+  "version": "0.0.0",
+  "authors": [
+    "Viphak Lay <viphak@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": "true",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "~0.10.1"
+  }
+}
+
