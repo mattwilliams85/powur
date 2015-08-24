@@ -18,6 +18,11 @@ class BonusPayment < ActiveRecord::Base
   scope :for_pay_period, lambda {
     joins(:bonus).where('bonuses.schedule <> 3')
   }
+  scope :bonus_totals_by_type, lambda { |pay_period|
+    select('sum(amount) AMOUNT, bonus_id')
+      .group(:bonus_id)
+      .where('pay_period_id = ?', pay_period.id)
+  }
 
   # scope :for_user, ->(id) { where(user_id: id.to_i) }
   # scope :bonus, ->(id) { where(bonus_id: id.to_i) }
@@ -37,11 +42,7 @@ class BonusPayment < ActiveRecord::Base
   #                                .group(:pay_period_id)
   #                                .where('pay_period_id IN(?)', pay_periods.ids)
   #                            }
-  # scope :bonus_totals_by_type, lambda { |pay_period|
-  #                               select('sum(amount) AMOUNT, bonus_id')
-  #                                 .group(:bonus_id)
-  #                                 .where('pay_period_id = ?', pay_period.id)
-  #                             }
+
   # # scope orders for bonus payment
   # scope :bonus_sums, lambda {
   #   select('bonus_id, sum(amount) amount, count(id) quantity')
