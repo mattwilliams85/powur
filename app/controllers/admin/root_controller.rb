@@ -12,7 +12,7 @@ module Admin
         format.html
         format.json do
           @stats_items = [
-            { name: 'Leads', value: submitted_leads_count },
+            { name: 'Submitted Leads', value: submitted_leads_count },
             { name: 'Certifications', value: purchases_count },
             { name: 'Certification Revenue', value: "$#{purchases_revenue}" },
             { name: 'Final Contracts', value: contracted_leads_count },
