@@ -1,11 +1,12 @@
+  <h2 class="left">{{payPeriod.type}} <span class="sub-title">({{payPeriod.date_range}})</span></h2>
+
 <button ng-repeat="action in buttonActions" class="right capitalize space-left" ng-click="executeAction(action)">{{ action.name }}</button>
 <button ng-if="payPeriod.status === 'queued'" class="right capitalize space-left inactive">Queued</button>
 <div class="clearfix"></div>
-
-<h5>Status: {{ payPeriod.status }}</h5>
-<br>
 <h5 ng-if="payPeriod.distribution">Distribution Batch ID: {{ payPeriod.distribution }}</h5>
+<br ng-if="payPeriod.distribution">
 
+<h5>Pay Period Users</h5>
 <table class="index-table">
   <thead>
     <tr>
