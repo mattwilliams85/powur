@@ -27,18 +27,17 @@
 
     $scope.payPeriodFilters = [ { value: 'monthly', title: 'Monthly' },
                                 { value: 'weekly', title: 'Weekly' } ];
+    $scope.selectedFilter = { span: 'monthly' };
 
     // TODO: Have one 'pagination' function instead of defining it in every controller
     $scope.pagination = function(direction, path) {
       if (typeof direction === 'undefined') direction = 0;
       if (typeof path === 'undefined') path = '/u/pay_periods';
       var page = 1,
-          sort,
-          time_span;
+          sort;
       if ($scope.index.data) {
         page = $scope.index.data.properties.paging.current_page;
         sort = $scope.index.data.properties.sorting.current_sort;
-        time_span = $scope.index.data.selectedFilter;
       }
       page += direction;
 
@@ -48,11 +47,10 @@
         params: {
           page: page,
           sort: sort,
-          time_span: time_span
+          time_span: $scope.selectedFilter.span
         }
       }).success(function(data) {
         $scope.index.data = data;
-        $scope.index.data.selectedFilter = time_span;
         $anchorScroll();
       });
     };
