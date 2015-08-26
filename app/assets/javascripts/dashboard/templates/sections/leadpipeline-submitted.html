@@ -29,16 +29,23 @@
   <div class="lead-progress row show-for-large-up">
     <div class="large-12 columns">
       <div class="progress-container">
-        <div class="progress-cell illuminated">Submission</div>
+        <div class="progress-cell illuminated">Submission
+          <div class="arrow top"></div>
+          <div class="arrow shadow"></div>
+        </div>
         <div
           class="progress-cell"
           ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 2 }">
           Qualified
+          <div class="arrow top"></div>
+          <div class="arrow shadow"></div>
         </div>
         <div
           class="progress-cell"
           ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 3 }">
           Contract
+          <div class="arrow top"></div>
+          <div class="arrow shadow"></div>
         </div>
         <div
           class="progress-cell"
