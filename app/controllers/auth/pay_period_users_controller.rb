@@ -26,7 +26,7 @@ module Auth
     private
 
     def payments
-      @pay_period.bonus_payments
+      @pay_period.bonus_payments.for_pay_period
     end
 
     def fetch_pay_period
@@ -35,7 +35,7 @@ module Auth
 
     def fetch_users
       join = payments
-        .select('sum(amount) bonus_total, user_id')
+        .select('sum(bonus_payments.amount) bonus_total, bonus_payments.user_id')
         .group(:user_id)
       @users = User.select('users.*, bp.*')
         .joins("INNER JOIN (#{join.to_sql}) bp ON bp.user_id = users.id")

@@ -9,6 +9,7 @@ json.properties do
   if @pay_period.distribution
     json.distribution @pay_period.distribution.batch_id
   end
+  json.bonus_totals @pay_period.bonus_totals
 end
 
 entity_list = []

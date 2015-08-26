@@ -1,18 +1,46 @@
+  <h2 class="left">{{payPeriod.type}} <span class="sub-title">{{payPeriod.date_range}}</span></h2>
+
 <button ng-repeat="action in buttonActions" class="right capitalize space-left" ng-click="executeAction(action)">{{ action.name }}</button>
 <button ng-if="payPeriod.status === 'queued'" class="right capitalize space-left inactive">Queued</button>
 <div class="clearfix"></div>
-
-<h5>Status: {{ payPeriod.status }}</h5>
-<br>
 <h5 ng-if="payPeriod.distribution">Distribution Batch ID: {{ payPeriod.distribution }}</h5>
+<br ng-if="payPeriod.distribution">
 
+<h5>Pay Period Totals</h5>
+{{index.data.properties.bonus_totals}}
 <table class="index-table">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Pay As Rank</th>
-      <th>Override Rank</th>
+      <th width="10%">ID</th>
+      <th width="75%">Type</th>
+      <th>Total Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in payPeriod.bonus_totals">
+      <td>{{ item.id }}</td>
+      <td>{{ item.type }}</td>
+      <td>{{ item.amount | currency }}</td>
+    </tr>
+  </tbody>
+  <tfoot class="sum-row">
+    <tr>
+      <td width="85%" colspan="2">TOTAL</td>
+      <td>{{sum | currency}}</td>
+    </tr>
+  </tfoot>
+</table>
+
+<br>
+
+<h5>Pay Period Users</h5>
+<table class="index-table">
+  <thead>
+    <tr>
+      <th width="10%">ID</th>
+      <th width="45%">Name</th>
+      <th width="15%">Pay As Rank</th>
+      <th width="15%">Override Rank</th>
       <th>Bonus Total</th>
     </tr>
   </thead>

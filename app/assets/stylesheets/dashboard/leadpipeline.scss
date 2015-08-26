@@ -2,6 +2,10 @@
   .leadpipeline-section {
     padding-bottom: 20px;
 
+    .detail {
+      display: block;
+    }
+
     .drilldown {
       max-height: 0px;
       -webkit-transition: max-height .4s, opacity .2s;
