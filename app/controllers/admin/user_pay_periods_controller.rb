@@ -15,7 +15,7 @@ module Admin
       @pay_period = PayPeriod.find(params[:id])
       @order_totals = @user.order_totals.where(pay_period_id: @pay_period.id)
       @bonus_payments = @user.bonus_payments
-                        .where(pay_period_id: @pay_period.id).bonus_sums
+        .where(pay_period_id: @pay_period.id).bonus_sums
     end
   end
 end
