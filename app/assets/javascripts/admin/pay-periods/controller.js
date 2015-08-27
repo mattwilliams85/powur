@@ -84,6 +84,13 @@
       $location.path('/admin/pay-periods');
     };
 
+    $scope.findKeyDate = function(item) {
+      var lead = item.properties.lead;
+      if (lead.installed_at) return lead.installed_at;
+      if (lead.contracted_at) return lead.contracted_at;
+      return lead.converted_at;
+    };
+
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, Utility);
   }

@@ -8,6 +8,9 @@ json.properties do
   if (lead = bonus_payment.leads.first)
     json.lead do
       json.id lead.id
+      json.converted_at lead.converted_at
+      json.contracted_at lead.contracted_at
+      json.installed_at lead.installed_at
       json.customer lead.customer.full_name
       json.owner lead.user.full_name
     end
