@@ -117,10 +117,6 @@
 
         var entity = findByRel('pay_period-users', data.entities);
         $scope.pagination(0, entity.href);
-
-        for (var b in $scope.payPeriod.bonus_totals) {
-          $scope.sum += parseInt($scope.payPeriod.bonus_totals[b].amount);
-        }
       });
     } else if ($scope.mode === 'bonuses') {
       $scope.forUser($routeParams.payPeriodId, $routeParams.userId, function(data) {

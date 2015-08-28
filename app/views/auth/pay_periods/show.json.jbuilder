@@ -5,7 +5,6 @@ klass :pay_period
 json.partial! 'item', pay_period: @pay_period, detail: true
 
 json.properties do
-  json.call(@pay_period, :bonus_total)
   if @pay_period.distribution
     json.distribution @pay_period.distribution.batch_id
   end

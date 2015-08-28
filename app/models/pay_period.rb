@@ -80,6 +80,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   def calculate!
     BonusCalculator.new(self).invoke!
     update_attributes(
+      total_bonus:   bonus_payments.sum(:amount),
       status:        PayPeriod.statuses[:calculated],
       calculated_at: DateTime.current)
   end
