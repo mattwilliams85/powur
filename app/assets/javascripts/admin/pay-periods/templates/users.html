@@ -11,22 +11,20 @@
 <table class="index-table">
   <thead>
     <tr>
-      <th width="10%">ID</th>
-      <th width="75%">Type</th>
+      <th width="85%">Type</th>
       <th>Total Amount</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="item in payPeriod.bonus_totals">
-      <td>{{ item.id }}</td>
-      <td>{{ item.type }}</td>
+      <td width="85%">{{ item.type }}</td>
       <td>{{ item.amount | currency }}</td>
     </tr>
   </tbody>
   <tfoot class="sum-row">
     <tr>
-      <td width="85%" colspan="2">TOTAL</td>
-      <td>{{ payPeriod.total_bonus | currency }}</td>
+      <td>TOTAL</td>
+      <td>{{payPeriod.total_bonus | currency}}</td>
     </tr>
   </tfoot>
 </table>
