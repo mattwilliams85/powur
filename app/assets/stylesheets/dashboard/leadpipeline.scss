@@ -25,7 +25,8 @@
 
       .summary {
         &.homeowner-info {
-          background-color: #396E8E;
+          background: image-url('dashboard/bluehouse.png');
+          border: none;
           text-align: initial;
           padding: 0.9375em 30px;
 
@@ -61,6 +62,10 @@
       }
       // Submitted Lead View
       .submitted {
+        height: 100%;
+        background: image-url('dashboard/black-bg.png');
+        position: absolute;
+        right: 0;
 
         label {
           color: #9b9b9b;
@@ -100,8 +105,18 @@
           margin-bottom: 20px;
           .progress-container {
             height: 30px;
+            overflow: hidden;
             .progress-cell {
               width: 25%;
+              line-height: 20pt;
+              &:nth-child(1) {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+              }
+              &:nth-child(4) {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+              }
             }
           }
         }
@@ -109,6 +124,7 @@
     }
 
     .progress-cell {
+      position: relative;
       background: -webkit-linear-gradient(#eee, #aaa); /* For Safari 5.1 to 6.0 */
       background: -o-linear-gradient(#eee, #aaa); /* For Opera 11.1 to 12.0 */
       background: -moz-linear-gradient(#eee, #aaa); /* For Firefox 3.6 to 15 */
@@ -124,16 +140,59 @@
       text-transform: uppercase;
       text-align: center;
 
+      .arrow {
+        width: 42px;
+        height: 42px;
+        position: absolute;
+        top: -6px;
+        right: -22px;
+        clip: rect(auto, 24px, auto, 0px);
+        transform: rotate(-180deg) rotateX(-180deg);
+        z-index: 99;
+        &.shadow {
+          z-index: 98;
+          right: -25px;
+          top: -9px;
+          height: 49px;
+          width: 48px;
+          &:after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: #444;
+            transform: rotate(-45deg);
+          }
+        }
+        &.top {
+          &:after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: linear-gradient(210deg, #eee, #aaa);
+            transform: rotate(-45deg);
+          }
+        }
+      }
+
       &.illuminated {
         background: -webkit-linear-gradient(#5AACF9, #00526F); /* For Safari 5.1 to 6.0 */
         background: -o-linear-gradient(#5AACF9, #00526F); /* For Opera 11.1 to 12.0 */
         background: -moz-linear-gradient(#5AACF9, #00526F); /* For Firefox 3.6 to 15 */
         background: linear-gradient(#5AACF9, #00526F);
-
         border: 0;
-        border-right: 1px solid #333;
-
         color: #fff;
+
+        .arrow.top {
+          &:after {
+            background: linear-gradient(210deg, #5AACF9, #00526F);
+          }
+        }
       }
     }
     .progress-cell:last-of-type {
@@ -156,6 +215,7 @@
         .submitted {
           overflow-y: auto;
           max-height: 465px;
+          padding: 0 40px;
 
           .lead-stats {
             margin-top: 60px;

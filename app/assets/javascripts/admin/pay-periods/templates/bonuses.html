@@ -36,6 +36,7 @@
             <th>Status</th>
             <th>Pay As Rank</th>
             <th>Lead ID</th>
+            <th>Key Date</th>
             <th>Customer</th>
             <th>Owner</th>
             <th>Amount</th>
@@ -48,6 +49,7 @@
             <td>{{ item.properties.status }}</td>
             <td>{{ item.properties.pay_as_rank }}</td>
             <td><a href="/admin/leads">{{ item.properties.lead.id }}</a></td>
+            <td>{{ findKeyDate(item) | date:'MM/dd/yyyy @ h:mma'}}</td>
             <td>{{ item.properties.lead.customer }}</td>
             <td>{{ item.properties.lead.owner }}</td>
             <td>{{ item.properties.amount | currency }}</td>
@@ -55,7 +57,7 @@
         </tbody>
         <tfoot class="sum-row">
         <tr>
-          <td width="85%" colspan="7">TOTAL</td>
+          <td width="85%" colspan="8">TOTAL</td>
           <td>{{sum | currency}}</td>
         </tr>
         </tfoot>

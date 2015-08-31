@@ -9,7 +9,7 @@ def format_date_range(pp)
 end
 
 json.properties do
-  json.call(pay_period, :id, :status, :start_date, :end_date)
+  json.call(pay_period, :id, :status, :start_date, :end_date, :total_bonus)
   json.type pay_period.type_display
   json.date_range format_date_range(pay_period)
 end

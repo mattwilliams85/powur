@@ -22,6 +22,10 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   scope :disbursable, lambda {
     PayPeriod.calculated.where('end_date < ?', Date.current)
   }
+  scope :user_has_bonuses, lambda { |user_id|
+    join = BonusPayment.where(user_id: user_id).select(:pay_period_id).distinct
+    joins("INNER JOIN (#{join.to_sql}) bp ON bp.pay_period_id = pay_periods.id")
+  }
 
   before_create do
     self.id ||= self.class.id_from(start_date)
@@ -76,6 +80,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   def calculate!
     BonusCalculator.new(self).invoke!
     update_attributes(
+      total_bonus:   bonus_payments.sum(:amount),
       status:        PayPeriod.statuses[:calculated],
       calculated_at: DateTime.current)
   end

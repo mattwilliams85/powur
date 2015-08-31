@@ -84,6 +84,13 @@
       $location.path('/admin/pay-periods');
     };
 
+    $scope.findKeyDate = function(item) {
+      var lead = item.properties.lead;
+      if (lead.installed_at) return lead.installed_at;
+      if (lead.contracted_at) return lead.contracted_at;
+      return lead.converted_at;
+    };
+
     this.init($scope, $location);
     this.fetch($scope, $rootScope, $location, $routeParams, Utility);
   }
@@ -110,10 +117,6 @@
 
         var entity = findByRel('pay_period-users', data.entities);
         $scope.pagination(0, entity.href);
-
-        for (var b in $scope.payPeriod.bonus_totals) {
-          $scope.sum += parseInt($scope.payPeriod.bonus_totals[b].amount);
-        }
       });
     } else if ($scope.mode === 'bonuses') {
       $scope.forUser($routeParams.payPeriodId, $routeParams.userId, function(data) {

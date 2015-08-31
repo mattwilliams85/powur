@@ -12,6 +12,7 @@
       <th>Type</th>
       <th>Start Date <powur-sorter control="index" field="start_date"></powur-sorter></th>
       <th>End Date <powur-sorter control="index" field="end_date"></powur-sorter></th>
+      <th>Bonus Total</th>
       <th>Status</th>
     </tr>
   </thead>
@@ -23,6 +24,7 @@
       <td>{{ item.properties.type }}</td>
       <td>{{ item.properties.start_date }}</td>
       <td>{{ item.properties.end_date }}</td>
+      <td>{{ item.properties.total_bonus | currency }}</td>
       <td>{{ item.properties.status }}</td>
     </tr>
   </tbody>
