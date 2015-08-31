@@ -181,8 +181,9 @@
         font-color: #EEC500;
         font-size: 10pt;
       }
+
       .mag-icon {
-        background: url(/assets/landing/magazine-icon.png);
+        background: image-url("landing/magazine-icon.png");
         position: absolute;
         height: 29px;
         width: 35px;
@@ -199,7 +200,7 @@
       font-size:3rem;
       padding-left:60px;
       @media #{$small} {
-        font-size:1.4rem;
+        font-size:1.3rem;
       }
      }
    }
