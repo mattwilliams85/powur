@@ -171,26 +171,28 @@
      }
 
      .mag-button {
-      z-index: 99;
-      left: 110%;
-      text-align: left;
-      padding: 1px 15px 10px 60px;
-      position: absolute;
-      width: 363px;
-      span {
-        font-color: #EEC500;
-        font-size: 10pt;
-      }
+       cursor: initial;
+       z-index: 99;
+       left: 110%;
+       text-align: left;
+       padding: 1px 15px 10px 60px;
+       position: absolute;
+       width: 363px;
 
-      .mag-icon {
-        background: image-url("landing/magazine-icon.png");
-        position: absolute;
-        height: 29px;
-        width: 35px;
-        left: 14px;
-        bottom: 16px;
-        background-size: cover;
-      }
+       span {
+         font-color: #EEC500;
+         font-size: 10pt;
+       }
+
+       .mag-icon {
+         background: image-url("landing/magazine-icon.png");
+         position: absolute;
+         height: 29px;
+         width: 35px;
+         left: 14px;
+         bottom: 16px;
+         background-size: cover;
+       }
      }
 
      .button {
