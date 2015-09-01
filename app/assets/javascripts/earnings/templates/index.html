@@ -1,162 +1,106 @@
 <ng-include src="'shared/header-signed-in.html'"></ng-include>
 
 <main class="pow-earnings">
+
   <div class="row">
-    <div class="main-header">
-      MONTHLY-REWARD SUMMARY
+    <div class="large-10 small-12 column">
+      <div class="main-header left">
+        {{selectedFilter.span}} Pay Periods Summary
+      </div>
     </div>
-
-    <div class="date-dropdown">
-      <select ng-model="search.date" ng-options="date.string for date in dateList" class="dropdown"></select>
-    </div>
-
-  </div>
-  <div class="row">
-    <table>
-      <thead>
-        <tr>
-          <th width="200">Monthly Reward Type</th>
-          <th width="150">Units</th>
-          <th>Amount</th>
-          <th width="200" class="text-right">Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Reward Type</td>
-          <td>9</td>
-          <td>$125.00</td>
-          <td class="text-right">$1,125.00</td>
-        </tr>
-        <tr class="sub-total">
-          <td>Sub-total</td>
-          <td></td>
-          <td></td>
-          <td class="text-right">$125.00</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="row">
-    <div class="main-header">
-      WEEKLY-REWARD SUMMARY
+    <div class="large-2 small- 12 column">
+        <select ng-model="selectedFilter.span" ng-options="payPeriodFilter.value as payPeriodFilter.title for payPeriodFilter in payPeriodFilters" ng-change="requestEarnings()" class="filter">
+        </select>
     </div>
   </div>
-  <div class="row">
-    <table>
-      <thead>
-        <tr>
-          <th width="200">Monthly Reward Type</th>
-          <th width="150">Units</th>
-          <th>Amount</th>
-          <th width="200" class="text-right">Total</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Reward Type</td>
-          <td>9</td>
-          <td>$125.00</td>
-          <td class="text-right">$1,125.00</td>
-        </tr>
-        <tr class="sub-total">
-          <td>Sub-total</td>
-          <td></td>
-          <td></td>
-          <td class="text-right">$125.00</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
 
   <div class="row">
-    <table>
-      <thead>
-        <tr>
-          <th width="200">Total Earnings</th>
-          <th width="200" class="text-right">$1,000,000</th>
-        </tr>
-      </thead>
-    </table>
+    <div class="large-12 columns">
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th width="150">ID</th>
+            <th width="150">Type</th>
+            <th width="150">Start Date <powur-sorter control="index" field="start_date"></powur-sorter></th>
+            <th width="150">End Date <powur-sorter control="index" field="end_date"></powur-sorter></th>
+            <th width="150"></th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="item in payPeriods">
+          <tr>
+            <td>{{ item.properties.id }}</td>
+            <td>{{ item.properties.type }}</td>
+            <td>{{ item.properties.start_date }}</td>
+            <td>{{ item.properties.end_date }}</td>
+            <td ng-show="payPeriod.id !== item.properties.id" 
+                class="text-right clickable" 
+                ng-click="showDetails(item)">
+                Details 
+                <i class="fa fa-angle-down"></i>
+            </td>
+            <td ng-show="payPeriod.id === item.properties.id" 
+                class="text-right clickable" 
+                ng-click="showDetails(item)">
+                Details 
+                <i class="fa fa-angle-up"></i>
+            </td>
+          </tr>
+          <tr class="details-row">
+            <td colspan="5" class="td-container">
+              <div class="table-wrapper" ng-class="{'expand': payPeriod.id === item.properties.id}" ng-show="payPeriod.id === item.properties.id">
+                <div class="sub-header">
+                  {{payPeriod.type}} <span class="sub-title">{{payPeriod.date_range}}</span>
+                </div>
+                <table class="details-table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Bonus Type</th>
+                      <th ng-show="payPeriod.type === 'Monthly'">Pay As Rank</th>
+                      <th>Lead ID</th>
+                      <th>Key Date</th>
+                      <th>Customer</th>
+                      <th>Owner</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody ng-repeat="item in details track by $index">
+                    <tr class="sub-total" ng-if="subTotal(item, $index)">
+                      <td colspan="7" ng-show="payPeriod.type === 'Monthly'">{{ findTotal($index, 'name')}} Total</td>
+                      <td colspan="6" ng-show="payPeriod.type !== 'Monthly'">{{ findTotal($index, 'name')}} Total</td>
+                      <td>{{  findTotal($index, 'total') | currency }}</td>
+                    </tr>
+                    <tr>
+                      <td>{{ item.properties.id }}</td>
+                      <td>{{ item.properties.bonus }}</td>
+                      <td ng-show="payPeriod.type === 'Monthly'">{{ item.properties.pay_as_rank }}</td>
+                      <td>{{ item.properties.lead.id }}</td>
+                      <td>{{ findKeyDate(item) | date:'MM/dd/yyyy @ h:mma'}}</td>
+                      <td>{{ item.properties.lead.customer }}</td>
+                      <td>{{ item.properties.lead.owner }}</td>
+                      <td  width="75">{{ item.properties.amount | currency }}</td>
+                    </tr>
+                    <tr class="sub-total" ng-if="lastTotal($index)">
+                      <td colspan="7" ng-show="payPeriod.type === 'Monthly'">{{item.properties.bonus}} Total</td>
+                      <td colspan="6" ng-show="payPeriod.type !== 'Monthly'">{{item.properties.bonus}} Total</td>
+                      <td>{{ findTotal($index, 'total') | currency }}</td>
+                    </tr>
+                  </tbody>
+                  <tbody>
+                    <tr class="grand-total">
+                      <td colspan="7" ng-show="payPeriod.type === 'Monthly'">GRAND TOTAL</td>
+                      <td colspan="6" ng-show="payPeriod.type !== 'Monthly'">GRAND TOTAL</td>
+                      <td width="75">{{ grandTotal | currency }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </main>
 
 <ng-include src="'shared/footer-signed-in.html'"></ng-include>
-<!-- 
-<main class="pow-earnings">
-  <div class="row">
-    <div class="large-12 columns">
-      <div class="section_header">
-        <div class="section-header-content">
-          <table class="stats-header">
-            <tr>
-              <td>
-                <h3>CURRENT WEEK</h3>
-                <h1><span>${{currentWeekTotalEarnings}}</span></h1>
-              </td>
-              <td>
-                <h3>CURRENT MONTH</h3>
-                <h1><span>${{currentMonthTotalEarnings}}</span></h1>
-              </td>
-              <td>
-                <h3>ACCUMULATED TOTAL</h3>
-                <h1><span>${{accumulatedTotal}}</span></h1>
-              </td>
-            </tr>
-          </table>
-        </div>
-
-        <div class="date-dropdown">
-          <div class="section_label">
-            <div class="tag"><img src="/images/dashboard/customers_icon.png"></div>
-          </div>
-          <select ng-model="search.startMonth" ng-options="month for month in months" class="dropdown"></select>
-          <select ng-model="search.startYear" ng-options="year for year in years" class="dropdown"></select>
-          <select ng-model="search.endMonth" ng-options="month for month in months" class="dropdown"></select>
-          <select ng-model="search.endYear" ng-options="year for year in years" class="dropdown"></select>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="large-12 columns">
-      <div class="warning"></div>
-
-      <div class="earnings-list">
-        <div class="section-content">
-          <div class="table-header">
-            <span>{{search.startMonth}} - </span>
-            <span>{{search.startYear}}</span>
-          </div>
-        </div>
-
-        <table>
-          <thead>
-            <td>Pay Period</td>
-            <td>Dates</td>
-            <td>Amount</td>
-            <td class="text-right">Details</td>
-          </thead>
-          <tr ng-repeat="earning in earnings" class="summary-row">
-            <td ng-if="earning.properties.pay_period_type === 'Monthly'" class="details-cell">Monthly</td>
-            <td ng-if="earning.properties.pay_period_type !== 'Monthly'" class="details-cell">Weekly</td>
-
-            <td class="details-cell">{{earning.properties.pay_period_date_range || '-'}}</td>
-
-            <td ng-if="earning.properties.total_earnings" class="details-cell">${{earning.properties.total_earnings}}</td>
-            <td ng-if="earning.properties.total_earnings && earning.properties.pay_period_type === 'Monthly'" class="details-cell right-aligned"><a class="dropToggle monthly">View Details  <i class="fa fa-chevron-down"></i></a></td>
-            <td ng-if="earning.properties.total_earnings && earning.properties.pay_period_type !== 'Monthly'" class="details-cell right-aligned"><a class="dropToggle weekly">View Details  <i class="fa fa-chevron-down"></i></a></td>
-
-            <td ng-if="!earning.properties.total_earnings" class="details-cell">$0</td>
-            <td ng-if="!earning.properties.total_earnings" class="details-cell right-aligned" style="color:#ccc">View Details <i class="fa fa-chevron-down"></i> </td>
-          </tr>
-        </table>
-      </div>
-
-    </div>
-  </div>
-
-</main> -->

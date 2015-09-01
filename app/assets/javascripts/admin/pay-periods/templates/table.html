@@ -1,7 +1,6 @@
 <div class="row">
   <div class="large-3 medium-4 small-12 columns last right">
-    <select ng-model="index.data.selectedFilter" ng-options="payPeriodFilter.value as payPeriodFilter.title for payPeriodFilter in payPeriodFilters" ng-change="pagination()" class="filter">
-      <option value="">All</option>
+    <select ng-model="selectedFilter.span" ng-options="payPeriodFilter.value as payPeriodFilter.title for payPeriodFilter in payPeriodFilters" ng-change="pagination()" class="filter">
     </select>
   </div>
 </div>
@@ -13,6 +12,7 @@
       <th>Type</th>
       <th>Start Date <powur-sorter control="index" field="start_date"></powur-sorter></th>
       <th>End Date <powur-sorter control="index" field="end_date"></powur-sorter></th>
+      <th>Bonus Total</th>
       <th>Status</th>
     </tr>
   </thead>
@@ -24,6 +24,7 @@
       <td>{{ item.properties.type }}</td>
       <td>{{ item.properties.start_date }}</td>
       <td>{{ item.properties.end_date }}</td>
+      <td>{{ item.properties.total_bonus | currency }}</td>
       <td>{{ item.properties.status }}</td>
     </tr>
   </tbody>

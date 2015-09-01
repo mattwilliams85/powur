@@ -122,6 +122,9 @@ Rails.application.routes.draw do
       resources :order_totals, only: [ :index ]
       resources :user_activities, only:       [ :index, :show ],
                                   controller: :user_activities
+      resources :pay_periods, only:       [ :index, :show ],
+                              controller: :user_pay_periods
+
       member do
         get :downline
         get :full_downline
@@ -130,9 +133,6 @@ Rails.application.routes.draw do
         get :eligible_parents
         get :sponsors
       end
-
-      # resources :rank_achievements, only:       [ :index ],
-      #                               controller: :user_rank_achievements
     end
 
     resources :earnings,

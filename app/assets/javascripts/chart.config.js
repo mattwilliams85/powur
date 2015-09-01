@@ -11,20 +11,21 @@ function chartConfig(scale){
           labels: [],
           datasets: [{
             label: "Lead",
+            filter: 'submitted_at',
             fillColor: '#3fb6e1',
             highlightFill: '#3fb6e1',
             strokeColor: '#3fb6e1',
             data: []
           },{
-            filter: 'submitted_at',
             label: "Proposal",
+            filter: 'converted_at',
             fillColor: '#fbc217',
             highlightFill: '#fbc217',
             strokeColor: '#fbc217',
             data: []
           },{
-            filter: 'converted_at',
             label: "Contract",
+            filter: 'contracted_at',
             fillColor: '#b5489b',
             highlightFill: '#b5489b',
             strokeColor: '#b5489b',

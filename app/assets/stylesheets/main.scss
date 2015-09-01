@@ -143,8 +143,12 @@ slider {
         margin-right: 1em;
       }
 
-      &.pow-button-solid:hover{
-        background:#20B552;
+      &.pow-button-solid {
+        margin: 0;
+
+        &:hover{
+          background: #20B552;
+        }
       }
 
       &.pow-button-transparent:hover{

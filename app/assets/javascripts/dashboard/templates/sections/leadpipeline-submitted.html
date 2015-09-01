@@ -29,16 +29,23 @@
   <div class="lead-progress row show-for-large-up">
     <div class="large-12 columns">
       <div class="progress-container">
-        <div class="progress-cell illuminated">Submission</div>
+        <div class="progress-cell illuminated">Submission
+          <div class="arrow top"></div>
+          <div class="arrow shadow"></div>
+        </div>
         <div
           class="progress-cell"
           ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 2 }">
           Qualified
+          <div class="arrow top"></div>
+          <div class="arrow shadow"></div>
         </div>
         <div
           class="progress-cell"
           ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 3 }">
           Contract
+          <div class="arrow top"></div>
+          <div class="arrow shadow"></div>
         </div>
         <div
           class="progress-cell"
@@ -79,8 +86,14 @@
   <div class="row">
     <div class="large-12 columns">
       <label>SolarCity Status</label>
-      <p class="status">{{leadItem.entities[0].properties.lead_status || 'No Status Available'}}</p>
-      <p class="status-message">{{leadPipelineSection.actionMessage(leadItem)}}</p>
+      <span class="status">{{leadItem.entities[0].properties.lead_status || 'No Status Available'}}</span>
+      <span class="status-message">{{leadPipelineSection.actionMessage(leadItem)}}</span>
+      <br><br>
+      <label ng-if="leadItem.properties.submitted_at">Key Dates</label>
+      <span ng-if="leadItem.properties.submitted_at" class="detail">Submitted: {{leadItem.properties.submitted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+      <span ng-if="leadItem.properties.converted_at" class="detail">Converted: {{leadItem.properties.converted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+      <span ng-if="leadItem.properties.contracted_at" class="detail">Contracted: {{leadItem.properties.contracted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+      <span ng-if="leadItem.properties.installed_at" class="detail">Installed: {{leadItem.properties.installed_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
     </div>
   </div>
 </div>

@@ -2,56 +2,89 @@
 ;(function() {
   'use strict';
 
-  function EarningsCtrl($scope, $rootScope, $location, $http, UserProfile) {
+  function EarningsCtrl($scope, $rootScope, $location, $http, $timeout, UserProfile, CommonService, Utility) {
     $scope.redirectUnlessSignedIn();
-    $scope.dateList = {};
-    // requestEarnings(function successCallback(data) {
-      
-    // });
+    $scope.payPeriodFilters = [ { value: 'monthly', title: 'Monthly' },
+                                { value: 'weekly', title: 'Weekly' } ];
+    $scope.selectedFilter = { span: 'monthly' };
+    $scope.animating = false;
 
-    // $scope.search = {};
+    UserProfile.get().then(function(data) {
+      $scope.currentUser = data.properties;
 
-    // function requestEarnings(cb) {
-    //   $http({
-    //     method: 'GET',
-    //     url: '/u/earnings/summary.json',
-    //     params: {
-          
-    //     }
-    //   }).success(cb);
-    // }
+      $scope.requestEarnings();
+    });
 
-    function monthRange(d1, d2) {
-      var months;
-      months = (d2.getFullYear() - d1.getFullYear()) * 12;
-      months -= d1.getMonth() + 1;
-      months += d2.getMonth();
-      return months <= 0 ? 0 : months;
-    }
+    $scope.requestEarnings = function() {
+      $http({
+        method: 'GET',
+        url: '/u/users/'+$scope.currentUser.id+'/pay_periods',
+        params: {
+          time_span: $scope.selectedFilter.span
+        }
+      }).success(function(data){
+        $scope.payPeriods = data.entities;
+      });
+    };
 
-    var months = [
-      'January', 'February', 'March', 'April', 'May', 'June', 'July',
-      'August', 'September', 'October', 'November', 'December'
-    ];
+    $scope.showDetails = function(item) {
+      $scope.animating = true;
+      $timeout(function(){ $scope.animating = false; },300);
+      if ($scope.payPeriod && 
+          $scope.payPeriod.id === item.properties.id) return clearTable();
+      CommonService.execute(item.links[0]).then(function success(data) {
+        $scope.payPeriod = data.properties;
+        $scope.totals = data.entities[0].entities;
+        $scope.details = data.entities[1].entities;
+        grandTotal();
+      });
+    };
 
-    function monthList() {
-      var startDate = new Date('04/26/2014'); //TEMP
-      var range = monthRange(startDate, new Date());
-
-      for (var i = 0; i < range; i ++) {
-        var date = new Date();
-        date.setMonth(date.getMonth() - i);
-        date = new Date(date);
-        $scope.dateList[i] = {
-          date: new Date(date.setDate(1)),
-          string: months[date.getMonth()] + ' ' + date.getFullYear(),
-        };
+    function grandTotal() {
+      $scope.grandTotal = 0;
+      for(var i = 0; i < $scope.details.length; i++) {
+        $scope.grandTotal += parseInt($scope.details[i].properties.amount);
       }
-      $scope.search = {date:$scope.dateList[0]};
     }
-    monthList();
+
+    $scope.lastType = null; 
+
+    $scope.subTotal = function(item, index) {
+      if (item.properties.bonus === $scope.lastType && 
+         index !== $scope.details.length  ||
+         index === 0) {
+        $scope.lastType = item.properties.bonus;
+        return false;
+      }
+      $scope.lastType = item.properties.bonus;
+      return true;
+    };
+
+    $scope.lastTotal = function(index) {
+      if (index === $scope.details.length - 1) return true;
+    };
+
+    $scope.findTotal = function(index, type) {
+      if (index !== 0) index -= 1;
+      var total = Utility.findBranch($scope.totals, {'bonus': $scope.details[index].properties.bonus});
+      if (type === 'name') return total.bonus;
+      return total.bonus_total;
+    };
+
+
+    function clearTable() {
+      $scope.payPeriod = null;
+      $scope.details = null;
+    }
+
+    $scope.findKeyDate = function(item) {
+      var lead = item.properties.lead;
+      if (lead.installed_at) return lead.installed_at;
+      if (lead.contracted_at) return lead.contracted_at;
+      return lead.converted_at;
+    };
   }
 
-  EarningsCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', 'UserProfile'];
+  EarningsCtrl.$inject = ['$scope', '$rootScope', '$location', '$http', '$timeout', 'UserProfile', 'CommonService', 'Utility'];
   angular.module('powurApp').controller('EarningsCtrl', EarningsCtrl);
 })();
