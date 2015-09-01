@@ -84,11 +84,15 @@
   </div>
   <!-- SolarCity Status Text -->
   <div class="row">
-    <div class="large-12 columns">
-      <label>SolarCity Status</label>
+    <div class="large-6 columns">
+      <label>SolarCity Lead Status</label>
       <span class="status">{{leadItem.entities[0].properties.lead_status || 'No Status Available'}}</span>
       <span class="status-message">{{leadPipelineSection.actionMessage(leadItem)}}</span>
       <br><br>
+      <label ng-if="leadItem.entities[0].properties.opportunity_stage">Opportunity Stage</label>
+      <span class="status-message">{{leadItem.entities[0].properties.opportunity_stage}}</span>
+    </div>
+    <div class="large-6 columns">
       <label ng-if="leadItem.properties.submitted_at">Key Dates</label>
       <span ng-if="leadItem.properties.submitted_at" class="detail">Submitted: {{leadItem.properties.submitted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
       <span ng-if="leadItem.properties.converted_at" class="detail">Converted: {{leadItem.properties.converted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
