@@ -176,7 +176,10 @@
       if (leadItem.properties.converted_at) {
         return 2;
       }
-      return 1
+      if (leadItem.properties.submitted_at) {
+        return 1;
+      }
+      return 0;
     };
 
     // Return "Likelihood to convert" percentage
