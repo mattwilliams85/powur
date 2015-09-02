@@ -28,29 +28,33 @@
   <!-- Progress Bar (Large Screens only) -->
   <div class="lead-progress row show-for-large-up">
     <div class="large-12 columns">
-      <div class="progress-container">
-        <div class="progress-cell illuminated">Submission
-          <div class="arrow top"></div>
-          <div class="arrow shadow"></div>
-        </div>
-        <div
-          class="progress-cell"
-          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 2 }">
-          Qualified
-          <div class="arrow top"></div>
-          <div class="arrow shadow"></div>
-        </div>
-        <div
-          class="progress-cell"
-          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 3 }">
-          Contract
-          <div class="arrow top"></div>
-          <div class="arrow shadow"></div>
-        </div>
-        <div
-          class="progress-cell"
-          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) == 4 }">
-          Installation
+      <div class="progress-border">
+        <div class="progress-container">
+          <div class="shine mask"></div>
+          <div class="inset mask"></div>
+          <div class="stripe mask"></div>
+          <div class="progress-cell illuminated">
+            <div class="arrow-block" id="block-1"></div>
+            <span>Submission</span>
+          </div>
+          <div
+            class="progress-cell"
+            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 2 }">
+            <div class="arrow-block" id="block-2"></div>
+            <span>Qualified</span>
+          </div>
+          <div
+            class="progress-cell"
+            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 3 }">
+            <div class="arrow-block" id="block-3"></div>
+            <span>Contract</span>
+          </div>
+          <div
+            class="progress-cell"
+            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) == 4 }">
+            <div class="arrow-block" id="block-4"></div>
+            <span>Installation</span>
+          </div>
         </div>
       </div>
     </div>
