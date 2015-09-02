@@ -11,6 +11,14 @@ module powur.controllers {
 		constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService) {
 			var self = this;
 			self.$log.debug(NavController.ControllerId + ':ctor');
+
+			//self.$log.debug(self.$state.$current);
+			//self.$log.debug(self.$state.current);
+		}
+		
+		public isCurrent(state: string): boolean {
+			var self = this;
+			return self.$state.current.name == state;
 		}
 		
 		public go(state: string) {

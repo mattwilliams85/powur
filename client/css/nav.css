@@ -30,7 +30,7 @@ html,body {
     padding-bottom: 30px;
 }
 
-.nav .list li:hover {
+.nav .list li:hover, .nav .list li.active {
     -webkit-filter: brightness(0) invert(1);
     filter: brightness(0) invert(1);
     cursor: pointer;

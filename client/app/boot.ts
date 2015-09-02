@@ -145,6 +145,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 
 	$rootScope.$on('$stateChangeSuccess', (e, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
 		$log.debug('$stateChangeSuccess');
+		
+		//save current
+		$state.current = toState;
+		
 		if (fromState == null) {
 			// first time
 			$log.debug('first time');
