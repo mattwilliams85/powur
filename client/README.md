@@ -74,4 +74,5 @@ ws
 # go to
 http://localhost:8000/#/
 
-
+# install cordova
+npm install -g cordova
