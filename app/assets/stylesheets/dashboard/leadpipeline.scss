@@ -76,6 +76,41 @@
           position: relative;
           bottom: 20px;
         }
+        .divider {
+          margin: 10px 0;
+        }
+        .warning {
+          background: url(/assets/dashboard/warning.png);
+          height: 23px;
+          width: 23px;
+          position: absolute;
+          z-index: 999;
+          margin: auto 0;
+          top: 0;
+          bottom: 0;
+          right: -25px;
+          display: none;
+        }
+        .action-row {
+          position: absolute;
+          bottom: 25px;
+          width: 95%;
+
+          .action-bar {
+            width: 5px;
+            background-color: #f00;
+            float: left;
+            height: 100%;
+            position: absolute;
+          }
+          .action-text {
+            margin-left: 15px;
+            display: block;
+            float: left;
+            width: 90%;
+          }
+        }
+
         .lead-stats {
           margin-top: 20px;
 
@@ -101,19 +136,58 @@
         }
 
         .lead-progress {
-          margin-top: 20px;
           margin-bottom: 20px;
+          .progress-border {
+            padding: 3px;
+            background-color: #333;
+            border-radius: 15px;
+            border-bottom: 2px solid #888;
+            box-shadow: 0px 0px 0px 2px rgba(0,0,0,0.1);
+            border-top: 1px solid #333;
+          }
           .progress-container {
-            height: 30px;
+            height: 38px;
             overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            z-index: 1;
+
+            .mask {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              &.shine {
+                height: 19px;
+                background: rgba(255,255,255,0.1);
+                border-radius: 8px;
+                margin: 1px;
+                z-index: 100;
+              }
+              &.inset {
+                z-index: 98;
+                box-shadow: inset 0px 0px 15px 2px rgba(0, 0, 0, 0.5);
+              }
+              &.stripe {
+                z-index: 99;
+                background: image-url('dashboard/stripes.png');
+                background-size: cover;
+                background-size: 200%;
+                background-position: center center;
+                opacity: 0.4;
+              }
+            }
             .progress-cell {
               width: 25%;
-              line-height: 20pt;
-              &:nth-child(1) {
+              line-height: 29pt;
+              position: relative;
+              
+              &:nth-child(4) {
                 border-top-left-radius: 10px;
                 border-bottom-left-radius: 10px;
               }
-              &:nth-child(4) {
+              &:nth-child(7) {
                 border-top-right-radius: 10px;
                 border-bottom-right-radius: 10px;
               }
@@ -125,80 +199,93 @@
 
     .progress-cell {
       position: relative;
-      background: -webkit-linear-gradient(#eee, #aaa); /* For Safari 5.1 to 6.0 */
-      background: -o-linear-gradient(#eee, #aaa); /* For Opera 11.1 to 12.0 */
-      background: -moz-linear-gradient(#eee, #aaa); /* For Firefox 3.6 to 15 */
-      background: linear-gradient(#eee, #aaa); /* Standard syntax */
-
       float: left;
       width: 50%;
-      height: 30px;
-      border: 1px solid #aaa;
+      height: 38px;
       border-right: 0;
 
       color: #333;
       text-transform: uppercase;
       text-align: center;
 
-      .arrow {
-        width: 42px;
-        height: 42px;
-        position: absolute;
-        top: -6px;
-        right: -22px;
-        clip: rect(auto, 24px, auto, 0px);
-        transform: rotate(-180deg) rotateX(-180deg);
-        z-index: 99;
-        &.shadow {
-          z-index: 98;
-          right: -25px;
-          top: -9px;
-          height: 49px;
-          width: 48px;
-          &:after {
-            content: "";
-            position: absolute;
-            top: 10px;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            background: #444;
-            transform: rotate(-45deg);
-          }
-        }
-        &.top {
-          &:after {
-            content: "";
-            position: absolute;
-            top: 10px;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            background: linear-gradient(210deg, #eee, #aaa);
-            transform: rotate(-45deg);
-          }
-        }
+      span {
+        z-index: 101;
+        position: relative;
       }
 
+      .arrow-block {
+        background-image: -moz-linear-gradient(135deg, #aaa 45%, #fff 55%);
+        background-image: -webkit-linear-gradient(135deg, #aaa 45%, #fff 55%);
+        background-image: -ms-linear-gradient(135deg, #aaa 45%, #fff 55%);
+        background-image: linear-gradient(135deg, #aaa 45%, #fff 55%);
+        border-top: 3px solid #444;
+        border-right: 3px solid #444;
+        height: 300px;
+        width: 300px;
+        position: absolute;
+        top: -130px;
+        left: -130px;
+        transform: scaleY(-1) rotate(45deg);
+        &#block-1 { z-index: 4 }
+        &#block-2 { z-index: 3 }
+        &#block-3 { z-index: 2 }
+        &#block-4 { z-index: 1 }
+      }
+
+      // .arrow {
+      //   width: 53px;
+      //   height: 51px;
+      //   position: absolute;
+      //   top: -7px;
+      //   right: -24px;
+      //   clip: rect(auto, 24px, auto, 0px);
+      //   transform: rotate(-180deg) rotateX(-180deg);
+      //   z-index: 98;
+      //   &.shadow {
+      //     z-index: 97;
+      //     right: -25px;
+      //     top: -10px;
+      //     height: 62px;
+      //     width: 58px;
+      //     &:after {
+      //       content: "";
+      //       position: absolute;
+      //       top: 10px;
+      //       bottom: 10px;
+      //       left: 10px;
+      //       right: 10px;
+      //       background: #444;
+      //       transform: rotate(-45deg);
+      //     }
+      //   }
+      //   &.top {
+      //     &:after {
+      //       content: "";
+      //       position: absolute;
+      //       top: 10px;
+      //       bottom: 10px;
+      //       left: 10px;
+      //       right: 10px;
+      //       background: linear-gradient(235deg, #eee, #aaa);
+      //       transform: rotate(-45deg);
+      //     }
+      //   }
+      // }
+
       &.illuminated {
-        background: -webkit-linear-gradient(#5AACF9, #00526F); /* For Safari 5.1 to 6.0 */
-        background: -o-linear-gradient(#5AACF9, #00526F); /* For Opera 11.1 to 12.0 */
-        background: -moz-linear-gradient(#5AACF9, #00526F); /* For Firefox 3.6 to 15 */
-        background: linear-gradient(#5AACF9, #00526F);
         border: 0;
         color: #fff;
 
-        .arrow.top {
-          &:after {
-            background: linear-gradient(210deg, #5AACF9, #00526F);
-          }
+        .warning {
+          display: block;
         }
-      }
-    }
-    .progress-cell:last-of-type {
-      border-right: 1px solid #aaa;
-      &.illuminated {
-        border-right: 1px solid #333;
+
+        .arrow-block {
+          background-image: -moz-linear-gradient(125deg, #094085 40%, #0F8AE8 55%);
+          background-image: -webkit-linear-gradient(125deg, #094085 40%, #0F8AE8 55%);
+          background-image: -ms-linear-gradient(125deg, #094085 40%, #0F8AE8 55%);
+          background-image: linear-gradient(125deg, #094085 40%, #0F8AE8 55%);
+        }
       }
     }
 
@@ -218,7 +305,7 @@
           padding: 0 40px;
 
           .lead-stats {
-            margin-top: 60px;
+            margin-top: 30px;
 
             .likelihood {
 
