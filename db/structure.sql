@@ -405,6 +405,39 @@ CREATE TABLE invites (
 
 
 --
+-- Name: lead_actions; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE lead_actions (
+    id integer NOT NULL,
+    completion_chance integer,
+    data_status integer,
+    lead_status character varying,
+    opportunity_stage character varying,
+    action_copy character varying NOT NULL
+);
+
+
+--
+-- Name: lead_actions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE lead_actions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: lead_actions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE lead_actions_id_seq OWNED BY lead_actions.id;
+
+
+--
 -- Name: lead_totals; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1483,6 +1516,13 @@ ALTER TABLE ONLY distributions ALTER COLUMN id SET DEFAULT nextval('distribution
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY lead_actions ALTER COLUMN id SET DEFAULT nextval('lead_actions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY lead_totals ALTER COLUMN id SET DEFAULT nextval('lead_totals_id_seq'::regclass);
 
 
@@ -1755,6 +1795,14 @@ ALTER TABLE ONLY distributions
 
 ALTER TABLE ONLY invites
     ADD CONSTRAINT invites_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lead_actions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY lead_actions
+    ADD CONSTRAINT lead_actions_pkey PRIMARY KEY (id);
 
 
 --
@@ -2826,4 +2874,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150820203530');
 INSERT INTO schema_migrations (version) VALUES ('20150820211644');
 
 INSERT INTO schema_migrations (version) VALUES ('20150822044836');
+
+INSERT INTO schema_migrations (version) VALUES ('20150901215446');
+
+INSERT INTO schema_migrations (version) VALUES ('20150902045410');
 

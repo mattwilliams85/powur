@@ -98,6 +98,18 @@ class Lead < ActiveRecord::Base
     send("#{status}_at")
   end
 
+  def lead_action?
+    !lead_action.nil?
+  end
+
+  def action_copy
+    lead_action && lead_action.action_copy
+  end
+
+  def completion_chance
+    lead_action && lead_action.completion_chance
+  end
+
   private
 
   def query_status_count(status, product_id = nil)
@@ -153,6 +165,22 @@ class Lead < ActiveRecord::Base
     self.installed_at = last_update.installation
     self.sales_status = last_update.sales_status
     save!
+  end
+
+  def lead_action
+    return nil if submitted? && last_update.nil?
+    @lead_action ||= begin
+      stage = last_update.opportunity_stage.presence
+      status = last_update.lead_status.presence
+      if stage
+        LeadAction.where(opportunity_stage: stage).first
+      elsif status
+        LeadAction.where(lead_status: status).first
+      elsif !submitted?
+        LeadAction
+          .where(data_status: LeadAction.data_statuses[data_status]).first
+      end
+    end
   end
 
   class << self
