@@ -14,7 +14,8 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 	$urlRouterProvider.otherwise('/');
 	
 	// routes
-	$stateProvider.state('home', {
+	$stateProvider
+	.state('home', {
 		url: '/',
 		views: {
 			'nav': {
@@ -41,6 +42,92 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 			'activity': {},
 		},
 	})
+	.state('strategy', {
+		url: '/strategy',
+		views: {
+			'nav': {
+				templateUrl: '/partials/nav.html',
+				controller: 'NavController as nav',
+			},
+			'stat': {},
+			'main': {},
+			'activity': {},
+		},
+	})
+	.state('events', {
+		url: '/events',
+		views: {
+			'nav': {
+				templateUrl: '/partials/nav.html',
+				controller: 'NavController as nav',
+			},
+			'stat': {},
+			'main': {},
+			'activity': {},
+		},
+	})
+	.state('grid', {
+		url: '/grid',
+		views: {
+			'nav': {
+				templateUrl: '/partials/nav.html',
+				controller: 'NavController as nav',
+			},
+			'stat': {},
+			'main': {},
+			'activity': {},
+		},
+	})
+	.state('goal', {
+		url: '/goal',
+		views: {
+			'nav': {
+				templateUrl: '/partials/nav.html',
+				controller: 'NavController as nav',
+			},
+			'stat': {},
+			'main': {},
+			'activity': {},
+		},
+	})
+	.state('earnings', {
+		url: '/earnings',
+		views: {
+			'nav': {
+				templateUrl: '/partials/nav.html',
+				controller: 'NavController as nav',
+			},
+			'stat': {},
+			'main': {},
+			'activity': {},
+		},
+	})
+	//.state('social')
+	.state('certs', {
+		url: '/certs',
+		views: {
+			'nav': {
+				templateUrl: '/partials/nav.html',
+				controller: 'NavController as nav',
+			},
+			'stat': {},
+			'main': {},
+			'activity': {},
+		},
+	})
+	.state('stats', {
+		url: '/stats',
+		views: {
+			'nav': {
+				templateUrl: '/partials/nav.html',
+				controller: 'NavController as nav',
+			},
+			'stat': {},
+			'main': {},
+			'activity': {},
+		},
+	});
+	
 }])
 .run(['$rootScope', '$log', '$state', ($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService) => {
 	//TODO: login service

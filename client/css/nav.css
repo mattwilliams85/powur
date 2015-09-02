@@ -30,6 +30,12 @@ html,body {
     padding-bottom: 30px;
 }
 
+.nav .list li:hover {
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
+    cursor: pointer;
+}
+
 .nav .bottom {
     position: fixed;
     bottom: 10px;
