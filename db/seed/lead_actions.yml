@@ -1,0 +1,49 @@
+lead_actions:
+  -
+    data_status: 0
+    action_copy: "Examine the lead information form, make sure all fields are complete, and save again."
+  -
+    data_status: 2
+    action_copy: "Check the ZIP code and make sure you entered it correctly. All data is verified with the customer and your lead will be disqualified if it is outside of the service area."
+  -
+    data_status: 3
+    action_copy: "Click the 'Submit to SolarCity' button to submit your lead."
+  -
+    lead_status: "Called 2x"
+    action_copy: "Allow SolarCity to get a hold of the customer, but keep an eye on this lead."
+  -
+    lead_status: "Called 3x"
+    action_copy: "Get a hold of your lead and 3-way call (855) 477-7652 for an advisor. Make the connection, then drop off the line so the customer can share their information with the advisor."
+  -
+    lead_status: "Called 4x"
+    action_copy: "Get a hold of your lead and 3-way call (855) 477-7652 for an advisor. Make the connection, then drop off the line so the customer can share their information with the advisor."
+  -
+    lead_status: "No Contact Established"
+    action_copy: "Get a hold of your lead and 3-way call (855) 477-7652 for an advisor. Make the connection, then drop off the line so the customer can share their information with the advisor."
+  -
+    lead_status: "Open"
+    action_copy: "If the lead was submitted over 24 hours ago, escalate this lead to support@powur.com."
+  -
+    lead_status: "Unqualified"
+    action_copy: "Reach out to try to get more business from the customer or sign up more leads. Maintain your relationship with the customer."
+  -
+    lead_status: "Unqualified"
+    action_copy: "Reach out to try to get more business from the customer or sign up more leads. Maintain your relationship with the customer."
+  -
+    opportunity_stage: "Closed Won"
+    action_copy: "Congratulate your customer for signing up with SolarCity!"
+  -
+    opportunity_stage: "Contract Out"
+    action_copy: "Follow up with the customer and congratulate them on their decision to request a contract."
+  -
+    opportunity_stage: "Proposal Presented"
+    action_copy: "Reach out and ask how the customer's proposal went. Encourage them to request a contract."
+  -
+    opportunity_stage: "Legacy In Process"
+    action_copy: "The Legacy team will work to regenerate the customer's interest. Reach out to the customer if your personal relationship is strong."
+  -
+    opportunity_stage: "Closed Lost"
+    action_copy: "Reach out to the customer to try to get more business or sign up more leads. Maintain your relationship with the customer."
+  -
+    opportunity_stage: "Unqualified"
+    action_copy: "Reach out to the customer to try to get more business or sign up more leads. Maintain your relationship with the customer."
