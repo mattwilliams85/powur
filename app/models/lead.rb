@@ -167,19 +167,25 @@ class Lead < ActiveRecord::Base
     save!
   end
 
+  def pre_submission_action
+    LeadAction.where(data_status: LeadAction.data_statuses[data_status]).first
+  end
+
+  def post_submission_action
+    return nil if last_update.nil?
+    stage = last_update.opportunity_stage.presence
+    status = last_update.lead_status.presence
+    return nil unless stage || status
+    if stage
+      LeadAction.where(opportunity_stage: stage).first
+    else
+      LeadAction.where(lead_status: status).first
+    end
+  end
+
   def lead_action
-    return nil if submitted? && last_update.nil?
     @lead_action ||= begin
-      stage = last_update.opportunity_stage.presence
-      status = last_update.lead_status.presence
-      if stage
-        LeadAction.where(opportunity_stage: stage).first
-      elsif status
-        LeadAction.where(lead_status: status).first
-      elsif !submitted?
-        LeadAction
-          .where(data_status: LeadAction.data_statuses[data_status]).first
-      end
+      submitted? ? post_submission_action : pre_submission_action
     end
   end
 
