@@ -32,6 +32,10 @@ lead_actions:
     lead_status: "Unqualified"
     action_copy: "This prospect is unqualified.  Reach out and ask for 3 referrals of homeowners who would be interested in saving money every month with solar. Referrals work and will grow your business!"
   -
+    lead_status: "Consultation Scheduled"    
+    action_copy: "Good work.  Your prospect is scheduled for a consultation with SolarCity."
+    completion_chance: 20
+  -
     opportunity_stage: "Closed Won"
     action_copy: "Congratulations! Your customer just signed a contract to go solar. Reach out and make sure they have submitted their Utility Bill and all required information to SolarCity. If they haven't, help them submit their Utility Bill."
     completion_chance: 75
