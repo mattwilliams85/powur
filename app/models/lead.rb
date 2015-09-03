@@ -121,7 +121,7 @@ class Lead < ActiveRecord::Base
       opts[:from] = user.purchased_at(product_id)
       return 0 if opts[:from].nil? || opts[:from] >= at
     end
-    
+
     Lead.send(status, opts).where(user_id: user_id).count + 1
   end
 
@@ -135,7 +135,7 @@ class Lead < ActiveRecord::Base
     form = SolarCityForm.new(self)
     form.post
     fail(form.error) if form.error? && !form.dupe?
-    
+
     submitted(form.provider_uid, DateTime.parse(form.response.headers[:date]))
   end
 
@@ -168,7 +168,7 @@ class Lead < ActiveRecord::Base
   end
 
   def pre_submission_action
-    LeadAction.where(data_status: LeadAction.data_statuses[data_status]).first
+    LeadAction.where(data_status: Lead.data_statuses[data_status]).first
   end
 
   def post_submission_action
