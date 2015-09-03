@@ -533,7 +533,8 @@ CREATE TABLE leads (
     contracted_at timestamp without time zone,
     installed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    closed_won_at timestamp without time zone
 );
 
 
@@ -2878,4 +2879,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150822044836');
 INSERT INTO schema_migrations (version) VALUES ('20150901215446');
 
 INSERT INTO schema_migrations (version) VALUES ('20150902045410');
+
+INSERT INTO schema_migrations (version) VALUES ('20150903193640');
 
