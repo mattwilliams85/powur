@@ -8,8 +8,8 @@ class Lead < ActiveRecord::Base
     :incomplete, :ready_to_submit,
     :ineligible_location, :submitted ]
   enum sales_status: [
-    :in_progress, :proposal, :contract, :installed,
-    :duplicate, :ineligible, :closed_lost ]
+    :in_progress, :proposal, :closed_won, :contract, :installed,
+    :duplicate, :ineligible, :closed_lost]
 
   add_search :user, :customer, [ :user, :customer ]
 

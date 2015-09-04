@@ -24,18 +24,25 @@ function chartConfig(scale){
             strokeColor: '#fbc217',
             data: []
           },{
+            label: "Closed Won",
+            filter: 'closed_won_at',
+            fillColor: '#8c66a5',
+            highlightFill: '#8c66a5',
+            strokeColor: '#8c66a5',
+            data: []
+          },{
             label: "Contract",
             filter: 'contracted_at',
-            fillColor: '#b5489b',
-            highlightFill: '#b5489b',
-            strokeColor: '#b5489b',
+            fillColor: '#8fb851',
+            highlightFill: '#8fb851',
+            strokeColor: '#8fb851',
             data: []
           },{
             filter: 'installed_at',
             label: "Final Install",
-            fillColor: '#76c153',
-            highlightFill: '#76c153',
-            strokeColor: '#76c153',
+            fillColor: '#cc524f',
+            highlightFill: '#cc524f',
+            strokeColor: '#cc524f',
             data: []
           }]
         },{

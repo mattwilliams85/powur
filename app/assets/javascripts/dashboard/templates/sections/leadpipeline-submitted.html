@@ -12,9 +12,9 @@
 <div class="submitted large-9 medium-7 columns">
   <!-- Row: Likelihood / Commission / Last Update -->
   <div class="lead-stats row">
-    <div class="large-4 columns">
+    <div class="large-4 columns" ng-if="leadItem.properties.completion_chance">
       <label>Likelihood to Convert</label>
-      <p class="likelihood">{{leadPipelineSection.likelihoodToConvert(leadItem)}}<span class="symbol">%</span></p>
+      <p class="likelihood">{{leadItem.properties.completion_chance}}<span class="symbol">%</span></p>
     </div>
     <div class="large-4 columns">
       <label>Commission Potential</label>
@@ -104,6 +104,7 @@
       <label ng-if="leadItem.properties.submitted_at">Key Dates</label>
       <span ng-if="leadItem.properties.submitted_at" class="detail">Submitted: {{leadItem.properties.submitted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
       <span ng-if="leadItem.properties.converted_at" class="detail">Converted: {{leadItem.properties.converted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+      <span ng-if="leadItem.properties.closed_won_at" class="detail">Closed Won: {{leadItem.properties.closed_won_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
       <span ng-if="leadItem.properties.contracted_at" class="detail">Contracted: {{leadItem.properties.contracted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
       <span ng-if="leadItem.properties.installed_at" class="detail">Installed: {{leadItem.properties.installed_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
     </div>

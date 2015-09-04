@@ -4,6 +4,7 @@
 
     .detail {
       display: block;
+      line-height: 16pt;
     }
 
     .drilldown {
@@ -108,6 +109,8 @@
             display: block;
             float: left;
             width: 90%;
+            color: #fff;
+            font-weight: 600;
           }
         }
 

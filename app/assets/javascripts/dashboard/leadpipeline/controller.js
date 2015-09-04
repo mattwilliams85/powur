@@ -182,20 +182,6 @@
       return 0;
     };
 
-    // Return "Likelihood to convert" percentage
-    $scope.leadPipelineSection.likelihoodToConvert = function(leadItem) {
-      if (leadItem.properties.installed_at) {
-        return '100';
-      }
-      if (leadItem.properties.contracted_at) {
-        return '90';
-      }
-      if (leadItem.properties.converted_at) {
-        return '25';
-      }
-      return '10';
-    };
-
     // Controller Actions:
 
     // Show Lead

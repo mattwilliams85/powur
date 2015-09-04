@@ -19,6 +19,7 @@ class LeadUpdate < ActiveRecord::Base
     return :duplicate if DUPE_STATUS.include?(status)
     return :ineligible if INELIGIBLE_STATUS.include?(status)
     return :closed_lost if LOST_STATUS.include?(status)
+    return :closed_won if closed_won?
     return :installed if installation?
     return :contract if contract?
     return :proposal if converted?
