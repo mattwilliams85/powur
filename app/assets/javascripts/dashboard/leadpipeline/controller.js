@@ -168,9 +168,12 @@
     // Fill status bar to appropriate level
     $scope.leadPipelineSection.leadStage = function(leadItem) {
       if (leadItem.properties.installed_at) {
-        return 4;
+        return 5;
       }
       if (leadItem.properties.contracted_at) {
+        return 4;
+      }
+      if (leadItem.properties.closed_won_at) {
         return 3;
       }
       if (leadItem.properties.converted_at) {

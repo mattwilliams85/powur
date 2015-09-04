@@ -51,12 +51,19 @@
             ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 3 }">
             <div class="arrow-block" id="block-3"></div>
             <div class='warning' ng-if="leadItem.properties.action_copy && leadPipelineSection.leadStage(leadItem) === 3"></div>
+            <span>Closed Won</span>
+          </div>
+          <div
+            class="progress-cell"
+            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 4 }">
+            <div class="arrow-block" id="block-4"></div>
+            <div class='warning' ng-if="leadItem.properties.action_copy && leadPipelineSection.leadStage(leadItem) === 4"></div>
             <span>Contract</span>
           </div>
           <div
             class="progress-cell"
-            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) == 4 }">
-            <div class="arrow-block" id="block-4"></div>
+            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) == 5 }">
+            <div class="arrow-block" id="block-5"></div>
             <span>Installation</span>
           </div>
         </div>
