@@ -20,7 +20,7 @@
 }
 
 .nav .list li {
-    padding-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 .nav .list li:hover, .nav .list li.active {
