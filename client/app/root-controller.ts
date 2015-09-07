@@ -8,14 +8,20 @@ module powur.controllers {
 	class RootController implements IRootController {
 		public static ControllerId: string = 'RootController';	
 		
-		constructor(private $log: ng.ILogService) {
+		public user: any;
+		
+		constructor(private $log: ng.ILogService, private $mdSidenav) {
 			var self = this;
 			self.$log.debug(RootController.ControllerId + ':ctor');
 		}
 		
-		public user: any;
+		public openMenu() {
+			var self = this;
+			self.$mdSidenav('left')
+			.toggle();
+		}
 	}
 	
-	(<any>RootController).$inject = ['$log'];
+	(<any>RootController).$inject = ['$log', '$mdSidenav'];
 	controllerModule.controller(RootController.ControllerId, RootController);
 }

@@ -10,3 +10,14 @@ html,body {
 
 /* #2c6b8a - nav-icon-color */
 /* #2c6c8a - bg of profile */
+
+.toolbar-bg {
+    background: #2ba7d9; /* Old browsers */
+    background: -moz-linear-gradient(top, #2ba7d9 0%, #268eb5 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2ba7d9), color-stop(100%,#268eb5)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #2ba7d9 0%,#268eb5 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2ba7d9', endColorstr='#268eb5',GradientType=0 ); /* IE6-9 */
+}
