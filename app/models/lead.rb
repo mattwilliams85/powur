@@ -8,8 +8,8 @@ class Lead < ActiveRecord::Base
     :incomplete, :ready_to_submit,
     :ineligible_location, :submitted ]
   enum sales_status: [
-    :in_progress, :proposal, :contract, :installed,
-    :duplicate, :ineligible, :closed_lost ]
+    :in_progress, :proposal, :closed_won, :contract, :installed,
+    :duplicate, :ineligible, :closed_lost]
 
   add_search :user, :customer, [ :user, :customer ]
 
@@ -35,7 +35,9 @@ class Lead < ActiveRecord::Base
     query = query.to_date(field, to) if to
     query
   }
-  KEY_DATES = [ :submitted, :contracted, :converted, :installed, :created ]
+  KEY_DATES = [
+    :submitted, :contracted, :converted,
+    :closed_won, :installed, :created ]
   KEY_DATES.each do |key_date|
     scope key_date, lambda { |pay_period_id: nil, from: nil, to: nil|
       timespan(field:         "#{key_date}_at",
@@ -121,7 +123,7 @@ class Lead < ActiveRecord::Base
       opts[:from] = user.purchased_at(product_id)
       return 0 if opts[:from].nil? || opts[:from] >= at
     end
-    
+
     Lead.send(status, opts).where(user_id: user_id).count + 1
   end
 
@@ -135,7 +137,7 @@ class Lead < ActiveRecord::Base
     form = SolarCityForm.new(self)
     form.post
     fail(form.error) if form.error? && !form.dupe?
-    
+
     submitted(form.provider_uid, DateTime.parse(form.response.headers[:date]))
   end
 
@@ -161,25 +163,32 @@ class Lead < ActiveRecord::Base
 
   def update_last_update_attributes
     self.converted_at = last_update.converted
+    self.closed_won_at ||= last_update.updated_at if last_update.closed_won?
     self.contracted_at = last_update.contract
     self.installed_at = last_update.installation
     self.sales_status = last_update.sales_status
     save!
   end
 
+  def pre_submission_action
+    LeadAction.where(data_status: Lead.data_statuses[data_status]).first
+  end
+
+  def post_submission_action
+    return nil if last_update.nil?
+    stage = last_update.opportunity_stage.presence
+    status = last_update.lead_status.presence
+    return nil unless stage || status
+    if stage
+      LeadAction.where(opportunity_stage: stage).first
+    else
+      LeadAction.where(lead_status: status).first
+    end
+  end
+
   def lead_action
-    return nil if submitted? && last_update.nil?
     @lead_action ||= begin
-      stage = last_update.opportunity_stage.presence
-      status = last_update.lead_status.presence
-      if stage
-        LeadAction.where(opportunity_stage: stage).first
-      elsif status
-        LeadAction.where(lead_status: status).first
-      elsif !submitted?
-        LeadAction
-          .where(data_status: LeadAction.data_statuses[data_status]).first
-      end
+      submitted? ? post_submission_action : pre_submission_action
     end
   end
 

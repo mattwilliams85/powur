@@ -11,6 +11,7 @@ class CreateLeads < ActiveRecord::Migration
     last_update = quote.last_update
     return {} unless last_update
     { sales_status:  last_update.sales_status,
+      closed_won_at: last_update.closed_won,
       converted_at:  last_update.converted,
       contracted_at: last_update.contract,
       installed_at:  last_update.installation }
@@ -55,6 +56,7 @@ class CreateLeads < ActiveRecord::Migration
       t.string :provider_uid
       t.datetime :submitted_at
       t.datetime :converted_at
+      t.datetime :closed_won_at
       t.datetime :contracted_at
       t.datetime :installed_at
 

@@ -12,9 +12,9 @@
 <div class="submitted large-9 medium-7 columns">
   <!-- Row: Likelihood / Commission / Last Update -->
   <div class="lead-stats row">
-    <div class="large-4 columns">
+    <div class="large-4 columns" ng-if="leadItem.properties.completion_chance">
       <label>Likelihood to Convert</label>
-      <p class="likelihood">{{leadPipelineSection.likelihoodToConvert(leadItem)}}<span class="symbol">%</span></p>
+      <p class="likelihood">{{leadItem.properties.completion_chance}}<span class="symbol">%</span></p>
     </div>
     <div class="large-4 columns">
       <label>Commission Potential</label>
@@ -28,29 +28,44 @@
   <!-- Progress Bar (Large Screens only) -->
   <div class="lead-progress row show-for-large-up">
     <div class="large-12 columns">
-      <div class="progress-container">
-        <div class="progress-cell illuminated">Submission
-          <div class="arrow top"></div>
-          <div class="arrow shadow"></div>
-        </div>
-        <div
-          class="progress-cell"
-          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 2 }">
-          Qualified
-          <div class="arrow top"></div>
-          <div class="arrow shadow"></div>
-        </div>
-        <div
-          class="progress-cell"
-          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 3 }">
-          Contract
-          <div class="arrow top"></div>
-          <div class="arrow shadow"></div>
-        </div>
-        <div
-          class="progress-cell"
-          ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) == 4 }">
-          Installation
+      <div class="progress-border">
+        <div class="progress-container">
+          <div class="shine mask"></div>
+          <div class="inset mask"></div>
+          <div class="stripe mask"></div>
+          <div class="progress-cell"  
+               ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 1 }">
+            <div class="arrow-block" id="block-1"></div>
+            <div class='warning' ng-if="leadItem.properties.action_copy && leadPipelineSection.leadStage(leadItem) === 1"></div>
+            <span>Submission</span>
+          </div>
+          <div
+            class="progress-cell"
+            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 2 }">
+            <div class="arrow-block" id="block-2"></div>
+            <div class='warning' ng-if="leadItem.properties.action_copy && leadPipelineSection.leadStage(leadItem) === 2"></div>
+            <span>Qualified</span>
+          </div>
+          <div
+            class="progress-cell"
+            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 3 }">
+            <div class="arrow-block" id="block-3"></div>
+            <div class='warning' ng-if="leadItem.properties.action_copy && leadPipelineSection.leadStage(leadItem) === 3"></div>
+            <span>Closed Won</span>
+          </div>
+          <div
+            class="progress-cell"
+            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) >= 4 }">
+            <div class="arrow-block" id="block-4"></div>
+            <div class='warning' ng-if="leadItem.properties.action_copy && leadPipelineSection.leadStage(leadItem) === 4"></div>
+            <span>Contract</span>
+          </div>
+          <div
+            class="progress-cell"
+            ng-class="{ 'illuminated': leadPipelineSection.leadStage(leadItem) == 5 }">
+            <div class="arrow-block" id="block-5"></div>
+            <span>Installation</span>
+          </div>
         </div>
       </div>
     </div>
@@ -63,7 +78,7 @@
       <div
         class="illuminated progress-cell"
         ng-if="leadPipelineSection.leadStage(leadItem) == 4">
-        Installation
+        Installation 
       </div>
       <div
         class="illuminated progress-cell"
@@ -88,7 +103,7 @@
       <label>SolarCity Lead Status</label>
       <span class="status">{{leadItem.entities[0].properties.lead_status || 'No Status Available'}}</span>
       <span class="status-message">{{leadPipelineSection.actionMessage(leadItem)}}</span>
-      <br><br>
+      <div class="divider"></div>
       <label ng-if="leadItem.entities[0].properties.opportunity_stage">Opportunity Stage</label>
       <span class="status-message">{{leadItem.entities[0].properties.opportunity_stage}}</span>
     </div>
@@ -96,8 +111,15 @@
       <label ng-if="leadItem.properties.submitted_at">Key Dates</label>
       <span ng-if="leadItem.properties.submitted_at" class="detail">Submitted: {{leadItem.properties.submitted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
       <span ng-if="leadItem.properties.converted_at" class="detail">Converted: {{leadItem.properties.converted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+      <span ng-if="leadItem.properties.closed_won_at" class="detail">Closed Won: {{leadItem.properties.closed_won_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
       <span ng-if="leadItem.properties.contracted_at" class="detail">Contracted: {{leadItem.properties.contracted_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
       <span ng-if="leadItem.properties.installed_at" class="detail">Installed: {{leadItem.properties.installed_at | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+    </div>
+  </div>
+  <div class="row action-row">
+    <div class="large-12 columns">
+      <div class="action-bar"></div>
+      <span class="status-message action-text">{{leadItem.properties.action_copy}}</span>
     </div>
   </div>
 </div>

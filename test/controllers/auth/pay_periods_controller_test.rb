@@ -36,7 +36,7 @@ class Auth::PayPeriodsControllerTest < ActionController::TestCase
       get :show, id: pay_periods(:april).id
 
       siren.must_be_class(:pay_period)
-      siren.properties.bonus_total.to_f.must_be :>, 0.0
+      siren.properties.total_bonus.to_f.must_be :>, 0.0
     end
 
     def test_calculate

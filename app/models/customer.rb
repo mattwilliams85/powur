@@ -4,6 +4,8 @@ class Customer < ActiveRecord::Base
   validates_presence_of :first_name, :last_name
   validates_presence_of :email, :phone, :address, :city, :state, :zip,
                         allow_nil: true
+  validates_length_of :first_name, maximum: 40
+  validates_length_of :last_name, maximum: 40
 
   has_many :quotes
 

@@ -168,29 +168,21 @@
     // Fill status bar to appropriate level
     $scope.leadPipelineSection.leadStage = function(leadItem) {
       if (leadItem.properties.installed_at) {
-        return 4;
+        return 5;
       }
       if (leadItem.properties.contracted_at) {
+        return 4;
+      }
+      if (leadItem.properties.closed_won_at) {
         return 3;
       }
       if (leadItem.properties.converted_at) {
         return 2;
       }
-      return 1
-    };
-
-    // Return "Likelihood to convert" percentage
-    $scope.leadPipelineSection.likelihoodToConvert = function(leadItem) {
-      if (leadItem.properties.installed_at) {
-        return '100';
+      if (leadItem.properties.submitted_at) {
+        return 1;
       }
-      if (leadItem.properties.contracted_at) {
-        return '90';
-      }
-      if (leadItem.properties.converted_at) {
-        return '25';
-      }
-      return '10';
+      return 0;
     };
 
     // Controller Actions:
