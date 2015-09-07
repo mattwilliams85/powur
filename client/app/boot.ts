@@ -5,7 +5,7 @@ var controllerModule = angular.module('powur.controllers', []);
 var serviceModule = angular.module('powur.services', []);
 var valueModule = angular.module('powur.values', []);
 
-var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.controllers'])
+var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.controllers', 'ngMaterial'])
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) => {
 	// check auth on api calls
 	$httpProvider.interceptors.push('AuthInterceptor');
@@ -22,7 +22,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 				templateUrl: '/partials/nav.html',
 				controller: 'NavController as nav',
 			},
-			'stat': {},
+			'profile': {
+				templateUrl: '/partials/profile.html',
+				controller: 'ProfileController as profile',
+			},
 			'main': {
 				templateUrl: '/partials/home.html',
 				controller: 'HomeController as home',
@@ -34,7 +37,7 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 		url: '/login',
 		views: {
 			'nav': {},
-			'stat': {},
+			'profile': {},
 			'main': {
 				templateUrl: '/partials/login.html',
 				controller: 'LoginController as login',
@@ -49,7 +52,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 				templateUrl: '/partials/nav.html',
 				controller: 'NavController as nav',
 			},
-			'stat': {},
+			'profile': {
+				templateUrl: '/partials/profile.html',
+				controller: 'ProfileController as profile',
+			},
 			'main': {},
 			'activity': {},
 		},
@@ -61,7 +67,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 				templateUrl: '/partials/nav.html',
 				controller: 'NavController as nav',
 			},
-			'stat': {},
+			'profile': {
+				templateUrl: '/partials/profile.html',
+				controller: 'ProfileController as profile',
+			},
 			'main': {},
 			'activity': {},
 		},
@@ -73,7 +82,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 				templateUrl: '/partials/nav.html',
 				controller: 'NavController as nav',
 			},
-			'stat': {},
+			'profile': {
+				templateUrl: '/partials/profile.html',
+				controller: 'ProfileController as profile',
+			},
 			'main': {},
 			'activity': {},
 		},
@@ -85,7 +97,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 				templateUrl: '/partials/nav.html',
 				controller: 'NavController as nav',
 			},
-			'stat': {},
+			'profile': {
+				templateUrl: '/partials/profile.html',
+				controller: 'ProfileController as profile',
+			},
 			'main': {},
 			'activity': {},
 		},
@@ -97,7 +112,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 				templateUrl: '/partials/nav.html',
 				controller: 'NavController as nav',
 			},
-			'stat': {},
+			'profile': {
+				templateUrl: '/partials/profile.html',
+				controller: 'ProfileController as profile',
+			},
 			'main': {},
 			'activity': {},
 		},
@@ -110,7 +128,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 				templateUrl: '/partials/nav.html',
 				controller: 'NavController as nav',
 			},
-			'stat': {},
+			'profile': {
+				templateUrl: '/partials/profile.html',
+				controller: 'ProfileController as profile',
+			},
 			'main': {},
 			'activity': {},
 		},
@@ -122,7 +143,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 				templateUrl: '/partials/nav.html',
 				controller: 'NavController as nav',
 			},
-			'stat': {},
+			'profile': {
+				templateUrl: '/partials/profile.html',
+				controller: 'ProfileController as profile',
+			},
 			'main': {},
 			'activity': {},
 		},
@@ -149,15 +173,15 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 		//save current
 		$state.current = toState;
 		
-		if (fromState == null) {
-			// first time
-			$log.debug('first time');
-		} else if (fromState.name == 'login') {
-			// from login
-			$log.debug('first login');
-		} else if (toState.name == 'login') {
-			// going to state
-			$log.debug('going to state');
-		}
+		// if (fromState == null) {
+		// 	// first time
+		// 	$log.debug('first time');
+		// } else if (fromState.name == 'login') {
+		// 	// from login
+		// 	$log.debug('first login');
+		// } else if (toState.name == 'login') {
+		// 	// going to state
+		// 	$log.debug('going to state');
+		// }
 	});
 }]);

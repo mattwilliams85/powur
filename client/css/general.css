@@ -1,0 +1,12 @@
+/* general */
+
+html,body { 
+    height: 100%; margin: 0px; padding: 0px; 
+}
+
+.full-height { 
+    height: 100%; 
+}
+
+/* #2c6b8a - nav-icon-color */
+/* #2c6c8a - bg of profile */

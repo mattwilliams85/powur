@@ -5,13 +5,15 @@
         <title></title>
         <!--<link rel="stylesheet" type="text/css" href="vendor/assets/bower_components/angular-material/angular-material.css">-->
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.css">
+        <link rel="stylesheet" type="text/css" href="css/general.css">
         <link rel="stylesheet" type="text/css" href="css/nav.css">
+        <link rel="stylesheet" type="text/css" href="css/profile.css">
     </head>
     <body ng-controller="RootController as root">
         
         <div layout="row" class="full-height">
             <div ui-view="nav" class="full-height"></div>
-            <div ui-view="stat" class="full-height"></div>
+            <div ui-view="profile" class="full-height"></div>
             <div ui-view="main" class="full-height"></div>
             <div ui-view="activity" class="full-height"></div>
         </div>
@@ -28,13 +30,6 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.js"></script>
  
         <script type="text/javascript" src="build/client/js/app.min.js"></script>
-        <!--
-        <script type="text/javascript" src="app/boot.js"></script>
-        <script type="text/javascript" src="app/services.js"></script>
-        <script type="text/javascript" src="app/root-controller.js"></script>
-        <script type="text/javascript" src="app/login-controller.js"></script>
-        <script type="text/javascript" src="app/home-controller.js"></script>
-        -->
     </body>
 
 </html>
@@ -69,3 +64,84 @@ login
 </div>
 </script>
 
+
+<script type="text/ng-template" id="/partials/profile.html">
+<div class="profile full-height">
+    <div class="headshot">
+        <div class="user" layout="column" layout-align="end start">
+            <div class="greeting">Good morning,</div>
+            <div class="full-name">{{profile.fullName}}</div>
+            <div class="actions">
+                <i class="sprite sprite-badge"></i>
+                <i class="sprite sprite-boxes"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="achievements heading">Achievements</div>
+    
+    <div class="stat1" layout="row" layout-align="center start">
+        <div flex="50" class="rank">
+            <div class="stat-title">rank</div>
+            <div class="stat">
+                <i class="sprite sprite-rank"></i>
+                <span class="info">{{profile.rank}}<span class="total">/{{profile.rankTotal}}</span></span>
+            </div>
+        </div>
+        <div flex="50" class="grid-size">
+            <div class="stat-title">grid size</div>
+            <div class="stat">
+                <i class="sprite sprite-grid"></i>
+                <span class="info">{{profile.gridSize}}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="stat2">
+        <div class="stat-title">dollars earned</div>
+        <div class="stat" layout="row">
+            <i class="sprite sprite-earned" flex="10"></i>
+            <span class="info" flex>{{profile.getWhole(profile.dollarsEarned)}}<span class="superscript">{{profile.getDecimal(profile.dollarsEarned)}}</span></span>
+        </div>
+    </div>
+    
+    <div class="stat3" layout="row" layout-align="center start">
+        <div flex="50" class="co2">
+            <div class="stat-title">
+                CO<span class="superscript">2</span> Saved
+            </div>
+            <div class="stat">
+                <i class="sprite sprite-co2"></i>
+                <span class="info">{{profile.getWhole(profile.co2)}}<span class="superscript">{{profile.getDecimal(profile.co2)}}</span></span>
+            </div>
+        </div>
+        <div flex="50" class="login-streaks">
+            <div class="stat-title">login streaks</div>
+            <div class="stat">
+                <i class="sprite sprite-login"></i>
+                <span class="info">{{profile.loginStreaks}}</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="current-goals heading">Current Goals</div>
+
+    <div class="stat4">
+        <div class="stat" layout="row">
+            <i class="sprite sprite-proposal" flex="10"></i>
+            <div class="progress" flex>
+                <div class="stat-title">Personal Proposals</div>
+                <md-progress-linear md-mode="determinate" value="{{profile.personalProposals}}" flex></md-progress-linear>
+            </div>
+        </div>
+        <div class="stat" layout="row">
+            <i class="sprite sprite-proposal-group" flex="10"></i>
+            <div class="progress" flex>
+                <div class="stat-title">Team Proposals</div>
+                <md-progress-linear md-mode="determinate" value="{{profile.teamProposals}}" class="md-warn" flex></md-progress-linear>
+            </div>
+        </div>
+    </div>
+    
+</div>
+</script>
