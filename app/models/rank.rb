@@ -56,10 +56,25 @@ class Rank < ActiveRecord::Base
     user_ranks.create!(attrs)
   end
 
+  def rank_user(user_id, pay_period_id)
+    attrs = { user_id: user_id, pay_period_id: pay_period_id }
+    
+    if user_ranks.where(attrs).exists? ||
+        !user_qualified?(user_id, pay_period_id)
+      return
+    end
+    
+    user_ranks.create!(attrs)
+  end
+
   private
 
   def previous_user_ranks(pay_period_id)
     UserRank.where(rank_id: id - 1, pay_period_id: pay_period_id)
+  end
+
+  def user_qualified?(user_id, pay_period_id)
+    requirements.all? { |r| r.user_qualified?(user_id, pay_period_id) }
   end
 
   class << self
@@ -87,6 +102,10 @@ class Rank < ActiveRecord::Base
       end
       User.update_organic_ranks
       User.update_lifetime_ranks
+    end
+
+    def rank_user(user_id)
+      
     end
 
     def rank_users!

@@ -22,7 +22,7 @@ module Auth
     private
 
     def payments
-      @pay_period.bonus_payments.for_pay_period.where(user_id: @user.id)
+      @pay_period.bonus_payments.where(user_id: @user.id)
     end
   end
 end

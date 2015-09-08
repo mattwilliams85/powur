@@ -177,7 +177,7 @@ CREATE TABLE bonus_payment_leads (
 
 CREATE TABLE bonus_payments (
     id integer NOT NULL,
-    pay_period_id character varying NOT NULL,
+    pay_period_id character varying,
     bonus_id integer NOT NULL,
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
@@ -254,7 +254,8 @@ CREATE TABLE bonuses (
     updated_at timestamp without time zone NOT NULL,
     amount numeric(10,2),
     start_date timestamp without time zone,
-    distribution_id integer
+    distribution_id integer,
+    pay_period_id character varying
 );
 
 
@@ -2556,6 +2557,14 @@ ALTER TABLE ONLY qualifications
 
 ALTER TABLE ONLY order_totals
     ADD CONSTRAINT fk_rails_cb98ac3193 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: fk_rails_ce68c0b588; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY bonuses
+    ADD CONSTRAINT fk_rails_ce68c0b588 FOREIGN KEY (pay_period_id) REFERENCES pay_periods(id);
 
 
 --

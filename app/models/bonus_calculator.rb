@@ -9,13 +9,11 @@ class BonusCalculator
   end
 
   def reset
-    pay_period.bonus_payments.pending.for_pay_period.destroy_all
+    pay_period.bonus_payments.pending.destroy_all
   end
 
   def invoke
-    bonuses.each do |bonus|
-      bonus.create_payments!(self)
-    end
+    bonuses.each { |bonus| bonus.create_payments!(self) }
   end
 
   def invoke!
@@ -35,12 +33,7 @@ class BonusCalculator
   end
 
   def bonuses
-    @bonuses ||= begin
-      Bonus
-        .send(pay_period.time_span)
-        .where('start_date IS NULL OR start_date <= ?', pay_period.start_date)
-        .preload(:bonus_amounts)
-    end
+    @bonuses ||= Bonus.pay_period(pay_period).preload(:bonus_amounts)
   end
 
   def users
