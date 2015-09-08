@@ -66,9 +66,10 @@ class Product < ActiveRecord::Base
   end
 
   def prerequisites_taken?(user)
-    prerequisite.nil? ||
-    !!user.product_enrollments
-      .where(product_id: prerequisite_id).first.try(:completed?)
+    return true if prerequisite.nil?
+    enrollment = user.product_enrollments.where(
+      product_id: prerequisite_id).first
+    !enrollment.nil? && enrollment.completed?
   end
 
   def purchase(form, user)
@@ -85,9 +86,7 @@ class Product < ActiveRecord::Base
       amount:         form[:amount] * 100,
       transaction_id: response['transactionid'].first,
       auth_code:      response['authcode'].first,
-      order_id:       response['orderid'].first,
-      purchased_at:   Time.zone.now
-    )
+      purchased_at:   Time.zone.now)
   end
 
   def complimentary_purchase(user)
@@ -95,7 +94,6 @@ class Product < ActiveRecord::Base
       user_id:        user.id,
       amount:         0,
       transaction_id: 'Complimentary',
-      order_id:       'Complimentary',
       auth_code:      'Complimentary',
       purchased_at:   Time.zone.now)
   end

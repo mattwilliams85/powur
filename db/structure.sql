@@ -790,7 +790,6 @@ CREATE TABLE product_receipts (
     user_id integer NOT NULL,
     amount numeric(10,2) NOT NULL,
     transaction_id character varying NOT NULL,
-    order_id character varying NOT NULL,
     auth_code character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -2892,4 +2891,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150902045410');
 INSERT INTO schema_migrations (version) VALUES ('20150903193640');
 
 INSERT INTO schema_migrations (version) VALUES ('20150903215450');
+
+INSERT INTO schema_migrations (version) VALUES ('20150908152253');
 
