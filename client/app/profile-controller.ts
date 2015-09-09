@@ -43,7 +43,7 @@ module powur.controllers {
 			self.$interval(() => {
 				self.personalProposals = self.personalProposals > 100 ? 20 : self.personalProposals + 1;
 				self.teamProposals = self.personalProposals > 100 ? 0 : self.personalProposals + 2;
-			}, 100, 0, true)
+			}, 100, 0, true);
 		}
 		
 		//TODO: convert to filter

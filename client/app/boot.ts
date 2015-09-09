@@ -1,11 +1,12 @@
 /// <reference path='../typings/tsd.d.ts' />
 'use strict';
 
-var controllerModule = angular.module('powur.controllers', []);
-var serviceModule = angular.module('powur.services', []);
 var valueModule = angular.module('powur.values', []);
+var serviceModule = angular.module('powur.services', []);
+var directiveModule = angular.module('powur.directives', []);
+var controllerModule = angular.module('powur.controllers', []);
 
-var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.controllers', 'ngMaterial'])
+var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.directives', 'powur.controllers', 'ngMaterial', 'chart.js'])
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) => {
 	// check auth on api calls
 	$httpProvider.interceptors.push('AuthInterceptor');
@@ -45,8 +46,8 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 			'activity': {},
 		},
 	})
-	.state('strategy', {
-		url: '/strategy',
+	.state('invite', {
+		url: '/invite',
 		views: {
 			'nav': {
 				templateUrl: '/partials/nav.html',
@@ -56,7 +57,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.c
 				templateUrl: '/partials/profile.html',
 				controller: 'ProfileController as profile',
 			},
-			'main': {},
+			'main': {
+				templateUrl: '/partials/invite.html',
+				controller: 'InviteController as invite',
+			},
 			'activity': {},
 		},
 	})
