@@ -200,19 +200,19 @@ login
 
     <div layout="row" layout-wrap class="invite-list bg">
         <div ng-repeat="item in invite.invites">
-            <div ng-if="item.status == 0" class="invite-item">
+            <div ng-if="item.status == 1" class="invite-item">
                 <div class="full-name">{{item.firstName}} <b>{{item.lastName}}</b></div>
                 <div class="time">{{item.time | date : 'H:mm'}}<span class="superscript">{{item.time | date : 'ss'}}</span></div>
                 <div invite-progress data-progress-model="item"></div>
             </div>
-            <div ng-if="item.status == 1" class="invite-item">
+            <div ng-if="item.status == 0" class="invite-item">
                 <span class="add counter">
                     <i class="sprite sprite-invite"></i>
                     <div class="label">Click to <b>Invite</b></div>
                 </span>
                 <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
             </div>
-            <div ng-if="item.status == 2" class="invite-item">
+            <div ng-if="item.status == 4" class="invite-item">
                 <span class="add counter">
                     <i class="sprite sprite-invite"></i>
                     <div class="label"><b>locked</b></div>
