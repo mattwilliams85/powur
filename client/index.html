@@ -171,8 +171,8 @@ login
 <script type="text/ng-template" id="/partials/invite.html">
 <div class="invite full-height">
     <div class="heading">
-        <div><span>POWUR</span><span>INVITE</span></div>
-        <div>Your journey of the power revolution starts here.</div>
+        <div class="title">POWUR<b>INVITE</b></div>
+        <div class="subtitle">Your journey of the power revolution starts here.</div>
     </div>
     <div class="counter">
         <ul layout="row" layout-align="center center">
@@ -194,9 +194,9 @@ login
             </li>
         </ul>
     </div>
-    <div>Get 5 Accepted Invitations to Unlock 5 More Invitations</div>
+    <div class="message bg">Get <b>5 Accepted Invitations</b> to <b>Unlock 5 More Invitations</b></div>
 
-    <div layout="row" layout-wrap class="invite-list">
+    <div layout="row" layout-wrap class="invite-list bg">
         <div ng-repeat="item in invite.invites">
             <div ng-if="item.status == 0" class="ellipse">
                 <div invite-progress data-progress-model="item"></div>

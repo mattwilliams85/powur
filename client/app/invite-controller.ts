@@ -12,6 +12,9 @@ module powur.controllers {
 		name: string;
 		time: Date;
 		status: InviteStatus;
+		
+		label: number;
+		percentage: number;
 	}
 	
 	export interface IInviteController {
@@ -30,7 +33,7 @@ module powur.controllers {
 		
 		public count: any;
 		
-		constructor(private $log: ng.ILogService) {
+		constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService) {
 			var self = this;
 			self.$log.debug(InviteController.ControllerId + ':ctor');
 			
@@ -55,7 +58,10 @@ module powur.controllers {
 			self.accepted = 0;
 			self.expired = 0;
 			
-			self.count = { label: 11, percentage: 0.11 };
+			self.$interval(() => {
+				self.invites[0].percentage = self.invites[0].percentage > 1 ? .2 : self.invites[0].percentage + .01;
+				self.invites[1].percentage = self.invites[1].percentage > 1 ? 0 : self.invites[1].percentage + .02;
+			}, 100, 0, true);
 		}
 		
 		//TODO: convert to filter
@@ -72,6 +78,6 @@ module powur.controllers {
 		}
 	}
 	
-	(<any>InviteController).$inject = ['$log'];
+	(<any>InviteController).$inject = ['$log', '$interval'];
 	controllerModule.controller(InviteController.ControllerId, InviteController);
 }

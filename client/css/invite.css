@@ -1,3 +1,15 @@
+.invite .heading {
+    padding: 30px 0 40px 30px;
+    color: #666666;
+}
+
+.invite .heading .title {
+    font-size: x-large;
+}
+
+.invite .heading .subtitle {
+    
+}
 
 .invite .counter {
     height: 205px;
@@ -36,6 +48,17 @@
 
 .invite .counter .label {
     color: #cccccc;
+}
+
+.invite .message {
+    color: #666666;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 50px 0 20px 0;
+}
+
+.invite .bg {
+    background-color: #fafafa;
 }
 
 .invite .invite-list {
