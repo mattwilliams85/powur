@@ -26,6 +26,7 @@ module Auth
         User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
 
         # check for changes to first name, last name, or email and update Mailchimp
+        return if user_params[:email].include? 'development+'
         if user_params[:email] != old_email
           @user.mailchimp_update_subscription(old_email)
           puts 'updated mailchimp email'
