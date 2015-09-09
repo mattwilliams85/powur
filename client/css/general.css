@@ -5,9 +5,20 @@ html,body {
 }
 
 .full-height { 
-    height: 100%; 
+    /*height: 100%; */
 }
 
+.fill-height {
+    align-items: stretch;
+    flex: 1;
+    flex-direction: column;
+    display: flex;
+}
+
+.parent-height {
+    flex-direction: column;
+    display: flex;
+}
 /* #2c6b8a - nav-icon-color */
 /* #2c6c8a - bg of profile */
 
@@ -20,4 +31,11 @@ html,body {
     background: -ms-linear-gradient(top, #2ba7d9 0%,#268eb5 100%); /* IE10+ */
     background: linear-gradient(to bottom, #2ba7d9 0%,#268eb5 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2ba7d9', endColorstr='#268eb5',GradientType=0 ); /* IE6-9 */
+}
+
+*, *:before, *:after
+{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }

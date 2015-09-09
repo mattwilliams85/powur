@@ -61,7 +61,10 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.d
 				templateUrl: '/partials/invite.html',
 				controller: 'InviteController as invite',
 			},
-			'activity': {},
+			'activity': {
+				templateUrl: '/partials/activity.html',
+				controller: 'ActivityController as activity',
+			},
 		},
 	})
 	.state('events', {

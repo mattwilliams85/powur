@@ -12,15 +12,16 @@
         <link rel="stylesheet" type="text/css" href="css/nav.css">
         <link rel="stylesheet" type="text/css" href="css/profile.css">
         <link rel="stylesheet" type="text/css" href="css/invite.css">
+        <link rel="stylesheet" type="text/css" href="css/activity.css">
     </head>
     <body ng-controller="RootController as root">
         
-        <div layout="row" class="full-height">
-            <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" class="full-height md-sidenav-left md-whiteframe-z2" layout="row">
-                <div ui-view="nav" class="full-height"></div>
-                <div ui-view="profile" class="full-height"></div>
+        <div layout="row">
+            <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" class="md-sidenav-left md-whiteframe-z2" layout="row">
+                <div ui-view="nav" class="parent-height"></div>
+                <div ui-view="profile" class="parent-height"></div>
             </md-sidenav>
-            <div flex>
+            <div flex layout="column">
                 <md-toolbar hide-gt-md>
                     <div class="md-toolbar-tools toolbar-bg">
                         <md-button class="md-icon-button hide-gt-sm" aria-label="Profile" ng-click="root.openMenu()">
@@ -33,9 +34,9 @@
                     </div>
                 </md-toolbar>
                 
-                <div ui-view="main" class="full-height" flex></div>
-                <div ui-view="activity" class="full-height"></div>
+                <div ui-view="main" flex></div>
             </div>
+            <div ui-view="activity" class="parent-height"></div>
         </div>
         
         <!-- TODO: replace with rails asset pipeline / maybe load with require -->
@@ -68,9 +69,9 @@ login
 </script>
 
 <script type="text/ng-template" id="/partials/nav.html">
-<div class="nav full-height">
-    <div class="bg full-height">
-        <ul class="list full-height" layout="column" layout-align="start center">
+<div class="nav fill-height">
+    <div class="bg fill-height">
+        <ul class="list fill-height" layout="column" layout-align="start center">
             <li ng-click="nav.go('invite')" ng-class="{ active: nav.isCurrent('invite') }"><i class="sprite sprite-strategy"></i></li>
             <li ng-click="nav.go('events')" ng-class="{ active: nav.isCurrent('events') }"><i class="sprite sprite-events"></i></li>
             <li ng-click="nav.go('grid')" ng-class="{ active: nav.isCurrent('grid') }"><i class="sprite sprite-grid"></i></li>
@@ -89,7 +90,7 @@ login
 </script>
 
 <script type="text/ng-template" id="/partials/profile.html">
-<div class="profile full-height">
+<div class="profile fill-height">
     <div class="headshot">
         <div class="user" layout="column" layout-align="end start">
             <div class="greeting">Good morning,</div>
@@ -170,7 +171,7 @@ login
 </script>
 
 <script type="text/ng-template" id="/partials/invite.html">
-<div class="invite full-height">
+<div class="invite">
     <div class="heading">
         <div class="title">POWUR<b>INVITE</b></div>
         <div class="subtitle">Your journey of the power revolution starts here.</div>
@@ -209,16 +210,21 @@ login
                     <i class="sprite sprite-invite"></i>
                     <div class="label">Click to <b>Invite</b></div>
                 </span>
-                <span class="ellipse"><i class="sprite sprite-ellipse-invite"></span>
+                <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
             </div>
             <div ng-if="item.status == 2" class="invite-item">
                 <span class="add counter">
                     <i class="sprite sprite-invite"></i>
                     <div class="label"><b>locked</b></div>
                 </span>
-                <span class="ellipse"><i class="sprite sprite-ellipse-locked"></span>
+                <span class="ellipse"><i class="sprite sprite-ellipse-locked"></i></span>
             </div>
         </div>
     </div>
+</div>
+</script>
+
+<script type="text/ng-template" id="/partials/activity.html">
+<div class="activity fill-height">
 </div>
 </script>
