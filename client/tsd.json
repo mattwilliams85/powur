@@ -16,6 +16,12 @@
     },
     "angular-ui-router/angular-ui-router.d.ts": {
       "commit": "efa0c1196d7280640e624ac1e7fa604502e7bd63"
+    },
+    "moment/moment.d.ts": {
+      "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
+    },
+    "moment/moment-node.d.ts": {
+      "commit": "b3aeee64552e324581fdbe0926f4a96e981e451b"
     }
   }
 }

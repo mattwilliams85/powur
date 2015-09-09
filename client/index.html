@@ -43,6 +43,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.4.1/q.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
         
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
@@ -198,15 +199,24 @@ login
 
     <div layout="row" layout-wrap class="invite-list bg">
         <div ng-repeat="item in invite.invites">
-            <div ng-if="item.status == 0" class="ellipse">
+            <div ng-if="item.status == 0" class="invite-item">
+                <div class="full-name">{{item.firstName}} <b>{{item.lastName}}</b></div>
+                <div class="time">{{item.time | date : 'H:mm'}}<span class="superscript">{{item.time | date : 'ss'}}</span></div>
                 <div invite-progress data-progress-model="item"></div>
-                <div>{{item.name}}</div>
             </div>
-            <div ng-if="item.status == 1" class="ellipse">
-                <i class="sprite sprite-ellipse-invite">
+            <div ng-if="item.status == 1" class="invite-item">
+                <span class="add counter">
+                    <i class="sprite sprite-invite"></i>
+                    <div class="label">Click to <b>Invite</b></div>
+                </span>
+                <span class="ellipse"><i class="sprite sprite-ellipse-invite"></span>
             </div>
-            <div ng-if="item.status == 2" class="ellipse">
-                <i class="sprite sprite-ellipse-locked">
+            <div ng-if="item.status == 2" class="invite-item">
+                <span class="add counter">
+                    <i class="sprite sprite-invite"></i>
+                    <div class="label"><b>locked</b></div>
+                </span>
+                <span class="ellipse"><i class="sprite sprite-ellipse-locked"></span>
             </div>
         </div>
     </div>

@@ -9,7 +9,8 @@ module powur.controllers {
 	}
 	
 	class InviteItem {
-		name: string;
+		firstName: string;
+		lastName: string;
 		time: Date;
 		status: InviteStatus;
 		
@@ -39,18 +40,18 @@ module powur.controllers {
 			
 			//sample data
 			self.invites = [
-				{ name: "John Baker", time: new Date(), status: InviteStatus.Pending, label: 11, percentage: 0.11 },
-				{ name: "Melissa S", time: new Date(), status: InviteStatus.Pending, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Available, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Available, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Available, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
-				{ name: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
+				{ firstName: "John", lastName: 'Baker', time: new Date(), status: InviteStatus.Pending, label: 11, percentage: 0.11 },
+				{ firstName: "Melissa", lastName: 'S', time: new Date(), status: InviteStatus.Pending, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Available, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Available, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Available, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
+				{ firstName: null, lastName: null, time: null, status: InviteStatus.Locked, label: 11, percentage: 0.11 },
 			];
 			
 			self.available = 3;
@@ -59,9 +60,15 @@ module powur.controllers {
 			self.expired = 0;
 			
 			self.$interval(() => {
+				// progress
 				self.invites[0].percentage = self.invites[0].percentage > 1 ? .2 : self.invites[0].percentage + .01;
 				self.invites[1].percentage = self.invites[1].percentage > 1 ? 0 : self.invites[1].percentage + .02;
+
+				// date
+				self.invites[0].time = moment(self.invites[0].time).add(1, 's').toDate();
+				self.invites[1].time = moment(self.invites[1].time).add(1, 's').toDate();
 			}, 100, 0, true);
+			
 		}
 		
 		//TODO: convert to filter
