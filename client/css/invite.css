@@ -48,61 +48,61 @@
 
 /* sprites */
 
-.ellipse .sprite {
+.invite .ellipse .sprite {
     background-image: url(../img/ellipse-sprite.png);
     background-repeat: no-repeat;
     display: block;
 }
 
-.ellipse .sprite-ellipse {
+.invite .ellipse .sprite-ellipse {
     width: 165px;
     height: 165px;
     background-position: -5px -5px;
 }
 
-.ellipse .sprite-ellipse-invite {
+.invite .ellipse .sprite-ellipse-invite {
     width: 165px;
     height: 165px;
     background-position: -180px -5px;
 }
 
-.ellipse .sprite-ellipse-locked {
+.invite .ellipse .sprite-ellipse-locked {
     width: 164px;
     height: 166px;
     background-position: -355px -5px;
 }
 
-.inite .sprite {
+.invite .counter .sprite {
     background-image: url(../img/invite-sprite.png);
     background-repeat: no-repeat;
     display: block;
 }
 
-.invite .sprite-accepted {
+.invite .counter .sprite-accepted {
     width: 24px;
     height: 23px;
     background-position: -5px -5px;
 }
 
-.invite .sprite-available {
+.invite .counter .sprite-available {
     width: 24px;
     height: 23px;
     background-position: -39px -5px;
 }
 
-.invite .sprite-expired {
+.invite .counter  .sprite-expired {
     width: 24px;
     height: 24px;
     background-position: -73px -5px;
 }
 
-.invite .sprite-invite {
+.invite .counter  .sprite-invite {
     width: 35px;
     height: 32px;
     background-position: -107px -5px;
 }
 
-.invite .sprite-pending {
+.invite .counter  .sprite-pending {
     width: 24px;
     height: 24px;
     background-position: -152px -5px;
