@@ -12,6 +12,19 @@
     };
   }
 
+  function dateSuffix($filter) {
+    var suffixes = ["th", "st", "nd", "rd"];
+    return function(input) {
+      var dtfilter = $filter('date')(input, 'MMMM d');
+      if (!dtfilter) return;
+      var day = parseInt(dtfilter.slice(-2));
+      var relevantDigits = (day < 30) ? day % 20 : day % 30;
+      //console.log(day, relevantDigits);
+      var suffix = (relevantDigits <= 3) ? suffixes[relevantDigits] : suffixes[0];
+      return dtfilter+suffix+$filter('date')(input, ' yyyy');
+    };
+  }
+
   function timeToLocalTime() {
     return function(createdAt) {
       if (createdAt === null || typeof createdAt === 'undefined') {
@@ -70,6 +83,6 @@
     .filter('dateTimeToLocal', dateTimeToLocal)
     .filter('cleanLabel', cleanLabel)
     .filter('titleCase', titleCase)
-    .filter('formattedPrice', formattedPrice);
-
+    .filter('formattedPrice', formattedPrice)
+    .filter('dateSuffix', dateSuffix);
 })();
