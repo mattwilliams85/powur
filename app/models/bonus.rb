@@ -1,17 +1,5 @@
 class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
-  # TYPES = {
-  #   'SellerBonus'       => 'Seller',
-  #   'CABonus'           => 'Customer Acquistion',
-  #   'GenerationalBonus' => 'Generational',
-  #   'MatchingBonus'     => 'Matching' }
-  # SCHEDULES = {
-  #   weekly:  'Weekly',
-  #   monthly: 'Monthly' }
-
   enum schedule: { weekly: 1, monthly: 2, one_time: 3 }
-
-  # belongs_to :bonus_plan
-  # belongs_to :product
 
   has_many :bonus_amounts,
            class_name:  'BonusAmount',
@@ -19,63 +7,18 @@ class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
            dependent:   :destroy
   has_many :bonus_payments
   belongs_to :distribution
+  belongs_to :pay_period
+
+  scope :started, lambda { |start_date|
+    where('start_date IS NULL OR start_date <= ?', start_date)
+  }
+  scope :pay_period, lambda { |pay_period|
+    condition = 'schedule = ? OR (schedule = 3 AND pay_period_id = ?)'
+    schedule = Bonus.schedules[pay_period.time_span]
+    where(condition, schedule, pay_period).started(pay_period.start_date)
+  }
 
   validates_presence_of :name
-
-  # def type_display
-  #   TYPES[self.class.name]
-  # end
-
-  # def highest_bonus_level
-  #   bonus_amounts.empty? ? 0 : bonus_amounts.map(&:level).max
-  # end
-
-  # def next_bonus_level
-  #   0
-  # end
-
-  # def rank_range
-  #   @rank_range ||= Rank.rank_range
-  # end
-
-  # def default_level
-  #   BonusAmount.new(level: 0, bonus: self)
-  # end
-
-  # def max_amount
-  #   default_level.max
-  # end
-
-  # def can_add_amounts?
-  #   highest_bonus_level.zero?
-  # end
-
-  # def enabled?
-  #   !bonus_amounts.empty?
-  # end
-
-  # def amount_used
-  #   amounts = bonus_amounts.select(&:persisted?)
-  #   amounts.empty? ? 0.0 : amounts.first.max
-  # end
-
-  # def remaining_amount
-  #   return nil unless product
-  #   product.commission_remaining(self)
-  # end
-
-  # def payment_amount(rank_id, path_id, level = 0)
-  #   level = bonus_amounts.select { |ba| ba.level == level }.find do |ba|
-  #     ba.rank_path_id.nil? || ba.rank_path_id == path_id
-  #   end
-  #   percent = level.normalize_amounts(rank_id).last
-  #   available_amount * percent
-  # end
-
-  # def create_payments!(*)
-  # end
-
-  protected
 
   class << self
     def symbol_to_type(type_symbol)

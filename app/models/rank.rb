@@ -56,10 +56,29 @@ class Rank < ActiveRecord::Base
     user_ranks.create!(attrs)
   end
 
+  def rank_user(user_id, pay_period_id)
+    attrs = { user_id: user_id, pay_period_id: pay_period_id }
+    
+    if user_ranks.where(attrs).exists? ||
+        !user_qualified?(user_id, pay_period_id)
+      return
+    end
+    
+    user_ranks.create!(attrs)
+  end
+
+  def requirements?
+    requirements.size.zero?
+  end
+
   private
 
   def previous_user_ranks(pay_period_id)
     UserRank.where(rank_id: id - 1, pay_period_id: pay_period_id)
+  end
+
+  def user_qualified?(user_id, pay_period_id)
+    requirements.all? { |r| r.user_qualified?(user_id, pay_period_id) }
   end
 
   class << self
@@ -81,10 +100,22 @@ class Rank < ActiveRecord::Base
         pay_period_ids = MonthlyPayPeriod.relevant_ids(current: true)
       end
 
-      ranks = preloaded.select { |r| !r.requirements.empty? }.entries
+      ranks = preloaded.select { |r| !r.requirements? }.entries
       pay_period_ids.each do |pay_period_id|
         ranks.each { |rank| rank.rank_users(pay_period_id) }
       end
+      User.update_organic_ranks
+      User.update_lifetime_ranks
+    end
+
+    def rank_user(user_id)
+      pay_period = MonthlyPayPeriod.current
+
+      rank_at = UserRank.where(
+        user_id:       user_id,
+        pay_period_id: pay_period.id).maximum(:rank_id) || 0
+      ranks = preloaded.where('id > ?', rank_at).select { |r| !r.requirements? }
+      ranks.each { |rank| rank.rank_user(user_id, pay_period.id) }
       User.update_organic_ranks
       User.update_lifetime_ranks
     end

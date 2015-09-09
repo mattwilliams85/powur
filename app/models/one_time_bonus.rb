@@ -37,11 +37,10 @@ class OneTimeBonus < Bonus
     end
   end
 
-  def create_payments!
-    pay_period_id = WeeklyPayPeriod.current.id
+  def create_payments!(*)
     qualified_users.each do |user_id, quantity|
       bonus_payments.create!(
-        pay_period_id: pay_period_id,
+        pay_period_id: pay_period.id,
         user_id:       user_id,
         amount:        amount * quantity)
     end
