@@ -23,7 +23,6 @@ describe ProductReceipt, type: :model do
         product_id:     create(:product).id,
         purchased_at:   Time.zone.now,
         amount:         100,
-        order_id:       123,
         transaction_id: 123)
       expect(product_receipt.errors.messages.length).to eq(0)
     end
@@ -36,7 +35,6 @@ describe ProductReceipt, type: :model do
         product_id:     certification.id,
         purchased_at:   Time.zone.now,
         amount:         299,
-        order_id:       123,
         transaction_id: 123)
 
       expect(user.reload.available_invites).to eq(10)

@@ -9,23 +9,40 @@ class OneTimeBonus < Bonus
     Date.strptime(meta_data['end_date'])
   end
 
-  def criteria
-    @criteria ||= begin
+  def qualified_users
+    @qualified_users ||= begin
       case meta_data['criteria']
       when 'has_converted_lead'
-        Lead.select(:user_id).converted(to: end_date + 1.day)
+        ids = Lead.select(:user_id).converted(to: end_date + 1.day)
           .group(:user_id).entries.map(&:user_id)
+        Hash[ ids.map { |id| [ id, 1 ] } ]
+      when 'august_contest'
+        qualified_leads = Lead
+          .converted(pay_period_id: '2015-08')
+          .preload(:user)
+        ids = {}
+        qualified_leads.each do |lead|
+          next unless lead.user.partner?
+          sponsor = lead.user.sponsor
+          if sponsor && !sponsor.breakage_account? && sponsor.partner?
+            ids[sponsor.id] ||= 0
+            ids[sponsor.id] += 1
+          end
+          next if lead.user.breakage_account?
+          ids[lead.user_id] ||= 0
+          ids[lead.user_id] += 1
+        end
+        ids
       end
     end
   end
 
-  def create_payments!
-    pay_period_id = WeeklyPayPeriod.current.id
-    criteria.each do |user_id|
+  def create_payments!(*)
+    qualified_users.each do |user_id, quantity|
       bonus_payments.create!(
-        pay_period_id: pay_period_id,
+        pay_period_id: pay_period.id,
         user_id:       user_id,
-        amount:        amount)
+        amount:        amount * quantity)
     end
   end
 

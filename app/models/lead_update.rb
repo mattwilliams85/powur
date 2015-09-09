@@ -11,10 +11,15 @@ class LeadUpdate < ActiveRecord::Base
     { leadUpdateId: id, providerUid: provider_uid }
   end
 
+  def closed_won?
+    opportunity_stage == 'Closed Won'
+  end
+
   def sales_status
     return :duplicate if DUPE_STATUS.include?(status)
     return :ineligible if INELIGIBLE_STATUS.include?(status)
     return :closed_lost if LOST_STATUS.include?(status)
+    return :closed_won if closed_won?
     return :installed if installation?
     return :contract if contract?
     return :proposal if converted?

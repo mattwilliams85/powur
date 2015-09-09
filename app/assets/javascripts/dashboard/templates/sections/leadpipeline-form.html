@@ -62,6 +62,7 @@
                 id="new_lead_first_name"
                 ng-model="lead.first_name"
                 ng-class="{ 'input-error' : leadPipelineSection.isFirstNameInvalid }"
+                maxlength="40"
                 required>
               <label
                 ng-show="leadPipelineSection.isFirstNameInvalid"
@@ -76,6 +77,7 @@
                 id="new_lead_last_name"
                 ng-model="lead.last_name"
                 ng-class="{ 'input-error' : leadPipelineSection.isLastNameInvalid }"
+                maxlength="40"
                 required>
               <label
                 ng-show="leadPipelineSection.isLastNameInvalid"

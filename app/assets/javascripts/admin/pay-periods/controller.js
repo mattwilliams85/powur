@@ -88,6 +88,7 @@
       var lead = item.properties.lead;
       if (lead.installed_at) return lead.installed_at;
       if (lead.contracted_at) return lead.contracted_at;
+      if (lead.closed_won_at) return lead.closed_won_at;
       return lead.converted_at;
     };
 

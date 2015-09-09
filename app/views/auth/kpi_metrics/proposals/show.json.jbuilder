@@ -10,8 +10,9 @@ json.properties do
   json.metrics do
     json.data0 @leads
     json.data1 @proposals
-    json.data2 @contracts
-    json.data3 @installs
+    json.data2 @closed
+    json.data3 @contracts
+    json.data4 @installs
   end
   json.avatar do
     [ :thumb, :medium, :large ].each do |key|

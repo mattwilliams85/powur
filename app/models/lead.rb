@@ -8,8 +8,8 @@ class Lead < ActiveRecord::Base
     :incomplete, :ready_to_submit,
     :ineligible_location, :submitted ]
   enum sales_status: [
-    :in_progress, :proposal, :contract, :installed,
-    :duplicate, :ineligible, :closed_lost ]
+    :in_progress, :proposal, :closed_won, :contract, :installed,
+    :duplicate, :ineligible, :closed_lost]
 
   add_search :user, :customer, [ :user, :customer ]
 
@@ -35,7 +35,9 @@ class Lead < ActiveRecord::Base
     query = query.to_date(field, to) if to
     query
   }
-  KEY_DATES = [ :submitted, :contracted, :converted, :installed, :created ]
+  KEY_DATES = [
+    :submitted, :contracted, :converted,
+    :closed_won, :installed, :created ]
   KEY_DATES.each do |key_date|
     scope key_date, lambda { |pay_period_id: nil, from: nil, to: nil|
       timespan(field:         "#{key_date}_at",
@@ -161,6 +163,7 @@ class Lead < ActiveRecord::Base
 
   def update_last_update_attributes
     self.converted_at = last_update.converted
+    self.closed_won_at ||= last_update.updated_at if last_update.closed_won?
     self.contracted_at = last_update.contract
     self.installed_at = last_update.installation
     self.sales_status = last_update.sales_status

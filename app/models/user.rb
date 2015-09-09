@@ -179,9 +179,7 @@ class User < ActiveRecord::Base
   end
 
   def partner?
-    product_receipts
-      .joins(:product)
-      .where(products: { slug: 'partner' }).count > 0
+    !lifetime_rank.nil? && lifetime_rank >= 1
   end
 
   def purchased_at(product_id)

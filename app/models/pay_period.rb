@@ -96,7 +96,7 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
   def bonus_totals
     bonuses = BonusPayment.bonus_totals_by_type(self)
     bonuses.map do |i|
-      { id: i.bonus_id,
+      { id:     i.bonus_id,
         amount: i.amount,
         type:   Bonus.find(i.bonus_id).name }
     end

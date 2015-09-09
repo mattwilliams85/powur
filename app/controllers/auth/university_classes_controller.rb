@@ -14,6 +14,9 @@ module Auth
 
     def purchase
       process_purchase
+      Rank.rank_user(current_user.id)
+      current_user.reload
+
       send_purchased_notifications
       update_mailchimp
 

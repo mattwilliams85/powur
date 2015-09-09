@@ -94,7 +94,9 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
           .to receive(:process_purchase).and_return(true)
         allow_any_instance_of(Auth::UniversityClassesController)
           .to receive(:send_purchased_notifications).and_return(true)
-        create(:product_receipt, user: current_user, product: create(:product, slug: 'partner'))
+        create(:product_receipt,
+               user:    current_user,
+               product: certifiable_product)
       end
 
       it 'should move user to Partner group' do
@@ -113,6 +115,8 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
             ]
                          }).once
 
+        create_list(:rank, 2)
+        create(:purchase_requirement, product: certifiable_product)
         post(purchase_university_class_path(certifiable_product),
              card:   {},
              format: :json)
