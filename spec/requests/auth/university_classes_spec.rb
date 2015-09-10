@@ -85,10 +85,13 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
     end
 
     context 'when successfull purchase' do
-      let(:mailchimp_list_api) { double(:mailchimp_list_api) }
+      let(:mailchimp_list_api) do
+        double(:mailchimp_list_api, members: mailchimp_members_api)
+      end
+      let(:mailchimp_members_api) { double(:mailchimp_members_api) }
 
       before do
-        allow_any_instance_of(Gibbon::API)
+        allow_any_instance_of(Gibbon::Request)
           .to receive(:lists).and_return(mailchimp_list_api)
         allow_any_instance_of(Auth::UniversityClassesController)
           .to receive(:process_purchase).and_return(true)
@@ -100,20 +103,15 @@ describe 'POST /u/university_classes/:id/purchase', type: :request do
       end
 
       it 'should move user to Partner group' do
-        allow(mailchimp_list_api).to receive(:subscribe).and_return(true)
-        expect(mailchimp_list_api).to receive(:update_member).with(
-          id:            User::MAILCHIMP_LISTS[:all_users],
-          email:         { email: current_user[:email] },
-          merge_vars:    {
-            FNAME: current_user[:first_name],
-            LNAME: current_user[:last_name],
-            email: current_user[:email],
-            groupings: [
-              { id:     User::MAILCHIMP_GROUPINGS[:powur_path],
-                groups: [ 'Partner' ]
-              }
-            ]
-                         }).once
+        expect(mailchimp_members_api).to receive(:update).with(
+          body: {
+            interests:    {
+              User::MAILCHIMP_INTERESTS[:partners]  => true,
+              User::MAILCHIMP_INTERESTS[:advocates] => false },
+            merge_fields: {
+              FNAME: current_user[:first_name],
+              LNAME: current_user[:last_name] }
+          }).once
 
         create_list(:rank, 2)
         create(:purchase_requirement, product: certifiable_product)
