@@ -26,12 +26,12 @@ bower install
 #------ src area / front end
 
 # installed dev dependencies for gulp
-# cd powur/src
-cd src
+# cd powur/client
+cd client
 npm install
 
 # install front libs
-# cd powur/src
+# cd powur/client
 bower install
 
 # install typescript compiler globally
@@ -53,9 +53,9 @@ brew install
 # -----------------------------
 # structure
 # -----------------------------
-src/
+client/
 	index.html			# main html page # includes partials
-src/app/
+client/app/
 	init.js.ts 			# angular app modules
 	root-controller.js.ts 		# root controller / base
 
@@ -63,11 +63,11 @@ src/app/
 npm install -g gulp
 
 # start gulp watch for ts
-# cd powur/src
+# cd powur/client
 gulp
 
 # start local server / dev (another terminal)
-# cd powur/src
+# cd powur/client
 npm install -g local-web-server
 ws
 
