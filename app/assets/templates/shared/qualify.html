@@ -1,0 +1,131 @@
+<div class="pow-landing-wrapper" ng-class="{'active': leftMenu.isActive}">
+  <main class="pow-qualify">
+    <div class="row">
+      <div class="large-8 large-centered columns">
+
+      <!-- ZIP Entry -->
+      <div class="row">
+        <div class="zip-code-entry">
+          <form name="zip-code-entry-form" ng-submit="validateZip()">
+            <h2 class="column-heading">Check Eligibility</h2>
+            <div class="row collapse">
+              <!-- ZIP Input with HTML5 Validations -->
+              <div class="small-8 columns">
+                <label for="zip">ZIP Code</label>
+                <input
+                ng-model="zip.code"
+                name="zip"
+                type="text"
+                pattern="^[0-9]{5}$"
+                oninvalid="setCustomValidity('Please enter a 5-digit ZIP Code')"
+                onchange="try{setCustomValidity('')}catch(e){}"
+                ng-required='true'
+                ng-disabled="disableZipInput">
+              </div>
+              <!-- Button -->
+              <div class="small-4 columns">
+                <button 
+                  class="zip-code button postfix" 
+                  ng-disabled="disableZipInput" 
+                  ng-class="{'invalid': proposalStatus === 'invalidZip'}" 
+                  type="submit">
+                  <div class="button-icon"></div>
+                  <i class="fa fa-check"></i>
+                </button>
+              </div>
+            </div>
+            <small ng-class="{ 'error': zipErrorMessages['zip'] }">{{zipErrorMessages['zip']}}</small>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- ZIP Valid/Invalid -->
+      <div class="row">
+        <!-- Invalid ZIP -->
+        <div ng-show="proposalStatus === 'invalidZip'" class="panel">
+          <h4>Whoops!</h4>
+          <p>This ZIP Code isn't in the SolarCity territory.</p>
+          <a ng-click="clearZip()" class="button expand">Enter a different ZIP Code</a>
+        </div>
+<!-- ng-show="proposalStatus === 'new' || proposalStatus === 'edit'" -->
+      </div>
+
+      <!-- Proposal Saved to Powur -->
+      <div class="row">
+        <div ng-show="proposalStatus === 'saved'" class="panel">
+          <h4>Great!</h4>
+          <p>This proposal was saved successfully!</p>
+          <form>
+            <fieldset>
+              <div class="submitted-lead panel">
+                <label>Contact Information</label>
+                <div class="customer-info">
+                  <!-- Customer Name -->
+                  <p class="name">{{savedProposalData.customer}}</p>
+                  <!-- Address -->
+                  <div ng-if="savedProposalData.address && savedProposalData.city && savedProposalData.state && savedProposalData.zip">
+                    <p class="address">{{savedProposalData.address}}</p>
+                    <!-- City/State/ZIP -->
+                    <p class="city-state-zip">
+                      {{savedProposalData.city}}, {{savedProposalData.state}} {{savedProposalData.zip}}
+                    </p>
+                  </div>
+                  <!-- Email -->
+                  <p class="email"><a href="mailto:{{savedProposalData.email}}">{{savedProposalData.email}}</a></p>
+                  <!-- Phone -->
+                  <p class="phone">{{savedProposalData.phone}}</p>
+                  <!-- Proposal ID -->
+                  <p class="id">Proposal ID: {{savedProposalData.id}}</p>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+          <p ng-show="submitProposalAction">You can submit this proposal to SolarCity now!</p>
+          <p ng-show="!submitProposalAction">The customer's name, email, phone and ZIP code are required before you can submit this proposal to SolarCity.</p>
+          <p ng-show="!submitProposalAction">Use the Edit Proposal button below to add more information about this customer.</p>
+          <!-- Buttons -->
+          <a ng-show="submitProposalAction" ng-click="submitProposal()" class="button expand">Submit to SolarCity Now</a>
+          <a ng-click="editProposal()" class="button secondary expand">Edit This Proposal</a>
+          <a ng-click="reset()" class="button secondary expand">New Proposal</a>
+        </div>
+      </div>
+
+      <!-- Proposal Submitted to SolarCity -->
+      <div class="row">
+        <div ng-show="proposalStatus === 'submitted'" class="panel">
+          <h4>Proposal Submitted</h4>
+          <p>This proposal was successfully submitted to SolarCity!</p>
+          <form>
+            <fieldset>
+              <div class="submitted-lead panel">
+                <label>Contact Information</label>
+                <div class="customer-info">
+                  <!-- Customer Name -->
+                  <p class="name">{{savedProposalData.customer}}</p>
+                  <!-- Address -->
+                  <div ng-if="savedProposalData.address && savedProposalData.city && savedProposalData.state && savedProposalData.zip">
+                    <p class="address">{{savedProposalData.address}}</p>
+                    <!-- City/State/ZIP -->
+                    <p class="city-state-zip">
+                      {{savedProposalData.city}}, {{savedProposalData.state}} {{savedProposalData.zip}}
+                    </p>
+                  </div>
+                  <!-- Email -->
+                  <p class="email"><a href="mailto:{{savedProposalData.email}}">{{savedProposalData.email}}</a></p>
+                  <!-- Phone -->
+                  <p class="phone">{{savedProposalData.phone}}</p>
+                  <!-- Proposal ID -->
+                  <p class="id">Proposal ID: {{savedProposalData.id}}</p>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+          <!-- Buttons -->
+          <a ng-click="reset()" class="button expand">New Proposal</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
