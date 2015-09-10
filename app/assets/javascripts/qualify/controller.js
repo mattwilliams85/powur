@@ -160,7 +160,7 @@
         // Get 'Create Proposal' Action
         $http({
           method: 'GET',
-          url: '/u/users/' + data.properties.id + '/quotes',
+          url: '/u/users/' + data.properties.id + '/leads',
         }).success(function(data) {
           $scope.createProposalAction = getAction(data.actions, 'create');
           $scope.productFields = setProductFields($scope.createProposalAction);

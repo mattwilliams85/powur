@@ -2,10 +2,76 @@
   .leadpipeline-section {
     padding-bottom: 20px;
 
-    .detail {
-      display: block;
-      line-height: 16pt;
+    .form {
+      min-height: 465px;
+      overflow: hidden;
+      .qualify-box {
+        width: 100%;
+        position: absolute;
+        padding: 50px; 
+        transition: transform .4s ease .7s;
+        -webkit-transition: -webkit-transform .4s ease .7s;
+        .column-heading {
+          color: #fff;
+        }
+        .panel {
+          border: none;
+          padding: 20px 5px;
+        }
+        .fa-check {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto auto;
+          height: 25px;
+          transform: rotate(-180deg) scale(0);
+          transition: transform .2s linear .2s;
+          -webkit-transform: rotate(-180deg) scale(0);
+          -webkit-transition: -webkit-transform .2s linear .2s;
+        }
+        &.slide {
+          transform: translateX(-100%);
+          button.zip-code {
+            width: 60px;
+            border-top-left-radius: 50%;
+            border-bottom-left-radius: 50%;
+            border-top-right-radius: 50%;
+            border-bottom-right-radius: 50%;
+            margin-left: 60px;
+            background-color: $pow-color-green !important;
+            opacity: 1;
+          }
+          .button-icon {
+            transform: rotate(180deg) scale(0);
+            -webkit-transform: rotate(180deg) scale(0);
+          }
+          .fa-check {
+            transform: none;
+            -webkit-transform: none;
+          }
+        }
+      }
+      .form-box {
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        left: 100%;
+        transition: transform .4s ease .7s;
+        -webkit-transition: -webkit-transform .4s ease .7s;
+        &.slide {
+          transform: translateX(-100%);
+          -webkit-transform: translateX(-100%);
+        }
+      }
+
+      .detail {
+        display: block;
+        line-height: 16pt;
+      }
     }
+
 
     .drilldown {
       max-height: 0px;
@@ -25,6 +91,7 @@
       }
 
       .summary {
+
         &.homeowner-info {
           background: image-url('dashboard/bluehouse.png');
           border: none;
