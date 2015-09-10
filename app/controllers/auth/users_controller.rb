@@ -108,16 +108,20 @@ module Auth
     end
 
     def user_lifetime_lead_counts
-      { submitted: @user.leads.submitted.count,
-        installed: @user.leads.installed.count }
+      { submitted:  @user.leads.submitted.count,
+        converted:  @user.leads.converted.count,
+        closed_won: @user.leads.closed_won.count,
+        contracted: @user.leads.contracted.count,
+        installed:  @user.leads.installed.count }
     end
 
     def user_month_lead_counts
       month_start = Date.today.beginning_of_month
-
-      { submitted: @user.leads.submitted(from: month_start).count,
-        converted: @user.leads.converted(from: month_start).count,
-        installed: @user.leads.installed(from: month_start).count }
+      { submitted:  @user.leads.submitted(from: month_start).count,
+        converted:  @user.leads.converted(from: month_start).count,
+        closed_won: @user.leads.closed_won(from: month_start).count,
+        contracted: @user.leads.contracted(from: month_start).count,
+        installed:  @user.leads.installed(from: month_start).count }
     end
 
     def user_lead_counts
