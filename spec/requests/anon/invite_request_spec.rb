@@ -6,7 +6,10 @@ describe '/invite' do
   end
 
   describe 'PATCH' do
-    let(:mailchimp_list_api) { double(:mailchimp_list_api) }
+    let(:mailchimp_list_api) do
+      double(:mailchimp_list_api, members: mailchimp_members_api)
+    end
+    let(:mailchimp_members_api) { double(:mailchimp_members_api) }
     let(:sponsor) { create(:certified_user, available_invites: 3) }
     let(:invite) do
       create(:invite, sponsor: sponsor, email: 'newinvite@test.com')
@@ -26,7 +29,7 @@ describe '/invite' do
     end
 
     before do
-      allow_any_instance_of(Gibbon::API)
+      allow_any_instance_of(Gibbon::Request)
         .to receive(:lists).and_return(mailchimp_list_api)
     end
 
@@ -54,20 +57,24 @@ describe '/invite' do
     end
 
     context 'when successfully creates user' do
+      let(:mailchimp_response) do
+        {
+          'id': 'abc123'
+        }
+      end
+
       before do
-        expect(mailchimp_list_api).to receive(:subscribe).with(
-          id:           User::MAILCHIMP_LISTS[:all_users],
-          email:        { email: user_params[:email] },
-          merge_vars:   {
-            FNAME: user_params[:first_name],
-            LNAME: user_params[:last_name],
-            email: user_params[:email],
-            groupings: [
-              # subscribe to Advocate group by default
-              { id: User::MAILCHIMP_GROUPINGS[:powur_path], groups: [ "Advocate" ] }
-            ]
-          },
-          double_optin: false).once
+        expect(mailchimp_members_api).to receive(:create).with(
+          body: {
+            email_address: user_params[:email],
+            interests:     {
+              User::MAILCHIMP_INTERESTS[:partners]  => false,
+              User::MAILCHIMP_INTERESTS[:advocates] => true },
+            status:        'subscribed',
+            merge_fields:  {
+              FNAME: user_params[:first_name],
+              LNAME: user_params[:last_name] }
+          }).once.and_return(mailchimp_response)
       end
 
       it 'registers a user and associates any outstanding invites' do
@@ -82,6 +89,7 @@ describe '/invite' do
         user_id = User.find_by(email: invite.email).id
         invite.reload
         expect(invite.user_id).to eq(user_id)
+        expect(invite.user.mailchimp_id).to eq(mailchimp_response['id'])
       end
     end
   end
