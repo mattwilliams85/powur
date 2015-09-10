@@ -24,7 +24,7 @@ gem 'active_hash'
 gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
 gem 'rails-settings-cached'
-gem 'gibbon', '1.2.0'
+gem 'gibbon' #, '1.2.0'
 gem 'valid_email', require: false
 gem 'faker'
 gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of'

@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
                  :communications, :watched_intro, :tos_version,
                  :allow_sms, :allow_system_emails, :allow_corp_emails,
                  :notifications_read_at,
-                 :ewallet_username
+                 :ewallet_username, :mailchimp_id
 
   # No extra email validation needed,
   # email validation and confirmation happens with Invite
