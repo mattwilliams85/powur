@@ -1,4 +1,64 @@
 .activity {
 	width: 300px;
 	background-color: #ededed;
+    padding: 10px;
+}
+
+.activity .heading {
+    text-transform: uppercase;
+    padding: 30px 0 20px 20px;
+    color: #666666;
+}
+
+.activity .heading .title {
+    font-size: x-large;
+    line-height: 24px;
+    padding: 0 0 0 10px;
+}
+
+.activity .wrapper {
+    overflow: auto;
+}
+
+.activity .container {
+}
+
+.activity .activity-item {
+    padding: 20px;
+}
+
+.activity .content {
+    padding: 0 0 0 15px;
+}
+
+.activity .content .date {
+    color: #848484;
+    font-weight: bold;
+}
+
+.activity .content .caption {
+    color: #848484;
+}
+
+/*
+.activity .divider {
+    border-bottom: 1px solid #cbcbcb;
+}*/
+
+.activity .sprite {
+    background-image: url(../img/activity-sprite.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.activity .sprite-news {
+    width: 27px;
+    height: 21px;
+    background-position: -5px -5px;
+}
+
+.activity .sprite-activity {
+    width: 20px;
+    height: 22px;
+    background-position: -42px -5px;
 }

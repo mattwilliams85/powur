@@ -78,8 +78,14 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.d
 				templateUrl: '/partials/profile.html',
 				controller: 'ProfileController as profile',
 			},
-			'main': {},
-			'activity': {},
+			'main': {
+				templateUrl: '/partials/events.html',
+				controller: 'EventsController as events',
+			},
+			'activity': {
+				templateUrl: '/partials/activity.html',
+				controller: 'ActivityController as activity',
+			},
 		},
 	})
 	.state('grid', {

@@ -4,12 +4,7 @@ html,body {
     height: 100%; margin: 0px; padding: 0px; 
 }
 
-.full-height { 
-    /*height: 100%; */
-}
-
 .fill-height {
-    align-items: stretch;
     flex: 1;
     flex-direction: column;
     display: flex;
@@ -19,6 +14,7 @@ html,body {
     flex-direction: column;
     display: flex;
 }
+
 /* #2c6b8a - nav-icon-color */
 /* #2c6c8a - bg of profile */
 
