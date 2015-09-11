@@ -575,7 +575,6 @@
         // Set Actions
         $scope.formAction = $scope.getAction(items.actions, 'create');
         $scope.productFields = $scope.setProductFields($scope.formAction);
-        console.log($scope.lead.productFields)
         $scope.leadPipelineSection.indexAction = $scope.getAction(items.actions, 'index');
         // Initialize Leads Carousel
         $timeout(function(){
