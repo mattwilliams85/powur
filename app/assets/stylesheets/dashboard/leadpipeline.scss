@@ -48,6 +48,7 @@
         }
         &.slide {
           transform: translateX(-100%);
+          -webkit-transform: translateX(-100%);
           button.zip-code {
             width: 60px;
             border-top-left-radius: 50%;
