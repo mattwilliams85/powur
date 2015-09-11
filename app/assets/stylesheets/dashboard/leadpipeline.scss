@@ -5,18 +5,33 @@
     .form {
       min-height: 465px;
       overflow: hidden;
+      // background-image: image-url('dashboard/bg-map.jpg');
+
       .qualify-box {
         width: 100%;
+        height: 100%;
         position: absolute;
-        padding: 50px; 
+        top: 0;
+        left: 0;
+        padding: 60px; 
         transition: transform .4s ease .7s;
         -webkit-transition: -webkit-transform .4s ease .7s;
+        .bg-mask {
+          background-image: url(/assets/dashboard/bg-map.jpg);
+          background-position: center center;
+          background-repeat: no-repeat;
+          height: 100%;
+          width: 100%;
+          opacity: 0.3;
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
         .column-heading {
           color: #fff;
         }
         .panel {
           border: none;
-          padding: 20px 5px;
         }
         .fa-check {
           position: absolute;
@@ -27,9 +42,9 @@
           margin: auto auto;
           height: 25px;
           transform: rotate(-180deg) scale(0);
-          transition: transform .2s linear .2s;
           -webkit-transform: rotate(-180deg) scale(0);
-          -webkit-transition: -webkit-transform .2s linear .2s;
+          transition: transform .15s linear .15s;
+          -webkit-transition: -webkit-transform .15s linear .15s;
         }
         &.slide {
           transform: translateX(-100%);
@@ -60,9 +75,13 @@
         left: 100%;
         transition: transform .4s ease .7s;
         -webkit-transition: -webkit-transform .4s ease .7s;
+        background: image-url('dashboard/black-bg.png');
         &.slide {
           transform: translateX(-100%);
           -webkit-transform: translateX(-100%);
+        }
+        &.pull {
+          left: 0;
         }
       }
 
@@ -91,12 +110,24 @@
       }
 
       .summary {
+        padding: 30px;
 
+        &.new-homeowner {
+          background: image-url('dashboard/bluehouse.png');
+          border-right: none;
+          text-align: left;
+          p {
+            color: #fff;
+          }
+          h1 {
+            font-weight: 600;
+          }
+        }
         &.homeowner-info {
           background: image-url('dashboard/bluehouse.png');
           border: none;
           text-align: initial;
-          padding: 0.9375em 30px;
+          
 
           label {
             color: #fff;

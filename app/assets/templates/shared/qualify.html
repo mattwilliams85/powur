@@ -6,13 +6,14 @@
       <!-- ZIP Entry -->
       <div class="row">
         <div class="zip-code-entry">
-          <form name="zip-code-entry-form" ng-submit="validateZip()">
+          <form name="zip-code-entry-form" ng-submit="validateZip();">
             <h2 class="column-heading">Check Eligibility</h2>
             <div class="row collapse">
               <!-- ZIP Input with HTML5 Validations -->
               <div class="small-8 columns">
                 <label for="zip">ZIP Code</label>
                 <input
+                class="zip-input"
                 ng-model="zip.code"
                 name="zip"
                 type="text"

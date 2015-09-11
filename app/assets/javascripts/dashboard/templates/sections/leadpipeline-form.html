@@ -1,4 +1,4 @@
-<div class="summary large-3 medium-3 columns">
+<div class="summary new-homeowner large-3 medium-3 columns">
 
 <!-- ng-shows for each Summary Text and Buttons for state of the Lead form -->
 <!--
@@ -11,7 +11,7 @@
 
   <!-- New Lead -->
   <div ng-show="mode === 'new'">
-    <h1>New Homeowner</h1> 
+  <h1><i class="fa fa-home fa-2x"></i> New Homeowner</h1> 
     <p>Enter customer information to create a new lead.</p>
     <p>This customer information can be updated before the lead is submitted to SolarCity.</p>
   </div>
@@ -47,10 +47,11 @@
 </div>
 
 <div class="form large-9 medium-9 columns" ng-controller="QualifyCtrl">
-  <div class="qualify-box" ng-class="{'slide': proposalStatus === 'new'}">
+  <div class="qualify-box" ng-class="{'slide': proposalStatus === 'new'}" ng-hide="mode !== 'new'">
+    <div class="bg-mask"></div>
     <ng-include src="'shared/qualify.html'"></ng-include>
   </div>
-  <div class="form-box" ng-class="{'slide': proposalStatus === 'new'}">
+  <div class="form-box" ng-class="{ 'slide': proposalStatus === 'new', 'pull': mode !== 'new'}">
     <form ng-submit="leadPipelineSection.saveLead()" id="customers-form">
       <div class="row">
         <div class="large-6 columns">
@@ -146,10 +147,9 @@
         </div>
         <div class="large-6 columns">
           <fieldset>
-            <legend ng-if="lead.productFields"><i class="fa fa-info-circle"></i> Other Information</legend>
-
+            <legend ng-if="productFields"><i class="fa fa-info-circle"></i> Other Information</legend>
             <!-- Custom Product Fields -->
-            <div ng-repeat="productField in lead.productFields" class="row">
+            <div ng-repeat="productField in productFields" class="row">
               <div class="large-12 medium-12 columns">
                 <label>{{ productField.name | cleanLabel }}</label>
                 <!-- Show Dollar Sign if Average Bill Field -->
