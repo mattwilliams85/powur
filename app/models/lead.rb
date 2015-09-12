@@ -162,7 +162,7 @@ class Lead < ActiveRecord::Base
   end
 
   def update_last_update_attributes
-    return nil unless last_update.nil?
+    return if last_update.nil?
     self.converted_at = last_update.converted
     self.closed_won_at ||= last_update.updated_at if last_update.closed_won?
     self.contracted_at = last_update.contract
