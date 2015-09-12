@@ -1,6 +1,7 @@
 module Auth
   class PayPeriodsController < AuthController
     before_action :fetch_user!, only: [ :index ]
+    before_action :generate_current, only: [ :index ]
     before_action :fetch_pay_period, only: [ :show, :calculate, :distribute ]
 
     page
@@ -39,6 +40,14 @@ module Auth
     end
 
     private
+
+    def generate_current
+      if params[:time_span] == 'weekly'
+        WeeklyPayPeriod.current
+      else
+        MonthlyPayPeriod.current
+      end
+    end
 
     def fetch_pay_period
       @pay_period = PayPeriod.find(params[:id])

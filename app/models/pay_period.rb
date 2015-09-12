@@ -121,14 +121,11 @@ class PayPeriod < ActiveRecord::Base # rubocop:disable ClassLength
       first_lead = Lead.converted.order(:converted_at).first
       return unless first_lead
 
-      [ MonthlyPayPeriod, WeeklyPayPeriod ].each do |period_klass|
-        ids = period_klass.relevant_ids
+      [ MonthlyPayPeriod, WeeklyPayPeriod ].each do |klass|
+        ids = klass.relevant_ids
         next if ids.empty?
-        ids.each { |id| period_klass.find_or_create_by_id(id) }
 
-        first_id = ids.sort.first
-        first_date = PayPeriod.find(first_id).start_date
-        period_klass.where('start_date < ?', first_date).delete_all
+        ids.each { |id| klass.find_or_create_by_id(id) }
       end
     end
 
