@@ -172,13 +172,14 @@
      }
 
      .mag-button {
-       display: block;
-       z-index: 99;
-       left: 110%;
-       text-align: left;
-       padding: 1px 15px 10px 60px;
-       position: absolute;
-       width: 363px;
+        display: block;
+        z-index: 99;
+        left: 110%;
+        text-align: left;
+        padding: 10px 15px 10px 60px;
+        position: absolute;
+        width: 310px;
+        line-height: 13pt;
 
        span {
          font-color: #EEC500;
@@ -186,12 +187,13 @@
        }
 
        .mag-icon {
-         background: image-url("landing/magazine-icon.png");
+         // background: image-url("landing/magazine-icon.png");
+         background: image-url("landing/computer-icon.png");
          position: absolute;
-         height: 29px;
+         height: 32px;
          width: 35px;
          left: 14px;
-         bottom: 16px;
+         bottom: 13px;
          background-size: cover;
        }
      }

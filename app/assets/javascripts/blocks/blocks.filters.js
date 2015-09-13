@@ -21,7 +21,7 @@
       var relevantDigits = (day < 30) ? day % 20 : day % 30;
       //console.log(day, relevantDigits);
       var suffix = (relevantDigits <= 3) ? suffixes[relevantDigits] : suffixes[0];
-      return dtfilter+suffix+$filter('date')(input, ' yyyy');
+      return dtfilter + suffix + $filter('date')(input, 'yyyy');
     };
   }
 

@@ -24,7 +24,10 @@
               </div>
               <!-- Button -->
               <div class="small-4 columns">
-                <button class="zip-code button postfix" ng-disabled="disableZipInput" type="submit"></button>
+                <button class="zip-code button postfix" ng-disabled="disableZipInput" type="submit">
+                  <div class="button-icon"></div>
+                  <i class="fa fa-check"></i>
+                </button>
               </div>
             </div>
             <small ng-class="{ 'error': zipErrorMessages['zip'] }">{{zipErrorMessages['zip']}}</small>

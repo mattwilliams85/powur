@@ -5,6 +5,7 @@
     $scope.redirectUnlessSignedIn();
 
     $scope.legacyImagePaths = legacyImagePaths;
+    $scope.lead = {};
 
     // Utility Functions:
     function getLeads(cb) {
@@ -189,14 +190,14 @@
 
     // Show Lead
     $scope.leadPipelineSection.showLead = function(leadIndex) {
-
+      $scope.closeForm();
       resetFormValidations();
 
       $scope.updatingLead = false;
       var leadId = $scope.leads[leadIndex].properties.id;
       $scope.leadIndex = leadIndex;
       if ($scope.showForm === true && (leadId === $scope.currentLead.id)) {
-        $scope.closeForm();
+        
         return;
       } else {
         $scope.showForm = false;
@@ -230,7 +231,7 @@
 
     // New Proposal Action
     $scope.leadPipelineSection.newLead = function() {
-
+      $scope.closeForm();
       resetFormValidations();
 
       if ($scope.showForm === true && $scope.mode === 'new') {
@@ -243,16 +244,14 @@
         $scope.lead = {};
         $scope.currentLead = {};
 
-        getLeads(function(items){
-          $scope.animateDrilldown();
+        // getLeads(function(items){
+        //   $scope.animateDrilldown();
 
           $timeout( function(){
             $scope.mode = 'new';
-            $scope.formAction = $scope.getAction(items.actions, 'create');
-            $scope.lead.productFields = $scope.setProductFields($scope.formAction);
 
           }, 200);
-        });
+        // });
       }
     };
 
@@ -573,7 +572,9 @@
       getLeads(function(items) {
         // Set Leads
         $scope.leads = items.entities;
-        // Set Index Action
+        // Set Actions
+        $scope.formAction = $scope.getAction(items.actions, 'create');
+        $scope.productFields = $scope.setProductFields($scope.formAction);
         $scope.leadPipelineSection.indexAction = $scope.getAction(items.actions, 'index');
         // Initialize Leads Carousel
         $timeout(function(){
