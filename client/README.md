@@ -54,10 +54,10 @@ brew install
 # structure
 # -----------------------------
 client/
-	index.html			# main html page # includes partials
+    index.html          # main html page # includes partials
 client/app/
-	init.js.ts 			# angular app modules
-	root-controller.js.ts 		# root controller / base
+    init.js.ts          # angular app modules
+    root-controller.js.ts       # root controller / base
 
 # install gulp
 npm install -g gulp
