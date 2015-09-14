@@ -10,36 +10,36 @@ function chartConfig(scale){
           type: 'bar',
           labels: [],
           datasets: [{
-            label: "Lead",
+            label: 'lead',
             filter: 'submitted_at',
             fillColor: '#3fb6e1',
             highlightFill: '#3fb6e1',
             strokeColor: '#3fb6e1',
             data: []
           },{
-            label: "Proposal",
+            label: 'proposal',
             filter: 'converted_at',
             fillColor: '#fbc217',
             highlightFill: '#fbc217',
             strokeColor: '#fbc217',
             data: []
           },{
-            label: "Closed Won",
+            label: 'closed-won',
             filter: 'closed_won_at',
             fillColor: '#8c66a5',
             highlightFill: '#8c66a5',
             strokeColor: '#8c66a5',
             data: []
           },{
-            label: "Contract",
+            label: 'contract',
             filter: 'contracted_at',
             fillColor: '#8fb851',
             highlightFill: '#8fb851',
             strokeColor: '#8fb851',
             data: []
           },{
+            label: 'install',
             filter: 'installed_at',
-            label: "Final Install",
             fillColor: '#cc524f',
             highlightFill: '#cc524f',
             strokeColor: '#cc524f',

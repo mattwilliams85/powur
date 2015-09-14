@@ -1,7 +1,7 @@
 ;(function() {
   'use strict';
 
-  function init($rootScope, $location, $document, $http, $filter, $window, $timeout) {
+  function init($rootScope, $location, $document, $http, $window, $timeout) {
     $rootScope.currentUser = {};
     $rootScope.isSignedIn = !!SignedIn;
 
@@ -131,7 +131,6 @@
     '$location',
     '$document',
     '$http',
-    '$filter',
     '$window',
     '$timeout'];
 

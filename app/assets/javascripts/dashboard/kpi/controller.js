@@ -14,6 +14,7 @@
 
     $scope.scale = 29;
     $scope.current = new Date();
+    $scope.filtered = [];
     $scope.legacyImagePaths = legacyImagePaths;
 
 
@@ -75,8 +76,34 @@
           .Bar($scope.settings[0], $scope.settings[1].options);
         greyZeroes();
       }
+      spliceFiltered();
       $scope.chartReloading = false;
     };
+
+    $scope.toggleFilter = function(e) {
+      var id = e.target.id;
+      if($scope.isFiltered(id)) {
+        $scope.filtered.splice($scope.filtered.indexOf(id),1);
+      } else {
+        if ($scope.filtered.length === 4) return; //Filter Limit
+        $scope.filtered.push(id);
+      }
+      $scope.buildChart();
+    };
+
+    $scope.isFiltered = function(label) {
+      if ($scope.filtered.indexOf(label) > -1) return true;
+    };
+
+    function spliceFiltered() {
+      for(var i = 0; i < $scope.kpiChart.datasets.length; i++) {
+        var type = $scope.kpiChart.datasets[i].label;
+        if($scope.isFiltered(type)) {
+          $scope.kpiChart.datasets.splice(i, 1);
+          i--;
+        }
+      }
+    }
 
     function greyZeroes() {
       for (var i = 0; i < $scope.kpiChart.datasets.length; i++) {
@@ -95,6 +122,7 @@
       //Find largest data point
       var allData = [];
       for (var i = 0; i < $scope.settings[0].datasets.length; i ++) {
+        if ($scope.isFiltered($scope.settings[0].datasets[i].label)) continue;
         allData = allData.concat($scope.settings[0].datasets[i].data);
       }
       var max = Math.max.apply(Math, allData);
