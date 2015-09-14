@@ -12,7 +12,7 @@ module Auth
            options:  [ :not_submitted, :submitted ],
            required: false
     filter :data_status,
-           options:  Lead.data_statuses.keys,
+           options:  Lead.data_statuses.keys[0...3],
            required: false
     filter :sales_status,
            options:  Lead.sales_statuses.keys,
