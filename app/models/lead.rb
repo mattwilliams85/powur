@@ -15,8 +15,12 @@ class Lead < ActiveRecord::Base
 
   scope :not_submitted, -> { where('submitted_at IS NULL') }
   scope :submitted_status, -> (status) { send(status) }
-  scope :data_status, -> (status) { send(status) }
-  scope :sales_status, -> (status) { send(status) }
+  scope :data_status, lambda { |status|
+    where('data_status = ?', Lead.data_statuses[status])
+  }
+  scope :sales_status, lambda { |status|
+    where('sales_status = ?', Lead.sales_statuses[status])
+  }
   USER_COUNT_SQL = 'user_id, COUNT(leads.id) lead_count'
   scope :user_count, -> { select(USER_COUNT_SQL).group(:user_id) }
   scope :team_leads, lambda { |user_id:, query: Lead.unscoped|
