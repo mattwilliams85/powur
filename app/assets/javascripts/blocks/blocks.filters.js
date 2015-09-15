@@ -12,16 +12,19 @@
     };
   }
 
-  function dateSuffix($filter) {
+  function dateSuffix() {
     var suffixes = ["th", "st", "nd", "rd"];
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
     return function(input) {
-      var dtfilter = $filter('date')(input, 'MMMM d');
-      if (!dtfilter) return;
+      if (!input) return;
+      var date = new Date(input);
+      var dtfilter = months[date.getUTCMonth()] + ' ' + date.getUTCDate();
       var day = parseInt(dtfilter.slice(-2));
       var relevantDigits = (day < 30) ? day % 20 : day % 30;
-      //console.log(day, relevantDigits);
       var suffix = (relevantDigits <= 3) ? suffixes[relevantDigits] : suffixes[0];
-      return dtfilter + suffix + $filter('date')(input, 'yyyy');
+      return dtfilter + suffix + ' ' + date.getUTCFullYear();
     };
   }
 
