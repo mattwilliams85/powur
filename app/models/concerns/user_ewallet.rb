@@ -6,7 +6,7 @@ module UserEwallet
   end
 
   def ewallet?
-    !ewallet[:Email].blank?
+    !ewallet_username.blank?
   end
 
   # Returns ewallet data in a hash format
