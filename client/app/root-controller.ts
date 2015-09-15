@@ -6,7 +6,8 @@ module powur.controllers {
     }
     
     class RootController implements IRootController {
-        public static ControllerId: string = 'RootController';  
+        public static ControllerId: string = 'RootController';
+        public static $inject: Array<string> = ['$log', '$mdSidenav'];
         
         public user: any;
         
@@ -22,6 +23,5 @@ module powur.controllers {
         }
     }
     
-    (<any>RootController).$inject = ['$log', '$mdSidenav'];
     controllerModule.controller(RootController.ControllerId, RootController);
 }

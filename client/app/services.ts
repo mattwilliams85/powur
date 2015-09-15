@@ -2,7 +2,8 @@
 /// <reference path='boot.ts' />
 module powur.services {
     class AuthInterceptor {
-        public static ServiceId: string = 'AuthInterceptor';    
+        public static ServiceId: string = 'AuthInterceptor'; 
+        public static $inject: Array<string> = ['$log', '$q', '$location'];   
         
         constructor(private $log: ng.ILogService, private $q: ng.IQService, private $location: ng.ILocationService) {
             var self = this;
@@ -30,6 +31,5 @@ module powur.services {
         public user: any;
     }
     
-    (<any>AuthInterceptor).$inject = ['$log', '$q', '$location'];
     serviceModule.factory(AuthInterceptor.ServiceId, AuthInterceptor);
 }

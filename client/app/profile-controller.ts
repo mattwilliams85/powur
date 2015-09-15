@@ -7,6 +7,7 @@ module powur.controllers {
     
     class ProfileController implements IProfileController {
         public static ControllerId: string = 'ProfileController';
+        public static $inject: Array<string> = ['$log', '$interval'];
         
         public fullName: string;
         
@@ -60,6 +61,5 @@ module powur.controllers {
         }
     }
     
-    (<any>ProfileController).$inject = ['$log', '$interval'];
     controllerModule.controller(ProfileController.ControllerId, ProfileController);
 }

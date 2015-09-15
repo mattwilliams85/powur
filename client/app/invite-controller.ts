@@ -25,6 +25,7 @@ module powur.controllers {
     
     class InviteController implements IInviteController {
         public static ControllerId: string = 'InviteController';
+        public static $inject: Array<string> = ['$log', '$interval'];
         
         public available: number;
         public pending: number;
@@ -102,6 +103,5 @@ module powur.controllers {
         }
     }
     
-    (<any>InviteController).$inject = ['$log', '$interval'];
     controllerModule.controller(InviteController.ControllerId, InviteController);
 }

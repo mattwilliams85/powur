@@ -2,7 +2,8 @@
 # install
 # -----------------------------
 
-# assumes rvm/rub/rails installed
+# assumes rvm/ruby/rails installed
+# gem install bundler
 
 # assumes install postgresql
 
@@ -14,6 +15,9 @@ bundle config build.pg -- --with-pg-config=/Applications/Postgres.app/Contents/V
 git clone git@github.com:eyecuelab/powur.git
 cd powur
 
+# may need dependencies
+# install libxslt-dev postgresql-client postgresql-server-dev-all
+
 # install bundle/gems
 bundle install
 
@@ -21,6 +25,7 @@ bundle install
 npm install
 
 # install bower libs local
+npm -g install bower
 bower install
 
 #------ src area / front end
@@ -39,6 +44,9 @@ npm install typescript -g
 
 # install typings package globally
 npm install tsd -g
+
+# install yo generators
+npm install -g yo generator-karma generator-angular
 
 # recommended to install visual studio code
 
@@ -60,7 +68,7 @@ client/app/
     root-controller.js.ts       # root controller / base
 
 # install gulp
-npm install -g gulp
+npm install -g gulp-cli
 
 # start gulp watch for ts
 # cd powur/client

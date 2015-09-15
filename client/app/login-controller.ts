@@ -7,6 +7,7 @@ module powur.controllers {
     
     class LoginController implements ILoginController {
         public static ControllerId: string = 'LoginController'; 
+        public static $inject: Array<string> = ['$log'];
         
         constructor(private $log: ng.ILogService) {
             var self = this;
@@ -16,6 +17,5 @@ module powur.controllers {
         public user: any;
     }
     
-    (<any>LoginController).$inject = ['$log'];
     controllerModule.controller(LoginController.ControllerId, LoginController);
 }

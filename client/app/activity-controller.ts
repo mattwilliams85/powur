@@ -19,7 +19,7 @@ module powur.controllers {
     
     class ActivityController implements IActivityController {
         public static ControllerId: string = 'ActivityController';
-        public static $inject = ['$log'];
+        public static $inject: Array<string> = ['$log'];
         
         public sortId: number;
         public sorting: Array<Sort>;

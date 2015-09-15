@@ -6,7 +6,8 @@ module powur.controllers {
     }
     
     class NavController implements INavController {
-        public static ControllerId: string = 'NavController';   
+        public static ControllerId: string = 'NavController';
+        public static $inject: Array<string> = ['$log', '$state'];
         
         constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService) {
             var self = this;
@@ -33,6 +34,5 @@ module powur.controllers {
         }
     }
     
-    (<any>NavController).$inject = ['$log', '$state'];
     controllerModule.controller(NavController.ControllerId, NavController);
 }
