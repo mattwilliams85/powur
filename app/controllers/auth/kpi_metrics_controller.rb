@@ -6,7 +6,7 @@ module Auth
       @user = current_user
       @proposal_count = Lead.team_count(user_id: @user.id, query: Lead.submitted)
       @team_count = User.with_ancestor(@user.id).count
-      @co2_count = co2Calc.round
+      @co2_count = co2_calc.round
     end
 
     def proposals_show
@@ -41,13 +41,13 @@ module Auth
       render 'auth/kpi_metrics/genealogy/show'
     end
 
-    def co2Calc
-      kwh = 0
+    def co2_calc
+      lb = 0
       homes = User.installations(@user.id).pluck(:installed_at)
       homes.each do |home|
-        kwh += (Time.now - home)/1.days * 30
+        lb += (Time.now - home) / 1.days * 1.067
       end
-      kwh * 2.07 #kwh to CO2/lb
+      lb * 1000
     end
   end
 end
