@@ -43,6 +43,7 @@ html,body {
 
 .main .heading .title {
     font-size: x-large;
+    text-transform: uppercase;
 }
 
 .main .heading .subtitle {

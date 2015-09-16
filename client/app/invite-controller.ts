@@ -2,6 +2,11 @@
 /// <reference path='boot.ts' />
 module powur.controllers {
     
+    enum InvitationType {
+        Advocate,
+        Household
+    }
+    
     enum InviteStatus {
         Available,
         Pending,
@@ -19,13 +24,47 @@ module powur.controllers {
         percentage: number;
     }
     
-    export interface IInviteController {
+    class InviteDialogController {
+        public static ControllerId: string = 'InviteDialogController';
+        public static $inject: Array<string> = ['$log', '$mdDialog'];
         
+        public invitationType: InvitationType;
+        public firstName: string;
+        public lastName: string;
+        public phone: string;
+        public email: string;
+        
+        constructor(private $log: ng.ILogService, private $mdDialog: ng.material.IDialogService) {
+            var self = this;
+            
+            //default
+            self.invitationType = InvitationType.Advocate;
+        }
+        
+        public cancel() {
+            var self = this;
+            self.$mdDialog.cancel();
+        }
+        
+        public send() {
+            var self = this;
+            self.$mdDialog.hide({ 
+                firstName: self.firstName,
+                lastName: self.lastName,
+                phone: self.phone,
+                email: self.email,
+            });
+        }
+    }
+    
+    controllerModule.controller(InviteDialogController.ControllerId, InviteDialogController);
+    
+    export interface IInviteController {
     }
     
     class InviteController implements IInviteController {
         public static ControllerId: string = 'InviteController';
-        public static $inject: Array<string> = ['$log', '$interval'];
+        public static $inject: Array<string> = ['$log', '$interval', '$mdDialog'];
         
         public available: number;
         public pending: number;
@@ -36,7 +75,7 @@ module powur.controllers {
         
         public count: any;
         
-        constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService) {
+        constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService, private $mdDialog: ng.material.IDialogService) {
             var self = this;
             self.$log.debug(InviteController.ControllerId + ':ctor');
             
@@ -89,6 +128,24 @@ module powur.controllers {
             
         }
         
+        public addInvite(item: InviteItem, e: MouseEvent) {
+            var self = this;
+             self.$mdDialog.show({
+                controller: 'InviteDialogController as dialog',
+                templateUrl: '/partials/invite-popup.html',
+                //parent: angular.element(document.body),
+                targetEvent: e,
+                clickOutsideToClose: true
+            })
+            .then(function(data: any) {
+                // ok
+                self.$log.debug(data);
+            }, function() {
+                // cancel
+                self.$log.debug('cancel');
+            });
+        }
+        
         //TODO: convert to filter
         public getWhole(v: number): string {
             return this.toCommas(Math.floor(v));
@@ -100,7 +157,7 @@ module powur.controllers {
         
         private toCommas(v: number): string {
             return v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
+        } 
     }
     
     controllerModule.controller(InviteController.ControllerId, InviteController);

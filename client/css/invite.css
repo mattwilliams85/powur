@@ -93,6 +93,16 @@
     text-transform: uppercase;
 }
 
+.invite .invite-item .add .label a {
+    color: #a0a0a0;
+    text-decoration: none;
+    
+}
+
+.invite .invite-item .add .label a:hover {
+    color: #2583a8;
+}
+
 
 /* sprites */
 
