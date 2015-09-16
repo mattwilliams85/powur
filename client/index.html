@@ -208,7 +208,7 @@ login
         <form layout="row">
             <div class="side-bg"></div>
             <div layout="column" flex>
-                <div layout="row" layout-align="end start"><div class="close"><i class="sprite sprite-close"></i></div></div>
+                <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
                 <md-dialog-content layout="column">
                     <div class="heading"><div class="title">invitation<b>type</b></div></div>
                     <md-radio-group ng-model="dialog.invitationType" layout="row">
