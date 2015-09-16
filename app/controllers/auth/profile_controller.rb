@@ -28,7 +28,7 @@ module Auth
         User.delay.validate_phone_number!(@user.id)
         User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
 
-        if user_params[:email] != old_email
+        if user_params[:email] && user_params[:email] != old_email
           return if user_params[:email].include? 'development+'
           # Mailchimp subscription doesn't allow to change email at the moment
           # so we unsubscribe old email and subscribe new one
