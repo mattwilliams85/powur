@@ -13,7 +13,8 @@
 .invite-popup .dialog {
     max-width: 800px;
     max-height: 810px;
-    margin: 50px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .invite-popup md-dialog-content {
@@ -32,6 +33,10 @@
 .invite-popup .heading .title {
     font-size: x-large;
     text-transform: uppercase;
+}
+
+.invite-popup md-radio-group {
+    padding: 20px 0 20px 0;
 }
 
 .invite-popup .md-label span {
