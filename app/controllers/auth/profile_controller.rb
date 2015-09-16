@@ -12,8 +12,12 @@ module Auth
     end
 
     def create_ewallet
-      @user.ewallet!
-
+      begin
+        @user.ewallet!
+      rescue Faraday::ConnectionFailed => e
+        Airbrake.notify(e)
+        @user.ewallet!
+      end
       show
     end
 
