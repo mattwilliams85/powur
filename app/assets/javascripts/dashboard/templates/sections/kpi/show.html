@@ -49,11 +49,7 @@
         <span class="kpi-count show-for-small"><i class="fa fa-dollar fa-3x"></i></span>
         <span class="kpi-header uppercase hide-for-large-up">Earnings</span>
         <!-- Medium/Large Screens: Total Earnings -->
-        <div class="temp-box">
-          <img ng-src="{{legacyImagePaths.dashboardRedLogo}}"/ >
-          <span class="show-for-medium-up" style="color:#f00">COMING SOON!</span>
-        </div>
-        <!-- <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize('$0') }">$0</span> -->
+        <span class="kpi-count show-for-medium-up" ng-style="{ 'font-size': scaleFontSize(currentUser.metrics.earnings) }">{{currentUser.metrics.earnings | currency}}</span>
         <span class="kpi-header uppercase show-for-large-up">total earnings</span>
       </div>
     </div>
