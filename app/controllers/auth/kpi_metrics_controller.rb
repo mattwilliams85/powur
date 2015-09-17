@@ -7,6 +7,7 @@ module Auth
       @proposal_count = Lead.team_count(user_id: @user.id, query: Lead.submitted)
       @team_count = User.with_ancestor(@user.id).count
       @co2_count = co2_calc.round
+      @earnings_total = @user.bonus_payments.where(status: 2).sum(:amount)
     end
 
     def proposals_show
