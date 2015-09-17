@@ -313,46 +313,42 @@ login
         <div class="subtitle">Live events are announced every month. Don't miss out on the new training, feature releases, and special annoucements.</div>
     </div>
     <div class="seperator"></div>
-    <table class="events-list">
-        <thead>
-            <tr>
-                <th class="header">presenter</th>
-                <th class="header">time to start</th>
-                <th class="header">event description</th>
-                <th class="header">share links</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in events.events">
-                <td>
-                    <img ng-src="{{item.presenter.profileUrl}}"/>
-                    <div>
-                        <div>{{item.presenter.firstName}} {{item.presenter.lastName}}</div>
-                        <div>{{item.presenter.title}}, {{item.presenter.company}}</div>
-                    </div>
-                </td>
-                <td>
-                    {{events.getHumanize(item.startDate)}}
-                </td>
-                <td>
-                    <div ng-switch="item.type">
-                        <i ng-switch-when="0" class="sprite sprite-cal-news"></i>
-                        <i ng-switch-when="1" class="sprite sprite-cal-award"></i>
-                        <i ng-switch-when="2" class="sprite sprite-cal-star"></i>
-                        <i ng-switch-when="3" class="sprite sprite-cal-phone"></i>
-                    </div>
-                    <div>
-                        <div>{{item.title}}</div>
-                        <div>{{item.description}}</div>
-                    </div>
-                </td>
-                <td>
-                    <a flex="33" href="javascript:void(0);" ng-click="events.share('link', item)"><i class="sprite sprite-link"></i></a>
-                    <a flex="33" href="javascript:void(0);" ng-click="events.share('facebook', item)"><i class="sprite sprite-facebook"></i></a>
-                    <a flex="33" href="javascript:void(0);" ng-click="events.share('twitter', item)"><i class="sprite sprite-twitter"></i></a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="events-list">
+        <div layout="row">
+            <div class="header" flex="20">presenter</div>
+            <div class="header" flex="15">time to start</div>
+            <div class="header" flex>event description</div>
+            <div class="header" flex="10">share links</div>
+        </div>
+        <div ng-repeat="item in events.events" layout="row" class="item">
+            <div flex="20" layout="row" class="presenter">
+                <div class="image"><img ng-src="{{item.presenter.profileUrl}}"/></div>
+                <div class="info" layout="column" layout-align="center start">
+                    <div class="name">{{item.presenter.firstName}} <b>{{item.presenter.lastName}}</b></div>
+                    <div class="job">{{item.presenter.title}}, {{item.presenter.company}}</div>
+                </div>
+            </div>
+            <div flex="15" class="start-time">
+                {{events.getHumanize(item.startDate)}}
+            </div>
+            <div flex layout="row">
+                <div ng-switch="item.type">
+                    <i ng-switch-when="0" class="sprite sprite-cal-news"></i>
+                    <i ng-switch-when="1" class="sprite sprite-cal-award"></i>
+                    <i ng-switch-when="2" class="sprite sprite-cal-star"></i>
+                    <i ng-switch-when="3" class="sprite sprite-cal-phone"></i>
+                </div>
+                <div>
+                    <div>{{item.title}}</div>
+                    <div>{{item.description}}</div>
+                </div>
+            </div>
+            <div flex="10" layout="row">
+                <a flex="33" href="javascript:void(0);" ng-click="events.share('link', item)"><i class="sprite sprite-link"></i></a>
+                <a flex="33" href="javascript:void(0);" ng-click="events.share('facebook', item)"><i class="sprite sprite-facebook"></i></a>
+                <a flex="33" href="javascript:void(0);" ng-click="events.share('twitter', item)"><i class="sprite sprite-twitter"></i></a>
+            </div>
+        </div>
+    </div>
 </div>
 </script>

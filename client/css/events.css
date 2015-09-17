@@ -3,13 +3,46 @@
 }
 
 .events .events-list {
-    
+    padding: 40px 20px 40px 20px
 }
 
 .events .events-list .header {
+    font-size: smaller;
     text-transform: uppercase;
     color: #a0a0a0;
+    padding-bottom: 20px;
 }
+
+.events .events-list .item {
+    padding-bottom: 20px;
+    color: #8f8f8f;
+}
+
+.events .presenter .image {
+    
+}
+
+.events .presenter .info {
+    padding: 10px;
+}
+
+.events .presenter .info b {
+    font-weight: 800;
+}
+
+.events .presenter .info .name {
+    font-size: smaller;
+}
+
+.events .presenter .info .job {
+    font-size: x-small;
+}
+
+.events .start-time {
+    font-size: 40px;
+}
+
+/* sprite */
 
 .events .sprite {
     background-image: url(../img/events-sprite.png);
@@ -41,26 +74,26 @@
     background-position: -95px -5px;
 }
 
-.events .sprite-events {
-    width: 28px;
-    height: 28px;
-    background-position: -124px -5px;
-}
-
 .events .sprite-facebook {
     width: 18px;
     height: 18px;
-    background-position: -162px -5px;
+    background-position: -124px -5px;
 }
 
 .events .sprite-link {
-    width: 17px;
-    height: 17px;
-    background-position: -190px -5px;
+    width: 18px;
+    height: 18px;
+    background-position: -152px -5px;
 }
 
 .events .sprite-twitter {
     width: 18px;
-    height: 14px;
-    background-position: -217px -5px;
+    height: 18px;
+    background-position: -180px -5px;
+}
+
+.events .sprite-events {
+    width: 28px;
+    height: 28px;
+    background-position: -208px -5px;
 }
