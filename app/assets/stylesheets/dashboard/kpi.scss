@@ -387,6 +387,14 @@
               height: 20px; width: 21px;
               border-radius: 50%;
               margin-right: 6px;
+              transition: all .2s;
+              -webkit-transition: all .2s;
+              cursor: pointer;
+              &:hover {
+                filter: brightness(115%);
+                -webkit-filter: brightness(115%); 
+              }
+              //Default Colors
               &#legend-0 {
                 background: $pow-color-blue
               }
@@ -402,10 +410,31 @@
               &#legend-4 {
                 background: #cc524f;
               }
+              //Custom Colors
+              &#lead {
+                background: $pow-color-blue
+              }
+              &#proposal {
+                background: $pow-color-orange
+              }
+              &#closed-won {
+                background: #8c66a5;
+              }
+              &#contract {
+                background: #8fb851;
+              }
+              &#install {
+                background: #cc524f;
+              }
+              &.inactive {
+                background: #ccc !important;
+              }
             }
             .kpi-detail {
               margin-right: 25px;
-              font-size: 11pt
+              font-size: 11pt;
+              text-transform: capitalize;
+              cursor: default;
             }
           }
 
