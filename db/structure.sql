@@ -415,7 +415,8 @@ CREATE TABLE lead_actions (
     data_status integer,
     lead_status character varying,
     opportunity_stage character varying,
-    action_copy character varying NOT NULL
+    action_copy character varying NOT NULL,
+    sales_status integer
 );
 
 
@@ -2895,4 +2896,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150903215450');
 INSERT INTO schema_migrations (version) VALUES ('20150908152253');
 
 INSERT INTO schema_migrations (version) VALUES ('20150916194012');
+
+INSERT INTO schema_migrations (version) VALUES ('20150918191713');
 

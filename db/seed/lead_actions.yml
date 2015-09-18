@@ -56,3 +56,9 @@ lead_actions:
   -
     opportunity_stage: "Unqualified"
     action_copy: "Reach out and ask for 3 referrals of homeowners who would be interested in saving money every month with solar. Referrals work and will grow your business!"
+  -
+    sales_status: 3
+    action_copy: "Congratulations! Your customer has signed their final contract to go solar. You just made 50% of your commission! Make sure you stay in touch with your customer through the install process."
+  -
+    sales_status: 4
+    action_copy: "This completes your customers journey to go solar. Congratulations on the role you played to help this home go clean energy! Your full commission has been triggered."

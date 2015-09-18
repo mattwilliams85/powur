@@ -4,7 +4,7 @@ entity_rel(local_assigns[:rel] || 'item')
 
 json.properties do
   json.call(lead, :id, :data_status, :sales_status,
-            :submitted_at, :provider_uid, :created_at)
+            :submitted_at, :provider_uid, :created_at, :action_badge?)
   json.call(lead, :action_copy, :completion_chance) if lead.lead_action?
   [ :converted_at, :closed_won_at,
     :contracted_at, :installed_at ].each do |key_date|
