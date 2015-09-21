@@ -5,7 +5,7 @@ describe NotificationRelease, type: :model do
     let(:notification) { create(:notification) }
     let(:notification_release) { create(:notification_release) }
     let(:twilio_client) { double(:twilio_client) }
-    let(:users) { [double(:user1, phone: '123'), double(:user2, phone: '456')] }
+    let(:users) { [double(:user1, valid_phone: '123'), double(:user2, valid_phone: '456')] }
 
     before do
       expect(TwilioClient).to receive(:new).and_return(twilio_client)
