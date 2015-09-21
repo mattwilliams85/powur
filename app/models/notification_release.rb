@@ -25,7 +25,7 @@ class NotificationRelease < ActiveRecord::Base
 
   def send_out
     twilio_client = TwilioClient.new
-    recipient_numbers = fetch_recipients.map(&:phone).compact
+    recipient_numbers = fetch_recipients.map(&:valid_phone).compact
     twilio_client.send_sms_in_groups(recipient_numbers, notification.content)
 
     update_column(:finished_at, Time.zone.now)
