@@ -71,7 +71,7 @@
     } else if ($scope.mode === 'available') {
       $rootScope.breadcrumbs.push({title: 'Available Invites'});
       $scope.index = {};
-      $scope.pagination(0, $scope.listPath = '/a/users/invites?with_purchases=true');
+      $scope.pagination(0, $scope.listPath = '/a/users/invites?with_purchases=false');
     }
   };
 
