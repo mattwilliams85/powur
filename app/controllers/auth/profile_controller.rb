@@ -22,14 +22,14 @@ module Auth
     end
 
     def update
-      old_email = @user.email
+      old_email = @user.email.downcase
 
       if @user.update_attributes(user_params)
         User.delay.validate_phone_number!(@user.id)
         User.delay.process_image_original_path!(@user.id) if user_params['image_original_path']
 
-        if user_params[:email] && user_params[:email] != old_email
-          return if user_params[:email].include? 'development+'
+        if user_params[:email] && user_params[:email].downcase != old_email
+          return show if user_params[:email].include? 'development+'
           # Mailchimp subscription doesn't allow to change email at the moment
           # so we unsubscribe old email and subscribe new one
           @user.mailchimp_unsubscribe

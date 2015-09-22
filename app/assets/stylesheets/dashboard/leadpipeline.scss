@@ -5,7 +5,9 @@
     .form {
       min-height: 465px;
       overflow: hidden;
-      // background-image: image-url('dashboard/bg-map.jpg');
+      @media only screen and (max-width: 64em) { 
+        height: 870px;
+      }
 
       .qualify-box {
         width: 100%;
@@ -19,6 +21,7 @@
         .bg-mask {
           background-image: image-url('dashboard/bg-map.jpg');
           background-position: center center;
+          background-size: cover;
           background-repeat: no-repeat;
           height: 100%;
           width: 100%;
@@ -112,9 +115,23 @@
 
       .summary {
         padding: 30px;
+        @media only screen and (max-width: 64em) { 
+          height: 870px;
+        }
+
+        .action-bar {
+          height: 18pt;
+          margin-top: 2px;
+          margin-right: 10px;
+          width: 5px;
+          background-color: #f00;
+          float: left;
+        }
 
         &.new-homeowner {
           background: image-url('dashboard/bluehouse.png');
+          background-size: cover;
+          background-repeat: no-repeat;
           border-right: none;
           text-align: left;
           p {
@@ -126,6 +143,8 @@
         }
         &.homeowner-info {
           background: image-url('dashboard/bluehouse.png');
+          background-size: cover;
+          background-repeat: no-repeat;
           border: none;
           text-align: initial;
           
@@ -201,10 +220,13 @@
 
           .action-bar {
             width: 5px;
-            background-color: #f00;
+            background-color: #00D423;
             float: left;
             height: 100%;
             position: absolute;
+            &.red {
+              background-color: #f00;
+            }
           }
           .action-text {
             margin-left: 15px;

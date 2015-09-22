@@ -116,7 +116,7 @@ class Lead < ActiveRecord::Base
     lead_action && lead_action.completion_chance
   end
 
-  def action_badge?
+  def action_badge
     lead_action? && !contract? && !installed?
   end
 
