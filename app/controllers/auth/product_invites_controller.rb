@@ -48,7 +48,8 @@ module Auth
     end
 
     def fetch_product
-      @product = Product.find(params[:product_id])
+      @product = Product.find_by(id: params[:product_id])
+      not_found!(:product) unless @product
     end
   end
 end

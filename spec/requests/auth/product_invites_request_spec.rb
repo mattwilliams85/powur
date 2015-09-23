@@ -55,4 +55,13 @@ describe 'POST /u/product_invites' do
       expect_alert_error
     end
   end
+
+  context 'when can not find product' do
+    it 'returns error' do
+      payload[:product_id] = 123
+      post product_invites_path, payload, format: :json
+
+      expect_alert_error
+    end
+  end
 end
