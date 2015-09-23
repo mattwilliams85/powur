@@ -116,6 +116,10 @@ class Lead < ActiveRecord::Base
     lead_action && lead_action.completion_chance
   end
 
+  def action_badge
+    lead_action? && !contract? && !installed?
+  end
+
   private
 
   def query_status_count(status, product_id = nil)
@@ -179,6 +183,10 @@ class Lead < ActiveRecord::Base
     LeadAction.where(data_status: Lead.data_statuses[data_status]).first
   end
 
+  def sales_action
+    LeadAction.where(sales_status: Lead.sales_statuses[sales_status]).first
+  end
+
   def post_submission_action
     return nil if last_update.nil?
     stage = last_update.opportunity_stage.presence
@@ -193,7 +201,11 @@ class Lead < ActiveRecord::Base
 
   def lead_action
     @lead_action ||= begin
-      submitted? ? post_submission_action : pre_submission_action
+      if submitted?
+        contract? || installed? ? sales_action : post_submission_action
+      else
+        pre_submission_action
+      end
     end
   end
 

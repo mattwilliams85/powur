@@ -280,5 +280,14 @@ class User < ActiveRecord::Base
     def validate_phone_number!(id)
       find(id).validate_phone_number!
     end
+
+    def nullify_phone_number!(number)
+      users = where([
+        "contact->'phone' = ? OR contact->'valid_phone' = ?",
+        number, number ])
+      users.each do |user|
+        user.update_attributes(phone: nil, valid_phone: nil)
+      end
+    end
   end
 end

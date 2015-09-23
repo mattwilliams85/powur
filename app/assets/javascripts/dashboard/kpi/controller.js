@@ -135,7 +135,7 @@
       } else {
         opt.scaleStepWidth = Math.ceil((max * 1.2) / 12);
         opt.scaleSteps = (max + (max / 2)) / opt.scaleStepWidth;
-        if(opt.scaleSteps < 5) opt.scaleSteps = 5;
+        if(opt.scaleSteps < 3) opt.scaleSteps = 3;
       }
     };
 

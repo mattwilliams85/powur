@@ -18,9 +18,9 @@
 
   <!-- Incomplete -->
   <div ng-show="mode === 'incomplete'">
-    <h1>Incomplete Lead</h1>
+    <div class="action-bar" ng-if="currentLead.action_badge"></div><h1>Incomplete Lead</h1>
     <p>Enter additional customer information to complete this lead.</p>
-    <p>SolarCity requires the customer's name, phone number, and email address.</p>
+    <p>{{currentLead.action_copy}}</p>
     <button ng-show="hasAction('delete')" class="button secondary expand" ng-click="leadPipelineSection.delete()">Delete Lead</button>
     <p>Lead ID: {{currentLead.id}}</p>
   </div>

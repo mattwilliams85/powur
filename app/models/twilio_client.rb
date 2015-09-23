@@ -37,6 +37,8 @@ class TwilioClient
             body: body)
         rescue Twilio::REST::RequestError => e
           Airbrake.notify(e)
+          # Nullify phone number if it is invalid
+          User.delay.nullify_phone_number!(group[i]) if e.code == 21211
         end
       end
       # TODO: remove the delay once 'short phone number' is purchased

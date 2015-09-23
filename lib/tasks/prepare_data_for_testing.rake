@@ -32,6 +32,7 @@ namespace :powur do
         address:               Faker::Address.street_address,
         city:                  Faker::Address.city,
         phone:                 Faker::PhoneNumber.phone_number,
+        valid_phone:           Faker::PhoneNumber.phone_number,
         password:              new_password,
         password_confirmation: new_password)
     end
