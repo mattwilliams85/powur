@@ -164,6 +164,8 @@ Rails.application.routes.draw do
 
     resources :resources, only: [:index, :show]
 
+    resources :product_invites, only: [ :index, :create, :show ]
+
     get 'uploader_config', to: 'uploader_config#show'
   end
 

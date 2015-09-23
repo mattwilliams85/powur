@@ -782,6 +782,40 @@ ALTER SEQUENCE product_enrollments_id_seq OWNED BY product_enrollments.id;
 
 
 --
+-- Name: product_invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE product_invites (
+    id integer NOT NULL,
+    product_id integer,
+    customer_id integer,
+    user_id integer,
+    status integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: product_invites_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE product_invites_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_invites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE product_invites_id_seq OWNED BY product_invites.id;
+
+
+--
 -- Name: product_receipts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1588,6 +1622,13 @@ ALTER TABLE ONLY product_enrollments ALTER COLUMN id SET DEFAULT nextval('produc
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY product_invites ALTER COLUMN id SET DEFAULT nextval('product_invites_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY product_receipts ALTER COLUMN id SET DEFAULT nextval('product_receipts_id_seq'::regclass);
 
 
@@ -1888,6 +1929,14 @@ ALTER TABLE ONLY product_enrollments
 
 
 --
+-- Name: product_invites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY product_invites
+    ADD CONSTRAINT product_invites_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: product_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2129,6 +2178,13 @@ CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
 --
 
 CREATE INDEX index_product_enrollments_on_user_id_and_product_id ON product_enrollments USING btree (user_id, product_id);
+
+
+--
+-- Name: index_product_invites_on_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_product_invites_on_status ON product_invites USING btree (status);
 
 
 --
@@ -2898,4 +2954,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150908152253');
 INSERT INTO schema_migrations (version) VALUES ('20150916194012');
 
 INSERT INTO schema_migrations (version) VALUES ('20150918191713');
+
+INSERT INTO schema_migrations (version) VALUES ('20150923175837');
 
