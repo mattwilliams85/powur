@@ -34,6 +34,8 @@ describe 'POST /u/product_invites' do
   end
 
   it 'creates new customer and invite' do
+    expect(PromoterMailer).to receive(:product_invitation)
+      .once.and_return(double(deliver_later: nil))
     post product_invites_path, payload, format: :json
 
     expect_props(

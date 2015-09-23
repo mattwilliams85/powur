@@ -5,5 +5,9 @@ class ProductInvite < ActiveRecord::Base
 
   validates :product_id, :customer_id, :user_id, presence: true
 
+  before_validation do
+    self.code ||= Invite.generate_code
+  end
+
   enum status: [ :sent, :opened, :completed ]
 end

@@ -792,7 +792,8 @@ CREATE TABLE product_invites (
     user_id integer,
     status integer DEFAULT 0 NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    code character varying
 );
 
 
@@ -2181,6 +2182,13 @@ CREATE INDEX index_product_enrollments_on_user_id_and_product_id ON product_enro
 
 
 --
+-- Name: index_product_invites_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_product_invites_on_code ON product_invites USING btree (code);
+
+
+--
 -- Name: index_product_invites_on_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2956,4 +2964,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150916194012');
 INSERT INTO schema_migrations (version) VALUES ('20150918191713');
 
 INSERT INTO schema_migrations (version) VALUES ('20150923175837');
+
+INSERT INTO schema_migrations (version) VALUES ('20150923221510');
 

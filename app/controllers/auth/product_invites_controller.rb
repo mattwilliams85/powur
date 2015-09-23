@@ -27,6 +27,7 @@ module Auth
         product_id: @product.id,
         customer:   customer,
         user:       current_user)
+      PromoterMailer.product_invitation(@invite).deliver_later
 
       show
     end
