@@ -282,10 +282,10 @@ login
 
     <div layout="row" layout-wrap class="invite-list bg">
         <div ng-repeat="item in invite.invites">
-            <div ng-if="item.status == 1" class="invite-item">
+            <div ng-if="item.status == 1" class="invite-item" style="color: {{invite.timerColor}} !important">
                 <div class="full-name">{{item.firstName}} <b>{{item.lastName}}</b></div>
                 <div class="time">{{item.time | date : 'H:mm'}}<span class="superscript">{{item.time | date : 'ss'}}</span></div>
-                <div invite-progress data-progress-model="item"></div>
+                <div invite-progress data-progress-model="item" data-circle-foreground-color="{{invite.timerColor}}"></div>
             </div>
             <div ng-if="item.status == 0" class="invite-item">
                 <span class="add counter">

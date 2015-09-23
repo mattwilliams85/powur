@@ -57,7 +57,6 @@
 }
 
 .invite .invite-item .full-name {
-    color: #2583a8;
     text-transform: uppercase;
     top: 85px;
     position: relative;
@@ -66,7 +65,6 @@
 }
 
 .invite .invite-item .time {
-    color: #2583a8;
     font-size: x-large;
     font-weight: bold;
     top: 75px;

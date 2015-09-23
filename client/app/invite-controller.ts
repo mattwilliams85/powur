@@ -71,6 +71,8 @@ module powur.controllers {
         public accepted: number;
         public expired: number;
         
+        public timerColor: string;
+        
         public invites: Array<InviteItem>;
         
         public count: any;
@@ -78,6 +80,10 @@ module powur.controllers {
         constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService, private $mdDialog: ng.material.IDialogService) {
             var self = this;
             self.$log.debug(InviteController.ControllerId + ':ctor');
+            
+            //change color mode for advocate vs customer
+            var isCustomer = true;
+            self.timerColor = isCustomer ? '#2583a8' : '#ebb038';
             
             //sample data
             self.invites = [

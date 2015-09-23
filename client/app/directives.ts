@@ -23,7 +23,7 @@ module powur.directives {
                         var circleWidth = node.getAttribute('data-circle-width') || '10';
                         var circleRadius = node.getAttribute('data-circle-radius') || '75';
                         var circleBackgroundColor = node.getAttribute('data-circle-background-color') || '#cccccc';
-                        var circleForegroundColor = node.getAttribute('data-circle-foreground-color') || '#2583a8';
+                        var circleForegroundColor = instanceAttributes.circleForegroundColor || '#2583a8';// node.getAttribute('data-circle-foreground-color') || '#2583a8';
                     
                         //var labelFont = node.getAttribute('data-label-font') || '50pt Calibri';
                         //var labelColor = node.getAttribute('data-label-color') || '#12eeb9';
