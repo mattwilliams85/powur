@@ -1,12 +1,22 @@
 module Admin
   class InvitesController < AdminController
+    before_action :fetch_user, only: [ :index ]
+
     page
     sort id_desc: { id: :desc },
          id_asc:  { id: :asc }
     filter :pending, scope_opts: { type: :boolean }
 
     def index
-      @invites = apply_list_query_options(Invite)
+      scope = @user ? @user.sent_invites : Invite
+      @invites = apply_list_query_options(scope)
+    end
+
+    private
+
+    def fetch_user
+      params[:user_id] = params[:admin_user_id]
+      super
     end
   end
 end
