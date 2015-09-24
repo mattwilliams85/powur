@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe ProductReceipt, type: :model do
-
   describe '#create' do
     let!(:product) { create(:product) }
     let!(:certification) { create(:product, slug: 'partner') }
@@ -27,7 +26,7 @@ describe ProductReceipt, type: :model do
       expect(product_receipt.errors.messages.length).to eq(0)
     end
 
-    it 'increases the user\'s available invites by 5 if purchasing certification' do
+    it 'increases the user\'s available invites by 10 if purchasing certification' do
       expect(user.available_invites).to eq(0)
 
       ProductReceipt.create(
@@ -37,7 +36,7 @@ describe ProductReceipt, type: :model do
         amount:         299,
         transaction_id: 123)
 
-      expect(user.reload.available_invites).to eq(5)
+      expect(user.reload.available_invites).to eq(10)
     end
   end
 end
