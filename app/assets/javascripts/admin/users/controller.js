@@ -25,6 +25,7 @@
       }
     };
 
+    // $scope.userId = $routeParams.userId
     $scope.userFilters = [ { value: 'partners', title: 'Partners' },
                                 { value: 'advocates', title: 'Advocates' } ];
 
