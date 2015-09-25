@@ -49,6 +49,7 @@
 //= require_tree ./admin/twilio-stats
 //= require_tree ./admin/user-groups
 //= require_tree ./admin/user-upline
+//= require_tree ./admin/user-overrides
 //= require_tree ./admin/users
 //
 //= require_tree ./profile
