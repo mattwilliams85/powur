@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     resource :zip_validator, only: [] do
       post :validate
     end
+
+    resource :product_invite, only: [ :update ]
   end
 
   # logged in user routes
@@ -163,6 +165,8 @@ Rails.application.routes.draw do
               as:   :user_social_media_posts
 
     resources :resources, only: [:index, :show]
+
+    resources :product_invites, only: [ :index, :create, :show ]
 
     get 'uploader_config', to: 'uploader_config#show'
   end

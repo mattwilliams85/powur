@@ -25,6 +25,6 @@ class ProductReceipt < ActiveRecord::Base
     return unless product.slug == 'partner'
     user.update_column(
       :available_invites,
-      user.available_invites + 5)
+      user.available_invites + 10)
   end
 end

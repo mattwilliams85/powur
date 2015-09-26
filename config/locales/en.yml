@@ -43,6 +43,7 @@ en:
     smarteru_incomplete_enrollment: Your class enrollment is not complete
     notification_locked: This notification is locked. Please create another one
     forgot_password_email_not_found: Email not found
+    product_invite_exist: An invitation for this email already exist
     api:
       invalid_grant:
         refresh_token: invalid refresh_token

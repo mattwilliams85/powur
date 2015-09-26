@@ -18,6 +18,9 @@
         <!-- <li class="tab-title" ng-class="{'active': tab === 'team'}"><a ng-click="tab = 'team'">Team</a></li> -->
         <li class="tab-title" ng-class="{'active': tab === 'invites'}"><a ng-click="tab = 'invites'">Invites</a></li>
         <!-- <li class="tab-title" ng-class="{'active': tab === 'proposals'}"><a ng-click="tab = 'proposals'">Proposals</a></li> -->
+        <li class="tab-title"><a ng-href="/admin/users/{{ user.properties.id }}/upline">Upline</a></li>
+        <li class="tab-title"><a ng-href="/admin/users/{{ user.properties.id }}/downline">Downline</a></li>
+        <li class="tab-title"><a ng-href="/admin/users/{{ user.properties.id }}/overrides">Overrides</a></li>
       </ul>
       <div class="tabs-content">
 

@@ -1,0 +1,20 @@
+<table class="index-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Kind</th>
+      <th>Value</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in index.data.entities">
+      <td>{{ item.properties.id }}</td>
+      <td>{{ item.properties.kind }}</td>
+      <td>{{ overrideValue(item) }}</td>
+      <td>{{ item.properties.start_date }}</td>
+      <td>{{ item.properties.end_date }}</td>
+    </tr>
+  </tbody>
+</table>
