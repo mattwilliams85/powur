@@ -6,7 +6,7 @@ var serviceModule = angular.module('powur.services', []);
 var directiveModule = angular.module('powur.directives', []);
 var controllerModule = angular.module('powur.controllers', []);
 
-var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.directives', 'powur.controllers', 'ngMaterial', 'chart.js'])
+var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.directives', 'powur.controllers', 'ngMaterial', 'ui.calendar'])
 .config(['$stateProvider', '$urlRouterProvider', '$httpProvider', ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) => {
     // check auth on api calls
     $httpProvider.interceptors.push('AuthInterceptor');
