@@ -15,9 +15,6 @@ class AugustBonus < ActiveRecord::Migration
       schedule: 3)
     Bonus.where(id: 9).update_all(pay_period_id: '2015W36')
     Bonus.reset_auto_id
-  rescue => e
-    binding.pry
-    fail e
   end
 
   def down
