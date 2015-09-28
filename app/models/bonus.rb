@@ -1,4 +1,4 @@
-class Bonus < ActiveRecord::Base # rubocop:disable ClassLength
+class Bonus < ActiveRecord::Base
   enum schedule: { weekly: 1, monthly: 2, one_time: 3 }
 
   has_many :bonus_amounts,

@@ -1,6 +1,8 @@
 class AddClosedWonAtToLead < ActiveRecord::Migration
   def change
-    add_column :leads, :closed_won_at, :datetime
+    unless column_exists?(:leads, :closed_won_at)
+      add_column :leads, :closed_won_at, :datetime
+    end
 
     closed_won_leads.each do |record|
       Lead
