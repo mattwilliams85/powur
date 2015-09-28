@@ -180,7 +180,7 @@ var appModule = angular.module('powur', ['ui.router', 'powur.services', 'powur.d
     //  return;
     // });
 
-    $rootScope.$on('$stateChangeSuccess', (e, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
+    $rootScope.$on('$stateChangeSuccess', (e: any, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
         $log.debug('$stateChangeSuccess');
         
         //save current

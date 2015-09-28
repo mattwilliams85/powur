@@ -47,6 +47,7 @@ gem 'figaro'
 gem 'hashie'
 gem 'twilio-ruby'
 gem 'typescript-rails'
+gem 'foundation-rails'
 
 group :development do
   gem 'spring'

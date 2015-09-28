@@ -6,7 +6,7 @@ module powur.directives {
         
         constructor(private $log: ng.ILogService) {
             return <any>{
-                link: function (scope, instanceElement, instanceAttributes, controller) {
+                link: function (scope: ng.IScope, instanceElement: any, instanceAttributes: any, controller: any) {
                     if (instanceElement.length === 1) {
                         var node = instanceElement[0];
                         var canvas = document.createElement('canvas');
@@ -33,7 +33,7 @@ module powur.directives {
                         
                         var ctx = node.ctx = canvas.getContext('2d');
                         
-                        scope.$watch(expression, function (newValue, oldValue) {
+                        scope.$watch(expression, function (newValue: any, oldValue: any) {
                             //var ctx = canvas.getContext('2d');
                             ctx.clearRect(0, 0, width, height);
                 
@@ -66,5 +66,5 @@ module powur.directives {
     } // class
     
     //(<any>InviteProgress).$inject = ['$log'];
-    directiveModule.directive(InviteProgress.DirectiveId, ['$log', ($log) => { return new InviteProgress($log) }]);
+    directiveModule.directive(InviteProgress.DirectiveId, ['$log', ($log: ng.ILogService) => { return new InviteProgress($log) }]);
 }

@@ -7,3 +7,7 @@ Rails.application.config.assets.precompile += %w(
 Rails.application.config.assets.precompile += [
   'admin.css'
 ]
+
+Rails.application.config.assets.precompile += %w( next.css )
+Rails.application.config.assets.precompile += %w( next.js )
+

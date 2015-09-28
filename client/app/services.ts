@@ -9,15 +9,15 @@ module powur.services {
             var self = this;
             self.$log.debug(AuthInterceptor.ServiceId + ':ctor');
             return <any>{
-                request: (config) => {
+                request: (config: any) => {
                     self.$log.debug(AuthInterceptor.ServiceId + ':request');
                     return config || $q.when(config);
                 },
-                response: (reponse) => {
+                response: (response: any) => {
                     self.$log.debug(AuthInterceptor.ServiceId + ':response');
-                    return reponse || $q.when(reponse);
+                    return response || $q.when(response);
                 },
-                reponseError: (response) => {
+                reponseError: (response: any) => {
                     self.$log.debug(AuthInterceptor.ServiceId + ':reponseError');
             
                     if (response.status === 401) {

@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   # Any admin html request
   get 'admin(/*any)', to: 'admin/root#index', constraints: html?
 
+  get 'next', to: 'next#index', constraints: html?
+
   # Any other html request
   get '*anyhtml', to: 'index#index', constraints: html?
 

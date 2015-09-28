@@ -11,7 +11,7 @@ module powur.controllers {
         
         public user: any;
         
-        constructor(private $log: ng.ILogService, private $mdSidenav) {
+        constructor(private $log: ng.ILogService, private $mdSidenav: any) {
             var self = this;
             self.$log.debug(RootController.ControllerId + ':ctor');
         }

@@ -74,11 +74,11 @@ module powur.controllers {
             };
         }        
         
-        public getHumanize(d): string {
+        public getHumanize(d: any): string {
             return moment.duration(moment().diff(moment(d))).humanize();
         }
         
-        public share(type, item: EventItem) {
+        public share(type: any, item: EventItem) {
             
         }
     }    
