@@ -1,5 +1,5 @@
 /// <reference path='../typings/tsd.d.ts' />
-'use strict';
+//'use strict';
 
 var valueModule = angular.module('powur.values', []);
 var serviceModule = angular.module('powur.services', []);

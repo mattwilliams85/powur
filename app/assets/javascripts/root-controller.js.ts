@@ -1,5 +1,6 @@
 /// <reference path='../typings/tsd.d.ts' />
-/// <reference path='boot.ts' />
+declare var controllerModule: ng.IModule;
+
 module powur.controllers {
     export interface IRootController {
         user: any;

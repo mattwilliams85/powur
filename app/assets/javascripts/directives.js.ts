@@ -1,5 +1,6 @@
 /// <reference path='../typings/tsd.d.ts' />
-/// <reference path='boot.ts' />
+declare var directiveModule: ng.IModule;
+
 module powur.directives {
     class InviteProgress {
         public static DirectiveId: string = 'inviteProgress';   

@@ -1,5 +1,6 @@
 /// <reference path='../typings/tsd.d.ts' />
-/// <reference path='boot.ts' />
+declare var serviceModule: ng.IModule;
+
 module powur.services {
     class AuthInterceptor {
         public static ServiceId: string = 'AuthInterceptor'; 

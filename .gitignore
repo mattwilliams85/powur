@@ -30,3 +30,5 @@ vendor/bundler_gems
 
 # client
 .idea/
+**/*~
+**/*.swp
