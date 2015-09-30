@@ -24,8 +24,8 @@ namespace :powur do
 
     task sponsors: :environment do
       sponsors_data.each do |row|
-        user, sponsor_id = User.find(row[0].to_i), row[1].to_i
-        next if user.sponsor_id == sponsor_id
+        user, sponsor_id = User.find_by(id: row[0].to_i), row[1].to_i
+        next if user.nil? || user.sponsor_id == sponsor_id
         puts "updating sponsor for #{user.full_name} : #{user.id} to #{sponsor_id}"
         user.update_attribute(:sponsor_id, sponsor_id)
       end

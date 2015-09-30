@@ -15,6 +15,7 @@ module Auth
         .select('sum(bonus_payments.amount) bonus_total, bonus_id')
         .group(:bonus_id)
       @bonus_payments = payments
+        .order(:bonus_id)
         .preload(:bonus, :leads, :bonus_payment_leads,
                  leads: [ :customer, :user ])
     end
