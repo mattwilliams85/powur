@@ -6,6 +6,7 @@
       <th>Value</th>
       <th>Start Date</th>
       <th>End Date</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
       <td>{{ overrideValue(item) }}</td>
       <td>{{ item.properties.start_date }}</td>
       <td>{{ item.properties.end_date }}</td>
+      <td><a ng-click="confirm('Are you sure you want to delete this override?', 'delete', item)" class="manage-link">delete</a></td>
     </tr>
   </tbody>
 </table>

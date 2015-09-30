@@ -5,8 +5,8 @@
     .controller('AdminUserOverridesCtrl', controller)
     .config(routes);
 
-  controller.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', 'Utility'];
-  function controller($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, Utility) {
+  controller.$inject = ['$scope', '$rootScope', '$location', '$routeParams', '$anchorScroll', '$http', '$timeout', 'Utility'];
+  function controller($scope, $rootScope, $location, $routeParams, $anchorScroll, $http, $timeout, Utility) {
     $scope.redirectUnlessSignedIn();
 
     $scope.templateData = {
@@ -24,6 +24,10 @@
     };
 
     $scope.indexPath = '';
+
+    $scope.kinds = [
+      { title: 'Pay As Rank', value: 'pay_as_rank' }
+    ];
 
     $scope.pagination = function(direction, path) {
       if (typeof direction === 'undefined') direction = 0;
@@ -47,6 +51,42 @@
       });
     };
 
+    $scope.cancel = function() {
+      $location.path('/admin/users/' + $scope.user.properties.id + '/overrides');
+    };
+
+    $scope.create = function() {
+      if ($scope.override) {
+        $scope.isSubmitDisabled = true;
+        $http({
+          method: 'POST',
+          url: $scope.indexPath,
+          data: $scope.override
+        }).success(function(data) {
+          $scope.isSubmitDisabled = false;
+          $location.path('/admin/users/' + $scope.user.properties.id + '/overrides');
+          $scope.showModal('Override successfully created');
+        }).error(function error(data) {
+          $scope.isSubmitDisabled = false;
+          $scope.showModal('There was an error while creating an override.');
+        });
+      }
+    };
+
+    $scope.delete = function(item) {
+      var action = getAction(item.actions, 'delete');
+      return $http({
+        method: action.method,
+        url: action.href
+      }).success(function() {
+        $scope.showModal('This item has been deleted.');
+        $scope.index = {};
+        $scope.pagination(0);
+      }).error(function() {
+        $scope.showModal('Oops, error while deleting');
+      });
+    };
+
     $scope.fullName = function(user) {
       if (!user) return;
       return user.properties.first_name + ' ' + user.properties.last_name;
@@ -61,10 +101,16 @@
           return data.rank;
           break;
       }
-    }
+    };
+
+    $scope.confirm = function(msg, clickAction, arg) {
+      if (window.confirm(msg)) {
+        return $scope.$eval(clickAction)(arg);
+      }
+    };
 
     this.init($scope, $location);
-    this.fetch($scope, $rootScope, $routeParams, $http, Utility);
+    this.fetch($scope, $rootScope, $routeParams, $http, $timeout, Utility);
   }
 
   controller.prototype.init = function($scope, $location) {
@@ -72,7 +118,7 @@
     if (/\/new$/.test($location.path())) return $scope.mode = 'new';
   };
 
-  controller.prototype.fetch = function($scope, $rootScope, $routeParams, $http, Utility) {
+  controller.prototype.fetch = function($scope, $rootScope, $routeParams, $http, $timeout, Utility) {
     $rootScope.breadcrumbs.push({title: 'Users', href: '/admin/users'});
 
     getUser($routeParams.userId, function(item) {
@@ -81,21 +127,36 @@
 
       $rootScope.breadcrumbs.push({title: $scope.fullName(item), href: '/admin/users/' + item.properties.id});
 
+      $scope.indexPath = Utility.findBranch(
+        item.entities, {'rel': 'user-overrides'}).href;
+
       if ($scope.mode === 'index') {
         $rootScope.breadcrumbs.push({title: 'Overrides'});
-        $scope.indexPath = Utility.findBranch(
-          item.entities, {'rel': 'user-overrides'}).href;
         $scope.index = {};
         $scope.pagination();
       } else if ($scope.mode === 'new') {
         $rootScope.breadcrumbs.push({title: 'Overrides', href: '/admin/users/' + item.properties.id + '/overrides'});
         $rootScope.breadcrumbs.push({title: 'New Rank Override'});
+        getPayPeriods(function(data) {
+          $scope.payPeriods = data.entities;
+          $scope.override = {
+            kind: $scope.kinds[0].value,
+            pay_period_id: data.entities[0].properties.id
+          };
+        });
       }
     });
 
     function getUser(userId, cb) {
       $http({
         url: '/a/users/' + userId
+      }).success(cb);
+    }
+
+    function getPayPeriods(cb) {
+      $http({
+        method: 'GET',
+        url: '/u/pay_periods',
       }).success(cb);
     }
   };

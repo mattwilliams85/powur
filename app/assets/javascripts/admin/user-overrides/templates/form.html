@@ -1,1 +1,40 @@
-<h5>Coming soon ...</h5>
+<form>
+  <fieldset>
+    <legend>New Override</legend>
+    <div class="row">
+      <div class="small-12 columns">
+        <label for="override_kind">Kind</label>
+        <select ng-model="override.kind" id="override_kind" ng-options="kind.value as kind.title for kind in kinds"></select>
+      </div>
+
+      <div class="small-12 columns">
+        <label for="override_pay_period_id">Pay Period</label>
+        <select ng-model="override.pay_period_id" id="override_pay_period_id" ng-options="payPeriod.properties.id as payPeriod.properties.id for payPeriod in payPeriods"></select>
+      </div>
+
+      <!-- <div class="small-12 columns">
+        <label for="override_start_date">Start Date</label>
+        <input type="text" id="override_start_date" ng-model="override.start_date">
+      </div>
+
+      <div class="small-12 columns">
+        <label for="override_end_date">End Date</label>
+        <input type="text" id="override_end_date" ng-model="override.end_date">
+      </div> -->
+
+      <div class="small-12 columns">
+        <label for="value">Value</label>
+        <input ng-model="override.value" name="value" id="override.value" type="text">
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="small-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Create" />
+      </div>
+    </div>
+  </fieldset>
+</form>

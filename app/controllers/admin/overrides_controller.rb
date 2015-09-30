@@ -35,13 +35,23 @@ module Admin
     private
 
     def input
-      attrs = allow_input(:end_date)
-      attrs[:start_date] = @pay_period.start_date if @pay_period
+      attrs = {}
+      # Setting dates based on selected pay period
+      if @pay_period
+        attrs[:start_date] = @pay_period.start_date
+        attrs[:end_date] = @pay_period.end_date
+      end
+      # Setting override data based on the kind
+      case params[:kind]
+      when 'pay_as_rank'
+        attrs[:data] = { rank: params[:value] }
+      end
+
       attrs
     end
 
     def fetch_pay_period
-      @pay_period = PayPeriod.find(params[:start_date]) if params[:start_date]
+      @pay_period = PayPeriod.find(params[:pay_period_id]) if params[:pay_period_id]
     end
 
     def fetch_override
