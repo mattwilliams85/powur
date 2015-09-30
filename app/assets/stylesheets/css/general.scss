@@ -39,13 +39,13 @@ html,body {
 .main .heading {
     padding: 30px 0 40px 30px;
     color: #666666;
-}
-
-.main .heading .title {
-    font-size: x-large;
-    text-transform: uppercase;
-}
-
-.main .heading .subtitle {
     
+    .title {
+        font-size: x-large;
+        text-transform: uppercase;
+    }
+    
+    .subtitle {
+    
+    }
 }

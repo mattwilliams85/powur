@@ -1,0 +1,177 @@
+.invite {
+    .counter {
+        height: 205px;
+        margin: 0 5px 0 5px;
+        border-top: 1px solid #ececec;
+        border-bottom: 1px solid #ececec;
+                        
+        >ul {
+            height: 205px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /*205 - 15*/
+        li { 
+            height: 190px;
+            border-right: 1px solid #ececec;
+        }
+        
+        li:last-child { 
+            border-right: none; 
+        }
+        
+        .count {
+            font-size: 4em;
+            color: #666666;
+            padding: 10px;
+        }
+        
+        .label {
+            color: #cccccc;
+        }
+
+    }
+    
+        
+    .message {
+        color: #666666;
+        text-transform: uppercase;
+        text-align: center;
+        padding: 50px 0 0 0;
+    }
+    
+    .bg {
+        background-color: #fafafa;
+    }
+    
+    .invite-list {
+        padding: 20px;
+    }
+    
+    .invite-item {
+        padding: 30px;        
+            
+        .full-name {
+            text-transform: uppercase;
+            top: 85px;
+            position: relative;
+            text-align: center;
+            height: 32px;
+        }
+        
+        .time {
+            font-size: x-large;
+            font-weight: bold;
+            top: 75px;
+            position: relative;
+            text-align: center;
+            height: 0;
+            
+            .superscript {
+                vertical-align: super;
+                font-size: smaller;
+                font-weight: normal;
+            }            
+        }
+        
+        .add {
+            top: 80px;
+            position: relative;
+            text-align: center;
+            height: 0;
+            
+            .label {
+                height: 0;
+                text-transform: uppercase;
+                    
+                a {
+                    color: #a0a0a0;
+                    text-decoration: none;                
+                }
+                
+                a:hover {
+                    color: #2583a8;
+                }                
+            }                
+        }
+        
+        
+    }
+    
+    /* sprites */
+    
+    .ellipse {
+        .sprite {
+            background-image: image-url("img/ellipse-sprite.png");
+            background-repeat: no-repeat;
+            display: block;
+        }
+         
+        .sprite-ellipse {
+            width: 165px;
+            height: 165px;
+            background-position: -5px -5px;
+        }
+        
+        .sprite-ellipse-invite {
+            width: 165px;
+            height: 165px;
+            background-position: -180px -5px;
+        }
+        
+        .sprite-ellipse-locked {
+            width: 164px;
+            height: 166px;
+            background-position: -355px -5px;
+        }    
+    }
+    
+    .counter { 
+        .sprite {
+            background-image: image-url("img/invite-sprite.png");
+            background-repeat: no-repeat;
+            display: block;        
+        }        
+         
+        .sprite-accepted {
+            width: 24px;
+            height: 23px;
+            background-position: -5px -5px;
+        }
+        
+        .sprite-available {
+            width: 24px;
+            height: 23px;
+            background-position: -39px -5px;
+        }
+        
+        .sprite-expired {
+            width: 24px;
+            height: 24px;
+            background-position: -73px -5px;
+        }
+        
+        .sprite-invite {
+            width: 35px;
+            height: 32px;
+            background-position: -107px -5px;
+            
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .sprite-pending {
+            width: 24px;
+            height: 24px;
+            background-position: -152px -5px;
+        }
+    }
+    
+}

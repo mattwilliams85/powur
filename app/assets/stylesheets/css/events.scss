@@ -1,0 +1,104 @@
+.events {
+    .seperator {
+        border-bottom: 1px solid #efefef;
+    }    
+    
+    .events-list {
+        padding: 40px 20px 40px 20px;
+            
+        .header {
+            font-size: smaller;
+            text-transform: uppercase;
+            color: #a0a0a0;
+            padding-bottom: 20px;
+        }
+        
+        .item {
+            padding-bottom: 20px;
+            color: #8f8f8f;
+        }        
+    }
+    
+    .presenter {
+        .image {
+        
+        }
+        
+        .info {
+            padding: 10px;
+        }
+        
+        .info b {
+            font-weight: 800;
+        }
+        
+        .info .name {
+            font-size: smaller;
+        }
+        
+        .info .job {
+            font-size: x-small;
+        }    
+    }
+    
+    .start-time {
+        font-size: 40px;
+    }
+    
+    /* sprite */
+    
+    .sprite {
+        background-image: image-url("img/events-sprite.png");
+        background-repeat: no-repeat;
+        display: block;        
+    }    
+
+    .sprite-cal-news {
+        width: 21px;
+        height: 21px;
+        background-position: -5px -5px;
+    }
+    
+    .sprite-cal-phone {
+        width: 19px;
+        height: 20px;
+        background-position: -36px -5px;
+    }
+    
+    .sprite-cal-star {
+        width: 20px;
+        height: 19px;
+        background-position: -65px -5px;
+    }
+    
+    .sprite-cal-award {
+        width: 19px;
+        height: 19px;
+        background-position: -95px -5px;
+    }
+    
+    .sprite-facebook {
+        width: 18px;
+        height: 18px;
+        background-position: -124px -5px;
+    }
+    
+    .sprite-link {
+        width: 18px;
+        height: 18px;
+        background-position: -152px -5px;
+    }
+    
+    .sprite-twitter {
+        width: 18px;
+        height: 18px;
+        background-position: -180px -5px;
+    }
+    
+    .sprite-events {
+        width: 28px;
+        height: 28px;
+        background-position: -208px -5px;
+    }
+    
+}

@@ -45,16 +45,16 @@ module powur.controllers {
             // sample data
             self.events = [
                 { presenter: {
-                    firstName: 'Jonathan', lastName: 'Budd', title: 'CEO', company: 'POWUR', profileUrl: '/img/profile/profile1.png',
+                    firstName: 'Jonathan', lastName: 'Budd', title: 'CEO', company: 'POWUR', profileUrl: 'assets/img/profile/profile1.png',
                 }, type: EventType.News, start: moment().subtract('h', 6).toDate(), title: 'POWUR BETA 2.0 PREVIEW', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a iaculis lorem. Mauris lobortis odio at nunc vulputate, sed fermentum nisl molestie.'},
                 { presenter: {
-                    firstName: 'Jonathan', lastName: 'Budd', title: 'CEO', company: 'POWUR', profileUrl: '/img/profile/profile2.png',
+                    firstName: 'Jonathan', lastName: 'Budd', title: 'CEO', company: 'POWUR', profileUrl: 'assets/img/profile/profile2.png',
                 }, type: EventType.Award, start: moment().subtract('h', 3).toDate(), title: 'POWUR BETA 2.0 PREVIEW', description: 'Praesent sed porttitor turpis. Suspendisse potenti. Pellentesque dapibus metus non elit aliquam gravida.'},
                 { presenter: {
-                    firstName: 'Jonathan', lastName: 'Budd', title: 'CEO', company: 'POWUR', profileUrl: '/img/profile/profile1.png',
+                    firstName: 'Jonathan', lastName: 'Budd', title: 'CEO', company: 'POWUR', profileUrl: 'assets/img/profile/profile1.png',
                 }, type: EventType.Star, start: moment().subtract('h', 6).toDate(), title: 'POWUR BETA 2.0 PREVIEW', description: 'Praesent egestas id arcu et rutrum. Morbi molestie posuere elit. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'},
                 { presenter: {
-                    firstName: 'Jonathan', lastName: 'Budd', title: 'CEO', company: 'POWUR', profileUrl: '/img/profile/profile1.png',
+                    firstName: 'Jonathan', lastName: 'Budd', title: 'CEO', company: 'POWUR', profileUrl: 'assets/img/profile/profile1.png',
                 }, type: EventType.Phone, start: moment().subtract('h', 6).toDate(), title: 'POWUR BETA 2.0 PREVIEW', description: 'Ut blandit nisl vel laoreet tristique. In tortor nulla, malesuada a urna in, volutpat maximus tellus.'},
             ];
             
