@@ -137,12 +137,22 @@
       } else if ($scope.mode === 'new') {
         $rootScope.breadcrumbs.push({title: 'Overrides', href: '/admin/users/' + item.properties.id + '/overrides'});
         $rootScope.breadcrumbs.push({title: 'New Rank Override'});
-        getPayPeriods(function(data) {
-          $scope.payPeriods = data.entities;
+        getRanks(function(data) {
+          $scope.ranks = data.entities;
           $scope.override = {
             kind: $scope.kinds[0].value,
-            pay_period_id: data.entities[0].properties.id
+            value: data.entities[0].properties.id
           };
+        });
+
+        $timeout(function() {
+          var format = 'yy-mm-dd';
+          $('#override_start_date').datepicker({
+            dateFormat: format
+          });
+          $('#override_end_date').datepicker({
+            dateFormat: format
+          });
         });
       }
     });
@@ -153,10 +163,9 @@
       }).success(cb);
     }
 
-    function getPayPeriods(cb) {
+    function getRanks(cb) {
       $http({
-        method: 'GET',
-        url: '/u/pay_periods',
+        url: '/u/ranks'
       }).success(cb);
     }
   };

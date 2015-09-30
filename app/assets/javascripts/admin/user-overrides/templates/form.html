@@ -8,11 +8,6 @@
       </div>
 
       <div class="small-12 columns">
-        <label for="override_pay_period_id">Pay Period</label>
-        <select ng-model="override.pay_period_id" id="override_pay_period_id" ng-options="payPeriod.properties.id as payPeriod.properties.id for payPeriod in payPeriods"></select>
-      </div>
-
-      <!-- <div class="small-12 columns">
         <label for="override_start_date">Start Date</label>
         <input type="text" id="override_start_date" ng-model="override.start_date">
       </div>
@@ -20,11 +15,11 @@
       <div class="small-12 columns">
         <label for="override_end_date">End Date</label>
         <input type="text" id="override_end_date" ng-model="override.end_date">
-      </div> -->
+      </div>
 
       <div class="small-12 columns">
-        <label for="value">Value</label>
-        <input ng-model="override.value" name="value" id="override.value" type="text">
+        <label for="override_value">Value</label>
+        <select ng-model="override.value" id="override_value" ng-options="rank.properties.id as rank.properties.id for rank in ranks"></select>
       </div>
     </div>
 
