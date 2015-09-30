@@ -11,85 +11,86 @@
     background: -ms-linear-gradient(top, #29a8dd 0%,#509f9a 100%); /* IE10+ */
     background: linear-gradient(to bottom, #29a8dd 0%,#509f9a 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#29a8dd', endColorstr='#509f9a',GradientType=0 ); /* IE6-9 */
-}
+    
+    .list {
+        list-style-type: none;
+        padding: 30px 15px 0 15px;
+        margin: 0;        
+            
+        li {
+            margin-bottom: 40px;
+        }
+        
+        li:hover, li.active {
+            -webkit-filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1);
+            cursor: pointer;
+        }        
+    }
+    
+    .bottom {
+        position: fixed;
+        bottom: 10px;
+    }
+    
+    .sprite {
+        background-image: image-url("img/nav-sprite.png");
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
+    
+    .sprite-certs {
+        width: 35px;
+        height: 43px;
+        background-position: -5px -5px;
+    }
+    
+    .sprite-earnings {
+        width: 42px;
+        height: 40px;
+        background-position: -50px -5px;
+    }
+    
+    .sprite-events {
+        width: 33px;
+        height: 33px;
+        background-position: -102px -5px;
+    }
+    
+    .sprite-goal {
+        width: 42px;
+        height: 40px;
+        background-position: -145px -5px;
+    }
+    
+    .sprite-grid {
+        width: 42px;
+        height: 40px;
+        background-position: -197px -5px;
+    }
+    
+    .sprite-logout {
+        width: 33px;
+        height: 26px;
+        background-position: -249px -5px;
+    }
+    
+    .sprite-social {
+        width: 33px;
+        height: 29px;
+        background-position: -292px -5px;
+    }
+    
+    .sprite-stats {
+        width: 27px;
+        height: 31px;
+        background-position: -335px -5px;
+    }
+    
+    .sprite-strategy {
+        width: 21px;
+        height: 37px;
+        background-position: -372px -5px;
+    }
 
-.nav .list {
-    list-style-type: none;
-    padding: 30px 15px 0 15px;
-    margin: 0;
-}
-
-.nav .list li {
-    margin-bottom: 40px;
-}
-
-.nav .list li:hover, .nav .list li.active {
-    -webkit-filter: brightness(0) invert(1);
-    filter: brightness(0) invert(1);
-    cursor: pointer;
-}
-
-.nav .bottom {
-    position: fixed;
-    bottom: 10px;
-}
-
-.nav .sprite {
-    background-image: image-url("img/nav-sprite.png");
-    background-repeat: no-repeat;
-    display: inline-block;
-}
-
-.nav .sprite-certs {
-    width: 35px;
-    height: 43px;
-    background-position: -5px -5px;
-}
-
-.nav .sprite-earnings {
-    width: 42px;
-    height: 40px;
-    background-position: -50px -5px;
-}
-
-.nav .sprite-events {
-    width: 33px;
-    height: 33px;
-    background-position: -102px -5px;
-}
-
-.nav .sprite-goal {
-    width: 42px;
-    height: 40px;
-    background-position: -145px -5px;
-}
-
-.nav .sprite-grid {
-    width: 42px;
-    height: 40px;
-    background-position: -197px -5px;
-}
-
-.nav .sprite-logout {
-    width: 33px;
-    height: 26px;
-    background-position: -249px -5px;
-}
-
-.nav .sprite-social {
-    width: 33px;
-    height: 29px;
-    background-position: -292px -5px;
-}
-
-.nav .sprite-stats {
-    width: 27px;
-    height: 31px;
-    background-position: -335px -5px;
-}
-
-.nav .sprite-strategy {
-    width: 21px;
-    height: 37px;
-    background-position: -372px -5px;
 }
