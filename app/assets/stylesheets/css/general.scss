@@ -8,11 +8,16 @@ html,body {
     flex: 1;
     flex-direction: column;
     display: flex;
+    -webkit-flex: 1;
+    -webkit-flex-direction: column;
+    display:-webkit-flex;
 }
 
 .parent-height {
     flex-direction: column;
     display: flex;
+    -webkit-flex-direction: column;
+    display:-webkit-flex;
 }
 
 /* #2c6b8a - nav-icon-color */
