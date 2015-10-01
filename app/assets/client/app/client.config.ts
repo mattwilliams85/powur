@@ -1,0 +1,43 @@
+/// <reference path='../typings/tsd.d.ts' />
+/// <reference path='../typings/references.d.ts' />
+
+module powur {
+    class RunConfigs {
+        public static $inject: Array<string> = ['$rootScope', '$log', '$state'];
+        
+        constructor($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService) {
+            //TODO: login service
+            // var isLoggedIn = true;
+            
+            // $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            //  $log.debug('$stateChangeStart');
+            //  if (!isLoggedIn) {
+            //      event.preventDefault();
+            //      return $state.go('login');
+            //  }
+            
+            //  return;
+            // });
+        
+            $rootScope.$on('$stateChangeSuccess', (e: any, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
+                $log.debug('$stateChangeSuccess');
+                
+                //save current
+                $state.current = toState;
+                
+                // if (fromState == null) {
+                //  // first time
+                //  $log.debug('first time');
+                // } else if (fromState.name == 'login') {
+                //  // from login
+                //  $log.debug('first login');
+                // } else if (toState.name == 'login') {
+                //  // going to state
+                //  $log.debug('going to state');
+                // }
+            });
+        }
+    }
+
+    appModule.run(RunConfigs);
+}    

@@ -1,0 +1,18 @@
+<div class="nav fill-height">
+    <div class="bg fill-height">
+        <ul class="list fill-height" layout="column" layout-align="start center">
+            <li ng-click="nav.go('invite')" ng-class="{ active: nav.isCurrent('invite') }"><i class="sprite sprite-strategy"></i></li>
+            <li ng-click="nav.go('events')" ng-class="{ active: nav.isCurrent('events') }"><i class="sprite sprite-events"></i></li>
+            <li ng-click="nav.go('grid')" ng-class="{ active: nav.isCurrent('grid') }"><i class="sprite sprite-grid"></i></li>
+            <li ng-click="nav.go('goal')" ng-class="{ active: nav.isCurrent('goal') }"><i class="sprite sprite-goal"></i></li>
+            <li ng-click="nav.go('earnings')" ng-class="{ active: nav.isCurrent('earnings') }"><i class="sprite sprite-earnings"></i></li>
+    
+            <!--<li ng-click="nav.go('social')" ng-class="{ active: nav.isCurrent('social') }"><i class="sprite sprite-social"></i></li>-->
+    
+            <li ng-click="nav.go('certs')" ng-class="{ active: nav.isCurrent('certs') }"><i class="sprite sprite-certs"></i></li>
+            <li ng-click="nav.go('stats')" ng-class="{ active: nav.isCurrent('stats') }"><i class="sprite sprite-stats"></i></li>
+    
+            <li ng-click="nav.logout()" class="bottom"><i class="sprite sprite-logout"></i></li>
+        </ul>
+    </div>
+</div>

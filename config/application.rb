@@ -40,6 +40,8 @@ module Sunstand
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
     # config.angular_templates.inside_paths = [ Rails.root.join('app', 'assets', 'javascripts') ]
 
+    config.assets.paths << Rails.root.join('app', 'assets', 'client', 'app')
+
     locales_path = Rails.root.join('config', 'locales', '**', '*.yml')
     config.i18n.load_path += Dir[ locales_path ]
 

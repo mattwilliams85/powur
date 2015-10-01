@@ -9,5 +9,5 @@ Rails.application.config.assets.precompile += [
 ]
 
 Rails.application.config.assets.precompile += %w( next.css )
-Rails.application.config.assets.precompile += %w( next.js )
+Rails.application.config.assets.precompile += %w( client.js )
 
