@@ -113,6 +113,9 @@
     $scope.search = function() {
       if ($scope.index.data && $scope.index.data.searchQuote) {
         $scope.pagination();
+      } else {
+        $scope.index = {};
+        $scope.pagination();
       }
     };
 

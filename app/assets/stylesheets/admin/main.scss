@@ -32,7 +32,7 @@
 
   .sub-title {
     font-size: 20pt;
-    
+
   }
   .sum-row {
     background: $pow-color-blue;
@@ -54,5 +54,14 @@
 
   .space-left {
     margin-left: 10px;
+  }
+}
+
+.ui-datepicker-header {
+  background-color: #fff;
+  font-size: .7em;
+
+  .ui-datepicker-next {
+    right: 8px;
   }
 }
