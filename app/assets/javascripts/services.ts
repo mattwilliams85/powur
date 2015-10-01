@@ -1,5 +1,5 @@
 /// <reference path='../typings/tsd.d.ts' />
-declare var serviceModule: ng.IModule;
+/// <reference path='../typings/references.d.ts' />
 
 module powur.services {
     class AuthInterceptor {

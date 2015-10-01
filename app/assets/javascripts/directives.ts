@@ -1,5 +1,5 @@
 /// <reference path='../typings/tsd.d.ts' />
-declare var directiveModule: ng.IModule;
+/// <reference path='../typings/references.d.ts' />
 
 module powur.directives {
     class InviteProgress {

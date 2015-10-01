@@ -1,5 +1,5 @@
 /// <reference path='../typings/tsd.d.ts' />
-declare var controllerModule: ng.IModule;
+/// <reference path='../typings/references.d.ts' />
 
 module powur.controllers {
     export interface INavController {
