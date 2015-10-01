@@ -27,6 +27,9 @@ Rails.application.routes.draw do
 
   get 'next', to: 'next#index', constraints: html?
 
+  # TEMPORARY
+  get 'next(*anyhtml)', to: 'next#index', constraints: html?
+
   # Any other html request
   get '*anyhtml', to: 'index#index', constraints: html?
 

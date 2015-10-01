@@ -3,14 +3,17 @@
 
 module powur {
     class RouteConfigs {
-        public static $inject: Array<string> = ['$stateProvider', '$urlRouterProvider', '$httpProvider'];
+        public static $inject: Array<string> = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
         
-        constructor($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) {
+        constructor($locationProvider: ng.ILocationProvider, $stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) {
             // check auth on api calls
             $httpProvider.interceptors.push('AuthInterceptor');
         
             // default for unknown
             $urlRouterProvider.otherwise('/');
+
+            // use the HTML5 History API
+            $locationProvider.html5Mode(true);
             
             // routes
             $stateProvider

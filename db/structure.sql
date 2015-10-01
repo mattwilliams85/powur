@@ -518,11 +518,11 @@ CREATE TABLE leads (
     provider_uid character varying,
     submitted_at timestamp without time zone,
     converted_at timestamp without time zone,
-    closed_won_at timestamp without time zone,
     contracted_at timestamp without time zone,
     installed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    closed_won_at timestamp without time zone
 );
 
 
