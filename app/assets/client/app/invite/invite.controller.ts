@@ -139,7 +139,7 @@ module powur.controllers {
             var self = this;
              self.$mdDialog.show({
                 controller: 'InviteDialogController as dialog',
-                templateUrl: '/partials/invite-popup.html',
+                templateUrl: 'app/invite/invite-popup.html',
                 parent: angular.element(document.body),
                 targetEvent: e,
                 clickOutsideToClose: true

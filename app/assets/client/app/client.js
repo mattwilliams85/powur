@@ -20,6 +20,7 @@
 //= require login/login.controller
 //= require profile/profile
 //= require profile/profile.controller
+//= require invite/invite-popup
 //= require invite/invite
 //= require invite/invite.controller
 //= require events/events
