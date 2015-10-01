@@ -7,7 +7,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 require 'csv'
 
-module Sunstand
+module Powur
   class Application < Rails::Application
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -37,7 +37,9 @@ module Sunstand
 
     config.assets.paths << Rails.root.join('app', 'assets', 'templates')
     # config.assets.paths << Rails.root.join('app', 'assets', 'components')
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+    config.assets.paths << Rails.root.join('vendor',
+                                           'assets',
+                                           'bower_components')
     # config.angular_templates.inside_paths = [ Rails.root.join('app', 'assets', 'javascripts') ]
 
     config.assets.paths << Rails.root.join('app', 'assets', 'client', 'app')

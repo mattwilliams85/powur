@@ -1,24 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!doctype html>
 <html lang="en" ng-app="powur">
     <head>
         <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <base href="/next/">
-        <!--<link rel="stylesheet" type="text/css" href="vendor/assets/bower_components/angular-material/angular-material.css">-->
-        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.css">
-        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/angular-chart.js/0.8.3/angular-chart.css">
-        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css">
-        <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.print.css">
+        <!--<link rel="stylesheet" href="vendor/assets/bower_components/angular-material/angular-material.css">-->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-chart.js/0.8.3/angular-chart.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.print.css">
       
         <%= stylesheet_link_tag "next", media: "all" %>
-        <!--<link rel="stylesheet" type="text/css" href="css/general.css">
-        <link rel="stylesheet" type="text/css" href="css/overrides.css">
-        <link rel="stylesheet" type="text/css" href="css/nav.css">
-        <link rel="stylesheet" type="text/css" href="css/profile.css">
-        <link rel="stylesheet" type="text/css" href="css/activity.css">
-        <link rel="stylesheet" type="text/css" href="css/invite.css">
-        <link rel="stylesheet" type="text/css" href="css/invite-popup.css">
-        <link rel="stylesheet" type="text/css" href="css/events.css">-->
+        <!--<link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/overrides.css">
+        <link rel="stylesheet" href="css/nav.css">
+        <link rel="stylesheet" href="css/profile.css">
+        <link rel="stylesheet" href="css/activity.css">
+        <link rel="stylesheet" href="css/invite.css">
+        <link rel="stylesheet" href="css/invite-popup.css">
+        <link rel="stylesheet" href="css/events.css">-->
     </head>
     <body ng-controller="RootController as root">
         
@@ -47,22 +49,22 @@
         
         <!-- TODO: replace with rails asset pipeline / maybe load with require -->
         <!-- TODO: use bower -->
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/q.js/1.4.1/q.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-        <!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>-->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/q.js/1.4.1/q.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+        <!--<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>-->
         
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-aria.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-animate.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.min.js"></script>
-        <!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-chart.js/0.8.3/angular-chart.min.js"></script>-->
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-calendar/1.0.0/calendar.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-aria.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-animate.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material/0.10.1/angular-material.min.js"></script>
+        <!--<script src="//cdnjs.cloudflare.com/ajax/libs/angular-chart.js/0.8.3/angular-chart.min.js"></script>-->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-calendar/1.0.0/calendar.js"></script>
  
-        <!--<script type="text/javascript" src="build/client/js/app.min.js"></script>-->
+        <!--<script src="build/client/js/app.min.js"></script>-->
         <%= javascript_include_tag "client" %>
     </body>
 
