@@ -25,6 +25,7 @@
       }
     };
 
+    // $scope.userId = $routeParams.userId
     $scope.userFilters = [ { value: 'partners', title: 'Partners' },
                                 { value: 'advocates', title: 'Advocates' } ];
 
@@ -111,6 +112,9 @@
     // Search
     $scope.search = function() {
       if ($scope.index.data && $scope.index.data.searchQuote) {
+        $scope.pagination();
+      } else {
+        $scope.index = {};
         $scope.pagination();
       }
     };

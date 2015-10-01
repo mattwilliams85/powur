@@ -1,0 +1,35 @@
+<form>
+  <fieldset>
+    <legend>New Override</legend>
+    <div class="row">
+      <div class="small-12 columns">
+        <label for="override_kind">Kind</label>
+        <select ng-model="override.kind" id="override_kind" ng-options="kind.value as kind.title for kind in kinds"></select>
+      </div>
+
+      <div class="small-12 columns">
+        <label for="override_start_date">Start Date</label>
+        <input type="text" id="override_start_date" ng-model="override.start_date">
+      </div>
+
+      <div class="small-12 columns">
+        <label for="override_end_date">End Date</label>
+        <input type="text" id="override_end_date" ng-model="override.end_date">
+      </div>
+
+      <div class="small-12 columns">
+        <label for="override_value">Value</label>
+        <select ng-model="override.value" id="override_value" ng-options="rank.properties.id as rank.properties.id for rank in ranks"></select>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="small-12 columns">
+        <a ng-click="cancel()" class="button secondary">Cancel</a>
+        <input class="button" ng-disabled="isSubmitDisabled" type="submit" ng-click="create()" value="Create" />
+      </div>
+    </div>
+  </fieldset>
+</form>

@@ -68,6 +68,15 @@ class PromoterMailer < ActionMailer::Base
     mail_chimp to, 'team-leader-downline-certification-purchase', merge_vars
   end
 
+  def product_invitation(invite)
+    to = invite.customer.name_and_email
+    url = root_url + 'product-invites/' + invite.code
+    merge_vars = { invite_url: url,
+                   sponsor:    User.find(invite.user_id).full_name }
+
+    mail_chimp to, :product_invitation, merge_vars
+  end
+
   private
 
   def mail_chimp(to, template, merge_vars = {})

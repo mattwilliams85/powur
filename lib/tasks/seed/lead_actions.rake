@@ -11,6 +11,7 @@ namespace :powur do
     task lead_actions: :environment do
       LeadAction.delete_all
       lead_actions_data.each do |data|
+        data.delete('sales_status')
         LeadAction.create!(data)
       end
     end

@@ -38,20 +38,6 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
--- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
-
-
---
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -532,11 +518,11 @@ CREATE TABLE leads (
     provider_uid character varying,
     submitted_at timestamp without time zone,
     converted_at timestamp without time zone,
+    closed_won_at timestamp without time zone,
     contracted_at timestamp without time zone,
     installed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    closed_won_at timestamp without time zone
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -779,6 +765,41 @@ CREATE SEQUENCE product_enrollments_id_seq
 --
 
 ALTER SEQUENCE product_enrollments_id_seq OWNED BY product_enrollments.id;
+
+
+--
+-- Name: product_invites; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE product_invites (
+    id integer NOT NULL,
+    product_id integer,
+    customer_id integer,
+    user_id integer,
+    status integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    code character varying
+);
+
+
+--
+-- Name: product_invites_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE product_invites_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_invites_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE product_invites_id_seq OWNED BY product_invites.id;
 
 
 --
@@ -1588,6 +1609,13 @@ ALTER TABLE ONLY product_enrollments ALTER COLUMN id SET DEFAULT nextval('produc
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY product_invites ALTER COLUMN id SET DEFAULT nextval('product_invites_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY product_receipts ALTER COLUMN id SET DEFAULT nextval('product_receipts_id_seq'::regclass);
 
 
@@ -1888,6 +1916,14 @@ ALTER TABLE ONLY product_enrollments
 
 
 --
+-- Name: product_invites_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY product_invites
+    ADD CONSTRAINT product_invites_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: product_receipts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2129,6 +2165,20 @@ CREATE UNIQUE INDEX index_orders_on_quote_id ON orders USING btree (quote_id);
 --
 
 CREATE INDEX index_product_enrollments_on_user_id_and_product_id ON product_enrollments USING btree (user_id, product_id);
+
+
+--
+-- Name: index_product_invites_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_product_invites_on_code ON product_invites USING btree (code);
+
+
+--
+-- Name: index_product_invites_on_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_product_invites_on_status ON product_invites USING btree (status);
 
 
 --
@@ -2898,4 +2948,8 @@ INSERT INTO schema_migrations (version) VALUES ('20150908152253');
 INSERT INTO schema_migrations (version) VALUES ('20150916194012');
 
 INSERT INTO schema_migrations (version) VALUES ('20150918191713');
+
+INSERT INTO schema_migrations (version) VALUES ('20150923175837');
+
+INSERT INTO schema_migrations (version) VALUES ('20150923221510');
 

@@ -1,7 +1,6 @@
 module Admin
   class OverridesController < AdminController
     before_action :fetch_user, only: [ :index, :create ]
-    before_action :fetch_pay_period, only: [ :update, :create ]
     before_action :fetch_override, only: [ :update, :destroy ]
     sort start_date: :start_date,
          user:       'users.last_name asc, users.first_name asc'
@@ -35,13 +34,13 @@ module Admin
     private
 
     def input
-      attrs = allow_input(:end_date)
-      attrs[:start_date] = @pay_period.start_date if @pay_period
+      attrs = allow_input(:start_date, :end_date)
+      # Setting override data based on the kind
+      case params[:kind]
+      when 'pay_as_rank'
+        attrs[:data] = { rank: params[:value] }
+      end
       attrs
-    end
-
-    def fetch_pay_period
-      @pay_period = PayPeriod.find(params[:start_date]) if params[:start_date]
     end
 
     def fetch_override

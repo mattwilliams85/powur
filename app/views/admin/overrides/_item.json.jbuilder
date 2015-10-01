@@ -3,7 +3,7 @@ klass :pay_period
 json.rel [ :item ] unless local_assigns[:detail]
 
 json.properties do
-  json.call(override, :id, :kind, :start_date, :end_date)
+  json.call(override, :id, :kind, :start_date, :end_date, :data)
   json.user override.user.full_name
 end
 

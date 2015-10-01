@@ -18,19 +18,20 @@ describe '/a' do
 
     describe 'PATCH' do
       it 'udpates the start and end date of an override' do
-        pay_period = create(:monthly_pay_period, at: 3.months.ago)
         override = create(:override)
+        start_date = (Date.current - 1.month).to_s
         end_date = (Date.current + 1.month).to_s
         patch override_path(override),
-              start_date: pay_period.id,
+              start_date: start_date,
               end_date:   end_date,
               format:     :json
 
         expect_entities_count(1)
         result = json_body['entities'][0]
         expect(result['properties']['start_date'])
-          .to eq(pay_period.start_date.to_s)
-        expect(result['properties']['end_date']).to eq(end_date)
+          .to eq(start_date)
+        expect(result['properties']['end_date'])
+          .to eq(end_date)
       end
     end
 
