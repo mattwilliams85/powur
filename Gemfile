@@ -48,6 +48,7 @@ gem 'hashie'
 gem 'twilio-ruby'
 gem 'typescript-rails'
 gem 'foundation-rails'
+gem 'lograge'
 
 group :development do
   gem 'spring'
