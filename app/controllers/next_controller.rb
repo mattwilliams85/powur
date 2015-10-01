@@ -1,5 +1,6 @@
 class NextController < AnonController
-  layout false 
+  layout false
+
   def index
     respond_to do |format|
       format.html
@@ -13,4 +14,3 @@ class NextController < AnonController
     logged_in? ? 'show' : 'anonymous'
   end
 end
-
