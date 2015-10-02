@@ -18,39 +18,18 @@ module powur {
             // routes
             $stateProvider
             .state('home', {
-                url: '/',
-                views: {
-                    'nav': {
-                        templateUrl: 'app/layout/nav.html',
-                        controller: 'NavController as nav',
-                    },
-                    'profile': {
-                        templateUrl: 'app/profile/profile.html',
-                        controller: 'ProfileController as profile',
-                    },
-                    'main': {
-                        templateUrl: 'app/home/home.html',
-                        controller: 'HomeController as home',
-                    },
-                    'activity': {
-                        templateUrl: 'app/layout/activity.html',
-                        controller: 'ActivityController as activity',
-                    },
-                },
+                templateUrl: 'app/home/home.html',
+                controller: 'HomeController as home',
             })
             .state('login', {
-                url: '/login',
-                views: {
-                    'nav': {},
-                    'profile': {},
-                    'main': {
-                        templateUrl: 'app/login/login.html',
-                        controller: 'LoginController as login',
-                    },
-                    'activity': {},
-                },
+                templateUrl: 'app/login/login.html',
+                controller: 'LoginController as login',
             })
-            .state('invite', {
+            .state('marketing', {
+                templateUrl: 'app/marketing/marketing.html',
+                controller: 'MarketingController as marketing',
+            })
+            .state('home.invite', {
                 url: '/invite',
                 views: {
                     'nav': {
@@ -71,7 +50,7 @@ module powur {
                     },
                 },
             })
-            .state('events', {
+            .state('home.events', {
                 url: '/events',
                 views: {
                     'nav': {
@@ -92,7 +71,7 @@ module powur {
                     },
                 },
             })
-            .state('grid', {
+            .state('home.grid', {
                 url: '/grid',
                 views: {
                     'nav': {
@@ -110,7 +89,7 @@ module powur {
                     },
                 },
             })
-            .state('goal', {
+            .state('home.goal', {
                 url: '/goal',
                 views: {
                     'nav': {
@@ -128,7 +107,7 @@ module powur {
                     },
                 },
             })
-            .state('earnings', {
+            .state('home.earnings', {
                 url: '/earnings',
                 views: {
                     'nav': {
@@ -146,7 +125,7 @@ module powur {
                     },
                 },
             })
-            .state('certs', {
+            .state('home.certs', {
                 url: '/certs',
                 views: {
                     'nav': {
@@ -164,7 +143,7 @@ module powur {
                     },
                 },
             })
-            .state('stats', {
+            .state('home.stats', {
                 url: '/stats',
                 views: {
                     'nav': {
