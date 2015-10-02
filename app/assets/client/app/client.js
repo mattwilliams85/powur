@@ -1,3 +1,19 @@
+
+/*
+ * Bower components
+ */
+//= require jquery/dist/jquery
+//= require velocity/test/q
+//= require lodash/lodash
+//= require moment/moment
+//= require angular/angular
+//= require angular-ui-router/release/angular-ui-router
+//= require angular-aria/angular-aria
+//= require angular-animate/angular-animate
+//= require angular-material/angular-material
+//= require angular-ui-calendar/src/calendar
+//= require fullcalendar/dist/fullcalendar
+
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
@@ -25,3 +41,4 @@
 //= require invite/invite.controller
 //= require events/events
 //= require events/events.controller
+
