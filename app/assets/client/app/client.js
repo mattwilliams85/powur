@@ -12,7 +12,6 @@
 //= require angular-animate/angular-animate
 //= require angular-material/angular-material
 //= require angular-ui-calendar/src/calendar
-//= require fullcalendar/dist/fullcalendar
 
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.

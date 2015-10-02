@@ -6,9 +6,8 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-material/0.11.2/angular-material.css">
-
+        <base href="/next/">
+      
         <%= stylesheet_link_tag "client", media: "all" %>
     </head>
     <body ng-controller="RootController as root">
@@ -35,20 +34,6 @@
             </div>
             <div ui-view="activity" class="parent-height"></div>
         </div>
-        
-        <!-- TODO: replace with rails asset pipeline / maybe load with require -->
-        <!-- TODO: use bower -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/q.js/1.4.1/q.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-aria.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-animate.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material/0.11.2/angular-material.min.js"></script>
-        
         <%= javascript_include_tag "client" %>
     </body>
 
