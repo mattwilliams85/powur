@@ -61,18 +61,7 @@ module powur.controllers {
             // self.$interval(() => {
             //     // date
             //     self.events[0].start = moment(self.events[0].start).subtract(1, 's').toDate();
-            // }, 200, 0, true);
-            
-            self.calendarOptions = {
-                header:{
-                    left: 'month basicWeek basicDay agendaWeek agendaDay',
-                    center: 'title',
-                    right: 'today prev,next'
-                },
-                //dayClick: self.alertEventOnClick,
-                //eventDrop: self.alertOnDrop,
-                //eventResize: self.alertOnResize
-            };
+            // }, 200, 0, true);            
         }        
         
         public getHumanize(d: any): string {
