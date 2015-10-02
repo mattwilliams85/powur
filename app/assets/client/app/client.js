@@ -22,6 +22,7 @@
 //= require client.module
 //= require client.routes
 //= require client.config
+
 //= require services/auth-interceptor.service
 //= require components/invite-progress.directive
 //= require layout/nav
@@ -31,8 +32,6 @@
 //= require layout/root.controller
 //= require home/home
 //= require home/home.controller
-//= require login/login
-//= require login/login.controller
 //= require profile/profile
 //= require profile/profile.controller
 //= require invite/invite-popup
@@ -41,3 +40,8 @@
 //= require events/events
 //= require events/events.controller
 
+//= require login/login
+//= require login/login.controller
+
+//= require marketing/marketing
+//= require marketing/marketing.controller

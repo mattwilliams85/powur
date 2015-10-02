@@ -5,7 +5,7 @@ module powur {
     class RouteConfigs {
         public static $inject: Array<string> = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
         
-        constructor($locationProvider: ng.ILocationProvider, $stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) {
+        constructor(private $locationProvider: ng.ILocationProvider, private $stateProvider: ng.ui.IStateProvider, private $urlRouterProvider: ng.ui.IUrlRouterProvider, private $httpProvider: ng.IHttpProvider) {
             // check auth on api calls
             $httpProvider.interceptors.push('AuthInterceptor');
         
