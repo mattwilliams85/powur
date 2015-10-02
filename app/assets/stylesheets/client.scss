@@ -1,6 +1,13 @@
 // Place all the styles related to the next controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// Bower components
+@import 'angular-material/angular-material.css';
+@import 'angular-chart.js/dist/angular-chart.css';
+@import 'fullcalendar/dist/fullcalendar.css';
+@import 'fullcalendar/dist/fullcalendar.print.css';
+
 // Next UX
 @import "css/general.scss";
 @import "css/overrides.scss";
@@ -10,3 +17,5 @@
 @import "css/invite.scss";
 @import "css/invite-popup.scss";
 @import "css/events.scss";
+
+

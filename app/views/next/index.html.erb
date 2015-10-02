@@ -6,10 +6,7 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-material/0.11.2/angular-material.css">
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.css">
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.print.css">
+        <base href="/next/">
       
         <%= stylesheet_link_tag "client", media: "all" %>
     </head>
@@ -37,6 +34,7 @@
             </div>
             <div ui-view="activity" class="parent-height"></div>
         </div>
+<<<<<<< HEAD
         
         <!-- TODO: replace with rails asset pipeline / maybe load with require -->
         <!-- TODO: use bower -->
@@ -54,6 +52,8 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.4.0/fullcalendar.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-calendar/1.0.0/calendar.js"></script>
  
+=======
+>>>>>>> replaces CDN links in new UX layout with local files
         <%= javascript_include_tag "client" %>
     </body>
 
