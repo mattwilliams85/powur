@@ -37,10 +37,11 @@
 //= require components/profile.directive
 
 //= require layout/root.controller
+
 //= require home/home
 //= require home/home.controller
-//= require invite/invite-popup
 //= require invite/invite
+//= require invite/invite-popup
 //= require invite/invite.controller
 //= require events/events
 //= require events/events.controller
@@ -49,4 +50,5 @@
 //= require login/login.controller
 
 //= require marketing/marketing
+//= require marketing/marketing-step2
 //= require marketing/marketing.controller

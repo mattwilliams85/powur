@@ -3,11 +3,14 @@
 
 module powur {
     class RunConfigs {
-        public static $inject: Array<string> = ['$rootScope', '$log', '$state'];
+        public static $inject: Array<string> = ['$rootScope', '$log', '$state', '$urlMatcherFactory'];
         
-        constructor($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService) {
+        constructor($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService, private $urlMatcherFactoryProvider: ng.ui.IUrlMatcherFactory) {
             //TODO: login service
             // var isLoggedIn = true;
+            
+            //$urlMatcherFactoryProvider.caseInsensitive(true);
+            //$urlMatcherFactoryProvider.strictMode(false);
             
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             //  $log.debug('$stateChangeStart');

@@ -31,6 +31,11 @@ module powur {
                 templateUrl: 'app/marketing/marketing.html',
                 controller: 'MarketingController as marketing',
             })
+            .state('marketing2', {
+                url: '/marketing/step2',
+                templateUrl: 'app/marketing/marketing-step2.html',
+                controller: 'MarketingController as marketing',
+            })
             .state('home.invite', {
                 url: '/invite',
                 views: {                    
