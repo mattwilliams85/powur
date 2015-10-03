@@ -7,11 +7,11 @@
 //= require lodash/lodash
 //= require moment/moment
 //= require angular/angular
+//= require ngstorage/ngStorage
 //= require angular-ui-router/release/angular-ui-router
 //= require angular-aria/angular-aria
 //= require angular-animate/angular-animate
 //= require angular-material/angular-material
-//= require angular-ui-calendar/src/calendar
 
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
@@ -24,6 +24,7 @@
 //= require client.config
 
 //= require services/auth-interceptor.service
+//= require services/cache.service
 //= require components/invite-progress.directive
 //= require layout/nav
 //= require layout/nav.controller

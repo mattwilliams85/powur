@@ -9,8 +9,9 @@ var controllerModule = angular.module('powur.controllers', []);
 var appModule = angular.module('powur', [
     'ui.router', 
     'templates',
+    'ngStorage',
+    'ngMaterial',
     'powur.services', 
     'powur.directives', 
-    'powur.controllers', 
-    'ngMaterial'
+    'powur.controllers' 
 ]);

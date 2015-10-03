@@ -27,7 +27,9 @@ module powur.controllers {
             self.$log.debug(ProfileController.ControllerId + ':ctor');
             
             // sample data
-            self.fullName = "Lyndia Portman";
+            //self.fullName = "Lyndia Portman";
+            var root = ProfileController.getRootController();
+            self.fullName = root.cache.user.displayName;
             
             self.rank = 2;
             self.rankTotal = 8; 
@@ -60,6 +62,12 @@ module powur.controllers {
         private toCommas(v: number): string {
             return v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
+        
+        //TODO: move to service
+        public static getRootController(): IRootController {
+            var root = angular.element('body').scope();
+            return (<any>root).root;
+        }           
     }
     
     controllerModule.controller(ProfileController.ControllerId, ProfileController);
