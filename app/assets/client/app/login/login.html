@@ -1,3 +1,20 @@
-<div>login</div>
-
-<md-button class="md-raised md-primary" ng-click="login.login()">Login</md-button>
+<div layout="row">
+    <div flex></div>
+    <md-whiteframe class="md-whiteframe-2dp" flex="25" layout layout-align="center center">
+        <form>
+            <md-content layout="column" class="autoScroll">
+                <md-input-container>
+                    <label>User Name</label>
+                    <input ng-model="login.userName" type="text">
+                </md-input-container>
+                <md-input-container>
+                    <label>Password</label>
+                    <input ng-model="login.password" type="password">
+                </md-input-container>
+                <md-button flex class="md-raised md-primary" ng-click="login.login()">Login</md-button>
+            </md-content>
+            <div ng-show="login.hasError()">{{login.errorMessage}}</div>
+        </form>
+    </md-whiteframe>
+    <div flex></div>
+</div>
