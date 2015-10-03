@@ -26,15 +26,19 @@
 //= require services/auth-interceptor.service
 //= require services/cache.service
 //= require components/invite-progress.directive
-//= require layout/nav
-//= require layout/nav.controller
-//= require layout/activity
-//= require layout/activity.controller
+//= require components/nav
+//= require components/nav.controller
+//= require components/nav.directive
+//= require components/activity
+//= require components/activity.controller
+//= require components/activity.directive
+//= require components/profile
+//= require components/profile.controller
+//= require components/profile.directive
+
 //= require layout/root.controller
 //= require home/home
 //= require home/home.controller
-//= require profile/profile
-//= require profile/profile.controller
 //= require invite/invite-popup
 //= require invite/invite
 //= require invite/invite.controller

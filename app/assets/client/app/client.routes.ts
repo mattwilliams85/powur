@@ -33,134 +33,50 @@ module powur {
             })
             .state('home.invite', {
                 url: '/invite',
-                views: {
-                    'nav': {
-                        templateUrl: 'app/layout/nav.html',
-                        controller: 'NavController as nav',
-                    },
-                    'profile': {
-                        templateUrl: 'app/profile/profile.html',
-                        controller: 'ProfileController as profile',
-                    },
+                views: {                    
                     'main': {
                         templateUrl: 'app/invite/invite.html',
                         controller: 'InviteController as invite',
-                    },
-                    'activity': {
-                        templateUrl: 'app/layout/activity.html',
-                        controller: 'ActivityController as activity',
-                    },
+                    }
                 },
             })
             .state('home.events', {
                 url: '/events',
                 views: {
-                    'nav': {
-                        templateUrl: 'app/layout/nav.html',
-                        controller: 'NavController as nav',
-                    },
-                    'profile': {
-                        templateUrl: 'app/profile/profile.html',
-                        controller: 'ProfileController as profile',
-                    },
                     'main': {
                         templateUrl: 'app/events/events.html',
                         controller: 'EventsController as events',
-                    },
-                    'activity': {
-                        templateUrl: 'app/layout/activity.html',
-                        controller: 'ActivityController as activity',
-                    },
+                    }
                 },
             })
             .state('home.grid', {
                 url: '/grid',
                 views: {
-                    'nav': {
-                        templateUrl: 'app/layout/nav.html',
-                        controller: 'NavController as nav',
-                    },
-                    'profile': {
-                        templateUrl: 'app/profile/profile.html',
-                        controller: 'ProfileController as profile',
-                    },
-                    'main': {},
-                    'activity': {
-                        templateUrl: 'app/layout/activity.html',
-                        controller: 'ActivityController as activity',
-                    },
+                    'main': {}
                 },
             })
             .state('home.goal', {
                 url: '/goal',
                 views: {
-                    'nav': {
-                        templateUrl: 'app/layout/nav.html',
-                        controller: 'NavController as nav',
-                    },
-                    'profile': {
-                        templateUrl: 'app/profile/profile.html',
-                        controller: 'ProfileController as profile',
-                    },
-                    'main': {},
-                    'activity': {
-                        templateUrl: 'app/layout/activity.html',
-                        controller: 'ActivityController as activity',
-                    },
+                    'main': {}
                 },
             })
             .state('home.earnings', {
                 url: '/earnings',
                 views: {
-                    'nav': {
-                        templateUrl: 'app/layout/nav.html',
-                        controller: 'NavController as nav',
-                    },
-                    'profile': {
-                        templateUrl: 'app/profile/profile.html',
-                        controller: 'ProfileController as profile',
-                    },
-                    'main': {},
-                    'activity': {
-                        templateUrl: 'app/layout/activity.html',
-                        controller: 'ActivityController as activity',
-                    },
+                    'main': {}
                 },
             })
             .state('home.certs', {
                 url: '/certs',
                 views: {
-                    'nav': {
-                        templateUrl: 'app/layout/nav.html',
-                        controller: 'NavController as nav',
-                    },
-                    'profile': {
-                        templateUrl: 'app/profile/profile.html',
-                        controller: 'ProfileController as profile',
-                    },
-                    'main': {},
-                    'activity': {
-                        templateUrl: 'app/layout/activity.html',
-                        controller: 'ActivityController as activity',
-                    },
+                    'main': {}
                 },
             })
             .state('home.stats', {
                 url: '/stats',
                 views: {
-                    'nav': {
-                        templateUrl: 'app/layout/nav.html',
-                        controller: 'NavController as nav',
-                    },
-                    'profile': {
-                        templateUrl: 'app/profile/profile.html',
-                        controller: 'ProfileController as profile',
-                    },
-                    'main': {},
-                    'activity': {
-                        templateUrl: 'app/layout/activity.html',
-                        controller: 'ActivityController as activity',
-                    },
+                    'main': {}
                 },
             });
     

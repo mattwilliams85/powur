@@ -1,7 +1,7 @@
 /// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.controllers {
+module powur.directives {
     
     class News {
         date: Date;

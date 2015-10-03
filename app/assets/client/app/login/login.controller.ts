@@ -18,6 +18,10 @@ module powur.controllers {
         constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: powur.services.ICacheService) {
             var self = this;
             self.$log.debug(LoginController.ControllerId + ':ctor');
+            
+            // test
+            self.userName = 'test';
+            self.password = 'test';
         }
         
         public login(): void {

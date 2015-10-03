@@ -3,7 +3,7 @@
 
 module powur.directives {
     class InviteProgress {
-        public static DirectiveId: string = 'inviteProgress';
+        public static DirectiveId: string = 'pwInviteProgress';
         public static $inject: Array<string> = ['$log'];
         
         constructor(private $log: ng.ILogService) {
