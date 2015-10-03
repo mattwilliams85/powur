@@ -3,7 +3,8 @@
 
 module powur.directives {
     class InviteProgress {
-        public static DirectiveId: string = 'inviteProgress';   
+        public static DirectiveId: string = 'inviteProgress';
+        public static $inject: Array<string> = ['$log'];
         
         constructor(private $log: ng.ILogService) {
             return <any>{
@@ -26,16 +27,12 @@ module powur.directives {
                         var circleBackgroundColor = node.getAttribute('data-circle-background-color') || '#cccccc';
                         var circleForegroundColor = instanceAttributes.circleForegroundColor || '#2583a8';// node.getAttribute('data-circle-foreground-color') || '#2583a8';
                     
-                        //var labelFont = node.getAttribute('data-label-font') || '50pt Calibri';
-                        //var labelColor = node.getAttribute('data-label-color') || '#12eeb9';
-            
                         var expression = canvas.getAttribute('data-progress-model');
                         var anticlockwise = canvas.getAttribute('data-anticlockwise') == 'true';
                         
                         var ctx = node.ctx = canvas.getContext('2d');
                         
                         scope.$watch(expression, function (newValue: any, oldValue: any) {
-                            //var ctx = canvas.getContext('2d');
                             ctx.clearRect(0, 0, width, height);
                 
                             var x = width / 2;
@@ -45,12 +42,6 @@ module powur.directives {
                             ctx.lineWidth = parseInt(circleWidth);
                             ctx.strokeStyle = circleBackgroundColor;
                             ctx.stroke();
-                
-                            // ctx.font = labelFont;
-                            // ctx.textAlign = 'center';
-                            // ctx.textBaseline = 'middle';
-                            // ctx.fillStyle = labelColor;
-                            // ctx.fillText(newValue.label, x, y);
                 
                             var startAngle = - (Math.PI / 2);
                             var endAngle = ((Math.PI * 2 ) * newValue.percentage) - (Math.PI / 2);
@@ -66,6 +57,5 @@ module powur.directives {
         } // ctor
     } // class
     
-    //(<any>InviteProgress).$inject = ['$log'];
-    directiveModule.directive(InviteProgress.DirectiveId, ['$log', ($log: ng.ILogService) => { return new InviteProgress($log) }]);
+    directiveModule.directive(InviteProgress.DirectiveId, <any>InviteProgress);
 }
