@@ -1,1 +1,26 @@
-<div>marketing</div>
+<div class="marketing" layout="column">
+    <div class="bg" layout="column" layout-align="center center">
+        <div flex layout="column" layout-align="space-around center">
+            <div>
+                <div class="who">
+                    <div class="greeting">Hello,</div>
+                    <div class="full-name">{{marketing.fullName}}</div>
+                </div>
+                <div class="key">
+                    <label>Enter your grid key</label>
+                    <div layout="row">
+                        <input type="text" ng-model="marketing.gridKey">
+                        <button ng-click="marketing.continue()">Continue</button>
+                    </div>
+                </div>
+            </div>
+            <div class="trailer" layout="row">
+                <a href="https://youtube.com/"><img class="video" src="/assets/img/marketing/video.png" alt="Video"/></a>
+                <div class="info">want to know more? <a href="https://youtube.com/">watch our trailer</a>.</div>
+            </div>
+        </div>
+        <div class="footer" layout="row" layout-align="center center" flex="10">
+            <img class="logo" src="/assets/img/marketing/powur-logo.png" alt="Powur"/>
+        </div>
+    </div>
+</div>

@@ -14,9 +14,7 @@ module powur.controllers {
             var self = this;
             self.$log.debug(HomeController.ControllerId + ':ctor');
             self.$state.transitionTo('home.invite');
-        }
-        
-        public user: any;
+        }        
     }
     
     controllerModule.controller(HomeController.ControllerId, HomeController);
