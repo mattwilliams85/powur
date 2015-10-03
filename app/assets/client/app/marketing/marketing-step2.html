@@ -25,7 +25,7 @@
                         <label>City</label>
                         <input ng-model="marketing.city" type="text">
                     </md-input-container>
-                    <md-input-container flex="9">
+                    <md-input-container flex>
                         <label>State</label>
                         <md-select ng-model="marketing.state">
                             <md-option ng-repeat="s in marketing.states" value="{{s.abbr}}">
@@ -38,10 +38,12 @@
                         <input ng-model="marketing.zip" type="text">
                     </md-input-container>
                 </div>
-                <div layout="row" layout-align="center center">
+                <div layout="column" layout-align="center center">
                     <md-button class="md-raised" ng-click="marketing.enterGrid()">enter <b>the powur grid</b></md-button>
                 </div>
-                <div class="terms" layout="row" layout-align="center center">By clicking on this button, you also accept the <a href="/next/terms">terms & conditions</a></div>
+                <div class="terms" layout="column" layout-align="center center">
+                    <div>By clicking on this button, you also accept the <a href="/next/terms">terms & conditions</a></div>
+                </div>
             </md-content>
         </div>
     </div>
