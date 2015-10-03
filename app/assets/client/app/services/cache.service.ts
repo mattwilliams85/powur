@@ -19,6 +19,14 @@ module powur.services {
             this.setSession(CacheService.USER, value);
         }
         
+        public clearAllSession() {
+            delete this.$sessionStorage[CacheService.USER];
+        }
+
+        public clearAllStorage() {
+            //delete this.$localStorage[aaaa];
+        }
+        
         private getSession<T>(key: string) {
             return this.$sessionStorage[key];
         }

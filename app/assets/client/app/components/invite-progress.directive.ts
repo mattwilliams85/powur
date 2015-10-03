@@ -8,9 +8,9 @@ module powur.directives {
         
         constructor(private $log: ng.ILogService) {
             return <any>{
-                link: function (scope: ng.IScope, instanceElement: any, instanceAttributes: any, controller: any) {
-                    if (instanceElement.length === 1) {
-                        var node = instanceElement[0];
+                link: function (scope: ng.IScope, element: JQuery, attributes: any) {
+                    if (element.length === 1) {
+                        var node = <any>element[0];
                         var canvas = document.createElement('canvas');
                     
                         var width = node.getAttribute('data-progress-width') || '170';
@@ -25,7 +25,7 @@ module powur.directives {
                         var circleWidth = node.getAttribute('data-circle-width') || '10';
                         var circleRadius = node.getAttribute('data-circle-radius') || '75';
                         var circleBackgroundColor = node.getAttribute('data-circle-background-color') || '#cccccc';
-                        var circleForegroundColor = instanceAttributes.circleForegroundColor || '#2583a8';// node.getAttribute('data-circle-foreground-color') || '#2583a8';
+                        var circleForegroundColor = attributes.circleForegroundColor || '#2583a8';
                     
                         var expression = canvas.getAttribute('data-progress-model');
                         var anticlockwise = canvas.getAttribute('data-anticlockwise') == 'true';

@@ -8,14 +8,18 @@ module powur.controllers {
     
     class LoginController implements ILoginController {
         public static ControllerId: string = 'LoginController'; 
-        public static $inject: Array<string> = ['$log'];
+        public static $inject: Array<string> = ['$log', '$state', 'CacheService'];
         
-        constructor(private $log: ng.ILogService) {
+        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: powur.services.ICacheService) {
             var self = this;
             self.$log.debug(LoginController.ControllerId + ':ctor');
         }
         
-        public user: any;
+        public login(): void {
+            var self = this;
+            self.cache.user = { displayName: "Lyndia Portman" };
+            self.$state.go('home', {}, {reload: true});
+        }
     }
     
     controllerModule.controller(LoginController.ControllerId, LoginController);

@@ -22,10 +22,12 @@ module powur {
                 controller: 'HomeController as home',
             })
             .state('login', {
+                url: '/',
                 templateUrl: 'app/login/login.html',
                 controller: 'LoginController as login',
             })
             .state('marketing', {
+                url: '/marketing',
                 templateUrl: 'app/marketing/marketing.html',
                 controller: 'MarketingController as marketing',
             })

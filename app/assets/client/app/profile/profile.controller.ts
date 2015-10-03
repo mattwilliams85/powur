@@ -8,7 +8,7 @@ module powur.controllers {
     
     class ProfileController implements IProfileController {
         public static ControllerId: string = 'ProfileController';
-        public static $inject: Array<string> = ['$log', '$interval'];
+        public static $inject: Array<string> = ['$log', '$interval', 'CacheService'];
         
         public fullName: string;
         
@@ -22,14 +22,14 @@ module powur.controllers {
         public personalProposals: number;
         public teamProposals: number;
         
-        constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService) {
+        constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService, private cache: powur.services.ICacheService) {
             var self = this;
             self.$log.debug(ProfileController.ControllerId + ':ctor');
             
             // sample data
             //self.fullName = "Lyndia Portman";
-            var root = ProfileController.getRootController();
-            self.fullName = root.cache.user.displayName;
+            //var root = ProfileController.getRootController();
+            self.fullName = self.cache.user.displayName;
             
             self.rank = 2;
             self.rankTotal = 8; 
@@ -64,10 +64,10 @@ module powur.controllers {
         }
         
         //TODO: move to service
-        public static getRootController(): IRootController {
-            var root = angular.element('body').scope();
-            return (<any>root).root;
-        }           
+        // public static getRootController(): IRootController {
+        //     var root = angular.element('body').scope();
+        //     return (<any>root).root;
+        // }           
     }
     
     controllerModule.controller(ProfileController.ControllerId, ProfileController);
