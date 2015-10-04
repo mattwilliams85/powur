@@ -13,7 +13,7 @@ module powur.controllers {
             // TODO: write login check
             var isLogin = self.cache.user != null;
             var path = self.$location.path();            
-            var pages = ['/marketing'];
+            var pages = ['/marketing']; // '/marketing/step2'
             
             if (pages.indexOf(path) != -1) {
                 //pages available for login and not                

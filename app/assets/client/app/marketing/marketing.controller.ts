@@ -21,6 +21,8 @@ module powur.controllers {
         public state: string;
         public zip: string;
         
+        public password: string;
+        
         public states: Array<any>;
         
         constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: powur.services.ICacheService) {
