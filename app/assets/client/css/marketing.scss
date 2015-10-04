@@ -162,21 +162,33 @@ $buttonColor: #07b7d1;
             }
         }        
     }
-}    
- .terms {
+}
+ .terms-dialog {
+     background: rgba(255, 255, 255, 0.9);
+     
      md-toolbar:not(.md-menu-toolbar) {
-         background-color: $buttonColor;
+         background-color: #0a3b86;
      }
      
     .md-actions {
-        // button {
-        //     color: $textColor;
-        //     background-color: $buttonColor;
-        //     margin-right: 20px;
-        // }
-        // 
-        // button:hover {
-        //     color: black;
-        // }
+        
+        button {
+            color: $textColor;
+            background-color: $buttonColor !important;
+                        
+            // span {
+            //     padding: 10px;
+            //     color: white;
+            // }
+            // 
+            // span:hover {
+            //     color: black;
+            // }
+        }
+        
+        button:hover {
+            color: black;
+            background-color: white !important;
+        }
     }
 }

@@ -33,11 +33,6 @@ module powur {
                 templateUrl: 'app/marketing/marketing-step2.html',
                 controller: 'MarketingController as marketing',
             })
-            .state('terms', {
-                url: '/terms',
-                templateUrl: 'app/terms/terms.html',
-                controller: 'TermsController as terms',
-            })
                         
             .state('home', {
                 templateUrl: 'app/home/home.html',
