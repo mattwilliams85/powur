@@ -27,8 +27,6 @@ module powur.directives {
             self.$log.debug(ProfileController.ControllerId + ':ctor');
             
             // sample data
-            //self.fullName = "Lyndia Portman";
-            //var root = ProfileController.getRootController();
             self.fullName = self.cache.user.displayName;
             
             self.rank = 2;
@@ -49,19 +47,6 @@ module powur.directives {
                 self.teamProposals = self.personalProposals > 100 ? 0 : self.personalProposals + 2;
             }, 100, 0, true);
         }
-        
-        // //TODO: convert to filter
-        // public getWhole(v: number): string {
-        //     return this.toCommas(Math.floor(v));
-        // }
-        // 
-        // public getDecimal(v: number): string {
-        //     return (v % 1).toFixed(2).substring(2,4);
-        // }
-        // 
-        // private toCommas(v: number): string {
-        //     return v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        // }
         
         //TODO: move to service
         // public static getRootController(): IRootController {

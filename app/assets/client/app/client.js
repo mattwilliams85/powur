@@ -1,7 +1,5 @@
-
-/*
- * Bower components
- */
+// Bower components
+// -----------------------------------------------------
 //= require jquery/dist/jquery
 //= require velocity/test/q
 //= require lodash/lodash
@@ -13,12 +11,11 @@
 //= require angular-animate/angular-animate
 //= require angular-material/angular-material
 
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
-
 // NOTE: make sure to load template first
 //= require angular-rails-templates
 
+// client / order according to any dependencies
+// -----------------------------------------------------
 //= require client.module
 //= require client.routes
 //= require client.config

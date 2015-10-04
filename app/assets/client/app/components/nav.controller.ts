@@ -30,8 +30,6 @@ module powur.directives {
         
         public logout() {
             var self = this;
-            self.$log.debug('logout');
-            //TODO: kill session, logout, redirect to login
             self.cache.clearAllSession();
             self.$state.go('login', {}, {reload: true});
         }

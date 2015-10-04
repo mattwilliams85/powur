@@ -14,8 +14,8 @@ module powur {
             
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             //  $log.debug('$stateChangeStart');
-                (<any>$state).to = toState;
-                (<any>$state).from = fromState;
+                // (<any>$state).to = toState;
+                // (<any>$state).from = fromState;
             //  if (!isLoggedIn) {
             //      event.preventDefault();
             //      return $state.go('login');
@@ -25,7 +25,7 @@ module powur {
             });
         
             $rootScope.$on('$stateChangeSuccess', (e: any, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
-                $log.debug('$stateChangeSuccess');
+                //$log.debug('$stateChangeSuccess');
                 
                 //save current
                 //$state.current = toState;
