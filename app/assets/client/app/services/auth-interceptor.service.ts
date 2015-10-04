@@ -4,11 +4,12 @@
 module powur.services {
     class AuthInterceptor {
         public static ServiceId: string = 'AuthInterceptor'; 
-        public static $inject: Array<string> = ['$log', '$q', '$location'];   
+        public static $inject: Array<string> = ['$log', '$q', '$location', 'CacheService'];   
         
-        constructor(private $log: ng.ILogService, private $q: ng.IQService, private $location: ng.ILocationService) {
+        constructor(private $log: ng.ILogService, private $q: ng.IQService, private $location: ng.ILocationService, private cache: powur.services.ICacheService) {
             var self = this;
             self.$log.debug(AuthInterceptor.ServiceId + ':ctor');
+            
             return <any>{
                 request: (config: any) => {
                     self.$log.debug(AuthInterceptor.ServiceId + ':request');
@@ -22,8 +23,10 @@ module powur.services {
                     self.$log.debug(AuthInterceptor.ServiceId + ':reponseError');
             
                     if (response.status === 401) {
-                        $location.path("/login");
+                        self.cache.clearAllSession();
+                        $location.path("/");
                     }
+                    
                     return $q.reject(response);
                 }   
             };

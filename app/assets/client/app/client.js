@@ -23,8 +23,8 @@
 //= require client.routes
 //= require client.config
 
-//= require services/auth-interceptor.service
 //= require services/cache.service
+//= require services/auth-interceptor.service
 //= require components/invite-progress.directive
 //= require components/nav
 //= require components/nav.controller
