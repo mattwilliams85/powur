@@ -101,7 +101,13 @@ $videoIconHeight: 25px;
     
 
     .bg2 {
-        @include bg("img/marketing/marketing-bg2.png");
+        @include bg("img/marketing/marketing-bg3.png");
+        
+        .box {
+            width: 70% !important;
+            margin: 100px;
+            background: rgba(0, 0, 0, 0.2)
+        }
         
         md-content {
             background: transparent;
