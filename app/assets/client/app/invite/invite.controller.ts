@@ -154,17 +154,17 @@ module powur.controllers {
         }
         
         //TODO: convert to filter
-        public getWhole(v: number): string {
-            return this.toCommas(Math.floor(v));
-        }
+        // public getWhole(v: number): string {
+        //     return this.toCommas(Math.floor(v));
+        // }
+        // 
+        // public getDecimal(v: number): string {
+        //     return (v % 1).toFixed(2).substring(2,4);
+        // }
         
-        public getDecimal(v: number): string {
-            return (v % 1).toFixed(2).substring(2,4);
-        }
-        
-        private toCommas(v: number): string {
-            return v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        } 
+        // private toCommas(v: number): string {
+        //     return v.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // } 
     }
     
     controllerModule.controller(InviteController.ControllerId, InviteController);

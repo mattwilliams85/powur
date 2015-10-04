@@ -8,4 +8,8 @@ declare module powur.services {
         clearAllSession(): void;
         clearAllStorage(): void;
     }
+    
+    export interface IDataService {
+        
+    }
 }

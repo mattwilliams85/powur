@@ -33,7 +33,7 @@
         <div class="stat-title">dollars earned</div>
         <div class="stat" layout="row">
             <i class="sprite sprite-earned" flex="10"></i>
-            <span class="info" flex>{{profile.getWhole(profile.dollarsEarned)}}<span class="superscript">{{profile.getDecimal(profile.dollarsEarned)}}</span></span>
+            <span class="info" flex>{{profile.dollarsEarned|wholeNumber}}<span class="superscript">{{profile.dollarsEarned|decimalPart}}</span></span>
         </div>
     </div>
     
@@ -44,7 +44,7 @@
             </div>
             <div class="stat">
                 <i class="sprite sprite-co2"></i>
-                <span class="info">{{profile.getWhole(profile.co2)}}<span class="superscript">{{profile.getDecimal(profile.co2)}}</span></span>
+                <span class="info">{{profile.co2|wholeNumber}}<span class="superscript">{{profile.co2|decimalPart}}</span></span>
             </div>
         </div>
         <div flex="50" class="login-streaks">

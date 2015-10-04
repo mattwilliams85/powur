@@ -25,6 +25,9 @@
 
 //= require services/cache.service
 //= require services/auth-interceptor.service
+//= require services/data.service
+//= require filters/whole-number.filter
+//= require filters/decimal-part.filter
 //= require components/invite-progress.directive
 //= require components/nav
 //= require components/nav.controller
