@@ -50,6 +50,8 @@
 //= require login/login
 //= require login/login.controller
 
+//= require marketing/terms
+//= require marketing/terms.controller
 //= require marketing/marketing
 //= require marketing/marketing-step2
 //= require marketing/marketing.controller

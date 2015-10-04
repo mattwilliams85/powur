@@ -1,5 +1,6 @@
 $textColor: white;
 $videoIconHeight: 25px;
+$buttonColor: #07b7d1;
 
 @mixin bg($img) {
         width: 100%;
@@ -128,7 +129,7 @@ $videoIconHeight: 25px;
             
             button {
                 color: $textColor;
-                background-color: #07b7d1;
+                background-color: $buttonColor;
                 text-transform: uppercase;
                 width: 275px;
                 height: 47px;
@@ -158,6 +159,23 @@ $videoIconHeight: 25px;
             a { 
                 color: $textColor;
             }
-        }
+        }        
+    }
+}    
+ .terms {
+     md-toolbar:not(.md-menu-toolbar) {
+         background-color: $buttonColor;
+     }
+     
+    .md-actions {
+        // button {
+        //     color: $textColor;
+        //     background-color: $buttonColor;
+        //     margin-right: 20px;
+        // }
+        // 
+        // button:hover {
+        //     color: black;
+        // }
     }
 }

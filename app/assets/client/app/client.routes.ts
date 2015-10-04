@@ -17,15 +17,12 @@ module powur {
             
             // routes
             $stateProvider
-            .state('home', {
-                templateUrl: 'app/home/home.html',
-                controller: 'HomeController as home',
-            })
             .state('login', {
                 url: '/',
                 templateUrl: 'app/login/login.html',
                 controller: 'LoginController as login',
             })
+            
             .state('marketing', {
                 url: '/marketing',
                 templateUrl: 'app/marketing/marketing.html',
@@ -35,6 +32,16 @@ module powur {
                 url: '/marketing/step2',
                 templateUrl: 'app/marketing/marketing-step2.html',
                 controller: 'MarketingController as marketing',
+            })
+            .state('terms', {
+                url: '/terms',
+                templateUrl: 'app/terms/terms.html',
+                controller: 'TermsController as terms',
+            })
+                        
+            .state('home', {
+                templateUrl: 'app/home/home.html',
+                controller: 'HomeController as home',
             })
             .state('home.invite', {
                 url: '/invite',
@@ -57,13 +64,17 @@ module powur {
             .state('home.grid', {
                 url: '/grid',
                 views: {
-                    'main': {}
+                    'main': {
+                        
+                    }
                 },
             })
             .state('home.goal', {
                 url: '/goal',
                 views: {
-                    'main': {}
+                    'main': {
+                        
+                    }
                 },
             })
             .state('home.earnings', {
@@ -75,13 +86,17 @@ module powur {
             .state('home.certs', {
                 url: '/certs',
                 views: {
-                    'main': {}
+                    'main': {
+                        
+                    }
                 },
             })
             .state('home.stats', {
                 url: '/stats',
                 views: {
-                    'main': {}
+                    'main': {
+                        
+                    }
                 },
             });
     

@@ -8,7 +8,7 @@ module powur.controllers {
     
     class MarketingController implements IMarketingController {
         public static ControllerId: string = 'MarketingController'; 
-        public static $inject: Array<string> = ['$log', '$state', 'CacheService'];
+        public static $inject: Array<string> = ['$log', '$state', '$mdDialog', 'CacheService'];
         
         //step 1
         public fullName: string;
@@ -26,7 +26,7 @@ module powur.controllers {
         
         public states: Array<string>;
         
-        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: powur.services.ICacheService) {
+        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private $mdDialog: ng.material.IDialogService, private cache: powur.services.ICacheService) {
             var self = this;
             self.$log.debug(MarketingController.ControllerId + ':ctor');
             
@@ -37,16 +37,27 @@ module powur.controllers {
             'WY').split(' ');
         }
         
-        public continue() {
+        public continue(): void {
             var self = this;
             self.$log.debug(MarketingController.ControllerId + ':continue');
             self.$log.debug(self.gridKey);
             self.$state.go('marketing2', {});
         }
         
-        public enterGrid() {
+        public enterGrid(): void {
             var self = this;
             self.$log.debug(MarketingController.ControllerId + ':enterGrid');
+        }
+        
+        public openTerms(ev: ng.IAngularEvent): void {
+            var self = this;
+            self.$mdDialog.show(<any>{
+                controller: 'TermsDialogController as terms',
+                templateUrl: 'app/marketing/terms.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose:true
+            })
         }
     }
     
