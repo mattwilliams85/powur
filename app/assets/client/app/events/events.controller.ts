@@ -62,14 +62,12 @@ module powur.controllers {
             //     // date
             //     self.events[0].start = moment(self.events[0].start).subtract(1, 's').toDate();
             // }, 200, 0, true);            
-        }        
-        
-        public getHumanize(d: any): string {
-            return moment.duration(moment().diff(moment(d))).humanize();
         }
         
         public share(type: any, item: EventItem) {
-            
+            var self = this;
+            self.$log.debug(EventsController.ControllerId + ':share');
+            self.$log.debug(type, item);
         }
     }    
     

@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div flex="15" class="start-time">
-                {{events.getHumanize(item.startDate)}}
+                {{item.startDate|humanize}}
             </div>
             <div flex layout="row">
                 <div ng-switch="item.type">

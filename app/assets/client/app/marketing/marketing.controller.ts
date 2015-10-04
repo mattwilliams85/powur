@@ -24,7 +24,7 @@ module powur.controllers {
         
         public password: string;
         
-        public states: Array<any>;
+        public states: Array<string>;
         
         constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: powur.services.ICacheService) {
             var self = this;
@@ -34,7 +34,7 @@ module powur.controllers {
             
             self.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS ' +
             'MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI ' +
-            'WY').split(' ').map(function (state) { return { abbr: state }; });
+            'WY').split(' ');
         }
         
         public continue() {
