@@ -2,12 +2,12 @@
 /// <reference path='../../typings/references.d.ts' />
 
 module powur.directives {
-    export interface IProfileController {
+    export interface IHudController {
         
     }
     
-    class ProfileController implements IProfileController {
-        public static ControllerId: string = 'ProfileController';
+    class HudController implements IHudController {
+        public static ControllerId: string = 'HudController';
         public static $inject: Array<string> = ['$log', '$interval', 'CacheService'];
         
         public fullName: string;
@@ -24,7 +24,7 @@ module powur.directives {
         
         constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService, private cache: powur.services.ICacheService) {
             var self = this;
-            self.$log.debug(ProfileController.ControllerId + ':ctor');
+            self.$log.debug(HudController.ControllerId + ':ctor');
             
             // sample data
             self.fullName = self.cache.user.displayName;
@@ -55,5 +55,5 @@ module powur.directives {
         // }           
     }
     
-    controllerModule.controller(ProfileController.ControllerId, ProfileController);
+    controllerModule.controller(HudController.ControllerId, HudController);
 }

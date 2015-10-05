@@ -2,18 +2,18 @@
 /// <reference path='../../typings/references.d.ts' />
 
 module powur.directives {
-    class ProfileDirective {
-        public static DirectiveId: string = 'pwProfile';
+    class HudDirective {
+        public static DirectiveId: string = 'pwHud';
         public static $inject: Array<string> = ['$log'];
         
         constructor(private $log: ng.ILogService) {
             return <any>{
                 restrict: 'A',
-                controller: 'ProfileController as profile',
-                templateUrl: 'app/components/profile.html'
+                controller: 'HudController as hud',
+                templateUrl: 'app/components/hud.html'
             }; // return
         } // ctor
     } // class
     
-    directiveModule.directive(ProfileDirective.DirectiveId, <any>ProfileDirective);
+    directiveModule.directive(HudDirective.DirectiveId, <any>HudDirective);
 }

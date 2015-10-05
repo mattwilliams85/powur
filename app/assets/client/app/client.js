@@ -33,9 +33,9 @@
 //= require components/activity
 //= require components/activity.controller
 //= require components/activity.directive
-//= require components/profile
-//= require components/profile.controller
-//= require components/profile.directive
+//= require components/hud
+//= require components/hud.controller
+//= require components/hud.directive
 
 //= require layout/root.controller
 

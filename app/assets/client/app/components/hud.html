@@ -1,8 +1,8 @@
-<div class="profile fill-height">
+<div class="hud fill-height">
     <div class="headshot">
         <div class="user" layout="column" layout-align="end start">
             <div class="greeting">Good morning,</div>
-            <div class="full-name">{{profile.fullName}}</div>
+            <div class="full-name">{{hud.fullName}}</div>
             <div class="actions">
                 <i class="sprite sprite-badge"></i>
                 <i class="sprite sprite-boxes"></i>
@@ -17,14 +17,14 @@
             <div class="stat-title">rank</div>
             <div class="stat">
                 <i class="sprite sprite-rank"></i>
-                <span class="info">{{profile.rank}}<span class="total">/{{profile.rankTotal}}</span></span>
+                <span class="info">{{hud.rank}}<span class="total">/{{hud.rankTotal}}</span></span>
             </div>
         </div>
         <div flex="50" class="grid-size">
             <div class="stat-title">grid size</div>
             <div class="stat">
                 <i class="sprite sprite-grid"></i>
-                <span class="info">{{profile.gridSize}}</span>
+                <span class="info">{{hud.gridSize}}</span>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
         <div class="stat-title">dollars earned</div>
         <div class="stat" layout="row">
             <i class="sprite sprite-earned" flex="10"></i>
-            <span class="info" flex>{{profile.dollarsEarned|wholeNumber}}<span class="superscript">{{profile.dollarsEarned|decimalPart}}</span></span>
+            <span class="info" flex>{{hud.dollarsEarned|wholeNumber}}<span class="superscript">{{hud.dollarsEarned|decimalPart}}</span></span>
         </div>
     </div>
     
@@ -44,14 +44,14 @@
             </div>
             <div class="stat">
                 <i class="sprite sprite-co2"></i>
-                <span class="info">{{profile.co2|wholeNumber}}<span class="superscript">{{profile.co2|decimalPart}}</span></span>
+                <span class="info">{{hud.co2|wholeNumber}}<span class="superscript">{{hud.co2|decimalPart}}</span></span>
             </div>
         </div>
         <div flex="50" class="login-streaks">
             <div class="stat-title">login streaks</div>
             <div class="stat">
                 <i class="sprite sprite-login"></i>
-                <span class="info">{{profile.loginStreaks}}</span>
+                <span class="info">{{hud.loginStreaks}}</span>
             </div>
         </div>
     </div>
@@ -63,14 +63,14 @@
             <i class="sprite sprite-proposal" flex="10"></i>
             <div class="progress" flex>
                 <div class="stat-title">Personal Proposals</div>
-                <md-progress-linear md-mode="determinate" value="{{profile.personalProposals}}" flex></md-progress-linear>
+                <md-progress-linear md-mode="determinate" value="{{hud.personalProposals}}" flex></md-progress-linear>
             </div>
         </div>
         <div class="stat" layout="row">
             <i class="sprite sprite-proposal-group" flex="10"></i>
             <div class="progress" flex>
                 <div class="stat-title">Team Proposals</div>
-                <md-progress-linear md-mode="determinate" value="{{profile.teamProposals}}" class="md-warn" flex></md-progress-linear>
+                <md-progress-linear md-mode="determinate" value="{{hud.teamProposals}}" class="md-warn" flex></md-progress-linear>
             </div>
         </div>
     </div>
