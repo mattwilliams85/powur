@@ -1,0 +1,63 @@
+<main class="pow-admin-index">
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Upline Users</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in upline.entities">
+            <td>{{ item.properties.id }}</td>
+            <td><a ng-href="/admin/users/{{ item.properties.id }}">{{ fullName(item) }}</a></td>
+            <td>{{ item.properties.email }}</td>
+            <td>{{ item.properties.phone }}</td>
+            <td>{{ item.properties.level }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <h2>Downline Users</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <table class="index-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in downline.entities">
+            <td>{{ item.properties.id }}</td>
+            <td><a ng-href="/admin/users/{{ item.properties.id }}">{{ fullName(item) }}</a></td>
+            <td>{{ item.properties.email }}</td>
+            <td>{{ item.properties.phone }}</td>
+            <td>{{ item.properties.level }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
