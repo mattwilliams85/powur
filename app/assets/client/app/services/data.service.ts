@@ -1,7 +1,6 @@
-/// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.services {    
+module powur {    
     class DataService implements IDataService {
         public static ServiceId: string = 'DataService'; 
         public static $inject: Array<string> = ['$log'];

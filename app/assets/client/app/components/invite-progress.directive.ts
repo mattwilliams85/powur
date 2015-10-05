@@ -1,7 +1,6 @@
-/// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.directives {
+module powur {
     class InviteProgress {
         public static DirectiveId: string = 'pwInviteProgress';
         public static $inject: Array<string> = ['$log'];

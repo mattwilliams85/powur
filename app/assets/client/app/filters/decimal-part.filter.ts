@@ -1,7 +1,6 @@
-/// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.filters {
+module powur {
     class DecimalPartFilter {
         public static FilterId: string = 'decimalPart';
         public static $inject: Array<string> = ['$log'];

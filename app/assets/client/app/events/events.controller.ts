@@ -1,7 +1,6 @@
-/// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.controllers {
+module powur {
     enum EventType {
         News,
         Award,

@@ -1,7 +1,6 @@
-/// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.controllers {    
+module powur {    
     class RootController {
         public static ControllerId: string = 'RootController';
         public static $inject: Array<string> = ['$log', '$mdSidenav', '$state', '$location', 'CacheService'];

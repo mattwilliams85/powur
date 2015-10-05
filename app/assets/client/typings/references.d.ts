@@ -1,2 +1,2 @@
-/// <reference path='boot.d.ts' />
-/// <reference path='service.d.ts' />
+/// <reference path='powur.d.ts' />
+/// <reference path='tsd.d.ts' />

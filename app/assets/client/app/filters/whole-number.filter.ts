@@ -1,7 +1,6 @@
-/// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.filters {
+module powur {
     class WholeNumberFilter {
         public static FilterId: string = 'wholeNumber';
         public static $inject: Array<string> = ['$log'];

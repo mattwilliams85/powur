@@ -1,7 +1,6 @@
-/// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.filters {
+module powur {
     class HumanizeFilter {
         public static FilterId: string = 'humanize';
         public static $inject: Array<string> = ['$log'];

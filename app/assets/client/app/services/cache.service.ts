@@ -1,7 +1,6 @@
-/// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.services {    
+module powur {    
     class CacheService implements ICacheService {
         public static ServiceId: string = 'CacheService'; 
         public static $inject: Array<string> = ['$log', '$localStorage', '$sessionStorage'];

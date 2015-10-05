@@ -1,7 +1,6 @@
-/// <reference path='../../typings/tsd.d.ts' />
 /// <reference path='../../typings/references.d.ts' />
 
-module powur.directives {
+module powur {
     class HudDirective {
         public static DirectiveId: string = 'pwHud';
         public static $inject: Array<string> = ['$log'];
