@@ -1,63 +1,84 @@
-<main class="pow-admin-index">
+<main class="pow-admin-users">
   <div class="row">
     <div class="large-12 columns">
-      <h2>Upline Users</h2>
+      <h2>Users Hierarchy</h2>
     </div>
   </div>
 
   <div class="row">
     <div class="large-12 columns">
-      <table class="index-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Level</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="item in upline.entities">
-            <td>{{ item.properties.id }}</td>
-            <td><a ng-href="/admin/users/{{ item.properties.id }}">{{ fullName(item) }}</a></td>
-            <td>{{ item.properties.email }}</td>
-            <td>{{ item.properties.phone }}</td>
-            <td>{{ item.properties.level }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+      <ul class="tabs" ng-model="tab" data-tab>
+        <li class="tab-title"><a ng-href="/admin/users/{{ user.properties.id }}/overview">Overview</a></li>
+        <li class="tab-title"><a ng-href="/admin/users/{{ user.properties.id }}/user-info">User Info</a></li>
+        <li class="tab-title"><a ng-href="/admin/users/{{ user.properties.id }}/invites">Invites</a></li>
+        <li class="tab-title active"><a ng-href="/admin/users/{{ user.properties.id }}/hierarchy">Hierarchy</a></li>
+        <li class="tab-title"><a ng-href="/admin/users/{{ user.properties.id }}/overrides">Overrides</a></li>
+      </ul>
+      <div class="tabs-content">
 
-  <div class="row">
-    <div class="large-12 columns">
-      <h2>Downline Users</h2>
-    </div>
-  </div>
+        <div class="row">
+          <div class="large-12 columns">
+            <h4>Upline Users</h4>
+          </div>
+        </div>
 
-  <div class="row">
-    <div class="large-12 columns">
-      <table class="index-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Level</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="item in downline.entities">
-            <td>{{ item.properties.id }}</td>
-            <td><a ng-href="/admin/users/{{ item.properties.id }}">{{ fullName(item) }}</a></td>
-            <td>{{ item.properties.email }}</td>
-            <td>{{ item.properties.phone }}</td>
-            <td>{{ item.properties.level }}</td>
-          </tr>
-        </tbody>
-      </table>
+        <div class="row">
+          <div class="large-12 columns">
+            <table class="index-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Level</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in upline.entities">
+                  <td>{{ item.properties.id }}</td>
+                  <td><a ng-href="/admin/users/{{ item.properties.id }}">{{ fullName(item) }}</a></td>
+                  <td>{{ item.properties.email }}</td>
+                  <td>{{ item.properties.phone }}</td>
+                  <td>{{ item.properties.level }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 columns">
+            <h4>Downline Users</h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="large-12 columns">
+            <table class="index-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Level</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in downline.entities">
+                  <td>{{ item.properties.id }}</td>
+                  <td><a ng-href="/admin/users/{{ item.properties.id }}">{{ fullName(item) }}</a></td>
+                  <td>{{ item.properties.email }}</td>
+                  <td>{{ item.properties.phone }}</td>
+                  <td>{{ item.properties.level }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 </main>
