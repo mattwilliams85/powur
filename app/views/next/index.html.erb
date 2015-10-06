@@ -6,11 +6,11 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-      
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300italic,600,700,800' rel='stylesheet' type='text/css'>
         <%= stylesheet_link_tag "client", media: "all" %>
     </head>
     <body ng-controller="RootController as root">
-        <div ui-view></div>
+        <div ui-view layout-fill></div>
         <%= javascript_include_tag "client" %>
     </body>
 

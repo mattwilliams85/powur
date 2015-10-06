@@ -1,32 +1,44 @@
 <div class="marketing" layout="column">
     <div class="bg2 parent-height" layout="row" layout-align="end center">
         <div layout="column" layout-align="end center" layout-fill flex>
-            <div class="box" flex>&nbsp;</div>
-            <md-content layout-padding layout="column" flex="33">
+            <div class="box" flex>
+                
+                <video width="100%" loop autoplay class="intro" flex>
+                  <source src="https://s3.amazonaws.com/walker-tracker/static/bg.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+            </div>
+            <md-content layout="column" flex="33">
                 <div layout="row" layout-sm="column">
                     <md-input-container flex="25">
-                        <label>First Name</label>
+                        <div class="border"></div>
+                        <label id="first-name">First Name</label>
                         <input ng-model="marketing.firstName" type="text">
                     </md-input-container>
                     <md-input-container flex="25">
+                        <div class="border"></div>
                         <label>Last Name</label>
                         <input ng-model="marketing.lastName" type="text">
                     </md-input-container>
                     <md-input-container flex="50">
+                        <div class="border"></div>
                         <label>Password</label>
                         <input ng-model="marketing.password" type="password">
                     </md-input-container>
                 </div>
                 <div layout="row" layout-sm="column">
                     <md-input-container flex="50">
+                        <div class="border"></div>
                         <label>Address</label>
                         <input ng-model="marketing.address" type="text">
                     </md-input-container>
-                    <md-input-container flex="25">
+                    <md-input-container flex="20">
+                        <div class="border"></div>
                         <label>City</label>
                         <input ng-model="marketing.city" type="text">
                     </md-input-container>
-                    <md-input-container flex>
+                    <md-input-container class="select" flex="15">
+                        <div class="border"></div>
                         <label>State</label>
                         <md-select ng-model="marketing.state">
                             <md-option ng-repeat="s in marketing.states" value="{{s}}">
@@ -35,6 +47,7 @@
                         </md-select>
                     </md-input-container>
                     <md-input-container flex="15">
+                        <div class="border"></div>
                         <label>Zip</label>
                         <input ng-model="marketing.zip" type="text">
                     </md-input-container>
