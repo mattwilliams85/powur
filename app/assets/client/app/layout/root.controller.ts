@@ -1,7 +1,9 @@
 /// <reference path='../_references.ts' />
 
-module powur {    
+module powur {
     class RootController {
+        // private session: powur.Siren;
+
         public static ControllerId: string = 'RootController';
         public static $inject: Array<string> = ['$log', '$mdSidenav', '$state', '$location', 'CacheService'];
         
@@ -9,26 +11,26 @@ module powur {
             var self = this;
             self.$log.debug(RootController.ControllerId + ':ctor');
             
+
             // TODO: write login check
             var isLogin = self.cache.user != null;
-            var path = self.$location.path();            
+            var path = self.$location.path();
             var pages = ['/marketing']; // '/marketing/step2' , '/terms'
             
-            if (pages.indexOf(path) != -1) {
-                //pages available for login and not                
+            if (pages.indexOf(path) !== -1) {
+                //pages available for login and not
             } else { 
-                if (isLogin) {
-                    self.$state.transitionTo('home');
-                } else {
-                    self.$state.transitionTo('login');
-                }
+                // if (isLogin) {
+                //     self.$state.transitionTo('home');
+                // } else {
+                //     self.$state.transitionTo('login');
+                // }
             }
         }
         
         public openMenu() {
             var self = this;
-            self.$mdSidenav('left')
-                .toggle();
+            self.$mdSidenav('left').toggle();
         }
       
     }

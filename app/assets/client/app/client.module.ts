@@ -1,4 +1,5 @@
 /// <reference path='../typings/tsd.d.ts' />
+/// <reference path="models/siren.model.ts" />
 'use strict';
 
 var valueModule = angular.module('powur.values', []);

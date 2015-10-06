@@ -1,22 +1,22 @@
-        <div layout="row">
-            <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" class="md-sidenav-left md-whiteframe-z2" layout="row">
-                <div class="parent-height" pw-nav></div>
-                <div class="parent-height" pw-hud></div>
-            </md-sidenav>
-            <div flex layout="column">
-                <md-toolbar hide-gt-md>
-                    <div class="md-toolbar-tools toolbar-bg">
-                        <md-button class="md-icon-button hide-gt-sm" aria-label="Profile" ng-click="root.openMenu()">
-                            <md-icon md-svg-icon="/assets/img/menu.svg"></md-icon>
-                        </md-button>
-                        <h2>
-                            <span>POWUR</span>
-                        </h2>
-                        <span flex></span>
-                    </div>
-                </md-toolbar>
-                
-                <div ui-view="main" flex></div>
+<div layout="row">
+    <md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" class="md-sidenav-left md-whiteframe-z2" layout="row">
+        <div class="parent-height" pw-nav></div>
+        <div class="parent-height" pw-hud></div>
+    </md-sidenav>
+    <div flex layout="column">
+        <md-toolbar hide-gt-md>
+            <div class="md-toolbar-tools toolbar-bg">
+                <md-button class="md-icon-button hide-gt-sm" aria-label="Profile" ng-click="root.openMenu()">
+                    <md-icon md-svg-icon="/assets/img/menu.svg"></md-icon>
+                </md-button>
+                <h2>
+                    <span>POWUR</span>
+                </h2>
+                <span flex></span>
             </div>
-            <div class="parent-height hide-sm" pw-activity></div>
-        </div>
+        </md-toolbar>
+        
+        <div ui-view="main" flex></div>
+    </div>
+    <div class="parent-height hide-sm" pw-activity></div>
+</div>

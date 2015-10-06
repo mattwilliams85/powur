@@ -24,7 +24,7 @@ gem 'active_hash'
 gem 'same_time', github: 'paulwalker/same_time'
 gem 'bcrypt-ruby', '~> 3.1.2', require: 'bcrypt'
 gem 'rails-settings-cached'
-gem 'gibbon' #, '1.2.0'
+gem 'gibbon'
 gem 'valid_email', require: false
 gem 'faker'
 gem 'activerecord_any_of', github: 'oelmekki/activerecord_any_of'
@@ -39,10 +39,8 @@ gem 'pry-rails'
 gem 'ipayout', github: 'eyecuelab/ipayout'
 gem 'week_of_month'
 gem 'eventmachine', github: 'eventmachine/eventmachine', branch: :master
-# gem 'newrelic_rpm'
 gem 'aasm'
 gem 'smarteru', github: 'eyecuelab/smarteru'
-# gem 'smarteru', path: '/Users/paul/Projects/eyecue/smarteru'
 gem 'figaro'
 gem 'hashie'
 gem 'twilio-ruby'
@@ -66,7 +64,6 @@ group :development, :test do
       branch: 'allow_file_path_def'
   gem 'awesome_print'
   gem 'byebug'
-  # gem 'webmock', require: 'webmock/rspec'
   gem 'vcr'
 end
 

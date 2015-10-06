@@ -14,8 +14,8 @@ module powur {
 
             // use the HTML5 History API
             $locationProvider.html5Mode(true);
-            
-            // routes
+
+
             $stateProvider
             .state('login', {
                 url: '/',

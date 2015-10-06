@@ -6,7 +6,7 @@ module powur {
     }
     
     class HomeController implements IHomeController {
-        public static ControllerId: string = 'HomeController';  
+        public static ControllerId: string = 'HomeController';
         public static $inject: Array<string> = ['$log', '$state'];
         
         constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService) {

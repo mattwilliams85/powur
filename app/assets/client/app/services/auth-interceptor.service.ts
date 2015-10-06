@@ -3,7 +3,7 @@
 module powur {
     class AuthInterceptor {
         public static ServiceId: string = 'AuthInterceptor'; 
-        public static $inject: Array<string> = ['$log', '$q', '$location', 'CacheService'];   
+        public static $inject: Array<string> = ['$log', '$q', '$location', 'CacheService'];
         
         constructor(private $log: ng.ILogService, private $q: ng.IQService, private $location: ng.ILocationService, private cache: ICacheService) {
             var self = this;
