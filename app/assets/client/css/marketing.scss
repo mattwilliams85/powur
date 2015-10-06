@@ -25,6 +25,12 @@ $buttonColor: #07b7d1;
 
     .bg {
         @include bg("img/marketing/marketing-bg.png");
+
+        .key-box {
+            width: 100%;
+            margin-bottom: 50px;
+            display: block;
+        }
         
         .who {
             padding-top: 100px;
@@ -57,8 +63,9 @@ $buttonColor: #07b7d1;
                 background: rgba(0,0,0,.2);
                 border: rgba(0,0,0,0.15) 1px solid;
                 padding: 5px;
-                width: 356px;
-                height: 40px;                
+                width: 70%;
+                max-width: 356px;
+                height: 40px;
             }
             
             input[type="text"]:focus{
@@ -113,8 +120,10 @@ $buttonColor: #07b7d1;
     
 
     .bg2 {
-        @include bg("img/marketing/marketing-bg3.png");
-        position: relative;
+        .bg-img {
+            @include bg("img/marketing/marketing-bg3.png");
+            position: fixed;
+        }
 
         .intro {
             box-shadow: 0px 60px 100px -50px rgba(0, 0, 0, 1);
@@ -173,12 +182,22 @@ $buttonColor: #07b7d1;
                 }
             }
             
-            md-input-container .md-input {
-                border-width: 0;
+            md-input-container {
+                .md-input {
+                    border-width: 0;
+                    font-size: medium;
+                    font-weight: 600;
+                }
             }
+
             
             md-select .md-select-value {
                 color: $textColor;
+
+                &:not(.md-select-placeholder) {
+                    font-size: medium;
+                    font-weight: 600;
+                }
                 
                 .md-select-icon {
                     width: 15px;
@@ -228,20 +247,38 @@ $buttonColor: #07b7d1;
         button {
             color: $textColor;
             background-color: $buttonColor !important;
-                        
-            // span {
-            //     padding: 10px;
-            //     color: white;
-            // }
-            // 
-            // span:hover {
-            //     color: black;
-            // }
         }
         
         button:hover {
             color: black;
             background-color: white !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 40em) {
+    .marketing {
+        height: inherit;
+        .bg {
+            .who {
+                padding-top: 50px;
+            }
+            .trailer .info {
+                font-size: x-small
+            }
+        }
+        .bg2 {
+            md-content {
+                button {
+                    margin-top: 30px;
+                }
+                md-select .md-select-value .md-select-icon {
+                    transform: translate3d(-20px, 1px, 0);
+                }
+            }
+            .box {
+                width: 90% !important;
+            }
         }
     }
 }
