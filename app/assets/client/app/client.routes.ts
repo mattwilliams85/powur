@@ -1,10 +1,10 @@
-/// <reference path='../typings/references.d.ts' />
+/// <reference path='../typings/tsd.d.ts' />
 
 module powur {
     class RouteConfigs {
         public static $inject: Array<string> = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
         
-        constructor(private $locationProvider: ng.ILocationProvider, private $stateProvider: ng.ui.IStateProvider, private $urlRouterProvider: ng.ui.IUrlRouterProvider, private $httpProvider: ng.IHttpProvider) {
+        constructor($locationProvider: ng.ILocationProvider, $stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) {
             // check auth on api calls
             $httpProvider.interceptors.push('AuthInterceptor');
         
@@ -39,7 +39,7 @@ module powur {
             })
             .state('home.invite', {
                 url: '/invite',
-                views: {                    
+                views: {
                     'main': {
                         templateUrl: 'app/invite/invite.html',
                         controller: 'InviteController as invite',
@@ -52,44 +52,6 @@ module powur {
                     'main': {
                         templateUrl: 'app/events/events.html',
                         controller: 'EventsController as events',
-                    }
-                },
-            })
-            .state('home.grid', {
-                url: '/grid',
-                views: {
-                    'main': {
-                        
-                    }
-                },
-            })
-            .state('home.goal', {
-                url: '/goal',
-                views: {
-                    'main': {
-                        
-                    }
-                },
-            })
-            .state('home.earnings', {
-                url: '/earnings',
-                views: {
-                    'main': {}
-                },
-            })
-            .state('home.certs', {
-                url: '/certs',
-                views: {
-                    'main': {
-                        
-                    }
-                },
-            })
-            .state('home.stats', {
-                url: '/stats',
-                views: {
-                    'main': {
-                        
                     }
                 },
             });

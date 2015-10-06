@@ -1,4 +1,4 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur {
     export interface IHudController {
@@ -21,7 +21,7 @@ module powur {
         public personalProposals: number;
         public teamProposals: number;
         
-        constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService, private cache: powur.services.ICacheService) {
+        constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService, private cache: ICacheService) {
             var self = this;
             self.$log.debug(HudController.ControllerId + ':ctor');
             

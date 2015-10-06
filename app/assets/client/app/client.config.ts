@@ -1,10 +1,10 @@
-/// <reference path='../typings/references.d.ts' />
+/// <reference path='../typings/tsd.d.ts' />
 
 module powur {
     class RunConfigs {
         public static $inject: Array<string> = ['$rootScope', '$log', '$state', '$urlMatcherFactory'];
         
-        constructor($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService, private $urlMatcherFactoryProvider: ng.ui.IUrlMatcherFactory) {
+        constructor($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService, $urlMatcherFactoryProvider: ng.ui.IUrlMatcherFactory) {
             //TODO: login service
             // var isLoggedIn = true;
             

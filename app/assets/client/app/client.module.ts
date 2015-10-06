@@ -1,4 +1,4 @@
-/// <reference path='../typings/references.d.ts' />
+/// <reference path='../typings/tsd.d.ts' />
 'use strict';
 
 var valueModule = angular.module('powur.values', []);

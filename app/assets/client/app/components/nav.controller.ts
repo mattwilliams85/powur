@@ -1,4 +1,4 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur {
     export interface INavController {
@@ -9,7 +9,7 @@ module powur {
         public static ControllerId: string = 'NavController';
         public static $inject: Array<string> = ['$log', '$state', 'CacheService'];
         
-        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: powur.services.ICacheService) {
+        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: ICacheService) {
             var self = this;
             self.$log.debug(NavController.ControllerId + ':ctor');
 

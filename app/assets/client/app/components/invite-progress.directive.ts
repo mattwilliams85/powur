@@ -1,11 +1,11 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur {
     class InviteProgress {
         public static DirectiveId: string = 'pwInviteProgress';
         public static $inject: Array<string> = ['$log'];
         
-        constructor(private $log: ng.ILogService) {
+        constructor($log: ng.ILogService) {
             return <any>{
                 link: function (scope: ng.IScope, element: JQuery, attributes: any) {
                     if (element.length === 1) {

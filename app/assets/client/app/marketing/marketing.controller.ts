@@ -1,4 +1,4 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur {
     export interface IMarketingController {
@@ -25,7 +25,7 @@ module powur {
         
         public states: Array<string>;
         
-        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private $mdDialog: ng.material.IDialogService, private cache: powur.services.ICacheService) {
+        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private $mdDialog: ng.material.IDialogService, private cache: ICacheService) {
             var self = this;
             self.$log.debug(MarketingController.ControllerId + ':ctor');
             

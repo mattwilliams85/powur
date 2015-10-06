@@ -1,11 +1,11 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur {
     class AuthInterceptor {
         public static ServiceId: string = 'AuthInterceptor'; 
         public static $inject: Array<string> = ['$log', '$q', '$location', 'CacheService'];   
         
-        constructor(private $log: ng.ILogService, private $q: ng.IQService, private $location: ng.ILocationService, private cache: powur.services.ICacheService) {
+        constructor(private $log: ng.ILogService, private $q: ng.IQService, private $location: ng.ILocationService, private cache: ICacheService) {
             var self = this;
             self.$log.debug(AuthInterceptor.ServiceId + ':ctor');
             

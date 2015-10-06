@@ -1,4 +1,4 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur {
     export interface IHomeController {

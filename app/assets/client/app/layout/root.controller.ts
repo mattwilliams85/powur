@@ -1,11 +1,11 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur {    
     class RootController {
         public static ControllerId: string = 'RootController';
         public static $inject: Array<string> = ['$log', '$mdSidenav', '$state', '$location', 'CacheService'];
         
-        constructor(private $log: ng.ILogService, private $mdSidenav: any, private $state: ng.ui.IStateService, private $location: ng.ILocationService, private cache: powur.services.ICacheService) {
+        constructor(private $log: ng.ILogService, private $mdSidenav: any, private $state: ng.ui.IStateService, private $location: ng.ILocationService, private cache: ICacheService) {
             var self = this;
             self.$log.debug(RootController.ControllerId + ':ctor');
             

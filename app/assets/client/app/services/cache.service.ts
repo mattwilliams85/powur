@@ -1,6 +1,16 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
-module powur {    
+module powur {
+    export interface IUser {
+        displayName: string;
+    }
+    
+    export interface ICacheService {
+        user: IUser;
+        clearAllSession(): void;
+        clearAllStorage(): void;
+    }
+    
     class CacheService implements ICacheService {
         public static ServiceId: string = 'CacheService'; 
         public static $inject: Array<string> = ['$log', '$localStorage', '$sessionStorage'];

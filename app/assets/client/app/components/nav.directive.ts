@@ -1,11 +1,11 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur {
     class NavDirective {
         public static DirectiveId: string = 'pwNav';
         public static $inject: Array<string> = ['$log'];
         
-        constructor(private $log: ng.ILogService) {
+        constructor($log: ng.ILogService) {
             return <any>{
                 restrict: 'A',
                 controller: 'NavController as nav',

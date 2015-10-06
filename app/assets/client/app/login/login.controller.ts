@@ -1,4 +1,4 @@
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur {
     export interface ILoginController {
@@ -14,7 +14,7 @@ module powur {
         
         public errorMessage: string;
         
-        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: powur.services.ICacheService) {
+        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: ICacheService) {
             var self = this;
             self.$log.debug(LoginController.ControllerId + ':ctor');
             
