@@ -1,4 +1,4 @@
-<div class="marketing" layout="column" layout-fill>
+<div class="join" layout="column" layout-fill>
     <div class="bg2 parent-height" layout="row" layout-align="end center">
         <div class="bg-img"></div>
         <div flex>
@@ -10,54 +10,50 @@
                     </video>
                 </div>
                 <md-content layout="column" flex="1">
-                    <div layout="row" layout-sm="column" >
+                    <div layout="row" layout-sm="column">
                         <md-input-container flex-gt-sm="25" flex>
                             <div class="border"></div>
                             <label id="first-name">First Name</label>
-                            <input ng-model="marketing.firstName" type="text">
+                            <input ng-model="join.firstName" type="text">
                         </md-input-container>
                         <md-input-container flex-gt-sm="25" flex>
                             <div class="border"></div>
                             <label>Last Name</label>
-                            <input ng-model="marketing.lastName" type="text">
+                            <input ng-model="join.lastName" type="text">
                         </md-input-container>
                         <md-input-container flex-gt-sm="50">
                             <div class="border"></div>
                             <label>Password</label>
-                            <input ng-model="marketing.password" type="password">
+                            <input ng-model="join.password" type="password">
                         </md-input-container>
                     </div>
                     <div layout="row" layout-sm="column">
                         <md-input-container flex-gt-sm="50">
                             <div class="border"></div>
                             <label>Address</label>
-                            <input ng-model="marketing.address" type="text">
+                            <input ng-model="join.address" type="text">
                         </md-input-container>
                         <md-input-container flex-gt-sm="20">
                             <div class="border"></div>
                             <label>City</label>
-                            <input ng-model="marketing.city" type="text">
+                            <input ng-model="join.city" type="text">
                         </md-input-container>
-                        <md-input-container class="select" flex-gt-sm="15">
+                        <md-input-container flex-gt-sm="15">
                             <div class="border"></div>
                             <label>State</label>
-                            <md-select ng-model="marketing.state">
-                                <md-option ng-repeat="s in marketing.states" value="{{s}}">
-                                    {{s}}
-                                </md-option>
-                            </md-select>
+                            <input ng-model="join.state" type="text">
                         </md-input-container>
                         <md-input-container flex-gt-sm="15">
                             <div class="border"></div>
                             <label>Zip</label>
-                            <input ng-model="marketing.zip" type="text">
+                            <input ng-model="join.zip" type="text">
                         </md-input-container>
                     </div>
                     <div layout="column" layout-align="center center">
-                        <md-button class="md-raised" ng-click="marketing.enterGrid()">enter <b>the powur grid</b></md-button>
+                        <md-button class="md-raised" ng-click="join.enterGrid()">enter <b>the powur grid</b></md-button>
                     </div>
                     <div class="terms" layout="column" layout-align="center center">
-                        <div>By clicking on this button, you also accept the <a href="javascript:void(0);" ng-click="marketing.openTerms($event)">terms & conditions</a></div>
+                        <div>By clicking on this button, you also accept the <a href="javascript:void(0);" ng-click="join.openTerms($event)">terms & conditions</a></div>
                     </div>
                 </md-content>
             </div>

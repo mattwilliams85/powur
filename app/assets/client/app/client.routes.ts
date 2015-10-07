@@ -28,15 +28,15 @@ module powur {
                 controller: 'LoginController as login',
             })
             
-            .state('marketing', {
-                url: '/marketing',
-                templateUrl: 'app/marketing/marketing.html',
-                controller: 'MarketingController as marketing',
+            .state('join', {
+                url: '/join',
+                templateUrl: 'app/join/join.html',
+                controller: 'JoinController as join',
             })
-            .state('marketing2', {
-                url: '/marketing/step2',
-                templateUrl: 'app/marketing/marketing-step2.html',
-                controller: 'MarketingController as marketing',
+            .state('join2', {
+                url: '/join',
+                templateUrl: 'app/join/join-step2.html',
+                controller: 'JoinController as join',
             })
                         
             .state('home', {
