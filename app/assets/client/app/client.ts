@@ -61,5 +61,5 @@
 /// <reference path='marketing/marketing.controller.ts' />
 
 // must be last
-/// <reference path='client.routes.ts' />
 /// <reference path='client.config.ts' />
+/// <reference path='client.run.ts' />

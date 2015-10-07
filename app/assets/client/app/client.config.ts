@@ -1,47 +1,69 @@
 /// <reference path='../typings/tsd.d.ts' />
-
+declare var valueModule: ng.IModule;
+declare var serviceModule: ng.IModule;
+declare var directiveModule: ng.IModule;
+declare var filtersModule: ng.IModule;
+declare var controllerModule: ng.IModule;
+declare var appModule: ng.IModule;
+    
 module powur {
-    class RunConfigs {
-        public static $inject: Array<string> = ['$rootScope', '$log', '$state', '$urlMatcherFactory'];
+    class RouteConfigs {
+        public static $inject: Array<string> = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
         
-        constructor($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService, $urlMatcherFactoryProvider: ng.ui.IUrlMatcherFactory) {
-            //TODO: login service
-            // var isLoggedIn = true;
-            
-            //$urlMatcherFactoryProvider.caseInsensitive(true);
-            //$urlMatcherFactoryProvider.strictMode(false);
-            
-            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            //  $log.debug('$stateChangeStart');
-                // (<any>$state).to = toState;
-                // (<any>$state).from = fromState;
-            //  if (!isLoggedIn) {
-            //      event.preventDefault();
-            //      return $state.go('login');
-            //  }
-            
-            //  return;
-            });
+        constructor($locationProvider: ng.ILocationProvider, $stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) {
+            // check auth on api calls
+            $httpProvider.interceptors.push('AuthInterceptor');
         
-            $rootScope.$on('$stateChangeSuccess', (e: any, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
-                //$log.debug('$stateChangeSuccess');
-                
-                //save current
-                //$state.current = toState;
-                
-                // if (fromState == null) {
-                //  // first time
-                //  $log.debug('first time');
-                // } else if (fromState.name == 'login') {
-                //  // from login
-                //  $log.debug('first login');
-                // } else if (toState.name == 'login') {
-                //  // going to state
-                //  $log.debug('going to state');
-                // }
+            // default for unknown
+            $urlRouterProvider.otherwise('/');
+
+            // use the HTML5 History API
+            $locationProvider.html5Mode(true);
+            
+            // routes
+            $stateProvider
+            .state('login', {
+                url: '/',
+                templateUrl: 'app/login/login.html',
+                controller: 'LoginController as login',
+            })
+            
+            .state('marketing', {
+                url: '/marketing',
+                templateUrl: 'app/marketing/marketing.html',
+                controller: 'MarketingController as marketing',
+            })
+            .state('marketing2', {
+                url: '/marketing/step2',
+                templateUrl: 'app/marketing/marketing-step2.html',
+                controller: 'MarketingController as marketing',
+            })
+                        
+            .state('home', {
+                templateUrl: 'app/home/home.html',
+                controller: 'HomeController as home',
+            })
+            .state('home.invite', {
+                url: '/invite',
+                views: {
+                    'main': {
+                        templateUrl: 'app/invite/invite.html',
+                        controller: 'InviteController as invite',
+                    }
+                },
+            })
+            .state('home.events', {
+                url: '/events',
+                views: {
+                    'main': {
+                        templateUrl: 'app/events/events.html',
+                        controller: 'EventsController as events',
+                    }
+                },
             });
+    
         }
     }
 
-    appModule.run(RunConfigs);
-}    
+    appModule.config(RouteConfigs);
+}
