@@ -17,14 +17,14 @@ $buttonColor: #07b7d1;
         background-size: cover;
 }
 
-.marketing {
+.join {
     width: 100%;
     height: 100%;
     color: $textColor;
     font-family: 'Open Sans';
 
     .bg {
-        @include bg("img/marketing/marketing-bg.png");
+        @include bg("img/join/join-bg.png");
 
         .key-box {
             width: 100%;
@@ -121,7 +121,7 @@ $buttonColor: #07b7d1;
 
     .bg2 {
         .bg-img {
-            @include bg("img/marketing/marketing-bg3.png");
+            @include bg("img/join/join-bg3.png");
             position: fixed;
         }
 
@@ -153,6 +153,10 @@ $buttonColor: #07b7d1;
             background: transparent;
             color: $textColor;
             font-size: smaller;
+
+            .input-wrap {
+
+            }
             
             
             label, span {
@@ -187,6 +191,11 @@ $buttonColor: #07b7d1;
                     border-width: 0;
                     font-size: medium;
                     font-weight: 600;
+                }
+                &:last-child {
+                    .border {
+                        width: 100%;
+                    }
                 }
             }
 
@@ -257,7 +266,7 @@ $buttonColor: #07b7d1;
 }
 
 @media only screen and (max-width: 40em) {
-    .marketing {
+    .join {
         height: inherit;
         .bg {
             .who {

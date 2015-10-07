@@ -25,9 +25,9 @@
 
 //= require login/login
 
-//= require marketing/terms
-//= require marketing/marketing
-//= require marketing/marketing-step2
+//= require join/terms
+//= require join/join
+//= require join/join-step2
 
 // client / order according to any dependencies
 // -----------------------------------------------------
@@ -57,8 +57,8 @@
 
 /// <reference path='login/login.controller.ts' />
 
-/// <reference path='marketing/terms.controller.ts' />
-/// <reference path='marketing/marketing.controller.ts' />
+/// <reference path='join/terms.controller.ts' />
+/// <reference path='join/join.controller.ts' />
 
 // must be last
 /// <reference path='client.config.ts' />
