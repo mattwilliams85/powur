@@ -32,7 +32,8 @@
         url: path || $scope.listPath,
         params: {
           page: page,
-          sort: sort
+          sort: sort,
+          limit: 50
         }
       }).success(function(data) {
         $scope.index.data = data;
