@@ -1,16 +1,17 @@
 <div class="join" layout="column">
-    <div class="bg" layout="column" layout-align="center center">
+    <div class="bg solar" layout="column" layout-align="center center">
         <div flex layout="column" layout-align="space-around center" layout-padding>
             <div class="key-box">
                 <div class="who">
                     <div class="greeting">Hello,</div>
                     <div class="full-name">{{join.fullName}}</div>
+                    <div class="detail">We know that you have no defense against the rising energy prices.<br>On the cusp of imminent global energy crisis, how do you take powur back?</div>
                 </div>
                 <div class="key">
-                <label>Enter your <b>grid key</b></label>
+                <label>Please enter your <b>zipcode</b></label>
                     <div layout="row">
-                        <input type="text" ng-model="join.gridKey">
-                        <button ng-click="join.continue()">Continue</button>
+                        <input type="text" ng-model="join.zipKey">
+                        <button ng-click="join.continue('join.solar2')">Continue</button>
                     </div>
                 </div>
             </div>

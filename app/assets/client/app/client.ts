@@ -26,8 +26,11 @@
 //= require login/login
 
 //= require join/terms
-//= require join/join
-//= require join/join-step2
+//= require join/join-solar
+//= require join/join-solar2
+//= require join/join-solar3
+//= require join/join-grid
+//= require join/join-grid2
 
 // client / order according to any dependencies
 // -----------------------------------------------------

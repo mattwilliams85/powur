@@ -12,7 +12,8 @@ module powur {
         //step 1
         public fullName: string;
         public gridKey: string;
-        
+        public zipKey: string;
+
         // step 2
         public firstName: string;
         public lastName: string;
@@ -30,17 +31,24 @@ module powur {
             self.fullName = self.cache.user != null ? self.cache.user.displayName : "Anonymous";
         }
         
-        public continue(): void {
+        public continue(state: string): void {
             var self = this;
             self.$log.debug(JoinController.ControllerId + ':continue');
             self.$log.debug(self.gridKey);
-            self.$state.go('join2', {});
+            console.log(state)
+            self.$state.go(state, {});
         }
         
         public enterGrid(): void {
             var self = this;
             self.$log.debug(JoinController.ControllerId + ':enterGrid');
             self.$state.go('home', {});
+        }
+
+        public enterSolar(): void {
+            var self = this;
+            self.$log.debug(JoinController.ControllerId + ':enterGrid');
+            self.$state.go('join.solar3', {});
         }
         
         public openTerms(ev: ng.IAngularEvent): void {

@@ -1,0 +1,62 @@
+<div class="join" layout="column" layout-fill>
+    <div class="bg2 parent-height" layout="row" layout-align="end center">
+        <div class="bg-img solar"></div>
+        <div flex>
+            <div flex layout="column" layout-align="end center">
+                <div class="box" flex>
+                    <video width="100%" loop autoplay class="intro" flex>
+                      <source src="https://s3.amazonaws.com/walker-tracker/static/bg.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                    </video>
+                </div>
+                <md-content layout="column" flex="1">
+                    <div layout="row" layout-sm="column">
+                        <md-input-container flex-gt-sm="25" flex>
+                            <div class="border"></div>
+                            <label id="first-name">First Name</label>
+                            <input ng-model="join.firstName" type="text">
+                        </md-input-container>
+                        <md-input-container flex-gt-sm="25" flex>
+                            <div class="border"></div>
+                            <label>Last Name</label>
+                            <input ng-model="join.lastName" type="text">
+                        </md-input-container>
+                        <md-input-container flex-gt-sm="50">
+                            <div class="border"></div>
+                            <label>Password</label>
+                            <input ng-model="join.password" type="password">
+                        </md-input-container>
+                    </div>
+                    <div layout="row" layout-sm="column">
+                        <md-input-container flex-gt-sm="50">
+                            <div class="border"></div>
+                            <label>Address</label>
+                            <input ng-model="join.address" type="text">
+                        </md-input-container>
+                        <md-input-container flex-gt-sm="20">
+                            <div class="border"></div>
+                            <label>City</label>
+                            <input ng-model="join.city" type="text">
+                        </md-input-container>
+                        <md-input-container flex-gt-sm="15">
+                            <div class="border"></div>
+                            <label>State</label>
+                            <input ng-model="join.state" type="text">
+                        </md-input-container>
+                        <md-input-container flex-gt-sm="15">
+                            <div class="border"></div>
+                            <label>Zip</label>
+                            <input ng-model="join.zip" type="text">
+                        </md-input-container>
+                    </div>
+                    <div layout="column" layout-align="center center">
+                        <md-button class="md-raised" ng-click="join.enterSolar()">join <b>the solar revolution</b></md-button>
+                    </div>
+                    <div class="terms" layout="column" layout-align="center center">
+                        <div>By clicking on this button, you also accept the <a href="javascript:void(0);" ng-click="join.openTerms($event)">terms & conditions</a></div>
+                    </div>
+                </md-content>
+            </div>
+        </div>
+    </div>
+</div>
