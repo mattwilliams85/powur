@@ -64,5 +64,4 @@
 /// <reference path='join/join.controller.ts' />
 
 // must be last
-/// <reference path='client.routes.ts' />
 /// <reference path='client.config.ts' />

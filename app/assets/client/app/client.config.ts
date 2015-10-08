@@ -1,48 +1,84 @@
 /// <reference path='../typings/tsd.d.ts' />
 declare var appModule: ng.IModule;
-
+    
 module powur {
-    class RunConfigs {
-        public static $inject: Array<string> = ['$rootScope', '$log', '$state', '$urlMatcherFactory'];
+    class RouteConfigs {
+        public static $inject: Array<string> = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
         
-        constructor($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService, $urlMatcherFactoryProvider: ng.ui.IUrlMatcherFactory) {
-            //TODO: login service
-            // var isLoggedIn = true;
-            
-            //$urlMatcherFactoryProvider.caseInsensitive(true);
-            //$urlMatcherFactoryProvider.strictMode(false);
-            
-            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            //  $log.debug('$stateChangeStart');
-                // (<any>$state).to = toState;
-                // (<any>$state).from = fromState;
-            //  if (!isLoggedIn) {
-            //      event.preventDefault();
-            //      return $state.go('login');
-            //  }
-            
-            //  return;
-            });
+        constructor($locationProvider: ng.ILocationProvider, $stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) {
+            // check auth on api calls
+            $httpProvider.interceptors.push('AuthInterceptor');
         
-            $rootScope.$on('$stateChangeSuccess', (e: any, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
-                //$log.debug('$stateChangeSuccess');
+            // default for unknown
+            $urlRouterProvider.otherwise('/');
+
+            // use the HTML5 History API
+            $locationProvider.html5Mode(true);
+            
+            // routes
+            $stateProvider
+            .state('login', {
+                url: '/',
+                templateUrl: 'app/login/login.html',
+                controller: 'LoginController as login',
+            })
+            
+            .state('join', {
+                url: '/join',
+                template: '<div ui-view></div>'
+            })
+                .state('join.grid', {
+                    url: '/grid',
+                    templateUrl: 'app/join/join-grid.html',
+                    controller: 'JoinController as join',
+                })
+                .state('join.grid2', {
+                    url: '/grid',
+                    templateUrl: 'app/join/join-grid2.html',
+                    controller: 'JoinController as join',
+                })
                 
-                //save current
-                //$state.current = toState;
-                
-                // if (fromState == null) {
-                //  // first time
-                //  $log.debug('first time');
-                // } else if (fromState.name == 'login') {
-                //  // from login
-                //  $log.debug('first login');
-                // } else if (toState.name == 'login') {
-                //  // going to state
-                //  $log.debug('going to state');
-                // }
+                .state('join.solar', {
+                    url: '/solar',
+                    templateUrl: 'app/join/join-solar.html',
+                    controller: 'JoinController as join',
+                })
+                .state('join.solar2', {
+                    url: '/solar',
+                    templateUrl: 'app/join/join-solar2.html',
+                    controller: 'JoinController as join',
+                })
+                .state('join.solar3', {
+                    url: '/solar',
+                    templateUrl: 'app/join/join-solar3.html',
+                    controller: 'JoinController as join',
+                })
+                        
+            .state('home', {
+                templateUrl: 'app/home/home.html',
+                controller: 'HomeController as home',
+            })
+            .state('home.invite', {
+                url: '/invite',
+                views: {
+                    'main': {
+                        templateUrl: 'app/invite/invite.html',
+                        controller: 'InviteController as invite',
+                    }
+                },
+            })
+            .state('home.events', {
+                url: '/events',
+                views: {
+                    'main': {
+                        templateUrl: 'app/events/events.html',
+                        controller: 'EventsController as events',
+                    }
+                },
             });
+    
         }
     }
 
-    appModule.run(RunConfigs);
-}    
+    appModule.config(RouteConfigs);
+}
