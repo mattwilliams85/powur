@@ -1,4 +1,5 @@
 /// <reference path='../typings/tsd.d.ts' />
+declare var appModule: ng.IModule;
 
 module powur {
     class RunConfigs {
