@@ -34,6 +34,14 @@ module powur {
                 self.errorMessage = 'Please enter a valid login and password.';
             }
         }
+
+        public join(state: string): void {
+            var self = this;
+
+            self.$log.debug(LoginController.ControllerId + ':join');
+            console.log(state)
+            self.$state.go(state, {});
+        }
         
         public hasError(): boolean {
             var self = this;

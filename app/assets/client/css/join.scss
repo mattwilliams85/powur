@@ -25,11 +25,25 @@ $buttonColor: #07b7d1;
 
     .bg {
         @include bg("img/join/join-bg.png");
+        &.solar { @include bg("img/join/join-bg2.jpg") }
+        &.solar-2 { @include bg("img/join/join-bg5.jpg") }
 
         .key-box {
             width: 100%;
             margin-bottom: 50px;
             display: block;
+        }
+
+        .text-box {
+            max-width: 600px;
+            text-align: center;
+            .header {
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+            .detail {
+                padding: 15px 0;
+            }
         }
         
         .who {
@@ -43,7 +57,9 @@ $buttonColor: #07b7d1;
             .full-name {
                 font-size: xx-large;
                 font-weight: 600;
-                padding: 0 0 30px 0;
+            }
+            .detail {
+                padding: 15px 0 20px 0;
             }
         }
         
@@ -52,7 +68,7 @@ $buttonColor: #07b7d1;
             text-transform: uppercase;
             
             label {
-                padding-bottom: 5px;
+                padding: 30px 0 5px 0;
                 display: block;
                 font-size: medium;
             }
@@ -123,6 +139,9 @@ $buttonColor: #07b7d1;
         .bg-img {
             @include bg("img/join/join-bg3.png");
             position: fixed;
+            &.solar {
+                @include bg("img/join/join-bg4.jpg");
+            }
         }
 
         .intro {
@@ -177,6 +196,7 @@ $buttonColor: #07b7d1;
                 width: 275px;
                 height: 40px;
                 letter-spacing: .1em;
+                border-radius: 0;
                 transition: color .5s, background .5s;
             }
             

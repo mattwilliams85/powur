@@ -1,64 +1,48 @@
 /// <reference path='../typings/tsd.d.ts' />
 declare var appModule: ng.IModule;
-    
-module powur {
-    class RouteConfigs {
-        public static $inject: Array<string> = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
-        
-        constructor($locationProvider: ng.ILocationProvider, $stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) {
-            // check auth on api calls
-            $httpProvider.interceptors.push('AuthInterceptor');
-        
-            // default for unknown
-            $urlRouterProvider.otherwise('/');
 
-            // use the HTML5 History API
-            $locationProvider.html5Mode(true);
+module powur {
+    class RunConfigs {
+        public static $inject: Array<string> = ['$rootScope', '$log', '$state', '$urlMatcherFactory'];
+        
+        constructor($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService, $urlMatcherFactoryProvider: ng.ui.IUrlMatcherFactory) {
+            //TODO: login service
+            // var isLoggedIn = true;
             
-            // routes
-            $stateProvider
-            .state('login', {
-                url: '/',
-                templateUrl: 'app/login/login.html',
-                controller: 'LoginController as login',
-            })
+            //$urlMatcherFactoryProvider.caseInsensitive(true);
+            //$urlMatcherFactoryProvider.strictMode(false);
             
-            .state('join', {
-                url: '/join',
-                templateUrl: 'app/join/join.html',
-                controller: 'JoinController as join',
-            })
-            .state('join2', {
-                url: '/join',
-                templateUrl: 'app/join/join-step2.html',
-                controller: 'JoinController as join',
-            })
-                        
-            .state('home', {
-                templateUrl: 'app/home/home.html',
-                controller: 'HomeController as home',
-            })
-            .state('home.invite', {
-                url: '/invite',
-                views: {
-                    'main': {
-                        templateUrl: 'app/invite/invite.html',
-                        controller: 'InviteController as invite',
-                    }
-                },
-            })
-            .state('home.events', {
-                url: '/events',
-                views: {
-                    'main': {
-                        templateUrl: 'app/events/events.html',
-                        controller: 'EventsController as events',
-                    }
-                },
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            //  $log.debug('$stateChangeStart');
+                // (<any>$state).to = toState;
+                // (<any>$state).from = fromState;
+            //  if (!isLoggedIn) {
+            //      event.preventDefault();
+            //      return $state.go('login');
+            //  }
+            
+            //  return;
             });
-    
+        
+            $rootScope.$on('$stateChangeSuccess', (e: any, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
+                //$log.debug('$stateChangeSuccess');
+                
+                //save current
+                //$state.current = toState;
+                
+                // if (fromState == null) {
+                //  // first time
+                //  $log.debug('first time');
+                // } else if (fromState.name == 'login') {
+                //  // from login
+                //  $log.debug('first login');
+                // } else if (toState.name == 'login') {
+                //  // going to state
+                //  $log.debug('going to state');
+                // }
+            });
         }
     }
 
-    appModule.config(RouteConfigs);
-}
+    appModule.run(RunConfigs);
+}    
