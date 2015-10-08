@@ -13,9 +13,12 @@ module Admin
         format.json do
           @stats_items = [
             { name: 'Submitted Leads', value: submitted_leads_count },
+            { name: 'Proposals', value: proposals_leads_count },
+            { name: 'Closed Wons', value: closed_wons_leads_count },
+            { name: 'Final Contracts', value: contracted_leads_count },
+            { name: 'Installs', value: installs_leads_count },
             { name: 'Certifications', value: purchases_count },
             { name: 'Certification Revenue', value: "$#{purchases_revenue}" },
-            { name: 'Final Contracts', value: contracted_leads_count },
             { name: 'New Advocates', value: users_count }
           ]
         end
@@ -30,6 +33,18 @@ module Admin
 
     def contracted_leads_count
       Lead.contracted(from: @date_since, to: @date_until).count
+    end
+
+    def proposals_leads_count
+      Lead.converted(from: @date_since, to: @date_until).count
+    end
+
+    def closed_wons_leads_count
+      Lead.closed_won(from: @date_since, to: @date_until).count
+    end
+
+    def installs_leads_count
+      Lead.installed(from: @date_since, to: @date_until).count
     end
 
     def purchases_count
