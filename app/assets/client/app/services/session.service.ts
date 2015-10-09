@@ -1,12 +1,14 @@
 /// <reference path='../_references.ts' />
 
 module powur {
+  'use strict';
+
   export interface ISessionService {
     session: ISessionModel;
   }
 
   export class SessionService implements ISessionService {
-    static ServiceId = 'SessionService'; 
+    static ServiceId = 'SessionService';
     static $inject = ['sessionData', '$http'];
 
     session: ISessionModel;
