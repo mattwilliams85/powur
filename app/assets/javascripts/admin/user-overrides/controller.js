@@ -11,11 +11,9 @@
 
     $scope.templateData = {
       index: {
-        title: 'Overrides',
         links: [
           { href: '/admin/users/' + $routeParams.userId + '/overrides/new', text: 'Add Rank Override' }
-        ],
-        tablePath: 'admin/user-overrides/templates/table.html'
+        ]
       },
       new: {
         title: 'New Rank Override',
@@ -177,7 +175,7 @@
   function routes($routeProvider) {
     $routeProvider.
     when('/admin/users/:userId/overrides', {
-      templateUrl: 'shared/admin/rest/index.html',
+      templateUrl: 'admin/user-overrides/templates/index.html',
       controller: 'AdminUserOverridesCtrl'
     }).
     when('/admin/users/:userId/overrides/new', {

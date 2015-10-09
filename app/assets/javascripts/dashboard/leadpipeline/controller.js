@@ -197,7 +197,7 @@
       var leadId = $scope.leads[leadIndex].properties.id;
       $scope.leadIndex = leadIndex;
       if ($scope.showForm === true && (leadId === $scope.currentLead.id)) {
-        
+
         return;
       } else {
         $scope.showForm = false;
@@ -257,11 +257,13 @@
 
     // Save/Update Proposal Action
     $scope.leadPipelineSection.saveLead = function() {
+      if ($scope.isSubmitDisabled) return;
 
       resetFormValidations();
 
       // check validity and submit if valid:
       if ($scope.lead && $('#customers-form')[0].checkValidity()) {
+        $scope.isSubmitDisabled = true;
         CommonService.execute($scope.formAction, $scope.lead).then(actionCallback($scope.formAction));
       } else {
         showInvalidFormMessages();
@@ -295,7 +297,6 @@
 
     function actionCallback(action) {
       return function() {
-
         // Clear filters when performing an action on a lead
         $scope.leadPipelineSection.clearFilters();
 
@@ -303,6 +304,7 @@
         if (action.name === 'create' || action.name === 'delete') {
           refreshCarousel(function() {
             $timeout(function() {
+              $scope.isSubmitDisabled = false;
               if (action.name === 'create') {
                 $('.leads').data('owlCarousel').goTo(0);
                 $scope.leadPipelineSection.showLead(0);
@@ -313,6 +315,7 @@
         // Update
         } else if (action.name === 'update') {
           getLeads(function(items) {
+            $scope.isSubmitDisabled = false;
             $scope.updatingLead = true;
             $scope.closeForm();
             destroyCarousel('.leads');
@@ -328,6 +331,7 @@
 
         // Submit
         } else if (action.name === 'submit') {
+          $scope.isSubmitDisabled = false;
           $scope.closeForm();
           $anchorScroll();
           $scope.showModal('This lead was submitted to SolarCity.');
@@ -335,6 +339,7 @@
 
         // Resend
         } else if (action.name === 'resend') {
+          $scope.isSubmitDisabled = false;
           $scope.closeForm();
           $anchorScroll();
           $scope.showModal('This lead email was successfully re-sent to ' +
@@ -346,10 +351,13 @@
 
     // Submit Lead to SolarCity Action
     $scope.leadPipelineSection.submit = function() {
+      if ($scope.isSubmitDisabled) return;
+
       if (confirm('Please confirm that all fields in the customer\'s contact information are correct before proceeding. \n' +
           'Are you sure you want to submit this lead to SolarCity?')) {
         $scope.submitAction = $scope.getAction($scope.leadItem.actions, 'submit');
         if ($scope.submitAction) {
+          $scope.isSubmitDisabled = true;
           CommonService.execute($scope.submitAction).then(actionCallback($scope.submitAction));
         } else {
           alert('This lead can\'t be submitted to SolarCity.');
@@ -359,9 +367,12 @@
 
     // Delete Lead Action
     $scope.leadPipelineSection.delete = function() {
+      if ($scope.isSubmitDisabled) return;
+
       if (confirm('Are you sure you want to delete this lead?')) {
         var deleteAction = $scope.getAction($scope.leadItem.actions, 'delete');
         if (deleteAction) {
+          $scope.isSubmitDisabled = true;
           CommonService.execute(deleteAction).then(actionCallback(deleteAction));
         } else {
           alert("This lead can't be deleted.");
@@ -371,9 +382,12 @@
 
     // Resend Email Action
     $scope.leadPipelineSection.resend = function() {
+      if ($scope.isSubmitDisabled) return;
+
       if (confirm('Are you sure you want to resend the lead email to this customer?')) {
         var resendAction = $scope.getAction($scope.leadItem.actions, 'resend');
         if (resendAction) {
+          $scope.isSubmitDisabled = true;
           CommonService.execute(resendAction).then(actionCallback(resendAction));
         } else {
           alert("This lead can't be re-sent.");
@@ -506,7 +520,7 @@
             words: [$scope.customerSearch.string]
           });
         });
-       
+
       });
     };
 

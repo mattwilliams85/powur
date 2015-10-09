@@ -11,6 +11,8 @@
 
     $scope.legacyImagePaths = legacyImagePaths;
 
+    $scope.tab = $routeParams.tab || 'overview';
+
     // Sections
     $scope.invites = {};
     $scope.overview = {};
@@ -307,7 +309,7 @@
       templateUrl: 'shared/admin/rest/index.html',
       controller: 'AdminUsersCtrl'
     }).
-    when('/admin/users/:userId', {
+    when('/admin/users/:userId/:tab?', {
       templateUrl: 'admin/users/templates/show.html',
       controller: 'AdminUsersCtrl'
     }).

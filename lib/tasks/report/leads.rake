@@ -1,5 +1,20 @@
-# namespace :powur do
-#   namespace :report do
+namespace :powur do
+  namespace :report do
+    task duplicate_leads: :environment do
+      CSV.open('/tmp/powur_report_duplicate_leads.csv', 'w+') do |csv|
+        csv << %w(id data created_at full_name email)
+        Lead.includes(:customer, :user)
+            .references(:customer, :user)
+            .duplicate.each do |lead|
+
+          csv << [ lead.id,
+                   lead.data,
+                   lead.created_at.to_s(:long),
+                   lead.customer.full_name,
+                   lead.customer.email ]
+        end
+      end
+    end
 
 #     def quotes
 #       @quotes ||= begin
@@ -40,5 +55,5 @@
 #         end
 #       end
 #     end
-#   end
-# end
+  end
+end
