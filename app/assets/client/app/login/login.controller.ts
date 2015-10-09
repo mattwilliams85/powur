@@ -1,58 +1,38 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-    export interface ILoginController {
-        
-    }
-    
-    class LoginController implements ILoginController {
-        public static ControllerId: string = 'LoginController'; 
-        public static $inject: Array<string> = ['$log', '$state', 'CacheService'];
-        
-        public userName: string;
-        public password: string;
-        
-        public errorMessage: string;
-        
-        constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: ICacheService) {
-            var self = this;
-            self.$log.debug(LoginController.ControllerId + ':ctor');
-            
-            // test
-            self.userName = 'test';
-            self.password = 'test';
-        }
-        
-        public login(): void {
-            var self = this;
-            self.errorMessage = null;
-            
-            if (self.isValidLogin()) {
-                self.cache.user = { displayName: "Lyndia Portman" };
-                self.$state.go('home', {}, {reload: true});
-            } else {
-                self.errorMessage = 'Please enter a valid login and password.';
-            }
-        }
+  'use strict';
 
-        public join(state: string): void {
-            var self = this;
+  class LoginController {
+    static ControllerId = 'LoginController';
+    static $inject = ['$scope', '$state', 'SessionService'];
 
-            self.$log.debug(LoginController.ControllerId + ':join');
-            console.log(state)
-            self.$state.go(state, {});
-        }
-        
-        public hasError(): boolean {
-            var self = this;
-            return self.errorMessage != null && self.errorMessage != '';
-        }
-        
-        private isValidLogin(): boolean {
-            var self = this;
-            return (self.userName == 'test') && (self.password == 'test');
-        }
+    session: ISessionModel;
+
+    get create(): Action {
+      return this.session.action("create");
     }
-    
-    controllerModule.controller(LoginController.ControllerId, LoginController);
+
+    constructor(private $scope: any,
+          private $state: ng.ui.IStateService,
+          private sessionService: ISessionService) {
+
+      this.session = sessionService.session;
+
+      if (!this.session.loggedIn()) {
+        this.create.success = this.success;
+        this.create.fail = this.fail;
+      }
+    }
+
+    success(response: ng.IHttpPromiseCallbackArg<any>) {
+      console.log('woot!');
+    }
+
+    fail(response: ng.IHttpPromiseCallbackArg<any>) {
+      console.log("fail!");
+    }
+  }
+
+  controllerModule.controller(LoginController.ControllerId, LoginController);
 }

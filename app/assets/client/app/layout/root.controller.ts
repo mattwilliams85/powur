@@ -2,15 +2,20 @@
 
 module powur {
     class RootController {
-        // private session: powur.Siren;
-
-        public static ControllerId: string = 'RootController';
-        public static $inject: Array<string> = ['$log', '$mdSidenav', '$state', '$location', 'CacheService'];
+        private session: ISessionModel;
+        static ControllerId = 'RootController';
+        static $inject = ['$log', '$mdSidenav', '$state', '$location', 'CacheService', 'SessionService'];
         
-        constructor(private $log: ng.ILogService, private $mdSidenav: any, private $state: ng.ui.IStateService, private $location: ng.ILocationService, private cache: ICacheService) {
+        constructor(private $log: ng.ILogService,
+                    private $mdSidenav: any,
+                    private $state: ng.ui.IStateService,
+                    private $location: ng.ILocationService,
+                    private cache: ICacheService,
+                    private sessionService: ISessionService) {
             var self = this;
             self.$log.debug(RootController.ControllerId + ':ctor');
             
+            this.session = sessionService.session;
 
             // TODO: write login check
             var isLogin = self.cache.user != null;

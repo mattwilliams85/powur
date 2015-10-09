@@ -1,27 +1,31 @@
-<div layout="row">
+<div layout="row" ng-cloak>
     <div flex></div>
     <md-whiteframe class="md-whiteframe-2dp" flex="25" layout layout-align="center center">
-        <form>
+        <form ng-submit="login.create.submit()" name="loginForm" novalidate>
             <md-content layout="column" class="autoScroll">
                 <md-input-container>
                     <label>User Name</label>
-                    <input ng-model="login.userName" type="text">
+                    <input name="email" ng-model="create.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off" required>
+                     <div ng-messages="login.create.field('email').$error">
+                        <div ng-message="message">{{ login.create.field('email').$error.message }}</div>
+                    </div>
+<!--                      <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched">
+                        <div ng-message="required">Email is a required field</div>
+                        <div ng-message="pattern">Must be a valid email address</div>
+                    </div>-->
                 </md-input-container>
                 <md-input-container>
                     <label>Password</label>
-                    <input ng-model="login.password" type="password">
+                    <input name="password" ng-model="login.create.field('password').value" type="{{ login.create.field('password').type }}" required>
+                     <div ng-messages="login.create.field('password').$error">
+                        <div ng-message="message">{{ login.create.field('password').$error.message }}</div>
+                    </div>
                 </md-input-container>
-                <md-button flex class="md-raised md-primary" ng-click="login.login()">Login</md-button>
+                <md-button flex class="md-raised md-primary" ng-disabled="login.create.submitting">Login</md-button>
             </md-content>
-            <div ng-show="login.hasError()">{{login.errorMessage}}</div>
         </form>
     </md-whiteframe>
     <div flex></div>
 </div>
 
-<!-- TODO: remove temporary buttons -->
-<br><br>
-<div layout layout-align="center center">
-    <md-button flex="25" class="md-raised md-primary"  ng-click="login.join('join.solar')" style="background:#67b09b">JOIN SOLAR</md-button>
-    <md-button flex="25" class="md-raised md-primary" ng-click="login.join('join.grid')" style="background:#36568f">JOIN GRID</md-button>
-</div>
+<a href="/next/marketing">go to marketing</a>

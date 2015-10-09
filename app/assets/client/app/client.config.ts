@@ -3,18 +3,16 @@ declare var appModule: ng.IModule;
     
 module powur {
     class RouteConfigs {
-        public static $inject: Array<string> = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
+        static $inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
         
         constructor($locationProvider: ng.ILocationProvider, $stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) {
-            // check auth on api calls
             $httpProvider.interceptors.push('AuthInterceptor');
-        
-            // default for unknown
+            $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+            $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
+
             $urlRouterProvider.otherwise('/');
 
-            // use the HTML5 History API
             $locationProvider.html5Mode(true);
-
 
             $stateProvider
             .state('login', {

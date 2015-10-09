@@ -1,5 +1,4 @@
 /// <reference path='../typings/tsd.d.ts' />
-/// <reference path="models/siren.model.ts" />
 'use strict';
 
 var valueModule = angular.module('powur.values', []);
@@ -11,6 +10,8 @@ var controllerModule = angular.module('powur.controllers', []);
 var appModule = angular.module('powur', [
     'ui.router', 
     'templates',
+    'ngMessages',
+    'ngAnimate',
     'ngStorage',
     'ngMaterial',
     'powur.services', 
@@ -18,3 +19,15 @@ var appModule = angular.module('powur', [
     'powur.filters',
     'powur.controllers' 
 ]);
+
+var $http: ng.IHttpService = angular.injector(['ng', 'powur']).get<ng.IHttpService>('$http');
+var config = { headers: { 'X-Requested-With' : 'XMLHttpRequest' } };
+
+$http.get('/', config).then(function(response: any) {
+  angular.element(document).ready(function() {
+    angular.module('powur').constant('sessionData', response.data);
+
+    angular.bootstrap(document, ['powur']);
+  });
+});
+

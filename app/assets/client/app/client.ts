@@ -10,6 +10,7 @@
 //= require angular-aria/angular-aria
 //= require angular-animate/angular-animate
 //= require angular-material/angular-material
+//= require angular-messages/angular-messages
 
 // NOTE: make sure to load template first
 //= require angular-rails-templates
@@ -37,9 +38,13 @@
 // must be first
 /// <reference path='client.module.ts' />
 
+/// <reference path='models/siren.model.ts' />
+/// <reference path='models/session.model.ts' />
+
 /// <reference path='services/cache.service.ts' />
 /// <reference path='services/auth-interceptor.service.ts' />
 /// <reference path='services/data.service.ts' />
+/// <reference path='services/session.service.ts' />
 
 /// <reference path='filters/whole-number.filter.ts' />
 /// <reference path='filters/decimal-part.filter.ts' />

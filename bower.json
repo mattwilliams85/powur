@@ -36,6 +36,7 @@
     "q": "~1.4.x",
     "lodash": "~3.10.x",
     "moment": "~2.10.x",
-    "ngstorage": "~0.3.x"
+    "ngstorage": "~0.3.x",
+    "angular-messages": "~1.4.7"
   }
 }
