@@ -16,8 +16,7 @@ module powur {
       });
     }
 
-    constructor($state: ng.ui.IStateService,
-      $session: ISessionService) {
+    constructor($state: ng.ui.IStateService, $session: ISessionService) {
       super($state, $session);
 
       this.logout.success = this.logoutSuccess;

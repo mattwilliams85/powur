@@ -2,9 +2,10 @@
 
 module powur {
   class RootController {
-    private session: ISessionModel;
     static ControllerId = 'RootController';
     static $inject = ['$log', '$mdSidenav', '$state', '$location', 'CacheService', 'SessionService'];
+
+    private session: ISessionModel;
     
     constructor(private $log: ng.ILogService,
           private $mdSidenav: any,

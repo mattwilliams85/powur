@@ -8,16 +8,16 @@ var filtersModule = angular.module('powur.filters', []);
 var controllerModule = angular.module('powur.controllers', []);
 
 var appModule = angular.module('powur', [
-    'ui.router', 
-    'templates',
-    'ngMessages',
-    'ngAnimate',
-    'ngStorage',
-    'ngMaterial',
-    'powur.services', 
-    'powur.directives',
-    'powur.filters',
-    'powur.controllers' 
+  'ui.router', 
+  'templates',
+  'ngMessages',
+  'ngAnimate',
+  'ngStorage',
+  'ngMaterial',
+  'powur.services', 
+  'powur.directives',
+  'powur.filters',
+  'powur.controllers' 
 ]);
 
 var $http: ng.IHttpService = angular.injector(['ng', 'powur']).get<ng.IHttpService>('$http');

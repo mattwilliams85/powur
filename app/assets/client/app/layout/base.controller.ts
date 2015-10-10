@@ -15,8 +15,7 @@ module powur {
       return this.session.loggedIn();
     }
 
-    constructor(public $state: ng.ui.IStateService,
-                public $session: ISessionService) {
+    constructor(public $state: ng.ui.IStateService, public $session: ISessionService) {
       this._session = $session.get();
 
       this.init();

@@ -6,6 +6,12 @@ module powur {
   class LoginPublicController extends BaseController {
     static ControllerId = 'LoginPublicController';
 
+    constructor($state: ng.ui.IStateService, $session: ISessionService) {
+      super($state, $session);
+
+      this.create.success = this.loginSuccess;
+    }
+
     get create(): Action {
       return this.session.action('create');
     }
@@ -18,17 +24,10 @@ module powur {
       return this.create.field('password');
     }
 
-    loginSuccess = (response: ng.IHttpPromiseCallbackArg<any>): void => {
+    loginSuccess(response: ng.IHttpPromiseCallbackArg<any>) {
       this.$session.refresh().then((r: any) => {
         this.$state.go('login.private');
       });
-    }
-
-    constructor($state: ng.ui.IStateService,
-                $session: ISessionService) {
-      super($state, $session);
-
-      this.create.success = this.loginSuccess;
     }
   }
 
