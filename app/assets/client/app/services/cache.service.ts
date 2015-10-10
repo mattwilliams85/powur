@@ -18,7 +18,7 @@ module powur {
         static USER: string = "user";
         
         constructor(private $log: ng.ILogService, private $localStorage: any, private $sessionStorage: any) {
-            var self = this;
+            
         }
         
         get user(): IUser {

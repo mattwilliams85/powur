@@ -6,8 +6,6 @@ module powur.services {
         static $inject: Array<string> = ['$http', '$q'];   
         
         constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
-            var self = this;
-
             return <any>{
               execute: function(action, data) {
                 var dfr = $q.defer();

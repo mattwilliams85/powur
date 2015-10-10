@@ -6,8 +6,7 @@ module powur {
         static $inject: Array<string> = ['$log', '$q', '$location', 'CacheService'];
         
         constructor(private $log: ng.ILogService, private $q: ng.IQService, private $location: ng.ILocationService, private cache: ICacheService) {
-            var self = this;
-            self.$log.debug(AuthInterceptor.ServiceId + ':ctor');
+            this.$log.debug(AuthInterceptor.ServiceId + ':ctor');
             
             return <any>{
                 request: (config: any) => {
@@ -22,7 +21,7 @@ module powur {
                     // self.$log.debug(AuthInterceptor.ServiceId + ':reponseError');
             
                     if (response.status === 401) {
-                        self.cache.clearAllSession();
+                        this.cache.clearAllSession();
                         $location.path("/");
                     }
                     

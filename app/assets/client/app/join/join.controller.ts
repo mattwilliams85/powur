@@ -27,27 +27,23 @@ module powur {
         }
         
         continue(state: string): void {
-            var self = this;
-            self.$log.debug(JoinController.ControllerId + ':continue');
-            self.$log.debug(self.gridKey);
-            self.$state.go(state, {});
+            this.$log.debug(JoinController.ControllerId + ':continue');
+            this.$log.debug(this.gridKey);
+            this.$state.go(state, {});
         }
         
         enterGrid(): void {
-            var self = this;
-            self.$log.debug(JoinController.ControllerId + ':enterGrid');
-            self.$state.go('home', {});
+            this.$log.debug(JoinController.ControllerId + ':enterGrid');
+            this.$state.go('home', {});
         }
 
         enterSolar(): void {
-            var self = this;
-            self.$log.debug(JoinController.ControllerId + ':enterGrid');
-            self.$state.go('join.solar3', {});
+            this.$log.debug(JoinController.ControllerId + ':enterGrid');
+            this.$state.go('join.solar3', {});
         }
         
         openTerms(ev: ng.IAngularEvent): void {
-            var self = this;
-            self.$mdDialog.show(<any>{
+            this.$mdDialog.show(<any>{
                 controller: 'TermsDialogController as terms',
                 templateUrl: 'app/join/terms.html',
                 parent: angular.element(document.body),

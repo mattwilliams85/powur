@@ -10,7 +10,7 @@ module powur {
         static $inject: Array<string> = ['$log'];
         
         constructor(private $log: ng.ILogService) {
-            var self = this;
+            
         }
         
         //angular-resource.js
