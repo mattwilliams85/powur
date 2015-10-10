@@ -25,7 +25,7 @@ var config = { headers: { 'X-Requested-With' : 'XMLHttpRequest' } };
 
 $http.get('/', config).then(function(response: ng.IHttpPromiseCallbackArg<any>) {
   angular.element(document).ready(function() {
-    angular.module('powur').constant('sessionData', response.data);
+    appModule.constant('sessionData', response.data);
 
     angular.bootstrap(document, ['powur']);
   });

@@ -25,7 +25,7 @@ module powur {
     refresh(): ng.IPromise<any> {
       return this.$http.get('/').then((response: ng.IHttpPromiseCallbackArg<any>) => {
         this.sessionData = response.data;
-        angular.module('powur').constant('sessionData', this.sessionData);
+        appModule.constant('sessionData', this.sessionData);
       });
     }
   }
