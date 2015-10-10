@@ -57,6 +57,7 @@
 /// <reference path='components/hud.controller.ts' />
 /// <reference path='components/hud.directive.ts' />
 
+/// <reference path='layout/base.controller.ts' />
 /// <reference path='layout/root.controller.ts' />
 
 /// <reference path='home/home.controller.ts' />
