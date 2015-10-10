@@ -25,24 +25,19 @@ module powur {
         description: string;        
     }
     
-    export interface IEventsController {
-        
-    }
-    
-    class EventsController implements IEventsController {
-        public static ControllerId: string = 'EventsController';
-        public static $inject: Array<string> = ['$log', '$interval'];
+    class EventsController {
+        static ControllerId: string = 'EventsController';
+        static $inject: Array<string> = ['$log', '$interval'];
      
-        public calendarOptions: any;
+        calendarOptions: any;
      
-        public events: Array<EventItem> = [];
+        events: Array<EventItem> = [];
         
         constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService) {
-            var self = this;
-            self.$log.debug(EventsController.ControllerId + ':ctor');
+            this.$log.debug(EventsController.ControllerId + ':ctor');
             
             // sample data
-            self.events = [
+            this.events = [
                 { presenter: {
                     firstName: 'Jonathan', lastName: 'Budd', title: 'CEO', company: 'POWUR', profileUrl: '/assets/img/profile/profile1.png',
                 }, type: EventType.News, start: moment().subtract(6, 'h').toDate(), title: 'POWUR BETA 2.0 PREVIEW', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer a iaculis lorem. Mauris lobortis odio at nunc vulputate, sed fermentum nisl molestie.'},
@@ -57,16 +52,15 @@ module powur {
                 }, type: EventType.Phone, start: moment().subtract(4, 'h').toDate(), title: 'POWUR BETA 2.0 PREVIEW', description: 'Ut blandit nisl vel laoreet tristique. In tortor nulla, malesuada a urna in, volutpat maximus tellus.'},
             ];
             
-            // self.$interval(() => {
+            // this.$interval(() => {
             //     // date
-            //     self.events[0].start = moment(self.events[0].start).subtract(1, 's').toDate();
+            //     this.events[0].start = moment(this.events[0].start).subtract(1, 's').toDate();
             // }, 200, 0, true);            
         }
         
-        public share(type: any, item: EventItem) {
-            var self = this;
-            self.$log.debug(EventsController.ControllerId + ':share');
-            self.$log.debug(type, item);
+        share(type: any, item: EventItem) {
+            this.$log.debug(EventsController.ControllerId + ':share');
+            this.$log.debug(type, item);
         }
     }    
     

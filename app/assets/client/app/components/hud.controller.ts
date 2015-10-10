@@ -1,49 +1,44 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-    export interface IHudController {
+    class HudController {
+        static ControllerId: string = 'HudController';
+        static $inject: Array<string> = ['$log', '$interval', 'CacheService'];
         
-    }
-    
-    class HudController implements IHudController {
-        public static ControllerId: string = 'HudController';
-        public static $inject: Array<string> = ['$log', '$interval', 'CacheService'];
+        fullName: string;
         
-        public fullName: string;
+        rank: number;
+        rankTotal: number;
+        gridSize: number;
+        dollarsEarned: number;
+        co2: number;
+        loginStreaks: number;
         
-        public rank: number;
-        public rankTotal: number;
-        public gridSize: number;
-        public dollarsEarned: number;
-        public co2: number;
-        public loginStreaks: number;
-        
-        public personalProposals: number;
-        public teamProposals: number;
+        personalProposals: number;
+        teamProposals: number;
         
         constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService, private cache: ICacheService) {
-            var self = this;
-            self.$log.debug(HudController.ControllerId + ':ctor');
+            this.$log.debug(HudController.ControllerId + ':ctor');
             
             // sample data
-            self.fullName = self.cache.user.displayName;
+            this.fullName = this.cache.user.displayName;
             
-            self.rank = 2;
-            self.rankTotal = 8; 
+            this.rank = 2;
+            this.rankTotal = 8; 
             
-            self.gridSize = 18;
+            this.gridSize = 18;
             
-            self.dollarsEarned = 1880.89;
+            this.dollarsEarned = 1880.89;
             
-            self.co2 = 72.36;
-            self.loginStreaks = 26;
+            this.co2 = 72.36;
+            this.loginStreaks = 26;
 
-            self.personalProposals = 10;
-            self.teamProposals = 0;
+            this.personalProposals = 10;
+            this.teamProposals = 0;
             
-            self.$interval(() => {
-                self.personalProposals = self.personalProposals > 100 ? 20 : self.personalProposals + 1;
-                self.teamProposals = self.personalProposals > 100 ? 0 : self.personalProposals + 2;
+            this.$interval(() => {
+                this.personalProposals = this.personalProposals > 100 ? 20 : this.personalProposals + 1;
+                this.teamProposals = this.personalProposals > 100 ? 0 : this.personalProposals + 2;
             }, 100, 0, true);
         }
         

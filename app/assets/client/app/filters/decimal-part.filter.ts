@@ -2,8 +2,8 @@
 
 module powur {
     class DecimalPartFilter {
-        public static FilterId: string = 'decimalPart';
-        public static $inject: Array<string> = ['$log'];
+        static FilterId: string = 'decimalPart';
+        static $inject: Array<string> = ['$log'];
         
         constructor(private $log: ng.ILogService) {
             var init = (input: number): string => {

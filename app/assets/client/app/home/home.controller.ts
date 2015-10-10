@@ -1,18 +1,13 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-    export interface IHomeController {
-        
-    }
-    
-    class HomeController implements IHomeController {
-        public static ControllerId: string = 'HomeController';
-        public static $inject: Array<string> = ['$log', '$state'];
+    class HomeController {
+        static ControllerId: string = 'HomeController';
+        static $inject: Array<string> = ['$log', '$state'];
         
         constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService) {
-            var self = this;
-            self.$log.debug(HomeController.ControllerId + ':ctor');
-            self.$state.transitionTo('home.invite');
+            this.$log.debug(HomeController.ControllerId + ':ctor');
+            this.$state.transitionTo('home.invite');
         }        
     }
     

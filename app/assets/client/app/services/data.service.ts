@@ -5,9 +5,9 @@ module powur {
         
     }
     
-    class DataService implements IDataService {
-        public static ServiceId: string = 'DataService'; 
-        public static $inject: Array<string> = ['$log'];
+    export class DataService implements IDataService {
+        static ServiceId: string = 'DataService'; 
+        static $inject: Array<string> = ['$log'];
         
         constructor(private $log: ng.ILogService) {
             var self = this;

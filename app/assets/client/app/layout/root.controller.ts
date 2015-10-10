@@ -12,14 +12,13 @@ module powur {
                     private $location: ng.ILocationService,
                     private cache: ICacheService,
                     private sessionService: ISessionService) {
-            var self = this;
-            self.$log.debug(RootController.ControllerId + ':ctor');
+            this.$log.debug(RootController.ControllerId + ':ctor');
             
             this.session = sessionService.session;
 
             // TODO: write login check
-            var isLogin = self.cache.user != null;
-            var path = self.$location.path();
+            var isLogin = this.cache.user != null;
+            var path = this.$location.path();
             var pages = ['/marketing']; // '/marketing/step2' , '/terms'
             
             if (pages.indexOf(path) !== -1) {
@@ -33,9 +32,8 @@ module powur {
             }
         }
         
-        public openMenu() {
-            var self = this;
-            self.$mdSidenav('left').toggle();
+        openMenu() {
+            this.$mdSidenav('left').toggle();
         }
       
     }

@@ -2,8 +2,8 @@
 
 module powur {
     class WholeNumberFilter {
-        public static FilterId: string = 'wholeNumber';
-        public static $inject: Array<string> = ['$log'];
+        static FilterId: string = 'wholeNumber';
+        static $inject: Array<string> = ['$log'];
         
         constructor(private $log: ng.ILogService) {
             var toCommas = (v: number): string => {

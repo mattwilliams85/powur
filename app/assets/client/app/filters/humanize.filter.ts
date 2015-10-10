@@ -2,8 +2,8 @@
 
 module powur {
     class HumanizeFilter {
-        public static FilterId: string = 'humanize';
-        public static $inject: Array<string> = ['$log'];
+        static FilterId: string = 'humanize';
+        static $inject: Array<string> = ['$log'];
         
         constructor(private $log: ng.ILogService) {
             var init = (input: Date): string => {

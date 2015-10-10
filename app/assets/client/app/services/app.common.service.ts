@@ -1,10 +1,9 @@
-/// <reference path='../../typings/tsd.d.ts' />
-/// <reference path='../../typings/references.d.ts' />
+/// <reference path='../_references.ts' />
 
 module powur.services {
     class CommonService {
-        public static ServiceId: string = 'CommonService'; 
-        public static $inject: Array<string> = ['$http', '$q'];   
+        static ServiceId: string = 'CommonService'; 
+        static $inject: Array<string> = ['$http', '$q'];   
         
         constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
             var self = this;

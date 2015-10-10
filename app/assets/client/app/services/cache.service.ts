@@ -11,11 +11,11 @@ module powur {
         clearAllStorage(): void;
     }
     
-    class CacheService implements ICacheService {
-        public static ServiceId: string = 'CacheService'; 
-        public static $inject: Array<string> = ['$log', '$localStorage', '$sessionStorage'];
+    export class CacheService implements ICacheService {
+        static ServiceId: string = 'CacheService'; 
+        static $inject: Array<string> = ['$log', '$localStorage', '$sessionStorage'];
         
-        public static USER: string = "user";
+        static USER: string = "user";
         
         constructor(private $log: ng.ILogService, private $localStorage: any, private $sessionStorage: any) {
             var self = this;
@@ -28,11 +28,11 @@ module powur {
             this.setSession(CacheService.USER, value);
         }
         
-        public clearAllSession() {
+        clearAllSession() {
             delete this.$sessionStorage[CacheService.USER];
         }
 
-        public clearAllStorage() {
+        clearAllStorage() {
             //delete this.$localStorage[aaaa];
         }
         

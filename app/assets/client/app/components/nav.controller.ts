@@ -1,36 +1,28 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-    export interface INavController {
-        
-    }
-    
-    class NavController implements INavController {
-        public static ControllerId: string = 'NavController';
-        public static $inject: Array<string> = ['$log', '$state', 'CacheService'];
+    class NavController {
+        static ControllerId: string = 'NavController';
+        static $inject: Array<string> = ['$log', '$state', 'CacheService'];
         
         constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private cache: ICacheService) {
-            var self = this;
-            self.$log.debug(NavController.ControllerId + ':ctor');
+            this.$log.debug(NavController.ControllerId + ':ctor');
 
-            //self.$log.debug(self.$state.$current);
-            //self.$log.debug(self.$state.current);
+            //this.$log.debug(this.$state.$current);
+            //this.$log.debug(this.$state.current);
         }
         
-        public isCurrent(state: string): boolean {
-            var self = this;
-            return self.$state.current.name == state;
+        isCurrent(state: string): boolean {
+            return this.$state.current.name == state;
         }
         
-        public go(state: string) {
-            var self = this;
-            self.$state.go(state);
+        go(state: string) {
+            this.$state.go(state);
         }
         
-        public logout() {
-            var self = this;
-            self.cache.clearAllSession();
-            self.$state.go('login', {}, {reload: true});
+        logout() {
+            this.cache.clearAllSession();
+            this.$state.go('login', {}, {reload: true});
         }
     }
     

@@ -3,7 +3,7 @@ declare var appModule: ng.IModule;
 
 module powur {
     class RunConfigs {
-        public static $inject: Array<string> = ['$rootScope', '$log', '$state', '$urlMatcherFactory'];
+        static $inject: Array<string> = ['$rootScope', '$log', '$state', '$urlMatcherFactory'];
         
         constructor($rootScope:  ng.IRootScopeService, $log: ng.ILogService, $state: ng.ui.IStateService, $urlMatcherFactoryProvider: ng.ui.IUrlMatcherFactory) {
             //TODO: login service

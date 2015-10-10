@@ -2,8 +2,8 @@
 
 module powur {
     class ActivityDirective {
-        public static DirectiveId: string = 'pwActivity';
-        public static $inject: Array<string> = ['$log'];
+        static DirectiveId: string = 'pwActivity';
+        static $inject: Array<string> = ['$log'];
         
         constructor($log: ng.ILogService) {
             return <any>{

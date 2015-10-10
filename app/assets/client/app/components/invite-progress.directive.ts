@@ -2,8 +2,8 @@
 
 module powur {
     class InviteProgress {
-        public static DirectiveId: string = 'pwInviteProgress';
-        public static $inject: Array<string> = ['$log'];
+        static DirectiveId: string = 'pwInviteProgress';
+        static $inject: Array<string> = ['$log'];
         
         constructor($log: ng.ILogService) {
             return <any>{

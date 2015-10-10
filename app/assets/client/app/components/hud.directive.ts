@@ -2,8 +2,8 @@
 
 module powur {
     class HudDirective {
-        public static DirectiveId: string = 'pwHud';
-        public static $inject: Array<string> = ['$log'];
+        static DirectiveId: string = 'pwHud';
+        static $inject: Array<string> = ['$log'];
         
         constructor($log: ng.ILogService) {
             return <any>{

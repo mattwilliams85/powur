@@ -2,8 +2,8 @@
 
 module powur {
     class NavDirective {
-        public static DirectiveId: string = 'pwNav';
-        public static $inject: Array<string> = ['$log'];
+        static DirectiveId: string = 'pwNav';
+        static $inject: Array<string> = ['$log'];
         
         constructor($log: ng.ILogService) {
             return <any>{

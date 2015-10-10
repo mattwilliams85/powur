@@ -24,7 +24,9 @@ module powur {
     static fromJson(value: any) {
       return new Action(value);
     }
+    
     private _http: ng.IHttpService;
+    
     success: ng.IHttpPromiseCallback<any>;
     fail: ng.IHttpPromiseCallback<any>;
     href: string;
