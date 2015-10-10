@@ -304,6 +304,9 @@ $buttonColor: #07b7d1;
                 md-select .md-select-value .md-select-icon {
                     transform: translate3d(-20px, 1px, 0);
                 }
+                md-input-container .border {
+                    width: 100%;
+                }
             }
             .box {
                 width: 90% !important;

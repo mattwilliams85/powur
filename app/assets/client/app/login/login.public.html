@@ -1,33 +1,51 @@
-<div layout="row" ng-cloak>
-    <div flex></div>
-    <md-whiteframe class="md-whiteframe-2dp" flex="25" layout layout-align="center center">
-        <form ng-submit="login.create.submit()" name="loginForm" novalidate>
-            <md-content layout="column" class="autoScroll">
-                <md-input-container>
-                    <label>User Name</label>
-                    <input name="email" ng-model="login.email.value" type="text" autocomplete="off" required>
-                     <div ng-messages="login.email.$error">
-                        <div ng-message="message">{{ login.email.$error.message }}</div>
+ <div class="login" layout="column">
+     <div class="bg" layout="column" layout-align="center center">
+         <div flex layout="column" layout-align="space-around center" layout-padding>
+            <div class="login-box">
+                <div class="sub-header">Welcome back, Powur Advocate.</div>
+                <div class="header">User <span class="semi-bold">Login Portal</span></div>
+                <div ng-messages="login.create.field('email').$error" class="messages">
+                    <div ng-message="message">{{ login.create.field('email').$error.message }}</div>
+                </div>
+                <div ng-messages="login.create.field('password').$error" class="messages">
+                    <div ng-message="message">{{ login.create.field('password').$error.message }}</div>
+                </div>
+                <form ng-submit="login.create.submit()" name="loginForm" novalidate>
+                    <input style="display:none">
+                    <!-- PREVENT CHROME AUTOFILL -->
+                    <input type="password" style="display:none">
+                    <div layout="column" class="autoScroll">
+                    <!-- !!! -->
+                        <md-input-container>
+                            <div class="border"></div>
+                            <label>User Name</label>
+                            <input name="email" ng-model="login.create.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
+                            <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched">
+                                <div ng-message="required">Email is a required field</div>
+                                <div ng-message="pattern">Must be a valid email address</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <div class="border"></div>
+                            <label>Password</label>
+                            <input name="password" ng-model="login.create.field('password').value" type="{{ login.create.field('password').type }}" required>
+                            <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched">
+                                <div ng-message="required">Password is a required field</div>
+                            </div>
+                        </md-input-container>
+                        <md-button flex class="md-raised md-primary" ng-disabled="login.create.submitting">Login</md-button>
                     </div>
-<!--                      <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched">
-                        <div ng-message="required">Email is a required field</div>
-                        <div ng-message="pattern">Must be a valid email address</div>
-                    </div>-->
-                </md-input-container>
-                <md-input-container>
-                    <label>Password</label>
-                    <input name="password" ng-model="login.password.value" type="{{ login.create.field('password').type }}" required>
-                     <div ng-messages="login.password.$error">
-                        <div ng-message="message">{{ login.password.$error.message }}</div>
-                    </div>
-                </md-input-container>
-                <md-button flex class="md-raised md-primary" ng-disabled="login.create.submitting">Login</md-button>
-            </md-content>
-        </form>
-    </md-whiteframe>
-    <div flex></div>
-</div>
-
-<pre>
-{{ login.$session | json }}
-</pre>
+                </form>
+                <div flex layout="row" layout-align="space-between center" class="options-box">
+                    <md-checkbox ng-model="isChecked" aria-label="Finished?" md-ink-ripple="#499adb">
+                      STAY SIGNED IN
+                    </md-checkbox>
+                    <a href="">FORGOT PASSWORD?</a>
+                </div>
+             </div>
+         </div>
+         <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
+             <img class="logo" src="/assets/img/join/powur-logo.png" alt="Powur"/>
+         </div>
+     </div>
+ </div>
