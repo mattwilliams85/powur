@@ -24,7 +24,9 @@
 //= require invite/invite-popup
 //= require events/events
 
-//= require login/login
+//= require login/layout
+//= require login/login.public
+//= require login/login.private
 
 //= require join/terms
 //= require join/join-solar
@@ -65,6 +67,8 @@
 /// <reference path='events/events.controller.ts' />
 
 /// <reference path='login/login.controller.ts' />
+/// <reference path='login/login.public.controller.ts' />
+/// <reference path='login/login.private.controller.ts' />
 
 /// <reference path='join/terms.controller.ts' />
 /// <reference path='join/join.controller.ts' />

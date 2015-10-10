@@ -23,7 +23,7 @@ var appModule = angular.module('powur', [
 var $http: ng.IHttpService = angular.injector(['ng', 'powur']).get<ng.IHttpService>('$http');
 var config = { headers: { 'X-Requested-With' : 'XMLHttpRequest' } };
 
-$http.get('/', config).then(function(response: any) {
+$http.get('/', config).then(function(response: ng.IHttpPromiseCallbackArg<any>) {
   angular.element(document).ready(function() {
     angular.module('powur').constant('sessionData', response.data);
 

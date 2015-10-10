@@ -5,6 +5,8 @@ module powur {
 
   export interface ISessionService {
     session: ISessionModel;
+    get(): ISessionModel;
+    refresh(): ng.IPromise<any>;
   }
 
   export class SessionService implements ISessionService {
@@ -14,8 +16,17 @@ module powur {
     session: ISessionModel;
 
     constructor(private sessionData: any, private $http: ng.IHttpService) {
-      SirenModel.http = $http;
-      this.session = new SessionModel(sessionData);
+    }
+
+    get(): ISessionModel {
+      return new SessionModel(this.sessionData);
+    }
+
+    refresh(): ng.IPromise<any> {
+      return this.$http.get('/').then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.sessionData = response.data;
+        angular.module('powur').constant('sessionData', this.sessionData);
+      });
     }
   }
 

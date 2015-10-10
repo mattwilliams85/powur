@@ -5,13 +5,23 @@ module powur {
 
   export class BaseController {
     static $inject = ['$state', 'SessionService'];
+    private _session: ISessionModel;
 
     get session(): ISessionModel {
-      return this.$session.session;
+      return this._session;
     }
 
-    constructor(private $state: ng.ui.IStateService,
-                private $session: ISessionService) {
+    get loggedIn(): boolean {
+      return this.session.loggedIn();
     }
+
+    constructor(public $state: ng.ui.IStateService,
+                public $session: ISessionService) {
+      this._session = $session.get();
+
+      this.init();
+    }
+
+    init(): void {}
   }
 }

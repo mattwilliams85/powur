@@ -11,15 +11,15 @@ module powur {
             
             return <any>{
                 request: (config: any) => {
-                    self.$log.debug(AuthInterceptor.ServiceId + ':request');
+                    // self.$log.debug(AuthInterceptor.ServiceId + ':request');
                     return config || $q.when(config);
                 },
                 response: (response: any) => {
-                    self.$log.debug(AuthInterceptor.ServiceId + ':response');
+                    // self.$log.debug(AuthInterceptor.ServiceId + ':response');
                     return response || $q.when(response);
                 },
                 reponseError: (response: any) => {
-                    self.$log.debug(AuthInterceptor.ServiceId + ':reponseError');
+                    // self.$log.debug(AuthInterceptor.ServiceId + ':reponseError');
             
                     if (response.status === 401) {
                         self.cache.clearAllSession();

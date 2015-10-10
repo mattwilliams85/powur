@@ -27,18 +27,21 @@ module powur {
     
     private _http: ng.IHttpService;
     
-    success: ng.IHttpPromiseCallback<any>;
-    fail: ng.IHttpPromiseCallback<any>;
+    success: (r: ng.IHttpPromiseCallbackArg<any>) => void;
+    fail: (r: ng.IHttpPromiseCallbackArg<any>) => void;
+
     href: string;
     method: string;
     name: string;
     submitting: boolean = false;
     fields: Field[];
+    $error: any;
 
     private clearErrors() {
       this.fields.forEach(f => {
         delete f.$error;
       });
+      delete this.$error;
     }
 
     private defaultHttpConfig(): any {
@@ -65,7 +68,7 @@ module powur {
         }
         if (this.fail) this.fail.call(response);
       } else {
-        if (this.success) this.success.call(response);
+        if (this.success) this.success(response);
       }
     }
 
@@ -73,14 +76,14 @@ module powur {
       if (!this._http) {
         this._http = angular.element(document).injector().get('$http');
       }
-      return this._http
+      return this._http;
     }
 
     constructor(data: any) {
       this.href = data.href;
       this.method = data.method;
       this.name = data.name;
-      this.fields = data.fields.map(Field.fromJson);
+      this.fields = (data.fields || []).map(Field.fromJson);
     }
 
     field(name: string): Field {
@@ -111,8 +114,6 @@ module powur {
 
   export class SirenModel {
     private _data: any;
-    http: ng.IHttpService;
-    static http: ng.IHttpService;
 
     get class(): string[] {
       return this._data.class;
@@ -121,7 +122,7 @@ module powur {
 
     constructor(data: any) {
       this._data = data;
-      this.actions = this.parseActions(data.actions);
+      this.actions = this.parseActions(data.actions || []);
     }
 
     hasClass(name: string) : boolean {
