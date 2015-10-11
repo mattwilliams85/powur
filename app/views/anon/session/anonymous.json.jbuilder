@@ -8,8 +8,9 @@ actions_list = [
     .field(:password, :password),
   action(:reset_password, :post, password_path)
     .field(:email, :email),
-  action(:validate_zip, :post, validate_zip_validator_path)
-    .field(:zip, :text) ]
+  action(:validate_zip, :post, zip_validator_path)
+    .field(:zip, :text)
+    .field(:code, :text) ]
 
 actions(*actions_list)
 links(link(:self, root_path))

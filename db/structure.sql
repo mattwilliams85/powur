@@ -294,7 +294,10 @@ CREATE TABLE customers (
     zip character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    notes character varying
+    notes character varying,
+    user_id integer,
+    code character varying,
+    status integer DEFAULT 0 NOT NULL
 );
 
 
@@ -2147,6 +2150,13 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 
 
 --
+-- Name: index_customers_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace:
+--
+
+CREATE INDEX index_customers_on_code ON customers USING btree (code);
+
+
+--
 -- Name: index_lead_totals_on_user_id_and_pay_period_id_and_status; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -2967,3 +2977,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150923175837');
 
 INSERT INTO schema_migrations (version) VALUES ('20150923221510');
 
+INSERT INTO schema_migrations (version) VALUES ('20151011213250');

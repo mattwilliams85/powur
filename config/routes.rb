@@ -50,11 +50,9 @@ Rails.application.routes.draw do
       post :validate
     end
 
-    resource :zip_validator, only: [] do
-      post :validate
-    end
+    resource :zip_validator, only: [ :create ]
 
-    resource :product_invite, only: [ :update ]
+    resources :product_invites, only: [ :update ]
   end
 
   # logged in user routes

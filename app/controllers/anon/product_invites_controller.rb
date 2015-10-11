@@ -1,17 +1,16 @@
 module Anon
   class ProductInvitesController < AnonController
-    before_action :fetch_invite, only: [ :update ]
+    before_action :fetch_customer, only: [ :update ]
 
     def update
-      # TODO: not sure yet,
-      # what we're going to do when users accept ProductInvite
+      render json: { coming: 'soon' }
     end
 
     private
 
     def fetch_invite
-      @invite = ProductInvite.find_by(id: params[:id])
-      not_found!(:product_invite) unless @invite
+      @customer = Customer.find_by(code: params[:id])
+      not_found!(:product_invite) unless @customer
     end
   end
 end
