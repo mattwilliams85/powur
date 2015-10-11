@@ -11,8 +11,8 @@
                     <div ng-message="message">{{ login.create.field('password').$error.message }}</div>
                 </div>
                 <form ng-submit="login.create.submit()" name="loginForm" novalidate>
-                    <input style="display:none">
                     <!-- PREVENT CHROME AUTOFILL -->
+                    <input style="display:none">
                     <input type="password" style="display:none">
                     <div layout="column" class="autoScroll">
                     <!-- !!! -->
@@ -20,16 +20,17 @@
                             <div class="border"></div>
                             <label>User Name</label>
                             <input name="email" ng-model="login.create.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
-                            <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched">
+                            <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched" class="input-message">
                                 <div ng-message="required">Email is a required field</div>
                                 <div ng-message="pattern">Must be a valid email address</div>
                             </div>
                         </md-input-container>
+                        <br>
                         <md-input-container>
                             <div class="border"></div>
                             <label>Password</label>
                             <input name="password" ng-model="login.create.field('password').value" type="{{ login.create.field('password').type }}" required>
-                            <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched">
+                            <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched" class="input-message">
                                 <div ng-message="required">Password is a required field</div>
                             </div>
                         </md-input-container>
@@ -40,7 +41,7 @@
                     <md-checkbox ng-model="isChecked" aria-label="Finished?" md-ink-ripple="#499adb">
                       STAY SIGNED IN
                     </md-checkbox>
-                    <a href="">FORGOT PASSWORD?</a>
+                    <div class="link" ng-click="login.showReset($event)">FORGOT PASSWORD?</div>
                 </div>
              </div>
          </div>
@@ -49,3 +50,6 @@
          </div>
      </div>
  </div>
+
+
+

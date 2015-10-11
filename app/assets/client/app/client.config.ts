@@ -29,8 +29,9 @@ module powur {
               templateUrl: 'app/login/login.private.html',
               controller: 'LoginPrivateController as login',
        })
+
       .state('join', {
-             url: '',
+             url: '/join',
              template: '<div ui-view></div>'
       }).state('join.grid', {
                url: '/grid',
