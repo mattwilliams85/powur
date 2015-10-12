@@ -36,7 +36,7 @@ module powur {
           url: '/join',
           template: '<div ui-view></div>'
         }).state('join.grid', {
-          url: '/grid',
+          url: '/grid/{inviteCode}',
           templateUrl: 'app/join/join-grid.html',
           controller: 'JoinController as join',
         }).state('join.grid2', {
@@ -44,7 +44,7 @@ module powur {
           templateUrl: 'app/join/join-grid2.html',
           controller: 'JoinController as join',
         }).state('join.solar', {
-          url: '/solar',
+          url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar.html',
           controller: 'JoinController as join',
         }).state('join.solar2', {

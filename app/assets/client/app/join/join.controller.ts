@@ -1,12 +1,11 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-  class JoinController {
+  class JoinController extends BaseController {
     static ControllerId: string = 'JoinController'; 
-    static $inject: Array<string> = ['$log', '$state', '$mdDialog', 'CacheService'];
+    static $inject: Array<string> = ['$mdDialog', 'CacheService','$stateParams'];
     
     //step 1
-    fullName: string;
     gridKey: string;
     zipKey: string;
 
@@ -15,31 +14,55 @@ module powur {
     lastName: string;
     address: string;
     city: string;
-    state: string;
+    stateStr: string;
     zip: string;
+    inviteCode: string;
     
     password: string;
     
-    constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService, private $mdDialog: ng.material.IDialogService, private cache: ICacheService) {
-      this.$log.debug(JoinController.ControllerId + ':ctor');
-      
-      this.fullName = this.cache.user != null ? this.cache.user.displayName : "Anonymous";
+    constructor(private $mdDialog: ng.material.IDialogService, 
+                private cache: ICacheService,
+                private $stateParams: ng.ui.IStateParamsService) {
+      super();
+      this.log.debug(JoinController.ControllerId + ':ctor');
+      this.fetchName();
     }
     
     continue(state: string): void {
-      this.$log.debug(JoinController.ControllerId + ':continue');
-      this.$log.debug(this.gridKey);
-      this.$state.go(state, {});
+      // debugger
+      // this.log.debug(JoinController.ControllerId + ':continue');
+      // this.log.debug(this.gridKey);
+      // this.state.go(state, {});
+    }
+
+    get validate(): Action {
+      return this.session.instance.action('validate_zipcode');
+    }
+
+    get solarInvite(): Action {
+      return this.session.instance.action('solar_invite');
+    }
+
+    get params(): any {
+      return this.$stateParams;
+    }
+
+    fetchName(): void {
+      var self = this;
+      this.solarInvite.href += this.params.inviteCode;
+      this.solarInvite.submit().then(function(data){
+        self.firstName = data['data']['properties']['first_name'] || "Anonymous";
+      });
     }
     
     enterGrid(): void {
-      this.$log.debug(JoinController.ControllerId + ':enterGrid');
-      this.$state.go('home', {});
+      this.log.debug(JoinController.ControllerId + ':enterGrid');
+      this.state.go('home', {});
     }
 
     enterSolar(): void {
-      this.$log.debug(JoinController.ControllerId + ':enterGrid');
-      this.$state.go('join.solar3', {});
+      this.log.debug(JoinController.ControllerId + ':enterGrid');
+      this.state.go('join.solar3', {});
     }
     
     openTerms(ev: ng.IAngularEvent): void {
