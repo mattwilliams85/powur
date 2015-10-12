@@ -25,7 +25,7 @@ module powur {
 
     loginSubmit(): void {
       this.session.login().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.state.go('login.private');
+        this.state.go('home.invite');
       });
     }
     
