@@ -7,13 +7,13 @@ module powur {
     
     $log: ng.ILogService;
     $state: ng.ui.IStateService;
-    cache: ICacheService;
     $session: ISessionService;
+    cache: ICacheService;
   }
   
   export class RootController implements IRootController {
     static ControllerId = 'RootController';
-    static $inject = ['$log', '$state', '$location', 'CacheService', 'SessionService'];
+    static $inject = ['$log', '$state', 'CacheService', 'SessionService'];
     
     static get(): IRootController {
         var root = angular.element('body').scope();
@@ -24,7 +24,6 @@ module powur {
     
     constructor(public $log: ng.ILogService,
           public $state: ng.ui.IStateService,
-          private $location: ng.ILocationService,
           public cache: ICacheService,
           public $session: ISessionService) {
     }
