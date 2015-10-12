@@ -12,7 +12,7 @@ module powur {
       //$urlMatcherFactoryProvider.caseInsensitive(true);
       //$urlMatcherFactoryProvider.strictMode(false);
       
-      $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+      $rootScope.$on('$stateChangeStart', (e: ng.IAngularEvent, toState, toParams, fromState, fromParams) => {
       //  $log.debug('$stateChangeStart');
           // (<any>$state).to = toState;
           // (<any>$state).from = fromState;
@@ -24,7 +24,7 @@ module powur {
       //  return;
       });
   
-      $rootScope.$on('$stateChangeSuccess', (e: any, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
+      $rootScope.$on('$stateChangeSuccess', (e: ng.IAngularEvent, toState: ng.ui.IState, toParams: ng.ui.IStateParamsService, fromState: ng.ui.IState, fromParams: ng.ui.IStateParamsService) => {
         //$log.debug('$stateChangeSuccess');
         
         //save current

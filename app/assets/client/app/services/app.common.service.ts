@@ -7,7 +7,7 @@ module powur.services {
     
     constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
       return <any>{
-        execute: function(action, data) {
+        execute: (action, data) => {
           var dfr = $q.defer();
           data = data || {};
 
@@ -17,9 +17,9 @@ module powur.services {
             data: data,
             params: action.params,
             type: action.type
-          }).success(function(res) {
+          }).success((res: any) => {
             dfr.resolve(res);
-          }).error(function(err) {
+          }).error((err: any) =>{
             console.log('エラー', err);
             dfr.reject(err);
           });

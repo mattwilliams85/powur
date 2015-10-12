@@ -4,21 +4,27 @@ module powur {
   'use strict';
 
   export class BaseController {
-    static $inject = ['$state', 'SessionService'];
-    private _session: ISessionModel;
+//     static $inject = ['$state', 'SessionService'];
+//     private _session: ISessionModel;
+// 
+//     get session(): ISessionModel {
+//       return this.$session.instance;
+//     }
+// 
+//     get loggedIn(): boolean {
+//       return this.session.loggedIn();
+//     }
+// 
+//     constructor(public $state: ng.ui.IStateService, public $session: ISessionService) {
+//       this.init();
+//     }
+// 
+//     init(): void {}
+    
+    root: IRootController;
 
-    get session(): ISessionModel {
-      return this.$session.instance;
+    constructor() {
+      this.root = RootController.get();
     }
-
-    get loggedIn(): boolean {
-      return this.session.loggedIn();
-    }
-
-    constructor(public $state: ng.ui.IStateService, public $session: ISessionService) {
-      this.init();
-    }
-
-    init(): void {}
   }
 }

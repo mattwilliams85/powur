@@ -5,14 +5,23 @@ module powur {
 
   class LoginPrivateController extends BaseController {
     static ControllerId = 'LoginPrivateController';
+    static $inject = [];
 
     get logout(): Action {
-      return this.session.action('logout');
+      return this.root.session.action('logout');
     }
-
+    
+    get $session(): ISessionService {
+      return this.root.$session;
+    }
+    
+    // constructor() {
+    //   super();
+    // }
+    
     logoutSubmit(): void {
-      this.$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$state.go('login.public');
+      this.root.$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.root.$state.go('login.public');
       })
     }
   }

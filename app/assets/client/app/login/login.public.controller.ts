@@ -5,20 +5,18 @@ module powur {
 
   class LoginPublicController extends BaseController {
     static ControllerId: string = 'LoginPublicController';
-    static $inject: Array<string> = BaseController.$inject.concat('$mdDialog');
+    static $inject: Array<string> = ['$mdDialog'];
 
-    constructor($state: ng.ui.IStateService,
-                $session: ISessionService,
-                public $mdDialog: ng.material.IDialogService) {
-      super($state, $session);
+    constructor(private $mdDialog: ng.material.IDialogService) {
+      super();
     }
 
     get create(): Action {
-      return this.session.action('create');
+      return this.root.session.action('create');
     }
 
     get reset(): Action {
-      return this.session.action('reset_password');
+      return this.root.session.action('reset_password');
     }
 
     cancel() {
@@ -26,14 +24,14 @@ module powur {
     }
 
     resetSuccess = (response: ng.IHttpPromiseCallbackArg<any>): void => {
-      this.$session.refresh().then((r: any) => {
-        this.$state.go('login.private');
+      this.root.$session.refresh().then((r: any) => {
+        this.root.$state.go('login.private');
       });
     }
 
     loginSubmit(): void {
-      this.$session.login().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.$state.go('login.private');
+      this.root.$session.login().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.root.$state.go('login.private');
       });
     }
     
