@@ -86,11 +86,18 @@ module powur {
         if (error.input) {
           var errorField = this.field(error.input);
           if (errorField) errorField.$error = error;
+        } else {
+          this.$error = error;
         }
         this._defer.reject(response);
       } else {
         this._defer.resolve(response);
       }
+    }
+
+    private failCallback = (response: ng.IHttpPromiseCallbackArg<any>) => {
+      console.log('fail!!!!');
+      this._defer.reject(response);
     }
 
     get http(): ng.IHttpService {
@@ -130,7 +137,7 @@ module powur {
       
       this._defer = this.q.defer<ng.IHttpPromiseCallbackArg<any>>();
       
-      this.http(requestConfig).then(this.successCallback);
+      this.http(requestConfig).then(this.successCallback, this.failCallback);
 
       return this._defer.promise;
     }
