@@ -29,7 +29,6 @@ module powur.services {
       };
     }
     
-    public user: any;
   }
   
   serviceModule.factory(CommonService.ServiceId, CommonService);

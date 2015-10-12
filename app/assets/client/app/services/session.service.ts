@@ -15,6 +15,7 @@ module powur {
     static $inject = ['sessionData', '$http', '$q'];
 
     private _instance: ISessionModel;
+    
     private executeAndRefresh(promise: ng.IPromise<ng.IHttpPromiseCallbackArg<any>>): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
       var deferred = this.$q.defer<ng.IHttpPromiseCallbackArg<any>>();
       var success = (r: ng.IHttpPromiseCallbackArg<any>) => {

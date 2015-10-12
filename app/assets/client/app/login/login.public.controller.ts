@@ -29,8 +29,8 @@ module powur {
       });
     }
     
-    showReset(e: MouseEvent): any {
-      this.$mdDialog.show({
+    showReset(e: MouseEvent): ng.IPromise<any> {
+      return this.$mdDialog.show({
         controller: 'LoginPublicController as login',
         templateUrl: 'app/login/forgot-password.html',
         parent: angular.element(document.body),

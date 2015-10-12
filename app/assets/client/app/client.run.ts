@@ -11,38 +11,32 @@ module powur {
                 $state: ng.ui.IStateService,
                 $session: SessionService) {
 
-      $rootScope.$on('$stateChangeStart', stateChangeStart);
-
-      function stateChangeStart(e: any,
-                                toState: ng.ui.IState,
-                                toParams: ng.ui.IStateParamsService,
-                                fromState: ng.ui.IState,
-                                fromParams: ng.ui.IStateParamsService) {
+      $rootScope.$on('$stateChangeStart', (e: any,
+                                           toState: ng.ui.IState,
+                                           toParams: ng.ui.IStateParamsService,
+                                           fromState: ng.ui.IState,
+                                           fromParams: ng.ui.IStateParamsService) => {
 
         if (/home\./.test(toState.name) && !$session.instance.loggedIn()) {
           e.preventDefault();
           $state.go('login.private');
         }
-      }
+      });
       
-      $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
+      $rootScope.$on('$stateChangeSuccess', (e: any,
+                                             toState: ng.ui.IState,
+                                             toParams: ng.ui.IStateParamsService,
+                                             fromState: ng.ui.IState,
+                                             fromParams: ng.ui.IStateParamsService) => {
+      });
 
-      function stateChangeSuccess(e: any,
-                                  toState: ng.ui.IState,
-                                  toParams: ng.ui.IStateParamsService,
-                                  fromState: ng.ui.IState,
-                                  fromParams: ng.ui.IStateParamsService) {
-      }
-
-      $rootScope.$on('$stateChangeError', stateChangeError);
-
-      function stateChangeError(e: any,
-                                toState: ng.ui.IState,
-                                toParams: ng.ui.IStateParamsService,
-                                fromState: ng.ui.IState,
-                                fromParams: ng.ui.IStateParamsService,
-                                error: any) {
-      }
+      $rootScope.$on('$stateChangeError', (e: any,
+                                           toState: ng.ui.IState,
+                                           toParams: ng.ui.IStateParamsService,
+                                           fromState: ng.ui.IState,
+                                           fromParams: ng.ui.IStateParamsService,
+                                           error: any) => {
+      });
     }
   }
   

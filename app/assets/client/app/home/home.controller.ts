@@ -3,14 +3,13 @@
 module powur {
   class HomeController extends AuthController {
     static ControllerId = 'HomeController';
-    static $inject = ['$state', '$mdSidenav', 'goals'];
+    static $inject = ['$mdSidenav', 'goals'];
 
     get userData(): any {
       return this.session.instance.properties;
     }
     
-    constructor(private $state: ng.ui.IStateService,
-                private $mdSidenav: ng.material.ISidenavService,
+    constructor(private $mdSidenav: ng.material.ISidenavService,
                 public goals: ISirenModel) {
       super();
 

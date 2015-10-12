@@ -1,6 +1,10 @@
 /// <reference path='../_references.ts' />
 
 module powur {
+  interface IHudScope extends ng.IScope {
+    userData: any;
+  }
+  
   class HudController {
     static ControllerId = 'HudController';
     static $inject = ['$scope', '$log', '$interval'];
@@ -21,11 +25,9 @@ module powur {
       return this.$scope.userData;
     }
     
-    constructor(private $scope: any,
+    constructor(private $scope: IHudScope,
                 private $log: ng.ILogService,
                 private $interval: ng.IIntervalService) {
-      
-      // $log.debug('hud', $scope.userData);
       
       // sample data
       
@@ -47,12 +49,7 @@ module powur {
         this.teamProposals = this.personalProposals > 100 ? 0 : this.personalProposals + 2;
       }, 100, 0, true);
     }
-    
-    //TODO: move to service
-    // public static getRootController(): IRootController {
-    //     var root = angular.element('body').scope();
-    //     return (<any>root).root;
-    // }           
+
   }
   
   controllerModule.controller(HudController.ControllerId, HudController);
