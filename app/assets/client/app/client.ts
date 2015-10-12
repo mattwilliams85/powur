@@ -1,6 +1,7 @@
 // Bower components
 // -----------------------------------------------------
 //= require jquery/dist/jquery
+//= require jquery-ui
 //= require velocity/test/q
 //= require lodash/lodash
 //= require moment/moment

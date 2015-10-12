@@ -15,6 +15,7 @@
   "dependencies": {
     "modernizr": "~2.8.3",
     "jquery": "~2.1.x",
+    "jquery-ui": "~1.11.3",
     "foundation": "5.5.1",
     "angular": "~1.4.x",
     "angular-route": "~1.4.x",
@@ -27,6 +28,8 @@
     "angular-material": "~0.11.x",
     "angular-chart.js": "~0.8.x",
     "angular-scroll": "~0.7.x",
+    "angular-ui-slider": "~0.1.1",
+    "angular-s3-file-upload": "~0.1.0",
     "pagepiling.js": "~1.5.x",
     "pdfobject": "~1.2.x",
     "eyecue-chartjs": "1.0.x",
@@ -37,10 +40,10 @@
     "q": "~1.4.x",
     "lodash": "~3.10.x",
     "moment": "~2.10.x",
-    "ngstorage": "~0.3.x",
-    "jquery-ui": "~1.11.4"
+    "ngstorage": "~0.3.x"
   },
   "resolutions": {
-    "angular": "~1.4.x"
+    "angular": ">=1.0.8",
+    "jquery-ui": "~1.11.3"
   }
 }
