@@ -12,11 +12,11 @@ module powur {
     }
 
     get create(): Action {
-      return this.root.session.action('create');
+      return this.session.action('create');
     }
 
     get reset(): Action {
-      return this.root.session.action('reset_password');
+      return this.session.action('reset_password');
     }
 
     cancel() {

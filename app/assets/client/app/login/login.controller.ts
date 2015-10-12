@@ -8,7 +8,7 @@ module powur {
     static $inject = [];
     
     get create(): Action {
-      return this.root.session.action('create');
+      return this.session.action('create');
     }
 
     get childState(): string {
