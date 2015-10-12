@@ -2,8 +2,8 @@
 
 module powur {
   class HudController {
-    static ControllerId: string = 'HudController';
-    static $inject: Array<string> = ['$log', '$interval', 'CacheService'];
+    static ControllerId = 'HudController';
+    static $inject = ['$scope', '$log', '$interval'];
     
     fullName: string;
     
@@ -16,12 +16,18 @@ module powur {
     
     personalProposals: number;
     teamProposals: number;
+
+    get userData(): any {
+      return this.$scope.userData;
+    }
     
-    constructor(private $log: ng.ILogService, private $interval: ng.IIntervalService, private cache: ICacheService) {
-      this.$log.debug(HudController.ControllerId + ':ctor');
+    constructor(private $scope: any,
+                private $log: ng.ILogService,
+                private $interval: ng.IIntervalService) {
+      
+      // $log.debug('hud', $scope.userData);
       
       // sample data
-      this.fullName = this.cache.user.displayName;
       
       this.rank = 2;
       this.rankTotal = 8; 

@@ -8,6 +8,9 @@ module powur {
     constructor($log: ng.ILogService) {
       return <any>{
         restrict: 'A',
+        scope: {
+          'userData' : '=pwHud'
+        },
         controller: 'HudController as hud',
         templateUrl: 'app/components/hud.html'
       }; // return

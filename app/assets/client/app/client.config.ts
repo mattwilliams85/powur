@@ -59,10 +59,15 @@ module powur {
           templateUrl: 'app/join/join-solar3.html',
           controller: 'JoinController as join',
         })
-        
+
         .state('home', {
           templateUrl: 'app/home/home.html',
           controller: 'HomeController as home',
+          resolve: {
+            goals: ['SessionService', function($session) {
+              return $session.instance.getEntity('user-goals');
+            }],
+          }
         }).state('home.invite', {
           url: '/invite',
           views: {
@@ -81,7 +86,6 @@ module powur {
             }
           },
         });
-
     }
   }
 

@@ -2150,7 +2150,7 @@ CREATE UNIQUE INDEX index_bonus_plans_on_start_year_and_start_month ON bonus_pla
 
 
 --
--- Name: index_customers_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_customers_on_code; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_customers_on_code ON customers USING btree (code);
@@ -2978,3 +2978,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150923175837');
 INSERT INTO schema_migrations (version) VALUES ('20150923221510');
 
 INSERT INTO schema_migrations (version) VALUES ('20151011213250');
+

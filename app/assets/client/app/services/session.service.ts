@@ -13,7 +13,23 @@ module powur {
   export class SessionService implements ISessionService {
     static ServiceId = 'SessionService';
     static $inject = ['sessionData', '$http', '$q'];
+
     private _instance: ISessionModel;
+    private executeAndRefresh(promise: ng.IPromise<ng.IHttpPromiseCallbackArg<any>>): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
+      var deferred = this.$q.defer<ng.IHttpPromiseCallbackArg<any>>();
+      var success = (r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.refresh().then(() => {
+          deferred.resolve(r);
+        });
+      }
+      var fail = (r: ng.IHttpPromiseCallbackArg<any>) => {
+        deferred.reject(r);
+      }
+
+      promise.then(success, fail);
+
+      return deferred.promise;
+    }
 
     get instance(): ISessionModel {
       if (!this._instance) {
@@ -22,7 +38,9 @@ module powur {
       return this._instance;
     }
 
-    constructor(private sessionData: any, private $http: ng.IHttpService, private $q: ng.IQService) {
+    constructor(private sessionData: any,
+                private $http: ng.IHttpService,
+                private $q: ng.IQService) {
     }
 
     refresh(): ng.IPromise<any> {
@@ -35,35 +53,11 @@ module powur {
     }
 
     login(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
-      var deferred = this.$q.defer<ng.IHttpPromiseCallbackArg<any>>();
-      var success = (r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.refresh().then(() => {
-          deferred.resolve(r); 
-        });
-      }
-      var fail = (r: ng.IHttpPromiseCallbackArg<any>) => {
-        deferred.reject(r);
-      }
-
-      this.instance.login().then(success, fail);
-
-      return deferred.promise;
+      return this.executeAndRefresh(this.instance.login());
     }
 
     logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
-        var deferred = this.$q.defer<ng.IHttpPromiseCallbackArg<any>>();
-        var success = (r: ng.IHttpPromiseCallbackArg<any>) => {
-          this.refresh().then(() => {
-              deferred.resolve(r);
-          });
-        }
-        var fail = (r: ng.IHttpPromiseCallbackArg<any>) => {
-            deferred.reject(r);
-        }
-
-        this.instance.logout().then(success, fail);
-
-        return deferred.promise;
+      return this.executeAndRefresh(this.instance.logout());
     }
   }
 
