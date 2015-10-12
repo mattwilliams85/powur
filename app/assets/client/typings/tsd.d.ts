@@ -6,3 +6,4 @@
 /// <reference path="moment/moment.d.ts" />
 /// <reference path="lodash/lodash.d.ts" />
 /// <reference path="angular-material/angular-material.d.ts" />
+/// <reference path="angularjs/angular-route.d.ts" />
