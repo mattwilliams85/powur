@@ -4,61 +4,45 @@ declare var appModule: ng.IModule;
 
 module powur {
   class RunConfigs {
-    static $inject = ['$rootScope', '$log', '$state'];
-
-    // private $state: ng.ui.IStateService;
-    // private stateChangeStart = (e: any,
-    //                             toState: ng.ui.IState,
-    //                             toParams: ng.ui.IStateParamsService,
-    //                             fromState: ng.ui.IState,
-    //                             fromParams: ng.ui.IStateParamsService) => {
-
-    //   if (/home\./.test(toState.name)) {
-    //       e.preventDefault();
-    //       this.$state.go('login.private');
-    //   }
-    // }
+    static $inject = ['$rootScope', '$log', '$state', 'SessionService'];
 
     constructor($rootScope: ng.IRootScopeService,
                 $log: ng.ILogService,
-                $state: ng.ui.IStateService) {
+                $state: ng.ui.IStateService,
+                $session: SessionService) {
 
-      // console.log('foo', this);
-      // this.$state = $state;
+      $rootScope.$on('$stateChangeStart', stateChangeStart);
 
-      // $rootScope.$on('$stateChangeStart', this.stateChangeStart);
+      function stateChangeStart(e: any,
+                                toState: ng.ui.IState,
+                                toParams: ng.ui.IStateParamsService,
+                                fromState: ng.ui.IState,
+                                fromParams: ng.ui.IStateParamsService) {
+
+        if (/home\./.test(toState.name) && !$session.instance.loggedIn()) {
+          e.preventDefault();
+          $state.go('login.private');
+        }
+      }
       
-      $rootScope.$on('$stateChangeStart',
-                     (e: any,
-                      toState: ng.ui.IState,
-                      toParams: ng.ui.IStateParamsService,
-                      fromState: ng.ui.IState,
-                      fromParams: ng.ui.IStateParamsService) => {
+      $rootScope.$on('$stateChangeSuccess', stateChangeSuccess);
 
-        // if (/home\./.test(toState.name)) {
-        //   console.log('s', $session)
-        //   e.preventDefault();
-        //   $state.go('login.private');
-        // }
-      });
+      function stateChangeSuccess(e: any,
+                                  toState: ng.ui.IState,
+                                  toParams: ng.ui.IStateParamsService,
+                                  fromState: ng.ui.IState,
+                                  fromParams: ng.ui.IStateParamsService) {
+      }
 
-      $rootScope.$on('$stateChangeSuccess',
-                     (e: any,
-                      toState: ng.ui.IState,
-                      toParams: ng.ui.IStateParamsService,
-                      fromState: ng.ui.IState,
-                      fromParams: ng.ui.IStateParamsService) => {
-      });
+      $rootScope.$on('$stateChangeError', stateChangeError);
 
-      $rootScope.$on('$stateChangeError',
-                     (e: any,
-                      toState: ng.ui.IState,
-                      toParams: ng.ui.IStateParamsService,
-                      fromState: ng.ui.IState,
-                      fromParams: ng.ui.IStateParamsService,
-                      error: any) => {
-        console.log('error!', error)
-      });
+      function stateChangeError(e: any,
+                                toState: ng.ui.IState,
+                                toParams: ng.ui.IStateParamsService,
+                                fromState: ng.ui.IState,
+                                fromParams: ng.ui.IStateParamsService,
+                                error: any) {
+      }
     }
   }
   

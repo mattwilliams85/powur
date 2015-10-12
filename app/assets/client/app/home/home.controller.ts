@@ -13,7 +13,6 @@ module powur {
                 private $mdSidenav: ng.material.ISidenavService,
                 public goals: ISirenModel) {
       super();
-      this.log.debug('gogo', goals);
 
       this.state.transitionTo('home.invite');
     }

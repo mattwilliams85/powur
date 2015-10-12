@@ -57,7 +57,8 @@ module powur {
           controller: 'HomeController as home',
           resolve: {
             goals: ['SessionService', function($session) {
-              return $session.instance.getEntity('user-goals');
+              var root = RootController.get();
+              return root.$session.instance.getEntity('user-goals');
             }]
           }
         }).state('home.invite', {
