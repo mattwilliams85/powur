@@ -37,7 +37,8 @@
     "q": "~1.4.x",
     "lodash": "~3.10.x",
     "moment": "~2.10.x",
-    "ngstorage": "~0.3.x"
+    "ngstorage": "~0.3.x",
+    "jquery-ui": "~1.11.4"
   },
   "resolutions": {
     "angular": "~1.4.x"
