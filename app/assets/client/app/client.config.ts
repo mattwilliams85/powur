@@ -62,6 +62,11 @@ module powur {
       .state('home', {
              templateUrl: 'app/home/home.html',
              controller: 'HomeController as home',
+             resolve: {
+               goals: ['SessionService', function($session) {
+                 return $session.instance.getEntity('user-goals');
+               }],
+             }
       }).state('home.invite', {
                url: '/invite',
         views: {

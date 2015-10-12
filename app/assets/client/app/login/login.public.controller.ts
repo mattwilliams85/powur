@@ -4,13 +4,14 @@ module powur {
   'use strict';
 
   class LoginPublicController extends BaseController {
-    static ControllerId: string = 'LoginPublicController';
-    static $inject: Array<string> = BaseController.$inject.concat('$mdDialog');
+    static ControllerId = 'LoginPublicController';
+    static $inject = BaseController.$inject.concat('$mdDialog');
 
-    constructor($state: ng.ui.IStateService,
+    constructor($log: ng.ILogService,
+                $state: ng.ui.IStateService,
                 $session: ISessionService,
                 public $mdDialog: ng.material.IDialogService) {
-      super($state, $session);
+      super($log, $state, $session);
     }
 
     get create(): Action {

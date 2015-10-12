@@ -1,12 +1,24 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-  class HomeController {
+  class HomeController extends AuthController {
     static ControllerId: string = 'HomeController';
-    static $inject: Array<string> = ['$log', '$state'];
+    // static $inject = ['$log', '$state', 'SessionService'];
+
+    static $inject = AuthController.$inject.concat('goals');
+
+    get userData(): any {
+      return this.$session.instance.properties;
+    }
     
-    constructor(private $log: ng.ILogService, private $state: ng.ui.IStateService) {
-      this.$log.debug(HomeController.ControllerId + ':ctor');
+    constructor($log: ng.ILogService,
+                $state: ng.ui.IStateService,
+                $session: ISessionService,
+                public goals: ISirenModel) {
+      super($log, $state, $session);
+
+      console.log('gogo', goals);
+
       this.$state.transitionTo('home.invite');
     }
   }

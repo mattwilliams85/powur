@@ -3,6 +3,25 @@
 module powur {
   'use strict';
 
+  class ServiceModel {
+    private _http: ng.IHttpService;
+    private _q: ng.IQService;
+
+    get http(): ng.IHttpService {
+      if (!this._http) {
+        this._http = angular.element(document).injector().get('$http');
+      }
+      return this._http;
+    }
+
+    get q(): ng.IQService {
+      if (!this._q) {
+        this._q = angular.element(document).injector().get('$q');
+      }
+      return this._q;
+    }
+  }
+
   class Field {
     name: string;
     type: string;
@@ -117,31 +136,111 @@ module powur {
     }
   }
 
-  export interface ISirenModel {
+  export class Entity {
+    static fromJson(value: any) {
+      return new Entity(value);
+    }
+
+    private _http: ng.IHttpService;
+    private _q: ng.IQService;
+
     class: string[];
-    actions: Action[];
-    hasClass(s: string): boolean;
-    action(name: string): Action;
+    href: string;
+    rel: string[];
+
+    get http(): ng.IHttpService {
+      if (!this._http) {
+        this._http = angular.element(document).injector().get('$http');
+      }
+      return this._http;
+    }
+
+    get q(): ng.IQService {
+      if (!this._q) {
+        this._q = angular.element(document).injector().get('$q');
+      }
+      return this._q;
+    }
+
+    constructor(data: any) {
+      this.class = data.class;
+      this.href = data.href;
+      this.rel = data.rel;
+    }
+
+    hasRel(r: string): boolean {
+      return this.rel.indexOf(r) !== -1;
+    }
+
+    get<T extends ISirenModel>(ctor: new(data: any) => T): ng.IPromise<T> {
+      var defer = this.q.defer<T>();
+
+      this.http.get(this.href).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        defer.resolve(new ctor(response.data));
+      }, (response: ng.IHttpPromiseCallbackArg<any>) => {
+        defer.reject(response);
+      });
+
+      return defer.promise;
+    }
   }
 
-  export class SirenModel {
+  export interface ISirenModel {
+    class: string[];
+    rel: string[];
+    properties: any;
+    actions: Action[];
+    entities: Array<Entity|ISirenModel>;
+    hasClass(s: string): boolean;
+    action(name: string): Action;
+    entity(name: string): Entity|ISirenModel;
+    getEntity(rel: string): ng.IPromise<ISirenModel>;
+  }
+
+  export class SirenModel extends ServiceModel {
     private _data: any;
 
     get class(): string[] {
       return this._data.class;
     }
+    rel: string[];
+    properties: any;
     actions: Action[] = [];
+    entities: Array<Entity|ISirenModel> = [];
 
-    constructor(data: any) {
-      this._data = data;
-      this.actions = this.parseActions(data.actions || []);
+    private parseEntity(entity: any) {
+      return entity.href ? new Entity(entity) : new SirenModel(entity);
     }
 
-    hasClass(name: string) : boolean {
+    private replaceEntityRef(rel: string, entity: ISirenModel): void {
+      for (var i = 0; i != this.entities.length; i++) {
+        var entityRef: any = this.entities[i];
+        if (entityRef.hasRel(rel)) {
+          this.entities[i] = entity;
+          break;
+        }
+      }
+    }
+
+    constructor(data: any, rel?: string[]) {
+      super();
+      this._data = data;
+      this.rel = rel;
+      this.properties = data.properties || {};
+      this.actions = (data.actions || []).map(Action.fromJson)
+      this.entities = (data.entities || []).map(this.parseEntity);
+    }
+
+    hasClass(name: string): boolean {
       return this.class.indexOf(name) !== -1;
     }
 
-    action(name: string) : Action {
+    hasRel(r: string): boolean {
+      return this.rel && this.rel.indexOf(r) !== -1;
+    }
+
+    action(name: string): Action {
+      if (!this.actions) return null;
       for (var i = 0; i != this.actions.length; i++) {
         var action: Action = this.actions[i];
         if (action.name === name) return action;
@@ -149,8 +248,32 @@ module powur {
       return null;
     }
 
-    private parseActions(json: any) {
-      return json.map(Action.fromJson);
+    entity(rel: string): Entity|ISirenModel {
+      if (!this.entities) return null;
+      for (var i = 0; i != this.entities.length; i++) {
+        var entity: any = this.entities[i];
+        if (entity.hasRel(rel)) return entity;
+      }
+      return null;
+    }
+
+    getEntity(rel: string): ng.IPromise<ISirenModel> {
+      var defer = this.q.defer<ISirenModel>();
+
+      var entity: any = this.entity(rel);
+      console.log('ent: ', this.entities);
+      if (entity instanceof Entity) {
+        entity.get(SirenModel).then((model: ISirenModel) => {
+          this.replaceEntityRef(rel, model);
+          defer.resolve(model);
+        }, (response: ng.IHttpPromiseCallbackArg<any>) => {
+          defer.reject(response);
+        })
+      } else {
+        defer.resolve(entity);
+      }
+
+      return defer.promise;
     }
   }
 }

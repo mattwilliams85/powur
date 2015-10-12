@@ -4,8 +4,7 @@ module powur {
   'use strict';
 
   export class BaseController {
-    static $inject = ['$state', 'SessionService'];
-    private _session: ISessionModel;
+    static $inject = ['$log', '$state', 'SessionService'];
 
     get session(): ISessionModel {
       return this.$session.instance;
@@ -15,7 +14,9 @@ module powur {
       return this.session.loggedIn();
     }
 
-    constructor(public $state: ng.ui.IStateService, public $session: ISessionService) {
+    constructor(protected $log: ng.ILogService,
+                protected $state: ng.ui.IStateService,
+                protected $session: ISessionService) {
       this.init();
     }
 
