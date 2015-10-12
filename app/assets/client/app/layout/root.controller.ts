@@ -13,7 +13,7 @@ module powur {
   
   export class RootController implements IRootController {
     static ControllerId = 'RootController';
-    static $inject = ['$log', '$mdSidenav', '$state', '$location', 'CacheService', 'SessionService'];
+    static $inject = ['$log', '$state', '$location', 'CacheService', 'SessionService'];
     
     static get(): IRootController {
         var root = angular.element('body').scope();
@@ -23,17 +23,12 @@ module powur {
     //private _session: ISessionModel;
     
     constructor(public $log: ng.ILogService,
-          private $mdSidenav: ng.material.ISidenavService,
           public $state: ng.ui.IStateService,
           private $location: ng.ILocationService,
           public cache: ICacheService,
           public $session: ISessionService) {
     }
     
-    openMenu() {
-      this.$mdSidenav('left').toggle();
-    }
-
     get session(): ISessionModel {
       return this.$session.instance;
     }

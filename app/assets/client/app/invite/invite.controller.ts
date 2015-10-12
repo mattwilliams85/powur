@@ -57,7 +57,7 @@ module powur {
   
   class InviteController extends AuthController {
     static ControllerId = 'InviteController';
-    static $inject = AuthController.$inject.concat('$mdDialog');
+    static $inject = ['$mdDialog'];
     
     available: number;
     pending: number;
@@ -70,12 +70,8 @@ module powur {
     
     count: any;
 
-    constructor($log: ng.ILogService,
-                $state: ng.ui.IStateService,
-                $session: ISessionService,
-                public $mdDialog: ng.material.IDialogService) {
-      super($log, $state, $session);
-
+    constructor(public $mdDialog: ng.material.IDialogService) {
+      super();
       // $log.debug('session', this.$session.instance.entity('user-goals'));
 
       //change color mode for advocate vs customer
@@ -137,10 +133,10 @@ module powur {
       })
       .then((data: any) => {
         // ok
-        this.$log.debug(data);
+        this.root.$log.debug(data);
       }, () => {
         // cancel
-        this.$log.debug('cancel');
+        this.root.$log.debug('cancel');
       });
     }
   }

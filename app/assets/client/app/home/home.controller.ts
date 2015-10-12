@@ -3,24 +3,23 @@
 module powur {
   class HomeController extends AuthController {
     static ControllerId: string = 'HomeController';
-    // static $inject = ['$log', '$state', 'SessionService'];
-
-    static $inject = AuthController.$inject.concat('goals');
+    static $inject = ['$state', '$mdSidenav', 'goals'];
 
     get userData(): any {
-      return this.$session.instance.properties;
+      return this.root.$session.instance.properties;
     }
     
-    constructor($log: ng.ILogService,
-                $state: ng.ui.IStateService,
-                $session: ISessionService,
-                public goals: ISirenModel) {
-      super($log, $state, $session);
-
-      console.log('gogo', goals);
+    constructor(private $state: ng.ui.IStateService, private $mdSidenav: ng.material.ISidenavService, public goals: ISirenModel) {
+      super();
+      this.root.$log.debug('gogo', goals);
 
       this.$state.transitionTo('home.invite');
     }
+    
+    openMenu() {
+      this.$mdSidenav('left').toggle();
+    }
+
   }
   
   controllerModule.controller(HomeController.ControllerId, HomeController);
