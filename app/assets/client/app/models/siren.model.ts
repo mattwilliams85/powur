@@ -261,7 +261,6 @@ module powur {
       var defer = this.q.defer<ISirenModel>();
 
       var entity: any = this.entity(rel);
-      console.log('ent: ', this.entities);
       if (entity instanceof Entity) {
         entity.get(SirenModel).then((model: ISirenModel) => {
           this.replaceEntityRef(rel, model);

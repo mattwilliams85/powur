@@ -77,3 +77,4 @@
 
 // must be last
 /// <reference path='client.config.ts' />
+/// <reference path='client.run.ts' />

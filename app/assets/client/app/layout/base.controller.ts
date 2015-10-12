@@ -6,12 +6,20 @@ module powur {
   export class BaseController {
     root: IRootController;
 
-    get session(): ISessionModel {
-      return this.root.session;
+    get session(): ISessionService {
+      return this.root.$session;
     }
 
     get loggedIn(): boolean {
-      return this.session.loggedIn();
+      return this.session.instance.loggedIn();
+    }
+
+    get log(): ng.ILogService {
+      return this.root.$log;
+    }
+
+    get state(): ng.ui.IStateService {
+      return this.root.$state;
     }
 
     constructor() {

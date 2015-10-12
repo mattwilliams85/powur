@@ -8,17 +8,9 @@ module powur {
     static $inject = [];
 
     get logout(): Action {
-      return this.session.action('logout');
+      return this.session.instance.action('logout');
     }
-    
-    get $session(): ISessionService {
-      return this.root.$session;
-    }
-    
-    // constructor() {
-    //   super();
-    // }
-    
+
     logoutSubmit(): void {
       this.root.$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
         this.root.$state.go('login.public');

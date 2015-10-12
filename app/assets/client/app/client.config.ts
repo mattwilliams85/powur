@@ -16,57 +16,49 @@ module powur {
       $locationProvider.html5Mode(true);
 
       $stateProvider
-        .state('login', {
-          url: '/',
-          templateUrl: 'app/login/layout.html',
-          controller: 'LoginController as loginLayout',
-        }).state('login.public', {
-          url: '',
-          templateUrl: 'app/login/login.public.html',
-          controller: 'LoginPublicController as login',
-        })
-        .state('login.private', {
-          url: '',
-          templateUrl: 'app/login/login.private.html',
-          controller: 'LoginPrivateController as login',
-        })
-
-        .state('join', {
-          url: '/join',
-          template: '<div ui-view></div>'
-        }).state('join.grid', {
-          url: '/grid',
-          templateUrl: 'app/join/join-grid.html',
-          controller: 'JoinController as join',
-        })
-        .state('join.grid2', {
-          url: '/grid',
-          templateUrl: 'app/join/join-grid2.html',
-          controller: 'JoinController as join',
-        })
-        .state('join.solar', {
-          url: '/solar',
-          templateUrl: 'app/join/join-solar.html',
-          controller: 'JoinController as join',
-        })
-        .state('join.solar2', {
-          url: '/solar',
-          templateUrl: 'app/join/join-solar2.html',
-          controller: 'JoinController as join',
-        })
-        .state('join.solar3', {
-          url: '/solar',
-          templateUrl: 'app/join/join-solar3.html',
-          controller: 'JoinController as join',
-        })
-
+      .state('login', {
+        url: '/',
+        templateUrl: 'app/login/layout.html',
+        controller: 'LoginController as loginLayout',
+      }).state('login.public', {
+               templateUrl: 'app/login/login.public.html',
+               controller: 'LoginPublicController as login',
+       })
+       .state('login.private', {
+              templateUrl: 'app/login/login.private.html',
+              controller: 'LoginPrivateController as login',
+       })
+       .state('join', {
+              url: '/join',
+              template: '<div ui-view></div>'
+       }).state('join.grid', {
+                url: '/grid',
+                templateUrl: 'app/join/join-grid.html',
+                controller: 'JoinController as join',
+       }).state('join.grid2', {
+                url: '/grid',
+                templateUrl: 'app/join/join-grid2.html',
+                controller: 'JoinController as join',
+      }).state('join.solar', {
+                url: '/solar',
+                templateUrl: 'app/join/join-solar.html',
+                controller: 'JoinController as join',
+      }).state('join.solar2', {
+                url: '/solar',
+                templateUrl: 'app/join/join-solar2.html',
+                controller: 'JoinController as join',
+      }).state('join.solar3', {
+                url: '/solar',
+                templateUrl: 'app/join/join-solar3.html',
+                controller: 'JoinController as join',
+      })
         .state('home', {
           templateUrl: 'app/home/home.html',
           controller: 'HomeController as home',
           resolve: {
             goals: ['SessionService', function($session) {
               return $session.instance.getEntity('user-goals');
-            }],
+            }]
           }
         }).state('home.invite', {
           url: '/invite',
