@@ -11,9 +11,6 @@ module powur {
                 $session: ISessionService,
                 public $mdDialog: ng.material.IDialogService) {
       super($state, $session);
-
-      this.create.success = this.loginSuccess;
-      this.reset.success = this.resetSuccess;
     }
 
     get create(): Action {
@@ -25,7 +22,7 @@ module powur {
     }
 
     cancel() {
-        this.$mdDialog.cancel();
+      this.$mdDialog.cancel();
     }
 
     resetSuccess = (response: ng.IHttpPromiseCallbackArg<any>): void => {
@@ -34,20 +31,20 @@ module powur {
       });
     }
 
-    loginSuccess(response: ng.IHttpPromiseCallbackArg<any>) {
-      this.$session.refresh().then((r: any) => {
+    loginSubmit(): void {
+      this.$session.login().then((r: ng.IHttpPromiseCallbackArg<any>) => {
         this.$state.go('login.private');
       });
     }
     
     showReset(e: MouseEvent): any {
-        this.$mdDialog.show({
-            controller: 'LoginPublicController as login',
-            templateUrl: 'app/login/forgot-password.html',
-            parent: angular.element(document.body),
-            targetEvent: e,
-            clickOutsideToClose: true
-        })
+      this.$mdDialog.show({
+        controller: 'LoginPublicController as login',
+        templateUrl: 'app/login/forgot-password.html',
+        parent: angular.element(document.body),
+        targetEvent: e,
+        clickOutsideToClose: true
+      })
     }
   }
 

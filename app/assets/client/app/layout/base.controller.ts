@@ -8,7 +8,7 @@ module powur {
     private _session: ISessionModel;
 
     get session(): ISessionModel {
-      return this._session;
+      return this.$session.instance;
     }
 
     get loggedIn(): boolean {
@@ -16,8 +16,6 @@ module powur {
     }
 
     constructor(public $state: ng.ui.IStateService, public $session: ISessionService) {
-      this._session = $session.get();
-
       this.init();
     }
 

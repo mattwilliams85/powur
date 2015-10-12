@@ -7,6 +7,7 @@ module powur {
     
     constructor($locationProvider: ng.ILocationProvider, $stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider, $httpProvider: ng.IHttpProvider) {
       $httpProvider.interceptors.push('AuthInterceptor');
+      
       $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
 

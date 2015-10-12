@@ -10,16 +10,10 @@ module powur {
       return this.session.action('logout');
     }
 
-    logoutSuccess = (response: ng.IHttpPromiseCallbackArg<any>): void => {
-      this.$session.refresh().then((r: any) => {
+    logoutSubmit(): void {
+      this.$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
         this.$state.go('login.public');
-      });
-    }
-
-    constructor($state: ng.ui.IStateService, $session: ISessionService) {
-      super($state, $session);
-
-      this.logout.success = this.logoutSuccess;
+      })
     }
   }
 

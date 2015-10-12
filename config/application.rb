@@ -56,5 +56,11 @@ module Powur
     config.action_view.logger = nil
 
     config.active_job.queue_adapter = :delayed_job
+
+    # https://github.com/Microsoft/TypeScript/issues/1232
+    Typescript::Rails::Compiler.default_options = ['--target', 'ES5']
+    # Typescript::Rails::Compiler
+    #   .default_options.push('--suppressImplicitAnyIndexErrors')
+    # binding.pry
   end
 end
