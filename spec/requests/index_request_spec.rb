@@ -10,7 +10,7 @@ describe 'index' do
       expect_200
 
       expect_classes('session', 'anonymous')
-      expect_actions('create', 'reset_password', 'validate_zip')
+      expect_actions('create', 'reset_password', 'solar_invite')
     end
   end
 

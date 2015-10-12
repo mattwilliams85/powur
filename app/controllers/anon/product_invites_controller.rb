@@ -1,6 +1,6 @@
 module Anon
   class ProductInvitesController < AnonController
-    before_action :fetch_customer, only: [ :update ]
+    before_action :fetch_customer, only: [ :show, :update ]
 
     def update
       @customer.update_attributes!(customer_input)

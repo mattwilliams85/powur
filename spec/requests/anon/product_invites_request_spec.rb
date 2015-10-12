@@ -1,6 +1,20 @@
 require 'spec_helper'
 
 describe '/product_invites/:customer_code' do
+  describe '#show' do
+    let(:code) { 'qwerty' }
+    let(:user) { create(:user) }
+    let!(:customer) { create(:customer, code: code, user: user) }
+
+    it 'returns customer data' do
+      get product_invite_path(customer.code), format: :json
+
+      expect_200
+      expect_props(first_name: customer.first_name)
+      expect_actions('validate_zip')
+    end
+  end
+
   describe '#update' do
     let(:code) { 'qwerty' }
     let(:user) { create(:user) }
