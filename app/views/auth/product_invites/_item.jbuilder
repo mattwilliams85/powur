@@ -1,11 +1,7 @@
-klass :product_invite
+klass :customer
 
 json.properties do
-  json.call(invite, :id, :product_id, :status)
-  json.customer do
-    json.full_name invite.customer.full_name
-    json.email invite.customer.email
-  end if invite.customer
+  json.call(customer, :id, :status, :full_name, :email)
 end
 
-self_link product_invite_path(invite)
+self_link product_invite_path(customer)
