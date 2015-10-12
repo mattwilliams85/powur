@@ -52,7 +52,7 @@ Rails.application.routes.draw do
 
     resource :zip_validator, only: [ :create ]
 
-    resources :product_invites, only: [ :update ]
+    resources :product_invites, only: [ :show, :update ]
   end
 
   # logged in user routes

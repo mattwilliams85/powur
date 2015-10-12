@@ -1,23 +1,27 @@
 module Anon
   class ZipValidatorsController < AnonController
+    before_action :fetch_customer, only: [ :create ]
+
     def create
-      response = Timeout::timeout(3) do
-        Net::HTTP.get('api.solarcity.com', '/solarbid/api/warehouses/zip/' + params[:zip])
+      @is_valid = Lead.valid_zip?(params[:zip])
+
+      unless @is_valid
+        @customer.update_attribute(
+          :status,
+          Customer.statuses[:ineligible_location])
       end
 
-      @is_valid = !!JSON.parse(response)['IsInTerritory']
-      @customer = Customer.find_by(code: params[:code])
-
-      return if @is_valid || !@customer
-
-      @customer.update_attribute(
-        :status,
-        Customer.statuses[:ineligible_location])
-
-    rescue Timeout::Error => e
+    rescue RestClient::RequestTimeout => e
       Airbrake.notify(e)
       # default to true
       @is_valid = true
+    end
+
+    private
+
+    def fetch_customer
+      @customer = Customer.find_by(code: params[:code])
+      not_found!(:product_invite) unless @customer
     end
   end
 end

@@ -8,7 +8,7 @@ end
 
 actions_list = []
 
-if @customer
+if @is_valid
   actions_list.push(
     action(:solar_invite, :put, product_invite_path(@customer.code))
       .field(:first_name, :text, value: @customer.first_name)
