@@ -12,7 +12,7 @@ module powur {
     }
 
     get childState(): string {
-      return this.root.loggedIn ? 'login.private' : 'login.public';
+      return this.loggedIn ? 'login.private' : 'login.public';
     }
 
     constructor() {
