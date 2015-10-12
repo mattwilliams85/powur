@@ -17,9 +17,9 @@ if @customer
       .field(:phone, :text)
       .field(:address, :text)
       .field(:city, :text)
-      .field(:state, :text, options: %w(CA OR))
+      .field(:state, :text)
       .field(:zip, :text)
-      .field(:avg_utility_bill, :text))
+      .field(:average_bill, :text))
 end
 
 actions(*actions_list)
