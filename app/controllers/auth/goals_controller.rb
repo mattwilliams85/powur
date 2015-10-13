@@ -4,6 +4,7 @@ module Auth
     before_action :fetch_rank
 
     def show
+      #render json: {}, status: 401
     end
 
     private

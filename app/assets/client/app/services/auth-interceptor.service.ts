@@ -5,11 +5,7 @@ module powur {
     static ServiceId = 'AuthInterceptor'; 
     static $inject = ['$log', '$q'];
     
-    constructor(private $log: ng.ILogService, 
-                private $q: ng.IQService) {
-      
-      //$log.debug('setting up interceptor');
-      
+    constructor(private $log: ng.ILogService, private $q: ng.IQService) {      
       var logout = () => {
         RootController.get().$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
           RootController.get().$state.go('login.public');
@@ -33,11 +29,10 @@ module powur {
       };
       
       return <any>{
-        request: (config: any) => {
-          //this.$log.debug(AuthInterceptor.ServiceId + ':request', config);
-
-          return config || $q.when(config);
-        },
+        // request: (config: any) => {
+        //   this.$log.debug(AuthInterceptor.ServiceId + ':request', config);
+        //   return config || $q.when(config);
+        // },
         // 'response': (response: any) => {
         //   this.$log.debug(AuthInterceptor.ServiceId + ':response');
         //   return response || $q.when(response);
@@ -51,17 +46,8 @@ module powur {
             case 403: notAuthorized(); break;
             case 419: sessionTimeout(); break;
             case 500: internalServer(); break;
-            default: 
-              $log.debug(response);
+            default: $log.debug(response);
           }
-          // if (response.status === 401) {
-          //   //this.cache.clearAllSession();
-          //   //this.$injector.invoke(($session: ISessionService) => {
-          //     //$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-          //       //this.$location.path('/');
-          //     //})
-          //   //})
-          // }
           
           return $q.reject(response);
         }
