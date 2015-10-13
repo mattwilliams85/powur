@@ -1473,7 +1473,8 @@ CREATE TABLE users (
     moved boolean,
     image_original_path character varying,
     tos character varying(5),
-    available_invites integer DEFAULT 0
+    available_invites integer DEFAULT 0,
+    login_streak integer DEFAULT 0 NOT NULL
 );
 
 
@@ -2978,4 +2979,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150923175837');
 INSERT INTO schema_migrations (version) VALUES ('20150923221510');
 
 INSERT INTO schema_migrations (version) VALUES ('20151011213250');
+
+INSERT INTO schema_migrations (version) VALUES ('20151013222020');
 

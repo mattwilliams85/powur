@@ -214,6 +214,45 @@ class User < ActiveRecord::Base
     role?(:breakage_account)
   end
 
+  def metrics
+    @metrics ||= Metrics.new(self)
+  end
+
+  class Metrics
+    attr_reader :user
+
+    def initialize(user)
+      @user = user
+    end
+
+    def team_count
+      @team_count ||= User.with_ancestor(user.id).count
+    end
+
+    def earnings
+      @earnings ||= user.bonus_payments.where(status: [ 2, 4 ]).sum(:amount)
+    end
+
+    def co2_saved
+      @co2_saved ||= begin
+        lb = 0
+        homes = User.installations(user.id).pluck(:installed_at)
+        homes.each do |home|
+          lb += (Time.now - home) / 1.days * 0.133
+        end
+        lb * 1000
+      end
+    end
+
+    def team_leads
+      @team_leads ||= Lead.team_count(user_id: user.id, query: Lead.submitted)
+    end
+
+    def login_streak
+      user.login_streak
+    end
+  end
+
   private
 
   def set_url_slug

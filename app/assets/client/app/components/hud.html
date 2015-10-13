@@ -24,7 +24,7 @@
             <div class="stat-title">grid size</div>
             <div class="stat">
                 <i class="sprite sprite-grid"></i>
-                <span class="info">{{hud.gridSize}}</span>
+                <span class="info">{{ hud.userData.metrics.team_count }}</span>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
         <div class="stat-title">dollars earned</div>
         <div class="stat" layout="row">
             <i class="sprite sprite-earned" flex="10"></i>
-            <span class="info" flex>{{hud.dollarsEarned|wholeNumber}}<span class="superscript">{{hud.dollarsEarned|decimalPart}}</span></span>
+            <span class="info" flex>{{ hud.userData.metrics.earnings | wholeNumber }}<span class="superscript">{{ hud.userData.metrics.earnings | decimalPart }}</span></span>
         </div>
     </div>
     
@@ -44,14 +44,14 @@
             </div>
             <div class="stat">
                 <i class="sprite sprite-co2"></i>
-                <span class="info">{{hud.co2|wholeNumber}}<span class="superscript">{{hud.co2|decimalPart}}</span></span>
+                <span class="info">{{ hud.userData.metrics.co2_saved | wholeNumber }}<span class="superscript">{{ hud.userData.metrics.co2_saved | decimalPart }}</span> <small class="md-caption">lb/ft<span class="superscript">2</span><small></span>
             </div>
         </div>
         <div flex="50" class="login-streaks">
             <div class="stat-title">login streaks</div>
             <div class="stat">
                 <i class="sprite sprite-login"></i>
-                <span class="info">{{hud.loginStreaks}}</span>
+                <span class="info">{{ hud.userData.metrics.login_streak }}</span>
             </div>
         </div>
     </div>

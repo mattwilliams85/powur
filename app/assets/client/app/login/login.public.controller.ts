@@ -6,13 +6,17 @@ module powur {
   class LoginPublicController extends BaseController {
     static ControllerId: string = 'LoginPublicController';
     static $inject = ['$mdDialog'];
+    private _create: Action;
 
     constructor(private $mdDialog: ng.material.IDialogService) {
       super();
     }
 
     get create(): Action {
-      return this.session.instance.action('create');
+      if (!this._create) {
+        this._create = this.session.instance.action('create');
+      }
+      return this._create;
     }
 
     get reset(): Action {
