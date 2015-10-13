@@ -3,7 +3,7 @@
 module powur {
   class JoinController extends BaseController {
     static ControllerId: string = 'JoinController';
-    static $inject: Array<string> = ['$mdDialog', 'CacheService','$stateParams'];
+    static $inject: Array<string> = ['$mdDialog', 'CacheService', '$stateParams'];
 
     firstName: string;
     lastName: string;
@@ -12,6 +12,7 @@ module powur {
     stateStr: string;
     zip: string;
     inviteCode: string;
+    gridInvite: SirenModel;
 
     password: string;
 
@@ -21,9 +22,12 @@ module powur {
       super();
       this.log.debug(JoinController.ControllerId + ':ctor');
       this.validate.field('code').value = this.params.inviteCode;
-      if (this.state.current.name == 'join.solar') this.setParams();
+      if (this.state.current.name === 'join.solar') this.setParams();
+      if (this.$stateParams['inviteData']) {
+        this.gridInvite = new SirenModel(this.$stateParams['inviteData']);
+      }
     }
-    
+
     validateZip(): void {
       var self = this;
       this.validate.submit().then(function(data){
@@ -48,6 +52,10 @@ module powur {
       return this.session.instance.action('validate_grid_invite');
     }
 
+    get acceptInvite(): Action {
+      return this.gridInvite.action('accept_invite');
+    }
+
     get params(): any {
       return this.$stateParams;
     }
@@ -63,14 +71,16 @@ module powur {
 
     validateGridInviteSubmit(): void {
       var self = this;
-      this.validateGridInvite.submit().then(() => {
-        self.state.go('join.grid2', {});
+      this.validateGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        self.state.go('join.grid2', { inviteData: response.data });
       });
     }
 
-    enterGrid(): void {
-      this.log.debug(JoinController.ControllerId + ':enterGrid');
-      this.state.go('home', {});
+    acceptInviteSubmit(): void {
+      var self = this;
+      this.acceptInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+alert('not implemented yet');
+      });
     }
 
     enterSolar(): void {

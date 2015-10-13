@@ -13,8 +13,8 @@
               <input name="code" type="text" ng-model="join.validateGridInvite.field('code').value">
               <button ng-disabled="join.validateGridInvite.submitting">Continue</button>
             </div>
-            <div ng-messages="validateGridInviteForm.code.$error" ng-show="validateGridInviteForm.code.$touched" class="input-message">
-              <div>Invalid invite code</div>
+            <div ng-show="join.validateGridInvite.field('code').$error" class="messages">
+              Invalid invite code
             </div>
           </form>
         </div>

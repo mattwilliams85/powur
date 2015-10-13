@@ -26,6 +26,6 @@ if @invite.status == 'valid'
     .field(:zip, :text)
     .field(:password, :password)
     .field(:password_confirmation, :password)
-    .field(:tos, :checkbox)
+    .field(:tos, :checkbox, value: true)
     .field(:tos_version, :hidden, value: ApplicationAgreement.current.version)
 end

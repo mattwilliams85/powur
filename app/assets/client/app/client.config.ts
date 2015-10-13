@@ -31,7 +31,7 @@ module powur {
           templateUrl: 'app/login/login.private.html',
           controller: 'LoginPrivateController as login',
         })
-        
+
         .state('join', {
           url: '/join',
           template: '<div ui-view></div>'
@@ -43,6 +43,9 @@ module powur {
           url: '/grid',
           templateUrl: 'app/join/join-grid2.html',
           controller: 'JoinController as join',
+          params: {
+            inviteData: null
+          }
         }).state('join.solar', {
           url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar.html',
@@ -56,7 +59,7 @@ module powur {
           templateUrl: 'app/join/join-solar3.html',
           controller: 'JoinController as join',
         })
-        
+
         .state('home', {
           templateUrl: 'app/home/home.html',
           controller: 'HomeController as home',
