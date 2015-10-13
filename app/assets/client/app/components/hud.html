@@ -59,18 +59,12 @@
     <div class="current-goals heading">Current Goals</div>
 
     <div class="stat4">
-        <div class="stat" layout="row">
+        <div class="stat" layout="row" ng-repeat="req in hud.goalRequirements">
             <i class="sprite sprite-proposal" flex="10"></i>
             <div class="progress" flex>
-                <div class="stat-title">Personal Proposals</div>
-                <md-progress-linear md-mode="determinate" value="{{hud.personalProposals}}" flex></md-progress-linear>
-            </div>
-        </div>
-        <div class="stat" layout="row">
-            <i class="sprite sprite-proposal-group" flex="10"></i>
-            <div class="progress" flex>
-                <div class="stat-title">Team Proposals</div>
-                <md-progress-linear md-mode="determinate" value="{{hud.teamProposals}}" class="md-warn" flex></md-progress-linear>
+                <div class="stat-title">{{ req.properties.event_type }} ({{ req.properties.time_span | lowercase }})</div>
+                <md-progress-linear md-mode="determinate" value="{{ (req.properties.progress / req.properties.quantity) * 100 }}" ng-class="req.properties.team ? 'md-warn' : ''" flex></md-progress-linear>
+                <div class="stat-title">{{ req.properties.progress }}/{{ req.properties.quantity }}</div>
             </div>
         </div>
     </div>
