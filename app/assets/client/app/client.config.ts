@@ -54,6 +54,9 @@ module powur {
           url: '/solar',
           templateUrl: 'app/join/join-solar2.html',
           controller: 'JoinController as join',
+          params: { 
+            leadData: null 
+          }
         }).state('join.solar3', {
           url: '/solar',
           templateUrl: 'app/join/join-solar3.html',

@@ -18,7 +18,7 @@ if @is_valid
       .field(:address, :text)
       .field(:city, :text)
       .field(:state, :text)
-      .field(:zip, :text)
+      .field(:zip, :text, value: params['zip'])
       .field(:average_bill, :text))
 end
 

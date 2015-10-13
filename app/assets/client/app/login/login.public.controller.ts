@@ -40,6 +40,12 @@ module powur {
         this.state.go('home.invite');
       });
     }
+
+    resetSubmit(): void {
+      this.reset.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.cancel();
+      });
+    }
     
     showReset(e: MouseEvent): ng.IPromise<any> {
       return this.$mdDialog.show({
