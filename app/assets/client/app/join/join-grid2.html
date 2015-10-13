@@ -10,30 +10,39 @@
           </video>
         </div>
 
-        <form ng-submit="join.acceptInviteSubmit()" name="acceptInviteForm" novalidate>
+        <form ng-submit="join.acceptGridInviteSubmit()" name="acceptGridInviteForm" novalidate>
           <md-content layout="column" flex="1">
             <div layout="row" layout-sm="column">
               <md-input-container flex-gt-sm="25" flex>
                 <div class="border"></div>
-                <label id="first-name">First Name</label>
-                <input ng-model="join.firstName" type="text">
+                <label>First Name</label>
+                <input ng-model="join.acceptGridInvite.field('first_name').value" type="text">
+                <div ng-messages="join.acceptGridInvite.field('first_name').$error" ng-if="join.acceptGridInvite.field('first_name').$error" class="messages">
+                  <div>First Name is required</div>
+                </div>
               </md-input-container>
               <md-input-container flex-gt-sm="25" flex>
                 <div class="border"></div>
                 <label>Last Name</label>
-                <input ng-model="join.lastName" type="text">
+                <input ng-model="join.acceptGridInvite.field('last_name').value" type="text">
+                <div ng-messages="join.acceptGridInvite.field('last_name').$error" ng-if="join.acceptGridInvite.field('last_name').$error" class="messages">
+                  <div>Last Name is required</div>
+                </div>
               </md-input-container>
               <md-input-container flex-gt-sm="50">
                 <div class="border"></div>
                 <label>Password</label>
-                <input ng-model="join.password" type="password">
+                <input ng-model="join.acceptGridInvite.field('password').value" type="password">
+                <div ng-show="join.acceptGridInvite.field('password').$error" class="input-message">
+                  <div>Password is a required</div>
+                </div>
               </md-input-container>
             </div>
             <div layout="row" layout-sm="column">
               <md-input-container flex-gt-sm="50">
                 <div class="border"></div>
                 <label>Address</label>
-                <input ng-model="join.address" type="text">
+                <input ng-model="join.acceptGridInvite.field('address').value" type="text">
               </md-input-container>
               <md-input-container flex-gt-sm="20">
                 <div class="border"></div>
@@ -43,16 +52,16 @@
               <md-input-container flex-gt-sm="15">
                 <div class="border"></div>
                 <label>State</label>
-                <input ng-model="join.state" type="text">
+                <input ng-model="join.acceptGridInvite.field('state').value" type="text">
               </md-input-container>
               <md-input-container flex-gt-sm="15">
                 <div class="border"></div>
                 <label>Zip</label>
-                <input ng-model="join.zip" type="text">
+                <input ng-model="join.acceptGridInvite.field('zip').value" type="text">
               </md-input-container>
             </div>
             <div layout="column" layout-align="center center">
-              <md-button ng-disabled="join.acceptInvite.submitting" class="md-raised">enter <b>the powur grid</b></md-button>
+              <md-button ng-disabled="join.acceptGridInvite.submitting" class="md-raised">enter <b>the powur grid</b></md-button>
             </div>
             <div class="terms" layout="column" layout-align="center center">
               <div>By clicking on this button, you also accept the <a href="javascript:void(0);" ng-click="join.openTerms($event)">terms & conditions</a></div>

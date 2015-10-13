@@ -52,6 +52,7 @@ module ParamValidation
   end
 
   def active_record_error(e)
+    # TODO: change this to return all activerecord errors
     fail ::Errors::InputError.new(e.record.errors.first.first), e.message
   rescue ::Errors::InputError => e
     render_json_error(e)

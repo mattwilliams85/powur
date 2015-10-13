@@ -52,7 +52,7 @@ module powur {
       return this.session.instance.action('validate_grid_invite');
     }
 
-    get acceptInvite(): Action {
+    get acceptGridInvite(): Action {
       return this.gridInvite.action('accept_invite');
     }
 
@@ -72,14 +72,21 @@ module powur {
     validateGridInviteSubmit(): void {
       var self = this;
       this.validateGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        self.state.go('join.grid2', { inviteData: response.data });
+        self.gridInvite = new SirenModel(response.data);
+        if (self.gridInvite.action('accept_invite')) {
+          self.state.go('join.grid2', { inviteData: response.data });
+        } else {
+          self.state.go('login');
+        }
       });
     }
 
-    acceptInviteSubmit(): void {
+    acceptGridInviteSubmit(): void {
       var self = this;
-      this.acceptInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-alert('not implemented yet');
+      this.acceptGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        self.session.refresh().then(() => {
+          self.state.go('home.invite');
+        });
       });
     }
 

@@ -66,7 +66,7 @@ class Invite < ActiveRecord::Base
       return user
     end
 
-    Invite.where(id: code).update_all(user_id: user.id) if user.save
+    Invite.where(id: code).update_all(user_id: user.id) if user.save!
 
     user
   end

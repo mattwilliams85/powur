@@ -53,7 +53,6 @@ class User < ActiveRecord::Base
             length:       PASSWORD_LENGTH,
             confirmation: true,
             on:           :create
-  validates :password_confirmation, presence: true, on: :create
   validates_presence_of :url_slug, :reset_token, allow_nil: true
   validates :available_invites, numericality: { greater_than_or_equal_to: 0 }
 
