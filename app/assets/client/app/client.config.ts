@@ -20,7 +20,7 @@ module powur {
 
       $stateProvider
         .state('login', {
-          url: '/',
+          url: '/login',
           templateUrl: 'app/login/layout.html',
           controller: 'LoginController as loginLayout',
         }).state('login.public', {

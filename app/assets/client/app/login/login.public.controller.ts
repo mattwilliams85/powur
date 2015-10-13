@@ -19,6 +19,18 @@ module powur {
       return this.session.instance.action('reset_password');
     }
 
+    get email(): Field {
+      return this.create.field('email');
+    }
+
+    get password(): Field {
+      return this.create.field('password');
+    }
+
+    get rememberMe(): Field {
+      return this.create.field('remember_me');
+    }
+
     cancel() {
       this.$mdDialog.cancel();
     }

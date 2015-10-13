@@ -3,7 +3,7 @@
 module powur {
   'use strict';
 
-  class LoginController extends BaseController{
+  class LoginController extends BaseController {
     static ControllerId = 'LoginController';
     static $inject = [];
     

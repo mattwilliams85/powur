@@ -4,11 +4,11 @@
             <div class="login-box">
                 <div class="sub-header">Welcome back, Powur Advocate.</div>
                 <div class="header">User <span class="semi-bold">Login Portal</span></div>
-                <div ng-messages="login.create.field('email').$error" class="messages">
-                    <div ng-message="message">{{ login.create.field('email').$error.message }}</div>
+                <div ng-messages="login.email.$error" class="messages">
+                    <div ng-message="message">{{ login.email.$error.message }}</div>
                 </div>
-                <div ng-messages="login.create.field('password').$error" class="messages">
-                    <div ng-message="message">{{ login.create.field('password').$error.message }}</div>
+                <div ng-messages="login.password.$error" class="messages">
+                    <div ng-message="message">{{ login.password.$error.message }}</div>
                 </div>
                 <form ng-submit="login.loginSubmit()" name="loginForm" novalidate>
                     <!-- PREVENT CHROME AUTOFILL -->
@@ -19,7 +19,7 @@
                         <md-input-container>
                             <div class="border"></div>
                             <label>User Name</label>
-                            <input name="email" ng-model="login.create.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
+                            <input name="email" ng-model="login.email.value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
                             <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$touched" class="input-message">
                                 <div ng-message="required">Email is a required field</div>
                                 <div ng-message="pattern">Must be a valid email address</div>
@@ -29,7 +29,7 @@
                         <md-input-container>
                             <div class="border"></div>
                             <label>Password</label>
-                            <input name="password" ng-model="login.create.field('password').value" type="{{ login.create.field('password').type }}" required>
+                            <input name="password" ng-model="login.password.value" type="{{ login.password.type }}" required>
                             <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$touched" class="input-message">
                                 <div ng-message="required">Password is a required field</div>
                             </div>
@@ -38,7 +38,7 @@
                     </div>
                 </form>
                 <div flex layout="row" layout-align="space-between center" class="options-box">
-                    <md-checkbox ng-model="isChecked" aria-label="Finished?" md-ink-ripple="#499adb">
+                    <md-checkbox ng-model="login.rememberMe.value" aria-label="Finished?" md-ink-ripple="#499adb">
                       STAY SIGNED IN
                     </md-checkbox>
                     <div class="link" ng-click="login.showReset($event)">FORGOT PASSWORD?</div>
@@ -48,6 +48,7 @@
          <div class="footer show-for-medium-up" layout="row" layout-align="center center" flex="10">
              <img class="logo" src="/assets/img/join/powur-logo.png" alt="Powur"/>
          </div>
+         
      </div>
  </div>
 
