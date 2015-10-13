@@ -22,7 +22,7 @@ module powur {
     }
   }
 
-  class Field {
+  export class Field {
     name: string;
     type: string;
     value: string;
@@ -281,5 +281,23 @@ module powur {
 
       return defer.promise;
     }
+
+    // getEntity(rel: string): ng.IPromise<ISirenModel> {
+    //   var defer = this.q.defer<ISirenModel>();
+
+    //   var entity: any = this.entity(rel);
+    //   if (entity instanceof Entity) {
+    //     entity.get(SirenModel).then((model: ISirenModel) => {
+    //       this.replaceEntityRef(rel, model);
+    //       defer.resolve(model);
+    //     }, (response: ng.IHttpPromiseCallbackArg<any>) => {
+    //       defer.reject(response);
+    //     })
+    //   } else {
+    //     defer.resolve(entity);
+    //   }
+
+    //   return defer.promise;
+    // }
   }
 }

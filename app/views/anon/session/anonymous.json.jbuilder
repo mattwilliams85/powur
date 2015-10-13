@@ -5,7 +5,8 @@ klass :session, :anonymous
 actions_list = [
   action(:create, :post, login_path)
     .field(:email, :email)
-    .field(:password, :password),
+    .field(:password, :password)
+    .field(:remember_me, :boolean),
   action(:reset_password, :post, password_path)
     .field(:email, :email),
   action(:solar_invite, :get, '/product_invites/'),
