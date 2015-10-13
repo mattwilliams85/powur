@@ -9,7 +9,7 @@ module powur {
       return <any>{
         restrict: 'A',
         scope: {
-          'userData' : '=pwHud'
+          home: '=pwHud'
         },
         controller: 'HudController as hud',
         templateUrl: 'app/components/hud.html'

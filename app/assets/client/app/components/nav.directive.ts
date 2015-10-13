@@ -8,6 +8,9 @@ module powur {
     constructor($log: ng.ILogService) {
       return <any>{
         restrict: 'A',
+        scope: {
+          home: '=pwNav'
+        },
         controller: 'NavController as nav',
         templateUrl: 'app/components/nav.html'
       }; // return

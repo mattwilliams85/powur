@@ -3,27 +3,26 @@
 module powur {
   class NavController {
     static ControllerId: string = 'NavController';
-    static $inject: Array<string> = ['CacheService'];
+    static $inject: Array<string> = ['$scope'];
 
-    root: IRootController;
+    get home(): any {
+      return this.$scope.home;
+    }
+
+    get state(): ng.ui.IStateService {
+      return this.home.state;
+    }
     
-    constructor(private cache: ICacheService) {
-      this.root = RootController.get();
-      this.root.$log.debug(NavController.ControllerId + ':ctor');
+    constructor(private $scope: any) {
     }
     
     isCurrent(state: string): boolean {
-      return this.root.$state.current.name == state;
+      return this.state.current.name == state;
     }
-    
-    go(state: string) {
-      this.root.$state.go(state);
-    }
-    
+
     logout() {
-      this.cache.clearAllSession();
-      this.root.$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-        this.root.$state.go('login.public');
+      this.home.session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.state.go('login.public');
       })
     }
   }

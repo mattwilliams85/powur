@@ -2,7 +2,7 @@
 
 module powur {
   interface IHudScope extends ng.IScope {
-    userData: any;
+    home: any;
   }
   
   class HudController {
@@ -22,7 +22,7 @@ module powur {
     teamProposals: number;
 
     get userData(): any {
-      return this.$scope.userData;
+      return this.$scope.home.userData;
     }
     
     constructor(private $scope: IHudScope,
