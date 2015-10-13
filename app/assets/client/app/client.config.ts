@@ -83,6 +83,12 @@ module powur {
               controller: 'InviteController as invite',
             }
           },
+          resolve: {
+            invitesEntity: function() {
+              var root = RootController.get();
+              return root.$session.instance.getEntity('user-invites');
+            }
+          }
         })
         .state('home.events', {
           url: '/events',
