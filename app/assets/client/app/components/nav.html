@@ -1,15 +1,31 @@
 <div class="nav fill-height">
     <div class="bg fill-height">
         <ul class="list fill-height" layout="column" layout-align="start center">
-            <li ui-sref="home.invite" ng-class="{ active: nav.isCurrent('home.invite') }"><i class="sprite sprite-strategy"></i></li>
-            <li ui-sref="home.events" ng-class="{ active: nav.isCurrent('home.events') }"><i class="sprite sprite-events"></i></li>
-            <li ui-sref="home.grid" ng-class="{ active: nav.isCurrent('home.grid') }"><i class="sprite sprite-grid"></i></li>
-            <li ui-sref="home.goal" ng-class="{ active: nav.isCurrent('home.goal') }"><i class="sprite sprite-goal"></i></li>
-            <li ui-sref="home.earnings" ng-class="{ active: nav.isCurrent('home.earnings') }"><i class="sprite sprite-earnings"></i></li>
-            <li ui-sref="home.certs" ng-class="{ active: nav.isCurrent('home.certs') }"><i class="sprite sprite-certs"></i></li>
-            <li ui-sref="home.stats" ng-class="{ active: nav.isCurrent('home.stats') }"><i class="sprite sprite-stats"></i></li>
+            <li ui-sref="home.invite" ng-class="{ active: nav.isCurrent('home.invite') }"><i class="sprite sprite-strategy"></i>
+            <md-tooltip>Invite</md-tooltip>
+            </li>
+            <li ui-sref="home.events" ng-class="{ active: nav.isCurrent('home.events') }"><i class="sprite sprite-events"></i>
+            <md-tooltip>Events</md-tooltip>
+            </li>
+            <li ui-sref="home.grid" ng-class="{ active: nav.isCurrent('home.grid') }"><i class="sprite sprite-grid"></i>
+            <md-tooltip>Grid</md-tooltip>
+            </li>
+            <li ui-sref="home.goal" ng-class="{ active: nav.isCurrent('home.goal') }"><i class="sprite sprite-goal"></i>
+            <md-tooltip>Goals</md-tooltip>
+            </li>
+            <li ui-sref="home.earnings" ng-class="{ active: nav.isCurrent('home.earnings') }"><i class="sprite sprite-earnings"></i>
+            <md-tooltip>Earnings</md-tooltip>
+            </li>
+            <li ui-sref="home.certs" ng-class="{ active: nav.isCurrent('home.certs') }"><i class="sprite sprite-certs"></i>
+            <md-tooltip>Certifications</md-tooltip>
+            </li>
+            <li ui-sref="home.stats" ng-class="{ active: nav.isCurrent('home.stats') }"><i class="sprite sprite-stats"></i>
+            <md-tooltip>Stats</md-tooltip>
+            </li>
     
-            <li ng-click="nav.logout()"><i class="sprite sprite-logout"></i></li>
+            <li ng-click="nav.logout()"><i class="sprite sprite-logout"></i>
+            <md-tooltip>Logout</md-tooltip>
+            </li>
         </ul>
     </div>
 </div>
