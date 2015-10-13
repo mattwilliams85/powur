@@ -61,7 +61,7 @@ module powur {
       return this.$stateParams;
     }
 
-    createUser(): any {
+    createLead(): any {
       var self = this;
       this.submitLead.submit().then(function(data) {
         self.state.go('join.solar3');

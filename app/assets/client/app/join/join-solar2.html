@@ -9,76 +9,56 @@
                     Your browser does not support the video tag.
                     </video>
                 </div>
-                <form ng-submit="join.createUser()" name="createForm" novalidate>
+                <form ng-submit="join.createLead()" name="submitForm" novalidate>
                     <md-content layout="column" flex="1">
                         <div layout="row" layout-sm="column">
                             <md-input-container flex-gt-sm="25" flex>
                                 <div class="border"></div>
                                 <label id="first-name">First Name</label>
-                                <input ng-model="join.submitLead.field('first_name').value" type="text" required>
-                                <div ng-messages="join.submitLead.field('first_name').$error">
-                                    <div ng-message="required">First Name is a required field</div>
+                                <input name="first_name" ng-model="join.submitLead.field('first_name').value" type="text" required="">
+                                <div ng-messages="submitForm.first_name.$error">
+                                    <div ng-message="required">First Name is required</div>
                                 </div>
                             </md-input-container>
                             <md-input-container flex-gt-sm="25" flex>
                                 <div class="border"></div>
                                 <label>Last Name</label>
-                                <input ng-model="join.submitLead.field('last_name').value" type="text" required>
-                                <div ng-messages="join.submitLead.field('last_name').$error">
-                                    <div ng-message="required">Last Name is a required field</div>
+                                <input name="last_name" ng-model="join.submitLead.field('last_name').value" type="text" required="">
+                                <div ng-messages="submitForm.last_name.$error">
+                                    <div ng-message="required">Last Name is required</div>
                                 </div>
                             </md-input-container>
                             <md-input-container flex-gt-sm="25">
                                 <div class="border"></div>
                                 <label>Email</label>
-                                <input ng-model="join.submitLead.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off" required>
-                                <div ng-messages="join.submitLead.field('email').$error" ng-show="join.submitLead.field('email').$touched" >
-                                    <div ng-message="required">Email is a required field</div>
-                                    <div ng-message="pattern">Must be a valid email address</div>
-                                </div>
+                                <input name="email" ng-model="join.submitLead.field('email').value" type="email" ng-pattern="/^.+@.+\..+$/" autocomplete="off">
                             </md-input-container>
                             <md-input-container flex-gt-sm="25">
                                 <div class="border"></div>
                                 <label>Phone</label>
-                                <input ng-model="join.submitLead.field('phone').value" type="text" ng-patter="/^[0-9]*$/" required>
-                                <div ng-messages="join.submitLead.field('phone').$error" ng-show="join.submitLead.field('phone').$touched" >
-                                    <div ng-message="required">Phone is a required field</div>
-                                    <div ng-message="pattern">Must be a valid phone number</div>
-                                </div>
+                                <input name="phone" ng-model="join.submitLead.field('phone').value">
                             </md-input-container>
                         </div>
                         <div layout="row" layout-sm="column">
                             <md-input-container flex-gt-sm="50">
                                 <div class="border"></div>
                                 <label>Address</label>
-                                <input ng-model="join.submitLead.field('address').value" type="text" required>
-                                <div ng-messages="join.submitLead.field('address').$error" ng-show="join.submitLead.field('address').$touched" >
-                                    <div ng-message="required">Address is a required field</div>
-                                </div>
+                                <input name="address" ng-model="join.submitLead.field('address').value" type="text">
                             </md-input-container>
                             <md-input-container flex-gt-sm="20">
                                 <div class="border"></div>
                                 <label>City</label>
-                                <input ng-model="join.submitLead.field('city').value" type="text" required>
-                                <div ng-messages="join.submitLead.field('city').$error" ng-show="join.submitLead.field('city').$touched" >
-                                    <div ng-message="required">City is a required field</div>
-                                </div>
+                                <input name="city" ng-model="join.submitLead.field('city').value" type="text">
                             </md-input-container>
                             <md-input-container flex-gt-sm="15">
                                 <div class="border"></div>
                                 <label>State</label>
-                                <input ng-model="join.submitLead.field('state').value" type="text" required>
-                                <div ng-messages="join.submitLead.field('state').$error" ng-show="join.submitLead.field('state').$touched" >
-                                    <div ng-message="required">State is a required field</div>
-                                </div>
+                                <input name="state" ng-model="join.submitLead.field('state').value" type="text">
                             </md-input-container>
                             <md-input-container flex-gt-sm="15">
                                 <div class="border"></div>
                                 <label>Zip</label>
-                                <input ng-model="join.submitLead.field('zip').value" type="text" required>
-                                <div ng-messages="join.submitLead.field('zip').$error" ng-show="join.submitLead.field('zip').$touched" >
-                                    <div ng-message="required">State is a required field</div>
-                                </div>
+                                <input name="zip" ng-model="join.submitLead.field('zip').value" type="text">
                             </md-input-container>
                         </div>
                         <div layout="column" layout-align="center center">
