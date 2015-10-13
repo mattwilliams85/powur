@@ -14,7 +14,7 @@ module powur {
       $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
 
-      $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/login');
 
       $locationProvider.html5Mode(true);
 
