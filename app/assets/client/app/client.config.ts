@@ -61,10 +61,13 @@ module powur {
           templateUrl: 'app/home/home.html',
           controller: 'HomeController as home',
           resolve: {
-            goals: ['SessionService', ($session) => {
+            goals: function() {
               var root = RootController.get();
               return root.$session.instance.getEntity('user-goals');
-            }]
+            },
+            requirements: function(goals) {
+              return goals.getEntity('goals-requirements');
+            }
           }
         }).state('home.invite', {
           url: '/invite',

@@ -215,14 +215,23 @@ module powur {
     actions: Action[] = [];
     entities: Array<Entity|ISirenModel> = [];
 
-    private parseEntity(entity: any) {
-      return entity.href ? new Entity(entity) : new SirenModel(entity);
+    private parseEntity(entity: any): Entity|ISirenModel {
+      if (entity.href) return new Entity(entity);
+      var model: ISirenModel = new SirenModel(entity);
+      // console.log('ent', entity);
+      if (model.hasClass('list')) {
+        model.entities = entity.entities.map((ent: any): ISirenModel => {
+          return new SirenModel(ent);
+        });
+      }
+      return model;
     }
 
     private replaceEntityRef(rel: string, entity: ISirenModel): void {
       for (var i = 0; i != this.entities.length; i++) {
         var entityRef: any = this.entities[i];
         if (entityRef.hasRel(rel)) {
+          entity.rel = entityRef.rel;
           this.entities[i] = entity;
           break;
         }
@@ -232,7 +241,7 @@ module powur {
     constructor(data: any, rel?: string[]) {
       super();
       this._data = data;
-      this.rel = rel;
+      this.rel = rel || data.rel;
       this.properties = data.properties || {};
       this.actions = (data.actions || []).map(Action.fromJson)
       this.entities = (data.entities || []).map(this.parseEntity);

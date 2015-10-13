@@ -11,8 +11,6 @@ module powur {
     
     fullName: string;
     
-    rank: number;
-    rankTotal: number;
     gridSize: number;
     dollarsEarned: number;
     co2: number;
@@ -21,18 +19,43 @@ module powur {
     personalProposals: number;
     teamProposals: number;
 
+    get home(): any {
+      return this.$scope.home;
+    }
+
     get userData(): any {
-      return this.$scope.home.userData;
+      return this.home.userData;
+    }
+
+    get rank(): number {
+      return this.home.goals.properties.next_rank - 1;
+    }
+
+    get rankTotal(): number {
+      return this.home.goals.properties.rank_list.length - 1;
+    }
+
+    get headshot(): string {
+      var avatar = this.userData.avatar;
+      return avatar ? avatar.large : '/assets/img/profile.png';
+    }
+
+    get headshotStyle(): any {
+      return { 'background-image': this.headshot };
+    }
+
+    get goalRequirements(): ISirenModel[] {
+      return this.home.requirements.entities;
     }
     
     constructor(private $scope: IHudScope,
                 private $log: ng.ILogService,
                 private $interval: ng.IIntervalService) {
       
+
+      $log.debug('reqs', this.goalRequirements);
+
       // sample data
-      
-      this.rank = 2;
-      this.rankTotal = 8; 
       
       this.gridSize = 18;
       

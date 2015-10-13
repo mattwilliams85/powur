@@ -1,5 +1,5 @@
 <div class="hud fill-height">
-    <div class="headshot">
+    <div class="headshot" ng-style="{{ hud.headshotStyle }}">
         <div class="user" layout="column" layout-align="end start">
             <div class="greeting">Good morning,</div>
             <div class="full-name">{{ hud.userData.full_name }}</div>
@@ -17,7 +17,7 @@
             <div class="stat-title">rank</div>
             <div class="stat">
                 <i class="sprite sprite-rank"></i>
-                <span class="info">{{hud.rank}}<span class="total">/{{hud.rankTotal}}</span></span>
+                <span class="info">{{ hud.rank }}<span class="total">/{{ hud.rankTotal }}</span></span>
             </div>
         </div>
         <div flex="50" class="grid-size">
