@@ -28,6 +28,15 @@ $buttonColor: #07b7d1;
         &.solar { @include bg("img/join/join-bg2.jpg") }
         &.solar-2 { @include bg("img/join/join-bg5.jpg") }
 
+        .messages {
+            color: #fff;
+            background: rgba(255,255,255,0.3);
+            max-width: 360px;
+            padding: 5px 5px 5px 10px;
+            margin: 10px 0;
+            border-left: 2px solid #f00;
+        }
+
         .key-box {
             width: 100%;
             margin-bottom: 50px;

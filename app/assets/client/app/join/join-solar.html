@@ -9,10 +9,21 @@
                 </div>
                 <div class="key">
                 <label>Please enter your <b>zipcode</b></label>
-                    <div layout="row">
-                        <input type="text" ng-model="join.zipKey">
-                        <button ng-click="join.validateZip()">Continue</button>
-                    </div>
+                    <form name="zipForm">
+                        <div layout="row">
+                                <input name="zip"
+                                       type="text" 
+                                       ng-model="join.validate.field('zip').value"
+                                       pattern="^[0-9]{5}$"
+                                       oninvalid="setCustomValidity('Please enter a 5-digit ZIP Code')"
+                                       onchange="try{setCustomValidity('')}catch(e){}">
+          
+                            <button ng-click="join.validateZip()">Continue</button>
+                        </div>
+                    </form>
+                </div>
+                <div ng-show="join.validate.field('zip').$error" class="messages">
+                    <div>You're zipcode is outside the servicable area.</div>
                 </div>
             </div>
             <div class="trailer" layout="row">

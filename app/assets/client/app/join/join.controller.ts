@@ -5,11 +5,6 @@ module powur {
     static ControllerId: string = 'JoinController';
     static $inject: Array<string> = ['$mdDialog', 'CacheService','$stateParams'];
 
-    //step 1
-    gridKey: string;
-    zipKey: string;
-
-    // step 2
     firstName: string;
     lastName: string;
     address: string;
@@ -25,18 +20,24 @@ module powur {
                 private $stateParams: ng.ui.IStateParamsService) {
       super();
       this.log.debug(JoinController.ControllerId + ':ctor');
-      // this.fetchName();
+      this.validate.field('code').value = this.params.inviteCode;
+      if (this.state.current.name == 'join.solar') this.setParams();
     }
-
-    continue(state: string): void {
-      // debugger
-      // this.log.debug(JoinController.ControllerId + ':continue');
-      // this.log.debug(this.gridKey);
-      // this.state.go(state, {});
+    
+    validateZip(): void {
+      var self = this;
+      this.validate.submit().then(function(data){
+        var is_valid = data['data']['properties']['is_valid'];
+        if (is_valid) {
+          self.state.go('join.solar2', {});
+        } else {
+          self.validate.field('zip').$error = 'Your zipcode is outside the servicable area'
+        }
+      })
     }
 
     get validate(): Action {
-      return this.session.instance.action('validate_zipcode');
+      return this.session.instance.action('validate_zip');
     }
 
     get solarInvite(): Action {
@@ -51,8 +52,9 @@ module powur {
       return this.$stateParams;
     }
 
-    fetchName(): void {
+    setParams(): void {
       var self = this;
+      this.validate.field('code').value = this.params.inviteCode;
       this.solarInvite.href += this.params.inviteCode;
       this.solarInvite.submit().then(function(data){
         self.firstName = data['data']['properties']['first_name'] || "Anonymous";
