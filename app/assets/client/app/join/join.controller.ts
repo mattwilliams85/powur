@@ -2,9 +2,9 @@
 
 module powur {
   class JoinController extends BaseController {
-    static ControllerId: string = 'JoinController'; 
+    static ControllerId: string = 'JoinController';
     static $inject: Array<string> = ['$mdDialog', 'CacheService','$stateParams'];
-    
+
     //step 1
     gridKey: string;
     zipKey: string;
@@ -17,17 +17,17 @@ module powur {
     stateStr: string;
     zip: string;
     inviteCode: string;
-    
+
     password: string;
-    
-    constructor(private $mdDialog: ng.material.IDialogService, 
+
+    constructor(private $mdDialog: ng.material.IDialogService,
                 private cache: ICacheService,
                 private $stateParams: ng.ui.IStateParamsService) {
       super();
       this.log.debug(JoinController.ControllerId + ':ctor');
-      this.fetchName();
+      // this.fetchName();
     }
-    
+
     continue(state: string): void {
       // debugger
       // this.log.debug(JoinController.ControllerId + ':continue');
@@ -43,6 +43,10 @@ module powur {
       return this.session.instance.action('solar_invite');
     }
 
+    get validateGridInvite(): Action {
+      return this.session.instance.action('validate_grid_invite');
+    }
+
     get params(): any {
       return this.$stateParams;
     }
@@ -54,7 +58,14 @@ module powur {
         self.firstName = data['data']['properties']['first_name'] || "Anonymous";
       });
     }
-    
+
+    validateGridInviteSubmit(): void {
+      var self = this;
+      this.validateGridInvite.submit().then(() => {
+        self.state.go('join.grid2', {});
+      });
+    }
+
     enterGrid(): void {
       this.log.debug(JoinController.ControllerId + ':enterGrid');
       this.state.go('home', {});
@@ -64,7 +75,7 @@ module powur {
       this.log.debug(JoinController.ControllerId + ':enterGrid');
       this.state.go('join.solar3', {});
     }
-    
+
     openTerms(ev: ng.IAngularEvent): void {
       this.$mdDialog.show(<any>{
         controller: 'TermsDialogController as terms',
@@ -75,6 +86,6 @@ module powur {
       })
     }
   }
-  
+
   controllerModule.controller(JoinController.ControllerId, JoinController);
 }

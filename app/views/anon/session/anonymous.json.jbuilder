@@ -11,6 +11,8 @@ actions_list = [
   action(:solar_invite, :get, '/product_invites/'),
   action(:validate_zip, :post, zip_validator_path)
     .field(:zip, :text)
+    .field(:code, :text),
+  action(:validate_grid_invite, :post, validate_invite_path)
     .field(:code, :text) ]
 
 actions(*actions_list)
