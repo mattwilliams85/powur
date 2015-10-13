@@ -8,10 +8,33 @@ module powur {
     constructor(private $log: ng.ILogService, 
                 private $q: ng.IQService) {
       
-      $log.debug('setting up interceptor');
+      //$log.debug('setting up interceptor');
+      
+      var logout = () => {
+        RootController.get().$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+          RootController.get().$state.go('login.public');
+        })            
+      };
+      
+      var notAuthenticated = () => {
+        logout();
+      };
+      
+      var notAuthorized = () => {
+        alert('not authorized');
+      };
+      
+      var sessionTimeout = () => {
+        logout();
+      };
+      
+      var internalServer = () => {
+        $log.debug('internal server error');
+      };
+      
       return <any>{
         request: (config: any) => {
-          this.$log.debug(AuthInterceptor.ServiceId + ':request', config);
+          //this.$log.debug(AuthInterceptor.ServiceId + ':request', config);
 
           return config || $q.when(config);
         },
@@ -21,19 +44,24 @@ module powur {
         // },
 
         responseError: (response: any) => {
-          this.$log.debug(AuthInterceptor.ServiceId + ':responseError');
+          //this.$log.debug(AuthInterceptor.ServiceId + ':responseError');
   
-          if (response.status === 401) {
-            //this.cache.clearAllSession();
-            RootController.get().$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-              RootController.get().$state.go('login.public');
-            })            
-            //this.$injector.invoke(($session: ISessionService) => {
-              //$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
-                //this.$location.path('/');
-              //})
-            //})
+          switch(response.status) {
+            case 401: notAuthenticated(); break;
+            case 403: notAuthorized(); break;
+            case 419: sessionTimeout(); break;
+            case 500: internalServer(); break;
+            default: 
+              $log.debug(response);
           }
+          // if (response.status === 401) {
+          //   //this.cache.clearAllSession();
+          //   //this.$injector.invoke(($session: ISessionService) => {
+          //     //$session.logout().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+          //       //this.$location.path('/');
+          //     //})
+          //   //})
+          // }
           
           return $q.reject(response);
         }
