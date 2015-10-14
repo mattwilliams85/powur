@@ -17,7 +17,7 @@ module powur {
     }
     
     isCurrent(state: string): boolean {
-      return this.state.current.name == state;
+      return !!this.state.current.name.match(`${state}`);
     }
 
     logout() {

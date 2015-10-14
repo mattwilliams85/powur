@@ -42,7 +42,9 @@ link_list = [
 entity_list << entity(%w(goals), 'user-goals', user_goals_path(current_user))
 entity_list << entity(%w(goals), 'user-kpis', kpi_metrics_path)
 entity_list << entity(%w(list invites), 'user-invites', invites_path)
-entity_list << entity(%w(list product-invites), 'user-product-invites', product_invites_path)
+entity_list << entity(%w(list product-invites),
+                      'user-product-invites',
+                      product_invites_path)
 entity_list << entity(%w(list users), 'user-users', users_path)
 entity_list << entity(%w(list leads), 'user-leads', leads_path(current_user))
 entity_list << entity(%w(user), 'user-profile', profile_path)
