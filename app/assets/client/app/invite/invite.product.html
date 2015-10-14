@@ -19,13 +19,20 @@
     </ul>
 </div>
 
+<div class="message bg">ONBOARDED INVITATIONS WILL ALSO SHOW UP IN YOUR DASHBOARD</div>
 
 <div layout="row" layout-wrap class="invite-list bg">
     <div ng-repeat="item in invite.invites.entities">
         <div ng-if="item.properties.status == 'sent'" class="invite-item" style="color: {{invite.timerColor}} !important">
-            <div class="full-name"><b>{{item.properties.full_name}}</b></div>
-            <div class="time">{{item.properties.updated_at | date : 'd/M/yy'}}</div>
-            <div pw-invite-progress data-progress-model="item" data-circle-foreground-color="{{invite.timerColor}}"></div>
+            <div class="full-name">{{item.properties.first_name}} <b>{{item.properties.last_name.charAt(0)}}.</b></div>
+            <div class="status-icons" flex layout="row">
+                <!-- TODO: Add tooltips for icons -->
+                <div class="icon address" ng-class="{ 'provided': item.properties.full_address }"></div>
+                <div class="icon contact" ng-class="{ 'provided': item.properties.email }"></div>
+                <div class="icon utility" ng-class="{ 'provided': item.properties.average_bill }"></div>
+            </div>
+            <div class="time">Est. {{item.properties.updated_at | date : 'd/M/yy'}}</div>
+            <span class="ellipse border-fill"></span>
         </div>
 
         <div ng-if="item.status == 4" class="invite-item">
@@ -36,35 +43,13 @@
             <span class="ellipse"><i class="sprite sprite-ellipse-locked"></i></span>
         </div>
     </div>
-    <div class="invite-item">
-        <span class="add counter">
-            <i class="sprite sprite-invite"></i>
-            <div class="label"><a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">Click to <b>Invite</b></a></div>
-        </span>
-        <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
-    </div>
-</div>
-
-<!-- <div layout="row" layout-wrap class="invite-list bg">
-    <div ng-repeat="item in invite.invites.entities">
-        <div ng-if="item.properties.status == 'sent'" class="invite-item" style="color: {{invite.timerColor}} !important">
-            <div class="full-name"><b>{{item.properties.full_name}}</b></div>
-            <div class="time">{{item.properties.updated_at | date : 'd/M/yy'}}</div>
-            <div pw-invite-progress data-progress-model="item" data-circle-foreground-color="{{invite.timerColor}}"></div>
-        </div>
-        <div ng-if="item.status == 0" class="invite-item">
-            <span class="add counter">
-                <i class="sprite sprite-invite"></i>
-                <div class="label"><a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">Click to <b>Invite</b></a></div>
-            </span>
+    <a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">
+        <div class="invite-item">
+                <span class="add counter">
+                    <i class="sprite sprite-invite"></i>
+                    <div class="label hoverable">Click to <b>Invite</b></div>
+                </span>
             <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
         </div>
-        <div ng-if="item.status == 4" class="invite-item">
-            <span class="add counter">
-                <i class="sprite sprite-invite"></i>
-                <div class="label"><b>locked</b></div>
-            </span>
-            <span class="ellipse"><i class="sprite sprite-ellipse-locked"></i></span>
-        </div>
-    </div>
-</div> -->
+    </a>
+</div>

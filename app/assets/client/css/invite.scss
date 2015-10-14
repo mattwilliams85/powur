@@ -16,6 +16,11 @@
 }
 
 .invite {
+
+    a {
+        text-decoration: none;
+    }
+
     .tab {
       list-style: none;
       margin: 0;
@@ -30,7 +35,6 @@
         
         a {
           color: white;
-          text-decoration: none;
         }
         
         a:after {
@@ -121,10 +125,16 @@
     
     .invite-list {
         padding: 20px;
+        min-height: 50vh;
     }
     
     .invite-item {
-        padding: 30px;        
+        padding: 30px;
+        position: relative;
+
+        &:hover .hoverable {
+            color: #2583a8;
+        }   
             
         .full-name {
             text-transform: uppercase;
@@ -133,14 +143,57 @@
             text-align: center;
             height: 32px;
         }
+
+        .status-icons {
+            height: 0;
+            position: absolute;
+            bottom: 114px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            text-align: center;
+            width: 95px;
+
+            .icon {
+                margin: 0 7px;
+            }
+
+            .address {
+                background: image-url('img/invites/address-missing.png') center / cover;
+                &.provided {
+                    background: image-url('img/invites/address-provided.png') center / cover;
+                }
+                height: 20px;
+                width: 15px;
+            }
+
+            .contact {
+                background: image-url('img/invites/utility-missing.png') center / cover;
+                &.provided {
+                    background: image-url('img/invites/utility-provided.png') center / cover;
+                }
+                height: 18px;
+                width: 19px;
+            }
+
+            .utility {
+                background: image-url('img/invites/contact-missing.png') center / cover;
+                &.provided {
+                    background: image-url('img/invites/contact-provided.png') center / cover;
+                }
+                height: 18px;
+                width: 18px;
+            }
+        }
         
         .time {
-            font-size: x-large;
+            font-size: small;
             font-weight: bold;
-            top: 75px;
+            top: 110px;
             position: relative;
             text-align: center;
             height: 0;
+            color: #ccc;
             
             .superscript {
                 vertical-align: super;
@@ -158,16 +211,7 @@
             .label {
                 height: 0;
                 text-transform: uppercase;
-                    
-                a {
-                    color: #a0a0a0;
-                    text-decoration: none;                
-                }
-                
-                a:hover {
-                    color: #2583a8;
-                }                
-            }                
+            }
         }
         
         
@@ -176,6 +220,14 @@
     /* sprites */
     
     .ellipse {
+        &.border-fill {
+            width: 164px;
+            height: 166px;
+            border: 5px solid;
+            display: block;
+            border-radius: 50%;
+        }
+
         .sprite {
             background-image: image-url("img/ellipse-sprite.png");
             background-repeat: no-repeat;
