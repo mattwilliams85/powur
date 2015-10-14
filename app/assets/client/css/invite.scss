@@ -102,9 +102,19 @@
         }
         
         .label {
+            font-weight:300;
             color: #cccccc;
+            .locked{
+                color:#666;
+                font-size:small;
+                padding-top:10px;
+                display: block;
+            }
         }
-
+        .invite{
+            padding-top:10px;
+            display:block;
+        }
     }
     
         
@@ -128,7 +138,7 @@
             
         .full-name {
             text-transform: uppercase;
-            top: 85px;
+            top: 90px;
             position: relative;
             text-align: center;
             height: 32px;
@@ -136,8 +146,8 @@
         
         .time {
             font-size: x-large;
-            font-weight: bold;
-            top: 75px;
+            font-weight: 500;
+            top: 80px;
             position: relative;
             text-align: center;
             height: 0;

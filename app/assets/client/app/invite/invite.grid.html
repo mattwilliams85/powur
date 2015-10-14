@@ -30,14 +30,14 @@
         <div ng-if="item.status == 0" class="invite-item">
             <span class="add counter">
                 <i class="sprite sprite-invite"></i>
-                <div class="label"><a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">Click to <b>Invite</b></a></div>
+                <div class="label invite"><a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">Click to <b>Invite</b></a></div>
             </span>
             <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
         </div>
         <div ng-if="item.status == 4" class="invite-item">
             <span class="add counter">
                 <i class="sprite sprite-invite"></i>
-                <div class="label"><b>locked</b></div>
+                <div class="label"><b class="locked">locked</b></div>
             </span>
             <span class="ellipse"><i class="sprite sprite-ellipse-locked"></i></span>
         </div>

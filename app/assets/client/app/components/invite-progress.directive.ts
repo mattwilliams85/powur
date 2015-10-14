@@ -22,7 +22,7 @@ module powur {
             node.parentNode.replaceChild(canvas, node);
         
             var circleWidth = node.getAttribute('data-circle-width') || '10';
-            var circleRadius = node.getAttribute('data-circle-radius') || '75';
+            var circleRadius = node.getAttribute('data-circle-radius') || '80';
             var circleBackgroundColor = node.getAttribute('data-circle-background-color') || '#cccccc';
             var circleForegroundColor = attributes.circleForegroundColor || '#2583a8';
         

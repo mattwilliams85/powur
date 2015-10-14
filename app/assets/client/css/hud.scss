@@ -37,6 +37,7 @@
     
     .achievements {
         height: 65px;
+        font-size:small;
     }
     
     .stat-title {
@@ -111,10 +112,14 @@
                 padding: 0 30px 0 0;
             }        
         }
+        sup{
+            font-size:small;
+        }
     }
     
     .current-goals {
-        padding-top: 90px;    
+        padding-top: 90px; 
+        font-size: small;   
     }
     
     .stat4 {            
