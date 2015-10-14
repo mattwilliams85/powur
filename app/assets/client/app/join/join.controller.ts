@@ -4,14 +4,15 @@
 module powur {
   class JoinController extends BaseController {
     static ControllerId = 'JoinController';
-    static $inject = ['$mdDialog', '$stateParams'];
+    static $inject = ['$mdDialog', '$stateParams', 'customer'];
 
     gridInvite: ISirenModel;
     solarLead: ISirenModel;
     firstName: string;
 
     constructor(private $mdDialog: ng.material.IDialogService,
-                private $stateParams: ng.ui.IStateParamsService) {
+                private $stateParams: ng.ui.IStateParamsService,
+                private customer: ISirenModel) {
       super();
       this.log.debug(JoinController.ControllerId + ':ctor');
 

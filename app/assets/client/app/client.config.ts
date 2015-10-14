@@ -35,7 +35,11 @@ module powur {
 
         .state('join', {
           url: '/join',
-          template: '<div ui-view></div>'
+          template: '<div ui-view></div>',
+          abstract: true
+        }).state('join.invalid', {
+          url: '',
+          templateUrl: 'app/join/invalid.html',
         }).state('join.grid', {
           url: '/grid/{inviteCode}',
           templateUrl: 'app/join/join-grid.html',
@@ -51,6 +55,16 @@ module powur {
           url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar.html',
           controller: 'JoinController as join',
+          resolve: {
+            customer: function($stateParams, $q) {
+              var root = RootController.get();
+              var fail = function(response) {
+                var reason: any = (reponse.status === 404) ? 'invalid_code' : response;
+                return $q.reject(reason);
+              }
+              return root.$session.instance.getCustomer($stateParams.inviteCode).then(null, fail);
+            }
+          }
         }).state('join.solar2', {
           url: '/solar',
           templateUrl: 'app/join/join-solar2.html',

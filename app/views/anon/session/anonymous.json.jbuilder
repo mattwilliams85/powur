@@ -17,4 +17,10 @@ actions_list = [
     .field(:code, :text) ]
 
 actions(*actions_list)
-links(link(:self, root_path))
+
+entity_list = [ entity(%w(solar_invite),
+                       'customer-solar_invite',
+                       product_invite_path('{code}')) ]
+entities(*entity_list)
+
+self_link root_path

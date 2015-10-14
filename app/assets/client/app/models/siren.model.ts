@@ -96,7 +96,6 @@ module powur {
     }
 
     private failCallback = (response: ng.IHttpPromiseCallbackArg<any>) => {
-      console.log('fail!!!!');
       this._defer.reject(response);
     }
 
@@ -179,10 +178,18 @@ module powur {
       return this.rel.indexOf(r) !== -1;
     }
 
-    get<T extends ISirenModel>(ctor: { new(data: any): T; }): ng.IPromise<T> {
+    get<T extends ISirenModel>(ctor: { new(data: any): T; }, params?: any): ng.IPromise<T> {
       var defer = this.q.defer<T>();
 
-      this.http.get(this.href).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+      var href = decodeURIComponent(this.href);
+      if (params) {
+        angular.forEach(params, function(v, k) {
+          var re = new RegExp(`\{${k}\}`);
+          href = href.replace(re, v);
+        });
+      }
+
+      this.http.get(href).then((response: ng.IHttpPromiseCallbackArg<any>) => {
         defer.resolve(new ctor(response.data));
       }, (response: ng.IHttpPromiseCallbackArg<any>) => {
         defer.reject(response);
@@ -201,7 +208,7 @@ module powur {
     hasClass(s: string): boolean;
     action(name: string): Action;
     entity(name: string): Entity|ISirenModel;
-    getEntity<T extends ISirenModel>(c: { new(d: any): T; }, rel: string): ng.IPromise<T>;
+    getEntity<T extends ISirenModel>(c: { new(d: any): T; }, rel: string, params?: any) : ng.IPromise<T>;
   }
 
   export class SirenModel extends ServiceModel {
@@ -272,12 +279,12 @@ module powur {
       return null;
     }
 
-    getEntity<T extends ISirenModel>(ctor: { new(d: any): T; }, rel: string): ng.IPromise<T> {
+    getEntity<T extends ISirenModel>(ctor: { new(d: any): T; }, rel: string, params?: any): ng.IPromise<T> {
       var defer = this.q.defer<T>();
 
       var entity: any = this.entity(rel);
       if (entity instanceof Entity) {
-        entity.get(ctor).then((model: T) => {
+        entity.get(ctor, params).then((model: T) => {
           this.replaceEntityRef(rel, model);
           defer.resolve(model);
         }, (response: ng.IHttpPromiseCallbackArg<any>) => {

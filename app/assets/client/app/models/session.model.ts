@@ -7,9 +7,19 @@ module powur {
     loggedIn(): boolean;
     login(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>>;
     logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>>;
+    getCustomer(code: string): ng.IPromise<ISirenModel>;
   }
 
   export class SessionModel extends SirenModel implements ISessionModel {
+    // private _q: ng.IQService;
+
+    // get q(): ng.IQService {
+    //   if (!this._q) {
+    //     this._q = angular.element(document).injector().get('$q');
+    //   }
+    //   return this._q;
+    // }
+
     constructor(data: any) {
       super(data);
     }
@@ -24,6 +34,10 @@ module powur {
 
     logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>> {
       return this.action('logout').submit();
+    }
+
+    getCustomer(code: string): ng.IPromise<ISirenModel> {
+      return this.getEntity(SirenModel, 'customer-solar_invite', { code: code });
     }
   }
 }

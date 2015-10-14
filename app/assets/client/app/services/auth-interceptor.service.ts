@@ -46,7 +46,7 @@ module powur {
             case 403: notAuthorized(); break;
             case 419: sessionTimeout(); break;
             case 500: internalServer(); break;
-            default: $log.debug(response);
+            // default: $log.debug('re: ', response);
           }
           
           return $q.reject(response);
