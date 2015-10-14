@@ -59,7 +59,7 @@ module powur {
             customer: function($stateParams, $q) {
               var root = RootController.get();
               var fail = function(response) {
-                var reason: any = (reponse.status === 404) ? 'invalid_code' : response;
+                var reason: any = (response.status === 404) ? 'invalid_code' : response;
                 return $q.reject(reason);
               }
               return root.$session.instance.getCustomer($stateParams.inviteCode).then(null, fail);
@@ -69,8 +69,8 @@ module powur {
           url: '/solar',
           templateUrl: 'app/join/join-solar2.html',
           controller: 'JoinController as join',
-          params: { 
-            leadData: null 
+          params: {
+            leadData: null
           }
         }).state('join.solar3', {
           url: '/solar',
@@ -101,14 +101,20 @@ module powur {
           templateUrl: 'app/invite/invite.product.html',
           controller: 'InviteProductController as invite',
           resolve: {
-
+            invites: function() {
+              var root = RootController.get();
+              return root.$session.instance.getEntity(SirenModel, 'user-product_invites');
+            }
           }
         }).state('home.invite.grid', {
           url: '/grid',
           templateUrl: 'app/invite/invite.grid.html',
           controller: 'InviteGridController as invite',
           resolve: {
-
+            invites: function() {
+              var root = RootController.get();
+              return root.$session.instance.getEntity(SirenModel, 'user-invites');
+            }
           }
         })
         .state('home.events', {
