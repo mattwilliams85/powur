@@ -17,7 +17,6 @@ module powur {
     }
     
     isCurrent(state: string): boolean {
-      console.log(state, this.state.current.name);
       return !!this.state.current.name.match(`${state}`);
     }
 

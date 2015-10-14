@@ -71,10 +71,10 @@ module powur {
           resolve: {
             goals: function() {
               var root = RootController.get();
-              return root.$session.instance.getEntity(SirenModel, 'user-goals');
+              return root.$session.instance.getEntity(GoalsModel, 'user-goals');
             },
-            requirements: function(goals) {
-              return goals.getEntity(SirenModel, 'goals-requirements');
+            requirements: function(goals: GoalsModel) {
+              return goals.getRequirements;
             }
           }
         }).state('home.invite', {

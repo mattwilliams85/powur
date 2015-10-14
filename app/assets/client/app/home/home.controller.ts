@@ -10,7 +10,7 @@ module powur {
     }
     
     constructor(private $mdSidenav: ng.material.ISidenavService,
-                public goals: ISirenModel,
+                public goals: GoalsModel,
                 public requirements: ISirenModel) {
       super();
     }

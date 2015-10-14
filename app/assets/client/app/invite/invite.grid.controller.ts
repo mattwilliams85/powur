@@ -72,7 +72,6 @@ module powur {
 
     constructor(public $mdDialog: ng.material.IDialogService) {
       super();
-      this.log.debug('GREAT');
 
       //change color mode for advocate vs customer
       var isCustomer = true;
