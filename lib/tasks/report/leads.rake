@@ -2,16 +2,18 @@ namespace :powur do
   namespace :report do
     task duplicate_leads: :environment do
       CSV.open('/tmp/powur_report_duplicate_leads.csv', 'w+') do |csv|
-        csv << %w(id data created_at full_name email)
-        Lead.includes(:customer, :user)
-            .references(:customer, :user)
+        csv << %w(id full_name email phone address created_at)
+        Lead.includes(:customer)
+            .references(:customer)
             .duplicate.each do |lead|
 
+          customer = lead.customer
           csv << [ lead.id,
-                   lead.data,
-                   lead.created_at.to_s(:long),
-                   lead.customer.full_name,
-                   lead.customer.email ]
+                   customer.full_name,
+                   customer.email,
+                   customer.phone,
+                   customer.full_address,
+                   lead.created_at.to_s(:long) ]
         end
       end
     end
