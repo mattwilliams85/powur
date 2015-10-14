@@ -32,6 +32,7 @@
 //= require login/login.private
 //= require login/forgot-password
 
+//= require join/invalid
 //= require join/terms
 //= require join/join-solar
 //= require join/join-solar2
