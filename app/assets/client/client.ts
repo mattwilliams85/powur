@@ -48,6 +48,7 @@
 /// <reference path='app/models/siren.model.ts' />
 /// <reference path='app/models/session.model.ts' />
 /// <reference path='app/models/goals.model.ts' />
+/// <reference path='app/models/invites.model.ts' />
 
 /// <reference path='app/services/cache.service.ts' />
 /// <reference path='app/services/auth-interceptor.service.ts' />
