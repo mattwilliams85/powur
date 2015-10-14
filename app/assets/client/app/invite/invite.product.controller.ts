@@ -14,9 +14,12 @@ module powur {
       return this.invites.properties;
     }
 
+    timerColor: string;
+
     constructor(private invites: ISirenModel) {
       super();
-      console.log('invites', invites);
+      var isCustomer = false;
+      this.timerColor = isCustomer ? '#2583a8' : '#39ABA1';
     }
   }
 
