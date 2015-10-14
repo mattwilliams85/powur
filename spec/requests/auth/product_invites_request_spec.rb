@@ -21,6 +21,7 @@ describe 'GET /u/product_invites' do
         'page_size'    => 50
       }
     )
+    expect_props(sent: 1)
   end
 end
 
