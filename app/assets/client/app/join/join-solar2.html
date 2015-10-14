@@ -40,7 +40,12 @@
                             </md-input-container>
                         </div>
                         <div layout="row" layout-sm="column">
-                            <md-input-container flex-gt-sm="50">
+                            <md-input-container flex-gt-sm="25">
+                                <div class="border"></div>
+                                <label>Average Bill</label>
+                                <input name="average_bill" ng-model="join.submitLead.field('average_bill').value" type="text">
+                            </md-input-container>
+                            <md-input-container flex-gt-sm="25">
                                 <div class="border"></div>
                                 <label>Address</label>
                                 <input name="address" ng-model="join.submitLead.field('address').value" type="text">

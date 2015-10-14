@@ -26,13 +26,12 @@ module powur {
     }
 
     validateZip(): void {
-      var self = this;
-      this.validate.submit().then(function(response){
+      this.validate.submit().then((response) => {
         var is_valid = response['data']['properties']['is_valid'];
         if (is_valid) {
-          self.state.go('join.solar2', { leadData: response.data });
+          this.state.go('join.solar2', { leadData: response.data });
         } else {
-          self.validate.field('zip').$error = 'Your zipcode is outside the servicable area'
+          this.validate.field('zip').$error = 'Your zipcode is outside the servicable area'
         }
       })
     }
@@ -62,40 +61,36 @@ module powur {
     }
 
     createLead(): any {
-      var self = this;
-      this.submitLead.submit().then(function(data) {
-        self.state.go('join.solar3');
+      this.submitLead.submit().then((data) => {
+        this.state.go('join.solar3');
       });
     }
 
     setParams(): void {
-      var self = this;
       this.validate.field('code').value = this.params.inviteCode;
       this.solarInvite.href += this.params.inviteCode;
-      this.solarInvite.submit().then(function(data){
-        self.firstName = data['data']['properties']['first_name'] || "Anonymous";
+      this.solarInvite.submit().then((data) => {
+        this.firstName = data['data']['properties']['first_name'] || "Anonymous";
       }, function(){
-        self.firstName = "Anonymous";
+        this.firstName = "Anonymous";
       });
     }
 
     validateGridInviteSubmit(): void {
-      var self = this;
       this.validateGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        self.gridInvite = new SirenModel(response.data);
-        if (self.gridInvite.action('accept_invite')) {
-          self.state.go('join.grid2', { inviteData: response.data });
+        this.gridInvite = new SirenModel(response.data);
+        if (this.gridInvite.action('accept_invite')) {
+          this.state.go('join.grid2', { inviteData: response.data });
         } else {
-          self.state.go('login');
+          this.state.go('login');
         }
       });
     }
 
     acceptGridInviteSubmit(): void {
-      var self = this;
       this.acceptGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        self.session.refresh().then(() => {
-          self.state.go('home.invite');
+        this.session.refresh().then(() => {
+          this.state.go('home.invite');
         });
       });
     }
