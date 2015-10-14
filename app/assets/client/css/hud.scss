@@ -49,7 +49,7 @@
     
     .superscript {
         vertical-align: super;
-        font-size: smaller;
+        font-size: small;
     }
     
     .stat .info {
@@ -77,6 +77,11 @@
         
         .grid-size {
         }        
+    
+        .stat-title {
+            font-weight: 400;
+        }
+            
     }
     
     .stat2 {
@@ -90,15 +95,13 @@
         
         .stat-title {
             padding-top: 25px;
+            font-weight: 400;
         }
             
         .sprite-earned {
             margin-top: 20px;
         }
         
-        .stat-title {
-            padding-top: 25px;
-        }
         
         .stat {
             padding: 10px 0 0 15px;
