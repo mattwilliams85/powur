@@ -179,7 +179,7 @@ module powur {
       return this.rel.indexOf(r) !== -1;
     }
 
-    get<T extends ISirenModel>(ctor: new(data: any) => T): ng.IPromise<T> {
+    get<T extends ISirenModel>(ctor: { new(data: any): T; }): ng.IPromise<T> {
       var defer = this.q.defer<T>();
 
       this.http.get(this.href).then((response: ng.IHttpPromiseCallbackArg<any>) => {
@@ -201,7 +201,7 @@ module powur {
     hasClass(s: string): boolean;
     action(name: string): Action;
     entity(name: string): Entity|ISirenModel;
-    getEntity(rel: string): ng.IPromise<ISirenModel>;
+    getEntity<T extends ISirenModel>(c: { new(d: any): T; }, rel: string): ng.IPromise<T>;
   }
 
   export class SirenModel extends ServiceModel {
@@ -272,12 +272,12 @@ module powur {
       return null;
     }
 
-    getEntity(rel: string): ng.IPromise<ISirenModel> {
-      var defer = this.q.defer<ISirenModel>();
+    getEntity<T extends ISirenModel>(ctor: { new(d: any): T; }, rel: string): ng.IPromise<T> {
+      var defer = this.q.defer<T>();
 
       var entity: any = this.entity(rel);
       if (entity instanceof Entity) {
-        entity.get(SirenModel).then((model: ISirenModel) => {
+        entity.get(ctor).then((model: T) => {
           this.replaceEntityRef(rel, model);
           defer.resolve(model);
         }, (response: ng.IHttpPromiseCallbackArg<any>) => {
@@ -289,23 +289,5 @@ module powur {
 
       return defer.promise;
     }
-
-    // getEntity(rel: string): ng.IPromise<ISirenModel> {
-    //   var defer = this.q.defer<ISirenModel>();
-
-    //   var entity: any = this.entity(rel);
-    //   if (entity instanceof Entity) {
-    //     entity.get(SirenModel).then((model: ISirenModel) => {
-    //       this.replaceEntityRef(rel, model);
-    //       defer.resolve(model);
-    //     }, (response: ng.IHttpPromiseCallbackArg<any>) => {
-    //       defer.reject(response);
-    //     })
-    //   } else {
-    //     defer.resolve(entity);
-    //   }
-
-    //   return defer.promise;
-    // }
   }
 }

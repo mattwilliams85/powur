@@ -7,7 +7,7 @@ module powur {
     
     constructor(private $log: ng.ILogService) {
       var init = (input: number): string => {
-        return (input % 1).toFixed(2).substring(2, 4);                               
+        return (input % 1).toFixed(2).substring(2, 4);
       };
       
       return <any>init;
