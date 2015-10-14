@@ -74,7 +74,7 @@ module powur {
               return root.$session.instance.getEntity(GoalsModel, 'user-goals');
             },
             requirements: function(goals: GoalsModel) {
-              return goals.getRequirements;
+              return goals.getRequirements();
             }
           }
         }).state('home.invite', {
