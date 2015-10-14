@@ -1,0 +1,93 @@
+.invite-popup {
+    .side-bg {
+        width: 30px;
+        background: #197394; /* Old browsers */
+        background: -moz-linear-gradient(top, #197394 0%, #2d6f75 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#197394), color-stop(100%#2d6f75)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top, #197394 0%,#2d6f75 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top, #197394 0%,#2d6f75 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top, #197394 0%,#2d6f75 100%); /* IE10+ */
+        background: linear-gradient(to bottom, #197394 0%,#2d6f75 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#197394', endColorstr='#2d6f75',GradientType=0 ); /* IE6-9 */
+    }        
+        
+    .dialog {
+        max-width: 800px;
+        max-height: 810px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    md-dialog-content {
+        padding: 0 150px 0 150px;
+    }
+    
+    .close {
+        background-color: #4d4c4d;
+        padding: 15px;
+    }
+    
+    .heading {
+        padding: 50px 0 0 10px;
+        
+        .title {
+            font-size: x-large;
+            text-transform: uppercase;
+        }
+    }
+    
+    md-radio-group {
+        padding: 20px 0 20px 0;
+    }
+    
+    .md-label span {
+        text-transform: uppercase;
+    }
+    
+    label {
+        text-transform: uppercase;
+    }
+    
+    .actions {
+        padding: 50px 0 50px 5px;
+        
+        button {
+            background-color: #41c1f6;
+                        
+            span {
+                padding: 10px;
+                color: white;
+            }
+            
+            span:hover {
+                color: #4d4c4d;
+            }
+        }        
+    }
+    
+    /* sprite */
+    .sprite {
+        background-image: image-url("img/invite-popup-sprite.png");
+        background-repeat: no-repeat;
+        display: inline-block;           
+    }
+    
+    .sprite-advocate {
+        width: 25px;
+        height: 22px;
+        background-position: -5px -5px;
+    }
+    
+    .sprite-close {
+        width: 13px;
+        height: 13px;
+        background-position: -40px -5px;
+    }
+    
+    .sprite-household {
+        width: 27px;
+        height: 22px;
+        background-position: -63px -5px;
+    }
+    
+}

@@ -1,6 +1,6 @@
 siren json
 
-json.partial! 'item', lead: @lead
+json.partial! 'auth/leads/item', lead: @lead
 
 json.properties do
   json.call(@lead.customer, :email, :phone,

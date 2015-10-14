@@ -32,7 +32,7 @@
   <%= yield %>
 
   <!-- TODO: deprecate -->
-  <script type="text/javascript">
+  <script >
     SignedIn = <%= current_user ? 'true' : 'false' %>;
   </script>
   <%= javascript_include_tag "application" %>

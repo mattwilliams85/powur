@@ -1,0 +1,27 @@
+<div class="activity fill-height">
+    <div class="heading" layout="row">
+        <i class="sprite sprite-activity"></i>
+        <div class="title">Activity<b>Center</b></div>
+    </div>
+    <md-input-container>
+        <label>Sort By</label>
+        <md-select ng-model="activity.sortId">
+            <md-option ng-repeat="sort in activity.sorting" value="{{sort.id}}">{{sort.name}}</md-option>
+        </md-select>
+    </md-input-container>
+    <div class="divider"></div>
+    <div class="wrapper">
+        <div class="container">
+            <div ng-repeat="item in activity.news" layout="row" class="activity-item">
+                <div class="image">
+                    <i class="sprite sprite-news" ng-if="item.imageUrl == 'news'"></i>
+                    <img ng-src="{{item.imageUrl}}" ng-if="item.imageUrl != 'news'"/>
+                </div>
+                <div layout="column" class="content">
+                    <div class="date">{{item.date | date : 'MM/dd/yyyy'}}</div>
+                    <div class="caption">{{item.caption}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

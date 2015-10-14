@@ -1,0 +1,325 @@
+$textColor: white;
+$videoIconHeight: 25px;
+$buttonColor: #07b7d1;
+
+@mixin bg($img) {
+        width: 100%;
+        height: 100%;
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        min-width: 100%;
+        min-height: 100%;        
+        background-image: image-url($img); 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
+
+.join {
+    width: 100%;
+    height: 100%;
+    color: $textColor;
+    font-family: 'Open Sans';
+
+    .bg {
+        @include bg("img/join/join-bg.png");
+        &.solar { @include bg("img/join/join-bg2.jpg") }
+        &.solar-2 { @include bg("img/join/join-bg5.jpg") }
+
+        .messages {
+            color: #fff;
+            background: rgba(255,255,255,0.3);
+            max-width: 360px;
+            padding: 5px 5px 5px 10px;
+            margin: 10px 0;
+            border-left: 2px solid #f00;
+        }
+
+        .key-box {
+            width: 100%;
+            margin-bottom: 50px;
+            display: block;
+        }
+
+        .text-box {
+            max-width: 600px;
+            text-align: center;
+            .header {
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+            .detail {
+                padding: 15px 0;
+            }
+        }
+        
+        .who {
+            padding-top: 100px;
+
+            .greeting {
+                font-size: medium;
+                text-transform: uppercase;
+            }
+            
+            .full-name {
+                font-size: xx-large;
+                font-weight: 600;
+            }
+            .detail {
+                padding: 15px 0 20px 0;
+            }
+        }
+        
+        .key {
+            color: $textColor;
+            text-transform: uppercase;
+            
+            label {
+                padding: 30px 0 5px 0;
+                display: block;
+                font-size: medium;
+            }
+            
+            input[type="text"] {
+                color: $textColor;
+                text-transform: uppercase;
+                background: rgba(0,0,0,.2);
+                border: rgba(0,0,0,0.15) 1px solid;
+                padding: 5px;
+                width: 70%;
+                max-width: 356px;
+                height: 40px;
+            }
+            
+            input[type="text"]:focus{
+                outline: 0;
+            }
+            
+            button {
+                font-size: medium; 
+                font-weight: 500;
+                color: $textColor;
+                text-transform: uppercase;
+                width: 146px;
+                height: 40px;
+                background: rgba(0,55,101,0.7);
+                transition: background .5s;
+                border: none;
+                &:hover {
+                  background: rgba(0,55,101,0.8);  
+                }
+                //border: #124b79 1px solid;
+            }
+        }
+        
+        .trailer {
+            //padding-top: 400px;
+            
+            .video {
+                width: 29px;
+                height: $videoIconHeight;
+            }
+            
+            .info {
+                color: $textColor;
+                font-size: large;
+                text-transform: uppercase;
+                line-height: $videoIconHeight;
+                padding-left: 10px;
+
+                a { 
+                    color: $textColor;
+                }
+            }
+        }
+        
+        .footer {
+            .logo {
+                width: 100px;
+                height: 28px;
+            }
+        }
+    }
+    
+
+    .bg2 {
+        .bg-img {
+            @include bg("img/join/join-bg3.png");
+            position: fixed;
+            &.solar {
+                @include bg("img/join/join-bg4.jpg");
+            }
+        }
+
+        .intro {
+            box-shadow: 0px 60px 100px -50px rgba(0, 0, 0, 1);
+            max-height: 55vh;
+            position: relative;
+            z-index: 2;
+            background: #000;
+        }
+        
+        .box {
+            width: 70% !important;
+            margin: 7vh;
+            position: relative;
+            .drop-shadow {
+                position: absolute;
+                bottom: 10px;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                width: 70%;
+                height: 50px;
+                z-index: 1;
+            }
+        }
+        
+        md-content {
+            background: transparent;
+            color: $textColor;
+            font-size: smaller;
+
+            .input-wrap {
+
+            }
+            
+            
+            label, span {
+                color: $textColor;
+                text-transform: uppercase;
+                padding-left: 5px;
+            }
+
+            input {
+                color: $textColor;
+                padding-left: 5px;
+            }
+            
+            button {
+                color: $textColor;
+                background-color: $buttonColor;
+                text-transform: uppercase;
+                width: 275px;
+                height: 40px;
+                letter-spacing: .1em;
+                border-radius: 0;
+                transition: color .5s, background .5s;
+            }
+            
+            button:hover {
+                * {
+                  color: black;
+                }
+            }
+            
+            md-input-container {
+                .md-input {
+                    border-width: 0;
+                    font-size: medium;
+                    font-weight: 600;
+                }
+                &:last-child {
+                    .border {
+                        width: 100%;
+                    }
+                }
+            }
+
+            
+            md-select .md-select-value {
+                color: $textColor;
+
+                &:not(.md-select-placeholder) {
+                    font-size: medium;
+                    font-weight: 600;
+                }
+                
+                .md-select-icon {
+                    width: 15px;
+                    -webkit-transform: translate3d(-8px, 1px, 0);
+                    transform: translate3d(-8px, 1px, 0);
+                }
+            }
+            
+            md-select:not([disabled]):focus .md-select-value {
+                border-width: 0;
+            }
+
+            .border {
+                width: 95%;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                margin: auto 0;
+                border: 1px solid #fff;
+                border-width: 0 1px 1px 1px;
+                margin-top: 40px;
+                height: 10px;
+                pointer-events: none;
+            }
+        }
+        
+        .terms {
+            font-size: smaller;
+            padding: 10px;
+            
+            a { 
+                color: $textColor;
+            }
+        }        
+    }
+}
+ .terms-dialog {
+     background: rgba(255, 255, 255, 0.9);
+     
+     md-toolbar:not(.md-menu-toolbar) {
+         background-color: #0a3b86;
+     }
+     
+    .md-actions {
+        
+        button {
+            color: $textColor;
+            background-color: $buttonColor !important;
+        }
+        
+        button:hover {
+            color: black;
+            background-color: white !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 40em) {
+    .join {
+        height: inherit;
+        .bg {
+            .who {
+                padding-top: 50px;
+            }
+            .trailer .info {
+                font-size: x-small
+            }
+        }
+        .bg2 {
+            md-content {
+                button {
+                    margin-top: 30px;
+                }
+                md-select .md-select-value .md-select-icon {
+                    transform: translate3d(-20px, 1px, 0);
+                }
+                md-input-container .border {
+                    width: 100%;
+                }
+            }
+            .box {
+                width: 90% !important;
+            }
+        }
+    }
+}

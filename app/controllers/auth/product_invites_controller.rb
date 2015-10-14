@@ -1,6 +1,5 @@
 module Auth
   class ProductInvitesController < AuthController
-    before_action :fetch_product, only: [ :create ]
     before_action :validate_existence, only: [ :create ]
     before_action :fetch_invite, only: [ :show ]
 
@@ -8,11 +7,11 @@ module Auth
     sort created:  { created_at: :desc },
          customer: 'customers.last_name asc, customers.first_name asc'
     filter :status,
-           options:  ProductInvite.statuses.keys,
+           options:  Customer.statuses.keys,
            required: false
 
     def index
-      @invites = apply_list_query_options(ProductInvite)
+      @invites = apply_list_query_options(current_user.customers)
 
       render 'index'
     end
@@ -22,12 +21,9 @@ module Auth
     end
 
     def create
-      customer = Customer.create!(customer_input)
-      @invite = ProductInvite.create!(
-        product_id: @product.id,
-        customer:   customer,
-        user:       current_user)
-      PromoterMailer.product_invitation(@invite).deliver_later
+      @customer = Customer.create!(
+        customer_input.merge(user_id: current_user.id))
+      PromoterMailer.product_invitation(@customer).deliver_later
 
       show
     end
@@ -44,13 +40,8 @@ module Auth
       error!(:product_invite_exist) if customer
     end
 
-    def fetch_invite
-      @invite = ProductInvite.find(params[:id])
-    end
-
-    def fetch_product
-      @product = Product.find_by(id: params[:product_id])
-      not_found!(:product) unless @product
+    def fetch_customer
+      @customer = Customer.find(params[:id])
     end
   end
 end

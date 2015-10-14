@@ -25,6 +25,11 @@ Rails.application.routes.draw do
   # Any admin html request
   get 'admin(/*any)', to: 'admin/root#index', constraints: html?
 
+  get 'next', to: 'next#index', constraints: html?
+
+  # TEMPORARY
+  get 'next(*anyhtml)', to: 'next#index', constraints: html?
+
   # Any other html request
   get '*anyhtml', to: 'index#index', constraints: html?
 
@@ -45,11 +50,9 @@ Rails.application.routes.draw do
       post :validate
     end
 
-    resource :zip_validator, only: [] do
-      post :validate
-    end
+    resource :zip_validator, only: [ :create ]
 
-    resource :product_invite, only: [ :update ]
+    resources :product_invites, only: [ :show, :update ]
   end
 
   # logged in user routes

@@ -7,7 +7,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 require 'csv'
 
-module Sunstand
+module Powur
   class Application < Rails::Application
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -37,8 +37,12 @@ module Sunstand
 
     config.assets.paths << Rails.root.join('app', 'assets', 'templates')
     # config.assets.paths << Rails.root.join('app', 'assets', 'components')
-    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+    config.assets.paths << Rails.root.join('vendor',
+                                           'assets',
+                                           'bower_components')
     # config.angular_templates.inside_paths = [ Rails.root.join('app', 'assets', 'javascripts') ]
+
+    config.assets.paths << Rails.root.join('app', 'assets', 'client', 'app')
 
     locales_path = Rails.root.join('config', 'locales', '**', '*.yml')
     config.i18n.load_path += Dir[ locales_path ]
@@ -52,5 +56,11 @@ module Sunstand
     config.action_view.logger = nil
 
     config.active_job.queue_adapter = :delayed_job
+
+    # https://github.com/Microsoft/TypeScript/issues/1232
+    Typescript::Rails::Compiler.default_options = ['--target', 'ES5']
+    # Typescript::Rails::Compiler
+    #   .default_options.push('--suppressImplicitAnyIndexErrors')
+    # binding.pry
   end
 end

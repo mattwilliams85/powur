@@ -4,17 +4,19 @@ describe 'GET /u/product_invites' do
   let!(:user) { login_user }
 
   before do
-    create_list(:product_invite, 2)
+    create(:customer, user_id: user.id)
+    create(:customer)
   end
 
   it 'returns json data' do
     get product_invites_path, format: :json
 
-    expect_entities_count(2)
+    expect_entities_count(1)
+    expect_actions('create')
     expect_props(
       paging: {
         'current_page' => 1,
-        'item_count'   => 2,
+        'item_count'   => 1,
         'page_count'   => 1,
         'page_size'    => 50
       }
@@ -24,11 +26,10 @@ end
 
 describe 'POST /u/product_invites' do
   let!(:user) { login_user }
-  let(:product) { create(:product) }
+  # let(:product) { create(:product) }
 
   let(:payload) do
-    { product_id: product.id,
-      email:      'example@example.com',
+    { email:      'example@example.com',
       first_name: 'Dilbert',
       last_name:  'Pickles' }
   end
@@ -39,28 +40,15 @@ describe 'POST /u/product_invites' do
     post product_invites_path, payload, format: :json
 
     expect_props(
-      status:     ProductInvite.statuses.keys[0],
-      product_id: payload[:product_id],
-      customer:   {
-        'full_name' => payload[:first_name] + ' ' + payload[:last_name],
-        'email'     => payload[:email]
-      }
-    )
+      status:    Customer.statuses.keys[0],
+      full_name: payload[:first_name] + ' ' + payload[:last_name],
+      email:     payload[:email])
   end
 
   context 'when customer already exists' do
     let!(:customer) { create(:customer, email: payload[:email]) }
 
     it 'returns error' do
-      post product_invites_path, payload, format: :json
-
-      expect_alert_error
-    end
-  end
-
-  context 'when can not find product' do
-    it 'returns error' do
-      payload[:product_id] = 123
       post product_invites_path, payload, format: :json
 
       expect_alert_error

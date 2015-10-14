@@ -1,0 +1,25 @@
+<div class="invite main">
+  <div class="heading">
+    <div class="title">POWUR<b>INVITE</b></div>
+    <div class="subtitle">Your journey of the power revolution starts here.</div>
+  </div>
+  <ul layout="row" layout-sm="column" class="tab" layout-align="center center">
+    <li class="grid-invites active" flex="50">
+      <a layout-fill layout="column" layout-align="center center" ui-sref="home.invite.grid" ng-class="{ active: invite.isCurrent('home.invite.grid') }">
+        <div flex layout="column" layout-align="center start">
+          <div class="sub">Manage Your</div>
+          <div class="title">Grid <b>Invites</b></div>
+        </div>
+      </a>
+    </li>
+    <li class="solar-invites" flex="50">
+      <a layout-fill layout="column" layout-align="center center" ui-sref="home.invite.product" ng-class="{ active: invite.isCurrent('home.invite.product') }">
+        <div flex layout="column" layout-align="center start">
+          <div class="sub">Manage Your</div>
+          <div class="title">Solar <b>Invites</b></div>
+        </div>
+      </a>
+    </li>
+  </ul>
+  <div ui-view></div>
+</div>

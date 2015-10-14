@@ -1,5 +1,5 @@
 siren json
 
-klass :product_invite
+klass :customer
 
-json.partial! 'item', invite: @invite, detail: true
+json.partial! 'item', invite: @customer
