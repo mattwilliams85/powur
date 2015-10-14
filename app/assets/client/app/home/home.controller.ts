@@ -13,8 +13,6 @@ module powur {
                 public goals: ISirenModel,
                 public requirements: ISirenModel) {
       super();
-
-      this.state.transitionTo('home.invite');
     }
     
     openMenu() {

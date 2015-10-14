@@ -7,12 +7,7 @@ module powur {
   
   class HudController {
     static ControllerId = 'HudController';
-    static $inject = ['$scope', '$log', '$interval'];
-    
-    gridSize: number;
-    dollarsEarned: number;
-    co2: number;
-    loginStreaks: number;
+    static $inject = ['$scope', '$log'];
 
     get home(): any {
       return this.$scope.home;
@@ -45,18 +40,10 @@ module powur {
     }
     
     constructor(private $scope: IHudScope,
-                private $log: ng.ILogService,
-                private $interval: ng.IIntervalService) {
-      
-      this.gridSize = 18;
-      
-      this.dollarsEarned = 1880.89;
-      
-      this.co2 = 72.36;
-      this.loginStreaks = 26;
+                private $log: ng.ILogService) {
     }
 
   }
-  
+
   controllerModule.controller(HudController.ControllerId, HudController);
 }

@@ -19,7 +19,7 @@ module powur {
 
         if (/home\./.test(toState.name) && !$session.instance.loggedIn()) {
           e.preventDefault();
-          $state.go('login.private');
+          $state.go('login.public');
         }
       });
       

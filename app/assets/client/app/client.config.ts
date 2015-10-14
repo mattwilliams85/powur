@@ -14,6 +14,7 @@ module powur {
       $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
       $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-Token';
 
+      $urlRouterProvider.when('/invite', '/invite/grid');
       $urlRouterProvider.otherwise('/login');
 
       $locationProvider.html5Mode(true);
@@ -64,6 +65,7 @@ module powur {
         })
 
         .state('home', {
+          abstract: true,
           templateUrl: 'app/home/home.html',
           controller: 'HomeController as home',
           resolve: {
@@ -77,17 +79,22 @@ module powur {
           }
         }).state('home.invite', {
           url: '/invite',
-          views: {
-            'main': {
-              templateUrl: 'app/invite/invite.html',
-              controller: 'InviteController as invite',
-            }
-          },
+          abstract: true,
+          templateUrl: 'app/invite/layout.html',
+          controller: 'InviteController as invite',
+        }).state('home.invite.product', {
+          url: '/solar',
+          templateUrl: 'app/invite/invite.product.html',
+          controller: 'InviteProductController as invite',
           resolve: {
-            invitesEntity: function() {
-              var root = RootController.get();
-              return root.$session.instance.getEntity('user-invites');
-            }
+
+          }
+        }).state('home.invite.grid', {
+          url: '/grid',
+          templateUrl: 'app/invite/invite.grid.html',
+          controller: 'InviteGridController as invite',
+          resolve: {
+
           }
         })
         .state('home.events', {

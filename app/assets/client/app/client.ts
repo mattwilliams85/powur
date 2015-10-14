@@ -21,8 +21,10 @@
 //= require components/hud
 
 //= require home/home
-//= require invite/invite
+//= require invite/layout
 //= require invite/invite-popup
+//= require invite/invite.product
+//= require invite/invite.grid
 //= require events/events
 
 //= require login/layout
@@ -67,6 +69,8 @@
 
 /// <reference path='home/home.controller.ts' />
 /// <reference path='invite/invite.controller.ts' />
+/// <reference path='invite/invite.product.controller.ts' />
+/// <reference path='invite/invite.grid.controller.ts' />
 /// <reference path='events/events.controller.ts' />
 
 /// <reference path='login/login.controller.ts' />
