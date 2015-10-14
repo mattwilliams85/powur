@@ -10,6 +10,10 @@ module powur {
 
       this.log.debug('invite ctor: ');
     }
+    
+    isCurrent(state: string): boolean {
+      return this.state.current.name == state;
+    }
   }
 
   controllerModule.controller(InviteController.ControllerId, InviteController);
