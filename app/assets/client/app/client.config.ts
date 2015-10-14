@@ -93,7 +93,6 @@ module powur {
           }
         }).state('home.invite', {
           url: '/invite',
-          abstract: true,
           templateUrl: 'app/invite/layout.html',
           controller: 'InviteController as invite',
         }).state('home.invite.product', {

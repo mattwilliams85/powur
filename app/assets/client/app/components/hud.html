@@ -33,18 +33,26 @@
         <div class="stat-title">dollars earned</div>
         <div class="stat" layout="row">
             <i class="sprite sprite-earned" flex="10"></i>
-            <span class="info" flex>{{ hud.userData.metrics.earnings | wholeNumber }}<span class="superscript">{{ hud.userData.metrics.earnings | decimalPart }}</span></span>
+            <span class="info" flex>{{ hud.userData.metrics.earnings | wholeNumber }}<sup>{{ hud.userData.metrics.earnings | decimalPart }}</sup></span>
+        </div>
+    </div>
+
+    <div class="stat2">
+        <div class="stat-title">CO<sub>2</sub> Saved</div>
+        <div class="stat" layout="row">
+            <i class="sprite sprite-co2" flex="10"></i>
+            <span class="info" flex>{{ hud.userData.metrics.co2_saved | wholeNumber }}<small class="md-caption"> lb/ft</small></span>
         </div>
     </div>
     
-    <div class="stat3" layout="row" layout-align="center start">
+<!--     <div class="stat3" layout="row" layout-align="center start">
         <div flex="50" class="co2">
             <div class="stat-title">
-                CO<span class="superscript">2</span> Saved
+                CO<sub>2</sub> Saved
             </div>
             <div class="stat">
                 <i class="sprite sprite-co2"></i>
-                <span class="info">{{ hud.userData.metrics.co2_saved | wholeNumber }}<span class="superscript">{{ hud.userData.metrics.co2_saved | decimalPart }}</span> <small class="md-caption">lb/ft<span class="superscript">2</span><small></span>
+                <span class="info">{{ hud.userData.metrics.co2_saved | wholeNumber }}<sup>{{ hud.userData.metrics.co2_saved | decimalPart }}</sup><small class="md-caption">lb/ft</small></span>
             </div>
         </div>
         <div flex="50" class="login-streaks">
@@ -54,7 +62,7 @@
                 <span class="info">{{ hud.userData.metrics.login_streak }}</span>
             </div>
         </div>
-    </div>
+    </div> -->
     
     <div class="current-goals heading">Current Goals</div>
 

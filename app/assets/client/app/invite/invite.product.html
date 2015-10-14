@@ -21,10 +21,35 @@
 <div class="message bg">Get <b>5 Accepted Invitations</b> to <b>Unlock 5 More Invitations</b></div>
 
 <div layout="row" layout-wrap class="invite-list bg">
-    <div ng-repeat="item in invite.invites">
-        <div ng-if="item.status == 1" class="invite-item" style="color: {{invite.timerColor}} !important">
-            <div class="full-name">{{item.firstName}} <b>{{item.lastName}}</b></div>
-            <div class="time">{{item.time | date : 'H:mm'}}<span class="superscript">{{item.time | date : 'ss'}}</span></div>
+    <div ng-repeat="item in invite.invites.entities">
+        <div ng-if="item.properties.status == 'sent'" class="invite-item" style="color: {{invite.timerColor}} !important">
+            <div class="full-name"><b>{{item.properties.full_name}}</b></div>
+            <div class="time">{{item.properties.updated_at | date : 'd/M/yy'}}</div>
+            <div pw-invite-progress data-progress-model="item" data-circle-foreground-color="{{invite.timerColor}}"></div>
+        </div>
+
+        <div ng-if="item.status == 4" class="invite-item">
+            <span class="add counter">
+                <i class="sprite sprite-invite"></i>
+                <div class="label"><b>locked</b></div>
+            </span>
+            <span class="ellipse"><i class="sprite sprite-ellipse-locked"></i></span>
+        </div>
+    </div>
+    <div class="invite-item">
+        <span class="add counter">
+            <i class="sprite sprite-invite"></i>
+            <div class="label"><a href="javascript:void(0);" ng-click="invite.addInvite(item, $event)">Click to <b>Invite</b></a></div>
+        </span>
+        <span class="ellipse"><i class="sprite sprite-ellipse-invite"></i></span>
+    </div>
+</div>
+
+<!-- <div layout="row" layout-wrap class="invite-list bg">
+    <div ng-repeat="item in invite.invites.entities">
+        <div ng-if="item.properties.status == 'sent'" class="invite-item" style="color: {{invite.timerColor}} !important">
+            <div class="full-name"><b>{{item.properties.full_name}}</b></div>
+            <div class="time">{{item.properties.updated_at | date : 'd/M/yy'}}</div>
             <div pw-invite-progress data-progress-model="item" data-circle-foreground-color="{{invite.timerColor}}"></div>
         </div>
         <div ng-if="item.status == 0" class="invite-item">
@@ -42,4 +67,4 @@
             <span class="ellipse"><i class="sprite sprite-ellipse-locked"></i></span>
         </div>
     </div>
-</div>
+</div> -->
