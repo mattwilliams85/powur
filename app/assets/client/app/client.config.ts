@@ -31,7 +31,7 @@ module powur {
           templateUrl: 'app/login/login.private.html',
           controller: 'LoginPrivateController as login',
         })
-        
+
         .state('join', {
           url: '/join',
           template: '<div ui-view></div>'
@@ -43,6 +43,9 @@ module powur {
           url: '/grid',
           templateUrl: 'app/join/join-grid2.html',
           controller: 'JoinController as join',
+          params: {
+            inviteData: null
+          }
         }).state('join.solar', {
           url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar.html',
@@ -51,12 +54,15 @@ module powur {
           url: '/solar',
           templateUrl: 'app/join/join-solar2.html',
           controller: 'JoinController as join',
+          params: { 
+            leadData: null 
+          }
         }).state('join.solar3', {
           url: '/solar',
           templateUrl: 'app/join/join-solar3.html',
           controller: 'JoinController as join',
         })
-        
+
         .state('home', {
           templateUrl: 'app/home/home.html',
           controller: 'HomeController as home',
@@ -77,6 +83,12 @@ module powur {
               controller: 'InviteController as invite',
             }
           },
+          resolve: {
+            invitesEntity: function() {
+              var root = RootController.get();
+              return root.$session.instance.getEntity('user-invites');
+            }
+          }
         })
         .state('home.events', {
           url: '/events',

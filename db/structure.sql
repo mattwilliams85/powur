@@ -38,6 +38,20 @@ COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs
 
 
 --
+-- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_stat_statements WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_stat_statements; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQL statements executed';
+
+
+--
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -521,11 +535,11 @@ CREATE TABLE leads (
     provider_uid character varying,
     submitted_at timestamp without time zone,
     converted_at timestamp without time zone,
-    closed_won_at timestamp without time zone,
     contracted_at timestamp without time zone,
     installed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    closed_won_at timestamp without time zone
 );
 
 
@@ -1459,7 +1473,8 @@ CREATE TABLE users (
     moved boolean,
     image_original_path character varying,
     tos character varying(5),
-    available_invites integer DEFAULT 0
+    available_invites integer DEFAULT 0,
+    login_streak integer DEFAULT 0 NOT NULL
 );
 
 
@@ -2964,4 +2979,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150923175837');
 INSERT INTO schema_migrations (version) VALUES ('20150923221510');
 
 INSERT INTO schema_migrations (version) VALUES ('20151011213250');
+
+INSERT INTO schema_migrations (version) VALUES ('20151013222020');
 

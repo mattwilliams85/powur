@@ -11,20 +11,16 @@ module Anon
 
       user = @invite.accept(input)
 
-      if user.errors.empty?
-        User.delay.validate_phone_number!(user.id)
-        PromoterMailer.notify_upline(user).deliver_later
-        PromoterMailer.welcome_new_user(user).deliver_later
-        subscribe_to_mailchimp_list(user)
+      User.delay.validate_phone_number!(user.id)
+      PromoterMailer.notify_upline(user).deliver_later
+      PromoterMailer.welcome_new_user(user).deliver_later
+      subscribe_to_mailchimp_list(user) unless Rails.env.development?
 
-        # Sign in new user and return session
-        user = User.authenticate(params[:email], params[:password])
-        login_user(user, params[:remember_me] == true)
+      # Sign in new user and return session
+      user = User.authenticate(params[:email], params[:password])
+      login_user(user, params[:remember_me] == true)
 
-        render 'anon/session/show'
-      else
-        render json: { errors: user.errors.messages }
-      end
+      render 'anon/session/show'
     end
 
     def validate

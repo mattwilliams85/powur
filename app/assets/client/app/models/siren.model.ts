@@ -218,7 +218,6 @@ module powur {
     private parseEntity(entity: any): Entity|ISirenModel {
       if (entity.href) return new Entity(entity);
       var model: ISirenModel = new SirenModel(entity);
-      // console.log('ent', entity);
       if (model.hasClass('list')) {
         model.entities = entity.entities.map((ent: any): ISirenModel => {
           return new SirenModel(ent);

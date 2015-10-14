@@ -11,7 +11,7 @@ module Auth
            required: false
 
     def index
-      @invites = apply_list_query_options(ProductInvite)
+      @invites = apply_list_query_options(current_user.customers)
 
       render 'index'
     end

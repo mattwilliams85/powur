@@ -40,20 +40,12 @@ describe '/invite' do
     end
 
     it 'requires certain fields' do
-      patch invite_path(format: :json),
-            JSON.dump(code: invite.id),
-            'CONTENT_TYPE' => 'application/json'
+      patch invite_path(format: :json), code: invite.id
 
-      expect(json_body['errors']).to eq(
-        'first_name'            => ['First name is required'],
-        'last_name'             => ['Last name is required'],
-        'email'                 => ['Please input an email address'],
-        'encrypted_password'    => ['Encrypted password is required'],
-        'password'              => [
-          'Password is required',
-          'Password must be at least 8 characters.'],
-        'password_confirmation' => ['Password confirmation is required']
-      )
+      expect(json_body['error']).to eq(
+        'type'    => 'input',
+        'message' => 'Please input an email address, Encrypted password is required, First name is required, Last name is required, Password is required, Password must be at least 8 characters.',
+        'input'   => 'email')
     end
 
     context 'when successfully creates user' do

@@ -179,7 +179,8 @@ $textColor: white;
         padding: 40px 0 50px 0;
         
         .md-raised {
-            background-color: #41c1f6;
+            background-color: #41c1f6 !important;
+            margin: 0;
                         
             span {
                 padding: 10px;
@@ -187,10 +188,9 @@ $textColor: white;
             }
             
             &:hover {
-                color: #4d4c4d;
-                background: #51c8f6;
+                background: #00A7EC !important;
             }
-        }        
+        }
     }
 
     .messages {

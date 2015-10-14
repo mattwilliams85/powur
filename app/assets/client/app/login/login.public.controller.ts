@@ -6,13 +6,17 @@ module powur {
   class LoginPublicController extends BaseController {
     static ControllerId: string = 'LoginPublicController';
     static $inject = ['$mdDialog'];
+    private _create: Action;
 
     constructor(private $mdDialog: ng.material.IDialogService) {
       super();
     }
 
     get create(): Action {
-      return this.session.instance.action('create');
+      if (!this._create) {
+        this._create = this.session.instance.action('create');
+      }
+      return this._create;
     }
 
     get reset(): Action {
@@ -38,6 +42,12 @@ module powur {
     loginSubmit(): void {
       this.session.login().then((r: ng.IHttpPromiseCallbackArg<any>) => {
         this.state.go('home.invite');
+      });
+    }
+
+    resetSubmit(): void {
+      this.reset.submit().then((r: ng.IHttpPromiseCallbackArg<any>) => {
+        this.cancel();
       });
     }
     

@@ -1,19 +1,14 @@
 /// <reference path='../_references.ts' />
 
+//TODO: split solar & grid into seperate controllers
 module powur {
   class JoinController extends BaseController {
     static ControllerId: string = 'JoinController';
-    static $inject: Array<string> = ['$mdDialog', 'CacheService','$stateParams'];
+    static $inject: Array<string> = ['$mdDialog', 'CacheService', '$stateParams'];
 
+    gridInvite: SirenModel;
+    solarLead: SirenModel;
     firstName: string;
-    lastName: string;
-    address: string;
-    city: string;
-    stateStr: string;
-    zip: string;
-    inviteCode: string;
-
-    password: string;
 
     constructor(private $mdDialog: ng.material.IDialogService,
                 private cache: ICacheService,
@@ -21,17 +16,22 @@ module powur {
       super();
       this.log.debug(JoinController.ControllerId + ':ctor');
       this.validate.field('code').value = this.params.inviteCode;
-      if (this.state.current.name == 'join.solar') this.setParams();
+      if (this.state.current.name === 'join.solar') this.setParams();
+      if (this.$stateParams['inviteData']) {
+        this.gridInvite = new SirenModel(this.$stateParams['inviteData']);
+      }
+      if (this.$stateParams['leadData']) {
+        this.solarLead = new SirenModel(this.$stateParams['leadData']);
+      }
     }
-    
+
     validateZip(): void {
-      var self = this;
-      this.validate.submit().then(function(data){
-        var is_valid = data['data']['properties']['is_valid'];
+      this.validate.submit().then((response) => {
+        var is_valid = response['data']['properties']['is_valid'];
         if (is_valid) {
-          self.state.go('join.solar2', {});
+          this.state.go('join.solar2', { leadData: response.data });
         } else {
-          self.validate.field('zip').$error = 'Your zipcode is outside the servicable area'
+          this.validate.field('zip').$error = 'Your zipcode is outside the servicable area'
         }
       })
     }
@@ -44,33 +44,55 @@ module powur {
       return this.session.instance.action('solar_invite');
     }
 
+    get submitLead(): Action {
+      return this.solarLead.action('solar_invite');
+    }
+
     get validateGridInvite(): Action {
       return this.session.instance.action('validate_grid_invite');
+    }
+
+    get acceptGridInvite(): Action {
+      return this.gridInvite.action('accept_invite');
     }
 
     get params(): any {
       return this.$stateParams;
     }
 
+    createLead(): any {
+      this.submitLead.submit().then((data) => {
+        this.state.go('join.solar3');
+      });
+    }
+
     setParams(): void {
-      var self = this;
       this.validate.field('code').value = this.params.inviteCode;
       this.solarInvite.href += this.params.inviteCode;
-      this.solarInvite.submit().then(function(data){
-        self.firstName = data['data']['properties']['first_name'] || "Anonymous";
+      this.solarInvite.submit().then((data) => {
+        this.firstName = data['data']['properties']['first_name'] || "Anonymous";
+      }, function(){
+        this.firstName = "Anonymous";
       });
     }
 
     validateGridInviteSubmit(): void {
-      var self = this;
-      this.validateGridInvite.submit().then(() => {
-        self.state.go('join.grid2', {});
+      this.validateGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.gridInvite = new SirenModel(response.data);
+        if (this.gridInvite.action('accept_invite')) {
+          this.state.go('join.grid2', { inviteData: response.data });
+        } else {
+          this.state.go('login');
+        }
       });
     }
 
-    enterGrid(): void {
-      this.log.debug(JoinController.ControllerId + ':enterGrid');
-      this.state.go('home', {});
+    acceptGridInviteSubmit(): void {
+      this.acceptGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        this.session.refresh().then(() => {
+          this.state.go('home.invite');
+        });
+      });
     }
 
     enterSolar(): void {
