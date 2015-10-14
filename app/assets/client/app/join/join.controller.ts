@@ -3,18 +3,18 @@
 //TODO: split solar & grid into seperate controllers
 module powur {
   class JoinController extends BaseController {
-    static ControllerId: string = 'JoinController';
-    static $inject: Array<string> = ['$mdDialog', 'CacheService', '$stateParams'];
+    static ControllerId = 'JoinController';
+    static $inject = ['$mdDialog', '$stateParams'];
 
-    gridInvite: SirenModel;
-    solarLead: SirenModel;
+    gridInvite: ISirenModel;
+    solarLead: ISirenModel;
     firstName: string;
 
     constructor(private $mdDialog: ng.material.IDialogService,
-                private cache: ICacheService,
                 private $stateParams: ng.ui.IStateParamsService) {
       super();
       this.log.debug(JoinController.ControllerId + ':ctor');
+
       this.validate.field('code').value = this.params.inviteCode;
       if (this.state.current.name === 'join.solar') this.setParams();
       if (this.$stateParams['inviteData']) {
@@ -106,7 +106,7 @@ module powur {
         templateUrl: 'app/join/terms.html',
         parent: angular.element(document.body),
         targetEvent: ev,
-        clickOutsideToClose:true
+        clickOutsideToClose: true
       })
     }
   }
