@@ -2,12 +2,12 @@
 
 module powur {
 
-  enum InvitationType {
+  export enum InvitationType {
     Advocate,
     Household
   }
 
-  enum InviteStatus {
+  export enum InviteStatus {
     Available,
     Pending,
     Accepted,
@@ -15,7 +15,7 @@ module powur {
     Locked,
   }
 
-  class InviteItem {
+  export class InviteItem {
     firstName: string;
     lastName: string;
     time: Date;
