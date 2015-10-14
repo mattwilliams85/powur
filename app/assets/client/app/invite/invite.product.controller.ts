@@ -10,6 +10,10 @@ module powur {
       return this.invites.entities;
     }
 
+    get listProps(): any {
+      return this.invites.properties;
+    }
+
     constructor(private invites: ISirenModel) {
       super();
       console.log('invites', invites);
