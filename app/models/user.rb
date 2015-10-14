@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   include UserEwallet
 
   has_many :leads
-  has_many :customers, through: :leads
+  has_many :customers
   has_many :bonus_payments
   has_many :overrides, class_name: 'UserOverride'
   has_many :user_activities

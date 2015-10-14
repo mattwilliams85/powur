@@ -14,7 +14,7 @@ module Anon
         @lead.submit!
         @lead.email_customer if @lead.can_email?
       end
-      
+
       render 'auth/leads/show'
     end
 
