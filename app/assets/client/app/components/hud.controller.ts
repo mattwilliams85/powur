@@ -9,8 +9,17 @@ module powur {
     static ControllerId = 'HudController';
     static $inject = ['$scope', '$log'];
 
+
     get home(): any {
       return this.$scope.home;
+    }
+
+    toggleHud(): void{
+      if($("md-sidenav").hasClass("collapsed")) {
+        $("md-sidenav").removeClass("collapsed");
+      }else{
+        $("md-sidenav").addClass("collapsed");
+      }
     }
 
     get userData(): any {

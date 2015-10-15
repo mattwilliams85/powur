@@ -1,7 +1,96 @@
+.collapsed .hud{
+    width:160px;
+    transition: .2s;
+
+    .control-tab{
+        background-image:image-url("img/hud-expand-tab.png");
+        top:0px;
+        position:absolute;
+        right:-14px;
+        width:14px;
+        height:73px;
+        outline:none;
+    }    
+
+    .headshot {
+        //background-image: image-url("img/default-profile.png");
+        height: 315px;
+        color: white;
+        background-size: cover;
+        background-position:-100px 0px;
+        overflow: hidden;
+            
+        .user {
+            height: 100%;
+            padding: 20px 20px 5px 20px;
+        }
+        
+        .greeting {
+            font-size: 12px;
+            padding-bottom: 5px;
+        }
+        
+        .full-name {
+            font-size: 25px;
+            padding-bottom: 10px;
+        }
+        
+        .actions i {
+            padding: 5px;
+        }        
+    }
+    .stat1{
+        .login-streaks, .sprite{
+            display:none;
+        }
+        .rank{
+            border-right:0px;
+        }
+        .stat{
+            padding:10px 0 0 0px;
+        }
+    }
+
+    .stat2 {
+        height: 120px;
+        margin: 0 10px 0 10px;
+        border-top: solid #62babf 1px;
+            
+        .sprite{
+            display:none;
+        }        
+        
+        .stat {
+            padding: 10px 0 0 15px;
+                
+            .info {
+                text-align: center;
+                padding: 0 30px 0 0;
+                margin:auto;
+            }        
+        }
+        sup{
+            font-size:small;
+        }
+    }
+}
+
 .hud {
     width: 279px;
     background-color: #2c6c8a;
-        
+    transition:.2s;
+    overflow:visible;
+    
+    .control-tab{
+        background-image:image-url("img/hud-collapsed-tab.png");
+        top:0px;
+        position:absolute;
+        right:1px;
+        width:14px;
+        height:73px;
+        outline:none;
+    }    
+
     .headshot {
         //background-image: image-url("img/default-profile.png");
         height: 315px;

@@ -123,7 +123,7 @@
             color: #cccccc;
             .locked{
                 color:#666;
-                font-size:small;
+                font-size:smaller;
                 padding-top:10px;
                 display: block;
             }
@@ -131,6 +131,9 @@
         .invite{
             padding-top:10px;
             display:block;
+            a{
+                color:#ccc;
+            }
         }
     }
     
@@ -277,6 +280,7 @@
             width: 165px;
             height: 165px;
             background-position: -180px -5px;
+            margin-top:-9px;
         }
         
         .sprite-ellipse-locked {

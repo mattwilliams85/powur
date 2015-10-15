@@ -1,12 +1,10 @@
 <div class="hud fill-height">
+    <div class="control-tab" ng-click="hud.toggleHud()"></div>
     <div class="headshot" ng-style="{{ hud.headshotStyle }}">
         <div class="user" layout="column" layout-align="end start">
-            <div class="greeting">Good morning,</div>
+            <div class="greeting">Good day,</div>
             <div class="full-name">{{ hud.userData.full_name }}</div>
-            <div class="actions">
-                <i class="sprite sprite-badge"></i>
-                <i class="sprite sprite-boxes"></i>
-            </div>
+
         </div>
     </div>
     

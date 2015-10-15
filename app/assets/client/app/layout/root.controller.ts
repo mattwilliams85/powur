@@ -6,7 +6,7 @@ module powur {
     $state: ng.ui.IStateService;
     $session: ISessionService;
   }
-  
+
   export class RootController implements IRootController {
     static ControllerId = 'RootController';
     static $inject = ['$log', '$state', 'SessionService'];
