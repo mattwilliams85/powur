@@ -10,10 +10,16 @@
             <md-input-container>
               <label>first name</label>
               <input ng-model="dialog.create.field('first_name').value">
+              <div ng-messages="dialog.create.field('first_name').$error" ng-if="dialog.create.field('first_name').$error" class="messages">
+                <div>First Name is required</div>
+              </div>
             </md-input-container>
             <md-input-container>
               <label>last name</label>
               <input ng-model="dialog.create.field('last_name').value">
+              <div ng-messages="dialog.create.field('last_name').$error" ng-if="dialog.create.field('last_name').$error" class="messages">
+                <div>Last Name is required</div>
+              </div>
             </md-input-container>
           </md-content>
 
@@ -26,6 +32,9 @@
             <md-input-container>
               <label>email</label>
               <input ng-model="dialog.create.field('email').value" type="email">
+              <div ng-messages="dialog.create.field('email').$error" ng-if="dialog.create.field('email').$error" class="messages">
+                <div>Email is required</div>
+              </div>
             </md-input-container>
           </md-content>
 
