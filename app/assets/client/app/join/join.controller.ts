@@ -30,7 +30,7 @@ module powur {
       this.validate.submit().then((response) => {
         var is_valid = response['data']['properties']['is_valid'];
         if (is_valid) {
-          this.state.go('join.solar2', { leadData: response.data });
+          this.state.go('join.solar2', { leadData: response.data, inviteCode: this.params.inviteCode });
         } else {
           this.validate.field('zip').$error = 'Your zipcode is outside the servicable area'
         }
@@ -62,8 +62,8 @@ module powur {
     }
 
     createLead(): any {
-      this.submitLead.submit().then((data) => {
-        this.state.go('join.solar3');
+      this.submitLead.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+          this.state.go('join.solar3');
       });
     }
 

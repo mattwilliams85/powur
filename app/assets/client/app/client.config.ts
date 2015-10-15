@@ -66,16 +66,25 @@ module powur {
             }
           }
         }).state('join.solar2', {
-          url: '/solar',
+          url: '/solar/{inviteCode}',
           templateUrl: 'app/join/join-solar2.html',
           controller: 'JoinController as join',
           params: {
             leadData: null
+          },
+          resolve: {
+            customer: function($stateParams, $q) {
+              var root = RootController.get();
+              var fail = function(response) {
+                var reason: any = (response.status === 404) ? 'invalid_code' : response;
+                return $q.reject(reason);
+              }
+              return root.$session.instance.getCustomer($stateParams.inviteCode).then(null, fail);
+            }
           }
         }).state('join.solar3', {
           url: '/solar',
-          templateUrl: 'app/join/join-solar3.html',
-          controller: 'JoinController as join',
+          templateUrl: 'app/join/join-solar3.html'
         })
 
         .state('home', {
