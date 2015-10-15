@@ -9,7 +9,7 @@ module powur {
       super($log, $mdDialog);
     }
   }
-  
+
   controllerModule.controller(NewInviteSolarDialogController.ControllerId, NewInviteSolarDialogController);
 
   class InviteProductController extends AuthController {
@@ -31,8 +31,8 @@ module powur {
       var isCustomer = false;
       this.timerColor = isCustomer ? '#2583a8' : '#39ABA1';
     }
-    
-    
+
+
     addInvite(item: InviteItem, e: MouseEvent) {
       this.$mdDialog.show({
         controller: 'NewInviteSolarDialogController as dialog',

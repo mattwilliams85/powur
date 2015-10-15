@@ -66,7 +66,7 @@ module powur {
       this.expired = expired.length;
     }
 
-    addInvite(item: InviteItem, e: MouseEvent) {
+    addInvite(e: MouseEvent) {
       this.$mdDialog.show({
         controller: 'NewInviteGridDialogController as dialog',
         templateUrl: 'app/invite/new-invite-popup.grid.html',
