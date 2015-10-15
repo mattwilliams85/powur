@@ -1,48 +1,16 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-  export class InviteItem {
-    id: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    email: string;
-    expiresAt: Date;
-    status: string;
-
-    percentage: number;
-  }
-
-  class InviteDialogController {
-    static ControllerId = 'InviteDialogController';
+  class NewInviteGridDialogController extends NewInviteDialogController {
+    static ControllerId = 'NewInviteGridDialogController';
     static $inject = ['$log', '$mdDialog'];
 
-    invitationType: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    email: string;
-
-    constructor(private $log: ng.ILogService, private $mdDialog: ng.material.IDialogService) {
-      // default
-      // this.invitationType = InvitationType.Advocate;
-    }
-
-    cancel() {
-      this.$mdDialog.cancel();
-    }
-
-    send() {
-      this.$mdDialog.hide({
-        firstName: this.firstName,
-        lastName: this.lastName,
-        phone: this.phone,
-        email: this.email,
-      });
+    constructor($log: ng.ILogService, $mdDialog: ng.material.IDialogService) {
+      super($log, $mdDialog);
     }
   }
 
-  controllerModule.controller(InviteDialogController.ControllerId, InviteDialogController);
+  controllerModule.controller(NewInviteGridDialogController.ControllerId, NewInviteGridDialogController);
 
   class InviteGridController extends AuthController {
     static ControllerId = 'InviteGridController';
@@ -100,8 +68,8 @@ module powur {
 
     addInvite(item: InviteItem, e: MouseEvent) {
       this.$mdDialog.show({
-        controller: 'InviteDialogController as dialog',
-        templateUrl: 'app/invite/invite-popup.html',
+        controller: 'NewInviteGridDialogController as dialog',
+        templateUrl: 'app/invite/new-invite-popup.grid.html',
         parent: angular.element(document.body),
         targetEvent: e,
         clickOutsideToClose: true

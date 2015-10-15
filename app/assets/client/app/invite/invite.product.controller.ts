@@ -1,6 +1,16 @@
 /// <reference path='../_references.ts' />
 
 module powur {
+  class NewInviteSolarDialogController extends NewInviteDialogController {
+    static ControllerId = 'NewInviteSolarDialogController';
+    static $inject = ['$log', '$mdDialog'];
+
+    constructor($log: ng.ILogService, $mdDialog: ng.material.IDialogService) {
+      super($log, $mdDialog);
+    }
+  }
+  
+  controllerModule.controller(NewInviteSolarDialogController.ControllerId, NewInviteSolarDialogController);
 
   class InviteProductController extends AuthController {
     static ControllerId = 'InviteProductController';
@@ -25,8 +35,8 @@ module powur {
     
     addInvite(item: InviteItem, e: MouseEvent) {
       this.$mdDialog.show({
-        controller: 'InviteDialogController as dialog',
-        templateUrl: 'app/invite/invite-popup.html',
+        controller: 'NewInviteSolarDialogController as dialog',
+        templateUrl: 'app/invite/new-invite-popup.solar.html',
         parent: angular.element(document.body),
         targetEvent: e,
         clickOutsideToClose: true
