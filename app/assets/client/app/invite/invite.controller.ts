@@ -1,18 +1,6 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-  export class InviteItem {
-    id: string;
-    firstName: string;
-    lastName: string;
-    phone: string;
-    email: string;
-    expiresAt: Date;
-    status: string;
-
-    percentage: number;
-  }
-
   export class NewInviteDialogController {
     static ControllerId = 'NewInviteDialogController';
     static $inject = ['$log', '$mdDialog'];

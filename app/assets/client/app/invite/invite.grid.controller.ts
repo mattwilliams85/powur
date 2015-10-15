@@ -13,8 +13,7 @@ module powur {
 
     send() {
       this.create.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        var newInvite = new SirenModel(response.data);
-        this.$mdDialog.hide(newInvite);
+        this.$mdDialog.hide(response.data);
       });
     }
 
@@ -36,40 +35,22 @@ module powur {
 
     timerColor: string;
 
-    inviteEntities: Array<InviteItem>;
-    // count: any;
-
     constructor(private invites: ISirenModel,
                 public $mdDialog: ng.material.IDialogService) {
       super();
 
       this.timerColor = '#2583a8';
-      // '#ebb038';
 
-      this.inviteEntities = [];
-      _.each(this.invites.entities, (invite) => {
-        this.inviteEntities.push({
-          id: invite['properties'].id,
-          firstName: invite['properties'].first_name,
-          lastName: invite['properties'].last_name,
-          phone: invite['properties'].phone,
-          email: invite['properties'].email,
-          expiresAt: new Date(invite['properties'].expires),
-          status: invite['properties'].status,
-          percentage: invite['properties'].expiration_progress
-        })
+      var pending = _.select(this.invites.entities, function(invite) {
+        return invite['properties'].status === 'valid';
       });
 
-      var pending = _.select(this.inviteEntities, function(invite) {
-        return invite.status === 'valid';
+      var accepted = _.select(this.invites.entities, function(invite) {
+        return invite['properties'].status === 'redeemed';
       });
 
-      var accepted = _.select(this.inviteEntities, function(invite) {
-        return invite.status === 'redeemed';
-      });
-
-      var expired = _.select(this.inviteEntities, function(invite) {
-        return invite.status == 'expired';
+      var expired = _.select(this.invites.entities, function(invite) {
+        return invite['properties'].status == 'expired';
       });
 
       this.available = this.invites.properties.available_count;
@@ -88,10 +69,11 @@ module powur {
         locals: {
           invites: this.invites
         }
-      }).then((newInvite: ISirenModel) => {
+      }).then((data: any) => {
         // ok
-        this.state.go('home.invite.grid');
-        // this.root.$log.debug(data);
+        this.invites.entities.unshift(data);
+        this.pending += 1;
+        this.available -= 1;
       }, () => {
         // cancel
         this.root.$log.debug('cancel');

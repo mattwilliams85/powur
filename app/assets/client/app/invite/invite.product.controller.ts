@@ -32,8 +32,7 @@ module powur {
       this.timerColor = isCustomer ? '#2583a8' : '#39ABA1';
     }
 
-
-    addInvite(item: InviteItem, e: MouseEvent) {
+    addInvite(e: MouseEvent) {
       this.$mdDialog.show({
         controller: 'NewInviteSolarDialogController as dialog',
         templateUrl: 'app/invite/new-invite-popup.solar.html',
