@@ -24,7 +24,7 @@ $buttonColor: #07b7d1;
     font-family: 'Open Sans';
 
     .bg {
-        @include bg("img/join/join-bg.png");
+        @include bg("img/join/join-bg.jpg");
         &.solar { @include bg("img/join/join-bg2.jpg") }
         &.solar-2 { @include bg("img/join/join-bg5.jpg") }
 
@@ -138,7 +138,7 @@ $buttonColor: #07b7d1;
 
     .bg2 {
         .bg-img {
-            @include bg("img/join/join-bg3.png");
+            @include bg("img/join/join-bg3.jpg");
             position: fixed;
             &.solar {
                 @include bg("img/join/join-bg4.jpg");
