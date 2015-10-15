@@ -1,25 +1,14 @@
 /// <reference path='../_references.ts' />
 
 module powur {
-
-  export enum InvitationType {
-    Advocate,
-    Household
-  }
-
-  export enum InviteStatus {
-    Available,
-    Pending,
-    Accepted,
-    Expired,
-    Locked,
-  }
-
   export class InviteItem {
+    id: string;
     firstName: string;
     lastName: string;
-    time: Date;
-    status: InviteStatus;
+    phone: string;
+    email: string;
+    expiresAt: Date;
+    status: string;
 
     percentage: number;
   }
@@ -28,15 +17,15 @@ module powur {
     static ControllerId = 'InviteDialogController';
     static $inject = ['$log', '$mdDialog'];
 
-    invitationType: InvitationType;
+    invitationType: string;
     firstName: string;
     lastName: string;
     phone: string;
     email: string;
 
     constructor(private $log: ng.ILogService, private $mdDialog: ng.material.IDialogService) {
-      //default
-      this.invitationType = InvitationType.Advocate;
+      // default
+      // this.invitationType = InvitationType.Advocate;
     }
 
     cancel() {
@@ -57,7 +46,7 @@ module powur {
 
   class InviteGridController extends AuthController {
     static ControllerId = 'InviteGridController';
-    static $inject = ['$mdDialog'];
+    static $inject = ['invites', '$mdDialog'];
 
     available: number;
     pending: number;
@@ -66,60 +55,47 @@ module powur {
 
     timerColor: string;
 
-    invites: Array<InviteItem>;
+    inviteEntities: Array<InviteItem>;
+    // count: any;
 
-    count: any;
-
-    constructor(public $mdDialog: ng.material.IDialogService) {
+    constructor(private invites: ISirenModel,
+                public $mdDialog: ng.material.IDialogService) {
       super();
 
-      //change color mode for advocate vs customer
+      // change color mode for advocate vs customer
       var isCustomer = true;
       this.timerColor = isCustomer ? '#2583a8' : '#ebb038';
 
-      //sample data
-      this.invites = [
-        { firstName: "John", lastName: 'Baker', time: new Date(), status: InviteStatus.Pending, percentage: 0.11 },
-        { firstName: "Melissa", lastName: 'S.', time: new Date(), status: InviteStatus.Pending, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Available, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Available, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Available, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Locked, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Locked, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Locked, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Locked, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Locked, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Locked, percentage: 0.11 },
-        { firstName: null, lastName: null, time: null, status: InviteStatus.Locked, percentage: 0.11 },
-      ];
-
-      var available = _.select(this.invites, function(c) {
-        return c.status == InviteStatus.Available;
+      this.inviteEntities = [];
+      _.each(this.invites.entities, (invite) => {
+        this.inviteEntities.push({
+          id: invite['properties'].id,
+          firstName: invite['properties'].first_name,
+          lastName: invite['properties'].last_name,
+          phone: invite['properties'].phone,
+          email: invite['properties'].email,
+          expiresAt: new Date(invite['properties'].expires_at),
+          status: invite['properties'].status,
+          percentage: 0.11
+        })
       });
 
-      var pending = _.select(this.invites, function(c) {
-        return c.status == InviteStatus.Pending;
+      var pending = _.select(this.inviteEntities, function(invite) {
+        return invite.status === 'valid';
       });
 
-      var accepted = _.select(this.invites, function(c) {
-        return c.status == InviteStatus.Accepted;
+      var accepted = _.select(this.inviteEntities, function(invite) {
+        return invite.status === 'redeemed';
       });
 
-      var expired = _.select(this.invites, function(c) {
-        return c.status == InviteStatus.Expired;
+      var expired = _.select(this.inviteEntities, function(invite) {
+        return invite.status == 'expired';
       });
 
-      this.available = available.length;
+      this.available = 123;
       this.pending = pending.length;
       this.accepted = accepted.length;
       this.expired = expired.length;
-
-      this.invites[0].percentage = this.invites[0].percentage > 1 ? .2 : this.invites[0].percentage + .01;
-      this.invites[1].percentage = this.invites[1].percentage > 1 ? 0 : this.invites[1].percentage + .02;
-
-      // date
-      this.invites[0].time = moment(this.invites[0].time).add(1, 's').toDate();
-      this.invites[1].time = moment(this.invites[1].time).add(1, 's').toDate();
     }
 
     addInvite(item: InviteItem, e: MouseEvent) {

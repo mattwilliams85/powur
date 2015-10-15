@@ -4,7 +4,9 @@ json.rel [ :item ] unless local_assigns[:detail]
 
 json.properties do
   json.code :id
-  json.call(invite, :id, :first_name, :last_name, :email, :phone, :expires)
+  json.call(invite,
+            :id, :first_name, :last_name, :email, :phone, :status)
+  json.expires invite.expires.to_f * 1000
 end
 
 actions \

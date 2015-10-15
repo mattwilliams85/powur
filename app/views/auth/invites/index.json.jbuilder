@@ -5,6 +5,7 @@ klass :invites, :list
 json.properties do
   json.available current_user.available_invites
   json.redeemed current_user.invites.redeemed
+  json.expired_count current_user.invites.expired.count
 end
 
 json.entities @invites, partial: 'item', as: :invite
