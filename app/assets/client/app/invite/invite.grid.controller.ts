@@ -60,10 +60,10 @@ module powur {
         return invite.status == 'expired';
       });
 
-      this.available = 123;
+      this.available = this.invites.properties.available_count;
       this.pending = pending.length;
       this.accepted = accepted.length;
-      this.expired = expired.length;
+      this.expired = this.invites.properties.expired_count;
     }
 
     addInvite(e: MouseEvent) {
