@@ -58,6 +58,12 @@ $buttonColor: #07b7d1;
         .who {
             padding-top: 100px;
 
+            &.invalid {
+                padding: 50px;
+                background: rgba(0,0,0,0.15);
+                border-left: 5px solid rgba(255,0,0,0.65)
+            }
+
             .greeting {
                 font-size: medium;
                 text-transform: uppercase;
