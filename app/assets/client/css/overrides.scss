@@ -1,17 +1,17 @@
 md-sidenav, 
 md-sidenav.md-locked-open, 
 md-sidenav.md-closed.md-locked-open-add-active {
-    min-width: 250px !important;
+    min-width: 280px !important;
     width: 85vw !important;
-    max-width: 350px !important;
+    max-width: 280px !important;
     box-shadow:none !important;
     transition:.2s;
 } 
 
 md-sidenav.collapsed{
-    min-width: 230px !important;
+    min-width: 160px !important;
     width: 85vw !important;
-    max-width: 230px !important;
+    max-width: 160px !important;
     box-shadow:none !important;
     transition:.2s;
     overflow:visible;
