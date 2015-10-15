@@ -30,9 +30,8 @@ module powur {
                 public $mdDialog: ng.material.IDialogService) {
       super();
 
-      // change color mode for advocate vs customer
-      var isCustomer = true;
-      this.timerColor = isCustomer ? '#2583a8' : '#ebb038';
+      this.timerColor = '#2583a8';
+      // '#ebb038';
 
       this.inviteEntities = [];
       _.each(this.invites.entities, (invite) => {
@@ -44,7 +43,7 @@ module powur {
           email: invite['properties'].email,
           expiresAt: new Date(invite['properties'].expires),
           status: invite['properties'].status,
-          percentage: 0.11
+          percentage: invite['properties'].expiration_progress
         })
       });
 

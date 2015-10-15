@@ -75,6 +75,12 @@ class Invite < ActiveRecord::Base
     SystemSettings.invite_valid_days.days.from_now
   end
 
+  def expiration_progress
+    return 0 unless expires
+    time_start = expires - SystemSettings.invite_valid_days.days
+    ((Time.zone.now - time_start) / (expires - time_start)).round(2)
+  end
+
   class << self
     def generate_code(size = 3)
       SecureRandom.hex(size).upcase
