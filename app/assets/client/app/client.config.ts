@@ -1,8 +1,9 @@
 /// <reference path='../typings/tsd.d.ts' />
-declare var appModule: ng.IModule;
 
 module powur {
-  class RouteConfigs {
+  'use strict';
+
+  export class RouteConfigs {
     static $inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider'];
 
     constructor($locationProvider: ng.ILocationProvider,
@@ -136,6 +137,4 @@ module powur {
         });
     }
   }
-
-  appModule.config(RouteConfigs);
 }

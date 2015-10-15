@@ -44,6 +44,8 @@
 // client / order according to any dependencies
 // -----------------------------------------------------
 // must be first
+/// <reference path='app/client.config.ts' />
+/// <reference path='app/client.run.ts' />
 /// <reference path='app/client.module.ts' />
 
 /// <reference path='app/models/siren.model.ts' />
@@ -83,7 +85,3 @@
 
 /// <reference path='app/join/terms.controller.ts' />
 /// <reference path='app/join/join.controller.ts' />
-
-// must be last
-/// <reference path='app/client.config.ts' />
-/// <reference path='app/client.run.ts' />
