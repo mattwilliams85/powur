@@ -1,6 +1,6 @@
 <div class="invite-popup fill-height">
   <md-dialog aria-label="Invite" class="dialog">
-    <form layout="row">
+    <form layout="row" ng-submit="dialog.send()" name="createInviteForm" novalidate>
       <div class="side-bg"></div>
       <div layout="column" flex>
         <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
@@ -9,11 +9,11 @@
           <md-content layout-padding layout="row">
             <md-input-container>
               <label>first name</label>
-              <input ng-model="dialog.firstName">
+              <input ng-model="dialog.create.field('first_name').value">
             </md-input-container>
             <md-input-container>
               <label>last name</label>
-              <input ng-model="dialog.lastName">
+              <input ng-model="dialog.create.field('last_name').value">
             </md-input-container>
           </md-content>
 
@@ -21,16 +21,16 @@
           <md-content layout-padding layout="column">
             <md-input-container>
               <label>phone number</label>
-              <input ng-model="dialog.phone" type="tel">
+              <input ng-model="dialog.create.field('phone').value" type="tel">
             </md-input-container>
             <md-input-container>
               <label>email</label>
-              <input ng-model="dialog.email" type="email">
+              <input ng-model="dialog.create.field('email').value" type="email">
             </md-input-container>
           </md-content>
 
           <div class="actions">
-            <md-button ng-click="dialog.send()">Send Invitation</md-button>
+            <md-button ng-disabled="dialog.create.submitting">Send Invitation</md-button>
           </div>
         </md-dialog-content>
       </div>

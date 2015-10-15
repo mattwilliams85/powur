@@ -3,10 +3,23 @@
 module powur {
   class NewInviteGridDialogController extends NewInviteDialogController {
     static ControllerId = 'NewInviteGridDialogController';
-    static $inject = ['$log', '$mdDialog'];
+    static $inject = ['$log', '$mdDialog', 'invites'];
 
-    constructor($log: ng.ILogService, $mdDialog: ng.material.IDialogService) {
+    constructor($log: ng.ILogService,
+                $mdDialog: ng.material.IDialogService,
+                private invites: ISirenModel) {
       super($log, $mdDialog);
+    }
+
+    send() {
+      this.create.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
+        var newInvite = new SirenModel(response.data);
+        this.$mdDialog.hide(newInvite);
+      });
+    }
+
+    get create(): Action {
+      return this.invites.action('create');
     }
   }
 
@@ -71,15 +84,18 @@ module powur {
         templateUrl: 'app/invite/new-invite-popup.grid.html',
         parent: angular.element(document.body),
         targetEvent: e,
-        clickOutsideToClose: true
-      })
-        .then((data: any) => {
-          // ok
-          this.root.$log.debug(data);
-        }, () => {
-          // cancel
-          this.root.$log.debug('cancel');
-        });
+        clickOutsideToClose: true,
+        locals: {
+          invites: this.invites
+        }
+      }).then((newInvite: ISirenModel) => {
+        // ok
+        this.state.go('home.invite.grid');
+        // this.root.$log.debug(data);
+      }, () => {
+        // cancel
+        this.root.$log.debug('cancel');
+      });
     }
   }
 
