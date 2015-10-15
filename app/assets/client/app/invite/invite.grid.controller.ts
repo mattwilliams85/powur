@@ -42,7 +42,7 @@ module powur {
           lastName: invite['properties'].last_name,
           phone: invite['properties'].phone,
           email: invite['properties'].email,
-          expiresAt: new Date(invite['properties'].expires_at),
+          expiresAt: new Date(invite['properties'].expires),
           status: invite['properties'].status,
           percentage: 0.11
         })
