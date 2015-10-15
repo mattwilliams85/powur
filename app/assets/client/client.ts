@@ -22,7 +22,8 @@
 
 //= require home/home
 //= require invite/layout
-//= require invite/invite-popup
+//= require invite/new-invite-popup.solar
+//= require invite/new-invite-popup.grid
 //= require invite/invite.product
 //= require invite/invite.grid
 //= require events/events

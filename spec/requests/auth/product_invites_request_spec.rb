@@ -41,9 +41,10 @@ describe 'POST /u/product_invites' do
     post product_invites_path, payload, format: :json
 
     expect_props(
-      status:    Customer.statuses.keys[0],
-      full_name: payload[:first_name] + ' ' + payload[:last_name],
-      email:     payload[:email])
+      status:     Customer.statuses.keys[0],
+      first_name: payload[:first_name],
+      last_name:  payload[:last_name],
+      email:      payload[:email])
   end
 
   context 'when customer already exists' do

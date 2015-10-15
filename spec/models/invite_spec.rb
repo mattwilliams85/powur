@@ -70,6 +70,15 @@ describe Invite do
         end
       end
     end
+
+    describe '#expiration_progress' do
+      it 'returns percentage of time past relative to expiration' do
+        invite
+        expect(invite.expiration_progress).to eq(0)
+        invite.update_attribute(:expires, Time.zone.now + 6.hours)
+        expect(invite.expiration_progress).to eq(0.75)
+      end
+    end
   end
 
   context 'invalid phone number' do

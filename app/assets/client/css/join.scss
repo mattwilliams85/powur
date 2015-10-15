@@ -5,12 +5,12 @@ $buttonColor: #07b7d1;
 @mixin bg($img) {
         width: 100%;
         height: 100%;
-        position: fixed; 
-        top: 0; 
-        left: 0; 
+        position: fixed;
+        top: 0;
+        left: 0;
         min-width: 100%;
-        min-height: 100%;        
-        background-image: image-url($img); 
+        min-height: 100%;
+        background-image: image-url($img);
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -24,7 +24,7 @@ $buttonColor: #07b7d1;
     font-family: 'Open Sans';
 
     .bg {
-        @include bg("img/join/join-bg.png");
+        @include bg("img/join/join-bg.jpg");
         &.solar { @include bg("img/join/join-bg2.jpg") }
         &.solar-2 { @include bg("img/join/join-bg5.jpg") }
 
@@ -54,7 +54,7 @@ $buttonColor: #07b7d1;
                 padding: 15px 0;
             }
         }
-        
+
         .who {
             padding-top: 100px;
 
@@ -62,7 +62,7 @@ $buttonColor: #07b7d1;
                 font-size: medium;
                 text-transform: uppercase;
             }
-            
+
             .full-name {
                 font-size: xx-large;
                 font-weight: 600;
@@ -71,17 +71,17 @@ $buttonColor: #07b7d1;
                 padding: 15px 0 20px 0;
             }
         }
-        
+
         .key {
             color: $textColor;
             text-transform: uppercase;
-            
+
             label {
                 padding: 30px 0 5px 0;
                 display: block;
                 font-size: medium;
             }
-            
+
             input[type="text"] {
                 color: $textColor;
                 text-transform: uppercase;
@@ -92,13 +92,13 @@ $buttonColor: #07b7d1;
                 max-width: 356px;
                 height: 40px;
             }
-            
+
             input[type="text"]:focus{
                 outline: 0;
             }
-            
+
             button {
-                font-size: medium; 
+                font-size: medium;
                 font-weight: 500;
                 color: $textColor;
                 text-transform: uppercase;
@@ -108,20 +108,20 @@ $buttonColor: #07b7d1;
                 transition: background .5s;
                 border: none;
                 &:hover {
-                  background: rgba(0,55,101,0.8);  
+                  background: rgba(0,55,101,0.8);
                 }
                 //border: #124b79 1px solid;
             }
         }
-        
+
         .trailer {
             //padding-top: 400px;
-            
+
             .video {
                 width: 29px;
                 height: $videoIconHeight;
             }
-            
+
             .info {
                 color: $textColor;
                 font-size: large;
@@ -129,24 +129,16 @@ $buttonColor: #07b7d1;
                 line-height: $videoIconHeight;
                 padding-left: 10px;
 
-                a { 
+                a {
                     color: $textColor;
                 }
             }
         }
-        
-        .footer {
-            .logo {
-                width: 100px;
-                height: 28px;
-            }
-        }
     }
-    
 
     .bg2 {
         .bg-img {
-            @include bg("img/join/join-bg3.png");
+            @include bg("img/join/join-bg3.jpg");
             position: fixed;
             &.solar {
                 @include bg("img/join/join-bg4.jpg");
@@ -160,7 +152,7 @@ $buttonColor: #07b7d1;
             z-index: 2;
             background: #000;
         }
-        
+
         .box {
             width: 70% !important;
             margin: 7vh;
@@ -176,7 +168,7 @@ $buttonColor: #07b7d1;
                 z-index: 1;
             }
         }
-        
+
         md-content {
             background: transparent;
             color: $textColor;
@@ -185,8 +177,8 @@ $buttonColor: #07b7d1;
             .input-wrap {
 
             }
-            
-            
+
+
             label, span {
                 color: $textColor;
                 text-transform: uppercase;
@@ -197,7 +189,7 @@ $buttonColor: #07b7d1;
                 color: $textColor;
                 padding-left: 5px;
             }
-            
+
             button {
                 color: $textColor;
                 background-color: $buttonColor;
@@ -208,13 +200,13 @@ $buttonColor: #07b7d1;
                 border-radius: 0;
                 transition: color .5s, background .5s;
             }
-            
+
             button:hover {
                 * {
                   color: black;
                 }
             }
-            
+
             md-input-container {
                 .md-input {
                     border-width: 0;
@@ -228,7 +220,7 @@ $buttonColor: #07b7d1;
                 }
             }
 
-            
+
             md-select .md-select-value {
                 color: $textColor;
 
@@ -236,14 +228,14 @@ $buttonColor: #07b7d1;
                     font-size: medium;
                     font-weight: 600;
                 }
-                
+
                 .md-select-icon {
                     width: 15px;
                     -webkit-transform: translate3d(-8px, 1px, 0);
                     transform: translate3d(-8px, 1px, 0);
                 }
             }
-            
+
             md-select:not([disabled]):focus .md-select-value {
                 border-width: 0;
             }
@@ -262,31 +254,31 @@ $buttonColor: #07b7d1;
                 pointer-events: none;
             }
         }
-        
+
         .terms {
             font-size: smaller;
             padding: 10px;
-            
-            a { 
+
+            a {
                 color: $textColor;
             }
-        }        
+        }
     }
 }
  .terms-dialog {
      background: rgba(255, 255, 255, 0.9);
-     
+
      md-toolbar:not(.md-menu-toolbar) {
          background-color: #0a3b86;
      }
-     
+
     .md-actions {
-        
+
         button {
             color: $textColor;
             background-color: $buttonColor !important;
         }
-        
+
         button:hover {
             color: black;
             background-color: white !important;

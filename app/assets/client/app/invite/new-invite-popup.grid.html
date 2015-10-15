@@ -1,0 +1,39 @@
+<div class="invite-popup fill-height">
+  <md-dialog aria-label="Invite" class="dialog">
+    <form layout="row">
+      <div class="side-bg"></div>
+      <div layout="column" flex>
+        <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
+        <md-dialog-content layout="column">
+          <div class="heading"><div class="title">contact<b>name</b></div></div>
+          <md-content layout-padding layout="row">
+            <md-input-container>
+              <label>first name</label>
+              <input ng-model="dialog.firstName">
+            </md-input-container>
+            <md-input-container>
+              <label>last name</label>
+              <input ng-model="dialog.lastName">
+            </md-input-container>
+          </md-content>
+
+          <div class="heading"><div class="title">contact<b>method</b></div></div>
+          <md-content layout-padding layout="column">
+            <md-input-container>
+              <label>phone number</label>
+              <input ng-model="dialog.phone" type="tel">
+            </md-input-container>
+            <md-input-container>
+              <label>email</label>
+              <input ng-model="dialog.email" type="email">
+            </md-input-container>
+          </md-content>
+
+          <div class="actions">
+            <md-button ng-click="dialog.send()">Send Invitation</md-button>
+          </div>
+        </md-dialog-content>
+      </div>
+    </form>
+  </md-dialog>
+</div>

@@ -5,6 +5,7 @@ klass :customer
 json.properties do
   json.first_name @customer.first_name
   json.last_name @customer.last_name
+  json.user_id @customer.user_id
 end
 
 actions_list = [

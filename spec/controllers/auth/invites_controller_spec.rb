@@ -85,7 +85,7 @@ describe Auth::InvitesController do
       post :resend, id: invite.id
 
       expect_200
-      expires = DateTime.parse(json_body['properties']['expires'])
+      expires = Time.at(json_body['properties']['expires'] / 1000)
       expect(expires).to be > 23.hours.from_now
     end
   end
