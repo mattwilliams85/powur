@@ -30,7 +30,7 @@ md-checkbox .md-container {
 md-tooltip.md-show {
   -webkit-transform: translate3d(0,0,0);
 }
-
+g
 md-tooltip .md-background.md-show {
   -webkit-transform: translate(-50%, -50%) scale(1);
 }
@@ -50,5 +50,11 @@ md-tooltip .md-background.md-show {
 
 .layout-row > .flex-50 {
   -webkit-flex: 0 0 50%;
+  -webkit-box-sizing: border-box;
+}
+
+// invite
+.layout-row > .flex-25 {
+  -webkit-flex: 0 0 25%;
   -webkit-box-sizing: border-box;
 }
