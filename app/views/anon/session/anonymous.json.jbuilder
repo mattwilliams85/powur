@@ -23,7 +23,7 @@ entity_list = [ entity(%w(solar_invite),
                        product_invite_path('{code}')),
                 entity(%w(grid_invite),
                 'user-solar_invite',
-                invites_path('{code}')),]
+                invite_path('{code}')),]
 entities(*entity_list)
 
 self_link root_path

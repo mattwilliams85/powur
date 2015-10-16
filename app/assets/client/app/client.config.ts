@@ -53,7 +53,7 @@ module powur {
                 var reason: any = (response.status === 404) ? 'invalid_code' : response;
                 return $q.reject(reason);
               }
-              return root.$session.instance.getInvite($stateParams.inviteCode).then(null, fail);
+              // return root.$session.instance.getInvite($stateParams.inviteCode).then(null, fail);
             }
           }
         }).state('join.grid2', {
