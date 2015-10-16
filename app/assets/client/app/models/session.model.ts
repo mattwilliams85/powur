@@ -42,7 +42,7 @@ module powur {
     }
     
     getInvite(code: string): ng.IPromise<ISirenModel> {
-      return this.getEntity(SirenModel, 'solar_invite', { code: code });
+      return this.getEntity(SirenModel, 'user-solar_invite', { code: code });
     }
   }
 }
