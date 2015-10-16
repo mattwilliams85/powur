@@ -76,10 +76,12 @@
 
       .grid-invites {
         @include tab-bg("img/grid-invite-bg.png");
+        transition: 0.2s;
       }
       
       .solar-invites {
         @include tab-bg("img/solar-invite-bg.png");
+        transition: 0.2s;
       }
 
     }
