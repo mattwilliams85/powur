@@ -6,6 +6,12 @@
 @import 'angular-material/angular-material.scss';
 @import 'angular-chart.js/dist/angular-chart';
 
+/*
+ * Mixins
+ */
+// Greater than medium screen
+$gt-md: 'screen and (min-width: 1281px)';
+
 // Next UX
 @import "css/safari.scss";
 @import "css/general.scss";
