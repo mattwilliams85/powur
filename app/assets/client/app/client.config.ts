@@ -26,6 +26,7 @@ module powur {
           templateUrl: 'app/login/layout.html',
           controller: 'LoginController as loginLayout',
         }).state('login.public', {
+          url: '/{resetCode}',
           templateUrl: 'app/login/login.public.html',
           controller: 'LoginPublicController as login',
         })

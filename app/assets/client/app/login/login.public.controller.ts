@@ -5,11 +5,17 @@ module powur {
 
   class LoginPublicController extends BaseController {
     static ControllerId: string = 'LoginPublicController';
-    static $inject = ['$mdDialog'];
+    static $inject = ['$mdDialog', '$stateParams', '$timeout'];
     private _create: Action;
 
-    constructor(private $mdDialog: ng.material.IDialogService) {
+
+    constructor(private $mdDialog: ng.material.IDialogService,
+                private $stateParams: ng.ui.IStateParamsService,
+                private $timeout: ng.ITimeoutService) {
       super();
+      if (this.$stateParams['resetCode'])  {          
+          this.showNewPassword();
+      }
     }
 
     get create(): Action {
@@ -51,15 +57,26 @@ module powur {
       });
     }
     
+    showNewPassword(): ng.IPromise<any> {
+      return this.$mdDialog.show({
+        templateUrl: 'app/login/reset-password.html',
+        controller: 'LoginPublicController as login',
+        parent: angular.element(document.body),
+        clickOutsideToClose: true,
+      })
+    }
+    
     showReset(e: MouseEvent): ng.IPromise<any> {
       return this.$mdDialog.show({
-        controller: 'LoginPublicController as login',
         templateUrl: 'app/login/forgot-password.html',
+        controller: 'LoginPublicController as login',
         parent: angular.element(document.body),
         targetEvent: e,
         clickOutsideToClose: true
       })
     }
+
+
   }
 
   controllerModule.controller(LoginPublicController.ControllerId, LoginPublicController);

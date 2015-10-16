@@ -32,6 +32,7 @@
 //= require login/login.public
 //= require login/login.private
 //= require login/forgot-password
+//= require login/reset-password
 
 //= require join/invalid
 //= require join/terms
