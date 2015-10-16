@@ -4,7 +4,7 @@
       <div class="side-bg"></div>
       <div layout="column" flex>
         <div class="banner solar">
-            <span class="title">Send a<br>new Solar<b>Invite</b></span>
+          <span class="title">Send a<br>new Solar<b>Invite</b></span>
         </div>
         <div layout="row" layout-align="end start"><a href="javascript:void(0);" class="close" ng-click="dialog.cancel()"><i class="sprite sprite-close"></i></a></div>
         <md-dialog-content layout="column">
@@ -13,15 +13,15 @@
             <md-input-container>
               <label>first name</label>
               <input ng-model="dialog.create.field('first_name').value" md-autofocus>
-              <div ng-messages="dialog.create.field('first_name').$error" ng-if="dialog.create.field('first_name').$error" class="messages">
-                <div>First Name is required</div>
+              <div ng-messages="dialog.create.field('first_name').$error" class="messages">
+                <div ng-message="message">{{ dialog.create.field('first_name').$error.message }}</div>
               </div>
             </md-input-container>
             <md-input-container>
               <label>last name</label>
               <input ng-model="dialog.create.field('last_name').value">
-              <div ng-messages="dialog.create.field('last_name').$error" ng-if="dialog.create.field('last_name').$error" class="messages">
-                <div>Last Name is required</div>
+              <div ng-messages="dialog.create.field('last_name').$error" class="messages">
+                <div ng-message="message">{{ dialog.create.field('last_name').$error.message }}</div>
               </div>
             </md-input-container>
           </md-content>
@@ -35,8 +35,8 @@
             <md-input-container>
               <label>email</label>
               <input ng-model="dialog.create.field('email').value" type="email">
-              <div ng-messages="dialog.create.field('email').$error" ng-if="dialog.create.field('email').$error" class="messages">
-                <div>Email is required</div>
+              <div ng-messages="dialog.create.field('email').$error" class="messages">
+                <div ng-message="message">{{ dialog.create.field('email').$error.message }}</div>
               </div>
             </md-input-container>
           </md-content>

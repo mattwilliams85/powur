@@ -31,13 +31,16 @@ module Auth
     private
 
     def customer_input
+      require_input :email
+      params[:email].downcase! unless SystemSettings.case_sensitive_auth
+
       allow_input(:first_name, :last_name, :email,
                   :phone, :address, :city, :state, :zip, :notes)
     end
 
     def validate_existence
       customer = Customer.find_by(email: customer_input['email'])
-      error!(:product_invite_exist) if customer
+      error!(:product_invite_exist, :email) if customer
     end
 
     def fetch_customer
