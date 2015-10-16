@@ -23,6 +23,26 @@ $buttonColor: #07b7d1;
     color: $textColor;
     font-family: 'Open Sans';
 
+    .box {
+        width: 70% !important;
+        max-width: 1000px;
+        margin: 7vh;
+        position: relative;
+    }
+
+    .controls, .sidedock {
+        display: none !important;
+    }
+
+    .intro {
+        box-shadow: 0px 60px 100px -50px rgba(0, 0, 0, 1);
+        max-height: 55vh;
+        height: 45vh;
+        position: relative;
+        z-index: 2;
+        background: #000;
+    }
+
     .bg {
         @include bg("img/join/join-bg.jpg");
         &.solar { @include bg("img/join/join-bg2.jpg") }
@@ -56,7 +76,6 @@ $buttonColor: #07b7d1;
         }
 
         .who {
-            padding-top: 100px;
 
             &.invalid {
                 padding: 50px;
@@ -151,39 +170,12 @@ $buttonColor: #07b7d1;
             }
         }
 
-        .intro {
-            box-shadow: 0px 60px 100px -50px rgba(0, 0, 0, 1);
-            max-height: 55vh;
-            position: relative;
-            z-index: 2;
-            background: #000;
-        }
 
-        .box {
-            width: 70% !important;
-            margin: 7vh;
-            position: relative;
-            .drop-shadow {
-                position: absolute;
-                bottom: 10px;
-                left: 0;
-                right: 0;
-                margin: 0 auto;
-                width: 70%;
-                height: 50px;
-                z-index: 1;
-            }
-        }
 
         md-content {
             background: transparent;
             color: $textColor;
             font-size: smaller;
-
-            .input-wrap {
-
-            }
-
 
             label, span {
                 color: $textColor;
@@ -292,17 +284,20 @@ $buttonColor: #07b7d1;
     }
 }
 
-@media only screen and (max-width: 40em) {
+@media only screen and (max-width: 600px) {
     .join {
         height: inherit;
+
+        .box {
+            width: 100% !important;
+        }
+
         .bg {
-            .who {
-                padding-top: 50px;
-            }
             .trailer .info {
                 font-size: x-small
             }
         }
+
         .bg2 {
             md-content {
                 button {
@@ -314,9 +309,6 @@ $buttonColor: #07b7d1;
                 md-input-container .border {
                     width: 100%;
                 }
-            }
-            .box {
-                width: 90% !important;
             }
         }
     }

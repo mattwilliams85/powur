@@ -56,7 +56,7 @@
         }
       },
       placeable: function(member) {
-        if (member.sponsor_id !== $scope.currentUser.id || 
+        if (member.sponsor_id !== $scope.currentUser.id ||
             member.moved) return;
         var startDate = new Date(member.created_at);
         var betaStart = new Date('Mon Jul 30 2015 10:41:08 GMT-0700 (PDT)');
@@ -512,7 +512,7 @@
       CommonService.execute({href: '/u/invites.json'}).then(function(data){
         $scope.invites = data.entities;
         $scope.invites.available = data.properties.available;
-        $scope.invites.redeemed = data.properties.redeemed.length;
+        $scope.invites.redeemed = data.properties.accepted_count;
         $scope.inviteFormAction = getAction(data.actions, 'create');
         $scope.noInvitesAvailable = false;
         if (!$scope.invites.available) {

@@ -1,6 +1,11 @@
 <div class="join" layout="column">
-    <div class="bg solar" layout="column" layout-align="center center">
-        <div flex layout="column" layout-align="space-around center" layout-padding>
+    <div flex class="bg solar" layout="column" layout-align="center center">
+        <div class="box">
+            <div class="intro" flex>
+            <iframe src="https://player.vimeo.com/video/142662280?autoplay=1" width="100%" height="100%" frameborder="0" ></iframe>
+            </div>
+        </div>
+        <div layout="column" layout-align="space-around center" layout-padding>
             <div class="key-box">
                 <div class="who">
                     <div class="greeting">Hello,</div>
@@ -19,8 +24,8 @@
                         </div>
                     </form>
                 </div>
-                <div ng-messages="join.validateZipAction.field('zip').$error" ng-show="join.validateZipAction.field('zip').$error" >
-                    <div class="messages capitalize">{{join.validateZipAction.field('zip').$error.message}}</div>
+                <div ng-messages="join.validateZipAction.field('zip').$error" >
+                    <div ng-message="message" class="messages capitalize">{{ join.validateZipAction.field('zip').$error.message }}</div>
                 </div>
             </div>
             <div class="trailer" layout="row">

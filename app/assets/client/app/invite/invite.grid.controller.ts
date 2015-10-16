@@ -45,6 +45,10 @@ module powur {
       return this.invites.properties.expired_count;
     }
 
+    get list(): any[] {
+      return this.invites.entities;
+    }
+
     timerColor: string;
 
     constructor(private invites: ISirenModel,
@@ -52,6 +56,8 @@ module powur {
       super();
 
       this.timerColor = '#2583a8';
+
+      console.log('list', this.list);
     }
 
     addInvite(e: MouseEvent) {

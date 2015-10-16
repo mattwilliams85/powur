@@ -21,7 +21,7 @@
 <div class="message bg">Get <b>5 Accepted Invitations</b> to <b>Unlock 5 More Invitations</b></div>
 
 <div layout="row" layout-wrap class="invite-list bg">
-  <div ng-repeat="item in invite.invites.entities">
+  <div ng-repeat="item in invite.list">
     <div ng-if="item.properties.status == 'valid'" class="invite-item" style="color: {{ invite.timerColor }} !important">
       <div class="full-name">{{ item.properties.first_name }} <b>{{ item.properties.last_name }}</b></div>
       <div class="time">{{ item.properties.expires | date : 'H:mm' }}<span class="superscript">{{ item.properties.expires | date : 'ss' }}</span></div>
