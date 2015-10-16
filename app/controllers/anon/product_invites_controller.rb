@@ -12,7 +12,7 @@ module Anon
         require_input field.name
       end
 
-      @lead = Lead.where(product_id: product.id, customer_id: @customer.id)
+      @lead = Lead.where(product_id: product.id, customer_id: @customer.id).first
       @lead ||= begin
         @lead = Lead.create!(
           product_id: product.id,
