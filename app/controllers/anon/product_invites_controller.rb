@@ -3,12 +3,23 @@ module Anon
     before_action :fetch_customer, only: [ :show, :update ]
 
     def update
+      require_input :first_name, :last_name, :email,
+                    :phone, :address, :city, :state, :zip
+
       @customer.update_attributes!(customer_input)
-      @lead = Lead.create!(
-        product_id: product.id,
-        customer:   @customer,
-        user_id:    @customer.user_id,
-        data:       lead_input)
+
+      product.quote_fields.each do |field|
+        require_input field.name
+      end
+
+      @lead = Lead.where(product_id: product.id, customer_id: @customer.id)
+      @lead ||= begin
+        @lead = Lead.create!(
+          product_id: product.id,
+          customer:   @customer,
+          user_id:    @customer.user_id,
+          data:       lead_input)
+      end
 
       if @lead.ready_to_submit?
         @lead.submit!
