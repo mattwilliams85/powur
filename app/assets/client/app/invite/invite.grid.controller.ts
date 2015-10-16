@@ -73,8 +73,8 @@ module powur {
       }).then((data: any) => {
         // ok
         this.invites.entities.unshift(data);
-        this.pending += 1;
-        this.available -= 1;
+        this.invites.properties.pending_count += 1;
+        this.invites.properties.available_count -= 1;
       }, () => {
         // cancel
         this.root.$log.debug('cancel');
