@@ -34,7 +34,7 @@ module Anon
     end
 
     def invite_input
-      params.permit(:first_name, :last_name, :email, :code,
+      params.permit(:first_name, :last_name, :email,
                     :password, :password_confirmation,
                     :address, :city, :phone, :zip, :state, :country,
                     :tos, :tos_version, :communications)
