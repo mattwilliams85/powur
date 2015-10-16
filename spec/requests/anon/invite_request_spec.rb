@@ -16,7 +16,6 @@ describe '/invite' do
     end
     let(:user_params) do
       {
-        code:                  invite.id,
         first_name:            invite.first_name,
         last_name:             invite.last_name,
         email:                 invite.email,
@@ -33,14 +32,8 @@ describe '/invite' do
         .to receive(:lists).and_return(mailchimp_list_api)
     end
 
-    it 'requires a valid invite code' do
-      patch invite_path, user_params.reject { |k, _v| k == :code }
-
-      expect_input_error(:code)
-    end
-
     it 'requires certain fields' do
-      patch invite_path(format: :json), code: invite.id
+      patch invite_path(invite.id)
 
       expect(json_body['error']).to eq(
         'type'    => 'input',
@@ -71,7 +64,7 @@ describe '/invite' do
 
       it 'registers a user and associates any outstanding invites' do
         VCR.use_cassette('invite_promoter_association') do
-          patch invite_path(format: :json),
+          patch invite_path(id: invite.id, format: :json),
                 JSON.dump(user_params),
                 'CONTENT_TYPE' => 'application/json'
         end
@@ -98,19 +91,12 @@ describe '/invite/validate' do
     let(:user) { create(:user) }
     let(:invite) { create(:invite, user: user, sponsor: sponsor) }
 
-    it 'renders an error with an invalid code' do
-      post validate_invite_path, code: 'nope', format: :json
-
-      expect_200
-      expect_input_error(:code)
-    end
-
     it 'returns an invite without an accept action if previously redeemed' do
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       invite = create(:invite, sponsor: sponsor)
       invite.update_attribute(:user_id,  user.id)
 
-      post validate_invite_path, code: invite.id, format: :json
+      get invite_path(invite.id), format: :json
 
       expect_200
       expect_props status: 'redeemed'
@@ -122,7 +108,7 @@ describe '/invite/validate' do
       invite = create(:invite, sponsor: sponsor)
       invite.update_attribute(:expires,  (invite.expires -= 2.days))
 
-      post validate_invite_path, code: invite.id, format: :json
+      get invite_path(invite.id), format: :json
 
       expect_200
       expect_props status: 'expired'
@@ -132,7 +118,7 @@ describe '/invite/validate' do
     it 'returns an invite when the user has inputted a code' do
       allow(ApplicationAgreement).to receive(:current).and_return(agreement)
       invite = create(:invite, sponsor: sponsor)
-      post validate_invite_path, code: invite.id, format: :json
+      get invite_path(invite.id), format: :json
 
       expect_200
       expect_classes('invite')

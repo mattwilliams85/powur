@@ -8,6 +8,7 @@ module powur {
     login(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>>;
     logout(): ng.IPromise<ng.IHttpPromiseCallbackArg<any>>;
     getCustomer(code: string): ng.IPromise<ISirenModel>;
+    getInvite(code: string): ng.IPromise<ISirenModel>;
   }
 
   export class SessionModel extends SirenModel implements ISessionModel {
@@ -38,6 +39,10 @@ module powur {
 
     getCustomer(code: string): ng.IPromise<ISirenModel> {
       return this.getEntity(SirenModel, 'customer-solar_invite', { code: code });
+    }
+    
+    getInvite(code: string): ng.IPromise<ISirenModel> {
+      return this.getEntity(SirenModel, 'user-solar_invite', { code: code });
     }
   }
 }

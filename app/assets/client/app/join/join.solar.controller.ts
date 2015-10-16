@@ -2,11 +2,10 @@
 
 //TODO: split solar & grid into seperate controllers
 module powur {
-  class JoinController extends BaseController {
-    static ControllerId = 'JoinController';
+  class JoinSolarController extends BaseController {
+    static ControllerId = 'JoinSolarController';
     static $inject = ['$mdDialog', '$stateParams', 'customer'];
 
-    gridInvite: ISirenModel;
     solarLead: ISirenModel;
     firstName: string;
 
@@ -14,13 +13,9 @@ module powur {
                 private $stateParams: ng.ui.IStateParamsService,
                 private customer: ISirenModel) {
       super();
-      this.log.debug(JoinController.ControllerId + ':ctor');
+      this.log.debug(JoinSolarController.ControllerId + ':ctor');
 
       this.validate.field('code').value = this.params.inviteCode;
-      if (this.state.current.name === 'join.solar') this.setParams();
-      if (this.$stateParams['inviteData']) {
-        this.gridInvite = new SirenModel(this.$stateParams['inviteData']);
-      }
       if (this.$stateParams['leadData']) {
         this.solarLead = new SirenModel(this.$stateParams['leadData']);
       }
@@ -49,14 +44,6 @@ module powur {
       return this.solarLead.action('solar_invite');
     }
 
-    get validateGridInvite(): Action {
-      return this.session.instance.action('validate_grid_invite');
-    }
-
-    get acceptGridInvite(): Action {
-      return this.gridInvite.action('accept_invite');
-    }
-
     get params(): any {
       return this.$stateParams;
     }
@@ -67,37 +54,8 @@ module powur {
       });
     }
 
-    setParams(): void {
-      this.validate.field('code').value = this.params.inviteCode;
-      this.solarInvite.href += this.params.inviteCode;
-      this.solarInvite.submit().then((data) => {
-        this.firstName = data['data']['properties']['first_name'] || "Anonymous";
-      }, function(){
-        this.firstName = "Anonymous";
-      });
-    }
-
-    validateGridInviteSubmit(): void {
-      this.validateGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.gridInvite = new SirenModel(response.data);
-        if (this.gridInvite.action('accept_invite')) {
-          this.state.go('join.grid2', { inviteData: response.data });
-        } else {
-          this.state.go('login');
-        }
-      });
-    }
-
-    acceptGridInviteSubmit(): void {
-      this.acceptGridInvite.submit().then((response: ng.IHttpPromiseCallbackArg<any>) => {
-        this.session.refresh().then(() => {
-          this.state.go('home.invite');
-        });
-      });
-    }
-
     enterSolar(): void {
-      this.log.debug(JoinController.ControllerId + ':enterGrid');
+      this.log.debug(JoinSolarController.ControllerId + ':enterGrid');
       this.state.go('join.solar3', {});
     }
 
@@ -112,5 +70,5 @@ module powur {
     }
   }
 
-  controllerModule.controller(JoinController.ControllerId, JoinController);
+  controllerModule.controller(JoinSolarController.ControllerId, JoinSolarController);
 }

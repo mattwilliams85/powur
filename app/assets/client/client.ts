@@ -32,6 +32,7 @@
 //= require login/login.public
 //= require login/login.private
 //= require login/forgot-password
+//= require login/reset-password
 
 //= require join/invalid
 //= require join/terms
@@ -84,4 +85,10 @@
 /// <reference path='app/login/login.private.controller.ts' />
 
 /// <reference path='app/join/terms.controller.ts' />
-/// <reference path='app/join/join.controller.ts' />
+/// <reference path='app/join/join.solar.controller.ts' />
+/// <reference path='app/join/join.grid.controller.ts' />
+
+
+// must be last
+/// <reference path='app/client.config.ts' />
+/// <reference path='app/client.run.ts' />

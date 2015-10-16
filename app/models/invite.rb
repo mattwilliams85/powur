@@ -53,8 +53,6 @@ class Invite < ActiveRecord::Base
   def accept(params)
     params[:sponsor_id] = sponsor_id
 
-    code = params.delete(:code)
-
     user = User.new(params)
 
     latest_agreement = ApplicationAgreement.current
@@ -66,7 +64,7 @@ class Invite < ActiveRecord::Base
       return user
     end
 
-    Invite.where(id: code).update_all(user_id: user.id) if user.save!
+    Invite.where(id: id).update_all(user_id: user.id) if user.save!
 
     user
   end

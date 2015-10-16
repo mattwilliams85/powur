@@ -1,6 +1,6 @@
 module Anon
   class InvitesController < AnonController
-    before_action :fetch_invite, only: [ :update, :validate ]
+    before_action :fetch_invite, only: [ :update, :validate, :show ]
 
     def update
       input = invite_input
@@ -29,12 +29,8 @@ module Anon
 
     private
 
-    def invalid_code!
-      error!(:invalid_code, :code)
-    end
-
     def fetch_invite
-      @invite = Invite.find_by(id: params[:code]) || invalid_code!
+      @invite = Invite.find(params[:id])
     end
 
     def invite_input
