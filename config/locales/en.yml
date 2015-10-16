@@ -47,7 +47,7 @@ en:
     forgot_password_email_not_found: Email not found
     product_invite_exist: An invitation for this email already exist
     invalid_zip: Zip code is invalid
-    unqualified_zip: You zip code is outside the servicable area
+    unqualified_zip: Your zip code is outside the serviceable area
     api:
       invalid_grant:
         refresh_token: invalid refresh_token
